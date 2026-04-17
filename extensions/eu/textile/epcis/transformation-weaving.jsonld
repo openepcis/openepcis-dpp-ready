@@ -1,0 +1,74 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/textile/context",
+    {
+      "dpp": "https://ref.openepcis.io/extensions/common/core/"
+    }
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-08-15T07:00:00.000Z",
+  "_comment_architecture": [
+    "Yarn to fabric transformation at weaving facility.",
+    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
+    "Extension properties (textile:, dpp:) are at EVENT level.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,textile=https://ref.openepcis.io/extensions/eu/textile/",
+    "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "TransformationEvent",
+        "eventID": "urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567003",
+        "eventTime": "2025-08-15T07:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "bizStep": "commissioning",
+        "disposition": "active",
+        "inputEPCList": [
+          "https://id.gs1.org/01/09521234000112/10/YARN-RPET-2025-088",
+          "https://id.gs1.org/01/09521234000129/10/YARN-PA-2025-022"
+        ],
+        "outputEPCList": [
+          "https://id.gs1.org/01/09521234000136/10/FABRIC-WJ-2025-015"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000051"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000051"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000136/10/FABRIC-WJ-2025-015",
+            "type": "Product",
+            "productName": {
+              "en": "Water-Resistant Shell Fabric Roll - rPET/PA"
+            },
+            "netWeight": {
+              "type": "QuantitativeValue",
+              "unitCode": "KGM",
+              "value": 250
+            },
+            "textile:fabricType": "WovenNonDenim"
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000051",
+            "type": "Place",
+            "locationGLN": "9521234000051",
+            "physicalLocationName": {
+              "en": "Mediterranean Weaving Co."
+            },
+            "address": {
+              "type": "PostalAddress",
+              "addressLocality": "Como",
+              "countryCode": "IT"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

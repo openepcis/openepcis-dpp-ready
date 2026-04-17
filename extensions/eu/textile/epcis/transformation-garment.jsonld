@@ -1,0 +1,122 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/textile/context",
+    {
+      "dpp": "https://ref.openepcis.io/extensions/common/core/"
+    }
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-09-18T10:00:00.000Z",
+  "_comment_architecture": [
+    "Fabric to finished garment transformation at cut-and-sew facility.",
+    "masterDataAvailableFor carries GS1 product master data plus product-level",
+    "textile classification (textileCategory / apparelSubcategory / fabricType) on the",
+    "output garment — those describe the GTIN, not a specific lot. No ilmd is used",
+    "because we have no lot-specific data to carry on this event.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,textile=https://ref.openepcis.io/extensions/eu/textile/",
+    "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "TransformationEvent",
+        "eventID": "urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567004",
+        "eventTime": "2025-09-18T10:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "bizStep": "commissioning",
+        "disposition": "active",
+        "inputEPCList": [
+          "https://id.gs1.org/01/09521234000136/10/FABRIC-WJ-2025-015",
+          "https://id.gs1.org/01/09521234000143/10/DOWN-RDS-2025-007",
+          "https://id.gs1.org/01/09521234000150/10/TRIM-ZIP-2025-100"
+        ],
+        "outputEPCList": [
+          "https://id.gs1.org/01/09521234000013/21/WJ-2025-00301"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000020"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000020"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000013/21/WJ-2025-00301",
+            "type": "Product",
+            "productName": {
+              "en": "Alpine Pro Winter Jacket - Navy"
+            },
+            "gtin": "09521234000013",
+            "serialNumber": "WJ-2025-00301",
+            "textile:textileCategory": "Apparel",
+            "textile:apparelSubcategory": "JacketsCoats",
+            "textile:fabricType": "WovenNonDenim",
+            "textileMaterial": [
+              {
+                "type": "TextileMaterialDetails",
+                "textileMaterialContent": {
+                  "type": "QuantitativeValue",
+                  "unitCode": "P1",
+                  "value": 55
+                },
+                "textileMaterialDescription": {
+                  "en": "Recycled Polyester (Shell)"
+                }
+              },
+              {
+                "type": "TextileMaterialDetails",
+                "textileMaterialContent": {
+                  "type": "QuantitativeValue",
+                  "unitCode": "P1",
+                  "value": 25
+                },
+                "textileMaterialDescription": {
+                  "en": "Down (Insulation - RDS Certified)"
+                }
+              },
+              {
+                "type": "TextileMaterialDetails",
+                "textileMaterialContent": {
+                  "type": "QuantitativeValue",
+                  "unitCode": "P1",
+                  "value": 15
+                },
+                "textileMaterialDescription": {
+                  "en": "Polyamide (Lining)"
+                }
+              },
+              {
+                "type": "TextileMaterialDetails",
+                "textileMaterialContent": {
+                  "type": "QuantitativeValue",
+                  "unitCode": "P1",
+                  "value": 5
+                },
+                "textileMaterialDescription": {
+                  "en": "Elastane (Cuffs)"
+                }
+              }
+            ]
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000020",
+            "type": "Place",
+            "locationGLN": "9521234000020",
+            "physicalLocationName": {
+              "en": "Porto Textile Manufacturing"
+            },
+            "address": {
+              "type": "PostalAddress",
+              "addressLocality": "Porto",
+              "countryCode": "PT"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

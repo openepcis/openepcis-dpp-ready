@@ -1,0 +1,125 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-04-17T16:20:07.40Z",
+  "_comment_gs1us_mapping": [
+    "Cooling CTE per GS1 US 'EPCIS Recommendations for FSMA 204 CTEs' R2.0, §3.",
+    "Modelled as THREE events because CBV has no dedicated 'cooling' bizStep:",
+    "  1. receiving   — food arrives at the cooling facility from the farm.",
+    "  2. other       — cooling process itself (CBV 'other' is explicitly allowed for operations",
+    "                   not yet in CBV). EPCIS 2.0 sensorElementList carries the cooling temperature.",
+    "  3. transporting — cooled food leaves for the immediate subsequent recipient.",
+    "KDE mapping:",
+    "  Farm-of-origin location: event 1 sourceList type=location.",
+    "  Cooling location: readPoint on all three events + bizLocation on event 2.",
+    "  Cooling date: event 1 / 2 eventTime.",
+    "  Subsequent recipient: event 3 destinationList type=location.",
+    "NO fsma: extension fields ride inside the event."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2026-04-16T09:26:42-04:00",
+        "eventTimeZoneOffset": "-05:00",
+        "action": "OBSERVE",
+        "bizStep": "receiving",
+        "disposition": "in_progress",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009999077"
+        },
+        "bizTransactionList": [
+          {
+            "type": "recadv",
+            "bizTransaction": "urn:epcglobal:cbv:bt:0860009999077:861-100037169"
+          }
+        ],
+        "quantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/00860009999923/10/ABC1234",
+            "quantity": 25000,
+            "uom": "LBR"
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "location",
+            "source": "https://id.gs1.org/414/0860009999060"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "location",
+            "destination": "https://id.gs1.org/414/0860009999077"
+          }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2026-04-16T10:26:42-04:00",
+        "eventTimeZoneOffset": "-05:00",
+        "action": "OBSERVE",
+        "bizStep": "other",
+        "disposition": "in_progress",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009999077"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/0860009999077"
+        },
+        "quantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/00860009999923/10/ABC1234",
+            "quantity": 25000,
+            "uom": "LBR"
+          }
+        ],
+        "sensorElementList": [
+          {
+            "sensorReport": [
+              {
+                "type": "Temperature",
+                "value": 36,
+                "deviceID": "https://id.gs1.org/8004/086000999907700001",
+                "uom": "FAH"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2026-04-17T10:26:42-04:00",
+        "eventTimeZoneOffset": "-05:00",
+        "action": "OBSERVE",
+        "bizStep": "transporting",
+        "disposition": "in_transit",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009999077"
+        },
+        "quantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/00860009999923/10/ABC1234",
+            "quantity": 25000,
+            "uom": "LBR"
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "location",
+            "source": "https://id.gs1.org/414/0860009999077"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "location",
+            "destination": "https://id.gs1.org/414/0860009999992"
+          }
+        ]
+      }
+    ]
+  }
+}

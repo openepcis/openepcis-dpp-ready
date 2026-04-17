@@ -1,0 +1,26 @@
+meta {
+  name: Get Jacket Masterdata
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{dl-url}}/01/{{jacketGtin}}
+  body: none
+  auth: inherit
+}
+
+headers {
+  Accept: application/ld+json
+}
+
+tests {
+  test("Product retrieved successfully", function() {
+    expect(res.status).to.equal(200);
+  });
+
+  test("Response contains textile data", function() {
+    const body = res.getBody();
+    expect(body["textile:fiberComposition"] || body.fiberComposition).to.exist;
+  });
+}

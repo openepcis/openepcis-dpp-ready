@@ -1,0 +1,534 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix dpp-sh: <https://ref.openepcis.io/extensions/common/core/shapes/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+# =============================================================================
+# SHACL Shapes for OpenEPCIS DPP Core Vocabulary
+# Version: 0.9.5
+# =============================================================================
+
+<https://ref.openepcis.io/extensions/common/core/shapes/>
+    a sh:ShapesGraph ;
+    dcterms:title "OpenEPCIS DPP Core SHACL Shapes"@en ;
+    dcterms:description "SHACL validation shapes for OpenEPCIS DPP Core vocabulary. Validates value ranges, required properties, and cardinality constraints."@en ;
+    dcterms:created "2025-02-02"^^xsd:date ;
+    dcterms:modified "2025-02-02"^^xsd:date .
+
+# =============================================================================
+# CircularityPerformance Shape
+# =============================================================================
+
+dpp-sh:CircularityPerformanceShape
+    a sh:NodeShape ;
+    sh:targetClass dpp:CircularityPerformance ;
+    sh:name "Circularity Performance Shape"@en ;
+    sh:description "Validates CircularityPerformance instances"@en ;
+
+    sh:property [
+        sh:path dpp:recyclableContent ;
+        sh:name "recyclableContent"@en ;
+        sh:description "Fraction of product that can be recycled (0-1)"@en ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1 ;
+        sh:maxCount 1 ;
+        sh:message "recyclableContent must be a decimal between 0 and 1"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:utilityFactor ;
+        sh:name "utilityFactor"@en ;
+        sh:description "Durability relative to industry average (typically 0.5-2.0)"@en ;
+        sh:datatype xsd:decimal ;
+        sh:minExclusive 0 ;
+        sh:maxCount 1 ;
+        sh:message "utilityFactor must be a positive decimal"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:materialCircularityIndicator ;
+        sh:name "materialCircularityIndicator"@en ;
+        sh:description "Overall MCI score (0-1)"@en ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1 ;
+        sh:maxCount 1 ;
+        sh:message "materialCircularityIndicator must be a decimal between 0 and 1"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:endOfLifeInstructions ;
+        sh:name "endOfLifeInstructions"@en ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1
+    ] ;
+
+    sh:property [
+        sh:path dpp:wastePreventionInfo ;
+        sh:name "wastePreventionInfo"@en ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1
+    ] ;
+
+    sh:property [
+        sh:path dpp:separateCollectionInfo ;
+        sh:name "separateCollectionInfo"@en ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1
+    ] .
+
+# =============================================================================
+# RecycledContent Shape
+# =============================================================================
+
+dpp-sh:RecycledContentShape
+    a sh:NodeShape ;
+    sh:targetClass dpp:RecycledContent ;
+    sh:name "Recycled Content Shape"@en ;
+    sh:description "Validates RecycledContent instances"@en ;
+
+    sh:property [
+        sh:path dpp:recycledContent ;
+        sh:name "recycledContent"@en ;
+        sh:description "Total fraction of recycled content (0-1)"@en ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1 ;
+        sh:maxCount 1 ;
+        sh:message "recycledContent must be a decimal between 0 and 1"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:preConsumerRecycledContent ;
+        sh:name "preConsumerRecycledContent"@en ;
+        sh:description "Fraction of pre-consumer recycled content (0-1)"@en ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1 ;
+        sh:maxCount 1 ;
+        sh:message "preConsumerRecycledContent must be a decimal between 0 and 1"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:postConsumerRecycledContent ;
+        sh:name "postConsumerRecycledContent"@en ;
+        sh:description "Fraction of post-consumer recycled content (0-1)"@en ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1 ;
+        sh:maxCount 1 ;
+        sh:message "postConsumerRecycledContent must be a decimal between 0 and 1"@en
+    ] .
+
+# =============================================================================
+# MaterialComposition Shape
+# =============================================================================
+
+dpp-sh:MaterialCompositionShape
+    a sh:NodeShape ;
+    sh:targetClass dpp:MaterialComposition ;
+    sh:name "Material Composition Shape"@en ;
+    sh:description "Validates MaterialComposition instances"@en ;
+
+    sh:property [
+        sh:path dpp:materialName ;
+        sh:name "materialName"@en ;
+        sh:description "Name of the material"@en ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "materialName is required and must be a string"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:massFraction ;
+        sh:name "massFraction"@en ;
+        sh:description "Mass fraction of this material (0-1)"@en ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1 ;
+        sh:maxCount 1 ;
+        sh:message "massFraction must be a decimal between 0 and 1"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:sourceCountry ;
+        sh:name "sourceCountry"@en ;
+        sh:description "Country of origin (ISO 3166-1 alpha-2)"@en ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[A-Z]{2}$" ;
+        sh:message "sourceCountry must be a 2-letter ISO country code (e.g., DE, FR, US)"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:isCriticalRawMaterial ;
+        sh:name "isCriticalRawMaterial"@en ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1
+    ] ;
+
+    sh:property [
+        sh:path dpp:casNumber ;
+        sh:name "casNumber"@en ;
+        sh:description "CAS Registry Number"@en ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[0-9]{2,7}-[0-9]{2}-[0-9]$" ;
+        sh:message "casNumber must be in CAS format (e.g., 7440-50-8)"@en
+    ] .
+
+# =============================================================================
+# EmissionsPerformance Shape
+# =============================================================================
+
+dpp-sh:EmissionsPerformanceShape
+    a sh:NodeShape ;
+    sh:targetClass dpp:EmissionsPerformance ;
+    sh:name "Emissions Performance Shape"@en ;
+    sh:description "Validates EmissionsPerformance instances"@en ;
+
+    sh:property [
+        sh:path dpp:carbonFootprintTotal ;
+        sh:name "carbonFootprintTotal"@en ;
+        sh:description "Total carbon footprint in kg CO2e"@en ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxCount 1 ;
+        sh:message "carbonFootprintTotal must be a non-negative decimal"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:declaredUnit ;
+        sh:name "declaredUnit"@en ;
+        sh:description "Functional unit for the measurement"@en ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] ;
+
+    sh:property [
+        sh:path dpp:operationalScope ;
+        sh:name "operationalScope"@en ;
+        sh:description "Lifecycle boundary"@en ;
+        sh:in ( dpp:CradleToGate dpp:CradleToGrave ) ;
+        sh:maxCount 1 ;
+        sh:message "operationalScope must be CradleToGate or CradleToGrave"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:primarySourcedRatio ;
+        sh:name "primarySourcedRatio"@en ;
+        sh:description "Fraction from direct measurement (0-1)"@en ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1 ;
+        sh:maxCount 1 ;
+        sh:message "primarySourcedRatio must be a decimal between 0 and 1"@en
+    ] .
+
+# =============================================================================
+# TraceabilityPerformance Shape
+# =============================================================================
+
+dpp-sh:TraceabilityPerformanceShape
+    a sh:NodeShape ;
+    sh:targetClass dpp:TraceabilityPerformance ;
+    sh:name "Traceability Performance Shape"@en ;
+    sh:description "Validates TraceabilityPerformance instances"@en ;
+
+    sh:property [
+        sh:path dpp:verifiedRatio ;
+        sh:name "verifiedRatio"@en ;
+        sh:description "Fraction of materials verifiably traced (0-1)"@en ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1 ;
+        sh:maxCount 1 ;
+        sh:message "verifiedRatio must be a decimal between 0 and 1"@en
+    ] .
+
+# =============================================================================
+# OperatorInformation Shape
+# =============================================================================
+
+dpp-sh:OperatorInformationShape
+    a sh:NodeShape ;
+    sh:targetClass dpp:OperatorInformation ;
+    sh:name "Operator Information Shape"@en ;
+    sh:description "Validates OperatorInformation instances"@en ;
+
+    sh:property [
+        sh:path dpp:operatorRole ;
+        sh:name "operatorRole"@en ;
+        sh:description "Role of the economic operator"@en ;
+        sh:in (
+            dpp:Manufacturer
+            dpp:Importer
+            dpp:Distributor
+            dpp:Processor
+            dpp:Trader
+            dpp:AuthorisedRepresentative
+            dpp:FulfilmentServiceProvider
+        ) ;
+        sh:minCount 1 ;
+        sh:message "operatorRole is required and must be a valid OperatorRole"@en
+    ] ;
+
+    sh:property [
+        sh:path gs1:gln ;
+        sh:name "gln"@en ;
+        sh:description "Operator GLN (Global Location Number)"@en ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[0-9]{13}$" ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "gln must be a 13-digit GLN"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:economicOperatorId ;
+        sh:name "economicOperatorId"@en ;
+        sh:description "EU EOID per ESPR Article 77"@en ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] ;
+
+    sh:property [
+        sh:path dpp:eoriNumber ;
+        sh:name "eoriNumber"@en ;
+        sh:description "EORI number for customs"@en ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[A-Z]{2}[A-Z0-9]{1,15}$" ;
+        sh:message "eoriNumber must be in EORI format (e.g., DE123456789012345)"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:vatIdentificationNumber ;
+        sh:name "vatIdentificationNumber"@en ;
+        sh:description "VAT identification number"@en ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] .
+
+# =============================================================================
+# FacilityInformation Shape
+# =============================================================================
+
+dpp-sh:FacilityInformationShape
+    a sh:NodeShape ;
+    sh:targetClass dpp:FacilityInformation ;
+    sh:name "Facility Information Shape"@en ;
+    sh:description "Validates FacilityInformation instances"@en ;
+
+    sh:property [
+        sh:path gs1:gln ;
+        sh:name "gln"@en ;
+        sh:description "Facility GLN (Global Location Number)"@en ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[0-9]{13}$" ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "gln must be a 13-digit GLN"@en
+    ] ;
+
+    sh:property [
+        sh:path gs1:name ;
+        sh:name "name"@en ;
+        sh:description "Official facility name (inherited from gs1:Place)"@en ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "name is required"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:facilityType ;
+        sh:name "facilityType"@en ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] .
+
+# =============================================================================
+# SubstanceOfConcern Shape
+# =============================================================================
+
+dpp-sh:SubstanceOfConcernShape
+    a sh:NodeShape ;
+    sh:targetClass dpp:SubstanceOfConcern ;
+    sh:name "Substance of Concern Shape"@en ;
+    sh:description "Validates SubstanceOfConcern instances"@en ;
+
+    sh:property [
+        sh:path dpp:substanceName ;
+        sh:name "substanceName"@en ;
+        sh:description "Name of the hazardous substance"@en ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "substanceName is required"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:casNumber ;
+        sh:name "casNumber"@en ;
+        sh:description "CAS Registry Number"@en ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[0-9]{2,7}-[0-9]{2}-[0-9]$" ;
+        sh:message "casNumber must be in CAS format (e.g., 7440-50-8)"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:ecNumber ;
+        sh:name "ecNumber"@en ;
+        sh:description "EC Number (EINECS/ELINCS)"@en ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[0-9]{3}-[0-9]{3}-[0-9]$" ;
+        sh:message "ecNumber must be in EC format (e.g., 231-111-4)"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:concentration ;
+        sh:name "concentration"@en ;
+        sh:description "Concentration as fraction (0-1)"@en ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1 ;
+        sh:maxCount 1 ;
+        sh:message "concentration must be a decimal between 0 and 1"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:scipId ;
+        sh:name "scipId"@en ;
+        sh:description "ECHA SCIP database identifier"@en ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] ;
+
+    sh:property [
+        sh:path dpp:hazardClass ;
+        sh:name "hazardClass"@en ;
+        sh:in (
+            dpp:AcuteToxicity
+            dpp:SkinCorrosionOrIrritation
+            dpp:EyeDamageOrIrritation
+            dpp:RespiratoryOrSkinSensitization
+            dpp:GermCellMutagenicity
+            dpp:Carcinogenicity
+            dpp:ReproductiveToxicity
+            dpp:SpecificTargetOrganToxicity
+            dpp:AspirationHazard
+            dpp:HazardousToAquaticEnvironment
+        ) ;
+        sh:message "hazardClass must be a valid HazardClass"@en
+    ] .
+
+# =============================================================================
+# AccessRights Shape
+# =============================================================================
+
+dpp-sh:AccessRightsShape
+    a sh:NodeShape ;
+    sh:targetClass dpp:AccessRights ;
+    sh:name "Access Rights Shape"@en ;
+    sh:description "Validates AccessRights instances"@en ;
+
+    sh:property [
+        sh:path dpp:accessLevel ;
+        sh:name "accessLevel"@en ;
+        sh:description "ESPR Article 9 access level"@en ;
+        sh:in ( dpp:Public dpp:AuthorizedOnly dpp:Restricted ) ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "accessLevel is required and must be Public, AuthorizedOnly, or Restricted"@en
+    ] .
+
+# =============================================================================
+# RepairabilityInfo Shape
+# =============================================================================
+
+dpp-sh:RepairabilityInfoShape
+    a sh:NodeShape ;
+    sh:targetClass dpp:RepairabilityInfo ;
+    sh:name "Repairability Information Shape"@en ;
+    sh:description "Validates RepairabilityInfo instances"@en ;
+
+    sh:property [
+        sh:path dpp:repairabilityScore ;
+        sh:name "repairabilityScore"@en ;
+        sh:description "Repairability score (typically 0-10)"@en ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 10 ;
+        sh:maxCount 1 ;
+        sh:message "repairabilityScore must be between 0 and 10"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:repairabilityClass ;
+        sh:name "repairabilityClass"@en ;
+        sh:description "Repairability class (A-E)"@en ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[A-E]$" ;
+        sh:maxCount 1 ;
+        sh:message "repairabilityClass must be A, B, C, D, or E"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:diyRepairPossible ;
+        sh:name "diyRepairPossible"@en ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1
+    ] ;
+
+    sh:property [
+        sh:path dpp:professionalRepairNetwork ;
+        sh:name "professionalRepairNetwork"@en ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1
+    ] .
+
+# =============================================================================
+# PerformanceInfo Shape
+# =============================================================================
+
+dpp-sh:PerformanceInfoShape
+    a sh:NodeShape ;
+    sh:targetClass dpp:PerformanceInfo ;
+    sh:name "Performance Information Shape"@en ;
+    sh:description "Validates PerformanceInfo instances"@en ;
+
+    sh:property [
+        sh:path dpp:usageCycles ;
+        sh:name "usageCycles"@en ;
+        sh:description "Expected number of usage cycles"@en ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxCount 1 ;
+        sh:message "usageCycles must be a non-negative integer"@en
+    ] ;
+
+    sh:property [
+        sh:path dpp:performanceClass ;
+        sh:name "performanceClass"@en ;
+        sh:description "Performance/efficiency class (e.g., A+++ to G)"@en ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] .
+
+# =============================================================================
+# GranularityLevel Constraint
+# =============================================================================
+
+dpp-sh:GranularityLevelConstraint
+    a sh:NodeShape ;
+    sh:name "Granularity Level Constraint"@en ;
+    sh:property [
+        sh:path dpp:granularityLevel ;
+        sh:in ( dpp:ProductClass dpp:Batch dpp:Item ) ;
+        sh:maxCount 1 ;
+        sh:message "granularityLevel must be ProductClass, Batch, or Item"@en
+    ] .

@@ -1,0 +1,142 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/context",
+    "https://ref.openepcis.io/extensions/eu/electronics/context"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-01-15T14:30:00.000Z",
+  "_comment_architecture": [
+    "Commissioning of a serialized electronic device (smartphone).",
+    "masterDataAvailableFor carries the full product card: GS1-native attributes",
+    "plus product-level electronics extensions (deviceCategory, modelIdentifier,",
+    "repairabilityIndex, softwareSupport, energyEfficiency, weeeCompliance,",
+    "rohsCompliance, circularityPerformance, emissionsPerformance, operatorInformation).",
+    "All of these describe the GTIN — identical for every unit of this SKU — so they",
+    "live with the product master data, not in ilmd (which is for lot-specific data).",
+    "No ilmd: the EPC is a serialized item and we have no batch-specific data to assert.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,electronics=https://ref.openepcis.io/extensions/eu/electronics/",
+    "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisHeader": {
+    "instanceIdentifier": "electronics-commissioning-2025-001",
+    "sender": {
+      "identifier": "urn:epc:id:sgln:9521234.00000.0"
+    },
+    "receiver": {
+      "identifier": "urn:epc:id:sgln:9521234.00001.0"
+    },
+    "masterDataAvailableFor": [
+      "https://id.gs1.org/01/09506000134352"
+    ]
+  },
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2025-01-15T14:25:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "epcList": [
+          "https://id.gs1.org/01/09506000134352/21/ABC123456"
+        ],
+        "action": "ADD",
+        "bizStep": "urn:epcglobal:cbv:bizstep:commissioning",
+        "disposition": "urn:epcglobal:cbv:disp:active",
+        "readPoint": {
+          "id": "urn:epc:id:sgln:9521234.00002.0"
+        },
+        "bizLocation": {
+          "id": "urn:epc:id:sgln:9521234.00002.0"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09506000134352/21/ABC123456",
+            "type": "Product",
+            "gtin": "09506000134352",
+            "productName": {
+              "en": "EcoPhone Pro 2025"
+            },
+            "productionDate": "2025-01-15",
+            "countryOfOrigin": "DE",
+            "manufacturer": {
+              "type": "Organization",
+              "organizationName": {
+                "en": "EcoTech Electronics GmbH"
+              },
+              "gln": "9521234000004"
+            },
+            "netWeight": {
+              "type": "QuantitativeValue",
+              "value": 185,
+              "unitCode": "GRM"
+            },
+            "electronics:deviceCategory": "Smartphone",
+            "electronics:modelIdentifier": "EP-2025-PRO-256",
+            "electronics:repairabilityIndex": {
+              "type": "electronics:RepairabilityIndex",
+              "electronics:displayScore": 7.3,
+              "electronics:repairabilityClass": "RepairClassB",
+              "electronics:assessmentDate": "2025-01-10"
+            },
+            "electronics:softwareSupport": {
+              "type": "electronics:SoftwareSupport",
+              "electronics:operatingSystem": "Android",
+              "electronics:osVersion": "15.0",
+              "electronics:firmwareVersion": "EP2025.1.0.0",
+              "electronics:securityUpdateEndDate": "2032-01-15",
+              "electronics:featureUpdateEndDate": "2030-01-15"
+            },
+            "electronics:energyEfficiency": {
+              "type": "electronics:EnergyEfficiency",
+              "electronics:powerConsumptionStandby": {
+                "type": "electronics:PowerWatts",
+                "electronics:value": 0.3
+              }
+            },
+            "electronics:weeeCompliance": {
+              "type": "electronics:WEEECompliance",
+              "electronics:weeeCategory": "WEEE6_SmallIT",
+              "electronics:weeeRegistrationNumber": "DE-2024-EE-12345"
+            },
+            "electronics:rohsCompliance": {
+              "type": "electronics:RoHSCompliance",
+              "electronics:rohsCompliant": true
+            },
+            "dpp:circularityPerformance": {
+              "type": "dpp:CircularityPerformance",
+              "dpp:recyclableContent": 0.85,
+              "dpp:recycledContent": 0.35
+            },
+            "dpp:emissionsPerformance": {
+              "type": "dpp:EmissionsPerformance",
+              "dpp:carbonFootprintTotal": 52.5,
+              "dpp:declaredUnit": "kg CO2e/unit",
+              "dpp:operationalScope": "CradleToGate"
+            },
+            "dpp:operatorInformation": {
+              "type": "dpp:OperatorInformation",
+              "dpp:operatorRole": "Manufacturer",
+              "dpp:economicOperatorId": "EU-EOID-DE-2024-123456"
+            }
+          }
+        ],
+        "sensorElementList": [
+          {
+            "sensorReport": [
+              {
+                "type": "gs1:Temperature",
+                "value": 22.5,
+                "uom": "CEL",
+                "time": "2025-01-15T14:25:00.000Z",
+                "deviceID": "urn:epc:id:sgln:9521234.00002.assembly-line-1"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

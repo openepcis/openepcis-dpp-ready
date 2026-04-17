@@ -1,0 +1,186 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-04-18T17:02:27.452Z",
+  "_comment_gs1us_mapping": [
+    "Initial Packing CTE per GS1 US 'EPCIS Recommendations for FSMA 204 CTEs' R2.0, §4.",
+    "GS1 US requires the packer to persist upstream Harvest and Cooling KDEs alongside its own pack event,",
+    "so this document carries all five events end-to-end: harvest → transport → receive → cool → transport → pack.",
+    "",
+    "Events 1-2: Harvest (creating_class_instance) + Transport (transporting) — see harvest-cte.jsonld.",
+    "Event 3: Receive at packer (ObjectEvent / receiving / in_progress). Records 'date received' KDE (eventTime)",
+    "         and 'quantity received' KDE (quantityList).",
+    "Events 4-5: Cooling (other) + Transport — optional intermediate cooling step before packing.",
+    "Event 6: Initial Packing itself:",
+    "  TransformationEvent, bizStep=creating_class_instance, disposition=active.",
+    "  inputQuantityList.epcClass = upstream TLC of the raw commodity.",
+    "  outputQuantityList.epcClass = NEW TLC assigned by the packer (GTIN+Batch/Lot of the case).",
+    "  readPoint + bizLocation = TLC source location KDE.",
+    "  eventTime = date of initial packing KDE.",
+    "  bizTransactionList = reference document type + number KDEs.",
+    "NO fsma: extension fields ride inside the event."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2026-04-17T09:26:42-04:00",
+        "recordTime": "2026-04-17T09:26:42-04:00",
+        "eventTimeZoneOffset": "-04:00",
+        "action": "ADD",
+        "bizStep": "creating_class_instance",
+        "disposition": "active",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009999060"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/0860009999060"
+        },
+        "quantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/00860009999923/10/ABC1234",
+            "quantity": 25000,
+            "uom": "LBR"
+          }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2026-04-17T11:26:42-04:00",
+        "recordTime": "2026-04-17T11:26:42-04:00",
+        "eventTimeZoneOffset": "-04:00",
+        "action": "OBSERVE",
+        "bizStep": "transporting",
+        "disposition": "in_transit",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009999060"
+        },
+        "quantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/00860009999923/10/ABC1234",
+            "quantity": 25000,
+            "uom": "LBR"
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "owning_party",
+            "source": "https://id.gs1.org/417/0860009999060"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "location",
+            "destination": "https://id.gs1.org/414/0860009999992"
+          }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2026-04-17T16:00:00-04:00",
+        "eventTimeZoneOffset": "-04:00",
+        "action": "OBSERVE",
+        "bizStep": "receiving",
+        "disposition": "in_progress",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009999992"
+        },
+        "bizTransactionList": [
+          {
+            "type": "recadv",
+            "bizTransaction": "urn:epcglobal:cbv:bt:0860009999992:861-20260417-001"
+          }
+        ],
+        "quantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/00860009999923/10/ABC1234",
+            "quantity": 25000,
+            "uom": "LBR"
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "location",
+            "source": "https://id.gs1.org/414/0860009999060"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "location",
+            "destination": "https://id.gs1.org/414/0860009999992"
+          }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2026-04-17T17:30:00-04:00",
+        "eventTimeZoneOffset": "-04:00",
+        "action": "OBSERVE",
+        "bizStep": "other",
+        "disposition": "in_progress",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009999992"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/0860009999992"
+        },
+        "quantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/00860009999923/10/ABC1234",
+            "quantity": 25000,
+            "uom": "LBR"
+          }
+        ],
+        "sensorElementList": [
+          {
+            "sensorReport": [
+              {
+                "type": "Temperature",
+                "value": 36,
+                "deviceID": "https://id.gs1.org/8004/086000999999200001",
+                "uom": "FAH"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TransformationEvent",
+        "eventTime": "2026-04-18T10:26:42-04:00",
+        "recordTime": "2026-04-18T10:26:42-04:00",
+        "eventTimeZoneOffset": "-04:00",
+        "inputQuantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/00860009999923/10/ABC1234",
+            "quantity": 25000,
+            "uom": "LBR"
+          }
+        ],
+        "outputQuantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/10860009999920/10/ABC1234",
+            "quantity": 500,
+            "uom": "CS"
+          }
+        ],
+        "bizStep": "creating_class_instance",
+        "disposition": "active",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009999992"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/0860009999992"
+        },
+        "bizTransactionList": [
+          {
+            "type": "prodorder",
+            "bizTransaction": "urn:epcglobal:cbv:bt:0860009999992:PACK-20260418-042"
+          }
+        ]
+      }
+    ]
+  }
+}

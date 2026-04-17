@@ -1,0 +1,135 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/context"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-06-15T09:30:00.000Z",
+  "_comment_architecture": [
+    "State of Health measurement event with detailed sensor diagnostics.",
+    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
+    "Extension properties (battery:, dpp:) are at EVENT level.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,battery=https://ref.openepcis.io/extensions/eu/battery/",
+    "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:550e8400-e29b-41d4-a716-446655440003",
+        "eventTime": "2025-06-15T09:30:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "action": "OBSERVE",
+        "bizStep": "inspecting",
+        "disposition": "active",
+        "epcList": [
+          "https://id.gs1.org/01/09521234000013/21/BAT2024-001"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521987000018"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521987000018"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
+            "type": "Product",
+            "productName": {
+              "en": "EcoCell Industrial Battery Module IM-500"
+            },
+            "gtin": "09521234000013",
+            "serialNumber": "BAT2024-001",
+            "regulatoryInformation": [
+              {
+                "type": "RegulatoryInformation",
+                "regulationType": {
+                  "id": "RegulationTypeCode-BATTERY_DIRECTIVE"
+                },
+                "regulatoryAct": "EU 2023/1542"
+              }
+            ]
+          },
+          {
+            "id": "https://id.gs1.org/414/9521987000018",
+            "type": "Place",
+            "locationGLN": "9521987000018",
+            "physicalLocationName": {
+              "en": "Battery Service Center - Munich"
+            },
+            "countryCode": "DE"
+          },
+          {
+            "id": "https://id.gs1.org/417/9521234000006",
+            "type": "Organization",
+            "organizationName": {
+              "en": "EcoCell GmbH"
+            },
+            "partyGLN": "9521234000006",
+            "countryCode": "DE"
+          }
+        ],
+        "sensorElementList": [
+          {
+            "sensorMetadata": {
+              "time": "2025-06-15T09:30:00.000Z",
+              "deviceID": "https://id.gs1.org/8004/9521987BMS-001",
+              "deviceMetadata": "https://bms-vendor.example.com/devices/BMS-3000"
+            },
+            "sensorReport": [
+              {
+                "type": "battery:stateOfHealth",
+                "value": 94.2,
+                "uom": "P1",
+                "measurementMethod": "Capacity-based SoH (IEC 62660-1)"
+              },
+              {
+                "type": "battery:stateOfCharge",
+                "value": 78.5,
+                "uom": "P1"
+              },
+              {
+                "type": "battery:remainingCapacity",
+                "value": 263.8,
+                "uom": "AH"
+              },
+              {
+                "type": "battery:remainingEnergy",
+                "value": 13.5,
+                "uom": "KWH"
+              },
+              {
+                "type": "battery:cycleCount",
+                "value": 847
+              },
+              {
+                "type": "battery:capacityFade",
+                "value": 5.8,
+                "uom": "P1"
+              },
+              {
+                "type": "battery:internalResistance",
+                "value": 2.4,
+                "uom": "OHM",
+                "component": "Casing"
+              },
+              {
+                "type": "battery:energyThroughput",
+                "value": 12108,
+                "uom": "KWH"
+              },
+              {
+                "type": "gs1:Temperature",
+                "value": 28.3,
+                "uom": "CEL"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

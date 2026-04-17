@@ -1,0 +1,111 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/context"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-07-18T08:15:00.000Z",
+  "_comment_architecture": [
+    "Temperature extreme event recording a thermal excursion beyond rated limits.",
+    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
+    "Extension properties (battery:, dpp:) are at EVENT level.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,battery=https://ref.openepcis.io/extensions/eu/battery/",
+    "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:550e8400-e29b-41d4-a716-446655440011",
+        "eventTime": "2025-07-18T08:15:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "action": "OBSERVE",
+        "bizStep": "inspecting",
+        "disposition": "active",
+        "epcList": [
+          "https://id.gs1.org/01/09521234000013/21/BAT2024-001"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521987000025"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521987000025"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
+            "type": "Product",
+            "productName": {
+              "en": "EcoCell Industrial Battery Module IM-500"
+            },
+            "gtin": "09521234000013",
+            "serialNumber": "BAT2024-001",
+            "regulatoryInformation": [
+              {
+                "type": "RegulatoryInformation",
+                "regulationType": {
+                  "id": "RegulationTypeCode-BATTERY_DIRECTIVE"
+                },
+                "regulatoryAct": "EU 2023/1542"
+              }
+            ],
+            "battery:batteryCategory": "IndustrialBattery",
+            "battery:temperatureRangeDischarging": {
+              "battery:maximumTemperature": {
+                "type": "TemperatureCelsius",
+                "value": 45
+              }
+            }
+          },
+          {
+            "id": "https://id.gs1.org/414/9521987000025",
+            "type": "Place",
+            "locationGLN": "9521987000025",
+            "physicalLocationName": {
+              "en": "Energy Systems AG - Berlin Site"
+            },
+            "countryCode": "DE"
+          },
+          {
+            "id": "https://id.gs1.org/417/9521987000001",
+            "type": "Organization",
+            "organizationName": {
+              "en": "Energy Systems AG"
+            },
+            "partyGLN": "9521987000001",
+            "countryCode": "DE"
+          }
+        ],
+        "sensorElementList": [
+          {
+            "sensorMetadata": {
+              "time": "2025-07-18T08:15:00.000Z",
+              "deviceID": "https://id.gs1.org/8004/9521987TEMP-003",
+              "bizRules": "Temperature excursion alert triggered"
+            },
+            "sensorReport": [
+              {
+                "type": "gs1:Temperature",
+                "value": 52.3,
+                "uom": "CEL"
+              },
+              {
+                "type": "battery:exposureDurationMinutes",
+                "value": 45,
+                "uom": "MIN"
+              },
+              {
+                "type": "battery:stateOfCharge",
+                "value": 65.0,
+                "uom": "P1"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

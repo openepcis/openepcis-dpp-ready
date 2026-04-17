@@ -1,0 +1,1912 @@
+{
+  "namespace": "https://ref.openepcis.io/extensions/common/core/",
+  "version": "0.9.5",
+  "title": "OpenEPCIS DPP Core Vocabulary",
+  "description": "Core vocabulary for Digital Product Passports aligned with the EU Ecodesign\nfor Sustainable Products Regulation (ESPR) EU 2024/1781 and GS1 DPP Standards.\n\nOpenEPCIS DPP-Ready: The Universal DPP Platform - harmonizing GS1, UNTP, and CIRPASS2 standards.\n\nThis vocabulary provides shared patterns reusable across domain-specific regulations\n(Battery, EUDR, Textile, Electronics, etc.) and supports the ESPR framework including:\n- Economic operator identification (EOID per ESPR Article 77)\n- Facility information (manufacturing location data)\n- Performance and durability information\n- Repairability and maintenance data\n- Substances of concern (SCIP database alignment)\n- Circularity information (end-of-life, recycling)\n- Due diligence reporting (supply chain transparency)\n- Document references (reports, certificates, guides)\n- Access rights (public vs authorized data per ESPR Article 9)\n- Emissions performance (carbon footprint with UNTP alignment)\n- Traceability performance (supply chain verification metrics)\n\nGS1 Web Vocabulary patterns to use:\n- For certifications: gs1:certification with gs1:CertificationDetails\n- For warranty: gs1:warranty with gs1:WarrantyPromise\n- For regulatory compliance: gs1:regulatoryInformation with gs1:RegulatoryInformation\n- For documents: gs1:referencedFileDetails with gs1:ReferencedFileDetails\n- For recycling text: gs1:consumerRecyclingInstructions\n\nUNTP Alignment:\nProperty naming, patterns, and value conventions are aligned with UN Transparency Protocol (UNTP)\nto enable native interoperability. Semantic equivalences are declared via owl:equivalentProperty.\nAll ratio/fraction properties use 0-1 decimal scale (e.g., 0.45 = 45%).\n\nEPCIS 2.0 Extension Declaration:\nGS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/\n\nExtension Governance:\nThis vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.\nEach extension term includes:\n- dcterms:source linking to the regulatory requirement\n- skos:note explaining why the extension is needed\n- rdfs:seeAlso linking to related GS1/schema.org/UNTP terms where applicable\n- owl:equivalentProperty where a semantic equivalent exists\n\nDomain-specific vocabularies import this core and add regulation-specific extensions.",
+  "classes": [
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/AccessRights",
+      "localName": "AccessRights",
+      "label": "Access Rights",
+      "comment": "Access control for DPP data per ESPR Article 9.\nDefines which data is publicly accessible vs. restricted to authorized parties.",
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
+      "localName": "CircularityPerformance",
+      "label": "Circularity Performance",
+      "comment": "Information supporting circular economy requirements including\nend-of-life handling, recycling, waste prevention, and circularity metrics.\nAligned with UNTP CircularityPerformance pattern.",
+      "seeAlso": [
+        "https://ref.gs1.org/voc/consumerRecyclingInstructions",
+        "https://test.uncefact.org/vocabulary/untp/core/CircularityPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
+      "localName": "DocumentReference",
+      "label": "Document Reference",
+      "comment": "Reference to an external document such as reports, certificates,\nmanuals, or guides. Supports multiple languages and formats.\nSee also gs1:ReferencedFileDetails for GS1 Web Vocabulary equivalent.",
+      "seeAlso": [
+        "https://ref.gs1.org/voc/ReferencedFileDetails"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport",
+      "localName": "DueDiligenceReport",
+      "label": "Due Diligence Report",
+      "comment": "Supply chain due diligence information supporting transparency requirements.\nReusable across Battery Regulation Art. 39, EUDR, and other due diligence frameworks.",
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/DurationDays",
+      "localName": "DurationDays",
+      "label": "Duration in Days",
+      "comment": "A quantitative value expressing duration in days. Unit code: DAY.",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/DurationYears",
+      "localName": "DurationYears",
+      "label": "Duration in Years",
+      "comment": "A quantitative value expressing duration in years. Unit code: ANN.",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance",
+      "localName": "EmissionsPerformance",
+      "label": "Emissions Performance",
+      "comment": "Container for greenhouse gas emissions data including carbon footprint,\nlifecycle phases, and verification status. Aligned with UNTP EmissionsPerformance.",
+      "seeAlso": [
+        "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf",
+        "https://test.uncefact.org/vocabulary/untp/core/EmissionsPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/EnergyKilowattHours",
+      "localName": "EnergyKilowattHours",
+      "label": "Energy in Kilowatt-Hours",
+      "comment": "A quantitative value expressing energy in kilowatt-hours. Unit code: KWH.",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
+      "localName": "FacilityInformation",
+      "label": "Facility Information",
+      "comment": "Manufacturing or processing facility information per ESPR.\nCaptures facility identification, location, and certification data.\nUse gs1:gln for facility identification, gs1:name for facility name, gs1:address for location (all inherited from gs1:Place).\nUse GS1 Digital Link format: https://id.gs1.org/414/{GLN}",
+      "seeAlso": [
+        "https://ref.gs1.org/voc/Place",
+        "https://schema.org/Place",
+        "https://test.uncefact.org/vocabulary/untp/core/Facility"
+      ],
+      "subClassOf": [
+        "https://ref.gs1.org/voc/Place"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/HazardousSubstance",
+      "localName": "HazardousSubstance",
+      "label": "Hazardous Substance",
+      "comment": "A hazardous substance declaration per EU CLP Regulation 1272/2008.\nReusable across product categories.",
+      "seeAlso": [
+        "https://ref.gs1.org/voc/hasAllergen"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/IndividualTradeItemPiece",
+      "localName": "IndividualTradeItemPiece",
+      "label": "Individual Trade Item Piece",
+      "comment": "A single physical piece of a multi-piece trade item, identified via GS1 AI 8026 (ITIP). Used when a single GTIN is composed of multiple individually-shipped pieces (e.g., a 2-piece suit, a furniture set).",
+      "seeAlso": [
+        "https://www.gs1.org/standards/barcodes/application-identifiers/8026"
+      ],
+      "source": "https://xchange.gs1.org/cr/gsmp WR 25-212"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/MaterialComposition",
+      "localName": "MaterialComposition",
+      "label": "Material Composition",
+      "comment": "Material composition information including source country,\npercentage, and critical raw material classification.",
+      "seeAlso": [
+        "https://ref.gs1.org/voc/TextileMaterialDetails",
+        "https://ref.gs1.org/voc/PackagingMaterialDetails"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
+      "localName": "OperatorInformation",
+      "label": "Operator Information",
+      "comment": "Economic operator information as required by various EU regulations.\nCaptures manufacturer, importer, distributor, and other operator roles.\nUse gs1:gln for operator identification (inherited from gs1:Organization).\nUse GS1 Digital Link format: https://id.gs1.org/417/{GLN}",
+      "seeAlso": [
+        "https://ref.gs1.org/voc/Organization",
+        "https://schema.org/Organization"
+      ],
+      "subClassOf": [
+        "https://ref.gs1.org/voc/Organization"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32019R1020"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/Percentage",
+      "localName": "Percentage",
+      "label": "Percentage Value",
+      "comment": "A quantitative value expressed as a percentage. Unit code: P1 (percent).",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/PerformanceInfo",
+      "localName": "PerformanceInfo",
+      "label": "Performance Information",
+      "comment": "Product performance and durability information per ESPR Article 7.\nCaptures expected lifespan, usage cycles, and performance metrics.",
+      "seeAlso": [
+        "https://ref.gs1.org/voc/warranty"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/PowerKilowatts",
+      "localName": "PowerKilowatts",
+      "label": "Power in Kilowatts",
+      "comment": "A quantitative value expressing power in kilowatts. Unit code: KWT.",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/PowerWatts",
+      "localName": "PowerWatts",
+      "label": "Power in Watts",
+      "comment": "A quantitative value expressing power in watts. Unit code: WTT.",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/RecycledContent",
+      "localName": "RecycledContent",
+      "label": "Recycled Content",
+      "comment": "Declaration of recycled material content with pre-consumer\nand post-consumer splits.",
+      "seeAlso": [
+        "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo",
+      "localName": "RepairabilityInfo",
+      "label": "Repairability Information",
+      "comment": "Repair and maintenance information per ESPR Article 7.\nCaptures repair scores, spare part availability, and repair instructions.",
+      "seeAlso": [
+        "https://ref.gs1.org/voc/warranty",
+        "https://ref.gs1.org/voc/referencedFileDetails"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern",
+      "localName": "SubstanceOfConcern",
+      "label": "Substance of Concern",
+      "comment": "Substances of concern declaration aligned with SCIP database\nand ESPR requirements. Extends HazardousSubstance for detailed tracking.",
+      "seeAlso": [
+        "https://echa.europa.eu/scip-database"
+      ],
+      "subClassOf": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
+      "source": "https://echa.europa.eu/scip"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/TemperatureCelsius",
+      "localName": "TemperatureCelsius",
+      "label": "Temperature in Celsius",
+      "comment": "A quantitative value expressing temperature in degrees Celsius. Unit code: CEL.",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/TraceabilityPerformance",
+      "localName": "TraceabilityPerformance",
+      "label": "Traceability Performance",
+      "comment": "Supply chain verification and traceability metrics indicating the proportion\nof materials that are verifiably traced through the supply chain.",
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/dpp/TraceabilityPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/WeightKilograms",
+      "localName": "WeightKilograms",
+      "label": "Weight in Kilograms",
+      "comment": "A quantitative value expressing weight in kilograms. Unit code: KGM.",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/accessLevel",
+      "localName": "accessLevel",
+      "label": "Access Level",
+      "comment": "The access level for this data (Public, AuthorizedOnly, Restricted).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/AccessRights"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/AccessLevel"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/accessRights",
+      "localName": "accessRights",
+      "label": "Access Rights",
+      "comment": "Access control configuration for this data element.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/AccessRights"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/activityClassification",
+      "localName": "activityClassification",
+      "label": "Activity Classification",
+      "comment": "Industry/economic activity classification code (UN ISIC, EU NACE, US NAICS).",
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://unstats.un.org/unsd/classifications/Econ/isic"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/authorizedParties",
+      "localName": "authorizedParties",
+      "label": "Authorized Parties",
+      "comment": "List of parties authorized to access restricted data.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/AccessRights"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Organization"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprint",
+      "localName": "carbonFootprint",
+      "label": "Carbon Footprint",
+      "comment": "Carbon footprint measurement for the product.",
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf",
+        "https://test.uncefact.org/vocabulary/untp/core/carbonFootprint"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintStudyUrl",
+      "localName": "carbonFootprintStudyUrl",
+      "label": "Carbon Footprint Study URL",
+      "comment": "URL to the full carbon footprint study.",
+      "range": [
+        "xsd:anyURI"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/referencedFileURL"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal",
+      "localName": "carbonFootprintTotal",
+      "label": "Carbon Footprint Total",
+      "comment": "Total lifecycle carbon footprint in kg CO2e. Aligned with UNTP carbonFootprint.",
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf",
+        "https://test.uncefact.org/vocabulary/untp/core/carbonFootprint"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/casNumber",
+      "localName": "casNumber",
+      "label": "CAS Number",
+      "comment": "Chemical Abstracts Service registry number.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/circularityPerformance",
+      "localName": "circularityPerformance",
+      "label": "Circularity Performance",
+      "comment": "Circularity performance data for the product.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/core/circularityPerformance"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/complianceDate",
+      "localName": "complianceDate",
+      "label": "Compliance Date",
+      "comment": "Date of compliance verification.",
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/complianceStatus",
+      "localName": "complianceStatus",
+      "label": "Compliance Status",
+      "comment": "Current compliance status.",
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/concentration",
+      "localName": "concentration",
+      "label": "Concentration",
+      "comment": "Concentration of the hazardous substance as percentage.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/customsCommodityCode",
+      "localName": "customsCommodityCode",
+      "label": "Customs Commodity Code",
+      "comment": "A commodity code assigned to a trade item for customs classification. The coding system (HS / CN / HTSUS) is indicated by dpp:customsCommodityCodeType on the same trade item. GS1 has no native property for this; tariffs and regulatory obligations across EU Combined Nomenclature, US HTSUS, and WCO HS all need it.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://www.wcoomd.org/en/topics/nomenclature.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/customsCommodityCodeType",
+      "localName": "customsCommodityCodeType",
+      "label": "Customs Commodity Code Type",
+      "comment": "The classification system (HS, CN, HTSUS, etc.) used for dpp:customsCommodityCode on the same trade item.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/CustomsCommodityCodeType"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/dataProviderCertification",
+      "localName": "dataProviderCertification",
+      "label": "Data Provider Certification",
+      "comment": "Certification or accreditation of the data provider.",
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/dataQualityAssessment",
+      "localName": "dataQualityAssessment",
+      "label": "Data Quality Assessment",
+      "comment": "Assessment of data quality and completeness (A-E rating).",
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/dataRetentionPeriod",
+      "localName": "dataRetentionPeriod",
+      "label": "Data Retention Period",
+      "comment": "How long the data must be retained per regulatory requirements.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/AccessRights"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DurationYears"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/declaredUnit",
+      "localName": "declaredUnit",
+      "label": "Declared Unit",
+      "comment": "Functional unit for carbon footprint or other metrics (e.g., kg CO2e/kWh, kg CO2e/kg). Aligned with UNTP declaredUnit.",
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/core/declaredUnit"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/did",
+      "localName": "did",
+      "label": "Decentralized Identifier",
+      "comment": "DID (Decentralized Identifier) linking this entity to verifiable identity infrastructure.",
+      "range": [
+        "xsd:anyURI"
+      ],
+      "seeAlso": [
+        "https://www.w3.org/TR/did-core/",
+        "https://uncefact.github.io/spec-untp/docs/specification/DigitalIdentityAnchor/"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/dismantlingInstructions",
+      "localName": "dismantlingInstructions",
+      "label": "Dismantling Instructions",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/diyRepairPossible",
+      "localName": "diyRepairPossible",
+      "label": "DIY Repair Possible",
+      "comment": "Whether the product can be repaired by consumers (do-it-yourself repair).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/documents",
+      "localName": "documents",
+      "label": "Documents",
+      "comment": "Supporting documents for the product.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/documentTitle",
+      "localName": "documentTitle",
+      "label": "Document Title",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/documentType",
+      "localName": "documentType",
+      "label": "Document Type",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentType"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/documentUrl",
+      "localName": "documentUrl",
+      "label": "Document URL",
+      "comment": "URL to the document. See also gs1:referencedFileURL.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/referencedFileURL"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/dueDiligenceReport",
+      "localName": "dueDiligenceReport",
+      "label": "Due Diligence Report",
+      "comment": "Reference to due diligence documentation.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/ecNumber",
+      "localName": "ecNumber",
+      "label": "EC Number",
+      "comment": "European Community number for the substance (EINECS/ELINCS).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/economicOperatorId",
+      "localName": "economicOperatorId",
+      "label": "Economic Operator ID",
+      "comment": "Unique EOID from the EU economic operator registry per ESPR Article 77.\nThis replaces individual national registrations with a single EU-wide identifier.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/emissionsPerformance",
+      "localName": "emissionsPerformance",
+      "label": "Emissions Performance",
+      "comment": "Emissions performance data container. Aligned with UNTP EmissionsPerformance.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance"
+      ],
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/core/emissionsPerformance"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/endOfLifeInstructions",
+      "localName": "endOfLifeInstructions",
+      "label": "End of Life Instructions",
+      "comment": "URL to end-of-life handling instructions. For text-based recycling guidance, see gs1:consumerRecyclingInstructions.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/consumerRecyclingInstructions"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/eoriNumber",
+      "localName": "eoriNumber",
+      "label": "EORI Number",
+      "comment": "Economic Operators Registration and Identification (EORI) number for customs purposes.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/expectedLifespan",
+      "localName": "expectedLifespan",
+      "label": "Expected Lifespan",
+      "comment": "Expected product lifespan. Use gs1:QuantitativeValue with unitCode (e.g., 'ANN' for years).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DurationYears"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/facilityCertifications",
+      "localName": "facilityCertifications",
+      "label": "Facility Certifications",
+      "comment": "Certifications held by the facility (ISO 9001, ISO 14001, etc.).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/CertificationDetails"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/facilityInformation",
+      "localName": "facilityInformation",
+      "label": "Facility Information",
+      "comment": "Manufacturing or processing facility details.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/facilityType",
+      "localName": "facilityType",
+      "label": "Facility Type",
+      "comment": "Type of facility (manufacturing, processing, assembly, etc.).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/granularityLevel",
+      "localName": "granularityLevel",
+      "label": "Granularity Level",
+      "comment": "Level of specificity for DPP data (ProductClass, Batch, or Item).",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/GranularityLevel"
+      ],
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/dpp/granularityLevel"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/guaranteedLifespan",
+      "localName": "guaranteedLifespan",
+      "label": "Guaranteed Lifespan",
+      "comment": "Guaranteed minimum product lifespan per manufacturer warranty.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DurationYears"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hazardClass",
+      "localName": "hazardClass",
+      "label": "Hazard Class",
+      "comment": "CLP Regulation hazard classification.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/HazardClass"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hazardImpact",
+      "localName": "hazardImpact",
+      "label": "Hazard Impact",
+      "comment": "Description of the hazard impact.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hazardousSubstances",
+      "localName": "hazardousSubstances",
+      "label": "Hazardous Substances",
+      "comment": "Hazardous substances present in the product.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/identityCredentialUrl",
+      "localName": "identityCredentialUrl",
+      "label": "Identity Credential URL",
+      "comment": "URL to a verifiable credential proving identity (Digital Identity Anchor or similar).",
+      "range": [
+        "xsd:anyURI"
+      ],
+      "seeAlso": [
+        "https://uncefact.github.io/spec-untp/docs/specification/DigitalIdentityAnchor/",
+        "https://www.w3.org/TR/vc-data-model-2.0/"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/isCriticalRawMaterial",
+      "localName": "isCriticalRawMaterial",
+      "label": "Is Critical Raw Material",
+      "comment": "Whether this material is on the EU Critical Raw Materials list.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/isRegulationCompliant",
+      "localName": "isRegulationCompliant",
+      "label": "Is Regulation Compliant",
+      "comment": "Asserts that a trade item complies with a specific regulatory act. Used inside a gs1:regulatoryInformation block alongside gs1:regulatoryAct. Replaces the non-existent gs1:isRegulationCompliant referenced in earlier drafts.",
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/issueDate",
+      "localName": "issueDate",
+      "label": "Issue Date",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/languageCode",
+      "localName": "languageCode",
+      "label": "Language Code",
+      "comment": "ISO 639-1 language code. See also gs1:fileLanguageCode.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/fileLanguageCode"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/lastDataUpdate",
+      "localName": "lastDataUpdate",
+      "label": "Last Data Update",
+      "comment": "Timestamp of the last update to the DPP data.",
+      "range": [
+        "xsd:dateTime"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/massFraction",
+      "localName": "massFraction",
+      "label": "Mass Fraction",
+      "comment": "Mass fraction of this material (0-1 scale where 0.45 = 45%).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/core/massFraction"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/materialCircularityIndicator",
+      "localName": "materialCircularityIndicator",
+      "label": "Material Circularity Indicator",
+      "comment": "Overall circularity score combining recycled input, recyclability, and utility (0-1 scale).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/core/materialCircularityIndicator"
+      ],
+      "source": "https://ellenmacarthurfoundation.org/material-circularity-indicator"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/materialComposition",
+      "localName": "materialComposition",
+      "label": "Material Composition",
+      "comment": "",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/materialName",
+      "localName": "materialName",
+      "label": "Material Name",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/mimeType",
+      "localName": "mimeType",
+      "label": "MIME Type",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/operationalScope",
+      "localName": "operationalScope",
+      "label": "Operational Scope",
+      "comment": "Lifecycle boundary for emissions calculation (CradleToGate or CradleToGrave).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/OperationalScope"
+      ],
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/core/operationalScope"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/operatorInformation",
+      "localName": "operatorInformation",
+      "label": "Operator Information",
+      "comment": "Economic operator responsible for the product.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/operatorRole",
+      "localName": "operatorRole",
+      "label": "Operator Role",
+      "comment": "Role of the economic operator (manufacturer, importer, etc.).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorRole"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/passportExpiryDate",
+      "localName": "passportExpiryDate",
+      "label": "Passport Expiry Date",
+      "comment": "Date when this Digital Product Passport expires or requires renewal.",
+      "range": [
+        "xsd:date"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/passportIdentifier",
+      "localName": "passportIdentifier",
+      "label": "Passport Identifier",
+      "comment": "Unique identifier for this Digital Product Passport instance.",
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/passportIssueDate",
+      "localName": "passportIssueDate",
+      "label": "Passport Issue Date",
+      "comment": "Date when this Digital Product Passport was issued.",
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/passportIssuer",
+      "localName": "passportIssuer",
+      "label": "Passport Issuer",
+      "comment": "Economic operator responsible for issuing and maintaining this Digital Product Passport.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/passportLastModified",
+      "localName": "passportLastModified",
+      "label": "Passport Last Modified",
+      "comment": "Date and time when this Digital Product Passport was last modified.",
+      "range": [
+        "xsd:dateTime"
+      ],
+      "source": "https://standards.iteh.ai/catalog/standards/cen/2d02edd9-ec28-4eb3-b99a-6a84c0a84257/pren-18222"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/passportStatus",
+      "localName": "passportStatus",
+      "label": "Passport Status",
+      "comment": "Lifecycle status of this Digital Product Passport.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/PassportStatus"
+      ],
+      "source": "https://standards.iteh.ai/catalog/standards/cen/2d02edd9-ec28-4eb3-b99a-6a84c0a84257/pren-18222"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/passportVersion",
+      "localName": "passportVersion",
+      "label": "Passport Version",
+      "comment": "Version of this Digital Product Passport.",
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/performanceClass",
+      "localName": "performanceClass",
+      "label": "Performance Class",
+      "comment": "Performance or efficiency class (e.g., A+++ to G for energy labels).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/performanceInfo",
+      "localName": "performanceInfo",
+      "label": "Performance Information",
+      "comment": "Product performance and durability information.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/postConsumerRecycledContent",
+      "localName": "postConsumerRecycledContent",
+      "label": "Post-Consumer Recycled Content",
+      "comment": "Fraction of post-consumer recycled content (0-1 scale).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RecycledContent"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/preConsumerRecycledContent",
+      "localName": "preConsumerRecycledContent",
+      "label": "Pre-Consumer Recycled Content",
+      "comment": "Fraction of pre-consumer (post-industrial) recycled content (0-1 scale).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RecycledContent"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/previousPassportVersion",
+      "localName": "previousPassportVersion",
+      "label": "Previous Passport Version",
+      "comment": "Reference to the previous version of this passport, supporting version history per EN 18221.",
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "https://standards.iteh.ai/catalog/standards/cen/2d02edd9-ec28-4eb3-b99a-6a84c0a84257/pren-18222"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/primarySourcedRatio",
+      "localName": "primarySourcedRatio",
+      "label": "Primary Sourced Ratio",
+      "comment": "Proportion of data from direct measurement vs estimates (0-1 scale).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/core/primarySourcedRatio"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/productCategory",
+      "localName": "productCategory",
+      "label": "Product Category",
+      "comment": "ESPR product category classification.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/ProductCategory"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/productModel",
+      "localName": "productModel",
+      "label": "Product Model",
+      "comment": "Product model identifier assigned by the manufacturer.",
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/professionalRepairNetwork",
+      "localName": "professionalRepairNetwork",
+      "label": "Professional Repair Network",
+      "comment": "URL to find authorized repair service providers.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/recyclableContent",
+      "localName": "recyclableContent",
+      "label": "Recyclable Content",
+      "comment": "Fraction of product that can be recycled (0-1 scale where 0.45 = 45%).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/core/recyclableContent"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/recycledContent",
+      "localName": "recycledContent",
+      "label": "Recycled Content",
+      "comment": "Total fraction of recycled content (0-1 scale where 0.45 = 45%).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RecycledContent"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/core/recycledContent"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/recycledContentDetails",
+      "localName": "recycledContentDetails",
+      "label": "Recycled Content Details",
+      "comment": "Detailed recycled content breakdown with pre/post-consumer splits.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/RecycledContent"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/registrationNumber",
+      "localName": "registrationNumber",
+      "label": "Registration Number",
+      "comment": "Official registration or license number.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/regulatoryReferenceNumber",
+      "localName": "regulatoryReferenceNumber",
+      "label": "Regulatory Reference Number",
+      "comment": "Reference number from regulatory information system (e.g., EUIS for EUDR).",
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/repairabilityClass",
+      "localName": "repairabilityClass",
+      "label": "Repairability Class",
+      "comment": "Repairability class (A to E, where A is most repairable).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/repairabilityInfo",
+      "localName": "repairabilityInfo",
+      "label": "Repairability Information",
+      "comment": "Repair and maintenance information for the product.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/repairabilityScore",
+      "localName": "repairabilityScore",
+      "label": "Repairability Score",
+      "comment": "Repairability index score (typically 0-10 scale, e.g., French Indice de Réparabilité).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/repairInstructions",
+      "localName": "repairInstructions",
+      "label": "Repair Instructions",
+      "comment": "URL or reference to repair instructions and manuals.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/reportDate",
+      "localName": "reportDate",
+      "label": "Report Date",
+      "comment": "Date of the due diligence report.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/reportUrl",
+      "localName": "reportUrl",
+      "label": "Report URL",
+      "comment": "URL to the due diligence report.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/safeDisassemblyInstructions",
+      "localName": "safeDisassemblyInstructions",
+      "label": "Safe Disassembly Instructions",
+      "comment": "Instructions for safe disassembly and handling of components containing the substance.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/safeUseInstructions",
+      "localName": "safeUseInstructions",
+      "label": "Safe Use Instructions",
+      "comment": "Instructions for safe use of the product containing the substance of concern.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/scipId",
+      "localName": "scipId",
+      "label": "SCIP ID",
+      "comment": "Identifier in the ECHA SCIP database (Substances of Concern In Products).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/separateCollectionInfo",
+      "localName": "separateCollectionInfo",
+      "label": "Separate Collection Info",
+      "comment": "URL to separate collection requirements. For text-based recycling guidance, see gs1:consumerRecyclingInstructions.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/consumerRecyclingInstructions"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/softwareUpdatesAvailability",
+      "localName": "softwareUpdatesAvailability",
+      "label": "Software Updates Availability",
+      "comment": "Duration for which software/firmware updates will be provided.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DurationYears"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/sourceCountry",
+      "localName": "sourceCountry",
+      "label": "Source Country",
+      "comment": "Country of origin (ISO 3166-1 alpha-2). See also gs1:countryOfOrigin.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/countryOfOrigin"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/sparePartsAvailability",
+      "localName": "sparePartsAvailability",
+      "label": "Spare Parts Availability",
+      "comment": "Duration for which spare parts will be available. Use gs1:QuantitativeValue with unitCode 'ANN' for years.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DurationYears"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/sparePartsDeliveryTime",
+      "localName": "sparePartsDeliveryTime",
+      "label": "Spare Parts Delivery Time",
+      "comment": "Maximum delivery time for spare parts. Use gs1:QuantitativeValue with unitCode 'DAY'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DurationDays"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/substanceLocation",
+      "localName": "substanceLocation",
+      "label": "Substance Location",
+      "comment": "Location or component where the substance is present in the product.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/substanceName",
+      "localName": "substanceName",
+      "label": "Substance Name",
+      "comment": "Name of the hazardous substance.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/substancesOfConcern",
+      "localName": "substancesOfConcern",
+      "label": "Substances of Concern",
+      "comment": "List of substances of concern present in the product per ESPR and SCIP database requirements.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/technicalLifetime",
+      "localName": "technicalLifetime",
+      "label": "Technical Lifetime",
+      "comment": "Technical lifetime under specified conditions.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DurationYears"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/testedConditions",
+      "localName": "testedConditions",
+      "label": "Tested Conditions",
+      "comment": "Description of conditions under which performance was tested.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/thirdPartyAssurancesUrl",
+      "localName": "thirdPartyAssurancesUrl",
+      "label": "Third Party Assurances URL",
+      "comment": "URL to third party verification or assurances.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/traceabilityPerformance",
+      "localName": "traceabilityPerformance",
+      "label": "Traceability Performance",
+      "comment": "Traceability performance metrics for supply chain verification.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/TraceabilityPerformance"
+      ],
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/dpp/traceabilityPerformance"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/tradeItemPieceCount",
+      "localName": "tradeItemPieceCount",
+      "label": "Trade Item Piece Count",
+      "comment": "Total number of physical pieces that together constitute the complete trade item identified by the parent GTIN.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:positiveInteger"
+      ],
+      "seeAlso": [
+        "https://www.gs1.org/standards/barcodes/application-identifiers/8026"
+      ],
+      "source": "https://xchange.gs1.org/cr/gsmp WR 25-212"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/tradeItemPieceDescription",
+      "localName": "tradeItemPieceDescription",
+      "label": "Trade Item Piece Description",
+      "comment": "Human-readable description of what this specific piece is (e.g., 'Jacket', 'Trousers', 'Left shoe', 'Instruction booklet').",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/IndividualTradeItemPiece"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://xchange.gs1.org/cr/gsmp WR 25-212"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/tradeItemPieceNumber",
+      "localName": "tradeItemPieceNumber",
+      "label": "Trade Item Piece Number",
+      "comment": "The sequential number of this piece within the multi-piece trade item (1-based). For a 2-piece suit, the jacket might be piece 1 and trousers piece 2.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/IndividualTradeItemPiece"
+      ],
+      "range": [
+        "xsd:positiveInteger"
+      ],
+      "source": "https://xchange.gs1.org/cr/gsmp WR 25-212"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/tradeItemPieceOf",
+      "localName": "tradeItemPieceOf",
+      "label": "Trade Item Piece Of",
+      "comment": "Links an individual piece to the multi-piece trade item (identified by its GTIN) it belongs to.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/IndividualTradeItemPiece"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "source": "https://xchange.gs1.org/cr/gsmp WR 25-212"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/uniqueProductIdentifier",
+      "localName": "uniqueProductIdentifier",
+      "label": "Unique Product Identifier",
+      "comment": "Unique product identifier per ESPR requirements.\nPrefer GS1 Digital Link format: https://id.gs1.org/01/{GTIN}/21/{Serial}",
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/usageCycles",
+      "localName": "usageCycles",
+      "label": "Usage Cycles",
+      "comment": "Number of expected usage cycles (e.g., charging cycles for batteries).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/utilityFactor",
+      "localName": "utilityFactor",
+      "label": "Utility Factor",
+      "comment": "Durability of the product relative to industry average (1.0 = average). A value >1 indicates above-average durability.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/core/utilityFactor"
+      ],
+      "source": "https://uncefact.github.io/spec-untp/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/validUntil",
+      "localName": "validUntil",
+      "label": "Valid Until",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/vatIdentificationNumber",
+      "localName": "vatIdentificationNumber",
+      "label": "VAT Identification Number",
+      "comment": "Value Added Tax identification number.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/verificationBody",
+      "localName": "verificationBody",
+      "label": "Verification Body",
+      "comment": "Organization that performed third-party verification.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Organization"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/verifiedRatio",
+      "localName": "verifiedRatio",
+      "label": "Verified Ratio",
+      "comment": "Proportion of materials verifiably traced through the supply chain (0-1 scale).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/TraceabilityPerformance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/core/verifiedRatio"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/wastePreventionInfo",
+      "localName": "wastePreventionInfo",
+      "label": "Waste Prevention Info",
+      "comment": "URL to waste prevention information. For text-based recycling guidance, see gs1:consumerRecyclingInstructions.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/consumerRecyclingInstructions"
+      ]
+    }
+  ],
+  "enumerations": [
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/AccessLevel",
+      "localName": "AccessLevel",
+      "label": "Access Level",
+      "comment": "Access levels for DPP data per ESPR Article 9.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/AuthorizedOnly",
+          "localName": "AuthorizedOnly",
+          "label": "Authorized Only",
+          "comment": "Data accessible only to market surveillance authorities and customs. Per ESPR Article 9(2)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Public",
+          "localName": "Public",
+          "label": "Public",
+          "comment": "Data accessible to all users (consumers, market surveillance, customs). Per ESPR Article 9(1)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Restricted",
+          "localName": "Restricted",
+          "label": "Restricted",
+          "comment": "Data accessible only to specific authorized economic operators. Per ESPR Article 9(3)."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/CustomsCommodityCodeType",
+      "localName": "CustomsCommodityCodeType",
+      "label": "Customs Commodity Code Type",
+      "comment": "The classification system that a customs commodity code belongs to.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/CN10",
+          "localName": "CN10",
+          "label": "EU Combined Nomenclature 10-digit (TARIC)",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/CN8",
+          "localName": "CN8",
+          "label": "EU Combined Nomenclature 8-digit",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/HS6",
+          "localName": "HS6",
+          "label": "HS 6-digit (World Customs Organization Harmonized System)",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/HS8",
+          "localName": "HS8",
+          "label": "HS 8-digit subheading",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/HTSUS10",
+          "localName": "HTSUS10",
+          "label": "US Harmonized Tariff Schedule 10-digit",
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/DocumentType",
+      "localName": "DocumentType",
+      "label": "Document Type",
+      "comment": "Types of supporting documents for DPP.\nSee also gs1:ReferencedFileTypeCode for GS1 standard document types (PRODUCT_MANUAL, SAFETY_DATA_SHEET, CERTIFICATE, etc.).",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Certificate",
+          "localName": "Certificate",
+          "label": "Certificate",
+          "comment": "Official certificate from accredited body (ISO, environmental, quality certifications)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/DeclarationOfConformity",
+          "localName": "DeclarationOfConformity",
+          "label": "Declaration of Conformity",
+          "comment": "EU Declaration of Conformity stating compliance with applicable EU legislation."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/DueDiligenceDocument",
+          "localName": "DueDiligenceDocument",
+          "label": "Due Diligence Document",
+          "comment": "Documentation of supply chain due diligence processes and risk assessments."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/EnvironmentalReport",
+          "localName": "EnvironmentalReport",
+          "label": "Environmental Report",
+          "comment": "Environmental impact assessment, carbon footprint study, or LCA report."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Manual",
+          "localName": "Manual",
+          "label": "Manual",
+          "comment": "User manual, installation guide, or maintenance documentation."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/SafetyDataSheet",
+          "localName": "SafetyDataSheet",
+          "label": "Safety Data Sheet",
+          "comment": "Safety Data Sheet (SDS) per REACH Regulation providing hazard information."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/TestReport",
+          "localName": "TestReport",
+          "label": "Test Report",
+          "comment": "Technical test results from accredited laboratory or testing facility."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ThirdPartyVerification",
+          "localName": "ThirdPartyVerification",
+          "label": "Third Party Verification",
+          "comment": "Independent verification report from accredited third-party auditor."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/GranularityLevel",
+      "localName": "GranularityLevel",
+      "label": "Granularity Level",
+      "comment": "Level of specificity for DPP data - whether it applies to product class, batch, or individual item.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Batch",
+          "localName": "Batch",
+          "label": "Batch",
+          "comment": "DPP data applies to a specific production batch."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Item",
+          "localName": "Item",
+          "label": "Item",
+          "comment": "DPP data applies to an individual serialized product."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ProductClass",
+          "localName": "ProductClass",
+          "label": "Product Class",
+          "comment": "DPP data applies to all products of this type/model."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/HazardClass",
+      "localName": "HazardClass",
+      "label": "Hazard Class",
+      "comment": "Hazard classification categories per EU CLP Regulation.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/AcuteToxicity",
+          "localName": "AcuteToxicity",
+          "label": "Acute Toxicity",
+          "comment": "Substances causing harmful effects after single or short-term exposure via oral, dermal, or inhalation routes."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/AspirationHazard",
+          "localName": "AspirationHazard",
+          "label": "Aspiration Hazard",
+          "comment": "Liquid or solid substances causing chemical pneumonia or pulmonary injury if aspirated into airways."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Carcinogenicity",
+          "localName": "Carcinogenicity",
+          "label": "Carcinogenicity",
+          "comment": "Substances known or suspected to cause cancer in humans."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/EyeDamageOrIrritation",
+          "localName": "EyeDamageOrIrritation",
+          "label": "Eye Damage or Irritation",
+          "comment": "Substances causing serious eye damage or reversible eye irritation upon contact."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/GermCellMutagenicity",
+          "localName": "GermCellMutagenicity",
+          "label": "Germ Cell Mutagenicity",
+          "comment": "Substances that may cause heritable genetic mutations in human germ cells."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/HazardousToAquaticEnvironment",
+          "localName": "HazardousToAquaticEnvironment",
+          "label": "Hazardous to Aquatic Environment",
+          "comment": "Substances posing acute or chronic toxicity risks to aquatic organisms and ecosystems."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ReproductiveToxicity",
+          "localName": "ReproductiveToxicity",
+          "label": "Reproductive Toxicity",
+          "comment": "Substances adversely affecting sexual function, fertility, or development of offspring."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/RespiratoryOrSkinSensitization",
+          "localName": "RespiratoryOrSkinSensitization",
+          "label": "Respiratory or Skin Sensitization",
+          "comment": "Substances causing hypersensitivity of airways (asthma) or allergic skin reactions after exposure."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/SkinCorrosionOrIrritation",
+          "localName": "SkinCorrosionOrIrritation",
+          "label": "Skin Corrosion or Irritation",
+          "comment": "Substances causing irreversible damage (corrosion) or reversible damage (irritation) to skin tissue."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/SpecificTargetOrganToxicity",
+          "localName": "SpecificTargetOrganToxicity",
+          "label": "Specific Target Organ Toxicity",
+          "comment": "Substances causing non-lethal damage to specific organs after single or repeated exposure."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/OperationalScope",
+      "localName": "OperationalScope",
+      "label": "Operational Scope",
+      "comment": "Lifecycle boundary for emissions or environmental impact calculations.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/CradleToGate",
+          "localName": "CradleToGate",
+          "label": "Cradle to Gate",
+          "comment": "Emissions from raw material extraction through manufacturing, excluding use phase and end-of-life."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/CradleToGrave",
+          "localName": "CradleToGrave",
+          "label": "Cradle to Grave",
+          "comment": "Full lifecycle emissions including raw materials, manufacturing, use phase, and end-of-life."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/OperatorRole",
+      "localName": "OperatorRole",
+      "label": "Operator Role",
+      "comment": "Role of an economic operator in the supply chain.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/AuthorisedRepresentative",
+          "localName": "AuthorisedRepresentative",
+          "label": "Authorised Representative",
+          "comment": "Entity authorised by manufacturer to act on their behalf for specific tasks (per ESPR Article 16)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Distributor",
+          "localName": "Distributor",
+          "label": "Distributor",
+          "comment": "Entity in the supply chain that makes a product available on the market, other than manufacturer or importer."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/FulfilmentServiceProvider",
+          "localName": "FulfilmentServiceProvider",
+          "label": "Fulfilment Service Provider",
+          "comment": "Entity providing fulfilment services including warehousing and order processing (per ESPR Article 17)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Importer",
+          "localName": "Importer",
+          "label": "Importer",
+          "comment": "Entity established in the EU that places a product from a third country on the Union market."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Manufacturer",
+          "localName": "Manufacturer",
+          "label": "Manufacturer",
+          "comment": "Entity that produces the product, including own-brand labellers per EU Market Surveillance Regulation 2019/1020."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Processor",
+          "localName": "Processor",
+          "label": "Processor",
+          "comment": "Entity that processes raw materials or components into finished or intermediate products."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Trader",
+          "localName": "Trader",
+          "label": "Trader",
+          "comment": "Entity that buys and sells products without significant modification or processing."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/PassportStatus",
+      "localName": "PassportStatus",
+      "label": "Passport Status",
+      "comment": "Lifecycle status of a Digital Product Passport per EN 18222 API lifecycle management.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Active",
+          "localName": "Active",
+          "label": "Active",
+          "comment": "Passport is published and represents the current state of the product."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Archived",
+          "localName": "Archived",
+          "label": "Archived",
+          "comment": "Passport is archived after product end-of-life. Data persisted per EN 18221 retention requirements."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Draft",
+          "localName": "Draft",
+          "label": "Draft",
+          "comment": "Passport is being prepared and not yet publicly available."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Updated",
+          "localName": "Updated",
+          "label": "Updated",
+          "comment": "Passport has been modified since initial publication. Previous versions remain accessible per EN 18221."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Withdrawn",
+          "localName": "Withdrawn",
+          "label": "Withdrawn",
+          "comment": "Passport has been withdrawn (e.g., product recall). Data remains available to authorities per ESPR Article 9."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/ProductCategory",
+      "localName": "ProductCategory",
+      "label": "Product Category",
+      "comment": "ESPR priority product categories per Annex I and delegated acts.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Aluminium",
+          "localName": "Aluminium",
+          "label": "Aluminium",
+          "comment": "Aluminium intermediate products."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Batteries",
+          "localName": "Batteries",
+          "label": "Batteries",
+          "comment": "Batteries and accumulators per EU Battery Regulation 2023/1542."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Chemicals",
+          "localName": "Chemicals",
+          "label": "Chemicals",
+          "comment": "Chemical substances and mixtures."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ConstructionProducts",
+          "localName": "ConstructionProducts",
+          "label": "Construction Products",
+          "comment": "Construction products per Construction Products Regulation."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Electronics",
+          "localName": "Electronics",
+          "label": "Electronics",
+          "comment": "Electronic and electrical equipment including ICT and consumer electronics."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/FoodContact",
+          "localName": "FoodContact",
+          "label": "Food Contact Materials",
+          "comment": "Materials and articles intended for food contact."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Furniture",
+          "localName": "Furniture",
+          "label": "Furniture",
+          "comment": "Furniture products including domestic and office furniture."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/IronSteel",
+          "localName": "IronSteel",
+          "label": "Iron and Steel",
+          "comment": "Iron and steel intermediate products."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Packaging",
+          "localName": "Packaging",
+          "label": "Packaging",
+          "comment": "Packaging and packaging waste products."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Textiles",
+          "localName": "Textiles",
+          "label": "Textiles",
+          "comment": "Textile products including apparel, footwear, and home textiles."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Tyres",
+          "localName": "Tyres",
+          "label": "Tyres",
+          "comment": "Tyres for motor vehicles and their trailers."
+        }
+      ]
+    }
+  ]
+}

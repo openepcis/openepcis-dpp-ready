@@ -1,0 +1,26 @@
+meta {
+  name: Get Battery Masterdata
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{dl-url}}/01/{{batteryGtin}}
+  body: none
+  auth: inherit
+}
+
+headers {
+  Accept: application/ld+json
+}
+
+tests {
+  test("Battery retrieved successfully", function() {
+    expect(res.status).to.equal(200);
+  });
+
+  test("Response contains battery data", function() {
+    const body = res.getBody();
+    expect(body["battery:batteryChemistry"] || body.batteryChemistry).to.exist;
+  });
+}

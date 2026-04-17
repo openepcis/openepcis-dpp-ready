@@ -1,0 +1,13 @@
+meta {
+  name: Battery Lifecycle
+  seq: 2
+}
+
+script:pre-request {
+  // Battery product identifiers
+  bru.setVar("batteryGtin", "09521234000010");
+  bru.setVar("batterySerial", "BAT-2025-NMC-00142");
+  bru.setVar("batteryEpc", `https://id.gs1.org/01/${bru.getVar("batteryGtin")}/21/${bru.getVar("batterySerial")}`);
+  bru.setVar("batteryManufacturerGln", "9521234026821");
+  bru.setVar("batteryReadPoint", `https://id.gs1.org/414/${bru.getVar("batteryManufacturerGln")}`);
+}

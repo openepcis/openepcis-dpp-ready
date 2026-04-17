@@ -1,0 +1,121 @@
+meta {
+  name: Create EV Battery
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{dl-url}}/products
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/ld+json
+  isAnonymousAccessAllowed: true
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/voc/",
+      "{{battery-context}}",
+      "{{dpp-context}}"
+    ],
+    "@type": "battery:Battery",
+    "gtin": "{{batteryGtin}}",
+    "productName": {
+      "en": "EcoPower 75 EV Battery Pack",
+      "de": "EcoPower 75 EV-Batteriepaket"
+    },
+    "brand": {
+      "brandName": {
+        "en": "EcoPower"
+      }
+    },
+    "battery:batteryCategory": "battery:ElectricVehicleBattery",
+    "battery:batteryChemistry": "battery:LithiumNMC811",
+    "battery:batteryModel": "EP-75-NMC",
+    "battery:technicalSpecifications": {
+      "@type": "battery:TechnicalSpecifications",
+      "battery:ratedCapacity": 75,
+      "battery:ratedCapacityUnit": "kWh",
+      "battery:nominalVoltage": 400,
+      "battery:nominalVoltageUnit": "V",
+      "battery:maxChargingPower": 150,
+      "battery:maxChargingPowerUnit": "kW",
+      "battery:maxDischargingPower": 200,
+      "battery:maxDischargingPowerUnit": "kW",
+      "battery:roundTripEfficiency": 95,
+      "battery:expectedCycleLife": 1500,
+      "battery:temperatureRange": {
+        "battery:minOperatingTemp": -20,
+        "battery:maxOperatingTemp": 45,
+        "battery:temperatureUnit": "Celsius"
+      }
+    },
+    "battery:stateOfHealth": {
+      "@type": "battery:StateOfHealth",
+      "battery:sohPercentage": 98,
+      "battery:remainingCapacity": 73.5,
+      "battery:remainingCapacityUnit": "kWh",
+      "battery:measurementDate": "2025-01-15T10:30:00Z"
+    },
+    "battery:carbonFootprint": {
+      "@type": "battery:CarbonFootprint",
+      "battery:totalCO2e": 65,
+      "battery:co2eUnit": "kg CO2e/kWh",
+      "battery:calculationMethod": "PEF",
+      "battery:verificationBody": "TÜV Rheinland"
+    },
+    "battery:materialComposition": {
+      "@type": "battery:MaterialComposition",
+      "battery:lithiumContent": 8.5,
+      "battery:cobaltContent": 5.2,
+      "battery:nickelContent": 45.3,
+      "battery:manganeseContent": 12.1,
+      "battery:recycledContentPercentage": 12,
+      "battery:contentUnit": "kg"
+    },
+    "battery:dueDiligence": {
+      "@type": "battery:DueDiligence",
+      "battery:supplyChainPolicy": "https://ecopower.example.com/responsible-sourcing",
+      "battery:riskAssessmentReport": "https://ecopower.example.com/risk-assessment-2025",
+      "battery:conflictMineralsStatement": "https://ecopower.example.com/conflict-minerals"
+    },
+    "dpp:operatorInformation": {
+      "@type": "dpp:OperatorInformation",
+      "gs1:gln": "{{batteryManufacturerGln}}",
+      "gs1:organizationName": "EcoPower Battery GmbH",
+      "gs1:streetAddress": "Batterieweg 100",
+      "gs1:postalCode": "70173",
+      "gs1:addressLocality": "Stuttgart",
+      "gs1:countryCode": "DE"
+    },
+    "certification": [
+      {
+        "@type": "CertificationDetails",
+        "certificationAgency": "TÜV Rheinland",
+        "certificationStandard": "UN38.3",
+        "certificationValue": "Certified"
+      },
+      {
+        "@type": "CertificationDetails",
+        "certificationAgency": "European Commission",
+        "certificationStandard": "EU Battery Regulation 2023/1542",
+        "certificationValue": "Compliant"
+      }
+    ]
+  }
+}
+
+tests {
+  test("Battery created successfully", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+  });
+
+  test("Response contains GTIN", function() {
+    const body = res.getBody();
+    expect(body.gtin || body["gs1:gtin"]).to.exist;
+  });
+}

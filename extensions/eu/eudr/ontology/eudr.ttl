@@ -1,0 +1,744 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix eudr: <https://ref.openepcis.io/extensions/eu/eudr/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+# =============================================================================
+# Ontology Declaration
+# =============================================================================
+
+<https://ref.openepcis.io/extensions/eu/eudr/>
+    a owl:Ontology ;
+    dcterms:title "OpenEPCIS EUDR Vocabulary"@en ;
+    dcterms:description """EUDR-specific vocabulary for EU Deforestation Regulation 2023/1115 compliance.
+
+IMPORTANT: The EUDR extension properties defined here are NOT YET STANDARDISED by GS1.
+These are OpenEPCIS extensions for origin data that have no equivalent in GS1 standards.
+
+EPCIS 2.0 Extension:
+This vocabulary is a first-class EPCIS 2.0 extension per Section 12.3. Declare it using:
+  GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/
+
+Two-Layer Approach:
+1. GS1 EUDR Standard - gs1:RegulatoryNotification for B2B DDS reference sharing
+2. OpenEPCIS eudr: extensions - Origin data (harvest dates, species, geolocation details)
+
+This vocabulary provides:
+- Domain-specific enumerations (CommodityType, RiskLevel, TimberProductType)
+- Extension properties for EUDR-required origin data
+- Documentation of EUDR concepts for implementation guidance
+
+For master data, use standard GS1 Web Vocabulary:
+- gs1:Place for locations (including plots of land)
+- gs1:GeoCoordinates for point locations
+- gs1:GeoShape with gs1:polygon for polygon boundaries
+- gs1:Organization for supply chain actors
+- gs1:Product for commodities
+- gs1:QuantitativeValue for measurements
+
+For regulatory compliance:
+- Use gs1:RegulatoryNotification (GS1 EUDR Standard) for B2B DDS sharing
+- Use EPCIS ObjectEvent with bizStep 'notifying' and persistentDisposition 'subject_to_regulation'
+- Use gs1:masterDataAvailableFor for inline master data
+
+Key Insight: GS1 EUDR Standard provides B2B messaging for DDS references but does NOT cover
+harvest dates, species names, or detailed origin data - these require eudr: extensions.
+
+References:
+- GS1 EUDR Standard: https://ref.gs1.org/standards/eudr/
+- GS1 EUDR-tool: https://github.com/gs1/EUDR-tool
+- GS1 Germany EUDR Guideline V1.11: https://www.gs1-germany.de/branchen-themen/nachhaltigkeit/eu-deforestation-regulation-eudr/
+- EU Regulation 2023/1115: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"""@en ;
+    dcterms:creator "OpenEPCIS" ;
+    dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+    dcterms:created "2025-02-02"^^xsd:date ;
+    dcterms:modified "2025-02-02"^^xsd:date ;
+    owl:versionInfo "0.9.5" ;
+    owl:versionIRI <https://ref.openepcis.io/extensions/eu/eudr/0.9.5> ;
+    vann:preferredNamespacePrefix "eudr" ;
+    vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/eu/eudr/" ;
+    rdfs:seeAlso <https://ref.gs1.org/standards/eudr/> ;
+    rdfs:seeAlso <https://github.com/gs1/EUDR-tool> ;
+    rdfs:seeAlso <https://www.gs1-germany.de/branchen-themen/nachhaltigkeit/eu-deforestation-regulation-eudr/> ;
+    rdfs:seeAlso <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    owl:imports <https://ref.gs1.org/voc/> ;
+    owl:imports <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Commodity Type Enumeration (EUDR Article 1.1)
+# =============================================================================
+
+eudr:CommodityType
+    a owl:Class ;
+    rdfs:label "Commodity Type"@en ;
+    rdfs:comment "The seven commodities regulated by EUDR (EU 2023/1115, Article 1.1)."@en ;
+    owl:oneOf (
+        eudr:Cattle
+        eudr:Cocoa
+        eudr:Coffee
+        eudr:OilPalm
+        eudr:Rubber
+        eudr:Soya
+        eudr:Wood
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:Cattle a eudr:CommodityType ; rdfs:label "Cattle"@en ; skos:notation "cattle" ;
+    rdfs:comment "Live cattle, beef, leather (HS codes 01, 02, 41, 43)."@en .
+eudr:Cocoa a eudr:CommodityType ; rdfs:label "Cocoa"@en ; skos:notation "cocoa" ;
+    rdfs:comment "Cocoa beans, chocolate, cocoa products (HS code 18)."@en .
+eudr:Coffee a eudr:CommodityType ; rdfs:label "Coffee"@en ; skos:notation "coffee" ;
+    rdfs:comment "Coffee beans, roasted coffee (HS code 09)."@en .
+eudr:OilPalm a eudr:CommodityType ; rdfs:label "Oil Palm"@en ; skos:notation "oil-palm" ;
+    rdfs:comment "Palm oil and derivatives (HS code 15)."@en .
+eudr:Rubber a eudr:CommodityType ; rdfs:label "Rubber"@en ; skos:notation "rubber" ;
+    rdfs:comment "Natural rubber and products (HS code 40)."@en .
+eudr:Soya a eudr:CommodityType ; rdfs:label "Soya"@en ; skos:notation "soya" ;
+    rdfs:comment "Soybeans, soy oil, soy meal (HS codes 12, 15, 23)."@en .
+eudr:Wood a eudr:CommodityType ; rdfs:label "Wood"@en ; skos:notation "wood" ;
+    rdfs:comment "Timber, pulp, paper, furniture (HS codes 44, 47, 48, 94)."@en .
+
+# =============================================================================
+# Risk Level Enumeration (EUDR Article 29)
+# =============================================================================
+
+eudr:RiskLevel
+    a owl:Class ;
+    rdfs:label "Risk Level"@en ;
+    rdfs:comment "Risk classification levels per EUDR benchmarking system (Article 29)."@en ;
+    owl:oneOf (
+        eudr:Negligible
+        eudr:Low
+        eudr:Standard
+        eudr:High
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:Negligible a eudr:RiskLevel ; rdfs:label "Negligible"@en ; skos:notation "negligible" ;
+    rdfs:comment "Derived from already-verified low-risk sources. Simplified due diligence permitted."@en .
+eudr:Low a eudr:RiskLevel ; rdfs:label "Low"@en ; skos:notation "low" ;
+    rdfs:comment "Low-risk country per EU benchmarking. Standard verification required."@en .
+eudr:Standard a eudr:RiskLevel ; rdfs:label "Standard"@en ; skos:notation "standard" ;
+    rdfs:comment "Standard due diligence required."@en .
+eudr:High a eudr:RiskLevel ; rdfs:label "High"@en ; skos:notation "high" ;
+    rdfs:comment "High-risk country. Enhanced due diligence and monitoring required."@en .
+
+# =============================================================================
+# Timber Product Type Enumeration (Annex I)
+# =============================================================================
+
+eudr:TimberProductType
+    a owl:Class ;
+    rdfs:label "Timber Product Type"@en ;
+    rdfs:comment "Types of timber/wood products regulated by EUDR Annex I."@en ;
+    owl:oneOf (
+        eudr:RoundWood
+        eudr:SawnWood
+        eudr:Plywood
+        eudr:Veneer
+        eudr:WoodPellets
+        eudr:WoodChips
+        eudr:Pulp
+        eudr:Paper
+        eudr:Furniture
+        eudr:Charcoal
+        eudr:PrintedMatter
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:RoundWood a eudr:TimberProductType ; rdfs:label "Round Wood"@en ; skos:notation "round-wood" ;
+    rdfs:comment "Raw logs (HS 4403)."@en .
+eudr:SawnWood a eudr:TimberProductType ; rdfs:label "Sawn Wood"@en ; skos:notation "sawn-wood" ;
+    rdfs:comment "Processed lumber (HS 4407)."@en .
+eudr:Plywood a eudr:TimberProductType ; rdfs:label "Plywood"@en ; skos:notation "plywood" ;
+    rdfs:comment "Layered wood panels (HS 4412)."@en .
+eudr:Veneer a eudr:TimberProductType ; rdfs:label "Veneer"@en ; skos:notation "veneer" ;
+    rdfs:comment "Thin wood sheets (HS 4408)."@en .
+eudr:WoodPellets a eudr:TimberProductType ; rdfs:label "Wood Pellets"@en ; skos:notation "wood-pellets" ;
+    rdfs:comment "Compressed wood fuel (HS 4401)."@en .
+eudr:WoodChips a eudr:TimberProductType ; rdfs:label "Wood Chips"@en ; skos:notation "wood-chips" ;
+    rdfs:comment "Wood chips and particles (HS 4401)."@en .
+eudr:Pulp a eudr:TimberProductType ; rdfs:label "Pulp"@en ; skos:notation "pulp" ;
+    rdfs:comment "Wood pulp for paper (HS 47)."@en .
+eudr:Paper a eudr:TimberProductType ; rdfs:label "Paper"@en ; skos:notation "paper" ;
+    rdfs:comment "Paper products (HS 48)."@en .
+eudr:Furniture a eudr:TimberProductType ; rdfs:label "Furniture"@en ; skos:notation "furniture" ;
+    rdfs:comment "Wooden furniture (HS 94)."@en .
+eudr:Charcoal a eudr:TimberProductType ; rdfs:label "Charcoal"@en ; skos:notation "charcoal" ;
+    rdfs:comment "Wood charcoal (HS 4402)."@en .
+eudr:PrintedMatter a eudr:TimberProductType ; rdfs:label "Printed Matter"@en ; skos:notation "printed-matter" ;
+    rdfs:comment "Printed books, newspapers (HS 49)."@en .
+
+# =============================================================================
+# Supply Chain Actor Role Enumeration
+# =============================================================================
+
+eudr:ActorRole
+    a owl:Class ;
+    rdfs:label "Actor Role"@en ;
+    rdfs:comment "Role of an actor in the EUDR supply chain per Article 2."@en ;
+    owl:oneOf (
+        eudr:Producer
+        eudr:Operator
+        eudr:Trader
+        eudr:DownstreamOperator
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:Producer a eudr:ActorRole ; rdfs:label "Producer"@en ;
+    rdfs:comment "Entity that produces/harvests the commodity."@en .
+eudr:Operator a eudr:ActorRole ; rdfs:label "Operator"@en ;
+    rdfs:comment "Entity that places products on EU market or exports from EU (Article 2.15)."@en .
+eudr:Trader a eudr:ActorRole ; rdfs:label "Trader"@en ;
+    rdfs:comment "Entity that makes products available on market after operator (Article 2.17)."@en .
+eudr:DownstreamOperator a eudr:ActorRole ; rdfs:label "Downstream Operator"@en ;
+    rdfs:comment "Entity that receives products already placed on the EU market and makes them available further downstream, subject to simplified due diligence obligations."@en ;
+    dcterms:source <https://www.consilium.europa.eu/en/press/press-releases/2025/12/18/deforestation-council-signs-off-targeted-revision-to-simplify-and-postpone-the-regulation/> ;
+    skos:note "Introduced by the Dec 2025 EUDR amendment. Downstream operators have reduced due diligence obligations compared to operators."@en .
+
+# =============================================================================
+# Container Classes for EUDR Data
+# =============================================================================
+
+eudr:OriginDetails
+    a owl:Class ;
+    rdfs:label "Origin Details"@en ;
+    rdfs:comment "Container class for geolocation and producer identification information per EUDR Article 9."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:AreaMeasurement
+    a owl:Class ;
+    rdfs:label "Area Measurement"@en ;
+    rdfs:comment "Container for area size quantitative values."@en ;
+    rdfs:subClassOf gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+# =============================================================================
+# EPCIS Origin Declaration Event Extension Properties
+# (OpenEPCIS extensions - NOT YET STANDARDISED by GS1)
+# =============================================================================
+
+eudr:harvestDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Harvest Date"@en ;
+    rdfs:comment "The harvest date per EUDR Article 9.1.d (use when single date). No GS1 equivalent exists. Mutually exclusive with harvestDateStart/End."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:date ;
+    rdfs:seeAlso <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:harvestDateStart
+    a owl:DatatypeProperty ;
+    rdfs:label "Harvest Date Start"@en ;
+    rdfs:comment "Start of harvest period (use with harvestDateEnd). Mutually exclusive with harvestDate."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:harvestDateEnd
+    a owl:DatatypeProperty ;
+    rdfs:label "Harvest Date End"@en ;
+    rdfs:comment "End of harvest period (use with harvestDateStart). Mutually exclusive with harvestDate."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+# NOTE: For EORI number, use dpp:eoriNumber (defined in dpp-core).
+# NOTE: For party GLN, use gs1:partyGLN (defined in GS1 Web Vocabulary).
+# These properties are intentionally NOT duplicated here - use the standard terms.
+
+eudr:countryList
+    a owl:ObjectProperty ;
+    rdfs:label "Country List"@en ;
+    rdfs:comment "List of countries of origin where geolocations are located."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:countryCode
+    a owl:DatatypeProperty ;
+    rdfs:label "Country Code"@en ;
+    rdfs:comment "ISO 3166-1 Alpha-2 country code."@en ;
+    rdfs:domain gs1:Place ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:originList
+    a owl:ObjectProperty ;
+    rdfs:label "Origin List"@en ;
+    rdfs:comment "List of origin details (one per geolocation or polygon)."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range eudr:OriginDetails ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:originDetails
+    a owl:ObjectProperty ;
+    rdfs:label "Origin Details"@en ;
+    rdfs:comment "Container for geolocation and producer identification."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range eudr:OriginDetails ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:geofence
+    a owl:DatatypeProperty ;
+    rdfs:label "Geofence"@en ;
+    rdfs:comment "Area polygon as array of longitude-latitude coordinates per CBV 2.0, 9.3.1. Use for plots > 4 hectares."@en ;
+    rdfs:domain eudr:OriginDetails ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:geolocation
+    a owl:DatatypeProperty ;
+    rdfs:label "Geolocation"@en ;
+    rdfs:comment "Geographic coordinates as Geo URI (RFC 5870). Use for plots <= 4 hectares."@en ;
+    rdfs:domain eudr:OriginDetails ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:areaSize
+    a owl:ObjectProperty ;
+    rdfs:label "Area Size"@en ;
+    rdfs:comment "Quantitative value for field area size."@en ;
+    rdfs:domain eudr:OriginDetails ;
+    rdfs:range eudr:AreaMeasurement ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:value
+    a owl:DatatypeProperty ;
+    rdfs:label "Value"@en ;
+    rdfs:comment "Numeric value for area size."@en ;
+    rdfs:domain eudr:AreaMeasurement ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:unitCode
+    a owl:DatatypeProperty ;
+    rdfs:label "Unit Code"@en ;
+    rdfs:comment "UN/CEFACT Rec. 20 unit code (e.g., HAR for hectares)."@en ;
+    rdfs:domain eudr:AreaMeasurement ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:producerIdentification
+    a owl:ObjectProperty ;
+    rdfs:label "Producer Identification"@en ;
+    rdfs:comment "Identification of the producer. Prefer party GLN when available."@en ;
+    rdfs:domain eudr:OriginDetails ;
+    rdfs:range gs1:Organization ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+# =============================================================================
+# Additional Extension Properties for EUDR Compliance
+# =============================================================================
+
+eudr:commodityType
+    a owl:ObjectProperty ;
+    rdfs:label "Commodity Type"@en ;
+    rdfs:comment "The EUDR commodity category."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range eudr:CommodityType ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:timberProductType
+    a owl:ObjectProperty ;
+    rdfs:label "Timber Product Type"@en ;
+    rdfs:comment "Specific type of timber product."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range eudr:TimberProductType ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:speciesScientificName
+    a owl:DatatypeProperty ;
+    rdfs:label "Species Scientific Name"@en ;
+    rdfs:comment "Scientific (Latin) name of the species. Required per EUDR Article 9.1.c."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:speciesCommonName
+    a owl:DatatypeProperty ;
+    rdfs:label "Species Common Name"@en ;
+    rdfs:comment "Common name of the species."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:riskLevel
+    a owl:ObjectProperty ;
+    rdfs:label "Risk Level"@en ;
+    rdfs:comment "Risk level per EUDR country benchmarking."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range eudr:RiskLevel ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:deforestationFreeDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Deforestation Free Date"@en ;
+    rdfs:comment "Date confirming deforestation-free status. Must be after 31 Dec 2020 cutoff."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:legallyHarvested
+    a owl:DatatypeProperty ;
+    rdfs:label "Legally Harvested"@en ;
+    rdfs:comment "Confirmation that commodity was legally harvested per country of production laws."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:boolean ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:landUseHistory
+    a owl:DatatypeProperty ;
+    rdfs:label "Land Use History"@en ;
+    rdfs:comment "Description of land use history supporting deforestation-free claims."@en ;
+    rdfs:domain gs1:Place ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:forestManagementUnit
+    a owl:DatatypeProperty ;
+    rdfs:label "Forest Management Unit"@en ;
+    rdfs:comment "Identifier of forest management unit or concession."@en ;
+    rdfs:domain gs1:Place ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:transformationDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Transformation Date"@en ;
+    rdfs:comment "Date when commodity was processed/transformed."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+# =============================================================================
+# Due Diligence Statement and Risk Assessment Classes
+# =============================================================================
+
+eudr:DueDiligenceStatement
+    a owl:Class ;
+    rdfs:label "Due Diligence Statement"@en ;
+    rdfs:comment "A due diligence statement submitted to the EUDR Information System (EUIS) per Article 4."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:RiskAssessment
+    a owl:Class ;
+    rdfs:label "Risk Assessment"@en ;
+    rdfs:comment "Risk assessment results per EUDR Article 10."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+# =============================================================================
+# Due Diligence and Risk Assessment Properties
+# =============================================================================
+
+eudr:dueDiligenceStatement
+    a owl:ObjectProperty ;
+    rdfs:label "Due Diligence Statement"@en ;
+    rdfs:comment "Reference to the EUDR due diligence statement for this product."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range eudr:DueDiligenceStatement ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:euisReferenceNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "EUIS Reference Number"@en ;
+    rdfs:comment "Reference number assigned by the EU Information System (EUIS) for the due diligence statement."@en ;
+    rdfs:domain eudr:DueDiligenceStatement ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:statementDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Statement Date"@en ;
+    rdfs:comment "Date the due diligence statement was submitted to EUIS."@en ;
+    rdfs:domain eudr:DueDiligenceStatement ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:riskAssessment
+    a owl:ObjectProperty ;
+    rdfs:label "Risk Assessment"@en ;
+    rdfs:comment "Risk assessment associated with the due diligence statement."@en ;
+    rdfs:domain eudr:DueDiligenceStatement ;
+    rdfs:range eudr:RiskAssessment ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:riskAssessmentDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Risk Assessment Date"@en ;
+    rdfs:comment "Date the risk assessment was conducted."@en ;
+    rdfs:domain eudr:RiskAssessment ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:countryRiskCategory
+    a owl:ObjectProperty ;
+    rdfs:label "Country Risk Category"@en ;
+    rdfs:comment "Risk category of the country of origin per EU benchmarking (Article 29)."@en ;
+    rdfs:domain eudr:RiskAssessment ;
+    rdfs:range eudr:RiskLevel ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:mitigationMeasures
+    a owl:DatatypeProperty ;
+    rdfs:label "Mitigation Measures"@en ;
+    rdfs:comment "Description of risk mitigation measures applied per Article 10.2."@en ;
+    rdfs:domain eudr:RiskAssessment ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+# =============================================================================
+# Derived Product Properties
+# =============================================================================
+
+eudr:derivedFrom
+    a owl:ObjectProperty ;
+    rdfs:label "Derived From"@en ;
+    rdfs:comment "Reference to source product(s) from which this product was derived."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range gs1:Product ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:transformationLocation
+    a owl:ObjectProperty ;
+    rdfs:label "Transformation Location"@en ;
+    rdfs:comment "Location where the commodity transformation/processing took place."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range gs1:Place ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+# =============================================================================
+# Stale Context Properties — now backed by TTL
+# =============================================================================
+
+eudr:areaHectares
+    a owl:DatatypeProperty ;
+    rdfs:label "Area Hectares"@en ;
+    rdfs:comment "Area size in hectares."@en ;
+    rdfs:domain eudr:OriginDetails ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:verificationMethod
+    a owl:DatatypeProperty ;
+    rdfs:label "Verification Method"@en ;
+    rdfs:comment "Method used to verify deforestation-free and legality claims."@en ;
+    rdfs:domain eudr:RiskAssessment ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:volumeCubicMeters
+    a owl:DatatypeProperty ;
+    rdfs:label "Volume Cubic Meters"@en ;
+    rdfs:comment "Volume in cubic meters."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:fscCertification
+    a owl:ObjectProperty ;
+    rdfs:label "FSC Certification"@en ;
+    rdfs:comment "Reference to FSC (Forest Stewardship Council) certification."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range gs1:CertificationDetails ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+# =============================================================================
+# Business Transaction Types for EUDR
+# =============================================================================
+
+# Due Diligence Statement Number - use in bizTransactionList
+# Type: https://example.com/btt/dueDiligenceStatementNumber (per GS1 Germany)
+# Example bizTransaction: EUIS reference number URI
+
+# =============================================================================
+# Business Step for EUDR Origin Declaration
+# =============================================================================
+
+# For EPCIS Origin Declaration Events:
+# bizStep: https://example.com/bizStep/declaring_origin (per GS1 Germany)
+
+# =============================================================================
+# Notes on GS1 Vocabulary Usage
+# =============================================================================
+
+# For master data, use standard GS1 Web Vocabulary:
+#
+# LOCATIONS (Plots of Land):
+#   @type: gs1:Place
+#   gs1:physicalLocationName: "Plot name"
+#   gs1:locationGLN: "9521234100002"
+#   gs1:geo: {
+#     @type: gs1:GeoCoordinates  (for point)
+#     gs1:latitude: "52.5200"
+#     gs1:longitude: "13.4050"
+#   }
+#   OR
+#   gs1:geo: {
+#     @type: gs1:GeoShape  (for polygon)
+#     gs1:polygon: "[[lon,lat], [lon,lat], ...]"
+#   }
+#
+# ORGANIZATIONS:
+#   @type: gs1:Organization
+#   gs1:organizationName: "Company Name"
+#   gs1:partyGLN: "9521234000005"
+#   gs1:address: { @type: gs1:PostalAddress, ... }
+#
+# PRODUCTS:
+#   @type: gs1:Product
+#   gs1:productName: "Product Name"
+#   gs1:gtin: "09521234500017"
+#   gs1:regulatedProductName: "Regulated name"
+
+# =============================================================================
+# EUDR Exemption Declaration (WR 25-252 / WR 26-122 reference pattern)
+# =============================================================================
+#
+# GS1 ALIGNMENT STATUS, as of 2026-04-17:
+#
+# The GS1 EUDR Provisional Standard (Release P, September 2025) and the
+# https://ref.gs1.org/voc/ Web Vocabulary publish NO exemption terms.
+# There is no gs1:regulatoryExemption property, no gs1:RegulatoryExemption
+# class, and no gs1:RegulatoryExemptionTypeCode enum. The
+# regulatoryIdentifier property is still mandatory inside a
+# regulatoryInformation block per the published schema.
+#
+# The 13 April 2026 GS1 EUDR MSWG meeting (chaired by Craig Repec)
+# previewed the planned JSON-LD model for exemptions: when an exemption
+# applies, regulatoryIdentifier becomes optional and is replaced by a new
+# regulatoryExemption property. That design is in flight under GSMP Work
+# Request WR 25-252 (EANCOM + GS1 XML) and WR 26-122 (GDSN); neither is
+# publicly visible yet.
+#
+# THIS MODULE THEREFORE DEFINES A PROVISIONAL eudr:-NAMESPACED REFERENCE
+# PATTERN that fills the gap, carrying the same semantics the MSWG plans
+# to standardise. When GS1 publishes the canonical terms, every class and
+# property in this section will be re-mapped via owl:equivalentClass /
+# owl:equivalentProperty rather than replaced — downstream consumers of
+# the eudr: URIs remain stable.
+#
+# Cross-format equivalents as captured in WR 25-252 (for context):
+# - EANCOM: IMD segment C272:DE7081 (exemption type) + C273:DE7009
+#   (reason codes); temporary exemptions use GIN segment under SG22
+# - GS1 XML: dedicated exemption element structure
+# - GDSN: master data exemption handling (per WR 26-122)
+#
+# Example: eudr/epcis/exemption-declaration.jsonld
+# Gap summary: eudr/docs/GS1_ALIGNMENT.md
+
+eudr:ExemptionType
+    a owl:Class ;
+    rdfs:label "Exemption Type"@en ;
+    rdfs:comment "Classification of EUDR exemption per duration: permanent (e.g., already-verified origin) or temporary (batch- or serial-scoped)."@en ;
+    owl:oneOf (
+        eudr:PermanentExemption
+        eudr:TemporaryExemption
+    ) ;
+    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252 / WR 26-122" ;
+    skos:note "Reference pattern; may evolve per WR 25-252 eBallot outcome."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:PermanentExemption a eudr:ExemptionType ;
+    rdfs:label "Permanent Exemption"@en ;
+    skos:notation "permanent" ;
+    rdfs:comment "Exemption that applies to all future batches/instances of a given GTIN without expiry (e.g., verified low-risk origin)."@en .
+
+eudr:TemporaryExemption a eudr:ExemptionType ;
+    rdfs:label "Temporary Exemption"@en ;
+    skos:notation "temporary" ;
+    rdfs:comment "Exemption that applies to specific batches or serial numbers within a defined time period. Requires scope identification (batch/lot or serial list)."@en .
+
+eudr:ExemptionDeclaration
+    a owl:Class ;
+    rdfs:label "Exemption Declaration"@en ;
+    rdfs:comment "A structured declaration that specific products (or batches/serials) are exempt from EUDR due diligence obligations, carrying the exemption type, reason code, scope, and effective date range."@en ;
+    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    skos:note "Reference pattern for WR 25-252 exemption handling. Carries semantics equivalent to EANCOM C272:DE7081 (type) + C273:DE7009 (reason) + GIN/SG22 (temporary scope)."@en ;
+    rdfs:seeAlso <https://ref.gs1.org/voc/regulatoryInformation> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:exemptionDeclaration
+    a owl:ObjectProperty ;
+    rdfs:label "Exemption Declaration"@en ;
+    rdfs:comment "Links a product or EPCIS event to an EUDR exemption declaration."@en ;
+    rdfs:range eudr:ExemptionDeclaration ;
+    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    skos:note "Attached to EPCIS events (bizStep 'notifying') or product master data. Reference pattern per WR 25-252."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:exemptionType
+    a owl:ObjectProperty ;
+    rdfs:label "Exemption Type"@en ;
+    rdfs:comment "The classification of this exemption (permanent or temporary)."@en ;
+    rdfs:domain eudr:ExemptionDeclaration ;
+    rdfs:range eudr:ExemptionType ;
+    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    skos:note "Semantically aligned with EANCOM C272:DE7081 exemption type codes."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:exemptionReasonCode
+    a owl:DatatypeProperty ;
+    rdfs:label "Exemption Reason Code"@en ;
+    rdfs:comment "Coded reason for the exemption, drawn from the controlled vocabulary defined by WR 25-252 (aligned with EANCOM C273:DE7009 exemption reason codes)."@en ;
+    rdfs:domain eudr:ExemptionDeclaration ;
+    rdfs:range xsd:string ;
+    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    skos:note "String-typed for now; will become a controlled enumeration once WR 25-252 eBallot closes and the official code list is published."@en ;
+    rdfs:seeAlso eudr:riskLevel ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:exemptionScope
+    a owl:DatatypeProperty ;
+    rdfs:label "Exemption Scope"@en ;
+    rdfs:comment "The scope of the exemption: 'gtin' (all products with the given GTIN), 'batch' (specific lot/batch identified via AI 10), or 'serial' (specific instance identified via AI 21 or AI 8006 ITIP)."@en ;
+    rdfs:domain eudr:ExemptionDeclaration ;
+    rdfs:range xsd:string ;
+    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    skos:note "Values: gtin, batch, serial. Temporary exemptions typically use 'batch' or 'serial' scope; permanent exemptions typically use 'gtin'."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:exemptionScopeReference
+    a owl:DatatypeProperty ;
+    rdfs:label "Exemption Scope Reference"@en ;
+    rdfs:comment "The specific batch, lot, or serial identifier (or list thereof) that is in scope of a temporary exemption. For 'batch' scope this is the lot/batch number; for 'serial' scope it is the serial number."@en ;
+    rdfs:domain eudr:ExemptionDeclaration ;
+    rdfs:range xsd:string ;
+    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    skos:note "Aligned with EANCOM GIN segment under SG22 for batch/serial enumeration in temporary exemptions."@en ;
+    rdfs:seeAlso <https://ref.gs1.org/voc/hasBatchLotNumber> ;
+    rdfs:seeAlso <https://ref.gs1.org/voc/hasSerialNumber> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:exemptionEffectiveFrom
+    a owl:DatatypeProperty ;
+    rdfs:label "Exemption Effective From"@en ;
+    rdfs:comment "Start date of the exemption's validity. Before this date the exemption does not apply."@en ;
+    rdfs:domain eudr:ExemptionDeclaration ;
+    rdfs:range xsd:date ;
+    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:exemptionEffectiveUntil
+    a owl:DatatypeProperty ;
+    rdfs:label "Exemption Effective Until"@en ;
+    rdfs:comment "End date of the exemption's validity. Required for temporary exemptions; omitted for permanent exemptions."@en ;
+    rdfs:domain eudr:ExemptionDeclaration ;
+    rdfs:range xsd:date ;
+    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+
+eudr:exemptionAuthority
+    a owl:ObjectProperty ;
+    rdfs:label "Exemption Authority"@en ;
+    rdfs:comment "The economic operator or competent authority asserting this exemption. Uses dpp:OperatorInformation so the party is fully identified by GLN and role."@en ;
+    rdfs:domain eudr:ExemptionDeclaration ;
+    rdfs:range dpp:OperatorInformation ;
+    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    skos:note "Identifies who is making the exemption declaration. Typically the operator placing the product on the EU market (ESPR Art. 21) or a downstream operator."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .

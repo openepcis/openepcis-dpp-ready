@@ -1,0 +1,118 @@
+meta {
+  name: Create Trail Running Shoe
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{dl-url}}/products
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/ld+json
+  isAnonymousAccessAllowed: true
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/voc/",
+      "{{textile-context}}",
+      "{{dpp-context}}"
+    ],
+    "@type": "textile:TextileProduct",
+    "gtin": "{{shoeGtin}}",
+    "productName": {
+      "en": "TrailMaster Pro Running Shoe",
+      "de": "TrailMaster Pro Laufschuh"
+    },
+    "brand": {
+      "brandName": {
+        "en": "EcoRun"
+      }
+    },
+    "textile:textileCategory": "textile:Footwear",
+    "textile:garmentType": "Trail Running Shoe",
+    "textile:sizeCode": "42",
+    "textile:colorDescription": {
+      "en": "Forest Green / Black"
+    },
+    "textile:fiberComposition": [
+      {
+        "@type": "textile:FiberComposition",
+        "textile:fiberType": "textile:RecycledPolyester",
+        "textile:fiberPercentage": 45,
+        "textile:isRecycledFiber": true,
+        "textile:recycledContentSource": "ocean plastic"
+      },
+      {
+        "@type": "textile:FiberComposition",
+        "textile:fiberType": "textile:Leather",
+        "textile:fiberPercentage": 35,
+        "textile:fiberOrigin": "IT"
+      },
+      {
+        "@type": "textile:FiberComposition",
+        "textile:fiberType": "textile:Rubber",
+        "textile:fiberPercentage": 20,
+        "textile:fiberOrigin": "TH"
+      }
+    ],
+    "textile:durabilityInfo": {
+      "@type": "textile:DurabilityInfo",
+      "textile:durabilityClass": "textile:DurabilityB",
+      "textile:abrasionResistance": 50000,
+      "textile:expectedLifetimeKm": 800
+    },
+    "textile:careInstructions": {
+      "@type": "textile:CareInstructions",
+      "textile:cleaningMethod": "spot clean with damp cloth",
+      "textile:dryingMethod": "air dry at room temperature",
+      "textile:storageRecommendation": "store in cool, dry place away from direct sunlight"
+    },
+    "textile:repairGuideUrl": "https://ecorun.example.com/repair/trail-shoes",
+    "textile:takeBackProgram": {
+      "@type": "textile:TakeBackProgram",
+      "textile:programName": "EcoRun Recycle",
+      "textile:programUrl": "https://ecorun.example.com/recycle",
+      "textile:acceptedConditions": ["worn", "damaged"],
+      "textile:incentiveType": "discount voucher"
+    },
+    "dpp:operatorInformation": {
+      "@type": "dpp:OperatorInformation",
+      "gs1:gln": "9521234026814",
+      "gs1:organizationName": "EcoRun Sports GmbH",
+      "gs1:streetAddress": "Sportweg 15",
+      "gs1:postalCode": "80331",
+      "gs1:addressLocality": "Munich",
+      "gs1:countryCode": "DE"
+    },
+    "certification": [
+      {
+        "@type": "CertificationDetails",
+        "certificationAgency": "Global Recycled Standard",
+        "certificationStandard": "GRS 4.0",
+        "certificationValue": "Certified"
+      },
+      {
+        "@type": "CertificationDetails",
+        "certificationAgency": "Leather Working Group",
+        "certificationStandard": "LWG Gold",
+        "certificationValue": "Gold Rated"
+      }
+    ]
+  }
+}
+
+tests {
+  test("Product created successfully", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+  });
+
+  test("Response contains GTIN", function() {
+    const body = res.getBody();
+    expect(body.gtin || body["gs1:gtin"]).to.exist;
+  });
+}

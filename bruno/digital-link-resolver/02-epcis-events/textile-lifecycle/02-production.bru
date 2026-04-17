@@ -1,0 +1,76 @@
+meta {
+  name: Production - Manufacturing
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{url}}/capture
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+      "{{dpp-context}}",
+      "{{textile-context}}"
+    ],
+    "type": "EPCISDocument",
+    "schemaVersion": "2.0",
+    "creationDate": "{{eventTime}}",
+    "epcisBody": {
+      "eventList": [
+        {
+          "type": "TransformationEvent",
+          "bizStep": "manufacturing",
+          "disposition": "in_progress",
+          "eventTime": "{{eventTime}}",
+          "eventTimeZoneOffset": "+01:00",
+          "readPoint": {
+            "id": "{{readPoint}}"
+          },
+          "bizLocation": {
+            "id": "{{bizLocation}}"
+          },
+          "inputEPCList": [
+            "https://id.gs1.org/01/09521234000028/10/FABRIC-2025-001",
+            "https://id.gs1.org/01/09521234000035/10/THREAD-2025-001",
+            "https://id.gs1.org/01/09521234000042/10/ZIPPER-2025-001"
+          ],
+          "outputEPCList": ["{{epc}}"],
+          "dpp:operatorInformation": {
+            "@type": "dpp:OperatorInformation",
+            "gs1:gln": "{{manufacturerGln}}",
+            "gs1:organizationName": "EcoWear GmbH"
+          },
+          "textile:manufacturingProcess": {
+            "@type": "textile:ManufacturingProcess",
+            "textile:processType": "cut-and-sew",
+            "textile:facilityLocation": "Berlin, Germany",
+            "textile:energySource": "100% renewable",
+            "textile:waterUsage": {
+              "textile:amount": 15,
+              "textile:unit": "liters",
+              "textile:waterRecycled": true
+            }
+          },
+          "textile:qualityControl": {
+            "@type": "textile:QualityControl",
+            "textile:inspectionDate": "2025-01-21",
+            "textile:inspector": "QC-Team-Berlin",
+            "textile:result": "passed",
+            "textile:defectsFound": 0
+          }
+        }
+      ]
+    }
+  }
+}
+
+tests {
+  test("Capture successful", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+  });
+}

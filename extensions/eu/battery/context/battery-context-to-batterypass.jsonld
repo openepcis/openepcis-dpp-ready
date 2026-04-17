@@ -1,0 +1,317 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "gs1": "https://ref.gs1.org/voc/",
+    "battery": "https://ref.openepcis.io/extensions/eu/battery/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "bp-general": "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#",
+    "bp-perf": "urn:samm:io.BatteryPass.Performance:1.2.1#",
+    "bp-carbon": "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#",
+    "bp-material": "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#",
+    "bp-circular": "urn:samm:io.BatteryPass.Circularity:1.2.0#",
+    "bp-scdd": "urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#",
+    "battery:batteryPassportIdentifier": {
+      "@id": "bp-general:batteryPassportIdentifier"
+    },
+    "battery:batteryCategory": {
+      "@id": "bp-general:batteryCategory"
+    },
+    "battery:batteryStatus": {
+      "@id": "bp-general:batteryStatus"
+    },
+    "battery:manufacturingPlace": {
+      "@id": "bp-general:manufacturingPlace"
+    },
+    "battery:operatorInformation": {
+      "@id": "bp-general:operatorInformation"
+    },
+    "battery:puttingIntoService": {
+      "@id": "bp-general:puttingIntoService"
+    },
+    "battery:LMTBattery": {
+      "@id": "bp-general:lmt"
+    },
+    "battery:EVBattery": {
+      "@id": "bp-general:ev"
+    },
+    "battery:IndustrialBattery": {
+      "@id": "bp-general:industrial"
+    },
+    "battery:StationaryBattery": {
+      "@id": "bp-general:stationary"
+    },
+    "battery:Original": {
+      "@id": "bp-general:Original"
+    },
+    "battery:Repurposed": {
+      "@id": "bp-general:Repurposed"
+    },
+    "battery:Reused": {
+      "@id": "bp-general:Reused"
+    },
+    "battery:Remanufactured": {
+      "@id": "bp-general:Remanufactured"
+    },
+    "battery:Waste": {
+      "@id": "bp-general:Waste"
+    },
+    "battery:ratedCapacity": {
+      "@id": "bp-perf:ratedCapacity"
+    },
+    "battery:ratedEnergy": {
+      "@id": "bp-perf:ratedEnergy"
+    },
+    "battery:nominalVoltage": {
+      "@id": "bp-perf:nominalVoltage"
+    },
+    "battery:minimumVoltage": {
+      "@id": "bp-perf:minimumVoltage"
+    },
+    "battery:maximumVoltage": {
+      "@id": "bp-perf:maximumVoltage"
+    },
+    "battery:ratedMaximumPower": {
+      "@id": "bp-perf:ratedMaximumPower"
+    },
+    "battery:expectedCycleLife": {
+      "@id": "bp-perf:expectedNumberOfCycles"
+    },
+    "battery:initialSelfDischarge": {
+      "@id": "bp-perf:initialSelfDischarge"
+    },
+    "battery:roundTripEfficiency": {
+      "@id": "bp-perf:roundtripEfficiency"
+    },
+    "battery:initialInternalResistance": {
+      "@id": "bp-perf:initialInternalResistance"
+    },
+    "battery:expectedLifetimeYears": {
+      "@id": "bp-perf:expectedLifetime"
+    },
+    "battery:cRate": {
+      "@id": "bp-perf:cRate"
+    },
+    "battery:powerCapabilityRatio": {
+      "@id": "bp-perf:powerCapabilityRatio"
+    },
+    "battery:capacityThresholdForExhaustion": {
+      "@id": "bp-perf:capacityThresholdForExhaustion"
+    },
+    "battery:lifetimeReferenceTest": {
+      "@id": "bp-perf:lifetimeReferenceTest"
+    },
+    "battery:cRateLifeCycleTest": {
+      "@id": "bp-perf:cRateLifeCycleTest"
+    },
+    "battery:temperatureRangeIdleState": {
+      "@id": "bp-perf:temperatureRangeIdleState"
+    },
+    "battery:roundTripEfficiencyAt50PercentCycleLife": {
+      "@id": "bp-perf:roundTripEfficiencyAt50PercentCycleLife"
+    },
+    "battery:originalPowerCapability": {
+      "@id": "bp-perf:originalPowerCapability"
+    },
+    "battery:remainingPowerCapability": {
+      "@id": "bp-perf:remainingPowerCapability"
+    },
+    "battery:energyThroughput": {
+      "@id": "bp-perf:energyThroughput"
+    },
+    "battery:capacityThroughput": {
+      "@id": "bp-perf:capacityThroughput"
+    },
+    "battery:cycleCount": {
+      "@id": "bp-perf:numberOfFullCycles"
+    },
+    "battery:stateOfCertifiedEnergy": {
+      "@id": "bp-perf:stateOfCertifiedEnergy"
+    },
+    "battery:capacityFade": {
+      "@id": "bp-perf:capacityFade"
+    },
+    "battery:remainingEnergy": {
+      "@id": "bp-perf:remainingEnergy"
+    },
+    "battery:remainingCapacity": {
+      "@id": "bp-perf:remainingCapacity"
+    },
+    "battery:stateOfCharge": {
+      "@id": "bp-perf:stateOfCharge"
+    },
+    "battery:internalResistanceIncrease": {
+      "@id": "bp-perf:internalResistanceIncrease"
+    },
+    "battery:evolutionOfSelfDischarge": {
+      "@id": "bp-perf:evolutionOfSelfDischarge"
+    },
+    "battery:selfDischargeRate": {
+      "@id": "bp-perf:currentSelfDischargingRate"
+    },
+    "battery:remainingRoundTripEfficiency": {
+      "@id": "bp-perf:remainingRoundTripEnergyEfficiency"
+    },
+    "battery:roundTripEfficiencyFade": {
+      "@id": "bp-perf:roundTripEfficiencyFade"
+    },
+    "battery:powerFade": {
+      "@id": "bp-perf:powerFade"
+    },
+    "battery:carbonFootprintTotal": {
+      "@id": "bp-carbon:batteryCarbonFootprint"
+    },
+    "battery:carbonFootprintDeclaration": {
+      "@id": "bp-carbon:carbonFootprintPerLifecycleStage"
+    },
+    "battery:carbonFootprintPerformanceClass": {
+      "@id": "bp-carbon:carbonFootprintPerformanceClass"
+    },
+    "battery:carbonFootprintStudyUrl": {
+      "@id": "bp-carbon:carbonFootprintStudy"
+    },
+    "battery:absoluteCarbonFootprint": {
+      "@id": "bp-carbon:absoluteCarbonFootprint"
+    },
+    "battery:carbonFootprintRawMaterialExtraction": {
+      "@id": "bp-carbon:RawMaterialExtraction"
+    },
+    "battery:carbonFootprintProduction": {
+      "@id": "bp-carbon:MainProduction"
+    },
+    "battery:carbonFootprintDistribution": {
+      "@id": "bp-carbon:Distribution"
+    },
+    "battery:carbonFootprintRecycling": {
+      "@id": "bp-carbon:Recycling"
+    },
+    "battery:batteryChemistry": {
+      "@id": "bp-material:batteryChemistry"
+    },
+    "battery:shortName": {
+      "@id": "bp-material:shortName"
+    },
+    "battery:fullName": {
+      "@id": "bp-material:clearName"
+    },
+    "battery:materialComposition": {
+      "@id": "bp-material:batteryMaterials"
+    },
+    "battery:componentLocation": {
+      "@id": "bp-material:batteryMaterialLocation"
+    },
+    "battery:casNumber": {
+      "@id": "bp-material:batteryMaterialIdentifier"
+    },
+    "battery:materialName": {
+      "@id": "bp-material:batteryMaterialName"
+    },
+    "battery:massPercentage": {
+      "@id": "bp-material:batteryMaterialMass"
+    },
+    "battery:isCriticalRawMaterial": {
+      "@id": "bp-material:isCriticalRawMaterial"
+    },
+    "battery:hazardousSubstances": {
+      "@id": "bp-material:hazardousSubstances"
+    },
+    "battery:hazardClass": {
+      "@id": "bp-material:hazardousSubstanceClass"
+    },
+    "battery:substanceName": {
+      "@id": "bp-material:hazardousSubstanceName"
+    },
+    "battery:concentration": {
+      "@id": "bp-material:hazardousSubstanceConcentration"
+    },
+    "battery:hazardImpact": {
+      "@id": "bp-material:hazardousSubstanceImpact"
+    },
+    "battery:substanceLocation": {
+      "@id": "bp-material:hazardousSubstanceLocation"
+    },
+    "battery:substanceCasNumber": {
+      "@id": "bp-material:hazardousSubstanceIdentifier"
+    },
+    "battery:Cathode": {
+      "@id": "bp-material:Cathode"
+    },
+    "battery:Anode": {
+      "@id": "bp-material:Anode"
+    },
+    "battery:Electrolyte": {
+      "@id": "bp-material:Electrolyte"
+    },
+    "battery:AcuteToxicity": {
+      "@id": "bp-material:AcuteToxicity"
+    },
+    "battery:SkinCorrosionOrIrritation": {
+      "@id": "bp-material:SkinCorrosionOrIrritation"
+    },
+    "battery:EyeDamageOrIrritation": {
+      "@id": "bp-material:EyeDamageOrIrritation"
+    },
+    "battery:dismantlingDocuments": {
+      "@id": "bp-circular:dismantlingAndRemovalInformation"
+    },
+    "battery:documentType": {
+      "@id": "bp-circular:documentType"
+    },
+    "battery:documentUrl": {
+      "@id": "bp-circular:documentURL"
+    },
+    "battery:mimeType": {
+      "@id": "bp-circular:mimeType"
+    },
+    "battery:BillOfMaterial": {
+      "@id": "bp-circular:BillOfMaterial"
+    },
+    "battery:Model3D": {
+      "@id": "bp-circular:Model3D"
+    },
+    "battery:DismantlingManual": {
+      "@id": "bp-circular:DismantlingManual"
+    },
+    "battery:RemovalManual": {
+      "@id": "bp-circular:RemovalManual"
+    },
+    "battery:OtherManual": {
+      "@id": "bp-circular:OtherManual"
+    },
+    "battery:Drawing": {
+      "@id": "bp-circular:Drawing"
+    },
+    "battery:sparePartSources": {
+      "@id": "bp-circular:sparePartSources"
+    },
+    "battery:recycledContent": {
+      "@id": "bp-circular:recycledContent"
+    },
+    "battery:renewableContent": {
+      "@id": "bp-circular:renewableContent"
+    },
+    "battery:safetyInstructions": {
+      "@id": "bp-circular:safetyInstructions"
+    },
+    "battery:extinguishingAgent": {
+      "@id": "bp-circular:extinguishingAgents"
+    },
+    "battery:wastePrevention": {
+      "@id": "bp-circular:wastePrevention"
+    },
+    "battery:separateCollection": {
+      "@id": "bp-circular:separateCollection"
+    },
+    "battery:informationOnCollection": {
+      "@id": "bp-circular:informationOnCollection"
+    },
+    "battery:dueDiligenceReportUrl": {
+      "@id": "bp-scdd:supplyChainDueDiligenceReport"
+    },
+    "battery:thirdPartyAssurancesUrl": {
+      "@id": "bp-scdd:thirdPartyAussurances"
+    },
+    "battery:supplyChainIndex": {
+      "@id": "bp-scdd:supplyChainIndicies"
+    }
+  }
+}

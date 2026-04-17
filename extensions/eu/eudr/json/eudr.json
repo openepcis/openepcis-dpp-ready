@@ -1,0 +1,797 @@
+{
+  "namespace": "https://ref.openepcis.io/extensions/eu/eudr/",
+  "version": "0.9.5",
+  "title": "OpenEPCIS EUDR Vocabulary",
+  "description": "EUDR-specific vocabulary for EU Deforestation Regulation 2023/1115 compliance.\n\nIMPORTANT: The EUDR extension properties defined here are NOT YET STANDARDISED by GS1.\nThese are OpenEPCIS extensions for origin data that have no equivalent in GS1 standards.\n\nEPCIS 2.0 Extension:\nThis vocabulary is a first-class EPCIS 2.0 extension per Section 12.3. Declare it using:\n  GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/\n\nTwo-Layer Approach:\n1. GS1 EUDR Standard - gs1:RegulatoryNotification for B2B DDS reference sharing\n2. OpenEPCIS eudr: extensions - Origin data (harvest dates, species, geolocation details)\n\nThis vocabulary provides:\n- Domain-specific enumerations (CommodityType, RiskLevel, TimberProductType)\n- Extension properties for EUDR-required origin data\n- Documentation of EUDR concepts for implementation guidance\n\nFor master data, use standard GS1 Web Vocabulary:\n- gs1:Place for locations (including plots of land)\n- gs1:GeoCoordinates for point locations\n- gs1:GeoShape with gs1:polygon for polygon boundaries\n- gs1:Organization for supply chain actors\n- gs1:Product for commodities\n- gs1:QuantitativeValue for measurements\n\nFor regulatory compliance:\n- Use gs1:RegulatoryNotification (GS1 EUDR Standard) for B2B DDS sharing\n- Use EPCIS ObjectEvent with bizStep 'notifying' and persistentDisposition 'subject_to_regulation'\n- Use gs1:masterDataAvailableFor for inline master data\n\nKey Insight: GS1 EUDR Standard provides B2B messaging for DDS references but does NOT cover\nharvest dates, species names, or detailed origin data - these require eudr: extensions.\n\nReferences:\n- GS1 EUDR Standard: https://ref.gs1.org/standards/eudr/\n- GS1 EUDR-tool: https://github.com/gs1/EUDR-tool\n- GS1 Germany EUDR Guideline V1.11: https://www.gs1-germany.de/branchen-themen/nachhaltigkeit/eu-deforestation-regulation-eudr/\n- EU Regulation 2023/1115: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115",
+  "classes": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/AreaMeasurement",
+      "localName": "AreaMeasurement",
+      "label": "Area Measurement",
+      "comment": "Container for area size quantitative values.",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/DueDiligenceStatement",
+      "localName": "DueDiligenceStatement",
+      "label": "Due Diligence Statement",
+      "comment": "A due diligence statement submitted to the EUDR Information System (EUIS) per Article 4."
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/ExemptionDeclaration",
+      "localName": "ExemptionDeclaration",
+      "label": "Exemption Declaration",
+      "comment": "A structured declaration that specific products (or batches/serials) are exempt from EUDR due diligence obligations, carrying the exemption type, reason code, scope, and effective date range.",
+      "seeAlso": [
+        "https://ref.gs1.org/voc/regulatoryInformation"
+      ],
+      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails",
+      "localName": "OriginDetails",
+      "label": "Origin Details",
+      "comment": "Container class for geolocation and producer identification information per EUDR Article 9."
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/RiskAssessment",
+      "localName": "RiskAssessment",
+      "label": "Risk Assessment",
+      "comment": "Risk assessment results per EUDR Article 10."
+    }
+  ],
+  "properties": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/areaHectares",
+      "localName": "areaHectares",
+      "label": "Area Hectares",
+      "comment": "Area size in hectares.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/areaSize",
+      "localName": "areaSize",
+      "label": "Area Size",
+      "comment": "Quantitative value for field area size.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/eudr/AreaMeasurement"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/commodityType",
+      "localName": "commodityType",
+      "label": "Commodity Type",
+      "comment": "The EUDR commodity category.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/eudr/CommodityType"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/countryCode",
+      "localName": "countryCode",
+      "label": "Country Code",
+      "comment": "ISO 3166-1 Alpha-2 country code.",
+      "domain": [
+        "https://ref.gs1.org/voc/Place"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/countryList",
+      "localName": "countryList",
+      "label": "Country List",
+      "comment": "List of countries of origin where geolocations are located.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/countryRiskCategory",
+      "localName": "countryRiskCategory",
+      "label": "Country Risk Category",
+      "comment": "Risk category of the country of origin per EU benchmarking (Article 29).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/RiskAssessment"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/eudr/RiskLevel"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/deforestationFreeDate",
+      "localName": "deforestationFreeDate",
+      "label": "Deforestation Free Date",
+      "comment": "Date confirming deforestation-free status. Must be after 31 Dec 2020 cutoff.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/derivedFrom",
+      "localName": "derivedFrom",
+      "label": "Derived From",
+      "comment": "Reference to source product(s) from which this product was derived.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Product"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/dueDiligenceStatement",
+      "localName": "dueDiligenceStatement",
+      "label": "Due Diligence Statement",
+      "comment": "Reference to the EUDR due diligence statement for this product.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/eudr/DueDiligenceStatement"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/euisReferenceNumber",
+      "localName": "euisReferenceNumber",
+      "label": "EUIS Reference Number",
+      "comment": "Reference number assigned by the EU Information System (EUIS) for the due diligence statement.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/DueDiligenceStatement"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/exemptionAuthority",
+      "localName": "exemptionAuthority",
+      "label": "Exemption Authority",
+      "comment": "The economic operator or competent authority asserting this exemption. Uses dpp:OperatorInformation so the party is fully identified by GLN and role.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/ExemptionDeclaration"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ],
+      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/exemptionDeclaration",
+      "localName": "exemptionDeclaration",
+      "label": "Exemption Declaration",
+      "comment": "Links a product or EPCIS event to an EUDR exemption declaration.",
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/eudr/ExemptionDeclaration"
+      ],
+      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/exemptionEffectiveFrom",
+      "localName": "exemptionEffectiveFrom",
+      "label": "Exemption Effective From",
+      "comment": "Start date of the exemption's validity. Before this date the exemption does not apply.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/ExemptionDeclaration"
+      ],
+      "range": [
+        "xsd:date"
+      ],
+      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/exemptionEffectiveUntil",
+      "localName": "exemptionEffectiveUntil",
+      "label": "Exemption Effective Until",
+      "comment": "End date of the exemption's validity. Required for temporary exemptions; omitted for permanent exemptions.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/ExemptionDeclaration"
+      ],
+      "range": [
+        "xsd:date"
+      ],
+      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/exemptionReasonCode",
+      "localName": "exemptionReasonCode",
+      "label": "Exemption Reason Code",
+      "comment": "Coded reason for the exemption, drawn from the controlled vocabulary defined by WR 25-252 (aligned with EANCOM C273:DE7009 exemption reason codes).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/ExemptionDeclaration"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/eu/eudr/riskLevel"
+      ],
+      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/exemptionScope",
+      "localName": "exemptionScope",
+      "label": "Exemption Scope",
+      "comment": "The scope of the exemption: 'gtin' (all products with the given GTIN), 'batch' (specific lot/batch identified via AI 10), or 'serial' (specific instance identified via AI 21 or AI 8006 ITIP).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/ExemptionDeclaration"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/exemptionScopeReference",
+      "localName": "exemptionScopeReference",
+      "label": "Exemption Scope Reference",
+      "comment": "The specific batch, lot, or serial identifier (or list thereof) that is in scope of a temporary exemption. For 'batch' scope this is the lot/batch number; for 'serial' scope it is the serial number.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/ExemptionDeclaration"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/hasBatchLotNumber",
+        "https://ref.gs1.org/voc/hasSerialNumber"
+      ],
+      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/exemptionType",
+      "localName": "exemptionType",
+      "label": "Exemption Type",
+      "comment": "The classification of this exemption (permanent or temporary).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/ExemptionDeclaration"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/eudr/ExemptionType"
+      ],
+      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/forestManagementUnit",
+      "localName": "forestManagementUnit",
+      "label": "Forest Management Unit",
+      "comment": "Identifier of forest management unit or concession.",
+      "domain": [
+        "https://ref.gs1.org/voc/Place"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/fscCertification",
+      "localName": "fscCertification",
+      "label": "FSC Certification",
+      "comment": "Reference to FSC (Forest Stewardship Council) certification.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/CertificationDetails"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/geofence",
+      "localName": "geofence",
+      "label": "Geofence",
+      "comment": "Area polygon as array of longitude-latitude coordinates per CBV 2.0, 9.3.1. Use for plots > 4 hectares.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/geolocation",
+      "localName": "geolocation",
+      "label": "Geolocation",
+      "comment": "Geographic coordinates as Geo URI (RFC 5870). Use for plots <= 4 hectares.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/harvestDate",
+      "localName": "harvestDate",
+      "label": "Harvest Date",
+      "comment": "The harvest date per EUDR Article 9.1.d (use when single date). No GS1 equivalent exists. Mutually exclusive with harvestDateStart/End.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:date"
+      ],
+      "seeAlso": [
+        "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/harvestDateEnd",
+      "localName": "harvestDateEnd",
+      "label": "Harvest Date End",
+      "comment": "End of harvest period (use with harvestDateStart). Mutually exclusive with harvestDate.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/harvestDateStart",
+      "localName": "harvestDateStart",
+      "label": "Harvest Date Start",
+      "comment": "Start of harvest period (use with harvestDateEnd). Mutually exclusive with harvestDate.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/landUseHistory",
+      "localName": "landUseHistory",
+      "label": "Land Use History",
+      "comment": "Description of land use history supporting deforestation-free claims.",
+      "domain": [
+        "https://ref.gs1.org/voc/Place"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/legallyHarvested",
+      "localName": "legallyHarvested",
+      "label": "Legally Harvested",
+      "comment": "Confirmation that commodity was legally harvested per country of production laws.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/mitigationMeasures",
+      "localName": "mitigationMeasures",
+      "label": "Mitigation Measures",
+      "comment": "Description of risk mitigation measures applied per Article 10.2.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/RiskAssessment"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/originDetails",
+      "localName": "originDetails",
+      "label": "Origin Details",
+      "comment": "Container for geolocation and producer identification.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/originList",
+      "localName": "originList",
+      "label": "Origin List",
+      "comment": "List of origin details (one per geolocation or polygon).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/producerIdentification",
+      "localName": "producerIdentification",
+      "label": "Producer Identification",
+      "comment": "Identification of the producer. Prefer party GLN when available.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Organization"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/riskAssessment",
+      "localName": "riskAssessment",
+      "label": "Risk Assessment",
+      "comment": "Risk assessment associated with the due diligence statement.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/DueDiligenceStatement"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/eudr/RiskAssessment"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/riskAssessmentDate",
+      "localName": "riskAssessmentDate",
+      "label": "Risk Assessment Date",
+      "comment": "Date the risk assessment was conducted.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/RiskAssessment"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/riskLevel",
+      "localName": "riskLevel",
+      "label": "Risk Level",
+      "comment": "Risk level per EUDR country benchmarking.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/eudr/RiskLevel"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/speciesCommonName",
+      "localName": "speciesCommonName",
+      "label": "Species Common Name",
+      "comment": "Common name of the species.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/speciesScientificName",
+      "localName": "speciesScientificName",
+      "label": "Species Scientific Name",
+      "comment": "Scientific (Latin) name of the species. Required per EUDR Article 9.1.c.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/statementDate",
+      "localName": "statementDate",
+      "label": "Statement Date",
+      "comment": "Date the due diligence statement was submitted to EUIS.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/DueDiligenceStatement"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/timberProductType",
+      "localName": "timberProductType",
+      "label": "Timber Product Type",
+      "comment": "Specific type of timber product.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/eudr/TimberProductType"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/transformationDate",
+      "localName": "transformationDate",
+      "label": "Transformation Date",
+      "comment": "Date when commodity was processed/transformed.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/transformationLocation",
+      "localName": "transformationLocation",
+      "label": "Transformation Location",
+      "comment": "Location where the commodity transformation/processing took place.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Place"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/unitCode",
+      "localName": "unitCode",
+      "label": "Unit Code",
+      "comment": "UN/CEFACT Rec. 20 unit code (e.g., HAR for hectares).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/AreaMeasurement"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/value",
+      "localName": "value",
+      "label": "Value",
+      "comment": "Numeric value for area size.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/AreaMeasurement"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/verificationMethod",
+      "localName": "verificationMethod",
+      "label": "Verification Method",
+      "comment": "Method used to verify deforestation-free and legality claims.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/eudr/RiskAssessment"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/volumeCubicMeters",
+      "localName": "volumeCubicMeters",
+      "label": "Volume Cubic Meters",
+      "comment": "Volume in cubic meters.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    }
+  ],
+  "enumerations": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/ActorRole",
+      "localName": "ActorRole",
+      "label": "Actor Role",
+      "comment": "Role of an actor in the EUDR supply chain per Article 2.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/DownstreamOperator",
+          "localName": "DownstreamOperator",
+          "label": "Downstream Operator",
+          "comment": "Entity that receives products already placed on the EU market and makes them available further downstream, subject to simplified due diligence obligations."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Operator",
+          "localName": "Operator",
+          "label": "Operator",
+          "comment": "Entity that places products on EU market or exports from EU (Article 2.15)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Producer",
+          "localName": "Producer",
+          "label": "Producer",
+          "comment": "Entity that produces/harvests the commodity."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Trader",
+          "localName": "Trader",
+          "label": "Trader",
+          "comment": "Entity that makes products available on market after operator (Article 2.17)."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/CommodityType",
+      "localName": "CommodityType",
+      "label": "Commodity Type",
+      "comment": "The seven commodities regulated by EUDR (EU 2023/1115, Article 1.1).",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Cattle",
+          "localName": "Cattle",
+          "label": "Cattle",
+          "comment": "Live cattle, beef, leather (HS codes 01, 02, 41, 43)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Cocoa",
+          "localName": "Cocoa",
+          "label": "Cocoa",
+          "comment": "Cocoa beans, chocolate, cocoa products (HS code 18)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Coffee",
+          "localName": "Coffee",
+          "label": "Coffee",
+          "comment": "Coffee beans, roasted coffee (HS code 09)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/OilPalm",
+          "localName": "OilPalm",
+          "label": "Oil Palm",
+          "comment": "Palm oil and derivatives (HS code 15)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Rubber",
+          "localName": "Rubber",
+          "label": "Rubber",
+          "comment": "Natural rubber and products (HS code 40)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Soya",
+          "localName": "Soya",
+          "label": "Soya",
+          "comment": "Soybeans, soy oil, soy meal (HS codes 12, 15, 23)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Wood",
+          "localName": "Wood",
+          "label": "Wood",
+          "comment": "Timber, pulp, paper, furniture (HS codes 44, 47, 48, 94)."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/ExemptionType",
+      "localName": "ExemptionType",
+      "label": "Exemption Type",
+      "comment": "Classification of EUDR exemption per duration: permanent (e.g., already-verified origin) or temporary (batch- or serial-scoped).",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/PermanentExemption",
+          "localName": "PermanentExemption",
+          "label": "Permanent Exemption",
+          "comment": "Exemption that applies to all future batches/instances of a given GTIN without expiry (e.g., verified low-risk origin)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/TemporaryExemption",
+          "localName": "TemporaryExemption",
+          "label": "Temporary Exemption",
+          "comment": "Exemption that applies to specific batches or serial numbers within a defined time period. Requires scope identification (batch/lot or serial list)."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/RiskLevel",
+      "localName": "RiskLevel",
+      "label": "Risk Level",
+      "comment": "Risk classification levels per EUDR benchmarking system (Article 29).",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/High",
+          "localName": "High",
+          "label": "High",
+          "comment": "High-risk country. Enhanced due diligence and monitoring required."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Low",
+          "localName": "Low",
+          "label": "Low",
+          "comment": "Low-risk country per EU benchmarking. Standard verification required."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Negligible",
+          "localName": "Negligible",
+          "label": "Negligible",
+          "comment": "Derived from already-verified low-risk sources. Simplified due diligence permitted."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Standard",
+          "localName": "Standard",
+          "label": "Standard",
+          "comment": "Standard due diligence required."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/eudr/TimberProductType",
+      "localName": "TimberProductType",
+      "label": "Timber Product Type",
+      "comment": "Types of timber/wood products regulated by EUDR Annex I.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Charcoal",
+          "localName": "Charcoal",
+          "label": "Charcoal",
+          "comment": "Wood charcoal (HS 4402)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Furniture",
+          "localName": "Furniture",
+          "label": "Furniture",
+          "comment": "Wooden furniture (HS 94)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Paper",
+          "localName": "Paper",
+          "label": "Paper",
+          "comment": "Paper products (HS 48)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Plywood",
+          "localName": "Plywood",
+          "label": "Plywood",
+          "comment": "Layered wood panels (HS 4412)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/PrintedMatter",
+          "localName": "PrintedMatter",
+          "label": "Printed Matter",
+          "comment": "Printed books, newspapers (HS 49)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Pulp",
+          "localName": "Pulp",
+          "label": "Pulp",
+          "comment": "Wood pulp for paper (HS 47)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/RoundWood",
+          "localName": "RoundWood",
+          "label": "Round Wood",
+          "comment": "Raw logs (HS 4403)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/SawnWood",
+          "localName": "SawnWood",
+          "label": "Sawn Wood",
+          "comment": "Processed lumber (HS 4407)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/Veneer",
+          "localName": "Veneer",
+          "label": "Veneer",
+          "comment": "Thin wood sheets (HS 4408)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/WoodChips",
+          "localName": "WoodChips",
+          "label": "Wood Chips",
+          "comment": "Wood chips and particles (HS 4401)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/eudr/WoodPellets",
+          "localName": "WoodPellets",
+          "label": "Wood Pellets",
+          "comment": "Compressed wood fuel (HS 4401)."
+        }
+      ]
+    }
+  ]
+}

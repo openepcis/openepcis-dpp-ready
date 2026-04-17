@@ -1,0 +1,124 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/context"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2024-03-20T10:00:00.000Z",
+  "_comment_architecture": [
+    "Carbon footprint declaration event with lifecycle breakdown.",
+    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
+    "Extension properties (battery:, dpp:) are at EVENT level.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,battery=https://ref.openepcis.io/extensions/eu/battery/",
+    "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:550e8400-e29b-41d4-a716-446655440002",
+        "eventTime": "2024-03-20T10:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "OBSERVE",
+        "bizStep": "inspecting",
+        "disposition": "active",
+        "epcList": [
+          "https://id.gs1.org/01/09521234000013/21/BAT2024-001"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000013"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000013"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
+            "type": "Product",
+            "productName": {
+              "en": "EcoCell Industrial Battery Module IM-500"
+            },
+            "gtin": "09521234000013",
+            "serialNumber": "BAT2024-001",
+            "regulatoryInformation": [
+              {
+                "type": "RegulatoryInformation",
+                "regulationType": {
+                  "id": "RegulationTypeCode-BATTERY_DIRECTIVE"
+                },
+                "regulatoryAct": "EU 2023/1542"
+              }
+            ]
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000013",
+            "type": "Place",
+            "locationGLN": "9521234000013",
+            "physicalLocationName": {
+              "en": "EcoCell GmbH - Production Facility"
+            },
+            "countryCode": "DE"
+          },
+          {
+            "id": "https://id.gs1.org/417/9521234000006",
+            "type": "Organization",
+            "organizationName": {
+              "en": "EcoCell GmbH"
+            },
+            "partyGLN": "9521234000006",
+            "countryCode": "DE"
+          }
+        ],
+        "sensorElementList": [
+          {
+            "sensorMetadata": {
+              "time": "2024-03-20T10:00:00.000Z",
+              "bizRules": "Carbon footprint per EU 2023/1542 and ISO 14067"
+            },
+            "sensorReport": [
+              {
+                "type": "battery:carbonFootprintTotal",
+                "value": 45.2,
+                "uom": "KGM",
+                "_comment": "Unit: kg CO2e/kWh"
+              },
+              {
+                "type": "battery:carbonFootprintRawMaterialExtraction",
+                "value": 18.5,
+                "uom": "KGM",
+                "_comment": "Unit: kg CO2e/kWh"
+              },
+              {
+                "type": "battery:carbonFootprintProduction",
+                "value": 15.3,
+                "uom": "KGM",
+                "_comment": "Unit: kg CO2e/kWh"
+              },
+              {
+                "type": "battery:carbonFootprintDistribution",
+                "value": 2.8,
+                "uom": "KGM",
+                "_comment": "Unit: kg CO2e/kWh"
+              },
+              {
+                "type": "battery:carbonFootprintRecycling",
+                "value": 8.6,
+                "uom": "KGM",
+                "_comment": "Unit: kg CO2e/kWh"
+              }
+            ]
+          }
+        ],
+        "bizTransactionList": [
+          {
+            "type": "urn:epcglobal:cbv:btt:cert",
+            "bizTransaction": "https://ecocell-batteries.example.com/cfp/BAT2024-001-study.pdf"
+          }
+        ]
+      }
+    ]
+  }
+}

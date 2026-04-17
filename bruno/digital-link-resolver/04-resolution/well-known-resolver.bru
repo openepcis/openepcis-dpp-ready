@@ -1,0 +1,26 @@
+meta {
+  name: Well-Known Resolver
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{dl-url}}/.well-known/gs1resolver
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+tests {
+  test("Resolver metadata accessible", function() {
+    expect(res.status).to.equal(200);
+  });
+
+  test("Response contains resolver info", function() {
+    const body = res.getBody();
+    expect(body.resolverRoot || body.name || body.supportedLinkTypes).to.exist;
+  });
+}

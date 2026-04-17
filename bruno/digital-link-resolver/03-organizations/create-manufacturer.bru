@@ -1,0 +1,72 @@
+meta {
+  name: Create Manufacturer
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{dl-url}}/organizations
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/ld+json
+  isAnonymousAccessAllowed: true
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/voc/",
+      "{{dpp-context}}"
+    ],
+    "@type": "gs1:Organization",
+    "gs1:gln": "9521234026807",
+    "gs1:organizationName": {
+      "en": "EcoWear GmbH",
+      "de": "EcoWear GmbH"
+    },
+    "gs1:streetAddress": {
+      "en": "Nachhaltigkeitsstraße 42"
+    },
+    "gs1:postalCode": "10115",
+    "gs1:addressLocality": {
+      "en": "Berlin"
+    },
+    "gs1:addressRegion": {
+      "en": "Berlin"
+    },
+    "gs1:countryCode": "DE",
+    "gs1:email": "info@ecowear.example.com",
+    "gs1:telephone": "+49 30 12345678",
+    "gs1:organizationRole": ["manufacturer", "brand_owner"],
+    "dpp:economicOperatorId": "DE123456789",
+    "dpp:operatorType": "dpp:Manufacturer",
+    "certification": [
+      {
+        "@type": "CertificationDetails",
+        "certificationAgency": "Global Organic Textile Standard",
+        "certificationStandard": "GOTS 6.0",
+        "certificationValue": "Certified Manufacturer"
+      },
+      {
+        "@type": "CertificationDetails",
+        "certificationAgency": "Bluesign",
+        "certificationStandard": "Bluesign System Partner",
+        "certificationValue": "System Partner"
+      }
+    ]
+  }
+}
+
+tests {
+  test("Organization created successfully", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+  });
+
+  test("Response contains GLN", function() {
+    const body = res.getBody();
+    expect(body["gs1:gln"] || body.gln).to.exist;
+  });
+}

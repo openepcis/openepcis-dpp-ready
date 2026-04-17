@@ -1,0 +1,375 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ref.openepcis.io/extensions/common/core/schema/dpp-core-schema.json",
+  "title": "OpenEPCIS DPP Core Schema",
+  "description": "JSON Schema for OpenEPCIS DPP Core vocabulary v0.9.5. All fraction/ratio values use 0-1 decimal scale.",
+  "version": "0.9.5",
+  
+  "$defs": {
+    "Fraction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "A fraction/ratio value between 0 and 1 (e.g., 0.45 = 45%)"
+    },
+    
+    "PositiveDecimal": {
+      "type": "number",
+      "minimum": 0,
+      "description": "A non-negative decimal number"
+    },
+    
+    "CountryCode": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$",
+      "description": "ISO 3166-1 alpha-2 country code (e.g., DE, FR, US)"
+    },
+    
+    "CasNumber": {
+      "type": "string",
+      "pattern": "^[0-9]{2,7}-[0-9]{2}-[0-9]$",
+      "description": "CAS Registry Number (e.g., 7440-50-8)"
+    },
+    
+    "EcNumber": {
+      "type": "string",
+      "pattern": "^[0-9]{3}-[0-9]{3}-[0-9]$",
+      "description": "EC Number EINECS/ELINCS (e.g., 231-111-4)"
+    },
+    
+    "EoriNumber": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}[A-Z0-9]{1,15}$",
+      "description": "EORI number (e.g., DE123456789012345)"
+    },
+    
+    "RepairabilityClass": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D", "E"],
+      "description": "Repairability class from A (most repairable) to E (least repairable)"
+    },
+    
+    "OperatorRole": {
+      "type": "string",
+      "enum": [
+        "Manufacturer",
+        "Importer",
+        "Distributor",
+        "Processor",
+        "Trader",
+        "AuthorisedRepresentative",
+        "FulfilmentServiceProvider"
+      ],
+      "description": "Economic operator role per ESPR"
+    },
+    
+    "AccessLevel": {
+      "type": "string",
+      "enum": ["Public", "AuthorizedOnly", "Restricted"],
+      "description": "ESPR Article 9 access level"
+    },
+    
+    "OperationalScope": {
+      "type": "string",
+      "enum": ["CradleToGate", "CradleToGrave"],
+      "description": "Lifecycle boundary for emissions calculation"
+    },
+    
+    "GranularityLevel": {
+      "type": "string",
+      "enum": ["ProductClass", "Batch", "Item"],
+      "description": "DPP data specificity level"
+    },
+    
+    "HazardClass": {
+      "type": "string",
+      "enum": [
+        "AcuteToxicity",
+        "SkinCorrosionOrIrritation",
+        "EyeDamageOrIrritation",
+        "RespiratoryOrSkinSensitization",
+        "GermCellMutagenicity",
+        "Carcinogenicity",
+        "ReproductiveToxicity",
+        "SpecificTargetOrganToxicity",
+        "AspirationHazard",
+        "HazardousToAquaticEnvironment"
+      ],
+      "description": "CLP Regulation hazard class"
+    },
+    
+    "CircularityPerformance": {
+      "type": "object",
+      "description": "Circularity performance metrics",
+      "properties": {
+        "@type": { "const": "CircularityPerformance" },
+        "recyclableContent": { "$ref": "#/$defs/Fraction" },
+        "utilityFactor": { 
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Durability multiplier (1.0 = industry average)"
+        },
+        "materialCircularityIndicator": { "$ref": "#/$defs/Fraction" },
+        "endOfLifeInstructions": { "type": "string", "format": "uri" },
+        "wastePreventionInfo": { "type": "string", "format": "uri" },
+        "separateCollectionInfo": { "type": "string", "format": "uri" },
+        "dismantlingInstructions": { "$ref": "#/$defs/DocumentReference" }
+      }
+    },
+    
+    "RecycledContent": {
+      "type": "object",
+      "description": "Recycled content breakdown",
+      "properties": {
+        "@type": { "const": "RecycledContent" },
+        "recycledContent": { "$ref": "#/$defs/Fraction" },
+        "preConsumerRecycledContent": { "$ref": "#/$defs/Fraction" },
+        "postConsumerRecycledContent": { "$ref": "#/$defs/Fraction" }
+      }
+    },
+    
+    "MaterialComposition": {
+      "type": "object",
+      "description": "Material composition information",
+      "required": ["materialName"],
+      "properties": {
+        "@type": { "const": "MaterialComposition" },
+        "materialName": { "type": "string" },
+        "massFraction": { "$ref": "#/$defs/Fraction" },
+        "sourceCountry": { "$ref": "#/$defs/CountryCode" },
+        "isCriticalRawMaterial": { "type": "boolean" },
+        "casNumber": { "$ref": "#/$defs/CasNumber" },
+        "ecNumber": { "$ref": "#/$defs/EcNumber" }
+      }
+    },
+    
+    "EmissionsPerformance": {
+      "type": "object",
+      "description": "Emissions/carbon footprint data",
+      "properties": {
+        "@type": { "const": "EmissionsPerformance" },
+        "carbonFootprintTotal": { "$ref": "#/$defs/PositiveDecimal" },
+        "declaredUnit": { "type": "string" },
+        "operationalScope": { "$ref": "#/$defs/OperationalScope" },
+        "primarySourcedRatio": { "$ref": "#/$defs/Fraction" },
+        "carbonFootprintStudyUrl": { "type": "string", "format": "uri" }
+      }
+    },
+    
+    "TraceabilityPerformance": {
+      "type": "object",
+      "description": "Supply chain traceability metrics",
+      "properties": {
+        "@type": { "const": "TraceabilityPerformance" },
+        "verifiedRatio": { "$ref": "#/$defs/Fraction" }
+      }
+    },
+    
+    "OperatorInformation": {
+      "type": "object",
+      "description": "Economic operator information per ESPR. Use gs1:gln for identification.",
+      "required": ["operatorRole", "gln"],
+      "properties": {
+        "@type": { "const": "OperatorInformation" },
+        "operatorRole": { "$ref": "#/$defs/OperatorRole" },
+        "gln": {
+          "type": "string",
+          "pattern": "^[0-9]{13}$",
+          "description": "Global Location Number (GLN) - 13 digit GS1 identifier"
+        },
+        "organizationName": { "type": "string" },
+        "economicOperatorId": { "type": "string" },
+        "eoriNumber": { "$ref": "#/$defs/EoriNumber" },
+        "vatIdentificationNumber": { "type": "string" },
+        "registrationNumber": { "type": "string" }
+      }
+    },
+    
+    "FacilityInformation": {
+      "type": "object",
+      "description": "Manufacturing/processing facility information per ESPR. Use gs1:gln for identification, gs1:name for facility name, gs1:address for location.",
+      "required": ["gln", "name"],
+      "properties": {
+        "@type": { "const": "FacilityInformation" },
+        "gln": {
+          "type": "string",
+          "pattern": "^[0-9]{13}$",
+          "description": "Global Location Number (GLN) - 13 digit GS1 identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Facility name (inherited from gs1:Place)"
+        },
+        "facilityType": { "type": "string" },
+        "address": {
+          "type": "object",
+          "description": "Facility address (inherited from gs1:Place)"
+        },
+        "facilityCertifications": {
+          "type": "array",
+          "items": { "type": "object" }
+        }
+      }
+    },
+    
+    "SubstanceOfConcern": {
+      "type": "object",
+      "description": "Substance of concern per SCIP/REACH",
+      "required": ["substanceName"],
+      "properties": {
+        "@type": { "const": "SubstanceOfConcern" },
+        "substanceName": { "type": "string" },
+        "casNumber": { "$ref": "#/$defs/CasNumber" },
+        "ecNumber": { "$ref": "#/$defs/EcNumber" },
+        "concentration": { "$ref": "#/$defs/Fraction" },
+        "scipId": { "type": "string" },
+        "hazardClass": { "$ref": "#/$defs/HazardClass" },
+        "substanceLocation": { "type": "string" },
+        "safeUseInstructions": { "type": "string" },
+        "safeDisassemblyInstructions": { "type": "string" }
+      }
+    },
+    
+    "AccessRights": {
+      "type": "object",
+      "description": "ESPR Article 9 access control",
+      "required": ["accessLevel"],
+      "properties": {
+        "@type": { "const": "AccessRights" },
+        "accessLevel": { "$ref": "#/$defs/AccessLevel" },
+        "authorizedParties": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "dataRetentionPeriod": { "type": "object" }
+      }
+    },
+    
+    "RepairabilityInfo": {
+      "type": "object",
+      "description": "Repairability information per ESPR",
+      "properties": {
+        "@type": { "const": "RepairabilityInfo" },
+        "repairabilityScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "repairabilityClass": { "$ref": "#/$defs/RepairabilityClass" },
+        "sparePartsAvailability": { "type": "object" },
+        "sparePartsDeliveryTime": { "type": "object" },
+        "repairInstructions": { "$ref": "#/$defs/DocumentReference" },
+        "professionalRepairNetwork": { "type": "string", "format": "uri" },
+        "diyRepairPossible": { "type": "boolean" },
+        "softwareUpdatesAvailability": { "type": "object" }
+      }
+    },
+    
+    "PerformanceInfo": {
+      "type": "object",
+      "description": "Product performance and durability information",
+      "properties": {
+        "@type": { "const": "PerformanceInfo" },
+        "expectedLifespan": { "type": "object" },
+        "guaranteedLifespan": { "type": "object" },
+        "usageCycles": { 
+          "type": "integer",
+          "minimum": 0
+        },
+        "technicalLifetime": { "type": "object" },
+        "performanceClass": { "type": "string" },
+        "testedConditions": { "type": "string" }
+      }
+    },
+    
+    "DocumentReference": {
+      "type": "object",
+      "description": "Reference to external document",
+      "properties": {
+        "@type": { "const": "DocumentReference" },
+        "documentType": { "type": "string" },
+        "documentUrl": { "type": "string", "format": "uri" },
+        "documentTitle": { "type": "string" },
+        "mimeType": { "type": "string" },
+        "languageCode": { 
+          "type": "string",
+          "pattern": "^[a-z]{2}$"
+        },
+        "issueDate": { "type": "string", "format": "date" },
+        "validUntil": { "type": "string", "format": "date" }
+      }
+    },
+    
+    "DueDiligenceReport": {
+      "type": "object",
+      "description": "Supply chain due diligence report",
+      "properties": {
+        "@type": { "const": "DueDiligenceReport" },
+        "reportUrl": { "type": "string", "format": "uri" },
+        "thirdPartyAssurancesUrl": { "type": "string", "format": "uri" },
+        "reportDate": { "type": "string", "format": "date" },
+        "verificationBody": { "type": "object" }
+      }
+    }
+  },
+  
+  "type": "object",
+  "properties": {
+    "@context": {},
+    "@type": { "type": "string" },
+    "@id": { "type": "string" },
+    
+    "uniqueProductIdentifier": { "type": "string", "format": "uri" },
+    "passportIdentifier": { "type": "string", "format": "uri" },
+    "passportVersion": { "type": "string" },
+    "passportIssueDate": { "type": "string", "format": "date" },
+    "passportStatus": { "type": "string", "enum": ["Draft", "Active", "Updated", "Withdrawn", "Archived"] },
+    "passportLastModified": { "type": "string", "format": "date-time" },
+    "passportExpiryDate": { "type": "string", "format": "date" },
+    "passportIssuer": { "$ref": "#/$defs/OperatorInformation" },
+    "previousPassportVersion": { "type": "string", "format": "uri" },
+    "productModel": { "type": "string" },
+    "productCategory": { "type": "string" },
+    "granularityLevel": { "$ref": "#/$defs/GranularityLevel" },
+    
+    "operatorInformation": { "$ref": "#/$defs/OperatorInformation" },
+    "facilityInformation": { "$ref": "#/$defs/FacilityInformation" },
+    
+    "circularityPerformance": { "$ref": "#/$defs/CircularityPerformance" },
+    "recycledContentDetails": { "$ref": "#/$defs/RecycledContent" },
+    "emissionsPerformance": { "$ref": "#/$defs/EmissionsPerformance" },
+    "traceabilityPerformance": { "$ref": "#/$defs/TraceabilityPerformance" },
+    
+    "materialComposition": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/MaterialComposition" }
+    },
+    
+    "substancesOfConcern": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/SubstanceOfConcern" }
+    },
+    
+    "performanceInfo": { "$ref": "#/$defs/PerformanceInfo" },
+    "repairabilityInfo": { "$ref": "#/$defs/RepairabilityInfo" },
+    "accessRights": { "$ref": "#/$defs/AccessRights" },
+    "dueDiligenceReport": { "$ref": "#/$defs/DueDiligenceReport" },
+    
+    "documents": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/DocumentReference" }
+    },
+    
+    "carbonFootprint": { "type": "object" },
+    "carbonFootprintTotal": { "$ref": "#/$defs/PositiveDecimal" },
+    "declaredUnit": { "type": "string" },
+    
+    "lastDataUpdate": { "type": "string", "format": "date-time" },
+    "dataQualityAssessment": { "type": "string" },
+    "dataProviderCertification": { "type": "string" },
+    
+    "regulatoryReferenceNumber": { "type": "string" },
+    "complianceDate": { "type": "string", "format": "date" },
+    "complianceStatus": { "type": "boolean" }
+  }
+}

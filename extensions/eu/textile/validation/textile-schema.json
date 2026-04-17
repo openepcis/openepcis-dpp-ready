@@ -1,0 +1,850 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ref.openepcis.io/extensions/eu/textile/textile-schema.json",
+  "title": "OpenEPCIS Textile DPP Vocabulary Schema",
+  "description": "JSON Schema for validating Textile Digital Product Passport data per EU Sustainable Textiles Strategy, ESPR 2024/1781, and EU Preparatory Study 3rd Milestone. Version 0.9.5.",
+  "$defs": {
+    "TextileProduct": {
+      "type": "object",
+      "title": "Textile Product",
+      "description": "A textile product as defined by EU Textile Labelling Regulation 1007/2011.",
+      "properties": {
+        "@type": {
+          "const": "TextileProduct"
+        },
+        "textileCategory": {
+          "$ref": "#/$defs/TextileCategory"
+        },
+        "fabricType": {
+          "$ref": "#/$defs/FabricType"
+        },
+        "apparelSubcategory": {
+          "$ref": "#/$defs/ApparelSubcategory"
+        },
+        "garmentType": {
+          "type": "string",
+          "description": "Specific type of garment (jacket, trousers, shirt, etc.)."
+        },
+        "targetGender": {
+          "type": "string",
+          "description": "Target gender for the product."
+        },
+        "sizeRange": {
+          "type": "string",
+          "description": "Available size range."
+        },
+        "seasonCollection": {
+          "type": "string",
+          "description": "Season and year of the collection."
+        },
+        "fiberComposition": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FiberComposition"
+          }
+        },
+        "careInstructions": {
+          "$ref": "#/$defs/CareInstruction"
+        },
+        "durabilityInfo": {
+          "$ref": "#/$defs/DurabilityInfo"
+        },
+        "robustnessAssessment": {
+          "$ref": "#/$defs/RobustnessAssessment"
+        },
+        "recyclabilityAssessment": {
+          "$ref": "#/$defs/RecyclabilityAssessment"
+        },
+        "recycledContentDeclaration": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecycledContentDeclaration"
+          }
+        },
+        "environmentalFootprint": {
+          "$ref": "#/$defs/EnvironmentalFootprint"
+        },
+        "substancesOfConcern": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SubstanceOfConcern"
+          }
+        },
+        "microplasticInfo": {
+          "$ref": "#/$defs/MicroplasticInfo"
+        },
+        "takeBackProgram": {
+          "$ref": "#/$defs/TakeBackProgram"
+        },
+        "hasTakeBackProgram": {
+          "type": "boolean"
+        },
+        "repairServices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RepairService"
+          }
+        },
+        "isRepairable": {
+          "type": "boolean"
+        },
+        "repairGuideUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "sparePartsAvailable": {
+          "type": "boolean"
+        },
+        "sparePartsUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "textileChemicals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TextileChemical"
+          }
+        },
+        "pfasFree": {
+          "type": "boolean"
+        },
+        "recyclingInstructions": {
+          "type": "string"
+        },
+        "waterUsage": {
+          "$ref": "#/$defs/QuantitativeValue"
+        },
+        "energyUsage": {
+          "$ref": "#/$defs/QuantitativeValue"
+        },
+        "productionWastePercentage": {
+          "type": "number"
+        },
+        "biodegradable": {
+          "type": "boolean"
+        },
+        "spinningFacility": {
+          "type": "object",
+          "description": "Facility where fiber was spun into yarn. Uses dpp:FacilityInformation pattern."
+        },
+        "weavingFacility": {
+          "type": "object",
+          "description": "Facility where yarn was woven or knitted into fabric. Uses dpp:FacilityInformation pattern."
+        },
+        "dyeingFacility": {
+          "type": "object",
+          "description": "Facility where fabric was dyed or printed. Uses dpp:FacilityInformation pattern."
+        },
+        "cutAndSewFacility": {
+          "type": "object",
+          "description": "Facility where garment was cut and assembled. Uses dpp:FacilityInformation pattern."
+        },
+        "finishingFacility": {
+          "type": "object",
+          "description": "Facility where finishing treatments were applied. Uses dpp:FacilityInformation pattern."
+        }
+      }
+    },
+    "TextileCategory": {
+      "type": "string",
+      "title": "Textile Category",
+      "description": "Categories of textile products per EU Textile Labelling Regulation.",
+      "enum": ["Apparel", "Footwear", "HomeTextiles", "TechnicalTextiles", "Accessories"]
+    },
+    "FabricType": {
+      "type": "string",
+      "title": "Fabric Type",
+      "description": "Fabric construction type per EU Preparatory Study.",
+      "enum": ["Knitted", "Denim", "WovenNonDenim"]
+    },
+    "ApparelSubcategory": {
+      "type": "string",
+      "title": "Apparel Subcategory",
+      "description": "Apparel subcategories per EU Preparatory Study 3rd Milestone.",
+      "enum": [
+        "TShirts",
+        "ShirtsBlouses",
+        "Sweaters",
+        "JacketsCoats",
+        "PantsShorts",
+        "DressesSkirts",
+        "LeggingsStockingsSocks",
+        "Underwear",
+        "Swimwear",
+        "TextileAccessories"
+      ]
+    },
+    "FiberComposition": {
+      "type": "object",
+      "title": "Fiber Composition",
+      "description": "Detailed fiber composition information with traceability.",
+      "properties": {
+        "@type": {
+          "const": "FiberComposition"
+        },
+        "fiberType": {
+          "$ref": "#/$defs/FiberType"
+        },
+        "fiberPercentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "fiberOrigin": {
+          "type": "string",
+          "description": "Country or region of fiber origin (ISO 3166-1 alpha-2 code)."
+        },
+        "isRecycledFiber": {
+          "type": "boolean"
+        },
+        "recycledContentSource": {
+          "type": "string",
+          "description": "Source of recycled content (pre-consumer, post-consumer, ocean plastic, etc.)."
+        },
+        "fiberCertification": {
+          "type": "object",
+          "description": "Certification specific to this fiber using gs1:CertificationDetails pattern."
+        }
+      },
+      "required": ["fiberType", "fiberPercentage"]
+    },
+    "FiberType": {
+      "type": "string",
+      "title": "Fiber Type",
+      "description": "Fiber types as defined in EU Textile Labelling Regulation 1007/2011 Annex I.",
+      "enum": [
+        "Cotton",
+        "Wool",
+        "Silk",
+        "Linen",
+        "Hemp",
+        "Polyester",
+        "Polyamide",
+        "Elastane",
+        "Viscose",
+        "Lyocell",
+        "Modal",
+        "Acrylic",
+        "Polypropylene",
+        "RecycledPolyester",
+        "RecycledCotton",
+        "RecycledWool",
+        "OrganicCotton",
+        "Cashmere",
+        "Leather",
+        "Rubber"
+      ]
+    },
+    "CareInstruction": {
+      "type": "object",
+      "title": "Care Instruction",
+      "description": "Care instructions per ISO 3758:2023.",
+      "properties": {
+        "@type": {
+          "const": "CareInstruction"
+        },
+        "washingSymbol": {
+          "$ref": "#/$defs/CareSymbolCode"
+        },
+        "bleachingSymbol": {
+          "$ref": "#/$defs/CareSymbolCode"
+        },
+        "dryingSymbol": {
+          "$ref": "#/$defs/CareSymbolCode"
+        },
+        "ironingSymbol": {
+          "$ref": "#/$defs/CareSymbolCode"
+        },
+        "dryCleaningSymbol": {
+          "$ref": "#/$defs/CareSymbolCode"
+        },
+        "additionalCareInstructions": {
+          "type": "string"
+        }
+      }
+    },
+    "CareSymbolCode": {
+      "type": "string",
+      "title": "Care Symbol Code",
+      "description": "Care symbols per ISO 3758:2023.",
+      "enum": [
+        "Wash30",
+        "Wash40",
+        "Wash60",
+        "WashHandOnly",
+        "DoNotWash",
+        "WashGentle",
+        "BleachAllowed",
+        "NonChlorineBleach",
+        "DoNotBleach",
+        "TumbleDryLow",
+        "TumbleDryMedium",
+        "TumbleDryHigh",
+        "DoNotTumbleDry",
+        "LineDry",
+        "DryFlat",
+        "DripDry",
+        "IronLow",
+        "IronMedium",
+        "IronHigh",
+        "DoNotIron",
+        "NoSteam",
+        "DryCleanAny",
+        "DryCleanPCE",
+        "DryCleanHydrocarbon",
+        "DoNotDryClean",
+        "WetClean"
+      ]
+    },
+    "DurabilityInfo": {
+      "type": "object",
+      "title": "Durability Information",
+      "description": "Product durability metrics per ESPR requirements.",
+      "properties": {
+        "@type": {
+          "const": "DurabilityInfo"
+        },
+        "expectedWashCycles": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "durabilityClass": {
+          "$ref": "#/$defs/DurabilityClass"
+        },
+        "pillingResistance": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5,
+          "description": "Pilling resistance rating (1-5 per ISO 12945, where 5 is best)."
+        },
+        "colorFastness": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5,
+          "description": "Color fastness rating (1-5 per ISO 105, where 5 is best)."
+        },
+        "dimensionalStability": {
+          "type": "number",
+          "description": "Maximum dimensional change (shrinkage/stretch) as percentage."
+        },
+        "abrasionResistance": {
+          "type": "integer",
+          "description": "Abrasion resistance in Martindale cycles."
+        },
+        "tensileStrength": {
+          "$ref": "#/$defs/QuantitativeValue"
+        },
+        "tearStrength": {
+          "$ref": "#/$defs/QuantitativeValue"
+        },
+        "expectedLifetimeYears": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "DurabilityClass": {
+      "type": "string",
+      "title": "Durability Class",
+      "description": "Durability rating A-E per ESPR.",
+      "enum": ["DurabilityA", "DurabilityB", "DurabilityC", "DurabilityD", "DurabilityE"]
+    },
+    "RobustnessAssessment": {
+      "type": "object",
+      "title": "Robustness Assessment",
+      "description": "Composite robustness assessment (0-10) per EU Preparatory Study 3rd Milestone.",
+      "properties": {
+        "@type": {
+          "const": "RobustnessAssessment"
+        },
+        "robustnessScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "cleaningCyclesBeforeTest": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "robustnessTestFabricType": {
+          "$ref": "#/$defs/FabricType"
+        },
+        "spiralityTest": {
+          "$ref": "#/$defs/SpiralityTestResult"
+        },
+        "dimensionalChangeTest": {
+          "$ref": "#/$defs/DimensionalChangeTestResult"
+        },
+        "visualInspection": {
+          "$ref": "#/$defs/VisualInspectionResult"
+        }
+      }
+    },
+    "SpiralityTestResult": {
+      "type": "object",
+      "title": "Spirality Test Result",
+      "description": "Spirality test result per ISO 16322-3 (0-3 points).",
+      "properties": {
+        "@type": {
+          "const": "SpiralityTestResult"
+        },
+        "spiralityScore": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "spiralityPercentage": {
+          "type": "number",
+          "minimum": 0
+        },
+        "spiralityTestMethod": {
+          "type": "string"
+        },
+        "testStandard": {
+          "$ref": "#/$defs/TestStandard"
+        }
+      }
+    },
+    "DimensionalChangeTestResult": {
+      "type": "object",
+      "title": "Dimensional Change Test Result",
+      "description": "Dimensional change test result per ISO 3759 (0-3 points).",
+      "properties": {
+        "@type": {
+          "const": "DimensionalChangeTestResult"
+        },
+        "dimensionalChangeScore": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "dimensionalChangePercentage": {
+          "type": "number",
+          "minimum": 0
+        },
+        "dimensionalChangeTestMethod": {
+          "type": "string"
+        },
+        "testStandard": {
+          "$ref": "#/$defs/TestStandard"
+        }
+      }
+    },
+    "VisualInspectionResult": {
+      "type": "object",
+      "title": "Visual Inspection Result",
+      "description": "Visual inspection result per ISO 15487 (0-4 points).",
+      "properties": {
+        "@type": {
+          "const": "VisualInspectionResult"
+        },
+        "visualInspectionScore": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "colourChangeRating": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "fabricAppearanceRating": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "seamAppearanceRating": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "nonTextilePartsRating": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "visualInspectionTestMethod": {
+          "type": "string"
+        },
+        "testStandard": {
+          "$ref": "#/$defs/TestStandard"
+        }
+      }
+    },
+    "RecyclabilityAssessment": {
+      "type": "object",
+      "title": "Recyclability Assessment",
+      "description": "Recyclability assessment (0-10) per EU Preparatory Study 3rd Milestone.",
+      "properties": {
+        "@type": {
+          "const": "RecyclabilityAssessment"
+        },
+        "recyclabilityScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "isRecyclable": {
+          "type": "boolean"
+        },
+        "elastaneContentPercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "sortingFactors": {
+          "$ref": "#/$defs/SortingFactors"
+        },
+        "technicalRecyclability": {
+          "$ref": "#/$defs/TechnicalRecyclability"
+        }
+      }
+    },
+    "SortingFactors": {
+      "type": "object",
+      "title": "Sorting Factors",
+      "description": "Sorting factors affecting recyclability (+1 point each).",
+      "properties": {
+        "@type": {
+          "const": "SortingFactors"
+        },
+        "sameInnerOuterComposition": {
+          "type": "boolean"
+        },
+        "freeFromPrintings": {
+          "type": "boolean"
+        },
+        "freeFromCoatings": {
+          "type": "boolean"
+        },
+        "freeFromSequins": {
+          "type": "boolean"
+        },
+        "freeFromDyes": {
+          "type": "boolean"
+        },
+        "isMonoMaterial": {
+          "type": "boolean"
+        }
+      }
+    },
+    "TechnicalRecyclability": {
+      "type": "object",
+      "title": "Technical Recyclability",
+      "description": "Technical recyclability based on applicable recycling technology.",
+      "properties": {
+        "@type": {
+          "const": "TechnicalRecyclability"
+        },
+        "technicalRecyclabilityScore": {
+          "type": "number"
+        },
+        "applicableRecyclingTechnology": {
+          "$ref": "#/$defs/RecyclingTechnology"
+        }
+      }
+    },
+    "RecyclingTechnology": {
+      "type": "string",
+      "title": "Recycling Technology",
+      "description": "Applicable recycling technologies per EU Preparatory Study.",
+      "enum": [
+        "MechanicalRecycling",
+        "ChemicalRecyclingCotton",
+        "ThermoChemicalRecycling",
+        "ChemicalRecyclingPA6",
+        "ThermoMechanicalRecycling"
+      ]
+    },
+    "RecycledContentDeclaration": {
+      "type": "object",
+      "title": "Recycled Content Declaration",
+      "description": "Structured recycled content declaration per EU Preparatory Study 3rd Milestone.",
+      "properties": {
+        "@type": {
+          "const": "RecycledContentDeclaration"
+        },
+        "secondaryMaterialFraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "wasteOriginType": {
+          "$ref": "#/$defs/WasteOriginType"
+        },
+        "recycledSourceType": {
+          "$ref": "#/$defs/RecycledSourceType"
+        },
+        "chainOfCustodyMethod": {
+          "$ref": "#/$defs/ChainOfCustodyMethod"
+        },
+        "meetsTargetThreshold": {
+          "type": "boolean"
+        },
+        "verificationCertification": {
+          "type": "object",
+          "description": "Third-party certification using gs1:CertificationDetails pattern."
+        }
+      }
+    },
+    "WasteOriginType": {
+      "type": "string",
+      "title": "Waste Origin Type",
+      "enum": ["PostConsumer", "PostIndustrial"]
+    },
+    "RecycledSourceType": {
+      "type": "string",
+      "title": "Recycled Source Type",
+      "enum": ["FiberToFiber", "OpenLoop"]
+    },
+    "ChainOfCustodyMethod": {
+      "type": "string",
+      "title": "Chain of Custody Method",
+      "enum": ["MassBalance", "Segregation", "IdentityPreserved", "Certified"]
+    },
+    "EnvironmentalFootprint": {
+      "type": "object",
+      "title": "Environmental Footprint",
+      "description": "Environmental footprint per PEFCR Apparel & Footwear.",
+      "properties": {
+        "@type": {
+          "const": "EnvironmentalFootprint"
+        },
+        "carbonFootprintManufacturing": {
+          "type": "number",
+          "description": "Carbon footprint in kg CO2-eq per product unit."
+        },
+        "pefSingleScore": {
+          "type": "number",
+          "description": "PEF single score in milli-points (mPt)."
+        },
+        "benchmarkPerformance": {
+          "type": "number",
+          "description": "Performance vs benchmark as percentage (negative = better)."
+        },
+        "dataTypeIndicator": {
+          "$ref": "#/$defs/FootprintDataType"
+        },
+        "pefcrReference": {
+          "type": "string"
+        },
+        "lciaCategories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LCIACategory"
+          }
+        }
+      }
+    },
+    "FootprintDataType": {
+      "type": "string",
+      "title": "Footprint Data Type",
+      "enum": ["PrimaryData", "SecondaryData", "MixedData"]
+    },
+    "LCIACategory": {
+      "type": "object",
+      "title": "LCIA Category",
+      "description": "Individual Life Cycle Impact Assessment category result.",
+      "properties": {
+        "@type": {
+          "const": "LCIACategory"
+        },
+        "lciaCategoryCode": {
+          "$ref": "#/$defs/LCIACategoryCode"
+        },
+        "lciaValue": {
+          "type": "number"
+        },
+        "lciaUnit": {
+          "type": "string"
+        }
+      }
+    },
+    "LCIACategoryCode": {
+      "type": "string",
+      "title": "LCIA Category Code",
+      "enum": ["GWP", "WaterUse", "Eutrophication", "Acidification", "Ecotoxicity", "HumanToxicity"]
+    },
+    "SubstanceOfConcern": {
+      "type": "object",
+      "title": "Substance of Concern",
+      "description": "A substance of concern classified per ESPR Article 7(5) 4-type system.",
+      "properties": {
+        "@type": {
+          "const": "SubstanceOfConcern"
+        },
+        "socType": {
+          "$ref": "#/$defs/SubstanceOfConcernType"
+        },
+        "chemicalName": {
+          "type": "string"
+        },
+        "iupacName": {
+          "type": "string"
+        },
+        "casNumber": {
+          "type": "string"
+        },
+        "ecNumber": {
+          "type": "string"
+        },
+        "substanceConcentration": {
+          "type": "number",
+          "minimum": 0
+        },
+        "concentrationRange": {
+          "type": "string"
+        },
+        "maxConcentration": {
+          "type": "number",
+          "minimum": 0
+        },
+        "locationInProduct": {
+          "type": "string"
+        },
+        "safeUseInstructions": {
+          "type": "string"
+        },
+        "endOfLifeHandling": {
+          "type": "string"
+        },
+        "clpHazardCategory": {
+          "$ref": "#/$defs/CLPHazardCategory"
+        }
+      },
+      "required": ["socType", "chemicalName"]
+    },
+    "SubstanceOfConcernType": {
+      "type": "string",
+      "title": "Substance of Concern Type",
+      "description": "4-type SoC classification per ESPR Article 7(5).",
+      "enum": ["SoCTypeA", "SoCTypeB", "SoCTypeC", "SoCTypeD"]
+    },
+    "CLPHazardCategory": {
+      "type": "string",
+      "title": "CLP Hazard Category",
+      "enum": ["CMR", "EndocrineDisruptor", "PMT", "Sensitizer", "AquaticToxicity"]
+    },
+    "TestStandard": {
+      "type": "string",
+      "title": "Test Standard",
+      "description": "Test standards for textile robustness and durability testing.",
+      "enum": ["ISO6330", "ISO16322_3", "ISO3759", "ISO15487", "ISO105", "ISO12945", "ISO12947"]
+    },
+    "MicroplasticInfo": {
+      "type": "object",
+      "title": "Microplastic Information",
+      "description": "Information about microfiber shedding from synthetic textiles.",
+      "properties": {
+        "@type": {
+          "const": "MicroplasticInfo"
+        },
+        "microplasticRiskLevel": {
+          "$ref": "#/$defs/MicroplasticRiskLevel"
+        },
+        "sheddingRate": {
+          "$ref": "#/$defs/QuantitativeValue"
+        },
+        "syntheticFiberContent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "microplasticMitigationMeasures": {
+          "type": "string"
+        }
+      }
+    },
+    "MicroplasticRiskLevel": {
+      "type": "string",
+      "title": "Microplastic Risk Level",
+      "description": "Risk classification for microfiber shedding.",
+      "enum": ["LowShedding", "MediumShedding", "HighShedding"]
+    },
+    "TakeBackProgram": {
+      "type": "object",
+      "title": "Take-Back Program",
+      "description": "End-of-life collection and take-back program information.",
+      "properties": {
+        "@type": {
+          "const": "TakeBackProgram"
+        },
+        "takeBackUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "takeBackIncentive": {
+          "type": "string"
+        },
+        "endOfLifeDestination": {
+          "type": "string"
+        }
+      }
+    },
+    "RepairService": {
+      "type": "object",
+      "title": "Repair Service",
+      "description": "Information about repair services available for the product.",
+      "properties": {
+        "@type": {
+          "const": "RepairService"
+        }
+      }
+    },
+    "TextileChemical": {
+      "type": "object",
+      "title": "Textile Chemical",
+      "description": "A chemical substance used in textile production.",
+      "properties": {
+        "@type": {
+          "const": "TextileChemical"
+        },
+        "chemicalName": {
+          "type": "string"
+        },
+        "chemicalPurpose": {
+          "type": "string"
+        },
+        "isMRSLCompliant": {
+          "type": "boolean"
+        }
+      },
+      "required": ["chemicalName"]
+    },
+    "TextileCertification": {
+      "type": "string",
+      "title": "Textile Certification",
+      "description": "Common textile certifications.",
+      "enum": [
+        "GOTS",
+        "OEKOTEX100",
+        "OEKOTEXMadeInGreen",
+        "GRS",
+        "RCS",
+        "Bluesign",
+        "BSCI",
+        "FairTrade",
+        "EUEcolabel",
+        "RWS",
+        "LWG"
+      ]
+    },
+    "QuantitativeValue": {
+      "type": "object",
+      "title": "Quantitative Value",
+      "description": "A point value or interval for measurement (gs1:QuantitativeValue).",
+      "properties": {
+        "@type": {
+          "const": "QuantitativeValue"
+        },
+        "value": {
+          "type": "number"
+        },
+        "unitCode": {
+          "type": "string",
+          "description": "UN/CEFACT Rec. 20 unit code."
+        }
+      }
+    }
+  }
+}

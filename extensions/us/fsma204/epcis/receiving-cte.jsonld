@@ -1,0 +1,100 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-04-20T12:00:00.000Z",
+  "_comment_gs1us_mapping": [
+    "Receiving CTE per GS1 US 'EPCIS Recommendations for FSMA 204 CTEs' R2.0, §7.",
+    "Pattern used: 'Aggregation Observe' variant (§7, pages 42-44).",
+    "A prior TransformationEvent (creating_class_instance) is included for completeness — it documents",
+    "the origin of the TLCs being received. In practice the upstream party captures this event; the receiver",
+    "references it via sourceList.",
+    "",
+    "Receiving event itself:",
+    "  AggregationEvent, action=OBSERVE, bizStep=receiving, disposition=in_progress.",
+    "  parentID = SSCC Digital Link of the shipped pallet.",
+    "  childQuantityList.epcClass = TLC (GTIN+Batch/Lot) KDE + product description + quantity/uom KDEs.",
+    "  readPoint = Location GLN where the food was received KDE.",
+    "  sourceList type=location = immediate previous source location GLN KDE.",
+    "  destinationList type=location = receiving location GLN.",
+    "  bizTransactionList type=recadv = reference document type + number KDEs.",
+    "NO fsma: extension fields ride inside the event."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "TransformationEvent",
+        "eventTime": "2026-04-18T00:00:00-04:00",
+        "recordTime": "2026-04-18T00:00:00-04:00",
+        "eventTimeZoneOffset": "-04:00",
+        "eventID": "urn:uuid:4898a223-216a-4f46-9e18-338ccf6fa3ba",
+        "inputQuantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/00860009999923/10/ABC1234",
+            "quantity": 25000,
+            "uom": "LBR"
+          }
+        ],
+        "outputQuantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/10860009999920/10/ABC1234",
+            "quantity": 500,
+            "uom": "CS"
+          }
+        ],
+        "bizStep": "creating_class_instance",
+        "disposition": "active",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009999992"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/0860009999992"
+        }
+      },
+      {
+        "type": "AggregationEvent",
+        "eventTime": "2026-04-20T08:45:00-05:00",
+        "recordTime": "2026-04-20T08:45:00-05:00",
+        "eventTimeZoneOffset": "-05:00",
+        "eventID": "urn:uuid:49afe832-5171-432d-99c4-6dc003255ee1",
+        "parentID": "https://id.gs1.org/00/008600099999850001",
+        "action": "OBSERVE",
+        "bizStep": "receiving",
+        "disposition": "in_progress",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009998001"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/0860009998001"
+        },
+        "bizTransactionList": [
+          {
+            "type": "recadv",
+            "bizTransaction": "urn:epcglobal:cbv:bt:0860009998001:861-100037169"
+          }
+        ],
+        "childQuantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/10860009999920/10/ABC1234",
+            "quantity": 500,
+            "uom": "CS"
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "location",
+            "source": "https://id.gs1.org/414/0860009999992"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "location",
+            "destination": "https://id.gs1.org/414/0860009998001"
+          }
+        ]
+      }
+    ]
+  }
+}

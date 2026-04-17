@@ -1,0 +1,165 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix eudr: <https://ref.openepcis.io/extensions/eu/eudr/> .
+@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<https://ref.openepcis.io/extensions/eu/eudr/shapes/>
+    a sh:ShapesGraph ;
+    dcterms:title "OpenEPCIS EUDR SHACL Shapes"@en ;
+    dcterms:description "SHACL validation shapes for EU Deforestation Regulation vocabulary."@en ;
+    dcterms:created "2025-02-02"^^xsd:date ;
+    dcterms:modified "2025-02-02"^^xsd:date .
+
+# =============================================================================
+# OpenEPCIS EUDR Vocabulary SHACL Shapes v0.9.5
+# Basic validation shapes for EU Deforestation Regulation compliance data
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Origin Declaration Shape
+# Validates EPCIS extension data for EUDR origin declarations
+# -----------------------------------------------------------------------------
+eudr:OriginDeclarationShape a sh:NodeShape ;
+    rdfs:label "Origin Declaration Shape" ;
+    rdfs:comment "Validation shape for EUDR origin declaration data in EPCIS events." ;
+    sh:property [
+        sh:path eudr:commodityType ;
+        sh:name "Commodity Type" ;
+        sh:description "The EUDR commodity category (cattle, cocoa, coffee, oil-palm, rubber, soya, wood)." ;
+        sh:class eudr:CommodityType
+    ] ;
+    sh:property [
+        sh:path eudr:harvestDate ;
+        sh:name "Harvest Date" ;
+        sh:description "The harvest date (use when single date). Mutually exclusive with harvestDateStart/End." ;
+        sh:datatype xsd:date
+    ] ;
+    sh:property [
+        sh:path eudr:harvestDateStart ;
+        sh:datatype xsd:date
+    ] ;
+    sh:property [
+        sh:path eudr:harvestDateEnd ;
+        sh:datatype xsd:date
+    ] ;
+    sh:property [
+        sh:path dpp:eoriNumber ;
+        sh:name "EORI Number" ;
+        sh:description "Economic Operators Registration and Identification number (from dpp-core)." ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path gs1:partyGLN ;
+        sh:name "Party GLN" ;
+        sh:description "13-digit GLN identifying the legal entity (from GS1 Web Vocabulary)." ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[0-9]{13}$"
+    ] ;
+    sh:property [
+        sh:path eudr:countryCode ;
+        sh:name "Country Code" ;
+        sh:description "ISO 3166-1 Alpha-2 country code." ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[A-Z]{2}$"
+    ] ;
+    sh:property [
+        sh:path eudr:geolocation ;
+        sh:name "Geolocation" ;
+        sh:description "Geographic coordinates as Geo URI (RFC 5870). Use for plots <= 4 hectares." ;
+        sh:datatype xsd:anyURI
+    ] ;
+    sh:property [
+        sh:path eudr:geofence ;
+        sh:name "Geofence" ;
+        sh:description "Area polygon as array of coordinates. Use for plots > 4 hectares." ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path eudr:riskLevel ;
+        sh:name "Risk Level" ;
+        sh:class eudr:RiskLevel
+    ] ;
+    sh:property [
+        sh:path eudr:deforestationFreeDate ;
+        sh:name "Deforestation Free Date" ;
+        sh:description "Date confirming deforestation-free status. Must be after 31 Dec 2020." ;
+        sh:datatype xsd:date
+    ] ;
+    sh:property [
+        sh:path eudr:legallyHarvested ;
+        sh:name "Legally Harvested" ;
+        sh:datatype xsd:boolean
+    ] .
+
+# -----------------------------------------------------------------------------
+# Origin Details Shape
+# -----------------------------------------------------------------------------
+eudr:OriginDetailsShape a sh:NodeShape ;
+    rdfs:label "Origin Details Shape" ;
+    rdfs:comment "Validation shape for individual origin detail entries." ;
+    sh:property [
+        sh:path eudr:geolocation ;
+        sh:datatype xsd:anyURI
+    ] ;
+    sh:property [
+        sh:path eudr:geofence ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path eudr:producerIdentification ;
+        sh:nodeKind sh:BlankNodeOrIRI
+    ] .
+
+# -----------------------------------------------------------------------------
+# Area Size Shape
+# -----------------------------------------------------------------------------
+eudr:AreaSizeShape a sh:NodeShape ;
+    rdfs:label "Area Size Shape" ;
+    sh:property [
+        sh:path eudr:value ;
+        sh:datatype xsd:decimal ;
+        sh:minExclusive 0
+    ] ;
+    sh:property [
+        sh:path eudr:unitCode ;
+        sh:datatype xsd:string ;
+        sh:description "UN/CEFACT Rec. 20 unit code (e.g., HAR for hectares)."
+    ] .
+
+# -----------------------------------------------------------------------------
+# Timber Product Shape
+# For wood commodity type with additional timber-specific properties
+# -----------------------------------------------------------------------------
+eudr:TimberProductShape a sh:NodeShape ;
+    rdfs:label "Timber Product Shape" ;
+    rdfs:comment "Additional validation for timber/wood products." ;
+    sh:property [
+        sh:path eudr:timberProductType ;
+        sh:name "Timber Product Type" ;
+        sh:class eudr:TimberProductType
+    ] ;
+    sh:property [
+        sh:path eudr:speciesScientificName ;
+        sh:name "Species Scientific Name" ;
+        sh:description "Scientific (Latin) name of the species. Required per EUDR Article 9.1.c." ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path eudr:speciesCommonName ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path eudr:forestManagementUnit ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path eudr:landUseHistory ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path eudr:transformationDate ;
+        sh:datatype xsd:date
+    ] .

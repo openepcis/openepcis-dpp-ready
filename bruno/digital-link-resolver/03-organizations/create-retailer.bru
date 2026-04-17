@@ -1,0 +1,64 @@
+meta {
+  name: Create Retailer
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{dl-url}}/organizations
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/ld+json
+  isAnonymousAccessAllowed: true
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/voc/",
+      "{{dpp-context}}"
+    ],
+    "@type": "gs1:Organization",
+    "gs1:gln": "9521234026838",
+    "gs1:organizationName": {
+      "en": "GreenStyle Retail AG",
+      "de": "GreenStyle Retail AG"
+    },
+    "gs1:streetAddress": {
+      "en": "Einkaufsmeile 100"
+    },
+    "gs1:postalCode": "80331",
+    "gs1:addressLocality": {
+      "en": "Munich"
+    },
+    "gs1:addressRegion": {
+      "en": "Bavaria"
+    },
+    "gs1:countryCode": "DE",
+    "gs1:email": "info@greenstyle.example.com",
+    "gs1:telephone": "+49 89 98765432",
+    "gs1:organizationRole": ["retailer", "distributor"],
+    "dpp:economicOperatorId": "DE987654321",
+    "dpp:operatorType": "dpp:Distributor",
+    "dpp:sustainabilityCommitments": {
+      "@type": "dpp:SustainabilityCommitments",
+      "dpp:carbonNeutralTarget": "2030",
+      "dpp:circularEconomyParticipation": true,
+      "dpp:takeBackProgramParticipant": true
+    }
+  }
+}
+
+tests {
+  test("Organization created successfully", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+  });
+
+  test("Response contains GLN", function() {
+    const body = res.getBody();
+    expect(body["gs1:gln"] || body.gln).to.exist;
+  });
+}

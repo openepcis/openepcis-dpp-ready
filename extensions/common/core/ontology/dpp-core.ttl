@@ -1,0 +1,1625 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix schema: <https://schema.org/> .
+@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+# UNTP namespace references for semantic alignment (rdfs:seeAlso and owl:equivalentProperty only)
+@prefix untp-core: <https://test.uncefact.org/vocabulary/untp/core/> .
+@prefix untp-dpp: <https://test.uncefact.org/vocabulary/untp/dpp/> .
+
+# =============================================================================
+# Ontology Declaration
+# =============================================================================
+
+<https://ref.openepcis.io/extensions/common/core/>
+    a owl:Ontology ;
+    dcterms:title "OpenEPCIS DPP Core Vocabulary"@en ;
+    dcterms:description """Core vocabulary for Digital Product Passports aligned with the EU Ecodesign
+for Sustainable Products Regulation (ESPR) EU 2024/1781 and GS1 DPP Standards.
+
+OpenEPCIS DPP-Ready: The Universal DPP Platform - harmonizing GS1, UNTP, and CIRPASS2 standards.
+
+This vocabulary provides shared patterns reusable across domain-specific regulations
+(Battery, EUDR, Textile, Electronics, etc.) and supports the ESPR framework including:
+- Economic operator identification (EOID per ESPR Article 77)
+- Facility information (manufacturing location data)
+- Performance and durability information
+- Repairability and maintenance data
+- Substances of concern (SCIP database alignment)
+- Circularity information (end-of-life, recycling)
+- Due diligence reporting (supply chain transparency)
+- Document references (reports, certificates, guides)
+- Access rights (public vs authorized data per ESPR Article 9)
+- Emissions performance (carbon footprint with UNTP alignment)
+- Traceability performance (supply chain verification metrics)
+
+GS1 Web Vocabulary patterns to use:
+- For certifications: gs1:certification with gs1:CertificationDetails
+- For warranty: gs1:warranty with gs1:WarrantyPromise
+- For regulatory compliance: gs1:regulatoryInformation with gs1:RegulatoryInformation
+- For documents: gs1:referencedFileDetails with gs1:ReferencedFileDetails
+- For recycling text: gs1:consumerRecyclingInstructions
+
+UNTP Alignment:
+Property naming, patterns, and value conventions are aligned with UN Transparency Protocol (UNTP)
+to enable native interoperability. Semantic equivalences are declared via owl:equivalentProperty.
+All ratio/fraction properties use 0-1 decimal scale (e.g., 0.45 = 45%).
+
+EPCIS 2.0 Extension Declaration:
+GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/
+
+Extension Governance:
+This vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.
+Each extension term includes:
+- dcterms:source linking to the regulatory requirement
+- skos:note explaining why the extension is needed
+- rdfs:seeAlso linking to related GS1/schema.org/UNTP terms where applicable
+- owl:equivalentProperty where a semantic equivalent exists
+
+Domain-specific vocabularies import this core and add regulation-specific extensions."""@en ;
+    dcterms:creator "OpenEPCIS" ;
+    dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+    dcterms:created "2024-01-15"^^xsd:date ;
+    dcterms:modified "2025-02-02"^^xsd:date ;
+    owl:versionInfo "0.9.5" ;
+    owl:versionIRI <https://ref.openepcis.io/extensions/common/core/0.9.5> ;
+    vann:preferredNamespacePrefix "dpp" ;
+    vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/common/core/" ;
+    rdfs:seeAlso <https://ref.gs1.org/voc/> ;
+    rdfs:seeAlso <https://ref.gs1.org/voc/CertificationDetails> ;
+    rdfs:seeAlso <https://ref.gs1.org/voc/WarrantyPromise> ;
+    rdfs:seeAlso <https://ref.gs1.org/standards/epcis/> ;
+    rdfs:seeAlso <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso <https://ref.gs1.org/standards/dpp/> ;
+    rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf> ;
+    rdfs:seeAlso <https://uncefact.github.io/spec-untp/> ;
+    rdfs:comment "Aligned with UN Transparency Protocol patterns"@en ;
+    dcterms:source <https://uncefact.github.io/spec-untp/> ;
+    owl:imports <https://ref.gs1.org/voc/> .
+
+# =============================================================================
+# Core Classes
+# =============================================================================
+
+dpp:OperatorInformation
+    a rdfs:Class ;
+    rdfs:label "Operator Information"@en ;
+    rdfs:comment """Economic operator information as required by various EU regulations.
+Captures manufacturer, importer, distributor, and other operator roles.
+Use gs1:gln for operator identification (inherited from gs1:Organization).
+Use GS1 Digital Link format: https://id.gs1.org/417/{GLN}"""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    rdfs:subClassOf gs1:Organization ;
+    rdfs:seeAlso gs1:Organization ;
+    rdfs:seeAlso schema:Organization ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32019R1020> ;
+    skos:note """Extension of gs1:Organization to capture ESPR-specific operator role requirements.
+Use gs1:gln for operator GLN, gs1:organizationName for name.
+GS1 Web Vocabulary provides gs1:Organization but lacks the specific operator role enumeration
+required by EU Market Surveillance Regulation 2019/1020 and ESPR Article 77."""@en .
+
+dpp:DueDiligenceReport
+    a rdfs:Class ;
+    rdfs:label "Due Diligence Report"@en ;
+    rdfs:comment """Supply chain due diligence information supporting transparency requirements.
+Reusable across Battery Regulation Art. 39, EUDR, and other due diligence frameworks."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    skos:note """Required extension: GS1 Web Vocabulary does not provide a class for supply chain
+due diligence reporting. This is mandated by EU Battery Regulation Art. 39 and EUDR."""@en .
+
+dpp:CircularityPerformance
+    a rdfs:Class ;
+    rdfs:label "Circularity Performance"@en ;
+    rdfs:comment """Information supporting circular economy requirements including
+end-of-life handling, recycling, waste prevention, and circularity metrics.
+Aligned with UNTP CircularityPerformance pattern."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso gs1:consumerRecyclingInstructions ;
+    rdfs:seeAlso untp-core:CircularityPerformance ;
+    owl:equivalentClass untp-core:CircularityPerformance ;
+    skos:note """Required extension: GS1 provides gs1:consumerRecyclingInstructions for text-based
+recycling guidance but lacks structured circularity data (recyclability rates, end-of-life URLs,
+waste prevention info) required by ESPR. Use gs1:consumerRecyclingInstructions for simple text.
+Aligned with UNTP CircularityPerformance for interoperability."""@en .
+
+dpp:HazardousSubstance
+    a rdfs:Class ;
+    rdfs:label "Hazardous Substance"@en ;
+    rdfs:comment """A hazardous substance declaration per EU CLP Regulation 1272/2008.
+Reusable across product categories."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272> ;
+    rdfs:seeAlso gs1:hasAllergen ;
+    skos:note """Required extension: GS1 Web Vocabulary provides allergen tracking (gs1:hasAllergen)
+for food products but lacks hazardous substance classes for industrial products per EU CLP
+Regulation 1272/2008. This class supports REACH, SCIP, and ESPR requirements."""@en .
+
+dpp:DocumentReference
+    a rdfs:Class ;
+    rdfs:label "Document Reference"@en ;
+    rdfs:comment """Reference to an external document such as reports, certificates,
+manuals, or guides. Supports multiple languages and formats.
+See also gs1:ReferencedFileDetails for GS1 Web Vocabulary equivalent."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    rdfs:seeAlso gs1:ReferencedFileDetails ;
+    owl:equivalentClass gs1:ReferencedFileDetails ;
+    skos:note """PREFER gs1:ReferencedFileDetails where possible. This class provides equivalent
+functionality with additional ESPR-specific document types. Use gs1:referencedFileDetails
+property with gs1:ReferencedFileDetails for standard documents (manuals, certificates).
+Use dpp:DocumentReference only when ESPR-specific document types are required."""@en .
+
+dpp:RecycledContent
+    a rdfs:Class ;
+    rdfs:label "Recycled Content"@en ;
+    rdfs:comment """Declaration of recycled material content with pre-consumer
+and post-consumer splits."""@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note """Required extension: GS1 Web Vocabulary does not provide structured recycled content
+properties. ESPR and Battery Regulation require pre-consumer/post-consumer breakdown which is
+not available in GS1 vocabulary. Aligned with GDSN sustainability attributes."""@en ;
+    rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf>.
+
+dpp:MaterialComposition
+    a rdfs:Class ;
+    rdfs:label "Material Composition"@en ;
+    rdfs:comment """Material composition information including source country,
+percentage, and critical raw material classification."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso gs1:TextileMaterialDetails ;
+    rdfs:seeAlso gs1:PackagingMaterialDetails ;
+    skos:note """Required extension: GS1 provides gs1:TextileMaterialDetails and
+gs1:PackagingMaterialDetails for specific domains but lacks a generic material composition
+class with CAS/EC number support and critical raw material flags required by ESPR."""@en.
+
+dpp:FacilityInformation
+    a rdfs:Class ;
+    rdfs:label "Facility Information"@en ;
+    rdfs:comment """Manufacturing or processing facility information per ESPR.
+Captures facility identification, location, and certification data.
+Use gs1:gln for facility identification, gs1:name for facility name, gs1:address for location (all inherited from gs1:Place).
+Use GS1 Digital Link format: https://id.gs1.org/414/{GLN}"""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    rdfs:subClassOf gs1:Place ;
+    rdfs:seeAlso gs1:Place ;
+    rdfs:seeAlso schema:Place ;
+    rdfs:seeAlso untp-core:Facility ;
+    owl:equivalentClass untp-core:Facility ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note """Extension of gs1:Place to capture ESPR-specific facility requirements.
+Use gs1:gln for facility GLN identification, gs1:name for facility name, gs1:address for location.
+GS1 provides gs1:Place but lacks facility certification and type properties required by ESPR.
+Aligned with UNTP Facility for Digital Facility Record (DFR) interoperability."""@en .
+
+dpp:SubstanceOfConcern
+    a rdfs:Class ;
+    rdfs:label "Substance of Concern"@en ;
+    rdfs:comment """Substances of concern declaration aligned with SCIP database
+and ESPR requirements. Extends HazardousSubstance for detailed tracking."""@en ;
+    rdfs:subClassOf dpp:HazardousSubstance ;
+    dcterms:source <https://echa.europa.eu/scip> ;
+    rdfs:seeAlso <https://echa.europa.eu/scip-database> ;
+    skos:note """Required extension: SCIP database integration requires specific fields (SCIP ID,
+EC Number, safe use instructions) not available in GS1 Web Vocabulary. Supports REACH Article 33
+and Waste Framework Directive requirements."""@en.
+
+dpp:PerformanceInfo
+    a rdfs:Class ;
+    rdfs:label "Performance Information"@en ;
+    rdfs:comment """Product performance and durability information per ESPR Article 7.
+Captures expected lifespan, usage cycles, and performance metrics."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso gs1:warranty ;
+    skos:note """Required extension: GS1 provides gs1:warranty for warranty information but lacks
+structured performance and durability data (expected lifespan, usage cycles, performance class)
+required by ESPR Article 7. Use in conjunction with gs1:warranty where applicable."""@en .
+
+dpp:RepairabilityInfo
+    a rdfs:Class ;
+    rdfs:label "Repairability Information"@en ;
+    rdfs:comment """Repair and maintenance information per ESPR Article 7.
+Captures repair scores, spare part availability, and repair instructions."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso gs1:warranty ;
+    rdfs:seeAlso gs1:referencedFileDetails ;
+    skos:note """Required extension: ESPR Article 7 mandates repairability scores (French Indice de
+Réparabilité style), spare parts availability periods, and DIY repair information not available
+in GS1 Web Vocabulary. Use gs1:referencedFileDetails for repair manuals."""@en .
+
+dpp:AccessRights
+    a rdfs:Class ;
+    rdfs:label "Access Rights"@en ;
+    rdfs:comment """Access control for DPP data per ESPR Article 9.
+Defines which data is publicly accessible vs. restricted to authorized parties."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note """Required extension: ESPR Article 9 defines three access levels (Public, Authorized,
+Restricted) for DPP data. GS1 Web Vocabulary does not provide access control semantics.
+This supports the ESPR requirement for tiered data access."""@en .
+
+dpp:EmissionsPerformance
+    a rdfs:Class ;
+    rdfs:label "Emissions Performance"@en ;
+    rdfs:comment """Container for greenhouse gas emissions data including carbon footprint,
+lifecycle phases, and verification status. Aligned with UNTP EmissionsPerformance."""@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso untp-core:EmissionsPerformance ;
+    rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf> ;
+    owl:equivalentClass untp-core:EmissionsPerformance ;
+    skos:note """Required extension: Structured emissions performance data for ESPR requirements.
+Aligned with UNTP EmissionsPerformance for interoperability. Extends the GDSN CFP pattern
+with operational scope and verification metrics."""@en.
+
+dpp:TraceabilityPerformance
+    a rdfs:Class ;
+    rdfs:label "Traceability Performance"@en ;
+    rdfs:comment """Supply chain verification and traceability metrics indicating the proportion
+of materials that are verifiably traced through the supply chain."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso untp-dpp:TraceabilityPerformance ;
+    skos:note """Required extension: ESPR and due diligence regulations require traceability metrics.
+Aligned with UNTP TraceabilityPerformance for supply chain transparency reporting."""@en.
+
+# =============================================================================
+# Operator Role Enumeration
+# =============================================================================
+
+dpp:OperatorRole
+    a rdfs:Class ;
+    rdfs:label "Operator Role"@en ;
+    rdfs:comment "Role of an economic operator in the supply chain."@en ;
+    owl:oneOf (dpp:Manufacturer dpp:Importer dpp:Distributor dpp:Processor dpp:Trader) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:Manufacturer a dpp:OperatorRole ; rdfs:label "Manufacturer"@en ;
+    rdfs:comment "Entity that produces the product, including own-brand labellers per EU Market Surveillance Regulation 2019/1020."@en .
+dpp:Importer a dpp:OperatorRole ; rdfs:label "Importer"@en ;
+    rdfs:comment "Entity established in the EU that places a product from a third country on the Union market."@en .
+dpp:Distributor a dpp:OperatorRole ; rdfs:label "Distributor"@en ;
+    rdfs:comment "Entity in the supply chain that makes a product available on the market, other than manufacturer or importer."@en .
+dpp:Processor a dpp:OperatorRole ; rdfs:label "Processor"@en ;
+    rdfs:comment "Entity that processes raw materials or components into finished or intermediate products."@en .
+dpp:Trader a dpp:OperatorRole ; rdfs:label "Trader"@en ;
+    rdfs:comment "Entity that buys and sells products without significant modification or processing."@en .
+dpp:AuthorisedRepresentative a dpp:OperatorRole ; rdfs:label "Authorised Representative"@en ;
+    rdfs:comment "Entity authorised by manufacturer to act on their behalf for specific tasks (per ESPR Article 16)."@en .
+dpp:FulfilmentServiceProvider a dpp:OperatorRole ; rdfs:label "Fulfilment Service Provider"@en ;
+    rdfs:comment "Entity providing fulfilment services including warehousing and order processing (per ESPR Article 17)."@en .
+
+# =============================================================================
+# Access Level Enumeration (ESPR Article 9)
+# =============================================================================
+
+dpp:AccessLevel
+    a rdfs:Class ;
+    rdfs:label "Access Level"@en ;
+    rdfs:comment "Access levels for DPP data per ESPR Article 9."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    owl:oneOf (dpp:Public dpp:AuthorizedOnly dpp:Restricted) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:Public a dpp:AccessLevel ; rdfs:label "Public"@en ;
+    rdfs:comment "Data accessible to all users (consumers, market surveillance, customs). Per ESPR Article 9(1)."@en .
+dpp:AuthorizedOnly a dpp:AccessLevel ; rdfs:label "Authorized Only"@en ;
+    rdfs:comment "Data accessible only to market surveillance authorities and customs. Per ESPR Article 9(2)."@en .
+dpp:Restricted a dpp:AccessLevel ; rdfs:label "Restricted"@en ;
+    rdfs:comment "Data accessible only to specific authorized economic operators. Per ESPR Article 9(3)."@en .
+
+# =============================================================================
+# Passport Status Enumeration (EN 18222 Lifecycle Management)
+# =============================================================================
+
+dpp:PassportStatus
+    a rdfs:Class ;
+    rdfs:label "Passport Status"@en ;
+    rdfs:comment "Lifecycle status of a Digital Product Passport per EN 18222 API lifecycle management."@en ;
+    dcterms:source <https://standards.iteh.ai/catalog/standards/cen/2d02edd9-ec28-4eb3-b99a-6a84c0a84257/pren-18222> ;
+    skos:note "EN 18222 (FprEN, publishing March 2026) defines APIs for DPP lifecycle management including status transitions."@en ;
+    owl:oneOf (dpp:Draft dpp:Active dpp:Updated dpp:Withdrawn dpp:Archived) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:Draft a dpp:PassportStatus ; rdfs:label "Draft"@en ;
+    rdfs:comment "Passport is being prepared and not yet publicly available."@en .
+dpp:Active a dpp:PassportStatus ; rdfs:label "Active"@en ;
+    rdfs:comment "Passport is published and represents the current state of the product."@en .
+dpp:Updated a dpp:PassportStatus ; rdfs:label "Updated"@en ;
+    rdfs:comment "Passport has been modified since initial publication. Previous versions remain accessible per EN 18221."@en .
+dpp:Withdrawn a dpp:PassportStatus ; rdfs:label "Withdrawn"@en ;
+    rdfs:comment "Passport has been withdrawn (e.g., product recall). Data remains available to authorities per ESPR Article 9."@en .
+dpp:Archived a dpp:PassportStatus ; rdfs:label "Archived"@en ;
+    rdfs:comment "Passport is archived after product end-of-life. Data persisted per EN 18221 retention requirements."@en .
+
+# =============================================================================
+# ESPR Product Category Enumeration (Priority Sectors)
+# =============================================================================
+
+dpp:ProductCategory
+    a rdfs:Class ;
+    rdfs:label "Product Category"@en ;
+    rdfs:comment "ESPR priority product categories per Annex I and delegated acts."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    owl:oneOf (
+        dpp:Batteries
+        dpp:Textiles
+        dpp:Electronics
+        dpp:Furniture
+        dpp:Tyres
+        dpp:ConstructionProducts
+        dpp:Chemicals
+        dpp:Packaging
+        dpp:FoodContact
+        dpp:IronSteel
+        dpp:Aluminium
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:Batteries a dpp:ProductCategory ; rdfs:label "Batteries"@en ;
+    rdfs:comment "Batteries and accumulators per EU Battery Regulation 2023/1542."@en .
+dpp:Textiles a dpp:ProductCategory ; rdfs:label "Textiles"@en ;
+    rdfs:comment "Textile products including apparel, footwear, and home textiles."@en .
+dpp:Electronics a dpp:ProductCategory ; rdfs:label "Electronics"@en ;
+    rdfs:comment "Electronic and electrical equipment including ICT and consumer electronics."@en .
+dpp:Furniture a dpp:ProductCategory ; rdfs:label "Furniture"@en ;
+    rdfs:comment "Furniture products including domestic and office furniture."@en .
+dpp:Tyres a dpp:ProductCategory ; rdfs:label "Tyres"@en ;
+    rdfs:comment "Tyres for motor vehicles and their trailers."@en .
+dpp:ConstructionProducts a dpp:ProductCategory ; rdfs:label "Construction Products"@en ;
+    rdfs:comment "Construction products per Construction Products Regulation."@en .
+dpp:Chemicals a dpp:ProductCategory ; rdfs:label "Chemicals"@en ;
+    rdfs:comment "Chemical substances and mixtures."@en .
+dpp:Packaging a dpp:ProductCategory ; rdfs:label "Packaging"@en ;
+    rdfs:comment "Packaging and packaging waste products."@en .
+dpp:FoodContact a dpp:ProductCategory ; rdfs:label "Food Contact Materials"@en ;
+    rdfs:comment "Materials and articles intended for food contact."@en .
+dpp:IronSteel a dpp:ProductCategory ; rdfs:label "Iron and Steel"@en ;
+    rdfs:comment "Iron and steel intermediate products."@en .
+dpp:Aluminium a dpp:ProductCategory ; rdfs:label "Aluminium"@en ;
+    rdfs:comment "Aluminium intermediate products."@en .
+
+# =============================================================================
+# Hazard Class Enumeration (EU CLP Regulation 1272/2008)
+# =============================================================================
+
+dpp:HazardClass
+    a rdfs:Class ;
+    rdfs:label "Hazard Class"@en ;
+    rdfs:comment "Hazard classification categories per EU CLP Regulation."@en ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272> ;
+    owl:oneOf (
+        dpp:AcuteToxicity
+        dpp:SkinCorrosionOrIrritation
+        dpp:EyeDamageOrIrritation
+        dpp:RespiratoryOrSkinSensitization
+        dpp:GermCellMutagenicity
+        dpp:Carcinogenicity
+        dpp:ReproductiveToxicity
+        dpp:SpecificTargetOrganToxicity
+        dpp:AspirationHazard
+        dpp:HazardousToAquaticEnvironment
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:AcuteToxicity a dpp:HazardClass ; rdfs:label "Acute Toxicity"@en ;
+    rdfs:comment "Substances causing harmful effects after single or short-term exposure via oral, dermal, or inhalation routes."@en .
+dpp:SkinCorrosionOrIrritation a dpp:HazardClass ; rdfs:label "Skin Corrosion or Irritation"@en ;
+    rdfs:comment "Substances causing irreversible damage (corrosion) or reversible damage (irritation) to skin tissue."@en .
+dpp:EyeDamageOrIrritation a dpp:HazardClass ; rdfs:label "Eye Damage or Irritation"@en ;
+    rdfs:comment "Substances causing serious eye damage or reversible eye irritation upon contact."@en .
+dpp:RespiratoryOrSkinSensitization a dpp:HazardClass ; rdfs:label "Respiratory or Skin Sensitization"@en ;
+    rdfs:comment "Substances causing hypersensitivity of airways (asthma) or allergic skin reactions after exposure."@en .
+dpp:GermCellMutagenicity a dpp:HazardClass ; rdfs:label "Germ Cell Mutagenicity"@en ;
+    rdfs:comment "Substances that may cause heritable genetic mutations in human germ cells."@en .
+dpp:Carcinogenicity a dpp:HazardClass ; rdfs:label "Carcinogenicity"@en ;
+    rdfs:comment "Substances known or suspected to cause cancer in humans."@en .
+dpp:ReproductiveToxicity a dpp:HazardClass ; rdfs:label "Reproductive Toxicity"@en ;
+    rdfs:comment "Substances adversely affecting sexual function, fertility, or development of offspring."@en .
+dpp:SpecificTargetOrganToxicity a dpp:HazardClass ; rdfs:label "Specific Target Organ Toxicity"@en ;
+    rdfs:comment "Substances causing non-lethal damage to specific organs after single or repeated exposure."@en .
+dpp:AspirationHazard a dpp:HazardClass ; rdfs:label "Aspiration Hazard"@en ;
+    rdfs:comment "Liquid or solid substances causing chemical pneumonia or pulmonary injury if aspirated into airways."@en .
+dpp:HazardousToAquaticEnvironment a dpp:HazardClass ; rdfs:label "Hazardous to Aquatic Environment"@en ;
+    rdfs:comment "Substances posing acute or chronic toxicity risks to aquatic organisms and ecosystems."@en .
+
+# =============================================================================
+# Document Type Enumeration
+# =============================================================================
+
+dpp:DocumentType
+    a rdfs:Class ;
+    rdfs:label "Document Type"@en ;
+    rdfs:comment """Types of supporting documents for DPP.
+See also gs1:ReferencedFileTypeCode for GS1 standard document types (PRODUCT_MANUAL, SAFETY_DATA_SHEET, CERTIFICATE, etc.)."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    rdfs:seeAlso gs1:ReferencedFileTypeCode ;
+    owl:oneOf (
+        dpp:DueDiligenceDocument
+        dpp:Certificate
+        dpp:TestReport
+        dpp:Manual
+        dpp:DeclarationOfConformity
+        dpp:SafetyDataSheet
+        dpp:EnvironmentalReport
+        dpp:ThirdPartyVerification
+    ) .
+
+dpp:DueDiligenceDocument a dpp:DocumentType ; rdfs:label "Due Diligence Document"@en ;
+    rdfs:comment "Documentation of supply chain due diligence processes and risk assessments."@en .
+dpp:Certificate a dpp:DocumentType ; rdfs:label "Certificate"@en ;
+    rdfs:comment "Official certificate from accredited body (ISO, environmental, quality certifications)."@en .
+dpp:TestReport a dpp:DocumentType ; rdfs:label "Test Report"@en ;
+    rdfs:comment "Technical test results from accredited laboratory or testing facility."@en .
+dpp:Manual a dpp:DocumentType ; rdfs:label "Manual"@en ;
+    rdfs:comment "User manual, installation guide, or maintenance documentation."@en .
+dpp:DeclarationOfConformity a dpp:DocumentType ; rdfs:label "Declaration of Conformity"@en ;
+    rdfs:comment "EU Declaration of Conformity stating compliance with applicable EU legislation."@en .
+dpp:SafetyDataSheet a dpp:DocumentType ; rdfs:label "Safety Data Sheet"@en ;
+    rdfs:comment "Safety Data Sheet (SDS) per REACH Regulation providing hazard information."@en .
+dpp:EnvironmentalReport a dpp:DocumentType ; rdfs:label "Environmental Report"@en ;
+    rdfs:comment "Environmental impact assessment, carbon footprint study, or LCA report."@en .
+dpp:ThirdPartyVerification a dpp:DocumentType ; rdfs:label "Third Party Verification"@en ;
+    rdfs:comment "Independent verification report from accredited third-party auditor."@en .
+
+# =============================================================================
+# Operational Scope Enumeration (UNTP alignment)
+# =============================================================================
+
+dpp:OperationalScope
+    a rdfs:Class ;
+    rdfs:label "Operational Scope"@en ;
+    rdfs:comment "Lifecycle boundary for emissions or environmental impact calculations."@en ;
+    dcterms:source <https://uncefact.github.io/spec-untp/> ;
+    rdfs:seeAlso untp-core:OperationalScope ;
+    owl:oneOf (dpp:CradleToGate dpp:CradleToGrave) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:CradleToGate a dpp:OperationalScope ; rdfs:label "Cradle to Gate"@en ;
+    rdfs:comment "Emissions from raw material extraction through manufacturing, excluding use phase and end-of-life."@en .
+dpp:CradleToGrave a dpp:OperationalScope ; rdfs:label "Cradle to Grave"@en ;
+    rdfs:comment "Full lifecycle emissions including raw materials, manufacturing, use phase, and end-of-life."@en .
+
+# =============================================================================
+# Granularity Level Enumeration (UNTP alignment)
+# =============================================================================
+
+dpp:GranularityLevel
+    a rdfs:Class ;
+    rdfs:label "Granularity Level"@en ;
+    rdfs:comment "Level of specificity for DPP data - whether it applies to product class, batch, or individual item."@en ;
+    dcterms:source <https://uncefact.github.io/spec-untp/> ;
+    rdfs:seeAlso untp-dpp:GranularityLevel ;
+    owl:oneOf (dpp:ProductClass dpp:Batch dpp:Item) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:ProductClass a dpp:GranularityLevel ; rdfs:label "Product Class"@en ;
+    rdfs:comment "DPP data applies to all products of this type/model."@en .
+dpp:Batch a dpp:GranularityLevel ; rdfs:label "Batch"@en ;
+    rdfs:comment "DPP data applies to a specific production batch."@en .
+dpp:Item a dpp:GranularityLevel ; rdfs:label "Item"@en ;
+    rdfs:comment "DPP data applies to an individual serialized product."@en .
+
+# =============================================================================
+# Typed QuantitativeValue Subclasses
+# =============================================================================
+# Subclasses of gs1:QuantitativeValue that pin gs1:unitCode to a specific
+# UN/CEFACT code, so data only needs "type" + "value".
+
+dpp:Percentage
+    a owl:Class ;
+    rdfs:label "Percentage Value"@en ;
+    rdfs:comment "A quantitative value expressed as a percentage. Unit code: P1 (percent)."@en ;
+    rdfs:subClassOf gs1:QuantitativeValue ;
+    skos:note "Pins gs1:unitCode to P1. Used for recycled content ratios, state of health, fiber composition, and other proportional measurements across DPP modules." ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:DurationYears
+    a owl:Class ;
+    rdfs:label "Duration in Years"@en ;
+    rdfs:comment "A quantitative value expressing duration in years. Unit code: ANN."@en ;
+    rdfs:subClassOf gs1:QuantitativeValue ;
+    skos:note "Pins gs1:unitCode to ANN. Used for expected lifespan, spare parts availability, software support periods, and warranty durations." ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:DurationDays
+    a owl:Class ;
+    rdfs:label "Duration in Days"@en ;
+    rdfs:comment "A quantitative value expressing duration in days. Unit code: DAY."@en ;
+    rdfs:subClassOf gs1:QuantitativeValue ;
+    skos:note "Pins gs1:unitCode to DAY. Used for spare parts delivery time and short-duration specifications." ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:WeightKilograms
+    a owl:Class ;
+    rdfs:label "Weight in Kilograms"@en ;
+    rdfs:comment "A quantitative value expressing weight in kilograms. Unit code: KGM."@en ;
+    rdfs:subClassOf gs1:QuantitativeValue ;
+    skos:note "Pins gs1:unitCode to KGM. Used for product weight, material weight, and carbon footprint declared units." ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:EnergyKilowattHours
+    a owl:Class ;
+    rdfs:label "Energy in Kilowatt-Hours"@en ;
+    rdfs:comment "A quantitative value expressing energy in kilowatt-hours. Unit code: KWH."@en ;
+    rdfs:subClassOf gs1:QuantitativeValue ;
+    skos:note "Pins gs1:unitCode to KWH. Used for battery energy ratings, annual energy consumption, and energy throughput measurements." ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:PowerWatts
+    a owl:Class ;
+    rdfs:label "Power in Watts"@en ;
+    rdfs:comment "A quantitative value expressing power in watts. Unit code: WTT."@en ;
+    rdfs:subClassOf gs1:QuantitativeValue ;
+    skos:note "Pins gs1:unitCode to WTT. Used for device power consumption measurements (on, standby, off modes)." ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:PowerKilowatts
+    a owl:Class ;
+    rdfs:label "Power in Kilowatts"@en ;
+    rdfs:comment "A quantitative value expressing power in kilowatts. Unit code: KWT."@en ;
+    rdfs:subClassOf gs1:QuantitativeValue ;
+    skos:note "Pins gs1:unitCode to KWT. Used for battery power ratings (rated maximum, charging, discharging power)." ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:TemperatureCelsius
+    a owl:Class ;
+    rdfs:label "Temperature in Celsius"@en ;
+    rdfs:comment "A quantitative value expressing temperature in degrees Celsius. Unit code: CEL."@en ;
+    rdfs:subClassOf gs1:QuantitativeValue ;
+    skos:note "Pins gs1:unitCode to CEL. Used for battery temperature ranges (storage, charging, discharging) and operating conditions." ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Operator Information
+# =============================================================================
+
+dpp:operatorInformation
+    a owl:ObjectProperty ;
+    rdfs:label "Operator Information"@en ;
+    rdfs:comment "Economic operator responsible for the product."@en ;
+    rdfs:range dpp:OperatorInformation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:operatorRole
+    a owl:ObjectProperty ;
+    rdfs:label "Operator Role"@en ;
+    rdfs:comment "Role of the economic operator (manufacturer, importer, etc.)."@en ;
+    rdfs:domain dpp:OperatorInformation ;
+    rdfs:range dpp:OperatorRole ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:registrationNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "Registration Number"@en ;
+    rdfs:comment "Official registration or license number."@en ;
+    rdfs:domain dpp:OperatorInformation ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Due Diligence
+# =============================================================================
+
+dpp:dueDiligenceReport
+    a owl:ObjectProperty ;
+    rdfs:label "Due Diligence Report"@en ;
+    rdfs:comment "Reference to due diligence documentation."@en ;
+    rdfs:range dpp:DueDiligenceReport ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:reportUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Report URL"@en ;
+    rdfs:comment "URL to the due diligence report."@en ;
+    rdfs:domain dpp:DueDiligenceReport ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:thirdPartyAssurancesUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Third Party Assurances URL"@en ;
+    rdfs:comment "URL to third party verification or assurances."@en ;
+    rdfs:domain dpp:DueDiligenceReport ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:reportDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Report Date"@en ;
+    rdfs:comment "Date of the due diligence report."@en ;
+    rdfs:domain dpp:DueDiligenceReport ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:verificationBody
+    a owl:ObjectProperty ;
+    rdfs:label "Verification Body"@en ;
+    rdfs:comment "Organization that performed third-party verification."@en ;
+    rdfs:domain dpp:DueDiligenceReport ;
+    rdfs:range gs1:Organization ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Hazardous Substances
+# =============================================================================
+
+dpp:hazardousSubstances
+    a owl:ObjectProperty ;
+    rdfs:label "Hazardous Substances"@en ;
+    rdfs:comment "Hazardous substances present in the product."@en ;
+    rdfs:range dpp:HazardousSubstance ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:hazardClass
+    a owl:ObjectProperty ;
+    rdfs:label "Hazard Class"@en ;
+    rdfs:comment "CLP Regulation hazard classification."@en ;
+    rdfs:domain dpp:HazardousSubstance ;
+    rdfs:range dpp:HazardClass ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:substanceName
+    a owl:DatatypeProperty ;
+    rdfs:label "Substance Name"@en ;
+    rdfs:comment "Name of the hazardous substance."@en ;
+    rdfs:domain dpp:HazardousSubstance ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:casNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "CAS Number"@en ;
+    rdfs:comment "Chemical Abstracts Service registry number."@en ;
+    rdfs:domain dpp:HazardousSubstance ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:concentration
+    a owl:DatatypeProperty ;
+    rdfs:label "Concentration"@en ;
+    rdfs:comment "Concentration of the hazardous substance as percentage."@en ;
+    rdfs:domain dpp:HazardousSubstance ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:hazardImpact
+    a owl:DatatypeProperty ;
+    rdfs:label "Hazard Impact"@en ;
+    rdfs:comment "Description of the hazard impact."@en ;
+    rdfs:domain dpp:HazardousSubstance ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Document Reference
+# =============================================================================
+
+dpp:documents
+    a owl:ObjectProperty ;
+    rdfs:label "Documents"@en ;
+    rdfs:comment "Supporting documents for the product."@en ;
+    rdfs:range dpp:DocumentReference ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:documentType
+    a owl:ObjectProperty ;
+    rdfs:label "Document Type"@en ;
+    rdfs:domain dpp:DocumentReference ;
+    rdfs:range dpp:DocumentType ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:documentUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Document URL"@en ;
+    rdfs:comment "URL to the document. See also gs1:referencedFileURL."@en ;
+    rdfs:domain dpp:DocumentReference ;
+    rdfs:range xsd:anyURI ;
+    rdfs:seeAlso gs1:referencedFileURL ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:documentTitle
+    a owl:DatatypeProperty ;
+    rdfs:label "Document Title"@en ;
+    rdfs:domain dpp:DocumentReference ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:mimeType
+    a owl:DatatypeProperty ;
+    rdfs:label "MIME Type"@en ;
+    rdfs:domain dpp:DocumentReference ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:languageCode
+    a owl:DatatypeProperty ;
+    rdfs:label "Language Code"@en ;
+    rdfs:comment "ISO 639-1 language code. See also gs1:fileLanguageCode."@en ;
+    rdfs:domain dpp:DocumentReference ;
+    rdfs:range xsd:string ;
+    rdfs:seeAlso gs1:fileLanguageCode ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:issueDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Issue Date"@en ;
+    rdfs:domain dpp:DocumentReference ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:validUntil
+    a owl:DatatypeProperty ;
+    rdfs:label "Valid Until"@en ;
+    rdfs:domain dpp:DocumentReference ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Circularity Performance
+# =============================================================================
+
+dpp:circularityPerformance
+    a owl:ObjectProperty ;
+    rdfs:label "Circularity Performance"@en ;
+    rdfs:comment "Circularity performance data for the product."@en ;
+    rdfs:range dpp:CircularityPerformance ;
+    rdfs:seeAlso untp-core:circularityPerformance ;
+    owl:equivalentProperty untp-core:circularityPerformance ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:recyclableContent
+    a owl:DatatypeProperty ;
+    rdfs:label "Recyclable Content"@en ;
+    rdfs:comment "Fraction of product that can be recycled (0-1 scale where 0.45 = 45%)."@en ;
+    rdfs:domain dpp:CircularityPerformance ;
+    rdfs:range xsd:decimal ;
+    rdfs:seeAlso untp-core:recyclableContent ;
+    owl:equivalentProperty untp-core:recyclableContent ;
+    skos:note "Value is a decimal fraction 0-1. Aligned with UNTP recyclableContent."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:endOfLifeInstructions
+    a owl:DatatypeProperty ;
+    rdfs:label "End of Life Instructions"@en ;
+    rdfs:comment "URL to end-of-life handling instructions. For text-based recycling guidance, see gs1:consumerRecyclingInstructions."@en ;
+    rdfs:domain dpp:CircularityPerformance ;
+    rdfs:range xsd:anyURI ;
+    rdfs:seeAlso gs1:consumerRecyclingInstructions ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:wastePreventionInfo
+    a owl:DatatypeProperty ;
+    rdfs:label "Waste Prevention Info"@en ;
+    rdfs:comment "URL to waste prevention information. For text-based recycling guidance, see gs1:consumerRecyclingInstructions."@en ;
+    rdfs:domain dpp:CircularityPerformance ;
+    rdfs:range xsd:anyURI ;
+    rdfs:seeAlso gs1:consumerRecyclingInstructions ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:separateCollectionInfo
+    a owl:DatatypeProperty ;
+    rdfs:label "Separate Collection Info"@en ;
+    rdfs:comment "URL to separate collection requirements. For text-based recycling guidance, see gs1:consumerRecyclingInstructions."@en ;
+    rdfs:domain dpp:CircularityPerformance ;
+    rdfs:range xsd:anyURI ;
+    rdfs:seeAlso gs1:consumerRecyclingInstructions ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:dismantlingInstructions
+    a owl:ObjectProperty ;
+    rdfs:label "Dismantling Instructions"@en ;
+    rdfs:domain dpp:CircularityPerformance ;
+    rdfs:range dpp:DocumentReference ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:utilityFactor
+    a owl:DatatypeProperty ;
+    rdfs:label "Utility Factor"@en ;
+    rdfs:comment "Durability of the product relative to industry average (1.0 = average). A value >1 indicates above-average durability."@en ;
+    rdfs:domain dpp:CircularityPerformance ;
+    rdfs:range xsd:decimal ;
+    rdfs:seeAlso untp-core:utilityFactor ;
+    owl:equivalentProperty untp-core:utilityFactor ;
+    dcterms:source <https://uncefact.github.io/spec-untp/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:materialCircularityIndicator
+    a owl:DatatypeProperty ;
+    rdfs:label "Material Circularity Indicator"@en ;
+    rdfs:comment "Overall circularity score combining recycled input, recyclability, and utility (0-1 scale)."@en ;
+    rdfs:domain dpp:CircularityPerformance ;
+    rdfs:range xsd:decimal ;
+    rdfs:seeAlso untp-core:materialCircularityIndicator ;
+    owl:equivalentProperty untp-core:materialCircularityIndicator ;
+    dcterms:source <https://ellenmacarthurfoundation.org/material-circularity-indicator> ;
+    skos:note "Value is a decimal fraction 0-1. Based on Ellen MacArthur Foundation MCI methodology. Aligned with UNTP."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Recycled Content
+# =============================================================================
+
+dpp:recycledContentDetails
+    a owl:ObjectProperty ;
+    rdfs:label "Recycled Content Details"@en ;
+    rdfs:comment "Detailed recycled content breakdown with pre/post-consumer splits."@en ;
+    rdfs:range dpp:RecycledContent ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# Note: dpp:recycledContent as DatatypeProperty (total percentage) is defined below
+# to align with UNTP. The ObjectProperty version is renamed to recycledContentDetails.
+
+dpp:recycledContent
+    a owl:DatatypeProperty ;
+    rdfs:label "Recycled Content"@en ;
+    rdfs:comment "Total fraction of recycled content (0-1 scale where 0.45 = 45%)."@en ;
+    rdfs:domain dpp:RecycledContent ;
+    rdfs:range xsd:decimal ;
+    rdfs:seeAlso untp-core:recycledContent ;
+    owl:equivalentProperty untp-core:recycledContent ;
+    skos:note "Value is a decimal fraction 0-1. Aligned with UNTP recycledContent."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:preConsumerRecycledContent
+    a owl:DatatypeProperty ;
+    rdfs:label "Pre-Consumer Recycled Content"@en ;
+    rdfs:comment "Fraction of pre-consumer (post-industrial) recycled content (0-1 scale)."@en ;
+    rdfs:domain dpp:RecycledContent ;
+    rdfs:range xsd:decimal ;
+    skos:note "Value is a decimal fraction 0-1."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:postConsumerRecycledContent
+    a owl:DatatypeProperty ;
+    rdfs:label "Post-Consumer Recycled Content"@en ;
+    rdfs:comment "Fraction of post-consumer recycled content (0-1 scale)."@en ;
+    rdfs:domain dpp:RecycledContent ;
+    rdfs:range xsd:decimal ;
+    skos:note "Value is a decimal fraction 0-1."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Material Composition
+# =============================================================================
+
+dpp:materialComposition
+    a owl:ObjectProperty ;
+    rdfs:label "Material Composition"@en ;
+    rdfs:range dpp:MaterialComposition ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:materialName
+    a owl:DatatypeProperty ;
+    rdfs:label "Material Name"@en ;
+    rdfs:domain dpp:MaterialComposition ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:massFraction
+    a owl:DatatypeProperty ;
+    rdfs:label "Mass Fraction"@en ;
+    rdfs:comment "Mass fraction of this material (0-1 scale where 0.45 = 45%)."@en ;
+    rdfs:domain dpp:MaterialComposition ;
+    rdfs:range xsd:decimal ;
+    rdfs:seeAlso untp-core:massFraction ;
+    owl:equivalentProperty untp-core:massFraction ;
+    skos:note "Value is a decimal fraction 0-1. Aligned with UNTP massFraction."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:sourceCountry
+    a owl:DatatypeProperty ;
+    rdfs:label "Source Country"@en ;
+    rdfs:comment "Country of origin (ISO 3166-1 alpha-2). See also gs1:countryOfOrigin."@en ;
+    rdfs:domain dpp:MaterialComposition ;
+    rdfs:range xsd:string ;
+    rdfs:seeAlso gs1:countryOfOrigin ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:isCriticalRawMaterial
+    a owl:DatatypeProperty ;
+    rdfs:label "Is Critical Raw Material"@en ;
+    rdfs:comment "Whether this material is on the EU Critical Raw Materials list."@en ;
+    rdfs:domain dpp:MaterialComposition ;
+    rdfs:range xsd:boolean ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Carbon Footprint / Emissions Performance
+# Aligned with GDSN Implementation Guideline for exchanging Carbon Footprint Data
+# and UNTP EmissionsPerformance pattern
+# =============================================================================
+
+dpp:emissionsPerformance
+    a owl:ObjectProperty ;
+    rdfs:label "Emissions Performance"@en ;
+    rdfs:comment "Emissions performance data container. Aligned with UNTP EmissionsPerformance."@en ;
+    rdfs:range dpp:EmissionsPerformance ;
+    rdfs:seeAlso untp-core:emissionsPerformance ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:carbonFootprint
+    a owl:ObjectProperty ;
+    rdfs:label "Carbon Footprint"@en ;
+    rdfs:comment "Carbon footprint measurement for the product."@en ;
+    rdfs:range gs1:QuantitativeValue ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf> ;
+    rdfs:seeAlso untp-core:carbonFootprint ;
+    skos:note """Required extension: GS1 GDSN provides carbon footprint attributes but they are not
+yet part of GS1 Web Vocabulary. This property aligns with the GDSN CFP Implementation Guideline.
+Use gs1:QuantitativeValue for the measurement value with appropriate unitCode."""@en.
+
+dpp:carbonFootprintTotal
+    a owl:DatatypeProperty ;
+    rdfs:label "Carbon Footprint Total"@en ;
+    rdfs:comment "Total lifecycle carbon footprint in kg CO2e. Aligned with UNTP carbonFootprint."@en ;
+    rdfs:range xsd:decimal ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf> ;
+    rdfs:seeAlso untp-core:carbonFootprint ;
+    owl:equivalentProperty untp-core:carbonFootprint ;
+    skos:note "Aligned with GDSN CarbonFootprintHeader/cfpValue and UNTP carbonFootprint. Value in kg CO2 equivalent."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:declaredUnit
+    a owl:DatatypeProperty ;
+    rdfs:label "Declared Unit"@en ;
+    rdfs:comment "Functional unit for carbon footprint or other metrics (e.g., kg CO2e/kWh, kg CO2e/kg). Aligned with UNTP declaredUnit."@en ;
+    rdfs:range xsd:string ;
+    rdfs:seeAlso untp-core:declaredUnit ;
+    owl:equivalentProperty untp-core:declaredUnit ;
+    skos:note "Aligned with GDSN cfpFunctionalUnit and UNTP declaredUnit. Specifies the reference unit for measurements."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:carbonFootprintStudyUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Carbon Footprint Study URL"@en ;
+    rdfs:comment "URL to the full carbon footprint study."@en ;
+    rdfs:range xsd:anyURI ;
+    rdfs:seeAlso gs1:referencedFileURL ;
+    skos:note "Consider also using gs1:referencedFileDetails with gs1:ReferencedFileTypeCode-CERTIFICATION for the study document."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:operationalScope
+    a owl:ObjectProperty ;
+    rdfs:label "Operational Scope"@en ;
+    rdfs:comment "Lifecycle boundary for emissions calculation (CradleToGate or CradleToGrave)."@en ;
+    rdfs:domain dpp:EmissionsPerformance ;
+    rdfs:range dpp:OperationalScope ;
+    rdfs:seeAlso untp-core:operationalScope ;
+    owl:equivalentProperty untp-core:operationalScope ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:primarySourcedRatio
+    a owl:DatatypeProperty ;
+    rdfs:label "Primary Sourced Ratio"@en ;
+    rdfs:comment "Proportion of data from direct measurement vs estimates (0-1 scale)."@en ;
+    rdfs:domain dpp:EmissionsPerformance ;
+    rdfs:range xsd:decimal ;
+    rdfs:seeAlso untp-core:primarySourcedRatio ;
+    owl:equivalentProperty untp-core:primarySourcedRatio ;
+    skos:note "Value is a decimal fraction 0-1. Higher values indicate more reliable data from direct measurement. Aligned with UNTP."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Data Quality and Provenance
+# =============================================================================
+
+dpp:lastDataUpdate
+    a owl:DatatypeProperty ;
+    rdfs:label "Last Data Update"@en ;
+    rdfs:comment "Timestamp of the last update to the DPP data."@en ;
+    rdfs:range xsd:dateTime ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:dataQualityAssessment
+    a owl:DatatypeProperty ;
+    rdfs:label "Data Quality Assessment"@en ;
+    rdfs:comment "Assessment of data quality and completeness (A-E rating)."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:dataProviderCertification
+    a owl:DatatypeProperty ;
+    rdfs:label "Data Provider Certification"@en ;
+    rdfs:comment "Certification or accreditation of the data provider."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Traceability Performance (UNTP alignment)
+# =============================================================================
+
+dpp:traceabilityPerformance
+    a owl:ObjectProperty ;
+    rdfs:label "Traceability Performance"@en ;
+    rdfs:comment "Traceability performance metrics for supply chain verification."@en ;
+    rdfs:range dpp:TraceabilityPerformance ;
+    rdfs:seeAlso untp-dpp:traceabilityPerformance ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:verifiedRatio
+    a owl:DatatypeProperty ;
+    rdfs:label "Verified Ratio"@en ;
+    rdfs:comment "Proportion of materials verifiably traced through the supply chain (0-1 scale)."@en ;
+    rdfs:domain dpp:TraceabilityPerformance ;
+    rdfs:range xsd:decimal ;
+    rdfs:seeAlso untp-core:verifiedRatio ;
+    owl:equivalentProperty untp-core:verifiedRatio ;
+    skos:note "Value is a decimal fraction 0-1. Higher values indicate better supply chain traceability. Aligned with UNTP."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:granularityLevel
+    a owl:ObjectProperty ;
+    rdfs:label "Granularity Level"@en ;
+    rdfs:comment "Level of specificity for DPP data (ProductClass, Batch, or Item)."@en ;
+    rdfs:range dpp:GranularityLevel ;
+    rdfs:seeAlso untp-dpp:granularityLevel ;
+    owl:equivalentProperty untp-dpp:granularityLevel ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Regulatory Information Extension
+# =============================================================================
+
+dpp:regulatoryReferenceNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "Regulatory Reference Number"@en ;
+    rdfs:comment "Reference number from regulatory information system (e.g., EUIS for EUDR)."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:complianceDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Compliance Date"@en ;
+    rdfs:comment "Date of compliance verification."@en ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:complianceStatus
+    a owl:DatatypeProperty ;
+    rdfs:label "Compliance Status"@en ;
+    rdfs:comment "Current compliance status."@en ;
+    rdfs:range xsd:boolean ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - ESPR Economic Operator Identification (Article 77)
+# =============================================================================
+
+dpp:economicOperatorId
+    a owl:DatatypeProperty ;
+    rdfs:label "Economic Operator ID"@en ;
+    rdfs:comment """Unique EOID from the EU economic operator registry per ESPR Article 77.
+This replaces individual national registrations with a single EU-wide identifier."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    rdfs:domain dpp:OperatorInformation ;
+    rdfs:range xsd:string ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+dpp:eoriNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "EORI Number"@en ;
+    rdfs:comment "Economic Operators Registration and Identification (EORI) number for customs purposes."@en ;
+    rdfs:domain dpp:OperatorInformation ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:vatIdentificationNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "VAT Identification Number"@en ;
+    rdfs:comment "Value Added Tax identification number."@en ;
+    rdfs:domain dpp:OperatorInformation ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Facility Information
+# =============================================================================
+
+dpp:facilityInformation
+    a owl:ObjectProperty ;
+    rdfs:label "Facility Information"@en ;
+    rdfs:comment "Manufacturing or processing facility details."@en ;
+    rdfs:range dpp:FacilityInformation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:facilityType
+    a owl:DatatypeProperty ;
+    rdfs:label "Facility Type"@en ;
+    rdfs:comment "Type of facility (manufacturing, processing, assembly, etc.)."@en ;
+    rdfs:domain dpp:FacilityInformation ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:facilityCertifications
+    a owl:ObjectProperty ;
+    rdfs:label "Facility Certifications"@en ;
+    rdfs:comment "Certifications held by the facility (ISO 9001, ISO 14001, etc.)."@en ;
+    rdfs:domain dpp:FacilityInformation ;
+    rdfs:range gs1:CertificationDetails ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Substances of Concern (SCIP Database Alignment)
+# =============================================================================
+
+dpp:substancesOfConcern
+    a owl:ObjectProperty ;
+    rdfs:label "Substances of Concern"@en ;
+    rdfs:comment "List of substances of concern present in the product per ESPR and SCIP database requirements."@en ;
+    rdfs:range dpp:SubstanceOfConcern ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:ecNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "EC Number"@en ;
+    rdfs:comment "European Community number for the substance (EINECS/ELINCS)."@en ;
+    rdfs:domain dpp:SubstanceOfConcern ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:scipId
+    a owl:DatatypeProperty ;
+    rdfs:label "SCIP ID"@en ;
+    rdfs:comment "Identifier in the ECHA SCIP database (Substances of Concern In Products)."@en ;
+    rdfs:domain dpp:SubstanceOfConcern ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:substanceLocation
+    a owl:DatatypeProperty ;
+    rdfs:label "Substance Location"@en ;
+    rdfs:comment "Location or component where the substance is present in the product."@en ;
+    rdfs:domain dpp:SubstanceOfConcern ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:safeUseInstructions
+    a owl:DatatypeProperty ;
+    rdfs:label "Safe Use Instructions"@en ;
+    rdfs:comment "Instructions for safe use of the product containing the substance of concern."@en ;
+    rdfs:domain dpp:SubstanceOfConcern ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:safeDisassemblyInstructions
+    a owl:DatatypeProperty ;
+    rdfs:label "Safe Disassembly Instructions"@en ;
+    rdfs:comment "Instructions for safe disassembly and handling of components containing the substance."@en ;
+    rdfs:domain dpp:SubstanceOfConcern ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Performance and Durability (ESPR Article 7)
+# =============================================================================
+
+dpp:performanceInfo
+    a owl:ObjectProperty ;
+    rdfs:label "Performance Information"@en ;
+    rdfs:comment "Product performance and durability information."@en ;
+    rdfs:range dpp:PerformanceInfo ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:expectedLifespan
+    a owl:ObjectProperty ;
+    rdfs:label "Expected Lifespan"@en ;
+    rdfs:comment "Expected product lifespan. Use gs1:QuantitativeValue with unitCode (e.g., 'ANN' for years)."@en ;
+    rdfs:domain dpp:PerformanceInfo ;
+    rdfs:range dpp:DurationYears ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:guaranteedLifespan
+    a owl:ObjectProperty ;
+    rdfs:label "Guaranteed Lifespan"@en ;
+    rdfs:comment "Guaranteed minimum product lifespan per manufacturer warranty."@en ;
+    rdfs:domain dpp:PerformanceInfo ;
+    rdfs:range dpp:DurationYears ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:usageCycles
+    a owl:DatatypeProperty ;
+    rdfs:label "Usage Cycles"@en ;
+    rdfs:comment "Number of expected usage cycles (e.g., charging cycles for batteries)."@en ;
+    rdfs:domain dpp:PerformanceInfo ;
+    rdfs:range xsd:integer ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:technicalLifetime
+    a owl:ObjectProperty ;
+    rdfs:label "Technical Lifetime"@en ;
+    rdfs:comment "Technical lifetime under specified conditions."@en ;
+    rdfs:domain dpp:PerformanceInfo ;
+    rdfs:range dpp:DurationYears ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:performanceClass
+    a owl:DatatypeProperty ;
+    rdfs:label "Performance Class"@en ;
+    rdfs:comment "Performance or efficiency class (e.g., A+++ to G for energy labels)."@en ;
+    rdfs:domain dpp:PerformanceInfo ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:testedConditions
+    a owl:DatatypeProperty ;
+    rdfs:label "Tested Conditions"@en ;
+    rdfs:comment "Description of conditions under which performance was tested."@en ;
+    rdfs:domain dpp:PerformanceInfo ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Repairability (ESPR Article 7)
+# =============================================================================
+
+dpp:repairabilityInfo
+    a owl:ObjectProperty ;
+    rdfs:label "Repairability Information"@en ;
+    rdfs:comment "Repair and maintenance information for the product."@en ;
+    rdfs:range dpp:RepairabilityInfo ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:repairabilityScore
+    a owl:DatatypeProperty ;
+    rdfs:label "Repairability Score"@en ;
+    rdfs:comment "Repairability index score (typically 0-10 scale, e.g., French Indice de Réparabilité)."@en ;
+    rdfs:domain dpp:RepairabilityInfo ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:repairabilityClass
+    a owl:DatatypeProperty ;
+    rdfs:label "Repairability Class"@en ;
+    rdfs:comment "Repairability class (A to E, where A is most repairable)."@en ;
+    rdfs:domain dpp:RepairabilityInfo ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:sparePartsAvailability
+    a owl:ObjectProperty ;
+    rdfs:label "Spare Parts Availability"@en ;
+    rdfs:comment "Duration for which spare parts will be available. Use gs1:QuantitativeValue with unitCode 'ANN' for years."@en ;
+    rdfs:domain dpp:RepairabilityInfo ;
+    rdfs:range dpp:DurationYears ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:sparePartsDeliveryTime
+    a owl:ObjectProperty ;
+    rdfs:label "Spare Parts Delivery Time"@en ;
+    rdfs:comment "Maximum delivery time for spare parts. Use gs1:QuantitativeValue with unitCode 'DAY'."@en ;
+    rdfs:domain dpp:RepairabilityInfo ;
+    rdfs:range dpp:DurationDays ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:repairInstructions
+    a owl:ObjectProperty ;
+    rdfs:label "Repair Instructions"@en ;
+    rdfs:comment "URL or reference to repair instructions and manuals."@en ;
+    rdfs:domain dpp:RepairabilityInfo ;
+    rdfs:range dpp:DocumentReference ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:professionalRepairNetwork
+    a owl:DatatypeProperty ;
+    rdfs:label "Professional Repair Network"@en ;
+    rdfs:comment "URL to find authorized repair service providers."@en ;
+    rdfs:domain dpp:RepairabilityInfo ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:diyRepairPossible
+    a owl:DatatypeProperty ;
+    rdfs:label "DIY Repair Possible"@en ;
+    rdfs:comment "Whether the product can be repaired by consumers (do-it-yourself repair)."@en ;
+    rdfs:domain dpp:RepairabilityInfo ;
+    rdfs:range xsd:boolean ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:softwareUpdatesAvailability
+    a owl:ObjectProperty ;
+    rdfs:label "Software Updates Availability"@en ;
+    rdfs:comment "Duration for which software/firmware updates will be provided."@en ;
+    rdfs:domain dpp:RepairabilityInfo ;
+    rdfs:range dpp:DurationYears ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Access Rights (ESPR Article 9)
+# =============================================================================
+
+dpp:accessRights
+    a owl:ObjectProperty ;
+    rdfs:label "Access Rights"@en ;
+    rdfs:comment "Access control configuration for this data element."@en ;
+    rdfs:range dpp:AccessRights ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:accessLevel
+    a owl:ObjectProperty ;
+    rdfs:label "Access Level"@en ;
+    rdfs:comment "The access level for this data (Public, AuthorizedOnly, Restricted)."@en ;
+    rdfs:domain dpp:AccessRights ;
+    rdfs:range dpp:AccessLevel ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:authorizedParties
+    a owl:ObjectProperty ;
+    rdfs:label "Authorized Parties"@en ;
+    rdfs:comment "List of parties authorized to access restricted data."@en ;
+    rdfs:domain dpp:AccessRights ;
+    rdfs:range gs1:Organization ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:dataRetentionPeriod
+    a owl:ObjectProperty ;
+    rdfs:label "Data Retention Period"@en ;
+    rdfs:comment "How long the data must be retained per regulatory requirements."@en ;
+    rdfs:domain dpp:AccessRights ;
+    rdfs:range dpp:DurationYears ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Product Category and Identification
+# =============================================================================
+
+dpp:productCategory
+    a owl:ObjectProperty ;
+    rdfs:label "Product Category"@en ;
+    rdfs:comment "ESPR product category classification."@en ;
+    rdfs:range dpp:ProductCategory ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:productModel
+    a owl:DatatypeProperty ;
+    rdfs:label "Product Model"@en ;
+    rdfs:comment "Product model identifier assigned by the manufacturer."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:uniqueProductIdentifier
+    a owl:DatatypeProperty ;
+    rdfs:label "Unique Product Identifier"@en ;
+    rdfs:comment """Unique product identifier per ESPR requirements.
+Prefer GS1 Digital Link format: https://id.gs1.org/01/{GTIN}/21/{Serial}"""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    rdfs:range xsd:anyURI .
+
+dpp:passportIdentifier
+    a owl:DatatypeProperty ;
+    rdfs:label "Passport Identifier"@en ;
+    rdfs:comment "Unique identifier for this Digital Product Passport instance."@en ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:passportVersion
+    a owl:DatatypeProperty ;
+    rdfs:label "Passport Version"@en ;
+    rdfs:comment "Version of this Digital Product Passport."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:passportIssueDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Passport Issue Date"@en ;
+    rdfs:comment "Date when this Digital Product Passport was issued."@en ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:passportStatus
+    a owl:ObjectProperty ;
+    rdfs:label "Passport Status"@en ;
+    rdfs:comment "Lifecycle status of this Digital Product Passport."@en ;
+    rdfs:range dpp:PassportStatus ;
+    dcterms:source <https://standards.iteh.ai/catalog/standards/cen/2d02edd9-ec28-4eb3-b99a-6a84c0a84257/pren-18222> ;
+    skos:note "Aligned with EN 18222 DPP lifecycle management. Status values: Draft, Active, Updated, Withdrawn, Archived."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:passportLastModified
+    a owl:DatatypeProperty ;
+    rdfs:label "Passport Last Modified"@en ;
+    rdfs:comment "Date and time when this Digital Product Passport was last modified."@en ;
+    rdfs:range xsd:dateTime ;
+    dcterms:source <https://standards.iteh.ai/catalog/standards/cen/2d02edd9-ec28-4eb3-b99a-6a84c0a84257/pren-18222> ;
+    skos:note "Supports EN 18222 lifecycle tracking and EN 18221 versioning requirements."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:passportExpiryDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Passport Expiry Date"@en ;
+    rdfs:comment "Date when this Digital Product Passport expires or requires renewal."@en ;
+    rdfs:range xsd:date ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "ESPR requires DPP data to remain available for a period defined in delegated acts."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:passportIssuer
+    a owl:ObjectProperty ;
+    rdfs:label "Passport Issuer"@en ;
+    rdfs:comment "Economic operator responsible for issuing and maintaining this Digital Product Passport."@en ;
+    rdfs:range dpp:OperatorInformation ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "ESPR Article 9 requires clear identification of the responsible economic operator."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:previousPassportVersion
+    a owl:DatatypeProperty ;
+    rdfs:label "Previous Passport Version"@en ;
+    rdfs:comment "Reference to the previous version of this passport, supporting version history per EN 18221."@en ;
+    rdfs:range xsd:anyURI ;
+    dcterms:source <https://standards.iteh.ai/catalog/standards/cen/2d02edd9-ec28-4eb3-b99a-6a84c0a84257/pren-18222> ;
+    skos:note "Supports EN 18221 requirement that previous versions remain available."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Properties - Digital Facility Record (DFR) Support
+# =============================================================================
+
+dpp:activityClassification
+    a owl:DatatypeProperty ;
+    rdfs:label "Activity Classification"@en ;
+    rdfs:comment "Industry/economic activity classification code (UN ISIC, EU NACE, US NAICS)."@en ;
+    rdfs:range xsd:string ;
+    rdfs:seeAlso <https://unstats.un.org/unsd/classifications/Econ/isic> ;
+    skos:note """Use standard classification codes: ISIC Rev.4, NACE Rev.2, or NAICS.
+No domain restriction - can be used on OperatorInformation, FacilityInformation, or any entity.
+Supports UNTP Digital Facility Record (DFR) activity classification requirements."""@en.
+
+# =============================================================================
+# Properties - Digital Identity Anchor (DIA) Support
+# =============================================================================
+
+dpp:did
+    a owl:DatatypeProperty ;
+    rdfs:label "Decentralized Identifier"@en ;
+    rdfs:comment "DID (Decentralized Identifier) linking this entity to verifiable identity infrastructure."@en ;
+    rdfs:range xsd:anyURI ;
+    rdfs:seeAlso <https://www.w3.org/TR/did-core/> ;
+    rdfs:seeAlso <https://uncefact.github.io/spec-untp/docs/specification/DigitalIdentityAnchor/> ;
+    skos:note """Used to link traditional IDs (GLN, VAT, EOID) to DIDs per UNTP Digital Identity Anchor pattern.
+No domain restriction - can be used on OperatorInformation, FacilityInformation, or any entity.
+DID format: did:method:specific-identifier (e.g., did:web:example.com)."""@en.
+
+dpp:identityCredentialUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Identity Credential URL"@en ;
+    rdfs:comment "URL to a verifiable credential proving identity (Digital Identity Anchor or similar)."@en ;
+    rdfs:range xsd:anyURI ;
+    rdfs:seeAlso <https://uncefact.github.io/spec-untp/docs/specification/DigitalIdentityAnchor/> ;
+    rdfs:seeAlso <https://www.w3.org/TR/vc-data-model-2.0/> ;
+    skos:note """Links to a VC issued by authoritative registry (chamber of commerce, tax authority)
+proving DID-to-traditional-ID binding. Supports UNTP Digital Identity Anchor requirements.
+No domain restriction - can be used on OperatorInformation, FacilityInformation, or any entity."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Individual Trade Item Piece (ITIP) - GS1 Application Identifier 8026
+# =============================================================================
+#
+# Supports multi-piece trade items where a single GTIN is delivered as
+# multiple physical pieces (e.g., a suit = jacket + trousers, furniture
+# flat-pack sets, bundled electronics). Aligns with GS1 GSMP Work Request
+# WR 25-212 (ITIP identification of trade items packed in several
+# individual pieces).
+#
+# AI 8026 encodes: GTIN + total piece count + this piece's number
+# Reference: GS1 General Specifications section 3.9.17 (AI 8026)
+
+dpp:IndividualTradeItemPiece
+    a rdfs:Class ;
+    rdfs:label "Individual Trade Item Piece"@en ;
+    rdfs:comment "A single physical piece of a multi-piece trade item, identified via GS1 AI 8026 (ITIP). Used when a single GTIN is composed of multiple individually-shipped pieces (e.g., a 2-piece suit, a furniture set)."@en ;
+    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-212" ;
+    rdfs:seeAlso <https://www.gs1.org/standards/barcodes/application-identifiers/8026> ;
+    skos:note "Reference pattern aligned with WR 25-212 (Community Review). The ITIP AI 8026 encodes GTIN + total piece count + piece number in one identifier."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:tradeItemPieceCount
+    a owl:DatatypeProperty ;
+    rdfs:label "Trade Item Piece Count"@en ;
+    rdfs:comment "Total number of physical pieces that together constitute the complete trade item identified by the parent GTIN."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:positiveInteger ;
+    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-212" ;
+    skos:note "Maps to the piece count component of GS1 AI 8026. For example, a 2-piece suit has tradeItemPieceCount = 2."@en ;
+    rdfs:seeAlso <https://www.gs1.org/standards/barcodes/application-identifiers/8026> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:tradeItemPieceNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "Trade Item Piece Number"@en ;
+    rdfs:comment "The sequential number of this piece within the multi-piece trade item (1-based). For a 2-piece suit, the jacket might be piece 1 and trousers piece 2."@en ;
+    rdfs:domain dpp:IndividualTradeItemPiece ;
+    rdfs:range xsd:positiveInteger ;
+    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-212" ;
+    skos:note "Maps to the piece-number component of GS1 AI 8026. MUST be less than or equal to dpp:tradeItemPieceCount on the parent product."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:tradeItemPieceOf
+    a owl:ObjectProperty ;
+    rdfs:label "Trade Item Piece Of"@en ;
+    rdfs:comment "Links an individual piece to the multi-piece trade item (identified by its GTIN) it belongs to."@en ;
+    rdfs:domain dpp:IndividualTradeItemPiece ;
+    rdfs:range gs1:Product ;
+    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-212" ;
+    skos:note "Inverse relationship: a gs1:Product with dpp:tradeItemPieceCount > 1 has multiple dpp:IndividualTradeItemPiece members linked back via this property."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:tradeItemPieceDescription
+    a owl:DatatypeProperty ;
+    rdfs:label "Trade Item Piece Description"@en ;
+    rdfs:comment "Human-readable description of what this specific piece is (e.g., 'Jacket', 'Trousers', 'Left shoe', 'Instruction booklet')."@en ;
+    rdfs:domain dpp:IndividualTradeItemPiece ;
+    rdfs:range xsd:string ;
+    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-212" ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Customs Commodity Classification (shared across EU/US regulatory modules)
+# =============================================================================
+#
+# No GS1 Web Vocabulary term exists for customs commodity codes (HS / CN /
+# HTSUS). Multiple domain modules (eudr, detergent, electronics) need to
+# carry these, so we define the property once here in core.
+
+dpp:CustomsCommodityCodeType
+    a owl:Class ;
+    rdfs:label "Customs Commodity Code Type"@en ;
+    rdfs:comment "The classification system that a customs commodity code belongs to."@en ;
+    owl:oneOf (
+        dpp:HS6
+        dpp:HS8
+        dpp:CN8
+        dpp:HTSUS10
+        dpp:CN10
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:HS6      a dpp:CustomsCommodityCodeType ; rdfs:label "HS 6-digit (World Customs Organization Harmonized System)"@en .
+dpp:HS8      a dpp:CustomsCommodityCodeType ; rdfs:label "HS 8-digit subheading"@en .
+dpp:CN8      a dpp:CustomsCommodityCodeType ; rdfs:label "EU Combined Nomenclature 8-digit"@en .
+dpp:CN10     a dpp:CustomsCommodityCodeType ; rdfs:label "EU Combined Nomenclature 10-digit (TARIC)"@en .
+dpp:HTSUS10  a dpp:CustomsCommodityCodeType ; rdfs:label "US Harmonized Tariff Schedule 10-digit"@en .
+
+dpp:customsCommodityCode
+    a owl:DatatypeProperty ;
+    rdfs:label "Customs Commodity Code"@en ;
+    rdfs:comment "A commodity code assigned to a trade item for customs classification. The coding system (HS / CN / HTSUS) is indicated by dpp:customsCommodityCodeType on the same trade item. GS1 has no native property for this; tariffs and regulatory obligations across EU Combined Nomenclature, US HTSUS, and WCO HS all need it."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:string ;
+    dcterms:source <https://www.wcoomd.org/en/topics/nomenclature.aspx> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:customsCommodityCodeType
+    a owl:ObjectProperty ;
+    rdfs:label "Customs Commodity Code Type"@en ;
+    rdfs:comment "The classification system (HS, CN, HTSUS, etc.) used for dpp:customsCommodityCode on the same trade item."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range dpp:CustomsCommodityCodeType ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Regulation compliance flag
+# =============================================================================
+#
+# GS1 Web Vocabulary defines gs1:regulatoryAct (the name of a regulation)
+# but NO boolean compliance flag. Earlier EUDR examples erroneously cited
+# gs1:isRegulationCompliant — that term does not exist in GS1. This core
+# property fills that gap cleanly.
+
+dpp:isRegulationCompliant
+    a owl:DatatypeProperty ;
+    rdfs:label "Is Regulation Compliant"@en ;
+    rdfs:comment "Asserts that a trade item complies with a specific regulatory act. Used inside a gs1:regulatoryInformation block alongside gs1:regulatoryAct. Replaces the non-existent gs1:isRegulationCompliant referenced in earlier drafts."@en ;
+    rdfs:range xsd:boolean ;
+    skos:note "This is a dpp: extension because no GS1 Web Vocabulary term currently carries a boolean compliance assertion."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .

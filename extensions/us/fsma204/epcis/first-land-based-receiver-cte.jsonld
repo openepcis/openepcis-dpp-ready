@@ -1,0 +1,67 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-04-17T16:55:26.92Z",
+  "_comment_gs1us_mapping": [
+    "First Land-Based Receiver CTE per GS1 US 'EPCIS Recommendations for FSMA 204 CTEs' R2.0, §8.",
+    "Single ObjectEvent covers the entire CTE when the first land-based receiver assigns the TLC:",
+    "  ObjectEvent, action=ADD, bizStep=creating_class_instance, disposition=active.",
+    "  readPoint = GLN of the first land-based receiver = TLC source (KDE).",
+    "  quantityList.epcClass = newly assigned TLC (GTIN+Batch/Lot).",
+    "  eventTime = date the food was landed (KDE).",
+    "  ilmd carries seafood-specific KDEs from the GS1 Web Vocabulary:",
+    "    - gs1:catchZone (FAO area codes) = locations for the trip during which the food was caught.",
+    "    - gs1:harvestDateStart + gs1:harvestDateEnd = harvest date range KDE.",
+    "    - gs1:fishType = species / acceptable market name KDE.",
+    "  bizTransactionList = reference document type + number KDEs (cert, recadv, po).",
+    "NO fsma: extension fields — all KDEs ride on native EPCIS / GS1 Web Vocabulary fields."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2026-02-23T11:51:08-05:00",
+        "eventTimeZoneOffset": "-05:00",
+        "action": "ADD",
+        "bizStep": "creating_class_instance",
+        "disposition": "active",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009997004"
+        },
+        "bizTransactionList": [
+          {
+            "type": "cert",
+            "bizTransaction": "urn:epcglobal:cbv:bt:0860009997004:cert-100037169"
+          },
+          {
+            "type": "recadv",
+            "bizTransaction": "urn:epcglobal:cbv:bt:0860009997004:861-100037169"
+          },
+          {
+            "type": "po",
+            "bizTransaction": "urn:epcglobal:cbv:bt:0860009997004:850-100037169"
+          }
+        ],
+        "quantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/00860009997004/10/SWF-2026-0223",
+            "quantity": 1000,
+            "uom": "LBR"
+          }
+        ],
+        "ilmd": {
+          "gs1:catchZone": [
+            "21.4R",
+            "27.14.a"
+          ],
+          "gs1:harvestDateStart": "2026-02-16",
+          "gs1:harvestDateEnd": "2026-02-18",
+          "gs1:fishType": "SWORDFISH"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,484 @@
+{
+  "_comment_gs1_alignment": [
+    "This example demonstrates GS1-aligned Digital Product Passport for footwear.",
+    "Footwear presents unique DPP challenges: mixed materials (textile, leather, rubber),",
+    "different certifications per component, and specific durability metrics.",
+    "Key GS1 patterns used:",
+    "- GS1 Digital Link URI for product identification",
+    "- gs1:textileMaterial for composition (even for non-textile materials in footwear context)",
+    "- gs1:certification with gs1:CertificationDetails for multi-standard certifications",
+    "- textile: extensions for care, durability, and circularity"
+  ],
+
+  "@context": [
+    "https://ref.openepcis.io/extensions/eu/textile/context",
+    {
+      "gs1": "https://ref.gs1.org/voc/",
+      "dpp": "https://ref.openepcis.io/extensions/common/core/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#"
+    }
+  ],
+
+  "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521",
+  "type": ["Product", "TextileFootwear"],
+
+  "gtin": "09521234000019",
+  "gs1:serialNumber": "TR-2024-08521",
+
+  "productName": {
+    "@value": "EcoStride Trail Running Shoe - Forest Green",
+    "@language": "en"
+  },
+
+  "gs1:productDescription": {
+    "@value": "Lightweight trail running shoe with recycled upper mesh, chrome-free leather accents, and bio-based rubber outsole. Designed for trail performance with minimal environmental impact.",
+    "@language": "en"
+  },
+
+  "textileCategory": "Footwear",
+
+  "garmentType": "Trail Running Shoe",
+  "targetGender": "Unisex",
+  "sizeRange": "36-48 EU",
+  "seasonCollection": "SS2025",
+
+  "fabricType": "Knitted",
+
+  "gs1:manufacturer": {
+    "id": "https://id.gs1.org/417/9521234000004",
+    "type": "gs1:Organization",
+    "gs1:organizationName": "GreenStep Footwear AG",
+    "gs1:gln": "9521234000004",
+    "gs1:address": {
+      "id": "https://id.gs1.org/417/9521234000004#address",
+      "type": "gs1:PostalAddress",
+      "gs1:streetAddress": "Via della Sostenibilita 100",
+      "gs1:addressLocality": "Montebelluna",
+      "gs1:postalCode": "31044",
+      "gs1:countryCode": "IT"
+    },
+    "gs1:contactPoint": {
+      "type": "gs1:ContactPoint",
+      "gs1:email": "info@greenstep.example.com",
+      "gs1:url": {"id": "https://www.greenstep.example.com"}
+    }
+  },
+
+  "dpp:operatorInformation": {
+    "id": "https://id.gs1.org/417/9521234000004#operator",
+    "type": "dpp:OperatorInformation",
+    "gs1:gln": "9521234000004",
+    "gs1:organizationName": "GreenStep Footwear AG",
+    "dpp:operatorRole": {"id": "dpp:Manufacturer"},
+    "gs1:address": {
+      "type": "gs1:PostalAddress",
+      "gs1:streetAddress": "Via della Sostenibilita 100",
+      "gs1:addressLocality": "Montebelluna",
+      "gs1:postalCode": "31044",
+      "gs1:countryCode": "IT"
+    }
+  },
+
+  "gs1:countryOfOrigin": "IT",
+  "gs1:manufacturingDate": "2024-11-20",
+
+  "gs1:netWeight": {
+    "type": "WeightKilograms",
+    "value": 0.54
+  },
+
+  "_comment_composition": "Footwear typically has distinct upper, midsole, and outsole compositions",
+  "textileMaterial": [
+    {
+      "type": "TextileMaterialDetails",
+      "textileMaterialContent": {
+        "type": "Percentage",
+        "value": 45
+      },
+      "textileMaterialDescription": {
+        "@value": "Recycled Polyester Mesh (Upper)",
+        "@language": "en"
+      }
+    },
+    {
+      "type": "TextileMaterialDetails",
+      "textileMaterialContent": {
+        "type": "Percentage",
+        "value": 15
+      },
+      "textileMaterialDescription": {
+        "@value": "Chrome-Free Leather (Accents)",
+        "@language": "en"
+      }
+    },
+    {
+      "type": "TextileMaterialDetails",
+      "textileMaterialContent": {
+        "type": "Percentage",
+        "value": 25
+      },
+      "textileMaterialDescription": {
+        "@value": "Bio-based EVA (Midsole)",
+        "@language": "en"
+      }
+    },
+    {
+      "type": "TextileMaterialDetails",
+      "textileMaterialContent": {
+        "type": "Percentage",
+        "value": 10
+      },
+      "textileMaterialDescription": {
+        "@value": "Natural Rubber (Outsole)",
+        "@language": "en"
+      }
+    },
+    {
+      "type": "TextileMaterialDetails",
+      "textileMaterialContent": {
+        "type": "Percentage",
+        "value": 5
+      },
+      "textileMaterialDescription": {
+        "@value": "Recycled Polyester (Laces)",
+        "@language": "en"
+      }
+    }
+  ],
+
+  "careInstructions": {
+    "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521#care",
+    "type": "CareInstruction",
+    "washingSymbol": "WashHandOnly",
+    "bleachingSymbol": "DoNotBleach",
+    "dryingSymbol": "LineDry",
+    "ironingSymbol": "DoNotIron",
+    "dryCleaningSymbol": "DoNotDryClean",
+    "additionalCareInstructions": {
+      "@value": "Remove insoles before cleaning. Brush off dirt when dry. Spot clean with damp cloth and mild soap. Do not machine wash or tumble dry. Air dry away from direct heat.",
+      "@language": "en"
+    }
+  },
+
+  "durabilityInfo": {
+    "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521#durability",
+    "type": "DurabilityInfo",
+    "durabilityClass": "DurabilityB",
+    "abrasionResistance": 25000,
+    "expectedLifetimeYears": 3,
+    "_comment": "For footwear, we use km rating instead of wash cycles",
+    "additionalCareInstructions": {
+      "@value": "Expected lifespan: 800-1000 km of trail running",
+      "@language": "en"
+    }
+  },
+
+  "microplasticInfo": {
+    "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521#microplastic",
+    "type": "MicroplasticInfo",
+    "microplasticRiskLevel": "LowShedding",
+    "syntheticFiberContent": 50,
+    "microplasticMitigationMeasures": {
+      "@value": "Upper mesh features tight weave construction. All synthetic materials are solution-dyed to reduce chemical treatments. Hand wash only instruction reduces microfiber release compared to machine washing.",
+      "@language": "en"
+    }
+  },
+
+  "_comment_robustness": "Robustness score per EU Preparatory Study 3rd Milestone (0-10)",
+  "robustnessAssessment": {
+    "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521#robustness",
+    "type": "RobustnessAssessment",
+    "robustnessScore": 7.0,
+    "cleaningCyclesBeforeTest": 5,
+    "robustnessTestFabricType": "Knitted",
+    "spiralityTest": {
+      "type": "SpiralityTestResult",
+      "spiralityScore": 2,
+      "spiralityPercentage": 5.8,
+      "spiralityTestMethod": "ISO 16322-3"
+    },
+    "dimensionalChangeTest": {
+      "type": "DimensionalChangeTestResult",
+      "dimensionalChangeScore": 2,
+      "dimensionalChangePercentage": 5.2,
+      "dimensionalChangeTestMethod": "ISO 3759"
+    },
+    "visualInspection": {
+      "type": "VisualInspectionResult",
+      "visualInspectionScore": 3,
+      "colourChangeRating": 4,
+      "fabricAppearanceRating": 4,
+      "seamAppearanceRating": 4,
+      "nonTextilePartsRating": 5,
+      "visualInspectionTestMethod": "ISO 15487"
+    }
+  },
+
+  "_comment_recyclability": "Recyclability score per EU Preparatory Study 3rd Milestone (0-10)",
+  "recyclabilityAssessment": {
+    "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521#recyclability",
+    "type": "RecyclabilityAssessment",
+    "recyclabilityScore": 4.0,
+    "isRecyclable": true,
+    "elastaneContentPercent": 0,
+    "sortingFactors": {
+      "type": "SortingFactors",
+      "sameInnerOuterComposition": false,
+      "freeFromPrintings": true,
+      "freeFromCoatings": false,
+      "freeFromSequins": true
+    },
+    "technicalRecyclability": {
+      "type": "TechnicalRecyclability",
+      "technicalRecyclabilityScore": 2.0,
+      "applicableRecyclingTechnology": "MechanicalRecycling"
+    }
+  },
+
+  "recycledContentDeclaration": [
+    {
+      "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521#rc-rpet",
+      "type": "RecycledContentDeclaration",
+      "secondaryMaterialFraction": 50.0,
+      "wasteOriginType": "PostConsumer",
+      "recycledSourceType": "OpenLoop",
+      "chainOfCustodyMethod": "Certified",
+      "meetsTargetThreshold": true,
+      "verificationCertification": {
+        "type": "gs1:CertificationDetails",
+        "gs1:certificationAgency": "Textile Exchange",
+        "gs1:certificationStandard": "Global Recycled Standard (GRS)",
+        "gs1:certificationIdentification": "GRS-2024-GREENSTEP-001"
+      }
+    }
+  ],
+
+  "environmentalFootprint": {
+    "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521#footprint",
+    "type": "EnvironmentalFootprint",
+    "carbonFootprintManufacturing": 8.2,
+    "pefSingleScore": 28.7,
+    "benchmarkPerformance": -22.0,
+    "dataTypeIndicator": "MixedData",
+    "pefcrReference": "PEFCR Apparel & Footwear v1.3",
+    "lciaCategories": [
+      {
+        "type": "LCIACategory",
+        "lciaCategoryCode": "GWP",
+        "lciaValue": 8.2,
+        "lciaUnit": "kg CO2-eq"
+      },
+      {
+        "type": "LCIACategory",
+        "lciaCategoryCode": "WaterUse",
+        "lciaValue": 0.5,
+        "lciaUnit": "m3 world-eq"
+      }
+    ]
+  },
+
+  "dpp:recycledContent": {
+    "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521#recycled",
+    "type": "dpp:RecycledContent",
+    "dpp:totalRecycledShare": 50,
+    "dpp:preConsumerShare": 10,
+    "dpp:postConsumerShare": 40
+  },
+
+  "dpp:carbonFootprintTotal": 8.2,
+  "dpp:carbonFootprintUnit": "kg CO2e per pair",
+  "dpp:carbonFootprintStudyUrl": "https://www.greenstep.example.com/sustainability/cfp-ecostride.pdf",
+
+  "waterUsage": {
+    "type": "VolumeLiters",
+    "value": 35
+  },
+
+  "energyUsage": {
+    "type": "EnergyKilowattHours",
+    "value": 12
+  },
+
+  "productionWastePercentage": 12.0,
+  "pfasFree": true,
+  "biodegradable": false,
+
+  "hasTakeBackProgram": true,
+  "takeBackProgram": {
+    "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521#takeback",
+    "type": "TakeBackProgram",
+    "takeBackUrl": "https://www.greenstep.example.com/recycle",
+    "takeBackIncentive": {
+      "@value": "Return worn shoes to any GreenStep retailer and receive 20 EUR credit toward your next purchase",
+      "@language": "en"
+    },
+    "endOfLifeDestination": {
+      "@value": "Shoes are disassembled: rubber outsoles ground for athletic surfaces, uppers recycled into insulation, leather components processed for leather goods industry",
+      "@language": "en"
+    }
+  },
+
+  "recyclingInstructions": {
+    "@value": "Do not dispose in household waste. Return to GreenStep retailer or designated shoe collection point. Shoes will be disassembled for material recovery.",
+    "@language": "en"
+  },
+
+  "gs1:consumerRecyclingInstructions": {
+    "@value": "This footwear can be recycled through the GreenStep take-back program. Return to any participating retailer.",
+    "@language": "en"
+  },
+
+  "isRepairable": true,
+  "repairGuideUrl": "https://www.greenstep.example.com/repair/ecostride-guide",
+  "sparePartsAvailable": true,
+  "sparePartsUrl": "https://www.greenstep.example.com/spareparts",
+
+  "dpp:repairabilityInfo": {
+    "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521#repairability",
+    "type": "dpp:RepairabilityInfo",
+    "dpp:repairabilityScore": 6.5,
+    "dpp:repairabilityClass": "C",
+    "dpp:sparePartsAvailability": {
+      "type": "QuantitativeValue",
+      "value": 5,
+      "unitCode": "ANN"
+    },
+    "dpp:diyRepairPossible": true,
+    "dpp:professionalRepairNetwork": "https://www.greenstep.example.com/repair/partners"
+  },
+
+  "_comment_spareparts": "Spare parts available: replacement insoles, laces, heel counters",
+
+  "gs1:certification": [
+    {
+      "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521#cert-grs",
+      "type": "gs1:CertificationDetails",
+      "gs1:certificationAgency": "Textile Exchange",
+      "gs1:certificationStandard": "Global Recycled Standard (GRS)",
+      "gs1:certificationIdentification": "GRS-2024-GREENSTEP-001",
+      "gs1:certificationStartDate": "2024-06-01",
+      "gs1:certificationEndDate": "2025-05-31"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521#cert-lwg",
+      "type": "gs1:CertificationDetails",
+      "gs1:certificationAgency": "Leather Working Group",
+      "gs1:certificationStandard": "LWG Gold Rated",
+      "gs1:certificationIdentification": "LWG-2024-GREENSTEP-002",
+      "_comment": "Leather component certified chrome-free and from LWG Gold-rated tannery"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521#cert-oekotex",
+      "type": "gs1:CertificationDetails",
+      "gs1:certificationAgency": "OEKO-TEX Association",
+      "gs1:certificationStandard": "OEKO-TEX Standard 100 Class I",
+      "gs1:certificationIdentification": "SH025 654321 TESTEX",
+      "_comment": "Class I certification - safe for baby contact (highest safety class)"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521#cert-fsc",
+      "type": "gs1:CertificationDetails",
+      "gs1:certificationAgency": "Forest Stewardship Council",
+      "gs1:certificationStandard": "FSC 100%",
+      "gs1:certificationIdentification": "FSC-C123456",
+      "_comment": "Natural rubber from FSC-certified plantations"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521#cert-bcorp",
+      "type": "gs1:CertificationDetails",
+      "gs1:certificationAgency": "B Lab",
+      "gs1:certificationStandard": "B Corporation",
+      "gs1:certificationIdentification": "B-Corp-GREENSTEP-2024",
+      "_comment": "Company-level certification for social and environmental performance"
+    }
+  ],
+
+  "cutAndSewFacility": {
+    "id": "https://id.gs1.org/414/4098765000011",
+    "type": "dpp:FacilityInformation",
+    "gln": "4098765000011",
+    "name": "GreenStep Montebelluna Factory",
+    "dpp:facilityType": "Footwear Assembly",
+    "address": {
+      "type": "gs1:PostalAddress",
+      "gs1:addressLocality": "Montebelluna",
+      "gs1:countryCode": "IT"
+    },
+    "dpp:facilityCertifications": [
+      {
+        "type": "gs1:CertificationDetails",
+        "gs1:certificationStandard": "ISO 14001:2015",
+        "gs1:certificationIdentification": "EMS-IT-2024-789"
+      },
+      {
+        "type": "gs1:CertificationDetails",
+        "gs1:certificationStandard": "ISO 45001:2018",
+        "gs1:certificationIdentification": "OHS-IT-2024-012"
+      },
+      {
+        "type": "gs1:CertificationDetails",
+        "gs1:certificationStandard": "SA8000",
+        "gs1:certificationIdentification": "SA-IT-2024-345"
+      }
+    ]
+  },
+
+  "gs1:warranty": {
+    "type": "gs1:WarrantyPromise",
+    "gs1:durationOfWarranty": "P2Y",
+    "gs1:warrantyScope": "Covers manufacturing defects including delamination, stitching failures, and premature sole separation. Does not cover normal wear patterns or misuse."
+  },
+
+  "dpp:documents": [
+    {
+      "id": "https://www.greenstep.example.com/docs/ecostride-user-guide.pdf",
+      "type": "dpp:DocumentReference",
+      "dpp:documentType": {"id": "dpp:Manual"},
+      "dpp:documentUrl": "https://www.greenstep.example.com/docs/ecostride-user-guide.pdf",
+      "dpp:documentTitle": "EcoStride Care & Maintenance Guide",
+      "dpp:mimeType": "application/pdf",
+      "dpp:languageCode": "en"
+    },
+    {
+      "id": "https://www.greenstep.example.com/docs/transparency-report-2024.pdf",
+      "type": "dpp:DocumentReference",
+      "dpp:documentType": {"id": "dpp:DueDiligenceDocument"},
+      "dpp:documentUrl": "https://www.greenstep.example.com/docs/transparency-report-2024.pdf",
+      "dpp:documentTitle": "Supply Chain Transparency Report 2024",
+      "dpp:mimeType": "application/pdf",
+      "dpp:languageCode": "en",
+      "dpp:issueDate": "2024-03-15"
+    }
+  ],
+
+  "gs1:referencedFileDetails": [
+    {
+      "id": "https://www.greenstep.example.com/docs/ecostride-user-guide.pdf",
+      "type": "gs1:ReferencedFileDetails",
+      "gs1:referencedFileType": {"id": "gs1:ReferencedFileTypeCode-USER_MANUAL"},
+      "gs1:contentDescription": "Care & Maintenance Guide",
+      "gs1:fileLanguageCode": "en"
+    },
+    {
+      "id": "https://www.greenstep.example.com/docs/ecostride-certifications.pdf",
+      "type": "gs1:ReferencedFileDetails",
+      "gs1:referencedFileType": {"id": "gs1:ReferencedFileTypeCode-CERTIFICATION"},
+      "gs1:contentDescription": "Product Certifications (GRS, LWG, OEKO-TEX, FSC)",
+      "gs1:fileLanguageCode": "en"
+    }
+  ],
+
+  "dpp:accessRights": {
+    "id": "https://id.gs1.org/01/09521234000019/21/TR-2024-08521#access",
+    "type": "dpp:AccessRights",
+    "dpp:accessLevel": {"id": "dpp:Public"}
+  },
+
+  "dpp:passportIdentifier": "https://dpp.greenstep.example.com/passport/TR-2024-08521",
+  "dpp:passportVersion": "1.0",
+  "dpp:passportIssueDate": "2024-11-25",
+  "dpp:passportStatus": "Active",
+  "dpp:productCategory": {"id": "dpp:Textiles"},
+  "dpp:lastDataUpdate": "2024-12-01T09:00:00Z",
+  "dpp:dataQualityAssessment": "A"
+}

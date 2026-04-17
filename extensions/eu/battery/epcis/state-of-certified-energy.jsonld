@@ -1,0 +1,105 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/context"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-09-10T11:00:00.000Z",
+  "_comment_architecture": [
+    "State of Certified Energy (SOCE) measurement event.",
+    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
+    "Extension properties (battery:, dpp:) are at EVENT level.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,battery=https://ref.openepcis.io/extensions/eu/battery/",
+    "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:550e8400-e29b-41d4-a716-446655440012",
+        "eventTime": "2025-09-10T11:00:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "action": "OBSERVE",
+        "bizStep": "inspecting",
+        "disposition": "active",
+        "epcList": [
+          "https://id.gs1.org/01/09521234000013/21/BAT2024-001"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521987000018"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521987000018"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
+            "type": "Product",
+            "productName": {
+              "en": "EcoCell Industrial Battery Module IM-500"
+            },
+            "gtin": "09521234000013",
+            "serialNumber": "BAT2024-001",
+            "regulatoryInformation": [
+              {
+                "type": "RegulatoryInformation",
+                "regulationType": {
+                  "id": "RegulationTypeCode-BATTERY_DIRECTIVE"
+                },
+                "regulatoryAct": "EU 2023/1542"
+              }
+            ]
+          },
+          {
+            "id": "https://id.gs1.org/414/9521987000018",
+            "type": "Place",
+            "locationGLN": "9521987000018",
+            "physicalLocationName": {
+              "en": "Battery Service Center - Munich"
+            },
+            "countryCode": "DE"
+          },
+          {
+            "id": "https://id.gs1.org/417/9521234000006",
+            "type": "Organization",
+            "organizationName": {
+              "en": "EcoCell GmbH"
+            },
+            "partyGLN": "9521234000006",
+            "countryCode": "DE"
+          }
+        ],
+        "sensorElementList": [
+          {
+            "sensorMetadata": {
+              "time": "2025-09-10T11:00:00.000Z",
+              "deviceID": "https://id.gs1.org/8004/9521987SOCE-001",
+              "bizRules": "SOCE measurement per EU 2023/1542 Annex XIII"
+            },
+            "sensorReport": [
+              {
+                "type": "battery:stateOfCertifiedEnergy",
+                "value": 13.2,
+                "uom": "KWH",
+                "measurementMethod": "Certified energy test (IEC 62660-1)"
+              },
+              {
+                "type": "battery:stateOfHealth",
+                "value": 92.3,
+                "uom": "P1"
+              },
+              {
+                "type": "battery:remainingRoundTripEfficiency",
+                "value": 95.8,
+                "uom": "P1"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

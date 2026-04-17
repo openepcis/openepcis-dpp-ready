@@ -1,0 +1,81 @@
+meta {
+  name: Commissioning - Raw Material
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{url}}/capture
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+      "{{dpp-context}}",
+      "{{textile-context}}"
+    ],
+    "type": "EPCISDocument",
+    "schemaVersion": "2.0",
+    "creationDate": "{{eventTime}}",
+    "epcisBody": {
+      "eventList": [
+        {
+          "type": "ObjectEvent",
+          "action": "ADD",
+          "bizStep": "commissioning",
+          "disposition": "active",
+          "epcList": ["{{epc}}"],
+          "eventTime": "{{eventTime}}",
+          "eventTimeZoneOffset": "+01:00",
+          "readPoint": {
+            "id": "{{readPoint}}"
+          },
+          "bizLocation": {
+            "id": "{{bizLocation}}"
+          },
+          "dpp:operatorInformation": {
+            "@type": "dpp:OperatorInformation",
+            "gs1:gln": "{{manufacturerGln}}",
+            "gs1:organizationName": "EcoWear GmbH"
+          },
+          "textile:fiberComposition": [
+            {
+              "@type": "textile:FiberComposition",
+              "textile:fiberType": "textile:RecycledPolyester",
+              "textile:fiberPercentage": 65,
+              "textile:isRecycledFiber": true,
+              "textile:fiberOrigin": "DE",
+              "textile:recycledContentSource": "post-consumer PET bottles"
+            },
+            {
+              "@type": "textile:FiberComposition",
+              "textile:fiberType": "textile:OrganicCotton",
+              "textile:fiberPercentage": 30,
+              "textile:fiberOrigin": "TR"
+            },
+            {
+              "@type": "textile:FiberComposition",
+              "textile:fiberType": "textile:Elastane",
+              "textile:fiberPercentage": 5,
+              "textile:fiberOrigin": "IT"
+            }
+          ],
+          "textile:productionBatch": {
+            "@type": "textile:ProductionBatch",
+            "textile:batchNumber": "BATCH-2025-001",
+            "textile:productionDate": "2025-01-20"
+          }
+        }
+      ]
+    }
+  }
+}
+
+tests {
+  test("Capture successful", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+  });
+}

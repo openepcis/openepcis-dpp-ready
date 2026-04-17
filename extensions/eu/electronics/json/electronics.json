@@ -1,0 +1,1357 @@
+{
+  "namespace": "https://ref.openepcis.io/extensions/eu/electronics/",
+  "version": "0.9.5",
+  "title": "OpenEPCIS Electronics Vocabulary",
+  "description": "Electronics-specific vocabulary extending GS1 Web Vocabulary for Digital Product Passports.\n\nOpenEPCIS DPP-Ready: The Universal DPP Platform - harmonizing GS1, UNTP, and CIRPASS-2 standards.\n\nThis vocabulary provides comprehensive coverage for electronic and electrical equipment under:\n- EU ESPR 2024/1781 framework (computers, servers, smartphones, tablets)\n- French Repairability Index (Indice de Réparabilité) - 5 criteria, 100-point scoring\n- EU Right to Repair 2025 - A-E repairability grades\n- WEEE Directive 2012/19/EU - 6 equipment categories\n- RoHS Directive 2011/65/EU - Restricted hazardous substances\n- EU Energy Labeling 2019/2021 - A-G efficiency classes, EPREL registry\n- CIRPASS-2 electronics pilots - Multi-component DPP tracking\n\nStandards Alignment:\n- GS1 Web Vocabulary (native foundation)\n- UN Transparency Protocol (UNTP) alignment via owl:equivalentProperty\n- IEC 62474 material declarations\n- IEC 82474-1:2025 material efficiency\n- ISO/IEC 12207 software lifecycle\n- ISO/IEC 14764 software maintenance\n\nGS1 Properties to Use (not redefined here):\n- gs1:gtin - Global Trade Item Number\n- gs1:productName - Product name\n- gs1:brand - Brand information\n- gs1:manufacturingDate - Manufacturing date\n- gs1:countryOfOrigin - Country of manufacture\n- gs1:manufacturer - Manufacturer organization\n- gs1:warranty / gs1:WarrantyPromise - Warranty information\n- gs1:certification / gs1:CertificationDetails - Certifications\n- gs1:regulatoryInformation - Regulatory compliance (RoHS, CE, etc.)\n- gs1:netWeight / gs1:grossWeight - Product weight\n\nEPCIS 2.0 Extension Declaration:\nGS1-Extensions: electronics=https://ref.openepcis.io/extensions/eu/electronics/\n\nExtension Governance:\nThis vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.\nEach extension term includes dcterms:source, skos:note, and rdfs:seeAlso where applicable.\nAll ratio/fraction properties use 0-1 decimal scale (e.g., 0.45 = 45%).",
+  "classes": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/ComponentBOM",
+      "localName": "ComponentBOM",
+      "label": "Component Bill of Materials",
+      "comment": "Bill of Materials for multi-component electronics supporting CIRPASS-2 nested DPP\nrequirements. Links individual components to their own Digital Product Passports.",
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/dpp/linkedProduct"
+      ],
+      "source": "https://cirpassproject.eu/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/DisplaySpecification",
+      "localName": "DisplaySpecification",
+      "label": "Display Specification",
+      "comment": "Display-specific technical specifications for monitors, TVs, and device screens.",
+      "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency",
+      "localName": "EnergyEfficiency",
+      "label": "Energy Efficiency",
+      "comment": "EU Energy Label data including efficiency class (A-G), power consumption metrics,\nand EPREL registry information per EU Energy Labeling Regulation 2019/2021.",
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/FrequencyHertz",
+      "localName": "FrequencyHertz",
+      "label": "Frequency in Hertz",
+      "comment": "A quantitative value expressing frequency in hertz. Unit code: HTZ.",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/LuminanceCandela",
+      "localName": "LuminanceCandela",
+      "label": "Luminance in cd/m²",
+      "comment": "A quantitative value expressing luminance in candelas per square meter (nits). Unit code: P1 (using manufacturer-declared nits value).",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/RepairabilityIndex",
+      "localName": "RepairabilityIndex",
+      "label": "Repairability Index",
+      "comment": "French Repairability Index (Indice de Réparabilité) assessment using the official\n5-criteria, 100-point scoring methodology. The score is displayed to consumers as 0-10 scale.\n\nFive Criteria (20 points each):\n1. Documentation - Availability of repair documentation\n2. Disassembly - Ease of disassembly and tools required\n3. Spare Parts Availability - Duration and access to spare parts\n4. Spare Parts Pricing - Ratio of part prices to product price\n5. Product Specific - Category-specific criteria (e.g., software support for smartphones)\n\nTotal score (0-100) is converted to display score (0-10) for consumer labeling.",
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
+      ],
+      "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/RepairCriterion",
+      "localName": "RepairCriterion",
+      "label": "Repair Criterion",
+      "comment": "An individual criterion score within the French Repairability Index.",
+      "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/RoHSCompliance",
+      "localName": "RoHSCompliance",
+      "label": "RoHS Compliance",
+      "comment": "Restriction of Hazardous Substances (RoHS) Directive compliance information\nincluding compliance status and applicable exemptions.",
+      "seeAlso": [
+        "https://ref.gs1.org/voc/regulatoryInformation",
+        "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dir/2011/65/eu"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport",
+      "localName": "SoftwareSupport",
+      "label": "Software Support",
+      "comment": "Operating system and firmware support information including update periods,\nsecurity patch availability, and end-of-support dates. Critical for electronics lifecycle\nand repairability assessments per ESPR delegated acts.\n\nDesigned following ISO/IEC 12207 (software lifecycle) and ISO/IEC 14764 (software maintenance)\npatterns as a potential contribution to UNTP v1.0+.",
+      "seeAlso": [
+        "https://www.iso.org/standard/43447.html"
+      ],
+      "source": "https://www.iso.org/standard/63712.html"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/WEEECompliance",
+      "localName": "WEEECompliance",
+      "label": "WEEE Compliance",
+      "comment": "Waste Electrical and Electronic Equipment (WEEE) Directive compliance information\nincluding equipment category, registration number, and collection scheme.",
+      "seeAlso": [
+        "https://ref.gs1.org/voc/regulatoryInformation",
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj"
+    }
+  ],
+  "properties": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/annualEnergyConsumption",
+      "localName": "annualEnergyConsumption",
+      "label": "Annual Energy Consumption",
+      "comment": "Annual energy consumption in kWh. Use gs1:QuantitativeValue with unitCode 'KWH'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyKilowattHours"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/assessmentBody",
+      "localName": "assessmentBody",
+      "label": "Assessment Body",
+      "comment": "Organization that performed the repairability assessment.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RepairabilityIndex"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Organization"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/assessmentDate",
+      "localName": "assessmentDate",
+      "label": "Assessment Date",
+      "comment": "Date when the repairability assessment was performed.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RepairabilityIndex"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/billOfMaterials",
+      "localName": "billOfMaterials",
+      "label": "Bill of Materials",
+      "comment": "Component bill of materials for the device.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/ComponentBOM"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/collectionSchemeUrl",
+      "localName": "collectionSchemeUrl",
+      "label": "Collection Scheme URL",
+      "comment": "URL to information about the WEEE collection/take-back scheme.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/WEEECompliance"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/commercialName",
+      "localName": "commercialName",
+      "label": "Commercial Name",
+      "comment": "Commercial or marketing name of the product.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/componentManufacturer",
+      "localName": "componentManufacturer",
+      "label": "Component Manufacturer",
+      "comment": "Manufacturer of the component.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Organization"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/componentName",
+      "localName": "componentName",
+      "label": "Component Name",
+      "comment": "Name or description of the component.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/componentPartNumber",
+      "localName": "componentPartNumber",
+      "label": "Component Part Number",
+      "comment": "Manufacturer's part number for the component.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/componentPassport",
+      "localName": "componentPassport",
+      "label": "Component Passport",
+      "comment": "Link to the component's own Digital Product Passport (nested DPP).\nEnables CIRPASS-2 multi-component tracking.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/dpp/linkedProduct"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/components",
+      "localName": "components",
+      "label": "Components",
+      "comment": "List of components in the bill of materials.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/ComponentBOM"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Product"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/componentType",
+      "localName": "componentType",
+      "label": "Component Type",
+      "comment": "Type of component (Battery, Display, etc.).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/ComponentType"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/criterionDetails",
+      "localName": "criterionDetails",
+      "label": "Criterion Details",
+      "comment": "Detailed explanation of the criterion score.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RepairCriterion"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/criterionMaxScore",
+      "localName": "criterionMaxScore",
+      "label": "Criterion Max Score",
+      "comment": "Maximum possible score for this criterion (typically 20).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RepairCriterion"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/criterionScore",
+      "localName": "criterionScore",
+      "label": "Criterion Score",
+      "comment": "Score for this criterion (0-20 scale).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RepairCriterion"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/criterionType",
+      "localName": "criterionType",
+      "label": "Criterion Type",
+      "comment": "Type of repair criterion being scored.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RepairCriterion"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RepairCriterionType"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/deviceCategory",
+      "localName": "deviceCategory",
+      "label": "Device Category",
+      "comment": "Category of electronic device.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/DeviceCategory"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/displayScore",
+      "localName": "displayScore",
+      "label": "Display Score",
+      "comment": "Consumer-facing repairability score (0-10 scale, totalScore/10).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RepairabilityIndex"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/displaySpecification",
+      "localName": "displaySpecification",
+      "label": "Display Specification",
+      "comment": "Display-specific technical specifications.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/DisplaySpecification"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/displayTechnology",
+      "localName": "displayTechnology",
+      "label": "Display Technology",
+      "comment": "Display technology type (LCD, OLED, AMOLED, MicroLED, etc.).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/DisplaySpecification"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/energyEfficiency",
+      "localName": "energyEfficiency",
+      "label": "Energy Efficiency",
+      "comment": "EU Energy Label information.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/energyEfficiencyClass",
+      "localName": "energyEfficiencyClass",
+      "label": "Energy Efficiency Class",
+      "comment": "EU Energy Label class (A-G).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiencyClass"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/energyLabelUrl",
+      "localName": "energyLabelUrl",
+      "label": "Energy Label URL",
+      "comment": "URL to the EU Energy Label image.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/eprelProductUrl",
+      "localName": "eprelProductUrl",
+      "label": "EPREL Product URL",
+      "comment": "URL to the product page in the EPREL database.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/eprelRegistrationNumber",
+      "localName": "eprelRegistrationNumber",
+      "label": "EPREL Registration Number",
+      "comment": "European Product Registry for Energy Labelling (EPREL) registration number.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/featureSupportYears",
+      "localName": "featureSupportYears",
+      "label": "Feature Support Years",
+      "comment": "Number of years of feature update support. Use gs1:QuantitativeValue with unitCode 'ANN'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DurationYears"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/featureUpdateEndDate",
+      "localName": "featureUpdateEndDate",
+      "label": "Feature Update End Date",
+      "comment": "Date until which feature/OS updates will be provided.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/firmwareVersion",
+      "localName": "firmwareVersion",
+      "label": "Firmware Version",
+      "comment": "Current version of the device firmware.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/iec62474DslVersion",
+      "localName": "iec62474DslVersion",
+      "label": "IEC 62474 DSL Version",
+      "comment": "Version of the IEC 62474 Declarable Substance List used.",
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/isReplaceable",
+      "localName": "isReplaceable",
+      "label": "Is Replaceable",
+      "comment": "Whether the component can be replaced.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/latestUpdateDate",
+      "localName": "latestUpdateDate",
+      "label": "Latest Update Date",
+      "comment": "Date of the most recent software/firmware update.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/materialDeclaration",
+      "localName": "materialDeclaration",
+      "label": "Material Declaration",
+      "comment": "Material declaration per IEC 62474 (Declarable Substance List).\nLinks to dpp:SubstanceOfConcern for REACH/RoHS substances.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern"
+      ],
+      "seeAlso": [
+        "https://std.iec.ch/iec62474"
+      ],
+      "source": "https://std.iec.ch/iec62474"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/materialDeclarationDate",
+      "localName": "materialDeclarationDate",
+      "label": "Material Declaration Date",
+      "comment": "Date of the material declaration.",
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/modelIdentifier",
+      "localName": "modelIdentifier",
+      "label": "Model Identifier",
+      "comment": "Manufacturer's model number or identifier.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/newVersion",
+      "localName": "newVersion",
+      "label": "New Version",
+      "comment": "Software/firmware version after update.",
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/operatingSystem",
+      "localName": "operatingSystem",
+      "label": "Operating System",
+      "comment": "Name of the operating system (e.g., Android, iOS, Windows).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/osVersion",
+      "localName": "osVersion",
+      "label": "OS Version",
+      "comment": "Current version of the operating system.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/peakBrightness",
+      "localName": "peakBrightness",
+      "label": "Peak Brightness",
+      "comment": "Peak brightness in candelas per square meter (nits). Use gs1:QuantitativeValue.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/DisplaySpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/LuminanceCandela"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/powerConsumptionOff",
+      "localName": "powerConsumptionOff",
+      "label": "Power Consumption Off",
+      "comment": "Power consumption when switched off but plugged in. Use gs1:QuantitativeValue with unitCode 'WTT'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/PowerWatts"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/powerConsumptionOn",
+      "localName": "powerConsumptionOn",
+      "label": "Power Consumption On",
+      "comment": "Power consumption when device is on/active. Use gs1:QuantitativeValue with unitCode 'WTT'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/PowerWatts"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/powerConsumptionStandby",
+      "localName": "powerConsumptionStandby",
+      "label": "Power Consumption Standby",
+      "comment": "Power consumption in standby mode. Use gs1:QuantitativeValue with unitCode 'WTT'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/PowerWatts"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/previousVersion",
+      "localName": "previousVersion",
+      "label": "Previous Version",
+      "comment": "Software/firmware version before update.",
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/recoverabilityRate",
+      "localName": "recoverabilityRate",
+      "label": "Recoverability Rate",
+      "comment": "Fraction of device that can be recovered (recycling + energy recovery, 0-1 scale).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/WEEECompliance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/recyclabilityRate",
+      "localName": "recyclabilityRate",
+      "label": "Recyclability Rate",
+      "comment": "Fraction of device that can be recycled (0-1 scale).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/WEEECompliance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/recyclableContent"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/refreshRate",
+      "localName": "refreshRate",
+      "label": "Refresh Rate",
+      "comment": "Display refresh rate. Use gs1:QuantitativeValue with unitCode 'HTZ'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/DisplaySpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/FrequencyHertz"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/repairabilityClass",
+      "localName": "repairabilityClass",
+      "label": "Repairability Class",
+      "comment": "EU Right to Repair classification (A-E grade).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RepairabilityIndex"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/EURepairabilityClass"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/repairabilityIndex",
+      "localName": "repairabilityIndex",
+      "label": "Repairability Index",
+      "comment": "French Repairability Index (Indice de Réparabilité) assessment.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RepairabilityIndex"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/repairabilityLabelUrl",
+      "localName": "repairabilityLabelUrl",
+      "label": "Repairability Label URL",
+      "comment": "URL to the official repairability label image.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RepairabilityIndex"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/repairCriteria",
+      "localName": "repairCriteria",
+      "label": "Repair Criteria",
+      "comment": "List of individual criterion scores.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RepairabilityIndex"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RepairCriterion"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/replacementDifficulty",
+      "localName": "replacementDifficulty",
+      "label": "Replacement Difficulty",
+      "comment": "Level of difficulty to replace this component.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/ReplacementDifficulty"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/rohsCompliance",
+      "localName": "rohsCompliance",
+      "label": "RoHS Compliance",
+      "comment": "RoHS Directive compliance information.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RoHSCompliance"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/rohsCompliant",
+      "localName": "rohsCompliant",
+      "label": "RoHS Compliant",
+      "comment": "Whether the device complies with RoHS Directive.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RoHSCompliance"
+      ],
+      "range": [
+        "xsd:boolean"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dir/2011/65/eu"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/rohsDeclarationUrl",
+      "localName": "rohsDeclarationUrl",
+      "label": "RoHS Declaration URL",
+      "comment": "URL to the RoHS compliance declaration document.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RoHSCompliance"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/rohsExemptions",
+      "localName": "rohsExemptions",
+      "label": "RoHS Exemptions",
+      "comment": "List of applicable RoHS exemption codes (e.g., '7(a)', '7(c)-I').",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RoHSCompliance"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/screenDiagonal",
+      "localName": "screenDiagonal",
+      "label": "Screen Diagonal",
+      "comment": "Visible screen diagonal. Use gs1:QuantitativeValue with unitCode 'CMT' or 'INH'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/DisplaySpecification"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/screenResolutionHeight",
+      "localName": "screenResolutionHeight",
+      "label": "Screen Resolution Height",
+      "comment": "Vertical resolution in pixels.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/DisplaySpecification"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/screenResolutionWidth",
+      "localName": "screenResolutionWidth",
+      "label": "Screen Resolution Width",
+      "comment": "Horizontal resolution in pixels.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/DisplaySpecification"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/securitySupportYears",
+      "localName": "securitySupportYears",
+      "label": "Security Support Years",
+      "comment": "Number of years of security update support. Use gs1:QuantitativeValue with unitCode 'ANN'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DurationYears"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/securityUpdateEndDate",
+      "localName": "securityUpdateEndDate",
+      "label": "Security Update End Date",
+      "comment": "Date until which security updates will be provided.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/softwareSupport",
+      "localName": "softwareSupport",
+      "label": "Software Support",
+      "comment": "Software and firmware support information.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/softwareUpdateEvent",
+      "localName": "softwareUpdateEvent",
+      "label": "Software Update Event",
+      "comment": "EPCIS extension data for software/firmware update events.\nUse with bizStep 'inspecting' for software lifecycle tracking.",
+      "seeAlso": [
+        "https://www.iso.org/standard/63712.html"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/sparePartAvailabilityYears",
+      "localName": "sparePartAvailabilityYears",
+      "label": "Spare Part Availability Years",
+      "comment": "Duration for which this component is available as a spare part.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DurationYears"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/sparePartPrice",
+      "localName": "sparePartPrice",
+      "label": "Spare Part Price",
+      "comment": "Price of the component as a spare part.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/PriceSpecification"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/totalScore",
+      "localName": "totalScore",
+      "label": "Total Score",
+      "comment": "Total repairability score (0-100 scale, sum of 5 criteria).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/RepairabilityIndex"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/updateChannel",
+      "localName": "updateChannel",
+      "label": "Update Channel",
+      "comment": "URL or method for obtaining software updates (OTA, website, etc.).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/updateSource",
+      "localName": "updateSource",
+      "label": "Update Source",
+      "comment": "Source of the update (OTA, manual, service center, etc.).",
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/updateType",
+      "localName": "updateType",
+      "label": "Update Type",
+      "comment": "Type of update (security, feature, firmware, driver, etc.).",
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/weeeCategory",
+      "localName": "weeeCategory",
+      "label": "WEEE Category",
+      "comment": "WEEE Directive equipment category (1-6).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/WEEECompliance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/WEEECategory"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/weeeCompliance",
+      "localName": "weeeCompliance",
+      "label": "WEEE Compliance",
+      "comment": "WEEE Directive compliance information.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/electronics/WEEECompliance"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/weeeRegistrationCountry",
+      "localName": "weeeRegistrationCountry",
+      "label": "WEEE Registration Country",
+      "comment": "Country of WEEE registration (ISO 3166-1 alpha-2).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/WEEECompliance"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/weeeRegistrationNumber",
+      "localName": "weeeRegistrationNumber",
+      "label": "WEEE Registration Number",
+      "comment": "Producer registration number in the WEEE register.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/electronics/WEEECompliance"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    }
+  ],
+  "enumerations": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/ComponentType",
+      "localName": "ComponentType",
+      "label": "Component Type",
+      "comment": "Types of replaceable components in electronic devices.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/BatteryComponent",
+          "localName": "BatteryComponent",
+          "label": "Battery",
+          "comment": "Rechargeable battery component. May link to Battery module DPP."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/CameraComponent",
+          "localName": "CameraComponent",
+          "label": "Camera",
+          "comment": "Camera module."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/ConnectorComponent",
+          "localName": "ConnectorComponent",
+          "label": "Connector",
+          "comment": "Port, connector, or cable component."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/CoolingSystemComponent",
+          "localName": "CoolingSystemComponent",
+          "label": "Cooling System",
+          "comment": "Thermal management components (fans, heat sinks)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/DisplayComponent",
+          "localName": "DisplayComponent",
+          "label": "Display",
+          "comment": "Display panel (LCD, OLED, etc.)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/EnclosureComponent",
+          "localName": "EnclosureComponent",
+          "label": "Enclosure",
+          "comment": "Casing or housing component."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/KeyboardComponent",
+          "localName": "KeyboardComponent",
+          "label": "Keyboard",
+          "comment": "Keyboard or keypad component."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/MemoryComponent",
+          "localName": "MemoryComponent",
+          "label": "Memory",
+          "comment": "Random access memory (RAM) module."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/MicrophoneComponent",
+          "localName": "MicrophoneComponent",
+          "label": "Microphone",
+          "comment": "Microphone component."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/MotherboardComponent",
+          "localName": "MotherboardComponent",
+          "label": "Motherboard",
+          "comment": "Main circuit board."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/PowerSupplyComponent",
+          "localName": "PowerSupplyComponent",
+          "label": "Power Supply",
+          "comment": "Power supply unit or charging circuit."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/ProcessorComponent",
+          "localName": "ProcessorComponent",
+          "label": "Processor",
+          "comment": "Central processing unit (CPU) or system-on-chip (SoC)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/SpeakerComponent",
+          "localName": "SpeakerComponent",
+          "label": "Speaker",
+          "comment": "Audio speaker component."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/StorageComponent",
+          "localName": "StorageComponent",
+          "label": "Storage",
+          "comment": "Data storage device (SSD, HDD, eMMC)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/TrackpadComponent",
+          "localName": "TrackpadComponent",
+          "label": "Trackpad",
+          "comment": "Trackpad or touchpad component."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/DeviceCategory",
+      "localName": "DeviceCategory",
+      "label": "Device Category",
+      "comment": "Category of electronic device per ESPR delegated acts and WEEE classifications.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/DataStorage",
+          "localName": "DataStorage",
+          "label": "Data Storage Device",
+          "comment": "Data storage devices including external drives and NAS systems."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/Desktop",
+          "localName": "Desktop",
+          "label": "Desktop Computer",
+          "comment": "Personal computer designed for use at a fixed location."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/Dishwasher",
+          "localName": "Dishwasher",
+          "label": "Dishwasher",
+          "comment": "Household dishwashing machine."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/Display",
+          "localName": "Display",
+          "label": "Display/Monitor",
+          "comment": "Computer monitor or display device."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/Laptop",
+          "localName": "Laptop",
+          "label": "Laptop",
+          "comment": "Portable personal computer with integrated display and keyboard."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/NetworkEquipment",
+          "localName": "NetworkEquipment",
+          "label": "Network Equipment",
+          "comment": "Networking devices including routers, switches, and access points."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/Printer",
+          "localName": "Printer",
+          "label": "Printer",
+          "comment": "Printing device including inkjet, laser, and multifunction printers."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/Refrigerator",
+          "localName": "Refrigerator",
+          "label": "Refrigerator",
+          "comment": "Household refrigerating appliance."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/Server",
+          "localName": "Server",
+          "label": "Server",
+          "comment": "Computer designed to provide services to other computers or networks."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/SmallAppliance",
+          "localName": "SmallAppliance",
+          "label": "Small Household Appliance",
+          "comment": "Small household electrical appliance (toasters, kettles, etc.)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/Smartphone",
+          "localName": "Smartphone",
+          "label": "Smartphone",
+          "comment": "Mobile phone with advanced computing capabilities."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/Tablet",
+          "localName": "Tablet",
+          "label": "Tablet",
+          "comment": "Portable touch-screen computing device."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/Television",
+          "localName": "Television",
+          "label": "Television",
+          "comment": "Television set for video display and reception."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/VacuumCleaner",
+          "localName": "VacuumCleaner",
+          "label": "Vacuum Cleaner",
+          "comment": "Household vacuum cleaning appliance."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/WashingMachine",
+          "localName": "WashingMachine",
+          "label": "Washing Machine",
+          "comment": "Household washing machine for clothing and textiles."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/Wearable",
+          "localName": "Wearable",
+          "label": "Wearable Device",
+          "comment": "Wearable electronic device including smartwatches and fitness trackers."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiencyClass",
+      "localName": "EnergyEfficiencyClass",
+      "label": "Energy Efficiency Class",
+      "comment": "EU Energy Label efficiency classes (A-G) per EU 2019/2021.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/EnergyClassA",
+          "localName": "EnergyClassA",
+          "label": "Energy Class A",
+          "comment": "Most energy efficient (green label)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/EnergyClassB",
+          "localName": "EnergyClassB",
+          "label": "Energy Class B",
+          "comment": "Very energy efficient."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/EnergyClassC",
+          "localName": "EnergyClassC",
+          "label": "Energy Class C",
+          "comment": "Energy efficient."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/EnergyClassD",
+          "localName": "EnergyClassD",
+          "label": "Energy Class D",
+          "comment": "Average energy efficiency."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/EnergyClassE",
+          "localName": "EnergyClassE",
+          "label": "Energy Class E",
+          "comment": "Below average energy efficiency."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/EnergyClassF",
+          "localName": "EnergyClassF",
+          "label": "Energy Class F",
+          "comment": "Low energy efficiency."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/EnergyClassG",
+          "localName": "EnergyClassG",
+          "label": "Energy Class G",
+          "comment": "Least energy efficient (red label)."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/EURepairabilityClass",
+      "localName": "EURepairabilityClass",
+      "label": "EU Repairability Class",
+      "comment": "EU Right to Repair repairability grades (A-E) based on repairability score ranges.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/RepairClassA",
+          "localName": "RepairClassA",
+          "label": "Repairability Class A",
+          "comment": "Highest repairability (score 8.1-10.0). Easily repairable by consumers and professionals."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/RepairClassB",
+          "localName": "RepairClassB",
+          "label": "Repairability Class B",
+          "comment": "High repairability (score 6.1-8.0). Good repair support available."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/RepairClassC",
+          "localName": "RepairClassC",
+          "label": "Repairability Class C",
+          "comment": "Moderate repairability (score 4.1-6.0). Some repair limitations."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/RepairClassD",
+          "localName": "RepairClassD",
+          "label": "Repairability Class D",
+          "comment": "Limited repairability (score 2.1-4.0). Significant repair barriers."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/RepairClassE",
+          "localName": "RepairClassE",
+          "label": "Repairability Class E",
+          "comment": "Lowest repairability (score 0-2.0). Difficult or impossible to repair."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/RepairCriterionType",
+      "localName": "RepairCriterionType",
+      "label": "Repair Criterion Type",
+      "comment": "Types of criteria in the French Repairability Index (5 criteria, 20 points each).",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/Disassembly",
+          "localName": "Disassembly",
+          "label": "Disassembly",
+          "comment": "Ease of disassembly, reassembly, and tools required (20 points max)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/Documentation",
+          "localName": "Documentation",
+          "label": "Documentation",
+          "comment": "Availability and quality of repair documentation (20 points max)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/ProductSpecific",
+          "localName": "ProductSpecific",
+          "label": "Product Specific Criteria",
+          "comment": "Category-specific criteria such as software support duration (20 points max)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/SparePartsAvailability",
+          "localName": "SparePartsAvailability",
+          "label": "Spare Parts Availability",
+          "comment": "Duration of spare parts availability and access channels (20 points max)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/SparePartsPricing",
+          "localName": "SparePartsPricing",
+          "label": "Spare Parts Pricing",
+          "comment": "Ratio of spare part prices to product price (20 points max)."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/ReplacementDifficulty",
+      "localName": "ReplacementDifficulty",
+      "label": "Replacement Difficulty",
+      "comment": "Level of difficulty for component replacement.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/NotReplaceable",
+          "localName": "NotReplaceable",
+          "label": "Not Replaceable",
+          "comment": "Component is soldered, glued, or otherwise not designed for replacement."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/ProfessionalOnly",
+          "localName": "ProfessionalOnly",
+          "label": "Professional Only",
+          "comment": "Requires professional repair service."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/ToolRequired",
+          "localName": "ToolRequired",
+          "label": "Tool Required",
+          "comment": "Requires specialized tools but can be done by skilled user."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/UserReplaceable",
+          "localName": "UserReplaceable",
+          "label": "User Replaceable",
+          "comment": "Can be replaced by user without tools or with basic tools."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/electronics/WEEECategory",
+      "localName": "WEEECategory",
+      "label": "WEEE Category",
+      "comment": "WEEE Directive 2012/19/EU equipment categories (6 categories).",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/WEEE1_TemperatureExchange",
+          "localName": "WEEE1_TemperatureExchange",
+          "label": "WEEE Category 1: Temperature Exchange Equipment",
+          "comment": "Refrigerators, freezers, air conditioners, heat pumps."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/WEEE2_ScreensMonitors",
+          "localName": "WEEE2_ScreensMonitors",
+          "label": "WEEE Category 2: Screens and Monitors",
+          "comment": "Televisions, monitors, laptops, notebooks, tablets."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/WEEE3_Lamps",
+          "localName": "WEEE3_Lamps",
+          "label": "WEEE Category 3: Lamps",
+          "comment": "Fluorescent lamps, LED lamps, high-intensity discharge lamps."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/WEEE4_LargeEquipment",
+          "localName": "WEEE4_LargeEquipment",
+          "label": "WEEE Category 4: Large Equipment",
+          "comment": "Washing machines, dishwashers, electric stoves, large printing machines, large medical devices."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/WEEE5_SmallEquipment",
+          "localName": "WEEE5_SmallEquipment",
+          "label": "WEEE Category 5: Small Equipment",
+          "comment": "Vacuum cleaners, microwaves, ventilation equipment, toasters, shavers, scales, calculators, radios, video cameras, small electrical and electronic tools."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/electronics/WEEE6_SmallIT",
+          "localName": "WEEE6_SmallIT",
+          "label": "WEEE Category 6: Small IT and Telecommunication Equipment",
+          "comment": "Mobile phones, GPS, pocket calculators, routers, personal computers, printers, telephones."
+        }
+      ]
+    }
+  ]
+}

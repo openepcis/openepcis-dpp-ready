@@ -1,0 +1,119 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-04-19T18:46:03.65Z",
+  "_comment_gs1us_mapping": [
+    "Shipping CTE per GS1 US 'EPCIS Recommendations for FSMA 204 CTEs' R2.0, §6",
+    "('Aggregation Add + Object Observe' variant — pages 32-34).",
+    "",
+    "Event 1: TransformationEvent (creating_class_instance) — TLC-source reference for the food being shipped.",
+    "Event 2: AggregationEvent (action=ADD, bizStep=packing) — pallet build. parentID = SSCC Digital Link;",
+    "         childQuantityList enumerates the TLCs packed onto the pallet.",
+    "Event 3: ObjectEvent (action=OBSERVE, bizStep=shipping, disposition=in_transit):",
+    "         epcList = [pallet SSCC]. bizTransactionList carries desadv + bol KDEs.",
+    "         sourceList/destinationList carry the shipped-from and immediate-subsequent-recipient GLNs.",
+    "Shipping KDEs not shown here (ref doc type/number, date shipped) ride in the ObjectEvent's",
+    "bizTransactionList + eventTime per GS1 US §6."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "TransformationEvent",
+        "eventTime": "2026-04-18T00:00:00-04:00",
+        "recordTime": "2026-04-18T00:00:00-04:00",
+        "eventTimeZoneOffset": "-04:00",
+        "eventID": "urn:uuid:4898a223-216a-4f46-9e18-338ccf6fa3ba",
+        "inputQuantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/00860009999923/10/ABC1234",
+            "quantity": 250,
+            "uom": "LBR"
+          }
+        ],
+        "outputQuantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/10860009999920/10/ABC1234",
+            "quantity": 25,
+            "uom": "CS"
+          }
+        ],
+        "bizStep": "creating_class_instance",
+        "disposition": "active",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009999992"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/0860009999992"
+        }
+      },
+      {
+        "type": "AggregationEvent",
+        "eventTime": "2026-04-19T13:35:18-05:00",
+        "eventTimeZoneOffset": "-05:00",
+        "parentID": "https://id.gs1.org/00/008600099999850001",
+        "action": "ADD",
+        "bizStep": "packing",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009999992"
+        },
+        "bizTransactionList": [
+          {
+            "type": "po",
+            "bizTransaction": "urn:epcglobal:cbv:bt:0860009999992:850-100037169"
+          }
+        ],
+        "childQuantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/10860009999920/10/ABC1234",
+            "quantity": 25,
+            "uom": "CS"
+          },
+          {
+            "epcClass": "https://id.gs1.org/01/10860009999920/10/ABC5678",
+            "quantity": 25,
+            "uom": "CS"
+          }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2026-04-19T13:35:18-05:00",
+        "eventTimeZoneOffset": "-05:00",
+        "epcList": [
+          "https://id.gs1.org/00/008600099999850001"
+        ],
+        "action": "OBSERVE",
+        "bizStep": "shipping",
+        "disposition": "in_transit",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009999992"
+        },
+        "bizTransactionList": [
+          {
+            "type": "desadv",
+            "bizTransaction": "urn:epcglobal:cbv:bt:0860009999992:856-100037169"
+          },
+          {
+            "type": "bol",
+            "bizTransaction": "urn:epcglobal:cbv:bt:0860009999992:211-101037170"
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "location",
+            "source": "https://id.gs1.org/414/0860009999992"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "location",
+            "destination": "https://id.gs1.org/414/0860009998001"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,568 @@
+{
+  "_comment_gs1_alignment": [
+    "This example demonstrates GS1-aligned Digital Product Passport modeling for textiles.",
+    "Key GS1 patterns used:",
+    "- GS1 Digital Link URI for product identification (https://id.gs1.org/01/{GTIN}/21/{serial})",
+    "- gs1:Product as base type (textile specificity comes from textile:TextileApparel / textile:TextileFootwear dual-typing plus textile: extension properties)",
+    "- GS1 properties: gs1:gtin, gs1:productName, gs1:manufacturer, gs1:netWeight",
+    "- gs1:textileMaterial with gs1:TextileMaterialDetails for fiber composition (GS1 native)",
+    "- gs1:certification with gs1:CertificationDetails for certifications",
+    "- gs1:QuantitativeValue for all measurements with unitCode",
+    "- Textile-specific extensions for care symbols, durability, microplastics",
+    "See EXTENSION-GOVERNANCE.md for rationale on each extension term."
+  ],
+
+  "@context": [
+    "https://ref.openepcis.io/extensions/eu/textile/context",
+    {
+      "gs1": "https://ref.gs1.org/voc/",
+      "dpp": "https://ref.openepcis.io/extensions/common/core/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#"
+    }
+  ],
+
+  "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142",
+  "type": ["Product", "TextileApparel"],
+
+  "gtin": "09521234000011",
+  "gs1:serialNumber": "WJ-2024-00142",
+
+  "productName": {
+    "@value": "Alpine Pro Winter Jacket - Navy",
+    "@language": "en"
+  },
+
+  "gs1:productDescription": {
+    "@value": "Water-resistant insulated winter jacket with recycled polyester shell and responsibly sourced down filling. Designed for durability and warmth in alpine conditions.",
+    "@language": "en"
+  },
+
+  "textileCategory": "Apparel",
+
+  "garmentType": "Winter Jacket",
+  "targetGender": "Unisex",
+  "sizeRange": "XS-3XL",
+  "seasonCollection": "FW2024",
+
+  "fabricType": "WovenNonDenim",
+  "apparelSubcategory": "JacketsCoats",
+
+  "gs1:manufacturer": {
+    "id": "https://id.gs1.org/417/9521234000008",
+    "type": "gs1:Organization",
+    "gs1:organizationName": "EcoWear GmbH",
+    "gs1:gln": "9521234000008",
+    "gs1:address": {
+      "id": "https://id.gs1.org/417/9521234000008#address",
+      "type": "gs1:PostalAddress",
+      "gs1:streetAddress": "Textilstraße 25",
+      "gs1:addressLocality": "Munich",
+      "gs1:postalCode": "80331",
+      "gs1:countryCode": "DE"
+    },
+    "gs1:contactPoint": {
+      "type": "gs1:ContactPoint",
+      "gs1:email": "info@ecowear.example.com",
+      "gs1:url": {"id": "https://www.ecowear.example.com"}
+    }
+  },
+
+  "dpp:operatorInformation": {
+    "id": "https://id.gs1.org/417/9521234000008#operator",
+    "type": "dpp:OperatorInformation",
+    "gs1:gln": "9521234000008",
+    "gs1:organizationName": "EcoWear GmbH",
+    "dpp:operatorRole": {"id": "dpp:Manufacturer"},
+    "gs1:address": {
+      "type": "gs1:PostalAddress",
+      "gs1:streetAddress": "Textilstraße 25",
+      "gs1:addressLocality": "Munich",
+      "gs1:postalCode": "80331",
+      "gs1:countryCode": "DE"
+    },
+    "gs1:contactPoint": {
+      "type": "gs1:ContactPoint",
+      "gs1:email": "sustainability@ecowear.example.com",
+      "gs1:telephone": "+49-89-555-0100"
+    }
+  },
+
+  "gs1:countryOfOrigin": "PT",
+  "gs1:manufacturingDate": "2024-09-15",
+
+  "gs1:netWeight": {
+    "type": "WeightKilograms",
+    "value": 0.85
+  },
+
+  "_comment_composition": "GS1-native fiber composition (gs1:textileMaterial + gs1:TextileMaterialDetails + gs1:textileMaterialContent + gs1:textileMaterialDescription). Textile-specific traceability fields (fiberOrigin, isRecycledFiber, recycledContentSource, fiberCertification) are attached inline on each gs1:TextileMaterialDetails entry.",
+  "textileMaterial": [
+    {
+      "type": "TextileMaterialDetails",
+      "textileMaterialContent": {
+        "type": "Percentage",
+        "value": 55
+      },
+      "textileMaterialDescription": {
+        "@value": "Recycled Polyester (Shell)",
+        "@language": "en"
+      },
+      "fiberOrigin": "TW",
+      "isRecycledFiber": true,
+      "recycledContentSource": "Post-consumer PET bottles",
+      "fiberCertification": {
+        "type": "CertificationDetails",
+        "certificationAgency": "Textile Exchange",
+        "certificationStandard": "Global Recycled Standard (GRS)",
+        "certificationValue": "GRS-2024-TW-12345"
+      }
+    },
+    {
+      "type": "TextileMaterialDetails",
+      "textileMaterialContent": {
+        "type": "Percentage",
+        "value": 25
+      },
+      "textileMaterialDescription": {
+        "@value": "Down (Insulation - RDS Certified)",
+        "@language": "en"
+      },
+      "fiberOrigin": "HU",
+      "isRecycledFiber": false,
+      "fiberCertification": {
+        "type": "CertificationDetails",
+        "certificationAgency": "Textile Exchange",
+        "certificationStandard": "Responsible Down Standard (RDS)",
+        "certificationValue": "RDS-2024-HU-67890"
+      }
+    },
+    {
+      "type": "TextileMaterialDetails",
+      "textileMaterialContent": {
+        "type": "Percentage",
+        "value": 15
+      },
+      "textileMaterialDescription": {
+        "@value": "Polyamide (Lining)",
+        "@language": "en"
+      },
+      "fiberOrigin": "IT",
+      "isRecycledFiber": false
+    },
+    {
+      "type": "TextileMaterialDetails",
+      "textileMaterialContent": {
+        "type": "Percentage",
+        "value": 5
+      },
+      "textileMaterialDescription": {
+        "@value": "Elastane (Cuffs)",
+        "@language": "en"
+      },
+      "fiberOrigin": "DE",
+      "isRecycledFiber": false
+    }
+  ],
+
+  "careInstructions": {
+    "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#care",
+    "type": "CareInstruction",
+    "washingSymbol": "Wash30",
+    "bleachingSymbol": "DoNotBleach",
+    "dryingSymbol": "TumbleDryLow",
+    "ironingSymbol": "DoNotIron",
+    "dryCleaningSymbol": "DryCleanHydrocarbon",
+    "additionalCareInstructions": {
+      "@value": "Close zippers before washing. Use down-specific detergent. Add tennis balls to dryer to restore loft.",
+      "@language": "en"
+    }
+  },
+
+  "durabilityInfo": {
+    "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#durability",
+    "type": "DurabilityInfo",
+    "expectedWashCycles": 150,
+    "durabilityClass": "DurabilityB",
+    "pillingResistance": 4,
+    "colorFastness": 4,
+    "dimensionalStability": 2.0,
+    "abrasionResistance": 40000,
+    "tensileStrength": {
+      "type": "ForceNewtons",
+      "value": 800
+    },
+    "tearStrength": {
+      "type": "ForceNewtons",
+      "value": 35
+    },
+    "expectedLifetimeYears": 8
+  },
+
+  "microplasticInfo": {
+    "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#microplastic",
+    "type": "MicroplasticInfo",
+    "microplasticRiskLevel": "MediumShedding",
+    "sheddingRate": {
+      "type": "SheddingRateMgKg",
+      "value": 120
+    },
+    "syntheticFiberContent": 75,
+    "microplasticMitigationMeasures": {
+      "@value": "Tightly woven fabric reduces fiber release. Recommend using microfiber-catching laundry bag.",
+      "@language": "en"
+    }
+  },
+
+  "_comment_robustness": "Robustness score per EU Preparatory Study 3rd Milestone (0-10)",
+  "robustnessAssessment": {
+    "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#robustness",
+    "type": "RobustnessAssessment",
+    "robustnessScore": 8.0,
+    "cleaningCyclesBeforeTest": 5,
+    "robustnessTestFabricType": "WovenNonDenim",
+    "spiralityTest": {
+      "type": "SpiralityTestResult",
+      "spiralityScore": 3,
+      "spiralityPercentage": 4.2,
+      "spiralityTestMethod": "ISO 16322-3",
+      "testStandard": "ISO16322_3"
+    },
+    "dimensionalChangeTest": {
+      "type": "DimensionalChangeTestResult",
+      "dimensionalChangeScore": 2,
+      "dimensionalChangePercentage": 3.2,
+      "dimensionalChangeTestMethod": "ISO 3759",
+      "testStandard": "ISO3759"
+    },
+    "visualInspection": {
+      "type": "VisualInspectionResult",
+      "visualInspectionScore": 3,
+      "colourChangeRating": 4,
+      "fabricAppearanceRating": 4,
+      "seamAppearanceRating": 5,
+      "nonTextilePartsRating": 4,
+      "visualInspectionTestMethod": "ISO 15487",
+      "testStandard": "ISO15487"
+    }
+  },
+
+  "_comment_recyclability": "Recyclability score per EU Preparatory Study 3rd Milestone (0-10)",
+  "recyclabilityAssessment": {
+    "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#recyclability",
+    "type": "RecyclabilityAssessment",
+    "recyclabilityScore": 6.5,
+    "isRecyclable": true,
+    "elastaneContentPercent": 5.0,
+    "sortingFactors": {
+      "type": "SortingFactors",
+      "sameInnerOuterComposition": false,
+      "freeFromPrintings": true,
+      "freeFromCoatings": false,
+      "freeFromSequins": true
+    },
+    "technicalRecyclability": {
+      "type": "TechnicalRecyclability",
+      "technicalRecyclabilityScore": 4.0,
+      "applicableRecyclingTechnology": "ThermoChemicalRecycling"
+    }
+  },
+
+  "_comment_recycled_content_structured": "Structured recycled content declaration per EU Preparatory Study 3rd Milestone",
+  "recycledContentDeclaration": [
+    {
+      "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#rc-rpet",
+      "type": "RecycledContentDeclaration",
+      "secondaryMaterialFraction": 50.0,
+      "wasteOriginType": "PostConsumer",
+      "recycledSourceType": "OpenLoop",
+      "chainOfCustodyMethod": "Certified",
+      "meetsTargetThreshold": true,
+      "verificationCertification": {
+        "type": "gs1:CertificationDetails",
+        "gs1:certificationAgency": "Textile Exchange",
+        "gs1:certificationStandard": "Global Recycled Standard (GRS)",
+        "gs1:certificationIdentification": "GRS-2024-ECOWEAR-001"
+      }
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#rc-precon",
+      "type": "RecycledContentDeclaration",
+      "secondaryMaterialFraction": 5.0,
+      "wasteOriginType": "PostIndustrial",
+      "recycledSourceType": "FiberToFiber",
+      "chainOfCustodyMethod": "MassBalance",
+      "meetsTargetThreshold": true
+    }
+  ],
+
+  "_comment_environmental_footprint": "Environmental footprint per PEFCR Apparel & Footwear",
+  "environmentalFootprint": {
+    "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#footprint",
+    "type": "EnvironmentalFootprint",
+    "carbonFootprintManufacturing": 18.5,
+    "pefSingleScore": 42.3,
+    "benchmarkPerformance": -15.2,
+    "dataTypeIndicator": "MixedData",
+    "pefcrReference": "PEFCR Apparel & Footwear v1.3",
+    "lciaCategories": [
+      {
+        "type": "LCIACategory",
+        "lciaCategoryCode": "GWP",
+        "lciaValue": 18.5,
+        "lciaUnit": "kg CO2-eq"
+      },
+      {
+        "type": "LCIACategory",
+        "lciaCategoryCode": "WaterUse",
+        "lciaValue": 2.8,
+        "lciaUnit": "m3 world-eq"
+      }
+    ]
+  },
+
+  "_comment_soc": "Substances of Concern per ESPR Article 7(5) 4-type classification",
+  "substancesOfConcern": [
+    {
+      "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#soc-dye",
+      "type": "SubstanceOfConcern",
+      "socType": "SoCTypeB",
+      "chemicalName": "Disperse Blue 291",
+      "iupacName": "3-(2-Cyano-4,6-dinitrophenylazo)-N-ethyl-N-(2-acetoxyethyl)aniline",
+      "casNumber": "56548-64-2",
+      "clpHazardCategory": "Sensitizer",
+      "substanceConcentration": 0.008,
+      "locationInProduct": "Shell fabric dye",
+      "safeUseInstructions": "Wash before first wear. Suitable for skin contact per OEKO-TEX Standard 100 Class II.",
+      "endOfLifeHandling": "No special handling required at detected concentration."
+    }
+  ],
+
+  "dpp:recycledContent": {
+    "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#recycled",
+    "type": "dpp:RecycledContent",
+    "dpp:totalRecycledShare": 55,
+    "dpp:preConsumerShare": 5,
+    "dpp:postConsumerShare": 50
+  },
+
+  "dpp:carbonFootprintTotal": 18.5,
+  "dpp:carbonFootprintUnit": "kg CO2e per garment",
+  "dpp:carbonFootprintStudyUrl": "https://www.ecowear.example.com/sustainability/cfp-alpine-pro.pdf",
+
+  "waterUsage": {
+    "type": "VolumeLiters",
+    "value": 2500
+  },
+
+  "energyUsage": {
+    "type": "EnergyKilowattHours",
+    "value": 45
+  },
+
+  "productionWastePercentage": 8.5,
+  "pfasFree": true,
+  "biodegradable": false,
+
+  "hasTakeBackProgram": true,
+  "takeBackProgram": {
+    "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#takeback",
+    "type": "TakeBackProgram",
+    "takeBackUrl": "https://www.ecowear.example.com/takeback",
+    "takeBackIncentive": {
+      "@value": "15% discount voucher on next purchase when returning end-of-life products to any EcoWear store",
+      "@language": "en"
+    },
+    "endOfLifeDestination": {
+      "@value": "Products sorted for: resale (good condition), fiber-to-fiber recycling (damaged), or energy recovery (non-recyclable)",
+      "@language": "en"
+    }
+  },
+
+  "recyclingInstructions": {
+    "@value": "Remove all metal components (zippers, snaps) before textile recycling. Down can be recovered separately.",
+    "@language": "en"
+  },
+
+  "gs1:consumerRecyclingInstructions": {
+    "@value": "This product can be returned to any EcoWear store for recycling. Do not dispose of in household waste.",
+    "@language": "en"
+  },
+
+  "isRepairable": true,
+  "repairGuideUrl": "https://www.ecowear.example.com/repair/alpine-pro-guide",
+  "sparePartsAvailable": true,
+  "sparePartsUrl": "https://www.ecowear.example.com/spareparts/alpine-pro",
+
+  "repairServices": [
+    {
+      "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#repair-service",
+      "type": "Organization",
+      "gs1:organizationName": "EcoWear Repair Service",
+      "gs1:address": {
+        "type": "gs1:PostalAddress",
+        "gs1:streetAddress": "Reparaturweg 5",
+        "gs1:addressLocality": "Munich",
+        "gs1:postalCode": "80333",
+        "gs1:countryCode": "DE"
+      },
+      "gs1:contactPoint": {
+        "type": "gs1:ContactPoint",
+        "gs1:email": "repair@ecowear.example.com",
+        "gs1:url": {"id": "https://repair.ecowear.example.com"}
+      }
+    }
+  ],
+
+  "dpp:repairabilityInfo": {
+    "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#repairability",
+    "type": "dpp:RepairabilityInfo",
+    "dpp:repairabilityScore": 7.2,
+    "dpp:repairabilityClass": "B",
+    "dpp:sparePartsAvailability": {
+      "type": "QuantitativeValue",
+      "value": 10,
+      "unitCode": "ANN"
+    },
+    "dpp:diyRepairPossible": true,
+    "dpp:professionalRepairNetwork": "https://repair.ecowear.example.com/find-service"
+  },
+
+  "gs1:certification": [
+    {
+      "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#cert-grs",
+      "type": "gs1:CertificationDetails",
+      "gs1:certificationAgency": "Textile Exchange",
+      "gs1:certificationStandard": "Global Recycled Standard (GRS)",
+      "gs1:certificationIdentification": "GRS-2024-ECOWEAR-001",
+      "gs1:certificationStartDate": "2024-01-15",
+      "gs1:certificationEndDate": "2025-01-14"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#cert-oekotex",
+      "type": "gs1:CertificationDetails",
+      "gs1:certificationAgency": "OEKO-TEX Association",
+      "gs1:certificationStandard": "OEKO-TEX Standard 100",
+      "gs1:certificationIdentification": "SH025 123456 TESTEX",
+      "gs1:certificationStartDate": "2024-03-01",
+      "gs1:certificationEndDate": "2025-02-28"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#cert-bluesign",
+      "type": "gs1:CertificationDetails",
+      "gs1:certificationAgency": "bluesign technologies ag",
+      "gs1:certificationStandard": "bluesign PRODUCT",
+      "gs1:certificationIdentification": "BS-2024-ECOWEAR-AP"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#cert-rds",
+      "type": "gs1:CertificationDetails",
+      "gs1:certificationAgency": "Textile Exchange",
+      "gs1:certificationStandard": "Responsible Down Standard (RDS)",
+      "gs1:certificationIdentification": "RDS-2024-ECOWEAR-002"
+    }
+  ],
+
+  "cutAndSewFacility": {
+    "id": "https://id.gs1.org/414/9521234000022",
+    "type": "dpp:FacilityInformation",
+    "gln": "9521234000022",
+    "name": "Porto Textile Manufacturing",
+    "dpp:facilityType": "Cut and Sew",
+    "address": {
+      "type": "gs1:PostalAddress",
+      "gs1:addressLocality": "Porto",
+      "gs1:countryCode": "PT"
+    },
+    "dpp:facilityCertifications": [
+      {
+        "type": "gs1:CertificationDetails",
+        "gs1:certificationStandard": "ISO 14001:2015",
+        "gs1:certificationIdentification": "EMS-PT-2024-123"
+      },
+      {
+        "type": "gs1:CertificationDetails",
+        "gs1:certificationStandard": "SA8000",
+        "gs1:certificationIdentification": "SA-PT-2024-456"
+      }
+    ]
+  },
+
+  "dyeingFacility": {
+    "id": "https://id.gs1.org/414/9521234000039",
+    "type": "dpp:FacilityInformation",
+    "gln": "9521234000039",
+    "name": "Eco Dyeing Italy",
+    "dpp:facilityType": "Dyeing and Finishing",
+    "address": {
+      "type": "gs1:PostalAddress",
+      "gs1:addressLocality": "Como",
+      "gs1:countryCode": "IT"
+    },
+    "dpp:facilityCertifications": [
+      {
+        "type": "gs1:CertificationDetails",
+        "gs1:certificationStandard": "ZDHC MRSL v3.1",
+        "gs1:certificationIdentification": "ZDHC-IT-2024-789"
+      }
+    ]
+  },
+
+  "gs1:warranty": {
+    "type": "gs1:WarrantyPromise",
+    "gs1:durationOfWarranty": "P2Y",
+    "gs1:warrantyScope": "Covers manufacturing defects. Does not cover normal wear, improper care, or accidental damage."
+  },
+
+  "dpp:documents": [
+    {
+      "id": "https://www.ecowear.example.com/docs/alpine-pro-user-guide.pdf",
+      "type": "dpp:DocumentReference",
+      "dpp:documentType": {"id": "dpp:Manual"},
+      "dpp:documentUrl": "https://www.ecowear.example.com/docs/alpine-pro-user-guide.pdf",
+      "dpp:documentTitle": "Alpine Pro User & Care Guide",
+      "dpp:mimeType": "application/pdf",
+      "dpp:languageCode": "en"
+    },
+    {
+      "id": "https://www.ecowear.example.com/docs/supply-chain-transparency-2024.pdf",
+      "type": "dpp:DocumentReference",
+      "dpp:documentType": {"id": "dpp:DueDiligenceDocument"},
+      "dpp:documentUrl": "https://www.ecowear.example.com/docs/supply-chain-transparency-2024.pdf",
+      "dpp:documentTitle": "Supply Chain Transparency Report 2024",
+      "dpp:mimeType": "application/pdf",
+      "dpp:languageCode": "en",
+      "dpp:issueDate": "2024-04-01"
+    }
+  ],
+
+  "gs1:referencedFileDetails": [
+    {
+      "id": "https://www.ecowear.example.com/docs/alpine-pro-user-guide.pdf",
+      "type": "gs1:ReferencedFileDetails",
+      "gs1:referencedFileType": {"id": "gs1:ReferencedFileTypeCode-USER_MANUAL"},
+      "gs1:contentDescription": "User and Care Guide",
+      "gs1:fileLanguageCode": "en"
+    },
+    {
+      "id": "https://www.ecowear.example.com/docs/alpine-pro-certifications.pdf",
+      "type": "gs1:ReferencedFileDetails",
+      "gs1:referencedFileType": {"id": "gs1:ReferencedFileTypeCode-CERTIFICATION"},
+      "gs1:contentDescription": "Product Certifications (GRS, OEKO-TEX, bluesign, RDS)",
+      "gs1:fileLanguageCode": "en"
+    }
+  ],
+
+  "dpp:accessRights": {
+    "id": "https://id.gs1.org/01/09521234000011/21/WJ-2024-00142#access",
+    "type": "dpp:AccessRights",
+    "dpp:accessLevel": {"id": "dpp:Public"}
+  },
+
+  "dpp:passportIdentifier": "https://dpp.ecowear.example.com/passport/WJ-2024-00142",
+  "dpp:passportVersion": "1.0",
+  "dpp:passportIssueDate": "2024-09-20",
+  "dpp:passportStatus": "Active",
+  "dpp:productCategory": {"id": "dpp:Textiles"},
+  "dpp:lastDataUpdate": "2024-10-15T10:30:00Z",
+  "dpp:dataQualityAssessment": "A"
+}

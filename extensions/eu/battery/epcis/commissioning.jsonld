@@ -1,0 +1,154 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/context"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2024-03-15T14:30:00.000Z",
+  "_comment_architecture": [
+    "Battery commissioning event with product, location, and organization master data inline.",
+    "masterDataAvailableFor carries:",
+    "  - gs1: product master data (productName, gtin, netWeight, countryOfOrigin, regulatoryInformation)",
+    "  - battery:-prefixed PRODUCT-LEVEL attributes (batteryCategory, batteryChemistry, ratedCapacity,",
+    "    ratedEnergy) — these describe the GTIN and are identical across every lot of this SKU.",
+    "    GS1 has no native term for them yet; keeping them in the product entry means any downstream",
+    "    consumer gets the full product card in one place.",
+    "ilmd is INTENTIONALLY ABSENT: we have no lot-specific data to assert on this event.",
+    "Observation-specific readings (stateOfHealth, stateOfCharge, cycleCount at this moment) ride",
+    "in sensorElementList, the EPCIS-native place for sensor observations.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,battery=https://ref.openepcis.io/extensions/eu/battery/",
+    "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:550e8400-e29b-41d4-a716-446655440001",
+        "eventTime": "2024-03-15T14:30:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "ADD",
+        "bizStep": "commissioning",
+        "disposition": "active",
+        "epcList": [
+          "https://id.gs1.org/01/09521234000013/21/BAT2024-001"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000013"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000013"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
+            "type": "Product",
+            "productName": {
+              "en": "EcoCell Industrial Battery Module IM-500"
+            },
+            "gtin": "09521234000013",
+            "serialNumber": "BAT2024-001",
+            "netWeight": {
+              "type": "WeightKilograms",
+              "value": 125.5
+            },
+            "countryOfOrigin": {
+              "countryCode": "DE"
+            },
+            "regulatoryInformation": [
+              {
+                "type": "RegulatoryInformation",
+                "regulationType": {
+                  "id": "RegulationTypeCode-BATTERY_DIRECTIVE"
+                },
+                "regulatoryAct": "EU 2023/1542"
+              }
+            ],
+            "battery:batteryCategory": "IndustrialBattery",
+            "battery:batteryChemistry": {
+              "battery:shortName": "LFP",
+              "battery:fullName": "Lithium Iron Phosphate"
+            },
+            "battery:ratedCapacity": {
+              "type": "CapacityAmpereHours",
+              "value": 280
+            },
+            "battery:ratedEnergy": {
+              "type": "EnergyKilowattHours",
+              "value": 14.3
+            }
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000013",
+            "type": "Place",
+            "locationGLN": "9521234000013",
+            "physicalLocationName": {
+              "en": "EcoCell GmbH - Production Facility"
+            },
+            "address": {
+              "type": "PostalAddress",
+              "streetAddress": "Batteriestrasse 42",
+              "addressLocality": "Stuttgart",
+              "postalCode": "70173",
+              "countryCode": "DE"
+            }
+          },
+          {
+            "id": "https://id.gs1.org/417/9521234000006",
+            "type": "Organization",
+            "organizationName": {
+              "en": "EcoCell GmbH"
+            },
+            "partyGLN": "9521234000006",
+            "countryCode": "DE"
+          }
+        ],
+        "bizTransactionList": [
+          {
+            "type": "urn:epcglobal:cbv:btt:prodorder",
+            "bizTransaction": "https://ecocell-batteries.example.com/orders/PO-2024-00142"
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "source": "https://id.gs1.org/417/9521234000006"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "destination": "https://id.gs1.org/417/9521234000006"
+          }
+        ],
+        "sensorElementList": [
+          {
+            "sensorMetadata": {
+              "time": "2024-03-15T14:30:00.000Z",
+              "deviceID": "https://id.gs1.org/8004/9521234EOL-TEST-001"
+            },
+            "sensorReport": [
+              {
+                "type": "battery:stateOfHealth",
+                "value": 100,
+                "uom": "P1",
+                "measurementMethod": "Initial factory test"
+              },
+              {
+                "type": "battery:stateOfCharge",
+                "value": 50,
+                "uom": "P1"
+              },
+              {
+                "type": "battery:cycleCount",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

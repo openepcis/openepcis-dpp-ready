@@ -1,0 +1,69 @@
+meta {
+  name: Packing - Aggregation
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url}}/capture
+  body: json
+  auth: inherit
+}
+
+script:pre-request {
+  // Generate parent SSCC for the pallet/container
+  bru.setVar("parentSscc", "395212340000000001");
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+      "{{dpp-context}}",
+      "{{textile-context}}"
+    ],
+    "type": "EPCISDocument",
+    "schemaVersion": "2.0",
+    "creationDate": "{{eventTime}}",
+    "epcisBody": {
+      "eventList": [
+        {
+          "type": "AggregationEvent",
+          "action": "ADD",
+          "bizStep": "packing",
+          "disposition": "in_transit",
+          "eventTime": "{{eventTime}}",
+          "eventTimeZoneOffset": "+01:00",
+          "readPoint": {
+            "id": "{{readPoint}}"
+          },
+          "parentID": "https://id.gs1.org/00/{{parentSscc}}",
+          "childEPCs": [
+            "{{epc}}",
+            "https://id.gs1.org/01/{{gtin}}/21/WJ-2025-00143",
+            "https://id.gs1.org/01/{{gtin}}/21/WJ-2025-00144",
+            "https://id.gs1.org/01/{{gtin}}/21/WJ-2025-00145",
+            "https://id.gs1.org/01/{{gtin}}/21/WJ-2025-00146"
+          ],
+          "dpp:operatorInformation": {
+            "@type": "dpp:OperatorInformation",
+            "gs1:gln": "{{manufacturerGln}}",
+            "gs1:organizationName": "EcoWear GmbH"
+          },
+          "textile:packagingInfo": {
+            "@type": "textile:PackagingInfo",
+            "textile:packagingMaterial": "recycled cardboard",
+            "textile:packagingRecyclable": true,
+            "textile:plasticFree": true
+          }
+        }
+      ]
+    }
+  }
+}
+
+tests {
+  test("Capture successful", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+  });
+}

@@ -1,0 +1,1219 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix electronics: <https://ref.openepcis.io/extensions/eu/electronics/> .
+@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+# UNTP namespace references for semantic alignment
+@prefix untp-core: <https://test.uncefact.org/vocabulary/untp/core/> .
+@prefix untp-dpp: <https://test.uncefact.org/vocabulary/untp/dpp/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix schema: <https://schema.org/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+# =============================================================================
+# Ontology Declaration
+# =============================================================================
+
+<https://ref.openepcis.io/extensions/eu/electronics/>
+    a owl:Ontology ;
+    dcterms:title "OpenEPCIS Electronics Vocabulary"@en ;
+    dcterms:description """Electronics-specific vocabulary extending GS1 Web Vocabulary for Digital Product Passports.
+
+OpenEPCIS DPP-Ready: The Universal DPP Platform - harmonizing GS1, UNTP, and CIRPASS-2 standards.
+
+This vocabulary provides comprehensive coverage for electronic and electrical equipment under:
+- EU ESPR 2024/1781 framework (computers, servers, smartphones, tablets)
+- French Repairability Index (Indice de Réparabilité) - 5 criteria, 100-point scoring
+- EU Right to Repair 2025 - A-E repairability grades
+- WEEE Directive 2012/19/EU - 6 equipment categories
+- RoHS Directive 2011/65/EU - Restricted hazardous substances
+- EU Energy Labeling 2019/2021 - A-G efficiency classes, EPREL registry
+- CIRPASS-2 electronics pilots - Multi-component DPP tracking
+
+Standards Alignment:
+- GS1 Web Vocabulary (native foundation)
+- UN Transparency Protocol (UNTP) alignment via owl:equivalentProperty
+- IEC 62474 material declarations
+- IEC 82474-1:2025 material efficiency
+- ISO/IEC 12207 software lifecycle
+- ISO/IEC 14764 software maintenance
+
+GS1 Properties to Use (not redefined here):
+- gs1:gtin - Global Trade Item Number
+- gs1:productName - Product name
+- gs1:brand - Brand information
+- gs1:manufacturingDate - Manufacturing date
+- gs1:countryOfOrigin - Country of manufacture
+- gs1:manufacturer - Manufacturer organization
+- gs1:warranty / gs1:WarrantyPromise - Warranty information
+- gs1:certification / gs1:CertificationDetails - Certifications
+- gs1:regulatoryInformation - Regulatory compliance (RoHS, CE, etc.)
+- gs1:netWeight / gs1:grossWeight - Product weight
+
+EPCIS 2.0 Extension Declaration:
+GS1-Extensions: electronics=https://ref.openepcis.io/extensions/eu/electronics/
+
+Extension Governance:
+This vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.
+Each extension term includes dcterms:source, skos:note, and rdfs:seeAlso where applicable.
+All ratio/fraction properties use 0-1 decimal scale (e.g., 0.45 = 45%)."""@en ;
+    dcterms:creator "OpenEPCIS" ;
+    dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+    dcterms:created "2025-02-02"^^xsd:date ;
+    dcterms:modified "2025-02-02"^^xsd:date ;
+    owl:versionInfo "0.9.5" ;
+    owl:versionIRI <https://ref.openepcis.io/extensions/eu/electronics/0.9.5> ;
+    vann:preferredNamespacePrefix "electronics" ;
+    vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/eu/electronics/" ;
+    rdfs:seeAlso <https://ref.gs1.org/voc/> ;
+    rdfs:seeAlso <https://ref.gs1.org/voc/CertificationDetails> ;
+    rdfs:seeAlso <https://ref.gs1.org/standards/epcis/> ;
+    rdfs:seeAlso <https://ref.gs1.org/standards/dpp/> ;
+    rdfs:seeAlso <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso <https://www.ecologie.gouv.fr/indice-reparabilite> ;
+    rdfs:seeAlso <https://uncefact.github.io/spec-untp/> ;
+    owl:imports <https://ref.gs1.org/voc/> ;
+    owl:imports <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# PART 1: CORE CLASSES
+# =============================================================================
+
+electronics:RepairabilityIndex
+    a owl:Class ;
+    rdfs:label "Repairability Index"@en ;
+    rdfs:comment """French Repairability Index (Indice de Réparabilité) assessment using the official
+5-criteria, 100-point scoring methodology. The score is displayed to consumers as 0-10 scale.
+
+Five Criteria (20 points each):
+1. Documentation - Availability of repair documentation
+2. Disassembly - Ease of disassembly and tools required
+3. Spare Parts Availability - Duration and access to spare parts
+4. Spare Parts Pricing - Ratio of part prices to product price
+5. Product Specific - Category-specific criteria (e.g., software support for smartphones)
+
+Total score (0-100) is converted to display score (0-10) for consumer labeling."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
+    rdfs:seeAlso dpp:RepairabilityInfo ;
+    skos:note """Required extension: The French Repairability Index uses a specific 5-criteria methodology
+that is not available in GS1 Web Vocabulary. Links to dpp:RepairabilityInfo for base patterns."""@en .
+
+electronics:RepairCriterion
+    a owl:Class ;
+    rdfs:label "Repair Criterion"@en ;
+    rdfs:comment "An individual criterion score within the French Repairability Index."@en ;
+    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:SoftwareSupport
+    a owl:Class ;
+    rdfs:label "Software Support"@en ;
+    rdfs:comment """Operating system and firmware support information including update periods,
+security patch availability, and end-of-support dates. Critical for electronics lifecycle
+and repairability assessments per ESPR delegated acts.
+
+Designed following ISO/IEC 12207 (software lifecycle) and ISO/IEC 14764 (software maintenance)
+patterns as a potential contribution to UNTP v1.0+."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    dcterms:source <https://www.iso.org/standard/63712.html> ;
+    rdfs:seeAlso <https://www.iso.org/standard/43447.html> ;
+    skos:note """Software lifecycle tracking per ISO/IEC 12207. Designed as potential UNTP extension.
+UNTP v0.6 does not yet include software support properties, making this a candidate for
+contribution to UNTP v1.0+."""@en .
+
+electronics:EnergyEfficiency
+    a owl:Class ;
+    rdfs:label "Energy Efficiency"@en ;
+    rdfs:comment """EU Energy Label data including efficiency class (A-G), power consumption metrics,
+and EPREL registry information per EU Energy Labeling Regulation 2019/2021."""@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
+    rdfs:seeAlso dpp:PerformanceInfo ;
+    skos:note """Required extension: GS1 provides performance information patterns but lacks specific
+EU Energy Label properties (A-G classes, EPREL registration) required for electronics."""@en.
+
+electronics:ComponentBOM
+    a owl:Class ;
+    rdfs:label "Component Bill of Materials"@en ;
+    rdfs:comment """Bill of Materials for multi-component electronics supporting CIRPASS-2 nested DPP
+requirements. Links individual components to their own Digital Product Passports."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    dcterms:source <https://cirpassproject.eu/> ;
+    rdfs:seeAlso untp-dpp:linkedProduct ;
+    skos:note """Required extension: CIRPASS-2 electronics pilots require multi-component tracking
+where each component (battery, display, etc.) may have its own DPP. Aligned with UNTP
+linkedProduct pattern."""@en.
+
+electronics:WEEECompliance
+    a owl:Class ;
+    rdfs:label "WEEE Compliance"@en ;
+    rdfs:comment """Waste Electrical and Electronic Equipment (WEEE) Directive compliance information
+including equipment category, registration number, and collection scheme."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
+    rdfs:seeAlso gs1:regulatoryInformation ;
+    rdfs:seeAlso dpp:CircularityPerformance ;
+    skos:note """Required extension: WEEE has 6 specific equipment categories not in GS1 vocabulary.
+Use gs1:regulatoryInformation for general compliance, this class for WEEE-specific data."""@en.
+
+electronics:RoHSCompliance
+    a owl:Class ;
+    rdfs:label "RoHS Compliance"@en ;
+    rdfs:comment """Restriction of Hazardous Substances (RoHS) Directive compliance information
+including compliance status and applicable exemptions."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/dir/2011/65/eu> ;
+    rdfs:seeAlso gs1:regulatoryInformation ;
+    rdfs:seeAlso dpp:SubstanceOfConcern ;
+    skos:note """Required extension: RoHS has specific exemption categories not in GS1 vocabulary.
+Use gs1:regulatoryInformation for general compliance, this class for RoHS-specific data."""@en.
+
+electronics:DisplaySpecification
+    a owl:Class ;
+    rdfs:label "Display Specification"@en ;
+    rdfs:comment "Display-specific technical specifications for monitors, TVs, and device screens."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+# -----------------------------------------------------------------------------
+# Typed QuantitativeValue Subclasses (Electronics-specific)
+# -----------------------------------------------------------------------------
+
+electronics:FrequencyHertz
+    a owl:Class ;
+    rdfs:label "Frequency in Hertz"@en ;
+    rdfs:comment "A quantitative value expressing frequency in hertz. Unit code: HTZ."@en ;
+    rdfs:subClassOf gs1:QuantitativeValue ;
+    skos:note "Pins gs1:unitCode to HTZ. Used for display refresh rate." ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:LuminanceCandela
+    a owl:Class ;
+    rdfs:label "Luminance in cd/m²"@en ;
+    rdfs:comment "A quantitative value expressing luminance in candelas per square meter (nits). Unit code: P1 (using manufacturer-declared nits value)."@en ;
+    rdfs:subClassOf gs1:QuantitativeValue ;
+    skos:note "Pins gs1:unitCode to CDM2. Used for display peak brightness." ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+# =============================================================================
+# PART 2: DEVICE CATEGORY ENUMERATION
+# =============================================================================
+
+electronics:DeviceCategory
+    a owl:Class ;
+    rdfs:label "Device Category"@en ;
+    rdfs:comment "Category of electronic device per ESPR delegated acts and WEEE classifications."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    owl:oneOf (
+        electronics:Smartphone
+        electronics:Tablet
+        electronics:Laptop
+        electronics:Desktop
+        electronics:Server
+        electronics:Display
+        electronics:Television
+        electronics:WashingMachine
+        electronics:Refrigerator
+        electronics:Dishwasher
+        electronics:VacuumCleaner
+        electronics:SmallAppliance
+        electronics:NetworkEquipment
+        electronics:DataStorage
+        electronics:Printer
+        electronics:Wearable
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:Smartphone a electronics:DeviceCategory ;
+    rdfs:label "Smartphone"@en ;
+    rdfs:comment "Mobile phone with advanced computing capabilities."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+electronics:Tablet a electronics:DeviceCategory ;
+    rdfs:label "Tablet"@en ;
+    rdfs:comment "Portable touch-screen computing device."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+electronics:Laptop a electronics:DeviceCategory ;
+    rdfs:label "Laptop"@en ;
+    rdfs:comment "Portable personal computer with integrated display and keyboard."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+electronics:Desktop a electronics:DeviceCategory ;
+    rdfs:label "Desktop Computer"@en ;
+    rdfs:comment "Personal computer designed for use at a fixed location."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+electronics:Server a electronics:DeviceCategory ;
+    rdfs:label "Server"@en ;
+    rdfs:comment "Computer designed to provide services to other computers or networks."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+electronics:Display a electronics:DeviceCategory ;
+    rdfs:label "Display/Monitor"@en ;
+    rdfs:comment "Computer monitor or display device."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> .
+
+electronics:Television a electronics:DeviceCategory ;
+    rdfs:label "Television"@en ;
+    rdfs:comment "Television set for video display and reception."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> .
+
+electronics:WashingMachine a electronics:DeviceCategory ;
+    rdfs:label "Washing Machine"@en ;
+    rdfs:comment "Household washing machine for clothing and textiles."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> .
+
+electronics:Refrigerator a electronics:DeviceCategory ;
+    rdfs:label "Refrigerator"@en ;
+    rdfs:comment "Household refrigerating appliance."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> .
+
+electronics:Dishwasher a electronics:DeviceCategory ;
+    rdfs:label "Dishwasher"@en ;
+    rdfs:comment "Household dishwashing machine."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> .
+
+electronics:VacuumCleaner a electronics:DeviceCategory ;
+    rdfs:label "Vacuum Cleaner"@en ;
+    rdfs:comment "Household vacuum cleaning appliance."@en .
+
+electronics:SmallAppliance a electronics:DeviceCategory ;
+    rdfs:label "Small Household Appliance"@en ;
+    rdfs:comment "Small household electrical appliance (toasters, kettles, etc.)."@en .
+
+electronics:NetworkEquipment a electronics:DeviceCategory ;
+    rdfs:label "Network Equipment"@en ;
+    rdfs:comment "Networking devices including routers, switches, and access points."@en .
+
+electronics:DataStorage a electronics:DeviceCategory ;
+    rdfs:label "Data Storage Device"@en ;
+    rdfs:comment "Data storage devices including external drives and NAS systems."@en .
+
+electronics:Printer a electronics:DeviceCategory ;
+    rdfs:label "Printer"@en ;
+    rdfs:comment "Printing device including inkjet, laser, and multifunction printers."@en .
+
+electronics:Wearable a electronics:DeviceCategory ;
+    rdfs:label "Wearable Device"@en ;
+    rdfs:comment "Wearable electronic device including smartwatches and fitness trackers."@en .
+
+# =============================================================================
+# PART 3: REPAIR CRITERION TYPE ENUMERATION (French Index)
+# =============================================================================
+
+electronics:RepairCriterionType
+    a owl:Class ;
+    rdfs:label "Repair Criterion Type"@en ;
+    rdfs:comment "Types of criteria in the French Repairability Index (5 criteria, 20 points each)."@en ;
+    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
+    owl:oneOf (
+        electronics:Documentation
+        electronics:Disassembly
+        electronics:SparePartsAvailability
+        electronics:SparePartsPricing
+        electronics:ProductSpecific
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:Documentation a electronics:RepairCriterionType ;
+    rdfs:label "Documentation"@en ;
+    rdfs:comment "Availability and quality of repair documentation (20 points max)."@en ;
+    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> .
+
+electronics:Disassembly a electronics:RepairCriterionType ;
+    rdfs:label "Disassembly"@en ;
+    rdfs:comment "Ease of disassembly, reassembly, and tools required (20 points max)."@en ;
+    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> .
+
+electronics:SparePartsAvailability a electronics:RepairCriterionType ;
+    rdfs:label "Spare Parts Availability"@en ;
+    rdfs:comment "Duration of spare parts availability and access channels (20 points max)."@en ;
+    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> .
+
+electronics:SparePartsPricing a electronics:RepairCriterionType ;
+    rdfs:label "Spare Parts Pricing"@en ;
+    rdfs:comment "Ratio of spare part prices to product price (20 points max)."@en ;
+    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> .
+
+electronics:ProductSpecific a electronics:RepairCriterionType ;
+    rdfs:label "Product Specific Criteria"@en ;
+    rdfs:comment "Category-specific criteria such as software support duration (20 points max)."@en ;
+    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> .
+
+# =============================================================================
+# PART 4: EU REPAIRABILITY CLASS ENUMERATION (Right to Repair)
+# =============================================================================
+
+electronics:EURepairabilityClass
+    a owl:Class ;
+    rdfs:label "EU Repairability Class"@en ;
+    rdfs:comment "EU Right to Repair repairability grades (A-E) based on repairability score ranges."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    owl:oneOf (
+        electronics:RepairClassA
+        electronics:RepairClassB
+        electronics:RepairClassC
+        electronics:RepairClassD
+        electronics:RepairClassE
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:RepairClassA a electronics:EURepairabilityClass ;
+    rdfs:label "Repairability Class A"@en ;
+    rdfs:comment "Highest repairability (score 8.1-10.0). Easily repairable by consumers and professionals."@en .
+
+electronics:RepairClassB a electronics:EURepairabilityClass ;
+    rdfs:label "Repairability Class B"@en ;
+    rdfs:comment "High repairability (score 6.1-8.0). Good repair support available."@en .
+
+electronics:RepairClassC a electronics:EURepairabilityClass ;
+    rdfs:label "Repairability Class C"@en ;
+    rdfs:comment "Moderate repairability (score 4.1-6.0). Some repair limitations."@en .
+
+electronics:RepairClassD a electronics:EURepairabilityClass ;
+    rdfs:label "Repairability Class D"@en ;
+    rdfs:comment "Limited repairability (score 2.1-4.0). Significant repair barriers."@en .
+
+electronics:RepairClassE a electronics:EURepairabilityClass ;
+    rdfs:label "Repairability Class E"@en ;
+    rdfs:comment "Lowest repairability (score 0-2.0). Difficult or impossible to repair."@en .
+
+# =============================================================================
+# PART 5: ENERGY EFFICIENCY CLASS ENUMERATION
+# =============================================================================
+
+electronics:EnergyEfficiencyClass
+    a owl:Class ;
+    rdfs:label "Energy Efficiency Class"@en ;
+    rdfs:comment "EU Energy Label efficiency classes (A-G) per EU 2019/2021."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
+    owl:oneOf (
+        electronics:EnergyClassA
+        electronics:EnergyClassB
+        electronics:EnergyClassC
+        electronics:EnergyClassD
+        electronics:EnergyClassE
+        electronics:EnergyClassF
+        electronics:EnergyClassG
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:EnergyClassA a electronics:EnergyEfficiencyClass ;
+    rdfs:label "Energy Class A"@en ;
+    rdfs:comment "Most energy efficient (green label)."@en .
+
+electronics:EnergyClassB a electronics:EnergyEfficiencyClass ;
+    rdfs:label "Energy Class B"@en ;
+    rdfs:comment "Very energy efficient."@en .
+
+electronics:EnergyClassC a electronics:EnergyEfficiencyClass ;
+    rdfs:label "Energy Class C"@en ;
+    rdfs:comment "Energy efficient."@en .
+
+electronics:EnergyClassD a electronics:EnergyEfficiencyClass ;
+    rdfs:label "Energy Class D"@en ;
+    rdfs:comment "Average energy efficiency."@en .
+
+electronics:EnergyClassE a electronics:EnergyEfficiencyClass ;
+    rdfs:label "Energy Class E"@en ;
+    rdfs:comment "Below average energy efficiency."@en .
+
+electronics:EnergyClassF a electronics:EnergyEfficiencyClass ;
+    rdfs:label "Energy Class F"@en ;
+    rdfs:comment "Low energy efficiency."@en .
+
+electronics:EnergyClassG a electronics:EnergyEfficiencyClass ;
+    rdfs:label "Energy Class G"@en ;
+    rdfs:comment "Least energy efficient (red label)."@en .
+
+# =============================================================================
+# PART 6: WEEE CATEGORY ENUMERATION
+# =============================================================================
+
+electronics:WEEECategory
+    a owl:Class ;
+    rdfs:label "WEEE Category"@en ;
+    rdfs:comment "WEEE Directive 2012/19/EU equipment categories (6 categories)."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
+    owl:oneOf (
+        electronics:WEEE1_TemperatureExchange
+        electronics:WEEE2_ScreensMonitors
+        electronics:WEEE3_Lamps
+        electronics:WEEE4_LargeEquipment
+        electronics:WEEE5_SmallEquipment
+        electronics:WEEE6_SmallIT
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:WEEE1_TemperatureExchange a electronics:WEEECategory ;
+    rdfs:label "WEEE Category 1: Temperature Exchange Equipment"@en ;
+    rdfs:comment "Refrigerators, freezers, air conditioners, heat pumps."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> .
+
+electronics:WEEE2_ScreensMonitors a electronics:WEEECategory ;
+    rdfs:label "WEEE Category 2: Screens and Monitors"@en ;
+    rdfs:comment "Televisions, monitors, laptops, notebooks, tablets."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> .
+
+electronics:WEEE3_Lamps a electronics:WEEECategory ;
+    rdfs:label "WEEE Category 3: Lamps"@en ;
+    rdfs:comment "Fluorescent lamps, LED lamps, high-intensity discharge lamps."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> .
+
+electronics:WEEE4_LargeEquipment a electronics:WEEECategory ;
+    rdfs:label "WEEE Category 4: Large Equipment"@en ;
+    rdfs:comment "Washing machines, dishwashers, electric stoves, large printing machines, large medical devices."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> .
+
+electronics:WEEE5_SmallEquipment a electronics:WEEECategory ;
+    rdfs:label "WEEE Category 5: Small Equipment"@en ;
+    rdfs:comment "Vacuum cleaners, microwaves, ventilation equipment, toasters, shavers, scales, calculators, radios, video cameras, small electrical and electronic tools."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> .
+
+electronics:WEEE6_SmallIT a electronics:WEEECategory ;
+    rdfs:label "WEEE Category 6: Small IT and Telecommunication Equipment"@en ;
+    rdfs:comment "Mobile phones, GPS, pocket calculators, routers, personal computers, printers, telephones."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> .
+
+# =============================================================================
+# PART 7: COMPONENT TYPE ENUMERATION
+# =============================================================================
+
+electronics:ComponentType
+    a owl:Class ;
+    rdfs:label "Component Type"@en ;
+    rdfs:comment "Types of replaceable components in electronic devices."@en ;
+    dcterms:source <https://cirpassproject.eu/> ;
+    owl:oneOf (
+        electronics:BatteryComponent
+        electronics:DisplayComponent
+        electronics:ProcessorComponent
+        electronics:MemoryComponent
+        electronics:StorageComponent
+        electronics:MotherboardComponent
+        electronics:PowerSupplyComponent
+        electronics:CoolingSystemComponent
+        electronics:CameraComponent
+        electronics:SpeakerComponent
+        electronics:MicrophoneComponent
+        electronics:KeyboardComponent
+        electronics:TrackpadComponent
+        electronics:ConnectorComponent
+        electronics:EnclosureComponent
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:BatteryComponent a electronics:ComponentType ;
+    rdfs:label "Battery"@en ;
+    rdfs:comment "Rechargeable battery component. May link to Battery module DPP."@en .
+
+electronics:DisplayComponent a electronics:ComponentType ;
+    rdfs:label "Display"@en ;
+    rdfs:comment "Display panel (LCD, OLED, etc.)."@en .
+
+electronics:ProcessorComponent a electronics:ComponentType ;
+    rdfs:label "Processor"@en ;
+    rdfs:comment "Central processing unit (CPU) or system-on-chip (SoC)."@en .
+
+electronics:MemoryComponent a electronics:ComponentType ;
+    rdfs:label "Memory"@en ;
+    rdfs:comment "Random access memory (RAM) module."@en .
+
+electronics:StorageComponent a electronics:ComponentType ;
+    rdfs:label "Storage"@en ;
+    rdfs:comment "Data storage device (SSD, HDD, eMMC)."@en .
+
+electronics:MotherboardComponent a electronics:ComponentType ;
+    rdfs:label "Motherboard"@en ;
+    rdfs:comment "Main circuit board."@en .
+
+electronics:PowerSupplyComponent a electronics:ComponentType ;
+    rdfs:label "Power Supply"@en ;
+    rdfs:comment "Power supply unit or charging circuit."@en .
+
+electronics:CoolingSystemComponent a electronics:ComponentType ;
+    rdfs:label "Cooling System"@en ;
+    rdfs:comment "Thermal management components (fans, heat sinks)."@en .
+
+electronics:CameraComponent a electronics:ComponentType ;
+    rdfs:label "Camera"@en ;
+    rdfs:comment "Camera module."@en .
+
+electronics:SpeakerComponent a electronics:ComponentType ;
+    rdfs:label "Speaker"@en ;
+    rdfs:comment "Audio speaker component."@en .
+
+electronics:MicrophoneComponent a electronics:ComponentType ;
+    rdfs:label "Microphone"@en ;
+    rdfs:comment "Microphone component."@en .
+
+electronics:KeyboardComponent a electronics:ComponentType ;
+    rdfs:label "Keyboard"@en ;
+    rdfs:comment "Keyboard or keypad component."@en .
+
+electronics:TrackpadComponent a electronics:ComponentType ;
+    rdfs:label "Trackpad"@en ;
+    rdfs:comment "Trackpad or touchpad component."@en .
+
+electronics:ConnectorComponent a electronics:ComponentType ;
+    rdfs:label "Connector"@en ;
+    rdfs:comment "Port, connector, or cable component."@en .
+
+electronics:EnclosureComponent a electronics:ComponentType ;
+    rdfs:label "Enclosure"@en ;
+    rdfs:comment "Casing or housing component."@en .
+
+# =============================================================================
+# PART 8: REPLACEMENT DIFFICULTY ENUMERATION
+# =============================================================================
+
+electronics:ReplacementDifficulty
+    a owl:Class ;
+    rdfs:label "Replacement Difficulty"@en ;
+    rdfs:comment "Level of difficulty for component replacement."@en ;
+    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
+    owl:oneOf (
+        electronics:UserReplaceable
+        electronics:ToolRequired
+        electronics:ProfessionalOnly
+        electronics:NotReplaceable
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:UserReplaceable a electronics:ReplacementDifficulty ;
+    rdfs:label "User Replaceable"@en ;
+    rdfs:comment "Can be replaced by user without tools or with basic tools."@en .
+
+electronics:ToolRequired a electronics:ReplacementDifficulty ;
+    rdfs:label "Tool Required"@en ;
+    rdfs:comment "Requires specialized tools but can be done by skilled user."@en .
+
+electronics:ProfessionalOnly a electronics:ReplacementDifficulty ;
+    rdfs:label "Professional Only"@en ;
+    rdfs:comment "Requires professional repair service."@en .
+
+electronics:NotReplaceable a electronics:ReplacementDifficulty ;
+    rdfs:label "Not Replaceable"@en ;
+    rdfs:comment "Component is soldered, glued, or otherwise not designed for replacement."@en .
+
+# =============================================================================
+# PART 9: PROPERTIES - DEVICE INFORMATION
+# =============================================================================
+
+electronics:deviceCategory
+    a owl:ObjectProperty ;
+    rdfs:label "Device Category"@en ;
+    rdfs:comment "Category of electronic device."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range electronics:DeviceCategory ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:modelIdentifier
+    a owl:DatatypeProperty ;
+    rdfs:label "Model Identifier"@en ;
+    rdfs:comment "Manufacturer's model number or identifier."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:commercialName
+    a owl:DatatypeProperty ;
+    rdfs:label "Commercial Name"@en ;
+    rdfs:comment "Commercial or marketing name of the product."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+# =============================================================================
+# PART 10: PROPERTIES - FRENCH REPAIRABILITY INDEX
+# =============================================================================
+
+electronics:repairabilityIndex
+    a owl:ObjectProperty ;
+    rdfs:label "Repairability Index"@en ;
+    rdfs:comment "French Repairability Index (Indice de Réparabilité) assessment."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range electronics:RepairabilityIndex ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:totalScore
+    a owl:DatatypeProperty ;
+    rdfs:label "Total Score"@en ;
+    rdfs:comment "Total repairability score (0-100 scale, sum of 5 criteria)."@en ;
+    rdfs:domain electronics:RepairabilityIndex ;
+    rdfs:range xsd:decimal ;
+    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:displayScore
+    a owl:DatatypeProperty ;
+    rdfs:label "Display Score"@en ;
+    rdfs:comment "Consumer-facing repairability score (0-10 scale, totalScore/10)."@en ;
+    rdfs:domain electronics:RepairabilityIndex ;
+    rdfs:range xsd:decimal ;
+    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:repairabilityClass
+    a owl:ObjectProperty ;
+    rdfs:label "Repairability Class"@en ;
+    rdfs:comment "EU Right to Repair classification (A-E grade)."@en ;
+    rdfs:domain electronics:RepairabilityIndex ;
+    rdfs:range electronics:EURepairabilityClass ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:repairCriteria
+    a owl:ObjectProperty ;
+    rdfs:label "Repair Criteria"@en ;
+    rdfs:comment "List of individual criterion scores."@en ;
+    rdfs:domain electronics:RepairabilityIndex ;
+    rdfs:range electronics:RepairCriterion ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:criterionType
+    a owl:ObjectProperty ;
+    rdfs:label "Criterion Type"@en ;
+    rdfs:comment "Type of repair criterion being scored."@en ;
+    rdfs:domain electronics:RepairCriterion ;
+    rdfs:range electronics:RepairCriterionType ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:criterionScore
+    a owl:DatatypeProperty ;
+    rdfs:label "Criterion Score"@en ;
+    rdfs:comment "Score for this criterion (0-20 scale)."@en ;
+    rdfs:domain electronics:RepairCriterion ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:criterionMaxScore
+    a owl:DatatypeProperty ;
+    rdfs:label "Criterion Max Score"@en ;
+    rdfs:comment "Maximum possible score for this criterion (typically 20)."@en ;
+    rdfs:domain electronics:RepairCriterion ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:criterionDetails
+    a owl:DatatypeProperty ;
+    rdfs:label "Criterion Details"@en ;
+    rdfs:comment "Detailed explanation of the criterion score."@en ;
+    rdfs:domain electronics:RepairCriterion ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:assessmentDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Assessment Date"@en ;
+    rdfs:comment "Date when the repairability assessment was performed."@en ;
+    rdfs:domain electronics:RepairabilityIndex ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:assessmentBody
+    a owl:ObjectProperty ;
+    rdfs:label "Assessment Body"@en ;
+    rdfs:comment "Organization that performed the repairability assessment."@en ;
+    rdfs:domain electronics:RepairabilityIndex ;
+    rdfs:range gs1:Organization ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:repairabilityLabelUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Repairability Label URL"@en ;
+    rdfs:comment "URL to the official repairability label image."@en ;
+    rdfs:domain electronics:RepairabilityIndex ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+# =============================================================================
+# PART 11: PROPERTIES - SOFTWARE SUPPORT
+# =============================================================================
+
+electronics:softwareSupport
+    a owl:ObjectProperty ;
+    rdfs:label "Software Support"@en ;
+    rdfs:comment "Software and firmware support information."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range electronics:SoftwareSupport ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:operatingSystem
+    a owl:DatatypeProperty ;
+    rdfs:label "Operating System"@en ;
+    rdfs:comment "Name of the operating system (e.g., Android, iOS, Windows)."@en ;
+    rdfs:domain electronics:SoftwareSupport ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:osVersion
+    a owl:DatatypeProperty ;
+    rdfs:label "OS Version"@en ;
+    rdfs:comment "Current version of the operating system."@en ;
+    rdfs:domain electronics:SoftwareSupport ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:firmwareVersion
+    a owl:DatatypeProperty ;
+    rdfs:label "Firmware Version"@en ;
+    rdfs:comment "Current version of the device firmware."@en ;
+    rdfs:domain electronics:SoftwareSupport ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:securityUpdateEndDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Security Update End Date"@en ;
+    rdfs:comment "Date until which security updates will be provided."@en ;
+    rdfs:domain electronics:SoftwareSupport ;
+    rdfs:range xsd:date ;
+    skos:note "Candidate for UNTP contribution: softwareSecurityEndDate."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:featureUpdateEndDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Feature Update End Date"@en ;
+    rdfs:comment "Date until which feature/OS updates will be provided."@en ;
+    rdfs:domain electronics:SoftwareSupport ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:securitySupportYears
+    a owl:ObjectProperty ;
+    rdfs:label "Security Support Years"@en ;
+    rdfs:comment "Number of years of security update support. Use gs1:QuantitativeValue with unitCode 'ANN'."@en ;
+    rdfs:domain electronics:SoftwareSupport ;
+    rdfs:range dpp:DurationYears ;
+    skos:note "Candidate for UNTP contribution: softwareSupportPeriod."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:featureSupportYears
+    a owl:ObjectProperty ;
+    rdfs:label "Feature Support Years"@en ;
+    rdfs:comment "Number of years of feature update support. Use gs1:QuantitativeValue with unitCode 'ANN'."@en ;
+    rdfs:domain electronics:SoftwareSupport ;
+    rdfs:range dpp:DurationYears ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:updateChannel
+    a owl:DatatypeProperty ;
+    rdfs:label "Update Channel"@en ;
+    rdfs:comment "URL or method for obtaining software updates (OTA, website, etc.)."@en ;
+    rdfs:domain electronics:SoftwareSupport ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:latestUpdateDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Latest Update Date"@en ;
+    rdfs:comment "Date of the most recent software/firmware update."@en ;
+    rdfs:domain electronics:SoftwareSupport ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+# =============================================================================
+# PART 12: PROPERTIES - ENERGY EFFICIENCY
+# =============================================================================
+
+electronics:energyEfficiency
+    a owl:ObjectProperty ;
+    rdfs:label "Energy Efficiency"@en ;
+    rdfs:comment "EU Energy Label information."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range electronics:EnergyEfficiency ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:energyEfficiencyClass
+    a owl:ObjectProperty ;
+    rdfs:label "Energy Efficiency Class"@en ;
+    rdfs:comment "EU Energy Label class (A-G)."@en ;
+    rdfs:domain electronics:EnergyEfficiency ;
+    rdfs:range electronics:EnergyEfficiencyClass ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:annualEnergyConsumption
+    a owl:ObjectProperty ;
+    rdfs:label "Annual Energy Consumption"@en ;
+    rdfs:comment "Annual energy consumption in kWh. Use gs1:QuantitativeValue with unitCode 'KWH'."@en ;
+    rdfs:domain electronics:EnergyEfficiency ;
+    rdfs:range dpp:EnergyKilowattHours ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:powerConsumptionOn
+    a owl:ObjectProperty ;
+    rdfs:label "Power Consumption On"@en ;
+    rdfs:comment "Power consumption when device is on/active. Use gs1:QuantitativeValue with unitCode 'WTT'."@en ;
+    rdfs:domain electronics:EnergyEfficiency ;
+    rdfs:range dpp:PowerWatts ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:powerConsumptionStandby
+    a owl:ObjectProperty ;
+    rdfs:label "Power Consumption Standby"@en ;
+    rdfs:comment "Power consumption in standby mode. Use gs1:QuantitativeValue with unitCode 'WTT'."@en ;
+    rdfs:domain electronics:EnergyEfficiency ;
+    rdfs:range dpp:PowerWatts ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:powerConsumptionOff
+    a owl:ObjectProperty ;
+    rdfs:label "Power Consumption Off"@en ;
+    rdfs:comment "Power consumption when switched off but plugged in. Use gs1:QuantitativeValue with unitCode 'WTT'."@en ;
+    rdfs:domain electronics:EnergyEfficiency ;
+    rdfs:range dpp:PowerWatts ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:eprelRegistrationNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "EPREL Registration Number"@en ;
+    rdfs:comment "European Product Registry for Energy Labelling (EPREL) registration number."@en ;
+    rdfs:domain electronics:EnergyEfficiency ;
+    rdfs:range xsd:string ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:energyLabelUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Energy Label URL"@en ;
+    rdfs:comment "URL to the EU Energy Label image."@en ;
+    rdfs:domain electronics:EnergyEfficiency ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:eprelProductUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "EPREL Product URL"@en ;
+    rdfs:comment "URL to the product page in the EPREL database."@en ;
+    rdfs:domain electronics:EnergyEfficiency ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+# =============================================================================
+# PART 13: PROPERTIES - BILL OF MATERIALS
+# =============================================================================
+
+electronics:billOfMaterials
+    a owl:ObjectProperty ;
+    rdfs:label "Bill of Materials"@en ;
+    rdfs:comment "Component bill of materials for the device."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range electronics:ComponentBOM ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:components
+    a owl:ObjectProperty ;
+    rdfs:label "Components"@en ;
+    rdfs:comment "List of components in the bill of materials."@en ;
+    rdfs:domain electronics:ComponentBOM ;
+    rdfs:range gs1:Product ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:componentType
+    a owl:ObjectProperty ;
+    rdfs:label "Component Type"@en ;
+    rdfs:comment "Type of component (Battery, Display, etc.)."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range electronics:ComponentType ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:componentName
+    a owl:DatatypeProperty ;
+    rdfs:label "Component Name"@en ;
+    rdfs:comment "Name or description of the component."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:componentManufacturer
+    a owl:ObjectProperty ;
+    rdfs:label "Component Manufacturer"@en ;
+    rdfs:comment "Manufacturer of the component."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range gs1:Organization ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:componentPartNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "Component Part Number"@en ;
+    rdfs:comment "Manufacturer's part number for the component."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:isReplaceable
+    a owl:DatatypeProperty ;
+    rdfs:label "Is Replaceable"@en ;
+    rdfs:comment "Whether the component can be replaced."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:boolean ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:replacementDifficulty
+    a owl:ObjectProperty ;
+    rdfs:label "Replacement Difficulty"@en ;
+    rdfs:comment "Level of difficulty to replace this component."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range electronics:ReplacementDifficulty ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:componentPassport
+    a owl:ObjectProperty ;
+    rdfs:label "Component Passport"@en ;
+    rdfs:comment """Link to the component's own Digital Product Passport (nested DPP).
+Enables CIRPASS-2 multi-component tracking."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:anyURI ;
+    rdfs:seeAlso untp-dpp:linkedProduct ;
+    skos:note "Aligned with UNTP linkedProduct pattern for nested DPPs."@en .
+
+electronics:sparePartAvailabilityYears
+    a owl:ObjectProperty ;
+    rdfs:label "Spare Part Availability Years"@en ;
+    rdfs:comment "Duration for which this component is available as a spare part."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range dpp:DurationYears ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:sparePartPrice
+    a owl:ObjectProperty ;
+    rdfs:label "Spare Part Price"@en ;
+    rdfs:comment "Price of the component as a spare part."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range gs1:PriceSpecification ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+# =============================================================================
+# PART 14: PROPERTIES - WEEE COMPLIANCE
+# =============================================================================
+
+electronics:weeeCompliance
+    a owl:ObjectProperty ;
+    rdfs:label "WEEE Compliance"@en ;
+    rdfs:comment "WEEE Directive compliance information."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range electronics:WEEECompliance ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:weeeCategory
+    a owl:ObjectProperty ;
+    rdfs:label "WEEE Category"@en ;
+    rdfs:comment "WEEE Directive equipment category (1-6)."@en ;
+    rdfs:domain electronics:WEEECompliance ;
+    rdfs:range electronics:WEEECategory ;
+    dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:weeeRegistrationNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "WEEE Registration Number"@en ;
+    rdfs:comment "Producer registration number in the WEEE register."@en ;
+    rdfs:domain electronics:WEEECompliance ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:weeeRegistrationCountry
+    a owl:DatatypeProperty ;
+    rdfs:label "WEEE Registration Country"@en ;
+    rdfs:comment "Country of WEEE registration (ISO 3166-1 alpha-2)."@en ;
+    rdfs:domain electronics:WEEECompliance ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:collectionSchemeUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Collection Scheme URL"@en ;
+    rdfs:comment "URL to information about the WEEE collection/take-back scheme."@en ;
+    rdfs:domain electronics:WEEECompliance ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:recyclabilityRate
+    a owl:DatatypeProperty ;
+    rdfs:label "Recyclability Rate"@en ;
+    rdfs:comment "Fraction of device that can be recycled (0-1 scale)."@en ;
+    rdfs:domain electronics:WEEECompliance ;
+    rdfs:range xsd:decimal ;
+    rdfs:seeAlso dpp:recyclableContent ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:recoverabilityRate
+    a owl:DatatypeProperty ;
+    rdfs:label "Recoverability Rate"@en ;
+    rdfs:comment "Fraction of device that can be recovered (recycling + energy recovery, 0-1 scale)."@en ;
+    rdfs:domain electronics:WEEECompliance ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+# =============================================================================
+# PART 15: PROPERTIES - ROHS COMPLIANCE
+# =============================================================================
+
+electronics:rohsCompliance
+    a owl:ObjectProperty ;
+    rdfs:label "RoHS Compliance"@en ;
+    rdfs:comment "RoHS Directive compliance information."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range electronics:RoHSCompliance ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:rohsCompliant
+    a owl:DatatypeProperty ;
+    rdfs:label "RoHS Compliant"@en ;
+    rdfs:comment "Whether the device complies with RoHS Directive."@en ;
+    rdfs:domain electronics:RoHSCompliance ;
+    rdfs:range xsd:boolean ;
+    dcterms:source <https://eur-lex.europa.eu/eli/dir/2011/65/eu> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:rohsExemptions
+    a owl:DatatypeProperty ;
+    rdfs:label "RoHS Exemptions"@en ;
+    rdfs:comment "List of applicable RoHS exemption codes (e.g., '7(a)', '7(c)-I')."@en ;
+    rdfs:domain electronics:RoHSCompliance ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:rohsDeclarationUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "RoHS Declaration URL"@en ;
+    rdfs:comment "URL to the RoHS compliance declaration document."@en ;
+    rdfs:domain electronics:RoHSCompliance ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+# =============================================================================
+# PART 16: PROPERTIES - DISPLAY SPECIFICATION
+# =============================================================================
+
+electronics:displaySpecification
+    a owl:ObjectProperty ;
+    rdfs:label "Display Specification"@en ;
+    rdfs:comment "Display-specific technical specifications."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range electronics:DisplaySpecification ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:screenDiagonal
+    a owl:ObjectProperty ;
+    rdfs:label "Screen Diagonal"@en ;
+    rdfs:comment "Visible screen diagonal. Use gs1:QuantitativeValue with unitCode 'CMT' or 'INH'."@en ;
+    rdfs:domain electronics:DisplaySpecification ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:screenResolutionWidth
+    a owl:DatatypeProperty ;
+    rdfs:label "Screen Resolution Width"@en ;
+    rdfs:comment "Horizontal resolution in pixels."@en ;
+    rdfs:domain electronics:DisplaySpecification ;
+    rdfs:range xsd:integer ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:screenResolutionHeight
+    a owl:DatatypeProperty ;
+    rdfs:label "Screen Resolution Height"@en ;
+    rdfs:comment "Vertical resolution in pixels."@en ;
+    rdfs:domain electronics:DisplaySpecification ;
+    rdfs:range xsd:integer ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:displayTechnology
+    a owl:DatatypeProperty ;
+    rdfs:label "Display Technology"@en ;
+    rdfs:comment "Display technology type (LCD, OLED, AMOLED, MicroLED, etc.)."@en ;
+    rdfs:domain electronics:DisplaySpecification ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:refreshRate
+    a owl:ObjectProperty ;
+    rdfs:label "Refresh Rate"@en ;
+    rdfs:comment "Display refresh rate. Use gs1:QuantitativeValue with unitCode 'HTZ'."@en ;
+    rdfs:domain electronics:DisplaySpecification ;
+    rdfs:range electronics:FrequencyHertz ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:peakBrightness
+    a owl:ObjectProperty ;
+    rdfs:label "Peak Brightness"@en ;
+    rdfs:comment "Peak brightness in candelas per square meter (nits). Use gs1:QuantitativeValue."@en ;
+    rdfs:domain electronics:DisplaySpecification ;
+    rdfs:range electronics:LuminanceCandela ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+# =============================================================================
+# PART 17: EPCIS EVENT EXTENSION PROPERTIES
+# =============================================================================
+
+electronics:softwareUpdateEvent
+    a owl:ObjectProperty ;
+    rdfs:label "Software Update Event"@en ;
+    rdfs:comment """EPCIS extension data for software/firmware update events.
+Use with bizStep 'inspecting' for software lifecycle tracking."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:seeAlso <https://www.iso.org/standard/63712.html> ;
+    skos:note "Candidate for UNTP contribution: softwareUpdateEvent pattern."@en .
+
+electronics:previousVersion
+    a owl:DatatypeProperty ;
+    rdfs:label "Previous Version"@en ;
+    rdfs:comment "Software/firmware version before update."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:newVersion
+    a owl:DatatypeProperty ;
+    rdfs:label "New Version"@en ;
+    rdfs:comment "Software/firmware version after update."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:updateType
+    a owl:DatatypeProperty ;
+    rdfs:label "Update Type"@en ;
+    rdfs:comment "Type of update (security, feature, firmware, driver, etc.)."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:updateSource
+    a owl:DatatypeProperty ;
+    rdfs:label "Update Source"@en ;
+    rdfs:comment "Source of the update (OTA, manual, service center, etc.)."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+# =============================================================================
+# PART 18: PROPERTIES - IEC 62474 MATERIAL DECLARATION
+# =============================================================================
+
+electronics:materialDeclaration
+    a owl:ObjectProperty ;
+    rdfs:label "Material Declaration"@en ;
+    rdfs:comment """Material declaration per IEC 62474 (Declarable Substance List).
+Links to dpp:SubstanceOfConcern for REACH/RoHS substances."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:domain gs1:Product ;
+    rdfs:range dpp:SubstanceOfConcern ;
+    rdfs:seeAlso <https://std.iec.ch/iec62474> ;
+    dcterms:source <https://std.iec.ch/iec62474> .
+
+electronics:iec62474DslVersion
+    a owl:DatatypeProperty ;
+    rdfs:label "IEC 62474 DSL Version"@en ;
+    rdfs:comment "Version of the IEC 62474 Declarable Substance List used."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+electronics:materialDeclarationDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Material Declaration Date"@en ;
+    rdfs:comment "Date of the material declaration."@en ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .

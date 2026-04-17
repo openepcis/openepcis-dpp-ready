@@ -1,0 +1,3382 @@
+{
+  "namespace": "https://ref.openepcis.io/extensions/eu/battery/",
+  "version": "0.9.5",
+  "title": "OpenEPCIS Battery Vocabulary",
+  "description": "Battery-specific vocabulary extending GS1 Web Vocabulary for Digital Product Passports.\n\nA lightweight, 100% JSON-LD compatible alternative to BatteryPass/SAMM that covers all\nEU Battery Regulation 2023/1542 Annex XIII requirements while leveraging existing GS1 standards.\n\nAligned with:\n- EU Battery Regulation 2023/1542 Annex XIII\n- DIN DKE SPEC 99100:2025-02\n- GS1 Web Vocabulary (gs1:regulatoryInformation pattern)\n- GS1 EPCIS 2.0 (gs1:masterDataAvailableFor)\n\nGS1 Properties to Use (not redefined here):\n- gs1:gtin - Global Trade Item Number\n- gs1:netWeight / gs1:grossWeight - Battery weight\n- gs1:manufacturingDate - Manufacturing date\n- gs1:countryOfOrigin - Country of manufacture\n- gs1:manufacturer - Manufacturer organization\n- gs1:warranty / gs1:WarrantyPromise - Warranty information\n- gs1:certification / gs1:CertificationDetails - Certifications\n- gs1:regulatoryInformation - Regulatory compliance\n\nFor regulatory compliance data, use gs1:regulatoryInformation with gs1:RegulationTypeCode-BATTERY_DIRECTIVE.\n\nEPCIS 2.0 Extension Declaration:\nGS1-Extensions: battery=https://ref.openepcis.io/extensions/eu/battery/\n\nExtension Governance:\nThis vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.\nEach extension term includes dcterms:source, skos:note, and rdfs:seeAlso where applicable.\nBattery categories can also be expressed via gs1:additionalProductClassification.",
+  "classes": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/BatteryChemistry",
+      "localName": "BatteryChemistry",
+      "label": "Battery Chemistry",
+      "comment": "The electrochemical system of the battery including cathode, anode, and electrolyte materials."
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial",
+      "localName": "BatteryMaterial",
+      "label": "Battery Material",
+      "comment": "A material used in battery construction with its composition percentage, CAS/EC identifiers, and sourcing information.",
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/MaterialComposition",
+        "https://test.uncefact.org/vocabulary/untp/core/Material"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/CapacityAmpereHours",
+      "localName": "CapacityAmpereHours",
+      "label": "Capacity in Ampere-Hours",
+      "comment": "A quantitative value expressing electrical capacity in ampere-hours. Unit code: AMH.",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration",
+      "localName": "CarbonFootprintDeclaration",
+      "label": "Carbon Footprint Declaration",
+      "comment": "Carbon footprint declaration for a battery including lifecycle breakdown and third-party verification.",
+      "seeAlso": [
+        "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf",
+        "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance",
+        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/CurrentAmperes",
+      "localName": "CurrentAmperes",
+      "label": "Current in Amperes",
+      "comment": "A quantitative value expressing electrical current in amperes. Unit code: AMP.",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/DismantlingDocument",
+      "localName": "DismantlingDocument",
+      "label": "Dismantling Document",
+      "comment": "A document supporting battery dismantling, as specified in DIN DKE SPEC 99100.",
+      "seeAlso": [
+        "https://ref.gs1.org/voc/ReferencedFileDetails"
+      ],
+      "source": "https://www.dke.de/de/arbeitsfelder/mobility/din-dke-spec-99100"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo",
+      "localName": "EndOfLifeInfo",
+      "label": "End of Life Information",
+      "comment": "Information required for safe handling, dismantling, and recycling at end of battery life.",
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/HazardousSubstance",
+      "localName": "HazardousSubstance",
+      "label": "Hazardous Substance",
+      "comment": "A hazardous substance present in the battery, classified per EU CLP Regulation 1272/2008.",
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/Label",
+      "localName": "Label",
+      "label": "Label",
+      "comment": "A label or marking on the battery as required by EU Battery Regulation Annex VI.",
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/MaterialRecoveryTarget",
+      "localName": "MaterialRecoveryTarget",
+      "label": "Material Recovery Target",
+      "comment": "Recovery rate target or achievement for a specific material."
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/NegativeEvent",
+      "localName": "NegativeEvent",
+      "label": "Negative Event",
+      "comment": "An adverse event affecting the battery such as accident, damage, or safety incident."
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/PowerCapabilityAtSoC",
+      "localName": "PowerCapabilityAtSoC",
+      "label": "Power Capability at SoC",
+      "comment": "Power capability measurement at a specific state of charge level (80% or 20%)."
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/RecycledContent",
+      "localName": "RecycledContent",
+      "label": "Recycled Content",
+      "comment": "Declaration of recycled material content in the battery with pre/post-consumer breakdown.",
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/RecycledContent",
+        "https://ref.openepcis.io/extensions/common/core/recycledContent"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/ResistanceOhms",
+      "localName": "ResistanceOhms",
+      "label": "Resistance in Ohms",
+      "comment": "A quantitative value expressing electrical resistance in ohms. Unit code: OHM.",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence",
+      "localName": "SupplyChainDueDiligence",
+      "label": "Supply Chain Due Diligence",
+      "comment": "Supply chain due diligence information as required by EU Battery Regulation Art. 39.",
+      "seeAlso": [
+        "https://www.oecd.org/investment/due-diligence-guidance-responsible-supply-chains.htm"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification",
+      "localName": "TechnicalSpecification",
+      "label": "Technical Specification",
+      "comment": "Technical specifications of a battery including capacity, voltage, and performance parameters.",
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/TemperatureRange",
+      "localName": "TemperatureRange",
+      "label": "Temperature Range",
+      "comment": "A temperature range specification with minimum and maximum values for a specific operating context."
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/ThirdPartyVerification",
+      "localName": "ThirdPartyVerification",
+      "label": "Third Party Verification",
+      "comment": "Third-party verification details for carbon footprint or other certified data."
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/VoltageVolts",
+      "localName": "VoltageVolts",
+      "label": "Voltage in Volts",
+      "comment": "A quantitative value expressing voltage in volts. Unit code: VLT.",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/absoluteCarbonFootprint",
+      "localName": "absoluteCarbonFootprint",
+      "label": "Absolute Carbon Footprint",
+      "comment": "Total carbon footprint in kg CO2e (not normalized per kWh).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/anodeActiveMaterial",
+      "localName": "anodeActiveMaterial",
+      "label": "Anode Active Material",
+      "comment": "Chemical composition of the anode active material (e.g., graphite, silicon, lithium titanate).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryChemistry"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/auditBody",
+      "localName": "auditBody",
+      "label": "Audit Body",
+      "comment": "Name of the organization that conducted the supply chain audit.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/auditDate",
+      "localName": "auditDate",
+      "label": "Audit Date",
+      "comment": "Date of the most recent supply chain audit.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/authorizedServiceCenters",
+      "localName": "authorizedServiceCenters",
+      "label": "Authorized Service Centers",
+      "comment": "URL to list of authorized service centers.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/batteryCategory",
+      "localName": "batteryCategory",
+      "label": "Battery Category",
+      "comment": "The regulatory category of the battery (LMT, EV, Industrial, Stationary, etc.).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryCategory"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/batteryChemistry",
+      "localName": "batteryChemistry",
+      "label": "Battery Chemistry",
+      "comment": "The electrochemical system of the battery including cathode, anode, and electrolyte composition.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryChemistry"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/batteryModel",
+      "localName": "batteryModel",
+      "label": "Battery Model",
+      "comment": "Commercial model name or identifier of the battery. Use gs1:gtin for the Global Trade Item Number.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/batteryPassportIdentifier",
+      "localName": "batteryPassportIdentifier",
+      "label": "Battery Passport Identifier",
+      "comment": "Unique identifier for the battery passport. Note: In this implementation, the primary identifier is the GS1 Digital Link (@id).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/batteryStatus",
+      "localName": "batteryStatus",
+      "label": "Battery Status",
+      "comment": "Current lifecycle status of the battery.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryStatus"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/cadmiumSymbolRequired",
+      "localName": "cadmiumSymbolRequired",
+      "label": "Cadmium Symbol Required",
+      "comment": "Whether Cd symbol is required (cadmium > 0.002% by weight).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/calculationStandard",
+      "localName": "calculationStandard",
+      "label": "Calculation Standard",
+      "comment": "Standard used for carbon footprint calculation (e.g., ISO 14067:2018).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/capacityFade",
+      "localName": "capacityFade",
+      "label": "Capacity Fade",
+      "comment": "Capacity degradation percentage. Use gs1:QuantitativeValue with unitCode 'P1' (percent).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/Percentage"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/capacityFadeThreshold",
+      "localName": "capacityFadeThreshold",
+      "label": "Capacity Fade Threshold",
+      "comment": "Capacity fade percentage at which battery reaches end of rated cycle life (typically 80%).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/capacityThresholdForExhaustion",
+      "localName": "capacityThresholdForExhaustion",
+      "label": "Capacity Threshold for Exhaustion",
+      "comment": "SOCE percentage threshold below which the battery is considered exhausted.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/capacityThroughput",
+      "localName": "capacityThroughput",
+      "label": "Capacity Throughput",
+      "comment": "Cumulative capacity throughput. Use gs1:QuantitativeValue with unitCode 'AMP_HR'.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/CapacityAmpereHours"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintDeclaration",
+      "localName": "carbonFootprintDeclaration",
+      "label": "Carbon Footprint Declaration",
+      "comment": "Carbon footprint declaration for the battery.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintDeclarationId",
+      "localName": "carbonFootprintDeclarationId",
+      "label": "Carbon Footprint Declaration ID",
+      "comment": "Unique identifier for the carbon footprint declaration.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintDistribution",
+      "localName": "carbonFootprintDistribution",
+      "label": "Carbon Footprint - Distribution",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintGeographicScope",
+      "localName": "carbonFootprintGeographicScope",
+      "label": "Carbon Footprint Geographic Scope",
+      "comment": "Geographic scope of the carbon footprint calculation.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintPerformanceClass",
+      "localName": "carbonFootprintPerformanceClass",
+      "label": "Carbon Footprint Performance Class",
+      "comment": "Performance class for carbon footprint (A-E).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintClass"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintProduction",
+      "localName": "carbonFootprintProduction",
+      "label": "Carbon Footprint - Production",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintRawMaterialExtraction",
+      "localName": "carbonFootprintRawMaterialExtraction",
+      "label": "Carbon Footprint - Raw Material Extraction",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintRecycling",
+      "localName": "carbonFootprintRecycling",
+      "label": "Carbon Footprint - Recycling",
+      "comment": "Carbon footprint share from end-of-life/recycling phase (may be negative credit).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintStudyUrl",
+      "localName": "carbonFootprintStudyUrl",
+      "label": "Carbon Footprint Study URL",
+      "comment": "URL to the full carbon footprint study document.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintTotal",
+      "localName": "carbonFootprintTotal",
+      "label": "Carbon Footprint Total",
+      "comment": "Total lifecycle carbon footprint in kg CO2e per kWh.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/casNumber",
+      "localName": "casNumber",
+      "label": "CAS Number",
+      "comment": "Chemical Abstracts Service registry number.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/cathodeActiveMaterial",
+      "localName": "cathodeActiveMaterial",
+      "label": "Cathode Active Material",
+      "comment": "Chemical composition of the cathode active material (e.g., LiNiMnCoO2, LiFePO4, LiCoO2).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryChemistry"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/cellType",
+      "localName": "cellType",
+      "label": "Cell Type",
+      "comment": "Physical form factor of the battery cells.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/CellType"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/ceMarkingIndicator",
+      "localName": "ceMarkingIndicator",
+      "label": "CE Marking Indicator",
+      "comment": "Whether the battery bears CE marking.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/certifiedUsableEnergy",
+      "localName": "certifiedUsableEnergy",
+      "label": "Certified Usable Energy",
+      "comment": "The certified usable energy capacity of the battery.",
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/cobaltPostConsumerShare",
+      "localName": "cobaltPostConsumerShare",
+      "label": "Cobalt Post-Consumer Recycled Share",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/RecycledContent"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/cobaltPreConsumerShare",
+      "localName": "cobaltPreConsumerShare",
+      "label": "Cobalt Pre-Consumer Recycled Share",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/RecycledContent"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/cobaltRecycledShare",
+      "localName": "cobaltRecycledShare",
+      "label": "Cobalt Recycled Share",
+      "comment": "Total percentage of recycled cobalt content.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/RecycledContent"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/recycledContent"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/complianceStatus",
+      "localName": "complianceStatus",
+      "label": "Compliance Status",
+      "comment": "Current regulatory compliance status of the battery.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/ComplianceStatus"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/componentLocation",
+      "localName": "componentLocation",
+      "label": "Component Location",
+      "comment": "Component location in the battery (cathode, anode, etc.).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/ComponentLocation"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/concentration",
+      "localName": "concentration",
+      "label": "Concentration",
+      "comment": "Concentration of the hazardous substance as percentage.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/HazardousSubstance"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/conflictMineralFree",
+      "localName": "conflictMineralFree",
+      "label": "Conflict Mineral Free",
+      "comment": "Declaration that the battery is free from conflict minerals.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/cRate",
+      "localName": "cRate",
+      "label": "C-Rate",
+      "comment": "Nominal charge/discharge rate relative to capacity (e.g., 1C = full charge in 1 hour).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/cRateLifeCycleTest",
+      "localName": "cRateLifeCycleTest",
+      "label": "C-Rate Life Cycle Test",
+      "comment": "C-rate used for lifecycle testing.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/criticalRawMaterialsStatement",
+      "localName": "criticalRawMaterialsStatement",
+      "label": "Critical Raw Materials Statement",
+      "comment": "Statement about critical raw materials content per EU CRM Act.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/cycleCount",
+      "localName": "cycleCount",
+      "label": "Cycle Count",
+      "comment": "Number of full charge-discharge cycles. Use gs1:QuantitativeValue with unitCode 'C62' (count).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/dangerousGoodsPackingInstructions",
+      "localName": "dangerousGoodsPackingInstructions",
+      "label": "Dangerous Goods Packing Instructions",
+      "comment": "Packing instructions per IATA/ADR/IMDG regulations (e.g., PI965, PI966, PI967).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/dataProviderCertification",
+      "localName": "dataProviderCertification",
+      "label": "Data Provider Certification",
+      "comment": "Certification or accreditation of the data provider.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/dataQualityAssessment",
+      "localName": "dataQualityAssessment",
+      "label": "Data Quality Assessment",
+      "comment": "Assessment of data quality and completeness (A-E rating).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/declarationOfConformity",
+      "localName": "declarationOfConformity",
+      "label": "Declaration of Conformity URL",
+      "comment": "URL to the EU Declaration of Conformity document.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/depthOfDischargeInCycleLifeTest",
+      "localName": "depthOfDischargeInCycleLifeTest",
+      "label": "Depth of Discharge in Cycle Life Test",
+      "comment": "Depth of discharge (DoD) percentage used for cycle life testing.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/dismantlingDocuments",
+      "localName": "dismantlingDocuments",
+      "label": "Dismantling Documents",
+      "comment": "Documents supporting battery dismantling per DIN DKE SPEC 99100.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/DismantlingDocument"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/ReferencedFileDetails"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/dismantlingInstructions",
+      "localName": "dismantlingInstructions",
+      "label": "Dismantling Instructions",
+      "comment": "Reference to dismantling instructions document for safe disassembly of the battery.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo"
+      ],
+      "range": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/dismantlingTime",
+      "localName": "dismantlingTime",
+      "label": "Estimated Dismantling Time",
+      "comment": "Estimated time required for safe battery dismantling.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/documentType",
+      "localName": "documentType",
+      "label": "Document Type",
+      "comment": "Type of dismantling document per DIN DKE SPEC 99100.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/DismantlingDocument"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/DismantlingDocumentType"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/referencedFileType"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/documentUrl",
+      "localName": "documentUrl",
+      "label": "Document URL",
+      "comment": "URL to the document.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/DismantlingDocument"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/referencedFileURL"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/dueDiligencePolicyUrl",
+      "localName": "dueDiligencePolicyUrl",
+      "label": "Due Diligence Policy URL",
+      "comment": "URL to the company's supply chain due diligence policy.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/dueDiligenceReportUrl",
+      "localName": "dueDiligenceReportUrl",
+      "label": "Due Diligence Report URL",
+      "comment": "URL to the supply chain due diligence report (MANDATORY).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/ecNumber",
+      "localName": "ecNumber",
+      "label": "EC Number",
+      "comment": "European Community number (EINECS/ELINCS) for chemical substances.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/electrolyteComposition",
+      "localName": "electrolyteComposition",
+      "label": "Electrolyte Composition",
+      "comment": "Chemical composition of the electrolyte.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryChemistry"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/electrolyteType",
+      "localName": "electrolyteType",
+      "label": "Electrolyte Type",
+      "comment": "Type of electrolyte used (e.g., liquid organic, polymer gel, solid-state ceramic).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryChemistry"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/endOfLifeInfo",
+      "localName": "endOfLifeInfo",
+      "label": "End of Life Information",
+      "comment": "Information required for safe handling, dismantling, recycling, and disposal at end of battery life.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/energyThroughput",
+      "localName": "energyThroughput",
+      "label": "Energy Throughput",
+      "comment": "Cumulative energy throughput. Use gs1:QuantitativeValue with unitCode 'KWH'.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyKilowattHours"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/estimatedImpact",
+      "localName": "estimatedImpact",
+      "label": "Estimated Impact",
+      "comment": "Estimated impact of the temperature excursion on battery health.",
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/euDeclarationOfConformityId",
+      "localName": "euDeclarationOfConformityId",
+      "label": "EU Declaration of Conformity ID",
+      "comment": "Unique identifier of the EU Declaration of Conformity.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/eventDate",
+      "localName": "eventDate",
+      "label": "Event Date",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/NegativeEvent"
+      ],
+      "range": [
+        "xsd:dateTime"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/eventDescription",
+      "localName": "eventDescription",
+      "label": "Event Description",
+      "comment": "Description of the negative event.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/NegativeEvent"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/eventLocation",
+      "localName": "eventLocation",
+      "label": "Event Location",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/NegativeEvent"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Place"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/eventType",
+      "localName": "eventType",
+      "label": "Event Type",
+      "comment": "Type of negative event.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/NegativeEvent"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/NegativeEventType"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/evolutionOfSelfDischarge",
+      "localName": "evolutionOfSelfDischarge",
+      "label": "Evolution of Self Discharge",
+      "comment": "Change in self-discharge rate. Use gs1:QuantitativeValue with unitCode 'P1' (percent).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/Percentage"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/exceedanceThreshold",
+      "localName": "exceedanceThreshold",
+      "label": "Exceedance Threshold",
+      "comment": "Temperature threshold that was exceeded (°C).",
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/exhaustionThreshold",
+      "localName": "exhaustionThreshold",
+      "label": "Exhaustion Threshold",
+      "comment": "SOCE percentage threshold for battery exhaustion.",
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/expectedCycleLife",
+      "localName": "expectedCycleLife",
+      "label": "Expected Cycle Life",
+      "comment": "Expected number of full charge-discharge cycles under reference test conditions.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/expectedLifetimeCapacityThroughput",
+      "localName": "expectedLifetimeCapacityThroughput",
+      "label": "Expected Lifetime Capacity Throughput",
+      "comment": "Total capacity throughput expected over battery lifetime in Ah.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/CapacityAmpereHours"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/expectedLifetimeEnergyThroughput",
+      "localName": "expectedLifetimeEnergyThroughput",
+      "label": "Expected Lifetime Energy Throughput",
+      "comment": "Total energy throughput expected over battery lifetime in kWh.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyKilowattHours"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/expectedLifetimeYears",
+      "localName": "expectedLifetimeYears",
+      "label": "Expected Lifetime (Years)",
+      "comment": "Expected calendar lifetime under normal operating conditions, in years.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/expectedRemainingCycles",
+      "localName": "expectedRemainingCycles",
+      "label": "Expected Remaining Cycles",
+      "comment": "Estimated remaining charge-discharge cycles.",
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/expectedRemainingLifetimeMonths",
+      "localName": "expectedRemainingLifetimeMonths",
+      "label": "Expected Remaining Lifetime (Months)",
+      "comment": "Estimated remaining useful lifetime in months.",
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/exposureDurationMinutes",
+      "localName": "exposureDurationMinutes",
+      "label": "Exposure Duration (Minutes)",
+      "comment": "Duration of temperature exposure in minutes.",
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/exposureEndTime",
+      "localName": "exposureEndTime",
+      "label": "Exposure End Time",
+      "comment": "End time of the temperature exposure.",
+      "range": [
+        "xsd:dateTime"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/exposureStartTime",
+      "localName": "exposureStartTime",
+      "label": "Exposure Start Time",
+      "comment": "Start time of the temperature exposure.",
+      "range": [
+        "xsd:dateTime"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/extendedWarrantyAvailable",
+      "localName": "extendedWarrantyAvailable",
+      "label": "Extended Warranty Available",
+      "comment": "Whether extended warranty is available for purchase.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/extinguishingAgent",
+      "localName": "extinguishingAgent",
+      "label": "Extinguishing Agent",
+      "comment": "Recommended fire extinguishing agent for the battery.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/fullName",
+      "localName": "fullName",
+      "label": "Full Name",
+      "comment": "Full chemical name of the battery chemistry.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryChemistry"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/functionalUnit",
+      "localName": "functionalUnit",
+      "label": "Functional Unit",
+      "comment": "Functional unit for carbon footprint measurement (e.g., 1 kWh of total energy throughput).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/hasBattery",
+      "localName": "hasBattery",
+      "label": "Has Battery",
+      "comment": "Links a product to one or more batteries it contains or is equipped with. Use this property to associate electric vehicles, power tools, energy storage systems, or any other product with its battery or batteries. Defined as subproperty of schema:hasPart for semantic web interoperability.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "seeAlso": [
+        "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/hazardClass",
+      "localName": "hazardClass",
+      "label": "Hazard Class",
+      "comment": "CLP Regulation hazard classification.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/HazardousSubstance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/HazardClass"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/hazardImpact",
+      "localName": "hazardImpact",
+      "label": "Hazard Impact",
+      "comment": "Description of the hazard impact.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/HazardousSubstance"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/hazardousSubstances",
+      "localName": "hazardousSubstances",
+      "label": "Hazardous Substances",
+      "comment": "Hazardous substances present in the battery.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/HazardousSubstance"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/incidentId",
+      "localName": "incidentId",
+      "label": "Incident ID",
+      "comment": "Unique identifier for the incident.",
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/incidentReportUrl",
+      "localName": "incidentReportUrl",
+      "label": "Incident Report URL",
+      "comment": "URL to the full incident report.",
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/incidentSeverity",
+      "localName": "incidentSeverity",
+      "label": "Incident Severity",
+      "comment": "Severity level of the incident.",
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/IncidentSeverity"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/informationOnCollection",
+      "localName": "informationOnCollection",
+      "label": "Information on Collection",
+      "comment": "URL to information about collection points and procedures.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/initialCapacity",
+      "localName": "initialCapacity",
+      "label": "Initial Capacity",
+      "comment": "Measured capacity at commissioning (ILMD).",
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/initialEnergy",
+      "localName": "initialEnergy",
+      "label": "Initial Energy",
+      "comment": "Measured energy at commissioning (ILMD).",
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/initialInternalResistance",
+      "localName": "initialInternalResistance",
+      "label": "Initial Internal Resistance",
+      "comment": "Initial internal resistance at commissioning in Ohms.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/ResistanceOhms"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/initialSelfDischarge",
+      "localName": "initialSelfDischarge",
+      "label": "Initial Self Discharge",
+      "comment": "Initial self-discharge rate as percentage per month.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/inspectorId",
+      "localName": "inspectorId",
+      "label": "Inspector ID",
+      "comment": "Identifier of the inspector who assessed the incident.",
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/internalResistance",
+      "localName": "internalResistance",
+      "label": "Internal Resistance",
+      "comment": "Battery internal resistance in Ohms.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/ResistanceOhms"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/internalResistanceIncrease",
+      "localName": "internalResistanceIncrease",
+      "label": "Internal Resistance Increase",
+      "comment": "Percentage increase in internal resistance. Use gs1:QuantitativeValue with unitCode 'P1' (percent).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/Percentage"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/isCriticalRawMaterial",
+      "localName": "isCriticalRawMaterial",
+      "label": "Is Critical Raw Material",
+      "comment": "Whether this material is on the EU Critical Raw Materials list.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/isSubstanceOfConcern",
+      "localName": "isSubstanceOfConcern",
+      "label": "Is Substance of Concern",
+      "comment": "Whether this material is a Substance of Very High Concern (SVHC) per REACH.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/labelMeaning",
+      "localName": "labelMeaning",
+      "label": "Label Meaning",
+      "comment": "Human-readable meaning of the label.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/Label"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/labels",
+      "localName": "labels",
+      "label": "Labels",
+      "comment": "Labels and markings on the battery per Annex VI.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/Label"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/labelSubject",
+      "localName": "labelSubject",
+      "label": "Label Subject",
+      "comment": "Subject matter of the label.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/Label"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/LabelSubject"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/labelSymbol",
+      "localName": "labelSymbol",
+      "label": "Label Symbol",
+      "comment": "URL to the label symbol image.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/Label"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/languageCode",
+      "localName": "languageCode",
+      "label": "Language Code",
+      "comment": "ISO 639-1 language code.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/DismantlingDocument"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/fileLanguageCode"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/lastDataUpdate",
+      "localName": "lastDataUpdate",
+      "label": "Last Data Update",
+      "comment": "Timestamp of the last update to the battery passport data.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:dateTime"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/leadPostConsumerShare",
+      "localName": "leadPostConsumerShare",
+      "label": "Lead Post-Consumer Recycled Share",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/RecycledContent"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/leadPreConsumerShare",
+      "localName": "leadPreConsumerShare",
+      "label": "Lead Pre-Consumer Recycled Share",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/RecycledContent"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/leadRecycledShare",
+      "localName": "leadRecycledShare",
+      "label": "Lead Recycled Share",
+      "comment": "Total percentage of recycled lead content.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/RecycledContent"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/leadSymbolRequired",
+      "localName": "leadSymbolRequired",
+      "label": "Lead Symbol Required",
+      "comment": "Whether Pb symbol is required (lead > 0.004% by weight).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/lifecycleStage",
+      "localName": "lifecycleStage",
+      "label": "Lifecycle Stage",
+      "comment": "Lifecycle stage for carbon footprint declaration, indicating which phase of the\nproduct lifecycle the emissions data refers to (raw material extraction, production, distribution, or recycling).\nUsed in BatteryPass bridge context to map per-stage carbon footprint data.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/lifetimeReferenceTest",
+      "localName": "lifetimeReferenceTest",
+      "label": "Lifetime Reference Test",
+      "comment": "URL or reference to the standard test used for lifetime determination.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/lithiumPostConsumerShare",
+      "localName": "lithiumPostConsumerShare",
+      "label": "Lithium Post-Consumer Recycled Share",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/RecycledContent"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/lithiumPreConsumerShare",
+      "localName": "lithiumPreConsumerShare",
+      "label": "Lithium Pre-Consumer Recycled Share",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/RecycledContent"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/lithiumRecycledShare",
+      "localName": "lithiumRecycledShare",
+      "label": "Lithium Recycled Share",
+      "comment": "Total percentage of recycled lithium content.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/RecycledContent"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/recycledContent"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/manufacturingPlace",
+      "localName": "manufacturingPlace",
+      "label": "Manufacturing Place",
+      "comment": "Location where the battery was manufactured. Should be a gs1:Place with GLN.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Place"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/massPercentage",
+      "localName": "massPercentage",
+      "label": "Mass Percentage",
+      "comment": "Percentage by weight of this material in the battery or specified component.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/materialCategory",
+      "localName": "materialCategory",
+      "label": "Material Category",
+      "comment": "Functional category of the material (active material, binder, etc.).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/MaterialCategory"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/materialComposition",
+      "localName": "materialComposition",
+      "label": "Material Composition",
+      "comment": "Materials used in battery construction with their percentages, locations, and critical raw material status. Aligned with schema:hasPart for semantic web interoperability.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/materialName",
+      "localName": "materialName",
+      "label": "Material Name",
+      "comment": "Name of the material (e.g., Lithium, Cobalt, Nickel, Graphite, Manganese).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/materialRecoveryTargets",
+      "localName": "materialRecoveryTargets",
+      "label": "Material Recovery Targets",
+      "comment": "Recovery rate targets or achievements for specific materials.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/MaterialRecoveryTarget"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/materialSourceCountry",
+      "localName": "materialSourceCountry",
+      "label": "Material Source Country",
+      "comment": "Country of origin for the material (ISO 3166-1 alpha-2).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/countryOfOrigin"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/materialSupplier",
+      "localName": "materialSupplier",
+      "label": "Material Supplier",
+      "comment": "Name or identifier of the material supplier.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/maximumChargingCurrent",
+      "localName": "maximumChargingCurrent",
+      "label": "Maximum Charging Current",
+      "comment": "Maximum allowed charging current in Amperes.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/CurrentAmperes"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/maximumChargingPower",
+      "localName": "maximumChargingPower",
+      "label": "Maximum Charging Power",
+      "comment": "Maximum allowed charging power in kW.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/PowerKilowatts"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/maximumDischargingCurrent",
+      "localName": "maximumDischargingCurrent",
+      "label": "Maximum Discharging Current",
+      "comment": "Maximum allowed discharging current in Amperes.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/CurrentAmperes"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/maximumDischargingPower",
+      "localName": "maximumDischargingPower",
+      "label": "Maximum Discharging Power",
+      "comment": "Maximum allowed discharging power in kW.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/PowerKilowatts"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/maximumTemperature",
+      "localName": "maximumTemperature",
+      "label": "Maximum Temperature",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TemperatureRange"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/TemperatureCelsius"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/maximumVoltage",
+      "localName": "maximumVoltage",
+      "label": "Maximum Voltage",
+      "comment": "Maximum allowable voltage when fully charged, in Volts (V).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/VoltageVolts"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/measurementCertificateUrl",
+      "localName": "measurementCertificateUrl",
+      "label": "Measurement Certificate URL",
+      "comment": "URL to the measurement certificate document.",
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/measurementMethod",
+      "localName": "measurementMethod",
+      "label": "Measurement Method",
+      "comment": "Method or standard used for the measurement (e.g., IEC 62660-1).",
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/mimeType",
+      "localName": "mimeType",
+      "label": "MIME Type",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/DismantlingDocument"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/minimumTemperature",
+      "localName": "minimumTemperature",
+      "label": "Minimum Temperature",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TemperatureRange"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/TemperatureCelsius"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/minimumVoltage",
+      "localName": "minimumVoltage",
+      "label": "Minimum Voltage",
+      "comment": "Minimum allowable voltage to prevent deep discharge damage, in Volts (V).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/VoltageVolts"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/nextScheduledMeasurement",
+      "localName": "nextScheduledMeasurement",
+      "label": "Next Scheduled Measurement",
+      "comment": "Date of next scheduled SOCE measurement.",
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/nickelPostConsumerShare",
+      "localName": "nickelPostConsumerShare",
+      "label": "Nickel Post-Consumer Recycled Share",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/RecycledContent"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/nickelPreConsumerShare",
+      "localName": "nickelPreConsumerShare",
+      "label": "Nickel Pre-Consumer Recycled Share",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/RecycledContent"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/nickelRecycledShare",
+      "localName": "nickelRecycledShare",
+      "label": "Nickel Recycled Share",
+      "comment": "Total percentage of recycled nickel content.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/RecycledContent"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/recycledContent"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/nominalVoltage",
+      "localName": "nominalVoltage",
+      "label": "Nominal Voltage",
+      "comment": "Nominal operating voltage of the battery pack in Volts (V).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/VoltageVolts"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/note",
+      "localName": "note",
+      "label": "Note",
+      "comment": "Additional note or comment about a measurement or event.",
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/notifiedBodyName",
+      "localName": "notifiedBodyName",
+      "label": "Notified Body Name",
+      "comment": "Name of the notified body involved in conformity assessment.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/notifiedBodyNumber",
+      "localName": "notifiedBodyNumber",
+      "label": "Notified Body Number",
+      "comment": "Identification number of the notified body involved in conformity assessment.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/numberOfCells",
+      "localName": "numberOfCells",
+      "label": "Number of Cells",
+      "comment": "Total number of cells in the battery pack.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/numberOfModules",
+      "localName": "numberOfModules",
+      "label": "Number of Modules",
+      "comment": "Number of modules in the battery pack.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/operatorInformation",
+      "localName": "operatorInformation",
+      "label": "Operator Information",
+      "comment": "Economic operator responsible for the battery as per Art. 38.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/operatorRole",
+      "localName": "operatorRole",
+      "label": "Operator Role",
+      "comment": "Role of the economic operator (manufacturer, importer, distributor, etc.).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorRole"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/originalPowerCapability",
+      "localName": "originalPowerCapability",
+      "label": "Original Power Capability",
+      "comment": "Original power capability at specific SoC levels (80% and 20%).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/PowerCapabilityAtSoC"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/powerCapability",
+      "localName": "powerCapability",
+      "label": "Power Capability",
+      "comment": "Power capability value in kW at the specified SoC.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/PowerCapabilityAtSoC"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/PowerKilowatts"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/powerCapabilityAt20SoC",
+      "localName": "powerCapabilityAt20SoC",
+      "label": "Power Capability at 20% SoC",
+      "comment": "Current power capability at 20% state of charge.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/PowerKilowatts"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/powerCapabilityAt80SoC",
+      "localName": "powerCapabilityAt80SoC",
+      "label": "Power Capability at 80% SoC",
+      "comment": "Current power capability at 80% state of charge.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/PowerKilowatts"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/powerCapabilityRatio",
+      "localName": "powerCapabilityRatio",
+      "label": "Power Capability Ratio",
+      "comment": "Ratio of rated power to rated energy (W/Wh).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/powerFade",
+      "localName": "powerFade",
+      "label": "Power Fade",
+      "comment": "Power capability degradation as percentage of original.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/Percentage"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/previousApplications",
+      "localName": "previousApplications",
+      "label": "Previous Applications",
+      "comment": "Description of previous use cases if battery is repurposed.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/puttingIntoService",
+      "localName": "puttingIntoService",
+      "label": "Putting Into Service",
+      "comment": "Date when the battery was first put into service.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/ratedCapacity",
+      "localName": "ratedCapacity",
+      "label": "Rated Capacity",
+      "comment": "Rated capacity in Ampere-hours (Ah). Use gs1:QuantitativeValue with unitCode 'AMH'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/CapacityAmpereHours"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/ratedEnergy",
+      "localName": "ratedEnergy",
+      "label": "Rated Energy",
+      "comment": "Rated energy in kilowatt-hours (kWh). Use gs1:QuantitativeValue with unitCode 'KWH'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyKilowattHours"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/ratedMaximumPower",
+      "localName": "ratedMaximumPower",
+      "label": "Rated Maximum Power",
+      "comment": "Rated maximum power output in kW.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/PowerKilowatts"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/recommendedAction",
+      "localName": "recommendedAction",
+      "label": "Recommended Action",
+      "comment": "Recommended follow-up action after the incident.",
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/recoveryMaterial",
+      "localName": "recoveryMaterial",
+      "label": "Recovery Material",
+      "comment": "Material for which recovery rate is specified (e.g., lithium, cobalt, nickel, copper).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/MaterialRecoveryTarget"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/recoveryRate",
+      "localName": "recoveryRate",
+      "label": "Recovery Rate",
+      "comment": "Recovery rate percentage for the specified material.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/MaterialRecoveryTarget"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/recyclabilityRate",
+      "localName": "recyclabilityRate",
+      "label": "Recyclability Rate",
+      "comment": "Percentage of the battery (by weight) that can be recycled.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/recycledContent",
+      "localName": "recycledContent",
+      "label": "Recycled Content",
+      "comment": "Declaration of recycled material content with breakdown by material type and pre/post-consumer sources.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/RecycledContent"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/remainingCapacity",
+      "localName": "remainingCapacity",
+      "label": "Remaining Capacity",
+      "comment": "Current maximum capacity. Use gs1:QuantitativeValue with unitCode 'AMP_HR'.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/CapacityAmpereHours"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/remainingEnergy",
+      "localName": "remainingEnergy",
+      "label": "Remaining Energy",
+      "comment": "Current maximum energy. Use gs1:QuantitativeValue with unitCode 'KWH'.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyKilowattHours"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/remainingPowerCapability",
+      "localName": "remainingPowerCapability",
+      "label": "Remaining Power Capability",
+      "comment": "Current power capability measurements at various SoC levels.",
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/PowerCapabilityAtSoC"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/remainingRoundTripEfficiency",
+      "localName": "remainingRoundTripEfficiency",
+      "label": "Remaining Round Trip Efficiency",
+      "comment": "Current round trip energy efficiency. Use gs1:QuantitativeValue with unitCode 'P1' (percent).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/Percentage"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/remainingUsableEnergy",
+      "localName": "remainingUsableEnergy",
+      "label": "Remaining Usable Energy",
+      "comment": "The current remaining usable energy capacity.",
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/renewableContent",
+      "localName": "renewableContent",
+      "label": "Renewable Content",
+      "comment": "Percentage of renewable content in the battery.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/renewableContentShare",
+      "localName": "renewableContentShare",
+      "label": "Renewable Content Share",
+      "comment": "Percentage of this material derived from renewable sources.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/repurposingDate",
+      "localName": "repurposingDate",
+      "label": "Repurposing Date",
+      "comment": "Date when the battery was repurposed.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/repurposingEntity",
+      "localName": "repurposingEntity",
+      "label": "Repurposing Entity",
+      "comment": "Organization that performed the repurposing.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Organization"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/repurposingGuidelines",
+      "localName": "repurposingGuidelines",
+      "label": "Repurposing Guidelines",
+      "comment": "URL to guidelines for battery repurposing.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/repurposingPotential",
+      "localName": "repurposingPotential",
+      "label": "Repurposing Potential",
+      "comment": "Assessment of battery suitability for second-life applications.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/resistanceIncreaseThreshold",
+      "localName": "resistanceIncreaseThreshold",
+      "label": "Resistance Increase Threshold",
+      "comment": "Internal resistance increase percentage at which battery reaches end of rated cycle life.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/responsibleSourcingStandard",
+      "localName": "responsibleSourcingStandard",
+      "label": "Responsible Sourcing Standard",
+      "comment": "Standard followed for responsible sourcing.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/ResponsibleSourcingStandard"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/resultOfTestReport",
+      "localName": "resultOfTestReport",
+      "label": "Result of Test Report URL",
+      "comment": "URL to test report results.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/riskAssessmentSummary",
+      "localName": "riskAssessmentSummary",
+      "label": "Risk Assessment Summary",
+      "comment": "Summary of the supply chain risk assessment findings.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/roundTripEfficiency",
+      "localName": "roundTripEfficiency",
+      "label": "Round Trip Efficiency",
+      "comment": "Initial round-trip energy efficiency as percentage.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/roundTripEfficiencyAt50PercentCycleLife",
+      "localName": "roundTripEfficiencyAt50PercentCycleLife",
+      "label": "Round Trip Efficiency at 50% Cycle Life",
+      "comment": "Expected round trip efficiency at 50% of rated cycle life.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/roundTripEfficiencyFade",
+      "localName": "roundTripEfficiencyFade",
+      "label": "Round Trip Efficiency Fade",
+      "comment": "Degradation of round trip efficiency as percentage points.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/Percentage"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/safetyInstructions",
+      "localName": "safetyInstructions",
+      "label": "Safety Instructions",
+      "comment": "URL to general safety instructions document.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/safetyInstructionsForDismantling",
+      "localName": "safetyInstructionsForDismantling",
+      "label": "Safety Instructions for Dismantling",
+      "comment": "URL to specific safety requirements for battery dismantling.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/selfDischargeRate",
+      "localName": "selfDischargeRate",
+      "label": "Self Discharge Rate",
+      "comment": "Current self-discharge rate. Use gs1:QuantitativeValue with unitCode 'P1' (percent per month).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/Percentage"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/separateCollection",
+      "localName": "separateCollection",
+      "label": "Separate Collection",
+      "comment": "URL to information about separate collection requirements.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/separateCollectionSymbolUrl",
+      "localName": "separateCollectionSymbolUrl",
+      "label": "Separate Collection Symbol URL",
+      "comment": "URL to the crossed-out wheeled bin symbol.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/serviceContactPoint",
+      "localName": "serviceContactPoint",
+      "label": "Service Contact Point",
+      "comment": "Contact information for battery service and support.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/ContactPoint"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/shippingName",
+      "localName": "shippingName",
+      "label": "Proper Shipping Name",
+      "comment": "UN proper shipping name for dangerous goods transport.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/shortName",
+      "localName": "shortName",
+      "label": "Short Name",
+      "comment": "Abbreviated chemistry name (e.g., LFP, NMC, NCA, LTO).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/BatteryChemistry"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/soceMeasurementId",
+      "localName": "soceMeasurementId",
+      "label": "SOCE Measurement ID",
+      "comment": "Unique identifier for the SOCE measurement.",
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/spareParts",
+      "localName": "spareParts",
+      "label": "Spare Parts",
+      "comment": "List of spare part component names available from this supplier.",
+      "domain": [
+        "https://ref.gs1.org/voc/Organization"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/sparePartSources",
+      "localName": "sparePartSources",
+      "label": "Spare Part Sources",
+      "comment": "Sources for spare parts for the battery.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Organization"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/stateOfCertifiedEnergy",
+      "localName": "stateOfCertifiedEnergy",
+      "label": "State of Certified Energy",
+      "comment": "SOCE ratio of remaining to certified usable energy. Use gs1:QuantitativeValue with unitCode 'P1' (percent).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/Percentage"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/stateOfCharge",
+      "localName": "stateOfCharge",
+      "label": "State of Charge",
+      "comment": "Current charge level as percentage. Use gs1:QuantitativeValue with unitCode 'P1' (percent).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/Percentage"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/stateOfChargeLevel",
+      "localName": "stateOfChargeLevel",
+      "label": "State of Charge Level",
+      "comment": "The SoC level at which power capability is measured (e.g., 80 or 20).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/PowerCapabilityAtSoC"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/stateOfHealth",
+      "localName": "stateOfHealth",
+      "label": "State of Health",
+      "comment": "Battery state of health as percentage of original capacity.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/Percentage"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/substanceCasNumber",
+      "localName": "substanceCasNumber",
+      "label": "Substance CAS Number",
+      "comment": "Chemical Abstracts Service registry number for the hazardous substance.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/HazardousSubstance"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/substanceEcNumber",
+      "localName": "substanceEcNumber",
+      "label": "Substance EC Number",
+      "comment": "European Community number for the hazardous substance.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/HazardousSubstance"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/substanceLocation",
+      "localName": "substanceLocation",
+      "label": "Substance Location",
+      "comment": "Location of the hazardous substance in the battery.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/HazardousSubstance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/ComponentLocation"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/substanceName",
+      "localName": "substanceName",
+      "label": "Substance Name",
+      "comment": "Name of the hazardous substance.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/HazardousSubstance"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/supplierContact",
+      "localName": "supplierContact",
+      "label": "Supplier Contact",
+      "comment": "",
+      "domain": [
+        "https://ref.gs1.org/voc/Organization"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/ContactPoint"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/supplyChainDueDiligence",
+      "localName": "supplyChainDueDiligence",
+      "label": "Supply Chain Due Diligence",
+      "comment": "Supply chain due diligence information per Art. 39.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/supplyChainIndex",
+      "localName": "supplyChainIndex",
+      "label": "Supply Chain Index",
+      "comment": "Optional supply chain sustainability index score.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/supplyChainMappingAvailable",
+      "localName": "supplyChainMappingAvailable",
+      "label": "Supply Chain Mapping Available",
+      "comment": "Whether detailed supply chain mapping is available.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/technicalSpecifications",
+      "localName": "technicalSpecifications",
+      "label": "Technical Specifications",
+      "comment": "Technical performance specifications including capacity, voltage, power, and lifetime parameters.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/temperatureExcursionId",
+      "localName": "temperatureExcursionId",
+      "label": "Temperature Excursion ID",
+      "comment": "Unique identifier for the temperature excursion event.",
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/temperatureExcursionReportUrl",
+      "localName": "temperatureExcursionReportUrl",
+      "label": "Temperature Excursion Report URL",
+      "comment": "URL to the temperature excursion report.",
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/temperatureRangeCharging",
+      "localName": "temperatureRangeCharging",
+      "label": "Temperature Range - Charging",
+      "comment": "Allowable temperature range during charging.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/TemperatureRange"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/temperatureRangeDischarging",
+      "localName": "temperatureRangeDischarging",
+      "label": "Temperature Range - Discharging",
+      "comment": "Allowable temperature range during discharging.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/TemperatureRange"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/temperatureRangeIdleState",
+      "localName": "temperatureRangeIdleState",
+      "label": "Temperature Range - Idle State",
+      "comment": "Temperature range for the battery in idle state.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/TemperatureRange"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/temperatureRangeStorage",
+      "localName": "temperatureRangeStorage",
+      "label": "Temperature Range - Storage",
+      "comment": "Allowable temperature range for battery storage.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/TemperatureRange"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/testReportNumber",
+      "localName": "testReportNumber",
+      "label": "Test Report Number",
+      "comment": "Identifier of the test report.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/thirdPartyAssurancesUrl",
+      "localName": "thirdPartyAssurancesUrl",
+      "label": "Third Party Assurances URL",
+      "comment": "URL to third party verification or assurances.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/thirdPartyVerification",
+      "localName": "thirdPartyVerification",
+      "label": "Third Party Verification",
+      "comment": "Third-party verification details for the carbon footprint declaration.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/ThirdPartyVerification"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/transportationSafetyClass",
+      "localName": "transportationSafetyClass",
+      "label": "Transportation Safety Class",
+      "comment": "UN transportation classification (e.g., UN3481, UN3480).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/transportConditions",
+      "localName": "transportConditions",
+      "label": "Transport Conditions",
+      "comment": "Description of transport conditions during the event.",
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/verificationBody",
+      "localName": "verificationBody",
+      "label": "Verification Body",
+      "comment": "Organization that performed the third-party verification.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/ThirdPartyVerification"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Organization"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/verificationBodyName",
+      "localName": "verificationBodyName",
+      "label": "Verification Body Name",
+      "comment": "Name of the verification body.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/ThirdPartyVerification"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/verificationCertificateUrl",
+      "localName": "verificationCertificateUrl",
+      "label": "Verification Certificate URL",
+      "comment": "URL to the verification certificate document.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/ThirdPartyVerification"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/verificationDate",
+      "localName": "verificationDate",
+      "label": "Verification Date",
+      "comment": "Date when third-party verification was completed.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/ThirdPartyVerification"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/verificationStandard",
+      "localName": "verificationStandard",
+      "label": "Verification Standard",
+      "comment": "Standard used for verification (e.g., ISO 14064-3).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/ThirdPartyVerification"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/warrantyConditions",
+      "localName": "warrantyConditions",
+      "label": "Warranty Conditions",
+      "comment": "URL to warranty terms and conditions. For warranty duration, use gs1:warranty.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/warranty"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/wastePrevention",
+      "localName": "wastePrevention",
+      "label": "Waste Prevention",
+      "comment": "URL to waste prevention information.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/consumerRecyclingInstructions"
+      ]
+    }
+  ],
+  "enumerations": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/AccessLevel",
+      "localName": "AccessLevel",
+      "label": "Data Access Level",
+      "comment": "Access restriction level for battery passport data per Annex XIII.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/AuthoritiesOnly",
+          "localName": "AuthoritiesOnly",
+          "label": "Authorities Only",
+          "comment": "Data accessible only to notified bodies, market surveillance authorities, and the Commission."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/AuthorizedAccess",
+          "localName": "AuthorizedAccess",
+          "label": "Authorized Personnel",
+          "comment": "Data accessible to authorized economic operators and service providers."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/PublicAccess",
+          "localName": "PublicAccess",
+          "label": "Public",
+          "comment": "Data accessible to the general public without authentication."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/BatteryCategory",
+      "localName": "BatteryCategory",
+      "label": "Battery Category",
+      "comment": "Categories of batteries as defined by EU Battery Regulation Art. 3.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/EVBattery",
+          "localName": "EVBattery",
+          "label": "Electric Vehicle Battery",
+          "comment": "Traction battery for electric vehicles providing propulsion power. Subject to most stringent DPP requirements from 18 Feb 2027."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/IndustrialBattery",
+          "localName": "IndustrialBattery",
+          "label": "Industrial Battery",
+          "comment": "Battery designed for industrial applications with capacity > 2 kWh, excluding LMT and EV batteries. Subject to DPP requirements from 18 Aug 2025."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/LMTBattery",
+          "localName": "LMTBattery",
+          "label": "Light Means of Transport Battery",
+          "comment": "Battery for e-bikes, e-scooters, and other light electric vehicles. Subject to DPP requirements from 18 Feb 2027."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/PortableBattery",
+          "localName": "PortableBattery",
+          "label": "Portable Battery",
+          "comment": "Sealed battery weighing 5 kg or less, not designed for industrial use. Not subject to DPP requirements."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/SLIBattery",
+          "localName": "SLIBattery",
+          "label": "Starting, Lighting, Ignition Battery",
+          "comment": "Battery designed to supply electric power for starting, lighting, or ignition. Not subject to DPP requirements."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/StationaryBattery",
+          "localName": "StationaryBattery",
+          "label": "Stationary Energy Storage Battery",
+          "comment": "Battery system for stationary energy storage applications such as grid services, backup power, or renewable energy storage."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/BatteryStatus",
+      "localName": "BatteryStatus",
+      "label": "Battery Status",
+      "comment": "Lifecycle status of the battery.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Original",
+          "localName": "Original",
+          "label": "Original",
+          "comment": "Battery in its original state as manufactured, not yet subjected to any second-life operations."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Remanufactured",
+          "localName": "Remanufactured",
+          "label": "Remanufactured",
+          "comment": "Battery restored to original specifications through replacement of components and comprehensive testing."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Repurposed",
+          "localName": "Repurposed",
+          "label": "Repurposed",
+          "comment": "Battery adapted for a different application than originally intended (e.g., EV battery used for stationary storage)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Reused",
+          "localName": "Reused",
+          "label": "Reused",
+          "comment": "Battery used again for the same purpose after refurbishment or testing, without major component replacement."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Waste",
+          "localName": "Waste",
+          "label": "Waste",
+          "comment": "Battery at end-of-life designated for recycling or disposal per EU Battery Regulation requirements."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintClass",
+      "localName": "CarbonFootprintClass",
+      "label": "Carbon Footprint Performance Class",
+      "comment": "Carbon footprint performance classification (A-E) per EU Battery Regulation.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/CFClassA",
+          "localName": "CFClassA",
+          "label": "Class A",
+          "comment": "Best carbon footprint performance class."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/CFClassB",
+          "localName": "CFClassB",
+          "label": "Class B",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/CFClassC",
+          "localName": "CFClassC",
+          "label": "Class C",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/CFClassD",
+          "localName": "CFClassD",
+          "label": "Class D",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/CFClassE",
+          "localName": "CFClassE",
+          "label": "Class E",
+          "comment": "Lowest carbon footprint performance class."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/CellType",
+      "localName": "CellType",
+      "label": "Cell Type",
+      "comment": "Physical form factor of battery cells.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/BladeCell",
+          "localName": "BladeCell",
+          "label": "Blade Cell",
+          "comment": "Blade-shaped cell designed for cell-to-pack architecture."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/CoinCell",
+          "localName": "CoinCell",
+          "label": "Coin Cell",
+          "comment": "Small disc-shaped cell (button cell format)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/CylindricalCell",
+          "localName": "CylindricalCell",
+          "label": "Cylindrical Cell",
+          "comment": "Cylindrical cell format (e.g., 18650, 21700, 4680)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/PouchCell",
+          "localName": "PouchCell",
+          "label": "Pouch Cell",
+          "comment": "Flexible pouch cell with laminate packaging."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/PrismaticCell",
+          "localName": "PrismaticCell",
+          "label": "Prismatic Cell",
+          "comment": "Rectangular prismatic cell with hard casing."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/ComplianceStatus",
+      "localName": "ComplianceStatus",
+      "label": "Compliance Status",
+      "comment": "Regulatory compliance status of the battery.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Compliant",
+          "localName": "Compliant",
+          "label": "Compliant",
+          "comment": "Battery fully complies with all applicable regulatory requirements."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/ConditionallyCompliant",
+          "localName": "ConditionallyCompliant",
+          "label": "Conditionally Compliant",
+          "comment": "Battery complies subject to specified conditions or limitations."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/NonCompliant",
+          "localName": "NonCompliant",
+          "label": "Non-Compliant",
+          "comment": "Battery does not meet one or more regulatory requirements."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Pending",
+          "localName": "Pending",
+          "label": "Pending",
+          "comment": "Compliance assessment is in progress."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/ComponentLocation",
+      "localName": "ComponentLocation",
+      "label": "Component Location",
+      "comment": "Component location within the battery cell or pack where a material is used.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Anode",
+          "localName": "Anode",
+          "label": "Anode",
+          "comment": "Negative electrode where oxidation occurs during discharge. Typically contains graphite or silicon compounds."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/BMS",
+          "localName": "BMS",
+          "label": "Battery Management System",
+          "comment": "Electronic components for battery monitoring and control."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Casing",
+          "localName": "Casing",
+          "label": "Casing",
+          "comment": "External housing and structural components of the battery pack including enclosures, frames, and thermal management elements."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Cathode",
+          "localName": "Cathode",
+          "label": "Cathode",
+          "comment": "Positive electrode where reduction occurs during discharge. Contains active materials like NMC, LFP, or NCA."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/CurrentCollector",
+          "localName": "CurrentCollector",
+          "label": "Current Collector",
+          "comment": "Metallic foil that collects current from electrodes (typically aluminum for cathode, copper for anode)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Electrolyte",
+          "localName": "Electrolyte",
+          "label": "Electrolyte",
+          "comment": "Ion-conducting medium between electrodes. Can be liquid, gel, or solid-state depending on battery chemistry."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Separator",
+          "localName": "Separator",
+          "label": "Separator",
+          "comment": "Porous membrane preventing direct contact between electrodes while allowing ion transport."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/DismantlingDocumentType",
+      "localName": "DismantlingDocumentType",
+      "label": "Dismantling Document Type",
+      "comment": "Types of documents supporting battery dismantling per DIN DKE SPEC 99100.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/BillOfMaterial",
+          "localName": "BillOfMaterial",
+          "label": "Bill of Material",
+          "comment": "Structured list of all components and materials in the battery with quantities and identifiers."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/DismantlingManual",
+          "localName": "DismantlingManual",
+          "label": "Dismantling Manual",
+          "comment": "Step-by-step instructions for safe disassembly of battery components for recycling or repair."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Drawing",
+          "localName": "Drawing",
+          "label": "Drawing",
+          "comment": "Technical drawings showing battery dimensions, connection points, and component locations."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Model3D",
+          "localName": "Model3D",
+          "label": "3D Model",
+          "comment": "Three-dimensional CAD model showing battery structure, component layout, and assembly relationships."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/OtherManual",
+          "localName": "OtherManual",
+          "label": "Other Manual",
+          "comment": "Other supporting documentation not covered by specific document types."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/RemovalManual",
+          "localName": "RemovalManual",
+          "label": "Removal Manual",
+          "comment": "Instructions for safely removing the battery from its host device or vehicle."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/SafetyDataSheet",
+          "localName": "SafetyDataSheet",
+          "label": "Safety Data Sheet",
+          "comment": "Safety data sheet (SDS) for the battery containing hazard and handling information."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/HazardClass",
+      "localName": "HazardClass",
+      "label": "Hazard Class",
+      "comment": "Hazard classification categories per EU CLP Regulation.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/AcuteToxicity",
+          "localName": "AcuteToxicity",
+          "label": "Acute Toxicity",
+          "comment": "Substances causing harmful effects after single or short-term exposure via oral, dermal, or inhalation routes."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/AspirationHazard",
+          "localName": "AspirationHazard",
+          "label": "Aspiration Hazard",
+          "comment": "Liquid or solid substances causing chemical pneumonia or pulmonary injury if aspirated into airways."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Carcinogenicity",
+          "localName": "Carcinogenicity",
+          "label": "Carcinogenicity",
+          "comment": "Substances known or suspected to cause cancer in humans."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/EyeDamageOrIrritation",
+          "localName": "EyeDamageOrIrritation",
+          "label": "Eye Damage or Irritation",
+          "comment": "Substances causing serious eye damage or reversible eye irritation upon contact."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/GermCellMutagenicity",
+          "localName": "GermCellMutagenicity",
+          "label": "Germ Cell Mutagenicity",
+          "comment": "Substances that may cause heritable genetic mutations in human germ cells."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/HazardousToAquaticEnvironment",
+          "localName": "HazardousToAquaticEnvironment",
+          "label": "Hazardous to Aquatic Environment",
+          "comment": "Substances posing acute or chronic toxicity risks to aquatic organisms and ecosystems."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/ReproductiveToxicity",
+          "localName": "ReproductiveToxicity",
+          "label": "Reproductive Toxicity",
+          "comment": "Substances adversely affecting sexual function, fertility, or development of offspring."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/RespiratoryOrSkinSensitization",
+          "localName": "RespiratoryOrSkinSensitization",
+          "label": "Respiratory or Skin Sensitization",
+          "comment": "Substances causing hypersensitivity of airways (asthma) or allergic skin reactions after exposure."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/SkinCorrosionOrIrritation",
+          "localName": "SkinCorrosionOrIrritation",
+          "label": "Skin Corrosion or Irritation",
+          "comment": "Substances causing irreversible damage (corrosion) or reversible damage (irritation) to skin tissue."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/SpecificTargetOrganToxicity",
+          "localName": "SpecificTargetOrganToxicity",
+          "label": "Specific Target Organ Toxicity",
+          "comment": "Substances causing non-lethal damage to specific organs after single or repeated exposure."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/IncidentSeverity",
+      "localName": "IncidentSeverity",
+      "label": "Incident Severity",
+      "comment": "Severity classification for battery-related incidents.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Critical",
+          "localName": "Critical",
+          "label": "Critical",
+          "comment": "Critical incident posing safety risks. Immediate removal from service required."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Major",
+          "localName": "Major",
+          "label": "Major",
+          "comment": "Major incident significantly affecting battery performance. Immediate inspection and potential replacement recommended."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Minor",
+          "localName": "Minor",
+          "label": "Minor",
+          "comment": "Minor incident with minimal impact on battery performance or safety. No immediate action required."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Moderate",
+          "localName": "Moderate",
+          "label": "Moderate",
+          "comment": "Moderate incident requiring monitoring and potential preventive maintenance."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/LabelSubject",
+      "localName": "LabelSubject",
+      "label": "Label Subject",
+      "comment": "Subject matter categories for battery labels per EU Battery Regulation Annex VI.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/CadmiumContent",
+          "localName": "CadmiumContent",
+          "label": "Cadmium Content",
+          "comment": "Cd symbol indicating cadmium content above threshold (> 0.002% by weight)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/CapacityLabel",
+          "localName": "CapacityLabel",
+          "label": "Capacity Label",
+          "comment": "Label showing battery capacity in Ah and/or Wh."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintLabel",
+          "localName": "CarbonFootprintLabel",
+          "label": "Carbon Footprint",
+          "comment": "Label displaying the carbon footprint class (A-E) and value per EU Battery Regulation requirements."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/ExtinguishingAgentLabel",
+          "localName": "ExtinguishingAgentLabel",
+          "label": "Extinguishing Agent",
+          "comment": "Label indicating the recommended fire extinguishing agent for battery fires."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/LeadContent",
+          "localName": "LeadContent",
+          "label": "Lead Content",
+          "comment": "Pb symbol indicating lead content above threshold (> 0.004% by weight)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/MercuryContent",
+          "localName": "MercuryContent",
+          "label": "Mercury Content",
+          "comment": "Hg symbol indicating mercury content (prohibited except exemptions)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/QRCodeLabel",
+          "localName": "QRCodeLabel",
+          "label": "QR Code",
+          "comment": "QR code providing access to the battery passport."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/SeparateCollection",
+          "localName": "SeparateCollection",
+          "label": "Separate Collection",
+          "comment": "Crossed-out wheeled bin symbol indicating the battery must be collected separately from household waste."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/MaterialCategory",
+      "localName": "MaterialCategory",
+      "label": "Material Category",
+      "comment": "Functional category of a battery material.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/ActiveMaterial",
+          "localName": "ActiveMaterial",
+          "label": "Active Material",
+          "comment": "Electrochemically active material participating in charge/discharge reactions."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Additive",
+          "localName": "Additive",
+          "label": "Additive",
+          "comment": "Material added to improve performance, stability, or safety."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Binder",
+          "localName": "Binder",
+          "label": "Binder",
+          "comment": "Material binding active materials and conductors to current collector."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Conductor",
+          "localName": "Conductor",
+          "label": "Conductor",
+          "comment": "Material providing electronic conductivity (e.g., carbon black, carbon nanotubes)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/StructuralMaterial",
+          "localName": "StructuralMaterial",
+          "label": "Structural Material",
+          "comment": "Material providing mechanical structure (casing, frames, etc.)."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/NegativeEventType",
+      "localName": "NegativeEventType",
+      "label": "Negative Event Type",
+      "comment": "Types of adverse events that can affect a battery.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Accident",
+          "localName": "Accident",
+          "label": "Accident",
+          "comment": "Physical accident involving the battery such as collision or drop."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/DeepDischarge",
+          "localName": "DeepDischarge",
+          "label": "Deep Discharge",
+          "comment": "Discharge below minimum voltage limits."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/ElectricalFault",
+          "localName": "ElectricalFault",
+          "label": "Electrical Fault",
+          "comment": "Electrical malfunction including BMS failure or cell imbalance."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/Overcharge",
+          "localName": "Overcharge",
+          "label": "Overcharge",
+          "comment": "Charging beyond maximum voltage limits."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/PhysicalDamage",
+          "localName": "PhysicalDamage",
+          "label": "Physical Damage",
+          "comment": "Mechanical damage to battery casing or internal components."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/ShortCircuit",
+          "localName": "ShortCircuit",
+          "label": "Short Circuit",
+          "comment": "Internal or external short circuit event."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/ThermalEvent",
+          "localName": "ThermalEvent",
+          "label": "Thermal Event",
+          "comment": "Thermal runaway, overheating, or fire incident."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/WaterIngress",
+          "localName": "WaterIngress",
+          "label": "Water Ingress",
+          "comment": "Water or moisture penetration into the battery pack."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/ResponsibleSourcingStandard",
+      "localName": "ResponsibleSourcingStandard",
+      "label": "Responsible Sourcing Standard",
+      "comment": "Standards for responsible sourcing of battery materials.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/AluminiumStewardship",
+          "localName": "AluminiumStewardship",
+          "label": "ASI Standard",
+          "comment": "Aluminium Stewardship Initiative certification."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/CobaltIndustryResponsibleAssessment",
+          "localName": "CobaltIndustryResponsibleAssessment",
+          "label": "CIRA",
+          "comment": "Cobalt Industry Responsible Assessment Framework."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/CopperMark",
+          "localName": "CopperMark",
+          "label": "Copper Mark",
+          "comment": "The Copper Mark responsible production certification."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/IRMA",
+          "localName": "IRMA",
+          "label": "IRMA Standard",
+          "comment": "Initiative for Responsible Mining Assurance standard."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/OECDGuidelines",
+          "localName": "OECDGuidelines",
+          "label": "OECD Due Diligence Guidance",
+          "comment": "OECD Due Diligence Guidance for Responsible Supply Chains of Minerals from Conflict-Affected and High-Risk Areas."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/battery/RMI",
+          "localName": "RMI",
+          "label": "Responsible Minerals Initiative",
+          "comment": "Responsible Minerals Initiative (RMI) standards and assessments."
+        }
+      ]
+    }
+  ]
+}

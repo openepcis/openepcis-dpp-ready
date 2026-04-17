@@ -1,0 +1,107 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/textile/context",
+    {
+      "dpp": "https://ref.openepcis.io/extensions/common/core/"
+    }
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-09-20T08:00:00.000Z",
+  "_comment_architecture": [
+    "Garment commissioning event at cut-and-sew facility.",
+    "masterDataAvailableFor carries GS1 product master data plus product-level",
+    "textile classification (textileCategory / apparelSubcategory / fabricType) — those",
+    "describe the GTIN and are identical across every lot of this SKU, so they belong",
+    "with the rest of the product card, not in ilmd (which is for lot-specific data).",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,textile=https://ref.openepcis.io/extensions/eu/textile/",
+    "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567001",
+        "eventTime": "2025-09-20T08:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "ADD",
+        "bizStep": "commissioning",
+        "disposition": "active",
+        "epcList": [
+          "https://id.gs1.org/01/09521234000013/21/WJ-2025-00301"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000020"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000020"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000013/21/WJ-2025-00301",
+            "type": "Product",
+            "productName": {
+              "en": "Alpine Pro Winter Jacket - Navy"
+            },
+            "gtin": "09521234000013",
+            "serialNumber": "WJ-2025-00301",
+            "netWeight": {
+              "type": "QuantitativeValue",
+              "unitCode": "KGM",
+              "value": 0.85
+            },
+            "countryOfOrigin": {
+              "countryCode": "PT"
+            },
+            "textile:textileCategory": "Apparel",
+            "textile:apparelSubcategory": "JacketsCoats",
+            "textile:fabricType": "WovenNonDenim"
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000020",
+            "type": "Place",
+            "locationGLN": "9521234000020",
+            "physicalLocationName": {
+              "en": "Porto Textile Manufacturing"
+            },
+            "address": {
+              "type": "PostalAddress",
+              "addressLocality": "Porto",
+              "countryCode": "PT"
+            }
+          },
+          {
+            "id": "https://id.gs1.org/417/9521234000006",
+            "type": "Organization",
+            "organizationName": {
+              "en": "EcoWear GmbH"
+            },
+            "partyGLN": "9521234000006",
+            "countryCode": "DE"
+          }
+        ],
+        "bizTransactionList": [
+          {
+            "type": "urn:epcglobal:cbv:btt:prodorder",
+            "bizTransaction": "https://ecowear.example.com/orders/PO-2025-00301"
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "source": "https://id.gs1.org/417/9521234000006"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "destination": "https://id.gs1.org/417/9521234000006"
+          }
+        ]
+      }
+    ]
+  }
+}

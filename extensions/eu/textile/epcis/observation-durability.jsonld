@@ -1,0 +1,93 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/textile/context",
+    {
+      "dpp": "https://ref.openepcis.io/extensions/common/core/"
+    }
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-10-01T14:00:00.000Z",
+  "_comment_architecture": [
+    "Robustness score observation event. Reports the 0-10 composite robustness score per EU Preparatory Study methodology after 5 cleaning cycles (ISO 6330).",
+    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
+    "Extension properties (textile:, dpp:) are at EVENT level.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,textile=https://ref.openepcis.io/extensions/eu/textile/",
+    "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567005",
+        "eventTime": "2025-10-01T14:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "OBSERVE",
+        "bizStep": "inspecting",
+        "disposition": "active",
+        "epcList": [
+          "https://id.gs1.org/01/09521234000013/21/WJ-2025-00301"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000068"
+        },
+        "robustnessAssessment": {
+          "type": "RobustnessAssessment",
+          "robustnessScore": 8.0,
+          "cleaningCyclesBeforeTest": 5,
+          "robustnessTestFabricType": "WovenNonDenim",
+          "spiralityTest": {
+            "type": "SpiralityTestResult",
+            "spiralityScore": 3,
+            "spiralityPercentage": 4.2,
+            "spiralityTestMethod": "ISO 16322-3",
+            "testStandard": "ISO16322_3"
+          },
+          "dimensionalChangeTest": {
+            "type": "DimensionalChangeTestResult",
+            "dimensionalChangeScore": 2,
+            "dimensionalChangePercentage": 3.2,
+            "dimensionalChangeTestMethod": "ISO 3759",
+            "testStandard": "ISO3759"
+          },
+          "visualInspection": {
+            "type": "VisualInspectionResult",
+            "visualInspectionScore": 3,
+            "colourChangeRating": 4,
+            "fabricAppearanceRating": 4,
+            "seamAppearanceRating": 5,
+            "nonTextilePartsRating": 4,
+            "visualInspectionTestMethod": "ISO 15487",
+            "testStandard": "ISO15487"
+          }
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000013/21/WJ-2025-00301",
+            "type": "Product",
+            "productName": {
+              "en": "Alpine Pro Winter Jacket - Navy"
+            },
+            "gtin": "09521234000013"
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000068",
+            "type": "Place",
+            "locationGLN": "9521234000068",
+            "physicalLocationName": {
+              "en": "EcoWear Quality Testing Lab"
+            },
+            "address": {
+              "type": "PostalAddress",
+              "addressLocality": "Munich",
+              "countryCode": "DE"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

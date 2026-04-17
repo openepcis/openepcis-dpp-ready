@@ -1,0 +1,72 @@
+meta {
+  name: Commissioning - Battery Production
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{url}}/capture
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+      "{{dpp-context}}",
+      "{{battery-context}}"
+    ],
+    "type": "EPCISDocument",
+    "schemaVersion": "2.0",
+    "creationDate": "{{eventTime}}",
+    "epcisBody": {
+      "eventList": [
+        {
+          "type": "ObjectEvent",
+          "action": "ADD",
+          "bizStep": "commissioning",
+          "disposition": "active",
+          "epcList": ["{{batteryEpc}}"],
+          "eventTime": "{{eventTime}}",
+          "eventTimeZoneOffset": "+01:00",
+          "readPoint": {
+            "id": "{{batteryReadPoint}}"
+          },
+          "dpp:operatorInformation": {
+            "@type": "dpp:OperatorInformation",
+            "gs1:gln": "{{batteryManufacturerGln}}",
+            "gs1:organizationName": "EcoPower Battery GmbH"
+          },
+          "battery:batteryChemistry": "battery:LithiumNMC811",
+          "battery:technicalSpecifications": {
+            "@type": "battery:TechnicalSpecifications",
+            "battery:ratedCapacity": 75,
+            "battery:ratedCapacityUnit": "kWh",
+            "battery:nominalVoltage": 400,
+            "battery:nominalVoltageUnit": "V"
+          },
+          "battery:initialStateOfHealth": {
+            "@type": "battery:StateOfHealth",
+            "battery:sohPercentage": 100,
+            "battery:remainingCapacity": 75,
+            "battery:remainingCapacityUnit": "kWh",
+            "battery:measurementDate": "{{eventTime}}"
+          },
+          "battery:productionInfo": {
+            "@type": "battery:ProductionInfo",
+            "battery:productionDate": "2025-01-15",
+            "battery:batchNumber": "NMC-2025-BATCH-042",
+            "battery:productionFacility": "Stuttgart Gigafactory"
+          }
+        }
+      ]
+    }
+  }
+}
+
+tests {
+  test("Capture successful", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+  });
+}

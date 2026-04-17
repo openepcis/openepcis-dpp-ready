@@ -1,0 +1,83 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/textile/context",
+    {
+      "dpp": "https://ref.openepcis.io/extensions/common/core/"
+    }
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-08-01T06:00:00.000Z",
+  "_comment_architecture": [
+    "Fiber to yarn transformation at spinning facility.",
+    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
+    "Extension properties (textile:, dpp:) are at EVENT level.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,textile=https://ref.openepcis.io/extensions/eu/textile/",
+    "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "TransformationEvent",
+        "eventID": "urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567002",
+        "eventTime": "2025-08-01T06:00:00.000Z",
+        "eventTimeZoneOffset": "+08:00",
+        "bizStep": "commissioning",
+        "disposition": "active",
+        "inputEPCList": [
+          "https://id.gs1.org/01/09521234000105/10/RPET-BATCH-2025-044"
+        ],
+        "outputEPCList": [
+          "https://id.gs1.org/01/09521234000112/10/YARN-RPET-2025-088"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000044"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000044"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000105/10/RPET-BATCH-2025-044",
+            "type": "Product",
+            "productName": {
+              "en": "Recycled PET Fiber Batch"
+            }
+          },
+          {
+            "id": "https://id.gs1.org/01/09521234000112/10/YARN-RPET-2025-088",
+            "type": "Product",
+            "productName": {
+              "en": "Recycled Polyester Yarn 150D/48F"
+            },
+            "netWeight": {
+              "type": "QuantitativeValue",
+              "unitCode": "KGM",
+              "value": 500
+            }
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000044",
+            "type": "Place",
+            "locationGLN": "9521234000044",
+            "physicalLocationName": {
+              "en": "Far East Spinning Mill"
+            },
+            "address": {
+              "type": "PostalAddress",
+              "addressLocality": "Taipei",
+              "countryCode": "TW"
+            }
+          }
+        ],
+        "ilmd": {
+          "textile:isRecycledFiber": true,
+          "textile:recycledContentSource": "Post-consumer PET bottles"
+        }
+      }
+    ]
+  }
+}

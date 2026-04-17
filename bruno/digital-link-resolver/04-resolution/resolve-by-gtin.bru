@@ -1,0 +1,31 @@
+meta {
+  name: Resolve by GTIN
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{dl-url}}/01/{{jacketGtin}}
+  body: none
+  auth: inherit
+}
+
+headers {
+  Accept: application/ld+json
+}
+
+tests {
+  test("Resolution successful", function() {
+    expect(res.status).to.equal(200);
+  });
+
+  test("Response is JSON-LD", function() {
+    const contentType = res.headers["content-type"];
+    expect(contentType).to.include("json");
+  });
+
+  test("Response contains product data", function() {
+    const body = res.getBody();
+    expect(body["@context"] || body.gtin || body["gs1:gtin"]).to.exist;
+  });
+}

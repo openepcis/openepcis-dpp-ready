@@ -1,0 +1,19 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix fsma: <https://ref.openepcis.io/extensions/us/fsma204/> .
+
+# SHACL shape validating trade-item master data for a food on the FDA FTL.
+# EPCIS events themselves are validated against the EPCIS 2.0 JSON Schema
+# from GS1, not against a fsma: shape.
+
+fsma:ProductMasterDataShape
+    a sh:NodeShape ;
+    sh:targetClass gs1:Product ;
+    sh:property [
+        sh:path fsma:foodTraceabilityListCategory ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class fsma:FoodTraceabilityList ;
+        sh:message "A food subject to FSMA 204 MUST declare its Food Traceability List category (21 CFR 1.1300)." ;
+    ] .

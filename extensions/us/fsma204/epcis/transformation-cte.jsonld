@@ -1,0 +1,66 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-04-20T11:30:47.022Z",
+  "_comment_gs1us_mapping": [
+    "Transformation CTE per GS1 US 'EPCIS Recommendations for FSMA 204 CTEs' R2.0, §5.",
+    "A single TransformationEvent captures:",
+    "  bizStep = creating_class_instance, disposition = active.",
+    "  inputQuantityList = each ingredient TLC (GTIN+Batch/Lot) + quantity/uom.",
+    "  outputQuantityList = the new TLC of the produced food + quantity/uom.",
+    "  readPoint + bizLocation = transformation location GLN = TLC source.",
+    "  eventTime = date transformation was completed.",
+    "  bizTransactionList = reference document KDEs.",
+    "  ilmd may carry trade item-level attributes such as gs1:bestBeforeDate.",
+    "NO fsma: extension fields ride inside the event."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "TransformationEvent",
+        "eventTime": "2026-04-20T00:00:00-04:00",
+        "recordTime": "2026-04-20T00:00:00-04:00",
+        "eventTimeZoneOffset": "-04:00",
+        "inputQuantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/10860009999920/10/ABC1234",
+            "quantity": 100,
+            "uom": "CS"
+          },
+          {
+            "epcClass": "https://id.gs1.org/01/10860009998022/10/DEF2345",
+            "quantity": 50,
+            "uom": "CS"
+          }
+        ],
+        "outputQuantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/10860009998039/10/SALAD-20260420-A",
+            "quantity": 2000,
+            "uom": "CS"
+          }
+        ],
+        "bizStep": "creating_class_instance",
+        "disposition": "active",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009998018"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/0860009998018"
+        },
+        "bizTransactionList": [
+          {
+            "type": "prodorder",
+            "bizTransaction": "urn:epcglobal:cbv:bt:0860009998018:BATCH-20260420-A"
+          }
+        ],
+        "ilmd": {
+          "gs1:bestBeforeDate": "2026-04-27"
+        }
+      }
+    ]
+  }
+}

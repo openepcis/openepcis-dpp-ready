@@ -1,0 +1,185 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/context",
+    "https://ref.openepcis.io/extensions/eu/electronics/context"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2032-03-15T14:00:00.000Z",
+  "_comment_architecture": [
+    "WEEE end-of-life chain: collection (OBSERVE), sorting/inspection (OBSERVE),",
+    "and recycling transformation (TransformationEvent).",
+    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
+    "Extension properties (electronics:, dpp:) are at EVENT level.",
+    "All ilmd blocks that previously sat on OBSERVE events have been moved to",
+    "event-level extension properties — EPCIS 2.0 §7.3.8 forbids ilmd on OBSERVE.",
+    "The recycling TransformationEvent's batch-level recovery-rate / carbon-offset",
+    "data is observation-specific to THIS recycling run and therefore also rides",
+    "at event level, not in ilmd.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,electronics=https://ref.openepcis.io/extensions/eu/electronics/",
+    "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisHeader": {
+    "instanceIdentifier": "electronics-weee-disposal-2032-001",
+    "sender": {
+      "identifier": "urn:epc:id:sgln:6000001.00000.0"
+    }
+  },
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2032-03-10T11:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "epcList": [
+          "https://id.gs1.org/01/09506000134352/21/ABC123456"
+        ],
+        "action": "OBSERVE",
+        "bizStep": "urn:epcglobal:cbv:bizstep:arriving",
+        "disposition": "urn:epcglobal:cbv:disp:returned",
+        "readPoint": {
+          "id": "urn:epc:id:sgln:6000001.00001.collection-point"
+        },
+        "bizLocation": {
+          "id": "urn:epc:id:sgln:6000001.00001.0"
+        },
+        "electronics:collectionMethod": "ConsumerDropOffAtRetailer",
+        "electronics:weeeCategory": "WEEE6_SmallIT",
+        "electronics:deviceCondition": {
+          "@value": "End of useful life - battery degraded",
+          "@language": "en"
+        },
+        "electronics:dataWiped": true
+      },
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2032-03-12T09:30:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "epcList": [
+          "https://id.gs1.org/01/09506000134352/21/ABC123456"
+        ],
+        "action": "OBSERVE",
+        "bizStep": "urn:epcglobal:cbv:bizstep:inspecting",
+        "disposition": "urn:epcglobal:cbv:disp:recalled",
+        "readPoint": {
+          "id": "urn:epc:id:sgln:6000001.00002.sorting-facility"
+        },
+        "bizLocation": {
+          "id": "urn:epc:id:sgln:6000001.00002.0"
+        },
+        "electronics:sortingDecision": {
+          "@value": "Proceed to recycling - not suitable for refurbishment",
+          "@language": "en"
+        },
+        "electronics:weeeCategory": "WEEE6_SmallIT",
+        "electronics:hazardousMaterialsIdentified": [
+          {
+            "electronics:material": "Lithium-ion battery",
+            "electronics:handlingNote": {
+              "@value": "Separate removal required before shredding",
+              "@language": "en"
+            }
+          }
+        ],
+        "electronics:estimatedRecoverableMaterials": {
+          "electronics:aluminumGrams": 78,
+          "electronics:copperGrams": 25,
+          "electronics:goldGrams": 0.025,
+          "electronics:silverGrams": 0.12,
+          "electronics:plasticsGrams": 45
+        }
+      },
+      {
+        "type": "TransformationEvent",
+        "eventTime": "2032-03-14T10:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "inputEPCList": [
+          "https://id.gs1.org/01/09506000134352/21/ABC123456"
+        ],
+        "outputQuantityList": [
+          {
+            "epcClass": "urn:epc:class:lgtin:6000001.recycled-aluminum.batch-2032-03",
+            "quantity": 78,
+            "uom": "GRM"
+          },
+          {
+            "epcClass": "urn:epc:class:lgtin:6000001.recycled-copper.batch-2032-03",
+            "quantity": 25,
+            "uom": "GRM"
+          },
+          {
+            "epcClass": "urn:epc:class:lgtin:6000001.recycled-precious.batch-2032-03",
+            "quantity": 0.145,
+            "uom": "GRM"
+          },
+          {
+            "epcClass": "urn:epc:class:lgtin:6000001.recycled-plastics.batch-2032-03",
+            "quantity": 45,
+            "uom": "GRM"
+          }
+        ],
+        "bizStep": "urn:epcglobal:cbv:bizstep:destroying",
+        "disposition": "urn:epcglobal:cbv:disp:destroyed",
+        "readPoint": {
+          "id": "urn:epc:id:sgln:6000001.00003.recycling-line-1"
+        },
+        "bizLocation": {
+          "id": "urn:epc:id:sgln:6000001.00003.0"
+        },
+        "electronics:recyclingProcess": {
+          "@value": "WEEE Directive compliant treatment",
+          "@language": "en"
+        },
+        "electronics:weeeCategory": "WEEE6_SmallIT",
+        "electronics:recyclingFacility": {
+          "id": "https://id.gs1.org/414/6000001000034",
+          "type": "gs1:Organization",
+          "gs1:organizationName": {
+            "@value": "EcoRecycle GmbH - Berlin",
+            "@language": "en"
+          },
+          "gs1:globalLocationNumber": "6000001000034",
+          "gs1:certification": {
+            "type": "gs1:CertificationDetails",
+            "gs1:certificationAgency": "TUV Rheinland",
+            "gs1:certificationStandard": "EN 50625 WEEE Treatment",
+            "gs1:certificationValue": "WEEELABEX certified"
+          }
+        },
+        "electronics:materialRecoveryResults": {
+          "electronics:totalInputMassGrams": 185,
+          "electronics:totalRecoveredMassGrams": 170.5,
+          "electronics:recoveryRate": 0.92,
+          "electronics:recyclingRate": 0.88,
+          "electronics:energyRecoveryRate": 0.04
+        },
+        "electronics:batteryDisposition": {
+          "electronics:batteryChemistry": "LithiumIon",
+          "electronics:batteryMassGrams": 45,
+          "electronics:separatelyTreated": true,
+          "electronics:treatmentFacility": {
+            "id": "urn:epc:id:sgln:7000001.00001.0"
+          },
+          "electronics:treatmentMethod": "HydrometallurgicalRecycling"
+        },
+        "electronics:hazardousWasteGenerated": {
+          "electronics:wasteDescription": {
+            "@value": "15ml electrolyte waste - sent to hazardous waste treatment",
+            "@language": "en"
+          },
+          "electronics:treatmentCertificate": "HW-2032-DE-00456"
+        },
+        "electronics:carbonOffset": {
+          "electronics:avoidedEmissionsKgCO2e": 48.5,
+          "electronics:calculationMethod": {
+            "@value": "Avoided primary production emissions",
+            "@language": "en"
+          }
+        }
+      }
+    ]
+  }
+}

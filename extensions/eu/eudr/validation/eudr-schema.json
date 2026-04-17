@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ref.openepcis.io/extensions/eu/eudr/eudr-schema.json",
+  "title": "OpenEPCIS EUDR Vocabulary Schema",
+  "description": "JSON Schema for validating EU Deforestation Regulation (2023/1115) compliance data. Version 0.9.5.",
+  "$defs": {
+    "CommodityType": {
+      "type": "string",
+      "title": "Commodity Type",
+      "description": "The seven commodities regulated by EUDR (EU 2023/1115, Article 1.1).",
+      "enum": ["Cattle", "Cocoa", "Coffee", "OilPalm", "Rubber", "Soya", "Wood"]
+    },
+    "RiskLevel": {
+      "type": "string",
+      "title": "Risk Level",
+      "description": "Risk classification levels per EUDR benchmarking system (Article 29).",
+      "enum": ["Negligible", "Low", "Standard", "High"]
+    },
+    "TimberProductType": {
+      "type": "string",
+      "title": "Timber Product Type",
+      "description": "Types of timber/wood products regulated by EUDR Annex I.",
+      "enum": [
+        "RoundWood",
+        "SawnWood",
+        "Plywood",
+        "Veneer",
+        "WoodPellets",
+        "WoodChips",
+        "Pulp",
+        "Paper",
+        "Furniture",
+        "Charcoal",
+        "PrintedMatter"
+      ]
+    },
+    "ActorRole": {
+      "type": "string",
+      "title": "Actor Role",
+      "description": "Role of an actor in the EUDR supply chain per Article 2.",
+      "enum": ["Producer", "Operator", "Trader"]
+    },
+    "OriginDeclaration": {
+      "type": "object",
+      "title": "Origin Declaration",
+      "description": "EUDR origin declaration data for EPCIS events.",
+      "properties": {
+        "commodityType": {
+          "$ref": "#/$defs/CommodityType"
+        },
+        "harvestDate": {
+          "type": "string",
+          "format": "date",
+          "description": "The harvest date (use when single date). Mutually exclusive with harvestDateStart/End."
+        },
+        "harvestDateStart": {
+          "type": "string",
+          "format": "date",
+          "description": "Start of harvest period."
+        },
+        "harvestDateEnd": {
+          "type": "string",
+          "format": "date",
+          "description": "End of harvest period."
+        },
+        "eoriNumber": {
+          "type": "string",
+          "description": "Economic Operators Registration and Identification number."
+        },
+        "partyGLN": {
+          "type": "string",
+          "pattern": "^[0-9]{13}$",
+          "description": "13-digit GLN identifying the legal entity of the declaring party."
+        },
+        "customsCommodityCode": {
+          "type": "string",
+          "description": "Customs commodity code. Use customsCommodityCodeType to indicate the classification system (HS, CN, HTSUS)."
+        },
+        "customsCommodityCodeType": {
+          "type": "string",
+          "enum": ["HS6", "HS8", "CN8", "CN10", "HTSUS10"]
+        },
+        "countryList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CountryEntry"
+          }
+        },
+        "originList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/OriginDetails"
+          }
+        },
+        "riskLevel": {
+          "$ref": "#/$defs/RiskLevel"
+        },
+        "deforestationFreeDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date confirming deforestation-free status. Must be after 31 Dec 2020 cutoff."
+        },
+        "legallyHarvested": {
+          "type": "boolean",
+          "description": "Confirmation that commodity was legally harvested per country of production laws."
+        }
+      }
+    },
+    "CountryEntry": {
+      "type": "object",
+      "title": "Country Entry",
+      "properties": {
+        "countryCode": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$",
+          "description": "ISO 3166-1 Alpha-2 country code."
+        }
+      },
+      "required": ["countryCode"]
+    },
+    "OriginDetails": {
+      "type": "object",
+      "title": "Origin Details",
+      "description": "Container for geolocation and producer identification.",
+      "properties": {
+        "geolocation": {
+          "type": "string",
+          "format": "uri",
+          "description": "Geographic coordinates as Geo URI (RFC 5870). Use for plots <= 4 hectares."
+        },
+        "geofence": {
+          "type": "string",
+          "description": "Area polygon as array of longitude-latitude coordinates per CBV 2.0, 9.3.1. Use for plots > 4 hectares."
+        },
+        "areaSize": {
+          "$ref": "#/$defs/AreaSize"
+        },
+        "producerIdentification": {
+          "$ref": "#/$defs/ProducerIdentification"
+        }
+      }
+    },
+    "AreaSize": {
+      "type": "object",
+      "title": "Area Size",
+      "properties": {
+        "value": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "unitCode": {
+          "type": "string",
+          "description": "UN/CEFACT Rec. 20 unit code (e.g., HAR for hectares)."
+        }
+      },
+      "required": ["value", "unitCode"]
+    },
+    "ProducerIdentification": {
+      "type": "object",
+      "title": "Producer Identification",
+      "properties": {
+        "partyGLN": {
+          "type": "string",
+          "pattern": "^[0-9]{13}$"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "TimberProduct": {
+      "type": "object",
+      "title": "Timber Product",
+      "description": "Additional properties for timber/wood products.",
+      "allOf": [
+        { "$ref": "#/$defs/OriginDeclaration" }
+      ],
+      "properties": {
+        "timberProductType": {
+          "$ref": "#/$defs/TimberProductType"
+        },
+        "speciesScientificName": {
+          "type": "string",
+          "description": "Scientific (Latin) name of the species. Required per EUDR Article 9.1.c."
+        },
+        "speciesCommonName": {
+          "type": "string"
+        },
+        "forestManagementUnit": {
+          "type": "string",
+          "description": "Identifier of forest management unit or concession."
+        },
+        "landUseHistory": {
+          "type": "string",
+          "description": "Description of land use history supporting deforestation-free claims."
+        },
+        "transformationDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date when commodity was processed/transformed."
+        }
+      }
+    }
+  }
+}

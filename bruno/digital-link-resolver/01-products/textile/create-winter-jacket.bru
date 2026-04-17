@@ -1,0 +1,120 @@
+meta {
+  name: Create Winter Jacket
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{dl-url}}/products
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/ld+json
+  isAnonymousAccessAllowed: true
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/voc/",
+      "{{textile-context}}",
+      "{{dpp-context}}"
+    ],
+    "@type": "textile:TextileProduct",
+    "gtin": "{{jacketGtin}}",
+    "productName": {
+      "en": "EcoWear Thermal Winter Jacket",
+      "de": "EcoWear Thermo-Winterjacke"
+    },
+    "brand": {
+      "brandName": {
+        "en": "EcoWear"
+      }
+    },
+    "textile:textileCategory": "textile:Apparel",
+    "textile:garmentType": "Winter Jacket",
+    "textile:sizeCode": "M",
+    "textile:colorDescription": {
+      "en": "Navy Blue"
+    },
+    "textile:fiberComposition": [
+      {
+        "@type": "textile:FiberComposition",
+        "textile:fiberType": "textile:RecycledPolyester",
+        "textile:fiberPercentage": 65,
+        "textile:isRecycledFiber": true,
+        "textile:fiberOrigin": "DE",
+        "textile:recycledContentSource": "post-consumer PET bottles"
+      },
+      {
+        "@type": "textile:FiberComposition",
+        "textile:fiberType": "textile:OrganicCotton",
+        "textile:fiberPercentage": 30,
+        "textile:fiberOrigin": "TR"
+      },
+      {
+        "@type": "textile:FiberComposition",
+        "textile:fiberType": "textile:Elastane",
+        "textile:fiberPercentage": 5,
+        "textile:fiberOrigin": "IT"
+      }
+    ],
+    "textile:durabilityInfo": {
+      "@type": "textile:DurabilityInfo",
+      "textile:durabilityClass": "textile:DurabilityA",
+      "textile:martindaleCycles": 40000,
+      "textile:pillResistance": 4
+    },
+    "textile:careInstructions": {
+      "@type": "textile:CareInstructions",
+      "textile:washingTemperature": 30,
+      "textile:bleachingAllowed": false,
+      "textile:ironingTemperature": "low",
+      "textile:dryCleaningAllowed": true,
+      "textile:tumbleDryAllowed": false
+    },
+    "textile:repairGuideUrl": "https://ecowear.example.com/repair/winter-jacket",
+    "textile:takeBackProgram": {
+      "@type": "textile:TakeBackProgram",
+      "textile:programName": "EcoWear Circular",
+      "textile:programUrl": "https://ecowear.example.com/takeback",
+      "textile:acceptedConditions": ["worn", "damaged", "end-of-life"]
+    },
+    "dpp:operatorInformation": {
+      "@type": "dpp:OperatorInformation",
+      "gs1:gln": "{{manufacturerGln}}",
+      "gs1:organizationName": "EcoWear GmbH",
+      "gs1:streetAddress": "Nachhaltigkeitsstraße 42",
+      "gs1:postalCode": "10115",
+      "gs1:addressLocality": "Berlin",
+      "gs1:countryCode": "DE"
+    },
+    "certification": [
+      {
+        "@type": "CertificationDetails",
+        "certificationAgency": "Global Organic Textile Standard",
+        "certificationStandard": "GOTS 6.0",
+        "certificationValue": "Organic"
+      },
+      {
+        "@type": "CertificationDetails",
+        "certificationAgency": "Global Recycled Standard",
+        "certificationStandard": "GRS 4.0",
+        "certificationValue": "Certified"
+      }
+    ]
+  }
+}
+
+tests {
+  test("Product created successfully", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+  });
+
+  test("Response contains GTIN", function() {
+    const body = res.getBody();
+    expect(body.gtin || body["gs1:gtin"]).to.exist;
+  });
+}

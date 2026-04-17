@@ -1,0 +1,74 @@
+meta {
+  name: End of Life - Recycling
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{url}}/capture
+  body: json
+  auth: inherit
+}
+
+script:pre-request {
+  bru.setVar("recyclerGln", "9521234026845");
+  bru.setVar("recyclerReadPoint", `https://id.gs1.org/414/${bru.getVar("recyclerGln")}`);
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+      "{{dpp-context}}",
+      "{{textile-context}}"
+    ],
+    "type": "EPCISDocument",
+    "schemaVersion": "2.0",
+    "creationDate": "{{eventTime}}",
+    "epcisBody": {
+      "eventList": [
+        {
+          "type": "ObjectEvent",
+          "action": "DELETE",
+          "bizStep": "destroying",
+          "disposition": "destroyed",
+          "epcList": ["{{epc}}"],
+          "eventTime": "{{eventTime}}",
+          "eventTimeZoneOffset": "+01:00",
+          "readPoint": {
+            "id": "{{recyclerReadPoint}}"
+          },
+          "dpp:operatorInformation": {
+            "@type": "dpp:OperatorInformation",
+            "gs1:gln": "{{recyclerGln}}",
+            "gs1:organizationName": "CircularTextile GmbH"
+          },
+          "textile:endOfLifeInfo": {
+            "@type": "textile:EndOfLifeInfo",
+            "textile:disposalMethod": "fiber-to-fiber recycling",
+            "textile:recoveryRate": 85,
+            "textile:recoveredMaterials": [
+              {
+                "textile:material": "polyester fibers",
+                "textile:recoveredWeight": 0.45,
+                "textile:weightUnit": "kg"
+              },
+              {
+                "textile:material": "cotton fibers",
+                "textile:recoveredWeight": 0.20,
+                "textile:weightUnit": "kg"
+              }
+            ],
+            "textile:certificateOfDisposal": "https://circulartextile.example.com/certificates/COD-2025-00142"
+          }
+        }
+      ]
+    }
+  }
+}
+
+tests {
+  test("Capture successful", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+  });
+}

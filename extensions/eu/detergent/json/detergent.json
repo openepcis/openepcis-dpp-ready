@@ -1,0 +1,760 @@
+{
+  "namespace": "https://ref.openepcis.io/extensions/eu/detergent/",
+  "version": "0.9.5",
+  "title": "OpenEPCIS Detergent Vocabulary",
+  "description": "Detergent-specific vocabulary for EU Regulation 2026/405 on Detergents and Surfactants compliance.\n\nIMPORTANT: The detergent extension properties defined here are NOT YET STANDARDISED by GS1.\nThese are OpenEPCIS extensions for detergent DPP data that have no equivalent in GS1 standards.\n\nEPCIS 2.0 Extension:\nThis vocabulary is a first-class EPCIS 2.0 extension per Section 12.3. Declare it using:\n  GS1-Extensions: detergent=https://ref.openepcis.io/extensions/eu/detergent/\n\nEU Regulation 2026/405 replaces the legacy Detergents Regulation 648/2004 and mandates\nDigital Product Passports for detergents. Entry into force: March 2026, full application:\nSeptember 2029. Detergents are a priority product category under ESPR 2024/1781.\n\nThe DPP is model-based: same manufacturer + identical formulation = one DPP (not per batch).\n\nThis vocabulary provides:\n- Domain-specific enumerations (DetergentCategory, ProductForm, SurfactantType, etc.)\n- Extension properties for detergent-specific formulation and biodegradability data\n- INCI ingredient nomenclature support\n- CLP hazard classification properties\n- Surfactant biodegradability test results per Annex III\n- Microorganism disclosure per Article 19\n\nFor master data, use standard GS1 Web Vocabulary:\n- gs1:Product for products\n- gs1:Organization for supply chain actors\n- gs1:QuantitativeValue for measurements\n\nFor shared DPP patterns, reuse from core:\n- dpp:HazardousSubstance for CLP-classified substances\n- dpp:OperatorInformation for economic operator data\n- dpp:DocumentReference for safety data sheets and reports\n\nReferences:\n- EU Regulation 2026/405: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405\n- ESPR 2024/1781: https://eur-lex.europa.eu/eli/reg/2024/1781\n- Legacy Regulation 648/2004: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0648",
+  "classes": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct",
+      "localName": "DetergentProduct",
+      "label": "Detergent Product",
+      "comment": "A detergent or surfactant product subject to EU 2026/405. Use as @type alongside gs1:Product. The DPP is model-based: same manufacturer + identical formulation = one DPP.",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/FragranceAllergen",
+      "localName": "FragranceAllergen",
+      "label": "Fragrance Allergen",
+      "comment": "A fragrance allergen that must be disclosed when present above the concentration threshold, identified by name and CAS number.",
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/Ingredient",
+      "localName": "Ingredient",
+      "label": "Ingredient",
+      "comment": "A single ingredient entry in a detergent formulation, identified by INCI name with functional role and weight percentage range.",
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/MicroorganismInfo",
+      "localName": "MicroorganismInfo",
+      "label": "Microorganism Information",
+      "comment": "Information about microorganisms intentionally added to the detergent product per Article 19. Requires species identification and strain designation.",
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability",
+      "localName": "SurfactantBiodegradability",
+      "label": "Surfactant Biodegradability",
+      "comment": "Ultimate aerobic biodegradability test result for a surfactant per EU 2026/405 Annex III. Each surfactant type in the formulation requires a separate test result.",
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
+    }
+  ],
+  "properties": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/allergenCasNumber",
+      "localName": "allergenCasNumber",
+      "label": "Allergen CAS Number",
+      "comment": "CAS registry number of the fragrance allergen.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/FragranceAllergen"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/allergenConcentration",
+      "localName": "allergenConcentration",
+      "label": "Allergen Concentration",
+      "comment": "Concentration of the allergen as weight percentage.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/FragranceAllergen"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/allergenName",
+      "localName": "allergenName",
+      "label": "Allergen Name",
+      "comment": "Name of the fragrance allergen.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/FragranceAllergen"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/biodegradabilityTestReport",
+      "localName": "biodegradabilityTestReport",
+      "label": "Biodegradability Test Report",
+      "comment": "Reference to the full biodegradability test report. Reuses dpp:DocumentReference.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/biodegradationPercentage",
+      "localName": "biodegradationPercentage",
+      "label": "Biodegradation Percentage",
+      "comment": "Measured ultimate aerobic biodegradation as percentage (>=60% required to pass).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/detergentCategory",
+      "localName": "detergentCategory",
+      "label": "Detergent Category",
+      "comment": "The product category of the detergent per Article 2.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentCategory"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/dosageInstructions",
+      "localName": "dosageInstructions",
+      "label": "Dosage Instructions",
+      "comment": "Human-readable dosage instructions including water hardness guidance.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/endProductCharacteristics",
+      "localName": "endProductCharacteristics",
+      "label": "End Product Characteristics",
+      "comment": "Description of the end product characteristics of the microorganism (enzymes produced, metabolites, etc.).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/MicroorganismInfo"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/filmBiodegradabilityPercentage",
+      "localName": "filmBiodegradabilityPercentage",
+      "label": "Film Biodegradability Percentage",
+      "comment": "Measured biodegradability of the water-soluble film as a percentage.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/filmBiodegradable",
+      "localName": "filmBiodegradable",
+      "label": "Film Biodegradable",
+      "comment": "Whether the water-soluble film (for capsules/pods) meets biodegradability requirements.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "xsd:boolean"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/fragranceAllergens",
+      "localName": "fragranceAllergens",
+      "label": "Fragrance Allergens",
+      "comment": "Fragrance allergens present above the disclosure threshold.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/FragranceAllergen"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/hazardousSubstances",
+      "localName": "hazardousSubstances",
+      "label": "Hazardous Substances",
+      "comment": "CLP-classified hazardous substances in the product. Reuses dpp:HazardousSubstance.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/hazardPictograms",
+      "localName": "hazardPictograms",
+      "label": "Hazard Pictograms",
+      "comment": "GHS hazard pictogram codes (GHS01-GHS09) per CLP Regulation 1272/2008.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/hStatements",
+      "localName": "hStatements",
+      "label": "H Statements",
+      "comment": "CLP hazard statements (e.g., H302, H315, H318).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/inciName",
+      "localName": "inciName",
+      "label": "INCI Name",
+      "comment": "International Nomenclature of Cosmetic Ingredients (INCI) name of the ingredient.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/Ingredient"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/ingredientFunction",
+      "localName": "ingredientFunction",
+      "label": "Ingredient Function",
+      "comment": "Functional role of the ingredient in the formulation.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/Ingredient"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/IngredientFunction"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/ingredientList",
+      "localName": "ingredientList",
+      "label": "Ingredient List",
+      "comment": "List of ingredients in the detergent formulation, using INCI nomenclature.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/Ingredient"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/intendedUse",
+      "localName": "intendedUse",
+      "label": "Intended Use",
+      "comment": "Description of the product's intended use or application.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/isSurfactant",
+      "localName": "isSurfactant",
+      "label": "Is Surfactant",
+      "comment": "Whether this ingredient is a surfactant (relevant for biodegradability testing requirements).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/Ingredient"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/microorganisms",
+      "localName": "microorganisms",
+      "label": "Microorganisms",
+      "comment": "Microorganisms intentionally added to the product per Article 19.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/MicroorganismInfo"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/passesUltimateBiodegradability",
+      "localName": "passesUltimateBiodegradability",
+      "label": "Passes Ultimate Biodegradability",
+      "comment": "Whether the surfactant passes the ultimate aerobic biodegradability test (>=60% within 28 days).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/phosphateCompliant",
+      "localName": "phosphateCompliant",
+      "label": "Phosphate Compliant",
+      "comment": "Whether the product complies with phosphorus/phosphate limits set by the regulation.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/phosphorusContentPercent",
+      "localName": "phosphorusContentPercent",
+      "label": "Phosphorus Content Percent",
+      "comment": "Total elemental phosphorus content as weight percentage.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/productForm",
+      "localName": "productForm",
+      "label": "Product Form",
+      "comment": "The physical form of the detergent product (liquid, powder, capsule, etc.).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/ProductForm"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/pStatements",
+      "localName": "pStatements",
+      "label": "P Statements",
+      "comment": "CLP precautionary statements (e.g., P101, P102, P280).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/recommendedDosage",
+      "localName": "recommendedDosage",
+      "label": "Recommended Dosage",
+      "comment": "Recommended dosage per use (e.g., 35 ml for medium water hardness). Uses gs1:QuantitativeValue.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/safetyDataSheet",
+      "localName": "safetyDataSheet",
+      "label": "Safety Data Sheet",
+      "comment": "Reference to the product's Safety Data Sheet (SDS). Reuses dpp:DocumentReference.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/signalWord",
+      "localName": "signalWord",
+      "label": "Signal Word",
+      "comment": "CLP signal word (Danger or Warning) per Regulation 1272/2008.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/SignalWord"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/speciesName",
+      "localName": "speciesName",
+      "label": "Species Name",
+      "comment": "Scientific name of the microorganism species.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/MicroorganismInfo"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/strainDesignation",
+      "localName": "strainDesignation",
+      "label": "Strain Designation",
+      "comment": "Specific strain designation or collection number.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/MicroorganismInfo"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/surfactantBiodegradability",
+      "localName": "surfactantBiodegradability",
+      "label": "Surfactant Biodegradability",
+      "comment": "Biodegradability test results for surfactants in the formulation per Annex III.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/surfactantType",
+      "localName": "surfactantType",
+      "label": "Surfactant Type",
+      "comment": "Classification of the surfactant by ionic charge.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/SurfactantType"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/testDurationDays",
+      "localName": "testDurationDays",
+      "label": "Test Duration Days",
+      "comment": "Duration of the biodegradability test in days (typically 28 days).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/testMethod",
+      "localName": "testMethod",
+      "label": "Test Method",
+      "comment": "Standard test method used for the biodegradability assessment.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/BiodegradabilityTestMethod"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/weightPercentRange",
+      "localName": "weightPercentRange",
+      "label": "Weight Percent Range",
+      "comment": "Weight percentage range using prescribed brackets (e.g., '<5%', '5-15%', '15-30%', '>=30%') per labelling requirements.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/Ingredient"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    }
+  ],
+  "enumerations": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/BiodegradabilityTestMethod",
+      "localName": "BiodegradabilityTestMethod",
+      "label": "Biodegradability Test Method",
+      "comment": "Standard test methods for ultimate aerobic biodegradability per EU 2026/405 Annex III.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/ISO14593",
+          "localName": "ISO14593",
+          "label": "ISO 14593",
+          "comment": "CO2 headspace test (ISO 14593) for ultimate aerobic biodegradability."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/OECD301B",
+          "localName": "OECD301B",
+          "label": "OECD 301B",
+          "comment": "CO2 evolution test (modified Sturm test) for ready biodegradability."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/OECD301D",
+          "localName": "OECD301D",
+          "label": "OECD 301D",
+          "comment": "Closed bottle test for ready biodegradability."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/OECD301F",
+          "localName": "OECD301F",
+          "label": "OECD 301F",
+          "comment": "Manometric respirometry test for ready biodegradability."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/OECD310",
+          "localName": "OECD310",
+          "label": "OECD 310",
+          "comment": "CO2 in sealed vessels test for ready biodegradability."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/DetergentCategory",
+      "localName": "DetergentCategory",
+      "label": "Detergent Category",
+      "comment": "Product categories for detergents and surfactants per EU 2026/405 Article 2.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/AllPurposeCleaner",
+          "localName": "AllPurposeCleaner",
+          "label": "All-Purpose Cleaner",
+          "comment": "General surface cleaning product for household or commercial use."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/DishwasherDetergent",
+          "localName": "DishwasherDetergent",
+          "label": "Dishwasher Detergent",
+          "comment": "Detergent intended for automatic dishwashing machines."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/HandDishwashingDetergent",
+          "localName": "HandDishwashingDetergent",
+          "label": "Hand Dishwashing Detergent",
+          "comment": "Detergent intended for washing dishes by hand."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/IndustrialDetergent",
+          "localName": "IndustrialDetergent",
+          "label": "Industrial Detergent",
+          "comment": "Detergent intended for industrial cleaning applications."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/InstitutionalDetergent",
+          "localName": "InstitutionalDetergent",
+          "label": "Institutional Detergent",
+          "comment": "Detergent intended for institutional cleaning (hospitals, schools, etc.)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/LaundryDetergent",
+          "localName": "LaundryDetergent",
+          "label": "Laundry Detergent",
+          "comment": "Detergent intended for washing textiles in household or commercial laundry machines."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Surfactant",
+          "localName": "Surfactant",
+          "label": "Surfactant",
+          "comment": "Surface-active agent sold as a standalone product or raw material."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/IngredientFunction",
+      "localName": "IngredientFunction",
+      "label": "Ingredient Function",
+      "comment": "Functional roles of ingredients in detergent formulations.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/AntiRedeposition",
+          "localName": "AntiRedeposition",
+          "label": "Anti-Redeposition",
+          "comment": "Agent preventing removed soil from redepositing on surfaces."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Bleach",
+          "localName": "Bleach",
+          "label": "Bleach",
+          "comment": "Oxidising agent for stain removal (e.g., sodium percarbonate)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Builder",
+          "localName": "Builder",
+          "label": "Builder",
+          "comment": "Water softener that enhances surfactant performance (e.g., zeolites, citrates)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Colorant",
+          "localName": "Colorant",
+          "label": "Colorant",
+          "comment": "Dye or pigment for product appearance."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Enzyme",
+          "localName": "Enzyme",
+          "label": "Enzyme",
+          "comment": "Biological catalyst for breaking down specific stain types (protease, amylase, lipase, etc.)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Filler",
+          "localName": "Filler",
+          "label": "Filler",
+          "comment": "Inert bulk material (e.g., sodium sulphate in powder detergents)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/FoamRegulator",
+          "localName": "FoamRegulator",
+          "label": "Foam Regulator",
+          "comment": "Agent that controls foam generation (booster or suppressor)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Fragrance",
+          "localName": "Fragrance",
+          "label": "Fragrance",
+          "comment": "Scenting agent (parfum)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/pHAdjuster",
+          "localName": "pHAdjuster",
+          "label": "pH Adjuster",
+          "comment": "Acid or base used to control product pH."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Preservative",
+          "localName": "Preservative",
+          "label": "Preservative",
+          "comment": "Antimicrobial agent preventing product degradation."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Solvent",
+          "localName": "Solvent",
+          "label": "Solvent",
+          "comment": "Carrier liquid (typically water or alcohol-based)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/SurfactantFunction",
+          "localName": "SurfactantFunction",
+          "label": "Surfactant",
+          "comment": "Surface-active agent providing primary cleaning action."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Thickener",
+          "localName": "Thickener",
+          "label": "Thickener",
+          "comment": "Viscosity modifier for product consistency."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/ProductForm",
+      "localName": "ProductForm",
+      "label": "Product Form",
+      "comment": "Physical form of the detergent product.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Capsule",
+          "localName": "Capsule",
+          "label": "Capsule",
+          "comment": "Water-soluble film capsule (pod) containing liquid or powder detergent."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Gel",
+          "localName": "Gel",
+          "label": "Gel",
+          "comment": "Gel formulation."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Liquid",
+          "localName": "Liquid",
+          "label": "Liquid",
+          "comment": "Liquid formulation."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Paste",
+          "localName": "Paste",
+          "label": "Paste",
+          "comment": "Paste formulation."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Powder",
+          "localName": "Powder",
+          "label": "Powder",
+          "comment": "Powder formulation."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Sheet",
+          "localName": "Sheet",
+          "label": "Sheet",
+          "comment": "Dissolvable sheet formulation."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Spray",
+          "localName": "Spray",
+          "label": "Spray",
+          "comment": "Spray formulation."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Tablet",
+          "localName": "Tablet",
+          "label": "Tablet",
+          "comment": "Compressed tablet formulation."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/SignalWord",
+      "localName": "SignalWord",
+      "label": "Signal Word",
+      "comment": "CLP signal words per EU Regulation 1272/2008 Article 20.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Danger",
+          "localName": "Danger",
+          "label": "Danger",
+          "comment": "Signal word for more severe hazard categories."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Warning",
+          "localName": "Warning",
+          "label": "Warning",
+          "comment": "Signal word for less severe hazard categories."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/SurfactantType",
+      "localName": "SurfactantType",
+      "label": "Surfactant Type",
+      "comment": "Classification of surfactants by ionic charge per EU 2026/405 Annex III.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Amphoteric",
+          "localName": "Amphoteric",
+          "label": "Amphoteric",
+          "comment": "Surfactant that can carry positive or negative charge depending on pH (e.g., betaines)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Anionic",
+          "localName": "Anionic",
+          "label": "Anionic",
+          "comment": "Surfactant with a negatively charged hydrophilic group (e.g., LAS, SLS)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/Cationic",
+          "localName": "Cationic",
+          "label": "Cationic",
+          "comment": "Surfactant with a positively charged hydrophilic group (e.g., quaternary ammonium)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/detergent/NonIonic",
+          "localName": "NonIonic",
+          "label": "Non-Ionic",
+          "comment": "Surfactant with no ionic charge (e.g., alcohol ethoxylates)."
+        }
+      ]
+    }
+  ]
+}

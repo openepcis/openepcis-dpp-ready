@@ -1,0 +1,15 @@
+meta {
+  name: EPCIS Capture Events
+  seq: 2
+}
+
+headers {
+  GS1-Extensions: {{gs1-extensions}}
+  GS1-Capture-Error-Behaviour: rollback
+  Content-Type: application/json
+}
+
+script:pre-request {
+  // Shared variables for all EPCIS events
+  bru.setVar("eventTime", new Date().toISOString());
+}

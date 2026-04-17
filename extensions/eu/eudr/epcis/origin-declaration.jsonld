@@ -1,0 +1,149 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/context",
+    "https://ref.openepcis.io/extensions/eu/eudr/context"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-01-20T12:00:00.000Z",
+  "_comment_architecture": [
+    "Origin Declaration per GS1 Germany EUDR Guideline V1.11.",
+    "Uses bizStep 'notifying' and persistentDisposition 'subject_to_regulation'.",
+    "masterDataAvailableFor contains ONLY gs1: properties (per V1.11 Section 4.2).",
+    "Extension properties (eudr:, dpp:) are at EVENT level.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,eudr=https://ref.openepcis.io/extensions/eu/eudr/",
+    "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:550e8400-e29b-41d4-a716-446655440025",
+        "eventTime": "2025-01-20T10:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "OBSERVE",
+        "bizStep": "notifying",
+        "persistentDisposition": {
+          "set": [
+            "subject_to_regulation"
+          ]
+        },
+        "quantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/09521234000020/10/BATCH-2025-01",
+            "quantity": 850,
+            "uom": "KGM"
+          }
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000006"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000006"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000020/10/BATCH-2025-01",
+            "productName": {
+              "en": "European Oak Round Wood - Grade A (Batch)"
+            },
+            "countryOfOrigin": {
+              "countryCode": "DE"
+            },
+            "harvestDateStart": "2025-01-10",
+            "harvestDateEnd": "2025-01-15",
+            "netWeight": {
+              "value": 850,
+              "unitCode": "KGM"
+            },
+            "regulatoryInformation": [
+              {
+                "regulationType": "DEFORESTATION_REGULATION",
+                "regulatoryAct": "EU 2023/1115",
+                "isRegulationCompliant": true,
+                "regulatoryIdentifier": [
+                  {
+                    "regulatoryReferenceNumber": "EUIS-2025-DE-00012345",
+                    "regulatoryVerificationNumber": "VN-2025-DE-00012345",
+                    "regulatoryIdentifierType": "DUE_DILIGENCE_STATEMENT",
+                    "regulatoryInformationProvider": "https://id.gs1.org/417/9521234000006",
+                    "regulatoryReferenceApplicabilityStartDate": "2025-01-20",
+                    "regulatoryReferenceApplicabilityEndDate": "2026-01-20"
+                  }
+                ]
+              }
+            ],
+            "eudr:commodityType": "Wood",
+            "eudr:timberProductType": "RoundWood",
+            "eudr:speciesScientificName": "Quercus robur",
+            "eudr:speciesCommonName": "European Oak"
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000099",
+            "physicalLocationName": {
+              "en": "Sustainable Oak Forest - Plot 47"
+            },
+            "geo": {
+              "polygon": "13.40,52.51 13.41,52.51 13.41,52.52 13.40,52.52 13.40,52.51"
+            },
+            "countryCode": "DE",
+            "eudr:forestManagementUnit": "FMU-DE-2024-00123",
+            "eudr:areaHectares": 2.5
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000006",
+            "physicalLocationName": {
+              "en": "Waldwirtschaft Schmidt - Head Office"
+            },
+            "countryCode": "DE"
+          },
+          {
+            "id": "https://id.gs1.org/417/9521234000006",
+            "organizationName": {
+              "en": "Waldwirtschaft Schmidt GmbH"
+            },
+            "partyGLN": "9521234000006",
+            "countryCode": "DE",
+            "additionalOrganizationID": {
+              "organizationID": "DE123456789012345",
+              "organizationID_Type": "EORI"
+            }
+          },
+          {
+            "id": "https://id.gs1.org/417/9521234000105",
+            "organizationName": {
+              "en": "Möbelwerkstatt Weber GmbH"
+            },
+            "partyGLN": "9521234000105",
+            "countryCode": "DE"
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "source": "https://id.gs1.org/417/9521234000006"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "destination": "https://id.gs1.org/417/9521234000105"
+          }
+        ],
+        "bizTransactionList": [
+          {
+            "type": "urn:epcglobal:cbv:btt:desadv",
+            "bizTransaction": "urn:epcglobal:cbv:bt:9521234000006:DESADV-2025-001"
+          },
+          {
+            "type": "urn:epcglobal:cbv:btt:po",
+            "bizTransaction": "urn:epcglobal:cbv:bt:9521234000006:PO-2025-001"
+          }
+        ]
+      }
+    ]
+  }
+}

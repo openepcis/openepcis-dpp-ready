@@ -1,0 +1,151 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/eudr/context"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-02-15T18:00:00.000Z",
+  "_comment_architecture": [
+    "Timber transformation event: two oak logs assembled into one dining table.",
+    "eventTime IS the transformation date — no separate eudr:transformationDate is needed.",
+    "masterDataAvailableFor carries GS1 product master data for inputs and output,",
+    "plus product-level eudr: attributes (commodityType / timberProductType /",
+    "speciesScientificName / CommonName) on each product entry — those describe the GTIN.",
+    "No ilmd: we have no lot-specific data to assert for this example.",
+    "",
+    "HTTP header: GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/",
+    "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "TransformationEvent",
+        "eventID": "urn:uuid:550e8400-e29b-41d4-a716-446655440030",
+        "eventTime": "2025-02-15T14:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "bizStep": "commissioning",
+        "disposition": "active",
+        "inputEPCList": [
+          "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
+          "https://id.gs1.org/01/09521234000020/21/LOG-2025-002"
+        ],
+        "outputEPCList": [
+          "https://id.gs1.org/01/09521234000037/21/TABLE-2025-001"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000105"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000105"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
+            "productName": {
+              "en": "European Oak Round Wood - Grade A"
+            },
+            "countryOfOrigin": {
+              "countryCode": "DE"
+            },
+            "regulatoryInformation": [
+              {
+                "regulationType": "DEFORESTATION_REGULATION",
+                "regulatoryAct": "EU 2023/1115"
+              }
+            ],
+            "eudr:commodityType": "Wood",
+            "eudr:timberProductType": "RoundWood",
+            "eudr:speciesScientificName": "Quercus robur",
+            "eudr:speciesCommonName": "European Oak"
+          },
+          {
+            "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-002",
+            "productName": {
+              "en": "European Oak Round Wood - Grade A"
+            },
+            "countryOfOrigin": {
+              "countryCode": "DE"
+            },
+            "regulatoryInformation": [
+              {
+                "regulationType": "DEFORESTATION_REGULATION",
+                "regulatoryAct": "EU 2023/1115"
+              }
+            ],
+            "eudr:commodityType": "Wood",
+            "eudr:timberProductType": "RoundWood",
+            "eudr:speciesScientificName": "Quercus robur",
+            "eudr:speciesCommonName": "European Oak"
+          },
+          {
+            "id": "https://id.gs1.org/01/09521234000037/21/TABLE-2025-001",
+            "productName": {
+              "en": "Handcrafted Oak Dining Table"
+            },
+            "countryOfOrigin": {
+              "countryCode": "DE"
+            },
+            "regulatoryInformation": [
+              {
+                "regulationType": "DEFORESTATION_REGULATION",
+                "regulatoryAct": "EU 2023/1115"
+              }
+            ],
+            "eudr:commodityType": "Wood",
+            "eudr:timberProductType": "Furniture",
+            "eudr:speciesScientificName": "Quercus robur",
+            "eudr:speciesCommonName": "European Oak"
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000105",
+            "physicalLocationName": {
+              "en": "Möbelwerkstatt Weber - Furniture Workshop"
+            },
+            "address": {
+              "streetAddress": {
+                "en": "Holzweg 15"
+              },
+              "addressLocality": {
+                "en": "Munich"
+              },
+              "postalCode": "80331",
+              "addressCountry": {
+                "countryCode": "DE"
+              }
+            }
+          },
+          {
+            "id": "https://id.gs1.org/417/9521234000105",
+            "organizationName": {
+              "en": "Möbelwerkstatt Weber GmbH"
+            },
+            "partyGLN": "9521234000105",
+            "countryCode": "DE",
+            "certification": [
+              {
+                "certificationAgency": {
+                  "en": "Forest Stewardship Council"
+                },
+                "certificationURI": "https://fsc.org/en/certificate/FSC-C789012"
+              }
+            ]
+          }
+        ],
+        "bizTransactionList": [
+          {
+            "type": "urn:epcglobal:cbv:btt:prodorder",
+            "bizTransaction": "https://example.com/orders/furniture-2025-001"
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "source": "https://id.gs1.org/417/9521234000105"
+          }
+        ]
+      }
+    ]
+  }
+}

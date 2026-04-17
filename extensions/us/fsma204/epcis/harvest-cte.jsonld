@@ -1,0 +1,86 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-04-17T11:26:42-04:00",
+  "_comment_gs1us_mapping": [
+    "Harvest CTE per GS1 US 'EPCIS Recommendations for FSMA 204 CTEs' R2.0, §2.",
+    "Event 1 = harvesting itself: ObjectEvent, action=ADD, bizStep=creating_class_instance, disposition=active.",
+    "  readPoint = Location GLN of the farm where the food was harvested (KDE).",
+    "  bizLocation = Location GLN of the field / growing area / aquaculture container (KDE).",
+    "  quantityList.epcClass = GS1 Digital Link of GTIN+Batch/Lot (commodity + variety KDE).",
+    "  quantityList.quantity + uom = quantity and unit of measure KDE.",
+    "  eventTime = date of harvesting KDE.",
+    "  bizTransactionList = reference document type + number KDEs.",
+    "Event 2 = transport to the immediate subsequent recipient:",
+    "  ObjectEvent, action=OBSERVE, bizStep=transporting, disposition=in_transit.",
+    "  sourceList type=owning_party = harvester business identity KDE (phone etc. ride in master data of the GLN).",
+    "  destinationList type=location = immediate subsequent recipient location KDE.",
+    "NO fsma: extension fields ride inside the event — everything maps onto native EPCIS/GS1 fields."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2026-04-17T09:26:42-04:00",
+        "recordTime": "2026-04-17T09:26:42-04:00",
+        "eventTimeZoneOffset": "-04:00",
+        "action": "ADD",
+        "bizStep": "creating_class_instance",
+        "disposition": "active",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009999060"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/0860009999060"
+        },
+        "bizTransactionList": [
+          {
+            "type": "prodorder",
+            "bizTransaction": "urn:epcglobal:cbv:bt:0860009999060:HARVEST-2026-0417"
+          }
+        ],
+        "quantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/00860009999923/10/ABC1234",
+            "quantity": 25000,
+            "uom": "LBR"
+          }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2026-04-17T11:26:42-04:00",
+        "recordTime": "2026-04-17T11:26:42-04:00",
+        "eventTimeZoneOffset": "-04:00",
+        "action": "OBSERVE",
+        "bizStep": "transporting",
+        "disposition": "in_transit",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/0860009999060"
+        },
+        "quantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/00860009999923/10/ABC1234",
+            "quantity": 25000,
+            "uom": "LBR"
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "owning_party",
+            "source": "https://id.gs1.org/417/0860009999060"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "location",
+            "destination": "https://id.gs1.org/414/0860009999992"
+          }
+        ]
+      }
+    ]
+  }
+}

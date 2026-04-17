@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ref.openepcis.io/extensions/us/fsma204/schema",
+  "title": "FSMA 204 master-data record",
+  "description": "Validates the trade-item master data for a food on the FDA Food Traceability List. EPCIS events carrying the FSMA 204 CTEs are validated against the EPCIS 2.0 JSON Schema from GS1 — not this one.",
+  "type": "object",
+  "required": ["foodTraceabilityListCategory"],
+  "properties": {
+    "gtin": {
+      "type": "string",
+      "pattern": "^[0-9]{14}$"
+    },
+    "foodTraceabilityListCategory": {
+      "type": "string",
+      "enum": [
+        "LeafyGreens",
+        "LeafyGreensFreshCut",
+        "CheesePasteurizedFreshSoft",
+        "CheesePasteurizedSoftRipenedOrSemiSoft",
+        "CheeseUnpasteurizedOtherThanHard",
+        "ShellEggs",
+        "Sprouts",
+        "Cucumbers",
+        "Melons",
+        "Peppers",
+        "Tomatoes",
+        "FruitsFreshCut",
+        "VegetablesOtherThanLeafyGreensFreshCut",
+        "HerbsFresh",
+        "TropicalTreeFruits",
+        "FinfishHistamineProducing",
+        "FinfishCiguatoxinAssociated",
+        "FinfishOther",
+        "SmokedFinfish",
+        "Crustaceans",
+        "MolluscanShellfish",
+        "ReadyToEatDeliSalads",
+        "NutButters"
+      ]
+    },
+    "functionalName": { "type": "string" },
+    "importClassificationTypeCode": { "type": "string" },
+    "importClassificationValue": { "type": "string" },
+    "gpcCategoryCode": { "type": "string" }
+  }
+}

@@ -1,0 +1,268 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix detergent: <https://ref.openepcis.io/extensions/eu/detergent/> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<https://ref.openepcis.io/extensions/eu/detergent/shapes/>
+    a sh:ShapesGraph ;
+    dcterms:title "OpenEPCIS Detergent SHACL Shapes"@en ;
+    dcterms:description "SHACL validation shapes for Detergent vocabulary."@en ;
+    dcterms:created "2026-03-12"^^xsd:date ;
+    dcterms:modified "2026-03-12"^^xsd:date .
+
+# =============================================================================
+# OpenEPCIS Detergent Vocabulary SHACL Shapes v0.9.5
+# Validation shapes for Detergent Digital Product Passport data
+# Aligned with EU Regulation 2026/405 on Detergents and Surfactants
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Detergent Product Shape
+# -----------------------------------------------------------------------------
+detergent:DetergentProductShape a sh:NodeShape ;
+    sh:targetClass detergent:DetergentProduct ;
+    rdfs:label "Detergent Product Shape" ;
+    rdfs:comment "Validation shape for DetergentProduct instances per EU 2026/405." ;
+    sh:property [
+        sh:path detergent:detergentCategory ;
+        sh:name "Detergent Category" ;
+        sh:description "Product category (laundry, dishwasher, etc.)." ;
+        sh:maxCount 1 ;
+        sh:class detergent:DetergentCategory
+    ] ;
+    sh:property [
+        sh:path detergent:productForm ;
+        sh:name "Product Form" ;
+        sh:description "Physical form (liquid, powder, capsule, etc.)." ;
+        sh:maxCount 1 ;
+        sh:class detergent:ProductForm
+    ] ;
+    sh:property [
+        sh:path detergent:intendedUse ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:cnCode ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:ingredientList ;
+        sh:name "Ingredient List" ;
+        sh:class detergent:Ingredient
+    ] ;
+    sh:property [
+        sh:path detergent:surfactantBiodegradability ;
+        sh:name "Surfactant Biodegradability" ;
+        sh:class detergent:SurfactantBiodegradability
+    ] ;
+    sh:property [
+        sh:path detergent:fragranceAllergens ;
+        sh:name "Fragrance Allergens" ;
+        sh:class detergent:FragranceAllergen
+    ] ;
+    sh:property [
+        sh:path detergent:microorganisms ;
+        sh:name "Microorganisms" ;
+        sh:class detergent:MicroorganismInfo
+    ] ;
+    sh:property [
+        sh:path detergent:hazardousSubstances ;
+        sh:name "Hazardous Substances" ;
+        sh:class dpp:HazardousSubstance
+    ] ;
+    sh:property [
+        sh:path detergent:hazardPictograms ;
+        sh:name "Hazard Pictograms" ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path detergent:hStatements ;
+        sh:name "H Statements" ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path detergent:pStatements ;
+        sh:name "P Statements" ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path detergent:signalWord ;
+        sh:name "Signal Word" ;
+        sh:maxCount 1 ;
+        sh:class detergent:SignalWord
+    ] ;
+    sh:property [
+        sh:path detergent:phosphorusContentPercent ;
+        sh:datatype xsd:decimal ;
+        sh:maxCount 1 ;
+        sh:minInclusive 0
+    ] ;
+    sh:property [
+        sh:path detergent:phosphateCompliant ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:filmBiodegradable ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:filmBiodegradabilityPercentage ;
+        sh:datatype xsd:decimal ;
+        sh:maxCount 1 ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 100
+    ] ;
+    sh:property [
+        sh:path detergent:recommendedDosage ;
+        sh:class gs1:QuantitativeValue ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:dosageInstructions ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:safetyDataSheet ;
+        sh:class dpp:DocumentReference ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:biodegradabilityTestReport ;
+        sh:class dpp:DocumentReference ;
+        sh:maxCount 1
+    ] .
+
+# -----------------------------------------------------------------------------
+# Ingredient Shape
+# -----------------------------------------------------------------------------
+detergent:IngredientShape a sh:NodeShape ;
+    sh:targetClass detergent:Ingredient ;
+    rdfs:label "Ingredient Shape" ;
+    sh:property [
+        sh:path detergent:inciName ;
+        sh:name "INCI Name" ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:ingredientFunction ;
+        sh:name "Ingredient Function" ;
+        sh:class detergent:IngredientFunction ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:weightPercentRange ;
+        sh:name "Weight Percent Range" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:casNumber ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:isSurfactant ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1
+    ] .
+
+# -----------------------------------------------------------------------------
+# Surfactant Biodegradability Shape
+# -----------------------------------------------------------------------------
+detergent:SurfactantBiodegradabilityShape a sh:NodeShape ;
+    sh:targetClass detergent:SurfactantBiodegradability ;
+    rdfs:label "Surfactant Biodegradability Shape" ;
+    sh:property [
+        sh:path detergent:surfactantType ;
+        sh:name "Surfactant Type" ;
+        sh:class detergent:SurfactantType ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:biodegradationPercentage ;
+        sh:name "Biodegradation Percentage" ;
+        sh:datatype xsd:decimal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 100
+    ] ;
+    sh:property [
+        sh:path detergent:testMethod ;
+        sh:name "Test Method" ;
+        sh:class detergent:BiodegradabilityTestMethod ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:testDurationDays ;
+        sh:datatype xsd:integer ;
+        sh:maxCount 1 ;
+        sh:minInclusive 1
+    ] ;
+    sh:property [
+        sh:path detergent:passesUltimateBiodegradability ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1
+    ] .
+
+# -----------------------------------------------------------------------------
+# Fragrance Allergen Shape
+# -----------------------------------------------------------------------------
+detergent:FragranceAllergenShape a sh:NodeShape ;
+    sh:targetClass detergent:FragranceAllergen ;
+    rdfs:label "Fragrance Allergen Shape" ;
+    sh:property [
+        sh:path detergent:allergenName ;
+        sh:name "Allergen Name" ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:allergenCasNumber ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:allergenConcentration ;
+        sh:datatype xsd:decimal ;
+        sh:maxCount 1 ;
+        sh:minInclusive 0
+    ] .
+
+# -----------------------------------------------------------------------------
+# Microorganism Info Shape
+# -----------------------------------------------------------------------------
+detergent:MicroorganismInfoShape a sh:NodeShape ;
+    sh:targetClass detergent:MicroorganismInfo ;
+    rdfs:label "Microorganism Info Shape" ;
+    sh:property [
+        sh:path detergent:speciesName ;
+        sh:name "Species Name" ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:strainDesignation ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path detergent:endProductCharacteristics ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] .

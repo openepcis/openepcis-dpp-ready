@@ -1,0 +1,100 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/context",
+    "https://ref.openepcis.io/extensions/eu/electronics/context"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-02-01T16:45:00.000Z",
+  "_comment_architecture": [
+    "Battery replacement in a smartphone: TransformationEvent for the swap,",
+    "plus an ObjectEvent inspecting the removed battery prior to WEEE disposal.",
+    "",
+    "Repair KDEs (repairType / repairDescription / technician / warrantyStatus /",
+    "repairCost) are observation-specific to THIS repair and therefore ride at",
+    "event level (EPCIS 2.0 §12.3), NOT in ilmd.",
+    "ilmd on OBSERVE events is forbidden by EPCIS 2.0 §7.3.8 — the second event",
+    "used to have one; those fields are now at event level.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,electronics=https://ref.openepcis.io/extensions/eu/electronics/",
+    "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisHeader": {
+    "instanceIdentifier": "electronics-component-replacement-2025-001",
+    "sender": {
+      "identifier": "urn:epc:id:sgln:9521234.00002.0"
+    }
+  },
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "TransformationEvent",
+        "eventTime": "2025-02-01T16:30:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "inputEPCList": [
+          "https://id.gs1.org/01/09506000134352/21/ABC123456",
+          "https://id.gs1.org/01/09506000134369/21/BAT789012"
+        ],
+        "outputEPCList": [
+          "https://id.gs1.org/01/09506000134352/21/ABC123456",
+          "https://id.gs1.org/01/09506000134369/21/BAT-NEW-456"
+        ],
+        "bizStep": "urn:epcglobal:cbv:bizstep:repairing",
+        "disposition": "urn:epcglobal:cbv:disp:active",
+        "readPoint": {
+          "id": "urn:epc:id:sgln:9521234.00002.repair-station-3"
+        },
+        "bizLocation": {
+          "id": "urn:epc:id:sgln:9521234.00002.0"
+        },
+        "bizTransactionList": [
+          {
+            "type": "urn:epcglobal:cbv:btt:desadv",
+            "bizTransaction": "urn:epc:id:gdti:9521234.00001.REP-2025-00234"
+          }
+        ],
+        "electronics:repairType": "BatteryReplacement",
+        "electronics:componentType": "BatteryComponent",
+        "electronics:repairDescription": {
+          "@value": "Original battery replaced due to capacity degradation (75% SoH)",
+          "@language": "en"
+        },
+        "electronics:repairTechnician": "Authorized Service Center - Berlin",
+        "electronics:removalReason": "Capacity degradation - 75% State of Health",
+        "electronics:replacedComponentPassport": {
+          "id": "https://id.gs1.org/01/09506000134369/21/BAT789012"
+        },
+        "electronics:installedComponentPassport": {
+          "id": "https://id.gs1.org/01/09506000134369/21/BAT-NEW-456"
+        },
+        "electronics:deviceFirmwareVersionAfterRepair": "EP2025.1.2.45",
+        "electronics:warrantyStatus": "InWarranty",
+        "electronics:repairCost": {
+          "type": "gs1:PriceSpecification",
+          "gs1:price": 0.0,
+          "gs1:priceCurrency": "EUR"
+        }
+      },
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2025-02-01T16:35:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "epcList": [
+          "https://id.gs1.org/01/09506000134369/21/BAT789012"
+        ],
+        "action": "OBSERVE",
+        "bizStep": "urn:epcglobal:cbv:bizstep:inspecting",
+        "disposition": "urn:epcglobal:cbv:disp:needs_replacement",
+        "readPoint": {
+          "id": "urn:epc:id:sgln:9521234.00002.repair-station-3"
+        },
+        "electronics:componentType": "BatteryComponent",
+        "electronics:removalReason": "Capacity degradation - 75% State of Health",
+        "electronics:nextDisposition": "RecyclingWEEECategory6",
+        "electronics:hazardousWaste": false
+      }
+    ]
+  }
+}

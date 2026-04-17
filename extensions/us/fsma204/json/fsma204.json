@@ -1,0 +1,170 @@
+{
+  "namespace": "https://ref.openepcis.io/extensions/us/fsma204/",
+  "version": "0.1.0",
+  "title": "OpenEPCIS FSMA 204 Vocabulary",
+  "description": "Minimal OpenEPCIS vocabulary for the U.S. FDA Food Safety Modernization Act §204 Final Rule on Food Traceability (21 CFR Part 1 Subpart S).\n\nAll FSMA 204 Key Data Elements ride on native EPCIS 2.0 / GS1 Web Vocabulary fields per GS1 US R2.0 / R3.0. This module therefore contributes only the single concept that GS1 US does not already cover: the FDA Food Traceability List categorisation of a trade item, via:\n\n  - fsma:FoodTraceabilityList — enumeration of the 23 FDA-defined food categories\n  - fsma:foodTraceabilityListCategory — object property on gs1:Product\n\nEPCIS event examples in this module's epcis/ directory are transcribed verbatim from GS1 US R2.0 and use only native EPCIS/GS1 fields. They do not reference any fsma: class or property — the extension namespace exists purely for the master-data FTL categorisation.\n\nReferences:\n- FDA Food Traceability Final Rule: https://www.fda.gov/food/food-safety-modernization-act-fsma/fsma-final-rule-food-traceability\n- 21 CFR Part 1 Subpart S: https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-1/subpart-S\n- Food Traceability List: https://www.fda.gov/food/food-safety-modernization-act-fsma/food-traceability-list\n- GS1 US EPCIS Recommendations R2.0: https://documents.gs1us.org/adobe/assets/deliver/urn:aaid:aem:0c934e38-7cd7-4a86-aac3-c54b4c9ef293/EPCIS-Recommendations-FSMA-204-Critical-Tracking-Events.pdf\n- GS1 US Application Guideline R3.0: https://documents.gs1us.org/adobe/assets/deliver/urn:aaid:aem:8037d451-b557-4b0f-9fa8-fc94f94e4547/GS1-US-Application-of-GS1-System-of-Standards-to-Support-FSMA-204-Guideline.pdf",
+  "classes": [],
+  "properties": [
+    {
+      "id": "https://ref.openepcis.io/extensions/us/fsma204/foodTraceabilityListCategory",
+      "localName": "foodTraceabilityListCategory",
+      "label": "Food Traceability List category",
+      "comment": "Declares that a trade item (gs1:Product) falls under a specific FDA Food Traceability List category. This is the only FSMA KDE that GS1 US's guidance does not already cover via native GS1 master-data attributes — the FTL category is what determines whether the food is in scope of the rule at all.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/us/fsma204/FoodTraceabilityList"
+      ],
+      "source": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-1/subpart-S/section-1.1300"
+    }
+  ],
+  "enumerations": [
+    {
+      "id": "https://ref.openepcis.io/extensions/us/fsma204/FoodTraceabilityList",
+      "localName": "FoodTraceabilityList",
+      "label": "Food Traceability List category",
+      "comment": "FDA-defined categories of foods subject to FSMA 204 per the Food Traceability List (21 CFR 1.1300). The FDA list enumerates distinct food types with explicit splits (leafy greens non-cut vs fresh-cut; three cheese pasteurisation classes; individual produce items; four finfish classes). The FDA updates the list periodically; this enum reflects the 2022 publication.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/CheesePasteurizedFreshSoft",
+          "localName": "CheesePasteurizedFreshSoft",
+          "label": "Cheese, pasteurized, fresh soft or soft unripened",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/CheesePasteurizedSoftRipenedOrSemiSoft",
+          "localName": "CheesePasteurizedSoftRipenedOrSemiSoft",
+          "label": "Cheese, pasteurized, soft-ripened or semi-soft",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/CheeseUnpasteurizedOtherThanHard",
+          "localName": "CheeseUnpasteurizedOtherThanHard",
+          "label": "Cheese, unpasteurized (other than hard cheese)",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/Crustaceans",
+          "localName": "Crustaceans",
+          "label": "Crustaceans",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/Cucumbers",
+          "localName": "Cucumbers",
+          "label": "Cucumbers (fresh)",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/FinfishCiguatoxinAssociated",
+          "localName": "FinfishCiguatoxinAssociated",
+          "label": "Finfish, ciguatoxin-associated species",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/FinfishHistamineProducing",
+          "localName": "FinfishHistamineProducing",
+          "label": "Finfish, histamine-producing species",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/FinfishOther",
+          "localName": "FinfishOther",
+          "label": "Finfish, other species (not histamine, not ciguatoxin)",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/FruitsFreshCut",
+          "localName": "FruitsFreshCut",
+          "label": "Fruits, fresh-cut",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/HerbsFresh",
+          "localName": "HerbsFresh",
+          "label": "Herbs (fresh)",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/LeafyGreens",
+          "localName": "LeafyGreens",
+          "label": "Leafy greens (excluding fresh-cut)",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/LeafyGreensFreshCut",
+          "localName": "LeafyGreensFreshCut",
+          "label": "Leafy greens, fresh-cut",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/Melons",
+          "localName": "Melons",
+          "label": "Melons (fresh)",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/MolluscanShellfish",
+          "localName": "MolluscanShellfish",
+          "label": "Molluscan shellfish, bivalves",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/NutButters",
+          "localName": "NutButters",
+          "label": "Nut butters",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/Peppers",
+          "localName": "Peppers",
+          "label": "Peppers (fresh)",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/ReadyToEatDeliSalads",
+          "localName": "ReadyToEatDeliSalads",
+          "label": "Ready-to-eat deli salads (refrigerated)",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/ShellEggs",
+          "localName": "ShellEggs",
+          "label": "Shell eggs",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/SmokedFinfish",
+          "localName": "SmokedFinfish",
+          "label": "Finfish, smoked",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/Sprouts",
+          "localName": "Sprouts",
+          "label": "Sprouts",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/Tomatoes",
+          "localName": "Tomatoes",
+          "label": "Tomatoes (fresh)",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/TropicalTreeFruits",
+          "localName": "TropicalTreeFruits",
+          "label": "Tropical tree fruits (fresh)",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/us/fsma204/VegetablesOtherThanLeafyGreensFreshCut",
+          "localName": "VegetablesOtherThanLeafyGreensFreshCut",
+          "label": "Vegetables other than leafy greens, fresh-cut",
+          "comment": ""
+        }
+      ]
+    }
+  ]
+}

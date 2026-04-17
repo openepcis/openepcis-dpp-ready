@@ -1,0 +1,136 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix fsma: <https://ref.openepcis.io/extensions/us/fsma204/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+# =============================================================================
+# Ontology Declaration
+# =============================================================================
+#
+# This module is intentionally MINIMAL.
+#
+# Per GS1 US "EPCIS Recommendations for FSMA 204 Critical Tracking Events" R2.0
+# (May 2025) and "Application of GS1 System of Standards to Support FSMA 204" R3.0
+# (Dec 2025), every FSMA 204 Key Data Element maps onto a NATIVE EPCIS 2.0 or
+# GS1 Web Vocabulary field:
+#
+#   - Traceability Lot Code -> GS1 Digital Link GTIN+Batch/Lot in
+#     quantityList.epcClass / outputQuantityList.epcClass / childQuantityList.epcClass
+#   - Location KDEs         -> /414/{GLN} URIs in readPoint / bizLocation / sourceList / destinationList
+#   - Party KDEs            -> /417/{GLN} URIs in sourceList (type=owning_party) / destinationList
+#   - Dates                 -> eventTime
+#   - Reference documents   -> bizTransactionList
+#   - Seafood KDEs          -> ilmd with gs1:catchZone / gs1:harvestDateStart / gs1:harvestDateEnd / gs1:fishType
+#   - CTE identification    -> combination of EPCIS event type + bizStep (NO RDF class needed)
+#
+# There are therefore no CTE classes, no "TraceabilityLotCode" class, and no
+# event-level fsma: properties in this vocabulary. The only concept that GS1 US
+# does NOT already cover is the Food Traceability List categorisation of a
+# trade item — and that is the sole thing this module contributes.
+# =============================================================================
+
+<https://ref.openepcis.io/extensions/us/fsma204/>
+    a owl:Ontology ;
+    dcterms:title "OpenEPCIS FSMA 204 Vocabulary"@en ;
+    dcterms:description """Minimal OpenEPCIS vocabulary for the U.S. FDA Food Safety Modernization Act §204 Final Rule on Food Traceability (21 CFR Part 1 Subpart S).
+
+All FSMA 204 Key Data Elements ride on native EPCIS 2.0 / GS1 Web Vocabulary fields per GS1 US R2.0 / R3.0. This module therefore contributes only the single concept that GS1 US does not already cover: the FDA Food Traceability List categorisation of a trade item, via:
+
+  - fsma:FoodTraceabilityList — enumeration of the 23 FDA-defined food categories
+  - fsma:foodTraceabilityListCategory — object property on gs1:Product
+
+EPCIS event examples in this module's epcis/ directory are transcribed verbatim from GS1 US R2.0 and use only native EPCIS/GS1 fields. They do not reference any fsma: class or property — the extension namespace exists purely for the master-data FTL categorisation.
+
+References:
+- FDA Food Traceability Final Rule: https://www.fda.gov/food/food-safety-modernization-act-fsma/fsma-final-rule-food-traceability
+- 21 CFR Part 1 Subpart S: https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-1/subpart-S
+- Food Traceability List: https://www.fda.gov/food/food-safety-modernization-act-fsma/food-traceability-list
+- GS1 US EPCIS Recommendations R2.0: https://documents.gs1us.org/adobe/assets/deliver/urn:aaid:aem:0c934e38-7cd7-4a86-aac3-c54b4c9ef293/EPCIS-Recommendations-FSMA-204-Critical-Tracking-Events.pdf
+- GS1 US Application Guideline R3.0: https://documents.gs1us.org/adobe/assets/deliver/urn:aaid:aem:8037d451-b557-4b0f-9fa8-fc94f94e4547/GS1-US-Application-of-GS1-System-of-Standards-to-Support-FSMA-204-Guideline.pdf"""@en ;
+    dcterms:creator "OpenEPCIS" ;
+    dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+    dcterms:created "2026-04-17"^^xsd:date ;
+    dcterms:modified "2026-04-17"^^xsd:date ;
+    owl:versionInfo "0.1.0" ;
+    owl:versionIRI <https://ref.openepcis.io/extensions/us/fsma204/0.1.0> ;
+    vann:preferredNamespacePrefix "fsma" ;
+    vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/us/fsma204/" ;
+    rdfs:seeAlso <https://www.fda.gov/food/food-safety-modernization-act-fsma/fsma-final-rule-food-traceability> ;
+    rdfs:seeAlso <https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-1/subpart-S> ;
+    owl:imports <https://ref.gs1.org/voc/> .
+
+# =============================================================================
+# Food Traceability List enumeration (FDA FTL as published 2022)
+# =============================================================================
+
+fsma:FoodTraceabilityList
+    a owl:Class ;
+    rdfs:label "Food Traceability List category"@en ;
+    rdfs:comment "FDA-defined categories of foods subject to FSMA 204 per the Food Traceability List (21 CFR 1.1300). The FDA list enumerates distinct food types with explicit splits (leafy greens non-cut vs fresh-cut; three cheese pasteurisation classes; individual produce items; four finfish classes). The FDA updates the list periodically; this enum reflects the 2022 publication."@en ;
+    dcterms:source <https://www.fda.gov/food/food-safety-modernization-act-fsma/food-traceability-list> ;
+    owl:oneOf (
+        fsma:LeafyGreens
+        fsma:LeafyGreensFreshCut
+        fsma:CheesePasteurizedFreshSoft
+        fsma:CheesePasteurizedSoftRipenedOrSemiSoft
+        fsma:CheeseUnpasteurizedOtherThanHard
+        fsma:ShellEggs
+        fsma:Sprouts
+        fsma:Cucumbers
+        fsma:Melons
+        fsma:Peppers
+        fsma:Tomatoes
+        fsma:FruitsFreshCut
+        fsma:VegetablesOtherThanLeafyGreensFreshCut
+        fsma:HerbsFresh
+        fsma:TropicalTreeFruits
+        fsma:FinfishHistamineProducing
+        fsma:FinfishCiguatoxinAssociated
+        fsma:FinfishOther
+        fsma:SmokedFinfish
+        fsma:Crustaceans
+        fsma:MolluscanShellfish
+        fsma:ReadyToEatDeliSalads
+        fsma:NutButters
+    ) .
+
+fsma:LeafyGreens                             a fsma:FoodTraceabilityList ; rdfs:label "Leafy greens (excluding fresh-cut)"@en .
+fsma:LeafyGreensFreshCut                     a fsma:FoodTraceabilityList ; rdfs:label "Leafy greens, fresh-cut"@en .
+fsma:CheesePasteurizedFreshSoft              a fsma:FoodTraceabilityList ; rdfs:label "Cheese, pasteurized, fresh soft or soft unripened"@en .
+fsma:CheesePasteurizedSoftRipenedOrSemiSoft  a fsma:FoodTraceabilityList ; rdfs:label "Cheese, pasteurized, soft-ripened or semi-soft"@en .
+fsma:CheeseUnpasteurizedOtherThanHard        a fsma:FoodTraceabilityList ; rdfs:label "Cheese, unpasteurized (other than hard cheese)"@en .
+fsma:ShellEggs                               a fsma:FoodTraceabilityList ; rdfs:label "Shell eggs"@en .
+fsma:Sprouts                                 a fsma:FoodTraceabilityList ; rdfs:label "Sprouts"@en .
+fsma:Cucumbers                               a fsma:FoodTraceabilityList ; rdfs:label "Cucumbers (fresh)"@en .
+fsma:Melons                                  a fsma:FoodTraceabilityList ; rdfs:label "Melons (fresh)"@en .
+fsma:Peppers                                 a fsma:FoodTraceabilityList ; rdfs:label "Peppers (fresh)"@en .
+fsma:Tomatoes                                a fsma:FoodTraceabilityList ; rdfs:label "Tomatoes (fresh)"@en .
+fsma:FruitsFreshCut                          a fsma:FoodTraceabilityList ; rdfs:label "Fruits, fresh-cut"@en .
+fsma:VegetablesOtherThanLeafyGreensFreshCut  a fsma:FoodTraceabilityList ; rdfs:label "Vegetables other than leafy greens, fresh-cut"@en .
+fsma:HerbsFresh                              a fsma:FoodTraceabilityList ; rdfs:label "Herbs (fresh)"@en .
+fsma:TropicalTreeFruits                      a fsma:FoodTraceabilityList ; rdfs:label "Tropical tree fruits (fresh)"@en .
+fsma:FinfishHistamineProducing               a fsma:FoodTraceabilityList ; rdfs:label "Finfish, histamine-producing species"@en .
+fsma:FinfishCiguatoxinAssociated             a fsma:FoodTraceabilityList ; rdfs:label "Finfish, ciguatoxin-associated species"@en .
+fsma:FinfishOther                            a fsma:FoodTraceabilityList ; rdfs:label "Finfish, other species (not histamine, not ciguatoxin)"@en .
+fsma:SmokedFinfish                           a fsma:FoodTraceabilityList ; rdfs:label "Finfish, smoked"@en .
+fsma:Crustaceans                             a fsma:FoodTraceabilityList ; rdfs:label "Crustaceans"@en .
+fsma:MolluscanShellfish                      a fsma:FoodTraceabilityList ; rdfs:label "Molluscan shellfish, bivalves"@en .
+fsma:ReadyToEatDeliSalads                    a fsma:FoodTraceabilityList ; rdfs:label "Ready-to-eat deli salads (refrigerated)"@en .
+fsma:NutButters                              a fsma:FoodTraceabilityList ; rdfs:label "Nut butters"@en .
+
+# =============================================================================
+# The single property this module contributes
+# =============================================================================
+
+fsma:foodTraceabilityListCategory
+    a owl:ObjectProperty ;
+    rdfs:label "Food Traceability List category"@en ;
+    rdfs:comment "Declares that a trade item (gs1:Product) falls under a specific FDA Food Traceability List category. This is the only FSMA KDE that GS1 US's guidance does not already cover via native GS1 master-data attributes — the FTL category is what determines whether the food is in scope of the rule at all."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range fsma:FoodTraceabilityList ;
+    dcterms:source <https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-1/subpart-S/section-1.1300> .

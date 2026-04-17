@@ -1,0 +1,135 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/context",
+    "https://ref.openepcis.io/extensions/eu/electronics/context"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-01-20T11:00:00.000Z",
+  "_comment_architecture": [
+    "Ownership transfer chain: shipping, receiving, and retail sale of a serialized device.",
+    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
+    "Extension properties (electronics:, dpp:) are at EVENT level — including warranty start/end",
+    "and purchase country, which used to live in ilmd but EPCIS 2.0 §7.3.8 forbids ilmd on OBSERVE.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,electronics=https://ref.openepcis.io/extensions/eu/electronics/",
+    "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisHeader": {
+    "instanceIdentifier": "electronics-ownership-transfer-2025-001",
+    "sender": {
+      "identifier": "urn:epc:id:sgln:9521234.00000.0"
+    }
+  },
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2025-01-18T09:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "epcList": [
+          "https://id.gs1.org/01/09506000134352/21/ABC123456"
+        ],
+        "action": "OBSERVE",
+        "bizStep": "urn:epcglobal:cbv:bizstep:shipping",
+        "disposition": "urn:epcglobal:cbv:disp:in_transit",
+        "readPoint": {
+          "id": "urn:epc:id:sgln:9521234.00001.warehouse"
+        },
+        "sourceList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "source": "urn:epc:id:pgln:9521234.00000"
+          },
+          {
+            "type": "urn:epcglobal:cbv:sdt:possessing_party",
+            "source": "urn:epc:id:pgln:9521234.00000"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "destination": "urn:epc:id:pgln:9521235.00000"
+          },
+          {
+            "type": "urn:epcglobal:cbv:sdt:possessing_party",
+            "destination": "urn:epc:id:pgln:9521235.00000"
+          }
+        ],
+        "bizTransactionList": [
+          {
+            "type": "urn:epcglobal:cbv:btt:desadv",
+            "bizTransaction": "urn:epc:id:gdti:9521234.00001.SHIP-2025-00456"
+          },
+          {
+            "type": "urn:epcglobal:cbv:btt:inv",
+            "bizTransaction": "urn:epc:id:gdti:9521234.00001.INV-2025-00789"
+          }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2025-01-19T14:30:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "epcList": [
+          "https://id.gs1.org/01/09506000134352/21/ABC123456"
+        ],
+        "action": "OBSERVE",
+        "bizStep": "urn:epcglobal:cbv:bizstep:receiving",
+        "disposition": "urn:epcglobal:cbv:disp:sellable_accessible",
+        "readPoint": {
+          "id": "urn:epc:id:sgln:9521235.00001.receiving-dock"
+        },
+        "bizLocation": {
+          "id": "urn:epc:id:sgln:9521235.00001.0"
+        },
+        "bizTransactionList": [
+          {
+            "type": "urn:epcglobal:cbv:btt:recadv",
+            "bizTransaction": "urn:epc:id:gdti:9521235.00001.REC-2025-00123"
+          }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2025-01-20T10:45:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "epcList": [
+          "https://id.gs1.org/01/09506000134352/21/ABC123456"
+        ],
+        "action": "OBSERVE",
+        "bizStep": "urn:epcglobal:cbv:bizstep:retail_selling",
+        "disposition": "urn:epcglobal:cbv:disp:sold",
+        "readPoint": {
+          "id": "urn:epc:id:sgln:9521235.00002.store-checkout"
+        },
+        "bizLocation": {
+          "id": "urn:epc:id:sgln:9521235.00002.0"
+        },
+        "sourceList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "source": "urn:epc:id:pgln:9521235.00000"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "destination": "urn:epc:id:consumer"
+          }
+        ],
+        "bizTransactionList": [
+          {
+            "type": "urn:epcglobal:cbv:btt:po",
+            "bizTransaction": "urn:epc:id:gdti:9521235.00001.POS-2025-00567"
+          }
+        ],
+        "electronics:warrantyStartDate": "2025-01-20",
+        "electronics:warrantyEndDate": "2027-01-20",
+        "electronics:purchaseCountry": "DE"
+      }
+    ]
+  }
+}

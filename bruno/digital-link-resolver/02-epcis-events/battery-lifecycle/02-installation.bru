@@ -1,0 +1,72 @@
+meta {
+  name: Installation - Vehicle Integration
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{url}}/capture
+  body: json
+  auth: inherit
+}
+
+script:pre-request {
+  bru.setVar("vehicleManufacturerGln", "9521234026852");
+  bru.setVar("vehicleVin", "WVWZZZ3CZWE123456");
+  bru.setVar("installationReadPoint", `https://id.gs1.org/414/${bru.getVar("vehicleManufacturerGln")}/254/assembly-line-ev`);
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+      "{{dpp-context}}",
+      "{{battery-context}}"
+    ],
+    "type": "EPCISDocument",
+    "schemaVersion": "2.0",
+    "creationDate": "{{eventTime}}",
+    "epcisBody": {
+      "eventList": [
+        {
+          "type": "ObjectEvent",
+          "action": "OBSERVE",
+          "bizStep": "installing",
+          "disposition": "installed",
+          "epcList": ["{{batteryEpc}}"],
+          "eventTime": "{{eventTime}}",
+          "eventTimeZoneOffset": "+01:00",
+          "readPoint": {
+            "id": "{{installationReadPoint}}"
+          },
+          "dpp:operatorInformation": {
+            "@type": "dpp:OperatorInformation",
+            "gs1:gln": "{{vehicleManufacturerGln}}",
+            "gs1:organizationName": "EcoAuto AG"
+          },
+          "battery:installationInfo": {
+            "@type": "battery:InstallationInfo",
+            "battery:installedInAsset": "urn:vin:{{vehicleVin}}",
+            "battery:assetType": "Electric Vehicle",
+            "battery:assetModel": "EcoAuto e-Touring",
+            "battery:installationDate": "{{eventTime}}",
+            "battery:installationTechnician": "EV-CERT-2025-001"
+          },
+          "battery:stateOfHealth": {
+            "@type": "battery:StateOfHealth",
+            "battery:sohPercentage": 100,
+            "battery:remainingCapacity": 75,
+            "battery:remainingCapacityUnit": "kWh",
+            "battery:measurementDate": "{{eventTime}}"
+          }
+        }
+      ]
+    }
+  }
+}
+
+tests {
+  test("Capture successful", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+  });
+}

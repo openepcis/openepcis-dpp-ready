@@ -1,0 +1,424 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ref.openepcis.io/extensions/eu/battery/battery-schema.json",
+  "title": "OpenEPCIS Battery Vocabulary Schema",
+  "description": "JSON Schema for validating Battery Digital Product Passport data per EU Battery Regulation 2023/1542. Version 0.9.5.",
+  "$defs": {
+    "Battery": {
+      "type": "object",
+      "title": "Battery",
+      "description": "A rechargeable battery as defined by EU Battery Regulation 2023/1542.",
+      "properties": {
+        "@type": {
+          "const": "Battery"
+        },
+        "batteryCategory": {
+          "$ref": "#/$defs/BatteryCategory"
+        },
+        "batteryStatus": {
+          "$ref": "#/$defs/BatteryStatus"
+        },
+        "batteryChemistry": {
+          "$ref": "#/$defs/BatteryChemistry"
+        },
+        "technicalSpecifications": {
+          "$ref": "#/$defs/TechnicalSpecification"
+        },
+        "materialComposition": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/BatteryMaterial"
+          }
+        },
+        "recycledContent": {
+          "$ref": "#/$defs/RecycledContent"
+        },
+        "endOfLifeInfo": {
+          "$ref": "#/$defs/EndOfLifeInfo"
+        },
+        "hazardousSubstances": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/HazardousSubstance"
+          }
+        },
+        "operatorInformation": {
+          "$ref": "#/$defs/OperatorInformation"
+        },
+        "supplyChainDueDiligence": {
+          "$ref": "#/$defs/SupplyChainDueDiligence"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Label"
+          }
+        },
+        "dismantlingDocuments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DismantlingDocument"
+          }
+        },
+        "sparePartSources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SparePartSupplier"
+          }
+        }
+      }
+    },
+    "BatteryCategory": {
+      "type": "string",
+      "title": "Battery Category",
+      "description": "Categories of batteries as defined by EU Battery Regulation.",
+      "enum": ["LMTBattery", "EVBattery", "IndustrialBattery", "StationaryBattery", "PortableBattery", "SLIBattery"]
+    },
+    "BatteryStatus": {
+      "type": "string",
+      "title": "Battery Status",
+      "description": "Lifecycle status of the battery.",
+      "enum": ["Original", "Repurposed", "Reused", "Remanufactured", "Waste"]
+    },
+    "ComponentLocation": {
+      "type": "string",
+      "title": "Component Location",
+      "description": "Component location in the battery.",
+      "enum": ["Cathode", "Anode", "Electrolyte", "Separator", "Casing", "CurrentCollector", "BMS"]
+    },
+    "BatteryChemistry": {
+      "type": "object",
+      "title": "Battery Chemistry",
+      "description": "The electrochemical system of the battery including cathode, anode, and electrolyte materials.",
+      "properties": {
+        "@type": {
+          "const": "BatteryChemistry"
+        },
+        "shortName": {
+          "type": "string",
+          "description": "Abbreviated chemistry name (e.g., LFP, NMC, NCA)."
+        },
+        "fullName": {
+          "type": "string",
+          "description": "Full chemical name of the battery chemistry."
+        },
+        "cathodeActiveMaterial": {
+          "type": "string"
+        },
+        "anodeActiveMaterial": {
+          "type": "string"
+        },
+        "electrolyteType": {
+          "type": "string"
+        }
+      }
+    },
+    "TechnicalSpecification": {
+      "type": "object",
+      "title": "Technical Specification",
+      "description": "Technical specifications of a battery including capacity, voltage, and performance parameters.",
+      "properties": {
+        "@type": {
+          "const": "TechnicalSpecification"
+        },
+        "ratedCapacity": {
+          "$ref": "#/$defs/QuantitativeValue"
+        },
+        "ratedEnergy": {
+          "$ref": "#/$defs/QuantitativeValue"
+        },
+        "nominalVoltage": {
+          "$ref": "#/$defs/QuantitativeValue"
+        },
+        "minimumVoltage": {
+          "$ref": "#/$defs/QuantitativeValue"
+        },
+        "maximumVoltage": {
+          "$ref": "#/$defs/QuantitativeValue"
+        },
+        "expectedCycleLife": {
+          "type": "integer",
+          "description": "Expected number of full charge-discharge cycles."
+        },
+        "expectedLifetimeYears": {
+          "type": "integer"
+        },
+        "roundTripEfficiency": {
+          "type": "number",
+          "description": "Energy efficiency as percentage."
+        }
+      }
+    },
+    "BatteryMaterial": {
+      "type": "object",
+      "title": "Battery Material",
+      "description": "A material used in battery construction with its composition percentage and CAS identifier.",
+      "properties": {
+        "@type": {
+          "const": "BatteryMaterial"
+        },
+        "materialName": {
+          "type": "string"
+        },
+        "casNumber": {
+          "type": "string",
+          "description": "Chemical Abstracts Service registry number."
+        },
+        "componentLocation": {
+          "$ref": "#/$defs/ComponentLocation"
+        },
+        "massPercentage": {
+          "type": "number"
+        },
+        "isCriticalRawMaterial": {
+          "type": "boolean",
+          "description": "Whether this material is on the EU Critical Raw Materials list."
+        }
+      },
+      "required": ["materialName"]
+    },
+    "RecycledContent": {
+      "type": "object",
+      "title": "Recycled Content",
+      "description": "Declaration of recycled material content in the battery.",
+      "properties": {
+        "@type": {
+          "const": "RecycledContent"
+        },
+        "lithiumRecycledShare": {
+          "type": "number"
+        },
+        "cobaltRecycledShare": {
+          "type": "number"
+        },
+        "nickelRecycledShare": {
+          "type": "number"
+        },
+        "leadRecycledShare": {
+          "type": "number"
+        },
+        "lithiumPreConsumerShare": {
+          "type": "number"
+        },
+        "lithiumPostConsumerShare": {
+          "type": "number"
+        },
+        "cobaltPreConsumerShare": {
+          "type": "number"
+        },
+        "cobaltPostConsumerShare": {
+          "type": "number"
+        },
+        "nickelPreConsumerShare": {
+          "type": "number"
+        },
+        "nickelPostConsumerShare": {
+          "type": "number"
+        }
+      }
+    },
+    "EndOfLifeInfo": {
+      "type": "object",
+      "title": "End of Life Information",
+      "description": "Information required for safe handling, dismantling, and recycling at end of battery life.",
+      "properties": {
+        "@type": {
+          "const": "EndOfLifeInfo"
+        },
+        "dismantlingInstructions": {
+          "type": "string",
+          "format": "uri"
+        },
+        "extinguishingAgent": {
+          "type": "string",
+          "description": "Recommended fire extinguishing agent."
+        },
+        "wastePrevention": {
+          "type": "string",
+          "format": "uri"
+        },
+        "separateCollection": {
+          "type": "string",
+          "format": "uri"
+        },
+        "informationOnCollection": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "HazardousSubstance": {
+      "type": "object",
+      "title": "Hazardous Substance",
+      "description": "A hazardous substance present in the battery, classified per EU CLP Regulation 1272/2008.",
+      "properties": {
+        "@type": {
+          "const": "HazardousSubstance"
+        },
+        "substanceName": {
+          "type": "string"
+        },
+        "substanceCasNumber": {
+          "type": "string"
+        },
+        "hazardClass": {
+          "$ref": "#/$defs/HazardClass"
+        },
+        "concentration": {
+          "type": "number"
+        },
+        "hazardImpact": {
+          "type": "string"
+        },
+        "substanceLocation": {
+          "$ref": "#/$defs/ComponentLocation"
+        }
+      },
+      "required": ["substanceName"]
+    },
+    "HazardClass": {
+      "type": "string",
+      "title": "Hazard Class",
+      "description": "Hazard classification categories per EU CLP Regulation.",
+      "enum": [
+        "AcuteToxicity",
+        "SkinCorrosionOrIrritation",
+        "EyeDamageOrIrritation",
+        "RespiratoryOrSkinSensitization",
+        "GermCellMutagenicity",
+        "Carcinogenicity",
+        "ReproductiveToxicity",
+        "SpecificTargetOrganToxicity",
+        "AspirationHazard",
+        "HazardousToAquaticEnvironment"
+      ]
+    },
+    "OperatorInformation": {
+      "type": "object",
+      "title": "Operator Information",
+      "description": "Economic operator information as required by EU Battery Regulation Art. 38.",
+      "properties": {
+        "@type": {
+          "const": "OperatorInformation"
+        },
+        "operatorRole": {
+          "type": "string",
+          "description": "Role of the economic operator (manufacturer, importer, distributor)."
+        }
+      }
+    },
+    "SupplyChainDueDiligence": {
+      "type": "object",
+      "title": "Supply Chain Due Diligence",
+      "description": "Supply chain due diligence information as required by EU Battery Regulation Art. 39.",
+      "properties": {
+        "@type": {
+          "const": "SupplyChainDueDiligence"
+        },
+        "dueDiligenceReportUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the supply chain due diligence report (REQUIRED)."
+        },
+        "thirdPartyAssurancesUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "supplyChainIndex": {
+          "type": "number"
+        }
+      },
+      "required": ["dueDiligenceReportUrl"]
+    },
+    "Label": {
+      "type": "object",
+      "title": "Label",
+      "description": "A label or marking on the battery as required by EU Battery Regulation Annex VI.",
+      "properties": {
+        "@type": {
+          "const": "Label"
+        },
+        "labelSymbol": {
+          "type": "string",
+          "format": "uri"
+        },
+        "labelMeaning": {
+          "type": "string"
+        },
+        "labelSubject": {
+          "$ref": "#/$defs/LabelSubject"
+        }
+      }
+    },
+    "LabelSubject": {
+      "type": "string",
+      "title": "Label Subject",
+      "enum": ["SeparateCollection", "CadmiumContent", "LeadContent", "MercuryContent", "CarbonFootprintLabel", "ExtinguishingAgentLabel", "CapacityLabel", "QRCodeLabel"]
+    },
+    "DismantlingDocument": {
+      "type": "object",
+      "title": "Dismantling Document",
+      "description": "A document supporting battery dismantling, as specified in DIN DKE SPEC 99100.",
+      "properties": {
+        "@type": {
+          "const": "DismantlingDocument"
+        },
+        "documentType": {
+          "$ref": "#/$defs/DismantlingDocumentType"
+        },
+        "documentUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "mimeType": {
+          "type": "string"
+        },
+        "languageCode": {
+          "type": "string",
+          "pattern": "^[a-z]{2}$"
+        }
+      }
+    },
+    "DismantlingDocumentType": {
+      "type": "string",
+      "title": "Dismantling Document Type",
+      "enum": ["BillOfMaterial", "Model3D", "DismantlingManual", "RemovalManual", "SafetyDataSheet", "OtherManual", "Drawing"]
+    },
+    "SparePartSupplier": {
+      "type": "object",
+      "title": "Spare Part Supplier",
+      "properties": {
+        "@type": {
+          "const": "SparePartSupplier"
+        },
+        "supplierContact": {
+          "type": "object",
+          "description": "Contact information for the spare part supplier."
+        },
+        "spareParts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "QuantitativeValue": {
+      "type": "object",
+      "title": "Quantitative Value",
+      "description": "A point value or interval for measurement (gs1:QuantitativeValue).",
+      "properties": {
+        "@type": {
+          "const": "QuantitativeValue"
+        },
+        "value": {
+          "type": "number"
+        },
+        "unitCode": {
+          "type": "string",
+          "description": "UN/CEFACT Rec. 20 unit code."
+        }
+      }
+    }
+  }
+}

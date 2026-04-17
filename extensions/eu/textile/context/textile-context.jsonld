@@ -1,0 +1,729 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "gs1": "https://ref.gs1.org/voc/",
+    "dpp": "https://ref.openepcis.io/extensions/common/core/",
+    "textile": "https://ref.openepcis.io/extensions/eu/textile/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "id": "@id",
+    "type": "@type",
+    "Product": "gs1:Product",
+    "productName": "gs1:productName",
+    "gtin": "gs1:gtin",
+    "TextileMaterialDetails": "gs1:TextileMaterialDetails",
+    "textileMaterial": {
+      "@id": "gs1:textileMaterial",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "textileMaterialContent": {
+      "@id": "gs1:textileMaterialContent",
+      "@type": "@id"
+    },
+    "textileMaterialDescription": "gs1:textileMaterialDescription",
+    "TextileApparel": "textile:TextileApparel",
+    "TextileFootwear": "textile:TextileFootwear",
+    "Clothing": "gs1:Clothing",
+    "WearableProduct": "gs1:WearableProduct",
+    "CareInstruction": "textile:CareInstruction",
+    "DurabilityInfo": "textile:DurabilityInfo",
+    "TakeBackProgram": "textile:TakeBackProgram",
+    "MicroplasticInfo": "textile:MicroplasticInfo",
+    "RobustnessAssessment": "textile:RobustnessAssessment",
+    "SpiralityTestResult": "textile:SpiralityTestResult",
+    "DimensionalChangeTestResult": "textile:DimensionalChangeTestResult",
+    "VisualInspectionResult": "textile:VisualInspectionResult",
+    "RecyclabilityAssessment": "textile:RecyclabilityAssessment",
+    "SortingFactors": "textile:SortingFactors",
+    "TechnicalRecyclability": "textile:TechnicalRecyclability",
+    "RecycledContentDeclaration": "textile:RecycledContentDeclaration",
+    "EnvironmentalFootprint": "textile:EnvironmentalFootprint",
+    "LCIACategory": "textile:LCIACategory",
+    "SubstanceOfConcern": "textile:SubstanceOfConcern",
+    "ForceNewtons": "textile:ForceNewtons",
+    "SheddingRateMgKg": "textile:SheddingRateMgKg",
+    "VolumeLiters": "textile:VolumeLiters",
+    "Percentage": "dpp:Percentage",
+    "EnergyKilowattHours": "dpp:EnergyKilowattHours",
+    "WeightKilograms": "dpp:WeightKilograms",
+    "QuantitativeValue": "gs1:QuantitativeValue",
+    "value": {
+      "@id": "gs1:value",
+      "@type": "xsd:decimal"
+    },
+    "unitCode": "gs1:unitCode",
+    "TextileCategory": "textile:TextileCategory",
+    "FabricType": "textile:FabricType",
+    "ApparelSubcategory": "textile:ApparelSubcategory",
+    "FiberType": "textile:FiberType",
+    "CareSymbolCode": "textile:CareSymbolCode",
+    "MicroplasticRiskLevel": "textile:MicroplasticRiskLevel",
+    "DurabilityClass": "textile:DurabilityClass",
+    "RecyclingTechnology": "textile:RecyclingTechnology",
+    "WasteOriginType": "textile:WasteOriginType",
+    "RecycledSourceType": "textile:RecycledSourceType",
+    "ChainOfCustodyMethod": "textile:ChainOfCustodyMethod",
+    "FootprintDataType": "textile:FootprintDataType",
+    "LCIACategoryCode": "textile:LCIACategoryCode",
+    "SubstanceOfConcernType": "textile:SubstanceOfConcernType",
+    "CLPHazardCategory": "textile:CLPHazardCategory",
+    "TestStandard": "textile:TestStandard",
+    "CertificationDetails": "gs1:CertificationDetails",
+    "certificationAgency": "gs1:certificationAgency",
+    "certificationValue": "gs1:certificationValue",
+    "certificationStandard": "gs1:certificationStandard",
+    "textileCategory": {
+      "@id": "textile:textileCategory",
+      "@type": "@vocab",
+      "@context": {
+        "Apparel": "textile:Apparel",
+        "Footwear": "textile:Footwear",
+        "HomeTextiles": "textile:HomeTextiles",
+        "TechnicalTextiles": "textile:TechnicalTextiles",
+        "Accessories": "textile:Accessories"
+      }
+    },
+    "fiberOrigin": "textile:fiberOrigin",
+    "fiberCertification": {
+      "@id": "textile:fiberCertification",
+      "@type": "@id"
+    },
+    "fabricType": {
+      "@id": "textile:fabricType",
+      "@type": "@vocab",
+      "@context": {
+        "Knitted": "textile:Knitted",
+        "Denim": "textile:Denim",
+        "WovenNonDenim": "textile:WovenNonDenim"
+      }
+    },
+    "apparelSubcategory": {
+      "@id": "textile:apparelSubcategory",
+      "@type": "@vocab",
+      "@context": {
+        "TShirts": "textile:TShirts",
+        "ShirtsBlouses": "textile:ShirtsBlouses",
+        "Sweaters": "textile:Sweaters",
+        "JacketsCoats": "textile:JacketsCoats",
+        "PantsShorts": "textile:PantsShorts",
+        "DressesSkirts": "textile:DressesSkirts",
+        "LeggingsStockingsSocks": "textile:LeggingsStockingsSocks",
+        "Underwear": "textile:Underwear",
+        "Swimwear": "textile:Swimwear",
+        "TextileAccessories": "textile:TextileAccessories"
+      }
+    },
+    "careInstructions": {
+      "@id": "textile:careInstructions",
+      "@type": "@id"
+    },
+    "washingSymbol": {
+      "@id": "textile:washingSymbol",
+      "@type": "@vocab",
+      "@context": {
+        "Wash30": "textile:Wash30",
+        "Wash40": "textile:Wash40",
+        "Wash60": "textile:Wash60",
+        "WashHandOnly": "textile:WashHandOnly",
+        "DoNotWash": "textile:DoNotWash",
+        "WashGentle": "textile:WashGentle",
+        "BleachAllowed": "textile:BleachAllowed",
+        "NonChlorineBleach": "textile:NonChlorineBleach",
+        "DoNotBleach": "textile:DoNotBleach",
+        "TumbleDryLow": "textile:TumbleDryLow",
+        "TumbleDryMedium": "textile:TumbleDryMedium",
+        "TumbleDryHigh": "textile:TumbleDryHigh",
+        "DoNotTumbleDry": "textile:DoNotTumbleDry",
+        "LineDry": "textile:LineDry",
+        "DryFlat": "textile:DryFlat",
+        "DripDry": "textile:DripDry",
+        "IronLow": "textile:IronLow",
+        "IronMedium": "textile:IronMedium",
+        "IronHigh": "textile:IronHigh",
+        "DoNotIron": "textile:DoNotIron",
+        "NoSteam": "textile:NoSteam",
+        "DryCleanAny": "textile:DryCleanAny",
+        "DryCleanPCE": "textile:DryCleanPCE",
+        "DryCleanHydrocarbon": "textile:DryCleanHydrocarbon",
+        "DoNotDryClean": "textile:DoNotDryClean",
+        "WetClean": "textile:WetClean"
+      }
+    },
+    "bleachingSymbol": {
+      "@id": "textile:bleachingSymbol",
+      "@type": "@vocab",
+      "@context": {
+        "Wash30": "textile:Wash30",
+        "Wash40": "textile:Wash40",
+        "Wash60": "textile:Wash60",
+        "WashHandOnly": "textile:WashHandOnly",
+        "DoNotWash": "textile:DoNotWash",
+        "WashGentle": "textile:WashGentle",
+        "BleachAllowed": "textile:BleachAllowed",
+        "NonChlorineBleach": "textile:NonChlorineBleach",
+        "DoNotBleach": "textile:DoNotBleach",
+        "TumbleDryLow": "textile:TumbleDryLow",
+        "TumbleDryMedium": "textile:TumbleDryMedium",
+        "TumbleDryHigh": "textile:TumbleDryHigh",
+        "DoNotTumbleDry": "textile:DoNotTumbleDry",
+        "LineDry": "textile:LineDry",
+        "DryFlat": "textile:DryFlat",
+        "DripDry": "textile:DripDry",
+        "IronLow": "textile:IronLow",
+        "IronMedium": "textile:IronMedium",
+        "IronHigh": "textile:IronHigh",
+        "DoNotIron": "textile:DoNotIron",
+        "NoSteam": "textile:NoSteam",
+        "DryCleanAny": "textile:DryCleanAny",
+        "DryCleanPCE": "textile:DryCleanPCE",
+        "DryCleanHydrocarbon": "textile:DryCleanHydrocarbon",
+        "DoNotDryClean": "textile:DoNotDryClean",
+        "WetClean": "textile:WetClean"
+      }
+    },
+    "dryingSymbol": {
+      "@id": "textile:dryingSymbol",
+      "@type": "@vocab",
+      "@context": {
+        "Wash30": "textile:Wash30",
+        "Wash40": "textile:Wash40",
+        "Wash60": "textile:Wash60",
+        "WashHandOnly": "textile:WashHandOnly",
+        "DoNotWash": "textile:DoNotWash",
+        "WashGentle": "textile:WashGentle",
+        "BleachAllowed": "textile:BleachAllowed",
+        "NonChlorineBleach": "textile:NonChlorineBleach",
+        "DoNotBleach": "textile:DoNotBleach",
+        "TumbleDryLow": "textile:TumbleDryLow",
+        "TumbleDryMedium": "textile:TumbleDryMedium",
+        "TumbleDryHigh": "textile:TumbleDryHigh",
+        "DoNotTumbleDry": "textile:DoNotTumbleDry",
+        "LineDry": "textile:LineDry",
+        "DryFlat": "textile:DryFlat",
+        "DripDry": "textile:DripDry",
+        "IronLow": "textile:IronLow",
+        "IronMedium": "textile:IronMedium",
+        "IronHigh": "textile:IronHigh",
+        "DoNotIron": "textile:DoNotIron",
+        "NoSteam": "textile:NoSteam",
+        "DryCleanAny": "textile:DryCleanAny",
+        "DryCleanPCE": "textile:DryCleanPCE",
+        "DryCleanHydrocarbon": "textile:DryCleanHydrocarbon",
+        "DoNotDryClean": "textile:DoNotDryClean",
+        "WetClean": "textile:WetClean"
+      }
+    },
+    "ironingSymbol": {
+      "@id": "textile:ironingSymbol",
+      "@type": "@vocab",
+      "@context": {
+        "Wash30": "textile:Wash30",
+        "Wash40": "textile:Wash40",
+        "Wash60": "textile:Wash60",
+        "WashHandOnly": "textile:WashHandOnly",
+        "DoNotWash": "textile:DoNotWash",
+        "WashGentle": "textile:WashGentle",
+        "BleachAllowed": "textile:BleachAllowed",
+        "NonChlorineBleach": "textile:NonChlorineBleach",
+        "DoNotBleach": "textile:DoNotBleach",
+        "TumbleDryLow": "textile:TumbleDryLow",
+        "TumbleDryMedium": "textile:TumbleDryMedium",
+        "TumbleDryHigh": "textile:TumbleDryHigh",
+        "DoNotTumbleDry": "textile:DoNotTumbleDry",
+        "LineDry": "textile:LineDry",
+        "DryFlat": "textile:DryFlat",
+        "DripDry": "textile:DripDry",
+        "IronLow": "textile:IronLow",
+        "IronMedium": "textile:IronMedium",
+        "IronHigh": "textile:IronHigh",
+        "DoNotIron": "textile:DoNotIron",
+        "NoSteam": "textile:NoSteam",
+        "DryCleanAny": "textile:DryCleanAny",
+        "DryCleanPCE": "textile:DryCleanPCE",
+        "DryCleanHydrocarbon": "textile:DryCleanHydrocarbon",
+        "DoNotDryClean": "textile:DoNotDryClean",
+        "WetClean": "textile:WetClean"
+      }
+    },
+    "dryCleaningSymbol": {
+      "@id": "textile:dryCleaningSymbol",
+      "@type": "@vocab",
+      "@context": {
+        "Wash30": "textile:Wash30",
+        "Wash40": "textile:Wash40",
+        "Wash60": "textile:Wash60",
+        "WashHandOnly": "textile:WashHandOnly",
+        "DoNotWash": "textile:DoNotWash",
+        "WashGentle": "textile:WashGentle",
+        "BleachAllowed": "textile:BleachAllowed",
+        "NonChlorineBleach": "textile:NonChlorineBleach",
+        "DoNotBleach": "textile:DoNotBleach",
+        "TumbleDryLow": "textile:TumbleDryLow",
+        "TumbleDryMedium": "textile:TumbleDryMedium",
+        "TumbleDryHigh": "textile:TumbleDryHigh",
+        "DoNotTumbleDry": "textile:DoNotTumbleDry",
+        "LineDry": "textile:LineDry",
+        "DryFlat": "textile:DryFlat",
+        "DripDry": "textile:DripDry",
+        "IronLow": "textile:IronLow",
+        "IronMedium": "textile:IronMedium",
+        "IronHigh": "textile:IronHigh",
+        "DoNotIron": "textile:DoNotIron",
+        "NoSteam": "textile:NoSteam",
+        "DryCleanAny": "textile:DryCleanAny",
+        "DryCleanPCE": "textile:DryCleanPCE",
+        "DryCleanHydrocarbon": "textile:DryCleanHydrocarbon",
+        "DoNotDryClean": "textile:DoNotDryClean",
+        "WetClean": "textile:WetClean"
+      }
+    },
+    "additionalCareInstructions": "textile:additionalCareInstructions",
+    "durabilityInfo": {
+      "@id": "textile:durabilityInfo",
+      "@type": "@id"
+    },
+    "expectedWashCycles": {
+      "@id": "textile:expectedWashCycles",
+      "@type": "xsd:integer"
+    },
+    "durabilityClass": {
+      "@id": "textile:durabilityClass",
+      "@type": "@vocab",
+      "@context": {
+        "DurabilityA": "textile:DurabilityA",
+        "DurabilityB": "textile:DurabilityB",
+        "DurabilityC": "textile:DurabilityC",
+        "DurabilityD": "textile:DurabilityD",
+        "DurabilityE": "textile:DurabilityE"
+      }
+    },
+    "pillingResistance": {
+      "@id": "textile:pillingResistance",
+      "@type": "xsd:integer"
+    },
+    "colorFastness": {
+      "@id": "textile:colorFastness",
+      "@type": "xsd:integer"
+    },
+    "dimensionalStability": {
+      "@id": "textile:dimensionalStability",
+      "@type": "xsd:decimal"
+    },
+    "abrasionResistance": {
+      "@id": "textile:abrasionResistance",
+      "@type": "xsd:integer"
+    },
+    "tensileStrength": {
+      "@id": "textile:tensileStrength",
+      "@type": "@id"
+    },
+    "tearStrength": {
+      "@id": "textile:tearStrength",
+      "@type": "@id"
+    },
+    "expectedLifetimeYears": {
+      "@id": "textile:expectedLifetimeYears",
+      "@type": "xsd:integer"
+    },
+    "microplasticInfo": {
+      "@id": "textile:microplasticInfo",
+      "@type": "@id"
+    },
+    "microplasticRiskLevel": {
+      "@id": "textile:microplasticRiskLevel",
+      "@type": "@vocab",
+      "@context": {
+        "LowShedding": "textile:LowShedding",
+        "MediumShedding": "textile:MediumShedding",
+        "HighShedding": "textile:HighShedding"
+      }
+    },
+    "sheddingRate": {
+      "@id": "textile:sheddingRate",
+      "@type": "@id"
+    },
+    "syntheticFiberContent": {
+      "@id": "textile:syntheticFiberContent",
+      "@type": "xsd:decimal"
+    },
+    "microplasticMitigationMeasures": "textile:microplasticMitigationMeasures",
+    "takeBackProgram": {
+      "@id": "textile:takeBackProgram",
+      "@type": "@id"
+    },
+    "hasTakeBackProgram": {
+      "@id": "textile:hasTakeBackProgram",
+      "@type": "xsd:boolean"
+    },
+    "takeBackUrl": {
+      "@id": "textile:takeBackUrl",
+      "@type": "@id"
+    },
+    "takeBackIncentive": "textile:takeBackIncentive",
+    "endOfLifeDestination": "textile:endOfLifeDestination",
+    "recyclingInstructions": "textile:recyclingInstructions",
+    "repairServices": {
+      "@id": "textile:repairServices",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "isRepairable": {
+      "@id": "textile:isRepairable",
+      "@type": "xsd:boolean"
+    },
+    "repairGuideUrl": {
+      "@id": "textile:repairGuideUrl",
+      "@type": "@id"
+    },
+    "sparePartsAvailable": {
+      "@id": "textile:sparePartsAvailable",
+      "@type": "xsd:boolean"
+    },
+    "sparePartsUrl": {
+      "@id": "textile:sparePartsUrl",
+      "@type": "@id"
+    },
+    "isRecycledFiber": {
+      "@id": "textile:isRecycledFiber",
+      "@type": "xsd:boolean"
+    },
+    "recycledContentSource": "textile:recycledContentSource",
+    "textileChemicals": {
+      "@id": "textile:textileChemicals",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "chemicalName": "textile:chemicalName",
+    "chemicalPurpose": "textile:chemicalPurpose",
+    "isMRSLCompliant": {
+      "@id": "textile:isMRSLCompliant",
+      "@type": "xsd:boolean"
+    },
+    "pfasFree": {
+      "@id": "textile:pfasFree",
+      "@type": "xsd:boolean"
+    },
+    "garmentType": "textile:garmentType",
+    "targetGender": "textile:targetGender",
+    "sizeRange": "textile:sizeRange",
+    "seasonCollection": "textile:seasonCollection",
+    "robustnessTestFabricType": {
+      "@id": "textile:robustnessTestFabricType",
+      "@type": "@vocab",
+      "@context": {
+        "Knitted": "textile:Knitted",
+        "Denim": "textile:Denim",
+        "WovenNonDenim": "textile:WovenNonDenim"
+      }
+    },
+    "waterUsage": {
+      "@id": "textile:waterUsage",
+      "@type": "@id"
+    },
+    "energyUsage": {
+      "@id": "textile:energyUsage",
+      "@type": "@id"
+    },
+    "productionWastePercentage": {
+      "@id": "textile:productionWastePercentage",
+      "@type": "xsd:decimal"
+    },
+    "biodegradable": {
+      "@id": "textile:biodegradable",
+      "@type": "xsd:boolean"
+    },
+    "spinningFacility": {
+      "@id": "textile:spinningFacility",
+      "@type": "@id"
+    },
+    "weavingFacility": {
+      "@id": "textile:weavingFacility",
+      "@type": "@id"
+    },
+    "dyeingFacility": {
+      "@id": "textile:dyeingFacility",
+      "@type": "@id"
+    },
+    "cutAndSewFacility": {
+      "@id": "textile:cutAndSewFacility",
+      "@type": "@id"
+    },
+    "finishingFacility": {
+      "@id": "textile:finishingFacility",
+      "@type": "@id"
+    },
+    "robustnessAssessment": {
+      "@id": "textile:robustnessAssessment",
+      "@type": "@id"
+    },
+    "robustnessScore": {
+      "@id": "textile:robustnessScore",
+      "@type": "xsd:decimal"
+    },
+    "cleaningCyclesBeforeTest": {
+      "@id": "textile:cleaningCyclesBeforeTest",
+      "@type": "xsd:integer"
+    },
+    "spiralityTest": {
+      "@id": "textile:spiralityTest",
+      "@type": "@id"
+    },
+    "dimensionalChangeTest": {
+      "@id": "textile:dimensionalChangeTest",
+      "@type": "@id"
+    },
+    "visualInspection": {
+      "@id": "textile:visualInspection",
+      "@type": "@id"
+    },
+    "spiralityScore": {
+      "@id": "textile:spiralityScore",
+      "@type": "xsd:integer"
+    },
+    "spiralityPercentage": {
+      "@id": "textile:spiralityPercentage",
+      "@type": "xsd:decimal"
+    },
+    "spiralityTestMethod": "textile:spiralityTestMethod",
+    "dimensionalChangeScore": {
+      "@id": "textile:dimensionalChangeScore",
+      "@type": "xsd:integer"
+    },
+    "dimensionalChangePercentage": {
+      "@id": "textile:dimensionalChangePercentage",
+      "@type": "xsd:decimal"
+    },
+    "dimensionalChangeTestMethod": "textile:dimensionalChangeTestMethod",
+    "visualInspectionScore": {
+      "@id": "textile:visualInspectionScore",
+      "@type": "xsd:integer"
+    },
+    "colourChangeRating": {
+      "@id": "textile:colourChangeRating",
+      "@type": "xsd:integer"
+    },
+    "fabricAppearanceRating": {
+      "@id": "textile:fabricAppearanceRating",
+      "@type": "xsd:integer"
+    },
+    "seamAppearanceRating": {
+      "@id": "textile:seamAppearanceRating",
+      "@type": "xsd:integer"
+    },
+    "nonTextilePartsRating": {
+      "@id": "textile:nonTextilePartsRating",
+      "@type": "xsd:integer"
+    },
+    "visualInspectionTestMethod": "textile:visualInspectionTestMethod",
+    "recyclabilityAssessment": {
+      "@id": "textile:recyclabilityAssessment",
+      "@type": "@id"
+    },
+    "recyclabilityScore": {
+      "@id": "textile:recyclabilityScore",
+      "@type": "xsd:decimal"
+    },
+    "isRecyclable": {
+      "@id": "textile:isRecyclable",
+      "@type": "xsd:boolean"
+    },
+    "elastaneContentPercent": {
+      "@id": "textile:elastaneContentPercent",
+      "@type": "xsd:decimal"
+    },
+    "sortingFactors": {
+      "@id": "textile:sortingFactors",
+      "@type": "@id"
+    },
+    "technicalRecyclability": {
+      "@id": "textile:technicalRecyclability",
+      "@type": "@id"
+    },
+    "sameInnerOuterComposition": {
+      "@id": "textile:sameInnerOuterComposition",
+      "@type": "xsd:boolean"
+    },
+    "freeFromPrintings": {
+      "@id": "textile:freeFromPrintings",
+      "@type": "xsd:boolean"
+    },
+    "freeFromCoatings": {
+      "@id": "textile:freeFromCoatings",
+      "@type": "xsd:boolean"
+    },
+    "freeFromSequins": {
+      "@id": "textile:freeFromSequins",
+      "@type": "xsd:boolean"
+    },
+    "freeFromDyes": {
+      "@id": "textile:freeFromDyes",
+      "@type": "xsd:boolean"
+    },
+    "isMonoMaterial": {
+      "@id": "textile:isMonoMaterial",
+      "@type": "xsd:boolean"
+    },
+    "technicalRecyclabilityScore": {
+      "@id": "textile:technicalRecyclabilityScore",
+      "@type": "xsd:decimal"
+    },
+    "applicableRecyclingTechnology": {
+      "@id": "textile:applicableRecyclingTechnology",
+      "@type": "@vocab",
+      "@context": {
+        "MechanicalRecycling": "textile:MechanicalRecycling",
+        "ChemicalRecyclingCotton": "textile:ChemicalRecyclingCotton",
+        "ThermoChemicalRecycling": "textile:ThermoChemicalRecycling",
+        "ChemicalRecyclingPA6": "textile:ChemicalRecyclingPA6",
+        "ThermoMechanicalRecycling": "textile:ThermoMechanicalRecycling"
+      }
+    },
+    "recycledContentDeclaration": {
+      "@id": "textile:recycledContentDeclaration",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "secondaryMaterialFraction": {
+      "@id": "textile:secondaryMaterialFraction",
+      "@type": "xsd:decimal"
+    },
+    "wasteOriginType": {
+      "@id": "textile:wasteOriginType",
+      "@type": "@vocab",
+      "@context": {
+        "PostConsumer": "textile:PostConsumer",
+        "PostIndustrial": "textile:PostIndustrial"
+      }
+    },
+    "recycledSourceType": {
+      "@id": "textile:recycledSourceType",
+      "@type": "@vocab",
+      "@context": {
+        "FiberToFiber": "textile:FiberToFiber",
+        "OpenLoop": "textile:OpenLoop"
+      }
+    },
+    "chainOfCustodyMethod": {
+      "@id": "textile:chainOfCustodyMethod",
+      "@type": "@vocab",
+      "@context": {
+        "MassBalance": "textile:MassBalance",
+        "Segregation": "textile:Segregation",
+        "IdentityPreserved": "textile:IdentityPreserved",
+        "Certified": "textile:Certified"
+      }
+    },
+    "meetsTargetThreshold": {
+      "@id": "textile:meetsTargetThreshold",
+      "@type": "xsd:boolean"
+    },
+    "verificationCertification": {
+      "@id": "textile:verificationCertification",
+      "@type": "@id"
+    },
+    "environmentalFootprint": {
+      "@id": "textile:environmentalFootprint",
+      "@type": "@id"
+    },
+    "carbonFootprintManufacturing": {
+      "@id": "textile:carbonFootprintManufacturing",
+      "@type": "xsd:decimal"
+    },
+    "pefSingleScore": {
+      "@id": "textile:pefSingleScore",
+      "@type": "xsd:decimal"
+    },
+    "benchmarkPerformance": {
+      "@id": "textile:benchmarkPerformance",
+      "@type": "xsd:decimal"
+    },
+    "dataTypeIndicator": {
+      "@id": "textile:dataTypeIndicator",
+      "@type": "@vocab",
+      "@context": {
+        "PrimaryData": "textile:PrimaryData",
+        "SecondaryData": "textile:SecondaryData",
+        "MixedData": "textile:MixedData"
+      }
+    },
+    "pefcrReference": "textile:pefcrReference",
+    "lciaCategories": {
+      "@id": "textile:lciaCategories",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "lciaCategoryCode": {
+      "@id": "textile:lciaCategoryCode",
+      "@type": "@vocab",
+      "@context": {
+        "GWP": "textile:GWP",
+        "WaterUse": "textile:WaterUse",
+        "Eutrophication": "textile:Eutrophication",
+        "Acidification": "textile:Acidification",
+        "Ecotoxicity": "textile:Ecotoxicity",
+        "HumanToxicity": "textile:HumanToxicity"
+      }
+    },
+    "lciaValue": {
+      "@id": "textile:lciaValue",
+      "@type": "xsd:decimal"
+    },
+    "lciaUnit": "textile:lciaUnit",
+    "substancesOfConcern": {
+      "@id": "textile:substancesOfConcern",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "socType": {
+      "@id": "textile:socType",
+      "@type": "@vocab",
+      "@context": {
+        "SoCTypeA": "textile:SoCTypeA",
+        "SoCTypeB": "textile:SoCTypeB",
+        "SoCTypeC": "textile:SoCTypeC",
+        "SoCTypeD": "textile:SoCTypeD"
+      }
+    },
+    "iupacName": "textile:iupacName",
+    "casNumber": "dpp:casNumber",
+    "ecNumber": "textile:ecNumber",
+    "substanceConcentration": {
+      "@id": "textile:substanceConcentration",
+      "@type": "xsd:decimal"
+    },
+    "concentrationRange": "textile:concentrationRange",
+    "maxConcentration": {
+      "@id": "textile:maxConcentration",
+      "@type": "xsd:decimal"
+    },
+    "locationInProduct": "textile:locationInProduct",
+    "safeUseInstructions": "textile:safeUseInstructions",
+    "endOfLifeHandling": "textile:endOfLifeHandling",
+    "clpHazardCategory": {
+      "@id": "textile:clpHazardCategory",
+      "@type": "@vocab",
+      "@context": {
+        "CMR": "textile:CMR",
+        "EndocrineDisruptor": "textile:EndocrineDisruptor",
+        "PMT": "textile:PMT",
+        "Sensitizer": "textile:Sensitizer",
+        "AquaticToxicity": "textile:AquaticToxicity"
+      }
+    },
+    "testStandard": {
+      "@id": "textile:testStandard",
+      "@type": "@vocab",
+      "@context": {
+        "ISO6330": "textile:ISO6330",
+        "ISO16322_3": "textile:ISO16322_3",
+        "ISO3759": "textile:ISO3759",
+        "ISO15487": "textile:ISO15487",
+        "ISO105": "textile:ISO105",
+        "ISO12945": "textile:ISO12945",
+        "ISO12947": "textile:ISO12947"
+      }
+    }
+  }
+}

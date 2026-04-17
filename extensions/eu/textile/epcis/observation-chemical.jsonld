@@ -1,0 +1,85 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/textile/context",
+    {
+      "dpp": "https://ref.openepcis.io/extensions/common/core/"
+    }
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-10-05T09:00:00.000Z",
+  "_comment_architecture": [
+    "Substance of Concern (SoC) test results observation event. Reports 4-type SoC classification per ESPR Article 7(5).",
+    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
+    "Extension properties (textile:, dpp:) are at EVENT level.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,textile=https://ref.openepcis.io/extensions/eu/textile/",
+    "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567006",
+        "eventTime": "2025-10-05T09:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "OBSERVE",
+        "bizStep": "inspecting",
+        "disposition": "active",
+        "epcList": [
+          "https://id.gs1.org/01/09521234000013/21/WJ-2025-00301"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000068"
+        },
+        "substancesOfConcern": [
+          {
+            "type": "SubstanceOfConcern",
+            "socType": "SoCTypeB",
+            "chemicalName": "Disperse Blue 291",
+            "iupacName": "3-(2-Cyano-4,6-dinitrophenylazo)-N-ethyl-N-(2-acetoxyethyl)aniline",
+            "casNumber": "56548-64-2",
+            "clpHazardCategory": "Sensitizer",
+            "substanceConcentration": 0.008,
+            "locationInProduct": "Shell fabric dye",
+            "safeUseInstructions": "Wash before first wear. Suitable for skin contact per OEKO-TEX Standard 100 Class II.",
+            "endOfLifeHandling": "No special handling required at detected concentration."
+          },
+          {
+            "type": "SubstanceOfConcern",
+            "socType": "SoCTypeD",
+            "chemicalName": "DWR Fluorocarbon-free treatment",
+            "locationInProduct": "Shell fabric water-repellent finish",
+            "safeUseInstructions": "No special precautions required.",
+            "endOfLifeHandling": "Coating may reduce mechanical recyclability; chemical recycling pathway recommended."
+          }
+        ],
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000013/21/WJ-2025-00301",
+            "type": "Product",
+            "productName": {
+              "en": "Alpine Pro Winter Jacket - Navy"
+            },
+            "gtin": "09521234000013"
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000068",
+            "type": "Place",
+            "locationGLN": "9521234000068",
+            "physicalLocationName": {
+              "en": "EcoWear Quality Testing Lab"
+            },
+            "address": {
+              "type": "PostalAddress",
+              "addressLocality": "Munich",
+              "countryCode": "DE"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

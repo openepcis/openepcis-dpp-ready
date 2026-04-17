@@ -1,0 +1,239 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "detergent": "https://ref.openepcis.io/extensions/eu/detergent/",
+    "dpp": "https://ref.openepcis.io/extensions/common/core/",
+    "gs1": "https://ref.gs1.org/voc/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "id": "@id",
+    "type": "@type",
+    "DetergentProduct": "detergent:DetergentProduct",
+    "Ingredient": "detergent:Ingredient",
+    "SurfactantBiodegradability": "detergent:SurfactantBiodegradability",
+    "MicroorganismInfo": "detergent:MicroorganismInfo",
+    "FragranceAllergen": "detergent:FragranceAllergen",
+    "Product": "gs1:Product",
+    "Organization": "gs1:Organization",
+    "PostalAddress": "gs1:PostalAddress",
+    "QuantitativeValue": "gs1:QuantitativeValue",
+    "HazardousSubstance": "dpp:HazardousSubstance",
+    "DocumentReference": "dpp:DocumentReference",
+    "OperatorInformation": "dpp:OperatorInformation",
+    "casNumber": "dpp:casNumber",
+    "customsCommodityCode": "dpp:customsCommodityCode",
+    "customsCommodityCodeType": {
+      "@id": "dpp:customsCommodityCodeType",
+      "@type": "@vocab",
+      "@context": {
+        "HS6": "dpp:HS6",
+        "HS8": "dpp:HS8",
+        "CN8": "dpp:CN8",
+        "CN10": "dpp:CN10",
+        "HTSUS10": "dpp:HTSUS10"
+      }
+    },
+    "productName": "gs1:productName",
+    "gtin": "gs1:gtin",
+    "organizationName": "gs1:organizationName",
+    "partyGLN": "gs1:partyGLN",
+    "gln": "gs1:gln",
+    "manufacturer": {
+      "@id": "gs1:manufacturer",
+      "@type": "@id"
+    },
+    "address": {
+      "@id": "gs1:address",
+      "@type": "@id"
+    },
+    "streetAddress": "gs1:streetAddress",
+    "addressLocality": "gs1:addressLocality",
+    "postalCode": "gs1:postalCode",
+    "addressCountry": "gs1:addressCountry",
+    "countryOfOrigin": {
+      "@id": "gs1:countryOfOrigin",
+      "@type": "@id"
+    },
+    "netWeight": {
+      "@id": "gs1:netWeight",
+      "@type": "@id"
+    },
+    "netContent": {
+      "@id": "gs1:netContent",
+      "@type": "@id"
+    },
+    "detergentCategory": {
+      "@id": "detergent:detergentCategory",
+      "@type": "@vocab",
+      "@context": {
+        "LaundryDetergent": "detergent:LaundryDetergent",
+        "DishwasherDetergent": "detergent:DishwasherDetergent",
+        "HandDishwashingDetergent": "detergent:HandDishwashingDetergent",
+        "AllPurposeCleaner": "detergent:AllPurposeCleaner",
+        "IndustrialDetergent": "detergent:IndustrialDetergent",
+        "InstitutionalDetergent": "detergent:InstitutionalDetergent",
+        "Surfactant": "detergent:Surfactant"
+      }
+    },
+    "productForm": {
+      "@id": "detergent:productForm",
+      "@type": "@vocab",
+      "@context": {
+        "Liquid": "detergent:Liquid",
+        "Powder": "detergent:Powder",
+        "Gel": "detergent:Gel",
+        "Capsule": "detergent:Capsule",
+        "Tablet": "detergent:Tablet",
+        "Sheet": "detergent:Sheet",
+        "Paste": "detergent:Paste",
+        "Spray": "detergent:Spray"
+      }
+    },
+    "signalWord": {
+      "@id": "detergent:signalWord",
+      "@type": "@vocab",
+      "@context": {
+        "Danger": "detergent:Danger",
+        "Warning": "detergent:Warning"
+      }
+    },
+    "ingredientFunction": {
+      "@id": "detergent:ingredientFunction",
+      "@type": "@vocab",
+      "@context": {
+        "SurfactantFunction": "detergent:SurfactantFunction",
+        "Builder": "detergent:Builder",
+        "Bleach": "detergent:Bleach",
+        "Enzyme": "detergent:Enzyme",
+        "Preservative": "detergent:Preservative",
+        "Fragrance": "detergent:Fragrance",
+        "Colorant": "detergent:Colorant",
+        "Solvent": "detergent:Solvent",
+        "pHAdjuster": "detergent:pHAdjuster",
+        "Thickener": "detergent:Thickener",
+        "FoamRegulator": "detergent:FoamRegulator",
+        "AntiRedeposition": "detergent:AntiRedeposition",
+        "Filler": "detergent:Filler"
+      }
+    },
+    "surfactantType": {
+      "@id": "detergent:surfactantType",
+      "@type": "@vocab",
+      "@context": {
+        "Anionic": "detergent:Anionic",
+        "NonIonic": "detergent:NonIonic",
+        "Cationic": "detergent:Cationic",
+        "Amphoteric": "detergent:Amphoteric"
+      }
+    },
+    "testMethod": {
+      "@id": "detergent:testMethod",
+      "@type": "@vocab",
+      "@context": {
+        "ISO14593": "detergent:ISO14593",
+        "OECD301B": "detergent:OECD301B",
+        "OECD301D": "detergent:OECD301D",
+        "OECD301F": "detergent:OECD301F",
+        "OECD310": "detergent:OECD310"
+      }
+    },
+    "intendedUse": "detergent:intendedUse",
+    "ingredientList": {
+      "@id": "detergent:ingredientList",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "surfactantBiodegradability": {
+      "@id": "detergent:surfactantBiodegradability",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "fragranceAllergens": {
+      "@id": "detergent:fragranceAllergens",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "microorganisms": {
+      "@id": "detergent:microorganisms",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hazardousSubstances": {
+      "@id": "detergent:hazardousSubstances",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hazardPictograms": {
+      "@id": "detergent:hazardPictograms",
+      "@container": "@set"
+    },
+    "hStatements": {
+      "@id": "detergent:hStatements",
+      "@container": "@set"
+    },
+    "pStatements": {
+      "@id": "detergent:pStatements",
+      "@container": "@set"
+    },
+    "phosphorusContentPercent": {
+      "@id": "detergent:phosphorusContentPercent",
+      "@type": "xsd:decimal"
+    },
+    "phosphateCompliant": {
+      "@id": "detergent:phosphateCompliant",
+      "@type": "xsd:boolean"
+    },
+    "filmBiodegradable": {
+      "@id": "detergent:filmBiodegradable",
+      "@type": "xsd:boolean"
+    },
+    "filmBiodegradabilityPercentage": {
+      "@id": "detergent:filmBiodegradabilityPercentage",
+      "@type": "xsd:decimal"
+    },
+    "recommendedDosage": {
+      "@id": "detergent:recommendedDosage",
+      "@type": "@id"
+    },
+    "dosageInstructions": "detergent:dosageInstructions",
+    "safetyDataSheet": {
+      "@id": "detergent:safetyDataSheet",
+      "@type": "@id"
+    },
+    "biodegradabilityTestReport": {
+      "@id": "detergent:biodegradabilityTestReport",
+      "@type": "@id"
+    },
+    "inciName": "detergent:inciName",
+    "weightPercentRange": "detergent:weightPercentRange",
+    "isSurfactant": {
+      "@id": "detergent:isSurfactant",
+      "@type": "xsd:boolean"
+    },
+    "biodegradationPercentage": {
+      "@id": "detergent:biodegradationPercentage",
+      "@type": "xsd:decimal"
+    },
+    "testDurationDays": {
+      "@id": "detergent:testDurationDays",
+      "@type": "xsd:integer"
+    },
+    "passesUltimateBiodegradability": {
+      "@id": "detergent:passesUltimateBiodegradability",
+      "@type": "xsd:boolean"
+    },
+    "allergenName": "detergent:allergenName",
+    "allergenCasNumber": "detergent:allergenCasNumber",
+    "allergenConcentration": {
+      "@id": "detergent:allergenConcentration",
+      "@type": "xsd:decimal"
+    },
+    "speciesName": "detergent:speciesName",
+    "strainDesignation": "detergent:strainDesignation",
+    "endProductCharacteristics": "detergent:endProductCharacteristics",
+    "value": {
+      "@id": "gs1:value",
+      "@type": "xsd:decimal"
+    },
+    "unitCode": "gs1:unitCode"
+  }
+}

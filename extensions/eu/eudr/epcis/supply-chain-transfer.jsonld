@@ -1,0 +1,176 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/eudr/context"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-01-25T12:00:00.000Z",
+  "_comment_architecture": [
+    "Supply chain transfer events recording ownership change (shipping + receiving).",
+    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
+    "Extension properties (eudr:) are at EVENT level.",
+    "",
+    "HTTP header: GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/",
+    "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:550e8400-e29b-41d4-a716-446655440040",
+        "eventTime": "2025-01-25T09:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "OBSERVE",
+        "bizStep": "shipping",
+        "disposition": "in_transit",
+        "epcList": [
+          "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
+          "https://id.gs1.org/01/09521234000020/21/LOG-2025-002"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000006"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000006"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
+            "productName": {
+              "en": "European Oak Round Wood - Grade A"
+            },
+            "countryOfOrigin": {
+              "countryCode": "DE"
+            },
+            "regulatoryInformation": [
+              {
+                "regulationType": "DEFORESTATION_REGULATION",
+                "regulatoryAct": "EU 2023/1115"
+              }
+            ]
+          },
+          {
+            "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-002",
+            "productName": {
+              "en": "European Oak Round Wood - Grade A"
+            },
+            "countryOfOrigin": {
+              "countryCode": "DE"
+            },
+            "regulatoryInformation": [
+              {
+                "regulationType": "DEFORESTATION_REGULATION",
+                "regulatoryAct": "EU 2023/1115"
+              }
+            ]
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000006",
+            "physicalLocationName": {
+              "en": "Waldwirtschaft Schmidt - Shipping Dock"
+            },
+            "countryCode": "DE"
+          },
+          {
+            "id": "https://id.gs1.org/417/9521234000006",
+            "organizationName": {
+              "en": "Waldwirtschaft Schmidt GmbH"
+            },
+            "partyGLN": "9521234000006",
+            "countryCode": "DE"
+          },
+          {
+            "id": "https://id.gs1.org/417/9521234000105",
+            "organizationName": {
+              "en": "Möbelwerkstatt Weber GmbH"
+            },
+            "partyGLN": "9521234000105",
+            "countryCode": "DE"
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "source": "https://id.gs1.org/417/9521234000006"
+          },
+          {
+            "type": "urn:epcglobal:cbv:sdt:location",
+            "source": "https://id.gs1.org/414/9521234000006"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "destination": "https://id.gs1.org/417/9521234000105"
+          },
+          {
+            "type": "urn:epcglobal:cbv:sdt:location",
+            "destination": "https://id.gs1.org/414/9521234000105"
+          }
+        ],
+        "bizTransactionList": [
+          {
+            "type": "urn:epcglobal:cbv:btt:po",
+            "bizTransaction": "urn:epcglobal:cbv:bt:9521234000105:PO-2025-001"
+          },
+          {
+            "type": "urn:epcglobal:cbv:btt:desadv",
+            "bizTransaction": "urn:epcglobal:cbv:bt:9521234000006:DESADV-2025-001"
+          }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:550e8400-e29b-41d4-a716-446655440041",
+        "eventTime": "2025-01-26T14:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "OBSERVE",
+        "bizStep": "receiving",
+        "disposition": "in_progress",
+        "epcList": [
+          "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
+          "https://id.gs1.org/01/09521234000020/21/LOG-2025-002"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000105"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000105"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/414/9521234000105",
+            "physicalLocationName": {
+              "en": "Möbelwerkstatt Weber - Receiving Dock"
+            },
+            "countryCode": "DE"
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "source": "https://id.gs1.org/417/9521234000006"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "destination": "https://id.gs1.org/417/9521234000105"
+          }
+        ],
+        "bizTransactionList": [
+          {
+            "type": "urn:epcglobal:cbv:btt:po",
+            "bizTransaction": "urn:epcglobal:cbv:bt:9521234000105:PO-2025-001"
+          },
+          {
+            "type": "urn:epcglobal:cbv:btt:recadv",
+            "bizTransaction": "urn:epcglobal:cbv:bt:9521234000105:RECADV-2025-001"
+          }
+        ]
+      }
+    ]
+  }
+}

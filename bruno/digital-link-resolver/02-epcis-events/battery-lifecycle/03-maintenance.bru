@@ -1,0 +1,83 @@
+meta {
+  name: Maintenance - Health Check
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url}}/capture
+  body: json
+  auth: inherit
+}
+
+script:pre-request {
+  bru.setVar("servicePartnerGln", "9521234026869");
+  bru.setVar("serviceReadPoint", `https://id.gs1.org/414/${bru.getVar("servicePartnerGln")}/254/service-bay-1`);
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+      "{{dpp-context}}",
+      "{{battery-context}}"
+    ],
+    "type": "EPCISDocument",
+    "schemaVersion": "2.0",
+    "creationDate": "{{eventTime}}",
+    "epcisBody": {
+      "eventList": [
+        {
+          "type": "ObjectEvent",
+          "action": "OBSERVE",
+          "bizStep": "inspecting",
+          "disposition": "conformant",
+          "epcList": ["{{batteryEpc}}"],
+          "eventTime": "{{eventTime}}",
+          "eventTimeZoneOffset": "+01:00",
+          "readPoint": {
+            "id": "{{serviceReadPoint}}"
+          },
+          "dpp:operatorInformation": {
+            "@type": "dpp:OperatorInformation",
+            "gs1:gln": "{{servicePartnerGln}}",
+            "gs1:organizationName": "EcoService Partner GmbH"
+          },
+          "battery:maintenanceInfo": {
+            "@type": "battery:MaintenanceInfo",
+            "battery:maintenanceType": "annual inspection",
+            "battery:maintenanceDate": "{{eventTime}}",
+            "battery:technicianId": "BAT-TECH-2025-042",
+            "battery:odometer": 25000,
+            "battery:odometerUnit": "km",
+            "battery:cycleCount": 250
+          },
+          "battery:stateOfHealth": {
+            "@type": "battery:StateOfHealth",
+            "battery:sohPercentage": 98,
+            "battery:remainingCapacity": 73.5,
+            "battery:remainingCapacityUnit": "kWh",
+            "battery:measurementDate": "{{eventTime}}",
+            "battery:degradationRate": 0.8,
+            "battery:degradationUnit": "% per year"
+          },
+          "battery:diagnosticResult": {
+            "@type": "battery:DiagnosticResult",
+            "battery:overallStatus": "healthy",
+            "battery:cellBalanceStatus": "balanced",
+            "battery:thermalManagementStatus": "optimal",
+            "battery:bmsSoftwareVersion": "3.2.1",
+            "battery:warningsFound": [],
+            "battery:recommendedActions": []
+          }
+        }
+      ]
+    }
+  }
+}
+
+tests {
+  test("Capture successful", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+  });
+}

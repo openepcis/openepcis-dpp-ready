@@ -1,0 +1,130 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/context",
+    "https://ref.openepcis.io/extensions/eu/eudr/context"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-04-15T10:00:00.000Z",
+  "_comment_architecture": [
+    "EUDR Exemption Declaration — reference pattern for GSMP WR 25-252 / WR 26-122.",
+    "",
+    "GS1 alignment status (2026-04-17): GS1 EUDR Provisional Standard Release P",
+    "(Sep 2025) defines NO exemption terms. The 13 April 2026 GS1 EUDR MSWG",
+    "previewed a planned gs1:regulatoryExemption model that would replace",
+    "gs1:regulatoryIdentifier when an exemption applies; that model is not yet",
+    "published. This example uses the eudr:-namespaced reference pattern that",
+    "mirrors the planned semantics. See eudr/docs/GS1_ALIGNMENT.md.",
+    "",
+    "masterDataAvailableFor contains ONLY gs1: properties (regulatoryIdentifier",
+    "is correctly OMITTED from the regulatoryInformation block here — an exemption",
+    "replaces it per WR 25-252 / MSWG 2026-04-13).",
+    "ALL exemption properties (eudr:, dpp:) are at EVENT level.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,eudr=https://ref.openepcis.io/extensions/eu/eudr/",
+    "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "_scenario": "A downstream operator (Waldwirtschaft Schmidt GmbH) declares a temporary exemption for a specific batch of European Oak round wood, asserting that the batch originated from already-verified low-risk sources per EUDR Article 2.17 (downstream operator simplified due diligence). The exemption is scoped to batch LOT-2026-Q1-0042 and valid from 2026-04-15 to 2026-07-15.",
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:6f2f8a3c-ee8b-4d2f-9a12-b0e7f4c8a012",
+        "eventTime": "2026-04-15T09:30:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "action": "OBSERVE",
+        "bizStep": "notifying",
+        "persistentDisposition": {
+          "set": [
+            "subject_to_regulation"
+          ]
+        },
+        "epcList": [
+          "https://id.gs1.org/01/09521234000020/10/LOT-2026-Q1-0042"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000006"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000006"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000020/10/LOT-2026-Q1-0042",
+            "productName": {
+              "en": "European Oak Round Wood - Grade A"
+            },
+            "countryOfOrigin": {
+              "countryCode": "DE"
+            },
+            "regulatoryInformation": [
+              {
+                "regulationType": "DEFORESTATION_REGULATION",
+                "regulatoryAct": "EU 2023/1115",
+                "isRegulationCompliant": true
+              }
+            ],
+            "eudr:commodityType": "Wood",
+            "eudr:timberProductType": "RoundWood",
+            "eudr:speciesScientificName": "Quercus robur",
+            "eudr:speciesCommonName": "European Oak"
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000006",
+            "physicalLocationName": {
+              "en": "Waldwirtschaft Schmidt - Head Office"
+            },
+            "countryCode": "DE"
+          },
+          {
+            "id": "https://id.gs1.org/417/9521234000006",
+            "organizationName": {
+              "en": "Waldwirtschaft Schmidt GmbH"
+            },
+            "partyGLN": "9521234000006",
+            "countryCode": "DE"
+          }
+        ],
+        "eudr:exemptionDeclaration": {
+          "type": "eudr:ExemptionDeclaration",
+          "eudr:exemptionType": "TemporaryExemption",
+          "eudr:exemptionReasonCode": "DOWNSTREAM_VERIFIED_LOW_RISK",
+          "eudr:exemptionScope": "batch",
+          "eudr:exemptionScopeReference": "LOT-2026-Q1-0042",
+          "eudr:exemptionEffectiveFrom": "2026-04-15",
+          "eudr:exemptionEffectiveUntil": "2026-07-15",
+          "eudr:exemptionAuthority": {
+            "id": "https://id.gs1.org/417/9521234000006",
+            "type": "dpp:OperatorInformation",
+            "organizationName": {
+              "en": "Waldwirtschaft Schmidt GmbH"
+            },
+            "partyGLN": "9521234000006",
+            "dpp:operatorRole": "DownstreamOperator",
+            "dpp:economicOperatorId": "EOID-DE-2026-009988"
+          }
+        },
+        "sourceList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "source": "https://id.gs1.org/417/9521234000006"
+          }
+        ],
+        "bizTransactionList": [
+          {
+            "type": "urn:epcglobal:cbv:btt:cert",
+            "bizTransaction": "https://example.com/eudr/exemption/LOT-2026-Q1-0042.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  "_notes": {
+    "eancom_equivalence": "In EANCOM syntax this exemption would be carried as IMD segment C272:DE7081='TEMPORARY_EXEMPTION' + C273:DE7009 with reason code 'DOWNSTREAM_VERIFIED_LOW_RISK'. The batch scope LOT-2026-Q1-0042 would appear in GIN segment under SG22. See WR 25-252 for the full EANCOM solution.",
+    "gs1xml_equivalence": "The equivalent GS1 XML structure is defined in WR 25-252 (eBallot).",
+    "gdsn_equivalence": "The equivalent GDSN master data structure is defined in WR 26-122 (Community Review).",
+    "status": "Reference pattern; the EANCOM/XML/GDSN specifications are authoritative. This EPCIS JSON-LD example demonstrates the equivalent semantics for projects using EPCIS as their data sharing layer."
+  }
+}

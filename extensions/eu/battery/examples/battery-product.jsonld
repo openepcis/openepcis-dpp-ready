@@ -1,0 +1,711 @@
+{
+  "_comment_gs1_alignment": [
+    "This example demonstrates GS1-aligned Digital Product Passport modeling.",
+    "Key GS1 patterns used:",
+    "- GS1 Digital Link URI for product identification (https://id.gs1.org/01/{GTIN}/21/{serial})",
+    "- Product as base type with battery:Battery extension",
+    "- GS1 properties: gtin, productName, manufacturer, netWeight, gs1:warranty",
+    "- QuantitativeValue for all measurements with unitCode",
+    "- gs1:regulatoryInformation for compliance with gs1:RegulationTypeCode-BATTERY_DIRECTIVE",
+    "- gs1:referencedFileDetails for documents",
+    "- Battery-specific extensions only where GS1 Web Vocabulary lacks equivalent terms",
+    "See EXTENSION-GOVERNANCE.md for rationale on each extension term."
+  ],
+
+  "@context": [
+    "https://ref.openepcis.io/extensions/eu/battery/context",
+    {
+      "gs1": "https://ref.gs1.org/voc/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#"
+    }
+  ],
+
+  "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
+  "type": "Product",
+
+  "gtin": "09521234000013",
+  "gs1:serialNumber": "BAT2024-001",
+
+  "productName": {
+    "@value": "EcoCell Industrial Battery Module IM-500",
+    "@language": "en"
+  },
+
+  "gs1:productDescription": {
+    "@value": "High-capacity lithium iron phosphate battery module for industrial energy storage. Designed for long cycle life and safety.",
+    "@language": "en"
+  },
+
+  "batteryCategory": "IndustrialBattery",
+
+  "_comment_classification": "Alternative GS1 pattern for battery category using gs1:additionalProductClassification",
+  "gs1:additionalProductClassification": {
+    "type": "gs1:AdditionalProductClassificationDetails",
+    "gs1:additionalProductClassificationCode": "industrial",
+    "gs1:additionalProductClassificationCodeDescription": {
+      "@value": "Industrial Battery - Battery designed for industrial applications with capacity > 2 kWh",
+      "@language": "en"
+    },
+    "gs1:additionalProductClassificationSystemCode": "BATTERY_REGULATION_2023_1542"
+  },
+
+  "batteryStatus": "Original",
+
+  "batteryModel": {
+    "@value": "IM-500",
+    "@language": "en"
+  },
+
+  "cellType": "PrismaticCell",
+
+  "numberOfCells": 16,
+  "numberOfModules": 1,
+
+  "manufacturer": {
+    "id": "https://id.gs1.org/417/9521234000006",
+    "type": "Organization",
+    "gs1:organizationName": "EcoCell GmbH",
+    "gs1:gln": "9521234000006",
+    "gs1:address": {
+      "id": "https://id.gs1.org/417/9521234000006#address",
+      "type": "gs1:PostalAddress",
+      "gs1:streetAddress": "Batteriestraße 42",
+      "gs1:addressLocality": "Stuttgart",
+      "gs1:postalCode": "70173",
+      "gs1:countryCode": "DE"
+    },
+    "gs1:contactPoint": {
+      "type": "gs1:ContactPoint",
+      "gs1:email": "info@ecocell-batteries.example.com",
+      "gs1:url": {"id": "https://www.ecocell-batteries.example.com"}
+    }
+  },
+
+  "manufacturingPlace": {
+    "id": "https://id.gs1.org/414/9521234000013",
+    "type": "gs1:Place",
+    "gs1:gln": "9521234000013",
+    "gs1:address": {
+      "type": "gs1:PostalAddress",
+      "gs1:addressLocality": "Stuttgart",
+      "gs1:countryCode": "DE"
+    }
+  },
+
+  "operatorInformation": {
+    "id": "https://id.gs1.org/417/9521234000006#operator",
+    "type": "dpp:OperatorInformation",
+    "gs1:gln": "9521234000006",
+    "gs1:organizationName": "EcoCell GmbH",
+    "operatorRole": "Manufacturer",
+    "gs1:address": {
+      "type": "gs1:PostalAddress",
+      "gs1:streetAddress": "Batteriestraße 42",
+      "gs1:addressLocality": "Stuttgart",
+      "gs1:postalCode": "70173",
+      "gs1:countryCode": "DE"
+    },
+    "gs1:contactPoint": {
+      "type": "gs1:ContactPoint",
+      "gs1:email": "compliance@ecocell-batteries.example.com",
+      "gs1:telephone": "+49-711-555-0100"
+    }
+  },
+
+  "countryOfOrigin": "DE",
+  "manufacturingDate": "2024-03-15",
+
+  "netWeight": {
+    "type": "WeightKilograms",
+    "value": 125.5
+  },
+
+  "grossWeight": {
+    "type": "WeightKilograms",
+    "value": 132.0
+  },
+
+  "batteryChemistry": {
+    "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#chemistry",
+    "type": "BatteryChemistry",
+    "shortName": "LFP",
+    "fullName": {
+      "@value": "Lithium Iron Phosphate",
+      "@language": "en"
+    },
+    "cathodeActiveMaterial": "LiFePO4",
+    "anodeActiveMaterial": "Graphite",
+    "electrolyteType": {
+      "@value": "Liquid organic carbonate-based",
+      "@language": "en"
+    }
+  },
+
+  "technicalSpecifications": {
+    "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#specs",
+    "type": "TechnicalSpecification",
+
+    "ratedCapacity": {
+      "type": "CapacityAmpereHours",
+      "value": 280
+    },
+    "ratedEnergy": {
+      "type": "EnergyKilowattHours",
+      "value": 14.3
+    },
+    "nominalVoltage": {
+      "type": "VoltageVolts",
+      "value": 51.2
+    },
+    "minimumVoltage": {
+      "type": "VoltageVolts",
+      "value": 40.0
+    },
+    "maximumVoltage": {
+      "type": "VoltageVolts",
+      "value": 58.4
+    },
+    "ratedMaximumPower": {
+      "type": "PowerKilowatts",
+      "value": 7.5
+    },
+    "maximumChargingPower": {
+      "type": "PowerKilowatts",
+      "value": 7.5
+    },
+    "maximumDischargingPower": {
+      "type": "PowerKilowatts",
+      "value": 7.5
+    },
+    "maximumChargingCurrent": {
+      "type": "CurrentAmperes",
+      "value": 140
+    },
+    "maximumDischargingCurrent": {
+      "type": "CurrentAmperes",
+      "value": 140
+    },
+    "originalPowerCapability": [
+      {
+        "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#power-80",
+        "type": "PowerCapabilityAtSoC",
+        "stateOfChargeLevel": 80,
+        "powerCapability": {
+          "type": "PowerKilowatts",
+          "value": 7.2
+        }
+      },
+      {
+        "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#power-20",
+        "type": "PowerCapabilityAtSoC",
+        "stateOfChargeLevel": 20,
+        "powerCapability": {
+          "type": "PowerKilowatts",
+          "value": 6.8
+        }
+      }
+    ],
+    "initialInternalResistance": {
+      "type": "ResistanceOhms",
+      "value": 2.1
+    },
+    "initialSelfDischarge": 1.5,
+    "expectedCycleLife": 6000,
+    "expectedLifetimeYears": 15,
+    "expectedLifetimeEnergyThroughput": {
+      "type": "EnergyKilowattHours",
+      "value": 85800
+    },
+    "expectedLifetimeCapacityThroughput": {
+      "type": "CapacityAmpereHours",
+      "value": 1680000
+    },
+    "depthOfDischargeInCycleLifeTest": 80,
+    "capacityFadeThreshold": 20,
+    "resistanceIncreaseThreshold": 50,
+    "roundTripEfficiency": 96,
+    "capacityThresholdForExhaustion": 70,
+    "lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
+    "powerCapabilityRatio": 0.52,
+    "cRate": 0.5,
+    "cRateLifeCycleTest": 0.33,
+    "roundTripEfficiencyAt50PercentCycleLife": 94,
+    "temperatureRangeStorage": {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#temp-storage",
+      "type": "TemperatureRange",
+      "minimumTemperature": {
+        "type": "TemperatureCelsius",
+        "value": -20
+      },
+      "maximumTemperature": {
+        "type": "TemperatureCelsius",
+        "value": 45
+      }
+    },
+    "temperatureRangeCharging": {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#temp-charging",
+      "type": "TemperatureRange",
+      "minimumTemperature": {
+        "type": "TemperatureCelsius",
+        "value": 0
+      },
+      "maximumTemperature": {
+        "type": "TemperatureCelsius",
+        "value": 45
+      }
+    },
+    "temperatureRangeDischarging": {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#temp-discharging",
+      "type": "TemperatureRange",
+      "minimumTemperature": {
+        "type": "TemperatureCelsius",
+        "value": -20
+      },
+      "maximumTemperature": {
+        "type": "TemperatureCelsius",
+        "value": 55
+      }
+    },
+    "temperatureRangeIdleState": {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#temp-idle",
+      "type": "TemperatureRange",
+      "minimumTemperature": {
+        "type": "TemperatureCelsius",
+        "value": -30
+      },
+      "maximumTemperature": {
+        "type": "TemperatureCelsius",
+        "value": 60
+      }
+    }
+  },
+
+  "materialComposition": [
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#mat-li",
+      "type": "BatteryMaterial",
+      "materialName": {
+        "@value": "Lithium",
+        "@language": "en"
+      },
+      "casNumber": "7439-93-2",
+      "ecNumber": "231-102-5",
+      "componentLocation": "Cathode",
+      "materialCategory": "ActiveMaterial",
+      "massPercentage": 4.2,
+      "isCriticalRawMaterial": true,
+      "isSubstanceOfConcern": false,
+      "materialSourceCountry": "CL"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#mat-fe",
+      "type": "BatteryMaterial",
+      "materialName": {
+        "@value": "Iron",
+        "@language": "en"
+      },
+      "casNumber": "7439-89-6",
+      "ecNumber": "231-096-4",
+      "componentLocation": "Cathode",
+      "materialCategory": "ActiveMaterial",
+      "massPercentage": 21.5,
+      "isCriticalRawMaterial": false,
+      "isSubstanceOfConcern": false
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#mat-c",
+      "type": "BatteryMaterial",
+      "materialName": {
+        "@value": "Graphite",
+        "@language": "en"
+      },
+      "casNumber": "7782-42-5",
+      "ecNumber": "231-955-3",
+      "componentLocation": "Anode",
+      "materialCategory": "ActiveMaterial",
+      "massPercentage": 18.3,
+      "isCriticalRawMaterial": true,
+      "isSubstanceOfConcern": false,
+      "renewableContentShare": 0
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#mat-p",
+      "type": "BatteryMaterial",
+      "materialName": {
+        "@value": "Phosphorus",
+        "@language": "en"
+      },
+      "casNumber": "7723-14-0",
+      "ecNumber": "231-768-7",
+      "componentLocation": "Cathode",
+      "materialCategory": "ActiveMaterial",
+      "massPercentage": 9.8,
+      "isCriticalRawMaterial": true,
+      "isSubstanceOfConcern": false
+    }
+  ],
+
+  "hazardousSubstances": [
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#haz-electrolyte",
+      "type": "HazardousSubstance",
+      "substanceName": {
+        "@value": "Lithium hexafluorophosphate (LiPF6)",
+        "@language": "en"
+      },
+      "substanceCasNumber": "21324-40-3",
+      "substanceEcNumber": "244-334-7",
+      "hazardClass": "AcuteToxicity",
+      "concentration": 12.5,
+      "hazardImpact": {
+        "@value": "Toxic if swallowed; causes skin irritation; causes serious eye damage",
+        "@language": "en"
+      },
+      "substanceLocation": "Electrolyte"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#haz-solvent",
+      "type": "HazardousSubstance",
+      "substanceName": {
+        "@value": "Ethylene carbonate",
+        "@language": "en"
+      },
+      "substanceCasNumber": "96-49-1",
+      "substanceEcNumber": "202-510-0",
+      "hazardClass": "EyeDamageOrIrritation",
+      "concentration": 8.2,
+      "hazardImpact": {
+        "@value": "Causes serious eye irritation",
+        "@language": "en"
+      },
+      "substanceLocation": "Electrolyte"
+    }
+  ],
+
+  "recycledContent": {
+    "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#recycled",
+    "type": "RecycledContent",
+    "lithiumRecycledShare": 12,
+    "lithiumPreConsumerShare": 5,
+    "lithiumPostConsumerShare": 7,
+    "cobaltRecycledShare": 0,
+    "cobaltPreConsumerShare": 0,
+    "cobaltPostConsumerShare": 0,
+    "nickelRecycledShare": 0,
+    "nickelPreConsumerShare": 0,
+    "nickelPostConsumerShare": 0,
+    "leadRecycledShare": 0,
+    "leadPreConsumerShare": 0,
+    "leadPostConsumerShare": 0
+  },
+
+  "carbonFootprintDeclaration": {
+    "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#cfp",
+    "type": "CarbonFootprintDeclaration",
+    "carbonFootprintTotal": {
+      "type": "WeightKilograms",
+      "value": 45.2
+    },
+    "carbonFootprintRawMaterialExtraction": {
+      "type": "WeightKilograms",
+      "value": 18.5
+    },
+    "carbonFootprintProduction": {
+      "type": "WeightKilograms",
+      "value": 15.3
+    },
+    "carbonFootprintDistribution": {
+      "type": "WeightKilograms",
+      "value": 2.8
+    },
+    "carbonFootprintRecycling": {
+      "type": "WeightKilograms",
+      "value": 8.6
+    },
+    "carbonFootprintPerformanceClass": "CFClassB",
+    "carbonFootprintStudyUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-cfp-study.pdf",
+    "functionalUnit": "1 kWh of total energy throughput over battery lifetime",
+    "calculationStandard": "ISO 14067:2018",
+    "carbonFootprintDeclarationId": "CFP-2024-ECOCELL-IM500-001",
+    "carbonFootprintGeographicScope": "EU production, global material sourcing",
+    "thirdPartyVerification": {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#cfp-verification",
+      "type": "ThirdPartyVerification",
+      "verificationBodyName": "TÜV Rheinland",
+      "verificationDate": "2024-02-28",
+      "verificationCertificateUrl": "https://www.ecocell-batteries.example.com/docs/cfp-verification-cert.pdf",
+      "verificationStandard": "ISO 14064-3:2019"
+    }
+  },
+
+  "gs1:warranty": {
+    "type": "gs1:WarrantyPromise",
+    "gs1:durationOfWarranty": "P8Y",
+    "gs1:warrantyScope": "Full replacement warranty for manufacturing defects"
+  },
+  "warrantyConditions": "https://www.ecocell-batteries.example.com/warranty/terms",
+  "extendedWarrantyAvailable": true,
+  "serviceContactPoint": {
+    "type": "gs1:ContactPoint",
+    "gs1:email": "service@ecocell-batteries.example.com",
+    "gs1:telephone": "+49-711-555-0300",
+    "gs1:url": {"id": "https://service.ecocell-batteries.example.com"}
+  },
+  "authorizedServiceCenters": "https://www.ecocell-batteries.example.com/service-centers",
+
+  "transportationSafetyClass": "UN3481",
+  "dangerousGoodsPackingInstructions": {
+    "@value": "PI966 Section II - Lithium ion batteries packed with equipment",
+    "@language": "en"
+  },
+  "shippingName": {
+    "@value": "LITHIUM ION BATTERIES PACKED WITH EQUIPMENT",
+    "@language": "en"
+  },
+
+  "repurposingPotential": {
+    "@value": "High - suitable for stationary energy storage after EV use",
+    "@language": "en"
+  },
+  "repurposingGuidelines": "https://www.ecocell-batteries.example.com/docs/repurposing-guide.pdf",
+
+  "dataQualityAssessment": "A",
+  "lastDataUpdate": "2024-03-20T14:30:00Z",
+  "dataProviderCertification": "ISO 27001 certified data management",
+
+  "criticalRawMaterialsStatement": {
+    "@value": "Contains lithium (4.2%), graphite (18.3%), and phosphorus (9.8%) which are on the EU Critical Raw Materials list.",
+    "@language": "en"
+  },
+
+  "ceMarkingIndicator": true,
+  "euDeclarationOfConformityId": "DoC-2024-ECOCELL-IM500",
+  "declarationOfConformity": "https://www.ecocell-batteries.example.com/docs/IM-500-eu-doc.pdf",
+  "notifiedBodyNumber": "0123",
+  "notifiedBodyName": "TÜV SÜD",
+  "resultOfTestReport": "https://www.ecocell-batteries.example.com/docs/IM-500-test-report.pdf",
+  "testReportNumber": "TR-2024-ECOCELL-IM500-001",
+  "complianceStatus": "Compliant",
+  "separateCollectionSymbolUrl": "https://www.ecocell-batteries.example.com/labels/weee-symbol.svg",
+  "cadmiumSymbolRequired": false,
+  "leadSymbolRequired": false,
+
+  "labels": [
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#label-weee",
+      "type": "Label",
+      "labelSubject": "SeparateCollection",
+      "labelSymbol": "https://www.ecocell-batteries.example.com/labels/weee-symbol.svg",
+      "labelMeaning": {
+        "@value": "Do not dispose of with household waste. Return to designated collection points.",
+        "@language": "en"
+      }
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#label-cfp",
+      "type": "Label",
+      "labelSubject": "CarbonFootprintLabel",
+      "labelSymbol": "https://www.ecocell-batteries.example.com/labels/cfp-class-b.svg",
+      "labelMeaning": {
+        "@value": "Carbon Footprint Performance Class B: 45.2 kg CO2e/kWh",
+        "@language": "en"
+      }
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#label-fire",
+      "type": "Label",
+      "labelSubject": "ExtinguishingAgentLabel",
+      "labelSymbol": "https://www.ecocell-batteries.example.com/labels/class-d-fire.svg",
+      "labelMeaning": {
+        "@value": "In case of fire, use Class D fire extinguisher or dry sand. Do not use water.",
+        "@language": "en"
+      }
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#label-qr",
+      "type": "Label",
+      "labelSubject": "QRCodeLabel",
+      "labelMeaning": {
+        "@value": "Scan QR code to access battery passport",
+        "@language": "en"
+      }
+    }
+  ],
+
+  "gs1:regulatoryInformation": [
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#reg-battery",
+      "type": "gs1:RegulatoryInformation",
+      "gs1:regulationType": {
+        "id": "gs1:RegulationTypeCode-BATTERY_DIRECTIVE"
+      },
+      "gs1:regulatoryAct": "EU 2023/1542",
+      "gs1:regulatoryActStatus": "ACTIVE",
+      "gs1:regulatoryPermitIdentification": "EU-TEC-2024-ECOCELL-IM500",
+      "gs1:isRegulationCompliant": true
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#reg-ce",
+      "type": "gs1:RegulatoryInformation",
+      "gs1:regulationType": {
+        "id": "gs1:RegulationTypeCode-CE"
+      },
+      "gs1:regulatoryAct": "CE Marking",
+      "gs1:isRegulationCompliant": true
+    }
+  ],
+
+  "supplyChainDueDiligence": {
+    "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#due-diligence",
+    "type": "SupplyChainDueDiligence",
+    "dueDiligenceReportUrl": "https://www.ecocell-batteries.example.com/docs/supply-chain-due-diligence-2024.pdf",
+    "dueDiligencePolicyUrl": "https://www.ecocell-batteries.example.com/policies/supply-chain-due-diligence",
+    "thirdPartyAssurancesUrl": "https://www.ecocell-batteries.example.com/docs/third-party-audit-2024.pdf",
+    "riskAssessmentSummary": {
+      "@value": "Low to medium risk profile. Key risks identified in lithium sourcing from Chile mitigated through certified suppliers.",
+      "@language": "en"
+    },
+    "supplyChainMappingAvailable": true,
+    "conflictMineralFree": true,
+    "responsibleSourcingStandard": "OECDGuidelines",
+    "auditDate": "2024-01-15",
+    "auditBody": "PwC Germany",
+    "supplyChainIndex": 78.5
+  },
+
+  "sparePartSources": [
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#spare-1",
+      "type": "Organization",
+      "gs1:organizationName": "EcoCell Service GmbH",
+      "spareParts": {
+        "@value": "BMS Module, Cell Connectors, Cooling System Components, Terminal Covers",
+        "@language": "en"
+      },
+      "gs1:address": {
+        "type": "gs1:PostalAddress",
+        "gs1:streetAddress": "Serviceweg 10",
+        "gs1:addressLocality": "Stuttgart",
+        "gs1:postalCode": "70174",
+        "gs1:countryCode": "DE"
+      },
+      "supplierContact": {
+        "type": "gs1:ContactPoint",
+        "gs1:email": "spareparts@ecocell-batteries.example.com",
+        "gs1:telephone": "+49-711-555-0200",
+        "gs1:url": {"id": "https://parts.ecocell-batteries.example.com"}
+      }
+    }
+  ],
+
+  "dismantlingDocuments": [
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#dismantle-bom",
+      "type": "DismantlingDocument",
+      "documentType": "BillOfMaterial",
+      "documentUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-bom.pdf",
+      "mimeType": "application/pdf",
+      "languageCode": "en"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#dismantle-3d",
+      "type": "DismantlingDocument",
+      "documentType": "Model3D",
+      "documentUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-3d-model.step",
+      "mimeType": "model/step",
+      "languageCode": "en"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#dismantle-manual",
+      "type": "DismantlingDocument",
+      "documentType": "DismantlingManual",
+      "documentUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-dismantling.pdf",
+      "mimeType": "application/pdf",
+      "languageCode": "en"
+    },
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#dismantle-sds",
+      "type": "DismantlingDocument",
+      "documentType": "SafetyDataSheet",
+      "documentUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-sds.pdf",
+      "mimeType": "application/pdf",
+      "languageCode": "de"
+    }
+  ],
+
+  "endOfLifeInfo": {
+    "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001#eol",
+    "type": "EndOfLifeInfo",
+    "recyclabilityRate": 95.0,
+    "materialRecoveryTargets": [
+      {
+        "type": "MaterialRecoveryTarget",
+        "recoveryMaterial": "Lithium",
+        "recoveryRate": 70
+      },
+      {
+        "type": "MaterialRecoveryTarget",
+        "recoveryMaterial": "Cobalt",
+        "recoveryRate": 95
+      },
+      {
+        "type": "MaterialRecoveryTarget",
+        "recoveryMaterial": "Nickel",
+        "recoveryRate": 95
+      },
+      {
+        "type": "MaterialRecoveryTarget",
+        "recoveryMaterial": "Copper",
+        "recoveryRate": 95
+      }
+    ],
+    "dismantlingInstructions": {
+      "id": "https://www.ecocell-batteries.example.com/docs/IM-500-dismantling.pdf"
+    },
+    "safetyInstructionsForDismantling": "https://www.ecocell-batteries.example.com/docs/IM-500-dismantling-safety.pdf",
+    "dismantlingTime": {
+      "type": "QuantitativeValue",
+      "value": 45,
+      "unitCode": "MIN"
+    },
+    "extinguishingAgent": {
+      "@value": "Class D fire extinguisher or dry sand",
+      "@language": "en"
+    },
+    "wastePrevention": "https://www.ecocell-batteries.example.com/sustainability/waste-prevention",
+    "separateCollection": "https://www.ecocell-batteries.example.com/recycling/separate-collection",
+    "informationOnCollection": "https://www.ecocell-batteries.example.com/recycling/collection-points",
+    "safetyInstructions": "https://www.ecocell-batteries.example.com/docs/IM-500-safety.pdf",
+    "renewableContent": 3.2
+  },
+
+  "gs1:referencedFileDetails": [
+    {
+      "id": "https://www.ecocell-batteries.example.com/docs/IM-500-eu-doc.pdf",
+      "type": "gs1:ReferencedFileDetails",
+      "gs1:referencedFileType": {"id": "gs1:ReferencedFileTypeCode-DOCUMENT"},
+      "gs1:contentDescription": "EU Declaration of Conformity (EU 2023/1542)",
+      "gs1:fileLanguageCode": "en"
+    },
+    {
+      "id": "https://www.ecocell-batteries.example.com/docs/IM-500-test-report.pdf",
+      "type": "gs1:ReferencedFileDetails",
+      "gs1:referencedFileType": {"id": "gs1:ReferencedFileTypeCode-CERTIFICATION"},
+      "gs1:contentDescription": "EU Type Examination Test Report",
+      "gs1:fileLanguageCode": "en"
+    },
+    {
+      "id": "https://www.ecocell-batteries.example.com/docs/IM-500-manual.pdf",
+      "type": "gs1:ReferencedFileDetails",
+      "gs1:referencedFileType": {"id": "gs1:ReferencedFileTypeCode-USER_MANUAL"},
+      "gs1:fileLanguageCode": "en"
+    },
+    {
+      "id": "https://www.ecocell-batteries.example.com/docs/IM-500-cfp-study.pdf",
+      "type": "gs1:ReferencedFileDetails",
+      "gs1:referencedFileType": {"id": "gs1:ReferencedFileTypeCode-CERTIFICATION"},
+      "gs1:contentDescription": "Carbon Footprint Study (ISO 14067)",
+      "gs1:fileLanguageCode": "en"
+    }
+  ]
+}

@@ -1,0 +1,266 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ref.openepcis.io/extensions/eu/detergent/detergent-schema.json",
+  "title": "OpenEPCIS Detergent DPP Vocabulary Schema",
+  "description": "JSON Schema for validating Detergent Digital Product Passport data per EU Regulation 2026/405 on Detergents and Surfactants. Version 0.9.5.",
+  "$defs": {
+    "DetergentProduct": {
+      "type": "object",
+      "title": "Detergent Product",
+      "description": "A detergent or surfactant product subject to EU 2026/405.",
+      "properties": {
+        "@type": {
+          "const": "DetergentProduct"
+        },
+        "detergentCategory": {
+          "$ref": "#/$defs/DetergentCategory"
+        },
+        "productForm": {
+          "$ref": "#/$defs/ProductForm"
+        },
+        "intendedUse": {
+          "type": "string"
+        },
+        "cnCode": {
+          "type": "string"
+        },
+        "ingredientList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ingredient"
+          }
+        },
+        "surfactantBiodegradability": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SurfactantBiodegradability"
+          }
+        },
+        "fragranceAllergens": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FragranceAllergen"
+          }
+        },
+        "microorganisms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MicroorganismInfo"
+          }
+        },
+        "hazardousSubstances": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "CLP-classified hazardous substance using dpp:HazardousSubstance pattern."
+          }
+        },
+        "hazardPictograms": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^GHS0[1-9]$"
+          }
+        },
+        "hStatements": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^H[0-9]{3}"
+          }
+        },
+        "pStatements": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^P[0-9]{3}"
+          }
+        },
+        "signalWord": {
+          "$ref": "#/$defs/SignalWord"
+        },
+        "phosphorusContentPercent": {
+          "type": "number",
+          "minimum": 0
+        },
+        "phosphateCompliant": {
+          "type": "boolean"
+        },
+        "filmBiodegradable": {
+          "type": "boolean"
+        },
+        "filmBiodegradabilityPercentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "recommendedDosage": {
+          "$ref": "#/$defs/QuantitativeValue"
+        },
+        "dosageInstructions": {
+          "type": "string"
+        },
+        "safetyDataSheet": {
+          "type": "object",
+          "description": "Reference to SDS using dpp:DocumentReference pattern."
+        },
+        "biodegradabilityTestReport": {
+          "type": "object",
+          "description": "Reference to biodegradability test report using dpp:DocumentReference pattern."
+        }
+      }
+    },
+    "DetergentCategory": {
+      "type": "string",
+      "title": "Detergent Category",
+      "description": "Product categories per EU 2026/405.",
+      "enum": ["LaundryDetergent", "DishwasherDetergent", "HandDishwashingDetergent", "AllPurposeCleaner", "IndustrialDetergent", "InstitutionalDetergent", "Surfactant"]
+    },
+    "ProductForm": {
+      "type": "string",
+      "title": "Product Form",
+      "description": "Physical form of the detergent product.",
+      "enum": ["Liquid", "Powder", "Gel", "Capsule", "Tablet", "Sheet", "Paste", "Spray"]
+    },
+    "SignalWord": {
+      "type": "string",
+      "title": "Signal Word",
+      "description": "CLP signal words per Regulation 1272/2008.",
+      "enum": ["Danger", "Warning"]
+    },
+    "Ingredient": {
+      "type": "object",
+      "title": "Ingredient",
+      "description": "A single ingredient in the detergent formulation.",
+      "properties": {
+        "@type": {
+          "const": "Ingredient"
+        },
+        "inciName": {
+          "type": "string",
+          "description": "INCI name of the ingredient."
+        },
+        "ingredientFunction": {
+          "$ref": "#/$defs/IngredientFunction"
+        },
+        "weightPercentRange": {
+          "type": "string",
+          "description": "Weight percentage range in prescribed brackets (<5%, 5-15%, 15-30%, >=30%)."
+        },
+        "casNumber": {
+          "type": "string",
+          "description": "CAS registry number."
+        },
+        "isSurfactant": {
+          "type": "boolean"
+        }
+      },
+      "required": ["inciName", "ingredientFunction"]
+    },
+    "IngredientFunction": {
+      "type": "string",
+      "title": "Ingredient Function",
+      "description": "Functional role of the ingredient.",
+      "enum": ["SurfactantFunction", "Builder", "Bleach", "Enzyme", "Preservative", "Fragrance", "Colorant", "Solvent", "pHAdjuster", "Thickener", "FoamRegulator", "AntiRedeposition", "Filler"]
+    },
+    "SurfactantBiodegradability": {
+      "type": "object",
+      "title": "Surfactant Biodegradability",
+      "description": "Biodegradability test result per Annex III.",
+      "properties": {
+        "@type": {
+          "const": "SurfactantBiodegradability"
+        },
+        "surfactantType": {
+          "$ref": "#/$defs/SurfactantType"
+        },
+        "biodegradationPercentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "testMethod": {
+          "$ref": "#/$defs/BiodegradabilityTestMethod"
+        },
+        "testDurationDays": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "passesUltimateBiodegradability": {
+          "type": "boolean"
+        }
+      },
+      "required": ["surfactantType", "biodegradationPercentage", "testMethod"]
+    },
+    "SurfactantType": {
+      "type": "string",
+      "title": "Surfactant Type",
+      "description": "Surfactant classification by ionic charge.",
+      "enum": ["Anionic", "NonIonic", "Cationic", "Amphoteric"]
+    },
+    "BiodegradabilityTestMethod": {
+      "type": "string",
+      "title": "Biodegradability Test Method",
+      "description": "Standard test methods for biodegradability per Annex III.",
+      "enum": ["ISO14593", "OECD301B", "OECD301D", "OECD301F", "OECD310"]
+    },
+    "FragranceAllergen": {
+      "type": "object",
+      "title": "Fragrance Allergen",
+      "description": "A fragrance allergen requiring disclosure.",
+      "properties": {
+        "@type": {
+          "const": "FragranceAllergen"
+        },
+        "allergenName": {
+          "type": "string"
+        },
+        "allergenCasNumber": {
+          "type": "string"
+        },
+        "allergenConcentration": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": ["allergenName"]
+    },
+    "MicroorganismInfo": {
+      "type": "object",
+      "title": "Microorganism Information",
+      "description": "Microorganism disclosure per Article 19.",
+      "properties": {
+        "@type": {
+          "const": "MicroorganismInfo"
+        },
+        "speciesName": {
+          "type": "string"
+        },
+        "strainDesignation": {
+          "type": "string"
+        },
+        "endProductCharacteristics": {
+          "type": "string"
+        }
+      },
+      "required": ["speciesName"]
+    },
+    "QuantitativeValue": {
+      "type": "object",
+      "title": "Quantitative Value",
+      "description": "A measurement value with unit (gs1:QuantitativeValue).",
+      "properties": {
+        "@type": {
+          "const": "QuantitativeValue"
+        },
+        "value": {
+          "type": "number"
+        },
+        "unitCode": {
+          "type": "string",
+          "description": "UN/CEFACT Rec. 20 unit code."
+        }
+      }
+    }
+  }
+}

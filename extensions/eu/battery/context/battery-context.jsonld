@@ -1,0 +1,943 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "gs1": "https://ref.gs1.org/voc/",
+    "battery": "https://ref.openepcis.io/extensions/eu/battery/",
+    "dpp": "https://ref.openepcis.io/extensions/common/core/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "id": "@id",
+    "type": "@type",
+    "Product": "gs1:Product",
+    "productName": "gs1:productName",
+    "gtin": "gs1:gtin",
+    "countryOfOrigin": "gs1:countryOfOrigin",
+    "manufacturer": {
+      "@id": "gs1:manufacturer",
+      "@type": "@id"
+    },
+    "manufacturingDate": {
+      "@id": "gs1:manufacturingDate",
+      "@type": "xsd:date"
+    },
+    "netWeight": {
+      "@id": "gs1:netWeight",
+      "@type": "@id"
+    },
+    "grossWeight": {
+      "@id": "gs1:grossWeight",
+      "@type": "@id"
+    },
+    "hasBattery": {
+      "@id": "battery:hasBattery",
+      "@type": "@id"
+    },
+    "AdditionalProductClassificationDetails": "gs1:AdditionalProductClassificationDetails",
+    "additionalProductClassification": {
+      "@id": "gs1:additionalProductClassification",
+      "@type": "@id"
+    },
+    "additionalProductClassificationCode": "gs1:additionalProductClassificationCode",
+    "additionalProductClassificationCodeDescription": "gs1:additionalProductClassificationCodeDescription",
+    "additionalProductClassificationSystemCode": "gs1:additionalProductClassificationSystemCode",
+    "RegulatoryInformation": "gs1:RegulatoryInformation",
+    "RegulationTypeCode-BATTERY_DIRECTIVE": "gs1:RegulationTypeCode-BATTERY_DIRECTIVE",
+    "RegulationTypeCode-CE": "gs1:RegulationTypeCode-CE",
+    "regulatoryInformation": "gs1:regulatoryInformation",
+    "regulationType": "gs1:regulationType",
+    "regulatoryAct": "gs1:regulatoryAct",
+    "regulatoryActStatus": "gs1:regulatoryActStatus",
+    "regulatoryPermitIdentification": "gs1:regulatoryPermitIdentification",
+    "isRegulationCompliant": "gs1:isRegulationCompliant",
+    "regulatoryInformationProvider": "gs1:regulatoryInformationProvider",
+    "BatteryChemistry": "battery:BatteryChemistry",
+    "TechnicalSpecification": "battery:TechnicalSpecification",
+    "BatteryMaterial": "battery:BatteryMaterial",
+    "RecycledContent": "battery:RecycledContent",
+    "EndOfLifeInfo": "battery:EndOfLifeInfo",
+    "HazardousSubstance": "battery:HazardousSubstance",
+    "DismantlingDocument": "battery:DismantlingDocument",
+    "Label": "battery:Label",
+    "SupplyChainDueDiligence": "battery:SupplyChainDueDiligence",
+    "PowerCapabilityAtSoC": "battery:PowerCapabilityAtSoC",
+    "TemperatureRange": "battery:TemperatureRange",
+    "NegativeEvent": "battery:NegativeEvent",
+    "CarbonFootprintDeclaration": "battery:CarbonFootprintDeclaration",
+    "ThirdPartyVerification": "battery:ThirdPartyVerification",
+    "MaterialRecoveryTarget": "battery:MaterialRecoveryTarget",
+    "CapacityAmpereHours": "battery:CapacityAmpereHours",
+    "VoltageVolts": "battery:VoltageVolts",
+    "CurrentAmperes": "battery:CurrentAmperes",
+    "ResistanceOhms": "battery:ResistanceOhms",
+    "Percentage": "dpp:Percentage",
+    "DurationYears": "dpp:DurationYears",
+    "EnergyKilowattHours": "dpp:EnergyKilowattHours",
+    "PowerKilowatts": "dpp:PowerKilowatts",
+    "TemperatureCelsius": "dpp:TemperatureCelsius",
+    "WeightKilograms": "dpp:WeightKilograms",
+    "QuantitativeValue": "gs1:QuantitativeValue",
+    "BatteryCategory": "battery:BatteryCategory",
+    "BatteryStatus": "battery:BatteryStatus",
+    "CellType": "battery:CellType",
+    "ComponentLocation": "battery:ComponentLocation",
+    "MaterialCategory": "battery:MaterialCategory",
+    "HazardClass": "battery:HazardClass",
+    "DismantlingDocumentType": "battery:DismantlingDocumentType",
+    "LabelSubject": "battery:LabelSubject",
+    "OperatorRole": "dpp:OperatorRole",
+    "IncidentSeverity": "battery:IncidentSeverity",
+    "NegativeEventType": "battery:NegativeEventType",
+    "ComplianceStatus": "battery:ComplianceStatus",
+    "CarbonFootprintClass": "battery:CarbonFootprintClass",
+    "ResponsibleSourcingStandard": "battery:ResponsibleSourcingStandard",
+    "AccessLevel": "battery:AccessLevel",
+    "PublicAccess": "battery:PublicAccess",
+    "AuthorizedAccess": "battery:AuthorizedAccess",
+    "AuthoritiesOnly": "battery:AuthoritiesOnly",
+    "batteryCategory": {
+      "@id": "battery:batteryCategory",
+      "@type": "@vocab",
+      "@context": {
+        "LMTBattery": "battery:LMTBattery",
+        "EVBattery": "battery:EVBattery",
+        "IndustrialBattery": "battery:IndustrialBattery",
+        "StationaryBattery": "battery:StationaryBattery",
+        "PortableBattery": "battery:PortableBattery",
+        "SLIBattery": "battery:SLIBattery"
+      }
+    },
+    "batteryStatus": {
+      "@id": "battery:batteryStatus",
+      "@type": "@vocab",
+      "@context": {
+        "Original": "battery:Original",
+        "Repurposed": "battery:Repurposed",
+        "Reused": "battery:Reused",
+        "Remanufactured": "battery:Remanufactured",
+        "Waste": "battery:Waste"
+      }
+    },
+    "batteryModel": "battery:batteryModel",
+    "manufacturingPlace": {
+      "@id": "battery:manufacturingPlace",
+      "@type": "@id"
+    },
+    "cellType": {
+      "@id": "battery:cellType",
+      "@type": "@vocab",
+      "@context": {
+        "CylindricalCell": "battery:CylindricalCell",
+        "PrismaticCell": "battery:PrismaticCell",
+        "PouchCell": "battery:PouchCell",
+        "BladeCell": "battery:BladeCell",
+        "CoinCell": "battery:CoinCell"
+      }
+    },
+    "numberOfCells": {
+      "@id": "battery:numberOfCells",
+      "@type": "xsd:integer"
+    },
+    "numberOfModules": {
+      "@id": "battery:numberOfModules",
+      "@type": "xsd:integer"
+    },
+    "puttingIntoService": {
+      "@id": "battery:puttingIntoService",
+      "@type": "xsd:date"
+    },
+    "batteryPassportIdentifier": {
+      "@id": "battery:batteryPassportIdentifier",
+      "@type": "@id"
+    },
+    "batteryChemistry": {
+      "@id": "battery:batteryChemistry",
+      "@type": "@id"
+    },
+    "shortName": "battery:shortName",
+    "fullName": "battery:fullName",
+    "cathodeActiveMaterial": "battery:cathodeActiveMaterial",
+    "anodeActiveMaterial": "battery:anodeActiveMaterial",
+    "electrolyteType": "battery:electrolyteType",
+    "electrolyteComposition": "battery:electrolyteComposition",
+    "technicalSpecifications": {
+      "@id": "battery:technicalSpecifications",
+      "@type": "@id"
+    },
+    "ratedCapacity": {
+      "@id": "battery:ratedCapacity",
+      "@type": "@id"
+    },
+    "ratedEnergy": {
+      "@id": "battery:ratedEnergy",
+      "@type": "@id"
+    },
+    "nominalVoltage": {
+      "@id": "battery:nominalVoltage",
+      "@type": "@id"
+    },
+    "minimumVoltage": {
+      "@id": "battery:minimumVoltage",
+      "@type": "@id"
+    },
+    "maximumVoltage": {
+      "@id": "battery:maximumVoltage",
+      "@type": "@id"
+    },
+    "ratedMaximumPower": {
+      "@id": "battery:ratedMaximumPower",
+      "@type": "@id"
+    },
+    "maximumChargingPower": {
+      "@id": "battery:maximumChargingPower",
+      "@type": "@id"
+    },
+    "maximumDischargingPower": {
+      "@id": "battery:maximumDischargingPower",
+      "@type": "@id"
+    },
+    "maximumChargingCurrent": {
+      "@id": "battery:maximumChargingCurrent",
+      "@type": "@id"
+    },
+    "maximumDischargingCurrent": {
+      "@id": "battery:maximumDischargingCurrent",
+      "@type": "@id"
+    },
+    "expectedCycleLife": {
+      "@id": "battery:expectedCycleLife",
+      "@type": "xsd:integer"
+    },
+    "expectedLifetimeYears": {
+      "@id": "battery:expectedLifetimeYears",
+      "@type": "xsd:integer"
+    },
+    "expectedLifetimeEnergyThroughput": {
+      "@id": "battery:expectedLifetimeEnergyThroughput",
+      "@type": "@id"
+    },
+    "expectedLifetimeCapacityThroughput": {
+      "@id": "battery:expectedLifetimeCapacityThroughput",
+      "@type": "@id"
+    },
+    "roundTripEfficiency": {
+      "@id": "battery:roundTripEfficiency",
+      "@type": "xsd:decimal"
+    },
+    "roundTripEfficiencyAt50PercentCycleLife": {
+      "@id": "battery:roundTripEfficiencyAt50PercentCycleLife",
+      "@type": "xsd:decimal"
+    },
+    "depthOfDischargeInCycleLifeTest": {
+      "@id": "battery:depthOfDischargeInCycleLifeTest",
+      "@type": "xsd:decimal"
+    },
+    "capacityFadeThreshold": {
+      "@id": "battery:capacityFadeThreshold",
+      "@type": "xsd:decimal"
+    },
+    "resistanceIncreaseThreshold": {
+      "@id": "battery:resistanceIncreaseThreshold",
+      "@type": "xsd:decimal"
+    },
+    "initialInternalResistance": {
+      "@id": "battery:initialInternalResistance",
+      "@type": "@id"
+    },
+    "initialSelfDischarge": {
+      "@id": "battery:initialSelfDischarge",
+      "@type": "xsd:decimal"
+    },
+    "capacityThresholdForExhaustion": {
+      "@id": "battery:capacityThresholdForExhaustion",
+      "@type": "xsd:decimal"
+    },
+    "lifetimeReferenceTest": {
+      "@id": "battery:lifetimeReferenceTest",
+      "@type": "@id"
+    },
+    "powerCapabilityRatio": {
+      "@id": "battery:powerCapabilityRatio",
+      "@type": "xsd:decimal"
+    },
+    "cRate": {
+      "@id": "battery:cRate",
+      "@type": "xsd:decimal"
+    },
+    "cRateLifeCycleTest": {
+      "@id": "battery:cRateLifeCycleTest",
+      "@type": "xsd:decimal"
+    },
+    "originalPowerCapability": {
+      "@id": "battery:originalPowerCapability",
+      "@type": "@id"
+    },
+    "stateOfChargeLevel": {
+      "@id": "battery:stateOfChargeLevel",
+      "@type": "xsd:decimal"
+    },
+    "powerCapability": {
+      "@id": "battery:powerCapability",
+      "@type": "@id"
+    },
+    "powerCapabilityAt80SoC": {
+      "@id": "battery:powerCapabilityAt80SoC",
+      "@type": "@id"
+    },
+    "powerCapabilityAt20SoC": {
+      "@id": "battery:powerCapabilityAt20SoC",
+      "@type": "@id"
+    },
+    "temperatureRangeStorage": {
+      "@id": "battery:temperatureRangeStorage",
+      "@type": "@id"
+    },
+    "temperatureRangeCharging": {
+      "@id": "battery:temperatureRangeCharging",
+      "@type": "@id"
+    },
+    "temperatureRangeDischarging": {
+      "@id": "battery:temperatureRangeDischarging",
+      "@type": "@id"
+    },
+    "temperatureRangeIdleState": {
+      "@id": "battery:temperatureRangeIdleState",
+      "@type": "@id"
+    },
+    "minimumTemperature": {
+      "@id": "battery:minimumTemperature",
+      "@type": "@id"
+    },
+    "maximumTemperature": {
+      "@id": "battery:maximumTemperature",
+      "@type": "@id"
+    },
+    "lifecycleStage": "battery:lifecycleStage",
+    "materialComposition": {
+      "@id": "battery:materialComposition",
+      "@type": "@id"
+    },
+    "materialName": "battery:materialName",
+    "casNumber": "battery:casNumber",
+    "ecNumber": "battery:ecNumber",
+    "componentLocation": {
+      "@id": "battery:componentLocation",
+      "@type": "@vocab",
+      "@context": {
+        "Cathode": "battery:Cathode",
+        "Anode": "battery:Anode",
+        "Electrolyte": "battery:Electrolyte",
+        "Separator": "battery:Separator",
+        "Casing": "battery:Casing",
+        "CurrentCollector": "battery:CurrentCollector",
+        "BMS": "battery:BMS"
+      }
+    },
+    "materialCategory": {
+      "@id": "battery:materialCategory",
+      "@type": "@vocab",
+      "@context": {
+        "ActiveMaterial": "battery:ActiveMaterial",
+        "Binder": "battery:Binder",
+        "Conductor": "battery:Conductor",
+        "Additive": "battery:Additive",
+        "StructuralMaterial": "battery:StructuralMaterial"
+      }
+    },
+    "massPercentage": {
+      "@id": "battery:massPercentage",
+      "@type": "xsd:decimal"
+    },
+    "isCriticalRawMaterial": {
+      "@id": "battery:isCriticalRawMaterial",
+      "@type": "xsd:boolean"
+    },
+    "isSubstanceOfConcern": {
+      "@id": "battery:isSubstanceOfConcern",
+      "@type": "xsd:boolean"
+    },
+    "materialSourceCountry": "battery:materialSourceCountry",
+    "materialSupplier": "battery:materialSupplier",
+    "renewableContentShare": {
+      "@id": "battery:renewableContentShare",
+      "@type": "xsd:decimal"
+    },
+    "criticalRawMaterialsStatement": "battery:criticalRawMaterialsStatement",
+    "recycledContent": {
+      "@id": "battery:recycledContent",
+      "@type": "@id"
+    },
+    "lithiumRecycledShare": {
+      "@id": "battery:lithiumRecycledShare",
+      "@type": "xsd:decimal"
+    },
+    "lithiumPreConsumerShare": {
+      "@id": "battery:lithiumPreConsumerShare",
+      "@type": "xsd:decimal"
+    },
+    "lithiumPostConsumerShare": {
+      "@id": "battery:lithiumPostConsumerShare",
+      "@type": "xsd:decimal"
+    },
+    "cobaltRecycledShare": {
+      "@id": "battery:cobaltRecycledShare",
+      "@type": "xsd:decimal"
+    },
+    "cobaltPreConsumerShare": {
+      "@id": "battery:cobaltPreConsumerShare",
+      "@type": "xsd:decimal"
+    },
+    "cobaltPostConsumerShare": {
+      "@id": "battery:cobaltPostConsumerShare",
+      "@type": "xsd:decimal"
+    },
+    "nickelRecycledShare": {
+      "@id": "battery:nickelRecycledShare",
+      "@type": "xsd:decimal"
+    },
+    "nickelPreConsumerShare": {
+      "@id": "battery:nickelPreConsumerShare",
+      "@type": "xsd:decimal"
+    },
+    "nickelPostConsumerShare": {
+      "@id": "battery:nickelPostConsumerShare",
+      "@type": "xsd:decimal"
+    },
+    "leadRecycledShare": {
+      "@id": "battery:leadRecycledShare",
+      "@type": "xsd:decimal"
+    },
+    "leadPreConsumerShare": {
+      "@id": "battery:leadPreConsumerShare",
+      "@type": "xsd:decimal"
+    },
+    "leadPostConsumerShare": {
+      "@id": "battery:leadPostConsumerShare",
+      "@type": "xsd:decimal"
+    },
+    "endOfLifeInfo": {
+      "@id": "battery:endOfLifeInfo",
+      "@type": "@id"
+    },
+    "recyclabilityRate": {
+      "@id": "battery:recyclabilityRate",
+      "@type": "xsd:decimal"
+    },
+    "materialRecoveryTargets": {
+      "@id": "battery:materialRecoveryTargets",
+      "@type": "@id"
+    },
+    "recoveryMaterial": "battery:recoveryMaterial",
+    "recoveryRate": {
+      "@id": "battery:recoveryRate",
+      "@type": "xsd:decimal"
+    },
+    "dismantlingInstructions": {
+      "@id": "battery:dismantlingInstructions",
+      "@type": "@id"
+    },
+    "safetyInstructionsForDismantling": {
+      "@id": "battery:safetyInstructionsForDismantling",
+      "@type": "@id"
+    },
+    "dismantlingTime": {
+      "@id": "battery:dismantlingTime",
+      "@type": "@id"
+    },
+    "extinguishingAgent": "battery:extinguishingAgent",
+    "wastePrevention": {
+      "@id": "battery:wastePrevention",
+      "@type": "@id"
+    },
+    "separateCollection": {
+      "@id": "battery:separateCollection",
+      "@type": "@id"
+    },
+    "informationOnCollection": {
+      "@id": "battery:informationOnCollection",
+      "@type": "@id"
+    },
+    "renewableContent": {
+      "@id": "battery:renewableContent",
+      "@type": "xsd:decimal"
+    },
+    "safetyInstructions": {
+      "@id": "battery:safetyInstructions",
+      "@type": "@id"
+    },
+    "dismantlingDocuments": {
+      "@id": "battery:dismantlingDocuments",
+      "@type": "@id"
+    },
+    "documentType": {
+      "@id": "battery:documentType",
+      "@type": "@vocab",
+      "@context": {
+        "BillOfMaterial": "battery:BillOfMaterial",
+        "Model3D": "battery:Model3D",
+        "DismantlingManual": "battery:DismantlingManual",
+        "RemovalManual": "battery:RemovalManual",
+        "SafetyDataSheet": "battery:SafetyDataSheet",
+        "OtherManual": "battery:OtherManual",
+        "Drawing": "battery:Drawing"
+      }
+    },
+    "documentUrl": {
+      "@id": "battery:documentUrl",
+      "@type": "@id"
+    },
+    "mimeType": "battery:mimeType",
+    "languageCode": "battery:languageCode",
+    "hazardousSubstances": {
+      "@id": "battery:hazardousSubstances",
+      "@type": "@id"
+    },
+    "hazardClass": {
+      "@id": "battery:hazardClass",
+      "@type": "@vocab",
+      "@context": {
+        "AcuteToxicity": "battery:AcuteToxicity",
+        "SkinCorrosionOrIrritation": "battery:SkinCorrosionOrIrritation",
+        "EyeDamageOrIrritation": "battery:EyeDamageOrIrritation",
+        "RespiratoryOrSkinSensitization": "battery:RespiratoryOrSkinSensitization",
+        "GermCellMutagenicity": "battery:GermCellMutagenicity",
+        "Carcinogenicity": "battery:Carcinogenicity",
+        "ReproductiveToxicity": "battery:ReproductiveToxicity",
+        "SpecificTargetOrganToxicity": "battery:SpecificTargetOrganToxicity",
+        "AspirationHazard": "battery:AspirationHazard",
+        "HazardousToAquaticEnvironment": "battery:HazardousToAquaticEnvironment"
+      }
+    },
+    "substanceName": "battery:substanceName",
+    "substanceCasNumber": "battery:substanceCasNumber",
+    "substanceEcNumber": "battery:substanceEcNumber",
+    "concentration": {
+      "@id": "battery:concentration",
+      "@type": "xsd:decimal"
+    },
+    "hazardImpact": "battery:hazardImpact",
+    "substanceLocation": {
+      "@id": "battery:substanceLocation",
+      "@type": "@vocab",
+      "@context": {
+        "Cathode": "battery:Cathode",
+        "Anode": "battery:Anode",
+        "Electrolyte": "battery:Electrolyte",
+        "Separator": "battery:Separator",
+        "Casing": "battery:Casing",
+        "CurrentCollector": "battery:CurrentCollector",
+        "BMS": "battery:BMS"
+      }
+    },
+    "operatorInformation": {
+      "@id": "battery:operatorInformation",
+      "@type": "@id"
+    },
+    "operatorRole": {
+      "@id": "battery:operatorRole",
+      "@type": "@vocab",
+      "@context": {
+        "Manufacturer": "dpp:Manufacturer",
+        "Importer": "dpp:Importer",
+        "Distributor": "dpp:Distributor",
+        "Fulfilment": "dpp:FulfilmentServiceProvider",
+        "AuthorisedRepresentative": "dpp:AuthorisedRepresentative"
+      }
+    },
+    "sparePartSources": {
+      "@id": "battery:sparePartSources",
+      "@type": "@id"
+    },
+    "spareParts": "battery:spareParts",
+    "supplierContact": {
+      "@id": "battery:supplierContact",
+      "@type": "@id"
+    },
+    "labels": {
+      "@id": "battery:labels",
+      "@type": "@id"
+    },
+    "labelSymbol": {
+      "@id": "battery:labelSymbol",
+      "@type": "@id"
+    },
+    "labelMeaning": "battery:labelMeaning",
+    "labelSubject": {
+      "@id": "battery:labelSubject",
+      "@type": "@vocab",
+      "@context": {
+        "SeparateCollection": "battery:SeparateCollection",
+        "CadmiumContent": "battery:CadmiumContent",
+        "LeadContent": "battery:LeadContent",
+        "MercuryContent": "battery:MercuryContent",
+        "CarbonFootprintLabel": "battery:CarbonFootprintLabel",
+        "ExtinguishingAgentLabel": "battery:ExtinguishingAgentLabel",
+        "CapacityLabel": "battery:CapacityLabel",
+        "QRCodeLabel": "battery:QRCodeLabel"
+      }
+    },
+    "separateCollectionSymbolUrl": {
+      "@id": "battery:separateCollectionSymbolUrl",
+      "@type": "@id"
+    },
+    "cadmiumSymbolRequired": {
+      "@id": "battery:cadmiumSymbolRequired",
+      "@type": "xsd:boolean"
+    },
+    "leadSymbolRequired": {
+      "@id": "battery:leadSymbolRequired",
+      "@type": "xsd:boolean"
+    },
+    "ceMarkingIndicator": {
+      "@id": "battery:ceMarkingIndicator",
+      "@type": "xsd:boolean"
+    },
+    "declarationOfConformity": {
+      "@id": "battery:declarationOfConformity",
+      "@type": "@id"
+    },
+    "euDeclarationOfConformityId": "battery:euDeclarationOfConformityId",
+    "notifiedBodyNumber": "battery:notifiedBodyNumber",
+    "notifiedBodyName": "battery:notifiedBodyName",
+    "resultOfTestReport": {
+      "@id": "battery:resultOfTestReport",
+      "@type": "@id"
+    },
+    "testReportNumber": "battery:testReportNumber",
+    "complianceStatus": {
+      "@id": "battery:complianceStatus",
+      "@type": "@vocab",
+      "@context": {
+        "Compliant": "battery:Compliant",
+        "NonCompliant": "battery:NonCompliant",
+        "Pending": "battery:Pending",
+        "ConditionallyCompliant": "battery:ConditionallyCompliant"
+      }
+    },
+    "carbonFootprintDeclaration": {
+      "@id": "battery:carbonFootprintDeclaration",
+      "@type": "@id"
+    },
+    "carbonFootprintTotal": {
+      "@id": "battery:carbonFootprintTotal",
+      "@type": "@id"
+    },
+    "carbonFootprintRawMaterialExtraction": {
+      "@id": "battery:carbonFootprintRawMaterialExtraction",
+      "@type": "@id"
+    },
+    "carbonFootprintProduction": {
+      "@id": "battery:carbonFootprintProduction",
+      "@type": "@id"
+    },
+    "carbonFootprintDistribution": {
+      "@id": "battery:carbonFootprintDistribution",
+      "@type": "@id"
+    },
+    "carbonFootprintRecycling": {
+      "@id": "battery:carbonFootprintRecycling",
+      "@type": "@id"
+    },
+    "absoluteCarbonFootprint": {
+      "@id": "battery:absoluteCarbonFootprint",
+      "@type": "@id"
+    },
+    "carbonFootprintPerformanceClass": {
+      "@id": "battery:carbonFootprintPerformanceClass",
+      "@type": "@vocab",
+      "@context": {
+        "CFClassA": "battery:CFClassA",
+        "CFClassB": "battery:CFClassB",
+        "CFClassC": "battery:CFClassC",
+        "CFClassD": "battery:CFClassD",
+        "CFClassE": "battery:CFClassE"
+      }
+    },
+    "carbonFootprintStudyUrl": {
+      "@id": "battery:carbonFootprintStudyUrl",
+      "@type": "@id"
+    },
+    "functionalUnit": "battery:functionalUnit",
+    "calculationStandard": "battery:calculationStandard",
+    "carbonFootprintDeclarationId": "battery:carbonFootprintDeclarationId",
+    "carbonFootprintGeographicScope": "battery:carbonFootprintGeographicScope",
+    "thirdPartyVerification": {
+      "@id": "battery:thirdPartyVerification",
+      "@type": "@id"
+    },
+    "verificationBody": {
+      "@id": "battery:verificationBody",
+      "@type": "@id"
+    },
+    "verificationBodyName": "battery:verificationBodyName",
+    "verificationDate": {
+      "@id": "battery:verificationDate",
+      "@type": "xsd:date"
+    },
+    "verificationCertificateUrl": {
+      "@id": "battery:verificationCertificateUrl",
+      "@type": "@id"
+    },
+    "verificationStandard": "battery:verificationStandard",
+    "supplyChainDueDiligence": {
+      "@id": "battery:supplyChainDueDiligence",
+      "@type": "@id"
+    },
+    "dueDiligenceReportUrl": {
+      "@id": "battery:dueDiligenceReportUrl",
+      "@type": "@id"
+    },
+    "dueDiligencePolicyUrl": {
+      "@id": "battery:dueDiligencePolicyUrl",
+      "@type": "@id"
+    },
+    "thirdPartyAssurancesUrl": {
+      "@id": "battery:thirdPartyAssurancesUrl",
+      "@type": "@id"
+    },
+    "riskAssessmentSummary": "battery:riskAssessmentSummary",
+    "supplyChainMappingAvailable": {
+      "@id": "battery:supplyChainMappingAvailable",
+      "@type": "xsd:boolean"
+    },
+    "conflictMineralFree": {
+      "@id": "battery:conflictMineralFree",
+      "@type": "xsd:boolean"
+    },
+    "responsibleSourcingStandard": {
+      "@id": "battery:responsibleSourcingStandard",
+      "@type": "@vocab",
+      "@context": {
+        "OECDGuidelines": "battery:OECDGuidelines",
+        "RMI": "battery:RMI",
+        "IRMA": "battery:IRMA",
+        "CopperMark": "battery:CopperMark",
+        "AluminiumStewardship": "battery:AluminiumStewardship",
+        "CobaltIndustryResponsibleAssessment": "battery:CobaltIndustryResponsibleAssessment"
+      }
+    },
+    "auditDate": {
+      "@id": "battery:auditDate",
+      "@type": "xsd:date"
+    },
+    "auditBody": "battery:auditBody",
+    "supplyChainIndex": {
+      "@id": "battery:supplyChainIndex",
+      "@type": "xsd:decimal"
+    },
+    "transportationSafetyClass": "battery:transportationSafetyClass",
+    "dangerousGoodsPackingInstructions": "battery:dangerousGoodsPackingInstructions",
+    "shippingName": "battery:shippingName",
+    "repurposingPotential": "battery:repurposingPotential",
+    "repurposingGuidelines": {
+      "@id": "battery:repurposingGuidelines",
+      "@type": "@id"
+    },
+    "previousApplications": "battery:previousApplications",
+    "repurposingDate": {
+      "@id": "battery:repurposingDate",
+      "@type": "xsd:date"
+    },
+    "repurposingEntity": {
+      "@id": "battery:repurposingEntity",
+      "@type": "@id"
+    },
+    "warrantyConditions": {
+      "@id": "battery:warrantyConditions",
+      "@type": "@id"
+    },
+    "extendedWarrantyAvailable": {
+      "@id": "battery:extendedWarrantyAvailable",
+      "@type": "xsd:boolean"
+    },
+    "serviceContactPoint": {
+      "@id": "battery:serviceContactPoint",
+      "@type": "@id"
+    },
+    "authorizedServiceCenters": {
+      "@id": "battery:authorizedServiceCenters",
+      "@type": "@id"
+    },
+    "dataQualityAssessment": "battery:dataQualityAssessment",
+    "lastDataUpdate": {
+      "@id": "battery:lastDataUpdate",
+      "@type": "xsd:dateTime"
+    },
+    "dataProviderCertification": "battery:dataProviderCertification",
+    "stateOfHealth": {
+      "@id": "battery:stateOfHealth",
+      "@type": "@id"
+    },
+    "stateOfCharge": {
+      "@id": "battery:stateOfCharge",
+      "@type": "@id"
+    },
+    "stateOfCertifiedEnergy": {
+      "@id": "battery:stateOfCertifiedEnergy",
+      "@type": "@id"
+    },
+    "cycleCount": {
+      "@id": "battery:cycleCount",
+      "@type": "@id"
+    },
+    "remainingCapacity": {
+      "@id": "battery:remainingCapacity",
+      "@type": "@id"
+    },
+    "remainingEnergy": {
+      "@id": "battery:remainingEnergy",
+      "@type": "@id"
+    },
+    "capacityFade": {
+      "@id": "battery:capacityFade",
+      "@type": "@id"
+    },
+    "powerFade": {
+      "@id": "battery:powerFade",
+      "@type": "@id"
+    },
+    "internalResistance": {
+      "@id": "battery:internalResistance",
+      "@type": "@id"
+    },
+    "internalResistanceIncrease": {
+      "@id": "battery:internalResistanceIncrease",
+      "@type": "@id"
+    },
+    "energyThroughput": {
+      "@id": "battery:energyThroughput",
+      "@type": "@id"
+    },
+    "capacityThroughput": {
+      "@id": "battery:capacityThroughput",
+      "@type": "@id"
+    },
+    "remainingRoundTripEfficiency": {
+      "@id": "battery:remainingRoundTripEfficiency",
+      "@type": "@id"
+    },
+    "roundTripEfficiencyFade": {
+      "@id": "battery:roundTripEfficiencyFade",
+      "@type": "@id"
+    },
+    "selfDischargeRate": {
+      "@id": "battery:selfDischargeRate",
+      "@type": "@id"
+    },
+    "evolutionOfSelfDischarge": {
+      "@id": "battery:evolutionOfSelfDischarge",
+      "@type": "@id"
+    },
+    "exposureDurationMinutes": {
+      "@id": "battery:exposureDurationMinutes",
+      "@type": "xsd:integer"
+    },
+    "measurementMethod": "battery:measurementMethod",
+    "note": "battery:note",
+    "initialCapacity": {
+      "@id": "battery:initialCapacity",
+      "@type": "@id"
+    },
+    "initialEnergy": {
+      "@id": "battery:initialEnergy",
+      "@type": "@id"
+    },
+    "certifiedUsableEnergy": {
+      "@id": "battery:certifiedUsableEnergy",
+      "@type": "@id"
+    },
+    "remainingUsableEnergy": {
+      "@id": "battery:remainingUsableEnergy",
+      "@type": "@id"
+    },
+    "soceMeasurementId": "battery:soceMeasurementId",
+    "exhaustionThreshold": {
+      "@id": "battery:exhaustionThreshold",
+      "@type": "xsd:decimal"
+    },
+    "expectedRemainingCycles": {
+      "@id": "battery:expectedRemainingCycles",
+      "@type": "xsd:integer"
+    },
+    "expectedRemainingLifetimeMonths": {
+      "@id": "battery:expectedRemainingLifetimeMonths",
+      "@type": "xsd:integer"
+    },
+    "nextScheduledMeasurement": {
+      "@id": "battery:nextScheduledMeasurement",
+      "@type": "xsd:date"
+    },
+    "measurementCertificateUrl": {
+      "@id": "battery:measurementCertificateUrl",
+      "@type": "@id"
+    },
+    "exceedanceThreshold": {
+      "@id": "battery:exceedanceThreshold",
+      "@type": "xsd:decimal"
+    },
+    "temperatureExcursionId": "battery:temperatureExcursionId",
+    "exposureStartTime": {
+      "@id": "battery:exposureStartTime",
+      "@type": "xsd:dateTime"
+    },
+    "exposureEndTime": {
+      "@id": "battery:exposureEndTime",
+      "@type": "xsd:dateTime"
+    },
+    "transportConditions": "battery:transportConditions",
+    "estimatedImpact": "battery:estimatedImpact",
+    "temperatureExcursionReportUrl": {
+      "@id": "battery:temperatureExcursionReportUrl",
+      "@type": "@id"
+    },
+    "eventType": {
+      "@id": "battery:eventType",
+      "@type": "@vocab",
+      "@context": {
+        "Accident": "battery:Accident",
+        "PhysicalDamage": "battery:PhysicalDamage",
+        "ThermalEvent": "battery:ThermalEvent",
+        "ElectricalFault": "battery:ElectricalFault",
+        "WaterIngress": "battery:WaterIngress",
+        "Overcharge": "battery:Overcharge",
+        "DeepDischarge": "battery:DeepDischarge",
+        "ShortCircuit": "battery:ShortCircuit"
+      }
+    },
+    "eventDescription": "battery:eventDescription",
+    "eventDate": {
+      "@id": "battery:eventDate",
+      "@type": "xsd:dateTime"
+    },
+    "eventLocation": {
+      "@id": "battery:eventLocation",
+      "@type": "@id"
+    },
+    "incidentId": "battery:incidentId",
+    "incidentSeverity": {
+      "@id": "battery:incidentSeverity",
+      "@type": "@vocab",
+      "@context": {
+        "Minor": "battery:Minor",
+        "Moderate": "battery:Moderate",
+        "Major": "battery:Major",
+        "Critical": "battery:Critical"
+      }
+    },
+    "incidentReportUrl": {
+      "@id": "battery:incidentReportUrl",
+      "@type": "@id"
+    },
+    "inspectorId": "battery:inspectorId",
+    "recommendedAction": "battery:recommendedAction",
+    "remainingPowerCapability": {
+      "@id": "battery:remainingPowerCapability",
+      "@type": "@id"
+    },
+    "value": {
+      "@id": "gs1:value",
+      "@type": "xsd:decimal"
+    },
+    "unitCode": "gs1:unitCode"
+  }
+}

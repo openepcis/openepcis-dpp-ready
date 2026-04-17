@@ -1,0 +1,261 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix battery: <https://ref.openepcis.io/extensions/eu/battery/> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<https://ref.openepcis.io/extensions/eu/battery/shapes/>
+    a sh:ShapesGraph ;
+    dcterms:title "OpenEPCIS Battery SHACL Shapes"@en ;
+    dcterms:description "SHACL validation shapes for Battery Digital Product Passport vocabulary."@en ;
+    dcterms:created "2025-02-02"^^xsd:date ;
+    dcterms:modified "2025-02-02"^^xsd:date .
+
+# =============================================================================
+# OpenEPCIS Battery Vocabulary SHACL Shapes v0.9.5
+# Basic validation shapes for Battery Digital Product Passport data
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Battery Shape
+# -----------------------------------------------------------------------------
+battery:BatteryShape a sh:NodeShape ;
+    sh:targetClass battery:Battery ;
+    rdfs:label "Battery Shape" ;
+    rdfs:comment "Validation shape for Battery instances as defined by EU Battery Regulation 2023/1542." ;
+    sh:property [
+        sh:path battery:batteryCategory ;
+        sh:name "Battery Category" ;
+        sh:description "The regulatory category of the battery (LMT, EV, Industrial, Stationary)." ;
+        sh:maxCount 1 ;
+        sh:class battery:BatteryCategory
+    ] ;
+    sh:property [
+        sh:path battery:batteryStatus ;
+        sh:name "Battery Status" ;
+        sh:description "Current lifecycle status of the battery." ;
+        sh:maxCount 1 ;
+        sh:class battery:BatteryStatus
+    ] ;
+    sh:property [
+        sh:path battery:batteryChemistry ;
+        sh:name "Battery Chemistry" ;
+        sh:class battery:BatteryChemistry
+    ] ;
+    sh:property [
+        sh:path battery:technicalSpecifications ;
+        sh:name "Technical Specifications" ;
+        sh:class battery:TechnicalSpecification
+    ] ;
+    sh:property [
+        sh:path battery:materialComposition ;
+        sh:name "Material Composition" ;
+        sh:class battery:BatteryMaterial
+    ] ;
+    sh:property [
+        sh:path battery:recycledContent ;
+        sh:name "Recycled Content" ;
+        sh:class battery:RecycledContent
+    ] ;
+    sh:property [
+        sh:path battery:endOfLifeInfo ;
+        sh:name "End of Life Information" ;
+        sh:class battery:EndOfLifeInfo
+    ] ;
+    sh:property [
+        sh:path battery:hazardousSubstances ;
+        sh:name "Hazardous Substances" ;
+        sh:class battery:HazardousSubstance
+    ] ;
+    sh:property [
+        sh:path battery:operatorInformation ;
+        sh:name "Operator Information" ;
+        sh:class battery:OperatorInformation
+    ] ;
+    sh:property [
+        sh:path battery:supplyChainDueDiligence ;
+        sh:name "Supply Chain Due Diligence" ;
+        sh:class battery:SupplyChainDueDiligence
+    ] .
+
+# -----------------------------------------------------------------------------
+# Battery Chemistry Shape
+# -----------------------------------------------------------------------------
+battery:BatteryChemistryShape a sh:NodeShape ;
+    sh:targetClass battery:BatteryChemistry ;
+    rdfs:label "Battery Chemistry Shape" ;
+    sh:property [
+        sh:path battery:shortName ;
+        sh:name "Short Name" ;
+        sh:description "Abbreviated chemistry name (e.g., LFP, NMC, NCA)." ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path battery:fullName ;
+        sh:name "Full Name" ;
+        sh:description "Full chemical name of the battery chemistry." ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path battery:cathodeActiveMaterial ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path battery:anodeActiveMaterial ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path battery:electrolyteType ;
+        sh:datatype xsd:string
+    ] .
+
+# -----------------------------------------------------------------------------
+# Technical Specification Shape
+# -----------------------------------------------------------------------------
+battery:TechnicalSpecificationShape a sh:NodeShape ;
+    sh:targetClass battery:TechnicalSpecification ;
+    rdfs:label "Technical Specification Shape" ;
+    sh:property [
+        sh:path battery:ratedCapacity ;
+        sh:name "Rated Capacity" ;
+        sh:class gs1:QuantitativeValue
+    ] ;
+    sh:property [
+        sh:path battery:ratedEnergy ;
+        sh:name "Rated Energy" ;
+        sh:class gs1:QuantitativeValue
+    ] ;
+    sh:property [
+        sh:path battery:nominalVoltage ;
+        sh:name "Nominal Voltage" ;
+        sh:class gs1:QuantitativeValue
+    ] ;
+    sh:property [
+        sh:path battery:expectedCycleLife ;
+        sh:datatype xsd:integer
+    ] ;
+    sh:property [
+        sh:path battery:roundTripEfficiency ;
+        sh:datatype xsd:decimal
+    ] .
+
+# -----------------------------------------------------------------------------
+# Battery Material Shape
+# -----------------------------------------------------------------------------
+battery:BatteryMaterialShape a sh:NodeShape ;
+    sh:targetClass battery:BatteryMaterial ;
+    rdfs:label "Battery Material Shape" ;
+    sh:property [
+        sh:path battery:materialName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path battery:casNumber ;
+        sh:name "CAS Number" ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path battery:componentLocation ;
+        sh:class battery:ComponentLocation
+    ] ;
+    sh:property [
+        sh:path battery:massPercentage ;
+        sh:datatype xsd:decimal
+    ] ;
+    sh:property [
+        sh:path battery:isCriticalRawMaterial ;
+        sh:datatype xsd:boolean
+    ] .
+
+# -----------------------------------------------------------------------------
+# Recycled Content Shape
+# -----------------------------------------------------------------------------
+battery:RecycledContentShape a sh:NodeShape ;
+    sh:targetClass battery:RecycledContent ;
+    rdfs:label "Recycled Content Shape" ;
+    sh:property [
+        sh:path battery:lithiumRecycledShare ;
+        sh:datatype xsd:decimal
+    ] ;
+    sh:property [
+        sh:path battery:cobaltRecycledShare ;
+        sh:datatype xsd:decimal
+    ] ;
+    sh:property [
+        sh:path battery:nickelRecycledShare ;
+        sh:datatype xsd:decimal
+    ] ;
+    sh:property [
+        sh:path battery:leadRecycledShare ;
+        sh:datatype xsd:decimal
+    ] .
+
+# -----------------------------------------------------------------------------
+# End of Life Info Shape
+# -----------------------------------------------------------------------------
+battery:EndOfLifeInfoShape a sh:NodeShape ;
+    sh:targetClass battery:EndOfLifeInfo ;
+    rdfs:label "End of Life Information Shape" ;
+    sh:property [
+        sh:path battery:dismantlingInstructions ;
+        sh:nodeKind sh:IRI
+    ] ;
+    sh:property [
+        sh:path battery:extinguishingAgent ;
+        sh:datatype xsd:string
+    ] .
+
+# -----------------------------------------------------------------------------
+# Hazardous Substance Shape
+# -----------------------------------------------------------------------------
+battery:HazardousSubstanceShape a sh:NodeShape ;
+    sh:targetClass battery:HazardousSubstance ;
+    rdfs:label "Hazardous Substance Shape" ;
+    sh:property [
+        sh:path battery:substanceName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path battery:substanceCasNumber ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        sh:path battery:hazardClass ;
+        sh:class battery:HazardClass
+    ] ;
+    sh:property [
+        sh:path battery:concentration ;
+        sh:datatype xsd:decimal
+    ] .
+
+# -----------------------------------------------------------------------------
+# Operator Information Shape
+# -----------------------------------------------------------------------------
+battery:OperatorInformationShape a sh:NodeShape ;
+    sh:targetClass battery:OperatorInformation ;
+    rdfs:label "Operator Information Shape" ;
+    sh:property [
+        sh:path battery:operatorRole ;
+        sh:datatype xsd:string
+    ] .
+
+# -----------------------------------------------------------------------------
+# Supply Chain Due Diligence Shape
+# -----------------------------------------------------------------------------
+battery:SupplyChainDueDiligenceShape a sh:NodeShape ;
+    sh:targetClass battery:SupplyChainDueDiligence ;
+    rdfs:label "Supply Chain Due Diligence Shape" ;
+    sh:property [
+        sh:path battery:dueDiligenceReportUrl ;
+        sh:datatype xsd:anyURI ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path battery:thirdPartyAssurancesUrl ;
+        sh:datatype xsd:anyURI
+    ] .

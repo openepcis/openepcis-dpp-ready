@@ -1,0 +1,67 @@
+{
+  "@context": {
+      "gs1": "https://ref.gs1.org/voc/",
+      "id": "@id",
+      "type": "@type",
+      "RegulatoryNotification": "gs1:RegulatoryNotification",
+      "RegulatoryIdentifier": "gs1:RegulatoryIdentifier",
+      "Organization": "gs1:Organization",
+      "Product": "gs1:Product",
+      "messageSender": { "@id": "gs1:messageSender", "@type": "@id" },
+      "messageRecipient": { "@id": "gs1:messageRecipient", "@type": "@id" },
+      "regulatoryInformationProvider": { "@id": "gs1:regulatoryInformationProvider", "@type": "@id" },
+      "regulatoryInformation": { "@id": "gs1:regulatoryInformation", "@type": "@id" },
+      "regulatoryAct": "gs1:regulatoryAct",
+      "regulationType": { "@id": "gs1:regulationType", "@type": "@id" },
+      "regulatoryIdentifier": { "@id": "gs1:regulatoryIdentifier", "@type": "@id" },
+      "regulatoryIdentifierType": { "@id": "gs1:regulatoryIdentifierType", "@type": "@id" },
+      "regulatoryReferenceNumber": "gs1:regulatoryReferenceNumber",
+      "regulatoryReferenceApplicabilityStartDate": "gs1:regulatoryReferenceApplicabilityStartDate",
+      "applicableProducts": { "@id": "gs1:applicableProducts", "@type": "@id", "@container": "@set" },
+      "isRegulationCompliant": "gs1:isRegulationCompliant",
+      "partyGLN": "gs1:partyGLN",
+      "gtin": "gs1:gtin",
+      "serialNumber": "gs1:serialNumber"
+  },
+  "type": "RegulatoryNotification",
+
+  "_comment": "B2B message for sharing Battery Regulation compliance status between supply chain partners. Uses gs1:RegulatoryNotification pattern aligned with GS1 EUDR Standard. GS1 demo prefix 952 (7-digit GCP: 9521234).",
+
+  "messageSender": {
+    "type": "Organization",
+    "id": "https://id.gs1.org/417/9521234000006",
+    "partyGLN": "9521234000006"
+  },
+
+  "messageRecipient": {
+    "type": "Organization",
+    "id": "https://id.gs1.org/417/9521234000105",
+    "partyGLN": "9521234000105"
+  },
+
+  "regulatoryInformationProvider": {
+    "type": "Organization",
+    "id": "https://id.gs1.org/417/9521234000006",
+    "partyGLN": "9521234000006"
+  },
+
+  "regulatoryInformation": {
+    "regulatoryAct": "EU 2023/1542",
+    "regulationType": { "id": "gs1:RegulationTypeCode-BATTERY_DIRECTIVE" },
+    "isRegulationCompliant": true,
+    "regulatoryIdentifier": {
+      "type": "RegulatoryIdentifier",
+      "regulatoryIdentifierType": { "id": "gs1:RegulatoryIdentifierType-EU_DECLARATION_OF_CONFORMITY" },
+      "regulatoryReferenceNumber": "DoC-BAT-2024-00123",
+      "regulatoryReferenceApplicabilityStartDate": "2024-11-01",
+      "applicableProducts": [
+        {
+          "type": "Product",
+          "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
+          "gtin": "09521234000013",
+          "serialNumber": "BAT2024-001"
+        }
+      ]
+    }
+  }
+}
