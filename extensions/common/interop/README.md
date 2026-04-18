@@ -114,7 +114,7 @@ The `untp-bridge-context.jsonld` allows UNTP-style JSON-LD documents to be proce
 ```json
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/context",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
     "https://ref.openepcis.io/extensions/common/interop/untp-bridge-context.jsonld"
   ],
   "carbonFootprint": 42.5,

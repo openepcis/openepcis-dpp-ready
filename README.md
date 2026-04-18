@@ -341,8 +341,8 @@ GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/, battery=ht
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/context",
-    "https://ref.openepcis.io/extensions/eu/textile/context"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
   ]
 }
 ```

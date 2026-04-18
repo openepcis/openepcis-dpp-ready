@@ -131,7 +131,7 @@ To process UNTP-style data with OpenEPCIS:
 ```json
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/context",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
     "https://ref.openepcis.io/extensions/common/interop/untp-bridge-context.jsonld"
   ],
   "type": "CircularityPerformance",

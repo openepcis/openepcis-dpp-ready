@@ -172,8 +172,8 @@ inside an EPCIS event structure.
 ```json
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/context",
-    "https://ref.openepcis.io/extensions/eu/battery/context",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
     { "gs1": "https://ref.gs1.org/voc/" }
   ],
   "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
@@ -258,8 +258,8 @@ have a corresponding context entry, and vice versa.
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/context",
-    "https://ref.openepcis.io/extensions/eu/eudr/context"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
   ],
   "type": "EPCISDocument",
   "schemaVersion": "2.0",
@@ -345,7 +345,7 @@ GS1-CBV-Version: 2.0
 ```json
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/eu/eudr/context",
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld",
     { "gs1": "https://ref.gs1.org/voc/" }
   ],
   "id": "https://id.gs1.org/01/09521234000020/10/LOT-2025-001",

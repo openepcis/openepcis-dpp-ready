@@ -149,7 +149,7 @@ GS1-Extensions: detergent=https://ref.openepcis.io/extensions/eu/detergent/
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/detergent/context"
+    "https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld"
   ]
 }
 ```

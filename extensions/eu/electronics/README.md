@@ -112,8 +112,8 @@ GS1-Extensions: electronics=https://ref.openepcis.io/extensions/eu/electronics/,
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/context",
-    "https://ref.openepcis.io/extensions/eu/electronics/context"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld"
   ]
 }
 ```
@@ -124,9 +124,9 @@ GS1-Extensions: electronics=https://ref.openepcis.io/extensions/eu/electronics/,
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/context",
-    "https://ref.openepcis.io/extensions/eu/electronics/context",
-    "https://ref.openepcis.io/extensions/eu/battery/context"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
   ]
 }
 ```

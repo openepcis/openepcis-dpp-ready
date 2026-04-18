@@ -11,33 +11,29 @@
     "- All pieces share the same GTIN; individual identification is via piece number",
     "Reference: WR 25-212 (https://xchange.gs1.org/cr/gsmp)"
   ],
-
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/context",
-    "https://ref.openepcis.io/extensions/eu/textile/context",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
     {
       "gs1": "https://ref.gs1.org/voc/",
-      "dpp": "https://ref.openepcis.io/extensions/common/core/",
       "xsd": "http://www.w3.org/2001/XMLSchema#"
     }
   ],
-
   "id": "https://id.gs1.org/01/09521234000073/21/SUIT-2026-00042",
-  "type": ["Product", "TextileApparel"],
-
+  "type": [
+    "Product",
+    "TextileApparel"
+  ],
   "gtin": "09521234000073",
   "gs1:serialNumber": "SUIT-2026-00042",
-
   "productName": {
     "@value": "Classic Business Suit - Charcoal (2-piece)",
     "@language": "en"
   },
-
   "gs1:productDescription": {
     "@value": "Two-piece men's business suit consisting of a jacket and matching trousers. Sold as a single trade item under one GTIN but shipped and identifiable as two individual pieces per GS1 AI 8026 (ITIP).",
     "@language": "en"
   },
-
   "textileCategory": "Apparel",
   "garmentType": "Business Suit",
   "targetGender": "Men",
@@ -45,7 +41,6 @@
   "seasonCollection": "SS2026",
   "fabricType": "WovenNonDenim",
   "apparelSubcategory": "Suits",
-
   "dpp:tradeItemPieceCount": 2,
   "dpp:tradeItemPieces": [
     {
@@ -65,7 +60,6 @@
       "_comment_itip_ai8026": "AI 8026 for piece 2 of 2: 09521234000073 + 02 + 02."
     }
   ],
-
   "gs1:manufacturer": {
     "id": "https://id.gs1.org/417/9521234000008",
     "type": "Organization",
@@ -79,13 +73,11 @@
       "gs1:addressCountry": "DE"
     }
   },
-
   "gs1:netWeight": {
     "type": "QuantitativeValue",
     "value": "1.4",
     "unitCode": "KGM"
   },
-
   "textileMaterial": [
     {
       "type": "TextileMaterialDetails",
@@ -98,16 +90,16 @@
       "gs1:textileFibrePercentage": 20
     }
   ],
-
   "gs1:regulatoryInformation": [
     {
       "type": "gs1:RegulatoryInformation",
-      "gs1:regulationType": { "id": "gs1:RegulationTypeCode-TEXTILE_FIBRE_REGULATION" },
+      "gs1:regulationType": {
+        "id": "gs1:RegulationTypeCode-TEXTILE_FIBRE_REGULATION"
+      },
       "gs1:regulatoryAct": "EU 1007/2011",
       "gs1:isRegulationCompliant": true
     }
   ],
-
   "_notes": {
     "pattern_status": "Reference pattern aligned with GS1 GSMP Work Request WR 25-212 (Community Review). May evolve per eBallot outcome.",
     "why_itip": "Apparel sets (suits, uniforms, matching sets), flat-pack furniture with multiple cartons, and bundled electronics (tablet + keyboard + stylus) all benefit from piece-level traceability without requiring separate GTINs per piece. AI 8026 provides a compact, scannable identifier per piece while preserving the single-GTIN commercial model.",

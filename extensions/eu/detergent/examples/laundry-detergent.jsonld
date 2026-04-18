@@ -6,19 +6,19 @@
     "Shows: full INCI ingredient list, surfactant biodegradability, CLP hazard classification,",
     "fragrance allergen disclosure, phosphorus declaration, recommended dosage."
   ],
-
   "@context": [
-    "https://ref.openepcis.io/extensions/eu/detergent/context",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld",
     {
       "gs1": "https://ref.gs1.org/voc/",
-      "dpp": "https://ref.openepcis.io/extensions/common/core/",
       "xsd": "http://www.w3.org/2001/XMLSchema#"
     }
   ],
-
   "id": "https://id.gs1.org/01/09521234200013",
-  "type": ["Product", "DetergentProduct"],
-
+  "type": [
+    "Product",
+    "DetergentProduct"
+  ],
   "gtin": "09521234200013",
   "productName": {
     "@value": "EcoClean Pro Liquid Laundry Detergent - Sensitive",
@@ -28,12 +28,11 @@
     "@value": "Concentrated liquid laundry detergent for sensitive skin. Dermatologically tested, phosphate-free formula with plant-based surfactants.",
     "@language": "en"
   },
-
   "detergentCategory": "LaundryDetergent",
   "productForm": "Liquid",
   "intendedUse": "Machine and hand washing of textiles at 20-60°C",
-  "customsCommodityCode": "34022090", "customsCommodityCodeType": "CN8",
-
+  "customsCommodityCode": "34022090",
+  "customsCommodityCodeType": "CN8",
   "gs1:manufacturer": {
     "id": "https://id.gs1.org/417/9521234000008",
     "type": "Organization",
@@ -47,13 +46,14 @@
       "gs1:countryCode": "DE"
     }
   },
-
   "dpp:operatorInformation": {
     "id": "https://id.gs1.org/417/9521234000008#operator",
     "type": "OperatorInformation",
     "gln": "9521234000008",
     "organizationName": "EcoClean Industries GmbH",
-    "dpp:operatorRole": {"id": "dpp:Manufacturer"},
+    "dpp:operatorRole": {
+      "id": "dpp:Manufacturer"
+    },
     "gs1:address": {
       "type": "PostalAddress",
       "gs1:streetAddress": "Industriestraße 42",
@@ -62,15 +62,12 @@
       "gs1:countryCode": "DE"
     }
   },
-
   "gs1:countryOfOrigin": "DE",
-
   "gs1:netContent": {
     "type": "QuantitativeValue",
     "value": 1500,
     "unitCode": "MLT"
   },
-
   "ingredientList": [
     {
       "id": "https://id.gs1.org/01/09521234200013#ing-water",
@@ -152,7 +149,6 @@
       "isSurfactant": false
     }
   ],
-
   "surfactantBiodegradability": [
     {
       "id": "https://id.gs1.org/01/09521234200013#biodeg-anionic",
@@ -173,7 +169,6 @@
       "passesUltimateBiodegradability": true
     }
   ],
-
   "fragranceAllergens": [
     {
       "id": "https://id.gs1.org/01/09521234200013#allergen-linalool",
@@ -190,15 +185,23 @@
       "allergenConcentration": 0.08
     }
   ],
-
   "signalWord": "Warning",
-  "hazardPictograms": ["GHS07"],
-  "hStatements": ["H315", "H319"],
-  "pStatements": ["P101", "P102", "P280", "P302+P352", "P305+P351+P338"],
-
+  "hazardPictograms": [
+    "GHS07"
+  ],
+  "hStatements": [
+    "H315",
+    "H319"
+  ],
+  "pStatements": [
+    "P101",
+    "P102",
+    "P280",
+    "P302+P352",
+    "P305+P351+P338"
+  ],
   "phosphorusContentPercent": 0.0,
   "phosphateCompliant": true,
-
   "recommendedDosage": {
     "id": "https://id.gs1.org/01/09521234200013#dosage",
     "type": "QuantitativeValue",
@@ -209,31 +212,34 @@
     "@value": "Medium water hardness: 35 ml per 4.5 kg load. Hard water: 50 ml. Heavily soiled: add 15 ml. Pre-treat stains directly.",
     "@language": "en"
   },
-
   "safetyDataSheet": {
     "id": "https://www.ecoclean.example.com/sds/laundry-sensitive-sds.pdf",
     "type": "DocumentReference",
-    "dpp:documentType": {"id": "dpp:SafetyDataSheet"},
+    "dpp:documentType": {
+      "id": "dpp:SafetyDataSheet"
+    },
     "dpp:documentUrl": "https://www.ecoclean.example.com/sds/laundry-sensitive-sds.pdf",
     "dpp:documentTitle": "Safety Data Sheet - EcoClean Pro Liquid Laundry Detergent Sensitive",
     "dpp:mimeType": "application/pdf",
     "dpp:languageCode": "en"
   },
-
   "biodegradabilityTestReport": {
     "id": "https://www.ecoclean.example.com/reports/biodeg-test-2026-001.pdf",
     "type": "DocumentReference",
-    "dpp:documentType": {"id": "dpp:TestReport"},
+    "dpp:documentType": {
+      "id": "dpp:TestReport"
+    },
     "dpp:documentUrl": "https://www.ecoclean.example.com/reports/biodeg-test-2026-001.pdf",
     "dpp:documentTitle": "Surfactant Biodegradability Test Report",
     "dpp:mimeType": "application/pdf",
     "dpp:languageCode": "en"
   },
-
   "dpp:passportIdentifier": "https://dpp.ecoclean.example.com/passport/09521234200013",
   "dpp:passportVersion": "1.0",
   "dpp:passportIssueDate": "2026-09-01",
   "dpp:passportStatus": "Active",
-  "dpp:productCategory": {"id": "dpp:Detergents"},
+  "dpp:productCategory": {
+    "id": "dpp:Detergents"
+  },
   "dpp:lastDataUpdate": "2026-09-01T10:00:00Z"
 }

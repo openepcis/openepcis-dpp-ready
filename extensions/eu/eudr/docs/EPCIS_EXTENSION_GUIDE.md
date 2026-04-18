@@ -139,7 +139,7 @@ standard EPCIS context.
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/eudr/context"
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
   ]
 }
 ```
@@ -150,8 +150,8 @@ standard EPCIS context.
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/context",
-    "https://ref.openepcis.io/extensions/eu/eudr/context"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
   ]
 }
 ```
@@ -167,7 +167,7 @@ only `gs1:` properties; all `eudr:` properties are at event level.
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/eudr/context",
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld",
     {
       "gs1": "https://ref.gs1.org/voc/"
     }

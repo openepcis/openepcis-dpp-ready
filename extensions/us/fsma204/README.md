@@ -107,7 +107,7 @@ enum / CTE class anchors):
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/us/fsma204/context"
+    "https://ref.openepcis.io/extensions/us/fsma204/fsma204-context.jsonld"
   ]
 }
 ```

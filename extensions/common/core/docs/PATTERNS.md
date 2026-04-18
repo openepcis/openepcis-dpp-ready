@@ -35,7 +35,7 @@ The DPP Core context defines only OpenEPCIS-specific extensions (`dpp:` namespac
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/context",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
     {
       "battery": "https://ref.openepcis.io/extensions/eu/battery/"
     }
@@ -52,7 +52,7 @@ GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/, battery=ht
 ```json
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/context",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
     {
       "battery": "https://ref.openepcis.io/extensions/eu/battery/"
     }
@@ -65,7 +65,7 @@ GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/, battery=ht
 {
   "@context": [
     "https://ref.gs1.org/standards/eudr/context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/eudr/context"
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
   ]
 }
 ```

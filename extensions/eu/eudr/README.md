@@ -268,8 +268,8 @@ See [docs/EPCIS_EXTENSION_GUIDE.md](./docs/EPCIS_EXTENSION_GUIDE.md) for complet
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/context",
-    "https://ref.openepcis.io/extensions/eu/eudr/context"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
   ]
 }
 ```

@@ -23,8 +23,8 @@ GS1-Extensions: textile=https://ref.openepcis.io/extensions/eu/textile/, dpp=htt
 ```json
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/eu/textile/context",
-    "https://ref.openepcis.io/extensions/common/core/context"
+    "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld"
   ]
 }
 ```

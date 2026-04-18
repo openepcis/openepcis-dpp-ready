@@ -170,9 +170,9 @@ GS1/UN/CEFACT recommendation 20 unit codes commonly used in DPP:
 ```json
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/context",
-    "https://ref.openepcis.io/extensions/eu/battery/context",
-    "https://ref.openepcis.io/extensions/eu/eudr/context"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
   ]
 }
 ```
