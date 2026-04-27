@@ -1,8 +1,14 @@
 # OpenEPCIS DPP-Ready: The Universal DPP Platform
 
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
+[![Browse the ontology](https://img.shields.io/badge/browse-ref.openepcis.io-2ea44f)](https://ref.openepcis.io)
+[![Status: Preview 0.9.5](https://img.shields.io/badge/status-preview%200.9.5-orange)](#what-you-get)
+
 A comprehensive, standards-harmonizing framework for implementing Digital Product Passports aligned with EU ESPR 2024/1781, GS1, and UN Transparency Protocol (UNTP).
 
-> **TL;DR for decision-makers:** OpenEPCIS DPP-Ready is an open-source platform that harmonises GS1, ESPR, UNTP, and CEN/CENELEC JTC 24 standards in a single codebase. Preview at v0.9.5, six regulations covered (battery, textile, EUDR, electronics, detergent, plus the cross-cutting ESPR core). No vendor lock-in, no proprietary tooling, no translation layers. Built on GS1 Digital Link, EPCIS 2.0, and GS1 Web Vocabulary.
+> **Browse the live ontology** at **[ref.openepcis.io](https://ref.openepcis.io)** — every class, property, and JSON-LD context shipped from this repository is published there with stable, dereferenceable URIs. The TTL files in `extensions/*/ontology/` are the source of truth; the browser renders the deployed JSON.
+
+> **TL;DR for decision-makers:** OpenEPCIS DPP-Ready is an open-source platform that harmonises GS1, ESPR, UNTP, and CEN/CENELEC JTC 24 standards in a single codebase. Preview at v0.9.5, six regulations covered (battery, textile, EUDR, electronics, detergent, plus the cross-cutting ESPR core), with US FSMA §204 as a v0.1.0 preview. No vendor lock-in, no proprietary tooling, no translation layers. Built on GS1 Digital Link, EPCIS 2.0, and GS1 Web Vocabulary.
 
 ## Open and Early
 
@@ -165,25 +171,22 @@ This generates JSON files in each module's `json/` directory:
 
 The [ref.openepcis.io](https://ref.openepcis.io) vocabulary browser uses these JSON files to display ontology information.
 
-## GS1 Standards Week 2026
+## Feedback
 
-OpenEPCIS DPP-Ready is being presented at **GS1 Standards Week 2026** (21-23 April, Brussels + Virtual). Key discussion points:
-
-- **EUDR MSWG** (Wed 22 April 15:30): reference EPCIS implementation of exemption patterns per WR 25-252 — see [extensions/eu/eudr/epcis/exemption-declaration.jsonld](./extensions/eu/eudr/epcis/exemption-declaration.jsonld)
-- **DPP MSWG**: alignment with WR 23-103 (foundational DPP GSCN), WR 26-081 (web-based information), WR 26-108 (NFC as supplementary carrier), WR 25-212 (ITIP)
-- **Apparel DPP Sub-team kick-off** (27 May 2026): textile module offered as reference implementation ahead of Q2 2027 EPCIS requirements gathering
-
-We welcome feedback from GS1 GO, JTC 24 members, and industry leads. Open an issue, send a PR, or reach out directly.
+We welcome feedback from anyone — GS1 GO and GS1 MOs, CEN/CENELEC JTC 24 members, the newly forming ISO/IEC JTC 5 on Digital Product Passport, industry leads, implementers, and the wider open-source community. Open an issue, send a PR, or reach out directly.
 
 ## Vocabulary Namespaces
 
 | Module | Namespace | Prefix |
 |--------|-----------|--------|
 | DPP Core | `https://ref.openepcis.io/extensions/common/core/` | `dpp:` |
+| Interop | `https://ref.openepcis.io/extensions/common/interop/` | `interop:` |
 | Battery | `https://ref.openepcis.io/extensions/eu/battery/` | `battery:` |
 | EUDR | `https://ref.openepcis.io/extensions/eu/eudr/` | `eudr:` |
 | Textile | `https://ref.openepcis.io/extensions/eu/textile/` | `textile:` |
 | Electronics | `https://ref.openepcis.io/extensions/eu/electronics/` | `electronics:` |
+| Detergent | `https://ref.openepcis.io/extensions/eu/detergent/` | `detergent:` |
+| FSMA §204 | `https://ref.openepcis.io/extensions/us/fsma204/` | `fsma:` |
 
 ## Value Conventions
 
@@ -289,13 +292,20 @@ See [extensions/common/core/docs/ESPR_FRAMEWORK.md](./extensions/common/core/doc
 
 ## Versioning
 
-Each module follows [Semantic Versioning](https://semver.org/):
+Each module follows [Semantic Versioning](https://semver.org/) and is versioned independently. Current state:
 
-- **core**: Shared patterns - breaking changes bump major version
-- **battery**: Battery DPP specific - independent versioning
-- **eudr**: EUDR specific - independent versioning
+| Module | Version | Notes |
+|--------|---------|-------|
+| `common/core` | 0.9.5 | ESPR framework + shared patterns; breaking changes bump major |
+| `common/interop` | 0.9.5 | UNTP / CIRPASS2 / JTC 24 / BatteryPass bridges |
+| `eu/battery` | 0.9.5 | Battery Regulation 2023/1542 |
+| `eu/eudr` | 0.9.5 | Deforestation Regulation 2023/1115 |
+| `eu/textile` | 0.9.5 | Sustainable Textiles |
+| `eu/electronics` | 0.9.5 | ESPR Electronics Delegated Acts |
+| `eu/detergent` | 0.9.5 | Detergents Regulation 2026/405 |
+| `us/fsma204` | 0.1.0 | FDA FSMA §204 (preview) |
 
-Modules declare their minimum `core` dependency in their documentation.
+Modules declare their minimum `common/core` dependency in their respective `README.md` and `CHANGELOG.md`.
 
 ## GS1 Standards Used
 
@@ -334,6 +344,7 @@ GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/, battery=ht
 | Textile | `textile=https://ref.openepcis.io/extensions/eu/textile/` |
 | Electronics | `electronics=https://ref.openepcis.io/extensions/eu/electronics/` |
 | Detergent | `detergent=https://ref.openepcis.io/extensions/eu/detergent/` |
+| FSMA §204 | `fsma=https://ref.openepcis.io/extensions/us/fsma204/` |
 
 ### JSON-LD Context Integration
 
@@ -390,15 +401,13 @@ Available codes:
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make changes following existing patterns
-4. Submit a pull request
+Contributions are welcome under the [Apache License 2.0](./LICENSE). Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for the full workflow (TTL is the source of truth, GS1-first extension governance, branch and PR conventions, helper commands) and [codeOfConduct.md](./codeOfConduct.md) for the project Code of Conduct.
 
-Please ensure:
+Quick checklist before opening a PR:
 - TTL ontologies validate with `rapper`
-- JSON-LD examples parse correctly
-- Documentation is updated
+- `pnpm run build` regenerates JSON in sync
+- JSON-LD examples and EPCIS events validate
+- Module `CHANGELOG.md` updated
 
 ## License
 
@@ -406,7 +415,11 @@ Apache License 2.0 - See [LICENSE](./LICENSE)
 
 ## Links
 
+- [Browse the live ontology — ref.openepcis.io](https://ref.openepcis.io)
 - [OpenEPCIS Documentation](https://openepcis.io/docs/digital-product-passport/)
+- [Contributing guide](./CONTRIBUTING.md)
+- [Code of Conduct](./codeOfConduct.md)
+- [Extension Governance](./EXTENSION-GOVERNANCE.md)
 - [GS1 Digital Link](https://www.gs1.org/standards/gs1-digital-link)
 - [EPCIS 2.0 Standard](https://ref.gs1.org/standards/epcis/)
 - [GS1 Web Vocabulary](https://www.gs1.org/voc/)
