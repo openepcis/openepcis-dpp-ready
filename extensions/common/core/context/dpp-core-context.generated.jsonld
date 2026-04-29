@@ -1,0 +1,606 @@
+{
+  "_comment": "OpenEPCIS DPP Core Vocabulary v0.9.5 — generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
+  "@context": {
+    "@version": 1.1,
+    "id": "@id",
+    "type": "@type",
+    "dpp": "https://ref.openepcis.io/extensions/common/core/",
+    "gs1": "https://ref.gs1.org/voc/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "AccessLevel": "dpp:AccessLevel",
+    "AccessRights": "dpp:AccessRights",
+    "CircularityPerformance": "dpp:CircularityPerformance",
+    "CustomsCommodityCodeType": "dpp:CustomsCommodityCodeType",
+    "DocumentReference": "dpp:DocumentReference",
+    "DocumentType": "dpp:DocumentType",
+    "DPPGranularity": "dpp:DPPGranularity",
+    "DueDiligenceReport": "dpp:DueDiligenceReport",
+    "DurationDays": "dpp:DurationDays",
+    "DurationYears": "dpp:DurationYears",
+    "EmissionsPerformance": "dpp:EmissionsPerformance",
+    "EnergyKilowattHours": "dpp:EnergyKilowattHours",
+    "FacilityInformation": "dpp:FacilityInformation",
+    "GranularityLevel": "dpp:GranularityLevel",
+    "HazardClass": "dpp:HazardClass",
+    "HazardousSubstance": "dpp:HazardousSubstance",
+    "IndividualTradeItemPiece": "dpp:IndividualTradeItemPiece",
+    "MaterialComposition": "dpp:MaterialComposition",
+    "OperationalScope": "dpp:OperationalScope",
+    "OperatorInformation": "dpp:OperatorInformation",
+    "OperatorRole": "dpp:OperatorRole",
+    "PassportStatus": "dpp:PassportStatus",
+    "Percentage": "dpp:Percentage",
+    "PerformanceInfo": "dpp:PerformanceInfo",
+    "PowerKilowatts": "dpp:PowerKilowatts",
+    "PowerWatts": "dpp:PowerWatts",
+    "ProductCategory": "dpp:ProductCategory",
+    "RecycledContent": "dpp:RecycledContent",
+    "RepairabilityInfo": "dpp:RepairabilityInfo",
+    "SubstanceOfConcern": "dpp:SubstanceOfConcern",
+    "TemperatureCelsius": "dpp:TemperatureCelsius",
+    "TraceabilityPerformance": "dpp:TraceabilityPerformance",
+    "WeightKilograms": "dpp:WeightKilograms",
+    "accessLevel": {
+      "@id": "dpp:accessLevel",
+      "@type": "@vocab",
+      "@context": {
+        "AuthorizedOnly": "dpp:AuthorizedOnly",
+        "Public": "dpp:Public",
+        "Restricted": "dpp:Restricted"
+      }
+    },
+    "accessRights": {
+      "@id": "dpp:accessRights",
+      "@type": "@id"
+    },
+    "activityClassification": {
+      "@id": "dpp:activityClassification",
+      "@type": "xsd:string"
+    },
+    "authorizedParties": {
+      "@id": "dpp:authorizedParties",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "carbonFootprint": {
+      "@id": "dpp:carbonFootprint",
+      "@type": "@id"
+    },
+    "carbonFootprintStudyUrl": {
+      "@id": "dpp:carbonFootprintStudyUrl",
+      "@type": "xsd:anyURI"
+    },
+    "carbonFootprintTotal": {
+      "@id": "dpp:carbonFootprintTotal",
+      "@type": "xsd:decimal"
+    },
+    "casNumber": {
+      "@id": "dpp:casNumber",
+      "@type": "xsd:string"
+    },
+    "circularityPerformance": {
+      "@id": "dpp:circularityPerformance",
+      "@type": "@id"
+    },
+    "complianceDate": {
+      "@id": "dpp:complianceDate",
+      "@type": "xsd:date"
+    },
+    "complianceStatus": {
+      "@id": "dpp:complianceStatus",
+      "@type": "xsd:boolean"
+    },
+    "concentration": {
+      "@id": "dpp:concentration",
+      "@type": "xsd:decimal"
+    },
+    "customsCommodityCode": {
+      "@id": "dpp:customsCommodityCode",
+      "@type": "xsd:string"
+    },
+    "customsCommodityCodeType": {
+      "@id": "dpp:customsCommodityCodeType",
+      "@type": "@vocab",
+      "@context": {
+        "CN10": "dpp:CN10",
+        "CN8": "dpp:CN8",
+        "HS6": "dpp:HS6",
+        "HS8": "dpp:HS8",
+        "HTSUS10": "dpp:HTSUS10"
+      }
+    },
+    "dataProviderCertification": {
+      "@id": "dpp:dataProviderCertification",
+      "@type": "xsd:string"
+    },
+    "dataQualityAssessment": {
+      "@id": "dpp:dataQualityAssessment",
+      "@type": "xsd:string"
+    },
+    "dataRetentionPeriod": {
+      "@id": "dpp:dataRetentionPeriod",
+      "@type": "@id"
+    },
+    "declaredUnit": {
+      "@id": "dpp:declaredUnit",
+      "@type": "xsd:string"
+    },
+    "did": {
+      "@id": "dpp:did",
+      "@type": "xsd:anyURI"
+    },
+    "dismantlingInstructions": {
+      "@id": "dpp:dismantlingInstructions",
+      "@type": "@id"
+    },
+    "diyRepairPossible": {
+      "@id": "dpp:diyRepairPossible",
+      "@type": "xsd:boolean"
+    },
+    "documents": {
+      "@id": "dpp:documents",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "documentTitle": {
+      "@id": "dpp:documentTitle",
+      "@type": "xsd:string"
+    },
+    "documentType": {
+      "@id": "dpp:documentType",
+      "@type": "@vocab",
+      "@context": {
+        "Certificate": "dpp:Certificate",
+        "DeclarationOfConformity": "dpp:DeclarationOfConformity",
+        "DueDiligenceDocument": "dpp:DueDiligenceDocument",
+        "EnvironmentalReport": "dpp:EnvironmentalReport",
+        "Manual": "dpp:Manual",
+        "SafetyDataSheet": "dpp:SafetyDataSheet",
+        "TestReport": "dpp:TestReport",
+        "ThirdPartyVerification": "dpp:ThirdPartyVerification"
+      }
+    },
+    "documentUrl": {
+      "@id": "dpp:documentUrl",
+      "@type": "xsd:anyURI"
+    },
+    "dueDiligenceReport": {
+      "@id": "dpp:dueDiligenceReport",
+      "@type": "@id"
+    },
+    "ecNumber": {
+      "@id": "dpp:ecNumber",
+      "@type": "xsd:string"
+    },
+    "economicOperatorId": {
+      "@id": "dpp:economicOperatorId",
+      "@type": "xsd:string"
+    },
+    "emissionsPerformance": {
+      "@id": "dpp:emissionsPerformance",
+      "@type": "@id"
+    },
+    "endOfLifeInstructions": {
+      "@id": "dpp:endOfLifeInstructions",
+      "@type": "xsd:anyURI"
+    },
+    "eoriNumber": {
+      "@id": "dpp:eoriNumber",
+      "@type": "xsd:string"
+    },
+    "expectedLifespan": {
+      "@id": "dpp:expectedLifespan",
+      "@type": "@id"
+    },
+    "facilityCertifications": {
+      "@id": "dpp:facilityCertifications",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "facilityInformation": {
+      "@id": "dpp:facilityInformation",
+      "@type": "@id"
+    },
+    "facilityType": {
+      "@id": "dpp:facilityType",
+      "@type": "xsd:string"
+    },
+    "granularity": {
+      "@id": "dpp:granularity",
+      "@type": "@vocab",
+      "@context": {
+        "BatchLevel": "dpp:BatchLevel",
+        "ItemLevel": "dpp:ItemLevel",
+        "ModelLevel": "dpp:ModelLevel",
+        "ModelPerSiteLevel": "dpp:ModelPerSiteLevel"
+      }
+    },
+    "granularityLevel": {
+      "@id": "dpp:granularityLevel",
+      "@type": "@vocab",
+      "@context": {
+        "Batch": "dpp:Batch",
+        "Item": "dpp:Item",
+        "ProductClass": "dpp:ProductClass"
+      }
+    },
+    "guaranteedLifespan": {
+      "@id": "dpp:guaranteedLifespan",
+      "@type": "@id"
+    },
+    "hazardClass": {
+      "@id": "dpp:hazardClass",
+      "@type": "@vocab",
+      "@context": {
+        "AcuteToxicity": "dpp:AcuteToxicity",
+        "AspirationHazard": "dpp:AspirationHazard",
+        "Carcinogenicity": "dpp:Carcinogenicity",
+        "EyeDamageOrIrritation": "dpp:EyeDamageOrIrritation",
+        "GermCellMutagenicity": "dpp:GermCellMutagenicity",
+        "HazardousToAquaticEnvironment": "dpp:HazardousToAquaticEnvironment",
+        "ReproductiveToxicity": "dpp:ReproductiveToxicity",
+        "RespiratoryOrSkinSensitization": "dpp:RespiratoryOrSkinSensitization",
+        "SkinCorrosionOrIrritation": "dpp:SkinCorrosionOrIrritation",
+        "SpecificTargetOrganToxicity": "dpp:SpecificTargetOrganToxicity"
+      }
+    },
+    "hazardImpact": {
+      "@id": "dpp:hazardImpact",
+      "@type": "xsd:string"
+    },
+    "hazardousSubstances": {
+      "@id": "dpp:hazardousSubstances",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "identityCredentialUrl": {
+      "@id": "dpp:identityCredentialUrl",
+      "@type": "xsd:anyURI"
+    },
+    "isCriticalRawMaterial": {
+      "@id": "dpp:isCriticalRawMaterial",
+      "@type": "xsd:boolean"
+    },
+    "isRegulationCompliant": {
+      "@id": "dpp:isRegulationCompliant",
+      "@type": "xsd:boolean"
+    },
+    "issueDate": {
+      "@id": "dpp:issueDate",
+      "@type": "xsd:date"
+    },
+    "languageCode": {
+      "@id": "dpp:languageCode",
+      "@type": "xsd:string"
+    },
+    "lastDataUpdate": {
+      "@id": "dpp:lastDataUpdate",
+      "@type": "xsd:dateTime"
+    },
+    "lastUpdate": {
+      "@id": "dpp:lastUpdate",
+      "@type": "xsd:dateTime"
+    },
+    "massFraction": {
+      "@id": "dpp:massFraction",
+      "@type": "xsd:decimal"
+    },
+    "materialCircularityIndicator": {
+      "@id": "dpp:materialCircularityIndicator",
+      "@type": "xsd:decimal"
+    },
+    "materialComposition": {
+      "@id": "dpp:materialComposition",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "materialName": {
+      "@id": "dpp:materialName",
+      "@type": "xsd:string"
+    },
+    "mimeType": {
+      "@id": "dpp:mimeType",
+      "@type": "xsd:string"
+    },
+    "operationalScope": {
+      "@id": "dpp:operationalScope",
+      "@type": "@vocab",
+      "@context": {
+        "CradleToGate": "dpp:CradleToGate",
+        "CradleToGrave": "dpp:CradleToGrave"
+      }
+    },
+    "operatorInformation": {
+      "@id": "dpp:operatorInformation",
+      "@type": "@id"
+    },
+    "operatorRole": {
+      "@id": "dpp:operatorRole",
+      "@type": "@vocab",
+      "@context": {
+        "AuthorisedRepresentative": "dpp:AuthorisedRepresentative",
+        "Distributor": "dpp:Distributor",
+        "FulfilmentServiceProvider": "dpp:FulfilmentServiceProvider",
+        "Importer": "dpp:Importer",
+        "Manufacturer": "dpp:Manufacturer",
+        "Processor": "dpp:Processor",
+        "Trader": "dpp:Trader"
+      }
+    },
+    "passportExpiryDate": {
+      "@id": "dpp:passportExpiryDate",
+      "@type": "xsd:date"
+    },
+    "passportIdentifier": {
+      "@id": "dpp:passportIdentifier",
+      "@type": "xsd:anyURI"
+    },
+    "passportIssueDate": {
+      "@id": "dpp:passportIssueDate",
+      "@type": "xsd:date"
+    },
+    "passportIssuer": {
+      "@id": "dpp:passportIssuer",
+      "@type": "@id"
+    },
+    "passportLastModified": {
+      "@id": "dpp:passportLastModified",
+      "@type": "xsd:dateTime"
+    },
+    "passportStatus": {
+      "@id": "dpp:passportStatus",
+      "@type": "@vocab",
+      "@context": {
+        "Active": "dpp:Active",
+        "Archived": "dpp:Archived",
+        "Draft": "dpp:Draft",
+        "Suspended": "dpp:Suspended",
+        "Updated": "dpp:Updated",
+        "Withdrawn": "dpp:Withdrawn"
+      }
+    },
+    "passportVersion": {
+      "@id": "dpp:passportVersion",
+      "@type": "xsd:string"
+    },
+    "performanceClass": {
+      "@id": "dpp:performanceClass",
+      "@type": "xsd:string"
+    },
+    "performanceInfo": {
+      "@id": "dpp:performanceInfo",
+      "@type": "@id"
+    },
+    "postConsumerRecycledContent": {
+      "@id": "dpp:postConsumerRecycledContent",
+      "@type": "xsd:decimal"
+    },
+    "preConsumerRecycledContent": {
+      "@id": "dpp:preConsumerRecycledContent",
+      "@type": "xsd:decimal"
+    },
+    "previousPassportVersion": {
+      "@id": "dpp:previousPassportVersion",
+      "@type": "xsd:anyURI"
+    },
+    "primarySourcedRatio": {
+      "@id": "dpp:primarySourcedRatio",
+      "@type": "xsd:decimal"
+    },
+    "productCategory": {
+      "@id": "dpp:productCategory",
+      "@type": "@vocab",
+      "@context": {
+        "Aluminium": "dpp:Aluminium",
+        "Batteries": "dpp:Batteries",
+        "Chemicals": "dpp:Chemicals",
+        "ConstructionProducts": "dpp:ConstructionProducts",
+        "Electronics": "dpp:Electronics",
+        "FoodContact": "dpp:FoodContact",
+        "Furniture": "dpp:Furniture",
+        "IronSteel": "dpp:IronSteel",
+        "Packaging": "dpp:Packaging",
+        "Textiles": "dpp:Textiles",
+        "Tyres": "dpp:Tyres"
+      }
+    },
+    "productModel": {
+      "@id": "dpp:productModel",
+      "@type": "xsd:string"
+    },
+    "professionalRepairNetwork": {
+      "@id": "dpp:professionalRepairNetwork",
+      "@type": "xsd:anyURI"
+    },
+    "recyclableContent": {
+      "@id": "dpp:recyclableContent",
+      "@type": "xsd:decimal"
+    },
+    "recycledContent": {
+      "@id": "dpp:recycledContent",
+      "@type": "xsd:decimal"
+    },
+    "recycledContentDetails": {
+      "@id": "dpp:recycledContentDetails",
+      "@type": "@id"
+    },
+    "registrationNumber": {
+      "@id": "dpp:registrationNumber",
+      "@type": "xsd:string"
+    },
+    "regulatoryReferenceNumber": {
+      "@id": "dpp:regulatoryReferenceNumber",
+      "@type": "xsd:string"
+    },
+    "repairabilityClass": {
+      "@id": "dpp:repairabilityClass",
+      "@type": "xsd:string"
+    },
+    "repairabilityInfo": {
+      "@id": "dpp:repairabilityInfo",
+      "@type": "@id"
+    },
+    "repairabilityScore": {
+      "@id": "dpp:repairabilityScore",
+      "@type": "xsd:decimal"
+    },
+    "repairInstructions": {
+      "@id": "dpp:repairInstructions",
+      "@type": "@id"
+    },
+    "reportDate": {
+      "@id": "dpp:reportDate",
+      "@type": "xsd:date"
+    },
+    "reportUrl": {
+      "@id": "dpp:reportUrl",
+      "@type": "xsd:anyURI"
+    },
+    "safeDisassemblyInstructions": {
+      "@id": "dpp:safeDisassemblyInstructions",
+      "@type": "xsd:string"
+    },
+    "safeUseInstructions": {
+      "@id": "dpp:safeUseInstructions",
+      "@type": "xsd:string"
+    },
+    "schemaVersion": {
+      "@id": "dpp:schemaVersion",
+      "@type": "xsd:string"
+    },
+    "scipId": {
+      "@id": "dpp:scipId",
+      "@type": "xsd:string"
+    },
+    "separateCollectionInfo": {
+      "@id": "dpp:separateCollectionInfo",
+      "@type": "xsd:anyURI"
+    },
+    "softwareUpdatesAvailability": {
+      "@id": "dpp:softwareUpdatesAvailability",
+      "@type": "@id"
+    },
+    "sourceCountry": {
+      "@id": "dpp:sourceCountry",
+      "@type": "xsd:string"
+    },
+    "sparePartsAvailability": {
+      "@id": "dpp:sparePartsAvailability",
+      "@type": "@id"
+    },
+    "sparePartsDeliveryTime": {
+      "@id": "dpp:sparePartsDeliveryTime",
+      "@type": "@id"
+    },
+    "status": {
+      "@id": "dpp:status",
+      "@type": "@vocab",
+      "@context": {
+        "Active": "dpp:Active",
+        "Archived": "dpp:Archived",
+        "Draft": "dpp:Draft",
+        "Suspended": "dpp:Suspended",
+        "Updated": "dpp:Updated",
+        "Withdrawn": "dpp:Withdrawn"
+      }
+    },
+    "substanceLocation": {
+      "@id": "dpp:substanceLocation",
+      "@type": "xsd:string"
+    },
+    "substanceName": {
+      "@id": "dpp:substanceName",
+      "@type": "xsd:string"
+    },
+    "substancesOfConcern": {
+      "@id": "dpp:substancesOfConcern",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "technicalLifetime": {
+      "@id": "dpp:technicalLifetime",
+      "@type": "@id"
+    },
+    "testedConditions": {
+      "@id": "dpp:testedConditions",
+      "@type": "xsd:string"
+    },
+    "thirdPartyAssurancesUrl": {
+      "@id": "dpp:thirdPartyAssurancesUrl",
+      "@type": "xsd:anyURI"
+    },
+    "traceabilityPerformance": {
+      "@id": "dpp:traceabilityPerformance",
+      "@type": "@id"
+    },
+    "tradeItemPieceCount": {
+      "@id": "dpp:tradeItemPieceCount",
+      "@type": "xsd:positiveInteger"
+    },
+    "tradeItemPieceDescription": {
+      "@id": "dpp:tradeItemPieceDescription",
+      "@type": "xsd:string"
+    },
+    "tradeItemPieceNumber": {
+      "@id": "dpp:tradeItemPieceNumber",
+      "@type": "xsd:positiveInteger"
+    },
+    "tradeItemPieceOf": {
+      "@id": "dpp:tradeItemPieceOf",
+      "@type": "@id"
+    },
+    "uniqueProductIdentifier": {
+      "@id": "dpp:uniqueProductIdentifier",
+      "@type": "xsd:anyURI"
+    },
+    "usageCycles": {
+      "@id": "dpp:usageCycles",
+      "@type": "xsd:integer"
+    },
+    "utilityFactor": {
+      "@id": "dpp:utilityFactor",
+      "@type": "xsd:decimal"
+    },
+    "validUntil": {
+      "@id": "dpp:validUntil",
+      "@type": "xsd:date"
+    },
+    "vatIdentificationNumber": {
+      "@id": "dpp:vatIdentificationNumber",
+      "@type": "xsd:string"
+    },
+    "verificationBody": {
+      "@id": "dpp:verificationBody",
+      "@type": "@id"
+    },
+    "verifiedRatio": {
+      "@id": "dpp:verifiedRatio",
+      "@type": "xsd:decimal"
+    },
+    "wastePreventionInfo": {
+      "@id": "dpp:wastePreventionInfo",
+      "@type": "xsd:anyURI"
+    },
+    "QuantitativeValue": "gs1:QuantitativeValue",
+    "value": {
+      "@id": "gs1:value",
+      "@type": "xsd:decimal"
+    },
+    "unitCode": "gs1:unitCode",
+    "Organization": "gs1:Organization",
+    "partyGLN": "gs1:partyGLN",
+    "CircularityInfo": "dpp:CircularityPerformance",
+    "gln": "gs1:gln",
+    "organizationName": "gs1:organizationName",
+    "name": "gs1:name",
+    "address": {
+      "@id": "gs1:address",
+      "@type": "@id"
+    },
+    "tradeItemPieces": {
+      "@id": "dpp:tradeItemPieces",
+      "@type": "@id",
+      "@container": "@set"
+    }
+  }
+}

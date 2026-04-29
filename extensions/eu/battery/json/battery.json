@@ -257,6 +257,19 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/batteryModelIdentifier",
+      "localName": "batteryModelIdentifier",
+      "label": "Battery Model Identifier",
+      "comment": "Manufacturer-assigned identifier of the battery model — distinct from the human-readable battery:batteryModel name. Required by the EU Battery Regulation Labelling Implementing Act and referenced in the carbon footprint declaration; enables every batch- and item-level attribute to be tied back to a model.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://thebatterypass.eu/battery-pass-ready/publications/"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/eu/battery/batteryPassportIdentifier",
       "localName": "batteryPassportIdentifier",
       "label": "Battery Passport Identifier",
@@ -267,6 +280,22 @@
       "range": [
         "xsd:anyURI"
       ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/batterySerialNumber",
+      "localName": "batterySerialNumber",
+      "label": "Battery Serial Number",
+      "comment": "Manufacturer-assigned serial number of the individual battery item. May be encoded in the GS1 Digital Link as the (21) AI; surfacing as an explicit field is recommended for SAMM-shaped exports and for downstream BMS integrations that do not parse Digital Link.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/hasSerialNumber"
+      ],
+      "source": "https://thebatterypass.eu/battery-pass-ready/publications/"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/battery/batteryStatus",
@@ -308,7 +337,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/capacityFade",
       "localName": "capacityFade",
       "label": "Capacity Fade",
-      "comment": "Capacity degradation percentage. Use gs1:QuantitativeValue with unitCode 'P1' (percent).",
+      "comment": "Capacity degradation as a percentage of rated capacity, computed as ((rated − remaining) / rated) × 100. Use gs1:QuantitativeValue with unitCode 'P1' (percent).",
       "domain": [
         "https://ref.gs1.org/voc/Product"
       ],
@@ -1099,6 +1128,22 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/facilityIdentifier",
+      "localName": "facilityIdentifier",
+      "label": "Facility Identifier",
+      "comment": "Unique identifier of the manufacturing facility (recommended: GS1 GLN). v1.2 of the longlist embedded this in manufacturingPlace; v1.3 separates it as a first-class attribute so a single battery model can reference multiple facilities.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/gln"
+      ],
+      "source": "https://thebatterypass.eu/battery-pass-ready/publications/"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/eu/battery/fullName",
       "localName": "fullName",
       "label": "Full Name",
@@ -1389,40 +1434,17 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/battery/leadPostConsumerShare",
-      "localName": "leadPostConsumerShare",
-      "label": "Lead Post-Consumer Recycled Share",
-      "comment": "",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/battery/RecycledContent"
-      ],
-      "range": [
-        "xsd:decimal"
-      ]
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/eu/battery/leadPreConsumerShare",
-      "localName": "leadPreConsumerShare",
-      "label": "Lead Pre-Consumer Recycled Share",
-      "comment": "",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/battery/RecycledContent"
-      ],
-      "range": [
-        "xsd:decimal"
-      ]
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/eu/battery/leadRecycledShare",
       "localName": "leadRecycledShare",
       "label": "Lead Recycled Share",
-      "comment": "Total percentage of recycled lead content.",
+      "comment": "Total percentage of recycled lead content (combined pre- and post-consumer). The EU Battery Regulation does not require a pre/post split for lead, in contrast to lithium, cobalt, nickel; v1.3 of the BatteryPass-Ready longlist consolidated the two former v1.2 attributes (#43 + #47) into this single share.",
       "domain": [
         "https://ref.openepcis.io/extensions/eu/battery/RecycledContent"
       ],
       "range": [
         "xsd:decimal"
-      ]
+      ],
+      "source": "https://thebatterypass.eu/battery-pass-ready/publications/"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/battery/leadSymbolRequired",
@@ -1498,6 +1520,35 @@
       ],
       "seeAlso": [
         "https://ref.openepcis.io/extensions/common/core/recycledContent"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/manufacturerIdentifier",
+      "localName": "manufacturerIdentifier",
+      "label": "Manufacturer Identifier",
+      "comment": "Unique identifier of the battery manufacturer (recommended: GS1 GLN). Held separately from manufacturerInformation in v1.3 so the identifier can be access-restricted while the information block remains public.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/gln",
+        "https://ref.gs1.org/voc/manufacturer"
+      ],
+      "source": "https://thebatterypass.eu/battery-pass-ready/publications/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/manufacturerInformation",
+      "localName": "manufacturerInformation",
+      "label": "Manufacturer Information",
+      "comment": "Non-identifier metadata of the battery manufacturer — name, postal address, contact point. The identifier is carried separately by battery:manufacturerIdentifier.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
       ]
     },
     {
@@ -1843,10 +1894,27 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/operatorIdentifier",
+      "localName": "operatorIdentifier",
+      "label": "Economic Operator Identifier",
+      "comment": "Unique identifier of the economic operator (recommended: GS1 GLN, ESPR EOID per Article 77). Held separately from operatorInformation in v1.3 so the identifier can be access-restricted to notified bodies, market surveillance authorities and the Commission while the information block remains public.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/gln",
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ],
+      "source": "https://thebatterypass.eu/battery-pass-ready/publications/"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/eu/battery/operatorInformation",
       "localName": "operatorInformation",
-      "label": "Operator Information",
-      "comment": "Economic operator responsible for the battery as per Art. 38.",
+      "label": "Economic Operator Information",
+      "comment": "Non-identifier metadata of the economic operator responsible for the battery (Art. 38) — name, postal address, contact point. The operator's identifier is carried separately by battery:operatorIdentifier so the two can be exposed at different access levels (v1.3 separates them: identifier is restricted to authorities, information remains public).",
       "domain": [
         "https://ref.gs1.org/voc/Product"
       ],
@@ -1924,7 +1992,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/powerFade",
       "localName": "powerFade",
       "label": "Power Fade",
-      "comment": "Power capability degradation as percentage of original.",
+      "comment": "Power capability degradation as a percentage of original power capability, computed as ((original − remaining) / original) × 100.",
       "domain": [
         "https://ref.gs1.org/voc/Product"
       ],
@@ -2255,7 +2323,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/roundTripEfficiencyFade",
       "localName": "roundTripEfficiencyFade",
       "label": "Round Trip Efficiency Fade",
-      "comment": "Degradation of round trip efficiency as percentage points.",
+      "comment": "Degradation of round trip efficiency, computed as ((initial RTE − remaining RTE) / initial RTE) × 100.",
       "domain": [
         "https://ref.gs1.org/voc/Product"
       ],

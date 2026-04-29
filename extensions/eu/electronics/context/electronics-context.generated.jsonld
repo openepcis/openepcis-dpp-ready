@@ -1,0 +1,431 @@
+{
+  "_comment": "OpenEPCIS Electronics Vocabulary v0.9.5 — generated from extensions/eu/electronics/ontology/electronics.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/electronics/context/.context-overrides.json for non-derivable hints.",
+  "@context": {
+    "@version": 1.1,
+    "id": "@id",
+    "type": "@type",
+    "dpp": "https://ref.openepcis.io/extensions/common/core/",
+    "electronics": "https://ref.openepcis.io/extensions/eu/electronics/",
+    "gs1": "https://ref.gs1.org/voc/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "ComponentBOM": "electronics:ComponentBOM",
+    "ComponentType": "electronics:ComponentType",
+    "DeviceCategory": "electronics:DeviceCategory",
+    "DisplaySpecification": "electronics:DisplaySpecification",
+    "EnergyEfficiency": "electronics:EnergyEfficiency",
+    "EnergyEfficiencyClass": "electronics:EnergyEfficiencyClass",
+    "EURepairabilityClass": "electronics:EURepairabilityClass",
+    "FrequencyHertz": "electronics:FrequencyHertz",
+    "LuminanceCandela": "electronics:LuminanceCandela",
+    "RepairabilityIndex": "electronics:RepairabilityIndex",
+    "RepairCriterion": "electronics:RepairCriterion",
+    "RepairCriterionType": "electronics:RepairCriterionType",
+    "ReplacementDifficulty": "electronics:ReplacementDifficulty",
+    "RoHSCompliance": "electronics:RoHSCompliance",
+    "SoftwareSupport": "electronics:SoftwareSupport",
+    "WEEECategory": "electronics:WEEECategory",
+    "WEEECompliance": "electronics:WEEECompliance",
+    "annualEnergyConsumption": {
+      "@id": "electronics:annualEnergyConsumption",
+      "@type": "@id"
+    },
+    "assessmentBody": {
+      "@id": "electronics:assessmentBody",
+      "@type": "@id"
+    },
+    "assessmentDate": {
+      "@id": "electronics:assessmentDate",
+      "@type": "xsd:date"
+    },
+    "billOfMaterials": {
+      "@id": "electronics:billOfMaterials",
+      "@type": "@id"
+    },
+    "collectionSchemeUrl": {
+      "@id": "electronics:collectionSchemeUrl",
+      "@type": "xsd:anyURI"
+    },
+    "commercialName": {
+      "@id": "electronics:commercialName",
+      "@type": "xsd:string"
+    },
+    "componentManufacturer": {
+      "@id": "electronics:componentManufacturer",
+      "@type": "@id"
+    },
+    "componentName": {
+      "@id": "electronics:componentName",
+      "@type": "xsd:string"
+    },
+    "componentPartNumber": {
+      "@id": "electronics:componentPartNumber",
+      "@type": "xsd:string"
+    },
+    "componentPassport": {
+      "@id": "electronics:componentPassport",
+      "@type": "@id"
+    },
+    "components": {
+      "@id": "electronics:components",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "componentType": {
+      "@id": "electronics:componentType",
+      "@type": "@vocab",
+      "@context": {
+        "BatteryComponent": "electronics:BatteryComponent",
+        "CameraComponent": "electronics:CameraComponent",
+        "ConnectorComponent": "electronics:ConnectorComponent",
+        "CoolingSystemComponent": "electronics:CoolingSystemComponent",
+        "DisplayComponent": "electronics:DisplayComponent",
+        "EnclosureComponent": "electronics:EnclosureComponent",
+        "KeyboardComponent": "electronics:KeyboardComponent",
+        "MemoryComponent": "electronics:MemoryComponent",
+        "MicrophoneComponent": "electronics:MicrophoneComponent",
+        "MotherboardComponent": "electronics:MotherboardComponent",
+        "PowerSupplyComponent": "electronics:PowerSupplyComponent",
+        "ProcessorComponent": "electronics:ProcessorComponent",
+        "SpeakerComponent": "electronics:SpeakerComponent",
+        "StorageComponent": "electronics:StorageComponent",
+        "TrackpadComponent": "electronics:TrackpadComponent"
+      }
+    },
+    "criterionDetails": {
+      "@id": "electronics:criterionDetails",
+      "@type": "xsd:string"
+    },
+    "criterionMaxScore": {
+      "@id": "electronics:criterionMaxScore",
+      "@type": "xsd:decimal"
+    },
+    "criterionScore": {
+      "@id": "electronics:criterionScore",
+      "@type": "xsd:decimal"
+    },
+    "criterionType": {
+      "@id": "electronics:criterionType",
+      "@type": "@vocab",
+      "@context": {
+        "Disassembly": "electronics:Disassembly",
+        "Documentation": "electronics:Documentation",
+        "ProductSpecific": "electronics:ProductSpecific",
+        "SparePartsAvailability": "electronics:SparePartsAvailability",
+        "SparePartsPricing": "electronics:SparePartsPricing"
+      }
+    },
+    "deviceCategory": {
+      "@id": "electronics:deviceCategory",
+      "@type": "@vocab",
+      "@context": {
+        "DataStorage": "electronics:DataStorage",
+        "Desktop": "electronics:Desktop",
+        "Dishwasher": "electronics:Dishwasher",
+        "Display": "electronics:Display",
+        "Laptop": "electronics:Laptop",
+        "NetworkEquipment": "electronics:NetworkEquipment",
+        "Printer": "electronics:Printer",
+        "Refrigerator": "electronics:Refrigerator",
+        "Server": "electronics:Server",
+        "SmallAppliance": "electronics:SmallAppliance",
+        "Smartphone": "electronics:Smartphone",
+        "Tablet": "electronics:Tablet",
+        "Television": "electronics:Television",
+        "VacuumCleaner": "electronics:VacuumCleaner",
+        "WashingMachine": "electronics:WashingMachine",
+        "Wearable": "electronics:Wearable"
+      }
+    },
+    "displayScore": {
+      "@id": "electronics:displayScore",
+      "@type": "xsd:decimal"
+    },
+    "displaySpecification": {
+      "@id": "electronics:displaySpecification",
+      "@type": "@id"
+    },
+    "displayTechnology": {
+      "@id": "electronics:displayTechnology",
+      "@type": "xsd:string"
+    },
+    "energyEfficiency": {
+      "@id": "electronics:energyEfficiency",
+      "@type": "@id"
+    },
+    "energyEfficiencyClass": {
+      "@id": "electronics:energyEfficiencyClass",
+      "@type": "@vocab",
+      "@context": {
+        "EnergyClassA": "electronics:EnergyClassA",
+        "EnergyClassB": "electronics:EnergyClassB",
+        "EnergyClassC": "electronics:EnergyClassC",
+        "EnergyClassD": "electronics:EnergyClassD",
+        "EnergyClassE": "electronics:EnergyClassE",
+        "EnergyClassF": "electronics:EnergyClassF",
+        "EnergyClassG": "electronics:EnergyClassG"
+      }
+    },
+    "energyLabelUrl": {
+      "@id": "electronics:energyLabelUrl",
+      "@type": "xsd:anyURI"
+    },
+    "eprelProductUrl": {
+      "@id": "electronics:eprelProductUrl",
+      "@type": "xsd:anyURI"
+    },
+    "eprelRegistrationNumber": {
+      "@id": "electronics:eprelRegistrationNumber",
+      "@type": "xsd:string"
+    },
+    "featureSupportYears": {
+      "@id": "electronics:featureSupportYears",
+      "@type": "@id"
+    },
+    "featureUpdateEndDate": {
+      "@id": "electronics:featureUpdateEndDate",
+      "@type": "xsd:date"
+    },
+    "firmwareVersion": {
+      "@id": "electronics:firmwareVersion",
+      "@type": "xsd:string"
+    },
+    "iec62474DslVersion": {
+      "@id": "electronics:iec62474DslVersion",
+      "@type": "xsd:string"
+    },
+    "isReplaceable": {
+      "@id": "electronics:isReplaceable",
+      "@type": "xsd:boolean"
+    },
+    "latestUpdateDate": {
+      "@id": "electronics:latestUpdateDate",
+      "@type": "xsd:date"
+    },
+    "materialDeclaration": {
+      "@id": "electronics:materialDeclaration",
+      "@type": "@id"
+    },
+    "materialDeclarationDate": {
+      "@id": "electronics:materialDeclarationDate",
+      "@type": "xsd:date"
+    },
+    "modelIdentifier": {
+      "@id": "electronics:modelIdentifier",
+      "@type": "xsd:string"
+    },
+    "newVersion": {
+      "@id": "electronics:newVersion",
+      "@type": "xsd:string"
+    },
+    "operatingSystem": {
+      "@id": "electronics:operatingSystem",
+      "@type": "xsd:string"
+    },
+    "osVersion": {
+      "@id": "electronics:osVersion",
+      "@type": "xsd:string"
+    },
+    "peakBrightness": {
+      "@id": "electronics:peakBrightness",
+      "@type": "@id"
+    },
+    "powerConsumptionOff": {
+      "@id": "electronics:powerConsumptionOff",
+      "@type": "@id"
+    },
+    "powerConsumptionOn": {
+      "@id": "electronics:powerConsumptionOn",
+      "@type": "@id"
+    },
+    "powerConsumptionStandby": {
+      "@id": "electronics:powerConsumptionStandby",
+      "@type": "@id"
+    },
+    "previousVersion": {
+      "@id": "electronics:previousVersion",
+      "@type": "xsd:string"
+    },
+    "recoverabilityRate": {
+      "@id": "electronics:recoverabilityRate",
+      "@type": "xsd:decimal"
+    },
+    "recyclabilityRate": {
+      "@id": "electronics:recyclabilityRate",
+      "@type": "xsd:decimal"
+    },
+    "refreshRate": {
+      "@id": "electronics:refreshRate",
+      "@type": "@id"
+    },
+    "repairabilityClass": {
+      "@id": "electronics:repairabilityClass",
+      "@type": "@vocab",
+      "@context": {
+        "RepairClassA": "electronics:RepairClassA",
+        "RepairClassB": "electronics:RepairClassB",
+        "RepairClassC": "electronics:RepairClassC",
+        "RepairClassD": "electronics:RepairClassD",
+        "RepairClassE": "electronics:RepairClassE"
+      }
+    },
+    "repairabilityIndex": {
+      "@id": "electronics:repairabilityIndex",
+      "@type": "@id"
+    },
+    "repairabilityLabelUrl": {
+      "@id": "electronics:repairabilityLabelUrl",
+      "@type": "xsd:anyURI"
+    },
+    "repairCriteria": {
+      "@id": "electronics:repairCriteria",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "replacementDifficulty": {
+      "@id": "electronics:replacementDifficulty",
+      "@type": "@vocab",
+      "@context": {
+        "NotReplaceable": "electronics:NotReplaceable",
+        "ProfessionalOnly": "electronics:ProfessionalOnly",
+        "ToolRequired": "electronics:ToolRequired",
+        "UserReplaceable": "electronics:UserReplaceable"
+      }
+    },
+    "rohsCompliance": {
+      "@id": "electronics:rohsCompliance",
+      "@type": "@id"
+    },
+    "rohsCompliant": {
+      "@id": "electronics:rohsCompliant",
+      "@type": "xsd:boolean"
+    },
+    "rohsDeclarationUrl": {
+      "@id": "electronics:rohsDeclarationUrl",
+      "@type": "xsd:anyURI"
+    },
+    "rohsExemptions": {
+      "@id": "electronics:rohsExemptions",
+      "@type": "xsd:string"
+    },
+    "screenDiagonal": {
+      "@id": "electronics:screenDiagonal",
+      "@type": "@id"
+    },
+    "screenResolutionHeight": {
+      "@id": "electronics:screenResolutionHeight",
+      "@type": "xsd:integer"
+    },
+    "screenResolutionWidth": {
+      "@id": "electronics:screenResolutionWidth",
+      "@type": "xsd:integer"
+    },
+    "securitySupportYears": {
+      "@id": "electronics:securitySupportYears",
+      "@type": "@id"
+    },
+    "securityUpdateEndDate": {
+      "@id": "electronics:securityUpdateEndDate",
+      "@type": "xsd:date"
+    },
+    "softwareSupport": {
+      "@id": "electronics:softwareSupport",
+      "@type": "@id"
+    },
+    "softwareUpdateEvent": {
+      "@id": "electronics:softwareUpdateEvent",
+      "@type": "@id"
+    },
+    "sparePartAvailabilityYears": {
+      "@id": "electronics:sparePartAvailabilityYears",
+      "@type": "@id"
+    },
+    "sparePartPrice": {
+      "@id": "electronics:sparePartPrice",
+      "@type": "@id"
+    },
+    "totalScore": {
+      "@id": "electronics:totalScore",
+      "@type": "xsd:decimal"
+    },
+    "updateChannel": {
+      "@id": "electronics:updateChannel",
+      "@type": "xsd:anyURI"
+    },
+    "updateSource": {
+      "@id": "electronics:updateSource",
+      "@type": "xsd:string"
+    },
+    "updateType": {
+      "@id": "electronics:updateType",
+      "@type": "xsd:string"
+    },
+    "weeeCategory": {
+      "@id": "electronics:weeeCategory",
+      "@type": "@vocab",
+      "@context": {
+        "WEEE1_TemperatureExchange": "electronics:WEEE1_TemperatureExchange",
+        "WEEE2_ScreensMonitors": "electronics:WEEE2_ScreensMonitors",
+        "WEEE3_Lamps": "electronics:WEEE3_Lamps",
+        "WEEE4_LargeEquipment": "electronics:WEEE4_LargeEquipment",
+        "WEEE5_SmallEquipment": "electronics:WEEE5_SmallEquipment",
+        "WEEE6_SmallIT": "electronics:WEEE6_SmallIT"
+      }
+    },
+    "weeeCompliance": {
+      "@id": "electronics:weeeCompliance",
+      "@type": "@id"
+    },
+    "weeeRegistrationCountry": {
+      "@id": "electronics:weeeRegistrationCountry",
+      "@type": "xsd:string"
+    },
+    "weeeRegistrationNumber": {
+      "@id": "electronics:weeeRegistrationNumber",
+      "@type": "xsd:string"
+    },
+    "Percentage": "dpp:Percentage",
+    "DurationYears": "dpp:DurationYears",
+    "EnergyKilowattHours": "dpp:EnergyKilowattHours",
+    "PowerWatts": "dpp:PowerWatts",
+    "WeightKilograms": "dpp:WeightKilograms",
+    "Product": "gs1:Product",
+    "QuantitativeValue": "gs1:QuantitativeValue",
+    "value": {
+      "@id": "gs1:value",
+      "@type": "xsd:decimal"
+    },
+    "unitCode": "gs1:unitCode",
+    "PriceSpecification": "gs1:PriceSpecification",
+    "price": {
+      "@id": "gs1:price",
+      "@type": "xsd:decimal"
+    },
+    "priceCurrency": "gs1:priceCurrency",
+    "Organization": "gs1:Organization",
+    "organizationName": "gs1:organizationName",
+    "gln": "gs1:gln",
+    "gtin": "gs1:gtin",
+    "productName": "gs1:productName",
+    "brand": {
+      "@id": "gs1:brand",
+      "@type": "@id"
+    },
+    "productionDate": {
+      "@id": "gs1:productionDate",
+      "@type": "xsd:date"
+    },
+    "countryOfOrigin": "gs1:countryOfOrigin",
+    "manufacturer": {
+      "@id": "gs1:manufacturer",
+      "@type": "@id"
+    },
+    "netWeight": {
+      "@id": "gs1:netWeight",
+      "@type": "@id"
+    },
+    "grossWeight": {
+      "@id": "gs1:grossWeight",
+      "@type": "@id"
+    }
+  }
+}

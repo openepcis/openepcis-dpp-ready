@@ -65,7 +65,7 @@ Domain-specific vocabularies import this core and add regulation-specific extens
     dcterms:creator "OpenEPCIS" ;
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
     dcterms:created "2024-01-15"^^xsd:date ;
-    dcterms:modified "2025-02-02"^^xsd:date ;
+    dcterms:modified "2026-04-29"^^xsd:date ;
     owl:versionInfo "0.9.5" ;
     owl:versionIRI <https://ref.openepcis.io/extensions/common/core/0.9.5> ;
     vann:preferredNamespacePrefix "dpp" ;
@@ -338,6 +338,79 @@ dpp:Withdrawn a dpp:PassportStatus ; rdfs:label "Withdrawn"@en ;
     rdfs:comment "Passport has been withdrawn (e.g., product recall). Data remains available to authorities per ESPR Article 9."@en .
 dpp:Archived a dpp:PassportStatus ; rdfs:label "Archived"@en ;
     rdfs:comment "Passport is archived after product end-of-life. Data persisted per EN 18221 retention requirements."@en .
+
+dpp:Suspended a dpp:PassportStatus ; rdfs:label "Suspended"@en ;
+    rdfs:comment "Passport temporarily not in force (e.g. pending investigation, recall under review). Distinct from dpp:Withdrawn, which is terminal. Added for BatteryPass-Ready v1.3 / JTC-24 alignment."@en .
+
+# =============================================================================
+# DPP Granularity Enumeration (JTC-24 / BatteryPass-Ready v1.3)
+# =============================================================================
+
+dpp:DPPGranularity
+    a rdfs:Class ;
+    rdfs:label "DPP Granularity"@en ;
+    rdfs:comment "Reporting granularity of a Digital Product Passport: which level of the product hierarchy a given attribute set describes."@en ;
+    dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
+    skos:note "Introduced by BatteryPass-Ready Data Attribute Longlist v1.3 (March 2026) to align EU Battery Passport reporting with CEN/CENELEC JTC-24 drafts. Some attributes (e.g. recycled-content shares, carbon-footprint label) are reported at batch level, others at model or item level."@en ;
+    owl:oneOf (dpp:ModelLevel dpp:ModelPerSiteLevel dpp:BatchLevel dpp:ItemLevel) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:ModelLevel a dpp:DPPGranularity ; rdfs:label "Battery model"@en ;
+    rdfs:comment "Attribute reported once per battery model (e.g. nominal voltage, expected cycle life)."@en .
+dpp:ModelPerSiteLevel a dpp:DPPGranularity ; rdfs:label "Battery model per manufacturing site"@en ;
+    rdfs:comment "Attribute reported per (model, manufacturing site) tuple (e.g. manufacturer information, manufacturing place)."@en .
+dpp:BatchLevel a dpp:DPPGranularity ; rdfs:label "Battery model per calendar year and per manufacturing site (batch)"@en ;
+    rdfs:comment "Attribute reported per batch — model, calendar year, manufacturing site (e.g. carbon footprint, recycled-content shares)."@en .
+dpp:ItemLevel a dpp:DPPGranularity ; rdfs:label "Individual battery item"@en ;
+    rdfs:comment "Attribute reported per individual serial-numbered battery (e.g. serial number, state of health, cycle count)."@en .
+
+# =============================================================================
+# Properties - DPP Information (BatteryPass-Ready v1.3 / JTC-24)
+# =============================================================================
+#
+# Cross-cutting attributes describing the DPP document itself, separate from
+# the product's substantive data. Required by the BatteryPass-Ready v1.3
+# longlist (#1-#4) but applicable to every DPP regulation.
+
+dpp:schemaVersion
+    a owl:DatatypeProperty ;
+    rdfs:label "DPP Schema Version"@en ;
+    rdfs:comment "Version of the DPP schema this passport instance conforms to (e.g. \"1.3\" for BatteryPass-Ready v1.3). Distinct from the product's own version."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:string ;
+    dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #1. JTC-24 draft."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:status
+    a owl:ObjectProperty ;
+    rdfs:label "DPP Status"@en ;
+    rdfs:comment "Lifecycle status of the DPP instance (Draft, Active, Updated, Withdrawn, Archived, Suspended)."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range dpp:PassportStatus ;
+    dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #2. Reuses the existing dpp:PassportStatus enumeration."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:granularity
+    a owl:ObjectProperty ;
+    rdfs:label "DPP Granularity"@en ;
+    rdfs:comment "Reporting granularity of this DPP instance (model / model-per-site / batch / item)."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range dpp:DPPGranularity ;
+    dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #3. JTC-24 draft."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:lastUpdate
+    a owl:DatatypeProperty ;
+    rdfs:label "DPP Last Update"@en ;
+    rdfs:comment "Date and time the DPP was last modified. Updated whenever any passport attribute changes."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:dateTime ;
+    dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #4. JTC-24 draft. Battery module previously carried this as battery:lastDataUpdate; promoted to dpp: for cross-regulation reuse."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
 # =============================================================================
 # ESPR Product Category Enumeration (Priority Sectors)

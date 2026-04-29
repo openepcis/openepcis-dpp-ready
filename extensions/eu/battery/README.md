@@ -259,7 +259,7 @@ Same data, different semantic views:
 
 // Interpret BatteryPass/SAMM data using OpenEPCIS vocabulary
 { "@context": [
-    "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#",
+    "urn:samm:io.BatteryPass.GeneralProductInformation:1.3.0#",
     "https://ref.openepcis.io/extensions/eu/battery/context-batterypass-bridge.jsonld"
   ]
 }
@@ -274,6 +274,37 @@ The bridge contexts enable **bidirectional compatibility** with BatteryPass (DIN
 - **`battery-context-to-batterypass.jsonld`**: Add to OpenEPCIS documents to export them with BatteryPass-compatible terminology.
 
 This is the proper JSON-LD semantic web approach—no separate migration tools needed, just context files that enable interoperability.
+
+### BatteryPass-Ready v1.3 conformance (GEFEG test environment)
+
+This module is aligned with the **BatteryPass-Ready Data Attribute Longlist v1.3** (GEFEG, March 2026 — 100 attributes). The public conformance test environment at [batterypass-ready.gefeg.com](https://batterypass-ready.gefeg.com/) is scheduled to come online in **June 2026**.
+
+**Pipeline for passing GEFEG conformance tests with our EPCIS 2.0 extension:**
+
+1. EPCIS 2.0 events declare the extension via the `GS1-Extensions: dpp=…,battery=…` HTTP header (per EPCIS 2.0 §12.3) and carry `battery:`/`dpp:` extension properties at event level. See [`epcis/commissioning.jsonld`](./epcis/commissioning.jsonld).
+2. The OpenEPCIS repository, on seeing the header, activates v1.3 validation (the SHACL shapes in [`validation/battery-shapes.ttl`](./validation/battery-shapes.ttl) and the JSON Schema in [`validation/battery-schema.json`](./validation/battery-schema.json)).
+3. When the GEFEG harness queries for the SAMM-shaped passport, the repository serializes the assembled state through the [`battery-context-to-batterypass.jsonld`](./context/battery-context-to-batterypass.jsonld) reverse bridge.
+4. The resulting document must validate against [`validation/batterypass-v1.3-schema.json`](./validation/batterypass-v1.3-schema.json) — a JSON Schema generated directly from the GEFEG longlist by [`scripts/build-batterypass-schema.ts`](../../../scripts/build-batterypass-schema.ts). 85 of the 100 attributes are required for at least one battery category. See [`examples/batterypass-v1.3.jsonld`](./examples/batterypass-v1.3.jsonld) for a canonical example.
+
+**Regenerating the v1.3 export schema** (after GEFEG publishes a longlist update — replace `docs/reference/2026_BatteryPass-Ready_DataAttributeLongList_v1.3.xlsx` with the new XLSX, then):
+
+```bash
+pnpm run build:batterypass-schema
+```
+
+**Mock conformance harness** — until the live GEFEG test environment opens in June 2026, run a local approximation:
+
+```bash
+pnpm test
+```
+
+This runs [`scripts/test-batterypass-conformance.ts`](../../../scripts/test-batterypass-conformance.ts), which exercises three groups against the reference example:
+
+1. **Schema** — ajv-validates `examples/batterypass-v1.3.jsonld` against `validation/batterypass-v1.3-schema.json` (longlist coverage + per-attribute type / format / pattern). Includes negative cases that drop a required attribute and assert the validator rejects the doc.
+2. **Plausibility** — cross-attribute rules: `stateOfCharge` ∈ [0, 100]; `capacityFade` matches `(rated − remaining) / rated × 100` within tolerance; voltage ordering `min ≤ nominal ≤ max`; recycled-content shares ∈ [0, 1]; round-trip efficiency ∈ [0, 1]; idle-temperature lower < upper; UTC timestamps; carbon-footprint class ∈ {A,B,C,D,E}; GS1 GLN check digit on facility / manufacturer identifiers; non-negative event counters. Each rule has a paired negative case that mutates the doc and asserts the rule fires.
+3. **Round-trip** — loads `epcis/commissioning.jsonld`, projects the `battery:` and `dpp:` extension properties from the event's master data through the same field mapping the `to-batterypass` bridge declares, and verifies every key arrives in the SAMM-shaped output. Catches regressions in the bridge mapping itself.
+
+> **Note:** SAMM v1.3 aspect URNs in the bridge contexts are placeholders pending publication of GEFEG's official aspect models. Verify URNs once they are public and adjust the `bp-*` namespace declarations.
 
 ## ESPR Framework Alignment
 

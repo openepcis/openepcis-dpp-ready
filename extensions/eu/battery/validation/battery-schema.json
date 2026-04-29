@@ -7,7 +7,7 @@
     "Battery": {
       "type": "object",
       "title": "Battery",
-      "description": "A rechargeable battery as defined by EU Battery Regulation 2023/1542.",
+      "description": "A rechargeable battery as defined by EU Battery Regulation 2023/1542. Aligned with BatteryPass-Ready Data Attribute Longlist v1.3 (March 2026).",
       "properties": {
         "@type": {
           "const": "Battery"
@@ -17,6 +17,47 @@
         },
         "batteryStatus": {
           "$ref": "#/$defs/BatteryStatus"
+        },
+        "batteryModelIdentifier": {
+          "type": "string",
+          "description": "Manufacturer-assigned model identifier. Mandatory per BatteryPass-Ready v1.3 #7."
+        },
+        "batterySerialNumber": {
+          "type": "string",
+          "description": "Manufacturer-assigned serial number of the individual battery item. Mandatory per BatteryPass-Ready v1.3 #8."
+        },
+        "facilityIdentifier": {
+          "type": "string",
+          "description": "Identifier of the manufacturing facility (recommend GLN). Mandatory per BatteryPass-Ready v1.3 #11."
+        },
+        "operatorIdentifier": {
+          "type": "string",
+          "description": "Economic operator identifier. Mandatory per BatteryPass-Ready v1.3 #9."
+        },
+        "manufacturerIdentifier": {
+          "type": "string",
+          "description": "Manufacturer identifier (recommend GLN). Mandatory per BatteryPass-Ready v1.3 #10."
+        },
+        "manufacturerInformation": {
+          "$ref": "#/$defs/OperatorInformation",
+          "description": "Manufacturer non-identifier metadata. Mandatory per BatteryPass-Ready v1.3 #13."
+        },
+        "schemaVersion": {
+          "type": "string",
+          "description": "DPP schema version (e.g. \"1.3\"). Mandatory per BatteryPass-Ready v1.3 #1."
+        },
+        "dppStatus": {
+          "$ref": "#/$defs/DPPStatus",
+          "description": "Lifecycle status of the DPP. Mandatory per BatteryPass-Ready v1.3 #2."
+        },
+        "granularity": {
+          "$ref": "#/$defs/DPPGranularity",
+          "description": "Reporting granularity of the DPP. Mandatory per BatteryPass-Ready v1.3 #3."
+        },
+        "lastUpdate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date-time of latest update of DPP. Mandatory per BatteryPass-Ready v1.3 #4."
         },
         "batteryChemistry": {
           "$ref": "#/$defs/BatteryChemistry"
@@ -66,7 +107,30 @@
             "$ref": "#/$defs/SparePartSupplier"
           }
         }
-      }
+      },
+      "required": [
+        "batteryModelIdentifier",
+        "batterySerialNumber",
+        "facilityIdentifier",
+        "operatorIdentifier",
+        "manufacturerIdentifier",
+        "schemaVersion",
+        "dppStatus",
+        "granularity",
+        "lastUpdate"
+      ]
+    },
+    "DPPStatus": {
+      "type": "string",
+      "title": "DPP Status",
+      "description": "Lifecycle status of the Digital Product Passport per EN 18222. Suspended added in v1.3 alignment.",
+      "enum": ["Draft", "Active", "Updated", "Withdrawn", "Archived", "Suspended"]
+    },
+    "DPPGranularity": {
+      "type": "string",
+      "title": "DPP Granularity",
+      "description": "Reporting granularity introduced by BatteryPass-Ready v1.3.",
+      "enum": ["ModelLevel", "ModelPerSiteLevel", "BatchLevel", "ItemLevel"]
     },
     "BatteryCategory": {
       "type": "string",
@@ -195,7 +259,8 @@
           "type": "number"
         },
         "leadRecycledShare": {
-          "type": "number"
+          "type": "number",
+          "description": "Combined pre/post-consumer recycled lead share. The EU Battery Regulation does not split this for lead (BatteryPass-Ready v1.3 #54)."
         },
         "lithiumPreConsumerShare": {
           "type": "number"

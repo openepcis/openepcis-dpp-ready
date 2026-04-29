@@ -647,6 +647,19 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/granularity",
+      "localName": "granularity",
+      "label": "DPP Granularity",
+      "comment": "Reporting granularity of this DPP instance (model / model-per-site / batch / item).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DPPGranularity"
+      ],
+      "source": "https://thebatterypass.eu/battery-pass-ready/publications/"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/granularityLevel",
       "localName": "granularityLevel",
       "label": "Granularity Level",
@@ -772,6 +785,19 @@
       "range": [
         "xsd:dateTime"
       ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/lastUpdate",
+      "localName": "lastUpdate",
+      "label": "DPP Last Update",
+      "comment": "Date and time the DPP was last modified. Updated whenever any passport attribute changes.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:dateTime"
+      ],
+      "source": "https://thebatterypass.eu/battery-pass-ready/publications/"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/massFraction",
@@ -1194,6 +1220,19 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/schemaVersion",
+      "localName": "schemaVersion",
+      "label": "DPP Schema Version",
+      "comment": "Version of the DPP schema this passport instance conforms to (e.g. \"1.3\" for BatteryPass-Ready v1.3). Distinct from the product's own version.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://thebatterypass.eu/battery-pass-ready/publications/"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/scipId",
       "localName": "scipId",
       "label": "SCIP ID",
@@ -1270,6 +1309,19 @@
       "range": [
         "https://ref.openepcis.io/extensions/common/core/DurationDays"
       ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/status",
+      "localName": "status",
+      "label": "DPP Status",
+      "comment": "Lifecycle status of the DPP instance (Draft, Active, Updated, Withdrawn, Archived, Suspended).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/PassportStatus"
+      ],
+      "source": "https://thebatterypass.eu/battery-pass-ready/publications/"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/substanceLocation",
@@ -1633,6 +1685,38 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/DPPGranularity",
+      "localName": "DPPGranularity",
+      "label": "DPP Granularity",
+      "comment": "Reporting granularity of a Digital Product Passport: which level of the product hierarchy a given attribute set describes.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/BatchLevel",
+          "localName": "BatchLevel",
+          "label": "Battery model per calendar year and per manufacturing site (batch)",
+          "comment": "Attribute reported per batch — model, calendar year, manufacturing site (e.g. carbon footprint, recycled-content shares)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ItemLevel",
+          "localName": "ItemLevel",
+          "label": "Individual battery item",
+          "comment": "Attribute reported per individual serial-numbered battery (e.g. serial number, state of health, cycle count)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModelLevel",
+          "localName": "ModelLevel",
+          "label": "Battery model",
+          "comment": "Attribute reported once per battery model (e.g. nominal voltage, expected cycle life)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModelPerSiteLevel",
+          "localName": "ModelPerSiteLevel",
+          "label": "Battery model per manufacturing site",
+          "comment": "Attribute reported per (model, manufacturing site) tuple (e.g. manufacturer information, manufacturing place)."
+        }
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/GranularityLevel",
       "localName": "GranularityLevel",
       "label": "Granularity Level",
@@ -1819,6 +1903,12 @@
           "localName": "Draft",
           "label": "Draft",
           "comment": "Passport is being prepared and not yet publicly available."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Suspended",
+          "localName": "Suspended",
+          "label": "Suspended",
+          "comment": "Passport temporarily not in force (e.g. pending investigation, recall under review). Distinct from dpp:Withdrawn, which is terminal. Added for BatteryPass-Ready v1.3 / JTC-24 alignment."
         },
         {
           "id": "https://ref.openepcis.io/extensions/common/core/Updated",

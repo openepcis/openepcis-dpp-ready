@@ -1,5 +1,6 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix battery: <https://ref.openepcis.io/extensions/eu/battery/> .
+@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -8,9 +9,9 @@
 <https://ref.openepcis.io/extensions/eu/battery/shapes/>
     a sh:ShapesGraph ;
     dcterms:title "OpenEPCIS Battery SHACL Shapes"@en ;
-    dcterms:description "SHACL validation shapes for Battery Digital Product Passport vocabulary."@en ;
+    dcterms:description "SHACL validation shapes for Battery Digital Product Passport vocabulary, aligned with BatteryPass-Ready Data Attribute Longlist v1.3 (March 2026)."@en ;
     dcterms:created "2025-02-02"^^xsd:date ;
-    dcterms:modified "2025-02-02"^^xsd:date .
+    dcterms:modified "2026-04-29"^^xsd:date .
 
 # =============================================================================
 # OpenEPCIS Battery Vocabulary SHACL Shapes v0.9.5
@@ -77,6 +78,109 @@ battery:BatteryShape a sh:NodeShape ;
         sh:path battery:supplyChainDueDiligence ;
         sh:name "Supply Chain Due Diligence" ;
         sh:class battery:SupplyChainDueDiligence
+    ] ;
+    # BatteryPass-Ready v1.3 mandatory identifier attributes (#7, #8, #11)
+    sh:property [
+        sh:path battery:batteryModelIdentifier ;
+        sh:name "Battery Model Identifier" ;
+        sh:description "Mandatory per BatteryPass-Ready v1.3 (#7). Manufacturer-assigned model ID; referenced by the carbon footprint declaration." ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path battery:batterySerialNumber ;
+        sh:name "Battery Serial Number" ;
+        sh:description "Mandatory per BatteryPass-Ready v1.3 (#8). Required on the Declaration of Conformity." ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path battery:facilityIdentifier ;
+        sh:name "Facility Identifier" ;
+        sh:description "Mandatory per BatteryPass-Ready v1.3 (#11). Recommend GLN of the gs1:Place referenced by battery:manufacturingPlace." ;
+        sh:datatype xsd:string ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path battery:operatorIdentifier ;
+        sh:name "Economic Operator Identifier" ;
+        sh:description "Mandatory per BatteryPass-Ready v1.3 (#9). Access-restricted (AuthorizedOnly)." ;
+        sh:datatype xsd:string ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path battery:manufacturerIdentifier ;
+        sh:name "Manufacturer Identifier" ;
+        sh:description "Mandatory per BatteryPass-Ready v1.3 (#10). Access-restricted (AuthorizedOnly)." ;
+        sh:datatype xsd:string ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path battery:manufacturerInformation ;
+        sh:name "Manufacturer Information" ;
+        sh:description "Mandatory per BatteryPass-Ready v1.3 (#13)." ;
+        sh:class dpp:OperatorInformation ;
+        sh:minCount 1
+    ] ;
+    # BatteryPass-Ready v1.3 cross-cutting DPP information (#1-#4)
+    sh:property [
+        sh:path dpp:schemaVersion ;
+        sh:name "DPP Schema Version" ;
+        sh:description "Mandatory per BatteryPass-Ready v1.3 (#1). Identifies the schema version this DPP instance follows (e.g. \"1.3\")." ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path dpp:status ;
+        sh:name "DPP Status" ;
+        sh:description "Mandatory per BatteryPass-Ready v1.3 (#2)." ;
+        sh:class dpp:PassportStatus ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path dpp:granularity ;
+        sh:name "DPP Granularity" ;
+        sh:description "Mandatory per BatteryPass-Ready v1.3 (#3)." ;
+        sh:class dpp:DPPGranularity ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path dpp:lastUpdate ;
+        sh:name "Date-time of latest update" ;
+        sh:description "Mandatory per BatteryPass-Ready v1.3 (#4). Updated whenever any passport attribute changes." ;
+        sh:datatype xsd:dateTime ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .
+
+# -----------------------------------------------------------------------------
+# Carbon Footprint Declaration Shape
+# Carbon footprint *label* (#23) is MANDATORY in v1.3 (was voluntary in v1.2).
+# -----------------------------------------------------------------------------
+battery:CarbonFootprintDeclarationShape a sh:NodeShape ;
+    sh:targetClass battery:CarbonFootprintDeclaration ;
+    rdfs:label "Carbon Footprint Declaration Shape" ;
+    sh:property [
+        sh:path battery:carbonFootprintTotal ;
+        sh:name "Battery Carbon Footprint per Functional Unit" ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path battery:carbonFootprintPerformanceClass ;
+        sh:name "Carbon Footprint Performance Class" ;
+        sh:class battery:CarbonFootprintClass ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path battery:carbonFootprintStudyUrl ;
+        sh:name "Web link to public carbon footprint study" ;
+        sh:datatype xsd:anyURI ;
+        sh:minCount 1
     ] .
 
 # -----------------------------------------------------------------------------
