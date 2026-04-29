@@ -71,11 +71,20 @@ type ApiTemplate = {
   _comment?: string;
 };
 
+/**
+ * The Designer UI takes specificTime / fromTime / toTime as a NAIVE local-time
+ * string and appends timeZoneOffset itself when it rebuilds an InputTemplate
+ * for /api/generateTestData. If the offset is left in specificTime we end up
+ * with malformed strings like "2024-03-15T14:30:00.000+01:00+02:00".
+ */
+const stripTz = (t: string | undefined): string | undefined =>
+  t == null ? t : t.replace(/(?:Z|[+-]\d{2}:?\d{2})$/, '');
+
 const DEFAULT_TIME = (api: ApiEvent['eventTime']) => ({
   timeSelector: 'SpecificTime' as const,
-  specificTime: api.specificTime,
-  fromTime: api.fromTime ?? api.specificTime,
-  toTime: api.toTime ?? api.specificTime,
+  specificTime: stripTz(api.specificTime)!,
+  fromTime: stripTz(api.fromTime ?? api.specificTime)!,
+  toTime: stripTz(api.toTime ?? api.specificTime)!,
   timeZoneOffset: api.timeZoneOffset,
 });
 
@@ -118,9 +127,12 @@ function convert(api: ApiTemplate, flow: string) {
       ...(e.action ? { action: e.action } : {}),
       businessStep: e.businessStep ?? 'NULL',
       disposition: e.disposition ?? 'NULL',
-      referencedIdentifier: e.referencedIdentifier ?? [],
-      parentReferencedIdentifier: e.parentReferencedIdentifier ?? {},
-      outputReferencedIdentifier: e.outputReferencedIdentifier ?? [],
+      // Connector edges (connectorsInfo + drawflowInfo) carry the topology;
+      // populating these arrays here makes the Designer duplicate every edge
+      // when it rebuilds the InputTemplate on Generate.
+      referencedIdentifier: [],
+      parentReferencedIdentifier: {},
+      outputReferencedIdentifier: [],
       name: `${flow} (event ${e.nodeId})`,
       description: `Auto-converted from flows/${flow}.input.json`,
     },
