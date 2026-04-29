@@ -1,0 +1,75 @@
+{
+  "_comment_architecture": [
+    "Sidecar master data for the battery-commission flow.",
+    "Single source of truth between two consumers:",
+    "  1. scripts/seed-dlr.ts — PUTs each masterData[i] entry as a DLR Product / Place / Organization record",
+    "     (id maps to the GS1 Digital Link being seeded). Plus a LinkSet entry with link type",
+    "     gs1:masterData pointing at a self-referential href so GET /<dl>?linkType=masterData returns",
+    "     this card inline (200 rather than redirect).",
+    "  2. scripts/merge-masterdata.ts — splices masterData[] into the generated EPCIS event under",
+    "     event.masterDataAvailableFor, stripping the gs1: prefix from keys per",
+    "     extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md §2A. battery: / dpp: prefixes",
+    "     are kept (those aren't elided by the EPCIS context).",
+    "Mirrors the masterDataAvailableFor block in extensions/eu/battery/epcis/commissioning.jsonld."
+  ],
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
+    { "gs1": "https://ref.gs1.org/voc/" }
+  ],
+  "masterData": [
+    {
+      "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
+      "type": "gs1:Product",
+      "gs1:productName": { "en": "EcoCell Industrial Battery Module IM-500" },
+      "gs1:gtin": "09521234000013",
+      "gs1:serialNumber": "BAT2024-001",
+      "gs1:brand": { "gs1:brandName": { "en": "EcoCell" } },
+      "gs1:netWeight": { "type": "gs1:WeightKilograms", "value": 125.5 },
+      "gs1:countryOfOrigin": { "gs1:countryCode": "DE" },
+      "gs1:regulatoryInformation": [
+        {
+          "type": "gs1:RegulatoryInformation",
+          "gs1:regulationType": { "id": "RegulationTypeCode-BATTERY_DIRECTIVE" },
+          "gs1:regulatoryAct": "EU 2023/1542"
+        }
+      ],
+      "battery:batteryCategory": "IndustrialBattery",
+      "battery:batteryModelIdentifier": "ECO-IM-500",
+      "battery:batterySerialNumber": "BAT2024-001",
+      "battery:facilityIdentifier": "9521234000013",
+      "battery:operatorIdentifier": "9521234000006",
+      "battery:manufacturerIdentifier": "9521234000006",
+      "battery:batteryChemistry": {
+        "battery:shortName": "LFP",
+        "battery:fullName": "Lithium Iron Phosphate"
+      },
+      "battery:ratedCapacity": { "type": "battery:CapacityAmpereHours", "value": 280 },
+      "battery:ratedEnergy": { "type": "battery:EnergyKilowattHours", "value": 14.3 },
+      "dpp:schemaVersion": "1.3",
+      "dpp:status": "Active",
+      "dpp:granularity": "ItemLevel",
+      "dpp:lastUpdate": "2024-03-15T14:30:00.000Z"
+    },
+    {
+      "id": "https://id.gs1.org/414/9521234000013",
+      "type": "gs1:Place",
+      "gs1:locationGLN": "9521234000013",
+      "gs1:physicalLocationName": { "en": "EcoCell GmbH - Production Facility" },
+      "gs1:address": {
+        "type": "gs1:PostalAddress",
+        "gs1:streetAddress": "Batteriestrasse 42",
+        "gs1:addressLocality": "Stuttgart",
+        "gs1:postalCode": "70173",
+        "gs1:countryCode": "DE"
+      }
+    },
+    {
+      "id": "https://id.gs1.org/417/9521234000006",
+      "type": "gs1:Organization",
+      "gs1:partyGLN": "9521234000006",
+      "gs1:organizationName": { "en": "EcoCell GmbH" },
+      "gs1:countryCode": "DE"
+    }
+  ]
+}

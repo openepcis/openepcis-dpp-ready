@@ -1,0 +1,82 @@
+{
+  "_comment_architecture": [
+    "Sidecar master data for the textile-garment-transform flow.",
+    "Mirrors the masterDataAvailableFor block in",
+    "extensions/eu/textile/epcis/transformation-garment.jsonld.",
+    "textile:textileCategory / apparelSubcategory / fabricType describe the GTIN itself",
+    "(identical for every lot of this SKU) and therefore belong in the product master data card,",
+    "not in ilmd."
+  ],
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
+    { "gs1": "https://ref.gs1.org/voc/" }
+  ],
+  "masterData": [
+    {
+      "id": "https://id.gs1.org/01/09521234000020/21/WJ-2025-00301",
+      "type": "gs1:Product",
+      "gs1:productName": { "en": "Alpine Pro Winter Jacket - Navy" },
+      "gs1:gtin": "09521234000020",
+      "gs1:serialNumber": "WJ-2025-00301",
+      "gs1:brand": { "gs1:brandName": { "en": "Alpine Pro" } },
+      "gs1:countryOfOrigin": { "gs1:countryCode": "PT" },
+      "gs1:textileMaterial": [
+        {
+          "type": "gs1:TextileMaterialDetails",
+          "gs1:textileMaterialContent": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:unitCode": "P1",
+            "value": 55
+          },
+          "gs1:textileMaterialDescription": { "en": "Recycled Polyester (Shell)" }
+        },
+        {
+          "type": "gs1:TextileMaterialDetails",
+          "gs1:textileMaterialContent": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:unitCode": "P1",
+            "value": 25
+          },
+          "gs1:textileMaterialDescription": { "en": "Down (Insulation - RDS Certified)" }
+        },
+        {
+          "type": "gs1:TextileMaterialDetails",
+          "gs1:textileMaterialContent": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:unitCode": "P1",
+            "value": 15
+          },
+          "gs1:textileMaterialDescription": { "en": "Polyamide (Lining)" }
+        },
+        {
+          "type": "gs1:TextileMaterialDetails",
+          "gs1:textileMaterialContent": {
+            "type": "gs1:QuantitativeValue",
+            "gs1:unitCode": "P1",
+            "value": 5
+          },
+          "gs1:textileMaterialDescription": { "en": "Elastane (Cuffs)" }
+        }
+      ],
+      "textile:textileCategory": "Apparel",
+      "textile:apparelSubcategory": "JacketsCoats",
+      "textile:fabricType": "WovenNonDenim",
+      "dpp:schemaVersion": "1.0",
+      "dpp:status": "Active",
+      "dpp:granularity": "ItemLevel",
+      "dpp:lastUpdate": "2025-09-18T10:00:00.000Z"
+    },
+    {
+      "id": "https://id.gs1.org/414/9521234000020",
+      "type": "gs1:Place",
+      "gs1:locationGLN": "9521234000020",
+      "gs1:physicalLocationName": { "en": "Porto Textile Manufacturing" },
+      "gs1:address": {
+        "type": "gs1:PostalAddress",
+        "gs1:addressLocality": "Porto",
+        "gs1:countryCode": "PT"
+      }
+    }
+  ]
+}

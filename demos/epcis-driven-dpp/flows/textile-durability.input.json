@@ -1,0 +1,94 @@
+{
+  "_comment": "Flow T2 — textile lifecycle observation. ObjectEvent OBSERVE bizStep=inspecting on the garment commissioned in T1. Carries a textile:robustnessAssessment block at event level (per EPCIS_MASTERDATA_AND_EXTENSIONS.md §2B — laboratory test results belong at event level, NOT in masterDataAvailableFor). Mirrors extensions/eu/textile/epcis/observation-durability.jsonld.",
+  "events": [
+    {
+      "nodeId": 100,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "OBSERVE",
+      "businessStep": "INSPECTING",
+      "disposition": "IN_PROGRESS",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": {
+        "specificTime": "2026-02-12T14:00:00.000+01:00",
+        "timeZoneOffset": "+01:00"
+      },
+      "readPoint": {
+        "type": "SGLN",
+        "gln": "9521234000044",
+        "gcpLength": 7
+      },
+      "bizLocation": {
+        "type": "SGLN",
+        "gln": "9521234000044",
+        "gcpLength": 7
+      },
+      "referencedIdentifier": [
+        {
+          "identifierId": 1,
+          "epcCount": 1,
+          "inheritParentCount": 0,
+          "classCount": 0,
+          "quantity": 0
+        }
+      ],
+      "userExtensions": [
+        {
+          "rawJsonld": {
+            "textile:robustnessAssessment": {
+              "type": "textile:RobustnessAssessment",
+              "textile:assessmentMethod": "ISO 12947-2 Martindale abrasion",
+              "textile:abrasionCycles": 32000,
+              "textile:colourFastnessRating": 4,
+              "textile:robustnessScore": 78,
+              "textile:assessmentLab": "https://id.gs1.org/417/9521234000044",
+              "textile:assessmentDate": "2026-02-12"
+            }
+          }
+        }
+      ],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": []
+    }
+  ],
+  "identifiers": [
+    {
+      "identifierId": 1,
+      "objectIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "instanceData": {
+        "sgtin": {
+          "identifierType": "sgtin",
+          "serialType": "none",
+          "sgtin": "09521234000020",
+          "serialNumber": "WJ-2025-00301"
+        }
+      },
+      "classData": null,
+      "parentData": null
+    }
+  ],
+  "contextUrls": [
+    {
+      "ID": 1,
+      "prefix": "textile",
+      "contextURL": "https://ref.openepcis.io/extensions/eu/textile/",
+      "isChecked": true,
+      "contextFetchURL": "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
+      "selected": true
+    },
+    {
+      "ID": 2,
+      "prefix": "dpp",
+      "contextURL": "https://ref.openepcis.io/extensions/common/core/",
+      "isChecked": true,
+      "contextFetchURL": "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+      "selected": true
+    }
+  ],
+  "randomGenerators": []
+}

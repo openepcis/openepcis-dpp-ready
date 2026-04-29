@@ -1,0 +1,132 @@
+{
+  "_comment": "Flow B1 — battery commission. ObjectEvent ADD bizStep=commissioning. Generates the EPCIS skeleton; scripts/merge-masterdata.ts adds masterDataAvailableFor from battery-commission.masterdata.jsonld. Mirrors extensions/eu/battery/epcis/commissioning.jsonld.",
+  "events": [
+    {
+      "nodeId": 100,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "ADD",
+      "businessStep": "COMMISSIONING",
+      "disposition": "ACTIVE",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": {
+        "specificTime": "2024-03-15T14:30:00.000+01:00",
+        "timeZoneOffset": "+01:00"
+      },
+      "readPoint": {
+        "type": "SGLN",
+        "gln": "9521234000013",
+        "gcpLength": 7
+      },
+      "bizLocation": {
+        "type": "SGLN",
+        "gln": "9521234000013",
+        "gcpLength": 7
+      },
+      "bizTransactions": [
+        {
+          "type": "prodorder",
+          "bizTransaction": "https://ecocell-batteries.example.com/orders/PO-2024-00142"
+        }
+      ],
+      "sources": [
+        {
+          "type": "OWNING_PARTY",
+          "glnType": "PGLN",
+          "gln": "9521234000006",
+          "gcpLength": 7
+        }
+      ],
+      "destinations": [
+        {
+          "type": "OWNING_PARTY",
+          "glnType": "PGLN",
+          "gln": "9521234000006",
+          "gcpLength": 7
+        }
+      ],
+      "referencedIdentifier": [
+        {
+          "identifierId": 1,
+          "epcCount": 1,
+          "inheritParentCount": 0,
+          "classCount": 0,
+          "quantity": 0
+        }
+      ],
+      "userExtensions": [
+        {
+          "rawJsonld": {
+            "sensorElementList": [
+              {
+                "sensorMetadata": {
+                  "time": "2024-03-15T14:30:00.000Z",
+                  "deviceID": "https://id.gs1.org/8004/9521234EOL-TEST-001"
+                },
+                "sensorReport": [
+                  {
+                    "type": "battery:stateOfHealth",
+                    "value": 100,
+                    "uom": "P1",
+                    "measurementMethod": "Initial factory test"
+                  },
+                  {
+                    "type": "battery:stateOfCharge",
+                    "value": 50,
+                    "uom": "P1"
+                  },
+                  {
+                    "type": "battery:cycleCount",
+                    "value": 0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": []
+    }
+  ],
+  "identifiers": [
+    {
+      "identifierId": 1,
+      "objectIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "instanceData": {
+        "sgtin": {
+          "identifierType": "sgtin",
+          "serialType": "none",
+          "sgtin": "09521234000013",
+          "serialNumber": "BAT2024-001"
+        }
+      },
+      "classData": null,
+      "parentData": null
+    }
+  ],
+  "contextUrls": [
+    {
+      "ID": 1,
+      "prefix": "battery",
+      "contextURL": "https://ref.openepcis.io/extensions/eu/battery/",
+      "isChecked": true,
+      "contextFetchURL": "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
+      "selected": true
+    },
+    {
+      "ID": 2,
+      "prefix": "dpp",
+      "contextURL": "https://ref.openepcis.io/extensions/common/core/",
+      "isChecked": true,
+      "contextFetchURL": "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+      "selected": true
+    }
+  ],
+  "randomGenerators": []
+}
