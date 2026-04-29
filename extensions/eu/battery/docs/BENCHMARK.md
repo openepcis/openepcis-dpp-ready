@@ -116,13 +116,13 @@ A comprehensive comparison of battery Digital Product Passport implementations.
   "sensorReport": [{
     "type": "StateOfHealth",
     "value": 94.2,
-    "measurementMethod": "IEC 62660-1"
+    "dataProcessingMethod": "https://www.iec.ch/standards/iec-62660-1"
   }],
   "readPoint": {"id": "https://id.gs1.org/414/9521987000018"},
   "deviceID": "https://id.gs1.org/8004/9521987BMS-001"
 }
 ```
-→ Captures: Value (94.2%), When (2025-06-15), Where (GLN), How (IEC 62660-1), By Whom (BMS device)
+→ Captures: Value (94.2%), When (2025-06-15), Where (GLN), How (IEC 62660-1 via `dataProcessingMethod` URI), By Whom (BMS device)
 
 **BatteryPass (Timestamp Only):**
 ```json
