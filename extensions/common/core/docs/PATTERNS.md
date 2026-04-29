@@ -254,7 +254,7 @@ Per ESPR, use GS1 Digital Link format:
 
 ```json
 {
-  "dpp:uniqueProductIdentifier": { "id": "https://id.gs1.org/01/09521234000013/21/SN-2025-001" },
+  "gs1:productID": { "id": "https://id.gs1.org/01/09521234000013/21/SN-2025-001" },
   "dpp:passportIdentifier": { "id": "https://id.gs1.org/01/09521234000013/21/SN-2025-001/10/DPP-v1" },
   "dpp:passportVersion": "1.0",
   "dpp:passportIssueDate": "2025-01-15",
@@ -284,7 +284,7 @@ Capture economic operator data as required by EU Market Surveillance Regulation,
   "gs1:organizationName": "Example Manufacturing GmbH",
   "dpp:economicOperatorId": "EOID-DE-2025-123456",
   "dpp:eoriNumber": "DE123456789012345",
-  "dpp:vatIdentificationNumber": "DE123456789",
+  "schema:vatID": "DE123456789",
   "registrationNumber": "DE-REG-2024-001234",
   "gs1:address": {
     "type": "PostalAddress",
@@ -411,7 +411,7 @@ Declare compliance with specific regulations using the GS1 `gs1:regulatoryInform
     "regulationType": { "id": "gs1:RegulationTypeCode-BATTERY_DIRECTIVE" },
     "regulatoryAct": "EU 2023/1542",
     "isRegulationCompliant": true,
-    "dpp:regulatoryReferenceNumber": "EU-REF-2024-001234",
+    "gs1:regulatoryReferenceNumber": "EU-REF-2024-001234",
     "dpp:complianceDate": "2025-01-15"
   }]
 }
@@ -467,7 +467,7 @@ Declare substances of concern aligned with SCIP database and ESPR requirements. 
 ```json
 {
   "type": "SubstanceOfConcern",
-  "dpp:substanceName": "Lead",
+  "schema:name": "Lead",
   "dpp:casNumber": "7439-92-1",
   "dpp:ecNumber": "231-100-4",
   "dpp:scipId": "SCIP-12345678",
@@ -547,7 +547,7 @@ Capture repair, maintenance, and spare parts information per ESPR requirements.
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
   },
-  "dpp:sparePartsDeliveryTime": {
+  "schema:deliveryTime": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "5",
     "gs1:unitCode": "DAY"

@@ -1,6 +1,7 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix textile: <https://ref.openepcis.io/extensions/eu/textile/> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix schema: <https://schema.org/> .
 @prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -28,7 +29,7 @@ textile:TextileProductShape a sh:NodeShape ;
     rdfs:label "Textile Product Shape" ;
     rdfs:comment "Validation shape for TextileProduct instances per EU Textile Labelling Regulation 1007/2011." ;
     sh:property [
-        sh:path textile:textileCategory ;
+        sh:path schema:category ;
         sh:name "Textile Category" ;
         sh:description "Category of textile product (apparel, footwear, home textiles, etc.)." ;
         sh:maxCount 1 ;
@@ -54,7 +55,7 @@ textile:TextileProductShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:targetGender ;
+        sh:path gs1:targetConsumerGender ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
@@ -162,7 +163,7 @@ textile:TextileProductShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:recyclingInstructions ;
+        sh:path gs1:consumerRecyclingInstructions ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
@@ -695,13 +696,13 @@ textile:SubstanceOfConcernShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:chemicalName ;
+        sh:path schema:name ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:iupacName ;
+        sh:path schema:iupacName ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
@@ -819,7 +820,7 @@ textile:TextileChemicalShape a sh:NodeShape ;
     sh:targetClass textile:TextileChemical ;
     rdfs:label "Textile Chemical Shape" ;
     sh:property [
-        sh:path textile:chemicalName ;
+        sh:path schema:name ;
         sh:name "Chemical Name" ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;

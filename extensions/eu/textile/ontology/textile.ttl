@@ -219,7 +219,8 @@ hierarchy — instances are both gs1:Product (DPP properties) and gs1:Footwear
     skos:note """Created to align with gs1:Footwear (subClassOf gs1:WearableProduct subClassOf
 gs1:Product) per GS1 First governance. Named TextileFootwear (not Footwear) to avoid
 collision with the existing textile:Footwear enum individual in TextileCategory."""@en ;
-    rdfs:seeAlso gs1:Footwear , gs1:WearableProduct .
+    rdfs:seeAlso gs1:Footwear , gs1:WearableProduct ;
+    owl:equivalentClass gs1:Footwear .
 
 # -----------------------------------------------------------------------------
 # Fiber Type (aligned with EU Textile Labelling Regulation Annex I)
@@ -742,15 +743,6 @@ textile:endOfLifeDestination
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
 
-textile:recyclingInstructions
-    a owl:DatatypeProperty ;
-    rdfs:label "Recycling Instructions"@en ;
-    rdfs:comment "Instructions for consumer recycling. See also gs1:consumerRecyclingInstructions."@en ;
-    rdfs:domain gs1:Product ;
-    rdfs:range xsd:string ;
-    rdfs:seeAlso gs1:consumerRecyclingInstructions, gs1:sustainabilityInfo ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
-
 # =============================================================================
 # PART 8: PROPERTIES - Repair
 # =============================================================================
@@ -801,15 +793,6 @@ textile:sparePartsUrl
 # PART 9: PROPERTIES - Chemicals
 # =============================================================================
 
-textile:chemicalName
-    a owl:DatatypeProperty ;
-    rdfs:label "Chemical Name"@en ;
-    rdfs:comment "Name of the chemical substance."@en ;
-    rdfs:domain dpp:HazardousSubstance ;
-    rdfs:range xsd:string ;
-    rdfs:seeAlso schema:name ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
-
 textile:chemicalPurpose
     a owl:DatatypeProperty ;
     rdfs:label "Chemical Purpose"@en ;
@@ -849,14 +832,6 @@ textile:textileChemicals
 # PART 10: PROPERTIES - Product Classification
 # =============================================================================
 
-textile:textileCategory
-    a owl:ObjectProperty ;
-    rdfs:label "Textile Category"@en ;
-    rdfs:comment "Category of textile product (apparel, footwear, home textiles, etc.)."@en ;
-    rdfs:domain gs1:Product ;
-    rdfs:range textile:TextileCategory ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
-
 textile:garmentType
     a owl:DatatypeProperty ;
     rdfs:label "Garment Type"@en ;
@@ -864,16 +839,6 @@ textile:garmentType
     rdfs:domain gs1:Product ;
     rdfs:range xsd:string ;
     rdfs:seeAlso schema:category ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
-
-textile:targetGender
-    a owl:DatatypeProperty ;
-    rdfs:label "Target Gender"@en ;
-    rdfs:comment "Target gender for the product (male, female, unisex, children)."@en ;
-    rdfs:domain gs1:Product ;
-    rdfs:range xsd:string ;
-    rdfs:seeAlso gs1:targetConsumerGender ;
-    rdfs:seeAlso schema:suggestedGender ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
 
 textile:sizeRange
@@ -1669,7 +1634,8 @@ textile:LCIACategoryCode
         textile:Ecotoxicity
         textile:HumanToxicity
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    owl:equivalentClass schema:CategoryCode .
 
 textile:GWP a textile:LCIACategoryCode ; rdfs:label "Global Warming Potential"@en ;
     rdfs:comment "Climate change impact category (kg CO2-eq)."@en .
@@ -1859,15 +1825,6 @@ textile:socType
     rdfs:comment "The ESPR Article 7(5) type classification (A, B, C, or D)."@en ;
     rdfs:domain textile:SubstanceOfConcern ;
     rdfs:range textile:SubstanceOfConcernType ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
-
-textile:iupacName
-    a owl:DatatypeProperty ;
-    rdfs:label "IUPAC Name"@en ;
-    rdfs:comment "IUPAC systematic name of the substance."@en ;
-    rdfs:domain textile:SubstanceOfConcern ;
-    rdfs:range xsd:string ;
-    rdfs:seeAlso schema:name ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
 
 # textile:casNumber removed — use dpp:casNumber from core.

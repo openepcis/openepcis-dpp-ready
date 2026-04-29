@@ -39,7 +39,7 @@ originating regulation or GSMP Work Request.
 | Commodity type (EUDR Annex I) | `eudr:commodityType` | GS1 has no EUDR commodity enum. |
 | Timber product type | `eudr:timberProductType` | GS1 has no timber sub-classification. |
 | Species (scientific + common name) | `eudr:speciesScientificName` / `…CommonName` | GS1 has no species-naming terms. |
-| Harvest date / date range | `eudr:harvestDate` / `…Start` / `…End` | GS1 has no harvest-date property. |
+| Harvest date / date range | `gs1:harvestDate` / `…Start` / `…End` | GS1 has no harvest-date property. |
 | Risk-level classification | `eudr:riskLevel` | GS1 has no EUDR risk enum. |
 | Deforestation-free date | `eudr:deforestationFreeDate` | EUDR Art. 3 specific. |
 | Legality assertion | `eudr:legallyHarvested` | EUDR Art. 3 specific. |

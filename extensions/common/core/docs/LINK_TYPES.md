@@ -46,7 +46,7 @@ curl -H "Accept: application/ld+json" \
     "gs1:organizationName": "EcoCell Energy GmbH"
   },
   "gs1:certificationInfo": [...],
-  "battery:batteryCategory": "IndustrialBattery",
+  "schema:category": "IndustrialBattery",
   "battery:technicalSpecifications": {...}
 }
 ```
@@ -136,7 +136,7 @@ Returns complete master data records suitable for B2B system integration.
       "eudr:areaHectares": 2.5,
       "gs1:countryCode": "DE"
     },
-    "eudr:harvestDate": "2025-01-15",
+    "gs1:harvestDate": "2025-01-15",
     "eudr:deforestationFreeDate": "2025-01-15",
     "eudr:legallyHarvested": true
   }
@@ -251,7 +251,7 @@ Useful for EUDR's EU Information System (EUIS) reference numbers:
     "dpp:hazardousSubstances": [
       {
         "type": "dpp:HazardousSubstance",
-        "dpp:substanceName": "Cobalt compounds",
+        "schema:name": "Cobalt compounds",
         "dpp:casNumber": "7440-48-4",
         "dpp:hazardClass": "Carcinogenicity",
         "dpp:concentration": 12.5,

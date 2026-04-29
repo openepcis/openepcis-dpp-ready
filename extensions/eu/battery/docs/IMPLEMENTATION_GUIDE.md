@@ -415,7 +415,7 @@ Per EU Battery Regulation 2023/1542 Annex XIII:
 | Operator info | `battery:operatorInformation` | `battery-product.jsonld` |
 | Manufacturing date | `gs1:productionDate` | `battery-product.jsonld` |
 | Manufacturing place | `gs1:placeOfProductProvenance` | `battery-product.jsonld` |
-| Battery category | `battery:batteryCategory` | `battery-product.jsonld` |
+| Battery category | `schema:category` | `battery-product.jsonld` |
 | Battery weight | `gs1:netWeight` | `battery-product.jsonld` |
 | Carbon footprint | EPCIS event | `carbon-footprint.jsonld` |
 | CFP performance class | `ilmd.performanceClass` | `carbon-footprint.jsonld` |

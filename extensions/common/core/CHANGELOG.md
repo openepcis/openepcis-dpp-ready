@@ -2,6 +2,25 @@
 
 All notable changes to the DPP Core module will be documented in this file.
 
+## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
+
+**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+
+### Removed (use canonical term instead)
+
+- `dpp:documentTitle` → `schema:name`
+- `dpp:materialName` → `schema:name`
+- `dpp:productModel` → `schema:ProductModel`
+- `dpp:regulatoryReferenceNumber` → `gs1:regulatoryReferenceNumber`
+- `dpp:schemaVersion` → `schema:schemaVersion`
+- `dpp:sourceCountry` → `gs1:countryOfOrigin`
+- `dpp:sparePartsDeliveryTime` → `schema:deliveryTime`
+- `dpp:status` → `schema:status`
+- `dpp:substanceName` → `schema:name`
+- `dpp:uniqueProductIdentifier` → `gs1:productID`
+- `dpp:validUntil` → `schema:validUntil`
+- `dpp:vatIdentificationNumber` → `schema:vatID`
+
 ## [0.9.5] - 2026-04-15 (GS1 Standards Week preparation)
 
 ### Added

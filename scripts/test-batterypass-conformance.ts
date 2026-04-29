@@ -365,13 +365,13 @@ function runPlausibilityTests(): void {
 const FIELD_MAP: Record<string, string> = {
   "battery:batteryPassportIdentifier": "batteryPassportIdentifier",
   "battery:batteryModelIdentifier": "batteryModelIdentifier",
-  "battery:batterySerialNumber": "batterySerialNumber",
+  "gs1:hasSerialNumber": "batterySerialNumber",
   "battery:facilityIdentifier": "facilityIdentifier",
   "battery:operatorIdentifier": "economicOperatorIdentifier",
   "battery:manufacturerIdentifier": "manufacturerIdentifier",
-  "battery:batteryCategory": "batteryCategory",
-  "dpp:schemaVersion": "dppSchemaVersion",
-  "dpp:status": "dppStatus",
+  "schema:category": "batteryCategory",
+  "schema:schemaVersion": "dppSchemaVersion",
+  "schema:status": "dppStatus",
   "dpp:granularity": "dppGranularity",
   "dpp:lastUpdate": "dateTimeOfLatestUpdate",
 };

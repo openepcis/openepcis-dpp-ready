@@ -112,9 +112,9 @@ These properties have **NO equivalent in GS1 standards** and are required for EU
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `eudr:harvestDate` | `xsd:date` | Single harvest date |
-| `eudr:harvestDateStart` | `xsd:date` | Start of harvest period |
-| `eudr:harvestDateEnd` | `xsd:date` | End of harvest period |
+| `gs1:harvestDate` | `xsd:date` | Single harvest date |
+| `gs1:harvestDateStart` | `xsd:date` | Start of harvest period |
+| `gs1:harvestDateEnd` | `xsd:date` | End of harvest period |
 
 **Note**: Use either `harvestDate` OR `harvestDateStart`/`harvestDateEnd`, not both.
 
@@ -199,7 +199,7 @@ Use standard properties from GS1 and DPP-Core vocabularies:
 
 | Need | Use This |
 |------|----------|
-| Harvest date | `eudr:harvestDate` or `eudr:harvestDateStart/End` |
+| Harvest date | `gs1:harvestDate` or `eudr:harvestDateStart/End` |
 | DDS reference | `gs1:regulatoryInformation` |
 | Risk level | `eudr:riskLevel` |
 | Compliance flag | `eudr:legallyHarvested`, `eudr:deforestationFreeDate` |
@@ -235,7 +235,7 @@ Use standard properties from GS1 and DPP-Core vocabularies:
   "eudr:timberProductType": "RoundWood",
   "eudr:speciesScientificName": "Quercus robur",
   "eudr:speciesCommonName": "European Oak",
-  "eudr:harvestDate": "2025-01-15",
+  "gs1:harvestDate": "2025-01-15",
 }
 ```
 

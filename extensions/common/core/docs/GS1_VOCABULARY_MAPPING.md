@@ -51,7 +51,7 @@ This document maps OpenEPCIS DPP properties to existing [GS1 Web Vocabulary](htt
 
 | GS1 Property | Description | Use Instead Of |
 |--------------|-------------|----------------|
-| `gs1:countryOfOrigin` | Country where product originates | `dpp:sourceCountry` |
+| `gs1:countryOfOrigin` | Country where product originates | `gs1:countryOfOrigin` |
 | `gs1:countryOfAssembly` | Country where assembled | - |
 | `gs1:countryCode` | ISO 3166-1 country code | - |
 
@@ -160,7 +160,7 @@ This document maps OpenEPCIS DPP properties to existing [GS1 Web Vocabulary](htt
 |---------|----------------|--------|
 | `dpp:DocumentReference` | Consider `gs1:ReferencedFileDetails` | GS1 has file reference class |
 | `dpp:documentUrl` | Consider `gs1:referencedFileURL` | GS1 property exists |
-| `dpp:sourceCountry` | Consider `gs1:countryOfOrigin` | GS1 property exists |
+| `gs1:countryOfOrigin` | Consider `gs1:countryOfOrigin` | GS1 property exists |
 | `dpp:recycledContent` | **Keep** | No GS1 equivalent for percentages |
 | `dpp:carbonFootprint*` | **Keep** | No GS1 equivalent |
 | `dpp:HazardousSubstance` | **Keep** | CLP-specific, no GS1 equivalent |
@@ -171,7 +171,7 @@ These have no GS1 Web Vocabulary equivalent and should remain in domain namespac
 
 **Battery-specific (no GS1 equivalent):**
 - `battery:StateOfHealth`, `battery:StateOfCharge`, `battery:CycleCount`
-- `battery:batteryChemistry`, `battery:batteryCategory`, `battery:batteryStatus`
+- `battery:batteryChemistry`, `schema:category`, `schema:status`
 - `battery:ratedCapacity`, `battery:ratedEnergy`, `battery:nominalVoltage`
 - `battery:lithiumRecycledShare`, `battery:cobaltRecycledShare`, etc.
 - `battery:CarbonFootprintTotal`, `battery:CarbonFootprintProduction`, etc.

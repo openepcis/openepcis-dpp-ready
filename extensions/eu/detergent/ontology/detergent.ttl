@@ -8,6 +8,7 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
+@prefix schema: <https://schema.org/> .
 
 # =============================================================================
 # Ontology Declaration
@@ -310,16 +311,6 @@ detergent:FragranceAllergen
 # Product-Level Properties (on DetergentProduct)
 # =============================================================================
 
-detergent:detergentCategory
-    a owl:ObjectProperty ;
-    rdfs:label "Detergent Category"@en ;
-    rdfs:comment "The product category of the detergent per Article 2."@en ;
-    rdfs:domain detergent:DetergentProduct ;
-    rdfs:range detergent:DetergentCategory ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
-    skos:note "No GS1 equivalent for detergent product categorisation."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
-
 detergent:productForm
     a owl:ObjectProperty ;
     rdfs:label "Product Form"@en ;
@@ -490,14 +481,6 @@ detergent:biodegradabilityTestReport
 # Ingredient Properties
 # =============================================================================
 
-detergent:inciName
-    a owl:DatatypeProperty ;
-    rdfs:label "INCI Name"@en ;
-    rdfs:comment "International Nomenclature of Cosmetic Ingredients (INCI) name of the ingredient."@en ;
-    rdfs:domain detergent:Ingredient ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
-
 detergent:ingredientFunction
     a owl:ObjectProperty ;
     rdfs:label "Ingredient Function"@en ;
@@ -570,14 +553,6 @@ detergent:passesUltimateBiodegradability
 # Fragrance Allergen Properties
 # =============================================================================
 
-detergent:allergenName
-    a owl:DatatypeProperty ;
-    rdfs:label "Allergen Name"@en ;
-    rdfs:comment "Name of the fragrance allergen."@en ;
-    rdfs:domain detergent:FragranceAllergen ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
-
 detergent:allergenCasNumber
     a owl:DatatypeProperty ;
     rdfs:label "Allergen CAS Number"@en ;
@@ -597,14 +572,6 @@ detergent:allergenConcentration
 # =============================================================================
 # Microorganism Properties (Article 19)
 # =============================================================================
-
-detergent:speciesName
-    a owl:DatatypeProperty ;
-    rdfs:label "Species Name"@en ;
-    rdfs:comment "Scientific name of the microorganism species."@en ;
-    rdfs:domain detergent:MicroorganismInfo ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
 detergent:strainDesignation
     a owl:DatatypeProperty ;

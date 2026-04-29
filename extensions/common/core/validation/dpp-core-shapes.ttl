@@ -3,6 +3,7 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix schema: <https://schema.org/> .
 @prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
 @prefix dpp-sh: <https://ref.openepcis.io/extensions/common/core/shapes/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -136,7 +137,7 @@ dpp-sh:MaterialCompositionShape
     sh:description "Validates MaterialComposition instances"@en ;
 
     sh:property [
-        sh:path dpp:materialName ;
+        sh:path schema:name ;
         sh:name "materialName"@en ;
         sh:description "Name of the material"@en ;
         sh:datatype xsd:string ;
@@ -157,7 +158,7 @@ dpp-sh:MaterialCompositionShape
     ] ;
 
     sh:property [
-        sh:path dpp:sourceCountry ;
+        sh:path gs1:countryOfOrigin ;
         sh:name "sourceCountry"@en ;
         sh:description "Country of origin (ISO 3166-1 alpha-2)"@en ;
         sh:datatype xsd:string ;
@@ -306,7 +307,7 @@ dpp-sh:OperatorInformationShape
     ] ;
 
     sh:property [
-        sh:path dpp:vatIdentificationNumber ;
+        sh:path schema:vatID ;
         sh:name "vatIdentificationNumber"@en ;
         sh:description "VAT identification number"@en ;
         sh:datatype xsd:string ;
@@ -362,7 +363,7 @@ dpp-sh:SubstanceOfConcernShape
     sh:description "Validates SubstanceOfConcern instances"@en ;
 
     sh:property [
-        sh:path dpp:substanceName ;
+        sh:path schema:name ;
         sh:name "substanceName"@en ;
         sh:description "Name of the hazardous substance"@en ;
         sh:datatype xsd:string ;

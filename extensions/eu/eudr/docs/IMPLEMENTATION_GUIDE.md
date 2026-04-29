@@ -137,7 +137,7 @@ Organization: https://id.gs1.org/417/{GLN}
     {
       "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
       "productName": "European Oak Round Wood",
-      "eudr:harvestDate": "2025-01-15",
+      "gs1:harvestDate": "2025-01-15",
       "eudr:speciesScientificName": "Quercus robur",
       "countryOfOrigin": "DE"
     },
@@ -163,7 +163,7 @@ Organization: https://id.gs1.org/417/{GLN}
     "gs1:regulationType": "gs1:RegulationTypeCode-DEFORESTATION_REGULATION",
     "gs1:regulatoryAct": "EU 2023/1115",
     "isRegulationCompliant": true,
-    "eudr:euisReferenceNumber": "EUIS-2025-DE-00012345",
+    "gs1:regulatoryReferenceNumber": "EUIS-2025-DE-00012345",
     "eudr:deforestationFreeDate": "2025-01-15",
     "eudr:legallyHarvested": true,
     "eudr:riskLevel": "Low"
@@ -292,7 +292,7 @@ For non-negligible risk:
 
 Submit due diligence statement to EU Information System:
 - Receive EUIS reference number
-- Record in `eudr:euisReferenceNumber`
+- Record in `gs1:regulatoryReferenceNumber`
 
 ---
 

@@ -2,6 +2,55 @@
 
 All notable changes to the Electronics module will be documented in this file.
 
+## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
+
+**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+
+### Added equivalence / cross-reference links
+
+- `electronics:EnergyEfficiency` owl:equivalentClass `schema:EnergyEfficiencyEnumeration`
+
+## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
+
+**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+
+### Added equivalence / cross-reference links
+
+- `electronics:EnergyEfficiency` owl:equivalentClass `schema:EnergyEfficiencyEnumeration`
+
+## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
+
+**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+
+### Added equivalence / cross-reference links
+
+- `electronics:EnergyEfficiency` owl:equivalentClass `schema:EnergyEfficiencyEnumeration`
+
+## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
+
+**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+
+### Added equivalence / cross-reference links
+
+- `electronics:EnergyEfficiency` owl:equivalentClass `schema:EnergyEfficiencyEnumeration`
+
+## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
+
+**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+
+### Removed (use canonical term instead)
+
+- `electronics:commercialName` → `schema:name`
+- `electronics:componentManufacturer` → `gs1:manufacturer`
+- `electronics:componentName` → `schema:name`
+- `electronics:deviceCategory` → `schema:category`
+- `electronics:operatingSystem` → `schema:operatingSystem`
+- `electronics:weeeCategory` → `schema:category`
+
+### Added equivalence / cross-reference links
+
+- `electronics:EnergyEfficiency` owl:equivalentClass `schema:EnergyEfficiencyEnumeration`
+
 ## [0.9.5] - 2025-02-02
 
 ### Initial Release

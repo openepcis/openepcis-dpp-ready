@@ -192,7 +192,7 @@ Product GTIN resolves to product master data with EUDR extensions:
   "eudr:commodityType": "Wood",
   "eudr:timberProductType": "RoundWood",
   "eudr:speciesScientificName": "Quercus robur",
-  "eudr:harvestDate": "2025-01-15",
+  "gs1:harvestDate": "2025-01-15",
 }
 ```
 

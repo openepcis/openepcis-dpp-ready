@@ -2,6 +2,59 @@
 
 All notable changes to the Textile module will be documented in this file.
 
+## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
+
+**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+
+### Added equivalence / cross-reference links
+
+- `textile:LCIACategoryCode` owl:equivalentClass `schema:CategoryCode`
+- `textile:TextileFootwear` owl:equivalentClass `gs1:Footwear`
+
+## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
+
+**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+
+### Added equivalence / cross-reference links
+
+- `textile:LCIACategoryCode` owl:equivalentClass `schema:CategoryCode`
+- `textile:TextileFootwear` owl:equivalentClass `gs1:Footwear`
+
+## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
+
+**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+
+### Added equivalence / cross-reference links
+
+- `textile:LCIACategoryCode` owl:equivalentClass `schema:CategoryCode`
+- `textile:TextileFootwear` owl:equivalentClass `gs1:Footwear`
+
+## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
+
+**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+
+### Added equivalence / cross-reference links
+
+- `textile:LCIACategoryCode` owl:equivalentClass `schema:CategoryCode`
+- `textile:TextileFootwear` owl:equivalentClass `gs1:Footwear`
+
+## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
+
+**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+
+### Removed (use canonical term instead)
+
+- `textile:chemicalName` → `schema:name`
+- `textile:iupacName` → `schema:iupacName`
+- `textile:recyclingInstructions` → `gs1:consumerRecyclingInstructions`
+- `textile:targetGender` → `gs1:targetConsumerGender`
+- `textile:textileCategory` → `schema:category`
+
+### Added equivalence / cross-reference links
+
+- `textile:LCIACategoryCode` owl:equivalentClass `schema:CategoryCode`
+- `textile:TextileFootwear` owl:equivalentClass `gs1:Footwear`
+
 ## [0.9.5] - 2026-04-15 (GS1 Standards Week preparation)
 
 ### Added

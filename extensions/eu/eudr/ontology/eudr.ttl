@@ -224,31 +224,6 @@ eudr:AreaMeasurement
 # (OpenEPCIS extensions - NOT YET STANDARDISED by GS1)
 # =============================================================================
 
-eudr:harvestDate
-    a owl:DatatypeProperty ;
-    rdfs:label "Harvest Date"@en ;
-    rdfs:comment "The harvest date per EUDR Article 9.1.d (use when single date). No GS1 equivalent exists. Mutually exclusive with harvestDateStart/End."@en ;
-    rdfs:domain gs1:Product ;
-    rdfs:range xsd:date ;
-    rdfs:seeAlso <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
-
-eudr:harvestDateStart
-    a owl:DatatypeProperty ;
-    rdfs:label "Harvest Date Start"@en ;
-    rdfs:comment "Start of harvest period (use with harvestDateEnd). Mutually exclusive with harvestDate."@en ;
-    rdfs:domain gs1:Product ;
-    rdfs:range xsd:date ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
-
-eudr:harvestDateEnd
-    a owl:DatatypeProperty ;
-    rdfs:label "Harvest Date End"@en ;
-    rdfs:comment "End of harvest period (use with harvestDateStart). Mutually exclusive with harvestDate."@en ;
-    rdfs:domain gs1:Product ;
-    rdfs:range xsd:date ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
-
 # NOTE: For EORI number, use dpp:eoriNumber (defined in dpp-core).
 # NOTE: For party GLN, use gs1:partyGLN (defined in GS1 Web Vocabulary).
 # These properties are intentionally NOT duplicated here - use the standard terms.
@@ -258,14 +233,6 @@ eudr:countryList
     rdfs:label "Country List"@en ;
     rdfs:comment "List of countries of origin where geolocations are located."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
-
-eudr:countryCode
-    a owl:DatatypeProperty ;
-    rdfs:label "Country Code"@en ;
-    rdfs:comment "ISO 3166-1 Alpha-2 country code."@en ;
-    rdfs:domain gs1:Place ;
-    rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
 eudr:originList
@@ -306,22 +273,6 @@ eudr:areaSize
     rdfs:comment "Quantitative value for field area size."@en ;
     rdfs:domain eudr:OriginDetails ;
     rdfs:range eudr:AreaMeasurement ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
-
-eudr:value
-    a owl:DatatypeProperty ;
-    rdfs:label "Value"@en ;
-    rdfs:comment "Numeric value for area size."@en ;
-    rdfs:domain eudr:AreaMeasurement ;
-    rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
-
-eudr:unitCode
-    a owl:DatatypeProperty ;
-    rdfs:label "Unit Code"@en ;
-    rdfs:comment "UN/CEFACT Rec. 20 unit code (e.g., HAR for hectares)."@en ;
-    rdfs:domain eudr:AreaMeasurement ;
-    rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
 eudr:producerIdentification
@@ -442,14 +393,6 @@ eudr:dueDiligenceStatement
     rdfs:comment "Reference to the EUDR due diligence statement for this product."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range eudr:DueDiligenceStatement ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
-
-eudr:euisReferenceNumber
-    a owl:DatatypeProperty ;
-    rdfs:label "EUIS Reference Number"@en ;
-    rdfs:comment "Reference number assigned by the EU Information System (EUIS) for the due diligence statement."@en ;
-    rdfs:domain eudr:DueDiligenceStatement ;
-    rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
 eudr:statementDate

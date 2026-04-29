@@ -4,18 +4,22 @@ This document explains the governance principles and rationale for vocabulary ex
 
 ## Core Principles
 
-### 1. GS1 First
-We use GS1 Web Vocabulary terms whenever possible. Extensions are created **only** when:
-- No equivalent GS1 term exists
-- The regulatory requirement cannot be satisfied with existing GS1 patterns
-- The term is domain-specific (e.g., battery chemistry) and outside GS1's scope
+### 1. Vocabulary Precedence: GS1 → schema.org → custom
+
+When modelling a property or class, choose the most-canonical vocabulary in this order:
+
+1. **`gs1:` (GS1 Web Vocabulary)** — preferred when a term exists. GS1 itself aligns with schema.org for many concepts, so picking GS1 also gives you transitive schema.org compatibility.
+2. **`schema:` (schema.org)** — preferred over a custom extension whenever GS1 has no equivalent. Schema.org is the broader web semantic-web vocabulary and DPP consumers (search engines, generic data tools) recognise it.
+3. **Custom extension (`dpp:`, `battery:`, …)** — only when neither of the above covers the concept, and a regulatory or domain requirement makes the gap unavoidable.
+
+Extension terms that duplicate a GS1 or schema.org term **must be removed**, and the canonical term used directly. The 0.9.5 alignment cleanup deleted ~50 such redundancies (see per-module CHANGELOGs).
 
 ### 2. Extension Transparency
 Every extension term includes:
 - `dcterms:source` - Link to the regulatory requirement mandating this term
-- `skos:note` - Explanation of why GS1 Web Vocabulary doesn't cover this
+- `skos:note` - Explanation of why GS1 Web Vocabulary and schema.org don't cover this
 - `rdfs:seeAlso` - Links to related GS1/schema.org terms where applicable
-- `owl:equivalentProperty` or `owl:equivalentClass` - When a semantic equivalent exists
+- `owl:equivalentProperty` / `owl:equivalentClass` / `rdfs:subPropertyOf` - When a semantic equivalent or supertype exists
 
 ### 3. GS1 Digital Link Identifiers
 All product and location identifiers follow GS1 Digital Link URI syntax:
@@ -198,6 +202,7 @@ The following GS1 Web Vocabulary terms should be used directly:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.1.0 | 2026-04-29 | Precedence rule formalised as `gs1: → schema: → custom`. Aligned with the 0.9.5 schema.org / GS1 deduplication cleanup |
 | 1.0.0 | 2025-01-28 | Initial governance document |
 
 ## References

@@ -2,6 +2,20 @@
 
 All notable changes to the EUDR module will be documented in this file.
 
+## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
+
+**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+
+### Removed (use canonical term instead)
+
+- `eudr:countryCode` → `gs1:countryCode`
+- `eudr:euisReferenceNumber` → `gs1:regulatoryReferenceNumber`
+- `eudr:harvestDate` → `gs1:harvestDate`
+- `eudr:harvestDateEnd` → `gs1:harvestDateEnd`
+- `eudr:harvestDateStart` → `gs1:harvestDateStart`
+- `eudr:unitCode` → `gs1:unitCode`
+- `eudr:value` → `gs1:value`
+
 ## [unreleased] — 2026-04-17 (GS1 EUDR MSWG alignment)
 
 ### Changed

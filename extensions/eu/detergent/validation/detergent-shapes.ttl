@@ -1,6 +1,7 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix detergent: <https://ref.openepcis.io/extensions/eu/detergent/> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix schema: <https://schema.org/> .
 @prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -27,7 +28,7 @@ detergent:DetergentProductShape a sh:NodeShape ;
     rdfs:label "Detergent Product Shape" ;
     rdfs:comment "Validation shape for DetergentProduct instances per EU 2026/405." ;
     sh:property [
-        sh:path detergent:detergentCategory ;
+        sh:path schema:category ;
         sh:name "Detergent Category" ;
         sh:description "Product category (laundry, dishwasher, etc.)." ;
         sh:maxCount 1 ;
@@ -147,7 +148,7 @@ detergent:IngredientShape a sh:NodeShape ;
     sh:targetClass detergent:Ingredient ;
     rdfs:label "Ingredient Shape" ;
     sh:property [
-        sh:path detergent:inciName ;
+        sh:path schema:name ;
         sh:name "INCI Name" ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
@@ -225,7 +226,7 @@ detergent:FragranceAllergenShape a sh:NodeShape ;
     sh:targetClass detergent:FragranceAllergen ;
     rdfs:label "Fragrance Allergen Shape" ;
     sh:property [
-        sh:path detergent:allergenName ;
+        sh:path gs1:allergenSpecificationName ;
         sh:name "Allergen Name" ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
@@ -250,7 +251,7 @@ detergent:MicroorganismInfoShape a sh:NodeShape ;
     sh:targetClass detergent:MicroorganismInfo ;
     rdfs:label "Microorganism Info Shape" ;
     sh:property [
-        sh:path detergent:speciesName ;
+        sh:path schema:name ;
         sh:name "Species Name" ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;

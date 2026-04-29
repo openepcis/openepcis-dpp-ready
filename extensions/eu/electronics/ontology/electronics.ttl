@@ -133,7 +133,8 @@ and EPREL registry information per EU Energy Labeling Regulation 2019/2021."""@e
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     rdfs:seeAlso dpp:PerformanceInfo ;
     skos:note """Required extension: GS1 provides performance information patterns but lacks specific
-EU Energy Label properties (A-G classes, EPREL registration) required for electronics."""@en.
+EU Energy Label properties (A-G classes, EPREL registration) required for electronics."""@en ;
+    owl:equivalentClass schema:EnergyEfficiencyEnumeration .
 
 electronics:ComponentBOM
     a owl:Class ;
@@ -604,26 +605,10 @@ electronics:NotReplaceable a electronics:ReplacementDifficulty ;
 # PART 9: PROPERTIES - DEVICE INFORMATION
 # =============================================================================
 
-electronics:deviceCategory
-    a owl:ObjectProperty ;
-    rdfs:label "Device Category"@en ;
-    rdfs:comment "Category of electronic device."@en ;
-    rdfs:domain gs1:Product ;
-    rdfs:range electronics:DeviceCategory ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
-
 electronics:modelIdentifier
     a owl:DatatypeProperty ;
     rdfs:label "Model Identifier"@en ;
     rdfs:comment "Manufacturer's model number or identifier."@en ;
-    rdfs:domain gs1:Product ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
-
-electronics:commercialName
-    a owl:DatatypeProperty ;
-    rdfs:label "Commercial Name"@en ;
-    rdfs:comment "Commercial or marketing name of the product."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
@@ -740,14 +725,6 @@ electronics:softwareSupport
     rdfs:comment "Software and firmware support information."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range electronics:SoftwareSupport ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
-
-electronics:operatingSystem
-    a owl:DatatypeProperty ;
-    rdfs:label "Operating System"@en ;
-    rdfs:comment "Name of the operating system (e.g., Android, iOS, Windows)."@en ;
-    rdfs:domain electronics:SoftwareSupport ;
-    rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
 
 electronics:osVersion
@@ -922,22 +899,6 @@ electronics:componentType
     rdfs:range electronics:ComponentType ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
 
-electronics:componentName
-    a owl:DatatypeProperty ;
-    rdfs:label "Component Name"@en ;
-    rdfs:comment "Name or description of the component."@en ;
-    rdfs:domain gs1:Product ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
-
-electronics:componentManufacturer
-    a owl:ObjectProperty ;
-    rdfs:label "Component Manufacturer"@en ;
-    rdfs:comment "Manufacturer of the component."@en ;
-    rdfs:domain gs1:Product ;
-    rdfs:range gs1:Organization ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
-
 electronics:componentPartNumber
     a owl:DatatypeProperty ;
     rdfs:label "Component Part Number"@en ;
@@ -999,15 +960,6 @@ electronics:weeeCompliance
     rdfs:comment "WEEE Directive compliance information."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range electronics:WEEECompliance ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
-
-electronics:weeeCategory
-    a owl:ObjectProperty ;
-    rdfs:label "WEEE Category"@en ;
-    rdfs:comment "WEEE Directive equipment category (1-6)."@en ;
-    rdfs:domain electronics:WEEECompliance ;
-    rdfs:range electronics:WEEECategory ;
-    dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
 
 electronics:weeeRegistrationNumber

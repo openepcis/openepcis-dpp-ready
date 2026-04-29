@@ -2,6 +2,7 @@
 @prefix battery: <https://ref.openepcis.io/extensions/eu/battery/> .
 @prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix schema: <https://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -26,14 +27,14 @@ battery:BatteryShape a sh:NodeShape ;
     rdfs:label "Battery Shape" ;
     rdfs:comment "Validation shape for Battery instances as defined by EU Battery Regulation 2023/1542." ;
     sh:property [
-        sh:path battery:batteryCategory ;
+        sh:path schema:category ;
         sh:name "Battery Category" ;
         sh:description "The regulatory category of the battery (LMT, EV, Industrial, Stationary)." ;
         sh:maxCount 1 ;
         sh:class battery:BatteryCategory
     ] ;
     sh:property [
-        sh:path battery:batteryStatus ;
+        sh:path schema:status ;
         sh:name "Battery Status" ;
         sh:description "Current lifecycle status of the battery." ;
         sh:maxCount 1 ;
@@ -89,7 +90,7 @@ battery:BatteryShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path battery:batterySerialNumber ;
+        sh:path gs1:hasSerialNumber ;
         sh:name "Battery Serial Number" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#8). Required on the Declaration of Conformity." ;
         sh:datatype xsd:string ;
@@ -118,7 +119,7 @@ battery:BatteryShape a sh:NodeShape ;
         sh:minCount 1
     ] ;
     sh:property [
-        sh:path battery:manufacturerInformation ;
+        sh:path gs1:manufacturer ;
         sh:name "Manufacturer Information" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#13)." ;
         sh:class dpp:OperatorInformation ;
@@ -126,7 +127,7 @@ battery:BatteryShape a sh:NodeShape ;
     ] ;
     # BatteryPass-Ready v1.3 cross-cutting DPP information (#1-#4)
     sh:property [
-        sh:path dpp:schemaVersion ;
+        sh:path schema:schemaVersion ;
         sh:name "DPP Schema Version" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#1). Identifies the schema version this DPP instance follows (e.g. \"1.3\")." ;
         sh:datatype xsd:string ;
@@ -134,7 +135,7 @@ battery:BatteryShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path dpp:status ;
+        sh:path schema:status ;
         sh:name "DPP Status" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#2)." ;
         sh:class dpp:PassportStatus ;
@@ -190,14 +191,14 @@ battery:BatteryChemistryShape a sh:NodeShape ;
     sh:targetClass battery:BatteryChemistry ;
     rdfs:label "Battery Chemistry Shape" ;
     sh:property [
-        sh:path battery:shortName ;
+        sh:path schema:name ;
         sh:name "Short Name" ;
         sh:description "Abbreviated chemistry name (e.g., LFP, NMC, NCA)." ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path battery:fullName ;
+        sh:path schema:name ;
         sh:name "Full Name" ;
         sh:description "Full chemical name of the battery chemistry." ;
         sh:datatype xsd:string ;
@@ -253,7 +254,7 @@ battery:BatteryMaterialShape a sh:NodeShape ;
     sh:targetClass battery:BatteryMaterial ;
     rdfs:label "Battery Material Shape" ;
     sh:property [
-        sh:path battery:materialName ;
+        sh:path schema:name ;
         sh:datatype xsd:string ;
         sh:minCount 1
     ] ;
@@ -267,7 +268,7 @@ battery:BatteryMaterialShape a sh:NodeShape ;
         sh:class battery:ComponentLocation
     ] ;
     sh:property [
-        sh:path battery:massPercentage ;
+        sh:path schema:weightPercentage ;
         sh:datatype xsd:decimal
     ] ;
     sh:property [
@@ -320,7 +321,7 @@ battery:HazardousSubstanceShape a sh:NodeShape ;
     sh:targetClass battery:HazardousSubstance ;
     rdfs:label "Hazardous Substance Shape" ;
     sh:property [
-        sh:path battery:substanceName ;
+        sh:path schema:name ;
         sh:datatype xsd:string ;
         sh:minCount 1
     ] ;

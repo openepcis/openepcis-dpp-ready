@@ -131,7 +131,7 @@ Link the SDS using `dpp:DocumentReference`:
     "type": "DocumentReference",
     "dpp:documentType": {"id": "dpp:SafetyDataSheet"},
     "dpp:documentUrl": "https://example.com/sds/product-sds.pdf",
-    "dpp:documentTitle": "Safety Data Sheet",
+    "schema:name": "Safety Data Sheet",
     "dpp:mimeType": "application/pdf"
   }
 }

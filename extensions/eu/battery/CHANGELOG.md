@@ -2,6 +2,30 @@
 
 All notable changes to the Battery module will be documented in this file.
 
+## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
+
+**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+
+### Removed (use canonical term instead)
+
+- `battery:auditDate` → `schema:auditDate`
+- `battery:batteryCategory` → `schema:category`
+- `battery:batteryModel` → `schema:model`
+- `battery:batterySerialNumber` → `gs1:hasSerialNumber`
+- `battery:batteryStatus` → `schema:status`
+- `battery:eventDescription` → `schema:description`
+- `battery:exposureStartTime` → `schema:startDate`
+- `battery:fullName` → `schema:name`
+- `battery:manufacturerInformation` → `gs1:manufacturer`
+- `battery:massPercentage` → `schema:weightPercentage`
+- `battery:materialCategory` → `schema:category`
+- `battery:materialName` → `schema:name`
+- `battery:materialSourceCountry` → `gs1:countryOfOrigin`
+- `battery:measurementMethod` → `schema:measurementMethod`
+- `battery:serviceContactPoint` → `schema:contactPoint`
+- `battery:shortName` → `schema:name`
+- `battery:substanceName` → `schema:name`
+
 ## [Unreleased] - 2026-04-29
 
 ### BatteryPass-Ready v1.3 alignment (GEFEG conformance prep)

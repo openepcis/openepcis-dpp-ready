@@ -109,7 +109,7 @@ The core module provides the following ESPR-aligned classes:
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `dpp:uniqueProductIdentifier` | URI | GS1 Digital Link product identifier |
+| `gs1:productID` | URI | GS1 Digital Link product identifier |
 | `dpp:passportIdentifier` | URI | Unique DPP instance identifier |
 | `dpp:passportVersion` | string | DPP version number |
 | `dpp:passportIssueDate` | date | DPP creation date |
@@ -118,7 +118,7 @@ The core module provides the following ESPR-aligned classes:
 | `dpp:passportExpiryDate` | date | Passport expiry/renewal date |
 | `dpp:passportIssuer` | OperatorInformation | Responsible economic operator |
 | `dpp:previousPassportVersion` | URI | Link to previous passport version |
-| `dpp:productModel` | string | Manufacturer model identifier |
+| `schema:ProductModel` | string | Manufacturer model identifier |
 | `dpp:productCategory` | ProductCategory | ESPR product category |
 
 ### Economic Operator (Article 77)
@@ -127,7 +127,7 @@ The core module provides the following ESPR-aligned classes:
 |----------|------|-------------|
 | `dpp:economicOperatorId` | string | EU-wide EOID number |
 | `dpp:eoriNumber` | string | Customs EORI number |
-| `dpp:vatIdentificationNumber` | string | VAT ID |
+| `schema:vatID` | string | VAT ID |
 | `dpp:operatorRole` | OperatorRole | Role in supply chain |
 | `dpp:registrationNumber` | string | National registration |
 
@@ -159,7 +159,7 @@ The core module provides the following ESPR-aligned classes:
 | `dpp:repairabilityScore` | decimal | 0-10 repairability index |
 | `dpp:repairabilityClass` | string | A-E repairability class |
 | `dpp:sparePartsAvailability` | QuantitativeValue | Years spare parts available |
-| `dpp:sparePartsDeliveryTime` | QuantitativeValue | Max delivery time |
+| `schema:deliveryTime` | QuantitativeValue | Max delivery time |
 | `dpp:diyRepairPossible` | boolean | Consumer repair possible |
 | `dpp:professionalRepairNetwork` | URI | Find repair services |
 | `dpp:repairInstructions` | DocumentReference | Repair manual |
@@ -211,8 +211,8 @@ ESPR defines approximately 125 data points grouped into categories. The core mod
 #### 1. Product Identification
 ```json
 {
-  "dpp:uniqueProductIdentifier": { "id": "https://id.gs1.org/01/09521234000013/21/SN-001" },
-  "dpp:productModel": "MODEL-2025-A",
+  "gs1:productID": { "id": "https://id.gs1.org/01/09521234000013/21/SN-001" },
+  "schema:ProductModel": "MODEL-2025-A",
   "dpp:productCategory": "Electronics",
   "dpp:passportIdentifier": { "id": "https://id.gs1.org/01/09521234000013/21/SN-001/10/DPP" },
   "dpp:passportVersion": "1.0",
@@ -274,7 +274,7 @@ ESPR defines approximately 125 data points grouped into categories. The core mod
 ```json
 {
   "type": "SubstanceOfConcern",
-  "dpp:substanceName": "Lead",
+  "schema:name": "Lead",
   "dpp:casNumber": "7439-92-1",
   "dpp:scipId": "SCIP-12345678",
   "dpp:substanceLocation": "Battery electrodes",
@@ -371,7 +371,7 @@ ESPR Article 77 establishes a single EU-wide registry for economic operators. Th
   "type": "OperatorInformation",
   "dpp:economicOperatorId": "EOID-DE-2025-123456",
   "dpp:eoriNumber": "DE123456789012345",
-  "dpp:vatIdentificationNumber": "DE123456789"
+  "schema:vatID": "DE123456789"
 }
 ```
 

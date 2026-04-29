@@ -2,6 +2,7 @@
 @prefix electronics: <https://ref.openepcis.io/extensions/eu/electronics/> .
 @prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix schema: <https://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -26,7 +27,7 @@ electronics:ElectronicDeviceShape a sh:NodeShape ;
     rdfs:label "Electronic Device Shape" ;
     rdfs:comment "Validation shape for ElectronicDevice instances as defined by ESPR Electronics delegated acts." ;
     sh:property [
-        sh:path electronics:deviceCategory ;
+        sh:path schema:category ;
         sh:name "Device Category" ;
         sh:description "The product category of the electronic device." ;
         sh:maxCount 1 ;
@@ -40,7 +41,7 @@ electronics:ElectronicDeviceShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:commercialName ;
+        sh:path schema:name ;
         sh:name "Commercial Name" ;
         sh:description "Commercial or trade name of the device." ;
         sh:datatype xsd:string ;
@@ -206,7 +207,7 @@ electronics:SoftwareSupportShape a sh:NodeShape ;
     rdfs:label "Software Support Shape" ;
     rdfs:comment "Validation shape for software and firmware support commitments." ;
     sh:property [
-        sh:path electronics:operatingSystem ;
+        sh:path schema:operatingSystem ;
         sh:name "Operating System" ;
         sh:description "Name of the operating system." ;
         sh:datatype xsd:string ;
@@ -363,7 +364,7 @@ electronics:ElectronicComponentShape a sh:NodeShape ;
         sh:class electronics:ComponentType
     ] ;
     sh:property [
-        sh:path electronics:componentName ;
+        sh:path schema:name ;
         sh:name "Component Name" ;
         sh:description "Human-readable name of the component." ;
         sh:datatype xsd:string ;
@@ -371,7 +372,7 @@ electronics:ElectronicComponentShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:componentManufacturer ;
+        sh:path gs1:manufacturer ;
         sh:name "Component Manufacturer" ;
         sh:description "Organization that manufactured the component." ;
         sh:maxCount 1 ;
@@ -428,7 +429,7 @@ electronics:WEEEComplianceShape a sh:NodeShape ;
     rdfs:label "WEEE Compliance Shape" ;
     rdfs:comment "Validation shape for Waste Electrical and Electronic Equipment compliance." ;
     sh:property [
-        sh:path electronics:weeeCategory ;
+        sh:path schema:category ;
         sh:name "WEEE Category" ;
         sh:description "WEEE Directive annex category for the device." ;
         sh:maxCount 1 ;

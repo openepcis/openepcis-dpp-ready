@@ -177,6 +177,8 @@ We welcome feedback from anyone — GS1 GO and GS1 MOs, CEN/CENELEC JTC 24 membe
 
 ## Vocabulary Namespaces
 
+The project follows a **`gs1:` → `schema:` → custom** precedence — extension namespaces below carry only terms that have no `gs1:` or `schema:` equivalent. See [EXTENSION-GOVERNANCE.md](./EXTENSION-GOVERNANCE.md).
+
 | Module | Namespace | Prefix |
 |--------|-----------|--------|
 | DPP Core | `https://ref.openepcis.io/extensions/common/core/` | `dpp:` |
@@ -187,6 +189,8 @@ We welcome feedback from anyone — GS1 GO and GS1 MOs, CEN/CENELEC JTC 24 membe
 | Electronics | `https://ref.openepcis.io/extensions/eu/electronics/` | `electronics:` |
 | Detergent | `https://ref.openepcis.io/extensions/eu/detergent/` | `detergent:` |
 | FSMA §204 | `https://ref.openepcis.io/extensions/us/fsma204/` | `fsma:` |
+| _Reused_: GS1 Web Vocabulary | `https://ref.gs1.org/voc/` | `gs1:` |
+| _Reused_: schema.org | `https://schema.org/` | `schema:` |
 
 ## Value Conventions
 

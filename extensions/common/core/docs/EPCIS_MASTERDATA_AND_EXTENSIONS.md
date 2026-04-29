@@ -66,7 +66,7 @@ is an EPCIS-context term and is written **bare** (no `gs1:` prefix).
 biased towards **GS1 Web Vocabulary properties** — every attribute that has
 a native GS1 term MUST use it (written bare). Extension-namespaced
 properties (`battery:batteryChemistry`, `textile:fabricType`,
-`detergent:detergentCategory`, etc.) are permitted **only for genuinely
+`schema:category`, etc.) are permitted **only for genuinely
 product-level attributes that have no GS1 equivalent**. In practice this
 means:
 
@@ -74,9 +74,9 @@ means:
   `gs1:productName`, `gs1:netWeight`, `gs1:manufacturer`,
   `gs1:certification`, `gs1:textileMaterial`, `gs1:harvestDate` etc.
 - **YES**, when no GS1 equivalent exists — `battery:batteryChemistry`,
-  `battery:batteryCategory`, `textile:textileCategory`,
-  `textile:fabricType`, `detergent:detergentCategory`,
-  `electronics:deviceCategory`, `eudr:commodityType`,
+  `schema:category`, `schema:category`,
+  `textile:fabricType`, `schema:category`,
+  `schema:category`, `eudr:commodityType`,
   `fsma:foodTraceabilityListCategory`. These describe the GTIN itself and
   belong with the other product master data.
 - **NO** — observation-specific data (sensor readings, per-event
@@ -140,8 +140,8 @@ being commissioned, not attributes of the GTIN itself. For example:
   `textile:isRecycledFiber` + `textile:recycledContentSource` for this
   yarn batch, a sensor reading captured at commissioning time.
 - **NO (product-level)** — `battery:batteryChemistry`,
-  `textile:textileCategory`, `detergent:detergentCategory`,
-  `electronics:deviceCategory`. These describe the GTIN (they are the
+  `schema:category`, `schema:category`,
+  `schema:category`. These describe the GTIN (they are the
   same for every lot of the same SKU) and belong in
   `masterDataAvailableFor` (see §A).
 

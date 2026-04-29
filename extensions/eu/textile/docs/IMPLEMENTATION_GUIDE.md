@@ -37,7 +37,7 @@ Every textile product must specify:
 
 | Property | Description | Example |
 |----------|-------------|---------|
-| `textile:textileCategory` | High-level category | `Apparel`, `Footwear` |
+| `schema:category` | High-level category | `Apparel`, `Footwear` |
 | `textile:fabricType` | Fabric construction | `Knitted`, `Denim`, `WovenNonDenim` |
 | `textile:apparelSubcategory` | Specific subcategory | `JacketsCoats`, `TShirts` |
 

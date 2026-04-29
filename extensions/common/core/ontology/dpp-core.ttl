@@ -372,26 +372,6 @@ dpp:ItemLevel a dpp:DPPGranularity ; rdfs:label "Individual battery item"@en ;
 # the product's substantive data. Required by the BatteryPass-Ready v1.3
 # longlist (#1-#4) but applicable to every DPP regulation.
 
-dpp:schemaVersion
-    a owl:DatatypeProperty ;
-    rdfs:label "DPP Schema Version"@en ;
-    rdfs:comment "Version of the DPP schema this passport instance conforms to (e.g. \"1.3\" for BatteryPass-Ready v1.3). Distinct from the product's own version."@en ;
-    rdfs:domain gs1:Product ;
-    rdfs:range xsd:string ;
-    dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
-    skos:note "BatteryPass-Ready v1.3 longlist attribute #1. JTC-24 draft."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
-dpp:status
-    a owl:ObjectProperty ;
-    rdfs:label "DPP Status"@en ;
-    rdfs:comment "Lifecycle status of the DPP instance (Draft, Active, Updated, Withdrawn, Archived, Suspended)."@en ;
-    rdfs:domain gs1:Product ;
-    rdfs:range dpp:PassportStatus ;
-    dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
-    skos:note "BatteryPass-Ready v1.3 longlist attribute #2. Reuses the existing dpp:PassportStatus enumeration."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
 dpp:granularity
     a owl:ObjectProperty ;
     rdfs:label "DPP Granularity"@en ;
@@ -739,14 +719,6 @@ dpp:hazardClass
     rdfs:range dpp:HazardClass ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
-dpp:substanceName
-    a owl:DatatypeProperty ;
-    rdfs:label "Substance Name"@en ;
-    rdfs:comment "Name of the hazardous substance."@en ;
-    rdfs:domain dpp:HazardousSubstance ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
 dpp:casNumber
     a owl:DatatypeProperty ;
     rdfs:label "CAS Number"@en ;
@@ -798,13 +770,6 @@ dpp:documentUrl
     rdfs:seeAlso gs1:referencedFileURL ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
-dpp:documentTitle
-    a owl:DatatypeProperty ;
-    rdfs:label "Document Title"@en ;
-    rdfs:domain dpp:DocumentReference ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
 dpp:mimeType
     a owl:DatatypeProperty ;
     rdfs:label "MIME Type"@en ;
@@ -824,13 +789,6 @@ dpp:languageCode
 dpp:issueDate
     a owl:DatatypeProperty ;
     rdfs:label "Issue Date"@en ;
-    rdfs:domain dpp:DocumentReference ;
-    rdfs:range xsd:date ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
-dpp:validUntil
-    a owl:DatatypeProperty ;
-    rdfs:label "Valid Until"@en ;
     rdfs:domain dpp:DocumentReference ;
     rdfs:range xsd:date ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
@@ -969,13 +927,6 @@ dpp:materialComposition
     rdfs:range dpp:MaterialComposition ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
-dpp:materialName
-    a owl:DatatypeProperty ;
-    rdfs:label "Material Name"@en ;
-    rdfs:domain dpp:MaterialComposition ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
 dpp:massFraction
     a owl:DatatypeProperty ;
     rdfs:label "Mass Fraction"@en ;
@@ -985,15 +936,6 @@ dpp:massFraction
     rdfs:seeAlso untp-core:massFraction ;
     owl:equivalentProperty untp-core:massFraction ;
     skos:note "Value is a decimal fraction 0-1. Aligned with UNTP massFraction."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
-dpp:sourceCountry
-    a owl:DatatypeProperty ;
-    rdfs:label "Source Country"@en ;
-    rdfs:comment "Country of origin (ISO 3166-1 alpha-2). See also gs1:countryOfOrigin."@en ;
-    rdfs:domain dpp:MaterialComposition ;
-    rdfs:range xsd:string ;
-    rdfs:seeAlso gs1:countryOfOrigin ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
 dpp:isCriticalRawMaterial
@@ -1143,13 +1085,6 @@ dpp:granularityLevel
 # Properties - Regulatory Information Extension
 # =============================================================================
 
-dpp:regulatoryReferenceNumber
-    a owl:DatatypeProperty ;
-    rdfs:label "Regulatory Reference Number"@en ;
-    rdfs:comment "Reference number from regulatory information system (e.g., EUIS for EUDR)."@en ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
 dpp:complianceDate
     a owl:DatatypeProperty ;
     rdfs:label "Compliance Date"@en ;
@@ -1182,14 +1117,6 @@ dpp:eoriNumber
     a owl:DatatypeProperty ;
     rdfs:label "EORI Number"@en ;
     rdfs:comment "Economic Operators Registration and Identification (EORI) number for customs purposes."@en ;
-    rdfs:domain dpp:OperatorInformation ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
-dpp:vatIdentificationNumber
-    a owl:DatatypeProperty ;
-    rdfs:label "VAT Identification Number"@en ;
-    rdfs:comment "Value Added Tax identification number."@en ;
     rdfs:domain dpp:OperatorInformation ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
@@ -1366,14 +1293,6 @@ dpp:sparePartsAvailability
     rdfs:range dpp:DurationYears ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
-dpp:sparePartsDeliveryTime
-    a owl:ObjectProperty ;
-    rdfs:label "Spare Parts Delivery Time"@en ;
-    rdfs:comment "Maximum delivery time for spare parts. Use gs1:QuantitativeValue with unitCode 'DAY'."@en ;
-    rdfs:domain dpp:RepairabilityInfo ;
-    rdfs:range dpp:DurationDays ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
 dpp:repairInstructions
     a owl:ObjectProperty ;
     rdfs:label "Repair Instructions"@en ;
@@ -1451,21 +1370,6 @@ dpp:productCategory
     rdfs:comment "ESPR product category classification."@en ;
     rdfs:range dpp:ProductCategory ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
-dpp:productModel
-    a owl:DatatypeProperty ;
-    rdfs:label "Product Model"@en ;
-    rdfs:comment "Product model identifier assigned by the manufacturer."@en ;
-    rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
-dpp:uniqueProductIdentifier
-    a owl:DatatypeProperty ;
-    rdfs:label "Unique Product Identifier"@en ;
-    rdfs:comment """Unique product identifier per ESPR requirements.
-Prefer GS1 Digital Link format: https://id.gs1.org/01/{GTIN}/21/{Serial}"""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    rdfs:range xsd:anyURI .
 
 dpp:passportIdentifier
     a owl:DatatypeProperty ;
