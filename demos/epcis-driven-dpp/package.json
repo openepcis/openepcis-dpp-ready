@@ -1,0 +1,34 @@
+{
+  "name": "openepcis-dpp-epcis-driven-demo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "End-to-end demo: register GTIN/GLN with master data in the DLR and update DPP master data via captured EPCIS events. Targets a local Colima k3s deployment of openepcis-platform.",
+  "type": "module",
+  "scripts": {
+    "demo:battery:commission": "tsx scripts/run-flow.ts battery-commission",
+    "demo:battery:soh": "tsx scripts/run-flow.ts battery-state-of-health",
+    "demo:textile:transform": "tsx scripts/run-flow.ts textile-garment-transform",
+    "demo:textile:durability": "tsx scripts/run-flow.ts textile-durability",
+    "demo:all": "pnpm demo:battery:commission && pnpm demo:battery:soh && pnpm demo:textile:transform && pnpm demo:textile:durability",
+    "to-designer": "tsx scripts/to-designer.ts",
+    "designer-urls": "tsx scripts/designer-urls.ts",
+    "generate": "tsx scripts/generate.ts",
+    "merge": "tsx scripts/merge-masterdata.ts",
+    "seed-dlr": "tsx scripts/seed-dlr.ts",
+    "capture": "tsx scripts/capture.ts",
+    "verify": "tsx scripts/verify.ts"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "undici": "^7.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "@types/node": "^22.10.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

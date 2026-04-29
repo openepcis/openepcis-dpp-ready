@@ -1,0 +1,110 @@
+{
+  "_comment": "Flow B2 — battery lifecycle update. ObjectEvent OBSERVE bizStep=inspecting on the same EPC commissioned in B1. No masterDataAvailableFor in the merged output (already registered in DLR). Updated SoH/SoC/cycleCount carried in sensorElementList demonstrate event-driven DPP master-data updates. Mirrors extensions/eu/battery/epcis/state-of-health.jsonld.",
+  "events": [
+    {
+      "nodeId": 100,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "OBSERVE",
+      "businessStep": "INSPECTING",
+      "disposition": "IN_PROGRESS",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": {
+        "specificTime": "2026-04-29T09:15:00.000+02:00",
+        "timeZoneOffset": "+02:00"
+      },
+      "readPoint": {
+        "type": "SGLN",
+        "gln": "9521234000037",
+        "gcpLength": 7
+      },
+      "bizLocation": {
+        "type": "SGLN",
+        "gln": "9521234000037",
+        "gcpLength": 7
+      },
+      "referencedIdentifier": [
+        {
+          "identifierId": 1,
+          "epcCount": 1,
+          "inheritParentCount": 0,
+          "classCount": 0,
+          "quantity": 0
+        }
+      ],
+      "userExtensions": [
+        {
+          "rawJsonld": {
+            "sensorElementList": [
+              {
+                "sensorMetadata": {
+                  "time": "2026-04-29T09:15:00.000+02:00",
+                  "deviceID": "https://id.gs1.org/8004/9521234SOH-RIG-007"
+                },
+                "sensorReport": [
+                  {
+                    "type": "battery:stateOfHealth",
+                    "value": 92.4,
+                    "uom": "P1",
+                    "measurementMethod": "IEC 62660-3 capacity check"
+                  },
+                  {
+                    "type": "battery:stateOfCharge",
+                    "value": 78,
+                    "uom": "P1"
+                  },
+                  {
+                    "type": "battery:cycleCount",
+                    "value": 312
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": []
+    }
+  ],
+  "identifiers": [
+    {
+      "identifierId": 1,
+      "objectIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "instanceData": {
+        "sgtin": {
+          "identifierType": "sgtin",
+          "serialType": "none",
+          "sgtin": "09521234000013",
+          "serialNumber": "BAT2024-001"
+        }
+      },
+      "classData": null,
+      "parentData": null
+    }
+  ],
+  "contextUrls": [
+    {
+      "ID": 1,
+      "prefix": "battery",
+      "contextURL": "https://ref.openepcis.io/extensions/eu/battery/",
+      "isChecked": true,
+      "contextFetchURL": "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
+      "selected": true
+    },
+    {
+      "ID": 2,
+      "prefix": "dpp",
+      "contextURL": "https://ref.openepcis.io/extensions/common/core/",
+      "isChecked": true,
+      "contextFetchURL": "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+      "selected": true
+    }
+  ],
+  "randomGenerators": []
+}
