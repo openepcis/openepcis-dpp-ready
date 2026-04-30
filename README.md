@@ -52,7 +52,7 @@ The EU Battery Regulation requires DPPs starting **February 2027**. Industry can
 > - [GS1 Digital Link](https://www.gs1.org/standards/gs1-digital-link)
 > - [EPCIS 2.0](https://ref.gs1.org/standards/epcis/)
 > - [GS1 Web Vocabulary](https://www.gs1.org/voc/)
-> - [GS1 DPP Standards](https://ref.gs1.org/standards/dpp/)
+> - [GS1 Emerging DPP Standards](https://www.gs1.org/standards/standards-emerging-regulations/DPP)
 
 ## ESPR Framework
 
