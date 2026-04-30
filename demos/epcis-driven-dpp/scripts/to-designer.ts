@@ -220,7 +220,9 @@ function convert(api: ApiTemplate, flow: string) {
     }
   }
 
-  // Drawflow auto-layout: identifiers on the left in a column, events on the right.
+  // Drawflow auto-layout. Identifiers go in a column on the left; events lay
+  // out in a grid on the right whose width grows when the design has many
+  // events (so an 8-event lifecycle stays within a normal viewport).
   const drawflowData: Record<string, unknown> = {};
   let posY = 100;
   for (const i of api.identifiers) {
@@ -238,8 +240,16 @@ function convert(api: ApiTemplate, flow: string) {
     };
     posY += 120;
   }
-  let evtY = 200;
-  for (const e of api.events) {
+
+  const eventCount = api.events.length;
+  const eventCols = eventCount <= 4 ? 1 : eventCount <= 8 ? 2 : 3;
+  const colSpacing = 320;
+  const rowSpacing = 200;
+  const baseX = 800;
+  const baseY = 120;
+  api.events.forEach((e, idx) => {
+    const col = Math.floor(idx / Math.ceil(eventCount / eventCols));
+    const row = idx % Math.ceil(eventCount / eventCols);
     drawflowData[String(e.nodeId)] = {
       id: e.nodeId,
       name: 'Events',
@@ -252,11 +262,10 @@ function convert(api: ApiTemplate, flow: string) {
         input_2: { connections: outputConnectionsByEvent.get(e.nodeId) ?? [] },
       },
       outputs: { output_1: { connections: [] } },
-      pos_x: 800,
-      pos_y: evtY,
+      pos_x: baseX + col * colSpacing,
+      pos_y: baseY + row * rowSpacing,
     };
-    evtY += 200;
-  }
+  });
 
   const designer: Record<string, unknown> = {
     eventNodeInfo,

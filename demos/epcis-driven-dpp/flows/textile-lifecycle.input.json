@@ -1,0 +1,204 @@
+{
+  "_comment": "Flow T3 — full textile lifecycle (Alpine Pro Winter Jacket WJ-2025-00301) as a single design. The garment commissioned in T1 flows through 7 connected ObjectEvents — pack → ship → receive → unpack → sell → installed (worn) → destroy (take-back) — each with a different bizStep / disposition / location. Per-event userExtensions carry textile: regulation-relevant claims (durability class, take-back program, recycled-source declaration). Repair is intentionally omitted — typical garment lifecycle does not include a REPAIRING bizStep. Assumes the GTIN is already registered (commissioning / transformation is in flow T1) so no masterDataAvailableFor is emitted.",
+  "events": [
+    {
+      "nodeId": 201,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "OBSERVE",
+      "businessStep": "PACKING",
+      "disposition": "IN_PROGRESS",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": { "specificTime": "2025-09-20T08:00:00.000+01:00", "timeZoneOffset": "+01:00" },
+      "readPoint": { "type": "SGLN", "gln": "9521234000020", "gcpLength": 7 },
+      "bizLocation": { "type": "SGLN", "gln": "9521234000020", "gcpLength": 7 },
+      "referencedIdentifier": [{ "identifierId": 1, "epcCount": 1, "inheritParentCount": 0, "classCount": 0, "quantity": 0 }],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": []
+    },
+    {
+      "nodeId": 202,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "OBSERVE",
+      "businessStep": "SHIPPING",
+      "disposition": "IN_TRANSIT",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": { "specificTime": "2025-09-22T10:00:00.000+01:00", "timeZoneOffset": "+01:00" },
+      "readPoint": { "type": "SGLN", "gln": "9521234000020", "gcpLength": 7 },
+      "bizLocation": { "type": "SGLN", "gln": "9521234000020", "gcpLength": 7 },
+      "sources": [{ "type": "OWNING_PARTY", "glnType": "PGLN", "gln": "9521234000037", "gcpLength": 7 }],
+      "destinations": [{ "type": "OWNING_PARTY", "glnType": "PGLN", "gln": "9521234000051", "gcpLength": 7 }],
+      "bizTransactions": [
+        { "type": "desadv", "bizTransaction": "https://alpinepro.example.com/asn/ASN-2025-WJ-00301" }
+      ],
+      "referencedIdentifier": [{ "identifierId": 1, "epcCount": 1, "inheritParentCount": 0, "classCount": 0, "quantity": 0 }],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": []
+    },
+    {
+      "nodeId": 203,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "OBSERVE",
+      "businessStep": "RECEIVING",
+      "disposition": "IN_PROGRESS",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": { "specificTime": "2025-09-25T13:00:00.000+02:00", "timeZoneOffset": "+02:00" },
+      "readPoint": { "type": "SGLN", "gln": "9521234000051", "gcpLength": 7 },
+      "bizLocation": { "type": "SGLN", "gln": "9521234000051", "gcpLength": 7 },
+      "sources": [{ "type": "OWNING_PARTY", "glnType": "PGLN", "gln": "9521234000037", "gcpLength": 7 }],
+      "destinations": [{ "type": "OWNING_PARTY", "glnType": "PGLN", "gln": "9521234000051", "gcpLength": 7 }],
+      "bizTransactions": [
+        { "type": "recadv", "bizTransaction": "https://alpinestores.example.com/recadv/RA-2025-09-25-0118" }
+      ],
+      "referencedIdentifier": [{ "identifierId": 1, "epcCount": 1, "inheritParentCount": 0, "classCount": 0, "quantity": 0 }],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": []
+    },
+    {
+      "nodeId": 204,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "OBSERVE",
+      "businessStep": "UNPACKING",
+      "disposition": "SELLABLE_ACCESSIBLE",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": { "specificTime": "2025-09-26T09:30:00.000+02:00", "timeZoneOffset": "+02:00" },
+      "readPoint": { "type": "SGLN", "gln": "9521234000051", "gcpLength": 7 },
+      "bizLocation": { "type": "SGLN", "gln": "9521234000051", "gcpLength": 7 },
+      "referencedIdentifier": [{ "identifierId": 1, "epcCount": 1, "inheritParentCount": 0, "classCount": 0, "quantity": 0 }],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": []
+    },
+    {
+      "nodeId": 205,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "OBSERVE",
+      "businessStep": "RETAIL_SELLING",
+      "disposition": "RETAIL_SOLD",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": { "specificTime": "2025-11-08T15:45:00.000+01:00", "timeZoneOffset": "+01:00" },
+      "readPoint": { "type": "SGLN", "gln": "9521234000051", "gcpLength": 7 },
+      "bizLocation": { "type": "SGLN", "gln": "9521234000051", "gcpLength": 7 },
+      "sources": [{ "type": "OWNING_PARTY", "glnType": "PGLN", "gln": "9521234000037", "gcpLength": 7 }],
+      "referencedIdentifier": [{ "identifierId": 1, "epcCount": 1, "inheritParentCount": 0, "classCount": 0, "quantity": 0 }],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": [],
+      "userExtensions": [
+        {
+          "rawJsonld": {
+            "textile:durabilityClass": { "@id": "textile:DurabilityB" },
+            "textile:hasTakeBackProgram": true,
+            "textile:takeBackUrl": "https://alpinepro.example.com/takeback/winter-collection",
+            "textile:takeBackIncentive": "10 % discount on next purchase"
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": 206,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "OBSERVE",
+      "businessStep": "INSTALLING",
+      "disposition": "ACTIVE",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": { "specificTime": "2025-11-08T15:50:00.000+01:00", "timeZoneOffset": "+01:00" },
+      "readPoint": { "type": "SGLN", "gln": "9521234000051", "gcpLength": 7 },
+      "bizLocation": { "type": "SGLN", "gln": "9521234000051", "gcpLength": 7 },
+      "referencedIdentifier": [{ "identifierId": 1, "epcCount": 1, "inheritParentCount": 0, "classCount": 0, "quantity": 0 }],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": []
+    },
+    {
+      "nodeId": 207,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "DELETE",
+      "businessStep": "DESTROYING",
+      "disposition": "DESTROYED",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": { "specificTime": "2032-04-12T11:00:00.000+02:00", "timeZoneOffset": "+02:00" },
+      "readPoint": { "type": "SGLN", "gln": "9521234000068", "gcpLength": 7 },
+      "bizLocation": { "type": "SGLN", "gln": "9521234000068", "gcpLength": 7 },
+      "referencedIdentifier": [{ "identifierId": 1, "epcCount": 1, "inheritParentCount": 0, "classCount": 0, "quantity": 0 }],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": [],
+      "userExtensions": [
+        {
+          "rawJsonld": {
+            "textile:isRecycledFiber": true,
+            "textile:recycledSourceType": { "@id": "textile:FiberToFiber" },
+            "textile:recycledContentSource": "https://alpinepro.example.com/takeback/winter-collection/batch-2032-04-PT-007"
+          }
+        }
+      ]
+    }
+  ],
+  "identifiers": [
+    {
+      "identifierId": 1,
+      "objectIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "instanceData": {
+        "sgtin": {
+          "identifierType": "sgtin",
+          "serialType": "none",
+          "sgtin": "09521234000020",
+          "serialNumber": "WJ-2025-00301"
+        }
+      },
+      "classData": null,
+      "parentData": null
+    }
+  ],
+  "contextUrls": [
+    {
+      "ID": 1,
+      "prefix": "textile",
+      "contextURL": "https://ref.openepcis.io/extensions/eu/textile/",
+      "isChecked": true,
+      "contextFetchURL": "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
+      "selected": true
+    },
+    {
+      "ID": 2,
+      "prefix": "dpp",
+      "contextURL": "https://ref.openepcis.io/extensions/common/core/",
+      "isChecked": true,
+      "contextFetchURL": "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+      "selected": true
+    }
+  ],
+  "randomGenerators": []
+}

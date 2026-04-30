@@ -10,32 +10,41 @@ export const OUT_DIR = resolve(DEMO_ROOT, 'out');
 export type FlowName =
   | 'battery-commission'
   | 'battery-state-of-health'
+  | 'battery-lifecycle'
   | 'textile-garment-transform'
-  | 'textile-durability';
+  | 'textile-durability'
+  | 'textile-lifecycle';
 
 export const ALL_FLOWS: FlowName[] = [
   'battery-commission',
   'battery-state-of-health',
+  'battery-lifecycle',
   'textile-garment-transform',
   'textile-durability',
+  'textile-lifecycle',
 ];
 
 export const SIDECAR_FOR_FLOW: Record<FlowName, FlowName | null> = {
   'battery-commission': 'battery-commission',
   'battery-state-of-health': null,
+  'battery-lifecycle': null,
   'textile-garment-transform': 'textile-garment-transform',
   'textile-durability': null,
+  'textile-lifecycle': null,
 };
 
+const BATTERY_GS1_EXT =
+  'dpp=https://ref.openepcis.io/extensions/common/core/,battery=https://ref.openepcis.io/extensions/eu/battery/';
+const TEXTILE_GS1_EXT =
+  'dpp=https://ref.openepcis.io/extensions/common/core/,textile=https://ref.openepcis.io/extensions/eu/textile/';
+
 export const GS1_EXTENSIONS_FOR_FLOW: Record<FlowName, string> = {
-  'battery-commission':
-    'dpp=https://ref.openepcis.io/extensions/common/core/,battery=https://ref.openepcis.io/extensions/eu/battery/',
-  'battery-state-of-health':
-    'dpp=https://ref.openepcis.io/extensions/common/core/,battery=https://ref.openepcis.io/extensions/eu/battery/',
-  'textile-garment-transform':
-    'dpp=https://ref.openepcis.io/extensions/common/core/,textile=https://ref.openepcis.io/extensions/eu/textile/',
-  'textile-durability':
-    'dpp=https://ref.openepcis.io/extensions/common/core/,textile=https://ref.openepcis.io/extensions/eu/textile/',
+  'battery-commission': BATTERY_GS1_EXT,
+  'battery-state-of-health': BATTERY_GS1_EXT,
+  'battery-lifecycle': BATTERY_GS1_EXT,
+  'textile-garment-transform': TEXTILE_GS1_EXT,
+  'textile-durability': TEXTILE_GS1_EXT,
+  'textile-lifecycle': TEXTILE_GS1_EXT,
 };
 
 function loadDotenv(path: string): void {

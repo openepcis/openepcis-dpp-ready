@@ -1,0 +1,263 @@
+{
+  "_comment": "Flow B3 — full battery lifecycle as a single design. One SGTIN (BAT2024-001) flows through 8 connected ObjectEvents — pack → ship → receive → unpack → sell → installed → repair → destroy — each with a different bizStep / disposition / location and a chronological eventTime. Per-event userExtensions carry regulation-relevant battery: claims (UN transport class, transport conditions, warranty link, putting-into-service date, incident report, recycling certificate). Assumes the GTIN is already registered (commissioning is in flow B1) so no masterDataAvailableFor is emitted.",
+  "events": [
+    {
+      "nodeId": 101,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "OBSERVE",
+      "businessStep": "PACKING",
+      "disposition": "IN_PROGRESS",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": { "specificTime": "2024-03-20T08:00:00.000+01:00", "timeZoneOffset": "+01:00" },
+      "readPoint": { "type": "SGLN", "gln": "9521234000013", "gcpLength": 7 },
+      "bizLocation": { "type": "SGLN", "gln": "9521234000013", "gcpLength": 7 },
+      "referencedIdentifier": [{ "identifierId": 1, "epcCount": 1, "inheritParentCount": 0, "classCount": 0, "quantity": 0 }],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": [],
+      "userExtensions": [
+        {
+          "rawJsonld": {
+            "battery:transportationSafetyClass": "UN3480",
+            "battery:hazardClass": { "@id": "battery:HazardousToAquaticEnvironment" }
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": 102,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "OBSERVE",
+      "businessStep": "SHIPPING",
+      "disposition": "IN_TRANSIT",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": { "specificTime": "2024-03-22T10:30:00.000+01:00", "timeZoneOffset": "+01:00" },
+      "readPoint": { "type": "SGLN", "gln": "9521234000013", "gcpLength": 7 },
+      "bizLocation": { "type": "SGLN", "gln": "9521234000013", "gcpLength": 7 },
+      "sources": [{ "type": "OWNING_PARTY", "glnType": "PGLN", "gln": "9521234000006", "gcpLength": 7 }],
+      "destinations": [{ "type": "OWNING_PARTY", "glnType": "PGLN", "gln": "9521234000020", "gcpLength": 7 }],
+      "bizTransactions": [
+        { "type": "desadv", "bizTransaction": "https://ecocell-batteries.example.com/asn/ASN-2024-00142" }
+      ],
+      "referencedIdentifier": [{ "identifierId": 1, "epcCount": 1, "inheritParentCount": 0, "classCount": 0, "quantity": 0 }],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": [],
+      "userExtensions": [
+        {
+          "rawJsonld": {
+            "battery:transportConditions": "Storage temperature -20 °C to +60 °C; humidity ≤ 80 %; protect from direct sunlight."
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": 103,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "OBSERVE",
+      "businessStep": "RECEIVING",
+      "disposition": "IN_PROGRESS",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": { "specificTime": "2024-03-25T14:30:00.000+01:00", "timeZoneOffset": "+01:00" },
+      "readPoint": { "type": "SGLN", "gln": "9521234000037", "gcpLength": 7 },
+      "bizLocation": { "type": "SGLN", "gln": "9521234000037", "gcpLength": 7 },
+      "sources": [{ "type": "OWNING_PARTY", "glnType": "PGLN", "gln": "9521234000006", "gcpLength": 7 }],
+      "destinations": [{ "type": "OWNING_PARTY", "glnType": "PGLN", "gln": "9521234000020", "gcpLength": 7 }],
+      "bizTransactions": [
+        { "type": "recadv", "bizTransaction": "https://distributor.example.com/recadv/RA-2024-03-25-0042" }
+      ],
+      "referencedIdentifier": [{ "identifierId": 1, "epcCount": 1, "inheritParentCount": 0, "classCount": 0, "quantity": 0 }],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": []
+    },
+    {
+      "nodeId": 104,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "OBSERVE",
+      "businessStep": "UNPACKING",
+      "disposition": "SELLABLE_ACCESSIBLE",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": { "specificTime": "2024-03-26T09:15:00.000+01:00", "timeZoneOffset": "+01:00" },
+      "readPoint": { "type": "SGLN", "gln": "9521234000044", "gcpLength": 7 },
+      "bizLocation": { "type": "SGLN", "gln": "9521234000044", "gcpLength": 7 },
+      "referencedIdentifier": [{ "identifierId": 1, "epcCount": 1, "inheritParentCount": 0, "classCount": 0, "quantity": 0 }],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": []
+    },
+    {
+      "nodeId": 105,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "OBSERVE",
+      "businessStep": "RETAIL_SELLING",
+      "disposition": "RETAIL_SOLD",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": { "specificTime": "2024-04-15T11:00:00.000+02:00", "timeZoneOffset": "+02:00" },
+      "readPoint": { "type": "SGLN", "gln": "9521234000044", "gcpLength": 7 },
+      "bizLocation": { "type": "SGLN", "gln": "9521234000044", "gcpLength": 7 },
+      "sources": [{ "type": "OWNING_PARTY", "glnType": "PGLN", "gln": "9521234000020", "gcpLength": 7 }],
+      "referencedIdentifier": [{ "identifierId": 1, "epcCount": 1, "inheritParentCount": 0, "classCount": 0, "quantity": 0 }],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": [],
+      "userExtensions": [
+        {
+          "rawJsonld": {
+            "battery:warrantyConditions": "https://ecocell-batteries.example.com/warranty/IM-500-24mo",
+            "battery:extendedWarrantyAvailable": true
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": 106,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "OBSERVE",
+      "businessStep": "INSTALLING",
+      "disposition": "ACTIVE",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": { "specificTime": "2024-04-20T14:00:00.000+02:00", "timeZoneOffset": "+02:00" },
+      "readPoint": { "type": "SGLN", "gln": "9521234000051", "gcpLength": 7 },
+      "bizLocation": { "type": "SGLN", "gln": "9521234000051", "gcpLength": 7 },
+      "referencedIdentifier": [{ "identifierId": 1, "epcCount": 1, "inheritParentCount": 0, "classCount": 0, "quantity": 0 }],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": [],
+      "userExtensions": [
+        {
+          "rawJsonld": {
+            "battery:puttingIntoService": "2024-04-20"
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": 107,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "OBSERVE",
+      "businessStep": "REPAIRING",
+      "disposition": "NEEDS_REPLACEMENT",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": { "specificTime": "2025-09-10T15:00:00.000+02:00", "timeZoneOffset": "+02:00" },
+      "readPoint": { "type": "SGLN", "gln": "9521234000068", "gcpLength": 7 },
+      "bizLocation": { "type": "SGLN", "gln": "9521234000068", "gcpLength": 7 },
+      "referencedIdentifier": [{ "identifierId": 1, "epcCount": 1, "inheritParentCount": 0, "classCount": 0, "quantity": 0 }],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": [],
+      "userExtensions": [
+        {
+          "rawJsonld": {
+            "battery:incidentId": "INC-2025-09-10-001",
+            "battery:incidentSeverity": "Minor",
+            "battery:incidentReportUrl": "https://service.ecocell-batteries.example.com/incidents/INC-2025-09-10-001",
+            "sensorElementList": [
+              {
+                "sensorMetadata": {
+                  "time": "2025-09-10T15:00:00.000+02:00",
+                  "deviceID": "https://id.gs1.org/8004/9521234SOH-RIG-007"
+                },
+                "sensorReport": [
+                  { "type": "battery:stateOfHealth", "value": 85.6, "uom": "P1", "dataProcessingMethod": "https://www.iec.ch/standards/iec-62660-3" },
+                  { "type": "battery:cycleCount", "value": 612 }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": 108,
+      "eventType": "ObjectEvent",
+      "eventCount": 1,
+      "ordinaryEvent": true,
+      "action": "DELETE",
+      "businessStep": "DESTROYING",
+      "disposition": "DESTROYED",
+      "locationPartyIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "eventID": true,
+      "eventIdType": "UUID",
+      "eventTime": { "specificTime": "2030-11-15T10:00:00.000+01:00", "timeZoneOffset": "+01:00" },
+      "readPoint": { "type": "SGLN", "gln": "9521234000075", "gcpLength": 7 },
+      "bizLocation": { "type": "SGLN", "gln": "9521234000075", "gcpLength": 7 },
+      "referencedIdentifier": [{ "identifierId": 1, "epcCount": 1, "inheritParentCount": 0, "classCount": 0, "quantity": 0 }],
+      "parentReferencedIdentifier": {},
+      "outputReferencedIdentifier": [],
+      "userExtensions": [
+        {
+          "rawJsonld": {
+            "battery:hazardClass": { "@id": "battery:HazardousToAquaticEnvironment" },
+            "battery:verificationCertificateUrl": "https://recycler.example.com/certs/2030-11-15-CRT-IM-500-001"
+          }
+        }
+      ]
+    }
+  ],
+  "identifiers": [
+    {
+      "identifierId": 1,
+      "objectIdentifierSyntax": "WebURI",
+      "dlURL": "https://id.gs1.org",
+      "instanceData": {
+        "sgtin": {
+          "identifierType": "sgtin",
+          "serialType": "none",
+          "sgtin": "09521234000013",
+          "serialNumber": "BAT2024-001"
+        }
+      },
+      "classData": null,
+      "parentData": null
+    }
+  ],
+  "contextUrls": [
+    {
+      "ID": 1,
+      "prefix": "battery",
+      "contextURL": "https://ref.openepcis.io/extensions/eu/battery/",
+      "isChecked": true,
+      "contextFetchURL": "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
+      "selected": true
+    },
+    {
+      "ID": 2,
+      "prefix": "dpp",
+      "contextURL": "https://ref.openepcis.io/extensions/common/core/",
+      "isChecked": true,
+      "contextFetchURL": "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+      "selected": true
+    }
+  ],
+  "randomGenerators": []
+}
