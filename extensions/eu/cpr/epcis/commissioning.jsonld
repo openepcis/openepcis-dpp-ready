@@ -9,10 +9,10 @@
   "creationDate": "2026-04-15T10:00:00.000Z",
   "_comment_architecture": [
     "CPR commissioning event — a batch of construction product enters the",
-    "regulated supply chain. cpr: data (constructionProductType,",
-    "reactionToFireClass, declarationOfPerformanceUrl) and dpp: cross-cutting",
-    "data (recycledContent, carbonFootprintDeclaration) live at EVENT level.",
-    "masterDataAvailableFor carries gs1: properties only.",
+    "regulated supply chain. Static product attributes (cpr: extension data",
+    "and dpp: cross-cutting data) live INSIDE masterDataAvailableFor on the",
+    "product entry. Event-level slot is reserved for the observation",
+    "(action / bizStep / disposition / epcList).",
     "",
     "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,",
     "                              cpr=https://ref.openepcis.io/extensions/eu/cpr/",
@@ -50,20 +50,20 @@
               "type": "QuantitativeValue",
               "value": 25.0,
               "unitCode": "KGM"
-            }
-          }
-        ],
-        "constructionProductType": "Cement",
-        "reactionToFireClass": "A1",
-        "declarationOfPerformanceUrl": "https://manufacturer.example/dop/CEM-I-52-5-N-2026-001.pdf",
-        "regulatoryInformation": [
-          {
-            "type": "RegulatoryInformation",
-            "regulationType": {
-              "id": "gs1:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION"
             },
-            "regulatoryAct": "EU 2024/3110",
-            "isRegulationCompliant": true
+            "constructionProductType": "Cement",
+            "reactionToFireClass": "A1",
+            "declarationOfPerformanceUrl": "https://manufacturer.example/dop/CEM-I-52-5-N-2026-001.pdf",
+            "regulatoryInformation": [
+              {
+                "type": "RegulatoryInformation",
+                "regulationType": {
+                  "id": "gs1:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION"
+                },
+                "regulatoryAct": "EU 2024/3110",
+                "isRegulationCompliant": true
+              }
+            ]
           }
         ]
       }
