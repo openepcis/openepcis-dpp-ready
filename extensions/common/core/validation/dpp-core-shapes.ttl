@@ -589,3 +589,89 @@ dpp-sh:TechnicalLifetimeShape
         sh:hasValue "ANN" ;
         sh:message "dpp:technicalLifetime must use unitCode 'ANN' (years)"@en
     ] .
+
+# =============================================================================
+# Cross-Cutting EU Concept Shapes (lifted)
+# =============================================================================
+
+dpp-sh:ExtendedProducerResponsibilityShape
+    a sh:NodeShape ;
+    sh:targetClass dpp:ExtendedProducerResponsibility ;
+    sh:name "Extended Producer Responsibility Shape"@en ;
+    sh:property [
+        sh:path dpp:eprRegistrationNumber ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "ExtendedProducerResponsibility must have exactly one eprRegistrationNumber"@en
+    ] ;
+    sh:property [
+        sh:path dpp:eprJurisdiction ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "ExtendedProducerResponsibility must declare exactly one eprJurisdiction"@en
+    ] ;
+    sh:property [
+        sh:path dpp:eprComplianceUrl ;
+        sh:datatype xsd:anyURI ;
+        sh:maxCount 1
+    ] .
+
+dpp-sh:CompostabilityShape
+    a sh:NodeShape ;
+    sh:targetClass dpp:Compostability ;
+    sh:name "Compostability Shape"@en ;
+    sh:property [
+        sh:path dpp:compostabilityType ;
+        sh:in ( dpp:IndustrialCompostable dpp:HomeCompostable dpp:NotCompostable ) ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "compostabilityType must be IndustrialCompostable, HomeCompostable, or NotCompostable"@en
+    ] ;
+    sh:property [
+        sh:path dpp:compostabilityStandard ;
+        sh:datatype xsd:anyURI ;
+        sh:maxCount 1
+    ] .
+
+dpp-sh:BiodegradabilityShape
+    a sh:NodeShape ;
+    sh:targetClass dpp:Biodegradability ;
+    sh:name "Biodegradability Shape"@en ;
+    sh:property [
+        sh:path dpp:biodegradationPercentage ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Biodegradability must have exactly one biodegradationPercentage"@en
+    ] ;
+    sh:property [
+        sh:path dpp:biodegradabilityTestMethod ;
+        sh:in ( dpp:ISO14593 dpp:OECD301B dpp:OECD301D dpp:OECD301F dpp:OECD310 ) ;
+        sh:maxCount 1
+    ] .
+
+dpp-sh:DepositReturnSchemeShape
+    a sh:NodeShape ;
+    sh:targetClass dpp:DepositReturnScheme ;
+    sh:name "DepositReturnScheme Shape"@en ;
+    sh:property [
+        sh:path dpp:depositAmount ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "DepositReturnScheme must declare exactly one depositAmount"@en
+    ] ;
+    sh:property [
+        sh:path dpp:depositRedemptionChannelUrl ;
+        sh:datatype xsd:anyURI ;
+        sh:maxCount 1
+    ] .
+
+# Pin biodegradationPercentage to unitCode 'P1' (percent fraction).
+dpp-sh:BiodegradationPercentageUnitShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf dpp:biodegradationPercentage ;
+    sh:property [
+        sh:path ( dpp:biodegradationPercentage gs1:unitCode ) ;
+        sh:hasValue "P1" ;
+        sh:message "dpp:biodegradationPercentage must use unitCode 'P1' (percent)"@en
+    ] .

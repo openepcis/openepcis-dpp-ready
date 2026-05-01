@@ -12,6 +12,15 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/Biodegradability",
+      "localName": "Biodegradability",
+      "label": "Biodegradability",
+      "comment": "An observed biodegradability result for a substance or material, typically per ISO 14593 / OECD 301B/D/F / OECD 310 test methods. Represents a measurement, not a regulatory category.",
+      "subClassOf": [
+        "https://schema.org/Observation"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
       "localName": "CircularityPerformance",
       "label": "Circularity Performance",
@@ -21,6 +30,18 @@
         "https://test.uncefact.org/vocabulary/untp/core/CircularityPerformance"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/Compostability",
+      "localName": "Compostability",
+      "label": "Compostability",
+      "comment": "Compostability category and certification standard for a product or material. Distinct from biodegradability — compostability is a regulatory-recognised classification, not a continuous measurement."
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme",
+      "localName": "DepositReturnScheme",
+      "label": "Deposit-Return Scheme",
+      "comment": "A deposit-return scheme that the product participates in (PPWR Article 13, beverage container DRS in DE/AT/NL/SE/etc., and any future EU-harmonised DRS)."
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
@@ -48,6 +69,12 @@
         "https://test.uncefact.org/vocabulary/untp/core/EmissionsPerformance"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility",
+      "localName": "ExtendedProducerResponsibility",
+      "label": "Extended Producer Responsibility",
+      "comment": "A registration of a producer's compliance with an Extended Producer\nResponsibility (EPR) scheme for a specific waste stream and jurisdiction.\nEPR schemes apply across PPWR (packaging), WEEE (electronics), Battery\nRegulation, ELV (vehicles), Textile-DA (proposed), and others — every\nregulation covered by this ontology. No upstream vocabulary defines this\nclass; UNTP v0.7.0 has no EPR-specific term, and CIRPASS-2 D3.2 confirms it\nas a gap."
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
@@ -211,6 +238,39 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/bioBasedFraction",
+      "localName": "bioBasedFraction",
+      "label": "Bio-based Fraction",
+      "comment": "Mass fraction (0–1) of the product or material derived from renewable biological feedstock (rather than fossil-derived). Use unitCode 'P1' (UN/CEFACT Rec 20) when expressed via gs1:QuantitativeValue.",
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/biodegradabilityTestMethod",
+      "localName": "biodegradabilityTestMethod",
+      "label": "Biodegradability Test Method",
+      "comment": "The test method used to determine the biodegradability percentage.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/Biodegradability"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/BiodegradabilityTestMethod"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/biodegradationPercentage",
+      "localName": "biodegradationPercentage",
+      "label": "Biodegradation Percentage",
+      "comment": "Percentage of substance biodegraded under the test method conditions. Use unitCode 'P1' (UN/CEFACT Rec 20) when expressed via gs1:QuantitativeValue.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/Biodegradability"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprint",
       "localName": "carbonFootprint",
       "label": "Carbon Footprint",
@@ -293,6 +353,30 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/compostabilityStandard",
+      "localName": "compostabilityStandard",
+      "label": "Compostability Standard",
+      "comment": "URI of the standard the compostability claim is certified against (e.g. EN 13432, OK-Compost-Home, ASTM D6400).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/Compostability"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/compostabilityType",
+      "localName": "compostabilityType",
+      "label": "Compostability Type",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/Compostability"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/CompostabilityType"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/concentration",
       "localName": "concentration",
       "label": "Concentration",
@@ -369,6 +453,51 @@
       ],
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/core/declaredUnit"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/depositAmount",
+      "localName": "depositAmount",
+      "label": "Deposit Amount",
+      "comment": "Refundable deposit applied at point of sale. Modelled as gs1:QuantitativeValue with unitCode = ISO 4217 currency code (e.g. 'EUR').",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/depositRedemptionChannelUrl",
+      "localName": "depositRedemptionChannelUrl",
+      "label": "Deposit Redemption Channel URL",
+      "comment": "URL of the public directory of redemption channels (where consumers can return the container for refund).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/depositReturnScheme",
+      "localName": "depositReturnScheme",
+      "label": "Deposit-Return Scheme",
+      "comment": "Links a product (typically gs1:Packaging) to the DRS it participates in.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/depositSchemeOperator",
+      "localName": "depositSchemeOperator",
+      "label": "Deposit Scheme Operator",
+      "comment": "The Producer Responsibility Organisation that operates the DRS (e.g. Pfand-System Deutschland for DE).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Organization"
       ]
     },
     {
@@ -518,6 +647,66 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/eprComplianceUrl",
+      "localName": "eprComplianceUrl",
+      "label": "EPR Compliance URL",
+      "comment": "URL of the EPR scheme operator's public verification endpoint or compliance certificate for this producer.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/eprJurisdiction",
+      "localName": "eprJurisdiction",
+      "label": "EPR Jurisdiction",
+      "comment": "The country / member state where this EPR registration applies. EPR schemes are organised per Member State; producers selling into multiple MS register in each.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Country"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/eprRegistrationNumber",
+      "localName": "eprRegistrationNumber",
+      "label": "EPR Registration Number",
+      "comment": "Producer registration number issued by an EPR compliance scheme operator (e.g. Stiftung EAR for German WEEE, EcoEmballages for French packaging).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/eprScheme",
+      "localName": "eprScheme",
+      "label": "EPR Scheme Operator",
+      "comment": "The Producer Responsibility Organisation (PRO) or competent authority that operates the EPR scheme. Modelled as a gs1:Organization or untp:Party.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Organization"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/eprWasteStream",
+      "localName": "eprWasteStream",
+      "label": "EPR Waste Stream",
+      "comment": "The waste stream the EPR registration covers: packaging, weee, batteries, vehicles, textiles, etc. Free-text token; controlled vocabulary may be added when EU publishes one.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/expectedLifespan",
       "localName": "expectedLifespan",
       "label": "Expected Lifespan",
@@ -527,6 +716,15 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/extendedProducerResponsibility",
+      "localName": "extendedProducerResponsibility",
+      "label": "Extended Producer Responsibility",
+      "comment": "Links a product or operator to one or more EPR registrations covering it.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility"
       ]
     },
     {
@@ -1375,6 +1573,70 @@
           "localName": "Restricted",
           "label": "Restricted",
           "comment": "Data accessible only to specific authorized economic operators. Per ESPR Article 9(3)."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/BiodegradabilityTestMethod",
+      "localName": "BiodegradabilityTestMethod",
+      "label": "Biodegradability Test Method",
+      "comment": "The standardised laboratory method used to assess biodegradability.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ISO14593",
+          "localName": "ISO14593",
+          "label": "ISO 14593 (CO2 evolution test)",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/OECD301B",
+          "localName": "OECD301B",
+          "label": "OECD 301B (CO2 evolution test)",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/OECD301D",
+          "localName": "OECD301D",
+          "label": "OECD 301D (closed bottle test)",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/OECD301F",
+          "localName": "OECD301F",
+          "label": "OECD 301F (manometric respirometry)",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/OECD310",
+          "localName": "OECD310",
+          "label": "OECD 310 (sealed vessel CO2 evolution)",
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/CompostabilityType",
+      "localName": "CompostabilityType",
+      "label": "Compostability Type",
+      "comment": "Classification of how a product can be composted.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/HomeCompostable",
+          "localName": "HomeCompostable",
+          "label": "Home Compostable",
+          "comment": "Compostable in domestic composting conditions (typically per OK-Compost-Home / NF T 51-800)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/IndustrialCompostable",
+          "localName": "IndustrialCompostable",
+          "label": "Industrially Compostable",
+          "comment": "Compostable in industrial composting facilities (typically per EN 13432)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/NotCompostable",
+          "localName": "NotCompostable",
+          "label": "Not Compostable",
+          "comment": ""
         }
       ]
     },

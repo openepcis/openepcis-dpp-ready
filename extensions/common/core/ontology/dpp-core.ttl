@@ -1530,3 +1530,231 @@ dpp:isRegulationCompliant
     rdfs:range xsd:boolean ;
     skos:note "This is a dpp: extension because no GS1 Web Vocabulary term currently carries a boolean compliance assertion."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Cross-Cutting EU Regulatory Concepts (lifted from per-module modules)
+# =============================================================================
+# These three concepts are missing from upstream vocabularies (UNTP v0.7.0,
+# schema.org, GS1 Web Vocabulary) but appear identically in multiple EU regulations
+# (PPWR 2025/40, WEEE 2012/19, Battery 2023/1542, ELV-revised, Detergent 2026/405,
+# Textile-DA, Furniture-DA). Lift to common/core so each module just uses them.
+
+# -----------------------------------------------------------------------------
+# Extended Producer Responsibility (EPR)
+# -----------------------------------------------------------------------------
+
+dpp:ExtendedProducerResponsibility
+    a owl:Class ;
+    rdfs:label "Extended Producer Responsibility"@en ;
+    rdfs:comment """A registration of a producer's compliance with an Extended Producer
+Responsibility (EPR) scheme for a specific waste stream and jurisdiction.
+EPR schemes apply across PPWR (packaging), WEEE (electronics), Battery
+Regulation, ELV (vehicles), Textile-DA (proposed), and others — every
+regulation covered by this ontology. No upstream vocabulary defines this
+class; UNTP v0.7.0 has no EPR-specific term, and CIRPASS-2 D3.2 confirms it
+as a gap."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:eprRegistrationNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "EPR Registration Number"@en ;
+    rdfs:comment "Producer registration number issued by an EPR compliance scheme operator (e.g. Stiftung EAR for German WEEE, EcoEmballages for French packaging)."@en ;
+    rdfs:domain dpp:ExtendedProducerResponsibility ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:eprScheme
+    a owl:ObjectProperty ;
+    rdfs:label "EPR Scheme Operator"@en ;
+    rdfs:comment "The Producer Responsibility Organisation (PRO) or competent authority that operates the EPR scheme. Modelled as a gs1:Organization or untp:Party."@en ;
+    rdfs:domain dpp:ExtendedProducerResponsibility ;
+    rdfs:range gs1:Organization ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:eprJurisdiction
+    a owl:ObjectProperty ;
+    rdfs:label "EPR Jurisdiction"@en ;
+    rdfs:comment "The country / member state where this EPR registration applies. EPR schemes are organised per Member State; producers selling into multiple MS register in each."@en ;
+    rdfs:domain dpp:ExtendedProducerResponsibility ;
+    rdfs:range gs1:Country ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:eprComplianceUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "EPR Compliance URL"@en ;
+    rdfs:comment "URL of the EPR scheme operator's public verification endpoint or compliance certificate for this producer."@en ;
+    rdfs:domain dpp:ExtendedProducerResponsibility ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:eprWasteStream
+    a owl:DatatypeProperty ;
+    rdfs:label "EPR Waste Stream"@en ;
+    rdfs:comment "The waste stream the EPR registration covers: packaging, weee, batteries, vehicles, textiles, etc. Free-text token; controlled vocabulary may be added when EU publishes one."@en ;
+    rdfs:domain dpp:ExtendedProducerResponsibility ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:extendedProducerResponsibility
+    a owl:ObjectProperty ;
+    rdfs:label "Extended Producer Responsibility"@en ;
+    rdfs:comment "Links a product or operator to one or more EPR registrations covering it."@en ;
+    rdfs:range dpp:ExtendedProducerResponsibility ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# -----------------------------------------------------------------------------
+# Bio-based / Biodegradability / Compostability
+# -----------------------------------------------------------------------------
+# Three distinct concepts often conflated. Bio-based = origin (renewable feedstock).
+# Biodegradability = test result (microbial breakdown under conditions).
+# Compostability = certification against a standard (EN 13432 / OK-Compost-Home /
+# ASTM D6400) — a regulatory-recognised category, not a measurement.
+
+dpp:bioBasedFraction
+    a owl:DatatypeProperty ;
+    rdfs:label "Bio-based Fraction"@en ;
+    rdfs:comment "Mass fraction (0–1) of the product or material derived from renewable biological feedstock (rather than fossil-derived). Use unitCode 'P1' (UN/CEFACT Rec 20) when expressed via gs1:QuantitativeValue."@en ;
+    rdfs:range xsd:decimal ;
+    skos:note "Distinct from biodegradability (a separate test result) and compostability (a separate certification category)."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:Biodegradability
+    a owl:Class ;
+    rdfs:subClassOf schema:Observation ;
+    rdfs:label "Biodegradability"@en ;
+    rdfs:comment "An observed biodegradability result for a substance or material, typically per ISO 14593 / OECD 301B/D/F / OECD 310 test methods. Represents a measurement, not a regulatory category."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:biodegradationPercentage
+    a owl:DatatypeProperty ;
+    rdfs:label "Biodegradation Percentage"@en ;
+    rdfs:comment "Percentage of substance biodegraded under the test method conditions. Use unitCode 'P1' (UN/CEFACT Rec 20) when expressed via gs1:QuantitativeValue."@en ;
+    rdfs:domain dpp:Biodegradability ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:BiodegradabilityTestMethod
+    a owl:Class ;
+    rdfs:label "Biodegradability Test Method"@en ;
+    rdfs:comment "The standardised laboratory method used to assess biodegradability."@en ;
+    owl:oneOf (
+        dpp:ISO14593
+        dpp:OECD301B
+        dpp:OECD301D
+        dpp:OECD301F
+        dpp:OECD310
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:ISO14593  a dpp:BiodegradabilityTestMethod ; rdfs:label "ISO 14593 (CO2 evolution test)"@en .
+dpp:OECD301B  a dpp:BiodegradabilityTestMethod ; rdfs:label "OECD 301B (CO2 evolution test)"@en .
+dpp:OECD301D  a dpp:BiodegradabilityTestMethod ; rdfs:label "OECD 301D (closed bottle test)"@en .
+dpp:OECD301F  a dpp:BiodegradabilityTestMethod ; rdfs:label "OECD 301F (manometric respirometry)"@en .
+dpp:OECD310   a dpp:BiodegradabilityTestMethod ; rdfs:label "OECD 310 (sealed vessel CO2 evolution)"@en .
+
+dpp:biodegradabilityTestMethod
+    a owl:ObjectProperty ;
+    rdfs:label "Biodegradability Test Method"@en ;
+    rdfs:comment "The test method used to determine the biodegradability percentage."@en ;
+    rdfs:domain dpp:Biodegradability ;
+    rdfs:range dpp:BiodegradabilityTestMethod ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:Compostability
+    a owl:Class ;
+    rdfs:label "Compostability"@en ;
+    rdfs:comment "Compostability category and certification standard for a product or material. Distinct from biodegradability — compostability is a regulatory-recognised classification, not a continuous measurement."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:CompostabilityType
+    a owl:Class ;
+    rdfs:label "Compostability Type"@en ;
+    rdfs:comment "Classification of how a product can be composted."@en ;
+    owl:oneOf (
+        dpp:IndustrialCompostable
+        dpp:HomeCompostable
+        dpp:NotCompostable
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:IndustrialCompostable a dpp:CompostabilityType ; rdfs:label "Industrially Compostable"@en ;
+    rdfs:comment "Compostable in industrial composting facilities (typically per EN 13432)."@en .
+dpp:HomeCompostable       a dpp:CompostabilityType ; rdfs:label "Home Compostable"@en ;
+    rdfs:comment "Compostable in domestic composting conditions (typically per OK-Compost-Home / NF T 51-800)."@en .
+dpp:NotCompostable        a dpp:CompostabilityType ; rdfs:label "Not Compostable"@en .
+
+dpp:compostabilityType
+    a owl:ObjectProperty ;
+    rdfs:label "Compostability Type"@en ;
+    rdfs:domain dpp:Compostability ;
+    rdfs:range dpp:CompostabilityType ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:compostabilityStandard
+    a owl:DatatypeProperty ;
+    rdfs:label "Compostability Standard"@en ;
+    rdfs:comment "URI of the standard the compostability claim is certified against (e.g. EN 13432, OK-Compost-Home, ASTM D6400)."@en ;
+    rdfs:domain dpp:Compostability ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# -----------------------------------------------------------------------------
+# Deposit-Return Scheme (DRS)
+# -----------------------------------------------------------------------------
+
+dpp:DepositReturnScheme
+    a owl:Class ;
+    rdfs:label "Deposit-Return Scheme"@en ;
+    rdfs:comment "A deposit-return scheme that the product participates in (PPWR Article 13, beverage container DRS in DE/AT/NL/SE/etc., and any future EU-harmonised DRS)."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:depositAmount
+    a owl:ObjectProperty ;
+    rdfs:label "Deposit Amount"@en ;
+    rdfs:comment "Refundable deposit applied at point of sale. Modelled as gs1:QuantitativeValue with unitCode = ISO 4217 currency code (e.g. 'EUR')."@en ;
+    rdfs:domain dpp:DepositReturnScheme ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:depositSchemeOperator
+    a owl:ObjectProperty ;
+    rdfs:label "Deposit Scheme Operator"@en ;
+    rdfs:comment "The Producer Responsibility Organisation that operates the DRS (e.g. Pfand-System Deutschland for DE)."@en ;
+    rdfs:domain dpp:DepositReturnScheme ;
+    rdfs:range gs1:Organization ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:depositRedemptionChannelUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Deposit Redemption Channel URL"@en ;
+    rdfs:comment "URL of the public directory of redemption channels (where consumers can return the container for refund)."@en ;
+    rdfs:domain dpp:DepositReturnScheme ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:depositReturnScheme
+    a owl:ObjectProperty ;
+    rdfs:label "Deposit-Return Scheme"@en ;
+    rdfs:comment "Links a product (typically gs1:Packaging) to the DRS it participates in."@en ;
+    rdfs:range dpp:DepositReturnScheme ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# UNTP v0.7.0 alignment
+# =============================================================================
+# UN/CEFACT Transparency Protocol (UNTP) Core Vocabulary v0.7.0 publishes the
+# Party / Facility / Material / Claim / ConformityAttestation / ProductStatus /
+# ProductIDGranularity classes. Anchor our equivalent dpp: terms upward so
+# tooling can recognise our vocabulary as UNTP-aligned. UNTP v0.7.0 is in
+# formal public review (closes 2026-07-10); equivalences may evolve at v1.0.
+
+dpp:OperatorInformation owl:equivalentClass <https://vocabulary.uncefact.org/untp/0.7.0/Party> .
+dpp:FacilityInformation owl:equivalentClass <https://vocabulary.uncefact.org/untp/0.7.0/Facility> .
+dpp:GranularityLevel    owl:equivalentClass <https://vocabulary.uncefact.org/untp/0.7.0/ProductIDGranularity> .
+
+# =============================================================================
+# schema.org alignment — energy & measurement
+# =============================================================================
+# schema.org explicitly cites carbon-footprint-by-authority as a use case for
+# schema:hasMeasurement, and has dedicated EnergyConsumptionDetails / Certification
+# classes. Anchor our terms upward where the semantic match is clean.
