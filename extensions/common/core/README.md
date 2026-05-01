@@ -50,7 +50,7 @@ core/
 
 The core vocabulary uses the namespace: `https://ref.openepcis.io/extensions/common/core/`
 
-Browse the vocabulary at: [ref.openepcis.io/extensions/dpp/](https://ref.openepcis.io/extensions/common/core/)
+Browse the vocabulary at: [ref.openepcis.io/extensions/common/core/](https://ref.openepcis.io/extensions/common/core/)
 
 ## EPCIS 2.0 Extension Declaration
 

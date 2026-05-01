@@ -57,7 +57,7 @@ detergent/
 
 The Detergent vocabulary uses the namespace: `https://ref.openepcis.io/extensions/eu/detergent/`
 
-Browse the vocabulary at: [ref.openepcis.io/extensions/detergent/](https://ref.openepcis.io/extensions/eu/detergent/)
+Browse the vocabulary at: [ref.openepcis.io/extensions/eu/detergent/](https://ref.openepcis.io/extensions/eu/detergent/)
 
 ## Key Concepts
 

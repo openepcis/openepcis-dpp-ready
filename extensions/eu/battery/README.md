@@ -237,7 +237,7 @@ battery/
 
 The battery vocabulary uses the namespace: `https://ref.openepcis.io/extensions/eu/battery/`
 
-Browse the vocabulary at: [ref.openepcis.io/extensions/battery/](https://ref.openepcis.io/extensions/eu/battery/)
+Browse the vocabulary at: [ref.openepcis.io/extensions/eu/battery/](https://ref.openepcis.io/extensions/eu/battery/)
 
 ## Context Flexibility
 
@@ -252,15 +252,15 @@ Same data, different semantic views:
 
 ```json
 // Supply chain systems use default context
-{ "@context": "https://ref.openepcis.io/extensions/eu/battery/context.jsonld" }
+{ "@context": "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld" }
 
 // Scientific systems use enriched context
-{ "@context": "https://ref.openepcis.io/extensions/eu/battery/context-scientific.jsonld" }
+{ "@context": "https://ref.openepcis.io/extensions/eu/battery/battery-context-scientific.jsonld" }
 
 // Interpret BatteryPass/SAMM data using OpenEPCIS vocabulary
 { "@context": [
     "urn:samm:io.BatteryPass.GeneralProductInformation:1.3.0#",
-    "https://ref.openepcis.io/extensions/eu/battery/context-batterypass-bridge.jsonld"
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context-batterypass-bridge.jsonld"
   ]
 }
 ```
