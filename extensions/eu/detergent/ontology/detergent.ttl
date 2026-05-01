@@ -588,3 +588,22 @@ detergent:endProductCharacteristics
     rdfs:domain detergent:MicroorganismInfo ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
+
+# =============================================================================
+# Cross-cutting alignment to dpp: (Phase 2 lift)
+# =============================================================================
+
+# CLP signal-word and pictogram terms align to the lifted dpp: equivalents on
+# dpp:HazardousSubstance.
+detergent:SignalWord            owl:equivalentClass    dpp:HazardSignalWord .
+detergent:Danger                owl:equivalentClass    dpp:HazardDanger .
+detergent:Warning               owl:equivalentClass    dpp:HazardWarning .
+detergent:signalWord            owl:equivalentProperty dpp:hazardSignalWord .
+detergent:hazardPictograms      owl:equivalentProperty dpp:hazardPictogramCode .
+detergent:hStatements           owl:equivalentProperty dpp:hazardStatement .
+detergent:pStatements           owl:equivalentProperty dpp:precautionaryStatement .
+
+# Biodegradability test result aligns to the lifted dpp:Biodegradability.
+detergent:SurfactantBiodegradability rdfs:subClassOf       dpp:Biodegradability .
+detergent:biodegradationPercentage   owl:equivalentProperty dpp:biodegradationPercentage .
+detergent:biodegradabilityTestMethod owl:equivalentProperty dpp:biodegradabilityTestMethod .

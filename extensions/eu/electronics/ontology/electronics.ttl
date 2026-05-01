@@ -1153,3 +1153,23 @@ electronics:materialDeclarationDate
     rdfs:comment "Date of the material declaration."@en ;
     rdfs:range xsd:date ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+
+# =============================================================================
+# Cross-cutting alignment to dpp: (Phase 2 lift)
+# =============================================================================
+# Anchor electronics-specific cross-cutting concepts upward to the lifted
+# dpp: terms (which themselves anchor up to UNTP / schema.org).
+
+electronics:WEEECompliance        rdfs:subClassOf       dpp:ExtendedProducerResponsibility .
+electronics:weeeRegistrationNumber  owl:equivalentProperty dpp:eprRegistrationNumber .
+electronics:weeeRegistrationCountry owl:equivalentProperty dpp:eprJurisdiction .
+electronics:collectionSchemeUrl     owl:equivalentProperty dpp:eprComplianceUrl .
+
+electronics:EnergyEfficiency        rdfs:subClassOf       dpp:EnergyEfficiency .
+electronics:energyEfficiencyClass   owl:equivalentProperty dpp:energyEfficiencyClass .
+electronics:annualEnergyConsumption owl:equivalentProperty dpp:annualEnergyConsumption .
+electronics:powerConsumptionOn      owl:equivalentProperty dpp:powerConsumptionOn .
+electronics:powerConsumptionStandby owl:equivalentProperty dpp:powerConsumptionStandby .
+electronics:powerConsumptionOff     owl:equivalentProperty dpp:powerConsumptionOff .
+electronics:eprelRegistrationNumber owl:equivalentProperty dpp:eprelRegistrationNumber .
+electronics:eprelProductUrl         owl:equivalentProperty dpp:eprelProductUrl .

@@ -80,6 +80,8 @@ interface TermData {
   range?: string[];
   seeAlso?: string[];
   subClassOf?: string[];
+  equivalentClass?: string[];
+  equivalentProperty?: string[];
   source?: string;
   deprecated?: boolean;
 }
@@ -228,6 +230,8 @@ function extractTermData(store: Store, subject: string, namespace: string): Term
   const range = toPrefixedForms(getObjectValues(store, subject, `${RDFS}range`));
   const seeAlso = getObjectValues(store, subject, `${RDFS}seeAlso`);
   const subClassOf = toPrefixedForms(getObjectValues(store, subject, `${RDFS}subClassOf`));
+  const equivalentClass = toPrefixedForms(getObjectValues(store, subject, `${OWL}equivalentClass`));
+  const equivalentProperty = toPrefixedForms(getObjectValues(store, subject, `${OWL}equivalentProperty`));
   const source = getObjectValue(store, subject, `${DCTERMS}source`);
   const deprecated = getObjectValue(store, subject, `${OWL}deprecated`) === "true";
 
@@ -240,6 +244,8 @@ function extractTermData(store: Store, subject: string, namespace: string): Term
     ...(range.length > 0 && { range }),
     ...(seeAlso.length > 0 && { seeAlso }),
     ...(subClassOf.length > 0 && { subClassOf }),
+    ...(equivalentClass.length > 0 && { equivalentClass }),
+    ...(equivalentProperty.length > 0 && { equivalentProperty }),
     ...(source && { source }),
     ...(deprecated && { deprecated }),
   };

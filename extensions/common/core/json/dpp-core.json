@@ -21,12 +21,24 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration",
+      "localName": "CarbonFootprintDeclaration",
+      "label": "Carbon Footprint Declaration",
+      "comment": "An observation of a product's lifecycle carbon footprint, broken down by lifecycle stage. Used for EU Battery Annex II §8, ESPR carbon-footprint declarations, PEF reporting, and PPWR optional disclosures.",
+      "subClassOf": [
+        "https://schema.org/Observation"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
       "localName": "CircularityPerformance",
       "label": "Circularity Performance",
       "comment": "Information supporting circular economy requirements including\nend-of-life handling, recycling, waste prevention, and circularity metrics.\nAligned with UNTP CircularityPerformance pattern.",
       "seeAlso": [
         "https://ref.gs1.org/voc/consumerRecyclingInstructions",
+        "https://test.uncefact.org/vocabulary/untp/core/CircularityPerformance"
+      ],
+      "equivalentClass": [
         "https://test.uncefact.org/vocabulary/untp/core/CircularityPerformance"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -50,6 +62,9 @@
       "comment": "Reference to an external document such as reports, certificates,\nmanuals, or guides. Supports multiple languages and formats.\nSee also gs1:ReferencedFileDetails for GS1 Web Vocabulary equivalent.",
       "seeAlso": [
         "https://ref.gs1.org/voc/ReferencedFileDetails"
+      ],
+      "equivalentClass": [
+        "https://ref.gs1.org/voc/ReferencedFileDetails"
       ]
     },
     {
@@ -68,7 +83,25 @@
         "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf",
         "https://test.uncefact.org/vocabulary/untp/core/EmissionsPerformance"
       ],
+      "equivalentClass": [
+        "https://test.uncefact.org/vocabulary/untp/core/EmissionsPerformance"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/EndOfLifeProgram",
+      "localName": "EndOfLifeProgram",
+      "label": "End-of-Life Program",
+      "comment": "A take-back / collection / dismantling program operating across PPWR, WEEE, Battery, Textile take-back, and ELV. Distinct from EPR registration: EPR is the producer's compliance registration; this is the consumer-facing program with collection points, refunds, and dismantling guides."
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency",
+      "localName": "EnergyEfficiency",
+      "label": "Energy Efficiency",
+      "comment": "A product's energy efficiency declaration: A–G class, EPREL registration, consumption modes.",
+      "equivalentClass": [
+        "https://schema.org/EnergyConsumptionDetails"
+      ]
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility",
@@ -88,6 +121,10 @@
       ],
       "subClassOf": [
         "https://ref.gs1.org/voc/Place"
+      ],
+      "equivalentClass": [
+        "https://test.uncefact.org/vocabulary/untp/core/Facility",
+        "https://vocabulary.uncefact.org/untp/0.7.0/Facility"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -134,6 +171,9 @@
       "subClassOf": [
         "https://ref.gs1.org/voc/Organization"
       ],
+      "equivalentClass": [
+        "https://vocabulary.uncefact.org/untp/0.7.0/Party"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32019R1020"
     },
     {
@@ -145,6 +185,15 @@
         "https://ref.gs1.org/voc/warranty"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment",
+      "localName": "RecyclabilityAssessment",
+      "label": "Recyclability Assessment",
+      "comment": "An assessment of a product's recyclability. Different regulations express the same concept differently: PPWR uses letter grades A/B/C, the JRC textile methodology uses a 0–10 score, electronics WEEE uses a 0–1 rate. All three are optional; pick whichever your regulation requires.",
+      "subClassOf": [
+        "https://schema.org/Observation"
+      ]
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/RecycledContent",
@@ -226,6 +275,18 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/annualEnergyConsumption",
+      "localName": "annualEnergyConsumption",
+      "label": "Annual Energy Consumption",
+      "comment": "Annual energy consumption. gs1:QuantitativeValue with unitCode 'KWH'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/authorizedParties",
       "localName": "authorizedParties",
       "label": "Authorized Parties",
@@ -285,6 +346,75 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintDeclaration",
+      "localName": "carbonFootprintDeclaration",
+      "label": "Carbon Footprint Declaration",
+      "comment": "Links a product to its carbon footprint declaration.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintDistribution",
+      "localName": "carbonFootprintDistribution",
+      "label": "Carbon Footprint — Distribution",
+      "comment": "Lifecycle stage emissions from distribution and logistics. gs1:QuantitativeValue with unitCode 'KGM'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintEndOfLife",
+      "localName": "carbonFootprintEndOfLife",
+      "label": "Carbon Footprint — End of Life",
+      "comment": "Lifecycle stage emissions from end-of-life and recycling. gs1:QuantitativeValue with unitCode 'KGM'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintMethodology",
+      "localName": "carbonFootprintMethodology",
+      "label": "Carbon Footprint Methodology",
+      "comment": "URI of the methodology used (e.g. EN 45552, ISO 14067, PEF, GHG Protocol).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintProduction",
+      "localName": "carbonFootprintProduction",
+      "label": "Carbon Footprint — Production",
+      "comment": "Lifecycle stage emissions from main product production. gs1:QuantitativeValue with unitCode 'KGM'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintRawMaterial",
+      "localName": "carbonFootprintRawMaterial",
+      "label": "Carbon Footprint — Raw Material Acquisition",
+      "comment": "Lifecycle stage emissions from raw-material acquisition and pre-processing. gs1:QuantitativeValue with unitCode 'KGM' (kg CO2e) and dpp:declaredFunctionalUnit set on the parent CarbonFootprintDeclaration.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintStudyUrl",
       "localName": "carbonFootprintStudyUrl",
       "label": "Carbon Footprint Study URL",
@@ -308,7 +438,22 @@
         "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf",
         "https://test.uncefact.org/vocabulary/untp/core/carbonFootprint"
       ],
+      "equivalentProperty": [
+        "https://test.uncefact.org/vocabulary/untp/core/carbonFootprint"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintUse",
+      "localName": "carbonFootprintUse",
+      "label": "Carbon Footprint — Use Phase",
+      "comment": "Lifecycle stage emissions from product use. gs1:QuantitativeValue with unitCode 'KGM'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/casNumber",
@@ -332,6 +477,21 @@
       ],
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/core/circularityPerformance"
+      ],
+      "equivalentProperty": [
+        "https://test.uncefact.org/vocabulary/untp/core/circularityPerformance"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/collectionPointDirectoryUrl",
+      "localName": "collectionPointDirectoryUrl",
+      "label": "Collection Point Directory URL",
+      "comment": "URL of a directory of physical collection points.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EndOfLifeProgram"
+      ],
+      "range": [
+        "xsd:anyURI"
       ]
     },
     {
@@ -453,6 +613,9 @@
       ],
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/core/declaredUnit"
+      ],
+      "equivalentProperty": [
+        "https://test.uncefact.org/vocabulary/untp/core/declaredUnit"
       ]
     },
     {
@@ -511,6 +674,18 @@
       "seeAlso": [
         "https://www.w3.org/TR/did-core/",
         "https://uncefact.github.io/spec-untp/docs/specification/DigitalIdentityAnchor/"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/dismantlingGuideUrl",
+      "localName": "dismantlingGuideUrl",
+      "label": "Dismantling Guide URL",
+      "comment": "URL of the public dismantling / repair guide for end-of-life processors.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EndOfLifeProgram"
+      ],
+      "range": [
+        "xsd:anyURI"
       ]
     },
     {
@@ -635,6 +810,36 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/endOfLifeProgram",
+      "localName": "endOfLifeProgram",
+      "label": "End-of-Life Program",
+      "comment": "",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/EndOfLifeProgram"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/energyEfficiency",
+      "localName": "energyEfficiency",
+      "label": "Energy Efficiency",
+      "comment": "",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/energyEfficiencyClass",
+      "localName": "energyEfficiencyClass",
+      "label": "Energy Efficiency Class",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiencyClass"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/eoriNumber",
       "localName": "eoriNumber",
       "label": "EORI Number",
@@ -656,6 +861,30 @@
       ],
       "range": [
         "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/eprelProductUrl",
+      "localName": "eprelProductUrl",
+      "label": "EPREL Product URL",
+      "comment": "URL of the product's EPREL public page.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/eprelRegistrationNumber",
+      "localName": "eprelRegistrationNumber",
+      "label": "EPREL Registration Number",
+      "comment": "EU EPREL (European Product Registry for Energy Labelling) registration number.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
+      ],
+      "range": [
+        "xsd:string"
       ]
     },
     {
@@ -783,6 +1012,9 @@
       ],
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/dpp/granularityLevel"
+      ],
+      "equivalentProperty": [
+        "https://test.uncefact.org/vocabulary/untp/dpp/granularityLevel"
       ]
     },
     {
@@ -828,6 +1060,42 @@
       "comment": "Hazardous substances present in the product.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hazardPictogramCode",
+      "localName": "hazardPictogramCode",
+      "label": "Hazard Pictogram Code",
+      "comment": "CLP/GHS pictogram code (GHS01..GHS09). Set-valued — a substance can carry multiple pictograms.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hazardSignalWord",
+      "localName": "hazardSignalWord",
+      "label": "Hazard Signal Word",
+      "comment": "CLP Regulation 1272/2008 signal word — Danger or Warning.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/HazardSignalWord"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hazardStatement",
+      "localName": "hazardStatement",
+      "label": "Hazard Statement (H-statement)",
+      "comment": "CLP H-statement code (e.g. H315, H319). Set-valued — a substance can carry multiple H-statements.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
+      "range": [
+        "xsd:string"
       ]
     },
     {
@@ -926,6 +1194,9 @@
       ],
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/core/massFraction"
+      ],
+      "equivalentProperty": [
+        "https://test.uncefact.org/vocabulary/untp/core/massFraction"
       ]
     },
     {
@@ -940,6 +1211,9 @@
         "xsd:decimal"
       ],
       "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/core/materialCircularityIndicator"
+      ],
+      "equivalentProperty": [
         "https://test.uncefact.org/vocabulary/untp/core/materialCircularityIndicator"
       ],
       "source": "https://ellenmacarthurfoundation.org/material-circularity-indicator"
@@ -977,6 +1251,9 @@
         "https://ref.openepcis.io/extensions/common/core/OperationalScope"
       ],
       "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/core/operationalScope"
+      ],
+      "equivalentProperty": [
         "https://test.uncefact.org/vocabulary/untp/core/operationalScope"
       ]
     },
@@ -1102,6 +1379,54 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/powerConsumptionOff",
+      "localName": "powerConsumptionOff",
+      "label": "Power Consumption — Off Mode",
+      "comment": "Power consumed in off mode. gs1:QuantitativeValue with unitCode 'WTT'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/powerConsumptionOn",
+      "localName": "powerConsumptionOn",
+      "label": "Power Consumption — On Mode",
+      "comment": "Power consumed in active operating mode. gs1:QuantitativeValue with unitCode 'WTT'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/powerConsumptionStandby",
+      "localName": "powerConsumptionStandby",
+      "label": "Power Consumption — Standby Mode",
+      "comment": "Power consumed in standby. gs1:QuantitativeValue with unitCode 'WTT'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/precautionaryStatement",
+      "localName": "precautionaryStatement",
+      "label": "Precautionary Statement (P-statement)",
+      "comment": "CLP P-statement code (e.g. P101, P280). Set-valued.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/preConsumerRecycledContent",
       "localName": "preConsumerRecycledContent",
       "label": "Pre-Consumer Recycled Content",
@@ -1136,6 +1461,9 @@
       ],
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/core/primarySourcedRatio"
+      ],
+      "equivalentProperty": [
+        "https://test.uncefact.org/vocabulary/untp/core/primarySourcedRatio"
       ]
     },
     {
@@ -1160,6 +1488,51 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/recyclabilityAssessment",
+      "localName": "recyclabilityAssessment",
+      "label": "Recyclability Assessment",
+      "comment": "Links a product to its recyclability assessment.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/recyclabilityMethodology",
+      "localName": "recyclabilityMethodology",
+      "label": "Recyclability Methodology",
+      "comment": "URI of the recyclability methodology used (e.g. PEF, EN 15343, JRC textile preparatory study, PPWR Annex II).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/recyclabilityRate",
+      "localName": "recyclabilityRate",
+      "label": "Recyclability Rate",
+      "comment": "Decimal fraction (0–1) of the product that can be recycled. Aligns with untp:recyclableContent.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/recyclabilityScore",
+      "localName": "recyclabilityScore",
+      "label": "Recyclability Score",
+      "comment": "Numeric recyclability score (e.g. 0–10 per JRC textile methodology). Use unitCode aligned with the methodology when expressed via gs1:QuantitativeValue.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/recyclableContent",
       "localName": "recyclableContent",
       "label": "Recyclable Content",
@@ -1171,6 +1544,9 @@
         "xsd:decimal"
       ],
       "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/core/recyclableContent"
+      ],
+      "equivalentProperty": [
         "https://test.uncefact.org/vocabulary/untp/core/recyclableContent"
       ]
     },
@@ -1186,6 +1562,9 @@
         "xsd:decimal"
       ],
       "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/core/recycledContent"
+      ],
+      "equivalentProperty": [
         "https://test.uncefact.org/vocabulary/untp/core/recycledContent"
       ]
     },
@@ -1376,6 +1755,30 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/takeBackIncentive",
+      "localName": "takeBackIncentive",
+      "label": "Take-Back Incentive",
+      "comment": "Free-text description of any consumer incentive (refund, credit, replacement).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EndOfLifeProgram"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/takeBackUrl",
+      "localName": "takeBackUrl",
+      "label": "Take-Back URL",
+      "comment": "URL of the consumer-facing take-back program landing page.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EndOfLifeProgram"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/technicalLifetime",
       "localName": "technicalLifetime",
       "label": "Technical Lifetime",
@@ -1504,6 +1907,9 @@
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/core/utilityFactor"
       ],
+      "equivalentProperty": [
+        "https://test.uncefact.org/vocabulary/untp/core/utilityFactor"
+      ],
       "source": "https://uncefact.github.io/spec-untp/"
     },
     {
@@ -1530,6 +1936,9 @@
         "xsd:decimal"
       ],
       "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/core/verifiedRatio"
+      ],
+      "equivalentProperty": [
         "https://test.uncefact.org/vocabulary/untp/core/verifiedRatio"
       ]
     },
@@ -1767,6 +2176,56 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/EnergyEfficiencyClass",
+      "localName": "EnergyEfficiencyClass",
+      "label": "Energy Efficiency Class",
+      "comment": "A–G classification per EU Energy Labelling Regulation 2017/1369 and downstream delegated acts.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/EnergyClassA",
+          "localName": "EnergyClassA",
+          "label": "Class A",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/EnergyClassB",
+          "localName": "EnergyClassB",
+          "label": "Class B",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/EnergyClassC",
+          "localName": "EnergyClassC",
+          "label": "Class C",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/EnergyClassD",
+          "localName": "EnergyClassD",
+          "label": "Class D",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/EnergyClassE",
+          "localName": "EnergyClassE",
+          "label": "Class E",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/EnergyClassF",
+          "localName": "EnergyClassF",
+          "label": "Class F",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/EnergyClassG",
+          "localName": "EnergyClassG",
+          "label": "Class G",
+          "comment": ""
+        }
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/GranularityLevel",
       "localName": "GranularityLevel",
       "label": "Granularity Level",
@@ -1857,6 +2316,26 @@
           "localName": "SpecificTargetOrganToxicity",
           "label": "Specific Target Organ Toxicity",
           "comment": "Substances causing non-lethal damage to specific organs after single or repeated exposure."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/HazardSignalWord",
+      "localName": "HazardSignalWord",
+      "label": "Hazard Signal Word",
+      "comment": "CLP Regulation signal word — Danger or Warning.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/HazardDanger",
+          "localName": "HazardDanger",
+          "label": "Danger",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/HazardWarning",
+          "localName": "HazardWarning",
+          "label": "Warning",
+          "comment": ""
         }
       ]
     },

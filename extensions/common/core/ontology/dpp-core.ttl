@@ -1758,3 +1758,320 @@ dpp:GranularityLevel    owl:equivalentClass <https://vocabulary.uncefact.org/unt
 # schema.org explicitly cites carbon-footprint-by-authority as a use case for
 # schema:hasMeasurement, and has dedicated EnergyConsumptionDetails / Certification
 # classes. Anchor our terms upward where the semantic match is clean.
+
+# =============================================================================
+# Phase 2 lifts — additional cross-cutting concepts
+# =============================================================================
+# These classes formerly lived in module namespaces (battery:, textile:,
+# electronics:, detergent:) where they were redundantly redefined. Lifted
+# to dpp: so every module reuses the same shape.
+
+# -----------------------------------------------------------------------------
+# Carbon Footprint Declaration with lifecycle stages
+# (formerly battery:CarbonFootprintDeclaration; same shape applies to textile,
+#  electronics, ppwr, future Furniture-DA; aligns with EN 45552 / PEF /
+#  ISO 14067)
+# -----------------------------------------------------------------------------
+
+dpp:CarbonFootprintDeclaration
+    a owl:Class ;
+    rdfs:subClassOf schema:Observation ;
+    rdfs:label "Carbon Footprint Declaration"@en ;
+    rdfs:comment "An observation of a product's lifecycle carbon footprint, broken down by lifecycle stage. Used for EU Battery Annex II §8, ESPR carbon-footprint declarations, PEF reporting, and PPWR optional disclosures."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:carbonFootprintRawMaterial
+    a owl:ObjectProperty ;
+    rdfs:label "Carbon Footprint — Raw Material Acquisition"@en ;
+    rdfs:comment "Lifecycle stage emissions from raw-material acquisition and pre-processing. gs1:QuantitativeValue with unitCode 'KGM' (kg CO2e) and dpp:declaredFunctionalUnit set on the parent CarbonFootprintDeclaration."@en ;
+    rdfs:domain dpp:CarbonFootprintDeclaration ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:carbonFootprintProduction
+    a owl:ObjectProperty ;
+    rdfs:label "Carbon Footprint — Production"@en ;
+    rdfs:comment "Lifecycle stage emissions from main product production. gs1:QuantitativeValue with unitCode 'KGM'."@en ;
+    rdfs:domain dpp:CarbonFootprintDeclaration ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:carbonFootprintDistribution
+    a owl:ObjectProperty ;
+    rdfs:label "Carbon Footprint — Distribution"@en ;
+    rdfs:comment "Lifecycle stage emissions from distribution and logistics. gs1:QuantitativeValue with unitCode 'KGM'."@en ;
+    rdfs:domain dpp:CarbonFootprintDeclaration ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:carbonFootprintUse
+    a owl:ObjectProperty ;
+    rdfs:label "Carbon Footprint — Use Phase"@en ;
+    rdfs:comment "Lifecycle stage emissions from product use. gs1:QuantitativeValue with unitCode 'KGM'."@en ;
+    rdfs:domain dpp:CarbonFootprintDeclaration ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:carbonFootprintEndOfLife
+    a owl:ObjectProperty ;
+    rdfs:label "Carbon Footprint — End of Life"@en ;
+    rdfs:comment "Lifecycle stage emissions from end-of-life and recycling. gs1:QuantitativeValue with unitCode 'KGM'."@en ;
+    rdfs:domain dpp:CarbonFootprintDeclaration ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:carbonFootprintMethodology
+    a owl:DatatypeProperty ;
+    rdfs:label "Carbon Footprint Methodology"@en ;
+    rdfs:comment "URI of the methodology used (e.g. EN 45552, ISO 14067, PEF, GHG Protocol)."@en ;
+    rdfs:domain dpp:CarbonFootprintDeclaration ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:carbonFootprintDeclaration
+    a owl:ObjectProperty ;
+    rdfs:label "Carbon Footprint Declaration"@en ;
+    rdfs:comment "Links a product to its carbon footprint declaration."@en ;
+    rdfs:range dpp:CarbonFootprintDeclaration ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# -----------------------------------------------------------------------------
+# Recyclability Assessment
+# (formerly textile:RecyclabilityAssessment; PPWR uses recyclabilityGrade letter,
+#  textile uses score, electronics uses rate — keep all three optional)
+# -----------------------------------------------------------------------------
+
+dpp:RecyclabilityAssessment
+    a owl:Class ;
+    rdfs:subClassOf schema:Observation ;
+    rdfs:label "Recyclability Assessment"@en ;
+    rdfs:comment "An assessment of a product's recyclability. Different regulations express the same concept differently: PPWR uses letter grades A/B/C, the JRC textile methodology uses a 0–10 score, electronics WEEE uses a 0–1 rate. All three are optional; pick whichever your regulation requires."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:recyclabilityScore
+    a owl:DatatypeProperty ;
+    rdfs:label "Recyclability Score"@en ;
+    rdfs:comment "Numeric recyclability score (e.g. 0–10 per JRC textile methodology). Use unitCode aligned with the methodology when expressed via gs1:QuantitativeValue."@en ;
+    rdfs:domain dpp:RecyclabilityAssessment ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:recyclabilityRate
+    a owl:DatatypeProperty ;
+    rdfs:label "Recyclability Rate"@en ;
+    rdfs:comment "Decimal fraction (0–1) of the product that can be recycled. Aligns with untp:recyclableContent."@en ;
+    rdfs:domain dpp:RecyclabilityAssessment ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:recyclabilityMethodology
+    a owl:DatatypeProperty ;
+    rdfs:label "Recyclability Methodology"@en ;
+    rdfs:comment "URI of the recyclability methodology used (e.g. PEF, EN 15343, JRC textile preparatory study, PPWR Annex II)."@en ;
+    rdfs:domain dpp:RecyclabilityAssessment ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:recyclabilityAssessment
+    a owl:ObjectProperty ;
+    rdfs:label "Recyclability Assessment"@en ;
+    rdfs:comment "Links a product to its recyclability assessment."@en ;
+    rdfs:range dpp:RecyclabilityAssessment ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# -----------------------------------------------------------------------------
+# Energy Efficiency
+# (formerly electronics:EnergyEfficiency; aligns with schema:EnergyConsumptionDetails;
+#  used by ESPR Electronics, future Furniture-DA, HVAC, Tyres-DA)
+# -----------------------------------------------------------------------------
+
+dpp:EnergyEfficiency
+    a owl:Class ;
+    rdfs:label "Energy Efficiency"@en ;
+    rdfs:comment "A product's energy efficiency declaration: A–G class, EPREL registration, consumption modes."@en ;
+    owl:equivalentClass schema:EnergyConsumptionDetails ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:EnergyEfficiencyClass
+    a owl:Class ;
+    rdfs:label "Energy Efficiency Class"@en ;
+    rdfs:comment "A–G classification per EU Energy Labelling Regulation 2017/1369 and downstream delegated acts."@en ;
+    owl:oneOf (
+        dpp:EnergyClassA
+        dpp:EnergyClassB
+        dpp:EnergyClassC
+        dpp:EnergyClassD
+        dpp:EnergyClassE
+        dpp:EnergyClassF
+        dpp:EnergyClassG
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:EnergyClassA a dpp:EnergyEfficiencyClass ; rdfs:label "Class A"@en ; skos:notation "A" .
+dpp:EnergyClassB a dpp:EnergyEfficiencyClass ; rdfs:label "Class B"@en ; skos:notation "B" .
+dpp:EnergyClassC a dpp:EnergyEfficiencyClass ; rdfs:label "Class C"@en ; skos:notation "C" .
+dpp:EnergyClassD a dpp:EnergyEfficiencyClass ; rdfs:label "Class D"@en ; skos:notation "D" .
+dpp:EnergyClassE a dpp:EnergyEfficiencyClass ; rdfs:label "Class E"@en ; skos:notation "E" .
+dpp:EnergyClassF a dpp:EnergyEfficiencyClass ; rdfs:label "Class F"@en ; skos:notation "F" .
+dpp:EnergyClassG a dpp:EnergyEfficiencyClass ; rdfs:label "Class G"@en ; skos:notation "G" .
+
+dpp:energyEfficiencyClass
+    a owl:ObjectProperty ;
+    rdfs:label "Energy Efficiency Class"@en ;
+    rdfs:domain dpp:EnergyEfficiency ;
+    rdfs:range dpp:EnergyEfficiencyClass ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:annualEnergyConsumption
+    a owl:ObjectProperty ;
+    rdfs:label "Annual Energy Consumption"@en ;
+    rdfs:comment "Annual energy consumption. gs1:QuantitativeValue with unitCode 'KWH'."@en ;
+    rdfs:domain dpp:EnergyEfficiency ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:powerConsumptionOn
+    a owl:ObjectProperty ;
+    rdfs:label "Power Consumption — On Mode"@en ;
+    rdfs:comment "Power consumed in active operating mode. gs1:QuantitativeValue with unitCode 'WTT'."@en ;
+    rdfs:domain dpp:EnergyEfficiency ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:powerConsumptionStandby
+    a owl:ObjectProperty ;
+    rdfs:label "Power Consumption — Standby Mode"@en ;
+    rdfs:comment "Power consumed in standby. gs1:QuantitativeValue with unitCode 'WTT'."@en ;
+    rdfs:domain dpp:EnergyEfficiency ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:powerConsumptionOff
+    a owl:ObjectProperty ;
+    rdfs:label "Power Consumption — Off Mode"@en ;
+    rdfs:comment "Power consumed in off mode. gs1:QuantitativeValue with unitCode 'WTT'."@en ;
+    rdfs:domain dpp:EnergyEfficiency ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:eprelRegistrationNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "EPREL Registration Number"@en ;
+    rdfs:comment "EU EPREL (European Product Registry for Energy Labelling) registration number."@en ;
+    rdfs:domain dpp:EnergyEfficiency ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:eprelProductUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "EPREL Product URL"@en ;
+    rdfs:comment "URL of the product's EPREL public page."@en ;
+    rdfs:domain dpp:EnergyEfficiency ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:energyEfficiency
+    a owl:ObjectProperty ;
+    rdfs:label "Energy Efficiency"@en ;
+    rdfs:range dpp:EnergyEfficiency ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# -----------------------------------------------------------------------------
+# End-of-Life Program
+# (formerly textile:takeBackProgram + electronics:collectionSchemeUrl + battery:endOfLifeInfo)
+# -----------------------------------------------------------------------------
+
+dpp:EndOfLifeProgram
+    a owl:Class ;
+    rdfs:label "End-of-Life Program"@en ;
+    rdfs:comment "A take-back / collection / dismantling program operating across PPWR, WEEE, Battery, Textile take-back, and ELV. Distinct from EPR registration: EPR is the producer's compliance registration; this is the consumer-facing program with collection points, refunds, and dismantling guides."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:takeBackUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Take-Back URL"@en ;
+    rdfs:comment "URL of the consumer-facing take-back program landing page."@en ;
+    rdfs:domain dpp:EndOfLifeProgram ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:takeBackIncentive
+    a owl:DatatypeProperty ;
+    rdfs:label "Take-Back Incentive"@en ;
+    rdfs:comment "Free-text description of any consumer incentive (refund, credit, replacement)."@en ;
+    rdfs:domain dpp:EndOfLifeProgram ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:collectionPointDirectoryUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Collection Point Directory URL"@en ;
+    rdfs:comment "URL of a directory of physical collection points."@en ;
+    rdfs:domain dpp:EndOfLifeProgram ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:dismantlingGuideUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Dismantling Guide URL"@en ;
+    rdfs:comment "URL of the public dismantling / repair guide for end-of-life processors."@en ;
+    rdfs:domain dpp:EndOfLifeProgram ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:endOfLifeProgram
+    a owl:ObjectProperty ;
+    rdfs:label "End-of-Life Program"@en ;
+    rdfs:range dpp:EndOfLifeProgram ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# -----------------------------------------------------------------------------
+# CLP / GHS hazard communication enrichments on dpp:HazardousSubstance
+# (formerly detergent:SignalWord, detergent:hazardPictograms, detergent:hStatements,
+#  detergent:pStatements; CLP Regulation 1272/2008)
+# -----------------------------------------------------------------------------
+
+dpp:HazardSignalWord
+    a owl:Class ;
+    rdfs:label "Hazard Signal Word"@en ;
+    rdfs:comment "CLP Regulation signal word — Danger or Warning."@en ;
+    owl:oneOf (
+        dpp:HazardDanger
+        dpp:HazardWarning
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:HazardDanger  a dpp:HazardSignalWord ; rdfs:label "Danger"@en ; skos:notation "Danger" .
+dpp:HazardWarning a dpp:HazardSignalWord ; rdfs:label "Warning"@en ; skos:notation "Warning" .
+
+dpp:hazardSignalWord
+    a owl:ObjectProperty ;
+    rdfs:label "Hazard Signal Word"@en ;
+    rdfs:comment "CLP Regulation 1272/2008 signal word — Danger or Warning."@en ;
+    rdfs:domain dpp:HazardousSubstance ;
+    rdfs:range dpp:HazardSignalWord ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:hazardPictogramCode
+    a owl:DatatypeProperty ;
+    rdfs:label "Hazard Pictogram Code"@en ;
+    rdfs:comment "CLP/GHS pictogram code (GHS01..GHS09). Set-valued — a substance can carry multiple pictograms."@en ;
+    rdfs:domain dpp:HazardousSubstance ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:hazardStatement
+    a owl:DatatypeProperty ;
+    rdfs:label "Hazard Statement (H-statement)"@en ;
+    rdfs:comment "CLP H-statement code (e.g. H315, H319). Set-valued — a substance can carry multiple H-statements."@en ;
+    rdfs:domain dpp:HazardousSubstance ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:precautionaryStatement
+    a owl:DatatypeProperty ;
+    rdfs:label "Precautionary Statement (P-statement)"@en ;
+    rdfs:comment "CLP P-statement code (e.g. P101, P280). Set-valued."@en ;
+    rdfs:domain dpp:HazardousSubstance ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
