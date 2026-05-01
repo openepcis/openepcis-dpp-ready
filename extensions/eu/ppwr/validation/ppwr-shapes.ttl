@@ -1,0 +1,38 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix ppwr: <https://ref.openepcis.io/extensions/eu/ppwr/> .
+@prefix ppwr-sh: <https://ref.openepcis.io/extensions/eu/ppwr/shapes/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<https://ref.openepcis.io/extensions/eu/ppwr/shapes/>
+    a sh:ShapesGraph ;
+    dcterms:title "OpenEPCIS PPWR SHACL Shapes"@en ;
+    dcterms:description "SHACL validation shapes for the PPWR vocabulary (EU Regulation 2025/40)."@en ;
+    dcterms:created "2026-05-01"^^xsd:date ;
+    dcterms:modified "2026-05-01"^^xsd:date .
+
+ppwr-sh:PackagingShape
+    a sh:NodeShape ;
+    sh:targetClass ppwr:Packaging ;
+    rdfs:label "PPWR Packaging Shape"@en ;
+    sh:property [
+        sh:path ppwr:packagingTier ;
+        sh:in ( ppwr:Sales ppwr:Grouped ppwr:Transport ) ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "ppwr:Packaging must declare exactly one packagingTier (Sales / Grouped / Transport — Article 3)"@en
+    ] ;
+    sh:property [
+        sh:path ppwr:recyclabilityGrade ;
+        sh:in ( ppwr:GradeA ppwr:GradeB ppwr:GradeC ) ;
+        sh:maxCount 1 ;
+        sh:message "ppwr:recyclabilityGrade must be A, B, or C (PPWR Article 4)"@en
+    ] ;
+    sh:property [
+        sh:path ppwr:harmonisedSymbol ;
+        sh:datatype xsd:anyURI
+    ] .

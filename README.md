@@ -27,12 +27,44 @@ The EU Battery Regulation requires DPPs starting **February 2027**. Industry can
 
 | | Count |
 |---|---|
-| Modules | 8 — `common/{core,interop}`, `eu/{battery,textile,eudr,electronics,detergent}`, `us/{fsma204}` |
-| Classes | 100+ |
-| Properties | 400+ |
-| EPCIS Event Examples | 35+ |
+| Modules | 9 — `common/{core,interop}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr}`, `us/{fsma204}` |
+| Classes | 110+ |
+| Properties | 410+ |
+| EPCIS Event Examples | 36+ |
 | Bridge Contexts | 4 (UNTP, CIRPASS2, JTC 24, BatteryPass) |
-| Regulations Covered | 6 (ESPR, Battery Reg, EUDR, Sustainable Textiles, Electronics DAs, Detergents Reg) |
+| Regulations Covered | 7 (ESPR, Battery Reg, EUDR, Sustainable Textiles, Electronics DAs, Detergents Reg, **PPWR 2025/40**) |
+
+## Vocabulary layering — the delegation pattern
+
+OpenEPCIS DPP-Ready is organised as **four stacked layers**, each delegating
+cross-cutting concepts downward. A new EU regulation typically adds only a
+handful of truly regulation-specific terms; everything else reuses the
+common-core (`dpp:`) vocabulary, which itself anchors upward to UNTP /
+schema.org / GS1.
+
+```
+  Layer 4 ─ Regulation modules    (eu/battery, eu/eudr, eu/textile,
+                                   eu/electronics, eu/detergent, eu/ppwr,
+                                   us/fsma204)
+            ↓
+  Layer 3 ─ Common DPP core (dpp:)  cross-cutting concepts ≥2 regs share
+            ↓ owl:equivalentClass / equivalentProperty
+  Layer 2 ─ UNTP v0.7.0 + schema.org  Party, Facility, Material, Claim,
+                                       ConformityAttestation, Observation,
+                                       hasMeasurement, …
+            ↓
+  Layer 1 ─ GS1 Web Vocabulary (gs1:)  Product, Organization, Place,
+                                        QuantitativeValue, regulatoryInformation
+```
+
+**The rule when defining a new term:** walk downward through the layers
+and use the *highest* layer that already covers the concept. Mint a new
+IRI only when no layer below has it. If you find yourself adding the same
+concept to two modules, that's a signal it should move down to `dpp:`.
+
+Full explanation, mature regulations covered today, and what's needed to
+add the next ones (CPR / ELV / Toys / Right-to-Repair / Forced Labour /
+CSDDD): see [`docs/VOCABULARY_LAYERING.md`](docs/VOCABULARY_LAYERING.md).
 
 ## Standards Alignment
 

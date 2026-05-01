@@ -2,6 +2,13 @@
 
 This document describes the reusable patterns in the DPP Core module that can be applied across different regulation-specific DPP implementations. The core module is aligned with the EU Ecodesign for Sustainable Products Regulation (ESPR) 2024/1781.
 
+> **Read first**: [Vocabulary Layering](../../../../docs/VOCABULARY_LAYERING.md) — the
+> four-layer delegation pattern (regulation modules → `dpp:` → UNTP/schema.org → GS1).
+> The patterns below are at Layer 3 (`dpp:`); most are anchored upward via
+> `owl:equivalentClass`/`equivalentProperty` to a Layer-2 term in UNTP v0.7.0
+> (`vocabulary.uncefact.org/untp/0.7.0/`) or schema.org. When implementing a
+> regulation module, **delegate** — don't redefine.
+
 ## Table of Contents
 
 1. [JSON-LD Context Usage](#json-ld-context-usage)
@@ -19,6 +26,9 @@ This document describes the reusable patterns in the DPP Core module that can be
 13. [Material Composition Pattern](#material-composition-pattern)
 14. [Carbon Footprint Pattern](#carbon-footprint-pattern)
 15. [Access Rights Pattern](#access-rights-pattern)
+16. [Extended Producer Responsibility Pattern](#extended-producer-responsibility-pattern)
+17. [Compostability / Biodegradability / Bio-based Pattern](#compostability--biodegradability--bio-based-pattern)
+18. [Deposit-Return Scheme Pattern](#deposit-return-scheme-pattern)
 
 **See also**: [LINK_TYPES.md](LINK_TYPES.md) — GS1 link type routing and JSON-LD response mapping
 
@@ -880,3 +890,108 @@ Control data visibility per ESPR Article 9 requirements. Define which DPP data i
 8. **Include EOID** for economic operator identification per ESPR Article 77
 9. **Provide repairability information** for applicable product categories
 10. **Document substances of concern** with SCIP database identifiers
+
+---
+
+## Extended Producer Responsibility Pattern
+
+EPR registration applies across PPWR (packaging), WEEE (electronics), Battery
+Regulation, ELV, and the upcoming Textile-DA. National schemes vary per
+Member State — no single international vocabulary covers them, which is why
+this pattern is minted at `dpp:`.
+
+```json
+{
+  "type": "ExtendedProducerResponsibility",
+  "eprRegistrationNumber": "DE-VPC-58092100",
+  "eprWasteStream": "packaging",
+  "eprJurisdiction": { "id": "https://ref.gs1.org/voc/Country-DE", "type": "Country" },
+  "eprScheme": {
+    "id": "https://id.gs1.org/417/4030101000007",
+    "type": "Organization",
+    "organizationName": "Der Grüne Punkt — Duales System Deutschland GmbH"
+  },
+  "eprComplianceUrl": "https://ldb.zsvr.de/marken/58092100"
+}
+```
+
+**Properties** (all on `dpp:ExtendedProducerResponsibility`):
+- `dpp:eprRegistrationNumber` — registry-issued ID
+- `dpp:eprWasteStream` — `"packaging"` / `"weee"` / `"batteries"` / `"vehicles"` / `"textiles"`
+- `dpp:eprJurisdiction` — `gs1:Country` reference
+- `dpp:eprScheme` — `gs1:Organization` (the PRO / scheme operator)
+- `dpp:eprComplianceUrl` — public verification endpoint
+
+**Used by**: PPWR (Article 13), WEEE (Article 16), Battery (Annex II §7), ELV-revision, Textile-DA (planned).
+
+---
+
+## Compostability / Biodegradability / Bio-based Pattern
+
+Three distinct concepts often conflated. **Bio-based** = origin (renewable
+feedstock fraction). **Biodegradability** = test result (microbial breakdown
+under specified conditions). **Compostability** = certification category
+(EN 13432 / OK-Compost-Home / ASTM D6400) — a regulatory category, not a
+measurement.
+
+### Bio-based fraction
+
+```json
+{
+  "bioBasedFraction": { "type": "QuantitativeValue", "value": 0.30, "unitCode": "P1" }
+}
+```
+
+### Biodegradability (`subClassOf schema:Observation`)
+
+```json
+{
+  "biodegradability": {
+    "type": "Biodegradability",
+    "biodegradationPercentage": { "type": "QuantitativeValue", "value": 0.825, "unitCode": "P1" },
+    "biodegradabilityTestMethod": "OECD301B"
+  }
+}
+```
+
+### Compostability
+
+```json
+{
+  "compostability": {
+    "type": "Compostability",
+    "compostabilityType": "IndustrialCompostable",
+    "compostabilityStandard": "https://www.iso.org/standard/61131.html"
+  }
+}
+```
+
+**Used by**: PPWR (Article 13), Detergent (filmBiodegradable / surfactant biodegradability), Textile (bio-based fibres), future Furniture-DA, Single-Use Plastics Directive.
+
+---
+
+## Deposit-Return Scheme Pattern
+
+Deposit-return systems vary per Member State (DE, AT, NL, SE, …) and are
+expanding under PPWR Article 13. No upstream vocabulary covers them.
+
+```json
+{
+  "depositReturnScheme": {
+    "type": "DepositReturnScheme",
+    "depositAmount": { "type": "QuantitativeValue", "value": 0.25, "unitCode": "EUR" },
+    "depositSchemeOperator": {
+      "id": "https://id.gs1.org/417/4030101000014",
+      "type": "Organization",
+      "organizationName": "Deutsche Pfandsystem GmbH"
+    },
+    "depositRedemptionChannelUrl": "https://www.dpg-pfandsystem.de/find-redemption-point"
+  }
+}
+```
+
+`depositAmount` uses `gs1:QuantitativeValue` with `gs1:unitCode` = ISO 4217
+currency code (e.g. `"EUR"`, `"DKK"`) — same idiom as physical units, but
+with a currency code instead of a UN/CEFACT Rec 20 unit code.
+
+**Used by**: PPWR (Article 13), beverage container DRS, future EU-harmonised DRS.

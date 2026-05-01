@@ -1,0 +1,45 @@
+{
+  "_comment": "OpenEPCIS PPWR Vocabulary v0.1.0 — EU Regulation 2025/40. Module is intentionally thin; nearly every PPWR data point reuses the lifted dpp: cross-cutting terms (ExtendedProducerResponsibility, Compostability, Biodegradability, DepositReturnScheme, bioBasedFraction, RecycledContent, HazardousSubstance) plus untp: (Facility, Material, Claim) and gs1: (Packaging, regulatoryInformation). Only packaging-specific terms (Packaging, packagingTier, recyclabilityGrade, harmonisedSymbol) live in the ppwr: namespace.",
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    {
+      "@version": 1.1,
+      "ppwr": "https://ref.openepcis.io/extensions/eu/ppwr/",
+      "dpp": "https://ref.openepcis.io/extensions/common/core/",
+      "gs1": "https://ref.gs1.org/voc/",
+      "schema": "https://schema.org/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "id": "@id",
+      "type": "@type",
+      "manufacturer": {"@id": "gs1:manufacturer", "@type": "@id"},
+      "regulatoryInformation": {"@id": "gs1:regulatoryInformation", "@type": "@id", "@container": "@set"},
+      "RegulatoryInformation": "gs1:RegulatoryInformation",
+      "regulationType": {"@id": "gs1:regulationType", "@type": "@id"},
+      "regulatoryAct": "gs1:regulatoryAct",
+      "isRegulationCompliant": {"@id": "dpp:isRegulationCompliant", "@type": "xsd:boolean"},
+      "Packaging": "ppwr:Packaging",
+      "packagingTier": {
+        "@id": "ppwr:packagingTier",
+        "@type": "@vocab",
+        "@context": {
+          "Sales": "ppwr:Sales",
+          "Grouped": "ppwr:Grouped",
+          "Transport": "ppwr:Transport"
+        }
+      },
+      "recyclabilityGrade": {
+        "@id": "ppwr:recyclabilityGrade",
+        "@type": "@vocab",
+        "@context": {
+          "A": "ppwr:GradeA",
+          "B": "ppwr:GradeB",
+          "C": "ppwr:GradeC"
+        }
+      },
+      "harmonisedSymbol": {
+        "@id": "ppwr:harmonisedSymbol",
+        "@type": "xsd:anyURI"
+      }
+    }
+  ]
+}

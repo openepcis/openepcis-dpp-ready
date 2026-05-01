@@ -1,0 +1,150 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix ppwr: <https://ref.openepcis.io/extensions/eu/ppwr/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix schema: <https://schema.org/> .
+
+<https://ref.openepcis.io/extensions/eu/ppwr/>
+    a owl:Ontology ;
+    dcterms:title "OpenEPCIS PPWR Vocabulary"@en ;
+    dcterms:description """Vocabulary for the EU Packaging and Packaging Waste Regulation
+(Regulation 2025/40, in force from 2025-01-01; labelling from 2025-08-12;
+recyclability grading mandatory from 2030-01-01; minimum Grade B from
+2038-01-01).
+
+This module is intentionally thin: nearly every PPWR data point reuses the
+cross-cutting `dpp:` and `untp:` vocabulary already lifted to common/core.
+Packaging-specific concepts only live here:
+
+  - `ppwr:Packaging` (subClassOf gs1:Packaging)
+  - `ppwr:packagingTier` (Sales / Grouped / Transport — Article 3)
+  - `ppwr:recyclabilityGrade` (A / B / C — Article 4, Annex II)
+  - `ppwr:harmonisedSymbol` (URI of an Annex IX symbol code)
+
+Recyclability scoring/rate, recycled content, reuse, compostability,
+bio-based content, hazardous substances, EPR, deposit-return, production
+site, declaration of conformity — all use existing `dpp:` / `untp:` /
+`gs1:` terms."""@en ;
+    dcterms:creator "OpenEPCIS" ;
+    dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+    dcterms:created "2026-05-01"^^xsd:date ;
+    dcterms:modified "2026-05-01"^^xsd:date ;
+    owl:versionInfo "0.1.0" ;
+    owl:versionIRI <https://ref.openepcis.io/extensions/eu/ppwr/0.1.0> ;
+    vann:preferredNamespacePrefix "ppwr" ;
+    vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/eu/ppwr/" ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
+    owl:imports <https://ref.gs1.org/voc/> ;
+    owl:imports <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Main class
+# =============================================================================
+
+ppwr:Packaging
+    a owl:Class ;
+    rdfs:subClassOf gs1:Packaging ;
+    rdfs:label "PPWR Packaging"@en ;
+    rdfs:comment """A packaging item subject to EU Regulation 2025/40 (PPWR). Carrier
+for the regulation's labelling and DPP data points. Use packagingTier to
+indicate sales/grouped/transport position; use recyclabilityGrade,
+dpp:recycledContent, dpp:Compostability, dpp:bioBasedFraction, etc. for
+the substantive declarations. Standardly identified via gs1:gtin (or AI 8003
+GIAI for returnable transport items)."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> .
+
+# =============================================================================
+# Packaging Tier (Article 3)
+# =============================================================================
+
+ppwr:PackagingTier
+    a owl:Class ;
+    rdfs:label "Packaging Tier"@en ;
+    rdfs:comment """Position of the packaging in the consumption hierarchy per PPWR
+Article 3: sales (consumer-facing primary), grouped (secondary, multi-unit),
+or transport (tertiary, logistics)."""@en ;
+    owl:oneOf (
+        ppwr:Sales
+        ppwr:Grouped
+        ppwr:Transport
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> .
+
+ppwr:Sales     a ppwr:PackagingTier ; rdfs:label "Sales Packaging"@en ;
+    rdfs:comment "Primary packaging — consumer-facing point-of-sale unit (PPWR Art. 3(1)(b))."@en ;
+    skos:notation "sales" .
+ppwr:Grouped   a ppwr:PackagingTier ; rdfs:label "Grouped Packaging"@en ;
+    rdfs:comment "Secondary packaging — groups multiple sales units, may be removed without affecting product (PPWR Art. 3(1)(c))."@en ;
+    skos:notation "grouped" .
+ppwr:Transport a ppwr:PackagingTier ; rdfs:label "Transport Packaging"@en ;
+    rdfs:comment "Tertiary packaging — facilitates handling/transport of grouped or sales packaging (PPWR Art. 3(1)(d))."@en ;
+    skos:notation "transport" .
+
+ppwr:packagingTier
+    a owl:ObjectProperty ;
+    rdfs:label "Packaging Tier"@en ;
+    rdfs:comment "Indicates whether the packaging is sales (primary), grouped (secondary), or transport (tertiary) per PPWR Article 3."@en ;
+    rdfs:domain ppwr:Packaging ;
+    rdfs:range ppwr:PackagingTier ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> .
+
+# =============================================================================
+# Recyclability Grade (Article 4, Annex II)
+# =============================================================================
+
+ppwr:RecyclabilityGrade
+    a owl:Class ;
+    rdfs:label "PPWR Recyclability Grade"@en ;
+    rdfs:comment """Letter grade A/B/C per PPWR Article 4 and Annex II, covering
+design-for-recycling performance. Grade A is best; Grade C is the minimum to be
+placed on the EU market from 2030; Grade B becomes minimum from 2038. The
+detailed Annex II methodology is operator-side; the grade is the regulatory
+output."""@en ;
+    owl:oneOf (
+        ppwr:GradeA
+        ppwr:GradeB
+        ppwr:GradeC
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> .
+
+ppwr:GradeA a ppwr:RecyclabilityGrade ; rdfs:label "Grade A"@en ;
+    rdfs:comment "Highest recyclability performance per PPWR Annex II."@en ;
+    skos:notation "A" .
+ppwr:GradeB a ppwr:RecyclabilityGrade ; rdfs:label "Grade B"@en ;
+    rdfs:comment "Mid recyclability per PPWR Annex II — minimum from 2038."@en ;
+    skos:notation "B" .
+ppwr:GradeC a ppwr:RecyclabilityGrade ; rdfs:label "Grade C"@en ;
+    rdfs:comment "Lowest acceptable recyclability per PPWR Annex II — minimum from 2030; phased out by 2038."@en ;
+    skos:notation "C" .
+
+ppwr:recyclabilityGrade
+    a owl:ObjectProperty ;
+    rdfs:label "PPWR Recyclability Grade"@en ;
+    rdfs:comment "PPWR Article 4 letter grade (A/B/C). Companion to dpp:recyclabilityScore (numeric, JRC-style) and dpp:recyclabilityRate (decimal fraction); use the grade for regulatory expression and a score/rate for the underlying methodology output."@en ;
+    rdfs:domain ppwr:Packaging ;
+    rdfs:range ppwr:RecyclabilityGrade ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> .
+
+# =============================================================================
+# Harmonised Symbol (Article 13)
+# =============================================================================
+
+ppwr:harmonisedSymbol
+    a owl:DatatypeProperty ;
+    rdfs:label "Harmonised Symbol"@en ;
+    rdfs:comment """URI / code reference of a harmonised PPWR Annex IX symbol that
+appears on the packaging — material composition pictograms, separate-collection
+indicators, deposit-return labels, etc. The Commission publishes the symbol
+catalogue as implementing acts; this property points to the entry."""@en ;
+    rdfs:domain ppwr:Packaging ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> .

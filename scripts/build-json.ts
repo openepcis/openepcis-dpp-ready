@@ -155,6 +155,12 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     namespace: "https://ref.openepcis.io/extensions/eu/detergent/",
   },
   {
+    name: "ppwr",
+    dir: "extensions/eu/ppwr",
+    ttlFile: "ppwr.ttl",
+    namespace: "https://ref.openepcis.io/extensions/eu/ppwr/",
+  },
+  {
     name: "fsma204",
     dir: "extensions/us/fsma204",
     ttlFile: "fsma204.ttl",
