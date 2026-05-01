@@ -533,3 +533,59 @@ dpp-sh:GranularityLevelConstraint
         sh:maxCount 1 ;
         sh:message "granularityLevel must be ProductClass, Batch, or Item"@en
     ] .
+
+# =============================================================================
+# QuantitativeValue Shapes (GS1-idiomatic value + unitCode pattern)
+# =============================================================================
+# Every QuantitativeValue node must have a numeric `gs1:value` and a
+# `gs1:unitCode` (UN/CEFACT Rec 20). Per-property NodeShapes pin the code.
+
+dpp-sh:QuantitativeValueShape
+    a sh:NodeShape ;
+    sh:targetClass gs1:QuantitativeValue ;
+    sh:name "QuantitativeValue Shape"@en ;
+    sh:description "Every QuantitativeValue must have gs1:value and gs1:unitCode (UN/CEFACT Rec 20)."@en ;
+    sh:property [
+        sh:path gs1:value ;
+        sh:datatype xsd:decimal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "QuantitativeValue must have exactly one xsd:decimal gs1:value"@en
+    ] ;
+    sh:property [
+        sh:path gs1:unitCode ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "QuantitativeValue must have exactly one gs1:unitCode (UN/CEFACT Rec 20 string)"@en
+    ] .
+
+# Per-property unitCode shapes (representative — extend as new properties land).
+# Pattern: target subjects of a property; require its value's unitCode = canonical code.
+
+dpp-sh:ExpectedLifespanShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf dpp:expectedLifespan ;
+    sh:property [
+        sh:path ( dpp:expectedLifespan gs1:unitCode ) ;
+        sh:hasValue "ANN" ;
+        sh:message "dpp:expectedLifespan must use unitCode 'ANN' (years)"@en
+    ] .
+
+dpp-sh:GuaranteedLifespanShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf dpp:guaranteedLifespan ;
+    sh:property [
+        sh:path ( dpp:guaranteedLifespan gs1:unitCode ) ;
+        sh:hasValue "ANN" ;
+        sh:message "dpp:guaranteedLifespan must use unitCode 'ANN' (years)"@en
+    ] .
+
+dpp-sh:TechnicalLifetimeShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf dpp:technicalLifetime ;
+    sh:property [
+        sh:path ( dpp:technicalLifetime gs1:unitCode ) ;
+        sh:hasValue "ANN" ;
+        sh:message "dpp:technicalLifetime must use unitCode 'ANN' (years)"@en
+    ] .

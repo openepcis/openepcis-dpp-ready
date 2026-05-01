@@ -163,3 +163,16 @@ eudr:TimberProductShape a sh:NodeShape ;
         sh:path eudr:transformationDate ;
         sh:datatype xsd:date
     ] .
+
+# =============================================================================
+# QuantitativeValue unitCode Shapes (GS1-idiomatic)
+# =============================================================================
+# AreaMeasurement accepts multiple codes (HAR/ARE/MTK) per UN/CEFACT Rec 20.
+
+eudr:AreaSizeShape a sh:NodeShape ;
+    sh:targetSubjectsOf eudr:areaSize ;
+    sh:property [
+        sh:path ( eudr:areaSize gs1:unitCode ) ;
+        sh:in ( "HAR" "ARE" "MTK" ) ;
+        sh:message "eudr:areaSize must use unitCode 'HAR' (hectare), 'ARE' (are), or 'MTK' (m²)"@en
+    ] .

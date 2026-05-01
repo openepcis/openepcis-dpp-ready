@@ -183,22 +183,6 @@ electronics:DisplaySpecification
 # Typed QuantitativeValue Subclasses (Electronics-specific)
 # -----------------------------------------------------------------------------
 
-electronics:FrequencyHertz
-    a owl:Class ;
-    rdfs:label "Frequency in Hertz"@en ;
-    rdfs:comment "A quantitative value expressing frequency in hertz. Unit code: HTZ."@en ;
-    rdfs:subClassOf gs1:QuantitativeValue ;
-    skos:note "Pins gs1:unitCode to HTZ. Used for display refresh rate." ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
-
-electronics:LuminanceCandela
-    a owl:Class ;
-    rdfs:label "Luminance in cd/m²"@en ;
-    rdfs:comment "A quantitative value expressing luminance in candelas per square meter (nits). Unit code: P1 (using manufacturer-declared nits value)."@en ;
-    rdfs:subClassOf gs1:QuantitativeValue ;
-    skos:note "Pins gs1:unitCode to CDM2. Used for display peak brightness." ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
-
 # =============================================================================
 # PART 2: DEVICE CATEGORY ENUMERATION
 # =============================================================================
@@ -765,7 +749,7 @@ electronics:securitySupportYears
     rdfs:label "Security Support Years"@en ;
     rdfs:comment "Number of years of security update support. Use gs1:QuantitativeValue with unitCode 'ANN'."@en ;
     rdfs:domain electronics:SoftwareSupport ;
-    rdfs:range dpp:DurationYears ;
+    rdfs:range gs1:QuantitativeValue ;
     skos:note "Candidate for UNTP contribution: softwareSupportPeriod."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
 
@@ -774,7 +758,7 @@ electronics:featureSupportYears
     rdfs:label "Feature Support Years"@en ;
     rdfs:comment "Number of years of feature update support. Use gs1:QuantitativeValue with unitCode 'ANN'."@en ;
     rdfs:domain electronics:SoftwareSupport ;
-    rdfs:range dpp:DurationYears ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
 
 electronics:updateChannel
@@ -819,7 +803,7 @@ electronics:annualEnergyConsumption
     rdfs:label "Annual Energy Consumption"@en ;
     rdfs:comment "Annual energy consumption in kWh. Use gs1:QuantitativeValue with unitCode 'KWH'."@en ;
     rdfs:domain electronics:EnergyEfficiency ;
-    rdfs:range dpp:EnergyKilowattHours ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
 
 electronics:powerConsumptionOn
@@ -827,7 +811,7 @@ electronics:powerConsumptionOn
     rdfs:label "Power Consumption On"@en ;
     rdfs:comment "Power consumption when device is on/active. Use gs1:QuantitativeValue with unitCode 'WTT'."@en ;
     rdfs:domain electronics:EnergyEfficiency ;
-    rdfs:range dpp:PowerWatts ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
 
 electronics:powerConsumptionStandby
@@ -835,7 +819,7 @@ electronics:powerConsumptionStandby
     rdfs:label "Power Consumption Standby"@en ;
     rdfs:comment "Power consumption in standby mode. Use gs1:QuantitativeValue with unitCode 'WTT'."@en ;
     rdfs:domain electronics:EnergyEfficiency ;
-    rdfs:range dpp:PowerWatts ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
 
 electronics:powerConsumptionOff
@@ -843,7 +827,7 @@ electronics:powerConsumptionOff
     rdfs:label "Power Consumption Off"@en ;
     rdfs:comment "Power consumption when switched off but plugged in. Use gs1:QuantitativeValue with unitCode 'WTT'."@en ;
     rdfs:domain electronics:EnergyEfficiency ;
-    rdfs:range dpp:PowerWatts ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
 
 electronics:eprelRegistrationNumber
@@ -937,9 +921,9 @@ Enables CIRPASS-2 multi-component tracking."""@en ;
 electronics:sparePartAvailabilityYears
     a owl:ObjectProperty ;
     rdfs:label "Spare Part Availability Years"@en ;
-    rdfs:comment "Duration for which this component is available as a spare part."@en ;
+    rdfs:comment "Duration for which this component is available as a spare part. Use unitCode 'ANN' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:DurationYears ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
 
 electronics:sparePartPrice
@@ -1089,15 +1073,15 @@ electronics:refreshRate
     rdfs:label "Refresh Rate"@en ;
     rdfs:comment "Display refresh rate. Use gs1:QuantitativeValue with unitCode 'HTZ'."@en ;
     rdfs:domain electronics:DisplaySpecification ;
-    rdfs:range electronics:FrequencyHertz ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
 
 electronics:peakBrightness
     a owl:ObjectProperty ;
     rdfs:label "Peak Brightness"@en ;
-    rdfs:comment "Peak brightness in candelas per square meter (nits). Use gs1:QuantitativeValue."@en ;
+    rdfs:comment "Peak brightness in candelas per square meter (nits). Use gs1:QuantitativeValue. Use unitCode 'CDM2' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain electronics:DisplaySpecification ;
-    rdfs:range electronics:LuminanceCandela ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
 
 # =============================================================================

@@ -39,24 +39,6 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/DurationDays",
-      "localName": "DurationDays",
-      "label": "Duration in Days",
-      "comment": "A quantitative value expressing duration in days. Unit code: DAY.",
-      "subClassOf": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/DurationYears",
-      "localName": "DurationYears",
-      "label": "Duration in Years",
-      "comment": "A quantitative value expressing duration in years. Unit code: ANN.",
-      "subClassOf": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance",
       "localName": "EmissionsPerformance",
       "label": "Emissions Performance",
@@ -66,15 +48,6 @@
         "https://test.uncefact.org/vocabulary/untp/core/EmissionsPerformance"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/EnergyKilowattHours",
-      "localName": "EnergyKilowattHours",
-      "label": "Energy in Kilowatt-Hours",
-      "comment": "A quantitative value expressing energy in kilowatt-hours. Unit code: KWH.",
-      "subClassOf": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
@@ -137,15 +110,6 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32019R1020"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/Percentage",
-      "localName": "Percentage",
-      "label": "Percentage Value",
-      "comment": "A quantitative value expressed as a percentage. Unit code: P1 (percent).",
-      "subClassOf": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/PerformanceInfo",
       "localName": "PerformanceInfo",
       "label": "Performance Information",
@@ -154,24 +118,6 @@
         "https://ref.gs1.org/voc/warranty"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/PowerKilowatts",
-      "localName": "PowerKilowatts",
-      "label": "Power in Kilowatts",
-      "comment": "A quantitative value expressing power in kilowatts. Unit code: KWT.",
-      "subClassOf": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/PowerWatts",
-      "localName": "PowerWatts",
-      "label": "Power in Watts",
-      "comment": "A quantitative value expressing power in watts. Unit code: WTT.",
-      "subClassOf": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/RecycledContent",
@@ -208,15 +154,6 @@
       "source": "https://echa.europa.eu/scip"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/TemperatureCelsius",
-      "localName": "TemperatureCelsius",
-      "label": "Temperature in Celsius",
-      "comment": "A quantitative value expressing temperature in degrees Celsius. Unit code: CEL.",
-      "subClassOf": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/TraceabilityPerformance",
       "localName": "TraceabilityPerformance",
       "label": "Traceability Performance",
@@ -225,15 +162,6 @@
         "https://test.uncefact.org/vocabulary/untp/dpp/TraceabilityPerformance"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/WeightKilograms",
-      "localName": "WeightKilograms",
-      "label": "Weight in Kilograms",
-      "comment": "A quantitative value expressing weight in kilograms. Unit code: KGM.",
-      "subClassOf": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
     }
   ],
   "properties": [
@@ -423,12 +351,12 @@
       "id": "https://ref.openepcis.io/extensions/common/core/dataRetentionPeriod",
       "localName": "dataRetentionPeriod",
       "label": "Data Retention Period",
-      "comment": "How long the data must be retained per regulatory requirements.",
+      "comment": "How long the data must be retained per regulatory requirements. Use unitCode 'ANN' (UN/CEFACT Rec 20).",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/AccessRights"
       ],
       "range": [
-        "https://ref.openepcis.io/extensions/common/core/DurationYears"
+        "https://ref.gs1.org/voc/QuantitativeValue"
       ]
     },
     {
@@ -598,7 +526,7 @@
         "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
       ],
       "range": [
-        "https://ref.openepcis.io/extensions/common/core/DurationYears"
+        "https://ref.gs1.org/voc/QuantitativeValue"
       ]
     },
     {
@@ -663,12 +591,12 @@
       "id": "https://ref.openepcis.io/extensions/common/core/guaranteedLifespan",
       "localName": "guaranteedLifespan",
       "label": "Guaranteed Lifespan",
-      "comment": "Guaranteed minimum product lifespan per manufacturer warranty.",
+      "comment": "Guaranteed minimum product lifespan per manufacturer warranty. Use unitCode 'ANN' (UN/CEFACT Rec 20).",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
       ],
       "range": [
-        "https://ref.openepcis.io/extensions/common/core/DurationYears"
+        "https://ref.gs1.org/voc/QuantitativeValue"
       ]
     },
     {
@@ -1208,12 +1136,12 @@
       "id": "https://ref.openepcis.io/extensions/common/core/softwareUpdatesAvailability",
       "localName": "softwareUpdatesAvailability",
       "label": "Software Updates Availability",
-      "comment": "Duration for which software/firmware updates will be provided.",
+      "comment": "Duration for which software/firmware updates will be provided. Use unitCode 'ANN' (UN/CEFACT Rec 20).",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
       ],
       "range": [
-        "https://ref.openepcis.io/extensions/common/core/DurationYears"
+        "https://ref.gs1.org/voc/QuantitativeValue"
       ]
     },
     {
@@ -1225,7 +1153,7 @@
         "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
       ],
       "range": [
-        "https://ref.openepcis.io/extensions/common/core/DurationYears"
+        "https://ref.gs1.org/voc/QuantitativeValue"
       ]
     },
     {
@@ -1253,12 +1181,12 @@
       "id": "https://ref.openepcis.io/extensions/common/core/technicalLifetime",
       "localName": "technicalLifetime",
       "label": "Technical Lifetime",
-      "comment": "Technical lifetime under specified conditions.",
+      "comment": "Technical lifetime under specified conditions. Use unitCode 'ANN' (UN/CEFACT Rec 20).",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
       ],
       "range": [
-        "https://ref.openepcis.io/extensions/common/core/DurationYears"
+        "https://ref.gs1.org/voc/QuantitativeValue"
       ]
     },
     {

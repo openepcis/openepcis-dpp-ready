@@ -77,7 +77,7 @@ References:
 eudr:CommodityType
     a owl:Class ;
     rdfs:label "Commodity Type"@en ;
-    rdfs:comment "The seven commodities regulated by EUDR (EU 2023/1115, Article 1.1)."@en ;
+    rdfs:comment "The seven commodities regulated by EUDR (EU 2023/1115, Article 1.1). Use unitCode 'HAR' (hectare), 'ARE' (are), or 'MTK' (m²) per UN/CEFACT Rec 20."@en ;
     owl:oneOf (
         eudr:Cattle
         eudr:Cocoa
@@ -212,13 +212,6 @@ eudr:OriginDetails
     rdfs:comment "Container class for geolocation and producer identification information per EUDR Article 9."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
-eudr:AreaMeasurement
-    a owl:Class ;
-    rdfs:label "Area Measurement"@en ;
-    rdfs:comment "Container for area size quantitative values."@en ;
-    rdfs:subClassOf gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
-
 # =============================================================================
 # EPCIS Origin Declaration Event Extension Properties
 # (OpenEPCIS extensions - NOT YET STANDARDISED by GS1)
@@ -270,9 +263,9 @@ eudr:geolocation
 eudr:areaSize
     a owl:ObjectProperty ;
     rdfs:label "Area Size"@en ;
-    rdfs:comment "Quantitative value for field area size."@en ;
+    rdfs:comment "Quantitative value for field area size. Use unitCode 'HAR' (hectare), 'ARE' (are), or 'MTK' (m²) per UN/CEFACT Rec 20."@en ;
     rdfs:domain eudr:OriginDetails ;
-    rdfs:range eudr:AreaMeasurement ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
 eudr:producerIdentification

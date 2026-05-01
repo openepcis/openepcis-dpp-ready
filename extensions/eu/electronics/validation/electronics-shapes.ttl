@@ -560,3 +560,23 @@ electronics:DisplaySpecificationShape a sh:NodeShape ;
         sh:class electronics:LuminanceCandela ;
         sh:maxCount 1
     ] .
+
+# =============================================================================
+# QuantitativeValue unitCode Shapes (GS1-idiomatic)
+# =============================================================================
+
+electronics:RefreshRateShape a sh:NodeShape ;
+    sh:targetSubjectsOf electronics:refreshRate ;
+    sh:property [
+        sh:path ( electronics:refreshRate gs1:unitCode ) ;
+        sh:hasValue "HTZ" ;
+        sh:message "electronics:refreshRate must use unitCode 'HTZ' (hertz)"@en
+    ] .
+
+electronics:PeakBrightnessShape a sh:NodeShape ;
+    sh:targetSubjectsOf electronics:peakBrightness ;
+    sh:property [
+        sh:path ( electronics:peakBrightness gs1:unitCode ) ;
+        sh:hasValue "CDM2" ;
+        sh:message "electronics:peakBrightness must use unitCode 'CDM2' (cd/m²)"@en
+    ] .

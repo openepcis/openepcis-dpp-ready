@@ -836,3 +836,31 @@ textile:TextileChemicalShape a sh:NodeShape ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] .
+
+# =============================================================================
+# QuantitativeValue unitCode Shapes (GS1-idiomatic)
+# =============================================================================
+
+textile:WaterUsageShape a sh:NodeShape ;
+    sh:targetSubjectsOf textile:waterUsage ;
+    sh:property [
+        sh:path ( textile:waterUsage gs1:unitCode ) ;
+        sh:hasValue "LTR" ;
+        sh:message "textile:waterUsage must use unitCode 'LTR' (liters)"@en
+    ] .
+
+textile:EnergyUsageShape a sh:NodeShape ;
+    sh:targetSubjectsOf textile:energyUsage ;
+    sh:property [
+        sh:path ( textile:energyUsage gs1:unitCode ) ;
+        sh:hasValue "KWH" ;
+        sh:message "textile:energyUsage must use unitCode 'KWH' (kilowatt-hours)"@en
+    ] .
+
+textile:SheddingRateShape a sh:NodeShape ;
+    sh:targetSubjectsOf textile:sheddingRate ;
+    sh:property [
+        sh:path ( textile:sheddingRate gs1:unitCode ) ;
+        sh:hasValue "MGM" ;
+        sh:message "textile:sheddingRate must use unitCode 'MGM' (mg/kg)"@en
+    ] .

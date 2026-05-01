@@ -561,76 +561,6 @@ dpp:Item a dpp:GranularityLevel ; rdfs:label "Item"@en ;
     rdfs:comment "DPP data applies to an individual serialized product."@en .
 
 # =============================================================================
-# Typed QuantitativeValue Subclasses
-# =============================================================================
-# Subclasses of gs1:QuantitativeValue that pin gs1:unitCode to a specific
-# UN/CEFACT code, so data only needs "type" + "value".
-
-dpp:Percentage
-    a owl:Class ;
-    rdfs:label "Percentage Value"@en ;
-    rdfs:comment "A quantitative value expressed as a percentage. Unit code: P1 (percent)."@en ;
-    rdfs:subClassOf gs1:QuantitativeValue ;
-    skos:note "Pins gs1:unitCode to P1. Used for recycled content ratios, state of health, fiber composition, and other proportional measurements across DPP modules." ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
-dpp:DurationYears
-    a owl:Class ;
-    rdfs:label "Duration in Years"@en ;
-    rdfs:comment "A quantitative value expressing duration in years. Unit code: ANN."@en ;
-    rdfs:subClassOf gs1:QuantitativeValue ;
-    skos:note "Pins gs1:unitCode to ANN. Used for expected lifespan, spare parts availability, software support periods, and warranty durations." ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
-dpp:DurationDays
-    a owl:Class ;
-    rdfs:label "Duration in Days"@en ;
-    rdfs:comment "A quantitative value expressing duration in days. Unit code: DAY."@en ;
-    rdfs:subClassOf gs1:QuantitativeValue ;
-    skos:note "Pins gs1:unitCode to DAY. Used for spare parts delivery time and short-duration specifications." ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
-dpp:WeightKilograms
-    a owl:Class ;
-    rdfs:label "Weight in Kilograms"@en ;
-    rdfs:comment "A quantitative value expressing weight in kilograms. Unit code: KGM."@en ;
-    rdfs:subClassOf gs1:QuantitativeValue ;
-    skos:note "Pins gs1:unitCode to KGM. Used for product weight, material weight, and carbon footprint declared units." ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
-dpp:EnergyKilowattHours
-    a owl:Class ;
-    rdfs:label "Energy in Kilowatt-Hours"@en ;
-    rdfs:comment "A quantitative value expressing energy in kilowatt-hours. Unit code: KWH."@en ;
-    rdfs:subClassOf gs1:QuantitativeValue ;
-    skos:note "Pins gs1:unitCode to KWH. Used for battery energy ratings, annual energy consumption, and energy throughput measurements." ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
-dpp:PowerWatts
-    a owl:Class ;
-    rdfs:label "Power in Watts"@en ;
-    rdfs:comment "A quantitative value expressing power in watts. Unit code: WTT."@en ;
-    rdfs:subClassOf gs1:QuantitativeValue ;
-    skos:note "Pins gs1:unitCode to WTT. Used for device power consumption measurements (on, standby, off modes)." ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
-dpp:PowerKilowatts
-    a owl:Class ;
-    rdfs:label "Power in Kilowatts"@en ;
-    rdfs:comment "A quantitative value expressing power in kilowatts. Unit code: KWT."@en ;
-    rdfs:subClassOf gs1:QuantitativeValue ;
-    skos:note "Pins gs1:unitCode to KWT. Used for battery power ratings (rated maximum, charging, discharging power)." ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
-dpp:TemperatureCelsius
-    a owl:Class ;
-    rdfs:label "Temperature in Celsius"@en ;
-    rdfs:comment "A quantitative value expressing temperature in degrees Celsius. Unit code: CEL."@en ;
-    rdfs:subClassOf gs1:QuantitativeValue ;
-    skos:note "Pins gs1:unitCode to CEL. Used for battery temperature ranges (storage, charging, discharging) and operating conditions." ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
-
-# =============================================================================
 # Properties - Operator Information
 # =============================================================================
 
@@ -1215,15 +1145,15 @@ dpp:expectedLifespan
     rdfs:label "Expected Lifespan"@en ;
     rdfs:comment "Expected product lifespan. Use gs1:QuantitativeValue with unitCode (e.g., 'ANN' for years)."@en ;
     rdfs:domain dpp:PerformanceInfo ;
-    rdfs:range dpp:DurationYears ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
 dpp:guaranteedLifespan
     a owl:ObjectProperty ;
     rdfs:label "Guaranteed Lifespan"@en ;
-    rdfs:comment "Guaranteed minimum product lifespan per manufacturer warranty."@en ;
+    rdfs:comment "Guaranteed minimum product lifespan per manufacturer warranty. Use unitCode 'ANN' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain dpp:PerformanceInfo ;
-    rdfs:range dpp:DurationYears ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
 dpp:usageCycles
@@ -1237,9 +1167,9 @@ dpp:usageCycles
 dpp:technicalLifetime
     a owl:ObjectProperty ;
     rdfs:label "Technical Lifetime"@en ;
-    rdfs:comment "Technical lifetime under specified conditions."@en ;
+    rdfs:comment "Technical lifetime under specified conditions. Use unitCode 'ANN' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain dpp:PerformanceInfo ;
-    rdfs:range dpp:DurationYears ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
 dpp:performanceClass
@@ -1290,7 +1220,7 @@ dpp:sparePartsAvailability
     rdfs:label "Spare Parts Availability"@en ;
     rdfs:comment "Duration for which spare parts will be available. Use gs1:QuantitativeValue with unitCode 'ANN' for years."@en ;
     rdfs:domain dpp:RepairabilityInfo ;
-    rdfs:range dpp:DurationYears ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
 dpp:repairInstructions
@@ -1320,9 +1250,9 @@ dpp:diyRepairPossible
 dpp:softwareUpdatesAvailability
     a owl:ObjectProperty ;
     rdfs:label "Software Updates Availability"@en ;
-    rdfs:comment "Duration for which software/firmware updates will be provided."@en ;
+    rdfs:comment "Duration for which software/firmware updates will be provided. Use unitCode 'ANN' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain dpp:RepairabilityInfo ;
-    rdfs:range dpp:DurationYears ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
 # =============================================================================
@@ -1355,9 +1285,9 @@ dpp:authorizedParties
 dpp:dataRetentionPeriod
     a owl:ObjectProperty ;
     rdfs:label "Data Retention Period"@en ;
-    rdfs:comment "How long the data must be retained per regulatory requirements."@en ;
+    rdfs:comment "How long the data must be retained per regulatory requirements. Use unitCode 'ANN' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain dpp:AccessRights ;
-    rdfs:range dpp:DurationYears ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
 # =============================================================================

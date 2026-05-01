@@ -187,38 +187,6 @@ battery:MaterialRecoveryTarget
 # Typed QuantitativeValue Subclasses (Battery-specific)
 # -----------------------------------------------------------------------------
 
-battery:CapacityAmpereHours
-    a owl:Class ;
-    rdfs:label "Capacity in Ampere-Hours"@en ;
-    rdfs:comment "A quantitative value expressing electrical capacity in ampere-hours. Unit code: AMH."@en ;
-    rdfs:subClassOf gs1:QuantitativeValue ;
-    skos:note "Pins gs1:unitCode to AMH. Used for rated capacity, remaining capacity, and capacity throughput." ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
-
-battery:VoltageVolts
-    a owl:Class ;
-    rdfs:label "Voltage in Volts"@en ;
-    rdfs:comment "A quantitative value expressing voltage in volts. Unit code: VLT."@en ;
-    rdfs:subClassOf gs1:QuantitativeValue ;
-    skos:note "Pins gs1:unitCode to VLT. Used for nominal, minimum, and maximum voltage." ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
-
-battery:CurrentAmperes
-    a owl:Class ;
-    rdfs:label "Current in Amperes"@en ;
-    rdfs:comment "A quantitative value expressing electrical current in amperes. Unit code: AMP."@en ;
-    rdfs:subClassOf gs1:QuantitativeValue ;
-    skos:note "Pins gs1:unitCode to AMP. Used for maximum charging and discharging current." ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
-
-battery:ResistanceOhms
-    a owl:Class ;
-    rdfs:label "Resistance in Ohms"@en ;
-    rdfs:comment "A quantitative value expressing electrical resistance in ohms. Unit code: OHM."@en ;
-    rdfs:subClassOf gs1:QuantitativeValue ;
-    skos:note "Pins gs1:unitCode to OHM. Used for initial and current internal resistance." ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
-
 # =============================================================================
 # PART 2: ENUMERATIONS
 # =============================================================================
@@ -794,7 +762,7 @@ battery:ratedCapacity
     rdfs:label "Rated Capacity"@en ;
     rdfs:comment "Rated capacity in Ampere-hours (Ah). Use gs1:QuantitativeValue with unitCode 'AMH'."@en ;
     rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range battery:CapacityAmpereHours ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:ratedEnergy
@@ -802,71 +770,71 @@ battery:ratedEnergy
     rdfs:label "Rated Energy"@en ;
     rdfs:comment "Rated energy in kilowatt-hours (kWh). Use gs1:QuantitativeValue with unitCode 'KWH'."@en ;
     rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range dpp:EnergyKilowattHours ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:nominalVoltage
     a owl:ObjectProperty ;
     rdfs:label "Nominal Voltage"@en ;
-    rdfs:comment "Nominal operating voltage of the battery pack in Volts (V)."@en ;
+    rdfs:comment "Nominal operating voltage of the battery pack in Volts (V). Use unitCode 'VLT' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range battery:VoltageVolts ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:minimumVoltage
     a owl:ObjectProperty ;
     rdfs:label "Minimum Voltage"@en ;
-    rdfs:comment "Minimum allowable voltage to prevent deep discharge damage, in Volts (V)."@en ;
+    rdfs:comment "Minimum allowable voltage to prevent deep discharge damage, in Volts (V). Use unitCode 'VLT' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range battery:VoltageVolts ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:maximumVoltage
     a owl:ObjectProperty ;
     rdfs:label "Maximum Voltage"@en ;
-    rdfs:comment "Maximum allowable voltage when fully charged, in Volts (V)."@en ;
+    rdfs:comment "Maximum allowable voltage when fully charged, in Volts (V). Use unitCode 'VLT' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range battery:VoltageVolts ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:ratedMaximumPower
     a owl:ObjectProperty ;
     rdfs:label "Rated Maximum Power"@en ;
-    rdfs:comment "Rated maximum power output in kW."@en ;
+    rdfs:comment "Rated maximum power output in kW. Use unitCode 'KWT' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range dpp:PowerKilowatts ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:maximumChargingPower
     a owl:ObjectProperty ;
     rdfs:label "Maximum Charging Power"@en ;
-    rdfs:comment "Maximum allowed charging power in kW."@en ;
+    rdfs:comment "Maximum allowed charging power in kW. Use unitCode 'KWT' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range dpp:PowerKilowatts ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:maximumDischargingPower
     a owl:ObjectProperty ;
     rdfs:label "Maximum Discharging Power"@en ;
-    rdfs:comment "Maximum allowed discharging power in kW."@en ;
+    rdfs:comment "Maximum allowed discharging power in kW. Use unitCode 'KWT' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range dpp:PowerKilowatts ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:maximumChargingCurrent
     a owl:ObjectProperty ;
     rdfs:label "Maximum Charging Current"@en ;
-    rdfs:comment "Maximum allowed charging current in Amperes."@en ;
+    rdfs:comment "Maximum allowed charging current in Amperes. Use unitCode 'AMP' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range battery:CurrentAmperes ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:maximumDischargingCurrent
     a owl:ObjectProperty ;
     rdfs:label "Maximum Discharging Current"@en ;
-    rdfs:comment "Maximum allowed discharging current in Amperes."@en ;
+    rdfs:comment "Maximum allowed discharging current in Amperes. Use unitCode 'AMP' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range battery:CurrentAmperes ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:expectedCycleLife
@@ -888,17 +856,17 @@ battery:expectedLifetimeYears
 battery:expectedLifetimeEnergyThroughput
     a owl:ObjectProperty ;
     rdfs:label "Expected Lifetime Energy Throughput"@en ;
-    rdfs:comment "Total energy throughput expected over battery lifetime in kWh."@en ;
+    rdfs:comment "Total energy throughput expected over battery lifetime in kWh. Use unitCode 'KWH' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range dpp:EnergyKilowattHours ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:expectedLifetimeCapacityThroughput
     a owl:ObjectProperty ;
     rdfs:label "Expected Lifetime Capacity Throughput"@en ;
-    rdfs:comment "Total capacity throughput expected over battery lifetime in Ah."@en ;
+    rdfs:comment "Total capacity throughput expected over battery lifetime in Ah. Use unitCode 'AMH' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range battery:CapacityAmpereHours ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:roundTripEfficiency
@@ -944,9 +912,9 @@ battery:resistanceIncreaseThreshold
 battery:initialInternalResistance
     a owl:ObjectProperty ;
     rdfs:label "Initial Internal Resistance"@en ;
-    rdfs:comment "Initial internal resistance at commissioning in Ohms."@en ;
+    rdfs:comment "Initial internal resistance at commissioning in Ohms. Use unitCode 'OHM' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range battery:ResistanceOhms ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:initialSelfDischarge
@@ -1020,9 +988,9 @@ battery:stateOfChargeLevel
 battery:powerCapability
     a owl:ObjectProperty ;
     rdfs:label "Power Capability"@en ;
-    rdfs:comment "Power capability value in kW at the specified SoC."@en ;
+    rdfs:comment "Power capability value in kW at the specified SoC. Use unitCode 'KWT' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain battery:PowerCapabilityAtSoC ;
-    rdfs:range dpp:PowerKilowatts ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 # -----------------------------------------------------------------------------
@@ -1065,14 +1033,14 @@ battery:minimumTemperature
     a owl:ObjectProperty ;
     rdfs:label "Minimum Temperature"@en ;
     rdfs:domain battery:TemperatureRange ;
-    rdfs:range dpp:TemperatureCelsius ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:maximumTemperature
     a owl:ObjectProperty ;
     rdfs:label "Maximum Temperature"@en ;
     rdfs:domain battery:TemperatureRange ;
-    rdfs:range dpp:TemperatureCelsius ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 # =============================================================================
@@ -2058,9 +2026,9 @@ battery:dataProviderCertification
 battery:stateOfHealth
     a owl:ObjectProperty ;
     rdfs:label "State of Health"@en ;
-    rdfs:comment "Battery state of health as percentage of original capacity."@en ;
+    rdfs:comment "Battery state of health as percentage of original capacity. Use unitCode 'P1' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:Percentage ;
+    rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -2070,7 +2038,7 @@ battery:stateOfCharge
     rdfs:label "State of Charge"@en ;
     rdfs:comment "Current charge level as percentage. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:Percentage ;
+    rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -2080,7 +2048,7 @@ battery:stateOfCertifiedEnergy
     rdfs:label "State of Certified Energy"@en ;
     rdfs:comment "SOCE ratio of remaining to certified usable energy. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:Percentage ;
+    rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -2100,7 +2068,7 @@ battery:remainingCapacity
     rdfs:label "Remaining Capacity"@en ;
     rdfs:comment "Current maximum capacity. Use gs1:QuantitativeValue with unitCode 'AMP_HR'."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range battery:CapacityAmpereHours ;
+    rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -2110,7 +2078,7 @@ battery:remainingEnergy
     rdfs:label "Remaining Energy"@en ;
     rdfs:comment "Current maximum energy. Use gs1:QuantitativeValue with unitCode 'KWH'."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:EnergyKilowattHours ;
+    rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -2120,7 +2088,7 @@ battery:capacityFade
     rdfs:label "Capacity Fade"@en ;
     rdfs:comment "Capacity degradation as a percentage of rated capacity, computed as ((rated − remaining) / rated) × 100. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:Percentage ;
+    rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII. Equation bracket placement corrected per BatteryPass-Ready v1.3 longlist (#61)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -2128,9 +2096,9 @@ battery:capacityFade
 battery:powerFade
     a owl:ObjectProperty ;
     rdfs:label "Power Fade"@en ;
-    rdfs:comment "Power capability degradation as a percentage of original power capability, computed as ((original − remaining) / original) × 100."@en ;
+    rdfs:comment "Power capability degradation as a percentage of original power capability, computed as ((original − remaining) / original) × 100. Use unitCode 'P1' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:Percentage ;
+    rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII. Equation bracket placement corrected per BatteryPass-Ready v1.3 longlist (#71). No equivalent GS1 term exists for battery-specific power degradation tracking."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -2138,9 +2106,9 @@ battery:powerFade
 battery:internalResistance
     a owl:ObjectProperty ;
     rdfs:label "Internal Resistance"@en ;
-    rdfs:comment "Battery internal resistance in Ohms."@en ;
+    rdfs:comment "Battery internal resistance in Ohms. Use unitCode 'OHM' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range battery:ResistanceOhms ;
+    rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII. No equivalent GS1 term exists for battery internal resistance."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -2150,7 +2118,7 @@ battery:internalResistanceIncrease
     rdfs:label "Internal Resistance Increase"@en ;
     rdfs:comment "Percentage increase in internal resistance. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:Percentage ;
+    rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -2160,7 +2128,7 @@ battery:energyThroughput
     rdfs:label "Energy Throughput"@en ;
     rdfs:comment "Cumulative energy throughput. Use gs1:QuantitativeValue with unitCode 'KWH'."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:EnergyKilowattHours ;
+    rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -2170,7 +2138,7 @@ battery:capacityThroughput
     rdfs:label "Capacity Throughput"@en ;
     rdfs:comment "Cumulative capacity throughput. Use gs1:QuantitativeValue with unitCode 'AMP_HR'."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range battery:CapacityAmpereHours ;
+    rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -2180,7 +2148,7 @@ battery:remainingRoundTripEfficiency
     rdfs:label "Remaining Round Trip Efficiency"@en ;
     rdfs:comment "Current round trip energy efficiency. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:Percentage ;
+    rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -2188,9 +2156,9 @@ battery:remainingRoundTripEfficiency
 battery:roundTripEfficiencyFade
     a owl:ObjectProperty ;
     rdfs:label "Round Trip Efficiency Fade"@en ;
-    rdfs:comment "Degradation of round trip efficiency, computed as ((initial RTE − remaining RTE) / initial RTE) × 100."@en ;
+    rdfs:comment "Degradation of round trip efficiency, computed as ((initial RTE − remaining RTE) / initial RTE) × 100. Use unitCode 'P1' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:Percentage ;
+    rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII. Equation bracket placement corrected per BatteryPass-Ready v1.3 longlist (#77). No equivalent GS1 term exists for RTE degradation tracking."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -2200,7 +2168,7 @@ battery:selfDischargeRate
     rdfs:label "Self Discharge Rate"@en ;
     rdfs:comment "Current self-discharge rate. Use gs1:QuantitativeValue with unitCode 'P1' (percent per month)."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:Percentage ;
+    rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -2210,7 +2178,7 @@ battery:evolutionOfSelfDischarge
     rdfs:label "Evolution of Self Discharge"@en ;
     rdfs:comment "Change in self-discharge rate. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:Percentage ;
+    rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -2428,15 +2396,15 @@ battery:remainingPowerCapability
 battery:powerCapabilityAt80SoC
     a owl:ObjectProperty ;
     rdfs:label "Power Capability at 80% SoC"@en ;
-    rdfs:comment "Current power capability at 80% state of charge."@en ;
-    rdfs:range dpp:PowerKilowatts ;
+    rdfs:comment "Current power capability at 80% state of charge. Use unitCode 'KWT' (UN/CEFACT Rec 20)."@en ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:powerCapabilityAt20SoC
     a owl:ObjectProperty ;
     rdfs:label "Power Capability at 20% SoC"@en ;
-    rdfs:comment "Current power capability at 20% state of charge."@en ;
-    rdfs:range dpp:PowerKilowatts ;
+    rdfs:comment "Current power capability at 20% state of charge. Use unitCode 'KWT' (UN/CEFACT Rec 20)."@en ;
+    rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 

@@ -364,3 +364,43 @@ battery:SupplyChainDueDiligenceShape a sh:NodeShape ;
         sh:path battery:thirdPartyAssurancesUrl ;
         sh:datatype xsd:anyURI
     ] .
+
+# =============================================================================
+# QuantitativeValue unitCode Shapes (GS1-idiomatic)
+# =============================================================================
+# Pin gs1:unitCode to the canonical UN/CEFACT Rec 20 code documented for each
+# battery property. These complement dpp-sh:QuantitativeValueShape (which
+# enforces value+unitCode presence) — here we add the per-property hasValue
+# check. Extend with more shapes as additional regulated properties are added.
+
+battery:RatedCapacityShape a sh:NodeShape ;
+    sh:targetSubjectsOf battery:ratedCapacity ;
+    sh:property [
+        sh:path ( battery:ratedCapacity gs1:unitCode ) ;
+        sh:hasValue "AMH" ;
+        sh:message "battery:ratedCapacity must use unitCode 'AMH' (ampere-hours)"@en
+    ] .
+
+battery:RatedEnergyShape a sh:NodeShape ;
+    sh:targetSubjectsOf battery:ratedEnergy ;
+    sh:property [
+        sh:path ( battery:ratedEnergy gs1:unitCode ) ;
+        sh:hasValue "KWH" ;
+        sh:message "battery:ratedEnergy must use unitCode 'KWH' (kilowatt-hours)"@en
+    ] .
+
+battery:NominalVoltageShape a sh:NodeShape ;
+    sh:targetSubjectsOf battery:nominalVoltage ;
+    sh:property [
+        sh:path ( battery:nominalVoltage gs1:unitCode ) ;
+        sh:hasValue "VLT" ;
+        sh:message "battery:nominalVoltage must use unitCode 'VLT' (volts)"@en
+    ] .
+
+battery:RatedMaximumPowerShape a sh:NodeShape ;
+    sh:targetSubjectsOf battery:ratedMaximumPower ;
+    sh:property [
+        sh:path ( battery:ratedMaximumPower gs1:unitCode ) ;
+        sh:hasValue "KWT" ;
+        sh:message "battery:ratedMaximumPower must use unitCode 'KWT' (kilowatts)"@en
+    ] .
