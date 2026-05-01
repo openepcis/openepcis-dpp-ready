@@ -1051,6 +1051,7 @@ textile:apparelSubcategory
 
 textile:RobustnessAssessment
     a owl:Class ;
+    rdfs:subClassOf schema:Observation ;
     rdfs:label "Robustness Assessment"@en ;
     rdfs:comment """Composite robustness assessment per EU Preparatory Study 3rd Milestone.
 Score 0-10 based on three test parameters measured after 5 cleaning cycles (ISO 6330):
@@ -1063,37 +1064,37 @@ Thresholds differ by fabric type (knitted vs woven)."""@en ;
     rdfs:seeAlso schema:Rating ;
     skos:note """Required extension: The EU preparatory study defines a specific 0-10 robustness scoring
 methodology not covered by GS1 or existing durability metrics. Complements textile:DurabilityInfo
-with a standardised composite score. See also schema:Rating for web interoperability."""@en .
+with a standardised composite score. See also schema:Rating for the rating-style aggregate score."""@en .
 
 textile:SpiralityTestResult
     a owl:Class ;
+    rdfs:subClassOf schema:Observation ;
     rdfs:label "Spirality Test Result"@en ;
     rdfs:comment """Spirality test result per ISO 16322-3 after cleaning cycles.
 Scoring (woven): >6%=0pt, 5.5-6%=1pt, 5-5.5%=2pt, <=5%=3pt.
 Scoring (knitted): >7%=0pt, 6-7%=1pt, 5-6%=2pt, <=5%=3pt."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
-    dcterms:source <https://www.iso.org/standard/56326.html> ;
-    rdfs:seeAlso schema:Observation .
+    dcterms:source <https://www.iso.org/standard/56326.html> .
 
 textile:DimensionalChangeTestResult
     a owl:Class ;
+    rdfs:subClassOf schema:Observation ;
     rdfs:label "Dimensional Change Test Result"@en ;
     rdfs:comment """Dimensional change test result per ISO 3759 after cleaning cycles.
 Scoring (woven): >+-4%=0pt, +-3.5-4%=1pt, +-3-3.5%=2pt, <=+-3%=3pt.
 Scoring (knitted): >+-6%=0pt, +-5.5-6%=1pt, +-5-5.5%=2pt, <=+-5%=3pt."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
-    dcterms:source <https://www.iso.org/standard/22198.html> ;
-    rdfs:seeAlso schema:Observation .
+    dcterms:source <https://www.iso.org/standard/22198.html> .
 
 textile:VisualInspectionResult
     a owl:Class ;
+    rdfs:subClassOf schema:Observation ;
     rdfs:label "Visual Inspection Result"@en ;
     rdfs:comment """Visual inspection result per ISO 15487 after cleaning cycles.
 Score 0-4 pts based on sub-ratings (1-5 scale each) for colour change,
 fabric appearance, seam appearance, and non-textile parts condition."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
-    dcterms:source <https://www.iso.org/standard/55312.html> ;
-    rdfs:seeAlso schema:Observation .
+    dcterms:source <https://www.iso.org/standard/55312.html> .
 
 # Robustness Assessment properties
 textile:robustnessAssessment
@@ -1267,6 +1268,7 @@ textile:visualInspectionTestMethod
 
 textile:RecyclabilityAssessment
     a owl:Class ;
+    rdfs:subClassOf schema:Observation ;
     rdfs:label "Recyclability Assessment"@en ;
     rdfs:comment """Recyclability assessment per EU Preparatory Study 3rd Milestone.
 Score 0-10 based on: elastane content threshold (>15% or >20% for PA6-rich >80% blends makes product
@@ -1279,7 +1281,7 @@ technical recyclability of the applicable recycling technology."""@en ;
     rdfs:seeAlso dpp:CircularityPerformance ;
     rdfs:seeAlso schema:Rating ;
     skos:note """Required extension: The EU preparatory study defines a specific recyclability scoring
-methodology not present in GS1 or the core DPP vocabulary. See also schema:Rating."""@en .
+methodology not present in GS1 or the core DPP vocabulary. See also schema:Rating for the rating-style aggregate score."""@en .
 
 textile:SortingFactors
     a owl:Class ;
