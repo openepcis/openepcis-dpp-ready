@@ -8,9 +8,12 @@
   "schemaVersion": "2.0",
   "creationDate": "2025-10-05T09:00:00.000Z",
   "_comment_architecture": [
-    "Substance of Concern (SoC) test results observation event. Reports 4-type SoC classification per ESPR Article 7(5).",
-    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
-    "Extension properties (textile:, dpp:) are at EVENT level.",
+    "Substance of Concern (SoC) inspection event referencing the product's",
+    "4-type SoC classification per ESPR Article 7(5).",
+    "Substance composition is a property of the product (the dye, finish and",
+    "fluorocarbon chemistry are inherent to the SKU), so substancesOfConcern",
+    "lives INSIDE masterDataAvailableFor on the product entry. The event",
+    "itself records WHEN and WHERE the inspection happened.",
     "",
     "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,textile=https://ref.openepcis.io/extensions/eu/textile/",
     "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
@@ -32,28 +35,6 @@
         "readPoint": {
           "id": "https://id.gs1.org/414/9521234000068"
         },
-        "substancesOfConcern": [
-          {
-            "type": "SubstanceOfConcern",
-            "socType": "SoCTypeB",
-            "chemicalName": "Disperse Blue 291",
-            "iupacName": "3-(2-Cyano-4,6-dinitrophenylazo)-N-ethyl-N-(2-acetoxyethyl)aniline",
-            "casNumber": "56548-64-2",
-            "clpHazardCategory": "Sensitizer",
-            "substanceConcentration": 0.008,
-            "locationInProduct": "Shell fabric dye",
-            "safeUseInstructions": "Wash before first wear. Suitable for skin contact per OEKO-TEX Standard 100 Class II.",
-            "endOfLifeHandling": "No special handling required at detected concentration."
-          },
-          {
-            "type": "SubstanceOfConcern",
-            "socType": "SoCTypeD",
-            "chemicalName": "DWR Fluorocarbon-free treatment",
-            "locationInProduct": "Shell fabric water-repellent finish",
-            "safeUseInstructions": "No special precautions required.",
-            "endOfLifeHandling": "Coating may reduce mechanical recyclability; chemical recycling pathway recommended."
-          }
-        ],
         "masterDataAvailableFor": [
           {
             "id": "https://id.gs1.org/01/09521234000013/21/WJ-2025-00301",
@@ -62,7 +43,29 @@
               "@value": "Alpine Pro Winter Jacket - Navy",
               "@language": "en"
             },
-            "gtin": "09521234000013"
+            "gtin": "09521234000013",
+            "substancesOfConcern": [
+              {
+                "type": "SubstanceOfConcern",
+                "socType": "SoCTypeB",
+                "chemicalName": "Disperse Blue 291",
+                "iupacName": "3-(2-Cyano-4,6-dinitrophenylazo)-N-ethyl-N-(2-acetoxyethyl)aniline",
+                "casNumber": "56548-64-2",
+                "clpHazardCategory": "Sensitizer",
+                "substanceConcentration": 0.008,
+                "locationInProduct": "Shell fabric dye",
+                "safeUseInstructions": "Wash before first wear. Suitable for skin contact per OEKO-TEX Standard 100 Class II.",
+                "endOfLifeHandling": "No special handling required at detected concentration."
+              },
+              {
+                "type": "SubstanceOfConcern",
+                "socType": "SoCTypeD",
+                "chemicalName": "DWR Fluorocarbon-free treatment",
+                "locationInProduct": "Shell fabric water-repellent finish",
+                "safeUseInstructions": "No special precautions required.",
+                "endOfLifeHandling": "Coating may reduce mechanical recyclability; chemical recycling pathway recommended."
+              }
+            ]
           },
           {
             "id": "https://id.gs1.org/414/9521234000068",

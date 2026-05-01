@@ -8,11 +8,11 @@
   "schemaVersion": "2.0",
   "creationDate": "2025-01-20T12:00:00.000Z",
   "_comment_architecture": [
-    "This example follows the correct EPCIS 2.0 extension architecture:",
-    "- masterDataAvailableFor contains ONLY gs1: Web Vocabulary properties",
-    "  (regulatoryInformation, countryOfOrigin, harvestDate, productName, geo, etc.)",
-    "- Extension properties (eudr:, dpp:) are at EVENT level, as siblings of bizStep/epcList",
-    "- The id in masterDataAvailableFor references identifiers from the event",
+    "EUDR Due Diligence Statement notification.",
+    "Static product attributes (the regulatoryInformation block, eudr: classification",
+    "and the assessment outcome — deforestationFreeDate / legallyHarvested / riskLevel /",
+    "verificationMethod) live INSIDE masterDataAvailableFor on the product entry.",
+    "Event-level slot is reserved for what happened (the operator notifying / submitting).",
     "",
     "HTTP header for EPCIS capture:",
     "  GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,eudr=https://ref.openepcis.io/extensions/eu/eudr/",
@@ -75,7 +75,11 @@
             "eudr:commodityType": "Wood",
             "eudr:timberProductType": "RoundWood",
             "eudr:speciesScientificName": "Quercus robur",
-            "eudr:speciesCommonName": "European Oak"
+            "eudr:speciesCommonName": "European Oak",
+            "eudr:deforestationFreeDate": "2025-01-15",
+            "eudr:legallyHarvested": true,
+            "eudr:riskLevel": "Low",
+            "eudr:verificationMethod": "On-site inspection combined with satellite imagery analysis"
           },
           {
             "id": "https://id.gs1.org/414/9521234000099",
@@ -112,10 +116,6 @@
             }
           }
         ],
-        "eudr:deforestationFreeDate": "2025-01-15",
-        "eudr:legallyHarvested": true,
-        "eudr:riskLevel": "Low",
-        "eudr:verificationMethod": "On-site inspection combined with satellite imagery analysis",
         "sourceList": [
           {
             "type": "urn:epcglobal:cbv:sdt:owning_party",

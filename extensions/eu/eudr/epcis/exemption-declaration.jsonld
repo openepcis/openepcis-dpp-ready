@@ -17,10 +17,11 @@
     "published. This example uses the eudr:-namespaced reference pattern that",
     "mirrors the planned semantics. See eudr/docs/GS1_ALIGNMENT.md.",
     "",
-    "masterDataAvailableFor contains ONLY gs1: properties (regulatoryIdentifier",
-    "is correctly OMITTED from the regulatoryInformation block here — an exemption",
-    "replaces it per WR 25-252 / MSWG 2026-04-13).",
-    "ALL exemption properties (eudr:, dpp:) are at EVENT level.",
+    "regulatoryIdentifier is correctly OMITTED from the regulatoryInformation block",
+    "here — an exemption replaces it per WR 25-252 / MSWG 2026-04-13. The exemption",
+    "declaration itself is product-level regulatory metadata and lives INSIDE",
+    "masterDataAvailableFor on the product entry (matching the origin-declaration",
+    "and due-diligence-statement patterns).",
     "",
     "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,eudr=https://ref.openepcis.io/extensions/eu/eudr/",
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
@@ -70,7 +71,27 @@
             "eudr:commodityType": "Wood",
             "eudr:timberProductType": "RoundWood",
             "eudr:speciesScientificName": "Quercus robur",
-            "eudr:speciesCommonName": "European Oak"
+            "eudr:speciesCommonName": "European Oak",
+            "eudr:exemptionDeclaration": {
+              "type": "eudr:ExemptionDeclaration",
+              "eudr:exemptionType": "TemporaryExemption",
+              "eudr:exemptionReasonCode": "DOWNSTREAM_VERIFIED_LOW_RISK",
+              "eudr:exemptionScope": "batch",
+              "eudr:exemptionScopeReference": "LOT-2026-Q1-0042",
+              "eudr:exemptionEffectiveFrom": "2026-04-15",
+              "eudr:exemptionEffectiveUntil": "2026-07-15",
+              "eudr:exemptionAuthority": {
+                "id": "https://id.gs1.org/417/9521234000006",
+                "type": "dpp:OperatorInformation",
+                "organizationName": {
+                  "@value": "Waldwirtschaft Schmidt GmbH",
+                  "@language": "en"
+                },
+                "partyGLN": "9521234000006",
+                "dpp:operatorRole": "DownstreamOperator",
+                "dpp:economicOperatorId": "EOID-DE-2026-009988"
+              }
+            }
           },
           {
             "id": "https://id.gs1.org/414/9521234000006",
@@ -90,26 +111,6 @@
             "countryCode": "DE"
           }
         ],
-        "eudr:exemptionDeclaration": {
-          "type": "eudr:ExemptionDeclaration",
-          "eudr:exemptionType": "TemporaryExemption",
-          "eudr:exemptionReasonCode": "DOWNSTREAM_VERIFIED_LOW_RISK",
-          "eudr:exemptionScope": "batch",
-          "eudr:exemptionScopeReference": "LOT-2026-Q1-0042",
-          "eudr:exemptionEffectiveFrom": "2026-04-15",
-          "eudr:exemptionEffectiveUntil": "2026-07-15",
-          "eudr:exemptionAuthority": {
-            "id": "https://id.gs1.org/417/9521234000006",
-            "type": "dpp:OperatorInformation",
-            "organizationName": {
-              "@value": "Waldwirtschaft Schmidt GmbH",
-              "@language": "en"
-            },
-            "partyGLN": "9521234000006",
-            "dpp:operatorRole": "DownstreamOperator",
-            "dpp:economicOperatorId": "EOID-DE-2026-009988"
-          }
-        },
         "sourceList": [
           {
             "type": "urn:epcglobal:cbv:sdt:owning_party",

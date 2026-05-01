@@ -9,8 +9,10 @@
   "creationDate": "2025-01-25T10:15:00.000Z",
   "_comment_architecture": [
     "Software/firmware update events for electronic devices (OTA security patch and manual BIOS update).",
-    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
-    "Extension properties (electronics:, dpp:) are at EVENT level.",
+    "softwareUpdateEvent is the actual observation (what changed in this event) and stays at event level.",
+    "softwareSupport describes the product's resulting current support state (OS, firmware, latest update",
+    "date) and lives inside masterDataAvailableFor on the product entry — it's master data, not an",
+    "event observation.",
     "",
     "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,electronics=https://ref.openepcis.io/extensions/eu/electronics/",
     "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
@@ -41,13 +43,19 @@
           "updateSource": "OTA",
           "updateChannel": "https://updates.ecotech-electronics.example.com/ecophone-pro"
         },
-        "softwareSupport": {
-          "type": "SoftwareSupport",
-          "operatingSystem": "Android",
-          "osVersion": "15.0",
-          "firmwareVersion": "EP2025.1.2.45",
-          "latestUpdateDate": "2025-01-25"
-        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09506000134352/21/ABC123456",
+            "type": "Product",
+            "softwareSupport": {
+              "type": "SoftwareSupport",
+              "operatingSystem": "Android",
+              "osVersion": "15.0",
+              "firmwareVersion": "EP2025.1.2.45",
+              "latestUpdateDate": "2025-01-25"
+            }
+          }
+        ],
         "bizTransactionList": [
           {
             "type": "urn:epcglobal:cbv:btt:updnotification",
@@ -72,11 +80,17 @@
           "updateSource": "manual",
           "updateChannel": "https://support.greentech-computers.example.com/drivers/greenbook-pro-15"
         },
-        "softwareSupport": {
-          "type": "SoftwareSupport",
-          "firmwareVersion": "BIOS 1.8.0 / EC 2.3.1",
-          "latestUpdateDate": "2025-01-28"
-        }
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09506000467894/21/LPT-2025-001",
+            "type": "Product",
+            "softwareSupport": {
+              "type": "SoftwareSupport",
+              "firmwareVersion": "BIOS 1.8.0 / EC 2.3.1",
+              "latestUpdateDate": "2025-01-28"
+            }
+          }
+        ]
       }
     ]
   }

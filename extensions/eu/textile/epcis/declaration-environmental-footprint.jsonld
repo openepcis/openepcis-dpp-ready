@@ -1,0 +1,111 @@
+{
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2025-09-20T08:00:00.000Z",
+  "_comment_architecture": [
+    "Pattern B — PEF/Carbon footprint DECLARATION (master data).",
+    "",
+    "The brand has computed the PEFCR Apparel & Footwear single score once for",
+    "this SKU and publishes it as part of the product's master data. Every",
+    "unit of GTIN 09521234000013 carries the same declaration; the EPCIS event",
+    "itself (here a commissioning) only marks the point at which the unit",
+    "enters the regulated supply chain. environmentalFootprint therefore lives",
+    "INSIDE masterDataAvailableFor on the product entry.",
+    "",
+    "Use this pattern when: the score is the product's authoritative published",
+    "PEF declaration that travels with every unit of the SKU.",
+    "Use the observation pattern (observation-carbon-footprint.jsonld) when:",
+    "the score may differ across lots / inspections, or the event itself is",
+    "what produced the value.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,textile=https://ref.openepcis.io/extensions/eu/textile/",
+    "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:a1b2c3d4-e5f6-7890-abcd-ef1234567008",
+        "eventTime": "2025-09-20T08:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "ADD",
+        "bizStep": "commissioning",
+        "disposition": "active",
+        "epcList": [
+          "https://id.gs1.org/01/09521234000013/21/WJ-2025-00301"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000020"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000020"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234000013/21/WJ-2025-00301",
+            "type": "Product",
+            "productName": {
+              "@value": "Alpine Pro Winter Jacket - Navy",
+              "@language": "en"
+            },
+            "gtin": "09521234000013",
+            "environmentalFootprint": {
+              "type": "EnvironmentalFootprint",
+              "carbonFootprintManufacturing": 18.5,
+              "pefSingleScore": 42.3,
+              "benchmarkPerformance": -15.2,
+              "dataTypeIndicator": "MixedData",
+              "pefcrReference": "PEFCR Apparel & Footwear v1.3",
+              "lciaCategories": [
+                {
+                  "type": "LCIACategory",
+                  "lciaCategoryCode": "GWP",
+                  "lciaValue": 18.5,
+                  "lciaUnit": "kg CO2-eq"
+                },
+                {
+                  "type": "LCIACategory",
+                  "lciaCategoryCode": "WaterUse",
+                  "lciaValue": 2.8,
+                  "lciaUnit": "m3 world-eq"
+                },
+                {
+                  "type": "LCIACategory",
+                  "lciaCategoryCode": "Eutrophication",
+                  "lciaValue": 0.0012,
+                  "lciaUnit": "kg P-eq"
+                },
+                {
+                  "type": "LCIACategory",
+                  "lciaCategoryCode": "Acidification",
+                  "lciaValue": 0.085,
+                  "lciaUnit": "mol H+-eq"
+                }
+              ]
+            }
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000020",
+            "type": "Place",
+            "locationGLN": "9521234000020",
+            "physicalLocationName": {
+              "@value": "EcoWear Cut & Sew Facility",
+              "@language": "en"
+            },
+            "address": {
+              "type": "PostalAddress",
+              "addressLocality": "Porto",
+              "countryCode": "PT"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
