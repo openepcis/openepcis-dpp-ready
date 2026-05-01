@@ -1,0 +1,72 @@
+{
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/cpr/cpr-context.jsonld",
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-04-15T10:00:00.000Z",
+  "_comment_architecture": [
+    "CPR commissioning event — a batch of construction product enters the",
+    "regulated supply chain. cpr: data (constructionProductType,",
+    "reactionToFireClass, declarationOfPerformanceUrl) and dpp: cross-cutting",
+    "data (recycledContent, carbonFootprintDeclaration) live at EVENT level.",
+    "masterDataAvailableFor carries gs1: properties only.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,",
+    "                              cpr=https://ref.openepcis.io/extensions/eu/cpr/",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:7b3c5e91-2345-4def-9876-2c3d4e5f6071",
+        "eventTime": "2026-04-15T08:30:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "action": "ADD",
+        "bizStep": "commissioning",
+        "disposition": "active",
+        "epcList": [
+          "https://id.gs1.org/01/09521234600015"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000042"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000042"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234600015",
+            "type": "Product",
+            "productName": {
+              "@value": "BetonStrong CEM I 52.5 N — 25 kg bag",
+              "@language": "en"
+            },
+            "gtin": "09521234600015",
+            "netWeight": {
+              "type": "QuantitativeValue",
+              "value": 25.0,
+              "unitCode": "KGM"
+            }
+          }
+        ],
+        "constructionProductType": "Cement",
+        "reactionToFireClass": "A1",
+        "declarationOfPerformanceUrl": "https://manufacturer.example/dop/CEM-I-52-5-N-2026-001.pdf",
+        "regulatoryInformation": [
+          {
+            "type": "RegulatoryInformation",
+            "regulationType": {
+              "id": "gs1:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION"
+            },
+            "regulatoryAct": "EU 2024/3110",
+            "isRegulationCompliant": true
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,238 @@
+{
+  "namespace": "https://ref.openepcis.io/extensions/eu/cpr/",
+  "version": "0.1.0",
+  "title": "OpenEPCIS CPR Vocabulary",
+  "description": "Vocabulary for the revised EU Construction Products Regulation\n(Regulation 2024/3110, in force 2025-01-07; DPP via delegated acts from 2026\nonward, phased per product family).\n\nThis module is intentionally thin per the project's four-layer delegation\npattern. The construction-specific concepts live here; cross-cutting concerns\n(recycled content, carbon footprint, hazardous substances, recyclability,\nEPR, end-of-life, due diligence) reuse the lifted `dpp:` vocabulary plus\n`untp:` and `gs1:`.",
+  "classes": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct",
+      "localName": "ConstructionProduct",
+      "label": "Construction Product",
+      "comment": "A construction product subject to EU Regulation 2024/3110 (revised\nCPR). Carrier for the regulation's DPP and Declaration-of-Performance data.\nUse cpr:declarationOfPerformanceUrl, cpr:essentialCharacteristic, and\ncpr:reactionToFireClass for the substantive declarations; reuse dpp: terms\nfor recycled content, carbon footprint, hazardous substances, etc.",
+      "subClassOf": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic",
+      "localName": "EssentialCharacteristic",
+      "label": "Essential Characteristic",
+      "comment": "A single declared essential characteristic (e.g. compressive strength, thermal conductivity, water vapour permeability) per CPR Annex III. Pair name + value + unit + harmonised standard reference."
+    }
+  ],
+  "properties": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/characteristicName",
+      "localName": "characteristicName",
+      "label": "Characteristic Name",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/characteristicValue",
+      "localName": "characteristicValue",
+      "label": "Characteristic Value",
+      "comment": "Quantitative value of the essential characteristic. gs1:QuantitativeValue with the unitCode appropriate for the characteristic (e.g. 'N31' for MPa, 'F94' for W/(m·K)).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/constructionProductType",
+      "localName": "constructionProductType",
+      "label": "Construction Product Type",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProductType"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/declarationOfPerformanceUrl",
+      "localName": "declarationOfPerformanceUrl",
+      "label": "Declaration of Performance URL",
+      "comment": "URL of the structured Declaration of Performance (DoP) or\nDeclaration of Conformity (DoC) document for this construction product, per\nCPR Article 12. The DoP carries the harmonised technical specification\nreference, intended use, essential characteristics, and AVCP system.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/essentialCharacteristic",
+      "localName": "essentialCharacteristic",
+      "label": "Essential Characteristic",
+      "comment": "Declared essential characteristic of the product. Set-valued — most products declare multiple.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/harmonisedStandard",
+      "localName": "harmonisedStandard",
+      "label": "Harmonised Standard",
+      "comment": "URI of the harmonised technical specification (hEN) under which the essential characteristic is declared (e.g. EN 197-1 for cement, EN 13162 for mineral wool insulation).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/reactionToFireClass",
+      "localName": "reactionToFireClass",
+      "label": "Reaction-to-fire Class",
+      "comment": "EN 13501-1 reaction-to-fire classification of the construction product.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/cpr/ReactionToFireClass"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-13501-1.aspx"
+    }
+  ],
+  "enumerations": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProductType",
+      "localName": "ConstructionProductType",
+      "label": "Construction Product Type",
+      "comment": "Top-level construction product family per CPR Annex III.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/Aggregate",
+          "localName": "Aggregate",
+          "label": "Aggregate",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/Cement",
+          "localName": "Cement",
+          "label": "Cement",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/CladdingPanel",
+          "localName": "CladdingPanel",
+          "label": "Cladding Panel",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/Concrete",
+          "localName": "Concrete",
+          "label": "Concrete",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/Insulation",
+          "localName": "Insulation",
+          "label": "Insulation",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/Membrane",
+          "localName": "Membrane",
+          "label": "Membrane",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/Mortar",
+          "localName": "Mortar",
+          "label": "Mortar",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/OtherConstructionProduct",
+          "localName": "OtherConstructionProduct",
+          "label": "Other Construction Product",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/Reinforcement",
+          "localName": "Reinforcement",
+          "label": "Reinforcement",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/StructuralTimber",
+          "localName": "StructuralTimber",
+          "label": "Structural Timber",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/WindowAndDoor",
+          "localName": "WindowAndDoor",
+          "label": "Window or Door",
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/ReactionToFireClass",
+      "localName": "ReactionToFireClass",
+      "label": "Reaction-to-fire Class",
+      "comment": "Reaction-to-fire performance per EN 13501-1, ranging from A1 (highest,\nnon-combustible — no contribution to fire) through F (no performance\ndetermined). CPR requires this declaration for products where reaction to\nfire is an essential characteristic per Annex III.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/FireClassA1",
+          "localName": "FireClassA1",
+          "label": "Class A1",
+          "comment": "No contribution to fire — non-combustible."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/FireClassA2",
+          "localName": "FireClassA2",
+          "label": "Class A2",
+          "comment": "Very limited contribution to fire."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/FireClassB",
+          "localName": "FireClassB",
+          "label": "Class B",
+          "comment": "Limited contribution to fire."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/FireClassC",
+          "localName": "FireClassC",
+          "label": "Class C",
+          "comment": "Major contribution to fire (limited)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/FireClassD",
+          "localName": "FireClassD",
+          "label": "Class D",
+          "comment": "Major contribution to fire (acceptable)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/FireClassE",
+          "localName": "FireClassE",
+          "label": "Class E",
+          "comment": "Acceptable reaction to fire."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/FireClassF",
+          "localName": "FireClassF",
+          "label": "Class F",
+          "comment": "No performance determined."
+        }
+      ]
+    }
+  ]
+}

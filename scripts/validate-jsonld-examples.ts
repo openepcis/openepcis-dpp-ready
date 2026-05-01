@@ -42,6 +42,8 @@ const URL_TO_FILE: Record<string, string> = {
     'extensions/eu/detergent/context/detergent-context.jsonld',
   'https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld':
     'extensions/eu/ppwr/context/ppwr-context.jsonld',
+  'https://ref.openepcis.io/extensions/eu/cpr/cpr-context.jsonld':
+    'extensions/eu/cpr/context/cpr-context.jsonld',
   'https://ref.openepcis.io/extensions/us/fsma204/fsma204-context.jsonld':
     'extensions/us/fsma204/context/fsma204-context.jsonld',
   'https://ref.openepcis.io/extensions/common/interop/untp-bridge-context.jsonld':
@@ -116,6 +118,7 @@ async function main() {
     'extensions/eu/eudr',
     'extensions/eu/detergent',
     'extensions/eu/ppwr',
+    'extensions/eu/cpr',
     'extensions/us/fsma204',
     'extensions/common/core',
     'extensions/common/interop',

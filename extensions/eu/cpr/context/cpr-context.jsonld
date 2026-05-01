@@ -1,0 +1,66 @@
+{
+  "_comment": "OpenEPCIS CPR Vocabulary v0.1.0 — EU Construction Products Regulation 2024/3110. Module is intentionally thin; nearly every cross-cutting CPR data point reuses the lifted dpp: vocabulary plus untp: and gs1:. Only construction-specific terms (ConstructionProduct, declarationOfPerformanceUrl, essentialCharacteristic, reactionToFireClass, constructionProductType) live in the cpr: namespace.",
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    {
+      "@version": 1.1,
+      "cpr": "https://ref.openepcis.io/extensions/eu/cpr/",
+      "dpp": "https://ref.openepcis.io/extensions/common/core/",
+      "gs1": "https://ref.gs1.org/voc/",
+      "schema": "https://schema.org/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "id": "@id",
+      "type": "@type",
+      "manufacturer": {"@id": "gs1:manufacturer", "@type": "@id"},
+      "regulatoryInformation": {"@id": "gs1:regulatoryInformation", "@type": "@id", "@container": "@set"},
+      "RegulatoryInformation": "gs1:RegulatoryInformation",
+      "regulationType": {"@id": "gs1:regulationType", "@type": "@id"},
+      "regulatoryAct": "gs1:regulatoryAct",
+      "isRegulationCompliant": {"@id": "dpp:isRegulationCompliant", "@type": "xsd:boolean"},
+      "ConstructionProduct": "cpr:ConstructionProduct",
+      "constructionProductType": {
+        "@id": "cpr:constructionProductType",
+        "@type": "@vocab",
+        "@context": {
+          "Cement": "cpr:Cement",
+          "Aggregate": "cpr:Aggregate",
+          "Insulation": "cpr:Insulation",
+          "WindowAndDoor": "cpr:WindowAndDoor",
+          "Membrane": "cpr:Membrane",
+          "StructuralTimber": "cpr:StructuralTimber",
+          "Reinforcement": "cpr:Reinforcement",
+          "Mortar": "cpr:Mortar",
+          "Concrete": "cpr:Concrete",
+          "CladdingPanel": "cpr:CladdingPanel",
+          "OtherConstructionProduct": "cpr:OtherConstructionProduct"
+        }
+      },
+      "reactionToFireClass": {
+        "@id": "cpr:reactionToFireClass",
+        "@type": "@vocab",
+        "@context": {
+          "A1": "cpr:FireClassA1",
+          "A2": "cpr:FireClassA2",
+          "B": "cpr:FireClassB",
+          "C": "cpr:FireClassC",
+          "D": "cpr:FireClassD",
+          "E": "cpr:FireClassE",
+          "F": "cpr:FireClassF"
+        }
+      },
+      "declarationOfPerformanceUrl": {
+        "@id": "cpr:declarationOfPerformanceUrl",
+        "@type": "xsd:anyURI"
+      },
+      "EssentialCharacteristic": "cpr:EssentialCharacteristic",
+      "essentialCharacteristic": {
+        "@id": "cpr:essentialCharacteristic",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "characteristicName": "cpr:characteristicName",
+      "characteristicValue": {"@id": "cpr:characteristicValue", "@type": "@id"},
+      "harmonisedStandard": {"@id": "cpr:harmonisedStandard", "@type": "xsd:anyURI"}
+    }
+  ]
+}

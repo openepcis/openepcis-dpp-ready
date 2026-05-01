@@ -27,12 +27,12 @@ The EU Battery Regulation requires DPPs starting **February 2027**. Industry can
 
 | | Count |
 |---|---|
-| Modules | 9 — `common/{core,interop}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr}`, `us/{fsma204}` |
-| Classes | 110+ |
-| Properties | 410+ |
-| EPCIS Event Examples | 36+ |
+| Modules | 10 — `common/{core,interop}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr}`, `us/{fsma204}` |
+| Classes | 120+ |
+| Properties | 430+ |
+| EPCIS Event Examples | 37+ |
 | Bridge Contexts | 4 (UNTP, CIRPASS2, JTC 24, BatteryPass) |
-| Regulations Covered | 7 (ESPR, Battery Reg, EUDR, Sustainable Textiles, Electronics DAs, Detergents Reg, **PPWR 2025/40**) |
+| Regulations Covered | 8 (ESPR, Battery Reg, EUDR, Sustainable Textiles, Electronics DAs, Detergents Reg, PPWR 2025/40, **CPR 2024/3110**) — plus dpp: enrichments for Right-to-Repair 2024/1799, CSDDD 2024/1760, Forced Labour 2024/3015, CRMA 2024/1252 |
 
 ## Vocabulary layering — the delegation pattern
 

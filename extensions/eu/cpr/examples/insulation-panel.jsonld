@@ -1,0 +1,94 @@
+{
+  "_comment": [
+    "CPR DPP example: a 1200×600×100 mm mineral-wool insulation panel.",
+    "Demonstrates a non-cement product: thermal conductivity and reaction-",
+    "to-fire (A1, mineral wool is non-combustible) as essential characteristics",
+    "per EN 13162. 30% recycled glass cullet via dpp:RecycledContent, no",
+    "hazardous substances, end-of-life take-back via dpp:EndOfLifeProgram.",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/cpr/cpr-context.jsonld"
+  ],
+  "id": "https://id.gs1.org/01/09521234600022",
+  "type": "ConstructionProduct",
+  "gtin": "09521234600022",
+  "productName": {
+    "@value": "ThermoWool Plus 100 — 1200×600×100 mm mineral wool panel",
+    "@language": "en"
+  },
+  "constructionProductType": "Insulation",
+  "reactionToFireClass": "A1",
+  "declarationOfPerformanceUrl": "https://manufacturer.example/dop/ThermoWool-Plus-100-2026-001.pdf",
+  "manufacturer": {
+    "id": "https://id.gs1.org/417/9521234000059",
+    "type": "Organization",
+    "organizationName": "IsolierTech AG",
+    "partyGLN": "9521234000059"
+  },
+  "essentialCharacteristic": [
+    {
+      "type": "EssentialCharacteristic",
+      "characteristicName": "Thermal Conductivity λD",
+      "characteristicValue": {
+        "type": "QuantitativeValue",
+        "value": 0.034,
+        "unitCode": "F94"
+      },
+      "harmonisedStandard": "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30562,5839"
+    },
+    {
+      "type": "EssentialCharacteristic",
+      "characteristicName": "Density",
+      "characteristicValue": {
+        "type": "QuantitativeValue",
+        "value": 60,
+        "unitCode": "KMQ"
+      },
+      "harmonisedStandard": "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30562,5839"
+    }
+  ],
+  "recycledContent": {
+    "type": "RecycledContent",
+    "recycledContent": {
+      "type": "QuantitativeValue",
+      "value": 0.30,
+      "unitCode": "P1"
+    },
+    "postConsumerRecycledContent": {
+      "type": "QuantitativeValue",
+      "value": 0.30,
+      "unitCode": "P1"
+    }
+  },
+  "materialComposition": [
+    {
+      "type": "MaterialComposition",
+      "materialName": "Mineral wool (rock + recycled glass cullet)",
+      "massFraction": 0.97
+    },
+    {
+      "type": "MaterialComposition",
+      "materialName": "Phenolic resin binder",
+      "massFraction": 0.03
+    }
+  ],
+  "endOfLifeProgram": {
+    "type": "EndOfLifeProgram",
+    "takeBackUrl": "https://isoliertech.example/take-back",
+    "takeBackIncentive": "Free pick-up for site quantities >500 kg",
+    "collectionPointDirectoryUrl": "https://isoliertech.example/collection-points",
+    "dismantlingGuideUrl": "https://isoliertech.example/dismantling-guide-thermowool"
+  },
+  "regulatoryInformation": [
+    {
+      "type": "RegulatoryInformation",
+      "regulationType": {
+        "id": "gs1:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION"
+      },
+      "regulatoryAct": "EU 2024/3110",
+      "isRegulationCompliant": true
+    }
+  ]
+}

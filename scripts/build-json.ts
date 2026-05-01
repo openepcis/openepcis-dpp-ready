@@ -163,6 +163,12 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     namespace: "https://ref.openepcis.io/extensions/eu/ppwr/",
   },
   {
+    name: "cpr",
+    dir: "extensions/eu/cpr",
+    ttlFile: "cpr.ttl",
+    namespace: "https://ref.openepcis.io/extensions/eu/cpr/",
+  },
+  {
     name: "fsma204",
     dir: "extensions/us/fsma204",
     ttlFile: "fsma204.ttl",

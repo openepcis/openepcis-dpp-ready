@@ -94,6 +94,13 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     prefix: "ppwr",
   },
   {
+    name: "cpr",
+    dir: "extensions/eu/cpr",
+    ttlFile: "cpr.ttl",
+    namespace: "https://ref.openepcis.io/extensions/eu/cpr/",
+    prefix: "cpr",
+  },
+  {
     name: "fsma204",
     dir: "extensions/us/fsma204",
     ttlFile: "fsma204.ttl",
@@ -115,6 +122,7 @@ const NAMESPACE_TO_PREFIX: Record<string, string> = {
   "https://ref.openepcis.io/extensions/eu/electronics/": "electronics",
   "https://ref.openepcis.io/extensions/eu/detergent/": "detergent",
   "https://ref.openepcis.io/extensions/eu/ppwr/": "ppwr",
+  "https://ref.openepcis.io/extensions/eu/cpr/": "cpr",
   "https://ref.openepcis.io/extensions/us/fsma204/": "fsma",
 };
 

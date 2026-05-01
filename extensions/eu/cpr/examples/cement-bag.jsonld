@@ -1,0 +1,118 @@
+{
+  "_comment": [
+    "CPR DPP example: a 25 kg bag of CEM I 52.5 N portland cement.",
+    "Demonstrates the standard CPR data set: declarationOfPerformanceUrl,",
+    "essentialCharacteristic for compressive strength (per EN 197-1),",
+    "reactionToFireClass A1 (cement is non-combustible), 35% recycled",
+    "content via dpp:RecycledContent (BFS / blast-furnace slag), and",
+    "carbon footprint via dpp:CarbonFootprintDeclaration with lifecycle",
+    "stages. GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/cpr/cpr-context.jsonld"
+  ],
+  "id": "https://id.gs1.org/01/09521234600015",
+  "type": "ConstructionProduct",
+  "gtin": "09521234600015",
+  "productName": {
+    "@value": "BetonStrong CEM I 52.5 N — 25 kg bag",
+    "@language": "en"
+  },
+  "constructionProductType": "Cement",
+  "reactionToFireClass": "A1",
+  "declarationOfPerformanceUrl": "https://manufacturer.example/dop/CEM-I-52-5-N-2026-001.pdf",
+  "manufacturer": {
+    "id": "https://id.gs1.org/417/9521234000042",
+    "type": "Organization",
+    "organizationName": "Bauwerk Cement GmbH",
+    "partyGLN": "9521234000042"
+  },
+  "essentialCharacteristic": [
+    {
+      "type": "EssentialCharacteristic",
+      "characteristicName": "Compressive Strength (28 days)",
+      "characteristicValue": {
+        "type": "QuantitativeValue",
+        "value": 52.5,
+        "unitCode": "N20"
+      },
+      "harmonisedStandard": "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30253,5839"
+    },
+    {
+      "type": "EssentialCharacteristic",
+      "characteristicName": "Initial Setting Time",
+      "characteristicValue": {
+        "type": "QuantitativeValue",
+        "value": 75,
+        "unitCode": "MIN"
+      },
+      "harmonisedStandard": "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30253,5839"
+    }
+  ],
+  "recycledContent": {
+    "type": "RecycledContent",
+    "recycledContent": {
+      "type": "QuantitativeValue",
+      "value": 0.35,
+      "unitCode": "P1"
+    },
+    "preConsumerRecycledContent": {
+      "type": "QuantitativeValue",
+      "value": 0.35,
+      "unitCode": "P1"
+    }
+  },
+  "materialComposition": [
+    {
+      "type": "MaterialComposition",
+      "materialName": "Portland clinker",
+      "massFraction": 0.65
+    },
+    {
+      "type": "MaterialComposition",
+      "materialName": "Granulated blast-furnace slag (GBFS)",
+      "massFraction": 0.30
+    },
+    {
+      "type": "MaterialComposition",
+      "materialName": "Gypsum",
+      "massFraction": 0.05
+    }
+  ],
+  "carbonFootprintDeclaration": {
+    "type": "CarbonFootprintDeclaration",
+    "carbonFootprintTotal": {
+      "type": "QuantitativeValue",
+      "value": 14.2,
+      "unitCode": "KGM"
+    },
+    "carbonFootprintRawMaterial": {
+      "type": "QuantitativeValue",
+      "value": 8.1,
+      "unitCode": "KGM"
+    },
+    "carbonFootprintProduction": {
+      "type": "QuantitativeValue",
+      "value": 5.4,
+      "unitCode": "KGM"
+    },
+    "carbonFootprintDistribution": {
+      "type": "QuantitativeValue",
+      "value": 0.7,
+      "unitCode": "KGM"
+    },
+    "carbonFootprintMethodology": "https://www.iso.org/standard/71206.html",
+    "declaredUnit": "1 kg of cement"
+  },
+  "regulatoryInformation": [
+    {
+      "type": "RegulatoryInformation",
+      "regulationType": {
+        "id": "gs1:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION"
+      },
+      "regulatoryAct": "EU 2024/3110",
+      "isRegulationCompliant": true
+    }
+  ]
+}

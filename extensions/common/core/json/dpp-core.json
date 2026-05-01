@@ -217,6 +217,12 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/RepairProvider",
+      "localName": "RepairProvider",
+      "label": "Repair Provider",
+      "comment": "An authorised repair provider for a product. Supports the European online platform for repair (Article 7 of Directive 2024/1799) and manufacturer-published repair networks."
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern",
       "localName": "SubstanceOfConcern",
       "label": "Substance of Concern",
@@ -549,6 +555,18 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/crmListVersion",
+      "localName": "crmListVersion",
+      "label": "CRM List Version",
+      "comment": "Version reference of the EU Critical Raw Materials list against which the isCriticalRawMaterial / isStrategicRawMaterial flags were determined (e.g. CRMA-2024 Annex II / Annex I). The list is updated periodically by the Commission.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/customsCommodityCode",
       "localName": "customsCommodityCode",
       "label": "Customs Commodity Code",
@@ -746,6 +764,18 @@
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/referencedFileURL"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/dueDiligenceRegulationContext",
+      "localName": "dueDiligenceRegulationContext",
+      "label": "Due Diligence Regulation Context",
+      "comment": "The specific regulation against which a due diligence statement is asserted: Battery Annex X (Reg. 2023/1542), EUDR Article 9 (Reg. 2023/1115), CSDDD (Dir. 2024/1760), Forced Labour Regulation (2024/3015), OECD Conflict Minerals, etc. Same dpp:DueDiligenceReport shape — different regulatory anchor.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/RegulatoryInformation"
       ]
     },
     {
@@ -990,6 +1020,19 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/forcedLabourFreeAssertion",
+      "localName": "forcedLabourFreeAssertion",
+      "label": "Forced-Labour-Free Assertion",
+      "comment": "Boolean assertion that the product is free of forced labour per EU Regulation 2024/3015. Substantiate with dueDiligenceReport URL + thirdPartyAssurance evidence.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport"
+      ],
+      "range": [
+        "xsd:boolean"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/3015"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/granularity",
       "localName": "granularity",
       "label": "DPP Granularity",
@@ -1131,6 +1174,19 @@
       "range": [
         "xsd:boolean"
       ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/isStrategicRawMaterial",
+      "localName": "isStrategicRawMaterial",
+      "label": "Is Strategic Raw Material",
+      "comment": "Boolean flag — material is on the EU Strategic Raw Materials list per CRMA Annex I (2024/1252). Strategic ⊂ Critical: every strategic raw material is also a critical raw material, but not vice versa.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
+      ],
+      "range": [
+        "xsd:boolean"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1252"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/issueDate",
@@ -1623,6 +1679,19 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/repairInformationPortalUrl",
+      "localName": "repairInformationPortalUrl",
+      "label": "Repair Information Portal URL",
+      "comment": "URL of the manufacturer's public repair information portal as required by EU Right-to-Repair Directive 2024/1799 Article 4 — covers spare-parts catalogue, dismantling guides, software updates available to independent repairers.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dir/2024/1799"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/repairInstructions",
       "localName": "repairInstructions",
       "label": "Repair Instructions",
@@ -1632,6 +1701,39 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/repairProvider",
+      "localName": "repairProvider",
+      "label": "Repair Provider",
+      "comment": "Links a product to one or more authorised repair providers.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/RepairProvider"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/repairProviderName",
+      "localName": "repairProviderName",
+      "label": "Repair Provider Name",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RepairProvider"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/repairProviderUrl",
+      "localName": "repairProviderUrl",
+      "label": "Repair Provider URL",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RepairProvider"
+      ],
+      "range": [
+        "xsd:anyURI"
       ]
     },
     {
@@ -1752,6 +1854,18 @@
       "comment": "List of substances of concern present in the product per ESPR and SCIP database requirements.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/supplyChainTransparencyUrl",
+      "localName": "supplyChainTransparencyUrl",
+      "label": "Supply-Chain Transparency URL",
+      "comment": "URL of a public supply-chain map / transparency endpoint (CSDDD Article 16, ESPR Article 7).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport"
+      ],
+      "range": [
+        "xsd:anyURI"
       ]
     },
     {

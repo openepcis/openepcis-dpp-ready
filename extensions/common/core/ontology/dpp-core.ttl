@@ -2075,3 +2075,104 @@ dpp:precautionaryStatement
     rdfs:domain dpp:HazardousSubstance ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Right-to-Repair Directive 2024/1799 enrichment
+# =============================================================================
+# Right-to-Repair adds two cross-cutting concepts beyond dpp:RepairabilityInfo
+# (which already covers score/class/sparePartsAvailability): a repair
+# information portal URL (the manufacturer's public repair-data endpoint per
+# Article 4) and a register of authorised repair providers.
+
+dpp:repairInformationPortalUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Repair Information Portal URL"@en ;
+    rdfs:comment "URL of the manufacturer's public repair information portal as required by EU Right-to-Repair Directive 2024/1799 Article 4 — covers spare-parts catalogue, dismantling guides, software updates available to independent repairers."@en ;
+    rdfs:domain dpp:RepairabilityInfo ;
+    rdfs:range xsd:anyURI ;
+    dcterms:source <https://eur-lex.europa.eu/eli/dir/2024/1799> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:RepairProvider
+    a owl:Class ;
+    rdfs:label "Repair Provider"@en ;
+    rdfs:comment "An authorised repair provider for a product. Supports the European online platform for repair (Article 7 of Directive 2024/1799) and manufacturer-published repair networks."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:repairProvider
+    a owl:ObjectProperty ;
+    rdfs:label "Repair Provider"@en ;
+    rdfs:comment "Links a product to one or more authorised repair providers."@en ;
+    rdfs:range dpp:RepairProvider ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:repairProviderName
+    a owl:DatatypeProperty ;
+    rdfs:label "Repair Provider Name"@en ;
+    rdfs:domain dpp:RepairProvider ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:repairProviderUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Repair Provider URL"@en ;
+    rdfs:domain dpp:RepairProvider ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# CSDDD 2024/1760 + Forced Labour 2024/3015 enrichment of DueDiligenceReport
+# =============================================================================
+# CSDDD (Corporate Sustainability Due Diligence Directive) and the Forced
+# Labour Regulation both require supply-chain due diligence assertions. Same
+# shape as Battery Annex X and EUDR Article 9 — distinguished by which
+# regulation is being asserted.
+
+dpp:dueDiligenceRegulationContext
+    a owl:ObjectProperty ;
+    rdfs:label "Due Diligence Regulation Context"@en ;
+    rdfs:comment "The specific regulation against which a due diligence statement is asserted: Battery Annex X (Reg. 2023/1542), EUDR Article 9 (Reg. 2023/1115), CSDDD (Dir. 2024/1760), Forced Labour Regulation (2024/3015), OECD Conflict Minerals, etc. Same dpp:DueDiligenceReport shape — different regulatory anchor."@en ;
+    rdfs:domain dpp:DueDiligenceReport ;
+    rdfs:range gs1:RegulatoryInformation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:supplyChainTransparencyUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Supply-Chain Transparency URL"@en ;
+    rdfs:comment "URL of a public supply-chain map / transparency endpoint (CSDDD Article 16, ESPR Article 7)."@en ;
+    rdfs:domain dpp:DueDiligenceReport ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:forcedLabourFreeAssertion
+    a owl:DatatypeProperty ;
+    rdfs:label "Forced-Labour-Free Assertion"@en ;
+    rdfs:comment "Boolean assertion that the product is free of forced labour per EU Regulation 2024/3015. Substantiate with dueDiligenceReport URL + thirdPartyAssurance evidence."@en ;
+    rdfs:domain dpp:DueDiligenceReport ;
+    rdfs:range xsd:boolean ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/3015> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Critical Raw Materials Act 2024/1252 enrichment
+# =============================================================================
+# CRMA distinguishes between "critical" and "strategic" materials and publishes
+# an evolving list. The existing dpp:isCriticalRawMaterial boolean covers the
+# basic flag — these enrichments add the strategic flag and the list version.
+
+dpp:isStrategicRawMaterial
+    a owl:DatatypeProperty ;
+    rdfs:label "Is Strategic Raw Material"@en ;
+    rdfs:comment "Boolean flag — material is on the EU Strategic Raw Materials list per CRMA Annex I (2024/1252). Strategic ⊂ Critical: every strategic raw material is also a critical raw material, but not vice versa."@en ;
+    rdfs:domain dpp:MaterialComposition ;
+    rdfs:range xsd:boolean ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1252> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+dpp:crmListVersion
+    a owl:DatatypeProperty ;
+    rdfs:label "CRM List Version"@en ;
+    rdfs:comment "Version reference of the EU Critical Raw Materials list against which the isCriticalRawMaterial / isStrategicRawMaterial flags were determined (e.g. CRMA-2024 Annex II / Annex I). The list is updated periodically by the Commission."@en ;
+    rdfs:domain dpp:MaterialComposition ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .

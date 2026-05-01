@@ -1,0 +1,60 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix cpr: <https://ref.openepcis.io/extensions/eu/cpr/> .
+@prefix cpr-sh: <https://ref.openepcis.io/extensions/eu/cpr/shapes/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<https://ref.openepcis.io/extensions/eu/cpr/shapes/>
+    a sh:ShapesGraph ;
+    dcterms:title "OpenEPCIS CPR SHACL Shapes"@en ;
+    dcterms:description "SHACL validation shapes for the CPR vocabulary (EU Regulation 2024/3110)."@en ;
+    dcterms:created "2026-05-01"^^xsd:date ;
+    dcterms:modified "2026-05-01"^^xsd:date .
+
+cpr-sh:ConstructionProductShape
+    a sh:NodeShape ;
+    sh:targetClass cpr:ConstructionProduct ;
+    rdfs:label "CPR Construction Product Shape"@en ;
+    sh:property [
+        sh:path cpr:constructionProductType ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "cpr:ConstructionProduct must declare exactly one constructionProductType (Annex III family)"@en
+    ] ;
+    sh:property [
+        sh:path cpr:declarationOfPerformanceUrl ;
+        sh:datatype xsd:anyURI ;
+        sh:minCount 1 ;
+        sh:message "cpr:ConstructionProduct must reference a Declaration of Performance per CPR Article 12"@en
+    ] ;
+    sh:property [
+        sh:path cpr:reactionToFireClass ;
+        sh:in ( cpr:FireClassA1 cpr:FireClassA2 cpr:FireClassB cpr:FireClassC cpr:FireClassD cpr:FireClassE cpr:FireClassF ) ;
+        sh:maxCount 1 ;
+        sh:message "cpr:reactionToFireClass must be A1, A2, B, C, D, E, or F (EN 13501-1)"@en
+    ] .
+
+cpr-sh:EssentialCharacteristicShape
+    a sh:NodeShape ;
+    sh:targetClass cpr:EssentialCharacteristic ;
+    rdfs:label "CPR Essential Characteristic Shape"@en ;
+    sh:property [
+        sh:path cpr:characteristicName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path cpr:characteristicValue ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path cpr:harmonisedStandard ;
+        sh:datatype xsd:anyURI ;
+        sh:maxCount 1
+    ] .

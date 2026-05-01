@@ -79,14 +79,15 @@ that's a signal it should move down to `dpp:`.
 | Sustainable Textiles | ✅ shipped (`eu/textile`) | 0 (mature) |
 | ESPR Electronics DA | ✅ shipped (`eu/electronics`) | 0 (mature) |
 | Detergents 2026/405 | ✅ shipped (`eu/detergent`) | 0 (mature) |
-| **PPWR 2025/40** | ✅ **shipped (`eu/ppwr`, v0.1.0)** | **3** (Packaging, packagingTier, recyclabilityGrade, harmonisedSymbol) |
+| **PPWR 2025/40** | ✅ shipped (`eu/ppwr`, v0.1.0) | 4 (Packaging, packagingTier, recyclabilityGrade, harmonisedSymbol) |
+| **CPR 2024/3110** | ✅ shipped (`eu/cpr`, v0.1.0) | 5 (ConstructionProduct, constructionProductType enum, reactionToFireClass enum, declarationOfPerformanceUrl, EssentialCharacteristic) |
+| **Right-to-Repair 2024/1799** | ✅ shipped (dpp: enrichment) | 0 — enriches `dpp:RepairabilityInfo` with `dpp:repairInformationPortalUrl` and `dpp:RepairProvider` class |
+| **CSDDD 2024/1760** | ✅ shipped (dpp: enrichment) | 0 — enriches `dpp:DueDiligenceReport` with `dpp:dueDiligenceRegulationContext` and `dpp:supplyChainTransparencyUrl` |
+| **Forced Labour 2024/3015** | ✅ shipped (dpp: enrichment) | 0 — enriches `dpp:DueDiligenceReport` with `dpp:forcedLabourFreeAssertion` |
+| **CRMA 2024/1252** | ✅ shipped (dpp: enrichment) | 0 — enriches `dpp:MaterialComposition` with `dpp:isStrategicRawMaterial` and `dpp:crmListVersion` |
 | FSMA 204 (US) | ✅ shipped (`us/fsma204`) | 0 (mature) |
-| Construction Products 2024/3110 | next | ~5 |
-| Right-to-Repair 2024/1799 | next | 0 — enrich `dpp:RepairabilityInfo` only |
 | End-of-Life Vehicles (revision) | when adopted | ~5 |
 | Toys Safety (revision) | when adopted | ~5 |
-| Forced Labour 2024/3015 | when applicable | 0 — enrich `dpp:DueDiligenceReport` |
-| CSDDD 2024/1760 | when applicable | 0 — enrich `dpp:DueDiligenceReport` |
 
 ## Genuine `dpp:` gaps — what we minted, why no upstream had it
 
