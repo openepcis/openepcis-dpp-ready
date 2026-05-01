@@ -61,7 +61,7 @@ textile/
 **Prefix**: `textile:`
 **URI**: `https://ref.openepcis.io/extensions/eu/textile/`
 
-Browse the vocabulary at: [ref.openepcis.io/extensions/textile/](https://ref.openepcis.io/extensions/eu/textile/)
+Browse the vocabulary at: [ref.openepcis.io/extensions/eu/textile/](https://ref.openepcis.io/extensions/eu/textile/)
 
 ## Key Classes
 

@@ -51,7 +51,7 @@ electronics/
 
 **Namespace**: `https://ref.openepcis.io/extensions/eu/electronics/`
 
-**Browse**: [ref.openepcis.io/extensions/electronics/](https://ref.openepcis.io/extensions/eu/electronics/)
+**Browse**: [ref.openepcis.io/extensions/eu/electronics/](https://ref.openepcis.io/extensions/eu/electronics/)
 
 ## Key Classes
 

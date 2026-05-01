@@ -118,7 +118,7 @@ eudr/
 
 The EUDR vocabulary uses the namespace: `https://ref.openepcis.io/extensions/eu/eudr/`
 
-Browse the vocabulary at: [ref.openepcis.io/extensions/eudr/](https://ref.openepcis.io/extensions/eu/eudr/)
+Browse the vocabulary at: [ref.openepcis.io/extensions/eu/eudr/](https://ref.openepcis.io/extensions/eu/eudr/)
 
 ## Commodity Focus: Wood/Timber
 
