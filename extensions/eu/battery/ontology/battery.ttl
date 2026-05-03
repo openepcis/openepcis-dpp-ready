@@ -11,6 +11,11 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix schema: <https://schema.org/> .
 @prefix vann: <http://purl.org/vocab/vann/> .
+# EU SEMICeu Core Vocabularies (peer Layer 1) — see extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md
+@prefix cv:    <http://data.europa.eu/m8g/> .
+@prefix cccev: <http://data.europa.eu/m8g/> .
+@prefix locn:  <http://www.w3.org/ns/locn#> .
+@prefix adms:  <http://www.w3.org/ns/adms#> .
 
 # =============================================================================
 # Ontology Declaration
@@ -697,8 +702,9 @@ battery:facilityIdentifier
     rdfs:domain gs1:Product ;
     rdfs:range xsd:string ;
     dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
-    skos:note "BatteryPass-Ready v1.3 longlist attribute #11. Use the GLN of the gs1:Place referenced by battery:manufacturingPlace; this property is the explicit attribute name expected by the GEFEG harness."@en ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #11. Use the GLN of the gs1:Place referenced by battery:manufacturingPlace; this property is the explicit attribute name expected by the GEFEG harness. The identifier is conceptually an adms:Identifier instance whose notation is the GLN."@en ;
     rdfs:seeAlso gs1:gln ;
+    rdfs:seeAlso adms:Identifier ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 # =============================================================================
@@ -1455,9 +1461,10 @@ battery:operatorIdentifier
     rdfs:domain gs1:Product ;
     rdfs:range xsd:string ;
     dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
-    skos:note "BatteryPass-Ready v1.3 longlist attribute #9. Recommended access level: AuthorizedOnly."@en ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #9. Recommended access level: AuthorizedOnly. Conceptually an adms:Identifier whose notation is the GLN / EOID and whose schemaAgency identifies the issuer."@en ;
     rdfs:seeAlso gs1:gln ;
     rdfs:seeAlso dpp:OperatorInformation ;
+    rdfs:seeAlso adms:Identifier ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:manufacturerIdentifier
@@ -1505,6 +1512,8 @@ battery:supplierContact
     rdfs:label "Supplier Contact"@en ;
     rdfs:domain gs1:Organization ;
     rdfs:range gs1:ContactPoint ;
+    rdfs:seeAlso cv:ContactPoint ;
+    skos:note "gs1:ContactPoint is range-equivalent to cv:ContactPoint (EU SEMICeu CPOV). Either is acceptable; cv:ContactPoint is the EU-portal canonical for recall coordinators / customer service / regulatory liaison."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 # =============================================================================
@@ -1581,6 +1590,8 @@ battery:declarationOfConformity
     rdfs:comment "URL to the EU Declaration of Conformity document."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:anyURI ;
+    rdfs:seeAlso cccev:Evidence ;
+    skos:note "The declaration referenced is conceptually a cccev:Evidence (EU SEMICeu CCCEV) supporting one or more cccev:Requirement instances under the EU Battery Regulation. The URL points to the document; the structured CCCEV view of the same fact is what EU-portal tooling consumes."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:euDeclarationOfConformityId
@@ -1597,6 +1608,9 @@ battery:notifiedBodyNumber
     rdfs:comment "Identification number of the notified body involved in conformity assessment."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:string ;
+    rdfs:seeAlso adms:Identifier ;
+    rdfs:seeAlso cv:PublicOrganisation ;
+    skos:note "Notified bodies are public bodies — the canonical EU representation is cv:PublicOrganisation (SEMICeu CPOV) carrying an adms:Identifier whose notation is this number. This property remains a literal for EPCIS / GS1 ergonomics; the structured representation lives via cv:PublicOrganisation."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:notifiedBodyName
@@ -1605,6 +1619,7 @@ battery:notifiedBodyName
     rdfs:comment "Name of the notified body involved in conformity assessment."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:string ;
+    rdfs:seeAlso cv:PublicOrganisation ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:resultOfTestReport

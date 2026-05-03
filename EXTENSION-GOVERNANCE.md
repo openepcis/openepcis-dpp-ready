@@ -4,15 +4,17 @@ This document explains the governance principles and rationale for vocabulary ex
 
 ## Core Principles
 
-### 1. Vocabulary Precedence: GS1 → schema.org → custom
+### 1. Vocabulary Precedence: GS1 → SEMICeu → schema.org → upstream community → custom
 
 When modelling a property or class, choose the most-canonical vocabulary in this order:
 
-1. **`gs1:` (GS1 Web Vocabulary)** — preferred when a term exists. GS1 itself aligns with schema.org for many concepts, so picking GS1 also gives you transitive schema.org compatibility.
-2. **`schema:` (schema.org)** — preferred over a custom extension whenever GS1 has no equivalent. Schema.org is the broader web semantic-web vocabulary and DPP consumers (search engines, generic data tools) recognise it.
-3. **Custom extension (`dpp:`, `battery:`, …)** — only when neither of the above covers the concept, and a regulatory or domain requirement makes the gap unavoidable.
+1. **`gs1:` (GS1 Web Vocabulary)** — imported foundation. Identifier model (GTIN, GLN), trade-item attributes, EPCIS event integration. Most product-side properties already live here, so checking GS1 first short-circuits the majority of lookups. GS1 itself aligns with schema.org for many concepts, so picking GS1 also gives transitive schema.org compatibility.
+2. **EU SEMICeu Core Vocabularies** — public-sector / EU-canonical authority. Fills the gaps GS1 doesn't cover. CCCEV (`cccev:Requirement`, `cccev:Constraint`, `cccev:Evidence`, `cccev:InformationConcept`); CPOV (`cv:PublicOrganisation`, `cv:ContactPoint`); Core Business (`cv:LegalEntity`); Core Person (`cv:Person`); Core Location (`locn:Address`, `locn:Location`, `locn:Geometry`); ADMS (`adms:Identifier`); CPSV-AP. Use these for any public body, legal entity, contact point, address, identifier scheme, conformity requirement, or evidence.
+3. **`schema:` (schema.org)** — universal-web fallback. Best for ratings, observations, generic metadata, and concepts neither GS1 nor SEMICeu has named (`Observation`, `QuantitativeValue`, `GeoCoordinates`, `Rating`).
+4. **Upstream community profiles** — UNTP v0.7.0, CIRPASS-2, CEN/CENELEC JTC 24. Reference directly and anchor any local alias upward.
+5. **Custom extension (`dpp:`, `battery:`, …)** — only when none of the above covers the concept, and a regulatory or domain requirement makes the gap unavoidable.
 
-Extension terms that duplicate a GS1 or schema.org term **must be removed**, and the canonical term used directly. The 0.9.5 alignment cleanup deleted ~50 such redundancies (see per-module CHANGELOGs).
+Extension terms that duplicate a schema.org, GS1, or SEMICeu term **must be removed**, and the canonical term used directly (or the extension term strong-anchored via `owl:equivalentClass` / `owl:equivalentProperty` and the upstream IRI preferred in JSON-LD serialisations). The 0.9.5 alignment cleanup deleted ~50 schema.org / GS1 redundancies; the SEMICeu pass that follows extends the same discipline to the EU public-sector vocabularies (see `extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md`).
 
 ### 2. Extension Transparency
 Every extension term includes:
@@ -42,8 +44,15 @@ GS1-Extensions: battery=https://ref.openepcis.io/extensions/eu/battery/
 | `battery` | `https://ref.openepcis.io/extensions/eu/battery/` | Battery Regulation vocabulary |
 | `eudr` | `https://ref.openepcis.io/extensions/eu/eudr/` | EUDR vocabulary |
 | `detergent` | `https://ref.openepcis.io/extensions/eu/detergent/` | Detergent Regulation vocabulary |
-| `gs1` | `https://ref.gs1.org/voc/` | GS1 Web Vocabulary (imported) |
-| `schema` | `https://schema.org/` | Schema.org (reference) |
+| `schema` | `https://schema.org/` | schema.org (foundational, peer Layer 1) |
+| `gs1` | `https://ref.gs1.org/voc/` | GS1 Web Vocabulary (foundational, peer Layer 1, imported) |
+| `cv` | `http://data.europa.eu/m8g/` | SEMICeu CPOV / Core Business / Person / Public Event / CPSV-AP (foundational, peer Layer 1) |
+| `cccev` | `http://data.europa.eu/m8g/` | SEMICeu Core Criterion and Evidence Vocabulary (foundational, peer Layer 1) |
+| `locn` | `http://www.w3.org/ns/locn#` | SEMICeu Core Location Vocabulary (foundational, peer Layer 1) |
+| `adms` | `http://www.w3.org/ns/adms#` | ADMS / ADMS-AP (foundational, peer Layer 1) |
+| `cpsv` | `http://purl.org/vocab/cpsv#` | CPSV legacy namespace (foundational, peer Layer 1) |
+| `org` | `http://www.w3.org/ns/org#` | W3C Org Ontology (used by SEMICeu) |
+| `foaf` | `http://xmlns.com/foaf/0.1/` | FOAF (used by SEMICeu) |
 
 ## GS1 Terms to Use (Not Extended)
 
@@ -202,6 +211,7 @@ The following GS1 Web Vocabulary terms should be used directly:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.2.0 | 2026-05-04 | Precedence rule extended to `gs1: → SEMICeu (cv:/cccev:/locn:/adms:/cpsv:) → schema: → upstream community → custom`. SEMICeu Core Vocabularies elevated to peer Layer 1 alongside GS1 and schema.org. |
 | 1.1.0 | 2026-04-29 | Precedence rule formalised as `gs1: → schema: → custom`. Aligned with the 0.9.5 schema.org / GS1 deduplication cleanup |
 | 1.0.0 | 2025-01-28 | Initial governance document |
 

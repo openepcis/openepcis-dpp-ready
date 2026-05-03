@@ -11,6 +11,16 @@
 # UNTP namespace references for semantic alignment (rdfs:seeAlso and owl:equivalentProperty only)
 @prefix untp-core: <https://test.uncefact.org/vocabulary/untp/core/> .
 @prefix untp-dpp: <https://test.uncefact.org/vocabulary/untp/dpp/> .
+# EU SEMICeu Core Vocabularies — peer Layer 1 alongside GS1 and schema.org.
+# Bridge context: extensions/common/interop/context/semic-core-bridge-context.jsonld
+# Mapping doc:    extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md
+@prefix cv:    <http://data.europa.eu/m8g/> .
+@prefix cccev: <http://data.europa.eu/m8g/> .
+@prefix locn:  <http://www.w3.org/ns/locn#> .
+@prefix adms:  <http://www.w3.org/ns/adms#> .
+@prefix cpsv:  <http://purl.org/vocab/cpsv#> .
+@prefix org:   <http://www.w3.org/ns/org#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
 
 # =============================================================================
 # Ontology Declaration
@@ -97,11 +107,16 @@ Use GS1 Digital Link format: https://id.gs1.org/417/{GLN}"""@en ;
     rdfs:subClassOf gs1:Organization ;
     rdfs:seeAlso gs1:Organization ;
     rdfs:seeAlso schema:Organization ;
+    rdfs:seeAlso cv:LegalEntity ;
+    owl:equivalentClass cv:LegalEntity ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32019R1020> ;
     skos:note """Extension of gs1:Organization to capture ESPR-specific operator role requirements.
 Use gs1:gln for operator GLN, gs1:organizationName for name.
 GS1 Web Vocabulary provides gs1:Organization but lacks the specific operator role enumeration
-required by EU Market Surveillance Regulation 2019/1020 and ESPR Article 77."""@en .
+required by EU Market Surveillance Regulation 2019/1020 and ESPR Article 77.
+Anchored to cv:LegalEntity (EU SEMICeu Core Business Vocabulary, http://data.europa.eu/m8g/)
+as the EU-canonical legal-entity peer; pick by audience — gs1:Organization for EPCIS-native
+consumers, cv:LegalEntity for EU-portal consumers."""@en .
 
 dpp:DueDiligenceReport
     a rdfs:Class ;
@@ -109,9 +124,15 @@ dpp:DueDiligenceReport
     rdfs:comment """Supply chain due diligence information supporting transparency requirements.
 Reusable across Battery Regulation Art. 39, EUDR, and other due diligence frameworks."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    rdfs:seeAlso cccev:Evidence ;
+    rdfs:seeAlso cccev:Requirement ;
+    owl:equivalentClass cccev:Evidence ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note """Required extension: GS1 Web Vocabulary does not provide a class for supply chain
-due diligence reporting. This is mandated by EU Battery Regulation Art. 39 and EUDR."""@en .
+due diligence reporting. This is mandated by EU Battery Regulation Art. 39 and EUDR.
+Anchored to cccev:Evidence (EU SEMICeu Core Criterion and Evidence Vocabulary,
+http://data.europa.eu/m8g/) — a due-diligence report is evidence supporting a regulatory
+cccev:Requirement. CCCEV is the EU upstream of the UNTP conformity model."""@en .
 
 dpp:CircularityPerformance
     a rdfs:Class ;
@@ -149,6 +170,7 @@ manuals, or guides. Supports multiple languages and formats.
 See also gs1:ReferencedFileDetails for GS1 Web Vocabulary equivalent."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     rdfs:seeAlso gs1:ReferencedFileDetails ;
+    rdfs:seeAlso foaf:Document ;
     owl:equivalentClass gs1:ReferencedFileDetails ;
     skos:note """PREFER gs1:ReferencedFileDetails where possible. This class provides equivalent
 functionality with additional ESPR-specific document types. Use gs1:referencedFileDetails
@@ -191,12 +213,16 @@ Use GS1 Digital Link format: https://id.gs1.org/414/{GLN}"""@en ;
     rdfs:seeAlso gs1:Place ;
     rdfs:seeAlso schema:Place ;
     rdfs:seeAlso untp-core:Facility ;
+    rdfs:seeAlso locn:Location ;
     owl:equivalentClass untp-core:Facility ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Extension of gs1:Place to capture ESPR-specific facility requirements.
 Use gs1:gln for facility GLN identification, gs1:name for facility name, gs1:address for location.
 GS1 provides gs1:Place but lacks facility certification and type properties required by ESPR.
-Aligned with UNTP Facility for Digital Facility Record (DFR) interoperability."""@en .
+Aligned with UNTP Facility for Digital Facility Record (DFR) interoperability.
+Anchored to locn:Location (EU SEMICeu Core Location Vocabulary, http://www.w3.org/ns/locn#)
+for EU-portal interoperability — locn:Address and locn:Geometry are the canonical
+sub-structures for the address and geographic-coordinate parts."""@en .
 
 dpp:SubstanceOfConcern
     a rdfs:Class ;

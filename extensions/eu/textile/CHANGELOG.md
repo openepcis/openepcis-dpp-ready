@@ -2,6 +2,16 @@
 
 All notable changes to the Textile module will be documented in this file.
 
+## 0.9.5 — SEMICeu Core Vocabularies anchoring (2026-05-04)
+
+### Added
+- `cv:` / `cccev:` / `locn:` prefix declarations in `textile.ttl`.
+- `textile:RobustnessAssessment` → `rdfs:seeAlso cccev:Evidence` (EU SEMICeu CCCEV) — the assessment is evidence supporting the EU Preparatory Study robustness Requirement.
+- Facility properties (`textile:spinningFacility`, `weavingFacility`, `dyeingFacility`, `cutAndSewFacility`, `finishingFacility`) inherit `locn:Location` anchoring via `dpp:FacilityInformation` (their range), updated in dpp-core in this same release.
+
+### Notes
+- See `extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md` for the full mapping.
+
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
 **Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.

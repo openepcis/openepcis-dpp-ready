@@ -2,6 +2,21 @@
 
 All notable changes to the DPP Core module will be documented in this file.
 
+## 0.9.5 — SEMICeu Core Vocabularies anchoring (2026-05-04)
+
+### Added
+- New SEMICeu Core Vocabulary `@prefix` declarations in `dpp-core.ttl` — `cv:` / `cccev:` (`http://data.europa.eu/m8g/`), `locn:` (`http://www.w3.org/ns/locn#`), `adms:` (`http://www.w3.org/ns/adms#`), `cpsv:` (`http://purl.org/vocab/cpsv#`), `org:` (`http://www.w3.org/ns/org#`), `foaf:` (`http://xmlns.com/foaf/0.1/`).
+- Upward anchors on cross-cutting `dpp:` classes:
+  - `dpp:OperatorInformation` → `owl:equivalentClass cv:LegalEntity` + `rdfs:seeAlso cv:LegalEntity` (EU Core Business peer to `gs1:Organization`).
+  - `dpp:DueDiligenceReport` → `owl:equivalentClass cccev:Evidence` + `rdfs:seeAlso cccev:Requirement` (CCCEV is the EU upstream of UNTP's conformity model).
+  - `dpp:FacilityInformation` → `rdfs:seeAlso locn:Location` (EU Core Location peer; `locn:Address` and `locn:Geometry` carry the structured sub-parts).
+  - `dpp:DocumentReference` → `rdfs:seeAlso foaf:Document` (used by SEMICeu CPOV for contact pages and homepages).
+- `skos:note` blocks updated to explain the SEMICeu anchors and when each peer is preferable.
+
+### Notes
+- No `dpp:` terms removed in this pass. Anchors only — JSON-LD payloads continue to round-trip identically. The bridge context at `extensions/common/interop/context/semic-core-bridge-context.jsonld` lets consumers compose payloads using SEMICeu IRIs directly when preferred.
+- See `extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md` for the full mapping rationale.
+
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
 **Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.

@@ -2,6 +2,18 @@
 
 OpenEPCIS DPP-Ready harmonizes multiple Digital Product Passport standards into a single, coherent vocabulary.
 
+## Foundational vocabularies (peer Layer 1)
+
+OpenEPCIS DPP-Ready rests on a **peer triumvirate** of foundational vocabularies. Walk these three before minting at `dpp:` or any module namespace, in this order:
+
+| # | Vocabulary | Owner | Role in DPP |
+|---|---|---|---|
+| 1 | **GS1 Web Vocabulary** | GS1 | Imported foundation. Identifier model (GTIN, GLN), trade-item attributes, EPCIS event integration. Most product-side properties already live here — checking GS1 first short-circuits the majority of lookups. Imported via `owl:imports`. |
+| 2 | **EU SEMICeu Core Vocabularies** | European Commission DG DIGIT (SEMIC team) | EU public-sector / EU-canonical authority. Fills the gaps GS1 doesn't cover. CCCEV (conformity), CPOV (public bodies), Core Business (legal entities), Core Person, Core Location, Core Public Event, CPSV-AP, ADMS / ADMS-AP. Bridge context at `context/semic-core-bridge-context.jsonld`; full mapping in [`SEMIC_CORE_VOCABULARIES.md`](./SEMIC_CORE_VOCABULARIES.md). |
+| 3 | **schema.org** | W3C / industry consortium | Universal-web fallback. Search engines, generic JSON-LD consumers, and most data tools recognise it natively. Best for ratings, observations, generic metadata, and concepts neither GS1 nor SEMICeu has named (`Observation`, `QuantitativeValue`, `GeoCoordinates`, `Rating`). |
+
+Above these foundations sit the **upstream community profiles** (Layer 2): UNTP v0.7.0, CIRPASS-2, JTC 24. These are referenced and anchored upward via `owl:equivalentClass` / `owl:equivalentProperty`. CCCEV (Layer 1, SEMICeu) is the EU upstream of UNTP's conformity model — the two are anchored to each other, with UNTP retained as the operative bridge for DPP-specific detail.
+
 ## Our Approach: Open and Early
 
 **We believe in building in the open.** The DPP standardization landscape is rapidly evolving, with multiple initiatives converging toward common requirements. Rather than waiting for all standards to finalize, OpenEPCIS provides:

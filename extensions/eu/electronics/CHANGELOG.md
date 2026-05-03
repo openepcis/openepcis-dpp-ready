@@ -2,6 +2,16 @@
 
 All notable changes to the Electronics module will be documented in this file.
 
+## 0.9.5 — SEMICeu CCCEV anchoring (2026-05-04)
+
+### Added
+- `cv:` / `cccev:` prefix declarations in `electronics.ttl`.
+- **`electronics:RepairCriterion` → `owl:equivalentClass cccev:Criterion`** (EU SEMICeu CCCEV). Repair-Index criteria are the textbook CCCEV use case — a constraint scored against an InformationConcept within a Requirement.
+- `electronics:criterionScore` → `rdfs:seeAlso cccev:SupportedValue` (the score is the supported value for the criterion's InformationConcept).
+
+### Notes
+- No properties removed. JSON-LD payloads round-trip identically. See `extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md`.
+
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
 **Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.

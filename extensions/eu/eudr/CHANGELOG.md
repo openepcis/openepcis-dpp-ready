@@ -2,6 +2,16 @@
 
 All notable changes to the EUDR module will be documented in this file.
 
+## 0.9.5 — SEMICeu Core Location anchoring (2026-05-04)
+
+### Added
+- `locn:` prefix declaration in `eudr.ttl`.
+- `eudr:geolocation` → `rdfs:seeAlso locn:Geometry` (EU SEMICeu Core Location Vocabulary).
+- `eudr:transformationLocation` → `rdfs:seeAlso locn:Location`.
+
+### Notes
+- See `extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md` for the full mapping.
+
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
 **Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.

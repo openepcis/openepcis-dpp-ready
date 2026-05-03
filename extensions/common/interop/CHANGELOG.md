@@ -2,6 +2,20 @@
 
 All notable changes to the Interoperability module will be documented in this file.
 
+## [0.9.5] - 2026-05-04 (SEMICeu Core Vocabularies elevation)
+
+### Added
+- **EU SEMICeu Core Vocabularies bridge** (`context/semic-core-bridge-context.jsonld`) covering CCCEV, CPOV, Core Business, Core Person, Core Location, Core Public Event, CPSV-AP, and ADMS / ADMS-AP. Single consolidated context; namespaces `cv:` / `cccev:` (`http://data.europa.eu/m8g/`), `locn:` (`http://www.w3.org/ns/locn#`), `adms:` (`http://www.w3.org/ns/adms#`), `cpsv:` (`http://purl.org/vocab/cpsv#`), plus `org:` / `foaf:` / `skos:` / `dcterms:` reuse.
+- **`docs/SEMIC_CORE_VOCABULARIES.md`** — comprehensive narrative + per-vocabulary mapping. Documents which `dpp:` and module terms anchor to SEMICeu and how to compose payloads.
+- New **"Foundational vocabularies (peer Layer 1)"** section at the top of `docs/STANDARDS_ALIGNMENT.md` that elevates schema.org, GS1, and SEMICeu to a peer triumvirate (the previous structure had GS1 alone at Layer 1 with schema.org and UNTP at Layer 2).
+
+### Changed
+- Vocabulary precedence rule updated project-wide to **`schema:` → `gs1:` → SEMICeu (`cv:` / `cccev:` / `locn:` / `adms:` / `cpsv:`) → upstream community → custom**. See `EXTENSION-GOVERNANCE.md` v1.2.0.
+- `README.md` Vision and Bridge Context tables include the SEMICeu row.
+
+### Notes
+- This elevation is documentation-and-bridging; the SEMICeu TTLs are not vendored into the project. Anchors are added to `dpp-core.ttl` and selected module TTLs (battery, electronics, eudr, textile) in companion changelogs.
+
 ## [0.9.5] - 2026-04-15 (GS1 Standards Week preparation)
 
 ### Changed

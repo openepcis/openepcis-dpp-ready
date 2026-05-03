@@ -2,6 +2,19 @@
 
 All notable changes to the Battery module will be documented in this file.
 
+## 0.9.5 — SEMICeu Core Vocabularies anchoring (2026-05-04)
+
+### Added
+- New `cv:` / `cccev:` / `locn:` / `adms:` prefix declarations in `battery.ttl`.
+- Upward `rdfs:seeAlso` anchors on conformity- and identifier-bearing properties:
+  - `battery:operatorIdentifier`, `battery:facilityIdentifier`, `battery:notifiedBodyNumber` → `adms:Identifier`.
+  - `battery:supplierContact` → `cv:ContactPoint` (sibling to existing `gs1:ContactPoint` range).
+  - `battery:declarationOfConformity` → `cccev:Evidence` (declaration of conformity is the textbook EU CCCEV evidence use case).
+  - `battery:notifiedBodyNumber`, `battery:notifiedBodyName` → `cv:PublicOrganisation` (notified bodies are EU SEMICeu public organisations).
+
+### Notes
+- No properties removed or renamed; anchors only. Existing JSON-LD / SHACL continues to validate. See `extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md` for the full mapping.
+
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
 **Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.

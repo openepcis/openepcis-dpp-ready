@@ -9,7 +9,7 @@ terms, and a single change at a higher layer benefits every module above it.
    ┌──────────────────────────────────────────────────────────────────┐
    │  Layer 4 — Regulation modules                                    │
    │    eu/battery   eu/eudr   eu/textile   eu/electronics            │
-   │    eu/detergent eu/ppwr                us/fsma204   …            │
+   │    eu/detergent eu/ppwr  eu/cpr        us/fsma204   …            │
    │  ↓ each module only mints terms unique to its regulation         │
    ├──────────────────────────────────────────────────────────────────┤
    │  Layer 3 — DPP common core (`dpp:`)                              │
@@ -19,47 +19,191 @@ terms, and a single change at a higher layer benefits every module above it.
    │    FacilityInformation, RepairabilityInfo, AccessRights, …       │
    │  ↓ anchored upward via owl:equivalentClass / equivalentProperty  │
    ├──────────────────────────────────────────────────────────────────┤
-   │  Layer 2 — UNTP / schema.org / Schema.org Observation pattern    │
+   │  Layer 2 — Upstream community profiles                           │
    │    UNTP Core Vocabulary v0.7.0                                   │
-   │    https://vocabulary.uncefact.org/untp/0.7.0/                   │
    │      Party, Facility, Material, Claim, Criterion, Standard,      │
    │      Regulation, ConformityAttestation, ConformityScheme,        │
    │      ProductStatus, ProductIDGranularity, PerformanceMetric, …   │
-   │    schema.org                                                    │
-   │      Observation, Certification, hasMeasurement,                 │
-   │      EnergyConsumptionDetails, Place                             │
+   │    CIRPASS-2 D3.x pilot requirements                             │
+   │    CEN/CENELEC JTC 24 (EN 18216-18223 + prEN 18239/18246)        │
    │  ↓                                                               │
    ├──────────────────────────────────────────────────────────────────┤
-   │  Layer 1 — GS1 Web Vocabulary (`gs1:`)                           │
-   │    Product, Organization, Place, Country, GeoShape,              │
-   │    QuantitativeValue, regulatoryInformation, regulatoryAct,      │
-   │    regulatoryIdentifier, packagingMaterial, …                    │
-   │    UN/CEFACT Rec 20 unit codes (KGM, KWH, AMH, P1, ANN, EUR, …)  │
+   │  Layer 1 — Foundational vocabularies (peer triumvirate)          │
+   │    GS1 Web Vocabulary (`gs1:`) — imported foundation             │
+   │      Product, Organization, Place, GeoShape,                     │
+   │      QuantitativeValue, regulatoryInformation, regulatoryAct,    │
+   │      regulatoryIdentifier, packagingMaterial,                    │
+   │      UN/CEFACT Rec 20 unit codes (KGM, KWH, AMH, P1, ANN, EUR …) │
+   │    EU SEMICeu Core Vocabularies (`cv:` / `cccev:` / `locn:` /    │
+   │      `adms:` / `cpsv:`)                                          │
+   │      CCCEV — Requirement, Constraint, Evidence, InformationConcept │
+   │      CPOV  — PublicOrganisation, ContactPoint, contactPage       │
+   │      Core Business — LegalEntity, legalName, companyActivity     │
+   │      Core Person   — Person, givenName, familyName               │
+   │      Core Location — Address, Location, Geometry                 │
+   │      Core Public Event, CPSV-AP, ADMS / ADMS-AP                  │
+   │    schema.org                                                    │
+   │      Product, Country, GeoCoordinates, QuantitativeValue,        │
+   │      Observation, Certification, hasMeasurement,                 │
+   │      EnergyConsumptionDetails, Place                             │
    └──────────────────────────────────────────────────────────────────┘
 ```
+
+## How the vocabularies relate
+
+The stack diagram above shows containment (which layer holds which
+concept). The diagram below shows **how the vocabularies actually relate
+to each other** — which terms are equivalent, which are derived from
+which, and how `dpp:` and module terms anchor upward.
+
+```mermaid
+graph BT
+    subgraph L1["Layer 1 — Foundational peer triumvirate"]
+        GS1["gs1:<br/>GS1 Web Vocabulary<br/>(imported, owl:imports)"]
+        SEMIC["SEMICeu Core Vocabularies<br/>cv: / cccev: / locn: / adms: / cpsv:<br/>(http://data.europa.eu/m8g/)"]
+        SCHEMA["schema:<br/>schema.org"]
+    end
+
+    subgraph L2["Layer 2 — Upstream community profiles"]
+        UNTP["untp:<br/>UNTP Core v0.7.0<br/>Party, Facility, Claim,<br/>ConformityAttestation, …"]
+        JTC["CEN/CENELEC JTC 24<br/>EN 18216–18223 + prEN 18239/18246"]
+        CIRPASS["CIRPASS-2 D3.x<br/>pilot requirements"]
+    end
+
+    subgraph L3["Layer 3 — DPP common core (dpp:)"]
+        DPP_OP["dpp:OperatorInformation"]
+        DPP_DDR["dpp:DueDiligenceReport"]
+        DPP_FAC["dpp:FacilityInformation"]
+        DPP_DOC["dpp:DocumentReference"]
+        DPP_PERF["dpp:CircularityPerformance<br/>EmissionsPerformance<br/>TraceabilityPerformance"]
+        DPP_HAZ["dpp:HazardousSubstance<br/>SubstanceOfConcern<br/>(no upstream peer)"]
+    end
+
+    subgraph L4["Layer 4 — Regulation modules"]
+        BAT["battery:<br/>operatorIdentifier, notifiedBodyNumber,<br/>declarationOfConformity, supplierContact"]
+        ELEC["electronics:<br/>RepairCriterion, criterionScore"]
+        EUDR["eudr:<br/>geolocation, transformationLocation"]
+        TEX["textile:<br/>RobustnessAssessment,<br/>spinning/weaving/dyeing/cutAndSew/finishingFacility"]
+    end
+
+    %% --- Layer 2 → Layer 1 derivations ---
+    UNTP -. "derived from" .-> SEMIC
+    JTC -. "leans on" .-> SEMIC
+    CIRPASS -. "feeds into" .-> JTC
+
+    %% --- Layer 3 → Layer 1/2 anchors ---
+    DPP_OP ==>|"subClassOf"| GS1
+    DPP_OP -.->|"owl:equivalentClass<br/>cv:LegalEntity"| SEMIC
+    DPP_OP -.->|"owl:equivalentClass<br/>untp:Party"| UNTP
+
+    DPP_DDR -.->|"owl:equivalentClass<br/>cccev:Evidence"| SEMIC
+
+    DPP_FAC ==>|"subClassOf<br/>gs1:Place"| GS1
+    DPP_FAC -.->|"owl:equivalentClass<br/>untp:Facility"| UNTP
+    DPP_FAC -.->|"rdfs:seeAlso<br/>locn:Location"| SEMIC
+
+    DPP_DOC -.->|"owl:equivalentClass<br/>gs1:ReferencedFileDetails"| GS1
+    DPP_DOC -.->|"rdfs:seeAlso<br/>foaf:Document"| SEMIC
+
+    DPP_PERF -.->|"owl:equivalentClass<br/>untp-core:*Performance"| UNTP
+
+    %% --- Layer 4 → Layer 3 / Layer 1 anchors ---
+    BAT -.->|"adms:Identifier<br/>cv:PublicOrganisation<br/>cv:ContactPoint<br/>cccev:Evidence"| SEMIC
+    BAT -.->|"dpp:OperatorInformation"| DPP_OP
+
+    ELEC -.->|"owl:equivalentClass<br/>cccev:Criterion<br/>cccev:SupportedValue"| SEMIC
+
+    EUDR -.->|"locn:Geometry<br/>locn:Location"| SEMIC
+
+    TEX -.->|"dpp:FacilityInformation<br/>(cascades to locn:Location)"| DPP_FAC
+    TEX -.->|"cccev:Evidence<br/>(RobustnessAssessment)"| SEMIC
+
+    classDef l1 fill:#dbeafe,stroke:#1e40af,stroke-width:2px;
+    classDef l2 fill:#fef3c7,stroke:#92400e;
+    classDef l3 fill:#dcfce7,stroke:#166534;
+    classDef l4 fill:#fce7f3,stroke:#9d174d;
+    class GS1,SEMIC,SCHEMA l1;
+    class UNTP,JTC,CIRPASS l2;
+    class DPP_OP,DPP_DDR,DPP_FAC,DPP_DOC,DPP_PERF,DPP_HAZ l3;
+    class BAT,ELEC,EUDR,TEX l4;
+```
+
+Reading the diagram:
+
+- **Solid arrows** (`==>`) = `rdfs:subClassOf` — strict structural inheritance.
+- **Dashed arrows** (`-.->`) = `owl:equivalentClass` / `owl:equivalentProperty` / `rdfs:seeAlso` — semantic anchors that don't change the term's structural ancestry.
+- **Dotted "derived from" / "leans on"** = informal upstream relationships (UNTP's conformity model derives from CCCEV; JTC 24 leans on SEMICeu).
+
+A few things the diagram makes visible that the stack diagram alone hides:
+
+1. **CCCEV → UNTP → `dpp:`** is a real chain. UNTP's conformity model is itself derived from CCCEV (SEMICeu). When the project anchors `dpp:DueDiligenceReport` to both `untp:` and `cccev:Evidence`, those two are upstream-of-upstream — anchoring to the EU foundation doesn't bypass UNTP, it adds a second canonical view of the same fact.
+2. **`dpp:OperatorInformation` is the textbook three-anchor case**: structurally a `gs1:Organization`, semantically equivalent to `untp:Party`, and an EU-portal peer of `cv:LegalEntity`. All three serialisations describe the same operator.
+3. **`dpp:HazardousSubstance` and similar CLP/REACH terms have no upstream peer.** Those `dpp:` terms genuinely fill a gap and stay minted. The diagram shows them isolated at Layer 3 — that's deliberate, not an oversight.
+4. **Module terms cascade through `dpp:` rather than re-anchoring.** `textile:spinningFacility` ranges to `dpp:FacilityInformation`; the upward anchor to `locn:Location` lives on `dpp:`, so every module facility property inherits the SEMICeu peer for free.
 
 ## The delegation rule
 
 When defining a new term, walk **downward** through the four layers. The
 term goes in the **highest** layer that already covers it; only mint a new
-IRI when no layer below already has it.
+IRI when no layer below already has it. Within Layer 1, check the three
+foundational vocabularies in this order: **GS1 → SEMICeu → schema.org**.
 
 | Decision | Action |
 |---|---|
-| Already in `gs1:` | Use it directly. |
-| Already in UNTP / schema.org | Reference it directly **and** anchor any local alias upward via `owl:equivalentClass` / `owl:equivalentProperty`. |
+| Already in **GS1 Web Vocabulary** (`gs1:`) | Use it directly. GS1 is `owl:imports`-ed and is the canonical source for product / identifier / EPCIS-aligned attributes. |
+| Already in **EU SEMICeu Core Vocabularies** (`cv:` / `cccev:` / `locn:` / `adms:` / `cpsv:`) | Use it directly **and** anchor any local alias upward via `owl:equivalentClass` / `owl:equivalentProperty`. SEMICeu is the EU-canonical source for public bodies, conformity (CCCEV), legal entities, persons, addresses, and identifier schemes. |
+| Already in **schema.org** | Use it directly. schema.org is the universal-web fallback for ratings, observations, and generic metadata that GS1 and SEMICeu don't cover. |
+| Already in UNTP / CIRPASS-2 / JTC 24 | Reference it directly **and** anchor any local alias upward. |
 | Cross-cuts ≥2 regulations but absent upstream | Mint at `dpp:` (common/core). |
 | Specific to one regulation | Mint at the module namespace (`eu/<module>:`). |
 
 **Conversely:** if you find yourself adding the same concept to two modules,
-that's a signal it should move down to `dpp:`.
+that's a signal it should move down to `dpp:`. If a `dpp:` term turns out
+to be a SEMICeu / GS1 / schema.org duplicate, **redo and match upstream**:
+either delete the `dpp:` term in favour of the upstream IRI, or strong-anchor
+it via `owl:equivalentClass` / `owl:equivalentProperty` and prefer the
+upstream IRI in JSON-LD serialisations.
+
+## Why three foundational peers, not one
+
+Each of GS1, SEMICeu, and schema.org owns a different slice of the DPP
+data model and they only partially overlap. The order reflects how the
+project actually consumes them:
+
+- **GS1 Web Vocabulary** is the supply-chain authority and the imported
+  foundation. It owns the identifier model (GTIN, GLN), the trade-item
+  attribute set, and the EPCIS event integration that is the practical
+  backbone of the project. Most product-side properties already live
+  here, so checking GS1 first short-circuits most lookups.
+- **EU SEMICeu Core Vocabularies** are the European Commission's
+  reference vocabularies for public-sector data and fill the gaps GS1
+  doesn't cover. CCCEV is upstream of UNTP's conformity model; CPOV /
+  Core Business / Core Person / Core Location are the EU-canonical
+  representations of public bodies, legal entities, natural persons,
+  and addresses respectively. ADMS provides the identifier-scheme
+  model that legal-entity IDs (LEI, EUID) plug into.
+- **schema.org** is the universal-web fallback. Search engines, generic
+  data tools, and most JSON-LD consumers recognise it out of the box.
+  Best for ratings, observations, generic metadata, and concepts with
+  broad web semantics (`Observation`, `QuantitativeValue`,
+  `GeoCoordinates`) that neither GS1 nor SEMICeu has named explicitly.
+
+Treating them as peers means a notified body is `cv:PublicOrganisation`
+(not a stretched `gs1:Organization`), a declaration of conformity is
+`cccev:Evidence` against a `cccev:Requirement` (not an opaque document
+reference), and a product description still flows through `gs1:` /
+`schema:` as before.
 
 ## Why this works
 
-1. **Bridge-then-lift, not invent.** UNTP (UN/CEFACT) and CIRPASS-2 have done
-   substantial work on a cross-EU DPP ontology. Where they have a term, we
-   adopt it; the published `vocabulary.uncefact.org/untp/0.7.0/` IRIs are
-   canonical and tooling that knows UNTP automatically understands our data.
+1. **Bridge-then-lift, not invent.** schema.org, GS1, SEMICeu, UNTP
+   (UN/CEFACT) and CIRPASS-2 have done substantial work on cross-EU and
+   cross-web data models. Where they have a term, we adopt it; the
+   published IRIs (`schema:Product`, `gs1:gtin`,
+   `http://data.europa.eu/m8g/PublicOrganisation`,
+   `vocabulary.uncefact.org/untp/0.7.0/Party`, …) are canonical and
+   tooling that recognises any of these vocabularies automatically
+   understands our data.
 2. **Module thinness drives audit clarity.** A reviewer looking at PPWR
    doesn't have to understand what packaging-specific recyclability means
    versus textile-specific recyclability — both reuse `dpp:RecyclabilityAssessment`.
@@ -109,11 +253,18 @@ Everything else delegates upward.
 ## Where to read this in code
 
 - `extensions/common/core/ontology/dpp-core.ttl` — the `dpp:` definitions
-  with `owl:equivalentClass`/`equivalentProperty` declarations to UNTP and
-  schema.org.
+  with `owl:equivalentClass`/`equivalentProperty` declarations to GS1,
+  schema.org, SEMICeu Core Vocabularies, and UNTP.
+- `extensions/common/interop/context/semic-core-bridge-context.jsonld` —
+  the term-by-term bridge between our JSON-LD aliases and the SEMICeu
+  Core Vocabularies (CCCEV, CPOV, Core Business / Person / Location,
+  Core Public Event, CPSV-AP, ADMS-AP).
 - `extensions/common/interop/context/untp-bridge-context.jsonld` — the
   authoritative term-by-term bridge between our ergonomic JSON-LD aliases
   and UNTP IRIs.
+- `extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md` — the
+  canonical reference for how SEMICeu Core Vocabularies are integrated
+  and which `dpp:` / module terms anchor to them.
 - `extensions/common/core/docs/PATTERNS.md` — full pattern reference for
   implementers.
 
@@ -122,4 +273,5 @@ Everything else delegates upward.
 <https://ref.openepcis.io/extensions/> — region landing pages
 (`/eu`, `/us`, `/common`) list each module with a short description that
 states what it delegates to `dpp:`. Each `dpp:` term page shows its
-`owl:equivalentClass`/`equivalentProperty` upward links to UNTP / schema.org.
+`owl:equivalentClass`/`equivalentProperty` upward links to schema.org,
+GS1, SEMICeu (`http://data.europa.eu/m8g/...`), and UNTP.

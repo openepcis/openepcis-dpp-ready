@@ -12,6 +12,9 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix schema: <https://schema.org/> .
 @prefix vann: <http://purl.org/vocab/vann/> .
+# EU SEMICeu Core Vocabularies (peer Layer 1) — see extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md
+@prefix cv:    <http://data.europa.eu/m8g/> .
+@prefix cccev: <http://data.europa.eu/m8g/> .
 
 # =============================================================================
 # Ontology Declaration
@@ -107,6 +110,10 @@ electronics:RepairCriterion
     rdfs:label "Repair Criterion"@en ;
     rdfs:comment "An individual criterion score within the French Repairability Index."@en ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
+    rdfs:seeAlso cccev:Criterion ;
+    rdfs:seeAlso cccev:Constraint ;
+    owl:equivalentClass cccev:Criterion ;
+    skos:note "A repair criterion is a cccev:Criterion (EU SEMICeu CCCEV) — a constraint scored against an InformationConcept (the score) within the broader Requirement of the French Repairability Index. CCCEV is the EU foundation that JTC 24 / CIRPASS-2 lean on for conformity / scoring."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
 
 electronics:SoftwareSupport
@@ -657,6 +664,8 @@ electronics:criterionScore
     rdfs:comment "Score for this criterion (0-20 scale)."@en ;
     rdfs:domain electronics:RepairCriterion ;
     rdfs:range xsd:decimal ;
+    rdfs:seeAlso cccev:SupportedValue ;
+    skos:note "The score is the cccev:SupportedValue (EU SEMICeu CCCEV) for the InformationConcept that this criterion measures."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
 
 electronics:criterionMaxScore

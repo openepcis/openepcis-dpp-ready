@@ -4,7 +4,7 @@
 [![Browse the ontology](https://img.shields.io/badge/browse-ref.openepcis.io-2ea44f)](https://ref.openepcis.io)
 [![Status: Preview 0.9.5](https://img.shields.io/badge/status-preview%200.9.5-orange)](#what-you-get)
 
-A comprehensive, standards-harmonizing framework for implementing Digital Product Passports aligned with EU ESPR 2024/1781, GS1, and UN Transparency Protocol (UNTP).
+A comprehensive, standards-harmonizing framework for implementing Digital Product Passports aligned with EU ESPR 2024/1781, schema.org, GS1, **EU SEMICeu Core Vocabularies**, and UN Transparency Protocol (UNTP).
 
 > **Browse the live ontology** at **[ref.openepcis.io](https://ref.openepcis.io)** — every class, property, and JSON-LD context shipped from this repository is published there with stable, dereferenceable URIs. The TTL files in `extensions/*/ontology/` are the source of truth; the browser renders the deployed JSON.
 
@@ -31,7 +31,7 @@ The EU Battery Regulation requires DPPs starting **February 2027**. Industry can
 | Classes | 120+ |
 | Properties | 430+ |
 | EPCIS Event Examples | 37+ |
-| Bridge Contexts | 4 (UNTP, CIRPASS2, JTC 24, BatteryPass) |
+| Bridge Contexts | 5 (UNTP, CIRPASS2, JTC 24, BatteryPass, **SEMICeu Core Vocabularies**) |
 | Regulations Covered | 8 (ESPR, Battery Reg, EUDR, Sustainable Textiles, Electronics DAs, Detergents Reg, PPWR 2025/40, **CPR 2024/3110**) — plus dpp: enrichments for Right-to-Repair 2024/1799, CSDDD 2024/1760, Forced Labour 2024/3015, CRMA 2024/1252 |
 
 ## Vocabulary layering — the delegation pattern
@@ -39,28 +39,42 @@ The EU Battery Regulation requires DPPs starting **February 2027**. Industry can
 OpenEPCIS DPP-Ready is organised as **four stacked layers**, each delegating
 cross-cutting concepts downward. A new EU regulation typically adds only a
 handful of truly regulation-specific terms; everything else reuses the
-common-core (`dpp:`) vocabulary, which itself anchors upward to UNTP /
-schema.org / GS1.
+common-core (`dpp:`) vocabulary, which itself anchors upward to a
+**peer triumvirate of foundational vocabularies — schema.org, GS1, and
+EU SEMICeu Core Vocabularies** — and to upstream community profiles
+(UNTP, CIRPASS-2, JTC 24).
 
 ```
   Layer 4 ─ Regulation modules    (eu/battery, eu/eudr, eu/textile,
                                    eu/electronics, eu/detergent, eu/ppwr,
-                                   us/fsma204)
+                                   eu/cpr, us/fsma204)
             ↓
   Layer 3 ─ Common DPP core (dpp:)  cross-cutting concepts ≥2 regs share
             ↓ owl:equivalentClass / equivalentProperty
-  Layer 2 ─ UNTP v0.7.0 + schema.org  Party, Facility, Material, Claim,
-                                       ConformityAttestation, Observation,
-                                       hasMeasurement, …
+  Layer 2 ─ Upstream community profiles
+            UNTP v0.7.0  Party, Facility, Material, Claim,
+                          ConformityAttestation, PerformanceMetric, …
+            CIRPASS-2 D3.x; CEN/CENELEC JTC 24 (EN 18216-18223)
             ↓
-  Layer 1 ─ GS1 Web Vocabulary (gs1:)  Product, Organization, Place,
-                                        QuantitativeValue, regulatoryInformation
+  Layer 1 ─ Foundational vocabularies (peer triumvirate)
+            GS1 (gs1:)   Product, Organization, Place, GeoShape,
+                         regulatoryInformation, UN/CEFACT unit codes
+                         (imported foundation, owl:imports)
+            SEMICeu      cv:PublicOrganisation, cv:ContactPoint,
+                         cv:LegalEntity, cccev:Requirement,
+                         cccev:Evidence, locn:Location, adms:Identifier
+            schema.org   Observation, QuantitativeValue, GeoCoordinates,
+                         Country, Rating, hasMeasurement
 ```
 
 **The rule when defining a new term:** walk downward through the layers
-and use the *highest* layer that already covers the concept. Mint a new
-IRI only when no layer below has it. If you find yourself adding the same
-concept to two modules, that's a signal it should move down to `dpp:`.
+and use the *highest* layer that already covers the concept. Within
+Layer 1, check the three foundational vocabularies in this order:
+**GS1 → SEMICeu → schema.org**. Mint a new IRI only when no layer below
+has it. If you find yourself adding the same concept to two modules,
+that's a signal it should move down to `dpp:`. If a `dpp:` term turns
+out to be a SEMICeu / GS1 / schema.org duplicate, redo it and match
+upstream.
 
 Full explanation, mature regulations covered today, and what's needed to
 add the next ones (CPR / ELV / Toys / Right-to-Repair / Forced Labour /
@@ -70,7 +84,9 @@ CSDDD): see [`docs/VOCABULARY_LAYERING.md`](docs/VOCABULARY_LAYERING.md).
 
 | Standard | Alignment | Status |
 |----------|-----------|--------|
-| **GS1 Web Vocabulary** | Native foundation (`owl:imports`) | Stable |
+| **GS1 Web Vocabulary** | Native foundation (peer Layer 1, `owl:imports`) | Stable |
+| **EU SEMICeu Core Vocabularies** (CCCEV, CPOV, Core Business / Person / Location, Core Public Event, CPSV-AP, ADMS-AP) | Native foundation (peer Layer 1, bridge context + `owl:equivalentClass` anchors) | Stable |
+| **schema.org** | Native foundation (peer Layer 1, fallback) | Stable |
 | **CEN/CENELEC JTC 24** | EN 18216 / 18219 / 18220 / 18221 / 18222 / 18223 (FprEN, publishing Mar 2026); prEN 18239 / 18246 (in development) | 6/8 at FprEN |
 | **UN Transparency Protocol** | Property-aligned (`owl:equivalentProperty`) | Stable |
 | **CIRPASS2** | Requirements coverage | Documented |
@@ -209,7 +225,7 @@ We welcome feedback from anyone — GS1 GO and GS1 MOs, CEN/CENELEC JTC 24 membe
 
 ## Vocabulary Namespaces
 
-The project follows a **`gs1:` → `schema:` → custom** precedence — extension namespaces below carry only terms that have no `gs1:` or `schema:` equivalent. See [EXTENSION-GOVERNANCE.md](./EXTENSION-GOVERNANCE.md).
+The project follows a **`gs1:` → SEMICeu (`cv:` / `cccev:` / `locn:` / `adms:` / `cpsv:`) → `schema:` → custom** precedence — extension namespaces below carry only terms that none of the three foundational vocabularies covers. See [EXTENSION-GOVERNANCE.md](./EXTENSION-GOVERNANCE.md).
 
 | Module | Namespace | Prefix |
 |--------|-----------|--------|
@@ -221,8 +237,14 @@ The project follows a **`gs1:` → `schema:` → custom** precedence — extensi
 | Electronics | `https://ref.openepcis.io/extensions/eu/electronics/` | `electronics:` |
 | Detergent | `https://ref.openepcis.io/extensions/eu/detergent/` | `detergent:` |
 | FSMA §204 | `https://ref.openepcis.io/extensions/us/fsma204/` | `fsma:` |
-| _Reused_: GS1 Web Vocabulary | `https://ref.gs1.org/voc/` | `gs1:` |
 | _Reused_: schema.org | `https://schema.org/` | `schema:` |
+| _Reused_: GS1 Web Vocabulary | `https://ref.gs1.org/voc/` | `gs1:` |
+| _Reused_: SEMICeu CCCEV / CPOV / Core Business / Person / Public Event / CPSV-AP | `http://data.europa.eu/m8g/` | `cv:` (general) / `cccev:` (criterion-evidence aliases) |
+| _Reused_: SEMICeu Core Location | `http://www.w3.org/ns/locn#` | `locn:` |
+| _Reused_: ADMS / ADMS-AP | `http://www.w3.org/ns/adms#` | `adms:` |
+| _Reused_: CPSV (legacy CPSV namespace) | `http://purl.org/vocab/cpsv#` | `cpsv:` |
+| _Reused_: W3C Org | `http://www.w3.org/ns/org#` | `org:` |
+| _Reused_: FOAF | `http://xmlns.com/foaf/0.1/` | `foaf:` |
 
 ## Value Conventions
 

@@ -12,7 +12,9 @@ OpenEPCIS DPP-Ready is **THE comprehensive, authoritative Digital Product Passpo
 
 | Standard | Alignment Level | Integration Method |
 |----------|----------------|-------------------|
-| **GS1 Web Vocabulary** | Native Foundation | Built on GS1 patterns, `owl:imports` |
+| **GS1 Web Vocabulary** | Native Foundation (peer Layer 1) | Built on GS1 patterns, `owl:imports` |
+| **EU SEMICeu Core Vocabularies** (CCCEV, CPOV, Core Business / Person / Location, Core Public Event, CPSV-AP, ADMS-AP) | Native Foundation (peer Layer 1) | Bridge context (`semic-core-bridge-context.jsonld`) + `owl:equivalentClass` / `rdfs:seeAlso` anchors |
+| **schema.org** | Native Foundation (peer Layer 1, fallback) | Direct reference + `owl:equivalentClass` anchors |
 | **CEN/CENELEC JTC 24** | Tracking | Structural alignment via CIRPASS2 |
 | **UN Transparency Protocol (UNTP)** | Property-aligned | `owl:equivalentProperty`, bridge context |
 | **CIRPASS2** | Requirements coverage | Documentation, feeds into JTC 24 |
@@ -53,6 +55,7 @@ We don't force you to abandon existing investments. OpenEPCIS provides **bridge 
 | BatteryPass (SAMM) | `batterypass-bridge-context.jsonld` | Full import to GS1-native |
 | UNTP documents | `untp-bridge-context.jsonld` | Property-aligned import |
 | CEN/CENELEC JTC 24 | `jtc24-bridge-context.jsonld` | EN 18216-18223 + prEN 18239/18246 alignment |
+| EU SEMICeu Core Vocabularies (CCCEV, CPOV, Core Business / Person / Location, Core Public Event, CPSV-AP, ADMS-AP) | `semic-core-bridge-context.jsonld` | Direct reuse of EU public-sector / conformity / legal-entity / address IRIs |
 | Legacy systems | Custom bridge contexts | Gradual migration path |
 
 This means you can:
@@ -98,13 +101,15 @@ interop/
 ├── CHANGELOG.md                      # Release notes
 ├── docs/
 │   ├── LICENSING.md                  # IP analysis, attribution requirements
-│   ├── STANDARDS_ALIGNMENT.md        # GS1 + UNTP + CIRPASS2 + JTC 24 alignment overview
+│   ├── STANDARDS_ALIGNMENT.md        # schema.org + GS1 + SEMICeu + UNTP + CIRPASS2 + JTC 24 alignment overview
 │   ├── UNTP_MAPPING.md               # Complete OpenEPCIS ↔ UNTP property mapping
-│   └── CIRPASS2_COVERAGE.md          # CIRPASS2 pilot requirements coverage
+│   ├── CIRPASS2_COVERAGE.md          # CIRPASS2 pilot requirements coverage
+│   └── SEMIC_CORE_VOCABULARIES.md    # SEMICeu Core Vocabularies mapping (CCCEV, CPOV, Core Business / Person / Location, Core Public Event, CPSV-AP, ADMS-AP)
 └── context/
     ├── untp-bridge-context.jsonld    # JSON-LD context for UNTP-style property names
     ├── cirpass2-bridge-context.jsonld # JSON-LD context for CIRPASS2 property names
-    └── jtc24-bridge-context.jsonld   # JSON-LD context for CEN/CENELEC JTC 24 (EN 18216-18223 + prEN 18239/18246)
+    ├── jtc24-bridge-context.jsonld   # JSON-LD context for CEN/CENELEC JTC 24 (EN 18216-18223 + prEN 18239/18246)
+    └── semic-core-bridge-context.jsonld # JSON-LD context for EU SEMICeu Core Vocabularies
 ```
 
 ## UNTP Bridge Context
@@ -131,8 +136,34 @@ OpenEPCIS uses the **0-1 decimal scale** for all ratio and fraction properties, 
 
 This enables direct interoperability with UNTP without any value conversion.
 
+## SEMICeu Core Vocabularies Bridge Context
+
+The `semic-core-bridge-context.jsonld` exposes the EU **SEMICeu Core Vocabularies** (CCCEV, CPOV, Core Business / Person / Location, Core Public Event, CPSV-AP, ADMS-AP) so JSON-LD documents can use those IRIs directly:
+
+```json
+{
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/interop/semic-core-bridge-context.jsonld"
+  ],
+  "type": "PublicOrganisation",
+  "prefLabel": "Notified Body 1234",
+  "contactPoint": {
+    "type": "ContactPoint",
+    "email": "info@nb1234.example.eu",
+    "telephone": "+32 2 123 45 67",
+    "contactPage": "https://nb1234.example.eu/contact"
+  }
+}
+```
+
+Strategic value: **CCCEV is the EU upstream of UNTP's conformity model.** Anchoring `dpp:` and module conformity terms to CCCEV (`cccev:Requirement`, `cccev:Constraint`, `cccev:Evidence`, `cccev:InformationConcept`) aligns OpenEPCIS with the same foundation JTC 24 and CIRPASS-2 lean on, without disturbing the existing UNTP bridge.
+
+See [`docs/SEMIC_CORE_VOCABULARIES.md`](./docs/SEMIC_CORE_VOCABULARIES.md) for the full per-vocabulary mapping.
+
 ## Quick Links
 
+- [SEMICeu Core Vocabularies Mapping](./docs/SEMIC_CORE_VOCABULARIES.md)
 - [UNTP Property Mapping](./docs/UNTP_MAPPING.md)
 - [Standards Alignment Overview](./docs/STANDARDS_ALIGNMENT.md)
 - [Licensing and Attribution](./docs/LICENSING.md)

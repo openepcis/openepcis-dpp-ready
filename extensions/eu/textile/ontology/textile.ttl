@@ -9,6 +9,10 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix schema: <https://schema.org/> .
 @prefix vann: <http://purl.org/vocab/vann/> .
+# EU SEMICeu Core Vocabularies (peer Layer 1) — see extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md
+@prefix cv:    <http://data.europa.eu/m8g/> .
+@prefix cccev: <http://data.europa.eu/m8g/> .
+@prefix locn:  <http://www.w3.org/ns/locn#> .
 
 # =============================================================================
 # Ontology Declaration
@@ -1034,9 +1038,13 @@ Thresholds differ by fabric type (knitted vs woven)."""@en ;
     dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
     rdfs:seeAlso textile:DurabilityInfo ;
     rdfs:seeAlso schema:Rating ;
+    rdfs:seeAlso cccev:Evidence ;
     skos:note """Required extension: The EU preparatory study defines a specific 0-10 robustness scoring
 methodology not covered by GS1 or existing durability metrics. Complements textile:DurabilityInfo
-with a standardised composite score. See also schema:Rating for the rating-style aggregate score."""@en .
+with a standardised composite score. See also schema:Rating for the rating-style aggregate score.
+Anchored to cccev:Evidence (EU SEMICeu CCCEV) — the assessment is evidence supporting the
+robustness Requirement defined by the EU Preparatory Study; component test results
+(spirality, dimensional change, visual inspection) are cccev:Constraint instances."""@en .
 
 textile:SpiralityTestResult
     a owl:Class ;
