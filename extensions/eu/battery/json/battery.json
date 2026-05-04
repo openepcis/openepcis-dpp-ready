@@ -639,15 +639,15 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/declarationOfConformity",
       "localName": "declarationOfConformity",
       "label": "Declaration of Conformity URL",
-      "comment": "URL to the EU Declaration of Conformity document.",
+      "comment": "URL of the EU Declaration of Conformity document. Sits on the cccev:Evidence referenced by battery:euDeclarationOfConformity.",
       "domain": [
-        "https://ref.gs1.org/voc/Product"
+        "http://data.europa.eu/m8g/Evidence"
       ],
       "range": [
         "xsd:anyURI"
       ],
       "seeAlso": [
-        "http://data.europa.eu/m8g/Evidence"
+        "https://schema.org/url"
       ]
     },
     {
@@ -826,15 +826,30 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/battery/euDeclarationOfConformityId",
-      "localName": "euDeclarationOfConformityId",
-      "label": "EU Declaration of Conformity ID",
-      "comment": "Unique identifier of the EU Declaration of Conformity.",
+      "id": "https://ref.openepcis.io/extensions/eu/battery/euDeclarationOfConformity",
+      "localName": "euDeclarationOfConformity",
+      "label": "EU Declaration of Conformity",
+      "comment": "The EU Declaration of Conformity for this battery — modelled as a cccev:Evidence supporting the EU Battery Regulation requirements. Carries the document URL (battery:declarationOfConformity), the declaration ID (battery:euDeclarationOfConformityId), and the notified body that signed off (battery:notifiedBody).",
       "domain": [
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
+        "http://data.europa.eu/m8g/Evidence"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/euDeclarationOfConformityId",
+      "localName": "euDeclarationOfConformityId",
+      "label": "EU Declaration of Conformity ID",
+      "comment": "Unique identifier of the EU Declaration of Conformity. Sits on the declaration (cccev:Evidence), not the product.",
+      "domain": [
+        "http://data.europa.eu/m8g/Evidence"
+      ],
+      "range": [
         "xsd:string"
+      ],
+      "seeAlso": [
+        "http://www.w3.org/ns/adms#Identifier"
       ]
     },
     {
@@ -1016,9 +1031,9 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/facilityIdentifier",
       "localName": "facilityIdentifier",
       "label": "Facility Identifier",
-      "comment": "Unique identifier of the manufacturing facility (recommended: GS1 GLN). v1.2 of the longlist embedded this in manufacturingPlace; v1.3 separates it as a first-class attribute so a single battery model can reference multiple facilities.",
+      "comment": "Unique identifier of the manufacturing facility (recommended: GS1 GLN). Sits on the dpp:FacilityInformation referenced by battery:manufacturingPlace.",
       "domain": [
-        "https://ref.gs1.org/voc/Product"
+        "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
       ],
       "range": [
         "xsd:string"
@@ -1400,15 +1415,16 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/manufacturerIdentifier",
       "localName": "manufacturerIdentifier",
       "label": "Manufacturer Identifier",
-      "comment": "Unique identifier of the battery manufacturer (recommended: GS1 GLN). Held separately from manufacturerInformation in v1.3 so the identifier can be access-restricted while the information block remains public.",
+      "comment": "Unique identifier of the battery manufacturer (recommended: GS1 GLN). Sits on the dpp:OperatorInformation that plays the Manufacturer role; distinct OperatorInformation instances may identify different operators (manufacturer vs. importer vs. distributor).",
       "domain": [
-        "https://ref.gs1.org/voc/Product"
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
       ],
       "range": [
         "xsd:string"
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/gln",
+        "http://www.w3.org/ns/adms#Identifier",
         "https://ref.gs1.org/voc/manufacturer"
       ],
       "source": "https://thebatterypass.eu/battery-pass-ready/publications/"
@@ -1417,12 +1433,16 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/manufacturingPlace",
       "localName": "manufacturingPlace",
       "label": "Manufacturing Place",
-      "comment": "Location where the battery was manufactured. Should be a gs1:Place with GLN.",
+      "comment": "Location where the battery was manufactured. A dpp:FacilityInformation (subClassOf gs1:Place) carrying GLN, certifications, and facility-specific identifiers.",
       "domain": [
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.gs1.org/voc/Place"
+        "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/Place",
+        "http://www.w3.org/ns/locn#Location"
       ]
     },
     {
@@ -1648,34 +1668,45 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/notifiedBody",
+      "localName": "notifiedBody",
+      "label": "Notified Body",
+      "comment": "The notified body that performed the conformity assessment for this battery. Modelled as cv:PublicOrganisation (SEMICeu CPOV) carrying its number, name, and contact details.",
+      "domain": [
+        "http://data.europa.eu/m8g/Evidence"
+      ],
+      "range": [
+        "http://data.europa.eu/m8g/PublicOrganisation"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/eu/battery/notifiedBodyName",
       "localName": "notifiedBodyName",
       "label": "Notified Body Name",
-      "comment": "Name of the notified body involved in conformity assessment.",
+      "comment": "Name of the notified body involved in conformity assessment. Sits on the cv:PublicOrganisation referenced by battery:notifiedBody.",
       "domain": [
-        "https://ref.gs1.org/voc/Product"
+        "http://data.europa.eu/m8g/PublicOrganisation"
       ],
       "range": [
         "xsd:string"
       ],
       "seeAlso": [
-        "http://data.europa.eu/m8g/PublicOrganisation"
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
       ]
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/battery/notifiedBodyNumber",
       "localName": "notifiedBodyNumber",
       "label": "Notified Body Number",
-      "comment": "Identification number of the notified body involved in conformity assessment.",
+      "comment": "Identification number of the notified body involved in conformity assessment. Sits on the cv:PublicOrganisation referenced by battery:notifiedBody.",
       "domain": [
-        "https://ref.gs1.org/voc/Product"
+        "http://data.europa.eu/m8g/PublicOrganisation"
       ],
       "range": [
         "xsd:string"
       ],
       "seeAlso": [
-        "http://www.w3.org/ns/adms#Identifier",
-        "http://data.europa.eu/m8g/PublicOrganisation"
+        "http://www.w3.org/ns/adms#Identifier"
       ]
     },
     {
@@ -1706,9 +1737,9 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/operatorIdentifier",
       "localName": "operatorIdentifier",
       "label": "Economic Operator Identifier",
-      "comment": "Unique identifier of the economic operator (recommended: GS1 GLN, ESPR EOID per Article 77). Held separately from operatorInformation in v1.3 so the identifier can be access-restricted to notified bodies, market surveillance authorities and the Commission while the information block remains public.",
+      "comment": "Unique identifier of the economic operator (recommended: GS1 GLN, ESPR EOID per Article 77). Sits on the dpp:OperatorInformation referenced by battery:operatorInformation.",
       "domain": [
-        "https://ref.gs1.org/voc/Product"
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
       ],
       "range": [
         "xsd:string"

@@ -2,6 +2,66 @@
 
 All notable changes to the Battery module will be documented in this file.
 
+## 0.9.5 — Restructure conformity / operator / facility / notified-body shape (2026-05-04)
+
+**Breaking** — the previous SEMICeu anchoring pass kept conformity / operator
+/ facility / notified-body identifiers flat at `gs1:Product` to mirror the
+BatteryPass-Ready v1.3 GEFEG harness. That made the External Vocabulary
+References on each property's page wrong (an identifier of a notified
+body would render gs1:Product as its semantic peer instead of cv:PublicOrganisation).
+
+This release tightens the modelling so each identifier sits on the typed
+object it actually identifies. Property names are preserved; only the
+domains move and the example shape is restructured into nested objects.
+
+### Added
+- `battery:notifiedBody` — typed object property on `gs1:Product` (well, on `cccev:Evidence`, see below) with range `cv:PublicOrganisation` (SEMICeu CPOV). Models the notified body that performed the conformity assessment as a public organisation.
+- `battery:euDeclarationOfConformity` — typed object property on `gs1:Product` with range `cccev:Evidence` (SEMICeu CCCEV). Models the EU Declaration of Conformity as the canonical CCCEV evidence supporting the EU Battery Regulation requirements. `subPropertyOf cccev:hasSupportingEvidence`.
+
+### Changed (domain narrowed)
+| Property | Old domain | New domain | Anchor |
+|---|---|---|---|
+| `battery:notifiedBodyNumber` | `gs1:Product` | `cv:PublicOrganisation` | `subPropertyOf skos:notation`, `seeAlso adms:Identifier` |
+| `battery:notifiedBodyName` | `gs1:Product` | `cv:PublicOrganisation` | `subPropertyOf gs1:organizationName` |
+| `battery:operatorIdentifier` | `gs1:Product` | `dpp:OperatorInformation` | `subPropertyOf skos:notation`, `seeAlso adms:Identifier` |
+| `battery:manufacturerIdentifier` | `gs1:Product` | `dpp:OperatorInformation` | `subPropertyOf skos:notation`, `seeAlso adms:Identifier` |
+| `battery:facilityIdentifier` | `gs1:Product` | `dpp:FacilityInformation` | `subPropertyOf skos:notation`, `seeAlso adms:Identifier` |
+| `battery:declarationOfConformity` (URL) | `gs1:Product` | `cccev:Evidence` | `seeAlso schema:url` |
+| `battery:euDeclarationOfConformityId` | `gs1:Product` | `cccev:Evidence` | `subPropertyOf skos:notation`, `seeAlso adms:Identifier` |
+| `battery:manufacturingPlace` (range) | `gs1:Place` | `dpp:FacilityInformation` (subClassOf gs1:Place) | `seeAlso gs1:Place`, `seeAlso locn:Location` |
+
+### Migration
+
+Old (flat-on-product, still parses but emits domain-mismatch warnings):
+```json
+{
+  "type": "gs1:Product",
+  "euDeclarationOfConformityId": "DoC-…",
+  "declarationOfConformity": "https://…/doc.pdf",
+  "notifiedBodyNumber": "0123",
+  "notifiedBodyName": "TÜV SÜD"
+}
+```
+
+New (typed nesting):
+```json
+{
+  "type": "gs1:Product",
+  "euDeclarationOfConformity": {
+    "type": "cccev:Evidence",
+    "euDeclarationOfConformityId": "DoC-…",
+    "declarationOfConformity": "https://…/doc.pdf",
+    "notifiedBody": {
+      "type": "cv:PublicOrganisation",
+      "notifiedBodyNumber": "0123",
+      "notifiedBodyName": "TÜV SÜD"
+    }
+  }
+}
+```
+
+`battery-product.jsonld` example updated accordingly. JSON-LD context adds aliases for the new typed-link properties (`euDeclarationOfConformity`, `notifiedBody`) and registers the `cv:` / `cccev:` prefixes for inline `type` values.
+
 ## 0.9.5 — SEMICeu Core Vocabularies anchoring (2026-05-04)
 
 ### Added
