@@ -2,6 +2,45 @@
 
 All notable changes to the DPP Core module will be documented in this file.
 
+## 0.9.5 — CIRPASS-2 see-also pointers + GS1 CBV anchoring (2026-05-04)
+
+### Added
+- New prefix declarations in `dpp-core.ttl`:
+  - `cirpass2:` → `https://w3id.org/eudpp#` — CIRPASS-2 pilot programme ontology proposal. Reference-only; the W3ID redirect target currently returns 404 in a browser. CIRPASS-2 is one input into JTC 24, **not** a finalised EU standard.
+  - `cbv:` → `https://ref.gs1.org/cbv/` — GS1 Comprehensive Business Vocabulary (EPCIS code lists).
+- `rdfs:seeAlso cirpass2:*` pointers on cross-cutting `dpp:` classes (no `rdfs:subClassOf`, no `owl:equivalentClass` against `cirpass2:`):
+  - `dpp:OperatorInformation` → `cirpass2:Actor`, `cirpass2:LegalPerson`, `cirpass2:ManufacturerRecord`
+  - `dpp:DueDiligenceReport` → `cirpass2:ComplianceDeclaration`
+  - `dpp:CircularityPerformance` → `cirpass2:CircularEconomyIndicator`
+  - `dpp:HazardousSubstance` → `cirpass2:Substance`
+  - `dpp:DocumentReference` → `cirpass2:DigitalInstruction`
+  - `dpp:RecycledContent` → `cirpass2:RecycledMaterialsUse`
+  - `dpp:FacilityInformation` → `cirpass2:Facility`
+  - `dpp:SubstanceOfConcern` → `cirpass2:SubstanceOfConcern`
+  - `dpp:PerformanceInfo` → `cirpass2:Durability`, `cirpass2:Reliability`
+  - `dpp:RepairabilityInfo` → `cirpass2:Reliability`, `cirpass2:Durability`
+  - `dpp:EmissionsPerformance` → `cirpass2:CarbonFootprint`, `cirpass2:EnvironmentalFootprint`
+  - `dpp:OperatorRole` → `cirpass2:EconomicOperatorRole`
+- GS1 CBV (Comprehensive Business Vocabulary) explicit anchoring on `dpp:PassportStatus` enum values:
+  - `dpp:Active rdfs:seeAlso cbv:Disp-active`
+  - `dpp:Withdrawn rdfs:seeAlso cbv:Disp-recalled`
+
+### Notes
+- CIRPASS-2 anchors are intentionally see-also-only. Reasons:
+  CIRPASS-2 is a pilot deliverable (not a finalised EU standard); the
+  published namespace IRI `https://w3id.org/eudpp#` doesn't currently
+  dereference (404 via the W3ID redirect); and the CIRPASS-2 classes
+  are typically broader than ours (e.g. `cirpass2:Actor` covers
+  regulators / consumers, not just economic operators). Stronger
+  formal claims would over-state the relationship.
+- Battery / EUDR / Textile / Electronics cascade through these
+  dpp-core pointers via property domain/range; no module-side TTL
+  changes needed.
+- See [`extensions/common/interop/docs/STANDARDS_ALIGNMENT.md`](../interop/docs/STANDARDS_ALIGNMENT.md)
+  and [`CIRPASS2_ALIGNMENT.md`](../interop/docs/CIRPASS2_ALIGNMENT.md)
+  for the full mapping rationale.
+
+
 ## 0.9.5 — SEMICeu Core Vocabularies anchoring (2026-05-04)
 
 ### Added

@@ -2,6 +2,40 @@
 
 All notable changes to the Battery module will be documented in this file.
 
+## 0.9.5 — BatteryPass-Ready v1.3 gap-fill + CIRPASS-2 see-also pointers (2026-05-04)
+
+### Added
+9 additive properties closing the audited gaps against the BatteryPass-Ready
+v1.3 longlist (data shapes derived from the canonical SAMM submodels at
+v1.2.0, the consortium's current published tag). All flat on the
+appropriate domain class — no breaking change to existing payloads or to
+the BatteryPass-Ready GEFEG bridge:
+
+- `battery:currentSelfDischargingRate` (range `gs1:QuantitativeValue`, domain `dpp:PerformanceInfo`) — current rate of self-discharge
+- `battery:atSoC` (range `xsd:decimal`, 0–1) — test-condition annotation: state-of-charge at which a metric was measured
+- `battery:numberOfFullCycles` (range `xsd:integer`, domain `dpp:PerformanceInfo`)
+- `battery:roundTripEnergyEfficiency` (range `xsd:decimal`, 0–1, domain `dpp:PerformanceInfo`)
+- `battery:expectedLifetime` (range `gs1:QuantitativeValue`, domain `gs1:Product`) — ESPR Article 7 durability declaration
+- `battery:expectedNumberOfCycles` (range `xsd:integer`, domain `gs1:Product`)
+- `battery:batteryMass` (range `gs1:QuantitativeValue`, `rdfs:subPropertyOf gs1:netWeight`) — Annex VI Part A; GS1-first via the netWeight subproperty
+- `battery:dismantlingAndRemovalInformation` (range `dpp:DocumentReference`) — Annex VIII §B safety information
+- `battery:safetyMeasures` (range `xsd:string`)
+- `battery:negativeEvents` (range existing `battery:NegativeEvent`, domain `dpp:PerformanceInfo`) — wires the already-defined `battery:NegativeEventType` enum (Accident / PhysicalDamage / ThermalEvent / ElectricalFault / WaterIngress / Overcharge / DeepDischarge / ShortCircuit) into the passport
+
+Each new property carries a `skos:note` citing the corresponding
+SAMM submodel URN at v1.2.0. Full provenance trace and the CIRPASS-2
+intersections sit in [`docs/CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md`](./docs/CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md).
+
+### Notes
+- Battery TTL grows from 1888 → 1959 triples; bridge contexts and
+  examples unchanged.
+- DIN DKE SPEC 99100:2025-02 alignment proxied via the BatteryPass-Ready v1.3 longlist + SAMM v1.2.0
+  SAMM submodels; per-attribute trace pending DIN document access.
+- No CIRPASS-2 anchors needed in `battery.ttl` directly — they propagate
+  from `dpp-core.ttl` through the typed-link cascade (operator → Actor /
+  facility → Facility / hazardousSubstance → Substance / etc.).
+
+
 ## 0.9.5 — SEMICeu Core Vocabularies anchoring (2026-05-04)
 
 Conformity / operator / facility / notified-body identifiers are modelled

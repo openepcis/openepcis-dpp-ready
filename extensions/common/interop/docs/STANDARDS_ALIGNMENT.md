@@ -12,7 +12,58 @@ OpenEPCIS DPP-Ready rests on a **peer triumvirate** of foundational vocabularies
 | 2 | **EU SEMICeu Core Vocabularies** | European Commission DG DIGIT (SEMIC team) | EU public-sector / EU-canonical authority. Fills the gaps GS1 doesn't cover. CCCEV (conformity), CPOV (public bodies), Core Business (legal entities), Core Person, Core Location, Core Public Event, CPSV-AP, ADMS / ADMS-AP. Bridge context at `context/semic-core-bridge-context.jsonld`; full mapping in [`SEMIC_CORE_VOCABULARIES.md`](./SEMIC_CORE_VOCABULARIES.md). |
 | 3 | **schema.org** | W3C / industry consortium | Universal-web fallback. Search engines, generic JSON-LD consumers, and most data tools recognise it natively. Best for ratings, observations, generic metadata, and concepts neither GS1 nor SEMICeu has named (`Observation`, `QuantitativeValue`, `GeoCoordinates`, `Rating`). |
 
-Above these foundations sit the **upstream community profiles** (Layer 2): UNTP v0.7.0, CIRPASS-2, JTC 24. These are referenced and anchored upward via `owl:equivalentClass` / `owl:equivalentProperty`. CCCEV (Layer 1, SEMICeu) is the EU upstream of UNTP's conformity model — the two are anchored to each other, with UNTP retained as the operative bridge for DPP-specific detail.
+Above these foundations sit the **upstream community profiles and standardisation tracks** (Layer 2):
+
+- **CEN/CENELEC JTC 24** — the formal EU standardisation track for DPP under M/604 (EN 18216–18223 + prEN 18239 / 18246). This is the regulation-binding track that JTC 24's harmonised standards will deliver.
+- **UNTP v0.7.0** — UN/CEFACT product transparency protocol; bridge context + `owl:equivalentClass` / `owl:equivalentProperty` anchors where extensions match.
+- **CIRPASS-2 pilot programme** — EU pilot, one input among several into JTC 24. Their ontology proposal at `https://w3id.org/eudpp#` is referenced via `rdfs:seeAlso` only (W3ID redirect currently 404s; not a finalised standard). See [`CIRPASS2_ALIGNMENT.md`](./CIRPASS2_ALIGNMENT.md).
+- **BatteryPass Consortium** — sectoral SAMM data model (v1.2) + BatteryPass-Ready v1.3 conformance harness; bidirectional bridge contexts, no formal anchors. Battery-specific analysis in [`extensions/eu/battery/docs/CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md`](../../../eu/battery/docs/CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md).
+
+CCCEV (Layer 1, SEMICeu) is the EU upstream of UNTP's conformity model — the two are anchored to each other, with UNTP retained as the operative bridge for DPP-specific detail.
+
+## EPCIS adoption depth — our differentiator
+
+Every CIRPASS-2 / BatteryPass / JTC-24 pilot we'd care to interoperate
+with **claims** to speak EPCIS. Depth and quality of that adoption,
+however, vary a lot — and that variance is where this project adds
+real value on top of the shared "we use EPCIS" claim.
+
+Common divergences across the DPP-pilot landscape:
+
+- **Event-type coverage** — many pilots use only `ObjectEvent` for
+  commissioning + shipping; few exercise `TransformationEvent`,
+  `AggregationEvent`, `AssociationEvent`, sensor reports. Real
+  interop requires the full EPCIS 2.0 surface, not just the
+  happy-path subset.
+- **CBV usage discipline** — many implementations invent custom
+  `bizStep` / `disposition` URIs instead of reusing the GS1 CBV code
+  lists, breaking the "look up the bizStep, get a stable meaning"
+  promise of EPCIS.
+- **`gs1:masterDataAvailableFor` discipline** — frequently misused as
+  a generic extension carrier, including in early CIRPASS-2 and
+  BatteryPass examples. We actively police this in our examples
+  (extension properties at event level; master data inside
+  `masterDataAvailableFor` carries `gs1:` properties only — see
+  [`extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md`](../../core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md)).
+- **`GS1-Extensions` HTTP header** — the EPCIS 2.0 §12.3 mechanism
+  that activates regulation-specific validation in a repository.
+  Most pilot implementations don't set it; their extension data is
+  technically vendor-namespaced unknowns to a conformant repository.
+- **JSON-LD `@context` hygiene** — pilots routinely ship documents
+  with stale, mixed, or missing `@context` arrays.
+- **Identifier discipline** — every pilot claims GS1 Digital Link,
+  but identifier shapes vary widely (GTIN-only, GTIN+serial, GLN,
+  EUID, EOID, vendor-issued UUIDs, all in the same payload set).
+- **Sensor / IoT data model** — EPCIS 2.0 added rich sensor-report
+  structures; few pilots model their telemetry that way, preferring
+  flat custom JSON.
+
+Our differentiator is **EPCIS conformance taken seriously**. Every
+example we ship validates against the conformant Event Sentry,
+declares the right `GS1-Extensions` header, uses CBV `bizStep` /
+disposition values verbatim, and keeps `masterDataAvailableFor` clean.
+That depth is what an actual interop deployment depends on — beyond
+the shared headline of "we use EPCIS".
 
 ## Our Approach: Open and Early
 

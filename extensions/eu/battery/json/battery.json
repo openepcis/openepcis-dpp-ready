@@ -152,6 +152,15 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/atSoC",
+      "localName": "atSoC",
+      "label": "Test Condition: at State of Charge",
+      "comment": "State-of-charge test condition (0–1) at which a performance metric was measured. Annotates a measurement record.",
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/eu/battery/auditBody",
       "localName": "auditBody",
       "label": "Audit Body",
@@ -185,6 +194,21 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/battery/BatteryChemistry"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/batteryMass",
+      "localName": "batteryMass",
+      "label": "Battery Mass",
+      "comment": "Net mass of the battery. Use unitCode 'KGM' (kilogram) per UN/CEFACT Rec 20. Sub-property of gs1:netWeight to keep GS1-first.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/netWeight"
       ]
     },
     {
@@ -587,6 +611,18 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/currentSelfDischargingRate",
+      "localName": "currentSelfDischargingRate",
+      "label": "Current Self-Discharging Rate",
+      "comment": "Current rate of self-discharge of the battery. Use unitCode 'P1' (percent) per UN/CEFACT Rec 20; period typically per month.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/eu/battery/cycleCount",
       "localName": "cycleCount",
       "label": "Cycle Count",
@@ -660,6 +696,18 @@
       ],
       "range": [
         "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/dismantlingAndRemovalInformation",
+      "localName": "dismantlingAndRemovalInformation",
+      "label": "Dismantling and Removal Information",
+      "comment": "Reference to the dismantling and removal instructions document required by EU Battery Regulation Annex VIII §B.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
       ]
     },
     {
@@ -932,6 +980,18 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/expectedLifetime",
+      "localName": "expectedLifetime",
+      "label": "Expected Lifetime",
+      "comment": "Manufacturer-declared expected service life of the battery. Use unitCode 'MON' (months) or 'ANN' (years) per UN/CEFACT Rec 20.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/eu/battery/expectedLifetimeCapacityThroughput",
       "localName": "expectedLifetimeCapacityThroughput",
       "label": "Expected Lifetime Capacity Throughput",
@@ -962,6 +1022,18 @@
       "comment": "Expected calendar lifetime under normal operating conditions, in years.",
       "domain": [
         "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/expectedNumberOfCycles",
+      "localName": "expectedNumberOfCycles",
+      "label": "Expected Number of Cycles",
+      "comment": "Manufacturer-declared expected number of full cycles.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
       ],
       "range": [
         "xsd:integer"
@@ -1599,6 +1671,18 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/negativeEvents",
+      "localName": "negativeEvents",
+      "label": "Negative Events",
+      "comment": "Log of safety- or performance-relevant negative events recorded over the battery lifetime — accident, thermal event, deep discharge, short circuit, etc. Range is the existing battery:NegativeEvent class.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/battery/NegativeEvent"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/eu/battery/nextScheduledMeasurement",
       "localName": "nextScheduledMeasurement",
       "label": "Next Scheduled Measurement",
@@ -1716,6 +1800,18 @@
       "comment": "Total number of cells in the battery pack.",
       "domain": [
         "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/numberOfFullCycles",
+      "localName": "numberOfFullCycles",
+      "label": "Number of Full Cycles",
+      "comment": "Cumulative number of full equivalent cycles the battery has completed.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
       ],
       "range": [
         "xsd:integer"
@@ -2174,6 +2270,18 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/roundTripEnergyEfficiency",
+      "localName": "roundTripEnergyEfficiency",
+      "label": "Round-Trip Energy Efficiency",
+      "comment": "Current round-trip energy efficiency on the 0–1 decimal scale (0.92 = 92%).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/eu/battery/safetyInstructions",
       "localName": "safetyInstructions",
       "label": "Safety Instructions",
@@ -2195,6 +2303,18 @@
       ],
       "range": [
         "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/battery/safetyMeasures",
+      "localName": "safetyMeasures",
+      "label": "Safety Measures",
+      "comment": "End-of-life handling safety guidance — short text or URL fragment.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
       ]
     },
     {

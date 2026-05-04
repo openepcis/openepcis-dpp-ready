@@ -2450,7 +2450,103 @@ battery:powerCapabilityAt20SoC
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
+# =============================================================================
+# BatteryPass-Ready v1.3 longlist coverage gap-fill
+# Backed by the canonical SAMM submodels at urn:samm:io.BatteryPass.<Module>:1.2.0#
+# (current consortium tag, published in line with DIN DKE SPEC 99100:2025-02)
+# Additive properties — see extensions/eu/battery/docs/CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md
+# =============================================================================
 
+battery:currentSelfDischargingRate
+    a owl:ObjectProperty ;
+    rdfs:label "Current Self-Discharging Rate"@en ;
+    rdfs:comment "Current rate of self-discharge of the battery. Use unitCode 'P1' (percent) per UN/CEFACT Rec 20; period typically per month."@en ;
+    rdfs:domain dpp:PerformanceInfo ;
+    rdfs:range gs1:QuantitativeValue ;
+    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#currentSelfDischargingRate)."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+
+battery:atSoC
+    a owl:DatatypeProperty ;
+    rdfs:label "Test Condition: at State of Charge"@en ;
+    rdfs:comment "State-of-charge test condition (0–1) at which a performance metric was measured. Annotates a measurement record."@en ;
+    rdfs:range xsd:decimal ;
+    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#atSoC). Used as a qualifier on capacity / power / efficiency measurements."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+
+battery:numberOfFullCycles
+    a owl:DatatypeProperty ;
+    rdfs:label "Number of Full Cycles"@en ;
+    rdfs:comment "Cumulative number of full equivalent cycles the battery has completed."@en ;
+    rdfs:domain dpp:PerformanceInfo ;
+    rdfs:range xsd:integer ;
+    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#numberOfFullCycles)."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+
+battery:roundTripEnergyEfficiency
+    a owl:DatatypeProperty ;
+    rdfs:label "Round-Trip Energy Efficiency"@en ;
+    rdfs:comment "Current round-trip energy efficiency on the 0–1 decimal scale (0.92 = 92%)."@en ;
+    rdfs:domain dpp:PerformanceInfo ;
+    rdfs:range xsd:decimal ;
+    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#roundTripEnergyEfficiency). Aligned with the 0–1 ratio convention used throughout dpp:."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+
+battery:expectedLifetime
+    a owl:ObjectProperty ;
+    rdfs:label "Expected Lifetime"@en ;
+    rdfs:comment "Manufacturer-declared expected service life of the battery. Use unitCode 'MON' (months) or 'ANN' (years) per UN/CEFACT Rec 20."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range gs1:QuantitativeValue ;
+    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#expectedLifetime). ESPR Article 7 durability declaration."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+
+battery:expectedNumberOfCycles
+    a owl:DatatypeProperty ;
+    rdfs:label "Expected Number of Cycles"@en ;
+    rdfs:comment "Manufacturer-declared expected number of full cycles."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:integer ;
+    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#ExpectedNumberOfCycles)."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+
+battery:batteryMass
+    a owl:ObjectProperty ;
+    rdfs:label "Battery Mass"@en ;
+    rdfs:comment "Net mass of the battery. Use unitCode 'KGM' (kilogram) per UN/CEFACT Rec 20. Sub-property of gs1:netWeight to keep GS1-first."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:subPropertyOf gs1:netWeight ;
+    rdfs:seeAlso gs1:netWeight ;
+    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryMass). EU Battery Regulation Annex VI Part A weight declaration."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+
+battery:dismantlingAndRemovalInformation
+    a owl:ObjectProperty ;
+    rdfs:label "Dismantling and Removal Information"@en ;
+    rdfs:comment "Reference to the dismantling and removal instructions document required by EU Battery Regulation Annex VIII §B."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range dpp:DocumentReference ;
+    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation). EU Battery Regulation Annex VIII §B safety information."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+
+battery:safetyMeasures
+    a owl:DatatypeProperty ;
+    rdfs:label "Safety Measures"@en ;
+    rdfs:comment "End-of-life handling safety guidance — short text or URL fragment."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:string ;
+    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Circularity:1.2.0#safetyMeasures). Pair with battery:dismantlingAndRemovalInformation for full Annex VIII coverage."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+
+battery:negativeEvents
+    a owl:ObjectProperty ;
+    rdfs:label "Negative Events"@en ;
+    rdfs:comment "Log of safety- or performance-relevant negative events recorded over the battery lifetime — accident, thermal event, deep discharge, short circuit, etc. Range is the existing battery:NegativeEvent class."@en ;
+    rdfs:domain dpp:PerformanceInfo ;
+    rdfs:range battery:NegativeEvent ;
+    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#negativeEvents). battery:NegativeEvent already declared with a typed enumeration of incident classes (Accident / PhysicalDamage / ThermalEvent / ElectricalFault / WaterIngress / Overcharge / DeepDischarge / ShortCircuit)."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 # =============================================================================
 # Cross-cutting alignment to dpp: (Phase 2 lift)
