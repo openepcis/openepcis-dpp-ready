@@ -108,15 +108,20 @@ Use GS1 Digital Link format: https://id.gs1.org/417/{GLN}"""@en ;
     rdfs:seeAlso gs1:Organization ;
     rdfs:seeAlso schema:Organization ;
     rdfs:seeAlso cv:LegalEntity ;
-    owl:equivalentClass cv:LegalEntity ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32019R1020> ;
     skos:note """Extension of gs1:Organization to capture ESPR-specific operator role requirements.
 Use gs1:gln for operator GLN, gs1:organizationName for name.
 GS1 Web Vocabulary provides gs1:Organization but lacks the specific operator role enumeration
 required by EU Market Surveillance Regulation 2019/1020 and ESPR Article 77.
-Anchored to cv:LegalEntity (EU SEMICeu Core Business Vocabulary, http://data.europa.eu/m8g/)
-as the EU-canonical legal-entity peer; pick by audience — gs1:Organization for EPCIS-native
-consumers, cv:LegalEntity for EU-portal consumers."""@en .
+
+Related to (but NOT owl:equivalentClass with) cv:LegalEntity in the EU SEMICeu Core
+Business Vocabulary. The two extensions overlap but neither contains the other:
+cv:LegalEntity is broader on the non-operator side (charities, non-profits, government
+bodies that are legal entities but not ESPR operators) and stricter on the registration
+side (some jurisdictions treat sole-proprietor operators as natural persons, not legal
+entities). Use cv:LegalEntity for EU-portal interoperability when the operator is
+known to be a legally-registered business; the rdfs:seeAlso anchor is intentional and
+the strongest formal claim that holds in general."""@en .
 
 dpp:DueDiligenceReport
     a rdfs:Class ;
@@ -124,15 +129,18 @@ dpp:DueDiligenceReport
     rdfs:comment """Supply chain due diligence information supporting transparency requirements.
 Reusable across Battery Regulation Art. 39, EUDR, and other due diligence frameworks."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    rdfs:subClassOf cccev:Evidence ;
     rdfs:seeAlso cccev:Evidence ;
     rdfs:seeAlso cccev:Requirement ;
-    owl:equivalentClass cccev:Evidence ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note """Required extension: GS1 Web Vocabulary does not provide a class for supply chain
 due diligence reporting. This is mandated by EU Battery Regulation Art. 39 and EUDR.
-Anchored to cccev:Evidence (EU SEMICeu Core Criterion and Evidence Vocabulary,
-http://data.europa.eu/m8g/) — a due-diligence report is evidence supporting a regulatory
-cccev:Requirement. CCCEV is the EU upstream of the UNTP conformity model."""@en .
+
+Anchored as rdfs:subClassOf cccev:Evidence (EU SEMICeu Core Criterion and Evidence
+Vocabulary, http://data.europa.eu/m8g/Evidence) — every due-diligence report is evidence
+supporting a regulatory cccev:Requirement, but cccev:Evidence is much broader (test
+reports, certificates, attestations, audit logs) so the relationship is subClassOf, not
+owl:equivalentClass. CCCEV is the EU upstream of the UNTP conformity model."""@en .
 
 dpp:CircularityPerformance
     a rdfs:Class ;

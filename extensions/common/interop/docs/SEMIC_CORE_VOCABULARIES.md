@@ -2,7 +2,7 @@
 
 The **EU SEMICeu Core Vocabularies** are reference data models published and maintained by the European Commission's Directorate-General for Digital Services (DG DIGIT, SEMIC team) under the Interoperable Europe initiative. They are openly licensed (CC0 / EUPL) and are the canonical EU representation of public-sector entities, conformity requirements, legal entities, natural persons, and addresses.
 
-OpenEPCIS DPP-Ready treats SEMICeu as a **peer Layer 1 foundation** alongside schema.org and GS1 Web Vocabulary. Where a `dpp:` or module term overlaps a SEMICeu term, the SEMICeu IRI is canonical and our term is anchored upward via `owl:equivalentClass` / `owl:equivalentProperty` (or removed in favour of the SEMICeu IRI).
+OpenEPCIS DPP-Ready treats SEMICeu as a **peer Layer 1 foundation** alongside schema.org and GS1 Web Vocabulary. Where a `dpp:` or module term overlaps a SEMICeu term, the SEMICeu IRI is canonical and our term is anchored upward via the strongest formal relationship that actually holds — typically `rdfs:subClassOf` (when the local term is a specialisation of the SEMICeu peer) or `rdfs:seeAlso` (when the two extensions overlap but neither contains the other). `owl:equivalentClass` / `owl:equivalentProperty` is reserved for cases where the two terms have **identical extension** — narrower than it looks: `gs1:Organization`, `cv:LegalEntity`, `untp:Party` and `dpp:OperatorInformation` are all closely related but none are extensionally equal (charities are legal entities but not ESPR operators; sole proprietors are ESPR operators but in some jurisdictions not legal entities; etc.).
 
 ## Source and provenance
 
@@ -39,7 +39,7 @@ CCCEV separates **what is required** (`cccev:Requirement`, `cccev:RequirementGro
 
 | OpenEPCIS / UNTP term | CCCEV peer | Relationship |
 |---|---|---|
-| `dpp:DueDiligenceReport` | `cccev:Evidence` | `owl:equivalentClass` (a due-diligence report *is* evidence supporting a regulatory requirement) |
+| `dpp:DueDiligenceReport` | `cccev:Evidence` | `rdfs:subClassOf cccev:Evidence` (every DDR is evidence supporting a regulatory requirement; cccev:Evidence is broader — covers test reports, certificates, audit logs, attestations) |
 | `untp:Claim` | `cccev:SupportedValue` | the value being claimed for an InformationConcept |
 | `untp:Criterion` | `cccev:Constraint` | a constraint a Requirement must satisfy |
 | `untp:Standard` / `untp:Regulation` | `cccev:Requirement` (with `dcterms:source`) | the regulatory or normative requirement being referenced |
@@ -95,7 +95,7 @@ Models legal entities — the EU peer to `gs1:Organization` for commercial opera
 
 | OpenEPCIS term | Core Business peer | Action |
 |---|---|---|
-| `dpp:OperatorInformation` | `cv:LegalEntity` | **Strong anchor** — `owl:equivalentClass cv:LegalEntity`. Keep `dpp:OperatorInformation` because it carries the ESPR Article 77 role enum (`dpp:OperatorRole`); without that enum, `cv:LegalEntity` alone is sufficient. |
+| `dpp:OperatorInformation` | `cv:LegalEntity` | **`rdfs:seeAlso` only** — the two overlap but neither contains the other. cv:LegalEntity includes charities and non-profit bodies that are not ESPR operators; ESPR operators include sole proprietors that some jurisdictions classify as natural persons rather than legal entities. Use cv:LegalEntity for EU-portal interoperability when the operator is known to be a legally-registered business. |
 | `battery:operatorInformation` | `cv:LegalEntity` | Anchor via the `dpp:` cascade |
 | `gs1:Organization` | `cv:LegalEntity` (sibling) | Both legitimate; pick by audience — GS1 for EPCIS-native consumers, `cv:` for EU-portal consumers |
 

@@ -7,11 +7,17 @@ All notable changes to the DPP Core module will be documented in this file.
 ### Added
 - New SEMICeu Core Vocabulary `@prefix` declarations in `dpp-core.ttl` — `cv:` / `cccev:` (`http://data.europa.eu/m8g/`), `locn:` (`http://www.w3.org/ns/locn#`), `adms:` (`http://www.w3.org/ns/adms#`), `cpsv:` (`http://purl.org/vocab/cpsv#`), `org:` (`http://www.w3.org/ns/org#`), `foaf:` (`http://xmlns.com/foaf/0.1/`).
 - Upward anchors on cross-cutting `dpp:` classes:
-  - `dpp:OperatorInformation` → `owl:equivalentClass cv:LegalEntity` + `rdfs:seeAlso cv:LegalEntity` (EU Core Business peer to `gs1:Organization`).
-  - `dpp:DueDiligenceReport` → `owl:equivalentClass cccev:Evidence` + `rdfs:seeAlso cccev:Requirement` (CCCEV is the EU upstream of UNTP's conformity model).
+  - `dpp:OperatorInformation` → `rdfs:seeAlso cv:LegalEntity` (EU Core Business peer; **not** owl:equivalentClass — see below).
+  - `dpp:DueDiligenceReport` → `rdfs:subClassOf cccev:Evidence` + `rdfs:seeAlso cccev:Requirement` (a DDR is a specific kind of CCCEV Evidence; CCCEV is the EU upstream of UNTP's conformity model).
   - `dpp:FacilityInformation` → `rdfs:seeAlso locn:Location` (EU Core Location peer; `locn:Address` and `locn:Geometry` carry the structured sub-parts).
   - `dpp:DocumentReference` → `rdfs:seeAlso foaf:Document` (used by SEMICeu CPOV for contact pages and homepages).
 - `skos:note` blocks updated to explain the SEMICeu anchors and when each peer is preferable.
+
+### Anchor strength — design note
+The strongest formal claim that actually holds is preferred:
+
+- `dpp:OperatorInformation` and `cv:LegalEntity` were initially declared `owl:equivalentClass`. Corrected — the two extensions **overlap but neither contains the other**: cv:LegalEntity includes charities / non-profits that are not ESPR operators, and ESPR operators include sole proprietors that some Member States classify as natural persons rather than legal entities. `rdfs:seeAlso` is the strongest claim that's universally true.
+- `dpp:DueDiligenceReport` and `cccev:Evidence` were initially declared `owl:equivalentClass`. Corrected to `rdfs:subClassOf` — every DDR is evidence, but cccev:Evidence is far broader (test reports, certificates, audit logs, attestations).
 
 ### Notes
 - No `dpp:` terms removed in this pass. Anchors only — JSON-LD payloads continue to round-trip identically. The bridge context at `extensions/common/interop/context/semic-core-bridge-context.jsonld` lets consumers compose payloads using SEMICeu IRIs directly when preferred.

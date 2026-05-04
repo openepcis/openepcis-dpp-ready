@@ -6,7 +6,7 @@ All notable changes to the Electronics module will be documented in this file.
 
 ### Added
 - `cv:` / `cccev:` prefix declarations in `electronics.ttl`.
-- **`electronics:RepairCriterion` → `owl:equivalentClass cccev:Criterion`** (EU SEMICeu CCCEV). Repair-Index criteria are the textbook CCCEV use case — a constraint scored against an InformationConcept within a Requirement.
+- **`electronics:RepairCriterion` → `rdfs:subClassOf cccev:Criterion`** (EU SEMICeu CCCEV). Repair-Index criteria are a specific kind of CCCEV Criterion: each scored against an InformationConcept within the broader Repairability Requirement. Modelled as subClassOf rather than owl:equivalentClass because cccev:Criterion is broader and covers any conformity-evaluation criterion.
 - `electronics:criterionScore` → `rdfs:seeAlso cccev:SupportedValue` (the score is the supported value for the criterion's InformationConcept).
 
 ### Notes
