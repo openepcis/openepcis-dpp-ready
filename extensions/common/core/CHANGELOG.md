@@ -16,8 +16,8 @@ All notable changes to the DPP Core module will be documented in this file.
 ### Anchor strength — design note
 The strongest formal claim that actually holds is preferred:
 
-- `dpp:OperatorInformation` and `cv:LegalEntity` were initially declared `owl:equivalentClass`. Corrected — the two extensions **overlap but neither contains the other**: cv:LegalEntity includes charities / non-profits that are not ESPR operators, and ESPR operators include sole proprietors that some Member States classify as natural persons rather than legal entities. `rdfs:seeAlso` is the strongest claim that's universally true.
-- `dpp:DueDiligenceReport` and `cccev:Evidence` were initially declared `owl:equivalentClass`. Corrected to `rdfs:subClassOf` — every DDR is evidence, but cccev:Evidence is far broader (test reports, certificates, audit logs, attestations).
+- `dpp:OperatorInformation` ↔ `cv:LegalEntity` is `rdfs:seeAlso` only. The two extensions **overlap but neither contains the other**: cv:LegalEntity includes charities / non-profits that are not ESPR operators, and ESPR operators include sole proprietors that some Member States classify as natural persons rather than legal entities. seeAlso is the strongest claim that's universally true; subClassOf and equivalentClass would both over-claim.
+- `dpp:DueDiligenceReport` ↔ `cccev:Evidence` is `rdfs:subClassOf`. Every DDR is evidence, but cccev:Evidence is far broader (test reports, certificates, audit logs, attestations) — subsumption holds, equivalence does not.
 
 ### Notes
 - No `dpp:` terms removed in this pass. Anchors only — JSON-LD payloads continue to round-trip identically. The bridge context at `extensions/common/interop/context/semic-core-bridge-context.jsonld` lets consumers compose payloads using SEMICeu IRIs directly when preferred.

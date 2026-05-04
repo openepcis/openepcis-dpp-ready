@@ -7,7 +7,7 @@ All notable changes to the Interoperability module will be documented in this fi
 ### Added
 - **EU SEMICeu Core Vocabularies bridge** (`context/semic-core-bridge-context.jsonld`) covering CCCEV, CPOV, Core Business, Core Person, Core Location, Core Public Event, CPSV-AP, and ADMS / ADMS-AP. Single consolidated context; namespaces `cv:` / `cccev:` (`http://data.europa.eu/m8g/`), `locn:` (`http://www.w3.org/ns/locn#`), `adms:` (`http://www.w3.org/ns/adms#`), `cpsv:` (`http://purl.org/vocab/cpsv#`), plus `org:` / `foaf:` / `skos:` / `dcterms:` reuse.
 - **`docs/SEMIC_CORE_VOCABULARIES.md`** — comprehensive narrative + per-vocabulary mapping. Documents which `dpp:` and module terms anchor to SEMICeu and how to compose payloads.
-- New **"Foundational vocabularies (peer Layer 1)"** section at the top of `docs/STANDARDS_ALIGNMENT.md` that elevates schema.org, GS1, and SEMICeu to a peer triumvirate (the previous structure had GS1 alone at Layer 1 with schema.org and UNTP at Layer 2).
+- New **"Foundational vocabularies (peer Layer 1)"** section at the top of `docs/STANDARDS_ALIGNMENT.md` describing the peer triumvirate: schema.org + GS1 + SEMICeu Core Vocabularies as Layer 1 foundations, with UNTP / CIRPASS-2 / JTC 24 sitting above as Layer 2 community profiles.
 
 ### Changed
 - Vocabulary precedence rule updated project-wide to **`schema:` → `gs1:` → SEMICeu (`cv:` / `cccev:` / `locn:` / `adms:` / `cpsv:`) → upstream community → custom**. See `EXTENSION-GOVERNANCE.md` v1.2.0.
