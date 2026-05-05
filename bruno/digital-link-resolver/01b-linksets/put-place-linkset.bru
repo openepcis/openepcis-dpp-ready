@@ -1,0 +1,57 @@
+meta {
+  name: PUT Place /414 linkset
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{dl-url}}/414/5012345100166?isAnonymousAccessAllowed=true
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "linkset": [
+      {
+        "anchor": "{{dl-url}}/414/5012345100166",
+        "itemDescription": "Greenville Cotton Works",
+        "https://ref.gs1.org/voc/defaultLink": [
+          {
+            "href": "{{dl-url}}/414/5012345100166?linkType=masterData",
+            "title": "Master Data"
+          }
+        ],
+        "https://ref.gs1.org/voc/masterData": [
+          {
+            "href": "{{dl-url}}/414/5012345100166?linkType=masterData",
+            "title": "Master Data",
+            "type": "application/ld+json",
+            "hreflang": ["en"],
+            "context": ["ALL"],
+            "public": true
+          }
+        ]
+      }
+    ]
+  }
+}
+
+docs {
+  Place-level (GLN, AI 414) linkset upsert. Both defaultLink and masterData
+  point at the place's own ?linkType=masterData URL so a default resolve
+  302s to the resolver-served masterdata document.
+
+  This shape is what the ingester writes for every nvero supply-chain GLN
+  — the cotton mill, manufacturer, distributor, retailer, repair, recycler.
+}
+
+tests {
+  test("Place linkset upserted successfully", function() {
+    expect(res.status).to.be.oneOf([200, 201, 204]);
+  });
+}
