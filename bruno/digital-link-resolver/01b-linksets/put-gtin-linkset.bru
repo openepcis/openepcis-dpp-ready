@@ -1,0 +1,92 @@
+meta {
+  name: PUT GTIN linkset (Narravero T-shirt)
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{dl-url}}/01/04068977934335?isAnonymousAccessAllowed=true
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "linkset": [
+      {
+        "anchor": "{{dl-url}}/01/04068977934335",
+        "itemDescription": "T-shirt — Narravero",
+        "https://ref.gs1.org/voc/defaultLink": [
+          {
+            "href": "https://nvero.app/wdemYj/19odefMoeoIbBwfuFZa5/01/04068977934335",
+            "title": "T-shirt — Narravero"
+          }
+        ],
+        "https://ref.gs1.org/voc/pip": [
+          {
+            "href": "https://nvero.app/wdemYj/19odefMoeoIbBwfuFZa5/01/04068977934335",
+            "title": "T-shirt — Narravero",
+            "fwqs": true,
+            "type": "text/html",
+            "hreflang": ["en", "de"],
+            "context": ["ALL"],
+            "public": true
+          }
+        ],
+        "https://ref.gs1.org/voc/masterData": [
+          {
+            "href": "{{dl-url}}/01/04068977934335?linkType=masterData",
+            "title": "T-shirt — Narravero",
+            "type": "application/ld+json",
+            "hreflang": ["en"],
+            "context": ["ALL"],
+            "public": true
+          }
+        ],
+        "https://ref.gs1.org/voc/certificationInfo": [
+          {
+            "href": "https://label.oeko-tex.com/en/20.HDE.00000",
+            "title": "OEKO-TEX STANDARD 100",
+            "type": "text/html",
+            "hreflang": ["en"],
+            "context": ["ALL"],
+            "public": true
+          }
+        ],
+        "https://ref.gs1.org/voc/epcis": [
+          {
+            "href": "{{url}}/events?MATCH_anyEPC=https%3A%2F%2Fid.dev.epcis.cloud%2F01%2F04068977934335*",
+            "title": "EPCIS Events (GTIN)",
+            "type": "application/ld+json",
+            "hreflang": ["en"],
+            "context": ["ALL"],
+            "public": true
+          }
+        ]
+      }
+    ]
+  }
+}
+
+docs {
+  GTIN-level linkset upsert. PUT replaces the existing linkset; if the
+  resolver returns 400 with "not found", switch to POST to create.
+
+  isAnonymousAccessAllowed=true marks the linkset as anonymously fetchable —
+  required for GS1 conformance and for any unauthenticated client (browser
+  following the Digital Link).
+
+  Note: defaultLink intentionally carries only `href` + `title` per
+  GS1-Conformant resolver §3.5; pip/masterData/etc. carry the full metadata
+  (type, hreflang, context, public, fwqs).
+}
+
+tests {
+  test("Linkset upserted successfully", function() {
+    expect(res.status).to.be.oneOf([200, 201, 204]);
+  });
+}
