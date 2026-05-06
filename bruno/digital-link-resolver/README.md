@@ -61,7 +61,12 @@ digital-link-resolver/
 │       ├── create-ev-battery.bru
 │       └── get-battery-masterdata.bru
 │
-├── 02-epcis-events/
+├── 02-linksets/
+│   ├── put-gtin-linkset.bru           # GTIN-level linkset (Narravero T-shirt)
+│   ├── put-serial-linkset.bru         # SGTIN linkset (defaultLink + pip + epcis)
+│   └── put-place-linkset.bru          # /414 GLN linkset (defaultLink + masterData)
+│
+├── 03-epcis-events/
 │   ├── textile-lifecycle/
 │   │   ├── 01-commissioning.bru       # Raw material sourcing
 │   │   ├── 02-production.bru          # Manufacturing
@@ -73,11 +78,11 @@ digital-link-resolver/
 │       ├── 02-installation.bru
 │       └── 03-maintenance.bru
 │
-├── 03-organizations/
+├── 04-organizations/
 │   ├── create-manufacturer.bru
 │   └── create-retailer.bru
 │
-└── 04-resolution/
+└── 05-resolution/
     ├── resolve-by-gtin.bru
     ├── resolve-with-linktype.bru
     └── well-known-resolver.bru
