@@ -107,6 +107,13 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     namespace: "https://ref.openepcis.io/extensions/us/fsma204/",
     prefix: "fsma",
   },
+  {
+    name: "rail",
+    dir: "extensions/upstream/gs1-rail",
+    ttlFile: "gs1RailVoc.ttl",
+    namespace: "https://gs1-epcis-reg.org/rail/voc/data#",
+    prefix: "rail",
+  },
 ];
 
 const NAMESPACE_TO_PREFIX: Record<string, string> = {
@@ -124,6 +131,7 @@ const NAMESPACE_TO_PREFIX: Record<string, string> = {
   "https://ref.openepcis.io/extensions/eu/ppwr/": "ppwr",
   "https://ref.openepcis.io/extensions/eu/cpr/": "cpr",
   "https://ref.openepcis.io/extensions/us/fsma204/": "fsma",
+  "https://gs1-epcis-reg.org/rail/voc/data#": "rail",
 };
 
 const PREFIX_TO_NAMESPACE: Record<string, string> = Object.fromEntries(

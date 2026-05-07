@@ -2,6 +2,16 @@
 
 All notable changes to the DPP Core module will be documented in this file.
 
+## 0.9.6 — Refurbishment / remanufacturing cross-cutting (2026-05-07)
+
+### Added
+- `dpp:remanufacturingDate` (datatype, `xsd:dateTime`, domain `schema:Product`) — covers
+  ESPR 2024/1781 Annex II durability / re-use information across sectors (rail rolling
+  stock, batteries, electronics, textiles). Anchored via `rdfs:seeAlso` to the upstream
+  GS1 Rail term `rail:itemReconditioningDate`.
+  - The new `extensions/common/interop/context/rail-bridge-context.jsonld` aliases the
+    rail term to this dpp term so EPCIS events can be authored in either vocabulary.
+
 ## 0.9.5 — CIRPASS-2 see-also pointers + GS1 CBV anchoring (2026-05-04)
 
 ### Added
