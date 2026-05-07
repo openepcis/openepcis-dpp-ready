@@ -1,0 +1,298 @@
+{
+    "@context": [
+        "https://gs1-epcis-reg.org/rail/rail-context.jsonld",
+        {
+            "sh": "http://www.w3.org/ns/shacl#",
+            "dc": "http://purl.org/dc/terms/",
+            "vann": "http://purl.org/vocab/vann/",
+            "schema": "https://schema.org/"
+        }
+    ],
+    "@graph": [
+        {
+            "@id": "rail:SensorMetadataShape",
+            "@type": "sh:NodeShape",
+            "sh:targetClass": "epcis:SensorMetadata",
+            "sh:property": [
+                {
+                    "sh:path": "rail:visibility",
+                    "sh:name": "Visibility",
+                    "sh:description": "Defines visibility status",
+                    "sh:class": "rail:VisibilityStatus",
+                    "sh:minCount": 1,
+                    "sh:maxCount": 1,
+                    "sh:message": "Visibility must be exactly one VisibilityStatus.",
+                    "sh:severity": "sh:Violation"
+                },
+                {
+                    "sh:path": "rail:sideIndicator",
+                    "sh:name": "Side Indicator",
+                    "sh:description": "Indicates side (1 or 2)",
+                    "sh:datatype": "xsd:integer",
+                    "sh:minInclusive": 1,
+                    "sh:maxInclusive": 2,
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Side indicator must be 1 or 2.",
+                    "sh:severity": "sh:Violation"
+                },
+                {
+                    "sh:path": "rail:dataProcessingMethodType",
+                    "sh:name": "Measurement Processing Method",
+                    "sh:description": "Data processing method",
+                    "sh:class": "rail:DataProcessingMethod",
+                    "sh:minCount": 1,
+                    "sh:maxCount": 1,
+                    "sh:message": "Processing method is required.",
+                    "sh:severity": "sh:Violation"
+                },
+                {
+                    "sh:path": "rail:typeWtms",
+                    "sh:name": "WTMS Type",
+                    "sh:description": "Type of WTMS system",
+                    "sh:class": "rail:TypesWTMS",
+                    "sh:minCount": 1,
+                    "sh:maxCount": 1,
+                    "sh:message": "WTMS type is required.",
+                    "sh:severity": "sh:Violation"
+                },
+                {
+                    "sh:path": "rail:en15654Speed",
+                    "sh:name": "Vehicle Speed",
+                    "sh:description": "Speed of a rail vehicle in km/h",
+                    "sh:datatype": "xsd:string",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Nominal value must be a string.",
+                    "sh:severity": "sh:Violation"
+                }
+            ]
+        },
+        {
+            "@id": "rail:SensorReportShape",
+            "@type": "sh:NodeShape",
+            "sh:targetClass": "epcis:SensorReport",
+            "sh:property": [
+                {
+                    "sh:path": "rail:normalizedAxle",
+                    "sh:name": "Normalized Axle",
+                    "sh:description": "Axle index",
+                    "sh:datatype": "xsd:integer",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Normalized axle must be integer.",
+                    "sh:severity": "sh:Violation"
+                },
+                {
+                    "sh:path": "rail:leftValue",
+                    "sh:name": "Left Value",
+                    "sh:description": "Left measurement",
+                    "sh:datatype": "xsd:decimal",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Left value must be decimal.",
+                    "sh:severity": "sh:Violation"
+                },
+                {
+                    "sh:path": "rail:rightValueString",
+                    "sh:name": "Right Value String",
+                    "sh:description": "Right wheel damage classification",
+                    "sh:class": "rail:WheelDamageType",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Must be WheelDamageType.",
+                    "sh:severity": "sh:Warning"
+                },
+                {
+                    "sh:path": "rail:leftValueString",
+                    "sh:name": "Left Value String",
+                    "sh:description": "Left wheel damage classification",
+                    "sh:class": "rail:WheelDamageType",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Must be WheelDamageType.",
+                    "sh:severity": "sh:Violation"
+                },
+                {
+                    "sh:path": "rail:rightValue",
+                    "sh:name": "Right Value",
+                    "sh:description": "Right measurement",
+                    "sh:datatype": "xsd:decimal",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Right value must be decimal.",
+                    "sh:severity": "sh:Violation"
+                },
+                {
+                    "sh:path": "rail:topValue",
+                    "sh:name": "Top Value",
+                    "sh:description": "Top measurement",
+                    "sh:datatype": "xsd:decimal",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Top value must be decimal.",
+                    "sh:severity": "sh:Violation"
+                },
+                {
+                    "sh:path": "rail:bottomValue",
+                    "sh:name": "Bottom Value",
+                    "sh:description": "Bottom measurement",
+                    "sh:datatype": "xsd:decimal",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Bottom value must be decimal.",
+                    "sh:severity": "sh:Violation"
+                },
+                {
+                    "sh:path": "rail:hasGraffiti",
+                    "sh:name": "Has Graffiti",
+                    "sh:description": "Indicates graffiti presence",
+                    "sh:datatype": "xsd:boolean",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Must be boolean.",
+                    "sh:severity": "sh:Violation"
+                },
+                {
+                    "sh:path": "rail:graffitiSize",
+                    "sh:name": "Graffiti Size",
+                    "sh:description": "Size of graffiti",
+                    "sh:datatype": "xsd:decimal",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Must be decimal.",
+                    "sh:severity": "sh:Violation"
+                },
+                {
+                    "sh:path": "rail:railRunDistance",
+                    "sh:name": "Rail Run Distance",
+                    "sh:description": "Distance run",
+                    "sh:class": "schema:QuantitativeValue",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Must be a QuantitativeValue.",
+                    "sh:severity": "sh:Violation"
+                },
+                {
+                    "sh:path": "rail:heavySide",
+                    "sh:name": "Heavy Side",
+                    "sh:description": "Heavier side indicator",
+                    "sh:class": "rail:HeavierSide",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Must be HeavierSide.",
+                    "sh:severity": "sh:Violation"
+                }
+            ]
+        },
+        {
+            "@id": "rail:PlaceShape",
+            "@type": "sh:NodeShape",
+            "sh:targetClass": "gs1:Place",
+            "sh:property": [
+                {
+                    "sh:path": "rail:europeanTrackLocation",
+                    "sh:name": "Track Location",
+                    "sh:description": "European track identifier",
+                    "sh:datatype": "xsd:string",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Must be string.",
+                    "sh:severity": "sh:Violation"
+                },
+                {
+                    "sh:path": "rail:geo",
+                    "sh:name": "Geo Coordinates",
+                    "sh:description": "Latitude,Longitude",
+                    "sh:datatype": "xsd:string",
+                    "sh:pattern": "^-?([0-8]?[0-9](\\.\\d+)?|90(\\.0+)?),-?(1?[0-7]?[0-9](\\.\\d+)?|180(\\.0+)?)$",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Geo must be valid latitude,longitude.",
+                    "sh:severity": "sh:Violation"
+                }
+            ]
+        },
+        {
+            "@id": "rail:ProductShape",
+            "@type": "sh:NodeShape",
+            "sh:targetClass": "schema:Product",
+            "sh:property": [
+                {
+                    "sh:path": "rail:functionalStatus",
+                    "sh:name": "Functional Status",
+                    "sh:description": "Index of the functional status",
+                    "sh:datatype": "xsd:string",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Must be a string.",
+                    "sh:severity": "sh:Violation"
+                },
+                {
+                    "sh:path": "rail:itemReconditioningDate",
+                    "sh:name": "Reconditioning Date",
+                    "sh:description": "Date of reconditioning",
+                    "sh:datatype": "xsd:dateTime",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Must be dateTime.",
+                    "sh:severity": "sh:Violation"
+                }
+            ]
+        },
+        {
+            "@id": "rail:WarrantyShape",
+            "@type": "sh:NodeShape",
+            "sh:targetClass": "schema:WarrantyPromise",
+            "sh:property": [
+                {
+                    "sh:path": "rail:startWarranty",
+                    "sh:name": "Start Warranty",
+                    "sh:description": "Warranty start date",
+                    "sh:datatype": "xsd:dateTime",
+                    "sh:minCount": 0,
+                    "sh:maxCount": 1,
+                    "sh:message": "Must be dateTime.",
+                    "sh:severity": "sh:Violation"
+                }
+            ]
+        },
+        {
+            "@id": "rail:NominalValueSetShape",
+            "@type": "sh:NodeShape",
+            "sh:targetClass": "rail:NominalValueSet",
+            "sh:property": [
+                {
+                    "sh:path": "rail:nominalValue",
+                    "sh:name": "Nominal Value",
+                    "sh:description": "Nominal value",
+                    "sh:datatype": "xsd:decimal",
+                    "sh:minCount": 1,
+                    "sh:maxCount": 1,
+                    "sh:message": "Nominal value required.",
+                    "sh:severity": "sh:Violation"
+                },
+                {
+                    "sh:path": "rail:lowerSpecificationLimit",
+                    "sh:name": "Lower Limit",
+                    "sh:description": "Lower spec limit",
+                    "sh:datatype": "xsd:decimal",
+                    "sh:minCount": 1,
+                    "sh:maxCount": 1,
+                    "sh:message": "Is no lower limit required?",
+                    "sh:severity": "sh:Warning"
+                },
+                {
+                    "sh:path": "rail:upperSpecificationLimit",
+                    "sh:name": "Upper Limit",
+                    "sh:description": "Upper spec limit",
+                    "sh:datatype": "xsd:decimal",
+                    "sh:minCount": 1,
+                    "sh:maxCount": 1,
+                    "sh:message": "Is no upper limit required?",
+                    "sh:severity": "sh:Violation"
+                }
+            ]
+        }
+    ]
+}

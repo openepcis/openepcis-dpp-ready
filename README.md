@@ -27,7 +27,7 @@ The EU Battery Regulation requires DPPs starting **February 2027**. Industry can
 
 | | Count |
 |---|---|
-| Modules | 10 — `common/{core,interop}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr}`, `us/{fsma204}` |
+| Modules | 11 — `common/{core,interop}`, `eu/{battery,textile,eudr,electronics,detergent,ppwr,cpr}`, `us/{fsma204}`, `upstream/{gs1-rail}` |
 | Classes | 120+ |
 | Properties | 430+ |
 | EPCIS Event Examples | 37+ |
@@ -128,6 +128,7 @@ This monorepo provides a consistent, GS1-aligned approach to implementing Digita
 | [eu/electronics](./extensions/eu/electronics/) | EU | ESPR Electronics Delegated Acts | Preview | 0.9.5 | Feb 2026 |
 | [eu/detergent](./extensions/eu/detergent/) | EU | Detergents Regulation 2026/405 | Preview | 0.9.5 | Mar 2026 |
 | [us/fsma204](./extensions/us/fsma204/) | US | FSMA §204 Food Traceability Rule (21 CFR 1 Subpart S) | Preview | 0.1.0 | Apr 2026 (new module) |
+| [upstream/gs1-rail](./extensions/upstream/gs1-rail/) | Upstream (GS1 AISBL / GS1 Switzerland) | GS1 Rail Vocabulary — sectoral Layer-1 (sensor metadata, wheel diagnostics, rail EPCIS Registry shapes); namespace stays at `https://gs1-epcis-reg.org/rail/voc/data#` | Mirror | upstream 1.6 | May 2026 (initial mirror, bridge to dpp-core) |
 
 ## Repository Structure
 
@@ -237,6 +238,7 @@ The project follows a **`gs1:` → SEMICeu (`cv:` / `cccev:` / `locn:` / `adms:`
 | Electronics | `https://ref.openepcis.io/extensions/eu/electronics/` | `electronics:` |
 | Detergent | `https://ref.openepcis.io/extensions/eu/detergent/` | `detergent:` |
 | FSMA §204 | `https://ref.openepcis.io/extensions/us/fsma204/` | `fsma:` |
+| GS1 Rail (upstream — GS1 AISBL / GS1 Switzerland; mirrored under `extensions/upstream/gs1-rail/`) | `https://gs1-epcis-reg.org/rail/voc/data#` | `rail:` |
 | _Reused_: schema.org | `https://schema.org/` | `schema:` |
 | _Reused_: GS1 Web Vocabulary | `https://ref.gs1.org/voc/` | `gs1:` |
 | _Reused_: SEMICeu CCCEV / CPOV / Core Business / Person / Public Event / CPSV-AP | `http://data.europa.eu/m8g/` | `cv:` (general) / `cccev:` (criterion-evidence aliases) |

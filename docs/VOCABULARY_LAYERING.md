@@ -58,10 +58,11 @@ which, and how `dpp:` and module terms anchor upward.
 
 ```mermaid
 graph BT
-    subgraph L1["Layer 1 — Foundational peer triumvirate"]
+    subgraph L1["Layer 1 — Foundational peer triumvirate + sectoral"]
         GS1["gs1:<br/>GS1 Web Vocabulary<br/>(imported, owl:imports)"]
         SEMIC["SEMICeu Core Vocabularies<br/>cv: / cccev: / locn: / adms: / cpsv:<br/>(http://data.europa.eu/m8g/)"]
         SCHEMA["schema:<br/>schema.org"]
+        RAIL["rail:<br/>GS1 Rail Vocabulary<br/>(GS1 AISBL / GS1 Switzerland;<br/>https://gs1-epcis-reg.org/rail/voc/data#;<br/>mirrored under extensions/upstream/gs1-rail/)"]
     end
 
     subgraph L2["Layer 2 — Upstream community profiles"]
@@ -153,6 +154,7 @@ foundational vocabularies in this order: **GS1 → SEMICeu → schema.org**.
 | Already in **GS1 Web Vocabulary** (`gs1:`) | Use it directly. GS1 is `owl:imports`-ed and is the canonical source for product / identifier / EPCIS-aligned attributes. |
 | Already in **EU SEMICeu Core Vocabularies** (`cv:` / `cccev:` / `locn:` / `adms:` / `cpsv:`) | Use it directly **and** anchor any local alias upward via `owl:equivalentClass` / `owl:equivalentProperty`. SEMICeu is the EU-canonical source for public bodies, conformity (CCCEV), legal entities, persons, addresses, and identifier schemes. |
 | Already in **schema.org** | Use it directly. schema.org is the universal-web fallback for ratings, observations, and generic metadata that GS1 and SEMICeu don't cover. |
+| Already in **GS1 Rail Vocabulary** (`rail:` — `https://gs1-epcis-reg.org/rail/voc/data#`) for railway-specific concepts | Use it directly. GS1 Rail is a sectoral peer to `gs1:` published by GS1 AISBL with GS1 Switzerland. Mirrored under `extensions/upstream/gs1-rail/`; cross-cutting overlaps (e.g. `rail:itemReconditioningDate` ↔ `dpp:remanufacturingDate`) are bridged via `extensions/common/interop/context/rail-bridge-context.jsonld`. |
 | Already in UNTP / CIRPASS-2 / JTC 24 | Reference it directly **and** anchor any local alias upward. |
 | Cross-cuts ≥2 regulations but absent upstream | Mint at `dpp:` (common/core). |
 | Specific to one regulation | Mint at the module namespace (`eu/<module>:`). |

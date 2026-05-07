@@ -85,8 +85,8 @@ Domain-specific vocabularies import this core and add regulation-specific extens
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
     dcterms:created "2024-01-15"^^xsd:date ;
     dcterms:modified "2026-04-29"^^xsd:date ;
-    owl:versionInfo "0.9.5" ;
-    owl:versionIRI <https://ref.openepcis.io/extensions/common/core/0.9.5> ;
+    owl:versionInfo "0.9.6" ;
+    owl:versionIRI <https://ref.openepcis.io/extensions/common/core/0.9.6> ;
     vann:preferredNamespacePrefix "dpp" ;
     vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/common/core/" ;
     rdfs:seeAlso <https://ref.gs1.org/voc/> ;
@@ -2239,4 +2239,26 @@ dpp:crmListVersion
     rdfs:comment "Version reference of the EU Critical Raw Materials list against which the isCriticalRawMaterial / isStrategicRawMaterial flags were determined (e.g. CRMA-2024 Annex II / Annex I). The list is updated periodically by the Commission."@en ;
     rdfs:domain dpp:MaterialComposition ;
     rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Cross-cutting refurbishment / remanufacturing
+# =============================================================================
+# Refurbishment and remanufacturing are explicitly named in ESPR 2024/1781
+# Annex II (durability and reusability information) and recur across sectors:
+# rail rolling stock, batteries (Battery Reg. 2023/1542), electronics (waste
+# electrical and electronic equipment), and textile reuse. GS1 Web Vocabulary
+# does not currently cover refurbishment dates, and SEMICeu has no equivalent.
+# Sector vocabularies (e.g. rail:itemReconditioningDate) anchor upward to this
+# property via the rail bridge in extensions/common/interop/.
+
+dpp:remanufacturingDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Remanufacturing / refurbishment date"@en ;
+    rdfs:comment "Date on which a product was remanufactured or refurbished and re-released as fit for purpose. Cross-sector: applies to any DPP-covered product that re-enters service after refurbishment (rail rolling stock, batteries, electronics, textiles)."@en ;
+    rdfs:domain schema:Product ;
+    rdfs:range xsd:dateTime ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "No upstream equivalent: GS1 Web Vocabulary covers production dates but not refurbishment; schema.org has schema:productionDate / schema:purchaseDate but no remanufacture/reconditioning date; SEMICeu does not cover product lifecycle dates."@en ;
+    rdfs:seeAlso <https://gs1-epcis-reg.org/rail/voc/data#itemReconditioningDate> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .

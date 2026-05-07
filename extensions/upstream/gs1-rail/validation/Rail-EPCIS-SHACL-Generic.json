@@ -1,0 +1,165 @@
+{
+  "@context": [
+     "https://gs1-epcis-reg.org/rail/rail-context.jsonld", 
+{
+    "sh": "http://www.w3.org/ns/shacl#",
+    "dc": "http://purl.org/dc/terms/",
+    "vann": "http://purl.org/vocab/vann/",
+    "schema": "https://schema.org/"
+  }
+],
+
+  "@graph": [
+
+    {
+      "@id": "epcis:EPCISEventShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "epcis:EPCISEvent",
+
+      "sh:property": [
+        {
+          "sh:path": "epcis:eventTime",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:dateTime",
+          "sh:message": "eventTime is required"
+        },
+        {
+          "sh:path": "epcis:eventTimeZoneOffset",
+          "sh:minCount": 1,
+          "sh:datatype": "xsd:string",
+          "sh:message": "eventTimeZoneOffset is required"
+        }
+      ]
+    },
+
+    {
+      "@id": "epcis:MasterDataAvailableForShape",
+      "@type": "sh:NodeShape",
+      "sh:targetObjectsOf": "epcis:masterDataAvailableFor",
+
+      "sh:property": [
+        {
+          "sh:path": "epcis:id",
+          "sh:minCount": 1,
+          "sh:message": "Master data entry should contain an id"
+        }
+      ]
+    },
+
+    {
+      "@id": "epcis:MasterDataLinkShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "epcis:EPCISEvent",
+
+      "sh:sparql": {
+        "sh:message": "masterDataAvailableFor ids should be referenced within the event",
+        "sh:select": "SELECT $this WHERE {$this epcis:masterDataAvailableFor ?md .?md epcis:id ?id .FILTER NOT EXISTS {$this ?p ?id .}}"
+      }
+    },
+
+    {
+      "@id": "epcis:SensorMetadataShapeCore",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "epcis:SensorMetadata",
+
+      "sh:property": [
+        {
+          "sh:path": "epcis:time",
+          "sh:datatype": "xsd:dateTime",
+          "sh:maxCount": 1,
+          "sh:severity": "sh:Warning",
+          "sh:message": "SensorMetadata should include measurement time"
+        },
+        {
+          "sh:path": "epcis:deviceID",
+          "sh:maxCount": 1,
+          "sh:severity": "sh:Warning",
+          "sh:message": "SensorMetadata should include deviceID"
+        }
+      ]
+    },
+    {
+      "@id": "epcis:AggregationEventShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "epcis:AggregationEvent",
+
+      "sh:property": [
+        {
+          "sh:path": "epcis:parentID",
+          "sh:minCount": 1,
+          "sh:maxCount": 1,
+          "sh:message": "AggregationEvent must have exactly one parent"
+        },
+        {
+          "sh:path": "epcis:childEPCs",
+          "sh:minCount": 1,
+          "sh:message": "AggregationEvent must have at least one child"
+        }
+      ]
+    },
+
+    {
+      "@id": "epcis:AssociationEventShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "epcis:AssociationEvent",
+
+      "sh:property": [
+        {
+          "sh:path": "epcis:parentID",
+          "sh:minCount": 1,
+          "sh:maxCount": 1,
+          "sh:message": "AssociationEvent must have exactly one parent"
+        },
+        {
+          "sh:path": "epcis:childEPCs",
+          "sh:minCount": 1,
+          "sh:message": "AssociationEvent must have at least one child"
+        }
+      ]
+    },
+
+    {
+      "@id": "epcis:PersistentDispositionForbidden",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "epcis:EPCISEvent",
+
+      "sh:not": {
+        "sh:property": [
+          {
+            "sh:path": "epcis:persistentDisposition"
+          }
+        ]
+      }
+    },
+
+    {
+      "@id": "epcis:ReadPointShape",
+      "@type": "sh:NodeShape",
+      "sh:targetClass": "epcis:ReadPoint",
+
+      "sh:property": [
+        {
+          "sh:path": "epcis:id",
+          "sh:maxCount": 1,
+          "sh:severity": "sh:Warning",
+          "sh:message": "ReadPoint should include an id (GLN or URI)"
+        }
+      ]
+    },
+
+    {
+      "@id": "epcis:SoftwareVersionShape",
+      "@type": "sh:NodeShape",
+      "sh:targetSubjectsOf": "schema:softwareVersion",
+
+      "sh:property": [
+        {
+          "sh:path": "schema:softwareVersion",
+          "sh:datatype": "xsd:string",
+          "sh:message": "Software version must be a string"
+        }
+      ]
+    }
+
+  ]
+}

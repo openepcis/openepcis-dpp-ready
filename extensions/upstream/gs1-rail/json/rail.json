@@ -1,0 +1,823 @@
+{
+  "namespace": "https://gs1-epcis-reg.org/rail/voc/data#",
+  "version": "1.6",
+  "title": "GS1 Rail Vocabulary",
+  "description": "The GS1 Rail vocabulary, described using W3C RDF Schema and the Web Ontology Language. The vocabulary builds on and refers to schema.org where appropriate.",
+  "classes": [
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#Authentication",
+      "localName": "Authentication",
+      "label": "Authentication Class",
+      "comment": "Authentication information required to access a service target, such as API key headers.",
+      "domain": [
+        "https://schema.org/WebAPI"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#DynamicCoefficient",
+      "localName": "DynamicCoefficient",
+      "label": "Dynamic Coefficient Details",
+      "comment": "A set of dynamic Coefficient details (normalized axle number, left and right value) of the vehicle.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorMetadata"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#Manufacturer",
+      "localName": "Manufacturer",
+      "label": "Manufacturer",
+      "comment": "The group of details about a manufacturer.",
+      "domain": [
+        "https://ref.gs1.org/voc/Organization"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#NominalValueSet",
+      "localName": "NominalValueSet",
+      "label": "Nominal Value Set",
+      "comment": "Represents nominal values and specification limits (LSL, USL) for a particular parameter.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorMetadata"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#RegistryEntries",
+      "localName": "RegistryEntries",
+      "label": "Registry entries",
+      "comment": "An entry returned by the EPCIS Registry describing a service provider and its downloadable targets.",
+      "domain": [
+        "https://schema.org/Service"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#ResultsOverviewAttributes",
+      "localName": "ResultsOverviewAttributes",
+      "label": "Query result overview attributes",
+      "comment": "A set of attributes describing the number of events registered in regards to a given object / thing",
+      "domain": [
+        "https://schema.org/Thing"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#VerifiedByGS1Attributes",
+      "localName": "VerifiedByGS1Attributes",
+      "label": "VbG query result overview attributes",
+      "comment": "A set of attributes describing attributes returned by Verified by GS1 in regards to a given object / thing",
+      "domain": [
+        "https://schema.org/Thing"
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#apiKey",
+      "localName": "apiKey",
+      "label": "API Key",
+      "comment": "The API key used for authenticating access to an endpoint.",
+      "domain": [
+        "https://gs1-epcis-reg.org/rail/voc/data#Authentication"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#apiKeyHeader",
+      "localName": "apiKeyHeader",
+      "label": "API Key Header",
+      "comment": "The HTTP header used to send the API key when accessing an endpoint.",
+      "domain": [
+        "https://gs1-epcis-reg.org/rail/voc/data#Authentication"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#auth",
+      "localName": "auth",
+      "label": "authentication",
+      "comment": "Links a target endpoint (EntryPoint) to the authentication object required to access it.",
+      "domain": [
+        "https://schema.org/EntryPoint"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#authorizationRequestEndpoint",
+      "localName": "authorizationRequestEndpoint",
+      "label": "Authorization request endpoints",
+      "comment": "A list of URL endpoints that can be used to request access to restricted event data. Multiple endpoints may be provided.",
+      "domain": [
+        "https://gs1-epcis-reg.org/rail/voc/data#ResultsOverviewAttributes"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#axleLoadImbal",
+      "localName": "axleLoadImbal",
+      "label": "Axle load imbalance",
+      "comment": "Axle load imbalance of vehicle, measured as heavier axle divided by the lighter axle.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#bottomValue",
+      "localName": "bottomValue",
+      "label": "Measurement at the bottom of the measured object",
+      "comment": "A measurement measured at the bottom of the reference object, depending on the context, rounded up to three decimal places.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#combiAxleLoadLongLoadImbal",
+      "localName": "combiAxleLoadLongLoadImbal",
+      "label": "Combined axle load and longitudinal load imbalance",
+      "comment": "Combined axle/longitudinal load imbalance of vehicle, using algorithm developed by Chalmers University.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#dataProcessingMethodType",
+      "localName": "dataProcessingMethodType",
+      "label": "Type of Data Processing Method",
+      "comment": "A method used to process sensor data, e.g., filtering, averaging, or setting nominal values.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorMetadata"
+      ],
+      "range": [
+        "https://gs1-epcis-reg.org/rail/voc/data#DataProcessingMethod"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#en15654Speed",
+      "localName": "en15654Speed",
+      "label": "Mean speed of vehicle",
+      "comment": "Mean speed of vehicle in km/h as defined in EN 15654.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorMetadata"
+      ],
+      "range": [
+        "https://schema.org/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#europeanTrackLocation",
+      "localName": "europeanTrackLocation",
+      "label": "European Track Location",
+      "comment": "Represents a location label / human readable context submitted by the data provider indicating the location associated with a rail asset or event. The European Track Location is the place where the event occurs (gs1:Place), not the EPCIS readPoint property. Note: The European Location Label is very often composed of either UIC country code + line number + kilometer or station code plus + track number",
+      "domain": [
+        "https://ref.gs1.org/voc/Place"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#functionalStatus",
+      "localName": "functionalStatus",
+      "label": "Functional Status below GTIN",
+      "comment": "The functional status of the trade item may need to be included by the manufacturer to meet regulatory or commercial requirements. For example requirements related to the type approval, allowing the trade item to be sold in a particular country. It is a status definition of a component or asset below GTIN level.",
+      "domain": [
+        "https://schema.org/Product"
+      ],
+      "range": [
+        "rdf:langString"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#geo",
+      "localName": "geo",
+      "label": "Geo coordinates, Lat, Long",
+      "comment": "A geographic location described by its geo-coordinates in a string latitude,longitude, separated by a comma. Ex. 52.554433,13.398299. The property applies to the place (gs1:Place) where the event occurs, not to the EPCIS readPoint property.",
+      "domain": [
+        "https://ref.gs1.org/voc/Place"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/GeoCoordinates",
+        "https://ref.gs1.org/voc/geo",
+        "https://ref.gs1.org/voc/latitude",
+        "https://ref.gs1.org/voc/longitude"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#graffitiSize",
+      "localName": "graffitiSize",
+      "label": "Graffiti size measurement",
+      "comment": "The estimated diagonal of a graffiti measured in mm",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#grossLadenWeight",
+      "localName": "grossLadenWeight",
+      "label": "Gross laden weight",
+      "comment": "Gross laden weight of a rail vehicle measured in tonnes.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#hasGraffiti",
+      "localName": "hasGraffiti",
+      "label": "Rail vehicle has graffiti",
+      "comment": "Indicates as a boolean whether a rail vehicle has graffiti or not",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#heavySide",
+      "localName": "heavySide",
+      "label": "Heavy side of a vehicle",
+      "comment": "Heavy side of a vehicle.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "https://gs1-epcis-reg.org/rail/voc/data#HeavierSide"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#itemReconditioningDate",
+      "localName": "itemReconditioningDate",
+      "label": "Item reconditioning date",
+      "comment": "The date an item has been refurbished and became again fit for purpose",
+      "domain": [
+        "https://schema.org/Product"
+      ],
+      "range": [
+        "xsd:dateTime"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#keyRecordStatus",
+      "localName": "keyRecordStatus",
+      "label": "Status of a VbG record",
+      "comment": "Shows the status of a VbG record",
+      "domain": [
+        "https://gs1-epcis-reg.org/rail/voc/data#VerifiedByGS1Attributes"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#lateralLoadImbalance",
+      "localName": "lateralLoadImbalance",
+      "label": "Lateral load imbalance",
+      "comment": "The ratio of the total mean wheel forces on one side of a vehicle to the other side. The greater of L/R or R/L is used, so that the value is greater than or equal to 1.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#leadingBogieDiagImbal",
+      "localName": "leadingBogieDiagImbal",
+      "label": "Leading bogie diagonal imbalance",
+      "comment": "Diagonal load imbalance of leading bogie.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#leftValue",
+      "localName": "leftValue",
+      "label": "Measurement on the left side of the measured object",
+      "comment": "A measurement measured on the left side of the measured object, depending on the context, seen in the direction of travel of a vehicle, rounded up to three decimal places.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#leftValueString",
+      "localName": "leftValueString",
+      "label": "Measurement on the left side of the measured object",
+      "comment": "A measurement measured on the left side of the measured object, depending on the context, seen in the direction of travel of a vehicle, expressed as string only.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "rail:WheelDamageType"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#licenceKey",
+      "localName": "licenceKey",
+      "label": "Global Company Prefix of a GS1 member",
+      "comment": "Shows the licence key found in Verified by GS1 in regards to the identifier of an object / thing.",
+      "domain": [
+        "https://gs1-epcis-reg.org/rail/voc/data#VerifiedByGS1Attributes"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#licenseeName",
+      "localName": "licenseeName",
+      "label": "Name of the GS1 member",
+      "comment": "Shows the name of the company behind the licence key found in Verified by GS1 in regards to the identifier of an object / thing.",
+      "domain": [
+        "https://gs1-epcis-reg.org/rail/voc/data#VerifiedByGS1Attributes"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#longLoadImbal",
+      "localName": "longLoadImbal",
+      "label": "Longitudinal load imbalance",
+      "comment": "Longitudinal load imbalance of vehicle.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#lowerSpecificationLimit",
+      "localName": "lowerSpecificationLimit",
+      "label": "Lower Specification Limit (LSL)",
+      "comment": "The minimum acceptable value for a product or service. If a product's specification is below the LSL, it may not be accepted.",
+      "domain": [
+        "https://gs1-epcis-reg.org/rail/voc/data#NominalValueSet",
+        "https://schema.org/Observation"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#nominalValue",
+      "localName": "nominalValue",
+      "label": "Nominal Value",
+      "comment": "The target (as should) value for a parameter, around which tolerances are defined. Used as the reference value for specification limits.",
+      "domain": [
+        "https://gs1-epcis-reg.org/rail/voc/data#NominalValueSet",
+        "https://schema.org/Observation"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#normalizedAxle",
+      "localName": "normalizedAxle",
+      "label": "Normalized axle number",
+      "comment": "The consecutive number of an rail vehicle's axle as seen when looking at a rail vehicle with its RFID encoded side indicator 1 being first in direction of travel.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#passed",
+      "localName": "passed",
+      "label": "Sensor value passed or not",
+      "comment": "A type of SensorValue in EPCIS Sensor Data, that only can have the result passed or not.",
+      "domain": [
+        "https://ref.gs1.org/epcis/MeasurementType"
+      ],
+      "range": [
+        "xsd:boolean"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#railRunDistance",
+      "localName": "railRunDistance",
+      "label": "Run Distance",
+      "comment": "It is the distance a rail vehicle has run in total from a point in time set in the past (usually the time a Vehicle was first put into service up until the time the run distance is provided",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "https://schema.org/QuantitativeValue"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#restrictedEventCount",
+      "localName": "restrictedEventCount",
+      "label": "Number of restricted events",
+      "comment": "Returns the number of events, that can NOT be shown in the query response message in regards to an object / thing.",
+      "domain": [
+        "https://gs1-epcis-reg.org/rail/voc/data#ResultsOverviewAttributes"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#restrictionReason",
+      "localName": "restrictionReason",
+      "label": "Reason for event restriction",
+      "comment": "Returns the reason why certain events could not be shown are only listed as restricted",
+      "domain": [
+        "https://gs1-epcis-reg.org/rail/voc/data#ResultsOverviewAttributes"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#resultsOverview",
+      "localName": "resultsOverview",
+      "label": "Query results overview",
+      "comment": "An element containing one or several attributes that pertain to a specific query for events in regards to a given object / thing",
+      "domain": [
+        "https://schema.org/Thing"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#returnedEventCount",
+      "localName": "returnedEventCount",
+      "label": "Number of shown events",
+      "comment": "Returns the number of events, that can be shown in the query response message in regards to an object / thing.",
+      "domain": [
+        "https://gs1-epcis-reg.org/rail/voc/data#ResultsOverviewAttributes"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#rightValue",
+      "localName": "rightValue",
+      "label": "Measurement on the right side of the measured object",
+      "comment": "A measurement measured on the right side of the measured object, depending on the context, seen in the direction of travel of a vehicle, rounded up to three decimal places.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#rightValueString",
+      "localName": "rightValueString",
+      "label": "Measurement on the right side of the measured object",
+      "comment": "A measurement measured on the right side of the measured object, depending on the context, seen in the direction of travel of a vehicle, expressed as string only.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "rail:WheelDamageType"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#setNominalValues",
+      "localName": "setNominalValues",
+      "label": "Set nominal values",
+      "comment": "Links to a set of quantitative definitions for specific measurement parameters, such as axial internal clearance or grease fill.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorMetadata"
+      ],
+      "range": [
+        "https://gs1-epcis-reg.org/rail/voc/data#NominalValueSet"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#sideIndicator",
+      "localName": "sideIndicator",
+      "label": "Side indicator of the rail vehicle",
+      "comment": "Side indicator of a rail vehicle as per 'https://www.gs1.org/sites/gs1/files/2023-04/implementation-guide-autoid-in-rail.pdf'. When a data source delivers a side indicator value A or B, then the Discovery Service just maps A to 1 and B to 2.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorMetadata"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#startWarranty",
+      "localName": "startWarranty",
+      "label": "Start date and time of a warranty",
+      "comment": "The timestamp for the start of warranty needs to be represented in an xsd:dateTimeStamp format YYYY-MM-DDTHH:MM:SS.000+TIME ZONE. Missing values are to be filled with zeros",
+      "domain": [
+        "https://schema.org/WarrantyPromise"
+      ],
+      "range": [
+        "xsd:dateTime"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#tareWeight",
+      "localName": "tareWeight",
+      "label": "Tare weight",
+      "comment": "Tare weight of a rail vehicle measured in tonnes.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#topValue",
+      "localName": "topValue",
+      "label": "Measurement at the top of the measured object",
+      "comment": "A measurement measured on the top side of the reference object, depending on the context, rounded up to three decimal places.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#totalEventCount",
+      "localName": "totalEventCount",
+      "label": "Number of total events",
+      "comment": "Returns the number of all events known in regards to an object / thing.",
+      "domain": [
+        "https://gs1-epcis-reg.org/rail/voc/data#ResultsOverviewAttributes"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#trailingBogieDiagImbalance",
+      "localName": "trailingBogieDiagImbalance",
+      "label": "Trailing bogie diagonal imbalance",
+      "comment": "Diagonal load imbalance of trailing bogie.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#typeWtms",
+      "localName": "typeWtms",
+      "label": "WTMS Type",
+      "comment": "Type of measurement installation installed along a track.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorMetadata"
+      ],
+      "range": [
+        "rail:TypesWTMS"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#upperSpecificationLimit",
+      "localName": "upperSpecificationLimit",
+      "label": "Upper Specification Limit (USL)",
+      "comment": "The maximum acceptable value for a product or service. If a product's specification is above the USL, it may not be accepted.",
+      "domain": [
+        "https://gs1-epcis-reg.org/rail/voc/data#NominalValueSet",
+        "https://schema.org/Observation"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#vbgmessage",
+      "localName": "vbgmessage",
+      "label": "VbG query message",
+      "comment": "Text message returned by Verified by GS1",
+      "domain": [
+        "https://gs1-epcis-reg.org/rail/voc/data#VerifiedByGS1Attributes"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#vehDiagImbal",
+      "localName": "vehDiagImbal",
+      "label": "Vehicle diagional imbalance",
+      "comment": "Diagonal load imbalance of vehicle.",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorReport"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#visibility",
+      "localName": "visibility",
+      "label": "Visibility of sensor data",
+      "comment": "Indicates whether the respective sensor data can be accessed publicly or only based on defined access rights by the information owner",
+      "domain": [
+        "https://ref.gs1.org/epcis/SensorMetadata"
+      ],
+      "range": [
+        "https://gs1-epcis-reg.org/rail/voc/data#VisibilityStatus"
+      ]
+    }
+  ],
+  "enumerations": [
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#DataProcessingMethod",
+      "localName": "DataProcessingMethod",
+      "label": "Data Processing Method",
+      "comment": "A class regrouping methods used to process sensor data",
+      "values": [
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#axleLoad",
+          "localName": "axleLoad",
+          "label": "Axle load",
+          "comment": "Indicates that the sensor data report referenced provides total “quasi-static” axle load measurement details (normalized axle number, left and right value) of the vehicle, expressed in tonnes and ignoring any dynamic effect due to wheel damage."
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#bearingTemperature",
+          "localName": "bearingTemperature",
+          "label": "Bearing Temperature",
+          "comment": "Indicates that the sensor data report referenced provides measurement details in °C on the temperature of bearings (normalized axle number, left and right value) of the vehicle. The temperature is usually measured on the outer side at the bottom."
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#breakThickness",
+          "localName": "breakThickness",
+          "label": "Thickness of breaking pads",
+          "comment": "Indicates the thickness of breaking pads measured in mm, used in cargo vehicles in rail"
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#dynamicCoefficient",
+          "localName": "dynamicCoefficient",
+          "label": "Dynamic Coefficient",
+          "comment": "Indicates that the sensor data report referenced provides dynamic Coefficient measurement details (normalized axle number, left and right value) of the vehicle."
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#dynForce",
+          "localName": "dynForce",
+          "label": "Dynamic Force",
+          "comment": "Indicates that the sensor data report referenced provides dynamic force measurement details (normalized axle number, left and right value) of the vehicle, measured in kN as difference between peak and mean force of a wheel"
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#graffitiRecognition",
+          "localName": "graffitiRecognition",
+          "label": "Graffiti on a vehicle",
+          "comment": "Measures the presence of graffiti on a vehicle"
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#meanForce",
+          "localName": "meanForce",
+          "label": "Mean Force",
+          "comment": "Indicates that the sensor data report referenced provides mean (“quasi-static”) force measurement details (normalized axle number, left and right value) of the vehicle, measured in kN of a wheel on a rail, i.e. ignoring any dynamic effect due to wheel damage."
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#peakForce",
+          "localName": "peakForce",
+          "label": "Peak Force",
+          "comment": "Indicates that the sensor data report referenced provides peak force measurement details (normalized axle number, left and right value) of the vehicle, measured in kN of a wheel on a rail, including any dynamic effects due to wheel damage."
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#rlRatio",
+          "localName": "rlRatio",
+          "label": "Right/left wheel weight ratio",
+          "comment": "Indicates, based on EN 15654, that the sensor data report referenced provides rail vehicle axle weight distribution measurement details of  the vehicle. It is calculated as follows: Static force of the left side wheel L = Lf; Static force of the right side wheel R = Rf; R/L for the left wheel = Lf/Rf; R/L for the right wheel = Rf/Lf; Example: If Lf = 60kN and Rf = 65kN, then L/R for the left wheel of the respective axle is 60kN/65kN = 0.92"
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#softwareCheck",
+          "localName": "softwareCheck",
+          "label": "Software check",
+          "comment": "Indicates that the sensor data was processed using a software version verification or validation method. This value is used with epcis:dataProcessingMethod and may be accompanied by schema:softwareVersion in the EPCIS SensorReport."
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#vehicleImage",
+          "localName": "vehicleImage",
+          "label": "Image taken of a vehicle",
+          "comment": "Links to an image taken of a passing vehicle"
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#vehicleImbalanceData",
+          "localName": "vehicleImbalanceData",
+          "label": "Vehicle imbalance data",
+          "comment": "Indicates that the sensor data report referenced provides data on a vehicle's imbalance"
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#wheelDamage",
+          "localName": "wheelDamage",
+          "label": "Wheel Damage",
+          "comment": "Indicates that the sensor data report referenced provides wheel damage information details (normalized axle number, left and right value) of the vehicle."
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#wheelTemperature",
+          "localName": "wheelTemperature",
+          "label": "Wheel Temperature",
+          "comment": "Indicates that the sensor data report referenced provides measurement details in °C on the temperature of wheels (normalized axle number, left and right value) of the vehicle. The temperature is usually measured on the outside at the wheel rim."
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#wheelWeight",
+          "localName": "wheelWeight",
+          "label": "Wheel Weight",
+          "comment": "Indicates that the sensor data report referenced provides wheel weight measurement details (normalized axle number, left and right value) of the vehicle, expressed in kg as total mean load on wheel."
+        }
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#HeavierSide",
+      "localName": "HeavierSide",
+      "label": "Heavier side",
+      "comment": "A class describing which side of a rail vehicle is heavier",
+      "values": [
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#leftTrav",
+          "localName": "leftTrav",
+          "label": "Left side in travelling direction",
+          "comment": "Left in direction of travel"
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#rightTrav",
+          "localName": "rightTrav",
+          "label": "Right side in travelling direction",
+          "comment": "Right in direction of travel"
+        }
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#TypesWTMS",
+      "localName": "TypesWTMS",
+      "label": "WTMS Types",
+      "comment": "A class regrouping different types of WTMS measurement stations",
+      "values": [
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#typeWtms-HFO",
+          "localName": "typeWtms-HFO",
+          "label": "Heat detection",
+          "comment": "Indicates the type of WTMS installation to be a bearing and brake temperature measurement station. HFO stands thereby for the German Heisslaufer und Festbremsortung."
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#typeWtms-MULTIRAIL",
+          "localName": "typeWtms-MULTIRAIL",
+          "label": "Multirail impact load detection system",
+          "comment": "Indicates the type of WTMS installation to be a measurement station by Schunk multirail measuring wheel impact load detection."
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#typeWtms-RAILWATCH",
+          "localName": "typeWtms-RAILWATCH",
+          "label": "Railwatch WTMS equipment",
+          "comment": "Indicates the type of WTMS installation to be a measurement station installed by Vossloh Railwatch."
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#typeWtms-RFID",
+          "localName": "typeWtms-RFID",
+          "label": "RFID captures train passage",
+          "comment": "Indicates the type of WTMS installation to be a measurement station only registering the passage of a train based on an RFID reading."
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#typeWtms-WILD",
+          "localName": "typeWtms-WILD",
+          "label": "Wheel impact load detection",
+          "comment": "Indicates the type of WTMS installation to be a wheel impact load detection measurement station by Voestalpine."
+        }
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#VisibilityStatus",
+      "localName": "VisibilityStatus",
+      "label": "Visibility Status",
+      "comment": "A class regrouping different status groups of visibility for data points",
+      "values": [
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#public",
+          "localName": "public",
+          "label": "Public",
+          "comment": "Indicates that a given object is public and can be seen without any permissions granted by the information owner"
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#restricted",
+          "localName": "restricted",
+          "label": "Restricted",
+          "comment": "Indicates that a given object can only be seen with permissions granted by the information owner"
+        }
+      ]
+    },
+    {
+      "id": "https://gs1-epcis-reg.org/rail/voc/data#WheelDamageType",
+      "localName": "WheelDamageType",
+      "label": "Wheel damage type",
+      "comment": "A class regrouping types of wheel damage reported",
+      "values": [
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#outOfRound",
+          "localName": "outOfRound",
+          "label": "Wheel out of round",
+          "comment": "Indicates that measured wheel is not round"
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#squaring",
+          "localName": "squaring",
+          "label": "Wheel squaring",
+          "comment": "Indicates that measured wheel experiences squaring"
+        },
+        {
+          "id": "https://gs1-epcis-reg.org/rail/voc/data#wheelFlat",
+          "localName": "wheelFlat",
+          "label": "Wheel Flat",
+          "comment": "Indicates that measured wheel has a flat spot"
+        }
+      ]
+    }
+  ]
+}

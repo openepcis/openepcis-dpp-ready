@@ -35,6 +35,7 @@ const RDFS = "http://www.w3.org/2000/01/rdf-schema#";
 const OWL = "http://www.w3.org/2002/07/owl#";
 const XSD = "http://www.w3.org/2001/XMLSchema#";
 const DCTERMS = "http://purl.org/dc/terms/";
+const DC11 = "http://purl.org/dc/elements/1.1/";
 const SKOS = "http://www.w3.org/2004/02/skos/core#";
 const GS1 = "https://ref.gs1.org/voc/";
 const SCHEMA = "https://schema.org/";
@@ -174,6 +175,12 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ttlFile: "fsma204.ttl",
     namespace: "https://ref.openepcis.io/extensions/us/fsma204/",
   },
+  {
+    name: "rail",
+    dir: "extensions/upstream/gs1-rail",
+    ttlFile: "gs1RailVoc.ttl",
+    namespace: "https://gs1-epcis-reg.org/rail/voc/data#",
+  },
 ];
 
 function getLocalName(uri: string, namespace: string): string {
@@ -312,6 +319,8 @@ function extractExternalEnumerations(
 
   for (const subject of allSubjects) {
     if (isClass(store, subject) || isProperty(store, subject)) continue;
+    // Skip the ontology root (subject IRI exactly equals namespace, no local name)
+    if (subject === namespace || subject === namespace.replace(/[#/]$/, "")) continue;
 
     const types = getObjectValues(store, subject, `${RDF}type`);
     for (const type of types) {
@@ -360,10 +369,14 @@ function extractOntologyData(store: Store, module: OntologyModule): OntologyData
   const title =
     getObjectValue(store, namespace, `${DCTERMS}title`) ||
     getObjectValue(store, ontologyUri, `${DCTERMS}title`) ||
+    getObjectValue(store, namespace, `${DC11}title`) ||
+    getObjectValue(store, ontologyUri, `${DC11}title`) ||
     `${module.name} Vocabulary`;
   const description =
     getObjectValue(store, namespace, `${DCTERMS}description`) ||
     getObjectValue(store, ontologyUri, `${DCTERMS}description`) ||
+    getObjectValue(store, namespace, `${DC11}description`) ||
+    getObjectValue(store, ontologyUri, `${DC11}description`) ||
     "";
   const version =
     getObjectValue(store, namespace, `${OWL}versionInfo`) ||
