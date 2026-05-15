@@ -1,0 +1,134 @@
+{
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld",
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-06-25T11:00:00.000Z",
+  "_comment_architecture": [
+    "Material recovery event at an EPR-registered recycler. The",
+    "returned trade-item instances enter the recycling stream and are",
+    "transformed into a recovered material output (rPET flake).",
+    "Modelled as an EPCIS TransformationEvent: inputEPCList carries",
+    "the returned bottle instances; outputEPCList carries a new",
+    "rPET-flake trade item identified by its own GTIN. The dpp:",
+    "recycledContent statistics produced by this run live on the",
+    "output product entry inside masterDataAvailableFor.",
+    "",
+    "PPWR Reg 2025/40 Title VII, Art. 47 (recycled-content claims)",
+    "and the EPR registration link via dpp:extendedProducerResponsibility.",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,",
+    "                              ppwr=https://ref.openepcis.io/extensions/eu/ppwr/",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "TransformationEvent",
+        "eventID": "urn:uuid:5c2b4e90-1234-4abc-9876-1f2c3d4e5f63",
+        "eventTime": "2026-06-25T10:30:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "action": "ADD",
+        "bizStep": "recovery",
+        "disposition": "active",
+        "transformationID": "urn:uuid:5c2b4e90-1234-4abc-9876-1f2c3d4e5f63#xfm",
+        "inputEPCList": [
+          "https://id.gs1.org/01/09521234500018"
+        ],
+        "inputQuantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/09521234500018",
+            "quantity": 24500,
+            "uom": "H87"
+          }
+        ],
+        "outputQuantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/09521234500032",
+            "quantity": 312.4,
+            "uom": "KGM"
+          }
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000068"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000068"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234500032",
+            "type": "Product",
+            "productName": {
+              "@value": "Recycled PET flake (food-contact grade)",
+              "@language": "en"
+            },
+            "gtin": "09521234500032",
+            "recycledContent": {
+              "type": "RecycledContent",
+              "recycledContent": {
+                "type": "QuantitativeValue",
+                "value": 1.00,
+                "unitCode": "P1"
+              },
+              "postConsumerRecycledContent": {
+                "type": "QuantitativeValue",
+                "value": 1.00,
+                "unitCode": "P1"
+              },
+              "preConsumerRecycledContent": {
+                "type": "QuantitativeValue",
+                "value": 0.00,
+                "unitCode": "P1"
+              }
+            },
+            "extendedProducerResponsibility": [
+              {
+                "type": "ExtendedProducerResponsibility",
+                "eprRegistrationNumber": "DE-VPC-44217820",
+                "eprWasteStream": "packaging",
+                "eprJurisdiction": {
+                  "id": "https://ref.gs1.org/voc/Country-DE",
+                  "type": "Country"
+                }
+              }
+            ]
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000068",
+            "type": "Place",
+            "locationGLN": "9521234000068",
+            "physicalLocationName": {
+              "@value": "GreenCycle PET Recycling Facility",
+              "@language": "en"
+            },
+            "address": {
+              "type": "PostalAddress",
+              "addressLocality": "Leipzig",
+              "countryCode": "DE"
+            }
+          },
+          {
+            "id": "https://id.gs1.org/417/9521234000075",
+            "type": "Organization",
+            "organizationName": {
+              "@value": "GreenCycle Recycling GmbH",
+              "@language": "en"
+            },
+            "partyGLN": "9521234000075",
+            "countryCode": "DE"
+          }
+        ],
+        "sourceList": [
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "source": "https://id.gs1.org/417/9521234000075"
+          }
+        ]
+      }
+    ]
+  }
+}

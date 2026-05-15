@@ -1,0 +1,117 @@
+{
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld",
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-05-04T10:00:00.000Z",
+  "_comment_architecture": [
+    "Recyclability-grade declaration observation. Captures the",
+    "moment a notified body / conformity-assessment lab assigns the",
+    "PPWR Annex II recyclability grade (A / B / C) to a packaging",
+    "SKU. The grade itself is a static attribute of the product and",
+    "is therefore carried on the product entry inside",
+    "masterDataAvailableFor; the event records WHEN the declaration",
+    "happened, WHO declared it, and against which methodology.",
+    "",
+    "PPWR Reg 2025/40 Art. 6 + Annex II (recyclability grading).",
+    "Grade B / C carry phase-out dates (B from 2030, C by 2038).",
+    "",
+    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,",
+    "                              ppwr=https://ref.openepcis.io/extensions/eu/ppwr/",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:5c2b4e90-1234-4abc-9876-1f2c3d4e5f64",
+        "eventTime": "2026-05-04T09:30:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "action": "OBSERVE",
+        "bizStep": "inspecting",
+        "disposition": "active",
+        "epcList": [
+          "https://id.gs1.org/01/09521234500018"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000082"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234500018",
+            "type": "Product",
+            "productName": {
+              "@value": "Mountain Spring Mineral Water — 500 mL PET bottle",
+              "@language": "en"
+            },
+            "gtin": "09521234500018",
+            "packagingTier": "Sales",
+            "recyclabilityGrade": "A",
+            "harmonisedSymbol": "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/separate-collection-pet",
+            "regulatoryInformation": [
+              {
+                "type": "RegulatoryInformation",
+                "regulationType": {
+                  "id": "RegulationTypeCode-PACKAGING_REGULATION"
+                },
+                "regulatoryAct": "EU 2025/40 Annex II",
+                "isRegulationCompliant": true
+              }
+            ]
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000082",
+            "type": "Place",
+            "locationGLN": "9521234000082",
+            "physicalLocationName": {
+              "@value": "TÜV PackCert Notified Body Lab",
+              "@language": "en"
+            },
+            "address": {
+              "type": "PostalAddress",
+              "addressLocality": "Köln",
+              "countryCode": "DE"
+            }
+          },
+          {
+            "id": "https://id.gs1.org/417/9521234000099",
+            "type": "Organization",
+            "organizationName": {
+              "@value": "TÜV PackCert GmbH (EU Notified Body 2189)",
+              "@language": "en"
+            },
+            "partyGLN": "9521234000099",
+            "countryCode": "DE"
+          }
+        ],
+        "sensorElementList": [
+          {
+            "sensorMetadata": {
+              "time": "2026-05-04T09:30:00.000Z",
+              "deviceMetadata": "https://www.cen.eu/work/areas/packaging/Pages/EN-13430.aspx",
+              "dataProcessingMethod": "https://eur-lex.europa.eu/eli/reg/2025/40/annex/II"
+            },
+            "sensorReport": [
+              {
+                "type": "ppwr:recyclabilityGrade",
+                "stringValue": "A"
+              },
+              {
+                "type": "ppwr:recyclabilityScore",
+                "value": 92.5,
+                "uom": "P1"
+              },
+              {
+                "type": "ppwr:designForRecyclingMethodology",
+                "stringValue": "RecyClass v2.6"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
