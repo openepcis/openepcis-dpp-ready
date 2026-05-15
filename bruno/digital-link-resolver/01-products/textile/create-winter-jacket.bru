@@ -111,6 +111,7 @@ body:json {
 tests {
   test("Product created successfully", function() {
     expect(res.status).to.be.oneOf([200, 201, 202]);
+    expect((res.headers["content-type"] || "")).to.not.include("text/html");
   });
 
   test("Response contains GTIN", function() {
