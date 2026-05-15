@@ -36,3 +36,37 @@ ppwr-sh:PackagingShape
         sh:path ppwr:harmonisedSymbol ;
         sh:datatype xsd:anyURI
     ] .
+
+# Event-bound observations introduced with the lifecycle event templates
+# (deposit-return, recovery, observation-recyclability). Validate the
+# narrow shape of each sensor-report payload so the captures are
+# well-formed before the DLR / EPCIS REST ingests them.
+
+ppwr-sh:DepositRefundIssuedShape
+    a sh:NodeShape ;
+    rdfs:label "Deposit-return refund issued sensor report"@en ;
+    sh:targetSubjectsOf ppwr:depositRefundIssued ;
+    sh:property [
+        sh:path ppwr:depositRefundIssued ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0.00 ;
+        sh:message "ppwr:depositRefundIssued must be a non-negative decimal monetary amount (PPWR Art. 50)"@en
+    ] .
+
+ppwr-sh:RecyclabilityGradeObservationShape
+    a sh:NodeShape ;
+    rdfs:label "Recyclability-grade declaration shape"@en ;
+    sh:targetSubjectsOf ppwr:recyclabilityGrade ;
+    sh:property [
+        sh:path ppwr:recyclabilityScore ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 100 ;
+        sh:message "ppwr:recyclabilityScore is a percentage in [0, 100] aligned with the grade boundaries in Annex II"@en
+    ] ;
+    sh:property [
+        sh:path ppwr:designForRecyclingMethodology ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "Cite exactly one D4R methodology (RecyClass, CEFLEX, APR, …)"@en
+    ] .
