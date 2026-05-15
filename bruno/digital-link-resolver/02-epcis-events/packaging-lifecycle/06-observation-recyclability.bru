@@ -1,0 +1,57 @@
+meta {
+  name: Observation — Recyclability Grading
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{url}}/capture
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+      "{{dpp-context}}",
+      "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
+    ],
+    "type": "EPCISDocument",
+    "schemaVersion": "2.0",
+    "creationDate": "{{eventTime}}",
+    "epcisBody": {
+      "eventList": [
+        {
+          "type": "ObjectEvent",
+          "action": "OBSERVE",
+          "bizStep": "inspecting",
+          "disposition": "active",
+          "eventTime": "{{eventTime}}",
+          "eventTimeZoneOffset": "+02:00",
+          "epcList": ["{{bottleEpc}}"],
+          "readPoint": { "id": `https://id.gs1.org/414/${bru.getVar("notifiedBodyLabGln")}` },
+          "sensorElementList": [
+            {
+              "sensorMetadata": {
+                "time": "{{eventTime}}",
+                "dataProcessingMethod": "https://eur-lex.europa.eu/eli/reg/2025/40/annex/II"
+              },
+              "sensorReport": [
+                { "type": "ppwr:recyclabilityGrade", "stringValue": "A" },
+                { "type": "ppwr:recyclabilityScore", "value": 92.5, "uom": "P1" },
+                { "type": "ppwr:designForRecyclingMethodology", "stringValue": "RecyClass v2.6" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+
+tests {
+  test("Capture successful", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+  });
+}

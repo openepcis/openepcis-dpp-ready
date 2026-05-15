@@ -1,0 +1,50 @@
+meta {
+  name: Recovery — rPET Flake Production
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{url}}/capture
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+      "{{dpp-context}}",
+      "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
+    ],
+    "type": "EPCISDocument",
+    "schemaVersion": "2.0",
+    "creationDate": "{{eventTime}}",
+    "epcisBody": {
+      "eventList": [
+        {
+          "type": "TransformationEvent",
+          "action": "ADD",
+          "bizStep": "recovery",
+          "disposition": "active",
+          "eventTime": "{{eventTime}}",
+          "eventTimeZoneOffset": "+02:00",
+          "inputEPCList":      ["{{bottleEpc}}"],
+          "inputQuantityList": [{ "epcClass": "{{bottleEpc}}", "quantity": 24500, "uom": "H87" }],
+          "outputQuantityList":[{ "epcClass": `https://id.gs1.org/01/${bru.getVar("rPetGtin")}`, "quantity": 312.4, "uom": "KGM" }],
+          "readPoint":   { "id": `https://id.gs1.org/414/${bru.getVar("recyclerFacilityGln")}` },
+          "bizLocation": { "id": `https://id.gs1.org/414/${bru.getVar("recyclerFacilityGln")}` },
+          "sourceList": [
+            { "type": "urn:epcglobal:cbv:sdt:owning_party", "source": `https://id.gs1.org/417/${bru.getVar("recyclerOrgGln")}` }
+          ]
+        }
+      ]
+    }
+  }
+}
+
+tests {
+  test("Capture successful", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+  });
+}
