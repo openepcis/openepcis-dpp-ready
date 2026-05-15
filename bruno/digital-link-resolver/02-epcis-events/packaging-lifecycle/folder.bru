@@ -1,0 +1,26 @@
+meta {
+  name: Packaging Lifecycle (PPWR)
+  seq: 3
+}
+
+script:pre-request {
+  // PPWR demo: a deposit-bearing 500 mL PET beverage bottle followed
+  // end-to-end from bottling plant → brand owner → consumer redemption
+  // → recycler → notified-body recyclability grading.
+  bru.setVar("bottleGtin", "09521234500018");
+  bru.setVar("bottleEpc",  `https://id.gs1.org/01/${bru.getVar("bottleGtin")}`);
+  bru.setVar("rPetGtin",   "09521234500032");
+
+  // Locations
+  bru.setVar("bottlingPlantGln",  "9521234000013");
+  bru.setVar("brandOwnerGln",     "9521234000037");
+  bru.setVar("redemptionPointGln","9521234000051");
+  bru.setVar("recyclerFacilityGln","9521234000068");
+  bru.setVar("notifiedBodyLabGln", "9521234000082");
+
+  // Parties (AI 417)
+  bru.setVar("bottlerOrgGln",   "9521234000020");
+  bru.setVar("brandOwnerOrgGln","9521234000037");
+  bru.setVar("recyclerOrgGln",  "9521234000075");
+  bru.setVar("notifiedBodyOrgGln","9521234000099");
+}

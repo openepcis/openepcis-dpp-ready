@@ -68,11 +68,11 @@ inside `masterDataAvailableFor` (which carries only `gs1:` master data).
     "eventList": [{
       "type": "ObjectEvent",
       "bizStep": "commissioning",
-      "epcList": ["https://id.gs1.org/01/09521234500011"],
+      "epcList": ["https://id.gs1.org/01/09521234500018"],
       "packagingTier": "Sales",
       "recyclabilityGrade": "A",
       "extendedProducerResponsibility": [{ "type": "ExtendedProducerResponsibility", "...": "..." }],
-      "masterDataAvailableFor": [{ "id": "https://id.gs1.org/01/09521234500011", "type": "Product", "gtin": "09521234500011" }]
+      "masterDataAvailableFor": [{ "id": "https://id.gs1.org/01/09521234500018", "type": "Product", "gtin": "09521234500018" }]
     }]
   }
 }

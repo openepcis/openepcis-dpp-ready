@@ -94,8 +94,8 @@ PPWR-specific extension properties (`packagingTier`, `recyclabilityGrade`,
 ## Identifiers used in examples
 
 All examples use GS1 demo prefix **952** (7-digit GCP: `9521234`):
-- `09521234500011` — beverage bottle GTIN
-- `09521234500028` — multi-layer pouch GTIN
+- `09521234500018` — beverage bottle GTIN
+- `09521234500025` — multi-layer pouch GTIN
 
 ## License
 

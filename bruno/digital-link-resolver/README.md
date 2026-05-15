@@ -86,17 +86,17 @@ digital-link-resolver/
 ## Example Product Data
 
 ### Winter Jacket (Textile)
-- GTIN: 09521234000011
+- GTIN: 09521234300014
 - Fiber: 65% Recycled Polyester, 30% Organic Cotton, 5% Elastane
 - Certifications: GOTS, GRS
 
 ### Trail Running Shoe (Footwear)
-- GTIN: 09521234000015
+- GTIN: 09521234300021
 - Materials: 45% Recycled Polyester (ocean plastic), 35% Leather, 20% Rubber
 - Certifications: GRS 4.0, LWG Gold
 
 ### EV Battery
-- GTIN: 09521234000010
+- GTIN: 09521234000013
 - Chemistry: NMC811
 - Capacity: 75 kWh
 - SOH: 98%

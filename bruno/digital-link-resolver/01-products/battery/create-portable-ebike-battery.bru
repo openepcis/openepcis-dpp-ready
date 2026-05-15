@@ -1,0 +1,94 @@
+meta {
+  name: Create Portable E-bike Battery (LMT)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{dl-url}}/products
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  isAnonymousAccessAllowed: true
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/voc/",
+      "{{battery-context}}",
+      "{{dpp-context}}"
+    ],
+    "@type": "battery:Battery",
+    "gtin": "{{ebikeBatteryGtin}}",
+    "productName": {
+      "en": "VeloPower e-bike battery pack VP-48V-14Ah",
+      "de": "VeloPower E-Bike-Akku VP-48V-14Ah"
+    },
+    "brand": {
+      "brandName": {
+        "en": "VeloPower"
+      }
+    },
+    "battery:batteryCategory": "battery:LightMeansOfTransportBattery",
+    "battery:batteryChemistry": "battery:LithiumNMC622",
+    "battery:batteryModel": "VP-48V-14Ah",
+    "battery:technicalSpecifications": {
+      "@type": "battery:TechnicalSpecifications",
+      "battery:ratedCapacity": 14,
+      "battery:ratedCapacityUnit": "Ah",
+      "battery:ratedEnergy": 0.672,
+      "battery:ratedEnergyUnit": "kWh",
+      "battery:nominalVoltage": 48,
+      "battery:nominalVoltageUnit": "V",
+      "battery:expectedCycleLife": 800
+    },
+    "battery:carbonFootprint": {
+      "@type": "battery:CarbonFootprint",
+      "battery:totalCO2e": 38.4,
+      "battery:co2eUnit": "kg CO2e per pack",
+      "battery:calculationMethod": "PEF"
+    },
+    "battery:materialComposition": {
+      "@type": "battery:MaterialComposition",
+      "battery:lithiumContent": 0.42,
+      "battery:cobaltContent": 0.18,
+      "battery:nickelContent": 0.55,
+      "battery:recycledContentPercentage": 6,
+      "battery:contentUnit": "kg"
+    },
+    "dpp:operatorInformation": {
+      "@type": "dpp:OperatorInformation",
+      "gs1:gln": "9521987000063",
+      "gs1:organizationName": "VeloPower GmbH",
+      "gs1:streetAddress": "Velomotorstraße 18",
+      "gs1:postalCode": "88045",
+      "gs1:addressLocality": "Friedrichshafen",
+      "gs1:countryCode": "DE"
+    },
+    "certification": [
+      {
+        "@type": "CertificationDetails",
+        "certificationAgency": "TÜV Rheinland",
+        "certificationStandard": "UN 38.3",
+        "certificationValue": "Certified"
+      },
+      {
+        "@type": "CertificationDetails",
+        "certificationAgency": "European Commission",
+        "certificationStandard": "EU Battery Regulation 2023/1542",
+        "certificationValue": "Compliant"
+      }
+    ]
+  }
+}
+
+tests {
+  test("Battery created successfully", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+    expect((res.headers["content-type"] || "")).to.not.include("text/html");
+  });
+}

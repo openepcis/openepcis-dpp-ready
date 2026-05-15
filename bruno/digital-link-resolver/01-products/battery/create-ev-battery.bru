@@ -11,7 +11,7 @@ post {
 }
 
 headers {
-  Content-Type: application/ld+json
+  Content-Type: application/json
   isAnonymousAccessAllowed: true
 }
 
@@ -112,6 +112,7 @@ body:json {
 tests {
   test("Battery created successfully", function() {
     expect(res.status).to.be.oneOf([200, 201, 202]);
+    expect((res.headers["content-type"] || "")).to.not.include("text/html");
   });
 
   test("Response contains GTIN", function() {

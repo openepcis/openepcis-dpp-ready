@@ -1,0 +1,20 @@
+meta {
+  name: Get Bottle Master Data
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{dl-url}}/01/{{bottleGtin}}?linkType=masterdata
+  auth: inherit
+}
+
+headers {
+  Accept: application/ld+json
+}
+
+tests {
+  test("Master data resolved", function() {
+    expect(res.status).to.be.oneOf([200, 300]);
+  });
+}

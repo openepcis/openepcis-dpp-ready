@@ -145,7 +145,7 @@ GS1-Extensions: textile=https://ref.openepcis.io/extensions/eu/textile/, dpp=htt
     "textile": "https://ref.openepcis.io/extensions/eu/textile/"
   },
   "type": ["gs1:Product", "textile:TextileProduct"],
-  "gs1:gtin": "09521234000011",
+  "gs1:gtin": "09521234300014",
   "textileCategory": "Apparel",
   "fabricType": "WovenNonDenim",
   "apparelSubcategory": "JacketsCoats",

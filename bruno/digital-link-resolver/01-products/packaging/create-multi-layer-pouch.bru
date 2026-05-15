@@ -1,0 +1,58 @@
+meta {
+  name: Create Multi-layer Pouch
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{dl-url}}/products
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  isAnonymousAccessAllowed: true
+}
+
+body:json {
+  {
+    "@context": [
+      "{{dpp-context}}",
+      "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
+    ],
+    "@type": "Packaging",
+    "gtin": "{{pouchGtin}}",
+    "productName": {
+      "en": "FlexiSnack Multi-layer Pouch — 200 g salty snack"
+    },
+    "packagingTier": "Sales",
+    "recyclabilityGrade": "C",
+    "harmonisedSymbol": "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/separate-collection-mixed",
+    "manufacturer": {
+      "type": "Organization",
+      "organizationName": "FlexiSnack Packaging GmbH",
+      "partyGLN": "9521987000049"
+    },
+    "materialComposition": [
+      { "type": "MaterialComposition", "materialName": "PET",      "massFraction": 0.45 },
+      { "type": "MaterialComposition", "materialName": "Aluminium","massFraction": 0.20 },
+      { "type": "MaterialComposition", "materialName": "Polyethylene","massFraction": 0.35 }
+    ],
+    "regulatoryInformation": [
+      {
+        "type": "RegulatoryInformation",
+        "regulationType": { "id": "gs1:RegulationTypeCode-PACKAGING_REGULATION" },
+        "regulatoryAct": "EU 2025/40",
+        "isRegulationCompliant": true
+      }
+    ]
+  }
+}
+
+tests {
+  test("Product created successfully", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+    expect((res.headers["content-type"] || "")).to.not.include("text/html");
+  });
+}
