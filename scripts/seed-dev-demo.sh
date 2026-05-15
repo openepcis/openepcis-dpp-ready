@@ -162,10 +162,15 @@ fi
 post_jsonld() {
   local file="$1"  url="$2"  label="$3"
   local code
+  # `isAnonymousAccessAllowed: true` makes the resolver path
+  # `/01/{gtin}?linkType=masterdata` accept anonymous lookups for these
+  # demo products — the digital-data-management webapp resolves products
+  # without a bearer token, so master-data has to be marked public.
   code="$(curl -sS -o /tmp/seed-resp.$$ -w '%{http_code}' \
     -X POST "$url" \
     -H "Authorization: Bearer $TOKEN" \
     -H "Content-Type: application/json" \
+    -H "isAnonymousAccessAllowed: true" \
     --data-binary "@$REPO_ROOT/$file" || echo ERR)"
   case "$code" in
     200|201|202)  green "  OK   ($code) $label  ← $file" ;;
