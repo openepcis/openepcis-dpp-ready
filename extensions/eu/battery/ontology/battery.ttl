@@ -75,6 +75,14 @@ Battery categories can also be expressed via gs1:additionalProductClassification
 # PART 1: CORE CLASSES
 # =============================================================================
 
+battery:Battery
+    a owl:Class ;
+    rdfs:label "Battery"@en ;
+    rdfs:comment "A self-contained energy-storage device whose Digital Product Passport falls in scope of EU Regulation 2023/1542. Use as the primary `type` discriminator on a Battery product (typically paired with `gs1:Product` for canonical JSON-LD dual-typing, e.g. `\"type\": [\"Product\", \"Battery\"]`). Subclasses on battery:batteryCategory (LMTBattery, EVBattery, IndustrialBattery, StationaryBattery, PortableBattery, SLIBattery) further qualify the category."@en ;
+    rdfs:subClassOf gs1:Product ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+
 battery:BatteryChemistry
     a owl:Class ;
     rdfs:label "Battery Chemistry"@en ;
