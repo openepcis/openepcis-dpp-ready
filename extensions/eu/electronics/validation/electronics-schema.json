@@ -1,0 +1,462 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ref.openepcis.io/extensions/eu/electronics/electronics-json-schema.json",
+  "title": "OpenEPCIS Electronics Vocabulary Schema",
+  "description": "JSON Schema for validating Electronics Digital Product Passport data per ESPR Electronics delegated acts. Covers the French Repairability Index (Indice de Réparabilité), the EU Repairability Class (A–E) under Right-to-Repair Directive 2024/1799, WEEE / RoHS compliance, energy labelling (EPREL), software support commitments, and the CIRPASS-2 multi-component bill-of-materials pattern. Version 0.9.5.",
+  "$defs": {
+    "ElectronicDevice": {
+      "type": "object",
+      "title": "Electronic Device",
+      "description": "An electronic device falling under ESPR Electronics delegated acts. Extends gs1:Product / schema:Product with the cross-cutting DPP fields from dpp-core plus the electronics-specific assessments below.",
+      "properties": {
+        "@type": { "const": "ElectronicDevice" },
+        "modelIdentifier": {
+          "type": "string",
+          "description": "Manufacturer-assigned model identifier (commercial reference)."
+        },
+        "category": {
+          "$ref": "#/$defs/DeviceCategory"
+        },
+        "repairabilityIndex": {
+          "$ref": "#/$defs/RepairabilityIndex"
+        },
+        "softwareSupport": {
+          "$ref": "#/$defs/SoftwareSupport"
+        },
+        "energyEfficiency": {
+          "$ref": "#/$defs/EnergyEfficiency"
+        },
+        "billOfMaterials": {
+          "$ref": "#/$defs/ComponentBOM"
+        },
+        "weeeCompliance": {
+          "$ref": "#/$defs/WEEECompliance"
+        },
+        "rohsCompliance": {
+          "$ref": "#/$defs/RoHSCompliance"
+        },
+        "displaySpecification": {
+          "$ref": "#/$defs/DisplaySpecification"
+        },
+        "materialDeclaration": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the full material declaration (e.g. IPC-1752A material composition declaration)."
+        }
+      }
+    },
+    "DeviceCategory": {
+      "type": "string",
+      "title": "Device Category",
+      "description": "Top-level device categorisation aligned with the ESPR Electronics delegated-act scope and the WEEE Directive (2012/19/EU) Annex III categories.",
+      "enum": [
+        "DataStorage",
+        "Desktop",
+        "Dishwasher",
+        "Display",
+        "Laptop",
+        "NetworkEquipment",
+        "Printer",
+        "Refrigerator",
+        "Server",
+        "SmallAppliance",
+        "Smartphone",
+        "Tablet",
+        "Television",
+        "VacuumCleaner",
+        "WashingMachine",
+        "Wearable"
+      ]
+    },
+    "RepairabilityIndex": {
+      "type": "object",
+      "title": "Repairability Index",
+      "description": "French Repairability Index (Indice de Réparabilité) assessment per the official 5-criteria, 100-point methodology, extended with the EU Repairability Class (A–E) introduced by Right-to-Repair Directive 2024/1799.",
+      "properties": {
+        "@type": { "const": "RepairabilityIndex" },
+        "totalScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Overall repairability score on the 0–100 scale (0 = least repairable, 100 = most repairable). Required per ESPR repairability-disclosure obligation."
+        },
+        "displayScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10,
+          "description": "Score as displayed to consumers on the indicator label (0.0 to 10.0, one decimal). Required."
+        },
+        "repairabilityClass": {
+          "$ref": "#/$defs/EURepairabilityClass",
+          "description": "EU Repairability Class (A best, E worst) per Right-to-Repair Directive 2024/1799. Required."
+        },
+        "repairCriteria": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/RepairCriterion" },
+          "minItems": 1,
+          "description": "Five-criterion breakdown of the repairability assessment. Required."
+        },
+        "assessmentDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date the repairability assessment was carried out. Required."
+        },
+        "assessmentBody": {
+          "type": "string",
+          "description": "Identifier of the organisation that performed the assessment (recommend GLN). Required."
+        },
+        "repairabilityLabelUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Resolvable URL to the consumer-facing repairability label artefact. Required."
+        }
+      },
+      "required": [
+        "totalScore",
+        "displayScore",
+        "repairabilityClass",
+        "repairCriteria",
+        "assessmentDate",
+        "assessmentBody",
+        "repairabilityLabelUrl"
+      ]
+    },
+    "EURepairabilityClass": {
+      "type": "string",
+      "title": "EU Repairability Class",
+      "description": "Repairability grade (A best to E worst) as defined by Right-to-Repair Directive 2024/1799.",
+      "enum": [
+        "RepairClassA",
+        "RepairClassB",
+        "RepairClassC",
+        "RepairClassD",
+        "RepairClassE"
+      ]
+    },
+    "RepairCriterion": {
+      "type": "object",
+      "title": "Repair Criterion",
+      "description": "An individual criterion score within the French Repairability Index 5-criterion methodology.",
+      "properties": {
+        "@type": { "const": "RepairCriterion" },
+        "criterionType": {
+          "$ref": "#/$defs/RepairCriterionType",
+          "description": "Which of the five criteria this entry scores. Required."
+        },
+        "criterionScore": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Score achieved on this criterion (≥ 0). Required."
+        },
+        "criterionMaxScore": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Maximum possible score for this criterion under the methodology. Required."
+        },
+        "criterionDetails": {
+          "type": "string",
+          "description": "Free-text justification or sub-criterion breakdown for the score."
+        }
+      },
+      "required": ["criterionType", "criterionScore", "criterionMaxScore"]
+    },
+    "RepairCriterionType": {
+      "type": "string",
+      "title": "Repair Criterion Type",
+      "description": "The five French Repairability Index criteria.",
+      "enum": [
+        "Documentation",
+        "Disassembly",
+        "SparePartsAvailability",
+        "SparePartsPricing",
+        "ProductSpecific"
+      ]
+    },
+    "SoftwareSupport": {
+      "type": "object",
+      "title": "Software Support",
+      "description": "Operating-system and firmware support commitments. The EU Right-to-Repair Directive 2024/1799 and ESPR Electronics delegated acts require explicit minimum support periods for security and feature updates.",
+      "properties": {
+        "@type": { "const": "SoftwareSupport" },
+        "operatingSystem": {
+          "type": "string",
+          "description": "Operating system name (e.g. Android, iOS, Windows, Linux distribution). Required."
+        },
+        "osVersion": {
+          "type": "string",
+          "description": "Operating-system version shipped with the device. Required."
+        },
+        "firmwareVersion": {
+          "type": "string",
+          "description": "Firmware version shipped with the device. Required."
+        },
+        "securityUpdateEndDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date until which security updates are committed to be provided. Required."
+        },
+        "featureUpdateEndDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date until which feature updates are committed to be provided. Required."
+        },
+        "securitySupportYears": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Security support period in whole years from placement on the market. Required."
+        },
+        "featureSupportYears": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Feature support period in whole years from placement on the market. Required."
+        },
+        "updateChannel": {
+          "type": "string",
+          "format": "uri",
+          "description": "Resolvable URL where software updates are published or distributed. Required."
+        }
+      },
+      "required": [
+        "operatingSystem",
+        "osVersion",
+        "firmwareVersion",
+        "securityUpdateEndDate",
+        "featureUpdateEndDate",
+        "securitySupportYears",
+        "featureSupportYears",
+        "updateChannel"
+      ]
+    },
+    "EnergyEfficiency": {
+      "type": "object",
+      "title": "Energy Efficiency",
+      "description": "EU Energy Label data per Energy Labelling Framework Regulation 2017/1369 and the relevant product-group delegated acts, plus the EPREL (European Product Registry for Energy Labelling) cross-reference.",
+      "properties": {
+        "@type": { "const": "EnergyEfficiency" },
+        "energyEfficiencyClass": {
+          "$ref": "#/$defs/EnergyEfficiencyClass"
+        },
+        "annualEnergyConsumption": {
+          "$ref": "#/$defs/QuantitativeValue",
+          "description": "Annual energy consumption (typically in kWh/year)."
+        },
+        "energyLabelUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Resolvable URL to the consumer-facing EU energy-label artefact (the A–G colour scale)."
+        },
+        "eprelProductUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "EPREL database registry URL for this product."
+        }
+      }
+    },
+    "EnergyEfficiencyClass": {
+      "type": "string",
+      "title": "Energy Efficiency Class",
+      "description": "EU Energy Label class (A best, G worst) per Energy Labelling Regulation 2017/1369 rescaled labels.",
+      "enum": [
+        "EnergyClassA",
+        "EnergyClassB",
+        "EnergyClassC",
+        "EnergyClassD",
+        "EnergyClassE",
+        "EnergyClassF",
+        "EnergyClassG"
+      ]
+    },
+    "ComponentBOM": {
+      "type": "object",
+      "title": "Component Bill of Materials",
+      "description": "Bill of Materials for multi-component electronics, supporting the CIRPASS-2 nested-DPP pattern for components.",
+      "properties": {
+        "@type": { "const": "ComponentBOM" },
+        "components": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ElectronicComponent" },
+          "minItems": 1,
+          "description": "Constituent components of the device. Required."
+        }
+      },
+      "required": ["components"]
+    },
+    "ElectronicComponent": {
+      "type": "object",
+      "title": "Electronic Component",
+      "description": "An individual electronic component listed in the device's bill of materials.",
+      "properties": {
+        "@type": { "const": "ElectronicComponent" },
+        "name": {
+          "type": "string",
+          "description": "Human-readable component name. Required."
+        },
+        "componentType": {
+          "$ref": "#/$defs/ComponentType"
+        },
+        "componentPartNumber": {
+          "type": "string",
+          "description": "Manufacturer-assigned part number for the component."
+        },
+        "componentPassport": {
+          "type": "string",
+          "format": "uri",
+          "description": "Resolvable URL to the component's own Digital Product Passport (CIRPASS-2 nested-DPP pattern)."
+        },
+        "replacementDifficulty": {
+          "$ref": "#/$defs/ReplacementDifficulty"
+        }
+      },
+      "required": ["name"]
+    },
+    "ComponentType": {
+      "type": "string",
+      "title": "Component Type",
+      "description": "Functional component categorisation used in the bill of materials.",
+      "enum": [
+        "BatteryComponent",
+        "CameraComponent",
+        "ConnectorComponent",
+        "CoolingSystemComponent",
+        "DisplayComponent",
+        "EnclosureComponent",
+        "KeyboardComponent",
+        "MemoryComponent",
+        "MicrophoneComponent",
+        "MotherboardComponent",
+        "PowerSupplyComponent",
+        "ProcessorComponent",
+        "SpeakerComponent",
+        "StorageComponent",
+        "TrackpadComponent"
+      ]
+    },
+    "ReplacementDifficulty": {
+      "type": "string",
+      "title": "Replacement Difficulty",
+      "description": "How accessible the replacement of this component is.",
+      "enum": [
+        "UserReplaceable",
+        "ToolRequired",
+        "ProfessionalOnly",
+        "NotReplaceable"
+      ]
+    },
+    "WEEECompliance": {
+      "type": "object",
+      "title": "WEEE Compliance",
+      "description": "Waste Electrical and Electronic Equipment (WEEE) Directive 2012/19/EU compliance information.",
+      "properties": {
+        "@type": { "const": "WEEECompliance" },
+        "weeeCategory": {
+          "$ref": "#/$defs/WEEECategory"
+        },
+        "collectionSchemeUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Resolvable URL to the producer-responsibility collection scheme covering this product."
+        },
+        "wasteCode": {
+          "type": "string",
+          "description": "European Waste Catalogue (EWC) code applicable at end of life."
+        },
+        "recyclingInstructions": {
+          "type": "string",
+          "format": "uri",
+          "description": "Resolvable URL to recycling / dismantling instructions for waste-treatment operators."
+        }
+      }
+    },
+    "WEEECategory": {
+      "type": "string",
+      "title": "WEEE Category",
+      "description": "WEEE Directive 2012/19/EU Annex III equipment categories.",
+      "enum": [
+        "WEEE1_TemperatureExchange",
+        "WEEE2_ScreensMonitors",
+        "WEEE3_Lamps",
+        "WEEE4_LargeEquipment",
+        "WEEE5_SmallEquipment",
+        "WEEE6_SmallIT"
+      ]
+    },
+    "RoHSCompliance": {
+      "type": "object",
+      "title": "RoHS Compliance",
+      "description": "Restriction of Hazardous Substances (RoHS) Directive 2011/65/EU compliance information.",
+      "properties": {
+        "@type": { "const": "RoHSCompliance" },
+        "rohsCompliant": {
+          "type": "boolean",
+          "description": "True if the product complies with the RoHS restricted-substances list."
+        },
+        "rohsDeclarationUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Resolvable URL to the manufacturer's RoHS declaration of conformity."
+        },
+        "rohsExemptions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of RoHS Annex III / Annex IV exemption numbers claimed (e.g. \"6(c)\", \"7(a)\")."
+        }
+      }
+    },
+    "DisplaySpecification": {
+      "type": "object",
+      "title": "Display Specification",
+      "description": "Display-specific technical specifications for monitors, TVs, and device screens (relevant to the ESPR Electronics display delegated act).",
+      "properties": {
+        "@type": { "const": "DisplaySpecification" },
+        "displayTechnology": {
+          "type": "string",
+          "description": "Display technology (e.g. LCD-IPS, OLED, mini-LED, e-ink)."
+        },
+        "displaySize": {
+          "$ref": "#/$defs/QuantitativeValue",
+          "description": "Diagonal display size, typically expressed in inches."
+        },
+        "displayResolution": {
+          "type": "string",
+          "description": "Native resolution, e.g. \"3840x2160\"."
+        },
+        "refreshRate": {
+          "$ref": "#/$defs/QuantitativeValue",
+          "description": "Refresh rate, typically in Hz."
+        },
+        "peakBrightness": {
+          "$ref": "#/$defs/QuantitativeValue",
+          "description": "Peak luminance, typically in cd/m² (nits)."
+        }
+      }
+    },
+    "QuantitativeValue": {
+      "type": "object",
+      "title": "Quantitative Value",
+      "description": "GS1-idiomatic quantitative value with a numeric magnitude and a UN/CEFACT Recommendation 20 unit code.",
+      "properties": {
+        "@type": { "const": "QuantitativeValue" },
+        "value": {
+          "type": "number"
+        },
+        "unitCode": {
+          "type": "string",
+          "description": "UN/CEFACT Recommendation 20 unit code (e.g. KWH for kilowatt-hour, HTZ for Hertz, INH for inch, CDL for candela per square metre)."
+        }
+      },
+      "required": ["value", "unitCode"]
+    }
+  },
+  "oneOf": [
+    { "$ref": "#/$defs/ElectronicDevice" },
+    { "$ref": "#/$defs/RepairabilityIndex" },
+    { "$ref": "#/$defs/RepairCriterion" },
+    { "$ref": "#/$defs/SoftwareSupport" },
+    { "$ref": "#/$defs/EnergyEfficiency" },
+    { "$ref": "#/$defs/ComponentBOM" },
+    { "$ref": "#/$defs/ElectronicComponent" },
+    { "$ref": "#/$defs/WEEECompliance" },
+    { "$ref": "#/$defs/RoHSCompliance" },
+    { "$ref": "#/$defs/DisplaySpecification" }
+  ]
+}
