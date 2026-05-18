@@ -1,0 +1,44 @@
+meta {
+  name: Patch pip — E-commerce Carton
+  type: http
+  seq: 9
+}
+
+patch {
+  url: {{dl-url}}/01/09521006003013
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  [
+    {
+      "action": "update",
+      "linkset": [
+        {
+          "anchor": "{{dl-url}}/01/09521006003013",
+          "itemDescription": "EcoFlow corrugated shipping carton — 30×20×15 cm",
+          "pip": [
+            {
+              "href": "{{ddm-host}}/01/09521006003013?template=ppwr-overview",
+              "title": "EcoFlow shipping carton — Digital Product Passport",
+              "fwqs": false,
+              "type": "text/html",
+              "hreflang": ["en"],
+              "context": ["product-information-page"],
+              "public": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+assert {
+  res.status: eq 200
+}

@@ -1,0 +1,44 @@
+meta {
+  name: Patch pip — Trail Running Shoe
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{dl-url}}/01/09521000002159
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  [
+    {
+      "action": "update",
+      "linkset": [
+        {
+          "anchor": "{{dl-url}}/01/09521000002159",
+          "itemDescription": "EcoStride Trail Running Shoe",
+          "pip": [
+            {
+              "href": "{{ddm-host}}/01/09521000002159?template=textile-overview",
+              "title": "EcoStride Trail Running Shoe — Digital Product Passport",
+              "fwqs": false,
+              "type": "text/html",
+              "hreflang": ["en"],
+              "context": ["product-information-page"],
+              "public": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+assert {
+  res.status: eq 200
+}

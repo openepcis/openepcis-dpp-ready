@@ -1,0 +1,47 @@
+meta {
+  name: Patch epcis — Casa Lina Organic Cotton Bed Linen Set
+  type: http
+  seq: 13
+}
+
+patch {
+  url: {{dl-url}}/01/09521001001380
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+[
+  {
+    "action": "add",
+    "linkset": [
+      {
+        "anchor": "{{dl-url}}/01/09521001001380",
+        "itemDescription": "Casa Lina Organic Cotton Bed Linen Set",
+        "epcis": [
+          {
+            "href": "https://api.dev.epcis.cloud/events?MATCH_anyEPC=https%3A%2F%2Fid.gs1.org%2F01%2F09521001001380%2A",
+            "title": "EPCIS event history",
+            "type": "application/ld+json",
+            "hreflang": [
+              "en"
+            ],
+            "context": [
+              "epcis"
+            ],
+            "public": true
+          }
+        ]
+      }
+    ]
+  }
+]
+}
+
+assert {
+  res.status: eq 200
+}

@@ -1,0 +1,56 @@
+meta {
+  name: Create Org — Mountain Spring Beverages AG
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{dl-url}}/organizations
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  isAnonymousAccessAllowed: true
+}
+
+body:json {
+{
+  "@context": [
+    "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld"
+  ],
+  "type": "Organization",
+  "glnType": "LEGAL_ENTITY",
+  "globalLocationNumber": "9521004000014",
+  "organizationName": {
+    "en": "Mountain Spring Beverages AG",
+    "ch": "Mountain Spring Beverages AG"
+  },
+  "organizationRole": "MANUFACTURER_OF_FINISHED_GOODS",
+  "address": {
+    "organizationName": {
+      "en": "Mountain Spring Beverages AG"
+    },
+    "streetAddress": {
+      "en": "Quellweg 3"
+    },
+    "addressLocality": {
+      "en": "Visp"
+    },
+    "postalCode": "3930",
+    "countryCode": "CH"
+  },
+  "email": "info@mountain-spring.example.com",
+  "telephone": "+00 0 0000 0000",
+  "dpp:economicOperatorId": "CH-DPP-OP-005",
+  "dpp:operatorType": "dpp:Manufacturer"
+}
+}
+
+tests {
+  test("Organization created", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202, 409]);
+  });
+}

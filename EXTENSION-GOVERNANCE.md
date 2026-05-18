@@ -93,7 +93,7 @@ The following GS1 Web Vocabulary terms should be used directly:
 ### Documents and Certifications
 | GS1 Class/Property | Usage |
 |--------------------|-------|
-| `gs1:referencedFileDetails` | Link to documents |
+| `gs1:referencedFile` | Link to documents |
 | `gs1:ReferencedFileDetails` | Document metadata class |
 | `gs1:ReferencedFileTypeCode` | Document type (CERTIFICATION, DOCUMENT, USER_MANUAL) |
 | `gs1:certification` | Link to certifications |

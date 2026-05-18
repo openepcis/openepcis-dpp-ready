@@ -103,7 +103,7 @@ This vocabulary follows the GS1-first principle:
 - `gs1:textileMaterial` with `gs1:TextileMaterialDetails` for basic fiber composition
 - `gs1:certification` with `gs1:CertificationDetails` for certifications
 - `gs1:consumerRecyclingInstructions` for recycling text
-- `gs1:referencedFileDetails` for documents
+- `gs1:referencedFile` for documents
 
 **Textile extensions only where GS1 lacks coverage**:
 - Robustness scoring (0-10 per EU methodology)

@@ -1,0 +1,44 @@
+meta {
+  name: Patch pip — Multi-layer Pouch
+  type: http
+  seq: 8
+}
+
+patch {
+  url: {{dl-url}}/01/09521005000808
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  [
+    {
+      "action": "update",
+      "linkset": [
+        {
+          "anchor": "{{dl-url}}/01/09521005000808",
+          "itemDescription": "Crispy Snack Pouch — 80 g multi-layer foil",
+          "pip": [
+            {
+              "href": "{{ddm-host}}/01/09521005000808?template=ppwr-overview",
+              "title": "Crispy Snack Pouch — Digital Product Passport",
+              "fwqs": false,
+              "type": "text/html",
+              "hreflang": ["en"],
+              "context": ["product-information-page"],
+              "public": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+assert {
+  res.status: eq 200
+}

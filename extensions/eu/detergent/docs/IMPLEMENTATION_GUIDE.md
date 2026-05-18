@@ -22,9 +22,9 @@ Use GS1 Digital Link URIs with GTIN:
 
 ```json
 {
-  "id": "https://id.gs1.org/01/09521234200013",
+  "id": "https://id.gs1.org/01/09521234200017",
   "type": ["Product", "DetergentProduct"],
-  "gtin": "09521234200013"
+  "gtin": "09521234200017"
 }
 ```
 
