@@ -26,14 +26,14 @@ const documentLoader: DocumentLoader = async (url: string) => {
 const CORE = "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld";
 const gs1 = { gs1: "https://ref.gs1.org/voc/", xsd: "http://www.w3.org/2001/XMLSchema#" };
 
+// Only genuine product data plus the Digital Link identity (and optional
+// operator/facility Digital Links). The whole EN 18223 envelope, including
+// granularity, schema version, and contentSpecificationIds, is derived.
 const sampleModel = {
   "@context": [CORE, gs1],
   type: ["gs1:Product", "DigitalProductPassport"],
   id: "https://id.example.org/01/09506000134352",
-  digitalProductPassportId: "https://id.example.org/dpp/09506000134352",
-  uniqueProductIdentifier: "https://id.example.org/01/09506000134352",
-  dppStatus: "active",
-  dppSchemaVersion: "EN 18223:2026",
+  economicOperatorId: "https://id.example.org/417/4012345000009",
   "gs1:productName": [{ "@value": "EcoCell Battery Module IM-500", "@language": "en-GB" }],
   recycledContent: 0.16,
 };
@@ -42,9 +42,8 @@ const sampleBatch = {
   "@context": [CORE, gs1],
   type: ["gs1:Product", "DigitalProductPassport"],
   id: "https://id.example.org/01/09506000134352/10/LOT-2026-04",
-  digitalProductPassportId: "https://id.example.org/dpp/09506000134352/LOT-2026-04",
-  uniqueProductIdentifier: "https://id.example.org/01/09506000134352/10/LOT-2026-04",
-  dppStatus: "active",
+  economicOperatorId: "https://id.example.org/417/4012345000009",
+  facilityId: "https://id.example.org/414/4012345000016",
   recycledContent: 0.16,
   preConsumerRecycledContent: 0.04,
   postConsumerRecycledContent: 0.12,

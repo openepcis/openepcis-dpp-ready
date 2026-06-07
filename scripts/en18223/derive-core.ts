@@ -127,6 +127,10 @@ export function granularityFromDigitalLink(dl: string | undefined): string {
 const firstVal = (node: any, iri: string): any =>
   node[iri] && node[iri][0] ? (node[iri][0]["@value"] ?? node[iri][0]["@id"]) : undefined;
 
+// EN 18223 envelope attributes carried verbatim from the source document.
+// Everything else in the envelope is derived (see deriveEN18223), so the
+// compressed input only needs to carry genuine product data plus the
+// Digital Link identity and, optionally, the operator/facility identifiers.
 const ENVELOPE: Record<string, string> = {
   [`${DPP}passportIdentifier`]: "digitalProductPassportId",
   [`${GS1}productID`]: "uniqueProductIdentifier",
@@ -136,14 +140,32 @@ const ENVELOPE: Record<string, string> = {
   [`${DPP}lastUpdated`]: "lastUpdated",
   [`${DPP}economicOperatorId`]: "economicOperatorId",
   [`${DPP}facilityId`]: "facilityId",
-  [`${DPP}contentSpecificationId`]: "contentSpecificationIds",
 };
+const CONTENT_SPEC = `${DPP}contentSpecificationId`;
+// This converter always emits the Annex A expanded serialization of the model.
+const DPP_SCHEMA_VERSION = "EN 18223:2026";
 
 const ENVELOPE_ORDER = [
   "digitalProductPassportId", "uniqueProductIdentifier", "granularity",
   "dppSchemaVersion", "dppStatus", "lastUpdated", "economicOperatorId",
   "facilityId", "contentSpecificationIds",
 ];
+
+// Namespace of a dictionaryReference IRI: the data dictionary / content
+// specification it belongs to (everything up to and including the final / or #).
+const namespaceOf = (iri: string): string => {
+  const i = Math.max(iri.lastIndexOf("/"), iri.lastIndexOf("#"));
+  return i >= 0 ? iri.slice(0, i + 1) : iri;
+};
+// Walk the built elements (recursively into collections and node-valued
+// multi-values) and collect the distinct dictionaryReference namespaces.
+function collectContentSpecs(elements: any[], acc: Set<string>): void {
+  for (const el of elements) {
+    if (el && el.dictionaryReference) acc.add(namespaceOf(el.dictionaryReference));
+    if (el && Array.isArray(el.elements)) collectContentSpecs(el.elements, acc);
+    if (el && Array.isArray(el.value)) for (const v of el.value) if (Array.isArray(v)) collectContentSpecs(v, acc);
+  }
+}
 
 export async function deriveEN18223(input: any, range: Map<string, string>, documentLoader: DocumentLoader): Promise<any> {
   const expanded = await jsonld.expand(input, { documentLoader });
@@ -153,22 +175,37 @@ export async function deriveEN18223(input: any, range: Map<string, string>, docu
   const dpp: any = {};
   const dl = firstVal(node, `${GS1}productID`) ?? node["@id"];
   for (const [iri, key] of Object.entries(ENVELOPE)) {
-    if (!(iri in node)) continue;
-    if (key === "contentSpecificationIds") dpp[key] = node[iri].map((e: any) => e["@value"] ?? e["@id"]);
-    else dpp[key] = firstVal(node, iri);
+    if (iri in node) dpp[key] = firstVal(node, iri);
   }
+
+  // Derived envelope: identity from the Digital Link, granularity from its
+  // Application Identifiers, schema version constant, status defaulting to active.
   if (!dpp.uniqueProductIdentifier && dl) dpp.uniqueProductIdentifier = dl;
   dpp.granularity = granularityFromDigitalLink(dpp.uniqueProductIdentifier);
+  if (!dpp.digitalProductPassportId && dpp.uniqueProductIdentifier) dpp.digitalProductPassportId = dpp.uniqueProductIdentifier;
+  if (!dpp.dppSchemaVersion) dpp.dppSchemaVersion = DPP_SCHEMA_VERSION;
   if (!dpp.dppStatus) dpp.dppStatus = "active";
+
+  // Payload elements: every property that is not part of the EN 18223 envelope.
+  const elements: any[] = [];
+  for (const key of Object.keys(node)) {
+    if (skipKey(key) || key in ENVELOPE || key === CONTENT_SPEC) continue;
+    elements.push(buildElement(key, node[key], range));
+  }
+
+  // contentSpecificationIds: the data dictionaries the payload actually draws
+  // on, derived from the dictionaryReference namespaces and unioned with any
+  // explicitly declared dpp:contentSpecificationId. Sorted for stable output.
+  const specs = new Set<string>();
+  for (const e of node[CONTENT_SPEC] || []) {
+    const v = e["@value"] ?? e["@id"];
+    if (v) specs.add(v);
+  }
+  collectContentSpecs(elements, specs);
+  if (specs.size) dpp.contentSpecificationIds = [...specs].sort();
 
   const ordered: any = {};
   for (const k of ENVELOPE_ORDER) if (k in dpp) ordered[k] = dpp[k];
-
-  const elements: any[] = [];
-  for (const key of Object.keys(node)) {
-    if (skipKey(key) || key in ENVELOPE) continue;
-    elements.push(buildElement(key, node[key], range));
-  }
   ordered.elements = elements;
   return ordered;
 }

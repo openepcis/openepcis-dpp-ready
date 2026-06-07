@@ -376,6 +376,18 @@ live on item, batch, and model granularity samples. Clause-level rules are
 in [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md) and
 [`EN18223_MODEL_ALIGNMENT.md`](./EN18223_MODEL_ALIGNMENT.md).
 
+The envelope is derived too, so the source document carries only genuine
+product data. `uniqueProductIdentifier` is the Digital Link itself,
+`granularity` comes from its Application Identifiers, `digitalProductPassportId`
+defaults to that identity, `dppSchemaVersion` is `EN 18223:2026`, `dppStatus`
+defaults to `active`, and `contentSpecificationIds` is computed from the
+distinct `dictionaryReference` namespaces the payload actually uses, so the
+declared content specifications always match the content present. Economic
+operator and facility identifiers are themselves GS1 Digital Links (AI 417
+for the party, AI 414 for the physical location), consistent with the product
+key. An author may still state any of these explicitly to override the
+default.
+
 ### Two routes to interoperability: an observation (EN 18223 and UNTP)
 
 The two specifications reach interoperability by different routes, and the
