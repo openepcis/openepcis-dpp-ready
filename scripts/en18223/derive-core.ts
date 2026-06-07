@@ -47,6 +47,18 @@ const isNode = (e: any) => e && typeof e === "object" && !("@value" in e) && (("
 const skipKey = (key: string): boolean =>
   key === "@id" || key === "@type" || key === "@index" || key.startsWith(RDFS);
 
+const valueTypeForId = (id: string): string => (/^https?:\/\//.test(id) ? "xsd:anyURI" : "xsd:string");
+// A node that is only a reference / coded value: an @id (and maybe @type) with
+// no child data properties, and not a document reference. These arise from
+// JSON-LD @id / @vocab coercion of enumeration values and IRI references; they
+// carry a single value, not a nested collection.
+function isBareRef(node: any): boolean {
+  if (!isNode(node) || !node["@id"]) return false;
+  const types: string[] = node["@type"] || [];
+  if (`${DPP}documentUrl` in node || types.includes(`${DPP}DocumentReference`)) return false;
+  return Object.keys(node).every(skipKey);
+}
+
 function buildElement(propIri: string, values: any[], range: Map<string, string>): any {
   const base = { elementId: localName(propIri), dictionaryReference: propIri };
 
@@ -77,6 +89,14 @@ function buildElement(propIri: string, values: any[], range: Map<string, string>
     return { ...base, ...classifyNode(values[0], range) };
   }
   if (values.length > 1 && values.every(isNode)) {
+    if (values.every(isBareRef)) {
+      return {
+        ...base,
+        objectType: "MultiValuedDataElement",
+        valueDataType: valueTypeForId(values[0]["@id"]),
+        value: values.map((n) => n["@id"]),
+      };
+    }
     return {
       ...base,
       objectType: "MultiValuedDataElement",
@@ -104,6 +124,9 @@ function classifyNode(node: any, range: Map<string, string>): any {
     const lang = first(`${DPP}languageCode`);
     if (lang) res.language = lang;
     return res;
+  }
+  if (isBareRef(node)) {
+    return { objectType: "SingleValuedDataElement", valueDataType: valueTypeForId(node["@id"]), value: node["@id"] };
   }
   return { objectType: "DataElementCollection", elements: collectionElements(node, range) };
 }
