@@ -55,6 +55,16 @@ model maps almost one-to-one onto our `dpp:` core, and its decoupled
 "data-dictionary repository" with `dictionaryReference` pointers is
 exactly what ref.openepcis.io provides.
 
+**A working converter.** This alignment runs as code. A converter reads
+master data expressed in the GS1 Web Vocabulary and
+emits the EN 18223 passport as plain JSON in both serialisations the
+standard defines, the expanded Annex A form and the compressed form. The
+whole EN 18223 envelope is derived: identity and granularity from the GS1
+Digital Link, and `contentSpecificationIds` from the dictionaries the data
+actually cites. A browser build runs it client-side on real passports
+across eight regulated product domains, with every `dictionaryReference`
+a resolvable web IRI.[^demo]
+
 **Scope.** This paper follows the published GS1 and CEN/CENELEC standards
 and offers an independent engineering account; it is not official GS1 or
 CEN/CENELEC guidance, and EPCIS4DPP is one route among several. A
@@ -333,18 +343,31 @@ Identifiers (`01/{gtin}` model, `01/{gtin}/10/{lot}` batch,
 `01/{gtin}/21/{serial}` item).
 
 **The decoupled data dictionary (§4.3).** EN 18223 keeps semantic
-definitions out of the payload, in a repository that each data point
-references through a `dictionaryReference`, where every definition has a
-unique identifier and the model permits cross-catalogue mapping.
-**ref.openepcis.io is exactly such a repository.** Our class and property
-IRIs are valid `dictionaryReference` values, each unique and resolvable,
-mapped to GS1, the EU SEMICeu Core Vocabularies, schema.org and UNTP via
-`owl:equivalentClass` and `owl:equivalentProperty`.
+definitions out of the payload. Each data point references its definition
+through a `dictionaryReference`, which the standard types as a plain
+string and requires only to be a unique identifier that occurs once within
+a repository, with the explicit aim of staying open to different
+technologies (§4.3). It does not require that identifier to be resolvable
+on the web; even `digitalProductPassportId` only *should* follow a URI/URL
+structure. A resolvable web IRI and an opaque IRDI (the IEC 61360 / eCl@ss
+/ Asset Administration Shell style) are therefore equally conformant,
+though only the former can be fetched. **ref.openepcis.io is exactly such
+a repository, and it takes the resolvable path:** every class and property
+IRI is a unique, dereferenceable HTTPS URL, mapped to GS1, the EU SEMICeu
+Core Vocabularies, schema.org and UNTP via `owl:equivalentClass` and
+`owl:equivalentProperty`. The converter emits only these resolvable
+references, so a reader can open any `dictionaryReference` and retrieve
+the definition behind it.
 
-**Our serialisation.** EPCIS4DPP uses JSON-LD, a valid JSON serialisation
-of the EN 18223 model that additionally carries semantic links through
-`@context`. JSON-LD is an EPCIS4DPP choice for the technical layer; the
-standard requires only JSON. Each module ships a JSON Schema (draft
+**Our serialisation.** EPCIS4DPP authors master data as JSON-LD over the
+GS1 Web Vocabulary, which is already the EN 18223 compressed serialisation
+with an `@context` added for semantics. From it the converter emits the
+passport as plain JSON in either serialisation the standard defines: the
+expanded Annex A form (an array of explicit `DataElement`s) or the
+compressed key-value form (clauses 5.2.6 to 5.2.9). Both EN 18223 outputs
+are ordinary JSON. The `@context` and JSON-LD expansion are properties of
+the source master data; the EN 18223 passport is plain JSON. Each module
+also ships a JSON Schema (draft
 2020-12) and a SHACL shape graph; the `openepcis-event-sentry` validator
 checks events against reusable profiles.[^sentry]
 
@@ -374,8 +397,10 @@ projection, and the browser demo at
 [`demos/en18223-converter/`](../../../../demos/en18223-converter/) runs it
 live on the real product passports we ship for each delegated act (battery,
 electronics, textile, deforestation, packaging, construction, detergent, food),
-spanning item, batch, and model granularity. Clause-level rules are
-in [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md) and
+spanning item, batch, and model granularity. The demo renders the result
+in both EN 18223 serialisations and, beside them, the JSON-LD expansion of
+the input that supplies the `dictionaryReference` IRIs. Clause-level rules
+are in [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md) and
 [`EN18223_MODEL_ALIGNMENT.md`](./EN18223_MODEL_ALIGNMENT.md).
 
 The envelope is derived too, so the source document carries only genuine
@@ -408,11 +433,11 @@ which national delegations and their mirror committees, with strong
 industry-stakeholder participation, agree the text.[^cen-process] It
 specifies a plain-JSON serialisation and keeps semantic definitions out of
 the payload, reached out of band through a `dictionaryReference` into
-separately governed data dictionaries. The EN documents are obtained for a
-fee from the national standards bodies; CEN and CENELEC do not distribute
-or sell standards directly.[^cen-fee] The design carries forward
-established practice and serves the broad installed base that the committee
-represents.
+separately governed data dictionaries, and it accepts any unique identifier
+there, resolvable or not. The EN documents are obtained for a fee from the
+national standards bodies; CEN and CENELEC do not distribute or sell
+standards directly.[^cen-fee] The design carries forward established
+practice and serves the broad installed base that the committee represents.
 
 OpenEPCIS is built on the conviction that interoperability is served best
 by freely accessible standards and open ontologies. EPCIS4DPP therefore
@@ -542,6 +567,10 @@ in a single running system.
   `openepcis-epc-digitallink-translator`,[^translator]
   `openepcis-event-sentry`,[^sentry] and the OpenEPCIS Test Data
   Generator[^tools] are open-source.
+- **EN 18223 converter.** `scripts/derive-en18223.ts` derives the passport
+  from GS1 Web Vocabulary master data in both EN 18223 serialisations; a
+  static browser build runs the same code client-side on the shipped
+  examples and is published to GitHub Pages.[^demo]
 - **Semantics.** ref.openepcis.io serves the ontologies, contexts and
   validation profiles, and is the EN 18223 §4.3 data dictionary.
 
@@ -606,6 +635,7 @@ for implementation.
 [^tools]: OpenEPCIS tools and Test Data Generator: https://openepcis.io/docs/
 [^keycloak]: Keycloak, open-source identity and access management (OIDC / OAuth2): https://www.keycloak.org/
 [^refregistry]: OpenEPCIS DPP-Ready vocabulary registry: https://ref.openepcis.io
+[^demo]: Live EN 18223 converter demo (GS1 Web Vocabulary master data to an EN 18223 passport, run in the browser): https://openepcis.github.io/openepcis-dpp-ready/
 [^untp-spec]: UN Transparency Protocol (UNTP) specification, UN/CEFACT: https://untp.unece.org/docs/specification/ (built on W3C Verifiable Credentials, Decentralized Identifiers, JSON-LD, and the GS1 Digital Link / EPCIS 2.0 identifiers)
 [^untp-faq]: UNTP FAQ, UN/CEFACT: https://untp.unece.org/docs/about/FAQ/ ("the UNTP intellectual property is owned by the United Nations and is provided free of charge for use by anyone"; developed through the UN/CEFACT Open Development Process)
 [^w3cvc]: W3C Verifiable Credentials Data Model 2.0, W3C Recommendation: https://www.w3.org/TR/vc-data-model-2.0/
