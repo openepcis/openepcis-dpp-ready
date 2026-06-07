@@ -1,13 +1,13 @@
 /**
  * Browser entry for the EN 18223 converter demo. Runs the shared derivation
  * core (scripts/en18223/derive-core.ts) entirely client-side: real GS1 Web
- * Vocabulary + GS1 Digital Link product JSON-LD in, EN 18223 Annex A "expanded"
- * JSON out. The range index, the OpenEPCIS contexts, and the product samples
- * are generated from the repo sources by scripts/build-en18223-demo-data.ts and
- * bundled with esbuild (see package.json demo:en18223:build), so the demo runs
- * with no network.
+ * Vocabulary + GS1 Digital Link product JSON-LD in, EN 18223 plain JSON out, in
+ * either the expanded (Annex A) or the compressed serialization. The range
+ * index, the OpenEPCIS contexts, and the product samples are generated from the
+ * repo sources by scripts/build-en18223-demo-data.ts and bundled with esbuild
+ * (see package.json demo:en18223:build), so the demo runs with no network.
  */
-import { deriveEN18223, type DocumentLoader } from "../../scripts/en18223/derive-core.ts";
+import { deriveEN18223, compressEN18223, type DocumentLoader } from "../../scripts/en18223/derive-core.ts";
 import rangeIndex from "./range-index.json";
 import contexts from "./contexts.json";
 import samples from "./samples.json";
@@ -29,11 +29,21 @@ const $ = (id: string) => document.getElementById(id) as HTMLElement;
 const inputEl = () => $("input") as unknown as HTMLTextAreaElement;
 const outputEl = () => $("output");
 const statusEl = () => $("status");
+const formatEl = () => $("format") as unknown as HTMLSelectElement;
 
 function setStatus(msg: string, kind: "ok" | "err" | "" = "") {
   const el = statusEl();
   el.textContent = msg;
   el.className = kind;
+}
+
+// The two EN 18223 serializations of the last successful derivation.
+let views: { expanded: any; compressed: any } | null = null;
+
+function render() {
+  if (!views) return;
+  const fmt = formatEl().value === "compressed" ? "compressed" : "expanded";
+  outputEl().textContent = JSON.stringify(views[fmt], null, 2);
 }
 
 async function derive() {
@@ -42,17 +52,20 @@ async function derive() {
   try {
     input = JSON.parse(inputEl().value);
   } catch (e: any) {
+    views = null;
     outputEl().textContent = "";
     setStatus(`Invalid JSON: ${e.message}`, "err");
     return;
   }
   try {
-    const out = await deriveEN18223(input, range, documentLoader);
-    outputEl().textContent = JSON.stringify(out, null, 2);
-    const n = Array.isArray(out.elements) ? out.elements.length : 0;
-    const specs = Array.isArray(out.contentSpecificationIds) ? out.contentSpecificationIds.length : 0;
-    setStatus(`Derived: ${n} top-level elements · granularity "${out.granularity}" · ${specs} content specification(s)`, "ok");
+    const expanded = await deriveEN18223(input, range, documentLoader);
+    views = { expanded, compressed: compressEN18223(expanded) };
+    render();
+    const n = Array.isArray(expanded.elements) ? expanded.elements.length : 0;
+    const specs = Array.isArray(expanded.contentSpecificationIds) ? expanded.contentSpecificationIds.length : 0;
+    setStatus(`Derived: ${n} top-level elements · granularity "${expanded.granularity}" · ${specs} content specification(s)`, "ok");
   } catch (e: any) {
+    views = null;
     outputEl().textContent = "";
     setStatus(`Error: ${e.message}`, "err");
   }
@@ -80,6 +93,7 @@ function init() {
     (optgroup as HTMLOptGroupElement).appendChild(opt);
   });
   select.addEventListener("change", () => loadSample(Number(select.value)));
+  formatEl().addEventListener("change", render);
   $("derive").addEventListener("click", () => void derive());
   if (SAMPLES.length) { loadSample(0); void derive(); }
 }

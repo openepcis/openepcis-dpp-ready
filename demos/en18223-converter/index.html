@@ -10,18 +10,35 @@
   <header>
     <h1>GS1 JSON-LD → EN 18223 Digital Product Passport</h1>
     <p>
-      Pick a real <strong>GS1 Web Vocabulary + GS1 Digital Link</strong> product
-      passport (the EN 18223 <em>compressed</em> serialization) on the left, one
-      per EU/US delegated act: battery, electronics, textile, deforestation,
-      packaging, construction, detergent, food. The converter derives the EN
-      18223 <em>expanded</em> form (Annex A) on the right: every data point
-      becomes a <code>DataElement</code> whose <code>dictionaryReference</code>
-      resolves into the ref.openepcis.io data dictionary, with
-      <code>valueDataType</code> from the ontology, <code>granularity</code> from
-      the Digital Link Application Identifiers (01 → model, 01+10 → batch, 01+21
-      → item), and <code>contentSpecificationIds</code> from the dictionaries the
-      payload uses. Every example and context is bundled, so it runs entirely in
-      your browser with no network.
+      <strong>What this shows:</strong> how a product passport written as good
+      GS1 Web Vocabulary JSON-LD, addressed by a GS1 Digital Link, becomes a
+      CEN/CENELEC EN 18223 Digital Product Passport.
+    </p>
+    <p>
+      <strong>What to do:</strong> pick a real example on the left (one per EU/US
+      delegated act: battery, electronics, textile, deforestation, packaging,
+      construction, detergent, food), or paste your own, then press
+      <strong>Derive</strong>. EN 18223 defines two plain-JSON serializations of
+      the passport; use the <strong>View</strong> dropdown on the right to switch
+      between them:
+    </p>
+    <ul>
+      <li><strong>EN 18223 expanded (Annex A)</strong>: every data point is a
+        <code>DataElement</code> with a <code>dictionaryReference</code> into the
+        ref.openepcis.io dictionary and a <code>valueDataType</code> from the
+        ontology. <code>granularity</code> comes from the Digital Link
+        Application Identifiers (01 → model, 01+10 → batch, 01+21 → item), and
+        <code>contentSpecificationIds</code> from the dictionaries the payload
+        uses.</li>
+      <li><strong>EN 18223 compressed</strong>: the same passport as plain
+        key-value JSON (clauses 5.2.6 to 5.2.9).</li>
+    </ul>
+    <p>
+      Both outputs are ordinary JSON. EN 18223 happens to call them
+      <em>expanded</em> and <em>compressed</em>, which is a separate thing from
+      JSON-LD expansion: the input on the left is the JSON-LD, the output is
+      plain EN 18223 JSON. Every example and context is bundled, so it all runs
+      in your browser with no network.
     </p>
   </header>
 
@@ -34,17 +51,26 @@
 
   <main>
     <section>
-      <h2>Input · GS1 JSON-LD (compressed)</h2>
+      <h2>Input · GS1 Web Vocabulary JSON-LD</h2>
       <textarea id="input" spellcheck="false"></textarea>
     </section>
     <section>
-      <h2>Output · EN 18223 (expanded, Annex A)</h2>
+      <div class="pane-head">
+        <h2>Output</h2>
+        <label for="format">View</label>
+        <select id="format">
+          <option value="expanded">EN 18223 expanded (Annex A)</option>
+          <option value="compressed">EN 18223 compressed</option>
+        </select>
+      </div>
       <pre id="output"></pre>
     </section>
   </main>
 
   <footer>
-    OpenEPCIS DPP-Ready · EPCIS4DPP · derived by <code>scripts/en18223/derive-core.ts</code>.
+    <a href="https://github.com/openepcis/openepcis-dpp-ready">OpenEPCIS DPP-Ready</a>
+    · EPCIS4DPP · derived by
+    <a href="https://github.com/openepcis/openepcis-dpp-ready/blob/main/scripts/en18223/derive-core.ts"><code>scripts/en18223/derive-core.ts</code></a>.
     Not official GS1 or CEN/CENELEC guidance.
   </footer>
 

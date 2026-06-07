@@ -8590,6 +8590,35 @@ async function deriveEN18223(input, range2, documentLoader2) {
   ordered.elements = elements;
   return ordered;
 }
+function compressElement(el) {
+  switch (el.objectType) {
+    case "SingleValuedDataElement":
+      return el.value;
+    case "MultiLanguageDataElement":
+      return el.value;
+    // already [{ value, language }]
+    case "MultiValuedDataElement":
+      return (el.value || []).map((v) => Array.isArray(v) ? compressElements(v) : v);
+    case "DataElementCollection":
+      return compressElements(el.elements || []);
+    case "RelatedResource": {
+      const o = {};
+      for (const k of ["resourceTitle", "contentType", "url", "language"]) if (el[k] != null) o[k] = el[k];
+      return o;
+    }
+    default:
+      return el.value ?? null;
+  }
+}
+function compressElements(elements) {
+  const o = {};
+  for (const el of elements) o[el.elementId] = compressElement(el);
+  return o;
+}
+function compressEN18223(passport) {
+  const { elements, ...envelope } = passport;
+  return { ...envelope, ...compressElements(elements || []) };
+}
 
 // demos/en18223-converter/range-index.json
 var range_index_default = {
@@ -19244,10 +19273,17 @@ var $ = (id) => document.getElementById(id);
 var inputEl = () => $("input");
 var outputEl = () => $("output");
 var statusEl = () => $("status");
+var formatEl = () => $("format");
 function setStatus(msg, kind = "") {
   const el = statusEl();
   el.textContent = msg;
   el.className = kind;
+}
+var views = null;
+function render() {
+  if (!views) return;
+  const fmt = formatEl().value === "compressed" ? "compressed" : "expanded";
+  outputEl().textContent = JSON.stringify(views[fmt], null, 2);
 }
 async function derive() {
   setStatus("Deriving\u2026");
@@ -19255,17 +19291,20 @@ async function derive() {
   try {
     input = JSON.parse(inputEl().value);
   } catch (e) {
+    views = null;
     outputEl().textContent = "";
     setStatus(`Invalid JSON: ${e.message}`, "err");
     return;
   }
   try {
-    const out = await deriveEN18223(input, range, documentLoader);
-    outputEl().textContent = JSON.stringify(out, null, 2);
-    const n = Array.isArray(out.elements) ? out.elements.length : 0;
-    const specs = Array.isArray(out.contentSpecificationIds) ? out.contentSpecificationIds.length : 0;
-    setStatus(`Derived: ${n} top-level elements \xB7 granularity "${out.granularity}" \xB7 ${specs} content specification(s)`, "ok");
+    const expanded = await deriveEN18223(input, range, documentLoader);
+    views = { expanded, compressed: compressEN18223(expanded) };
+    render();
+    const n = Array.isArray(expanded.elements) ? expanded.elements.length : 0;
+    const specs = Array.isArray(expanded.contentSpecificationIds) ? expanded.contentSpecificationIds.length : 0;
+    setStatus(`Derived: ${n} top-level elements \xB7 granularity "${expanded.granularity}" \xB7 ${specs} content specification(s)`, "ok");
   } catch (e) {
+    views = null;
     outputEl().textContent = "";
     setStatus(`Error: ${e.message}`, "err");
   }
@@ -19291,6 +19330,7 @@ function init() {
     optgroup.appendChild(opt);
   });
   select.addEventListener("change", () => loadSample(Number(select.value)));
+  formatEl().addEventListener("change", render);
   $("derive").addEventListener("click", () => void derive());
   if (SAMPLES.length) {
     loadSample(0);

@@ -232,3 +232,38 @@ export async function deriveEN18223(input: any, range: Map<string, string>, docu
   ordered.elements = elements;
   return ordered;
 }
+
+// Render one EN 18223 expanded element as its compressed value.
+function compressElement(el: any): any {
+  switch (el.objectType) {
+    case "SingleValuedDataElement":
+      return el.value;
+    case "MultiLanguageDataElement":
+      return el.value; // already [{ value, language }]
+    case "MultiValuedDataElement":
+      return (el.value || []).map((v: any) => (Array.isArray(v) ? compressElements(v) : v));
+    case "DataElementCollection":
+      return compressElements(el.elements || []);
+    case "RelatedResource": {
+      const o: any = {};
+      for (const k of ["resourceTitle", "contentType", "url", "language"]) if (el[k] != null) o[k] = el[k];
+      return o;
+    }
+    default:
+      return el.value ?? null;
+  }
+}
+function compressElements(elements: any[]): any {
+  const o: any = {};
+  for (const el of elements) o[el.elementId] = compressElement(el);
+  return o;
+}
+
+/** The EN 18223 "compressed" serialization (clauses 5.2.6 to 5.2.9): the same
+ *  passport as plain key-value JSON, derived from the expanded Annex A form.
+ *  Envelope attributes are kept; each data element collapses to elementId:value
+ *  (collections nest, multi-values become arrays). */
+export function compressEN18223(passport: any): any {
+  const { elements, ...envelope } = passport;
+  return { ...envelope, ...compressElements(elements || []) };
+}
