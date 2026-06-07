@@ -79,6 +79,23 @@
       figure resolves under an OpenEPCIS extension.
     </p>
     <p>
+      EN 18223 is deliberately permissive about what that reference may be. It
+      types <code>dictionaryReference</code> as a plain string and asks only that
+      each definition carry a unique identifier that occurs once within its
+      repository (clause 4.3), with the stated aim of staying open to different
+      technologies; even <code>digitalProductPassportId</code> only
+      <em>should</em> use a URI/URL structure. The identifier need not be
+      resolvable on the web. A resolvable web IRI of the kind GS1 issues is one
+      option; an opaque identifier such as an IRDI (the IEC 61360 / eCl@ss style
+      used by the Asset Administration Shell, for example
+      <code>0173-1#02-AAO677#002</code>) is equally valid under the standard,
+      even though you cannot fetch it over HTTP. GS1 is stricter in a way that
+      pays off: a GS1 Digital Link and a GS1 Web Vocabulary term are HTTPS URLs
+      you can dereference. This derivation keeps that web-native property, so
+      every <code>dictionaryReference</code> it emits is an IRI you can open in a
+      browser to retrieve the definition behind it.
+    </p>
+    <p>
       From that expanded graph the converter assembles the EN 18223 information
       model. Each property becomes a <code>DataElement</code> with its
       <code>dictionaryReference</code>, a <code>valueDataType</code> read from the
