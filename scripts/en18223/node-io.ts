@@ -15,6 +15,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT = path.resolve(__dirname, "..", "..");
 const RDFS = "http://www.w3.org/2000/01/rdf-schema#";
 
+// Single source of truth: every served OpenEPCIS context URL mapped to its
+// local file. The CLI documentLoader reads these from disk (so it resolves
+// offline) and the demo-data builder bundles the same set into contexts.json,
+// keeping the CLI and the browser demo on identical context documents.
 export const URL_TO_FILE: Record<string, string> = {
   "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld":
     "extensions/common/core/context/dpp-core-context.jsonld",
@@ -22,8 +26,22 @@ export const URL_TO_FILE: Record<string, string> = {
     "extensions/common/core/context/gs1-shortcuts-context.jsonld",
   "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld":
     "extensions/eu/battery/context/battery-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/battery/battery-context-batterypass-bridge.jsonld":
+    "extensions/eu/battery/context/battery-context-batterypass-bridge.jsonld",
   "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld":
     "extensions/eu/textile/context/textile-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld":
+    "extensions/eu/electronics/context/electronics-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld":
+    "extensions/eu/eudr/context/eudr-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld":
+    "extensions/eu/ppwr/context/ppwr-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/cpr/cpr-context.jsonld":
+    "extensions/eu/cpr/context/cpr-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld":
+    "extensions/eu/detergent/context/detergent-context.jsonld",
+  "https://ref.openepcis.io/extensions/us/fsma204/fsma204-context.jsonld":
+    "extensions/us/fsma204/context/fsma204-context.jsonld",
 };
 
 const remoteCache = new Map<string, any>();

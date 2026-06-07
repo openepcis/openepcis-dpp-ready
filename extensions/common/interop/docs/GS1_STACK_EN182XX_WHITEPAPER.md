@@ -372,7 +372,9 @@ the expanded passport falls out of the GS1 JSON-LD plus the ontology
 ranges. The converter `scripts/derive-en18223.ts` implements this
 projection, and the browser demo at
 [`demos/en18223-converter/`](../../../../demos/en18223-converter/) runs it
-live on item, batch, and model granularity samples. Clause-level rules are
+live on the real product passports we ship for each delegated act (battery,
+electronics, textile, deforestation, packaging, construction, detergent, food),
+spanning item, batch, and model granularity. Clause-level rules are
 in [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md) and
 [`EN18223_MODEL_ALIGNMENT.md`](./EN18223_MODEL_ALIGNMENT.md).
 
