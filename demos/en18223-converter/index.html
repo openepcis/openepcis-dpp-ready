@@ -27,13 +27,16 @@
       passport actually draws on.
     </p>
     <p>
-      EN 18223 gives the same passport two JSON serializations: an
+      The <strong>View</strong> dropdown on the right shows the result three
+      ways. EN 18223 gives the passport two JSON serializations, an
       <em>expanded</em> form (Annex A, an array of explicit data elements) and a
-      <em>compressed</em> form (the same content as ordinary key-value JSON). The
-      <strong>View</strong> dropdown switches between them. Those names belong to
-      EN 18223 and have nothing to do with JSON-LD expansion; the JSON-LD is the
-      input on the left, the output is plain EN 18223 JSON. Everything is bundled,
-      so it runs in your browser with no network.
+      <em>compressed</em> form (the same content as ordinary key-value JSON), and
+      both are plain JSON. The third view, <strong>JSON-LD expanded</strong>, is
+      the input run through standard JSON-LD processing, so you can watch each
+      term resolve to the IRI that becomes its <code>dictionaryReference</code>.
+      EN 18223's own use of <em>expanded</em> and <em>compressed</em> is a
+      separate idea from that JSON-LD step. Everything is bundled, so it runs in
+      your browser with no network. The conversion is explained in full below.
     </p>
   </header>
 
@@ -56,11 +59,52 @@
         <select id="format">
           <option value="expanded">EN 18223 expanded (Annex A)</option>
           <option value="compressed">EN 18223 compressed</option>
+          <option value="jsonld">JSON-LD expanded (input)</option>
         </select>
       </div>
       <pre id="output"></pre>
     </section>
   </main>
+
+  <section class="explainer">
+    <h2>How the conversion works</h2>
+    <p>
+      The page runs each example through the same steps a repository would. It
+      first expands the input with standard JSON-LD processing, which replaces
+      every shorthand key with the full IRI of the term it stands for. That IRI
+      is what EN 18223 calls a <code>dictionaryReference</code>. The
+      <strong>JSON-LD expanded</strong> view shows this stage directly, so you
+      can see that <code>netWeight</code> is
+      <code>https://ref.gs1.org/voc/netWeight</code> while a recycled-content
+      figure resolves under an OpenEPCIS extension.
+    </p>
+    <p>
+      From that expanded graph the converter assembles the EN 18223 information
+      model. Each property becomes a <code>DataElement</code> with its
+      <code>dictionaryReference</code>, a <code>valueDataType</code> read from the
+      ontology's declared range, and a value. A nested object such as a quantity
+      or a carbon-footprint breakdown becomes a <code>DataElementCollection</code>;
+      a list of values becomes a multi-valued element; a coded value or a document
+      reference is carried as a single value or a <code>RelatedResource</code>.
+      Around the data the envelope is filled in: the unique identifier and
+      <code>granularity</code> from the Digital Link, the schema version, and the
+      <code>contentSpecificationIds</code> the data drew on.
+    </p>
+    <p>
+      The finished model prints in either EN 18223 serialization. The
+      <strong>expanded</strong> form (Annex A) keeps every data element explicit,
+      which suits validation and machine processing; the <strong>compressed</strong>
+      form folds the same content back into ordinary key-value JSON that reads
+      easily. The <strong>View</strong> dropdown only reformats the passport, so
+      switching is instant.
+    </p>
+    <p>
+      None of this is written per product. The mapping follows from good GS1 Web
+      Vocabulary and the published ontology, so the battery, textile, electronics,
+      deforestation, packaging, construction, detergent, and food examples all
+      pass through the identical code.
+    </p>
+  </section>
 
   <footer>
     <a href="https://github.com/openepcis/openepcis-dpp-ready">OpenEPCIS DPP-Ready</a>

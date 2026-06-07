@@ -233,6 +233,13 @@ export async function deriveEN18223(input: any, range: Map<string, string>, docu
   return ordered;
 }
 
+/** The standard JSON-LD expansion of the input: every shorthand term resolved
+ *  to its full vocabulary IRI. Those IRIs are what the derivation uses as each
+ *  DataElement's dictionaryReference, so this view shows where they come from. */
+export async function expandJsonLd(input: any, documentLoader: DocumentLoader): Promise<any> {
+  return jsonld.expand(input, { documentLoader });
+}
+
 // Render one EN 18223 expanded element as its compressed value.
 function compressElement(el: any): any {
   switch (el.objectType) {
