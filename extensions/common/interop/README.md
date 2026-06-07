@@ -172,7 +172,7 @@ See [`docs/SEMIC_CORE_VOCABULARIES.md`](./docs/SEMIC_CORE_VOCABULARIES.md) for t
 - [CEN/CENELEC JTC 24 Conformance Map](./docs/CEN_JTC24_CONFORMANCE.md)
 - [EN 18223/18222 Alignment Spec (Phase B)](./docs/EN18223_MODEL_ALIGNMENT.md)
 - [EPCIS4DPP Whitepaper](./docs/GS1_STACK_EN182XX_WHITEPAPER.md)
-- [EN 18223 converter demo](../../../demos/en18223-converter/)
+- [EN 18223 converter (live demo)](https://openepcis.github.io/openepcis-dpp-ready/) ([source](../../../demos/en18223-converter/))
 - [Licensing and Attribution](./docs/LICENSING.md)
 - [CIRPASS2 Coverage](./docs/CIRPASS2_COVERAGE.md)
 

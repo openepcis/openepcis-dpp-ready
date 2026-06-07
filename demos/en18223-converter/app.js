@@ -19333,7 +19333,10 @@ function init() {
     opt.textContent = s.label;
     optgroup.appendChild(opt);
   });
-  select.addEventListener("change", () => loadSample(Number(select.value)));
+  select.addEventListener("change", () => {
+    loadSample(Number(select.value));
+    void derive();
+  });
   formatEl().addEventListener("change", render);
   $("derive").addEventListener("click", () => void derive());
   if (SAMPLES.length) {
