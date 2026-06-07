@@ -327,10 +327,10 @@ See [bruno/digital-link-resolver/README.md](./bruno/digital-link-resolver/README
 
 ## Demos
 
-**EN 18223 converter** ([`demos/en18223-converter/`](./demos/en18223-converter/)) is a self-contained, client-side page that derives the CEN/CENELEC EN 18223 Annex A "expanded" passport serialization live from good GS1 Web Vocabulary + GS1 Digital Link JSON-LD. It runs the same converter the CLI uses (`pnpm run derive:en18223`) and ships three samples at item, batch, and model granularity. The derivation is explained in the [EPCIS4DPP whitepaper](./extensions/common/interop/docs/GS1_STACK_EN182XX_WHITEPAPER.md).
+**EN 18223 converter** is live at **<https://openepcis.github.io/openepcis-dpp-ready/>** ([source](./demos/en18223-converter/)). It is a self-contained, client-side page that derives a CEN/CENELEC EN 18223 Digital Product Passport from GS1 Web Vocabulary + GS1 Digital Link JSON-LD. Pick a real product passport (one per EU/US regulated domain: battery, electronics, textile, deforestation, packaging, construction, detergent, food) and view it as EN 18223 expanded (Annex A) or compressed, beside the JSON-LD expansion of the input. It runs the same converter as the CLI (`pnpm run derive:en18223`). The derivation is explained in the [EPCIS4DPP whitepaper](./extensions/common/interop/docs/GS1_STACK_EN182XX_WHITEPAPER.md).
 
 ```bash
-pnpm run demo:en18223   # build the bundle and open the page locally
+pnpm run demo:en18223   # build the bundle and serve the page locally
 ```
 
 ## Core Patterns
@@ -482,7 +482,7 @@ Apache License 2.0 - See [LICENSE](./LICENSE)
 ## Links
 
 - [Browse the live ontology — ref.openepcis.io](https://ref.openepcis.io)
-- [EN 18223 converter demo](./demos/en18223-converter/)
+- [EN 18223 converter (live demo)](https://openepcis.github.io/openepcis-dpp-ready/)
 - [OpenEPCIS Documentation](https://openepcis.io/docs/digital-product-passport/)
 - [Contributing guide](./CONTRIBUTING.md)
 - [Code of Conduct](./codeOfConduct.md)
