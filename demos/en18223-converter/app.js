@@ -8432,6 +8432,13 @@ var isLiteral = (e) => e && typeof e === "object" && "@value" in e;
 var hasProps = (e) => Object.keys(e).some((k) => k !== "@id" && k !== "@type" && k !== "@index");
 var isNode = (e) => e && typeof e === "object" && !("@value" in e) && ("@id" in e || hasProps(e));
 var skipKey = (key) => key === "@id" || key === "@type" || key === "@index" || key.startsWith(RDFS);
+var valueTypeForId = (id) => /^https?:\/\//.test(id) ? "xsd:anyURI" : "xsd:string";
+function isBareRef(node) {
+  if (!isNode(node) || !node["@id"]) return false;
+  const types = node["@type"] || [];
+  if (`${DPP}documentUrl` in node || types.includes(`${DPP}DocumentReference`)) return false;
+  return Object.keys(node).every(skipKey);
+}
 function buildElement(propIri, values, range2) {
   const base = { elementId: localName(propIri), dictionaryReference: propIri };
   if (values.length && values.every((e) => isLiteral(e) && e["@language"])) {
@@ -8461,6 +8468,14 @@ function buildElement(propIri, values, range2) {
     return { ...base, ...classifyNode(values[0], range2) };
   }
   if (values.length > 1 && values.every(isNode)) {
+    if (values.every(isBareRef)) {
+      return {
+        ...base,
+        objectType: "MultiValuedDataElement",
+        valueDataType: valueTypeForId(values[0]["@id"]),
+        value: values.map((n) => n["@id"])
+      };
+    }
     return {
       ...base,
       objectType: "MultiValuedDataElement",
@@ -8487,6 +8502,9 @@ function classifyNode(node, range2) {
     const lang = first(`${DPP}languageCode`);
     if (lang) res.language = lang;
     return res;
+  }
+  if (isBareRef(node)) {
+    return { objectType: "SingleValuedDataElement", valueDataType: valueTypeForId(node["@id"]), value: node["@id"] };
   }
   return { objectType: "DataElementCollection", elements: collectionElements(node, range2) };
 }
