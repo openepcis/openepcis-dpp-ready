@@ -1,8 +1,10 @@
 # EPCIS4DPP: a GS1 and EPCIS profile for the CEN/CENELEC Digital Product Passport standards
 
-### One path to ESPR compliance: a complete, running, open-source profile that is conformant to the GS1 standards and realises the neutral CEN/CENELEC JTC 24 Digital Product Passport standards. The GS1 Digital Link resolver, an EPCIS repository that speaks EPCIS 1.2 and 2.0, ref.openepcis.io for semantics and validation, and Keycloak for identity.
+### One path to ESPR compliance: a complete, running, open-source profile, conformant to GS1 standards, that realises the neutral CEN/CENELEC JTC 24 Digital Product Passport standards with a GS1 Digital Link resolver, an EPCIS repository speaking EPCIS 1.2 and 2.0, ref.openepcis.io for semantics and validation, and Keycloak for identity.
 
 **An OpenEPCIS DPP-Ready whitepaper · GS1 Standards Stack Scenario**
+
+*For DPP solution architects, EPCIS implementers, and standards reviewers.*
 
 ---
 
@@ -270,8 +272,10 @@ EN 18220 specifies the data carrier: a carrier shall encode a unique
 product identifier that allows access to the DPP, and the standard admits
 QR (ISO/IEC 18004),[^iso18004] Data Matrix, HF RFID, NFC and RAIN RFID as
 equally valid carriers, with print-quality, OCR-B human-readable
-interpretation, placement, and a DPP recognition marker. It does not
-mention resolvers, RFC 9264 linksets, or link types.
+interpretation, placement, and a DPP recognition marker. It does not specify
+a resolver service, RFC 9264 linksets, or GS1 link types; it references
+generic HTTP identifier resolution (ISO/IEC 18975) without the GS1 resolution
+layer.
 
 EPCIS4DPP chooses a QR code carrying a GS1 Digital Link URI, with NFC
 carrying the same URI as a supplementary carrier, resolved by a GS1
@@ -384,7 +388,7 @@ three EN 18223 granularity levels applies:
 | `/01/{gtin}/10/{lot}` | 01 + 10 (batch / lot) | batch |
 | `/01/{gtin}/21/{serial}` | 01 + 21 (serial) | item |
 
-The rest of the passport is a mechanical projection of good GS1 Web
+The rest of the passport is a mechanical projection of well-formed GS1 Web
 Vocabulary JSON-LD. Each property in the source document becomes an EN
 18223 `DataElement`: the property IRI is the `dictionaryReference`, the
 ontology range is the `valueDataType`, and the value's shape selects the
@@ -403,17 +407,43 @@ the input that supplies the `dictionaryReference` IRIs. Clause-level rules
 are in [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md) and
 [`EN18223_MODEL_ALIGNMENT.md`](./EN18223_MODEL_ALIGNMENT.md).
 
+One property, `netWeight`, shows the projection across the source and both
+EN 18223 serialisations:
+
+```jsonc
+// Source: GS1 Web Vocabulary JSON-LD
+"netWeight": { "@type": "gs1:QuantitativeValue", "value": 3.6, "unitCode": "KGM" }
+
+// EN 18223 compressed (clause 5.2)
+"netWeight": { "value": 3.6, "unitCode": "KGM" }
+
+// EN 18223 expanded (Annex A)
+{
+  "elementId": "netWeight",
+  "dictionaryReference": "https://ref.gs1.org/voc/netWeight",
+  "objectType": "DataElementCollection",
+  "elements": [
+    { "elementId": "value", "dictionaryReference": "https://ref.gs1.org/voc/value",
+      "objectType": "SingleValuedDataElement", "valueDataType": "xsd:decimal", "value": 3.6 },
+    { "elementId": "unitCode", "dictionaryReference": "https://ref.gs1.org/voc/unitCode",
+      "objectType": "SingleValuedDataElement", "valueDataType": "xsd:string", "value": "KGM" }
+  ]
+}
+```
+
 The envelope is derived too, so the source document carries only genuine
-product data. `uniqueProductIdentifier` is the Digital Link itself,
-`granularity` comes from its Application Identifiers, `digitalProductPassportId`
-defaults to that identity, `dppSchemaVersion` is `EN 18223:2026`, `dppStatus`
-defaults to `active`, and `contentSpecificationIds` is computed from the
-distinct `dictionaryReference` namespaces the payload actually uses, so the
-declared content specifications always match the content present. Economic
-operator and facility identifiers are themselves GS1 Digital Links (AI 417
-for the party, AI 414 for the physical location), consistent with the product
-key. An author may still state any of these explicitly to override the
-default.
+product data. Each attribute has a default, which an author may override by
+stating it explicitly:
+
+| EN 18223 envelope attribute | Derived from |
+|---|---|
+| `uniqueProductIdentifier` | the GS1 Digital Link itself |
+| `granularity` | the Digital Link Application Identifiers (01 model, 01+10 batch, 01+21 item) |
+| `digitalProductPassportId` | defaults to the `uniqueProductIdentifier` |
+| `dppSchemaVersion` | the constant `EN 18223:2026` |
+| `dppStatus` | defaults to `active` |
+| `contentSpecificationIds` | the distinct `dictionaryReference` namespaces the payload cites, so the declared specifications match the content present |
+| `economicOperatorId`, `facilityId` | carried as GS1 Digital Links where present (AI 417 party, AI 414 physical location) |
 
 ### Two routes to interoperability: an observation (EN 18223 and UNTP)
 
@@ -434,10 +464,14 @@ industry-stakeholder participation, agree the text.[^cen-process] It
 specifies a plain-JSON serialisation and keeps semantic definitions out of
 the payload, reached out of band through a `dictionaryReference` into
 separately governed data dictionaries, and it accepts any unique identifier
-there, resolvable or not. The EN documents are obtained for a fee from the
-national standards bodies; CEN and CENELEC do not distribute or sell
-standards directly.[^cen-fee] The design carries forward established
-practice and serves the broad installed base that the committee represents.
+there, resolvable or not. This decoupling deliberately accommodates the
+IEC 61360 and Asset Administration Shell ecosystems, where established IRDI
+catalogues already hold the semantics, so they take part without re-minting
+their definitions as web IRIs; the cost is that an IRDI cannot be
+dereferenced, where a web IRI can. The EN documents are obtained for a fee
+from the national standards bodies; CEN and CENELEC do not distribute or sell
+standards directly.[^cen-fee] The design carries forward established practice
+and serves the broad installed base that the committee represents.
 
 OpenEPCIS is built on the conviction that interoperability is served best
 by freely accessible standards and open ontologies. EPCIS4DPP therefore
@@ -463,10 +497,9 @@ Concise verdicts; the cited detail is in
 | **EN 18222** APIs | Concrete DPP REST API + registry | Expose the method surface (tracked); EPCIS query + resolver added | Planned |
 | **EN 18223** Interoperability | UML+JSON model + data dictionary | `dpp:` core maps to it; ref.openepcis.io is the §4.3 dictionary | Conformant |
 
-`dpp:passportStatus` currently enumerates Draft/Active/Updated/Withdrawn/
-Archived/Suspended; EN 18223's example values are active/inactive/
-archived/invalid (extensible by legal acts). Reconciliation is tracked in
-the alignment spec.
+`dpp:passportStatus` carries the EN 18223 base set (active, inactive,
+archived, invalid) and adds draft, withdrawn, and suspended; EN 18223
+permits further values defined by legal acts.
 
 ---
 
@@ -580,9 +613,9 @@ The Community Edition components are Apache-2.0.
 
 ## 11. Conformance summary and honest gaps
 
-Six of the eight JTC 24 standards are published; EPCIS4DPP is conformant
-to them (with EN 18221 partial and EN 18222 the API tracked for
-implementation). Two remain in development:
+Six of the eight JTC 24 standards are published. EPCIS4DPP is conformant to
+four of them (EN 18219, EN 18220, EN 18216, EN 18223); EN 18221 is partial
+and the EN 18222 API is planned. Two standards remain in development:
 
 - **prEN 18239 (Access rights, security, business confidentiality).**
   `dpp:AccessLevel` plus Keycloak enforce the access tiers today;
@@ -590,7 +623,8 @@ implementation). Two remain in development:
 - **prEN 18246 (Data authentication, reliability, integrity).** `dpp:did`
   and `dpp:identityCredentialUrl` provide hooks; Verifiable Credentials
   and Electronically Signed Data Constructs follow the final text. This
-  standard is referenced normatively by EN 18221 and EN 18223.
+  standard is a normative reference in EN 18221, and appears in the EN 18223
+  bibliography.
 
 EPCIS4DPP is one conformant profile of neutral standards, not the only
 one. Where it goes beyond a standard (the GS1 Digital Link resolver,
