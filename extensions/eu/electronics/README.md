@@ -2,7 +2,7 @@
 
 This module provides vocabulary and examples for implementing Digital Product Passports for electronic and electrical equipment under ESPR delegated acts and related EU regulations.
 
-> **Status**: Production Ready (v0.9.5)
+> **Status**: Production Ready (v0.9.6)
 
 ## Regulation Coverage
 
@@ -20,7 +20,7 @@ This module provides vocabulary and examples for implementing Digital Product Pa
 
 ```
 electronics/
-├── VERSION                              # 0.9.5
+├── VERSION                              # 0.9.6
 ├── CHANGELOG.md                         # Version history
 ├── README.md                            # This file
 ├── ontology/
@@ -93,7 +93,7 @@ electronics/
 
 ## Dependencies
 
-- **Core module**: `>= 0.9.5` (required)
+- **Core module**: `>= 0.9.6` (required)
   - Uses `dpp:OperatorInformation`, `dpp:RepairabilityInfo`, `dpp:PerformanceInfo`
   - Uses `dpp:SubstanceOfConcern`, `dpp:CircularityPerformance`, `dpp:EmissionsPerformance`
 - **Battery module**: Optional (for devices with batteries linking to battery DPPs)

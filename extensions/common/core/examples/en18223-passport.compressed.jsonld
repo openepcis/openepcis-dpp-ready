@@ -1,0 +1,34 @@
+{
+  "_comment": "Good GS1 Web Vocabulary + GS1 Digital Link JSON-LD for a battery DPP. This is the EN 18223 'compressed' serialization (clauses 5.2.6-5.2.9): data points are plain key-value pairs. scripts/derive-en18223.ts derives the EN 18223 Annex A 'expanded' form (en18223-passport.expanded.json) from this, using the @context IRIs as dictionaryReference and the ontology ranges as valueDataType.",
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    { "gs1": "https://ref.gs1.org/voc/", "xsd": "http://www.w3.org/2001/XMLSchema#" }
+  ],
+  "type": ["gs1:Product", "DigitalProductPassport"],
+  "id": "https://id.example.org/01/09506000134352/21/SN12345",
+  "digitalProductPassportId": "https://id.example.org/dpp/09506000134352/SN12345",
+  "uniqueProductIdentifier": "https://id.example.org/01/09506000134352/21/SN12345",
+  "dppSchemaVersion": "EN 18223:2026",
+  "dppStatus": "active",
+  "lastUpdated": "2026-06-07T10:00:00Z",
+  "economicOperatorId": "4012345000009",
+  "facilityId": "4012345000016",
+  "contentSpecificationIds": [
+    "https://ref.openepcis.io/extensions/common/core/",
+    "https://ref.openepcis.io/extensions/eu/battery/"
+  ],
+  "gs1:productName": [
+    { "@value": "EcoCell Battery Module", "@language": "en-GB" },
+    { "@value": "EcoCell Batteriemodul", "@language": "de-DE" }
+  ],
+  "netWeight": { "type": "gs1:QuantitativeValue", "value": 12.5, "unitCode": "KGM" },
+  "recycledContent": 0.35,
+  "preConsumerRecycledContent": 0.12,
+  "postConsumerRecycledContent": 0.23,
+  "repairInstructions": {
+    "type": "DocumentReference",
+    "documentUrl": "https://example.org/manual-en.pdf",
+    "mimeType": "application/pdf",
+    "languageCode": "en-GB"
+  }
+}

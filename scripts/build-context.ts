@@ -261,7 +261,7 @@ function buildDerivedContext(store: Store, module: OntologyModule): DerivedConte
       .sort((a, b) => a.localName.localeCompare(b.localName));
     if (values.length === 0) continue;
 
-    // Find any property that ranges over this class — those properties get @vocab coercion.
+    // Find any property that ranges over this class, so those properties get @vocab coercion.
     for (const prop of properties) {
       const propIri = `${namespace}${prop.localName}`;
       const range = getObjectValue(store, propIri, `${RDFS}range`);
@@ -367,7 +367,7 @@ function isPrefixDeclaration(key: string, value: unknown): boolean {
  *     `existing` but not in `derived` (e.g. @container, @vocab subcontexts).
  *
  * Differences where derived has more / different info are intentionally
- * dropped — TTL is authoritative for @id and @type coercion.
+ * dropped; TTL is authoritative for @id and @type coercion.
  */
 function migrateOverrides(existing: ContextMap, derived: ContextMap): ContextMap {
   const overrides: ContextMap = {};
@@ -384,7 +384,7 @@ function migrateOverrides(existing: ContextMap, derived: ContextMap): ContextMap
     if (typeof existingVal !== "object" || existingVal === null || Array.isArray(existingVal)) {
       // Existing is a plain string alias. If it references the same IRI as
       // derived, drop it; derived wins. If it points elsewhere, the user has
-      // intentionally overridden the IRI — keep it.
+      // intentionally overridden the IRI, keep it.
       const derivedIri =
         typeof derivedVal === "string"
           ? derivedVal
@@ -438,7 +438,7 @@ function buildTopComment(store: Store, module: OntologyModule): string {
     getObjectValue(store, namespace, `${OWL}versionInfo`) ||
     getObjectValue(store, ontologyUri, `${OWL}versionInfo`) ||
     "0.0.0";
-  return `${title} v${version} — generated from ${module.dir}/ontology/${module.ttlFile}. Do not edit by hand; re-run \`pnpm run build:context\` and edit ${module.dir}/context/.context-overrides.json for non-derivable hints.`;
+  return `${title} v${version}, generated from ${module.dir}/ontology/${module.ttlFile}. Do not edit by hand; re-run \`pnpm run build:context\` and edit ${module.dir}/context/.context-overrides.json for non-derivable hints.`;
 }
 
 async function buildContext(): Promise<void> {

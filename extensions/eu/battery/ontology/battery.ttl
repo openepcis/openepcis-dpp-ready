@@ -11,7 +11,7 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix schema: <https://schema.org/> .
 @prefix vann: <http://purl.org/vocab/vann/> .
-# EU SEMICeu Core Vocabularies (peer Layer 1) — see extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md
+# EU SEMICeu Core Vocabularies (peer Layer 1): see extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md
 @prefix cv:    <http://data.europa.eu/m8g/> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix locn:  <http://www.w3.org/ns/locn#> .
@@ -57,9 +57,9 @@ Battery categories can also be expressed via gs1:additionalProductClassification
     dcterms:creator "OpenEPCIS" ;
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
     dcterms:created "2024-01-15"^^xsd:date ;
-    dcterms:modified "2026-04-29"^^xsd:date ;
-    owl:versionInfo "0.9.5" ;
-    owl:versionIRI <https://ref.openepcis.io/extensions/eu/battery/0.9.5> ;
+    dcterms:modified "2026-06-07"^^xsd:date ;
+    owl:versionInfo "0.9.6" ;
+    owl:versionIRI <https://ref.openepcis.io/extensions/eu/battery/0.9.6> ;
     vann:preferredNamespacePrefix "battery" ;
     vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/eu/battery/" ;
     rdfs:seeAlso <https://ref.gs1.org/voc/RegulationTypeCode-BATTERY_DIRECTIVE> ;
@@ -492,7 +492,7 @@ battery:QRCodeLabel a battery:LabelSubject ; rdfs:label "QR Code"@en ;
     rdfs:comment "QR code providing access to the battery passport."@en .
 
 # -----------------------------------------------------------------------------
-# Operator Role — use dpp:OperatorRole from common/core; battery-specific
+# Operator Role: use dpp:OperatorRole from common/core; battery-specific
 # roles (e.g., Fulfilment Service Provider per EU Battery Regulation Art. 38)
 # are modelled as additional dpp:OperatorRole instances in the core ontology.
 # -----------------------------------------------------------------------------
@@ -698,7 +698,7 @@ battery:batteryPassportIdentifier
 battery:batteryModelIdentifier
     a owl:DatatypeProperty ;
     rdfs:label "Battery Model Identifier"@en ;
-    rdfs:comment "Manufacturer-assigned identifier of the battery model — distinct from the human-readable battery:batteryModel name. Required by the EU Battery Regulation Labelling Implementing Act and referenced in the carbon footprint declaration; enables every batch- and item-level attribute to be tied back to a model."@en ;
+    rdfs:comment "Manufacturer-assigned identifier of the battery model, distinct from the human-readable battery:batteryModel name. Required by the EU Battery Regulation Labelling Implementing Act and referenced in the carbon footprint declaration; enables every batch- and item-level attribute to be tied back to a model."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:string ;
     dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
@@ -1459,7 +1459,7 @@ battery:substanceLocation
 battery:operatorInformation
     a owl:ObjectProperty ;
     rdfs:label "Economic Operator Information"@en ;
-    rdfs:comment "Non-identifier metadata of the economic operator responsible for the battery (Art. 38) — name, postal address, contact point. The operator's identifier is carried separately by battery:operatorIdentifier so the two can be exposed at different access levels (v1.3 separates them: identifier is restricted to authorities, information remains public)."@en ;
+    rdfs:comment "Non-identifier metadata of the economic operator responsible for the battery (Art. 38): name, postal address, contact point. The operator's identifier is carried separately by battery:operatorIdentifier so the two can be exposed at different access levels (v1.3 separates them: identifier is restricted to authorities, information remains public)."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range dpp:OperatorInformation ;
     skos:note "BatteryPass-Ready v1.3 longlist attribute #12 (was combined #3 in v1.2)."@en ;
@@ -1601,7 +1601,7 @@ battery:ceMarkingIndicator
 battery:euDeclarationOfConformity
     a owl:ObjectProperty ;
     rdfs:label "EU Declaration of Conformity"@en ;
-    rdfs:comment "The EU Declaration of Conformity for this battery — modelled as a cccev:Evidence supporting the EU Battery Regulation requirements. Carries the document URL (battery:declarationOfConformity), the declaration ID (battery:euDeclarationOfConformityId), and the notified body that signed off (battery:notifiedBody)."@en ;
+    rdfs:comment "The EU Declaration of Conformity for this battery, modelled as a cccev:Evidence supporting the EU Battery Regulation requirements. Carries the document URL (battery:declarationOfConformity), the declaration ID (battery:euDeclarationOfConformityId), and the notified body that signed off (battery:notifiedBody)."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range cccev:Evidence ;
     rdfs:subPropertyOf cccev:hasSupportingEvidence ;
@@ -1644,7 +1644,7 @@ battery:notifiedBodyNumber
     rdfs:range xsd:string ;
     rdfs:subPropertyOf skos:notation ;
     rdfs:seeAlso adms:Identifier ;
-    skos:note "Notified bodies are public bodies — the canonical EU representation is cv:PublicOrganisation (SEMICeu CPOV) carrying an adms:Identifier whose notation is this number and whose schemeAgency is the EU Commission. Domain moved from gs1:Product to cv:PublicOrganisation in 0.9.5: the identifier identifies the body, not the product. Anchored as rdfs:subPropertyOf skos:notation so the notation semantics are explicit while keeping the BatteryPass-Ready v1.3 attribute name."@en ;
+    skos:note "Notified bodies are public bodies: the canonical EU representation is cv:PublicOrganisation (SEMICeu CPOV) carrying an adms:Identifier whose notation is this number and whose schemeAgency is the EU Commission. Domain moved from gs1:Product to cv:PublicOrganisation in 0.9.5: the identifier identifies the body, not the product. Anchored as rdfs:subPropertyOf skos:notation so the notation semantics are explicit while keeping the BatteryPass-Ready v1.3 attribute name."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:notifiedBodyName
@@ -2462,7 +2462,7 @@ battery:powerCapabilityAt20SoC
 # BatteryPass-Ready v1.3 longlist coverage gap-fill
 # Backed by the canonical SAMM submodels at urn:samm:io.BatteryPass.<Module>:1.2.0#
 # (current consortium tag, published in line with DIN DKE SPEC 99100:2025-02)
-# Additive properties — see extensions/eu/battery/docs/CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md
+# Additive properties: see extensions/eu/battery/docs/CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md
 # =============================================================================
 
 battery:currentSelfDischargingRate
@@ -2477,7 +2477,7 @@ battery:currentSelfDischargingRate
 battery:atSoC
     a owl:DatatypeProperty ;
     rdfs:label "Test Condition: at State of Charge"@en ;
-    rdfs:comment "State-of-charge test condition (0–1) at which a performance metric was measured. Annotates a measurement record."@en ;
+    rdfs:comment "State-of-charge test condition (0-1) at which a performance metric was measured. Annotates a measurement record."@en ;
     rdfs:range xsd:decimal ;
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#atSoC). Used as a qualifier on capacity / power / efficiency measurements."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -2494,10 +2494,10 @@ battery:numberOfFullCycles
 battery:roundTripEnergyEfficiency
     a owl:DatatypeProperty ;
     rdfs:label "Round-Trip Energy Efficiency"@en ;
-    rdfs:comment "Current round-trip energy efficiency on the 0–1 decimal scale (0.92 = 92%)."@en ;
+    rdfs:comment "Current round-trip energy efficiency on the 0-1 decimal scale (0.92 = 92%)."@en ;
     rdfs:domain dpp:PerformanceInfo ;
     rdfs:range xsd:decimal ;
-    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#roundTripEnergyEfficiency). Aligned with the 0–1 ratio convention used throughout dpp:."@en ;
+    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#roundTripEnergyEfficiency). Aligned with the 0-1 ratio convention used throughout dpp:."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 battery:expectedLifetime
@@ -2541,7 +2541,7 @@ battery:dismantlingAndRemovalInformation
 battery:safetyMeasures
     a owl:DatatypeProperty ;
     rdfs:label "Safety Measures"@en ;
-    rdfs:comment "End-of-life handling safety guidance — short text or URL fragment."@en ;
+    rdfs:comment "End-of-life handling safety guidance: short text or URL fragment."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:string ;
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Circularity:1.2.0#safetyMeasures). Pair with battery:dismantlingAndRemovalInformation for full Annex VIII coverage."@en ;
@@ -2550,7 +2550,7 @@ battery:safetyMeasures
 battery:negativeEvents
     a owl:ObjectProperty ;
     rdfs:label "Negative Events"@en ;
-    rdfs:comment "Log of safety- or performance-relevant negative events recorded over the battery lifetime — accident, thermal event, deep discharge, short circuit, etc. Range is the existing battery:NegativeEvent class."@en ;
+    rdfs:comment "Log of safety- or performance-relevant negative events recorded over the battery lifetime: accident, thermal event, deep discharge, short circuit, etc. Range is the existing battery:NegativeEvent class."@en ;
     rdfs:domain dpp:PerformanceInfo ;
     rdfs:range battery:NegativeEvent ;
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#negativeEvents). battery:NegativeEvent already declared with a typed enumeration of incident classes (Accident / PhysicalDamage / ThermalEvent / ElectricalFault / WaterIngress / Overcharge / DeepDischarge / ShortCircuit)."@en ;

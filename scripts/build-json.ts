@@ -368,7 +368,7 @@ function extractOntologyData(store: Store, module: OntologyModule): OntologyData
   const version =
     getObjectValue(store, namespace, `${OWL}versionInfo`) ||
     getObjectValue(store, ontologyUri, `${OWL}versionInfo`) ||
-    "0.9.5";
+    "0.9.6";
 
   const allSubjects = new Set<string>();
   store.getQuads(null, null, null, null).forEach((quad) => {

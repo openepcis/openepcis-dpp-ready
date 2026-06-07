@@ -32,7 +32,7 @@ This module provides vocabulary and examples for implementing EU Regulation 2026
 
 ```
 detergent/
-├── VERSION                              # Module version (0.9.5)
+├── VERSION                              # Module version (0.9.6)
 ├── CHANGELOG.md                         # Version history
 ├── README.md                            # This file
 ├── ontology/
@@ -123,7 +123,7 @@ The Detergent module reuses ESPR-aligned patterns from the core DPP module:
 
 ## Dependencies
 
-- **Core module**: `>= 0.9.5`
+- **Core module**: `>= 0.9.6`
   - Uses `dpp:HazardousSubstance` for CLP-classified substances
   - Uses `dpp:OperatorInformation` for economic operator data
   - Uses `dpp:DocumentReference` for SDS and test reports

@@ -2,6 +2,15 @@
 
 All notable changes to the Battery module will be documented in this file.
 
+## 0.9.6 — EN 18223 status alignment (2026-06-07)
+
+### Added
+- `battery:Battery` class, regenerating `json/battery.json` against the new EN 18223 core model.
+
+### Changed
+- `dppStatus` aligned to the string-valued `dpp:passportStatus` (EN 18223 `dppStatus`); the SHACL passport-status shape updated to match.
+- Per-attribute reporting granularity now uses `dpp:reportingGranularity` (the `granularity` key is reserved for the EN 18223 passport-level attribute); passport timestamp uses `dpp:lastUpdated`.
+
 ## 0.9.5 — BatteryPass-Ready v1.3 gap-fill + CIRPASS-2 see-also pointers (2026-05-04)
 
 ### Added

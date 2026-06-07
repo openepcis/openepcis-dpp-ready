@@ -192,15 +192,19 @@ put_product_with_images() {
   # persists null, wiping the openepcis.io extension contexts.
   curl -sk -L -H "Accept: application/ld+json" \
     "$DL_URL/01/$gtin?linkType=masterData" -o /tmp/p.json
-  # Build JSON array of referencedFileDetails — one entry per uploaded image.
+  # Build the gs1:referencedFile array — one entry per uploaded image.
   local urls_json
   urls_json=$(printf '%s\n' "${urls[@]}" | jq -R . | jq -s .)
-  # Each entry sets BOTH the JSON-LD entity id and the gs1:referencedFileURL
+  # Each entry sets both the JSON-LD entity id and the gs1:referencedFileURL
   # property to the uploaded image URL. The DLR's auto-linkset-populator
-  # reads `referencedFileURL` when emitting the `gs1:productImage` link
-  # entry — the bare JSON-LD `id` alone isn't picked up by ProductLinkSetPopulator.
+  # reads referencedFileURL + referencedFileType (PRODUCT_IMAGE) when
+  # emitting the gs1:relatedImage link entry.
+  #
+  # Canonical GS1 property name is `referencedFile` (singular). The DLR DTO
+  # still aliases the older `referencedFileDetails` for backwards-compat
+  # PUTs, but new payloads use the ratified spelling.
   jq --argjson urls "$urls_json" --arg desc "$description" '
-    .referencedFileDetails = (
+    .referencedFile = (
       $urls
       | to_entries
       | map({

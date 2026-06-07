@@ -1,5 +1,5 @@
 {
-  "_comment": "OpenEPCIS DPP Core Vocabulary v0.9.5 — generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
+  "_comment": "OpenEPCIS DPP Core Vocabulary v0.9.6, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
   "@context": {
     "@version": 1.1,
     "id": "@id",
@@ -17,7 +17,10 @@
     "Compostability": "dpp:Compostability",
     "CompostabilityType": "dpp:CompostabilityType",
     "CustomsCommodityCodeType": "dpp:CustomsCommodityCodeType",
+    "DataElement": "dpp:DataElement",
+    "DataElementCollection": "dpp:DataElementCollection",
     "DepositReturnScheme": "dpp:DepositReturnScheme",
+    "DigitalProductPassport": "dpp:DigitalProductPassport",
     "DocumentReference": "dpp:DocumentReference",
     "DocumentType": "dpp:DocumentType",
     "DPPGranularity": "dpp:DPPGranularity",
@@ -34,6 +37,9 @@
     "HazardSignalWord": "dpp:HazardSignalWord",
     "IndividualTradeItemPiece": "dpp:IndividualTradeItemPiece",
     "MaterialComposition": "dpp:MaterialComposition",
+    "MultiLanguageDataElement": "dpp:MultiLanguageDataElement",
+    "MultiLanguageValue": "dpp:MultiLanguageValue",
+    "MultiValuedDataElement": "dpp:MultiValuedDataElement",
     "OperationalScope": "dpp:OperationalScope",
     "OperatorInformation": "dpp:OperatorInformation",
     "OperatorRole": "dpp:OperatorRole",
@@ -44,6 +50,7 @@
     "RecycledContent": "dpp:RecycledContent",
     "RepairabilityInfo": "dpp:RepairabilityInfo",
     "RepairProvider": "dpp:RepairProvider",
+    "SingleValuedDataElement": "dpp:SingleValuedDataElement",
     "SubstanceOfConcern": "dpp:SubstanceOfConcern",
     "TraceabilityPerformance": "dpp:TraceabilityPerformance",
     "accessLevel": {
@@ -168,6 +175,10 @@
       "@id": "dpp:concentration",
       "@type": "xsd:decimal"
     },
+    "contentSpecificationId": {
+      "@id": "dpp:contentSpecificationId",
+      "@type": "xsd:anyURI"
+    },
     "crmListVersion": {
       "@id": "dpp:crmListVersion",
       "@type": "xsd:string"
@@ -186,6 +197,10 @@
         "HS8": "dpp:HS8",
         "HTSUS10": "dpp:HTSUS10"
       }
+    },
+    "dataElement": {
+      "@id": "dpp:dataElement",
+      "@type": "@id"
     },
     "dataProviderCertification": {
       "@id": "dpp:dataProviderCertification",
@@ -218,6 +233,10 @@
     "depositSchemeOperator": {
       "@id": "dpp:depositSchemeOperator",
       "@type": "@id"
+    },
+    "dictionaryReference": {
+      "@id": "dpp:dictionaryReference",
+      "@type": "xsd:anyURI"
     },
     "did": {
       "@id": "dpp:did",
@@ -258,6 +277,10 @@
       "@id": "dpp:documentUrl",
       "@type": "xsd:anyURI"
     },
+    "dppSchemaVersion": {
+      "@id": "dpp:dppSchemaVersion",
+      "@type": "xsd:string"
+    },
     "dueDiligenceRegulationContext": {
       "@id": "dpp:dueDiligenceRegulationContext",
       "@type": "@id"
@@ -272,6 +295,10 @@
     },
     "economicOperatorId": {
       "@id": "dpp:economicOperatorId",
+      "@type": "xsd:string"
+    },
+    "elementId": {
+      "@id": "dpp:elementId",
       "@type": "xsd:string"
     },
     "emissionsPerformance": {
@@ -348,6 +375,10 @@
       "@type": "@id",
       "@container": "@set"
     },
+    "facilityId": {
+      "@id": "dpp:facilityId",
+      "@type": "xsd:string"
+    },
     "facilityInformation": {
       "@id": "dpp:facilityInformation",
       "@type": "@id"
@@ -360,24 +391,9 @@
       "@id": "dpp:forcedLabourFreeAssertion",
       "@type": "xsd:boolean"
     },
-    "granularity": {
-      "@id": "dpp:granularity",
-      "@type": "@vocab",
-      "@context": {
-        "BatchLevel": "dpp:BatchLevel",
-        "ItemLevel": "dpp:ItemLevel",
-        "ModelLevel": "dpp:ModelLevel",
-        "ModelPerSiteLevel": "dpp:ModelPerSiteLevel"
-      }
-    },
     "granularityLevel": {
       "@id": "dpp:granularityLevel",
-      "@type": "@vocab",
-      "@context": {
-        "Batch": "dpp:Batch",
-        "Item": "dpp:Item",
-        "ProductClass": "dpp:ProductClass"
-      }
+      "@type": "xsd:string"
     },
     "guaranteedLifespan": {
       "@id": "dpp:guaranteedLifespan",
@@ -444,6 +460,10 @@
       "@id": "dpp:issueDate",
       "@type": "xsd:date"
     },
+    "language": {
+      "@id": "dpp:language",
+      "@type": "xsd:string"
+    },
     "languageCode": {
       "@id": "dpp:languageCode",
       "@type": "xsd:string"
@@ -452,8 +472,8 @@
       "@id": "dpp:lastDataUpdate",
       "@type": "xsd:dateTime"
     },
-    "lastUpdate": {
-      "@id": "dpp:lastUpdate",
+    "lastUpdated": {
+      "@id": "dpp:lastUpdated",
       "@type": "xsd:dateTime"
     },
     "massFraction": {
@@ -472,6 +492,10 @@
     "mimeType": {
       "@id": "dpp:mimeType",
       "@type": "xsd:string"
+    },
+    "multiLanguageValue": {
+      "@id": "dpp:multiLanguageValue",
+      "@type": "@id"
     },
     "operationalScope": {
       "@id": "dpp:operationalScope",
@@ -514,21 +538,9 @@
       "@id": "dpp:passportIssuer",
       "@type": "@id"
     },
-    "passportLastModified": {
-      "@id": "dpp:passportLastModified",
-      "@type": "xsd:dateTime"
-    },
     "passportStatus": {
       "@id": "dpp:passportStatus",
-      "@type": "@vocab",
-      "@context": {
-        "Active": "dpp:Active",
-        "Archived": "dpp:Archived",
-        "Draft": "dpp:Draft",
-        "Suspended": "dpp:Suspended",
-        "Updated": "dpp:Updated",
-        "Withdrawn": "dpp:Withdrawn"
-      }
+      "@type": "xsd:string"
     },
     "passportVersion": {
       "@id": "dpp:passportVersion",
@@ -663,6 +675,16 @@
       "@id": "dpp:reportDate",
       "@type": "xsd:date"
     },
+    "reportingGranularity": {
+      "@id": "dpp:reportingGranularity",
+      "@type": "@vocab",
+      "@context": {
+        "BatchLevel": "dpp:BatchLevel",
+        "ItemLevel": "dpp:ItemLevel",
+        "ModelLevel": "dpp:ModelLevel",
+        "ModelPerSiteLevel": "dpp:ModelPerSiteLevel"
+      }
+    },
     "reportUrl": {
       "@id": "dpp:reportUrl",
       "@type": "xsd:anyURI"
@@ -752,6 +774,14 @@
       "@id": "dpp:utilityFactor",
       "@type": "xsd:decimal"
     },
+    "value": {
+      "@id": "gs1:value",
+      "@type": "xsd:decimal"
+    },
+    "valueDataType": {
+      "@id": "dpp:valueDataType",
+      "@type": "xsd:string"
+    },
     "verificationBody": {
       "@id": "dpp:verificationBody",
       "@type": "@id"
@@ -765,10 +795,6 @@
       "@type": "xsd:anyURI"
     },
     "QuantitativeValue": "gs1:QuantitativeValue",
-    "value": {
-      "@id": "gs1:value",
-      "@type": "xsd:decimal"
-    },
     "unitCode": "gs1:unitCode",
     "Organization": "gs1:Organization",
     "partyGLN": "gs1:partyGLN",

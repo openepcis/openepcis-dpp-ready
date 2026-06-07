@@ -1,6 +1,6 @@
 {
   "namespace": "https://ref.openepcis.io/extensions/common/core/",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "title": "OpenEPCIS DPP Core Vocabulary",
   "description": "Core vocabulary for Digital Product Passports aligned with the EU Ecodesign\nfor Sustainable Products Regulation (ESPR) EU 2024/1781 and GS1 DPP Standards.\n\nOpenEPCIS DPP-Ready: The Universal DPP Platform - harmonizing GS1, UNTP, and CIRPASS2 standards.\n\nThis vocabulary provides shared patterns reusable across domain-specific regulations\n(Battery, EUDR, Textile, Electronics, etc.) and supports the ESPR framework including:\n- Economic operator identification (EOID per ESPR Article 77)\n- Facility information (manufacturing location data)\n- Performance and durability information\n- Repairability and maintenance data\n- Substances of concern (SCIP database alignment)\n- Circularity information (end-of-life, recycling)\n- Due diligence reporting (supply chain transparency)\n- Document references (reports, certificates, guides)\n- Access rights (public vs authorized data per ESPR Article 9)\n- Emissions performance (carbon footprint with UNTP alignment)\n- Traceability performance (supply chain verification metrics)\n\nGS1 Web Vocabulary patterns to use:\n- For certifications: gs1:certification with gs1:CertificationDetails\n- For warranty: gs1:warranty with gs1:WarrantyPromise\n- For regulatory compliance: gs1:regulatoryInformation with gs1:RegulatoryInformation\n- For documents: gs1:referencedFile with gs1:ReferencedFileDetails\n- For recycling text: gs1:consumerRecyclingInstructions\n\nUNTP Alignment:\nProperty naming, patterns, and value conventions are aligned with UN Transparency Protocol (UNTP)\nto enable native interoperability. Semantic equivalences are declared via owl:equivalentProperty.\nAll ratio/fraction properties use 0-1 decimal scale (e.g., 0.45 = 45%).\n\nEPCIS 2.0 Extension Declaration:\nGS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/\n\nExtension Governance:\nThis vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.\nEach extension term includes:\n- dcterms:source linking to the regulatory requirement\n- skos:note explaining why the extension is needed\n- rdfs:seeAlso linking to related GS1/schema.org/UNTP terms where applicable\n- owl:equivalentProperty where a semantic equivalent exists\n\nDomain-specific vocabularies import this core and add regulation-specific extensions.",
   "classes": [
@@ -48,13 +48,43 @@
       "id": "https://ref.openepcis.io/extensions/common/core/Compostability",
       "localName": "Compostability",
       "label": "Compostability",
-      "comment": "Compostability category and certification standard for a product or material. Distinct from biodegradability — compostability is a regulatory-recognised classification, not a continuous measurement."
+      "comment": "Compostability category and certification standard for a product or material. Distinct from biodegradability: compostability is a regulatory-recognised classification, not a continuous measurement."
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/DataElement",
+      "localName": "DataElement",
+      "label": "Data Element",
+      "comment": "Abstract base for a DPP data point (EN 18223 4.1.2.3). Not used directly; see its subclasses.",
+      "source": "EN 18223:2026, 4.1.2.3 (CEN/CENELEC JTC 24)"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/DataElementCollection",
+      "localName": "DataElementCollection",
+      "label": "Data Element Collection",
+      "comment": "A container of one or more DataElements (EN 18223 4.1.2.4).",
+      "subClassOf": [
+        "https://ref.openepcis.io/extensions/common/core/DataElement"
+      ],
+      "source": "EN 18223:2026, 4.1.2.4 (CEN/CENELEC JTC 24)"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme",
       "localName": "DepositReturnScheme",
       "label": "Deposit-Return Scheme",
       "comment": "A deposit-return scheme that the product participates in (PPWR Article 13, beverage container DRS in DE/AT/NL/SE/etc., and any future EU-harmonised DRS)."
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/DigitalProductPassport",
+      "localName": "DigitalProductPassport",
+      "label": "Digital Product Passport",
+      "comment": "The DPP envelope: identification and lifecycle metadata plus the product data elements, per the EN 18223 information model.",
+      "seeAlso": [
+        "https://test.uncefact.org/vocabulary/untp/dpp/ProductPassport"
+      ],
+      "equivalentClass": [
+        "https://test.uncefact.org/vocabulary/untp/dpp/ProductPassport"
+      ],
+      "source": "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
@@ -111,7 +141,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency",
       "localName": "EnergyEfficiency",
       "label": "Energy Efficiency",
-      "comment": "A product's energy efficiency declaration: A–G class, EPREL registration, consumption modes.",
+      "comment": "A product's energy efficiency declaration: A-G class, EPREL registration, consumption modes.",
       "equivalentClass": [
         "https://schema.org/EnergyConsumptionDetails"
       ]
@@ -120,7 +150,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility",
       "localName": "ExtendedProducerResponsibility",
       "label": "Extended Producer Responsibility",
-      "comment": "A registration of a producer's compliance with an Extended Producer\nResponsibility (EPR) scheme for a specific waste stream and jurisdiction.\nEPR schemes apply across PPWR (packaging), WEEE (electronics), Battery\nRegulation, ELV (vehicles), Textile-DA (proposed), and others — every\nregulation covered by this ontology. No upstream vocabulary defines this\nclass; UNTP v0.7.0 has no EPR-specific term, and CIRPASS-2 D3.2 confirms it\nas a gap."
+      "comment": "A registration of a producer's compliance with an Extended Producer\nResponsibility (EPR) scheme for a specific waste stream and jurisdiction.\nEPR schemes apply across PPWR (packaging), WEEE (electronics), Battery\nRegulation, ELV (vehicles), Textile-DA (proposed), and others; every\nregulation covered by this ontology. No upstream vocabulary defines this\nclass; UNTP v0.7.0 has no EPR-specific term, and CIRPASS-2 D3.2 confirms it\nas a gap."
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
@@ -178,6 +208,33 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/MultiLanguageDataElement",
+      "localName": "MultiLanguageDataElement",
+      "label": "Multi-Language Data Element",
+      "comment": "A language-dependent data point carrying one or more language-tagged values (EN 18223 4.1.2.8).",
+      "subClassOf": [
+        "https://ref.openepcis.io/extensions/common/core/DataElement"
+      ],
+      "source": "EN 18223:2026, 4.1.2.8 (CEN/CENELEC JTC 24)"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/MultiLanguageValue",
+      "localName": "MultiLanguageValue",
+      "label": "Multi-Language Value",
+      "comment": "A language-tagged value: a string plus its language (EN 18223 4.1.2.8.2).",
+      "source": "EN 18223:2026, 4.1.2.8.2 (CEN/CENELEC JTC 24)"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/MultiValuedDataElement",
+      "localName": "MultiValuedDataElement",
+      "label": "Multi-Valued Data Element",
+      "comment": "An ordered list of DataElements of the same type (EN 18223 4.1.2.6).",
+      "subClassOf": [
+        "https://ref.openepcis.io/extensions/common/core/DataElement"
+      ],
+      "source": "EN 18223:2026, 4.1.2.6 (CEN/CENELEC JTC 24)"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
       "localName": "OperatorInformation",
       "label": "Operator Information",
@@ -214,7 +271,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment",
       "localName": "RecyclabilityAssessment",
       "label": "Recyclability Assessment",
-      "comment": "An assessment of a product's recyclability. Different regulations express the same concept differently: PPWR uses letter grades A/B/C, the JRC textile methodology uses a 0–10 score, electronics WEEE uses a 0–1 rate. All three are optional; pick whichever your regulation requires.",
+      "comment": "An assessment of a product's recyclability. Different regulations express the same concept differently: PPWR uses letter grades A/B/C, the JRC textile methodology uses a 0-10 score, electronics WEEE uses a 0-1 rate. All three are optional; pick whichever your regulation requires.",
       "subClassOf": [
         "https://schema.org/Observation"
       ]
@@ -248,6 +305,16 @@
       "localName": "RepairProvider",
       "label": "Repair Provider",
       "comment": "An authorised repair provider for a product. Supports the European online platform for repair (Article 7 of Directive 2024/1799) and manufacturer-published repair networks."
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/SingleValuedDataElement",
+      "localName": "SingleValuedDataElement",
+      "label": "Single-Valued Data Element",
+      "comment": "A single data point with one value (EN 18223 4.1.2.5).",
+      "subClassOf": [
+        "https://ref.openepcis.io/extensions/common/core/DataElement"
+      ],
+      "source": "EN 18223:2026, 4.1.2.5 (CEN/CENELEC JTC 24)"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern",
@@ -336,7 +403,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/bioBasedFraction",
       "localName": "bioBasedFraction",
       "label": "Bio-based Fraction",
-      "comment": "Mass fraction (0–1) of the product or material derived from renewable biological feedstock (rather than fossil-derived). Use unitCode 'P1' (UN/CEFACT Rec 20) when expressed via gs1:QuantitativeValue.",
+      "comment": "Mass fraction (0-1) of the product or material derived from renewable biological feedstock (rather than fossil-derived). Use unitCode 'P1' (UN/CEFACT Rec 20) when expressed via gs1:QuantitativeValue.",
       "range": [
         "xsd:decimal"
       ]
@@ -391,7 +458,7 @@
     {
       "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintDistribution",
       "localName": "carbonFootprintDistribution",
-      "label": "Carbon Footprint — Distribution",
+      "label": "Carbon Footprint: Distribution",
       "comment": "Lifecycle stage emissions from distribution and logistics. gs1:QuantitativeValue with unitCode 'KGM'.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
@@ -403,7 +470,7 @@
     {
       "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintEndOfLife",
       "localName": "carbonFootprintEndOfLife",
-      "label": "Carbon Footprint — End of Life",
+      "label": "Carbon Footprint: End of Life",
       "comment": "Lifecycle stage emissions from end-of-life and recycling. gs1:QuantitativeValue with unitCode 'KGM'.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
@@ -427,7 +494,7 @@
     {
       "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintProduction",
       "localName": "carbonFootprintProduction",
-      "label": "Carbon Footprint — Production",
+      "label": "Carbon Footprint: Production",
       "comment": "Lifecycle stage emissions from main product production. gs1:QuantitativeValue with unitCode 'KGM'.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
@@ -439,7 +506,7 @@
     {
       "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintRawMaterial",
       "localName": "carbonFootprintRawMaterial",
-      "label": "Carbon Footprint — Raw Material Acquisition",
+      "label": "Carbon Footprint: Raw Material Acquisition",
       "comment": "Lifecycle stage emissions from raw-material acquisition and pre-processing. gs1:QuantitativeValue with unitCode 'KGM' (kg CO2e) and dpp:declaredFunctionalUnit set on the parent CarbonFootprintDeclaration.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
@@ -480,7 +547,7 @@
     {
       "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintUse",
       "localName": "carbonFootprintUse",
-      "label": "Carbon Footprint — Use Phase",
+      "label": "Carbon Footprint: Use Phase",
       "comment": "Lifecycle stage emissions from product use. gs1:QuantitativeValue with unitCode 'KGM'.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
@@ -583,6 +650,19 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/contentSpecificationId",
+      "localName": "contentSpecificationId",
+      "label": "Content Specification Identifier",
+      "comment": "Reference to a horizontal or product-type content specification for the DPP (EN 18223 'contentSpecificationIds'). In EPCIS4DPP mirrors the declared GS1-Extensions namespaces.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DigitalProductPassport"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/crmListVersion",
       "localName": "crmListVersion",
       "label": "CRM List Version",
@@ -618,6 +698,16 @@
       "range": [
         "https://ref.openepcis.io/extensions/common/core/CustomsCommodityCodeType"
       ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/dataElement",
+      "localName": "dataElement",
+      "label": "Data Element",
+      "comment": "Member DataElement of a DigitalProductPassport, DataElementCollection, or MultiValuedDataElement (EN 18223 4.1.2.4, 4.1.2.6).",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DataElement"
+      ],
+      "source": "EN 18223:2026, 4.1.2.4 (CEN/CENELEC JTC 24)"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/dataProviderCertification",
@@ -710,6 +800,19 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/dictionaryReference",
+      "localName": "dictionaryReference",
+      "label": "Dictionary Reference",
+      "comment": "Reference to the data-point definition in a data dictionary (EN 18223 4.1.2.3). In EPCIS4DPP a ref.openepcis.io term IRI; ref.openepcis.io is the EN 18223 4.3 data-dictionary repository.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DataElement"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "EN 18223:2026, 4.1.2.3, 4.3 (CEN/CENELEC JTC 24)"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/did",
       "localName": "did",
       "label": "Decentralized Identifier",
@@ -795,10 +898,23 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/dppSchemaVersion",
+      "localName": "dppSchemaVersion",
+      "label": "DPP Schema Version",
+      "comment": "The schema or standard version the DPP instance conforms to (EN 18223 'dppSchemaVersion'). Distinct from the content version dpp:passportVersion.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DigitalProductPassport"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/dueDiligenceRegulationContext",
       "localName": "dueDiligenceRegulationContext",
       "label": "Due Diligence Regulation Context",
-      "comment": "The specific regulation against which a due diligence statement is asserted: Battery Annex X (Reg. 2023/1542), EUDR Article 9 (Reg. 2023/1115), CSDDD (Dir. 2024/1760), Forced Labour Regulation (2024/3015), OECD Conflict Minerals, etc. Same dpp:DueDiligenceReport shape — different regulatory anchor.",
+      "comment": "The specific regulation against which a due diligence statement is asserted: Battery Annex X (Reg. 2023/1542), EUDR Article 9 (Reg. 2023/1115), CSDDD (Dir. 2024/1760), Forced Labour Regulation (2024/3015), OECD Conflict Minerals, etc. Same dpp:DueDiligenceReport shape; different regulatory anchor.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport"
       ],
@@ -839,6 +955,19 @@
         "xsd:string"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/elementId",
+      "localName": "elementId",
+      "label": "Element Id",
+      "comment": "Identifier of a DataElement, unique within its container (EN 18223 4.1.2.3).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DataElement"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "EN 18223:2026, 4.1.2.3 (CEN/CENELEC JTC 24)"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/emissionsPerformance",
@@ -1027,6 +1156,19 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/facilityId",
+      "localName": "facilityId",
+      "label": "Facility Identifier",
+      "comment": "Identifier of a facility involved in the product's life cycle (EN 18223 'facilityId', formatted per EN 18219). In EPCIS4DPP a GLN. See dpp:FacilityInformation for the richer facility record.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DigitalProductPassport"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "EN 18223:2026, 4.1.2.1; EN 18219:2026 (CEN/CENELEC JTC 24)"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/facilityInformation",
       "localName": "facilityInformation",
       "label": "Facility Information",
@@ -1061,32 +1203,23 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/3015"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/granularity",
-      "localName": "granularity",
-      "label": "DPP Granularity",
-      "comment": "Reporting granularity of this DPP instance (model / model-per-site / batch / item).",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/DPPGranularity"
-      ],
-      "source": "https://thebatterypass.eu/battery-pass-ready/publications/"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/granularityLevel",
       "localName": "granularityLevel",
       "label": "Granularity Level",
-      "comment": "Level of specificity for DPP data (ProductClass, Batch, or Item).",
+      "comment": "Passport-level granularity (EN 18223 'granularity'): the string token 'model', 'batch', or 'item' (see dpp:GranularityLevel).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DigitalProductPassport"
+      ],
       "range": [
-        "https://ref.openepcis.io/extensions/common/core/GranularityLevel"
+        "xsd:string"
       ],
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/dpp/granularityLevel"
       ],
       "equivalentProperty": [
         "https://test.uncefact.org/vocabulary/untp/dpp/granularityLevel"
-      ]
+      ],
+      "source": "EN 18223:2026, 4.1.2.2 (CEN/CENELEC JTC 24)"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/guaranteedLifespan",
@@ -1137,7 +1270,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/hazardPictogramCode",
       "localName": "hazardPictogramCode",
       "label": "Hazard Pictogram Code",
-      "comment": "CLP/GHS pictogram code (GHS01..GHS09). Set-valued — a substance can carry multiple pictograms.",
+      "comment": "CLP/GHS pictogram code (GHS01..GHS09). Set-valued: a substance can carry multiple pictograms.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
       ],
@@ -1149,7 +1282,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/hazardSignalWord",
       "localName": "hazardSignalWord",
       "label": "Hazard Signal Word",
-      "comment": "CLP Regulation 1272/2008 signal word — Danger or Warning.",
+      "comment": "CLP Regulation 1272/2008 signal word: Danger or Warning.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
       ],
@@ -1161,7 +1294,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/hazardStatement",
       "localName": "hazardStatement",
       "label": "Hazard Statement (H-statement)",
-      "comment": "CLP H-statement code (e.g. H315, H319). Set-valued — a substance can carry multiple H-statements.",
+      "comment": "CLP H-statement code (e.g. H315, H319). Set-valued: a substance can carry multiple H-statements.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
       ],
@@ -1207,7 +1340,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/isStrategicRawMaterial",
       "localName": "isStrategicRawMaterial",
       "label": "Is Strategic Raw Material",
-      "comment": "Boolean flag — material is on the EU Strategic Raw Materials list per CRMA Annex I (2024/1252). Strategic ⊂ Critical: every strategic raw material is also a critical raw material, but not vice versa.",
+      "comment": "Boolean flag: material is on the EU Strategic Raw Materials list per CRMA Annex I (2024/1252). Strategic ⊂ Critical: every strategic raw material is also a critical raw material, but not vice versa.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
       ],
@@ -1227,6 +1360,16 @@
       "range": [
         "xsd:date"
       ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/language",
+      "localName": "language",
+      "label": "Language",
+      "comment": "Language tag of a value (EN 18223 4.1.2.8.2): ISO 639 language plus EN ISO 3166-1 country, for example \"en-GB\".",
+      "range": [
+        "xsd:string"
+      ],
+      "source": "EN 18223:2026, 4.1.2.8.2 (CEN/CENELEC JTC 24)"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/languageCode",
@@ -1253,17 +1396,17 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/lastUpdate",
-      "localName": "lastUpdate",
-      "label": "DPP Last Update",
-      "comment": "Date and time the DPP was last modified. Updated whenever any passport attribute changes.",
+      "id": "https://ref.openepcis.io/extensions/common/core/lastUpdated",
+      "localName": "lastUpdated",
+      "label": "Last Updated",
+      "comment": "Date and time of the latest update to the DPP instance (EN 18223 lastUpdated), UTC, ISO 8601.",
       "domain": [
-        "https://ref.gs1.org/voc/Product"
+        "https://ref.openepcis.io/extensions/common/core/DigitalProductPassport"
       ],
       "range": [
         "xsd:dateTime"
       ],
-      "source": "https://thebatterypass.eu/battery-pass-ready/publications/"
+      "source": "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/massFraction",
@@ -1324,6 +1467,19 @@
       ]
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/multiLanguageValue",
+      "localName": "multiLanguageValue",
+      "label": "Multi-Language Value",
+      "comment": "A language-tagged value of a MultiLanguageDataElement (EN 18223 4.1.2.8).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/MultiLanguageDataElement"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/MultiLanguageValue"
+      ],
+      "source": "EN 18223:2026, 4.1.2.8 (CEN/CENELEC JTC 24)"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/operationalScope",
       "localName": "operationalScope",
       "label": "Operational Scope",
@@ -1376,10 +1532,14 @@
       "id": "https://ref.openepcis.io/extensions/common/core/passportIdentifier",
       "localName": "passportIdentifier",
       "label": "Passport Identifier",
-      "comment": "Unique identifier for this Digital Product Passport instance.",
+      "comment": "Globally unique identifier (URI) for this DPP instance (EN 18223 'digitalProductPassportId'; JSON key digitalProductPassportId).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DigitalProductPassport"
+      ],
       "range": [
         "xsd:anyURI"
-      ]
+      ],
+      "source": "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/passportIssueDate",
@@ -1401,24 +1561,17 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/passportLastModified",
-      "localName": "passportLastModified",
-      "label": "Passport Last Modified",
-      "comment": "Date and time when this Digital Product Passport was last modified.",
-      "range": [
-        "xsd:dateTime"
-      ],
-      "source": "https://standards.iteh.ai/catalog/standards/cen/2d02edd9-ec28-4eb3-b99a-6a84c0a84257/pren-18222"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/passportStatus",
       "localName": "passportStatus",
       "label": "Passport Status",
-      "comment": "Lifecycle status of this Digital Product Passport.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/PassportStatus"
+      "comment": "Lifecycle status of this DPP (EN 18223 'dppStatus'): a lowercase string token (see dpp:PassportStatus).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DigitalProductPassport"
       ],
-      "source": "https://standards.iteh.ai/catalog/standards/cen/2d02edd9-ec28-4eb3-b99a-6a84c0a84257/pren-18222"
+      "range": [
+        "xsd:string"
+      ],
+      "source": "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/passportVersion",
@@ -1465,7 +1618,7 @@
     {
       "id": "https://ref.openepcis.io/extensions/common/core/powerConsumptionOff",
       "localName": "powerConsumptionOff",
-      "label": "Power Consumption — Off Mode",
+      "label": "Power Consumption: Off Mode",
       "comment": "Power consumed in off mode. gs1:QuantitativeValue with unitCode 'WTT'.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
@@ -1477,7 +1630,7 @@
     {
       "id": "https://ref.openepcis.io/extensions/common/core/powerConsumptionOn",
       "localName": "powerConsumptionOn",
-      "label": "Power Consumption — On Mode",
+      "label": "Power Consumption: On Mode",
       "comment": "Power consumed in active operating mode. gs1:QuantitativeValue with unitCode 'WTT'.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
@@ -1489,7 +1642,7 @@
     {
       "id": "https://ref.openepcis.io/extensions/common/core/powerConsumptionStandby",
       "localName": "powerConsumptionStandby",
-      "label": "Power Consumption — Standby Mode",
+      "label": "Power Consumption: Standby Mode",
       "comment": "Power consumed in standby. gs1:QuantitativeValue with unitCode 'WTT'.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
@@ -1530,7 +1683,7 @@
       "range": [
         "xsd:anyURI"
       ],
-      "source": "https://standards.iteh.ai/catalog/standards/cen/2d02edd9-ec28-4eb3-b99a-6a84c0a84257/pren-18222"
+      "source": "EN 18221:2026 (CEN/CENELEC JTC 24)"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/primarySourcedRatio",
@@ -1596,7 +1749,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/recyclabilityRate",
       "localName": "recyclabilityRate",
       "label": "Recyclability Rate",
-      "comment": "Decimal fraction (0–1) of the product that can be recycled. Aligns with untp:recyclableContent.",
+      "comment": "Decimal fraction (0-1) of the product that can be recycled. Aligns with untp:recyclableContent.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment"
       ],
@@ -1608,7 +1761,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/recyclabilityScore",
       "localName": "recyclabilityScore",
       "label": "Recyclability Score",
-      "comment": "Numeric recyclability score (e.g. 0–10 per JRC textile methodology). Use unitCode aligned with the methodology when expressed via gs1:QuantitativeValue.",
+      "comment": "Numeric recyclability score (e.g. 0-10 per JRC textile methodology). Use unitCode aligned with the methodology when expressed via gs1:QuantitativeValue.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment"
       ],
@@ -1710,7 +1863,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/repairInformationPortalUrl",
       "localName": "repairInformationPortalUrl",
       "label": "Repair Information Portal URL",
-      "comment": "URL of the manufacturer's public repair information portal as required by EU Right-to-Repair Directive 2024/1799 Article 4 — covers spare-parts catalogue, dismantling guides, software updates available to independent repairers.",
+      "comment": "URL of the manufacturer's public repair information portal as required by EU Right-to-Repair Directive 2024/1799 Article 4: covers spare-parts catalogue, dismantling guides, software updates available to independent repairers.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
       ],
@@ -1775,6 +1928,19 @@
       "range": [
         "xsd:date"
       ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/reportingGranularity",
+      "localName": "reportingGranularity",
+      "label": "Reporting Granularity",
+      "comment": "BatteryPass per-attribute reporting granularity (model / model-per-site / batch / item). Distinct from the passport-level EN 18223 'granularity' (dpp:granularityLevel).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DPPGranularity"
+      ],
+      "source": "https://thebatterypass.eu/battery-pass-ready/publications/"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/reportUrl",
@@ -2055,6 +2221,23 @@
       "source": "https://uncefact.github.io/spec-untp/"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/value",
+      "localName": "value",
+      "label": "Value",
+      "comment": "The value of a SingleValuedDataElement or MultiLanguageValue (EN 18223 4.1.2.5, 4.1.2.8.2). Any JSON data type.",
+      "source": "EN 18223:2026, 4.1.2.5 (CEN/CENELEC JTC 24)"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/valueDataType",
+      "localName": "valueDataType",
+      "label": "Value Data Type",
+      "comment": "XSD data type of the value (EN 18223 4.1.2.9), for example \"xsd:integer\".",
+      "range": [
+        "xsd:string"
+      ],
+      "source": "EN 18223:2026, 4.1.2.9 (CEN/CENELEC JTC 24)"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/verificationBody",
       "localName": "verificationBody",
       "label": "Verification Body",
@@ -2295,7 +2478,7 @@
           "id": "https://ref.openepcis.io/extensions/common/core/BatchLevel",
           "localName": "BatchLevel",
           "label": "Battery model per calendar year and per manufacturing site (batch)",
-          "comment": "Attribute reported per batch — model, calendar year, manufacturing site (e.g. carbon footprint, recycled-content shares)."
+          "comment": "Attribute reported per batch: model, calendar year, manufacturing site (e.g. carbon footprint, recycled-content shares)."
         },
         {
           "id": "https://ref.openepcis.io/extensions/common/core/ItemLevel",
@@ -2321,7 +2504,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/EnergyEfficiencyClass",
       "localName": "EnergyEfficiencyClass",
       "label": "Energy Efficiency Class",
-      "comment": "A–G classification per EU Energy Labelling Regulation 2017/1369 and downstream delegated acts.",
+      "comment": "A-G classification per EU Energy Labelling Regulation 2017/1369 and downstream delegated acts.",
       "values": [
         {
           "id": "https://ref.openepcis.io/extensions/common/core/EnergyClassA",
@@ -2371,25 +2554,25 @@
       "id": "https://ref.openepcis.io/extensions/common/core/GranularityLevel",
       "localName": "GranularityLevel",
       "label": "Granularity Level",
-      "comment": "Level of specificity for DPP data - whether it applies to product class, batch, or individual item.",
+      "comment": "Passport-level granularity per EN 18223 'granularity': model, batch, or item. Values are the lowercase string tokens given by skos:notation. In EPCIS4DPP the level is derived from the GS1 Digital Link Application Identifiers.",
       "values": [
         {
           "id": "https://ref.openepcis.io/extensions/common/core/Batch",
           "localName": "Batch",
           "label": "Batch",
-          "comment": "DPP data applies to a specific production batch."
+          "comment": "DPP data applies to a specific production batch. GS1 Digital Link 01/{gtin}/10/{lot}."
         },
         {
           "id": "https://ref.openepcis.io/extensions/common/core/Item",
           "localName": "Item",
           "label": "Item",
-          "comment": "DPP data applies to an individual serialized product."
+          "comment": "DPP data applies to an individual serialized item. GS1 Digital Link 01/{gtin}/21/{serial}."
         },
         {
-          "id": "https://ref.openepcis.io/extensions/common/core/ProductClass",
-          "localName": "ProductClass",
-          "label": "Product Class",
-          "comment": "DPP data applies to all products of this type/model."
+          "id": "https://ref.openepcis.io/extensions/common/core/Model",
+          "localName": "Model",
+          "label": "Model",
+          "comment": "DPP data applies to all products of this model or class. GS1 Digital Link 01/{gtin}."
         }
       ]
     },
@@ -2465,7 +2648,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/HazardSignalWord",
       "localName": "HazardSignalWord",
       "label": "Hazard Signal Word",
-      "comment": "CLP Regulation signal word — Danger or Warning.",
+      "comment": "CLP Regulation signal word: Danger or Warning.",
       "values": [
         {
           "id": "https://ref.openepcis.io/extensions/common/core/HazardDanger",
@@ -2555,7 +2738,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/PassportStatus",
       "localName": "PassportStatus",
       "label": "Passport Status",
-      "comment": "Lifecycle status of a Digital Product Passport per EN 18222 API lifecycle management.",
+      "comment": "Lifecycle status of a Digital Product Passport (EN 18223 dppStatus). Values are the lowercase string tokens given by skos:notation.",
       "values": [
         {
           "id": "https://ref.openepcis.io/extensions/common/core/Active",
@@ -2567,31 +2750,37 @@
           "id": "https://ref.openepcis.io/extensions/common/core/Archived",
           "localName": "Archived",
           "label": "Archived",
-          "comment": "Passport is archived after product end-of-life. Data persisted per EN 18221 retention requirements."
+          "comment": "Passport is archived after product end-of-life. Data persisted per EN 18221."
         },
         {
           "id": "https://ref.openepcis.io/extensions/common/core/Draft",
           "localName": "Draft",
           "label": "Draft",
-          "comment": "Passport is being prepared and not yet publicly available."
+          "comment": "EPCIS4DPP extension: passport is being prepared and not yet publicly available."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Inactive",
+          "localName": "Inactive",
+          "label": "Inactive",
+          "comment": "Passport is not currently in force (EN 18223 base value)."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Invalid",
+          "localName": "Invalid",
+          "label": "Invalid",
+          "comment": "Passport is no longer valid (EN 18223 base value, e.g. revoked)."
         },
         {
           "id": "https://ref.openepcis.io/extensions/common/core/Suspended",
           "localName": "Suspended",
           "label": "Suspended",
-          "comment": "Passport temporarily not in force (e.g. pending investigation, recall under review). Distinct from dpp:Withdrawn, which is terminal. Added for BatteryPass-Ready v1.3 / JTC-24 alignment."
-        },
-        {
-          "id": "https://ref.openepcis.io/extensions/common/core/Updated",
-          "localName": "Updated",
-          "label": "Updated",
-          "comment": "Passport has been modified since initial publication. Previous versions remain accessible per EN 18221."
+          "comment": "EPCIS4DPP extension: temporarily not in force (e.g. pending investigation); a specific kind of inactive."
         },
         {
           "id": "https://ref.openepcis.io/extensions/common/core/Withdrawn",
           "localName": "Withdrawn",
           "label": "Withdrawn",
-          "comment": "Passport has been withdrawn (e.g., product recall). Data remains available to authorities per ESPR Article 9."
+          "comment": "EPCIS4DPP extension: passport withdrawn (e.g. product recall); a specific kind of invalid."
         }
       ]
     },

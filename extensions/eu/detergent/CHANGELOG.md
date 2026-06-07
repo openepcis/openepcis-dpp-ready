@@ -2,6 +2,10 @@
 
 All notable changes to the Detergent module will be documented in this file.
 
+## 0.9.6 — version alignment (2026-06-07)
+
+Version alignment with the 0.9.6 core release (EN 18223 model alignment). No functional changes to this module.
+
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
 **Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.

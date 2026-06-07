@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EPCIS4DPP · GS1 JSON-LD → EN 18223 converter</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>GS1 JSON-LD → EN 18223 Digital Product Passport</h1>
+    <p>
+      Paste good <strong>GS1 Web Vocabulary + GS1 Digital Link</strong> JSON-LD
+      (the EN 18223 <em>compressed</em> serialization) on the left. The
+      converter derives the EN 18223 <em>expanded</em> form (Annex A) on the
+      right: every data point becomes a <code>DataElement</code> whose
+      <code>dictionaryReference</code> resolves into the ref.openepcis.io data
+      dictionary, with <code>valueDataType</code> from the ontology and
+      <code>granularity</code> derived from the Digital Link Application
+      Identifiers (01 → model, 01+10 → batch, 01+21 → item). Runs entirely in
+      your browser.
+    </p>
+  </header>
+
+  <div class="toolbar">
+    <label for="sample">Sample</label>
+    <select id="sample"></select>
+    <button id="derive">Derive →</button>
+    <span id="status"></span>
+  </div>
+
+  <main>
+    <section>
+      <h2>Input · GS1 JSON-LD (compressed)</h2>
+      <textarea id="input" spellcheck="false"></textarea>
+    </section>
+    <section>
+      <h2>Output · EN 18223 (expanded, Annex A)</h2>
+      <pre id="output"></pre>
+    </section>
+  </main>
+
+  <footer>
+    OpenEPCIS DPP-Ready · EPCIS4DPP · derived by <code>scripts/en18223/derive-core.ts</code>.
+    Not official GS1 or CEN/CENELEC guidance.
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

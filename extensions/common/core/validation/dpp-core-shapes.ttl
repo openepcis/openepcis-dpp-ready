@@ -10,7 +10,7 @@
 
 # =============================================================================
 # SHACL Shapes for OpenEPCIS DPP Core Vocabulary
-# Version: 0.9.5
+# Version: 0.9.6
 # =============================================================================
 
 <https://ref.openepcis.io/extensions/common/core/shapes/>
@@ -18,7 +18,9 @@
     dcterms:title "OpenEPCIS DPP Core SHACL Shapes"@en ;
     dcterms:description "SHACL validation shapes for OpenEPCIS DPP Core vocabulary. Validates value ranges, required properties, and cardinality constraints."@en ;
     dcterms:created "2025-02-02"^^xsd:date ;
-    dcterms:modified "2025-02-02"^^xsd:date .
+    dcterms:modified "2026-06-07"^^xsd:date ;
+    sh:declare [ sh:prefix "dpp" ; sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI ] ;
+    sh:declare [ sh:prefix "gs1" ; sh:namespace "https://ref.gs1.org/voc/"^^xsd:anyURI ] .
 
 # =============================================================================
 # CircularityPerformance Shape
@@ -529,9 +531,35 @@ dpp-sh:GranularityLevelConstraint
     sh:name "Granularity Level Constraint"@en ;
     sh:property [
         sh:path dpp:granularityLevel ;
-        sh:in ( dpp:ProductClass dpp:Batch dpp:Item ) ;
+        sh:datatype xsd:string ;
+        sh:in ( "model" "batch" "item" ) ;
         sh:maxCount 1 ;
-        sh:message "granularityLevel must be ProductClass, Batch, or Item"@en
+        sh:message "granularity must be model, batch, or item (EN 18223)"@en
+    ] .
+
+# =============================================================================
+# DigitalProductPassport: granularity must match the GS1 Digital Link AIs
+# (EN 18219 4.4 consistency; EN 18223 granularity). 01 -> model,
+# 01+10 -> batch, 01+21 -> item. Applies when uniqueProductIdentifier
+# (gs1:productID) is a GS1 Digital Link URI.
+# =============================================================================
+
+dpp-sh:GranularityDigitalLinkConstraint
+    a sh:NodeShape ;
+    sh:targetClass dpp:DigitalProductPassport ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "granularity must match the GS1 Digital Link Application Identifiers in uniqueProductIdentifier (01 -> model, 01+10 -> batch, 01+21 -> item) per EN 18219 4.4 / EN 18223."@en ;
+        sh:prefixes <https://ref.openepcis.io/extensions/common/core/shapes/> ;
+        sh:select """
+            SELECT $this ?value WHERE {
+                $this dpp:granularityLevel ?value .
+                $this gs1:productID ?dl .
+                BIND( IF(REGEX(STR(?dl), "/21/"), "item",
+                       IF(REGEX(STR(?dl), "/10/"), "batch", "model")) AS ?expected )
+                FILTER( STR(?value) != ?expected )
+            }
+        """ ;
     ] .
 
 # =============================================================================
@@ -560,7 +588,7 @@ dpp-sh:QuantitativeValueShape
         sh:message "QuantitativeValue must have exactly one gs1:unitCode (UN/CEFACT Rec 20 string)"@en
     ] .
 
-# Per-property unitCode shapes (representative — extend as new properties land).
+# Per-property unitCode shapes (representative; extend as new properties land).
 # Pattern: target subjects of a property; require its value's unitCode = canonical code.
 
 dpp-sh:ExpectedLifespanShape

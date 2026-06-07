@@ -12,10 +12,10 @@
     dcterms:title "OpenEPCIS Battery SHACL Shapes"@en ;
     dcterms:description "SHACL validation shapes for Battery Digital Product Passport vocabulary, aligned with BatteryPass-Ready Data Attribute Longlist v1.3 (March 2026)."@en ;
     dcterms:created "2025-02-02"^^xsd:date ;
-    dcterms:modified "2026-04-29"^^xsd:date .
+    dcterms:modified "2026-06-07"^^xsd:date .
 
 # =============================================================================
-# OpenEPCIS Battery Vocabulary SHACL Shapes v0.9.5
+# OpenEPCIS Battery Vocabulary SHACL Shapes v0.9.6
 # Basic validation shapes for Battery Digital Product Passport data
 # =============================================================================
 
@@ -135,23 +135,24 @@ battery:BatteryShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path schema:status ;
+        sh:path dpp:passportStatus ;
         sh:name "DPP Status" ;
-        sh:description "Mandatory per BatteryPass-Ready v1.3 (#2)." ;
-        sh:class dpp:PassportStatus ;
+        sh:description "Mandatory per BatteryPass-Ready v1.3 (#2). EN 18223 dppStatus." ;
+        sh:datatype xsd:string ;
+        sh:in ( "active" "inactive" "archived" "invalid" "draft" "withdrawn" "suspended" ) ;
         sh:minCount 1 ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path dpp:granularity ;
-        sh:name "DPP Granularity" ;
+        sh:path dpp:reportingGranularity ;
+        sh:name "DPP Reporting Granularity" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#3)." ;
         sh:class dpp:DPPGranularity ;
         sh:minCount 1 ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path dpp:lastUpdate ;
+        sh:path dpp:lastUpdated ;
         sh:name "Date-time of latest update" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#4). Updated whenever any passport attribute changes." ;
         sh:datatype xsd:dateTime ;
@@ -370,7 +371,7 @@ battery:SupplyChainDueDiligenceShape a sh:NodeShape ;
 # =============================================================================
 # Pin gs1:unitCode to the canonical UN/CEFACT Rec 20 code documented for each
 # battery property. These complement dpp-sh:QuantitativeValueShape (which
-# enforces value+unitCode presence) — here we add the per-property hasValue
+# enforces value+unitCode presence); here we add the per-property hasValue
 # check. Extend with more shapes as additional regulated properties are added.
 
 battery:RatedCapacityShape a sh:NodeShape ;

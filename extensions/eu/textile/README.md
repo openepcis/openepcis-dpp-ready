@@ -2,7 +2,7 @@
 
 This module provides vocabulary and examples for implementing Digital Product Passports for textile products under the EU Sustainable Textiles Strategy, ESPR 2024/1781, and the EU Preparatory Study on Textiles 3rd Milestone.
 
-> **Status**: v0.9.5 - Production Ready
+> **Status**: v0.9.6 - Production Ready
 
 ## Regulation Overview
 
@@ -27,7 +27,7 @@ This module provides vocabulary and examples for implementing Digital Product Pa
 
 ```
 textile/
-├── VERSION                              # 0.9.5
+├── VERSION                              # 0.9.6
 ├── CHANGELOG.md                         # Version history
 ├── README.md                            # This file
 ├── ontology/
