@@ -10,35 +10,30 @@
   <header>
     <h1>GS1 JSON-LD → EN 18223 Digital Product Passport</h1>
     <p>
-      <strong>What this shows:</strong> how a product passport written as good
-      GS1 Web Vocabulary JSON-LD, addressed by a GS1 Digital Link, becomes a
-      CEN/CENELEC EN 18223 Digital Product Passport.
+      A Digital Product Passport under CEN/CENELEC EN 18223 is plain JSON, and it
+      falls out of data you may already publish: good GS1 Web Vocabulary,
+      addressed by a GS1 Digital Link. Choose a product on the left, one for each
+      EU and US delegated act, or paste your own, and press <strong>Derive</strong>.
     </p>
     <p>
-      <strong>What to do:</strong> pick a real example on the left (one per EU/US
-      delegated act: battery, electronics, textile, deforestation, packaging,
-      construction, detergent, food), or paste your own, then press
-      <strong>Derive</strong>. EN 18223 defines two plain-JSON serializations of
-      the passport; use the <strong>View</strong> dropdown on the right to switch
-      between them:
+      Each property becomes an EN 18223 <code>DataElement</code>. Its
+      <code>dictionaryReference</code> is the property's own vocabulary IRI,
+      wherever the term is defined, whether GS1, schema.org, or the OpenEPCIS
+      extensions at ref.openepcis.io, and its <code>valueDataType</code> is the
+      range the ontology declares for it. The passport's <code>granularity</code>
+      follows the Digital Link Application Identifiers: a GTIN on its own
+      describes a model, a GTIN with a lot number a batch, a GTIN with a serial an
+      item. <code>contentSpecificationIds</code> then lists the dictionaries the
+      passport actually draws on.
     </p>
-    <ul>
-      <li><strong>EN 18223 expanded (Annex A)</strong>: every data point is a
-        <code>DataElement</code> with a <code>dictionaryReference</code> into the
-        ref.openepcis.io dictionary and a <code>valueDataType</code> from the
-        ontology. <code>granularity</code> comes from the Digital Link
-        Application Identifiers (01 → model, 01+10 → batch, 01+21 → item), and
-        <code>contentSpecificationIds</code> from the dictionaries the payload
-        uses.</li>
-      <li><strong>EN 18223 compressed</strong>: the same passport as plain
-        key-value JSON (clauses 5.2.6 to 5.2.9).</li>
-    </ul>
     <p>
-      Both outputs are ordinary JSON. EN 18223 happens to call them
-      <em>expanded</em> and <em>compressed</em>, which is a separate thing from
-      JSON-LD expansion: the input on the left is the JSON-LD, the output is
-      plain EN 18223 JSON. Every example and context is bundled, so it all runs
-      in your browser with no network.
+      EN 18223 gives the same passport two JSON serializations: an
+      <em>expanded</em> form (Annex A, an array of explicit data elements) and a
+      <em>compressed</em> form (the same content as ordinary key-value JSON). The
+      <strong>View</strong> dropdown switches between them. Those names belong to
+      EN 18223 and have nothing to do with JSON-LD expansion; the JSON-LD is the
+      input on the left, the output is plain EN 18223 JSON. Everything is bundled,
+      so it runs in your browser with no network.
     </p>
   </header>
 
