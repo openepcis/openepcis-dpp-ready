@@ -67,6 +67,17 @@ actually cites. A browser build runs it client-side on real passports
 across eight regulated product domains, with every `dictionaryReference`
 a resolvable web IRI.[^demo]
 
+**Beyond Europe.** The EN standards stay technology-neutral: GS1 is one of
+several permitted identifier schemes, and no resolver or product-event layer
+is required. EPCIS4DPP commits to the full GS1 stack on purpose. A
+GS1-conformant Digital Link resolver makes the passport addressable from the
+product itself, and the EPCIS event log carries the telemetry of the
+product's whole life, from manufacture through repair, resale, and recycling.
+These are the building blocks the global transparency and data-sharing
+movement is converging on, UNTP among them. A passport built this way meets
+the European requirement and travels worldwide, so an adopter invests once
+and is ready for ESPR and for the wider data ecosystem at the same time.
+
 **Scope.** This paper follows the published GS1 and CEN/CENELEC standards
 and offers an independent engineering account; it is not official GS1 or
 CEN/CENELEC guidance, and EPCIS4DPP is one route among several. A
@@ -262,7 +273,10 @@ Authorization: Bearer <access_token>
 **Beyond EN 18222.** The standard's "searchability" is product-id
 discovery with pagination. EPCIS4DPP adds the EPCIS 2.0 query interface
 (search by EPC, business step, disposition, location, time) for the
-lifecycle event log, as a profile addition alongside the EN 18222 API.
+lifecycle event log, as a profile addition alongside the EN 18222 API. This
+event log, the telemetry of a product's whole life, is the bridge from a
+European passport to the global transparency and data-sharing networks now
+forming.
 
 ---
 
