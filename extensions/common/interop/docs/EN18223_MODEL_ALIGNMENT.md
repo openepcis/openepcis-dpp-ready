@@ -22,7 +22,7 @@ clause-by-clause conformance narrative.
 > `dictionaryReference`, `valueDataType`, `value`, `multiLanguageValue`,
 > `language`), `dpp:DocumentReference` documented as the EN 18223
 > RelatedResource, plus a worked envelope example
-> `extensions/common/core/examples/en18223-passport.jsonld` (validates).
+> `extensions/eu/battery/examples/battery-product.jsonld` (validates).
 >
 > **Update (2026-06-06): §2 derivation rule added.** The GS1-AI granularity
 > consistency rule is now a published SHACL `sh:sparql` constraint
@@ -42,8 +42,10 @@ clause-by-clause conformance narrative.
 > SingleValued; scalar array → MultiValued; `[{value,language}]` →
 > MultiLanguage; `gs1:QuantitativeValue` and nested objects → DataElementCollection;
 > DocumentReference → RelatedResource), and `granularity` derived from the
-> Digital Link AIs. Examples: `extensions/common/core/examples/en18223-passport.compressed.jsonld`
-> (input) and `…expanded.json` (output). Enum case: lowercase per the
+> Digital Link AIs, with the rest of the envelope (schema version, identity,
+> `contentSpecificationIds`) derived from the source too. Worked example:
+> `extensions/eu/battery/examples/battery-product.jsonld` (input) and
+> `battery-product.en18223.json` (output). Enum case: lowercase per the
 > authoritative prose (clause 4.1.1), even though some Annex A examples render
 > values title-case. A self-contained client-side demo page
 > (`demos/en18223-converter/`, npm `demo:en18223`) shows the derivation live;

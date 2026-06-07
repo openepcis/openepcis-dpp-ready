@@ -9213,698 +9213,10015 @@ var range_index_default = {
   "https://ref.openepcis.io/extensions/us/fsma204/foodTraceabilityListCategory": "https://ref.openepcis.io/extensions/us/fsma204/FoodTraceabilityList"
 };
 
-// extensions/common/core/context/dpp-core-context.jsonld
-var dpp_core_context_default = {
-  _comment: "OpenEPCIS DPP Core Context v0.9.6 - The Universal DPP Platform. Aligned with ESPR 2024/1781, GS1, and UNTP standards. All ratio/fraction values use 0-1 decimal scale. EPCIS Extension: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/",
-  "@context": {
-    "@version": 1.1,
-    dpp: "https://ref.openepcis.io/extensions/common/core/",
-    gs1: "https://ref.gs1.org/voc/",
-    xsd: "http://www.w3.org/2001/XMLSchema#",
-    rdfs: "http://www.w3.org/2000/01/rdf-schema#",
-    schema: "https://schema.org/",
-    id: "@id",
-    type: "@type",
-    identifier: "@id",
-    _comment: { "@id": "rdfs:comment", "@container": "@set" },
-    _comment_architecture: { "@id": "rdfs:comment", "@container": "@set" },
-    _comment_classification: { "@id": "rdfs:comment", "@container": "@set" },
-    _comment_composition: { "@id": "rdfs:comment", "@container": "@set" },
-    _comment_environmental_footprint: { "@id": "rdfs:comment", "@container": "@set" },
-    _comment_gs1_alignment: { "@id": "rdfs:comment", "@container": "@set" },
-    _comment_gs1us_mapping: { "@id": "rdfs:comment", "@container": "@set" },
-    _comment_itip_ai8026: { "@id": "rdfs:comment", "@container": "@set" },
-    _comment_recyclability: { "@id": "rdfs:comment", "@container": "@set" },
-    _comment_recycled_content_structured: { "@id": "rdfs:comment", "@container": "@set" },
-    _comment_robustness: { "@id": "rdfs:comment", "@container": "@set" },
-    _comment_soc: { "@id": "rdfs:comment", "@container": "@set" },
-    _comment_spareparts: { "@id": "rdfs:comment", "@container": "@set" },
-    _notes: { "@id": "rdfs:comment", "@container": "@set" },
-    _scenario: "rdfs:comment",
-    masterDataAvailableFor: { "@id": "dpp:masterDataAvailableFor", "@container": "@set" },
-    manufacturingDate: { "@id": "gs1:manufacturingDate", "@type": "xsd:date" },
-    streetAddress: "gs1:streetAddress",
-    addressLocality: "gs1:addressLocality",
-    postalCode: "gs1:postalCode",
-    addressCountry: "gs1:addressCountry",
-    countryCode: "gs1:countryCode",
-    locationGLN: "gs1:locationGLN",
-    physicalLocationName: "gs1:physicalLocationName",
-    serialNumber: "gs1:serialNumber",
-    gtin: "gs1:gtin",
-    productName: "gs1:productName",
-    countryOfOrigin: "gs1:countryOfOrigin",
-    netWeight: { "@id": "gs1:netWeight", "@type": "@id" },
-    AccessLevel: "dpp:AccessLevel",
-    DocumentType: "dpp:DocumentType",
-    GranularityLevel: "dpp:GranularityLevel",
-    HazardClass: "dpp:HazardClass",
-    OperationalScope: "dpp:OperationalScope",
-    OperatorRole: "dpp:OperatorRole",
-    ProductCategory: "dpp:ProductCategory",
-    QuantitativeValue: "gs1:QuantitativeValue",
-    ExtendedProducerResponsibility: "dpp:ExtendedProducerResponsibility",
-    extendedProducerResponsibility: { "@id": "dpp:extendedProducerResponsibility", "@type": "@id", "@container": "@set" },
-    eprRegistrationNumber: "dpp:eprRegistrationNumber",
-    eprScheme: { "@id": "dpp:eprScheme", "@type": "@id" },
-    eprJurisdiction: { "@id": "dpp:eprJurisdiction", "@type": "@id" },
-    eprComplianceUrl: { "@id": "dpp:eprComplianceUrl", "@type": "xsd:anyURI" },
-    eprWasteStream: "dpp:eprWasteStream",
-    Biodegradability: "dpp:Biodegradability",
-    biodegradability: { "@id": "dpp:biodegradability", "@type": "@id" },
-    biodegradationPercentage: { "@id": "dpp:biodegradationPercentage", "@type": "@id" },
-    biodegradabilityTestMethod: { "@id": "dpp:biodegradabilityTestMethod", "@type": "@vocab", "@context": {
-      ISO14593: "dpp:ISO14593",
-      OECD301B: "dpp:OECD301B",
-      OECD301D: "dpp:OECD301D",
-      OECD301F: "dpp:OECD301F",
-      OECD310: "dpp:OECD310"
-    } },
-    Compostability: "dpp:Compostability",
-    compostability: { "@id": "dpp:compostability", "@type": "@id" },
-    compostabilityType: { "@id": "dpp:compostabilityType", "@type": "@vocab", "@context": {
-      IndustrialCompostable: "dpp:IndustrialCompostable",
-      HomeCompostable: "dpp:HomeCompostable",
-      NotCompostable: "dpp:NotCompostable"
-    } },
-    compostabilityStandard: { "@id": "dpp:compostabilityStandard", "@type": "xsd:anyURI" },
-    bioBasedFraction: { "@id": "dpp:bioBasedFraction", "@type": "xsd:decimal" },
-    DepositReturnScheme: "dpp:DepositReturnScheme",
-    depositReturnScheme: { "@id": "dpp:depositReturnScheme", "@type": "@id" },
-    depositAmount: { "@id": "dpp:depositAmount", "@type": "@id" },
-    depositSchemeOperator: { "@id": "dpp:depositSchemeOperator", "@type": "@id" },
-    depositRedemptionChannelUrl: { "@id": "dpp:depositRedemptionChannelUrl", "@type": "xsd:anyURI" },
-    CarbonFootprintDeclaration: "dpp:CarbonFootprintDeclaration",
-    carbonFootprintDeclaration: { "@id": "dpp:carbonFootprintDeclaration", "@type": "@id" },
-    carbonFootprintRawMaterial: { "@id": "dpp:carbonFootprintRawMaterial", "@type": "@id" },
-    carbonFootprintProduction: { "@id": "dpp:carbonFootprintProduction", "@type": "@id" },
-    carbonFootprintDistribution: { "@id": "dpp:carbonFootprintDistribution", "@type": "@id" },
-    carbonFootprintUse: { "@id": "dpp:carbonFootprintUse", "@type": "@id" },
-    carbonFootprintEndOfLife: { "@id": "dpp:carbonFootprintEndOfLife", "@type": "@id" },
-    carbonFootprintMethodology: { "@id": "dpp:carbonFootprintMethodology", "@type": "xsd:anyURI" },
-    RecyclabilityAssessment: "dpp:RecyclabilityAssessment",
-    recyclabilityAssessment: { "@id": "dpp:recyclabilityAssessment", "@type": "@id" },
-    recyclabilityScore: { "@id": "dpp:recyclabilityScore", "@type": "xsd:decimal" },
-    recyclabilityRate: { "@id": "dpp:recyclabilityRate", "@type": "xsd:decimal" },
-    recyclabilityMethodology: { "@id": "dpp:recyclabilityMethodology", "@type": "xsd:anyURI" },
-    EnergyEfficiency: "dpp:EnergyEfficiency",
-    energyEfficiency: { "@id": "dpp:energyEfficiency", "@type": "@id" },
-    energyEfficiencyClass: { "@id": "dpp:energyEfficiencyClass", "@type": "@vocab", "@context": {
-      A: "dpp:EnergyClassA",
-      B: "dpp:EnergyClassB",
-      C: "dpp:EnergyClassC",
-      D: "dpp:EnergyClassD",
-      E: "dpp:EnergyClassE",
-      F: "dpp:EnergyClassF",
-      G: "dpp:EnergyClassG"
-    } },
-    annualEnergyConsumption: { "@id": "dpp:annualEnergyConsumption", "@type": "@id" },
-    powerConsumptionOn: { "@id": "dpp:powerConsumptionOn", "@type": "@id" },
-    powerConsumptionStandby: { "@id": "dpp:powerConsumptionStandby", "@type": "@id" },
-    powerConsumptionOff: { "@id": "dpp:powerConsumptionOff", "@type": "@id" },
-    eprelRegistrationNumber: "dpp:eprelRegistrationNumber",
-    eprelProductUrl: { "@id": "dpp:eprelProductUrl", "@type": "xsd:anyURI" },
-    EndOfLifeProgram: "dpp:EndOfLifeProgram",
-    endOfLifeProgram: { "@id": "dpp:endOfLifeProgram", "@type": "@id" },
-    takeBackUrl: { "@id": "dpp:takeBackUrl", "@type": "xsd:anyURI" },
-    takeBackIncentive: "dpp:takeBackIncentive",
-    collectionPointDirectoryUrl: { "@id": "dpp:collectionPointDirectoryUrl", "@type": "xsd:anyURI" },
-    dismantlingGuideUrl: { "@id": "dpp:dismantlingGuideUrl", "@type": "xsd:anyURI" },
-    hazardSignalWord: { "@id": "dpp:hazardSignalWord", "@type": "@vocab", "@context": {
-      Danger: "dpp:HazardDanger",
-      Warning: "dpp:HazardWarning"
-    } },
-    hazardPictogramCode: { "@id": "dpp:hazardPictogramCode", "@container": "@set" },
-    hazardStatement: { "@id": "dpp:hazardStatement", "@container": "@set" },
-    precautionaryStatement: { "@id": "dpp:precautionaryStatement", "@container": "@set" },
-    repairInformationPortalUrl: { "@id": "dpp:repairInformationPortalUrl", "@type": "xsd:anyURI" },
-    RepairProvider: "dpp:RepairProvider",
-    repairProvider: { "@id": "dpp:repairProvider", "@type": "@id", "@container": "@set" },
-    repairProviderName: "dpp:repairProviderName",
-    repairProviderUrl: { "@id": "dpp:repairProviderUrl", "@type": "xsd:anyURI" },
-    dueDiligenceRegulationContext: { "@id": "dpp:dueDiligenceRegulationContext", "@type": "@id" },
-    supplyChainTransparencyUrl: { "@id": "dpp:supplyChainTransparencyUrl", "@type": "xsd:anyURI" },
-    forcedLabourFreeAssertion: { "@id": "dpp:forcedLabourFreeAssertion", "@type": "xsd:boolean" },
-    isStrategicRawMaterial: { "@id": "dpp:isStrategicRawMaterial", "@type": "xsd:boolean" },
-    crmListVersion: "dpp:crmListVersion",
-    value: {
-      "@id": "gs1:value",
-      "@type": "xsd:decimal"
-    },
-    unitCode: "gs1:unitCode",
-    Organization: "gs1:Organization",
-    partyGLN: "gs1:partyGLN",
-    OperatorInformation: "dpp:OperatorInformation",
-    DueDiligenceReport: "dpp:DueDiligenceReport",
-    CircularityPerformance: "dpp:CircularityPerformance",
-    CircularityInfo: "dpp:CircularityPerformance",
-    EmissionsPerformance: "dpp:EmissionsPerformance",
-    TraceabilityPerformance: "dpp:TraceabilityPerformance",
-    HazardousSubstance: "dpp:HazardousSubstance",
-    DocumentReference: "dpp:DocumentReference",
-    RecycledContent: "dpp:RecycledContent",
-    MaterialComposition: "dpp:MaterialComposition",
-    FacilityInformation: "dpp:FacilityInformation",
-    SubstanceOfConcern: "dpp:SubstanceOfConcern",
-    PerformanceInfo: "dpp:PerformanceInfo",
-    RepairabilityInfo: "dpp:RepairabilityInfo",
-    AccessRights: "dpp:AccessRights",
-    operatorInformation: {
-      "@id": "dpp:operatorInformation",
-      "@type": "@id"
-    },
-    operatorRole: {
-      "@id": "dpp:operatorRole",
-      "@type": "@vocab",
-      "@context": {
-        Manufacturer: "dpp:Manufacturer",
-        Importer: "dpp:Importer",
-        Distributor: "dpp:Distributor",
-        Processor: "dpp:Processor",
-        Trader: "dpp:Trader",
-        AuthorisedRepresentative: "dpp:AuthorisedRepresentative",
-        FulfilmentServiceProvider: "dpp:FulfilmentServiceProvider"
+// demos/en18223-converter/contexts.json
+var contexts_default = {
+  "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld": {
+    _comment: "OpenEPCIS DPP Core Context v0.9.6 - The Universal DPP Platform. Aligned with ESPR 2024/1781, GS1, and UNTP standards. All ratio/fraction values use 0-1 decimal scale. EPCIS Extension: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/",
+    "@context": {
+      "@version": 1.1,
+      dpp: "https://ref.openepcis.io/extensions/common/core/",
+      gs1: "https://ref.gs1.org/voc/",
+      xsd: "http://www.w3.org/2001/XMLSchema#",
+      rdfs: "http://www.w3.org/2000/01/rdf-schema#",
+      schema: "https://schema.org/",
+      id: "@id",
+      type: "@type",
+      identifier: "@id",
+      _comment: {
+        "@id": "rdfs:comment",
+        "@container": "@set"
+      },
+      _comment_architecture: {
+        "@id": "rdfs:comment",
+        "@container": "@set"
+      },
+      _comment_classification: {
+        "@id": "rdfs:comment",
+        "@container": "@set"
+      },
+      _comment_composition: {
+        "@id": "rdfs:comment",
+        "@container": "@set"
+      },
+      _comment_environmental_footprint: {
+        "@id": "rdfs:comment",
+        "@container": "@set"
+      },
+      _comment_gs1_alignment: {
+        "@id": "rdfs:comment",
+        "@container": "@set"
+      },
+      _comment_gs1us_mapping: {
+        "@id": "rdfs:comment",
+        "@container": "@set"
+      },
+      _comment_itip_ai8026: {
+        "@id": "rdfs:comment",
+        "@container": "@set"
+      },
+      _comment_recyclability: {
+        "@id": "rdfs:comment",
+        "@container": "@set"
+      },
+      _comment_recycled_content_structured: {
+        "@id": "rdfs:comment",
+        "@container": "@set"
+      },
+      _comment_robustness: {
+        "@id": "rdfs:comment",
+        "@container": "@set"
+      },
+      _comment_soc: {
+        "@id": "rdfs:comment",
+        "@container": "@set"
+      },
+      _comment_spareparts: {
+        "@id": "rdfs:comment",
+        "@container": "@set"
+      },
+      _notes: {
+        "@id": "rdfs:comment",
+        "@container": "@set"
+      },
+      _scenario: "rdfs:comment",
+      masterDataAvailableFor: {
+        "@id": "dpp:masterDataAvailableFor",
+        "@container": "@set"
+      },
+      manufacturingDate: {
+        "@id": "gs1:manufacturingDate",
+        "@type": "xsd:date"
+      },
+      streetAddress: "gs1:streetAddress",
+      addressLocality: "gs1:addressLocality",
+      postalCode: "gs1:postalCode",
+      addressCountry: "gs1:addressCountry",
+      countryCode: "gs1:countryCode",
+      locationGLN: "gs1:locationGLN",
+      physicalLocationName: "gs1:physicalLocationName",
+      serialNumber: "gs1:serialNumber",
+      gtin: "gs1:gtin",
+      productName: "gs1:productName",
+      countryOfOrigin: "gs1:countryOfOrigin",
+      netWeight: {
+        "@id": "gs1:netWeight",
+        "@type": "@id"
+      },
+      AccessLevel: "dpp:AccessLevel",
+      DocumentType: "dpp:DocumentType",
+      GranularityLevel: "dpp:GranularityLevel",
+      HazardClass: "dpp:HazardClass",
+      OperationalScope: "dpp:OperationalScope",
+      OperatorRole: "dpp:OperatorRole",
+      ProductCategory: "dpp:ProductCategory",
+      QuantitativeValue: "gs1:QuantitativeValue",
+      ExtendedProducerResponsibility: "dpp:ExtendedProducerResponsibility",
+      extendedProducerResponsibility: {
+        "@id": "dpp:extendedProducerResponsibility",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      eprRegistrationNumber: "dpp:eprRegistrationNumber",
+      eprScheme: {
+        "@id": "dpp:eprScheme",
+        "@type": "@id"
+      },
+      eprJurisdiction: {
+        "@id": "dpp:eprJurisdiction",
+        "@type": "@id"
+      },
+      eprComplianceUrl: {
+        "@id": "dpp:eprComplianceUrl",
+        "@type": "xsd:anyURI"
+      },
+      eprWasteStream: "dpp:eprWasteStream",
+      Biodegradability: "dpp:Biodegradability",
+      biodegradability: {
+        "@id": "dpp:biodegradability",
+        "@type": "@id"
+      },
+      biodegradationPercentage: {
+        "@id": "dpp:biodegradationPercentage",
+        "@type": "@id"
+      },
+      biodegradabilityTestMethod: {
+        "@id": "dpp:biodegradabilityTestMethod",
+        "@type": "@vocab",
+        "@context": {
+          ISO14593: "dpp:ISO14593",
+          OECD301B: "dpp:OECD301B",
+          OECD301D: "dpp:OECD301D",
+          OECD301F: "dpp:OECD301F",
+          OECD310: "dpp:OECD310"
+        }
+      },
+      Compostability: "dpp:Compostability",
+      compostability: {
+        "@id": "dpp:compostability",
+        "@type": "@id"
+      },
+      compostabilityType: {
+        "@id": "dpp:compostabilityType",
+        "@type": "@vocab",
+        "@context": {
+          IndustrialCompostable: "dpp:IndustrialCompostable",
+          HomeCompostable: "dpp:HomeCompostable",
+          NotCompostable: "dpp:NotCompostable"
+        }
+      },
+      compostabilityStandard: {
+        "@id": "dpp:compostabilityStandard",
+        "@type": "xsd:anyURI"
+      },
+      bioBasedFraction: {
+        "@id": "dpp:bioBasedFraction",
+        "@type": "xsd:decimal"
+      },
+      DepositReturnScheme: "dpp:DepositReturnScheme",
+      depositReturnScheme: {
+        "@id": "dpp:depositReturnScheme",
+        "@type": "@id"
+      },
+      depositAmount: {
+        "@id": "dpp:depositAmount",
+        "@type": "@id"
+      },
+      depositSchemeOperator: {
+        "@id": "dpp:depositSchemeOperator",
+        "@type": "@id"
+      },
+      depositRedemptionChannelUrl: {
+        "@id": "dpp:depositRedemptionChannelUrl",
+        "@type": "xsd:anyURI"
+      },
+      CarbonFootprintDeclaration: "dpp:CarbonFootprintDeclaration",
+      carbonFootprintDeclaration: {
+        "@id": "dpp:carbonFootprintDeclaration",
+        "@type": "@id"
+      },
+      carbonFootprintRawMaterial: {
+        "@id": "dpp:carbonFootprintRawMaterial",
+        "@type": "@id"
+      },
+      carbonFootprintProduction: {
+        "@id": "dpp:carbonFootprintProduction",
+        "@type": "@id"
+      },
+      carbonFootprintDistribution: {
+        "@id": "dpp:carbonFootprintDistribution",
+        "@type": "@id"
+      },
+      carbonFootprintUse: {
+        "@id": "dpp:carbonFootprintUse",
+        "@type": "@id"
+      },
+      carbonFootprintEndOfLife: {
+        "@id": "dpp:carbonFootprintEndOfLife",
+        "@type": "@id"
+      },
+      carbonFootprintMethodology: {
+        "@id": "dpp:carbonFootprintMethodology",
+        "@type": "xsd:anyURI"
+      },
+      RecyclabilityAssessment: "dpp:RecyclabilityAssessment",
+      recyclabilityAssessment: {
+        "@id": "dpp:recyclabilityAssessment",
+        "@type": "@id"
+      },
+      recyclabilityScore: {
+        "@id": "dpp:recyclabilityScore",
+        "@type": "xsd:decimal"
+      },
+      recyclabilityRate: {
+        "@id": "dpp:recyclabilityRate",
+        "@type": "xsd:decimal"
+      },
+      recyclabilityMethodology: {
+        "@id": "dpp:recyclabilityMethodology",
+        "@type": "xsd:anyURI"
+      },
+      EnergyEfficiency: "dpp:EnergyEfficiency",
+      energyEfficiency: {
+        "@id": "dpp:energyEfficiency",
+        "@type": "@id"
+      },
+      energyEfficiencyClass: {
+        "@id": "dpp:energyEfficiencyClass",
+        "@type": "@vocab",
+        "@context": {
+          A: "dpp:EnergyClassA",
+          B: "dpp:EnergyClassB",
+          C: "dpp:EnergyClassC",
+          D: "dpp:EnergyClassD",
+          E: "dpp:EnergyClassE",
+          F: "dpp:EnergyClassF",
+          G: "dpp:EnergyClassG"
+        }
+      },
+      annualEnergyConsumption: {
+        "@id": "dpp:annualEnergyConsumption",
+        "@type": "@id"
+      },
+      powerConsumptionOn: {
+        "@id": "dpp:powerConsumptionOn",
+        "@type": "@id"
+      },
+      powerConsumptionStandby: {
+        "@id": "dpp:powerConsumptionStandby",
+        "@type": "@id"
+      },
+      powerConsumptionOff: {
+        "@id": "dpp:powerConsumptionOff",
+        "@type": "@id"
+      },
+      eprelRegistrationNumber: "dpp:eprelRegistrationNumber",
+      eprelProductUrl: {
+        "@id": "dpp:eprelProductUrl",
+        "@type": "xsd:anyURI"
+      },
+      EndOfLifeProgram: "dpp:EndOfLifeProgram",
+      endOfLifeProgram: {
+        "@id": "dpp:endOfLifeProgram",
+        "@type": "@id"
+      },
+      takeBackUrl: {
+        "@id": "dpp:takeBackUrl",
+        "@type": "xsd:anyURI"
+      },
+      takeBackIncentive: "dpp:takeBackIncentive",
+      collectionPointDirectoryUrl: {
+        "@id": "dpp:collectionPointDirectoryUrl",
+        "@type": "xsd:anyURI"
+      },
+      dismantlingGuideUrl: {
+        "@id": "dpp:dismantlingGuideUrl",
+        "@type": "xsd:anyURI"
+      },
+      hazardSignalWord: {
+        "@id": "dpp:hazardSignalWord",
+        "@type": "@vocab",
+        "@context": {
+          Danger: "dpp:HazardDanger",
+          Warning: "dpp:HazardWarning"
+        }
+      },
+      hazardPictogramCode: {
+        "@id": "dpp:hazardPictogramCode",
+        "@container": "@set"
+      },
+      hazardStatement: {
+        "@id": "dpp:hazardStatement",
+        "@container": "@set"
+      },
+      precautionaryStatement: {
+        "@id": "dpp:precautionaryStatement",
+        "@container": "@set"
+      },
+      repairInformationPortalUrl: {
+        "@id": "dpp:repairInformationPortalUrl",
+        "@type": "xsd:anyURI"
+      },
+      RepairProvider: "dpp:RepairProvider",
+      repairProvider: {
+        "@id": "dpp:repairProvider",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      repairProviderName: "dpp:repairProviderName",
+      repairProviderUrl: {
+        "@id": "dpp:repairProviderUrl",
+        "@type": "xsd:anyURI"
+      },
+      dueDiligenceRegulationContext: {
+        "@id": "dpp:dueDiligenceRegulationContext",
+        "@type": "@id"
+      },
+      supplyChainTransparencyUrl: {
+        "@id": "dpp:supplyChainTransparencyUrl",
+        "@type": "xsd:anyURI"
+      },
+      forcedLabourFreeAssertion: {
+        "@id": "dpp:forcedLabourFreeAssertion",
+        "@type": "xsd:boolean"
+      },
+      isStrategicRawMaterial: {
+        "@id": "dpp:isStrategicRawMaterial",
+        "@type": "xsd:boolean"
+      },
+      crmListVersion: "dpp:crmListVersion",
+      value: {
+        "@id": "gs1:value",
+        "@type": "xsd:decimal"
+      },
+      unitCode: "gs1:unitCode",
+      Organization: "gs1:Organization",
+      partyGLN: "gs1:partyGLN",
+      OperatorInformation: "dpp:OperatorInformation",
+      DueDiligenceReport: "dpp:DueDiligenceReport",
+      CircularityPerformance: "dpp:CircularityPerformance",
+      CircularityInfo: "dpp:CircularityPerformance",
+      EmissionsPerformance: "dpp:EmissionsPerformance",
+      TraceabilityPerformance: "dpp:TraceabilityPerformance",
+      HazardousSubstance: "dpp:HazardousSubstance",
+      DocumentReference: "dpp:DocumentReference",
+      RecycledContent: "dpp:RecycledContent",
+      MaterialComposition: "dpp:MaterialComposition",
+      FacilityInformation: "dpp:FacilityInformation",
+      SubstanceOfConcern: "dpp:SubstanceOfConcern",
+      PerformanceInfo: "dpp:PerformanceInfo",
+      RepairabilityInfo: "dpp:RepairabilityInfo",
+      AccessRights: "dpp:AccessRights",
+      operatorInformation: {
+        "@id": "dpp:operatorInformation",
+        "@type": "@id"
+      },
+      operatorRole: {
+        "@id": "dpp:operatorRole",
+        "@type": "@vocab",
+        "@context": {
+          Manufacturer: "dpp:Manufacturer",
+          Importer: "dpp:Importer",
+          Distributor: "dpp:Distributor",
+          Processor: "dpp:Processor",
+          Trader: "dpp:Trader",
+          AuthorisedRepresentative: "dpp:AuthorisedRepresentative",
+          FulfilmentServiceProvider: "dpp:FulfilmentServiceProvider"
+        }
+      },
+      gln: "gs1:gln",
+      organizationName: "gs1:organizationName",
+      registrationNumber: "dpp:registrationNumber",
+      economicOperatorId: "dpp:economicOperatorId",
+      eoriNumber: "dpp:eoriNumber",
+      vatIdentificationNumber: "schema:vatID",
+      dueDiligenceReport: {
+        "@id": "dpp:dueDiligenceReport",
+        "@type": "@id"
+      },
+      reportUrl: {
+        "@id": "dpp:reportUrl",
+        "@type": "@id"
+      },
+      thirdPartyAssurancesUrl: {
+        "@id": "dpp:thirdPartyAssurancesUrl",
+        "@type": "@id"
+      },
+      reportDate: {
+        "@id": "dpp:reportDate",
+        "@type": "xsd:date"
+      },
+      verificationBody: {
+        "@id": "dpp:verificationBody",
+        "@type": "@id"
+      },
+      hazardousSubstances: {
+        "@id": "dpp:hazardousSubstances",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      hazardClass: {
+        "@id": "dpp:hazardClass",
+        "@type": "@vocab",
+        "@context": {
+          AcuteToxicity: "dpp:AcuteToxicity",
+          SkinCorrosionOrIrritation: "dpp:SkinCorrosionOrIrritation",
+          EyeDamageOrIrritation: "dpp:EyeDamageOrIrritation",
+          RespiratoryOrSkinSensitization: "dpp:RespiratoryOrSkinSensitization",
+          GermCellMutagenicity: "dpp:GermCellMutagenicity",
+          Carcinogenicity: "dpp:Carcinogenicity",
+          ReproductiveToxicity: "dpp:ReproductiveToxicity",
+          SpecificTargetOrganToxicity: "dpp:SpecificTargetOrganToxicity",
+          AspirationHazard: "dpp:AspirationHazard",
+          HazardousToAquaticEnvironment: "dpp:HazardousToAquaticEnvironment"
+        }
+      },
+      substanceName: "schema:name",
+      casNumber: "dpp:casNumber",
+      concentration: {
+        "@id": "dpp:concentration",
+        "@type": "xsd:decimal"
+      },
+      hazardImpact: "dpp:hazardImpact",
+      substancesOfConcern: {
+        "@id": "dpp:substancesOfConcern",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      ecNumber: "dpp:ecNumber",
+      scipId: "dpp:scipId",
+      substanceLocation: "dpp:substanceLocation",
+      safeUseInstructions: "dpp:safeUseInstructions",
+      safeDisassemblyInstructions: "dpp:safeDisassemblyInstructions",
+      documents: {
+        "@id": "dpp:documents",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      documentType: {
+        "@id": "dpp:documentType",
+        "@type": "@vocab",
+        "@context": {
+          DueDiligenceDocument: "dpp:DueDiligenceDocument",
+          Certificate: "dpp:Certificate",
+          TestReport: "dpp:TestReport",
+          Manual: "dpp:Manual",
+          DeclarationOfConformity: "dpp:DeclarationOfConformity",
+          SafetyDataSheet: "dpp:SafetyDataSheet",
+          EnvironmentalReport: "dpp:EnvironmentalReport",
+          ThirdPartyVerification: "dpp:ThirdPartyVerification"
+        }
+      },
+      documentUrl: {
+        "@id": "dpp:documentUrl",
+        "@type": "@id"
+      },
+      documentTitle: "schema:name",
+      mimeType: "dpp:mimeType",
+      languageCode: "dpp:languageCode",
+      issueDate: {
+        "@id": "dpp:issueDate",
+        "@type": "xsd:date"
+      },
+      validUntil: {
+        "@id": "schema:validUntil",
+        "@type": "xsd:date"
+      },
+      circularityPerformance: {
+        "@id": "dpp:circularityPerformance",
+        "@type": "@id"
+      },
+      recyclableContent: {
+        "@id": "dpp:recyclableContent",
+        "@type": "xsd:decimal"
+      },
+      utilityFactor: {
+        "@id": "dpp:utilityFactor",
+        "@type": "xsd:decimal"
+      },
+      materialCircularityIndicator: {
+        "@id": "dpp:materialCircularityIndicator",
+        "@type": "xsd:decimal"
+      },
+      endOfLifeInstructions: {
+        "@id": "dpp:endOfLifeInstructions",
+        "@type": "@id"
+      },
+      wastePreventionInfo: {
+        "@id": "dpp:wastePreventionInfo",
+        "@type": "@id"
+      },
+      separateCollectionInfo: {
+        "@id": "dpp:separateCollectionInfo",
+        "@type": "@id"
+      },
+      dismantlingInstructions: {
+        "@id": "dpp:dismantlingInstructions",
+        "@type": "@id"
+      },
+      recycledContentDetails: {
+        "@id": "dpp:recycledContentDetails",
+        "@type": "@id"
+      },
+      recycledContent: {
+        "@id": "dpp:recycledContent",
+        "@type": "xsd:decimal"
+      },
+      preConsumerRecycledContent: {
+        "@id": "dpp:preConsumerRecycledContent",
+        "@type": "xsd:decimal"
+      },
+      postConsumerRecycledContent: {
+        "@id": "dpp:postConsumerRecycledContent",
+        "@type": "xsd:decimal"
+      },
+      materialComposition: {
+        "@id": "dpp:materialComposition",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      materialName: "schema:name",
+      massFraction: {
+        "@id": "dpp:massFraction",
+        "@type": "xsd:decimal"
+      },
+      sourceCountry: "gs1:countryOfOrigin",
+      isCriticalRawMaterial: {
+        "@id": "dpp:isCriticalRawMaterial",
+        "@type": "xsd:boolean"
+      },
+      emissionsPerformance: {
+        "@id": "dpp:emissionsPerformance",
+        "@type": "@id"
+      },
+      carbonFootprint: {
+        "@id": "dpp:carbonFootprint",
+        "@type": "@id"
+      },
+      carbonFootprintTotal: {
+        "@id": "dpp:carbonFootprintTotal",
+        "@type": "xsd:decimal"
+      },
+      declaredUnit: "dpp:declaredUnit",
+      carbonFootprintStudyUrl: {
+        "@id": "dpp:carbonFootprintStudyUrl",
+        "@type": "@id"
+      },
+      operationalScope: {
+        "@id": "dpp:operationalScope",
+        "@type": "@vocab",
+        "@context": {
+          CradleToGate: "dpp:CradleToGate",
+          CradleToGrave: "dpp:CradleToGrave"
+        }
+      },
+      primarySourcedRatio: {
+        "@id": "dpp:primarySourcedRatio",
+        "@type": "xsd:decimal"
+      },
+      traceabilityPerformance: {
+        "@id": "dpp:traceabilityPerformance",
+        "@type": "@id"
+      },
+      verifiedRatio: {
+        "@id": "dpp:verifiedRatio",
+        "@type": "xsd:decimal"
+      },
+      granularity: {
+        "@id": "dpp:granularityLevel"
+      },
+      lastDataUpdate: {
+        "@id": "dpp:lastDataUpdate",
+        "@type": "xsd:dateTime"
+      },
+      dataQualityAssessment: "dpp:dataQualityAssessment",
+      dataProviderCertification: "dpp:dataProviderCertification",
+      regulatoryReferenceNumber: "gs1:regulatoryReferenceNumber",
+      complianceDate: {
+        "@id": "dpp:complianceDate",
+        "@type": "xsd:date"
+      },
+      complianceStatus: {
+        "@id": "dpp:complianceStatus",
+        "@type": "xsd:boolean"
+      },
+      facilityInformation: {
+        "@id": "dpp:facilityInformation",
+        "@type": "@id"
+      },
+      facilityType: "dpp:facilityType",
+      name: "gs1:name",
+      address: {
+        "@id": "gs1:address",
+        "@type": "@id"
+      },
+      facilityCertifications: {
+        "@id": "dpp:facilityCertifications",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      performanceInfo: {
+        "@id": "dpp:performanceInfo",
+        "@type": "@id"
+      },
+      expectedLifespan: {
+        "@id": "dpp:expectedLifespan",
+        "@type": "@id"
+      },
+      guaranteedLifespan: {
+        "@id": "dpp:guaranteedLifespan",
+        "@type": "@id"
+      },
+      usageCycles: {
+        "@id": "dpp:usageCycles",
+        "@type": "xsd:integer"
+      },
+      technicalLifetime: {
+        "@id": "dpp:technicalLifetime",
+        "@type": "@id"
+      },
+      performanceClass: "dpp:performanceClass",
+      testedConditions: "dpp:testedConditions",
+      repairabilityInfo: {
+        "@id": "dpp:repairabilityInfo",
+        "@type": "@id"
+      },
+      repairabilityScore: {
+        "@id": "dpp:repairabilityScore",
+        "@type": "xsd:decimal"
+      },
+      repairabilityClass: "dpp:repairabilityClass",
+      sparePartsAvailability: {
+        "@id": "dpp:sparePartsAvailability",
+        "@type": "@id"
+      },
+      sparePartsDeliveryTime: {
+        "@id": "schema:deliveryTime",
+        "@type": "@id"
+      },
+      repairInstructions: {
+        "@id": "dpp:repairInstructions",
+        "@type": "@id"
+      },
+      professionalRepairNetwork: {
+        "@id": "dpp:professionalRepairNetwork",
+        "@type": "@id"
+      },
+      diyRepairPossible: {
+        "@id": "dpp:diyRepairPossible",
+        "@type": "xsd:boolean"
+      },
+      softwareUpdatesAvailability: {
+        "@id": "dpp:softwareUpdatesAvailability",
+        "@type": "@id"
+      },
+      accessRights: {
+        "@id": "dpp:accessRights",
+        "@type": "@id"
+      },
+      accessLevel: {
+        "@id": "dpp:accessLevel",
+        "@type": "@vocab",
+        "@context": {
+          Public: "dpp:Public",
+          AuthorizedOnly: "dpp:AuthorizedOnly",
+          Restricted: "dpp:Restricted"
+        }
+      },
+      authorizedParties: {
+        "@id": "dpp:authorizedParties",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      dataRetentionPeriod: {
+        "@id": "dpp:dataRetentionPeriod",
+        "@type": "@id"
+      },
+      productCategory: {
+        "@id": "dpp:productCategory",
+        "@type": "@vocab",
+        "@context": {
+          Batteries: "dpp:Batteries",
+          Textiles: "dpp:Textiles",
+          Electronics: "dpp:Electronics",
+          Furniture: "dpp:Furniture",
+          Tyres: "dpp:Tyres",
+          ConstructionProducts: "dpp:ConstructionProducts",
+          Chemicals: "dpp:Chemicals",
+          Packaging: "dpp:Packaging",
+          FoodContact: "dpp:FoodContact",
+          IronSteel: "dpp:IronSteel",
+          Aluminium: "dpp:Aluminium"
+        }
+      },
+      productModel: "schema:ProductModel",
+      uniqueProductIdentifier: {
+        "@id": "gs1:productID",
+        "@type": "@id"
+      },
+      digitalProductPassportId: {
+        "@id": "dpp:passportIdentifier",
+        "@type": "@id"
+      },
+      passportVersion: "dpp:passportVersion",
+      passportIssueDate: {
+        "@id": "dpp:passportIssueDate",
+        "@type": "xsd:date"
+      },
+      PassportStatus: "dpp:PassportStatus",
+      dppStatus: {
+        "@id": "dpp:passportStatus"
+      },
+      DPPGranularity: "dpp:DPPGranularity",
+      ModelLevel: "dpp:ModelLevel",
+      ModelPerSiteLevel: "dpp:ModelPerSiteLevel",
+      BatchLevel: "dpp:BatchLevel",
+      ItemLevel: "dpp:ItemLevel",
+      schemaVersion: "schema:schemaVersion",
+      status: {
+        "@id": "schema:status",
+        "@type": "@vocab",
+        "@context": {
+          Draft: "dpp:Draft",
+          Active: "dpp:Active",
+          Inactive: "dpp:Inactive",
+          Withdrawn: "dpp:Withdrawn",
+          Archived: "dpp:Archived",
+          Invalid: "dpp:Invalid",
+          Suspended: "dpp:Suspended"
+        }
+      },
+      reportingGranularity: {
+        "@id": "dpp:reportingGranularity",
+        "@type": "@vocab",
+        "@context": {
+          ModelLevel: "dpp:ModelLevel",
+          ModelPerSiteLevel: "dpp:ModelPerSiteLevel",
+          BatchLevel: "dpp:BatchLevel",
+          ItemLevel: "dpp:ItemLevel"
+        }
+      },
+      lastUpdated: {
+        "@id": "dpp:lastUpdated",
+        "@type": "xsd:dateTime"
+      },
+      dppSchemaVersion: "dpp:dppSchemaVersion",
+      facilityId: "dpp:facilityId",
+      contentSpecificationIds: {
+        "@id": "dpp:contentSpecificationId",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      DigitalProductPassport: "dpp:DigitalProductPassport",
+      DataElement: "dpp:DataElement",
+      DataElementCollection: "dpp:DataElementCollection",
+      SingleValuedDataElement: "dpp:SingleValuedDataElement",
+      MultiValuedDataElement: "dpp:MultiValuedDataElement",
+      MultiLanguageDataElement: "dpp:MultiLanguageDataElement",
+      MultiLanguageValue: "dpp:MultiLanguageValue",
+      elementId: "dpp:elementId",
+      dictionaryReference: {
+        "@id": "dpp:dictionaryReference",
+        "@type": "@id"
+      },
+      valueDataType: "dpp:valueDataType",
+      dataElement: {
+        "@id": "dpp:dataElement",
+        "@container": "@set"
+      },
+      multiLanguageValue: {
+        "@id": "dpp:multiLanguageValue",
+        "@container": "@set"
+      },
+      passportExpiryDate: {
+        "@id": "dpp:passportExpiryDate",
+        "@type": "xsd:date"
+      },
+      passportIssuer: {
+        "@id": "dpp:passportIssuer",
+        "@type": "@id"
+      },
+      previousPassportVersion: {
+        "@id": "dpp:previousPassportVersion",
+        "@type": "@id"
+      },
+      activityClassification: "dpp:activityClassification",
+      did: {
+        "@id": "dpp:did",
+        "@type": "@id"
+      },
+      identityCredentialUrl: {
+        "@id": "dpp:identityCredentialUrl",
+        "@type": "@id"
+      },
+      IndividualTradeItemPiece: "dpp:IndividualTradeItemPiece",
+      tradeItemPieceCount: {
+        "@id": "dpp:tradeItemPieceCount",
+        "@type": "xsd:positiveInteger"
+      },
+      tradeItemPieceNumber: {
+        "@id": "dpp:tradeItemPieceNumber",
+        "@type": "xsd:positiveInteger"
+      },
+      tradeItemPieceOf: {
+        "@id": "dpp:tradeItemPieceOf",
+        "@type": "@id"
+      },
+      tradeItemPieceDescription: "dpp:tradeItemPieceDescription",
+      tradeItemPieces: {
+        "@id": "dpp:tradeItemPieces",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      CustomsCommodityCodeType: "dpp:CustomsCommodityCodeType",
+      customsCommodityCode: "dpp:customsCommodityCode",
+      customsCommodityCodeType: {
+        "@id": "dpp:customsCommodityCodeType",
+        "@type": "@vocab",
+        "@context": {
+          HS6: "dpp:HS6",
+          HS8: "dpp:HS8",
+          CN8: "dpp:CN8",
+          CN10: "dpp:CN10",
+          HTSUS10: "dpp:HTSUS10"
+        }
+      },
+      isRegulationCompliant: {
+        "@id": "dpp:isRegulationCompliant",
+        "@type": "xsd:boolean"
       }
-    },
-    gln: "gs1:gln",
-    organizationName: "gs1:organizationName",
-    registrationNumber: "dpp:registrationNumber",
-    economicOperatorId: "dpp:economicOperatorId",
-    eoriNumber: "dpp:eoriNumber",
-    vatIdentificationNumber: "schema:vatID",
-    dueDiligenceReport: {
-      "@id": "dpp:dueDiligenceReport",
-      "@type": "@id"
-    },
-    reportUrl: {
-      "@id": "dpp:reportUrl",
-      "@type": "@id"
-    },
-    thirdPartyAssurancesUrl: {
-      "@id": "dpp:thirdPartyAssurancesUrl",
-      "@type": "@id"
-    },
-    reportDate: {
-      "@id": "dpp:reportDate",
-      "@type": "xsd:date"
-    },
-    verificationBody: {
-      "@id": "dpp:verificationBody",
-      "@type": "@id"
-    },
-    hazardousSubstances: {
-      "@id": "dpp:hazardousSubstances",
-      "@type": "@id",
-      "@container": "@set"
-    },
-    hazardClass: {
-      "@id": "dpp:hazardClass",
-      "@type": "@vocab",
-      "@context": {
-        AcuteToxicity: "dpp:AcuteToxicity",
-        SkinCorrosionOrIrritation: "dpp:SkinCorrosionOrIrritation",
-        EyeDamageOrIrritation: "dpp:EyeDamageOrIrritation",
-        RespiratoryOrSkinSensitization: "dpp:RespiratoryOrSkinSensitization",
-        GermCellMutagenicity: "dpp:GermCellMutagenicity",
-        Carcinogenicity: "dpp:Carcinogenicity",
-        ReproductiveToxicity: "dpp:ReproductiveToxicity",
-        SpecificTargetOrganToxicity: "dpp:SpecificTargetOrganToxicity",
-        AspirationHazard: "dpp:AspirationHazard",
-        HazardousToAquaticEnvironment: "dpp:HazardousToAquaticEnvironment"
-      }
-    },
-    substanceName: "schema:name",
-    casNumber: "dpp:casNumber",
-    concentration: {
-      "@id": "dpp:concentration",
-      "@type": "xsd:decimal"
-    },
-    hazardImpact: "dpp:hazardImpact",
-    substancesOfConcern: {
-      "@id": "dpp:substancesOfConcern",
-      "@type": "@id",
-      "@container": "@set"
-    },
-    ecNumber: "dpp:ecNumber",
-    scipId: "dpp:scipId",
-    substanceLocation: "dpp:substanceLocation",
-    safeUseInstructions: "dpp:safeUseInstructions",
-    safeDisassemblyInstructions: "dpp:safeDisassemblyInstructions",
-    documents: {
-      "@id": "dpp:documents",
-      "@type": "@id",
-      "@container": "@set"
-    },
-    documentType: {
-      "@id": "dpp:documentType",
-      "@type": "@vocab",
-      "@context": {
-        DueDiligenceDocument: "dpp:DueDiligenceDocument",
-        Certificate: "dpp:Certificate",
-        TestReport: "dpp:TestReport",
-        Manual: "dpp:Manual",
-        DeclarationOfConformity: "dpp:DeclarationOfConformity",
-        SafetyDataSheet: "dpp:SafetyDataSheet",
-        EnvironmentalReport: "dpp:EnvironmentalReport",
-        ThirdPartyVerification: "dpp:ThirdPartyVerification"
-      }
-    },
-    documentUrl: {
-      "@id": "dpp:documentUrl",
-      "@type": "@id"
-    },
-    documentTitle: "schema:name",
-    mimeType: "dpp:mimeType",
-    languageCode: "dpp:languageCode",
-    issueDate: {
-      "@id": "dpp:issueDate",
-      "@type": "xsd:date"
-    },
-    validUntil: {
-      "@id": "schema:validUntil",
-      "@type": "xsd:date"
-    },
-    circularityPerformance: {
-      "@id": "dpp:circularityPerformance",
-      "@type": "@id"
-    },
-    recyclableContent: {
-      "@id": "dpp:recyclableContent",
-      "@type": "xsd:decimal"
-    },
-    utilityFactor: {
-      "@id": "dpp:utilityFactor",
-      "@type": "xsd:decimal"
-    },
-    materialCircularityIndicator: {
-      "@id": "dpp:materialCircularityIndicator",
-      "@type": "xsd:decimal"
-    },
-    endOfLifeInstructions: {
-      "@id": "dpp:endOfLifeInstructions",
-      "@type": "@id"
-    },
-    wastePreventionInfo: {
-      "@id": "dpp:wastePreventionInfo",
-      "@type": "@id"
-    },
-    separateCollectionInfo: {
-      "@id": "dpp:separateCollectionInfo",
-      "@type": "@id"
-    },
-    dismantlingInstructions: {
-      "@id": "dpp:dismantlingInstructions",
-      "@type": "@id"
-    },
-    recycledContentDetails: {
-      "@id": "dpp:recycledContentDetails",
-      "@type": "@id"
-    },
-    recycledContent: {
-      "@id": "dpp:recycledContent",
-      "@type": "xsd:decimal"
-    },
-    preConsumerRecycledContent: {
-      "@id": "dpp:preConsumerRecycledContent",
-      "@type": "xsd:decimal"
-    },
-    postConsumerRecycledContent: {
-      "@id": "dpp:postConsumerRecycledContent",
-      "@type": "xsd:decimal"
-    },
-    materialComposition: {
-      "@id": "dpp:materialComposition",
-      "@type": "@id",
-      "@container": "@set"
-    },
-    materialName: "schema:name",
-    massFraction: {
-      "@id": "dpp:massFraction",
-      "@type": "xsd:decimal"
-    },
-    sourceCountry: "gs1:countryOfOrigin",
-    isCriticalRawMaterial: {
-      "@id": "dpp:isCriticalRawMaterial",
-      "@type": "xsd:boolean"
-    },
-    emissionsPerformance: {
-      "@id": "dpp:emissionsPerformance",
-      "@type": "@id"
-    },
-    carbonFootprint: {
-      "@id": "dpp:carbonFootprint",
-      "@type": "@id"
-    },
-    carbonFootprintTotal: {
-      "@id": "dpp:carbonFootprintTotal",
-      "@type": "xsd:decimal"
-    },
-    declaredUnit: "dpp:declaredUnit",
-    carbonFootprintStudyUrl: {
-      "@id": "dpp:carbonFootprintStudyUrl",
-      "@type": "@id"
-    },
-    operationalScope: {
-      "@id": "dpp:operationalScope",
-      "@type": "@vocab",
-      "@context": {
-        CradleToGate: "dpp:CradleToGate",
-        CradleToGrave: "dpp:CradleToGrave"
-      }
-    },
-    primarySourcedRatio: {
-      "@id": "dpp:primarySourcedRatio",
-      "@type": "xsd:decimal"
-    },
-    traceabilityPerformance: {
-      "@id": "dpp:traceabilityPerformance",
-      "@type": "@id"
-    },
-    verifiedRatio: {
-      "@id": "dpp:verifiedRatio",
-      "@type": "xsd:decimal"
-    },
-    granularity: {
-      "@id": "dpp:granularityLevel"
-    },
-    lastDataUpdate: {
-      "@id": "dpp:lastDataUpdate",
-      "@type": "xsd:dateTime"
-    },
-    dataQualityAssessment: "dpp:dataQualityAssessment",
-    dataProviderCertification: "dpp:dataProviderCertification",
-    regulatoryReferenceNumber: "gs1:regulatoryReferenceNumber",
-    complianceDate: {
-      "@id": "dpp:complianceDate",
-      "@type": "xsd:date"
-    },
-    complianceStatus: {
-      "@id": "dpp:complianceStatus",
-      "@type": "xsd:boolean"
-    },
-    facilityInformation: {
-      "@id": "dpp:facilityInformation",
-      "@type": "@id"
-    },
-    facilityType: "dpp:facilityType",
-    name: "gs1:name",
-    address: {
-      "@id": "gs1:address",
-      "@type": "@id"
-    },
-    facilityCertifications: {
-      "@id": "dpp:facilityCertifications",
-      "@type": "@id",
-      "@container": "@set"
-    },
-    performanceInfo: {
-      "@id": "dpp:performanceInfo",
-      "@type": "@id"
-    },
-    expectedLifespan: {
-      "@id": "dpp:expectedLifespan",
-      "@type": "@id"
-    },
-    guaranteedLifespan: {
-      "@id": "dpp:guaranteedLifespan",
-      "@type": "@id"
-    },
-    usageCycles: {
-      "@id": "dpp:usageCycles",
-      "@type": "xsd:integer"
-    },
-    technicalLifetime: {
-      "@id": "dpp:technicalLifetime",
-      "@type": "@id"
-    },
-    performanceClass: "dpp:performanceClass",
-    testedConditions: "dpp:testedConditions",
-    repairabilityInfo: {
-      "@id": "dpp:repairabilityInfo",
-      "@type": "@id"
-    },
-    repairabilityScore: {
-      "@id": "dpp:repairabilityScore",
-      "@type": "xsd:decimal"
-    },
-    repairabilityClass: "dpp:repairabilityClass",
-    sparePartsAvailability: {
-      "@id": "dpp:sparePartsAvailability",
-      "@type": "@id"
-    },
-    sparePartsDeliveryTime: {
-      "@id": "schema:deliveryTime",
-      "@type": "@id"
-    },
-    repairInstructions: {
-      "@id": "dpp:repairInstructions",
-      "@type": "@id"
-    },
-    professionalRepairNetwork: {
-      "@id": "dpp:professionalRepairNetwork",
-      "@type": "@id"
-    },
-    diyRepairPossible: {
-      "@id": "dpp:diyRepairPossible",
-      "@type": "xsd:boolean"
-    },
-    softwareUpdatesAvailability: {
-      "@id": "dpp:softwareUpdatesAvailability",
-      "@type": "@id"
-    },
-    accessRights: {
-      "@id": "dpp:accessRights",
-      "@type": "@id"
-    },
-    accessLevel: {
-      "@id": "dpp:accessLevel",
-      "@type": "@vocab",
-      "@context": {
-        Public: "dpp:Public",
-        AuthorizedOnly: "dpp:AuthorizedOnly",
-        Restricted: "dpp:Restricted"
-      }
-    },
-    authorizedParties: {
-      "@id": "dpp:authorizedParties",
-      "@type": "@id",
-      "@container": "@set"
-    },
-    dataRetentionPeriod: {
-      "@id": "dpp:dataRetentionPeriod",
-      "@type": "@id"
-    },
-    productCategory: {
-      "@id": "dpp:productCategory",
-      "@type": "@vocab",
-      "@context": {
-        Batteries: "dpp:Batteries",
-        Textiles: "dpp:Textiles",
-        Electronics: "dpp:Electronics",
-        Furniture: "dpp:Furniture",
-        Tyres: "dpp:Tyres",
-        ConstructionProducts: "dpp:ConstructionProducts",
-        Chemicals: "dpp:Chemicals",
-        Packaging: "dpp:Packaging",
-        FoodContact: "dpp:FoodContact",
-        IronSteel: "dpp:IronSteel",
-        Aluminium: "dpp:Aluminium"
-      }
-    },
-    productModel: "schema:ProductModel",
-    uniqueProductIdentifier: {
-      "@id": "gs1:productID",
-      "@type": "@id"
-    },
-    digitalProductPassportId: {
-      "@id": "dpp:passportIdentifier",
-      "@type": "@id"
-    },
-    passportVersion: "dpp:passportVersion",
-    passportIssueDate: {
-      "@id": "dpp:passportIssueDate",
-      "@type": "xsd:date"
-    },
-    PassportStatus: "dpp:PassportStatus",
-    dppStatus: {
-      "@id": "dpp:passportStatus"
-    },
-    DPPGranularity: "dpp:DPPGranularity",
-    ModelLevel: "dpp:ModelLevel",
-    ModelPerSiteLevel: "dpp:ModelPerSiteLevel",
-    BatchLevel: "dpp:BatchLevel",
-    ItemLevel: "dpp:ItemLevel",
-    schemaVersion: "schema:schemaVersion",
-    status: {
-      "@id": "schema:status",
-      "@type": "@vocab",
-      "@context": {
-        Draft: "dpp:Draft",
-        Active: "dpp:Active",
-        Inactive: "dpp:Inactive",
-        Withdrawn: "dpp:Withdrawn",
-        Archived: "dpp:Archived",
-        Invalid: "dpp:Invalid",
-        Suspended: "dpp:Suspended"
-      }
-    },
-    reportingGranularity: {
-      "@id": "dpp:reportingGranularity",
-      "@type": "@vocab",
-      "@context": {
-        ModelLevel: "dpp:ModelLevel",
-        ModelPerSiteLevel: "dpp:ModelPerSiteLevel",
-        BatchLevel: "dpp:BatchLevel",
-        ItemLevel: "dpp:ItemLevel"
-      }
-    },
-    lastUpdated: {
-      "@id": "dpp:lastUpdated",
-      "@type": "xsd:dateTime"
-    },
-    dppSchemaVersion: "dpp:dppSchemaVersion",
-    facilityId: "dpp:facilityId",
-    contentSpecificationIds: {
-      "@id": "dpp:contentSpecificationId",
-      "@type": "@id",
-      "@container": "@set"
-    },
-    DigitalProductPassport: "dpp:DigitalProductPassport",
-    DataElement: "dpp:DataElement",
-    DataElementCollection: "dpp:DataElementCollection",
-    SingleValuedDataElement: "dpp:SingleValuedDataElement",
-    MultiValuedDataElement: "dpp:MultiValuedDataElement",
-    MultiLanguageDataElement: "dpp:MultiLanguageDataElement",
-    MultiLanguageValue: "dpp:MultiLanguageValue",
-    elementId: "dpp:elementId",
-    dictionaryReference: { "@id": "dpp:dictionaryReference", "@type": "@id" },
-    valueDataType: "dpp:valueDataType",
-    dataElement: { "@id": "dpp:dataElement", "@container": "@set" },
-    multiLanguageValue: { "@id": "dpp:multiLanguageValue", "@container": "@set" },
-    passportExpiryDate: {
-      "@id": "dpp:passportExpiryDate",
-      "@type": "xsd:date"
-    },
-    passportIssuer: {
-      "@id": "dpp:passportIssuer",
-      "@type": "@id"
-    },
-    previousPassportVersion: {
-      "@id": "dpp:previousPassportVersion",
-      "@type": "@id"
-    },
-    activityClassification: "dpp:activityClassification",
-    did: {
-      "@id": "dpp:did",
-      "@type": "@id"
-    },
-    identityCredentialUrl: {
-      "@id": "dpp:identityCredentialUrl",
-      "@type": "@id"
-    },
-    IndividualTradeItemPiece: "dpp:IndividualTradeItemPiece",
-    tradeItemPieceCount: {
-      "@id": "dpp:tradeItemPieceCount",
-      "@type": "xsd:positiveInteger"
-    },
-    tradeItemPieceNumber: {
-      "@id": "dpp:tradeItemPieceNumber",
-      "@type": "xsd:positiveInteger"
-    },
-    tradeItemPieceOf: {
-      "@id": "dpp:tradeItemPieceOf",
-      "@type": "@id"
-    },
-    tradeItemPieceDescription: "dpp:tradeItemPieceDescription",
-    tradeItemPieces: {
-      "@id": "dpp:tradeItemPieces",
-      "@type": "@id",
-      "@container": "@set"
-    },
-    CustomsCommodityCodeType: "dpp:CustomsCommodityCodeType",
-    customsCommodityCode: "dpp:customsCommodityCode",
-    customsCommodityCodeType: {
-      "@id": "dpp:customsCommodityCodeType",
-      "@type": "@vocab",
-      "@context": {
-        HS6: "dpp:HS6",
-        HS8: "dpp:HS8",
-        CN8: "dpp:CN8",
-        CN10: "dpp:CN10",
-        HTSUS10: "dpp:HTSUS10"
-      }
-    },
-    isRegulationCompliant: {
-      "@id": "dpp:isRegulationCompliant",
-      "@type": "xsd:boolean"
     }
+  },
+  "https://ref.openepcis.io/extensions/common/core/gs1-shortcuts-context.jsonld": {
+    "@context": {
+      "@version": 1.1,
+      gs1: "https://ref.gs1.org/voc/",
+      xsd: "http://www.w3.org/2001/XMLSchema#",
+      BATTERY_DIRECTIVE: "gs1:RegulationTypeCode-BATTERY_DIRECTIVE",
+      DEFORESTATION_REGULATION: "gs1:RegulationTypeCode-DEFORESTATION_REGULATION",
+      ROHS_DIRECTIVE: "gs1:RegulationTypeCode-ROHS_DIRECTIVE",
+      WEEE_DIRECTIVE: "gs1:RegulationTypeCode-WEEE_DIRECTIVE",
+      REACH: "gs1:RegulationTypeCode-REACH",
+      CE_MARKING: "gs1:RegulationTypeCode-CE_MARKING",
+      CE: "gs1:RegulationTypeCode-CE",
+      E_MARK: "gs1:RegulationTypeCode-E_MARK",
+      ECODESIGN_DIRECTIVE: "gs1:RegulationTypeCode-ECODESIGN_DIRECTIVE",
+      LVD_DIRECTIVE: "gs1:RegulationTypeCode-LVD_DIRECTIVE",
+      EMC_DIRECTIVE: "gs1:RegulationTypeCode-EMC_DIRECTIVE",
+      MACHINERY_DIRECTIVE: "gs1:RegulationTypeCode-MACHINERY_DIRECTIVE",
+      PACKAGING_WASTE_DIRECTIVE: "gs1:RegulationTypeCode-PACKAGING_WASTE_DIRECTIVE",
+      FOOD_CONTACT_MATERIAL: "gs1:RegulationTypeCode-FOOD_CONTACT_MATERIAL",
+      MEDICAL_DEVICE_REGULATION: "gs1:RegulationTypeCode-MEDICAL_DEVICE_REGULATION",
+      BIOCIDE_REGULATION: "gs1:RegulationTypeCode-BIOCIDE_REGULATION",
+      COSMETICS_REGULATION: "gs1:RegulationTypeCode-COSMETICS_REGULATION",
+      TOYS_DIRECTIVE: "gs1:RegulationTypeCode-TOYS_DIRECTIVE",
+      PPE_REGULATION: "gs1:RegulationTypeCode-PPE_REGULATION",
+      CONSTRUCTION_PRODUCTS_REGULATION: "gs1:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION",
+      INFANT_FORMULA_LABELLING: "gs1:RegulationTypeCode-INFANT_FORMULA_LABELLING",
+      AEROSOL_REVERSE_EPSILON: "gs1:RegulationTypeCode-AEROSOL_REVERSE_EPSILON",
+      UVA: "gs1:RegulationTypeCode-UVA",
+      regulationType: {
+        "@id": "gs1:regulationType",
+        "@type": "@id"
+      },
+      regulatoryAct: "gs1:regulatoryAct",
+      isRegulationCompliant: {
+        "@id": "gs1:isRegulationCompliant",
+        "@type": "xsd:boolean"
+      },
+      regulatoryInformation: {
+        "@id": "gs1:regulatoryInformation",
+        "@type": "@id"
+      }
+    }
+  },
+  "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld": {
+    "@context": [
+      "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+      {
+        "@version": 1.1,
+        gs1: "https://ref.gs1.org/voc/",
+        battery: "https://ref.openepcis.io/extensions/eu/battery/",
+        dpp: "https://ref.openepcis.io/extensions/common/core/",
+        schema: "https://schema.org/",
+        xsd: "http://www.w3.org/2001/XMLSchema#",
+        rdfs: "http://www.w3.org/2000/01/rdf-schema#",
+        cv: "http://data.europa.eu/m8g/",
+        cccev: "http://data.europa.eu/m8g/",
+        id: "@id",
+        type: "@type",
+        Product: "gs1:Product",
+        productName: "gs1:productName",
+        gtin: "gs1:gtin",
+        countryOfOrigin: "gs1:countryOfOrigin",
+        manufacturer: {
+          "@id": "gs1:manufacturer",
+          "@type": "@id"
+        },
+        manufacturingDate: {
+          "@id": "gs1:manufacturingDate",
+          "@type": "xsd:date"
+        },
+        netWeight: {
+          "@id": "gs1:netWeight",
+          "@type": "@id"
+        },
+        grossWeight: {
+          "@id": "gs1:grossWeight",
+          "@type": "@id"
+        },
+        hasBattery: {
+          "@id": "battery:hasBattery",
+          "@type": "@id"
+        },
+        AdditionalProductClassificationDetails: "gs1:AdditionalProductClassificationDetails",
+        additionalProductClassification: {
+          "@id": "gs1:additionalProductClassification",
+          "@type": "@id"
+        },
+        additionalProductClassificationCode: "gs1:additionalProductClassificationCode",
+        additionalProductClassificationCodeDescription: "gs1:additionalProductClassificationCodeDescription",
+        additionalProductClassificationSystemCode: "gs1:additionalProductClassificationSystemCode",
+        RegulatoryInformation: "gs1:RegulatoryInformation",
+        "RegulationTypeCode-BATTERY_DIRECTIVE": "gs1:RegulationTypeCode-BATTERY_DIRECTIVE",
+        "RegulationTypeCode-CE": "gs1:RegulationTypeCode-CE",
+        regulatoryInformation: "gs1:regulatoryInformation",
+        regulationType: "gs1:regulationType",
+        regulatoryAct: "gs1:regulatoryAct",
+        regulatoryActStatus: "gs1:regulatoryActStatus",
+        regulatoryPermitIdentification: "gs1:regulatoryPermitIdentification",
+        isRegulationCompliant: "gs1:isRegulationCompliant",
+        regulatoryInformationProvider: "gs1:regulatoryInformationProvider",
+        Battery: "battery:Battery",
+        BatteryChemistry: "battery:BatteryChemistry",
+        TechnicalSpecification: "battery:TechnicalSpecification",
+        BatteryMaterial: "battery:BatteryMaterial",
+        RecycledContent: "battery:RecycledContent",
+        EndOfLifeInfo: "battery:EndOfLifeInfo",
+        HazardousSubstance: "battery:HazardousSubstance",
+        DismantlingDocument: "battery:DismantlingDocument",
+        Label: "battery:Label",
+        SupplyChainDueDiligence: "battery:SupplyChainDueDiligence",
+        PowerCapabilityAtSoC: "battery:PowerCapabilityAtSoC",
+        TemperatureRange: "battery:TemperatureRange",
+        NegativeEvent: "battery:NegativeEvent",
+        CarbonFootprintDeclaration: "battery:CarbonFootprintDeclaration",
+        ThirdPartyVerification: "battery:ThirdPartyVerification",
+        MaterialRecoveryTarget: "battery:MaterialRecoveryTarget",
+        QuantitativeValue: "gs1:QuantitativeValue",
+        BatteryCategory: "battery:BatteryCategory",
+        BatteryStatus: "battery:BatteryStatus",
+        CellType: "battery:CellType",
+        ComponentLocation: "battery:ComponentLocation",
+        MaterialCategory: "battery:MaterialCategory",
+        HazardClass: "battery:HazardClass",
+        DismantlingDocumentType: "battery:DismantlingDocumentType",
+        LabelSubject: "battery:LabelSubject",
+        OperatorRole: "dpp:OperatorRole",
+        IncidentSeverity: "battery:IncidentSeverity",
+        NegativeEventType: "battery:NegativeEventType",
+        ComplianceStatus: "battery:ComplianceStatus",
+        CarbonFootprintClass: "battery:CarbonFootprintClass",
+        ResponsibleSourcingStandard: "battery:ResponsibleSourcingStandard",
+        AccessLevel: "battery:AccessLevel",
+        PublicAccess: "battery:PublicAccess",
+        AuthorizedAccess: "battery:AuthorizedAccess",
+        AuthoritiesOnly: "battery:AuthoritiesOnly",
+        batteryCategory: {
+          "@id": "schema:category",
+          "@type": "@vocab",
+          "@context": {
+            LMTBattery: "battery:LMTBattery",
+            EVBattery: "battery:EVBattery",
+            IndustrialBattery: "battery:IndustrialBattery",
+            StationaryBattery: "battery:StationaryBattery",
+            PortableBattery: "battery:PortableBattery",
+            SLIBattery: "battery:SLIBattery"
+          }
+        },
+        batteryStatus: {
+          "@id": "schema:status",
+          "@type": "@vocab",
+          "@context": {
+            Original: "battery:Original",
+            Repurposed: "battery:Repurposed",
+            Reused: "battery:Reused",
+            Remanufactured: "battery:Remanufactured",
+            Waste: "battery:Waste"
+          }
+        },
+        batteryModel: "schema:model",
+        batteryModelIdentifier: "battery:batteryModelIdentifier",
+        batterySerialNumber: "gs1:hasSerialNumber",
+        facilityIdentifier: "battery:facilityIdentifier",
+        manufacturingPlace: {
+          "@id": "battery:manufacturingPlace",
+          "@type": "@id"
+        },
+        cellType: {
+          "@id": "battery:cellType",
+          "@type": "@vocab",
+          "@context": {
+            CylindricalCell: "battery:CylindricalCell",
+            PrismaticCell: "battery:PrismaticCell",
+            PouchCell: "battery:PouchCell",
+            BladeCell: "battery:BladeCell",
+            CoinCell: "battery:CoinCell"
+          }
+        },
+        numberOfCells: {
+          "@id": "battery:numberOfCells",
+          "@type": "xsd:integer"
+        },
+        numberOfModules: {
+          "@id": "battery:numberOfModules",
+          "@type": "xsd:integer"
+        },
+        puttingIntoService: {
+          "@id": "battery:puttingIntoService",
+          "@type": "xsd:date"
+        },
+        batteryPassportIdentifier: {
+          "@id": "battery:batteryPassportIdentifier",
+          "@type": "@id"
+        },
+        schemaVersion: "schema:schemaVersion",
+        dppStatus: {
+          "@id": "dpp:passportStatus"
+        },
+        reportingGranularity: {
+          "@id": "dpp:reportingGranularity",
+          "@type": "@vocab",
+          "@context": {
+            ModelLevel: "dpp:ModelLevel",
+            ModelPerSiteLevel: "dpp:ModelPerSiteLevel",
+            BatchLevel: "dpp:BatchLevel",
+            ItemLevel: "dpp:ItemLevel"
+          }
+        },
+        lastUpdated: {
+          "@id": "dpp:lastUpdated",
+          "@type": "xsd:dateTime"
+        },
+        batteryChemistry: {
+          "@id": "battery:batteryChemistry",
+          "@type": "@id"
+        },
+        shortName: "schema:name",
+        fullName: "schema:name",
+        cathodeActiveMaterial: "battery:cathodeActiveMaterial",
+        anodeActiveMaterial: "battery:anodeActiveMaterial",
+        electrolyteType: "battery:electrolyteType",
+        electrolyteComposition: "battery:electrolyteComposition",
+        technicalSpecifications: {
+          "@id": "battery:technicalSpecifications",
+          "@type": "@id"
+        },
+        ratedCapacity: {
+          "@id": "battery:ratedCapacity",
+          "@type": "@id"
+        },
+        ratedEnergy: {
+          "@id": "battery:ratedEnergy",
+          "@type": "@id"
+        },
+        nominalVoltage: {
+          "@id": "battery:nominalVoltage",
+          "@type": "@id"
+        },
+        minimumVoltage: {
+          "@id": "battery:minimumVoltage",
+          "@type": "@id"
+        },
+        maximumVoltage: {
+          "@id": "battery:maximumVoltage",
+          "@type": "@id"
+        },
+        ratedMaximumPower: {
+          "@id": "battery:ratedMaximumPower",
+          "@type": "@id"
+        },
+        maximumChargingPower: {
+          "@id": "battery:maximumChargingPower",
+          "@type": "@id"
+        },
+        maximumDischargingPower: {
+          "@id": "battery:maximumDischargingPower",
+          "@type": "@id"
+        },
+        maximumChargingCurrent: {
+          "@id": "battery:maximumChargingCurrent",
+          "@type": "@id"
+        },
+        maximumDischargingCurrent: {
+          "@id": "battery:maximumDischargingCurrent",
+          "@type": "@id"
+        },
+        expectedCycleLife: {
+          "@id": "battery:expectedCycleLife",
+          "@type": "xsd:integer"
+        },
+        expectedLifetimeYears: {
+          "@id": "battery:expectedLifetimeYears",
+          "@type": "xsd:integer"
+        },
+        expectedLifetimeEnergyThroughput: {
+          "@id": "battery:expectedLifetimeEnergyThroughput",
+          "@type": "@id"
+        },
+        expectedLifetimeCapacityThroughput: {
+          "@id": "battery:expectedLifetimeCapacityThroughput",
+          "@type": "@id"
+        },
+        roundTripEfficiency: {
+          "@id": "battery:roundTripEfficiency",
+          "@type": "xsd:decimal"
+        },
+        roundTripEfficiencyAt50PercentCycleLife: {
+          "@id": "battery:roundTripEfficiencyAt50PercentCycleLife",
+          "@type": "xsd:decimal"
+        },
+        depthOfDischargeInCycleLifeTest: {
+          "@id": "battery:depthOfDischargeInCycleLifeTest",
+          "@type": "xsd:decimal"
+        },
+        capacityFadeThreshold: {
+          "@id": "battery:capacityFadeThreshold",
+          "@type": "xsd:decimal"
+        },
+        resistanceIncreaseThreshold: {
+          "@id": "battery:resistanceIncreaseThreshold",
+          "@type": "xsd:decimal"
+        },
+        initialInternalResistance: {
+          "@id": "battery:initialInternalResistance",
+          "@type": "@id"
+        },
+        initialSelfDischarge: {
+          "@id": "battery:initialSelfDischarge",
+          "@type": "xsd:decimal"
+        },
+        capacityThresholdForExhaustion: {
+          "@id": "battery:capacityThresholdForExhaustion",
+          "@type": "xsd:decimal"
+        },
+        lifetimeReferenceTest: {
+          "@id": "battery:lifetimeReferenceTest",
+          "@type": "@id"
+        },
+        powerCapabilityRatio: {
+          "@id": "battery:powerCapabilityRatio",
+          "@type": "xsd:decimal"
+        },
+        cRate: {
+          "@id": "battery:cRate",
+          "@type": "xsd:decimal"
+        },
+        cRateLifeCycleTest: {
+          "@id": "battery:cRateLifeCycleTest",
+          "@type": "xsd:decimal"
+        },
+        originalPowerCapability: {
+          "@id": "battery:originalPowerCapability",
+          "@type": "@id"
+        },
+        stateOfChargeLevel: {
+          "@id": "battery:stateOfChargeLevel",
+          "@type": "xsd:decimal"
+        },
+        powerCapability: {
+          "@id": "battery:powerCapability",
+          "@type": "@id"
+        },
+        powerCapabilityAt80SoC: {
+          "@id": "battery:powerCapabilityAt80SoC",
+          "@type": "@id"
+        },
+        powerCapabilityAt20SoC: {
+          "@id": "battery:powerCapabilityAt20SoC",
+          "@type": "@id"
+        },
+        temperatureRangeStorage: {
+          "@id": "battery:temperatureRangeStorage",
+          "@type": "@id"
+        },
+        temperatureRangeCharging: {
+          "@id": "battery:temperatureRangeCharging",
+          "@type": "@id"
+        },
+        temperatureRangeDischarging: {
+          "@id": "battery:temperatureRangeDischarging",
+          "@type": "@id"
+        },
+        temperatureRangeIdleState: {
+          "@id": "battery:temperatureRangeIdleState",
+          "@type": "@id"
+        },
+        minimumTemperature: {
+          "@id": "battery:minimumTemperature",
+          "@type": "@id"
+        },
+        maximumTemperature: {
+          "@id": "battery:maximumTemperature",
+          "@type": "@id"
+        },
+        lifecycleStage: "battery:lifecycleStage",
+        materialComposition: {
+          "@id": "battery:materialComposition",
+          "@type": "@id"
+        },
+        materialName: "schema:name",
+        casNumber: "battery:casNumber",
+        ecNumber: "battery:ecNumber",
+        componentLocation: {
+          "@id": "battery:componentLocation",
+          "@type": "@vocab",
+          "@context": {
+            Cathode: "battery:Cathode",
+            Anode: "battery:Anode",
+            Electrolyte: "battery:Electrolyte",
+            Separator: "battery:Separator",
+            Casing: "battery:Casing",
+            CurrentCollector: "battery:CurrentCollector",
+            BMS: "battery:BMS"
+          }
+        },
+        materialCategory: {
+          "@id": "schema:category",
+          "@type": "@vocab",
+          "@context": {
+            ActiveMaterial: "battery:ActiveMaterial",
+            Binder: "battery:Binder",
+            Conductor: "battery:Conductor",
+            Additive: "battery:Additive",
+            StructuralMaterial: "battery:StructuralMaterial"
+          }
+        },
+        massPercentage: {
+          "@id": "schema:weightPercentage",
+          "@type": "xsd:decimal"
+        },
+        isCriticalRawMaterial: {
+          "@id": "battery:isCriticalRawMaterial",
+          "@type": "xsd:boolean"
+        },
+        isSubstanceOfConcern: {
+          "@id": "battery:isSubstanceOfConcern",
+          "@type": "xsd:boolean"
+        },
+        materialSourceCountry: "gs1:countryOfOrigin",
+        materialSupplier: "battery:materialSupplier",
+        renewableContentShare: {
+          "@id": "battery:renewableContentShare",
+          "@type": "xsd:decimal"
+        },
+        criticalRawMaterialsStatement: "battery:criticalRawMaterialsStatement",
+        recycledContent: {
+          "@id": "battery:recycledContent",
+          "@type": "@id"
+        },
+        lithiumRecycledShare: {
+          "@id": "battery:lithiumRecycledShare",
+          "@type": "xsd:decimal"
+        },
+        lithiumPreConsumerShare: {
+          "@id": "battery:lithiumPreConsumerShare",
+          "@type": "xsd:decimal"
+        },
+        lithiumPostConsumerShare: {
+          "@id": "battery:lithiumPostConsumerShare",
+          "@type": "xsd:decimal"
+        },
+        cobaltRecycledShare: {
+          "@id": "battery:cobaltRecycledShare",
+          "@type": "xsd:decimal"
+        },
+        cobaltPreConsumerShare: {
+          "@id": "battery:cobaltPreConsumerShare",
+          "@type": "xsd:decimal"
+        },
+        cobaltPostConsumerShare: {
+          "@id": "battery:cobaltPostConsumerShare",
+          "@type": "xsd:decimal"
+        },
+        nickelRecycledShare: {
+          "@id": "battery:nickelRecycledShare",
+          "@type": "xsd:decimal"
+        },
+        nickelPreConsumerShare: {
+          "@id": "battery:nickelPreConsumerShare",
+          "@type": "xsd:decimal"
+        },
+        leadPreConsumerShare: {
+          "@id": "battery:leadPreConsumerShare",
+          "@type": "xsd:decimal"
+        },
+        leadPostConsumerShare: {
+          "@id": "battery:leadPostConsumerShare",
+          "@type": "xsd:decimal"
+        },
+        regulatoryIdentifier: {
+          "@id": "gs1:regulatoryIdentifier",
+          "@type": "@id"
+        },
+        regulatoryIdentifierType: {
+          "@id": "gs1:regulatoryIdentifierType",
+          "@type": "@id"
+        },
+        regulatoryReferenceNumber: "gs1:regulatoryReferenceNumber",
+        nickelPostConsumerShare: {
+          "@id": "battery:nickelPostConsumerShare",
+          "@type": "xsd:decimal"
+        },
+        leadRecycledShare: {
+          "@id": "battery:leadRecycledShare",
+          "@type": "xsd:decimal"
+        },
+        endOfLifeInfo: {
+          "@id": "battery:endOfLifeInfo",
+          "@type": "@id"
+        },
+        recyclabilityRate: {
+          "@id": "battery:recyclabilityRate",
+          "@type": "xsd:decimal"
+        },
+        materialRecoveryTargets: {
+          "@id": "battery:materialRecoveryTargets",
+          "@type": "@id"
+        },
+        recoveryMaterial: "battery:recoveryMaterial",
+        recoveryRate: {
+          "@id": "battery:recoveryRate",
+          "@type": "xsd:decimal"
+        },
+        dismantlingInstructions: {
+          "@id": "battery:dismantlingInstructions",
+          "@type": "@id"
+        },
+        safetyInstructionsForDismantling: {
+          "@id": "battery:safetyInstructionsForDismantling",
+          "@type": "@id"
+        },
+        dismantlingTime: {
+          "@id": "battery:dismantlingTime",
+          "@type": "@id"
+        },
+        extinguishingAgent: "battery:extinguishingAgent",
+        wastePrevention: {
+          "@id": "battery:wastePrevention",
+          "@type": "@id"
+        },
+        separateCollection: {
+          "@id": "battery:separateCollection",
+          "@type": "@id"
+        },
+        informationOnCollection: {
+          "@id": "battery:informationOnCollection",
+          "@type": "@id"
+        },
+        renewableContent: {
+          "@id": "battery:renewableContent",
+          "@type": "xsd:decimal"
+        },
+        safetyInstructions: {
+          "@id": "battery:safetyInstructions",
+          "@type": "@id"
+        },
+        dismantlingDocuments: {
+          "@id": "battery:dismantlingDocuments",
+          "@type": "@id"
+        },
+        documentType: {
+          "@id": "battery:documentType",
+          "@type": "@vocab",
+          "@context": {
+            BillOfMaterial: "battery:BillOfMaterial",
+            Model3D: "battery:Model3D",
+            DismantlingManual: "battery:DismantlingManual",
+            RemovalManual: "battery:RemovalManual",
+            SafetyDataSheet: "battery:SafetyDataSheet",
+            OtherManual: "battery:OtherManual",
+            Drawing: "battery:Drawing"
+          }
+        },
+        documentUrl: {
+          "@id": "battery:documentUrl",
+          "@type": "@id"
+        },
+        mimeType: "battery:mimeType",
+        languageCode: "battery:languageCode",
+        hazardousSubstances: {
+          "@id": "battery:hazardousSubstances",
+          "@type": "@id"
+        },
+        hazardClass: {
+          "@id": "battery:hazardClass",
+          "@type": "@vocab",
+          "@context": {
+            AcuteToxicity: "battery:AcuteToxicity",
+            SkinCorrosionOrIrritation: "battery:SkinCorrosionOrIrritation",
+            EyeDamageOrIrritation: "battery:EyeDamageOrIrritation",
+            RespiratoryOrSkinSensitization: "battery:RespiratoryOrSkinSensitization",
+            GermCellMutagenicity: "battery:GermCellMutagenicity",
+            Carcinogenicity: "battery:Carcinogenicity",
+            ReproductiveToxicity: "battery:ReproductiveToxicity",
+            SpecificTargetOrganToxicity: "battery:SpecificTargetOrganToxicity",
+            AspirationHazard: "battery:AspirationHazard",
+            HazardousToAquaticEnvironment: "battery:HazardousToAquaticEnvironment"
+          }
+        },
+        substanceName: "schema:name",
+        substanceCasNumber: "battery:substanceCasNumber",
+        substanceEcNumber: "battery:substanceEcNumber",
+        concentration: {
+          "@id": "battery:concentration",
+          "@type": "xsd:decimal"
+        },
+        hazardImpact: "battery:hazardImpact",
+        substanceLocation: {
+          "@id": "battery:substanceLocation",
+          "@type": "@vocab",
+          "@context": {
+            Cathode: "battery:Cathode",
+            Anode: "battery:Anode",
+            Electrolyte: "battery:Electrolyte",
+            Separator: "battery:Separator",
+            Casing: "battery:Casing",
+            CurrentCollector: "battery:CurrentCollector",
+            BMS: "battery:BMS"
+          }
+        },
+        operatorInformation: {
+          "@id": "battery:operatorInformation",
+          "@type": "@id"
+        },
+        operatorIdentifier: "battery:operatorIdentifier",
+        manufacturerInformation: {
+          "@id": "gs1:manufacturer",
+          "@type": "@id"
+        },
+        manufacturerIdentifier: "battery:manufacturerIdentifier",
+        operatorRole: {
+          "@id": "battery:operatorRole",
+          "@type": "@vocab",
+          "@context": {
+            Manufacturer: "dpp:Manufacturer",
+            Importer: "dpp:Importer",
+            Distributor: "dpp:Distributor",
+            Fulfilment: "dpp:FulfilmentServiceProvider",
+            AuthorisedRepresentative: "dpp:AuthorisedRepresentative"
+          }
+        },
+        sparePartSources: {
+          "@id": "battery:sparePartSources",
+          "@type": "@id"
+        },
+        spareParts: "battery:spareParts",
+        supplierContact: {
+          "@id": "battery:supplierContact",
+          "@type": "@id"
+        },
+        labels: {
+          "@id": "battery:labels",
+          "@type": "@id"
+        },
+        labelSymbol: {
+          "@id": "battery:labelSymbol",
+          "@type": "@id"
+        },
+        labelMeaning: "battery:labelMeaning",
+        labelSubject: {
+          "@id": "battery:labelSubject",
+          "@type": "@vocab",
+          "@context": {
+            SeparateCollection: "battery:SeparateCollection",
+            CadmiumContent: "battery:CadmiumContent",
+            LeadContent: "battery:LeadContent",
+            MercuryContent: "battery:MercuryContent",
+            CarbonFootprintLabel: "battery:CarbonFootprintLabel",
+            ExtinguishingAgentLabel: "battery:ExtinguishingAgentLabel",
+            CapacityLabel: "battery:CapacityLabel",
+            QRCodeLabel: "battery:QRCodeLabel"
+          }
+        },
+        separateCollectionSymbolUrl: {
+          "@id": "battery:separateCollectionSymbolUrl",
+          "@type": "@id"
+        },
+        cadmiumSymbolRequired: {
+          "@id": "battery:cadmiumSymbolRequired",
+          "@type": "xsd:boolean"
+        },
+        leadSymbolRequired: {
+          "@id": "battery:leadSymbolRequired",
+          "@type": "xsd:boolean"
+        },
+        ceMarkingIndicator: {
+          "@id": "battery:ceMarkingIndicator",
+          "@type": "xsd:boolean"
+        },
+        euDeclarationOfConformity: {
+          "@id": "battery:euDeclarationOfConformity",
+          "@type": "@id"
+        },
+        declarationOfConformity: {
+          "@id": "battery:declarationOfConformity",
+          "@type": "@id"
+        },
+        euDeclarationOfConformityId: "battery:euDeclarationOfConformityId",
+        notifiedBody: {
+          "@id": "battery:notifiedBody",
+          "@type": "@id"
+        },
+        notifiedBodyNumber: "battery:notifiedBodyNumber",
+        notifiedBodyName: "battery:notifiedBodyName",
+        resultOfTestReport: {
+          "@id": "battery:resultOfTestReport",
+          "@type": "@id"
+        },
+        testReportNumber: "battery:testReportNumber",
+        complianceStatus: {
+          "@id": "battery:complianceStatus",
+          "@type": "@vocab",
+          "@context": {
+            Compliant: "battery:Compliant",
+            NonCompliant: "battery:NonCompliant",
+            Pending: "battery:Pending",
+            ConditionallyCompliant: "battery:ConditionallyCompliant"
+          }
+        },
+        carbonFootprintDeclaration: {
+          "@id": "battery:carbonFootprintDeclaration",
+          "@type": "@id"
+        },
+        carbonFootprintTotal: {
+          "@id": "battery:carbonFootprintTotal",
+          "@type": "@id"
+        },
+        carbonFootprintRawMaterialExtraction: {
+          "@id": "battery:carbonFootprintRawMaterialExtraction",
+          "@type": "@id"
+        },
+        carbonFootprintProduction: {
+          "@id": "battery:carbonFootprintProduction",
+          "@type": "@id"
+        },
+        carbonFootprintDistribution: {
+          "@id": "battery:carbonFootprintDistribution",
+          "@type": "@id"
+        },
+        carbonFootprintRecycling: {
+          "@id": "battery:carbonFootprintRecycling",
+          "@type": "@id"
+        },
+        absoluteCarbonFootprint: {
+          "@id": "battery:absoluteCarbonFootprint",
+          "@type": "@id"
+        },
+        carbonFootprintPerformanceClass: {
+          "@id": "battery:carbonFootprintPerformanceClass",
+          "@type": "@vocab",
+          "@context": {
+            CFClassA: "battery:CFClassA",
+            CFClassB: "battery:CFClassB",
+            CFClassC: "battery:CFClassC",
+            CFClassD: "battery:CFClassD",
+            CFClassE: "battery:CFClassE"
+          }
+        },
+        carbonFootprintStudyUrl: {
+          "@id": "battery:carbonFootprintStudyUrl",
+          "@type": "@id"
+        },
+        functionalUnit: "battery:functionalUnit",
+        calculationStandard: "battery:calculationStandard",
+        carbonFootprintDeclarationId: "battery:carbonFootprintDeclarationId",
+        carbonFootprintGeographicScope: "battery:carbonFootprintGeographicScope",
+        thirdPartyVerification: {
+          "@id": "battery:thirdPartyVerification",
+          "@type": "@id"
+        },
+        verificationBody: {
+          "@id": "battery:verificationBody",
+          "@type": "@id"
+        },
+        verificationBodyName: "battery:verificationBodyName",
+        verificationDate: {
+          "@id": "battery:verificationDate",
+          "@type": "xsd:date"
+        },
+        verificationCertificateUrl: {
+          "@id": "battery:verificationCertificateUrl",
+          "@type": "@id"
+        },
+        verificationStandard: "battery:verificationStandard",
+        supplyChainDueDiligence: {
+          "@id": "battery:supplyChainDueDiligence",
+          "@type": "@id"
+        },
+        dueDiligenceReportUrl: {
+          "@id": "battery:dueDiligenceReportUrl",
+          "@type": "@id"
+        },
+        dueDiligencePolicyUrl: {
+          "@id": "battery:dueDiligencePolicyUrl",
+          "@type": "@id"
+        },
+        thirdPartyAssurancesUrl: {
+          "@id": "battery:thirdPartyAssurancesUrl",
+          "@type": "@id"
+        },
+        riskAssessmentSummary: "battery:riskAssessmentSummary",
+        supplyChainMappingAvailable: {
+          "@id": "battery:supplyChainMappingAvailable",
+          "@type": "xsd:boolean"
+        },
+        conflictMineralFree: {
+          "@id": "battery:conflictMineralFree",
+          "@type": "xsd:boolean"
+        },
+        responsibleSourcingStandard: {
+          "@id": "battery:responsibleSourcingStandard",
+          "@type": "@vocab",
+          "@context": {
+            OECDGuidelines: "battery:OECDGuidelines",
+            RMI: "battery:RMI",
+            IRMA: "battery:IRMA",
+            CopperMark: "battery:CopperMark",
+            AluminiumStewardship: "battery:AluminiumStewardship",
+            CobaltIndustryResponsibleAssessment: "battery:CobaltIndustryResponsibleAssessment"
+          }
+        },
+        auditDate: {
+          "@id": "schema:auditDate",
+          "@type": "xsd:date"
+        },
+        auditBody: "battery:auditBody",
+        supplyChainIndex: {
+          "@id": "battery:supplyChainIndex",
+          "@type": "xsd:decimal"
+        },
+        transportationSafetyClass: "battery:transportationSafetyClass",
+        dangerousGoodsPackingInstructions: "battery:dangerousGoodsPackingInstructions",
+        shippingName: "battery:shippingName",
+        repurposingPotential: "battery:repurposingPotential",
+        repurposingGuidelines: {
+          "@id": "battery:repurposingGuidelines",
+          "@type": "@id"
+        },
+        previousApplications: "battery:previousApplications",
+        repurposingDate: {
+          "@id": "battery:repurposingDate",
+          "@type": "xsd:date"
+        },
+        repurposingEntity: {
+          "@id": "battery:repurposingEntity",
+          "@type": "@id"
+        },
+        warrantyConditions: {
+          "@id": "battery:warrantyConditions",
+          "@type": "@id"
+        },
+        extendedWarrantyAvailable: {
+          "@id": "battery:extendedWarrantyAvailable",
+          "@type": "xsd:boolean"
+        },
+        serviceContactPoint: {
+          "@id": "schema:contactPoint",
+          "@type": "@id"
+        },
+        authorizedServiceCenters: {
+          "@id": "battery:authorizedServiceCenters",
+          "@type": "@id"
+        },
+        dataQualityAssessment: "battery:dataQualityAssessment",
+        lastDataUpdate: {
+          "@id": "battery:lastDataUpdate",
+          "@type": "xsd:dateTime"
+        },
+        dataProviderCertification: "battery:dataProviderCertification",
+        stateOfHealth: {
+          "@id": "battery:stateOfHealth",
+          "@type": "@id"
+        },
+        stateOfCharge: {
+          "@id": "battery:stateOfCharge",
+          "@type": "@id"
+        },
+        stateOfCertifiedEnergy: {
+          "@id": "battery:stateOfCertifiedEnergy",
+          "@type": "@id"
+        },
+        cycleCount: {
+          "@id": "battery:cycleCount",
+          "@type": "@id"
+        },
+        remainingCapacity: {
+          "@id": "battery:remainingCapacity",
+          "@type": "@id"
+        },
+        remainingEnergy: {
+          "@id": "battery:remainingEnergy",
+          "@type": "@id"
+        },
+        capacityFade: {
+          "@id": "battery:capacityFade",
+          "@type": "@id"
+        },
+        powerFade: {
+          "@id": "battery:powerFade",
+          "@type": "@id"
+        },
+        internalResistance: {
+          "@id": "battery:internalResistance",
+          "@type": "@id"
+        },
+        internalResistanceIncrease: {
+          "@id": "battery:internalResistanceIncrease",
+          "@type": "@id"
+        },
+        energyThroughput: {
+          "@id": "battery:energyThroughput",
+          "@type": "@id"
+        },
+        capacityThroughput: {
+          "@id": "battery:capacityThroughput",
+          "@type": "@id"
+        },
+        remainingRoundTripEfficiency: {
+          "@id": "battery:remainingRoundTripEfficiency",
+          "@type": "@id"
+        },
+        roundTripEfficiencyFade: {
+          "@id": "battery:roundTripEfficiencyFade",
+          "@type": "@id"
+        },
+        selfDischargeRate: {
+          "@id": "battery:selfDischargeRate",
+          "@type": "@id"
+        },
+        evolutionOfSelfDischarge: {
+          "@id": "battery:evolutionOfSelfDischarge",
+          "@type": "@id"
+        },
+        exposureDurationMinutes: {
+          "@id": "battery:exposureDurationMinutes",
+          "@type": "xsd:integer"
+        },
+        measurementMethod: "schema:measurementMethod",
+        note: "battery:note",
+        initialCapacity: {
+          "@id": "battery:initialCapacity",
+          "@type": "@id"
+        },
+        initialEnergy: {
+          "@id": "battery:initialEnergy",
+          "@type": "@id"
+        },
+        certifiedUsableEnergy: {
+          "@id": "battery:certifiedUsableEnergy",
+          "@type": "@id"
+        },
+        remainingUsableEnergy: {
+          "@id": "battery:remainingUsableEnergy",
+          "@type": "@id"
+        },
+        soceMeasurementId: "battery:soceMeasurementId",
+        exhaustionThreshold: {
+          "@id": "battery:exhaustionThreshold",
+          "@type": "xsd:decimal"
+        },
+        expectedRemainingCycles: {
+          "@id": "battery:expectedRemainingCycles",
+          "@type": "xsd:integer"
+        },
+        expectedRemainingLifetimeMonths: {
+          "@id": "battery:expectedRemainingLifetimeMonths",
+          "@type": "xsd:integer"
+        },
+        nextScheduledMeasurement: {
+          "@id": "battery:nextScheduledMeasurement",
+          "@type": "xsd:date"
+        },
+        measurementCertificateUrl: {
+          "@id": "battery:measurementCertificateUrl",
+          "@type": "@id"
+        },
+        exceedanceThreshold: {
+          "@id": "battery:exceedanceThreshold",
+          "@type": "xsd:decimal"
+        },
+        temperatureExcursionId: "battery:temperatureExcursionId",
+        exposureStartTime: {
+          "@id": "schema:startDate",
+          "@type": "xsd:dateTime"
+        },
+        exposureEndTime: {
+          "@id": "battery:exposureEndTime",
+          "@type": "xsd:dateTime"
+        },
+        transportConditions: "battery:transportConditions",
+        estimatedImpact: "battery:estimatedImpact",
+        temperatureExcursionReportUrl: {
+          "@id": "battery:temperatureExcursionReportUrl",
+          "@type": "@id"
+        },
+        eventType: {
+          "@id": "battery:eventType",
+          "@type": "@vocab",
+          "@context": {
+            Accident: "battery:Accident",
+            PhysicalDamage: "battery:PhysicalDamage",
+            ThermalEvent: "battery:ThermalEvent",
+            ElectricalFault: "battery:ElectricalFault",
+            WaterIngress: "battery:WaterIngress",
+            Overcharge: "battery:Overcharge",
+            DeepDischarge: "battery:DeepDischarge",
+            ShortCircuit: "battery:ShortCircuit"
+          }
+        },
+        eventDescription: "schema:description",
+        eventDate: {
+          "@id": "battery:eventDate",
+          "@type": "xsd:dateTime"
+        },
+        eventLocation: {
+          "@id": "battery:eventLocation",
+          "@type": "@id"
+        },
+        incidentId: "battery:incidentId",
+        incidentSeverity: {
+          "@id": "battery:incidentSeverity",
+          "@type": "@vocab",
+          "@context": {
+            Minor: "battery:Minor",
+            Moderate: "battery:Moderate",
+            Major: "battery:Major",
+            Critical: "battery:Critical"
+          }
+        },
+        incidentReportUrl: {
+          "@id": "battery:incidentReportUrl",
+          "@type": "@id"
+        },
+        inspectorId: "battery:inspectorId",
+        recommendedAction: "battery:recommendedAction",
+        remainingPowerCapability: {
+          "@id": "battery:remainingPowerCapability",
+          "@type": "@id"
+        },
+        value: {
+          "@id": "gs1:value",
+          "@type": "xsd:decimal"
+        },
+        unitCode: "gs1:unitCode"
+      }
+    ]
+  },
+  "https://ref.openepcis.io/extensions/eu/battery/battery-context-batterypass-bridge.jsonld": {
+    "@context": {
+      "@version": 1.1,
+      gs1: "https://ref.gs1.org/voc/",
+      battery: "https://ref.openepcis.io/extensions/eu/battery/",
+      dpp: "https://ref.openepcis.io/extensions/common/core/",
+      xsd: "http://www.w3.org/2001/XMLSchema#",
+      "bp-general": "urn:samm:io.BatteryPass.GeneralProductInformation:1.3.0#",
+      "bp-perf": "urn:samm:io.BatteryPass.Performance:1.3.0#",
+      "bp-carbon": "urn:samm:io.BatteryPass.CarbonFootprint:1.3.0#",
+      "bp-material": "urn:samm:io.BatteryPass.MaterialComposition:1.3.0#",
+      "bp-circular": "urn:samm:io.BatteryPass.Circularity:1.3.0#",
+      "bp-scdd": "urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.3.0#",
+      "bp-labels": "urn:samm:io.BatteryPass.Labels:1.3.0#",
+      "bp-dpp": "urn:samm:io.BatteryPass.DPPInformation:1.3.0#",
+      dppSchemaVersion: {
+        "@id": "schema:schemaVersion"
+      },
+      dppStatus: {
+        "@id": "schema:status",
+        "@type": "@id"
+      },
+      dppGranularity: {
+        "@id": "dpp:reportingGranularity",
+        "@type": "@id"
+      },
+      dateTimeOfLatestUpdate: {
+        "@id": "dpp:lastUpdated",
+        "@type": "xsd:dateTime"
+      },
+      productIdentifier: {
+        "@id": "battery:batteryPassportIdentifier"
+      },
+      batteryPassportIdentifier: {
+        "@id": "battery:batteryPassportIdentifier"
+      },
+      batteryModelIdentifier: {
+        "@id": "battery:batteryModelIdentifier"
+      },
+      batterySerialNumber: {
+        "@id": "gs1:hasSerialNumber"
+      },
+      facilityIdentifier: {
+        "@id": "battery:facilityIdentifier"
+      },
+      economicOperatorIdentifier: {
+        "@id": "battery:operatorIdentifier"
+      },
+      economicOperatorInformation: {
+        "@id": "battery:operatorInformation",
+        "@type": "@id"
+      },
+      manufacturerIdentifier: {
+        "@id": "battery:manufacturerIdentifier"
+      },
+      manufacturerInformation: {
+        "@id": "gs1:manufacturer",
+        "@type": "@id"
+      },
+      batteryCategory: {
+        "@id": "schema:category",
+        "@type": "@id",
+        "@context": {
+          lmt: "battery:LMTBattery",
+          ev: "battery:EVBattery",
+          industrial: "battery:IndustrialBattery",
+          stationary: "battery:StationaryBattery"
+        }
+      },
+      manufacturingDate: {
+        "@id": "gs1:manufacturingDate",
+        "@type": "xsd:dateTime"
+      },
+      batteryStatus: {
+        "@id": "schema:status",
+        "@type": "@id",
+        "@context": {
+          Original: "battery:Original",
+          Repurposed: "battery:Repurposed",
+          Reused: "battery:Reused",
+          Remanufactured: "battery:Remanufactured",
+          Waste: "battery:Waste"
+        }
+      },
+      batteryMass: {
+        "@id": "gs1:netWeight",
+        "@type": "@id"
+      },
+      manufacturingPlace: {
+        "@id": "battery:manufacturingPlace",
+        "@type": "@id"
+      },
+      operatorInformation: {
+        "@id": "battery:operatorInformation",
+        "@type": "@id"
+      },
+      puttingIntoService: {
+        "@id": "battery:puttingIntoService",
+        "@type": "xsd:dateTime"
+      },
+      warrentyPeriod: {
+        "@id": "gs1:warranty",
+        "@type": "@id"
+      },
+      contactName: {
+        "@id": "gs1:organizationName"
+      },
+      postalAddress: {
+        "@id": "gs1:address",
+        "@type": "@id"
+      },
+      identifier: {
+        "@id": "gs1:partyGLN"
+      },
+      emailAddress: {
+        "@id": "gs1:contactPoint"
+      },
+      webAddress: {
+        "@id": "gs1:seeAlso",
+        "@type": "@id"
+      },
+      addressCountry: {
+        "@id": "gs1:countryCode"
+      },
+      postalCode: {
+        "@id": "gs1:postalCode"
+      },
+      streetAddress: {
+        "@id": "gs1:streetAddress"
+      },
+      batteryTechnicalProperties: {
+        "@id": "battery:technicalSpecifications",
+        "@type": "@id"
+      },
+      batteryCondition: {
+        "@id": "battery:technicalSpecifications",
+        "@type": "@id"
+      },
+      ratedCapacity: {
+        "@id": "battery:ratedCapacity",
+        "@type": "@id"
+      },
+      ratedEnergy: {
+        "@id": "battery:ratedEnergy",
+        "@type": "@id"
+      },
+      nominalVoltage: {
+        "@id": "battery:nominalVoltage",
+        "@type": "@id"
+      },
+      minimumVoltage: {
+        "@id": "battery:minimumVoltage",
+        "@type": "@id"
+      },
+      maximumVoltage: {
+        "@id": "battery:maximumVoltage",
+        "@type": "@id"
+      },
+      ratedMaximumPower: {
+        "@id": "battery:ratedMaximumPower",
+        "@type": "@id"
+      },
+      expectedNumberOfCycles: {
+        "@id": "battery:expectedCycleLife",
+        "@type": "xsd:integer"
+      },
+      initialSelfDischarge: {
+        "@id": "battery:initialSelfDischarge",
+        "@type": "xsd:decimal"
+      },
+      roundtripEfficiency: {
+        "@id": "battery:roundTripEfficiency",
+        "@type": "xsd:decimal"
+      },
+      initialInternalResistance: {
+        "@id": "battery:initialInternalResistance",
+        "@type": "@id"
+      },
+      expectedLifetime: {
+        "@id": "battery:expectedLifetimeYears",
+        "@type": "xsd:integer"
+      },
+      cRate: {
+        "@id": "battery:cRate",
+        "@type": "xsd:decimal"
+      },
+      powerCapabilityRatio: {
+        "@id": "battery:powerCapabilityRatio",
+        "@type": "xsd:decimal"
+      },
+      capacityThresholdForExhaustion: {
+        "@id": "battery:capacityThresholdForExhaustion",
+        "@type": "xsd:decimal"
+      },
+      lifetimeReferenceTest: {
+        "@id": "battery:lifetimeReferenceTest",
+        "@type": "@id"
+      },
+      cRateLifeCycleTest: {
+        "@id": "battery:cRateLifeCycleTest",
+        "@type": "xsd:decimal"
+      },
+      temperatureRangeIdleState: {
+        "@id": "battery:temperatureRangeIdleState",
+        "@type": "@id"
+      },
+      roundTripEfficiencyAt50PercentCycleLife: {
+        "@id": "battery:roundTripEfficiencyAt50PercentCycleLife",
+        "@type": "xsd:decimal"
+      },
+      roundTripEfficiencyFade: {
+        "@id": "battery:roundTripEfficiencyFade",
+        "@type": "@id"
+      },
+      powerFade: {
+        "@id": "battery:powerFade",
+        "@type": "@id"
+      },
+      originalPowerCapability: {
+        "@id": "battery:originalPowerCapability",
+        "@type": "@id"
+      },
+      remainingPowerCapability: {
+        "@id": "battery:remainingPowerCapability",
+        "@type": "@id"
+      },
+      energyThroughput: {
+        "@id": "battery:energyThroughput",
+        "@type": "@id"
+      },
+      capacityThroughput: {
+        "@id": "battery:capacityThroughput",
+        "@type": "@id"
+      },
+      numberOfFullCycles: {
+        "@id": "battery:cycleCount",
+        "@type": "@id"
+      },
+      stateOfCertifiedEnergy: {
+        "@id": "battery:stateOfCertifiedEnergy",
+        "@type": "@id"
+      },
+      capacityFade: {
+        "@id": "battery:capacityFade",
+        "@type": "@id"
+      },
+      remainingEnergy: {
+        "@id": "battery:remainingEnergy",
+        "@type": "@id"
+      },
+      remainingCapacity: {
+        "@id": "battery:remainingCapacity",
+        "@type": "@id"
+      },
+      stateOfCharge: {
+        "@id": "battery:stateOfCharge",
+        "@type": "@id"
+      },
+      internalResistanceIncrease: {
+        "@id": "battery:internalResistanceIncrease",
+        "@type": "@id"
+      },
+      evolutionOfSelfDischarge: {
+        "@id": "battery:evolutionOfSelfDischarge",
+        "@type": "@id"
+      },
+      currentSelfDischargingRate: {
+        "@id": "battery:selfDischargeRate",
+        "@type": "@id"
+      },
+      remainingRoundTripEnergyEfficiency: {
+        "@id": "battery:remainingRoundTripEfficiency",
+        "@type": "@id"
+      },
+      lastUpdate: {
+        "@id": "battery:lastDataUpdate",
+        "@type": "xsd:dateTime"
+      },
+      negativeEvents: {
+        "@id": "battery:NegativeEvent",
+        "@container": "@list"
+      },
+      negativeEvent: {
+        "@id": "schema:description"
+      },
+      temperatureInformation: {
+        "@id": "battery:temperatureRangeIdleState",
+        "@type": "@id"
+      },
+      timeExtremeHighTemp: {
+        "@id": "gs1:Temperature"
+      },
+      timeExtremeLowTemp: {
+        "@id": "gs1:Temperature"
+      },
+      timeExtremeHighTempCharging: {
+        "@id": "gs1:Temperature"
+      },
+      timeExtremeLowTempCharging: {
+        "@id": "gs1:Temperature"
+      },
+      minimum: {
+        "@id": "battery:minimumTemperature",
+        "@type": "@id"
+      },
+      maximum: {
+        "@id": "battery:maximumTemperature",
+        "@type": "@id"
+      },
+      atSoC: {
+        "@id": "battery:stateOfChargeLevel",
+        "@type": "xsd:decimal"
+      },
+      powerCapabilityAt: {
+        "@id": "battery:powerCapability",
+        "@type": "@id"
+      },
+      ohmicResistance: {
+        "@id": "gs1:value",
+        "@type": "xsd:decimal"
+      },
+      batteryComponent: {
+        "@id": "battery:componentLocation",
+        "@type": "@id",
+        "@context": {
+          pack: "battery:Casing",
+          module: "battery:Casing",
+          cell: "battery:Casing"
+        }
+      },
+      batteryCarbonFootprint: {
+        "@id": "battery:carbonFootprintTotal",
+        "@type": "@id"
+      },
+      carbonFootprintPerLifecycleStage: {
+        "@id": "battery:carbonFootprintDeclaration",
+        "@type": "@id"
+      },
+      lifecycleStage: {
+        "@id": "battery:lifecycleStage"
+      },
+      carbonFootprint: {
+        "@id": "gs1:value",
+        "@type": "xsd:decimal"
+      },
+      carbonFootprintPerformanceClass: {
+        "@id": "battery:carbonFootprintPerformanceClass",
+        "@type": "@id",
+        "@context": {
+          A: "battery:CFClassA",
+          B: "battery:CFClassB",
+          C: "battery:CFClassC",
+          D: "battery:CFClassD",
+          E: "battery:CFClassE"
+        }
+      },
+      carbonFootprintStudy: {
+        "@id": "battery:carbonFootprintStudyUrl",
+        "@type": "@id"
+      },
+      absoluteCarbonFootprint: {
+        "@id": "battery:absoluteCarbonFootprint",
+        "@type": "@id"
+      },
+      batteryChemistry: {
+        "@id": "battery:batteryChemistry",
+        "@type": "@id"
+      },
+      shortName: {
+        "@id": "schema:name"
+      },
+      clearName: {
+        "@id": "schema:name"
+      },
+      batteryMaterials: {
+        "@id": "battery:materialComposition",
+        "@container": "@list"
+      },
+      batteryMaterialLocation: {
+        "@id": "battery:componentLocation",
+        "@type": "@id"
+      },
+      batteryMaterialIdentifier: {
+        "@id": "battery:casNumber"
+      },
+      batteryMaterialName: {
+        "@id": "schema:name"
+      },
+      batteryMaterialMass: {
+        "@id": "schema:weightPercentage",
+        "@type": "xsd:decimal"
+      },
+      isCriticalRawMaterial: {
+        "@id": "battery:isCriticalRawMaterial",
+        "@type": "xsd:boolean"
+      },
+      componentName: {
+        "@id": "battery:componentLocation",
+        "@type": "@id",
+        "@context": {
+          Cathode: "battery:Cathode",
+          Anode: "battery:Anode",
+          Electrolyte: "battery:Electrolyte",
+          Separator: "battery:Separator",
+          Casing: "battery:Casing"
+        }
+      },
+      componentId: {
+        "@id": "gs1:gtin"
+      },
+      hazardousSubstances: {
+        "@id": "battery:hazardousSubstances",
+        "@container": "@list"
+      },
+      hazardousSubstanceClass: {
+        "@id": "battery:hazardClass",
+        "@type": "@id",
+        "@context": {
+          AcuteToxicity: "battery:AcuteToxicity",
+          SkinCorrosionOrIrritation: "battery:SkinCorrosionOrIrritation",
+          EyeDamageOrIrritation: "battery:EyeDamageOrIrritation",
+          RespiratoryOrSkinSensitization: "battery:RespiratoryOrSkinSensitization",
+          GermCellMutagenicity: "battery:GermCellMutagenicity",
+          Carcinogenicity: "battery:Carcinogenicity",
+          ReproductiveToxicity: "battery:ReproductiveToxicity",
+          SpecificTargetOrganToxicity: "battery:SpecificTargetOrganToxicity",
+          AspirationHazard: "battery:AspirationHazard",
+          HazardousToAquaticEnvironment: "battery:HazardousToAquaticEnvironment"
+        }
+      },
+      hazardousSubstanceName: {
+        "@id": "schema:name"
+      },
+      hazardousSubstanceConcentration: {
+        "@id": "battery:concentration",
+        "@type": "xsd:decimal"
+      },
+      hazardousSubstanceImpact: {
+        "@id": "battery:hazardImpact"
+      },
+      hazardousSubstanceLocation: {
+        "@id": "battery:substanceLocation",
+        "@type": "@id"
+      },
+      hazardousSubstanceIdentifier: {
+        "@id": "battery:substanceCasNumber"
+      },
+      dismantlingAndRemovalInformation: {
+        "@id": "battery:dismantlingDocuments",
+        "@container": "@list"
+      },
+      documentType: {
+        "@id": "battery:documentType",
+        "@type": "@id",
+        "@context": {
+          BillOfMaterial: "battery:BillOfMaterial",
+          Model3D: "battery:Model3D",
+          DismantlingManual: "battery:DismantlingManual",
+          RemovalManual: "battery:RemovalManual",
+          OtherManual: "battery:OtherManual",
+          Drawing: "battery:Drawing"
+        }
+      },
+      mimeType: {
+        "@id": "battery:mimeType"
+      },
+      documentURL: {
+        "@id": "battery:documentUrl",
+        "@type": "@id"
+      },
+      sparePartSources: {
+        "@id": "battery:sparePartSources",
+        "@container": "@list"
+      },
+      nameOfSupplier: {
+        "@id": "gs1:organizationName"
+      },
+      addressOfSupplier: {
+        "@id": "gs1:address",
+        "@type": "@id"
+      },
+      emailAddressOfSupplier: {
+        "@id": "gs1:email"
+      },
+      supplierWebAddress: {
+        "@id": "gs1:seeAlso",
+        "@type": "@id"
+      },
+      components: {
+        "@id": "battery:spareParts"
+      },
+      partName: {
+        "@id": "gs1:productName"
+      },
+      partNumber: {
+        "@id": "gs1:gtin"
+      },
+      recycledContent: {
+        "@id": "battery:recycledContent",
+        "@container": "@list"
+      },
+      recycledMaterial: {
+        "@id": "battery:recoveryMaterial"
+      },
+      preConsumerShare: {
+        "@id": "battery:lithiumPreConsumerShare",
+        "@type": "xsd:decimal"
+      },
+      postConsumerShare: {
+        "@id": "battery:lithiumPostConsumerShare",
+        "@type": "xsd:decimal"
+      },
+      safetyMeasures: {
+        "@id": "battery:endOfLifeInfo",
+        "@type": "@id"
+      },
+      safetyInstructions: {
+        "@id": "battery:safetyInstructions",
+        "@type": "@id"
+      },
+      extinguishingAgents: {
+        "@id": "battery:extinguishingAgent"
+      },
+      endOfLifeInformation: {
+        "@id": "battery:endOfLifeInfo",
+        "@type": "@id"
+      },
+      wastePrevention: {
+        "@id": "battery:wastePrevention",
+        "@type": "@id"
+      },
+      separateCollection: {
+        "@id": "battery:separateCollection",
+        "@type": "@id"
+      },
+      informationOnCollection: {
+        "@id": "battery:informationOnCollection",
+        "@type": "@id"
+      },
+      renewableContent: {
+        "@id": "battery:renewableContent",
+        "@type": "xsd:decimal"
+      },
+      supplyChainDueDiligenceReport: {
+        "@id": "battery:dueDiligenceReportUrl",
+        "@type": "@id"
+      },
+      thirdPartyAussurances: {
+        "@id": "battery:thirdPartyAssurancesUrl",
+        "@type": "@id"
+      },
+      supplyChainIndicies: {
+        "@id": "battery:supplyChainIndex",
+        "@type": "xsd:decimal"
+      },
+      batteryIdentifier: {
+        "@id": "battery:batteryPassportIdentifier"
+      },
+      warrantyPeriod: {
+        "@id": "battery:warrantyPeriod",
+        "@type": "@id"
+      },
+      criticalRawMaterials: {
+        "@id": "battery:criticalRawMaterials",
+        "@container": "@set"
+      },
+      materialsUsedInCathode: {
+        "@id": "battery:materialsUsedInCathode",
+        "@container": "@set"
+      },
+      impactOfSubstancesOnEnvironment: "battery:impactOfSubstancesOnEnvironment",
+      separateCollectionSymbol: {
+        "@id": "battery:separateCollectionSymbol",
+        "@type": "@id"
+      },
+      symbolsForCadmiumAndLead: {
+        "@id": "battery:symbolsForCadmiumAndLead",
+        "@type": "@id"
+      },
+      carbonFootprintLabel: {
+        "@id": "battery:carbonFootprintLabel",
+        "@type": "@id"
+      },
+      meaningOfLabelsAndSymbols: "battery:meaningOfLabelsAndSymbols",
+      euDeclarationOfConformity: {
+        "@id": "battery:euDeclarationOfConformity",
+        "@type": "@id"
+      },
+      resultsOfTestReportsProvingCompliance: {
+        "@id": "battery:resultsOfTestReportsProvingCompliance",
+        "@type": "@id"
+      },
+      batteryCarbonFootprintPerFunctionalUnit: {
+        "@id": "battery:carbonFootprintPerFunctionalUnit",
+        "@type": "@id"
+      },
+      contributionOfRawMaterialAcquisitionAndPreProcessingLifecycleStage: {
+        "@id": "battery:contributionRawMaterial",
+        "@type": "@id"
+      },
+      contributionOfMainProductProductionLifecycleStage: {
+        "@id": "battery:contributionProduction",
+        "@type": "@id"
+      },
+      contributionOfDistributionLifecycleStage: {
+        "@id": "battery:contributionDistribution",
+        "@type": "@id"
+      },
+      contributionOfEndOfLifeAndRecyclingLifecycleStage: {
+        "@id": "battery:contributionEndOfLife",
+        "@type": "@id"
+      },
+      webLinkToPublicCarbonFootprintStudy: {
+        "@id": "battery:webLinkCarbonFootprintStudy",
+        "@type": "@id"
+      },
+      informationOfDueDiligenceReport: "battery:informationOfDueDiligenceReport",
+      dismantlingInformationManualsForTheRemovalAndTheDisassemblyOfTheBatteryPack: {
+        "@id": "battery:dismantlingManuals",
+        "@type": "@id"
+      },
+      partNumbersForComponents: {
+        "@id": "battery:partNumbersForComponents",
+        "@container": "@set"
+      },
+      informationOnSourcesOfSpareParts: "battery:informationOnSourcesOfSpareParts",
+      preConsumerRecycledNickelShare: {
+        "@id": "battery:preConsumerRecycledNickelShare",
+        "@type": "xsd:decimal"
+      },
+      preConsumerRecycledCobaltShare: {
+        "@id": "battery:preConsumerRecycledCobaltShare",
+        "@type": "xsd:decimal"
+      },
+      preConsumerRecycledLithiumShare: {
+        "@id": "battery:preConsumerRecycledLithiumShare",
+        "@type": "xsd:decimal"
+      },
+      postConsumerRecycledNickelShare: {
+        "@id": "battery:postConsumerRecycledNickelShare",
+        "@type": "xsd:decimal"
+      },
+      postConsumerRecycledCobaltShare: {
+        "@id": "battery:postConsumerRecycledCobaltShare",
+        "@type": "xsd:decimal"
+      },
+      postConsumerRecycledLithiumShare: {
+        "@id": "battery:postConsumerRecycledLithiumShare",
+        "@type": "xsd:decimal"
+      },
+      recycledLeadShare: {
+        "@id": "battery:recycledLeadShare",
+        "@type": "xsd:decimal"
+      },
+      informationOnTheRoleOfEndUsersInContributingToWastePrevention: "battery:roleOfEndUsersInWastePrevention",
+      informationOnTheRoleOfEndUsersInContributingToTheSeparateCollectionOfWasteBatteries: "battery:roleOfEndUsersInSeparateCollection",
+      informationOnBatteryCollection: "battery:informationOnBatteryCollection",
+      maximumPermittedBatteryPower: {
+        "@id": "battery:maximumPermittedBatteryPower",
+        "@type": "@id"
+      },
+      initialRoundTripEnergyEfficiency: {
+        "@id": "battery:initialRoundTripEnergyEfficiency",
+        "@type": "xsd:decimal"
+      },
+      roundTripEnergyEfficiencyAt50PercentOfCycleLife: {
+        "@id": "battery:roundTripEfficiencyAt50PercentCycleLife",
+        "@type": "xsd:decimal"
+      },
+      energyRoundTripEfficiencyFade: {
+        "@id": "battery:roundTripEfficiencyFade",
+        "@type": "xsd:decimal"
+      },
+      evolutionOfSelfDischargeRates: {
+        "@id": "battery:evolutionOfSelfDischarge",
+        "@type": "@id"
+      },
+      initialInternalResistanceOfBatteryCellAndPack: {
+        "@id": "battery:initialInternalResistance",
+        "@type": "@id"
+      },
+      internalResistanceIncreaseOfPack: {
+        "@id": "battery:internalResistanceIncrease",
+        "@type": "@id"
+      },
+      expectedLifetimeInCalendarYears: {
+        "@id": "battery:expectedLifetimeYears",
+        "@type": "@id"
+      },
+      expectedLifetimeNumberOfChargeDischargeCycles: {
+        "@id": "battery:expectedNumberOfCycles",
+        "@type": "@id"
+      },
+      numberOfFullChargingAndDischargingCycles: {
+        "@id": "battery:numberOfFullCycles",
+        "@type": "@id"
+      },
+      cycleLifeReferenceTest: "battery:lifetimeReferenceTest",
+      cRateOfRelevantCycleLifeTest: "battery:cRateLifeCycleTest",
+      temperatureRangeIdleStateLowerBoundary: {
+        "@id": "battery:temperatureRangeIdleLower",
+        "@type": "@id"
+      },
+      temperatureRangeIdleStateUpperBoundary: {
+        "@id": "battery:temperatureRangeIdleUpper",
+        "@type": "@id"
+      },
+      timeSpentInExtremeTemperaturesAboveBoundary: {
+        "@id": "battery:timeExtremeHighTemp",
+        "@type": "@id"
+      },
+      timeSpentInExtremeTemperaturesBelowBoundary: {
+        "@id": "battery:timeExtremeLowTemp",
+        "@type": "@id"
+      },
+      timeSpentChargingDuringExtremeTemperaturesAboveBoundary: {
+        "@id": "battery:timeExtremeHighTempCharging",
+        "@type": "@id"
+      },
+      timeSpentChargingDuringExtremeTemperaturesBelowBoundary: {
+        "@id": "battery:timeExtremeLowTempCharging",
+        "@type": "@id"
+      },
+      numberOfDeepDischargeEvents: {
+        "@id": "battery:numberOfDeepDischargeEvents",
+        "@type": "xsd:integer"
+      },
+      informationOnAccidents: "battery:informationOnAccidents"
+    }
+  },
+  "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld": {
+    _comment: "OpenEPCIS Textile DPP Context v0.9.0. GS1-aligned vocabulary for EU Sustainable Textiles Strategy and ESPR. GS1-Extensions: textile=https://ref.openepcis.io/extensions/eu/textile/. Uses GS1 Web Vocabulary patterns: gs1:textileMaterial, gs1:certification, gs1:referencedFile.",
+    "@context": [
+      "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+      {
+        "@version": 1.1,
+        gs1: "https://ref.gs1.org/voc/",
+        dpp: "https://ref.openepcis.io/extensions/common/core/",
+        textile: "https://ref.openepcis.io/extensions/eu/textile/",
+        schema: "https://schema.org/",
+        xsd: "http://www.w3.org/2001/XMLSchema#",
+        rdfs: "http://www.w3.org/2000/01/rdf-schema#",
+        id: "@id",
+        type: "@type",
+        Product: "gs1:Product",
+        productName: "gs1:productName",
+        gtin: "gs1:gtin",
+        TextileMaterialDetails: "gs1:TextileMaterialDetails",
+        textileMaterial: {
+          "@id": "gs1:textileMaterial",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        textileMaterialContent: {
+          "@id": "gs1:textileMaterialContent",
+          "@type": "@id"
+        },
+        textileMaterialDescription: {
+          "@id": "gs1:textileMaterialDescription",
+          "@container": "@language"
+        },
+        TextileApparel: "textile:TextileApparel",
+        TextileFootwear: "textile:TextileFootwear",
+        Clothing: "gs1:Clothing",
+        WearableProduct: "gs1:WearableProduct",
+        CareInstruction: "textile:CareInstruction",
+        DurabilityInfo: "textile:DurabilityInfo",
+        TakeBackProgram: "textile:TakeBackProgram",
+        MicroplasticInfo: "textile:MicroplasticInfo",
+        RobustnessAssessment: "textile:RobustnessAssessment",
+        SpiralityTestResult: "textile:SpiralityTestResult",
+        DimensionalChangeTestResult: "textile:DimensionalChangeTestResult",
+        VisualInspectionResult: "textile:VisualInspectionResult",
+        RecyclabilityAssessment: "textile:RecyclabilityAssessment",
+        SortingFactors: "textile:SortingFactors",
+        TechnicalRecyclability: "textile:TechnicalRecyclability",
+        RecycledContentDeclaration: "textile:RecycledContentDeclaration",
+        EnvironmentalFootprint: "textile:EnvironmentalFootprint",
+        LCIACategory: "textile:LCIACategory",
+        SubstanceOfConcern: "textile:SubstanceOfConcern",
+        QuantitativeValue: "gs1:QuantitativeValue",
+        value: {
+          "@id": "gs1:value",
+          "@type": "xsd:decimal"
+        },
+        unitCode: "gs1:unitCode",
+        TextileCategory: "textile:TextileCategory",
+        FabricType: "textile:FabricType",
+        ApparelSubcategory: "textile:ApparelSubcategory",
+        FiberType: "textile:FiberType",
+        CareSymbolCode: "textile:CareSymbolCode",
+        MicroplasticRiskLevel: "textile:MicroplasticRiskLevel",
+        DurabilityClass: "textile:DurabilityClass",
+        RecyclingTechnology: "textile:RecyclingTechnology",
+        WasteOriginType: "textile:WasteOriginType",
+        RecycledSourceType: "textile:RecycledSourceType",
+        ChainOfCustodyMethod: "textile:ChainOfCustodyMethod",
+        FootprintDataType: "textile:FootprintDataType",
+        LCIACategoryCode: "textile:LCIACategoryCode",
+        SubstanceOfConcernType: "textile:SubstanceOfConcernType",
+        CLPHazardCategory: "textile:CLPHazardCategory",
+        TestStandard: "textile:TestStandard",
+        CertificationDetails: "gs1:CertificationDetails",
+        certificationAgency: "gs1:certificationAgency",
+        certificationValue: "gs1:certificationValue",
+        certificationStandard: "gs1:certificationStandard",
+        textileCategory: {
+          "@id": "schema:category",
+          "@type": "@vocab",
+          "@context": {
+            Apparel: "textile:Apparel",
+            Footwear: "textile:Footwear",
+            HomeTextiles: "textile:HomeTextiles",
+            TechnicalTextiles: "textile:TechnicalTextiles",
+            Accessories: "textile:Accessories"
+          }
+        },
+        fiberOrigin: "textile:fiberOrigin",
+        fiberCertification: {
+          "@id": "textile:fiberCertification",
+          "@type": "@id"
+        },
+        fabricType: {
+          "@id": "textile:fabricType",
+          "@type": "@vocab",
+          "@context": {
+            Knitted: "textile:Knitted",
+            Denim: "textile:Denim",
+            WovenNonDenim: "textile:WovenNonDenim"
+          }
+        },
+        apparelSubcategory: {
+          "@id": "textile:apparelSubcategory",
+          "@type": "@vocab",
+          "@context": {
+            TShirts: "textile:TShirts",
+            ShirtsBlouses: "textile:ShirtsBlouses",
+            Sweaters: "textile:Sweaters",
+            JacketsCoats: "textile:JacketsCoats",
+            PantsShorts: "textile:PantsShorts",
+            DressesSkirts: "textile:DressesSkirts",
+            LeggingsStockingsSocks: "textile:LeggingsStockingsSocks",
+            Underwear: "textile:Underwear",
+            Swimwear: "textile:Swimwear",
+            TextileAccessories: "textile:TextileAccessories"
+          }
+        },
+        careInstructions: {
+          "@id": "textile:careInstructions",
+          "@type": "@id"
+        },
+        washingSymbol: {
+          "@id": "textile:washingSymbol",
+          "@type": "@vocab",
+          "@context": {
+            Wash30: "textile:Wash30",
+            Wash40: "textile:Wash40",
+            Wash60: "textile:Wash60",
+            WashHandOnly: "textile:WashHandOnly",
+            DoNotWash: "textile:DoNotWash",
+            WashGentle: "textile:WashGentle",
+            BleachAllowed: "textile:BleachAllowed",
+            NonChlorineBleach: "textile:NonChlorineBleach",
+            DoNotBleach: "textile:DoNotBleach",
+            TumbleDryLow: "textile:TumbleDryLow",
+            TumbleDryMedium: "textile:TumbleDryMedium",
+            TumbleDryHigh: "textile:TumbleDryHigh",
+            DoNotTumbleDry: "textile:DoNotTumbleDry",
+            LineDry: "textile:LineDry",
+            DryFlat: "textile:DryFlat",
+            DripDry: "textile:DripDry",
+            IronLow: "textile:IronLow",
+            IronMedium: "textile:IronMedium",
+            IronHigh: "textile:IronHigh",
+            DoNotIron: "textile:DoNotIron",
+            NoSteam: "textile:NoSteam",
+            DryCleanAny: "textile:DryCleanAny",
+            DryCleanPCE: "textile:DryCleanPCE",
+            DryCleanHydrocarbon: "textile:DryCleanHydrocarbon",
+            DoNotDryClean: "textile:DoNotDryClean",
+            WetClean: "textile:WetClean"
+          }
+        },
+        bleachingSymbol: {
+          "@id": "textile:bleachingSymbol",
+          "@type": "@vocab",
+          "@context": {
+            Wash30: "textile:Wash30",
+            Wash40: "textile:Wash40",
+            Wash60: "textile:Wash60",
+            WashHandOnly: "textile:WashHandOnly",
+            DoNotWash: "textile:DoNotWash",
+            WashGentle: "textile:WashGentle",
+            BleachAllowed: "textile:BleachAllowed",
+            NonChlorineBleach: "textile:NonChlorineBleach",
+            DoNotBleach: "textile:DoNotBleach",
+            TumbleDryLow: "textile:TumbleDryLow",
+            TumbleDryMedium: "textile:TumbleDryMedium",
+            TumbleDryHigh: "textile:TumbleDryHigh",
+            DoNotTumbleDry: "textile:DoNotTumbleDry",
+            LineDry: "textile:LineDry",
+            DryFlat: "textile:DryFlat",
+            DripDry: "textile:DripDry",
+            IronLow: "textile:IronLow",
+            IronMedium: "textile:IronMedium",
+            IronHigh: "textile:IronHigh",
+            DoNotIron: "textile:DoNotIron",
+            NoSteam: "textile:NoSteam",
+            DryCleanAny: "textile:DryCleanAny",
+            DryCleanPCE: "textile:DryCleanPCE",
+            DryCleanHydrocarbon: "textile:DryCleanHydrocarbon",
+            DoNotDryClean: "textile:DoNotDryClean",
+            WetClean: "textile:WetClean"
+          }
+        },
+        dryingSymbol: {
+          "@id": "textile:dryingSymbol",
+          "@type": "@vocab",
+          "@context": {
+            Wash30: "textile:Wash30",
+            Wash40: "textile:Wash40",
+            Wash60: "textile:Wash60",
+            WashHandOnly: "textile:WashHandOnly",
+            DoNotWash: "textile:DoNotWash",
+            WashGentle: "textile:WashGentle",
+            BleachAllowed: "textile:BleachAllowed",
+            NonChlorineBleach: "textile:NonChlorineBleach",
+            DoNotBleach: "textile:DoNotBleach",
+            TumbleDryLow: "textile:TumbleDryLow",
+            TumbleDryMedium: "textile:TumbleDryMedium",
+            TumbleDryHigh: "textile:TumbleDryHigh",
+            DoNotTumbleDry: "textile:DoNotTumbleDry",
+            LineDry: "textile:LineDry",
+            DryFlat: "textile:DryFlat",
+            DripDry: "textile:DripDry",
+            IronLow: "textile:IronLow",
+            IronMedium: "textile:IronMedium",
+            IronHigh: "textile:IronHigh",
+            DoNotIron: "textile:DoNotIron",
+            NoSteam: "textile:NoSteam",
+            DryCleanAny: "textile:DryCleanAny",
+            DryCleanPCE: "textile:DryCleanPCE",
+            DryCleanHydrocarbon: "textile:DryCleanHydrocarbon",
+            DoNotDryClean: "textile:DoNotDryClean",
+            WetClean: "textile:WetClean"
+          }
+        },
+        ironingSymbol: {
+          "@id": "textile:ironingSymbol",
+          "@type": "@vocab",
+          "@context": {
+            Wash30: "textile:Wash30",
+            Wash40: "textile:Wash40",
+            Wash60: "textile:Wash60",
+            WashHandOnly: "textile:WashHandOnly",
+            DoNotWash: "textile:DoNotWash",
+            WashGentle: "textile:WashGentle",
+            BleachAllowed: "textile:BleachAllowed",
+            NonChlorineBleach: "textile:NonChlorineBleach",
+            DoNotBleach: "textile:DoNotBleach",
+            TumbleDryLow: "textile:TumbleDryLow",
+            TumbleDryMedium: "textile:TumbleDryMedium",
+            TumbleDryHigh: "textile:TumbleDryHigh",
+            DoNotTumbleDry: "textile:DoNotTumbleDry",
+            LineDry: "textile:LineDry",
+            DryFlat: "textile:DryFlat",
+            DripDry: "textile:DripDry",
+            IronLow: "textile:IronLow",
+            IronMedium: "textile:IronMedium",
+            IronHigh: "textile:IronHigh",
+            DoNotIron: "textile:DoNotIron",
+            NoSteam: "textile:NoSteam",
+            DryCleanAny: "textile:DryCleanAny",
+            DryCleanPCE: "textile:DryCleanPCE",
+            DryCleanHydrocarbon: "textile:DryCleanHydrocarbon",
+            DoNotDryClean: "textile:DoNotDryClean",
+            WetClean: "textile:WetClean"
+          }
+        },
+        dryCleaningSymbol: {
+          "@id": "textile:dryCleaningSymbol",
+          "@type": "@vocab",
+          "@context": {
+            Wash30: "textile:Wash30",
+            Wash40: "textile:Wash40",
+            Wash60: "textile:Wash60",
+            WashHandOnly: "textile:WashHandOnly",
+            DoNotWash: "textile:DoNotWash",
+            WashGentle: "textile:WashGentle",
+            BleachAllowed: "textile:BleachAllowed",
+            NonChlorineBleach: "textile:NonChlorineBleach",
+            DoNotBleach: "textile:DoNotBleach",
+            TumbleDryLow: "textile:TumbleDryLow",
+            TumbleDryMedium: "textile:TumbleDryMedium",
+            TumbleDryHigh: "textile:TumbleDryHigh",
+            DoNotTumbleDry: "textile:DoNotTumbleDry",
+            LineDry: "textile:LineDry",
+            DryFlat: "textile:DryFlat",
+            DripDry: "textile:DripDry",
+            IronLow: "textile:IronLow",
+            IronMedium: "textile:IronMedium",
+            IronHigh: "textile:IronHigh",
+            DoNotIron: "textile:DoNotIron",
+            NoSteam: "textile:NoSteam",
+            DryCleanAny: "textile:DryCleanAny",
+            DryCleanPCE: "textile:DryCleanPCE",
+            DryCleanHydrocarbon: "textile:DryCleanHydrocarbon",
+            DoNotDryClean: "textile:DoNotDryClean",
+            WetClean: "textile:WetClean"
+          }
+        },
+        additionalCareInstructions: "textile:additionalCareInstructions",
+        durabilityInfo: {
+          "@id": "textile:durabilityInfo",
+          "@type": "@id"
+        },
+        expectedWashCycles: {
+          "@id": "textile:expectedWashCycles",
+          "@type": "xsd:integer"
+        },
+        durabilityClass: {
+          "@id": "textile:durabilityClass",
+          "@type": "@vocab",
+          "@context": {
+            DurabilityA: "textile:DurabilityA",
+            DurabilityB: "textile:DurabilityB",
+            DurabilityC: "textile:DurabilityC",
+            DurabilityD: "textile:DurabilityD",
+            DurabilityE: "textile:DurabilityE"
+          }
+        },
+        pillingResistance: {
+          "@id": "textile:pillingResistance",
+          "@type": "xsd:integer"
+        },
+        colorFastness: {
+          "@id": "textile:colorFastness",
+          "@type": "xsd:integer"
+        },
+        dimensionalStability: {
+          "@id": "textile:dimensionalStability",
+          "@type": "xsd:decimal"
+        },
+        abrasionResistance: {
+          "@id": "textile:abrasionResistance",
+          "@type": "xsd:integer"
+        },
+        tensileStrength: {
+          "@id": "textile:tensileStrength",
+          "@type": "@id"
+        },
+        tearStrength: {
+          "@id": "textile:tearStrength",
+          "@type": "@id"
+        },
+        expectedLifetimeYears: {
+          "@id": "textile:expectedLifetimeYears",
+          "@type": "xsd:integer"
+        },
+        microplasticInfo: {
+          "@id": "textile:microplasticInfo",
+          "@type": "@id"
+        },
+        microplasticRiskLevel: {
+          "@id": "textile:microplasticRiskLevel",
+          "@type": "@vocab",
+          "@context": {
+            LowShedding: "textile:LowShedding",
+            MediumShedding: "textile:MediumShedding",
+            HighShedding: "textile:HighShedding"
+          }
+        },
+        sheddingRate: {
+          "@id": "textile:sheddingRate",
+          "@type": "@id"
+        },
+        syntheticFiberContent: {
+          "@id": "textile:syntheticFiberContent",
+          "@type": "xsd:decimal"
+        },
+        microplasticMitigationMeasures: "textile:microplasticMitigationMeasures",
+        takeBackProgram: {
+          "@id": "textile:takeBackProgram",
+          "@type": "@id"
+        },
+        hasTakeBackProgram: {
+          "@id": "textile:hasTakeBackProgram",
+          "@type": "xsd:boolean"
+        },
+        takeBackUrl: {
+          "@id": "textile:takeBackUrl",
+          "@type": "@id"
+        },
+        takeBackIncentive: "textile:takeBackIncentive",
+        endOfLifeDestination: "textile:endOfLifeDestination",
+        recyclingInstructions: "gs1:consumerRecyclingInstructions",
+        repairServices: {
+          "@id": "textile:repairServices",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        isRepairable: {
+          "@id": "textile:isRepairable",
+          "@type": "xsd:boolean"
+        },
+        repairGuideUrl: {
+          "@id": "textile:repairGuideUrl",
+          "@type": "@id"
+        },
+        sparePartsAvailable: {
+          "@id": "textile:sparePartsAvailable",
+          "@type": "xsd:boolean"
+        },
+        sparePartsUrl: {
+          "@id": "textile:sparePartsUrl",
+          "@type": "@id"
+        },
+        isRecycledFiber: {
+          "@id": "textile:isRecycledFiber",
+          "@type": "xsd:boolean"
+        },
+        recycledContentSource: "textile:recycledContentSource",
+        textileChemicals: {
+          "@id": "textile:textileChemicals",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        chemicalName: "schema:name",
+        chemicalPurpose: "textile:chemicalPurpose",
+        isMRSLCompliant: {
+          "@id": "textile:isMRSLCompliant",
+          "@type": "xsd:boolean"
+        },
+        pfasFree: {
+          "@id": "textile:pfasFree",
+          "@type": "xsd:boolean"
+        },
+        garmentType: "textile:garmentType",
+        targetGender: "gs1:targetConsumerGender",
+        sizeRange: "textile:sizeRange",
+        seasonCollection: "textile:seasonCollection",
+        robustnessTestFabricType: {
+          "@id": "textile:robustnessTestFabricType",
+          "@type": "@vocab",
+          "@context": {
+            Knitted: "textile:Knitted",
+            Denim: "textile:Denim",
+            WovenNonDenim: "textile:WovenNonDenim"
+          }
+        },
+        waterUsage: {
+          "@id": "textile:waterUsage",
+          "@type": "@id"
+        },
+        energyUsage: {
+          "@id": "textile:energyUsage",
+          "@type": "@id"
+        },
+        productionWastePercentage: {
+          "@id": "textile:productionWastePercentage",
+          "@type": "xsd:decimal"
+        },
+        biodegradable: {
+          "@id": "textile:biodegradable",
+          "@type": "xsd:boolean"
+        },
+        spinningFacility: {
+          "@id": "textile:spinningFacility",
+          "@type": "@id"
+        },
+        weavingFacility: {
+          "@id": "textile:weavingFacility",
+          "@type": "@id"
+        },
+        dyeingFacility: {
+          "@id": "textile:dyeingFacility",
+          "@type": "@id"
+        },
+        cutAndSewFacility: {
+          "@id": "textile:cutAndSewFacility",
+          "@type": "@id"
+        },
+        finishingFacility: {
+          "@id": "textile:finishingFacility",
+          "@type": "@id"
+        },
+        robustnessAssessment: {
+          "@id": "textile:robustnessAssessment",
+          "@type": "@id"
+        },
+        robustnessScore: {
+          "@id": "textile:robustnessScore",
+          "@type": "xsd:decimal"
+        },
+        cleaningCyclesBeforeTest: {
+          "@id": "textile:cleaningCyclesBeforeTest",
+          "@type": "xsd:integer"
+        },
+        spiralityTest: {
+          "@id": "textile:spiralityTest",
+          "@type": "@id"
+        },
+        dimensionalChangeTest: {
+          "@id": "textile:dimensionalChangeTest",
+          "@type": "@id"
+        },
+        visualInspection: {
+          "@id": "textile:visualInspection",
+          "@type": "@id"
+        },
+        spiralityScore: {
+          "@id": "textile:spiralityScore",
+          "@type": "xsd:integer"
+        },
+        spiralityPercentage: {
+          "@id": "textile:spiralityPercentage",
+          "@type": "xsd:decimal"
+        },
+        spiralityTestMethod: "textile:spiralityTestMethod",
+        dimensionalChangeScore: {
+          "@id": "textile:dimensionalChangeScore",
+          "@type": "xsd:integer"
+        },
+        dimensionalChangePercentage: {
+          "@id": "textile:dimensionalChangePercentage",
+          "@type": "xsd:decimal"
+        },
+        dimensionalChangeTestMethod: "textile:dimensionalChangeTestMethod",
+        visualInspectionScore: {
+          "@id": "textile:visualInspectionScore",
+          "@type": "xsd:integer"
+        },
+        colourChangeRating: {
+          "@id": "textile:colourChangeRating",
+          "@type": "xsd:integer"
+        },
+        fabricAppearanceRating: {
+          "@id": "textile:fabricAppearanceRating",
+          "@type": "xsd:integer"
+        },
+        seamAppearanceRating: {
+          "@id": "textile:seamAppearanceRating",
+          "@type": "xsd:integer"
+        },
+        nonTextilePartsRating: {
+          "@id": "textile:nonTextilePartsRating",
+          "@type": "xsd:integer"
+        },
+        visualInspectionTestMethod: "textile:visualInspectionTestMethod",
+        recyclabilityAssessment: {
+          "@id": "textile:recyclabilityAssessment",
+          "@type": "@id"
+        },
+        recyclabilityScore: {
+          "@id": "textile:recyclabilityScore",
+          "@type": "xsd:decimal"
+        },
+        isRecyclable: {
+          "@id": "textile:isRecyclable",
+          "@type": "xsd:boolean"
+        },
+        elastaneContentPercent: {
+          "@id": "textile:elastaneContentPercent",
+          "@type": "xsd:decimal"
+        },
+        sortingFactors: {
+          "@id": "textile:sortingFactors",
+          "@type": "@id"
+        },
+        technicalRecyclability: {
+          "@id": "textile:technicalRecyclability",
+          "@type": "@id"
+        },
+        sameInnerOuterComposition: {
+          "@id": "textile:sameInnerOuterComposition",
+          "@type": "xsd:boolean"
+        },
+        freeFromPrintings: {
+          "@id": "textile:freeFromPrintings",
+          "@type": "xsd:boolean"
+        },
+        freeFromCoatings: {
+          "@id": "textile:freeFromCoatings",
+          "@type": "xsd:boolean"
+        },
+        freeFromSequins: {
+          "@id": "textile:freeFromSequins",
+          "@type": "xsd:boolean"
+        },
+        freeFromDyes: {
+          "@id": "textile:freeFromDyes",
+          "@type": "xsd:boolean"
+        },
+        isMonoMaterial: {
+          "@id": "textile:isMonoMaterial",
+          "@type": "xsd:boolean"
+        },
+        technicalRecyclabilityScore: {
+          "@id": "textile:technicalRecyclabilityScore",
+          "@type": "xsd:decimal"
+        },
+        applicableRecyclingTechnology: {
+          "@id": "textile:applicableRecyclingTechnology",
+          "@type": "@vocab",
+          "@context": {
+            MechanicalRecycling: "textile:MechanicalRecycling",
+            ChemicalRecyclingCotton: "textile:ChemicalRecyclingCotton",
+            ThermoChemicalRecycling: "textile:ThermoChemicalRecycling",
+            ChemicalRecyclingPA6: "textile:ChemicalRecyclingPA6",
+            ThermoMechanicalRecycling: "textile:ThermoMechanicalRecycling"
+          }
+        },
+        recycledContentDeclaration: {
+          "@id": "textile:recycledContentDeclaration",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        secondaryMaterialFraction: {
+          "@id": "textile:secondaryMaterialFraction",
+          "@type": "xsd:decimal"
+        },
+        wasteOriginType: {
+          "@id": "textile:wasteOriginType",
+          "@type": "@vocab",
+          "@context": {
+            PostConsumer: "textile:PostConsumer",
+            PostIndustrial: "textile:PostIndustrial"
+          }
+        },
+        recycledSourceType: {
+          "@id": "textile:recycledSourceType",
+          "@type": "@vocab",
+          "@context": {
+            FiberToFiber: "textile:FiberToFiber",
+            OpenLoop: "textile:OpenLoop"
+          }
+        },
+        chainOfCustodyMethod: {
+          "@id": "textile:chainOfCustodyMethod",
+          "@type": "@vocab",
+          "@context": {
+            MassBalance: "textile:MassBalance",
+            Segregation: "textile:Segregation",
+            IdentityPreserved: "textile:IdentityPreserved",
+            Certified: "textile:Certified"
+          }
+        },
+        meetsTargetThreshold: {
+          "@id": "textile:meetsTargetThreshold",
+          "@type": "xsd:boolean"
+        },
+        verificationCertification: {
+          "@id": "textile:verificationCertification",
+          "@type": "@id"
+        },
+        environmentalFootprint: {
+          "@id": "textile:environmentalFootprint",
+          "@type": "@id"
+        },
+        carbonFootprintManufacturing: {
+          "@id": "textile:carbonFootprintManufacturing",
+          "@type": "xsd:decimal"
+        },
+        pefSingleScore: {
+          "@id": "textile:pefSingleScore",
+          "@type": "xsd:decimal"
+        },
+        benchmarkPerformance: {
+          "@id": "textile:benchmarkPerformance",
+          "@type": "xsd:decimal"
+        },
+        dataTypeIndicator: {
+          "@id": "textile:dataTypeIndicator",
+          "@type": "@vocab",
+          "@context": {
+            PrimaryData: "textile:PrimaryData",
+            SecondaryData: "textile:SecondaryData",
+            MixedData: "textile:MixedData"
+          }
+        },
+        pefcrReference: "textile:pefcrReference",
+        lciaCategories: {
+          "@id": "textile:lciaCategories",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        lciaCategoryCode: {
+          "@id": "textile:lciaCategoryCode",
+          "@type": "@vocab",
+          "@context": {
+            GWP: "textile:GWP",
+            WaterUse: "textile:WaterUse",
+            Eutrophication: "textile:Eutrophication",
+            Acidification: "textile:Acidification",
+            Ecotoxicity: "textile:Ecotoxicity",
+            HumanToxicity: "textile:HumanToxicity"
+          }
+        },
+        lciaValue: {
+          "@id": "textile:lciaValue",
+          "@type": "xsd:decimal"
+        },
+        lciaUnit: "textile:lciaUnit",
+        substancesOfConcern: {
+          "@id": "textile:substancesOfConcern",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        socType: {
+          "@id": "textile:socType",
+          "@type": "@vocab",
+          "@context": {
+            SoCTypeA: "textile:SoCTypeA",
+            SoCTypeB: "textile:SoCTypeB",
+            SoCTypeC: "textile:SoCTypeC",
+            SoCTypeD: "textile:SoCTypeD"
+          }
+        },
+        iupacName: "schema:iupacName",
+        casNumber: "dpp:casNumber",
+        ecNumber: "textile:ecNumber",
+        substanceConcentration: {
+          "@id": "textile:substanceConcentration",
+          "@type": "xsd:decimal"
+        },
+        concentrationRange: "textile:concentrationRange",
+        maxConcentration: {
+          "@id": "textile:maxConcentration",
+          "@type": "xsd:decimal"
+        },
+        locationInProduct: "textile:locationInProduct",
+        safeUseInstructions: "textile:safeUseInstructions",
+        endOfLifeHandling: "textile:endOfLifeHandling",
+        clpHazardCategory: {
+          "@id": "textile:clpHazardCategory",
+          "@type": "@vocab",
+          "@context": {
+            CMR: "textile:CMR",
+            EndocrineDisruptor: "textile:EndocrineDisruptor",
+            PMT: "textile:PMT",
+            Sensitizer: "textile:Sensitizer",
+            AquaticToxicity: "textile:AquaticToxicity"
+          }
+        },
+        testStandard: {
+          "@id": "textile:testStandard",
+          "@type": "@vocab",
+          "@context": {
+            ISO6330: "textile:ISO6330",
+            ISO16322_3: "textile:ISO16322_3",
+            ISO3759: "textile:ISO3759",
+            ISO15487: "textile:ISO15487",
+            ISO105: "textile:ISO105",
+            ISO12945: "textile:ISO12945",
+            ISO12947: "textile:ISO12947"
+          }
+        }
+      }
+    ]
+  },
+  "https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld": {
+    "@context": [
+      "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+      {
+        "@version": 1.1,
+        electronics: "https://ref.openepcis.io/extensions/eu/electronics/",
+        dpp: "https://ref.openepcis.io/extensions/common/core/",
+        gs1: "https://ref.gs1.org/voc/",
+        xsd: "http://www.w3.org/2001/XMLSchema#",
+        rdfs: "http://www.w3.org/2000/01/rdf-schema#",
+        id: "@id",
+        type: "@type",
+        ComponentType: "electronics:ComponentType",
+        DeviceCategory: "electronics:DeviceCategory",
+        EURepairabilityClass: "electronics:EURepairabilityClass",
+        EnergyEfficiencyClass: "electronics:EnergyEfficiencyClass",
+        RepairCriterionType: "electronics:RepairCriterionType",
+        ReplacementDifficulty: "electronics:ReplacementDifficulty",
+        WEEECategory: "electronics:WEEECategory",
+        RepairabilityIndex: "electronics:RepairabilityIndex",
+        RepairCriterion: "electronics:RepairCriterion",
+        SoftwareSupport: "electronics:SoftwareSupport",
+        EnergyEfficiency: "electronics:EnergyEfficiency",
+        ComponentBOM: "electronics:ComponentBOM",
+        WEEECompliance: "electronics:WEEECompliance",
+        RoHSCompliance: "electronics:RoHSCompliance",
+        DisplaySpecification: "electronics:DisplaySpecification",
+        deviceCategory: {
+          "@id": "schema:category",
+          "@type": "@vocab",
+          "@context": {
+            Smartphone: "electronics:Smartphone",
+            Tablet: "electronics:Tablet",
+            Laptop: "electronics:Laptop",
+            Desktop: "electronics:Desktop",
+            Server: "electronics:Server",
+            Display: "electronics:Display",
+            Television: "electronics:Television",
+            WashingMachine: "electronics:WashingMachine",
+            Refrigerator: "electronics:Refrigerator",
+            Dishwasher: "electronics:Dishwasher",
+            VacuumCleaner: "electronics:VacuumCleaner",
+            SmallAppliance: "electronics:SmallAppliance",
+            NetworkEquipment: "electronics:NetworkEquipment",
+            DataStorage: "electronics:DataStorage",
+            Printer: "electronics:Printer",
+            Wearable: "electronics:Wearable"
+          }
+        },
+        modelIdentifier: "electronics:modelIdentifier",
+        commercialName: "schema:name",
+        repairabilityIndex: {
+          "@id": "electronics:repairabilityIndex",
+          "@type": "@id"
+        },
+        totalScore: {
+          "@id": "electronics:totalScore",
+          "@type": "xsd:decimal"
+        },
+        displayScore: {
+          "@id": "electronics:displayScore",
+          "@type": "xsd:decimal"
+        },
+        repairabilityClass: {
+          "@id": "electronics:repairabilityClass",
+          "@type": "@vocab",
+          "@context": {
+            RepairClassA: "electronics:RepairClassA",
+            RepairClassB: "electronics:RepairClassB",
+            RepairClassC: "electronics:RepairClassC",
+            RepairClassD: "electronics:RepairClassD",
+            RepairClassE: "electronics:RepairClassE"
+          }
+        },
+        repairCriteria: {
+          "@id": "electronics:repairCriteria",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        criterionType: {
+          "@id": "electronics:criterionType",
+          "@type": "@vocab",
+          "@context": {
+            Documentation: "electronics:Documentation",
+            Disassembly: "electronics:Disassembly",
+            SparePartsAvailability: "electronics:SparePartsAvailability",
+            SparePartsPricing: "electronics:SparePartsPricing",
+            ProductSpecific: "electronics:ProductSpecific"
+          }
+        },
+        criterionScore: {
+          "@id": "electronics:criterionScore",
+          "@type": "xsd:decimal"
+        },
+        criterionMaxScore: {
+          "@id": "electronics:criterionMaxScore",
+          "@type": "xsd:decimal"
+        },
+        criterionDetails: "electronics:criterionDetails",
+        assessmentDate: {
+          "@id": "electronics:assessmentDate",
+          "@type": "xsd:date"
+        },
+        assessmentBody: {
+          "@id": "electronics:assessmentBody",
+          "@type": "@id"
+        },
+        repairabilityLabelUrl: {
+          "@id": "electronics:repairabilityLabelUrl",
+          "@type": "@id"
+        },
+        softwareSupport: {
+          "@id": "electronics:softwareSupport",
+          "@type": "@id"
+        },
+        operatingSystem: "schema:operatingSystem",
+        osVersion: "electronics:osVersion",
+        firmwareVersion: "electronics:firmwareVersion",
+        securityUpdateEndDate: {
+          "@id": "electronics:securityUpdateEndDate",
+          "@type": "xsd:date"
+        },
+        featureUpdateEndDate: {
+          "@id": "electronics:featureUpdateEndDate",
+          "@type": "xsd:date"
+        },
+        securitySupportYears: {
+          "@id": "electronics:securitySupportYears",
+          "@type": "@id"
+        },
+        featureSupportYears: {
+          "@id": "electronics:featureSupportYears",
+          "@type": "@id"
+        },
+        updateChannel: {
+          "@id": "electronics:updateChannel",
+          "@type": "@id"
+        },
+        latestUpdateDate: {
+          "@id": "electronics:latestUpdateDate",
+          "@type": "xsd:date"
+        },
+        energyEfficiency: {
+          "@id": "electronics:energyEfficiency",
+          "@type": "@id"
+        },
+        energyEfficiencyClass: {
+          "@id": "electronics:energyEfficiencyClass",
+          "@type": "@vocab",
+          "@context": {
+            EnergyClassA: "electronics:EnergyClassA",
+            EnergyClassB: "electronics:EnergyClassB",
+            EnergyClassC: "electronics:EnergyClassC",
+            EnergyClassD: "electronics:EnergyClassD",
+            EnergyClassE: "electronics:EnergyClassE",
+            EnergyClassF: "electronics:EnergyClassF",
+            EnergyClassG: "electronics:EnergyClassG"
+          }
+        },
+        annualEnergyConsumption: {
+          "@id": "electronics:annualEnergyConsumption",
+          "@type": "@id"
+        },
+        powerConsumptionOn: {
+          "@id": "electronics:powerConsumptionOn",
+          "@type": "@id"
+        },
+        powerConsumptionStandby: {
+          "@id": "electronics:powerConsumptionStandby",
+          "@type": "@id"
+        },
+        powerConsumptionOff: {
+          "@id": "electronics:powerConsumptionOff",
+          "@type": "@id"
+        },
+        eprelRegistrationNumber: "electronics:eprelRegistrationNumber",
+        energyLabelUrl: {
+          "@id": "electronics:energyLabelUrl",
+          "@type": "@id"
+        },
+        eprelProductUrl: {
+          "@id": "electronics:eprelProductUrl",
+          "@type": "@id"
+        },
+        billOfMaterials: {
+          "@id": "electronics:billOfMaterials",
+          "@type": "@id"
+        },
+        components: {
+          "@id": "electronics:components",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        componentType: {
+          "@id": "electronics:componentType",
+          "@type": "@vocab",
+          "@context": {
+            BatteryComponent: "electronics:BatteryComponent",
+            DisplayComponent: "electronics:DisplayComponent",
+            ProcessorComponent: "electronics:ProcessorComponent",
+            MemoryComponent: "electronics:MemoryComponent",
+            StorageComponent: "electronics:StorageComponent",
+            MotherboardComponent: "electronics:MotherboardComponent",
+            PowerSupplyComponent: "electronics:PowerSupplyComponent",
+            CoolingSystemComponent: "electronics:CoolingSystemComponent",
+            CameraComponent: "electronics:CameraComponent",
+            SpeakerComponent: "electronics:SpeakerComponent",
+            MicrophoneComponent: "electronics:MicrophoneComponent",
+            KeyboardComponent: "electronics:KeyboardComponent",
+            TrackpadComponent: "electronics:TrackpadComponent",
+            ConnectorComponent: "electronics:ConnectorComponent",
+            EnclosureComponent: "electronics:EnclosureComponent"
+          }
+        },
+        componentName: "schema:name",
+        componentManufacturer: {
+          "@id": "gs1:manufacturer",
+          "@type": "@id"
+        },
+        componentPartNumber: "electronics:componentPartNumber",
+        isReplaceable: {
+          "@id": "electronics:isReplaceable",
+          "@type": "xsd:boolean"
+        },
+        replacementDifficulty: {
+          "@id": "electronics:replacementDifficulty",
+          "@type": "@vocab",
+          "@context": {
+            UserReplaceable: "electronics:UserReplaceable",
+            ToolRequired: "electronics:ToolRequired",
+            ProfessionalOnly: "electronics:ProfessionalOnly",
+            NotReplaceable: "electronics:NotReplaceable"
+          }
+        },
+        componentPassport: {
+          "@id": "electronics:componentPassport",
+          "@type": "@id"
+        },
+        sparePartAvailabilityYears: {
+          "@id": "electronics:sparePartAvailabilityYears",
+          "@type": "@id"
+        },
+        sparePartPrice: {
+          "@id": "electronics:sparePartPrice",
+          "@type": "@id"
+        },
+        weeeCompliance: {
+          "@id": "electronics:weeeCompliance",
+          "@type": "@id"
+        },
+        weeeCategory: {
+          "@id": "schema:category",
+          "@type": "@vocab",
+          "@context": {
+            WEEE1_TemperatureExchange: "electronics:WEEE1_TemperatureExchange",
+            WEEE2_ScreensMonitors: "electronics:WEEE2_ScreensMonitors",
+            WEEE3_Lamps: "electronics:WEEE3_Lamps",
+            WEEE4_LargeEquipment: "electronics:WEEE4_LargeEquipment",
+            WEEE5_SmallEquipment: "electronics:WEEE5_SmallEquipment",
+            WEEE6_SmallIT: "electronics:WEEE6_SmallIT"
+          }
+        },
+        weeeRegistrationNumber: "electronics:weeeRegistrationNumber",
+        weeeRegistrationCountry: "electronics:weeeRegistrationCountry",
+        collectionSchemeUrl: {
+          "@id": "electronics:collectionSchemeUrl",
+          "@type": "@id"
+        },
+        recyclabilityRate: {
+          "@id": "electronics:recyclabilityRate",
+          "@type": "xsd:decimal"
+        },
+        recoverabilityRate: {
+          "@id": "electronics:recoverabilityRate",
+          "@type": "xsd:decimal"
+        },
+        rohsCompliance: {
+          "@id": "electronics:rohsCompliance",
+          "@type": "@id"
+        },
+        rohsCompliant: {
+          "@id": "electronics:rohsCompliant",
+          "@type": "xsd:boolean"
+        },
+        rohsExemptions: "electronics:rohsExemptions",
+        rohsDeclarationUrl: {
+          "@id": "electronics:rohsDeclarationUrl",
+          "@type": "@id"
+        },
+        displaySpecification: {
+          "@id": "electronics:displaySpecification",
+          "@type": "@id"
+        },
+        screenDiagonal: {
+          "@id": "electronics:screenDiagonal",
+          "@type": "@id"
+        },
+        screenResolutionWidth: {
+          "@id": "electronics:screenResolutionWidth",
+          "@type": "xsd:integer"
+        },
+        screenResolutionHeight: {
+          "@id": "electronics:screenResolutionHeight",
+          "@type": "xsd:integer"
+        },
+        displayTechnology: "electronics:displayTechnology",
+        refreshRate: {
+          "@id": "electronics:refreshRate",
+          "@type": "@id"
+        },
+        peakBrightness: {
+          "@id": "electronics:peakBrightness",
+          "@type": "@id"
+        },
+        softwareUpdateEvent: {
+          "@id": "electronics:softwareUpdateEvent",
+          "@type": "@id"
+        },
+        previousVersion: "electronics:previousVersion",
+        newVersion: "electronics:newVersion",
+        updateType: "electronics:updateType",
+        updateSource: "electronics:updateSource",
+        materialDeclaration: {
+          "@id": "electronics:materialDeclaration",
+          "@type": "@id"
+        },
+        iec62474DslVersion: "electronics:iec62474DslVersion",
+        materialDeclarationDate: {
+          "@id": "electronics:materialDeclarationDate",
+          "@type": "xsd:date"
+        },
+        Product: "gs1:Product",
+        QuantitativeValue: "gs1:QuantitativeValue",
+        value: {
+          "@id": "gs1:value",
+          "@type": "xsd:decimal"
+        },
+        unitCode: "gs1:unitCode",
+        PriceSpecification: "gs1:PriceSpecification",
+        price: {
+          "@id": "gs1:price",
+          "@type": "xsd:decimal"
+        },
+        priceCurrency: "gs1:priceCurrency",
+        Organization: "gs1:Organization",
+        organizationName: "gs1:organizationName",
+        gln: "gs1:gln",
+        gtin: "gs1:gtin",
+        productName: "gs1:productName",
+        brand: {
+          "@id": "gs1:brand",
+          "@type": "@id"
+        },
+        productionDate: {
+          "@id": "gs1:productionDate",
+          "@type": "xsd:date"
+        },
+        countryOfOrigin: "gs1:countryOfOrigin",
+        manufacturer: {
+          "@id": "gs1:manufacturer",
+          "@type": "@id"
+        },
+        netWeight: {
+          "@id": "gs1:netWeight",
+          "@type": "@id"
+        },
+        grossWeight: {
+          "@id": "gs1:grossWeight",
+          "@type": "@id"
+        }
+      }
+    ]
+  },
+  "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld": {
+    "@context": [
+      "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+      {
+        "@version": 1.1,
+        eudr: "https://ref.openepcis.io/extensions/eu/eudr/",
+        dpp: "https://ref.openepcis.io/extensions/common/core/",
+        gs1: "https://ref.gs1.org/voc/",
+        xsd: "http://www.w3.org/2001/XMLSchema#",
+        id: "@id",
+        type: "@type",
+        ActorRole: "eudr:ActorRole",
+        QuantitativeValue: "gs1:QuantitativeValue",
+        CommodityType: "eudr:CommodityType",
+        DueDiligenceStatement: "eudr:DueDiligenceStatement",
+        OriginDetails: "eudr:OriginDetails",
+        RiskAssessment: "eudr:RiskAssessment",
+        RiskLevel: "eudr:RiskLevel",
+        TimberProductType: "eudr:TimberProductType",
+        Product: "gs1:Product",
+        Place: "gs1:Place",
+        GeoShape: "gs1:GeoShape",
+        Country: "gs1:Country",
+        Organization: "gs1:Organization",
+        PostalAddress: "gs1:PostalAddress",
+        Message: "gs1:Message",
+        RegulatoryNotification: "gs1:RegulatoryNotification",
+        RegulatoryIdentifier: "gs1:RegulatoryIdentifier",
+        Transaction: "gs1:Transaction",
+        productName: "gs1:productName",
+        locationGLN: "gs1:locationGLN",
+        physicalLocationName: "gs1:physicalLocationName",
+        gtin: "gs1:gtin",
+        serialNumber: "gs1:serialNumber",
+        organizationName: "gs1:organizationName",
+        partyGLN: "gs1:partyGLN",
+        gln: "gs1:gln",
+        netWeight: {
+          "@id": "gs1:netWeight",
+          "@type": "@id"
+        },
+        grossWeight: {
+          "@id": "gs1:grossWeight",
+          "@type": "@id"
+        },
+        manufacturer: {
+          "@id": "gs1:manufacturer",
+          "@type": "@id"
+        },
+        address: {
+          "@id": "gs1:address",
+          "@type": "@id"
+        },
+        streetAddress: "gs1:streetAddress",
+        addressLocality: "gs1:addressLocality",
+        postalCode: "gs1:postalCode",
+        addressCountry: "gs1:addressCountry",
+        regulatoryInformation: {
+          "@id": "gs1:regulatoryInformation",
+          "@type": "@id"
+        },
+        RegulatoryInformation: "gs1:RegulatoryInformation",
+        regulationType: {
+          "@id": "gs1:regulationType",
+          "@type": "@vocab",
+          "@context": {
+            DEFORESTATION_REGULATION: "gs1:regulationType-DEFORESTATION_REGULATION"
+          }
+        },
+        regulatoryAct: "gs1:regulatoryAct",
+        isTradeItemRegulationCompliant: "gs1:isTradeItemRegulationCompliant",
+        regulatoryIdentifier: {
+          "@id": "gs1:regulatoryIdentifier",
+          "@type": "@id"
+        },
+        regulatoryIdentifierType: {
+          "@id": "gs1:regulatoryIdentifierType",
+          "@type": "@vocab",
+          "@context": {
+            DUE_DILIGENCE_STATEMENT: "gs1:regulatoryIdentifierType-DUE_DILIGENCE_STATEMENT"
+          }
+        },
+        regulatoryReferenceNumber: "gs1:regulatoryReferenceNumber",
+        regulatoryVerificationNumber: "gs1:regulatoryVerificationNumber",
+        regulatoryInformationProvider: {
+          "@id": "gs1:regulatoryInformationProvider",
+          "@type": "@id"
+        },
+        regulatoryReferenceApplicabilityStartDate: {
+          "@id": "gs1:regulatoryReferenceApplicabilityStartDate",
+          "@type": "xsd:date"
+        },
+        regulatoryReferenceApplicabilityEndDate: {
+          "@id": "gs1:regulatoryReferenceApplicabilityEndDate",
+          "@type": "xsd:date"
+        },
+        applicableProducts: {
+          "@id": "gs1:applicableProducts",
+          "@type": "@id"
+        },
+        applicableTransactions: {
+          "@id": "gs1:applicableTransactions",
+          "@type": "@id"
+        },
+        transactionID: "gs1:transactionID",
+        transactionType: {
+          "@id": "gs1:transactionType",
+          "@type": "@vocab",
+          "@context": {
+            AAK: "gs1:TransactionType-AAK",
+            AID: "gs1:TransactionType-AID",
+            ALO: "gs1:TransactionType-ALO",
+            AUJ: "gs1:TransactionType-AUJ",
+            AXO: "gs1:TransactionType-AXO",
+            BM: "gs1:TransactionType-BM",
+            BN: "gs1:TransactionType-BN",
+            IV: "gs1:TransactionType-IV",
+            MH: "gs1:TransactionType-MH",
+            ON: "gs1:TransactionType-ON",
+            VN: "gs1:TransactionType-VN"
+          }
+        },
+        transactionDate: {
+          "@id": "gs1:transactionDate",
+          "@type": "xsd:date"
+        },
+        messageSender: {
+          "@id": "gs1:messageSender",
+          "@type": "@id"
+        },
+        messageRecipient: {
+          "@id": "gs1:messageRecipient",
+          "@type": "@id"
+        },
+        hasBatchLotNumber: "gs1:hasBatchLotNumber",
+        hasSerialNumber: "gs1:hasSerialNumber",
+        geo: {
+          "@id": "gs1:geo",
+          "@type": "@id"
+        },
+        polygon: "gs1:polygon",
+        countryOfOrigin: {
+          "@id": "gs1:countryOfOrigin",
+          "@type": "@id"
+        },
+        Operator: "eudr:Operator",
+        Producer: "eudr:Producer",
+        Trader: "eudr:Trader",
+        DownstreamOperator: "eudr:DownstreamOperator",
+        commodityType: {
+          "@id": "eudr:commodityType",
+          "@type": "@vocab",
+          "@context": {
+            Cattle: "eudr:Cattle",
+            Cocoa: "eudr:Cocoa",
+            Coffee: "eudr:Coffee",
+            OilPalm: "eudr:OilPalm",
+            Rubber: "eudr:Rubber",
+            Soya: "eudr:Soya",
+            Wood: "eudr:Wood"
+          }
+        },
+        timberProductType: {
+          "@id": "eudr:timberProductType",
+          "@type": "@vocab",
+          "@context": {
+            RoundWood: "eudr:RoundWood",
+            SawnWood: "eudr:SawnWood",
+            Plywood: "eudr:Plywood",
+            Veneer: "eudr:Veneer",
+            WoodPellets: "eudr:WoodPellets",
+            WoodChips: "eudr:WoodChips",
+            Pulp: "eudr:Pulp",
+            Paper: "eudr:Paper",
+            Furniture: "eudr:Furniture",
+            Charcoal: "eudr:Charcoal",
+            PrintedMatter: "eudr:PrintedMatter"
+          }
+        },
+        riskLevel: {
+          "@id": "eudr:riskLevel",
+          "@type": "@vocab",
+          "@context": {
+            Negligible: "eudr:Negligible",
+            Low: "eudr:Low",
+            Standard: "eudr:Standard",
+            High: "eudr:High"
+          }
+        },
+        countryRiskCategory: {
+          "@id": "eudr:countryRiskCategory",
+          "@type": "@vocab",
+          "@context": {
+            Negligible: "eudr:Negligible",
+            Low: "eudr:Low",
+            Standard: "eudr:Standard",
+            High: "eudr:High"
+          }
+        },
+        speciesScientificName: "eudr:speciesScientificName",
+        speciesCommonName: "eudr:speciesCommonName",
+        additionalOrganizationID: {
+          "@id": "eudr:additionalOrganizationID",
+          "@type": "@id"
+        },
+        organizationID: "eudr:organizationID",
+        organizationID_Type: "eudr:organizationIDType",
+        certification: {
+          "@id": "gs1:certification",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        certificationAgency: "gs1:certificationAgency",
+        certificationStandard: "gs1:certificationStandard",
+        certificationURI: {
+          "@id": "gs1:certificationURI",
+          "@type": "@id"
+        },
+        customsCommodityCode: "dpp:customsCommodityCode",
+        customsCommodityCodeType: {
+          "@id": "dpp:customsCommodityCodeType",
+          "@type": "@vocab",
+          "@context": {
+            HS6: "dpp:HS6",
+            HS8: "dpp:HS8",
+            CN8: "dpp:CN8",
+            CN10: "dpp:CN10",
+            HTSUS10: "dpp:HTSUS10"
+          }
+        },
+        isRegulationCompliant: {
+          "@id": "dpp:isRegulationCompliant",
+          "@type": "xsd:boolean"
+        },
+        transformationLocation: {
+          "@id": "eudr:transformationLocation",
+          "@type": "@id"
+        },
+        derivedFrom: {
+          "@id": "eudr:derivedFrom",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        originDetails: {
+          "@id": "eudr:originDetails",
+          "@type": "@id"
+        },
+        originList: {
+          "@id": "eudr:originList",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        countryList: {
+          "@id": "eudr:countryList",
+          "@container": "@set"
+        },
+        countryCode: "gs1:countryCode",
+        geofence: "eudr:geofence",
+        geolocation: "eudr:geolocation",
+        areaSize: {
+          "@id": "eudr:areaSize",
+          "@type": "@id"
+        },
+        producerIdentification: {
+          "@id": "eudr:producerIdentification",
+          "@type": "@id"
+        },
+        unitCode: "gs1:unitCode",
+        value: {
+          "@id": "gs1:value",
+          "@type": "xsd:decimal"
+        },
+        deforestationFreeDate: {
+          "@id": "eudr:deforestationFreeDate",
+          "@type": "xsd:date"
+        },
+        legallyHarvested: {
+          "@id": "eudr:legallyHarvested",
+          "@type": "xsd:boolean"
+        },
+        verificationMethod: "eudr:verificationMethod",
+        landUseHistory: "eudr:landUseHistory",
+        forestManagementUnit: "eudr:forestManagementUnit",
+        fscCertification: {
+          "@id": "eudr:fscCertification",
+          "@type": "@id"
+        },
+        harvestDate: {
+          "@id": "gs1:harvestDate",
+          "@type": "xsd:date"
+        },
+        harvestDateStart: {
+          "@id": "gs1:harvestDateStart",
+          "@type": "xsd:date"
+        },
+        harvestDateEnd: {
+          "@id": "gs1:harvestDateEnd",
+          "@type": "xsd:date"
+        },
+        transformationDate: {
+          "@id": "eudr:transformationDate",
+          "@type": "xsd:date"
+        },
+        volumeCubicMeters: {
+          "@id": "eudr:volumeCubicMeters",
+          "@type": "xsd:decimal"
+        },
+        areaHectares: {
+          "@id": "eudr:areaHectares",
+          "@type": "xsd:decimal"
+        },
+        dueDiligenceStatement: {
+          "@id": "eudr:dueDiligenceStatement",
+          "@type": "@id"
+        },
+        euisReferenceNumber: "gs1:regulatoryReferenceNumber",
+        statementDate: {
+          "@id": "eudr:statementDate",
+          "@type": "xsd:date"
+        },
+        riskAssessment: {
+          "@id": "eudr:riskAssessment",
+          "@type": "@id"
+        },
+        riskAssessmentDate: {
+          "@id": "eudr:riskAssessmentDate",
+          "@type": "xsd:date"
+        },
+        mitigationMeasures: "eudr:mitigationMeasures",
+        ExemptionType: "eudr:ExemptionType",
+        ExemptionDeclaration: "eudr:ExemptionDeclaration",
+        PermanentExemption: "eudr:PermanentExemption",
+        TemporaryExemption: "eudr:TemporaryExemption",
+        exemptionDeclaration: {
+          "@id": "eudr:exemptionDeclaration",
+          "@type": "@id"
+        },
+        exemptionType: {
+          "@id": "eudr:exemptionType",
+          "@type": "@vocab",
+          "@context": {
+            PermanentExemption: "eudr:PermanentExemption",
+            TemporaryExemption: "eudr:TemporaryExemption"
+          }
+        },
+        exemptionReasonCode: "eudr:exemptionReasonCode",
+        exemptionScope: "eudr:exemptionScope",
+        exemptionScopeReference: "eudr:exemptionScopeReference",
+        exemptionEffectiveFrom: {
+          "@id": "eudr:exemptionEffectiveFrom",
+          "@type": "xsd:date"
+        },
+        exemptionEffectiveUntil: {
+          "@id": "eudr:exemptionEffectiveUntil",
+          "@type": "xsd:date"
+        },
+        exemptionAuthority: {
+          "@id": "eudr:exemptionAuthority",
+          "@type": "@id"
+        }
+      }
+    ]
+  },
+  "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld": {
+    _comment: "OpenEPCIS PPWR Vocabulary v0.1.0, EU Regulation 2025/40. Module is intentionally thin; nearly every PPWR data point reuses the lifted dpp: cross-cutting terms (ExtendedProducerResponsibility, Compostability, Biodegradability, DepositReturnScheme, bioBasedFraction, RecycledContent, HazardousSubstance) plus untp: (Facility, Material, Claim) and gs1: (Packaging, regulatoryInformation). Only packaging-specific terms (Packaging, packagingTier, recyclabilityGrade, harmonisedSymbol) live in the ppwr: namespace.",
+    "@context": [
+      "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+      {
+        "@version": 1.1,
+        ppwr: "https://ref.openepcis.io/extensions/eu/ppwr/",
+        dpp: "https://ref.openepcis.io/extensions/common/core/",
+        gs1: "https://ref.gs1.org/voc/",
+        schema: "https://schema.org/",
+        xsd: "http://www.w3.org/2001/XMLSchema#",
+        id: "@id",
+        type: "@type",
+        manufacturer: {
+          "@id": "gs1:manufacturer",
+          "@type": "@id"
+        },
+        regulatoryInformation: {
+          "@id": "gs1:regulatoryInformation",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        RegulatoryInformation: "gs1:RegulatoryInformation",
+        regulationType: {
+          "@id": "gs1:regulationType",
+          "@type": "@id"
+        },
+        regulatoryAct: "gs1:regulatoryAct",
+        isRegulationCompliant: {
+          "@id": "dpp:isRegulationCompliant",
+          "@type": "xsd:boolean"
+        },
+        Packaging: "ppwr:Packaging",
+        packagingTier: {
+          "@id": "ppwr:packagingTier",
+          "@type": "@vocab",
+          "@context": {
+            Sales: "ppwr:Sales",
+            Grouped: "ppwr:Grouped",
+            Transport: "ppwr:Transport"
+          }
+        },
+        recyclabilityGrade: {
+          "@id": "ppwr:recyclabilityGrade",
+          "@type": "@vocab",
+          "@context": {
+            A: "ppwr:GradeA",
+            B: "ppwr:GradeB",
+            C: "ppwr:GradeC"
+          }
+        },
+        harmonisedSymbol: {
+          "@id": "ppwr:harmonisedSymbol",
+          "@type": "xsd:anyURI"
+        }
+      }
+    ]
+  },
+  "https://ref.openepcis.io/extensions/eu/cpr/cpr-context.jsonld": {
+    _comment: "OpenEPCIS CPR Vocabulary v0.1.0, EU Construction Products Regulation 2024/3110. Module is intentionally thin; nearly every cross-cutting CPR data point reuses the lifted dpp: vocabulary plus untp: and gs1:. Only construction-specific terms (ConstructionProduct, declarationOfPerformanceUrl, essentialCharacteristic, reactionToFireClass, constructionProductType) live in the cpr: namespace.",
+    "@context": [
+      "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+      {
+        "@version": 1.1,
+        cpr: "https://ref.openepcis.io/extensions/eu/cpr/",
+        dpp: "https://ref.openepcis.io/extensions/common/core/",
+        gs1: "https://ref.gs1.org/voc/",
+        schema: "https://schema.org/",
+        xsd: "http://www.w3.org/2001/XMLSchema#",
+        id: "@id",
+        type: "@type",
+        manufacturer: {
+          "@id": "gs1:manufacturer",
+          "@type": "@id"
+        },
+        regulatoryInformation: {
+          "@id": "gs1:regulatoryInformation",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        RegulatoryInformation: "gs1:RegulatoryInformation",
+        regulationType: {
+          "@id": "gs1:regulationType",
+          "@type": "@id"
+        },
+        regulatoryAct: "gs1:regulatoryAct",
+        isRegulationCompliant: {
+          "@id": "dpp:isRegulationCompliant",
+          "@type": "xsd:boolean"
+        },
+        ConstructionProduct: "cpr:ConstructionProduct",
+        constructionProductType: {
+          "@id": "cpr:constructionProductType",
+          "@type": "@vocab",
+          "@context": {
+            Cement: "cpr:Cement",
+            Aggregate: "cpr:Aggregate",
+            Insulation: "cpr:Insulation",
+            WindowAndDoor: "cpr:WindowAndDoor",
+            Membrane: "cpr:Membrane",
+            StructuralTimber: "cpr:StructuralTimber",
+            Reinforcement: "cpr:Reinforcement",
+            Mortar: "cpr:Mortar",
+            Concrete: "cpr:Concrete",
+            CladdingPanel: "cpr:CladdingPanel",
+            OtherConstructionProduct: "cpr:OtherConstructionProduct"
+          }
+        },
+        reactionToFireClass: {
+          "@id": "cpr:reactionToFireClass",
+          "@type": "@vocab",
+          "@context": {
+            A1: "cpr:FireClassA1",
+            A2: "cpr:FireClassA2",
+            B: "cpr:FireClassB",
+            C: "cpr:FireClassC",
+            D: "cpr:FireClassD",
+            E: "cpr:FireClassE",
+            F: "cpr:FireClassF"
+          }
+        },
+        declarationOfPerformanceUrl: {
+          "@id": "cpr:declarationOfPerformanceUrl",
+          "@type": "xsd:anyURI"
+        },
+        EssentialCharacteristic: "cpr:EssentialCharacteristic",
+        essentialCharacteristic: {
+          "@id": "cpr:essentialCharacteristic",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        characteristicName: "cpr:characteristicName",
+        characteristicValue: {
+          "@id": "cpr:characteristicValue",
+          "@type": "@id"
+        },
+        harmonisedStandard: {
+          "@id": "cpr:harmonisedStandard",
+          "@type": "xsd:anyURI"
+        }
+      }
+    ]
+  },
+  "https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld": {
+    "@context": [
+      "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+      {
+        "@version": 1.1,
+        detergent: "https://ref.openepcis.io/extensions/eu/detergent/",
+        dpp: "https://ref.openepcis.io/extensions/common/core/",
+        gs1: "https://ref.gs1.org/voc/",
+        xsd: "http://www.w3.org/2001/XMLSchema#",
+        id: "@id",
+        type: "@type",
+        DetergentProduct: "detergent:DetergentProduct",
+        Ingredient: "detergent:Ingredient",
+        SurfactantBiodegradability: "detergent:SurfactantBiodegradability",
+        MicroorganismInfo: "detergent:MicroorganismInfo",
+        FragranceAllergen: "detergent:FragranceAllergen",
+        Product: "gs1:Product",
+        Organization: "gs1:Organization",
+        PostalAddress: "gs1:PostalAddress",
+        QuantitativeValue: "gs1:QuantitativeValue",
+        HazardousSubstance: "dpp:HazardousSubstance",
+        DocumentReference: "dpp:DocumentReference",
+        OperatorInformation: "dpp:OperatorInformation",
+        casNumber: "dpp:casNumber",
+        customsCommodityCode: "dpp:customsCommodityCode",
+        customsCommodityCodeType: {
+          "@id": "dpp:customsCommodityCodeType",
+          "@type": "@vocab",
+          "@context": {
+            HS6: "dpp:HS6",
+            HS8: "dpp:HS8",
+            CN8: "dpp:CN8",
+            CN10: "dpp:CN10",
+            HTSUS10: "dpp:HTSUS10"
+          }
+        },
+        productName: "gs1:productName",
+        gtin: "gs1:gtin",
+        organizationName: "gs1:organizationName",
+        partyGLN: "gs1:partyGLN",
+        gln: "gs1:gln",
+        manufacturer: {
+          "@id": "gs1:manufacturer",
+          "@type": "@id"
+        },
+        address: {
+          "@id": "gs1:address",
+          "@type": "@id"
+        },
+        streetAddress: "gs1:streetAddress",
+        addressLocality: "gs1:addressLocality",
+        postalCode: "gs1:postalCode",
+        addressCountry: "gs1:addressCountry",
+        countryOfOrigin: {
+          "@id": "gs1:countryOfOrigin",
+          "@type": "@id"
+        },
+        netWeight: {
+          "@id": "gs1:netWeight",
+          "@type": "@id"
+        },
+        netContent: {
+          "@id": "gs1:netContent",
+          "@type": "@id"
+        },
+        detergentCategory: {
+          "@id": "schema:category",
+          "@type": "@vocab",
+          "@context": {
+            LaundryDetergent: "detergent:LaundryDetergent",
+            DishwasherDetergent: "detergent:DishwasherDetergent",
+            HandDishwashingDetergent: "detergent:HandDishwashingDetergent",
+            AllPurposeCleaner: "detergent:AllPurposeCleaner",
+            IndustrialDetergent: "detergent:IndustrialDetergent",
+            InstitutionalDetergent: "detergent:InstitutionalDetergent",
+            Surfactant: "detergent:Surfactant"
+          }
+        },
+        productForm: {
+          "@id": "detergent:productForm",
+          "@type": "@vocab",
+          "@context": {
+            Liquid: "detergent:Liquid",
+            Powder: "detergent:Powder",
+            Gel: "detergent:Gel",
+            Capsule: "detergent:Capsule",
+            Tablet: "detergent:Tablet",
+            Sheet: "detergent:Sheet",
+            Paste: "detergent:Paste",
+            Spray: "detergent:Spray"
+          }
+        },
+        signalWord: {
+          "@id": "detergent:signalWord",
+          "@type": "@vocab",
+          "@context": {
+            Danger: "detergent:Danger",
+            Warning: "detergent:Warning"
+          }
+        },
+        ingredientFunction: {
+          "@id": "detergent:ingredientFunction",
+          "@type": "@vocab",
+          "@context": {
+            SurfactantFunction: "detergent:SurfactantFunction",
+            Builder: "detergent:Builder",
+            Bleach: "detergent:Bleach",
+            Enzyme: "detergent:Enzyme",
+            Preservative: "detergent:Preservative",
+            Fragrance: "detergent:Fragrance",
+            Colorant: "detergent:Colorant",
+            Solvent: "detergent:Solvent",
+            pHAdjuster: "detergent:pHAdjuster",
+            Thickener: "detergent:Thickener",
+            FoamRegulator: "detergent:FoamRegulator",
+            AntiRedeposition: "detergent:AntiRedeposition",
+            Filler: "detergent:Filler"
+          }
+        },
+        surfactantType: {
+          "@id": "detergent:surfactantType",
+          "@type": "@vocab",
+          "@context": {
+            Anionic: "detergent:Anionic",
+            NonIonic: "detergent:NonIonic",
+            Cationic: "detergent:Cationic",
+            Amphoteric: "detergent:Amphoteric"
+          }
+        },
+        testMethod: {
+          "@id": "detergent:testMethod",
+          "@type": "@vocab",
+          "@context": {
+            ISO14593: "detergent:ISO14593",
+            OECD301B: "detergent:OECD301B",
+            OECD301D: "detergent:OECD301D",
+            OECD301F: "detergent:OECD301F",
+            OECD310: "detergent:OECD310"
+          }
+        },
+        intendedUse: "detergent:intendedUse",
+        ingredientList: {
+          "@id": "detergent:ingredientList",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        surfactantBiodegradability: {
+          "@id": "detergent:surfactantBiodegradability",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        fragranceAllergens: {
+          "@id": "detergent:fragranceAllergens",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        microorganisms: {
+          "@id": "detergent:microorganisms",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        hazardousSubstances: {
+          "@id": "detergent:hazardousSubstances",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        hazardPictograms: {
+          "@id": "detergent:hazardPictograms",
+          "@container": "@set"
+        },
+        hStatements: {
+          "@id": "detergent:hStatements",
+          "@container": "@set"
+        },
+        pStatements: {
+          "@id": "detergent:pStatements",
+          "@container": "@set"
+        },
+        phosphorusContentPercent: {
+          "@id": "detergent:phosphorusContentPercent",
+          "@type": "xsd:decimal"
+        },
+        phosphateCompliant: {
+          "@id": "detergent:phosphateCompliant",
+          "@type": "xsd:boolean"
+        },
+        filmBiodegradable: {
+          "@id": "detergent:filmBiodegradable",
+          "@type": "xsd:boolean"
+        },
+        filmBiodegradabilityPercentage: {
+          "@id": "detergent:filmBiodegradabilityPercentage",
+          "@type": "xsd:decimal"
+        },
+        recommendedDosage: {
+          "@id": "detergent:recommendedDosage",
+          "@type": "@id"
+        },
+        dosageInstructions: "detergent:dosageInstructions",
+        safetyDataSheet: {
+          "@id": "detergent:safetyDataSheet",
+          "@type": "@id"
+        },
+        biodegradabilityTestReport: {
+          "@id": "detergent:biodegradabilityTestReport",
+          "@type": "@id"
+        },
+        inciName: "schema:name",
+        weightPercentRange: "detergent:weightPercentRange",
+        isSurfactant: {
+          "@id": "detergent:isSurfactant",
+          "@type": "xsd:boolean"
+        },
+        biodegradationPercentage: {
+          "@id": "detergent:biodegradationPercentage",
+          "@type": "xsd:decimal"
+        },
+        testDurationDays: {
+          "@id": "detergent:testDurationDays",
+          "@type": "xsd:integer"
+        },
+        passesUltimateBiodegradability: {
+          "@id": "detergent:passesUltimateBiodegradability",
+          "@type": "xsd:boolean"
+        },
+        allergenName: "gs1:allergenSpecificationName",
+        allergenCasNumber: "detergent:allergenCasNumber",
+        allergenConcentration: {
+          "@id": "detergent:allergenConcentration",
+          "@type": "xsd:decimal"
+        },
+        speciesName: "schema:name",
+        strainDesignation: "detergent:strainDesignation",
+        endProductCharacteristics: "detergent:endProductCharacteristics",
+        value: {
+          "@id": "gs1:value",
+          "@type": "xsd:decimal"
+        },
+        unitCode: "gs1:unitCode"
+      }
+    ]
+  },
+  "https://ref.openepcis.io/extensions/us/fsma204/fsma204-context.jsonld": {
+    "@context": [
+      "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+      {
+        "@version": 1.1,
+        fsma: "https://ref.openepcis.io/extensions/us/fsma204/",
+        gs1: "https://ref.gs1.org/voc/",
+        xsd: "http://www.w3.org/2001/XMLSchema#",
+        id: "@id",
+        type: "@type",
+        FoodTraceabilityList: "fsma:FoodTraceabilityList",
+        Product: "gs1:Product",
+        Organization: "gs1:Organization",
+        Country: "gs1:Country",
+        gtin: "gs1:gtin",
+        partyGLN: "gs1:partyGLN",
+        organizationName: "gs1:organizationName",
+        manufacturer: {
+          "@id": "gs1:manufacturer",
+          "@type": "@id"
+        },
+        netWeight: {
+          "@id": "gs1:netWeight",
+          "@type": "@id"
+        },
+        countryOfOrigin: {
+          "@id": "gs1:countryOfOrigin",
+          "@type": "@id"
+        },
+        functionalName: "gs1:functionalName",
+        importClassificationTypeCode: "gs1:importClassificationTypeCode",
+        importClassificationValue: "gs1:importClassificationValue",
+        gpcCategoryCode: "gs1:gpcCategoryCode",
+        foodTraceabilityListCategory: {
+          "@id": "fsma:foodTraceabilityListCategory",
+          "@type": "@vocab",
+          "@context": {
+            LeafyGreens: "fsma:LeafyGreens",
+            LeafyGreensFreshCut: "fsma:LeafyGreensFreshCut",
+            CheesePasteurizedFreshSoft: "fsma:CheesePasteurizedFreshSoft",
+            CheesePasteurizedSoftRipenedOrSemiSoft: "fsma:CheesePasteurizedSoftRipenedOrSemiSoft",
+            CheeseUnpasteurizedOtherThanHard: "fsma:CheeseUnpasteurizedOtherThanHard",
+            ShellEggs: "fsma:ShellEggs",
+            Sprouts: "fsma:Sprouts",
+            Cucumbers: "fsma:Cucumbers",
+            Melons: "fsma:Melons",
+            Peppers: "fsma:Peppers",
+            Tomatoes: "fsma:Tomatoes",
+            FruitsFreshCut: "fsma:FruitsFreshCut",
+            VegetablesOtherThanLeafyGreensFreshCut: "fsma:VegetablesOtherThanLeafyGreensFreshCut",
+            HerbsFresh: "fsma:HerbsFresh",
+            TropicalTreeFruits: "fsma:TropicalTreeFruits",
+            FinfishHistamineProducing: "fsma:FinfishHistamineProducing",
+            FinfishCiguatoxinAssociated: "fsma:FinfishCiguatoxinAssociated",
+            FinfishOther: "fsma:FinfishOther",
+            SmokedFinfish: "fsma:SmokedFinfish",
+            Crustaceans: "fsma:Crustaceans",
+            MolluscanShellfish: "fsma:MolluscanShellfish",
+            ReadyToEatDeliSalads: "fsma:ReadyToEatDeliSalads",
+            NutButters: "fsma:NutButters"
+          }
+        }
+      }
+    ]
   }
 };
 
-// extensions/common/core/examples/en18223-passport.compressed.jsonld
-var en18223_passport_compressed_default = {
-  _comment: "Good GS1 Web Vocabulary + GS1 Digital Link JSON-LD for a battery DPP. This is the EN 18223 'compressed' serialization (clauses 5.2.6-5.2.9): plain key-value data points. scripts/derive-en18223.ts derives the Annex A 'expanded' form (en18223-passport.expanded.json) and fills the envelope automatically from context and data: uniqueProductIdentifier from id, granularity from the Digital Link Application Identifiers (01/21 -> item), digitalProductPassportId defaulting to the identity, dppSchemaVersion = EN 18223:2026, dppStatus = active, and contentSpecificationIds from the dictionaryReference namespaces actually used. Only genuine product data is carried here; identifiers are GS1 Digital Links (01/21 product, 417 operator, 414 facility).",
-  "@context": [
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-    { gs1: "https://ref.gs1.org/voc/", xsd: "http://www.w3.org/2001/XMLSchema#" }
-  ],
-  type: ["gs1:Product", "DigitalProductPassport"],
-  id: "https://id.example.org/01/09506000134352/21/SN12345",
-  lastUpdated: "2026-06-07T10:00:00Z",
-  economicOperatorId: "https://id.example.org/417/4012345000009",
-  facilityId: "https://id.example.org/414/4012345000016",
-  "gs1:productName": [
-    { "@value": "EcoCell Battery Module", "@language": "en-GB" },
-    { "@value": "EcoCell Batteriemodul", "@language": "de-DE" }
-  ],
-  netWeight: { type: "gs1:QuantitativeValue", value: 12.5, unitCode: "KGM" },
-  recycledContent: 0.35,
-  preConsumerRecycledContent: 0.12,
-  postConsumerRecycledContent: 0.23,
-  repairInstructions: {
-    type: "DocumentReference",
-    documentUrl: "https://example.org/manual-en.pdf",
-    mimeType: "application/pdf",
-    languageCode: "en-GB"
+// demos/en18223-converter/samples.json
+var samples_default = [
+  {
+    group: "EU Battery",
+    label: "battery-product (item)",
+    doc: {
+      _comment_gs1_alignment: [
+        "This example demonstrates GS1-aligned Digital Product Passport modeling.",
+        "Key GS1 patterns used:",
+        "- GS1 Digital Link URI for product identification (https://id.dev.epcis.cloud/01/{GTIN}/21/{serial})",
+        "- Product as base type with battery:Battery extension",
+        "- GS1 properties: gtin, productName, manufacturer, netWeight, gs1:warranty",
+        "- QuantitativeValue for all measurements with unitCode",
+        "- gs1:regulatoryInformation for compliance with gs1:RegulationTypeCode-BATTERY_DIRECTIVE",
+        "- gs1:referencedFile for documents",
+        "- Battery-specific extensions only where GS1 Web Vocabulary lacks equivalent terms",
+        "See EXTENSION-GOVERNANCE.md for rationale on each extension term."
+      ],
+      "@context": [
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
+        {
+          gs1: "https://ref.gs1.org/voc/",
+          xsd: "http://www.w3.org/2001/XMLSchema#"
+        }
+      ],
+      id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001",
+      type: [
+        "Product",
+        "Battery"
+      ],
+      gtin: "09521002005004",
+      "gs1:serialNumber": "BAT2024-001",
+      productName: [
+        {
+          "@value": "EcoCell Industrial Battery Module IM-500",
+          "@language": "en"
+        },
+        {
+          "@value": "EcoCell Industrie-Batteriemodul IM-500",
+          "@language": "de"
+        },
+        {
+          "@value": "Module de batterie industrielle EcoCell IM-500",
+          "@language": "fr"
+        },
+        {
+          "@value": "M\xF3dulo de bater\xEDa industrial EcoCell IM-500",
+          "@language": "es"
+        },
+        {
+          "@value": "EcoCell industri\xEBle batterijmodule IM-500",
+          "@language": "nl"
+        },
+        {
+          "@value": "EcoCell industribatterimodul IM-500",
+          "@language": "da"
+        },
+        {
+          "@value": "Przemys\u0142owy modu\u0142 akumulatora EcoCell IM-500",
+          "@language": "pl"
+        },
+        {
+          "@value": "EcoCell industribatterimodul IM-500",
+          "@language": "sv"
+        },
+        {
+          "@value": "EcoCell industribatterimodul IM-500",
+          "@language": "no"
+        },
+        {
+          "@value": "EcoCell teollisuusakkumoduuli IM-500",
+          "@language": "fi"
+        },
+        {
+          "@value": "Modulo batteria industriale EcoCell IM-500",
+          "@language": "it"
+        }
+      ],
+      "gs1:productDescription": [
+        {
+          "@value": "High-capacity lithium iron phosphate battery module for industrial energy storage. Designed for long cycle life and safety.",
+          "@language": "en"
+        },
+        {
+          "@value": "Hochkapazit\xE4ts-LFP-Batteriemodul f\xFCr industrielle Energiespeicherung. Entwickelt f\xFCr lange Zyklenlebensdauer und Sicherheit.",
+          "@language": "de"
+        },
+        {
+          "@value": "Module de batterie LFP haute capacit\xE9 pour le stockage d'\xE9nergie industriel. Con\xE7u pour une longue dur\xE9e de vie cyclique et la s\xE9curit\xE9.",
+          "@language": "fr"
+        },
+        {
+          "@value": "M\xF3dulo de bater\xEDa LFP de alta capacidad para almacenamiento energ\xE9tico industrial. Dise\xF1ado para una larga vida \xFAtil de ciclos y seguridad.",
+          "@language": "es"
+        },
+        {
+          "@value": "Lithium-ijzerfosfaat-batterijmodule met hoge capaciteit voor industri\xEBle energieopslag. Ontworpen voor een lange cyclusduur en veiligheid.",
+          "@language": "nl"
+        },
+        {
+          "@value": "LFP-batterimodul med h\xF8j kapacitet til industriel energilagring. Designet til lang cyklus-levetid og sikkerhed.",
+          "@language": "da"
+        },
+        {
+          "@value": "Modu\u0142 akumulatora litowo-\u017Celazowo-fosforanowego (LFP) o du\u017Cej pojemno\u015Bci do magazynowania energii w przemy\u015Ble. Zaprojektowany z my\u015Bl\u0105 o d\u0142ugiej \u017Cywotno\u015Bci cyklicznej i bezpiecze\u0144stwie.",
+          "@language": "pl"
+        },
+        {
+          "@value": "LFP-batterimodul med h\xF6g kapacitet f\xF6r industriell energilagring. Konstruerad f\xF6r l\xE5ng cykellivsl\xE4ngd och s\xE4kerhet.",
+          "@language": "sv"
+        },
+        {
+          "@value": "LFP-batterimodul med h\xF8y kapasitet for industriell energilagring. Designet for lang syklus-levetid og sikkerhet.",
+          "@language": "no"
+        },
+        {
+          "@value": "Suurkapasiteettinen LFP-akkumoduuli teolliseen energiavarastointiin. Suunniteltu pitk\xE4n k\xE4ytt\xF6i\xE4n ja turvallisuuden ehdoilla.",
+          "@language": "fi"
+        },
+        {
+          "@value": "Modulo batteria LFP ad alta capacit\xE0 per lo stoccaggio energetico industriale. Progettato per una lunga durata ciclica e sicurezza.",
+          "@language": "it"
+        }
+      ],
+      batteryCategory: "IndustrialBattery",
+      _comment_classification: "Alternative GS1 pattern for battery category using gs1:additionalProductClassification",
+      "gs1:additionalProductClassification": {
+        type: "gs1:AdditionalProductClassificationDetails",
+        "gs1:additionalProductClassificationCode": "industrial",
+        "gs1:additionalProductClassificationCodeDescription": {
+          "@value": "Industrial Battery - Battery designed for industrial applications with capacity > 2 kWh",
+          "@language": "en"
+        },
+        "gs1:additionalProductClassificationSystemCode": "BATTERY_REGULATION_2023_1542"
+      },
+      batteryStatus: "Original",
+      batteryModel: {
+        "@value": "IM-500",
+        "@language": "en"
+      },
+      cellType: "PrismaticCell",
+      numberOfCells: 16,
+      numberOfModules: 1,
+      manufacturer: {
+        id: "https://id.dev.epcis.cloud/417/9521234000006",
+        type: "Organization",
+        "gs1:organizationName": "EcoCell GmbH",
+        "gs1:gln": "9521234000006",
+        "gs1:address": {
+          id: "https://id.dev.epcis.cloud/417/9521234000006#address",
+          type: "gs1:PostalAddress",
+          "gs1:streetAddress": "Batteriestra\xDFe 42",
+          "gs1:addressLocality": "Stuttgart",
+          "gs1:postalCode": "70173",
+          "gs1:countryCode": "DE"
+        },
+        "gs1:contactPoint": {
+          type: "gs1:ContactPoint",
+          "gs1:email": "info@ecocell-batteries.example.com",
+          "gs1:url": {
+            id: "https://www.ecocell-batteries.example.com"
+          }
+        }
+      },
+      manufacturingPlace: {
+        id: "https://id.dev.epcis.cloud/414/9521234000013",
+        type: "gs1:Place",
+        "gs1:gln": "9521234000013",
+        "gs1:address": {
+          type: "gs1:PostalAddress",
+          "gs1:addressLocality": "Stuttgart",
+          "gs1:countryCode": "DE"
+        }
+      },
+      operatorInformation: {
+        id: "https://id.dev.epcis.cloud/417/9521234000006#operator",
+        type: "dpp:OperatorInformation",
+        "gs1:gln": "9521234000006",
+        "gs1:organizationName": "EcoCell GmbH",
+        operatorRole: "Manufacturer",
+        "gs1:address": {
+          type: "gs1:PostalAddress",
+          "gs1:streetAddress": "Batteriestra\xDFe 42",
+          "gs1:addressLocality": "Stuttgart",
+          "gs1:postalCode": "70173",
+          "gs1:countryCode": "DE"
+        },
+        "gs1:contactPoint": {
+          type: "gs1:ContactPoint",
+          "gs1:email": "compliance@ecocell-batteries.example.com",
+          "gs1:telephone": "+49-711-555-0100"
+        }
+      },
+      countryOfOrigin: "DE",
+      manufacturingDate: "2024-03-15",
+      netWeight: {
+        type: "QuantitativeValue",
+        value: 125.5,
+        unitCode: "KGM"
+      },
+      grossWeight: {
+        type: "QuantitativeValue",
+        value: 132,
+        unitCode: "KGM"
+      },
+      batteryChemistry: {
+        id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#chemistry",
+        type: "BatteryChemistry",
+        shortName: "LFP",
+        fullName: {
+          "@value": "Lithium Iron Phosphate",
+          "@language": "en"
+        },
+        cathodeActiveMaterial: "LiFePO4",
+        anodeActiveMaterial: "Graphite",
+        electrolyteType: {
+          "@value": "Liquid organic carbonate-based",
+          "@language": "en"
+        }
+      },
+      technicalSpecifications: {
+        id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#specs",
+        type: "TechnicalSpecification",
+        ratedCapacity: {
+          type: "QuantitativeValue",
+          value: 280,
+          unitCode: "AMH"
+        },
+        ratedEnergy: {
+          type: "QuantitativeValue",
+          value: 14.3,
+          unitCode: "KWH"
+        },
+        nominalVoltage: {
+          type: "QuantitativeValue",
+          value: 51.2,
+          unitCode: "VLT"
+        },
+        minimumVoltage: {
+          type: "QuantitativeValue",
+          value: 40,
+          unitCode: "VLT"
+        },
+        maximumVoltage: {
+          type: "QuantitativeValue",
+          value: 58.4,
+          unitCode: "VLT"
+        },
+        ratedMaximumPower: {
+          type: "QuantitativeValue",
+          value: 7.5,
+          unitCode: "KWT"
+        },
+        maximumChargingPower: {
+          type: "QuantitativeValue",
+          value: 7.5,
+          unitCode: "KWT"
+        },
+        maximumDischargingPower: {
+          type: "QuantitativeValue",
+          value: 7.5,
+          unitCode: "KWT"
+        },
+        maximumChargingCurrent: {
+          type: "QuantitativeValue",
+          value: 140,
+          unitCode: "AMP"
+        },
+        maximumDischargingCurrent: {
+          type: "QuantitativeValue",
+          value: 140,
+          unitCode: "AMP"
+        },
+        originalPowerCapability: [
+          {
+            id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#power-80",
+            type: "PowerCapabilityAtSoC",
+            stateOfChargeLevel: 80,
+            powerCapability: {
+              type: "QuantitativeValue",
+              value: 7.2,
+              unitCode: "KWT"
+            }
+          },
+          {
+            id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#power-20",
+            type: "PowerCapabilityAtSoC",
+            stateOfChargeLevel: 20,
+            powerCapability: {
+              type: "QuantitativeValue",
+              value: 6.8,
+              unitCode: "KWT"
+            }
+          }
+        ],
+        initialInternalResistance: {
+          type: "QuantitativeValue",
+          value: 2.1,
+          unitCode: "OHM"
+        },
+        initialSelfDischarge: 1.5,
+        expectedCycleLife: 6e3,
+        expectedLifetimeYears: 15,
+        expectedLifetimeEnergyThroughput: {
+          type: "QuantitativeValue",
+          value: 85800,
+          unitCode: "KWH"
+        },
+        expectedLifetimeCapacityThroughput: {
+          type: "QuantitativeValue",
+          value: 168e4,
+          unitCode: "AMH"
+        },
+        depthOfDischargeInCycleLifeTest: 80,
+        capacityFadeThreshold: 20,
+        resistanceIncreaseThreshold: 50,
+        roundTripEfficiency: 96,
+        capacityThresholdForExhaustion: 70,
+        lifetimeReferenceTest: "https://www.iec.ch/standards/62660-1",
+        powerCapabilityRatio: 0.52,
+        cRate: 0.5,
+        cRateLifeCycleTest: 0.33,
+        roundTripEfficiencyAt50PercentCycleLife: 94,
+        temperatureRangeStorage: {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-storage",
+          type: "TemperatureRange",
+          minimumTemperature: {
+            type: "QuantitativeValue",
+            value: -20,
+            unitCode: "CEL"
+          },
+          maximumTemperature: {
+            type: "QuantitativeValue",
+            value: 45,
+            unitCode: "CEL"
+          }
+        },
+        temperatureRangeCharging: {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-charging",
+          type: "TemperatureRange",
+          minimumTemperature: {
+            type: "QuantitativeValue",
+            value: 0,
+            unitCode: "CEL"
+          },
+          maximumTemperature: {
+            type: "QuantitativeValue",
+            value: 45,
+            unitCode: "CEL"
+          }
+        },
+        temperatureRangeDischarging: {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-discharging",
+          type: "TemperatureRange",
+          minimumTemperature: {
+            type: "QuantitativeValue",
+            value: -20,
+            unitCode: "CEL"
+          },
+          maximumTemperature: {
+            type: "QuantitativeValue",
+            value: 55,
+            unitCode: "CEL"
+          }
+        },
+        temperatureRangeIdleState: {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-idle",
+          type: "TemperatureRange",
+          minimumTemperature: {
+            type: "QuantitativeValue",
+            value: -30,
+            unitCode: "CEL"
+          },
+          maximumTemperature: {
+            type: "QuantitativeValue",
+            value: 60,
+            unitCode: "CEL"
+          }
+        }
+      },
+      materialComposition: [
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-li",
+          type: "BatteryMaterial",
+          materialName: {
+            "@value": "Lithium",
+            "@language": "en"
+          },
+          casNumber: "7439-93-2",
+          ecNumber: "231-102-5",
+          componentLocation: "Cathode",
+          materialCategory: "ActiveMaterial",
+          massPercentage: 4.2,
+          isCriticalRawMaterial: true,
+          isSubstanceOfConcern: false,
+          materialSourceCountry: "CL"
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-fe",
+          type: "BatteryMaterial",
+          materialName: {
+            "@value": "Iron",
+            "@language": "en"
+          },
+          casNumber: "7439-89-6",
+          ecNumber: "231-096-4",
+          componentLocation: "Cathode",
+          materialCategory: "ActiveMaterial",
+          massPercentage: 21.5,
+          isCriticalRawMaterial: false,
+          isSubstanceOfConcern: false
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-c",
+          type: "BatteryMaterial",
+          materialName: {
+            "@value": "Graphite",
+            "@language": "en"
+          },
+          casNumber: "7782-42-5",
+          ecNumber: "231-955-3",
+          componentLocation: "Anode",
+          materialCategory: "ActiveMaterial",
+          massPercentage: 18.3,
+          isCriticalRawMaterial: true,
+          isSubstanceOfConcern: false,
+          renewableContentShare: 0
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-p",
+          type: "BatteryMaterial",
+          materialName: {
+            "@value": "Phosphorus",
+            "@language": "en"
+          },
+          casNumber: "7723-14-0",
+          ecNumber: "231-768-7",
+          componentLocation: "Cathode",
+          materialCategory: "ActiveMaterial",
+          massPercentage: 9.8,
+          isCriticalRawMaterial: true,
+          isSubstanceOfConcern: false
+        }
+      ],
+      hazardousSubstances: [
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#haz-electrolyte",
+          type: "HazardousSubstance",
+          substanceName: {
+            "@value": "Lithium hexafluorophosphate (LiPF6)",
+            "@language": "en"
+          },
+          substanceCasNumber: "21324-40-3",
+          substanceEcNumber: "244-334-7",
+          hazardClass: "AcuteToxicity",
+          concentration: 12.5,
+          hazardImpact: {
+            "@value": "Toxic if swallowed; causes skin irritation; causes serious eye damage",
+            "@language": "en"
+          },
+          substanceLocation: "Electrolyte"
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#haz-solvent",
+          type: "HazardousSubstance",
+          substanceName: {
+            "@value": "Ethylene carbonate",
+            "@language": "en"
+          },
+          substanceCasNumber: "96-49-1",
+          substanceEcNumber: "202-510-0",
+          hazardClass: "EyeDamageOrIrritation",
+          concentration: 8.2,
+          hazardImpact: {
+            "@value": "Causes serious eye irritation",
+            "@language": "en"
+          },
+          substanceLocation: "Electrolyte"
+        }
+      ],
+      recycledContent: {
+        id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#recycled",
+        type: "RecycledContent",
+        lithiumRecycledShare: 12,
+        lithiumPreConsumerShare: 5,
+        lithiumPostConsumerShare: 7,
+        cobaltRecycledShare: 0,
+        cobaltPreConsumerShare: 0,
+        cobaltPostConsumerShare: 0,
+        nickelRecycledShare: 0,
+        nickelPreConsumerShare: 0,
+        nickelPostConsumerShare: 0,
+        leadRecycledShare: 0,
+        leadPreConsumerShare: 0,
+        leadPostConsumerShare: 0
+      },
+      carbonFootprintDeclaration: {
+        id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#cfp",
+        type: "CarbonFootprintDeclaration",
+        carbonFootprintTotal: {
+          type: "QuantitativeValue",
+          value: 45.2,
+          unitCode: "KGM"
+        },
+        carbonFootprintRawMaterialExtraction: {
+          type: "QuantitativeValue",
+          value: 18.5,
+          unitCode: "KGM"
+        },
+        carbonFootprintProduction: {
+          type: "QuantitativeValue",
+          value: 15.3,
+          unitCode: "KGM"
+        },
+        carbonFootprintDistribution: {
+          type: "QuantitativeValue",
+          value: 2.8,
+          unitCode: "KGM"
+        },
+        carbonFootprintRecycling: {
+          type: "QuantitativeValue",
+          value: 8.6,
+          unitCode: "KGM"
+        },
+        carbonFootprintPerformanceClass: "CFClassB",
+        carbonFootprintStudyUrl: "https://www.ecocell-batteries.example.com/docs/IM-500-cfp-study.pdf",
+        functionalUnit: "1 kWh of total energy throughput over battery lifetime",
+        calculationStandard: "ISO 14067:2018",
+        carbonFootprintDeclarationId: "CFP-2024-ECOCELL-IM500-001",
+        carbonFootprintGeographicScope: "EU production, global material sourcing",
+        thirdPartyVerification: {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#cfp-verification",
+          type: "ThirdPartyVerification",
+          verificationBodyName: "T\xDCV Rheinland",
+          verificationDate: "2024-02-28",
+          verificationCertificateUrl: "https://www.ecocell-batteries.example.com/docs/cfp-verification-cert.pdf",
+          verificationStandard: "ISO 14064-3:2019"
+        }
+      },
+      "gs1:warranty": {
+        type: "gs1:WarrantyPromise",
+        "gs1:durationOfWarranty": "P8Y",
+        "gs1:warrantyScope": "Full replacement warranty for manufacturing defects"
+      },
+      warrantyConditions: "https://www.ecocell-batteries.example.com/warranty/terms",
+      extendedWarrantyAvailable: true,
+      serviceContactPoint: {
+        type: "gs1:ContactPoint",
+        "gs1:email": "service@ecocell-batteries.example.com",
+        "gs1:telephone": "+49-711-555-0300",
+        "gs1:url": {
+          id: "https://service.ecocell-batteries.example.com"
+        }
+      },
+      authorizedServiceCenters: "https://www.ecocell-batteries.example.com/service-centers",
+      transportationSafetyClass: "UN3481",
+      dangerousGoodsPackingInstructions: {
+        "@value": "PI966 Section II - Lithium ion batteries packed with equipment",
+        "@language": "en"
+      },
+      shippingName: {
+        "@value": "LITHIUM ION BATTERIES PACKED WITH EQUIPMENT",
+        "@language": "en"
+      },
+      repurposingPotential: {
+        "@value": "High - suitable for stationary energy storage after EV use",
+        "@language": "en"
+      },
+      repurposingGuidelines: "https://www.ecocell-batteries.example.com/docs/repurposing-guide.pdf",
+      dataQualityAssessment: "A",
+      lastDataUpdate: "2024-03-20T14:30:00Z",
+      dataProviderCertification: "ISO 27001 certified data management",
+      criticalRawMaterialsStatement: {
+        "@value": "Contains lithium (4.2%), graphite (18.3%), and phosphorus (9.8%) which are on the EU Critical Raw Materials list.",
+        "@language": "en"
+      },
+      ceMarkingIndicator: true,
+      euDeclarationOfConformity: {
+        type: "cccev:Evidence",
+        euDeclarationOfConformityId: "DoC-2024-ECOCELL-IM500",
+        declarationOfConformity: "https://www.ecocell-batteries.example.com/docs/IM-500-eu-doc.pdf",
+        notifiedBody: {
+          type: "cv:PublicOrganisation",
+          notifiedBodyNumber: "0123",
+          notifiedBodyName: "T\xDCV S\xDCD"
+        }
+      },
+      resultOfTestReport: "https://www.ecocell-batteries.example.com/docs/IM-500-test-report.pdf",
+      testReportNumber: "TR-2024-ECOCELL-IM500-001",
+      complianceStatus: "Compliant",
+      separateCollectionSymbolUrl: "https://www.ecocell-batteries.example.com/labels/weee-symbol.svg",
+      cadmiumSymbolRequired: false,
+      leadSymbolRequired: false,
+      labels: [
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#label-weee",
+          type: "Label",
+          labelSubject: "SeparateCollection",
+          labelSymbol: "https://www.ecocell-batteries.example.com/labels/weee-symbol.svg",
+          labelMeaning: {
+            "@value": "Do not dispose of with household waste. Return to designated collection points.",
+            "@language": "en"
+          }
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#label-cfp",
+          type: "Label",
+          labelSubject: "CarbonFootprintLabel",
+          labelSymbol: "https://www.ecocell-batteries.example.com/labels/cfp-class-b.svg",
+          labelMeaning: {
+            "@value": "Carbon Footprint Performance Class B: 45.2 kg CO2e/kWh",
+            "@language": "en"
+          }
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#label-fire",
+          type: "Label",
+          labelSubject: "ExtinguishingAgentLabel",
+          labelSymbol: "https://www.ecocell-batteries.example.com/labels/class-d-fire.svg",
+          labelMeaning: {
+            "@value": "In case of fire, use Class D fire extinguisher or dry sand. Do not use water.",
+            "@language": "en"
+          }
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#label-qr",
+          type: "Label",
+          labelSubject: "QRCodeLabel",
+          labelMeaning: {
+            "@value": "Scan QR code to access battery passport",
+            "@language": "en"
+          }
+        }
+      ],
+      "gs1:regulatoryInformation": [
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#reg-battery",
+          type: "gs1:RegulatoryInformation",
+          "gs1:regulationType": {
+            id: "gs1:RegulationTypeCode-BATTERY_DIRECTIVE"
+          },
+          "gs1:regulatoryAct": "EU 2023/1542",
+          "gs1:regulatoryActStatus": "ACTIVE",
+          "gs1:regulatoryPermitIdentification": "EU-TEC-2024-ECOCELL-IM500",
+          "gs1:isRegulationCompliant": true
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#reg-ce",
+          type: "gs1:RegulatoryInformation",
+          "gs1:regulationType": {
+            id: "gs1:RegulationTypeCode-CE"
+          },
+          "gs1:regulatoryAct": "CE Marking",
+          "gs1:isRegulationCompliant": true
+        }
+      ],
+      supplyChainDueDiligence: {
+        id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#due-diligence",
+        type: "SupplyChainDueDiligence",
+        dueDiligenceReportUrl: "https://www.ecocell-batteries.example.com/docs/supply-chain-due-diligence-2024.pdf",
+        dueDiligencePolicyUrl: "https://www.ecocell-batteries.example.com/policies/supply-chain-due-diligence",
+        thirdPartyAssurancesUrl: "https://www.ecocell-batteries.example.com/docs/third-party-audit-2024.pdf",
+        riskAssessmentSummary: {
+          "@value": "Low to medium risk profile. Key risks identified in lithium sourcing from Chile mitigated through certified suppliers.",
+          "@language": "en"
+        },
+        supplyChainMappingAvailable: true,
+        conflictMineralFree: true,
+        responsibleSourcingStandard: "OECDGuidelines",
+        auditDate: "2024-01-15",
+        auditBody: "PwC Germany",
+        supplyChainIndex: 78.5
+      },
+      sparePartSources: [
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#spare-1",
+          type: "Organization",
+          "gs1:organizationName": "EcoCell Service GmbH",
+          spareParts: {
+            "@value": "BMS Module, Cell Connectors, Cooling System Components, Terminal Covers",
+            "@language": "en"
+          },
+          "gs1:address": {
+            type: "gs1:PostalAddress",
+            "gs1:streetAddress": "Serviceweg 10",
+            "gs1:addressLocality": "Stuttgart",
+            "gs1:postalCode": "70174",
+            "gs1:countryCode": "DE"
+          },
+          supplierContact: {
+            type: "gs1:ContactPoint",
+            "gs1:email": "spareparts@ecocell-batteries.example.com",
+            "gs1:telephone": "+49-711-555-0200",
+            "gs1:url": {
+              id: "https://parts.ecocell-batteries.example.com"
+            }
+          }
+        }
+      ],
+      dismantlingDocuments: [
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-bom",
+          type: "DismantlingDocument",
+          documentType: "BillOfMaterial",
+          documentUrl: "https://www.ecocell-batteries.example.com/docs/IM-500-bom.pdf",
+          mimeType: "application/pdf",
+          languageCode: "en"
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-3d",
+          type: "DismantlingDocument",
+          documentType: "Model3D",
+          documentUrl: "https://www.ecocell-batteries.example.com/docs/IM-500-3d-model.step",
+          mimeType: "model/step",
+          languageCode: "en"
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-manual",
+          type: "DismantlingDocument",
+          documentType: "DismantlingManual",
+          documentUrl: "https://www.ecocell-batteries.example.com/docs/IM-500-dismantling.pdf",
+          mimeType: "application/pdf",
+          languageCode: "en"
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-sds",
+          type: "DismantlingDocument",
+          documentType: "SafetyDataSheet",
+          documentUrl: "https://www.ecocell-batteries.example.com/docs/IM-500-sds.pdf",
+          mimeType: "application/pdf",
+          languageCode: "de"
+        }
+      ],
+      endOfLifeInfo: {
+        id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#eol",
+        type: "EndOfLifeInfo",
+        recyclabilityRate: 95,
+        materialRecoveryTargets: [
+          {
+            type: "MaterialRecoveryTarget",
+            recoveryMaterial: "Lithium",
+            recoveryRate: 70
+          },
+          {
+            type: "MaterialRecoveryTarget",
+            recoveryMaterial: "Cobalt",
+            recoveryRate: 95
+          },
+          {
+            type: "MaterialRecoveryTarget",
+            recoveryMaterial: "Nickel",
+            recoveryRate: 95
+          },
+          {
+            type: "MaterialRecoveryTarget",
+            recoveryMaterial: "Copper",
+            recoveryRate: 95
+          }
+        ],
+        dismantlingInstructions: {
+          id: "https://www.ecocell-batteries.example.com/docs/IM-500-dismantling.pdf"
+        },
+        safetyInstructionsForDismantling: "https://www.ecocell-batteries.example.com/docs/IM-500-dismantling-safety.pdf",
+        dismantlingTime: {
+          type: "QuantitativeValue",
+          value: 45,
+          unitCode: "MIN"
+        },
+        extinguishingAgent: {
+          "@value": "Class D fire extinguisher or dry sand",
+          "@language": "en"
+        },
+        wastePrevention: "https://www.ecocell-batteries.example.com/sustainability/waste-prevention",
+        separateCollection: "https://www.ecocell-batteries.example.com/recycling/separate-collection",
+        informationOnCollection: "https://www.ecocell-batteries.example.com/recycling/collection-points",
+        safetyInstructions: "https://www.ecocell-batteries.example.com/docs/IM-500-safety.pdf",
+        renewableContent: 3.2
+      },
+      "gs1:referencedFile": [
+        {
+          id: "https://www.ecocell-batteries.example.com/docs/IM-500-eu-doc.pdf",
+          type: "gs1:ReferencedFileDetails",
+          "gs1:referencedFileType": {
+            id: "gs1:ReferencedFileTypeCode-DOCUMENT"
+          },
+          "gs1:contentDescription": "EU Declaration of Conformity (EU 2023/1542)",
+          "gs1:fileLanguageCode": "en"
+        },
+        {
+          id: "https://www.ecocell-batteries.example.com/docs/IM-500-test-report.pdf",
+          type: "gs1:ReferencedFileDetails",
+          "gs1:referencedFileType": {
+            id: "gs1:ReferencedFileTypeCode-CERTIFICATION"
+          },
+          "gs1:contentDescription": "EU Type Examination Test Report",
+          "gs1:fileLanguageCode": "en"
+        },
+        {
+          id: "https://www.ecocell-batteries.example.com/docs/IM-500-manual.pdf",
+          type: "gs1:ReferencedFileDetails",
+          "gs1:referencedFileType": {
+            id: "gs1:ReferencedFileTypeCode-USER_MANUAL"
+          },
+          "gs1:fileLanguageCode": "en"
+        },
+        {
+          id: "https://www.ecocell-batteries.example.com/docs/IM-500-cfp-study.pdf",
+          type: "gs1:ReferencedFileDetails",
+          "gs1:referencedFileType": {
+            id: "gs1:ReferencedFileTypeCode-CERTIFICATION"
+          },
+          "gs1:contentDescription": "Carbon Footprint Study (ISO 14067)",
+          "gs1:fileLanguageCode": "en"
+        }
+      ]
+    }
+  },
+  {
+    group: "EU Battery",
+    label: "portable-ebike-battery (item)",
+    doc: {
+      _comment_gs1_alignment: [
+        "Portable / LMT (Light Means of Transport) battery DPP example:",
+        "counterpart to the existing EV battery (battery-product.jsonld).",
+        "Demonstrates the LightMeansOfTransportBattery category, NMC622",
+        "chemistry, lower nominal voltage and capacity, and a second-life",
+        "battery status hint (Original; eligible for stationary reuse).",
+        "Pattern aligned with EU Battery Regulation 2023/1542 Annex XIII.",
+        "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+      ],
+      "@context": [
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
+        {
+          gs1: "https://ref.gs1.org/voc/",
+          xsd: "http://www.w3.org/2001/XMLSchema#"
+        }
+      ],
+      id: "https://id.dev.epcis.cloud/01/09521003000442/21/EB2026-00821",
+      type: [
+        "Product",
+        "Battery"
+      ],
+      gtin: "09521003000442",
+      "gs1:serialNumber": "EB2026-00821",
+      productName: [
+        {
+          "@value": "VeloPower e-bike battery pack VP-48V-14Ah",
+          "@language": "en"
+        },
+        {
+          "@value": "VeloPower E-Bike-Akku VP-48V-14Ah",
+          "@language": "de"
+        },
+        {
+          "@value": "Batterie de v\xE9lo \xE9lectrique VeloPower VP-48V-14Ah",
+          "@language": "fr"
+        },
+        {
+          "@value": "Bater\xEDa para e-bike VeloPower VP-48V-14Ah",
+          "@language": "es"
+        },
+        {
+          "@value": "VeloPower e-bike accu VP-48V-14Ah",
+          "@language": "nl"
+        },
+        {
+          "@value": "VeloPower elcykel-batteripakke VP-48V-14Ah",
+          "@language": "da"
+        },
+        {
+          "@value": "Akumulator do roweru elektrycznego VeloPower VP-48V-14Ah",
+          "@language": "pl"
+        },
+        {
+          "@value": "VeloPower elcykelbatteri VP-48V-14Ah",
+          "@language": "sv"
+        },
+        {
+          "@value": "VeloPower el-sykkelbatteri VP-48V-14Ah",
+          "@language": "no"
+        },
+        {
+          "@value": "VeloPower s\xE4hk\xF6py\xF6r\xE4n akku VP-48V-14Ah",
+          "@language": "fi"
+        },
+        {
+          "@value": "Batteria per e-bike VeloPower VP-48V-14Ah",
+          "@language": "it"
+        }
+      ],
+      "gs1:productDescription": [
+        {
+          "@value": "48 V / 14 Ah LMT (Light Means of Transport) NMC622 battery pack, eligible for stationary second-life reuse.",
+          "@language": "en"
+        },
+        {
+          "@value": "48-V/14-Ah-Akku f\xFCr leichte Elektrofahrzeuge (LMT) auf NMC622-Basis, geeignet f\xFCr die station\xE4re Zweitnutzung.",
+          "@language": "de"
+        },
+        {
+          "@value": "Batterie 48 V / 14 Ah pour v\xE9hicules de mobilit\xE9 l\xE9g\xE8re (LMT) en chimie NMC622, \xE9ligible \xE0 un usage stationnaire en seconde vie.",
+          "@language": "fr"
+        },
+        {
+          "@value": "Bater\xEDa 48 V / 14 Ah para veh\xEDculos ligeros (LMT) con qu\xEDmica NMC622, apta para reutilizaci\xF3n estacionaria en segunda vida.",
+          "@language": "es"
+        },
+        {
+          "@value": "48 V / 14 Ah accu voor lichte elektrische voertuigen (LMT) op NMC622-basis, geschikt voor stationair hergebruik in second life.",
+          "@language": "nl"
+        },
+        {
+          "@value": "48 V / 14 Ah batteripakke til lette transportmidler (LMT) baseret p\xE5 NMC622, egnet til station\xE6r second-life-genbrug.",
+          "@language": "da"
+        },
+        {
+          "@value": "Akumulator 48 V / 14 Ah do lekkich pojazd\xF3w elektrycznych (LMT) w chemii NMC622, kwalifikuj\u0105cy si\u0119 do stacjonarnego ponownego u\u017Cycia w drugim cyklu \u017Cycia.",
+          "@language": "pl"
+        },
+        {
+          "@value": "48 V / 14 Ah batteripaket f\xF6r l\xE4tta elfordon (LMT) i NMC622-kemi, l\xE4mpligt f\xF6r station\xE4r \xE5teranv\xE4ndning i andra liv.",
+          "@language": "sv"
+        },
+        {
+          "@value": "48 V / 14 Ah batteripakke for lette elektriske kj\xF8ret\xF8y (LMT) i NMC622-kjemi, egnet for stasjon\xE6r gjenbruk i annen levetid.",
+          "@language": "no"
+        },
+        {
+          "@value": "48 V / 14 Ah:n akku kevyisiin s\xE4hk\xF6isiin liikkumisv\xE4lineisiin (LMT), NMC622-kemia, soveltuu kiinte\xE4\xE4n toisen elinkaaren uudelleenk\xE4ytt\xF6\xF6n.",
+          "@language": "fi"
+        },
+        {
+          "@value": "Pacco batteria 48 V / 14 Ah per mezzi di mobilit\xE0 leggera (LMT) in chimica NMC622, idoneo al riutilizzo stazionario in seconda vita.",
+          "@language": "it"
+        }
+      ],
+      batteryCategory: "LightMeansOfTransportBattery",
+      batteryStatus: "Original",
+      batteryModel: {
+        "@value": "VP-48V-14Ah",
+        "@language": "en"
+      },
+      cellType: "CylindricalCell",
+      numberOfCells: 65,
+      numberOfModules: 1,
+      manufacturer: {
+        id: "https://id.dev.epcis.cloud/417/9521987000063",
+        type: "Organization",
+        "gs1:organizationName": "VeloPower GmbH",
+        "gs1:gln": "9521987000063",
+        "gs1:address": {
+          type: "gs1:PostalAddress",
+          "gs1:streetAddress": "Velomotorstra\xDFe 18",
+          "gs1:addressLocality": "Friedrichshafen",
+          "gs1:postalCode": "88045",
+          "gs1:countryCode": "DE"
+        }
+      },
+      manufacturingPlace: {
+        id: "https://id.dev.epcis.cloud/414/9521987000070",
+        type: "gs1:Place",
+        "gs1:gln": "9521987000070",
+        "gs1:address": {
+          type: "gs1:PostalAddress",
+          "gs1:addressLocality": "Friedrichshafen",
+          "gs1:countryCode": "DE"
+        }
+      },
+      operatorInformation: {
+        type: "dpp:OperatorInformation",
+        "gs1:gln": "9521987000063",
+        "gs1:organizationName": "VeloPower GmbH",
+        operatorRole: "Manufacturer"
+      },
+      "gs1:netWeight": {
+        type: "QuantitativeValue",
+        value: 3.6,
+        unitCode: "KGM"
+      },
+      batteryChemistry: {
+        type: "BatteryChemistry",
+        shortName: "NMC622",
+        fullName: {
+          "@value": "Lithium Nickel Manganese Cobalt Oxide (NMC 6:2:2)",
+          "@language": "en"
+        },
+        cathodeActiveMaterial: "LiNi0.6Mn0.2Co0.2O2",
+        anodeActiveMaterial: "Graphite",
+        electrolyteType: {
+          "@value": "Liquid organic carbonate-based",
+          "@language": "en"
+        }
+      },
+      technicalSpecifications: {
+        type: "TechnicalSpecification",
+        ratedCapacity: {
+          type: "QuantitativeValue",
+          value: 14,
+          unitCode: "AMH"
+        },
+        ratedEnergy: {
+          type: "QuantitativeValue",
+          value: 0.672,
+          unitCode: "KWH"
+        },
+        nominalVoltage: {
+          type: "QuantitativeValue",
+          value: 48,
+          unitCode: "VLT"
+        },
+        minimumVoltage: {
+          type: "QuantitativeValue",
+          value: 36,
+          unitCode: "VLT"
+        },
+        maximumVoltage: {
+          type: "QuantitativeValue",
+          value: 54.6,
+          unitCode: "VLT"
+        },
+        ratedMaximumPower: {
+          type: "QuantitativeValue",
+          value: 0.5,
+          unitCode: "KWT"
+        },
+        expectedCycleLife: {
+          type: "QuantitativeValue",
+          value: 800,
+          unitCode: "C62"
+        }
+      },
+      recycledContent: {
+        type: "RecycledContent",
+        lithiumRecycledShare: 4,
+        lithiumPreConsumerShare: 1,
+        lithiumPostConsumerShare: 3,
+        cobaltRecycledShare: 12,
+        cobaltPreConsumerShare: 4,
+        cobaltPostConsumerShare: 8,
+        nickelRecycledShare: 8,
+        nickelPreConsumerShare: 3,
+        nickelPostConsumerShare: 5
+      },
+      carbonFootprintDeclaration: {
+        type: "CarbonFootprintDeclaration",
+        carbonFootprintTotal: {
+          type: "QuantitativeValue",
+          value: 38.4,
+          unitCode: "KGM"
+        },
+        carbonFootprintRawMaterialExtraction: {
+          type: "QuantitativeValue",
+          value: 21.6,
+          unitCode: "KGM"
+        },
+        carbonFootprintProduction: {
+          type: "QuantitativeValue",
+          value: 11.2,
+          unitCode: "KGM"
+        },
+        carbonFootprintDistribution: {
+          type: "QuantitativeValue",
+          value: 2.6,
+          unitCode: "KGM"
+        },
+        carbonFootprintRecycling: {
+          type: "QuantitativeValue",
+          value: 3,
+          unitCode: "KGM"
+        },
+        carbonFootprintPerformanceClass: "CFClassB",
+        carbonFootprintDeclarationId: "CFP-2026-VELO-VP48-001",
+        carbonFootprintGeographicScope: "EU production, mixed material sourcing"
+      },
+      hazardousSubstances: [
+        {
+          type: "HazardousSubstance",
+          substanceName: {
+            "@value": "Cobalt (cathode active material constituent)",
+            "@language": "en"
+          },
+          substanceCasNumber: "7440-48-4",
+          substanceEcNumber: "231-158-0",
+          hazardClass: "Carcinogenicity",
+          concentration: 4.8,
+          substanceLocation: "Cathode"
+        },
+        {
+          type: "HazardousSubstance",
+          substanceName: {
+            "@value": "Lithium hexafluorophosphate (LiPF6)",
+            "@language": "en"
+          },
+          substanceCasNumber: "21324-40-3",
+          substanceEcNumber: "244-334-7",
+          hazardClass: "AcuteToxicity",
+          concentration: 0.9,
+          substanceLocation: "Electrolyte"
+        }
+      ],
+      "gs1:warranty": {
+        type: "gs1:WarrantyPromise",
+        "gs1:durationOfWarranty": "P2Y",
+        "gs1:warrantyScopeDescription": {
+          "@value": "Manufacturer warranty: 2 years or 500 charge cycles, whichever comes first. Cell-level capacity fade guaranteed below 20% within the warranty period.",
+          "@language": "en"
+        }
+      },
+      endOfLifeInfo: {
+        type: "EndOfLifeInfo",
+        recyclabilityRate: 78,
+        materialRecoveryTargets: [
+          {
+            type: "MaterialRecoveryTarget",
+            recoveryMaterial: "Lithium",
+            recoveryRate: 50
+          },
+          {
+            type: "MaterialRecoveryTarget",
+            recoveryMaterial: "Cobalt",
+            recoveryRate: 90
+          },
+          {
+            type: "MaterialRecoveryTarget",
+            recoveryMaterial: "Nickel",
+            recoveryRate: 90
+          },
+          {
+            type: "MaterialRecoveryTarget",
+            recoveryMaterial: "Copper",
+            recoveryRate: 95
+          }
+        ]
+      },
+      dismantlingDocuments: [
+        {
+          type: "DismantlingDocument",
+          documentType: "DismantlingInstructions",
+          documentUrl: "https://www.velopower.example.com/docs/VP-48V-14Ah-dismantling.pdf",
+          mimeType: "application/pdf",
+          languageCode: "en"
+        }
+      ],
+      "gs1:regulatoryInformation": [
+        {
+          type: "gs1:RegulatoryInformation",
+          "gs1:regulationType": {
+            id: "gs1:RegulationTypeCode-BATTERY_DIRECTIVE"
+          },
+          "gs1:regulatoryAct": "EU 2023/1542",
+          "gs1:isRegulationCompliant": true
+        }
+      ]
+    }
+  },
+  {
+    group: "EU Electronics",
+    label: "display-product (item)",
+    doc: {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld"
+      ],
+      type: "Product",
+      id: "https://id.gs1.org/01/09506000356785/21/DSP-2025-001",
+      gtin: "09506000356785",
+      productName: "EcoView Professional 32 HDR",
+      commercialName: "EcoView Pro 32",
+      modelIdentifier: "EV-PRO32-HDR-4K",
+      deviceCategory: "Display",
+      manufacturer: {
+        type: "Organization",
+        organizationName: "Nordic Display Solutions AB",
+        gln: "9521234000006"
+      },
+      manufacturingDate: "2025-01-18",
+      countryOfOrigin: "SE",
+      netWeight: {
+        type: "QuantitativeValue",
+        value: 7.2,
+        unitCode: "KGM"
+      },
+      displaySpecification: {
+        type: "DisplaySpecification",
+        screenDiagonal: {
+          type: "QuantitativeValue",
+          value: 31.5,
+          unitCode: "INH"
+        },
+        screenResolutionWidth: 3840,
+        screenResolutionHeight: 2160,
+        displayTechnology: "IPS LCD",
+        refreshRate: {
+          type: "QuantitativeValue",
+          value: 144,
+          unitCode: "HTZ"
+        },
+        peakBrightness: {
+          type: "QuantitativeValue",
+          value: 600,
+          unitCode: "CDM2"
+        }
+      },
+      energyEfficiency: {
+        type: "EnergyEfficiency",
+        energyEfficiencyClass: "EnergyClassC",
+        annualEnergyConsumption: {
+          type: "QuantitativeValue",
+          value: 85,
+          unitCode: "KWH"
+        },
+        powerConsumptionOn: {
+          type: "QuantitativeValue",
+          value: 55,
+          unitCode: "WTT"
+        },
+        powerConsumptionStandby: {
+          type: "QuantitativeValue",
+          value: 0.3,
+          unitCode: "WTT"
+        },
+        powerConsumptionOff: {
+          type: "QuantitativeValue",
+          value: 0.1,
+          unitCode: "WTT"
+        },
+        eprelRegistrationNumber: "EPREL-2025-MON-67890",
+        eprelProductUrl: "https://eprel.ec.europa.eu/screen/product/electronicdisplays/67890",
+        energyLabelUrl: "https://www.nordic-displays.example.com/products/ecoview-pro-32/energy-label.png"
+      },
+      repairabilityIndex: {
+        type: "RepairabilityIndex",
+        totalScore: 68,
+        displayScore: 6.8,
+        repairabilityClass: "RepairClassB",
+        assessmentDate: "2025-01-12",
+        repairCriteria: [
+          {
+            type: "RepairCriterion",
+            criterionType: "Documentation",
+            criterionScore: 15,
+            criterionMaxScore: 20,
+            criterionDetails: "Service manual available, basic troubleshooting guide"
+          },
+          {
+            type: "RepairCriterion",
+            criterionType: "Disassembly",
+            criterionScore: 14,
+            criterionMaxScore: 20,
+            criterionDetails: "Standard screws, modular stand, 12 steps to access power board"
+          },
+          {
+            type: "RepairCriterion",
+            criterionType: "SparePartsAvailability",
+            criterionScore: 15,
+            criterionMaxScore: 20,
+            criterionDetails: "Power board, control board available for 7 years"
+          },
+          {
+            type: "RepairCriterion",
+            criterionType: "SparePartsPricing",
+            criterionScore: 12,
+            criterionMaxScore: 20,
+            criterionDetails: "Power board: 18% of device price, Panel: not available separately"
+          },
+          {
+            type: "RepairCriterion",
+            criterionType: "ProductSpecific",
+            criterionScore: 12,
+            criterionMaxScore: 20,
+            criterionDetails: "Firmware updates via USB, factory reset capability"
+          }
+        ]
+      },
+      softwareSupport: {
+        type: "SoftwareSupport",
+        firmwareVersion: "V2.1.5",
+        securityUpdateEndDate: "2030-01-18",
+        featureUpdateEndDate: "2028-01-18",
+        updateChannel: "https://www.nordic-displays.example.com/support/firmware/ecoview-pro-32",
+        latestUpdateDate: "2025-01-22"
+      },
+      billOfMaterials: {
+        type: "ComponentBOM",
+        components: [
+          {
+            type: "Product",
+            componentType: "DisplayComponent",
+            componentName: "31.5-inch IPS LCD Panel",
+            componentPartNumber: "PNL-315IPS-4K",
+            isReplaceable: false,
+            replacementDifficulty: "NotReplaceable"
+          },
+          {
+            type: "Product",
+            componentType: "PowerSupplyComponent",
+            componentName: "Internal Power Supply Board",
+            componentPartNumber: "PSB-EV32-120W",
+            isReplaceable: true,
+            replacementDifficulty: "ProfessionalOnly",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 7,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 75,
+              priceCurrency: "EUR"
+            }
+          },
+          {
+            type: "Product",
+            componentType: "MotherboardComponent",
+            componentName: "Main Control Board",
+            componentPartNumber: "MCB-EV32-V2",
+            isReplaceable: true,
+            replacementDifficulty: "ProfessionalOnly",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 7,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 120,
+              priceCurrency: "EUR"
+            }
+          },
+          {
+            type: "Product",
+            componentType: "EnclosureComponent",
+            componentName: "Monitor Stand with Ergonomic Adjustment",
+            componentPartNumber: "STD-EV32-ERGO",
+            isReplaceable: true,
+            replacementDifficulty: "UserReplaceable",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 10,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 65,
+              priceCurrency: "EUR"
+            }
+          }
+        ]
+      },
+      weeeCompliance: {
+        type: "WEEECompliance",
+        weeeCategory: "WEEE2_ScreensMonitors",
+        weeeRegistrationNumber: "SE-2024-EE-34567",
+        weeeRegistrationCountry: "SE",
+        collectionSchemeUrl: "https://www.nordic-displays.example.com/sustainability/recycling",
+        recyclabilityRate: 0.88,
+        recoverabilityRate: 0.93
+      },
+      rohsCompliance: {
+        type: "RoHSCompliance",
+        rohsCompliant: true,
+        rohsDeclarationUrl: "https://www.nordic-displays.example.com/compliance/rohs/ecoview-pro-32"
+      },
+      circularityPerformance: {
+        type: "CircularityPerformance",
+        recyclableContent: 0.88,
+        materialCircularityIndicator: 0.55,
+        utilityFactor: 1.2,
+        endOfLifeInstructions: "https://www.nordic-displays.example.com/sustainability/end-of-life"
+      },
+      recycledContentDetails: {
+        type: "RecycledContent",
+        recycledContent: 0.28,
+        preConsumerRecycledContent: 0.12,
+        postConsumerRecycledContent: 0.16
+      },
+      emissionsPerformance: {
+        type: "EmissionsPerformance",
+        carbonFootprintTotal: 185,
+        declaredUnit: "kg CO2e/unit",
+        operationalScope: "CradleToGate",
+        primarySourcedRatio: 0.72
+      },
+      operatorInformation: {
+        type: "OperatorInformation",
+        operatorRole: "Manufacturer",
+        gln: "9521234000006",
+        economicOperatorId: "EU-EOID-SE-2024-345678",
+        vatIdentificationNumber: "SE123456789001"
+      }
+    }
+  },
+  {
+    group: "EU Electronics",
+    label: "laptop-product (item)",
+    doc: {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld"
+      ],
+      type: "Product",
+      id: "https://id.gs1.org/01/09506000467894/21/LPT-2025-001",
+      gtin: "09506000467894",
+      productName: "GreenBook Pro 15 2025",
+      commercialName: "GreenBook Pro 15",
+      modelIdentifier: "GB-PRO15-2025-I7",
+      deviceCategory: "Laptop",
+      manufacturer: {
+        type: "Organization",
+        organizationName: "GreenTech Computers SAS",
+        gln: "9521234000006"
+      },
+      manufacturingDate: "2025-01-22",
+      countryOfOrigin: "FR",
+      netWeight: {
+        type: "QuantitativeValue",
+        value: 1.85,
+        unitCode: "KGM"
+      },
+      displaySpecification: {
+        type: "DisplaySpecification",
+        screenDiagonal: {
+          type: "QuantitativeValue",
+          value: 15.6,
+          unitCode: "INH"
+        },
+        screenResolutionWidth: 2880,
+        screenResolutionHeight: 1800,
+        displayTechnology: "OLED",
+        refreshRate: {
+          type: "QuantitativeValue",
+          value: 90,
+          unitCode: "HTZ"
+        },
+        peakBrightness: {
+          type: "QuantitativeValue",
+          value: 500,
+          unitCode: "CDM2"
+        }
+      },
+      energyEfficiency: {
+        type: "EnergyEfficiency",
+        energyEfficiencyClass: "EnergyClassB",
+        annualEnergyConsumption: {
+          type: "QuantitativeValue",
+          value: 32,
+          unitCode: "KWH"
+        },
+        powerConsumptionOn: {
+          type: "QuantitativeValue",
+          value: 45,
+          unitCode: "WTT"
+        },
+        powerConsumptionStandby: {
+          type: "QuantitativeValue",
+          value: 0.8,
+          unitCode: "WTT"
+        },
+        powerConsumptionOff: {
+          type: "QuantitativeValue",
+          value: 0.2,
+          unitCode: "WTT"
+        },
+        eprelRegistrationNumber: "EPREL-2025-NB-23456",
+        eprelProductUrl: "https://eprel.ec.europa.eu/screen/product/notebooks/23456",
+        energyLabelUrl: "https://www.greentech-computers.example.com/products/greenbook-pro-15/energy-label.png"
+      },
+      repairabilityIndex: {
+        type: "RepairabilityIndex",
+        totalScore: 76.5,
+        displayScore: 7.7,
+        repairabilityClass: "RepairClassB",
+        assessmentDate: "2025-01-18",
+        repairabilityLabelUrl: "https://www.greentech-computers.example.com/products/greenbook-pro-15/repairability-label.png",
+        repairCriteria: [
+          {
+            type: "RepairCriterion",
+            criterionType: "Documentation",
+            criterionScore: 17.5,
+            criterionMaxScore: 20,
+            criterionDetails: "Complete service manual with teardown videos in 12 languages"
+          },
+          {
+            type: "RepairCriterion",
+            criterionType: "Disassembly",
+            criterionScore: 16,
+            criterionMaxScore: 20,
+            criterionDetails: "Single screw type, modular internals, battery accessible in 3 steps"
+          },
+          {
+            type: "RepairCriterion",
+            criterionType: "SparePartsAvailability",
+            criterionScore: 15,
+            criterionMaxScore: 20,
+            criterionDetails: "Major components available for 7 years through authorized partners"
+          },
+          {
+            type: "RepairCriterion",
+            criterionType: "SparePartsPricing",
+            criterionScore: 13,
+            criterionMaxScore: 20,
+            criterionDetails: "Battery: 12%, SSD: 8%, RAM: 5%, Display: 28% of device price"
+          },
+          {
+            type: "RepairCriterion",
+            criterionType: "ProductSpecific",
+            criterionScore: 15,
+            criterionMaxScore: 20,
+            criterionDetails: "6 years OS updates, user-upgradeable RAM and SSD, data recovery mode"
+          }
+        ]
+      },
+      softwareSupport: {
+        type: "SoftwareSupport",
+        operatingSystem: "Windows 11 Pro",
+        osVersion: "24H2",
+        firmwareVersion: "BIOS 1.8.0 / EC 2.3.1",
+        securityUpdateEndDate: "2031-01-22",
+        featureUpdateEndDate: "2031-01-22",
+        securitySupportYears: {
+          type: "QuantitativeValue",
+          value: 6,
+          unitCode: "ANN"
+        },
+        featureSupportYears: {
+          type: "QuantitativeValue",
+          value: 6,
+          unitCode: "ANN"
+        },
+        updateChannel: "https://support.greentech-computers.example.com/drivers/greenbook-pro-15",
+        latestUpdateDate: "2025-01-28"
+      },
+      billOfMaterials: {
+        type: "ComponentBOM",
+        components: [
+          {
+            type: "Product",
+            componentType: "BatteryComponent",
+            componentName: "Lithium-Polymer Battery 72Wh",
+            componentPartNumber: "BAT-GB15-72WH",
+            isReplaceable: true,
+            replacementDifficulty: "ToolRequired",
+            componentPassport: "https://id.gs1.org/01/09506000467900/21/BAT-2025-001",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 7,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 149,
+              priceCurrency: "EUR"
+            }
+          },
+          {
+            type: "Product",
+            componentType: "DisplayComponent",
+            componentName: "15.6-inch OLED Display Assembly",
+            componentPartNumber: "DSP-GB15-OLED",
+            isReplaceable: true,
+            replacementDifficulty: "ProfessionalOnly",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 5,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 350,
+              priceCurrency: "EUR"
+            }
+          },
+          {
+            type: "Product",
+            componentType: "MemoryComponent",
+            componentName: "DDR5 SO-DIMM 16GB (upgradeable)",
+            componentPartNumber: "MEM-DDR5-16G-SO",
+            isReplaceable: true,
+            replacementDifficulty: "UserReplaceable",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 7,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 89,
+              priceCurrency: "EUR"
+            }
+          },
+          {
+            type: "Product",
+            componentType: "StorageComponent",
+            componentName: "NVMe SSD 512GB (upgradeable)",
+            componentPartNumber: "SSD-NVME-512G",
+            isReplaceable: true,
+            replacementDifficulty: "UserReplaceable",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 7,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 95,
+              priceCurrency: "EUR"
+            }
+          },
+          {
+            type: "Product",
+            componentType: "KeyboardComponent",
+            componentName: "Backlit Keyboard FR Layout",
+            componentPartNumber: "KB-GB15-FR-BL",
+            isReplaceable: true,
+            replacementDifficulty: "ToolRequired",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 7,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 85,
+              priceCurrency: "EUR"
+            }
+          },
+          {
+            type: "Product",
+            componentType: "TrackpadComponent",
+            componentName: "Glass Trackpad with Haptic Feedback",
+            componentPartNumber: "TP-GB15-GLASS",
+            isReplaceable: true,
+            replacementDifficulty: "ProfessionalOnly",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 7,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 75,
+              priceCurrency: "EUR"
+            }
+          },
+          {
+            type: "Product",
+            componentType: "PowerSupplyComponent",
+            componentName: "100W USB-C Power Adapter",
+            componentPartNumber: "PSU-GB15-100W-C",
+            isReplaceable: true,
+            replacementDifficulty: "UserReplaceable",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 10,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 79,
+              priceCurrency: "EUR"
+            }
+          }
+        ]
+      },
+      weeeCompliance: {
+        type: "WEEECompliance",
+        weeeCategory: "WEEE2_ScreensMonitors",
+        weeeRegistrationNumber: "FR-2024-EE-45678",
+        weeeRegistrationCountry: "FR",
+        collectionSchemeUrl: "https://www.greentech-computers.example.com/sustainability/recycling",
+        recyclabilityRate: 0.86,
+        recoverabilityRate: 0.91
+      },
+      rohsCompliance: {
+        type: "RoHSCompliance",
+        rohsCompliant: true,
+        rohsDeclarationUrl: "https://www.greentech-computers.example.com/compliance/rohs/greenbook-pro-15"
+      },
+      circularityPerformance: {
+        type: "CircularityPerformance",
+        recyclableContent: 0.86,
+        materialCircularityIndicator: 0.68,
+        utilityFactor: 1.25,
+        endOfLifeInstructions: "https://www.greentech-computers.example.com/sustainability/end-of-life/greenbook-pro-15"
+      },
+      recycledContentDetails: {
+        type: "RecycledContent",
+        recycledContent: 0.38,
+        preConsumerRecycledContent: 0.15,
+        postConsumerRecycledContent: 0.23
+      },
+      emissionsPerformance: {
+        type: "EmissionsPerformance",
+        carbonFootprintTotal: 320,
+        declaredUnit: "kg CO2e/unit",
+        operationalScope: "CradleToGate",
+        primarySourcedRatio: 0.82,
+        carbonFootprintStudyUrl: "https://www.greentech-computers.example.com/sustainability/carbon-footprint/greenbook-pro-15-lca.pdf"
+      },
+      materialComposition: [
+        {
+          type: "MaterialComposition",
+          materialName: "Recycled Aluminum (chassis)",
+          massFraction: 0.42,
+          sourceCountry: "NO",
+          isCriticalRawMaterial: false
+        },
+        {
+          type: "MaterialComposition",
+          materialName: "Recycled Plastics (keyboard surround)",
+          massFraction: 0.08,
+          sourceCountry: "DE",
+          isCriticalRawMaterial: false
+        },
+        {
+          type: "MaterialComposition",
+          materialName: "Lithium (battery)",
+          massFraction: 0.015,
+          sourceCountry: "CL",
+          isCriticalRawMaterial: true
+        },
+        {
+          type: "MaterialComposition",
+          materialName: "Cobalt (battery)",
+          massFraction: 8e-3,
+          sourceCountry: "CD",
+          isCriticalRawMaterial: true
+        }
+      ],
+      operatorInformation: {
+        type: "OperatorInformation",
+        operatorRole: "Manufacturer",
+        gln: "9521234000006",
+        economicOperatorId: "EU-EOID-FR-2024-567890",
+        vatIdentificationNumber: "FR12345678901"
+      },
+      facilityInformation: {
+        type: "FacilityInformation",
+        gln: "3012345000017",
+        name: "GreenTech Manufacturing Facility Lyon",
+        facilityType: "Assembly",
+        address: {
+          type: "PostalAddress",
+          streetAddress: "Zone Industrielle de Vaise, Rue du Progr\xE8s 45",
+          addressLocality: "Lyon",
+          postalCode: "69009",
+          addressCountry: "FR"
+        }
+      },
+      dueDiligenceReport: {
+        type: "DueDiligenceReport",
+        reportUrl: "https://www.greentech-computers.example.com/sustainability/due-diligence/2024-report.pdf",
+        reportDate: "2024-12-15",
+        thirdPartyAssurancesUrl: "https://www.greentech-computers.example.com/sustainability/due-diligence/third-party-audit.pdf"
+      }
+    }
+  },
+  {
+    group: "EU Electronics",
+    label: "server-product (item)",
+    doc: {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld"
+      ],
+      type: "Product",
+      id: "https://id.gs1.org/01/09506000245676/21/SRV-2025-001",
+      gtin: "09506000245676",
+      productName: "DataCenter Pro Server X5",
+      commercialName: "DataCenter Pro X5",
+      modelIdentifier: "DCPX5-2U-64C",
+      deviceCategory: "Server",
+      manufacturer: {
+        type: "Organization",
+        organizationName: "EuroServer Systems B.V.",
+        gln: "9521234000006"
+      },
+      manufacturingDate: "2025-01-20",
+      countryOfOrigin: "NL",
+      netWeight: {
+        type: "QuantitativeValue",
+        value: 28.5,
+        unitCode: "KGM"
+      },
+      grossWeight: {
+        type: "QuantitativeValue",
+        value: 35.2,
+        unitCode: "KGM"
+      },
+      repairabilityIndex: {
+        type: "RepairabilityIndex",
+        totalScore: 85,
+        displayScore: 8.5,
+        repairabilityClass: "RepairClassA",
+        assessmentDate: "2025-01-15",
+        repairCriteria: [
+          {
+            type: "RepairCriterion",
+            criterionType: "Documentation",
+            criterionScore: 18,
+            criterionMaxScore: 20,
+            criterionDetails: "Comprehensive service manuals, maintenance guides, and API documentation"
+          },
+          {
+            type: "RepairCriterion",
+            criterionType: "Disassembly",
+            criterionScore: 19,
+            criterionMaxScore: 20,
+            criterionDetails: "Tool-less hot-swap design for all major components"
+          },
+          {
+            type: "RepairCriterion",
+            criterionType: "SparePartsAvailability",
+            criterionScore: 17,
+            criterionMaxScore: 20,
+            criterionDetails: "All spare parts available for 10 years, 24-hour delivery SLA"
+          },
+          {
+            type: "RepairCriterion",
+            criterionType: "SparePartsPricing",
+            criterionScore: 15,
+            criterionMaxScore: 20,
+            criterionDetails: "Component pricing published, volume discounts available"
+          },
+          {
+            type: "RepairCriterion",
+            criterionType: "ProductSpecific",
+            criterionScore: 16,
+            criterionMaxScore: 20,
+            criterionDetails: "10 years firmware support, remote diagnostics, modular expansion"
+          }
+        ]
+      },
+      softwareSupport: {
+        type: "SoftwareSupport",
+        operatingSystem: "Linux (RHEL/Ubuntu Server)",
+        firmwareVersion: "BIOS 2.5.1 / BMC 4.2.0",
+        securityUpdateEndDate: "2035-01-20",
+        featureUpdateEndDate: "2032-01-20",
+        securitySupportYears: {
+          type: "QuantitativeValue",
+          value: 10,
+          unitCode: "ANN"
+        },
+        updateChannel: "https://support.euroserver.example.com/firmware/dcpx5",
+        latestUpdateDate: "2025-01-28"
+      },
+      energyEfficiency: {
+        type: "EnergyEfficiency",
+        energyEfficiencyClass: "EnergyClassA",
+        annualEnergyConsumption: {
+          type: "QuantitativeValue",
+          value: 8760,
+          unitCode: "KWH"
+        },
+        powerConsumptionOn: {
+          type: "QuantitativeValue",
+          value: 1200,
+          unitCode: "WTT"
+        },
+        powerConsumptionStandby: {
+          type: "QuantitativeValue",
+          value: 45,
+          unitCode: "WTT"
+        },
+        eprelRegistrationNumber: "EPREL-2025-SRV-12345",
+        eprelProductUrl: "https://eprel.ec.europa.eu/screen/product/servers/12345"
+      },
+      billOfMaterials: {
+        type: "ComponentBOM",
+        components: [
+          {
+            type: "Product",
+            componentType: "ProcessorComponent",
+            componentName: "64-Core Server Processor (2x)",
+            componentPartNumber: "CPU-64C-SP5",
+            isReplaceable: true,
+            replacementDifficulty: "ProfessionalOnly",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 7,
+              unitCode: "ANN"
+            }
+          },
+          {
+            type: "Product",
+            componentType: "MemoryComponent",
+            componentName: "DDR5 ECC Memory Module 64GB",
+            componentPartNumber: "MEM-DDR5-64G-ECC",
+            isReplaceable: true,
+            replacementDifficulty: "UserReplaceable",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 10,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 450,
+              priceCurrency: "EUR"
+            }
+          },
+          {
+            type: "Product",
+            componentType: "StorageComponent",
+            componentName: "NVMe SSD 3.84TB Enterprise",
+            componentPartNumber: "SSD-NVME-3840G-ENT",
+            isReplaceable: true,
+            replacementDifficulty: "UserReplaceable",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 7,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 650,
+              priceCurrency: "EUR"
+            }
+          },
+          {
+            type: "Product",
+            componentType: "PowerSupplyComponent",
+            componentName: "1600W Platinum PSU (redundant)",
+            componentPartNumber: "PSU-1600W-PLAT",
+            isReplaceable: true,
+            replacementDifficulty: "UserReplaceable",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 10,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 380,
+              priceCurrency: "EUR"
+            }
+          },
+          {
+            type: "Product",
+            componentType: "CoolingSystemComponent",
+            componentName: "Hot-swap Cooling Fan Module",
+            componentPartNumber: "FAN-HS-80MM",
+            isReplaceable: true,
+            replacementDifficulty: "UserReplaceable",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 10,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 85,
+              priceCurrency: "EUR"
+            }
+          }
+        ]
+      },
+      weeeCompliance: {
+        type: "WEEECompliance",
+        weeeCategory: "WEEE4_LargeEquipment",
+        weeeRegistrationNumber: "NL-2024-EE-56789",
+        weeeRegistrationCountry: "NL",
+        collectionSchemeUrl: "https://www.euroserver.example.com/sustainability/recycling",
+        recyclabilityRate: 0.92,
+        recoverabilityRate: 0.96
+      },
+      rohsCompliance: {
+        type: "RoHSCompliance",
+        rohsCompliant: true,
+        rohsExemptions: "7(a), 7(c)-I",
+        rohsDeclarationUrl: "https://www.euroserver.example.com/compliance/rohs/dcpx5"
+      },
+      circularityPerformance: {
+        type: "CircularityPerformance",
+        recyclableContent: 0.92,
+        materialCircularityIndicator: 0.78,
+        utilityFactor: 1.4,
+        endOfLifeInstructions: "https://www.euroserver.example.com/sustainability/end-of-life/dcpx5"
+      },
+      recycledContentDetails: {
+        type: "RecycledContent",
+        recycledContent: 0.42,
+        preConsumerRecycledContent: 0.18,
+        postConsumerRecycledContent: 0.24
+      },
+      emissionsPerformance: {
+        type: "EmissionsPerformance",
+        carbonFootprintTotal: 1250,
+        declaredUnit: "kg CO2e/unit",
+        operationalScope: "CradleToGate",
+        primarySourcedRatio: 0.85,
+        carbonFootprintStudyUrl: "https://www.euroserver.example.com/sustainability/carbon-footprint/dcpx5-study.pdf"
+      },
+      materialComposition: [
+        {
+          type: "MaterialComposition",
+          materialName: "Steel (chassis)",
+          massFraction: 0.45,
+          sourceCountry: "DE",
+          isCriticalRawMaterial: false
+        },
+        {
+          type: "MaterialComposition",
+          materialName: "Aluminum (heat sinks)",
+          massFraction: 0.18,
+          sourceCountry: "NO",
+          isCriticalRawMaterial: false
+        },
+        {
+          type: "MaterialComposition",
+          materialName: "Copper (PCBs, cables)",
+          massFraction: 0.12,
+          sourceCountry: "CL",
+          isCriticalRawMaterial: false
+        },
+        {
+          type: "MaterialComposition",
+          materialName: "Rare Earth Elements (magnets)",
+          massFraction: 2e-3,
+          sourceCountry: "AU",
+          isCriticalRawMaterial: true
+        }
+      ],
+      operatorInformation: {
+        type: "OperatorInformation",
+        operatorRole: "Manufacturer",
+        gln: "9521234000006",
+        economicOperatorId: "EU-EOID-NL-2024-789012",
+        vatIdentificationNumber: "NL123456789B01"
+      },
+      facilityInformation: {
+        type: "FacilityInformation",
+        gln: "8712345000011",
+        name: "EuroServer Manufacturing Facility Amsterdam",
+        facilityType: "Assembly",
+        address: {
+          type: "PostalAddress",
+          streetAddress: "Industrieweg 123",
+          addressLocality: "Amsterdam",
+          postalCode: "1099 AA",
+          addressCountry: "NL"
+        }
+      }
+    }
+  },
+  {
+    group: "EU Electronics",
+    label: "smartphone-product (item)",
+    doc: {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld"
+      ],
+      type: "Product",
+      id: "https://id.gs1.org/01/09506000134352/21/ABC123456",
+      gtin: "09506000134352",
+      productName: "EcoPhone Pro 2025",
+      commercialName: "EcoPhone Pro",
+      modelIdentifier: "EP-2025-PRO-256",
+      deviceCategory: "Smartphone",
+      manufacturer: {
+        type: "Organization",
+        organizationName: "EcoTech Electronics GmbH",
+        gln: "9521234000006"
+      },
+      manufacturingDate: "2025-01-15",
+      countryOfOrigin: "DE",
+      netWeight: {
+        type: "QuantitativeValue",
+        value: 185,
+        unitCode: "GRM"
+      },
+      repairabilityIndex: {
+        type: "RepairabilityIndex",
+        totalScore: 72.5,
+        displayScore: 7.3,
+        repairabilityClass: "RepairClassB",
+        assessmentDate: "2025-01-10",
+        repairabilityLabelUrl: "https://example.com/labels/ecophone-pro-2025-repairability.png",
+        repairCriteria: [
+          {
+            type: "RepairCriterion",
+            criterionType: "Documentation",
+            criterionScore: 16.5,
+            criterionMaxScore: 20,
+            criterionDetails: "Complete repair manuals available in 8 languages, including video tutorials"
+          },
+          {
+            type: "RepairCriterion",
+            criterionType: "Disassembly",
+            criterionScore: 14,
+            criterionMaxScore: 20,
+            criterionDetails: "Uses standard screws, modular design, 8 steps to replace display"
+          },
+          {
+            type: "RepairCriterion",
+            criterionType: "SparePartsAvailability",
+            criterionScore: 15,
+            criterionMaxScore: 20,
+            criterionDetails: "All spare parts available for 7 years, delivery within 5 business days"
+          },
+          {
+            type: "RepairCriterion",
+            criterionType: "SparePartsPricing",
+            criterionScore: 12,
+            criterionMaxScore: 20,
+            criterionDetails: "Battery: 15% of device price, Display: 25%, Logic board: 40%"
+          },
+          {
+            type: "RepairCriterion",
+            criterionType: "ProductSpecific",
+            criterionScore: 15,
+            criterionMaxScore: 20,
+            criterionDetails: "5 years OS updates, 7 years security updates, software reset capability"
+          }
+        ]
+      },
+      softwareSupport: {
+        type: "SoftwareSupport",
+        operatingSystem: "Android",
+        osVersion: "15.0",
+        firmwareVersion: "EP2025.1.2.45",
+        securityUpdateEndDate: "2032-01-15",
+        featureUpdateEndDate: "2030-01-15",
+        securitySupportYears: {
+          type: "QuantitativeValue",
+          value: 7,
+          unitCode: "ANN"
+        },
+        featureSupportYears: {
+          type: "QuantitativeValue",
+          value: 5,
+          unitCode: "ANN"
+        },
+        updateChannel: "https://updates.ecotech-electronics.example.com/ecophone-pro",
+        latestUpdateDate: "2025-01-25"
+      },
+      displaySpecification: {
+        type: "DisplaySpecification",
+        screenDiagonal: {
+          type: "QuantitativeValue",
+          value: 6.7,
+          unitCode: "INH"
+        },
+        screenResolutionWidth: 1440,
+        screenResolutionHeight: 3200,
+        displayTechnology: "AMOLED",
+        refreshRate: {
+          type: "QuantitativeValue",
+          value: 120,
+          unitCode: "HTZ"
+        },
+        peakBrightness: {
+          type: "QuantitativeValue",
+          value: 1800,
+          unitCode: "CDM2"
+        }
+      },
+      billOfMaterials: {
+        type: "ComponentBOM",
+        components: [
+          {
+            type: "Product",
+            componentType: "BatteryComponent",
+            componentName: "Lithium-Ion Battery 5000mAh",
+            componentPartNumber: "BAT-EP2025-5000",
+            isReplaceable: true,
+            replacementDifficulty: "ToolRequired",
+            componentPassport: "https://id.gs1.org/01/09506000134369/21/BAT789012",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 7,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 89,
+              priceCurrency: "EUR"
+            }
+          },
+          {
+            type: "Product",
+            componentType: "DisplayComponent",
+            componentName: "6.7-inch AMOLED Display Assembly",
+            componentPartNumber: "DSP-EP2025-67AM",
+            isReplaceable: true,
+            replacementDifficulty: "ToolRequired",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 7,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 149,
+              priceCurrency: "EUR"
+            }
+          },
+          {
+            type: "Product",
+            componentType: "CameraComponent",
+            componentName: "Triple Camera Module",
+            componentPartNumber: "CAM-EP2025-TRIPLE",
+            isReplaceable: true,
+            replacementDifficulty: "ProfessionalOnly",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 5,
+              unitCode: "ANN"
+            }
+          },
+          {
+            type: "Product",
+            componentType: "ConnectorComponent",
+            componentName: "USB-C Charging Port",
+            componentPartNumber: "USB-EP2025-C",
+            isReplaceable: true,
+            replacementDifficulty: "ProfessionalOnly",
+            sparePartAvailabilityYears: {
+              type: "QuantitativeValue",
+              value: 7,
+              unitCode: "ANN"
+            },
+            sparePartPrice: {
+              type: "PriceSpecification",
+              price: 35,
+              priceCurrency: "EUR"
+            }
+          }
+        ]
+      },
+      weeeCompliance: {
+        type: "WEEECompliance",
+        weeeCategory: "WEEE6_SmallIT",
+        weeeRegistrationNumber: "DE-2024-EE-12345",
+        weeeRegistrationCountry: "DE",
+        collectionSchemeUrl: "https://www.ecotech-electronics.example.com/recycling",
+        recyclabilityRate: 0.85,
+        recoverabilityRate: 0.92
+      },
+      rohsCompliance: {
+        type: "RoHSCompliance",
+        rohsCompliant: true,
+        rohsDeclarationUrl: "https://www.ecotech-electronics.example.com/compliance/rohs/ecophone-pro-2025"
+      },
+      energyEfficiency: {
+        type: "EnergyEfficiency",
+        powerConsumptionStandby: {
+          type: "QuantitativeValue",
+          value: 0.3,
+          unitCode: "WTT"
+        }
+      },
+      circularityPerformance: {
+        type: "CircularityPerformance",
+        recyclableContent: 0.85,
+        materialCircularityIndicator: 0.62,
+        utilityFactor: 1.15
+      },
+      recycledContentDetails: {
+        type: "RecycledContent",
+        recycledContent: 0.35,
+        preConsumerRecycledContent: 0.1,
+        postConsumerRecycledContent: 0.25
+      },
+      emissionsPerformance: {
+        type: "EmissionsPerformance",
+        carbonFootprintTotal: 52.5,
+        declaredUnit: "kg CO2e/unit",
+        operationalScope: "CradleToGate",
+        primarySourcedRatio: 0.78
+      },
+      operatorInformation: {
+        type: "OperatorInformation",
+        operatorRole: "Manufacturer",
+        gln: "9521234000006",
+        economicOperatorId: "EU-EOID-DE-2024-123456",
+        vatIdentificationNumber: "DE123456789"
+      }
+    }
+  },
+  {
+    group: "EU Textile",
+    label: "footwear-product (item)",
+    doc: {
+      _comment_gs1_alignment: [
+        "This example demonstrates GS1-aligned Digital Product Passport for footwear.",
+        "Footwear presents unique DPP challenges: mixed materials (textile, leather, rubber),",
+        "different certifications per component, and specific durability metrics.",
+        "Key GS1 patterns used:",
+        "- GS1 Digital Link URI for product identification",
+        "- gs1:textileMaterial for composition (even for non-textile materials in footwear context)",
+        "- gs1:certification with gs1:CertificationDetails for multi-standard certifications",
+        "- textile: extensions for care, durability, and circularity"
+      ],
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
+        {
+          gs1: "https://ref.gs1.org/voc/",
+          xsd: "http://www.w3.org/2001/XMLSchema#"
+        }
+      ],
+      id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521",
+      type: [
+        "Footwear",
+        "TextileFootwear"
+      ],
+      gtin: "09521000002159",
+      "gs1:serialNumber": "TR-2024-08521",
+      productName: [
+        {
+          "@value": "EcoStride Trail Running Shoe, Forest Green",
+          "@language": "en"
+        },
+        {
+          "@value": "EcoStride Trail-Laufschuh, Waldgr\xFCn",
+          "@language": "de"
+        },
+        {
+          "@value": "Chaussure de trail EcoStride, Vert for\xEAt",
+          "@language": "fr"
+        },
+        {
+          "@value": "Zapatilla de trail EcoStride, Verde bosque",
+          "@language": "es"
+        },
+        {
+          "@value": "EcoStride trailschoen, Bosgroen",
+          "@language": "nl"
+        },
+        {
+          "@value": "EcoStride traill\xF8besko, Skovgr\xF8n",
+          "@language": "da"
+        },
+        {
+          "@value": "But do bieg\xF3w terenowych EcoStride, Le\u015Bna ziele\u0144",
+          "@language": "pl"
+        },
+        {
+          "@value": "EcoStride trailrunningsko, Skogsgr\xF6n",
+          "@language": "sv"
+        },
+        {
+          "@value": "EcoStride traillesko, Skoggr\xF8nn",
+          "@language": "no"
+        },
+        {
+          "@value": "EcoStride polkujuoksukenk\xE4, Mets\xE4nvihre\xE4",
+          "@language": "fi"
+        },
+        {
+          "@value": "Scarpa da trail running EcoStride, Verde foresta",
+          "@language": "it"
+        }
+      ],
+      "gs1:productDescription": [
+        {
+          "@value": "Lightweight trail running shoe with recycled upper mesh, chrome-free leather accents, and bio-based rubber outsole. Designed for trail performance and circular end-of-life.",
+          "@language": "en"
+        },
+        {
+          "@value": "Leichter Trail-Laufschuh mit recyceltem Obermaterial, chromfreien Lederapplikationen und biobasierter Gummisohle. Konzipiert f\xFCr Trail-Performance und kreislauff\xE4higes Lebensende.",
+          "@language": "de"
+        },
+        {
+          "@value": "Chaussure de trail l\xE9g\xE8re avec tige en maille recycl\xE9e, empi\xE8cements en cuir sans chrome et semelle en caoutchouc biosourc\xE9. Con\xE7ue pour la performance en trail et la circularit\xE9 en fin de vie.",
+          "@language": "fr"
+        },
+        {
+          "@value": "Zapatilla de trail ligera con malla superior reciclada, refuerzos de cuero sin cromo y suela de caucho de base biol\xF3gica. Pensada para el rendimiento en pista y la circularidad al final de su vida \xFAtil.",
+          "@language": "es"
+        },
+        {
+          "@value": "Lichtgewicht trailschoen met gerecyclede bovenmesh, chroomvrije leren accenten en biobased rubberen buitenzool. Ontworpen voor trailprestaties en circulariteit aan het einde van de levensduur.",
+          "@language": "nl"
+        },
+        {
+          "@value": "Letv\xE6gts traill\xF8besko med overdel af genbrugsmesh, kromfri l\xE6derdetaljer og bio-baseret gummis\xE5l. Designet til trailpr\xE6station og cirkul\xE6r end-of-life.",
+          "@language": "da"
+        },
+        {
+          "@value": "Lekki but do biegania w terenie z g\xF3r\u0105 z siatki z recyklingu, akcentami ze sk\xF3ry bezchromowej i podeszw\u0105 z gumy biopochodnej. Zaprojektowany pod k\u0105tem trailowej wydajno\u015Bci i obiegu zamkni\u0119tego.",
+          "@language": "pl"
+        },
+        {
+          "@value": "L\xE4ttviktig trailrunningsko med ovandel av \xE5tervunnen mesh, kromfria l\xE4derdetaljer och biobaserad gummiyttersula. Konstruerad f\xF6r trailprestanda och cirkul\xE4r livsl\xE4ngd.",
+          "@language": "sv"
+        },
+        {
+          "@value": "Lett traillesko med overdel av resirkulert mesh, kromfrie l\xE6rdetaljer og biobasert gummis\xE5le. Designet for trailytelse og sirkul\xE6r livssyklus.",
+          "@language": "no"
+        },
+        {
+          "@value": "Kevyt polkujuoksukenk\xE4, jonka p\xE4\xE4llinen on kierr\xE4tetty\xE4 mesh-kangasta, krominvapaita nahkayksityiskohtia ja biopohjainen kumipohja. Suunniteltu polkujuoksun suorituskykyyn ja kiertotaloudelle.",
+          "@language": "fi"
+        },
+        {
+          "@value": "Scarpa da trail running leggera con tomaia in mesh riciclato, dettagli in pelle senza cromo e suola in gomma a base biologica. Progettata per le prestazioni sul trail e la circolarit\xE0 a fine vita.",
+          "@language": "it"
+        }
+      ],
+      textileCategory: "Footwear",
+      garmentType: "Trail Running Shoe",
+      targetGender: "Unisex",
+      sizeRange: "36-48 EU",
+      seasonCollection: "SS2025",
+      fabricType: "Knitted",
+      "gs1:manufacturer": {
+        id: "https://id.dev.epcis.cloud/417/9521234000006",
+        type: "gs1:Organization",
+        "gs1:organizationName": "GreenStep Footwear AG",
+        "gs1:gln": "9521234000006",
+        "gs1:address": {
+          id: "https://id.dev.epcis.cloud/417/9521234000006#address",
+          type: "gs1:PostalAddress",
+          "gs1:streetAddress": "Via della Sostenibilita 100",
+          "gs1:addressLocality": "Montebelluna",
+          "gs1:postalCode": "31044",
+          "gs1:countryCode": "IT"
+        },
+        "gs1:contactPoint": {
+          type: "gs1:ContactPoint",
+          "gs1:email": "info@greenstep.example.com",
+          "gs1:url": {
+            id: "https://www.greenstep.example.com"
+          }
+        }
+      },
+      "dpp:operatorInformation": {
+        id: "https://id.dev.epcis.cloud/417/9521234000006#operator",
+        type: "dpp:OperatorInformation",
+        "gs1:gln": "9521234000006",
+        "gs1:organizationName": "GreenStep Footwear AG",
+        "dpp:operatorRole": {
+          id: "dpp:Manufacturer"
+        },
+        "gs1:address": {
+          type: "gs1:PostalAddress",
+          "gs1:streetAddress": "Via della Sostenibilita 100",
+          "gs1:addressLocality": "Montebelluna",
+          "gs1:postalCode": "31044",
+          "gs1:countryCode": "IT"
+        }
+      },
+      "gs1:countryOfOrigin": "IT",
+      "gs1:manufacturingDate": "2024-11-20",
+      "gs1:netWeight": {
+        type: "QuantitativeValue",
+        value: 0.54,
+        unitCode: "KGM"
+      },
+      _comment_composition: "Footwear typically has distinct upper, midsole, and outsole compositions",
+      textileMaterial: [
+        {
+          type: "TextileMaterialDetails",
+          textileMaterialContent: {
+            type: "QuantitativeValue",
+            value: 45,
+            unitCode: "P1"
+          },
+          textileMaterialDescription: {
+            "@value": "Recycled Polyester Mesh (Upper)",
+            "@language": "en"
+          }
+        },
+        {
+          type: "TextileMaterialDetails",
+          textileMaterialContent: {
+            type: "QuantitativeValue",
+            value: 15,
+            unitCode: "P1"
+          },
+          textileMaterialDescription: {
+            "@value": "Chrome-Free Leather (Accents)",
+            "@language": "en"
+          }
+        },
+        {
+          type: "TextileMaterialDetails",
+          textileMaterialContent: {
+            type: "QuantitativeValue",
+            value: 25,
+            unitCode: "P1"
+          },
+          textileMaterialDescription: {
+            "@value": "Bio-based EVA (Midsole)",
+            "@language": "en"
+          }
+        },
+        {
+          type: "TextileMaterialDetails",
+          textileMaterialContent: {
+            type: "QuantitativeValue",
+            value: 10,
+            unitCode: "P1"
+          },
+          textileMaterialDescription: {
+            "@value": "Natural Rubber (Outsole)",
+            "@language": "en"
+          }
+        },
+        {
+          type: "TextileMaterialDetails",
+          textileMaterialContent: {
+            type: "QuantitativeValue",
+            value: 5,
+            unitCode: "P1"
+          },
+          textileMaterialDescription: {
+            "@value": "Recycled Polyester (Laces)",
+            "@language": "en"
+          }
+        }
+      ],
+      careInstructions: {
+        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#care",
+        type: "CareInstruction",
+        washingSymbol: "WashHandOnly",
+        bleachingSymbol: "DoNotBleach",
+        dryingSymbol: "LineDry",
+        ironingSymbol: "DoNotIron",
+        dryCleaningSymbol: "DoNotDryClean",
+        additionalCareInstructions: {
+          "@value": "Remove insoles before cleaning. Brush off dirt when dry. Spot clean with damp cloth and mild soap. Do not machine wash or tumble dry. Air dry away from direct heat.",
+          "@language": "en"
+        }
+      },
+      durabilityInfo: {
+        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#durability",
+        type: "DurabilityInfo",
+        durabilityClass: "DurabilityB",
+        abrasionResistance: 25e3,
+        expectedLifetimeYears: 3,
+        _comment: "For footwear, we use km rating instead of wash cycles",
+        additionalCareInstructions: {
+          "@value": "Expected lifespan: 800-1000 km of trail running",
+          "@language": "en"
+        }
+      },
+      microplasticInfo: {
+        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#microplastic",
+        type: "MicroplasticInfo",
+        microplasticRiskLevel: "LowShedding",
+        syntheticFiberContent: 50,
+        microplasticMitigationMeasures: {
+          "@value": "Upper mesh features tight weave construction. All synthetic materials are solution-dyed to reduce chemical treatments. Hand wash only instruction reduces microfiber release compared to machine washing.",
+          "@language": "en"
+        }
+      },
+      _comment_robustness: "Robustness score per EU Preparatory Study 3rd Milestone (0-10)",
+      robustnessAssessment: {
+        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#robustness",
+        type: "RobustnessAssessment",
+        robustnessScore: 7,
+        cleaningCyclesBeforeTest: 5,
+        robustnessTestFabricType: "Knitted",
+        spiralityTest: {
+          type: "SpiralityTestResult",
+          spiralityScore: 2,
+          spiralityPercentage: 5.8,
+          spiralityTestMethod: "ISO 16322-3"
+        },
+        dimensionalChangeTest: {
+          type: "DimensionalChangeTestResult",
+          dimensionalChangeScore: 2,
+          dimensionalChangePercentage: 5.2,
+          dimensionalChangeTestMethod: "ISO 3759"
+        },
+        visualInspection: {
+          type: "VisualInspectionResult",
+          visualInspectionScore: 3,
+          colourChangeRating: 4,
+          fabricAppearanceRating: 4,
+          seamAppearanceRating: 4,
+          nonTextilePartsRating: 5,
+          visualInspectionTestMethod: "ISO 15487"
+        }
+      },
+      _comment_recyclability: "Recyclability score per EU Preparatory Study 3rd Milestone (0-10)",
+      recyclabilityAssessment: {
+        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#recyclability",
+        type: "RecyclabilityAssessment",
+        recyclabilityScore: 4,
+        isRecyclable: true,
+        elastaneContentPercent: 0,
+        sortingFactors: {
+          type: "SortingFactors",
+          sameInnerOuterComposition: false,
+          freeFromPrintings: true,
+          freeFromCoatings: false,
+          freeFromSequins: true
+        },
+        technicalRecyclability: {
+          type: "TechnicalRecyclability",
+          technicalRecyclabilityScore: 2,
+          applicableRecyclingTechnology: "MechanicalRecycling"
+        }
+      },
+      recycledContentDeclaration: [
+        {
+          id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#rc-rpet",
+          type: "RecycledContentDeclaration",
+          secondaryMaterialFraction: 50,
+          wasteOriginType: "PostConsumer",
+          recycledSourceType: "OpenLoop",
+          chainOfCustodyMethod: "Certified",
+          meetsTargetThreshold: true,
+          verificationCertification: {
+            type: "gs1:CertificationDetails",
+            "gs1:certificationAgency": "Textile Exchange",
+            "gs1:certificationStandard": "Global Recycled Standard (GRS)",
+            "gs1:certificationIdentification": "GRS-2024-GREENSTEP-001"
+          }
+        }
+      ],
+      environmentalFootprint: {
+        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#footprint",
+        type: "EnvironmentalFootprint",
+        carbonFootprintManufacturing: 8.2,
+        pefSingleScore: 28.7,
+        benchmarkPerformance: -22,
+        dataTypeIndicator: "MixedData",
+        pefcrReference: "PEFCR Apparel & Footwear v1.3",
+        lciaCategories: [
+          {
+            type: "LCIACategory",
+            lciaCategoryCode: "GWP",
+            lciaValue: 8.2,
+            lciaUnit: "kg CO2-eq"
+          },
+          {
+            type: "LCIACategory",
+            lciaCategoryCode: "WaterUse",
+            lciaValue: 0.5,
+            lciaUnit: "m3 world-eq"
+          }
+        ]
+      },
+      "dpp:recycledContent": {
+        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#recycled",
+        type: "dpp:RecycledContent",
+        "dpp:totalRecycledShare": 50,
+        "dpp:preConsumerShare": 10,
+        "dpp:postConsumerShare": 40
+      },
+      "dpp:carbonFootprintTotal": 8.2,
+      "dpp:carbonFootprintUnit": "kg CO2e per pair",
+      "dpp:carbonFootprintStudyUrl": "https://www.greenstep.example.com/sustainability/cfp-ecostride.pdf",
+      waterUsage: {
+        type: "QuantitativeValue",
+        value: 35,
+        unitCode: "LTR"
+      },
+      energyUsage: {
+        type: "QuantitativeValue",
+        value: 12,
+        unitCode: "KWH"
+      },
+      productionWastePercentage: 12,
+      pfasFree: true,
+      biodegradable: false,
+      hasTakeBackProgram: true,
+      takeBackProgram: {
+        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#takeback",
+        type: "TakeBackProgram",
+        takeBackUrl: "https://www.greenstep.example.com/recycle",
+        takeBackIncentive: {
+          "@value": "Return worn shoes to any GreenStep retailer and receive 20 EUR credit toward your next purchase",
+          "@language": "en"
+        },
+        endOfLifeDestination: {
+          "@value": "Shoes are disassembled: rubber outsoles ground for athletic surfaces, uppers recycled into insulation, leather components processed for leather goods industry",
+          "@language": "en"
+        }
+      },
+      recyclingInstructions: {
+        "@value": "Do not dispose in household waste. Return to GreenStep retailer or designated shoe collection point. Shoes will be disassembled for material recovery.",
+        "@language": "en"
+      },
+      "gs1:consumerRecyclingInstructions": {
+        "@value": "This footwear can be recycled through the GreenStep take-back program. Return to any participating retailer.",
+        "@language": "en"
+      },
+      isRepairable: true,
+      repairGuideUrl: "https://www.greenstep.example.com/repair/ecostride-guide",
+      sparePartsAvailable: true,
+      sparePartsUrl: "https://www.greenstep.example.com/spareparts",
+      "dpp:repairabilityInfo": {
+        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#repairability",
+        type: "dpp:RepairabilityInfo",
+        "dpp:repairabilityScore": 6.5,
+        "dpp:repairabilityClass": "C",
+        "dpp:sparePartsAvailability": {
+          type: "QuantitativeValue",
+          value: 5,
+          unitCode: "ANN"
+        },
+        "dpp:diyRepairPossible": true,
+        "dpp:professionalRepairNetwork": "https://www.greenstep.example.com/repair/partners"
+      },
+      _comment_spareparts: "Spare parts available: replacement insoles, laces, heel counters",
+      "gs1:certification": [
+        {
+          id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-grs",
+          type: "gs1:CertificationDetails",
+          "gs1:certificationAgency": "Textile Exchange",
+          "gs1:certificationStandard": "Global Recycled Standard (GRS)",
+          "gs1:certificationIdentification": "GRS-2024-GREENSTEP-001",
+          "gs1:certificationStartDate": "2024-06-01",
+          "gs1:certificationEndDate": "2025-05-31"
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-lwg",
+          type: "gs1:CertificationDetails",
+          "gs1:certificationAgency": "Leather Working Group",
+          "gs1:certificationStandard": "LWG Gold Rated",
+          "gs1:certificationIdentification": "LWG-2024-GREENSTEP-002",
+          _comment: "Leather component certified chrome-free and from LWG Gold-rated tannery"
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-oekotex",
+          type: "gs1:CertificationDetails",
+          "gs1:certificationAgency": "OEKO-TEX Association",
+          "gs1:certificationStandard": "OEKO-TEX Standard 100 Class I",
+          "gs1:certificationIdentification": "SH025 654321 TESTEX",
+          _comment: "Class I certification - safe for baby contact (highest safety class)"
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-fsc",
+          type: "gs1:CertificationDetails",
+          "gs1:certificationAgency": "Forest Stewardship Council",
+          "gs1:certificationStandard": "FSC 100%",
+          "gs1:certificationIdentification": "FSC-C123456",
+          _comment: "Natural rubber from FSC-certified plantations"
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-bcorp",
+          type: "gs1:CertificationDetails",
+          "gs1:certificationAgency": "B Lab",
+          "gs1:certificationStandard": "B Corporation",
+          "gs1:certificationIdentification": "B-Corp-GREENSTEP-2024",
+          _comment: "Company-level certification for social and environmental performance"
+        }
+      ],
+      cutAndSewFacility: {
+        id: "https://id.dev.epcis.cloud/414/4098765000010",
+        type: "dpp:FacilityInformation",
+        gln: "4098765000010",
+        name: "GreenStep Montebelluna Factory",
+        "dpp:facilityType": "Footwear Assembly",
+        address: {
+          type: "gs1:PostalAddress",
+          "gs1:addressLocality": "Montebelluna",
+          "gs1:countryCode": "IT"
+        },
+        "dpp:facilityCertifications": [
+          {
+            type: "gs1:CertificationDetails",
+            "gs1:certificationStandard": "ISO 14001:2015",
+            "gs1:certificationIdentification": "EMS-IT-2024-789"
+          },
+          {
+            type: "gs1:CertificationDetails",
+            "gs1:certificationStandard": "ISO 45001:2018",
+            "gs1:certificationIdentification": "OHS-IT-2024-012"
+          },
+          {
+            type: "gs1:CertificationDetails",
+            "gs1:certificationStandard": "SA8000",
+            "gs1:certificationIdentification": "SA-IT-2024-345"
+          }
+        ]
+      },
+      "gs1:warranty": {
+        type: "gs1:WarrantyPromise",
+        "gs1:durationOfWarranty": "P2Y",
+        "gs1:warrantyScope": "Covers manufacturing defects including delamination, stitching failures, and premature sole separation. Does not cover normal wear patterns or misuse."
+      },
+      "dpp:documents": [
+        {
+          id: "https://www.greenstep.example.com/docs/ecostride-user-guide.pdf",
+          type: "dpp:DocumentReference",
+          "dpp:documentType": {
+            id: "dpp:Manual"
+          },
+          "dpp:documentUrl": "https://www.greenstep.example.com/docs/ecostride-user-guide.pdf",
+          "schema:name": "EcoStride Care & Maintenance Guide",
+          "dpp:mimeType": "application/pdf",
+          "dpp:languageCode": "en"
+        },
+        {
+          id: "https://www.greenstep.example.com/docs/transparency-report-2024.pdf",
+          type: "dpp:DocumentReference",
+          "dpp:documentType": {
+            id: "dpp:DueDiligenceDocument"
+          },
+          "dpp:documentUrl": "https://www.greenstep.example.com/docs/transparency-report-2024.pdf",
+          "schema:name": "Supply Chain Transparency Report 2024",
+          "dpp:mimeType": "application/pdf",
+          "dpp:languageCode": "en",
+          "dpp:issueDate": "2024-03-15"
+        }
+      ],
+      "gs1:referencedFile": [
+        {
+          id: "https://www.greenstep.example.com/docs/ecostride-user-guide.pdf",
+          type: "gs1:ReferencedFileDetails",
+          "gs1:referencedFileType": {
+            id: "gs1:ReferencedFileTypeCode-USER_MANUAL"
+          },
+          "gs1:contentDescription": "Care & Maintenance Guide",
+          "gs1:fileLanguageCode": "en"
+        },
+        {
+          id: "https://www.greenstep.example.com/docs/ecostride-certifications.pdf",
+          type: "gs1:ReferencedFileDetails",
+          "gs1:referencedFileType": {
+            id: "gs1:ReferencedFileTypeCode-CERTIFICATION"
+          },
+          "gs1:contentDescription": "Product Certifications (GRS, LWG, OEKO-TEX, FSC)",
+          "gs1:fileLanguageCode": "en"
+        }
+      ],
+      "dpp:accessRights": {
+        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#access",
+        type: "dpp:AccessRights",
+        "dpp:accessLevel": {
+          id: "dpp:Public"
+        }
+      },
+      "dpp:passportIdentifier": "https://dpp.greenstep.example.com/passport/TR-2024-08521",
+      "dpp:passportVersion": "1.0",
+      "dpp:passportIssueDate": "2024-11-25",
+      "dpp:passportStatus": "Active",
+      "dpp:productCategory": {
+        id: "dpp:Textiles"
+      },
+      "dpp:lastDataUpdate": "2024-12-01T09:00:00Z",
+      "dpp:dataQualityAssessment": "A"
+    }
+  },
+  {
+    group: "EU Textile",
+    label: "garment-product (item)",
+    doc: {
+      _comment_gs1_alignment: [
+        "This example demonstrates GS1-aligned Digital Product Passport modeling for textiles.",
+        "Key GS1 patterns used:",
+        "- GS1 Digital Link URI for product identification (https://id.dev.epcis.cloud/01/{GTIN}/21/{serial})",
+        "- gs1:Product as base type (textile specificity comes from textile:TextileApparel / textile:TextileFootwear dual-typing plus textile: extension properties)",
+        "- GS1 properties: gs1:gtin, gs1:productName, gs1:manufacturer, gs1:netWeight",
+        "- gs1:textileMaterial with gs1:TextileMaterialDetails for fiber composition (GS1 native)",
+        "- gs1:certification with gs1:CertificationDetails for certifications",
+        "- gs1:QuantitativeValue for all measurements with unitCode",
+        "- Textile-specific extensions for care symbols, durability, microplastics",
+        "See EXTENSION-GOVERNANCE.md for rationale on each extension term."
+      ],
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
+        {
+          gs1: "https://ref.gs1.org/voc/",
+          xsd: "http://www.w3.org/2001/XMLSchema#"
+        }
+      ],
+      id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142",
+      type: [
+        "Clothing",
+        "TextileApparel"
+      ],
+      gtin: "09521000001428",
+      "gs1:serialNumber": "WJ-2024-00142",
+      productName: [
+        {
+          "@value": "Alpine Pro Winter Jacket, Navy",
+          "@language": "en"
+        },
+        {
+          "@value": "Alpine Pro Winterjacke, Marineblau",
+          "@language": "de"
+        },
+        {
+          "@value": "Veste d'hiver Alpine Pro, Bleu marine",
+          "@language": "fr"
+        },
+        {
+          "@value": "Chaqueta de invierno Alpine Pro, Azul marino",
+          "@language": "es"
+        },
+        {
+          "@value": "Alpine Pro winterjas, Marineblauw",
+          "@language": "nl"
+        },
+        {
+          "@value": "Alpine Pro vinterjakke, Marinebl\xE5",
+          "@language": "da"
+        },
+        {
+          "@value": "Kurtka zimowa Alpine Pro, Granatowa",
+          "@language": "pl"
+        },
+        {
+          "@value": "Alpine Pro vinterjacka, Marinbl\xE5",
+          "@language": "sv"
+        },
+        {
+          "@value": "Alpine Pro vinterjakke, Marinebl\xE5",
+          "@language": "no"
+        },
+        {
+          "@value": "Alpine Pro talvitakki, Laivastonsininen",
+          "@language": "fi"
+        },
+        {
+          "@value": "Giacca invernale Alpine Pro, Blu navy",
+          "@language": "it"
+        }
+      ],
+      "gs1:productDescription": [
+        {
+          "@value": "Water-resistant insulated winter jacket with recycled polyester shell and responsibly sourced down filling. Designed for durability and warmth in alpine conditions.",
+          "@language": "en"
+        },
+        {
+          "@value": "Wasserabweisende, isolierte Winterjacke mit Au\xDFenstoff aus recyceltem Polyester und verantwortungsvoll gewonnener Daunenf\xFCllung. Entwickelt f\xFCr Langlebigkeit und W\xE4rme im alpinen Einsatz.",
+          "@language": "de"
+        },
+        {
+          "@value": "Veste d'hiver isol\xE9e et d\xE9perlante, coque en polyester recycl\xE9 et garnissage en duvet issu de fili\xE8res responsables. Con\xE7ue pour la durabilit\xE9 et la chaleur en haute montagne.",
+          "@language": "fr"
+        },
+        {
+          "@value": "Chaqueta de invierno aislante e impermeable con tejido exterior de poli\xE9ster reciclado y relleno de plum\xF3n de origen responsable. Dise\xF1ada para ofrecer calidez y resistencia en condiciones alpinas.",
+          "@language": "es"
+        },
+        {
+          "@value": "Waterafstotende, ge\xEFsoleerde winterjas met buitenstof van gerecycled polyester en verantwoord gewonnen donsvulling. Gemaakt voor duurzaamheid en warmte in alpiene omstandigheden.",
+          "@language": "nl"
+        },
+        {
+          "@value": "Vandafvisende, isoleret vinterjakke med yderstof af genbrugspolyester og ansvarligt indhentet dunfyld. Designet til varme og holdbarhed under alpine forhold.",
+          "@language": "da"
+        },
+        {
+          "@value": "Wodoodporna, ocieplana kurtka zimowa z poszyciem z poliestru z recyklingu i wype\u0142nieniem z odpowiedzialnie pozyskiwanego puchu. Zaprojektowana z my\u015Bl\u0105 o trwa\u0142o\u015Bci i cieple w warunkach alpejskich.",
+          "@language": "pl"
+        },
+        {
+          "@value": "Vattenavvisande, isolerad vinterjacka med yttertyg av \xE5tervunnen polyester och ansvarsfullt framtagen dunfyllning. Konstruerad f\xF6r v\xE4rme och h\xE5llbarhet under alpina f\xF6rh\xE5llanden.",
+          "@language": "sv"
+        },
+        {
+          "@value": "Vannavst\xF8tende, isolert vinterjakke med yttermateriale i resirkulert polyester og ansvarlig hentet dunfyll. Designet for varme og slitestyrke i alpine forhold.",
+          "@language": "no"
+        },
+        {
+          "@value": "Vedenpit\xE4v\xE4, eristetty talvitakki, jonka p\xE4\xE4llikangas on kierr\xE4tetty\xE4 polyesteri\xE4 ja t\xE4yte vastuullisesti hankittua untuvaa. Suunniteltu kest\xE4vyyteen ja l\xE4mp\xF6\xF6n alppiolosuhteissa.",
+          "@language": "fi"
+        },
+        {
+          "@value": "Giacca invernale isolante e impermeabile con tessuto esterno in poliestere riciclato e imbottitura in piuma di provenienza responsabile. Progettata per garantire calore e durata in condizioni alpine.",
+          "@language": "it"
+        }
+      ],
+      textileCategory: "Apparel",
+      garmentType: "Winter Jacket",
+      targetGender: "Unisex",
+      sizeRange: "XS-3XL",
+      seasonCollection: "FW2024",
+      fabricType: "WovenNonDenim",
+      apparelSubcategory: "JacketsCoats",
+      "gs1:manufacturer": {
+        id: "https://id.dev.epcis.cloud/417/9521000000018",
+        type: "gs1:Organization",
+        "gs1:organizationName": "EcoWear GmbH",
+        "gs1:gln": "9521000000018",
+        "gs1:address": {
+          id: "https://id.dev.epcis.cloud/417/9521000000018#address",
+          type: "gs1:PostalAddress",
+          "gs1:streetAddress": "Textilstra\xDFe 25",
+          "gs1:addressLocality": "Munich",
+          "gs1:postalCode": "80331",
+          "gs1:countryCode": "DE"
+        },
+        "gs1:contactPoint": {
+          type: "gs1:ContactPoint",
+          "gs1:email": "info@ecowear.example.com",
+          "gs1:url": {
+            id: "https://www.ecowear.example.com"
+          }
+        }
+      },
+      "dpp:operatorInformation": {
+        id: "https://id.dev.epcis.cloud/417/9521000000018#operator",
+        type: "dpp:OperatorInformation",
+        "gs1:gln": "9521000000018",
+        "gs1:organizationName": "EcoWear GmbH",
+        "dpp:operatorRole": {
+          id: "dpp:Manufacturer"
+        },
+        "gs1:address": {
+          type: "gs1:PostalAddress",
+          "gs1:streetAddress": "Textilstra\xDFe 25",
+          "gs1:addressLocality": "Munich",
+          "gs1:postalCode": "80331",
+          "gs1:countryCode": "DE"
+        },
+        "gs1:contactPoint": {
+          type: "gs1:ContactPoint",
+          "gs1:email": "sustainability@ecowear.example.com",
+          "gs1:telephone": "+49-89-555-0100"
+        }
+      },
+      "gs1:countryOfOrigin": "PT",
+      "gs1:manufacturingDate": "2024-09-15",
+      "gs1:netWeight": {
+        type: "QuantitativeValue",
+        value: 0.85,
+        unitCode: "KGM"
+      },
+      _comment_composition: "GS1-native fiber composition (gs1:textileMaterial + gs1:TextileMaterialDetails + gs1:textileMaterialContent + gs1:textileMaterialDescription). Textile-specific traceability fields (fiberOrigin, isRecycledFiber, recycledContentSource, fiberCertification) are attached inline on each gs1:TextileMaterialDetails entry.",
+      textileMaterial: [
+        {
+          type: "TextileMaterialDetails",
+          textileMaterialContent: {
+            type: "QuantitativeValue",
+            value: 55,
+            unitCode: "P1"
+          },
+          textileMaterialDescription: {
+            "@value": "Recycled Polyester (Shell)",
+            "@language": "en"
+          },
+          fiberOrigin: "TW",
+          isRecycledFiber: true,
+          recycledContentSource: "Post-consumer PET bottles",
+          fiberCertification: {
+            type: "CertificationDetails",
+            certificationAgency: "Textile Exchange",
+            certificationStandard: "Global Recycled Standard (GRS)",
+            certificationValue: "GRS-2024-TW-12345"
+          }
+        },
+        {
+          type: "TextileMaterialDetails",
+          textileMaterialContent: {
+            type: "QuantitativeValue",
+            value: 25,
+            unitCode: "P1"
+          },
+          textileMaterialDescription: {
+            "@value": "Down (Insulation - RDS Certified)",
+            "@language": "en"
+          },
+          fiberOrigin: "HU",
+          isRecycledFiber: false,
+          fiberCertification: {
+            type: "CertificationDetails",
+            certificationAgency: "Textile Exchange",
+            certificationStandard: "Responsible Down Standard (RDS)",
+            certificationValue: "RDS-2024-HU-67890"
+          }
+        },
+        {
+          type: "TextileMaterialDetails",
+          textileMaterialContent: {
+            type: "QuantitativeValue",
+            value: 15,
+            unitCode: "P1"
+          },
+          textileMaterialDescription: {
+            "@value": "Polyamide (Lining)",
+            "@language": "en"
+          },
+          fiberOrigin: "IT",
+          isRecycledFiber: false
+        },
+        {
+          type: "TextileMaterialDetails",
+          textileMaterialContent: {
+            type: "QuantitativeValue",
+            value: 5,
+            unitCode: "P1"
+          },
+          textileMaterialDescription: {
+            "@value": "Elastane (Cuffs)",
+            "@language": "en"
+          },
+          fiberOrigin: "DE",
+          isRecycledFiber: false
+        }
+      ],
+      careInstructions: {
+        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#care",
+        type: "CareInstruction",
+        washingSymbol: "Wash30",
+        bleachingSymbol: "DoNotBleach",
+        dryingSymbol: "TumbleDryLow",
+        ironingSymbol: "DoNotIron",
+        dryCleaningSymbol: "DryCleanHydrocarbon",
+        additionalCareInstructions: {
+          "@value": "Close zippers before washing. Use down-specific detergent. Add tennis balls to dryer to restore loft.",
+          "@language": "en"
+        }
+      },
+      durabilityInfo: {
+        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#durability",
+        type: "DurabilityInfo",
+        expectedWashCycles: 150,
+        durabilityClass: "DurabilityB",
+        pillingResistance: 4,
+        colorFastness: 4,
+        dimensionalStability: 2,
+        abrasionResistance: 4e4,
+        tensileStrength: {
+          type: "QuantitativeValue",
+          value: 800,
+          unitCode: "NEW"
+        },
+        tearStrength: {
+          type: "QuantitativeValue",
+          value: 35,
+          unitCode: "NEW"
+        },
+        expectedLifetimeYears: 8
+      },
+      microplasticInfo: {
+        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#microplastic",
+        type: "MicroplasticInfo",
+        microplasticRiskLevel: "MediumShedding",
+        sheddingRate: {
+          type: "QuantitativeValue",
+          value: 120,
+          unitCode: "MGM"
+        },
+        syntheticFiberContent: 75,
+        microplasticMitigationMeasures: {
+          "@value": "Tightly woven fabric reduces fiber release. Recommend using microfiber-catching laundry bag.",
+          "@language": "en"
+        }
+      },
+      _comment_robustness: "Robustness score per EU Preparatory Study 3rd Milestone (0-10)",
+      robustnessAssessment: {
+        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#robustness",
+        type: "RobustnessAssessment",
+        robustnessScore: 8,
+        cleaningCyclesBeforeTest: 5,
+        robustnessTestFabricType: "WovenNonDenim",
+        spiralityTest: {
+          type: "SpiralityTestResult",
+          spiralityScore: 3,
+          spiralityPercentage: 4.2,
+          spiralityTestMethod: "ISO 16322-3",
+          testStandard: "ISO16322_3"
+        },
+        dimensionalChangeTest: {
+          type: "DimensionalChangeTestResult",
+          dimensionalChangeScore: 2,
+          dimensionalChangePercentage: 3.2,
+          dimensionalChangeTestMethod: "ISO 3759",
+          testStandard: "ISO3759"
+        },
+        visualInspection: {
+          type: "VisualInspectionResult",
+          visualInspectionScore: 3,
+          colourChangeRating: 4,
+          fabricAppearanceRating: 4,
+          seamAppearanceRating: 5,
+          nonTextilePartsRating: 4,
+          visualInspectionTestMethod: "ISO 15487",
+          testStandard: "ISO15487"
+        }
+      },
+      _comment_recyclability: "Recyclability score per EU Preparatory Study 3rd Milestone (0-10)",
+      recyclabilityAssessment: {
+        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#recyclability",
+        type: "RecyclabilityAssessment",
+        recyclabilityScore: 6.5,
+        isRecyclable: true,
+        elastaneContentPercent: 5,
+        sortingFactors: {
+          type: "SortingFactors",
+          sameInnerOuterComposition: false,
+          freeFromPrintings: true,
+          freeFromCoatings: false,
+          freeFromSequins: true
+        },
+        technicalRecyclability: {
+          type: "TechnicalRecyclability",
+          technicalRecyclabilityScore: 4,
+          applicableRecyclingTechnology: "ThermoChemicalRecycling"
+        }
+      },
+      _comment_recycled_content_structured: "Structured recycled content declaration per EU Preparatory Study 3rd Milestone",
+      recycledContentDeclaration: [
+        {
+          id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#rc-rpet",
+          type: "RecycledContentDeclaration",
+          secondaryMaterialFraction: 50,
+          wasteOriginType: "PostConsumer",
+          recycledSourceType: "OpenLoop",
+          chainOfCustodyMethod: "Certified",
+          meetsTargetThreshold: true,
+          verificationCertification: {
+            type: "gs1:CertificationDetails",
+            "gs1:certificationAgency": "Textile Exchange",
+            "gs1:certificationStandard": "Global Recycled Standard (GRS)",
+            "gs1:certificationIdentification": "GRS-2024-ECOWEAR-001"
+          }
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#rc-precon",
+          type: "RecycledContentDeclaration",
+          secondaryMaterialFraction: 5,
+          wasteOriginType: "PostIndustrial",
+          recycledSourceType: "FiberToFiber",
+          chainOfCustodyMethod: "MassBalance",
+          meetsTargetThreshold: true
+        }
+      ],
+      _comment_environmental_footprint: "Environmental footprint per PEFCR Apparel & Footwear",
+      environmentalFootprint: {
+        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#footprint",
+        type: "EnvironmentalFootprint",
+        carbonFootprintManufacturing: 18.5,
+        pefSingleScore: 42.3,
+        benchmarkPerformance: -15.2,
+        dataTypeIndicator: "MixedData",
+        pefcrReference: "PEFCR Apparel & Footwear v1.3",
+        lciaCategories: [
+          {
+            type: "LCIACategory",
+            lciaCategoryCode: "GWP",
+            lciaValue: 18.5,
+            lciaUnit: "kg CO2-eq"
+          },
+          {
+            type: "LCIACategory",
+            lciaCategoryCode: "WaterUse",
+            lciaValue: 2.8,
+            lciaUnit: "m3 world-eq"
+          }
+        ]
+      },
+      _comment_soc: "Substances of Concern per ESPR Article 7(5) 4-type classification",
+      substancesOfConcern: [
+        {
+          id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#soc-dye",
+          type: "SubstanceOfConcern",
+          socType: "SoCTypeB",
+          chemicalName: "Disperse Blue 291",
+          iupacName: "3-(2-Cyano-4,6-dinitrophenylazo)-N-ethyl-N-(2-acetoxyethyl)aniline",
+          casNumber: "56548-64-2",
+          clpHazardCategory: "Sensitizer",
+          substanceConcentration: 8e-3,
+          locationInProduct: "Shell fabric dye",
+          safeUseInstructions: "Wash before first wear. Suitable for skin contact per OEKO-TEX Standard 100 Class II.",
+          endOfLifeHandling: "No special handling required at detected concentration."
+        }
+      ],
+      "dpp:recycledContent": {
+        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#recycled",
+        type: "dpp:RecycledContent",
+        "dpp:totalRecycledShare": 55,
+        "dpp:preConsumerShare": 5,
+        "dpp:postConsumerShare": 50
+      },
+      "dpp:carbonFootprintTotal": 18.5,
+      "dpp:carbonFootprintUnit": "kg CO2e per garment",
+      "dpp:carbonFootprintStudyUrl": "https://www.ecowear.example.com/sustainability/cfp-alpine-pro.pdf",
+      waterUsage: {
+        type: "QuantitativeValue",
+        value: 2500,
+        unitCode: "LTR"
+      },
+      energyUsage: {
+        type: "QuantitativeValue",
+        value: 45,
+        unitCode: "KWH"
+      },
+      productionWastePercentage: 8.5,
+      pfasFree: true,
+      biodegradable: false,
+      hasTakeBackProgram: true,
+      takeBackProgram: {
+        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#takeback",
+        type: "TakeBackProgram",
+        takeBackUrl: "https://www.ecowear.example.com/takeback",
+        takeBackIncentive: {
+          "@value": "15% discount voucher on next purchase when returning end-of-life products to any EcoWear store",
+          "@language": "en"
+        },
+        endOfLifeDestination: {
+          "@value": "Products sorted for: resale (good condition), fiber-to-fiber recycling (damaged), or energy recovery (non-recyclable)",
+          "@language": "en"
+        }
+      },
+      recyclingInstructions: {
+        "@value": "Remove all metal components (zippers, snaps) before textile recycling. Down can be recovered separately.",
+        "@language": "en"
+      },
+      "gs1:consumerRecyclingInstructions": {
+        "@value": "This product can be returned to any EcoWear store for recycling. Do not dispose of in household waste.",
+        "@language": "en"
+      },
+      isRepairable: true,
+      repairGuideUrl: "https://www.ecowear.example.com/repair/alpine-pro-guide",
+      sparePartsAvailable: true,
+      sparePartsUrl: "https://www.ecowear.example.com/spareparts/alpine-pro",
+      repairServices: [
+        {
+          id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#repair-service",
+          type: "Organization",
+          "gs1:organizationName": "EcoWear Repair Service",
+          "gs1:address": {
+            type: "gs1:PostalAddress",
+            "gs1:streetAddress": "Reparaturweg 5",
+            "gs1:addressLocality": "Munich",
+            "gs1:postalCode": "80333",
+            "gs1:countryCode": "DE"
+          },
+          "gs1:contactPoint": {
+            type: "gs1:ContactPoint",
+            "gs1:email": "repair@ecowear.example.com",
+            "gs1:url": {
+              id: "https://repair.ecowear.example.com"
+            }
+          }
+        }
+      ],
+      "dpp:repairabilityInfo": {
+        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#repairability",
+        type: "dpp:RepairabilityInfo",
+        "dpp:repairabilityScore": 7.2,
+        "dpp:repairabilityClass": "B",
+        "dpp:sparePartsAvailability": {
+          type: "QuantitativeValue",
+          value: 10,
+          unitCode: "ANN"
+        },
+        "dpp:diyRepairPossible": true,
+        "dpp:professionalRepairNetwork": "https://repair.ecowear.example.com/find-service"
+      },
+      "gs1:certification": [
+        {
+          id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-grs",
+          type: "gs1:CertificationDetails",
+          "gs1:certificationAgency": "Textile Exchange",
+          "gs1:certificationStandard": "Global Recycled Standard (GRS)",
+          "gs1:certificationIdentification": "GRS-2024-ECOWEAR-001",
+          "gs1:certificationStartDate": "2024-01-15",
+          "gs1:certificationEndDate": "2025-01-14"
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-oekotex",
+          type: "gs1:CertificationDetails",
+          "gs1:certificationAgency": "OEKO-TEX Association",
+          "gs1:certificationStandard": "OEKO-TEX Standard 100",
+          "gs1:certificationIdentification": "SH025 123456 TESTEX",
+          "gs1:certificationStartDate": "2024-03-01",
+          "gs1:certificationEndDate": "2025-02-28"
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-bluesign",
+          type: "gs1:CertificationDetails",
+          "gs1:certificationAgency": "bluesign technologies ag",
+          "gs1:certificationStandard": "bluesign PRODUCT",
+          "gs1:certificationIdentification": "BS-2024-ECOWEAR-AP"
+        },
+        {
+          id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-rds",
+          type: "gs1:CertificationDetails",
+          "gs1:certificationAgency": "Textile Exchange",
+          "gs1:certificationStandard": "Responsible Down Standard (RDS)",
+          "gs1:certificationIdentification": "RDS-2024-ECOWEAR-002"
+        }
+      ],
+      cutAndSewFacility: {
+        id: "https://id.dev.epcis.cloud/414/9521234000020",
+        type: "dpp:FacilityInformation",
+        gln: "9521234000020",
+        name: "Porto Textile Manufacturing",
+        "dpp:facilityType": "Cut and Sew",
+        address: {
+          type: "gs1:PostalAddress",
+          "gs1:addressLocality": "Porto",
+          "gs1:countryCode": "PT"
+        },
+        "dpp:facilityCertifications": [
+          {
+            type: "gs1:CertificationDetails",
+            "gs1:certificationStandard": "ISO 14001:2015",
+            "gs1:certificationIdentification": "EMS-PT-2024-123"
+          },
+          {
+            type: "gs1:CertificationDetails",
+            "gs1:certificationStandard": "SA8000",
+            "gs1:certificationIdentification": "SA-PT-2024-456"
+          }
+        ]
+      },
+      dyeingFacility: {
+        id: "https://id.dev.epcis.cloud/414/9521234000037",
+        type: "dpp:FacilityInformation",
+        gln: "9521234000037",
+        name: "Eco Dyeing Italy",
+        "dpp:facilityType": "Dyeing and Finishing",
+        address: {
+          type: "gs1:PostalAddress",
+          "gs1:addressLocality": "Como",
+          "gs1:countryCode": "IT"
+        },
+        "dpp:facilityCertifications": [
+          {
+            type: "gs1:CertificationDetails",
+            "gs1:certificationStandard": "ZDHC MRSL v3.1",
+            "gs1:certificationIdentification": "ZDHC-IT-2024-789"
+          }
+        ]
+      },
+      "gs1:warranty": {
+        type: "gs1:WarrantyPromise",
+        "gs1:durationOfWarranty": "P2Y",
+        "gs1:warrantyScope": "Covers manufacturing defects. Does not cover normal wear, improper care, or accidental damage."
+      },
+      "dpp:documents": [
+        {
+          id: "https://www.ecowear.example.com/docs/alpine-pro-user-guide.pdf",
+          type: "dpp:DocumentReference",
+          "dpp:documentType": {
+            id: "dpp:Manual"
+          },
+          "dpp:documentUrl": "https://www.ecowear.example.com/docs/alpine-pro-user-guide.pdf",
+          "schema:name": "Alpine Pro User & Care Guide",
+          "dpp:mimeType": "application/pdf",
+          "dpp:languageCode": "en"
+        },
+        {
+          id: "https://www.ecowear.example.com/docs/supply-chain-transparency-2024.pdf",
+          type: "dpp:DocumentReference",
+          "dpp:documentType": {
+            id: "dpp:DueDiligenceDocument"
+          },
+          "dpp:documentUrl": "https://www.ecowear.example.com/docs/supply-chain-transparency-2024.pdf",
+          "schema:name": "Supply Chain Transparency Report 2024",
+          "dpp:mimeType": "application/pdf",
+          "dpp:languageCode": "en",
+          "dpp:issueDate": "2024-04-01"
+        }
+      ],
+      "gs1:referencedFile": [
+        {
+          id: "https://www.ecowear.example.com/docs/alpine-pro-user-guide.pdf",
+          type: "gs1:ReferencedFileDetails",
+          "gs1:referencedFileType": {
+            id: "gs1:ReferencedFileTypeCode-USER_MANUAL"
+          },
+          "gs1:contentDescription": "User and Care Guide",
+          "gs1:fileLanguageCode": "en"
+        },
+        {
+          id: "https://www.ecowear.example.com/docs/alpine-pro-certifications.pdf",
+          type: "gs1:ReferencedFileDetails",
+          "gs1:referencedFileType": {
+            id: "gs1:ReferencedFileTypeCode-CERTIFICATION"
+          },
+          "gs1:contentDescription": "Product Certifications (GRS, OEKO-TEX, bluesign, RDS)",
+          "gs1:fileLanguageCode": "en"
+        }
+      ],
+      "dpp:accessRights": {
+        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#access",
+        type: "dpp:AccessRights",
+        "dpp:accessLevel": {
+          id: "dpp:Public"
+        }
+      },
+      "dpp:passportIdentifier": "https://dpp.ecowear.example.com/passport/WJ-2024-00142",
+      "dpp:passportVersion": "1.0",
+      "dpp:passportIssueDate": "2024-09-20",
+      "dpp:passportStatus": "Active",
+      "dpp:productCategory": {
+        id: "dpp:Textiles"
+      },
+      "dpp:lastDataUpdate": "2024-10-15T10:30:00Z",
+      "dpp:dataQualityAssessment": "A"
+    }
+  },
+  {
+    group: "EU Textile",
+    label: "garment-set-itip (item)",
+    doc: {
+      _comment_gs1_alignment: [
+        "This example demonstrates ITIP (Individual Trade Item Piece) identification for a multi-piece trade item.",
+        "A two-piece suit is sold under a single GTIN but consists of two physical pieces (jacket + trousers).",
+        "Pattern aligned with GS1 GSMP Work Request WR 25-212 (Community Review).",
+        "Key GS1 patterns used:",
+        "- GS1 Digital Link URI for the parent trade item (the suit set)",
+        "- dpp:tradeItemPieceCount on the parent product (2 pieces)",
+        "- dpp:IndividualTradeItemPiece for each constituent piece, each with its own AI 8026 identifier",
+        "- GS1 AI 8026 encodes GTIN + total piece count + this piece's number",
+        "- All pieces share the same GTIN; individual identification is via piece number",
+        "Reference: WR 25-212 (https://xchange.gs1.org/cr/gsmp)"
+      ],
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
+        {
+          gs1: "https://ref.gs1.org/voc/",
+          xsd: "http://www.w3.org/2001/XMLSchema#"
+        }
+      ],
+      id: "https://id.dev.epcis.cloud/01/09521000004207/21/SUIT-2026-00042",
+      type: [
+        "Clothing",
+        "TextileApparel"
+      ],
+      gtin: "09521000004207",
+      "gs1:serialNumber": "SUIT-2026-00042",
+      productName: [
+        {
+          "@value": "Classic Business Suit, Charcoal (2-piece)",
+          "@language": "en"
+        },
+        {
+          "@value": "Klassischer Business-Anzug, Anthrazit (zweiteilig)",
+          "@language": "de"
+        },
+        {
+          "@value": "Costume d'affaires classique, Anthracite (2 pi\xE8ces)",
+          "@language": "fr"
+        },
+        {
+          "@value": "Traje cl\xE1sico de oficina, Antracita (2 piezas)",
+          "@language": "es"
+        },
+        {
+          "@value": "Klassiek zakelijk kostuum, Antraciet (tweedelig)",
+          "@language": "nl"
+        },
+        {
+          "@value": "Klassisk forretningsjakkes\xE6t, Koksgr\xE5 (todelt)",
+          "@language": "da"
+        },
+        {
+          "@value": "Klasyczny garnitur biznesowy, Grafitowy (2-cz\u0119\u015Bciowy)",
+          "@language": "pl"
+        },
+        {
+          "@value": "Klassisk aff\xE4rskostym, Antracit (tv\xE5delad)",
+          "@language": "sv"
+        },
+        {
+          "@value": "Klassisk forretningsdress, Antrasitt (todelt)",
+          "@language": "no"
+        },
+        {
+          "@value": "Klassinen liikemiehen puku, Antrasiitti (kaksiosainen)",
+          "@language": "fi"
+        },
+        {
+          "@value": "Abito classico da uomo, Antracite (2 pezzi)",
+          "@language": "it"
+        }
+      ],
+      "gs1:productDescription": [
+        {
+          "@value": "Two-piece tailored wool suit with subtle pinstripe, single-breasted notch-lapel jacket and matching flat-front trousers. Jacket and trousers are linked via GS1 AI 8026 (ITIP) so the set is tracked as one trade item.",
+          "@language": "en"
+        },
+        {
+          "@value": "Zweiteiliger, taillierter Wollanzug mit dezentem Nadelstreifen, einreihiger Sakko mit Kerblapen und passende Hose ohne Bundfalten. Sakko und Hose sind \xFCber GS1 AI 8026 (ITIP) verkn\xFCpft, sodass das Set als eine Handelseinheit erfasst wird.",
+          "@language": "de"
+        },
+        {
+          "@value": "Costume deux pi\xE8ces ajust\xE9 en laine \xE0 fines rayures discr\xE8tes, veste \xE0 boutonnage simple \xE0 revers crant\xE9s et pantalon \xE0 pinces plates assorti. La veste et le pantalon sont li\xE9s via GS1 AI 8026 (ITIP), de sorte que l'ensemble est suivi comme une seule unit\xE9 commerciale.",
+          "@language": "fr"
+        },
+        {
+          "@value": "Traje sastre de lana de dos piezas con sutil raya diplom\xE1tica, chaqueta cruzada de solapa de pico y pantal\xF3n de pinzas a juego. La chaqueta y el pantal\xF3n est\xE1n vinculados mediante GS1 AI 8026 (ITIP), por lo que el conjunto se rastrea como una sola unidad comercial.",
+          "@language": "es"
+        },
+        {
+          "@value": "Tweedelig getailleerd wollen kostuum met subtiele krijtstreep, enkelrijige jas met kerflapel en bijpassende pantalon zonder plooien. Jas en pantalon zijn gekoppeld via GS1 AI 8026 (ITIP), zodat de set als \xE9\xE9n handelsartikel wordt gevolgd.",
+          "@language": "nl"
+        },
+        {
+          "@value": "Todelt skr\xE6ddersyet uldjakkes\xE6t med diskret n\xE5lestribe, enkeltradet jakke med klassisk revers og matchende lige bukser. Jakke og bukser er forbundet via GS1 AI 8026 (ITIP), s\xE5 s\xE6ttet spores som \xE9n handelsenhed.",
+          "@language": "da"
+        },
+        {
+          "@value": "Dwucz\u0119\u015Bciowy we\u0142niany garnitur szyty na miar\u0119 z dyskretn\u0105 cienk\u0105 pr\u0105\u017Ckow\u0105 faktur\u0105, jednorz\u0119dowa marynarka z klapami i pasuj\u0105ce spodnie bez zak\u0142adek. Marynarka i spodnie s\u0105 powi\u0105zane przez GS1 AI 8026 (ITIP), dzi\u0119ki czemu komplet jest \u015Bledzony jako jedna jednostka handlowa.",
+          "@language": "pl"
+        },
+        {
+          "@value": "Tv\xE5delad skr\xE4ddarsydd ullkostym med diskret kritrand, enkelkn\xE4ppt kavaj med hackad rev\xE4r och matchande raka byxor. Kavaj och byxor \xE4r l\xE4nkade via GS1 AI 8026 (ITIP) s\xE5 att upps\xE4ttningen sp\xE5ras som en handelsenhet.",
+          "@language": "sv"
+        },
+        {
+          "@value": "Todelt skreddersydd ulldress med diskret n\xE5lestripe, enkeltspent jakke med hakk-revers og matchende rette bukser. Jakke og bukse er knyttet sammen via GS1 AI 8026 (ITIP) slik at settet spores som \xE9n handelsenhet.",
+          "@language": "no"
+        },
+        {
+          "@value": "Kaksiosainen r\xE4\xE4t\xE4l\xF6ity villapuku, jossa hillitty raitakuvio, yksirivinen lovik\xE4\xE4nteinen pikkutakki ja yhteensopivat suorat housut. Pikkutakki ja housut on linkitetty GS1 AI 8026 (ITIP) -tunnisteella, joten setti j\xE4ljitet\xE4\xE4n yhten\xE4 kauppanimikkeen\xE4.",
+          "@language": "fi"
+        },
+        {
+          "@value": "Abito sartoriale due pezzi in lana con discreto gessato, giacca monopetto a revers a lancia e pantaloni dritti coordinati. Giacca e pantaloni sono collegati tramite GS1 AI 8026 (ITIP), cos\xEC l'insieme viene tracciato come un'unica unit\xE0 commerciale.",
+          "@language": "it"
+        }
+      ],
+      textileCategory: "Apparel",
+      garmentType: "Business Suit",
+      targetGender: "Men",
+      sizeRange: "46-58",
+      seasonCollection: "SS2026",
+      fabricType: "WovenNonDenim",
+      apparelSubcategory: "Suits",
+      "dpp:tradeItemPieceCount": 2,
+      "dpp:tradeItemPieces": [
+        {
+          id: "https://id.dev.epcis.cloud/8026/0952100000420750200010",
+          type: "dpp:IndividualTradeItemPiece",
+          "dpp:tradeItemPieceNumber": 1,
+          "dpp:tradeItemPieceDescription": "Jacket",
+          "dpp:tradeItemPieceOf": "https://id.dev.epcis.cloud/01/09521000004207/21/SUIT-2026-00042",
+          _comment_itip_ai8026: "AI 8026 = GTIN (14 digits) + total pieces (2 digits) + piece number (2 digits). Example: 09521000004207 + 02 + 01 for piece 1 of 2."
+        },
+        {
+          id: "https://id.dev.epcis.cloud/8026/0952100000420750200020",
+          type: "dpp:IndividualTradeItemPiece",
+          "dpp:tradeItemPieceNumber": 2,
+          "dpp:tradeItemPieceDescription": "Trousers",
+          "dpp:tradeItemPieceOf": "https://id.dev.epcis.cloud/01/09521000004207/21/SUIT-2026-00042",
+          _comment_itip_ai8026: "AI 8026 for piece 2 of 2: 09521000004207 + 02 + 02."
+        }
+      ],
+      "gs1:manufacturer": {
+        id: "https://id.dev.epcis.cloud/417/9521000000018",
+        type: "Organization",
+        organizationName: "EcoWear GmbH",
+        gln: "9521000000018",
+        "gs1:address": {
+          type: "gs1:PostalAddress",
+          "gs1:streetAddress": "Textilstra\xDFe 25",
+          "gs1:addressLocality": "Munich",
+          "gs1:postalCode": "80331",
+          "gs1:addressCountry": "DE"
+        }
+      },
+      "gs1:netWeight": {
+        type: "QuantitativeValue",
+        value: "1.4",
+        unitCode: "KGM"
+      },
+      textileMaterial: [
+        {
+          type: "TextileMaterialDetails",
+          "gs1:textileFibreName": "Wool",
+          "gs1:textileFibrePercentage": 80
+        },
+        {
+          type: "TextileMaterialDetails",
+          "gs1:textileFibreName": "Polyester",
+          "gs1:textileFibrePercentage": 20
+        }
+      ],
+      "gs1:regulatoryInformation": [
+        {
+          type: "gs1:RegulatoryInformation",
+          "gs1:regulationType": {
+            id: "gs1:RegulationTypeCode-TEXTILE_FIBRE_REGULATION"
+          },
+          "gs1:regulatoryAct": "EU 1007/2011",
+          "gs1:isRegulationCompliant": true
+        }
+      ],
+      _notes: [
+        "Pattern status: Reference pattern aligned with GS1 GSMP Work Request WR 25-212 (Community Review). May evolve per eBallot outcome.",
+        "Why ITIP: Apparel sets (suits, uniforms, matching sets), flat-pack furniture with multiple cartons, and bundled electronics (tablet + keyboard + stylus) all benefit from piece-level traceability without requiring separate GTINs per piece. AI 8026 provides a compact, scannable identifier per piece while preserving the single-GTIN commercial model.",
+        "DPP implication: For products requiring a Digital Product Passport, ITIP identification enables piece-level lifecycle tracking (e.g., the jacket of a suit can be repaired independently of the trousers) while the DPP itself is scoped at the trade-item level. This matches the apparel use case the Apparel DPP Sub-team is scoping for Q2 2027 requirements gathering."
+      ]
+    }
+  },
+  {
+    group: "EU Textile",
+    label: "hometextile-bedlinen (item)",
+    doc: {
+      _comment_gs1_alignment: [
+        "Home-textile DPP example: a two-piece organic-cotton duvet cover and",
+        "pillowcase set, sold as a single SKU. Demonstrates:",
+        "- gs1:textileMaterial on a non-apparel textile (hometextile sub-category)",
+        "- GOTS organic-cotton certification",
+        "- Lifecycle care + durability info per ESPR Annex V",
+        "- A circular take-back program (brand resale + fibre recycling) per",
+        "  Sustainable Textiles Strategy take-back pillar",
+        "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+      ],
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
+        {
+          gs1: "https://ref.gs1.org/voc/",
+          xsd: "http://www.w3.org/2001/XMLSchema#"
+        }
+      ],
+      id: "https://id.dev.epcis.cloud/01/09521001001380/21/BL-2026-04201",
+      type: [
+        "Product",
+        "TextileApparel"
+      ],
+      gtin: "09521001001380",
+      "gs1:serialNumber": "BL-2026-04201",
+      productName: [
+        {
+          "@value": "Casa Lina Organic Cotton Bed Linen Set, duvet cover + pillowcase, 200\xD7220 cm",
+          "@language": "en"
+        },
+        {
+          "@value": "Casa Lina Bio-Baumwoll-Bettw\xE4sche-Set, Bettbezug + Kissenbezug, 200\xD7220 cm",
+          "@language": "de"
+        },
+        {
+          "@value": "Parure de lit Casa Lina en coton bio, housse de couette + taie d'oreiller, 200\xD7220 cm",
+          "@language": "fr"
+        },
+        {
+          "@value": "Juego de cama Casa Lina de algod\xF3n org\xE1nico, funda n\xF3rdica + funda de almohada, 200\xD7220 cm",
+          "@language": "es"
+        },
+        {
+          "@value": "Casa Lina dekbedovertrekset van biologisch katoen, dekbedovertrek + kussensloop, 200\xD7220 cm",
+          "@language": "nl"
+        },
+        {
+          "@value": "Casa Lina senget\xF8jss\xE6t i \xF8kologisk bomuld, dynebetr\xE6k + pudebetr\xE6k, 200\xD7220 cm",
+          "@language": "da"
+        },
+        {
+          "@value": "Po\u015Bciel Casa Lina z bawe\u0142ny organicznej, poszwa na ko\u0142dr\u0119 + poszewka na poduszk\u0119, 200\xD7220 cm",
+          "@language": "pl"
+        },
+        {
+          "@value": "Casa Lina s\xE4ngkl\xE4desset i ekologisk bomull, p\xE5slakan + \xF6rngott, 200\xD7220 cm",
+          "@language": "sv"
+        },
+        {
+          "@value": "Casa Lina senget\xF8ysett i \xF8kologisk bomull, dynetrekk + putetrekk, 200\xD7220 cm",
+          "@language": "no"
+        },
+        {
+          "@value": "Casa Lina luomupuuvillaiset vuodevaatteet, pussilakana + tyynyliina, 200\xD7220 cm",
+          "@language": "fi"
+        },
+        {
+          "@value": "Set di biancheria da letto Casa Lina in cotone biologico, copripiumone + federa, 200\xD7220 cm",
+          "@language": "it"
+        }
+      ],
+      "gs1:productDescription": [
+        {
+          "@value": "Two-piece bed linen set in 100% GOTS-certified organic cotton percale, woven for high durability and laundered to OEKO-TEX Class I (skin contact). Designed for repair and return at end of life.",
+          "@language": "en"
+        },
+        {
+          "@value": "Zweiteiliges Bettw\xE4sche-Set aus 100 % GOTS-zertifiziertem Bio-Baumwoll-Perkal, robust gewebt und nach OEKO-TEX Klasse I (Hautkontakt) gewaschen. Konzipiert f\xFCr Reparatur und R\xFCcknahme am Lebensende.",
+          "@language": "de"
+        },
+        {
+          "@value": "Parure de lit deux pi\xE8ces en percale de coton bio certifi\xE9 GOTS \xE0 100 %, tiss\xE9e pour une grande durabilit\xE9 et lav\xE9e selon la norme OEKO-TEX Classe I (contact peau). Con\xE7ue pour la r\xE9paration et la reprise en fin de vie.",
+          "@language": "fr"
+        },
+        {
+          "@value": "Juego de cama de dos piezas en percal de algod\xF3n org\xE1nico 100 % certificado GOTS, tejido para gran durabilidad y lavado seg\xFAn OEKO-TEX Clase I (contacto con la piel). Dise\xF1ado para la reparaci\xF3n y la devoluci\xF3n al final de su vida \xFAtil.",
+          "@language": "es"
+        },
+        {
+          "@value": "Tweedelig beddengoedset in 100% GOTS-gecertificeerd biologisch katoenen percal, geweven voor hoge duurzaamheid en gewassen volgens OEKO-TEX klasse I (huidcontact). Ontworpen voor reparatie en retourname aan het einde van de levensduur.",
+          "@language": "nl"
+        },
+        {
+          "@value": "Todelt senget\xF8jss\xE6t i 100 % GOTS-certificeret \xF8kologisk bomuldspercale, v\xE6vet til h\xF8j holdbarhed og vasket efter OEKO-TEX klasse I (hudkontakt). Designet til reparation og tilbagetagning ved end-of-life.",
+          "@language": "da"
+        },
+        {
+          "@value": "Dwucz\u0119\u015Bciowy zestaw po\u015Bcieli z 100% perkalu z bawe\u0142ny organicznej z certyfikatem GOTS, utkany dla wysokiej trwa\u0142o\u015Bci i wyprany zgodnie z OEKO-TEX klasy I (kontakt ze sk\xF3r\u0105). Zaprojektowany pod k\u0105tem napraw i zwrot\xF3w po zako\u0144czeniu u\u017Cytkowania.",
+          "@language": "pl"
+        },
+        {
+          "@value": "Tv\xE5delat s\xE4ngkl\xE4desset i 100 % GOTS-certifierad ekologisk bomullspercale, v\xE4vt f\xF6r h\xF6g h\xE5llbarhet och tv\xE4ttat enligt OEKO-TEX klass I (hudkontakt). Konstruerat f\xF6r reparation och \xE5tertagning vid slutet av livsl\xE4ngden.",
+          "@language": "sv"
+        },
+        {
+          "@value": "Todelt senget\xF8ysett i 100 % GOTS-sertifisert \xF8kologisk bomullspercale, vevd for h\xF8y slitestyrke og vasket etter OEKO-TEX klasse I (hudkontakt). Designet for reparasjon og retur ved slutten av levetiden.",
+          "@language": "no"
+        },
+        {
+          "@value": "Kaksiosainen vuodevaatesetti 100-prosenttisesta GOTS-sertifioidusta luomupuuvillapercaalista, kest\xE4v\xE4ksi kudottu ja OEKO-TEX-luokan I (ihokosketus) mukaisesti pesty. Suunniteltu korjattavaksi ja palautettavaksi k\xE4yt\xF6n p\xE4\xE4tytty\xE4.",
+          "@language": "fi"
+        },
+        {
+          "@value": "Set di biancheria da letto due pezzi in percalle di cotone biologico certificato GOTS al 100 %, tessuto per elevata durata e lavato secondo OEKO-TEX Classe I (contatto pelle). Progettato per la riparazione e la presa indietro a fine vita.",
+          "@language": "it"
+        }
+      ],
+      textileCategory: "HomeTextile",
+      fabricType: "WovenNonDenim",
+      targetGender: "Unisex",
+      seasonCollection: "SS2026",
+      "gs1:manufacturer": {
+        id: "https://id.dev.epcis.cloud/417/9521987000056",
+        type: "gs1:Organization",
+        "gs1:organizationName": "Casa Lina GmbH",
+        "gs1:gln": "9521987000056",
+        "gs1:address": {
+          type: "gs1:PostalAddress",
+          "gs1:streetAddress": "Webergasse 11",
+          "gs1:addressLocality": "Wuppertal",
+          "gs1:postalCode": "42103",
+          "gs1:countryCode": "DE"
+        }
+      },
+      "gs1:netWeight": {
+        type: "gs1:QuantitativeValue",
+        "gs1:value": 1.45,
+        "gs1:unitCode": "KGM"
+      },
+      "gs1:textileMaterial": [
+        {
+          type: "gs1:TextileMaterialDetails",
+          "gs1:textileFibreContentPercentage": 100,
+          "gs1:textileFibreCommonName": "Organic cotton",
+          "gs1:textileFibreScientificName": "Gossypium hirsutum",
+          "gs1:countryOfOrigin": {
+            id: "https://ref.gs1.org/voc/Country-IN",
+            type: "gs1:Country"
+          }
+        }
+      ],
+      careInstructions: {
+        type: "CareInstruction",
+        washingSymbol: "Wash60",
+        bleachingSymbol: "DoNotBleach",
+        dryingSymbol: "TumbleDryLow",
+        ironingSymbol: "IronMedium",
+        dryCleaningSymbol: "DoNotDryClean",
+        additionalCareInstructions: {
+          "@value": "Wash at 60 \xB0C for hygienic re-use; tumble dry low; iron at medium heat. Do not bleach.",
+          "@language": "en"
+        }
+      },
+      durabilityInfo: {
+        type: "DurabilityInfo",
+        expectedWashCycles: 200,
+        durabilityClass: "DurabilityA",
+        pillingResistance: 5,
+        colorFastness: 4,
+        dimensionalStability: 2,
+        tensileStrength: {
+          type: "QuantitativeValue",
+          value: 480,
+          unitCode: "NEW"
+        },
+        expectedLifetimeYears: 5
+      },
+      hasTakeBackProgram: true,
+      takeBackProgram: {
+        type: "TakeBackProgram",
+        takeBackUrl: "https://www.casa-lina.example.com/takeback",
+        takeBackIncentive: {
+          "@value": "10% discount voucher when returning the set in any Casa Lina retail location",
+          "@language": "en"
+        },
+        endOfLifeDestination: {
+          "@value": "Returned linens are sorted: good-condition \u2192 reuse channel; worn \u2192 fibre-to-fibre recycling at GreenFibre Leipzig.",
+          "@language": "en"
+        }
+      },
+      "gs1:certification": [
+        {
+          type: "gs1:CertificationDetails",
+          "gs1:certificationSubject": "Organic cotton fibre supply chain",
+          "gs1:certificationAgency": "Global Organic Textile Standard",
+          "gs1:certificationStandard": "GOTS v7.0",
+          "gs1:certificationIdentification": "GOTS-DE-2026-LINA-0042",
+          "gs1:certificationURI": "https://www.global-standard.org/find-certified-suppliers"
+        },
+        {
+          type: "gs1:CertificationDetails",
+          "gs1:certificationSubject": "Hazardous-substance compliance",
+          "gs1:certificationAgency": "OEKO-TEX",
+          "gs1:certificationStandard": "OEKO-TEX Standard 100 Class I",
+          "gs1:certificationIdentification": "OEKO-TEX-100-2026-IN-2841",
+          "gs1:certificationURI": "https://www.oeko-tex.com/en/our-standards/oeko-tex-standard-100"
+        }
+      ],
+      environmentalFootprint: {
+        type: "EnvironmentalFootprint",
+        carbonFootprintManufacturing: 6.4,
+        pefcrReference: "PEFCR Apparel & Footwear v2.0 (2023)"
+      },
+      "gs1:regulatoryInformation": [
+        {
+          type: "gs1:RegulatoryInformation",
+          "gs1:regulationType": {
+            id: "gs1:RegulationTypeCode-TEXTILE"
+          },
+          "gs1:regulatoryAct": "EU ESPR 2024/1781",
+          "gs1:isRegulationCompliant": true
+        }
+      ]
+    }
+  },
+  {
+    group: "EU Deforestation (EUDR)",
+    label: "timber-derived (item)",
+    doc: {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
+      ],
+      id: "https://id.gs1.org/01/09521234000037/21/TABLE-2025-001",
+      type: "Product",
+      gtin: "09521234000037",
+      serialNumber: "TABLE-2025-001",
+      productName: "Solid Oak Dining Table",
+      "gs1:productDescription": "Handcrafted solid oak dining table made from certified deforestation-free European oak timber.",
+      commodityType: "Wood",
+      timberProductType: "Furniture",
+      customsCommodityCode: "94036010",
+      customsCommodityCodeType: "CN8",
+      speciesScientificName: "Quercus robur",
+      speciesCommonName: "European Oak",
+      netWeight: {
+        type: "gs1:QuantitativeValue",
+        "gs1:value": 45,
+        "gs1:unitCode": "KGM"
+      },
+      derivedFrom: [
+        {
+          id: "https://id.gs1.org/01/09521234000020/21/LOG-2025-001"
+        },
+        {
+          id: "https://id.gs1.org/01/09521234000020/21/LOG-2025-002"
+        }
+      ],
+      transformationDate: "2025-02-15",
+      transformationLocation: {
+        id: "https://id.gs1.org/414/9521234000105",
+        type: "Place",
+        physicalLocationName: "Oak Craft Furniture Workshop",
+        gln: "9521234000105",
+        address: {
+          type: "PostalAddress",
+          addressLocality: "Potsdam",
+          addressCountry: "DE"
+        }
+      },
+      countryOfOrigin: {
+        type: "Country",
+        "gs1:countryCode": "DE"
+      },
+      deforestationFreeDate: "2025-01-15",
+      legallyHarvested: true,
+      manufacturer: {
+        id: "https://id.gs1.org/417/9521234000105",
+        type: "Organization",
+        organizationName: "Oak Craft Furniture GmbH",
+        gln: "9521234000105"
+      },
+      "dpp:operatorInformation": {
+        type: "dpp:OperatorInformation",
+        "dpp:operatorRole": "Manufacturer",
+        gln: "9521234000105",
+        organizationName: "Oak Craft Furniture GmbH",
+        "dpp:eoriNumber": "DE987654321098765",
+        address: {
+          type: "PostalAddress",
+          streetAddress: "M\xF6belweg 7",
+          addressLocality: "Potsdam",
+          postalCode: "14467",
+          addressCountry: "DE"
+        }
+      },
+      dueDiligenceStatement: {
+        type: "DueDiligenceStatement",
+        euisReferenceNumber: "EUIS-2025-DE-00023456",
+        statementDate: "2025-02-18",
+        "dpp:reportUrl": {
+          id: "https://example.com/eudr/due-diligence/TABLE-2025-001.pdf"
+        },
+        riskAssessment: {
+          type: "RiskAssessment",
+          riskLevel: "Negligible",
+          riskAssessmentDate: "2025-02-17",
+          verificationMethod: "Supply chain documentation review - source timber already verified via EUIS-2025-DE-00012345",
+          countryRiskCategory: "Low",
+          mitigationMeasures: "Full traceability to source logs maintained. FSC chain of custody certification."
+        }
+      },
+      fscCertification: {
+        id: "https://fsc.org/en/certificate/FSC-C789012"
+      },
+      hasBatchLotNumber: "FURN-2025-02-001",
+      "dpp:lastDataUpdate": "2025-02-18T10:00:00Z",
+      "dpp:dataQualityAssessment": "A"
+    }
+  },
+  {
+    group: "EU Deforestation (EUDR)",
+    label: "timber-product (item)",
+    doc: {
+      "@context": [
+        "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
+      ],
+      type: "Product",
+      id: "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
+      _comment: "Product master data using standard GS1 vocabulary. EUDR-specific properties (species, harvest) use eudr: extensions. Uses GS1 demo prefix 952 (7-digit GCP: 9521234).",
+      productName: [
+        {
+          "@value": "European Oak Round Wood - Grade A",
+          "@language": "en"
+        }
+      ],
+      gtin: "09521234000020",
+      "gs1:regulatedProductName": [
+        {
+          "@value": "Round wood of oak (Quercus spp.)",
+          "@language": "en"
+        }
+      ],
+      "gs1:productDescription": [
+        {
+          "@value": "Premium European Oak logs harvested from certified sustainable forest in Brandenburg, Germany. FSC certified.",
+          "@language": "en"
+        }
+      ],
+      countryOfOrigin: [
+        {
+          type: "Country",
+          "gs1:countryCode": "DE"
+        }
+      ],
+      netWeight: {
+        type: "gs1:QuantitativeValue",
+        "gs1:value": 850,
+        "gs1:unitCode": "KGM"
+      },
+      customsCommodityCode: "4403",
+      customsCommodityCodeType: "HS6",
+      speciesScientificName: "Quercus robur",
+      speciesCommonName: "European Oak",
+      commodityType: "Wood",
+      timberProductType: "RoundWood"
+    }
+  },
+  {
+    group: "EU Packaging (PPWR)",
+    label: "beverage-bottle-lot-01 (batch)",
+    doc: {
+      _comment: [
+        "PPWR DPP example: BATCH-LEVEL (AI 10) variant of beverage-bottle.jsonld. Same 0.5 L PET bottle, scoped to batch/lot LOT-01 via the GS1 Digital Link key /01/{gtin}/10/{lot}. Demonstrates per-lot master data: the lot inherits the full GTIN-level PPWR attribute set and adds hasBatchLotNumber.",
+        "GS1 demo prefix 952 (7-digit GCP: 9521234). Registered at /01/09521004005019/10/LOT-01."
+      ],
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
+      ],
+      id: "https://id.dev.epcis.cloud/01/09521004005019/10/LOT-01",
+      type: "Packaging",
+      gtin: "09521004005019",
+      hasBatchLotNumber: "LOT-01",
+      productName: [
+        {
+          "@value": "Mountain Spring Mineral Water, 500 mL PET bottle",
+          "@language": "en"
+        },
+        {
+          "@value": "Mountain Spring Mineralwasser, 500-ml-PET-Flasche",
+          "@language": "de"
+        },
+        {
+          "@value": "Eau min\xE9rale Mountain Spring, bouteille PET de 500 ml",
+          "@language": "fr"
+        },
+        {
+          "@value": "Agua mineral Mountain Spring, botella PET de 500 ml",
+          "@language": "es"
+        },
+        {
+          "@value": "Mountain Spring mineraalwater, PET-fles van 500 ml",
+          "@language": "nl"
+        },
+        {
+          "@value": "Mountain Spring mineralvand, 500 ml PET-flaske",
+          "@language": "da"
+        },
+        {
+          "@value": "Woda mineralna Mountain Spring, butelka PET 500 ml",
+          "@language": "pl"
+        },
+        {
+          "@value": "Mountain Spring mineralvatten, 500 ml PET-flaska",
+          "@language": "sv"
+        },
+        {
+          "@value": "Mountain Spring mineralvann, 500 ml PET-flaske",
+          "@language": "no"
+        },
+        {
+          "@value": "Mountain Spring -kivenn\xE4isvesi, 500 ml:n PET-pullo",
+          "@language": "fi"
+        },
+        {
+          "@value": "Acqua minerale Mountain Spring, bottiglia PET da 500 ml",
+          "@language": "it"
+        }
+      ],
+      packagingTier: "Sales",
+      recyclabilityGrade: "A",
+      harmonisedSymbol: "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/separate-collection-pet",
+      manufacturingDate: "2026-04-15",
+      manufacturer: {
+        id: "https://id.dev.epcis.cloud/417/9521234000020",
+        type: "Organization",
+        organizationName: "AlpenQuell GmbH",
+        partyGLN: "9521234000020"
+      },
+      extendedProducerResponsibility: [
+        {
+          type: "ExtendedProducerResponsibility",
+          eprRegistrationNumber: "DE-VPC-58092100",
+          eprWasteStream: "packaging",
+          eprJurisdiction: {
+            id: "https://ref.gs1.org/voc/Country-DE",
+            type: "Country"
+          },
+          eprScheme: {
+            id: "https://id.dev.epcis.cloud/417/4030101000001",
+            type: "Organization",
+            organizationName: "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
+          },
+          eprComplianceUrl: "https://ldb.zsvr.de/marken/58092100"
+        }
+      ],
+      depositReturnScheme: {
+        type: "DepositReturnScheme",
+        depositAmount: {
+          type: "QuantitativeValue",
+          value: 0.25,
+          unitCode: "EUR"
+        },
+        depositSchemeOperator: {
+          id: "https://id.dev.epcis.cloud/417/4030101000018",
+          type: "Organization",
+          organizationName: "Deutsche Pfandsystem GmbH"
+        },
+        depositRedemptionChannelUrl: "https://www.dpg-pfandsystem.de/find-redemption-point"
+      },
+      recycledContent: {
+        type: "RecycledContent",
+        recycledContent: {
+          type: "QuantitativeValue",
+          value: 0.5,
+          unitCode: "P1"
+        },
+        postConsumerRecycledContent: {
+          type: "QuantitativeValue",
+          value: 0.5,
+          unitCode: "P1"
+        },
+        preConsumerRecycledContent: {
+          type: "QuantitativeValue",
+          value: 0,
+          unitCode: "P1"
+        }
+      },
+      materialComposition: [
+        {
+          type: "MaterialComposition",
+          materialName: "PET (polyethylene terephthalate)",
+          massFraction: 1,
+          casNumber: "25038-59-9"
+        }
+      ],
+      regulatoryInformation: [
+        {
+          type: "RegulatoryInformation",
+          regulationType: {
+            id: "gs1:RegulationTypeCode-PACKAGING_REGULATION"
+          },
+          regulatoryAct: "EU 2025/40",
+          isRegulationCompliant: true
+        }
+      ],
+      productDescription: [
+        {
+          "@value": "50% post-consumer rPET bottle with Grade A recyclability, deposit-return scheme membership, and harmonised separate-collection PET symbol. Batch LOT-01.",
+          "@language": "en"
+        },
+        {
+          "@value": "Flasche aus 50 % Post-Consumer-rPET, Recyclingf\xE4higkeit Klasse A, Pfand-R\xFCcknahme-System und harmonisiertes PET-Sammelsymbol. Charge LOT-01.",
+          "@language": "de"
+        },
+        {
+          "@value": "Bouteille en rPET post-consommation \xE0 50 %, recyclabilit\xE9 Grade A, adh\xE9sion au syst\xE8me de consigne et symbole harmonis\xE9 de collecte s\xE9lective PET. Lot LOT-01.",
+          "@language": "fr"
+        },
+        {
+          "@value": "Botella con 50 % de rPET post-consumo, reciclabilidad Grado A, sistema de devoluci\xF3n de envases (dep\xF3sito) y s\xEDmbolo armonizado de recogida selectiva PET. Lote LOT-01.",
+          "@language": "es"
+        },
+        {
+          "@value": "Fles van 50% post-consumer rPET, recycleerbaarheid klasse A, deelname aan statiegeldsysteem en geharmoniseerd PET-inzamelsymbool. Charge LOT-01.",
+          "@language": "nl"
+        },
+        {
+          "@value": "Flaske af 50 % post-consumer rPET, genanvendelighed grad A, tilmeldt pant-retur-system og harmoniseret separat indsamlings-PET-symbol. Parti LOT-01.",
+          "@language": "da"
+        },
+        {
+          "@value": "Butelka z 50 % rPET pokonsumenckiego, recykling klasy A, cz\u0142onkostwo w systemie kaucji-zwrotu i zharmonizowany symbol selektywnej zbi\xF3rki PET. Partia LOT-01.",
+          "@language": "pl"
+        },
+        {
+          "@value": "Flaska av 50 % post-consumer-rPET, \xE5tervinningsbarhet klass A, ansluten till pantsystem och harmoniserad PET-insamlingssymbol. Parti LOT-01.",
+          "@language": "sv"
+        },
+        {
+          "@value": "Flaske av 50 % post-consumer rPET, gjenvinnbarhet klasse A, tilknyttet pantesystem og harmonisert PET-innsamlingssymbol. Parti LOT-01.",
+          "@language": "no"
+        },
+        {
+          "@value": "Pullo, jossa on 50 % kierr\xE4tetty\xE4 rPET-muovia, kierr\xE4tett\xE4vyysluokka A, panttij\xE4rjestelm\xE4n j\xE4senyys ja harmonisoitu PET-erillisker\xE4ysmerkki. Er\xE4 LOT-01.",
+          "@language": "fi"
+        },
+        {
+          "@value": "Bottiglia con 50 % di rPET post-consumo, riciclabilit\xE0 Grado A, adesione al sistema di reso del vuoto e simbolo armonizzato di raccolta differenziata PET. Lotto LOT-01.",
+          "@language": "it"
+        }
+      ]
+    }
+  },
+  {
+    group: "EU Packaging (PPWR)",
+    label: "beverage-bottle (model)",
+    doc: {
+      _comment: [
+        "PPWR DPP example: a 0.5 L PET beverage bottle with 50% post-consumer rPET, recyclability Grade A, deposit-return scheme participation, and the standard separate-collection harmonised symbol. Demonstrates that nearly all PPWR data points reuse common dpp:/gs1:/untp: vocabulary; only packagingTier and recyclabilityGrade come from the ppwr: namespace.",
+        "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+      ],
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
+      ],
+      id: "https://id.dev.epcis.cloud/01/09521004005019",
+      type: "Packaging",
+      gtin: "09521004005019",
+      productName: [
+        {
+          "@value": "Mountain Spring Mineral Water, 500 mL PET bottle",
+          "@language": "en"
+        },
+        {
+          "@value": "Mountain Spring Mineralwasser, 500-ml-PET-Flasche",
+          "@language": "de"
+        },
+        {
+          "@value": "Eau min\xE9rale Mountain Spring, bouteille PET de 500 ml",
+          "@language": "fr"
+        },
+        {
+          "@value": "Agua mineral Mountain Spring, botella PET de 500 ml",
+          "@language": "es"
+        },
+        {
+          "@value": "Mountain Spring mineraalwater, PET-fles van 500 ml",
+          "@language": "nl"
+        },
+        {
+          "@value": "Mountain Spring mineralvand, 500 ml PET-flaske",
+          "@language": "da"
+        },
+        {
+          "@value": "Woda mineralna Mountain Spring, butelka PET 500 ml",
+          "@language": "pl"
+        },
+        {
+          "@value": "Mountain Spring mineralvatten, 500 ml PET-flaska",
+          "@language": "sv"
+        },
+        {
+          "@value": "Mountain Spring mineralvann, 500 ml PET-flaske",
+          "@language": "no"
+        },
+        {
+          "@value": "Mountain Spring -kivenn\xE4isvesi, 500 ml:n PET-pullo",
+          "@language": "fi"
+        },
+        {
+          "@value": "Acqua minerale Mountain Spring, bottiglia PET da 500 ml",
+          "@language": "it"
+        }
+      ],
+      packagingTier: "Sales",
+      recyclabilityGrade: "A",
+      harmonisedSymbol: "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/separate-collection-pet",
+      manufacturingDate: "2026-04-15",
+      manufacturer: {
+        id: "https://id.dev.epcis.cloud/417/9521234000020",
+        type: "Organization",
+        organizationName: "AlpenQuell GmbH",
+        partyGLN: "9521234000020"
+      },
+      extendedProducerResponsibility: [
+        {
+          type: "ExtendedProducerResponsibility",
+          eprRegistrationNumber: "DE-VPC-58092100",
+          eprWasteStream: "packaging",
+          eprJurisdiction: {
+            id: "https://ref.gs1.org/voc/Country-DE",
+            type: "Country"
+          },
+          eprScheme: {
+            id: "https://id.dev.epcis.cloud/417/4030101000001",
+            type: "Organization",
+            organizationName: "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
+          },
+          eprComplianceUrl: "https://ldb.zsvr.de/marken/58092100"
+        }
+      ],
+      depositReturnScheme: {
+        type: "DepositReturnScheme",
+        depositAmount: {
+          type: "QuantitativeValue",
+          value: 0.25,
+          unitCode: "EUR"
+        },
+        depositSchemeOperator: {
+          id: "https://id.dev.epcis.cloud/417/4030101000018",
+          type: "Organization",
+          organizationName: "Deutsche Pfandsystem GmbH"
+        },
+        depositRedemptionChannelUrl: "https://www.dpg-pfandsystem.de/find-redemption-point"
+      },
+      recycledContent: {
+        type: "RecycledContent",
+        recycledContent: {
+          type: "QuantitativeValue",
+          value: 0.5,
+          unitCode: "P1"
+        },
+        postConsumerRecycledContent: {
+          type: "QuantitativeValue",
+          value: 0.5,
+          unitCode: "P1"
+        },
+        preConsumerRecycledContent: {
+          type: "QuantitativeValue",
+          value: 0,
+          unitCode: "P1"
+        }
+      },
+      materialComposition: [
+        {
+          type: "MaterialComposition",
+          materialName: "PET (polyethylene terephthalate)",
+          massFraction: 1,
+          casNumber: "25038-59-9"
+        }
+      ],
+      regulatoryInformation: [
+        {
+          type: "RegulatoryInformation",
+          regulationType: {
+            id: "gs1:RegulationTypeCode-PACKAGING_REGULATION"
+          },
+          regulatoryAct: "EU 2025/40",
+          isRegulationCompliant: true
+        }
+      ],
+      productDescription: [
+        {
+          "@value": "50% post-consumer rPET bottle with Grade A recyclability, deposit-return scheme membership, and harmonised separate-collection PET symbol.",
+          "@language": "en"
+        },
+        {
+          "@value": "Flasche aus 50 % Post-Consumer-rPET, Recyclingf\xE4higkeit Klasse A, Pfand-R\xFCcknahme-System und harmonisiertes PET-Sammelsymbol.",
+          "@language": "de"
+        },
+        {
+          "@value": "Bouteille en rPET post-consommation \xE0 50 %, recyclabilit\xE9 Grade A, adh\xE9sion au syst\xE8me de consigne et symbole harmonis\xE9 de collecte s\xE9lective PET.",
+          "@language": "fr"
+        },
+        {
+          "@value": "Botella con 50 % de rPET post-consumo, reciclabilidad Grado A, sistema de devoluci\xF3n de envases (dep\xF3sito) y s\xEDmbolo armonizado de recogida selectiva PET.",
+          "@language": "es"
+        },
+        {
+          "@value": "Fles van 50% post-consumer rPET, recycleerbaarheid klasse A, deelname aan statiegeldsysteem en geharmoniseerd PET-inzamelsymbool.",
+          "@language": "nl"
+        },
+        {
+          "@value": "Flaske af 50 % post-consumer rPET, genanvendelighed grad A, tilmeldt pant-retur-system og harmoniseret separat indsamlings-PET-symbol.",
+          "@language": "da"
+        },
+        {
+          "@value": "Butelka z 50 % rPET pokonsumenckiego, recykling klasy A, cz\u0142onkostwo w systemie kaucji-zwrotu i zharmonizowany symbol selektywnej zbi\xF3rki PET.",
+          "@language": "pl"
+        },
+        {
+          "@value": "Flaska av 50 % post-consumer-rPET, \xE5tervinningsbarhet klass A, ansluten till pantsystem och harmoniserad PET-insamlingssymbol.",
+          "@language": "sv"
+        },
+        {
+          "@value": "Flaske av 50 % post-consumer rPET, gjenvinnbarhet klasse A, tilknyttet pantesystem og harmonisert PET-innsamlingssymbol.",
+          "@language": "no"
+        },
+        {
+          "@value": "Pullo, jossa on 50 % kierr\xE4tetty\xE4 rPET-muovia, kierr\xE4tett\xE4vyysluokka A, panttij\xE4rjestelm\xE4n j\xE4senyys ja harmonisoitu PET-erillisker\xE4ysmerkki.",
+          "@language": "fi"
+        },
+        {
+          "@value": "Bottiglia con 50 % di rPET post-consumo, riciclabilit\xE0 Grado A, adesione al sistema di reso del vuoto e simbolo armonizzato di raccolta differenziata PET.",
+          "@language": "it"
+        }
+      ]
+    }
+  },
+  {
+    group: "EU Packaging (PPWR)",
+    label: "ecommerce-carton (model)",
+    doc: {
+      _comment: [
+        "PPWR DPP example: a corrugated cardboard e-commerce shipping carton.",
+        "Demonstrates the Grouped/Transport packaging tier (vs Sales for the",
+        "beverage bottle), a Grade A recyclability claim against the cellulose-",
+        "fibre stream, high post-consumer recycled-content (PCR cellulose),",
+        "and the separate-collection-paper harmonised symbol.",
+        "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+      ],
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
+      ],
+      id: "https://id.dev.epcis.cloud/01/09521006003013",
+      type: "Packaging",
+      gtin: "09521006003013",
+      productName: [
+        {
+          "@value": "EcoFlow corrugated shipping carton, 30\xD720\xD715 cm",
+          "@language": "en"
+        },
+        {
+          "@value": "EcoFlow Wellpapp-Versandkarton, 30\xD720\xD715 cm",
+          "@language": "de"
+        },
+        {
+          "@value": "Carton d'exp\xE9dition ondul\xE9 EcoFlow, 30\xD720\xD715 cm",
+          "@language": "fr"
+        },
+        {
+          "@value": "Caja de env\xEDo en cart\xF3n corrugado EcoFlow, 30\xD720\xD715 cm",
+          "@language": "es"
+        },
+        {
+          "@value": "EcoFlow golfkartonnen verzenddoos, 30\xD720\xD715 cm",
+          "@language": "nl"
+        },
+        {
+          "@value": "EcoFlow b\xF8lgepap-forsendelseskasse, 30\xD720\xD715 cm",
+          "@language": "da"
+        },
+        {
+          "@value": "Pude\u0142ko wysy\u0142kowe z tektury falistej EcoFlow, 30\xD720\xD715 cm",
+          "@language": "pl"
+        },
+        {
+          "@value": "EcoFlow wellpappsl\xE5da, 30\xD720\xD715 cm",
+          "@language": "sv"
+        },
+        {
+          "@value": "EcoFlow wellpappkartong, 30\xD720\xD715 cm",
+          "@language": "no"
+        },
+        {
+          "@value": "EcoFlow aaltopahvil\xE4hetyslaatikko, 30\xD720\xD715 cm",
+          "@language": "fi"
+        },
+        {
+          "@value": "Scatola di spedizione EcoFlow in cartone ondulato, 30\xD720\xD715 cm",
+          "@language": "it"
+        }
+      ],
+      packagingTier: "Grouped",
+      recyclabilityGrade: "A",
+      harmonisedSymbol: "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/separate-collection-paper",
+      manufacturingDate: "2026-03-08",
+      manufacturer: {
+        id: "https://id.dev.epcis.cloud/417/9521987000049",
+        type: "Organization",
+        organizationName: "EcoFlow Karton GmbH",
+        partyGLN: "9521987000049"
+      },
+      extendedProducerResponsibility: [
+        {
+          type: "ExtendedProducerResponsibility",
+          eprRegistrationNumber: "DE-VPC-78410055",
+          eprWasteStream: "packaging",
+          eprJurisdiction: {
+            id: "https://ref.gs1.org/voc/Country-DE",
+            type: "Country"
+          },
+          eprScheme: {
+            id: "https://id.dev.epcis.cloud/417/4030101000001",
+            type: "Organization",
+            organizationName: "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
+          }
+        }
+      ],
+      recycledContent: {
+        type: "RecycledContent",
+        recycledContent: {
+          type: "QuantitativeValue",
+          value: 0.95,
+          unitCode: "P1"
+        },
+        postConsumerRecycledContent: {
+          type: "QuantitativeValue",
+          value: 0.8,
+          unitCode: "P1"
+        },
+        preConsumerRecycledContent: {
+          type: "QuantitativeValue",
+          value: 0.15,
+          unitCode: "P1"
+        }
+      },
+      materialComposition: [
+        {
+          type: "MaterialComposition",
+          materialName: "Recycled corrugated cardboard (kraftliner + fluting)",
+          massFraction: 0.97
+        },
+        {
+          type: "MaterialComposition",
+          materialName: "Starch-based adhesive",
+          massFraction: 0.03
+        }
+      ],
+      regulatoryInformation: [
+        {
+          type: "RegulatoryInformation",
+          regulationType: {
+            id: "gs1:RegulationTypeCode-PACKAGING_REGULATION"
+          },
+          regulatoryAct: "EU 2025/40",
+          isRegulationCompliant: true
+        }
+      ],
+      productDescription: [
+        {
+          "@value": "Grouped/Transport tier carton, 95% recycled cardboard (80% post-consumer + 15% pre-consumer), Grade A recyclability.",
+          "@language": "en"
+        },
+        {
+          "@value": "Karton der Verpackungsebene Gruppen-/Transportverpackung, 95 % recycelte Pappe (80 % post-consumer + 15 % pre-consumer), Recyclingf\xE4higkeit Klasse A.",
+          "@language": "de"
+        },
+        {
+          "@value": "Carton de niveau emballage group\xE9/transport, 95 % de carton recycl\xE9 (80 % post-consommation + 15 % pr\xE9-consommation), recyclabilit\xE9 Grade A.",
+          "@language": "fr"
+        },
+        {
+          "@value": "Caja de nivel embalaje agrupado/transporte, 95 % de cart\xF3n reciclado (80 % post-consumo + 15 % pre-consumo), reciclabilidad Grado A.",
+          "@language": "es"
+        },
+        {
+          "@value": "Doos van verpakkingsniveau gegroepeerd/transport, 95 % gerecycled karton (80 % post-consumer + 15 % pre-consumer), recycleerbaarheid klasse A.",
+          "@language": "nl"
+        },
+        {
+          "@value": "Karton i emballageniveauet samle-/transportemballage, 95 % genanvendt pap (80 % post-consumer + 15 % pre-consumer), genanvendelighed grad A.",
+          "@language": "da"
+        },
+        {
+          "@value": "Pude\u0142ko poziomu opakowania zbiorczego/transportowego, 95 % tektury z recyklingu (80 % pokonsumenckiej + 15 % przedkonsumenckiej), recykling klasy A.",
+          "@language": "pl"
+        },
+        {
+          "@value": "Kartong i f\xF6rpackningsniv\xE5 gruppf\xF6rpackning/transport, 95 % \xE5tervunnen kartong (80 % post-consumer + 15 % pre-consumer), \xE5tervinningsbarhet klass A.",
+          "@language": "sv"
+        },
+        {
+          "@value": "Kartong i emballasjeniv\xE5 gruppe-/transport, 95 % resirkulert papp (80 % post-consumer + 15 % pre-consumer), gjenvinnbarhet klasse A.",
+          "@language": "no"
+        },
+        {
+          "@value": "Pakkaustason ryhm\xE4-/kuljetuspakkauskartonki, 95 % kierr\xE4tyspahvia (80 % kulutuksen j\xE4lkeen + 15 % ennen kulutusta), kierr\xE4tett\xE4vyysluokka A.",
+          "@language": "fi"
+        },
+        {
+          "@value": "Cartone di livello imballaggio raggruppato/da trasporto, 95 % di cartone riciclato (80 % post-consumo + 15 % pre-consumo), riciclabilit\xE0 Grado A.",
+          "@language": "it"
+        }
+      ]
+    }
+  },
+  {
+    group: "EU Packaging (PPWR)",
+    label: "multi-layer-pouch (model)",
+    doc: {
+      _comment: [
+        "PPWR DPP example: a multi-layer PET/aluminium/PE laminate snack-food pouch.",
+        "Demonstrates Grade C (lowest acceptable from 2030, phased out by 2038), no",
+        "recycled content, PFAS-free declaration via dpp:HazardousSubstance, sales-tier",
+        "primary packaging, no deposit-return scheme participation. The harmonised",
+        "symbol points at the 'mixed-materials' / 'household-waste' Annex IX entry.",
+        "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+      ],
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
+      ],
+      id: "https://id.dev.epcis.cloud/01/09521005000808",
+      type: "Packaging",
+      gtin: "09521005000808",
+      productName: [
+        {
+          "@value": "Crispy Snack Pouch, 80 g multi-layer foil",
+          "@language": "en"
+        },
+        {
+          "@value": "Crispy Snack-Beutel, 80 g Mehrschichtfolie",
+          "@language": "de"
+        },
+        {
+          "@value": "Sachet de snack Crispy, film multicouche de 80 g",
+          "@language": "fr"
+        },
+        {
+          "@value": "Bolsa de snack Crispy, film multicapa de 80 g",
+          "@language": "es"
+        },
+        {
+          "@value": "Crispy snackzakje, meerlaagsfolie van 80 g",
+          "@language": "nl"
+        },
+        {
+          "@value": "Crispy snackpose, 80 g flerlagsfolie",
+          "@language": "da"
+        },
+        {
+          "@value": "Torebka przek\u0105ski Crispy, folia wielowarstwowa 80 g",
+          "@language": "pl"
+        },
+        {
+          "@value": "Crispy snackp\xE5se, 80 g flerlagsfolie",
+          "@language": "sv"
+        },
+        {
+          "@value": "Crispy snackpose, 80 g flerlagsfolie",
+          "@language": "no"
+        },
+        {
+          "@value": "Crispy-naposteltavapussi, 80 g monikerroskalvo",
+          "@language": "fi"
+        },
+        {
+          "@value": "Bustina snack Crispy, pellicola multistrato da 80 g",
+          "@language": "it"
+        }
+      ],
+      packagingTier: "Sales",
+      recyclabilityGrade: "C",
+      harmonisedSymbol: "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/mixed-materials-household-waste",
+      manufacturingDate: "2026-03-20",
+      manufacturer: {
+        id: "https://id.dev.epcis.cloud/417/9521234000037",
+        type: "Organization",
+        organizationName: "Knusprig GmbH",
+        partyGLN: "9521234000037"
+      },
+      extendedProducerResponsibility: [
+        {
+          type: "ExtendedProducerResponsibility",
+          eprRegistrationNumber: "DE-VPC-58092345",
+          eprWasteStream: "packaging",
+          eprJurisdiction: {
+            id: "https://ref.gs1.org/voc/Country-DE",
+            type: "Country"
+          },
+          eprScheme: {
+            id: "https://id.dev.epcis.cloud/417/4030101000001",
+            type: "Organization",
+            organizationName: "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
+          }
+        }
+      ],
+      materialComposition: [
+        {
+          type: "MaterialComposition",
+          materialName: "PET outer layer",
+          massFraction: 0.45
+        },
+        {
+          type: "MaterialComposition",
+          materialName: "Aluminium barrier layer",
+          massFraction: 0.1,
+          isCriticalRawMaterial: true
+        },
+        {
+          type: "MaterialComposition",
+          materialName: "PE inner layer",
+          massFraction: 0.45,
+          casNumber: "9002-88-4"
+        }
+      ],
+      hazardousSubstances: [
+        {
+          type: "HazardousSubstance",
+          substanceName: "PFAS (per- and polyfluoroalkyl substances)",
+          hazardImpact: "absent",
+          _comment: "PPWR Article 5 PFAS restriction declaration: packaging contains no intentionally added PFAS. concentration omitted because below detection threshold."
+        }
+      ],
+      regulatoryInformation: [
+        {
+          type: "RegulatoryInformation",
+          regulationType: {
+            id: "gs1:RegulationTypeCode-PACKAGING_REGULATION"
+          },
+          regulatoryAct: "EU 2025/40",
+          isRegulationCompliant: true
+        }
+      ],
+      productDescription: [
+        {
+          "@value": "PET/Aluminium/PE laminate pouch, Grade C recyclability (scheduled phase-out by 2038), PFAS-free declaration.",
+          "@language": "en"
+        },
+        {
+          "@value": "Beutel aus PET/Aluminium/PE-Laminat, Recyclingf\xE4higkeit Klasse C (geplanter Ausstieg bis 2038), PFAS-frei-Erkl\xE4rung.",
+          "@language": "de"
+        },
+        {
+          "@value": "Sachet en stratifi\xE9 PET/aluminium/PE, recyclabilit\xE9 Grade C (\xE9limination programm\xE9e d'ici 2038), d\xE9claration sans PFAS.",
+          "@language": "fr"
+        },
+        {
+          "@value": "Bolsa de laminado PET/aluminio/PE, reciclabilidad Grado C (eliminaci\xF3n gradual prevista para 2038), declaraci\xF3n libre de PFAS.",
+          "@language": "es"
+        },
+        {
+          "@value": "Zakje van PET/aluminium/PE-laminaat, recycleerbaarheid klasse C (uitfasering gepland tegen 2038), PFAS-vrij verklaard.",
+          "@language": "nl"
+        },
+        {
+          "@value": "Pose af PET/aluminium/PE-laminat, genanvendelighed grad C (planlagt udfasning inden 2038), PFAS-fri-erkl\xE6ring.",
+          "@language": "da"
+        },
+        {
+          "@value": "Torebka z laminatu PET/aluminium/PE, recykling klasy C (planowane wycofanie do 2038 r.), deklaracja PFAS-free.",
+          "@language": "pl"
+        },
+        {
+          "@value": "P\xE5se i PET/aluminium/PE-laminat, \xE5tervinningsbarhet klass C (planerad utfasning till 2038), PFAS-fri-deklaration.",
+          "@language": "sv"
+        },
+        {
+          "@value": "Pose i PET/aluminium/PE-laminat, gjenvinnbarhet klasse C (planlagt utfasing innen 2038), PFAS-fri erkl\xE6ring.",
+          "@language": "no"
+        },
+        {
+          "@value": "PET/alumiini/PE-laminaattipussi, kierr\xE4tett\xE4vyysluokka C (suunniteltu poistuminen vuoteen 2038 menness\xE4), PFAS-vapaaksi todistettu.",
+          "@language": "fi"
+        },
+        {
+          "@value": "Bustina in laminato PET/Alluminio/PE, riciclabilit\xE0 Grado C (eliminazione progressiva prevista entro il 2038), dichiarazione senza PFAS.",
+          "@language": "it"
+        }
+      ]
+    }
+  },
+  {
+    group: "EU Construction (CPR)",
+    label: "cement-bag (model)",
+    doc: {
+      _comment: [
+        "CPR DPP example: a 25 kg bag of CEM I 52.5 N portland cement.",
+        "Demonstrates the standard CPR data set: declarationOfPerformanceUrl,",
+        "essentialCharacteristic for compressive strength (per EN 197-1),",
+        "reactionToFireClass A1 (cement is non-combustible), 35% recycled",
+        "content via dpp:RecycledContent (BFS / blast-furnace slag), and",
+        "carbon footprint via dpp:CarbonFootprintDeclaration with lifecycle",
+        "stages. GS1 demo prefix 952 (7-digit GCP: 9521234)."
+      ],
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/cpr/cpr-context.jsonld"
+      ],
+      id: "https://id.gs1.org/01/09521234600015",
+      type: "ConstructionProduct",
+      gtin: "09521234600015",
+      productName: {
+        "@value": "BetonStrong CEM I 52.5 N, 25 kg bag",
+        "@language": "en"
+      },
+      constructionProductType: "Cement",
+      reactionToFireClass: "A1",
+      declarationOfPerformanceUrl: "https://manufacturer.example/dop/CEM-I-52-5-N-2026-001.pdf",
+      manufacturer: {
+        id: "https://id.gs1.org/417/9521234000044",
+        type: "Organization",
+        organizationName: "Bauwerk Cement GmbH",
+        partyGLN: "9521234000044"
+      },
+      essentialCharacteristic: [
+        {
+          type: "EssentialCharacteristic",
+          characteristicName: "Compressive Strength (28 days)",
+          characteristicValue: {
+            type: "QuantitativeValue",
+            value: 52.5,
+            unitCode: "N20"
+          },
+          harmonisedStandard: "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30253,5839"
+        },
+        {
+          type: "EssentialCharacteristic",
+          characteristicName: "Initial Setting Time",
+          characteristicValue: {
+            type: "QuantitativeValue",
+            value: 75,
+            unitCode: "MIN"
+          },
+          harmonisedStandard: "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30253,5839"
+        }
+      ],
+      recycledContent: {
+        type: "RecycledContent",
+        recycledContent: {
+          type: "QuantitativeValue",
+          value: 0.35,
+          unitCode: "P1"
+        },
+        preConsumerRecycledContent: {
+          type: "QuantitativeValue",
+          value: 0.35,
+          unitCode: "P1"
+        }
+      },
+      materialComposition: [
+        {
+          type: "MaterialComposition",
+          materialName: "Portland clinker",
+          massFraction: 0.65
+        },
+        {
+          type: "MaterialComposition",
+          materialName: "Granulated blast-furnace slag (GBFS)",
+          massFraction: 0.3
+        },
+        {
+          type: "MaterialComposition",
+          materialName: "Gypsum",
+          massFraction: 0.05
+        }
+      ],
+      carbonFootprintDeclaration: {
+        type: "CarbonFootprintDeclaration",
+        carbonFootprintTotal: {
+          type: "QuantitativeValue",
+          value: 14.2,
+          unitCode: "KGM"
+        },
+        carbonFootprintRawMaterial: {
+          type: "QuantitativeValue",
+          value: 8.1,
+          unitCode: "KGM"
+        },
+        carbonFootprintProduction: {
+          type: "QuantitativeValue",
+          value: 5.4,
+          unitCode: "KGM"
+        },
+        carbonFootprintDistribution: {
+          type: "QuantitativeValue",
+          value: 0.7,
+          unitCode: "KGM"
+        },
+        carbonFootprintMethodology: "https://www.iso.org/standard/71206.html",
+        declaredUnit: "1 kg of cement"
+      },
+      regulatoryInformation: [
+        {
+          type: "RegulatoryInformation",
+          regulationType: {
+            id: "gs1:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION"
+          },
+          regulatoryAct: "EU 2024/3110",
+          isRegulationCompliant: true
+        }
+      ]
+    }
+  },
+  {
+    group: "EU Construction (CPR)",
+    label: "insulation-panel (model)",
+    doc: {
+      _comment: [
+        "CPR DPP example: a 1200\xD7600\xD7100 mm mineral-wool insulation panel.",
+        "Demonstrates a non-cement product: thermal conductivity and reaction-",
+        "to-fire (A1, mineral wool is non-combustible) as essential characteristics",
+        "per EN 13162. 30% recycled glass cullet via dpp:RecycledContent, no",
+        "hazardous substances, end-of-life take-back via dpp:EndOfLifeProgram.",
+        "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+      ],
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/cpr/cpr-context.jsonld"
+      ],
+      id: "https://id.gs1.org/01/09521234600022",
+      type: "ConstructionProduct",
+      gtin: "09521234600022",
+      productName: {
+        "@value": "ThermoWool Plus 100, 1200\xD7600\xD7100 mm mineral wool panel",
+        "@language": "en"
+      },
+      constructionProductType: "Insulation",
+      reactionToFireClass: "A1",
+      declarationOfPerformanceUrl: "https://manufacturer.example/dop/ThermoWool-Plus-100-2026-001.pdf",
+      manufacturer: {
+        id: "https://id.gs1.org/417/9521234000051",
+        type: "Organization",
+        organizationName: "IsolierTech AG",
+        partyGLN: "9521234000051"
+      },
+      essentialCharacteristic: [
+        {
+          type: "EssentialCharacteristic",
+          characteristicName: "Thermal Conductivity \u03BBD",
+          characteristicValue: {
+            type: "QuantitativeValue",
+            value: 0.034,
+            unitCode: "F94"
+          },
+          harmonisedStandard: "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30562,5839"
+        },
+        {
+          type: "EssentialCharacteristic",
+          characteristicName: "Density",
+          characteristicValue: {
+            type: "QuantitativeValue",
+            value: 60,
+            unitCode: "KMQ"
+          },
+          harmonisedStandard: "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30562,5839"
+        }
+      ],
+      recycledContent: {
+        type: "RecycledContent",
+        recycledContent: {
+          type: "QuantitativeValue",
+          value: 0.3,
+          unitCode: "P1"
+        },
+        postConsumerRecycledContent: {
+          type: "QuantitativeValue",
+          value: 0.3,
+          unitCode: "P1"
+        }
+      },
+      materialComposition: [
+        {
+          type: "MaterialComposition",
+          materialName: "Mineral wool (rock + recycled glass cullet)",
+          massFraction: 0.97
+        },
+        {
+          type: "MaterialComposition",
+          materialName: "Phenolic resin binder",
+          massFraction: 0.03
+        }
+      ],
+      endOfLifeProgram: {
+        type: "EndOfLifeProgram",
+        takeBackUrl: "https://isoliertech.example/take-back",
+        takeBackIncentive: "Free pick-up for site quantities >500 kg",
+        collectionPointDirectoryUrl: "https://isoliertech.example/collection-points",
+        dismantlingGuideUrl: "https://isoliertech.example/dismantling-guide-thermowool"
+      },
+      regulatoryInformation: [
+        {
+          type: "RegulatoryInformation",
+          regulationType: {
+            id: "gs1:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION"
+          },
+          regulatoryAct: "EU 2024/3110",
+          isRegulationCompliant: true
+        }
+      ]
+    }
+  },
+  {
+    group: "EU Detergent",
+    label: "dishwasher-detergent (model)",
+    doc: {
+      _comment: [
+        "Dishwasher capsule DPP example per EU 2026/405.",
+        "Shows: capsule form with film biodegradability, builders/bleach/enzyme ingredients,",
+        "no fragrance allergens, phosphorus declaration, CLP hazard."
+      ],
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld",
+        {
+          gs1: "https://ref.gs1.org/voc/",
+          xsd: "http://www.w3.org/2001/XMLSchema#"
+        }
+      ],
+      id: "https://id.gs1.org/01/09521234200024",
+      type: [
+        "Product",
+        "DetergentProduct"
+      ],
+      gtin: "09521234200024",
+      productName: {
+        "@value": "EcoClean PowerTabs All-in-1 Dishwasher Capsules",
+        "@language": "en"
+      },
+      "gs1:productDescription": {
+        "@value": "All-in-one dishwasher capsules with water-soluble biodegradable film. Contains detergent, rinse aid, and salt function. Fragrance-free.",
+        "@language": "en"
+      },
+      detergentCategory: "DishwasherDetergent",
+      productForm: "Capsule",
+      intendedUse: "Automatic dishwashing machines, 1 capsule per cycle",
+      customsCommodityCode: "34022090",
+      customsCommodityCodeType: "CN8",
+      "gs1:manufacturer": {
+        id: "https://id.gs1.org/417/9521234000006",
+        type: "Organization",
+        organizationName: "EcoClean Industries GmbH",
+        gln: "9521234000006",
+        address: {
+          type: "PostalAddress",
+          "gs1:streetAddress": "Industriestra\xDFe 42",
+          "gs1:addressLocality": "Hamburg",
+          "gs1:postalCode": "20457",
+          "gs1:countryCode": "DE"
+        }
+      },
+      "dpp:operatorInformation": {
+        id: "https://id.gs1.org/417/9521234000006#operator",
+        type: "OperatorInformation",
+        gln: "9521234000006",
+        organizationName: "EcoClean Industries GmbH",
+        "dpp:operatorRole": {
+          id: "dpp:Manufacturer"
+        }
+      },
+      "gs1:countryOfOrigin": "DE",
+      "gs1:netContent": {
+        type: "QuantitativeValue",
+        value: 30,
+        unitCode: "H87"
+      },
+      ingredientList: [
+        {
+          id: "https://id.gs1.org/01/09521234200024#ing-percarbonate",
+          type: "Ingredient",
+          inciName: "Sodium Percarbonate",
+          ingredientFunction: "Bleach",
+          weightPercentRange: "15-30%",
+          casNumber: "15630-89-4",
+          isSurfactant: false
+        },
+        {
+          id: "https://id.gs1.org/01/09521234200024#ing-carbonate",
+          type: "Ingredient",
+          inciName: "Sodium Carbonate",
+          ingredientFunction: "Builder",
+          weightPercentRange: "15-30%",
+          casNumber: "497-19-8",
+          isSurfactant: false
+        },
+        {
+          id: "https://id.gs1.org/01/09521234200024#ing-citrate",
+          type: "Ingredient",
+          inciName: "Sodium Citrate",
+          ingredientFunction: "Builder",
+          weightPercentRange: "5-15%",
+          casNumber: "68-04-2",
+          isSurfactant: false
+        },
+        {
+          id: "https://id.gs1.org/01/09521234200024#ing-nonionic",
+          type: "Ingredient",
+          inciName: "C12-15 Pareth-7",
+          ingredientFunction: "SurfactantFunction",
+          weightPercentRange: "<5%",
+          casNumber: "68131-39-5",
+          isSurfactant: true
+        },
+        {
+          id: "https://id.gs1.org/01/09521234200024#ing-protease",
+          type: "Ingredient",
+          inciName: "Subtilisin",
+          ingredientFunction: "Enzyme",
+          weightPercentRange: "<5%",
+          casNumber: "9014-01-1",
+          isSurfactant: false
+        },
+        {
+          id: "https://id.gs1.org/01/09521234200024#ing-amylase",
+          type: "Ingredient",
+          inciName: "Alpha-Amylase",
+          ingredientFunction: "Enzyme",
+          weightPercentRange: "<5%",
+          casNumber: "9000-90-2",
+          isSurfactant: false
+        },
+        {
+          id: "https://id.gs1.org/01/09521234200024#ing-taed",
+          type: "Ingredient",
+          inciName: "TAED",
+          ingredientFunction: "Bleach",
+          weightPercentRange: "<5%",
+          casNumber: "10543-57-4",
+          isSurfactant: false
+        }
+      ],
+      surfactantBiodegradability: [
+        {
+          id: "https://id.gs1.org/01/09521234200024#biodeg-nonionic",
+          type: "SurfactantBiodegradability",
+          surfactantType: "NonIonic",
+          biodegradationPercentage: 89.1,
+          testMethod: "OECD301F",
+          testDurationDays: 28,
+          passesUltimateBiodegradability: true
+        }
+      ],
+      filmBiodegradable: true,
+      filmBiodegradabilityPercentage: 94.7,
+      signalWord: "Danger",
+      hazardPictograms: [
+        "GHS05",
+        "GHS07"
+      ],
+      hStatements: [
+        "H318",
+        "H315",
+        "H412"
+      ],
+      pStatements: [
+        "P101",
+        "P102",
+        "P280",
+        "P305+P351+P338",
+        "P310",
+        "P102"
+      ],
+      phosphorusContentPercent: 0.3,
+      phosphateCompliant: true,
+      dosageInstructions: {
+        "@value": "Place 1 capsule in the main dispenser compartment. Do not unwrap. Do not handle with wet hands. Suitable for all dishwasher types.",
+        "@language": "en"
+      },
+      safetyDataSheet: {
+        id: "https://www.ecoclean.example.com/sds/dishwasher-capsules-sds.pdf",
+        type: "DocumentReference",
+        "dpp:documentType": {
+          id: "dpp:SafetyDataSheet"
+        },
+        "dpp:documentUrl": "https://www.ecoclean.example.com/sds/dishwasher-capsules-sds.pdf",
+        "schema:name": "Safety Data Sheet - EcoClean PowerTabs All-in-1",
+        "dpp:mimeType": "application/pdf",
+        "dpp:languageCode": "en"
+      },
+      "dpp:passportIdentifier": "https://dpp.ecoclean.example.com/passport/09521234200020",
+      "dpp:passportVersion": "1.0",
+      "dpp:passportIssueDate": "2026-09-01",
+      "dpp:passportStatus": "Active",
+      "dpp:productCategory": {
+        id: "dpp:Detergents"
+      },
+      "dpp:lastDataUpdate": "2026-09-01T10:00:00Z"
+    }
+  },
+  {
+    group: "EU Detergent",
+    label: "laundry-detergent (model)",
+    doc: {
+      _comment: [
+        "Consumer liquid laundry detergent DPP example per EU 2026/405.",
+        "Model-based DPP: same manufacturer + identical formulation = one DPP.",
+        "GS1 demo prefix 952 (7-digit GCP: 9521234).",
+        "Shows: full INCI ingredient list, surfactant biodegradability, CLP hazard classification,",
+        "fragrance allergen disclosure, phosphorus declaration, recommended dosage."
+      ],
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld",
+        {
+          gs1: "https://ref.gs1.org/voc/",
+          xsd: "http://www.w3.org/2001/XMLSchema#"
+        }
+      ],
+      id: "https://id.gs1.org/01/09521234200017",
+      type: [
+        "Product",
+        "DetergentProduct"
+      ],
+      gtin: "09521234200017",
+      productName: {
+        "@value": "EcoClean Pro Liquid Laundry Detergent - Sensitive",
+        "@language": "en"
+      },
+      "gs1:productDescription": {
+        "@value": "Concentrated liquid laundry detergent for sensitive skin. Dermatologically tested, phosphate-free formula with plant-based surfactants.",
+        "@language": "en"
+      },
+      detergentCategory: "LaundryDetergent",
+      productForm: "Liquid",
+      intendedUse: "Machine and hand washing of textiles at 20-60\xB0C",
+      customsCommodityCode: "34022090",
+      customsCommodityCodeType: "CN8",
+      "gs1:manufacturer": {
+        id: "https://id.gs1.org/417/9521234000006",
+        type: "Organization",
+        organizationName: "EcoClean Industries GmbH",
+        gln: "9521234000006",
+        address: {
+          type: "PostalAddress",
+          "gs1:streetAddress": "Industriestra\xDFe 42",
+          "gs1:addressLocality": "Hamburg",
+          "gs1:postalCode": "20457",
+          "gs1:countryCode": "DE"
+        }
+      },
+      "dpp:operatorInformation": {
+        id: "https://id.gs1.org/417/9521234000006#operator",
+        type: "OperatorInformation",
+        gln: "9521234000006",
+        organizationName: "EcoClean Industries GmbH",
+        "dpp:operatorRole": {
+          id: "dpp:Manufacturer"
+        },
+        "gs1:address": {
+          type: "PostalAddress",
+          "gs1:streetAddress": "Industriestra\xDFe 42",
+          "gs1:addressLocality": "Hamburg",
+          "gs1:postalCode": "20457",
+          "gs1:countryCode": "DE"
+        }
+      },
+      "gs1:countryOfOrigin": "DE",
+      "gs1:netContent": {
+        type: "QuantitativeValue",
+        value: 1500,
+        unitCode: "MLT"
+      },
+      ingredientList: [
+        {
+          id: "https://id.gs1.org/01/09521234200017#ing-water",
+          type: "Ingredient",
+          inciName: "Aqua",
+          ingredientFunction: "Solvent",
+          weightPercentRange: ">=30%",
+          isSurfactant: false
+        },
+        {
+          id: "https://id.gs1.org/01/09521234200017#ing-las",
+          type: "Ingredient",
+          inciName: "Sodium Dodecylbenzenesulfonate",
+          ingredientFunction: "SurfactantFunction",
+          weightPercentRange: "5-15%",
+          casNumber: "25155-30-0",
+          isSurfactant: true
+        },
+        {
+          id: "https://id.gs1.org/01/09521234200017#ing-aeo",
+          type: "Ingredient",
+          inciName: "Laureth-7",
+          ingredientFunction: "SurfactantFunction",
+          weightPercentRange: "5-15%",
+          casNumber: "3055-97-8",
+          isSurfactant: true
+        },
+        {
+          id: "https://id.gs1.org/01/09521234200017#ing-citrate",
+          type: "Ingredient",
+          inciName: "Sodium Citrate",
+          ingredientFunction: "Builder",
+          weightPercentRange: "5-15%",
+          casNumber: "68-04-2",
+          isSurfactant: false
+        },
+        {
+          id: "https://id.gs1.org/01/09521234200017#ing-glycerin",
+          type: "Ingredient",
+          inciName: "Glycerin",
+          ingredientFunction: "Solvent",
+          weightPercentRange: "<5%",
+          casNumber: "56-81-5",
+          isSurfactant: false
+        },
+        {
+          id: "https://id.gs1.org/01/09521234200017#ing-protease",
+          type: "Ingredient",
+          inciName: "Subtilisin",
+          ingredientFunction: "Enzyme",
+          weightPercentRange: "<5%",
+          casNumber: "9014-01-1",
+          isSurfactant: false
+        },
+        {
+          id: "https://id.gs1.org/01/09521234200017#ing-amylase",
+          type: "Ingredient",
+          inciName: "Alpha-Amylase",
+          ingredientFunction: "Enzyme",
+          weightPercentRange: "<5%",
+          casNumber: "9000-90-2",
+          isSurfactant: false
+        },
+        {
+          id: "https://id.gs1.org/01/09521234200017#ing-preservative",
+          type: "Ingredient",
+          inciName: "Methylisothiazolinone",
+          ingredientFunction: "Preservative",
+          weightPercentRange: "<5%",
+          casNumber: "2682-20-4",
+          isSurfactant: false
+        },
+        {
+          id: "https://id.gs1.org/01/09521234200017#ing-parfum",
+          type: "Ingredient",
+          inciName: "Parfum",
+          ingredientFunction: "Fragrance",
+          weightPercentRange: "<5%",
+          isSurfactant: false
+        }
+      ],
+      surfactantBiodegradability: [
+        {
+          id: "https://id.gs1.org/01/09521234200017#biodeg-anionic",
+          type: "SurfactantBiodegradability",
+          surfactantType: "Anionic",
+          biodegradationPercentage: 82.5,
+          testMethod: "OECD301B",
+          testDurationDays: 28,
+          passesUltimateBiodegradability: true
+        },
+        {
+          id: "https://id.gs1.org/01/09521234200017#biodeg-nonionic",
+          type: "SurfactantBiodegradability",
+          surfactantType: "NonIonic",
+          biodegradationPercentage: 76.3,
+          testMethod: "OECD301B",
+          testDurationDays: 28,
+          passesUltimateBiodegradability: true
+        }
+      ],
+      fragranceAllergens: [
+        {
+          id: "https://id.gs1.org/01/09521234200017#allergen-linalool",
+          type: "FragranceAllergen",
+          allergenName: "Linalool",
+          allergenCasNumber: "78-70-6",
+          allergenConcentration: 0.15
+        },
+        {
+          id: "https://id.gs1.org/01/09521234200017#allergen-limonene",
+          type: "FragranceAllergen",
+          allergenName: "Limonene",
+          allergenCasNumber: "5989-27-5",
+          allergenConcentration: 0.08
+        }
+      ],
+      signalWord: "Warning",
+      hazardPictograms: [
+        "GHS07"
+      ],
+      hStatements: [
+        "H315",
+        "H319"
+      ],
+      pStatements: [
+        "P101",
+        "P102",
+        "P280",
+        "P302+P352",
+        "P305+P351+P338"
+      ],
+      phosphorusContentPercent: 0,
+      phosphateCompliant: true,
+      recommendedDosage: {
+        id: "https://id.gs1.org/01/09521234200017#dosage",
+        type: "QuantitativeValue",
+        value: 35,
+        unitCode: "MLT"
+      },
+      dosageInstructions: {
+        "@value": "Medium water hardness: 35 ml per 4.5 kg load. Hard water: 50 ml. Heavily soiled: add 15 ml. Pre-treat stains directly.",
+        "@language": "en"
+      },
+      safetyDataSheet: {
+        id: "https://www.ecoclean.example.com/sds/laundry-sensitive-sds.pdf",
+        type: "DocumentReference",
+        "dpp:documentType": {
+          id: "dpp:SafetyDataSheet"
+        },
+        "dpp:documentUrl": "https://www.ecoclean.example.com/sds/laundry-sensitive-sds.pdf",
+        "schema:name": "Safety Data Sheet - EcoClean Pro Liquid Laundry Detergent Sensitive",
+        "dpp:mimeType": "application/pdf",
+        "dpp:languageCode": "en"
+      },
+      biodegradabilityTestReport: {
+        id: "https://www.ecoclean.example.com/reports/biodeg-test-2026-001.pdf",
+        type: "DocumentReference",
+        "dpp:documentType": {
+          id: "dpp:TestReport"
+        },
+        "dpp:documentUrl": "https://www.ecoclean.example.com/reports/biodeg-test-2026-001.pdf",
+        "schema:name": "Surfactant Biodegradability Test Report",
+        "dpp:mimeType": "application/pdf",
+        "dpp:languageCode": "en"
+      },
+      "dpp:passportIdentifier": "https://dpp.ecoclean.example.com/passport/09521234200013",
+      "dpp:passportVersion": "1.0",
+      "dpp:passportIssueDate": "2026-09-01",
+      "dpp:passportStatus": "Active",
+      "dpp:productCategory": {
+        id: "dpp:Detergents"
+      },
+      "dpp:lastDataUpdate": "2026-09-01T10:00:00Z"
+    }
+  },
+  {
+    group: "US FSMA 204",
+    label: "ftl-product (model)",
+    doc: {
+      "@context": [
+        "https://ref.openepcis.io/extensions/us/fsma204/fsma204-context.jsonld"
+      ],
+      type: "Product",
+      id: "https://id.gs1.org/01/00860009999923",
+      _comment_gs1us_mapping: [
+        "Trade-item master data for a food on the Food Traceability List.",
+        "Per GS1 US 'Application of GS1 System of Standards to Support FSMA 204' R3.0,",
+        "the TLC itself is NOT stored on the master-data record; it is created per lot at the",
+        "Initial Packing / First-Land-Based-Receiver / Transformation CTE and encoded in EPCIS",
+        "events as https://id.gs1.org/01/{GTIN}/10/{Batch/Lot}.",
+        "Master data only needs to carry GTIN-level descriptors (gs1:functionalName,",
+        "gs1:importClassificationTypeCode + gs1:importClassificationValue,",
+        "gs1:gpcCategoryCode) plus any FDA-categorisation such as fsma:foodTraceabilityListCategory."
+      ],
+      gtin: "00860009999923",
+      functionalName: "Romaine lettuce, fresh-cut, whole heads",
+      importClassificationTypeCode: "HTSUS",
+      importClassificationValue: "0705.11.2000",
+      gpcCategoryCode: "10006423",
+      foodTraceabilityListCategory: "LeafyGreensFreshCut",
+      netWeight: {
+        type: "gs1:QuantitativeValue",
+        "gs1:value": 11.34,
+        "gs1:unitCode": "KGM"
+      },
+      countryOfOrigin: {
+        type: "gs1:Country",
+        "gs1:countryCode": "US"
+      },
+      manufacturer: {
+        id: "https://id.gs1.org/417/0860009999060",
+        type: "Organization",
+        organizationName: "Sunrise Valley Farm LLC",
+        partyGLN: "0860009999060"
+      }
+    }
   }
-};
+];
 
 // demos/en18223-converter/app.ts
 var range = new Map(Object.entries(range_index_default));
-var CONTEXTS = {
-  "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld": dpp_core_context_default
-};
+var CONTEXTS = contexts_default;
 var documentLoader = async (url) => {
   if (CONTEXTS[url]) return { contextUrl: void 0, documentUrl: url, document: CONTEXTS[url] };
   const res = await fetch(url, { headers: { Accept: "application/ld+json, application/json" } });
   if (!res.ok) throw new Error(`could not load context ${url}: ${res.status}`);
   return { contextUrl: void 0, documentUrl: url, document: await res.json() };
 };
-var CORE = "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld";
-var gs1 = { gs1: "https://ref.gs1.org/voc/", xsd: "http://www.w3.org/2001/XMLSchema#" };
-var sampleModel = {
-  "@context": [CORE, gs1],
-  type: ["gs1:Product", "DigitalProductPassport"],
-  id: "https://id.example.org/01/09506000134352",
-  economicOperatorId: "https://id.example.org/417/4012345000009",
-  "gs1:productName": [{ "@value": "EcoCell Battery Module IM-500", "@language": "en-GB" }],
-  recycledContent: 0.16
-};
-var sampleBatch = {
-  "@context": [CORE, gs1],
-  type: ["gs1:Product", "DigitalProductPassport"],
-  id: "https://id.example.org/01/09506000134352/10/LOT-2026-04",
-  economicOperatorId: "https://id.example.org/417/4012345000009",
-  facilityId: "https://id.example.org/414/4012345000016",
-  recycledContent: 0.16,
-  preConsumerRecycledContent: 0.04,
-  postConsumerRecycledContent: 0.12
-};
-var SAMPLES = {
-  "Battery, item-level (full)": en18223_passport_compressed_default,
-  "Trade item, model-level": sampleModel,
-  "Batch / lot-level": sampleBatch
-};
+var SAMPLES = samples_default;
 var $ = (id) => document.getElementById(id);
 var inputEl = () => $("input");
 var outputEl = () => $("output");
@@ -9928,27 +19245,39 @@ async function derive() {
     const out = await deriveEN18223(input, range, documentLoader);
     outputEl().textContent = JSON.stringify(out, null, 2);
     const n = Array.isArray(out.elements) ? out.elements.length : 0;
-    setStatus(`Derived: ${n} top-level elements \xB7 granularity "${out.granularity}" \xB7 dppStatus "${out.dppStatus}"`, "ok");
+    const specs = Array.isArray(out.contentSpecificationIds) ? out.contentSpecificationIds.length : 0;
+    setStatus(`Derived: ${n} top-level elements \xB7 granularity "${out.granularity}" \xB7 ${specs} content specification(s)`, "ok");
   } catch (e) {
     outputEl().textContent = "";
     setStatus(`Error: ${e.message}`, "err");
   }
 }
-function loadSample(name) {
-  inputEl().value = JSON.stringify(SAMPLES[name], null, 2);
+function loadSample(idx) {
+  const s = SAMPLES[idx];
+  if (s) inputEl().value = JSON.stringify(s.doc, null, 2);
 }
 function init() {
   const select = $("sample");
-  for (const name of Object.keys(SAMPLES)) {
+  let currentGroup = "";
+  let optgroup = null;
+  SAMPLES.forEach((s, i) => {
+    if (s.group !== currentGroup) {
+      optgroup = document.createElement("optgroup");
+      optgroup.label = s.group;
+      select.appendChild(optgroup);
+      currentGroup = s.group;
+    }
     const opt = document.createElement("option");
-    opt.value = name;
-    opt.textContent = name;
-    select.appendChild(opt);
-  }
-  select.addEventListener("change", () => loadSample(select.value));
+    opt.value = String(i);
+    opt.textContent = s.label;
+    optgroup.appendChild(opt);
+  });
+  select.addEventListener("change", () => loadSample(Number(select.value)));
   $("derive").addEventListener("click", () => void derive());
-  loadSample(Object.keys(SAMPLES)[0]);
-  void derive();
+  if (SAMPLES.length) {
+    loadSample(0);
+    void derive();
+  }
 }
 init();
 /*! Bundled license information:
