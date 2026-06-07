@@ -1,5 +1,5 @@
 {
-  "_comment": "OpenEPCIS DPP Core Context v0.9.5 - The Universal DPP Platform. Aligned with ESPR 2024/1781, GS1, and UNTP standards. All ratio/fraction values use 0-1 decimal scale. EPCIS Extension: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/",
+  "_comment": "OpenEPCIS DPP Core Context v0.9.6 - The Universal DPP Platform. Aligned with ESPR 2024/1781, GS1, and UNTP standards. All ratio/fraction values use 0-1 decimal scale. EPCIS Extension: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/",
   "@context": {
     "@version": 1.1,
     "dpp": "https://ref.openepcis.io/extensions/common/core/",
@@ -362,14 +362,8 @@
       "@id": "dpp:verifiedRatio",
       "@type": "xsd:decimal"
     },
-    "granularityLevel": {
-      "@id": "dpp:granularityLevel",
-      "@type": "@vocab",
-      "@context": {
-        "ProductClass": "dpp:ProductClass",
-        "Batch": "dpp:Batch",
-        "Item": "dpp:Item"
-      }
+    "granularity": {
+      "@id": "dpp:granularityLevel"
     },
     "lastDataUpdate": {
       "@id": "dpp:lastDataUpdate",
@@ -500,7 +494,7 @@
       "@id": "gs1:productID",
       "@type": "@id"
     },
-    "passportIdentifier": {
+    "digitalProductPassportId": {
       "@id": "dpp:passportIdentifier",
       "@type": "@id"
     },
@@ -510,17 +504,8 @@
       "@type": "xsd:date"
     },
     "PassportStatus": "dpp:PassportStatus",
-    "passportStatus": {
-      "@id": "dpp:passportStatus",
-      "@type": "@vocab",
-      "@context": {
-        "Draft": "dpp:Draft",
-        "Active": "dpp:Active",
-        "Updated": "dpp:Updated",
-        "Withdrawn": "dpp:Withdrawn",
-        "Archived": "dpp:Archived",
-        "Suspended": "dpp:Suspended"
-      }
+    "dppStatus": {
+      "@id": "dpp:passportStatus"
     },
     "DPPGranularity": "dpp:DPPGranularity",
     "ModelLevel": "dpp:ModelLevel",
@@ -534,14 +519,15 @@
       "@context": {
         "Draft": "dpp:Draft",
         "Active": "dpp:Active",
-        "Updated": "dpp:Updated",
+        "Inactive": "dpp:Inactive",
         "Withdrawn": "dpp:Withdrawn",
         "Archived": "dpp:Archived",
+        "Invalid": "dpp:Invalid",
         "Suspended": "dpp:Suspended"
       }
     },
-    "granularity": {
-      "@id": "dpp:granularity",
+    "reportingGranularity": {
+      "@id": "dpp:reportingGranularity",
       "@type": "@vocab",
       "@context": {
         "ModelLevel": "dpp:ModelLevel",
@@ -550,14 +536,29 @@
         "ItemLevel": "dpp:ItemLevel"
       }
     },
-    "lastUpdate": {
-      "@id": "dpp:lastUpdate",
+    "lastUpdated": {
+      "@id": "dpp:lastUpdated",
       "@type": "xsd:dateTime"
     },
-    "passportLastModified": {
-      "@id": "dpp:passportLastModified",
-      "@type": "xsd:dateTime"
+    "dppSchemaVersion": "dpp:dppSchemaVersion",
+    "facilityId": "dpp:facilityId",
+    "contentSpecificationIds": {
+      "@id": "dpp:contentSpecificationId",
+      "@type": "@id",
+      "@container": "@set"
     },
+    "DigitalProductPassport": "dpp:DigitalProductPassport",
+    "DataElement": "dpp:DataElement",
+    "DataElementCollection": "dpp:DataElementCollection",
+    "SingleValuedDataElement": "dpp:SingleValuedDataElement",
+    "MultiValuedDataElement": "dpp:MultiValuedDataElement",
+    "MultiLanguageDataElement": "dpp:MultiLanguageDataElement",
+    "MultiLanguageValue": "dpp:MultiLanguageValue",
+    "elementId": "dpp:elementId",
+    "dictionaryReference": { "@id": "dpp:dictionaryReference", "@type": "@id" },
+    "valueDataType": "dpp:valueDataType",
+    "dataElement": { "@id": "dpp:dataElement", "@container": "@set" },
+    "multiLanguageValue": { "@id": "dpp:multiLanguageValue", "@container": "@set" },
     "passportExpiryDate": {
       "@id": "dpp:passportExpiryDate",
       "@type": "xsd:date"

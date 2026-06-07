@@ -9,7 +9,7 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix schema: <https://schema.org/> .
 @prefix vann: <http://purl.org/vocab/vann/> .
-# EU SEMICeu Core Vocabularies (peer Layer 1) — see extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md
+# EU SEMICeu Core Vocabularies (peer Layer 1): see extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md
 @prefix cv:    <http://data.europa.eu/m8g/> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix locn:  <http://www.w3.org/ns/locn#> .
@@ -42,7 +42,7 @@ GS1 Properties to Use (not redefined here):
 - gs1:certification / gs1:CertificationDetails - Certifications (GOTS, OEKO-TEX, etc.)
 - gs1:textileMaterial / gs1:TextileMaterialDetails - Fiber composition (GS1 native)
 - gs1:consumerRecyclingInstructions - Recycling text
-- gs1:referencedFileDetails - Documents
+- gs1:referencedFile - Documents
 
 For fiber composition, prefer gs1:textileMaterial with gs1:TextileMaterialDetails where possible.
 Use textile: extensions for durability metrics, care symbols, and microplastic data not in GS1.
@@ -56,9 +56,9 @@ Each extension term includes dcterms:source, skos:note, and rdfs:seeAlso where a
     dcterms:creator "OpenEPCIS" ;
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
     dcterms:created "2025-02-02"^^xsd:date ;
-    dcterms:modified "2026-03-07"^^xsd:date ;
-    owl:versionInfo "0.9.5" ;
-    owl:versionIRI <https://ref.openepcis.io/extensions/eu/textile/0.9.5> ;
+    dcterms:modified "2026-06-07"^^xsd:date ;
+    owl:versionInfo "0.9.6" ;
+    owl:versionIRI <https://ref.openepcis.io/extensions/eu/textile/0.9.6> ;
     vann:preferredNamespacePrefix "textile" ;
     vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/eu/textile/" ;
     rdfs:seeAlso <https://ref.gs1.org/voc/TextileMaterialDetails> ;
@@ -170,7 +170,7 @@ textile:TextileApparel
     rdfs:label "Textile Apparel"@en ;
     rdfs:comment """A clothing textile product as defined by EU Textile Labelling Regulation 1007/2011.
 Dual inheritance bridges the OpenEPCIS textile vocabulary with the GS1 WearableProduct
-hierarchy — instances are both gs1:Product (DPP properties) and gs1:Clothing
+hierarchy: instances are both gs1:Product (DPP properties) and gs1:Clothing
 (GS1 interoperability). Includes outerwear, underwear, sportswear, and workwear."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
     rdfs:subClassOf gs1:Product ;
@@ -186,7 +186,7 @@ textile:TextileFootwear
     rdfs:label "Textile Footwear"@en ;
     rdfs:comment """A footwear product containing textile materials, per EU Textile Labelling Regulation.
 Dual inheritance bridges the OpenEPCIS textile vocabulary with the GS1 WearableProduct
-hierarchy — instances are both gs1:Product (DPP properties) and gs1:Footwear
+hierarchy: instances are both gs1:Product (DPP properties) and gs1:Footwear
 (GS1 interoperability). Includes shoes, boots, sandals, and other textile footwear."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
     rdfs:subClassOf gs1:Product ;
@@ -1042,7 +1042,7 @@ Thresholds differ by fabric type (knitted vs woven)."""@en ;
     skos:note """Required extension: The EU preparatory study defines a specific 0-10 robustness scoring
 methodology not covered by GS1 or existing durability metrics. Complements textile:DurabilityInfo
 with a standardised composite score. See also schema:Rating for the rating-style aggregate score.
-Anchored to cccev:Evidence (EU SEMICeu CCCEV) — the assessment is evidence supporting the
+Anchored to cccev:Evidence (EU SEMICeu CCCEV): the assessment is evidence supporting the
 robustness Requirement defined by the EU Preparatory Study; component test results
 (spirality, dimensional change, visual inspection) are cccev:Constraint instances."""@en .
 
@@ -1809,7 +1809,7 @@ textile:socType
     rdfs:range textile:SubstanceOfConcernType ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
 
-# textile:casNumber removed — use dpp:casNumber from core.
+# textile:casNumber removed; use dpp:casNumber from core.
 
 textile:ecNumber
     a owl:DatatypeProperty ;

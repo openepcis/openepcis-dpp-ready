@@ -1,0 +1,56 @@
+meta {
+  name: Create Org — VeloPower BV
+  type: http
+  seq: 13
+}
+
+post {
+  url: {{dl-url}}/organizations
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  isAnonymousAccessAllowed: true
+}
+
+body:json {
+{
+  "@context": [
+    "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld"
+  ],
+  "type": "Organization",
+  "glnType": "LEGAL_ENTITY",
+  "globalLocationNumber": "9521003000015",
+  "organizationName": {
+    "en": "VeloPower BV",
+    "nl": "VeloPower BV"
+  },
+  "organizationRole": "MANUFACTURER_OF_FINISHED_GOODS",
+  "address": {
+    "organizationName": {
+      "en": "VeloPower BV"
+    },
+    "streetAddress": {
+      "en": "Fietsstraat 88"
+    },
+    "addressLocality": {
+      "en": "Eindhoven"
+    },
+    "postalCode": "5612 AB",
+    "countryCode": "NL"
+  },
+  "email": "info@velopower.example.com",
+  "telephone": "+00 0 0000 0000",
+  "dpp:economicOperatorId": "NL-DPP-OP-004",
+  "dpp:operatorType": "dpp:Manufacturer"
+}
+}
+
+tests {
+  test("Organization created", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202, 409]);
+  });
+}

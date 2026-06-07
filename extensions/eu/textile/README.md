@@ -2,7 +2,7 @@
 
 This module provides vocabulary and examples for implementing Digital Product Passports for textile products under the EU Sustainable Textiles Strategy, ESPR 2024/1781, and the EU Preparatory Study on Textiles 3rd Milestone.
 
-> **Status**: v0.9.5 - Production Ready
+> **Status**: v0.9.6 - Production Ready
 
 ## Regulation Overview
 
@@ -27,7 +27,7 @@ This module provides vocabulary and examples for implementing Digital Product Pa
 
 ```
 textile/
-├── VERSION                              # 0.9.5
+├── VERSION                              # 0.9.6
 ├── CHANGELOG.md                         # Version history
 ├── README.md                            # This file
 ├── ontology/
@@ -103,7 +103,7 @@ This vocabulary follows the GS1-first principle:
 - `gs1:textileMaterial` with `gs1:TextileMaterialDetails` for basic fiber composition
 - `gs1:certification` with `gs1:CertificationDetails` for certifications
 - `gs1:consumerRecyclingInstructions` for recycling text
-- `gs1:referencedFileDetails` for documents
+- `gs1:referencedFile` for documents
 
 **Textile extensions only where GS1 lacks coverage**:
 - Robustness scoring (0-10 per EU methodology)

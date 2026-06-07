@@ -2,17 +2,17 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
 [![Browse the ontology](https://img.shields.io/badge/browse-ref.openepcis.io-2ea44f)](https://ref.openepcis.io)
-[![Status: Preview 0.9.5](https://img.shields.io/badge/status-preview%200.9.5-orange)](#what-you-get)
+[![Status: Preview 0.9.6](https://img.shields.io/badge/status-preview%200.9.6-orange)](#what-you-get)
 
 A comprehensive, standards-harmonizing framework for implementing Digital Product Passports aligned with EU ESPR 2024/1781, schema.org, GS1, **EU SEMICeu Core Vocabularies**, and UN Transparency Protocol (UNTP).
 
 > **Browse the live ontology** at **[ref.openepcis.io](https://ref.openepcis.io)** — every class, property, and JSON-LD context shipped from this repository is published there with stable, dereferenceable URIs. The TTL files in `extensions/*/ontology/` are the source of truth; the browser renders the deployed JSON.
 
-> **TL;DR for decision-makers:** OpenEPCIS DPP-Ready is an open-source platform that harmonises GS1, ESPR, UNTP, and CEN/CENELEC JTC 24 standards in a single codebase. Preview at v0.9.5, six regulations covered (battery, textile, EUDR, electronics, detergent, plus the cross-cutting ESPR core), with US FSMA §204 as a v0.1.0 preview. No vendor lock-in, no proprietary tooling, no translation layers. Built on GS1 Digital Link, EPCIS 2.0, and GS1 Web Vocabulary.
+> **TL;DR for decision-makers:** OpenEPCIS DPP-Ready is an open-source platform that harmonises GS1, ESPR, UNTP, and CEN/CENELEC JTC 24 standards in a single codebase. Preview at v0.9.6, six regulations covered (battery, textile, EUDR, electronics, detergent, plus the cross-cutting ESPR core), with US FSMA §204 as a v0.1.0 preview. No vendor lock-in, no proprietary tooling, no translation layers. Built on GS1 Digital Link, EPCIS 2.0, and GS1 Web Vocabulary.
 
 ## Open and Early
 
-**We believe in building in the open.** The DPP standardization landscape is rapidly evolving—CEN/CENELEC JTC 24 has six of eight harmonised standards (EN 18216, 18219, 18220, 18221, 18222, 18223) at FprEN stage publishing March 2026, with prEN 18239 and prEN 18246 still in development. CIRPASS2 is defining pilot requirements, and industry needs to start building now.
+**We believe in building in the open.** The DPP standardization landscape is rapidly evolving—CEN/CENELEC JTC 24 published six of eight European standards (EN 18216, 18219, 18220, 18221, 18222, 18223) in 2026, with prEN 18239 and prEN 18246 still in development. CIRPASS2 is defining pilot requirements, and industry needs to start building now.
 
 Rather than waiting for all standards to finalize, OpenEPCIS provides:
 
@@ -87,7 +87,7 @@ CSDDD): see [`docs/VOCABULARY_LAYERING.md`](docs/VOCABULARY_LAYERING.md).
 | **GS1 Web Vocabulary** | Native foundation (peer Layer 1, `owl:imports`) | Stable |
 | **EU SEMICeu Core Vocabularies** (CCCEV, CPOV, Core Business / Person / Location, Core Public Event, CPSV-AP, ADMS-AP) | Native foundation (peer Layer 1, bridge context + `owl:equivalentClass` anchors) | Stable |
 | **schema.org** | Native foundation (peer Layer 1, fallback) | Stable |
-| **CEN/CENELEC JTC 24** | EN 18216 / 18219 / 18220 / 18221 / 18222 / 18223 (FprEN, publishing Mar 2026); prEN 18239 / 18246 (in development) | 6/8 at FprEN |
+| **CEN/CENELEC JTC 24** | EN 18216 / 18219 / 18220 / 18221 / 18222 / 18223 (published 2026); prEN 18239 / 18246 (in development) | 6/8 published |
 | **UN Transparency Protocol** | Property-aligned (`owl:equivalentProperty`) | Stable |
 | **CIRPASS2** | Requirements coverage | Documented |
 | **ESPR 2024/1781** | Articles 7, 8, 9, 77 covered | Complete |
@@ -120,13 +120,13 @@ This monorepo provides a consistent, GS1-aligned approach to implementing Digita
 
 | Module | Region | Regulation | Status | Version | Last updated |
 |--------|--------|------------|--------|---------|--------------|
-| [common/core](./extensions/common/core/) | Cross-cutting | ESPR 2024/1781 Framework | Preview | 0.9.5 | Apr 2026 |
-| [common/interop](./extensions/common/interop/) | Cross-cutting | Standards Harmonization (UNTP, CIRPASS2, JTC 24, BatteryPass) | Preview | 0.9.5 | Apr 2026 |
-| [eu/battery](./extensions/eu/battery/) | EU | Battery Regulation 2023/1542 | Preview | 0.9.5 | Feb 2026 |
-| [eu/eudr](./extensions/eu/eudr/) | EU | Deforestation Regulation 2023/1115 | Preview | 0.9.5 | Apr 2026 (exemption pattern added) |
-| [eu/textile](./extensions/eu/textile/) | EU | Sustainable Textiles Strategy | Preview | 0.9.5 | Mar 2026 (JRC Milestone 3 alignment) |
-| [eu/electronics](./extensions/eu/electronics/) | EU | ESPR Electronics Delegated Acts | Preview | 0.9.5 | Feb 2026 |
-| [eu/detergent](./extensions/eu/detergent/) | EU | Detergents Regulation 2026/405 | Preview | 0.9.5 | Mar 2026 |
+| [common/core](./extensions/common/core/) | Cross-cutting | ESPR 2024/1781 Framework | Preview | 0.9.6 | Apr 2026 |
+| [common/interop](./extensions/common/interop/) | Cross-cutting | Standards Harmonization (UNTP, CIRPASS2, JTC 24, BatteryPass) | Preview | 0.9.6 | Apr 2026 |
+| [eu/battery](./extensions/eu/battery/) | EU | Battery Regulation 2023/1542 | Preview | 0.9.6 | Feb 2026 |
+| [eu/eudr](./extensions/eu/eudr/) | EU | Deforestation Regulation 2023/1115 | Preview | 0.9.6 | Apr 2026 (exemption pattern added) |
+| [eu/textile](./extensions/eu/textile/) | EU | Sustainable Textiles Strategy | Preview | 0.9.6 | Mar 2026 (JRC Milestone 3 alignment) |
+| [eu/electronics](./extensions/eu/electronics/) | EU | ESPR Electronics Delegated Acts | Preview | 0.9.6 | Feb 2026 |
+| [eu/detergent](./extensions/eu/detergent/) | EU | Detergents Regulation 2026/405 | Preview | 0.9.6 | Mar 2026 |
 | [us/fsma204](./extensions/us/fsma204/) | US | FSMA §204 Food Traceability Rule (21 CFR 1 Subpart S) | Preview | 0.1.0 | Apr 2026 (new module) |
 
 ## Repository Structure
@@ -325,6 +325,14 @@ Environments: `local` (localhost:8080), `dev` (dev.epcis.cloud with Keycloak OAu
 
 See [bruno/digital-link-resolver/README.md](./bruno/digital-link-resolver/README.md) for setup instructions.
 
+## Demos
+
+**EN 18223 converter** ([`demos/en18223-converter/`](./demos/en18223-converter/)) is a self-contained, client-side page that derives the CEN/CENELEC EN 18223 Annex A "expanded" passport serialization live from good GS1 Web Vocabulary + GS1 Digital Link JSON-LD. It runs the same converter the CLI uses (`pnpm run derive:en18223`) and ships three samples at item, batch, and model granularity. The derivation is explained in the [EPCIS4DPP whitepaper](./extensions/common/interop/docs/GS1_STACK_EN182XX_WHITEPAPER.md).
+
+```bash
+pnpm run demo:en18223   # build the bundle and open the page locally
+```
+
 ## Core Patterns
 
 The `core/` module provides reusable patterns aligned with ESPR across all regulations:
@@ -354,13 +362,13 @@ Each module follows [Semantic Versioning](https://semver.org/) and is versioned 
 
 | Module | Version | Notes |
 |--------|---------|-------|
-| `common/core` | 0.9.5 | ESPR framework + shared patterns; breaking changes bump major |
-| `common/interop` | 0.9.5 | UNTP / CIRPASS2 / JTC 24 / BatteryPass bridges |
-| `eu/battery` | 0.9.5 | Battery Regulation 2023/1542 |
-| `eu/eudr` | 0.9.5 | Deforestation Regulation 2023/1115 |
-| `eu/textile` | 0.9.5 | Sustainable Textiles |
-| `eu/electronics` | 0.9.5 | ESPR Electronics Delegated Acts |
-| `eu/detergent` | 0.9.5 | Detergents Regulation 2026/405 |
+| `common/core` | 0.9.6 | ESPR framework + shared patterns; breaking changes bump major |
+| `common/interop` | 0.9.6 | UNTP / CIRPASS2 / JTC 24 / BatteryPass bridges |
+| `eu/battery` | 0.9.6 | Battery Regulation 2023/1542 |
+| `eu/eudr` | 0.9.6 | Deforestation Regulation 2023/1115 |
+| `eu/textile` | 0.9.6 | Sustainable Textiles |
+| `eu/electronics` | 0.9.6 | ESPR Electronics Delegated Acts |
+| `eu/detergent` | 0.9.6 | Detergents Regulation 2026/405 |
 | `us/fsma204` | 0.1.0 | FDA FSMA §204 (preview) |
 
 Modules declare their minimum `common/core` dependency in their respective `README.md` and `CHANGELOG.md`.
@@ -474,6 +482,7 @@ Apache License 2.0 - See [LICENSE](./LICENSE)
 ## Links
 
 - [Browse the live ontology — ref.openepcis.io](https://ref.openepcis.io)
+- [EN 18223 converter demo](./demos/en18223-converter/)
 - [OpenEPCIS Documentation](https://openepcis.io/docs/digital-product-passport/)
 - [Contributing guide](./CONTRIBUTING.md)
 - [Code of Conduct](./codeOfConduct.md)

@@ -25,7 +25,7 @@ EPR, end-of-life, due diligence) reuse the lifted `dpp:` vocabulary plus
     dcterms:creator "OpenEPCIS" ;
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
     dcterms:created "2026-05-01"^^xsd:date ;
-    dcterms:modified "2026-05-01"^^xsd:date ;
+    dcterms:modified "2026-06-07"^^xsd:date ;
     owl:versionInfo "0.1.0" ;
     owl:versionIRI <https://ref.openepcis.io/extensions/eu/cpr/0.1.0> ;
     vann:preferredNamespacePrefix "cpr" ;
@@ -58,7 +58,7 @@ cpr:ReactionToFireClass
     a owl:Class ;
     rdfs:label "Reaction-to-fire Class"@en ;
     rdfs:comment """Reaction-to-fire performance per EN 13501-1, ranging from A1 (highest,
-non-combustible — no contribution to fire) through F (no performance
+non-combustible, no contribution to fire) through F (no performance
 determined). CPR requires this declaration for products where reaction to
 fire is an essential characteristic per Annex III."""@en ;
     owl:oneOf (
@@ -74,7 +74,7 @@ fire is an essential characteristic per Annex III."""@en ;
     dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-13501-1.aspx> .
 
 cpr:FireClassA1 a cpr:ReactionToFireClass ; rdfs:label "Class A1"@en ;
-    rdfs:comment "No contribution to fire — non-combustible."@en ; skos:notation "A1" .
+    rdfs:comment "No contribution to fire; non-combustible."@en ; skos:notation "A1" .
 cpr:FireClassA2 a cpr:ReactionToFireClass ; rdfs:label "Class A2"@en ;
     rdfs:comment "Very limited contribution to fire."@en ; skos:notation "A2" .
 cpr:FireClassB  a cpr:ReactionToFireClass ; rdfs:label "Class B"@en ;
@@ -191,7 +191,7 @@ cpr:harmonisedStandard
 cpr:essentialCharacteristic
     a owl:ObjectProperty ;
     rdfs:label "Essential Characteristic"@en ;
-    rdfs:comment "Declared essential characteristic of the product. Set-valued — most products declare multiple."@en ;
+    rdfs:comment "Declared essential characteristic of the product. Set-valued: most products declare multiple."@en ;
     rdfs:domain cpr:ConstructionProduct ;
     rdfs:range cpr:EssentialCharacteristic ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> .

@@ -2,6 +2,10 @@
 
 All notable changes to the EUDR module will be documented in this file.
 
+## 0.9.6 — version alignment (2026-06-07)
+
+Version alignment with the 0.9.6 core release (EN 18223 model alignment). No functional changes to this module.
+
 ## 0.9.5 — SEMICeu Core Location anchoring (2026-05-04)
 
 ### Added

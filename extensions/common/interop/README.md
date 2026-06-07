@@ -4,7 +4,7 @@ This module provides interoperability documentation and bridge contexts for harm
 
 ## Open and Early
 
-**We believe in building in the open.** The DPP standardization landscape is rapidly evolving—CEN/CENELEC JTC 24 has six of eight harmonised standards (EN 18216, 18219, 18220, 18221, 18222, 18223) at FprEN stage publishing March 2026, with prEN 18239 and prEN 18246 still in development. CIRPASS2 is defining pilot requirements, and industry needs to start building now. OpenEPCIS shares early to enable pilots and gather feedback.
+**We believe in building in the open.** The DPP standardization landscape is rapidly evolving: CEN/CENELEC JTC 24 published six of eight European standards (EN 18216, 18219, 18220, 18221, 18222, 18223) in 2026, with prEN 18239 and prEN 18246 still in development. CIRPASS2 is defining pilot requirements, and industry needs to start building now. OpenEPCIS shares early to enable pilots and gather feedback.
 
 ## Vision
 
@@ -29,7 +29,7 @@ OpenEPCIS DPP-Ready is **THE comprehensive, authoritative Digital Product Passpo
 | What Others Provide | What OpenEPCIS Provides |
 |---------------------|------------------------|
 | PDF specifications | Executable ontologies (TTL/JSON-LD) |
-| Proof-of-concept models | Production-ready v0.9.5 with validation |
+| Proof-of-concept models | Production-ready v0.9.6 with validation |
 | Sector-specific silos | Multi-sector platform (Battery, Textile, EUDR, Electronics) |
 | Standalone schemas | Full EPCIS 2.0 supply chain integration |
 | Static documentation | Live vocabulary browser at [ref.openepcis.io](https://ref.openepcis.io) |
@@ -73,7 +73,7 @@ Built on GS1 Digital Link, GTIN, and GLN identifiers - the global standard for p
 Property names are aligned with UN Transparency Protocol patterns. Use the UNTP bridge context for native interoperability.
 
 ### JTC 24-Tracking
-Aligned with CEN/CENELEC JTC 24 harmonised standards: EN 18216, 18219, 18220, 18221, 18222, 18223 (FprEN, publishing March 2026); prEN 18239, prEN 18246 (in development). Methodology standards EN 45552-45555.
+Conformant to the CEN/CENELEC JTC 24 standards via the EPCIS4DPP profile: EN 18216, 18219, 18220, 18221, 18222, 18223 (published 2026); prEN 18239, prEN 18246 (in development). Methodology standards EN 45552-45555. See the [conformance map](./docs/CEN_JTC24_CONFORMANCE.md).
 
 ### CIRPASS2-Ready
 Meets all EU pilot requirements for Digital Product Passports (CIRPASS2 feeds into JTC 24).
@@ -96,12 +96,15 @@ Superior implementations for:
 
 ```
 interop/
-├── VERSION                           # 0.9.5
+├── VERSION                           # 0.9.6
 ├── README.md                         # This file
 ├── CHANGELOG.md                      # Release notes
 ├── docs/
 │   ├── LICENSING.md                  # IP analysis, attribution requirements
 │   ├── STANDARDS_ALIGNMENT.md        # schema.org + GS1 + SEMICeu + UNTP + CIRPASS2 + JTC 24 alignment overview
+│   ├── CEN_JTC24_CONFORMANCE.md      # Clause-by-clause EN 182xx → OpenEPCIS conformance map
+│   ├── EN18223_MODEL_ALIGNMENT.md    # EN 18223/18222 ontology + API alignment work list (Phase B)
+│   ├── GS1_STACK_EN182XX_WHITEPAPER.md # EPCIS4DPP whitepaper (GS1/EPCIS profile of the CEN DPP standards)
 │   ├── UNTP_MAPPING.md               # Complete OpenEPCIS ↔ UNTP property mapping
 │   ├── CIRPASS2_COVERAGE.md          # CIRPASS2 pilot requirements coverage
 │   └── SEMIC_CORE_VOCABULARIES.md    # SEMICeu Core Vocabularies mapping (CCCEV, CPOV, Core Business / Person / Location, Core Public Event, CPSV-AP, ADMS-AP)
@@ -166,6 +169,10 @@ See [`docs/SEMIC_CORE_VOCABULARIES.md`](./docs/SEMIC_CORE_VOCABULARIES.md) for t
 - [SEMICeu Core Vocabularies Mapping](./docs/SEMIC_CORE_VOCABULARIES.md)
 - [UNTP Property Mapping](./docs/UNTP_MAPPING.md)
 - [Standards Alignment Overview](./docs/STANDARDS_ALIGNMENT.md)
+- [CEN/CENELEC JTC 24 Conformance Map](./docs/CEN_JTC24_CONFORMANCE.md)
+- [EN 18223/18222 Alignment Spec (Phase B)](./docs/EN18223_MODEL_ALIGNMENT.md)
+- [EPCIS4DPP Whitepaper](./docs/GS1_STACK_EN182XX_WHITEPAPER.md)
+- [EN 18223 converter demo](../../../demos/en18223-converter/)
 - [Licensing and Attribution](./docs/LICENSING.md)
 - [CIRPASS2 Coverage](./docs/CIRPASS2_COVERAGE.md)
 

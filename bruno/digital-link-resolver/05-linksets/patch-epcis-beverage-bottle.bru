@@ -1,0 +1,47 @@
+meta {
+  name: Patch epcis — Mountain Spring Mineral Water
+  type: http
+  seq: 16
+}
+
+patch {
+  url: {{dl-url}}/01/09521004005019
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+[
+  {
+    "action": "add",
+    "linkset": [
+      {
+        "anchor": "{{dl-url}}/01/09521004005019",
+        "itemDescription": "Mountain Spring Mineral Water — 500 mL PET bottle",
+        "epcis": [
+          {
+            "href": "https://api.dev.epcis.cloud/events?MATCH_anyEPC=https%3A%2F%2Fid.gs1.org%2F01%2F09521004005019%2A",
+            "title": "EPCIS event history",
+            "type": "application/ld+json",
+            "hreflang": [
+              "en"
+            ],
+            "context": [
+              "epcis"
+            ],
+            "public": true
+          }
+        ]
+      }
+    ]
+  }
+]
+}
+
+assert {
+  res.status: eq 200
+}

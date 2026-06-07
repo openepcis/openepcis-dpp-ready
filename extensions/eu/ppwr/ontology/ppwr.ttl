@@ -23,18 +23,18 @@ cross-cutting `dpp:` and `untp:` vocabulary already lifted to common/core.
 Packaging-specific concepts only live here:
 
   - `ppwr:Packaging` (subClassOf gs1:Packaging)
-  - `ppwr:packagingTier` (Sales / Grouped / Transport — Article 3)
-  - `ppwr:recyclabilityGrade` (A / B / C — Article 4, Annex II)
+  - `ppwr:packagingTier` (Sales / Grouped / Transport; Article 3)
+  - `ppwr:recyclabilityGrade` (A / B / C; Article 4, Annex II)
   - `ppwr:harmonisedSymbol` (URI of an Annex IX symbol code)
 
 Recyclability scoring/rate, recycled content, reuse, compostability,
 bio-based content, hazardous substances, EPR, deposit-return, production
-site, declaration of conformity — all use existing `dpp:` / `untp:` /
+site, declaration of conformity; all use existing `dpp:` / `untp:` /
 `gs1:` terms."""@en ;
     dcterms:creator "OpenEPCIS" ;
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
     dcterms:created "2026-05-01"^^xsd:date ;
-    dcterms:modified "2026-05-01"^^xsd:date ;
+    dcterms:modified "2026-06-07"^^xsd:date ;
     owl:versionInfo "0.1.0" ;
     owl:versionIRI <https://ref.openepcis.io/extensions/eu/ppwr/0.1.0> ;
     vann:preferredNamespacePrefix "ppwr" ;
@@ -78,13 +78,13 @@ or transport (tertiary, logistics)."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> .
 
 ppwr:Sales     a ppwr:PackagingTier ; rdfs:label "Sales Packaging"@en ;
-    rdfs:comment "Primary packaging — consumer-facing point-of-sale unit (PPWR Art. 3(1)(b))."@en ;
+    rdfs:comment "Primary packaging: consumer-facing point-of-sale unit (PPWR Art. 3(1)(b))."@en ;
     skos:notation "sales" .
 ppwr:Grouped   a ppwr:PackagingTier ; rdfs:label "Grouped Packaging"@en ;
-    rdfs:comment "Secondary packaging — groups multiple sales units, may be removed without affecting product (PPWR Art. 3(1)(c))."@en ;
+    rdfs:comment "Secondary packaging: groups multiple sales units, may be removed without affecting product (PPWR Art. 3(1)(c))."@en ;
     skos:notation "grouped" .
 ppwr:Transport a ppwr:PackagingTier ; rdfs:label "Transport Packaging"@en ;
-    rdfs:comment "Tertiary packaging — facilitates handling/transport of grouped or sales packaging (PPWR Art. 3(1)(d))."@en ;
+    rdfs:comment "Tertiary packaging: facilitates handling/transport of grouped or sales packaging (PPWR Art. 3(1)(d))."@en ;
     skos:notation "transport" .
 
 ppwr:packagingTier
@@ -118,10 +118,10 @@ ppwr:GradeA a ppwr:RecyclabilityGrade ; rdfs:label "Grade A"@en ;
     rdfs:comment "Highest recyclability performance per PPWR Annex II."@en ;
     skos:notation "A" .
 ppwr:GradeB a ppwr:RecyclabilityGrade ; rdfs:label "Grade B"@en ;
-    rdfs:comment "Mid recyclability per PPWR Annex II — minimum from 2038."@en ;
+    rdfs:comment "Mid recyclability per PPWR Annex II: minimum from 2038."@en ;
     skos:notation "B" .
 ppwr:GradeC a ppwr:RecyclabilityGrade ; rdfs:label "Grade C"@en ;
-    rdfs:comment "Lowest acceptable recyclability per PPWR Annex II — minimum from 2030; phased out by 2038."@en ;
+    rdfs:comment "Lowest acceptable recyclability per PPWR Annex II: minimum from 2030; phased out by 2038."@en ;
     skos:notation "C" .
 
 ppwr:recyclabilityGrade
@@ -141,7 +141,7 @@ ppwr:harmonisedSymbol
     a owl:DatatypeProperty ;
     rdfs:label "Harmonised Symbol"@en ;
     rdfs:comment """URI / code reference of a harmonised PPWR Annex IX symbol that
-appears on the packaging — material composition pictograms, separate-collection
+appears on the packaging: material composition pictograms, separate-collection
 indicators, deposit-return labels, etc. The Commission publishes the symbol
 catalogue as implementing acts; this property points to the entry."""@en ;
     rdfs:domain ppwr:Packaging ;

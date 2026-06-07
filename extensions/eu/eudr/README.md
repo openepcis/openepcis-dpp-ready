@@ -85,7 +85,7 @@ See `epcis/` directory for complete event examples.
 
 ```
 eudr/
-├── VERSION                              # Module version (0.9.5)
+├── VERSION                              # Module version (0.9.6)
 ├── CHANGELOG.md                         # Version history
 ├── README.md                            # This file
 ├── ontology/
@@ -227,7 +227,7 @@ The EUDR module reuses ESPR-aligned patterns from the core DPP module:
 
 ## Dependencies
 
-- **Core module**: `>= 0.9.5`
+- **Core module**: `>= 0.9.6`
   - Uses `dpp:OperatorInformation` for economic operator data
   - Uses `dpp:DueDiligenceReport` for due diligence documentation
   - Uses `dpp:DocumentReference` for supporting documents

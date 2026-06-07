@@ -1,0 +1,44 @@
+meta {
+  name: Patch pip — Beverage Bottle
+  type: http
+  seq: 7
+}
+
+patch {
+  url: {{dl-url}}/01/09521004005019
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  [
+    {
+      "action": "update",
+      "linkset": [
+        {
+          "anchor": "{{dl-url}}/01/09521004005019",
+          "itemDescription": "Mountain Spring Mineral Water — 500 mL PET bottle",
+          "pip": [
+            {
+              "href": "{{ddm-host}}/01/09521004005019?template=ppwr-overview",
+              "title": "Mountain Spring Mineral Water — Digital Product Passport",
+              "fwqs": false,
+              "type": "text/html",
+              "hreflang": ["en"],
+              "context": ["product-information-page"],
+              "public": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+assert {
+  res.status: eq 200
+}

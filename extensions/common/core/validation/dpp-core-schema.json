@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ref.openepcis.io/extensions/common/core/dpp-core-json-schema.json",
   "title": "OpenEPCIS DPP Core Schema",
-  "description": "JSON Schema for OpenEPCIS DPP Core vocabulary v0.9.5. All fraction/ratio values use 0-1 decimal scale.",
-  "version": "0.9.5",
+  "description": "JSON Schema for OpenEPCIS DPP Core vocabulary v0.9.6. All fraction/ratio values use 0-1 decimal scale.",
+  "version": "0.9.6",
   
   "$defs": {
     "Fraction": {
@@ -77,8 +77,8 @@
     
     "GranularityLevel": {
       "type": "string",
-      "enum": ["ProductClass", "Batch", "Item"],
-      "description": "DPP data specificity level"
+      "enum": ["model", "batch", "item"],
+      "description": "EN 18223 passport-level granularity (model, batch, item)"
     },
     
     "HazardClass": {
@@ -319,18 +319,22 @@
     "@type": { "type": "string" },
     "@id": { "type": "string" },
     
+    "digitalProductPassportId": { "type": "string", "format": "uri" },
     "uniqueProductIdentifier": { "type": "string", "format": "uri" },
-    "passportIdentifier": { "type": "string", "format": "uri" },
+    "granularity": { "$ref": "#/$defs/GranularityLevel" },
+    "dppSchemaVersion": { "type": "string" },
+    "dppStatus": { "type": "string", "enum": ["active", "inactive", "archived", "invalid", "draft", "withdrawn", "suspended"] },
+    "lastUpdated": { "type": "string", "format": "date-time" },
+    "facilityId": { "type": "string" },
+    "contentSpecificationIds": { "type": "array", "items": { "type": "string", "format": "uri" } },
+    "reportingGranularity": { "type": "string", "enum": ["ModelLevel", "ModelPerSiteLevel", "BatchLevel", "ItemLevel"] },
     "passportVersion": { "type": "string" },
     "passportIssueDate": { "type": "string", "format": "date" },
-    "passportStatus": { "type": "string", "enum": ["Draft", "Active", "Updated", "Withdrawn", "Archived"] },
-    "passportLastModified": { "type": "string", "format": "date-time" },
     "passportExpiryDate": { "type": "string", "format": "date" },
     "passportIssuer": { "$ref": "#/$defs/OperatorInformation" },
     "previousPassportVersion": { "type": "string", "format": "uri" },
     "productModel": { "type": "string" },
     "productCategory": { "type": "string" },
-    "granularityLevel": { "$ref": "#/$defs/GranularityLevel" },
     
     "operatorInformation": { "$ref": "#/$defs/OperatorInformation" },
     "facilityInformation": { "$ref": "#/$defs/FacilityInformation" },

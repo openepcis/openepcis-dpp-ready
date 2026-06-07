@@ -907,7 +907,7 @@ this pattern is minted at `dpp:`.
   "eprWasteStream": "packaging",
   "eprJurisdiction": { "id": "https://ref.gs1.org/voc/Country-DE", "type": "Country" },
   "eprScheme": {
-    "id": "https://id.gs1.org/417/4030101000007",
+    "id": "https://id.gs1.org/417/4030101000001",
     "type": "Organization",
     "organizationName": "Der Grüne Punkt — Duales System Deutschland GmbH"
   },
@@ -981,7 +981,7 @@ expanding under PPWR Article 13. No upstream vocabulary covers them.
     "type": "DepositReturnScheme",
     "depositAmount": { "type": "QuantitativeValue", "value": 0.25, "unitCode": "EUR" },
     "depositSchemeOperator": {
-      "id": "https://id.gs1.org/417/4030101000014",
+      "id": "https://id.gs1.org/417/4030101000018",
       "type": "Organization",
       "organizationName": "Deutsche Pfandsystem GmbH"
     },

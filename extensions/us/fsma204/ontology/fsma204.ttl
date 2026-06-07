@@ -31,7 +31,7 @@
 # There are therefore no CTE classes, no "TraceabilityLotCode" class, and no
 # event-level fsma: properties in this vocabulary. The only concept that GS1 US
 # does NOT already cover is the Food Traceability List categorisation of a
-# trade item — and that is the sole thing this module contributes.
+# trade item, and that is the sole thing this module contributes.
 # =============================================================================
 
 <https://ref.openepcis.io/extensions/us/fsma204/>
@@ -41,10 +41,10 @@
 
 All FSMA 204 Key Data Elements ride on native EPCIS 2.0 / GS1 Web Vocabulary fields per GS1 US R2.0 / R3.0. This module therefore contributes only the single concept that GS1 US does not already cover: the FDA Food Traceability List categorisation of a trade item, via:
 
-  - fsma:FoodTraceabilityList — enumeration of the 23 FDA-defined food categories
-  - fsma:foodTraceabilityListCategory — object property on gs1:Product
+  - fsma:FoodTraceabilityList: enumeration of the 23 FDA-defined food categories
+  - fsma:foodTraceabilityListCategory: object property on gs1:Product
 
-EPCIS event examples in this module's epcis/ directory are transcribed verbatim from GS1 US R2.0 and use only native EPCIS/GS1 fields. They do not reference any fsma: class or property — the extension namespace exists purely for the master-data FTL categorisation.
+EPCIS event examples in this module's epcis/ directory are transcribed verbatim from GS1 US R2.0 and use only native EPCIS/GS1 fields. They do not reference any fsma: class or property; the extension namespace exists purely for the master-data FTL categorisation.
 
 References:
 - FDA Food Traceability Final Rule: https://www.fda.gov/food/food-safety-modernization-act-fsma/fsma-final-rule-food-traceability
@@ -55,7 +55,7 @@ References:
     dcterms:creator "OpenEPCIS" ;
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
     dcterms:created "2026-04-17"^^xsd:date ;
-    dcterms:modified "2026-04-17"^^xsd:date ;
+    dcterms:modified "2026-06-07"^^xsd:date ;
     owl:versionInfo "0.1.0" ;
     owl:versionIRI <https://ref.openepcis.io/extensions/us/fsma204/0.1.0> ;
     vann:preferredNamespacePrefix "fsma" ;
@@ -130,7 +130,7 @@ fsma:NutButters                              a fsma:FoodTraceabilityList ; rdfs:
 fsma:foodTraceabilityListCategory
     a owl:ObjectProperty ;
     rdfs:label "Food Traceability List category"@en ;
-    rdfs:comment "Declares that a trade item (gs1:Product) falls under a specific FDA Food Traceability List category. This is the only FSMA KDE that GS1 US's guidance does not already cover via native GS1 master-data attributes — the FTL category is what determines whether the food is in scope of the rule at all."@en ;
+    rdfs:comment "Declares that a trade item (gs1:Product) falls under a specific FDA Food Traceability List category. This is the only FSMA KDE that GS1 US's guidance does not already cover via native GS1 master-data attributes; the FTL category is what determines whether the food is in scope of the rule at all."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range fsma:FoodTraceabilityList ;
     dcterms:source <https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-1/subpart-S/section-1.1300> .

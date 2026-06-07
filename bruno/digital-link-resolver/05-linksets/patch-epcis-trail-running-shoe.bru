@@ -1,0 +1,47 @@
+meta {
+  name: Patch epcis — EcoStride Trail Running Shoe
+  type: http
+  seq: 11
+}
+
+patch {
+  url: {{dl-url}}/01/09521000002159
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+[
+  {
+    "action": "add",
+    "linkset": [
+      {
+        "anchor": "{{dl-url}}/01/09521000002159",
+        "itemDescription": "EcoStride Trail Running Shoe",
+        "epcis": [
+          {
+            "href": "https://api.dev.epcis.cloud/events?MATCH_anyEPC=https%3A%2F%2Fid.gs1.org%2F01%2F09521000002159%2A",
+            "title": "EPCIS event history",
+            "type": "application/ld+json",
+            "hreflang": [
+              "en"
+            ],
+            "context": [
+              "epcis"
+            ],
+            "public": true
+          }
+        ]
+      }
+    ]
+  }
+]
+}
+
+assert {
+  res.status: eq 200
+}

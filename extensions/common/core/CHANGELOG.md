@@ -2,6 +2,31 @@
 
 All notable changes to the DPP Core module will be documented in this file.
 
+## 0.9.6 — EN 18223 information-model alignment + GS1 to EN 18223 converter (2026-06-07)
+
+Aligns `dpp:` core with the published EN 18223:2026 `DigitalProductPassport` model (the EPCIS4DPP profile). See [`../../interop/docs/EN18223_MODEL_ALIGNMENT.md`](../../interop/docs/EN18223_MODEL_ALIGNMENT.md) and [`../../interop/docs/CEN_JTC24_CONFORMANCE.md`](../../interop/docs/CEN_JTC24_CONFORMANCE.md).
+
+### Added
+- `dpp:DigitalProductPassport` class (EN 18223 4.1.2.1 envelope), anchored `owl:equivalentClass untp-dpp:ProductPassport`.
+- `dpp:dppSchemaVersion`, `dpp:facilityId`, `dpp:contentSpecificationId` properties (EN 18223 attributes).
+- `dpp:Inactive`, `dpp:Invalid` passport-status values (EN 18223 `dppStatus` base set); `skos:notation` lowercase tokens on all status and granularity values.
+- EN 18223 DataElement model (4.1.2.3 to 4.1.2.8): `dpp:DataElement` with subclasses `DataElementCollection`, `SingleValuedDataElement`, `MultiValuedDataElement`, `MultiLanguageDataElement`, and `dpp:MultiLanguageValue`; properties `dpp:elementId`, `dpp:dictionaryReference`, `dpp:valueDataType`, `dpp:value`, `dpp:dataElement`, `dpp:multiLanguageValue`, `dpp:language`. `dpp:DocumentReference` documented as the EN 18223 RelatedResource (4.1.2.7).
+- Worked EN 18223 envelope examples: `examples/en18223-passport.compressed.jsonld` (the GS1 Web Vocabulary + Digital Link input) and `examples/en18223-passport.expanded.json` (the Annex A `elements[]` output whose entries carry a `dictionaryReference` into the ref.openepcis.io data dictionary).
+- SHACL constraint `dpp-sh:GranularityDigitalLinkConstraint`: validates that `granularity` matches the GS1 Digital Link Application Identifiers in `uniqueProductIdentifier` (01 -> model, 01+10 -> batch, 01+21 -> item; EN 18219 4.4 / EN 18223), with `sh:declare` prefix declarations added to the shapes graph.
+- Converter `scripts/derive-en18223.ts` (npm `derive:en18223`): derives the EN 18223 Annex A "expanded" serialization (`elements[]` with `objectType`/`dictionaryReference`/`valueDataType`) from good GS1 Web Vocabulary + GS1 Digital Link JSON-LD (the EN 18223 "compressed" serialization). Reuses the N3 range index and `jsonld.expand`. Examples: `examples/en18223-passport.compressed.jsonld` (input) and `examples/en18223-passport.expanded.json` (output). Slice-2's `en18223-passport.jsonld` was reworked into the compressed input.
+- Browser demo `demos/en18223-converter/` (npm `demo:en18223`): a self-contained client-side page that runs the converter live (esbuild-bundled). The derivation logic was split into a browser-safe core `scripts/en18223/derive-core.ts` (shared by the CLI and the demo) plus Node IO in `scripts/en18223/node-io.ts`; the property range index is precomputed to `range-index.json` by `scripts/build-en18223-rangeindex.ts`.
+
+### Changed
+- The EN 18223 attribute names are now the JSON keys via the dpp-core context: `digitalProductPassportId`, `granularity`, `dppStatus`, `lastUpdated`, `dppSchemaVersion`, `facilityId`, `contentSpecificationIds` (`economicOperatorId` and `uniqueProductIdentifier` were already aligned).
+- `dpp:granularityLevel` and `dpp:passportStatus` are now string-valued (EN 18223 enumeration/String); `dpp:GranularityLevel` (model/batch/item) and `dpp:PassportStatus` are retained as informative value lists.
+- `dpp:granularity` (BatteryPass per-attribute reporting granularity) renamed to `dpp:reportingGranularity`, freeing the `granularity` key for the EN 18223 passport-level attribute. `dpp:ProductClass` granularity value renamed to `dpp:Model` (with GS1 Digital Link AI derivation: 01 model, 01+10 batch, 01+21 item).
+- Provenance on the passport status/version terms moved from standards-reseller URLs to "EN 18221:2026 / EN 18222:2026 / EN 18223:2026 (CEN/CENELEC JTC 24)" citations.
+- Battery: `dppStatus` aligned to the string `dpp:passportStatus`; the SHACL status shape updated to match.
+
+### Removed
+- Duplicate `dpp:lastUpdate` and `dpp:passportLastModified` consolidated into `dpp:lastUpdated` (EN 18223 `lastUpdated`).
+- `dpp:Updated` passport status (the `lastUpdated` timestamp conveys it; the `"Updated"` JSON token now aliases to `dpp:Active` in bridge contexts).
+
 ## 0.9.5 — CIRPASS-2 see-also pointers + GS1 CBV anchoring (2026-05-04)
 
 ### Added
