@@ -7,7 +7,7 @@
  * repo sources by scripts/build-en18223-demo-data.ts and bundled with esbuild
  * (see package.json demo:en18223:build), so the demo runs with no network.
  */
-import { deriveEN18223, compressEN18223, type DocumentLoader } from "../../scripts/en18223/derive-core.ts";
+import { deriveEN18223, compressEN18223, expandJsonLd, type DocumentLoader } from "../../scripts/en18223/derive-core.ts";
 import rangeIndex from "./range-index.json";
 import contexts from "./contexts.json";
 import samples from "./samples.json";
@@ -37,13 +37,15 @@ function setStatus(msg: string, kind: "ok" | "err" | "" = "") {
   el.className = kind;
 }
 
-// The two EN 18223 serializations of the last successful derivation.
-let views: { expanded: any; compressed: any } | null = null;
+// The three views of the last successful derivation: the two EN 18223
+// serializations plus the JSON-LD expansion of the input.
+type ViewKey = "expanded" | "compressed" | "jsonld";
+let views: Record<ViewKey, any> | null = null;
 
 function render() {
   if (!views) return;
-  const fmt = formatEl().value === "compressed" ? "compressed" : "expanded";
-  outputEl().textContent = JSON.stringify(views[fmt], null, 2);
+  const fmt = formatEl().value as ViewKey;
+  outputEl().textContent = JSON.stringify(views[fmt] ?? views.expanded, null, 2);
 }
 
 async function derive() {
@@ -59,7 +61,8 @@ async function derive() {
   }
   try {
     const expanded = await deriveEN18223(input, range, documentLoader);
-    views = { expanded, compressed: compressEN18223(expanded) };
+    const jsonld = await expandJsonLd(input, documentLoader);
+    views = { expanded, compressed: compressEN18223(expanded), jsonld };
     render();
     const n = Array.isArray(expanded.elements) ? expanded.elements.length : 0;
     const specs = Array.isArray(expanded.contentSpecificationIds) ? expanded.contentSpecificationIds.length : 0;

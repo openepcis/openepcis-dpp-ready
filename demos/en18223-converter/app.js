@@ -8590,6 +8590,9 @@ async function deriveEN18223(input, range2, documentLoader2) {
   ordered.elements = elements;
   return ordered;
 }
+async function expandJsonLd(input, documentLoader2) {
+  return import_jsonld.default.expand(input, { documentLoader: documentLoader2 });
+}
 function compressElement(el) {
   switch (el.objectType) {
     case "SingleValuedDataElement":
@@ -19282,8 +19285,8 @@ function setStatus(msg, kind = "") {
 var views = null;
 function render() {
   if (!views) return;
-  const fmt = formatEl().value === "compressed" ? "compressed" : "expanded";
-  outputEl().textContent = JSON.stringify(views[fmt], null, 2);
+  const fmt = formatEl().value;
+  outputEl().textContent = JSON.stringify(views[fmt] ?? views.expanded, null, 2);
 }
 async function derive() {
   setStatus("Deriving\u2026");
@@ -19298,7 +19301,8 @@ async function derive() {
   }
   try {
     const expanded = await deriveEN18223(input, range, documentLoader);
-    views = { expanded, compressed: compressEN18223(expanded) };
+    const jsonld2 = await expandJsonLd(input, documentLoader);
+    views = { expanded, compressed: compressEN18223(expanded), jsonld: jsonld2 };
     render();
     const n = Array.isArray(expanded.elements) ? expanded.elements.length : 0;
     const specs = Array.isArray(expanded.contentSpecificationIds) ? expanded.contentSpecificationIds.length : 0;
