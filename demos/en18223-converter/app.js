@@ -8513,9 +8513,10 @@ var ENVELOPE = {
   [`${DPP}passportStatus`]: "dppStatus",
   [`${DPP}lastUpdated`]: "lastUpdated",
   [`${DPP}economicOperatorId`]: "economicOperatorId",
-  [`${DPP}facilityId`]: "facilityId",
-  [`${DPP}contentSpecificationId`]: "contentSpecificationIds"
+  [`${DPP}facilityId`]: "facilityId"
 };
+var CONTENT_SPEC = `${DPP}contentSpecificationId`;
+var DPP_SCHEMA_VERSION = "EN 18223:2026";
 var ENVELOPE_ORDER = [
   "digitalProductPassportId",
   "uniqueProductIdentifier",
@@ -8527,6 +8528,19 @@ var ENVELOPE_ORDER = [
   "facilityId",
   "contentSpecificationIds"
 ];
+var namespaceOf = (iri) => {
+  const i = Math.max(iri.lastIndexOf("/"), iri.lastIndexOf("#"));
+  return i >= 0 ? iri.slice(0, i + 1) : iri;
+};
+function collectContentSpecs(elements, acc) {
+  for (const el of elements) {
+    if (el && el.dictionaryReference) acc.add(namespaceOf(el.dictionaryReference));
+    if (el && Array.isArray(el.elements)) collectContentSpecs(el.elements, acc);
+    if (el && Array.isArray(el.value)) {
+      for (const v of el.value) if (Array.isArray(v)) collectContentSpecs(v, acc);
+    }
+  }
+}
 async function deriveEN18223(input, range2, documentLoader2) {
   const expanded = await import_jsonld.default.expand(input, { documentLoader: documentLoader2 });
   const node = Array.isArray(expanded) ? expanded[0] : expanded;
@@ -8534,20 +8548,27 @@ async function deriveEN18223(input, range2, documentLoader2) {
   const dpp = {};
   const dl = firstVal(node, `${GS1}productID`) ?? node["@id"];
   for (const [iri, key] of Object.entries(ENVELOPE)) {
-    if (!(iri in node)) continue;
-    if (key === "contentSpecificationIds") dpp[key] = node[iri].map((e) => e["@value"] ?? e["@id"]);
-    else dpp[key] = firstVal(node, iri);
+    if (iri in node) dpp[key] = firstVal(node, iri);
   }
   if (!dpp.uniqueProductIdentifier && dl) dpp.uniqueProductIdentifier = dl;
   dpp.granularity = granularityFromDigitalLink(dpp.uniqueProductIdentifier);
+  if (!dpp.digitalProductPassportId && dpp.uniqueProductIdentifier) dpp.digitalProductPassportId = dpp.uniqueProductIdentifier;
+  if (!dpp.dppSchemaVersion) dpp.dppSchemaVersion = DPP_SCHEMA_VERSION;
   if (!dpp.dppStatus) dpp.dppStatus = "active";
-  const ordered = {};
-  for (const k of ENVELOPE_ORDER) if (k in dpp) ordered[k] = dpp[k];
   const elements = [];
   for (const key of Object.keys(node)) {
-    if (skipKey(key) || key in ENVELOPE) continue;
+    if (skipKey(key) || key in ENVELOPE || key === CONTENT_SPEC) continue;
     elements.push(buildElement(key, node[key], range2));
   }
+  const specs = /* @__PURE__ */ new Set();
+  for (const e of node[CONTENT_SPEC] || []) {
+    const v = e["@value"] ?? e["@id"];
+    if (v) specs.add(v);
+  }
+  collectContentSpecs(elements, specs);
+  if (specs.size) dpp.contentSpecificationIds = [...specs].sort();
+  const ordered = {};
+  for (const k of ENVELOPE_ORDER) if (k in dpp) ordered[k] = dpp[k];
   ordered.elements = elements;
   return ordered;
 }
@@ -9822,24 +9843,16 @@ var dpp_core_context_default = {
 
 // extensions/common/core/examples/en18223-passport.compressed.jsonld
 var en18223_passport_compressed_default = {
-  _comment: "Good GS1 Web Vocabulary + GS1 Digital Link JSON-LD for a battery DPP. This is the EN 18223 'compressed' serialization (clauses 5.2.6-5.2.9): data points are plain key-value pairs. scripts/derive-en18223.ts derives the EN 18223 Annex A 'expanded' form (en18223-passport.expanded.json) from this, using the @context IRIs as dictionaryReference and the ontology ranges as valueDataType.",
+  _comment: "Good GS1 Web Vocabulary + GS1 Digital Link JSON-LD for a battery DPP. This is the EN 18223 'compressed' serialization (clauses 5.2.6-5.2.9): plain key-value data points. scripts/derive-en18223.ts derives the Annex A 'expanded' form (en18223-passport.expanded.json) and fills the envelope automatically from context and data: uniqueProductIdentifier from id, granularity from the Digital Link Application Identifiers (01/21 -> item), digitalProductPassportId defaulting to the identity, dppSchemaVersion = EN 18223:2026, dppStatus = active, and contentSpecificationIds from the dictionaryReference namespaces actually used. Only genuine product data is carried here; identifiers are GS1 Digital Links (01/21 product, 417 operator, 414 facility).",
   "@context": [
     "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
     { gs1: "https://ref.gs1.org/voc/", xsd: "http://www.w3.org/2001/XMLSchema#" }
   ],
   type: ["gs1:Product", "DigitalProductPassport"],
   id: "https://id.example.org/01/09506000134352/21/SN12345",
-  digitalProductPassportId: "https://id.example.org/dpp/09506000134352/SN12345",
-  uniqueProductIdentifier: "https://id.example.org/01/09506000134352/21/SN12345",
-  dppSchemaVersion: "EN 18223:2026",
-  dppStatus: "active",
-  lastUpdated: "2026-06-06T10:00:00Z",
-  economicOperatorId: "4012345000009",
-  facilityId: "4012345000016",
-  contentSpecificationIds: [
-    "https://ref.openepcis.io/extensions/common/core/",
-    "https://ref.openepcis.io/extensions/eu/battery/"
-  ],
+  lastUpdated: "2026-06-07T10:00:00Z",
+  economicOperatorId: "https://id.example.org/417/4012345000009",
+  facilityId: "https://id.example.org/414/4012345000016",
   "gs1:productName": [
     { "@value": "EcoCell Battery Module", "@language": "en-GB" },
     { "@value": "EcoCell Batteriemodul", "@language": "de-DE" }
@@ -9873,10 +9886,7 @@ var sampleModel = {
   "@context": [CORE, gs1],
   type: ["gs1:Product", "DigitalProductPassport"],
   id: "https://id.example.org/01/09506000134352",
-  digitalProductPassportId: "https://id.example.org/dpp/09506000134352",
-  uniqueProductIdentifier: "https://id.example.org/01/09506000134352",
-  dppStatus: "active",
-  dppSchemaVersion: "EN 18223:2026",
+  economicOperatorId: "https://id.example.org/417/4012345000009",
   "gs1:productName": [{ "@value": "EcoCell Battery Module IM-500", "@language": "en-GB" }],
   recycledContent: 0.16
 };
@@ -9884,9 +9894,8 @@ var sampleBatch = {
   "@context": [CORE, gs1],
   type: ["gs1:Product", "DigitalProductPassport"],
   id: "https://id.example.org/01/09506000134352/10/LOT-2026-04",
-  digitalProductPassportId: "https://id.example.org/dpp/09506000134352/LOT-2026-04",
-  uniqueProductIdentifier: "https://id.example.org/01/09506000134352/10/LOT-2026-04",
-  dppStatus: "active",
+  economicOperatorId: "https://id.example.org/417/4012345000009",
+  facilityId: "https://id.example.org/414/4012345000016",
   recycledContent: 0.16,
   preConsumerRecycledContent: 0.04,
   postConsumerRecycledContent: 0.12
