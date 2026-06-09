@@ -3,40 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EPCIS4DPP · GS1 JSON-LD → EN 18223 converter</title>
+  <title>JSON-LD → EN 18223 converter</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>JSON-LD → EN 18223 Digital Product Passport</h1>
-    <p>
+  <header class="hero">
+    <p class="eyebrow">EPCIS4DPP · runs entirely in your browser, no network</p>
+    <h1>GS1 Web Vocabulary → EN 18223 Digital Product Passport</h1>
+    <p class="lead">
       A Digital Product Passport under CEN/CENELEC EN 18223 is plain JSON, and it
-      falls out of data you may already publish: good GS1 Web Vocabulary,
-      addressed by a GS1 Digital Link. Choose a product sample on the left,
-      or paste your own, and press <strong>Derive</strong>.
-    </p>
-    <p>
-      Each property becomes an EN 18223 <code>DataElement</code>. Its
-      <code>dictionaryReference</code> is the property's own vocabulary IRI,
-      wherever the term is defined, whether GS1, schema.org, or the OpenEPCIS
-      extensions at ref.openepcis.io, and its <code>valueDataType</code> is the
-      range the ontology declares for it. The passport's <code>granularity</code>
-      follows the Digital Link Application Identifiers: a GTIN on its own
-      describes a model, a GTIN with a lot number a batch, a GTIN with a serial an
-      item. <code>contentSpecificationIds</code> then lists the dictionaries the
-      passport actually draws on.
-    </p>
-    <p>
-      The <strong>View</strong> dropdown on the right shows the result three
-      ways. EN 18223 gives the passport two JSON serializations, an
-      <em>expanded</em> form (Annex A, an array of explicit data elements) and a
-      <em>compressed</em> form (the same content as ordinary key-value JSON), and
-      both are plain JSON. The third view, <strong>JSON-LD expanded</strong>, is
-      the input run through standard JSON-LD processing, so you can watch each
-      term resolve to the IRI that becomes its <code>dictionaryReference</code>.
-      EN 18223's own use of <em>expanded</em> and <em>compressed</em> is a
-      separate idea from that JSON-LD step. Everything is bundled, so it runs in
-      your browser with no network. The conversion is explained in full below.
+      falls out of data you may already publish: good GS1 Web Vocabulary, addressed
+      by a GS1 Digital Link. The same identity can be encoded in different data
+      carriers, from a QR code to NFC and RFID tags. Pick a sample, or paste your
+      own, and press <strong>Derive</strong>.
     </p>
   </header>
 
@@ -48,11 +27,14 @@
   </div>
 
   <main>
-    <section>
-      <h2>Input · GS1 Web Vocabulary JSON-LD</h2>
+    <section class="card">
+      <div class="pane-head">
+        <h2>Input · GS1 Web Vocabulary JSON-LD</h2>
+        <button id="copy-input" class="ghost" type="button">Copy</button>
+      </div>
       <textarea id="input" spellcheck="false"></textarea>
     </section>
-    <section>
+    <section class="card">
       <div class="pane-head">
         <h2>Output</h2>
         <label for="format">View</label>
@@ -61,6 +43,7 @@
           <option value="compressed">EN 18223 compressed</option>
           <option value="jsonld">JSON-LD expanded (input)</option>
         </select>
+        <button id="copy" class="ghost" type="button">Copy</button>
       </div>
       <pre id="output"></pre>
     </section>
@@ -68,6 +51,17 @@
 
   <section class="explainer">
     <h2>How the conversion works</h2>
+    <p>
+      Each property becomes an EN 18223 <code>DataElement</code>. Its
+      <code>dictionaryReference</code> is the property's own vocabulary IRI,
+      wherever the term is defined, whether GS1, schema.org, or the OpenEPCIS
+      extensions at ref.openepcis.io, and its <code>valueDataType</code> is the
+      range the ontology declares for it. The passport's <code>granularity</code>
+      follows the Digital Link Application Identifiers: a GTIN on its own
+      describes a model, a GTIN with a lot number a batch, a GTIN with a serial an
+      item. <code>contentSpecificationIds</code> then lists the dictionaries the
+      passport actually draws on.
+    </p>
     <p>
       The page runs each example through the same steps a repository would. It
       first expands the input with standard JSON-LD processing, which replaces
@@ -125,11 +119,34 @@
 
   <footer>
     <a href="https://github.com/openepcis/openepcis-dpp-ready">OpenEPCIS DPP-Ready</a>
-    · EPCIS4DPP · derived by
+    · EPCIS for DPP · derived by
     <a href="https://github.com/openepcis/openepcis-dpp-ready/blob/main/scripts/en18223/derive-core.ts"><code>scripts/en18223/derive-core.ts</code></a>.
     Not official GS1 or CEN/CENELEC guidance.
   </footer>
 
   <script type="module" src="app.js"></script>
+  <!-- Progressive enhancement, independent of the bundled app: copy-to-clipboard. -->
+  <script>
+    (function () {
+      function wireCopy(btnId, srcId) {
+        var btn = document.getElementById(btnId);
+        var src = document.getElementById(srcId);
+        if (!btn || !src) return;
+        btn.addEventListener('click', function () {
+          var text = ('value' in src ? src.value : src.textContent) || '';
+          if (!text.trim()) return;
+          navigator.clipboard.writeText(text).then(function () {
+            var prev = btn.getAttribute('data-label') || btn.textContent;
+            btn.setAttribute('data-label', prev);
+            btn.textContent = 'Copied';
+            btn.classList.add('copied');
+            setTimeout(function () { btn.textContent = prev; btn.classList.remove('copied'); }, 1200);
+          });
+        });
+      }
+      wireCopy('copy-input', 'input');
+      wireCopy('copy', 'output');
+    })();
+  </script>
 </body>
 </html>

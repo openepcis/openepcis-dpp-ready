@@ -42,8 +42,10 @@ binds them to concrete choices, each of which the standards permit rather
 than require:
 
 - **GS1 identifiers** (EN 18219 scheme): GTIN, GLN, GTIN + serial.
-- **A GS1 Digital Link data carrier** (an EN 18220 carrier): a QR code
-  resolved by a GS1 Digital Link resolver.
+- **A GS1 Digital Link data carrier** (an EN 18220 carrier): a QR code as the
+  primary carrier, in step with the GS1 2D barcode migration (Sunrise
+  2027),[^sunrise] with NFC and RAIN RFID as first-class alternates carrying the
+  same identity, all resolved by a GS1 Digital Link resolver.
 - **The OpenEPCIS EPCIS repository** for capture, storage and query,
   speaking EPCIS 1.2 (XML) and EPCIS 2.0 (JSON and JSON-LD) and storing
   canonically in 2.0.[^repo]
@@ -135,7 +137,7 @@ Four components, each realising one or more of the neutral standards.
 ```mermaid
 flowchart TB
     subgraph CARRIER["Data carrier: EN 18219 identifier · EN 18220 carrier"]
-        QR["QR code / NFC<br/>GS1 Digital Link URI<br/><code>https://id.example.org/01/{GTIN}/21/{serial}</code>"]
+        QR["QR (primary) · NFC · RAIN RFID<br/>GS1 Digital Link URI / EPC<br/><code>https://id.example.org/01/{GTIN}/21/{serial}</code>"]
     end
 
     subgraph EDGE["Discovery + identity (EPCIS4DPP)"]
@@ -291,8 +293,10 @@ a resolver service, RFC 9264 linksets, or GS1 link types; it references
 generic HTTP identifier resolution (ISO/IEC 18975) without the GS1 resolution
 layer.
 
-EPCIS4DPP chooses a QR code carrying a GS1 Digital Link URI, with NFC
-carrying the same URI as a supplementary carrier, resolved by a GS1
+EPCIS4DPP makes the QR code the primary carrier, carrying a GS1 Digital
+Link URI, in step with the GS1 industry migration to 2D barcodes (Sunrise
+2027).[^sunrise] NFC and RAIN RFID carry the same identity as first-class
+alternates (see "Also a tag" below). All are resolved by a GS1
 Digital Link resolver that OpenEPCIS operates in its reference deployment
 (the `dev` environment driven by this repository's
 `bruno/digital-link-resolver` collection). The resolver answers with an
@@ -313,6 +317,33 @@ Content negotiation (per EN 18216) serves the same identifier as HTML to
 a phone, JSON-LD to a machine, or RDF Turtle. These resolver and linkset
 mechanisms are an **EPCIS4DPP profile, beyond the standard**: EN 18220
 specifies the carrier, and EPCIS4DPP adds the GS1 resolution layer on top.
+
+### Also a tag: NFC and RAIN RFID
+
+The QR code stays primary, and the same product identity rides equally well
+on a radio tag.
+
+- **NFC (HF).** The Digital Link URI sits in an NDEF record, so a phone tap
+  opens the passport with no app and no camera. It suits premium goods and
+  tamper or anti-counterfeit use, alongside the printed QR.
+- **RAIN RFID (UHF).** Reads in bulk, without line of sight, across cartons and
+  pallets. Its identity is an EPC (an SGTIN) per the GS1 EPC Tag Data
+  Standard,[^tds] which is a GTIN plus serial, the same key the QR encodes as a
+  Digital Link.[^rain]
+
+RFID fits EPCIS4DPP naturally because of the lifecycle log. EPCIS was built on
+the EPC, so a RAIN read at any step (manufacture, dispatch, repair intake,
+recycling) is already an EPCIS event. The OpenEPCIS EPC to Digital Link
+translator[^translator] turns the tag's EPC (`urn:epc:id:sgtin:...`) into the
+GS1 Digital Link that resolves to the passport, so the automated reads that
+populate the lifecycle log and the consumer scan that opens the passport
+address one and the same product. A QR on the box, an NFC tap for the buyer,
+and a RAIN tag for the warehouse all resolve through the same resolver to the
+same DPP, and each warehouse read quietly extends the lifecycle log behind it.
+
+EN 18219 admits RAIN RFID among its identifier schemes, and EN 18220 admits HF
+RFID, NFC, and RAIN RFID among its carriers,[^en18220] so this is a conformant
+carrier choice: QR primary, the radio carriers first-class alongside it.
 
 ---
 
@@ -505,7 +536,7 @@ Concise verdicts; the cited detail is in
 | Standard | What it defines | EPCIS4DPP realisation | Status |
 |----------|-----------------|-----------------------|--------|
 | **EN 18219** Identifiers | Requirements + 5 ID schemes; granularity model/batch/item | GS1 keys (one permitted scheme); granularity derived from GS1 AIs | Conformant |
-| **EN 18220** Data carriers | Several carriers + carrier quality | QR + GS1 Digital Link, NFC supplementary; resolver/linksets are profile additions | Conformant |
+| **EN 18220** Data carriers | Several carriers + carrier quality | QR + GS1 Digital Link primary (GS1 2D Sunrise 2027); NFC and RAIN RFID first-class alternates, the EPC mapped to the Digital Link by the EPC translator; resolver/linksets are profile additions | Conformant |
 | **EN 18216** Data exchange | HTTPS/TLS/HTTP-2 + JSON + content negotiation | JSON-LD and HTML over HTTPS; EPCIS reuses the transport | Conformant |
 | **EN 18221** Storage | Archiving/persistence + provider roles, neutral on tech | Append-only EPCIS + versioned core (a conformant pattern); roles + OAIS tracked | Partial |
 | **EN 18222** APIs | Concrete DPP REST API + registry | Expose the method surface (tracked); EPCIS query + resolver added | Planned |
@@ -676,6 +707,9 @@ for implementation.
 [^rfc9535]: G. Normington et al., "JSONPath: Query Expressions for JSON", RFC 9535, IETF, February 2024: https://www.rfc-editor.org/info/rfc9535 (used by EN 18222 for element paths)
 [^oais]: ISO 14721:2025, Open Archival Information System (OAIS) reference model: https://www.iso.org/standard/87471.html (referenced by EN 18221 for archiving)
 [^iso18004]: ISO/IEC 18004:2024, QR Code bar code symbology specification: https://www.iso.org/standard/83389.html (referenced by EN 18220 for QR)
+[^sunrise]: GS1 2D barcodes and the industry migration to 2D at point of sale ("Sunrise 2027"): https://www.gs1.org/standards/2d-barcodes
+[^tds]: GS1 EPC Tag Data Standard (TDS), the encoding of GS1 keys such as the SGTIN (GTIN + serial) in RFID tags: https://ref.gs1.org/standards/tds/
+[^rain]: RAIN RFID is UHF RFID per ISO/IEC 18000-63; RAIN Alliance: https://rainrfid.org (the SGTIN on a RAIN tag is the same GTIN + serial a GS1 Digital Link encodes)
 [^repo]: OpenEPCIS EPCIS Repository (Community Edition): https://github.com/openepcis/epcis-repository-ce ; documentation: https://openepcis.io/docs/
 [^converter]: openepcis-document-converter (EPCIS 1.2 XML and 2.0 JSON-LD conversion): https://github.com/openepcis/openepcis-document-converter
 [^translator]: openepcis-epc-digitallink-translator (EPC URN to GS1 Digital Link Web URI): https://github.com/openepcis/openepcis-epc-digitallink-translator
