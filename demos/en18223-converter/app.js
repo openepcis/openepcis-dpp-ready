@@ -11946,7 +11946,7 @@ var contexts_default = {
     }
   },
   "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld": {
-    _comment: "OpenEPCIS Textile DPP Context v0.9.0. GS1-aligned vocabulary for EU Sustainable Textiles Strategy and ESPR. GS1-Extensions: textile=https://ref.openepcis.io/extensions/eu/textile/. Uses GS1 Web Vocabulary patterns: gs1:textileMaterial, gs1:certification, gs1:referencedFile.",
+    _comment: "OpenEPCIS Textile DPP Context v0.9.6. GS1-aligned vocabulary for EU Sustainable Textiles Strategy and ESPR. GS1-Extensions: textile=https://ref.openepcis.io/extensions/eu/textile/. Uses GS1 Web Vocabulary patterns: gs1:textileMaterial, gs1:certification, gs1:referencedFile.",
     "@context": [
       "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -13882,11 +13882,7 @@ var samples_default = [
         "See EXTENSION-GOVERNANCE.md for rationale on each extension term."
       ],
       "@context": [
-        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
-        {
-          gs1: "https://ref.gs1.org/voc/",
-          xsd: "http://www.w3.org/2001/XMLSchema#"
-        }
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
       ],
       id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001",
       type: [
@@ -14695,11 +14691,7 @@ var samples_default = [
         "GS1 demo prefix 952 (7-digit GCP: 9521234)."
       ],
       "@context": [
-        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
-        {
-          gs1: "https://ref.gs1.org/voc/",
-          xsd: "http://www.w3.org/2001/XMLSchema#"
-        }
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
       ],
       id: "https://id.dev.epcis.cloud/01/09521003000442/21/EB2026-00821",
       type: [
@@ -16167,11 +16159,7 @@ var samples_default = [
       ],
       "@context": [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-        "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
-        {
-          gs1: "https://ref.gs1.org/voc/",
-          xsd: "http://www.w3.org/2001/XMLSchema#"
-        }
+        "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
       ],
       id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521",
       type: [
@@ -16730,11 +16718,7 @@ var samples_default = [
       ],
       "@context": [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-        "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
-        {
-          gs1: "https://ref.gs1.org/voc/",
-          xsd: "http://www.w3.org/2001/XMLSchema#"
-        }
+        "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
       ],
       id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142",
       type: [
@@ -17377,11 +17361,7 @@ var samples_default = [
       ],
       "@context": [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-        "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
-        {
-          gs1: "https://ref.gs1.org/voc/",
-          xsd: "http://www.w3.org/2001/XMLSchema#"
-        }
+        "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
       ],
       id: "https://id.dev.epcis.cloud/01/09521000004207/21/SUIT-2026-00042",
       type: [
@@ -17571,11 +17551,7 @@ var samples_default = [
       ],
       "@context": [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-        "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
-        {
-          gs1: "https://ref.gs1.org/voc/",
-          xsd: "http://www.w3.org/2001/XMLSchema#"
-        }
+        "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
       ],
       id: "https://id.dev.epcis.cloud/01/09521001001380/21/BL-2026-04201",
       type: [
@@ -18892,11 +18868,7 @@ var samples_default = [
       ],
       "@context": [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-        "https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld",
-        {
-          gs1: "https://ref.gs1.org/voc/",
-          xsd: "http://www.w3.org/2001/XMLSchema#"
-        }
+        "https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld"
       ],
       id: "https://id.gs1.org/01/09521234200024",
       type: [
@@ -19081,11 +19053,7 @@ var samples_default = [
       ],
       "@context": [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-        "https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld",
-        {
-          gs1: "https://ref.gs1.org/voc/",
-          xsd: "http://www.w3.org/2001/XMLSchema#"
-        }
+        "https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld"
       ],
       id: "https://id.gs1.org/01/09521234200017",
       type: [
