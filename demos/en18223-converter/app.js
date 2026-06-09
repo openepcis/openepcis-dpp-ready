@@ -8523,6 +8523,13 @@ function granularityFromDigitalLink(dl) {
   return "model";
 }
 var firstVal = (node, iri) => node[iri] && node[iri][0] ? node[iri][0]["@value"] ?? node[iri][0]["@id"] : void 0;
+function partyDigitalLink(node, iri) {
+  const op = node[iri] && node[iri][0];
+  if (!op) return void 0;
+  if (op["@id"]) return op["@id"];
+  const gln = firstVal(op, `${GS1}gln`);
+  return gln ? `https://id.gs1.org/417/${gln}` : void 0;
+}
 var ENVELOPE = {
   [`${DPP}passportIdentifier`]: "digitalProductPassportId",
   [`${GS1}productID`]: "uniqueProductIdentifier",
@@ -8573,6 +8580,14 @@ async function deriveEN18223(input, range2, documentLoader2) {
   if (!dpp.digitalProductPassportId && dpp.uniqueProductIdentifier) dpp.digitalProductPassportId = dpp.uniqueProductIdentifier;
   if (!dpp.dppSchemaVersion) dpp.dppSchemaVersion = DPP_SCHEMA_VERSION;
   if (!dpp.dppStatus) dpp.dppStatus = "active";
+  if (!dpp.economicOperatorId) {
+    const operator = partyDigitalLink(node, `${GS1}manufacturer`);
+    if (operator) dpp.economicOperatorId = operator;
+  }
+  if (!dpp.facilityId) {
+    const facility = partyDigitalLink(node, `${GS1}manufacturingPlace`);
+    if (facility) dpp.facilityId = facility;
+  }
   const elements = [];
   for (const key of Object.keys(node)) {
     if (skipKey(key) || key in ENVELOPE || key === CONTENT_SPEC) continue;
@@ -9352,6 +9367,8 @@ var contexts_default = {
       serialNumber: "gs1:serialNumber",
       gtin: "gs1:gtin",
       productName: "gs1:productName",
+      productDescription: "gs1:productDescription",
+      hasBatchLotNumber: "gs1:hasBatchLotNumber",
       countryOfOrigin: "gs1:countryOfOrigin",
       netWeight: {
         "@id": "gs1:netWeight",
@@ -9846,6 +9863,14 @@ var contexts_default = {
       dataQualityAssessment: "dpp:dataQualityAssessment",
       dataProviderCertification: "dpp:dataProviderCertification",
       regulatoryReferenceNumber: "gs1:regulatoryReferenceNumber",
+      regulatoryReferenceApplicabilityStartDate: {
+        "@id": "gs1:regulatoryReferenceApplicabilityStartDate",
+        "@type": "xsd:date"
+      },
+      regulatoryReferenceApplicabilityEndDate: {
+        "@id": "gs1:regulatoryReferenceApplicabilityEndDate",
+        "@type": "xsd:date"
+      },
       complianceDate: {
         "@id": "dpp:complianceDate",
         "@type": "xsd:date"
@@ -10098,7 +10123,70 @@ var contexts_default = {
       isRegulationCompliant: {
         "@id": "dpp:isRegulationCompliant",
         "@type": "xsd:boolean"
-      }
+      },
+      AdditionalProductClassificationDetails: "gs1:AdditionalProductClassificationDetails",
+      CertificationDetails: "gs1:CertificationDetails",
+      ContactPoint: "gs1:ContactPoint",
+      Country: "gs1:Country",
+      Latitude: "gs1:Latitude",
+      Longitude: "gs1:Longitude",
+      Place: "gs1:Place",
+      PostalAddress: "gs1:PostalAddress",
+      PriceSpecification: "gs1:PriceSpecification",
+      ReferencedFileDetails: "gs1:ReferencedFileDetails",
+      RegulatoryInformation: "gs1:RegulatoryInformation",
+      Temperature: "gs1:Temperature",
+      TextileMaterialDetails: "gs1:TextileMaterialDetails",
+      WarrantyPromise: "gs1:WarrantyPromise",
+      additionalProductClassification: "gs1:additionalProductClassification",
+      additionalProductClassificationCode: "gs1:additionalProductClassificationCode",
+      additionalProductClassificationCodeDescription: "gs1:additionalProductClassificationCodeDescription",
+      additionalProductClassificationSystemCode: "gs1:additionalProductClassificationSystemCode",
+      bestBeforeDate: "gs1:bestBeforeDate",
+      catchZone: "gs1:catchZone",
+      certification: "gs1:certification",
+      certificationAgency: "gs1:certificationAgency",
+      certificationEndDate: "gs1:certificationEndDate",
+      certificationIdentification: "gs1:certificationIdentification",
+      certificationStandard: "gs1:certificationStandard",
+      certificationStartDate: "gs1:certificationStartDate",
+      certificationSubject: "gs1:certificationSubject",
+      certificationURI: "gs1:certificationURI",
+      certificationValue: "gs1:certificationValue",
+      consumerRecyclingInstructions: "gs1:consumerRecyclingInstructions",
+      contactPoint: "gs1:contactPoint",
+      contentDescription: "gs1:contentDescription",
+      durationOfWarranty: "gs1:durationOfWarranty",
+      email: "gs1:email",
+      fileLanguageCode: "gs1:fileLanguageCode",
+      fishType: "gs1:fishType",
+      globalLocationNumber: "gs1:globalLocationNumber",
+      harvestDateEnd: "gs1:harvestDateEnd",
+      harvestDateStart: "gs1:harvestDateStart",
+      hasSerialNumber: "gs1:hasSerialNumber",
+      manufacturer: "gs1:manufacturer",
+      netContent: "gs1:netContent",
+      price: "gs1:price",
+      priceCurrency: "gs1:priceCurrency",
+      referencedFile: "gs1:referencedFile",
+      referencedFileType: "gs1:referencedFileType",
+      regulatedProductName: "gs1:regulatedProductName",
+      regulationType: "gs1:regulationType",
+      regulatoryAct: "gs1:regulatoryAct",
+      regulatoryActStatus: "gs1:regulatoryActStatus",
+      regulatoryInformation: "gs1:regulatoryInformation",
+      regulatoryPermitIdentification: "gs1:regulatoryPermitIdentification",
+      telephone: "gs1:telephone",
+      textileFibreCommonName: "gs1:textileFibreCommonName",
+      textileFibreContentPercentage: "gs1:textileFibreContentPercentage",
+      textileFibreName: "gs1:textileFibreName",
+      textileFibrePercentage: "gs1:textileFibrePercentage",
+      textileFibreScientificName: "gs1:textileFibreScientificName",
+      textileMaterial: "gs1:textileMaterial",
+      url: "gs1:url",
+      warranty: "gs1:warranty",
+      warrantyScope: "gs1:warrantyScope",
+      warrantyScopeDescription: "gs1:warrantyScopeDescription"
     }
   },
   "https://ref.openepcis.io/extensions/common/core/gs1-shortcuts-context.jsonld": {
@@ -13805,8 +13893,9 @@ var samples_default = [
         "Product",
         "Battery"
       ],
+      lastUpdated: "2024-03-20T14:30:00Z",
       gtin: "09521002005004",
-      "gs1:serialNumber": "BAT2024-001",
+      serialNumber: "BAT2024-001",
       productName: [
         {
           "@value": "EcoCell Industrial Battery Module IM-500",
@@ -13853,7 +13942,7 @@ var samples_default = [
           "@language": "it"
         }
       ],
-      "gs1:productDescription": [
+      productDescription: [
         {
           "@value": "High-capacity lithium iron phosphate battery module for industrial energy storage. Designed for long cycle life and safety.",
           "@language": "en"
@@ -13901,14 +13990,14 @@ var samples_default = [
       ],
       batteryCategory: "IndustrialBattery",
       _comment_classification: "Alternative GS1 pattern for battery category using gs1:additionalProductClassification",
-      "gs1:additionalProductClassification": {
-        type: "gs1:AdditionalProductClassificationDetails",
-        "gs1:additionalProductClassificationCode": "industrial",
-        "gs1:additionalProductClassificationCodeDescription": {
+      additionalProductClassification: {
+        type: "AdditionalProductClassificationDetails",
+        additionalProductClassificationCode: "industrial",
+        additionalProductClassificationCodeDescription: {
           "@value": "Industrial Battery - Battery designed for industrial applications with capacity > 2 kWh",
           "@language": "en"
         },
-        "gs1:additionalProductClassificationSystemCode": "BATTERY_REGULATION_2023_1542"
+        additionalProductClassificationSystemCode: "BATTERY_REGULATION_2023_1542"
       },
       batteryStatus: "Original",
       batteryModel: {
@@ -13921,51 +14010,51 @@ var samples_default = [
       manufacturer: {
         id: "https://id.dev.epcis.cloud/417/9521234000006",
         type: "Organization",
-        "gs1:organizationName": "EcoCell GmbH",
-        "gs1:gln": "9521234000006",
-        "gs1:address": {
+        organizationName: "EcoCell GmbH",
+        gln: "9521234000006",
+        address: {
           id: "https://id.dev.epcis.cloud/417/9521234000006#address",
-          type: "gs1:PostalAddress",
-          "gs1:streetAddress": "Batteriestra\xDFe 42",
-          "gs1:addressLocality": "Stuttgart",
-          "gs1:postalCode": "70173",
-          "gs1:countryCode": "DE"
+          type: "PostalAddress",
+          streetAddress: "Batteriestra\xDFe 42",
+          addressLocality: "Stuttgart",
+          postalCode: "70173",
+          countryCode: "DE"
         },
-        "gs1:contactPoint": {
-          type: "gs1:ContactPoint",
-          "gs1:email": "info@ecocell-batteries.example.com",
-          "gs1:url": {
+        contactPoint: {
+          type: "ContactPoint",
+          email: "info@ecocell-batteries.example.com",
+          url: {
             id: "https://www.ecocell-batteries.example.com"
           }
         }
       },
       manufacturingPlace: {
         id: "https://id.dev.epcis.cloud/414/9521234000013",
-        type: "gs1:Place",
-        "gs1:gln": "9521234000013",
-        "gs1:address": {
-          type: "gs1:PostalAddress",
-          "gs1:addressLocality": "Stuttgart",
-          "gs1:countryCode": "DE"
+        type: "Place",
+        gln: "9521234000013",
+        address: {
+          type: "PostalAddress",
+          addressLocality: "Stuttgart",
+          countryCode: "DE"
         }
       },
       operatorInformation: {
         id: "https://id.dev.epcis.cloud/417/9521234000006#operator",
         type: "dpp:OperatorInformation",
-        "gs1:gln": "9521234000006",
-        "gs1:organizationName": "EcoCell GmbH",
+        gln: "9521234000006",
+        organizationName: "EcoCell GmbH",
         operatorRole: "Manufacturer",
-        "gs1:address": {
-          type: "gs1:PostalAddress",
-          "gs1:streetAddress": "Batteriestra\xDFe 42",
-          "gs1:addressLocality": "Stuttgart",
-          "gs1:postalCode": "70173",
-          "gs1:countryCode": "DE"
+        address: {
+          type: "PostalAddress",
+          streetAddress: "Batteriestra\xDFe 42",
+          addressLocality: "Stuttgart",
+          postalCode: "70173",
+          countryCode: "DE"
         },
-        "gs1:contactPoint": {
-          type: "gs1:ContactPoint",
-          "gs1:email": "compliance@ecocell-batteries.example.com",
-          "gs1:telephone": "+49-711-555-0100"
+        contactPoint: {
+          type: "ContactPoint",
+          email: "compliance@ecocell-batteries.example.com",
+          telephone: "+49-711-555-0100"
         }
       },
       countryOfOrigin: "DE",
@@ -14314,18 +14403,18 @@ var samples_default = [
           verificationStandard: "ISO 14064-3:2019"
         }
       },
-      "gs1:warranty": {
-        type: "gs1:WarrantyPromise",
-        "gs1:durationOfWarranty": "P8Y",
-        "gs1:warrantyScope": "Full replacement warranty for manufacturing defects"
+      warranty: {
+        type: "WarrantyPromise",
+        durationOfWarranty: "P8Y",
+        warrantyScope: "Full replacement warranty for manufacturing defects"
       },
       warrantyConditions: "https://www.ecocell-batteries.example.com/warranty/terms",
       extendedWarrantyAvailable: true,
       serviceContactPoint: {
-        type: "gs1:ContactPoint",
-        "gs1:email": "service@ecocell-batteries.example.com",
-        "gs1:telephone": "+49-711-555-0300",
-        "gs1:url": {
+        type: "ContactPoint",
+        email: "service@ecocell-batteries.example.com",
+        telephone: "+49-711-555-0300",
+        url: {
           id: "https://service.ecocell-batteries.example.com"
         }
       },
@@ -14409,25 +14498,25 @@ var samples_default = [
           }
         }
       ],
-      "gs1:regulatoryInformation": [
+      regulatoryInformation: [
         {
           id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#reg-battery",
-          type: "gs1:RegulatoryInformation",
-          "gs1:regulationType": {
+          type: "RegulatoryInformation",
+          regulationType: {
             id: "gs1:RegulationTypeCode-BATTERY_DIRECTIVE"
           },
-          "gs1:regulatoryAct": "EU 2023/1542",
-          "gs1:regulatoryActStatus": "ACTIVE",
-          "gs1:regulatoryPermitIdentification": "EU-TEC-2024-ECOCELL-IM500",
+          regulatoryAct: "EU 2023/1542",
+          regulatoryActStatus: "ACTIVE",
+          regulatoryPermitIdentification: "EU-TEC-2024-ECOCELL-IM500",
           "gs1:isRegulationCompliant": true
         },
         {
           id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#reg-ce",
-          type: "gs1:RegulatoryInformation",
-          "gs1:regulationType": {
+          type: "RegulatoryInformation",
+          regulationType: {
             id: "gs1:RegulationTypeCode-CE"
           },
-          "gs1:regulatoryAct": "CE Marking",
+          regulatoryAct: "CE Marking",
           "gs1:isRegulationCompliant": true
         }
       ],
@@ -14452,23 +14541,23 @@ var samples_default = [
         {
           id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#spare-1",
           type: "Organization",
-          "gs1:organizationName": "EcoCell Service GmbH",
+          organizationName: "EcoCell Service GmbH",
           spareParts: {
             "@value": "BMS Module, Cell Connectors, Cooling System Components, Terminal Covers",
             "@language": "en"
           },
-          "gs1:address": {
-            type: "gs1:PostalAddress",
-            "gs1:streetAddress": "Serviceweg 10",
-            "gs1:addressLocality": "Stuttgart",
-            "gs1:postalCode": "70174",
-            "gs1:countryCode": "DE"
+          address: {
+            type: "PostalAddress",
+            streetAddress: "Serviceweg 10",
+            addressLocality: "Stuttgart",
+            postalCode: "70174",
+            countryCode: "DE"
           },
           supplierContact: {
-            type: "gs1:ContactPoint",
-            "gs1:email": "spareparts@ecocell-batteries.example.com",
-            "gs1:telephone": "+49-711-555-0200",
-            "gs1:url": {
+            type: "ContactPoint",
+            email: "spareparts@ecocell-batteries.example.com",
+            telephone: "+49-711-555-0200",
+            url: {
               id: "https://parts.ecocell-batteries.example.com"
             }
           }
@@ -14553,41 +14642,41 @@ var samples_default = [
         safetyInstructions: "https://www.ecocell-batteries.example.com/docs/IM-500-safety.pdf",
         renewableContent: 3.2
       },
-      "gs1:referencedFile": [
+      referencedFile: [
         {
           id: "https://www.ecocell-batteries.example.com/docs/IM-500-eu-doc.pdf",
-          type: "gs1:ReferencedFileDetails",
-          "gs1:referencedFileType": {
+          type: "ReferencedFileDetails",
+          referencedFileType: {
             id: "gs1:ReferencedFileTypeCode-DOCUMENT"
           },
-          "gs1:contentDescription": "EU Declaration of Conformity (EU 2023/1542)",
-          "gs1:fileLanguageCode": "en"
+          contentDescription: "EU Declaration of Conformity (EU 2023/1542)",
+          fileLanguageCode: "en"
         },
         {
           id: "https://www.ecocell-batteries.example.com/docs/IM-500-test-report.pdf",
-          type: "gs1:ReferencedFileDetails",
-          "gs1:referencedFileType": {
+          type: "ReferencedFileDetails",
+          referencedFileType: {
             id: "gs1:ReferencedFileTypeCode-CERTIFICATION"
           },
-          "gs1:contentDescription": "EU Type Examination Test Report",
-          "gs1:fileLanguageCode": "en"
+          contentDescription: "EU Type Examination Test Report",
+          fileLanguageCode: "en"
         },
         {
           id: "https://www.ecocell-batteries.example.com/docs/IM-500-manual.pdf",
-          type: "gs1:ReferencedFileDetails",
-          "gs1:referencedFileType": {
+          type: "ReferencedFileDetails",
+          referencedFileType: {
             id: "gs1:ReferencedFileTypeCode-USER_MANUAL"
           },
-          "gs1:fileLanguageCode": "en"
+          fileLanguageCode: "en"
         },
         {
           id: "https://www.ecocell-batteries.example.com/docs/IM-500-cfp-study.pdf",
-          type: "gs1:ReferencedFileDetails",
-          "gs1:referencedFileType": {
+          type: "ReferencedFileDetails",
+          referencedFileType: {
             id: "gs1:ReferencedFileTypeCode-CERTIFICATION"
           },
-          "gs1:contentDescription": "Carbon Footprint Study (ISO 14067)",
-          "gs1:fileLanguageCode": "en"
+          contentDescription: "Carbon Footprint Study (ISO 14067)",
+          fileLanguageCode: "en"
         }
       ]
     }
@@ -14618,7 +14707,7 @@ var samples_default = [
         "Battery"
       ],
       gtin: "09521003000442",
-      "gs1:serialNumber": "EB2026-00821",
+      serialNumber: "EB2026-00821",
       productName: [
         {
           "@value": "VeloPower e-bike battery pack VP-48V-14Ah",
@@ -14665,7 +14754,7 @@ var samples_default = [
           "@language": "it"
         }
       ],
-      "gs1:productDescription": [
+      productDescription: [
         {
           "@value": "48 V / 14 Ah LMT (Light Means of Transport) NMC622 battery pack, eligible for stationary second-life reuse.",
           "@language": "en"
@@ -14723,33 +14812,33 @@ var samples_default = [
       manufacturer: {
         id: "https://id.dev.epcis.cloud/417/9521987000063",
         type: "Organization",
-        "gs1:organizationName": "VeloPower GmbH",
-        "gs1:gln": "9521987000063",
-        "gs1:address": {
-          type: "gs1:PostalAddress",
-          "gs1:streetAddress": "Velomotorstra\xDFe 18",
-          "gs1:addressLocality": "Friedrichshafen",
-          "gs1:postalCode": "88045",
-          "gs1:countryCode": "DE"
+        organizationName: "VeloPower GmbH",
+        gln: "9521987000063",
+        address: {
+          type: "PostalAddress",
+          streetAddress: "Velomotorstra\xDFe 18",
+          addressLocality: "Friedrichshafen",
+          postalCode: "88045",
+          countryCode: "DE"
         }
       },
       manufacturingPlace: {
         id: "https://id.dev.epcis.cloud/414/9521987000070",
-        type: "gs1:Place",
-        "gs1:gln": "9521987000070",
-        "gs1:address": {
-          type: "gs1:PostalAddress",
-          "gs1:addressLocality": "Friedrichshafen",
-          "gs1:countryCode": "DE"
+        type: "Place",
+        gln: "9521987000070",
+        address: {
+          type: "PostalAddress",
+          addressLocality: "Friedrichshafen",
+          countryCode: "DE"
         }
       },
       operatorInformation: {
         type: "dpp:OperatorInformation",
-        "gs1:gln": "9521987000063",
-        "gs1:organizationName": "VeloPower GmbH",
+        gln: "9521987000063",
+        organizationName: "VeloPower GmbH",
         operatorRole: "Manufacturer"
       },
-      "gs1:netWeight": {
+      netWeight: {
         type: "QuantitativeValue",
         value: 3.6,
         unitCode: "KGM"
@@ -14875,10 +14964,10 @@ var samples_default = [
           substanceLocation: "Electrolyte"
         }
       ],
-      "gs1:warranty": {
-        type: "gs1:WarrantyPromise",
-        "gs1:durationOfWarranty": "P2Y",
-        "gs1:warrantyScopeDescription": {
+      warranty: {
+        type: "WarrantyPromise",
+        durationOfWarranty: "P2Y",
+        warrantyScopeDescription: {
           "@value": "Manufacturer warranty: 2 years or 500 charge cycles, whichever comes first. Cell-level capacity fade guaranteed below 20% within the warranty period.",
           "@language": "en"
         }
@@ -14918,13 +15007,13 @@ var samples_default = [
           languageCode: "en"
         }
       ],
-      "gs1:regulatoryInformation": [
+      regulatoryInformation: [
         {
-          type: "gs1:RegulatoryInformation",
-          "gs1:regulationType": {
+          type: "RegulatoryInformation",
+          regulationType: {
             id: "gs1:RegulationTypeCode-BATTERY_DIRECTIVE"
           },
-          "gs1:regulatoryAct": "EU 2023/1542",
+          regulatoryAct: "EU 2023/1542",
           "gs1:isRegulationCompliant": true
         }
       ]
@@ -14946,6 +15035,7 @@ var samples_default = [
       modelIdentifier: "EV-PRO32-HDR-4K",
       deviceCategory: "Display",
       manufacturer: {
+        id: "https://id.gs1.org/417/9521234000006",
         type: "Organization",
         organizationName: "Nordic Display Solutions AB",
         gln: "9521234000006"
@@ -15184,6 +15274,7 @@ var samples_default = [
       modelIdentifier: "GB-PRO15-2025-I7",
       deviceCategory: "Laptop",
       manufacturer: {
+        id: "https://id.gs1.org/417/9521234000006",
         type: "Organization",
         organizationName: "GreenTech Computers SAS",
         gln: "9521234000006"
@@ -15549,6 +15640,7 @@ var samples_default = [
       modelIdentifier: "DCPX5-2U-64C",
       deviceCategory: "Server",
       manufacturer: {
+        id: "https://id.gs1.org/417/9521234000006",
         type: "Organization",
         organizationName: "EuroServer Systems B.V.",
         gln: "9521234000006"
@@ -15838,6 +15930,7 @@ var samples_default = [
       modelIdentifier: "EP-2025-PRO-256",
       deviceCategory: "Smartphone",
       manufacturer: {
+        id: "https://id.gs1.org/417/9521234000006",
         type: "Organization",
         organizationName: "EcoTech Electronics GmbH",
         gln: "9521234000006"
@@ -16086,7 +16179,7 @@ var samples_default = [
         "TextileFootwear"
       ],
       gtin: "09521000002159",
-      "gs1:serialNumber": "TR-2024-08521",
+      serialNumber: "TR-2024-08521",
       productName: [
         {
           "@value": "EcoStride Trail Running Shoe, Forest Green",
@@ -16133,7 +16226,7 @@ var samples_default = [
           "@language": "it"
         }
       ],
-      "gs1:productDescription": [
+      productDescription: [
         {
           "@value": "Lightweight trail running shoe with recycled upper mesh, chrome-free leather accents, and bio-based rubber outsole. Designed for trail performance and circular end-of-life.",
           "@language": "en"
@@ -16185,23 +16278,23 @@ var samples_default = [
       sizeRange: "36-48 EU",
       seasonCollection: "SS2025",
       fabricType: "Knitted",
-      "gs1:manufacturer": {
+      manufacturer: {
         id: "https://id.dev.epcis.cloud/417/9521234000006",
-        type: "gs1:Organization",
-        "gs1:organizationName": "GreenStep Footwear AG",
-        "gs1:gln": "9521234000006",
-        "gs1:address": {
+        type: "Organization",
+        organizationName: "GreenStep Footwear AG",
+        gln: "9521234000006",
+        address: {
           id: "https://id.dev.epcis.cloud/417/9521234000006#address",
-          type: "gs1:PostalAddress",
-          "gs1:streetAddress": "Via della Sostenibilita 100",
-          "gs1:addressLocality": "Montebelluna",
-          "gs1:postalCode": "31044",
-          "gs1:countryCode": "IT"
+          type: "PostalAddress",
+          streetAddress: "Via della Sostenibilita 100",
+          addressLocality: "Montebelluna",
+          postalCode: "31044",
+          countryCode: "IT"
         },
-        "gs1:contactPoint": {
-          type: "gs1:ContactPoint",
-          "gs1:email": "info@greenstep.example.com",
-          "gs1:url": {
+        contactPoint: {
+          type: "ContactPoint",
+          email: "info@greenstep.example.com",
+          url: {
             id: "https://www.greenstep.example.com"
           }
         }
@@ -16209,22 +16302,22 @@ var samples_default = [
       "dpp:operatorInformation": {
         id: "https://id.dev.epcis.cloud/417/9521234000006#operator",
         type: "dpp:OperatorInformation",
-        "gs1:gln": "9521234000006",
-        "gs1:organizationName": "GreenStep Footwear AG",
+        gln: "9521234000006",
+        organizationName: "GreenStep Footwear AG",
         "dpp:operatorRole": {
           id: "dpp:Manufacturer"
         },
-        "gs1:address": {
-          type: "gs1:PostalAddress",
-          "gs1:streetAddress": "Via della Sostenibilita 100",
-          "gs1:addressLocality": "Montebelluna",
-          "gs1:postalCode": "31044",
-          "gs1:countryCode": "IT"
+        address: {
+          type: "PostalAddress",
+          streetAddress: "Via della Sostenibilita 100",
+          addressLocality: "Montebelluna",
+          postalCode: "31044",
+          countryCode: "IT"
         }
       },
-      "gs1:countryOfOrigin": "IT",
-      "gs1:manufacturingDate": "2024-11-20",
-      "gs1:netWeight": {
+      countryOfOrigin: "IT",
+      manufacturingDate: "2024-11-20",
+      netWeight: {
         type: "QuantitativeValue",
         value: 0.54,
         unitCode: "KGM"
@@ -16386,10 +16479,10 @@ var samples_default = [
           chainOfCustodyMethod: "Certified",
           meetsTargetThreshold: true,
           verificationCertification: {
-            type: "gs1:CertificationDetails",
-            "gs1:certificationAgency": "Textile Exchange",
-            "gs1:certificationStandard": "Global Recycled Standard (GRS)",
-            "gs1:certificationIdentification": "GRS-2024-GREENSTEP-001"
+            type: "CertificationDetails",
+            certificationAgency: "Textile Exchange",
+            certificationStandard: "Global Recycled Standard (GRS)",
+            certificationIdentification: "GRS-2024-GREENSTEP-001"
           }
         }
       ],
@@ -16457,7 +16550,7 @@ var samples_default = [
         "@value": "Do not dispose in household waste. Return to GreenStep retailer or designated shoe collection point. Shoes will be disassembled for material recovery.",
         "@language": "en"
       },
-      "gs1:consumerRecyclingInstructions": {
+      consumerRecyclingInstructions: {
         "@value": "This footwear can be recycled through the GreenStep take-back program. Return to any participating retailer.",
         "@language": "en"
       },
@@ -16479,46 +16572,46 @@ var samples_default = [
         "dpp:professionalRepairNetwork": "https://www.greenstep.example.com/repair/partners"
       },
       _comment_spareparts: "Spare parts available: replacement insoles, laces, heel counters",
-      "gs1:certification": [
+      certification: [
         {
           id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-grs",
-          type: "gs1:CertificationDetails",
-          "gs1:certificationAgency": "Textile Exchange",
-          "gs1:certificationStandard": "Global Recycled Standard (GRS)",
-          "gs1:certificationIdentification": "GRS-2024-GREENSTEP-001",
-          "gs1:certificationStartDate": "2024-06-01",
-          "gs1:certificationEndDate": "2025-05-31"
+          type: "CertificationDetails",
+          certificationAgency: "Textile Exchange",
+          certificationStandard: "Global Recycled Standard (GRS)",
+          certificationIdentification: "GRS-2024-GREENSTEP-001",
+          certificationStartDate: "2024-06-01",
+          certificationEndDate: "2025-05-31"
         },
         {
           id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-lwg",
-          type: "gs1:CertificationDetails",
-          "gs1:certificationAgency": "Leather Working Group",
-          "gs1:certificationStandard": "LWG Gold Rated",
-          "gs1:certificationIdentification": "LWG-2024-GREENSTEP-002",
+          type: "CertificationDetails",
+          certificationAgency: "Leather Working Group",
+          certificationStandard: "LWG Gold Rated",
+          certificationIdentification: "LWG-2024-GREENSTEP-002",
           _comment: "Leather component certified chrome-free and from LWG Gold-rated tannery"
         },
         {
           id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-oekotex",
-          type: "gs1:CertificationDetails",
-          "gs1:certificationAgency": "OEKO-TEX Association",
-          "gs1:certificationStandard": "OEKO-TEX Standard 100 Class I",
-          "gs1:certificationIdentification": "SH025 654321 TESTEX",
+          type: "CertificationDetails",
+          certificationAgency: "OEKO-TEX Association",
+          certificationStandard: "OEKO-TEX Standard 100 Class I",
+          certificationIdentification: "SH025 654321 TESTEX",
           _comment: "Class I certification - safe for baby contact (highest safety class)"
         },
         {
           id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-fsc",
-          type: "gs1:CertificationDetails",
-          "gs1:certificationAgency": "Forest Stewardship Council",
-          "gs1:certificationStandard": "FSC 100%",
-          "gs1:certificationIdentification": "FSC-C123456",
+          type: "CertificationDetails",
+          certificationAgency: "Forest Stewardship Council",
+          certificationStandard: "FSC 100%",
+          certificationIdentification: "FSC-C123456",
           _comment: "Natural rubber from FSC-certified plantations"
         },
         {
           id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-bcorp",
-          type: "gs1:CertificationDetails",
-          "gs1:certificationAgency": "B Lab",
-          "gs1:certificationStandard": "B Corporation",
-          "gs1:certificationIdentification": "B-Corp-GREENSTEP-2024",
+          type: "CertificationDetails",
+          certificationAgency: "B Lab",
+          certificationStandard: "B Corporation",
+          certificationIdentification: "B-Corp-GREENSTEP-2024",
           _comment: "Company-level certification for social and environmental performance"
         }
       ],
@@ -16529,32 +16622,32 @@ var samples_default = [
         name: "GreenStep Montebelluna Factory",
         "dpp:facilityType": "Footwear Assembly",
         address: {
-          type: "gs1:PostalAddress",
-          "gs1:addressLocality": "Montebelluna",
-          "gs1:countryCode": "IT"
+          type: "PostalAddress",
+          addressLocality: "Montebelluna",
+          countryCode: "IT"
         },
         "dpp:facilityCertifications": [
           {
-            type: "gs1:CertificationDetails",
-            "gs1:certificationStandard": "ISO 14001:2015",
-            "gs1:certificationIdentification": "EMS-IT-2024-789"
+            type: "CertificationDetails",
+            certificationStandard: "ISO 14001:2015",
+            certificationIdentification: "EMS-IT-2024-789"
           },
           {
-            type: "gs1:CertificationDetails",
-            "gs1:certificationStandard": "ISO 45001:2018",
-            "gs1:certificationIdentification": "OHS-IT-2024-012"
+            type: "CertificationDetails",
+            certificationStandard: "ISO 45001:2018",
+            certificationIdentification: "OHS-IT-2024-012"
           },
           {
-            type: "gs1:CertificationDetails",
-            "gs1:certificationStandard": "SA8000",
-            "gs1:certificationIdentification": "SA-IT-2024-345"
+            type: "CertificationDetails",
+            certificationStandard: "SA8000",
+            certificationIdentification: "SA-IT-2024-345"
           }
         ]
       },
-      "gs1:warranty": {
-        type: "gs1:WarrantyPromise",
-        "gs1:durationOfWarranty": "P2Y",
-        "gs1:warrantyScope": "Covers manufacturing defects including delamination, stitching failures, and premature sole separation. Does not cover normal wear patterns or misuse."
+      warranty: {
+        type: "WarrantyPromise",
+        durationOfWarranty: "P2Y",
+        warrantyScope: "Covers manufacturing defects including delamination, stitching failures, and premature sole separation. Does not cover normal wear patterns or misuse."
       },
       "dpp:documents": [
         {
@@ -16581,24 +16674,24 @@ var samples_default = [
           "dpp:issueDate": "2024-03-15"
         }
       ],
-      "gs1:referencedFile": [
+      referencedFile: [
         {
           id: "https://www.greenstep.example.com/docs/ecostride-user-guide.pdf",
-          type: "gs1:ReferencedFileDetails",
-          "gs1:referencedFileType": {
+          type: "ReferencedFileDetails",
+          referencedFileType: {
             id: "gs1:ReferencedFileTypeCode-USER_MANUAL"
           },
-          "gs1:contentDescription": "Care & Maintenance Guide",
-          "gs1:fileLanguageCode": "en"
+          contentDescription: "Care & Maintenance Guide",
+          fileLanguageCode: "en"
         },
         {
           id: "https://www.greenstep.example.com/docs/ecostride-certifications.pdf",
-          type: "gs1:ReferencedFileDetails",
-          "gs1:referencedFileType": {
+          type: "ReferencedFileDetails",
+          referencedFileType: {
             id: "gs1:ReferencedFileTypeCode-CERTIFICATION"
           },
-          "gs1:contentDescription": "Product Certifications (GRS, LWG, OEKO-TEX, FSC)",
-          "gs1:fileLanguageCode": "en"
+          contentDescription: "Product Certifications (GRS, LWG, OEKO-TEX, FSC)",
+          fileLanguageCode: "en"
         }
       ],
       "dpp:accessRights": {
@@ -16649,7 +16742,7 @@ var samples_default = [
         "TextileApparel"
       ],
       gtin: "09521000001428",
-      "gs1:serialNumber": "WJ-2024-00142",
+      serialNumber: "WJ-2024-00142",
       productName: [
         {
           "@value": "Alpine Pro Winter Jacket, Navy",
@@ -16696,7 +16789,7 @@ var samples_default = [
           "@language": "it"
         }
       ],
-      "gs1:productDescription": [
+      productDescription: [
         {
           "@value": "Water-resistant insulated winter jacket with recycled polyester shell and responsibly sourced down filling. Designed for durability and warmth in alpine conditions.",
           "@language": "en"
@@ -16749,23 +16842,23 @@ var samples_default = [
       seasonCollection: "FW2024",
       fabricType: "WovenNonDenim",
       apparelSubcategory: "JacketsCoats",
-      "gs1:manufacturer": {
+      manufacturer: {
         id: "https://id.dev.epcis.cloud/417/9521000000018",
-        type: "gs1:Organization",
-        "gs1:organizationName": "EcoWear GmbH",
-        "gs1:gln": "9521000000018",
-        "gs1:address": {
+        type: "Organization",
+        organizationName: "EcoWear GmbH",
+        gln: "9521000000018",
+        address: {
           id: "https://id.dev.epcis.cloud/417/9521000000018#address",
-          type: "gs1:PostalAddress",
-          "gs1:streetAddress": "Textilstra\xDFe 25",
-          "gs1:addressLocality": "Munich",
-          "gs1:postalCode": "80331",
-          "gs1:countryCode": "DE"
+          type: "PostalAddress",
+          streetAddress: "Textilstra\xDFe 25",
+          addressLocality: "Munich",
+          postalCode: "80331",
+          countryCode: "DE"
         },
-        "gs1:contactPoint": {
-          type: "gs1:ContactPoint",
-          "gs1:email": "info@ecowear.example.com",
-          "gs1:url": {
+        contactPoint: {
+          type: "ContactPoint",
+          email: "info@ecowear.example.com",
+          url: {
             id: "https://www.ecowear.example.com"
           }
         }
@@ -16773,27 +16866,27 @@ var samples_default = [
       "dpp:operatorInformation": {
         id: "https://id.dev.epcis.cloud/417/9521000000018#operator",
         type: "dpp:OperatorInformation",
-        "gs1:gln": "9521000000018",
-        "gs1:organizationName": "EcoWear GmbH",
+        gln: "9521000000018",
+        organizationName: "EcoWear GmbH",
         "dpp:operatorRole": {
           id: "dpp:Manufacturer"
         },
-        "gs1:address": {
-          type: "gs1:PostalAddress",
-          "gs1:streetAddress": "Textilstra\xDFe 25",
-          "gs1:addressLocality": "Munich",
-          "gs1:postalCode": "80331",
-          "gs1:countryCode": "DE"
+        address: {
+          type: "PostalAddress",
+          streetAddress: "Textilstra\xDFe 25",
+          addressLocality: "Munich",
+          postalCode: "80331",
+          countryCode: "DE"
         },
-        "gs1:contactPoint": {
-          type: "gs1:ContactPoint",
-          "gs1:email": "sustainability@ecowear.example.com",
-          "gs1:telephone": "+49-89-555-0100"
+        contactPoint: {
+          type: "ContactPoint",
+          email: "sustainability@ecowear.example.com",
+          telephone: "+49-89-555-0100"
         }
       },
-      "gs1:countryOfOrigin": "PT",
-      "gs1:manufacturingDate": "2024-09-15",
-      "gs1:netWeight": {
+      countryOfOrigin: "PT",
+      manufacturingDate: "2024-09-15",
+      netWeight: {
         type: "QuantitativeValue",
         value: 0.85,
         unitCode: "KGM"
@@ -16982,10 +17075,10 @@ var samples_default = [
           chainOfCustodyMethod: "Certified",
           meetsTargetThreshold: true,
           verificationCertification: {
-            type: "gs1:CertificationDetails",
-            "gs1:certificationAgency": "Textile Exchange",
-            "gs1:certificationStandard": "Global Recycled Standard (GRS)",
-            "gs1:certificationIdentification": "GRS-2024-ECOWEAR-001"
+            type: "CertificationDetails",
+            certificationAgency: "Textile Exchange",
+            certificationStandard: "Global Recycled Standard (GRS)",
+            certificationIdentification: "GRS-2024-ECOWEAR-001"
           }
         },
         {
@@ -17079,7 +17172,7 @@ var samples_default = [
         "@value": "Remove all metal components (zippers, snaps) before textile recycling. Down can be recovered separately.",
         "@language": "en"
       },
-      "gs1:consumerRecyclingInstructions": {
+      consumerRecyclingInstructions: {
         "@value": "This product can be returned to any EcoWear store for recycling. Do not dispose of in household waste.",
         "@language": "en"
       },
@@ -17091,18 +17184,18 @@ var samples_default = [
         {
           id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#repair-service",
           type: "Organization",
-          "gs1:organizationName": "EcoWear Repair Service",
-          "gs1:address": {
-            type: "gs1:PostalAddress",
-            "gs1:streetAddress": "Reparaturweg 5",
-            "gs1:addressLocality": "Munich",
-            "gs1:postalCode": "80333",
-            "gs1:countryCode": "DE"
+          organizationName: "EcoWear Repair Service",
+          address: {
+            type: "PostalAddress",
+            streetAddress: "Reparaturweg 5",
+            addressLocality: "Munich",
+            postalCode: "80333",
+            countryCode: "DE"
           },
-          "gs1:contactPoint": {
-            type: "gs1:ContactPoint",
-            "gs1:email": "repair@ecowear.example.com",
-            "gs1:url": {
+          contactPoint: {
+            type: "ContactPoint",
+            email: "repair@ecowear.example.com",
+            url: {
               id: "https://repair.ecowear.example.com"
             }
           }
@@ -17121,38 +17214,38 @@ var samples_default = [
         "dpp:diyRepairPossible": true,
         "dpp:professionalRepairNetwork": "https://repair.ecowear.example.com/find-service"
       },
-      "gs1:certification": [
+      certification: [
         {
           id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-grs",
-          type: "gs1:CertificationDetails",
-          "gs1:certificationAgency": "Textile Exchange",
-          "gs1:certificationStandard": "Global Recycled Standard (GRS)",
-          "gs1:certificationIdentification": "GRS-2024-ECOWEAR-001",
-          "gs1:certificationStartDate": "2024-01-15",
-          "gs1:certificationEndDate": "2025-01-14"
+          type: "CertificationDetails",
+          certificationAgency: "Textile Exchange",
+          certificationStandard: "Global Recycled Standard (GRS)",
+          certificationIdentification: "GRS-2024-ECOWEAR-001",
+          certificationStartDate: "2024-01-15",
+          certificationEndDate: "2025-01-14"
         },
         {
           id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-oekotex",
-          type: "gs1:CertificationDetails",
-          "gs1:certificationAgency": "OEKO-TEX Association",
-          "gs1:certificationStandard": "OEKO-TEX Standard 100",
-          "gs1:certificationIdentification": "SH025 123456 TESTEX",
-          "gs1:certificationStartDate": "2024-03-01",
-          "gs1:certificationEndDate": "2025-02-28"
+          type: "CertificationDetails",
+          certificationAgency: "OEKO-TEX Association",
+          certificationStandard: "OEKO-TEX Standard 100",
+          certificationIdentification: "SH025 123456 TESTEX",
+          certificationStartDate: "2024-03-01",
+          certificationEndDate: "2025-02-28"
         },
         {
           id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-bluesign",
-          type: "gs1:CertificationDetails",
-          "gs1:certificationAgency": "bluesign technologies ag",
-          "gs1:certificationStandard": "bluesign PRODUCT",
-          "gs1:certificationIdentification": "BS-2024-ECOWEAR-AP"
+          type: "CertificationDetails",
+          certificationAgency: "bluesign technologies ag",
+          certificationStandard: "bluesign PRODUCT",
+          certificationIdentification: "BS-2024-ECOWEAR-AP"
         },
         {
           id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-rds",
-          type: "gs1:CertificationDetails",
-          "gs1:certificationAgency": "Textile Exchange",
-          "gs1:certificationStandard": "Responsible Down Standard (RDS)",
-          "gs1:certificationIdentification": "RDS-2024-ECOWEAR-002"
+          type: "CertificationDetails",
+          certificationAgency: "Textile Exchange",
+          certificationStandard: "Responsible Down Standard (RDS)",
+          certificationIdentification: "RDS-2024-ECOWEAR-002"
         }
       ],
       cutAndSewFacility: {
@@ -17162,20 +17255,20 @@ var samples_default = [
         name: "Porto Textile Manufacturing",
         "dpp:facilityType": "Cut and Sew",
         address: {
-          type: "gs1:PostalAddress",
-          "gs1:addressLocality": "Porto",
-          "gs1:countryCode": "PT"
+          type: "PostalAddress",
+          addressLocality: "Porto",
+          countryCode: "PT"
         },
         "dpp:facilityCertifications": [
           {
-            type: "gs1:CertificationDetails",
-            "gs1:certificationStandard": "ISO 14001:2015",
-            "gs1:certificationIdentification": "EMS-PT-2024-123"
+            type: "CertificationDetails",
+            certificationStandard: "ISO 14001:2015",
+            certificationIdentification: "EMS-PT-2024-123"
           },
           {
-            type: "gs1:CertificationDetails",
-            "gs1:certificationStandard": "SA8000",
-            "gs1:certificationIdentification": "SA-PT-2024-456"
+            type: "CertificationDetails",
+            certificationStandard: "SA8000",
+            certificationIdentification: "SA-PT-2024-456"
           }
         ]
       },
@@ -17186,22 +17279,22 @@ var samples_default = [
         name: "Eco Dyeing Italy",
         "dpp:facilityType": "Dyeing and Finishing",
         address: {
-          type: "gs1:PostalAddress",
-          "gs1:addressLocality": "Como",
-          "gs1:countryCode": "IT"
+          type: "PostalAddress",
+          addressLocality: "Como",
+          countryCode: "IT"
         },
         "dpp:facilityCertifications": [
           {
-            type: "gs1:CertificationDetails",
-            "gs1:certificationStandard": "ZDHC MRSL v3.1",
-            "gs1:certificationIdentification": "ZDHC-IT-2024-789"
+            type: "CertificationDetails",
+            certificationStandard: "ZDHC MRSL v3.1",
+            certificationIdentification: "ZDHC-IT-2024-789"
           }
         ]
       },
-      "gs1:warranty": {
-        type: "gs1:WarrantyPromise",
-        "gs1:durationOfWarranty": "P2Y",
-        "gs1:warrantyScope": "Covers manufacturing defects. Does not cover normal wear, improper care, or accidental damage."
+      warranty: {
+        type: "WarrantyPromise",
+        durationOfWarranty: "P2Y",
+        warrantyScope: "Covers manufacturing defects. Does not cover normal wear, improper care, or accidental damage."
       },
       "dpp:documents": [
         {
@@ -17228,24 +17321,24 @@ var samples_default = [
           "dpp:issueDate": "2024-04-01"
         }
       ],
-      "gs1:referencedFile": [
+      referencedFile: [
         {
           id: "https://www.ecowear.example.com/docs/alpine-pro-user-guide.pdf",
-          type: "gs1:ReferencedFileDetails",
-          "gs1:referencedFileType": {
+          type: "ReferencedFileDetails",
+          referencedFileType: {
             id: "gs1:ReferencedFileTypeCode-USER_MANUAL"
           },
-          "gs1:contentDescription": "User and Care Guide",
-          "gs1:fileLanguageCode": "en"
+          contentDescription: "User and Care Guide",
+          fileLanguageCode: "en"
         },
         {
           id: "https://www.ecowear.example.com/docs/alpine-pro-certifications.pdf",
-          type: "gs1:ReferencedFileDetails",
-          "gs1:referencedFileType": {
+          type: "ReferencedFileDetails",
+          referencedFileType: {
             id: "gs1:ReferencedFileTypeCode-CERTIFICATION"
           },
-          "gs1:contentDescription": "Product Certifications (GRS, OEKO-TEX, bluesign, RDS)",
-          "gs1:fileLanguageCode": "en"
+          contentDescription: "Product Certifications (GRS, OEKO-TEX, bluesign, RDS)",
+          fileLanguageCode: "en"
         }
       ],
       "dpp:accessRights": {
@@ -17273,14 +17366,14 @@ var samples_default = [
       _comment_gs1_alignment: [
         "This example demonstrates ITIP (Individual Trade Item Piece) identification for a multi-piece trade item.",
         "A two-piece suit is sold under a single GTIN but consists of two physical pieces (jacket + trousers).",
-        "Pattern aligned with GS1 GSMP Work Request WR 25-212 (Community Review).",
+        "Pattern aligned with GS1 ITIP (AI 8026).",
         "Key GS1 patterns used:",
         "- GS1 Digital Link URI for the parent trade item (the suit set)",
         "- dpp:tradeItemPieceCount on the parent product (2 pieces)",
         "- dpp:IndividualTradeItemPiece for each constituent piece, each with its own AI 8026 identifier",
         "- GS1 AI 8026 encodes GTIN + total piece count + this piece's number",
         "- All pieces share the same GTIN; individual identification is via piece number",
-        "Reference: WR 25-212 (https://xchange.gs1.org/cr/gsmp)"
+        "Reference: GS1 ITIP (AI 8026) (https://ref.gs1.org/ai/8026)"
       ],
       "@context": [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
@@ -17296,7 +17389,7 @@ var samples_default = [
         "TextileApparel"
       ],
       gtin: "09521000004207",
-      "gs1:serialNumber": "SUIT-2026-00042",
+      serialNumber: "SUIT-2026-00042",
       productName: [
         {
           "@value": "Classic Business Suit, Charcoal (2-piece)",
@@ -17343,7 +17436,7 @@ var samples_default = [
           "@language": "it"
         }
       ],
-      "gs1:productDescription": [
+      productDescription: [
         {
           "@value": "Two-piece tailored wool suit with subtle pinstripe, single-breasted notch-lapel jacket and matching flat-front trousers. Jacket and trousers are linked via GS1 AI 8026 (ITIP) so the set is tracked as one trade item.",
           "@language": "en"
@@ -17415,20 +17508,20 @@ var samples_default = [
           _comment_itip_ai8026: "AI 8026 for piece 2 of 2: 09521000004207 + 02 + 02."
         }
       ],
-      "gs1:manufacturer": {
+      manufacturer: {
         id: "https://id.dev.epcis.cloud/417/9521000000018",
         type: "Organization",
         organizationName: "EcoWear GmbH",
         gln: "9521000000018",
-        "gs1:address": {
-          type: "gs1:PostalAddress",
-          "gs1:streetAddress": "Textilstra\xDFe 25",
-          "gs1:addressLocality": "Munich",
-          "gs1:postalCode": "80331",
-          "gs1:addressCountry": "DE"
+        address: {
+          type: "PostalAddress",
+          streetAddress: "Textilstra\xDFe 25",
+          addressLocality: "Munich",
+          postalCode: "80331",
+          addressCountry: "DE"
         }
       },
-      "gs1:netWeight": {
+      netWeight: {
         type: "QuantitativeValue",
         value: "1.4",
         unitCode: "KGM"
@@ -17436,29 +17529,29 @@ var samples_default = [
       textileMaterial: [
         {
           type: "TextileMaterialDetails",
-          "gs1:textileFibreName": "Wool",
-          "gs1:textileFibrePercentage": 80
+          textileFibreName: "Wool",
+          textileFibrePercentage: 80
         },
         {
           type: "TextileMaterialDetails",
-          "gs1:textileFibreName": "Polyester",
-          "gs1:textileFibrePercentage": 20
+          textileFibreName: "Polyester",
+          textileFibrePercentage: 20
         }
       ],
-      "gs1:regulatoryInformation": [
+      regulatoryInformation: [
         {
-          type: "gs1:RegulatoryInformation",
-          "gs1:regulationType": {
+          type: "RegulatoryInformation",
+          regulationType: {
             id: "gs1:RegulationTypeCode-TEXTILE_FIBRE_REGULATION"
           },
-          "gs1:regulatoryAct": "EU 1007/2011",
+          regulatoryAct: "EU 1007/2011",
           "gs1:isRegulationCompliant": true
         }
       ],
       _notes: [
-        "Pattern status: Reference pattern aligned with GS1 GSMP Work Request WR 25-212 (Community Review). May evolve per eBallot outcome.",
+        "Pattern status: Reference pattern aligned with GS1 ITIP (AI 8026). May evolve as GS1 standardization settles.",
         "Why ITIP: Apparel sets (suits, uniforms, matching sets), flat-pack furniture with multiple cartons, and bundled electronics (tablet + keyboard + stylus) all benefit from piece-level traceability without requiring separate GTINs per piece. AI 8026 provides a compact, scannable identifier per piece while preserving the single-GTIN commercial model.",
-        "DPP implication: For products requiring a Digital Product Passport, ITIP identification enables piece-level lifecycle tracking (e.g., the jacket of a suit can be repaired independently of the trousers) while the DPP itself is scoped at the trade-item level. This matches the apparel use case the Apparel DPP Sub-team is scoping for Q2 2027 requirements gathering."
+        "DPP implication: For products requiring a Digital Product Passport, ITIP identification enables piece-level lifecycle tracking (e.g., the jacket of a suit can be repaired independently of the trousers) while the DPP itself is scoped at the trade-item level. This matches apparel DPP requirements being scoped for 2027."
       ]
     }
   },
@@ -17490,7 +17583,7 @@ var samples_default = [
         "TextileApparel"
       ],
       gtin: "09521001001380",
-      "gs1:serialNumber": "BL-2026-04201",
+      serialNumber: "BL-2026-04201",
       productName: [
         {
           "@value": "Casa Lina Organic Cotton Bed Linen Set, duvet cover + pillowcase, 200\xD7220 cm",
@@ -17537,7 +17630,7 @@ var samples_default = [
           "@language": "it"
         }
       ],
-      "gs1:productDescription": [
+      productDescription: [
         {
           "@value": "Two-piece bed linen set in 100% GOTS-certified organic cotton percale, woven for high durability and laundered to OEKO-TEX Class I (skin contact). Designed for repair and return at end of life.",
           "@language": "en"
@@ -17587,33 +17680,33 @@ var samples_default = [
       fabricType: "WovenNonDenim",
       targetGender: "Unisex",
       seasonCollection: "SS2026",
-      "gs1:manufacturer": {
+      manufacturer: {
         id: "https://id.dev.epcis.cloud/417/9521987000056",
-        type: "gs1:Organization",
-        "gs1:organizationName": "Casa Lina GmbH",
-        "gs1:gln": "9521987000056",
-        "gs1:address": {
-          type: "gs1:PostalAddress",
-          "gs1:streetAddress": "Webergasse 11",
-          "gs1:addressLocality": "Wuppertal",
-          "gs1:postalCode": "42103",
-          "gs1:countryCode": "DE"
+        type: "Organization",
+        organizationName: "Casa Lina GmbH",
+        gln: "9521987000056",
+        address: {
+          type: "PostalAddress",
+          streetAddress: "Webergasse 11",
+          addressLocality: "Wuppertal",
+          postalCode: "42103",
+          countryCode: "DE"
         }
       },
-      "gs1:netWeight": {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": 1.45,
-        "gs1:unitCode": "KGM"
+      netWeight: {
+        type: "QuantitativeValue",
+        value: 1.45,
+        unitCode: "KGM"
       },
-      "gs1:textileMaterial": [
+      textileMaterial: [
         {
-          type: "gs1:TextileMaterialDetails",
-          "gs1:textileFibreContentPercentage": 100,
-          "gs1:textileFibreCommonName": "Organic cotton",
-          "gs1:textileFibreScientificName": "Gossypium hirsutum",
-          "gs1:countryOfOrigin": {
+          type: "TextileMaterialDetails",
+          textileFibreContentPercentage: 100,
+          textileFibreCommonName: "Organic cotton",
+          textileFibreScientificName: "Gossypium hirsutum",
+          countryOfOrigin: {
             id: "https://ref.gs1.org/voc/Country-IN",
-            type: "gs1:Country"
+            type: "Country"
           }
         }
       ],
@@ -17656,22 +17749,22 @@ var samples_default = [
           "@language": "en"
         }
       },
-      "gs1:certification": [
+      certification: [
         {
-          type: "gs1:CertificationDetails",
-          "gs1:certificationSubject": "Organic cotton fibre supply chain",
-          "gs1:certificationAgency": "Global Organic Textile Standard",
-          "gs1:certificationStandard": "GOTS v7.0",
-          "gs1:certificationIdentification": "GOTS-DE-2026-LINA-0042",
-          "gs1:certificationURI": "https://www.global-standard.org/find-certified-suppliers"
+          type: "CertificationDetails",
+          certificationSubject: "Organic cotton fibre supply chain",
+          certificationAgency: "Global Organic Textile Standard",
+          certificationStandard: "GOTS v7.0",
+          certificationIdentification: "GOTS-DE-2026-LINA-0042",
+          certificationURI: "https://www.global-standard.org/find-certified-suppliers"
         },
         {
-          type: "gs1:CertificationDetails",
-          "gs1:certificationSubject": "Hazardous-substance compliance",
-          "gs1:certificationAgency": "OEKO-TEX",
-          "gs1:certificationStandard": "OEKO-TEX Standard 100 Class I",
-          "gs1:certificationIdentification": "OEKO-TEX-100-2026-IN-2841",
-          "gs1:certificationURI": "https://www.oeko-tex.com/en/our-standards/oeko-tex-standard-100"
+          type: "CertificationDetails",
+          certificationSubject: "Hazardous-substance compliance",
+          certificationAgency: "OEKO-TEX",
+          certificationStandard: "OEKO-TEX Standard 100 Class I",
+          certificationIdentification: "OEKO-TEX-100-2026-IN-2841",
+          certificationURI: "https://www.oeko-tex.com/en/our-standards/oeko-tex-standard-100"
         }
       ],
       environmentalFootprint: {
@@ -17679,13 +17772,13 @@ var samples_default = [
         carbonFootprintManufacturing: 6.4,
         pefcrReference: "PEFCR Apparel & Footwear v2.0 (2023)"
       },
-      "gs1:regulatoryInformation": [
+      regulatoryInformation: [
         {
-          type: "gs1:RegulatoryInformation",
-          "gs1:regulationType": {
+          type: "RegulatoryInformation",
+          regulationType: {
             id: "gs1:RegulationTypeCode-TEXTILE"
           },
-          "gs1:regulatoryAct": "EU ESPR 2024/1781",
+          regulatoryAct: "EU ESPR 2024/1781",
           "gs1:isRegulationCompliant": true
         }
       ]
@@ -17704,7 +17797,7 @@ var samples_default = [
       gtin: "09521234000037",
       serialNumber: "TABLE-2025-001",
       productName: "Solid Oak Dining Table",
-      "gs1:productDescription": "Handcrafted solid oak dining table made from certified deforestation-free European oak timber.",
+      productDescription: "Handcrafted solid oak dining table made from certified deforestation-free European oak timber.",
       commodityType: "Wood",
       timberProductType: "Furniture",
       customsCommodityCode: "94036010",
@@ -17712,9 +17805,9 @@ var samples_default = [
       speciesScientificName: "Quercus robur",
       speciesCommonName: "European Oak",
       netWeight: {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": 45,
-        "gs1:unitCode": "KGM"
+        type: "QuantitativeValue",
+        value: 45,
+        unitCode: "KGM"
       },
       derivedFrom: [
         {
@@ -17738,7 +17831,7 @@ var samples_default = [
       },
       countryOfOrigin: {
         type: "Country",
-        "gs1:countryCode": "DE"
+        countryCode: "DE"
       },
       deforestationFreeDate: "2025-01-15",
       legallyHarvested: true,
@@ -17795,6 +17888,12 @@ var samples_default = [
       ],
       type: "Product",
       id: "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
+      manufacturer: {
+        id: "https://id.gs1.org/417/9521234000037",
+        type: "Organization",
+        organizationName: "Brandenburg Forestry GmbH",
+        gln: "9521234000037"
+      },
       _comment: "Product master data using standard GS1 vocabulary. EUDR-specific properties (species, harvest) use eudr: extensions. Uses GS1 demo prefix 952 (7-digit GCP: 9521234).",
       productName: [
         {
@@ -17803,13 +17902,13 @@ var samples_default = [
         }
       ],
       gtin: "09521234000020",
-      "gs1:regulatedProductName": [
+      regulatedProductName: [
         {
           "@value": "Round wood of oak (Quercus spp.)",
           "@language": "en"
         }
       ],
-      "gs1:productDescription": [
+      productDescription: [
         {
           "@value": "Premium European Oak logs harvested from certified sustainable forest in Brandenburg, Germany. FSC certified.",
           "@language": "en"
@@ -17818,13 +17917,13 @@ var samples_default = [
       countryOfOrigin: [
         {
           type: "Country",
-          "gs1:countryCode": "DE"
+          countryCode: "DE"
         }
       ],
       netWeight: {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": 850,
-        "gs1:unitCode": "KGM"
+        type: "QuantitativeValue",
+        value: 850,
+        unitCode: "KGM"
       },
       customsCommodityCode: "4403",
       customsCommodityCodeType: "HS6",
@@ -18809,7 +18908,7 @@ var samples_default = [
         "@value": "EcoClean PowerTabs All-in-1 Dishwasher Capsules",
         "@language": "en"
       },
-      "gs1:productDescription": {
+      productDescription: {
         "@value": "All-in-one dishwasher capsules with water-soluble biodegradable film. Contains detergent, rinse aid, and salt function. Fragrance-free.",
         "@language": "en"
       },
@@ -18818,17 +18917,17 @@ var samples_default = [
       intendedUse: "Automatic dishwashing machines, 1 capsule per cycle",
       customsCommodityCode: "34022090",
       customsCommodityCodeType: "CN8",
-      "gs1:manufacturer": {
+      manufacturer: {
         id: "https://id.gs1.org/417/9521234000006",
         type: "Organization",
         organizationName: "EcoClean Industries GmbH",
         gln: "9521234000006",
         address: {
           type: "PostalAddress",
-          "gs1:streetAddress": "Industriestra\xDFe 42",
-          "gs1:addressLocality": "Hamburg",
-          "gs1:postalCode": "20457",
-          "gs1:countryCode": "DE"
+          streetAddress: "Industriestra\xDFe 42",
+          addressLocality: "Hamburg",
+          postalCode: "20457",
+          countryCode: "DE"
         }
       },
       "dpp:operatorInformation": {
@@ -18840,8 +18939,8 @@ var samples_default = [
           id: "dpp:Manufacturer"
         }
       },
-      "gs1:countryOfOrigin": "DE",
-      "gs1:netContent": {
+      countryOfOrigin: "DE",
+      netContent: {
         type: "QuantitativeValue",
         value: 30,
         unitCode: "H87"
@@ -18998,7 +19097,7 @@ var samples_default = [
         "@value": "EcoClean Pro Liquid Laundry Detergent - Sensitive",
         "@language": "en"
       },
-      "gs1:productDescription": {
+      productDescription: {
         "@value": "Concentrated liquid laundry detergent for sensitive skin. Dermatologically tested, phosphate-free formula with plant-based surfactants.",
         "@language": "en"
       },
@@ -19007,17 +19106,17 @@ var samples_default = [
       intendedUse: "Machine and hand washing of textiles at 20-60\xB0C",
       customsCommodityCode: "34022090",
       customsCommodityCodeType: "CN8",
-      "gs1:manufacturer": {
+      manufacturer: {
         id: "https://id.gs1.org/417/9521234000006",
         type: "Organization",
         organizationName: "EcoClean Industries GmbH",
         gln: "9521234000006",
         address: {
           type: "PostalAddress",
-          "gs1:streetAddress": "Industriestra\xDFe 42",
-          "gs1:addressLocality": "Hamburg",
-          "gs1:postalCode": "20457",
-          "gs1:countryCode": "DE"
+          streetAddress: "Industriestra\xDFe 42",
+          addressLocality: "Hamburg",
+          postalCode: "20457",
+          countryCode: "DE"
         }
       },
       "dpp:operatorInformation": {
@@ -19028,16 +19127,16 @@ var samples_default = [
         "dpp:operatorRole": {
           id: "dpp:Manufacturer"
         },
-        "gs1:address": {
+        address: {
           type: "PostalAddress",
-          "gs1:streetAddress": "Industriestra\xDFe 42",
-          "gs1:addressLocality": "Hamburg",
-          "gs1:postalCode": "20457",
-          "gs1:countryCode": "DE"
+          streetAddress: "Industriestra\xDFe 42",
+          addressLocality: "Hamburg",
+          postalCode: "20457",
+          countryCode: "DE"
         }
       },
-      "gs1:countryOfOrigin": "DE",
-      "gs1:netContent": {
+      countryOfOrigin: "DE",
+      netContent: {
         type: "QuantitativeValue",
         value: 1500,
         unitCode: "MLT"
@@ -19244,13 +19343,13 @@ var samples_default = [
       gpcCategoryCode: "10006423",
       foodTraceabilityListCategory: "LeafyGreensFreshCut",
       netWeight: {
-        type: "gs1:QuantitativeValue",
-        "gs1:value": 11.34,
-        "gs1:unitCode": "KGM"
+        type: "QuantitativeValue",
+        value: 11.34,
+        unitCode: "KGM"
       },
       countryOfOrigin: {
-        type: "gs1:Country",
-        "gs1:countryCode": "US"
+        type: "Country",
+        countryCode: "US"
       },
       manufacturer: {
         id: "https://id.gs1.org/417/0860009999060",

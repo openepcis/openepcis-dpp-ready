@@ -32,7 +32,7 @@ GS1 has not yet addressed, and where the GS1 model is expected to evolve.
 
 These `eudr:` terms exist because the GS1 Web Vocabulary defines no
 equivalent as of Release P. Each is marked `dcterms:source` to the
-originating regulation or GSMP Work Request.
+originating regulation or to ongoing GS1 standardization.
 
 | Concept | OpenEPCIS term | Why an extension |
 |---------|----------------|-------------------|
@@ -46,24 +46,17 @@ originating regulation or GSMP Work Request.
 | Forest management unit | `eudr:forestManagementUnit` | No GS1 equivalent. |
 | Exemption declarations | `eudr:ExemptionDeclaration` + family | See next section. |
 
-## Exemption declarations — provisional pending GSMP publication
+## Exemption declarations — provisional pending GS1 standardization
 
-**Status as of 2026-04-17:** GS1 EUDR Release P defines **no** exemption
-terms. The GS1 Web Vocabulary has no `gs1:regulatoryExemption` property,
-no `gs1:RegulatoryExemption` class, and no exemption-type enum.
+**Status:** GS1 EUDR Release P defines **no** exemption terms. The GS1 Web
+Vocabulary has no `gs1:regulatoryExemption` property, no
+`gs1:RegulatoryExemption` class, and no exemption-type enum.
 
-**In-flight GS1 work** the community previewed at the
-**GS1 EUDR MSWG on 13 April 2026** (chair: Craig Alan Repec, GS1 GO):
-
-- **WR 25-252** — EUDR exemption handling in EANCOM and GS1 XML.
-- **WR 26-122** — EUDR exemption handling in GDSN master data.
-- Planned EPCIS/JSON-LD model: when an exemption applies, GS1's
-  `gs1:regulatoryIdentifier` becomes **optional** and is replaced by a
-  new `gs1:regulatoryExemption` property. Two exemption kinds
-  (permanent, temporary).
-
-Neither the WR drafts nor the new `gs1:regulatoryExemption` term are
-publicly visible as of this writing.
+**In-flight GS1 work.** GS1 standardization for EUDR exemption handling across
+EANCOM, GS1 XML, and GDSN is in progress. The anticipated direction: when an
+exemption applies, a `gs1:regulatoryIdentifier` becomes optional and is paired
+with a new `gs1:regulatoryExemption` property, with permanent and temporary
+exemption kinds. The corresponding GS1 terms are not yet publicly published.
 
 **Our provisional pattern.** We define `eudr:`-namespaced classes and
 properties that carry the same semantics:
@@ -73,7 +66,7 @@ properties that carry the same semantics:
 | `eudr:ExemptionDeclaration` (class) | `gs1:RegulatoryExemption` (planned) |
 | `eudr:exemptionDeclaration` (property) | `gs1:regulatoryExemption` (planned) |
 | `eudr:ExemptionType` + `eudr:PermanentExemption` / `eudr:TemporaryExemption` | `gs1:RegulatoryExemptionTypeCode` enum (planned) |
-| `eudr:exemptionReasonCode` | planned (per WR 25-252) |
+| `eudr:exemptionReasonCode` | planned |
 | `eudr:exemptionScope` + `eudr:exemptionScopeReference` | planned |
 | `eudr:exemptionEffectiveFrom` / `…Until` | planned |
 | `eudr:exemptionAuthority` (→ `dpp:OperatorInformation`) | planned |
@@ -93,7 +86,7 @@ replaces it) and the exemption itself rides as an event-level
 
 ## Multi-DDS per outbound batch
 
-The 13 April 2026 MSWG acknowledged that one outbound batch may derive
+GS1 standardization has acknowledged that one outbound batch may derive
 from multiple imported raw-material batches, each with its own DDS. The
 GS1 model supports this today (multiple `gs1:regulatoryIdentifier`
 entries) but the result is redundant. Community work is ongoing to
@@ -105,7 +98,7 @@ aggregation structure.
 
 ## Importer–manufacturer scenario (Commission Scenario 5)
 
-Per the 13 April 2026 MSWG: a company that imports a raw material and
+Under the anticipated GS1 model: a company that imports a raw material and
 internally transforms it into a finished product places the DDS on the
 imported raw material, not on the finished product. This interpretation
 is reflected in how our derived-product examples
@@ -124,7 +117,7 @@ the raw-material GTINs — the DDS lives on the raw material.
   codes to `dpp:customsCommodityCode` + `dpp:customsCommodityCodeType`.
   Fixed references to non-existent `gs1:isRegulationCompliant` (→
   `dpp:isRegulationCompliant`).
-- **2026-04-13**: GS1 EUDR MSWG previewed exemption model; noted for
+- **2026-04-13**: Noted the in-flight GS1 exemption model for
   follow-up here.
 
 ## References
@@ -136,4 +129,3 @@ the raw-material GTINs — the DDS lives on the raw material.
   <https://ref.gs1.org/standards/eudr/context.jsonld>
 - EU Commission EUDR implementation guidance (25 March 2026): published
   on the Commission Europa portal (not mirrored here).
-- GS1 EUDR MSWG meeting minutes, 13 April 2026 (cited internally).

@@ -70,7 +70,7 @@ use 952 for real-world identification.
 - [`eudr/epcis/due-diligence-statement.jsonld`](../eudr/epcis/due-diligence-statement.jsonld)
   — Full DDS declaration with EUIS reference number, risk level, verification method.
 - [`eudr/epcis/exemption-declaration.jsonld`](../eudr/epcis/exemption-declaration.jsonld)
-  — **NEW:** EUDR exemption pattern (WR 25-252 reference implementation).
+  — **NEW:** EUDR exemption pattern (reference implementation).
 
 ---
 
@@ -84,7 +84,7 @@ use 952 for real-world identification.
   — Running shoe with material composition and durability attributes.
 - [`textile/examples/garment-set-itip.jsonld`](../textile/examples/garment-set-itip.jsonld)
   — Two-piece business suit demonstrating ITIP (AI 8026)
-  piece-level identification (WR 25-212 reference implementation).
+  piece-level identification (GS1 ITIP, AI 8026).
 - [`textile/examples/hometextile-bedlinen.jsonld`](../textile/examples/hometextile-bedlinen.jsonld)
   — **NEW:** Organic-cotton bed linen set (HomeTextile sub-category);
   GOTS + OEKO-TEX certifications, ESPR-Annex-V durability metrics,

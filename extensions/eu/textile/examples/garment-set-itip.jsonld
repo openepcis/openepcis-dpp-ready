@@ -2,14 +2,14 @@
   "_comment_gs1_alignment": [
     "This example demonstrates ITIP (Individual Trade Item Piece) identification for a multi-piece trade item.",
     "A two-piece suit is sold under a single GTIN but consists of two physical pieces (jacket + trousers).",
-    "Pattern aligned with GS1 GSMP Work Request WR 25-212 (Community Review).",
+    "Pattern aligned with GS1 ITIP (AI 8026).",
     "Key GS1 patterns used:",
     "- GS1 Digital Link URI for the parent trade item (the suit set)",
     "- dpp:tradeItemPieceCount on the parent product (2 pieces)",
     "- dpp:IndividualTradeItemPiece for each constituent piece, each with its own AI 8026 identifier",
     "- GS1 AI 8026 encodes GTIN + total piece count + this piece's number",
     "- All pieces share the same GTIN; individual identification is via piece number",
-    "Reference: WR 25-212 (https://xchange.gs1.org/cr/gsmp)"
+    "Reference: GS1 ITIP (AI 8026) (https://ref.gs1.org/ai/8026)"
   ],
   "@context": [
     "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
@@ -25,7 +25,7 @@
     "TextileApparel"
   ],
   "gtin": "09521000004207",
-  "gs1:serialNumber": "SUIT-2026-00042",
+  "serialNumber": "SUIT-2026-00042",
   "productName": [
     {
       "@value": "Classic Business Suit, Charcoal (2-piece)",
@@ -72,7 +72,7 @@
       "@language": "it"
     }
   ],
-  "gs1:productDescription": [
+  "productDescription": [
     {
       "@value": "Two-piece tailored wool suit with subtle pinstripe, single-breasted notch-lapel jacket and matching flat-front trousers. Jacket and trousers are linked via GS1 AI 8026 (ITIP) so the set is tracked as one trade item.",
       "@language": "en"
@@ -144,20 +144,20 @@
       "_comment_itip_ai8026": "AI 8026 for piece 2 of 2: 09521000004207 + 02 + 02."
     }
   ],
-  "gs1:manufacturer": {
+  "manufacturer": {
     "id": "https://id.dev.epcis.cloud/417/9521000000018",
     "type": "Organization",
     "organizationName": "EcoWear GmbH",
     "gln": "9521000000018",
-    "gs1:address": {
-      "type": "gs1:PostalAddress",
-      "gs1:streetAddress": "Textilstraße 25",
-      "gs1:addressLocality": "Munich",
-      "gs1:postalCode": "80331",
-      "gs1:addressCountry": "DE"
+    "address": {
+      "type": "PostalAddress",
+      "streetAddress": "Textilstraße 25",
+      "addressLocality": "Munich",
+      "postalCode": "80331",
+      "addressCountry": "DE"
     }
   },
-  "gs1:netWeight": {
+  "netWeight": {
     "type": "QuantitativeValue",
     "value": "1.4",
     "unitCode": "KGM"
@@ -165,28 +165,28 @@
   "textileMaterial": [
     {
       "type": "TextileMaterialDetails",
-      "gs1:textileFibreName": "Wool",
-      "gs1:textileFibrePercentage": 80
+      "textileFibreName": "Wool",
+      "textileFibrePercentage": 80
     },
     {
       "type": "TextileMaterialDetails",
-      "gs1:textileFibreName": "Polyester",
-      "gs1:textileFibrePercentage": 20
+      "textileFibreName": "Polyester",
+      "textileFibrePercentage": 20
     }
   ],
-  "gs1:regulatoryInformation": [
+  "regulatoryInformation": [
     {
-      "type": "gs1:RegulatoryInformation",
-      "gs1:regulationType": {
+      "type": "RegulatoryInformation",
+      "regulationType": {
         "id": "gs1:RegulationTypeCode-TEXTILE_FIBRE_REGULATION"
       },
-      "gs1:regulatoryAct": "EU 1007/2011",
+      "regulatoryAct": "EU 1007/2011",
       "gs1:isRegulationCompliant": true
     }
   ],
   "_notes": [
-    "Pattern status: Reference pattern aligned with GS1 GSMP Work Request WR 25-212 (Community Review). May evolve per eBallot outcome.",
+    "Pattern status: Reference pattern aligned with GS1 ITIP (AI 8026). May evolve as GS1 standardization settles.",
     "Why ITIP: Apparel sets (suits, uniforms, matching sets), flat-pack furniture with multiple cartons, and bundled electronics (tablet + keyboard + stylus) all benefit from piece-level traceability without requiring separate GTINs per piece. AI 8026 provides a compact, scannable identifier per piece while preserving the single-GTIN commercial model.",
-    "DPP implication: For products requiring a Digital Product Passport, ITIP identification enables piece-level lifecycle tracking (e.g., the jacket of a suit can be repaired independently of the trousers) while the DPP itself is scoped at the trade-item level. This matches the apparel use case the Apparel DPP Sub-team is scoping for Q2 2027 requirements gathering."
+    "DPP implication: For products requiring a Digital Product Passport, ITIP identification enables piece-level lifecycle tracking (e.g., the jacket of a suit can be repaired independently of the trousers) while the DPP itself is scoped at the trade-item level. This matches apparel DPP requirements being scoped for 2027."
   ]
 }

@@ -538,7 +538,7 @@ eudr:fscCertification
 #   gs1:regulatedProductName: "Regulated name"
 
 # =============================================================================
-# EUDR Exemption Declaration (WR 25-252 / WR 26-122 reference pattern)
+# EUDR Exemption Declaration (GS1 standardization (EUDR exemptions) reference pattern)
 # =============================================================================
 #
 # GS1 ALIGNMENT STATUS, as of 2026-04-17:
@@ -550,25 +550,24 @@ eudr:fscCertification
 # regulatoryIdentifier property is still mandatory inside a
 # regulatoryInformation block per the published schema.
 #
-# The 13 April 2026 GS1 EUDR MSWG meeting (chaired by Craig Repec)
+# Ongoing GS1 standardization
 # previewed the planned JSON-LD model for exemptions: when an exemption
 # applies, regulatoryIdentifier becomes optional and is replaced by a new
-# regulatoryExemption property. That design is in flight under GSMP Work
-# Request WR 25-252 (EANCOM + GS1 XML) and WR 26-122 (GDSN); neither is
+# regulatoryExemption property. That design is in flight in GS1 standardization across EANCOM, GS1 XML, and GDSN; neither is
 # publicly visible yet.
 #
 # THIS MODULE THEREFORE DEFINES A PROVISIONAL eudr:-NAMESPACED REFERENCE
-# PATTERN that fills the gap, carrying the same semantics the MSWG plans
+# PATTERN that fills the gap, carrying the same semantics GS1 plans
 # to standardise. When GS1 publishes the canonical terms, every class and
 # property in this section will be re-mapped via owl:equivalentClass /
 # owl:equivalentProperty rather than replaced; downstream consumers of
 # the eudr: URIs remain stable.
 #
-# Cross-format equivalents as captured in WR 25-252 (for context):
+# Cross-format equivalents as captured in GS1 standardization (for context):
 # - EANCOM: IMD segment C272:DE7081 (exemption type) + C273:DE7009
 #   (reason codes); temporary exemptions use GIN segment under SG22
 # - GS1 XML: dedicated exemption element structure
-# - GDSN: master data exemption handling (per WR 26-122)
+# - GDSN: master data exemption handling (per GS1 standardization)
 #
 # Example: eudr/epcis/exemption-declaration.jsonld
 # Gap summary: eudr/docs/GS1_ALIGNMENT.md
@@ -581,8 +580,8 @@ eudr:ExemptionType
         eudr:PermanentExemption
         eudr:TemporaryExemption
     ) ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252 / WR 26-122" ;
-    skos:note "Reference pattern; may evolve per WR 25-252 eBallot outcome."@en ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
+    skos:note "Reference pattern; may evolve as GS1 standardization settles."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
 eudr:PermanentExemption a eudr:ExemptionType ;
@@ -599,8 +598,8 @@ eudr:ExemptionDeclaration
     a owl:Class ;
     rdfs:label "Exemption Declaration"@en ;
     rdfs:comment "A structured declaration that specific products (or batches/serials) are exempt from EUDR due diligence obligations, carrying the exemption type, reason code, scope, and effective date range."@en ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
-    skos:note "Reference pattern for WR 25-252 exemption handling. Carries semantics equivalent to EANCOM C272:DE7081 (type) + C273:DE7009 (reason) + GIN/SG22 (temporary scope)."@en ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
+    skos:note "Reference pattern for GS1 standardization exemption handling. Carries semantics equivalent to EANCOM C272:DE7081 (type) + C273:DE7009 (reason) + GIN/SG22 (temporary scope)."@en ;
     rdfs:seeAlso <https://ref.gs1.org/voc/regulatoryInformation> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
@@ -609,8 +608,8 @@ eudr:exemptionDeclaration
     rdfs:label "Exemption Declaration"@en ;
     rdfs:comment "Links a product or EPCIS event to an EUDR exemption declaration."@en ;
     rdfs:range eudr:ExemptionDeclaration ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
-    skos:note "Attached to EPCIS events (bizStep 'notifying') or product master data. Reference pattern per WR 25-252."@en ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
+    skos:note "Attached to EPCIS events (bizStep 'notifying') or product master data. Reference pattern per GS1 standardization."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
 eudr:exemptionType
@@ -619,18 +618,18 @@ eudr:exemptionType
     rdfs:comment "The classification of this exemption (permanent or temporary)."@en ;
     rdfs:domain eudr:ExemptionDeclaration ;
     rdfs:range eudr:ExemptionType ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
     skos:note "Semantically aligned with EANCOM C272:DE7081 exemption type codes."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
 eudr:exemptionReasonCode
     a owl:DatatypeProperty ;
     rdfs:label "Exemption Reason Code"@en ;
-    rdfs:comment "Coded reason for the exemption, drawn from the controlled vocabulary defined by WR 25-252 (aligned with EANCOM C273:DE7009 exemption reason codes)."@en ;
+    rdfs:comment "Coded reason for the exemption, drawn from the controlled vocabulary defined by GS1 standardization (aligned with EANCOM C273:DE7009 exemption reason codes)."@en ;
     rdfs:domain eudr:ExemptionDeclaration ;
     rdfs:range xsd:string ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
-    skos:note "String-typed for now; will become a controlled enumeration once WR 25-252 eBallot closes and the official code list is published."@en ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
+    skos:note "String-typed for now; will become a controlled enumeration once GS1 publishes the official code list."@en ;
     rdfs:seeAlso eudr:riskLevel ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
@@ -640,7 +639,7 @@ eudr:exemptionScope
     rdfs:comment "The scope of the exemption: 'gtin' (all products with the given GTIN), 'batch' (specific lot/batch identified via AI 10), or 'serial' (specific instance identified via AI 21 or AI 8006 ITIP)."@en ;
     rdfs:domain eudr:ExemptionDeclaration ;
     rdfs:range xsd:string ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
     skos:note "Values: gtin, batch, serial. Temporary exemptions typically use 'batch' or 'serial' scope; permanent exemptions typically use 'gtin'."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
@@ -650,7 +649,7 @@ eudr:exemptionScopeReference
     rdfs:comment "The specific batch, lot, or serial identifier (or list thereof) that is in scope of a temporary exemption. For 'batch' scope this is the lot/batch number; for 'serial' scope it is the serial number."@en ;
     rdfs:domain eudr:ExemptionDeclaration ;
     rdfs:range xsd:string ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
     skos:note "Aligned with EANCOM GIN segment under SG22 for batch/serial enumeration in temporary exemptions."@en ;
     rdfs:seeAlso <https://ref.gs1.org/voc/hasBatchLotNumber> ;
     rdfs:seeAlso <https://ref.gs1.org/voc/hasSerialNumber> ;
@@ -662,7 +661,7 @@ eudr:exemptionEffectiveFrom
     rdfs:comment "Start date of the exemption's validity. Before this date the exemption does not apply."@en ;
     rdfs:domain eudr:ExemptionDeclaration ;
     rdfs:range xsd:date ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
 eudr:exemptionEffectiveUntil
@@ -671,7 +670,7 @@ eudr:exemptionEffectiveUntil
     rdfs:comment "End date of the exemption's validity. Required for temporary exemptions; omitted for permanent exemptions."@en ;
     rdfs:domain eudr:ExemptionDeclaration ;
     rdfs:range xsd:date ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
 eudr:exemptionAuthority
@@ -680,6 +679,6 @@ eudr:exemptionAuthority
     rdfs:comment "The economic operator or competent authority asserting this exemption. Uses dpp:OperatorInformation so the party is fully identified by GLN and role."@en ;
     rdfs:domain eudr:ExemptionDeclaration ;
     rdfs:range dpp:OperatorInformation ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
     skos:note "Identifies who is making the exemption declaration. Typically the operator placing the product on the EU market (ESPR Art. 21) or a downstream operator."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .

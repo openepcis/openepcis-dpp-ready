@@ -150,6 +150,19 @@ export function granularityFromDigitalLink(dl: string | undefined): string {
 const firstVal = (node: any, iri: string): any =>
   node[iri] && node[iri][0] ? (node[iri][0]["@value"] ?? node[iri][0]["@id"]) : undefined;
 
+// The party/facility Digital Link for an operator-valued property: the value
+// node's @id (already a Digital Link, e.g. .../417/{gln}) if present, else
+// https://id.gs1.org/417/{gln} built from its GS1 GLN. Used to derive the
+// EN 18223 mandatory economicOperatorId (and optional facilityId) from the GS1
+// operator identity already in the master data.
+function partyDigitalLink(node: any, iri: string): string | undefined {
+  const op = node[iri] && node[iri][0];
+  if (!op) return undefined;
+  if (op["@id"]) return op["@id"];
+  const gln = firstVal(op, `${GS1}gln`);
+  return gln ? `https://id.gs1.org/417/${gln}` : undefined;
+}
+
 // EN 18223 envelope attributes carried verbatim from the source document.
 // Everything else in the envelope is derived (see deriveEN18223), so the
 // compressed input only needs to carry genuine product data plus the
@@ -208,6 +221,18 @@ export async function deriveEN18223(input: any, range: Map<string, string>, docu
   if (!dpp.digitalProductPassportId && dpp.uniqueProductIdentifier) dpp.digitalProductPassportId = dpp.uniqueProductIdentifier;
   if (!dpp.dppSchemaVersion) dpp.dppSchemaVersion = DPP_SCHEMA_VERSION;
   if (!dpp.dppStatus) dpp.dppStatus = "active";
+
+  // economicOperatorId (EN 18223 mandatory) and facilityId (optional) are derived
+  // from the GS1 operator identity in the master data when not stated explicitly:
+  // the manufacturer's party Digital Link, and the manufacturing place's.
+  if (!dpp.economicOperatorId) {
+    const operator = partyDigitalLink(node, `${GS1}manufacturer`);
+    if (operator) dpp.economicOperatorId = operator;
+  }
+  if (!dpp.facilityId) {
+    const facility = partyDigitalLink(node, `${GS1}manufacturingPlace`);
+    if (facility) dpp.facilityId = facility;
+  }
 
   // Payload elements: every property that is not part of the EN 18223 envelope.
   const elements: any[] = [];

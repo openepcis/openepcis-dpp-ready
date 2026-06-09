@@ -393,10 +393,9 @@ The following external resources frame OpenEPCIS's work and should be consulted 
 - **JRC Methodology Report** (JRC145830, 2026) — methodology for specifying and prioritising DPP data requirements; relevant to `dpp:PassportStatus` and EN 18221 storage patterns ([source](https://publications.jrc.ec.europa.eu/repository/handle/JRC145830))
 - **EN 45552–45555** — general methods for durability, remanufacturability, repair/reuse/upgrade, recyclability/recoverability assessment
 
-### GS1 GSMP tracked work requests
-- **WR 23-103** — foundational DPP GSCN; introduces GenSpecs Section 2.1.16 "ESPR"
-- **WR 26-081** — Extended Packaging / Web-based Information GSCN (Community eBallot)
-- **WR 26-108** — NFC as additional data carrier (Community Review)
-- **WR 25-212** — ITIP (Individual Trade Item Piece) identification (Community Review)
-- **WR 25-252** — EUDR exemptions in EANCOM, GS1 XML, GDSN (eBallot / Community Review)
-- **WR 26-122** — EUDR exemptions in GDSN (Community Review)
+### GS1 standardization
+- Relevant GS1 standardization (DPP foundations, extended packaging, data
+  carriers including NFC, ITIP piece-level identification, and EUDR exemption
+  handling) is in progress and tracked alongside these regulations. The
+  reference patterns here align with the published GS1 standards and follow that
+  work as it settles.

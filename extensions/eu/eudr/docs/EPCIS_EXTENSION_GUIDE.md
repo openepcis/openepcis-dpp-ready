@@ -269,9 +269,9 @@ GS1-CBV-Version: 2.0
 
 ## Exemption Handling
 
-> **Status:** Reference pattern aligned with GS1 GSMP Work Request
-> **WR 25-252** (eBallot) and **WR 26-122** (Community Review) as of
-> April 2026. May evolve as the ballots close.
+> **Status:** Reference pattern aligned with the EU Deforestation Regulation
+> (EU 2023/1115) and ongoing GS1 standardization for EUDR exemption handling. May
+> evolve as that standardization settles.
 
 An EUDR exemption allows an economic operator to be relieved from the
 full due diligence obligation for specific products or batches. The

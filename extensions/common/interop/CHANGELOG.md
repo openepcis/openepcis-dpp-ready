@@ -44,7 +44,7 @@ All notable changes to the Interoperability module will be documented in this fi
   - ISO/AWI 25534-1 (ISO/TC 154 DPP Part 1)
   - JRC Methodology Report (JRC145830, March 2026)
   - EU Customs Single Window (CSV-CERTEX) per ESPR Art. 13
-  - GS1 GSMP tracked work requests (WR 23-103, 26-081, 26-108, 25-212, 25-252, 26-122)
+  - Relevant GS1 standardization in progress (DPP foundations, extended packaging, data carriers, ITIP, EUDR exemptions)
 
 ### Notes
 - Version remains v0.9.5; project has not yet had a formal release.

@@ -75,12 +75,11 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
 - New example `examples/garment-set-itip.jsonld` demonstrating ITIP (AI 8026)
   piece-level identification for a two-piece business suit. Uses
   `dpp:IndividualTradeItemPiece` + `dpp:tradeItemPieceCount` from the core
-  module. Reference pattern aligned with GS1 GSMP WR 25-212 (Community Review).
+  module. Reference pattern aligned with GS1 ITIP (AI 8026).
 
 ### Notes
-- Positioning ahead of Apparel DPP Sub-team kick-off (27 May 2026): this
-  textile module is offered as a reference implementation for the Q2 2027
-  EPCIS requirements gathering.
+- This textile module is offered as a reference implementation ahead of
+  anticipated apparel DPP requirements (2027).
 - Version remains v0.9.5; project has not yet had a formal release.
 
 ## [0.9.5] - 2026-03-07

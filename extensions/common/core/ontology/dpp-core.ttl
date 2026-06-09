@@ -1644,8 +1644,8 @@ No domain restriction - can be used on OperatorInformation, FacilityInformation,
 #
 # Supports multi-piece trade items where a single GTIN is delivered as
 # multiple physical pieces (e.g., a suit = jacket + trousers, furniture
-# flat-pack sets, bundled electronics). Aligns with GS1 GSMP Work Request
-# WR 25-212 (ITIP identification of trade items packed in several
+# flat-pack sets, bundled electronics). Aligns with GS1 standardization
+# GS1 ITIP (AI 8026) (ITIP identification of trade items packed in several
 # individual pieces).
 #
 # AI 8026 encodes: GTIN + total piece count + this piece's number
@@ -1655,9 +1655,9 @@ dpp:IndividualTradeItemPiece
     a rdfs:Class ;
     rdfs:label "Individual Trade Item Piece"@en ;
     rdfs:comment "A single physical piece of a multi-piece trade item, identified via GS1 AI 8026 (ITIP). Used when a single GTIN is composed of multiple individually-shipped pieces (e.g., a 2-piece suit, a furniture set)."@en ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-212" ;
+    dcterms:source "https://ref.gs1.org/ai/8026" ;
     rdfs:seeAlso <https://www.gs1.org/standards/barcodes/application-identifiers/8026> ;
-    skos:note "Reference pattern aligned with WR 25-212 (Community Review). The ITIP AI 8026 encodes GTIN + total piece count + piece number in one identifier."@en ;
+    skos:note "Reference pattern aligned with GS1 ITIP (AI 8026). The ITIP AI 8026 encodes GTIN + total piece count + piece number in one identifier."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
 dpp:tradeItemPieceCount
@@ -1666,7 +1666,7 @@ dpp:tradeItemPieceCount
     rdfs:comment "Total number of physical pieces that together constitute the complete trade item identified by the parent GTIN."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:positiveInteger ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-212" ;
+    dcterms:source "https://ref.gs1.org/ai/8026" ;
     skos:note "Maps to the piece count component of GS1 AI 8026. For example, a 2-piece suit has tradeItemPieceCount = 2."@en ;
     rdfs:seeAlso <https://www.gs1.org/standards/barcodes/application-identifiers/8026> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
@@ -1677,7 +1677,7 @@ dpp:tradeItemPieceNumber
     rdfs:comment "The sequential number of this piece within the multi-piece trade item (1-based). For a 2-piece suit, the jacket might be piece 1 and trousers piece 2."@en ;
     rdfs:domain dpp:IndividualTradeItemPiece ;
     rdfs:range xsd:positiveInteger ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-212" ;
+    dcterms:source "https://ref.gs1.org/ai/8026" ;
     skos:note "Maps to the piece-number component of GS1 AI 8026. MUST be less than or equal to dpp:tradeItemPieceCount on the parent product."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
@@ -1687,7 +1687,7 @@ dpp:tradeItemPieceOf
     rdfs:comment "Links an individual piece to the multi-piece trade item (identified by its GTIN) it belongs to."@en ;
     rdfs:domain dpp:IndividualTradeItemPiece ;
     rdfs:range gs1:Product ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-212" ;
+    dcterms:source "https://ref.gs1.org/ai/8026" ;
     skos:note "Inverse relationship: a gs1:Product with dpp:tradeItemPieceCount > 1 has multiple dpp:IndividualTradeItemPiece members linked back via this property."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
@@ -1697,7 +1697,7 @@ dpp:tradeItemPieceDescription
     rdfs:comment "Human-readable description of what this specific piece is (e.g., 'Jacket', 'Trousers', 'Left shoe', 'Instruction booklet')."@en ;
     rdfs:domain dpp:IndividualTradeItemPiece ;
     rdfs:range xsd:string ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-212" ;
+    dcterms:source "https://ref.gs1.org/ai/8026" ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
 # =============================================================================

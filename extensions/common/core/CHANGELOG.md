@@ -109,7 +109,7 @@ The strongest formal claim that actually holds is preferred:
 ## [0.9.5] - 2026-04-15 (GS1 Standards Week preparation)
 
 ### Added
-- **ITIP (Individual Trade Item Piece) support** aligned with GS1 GSMP Work Request WR 25-212 (Community Review):
+- **ITIP (Individual Trade Item Piece) support** aligned with GS1 ITIP (AI 8026):
   - `dpp:IndividualTradeItemPiece` class
   - `dpp:tradeItemPieceCount` (positiveInteger) on `gs1:Product`
   - `dpp:tradeItemPieceNumber`, `dpp:tradeItemPieceOf`, `dpp:tradeItemPieceDescription`
@@ -126,8 +126,7 @@ The strongest formal claim that actually holds is preferred:
 ### Notes
 - Version remains v0.9.5; project has not yet had a formal release.
   Dated entries track ongoing development within the v0.9.5 preview.
-- Additions are reference patterns aligned with active GS1 GSMP work
-  requests; may evolve as eBallots close.
+- Additions are reference patterns aligned with active GS1 standardization; may evolve as it settles.
 
 ## [0.9.5] - 2025-02-02
 

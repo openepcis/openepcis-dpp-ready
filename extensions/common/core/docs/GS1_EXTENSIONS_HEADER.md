@@ -65,7 +65,7 @@ at `https://ref.openepcis.io/extensions/us/fsma204/` means:
 
 Several modules in this repo (notably the EUDR exemption block and the
 FSMA 204 CTE classes) are **provisional reference patterns** that mirror
-semantics GSMP is still finalising. Owning the namespace means:
+semantics GS1 standardization is still finalising. Owning the namespace means:
 
 - We can ship a working vocabulary today.
 - When GS1 publishes its canonical term, we re-map via
