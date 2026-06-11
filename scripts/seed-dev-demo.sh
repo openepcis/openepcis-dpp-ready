@@ -118,6 +118,13 @@ case "$ENV" in
     CLIENT_ID="backend-service"
     USERNAME="admin"
     ;;
+  demo)
+    DL_URL="https://id.demo.epcis.cloud"
+    EPCIS_URL="https://api.demo.epcis.cloud"
+    TOKEN_URL="https://auth.demo.epcis.cloud/realms/openepcis/protocol/openid-connect/token"
+    CLIENT_ID="backend-service"
+    USERNAME="admin"
+    ;;
   local)
     DL_URL="http://localhost:8080"
     EPCIS_URL="http://localhost:8080"
@@ -125,7 +132,7 @@ case "$ENV" in
     CLIENT_ID="backend-service"
     USERNAME="admin"
     ;;
-  *) echo "Unknown --env=$ENV (expected: dev, local)" >&2; exit 64 ;;
+  *) echo "Unknown --env=$ENV (expected: dev, demo, local)" >&2; exit 64 ;;
 esac
 
 cyan()  { printf '\033[36m%s\033[0m\n' "$*"; }

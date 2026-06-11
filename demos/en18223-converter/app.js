@@ -13872,7 +13872,7 @@ var samples_default = [
       _comment_gs1_alignment: [
         "This example demonstrates GS1-aligned Digital Product Passport modeling.",
         "Key GS1 patterns used:",
-        "- GS1 Digital Link URI for product identification (https://id.dev.epcis.cloud/01/{GTIN}/21/{serial})",
+        "- GS1 Digital Link URI for product identification (https://id.demo.epcis.cloud/01/{GTIN}/21/{serial})",
         "- Product as base type with battery:Battery extension",
         "- GS1 properties: gtin, productName, manufacturer, netWeight, gs1:warranty",
         "- QuantitativeValue for all measurements with unitCode",
@@ -13884,7 +13884,7 @@ var samples_default = [
       "@context": [
         "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
       ],
-      id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001",
+      id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001",
       type: [
         "Product",
         "Battery"
@@ -14004,12 +14004,12 @@ var samples_default = [
       numberOfCells: 16,
       numberOfModules: 1,
       manufacturer: {
-        id: "https://id.dev.epcis.cloud/417/9521234000006",
+        id: "https://id.demo.epcis.cloud/417/9521234000006",
         type: "Organization",
         organizationName: "EcoCell GmbH",
         gln: "9521234000006",
         address: {
-          id: "https://id.dev.epcis.cloud/417/9521234000006#address",
+          id: "https://id.demo.epcis.cloud/417/9521234000006#address",
           type: "PostalAddress",
           streetAddress: "Batteriestra\xDFe 42",
           addressLocality: "Stuttgart",
@@ -14025,7 +14025,7 @@ var samples_default = [
         }
       },
       manufacturingPlace: {
-        id: "https://id.dev.epcis.cloud/414/9521234000013",
+        id: "https://id.demo.epcis.cloud/414/9521234000013",
         type: "Place",
         gln: "9521234000013",
         address: {
@@ -14035,7 +14035,7 @@ var samples_default = [
         }
       },
       operatorInformation: {
-        id: "https://id.dev.epcis.cloud/417/9521234000006#operator",
+        id: "https://id.demo.epcis.cloud/417/9521234000006#operator",
         type: "dpp:OperatorInformation",
         gln: "9521234000006",
         organizationName: "EcoCell GmbH",
@@ -14066,7 +14066,7 @@ var samples_default = [
         unitCode: "KGM"
       },
       batteryChemistry: {
-        id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#chemistry",
+        id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#chemistry",
         type: "BatteryChemistry",
         shortName: "LFP",
         fullName: {
@@ -14081,7 +14081,7 @@ var samples_default = [
         }
       },
       technicalSpecifications: {
-        id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#specs",
+        id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#specs",
         type: "TechnicalSpecification",
         ratedCapacity: {
           type: "QuantitativeValue",
@@ -14135,7 +14135,7 @@ var samples_default = [
         },
         originalPowerCapability: [
           {
-            id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#power-80",
+            id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#power-80",
             type: "PowerCapabilityAtSoC",
             stateOfChargeLevel: 80,
             powerCapability: {
@@ -14145,7 +14145,7 @@ var samples_default = [
             }
           },
           {
-            id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#power-20",
+            id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#power-20",
             type: "PowerCapabilityAtSoC",
             stateOfChargeLevel: 20,
             powerCapability: {
@@ -14184,7 +14184,7 @@ var samples_default = [
         cRateLifeCycleTest: 0.33,
         roundTripEfficiencyAt50PercentCycleLife: 94,
         temperatureRangeStorage: {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-storage",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-storage",
           type: "TemperatureRange",
           minimumTemperature: {
             type: "QuantitativeValue",
@@ -14198,7 +14198,7 @@ var samples_default = [
           }
         },
         temperatureRangeCharging: {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-charging",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-charging",
           type: "TemperatureRange",
           minimumTemperature: {
             type: "QuantitativeValue",
@@ -14212,7 +14212,7 @@ var samples_default = [
           }
         },
         temperatureRangeDischarging: {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-discharging",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-discharging",
           type: "TemperatureRange",
           minimumTemperature: {
             type: "QuantitativeValue",
@@ -14226,7 +14226,7 @@ var samples_default = [
           }
         },
         temperatureRangeIdleState: {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-idle",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-idle",
           type: "TemperatureRange",
           minimumTemperature: {
             type: "QuantitativeValue",
@@ -14242,7 +14242,7 @@ var samples_default = [
       },
       materialComposition: [
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-li",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-li",
           type: "BatteryMaterial",
           materialName: {
             "@value": "Lithium",
@@ -14258,7 +14258,7 @@ var samples_default = [
           materialSourceCountry: "CL"
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-fe",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-fe",
           type: "BatteryMaterial",
           materialName: {
             "@value": "Iron",
@@ -14273,7 +14273,7 @@ var samples_default = [
           isSubstanceOfConcern: false
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-c",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-c",
           type: "BatteryMaterial",
           materialName: {
             "@value": "Graphite",
@@ -14289,7 +14289,7 @@ var samples_default = [
           renewableContentShare: 0
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-p",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-p",
           type: "BatteryMaterial",
           materialName: {
             "@value": "Phosphorus",
@@ -14306,7 +14306,7 @@ var samples_default = [
       ],
       hazardousSubstances: [
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#haz-electrolyte",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#haz-electrolyte",
           type: "HazardousSubstance",
           substanceName: {
             "@value": "Lithium hexafluorophosphate (LiPF6)",
@@ -14323,7 +14323,7 @@ var samples_default = [
           substanceLocation: "Electrolyte"
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#haz-solvent",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#haz-solvent",
           type: "HazardousSubstance",
           substanceName: {
             "@value": "Ethylene carbonate",
@@ -14341,7 +14341,7 @@ var samples_default = [
         }
       ],
       recycledContent: {
-        id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#recycled",
+        id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#recycled",
         type: "RecycledContent",
         lithiumRecycledShare: 12,
         lithiumPreConsumerShare: 5,
@@ -14357,7 +14357,7 @@ var samples_default = [
         leadPostConsumerShare: 0
       },
       carbonFootprintDeclaration: {
-        id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#cfp",
+        id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#cfp",
         type: "CarbonFootprintDeclaration",
         carbonFootprintTotal: {
           type: "QuantitativeValue",
@@ -14391,7 +14391,7 @@ var samples_default = [
         carbonFootprintDeclarationId: "CFP-2024-ECOCELL-IM500-001",
         carbonFootprintGeographicScope: "EU production, global material sourcing",
         thirdPartyVerification: {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#cfp-verification",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#cfp-verification",
           type: "ThirdPartyVerification",
           verificationBodyName: "T\xDCV Rheinland",
           verificationDate: "2024-02-28",
@@ -14455,7 +14455,7 @@ var samples_default = [
       leadSymbolRequired: false,
       labels: [
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#label-weee",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#label-weee",
           type: "Label",
           labelSubject: "SeparateCollection",
           labelSymbol: "https://www.ecocell-batteries.example.com/labels/weee-symbol.svg",
@@ -14465,7 +14465,7 @@ var samples_default = [
           }
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#label-cfp",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#label-cfp",
           type: "Label",
           labelSubject: "CarbonFootprintLabel",
           labelSymbol: "https://www.ecocell-batteries.example.com/labels/cfp-class-b.svg",
@@ -14475,7 +14475,7 @@ var samples_default = [
           }
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#label-fire",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#label-fire",
           type: "Label",
           labelSubject: "ExtinguishingAgentLabel",
           labelSymbol: "https://www.ecocell-batteries.example.com/labels/class-d-fire.svg",
@@ -14485,7 +14485,7 @@ var samples_default = [
           }
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#label-qr",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#label-qr",
           type: "Label",
           labelSubject: "QRCodeLabel",
           labelMeaning: {
@@ -14496,7 +14496,7 @@ var samples_default = [
       ],
       regulatoryInformation: [
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#reg-battery",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#reg-battery",
           type: "RegulatoryInformation",
           regulationType: {
             id: "gs1:RegulationTypeCode-BATTERY_DIRECTIVE"
@@ -14507,7 +14507,7 @@ var samples_default = [
           "gs1:isRegulationCompliant": true
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#reg-ce",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#reg-ce",
           type: "RegulatoryInformation",
           regulationType: {
             id: "gs1:RegulationTypeCode-CE"
@@ -14517,7 +14517,7 @@ var samples_default = [
         }
       ],
       supplyChainDueDiligence: {
-        id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#due-diligence",
+        id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#due-diligence",
         type: "SupplyChainDueDiligence",
         dueDiligenceReportUrl: "https://www.ecocell-batteries.example.com/docs/supply-chain-due-diligence-2024.pdf",
         dueDiligencePolicyUrl: "https://www.ecocell-batteries.example.com/policies/supply-chain-due-diligence",
@@ -14535,7 +14535,7 @@ var samples_default = [
       },
       sparePartSources: [
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#spare-1",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#spare-1",
           type: "Organization",
           organizationName: "EcoCell Service GmbH",
           spareParts: {
@@ -14561,7 +14561,7 @@ var samples_default = [
       ],
       dismantlingDocuments: [
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-bom",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-bom",
           type: "DismantlingDocument",
           documentType: "BillOfMaterial",
           documentUrl: "https://www.ecocell-batteries.example.com/docs/IM-500-bom.pdf",
@@ -14569,7 +14569,7 @@ var samples_default = [
           languageCode: "en"
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-3d",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-3d",
           type: "DismantlingDocument",
           documentType: "Model3D",
           documentUrl: "https://www.ecocell-batteries.example.com/docs/IM-500-3d-model.step",
@@ -14577,7 +14577,7 @@ var samples_default = [
           languageCode: "en"
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-manual",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-manual",
           type: "DismantlingDocument",
           documentType: "DismantlingManual",
           documentUrl: "https://www.ecocell-batteries.example.com/docs/IM-500-dismantling.pdf",
@@ -14585,7 +14585,7 @@ var samples_default = [
           languageCode: "en"
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-sds",
+          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-sds",
           type: "DismantlingDocument",
           documentType: "SafetyDataSheet",
           documentUrl: "https://www.ecocell-batteries.example.com/docs/IM-500-sds.pdf",
@@ -14594,7 +14594,7 @@ var samples_default = [
         }
       ],
       endOfLifeInfo: {
-        id: "https://id.dev.epcis.cloud/01/09521002005004/21/BAT2024-001#eol",
+        id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#eol",
         type: "EndOfLifeInfo",
         recyclabilityRate: 95,
         materialRecoveryTargets: [
@@ -14693,7 +14693,7 @@ var samples_default = [
       "@context": [
         "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
       ],
-      id: "https://id.dev.epcis.cloud/01/09521003000442/21/EB2026-00821",
+      id: "https://id.demo.epcis.cloud/01/09521003000442/21/EB2026-00821",
       type: [
         "Product",
         "Battery"
@@ -14802,7 +14802,7 @@ var samples_default = [
       numberOfCells: 65,
       numberOfModules: 1,
       manufacturer: {
-        id: "https://id.dev.epcis.cloud/417/9521987000063",
+        id: "https://id.demo.epcis.cloud/417/9521987000063",
         type: "Organization",
         organizationName: "VeloPower GmbH",
         gln: "9521987000063",
@@ -14815,7 +14815,7 @@ var samples_default = [
         }
       },
       manufacturingPlace: {
-        id: "https://id.dev.epcis.cloud/414/9521987000070",
+        id: "https://id.demo.epcis.cloud/414/9521987000070",
         type: "Place",
         gln: "9521987000070",
         address: {
@@ -16161,7 +16161,7 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
       ],
-      id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521",
+      id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521",
       type: [
         "Footwear",
         "TextileFootwear"
@@ -16267,12 +16267,12 @@ var samples_default = [
       seasonCollection: "SS2025",
       fabricType: "Knitted",
       manufacturer: {
-        id: "https://id.dev.epcis.cloud/417/9521234000006",
+        id: "https://id.demo.epcis.cloud/417/9521234000006",
         type: "Organization",
         organizationName: "GreenStep Footwear AG",
         gln: "9521234000006",
         address: {
-          id: "https://id.dev.epcis.cloud/417/9521234000006#address",
+          id: "https://id.demo.epcis.cloud/417/9521234000006#address",
           type: "PostalAddress",
           streetAddress: "Via della Sostenibilita 100",
           addressLocality: "Montebelluna",
@@ -16288,7 +16288,7 @@ var samples_default = [
         }
       },
       "dpp:operatorInformation": {
-        id: "https://id.dev.epcis.cloud/417/9521234000006#operator",
+        id: "https://id.demo.epcis.cloud/417/9521234000006#operator",
         type: "dpp:OperatorInformation",
         gln: "9521234000006",
         organizationName: "GreenStep Footwear AG",
@@ -16374,7 +16374,7 @@ var samples_default = [
         }
       ],
       careInstructions: {
-        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#care",
+        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#care",
         type: "CareInstruction",
         washingSymbol: "WashHandOnly",
         bleachingSymbol: "DoNotBleach",
@@ -16387,7 +16387,7 @@ var samples_default = [
         }
       },
       durabilityInfo: {
-        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#durability",
+        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#durability",
         type: "DurabilityInfo",
         durabilityClass: "DurabilityB",
         abrasionResistance: 25e3,
@@ -16399,7 +16399,7 @@ var samples_default = [
         }
       },
       microplasticInfo: {
-        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#microplastic",
+        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#microplastic",
         type: "MicroplasticInfo",
         microplasticRiskLevel: "LowShedding",
         syntheticFiberContent: 50,
@@ -16410,7 +16410,7 @@ var samples_default = [
       },
       _comment_robustness: "Robustness score per EU Preparatory Study 3rd Milestone (0-10)",
       robustnessAssessment: {
-        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#robustness",
+        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#robustness",
         type: "RobustnessAssessment",
         robustnessScore: 7,
         cleaningCyclesBeforeTest: 5,
@@ -16439,7 +16439,7 @@ var samples_default = [
       },
       _comment_recyclability: "Recyclability score per EU Preparatory Study 3rd Milestone (0-10)",
       recyclabilityAssessment: {
-        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#recyclability",
+        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#recyclability",
         type: "RecyclabilityAssessment",
         recyclabilityScore: 4,
         isRecyclable: true,
@@ -16459,7 +16459,7 @@ var samples_default = [
       },
       recycledContentDeclaration: [
         {
-          id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#rc-rpet",
+          id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#rc-rpet",
           type: "RecycledContentDeclaration",
           secondaryMaterialFraction: 50,
           wasteOriginType: "PostConsumer",
@@ -16475,7 +16475,7 @@ var samples_default = [
         }
       ],
       environmentalFootprint: {
-        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#footprint",
+        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#footprint",
         type: "EnvironmentalFootprint",
         carbonFootprintManufacturing: 8.2,
         pefSingleScore: 28.7,
@@ -16498,7 +16498,7 @@ var samples_default = [
         ]
       },
       "dpp:recycledContent": {
-        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#recycled",
+        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#recycled",
         type: "dpp:RecycledContent",
         "dpp:totalRecycledShare": 50,
         "dpp:preConsumerShare": 10,
@@ -16522,7 +16522,7 @@ var samples_default = [
       biodegradable: false,
       hasTakeBackProgram: true,
       takeBackProgram: {
-        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#takeback",
+        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#takeback",
         type: "TakeBackProgram",
         takeBackUrl: "https://www.greenstep.example.com/recycle",
         takeBackIncentive: {
@@ -16547,7 +16547,7 @@ var samples_default = [
       sparePartsAvailable: true,
       sparePartsUrl: "https://www.greenstep.example.com/spareparts",
       "dpp:repairabilityInfo": {
-        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#repairability",
+        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#repairability",
         type: "dpp:RepairabilityInfo",
         "dpp:repairabilityScore": 6.5,
         "dpp:repairabilityClass": "C",
@@ -16562,7 +16562,7 @@ var samples_default = [
       _comment_spareparts: "Spare parts available: replacement insoles, laces, heel counters",
       certification: [
         {
-          id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-grs",
+          id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-grs",
           type: "CertificationDetails",
           certificationAgency: "Textile Exchange",
           certificationStandard: "Global Recycled Standard (GRS)",
@@ -16571,7 +16571,7 @@ var samples_default = [
           certificationEndDate: "2025-05-31"
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-lwg",
+          id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-lwg",
           type: "CertificationDetails",
           certificationAgency: "Leather Working Group",
           certificationStandard: "LWG Gold Rated",
@@ -16579,7 +16579,7 @@ var samples_default = [
           _comment: "Leather component certified chrome-free and from LWG Gold-rated tannery"
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-oekotex",
+          id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-oekotex",
           type: "CertificationDetails",
           certificationAgency: "OEKO-TEX Association",
           certificationStandard: "OEKO-TEX Standard 100 Class I",
@@ -16587,7 +16587,7 @@ var samples_default = [
           _comment: "Class I certification - safe for baby contact (highest safety class)"
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-fsc",
+          id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-fsc",
           type: "CertificationDetails",
           certificationAgency: "Forest Stewardship Council",
           certificationStandard: "FSC 100%",
@@ -16595,7 +16595,7 @@ var samples_default = [
           _comment: "Natural rubber from FSC-certified plantations"
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-bcorp",
+          id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-bcorp",
           type: "CertificationDetails",
           certificationAgency: "B Lab",
           certificationStandard: "B Corporation",
@@ -16604,7 +16604,7 @@ var samples_default = [
         }
       ],
       cutAndSewFacility: {
-        id: "https://id.dev.epcis.cloud/414/4098765000010",
+        id: "https://id.demo.epcis.cloud/414/4098765000010",
         type: "dpp:FacilityInformation",
         gln: "4098765000010",
         name: "GreenStep Montebelluna Factory",
@@ -16683,7 +16683,7 @@ var samples_default = [
         }
       ],
       "dpp:accessRights": {
-        id: "https://id.dev.epcis.cloud/01/09521000002159/21/TR-2024-08521#access",
+        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#access",
         type: "dpp:AccessRights",
         "dpp:accessLevel": {
           id: "dpp:Public"
@@ -16707,7 +16707,7 @@ var samples_default = [
       _comment_gs1_alignment: [
         "This example demonstrates GS1-aligned Digital Product Passport modeling for textiles.",
         "Key GS1 patterns used:",
-        "- GS1 Digital Link URI for product identification (https://id.dev.epcis.cloud/01/{GTIN}/21/{serial})",
+        "- GS1 Digital Link URI for product identification (https://id.demo.epcis.cloud/01/{GTIN}/21/{serial})",
         "- gs1:Product as base type (textile specificity comes from textile:TextileApparel / textile:TextileFootwear dual-typing plus textile: extension properties)",
         "- GS1 properties: gs1:gtin, gs1:productName, gs1:manufacturer, gs1:netWeight",
         "- gs1:textileMaterial with gs1:TextileMaterialDetails for fiber composition (GS1 native)",
@@ -16720,7 +16720,7 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
       ],
-      id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142",
+      id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142",
       type: [
         "Clothing",
         "TextileApparel"
@@ -16827,12 +16827,12 @@ var samples_default = [
       fabricType: "WovenNonDenim",
       apparelSubcategory: "JacketsCoats",
       manufacturer: {
-        id: "https://id.dev.epcis.cloud/417/9521000000018",
+        id: "https://id.demo.epcis.cloud/417/9521000000018",
         type: "Organization",
         organizationName: "EcoWear GmbH",
         gln: "9521000000018",
         address: {
-          id: "https://id.dev.epcis.cloud/417/9521000000018#address",
+          id: "https://id.demo.epcis.cloud/417/9521000000018#address",
           type: "PostalAddress",
           streetAddress: "Textilstra\xDFe 25",
           addressLocality: "Munich",
@@ -16848,7 +16848,7 @@ var samples_default = [
         }
       },
       "dpp:operatorInformation": {
-        id: "https://id.dev.epcis.cloud/417/9521000000018#operator",
+        id: "https://id.demo.epcis.cloud/417/9521000000018#operator",
         type: "dpp:OperatorInformation",
         gln: "9521000000018",
         organizationName: "EcoWear GmbH",
@@ -16948,7 +16948,7 @@ var samples_default = [
         }
       ],
       careInstructions: {
-        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#care",
+        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#care",
         type: "CareInstruction",
         washingSymbol: "Wash30",
         bleachingSymbol: "DoNotBleach",
@@ -16961,7 +16961,7 @@ var samples_default = [
         }
       },
       durabilityInfo: {
-        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#durability",
+        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#durability",
         type: "DurabilityInfo",
         expectedWashCycles: 150,
         durabilityClass: "DurabilityB",
@@ -16982,7 +16982,7 @@ var samples_default = [
         expectedLifetimeYears: 8
       },
       microplasticInfo: {
-        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#microplastic",
+        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#microplastic",
         type: "MicroplasticInfo",
         microplasticRiskLevel: "MediumShedding",
         sheddingRate: {
@@ -16998,7 +16998,7 @@ var samples_default = [
       },
       _comment_robustness: "Robustness score per EU Preparatory Study 3rd Milestone (0-10)",
       robustnessAssessment: {
-        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#robustness",
+        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#robustness",
         type: "RobustnessAssessment",
         robustnessScore: 8,
         cleaningCyclesBeforeTest: 5,
@@ -17030,7 +17030,7 @@ var samples_default = [
       },
       _comment_recyclability: "Recyclability score per EU Preparatory Study 3rd Milestone (0-10)",
       recyclabilityAssessment: {
-        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#recyclability",
+        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#recyclability",
         type: "RecyclabilityAssessment",
         recyclabilityScore: 6.5,
         isRecyclable: true,
@@ -17051,7 +17051,7 @@ var samples_default = [
       _comment_recycled_content_structured: "Structured recycled content declaration per EU Preparatory Study 3rd Milestone",
       recycledContentDeclaration: [
         {
-          id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#rc-rpet",
+          id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#rc-rpet",
           type: "RecycledContentDeclaration",
           secondaryMaterialFraction: 50,
           wasteOriginType: "PostConsumer",
@@ -17066,7 +17066,7 @@ var samples_default = [
           }
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#rc-precon",
+          id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#rc-precon",
           type: "RecycledContentDeclaration",
           secondaryMaterialFraction: 5,
           wasteOriginType: "PostIndustrial",
@@ -17077,7 +17077,7 @@ var samples_default = [
       ],
       _comment_environmental_footprint: "Environmental footprint per PEFCR Apparel & Footwear",
       environmentalFootprint: {
-        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#footprint",
+        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#footprint",
         type: "EnvironmentalFootprint",
         carbonFootprintManufacturing: 18.5,
         pefSingleScore: 42.3,
@@ -17102,7 +17102,7 @@ var samples_default = [
       _comment_soc: "Substances of Concern per ESPR Article 7(5) 4-type classification",
       substancesOfConcern: [
         {
-          id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#soc-dye",
+          id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#soc-dye",
           type: "SubstanceOfConcern",
           socType: "SoCTypeB",
           chemicalName: "Disperse Blue 291",
@@ -17116,7 +17116,7 @@ var samples_default = [
         }
       ],
       "dpp:recycledContent": {
-        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#recycled",
+        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#recycled",
         type: "dpp:RecycledContent",
         "dpp:totalRecycledShare": 55,
         "dpp:preConsumerShare": 5,
@@ -17140,7 +17140,7 @@ var samples_default = [
       biodegradable: false,
       hasTakeBackProgram: true,
       takeBackProgram: {
-        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#takeback",
+        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#takeback",
         type: "TakeBackProgram",
         takeBackUrl: "https://www.ecowear.example.com/takeback",
         takeBackIncentive: {
@@ -17166,7 +17166,7 @@ var samples_default = [
       sparePartsUrl: "https://www.ecowear.example.com/spareparts/alpine-pro",
       repairServices: [
         {
-          id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#repair-service",
+          id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#repair-service",
           type: "Organization",
           organizationName: "EcoWear Repair Service",
           address: {
@@ -17186,7 +17186,7 @@ var samples_default = [
         }
       ],
       "dpp:repairabilityInfo": {
-        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#repairability",
+        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#repairability",
         type: "dpp:RepairabilityInfo",
         "dpp:repairabilityScore": 7.2,
         "dpp:repairabilityClass": "B",
@@ -17200,7 +17200,7 @@ var samples_default = [
       },
       certification: [
         {
-          id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-grs",
+          id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-grs",
           type: "CertificationDetails",
           certificationAgency: "Textile Exchange",
           certificationStandard: "Global Recycled Standard (GRS)",
@@ -17209,7 +17209,7 @@ var samples_default = [
           certificationEndDate: "2025-01-14"
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-oekotex",
+          id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-oekotex",
           type: "CertificationDetails",
           certificationAgency: "OEKO-TEX Association",
           certificationStandard: "OEKO-TEX Standard 100",
@@ -17218,14 +17218,14 @@ var samples_default = [
           certificationEndDate: "2025-02-28"
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-bluesign",
+          id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-bluesign",
           type: "CertificationDetails",
           certificationAgency: "bluesign technologies ag",
           certificationStandard: "bluesign PRODUCT",
           certificationIdentification: "BS-2024-ECOWEAR-AP"
         },
         {
-          id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-rds",
+          id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-rds",
           type: "CertificationDetails",
           certificationAgency: "Textile Exchange",
           certificationStandard: "Responsible Down Standard (RDS)",
@@ -17233,7 +17233,7 @@ var samples_default = [
         }
       ],
       cutAndSewFacility: {
-        id: "https://id.dev.epcis.cloud/414/9521234000020",
+        id: "https://id.demo.epcis.cloud/414/9521234000020",
         type: "dpp:FacilityInformation",
         gln: "9521234000020",
         name: "Porto Textile Manufacturing",
@@ -17257,7 +17257,7 @@ var samples_default = [
         ]
       },
       dyeingFacility: {
-        id: "https://id.dev.epcis.cloud/414/9521234000037",
+        id: "https://id.demo.epcis.cloud/414/9521234000037",
         type: "dpp:FacilityInformation",
         gln: "9521234000037",
         name: "Eco Dyeing Italy",
@@ -17326,7 +17326,7 @@ var samples_default = [
         }
       ],
       "dpp:accessRights": {
-        id: "https://id.dev.epcis.cloud/01/09521000001428/21/WJ-2024-00142#access",
+        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#access",
         type: "dpp:AccessRights",
         "dpp:accessLevel": {
           id: "dpp:Public"
@@ -17363,7 +17363,7 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
       ],
-      id: "https://id.dev.epcis.cloud/01/09521000004207/21/SUIT-2026-00042",
+      id: "https://id.demo.epcis.cloud/01/09521000004207/21/SUIT-2026-00042",
       type: [
         "Clothing",
         "TextileApparel"
@@ -17472,24 +17472,24 @@ var samples_default = [
       "dpp:tradeItemPieceCount": 2,
       "dpp:tradeItemPieces": [
         {
-          id: "https://id.dev.epcis.cloud/8026/0952100000420750200010",
+          id: "https://id.demo.epcis.cloud/8026/0952100000420750200010",
           type: "dpp:IndividualTradeItemPiece",
           "dpp:tradeItemPieceNumber": 1,
           "dpp:tradeItemPieceDescription": "Jacket",
-          "dpp:tradeItemPieceOf": "https://id.dev.epcis.cloud/01/09521000004207/21/SUIT-2026-00042",
+          "dpp:tradeItemPieceOf": "https://id.demo.epcis.cloud/01/09521000004207/21/SUIT-2026-00042",
           _comment_itip_ai8026: "AI 8026 = GTIN (14 digits) + total pieces (2 digits) + piece number (2 digits). Example: 09521000004207 + 02 + 01 for piece 1 of 2."
         },
         {
-          id: "https://id.dev.epcis.cloud/8026/0952100000420750200020",
+          id: "https://id.demo.epcis.cloud/8026/0952100000420750200020",
           type: "dpp:IndividualTradeItemPiece",
           "dpp:tradeItemPieceNumber": 2,
           "dpp:tradeItemPieceDescription": "Trousers",
-          "dpp:tradeItemPieceOf": "https://id.dev.epcis.cloud/01/09521000004207/21/SUIT-2026-00042",
+          "dpp:tradeItemPieceOf": "https://id.demo.epcis.cloud/01/09521000004207/21/SUIT-2026-00042",
           _comment_itip_ai8026: "AI 8026 for piece 2 of 2: 09521000004207 + 02 + 02."
         }
       ],
       manufacturer: {
-        id: "https://id.dev.epcis.cloud/417/9521000000018",
+        id: "https://id.demo.epcis.cloud/417/9521000000018",
         type: "Organization",
         organizationName: "EcoWear GmbH",
         gln: "9521000000018",
@@ -17553,7 +17553,7 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
       ],
-      id: "https://id.dev.epcis.cloud/01/09521001001380/21/BL-2026-04201",
+      id: "https://id.demo.epcis.cloud/01/09521001001380/21/BL-2026-04201",
       type: [
         "Product",
         "TextileApparel"
@@ -17657,7 +17657,7 @@ var samples_default = [
       targetGender: "Unisex",
       seasonCollection: "SS2026",
       manufacturer: {
-        id: "https://id.dev.epcis.cloud/417/9521987000056",
+        id: "https://id.demo.epcis.cloud/417/9521987000056",
         type: "Organization",
         organizationName: "Casa Lina GmbH",
         gln: "9521987000056",
@@ -17921,7 +17921,7 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
       ],
-      id: "https://id.dev.epcis.cloud/01/09521004005019/10/LOT-01",
+      id: "https://id.demo.epcis.cloud/01/09521004005019/10/LOT-01",
       type: "Packaging",
       gtin: "09521004005019",
       hasBatchLotNumber: "LOT-01",
@@ -17976,7 +17976,7 @@ var samples_default = [
       harmonisedSymbol: "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/separate-collection-pet",
       manufacturingDate: "2026-04-15",
       manufacturer: {
-        id: "https://id.dev.epcis.cloud/417/9521234000020",
+        id: "https://id.demo.epcis.cloud/417/9521234000020",
         type: "Organization",
         organizationName: "AlpenQuell GmbH",
         partyGLN: "9521234000020"
@@ -17991,7 +17991,7 @@ var samples_default = [
             type: "Country"
           },
           eprScheme: {
-            id: "https://id.dev.epcis.cloud/417/4030101000001",
+            id: "https://id.demo.epcis.cloud/417/4030101000001",
             type: "Organization",
             organizationName: "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
           },
@@ -18006,7 +18006,7 @@ var samples_default = [
           unitCode: "EUR"
         },
         depositSchemeOperator: {
-          id: "https://id.dev.epcis.cloud/417/4030101000018",
+          id: "https://id.demo.epcis.cloud/417/4030101000018",
           type: "Organization",
           organizationName: "Deutsche Pfandsystem GmbH"
         },
@@ -18108,7 +18108,7 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
       ],
-      id: "https://id.dev.epcis.cloud/01/09521004005019",
+      id: "https://id.demo.epcis.cloud/01/09521004005019",
       type: "Packaging",
       gtin: "09521004005019",
       productName: [
@@ -18162,7 +18162,7 @@ var samples_default = [
       harmonisedSymbol: "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/separate-collection-pet",
       manufacturingDate: "2026-04-15",
       manufacturer: {
-        id: "https://id.dev.epcis.cloud/417/9521234000020",
+        id: "https://id.demo.epcis.cloud/417/9521234000020",
         type: "Organization",
         organizationName: "AlpenQuell GmbH",
         partyGLN: "9521234000020"
@@ -18177,7 +18177,7 @@ var samples_default = [
             type: "Country"
           },
           eprScheme: {
-            id: "https://id.dev.epcis.cloud/417/4030101000001",
+            id: "https://id.demo.epcis.cloud/417/4030101000001",
             type: "Organization",
             organizationName: "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
           },
@@ -18192,7 +18192,7 @@ var samples_default = [
           unitCode: "EUR"
         },
         depositSchemeOperator: {
-          id: "https://id.dev.epcis.cloud/417/4030101000018",
+          id: "https://id.demo.epcis.cloud/417/4030101000018",
           type: "Organization",
           organizationName: "Deutsche Pfandsystem GmbH"
         },
@@ -18298,7 +18298,7 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
       ],
-      id: "https://id.dev.epcis.cloud/01/09521006003013",
+      id: "https://id.demo.epcis.cloud/01/09521006003013",
       type: "Packaging",
       gtin: "09521006003013",
       productName: [
@@ -18352,7 +18352,7 @@ var samples_default = [
       harmonisedSymbol: "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/separate-collection-paper",
       manufacturingDate: "2026-03-08",
       manufacturer: {
-        id: "https://id.dev.epcis.cloud/417/9521987000049",
+        id: "https://id.demo.epcis.cloud/417/9521987000049",
         type: "Organization",
         organizationName: "EcoFlow Karton GmbH",
         partyGLN: "9521987000049"
@@ -18367,7 +18367,7 @@ var samples_default = [
             type: "Country"
           },
           eprScheme: {
-            id: "https://id.dev.epcis.cloud/417/4030101000001",
+            id: "https://id.demo.epcis.cloud/417/4030101000001",
             type: "Organization",
             organizationName: "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
           }
@@ -18477,7 +18477,7 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
       ],
-      id: "https://id.dev.epcis.cloud/01/09521005000808",
+      id: "https://id.demo.epcis.cloud/01/09521005000808",
       type: "Packaging",
       gtin: "09521005000808",
       productName: [
@@ -18531,7 +18531,7 @@ var samples_default = [
       harmonisedSymbol: "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/mixed-materials-household-waste",
       manufacturingDate: "2026-03-20",
       manufacturer: {
-        id: "https://id.dev.epcis.cloud/417/9521234000037",
+        id: "https://id.demo.epcis.cloud/417/9521234000037",
         type: "Organization",
         organizationName: "Knusprig GmbH",
         partyGLN: "9521234000037"
@@ -18546,7 +18546,7 @@ var samples_default = [
             type: "Country"
           },
           eprScheme: {
-            id: "https://id.dev.epcis.cloud/417/4030101000001",
+            id: "https://id.demo.epcis.cloud/417/4030101000001",
             type: "Organization",
             organizationName: "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
           }
