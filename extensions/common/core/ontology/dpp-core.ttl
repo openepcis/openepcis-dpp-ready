@@ -25,9 +25,8 @@
 @prefix cbv:   <https://ref.gs1.org/cbv/> .
 # CIRPASS-2 pilot programme ontology proposal, Layer 2 community profile.
 # Reference-only see-also pointer; CIRPASS-2 is one input into JTC 24, NOT a
-# finalised EU standard, and the published namespace currently doesn't
-# dereference cleanly (https://w3id.org/eudpp#X returns 404 via the W3ID
-# redirect). Catalog: https://dpp.vocabulary-hub.eu/specifications.
+# finalised EU standard. The published namespace resolves via the W3ID
+# redirect (https://w3id.org/eudpp#X returns 200). Catalog: https://dpp.vocabulary-hub.eu/specifications.
 # Strictly rdfs:seeAlso: no rdfs:subClassOf, no owl:equivalentClass.
 @prefix cirpass2: <https://w3id.org/eudpp#> .
 
@@ -70,7 +69,7 @@ to enable native interoperability. Semantic equivalences are declared via owl:eq
 All ratio/fraction properties use 0-1 decimal scale (e.g., 0.45 = 45%).
 
 EPCIS 2.0 Extension Declaration:
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/
 
 Extension Governance:
 This vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.
@@ -99,7 +98,10 @@ Domain-specific vocabularies import this core and add regulation-specific extens
     rdfs:seeAlso <https://uncefact.github.io/spec-untp/> ;
     rdfs:comment "Aligned with UN Transparency Protocol patterns"@en ;
     dcterms:source <https://uncefact.github.io/spec-untp/> ;
-    owl:imports <https://ref.gs1.org/voc/> .
+    owl:imports <https://ref.gs1.org/voc/> ;
+    owl:imports <http://data.europa.eu/m8g/> ;
+    owl:imports <http://www.w3.org/ns/locn#> ;
+    owl:imports <http://www.w3.org/ns/adms#> .
 
 # =============================================================================
 # Core Classes
