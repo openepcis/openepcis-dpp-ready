@@ -13,7 +13,7 @@
     dcterms:title "OpenEPCIS PPWR SHACL Shapes"@en ;
     dcterms:description "SHACL validation shapes for the PPWR vocabulary (EU Regulation 2025/40)."@en ;
     dcterms:created "2026-05-01"^^xsd:date ;
-    dcterms:modified "2026-06-07"^^xsd:date .
+    dcterms:modified "2026-06-18"^^xsd:date .
 
 ppwr-sh:PackagingShape
     a sh:NodeShape ;
@@ -21,6 +21,7 @@ ppwr-sh:PackagingShape
     rdfs:label "PPWR Packaging Shape"@en ;
     sh:property [
         sh:path euppwr:packagingTier ;
+        sh:nodeKind sh:IRI ;
         sh:in ( euppwr:Sales euppwr:Grouped euppwr:Transport ) ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
@@ -28,13 +29,15 @@ ppwr-sh:PackagingShape
     ] ;
     sh:property [
         sh:path euppwr:recyclabilityGrade ;
+        sh:nodeKind sh:IRI ;
         sh:in ( euppwr:GradeA euppwr:GradeB euppwr:GradeC ) ;
         sh:maxCount 1 ;
         sh:message "euppwr:recyclabilityGrade must be A, B, or C (PPWR Article 4)"@en
     ] ;
     sh:property [
         sh:path euppwr:harmonisedSymbol ;
-        sh:datatype xsd:anyURI
+        sh:datatype xsd:anyURI ;
+        sh:message "euppwr:harmonisedSymbol must be a URI referencing the harmonised label per PPWR Article 12 / Annex IX"@en
     ] .
 
 # Event-bound observations introduced with the lifecycle event templates

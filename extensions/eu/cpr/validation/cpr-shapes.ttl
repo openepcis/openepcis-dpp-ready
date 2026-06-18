@@ -13,7 +13,7 @@
     dcterms:title "OpenEPCIS CPR SHACL Shapes"@en ;
     dcterms:description "SHACL validation shapes for the CPR vocabulary (EU Regulation 2024/3110)."@en ;
     dcterms:created "2026-05-01"^^xsd:date ;
-    dcterms:modified "2026-05-01"^^xsd:date .
+    dcterms:modified "2026-06-18"^^xsd:date .
 
 cpr-sh:ConstructionProductShape
     a sh:NodeShape ;
@@ -33,9 +33,16 @@ cpr-sh:ConstructionProductShape
     ] ;
     sh:property [
         sh:path eucpr:reactionToFireClass ;
+        sh:nodeKind sh:IRI ;
         sh:in ( eucpr:FireClassA1 eucpr:FireClassA2 eucpr:FireClassB eucpr:FireClassC eucpr:FireClassD eucpr:FireClassE eucpr:FireClassF ) ;
         sh:maxCount 1 ;
         sh:message "eucpr:reactionToFireClass must be A1, A2, B, C, D, E, or F (EN 13501-1)"@en
+    ] ;
+    sh:property [
+        sh:path eucpr:essentialCharacteristic ;
+        sh:minCount 1 ;
+        sh:node cpr-sh:EssentialCharacteristicShape ;
+        sh:message "A CPR Declaration of Performance must declare at least one essential characteristic, each conforming to EssentialCharacteristicShape (CPR Article 12 / Annex III)"@en
     ] .
 
 cpr-sh:EssentialCharacteristicShape
@@ -50,8 +57,10 @@ cpr-sh:EssentialCharacteristicShape
     ] ;
     sh:property [
         sh:path eucpr:characteristicValue ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
         sh:minCount 1 ;
-        sh:maxCount 1
+        sh:maxCount 1 ;
+        sh:message "Each essential characteristic must carry a structured characteristicValue (gs1:QuantitativeValue: value + unitCode)"@en
     ] ;
     sh:property [
         sh:path eucpr:harmonisedStandard ;
