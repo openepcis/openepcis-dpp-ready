@@ -3,8 +3,8 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
-@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
-@prefix ppwr: <https://ref.openepcis.io/extensions/eu/ppwr/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix euppwr: <https://ref.openepcis.io/extensions/eu/ppwr/> .
 @prefix ppwr-sh: <https://ref.openepcis.io/extensions/eu/ppwr/shapes/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
@@ -17,23 +17,23 @@
 
 ppwr-sh:PackagingShape
     a sh:NodeShape ;
-    sh:targetClass ppwr:Packaging ;
+    sh:targetClass euppwr:Packaging ;
     rdfs:label "PPWR Packaging Shape"@en ;
     sh:property [
-        sh:path ppwr:packagingTier ;
-        sh:in ( ppwr:Sales ppwr:Grouped ppwr:Transport ) ;
+        sh:path euppwr:packagingTier ;
+        sh:in ( euppwr:Sales euppwr:Grouped euppwr:Transport ) ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "ppwr:Packaging must declare exactly one packagingTier (Sales / Grouped / Transport; Article 3)"@en
+        sh:message "euppwr:Packaging must declare exactly one packagingTier (Sales / Grouped / Transport; Article 3)"@en
     ] ;
     sh:property [
-        sh:path ppwr:recyclabilityGrade ;
-        sh:in ( ppwr:GradeA ppwr:GradeB ppwr:GradeC ) ;
+        sh:path euppwr:recyclabilityGrade ;
+        sh:in ( euppwr:GradeA euppwr:GradeB euppwr:GradeC ) ;
         sh:maxCount 1 ;
-        sh:message "ppwr:recyclabilityGrade must be A, B, or C (PPWR Article 4)"@en
+        sh:message "euppwr:recyclabilityGrade must be A, B, or C (PPWR Article 4)"@en
     ] ;
     sh:property [
-        sh:path ppwr:harmonisedSymbol ;
+        sh:path euppwr:harmonisedSymbol ;
         sh:datatype xsd:anyURI
     ] .
 
@@ -45,27 +45,27 @@ ppwr-sh:PackagingShape
 ppwr-sh:DepositRefundIssuedShape
     a sh:NodeShape ;
     rdfs:label "Deposit-return refund issued sensor report"@en ;
-    sh:targetSubjectsOf ppwr:depositRefundIssued ;
+    sh:targetSubjectsOf euppwr:depositRefundIssued ;
     sh:property [
-        sh:path ppwr:depositRefundIssued ;
+        sh:path euppwr:depositRefundIssued ;
         sh:datatype xsd:decimal ;
         sh:minInclusive 0.00 ;
-        sh:message "ppwr:depositRefundIssued must be a non-negative decimal monetary amount (PPWR Art. 50)"@en
+        sh:message "euppwr:depositRefundIssued must be a non-negative decimal monetary amount (PPWR Art. 50)"@en
     ] .
 
 ppwr-sh:RecyclabilityGradeObservationShape
     a sh:NodeShape ;
     rdfs:label "Recyclability-grade declaration shape"@en ;
-    sh:targetSubjectsOf ppwr:recyclabilityGrade ;
+    sh:targetSubjectsOf euppwr:recyclabilityGrade ;
     sh:property [
-        sh:path ppwr:recyclabilityScore ;
+        sh:path euppwr:recyclabilityScore ;
         sh:datatype xsd:decimal ;
         sh:minInclusive 0 ;
         sh:maxInclusive 100 ;
-        sh:message "ppwr:recyclabilityScore is a percentage in [0, 100] aligned with the grade boundaries in Annex II"@en
+        sh:message "euppwr:recyclabilityScore is a percentage in [0, 100] aligned with the grade boundaries in Annex II"@en
     ] ;
     sh:property [
-        sh:path ppwr:designForRecyclingMethodology ;
+        sh:path euppwr:designForRecyclingMethodology ;
         sh:datatype xsd:string ;
         sh:maxCount 1 ;
         sh:message "Cite exactly one D4R methodology (RecyClass, CEFLEX, APR, …)"@en

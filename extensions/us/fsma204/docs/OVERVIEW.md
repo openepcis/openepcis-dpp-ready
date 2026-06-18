@@ -62,15 +62,15 @@ transformation occurred; transformation date.
 ## Food Traceability List categories
 
 Twelve categories as of the 2022 rule; this vocabulary encodes them in
-`fsma:FoodTraceabilityList`. The FDA periodically updates the FTL — keep
+`usfsma:FoodTraceabilityList`. The FDA periodically updates the FTL — keep
 the enum in sync with the latest FDA publication.
 
 ## Relationship to EPCIS 2.0
 
 Each CTE maps to an EPCIS 2.0 `ObjectEvent` (or `TransformationEvent` for
-the Transformation CTE). The TLC is carried as `fsma:traceabilityLotCode`
+the Transformation CTE). The TLC is carried as `usfsma:traceabilityLotCode`
 at event level; the GS1 Digital Link URI based on `/01/{GTIN}/10/{TLC}`
-serves as the EPC identifier. KDEs ride as `fsma:`-namespaced properties,
+serves as the EPC identifier. KDEs ride as `usfsma:`-namespaced properties,
 mirroring how the EU modules in this repo carry their regulatory
 extensions.
 

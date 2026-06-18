@@ -57,69 +57,69 @@ const MODULE_FILTER = args.find((a) => a.startsWith("--module="))?.split("=")[1]
  */
 const OVERRIDES: Record<string, { verdict?: MappingRow["verdict"]; canonical?: string; reason: string }> = {
   // Sanity-check outliers flagged before Phase 2.
-  "dpp:massFraction": { verdict: "KEEP_NO_LINK", reason: "schema:weight is wrong — mass fraction is a percentage, not weight" },
-  "dpp:vatIdentificationNumber": { canonical: "schema:vatID", reason: "schema:vehicleIdentificationNumber is for cars; schema:vatID is the right canonical" },
-  "battery:facilityIdentifier": { verdict: "KEEP_NO_LINK", reason: "schema:cvdFacilityId is a covid-specific term, not a generic identifier" },
-  "battery:remainingCapacity": { verdict: "KEEP_NO_LINK", reason: "schema:remainingAttendeeCapacity is for events, not battery capacity" },
+  "oec:massFraction": { verdict: "KEEP_NO_LINK", reason: "schema:weight is wrong — mass fraction is a percentage, not weight" },
+  "oec:vatIdentificationNumber": { canonical: "schema:vatID", reason: "schema:vehicleIdentificationNumber is for cars; schema:vatID is the right canonical" },
+  "eubat:facilityIdentifier": { verdict: "KEEP_NO_LINK", reason: "schema:cvdFacilityId is a covid-specific term, not a generic identifier" },
+  "eubat:remainingCapacity": { verdict: "KEEP_NO_LINK", reason: "schema:remainingAttendeeCapacity is for events, not battery capacity" },
   // facility / mime / hazard / class noisy cross-domain links
-  "dpp:facilityType": { verdict: "KEEP_NO_LINK", reason: "gs1:collarType is wrong — facility type is unrelated to apparel" },
-  "dpp:mimeType": { verdict: "KEEP_NO_LINK", reason: "gs1:collarType is wrong — MIME type is a media format" },
-  "dpp:hazardImpact": { verdict: "KEEP_NO_LINK", reason: "schema:accessibilityHazard is for disability accommodations, not chemical hazards" },
-  "dpp:hazardClass": { verdict: "KEEP_NO_LINK", reason: "schema:accessibilityHazard is for disability accommodations" },
-  "dpp:HazardClass": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is unrelated" },
-  "dpp:repairabilityClass": { verdict: "KEEP_NO_LINK", reason: "schema:biomechnicalClass is medical, not repair-related" },
-  "dpp:performanceClass": { verdict: "KEEP_NO_LINK", reason: "schema:biomechnicalClass is medical" },
-  "dpp:testedConditions": { verdict: "KEEP_NO_LINK", reason: "gs1:paymentTerms is unrelated" },
-  "dpp:carbonFootprint": { verdict: "KEEP_NO_LINK", reason: "schema:emissionsCO2 isn't a class to link to via seeAlso here; existing untp-core link is preferred" },
-  "dpp:carbonFootprintTotal": { verdict: "KEEP_NO_LINK", reason: "Existing owl:equivalentProperty untp-core:carbonFootprint is the strong link" },
+  "oec:facilityType": { verdict: "KEEP_NO_LINK", reason: "gs1:collarType is wrong — facility type is unrelated to apparel" },
+  "oec:mimeType": { verdict: "KEEP_NO_LINK", reason: "gs1:collarType is wrong — MIME type is a media format" },
+  "oec:hazardImpact": { verdict: "KEEP_NO_LINK", reason: "schema:accessibilityHazard is for disability accommodations, not chemical hazards" },
+  "oec:hazardClass": { verdict: "KEEP_NO_LINK", reason: "schema:accessibilityHazard is for disability accommodations" },
+  "oec:HazardClass": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is unrelated" },
+  "oec:repairabilityClass": { verdict: "KEEP_NO_LINK", reason: "schema:biomechnicalClass is medical, not repair-related" },
+  "oec:performanceClass": { verdict: "KEEP_NO_LINK", reason: "schema:biomechnicalClass is medical" },
+  "oec:testedConditions": { verdict: "KEEP_NO_LINK", reason: "gs1:paymentTerms is unrelated" },
+  "oec:carbonFootprint": { verdict: "KEEP_NO_LINK", reason: "schema:emissionsCO2 isn't a class to link to via seeAlso here; existing untp-core link is preferred" },
+  "oec:carbonFootprintTotal": { verdict: "KEEP_NO_LINK", reason: "Existing owl:equivalentProperty untp-core:carbonFootprint is the strong link" },
 
   // schema:MapCategoryType is for cartographic categories — not appropriate for product/material categories
-  "battery:MaterialCategory": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is geographic" },
-  "battery:BatteryCategory": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is geographic" },
-  "textile:LCIACategory": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is geographic" },
-  "textile:TextileCategory": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is geographic" },
-  "electronics:WEEECategory": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is geographic" },
-  "electronics:DeviceCategory": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is geographic" },
-  "detergent:DetergentCategory": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is geographic" },
+  "eubat:MaterialCategory": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is geographic" },
+  "eubat:BatteryCategory": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is geographic" },
+  "eutex:LCIACategory": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is geographic" },
+  "eutex:TextileCategory": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is geographic" },
+  "euelec:WEEECategory": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is geographic" },
+  "euelec:DeviceCategory": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is geographic" },
+  "eudet:DetergentCategory": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is geographic" },
 
   // schema:priceComponentType is for finance, not electronic components
-  "electronics:componentType": { verdict: "KEEP_NO_LINK", reason: "schema:priceComponentType is for billing, not electronic components" },
-  "electronics:ComponentType": { verdict: "KEEP_NO_LINK", reason: "schema:PriceComponentTypeEnumeration is for billing" },
+  "euelec:componentType": { verdict: "KEEP_NO_LINK", reason: "schema:priceComponentType is for billing, not electronic components" },
+  "euelec:ComponentType": { verdict: "KEEP_NO_LINK", reason: "schema:PriceComponentTypeEnumeration is for billing" },
 
   // schema:digitalSourceType is for media licensing, not material origin
-  "textile:recycledSourceType": { verdict: "KEEP_NO_LINK", reason: "schema:digitalSourceType is for media licensing" },
-  "textile:wasteOriginType": { verdict: "KEEP_NO_LINK", reason: "schema:digitalSourceType is for media licensing" },
+  "eutex:recycledSourceType": { verdict: "KEEP_NO_LINK", reason: "schema:digitalSourceType is for media licensing" },
+  "eutex:wasteOriginType": { verdict: "KEEP_NO_LINK", reason: "schema:digitalSourceType is for media licensing" },
 
   // schema:fiberContent doesn't exist — probably a textile-specific token match noise
-  "textile:syntheticFiberContent": { verdict: "KEEP_NO_LINK", reason: "schema:fiberContent is not a standard schema.org term in the production vocab" },
+  "eutex:syntheticFiberContent": { verdict: "KEEP_NO_LINK", reason: "schema:fiberContent is not a standard schema.org term in the production vocab" },
 
   // eudr:origin* are structured location records, not generic schema:source
   "eudr:originDetails": { verdict: "KEEP_NO_LINK", reason: "schema:source is too generic; originDetails carries structured production-place data" },
   "eudr:originList": { verdict: "KEEP_NO_LINK", reason: "schema:source is too generic; originList is a container of OriginDetails" },
 
   // schema:hasEnergyEfficiencyCategory exists but takes EnergyConsumptionDetails — over-replacement
-  "electronics:energyEfficiencyClass": { verdict: "KEEP_NO_LINK", reason: "schema:hasEnergyEfficiencyCategory has a different domain shape; keep as-is for ESPR Energy Label compliance" },
+  "euelec:energyEfficiencyClass": { verdict: "KEEP_NO_LINK", reason: "schema:hasEnergyEfficiencyCategory has a different domain shape; keep as-is for ESPR Energy Label compliance" },
 
   // schema:reportNumber is generic — battery test reports have specific structure
-  "battery:testReportNumber": { verdict: "KEEP_NO_LINK", reason: "schema:reportNumber loses the battery-test-specific scoping" },
+  "eubat:testReportNumber": { verdict: "KEEP_NO_LINK", reason: "schema:reportNumber loses the battery-test-specific scoping" },
 
   // gs1:Product is a class — these enumeration classes shouldn't be equivalentClass to gs1:Product
-  "detergent:DetergentProduct": { verdict: "KEEP_NO_LINK", reason: "Already subclass of gs1:Product implicitly via domain; adding equivalentClass overstates equivalence" },
-  "detergent:ProductForm": { verdict: "KEEP_NO_LINK", reason: "ProductForm is an enum (Liquid, Powder, ...), not equivalent to gs1:Product class" },
+  "eudet:DetergentProduct": { verdict: "KEEP_NO_LINK", reason: "Already subclass of gs1:Product implicitly via domain; adding equivalentClass overstates equivalence" },
+  "eudet:ProductForm": { verdict: "KEEP_NO_LINK", reason: "ProductForm is an enum (Liquid, Powder, ...), not equivalent to gs1:Product class" },
 
   // schema:EventStatusType is for scheduled-event status (cancelled/postponed), not battery negative events
-  "battery:NegativeEventType": { verdict: "KEEP_NO_LINK", reason: "schema:EventStatusType is for scheduled-event status" },
+  "eubat:NegativeEventType": { verdict: "KEEP_NO_LINK", reason: "schema:EventStatusType is for scheduled-event status" },
 
   // textile:TextileFootwear is genuine subclass of gs1:Footwear — keep this LINK (it's HIGH and correct)
 
   // schema:DigitalDocumentPermissionType is for read/write permissions, not document types
-  "dpp:DocumentType": { verdict: "KEEP_NO_LINK", reason: "schema:DigitalDocumentPermissionType is for permissions (read/write), not document classification" },
+  "oec:DocumentType": { verdict: "KEEP_NO_LINK", reason: "schema:DigitalDocumentPermissionType is for permissions (read/write), not document classification" },
 
   // schema:orderItemNumber is for retail order line items (Amazon-style), not trade item piece counts
-  "dpp:tradeItemPieceNumber": { verdict: "KEEP_NO_LINK", reason: "schema:orderItemNumber is for retail order lines, not trade items" },
+  "oec:tradeItemPieceNumber": { verdict: "KEEP_NO_LINK", reason: "schema:orderItemNumber is for retail order lines, not trade items" },
 
   // gs1:qualifyingProductCategoryDescription is a GS1 GDSN field about qualifying categories — narrower
-  "dpp:productCategory": { verdict: "KEEP_NO_LINK", reason: "gs1:qualifyingProductCategoryDescription is a different concept (qualifier); use a generic schema:category alias instead in context" },
+  "oec:productCategory": { verdict: "KEEP_NO_LINK", reason: "gs1:qualifyingProductCategoryDescription is a different concept (qualifier); use a generic schema:category alias instead in context" },
 
   // schema:typeOfGood is undefined in current schema.org; schema:category fits better
   "eudr:timberProductType": { verdict: "KEEP_NO_LINK", reason: "schema:typeOfGood is not a stable schema.org term" },
@@ -128,21 +128,21 @@ const OVERRIDES: Record<string, { verdict?: MappingRow["verdict"]; canonical?: s
   "eudr:producerIdentification": { verdict: "KEEP_NO_LINK", reason: "schema:producer is for media (film, etc.), not legal/agricultural producers" },
 
   // electronics:updateSource — software update origin URL
-  "electronics:updateSource": { verdict: "KEEP_NO_LINK", reason: "schema:source is too generic; updateSource carries software-update-specific semantics" },
+  "euelec:updateSource": { verdict: "KEEP_NO_LINK", reason: "schema:source is too generic; updateSource carries software-update-specific semantics" },
 
   // textile:fiberOrigin — structured fiber origin record, not generic source
-  "textile:fiberOrigin": { verdict: "KEEP_NO_LINK", reason: "fiberOrigin is structured (country, region, certification) — generic schema:source loses scope" },
+  "eutex:fiberOrigin": { verdict: "KEEP_NO_LINK", reason: "fiberOrigin is structured (country, region, certification) — generic schema:source loses scope" },
 
   // gs1:certificationAgencyURL is the URL of the agency, not the certificate itself
-  "battery:measurementCertificateUrl": { verdict: "KEEP_NO_LINK", reason: "gs1:certificationAgencyURL is the agency's URL, not the certificate document URL" },
-  "battery:verificationCertificateUrl": { verdict: "KEEP_NO_LINK", reason: "Same as above" },
+  "eubat:measurementCertificateUrl": { verdict: "KEEP_NO_LINK", reason: "gs1:certificationAgencyURL is the agency's URL, not the certificate document URL" },
+  "eubat:verificationCertificateUrl": { verdict: "KEEP_NO_LINK", reason: "Same as above" },
 
   // gs1:certificationInfo is broader; using it would lose specific certification semantics on these properties
-  "dpp:dataProviderCertification": { verdict: "KEEP_NO_LINK", reason: "gs1:certificationInfo is a generic descriptor, not the specific data-provider attestation" },
-  "battery:dataProviderCertification": { verdict: "KEEP_NO_LINK", reason: "Same as above" },
+  "oec:dataProviderCertification": { verdict: "KEEP_NO_LINK", reason: "gs1:certificationInfo is a generic descriptor, not the specific data-provider attestation" },
+  "eubat:dataProviderCertification": { verdict: "KEEP_NO_LINK", reason: "Same as above" },
   "eudr:fscCertification": { verdict: "KEEP_NO_LINK", reason: "FSC is a specific scheme; gs1:certificationInfo loses the schema specificity" },
-  "textile:fiberCertification": { verdict: "KEEP_NO_LINK", reason: "Same — generic gs1:certificationInfo loses fiber-specific scoping" },
-  "textile:verificationCertification": { verdict: "KEEP_NO_LINK", reason: "Same" },
+  "eutex:fiberCertification": { verdict: "KEEP_NO_LINK", reason: "Same — generic gs1:certificationInfo loses fiber-specific scoping" },
+  "eutex:verificationCertification": { verdict: "KEEP_NO_LINK", reason: "Same" },
 
   // schema:weightPercentage exists as a percentage, this is a valid replacement
   // (battery:massPercentage stays as REPLACE — confirmed)
@@ -151,8 +151,8 @@ const OVERRIDES: Record<string, { verdict?: MappingRow["verdict"]; canonical?: s
   // (keep as REPLACE)
 
   // gs1:fileLanguageCode is for file metadata (GDSN), not document language — too narrow
-  "dpp:languageCode": { verdict: "KEEP_NO_LINK", reason: "gs1:fileLanguageCode is GDSN-file-specific, not generic language code" },
-  "battery:languageCode": { verdict: "KEEP_NO_LINK", reason: "Same" },
+  "oec:languageCode": { verdict: "KEEP_NO_LINK", reason: "gs1:fileLanguageCode is GDSN-file-specific, not generic language code" },
+  "eubat:languageCode": { verdict: "KEEP_NO_LINK", reason: "Same" },
 
   // gs1:regulatoryReferenceNumber exists and is exact name match — valid REPLACE for both
   // (keep as REPLACE)
@@ -161,10 +161,10 @@ const OVERRIDES: Record<string, { verdict?: MappingRow["verdict"]; canonical?: s
 
   // GS1 First precedence overrides: when the auto-classifier picked schema but gs1 has the same coverage,
   // prefer gs1.
-  "dpp:sourceCountry": { canonical: "gs1:countryOfOrigin", reason: "GS1 First — gs1:countryOfOrigin exists with the same semantics" },
-  "battery:materialSourceCountry": { canonical: "gs1:countryOfOrigin", reason: "GS1 First — gs1:countryOfOrigin exists" },
-  "battery:manufacturerInformation": { canonical: "gs1:manufacturer", reason: "GS1 First — gs1:manufacturer exists" },
-  "electronics:componentManufacturer": { canonical: "gs1:manufacturer", reason: "GS1 First — gs1:manufacturer exists" },
+  "oec:sourceCountry": { canonical: "gs1:countryOfOrigin", reason: "GS1 First — gs1:countryOfOrigin exists with the same semantics" },
+  "eubat:materialSourceCountry": { canonical: "gs1:countryOfOrigin", reason: "GS1 First — gs1:countryOfOrigin exists" },
+  "eubat:manufacturerInformation": { canonical: "gs1:manufacturer", reason: "GS1 First — gs1:manufacturer exists" },
+  "euelec:componentManufacturer": { canonical: "gs1:manufacturer", reason: "GS1 First — gs1:manufacturer exists" },
   // battery:auditDate keeps schema:auditDate (more specific than gs1:certificationAuditDate which is cert-scoped)
   // battery:materialCategory keeps schema:category (gs1:packagingMaterialType is for packaging, not battery materials)
 };

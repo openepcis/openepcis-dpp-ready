@@ -8,9 +8,9 @@ All notable changes to the Battery module will be documented in this file.
 - 5 additive performance properties required by the **live** GEFEG
   BatteryPass-Ready validator (no GS1/upstream equivalent), flat on their domain
   class so existing payloads are unaffected:
-  - `battery:maximumPermittedBatteryPower` (range `gs1:QuantitativeValue`, domain `battery:TechnicalSpecification`)
-  - `battery:timeSpentInExtremeTemperaturesAboveBoundary` / `…BelowBoundary` (range `xsd:integer`, domain `gs1:Product`)
-  - `battery:timeSpentChargingDuringExtremeTemperaturesAboveBoundary` / `…BelowBoundary` (range `xsd:integer`, domain `gs1:Product`)
+  - `eubat:maximumPermittedBatteryPower` (range `gs1:QuantitativeValue`, domain `eubat:TechnicalSpecification`)
+  - `eubat:timeSpentInExtremeTemperaturesAboveBoundary` / `…BelowBoundary` (range `xsd:integer`, domain `gs1:Product`)
+  - `eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary` / `…BelowBoundary` (range `xsd:integer`, domain `gs1:Product`)
 - GEFEG exporter `scripts/export-batterypass-gefeg.ts` + live caller
   `scripts/validate-batterypass-live.ts` + required-set probe
   `scripts/probe-gefeg-required.ts` + derived-schema generator
@@ -37,11 +37,11 @@ All notable changes to the Battery module will be documented in this file.
 ## 0.9.6 — EN 18223 status alignment (2026-06-07)
 
 ### Added
-- `battery:Battery` class, regenerating `json/battery.json` against the new EN 18223 core model.
+- `eubat:Battery` class, regenerating `json/battery.json` against the new EN 18223 core model.
 
 ### Changed
-- `dppStatus` aligned to the string-valued `dpp:passportStatus` (EN 18223 `dppStatus`); the SHACL passport-status shape updated to match.
-- Per-attribute reporting granularity now uses `dpp:reportingGranularity` (the `granularity` key is reserved for the EN 18223 passport-level attribute); passport timestamp uses `dpp:lastUpdated`.
+- `dppStatus` aligned to the string-valued `oec:passportStatus` (EN 18223 `dppStatus`); the SHACL passport-status shape updated to match.
+- Per-attribute reporting granularity now uses `oec:reportingGranularity` (the `granularity` key is reserved for the EN 18223 passport-level attribute); passport timestamp uses `oec:lastUpdated`.
 
 ## 0.9.5 — BatteryPass-Ready v1.3 gap-fill + CIRPASS-2 see-also pointers (2026-05-04)
 
@@ -52,16 +52,16 @@ v1.2.0, the consortium's current published tag). All flat on the
 appropriate domain class — no breaking change to existing payloads or to
 the BatteryPass-Ready GEFEG bridge:
 
-- `battery:currentSelfDischargingRate` (range `gs1:QuantitativeValue`, domain `dpp:PerformanceInfo`) — current rate of self-discharge
-- `battery:atSoC` (range `xsd:decimal`, 0–1) — test-condition annotation: state-of-charge at which a metric was measured
-- `battery:numberOfFullCycles` (range `xsd:integer`, domain `dpp:PerformanceInfo`)
-- `battery:roundTripEnergyEfficiency` (range `xsd:decimal`, 0–1, domain `dpp:PerformanceInfo`)
-- `battery:expectedLifetime` (range `gs1:QuantitativeValue`, domain `gs1:Product`) — ESPR Article 7 durability declaration
-- `battery:expectedNumberOfCycles` (range `xsd:integer`, domain `gs1:Product`)
-- `battery:batteryMass` (range `gs1:QuantitativeValue`, `rdfs:subPropertyOf gs1:netWeight`) — Annex VI Part A; GS1-first via the netWeight subproperty
-- `battery:dismantlingAndRemovalInformation` (range `dpp:DocumentReference`) — Annex VIII §B safety information
-- `battery:safetyMeasures` (range `xsd:string`)
-- `battery:negativeEvents` (range existing `battery:NegativeEvent`, domain `dpp:PerformanceInfo`) — wires the already-defined `battery:NegativeEventType` enum (Accident / PhysicalDamage / ThermalEvent / ElectricalFault / WaterIngress / Overcharge / DeepDischarge / ShortCircuit) into the passport
+- `eubat:currentSelfDischargingRate` (range `gs1:QuantitativeValue`, domain `oec:PerformanceInfo`) — current rate of self-discharge
+- `eubat:atSoC` (range `xsd:decimal`, 0–1) — test-condition annotation: state-of-charge at which a metric was measured
+- `eubat:numberOfFullCycles` (range `xsd:integer`, domain `oec:PerformanceInfo`)
+- `eubat:roundTripEnergyEfficiency` (range `xsd:decimal`, 0–1, domain `oec:PerformanceInfo`)
+- `eubat:expectedLifetime` (range `gs1:QuantitativeValue`, domain `gs1:Product`) — ESPR Article 7 durability declaration
+- `eubat:expectedNumberOfCycles` (range `xsd:integer`, domain `gs1:Product`)
+- `eubat:batteryMass` (range `gs1:QuantitativeValue`, `rdfs:subPropertyOf gs1:netWeight`) — Annex VI Part A; GS1-first via the netWeight subproperty
+- `eubat:dismantlingAndRemovalInformation` (range `oec:DocumentReference`) — Annex VIII §B safety information
+- `eubat:safetyMeasures` (range `xsd:string`)
+- `eubat:negativeEvents` (range existing `eubat:NegativeEvent`, domain `oec:PerformanceInfo`) — wires the already-defined `eubat:NegativeEventType` enum (Accident / PhysicalDamage / ThermalEvent / ElectricalFault / WaterIngress / Overcharge / DeepDischarge / ShortCircuit) into the passport
 
 Each new property carries a `skos:note` citing the corresponding
 SAMM submodel URN at v1.2.0. Full provenance trace and the CIRPASS-2
@@ -86,24 +86,24 @@ v1.3 / GEFEG harness expectations at the JSON-LD context level; the RDF
 shape underneath is structurally correct.
 
 ### Typed link properties on `gs1:Product`
-- `battery:euDeclarationOfConformity` — range `cccev:Evidence` (SEMICeu CCCEV). Models the EU Declaration of Conformity as the canonical CCCEV evidence supporting the EU Battery Regulation requirements. `rdfs:subPropertyOf cccev:hasSupportingEvidence`.
-- `battery:manufacturingPlace` — range `dpp:FacilityInformation` (subClassOf `gs1:Place`); `rdfs:seeAlso locn:Location`.
-- `battery:operatorInformation` — range `dpp:OperatorInformation`; `owl:equivalentClass dpp:OperatorInformation` already pulls the legacy `untp-core:Party` anchor through.
+- `eubat:euDeclarationOfConformity` — range `cccev:Evidence` (SEMICeu CCCEV). Models the EU Declaration of Conformity as the canonical CCCEV evidence supporting the EU Battery Regulation requirements. `rdfs:subPropertyOf cccev:hasSupportingEvidence`.
+- `eubat:manufacturingPlace` — range `oec:FacilityInformation` (subClassOf `gs1:Place`); `rdfs:seeAlso locn:Location`.
+- `eubat:operatorInformation` — range `oec:OperatorInformation`; `owl:equivalentClass oec:OperatorInformation` already pulls the legacy `untp-core:Party` anchor through.
 
 ### Typed link inside the declaration
-- `battery:notifiedBody` — domain `cccev:Evidence`, range `cv:PublicOrganisation` (SEMICeu CPOV). The notified body that signed off on the conformity assessment is a public organisation; it sits under the declaration, not directly on the product.
+- `eubat:notifiedBody` — domain `cccev:Evidence`, range `cv:PublicOrganisation` (SEMICeu CPOV). The notified body that signed off on the conformity assessment is a public organisation; it sits under the declaration, not directly on the product.
 
 ### Identifier and label properties (sit on the typed object)
 | Property | Domain | Anchor |
 |---|---|---|
-| `battery:notifiedBodyNumber` | `cv:PublicOrganisation` | `rdfs:subPropertyOf skos:notation`, `rdfs:seeAlso adms:Identifier` |
-| `battery:notifiedBodyName` | `cv:PublicOrganisation` | `rdfs:subPropertyOf gs1:organizationName` |
-| `battery:operatorIdentifier` | `dpp:OperatorInformation` | `rdfs:subPropertyOf skos:notation`, `rdfs:seeAlso adms:Identifier`, `rdfs:seeAlso gs1:gln` |
-| `battery:manufacturerIdentifier` | `dpp:OperatorInformation` | `rdfs:subPropertyOf skos:notation`, `rdfs:seeAlso adms:Identifier`, `rdfs:seeAlso gs1:gln` |
-| `battery:facilityIdentifier` | `dpp:FacilityInformation` | `rdfs:subPropertyOf skos:notation`, `rdfs:seeAlso adms:Identifier`, `rdfs:seeAlso gs1:gln` |
-| `battery:declarationOfConformity` (URL) | `cccev:Evidence` | `rdfs:seeAlso schema:url` |
-| `battery:euDeclarationOfConformityId` | `cccev:Evidence` | `rdfs:subPropertyOf skos:notation`, `rdfs:seeAlso adms:Identifier` |
-| `battery:supplierContact` | `gs1:Organization` | range `gs1:ContactPoint`; `rdfs:seeAlso cv:ContactPoint` |
+| `eubat:notifiedBodyNumber` | `cv:PublicOrganisation` | `rdfs:subPropertyOf skos:notation`, `rdfs:seeAlso adms:Identifier` |
+| `eubat:notifiedBodyName` | `cv:PublicOrganisation` | `rdfs:subPropertyOf gs1:organizationName` |
+| `eubat:operatorIdentifier` | `oec:OperatorInformation` | `rdfs:subPropertyOf skos:notation`, `rdfs:seeAlso adms:Identifier`, `rdfs:seeAlso gs1:gln` |
+| `eubat:manufacturerIdentifier` | `oec:OperatorInformation` | `rdfs:subPropertyOf skos:notation`, `rdfs:seeAlso adms:Identifier`, `rdfs:seeAlso gs1:gln` |
+| `eubat:facilityIdentifier` | `oec:FacilityInformation` | `rdfs:subPropertyOf skos:notation`, `rdfs:seeAlso adms:Identifier`, `rdfs:seeAlso gs1:gln` |
+| `eubat:declarationOfConformity` (URL) | `cccev:Evidence` | `rdfs:seeAlso schema:url` |
+| `eubat:euDeclarationOfConformityId` | `cccev:Evidence` | `rdfs:subPropertyOf skos:notation`, `rdfs:seeAlso adms:Identifier` |
+| `eubat:supplierContact` | `gs1:Organization` | range `gs1:ContactPoint`; `rdfs:seeAlso cv:ContactPoint` |
 
 ### Example shape
 `battery-product.jsonld` carries the canonical nested form:
@@ -125,7 +125,7 @@ shape underneath is structurally correct.
 ```
 
 JSON-LD context registers the `cv:` / `cccev:` prefixes alongside the
-existing `gs1:` / `dpp:` / `schema:` and aliases the new typed-link
+existing `gs1:` / `oec:` / `schema:` and aliases the new typed-link
 property names (`euDeclarationOfConformity`, `notifiedBody`). RDF entailment
 will not enforce these `rdfs:domain` declarations at parse time, so payloads
 that put the leaf properties flat under `gs1:Product` will still parse;
@@ -141,45 +141,45 @@ the canonical shape is the typed nesting above.
 
 ### Removed (use canonical term instead)
 
-- `battery:auditDate` → `schema:auditDate`
-- `battery:batteryCategory` → `schema:category`
-- `battery:batteryModel` → `schema:model`
-- `battery:batterySerialNumber` → `gs1:hasSerialNumber`
-- `battery:batteryStatus` → `schema:status`
-- `battery:eventDescription` → `schema:description`
-- `battery:exposureStartTime` → `schema:startDate`
-- `battery:fullName` → `schema:name`
-- `battery:manufacturerInformation` → `gs1:manufacturer`
-- `battery:massPercentage` → `schema:weightPercentage`
-- `battery:materialCategory` → `schema:category`
-- `battery:materialName` → `schema:name`
-- `battery:materialSourceCountry` → `gs1:countryOfOrigin`
-- `battery:measurementMethod` → `schema:measurementMethod`
-- `battery:serviceContactPoint` → `schema:contactPoint`
-- `battery:shortName` → `schema:name`
-- `battery:substanceName` → `schema:name`
+- `eubat:auditDate` → `schema:auditDate`
+- `eubat:batteryCategory` → `schema:category`
+- `eubat:batteryModel` → `schema:model`
+- `eubat:batterySerialNumber` → `gs1:hasSerialNumber`
+- `eubat:batteryStatus` → `schema:status`
+- `eubat:eventDescription` → `schema:description`
+- `eubat:exposureStartTime` → `schema:startDate`
+- `eubat:fullName` → `schema:name`
+- `eubat:manufacturerInformation` → `gs1:manufacturer`
+- `eubat:massPercentage` → `schema:weightPercentage`
+- `eubat:materialCategory` → `schema:category`
+- `eubat:materialName` → `schema:name`
+- `eubat:materialSourceCountry` → `gs1:countryOfOrigin`
+- `eubat:measurementMethod` → `schema:measurementMethod`
+- `eubat:serviceContactPoint` → `schema:contactPoint`
+- `eubat:shortName` → `schema:name`
+- `eubat:substanceName` → `schema:name`
 
 ## [Unreleased] - 2026-04-29
 
 ### BatteryPass-Ready v1.3 alignment (GEFEG conformance prep)
 
-GEFEG published the **Battery Passport Data Attribute Longlist v1.3** (March 2026, 100 attributes vs 93 in v1.2). The BatteryPass-Ready test environment is scheduled to come online June 2026. This release aligns our `battery:` ontology, validation profiles, EPCIS examples, and SAMM bridge contexts with v1.3 so that documents emitted via the `battery-context-to-batterypass.jsonld` reverse bridge will satisfy the GEFEG harness when it opens.
+GEFEG published the **Battery Passport Data Attribute Longlist v1.3** (March 2026, 100 attributes vs 93 in v1.2). The BatteryPass-Ready test environment is scheduled to come online June 2026. This release aligns our `eubat:` ontology, validation profiles, EPCIS examples, and SAMM bridge contexts with v1.3 so that documents emitted via the `battery-context-to-batterypass.jsonld` reverse bridge will satisfy the GEFEG harness when it opens.
 
-**New properties — `battery:`**
-- `battery:batteryModelIdentifier` (mandatory; v1.3 #7) — manufacturer model ID, distinct from the human-readable `battery:batteryModel`.
-- `battery:batterySerialNumber` (mandatory; v1.3 #8) — explicit serial; complements the `(21)` AI in the GS1 Digital Link.
-- `battery:facilityIdentifier` (mandatory; v1.3 #11) — was implicit in `manufacturingPlace`; now first-class.
-- `battery:operatorIdentifier` (mandatory; v1.3 #9) — split from `operatorInformation`; access-restricted to authorities.
-- `battery:manufacturerIdentifier` (mandatory; v1.3 #10) and `battery:manufacturerInformation` (mandatory; v1.3 #13) — split from a single combined attribute.
+**New properties — `eubat:`**
+- `eubat:batteryModelIdentifier` (mandatory; v1.3 #7) — manufacturer model ID, distinct from the human-readable `eubat:batteryModel`.
+- `eubat:batterySerialNumber` (mandatory; v1.3 #8) — explicit serial; complements the `(21)` AI in the GS1 Digital Link.
+- `eubat:facilityIdentifier` (mandatory; v1.3 #11) — was implicit in `manufacturingPlace`; now first-class.
+- `eubat:operatorIdentifier` (mandatory; v1.3 #9) — split from `operatorInformation`; access-restricted to authorities.
+- `eubat:manufacturerIdentifier` (mandatory; v1.3 #10) and `eubat:manufacturerInformation` (mandatory; v1.3 #13) — split from a single combined attribute.
 
-**New properties — `dpp:` core (cross-cutting DPP information, v1.3 #1-#4)**
-- `dpp:schemaVersion` — schema version this DPP follows (e.g. `"1.3"`).
-- `dpp:status` — reuses existing `dpp:PassportStatus` enumeration; added `dpp:Suspended` individual.
-- `dpp:granularity` — new `dpp:DPPGranularity` enumeration (`ModelLevel`, `ModelPerSiteLevel`, `BatchLevel`, `ItemLevel`).
-- `dpp:lastUpdate` — date-time of latest DPP update.
+**New properties — `oec:` core (cross-cutting DPP information, v1.3 #1-#4)**
+- `oec:schemaVersion` — schema version this DPP follows (e.g. `"1.3"`).
+- `oec:status` — reuses existing `oec:PassportStatus` enumeration; added `oec:Suspended` individual.
+- `oec:granularity` — new `oec:DPPGranularity` enumeration (`ModelLevel`, `ModelPerSiteLevel`, `BatchLevel`, `ItemLevel`).
+- `oec:lastUpdate` — date-time of latest DPP update.
 
-**Removed properties — `battery:`**
-- `battery:leadPreConsumerShare` and `battery:leadPostConsumerShare` — combined into the existing `battery:leadRecycledShare` per v1.3 #54 (the EU Battery Regulation does not require a pre/post split for lead, in contrast to lithium, cobalt, nickel).
+**Removed properties — `eubat:`**
+- `eubat:leadPreConsumerShare` and `eubat:leadPostConsumerShare` — combined into the existing `eubat:leadRecycledShare` per v1.3 #54 (the EU Battery Regulation does not require a pre/post split for lead, in contrast to lithium, cobalt, nickel).
 
 **SAMM bridge context updates**
 - Bumped SAMM URN namespace versions from `1.2.0` / `1.2.1` to `1.3.0` in both forward (`battery-context-batterypass-bridge.jsonld`) and reverse (`battery-context-to-batterypass.jsonld`) bridges.
@@ -205,7 +205,7 @@ GEFEG published the **Battery Passport Data Attribute Longlist v1.3** (March 202
 - Added `ajv@^8.20.0` and `ajv-formats@^3.0.1` to devDependencies.
 
 **Documentation corrections (no schema impact)**
-- Updated equation comments on `battery:capacityFade`, `battery:powerFade`, `battery:roundTripEfficiencyFade` to reflect bracket-placement fixes per v1.3 (#61, #71, #77).
+- Updated equation comments on `eubat:capacityFade`, `eubat:powerFade`, `eubat:roundTripEfficiencyFade` to reflect bracket-placement fixes per v1.3 (#61, #71, #77).
 
 ## [0.9.5] - 2025-02-02
 

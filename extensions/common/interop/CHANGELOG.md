@@ -6,7 +6,7 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ### Added
 - **`docs/CEN_JTC24_CONFORMANCE.md`** — clause-by-clause conformance map of the OpenEPCIS GS1 + EPCIS profile against the six published CEN/CENELEC JTC 24 standards (EN 18216, 18219, 18220, 18221, 18222, 18223).
-- **`docs/EN18223_MODEL_ALIGNMENT.md`** — the Phase B work list aligning `dpp:` core with the EN 18223 information model.
+- **`docs/EN18223_MODEL_ALIGNMENT.md`** — the Phase B work list aligning `oec:` core with the EN 18223 information model.
 - **`docs/GS1_STACK_EN182XX_WHITEPAPER.md`** — the EPCIS4DPP whitepaper, with a "Deriving the passport from a GS1 Digital Link" section (GS1 Application Identifiers to granularity) and a "Two routes to interoperability" observation comparing EN 18223 and UNTP serialisation, process, and access.
 - Browser demo `demos/en18223-converter/` that derives the EN 18223 Annex A "expanded" serialization live from GS1 Web Vocabulary + GS1 Digital Link JSON-LD. Linked from the root and interop READMEs.
 
@@ -14,7 +14,7 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ### Added
 - **EU SEMICeu Core Vocabularies bridge** (`context/semic-core-bridge-context.jsonld`) covering CCCEV, CPOV, Core Business, Core Person, Core Location, Core Public Event, CPSV-AP, and ADMS / ADMS-AP. Single consolidated context; namespaces `cv:` / `cccev:` (`http://data.europa.eu/m8g/`), `locn:` (`http://www.w3.org/ns/locn#`), `adms:` (`http://www.w3.org/ns/adms#`), `cpsv:` (`http://purl.org/vocab/cpsv#`), plus `org:` / `foaf:` / `skos:` / `dcterms:` reuse.
-- **`docs/SEMIC_CORE_VOCABULARIES.md`** — comprehensive narrative + per-vocabulary mapping. Documents which `dpp:` and module terms anchor to SEMICeu and how to compose payloads.
+- **`docs/SEMIC_CORE_VOCABULARIES.md`** — comprehensive narrative + per-vocabulary mapping. Documents which `oec:` and module terms anchor to SEMICeu and how to compose payloads.
 - New **"Foundational vocabularies (peer Layer 1)"** section at the top of `docs/STANDARDS_ALIGNMENT.md` describing the peer triumvirate: schema.org + GS1 + SEMICeu Core Vocabularies as Layer 1 foundations, with UNTP / CIRPASS-2 / JTC 24 sitting above as Layer 2 community profiles.
 
 ### Changed

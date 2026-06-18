@@ -100,11 +100,11 @@ A woven winter jacket tested after 5 wash cycles:
 ## Ontology Mapping
 
 ```turtle
-textile:RobustnessAssessment    # Container class
-  textile:robustnessScore       # 0-10 composite score
-  textile:cleaningCyclesBeforeTest  # Number of wash cycles (default 5)
-  textile:robustnessTestFabricType  # Determines threshold tables
-  textile:spiralityTest         # -> SpiralityTestResult
-  textile:dimensionalChangeTest # -> DimensionalChangeTestResult
-  textile:visualInspection      # -> VisualInspectionResult
+eutex:RobustnessAssessment    # Container class
+  eutex:robustnessScore       # 0-10 composite score
+  eutex:cleaningCyclesBeforeTest  # Number of wash cycles (default 5)
+  eutex:robustnessTestFabricType  # Determines threshold tables
+  eutex:spiralityTest         # -> SpiralityTestResult
+  eutex:dimensionalChangeTest # -> DimensionalChangeTestResult
+  eutex:visualInspection      # -> VisualInspectionResult
 ```

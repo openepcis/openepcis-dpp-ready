@@ -103,7 +103,7 @@ https://id.gs1.org/8004/{giai}
 
 | Prefix | Namespace URI | Status |
 |--------|---------------|--------|
-| `battery:` | `https://ref.openepcis.io/extensions/eu/battery/` | OpenEPCIS managed |
+| `eubat:` | `https://ref.openepcis.io/extensions/eu/battery/` | OpenEPCIS managed |
 
 **Ontology URL:** `https://ref.openepcis.io/extensions/eu/battery/`
 

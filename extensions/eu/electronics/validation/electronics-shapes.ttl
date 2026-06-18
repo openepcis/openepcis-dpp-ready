@@ -1,6 +1,6 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix electronics: <https://ref.openepcis.io/extensions/eu/electronics/> .
-@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix euelec: <https://ref.openepcis.io/extensions/eu/electronics/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix schema: <https://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -22,8 +22,8 @@
 # -----------------------------------------------------------------------------
 # Electronic Device Shape
 # -----------------------------------------------------------------------------
-electronics:ElectronicDeviceShape a sh:NodeShape ;
-    sh:targetClass electronics:ElectronicDevice ;
+euelec:ElectronicDeviceShape a sh:NodeShape ;
+    sh:targetClass euelec:ElectronicDevice ;
     rdfs:label "Electronic Device Shape" ;
     rdfs:comment "Validation shape for ElectronicDevice instances as defined by ESPR Electronics delegated acts." ;
     sh:property [
@@ -31,10 +31,10 @@ electronics:ElectronicDeviceShape a sh:NodeShape ;
         sh:name "Device Category" ;
         sh:description "The product category of the electronic device." ;
         sh:maxCount 1 ;
-        sh:class electronics:DeviceCategory
+        sh:class euelec:DeviceCategory
     ] ;
     sh:property [
-        sh:path electronics:modelIdentifier ;
+        sh:path euelec:modelIdentifier ;
         sh:name "Model Identifier" ;
         sh:description "Manufacturer model identifier for the device." ;
         sh:datatype xsd:string ;
@@ -48,63 +48,63 @@ electronics:ElectronicDeviceShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:repairabilityIndex ;
+        sh:path euelec:repairabilityIndex ;
         sh:name "Repairability Index" ;
         sh:description "Repairability index assessment for the device." ;
-        sh:class electronics:RepairabilityIndex
+        sh:class euelec:RepairabilityIndex
     ] ;
     sh:property [
-        sh:path electronics:softwareSupport ;
+        sh:path euelec:softwareSupport ;
         sh:name "Software Support" ;
         sh:description "Software and firmware support information." ;
-        sh:class electronics:SoftwareSupport
+        sh:class euelec:SoftwareSupport
     ] ;
     sh:property [
-        sh:path electronics:energyEfficiency ;
+        sh:path euelec:energyEfficiency ;
         sh:name "Energy Efficiency" ;
         sh:description "Energy efficiency rating and consumption data." ;
-        sh:class electronics:EnergyEfficiency
+        sh:class euelec:EnergyEfficiency
     ] ;
     sh:property [
-        sh:path electronics:billOfMaterials ;
+        sh:path euelec:billOfMaterials ;
         sh:name "Bill of Materials" ;
         sh:description "Component bill of materials for the device." ;
-        sh:class electronics:ComponentBOM
+        sh:class euelec:ComponentBOM
     ] ;
     sh:property [
-        sh:path electronics:weeeCompliance ;
+        sh:path euelec:weeeCompliance ;
         sh:name "WEEE Compliance" ;
         sh:description "Waste Electrical and Electronic Equipment compliance data." ;
-        sh:class electronics:WEEECompliance
+        sh:class euelec:WEEECompliance
     ] ;
     sh:property [
-        sh:path electronics:rohsCompliance ;
+        sh:path euelec:rohsCompliance ;
         sh:name "RoHS Compliance" ;
         sh:description "Restriction of Hazardous Substances compliance data." ;
-        sh:class electronics:RoHSCompliance
+        sh:class euelec:RoHSCompliance
     ] ;
     sh:property [
-        sh:path electronics:displaySpecification ;
+        sh:path euelec:displaySpecification ;
         sh:name "Display Specification" ;
         sh:description "Display panel technical specifications." ;
-        sh:class electronics:DisplaySpecification
+        sh:class euelec:DisplaySpecification
     ] ;
     sh:property [
-        sh:path electronics:materialDeclaration ;
+        sh:path euelec:materialDeclaration ;
         sh:name "Material Declaration" ;
         sh:description "Declared substances of concern present in the device." ;
-        sh:class dpp:SubstanceOfConcern
+        sh:class oec:SubstanceOfConcern
     ] .
 
 # -----------------------------------------------------------------------------
 # Repairability Index Shape
 # -----------------------------------------------------------------------------
-electronics:RepairabilityIndexShape a sh:NodeShape ;
-    sh:targetClass electronics:RepairabilityIndex ;
+euelec:RepairabilityIndexShape a sh:NodeShape ;
+    sh:targetClass euelec:RepairabilityIndex ;
     rdfs:label "Repairability Index Shape" ;
     rdfs:comment "Validation shape for repairability index assessments per EU methodology." ;
     sh:property [
-        sh:path electronics:totalScore ;
+        sh:path euelec:totalScore ;
         sh:name "Total Score" ;
         sh:description "Overall repairability score from 0 to 100." ;
         sh:datatype xsd:decimal ;
@@ -114,7 +114,7 @@ electronics:RepairabilityIndexShape a sh:NodeShape ;
         sh:message "Total score must be a decimal between 0 and 100."
     ] ;
     sh:property [
-        sh:path electronics:displayScore ;
+        sh:path euelec:displayScore ;
         sh:name "Display Score" ;
         sh:description "Simplified repairability score from 0 to 10 shown on the label." ;
         sh:datatype xsd:decimal ;
@@ -124,34 +124,34 @@ electronics:RepairabilityIndexShape a sh:NodeShape ;
         sh:message "Display score must be a decimal between 0 and 10."
     ] ;
     sh:property [
-        sh:path electronics:repairabilityClass ;
+        sh:path euelec:repairabilityClass ;
         sh:name "Repairability Class" ;
         sh:description "EU repairability class designation." ;
         sh:maxCount 1 ;
-        sh:class electronics:EURepairabilityClass
+        sh:class euelec:EURepairabilityClass
     ] ;
     sh:property [
-        sh:path electronics:repairCriteria ;
+        sh:path euelec:repairCriteria ;
         sh:name "Repair Criteria" ;
         sh:description "Individual repair criteria scores contributing to the index." ;
-        sh:class electronics:RepairCriterion
+        sh:class euelec:RepairCriterion
     ] ;
     sh:property [
-        sh:path electronics:assessmentDate ;
+        sh:path euelec:assessmentDate ;
         sh:name "Assessment Date" ;
         sh:description "Date the repairability assessment was performed." ;
         sh:datatype xsd:date ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:assessmentBody ;
+        sh:path euelec:assessmentBody ;
         sh:name "Assessment Body" ;
         sh:description "Organization that performed the repairability assessment." ;
         sh:maxCount 1 ;
         sh:class gs1:Organization
     ] ;
     sh:property [
-        sh:path electronics:repairabilityLabelUrl ;
+        sh:path euelec:repairabilityLabelUrl ;
         sh:name "Repairability Label URL" ;
         sh:description "URL of the repairability label image." ;
         sh:datatype xsd:anyURI ;
@@ -161,20 +161,20 @@ electronics:RepairabilityIndexShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Repair Criterion Shape
 # -----------------------------------------------------------------------------
-electronics:RepairCriterionShape a sh:NodeShape ;
-    sh:targetClass electronics:RepairCriterion ;
+euelec:RepairCriterionShape a sh:NodeShape ;
+    sh:targetClass euelec:RepairCriterion ;
     rdfs:label "Repair Criterion Shape" ;
     rdfs:comment "Validation shape for individual repair criterion scores." ;
     sh:property [
-        sh:path electronics:criterionType ;
+        sh:path euelec:criterionType ;
         sh:name "Criterion Type" ;
         sh:description "The type of repair criterion being scored." ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:class electronics:RepairCriterionType
+        sh:class euelec:RepairCriterionType
     ] ;
     sh:property [
-        sh:path electronics:criterionScore ;
+        sh:path euelec:criterionScore ;
         sh:name "Criterion Score" ;
         sh:description "Score awarded for this criterion, from 0 to 20." ;
         sh:datatype xsd:decimal ;
@@ -185,14 +185,14 @@ electronics:RepairCriterionShape a sh:NodeShape ;
         sh:message "Criterion score must be a decimal between 0 and 20."
     ] ;
     sh:property [
-        sh:path electronics:criterionMaxScore ;
+        sh:path euelec:criterionMaxScore ;
         sh:name "Criterion Max Score" ;
         sh:description "Maximum possible score for this criterion." ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:criterionDetails ;
+        sh:path euelec:criterionDetails ;
         sh:name "Criterion Details" ;
         sh:description "Textual details or justification for the score." ;
         sh:datatype xsd:string ;
@@ -202,8 +202,8 @@ electronics:RepairCriterionShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Software Support Shape
 # -----------------------------------------------------------------------------
-electronics:SoftwareSupportShape a sh:NodeShape ;
-    sh:targetClass electronics:SoftwareSupport ;
+euelec:SoftwareSupportShape a sh:NodeShape ;
+    sh:targetClass euelec:SoftwareSupport ;
     rdfs:label "Software Support Shape" ;
     rdfs:comment "Validation shape for software and firmware support commitments." ;
     sh:property [
@@ -214,56 +214,56 @@ electronics:SoftwareSupportShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:osVersion ;
+        sh:path euelec:osVersion ;
         sh:name "OS Version" ;
         sh:description "Version of the operating system at time of manufacture." ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:firmwareVersion ;
+        sh:path euelec:firmwareVersion ;
         sh:name "Firmware Version" ;
         sh:description "Current firmware version identifier." ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:securityUpdateEndDate ;
+        sh:path euelec:securityUpdateEndDate ;
         sh:name "Security Update End Date" ;
         sh:description "Date until which security updates are guaranteed." ;
         sh:datatype xsd:date ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:featureUpdateEndDate ;
+        sh:path euelec:featureUpdateEndDate ;
         sh:name "Feature Update End Date" ;
         sh:description "Date until which feature updates are guaranteed." ;
         sh:datatype xsd:date ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:securitySupportYears ;
+        sh:path euelec:securitySupportYears ;
         sh:name "Security Support Years" ;
         sh:description "Duration in years of security update support." ;
-        sh:class dpp:DurationYears ;
+        sh:class oec:DurationYears ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:featureSupportYears ;
+        sh:path euelec:featureSupportYears ;
         sh:name "Feature Support Years" ;
         sh:description "Duration in years of feature update support." ;
-        sh:class dpp:DurationYears ;
+        sh:class oec:DurationYears ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:updateChannel ;
+        sh:path euelec:updateChannel ;
         sh:name "Update Channel" ;
         sh:description "URL of the update distribution channel." ;
         sh:datatype xsd:anyURI ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:latestUpdateDate ;
+        sh:path euelec:latestUpdateDate ;
         sh:name "Latest Update Date" ;
         sh:description "Date of the most recent software or firmware update." ;
         sh:datatype xsd:date ;
@@ -273,61 +273,61 @@ electronics:SoftwareSupportShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Energy Efficiency Shape
 # -----------------------------------------------------------------------------
-electronics:EnergyEfficiencyShape a sh:NodeShape ;
-    sh:targetClass electronics:EnergyEfficiency ;
+euelec:EnergyEfficiencyShape a sh:NodeShape ;
+    sh:targetClass euelec:EnergyEfficiency ;
     rdfs:label "Energy Efficiency Shape" ;
     rdfs:comment "Validation shape for energy efficiency labelling and consumption data." ;
     sh:property [
-        sh:path electronics:energyEfficiencyClass ;
+        sh:path euelec:energyEfficiencyClass ;
         sh:name "Energy Efficiency Class" ;
         sh:description "EU energy efficiency class (A to G)." ;
         sh:maxCount 1 ;
-        sh:class electronics:EnergyEfficiencyClass
+        sh:class euelec:EnergyEfficiencyClass
     ] ;
     sh:property [
-        sh:path electronics:annualEnergyConsumption ;
+        sh:path euelec:annualEnergyConsumption ;
         sh:name "Annual Energy Consumption" ;
         sh:description "Estimated annual energy consumption in kilowatt-hours." ;
-        sh:class dpp:EnergyKilowattHours ;
+        sh:class oec:EnergyKilowattHours ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:powerConsumptionOn ;
+        sh:path euelec:powerConsumptionOn ;
         sh:name "Power Consumption On" ;
         sh:description "Power consumption in on-mode in watts." ;
-        sh:class dpp:PowerWatts ;
+        sh:class oec:PowerWatts ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:powerConsumptionStandby ;
+        sh:path euelec:powerConsumptionStandby ;
         sh:name "Power Consumption Standby" ;
         sh:description "Power consumption in standby mode in watts." ;
-        sh:class dpp:PowerWatts ;
+        sh:class oec:PowerWatts ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:powerConsumptionOff ;
+        sh:path euelec:powerConsumptionOff ;
         sh:name "Power Consumption Off" ;
         sh:description "Power consumption in off mode in watts." ;
-        sh:class dpp:PowerWatts ;
+        sh:class oec:PowerWatts ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:eprelRegistrationNumber ;
+        sh:path euelec:eprelRegistrationNumber ;
         sh:name "EPREL Registration Number" ;
         sh:description "Registration number in the EU EPREL product database." ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:energyLabelUrl ;
+        sh:path euelec:energyLabelUrl ;
         sh:name "Energy Label URL" ;
         sh:description "URL of the EU energy label image." ;
         sh:datatype xsd:anyURI ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:eprelProductUrl ;
+        sh:path euelec:eprelProductUrl ;
         sh:name "EPREL Product URL" ;
         sh:description "URL of the product entry in the EPREL database." ;
         sh:datatype xsd:anyURI ;
@@ -337,31 +337,31 @@ electronics:EnergyEfficiencyShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Component BOM Shape
 # -----------------------------------------------------------------------------
-electronics:ComponentBOMShape a sh:NodeShape ;
-    sh:targetClass electronics:ComponentBOM ;
+euelec:ComponentBOMShape a sh:NodeShape ;
+    sh:targetClass euelec:ComponentBOM ;
     rdfs:label "Component BOM Shape" ;
     rdfs:comment "Validation shape for the component bill of materials." ;
     sh:property [
-        sh:path electronics:components ;
+        sh:path euelec:components ;
         sh:name "Components" ;
         sh:description "List of electronic components that make up the device." ;
-        sh:class electronics:ElectronicComponent ;
+        sh:class euelec:ElectronicComponent ;
         sh:minCount 1
     ] .
 
 # -----------------------------------------------------------------------------
 # Electronic Component Shape
 # -----------------------------------------------------------------------------
-electronics:ElectronicComponentShape a sh:NodeShape ;
-    sh:targetClass electronics:ElectronicComponent ;
+euelec:ElectronicComponentShape a sh:NodeShape ;
+    sh:targetClass euelec:ElectronicComponent ;
     rdfs:label "Electronic Component Shape" ;
     rdfs:comment "Validation shape for individual electronic component entries." ;
     sh:property [
-        sh:path electronics:componentType ;
+        sh:path euelec:componentType ;
         sh:name "Component Type" ;
         sh:description "Category of the component (e.g., battery, display, PCB)." ;
         sh:maxCount 1 ;
-        sh:class electronics:ComponentType
+        sh:class euelec:ComponentType
     ] ;
     sh:property [
         sh:path schema:name ;
@@ -379,42 +379,42 @@ electronics:ElectronicComponentShape a sh:NodeShape ;
         sh:class gs1:Organization
     ] ;
     sh:property [
-        sh:path electronics:componentPartNumber ;
+        sh:path euelec:componentPartNumber ;
         sh:name "Component Part Number" ;
         sh:description "Manufacturer part number for the component." ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:isReplaceable ;
+        sh:path euelec:isReplaceable ;
         sh:name "Is Replaceable" ;
         sh:description "Whether the component can be replaced by the user or a professional." ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:replacementDifficulty ;
+        sh:path euelec:replacementDifficulty ;
         sh:name "Replacement Difficulty" ;
         sh:description "Difficulty level for replacing the component." ;
         sh:maxCount 1 ;
-        sh:class electronics:ReplacementDifficulty
+        sh:class euelec:ReplacementDifficulty
     ] ;
     sh:property [
-        sh:path electronics:componentPassport ;
+        sh:path euelec:componentPassport ;
         sh:name "Component Passport" ;
         sh:description "URL of the digital product passport for this component." ;
         sh:datatype xsd:anyURI ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:sparePartAvailabilityYears ;
+        sh:path euelec:sparePartAvailabilityYears ;
         sh:name "Spare Part Availability Years" ;
         sh:description "Duration in years that spare parts will remain available." ;
-        sh:class dpp:DurationYears ;
+        sh:class oec:DurationYears ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:sparePartPrice ;
+        sh:path euelec:sparePartPrice ;
         sh:name "Spare Part Price" ;
         sh:description "Price of the spare part for replacement." ;
         sh:maxCount 1 ;
@@ -424,8 +424,8 @@ electronics:ElectronicComponentShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # WEEE Compliance Shape
 # -----------------------------------------------------------------------------
-electronics:WEEEComplianceShape a sh:NodeShape ;
-    sh:targetClass electronics:WEEECompliance ;
+euelec:WEEEComplianceShape a sh:NodeShape ;
+    sh:targetClass euelec:WEEECompliance ;
     rdfs:label "WEEE Compliance Shape" ;
     rdfs:comment "Validation shape for Waste Electrical and Electronic Equipment compliance." ;
     sh:property [
@@ -433,17 +433,17 @@ electronics:WEEEComplianceShape a sh:NodeShape ;
         sh:name "WEEE Category" ;
         sh:description "WEEE Directive annex category for the device." ;
         sh:maxCount 1 ;
-        sh:class electronics:WEEECategory
+        sh:class euelec:WEEECategory
     ] ;
     sh:property [
-        sh:path electronics:weeeRegistrationNumber ;
+        sh:path euelec:weeeRegistrationNumber ;
         sh:name "WEEE Registration Number" ;
         sh:description "Producer registration number under the WEEE Directive." ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:weeeRegistrationCountry ;
+        sh:path euelec:weeeRegistrationCountry ;
         sh:name "WEEE Registration Country" ;
         sh:description "ISO 3166-1 alpha-2 country code of WEEE registration." ;
         sh:datatype xsd:string ;
@@ -452,14 +452,14 @@ electronics:WEEEComplianceShape a sh:NodeShape ;
         sh:message "WEEE registration country must be a two-letter ISO 3166-1 alpha-2 code."
     ] ;
     sh:property [
-        sh:path electronics:collectionSchemeUrl ;
+        sh:path euelec:collectionSchemeUrl ;
         sh:name "Collection Scheme URL" ;
         sh:description "URL describing the take-back or collection scheme." ;
         sh:datatype xsd:anyURI ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:recyclabilityRate ;
+        sh:path euelec:recyclabilityRate ;
         sh:name "Recyclability Rate" ;
         sh:description "Fraction of device mass that is recyclable (0 to 1)." ;
         sh:datatype xsd:decimal ;
@@ -469,7 +469,7 @@ electronics:WEEEComplianceShape a sh:NodeShape ;
         sh:message "Recyclability rate must be a decimal between 0 and 1."
     ] ;
     sh:property [
-        sh:path electronics:recoverabilityRate ;
+        sh:path euelec:recoverabilityRate ;
         sh:name "Recoverability Rate" ;
         sh:description "Fraction of device mass that is recoverable (0 to 1)." ;
         sh:datatype xsd:decimal ;
@@ -482,25 +482,25 @@ electronics:WEEEComplianceShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # RoHS Compliance Shape
 # -----------------------------------------------------------------------------
-electronics:RoHSComplianceShape a sh:NodeShape ;
-    sh:targetClass electronics:RoHSCompliance ;
+euelec:RoHSComplianceShape a sh:NodeShape ;
+    sh:targetClass euelec:RoHSCompliance ;
     rdfs:label "RoHS Compliance Shape" ;
     rdfs:comment "Validation shape for Restriction of Hazardous Substances compliance." ;
     sh:property [
-        sh:path electronics:rohsCompliant ;
+        sh:path euelec:rohsCompliant ;
         sh:name "RoHS Compliant" ;
         sh:description "Whether the device is fully RoHS compliant." ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:rohsExemptions ;
+        sh:path euelec:rohsExemptions ;
         sh:name "RoHS Exemptions" ;
         sh:description "Annex exemption codes applicable to the device." ;
         sh:datatype xsd:string
     ] ;
     sh:property [
-        sh:path electronics:rohsDeclarationUrl ;
+        sh:path euelec:rohsDeclarationUrl ;
         sh:name "RoHS Declaration URL" ;
         sh:description "URL of the RoHS declaration of conformity." ;
         sh:datatype xsd:anyURI ;
@@ -510,19 +510,19 @@ electronics:RoHSComplianceShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Display Specification Shape
 # -----------------------------------------------------------------------------
-electronics:DisplaySpecificationShape a sh:NodeShape ;
-    sh:targetClass electronics:DisplaySpecification ;
+euelec:DisplaySpecificationShape a sh:NodeShape ;
+    sh:targetClass euelec:DisplaySpecification ;
     rdfs:label "Display Specification Shape" ;
     rdfs:comment "Validation shape for display panel technical specifications." ;
     sh:property [
-        sh:path electronics:screenDiagonal ;
+        sh:path euelec:screenDiagonal ;
         sh:name "Screen Diagonal" ;
         sh:description "Viewable screen diagonal measurement." ;
         sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:screenResolutionWidth ;
+        sh:path euelec:screenResolutionWidth ;
         sh:name "Screen Resolution Width" ;
         sh:description "Horizontal resolution in pixels." ;
         sh:datatype xsd:integer ;
@@ -531,7 +531,7 @@ electronics:DisplaySpecificationShape a sh:NodeShape ;
         sh:message "Screen resolution width must be a positive integer."
     ] ;
     sh:property [
-        sh:path electronics:screenResolutionHeight ;
+        sh:path euelec:screenResolutionHeight ;
         sh:name "Screen Resolution Height" ;
         sh:description "Vertical resolution in pixels." ;
         sh:datatype xsd:integer ;
@@ -540,24 +540,24 @@ electronics:DisplaySpecificationShape a sh:NodeShape ;
         sh:message "Screen resolution height must be a positive integer."
     ] ;
     sh:property [
-        sh:path electronics:displayTechnology ;
+        sh:path euelec:displayTechnology ;
         sh:name "Display Technology" ;
         sh:description "Display panel technology type (e.g., OLED, IPS LCD)." ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:refreshRate ;
+        sh:path euelec:refreshRate ;
         sh:name "Refresh Rate" ;
         sh:description "Display refresh rate." ;
-        sh:class electronics:FrequencyHertz ;
+        sh:class euelec:FrequencyHertz ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path electronics:peakBrightness ;
+        sh:path euelec:peakBrightness ;
         sh:name "Peak Brightness" ;
         sh:description "Peak display luminance." ;
-        sh:class electronics:LuminanceCandela ;
+        sh:class euelec:LuminanceCandela ;
         sh:maxCount 1
     ] .
 
@@ -565,18 +565,18 @@ electronics:DisplaySpecificationShape a sh:NodeShape ;
 # QuantitativeValue unitCode Shapes (GS1-idiomatic)
 # =============================================================================
 
-electronics:RefreshRateShape a sh:NodeShape ;
-    sh:targetSubjectsOf electronics:refreshRate ;
+euelec:RefreshRateShape a sh:NodeShape ;
+    sh:targetSubjectsOf euelec:refreshRate ;
     sh:property [
-        sh:path ( electronics:refreshRate gs1:unitCode ) ;
+        sh:path ( euelec:refreshRate gs1:unitCode ) ;
         sh:hasValue "HTZ" ;
-        sh:message "electronics:refreshRate must use unitCode 'HTZ' (hertz)"@en
+        sh:message "euelec:refreshRate must use unitCode 'HTZ' (hertz)"@en
     ] .
 
-electronics:PeakBrightnessShape a sh:NodeShape ;
-    sh:targetSubjectsOf electronics:peakBrightness ;
+euelec:PeakBrightnessShape a sh:NodeShape ;
+    sh:targetSubjectsOf euelec:peakBrightness ;
     sh:property [
-        sh:path ( electronics:peakBrightness gs1:unitCode ) ;
+        sh:path ( euelec:peakBrightness gs1:unitCode ) ;
         sh:hasValue "CDM2" ;
-        sh:message "electronics:peakBrightness must use unitCode 'CDM2' (cd/m²)"@en
+        sh:message "euelec:peakBrightness must use unitCode 'CDM2' (cd/m²)"@en
     ] .

@@ -12,10 +12,10 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
 
 ### Removed (use canonical term instead)
 
-- `detergent:allergenName` → `gs1:allergenSpecificationName`
-- `detergent:detergentCategory` → `schema:category`
-- `detergent:inciName` → `schema:name`
-- `detergent:speciesName` → `schema:name`
+- `eudet:allergenName` → `gs1:allergenSpecificationName`
+- `eudet:detergentCategory` → `schema:category`
+- `eudet:inciName` → `schema:name`
+- `eudet:speciesName` → `schema:name`
 
 ## [0.9.5] - 2026-03-12
 

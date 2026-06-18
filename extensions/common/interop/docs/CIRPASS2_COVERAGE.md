@@ -10,18 +10,18 @@ CIRPASS2 (Circular Economy Product Passport Readiness) is an EU project defining
 
 | Category | Coverage | OpenEPCIS Module |
 |----------|----------|-----------------|
-| Product Identification | Full | Core (`dpp:uniqueProductIdentifier`) |
-| Manufacturer Information | Full | Core (`dpp:OperatorInformation`) |
-| Facility Information | Full | Core (`dpp:FacilityInformation`) |
-| Material Composition | Full | Core (`dpp:MaterialComposition`) |
-| Substances of Concern | Full | Core (`dpp:SubstanceOfConcern`) |
-| Carbon Footprint | Full | Core (`dpp:EmissionsPerformance`) |
-| Circularity | Full | Core (`dpp:CircularityPerformance`) |
-| Repairability | Full | Core (`dpp:RepairabilityInfo`) |
-| Durability | Full | Core (`dpp:PerformanceInfo`) |
-| Access Control | Full | Core (`dpp:AccessRights`) |
-| Battery-Specific | Full | Battery (`battery:`) |
-| Textile-Specific | Full | Textile (`textile:`) |
+| Product Identification | Full | Core (`oec:uniqueProductIdentifier`) |
+| Manufacturer Information | Full | Core (`oec:OperatorInformation`) |
+| Facility Information | Full | Core (`oec:FacilityInformation`) |
+| Material Composition | Full | Core (`oec:MaterialComposition`) |
+| Substances of Concern | Full | Core (`oec:SubstanceOfConcern`) |
+| Carbon Footprint | Full | Core (`oec:EmissionsPerformance`) |
+| Circularity | Full | Core (`oec:CircularityPerformance`) |
+| Repairability | Full | Core (`oec:RepairabilityInfo`) |
+| Durability | Full | Core (`oec:PerformanceInfo`) |
+| Access Control | Full | Core (`oec:AccessRights`) |
+| Battery-Specific | Full | Battery (`eubat:`) |
+| Textile-Specific | Full | Textile (`eutex:`) |
 
 ## Detailed Coverage
 
@@ -29,120 +29,120 @@ CIRPASS2 (Circular Economy Product Passport Readiness) is an EU project defining
 
 | CIRPASS2 Requirement | OpenEPCIS Implementation |
 |---------------------|-------------------------|
-| Unique product identifier | `dpp:uniqueProductIdentifier` (GS1 Digital Link) |
-| Product model/type | `dpp:productModel`, `dpp:productCategory` |
-| Batch/lot number | EPCIS lot tracking, `dpp:granularityLevel` |
+| Unique product identifier | `oec:uniqueProductIdentifier` (GS1 Digital Link) |
+| Product model/type | `oec:productModel`, `oec:productCategory` |
+| Batch/lot number | EPCIS lot tracking, `oec:granularityLevel` |
 | Serial number | GS1 Serial (AI 21) |
-| Passport identifier | `dpp:passportIdentifier` |
-| Passport version | `dpp:passportVersion` |
+| Passport identifier | `oec:passportIdentifier` |
+| Passport version | `oec:passportVersion` |
 
 ### Manufacturer Information
 
 | CIRPASS2 Requirement | OpenEPCIS Implementation |
 |---------------------|-------------------------|
-| Manufacturer name | `gs1:organizationName` via `dpp:OperatorInformation` |
-| Manufacturer ID | `dpp:operatorId` (GLN), `dpp:economicOperatorId` (EOID) |
+| Manufacturer name | `gs1:organizationName` via `oec:OperatorInformation` |
+| Manufacturer ID | `oec:operatorId` (GLN), `oec:economicOperatorId` (EOID) |
 | Contact information | `gs1:address`, `gs1:contactPoint` |
-| Operator role | `dpp:operatorRole` (Manufacturer, Importer, etc.) |
-| Registration numbers | `dpp:registrationNumber`, `dpp:eoriNumber`, `dpp:vatIdentificationNumber` |
+| Operator role | `oec:operatorRole` (Manufacturer, Importer, etc.) |
+| Registration numbers | `oec:registrationNumber`, `oec:eoriNumber`, `oec:vatIdentificationNumber` |
 
 ### Facility Information
 
 | CIRPASS2 Requirement | OpenEPCIS Implementation |
 |---------------------|-------------------------|
-| Manufacturing location | `dpp:FacilityInformation` |
+| Manufacturing location | `oec:FacilityInformation` |
 | Facility identifier | `gs1:gln` (inherited from gs1:Place) |
 | Facility name | `gs1:name` (inherited from gs1:Place) |
 | Facility address | `gs1:address` (inherited from gs1:Place) |
-| Facility certifications | `dpp:facilityCertifications` (gs1:CertificationDetails) |
-| Facility type | `dpp:facilityType` |
+| Facility certifications | `oec:facilityCertifications` (gs1:CertificationDetails) |
+| Facility type | `oec:facilityType` |
 
 ### Material Composition
 
 | CIRPASS2 Requirement | OpenEPCIS Implementation |
 |---------------------|-------------------------|
-| Material name | `dpp:materialName` |
-| Material percentage | `dpp:massFraction` |
-| Material origin | `dpp:sourceCountry` |
-| CAS/EC numbers | `dpp:casNumber`, `dpp:ecNumber` |
-| Critical raw materials | `dpp:isCriticalRawMaterial` |
+| Material name | `oec:materialName` |
+| Material percentage | `oec:massFraction` |
+| Material origin | `oec:sourceCountry` |
+| CAS/EC numbers | `oec:casNumber`, `oec:ecNumber` |
+| Critical raw materials | `oec:isCriticalRawMaterial` |
 
 ### Substances of Concern
 
 | CIRPASS2 Requirement | OpenEPCIS Implementation |
 |---------------------|-------------------------|
-| Substance identification | `dpp:SubstanceOfConcern` |
-| SCIP database link | `dpp:scipId` |
-| Hazard classification | `dpp:hazardClass` (CLP categories) |
-| Concentration | `dpp:concentration` |
-| Location in product | `dpp:substanceLocation` |
-| Safe use instructions | `dpp:safeUseInstructions` |
-| Disassembly instructions | `dpp:safeDisassemblyInstructions` |
+| Substance identification | `oec:SubstanceOfConcern` |
+| SCIP database link | `oec:scipId` |
+| Hazard classification | `oec:hazardClass` (CLP categories) |
+| Concentration | `oec:concentration` |
+| Location in product | `oec:substanceLocation` |
+| Safe use instructions | `oec:safeUseInstructions` |
+| Disassembly instructions | `oec:safeDisassemblyInstructions` |
 
 ### Carbon Footprint
 
 | CIRPASS2 Requirement | OpenEPCIS Implementation |
 |---------------------|-------------------------|
-| Total carbon footprint | `dpp:carbonFootprintTotal` |
-| Functional unit | `dpp:declaredUnit` |
-| Lifecycle scope | `dpp:operationalScope` (CradleToGate/CradleToGrave) |
-| Data quality | `dpp:primarySourcedRatio` |
-| Study reference | `dpp:carbonFootprintStudyUrl` |
+| Total carbon footprint | `oec:carbonFootprintTotal` |
+| Functional unit | `oec:declaredUnit` |
+| Lifecycle scope | `oec:operationalScope` (CradleToGate/CradleToGrave) |
+| Data quality | `oec:primarySourcedRatio` |
+| Study reference | `oec:carbonFootprintStudyUrl` |
 
 ### Circularity
 
 | CIRPASS2 Requirement | OpenEPCIS Implementation |
 |---------------------|-------------------------|
-| Recyclability rate | `dpp:recyclableContent` |
-| Recycled content | `dpp:recycledContent` |
-| Pre-consumer recycled | `dpp:preConsumerRecycledContent` |
-| Post-consumer recycled | `dpp:postConsumerRecycledContent` |
-| Circularity indicator | `dpp:materialCircularityIndicator` |
-| End-of-life instructions | `dpp:endOfLifeInstructions` |
-| Waste prevention | `dpp:wastePreventionInfo` |
-| Separate collection | `dpp:separateCollectionInfo` |
-| Dismantling info | `dpp:dismantlingInstructions` |
+| Recyclability rate | `oec:recyclableContent` |
+| Recycled content | `oec:recycledContent` |
+| Pre-consumer recycled | `oec:preConsumerRecycledContent` |
+| Post-consumer recycled | `oec:postConsumerRecycledContent` |
+| Circularity indicator | `oec:materialCircularityIndicator` |
+| End-of-life instructions | `oec:endOfLifeInstructions` |
+| Waste prevention | `oec:wastePreventionInfo` |
+| Separate collection | `oec:separateCollectionInfo` |
+| Dismantling info | `oec:dismantlingInstructions` |
 
 ### Repairability
 
 | CIRPASS2 Requirement | OpenEPCIS Implementation |
 |---------------------|-------------------------|
-| Repairability score | `dpp:repairabilityScore` |
-| Repairability class | `dpp:repairabilityClass` (A-E) |
-| Spare parts availability | `dpp:sparePartsAvailability` |
-| Spare parts delivery | `dpp:sparePartsDeliveryTime` |
-| Repair instructions | `dpp:repairInstructions` |
-| Professional repair network | `dpp:professionalRepairNetwork` |
-| DIY repair possible | `dpp:diyRepairPossible` |
-| Software updates | `dpp:softwareUpdatesAvailability` |
+| Repairability score | `oec:repairabilityScore` |
+| Repairability class | `oec:repairabilityClass` (A-E) |
+| Spare parts availability | `oec:sparePartsAvailability` |
+| Spare parts delivery | `oec:sparePartsDeliveryTime` |
+| Repair instructions | `oec:repairInstructions` |
+| Professional repair network | `oec:professionalRepairNetwork` |
+| DIY repair possible | `oec:diyRepairPossible` |
+| Software updates | `oec:softwareUpdatesAvailability` |
 
 ### Durability
 
 | CIRPASS2 Requirement | OpenEPCIS Implementation |
 |---------------------|-------------------------|
-| Expected lifespan | `dpp:expectedLifespan` |
-| Guaranteed lifespan | `dpp:guaranteedLifespan` |
-| Usage cycles | `dpp:usageCycles` |
-| Technical lifetime | `dpp:technicalLifetime` |
-| Performance class | `dpp:performanceClass` |
-| Tested conditions | `dpp:testedConditions` |
-| Utility factor | `dpp:utilityFactor` |
+| Expected lifespan | `oec:expectedLifespan` |
+| Guaranteed lifespan | `oec:guaranteedLifespan` |
+| Usage cycles | `oec:usageCycles` |
+| Technical lifetime | `oec:technicalLifetime` |
+| Performance class | `oec:performanceClass` |
+| Tested conditions | `oec:testedConditions` |
+| Utility factor | `oec:utilityFactor` |
 
 ### Access Control
 
 | CIRPASS2 Requirement | OpenEPCIS Implementation |
 |---------------------|-------------------------|
-| Public data | `dpp:Public` access level |
-| Authority-only data | `dpp:AuthorizedOnly` access level |
-| Restricted data | `dpp:Restricted` access level |
-| Authorized parties | `dpp:authorizedParties` |
-| Data retention | `dpp:dataRetentionPeriod` |
+| Public data | `oec:Public` access level |
+| Authority-only data | `oec:AuthorizedOnly` access level |
+| Restricted data | `oec:Restricted` access level |
+| Authorized parties | `oec:authorizedParties` |
+| Data retention | `oec:dataRetentionPeriod` |
 
 ## Domain-Specific Coverage
 
 ### Battery DPP (CIRPASS2 Battery Pilot)
 
-The `battery:` module provides full coverage of Battery Regulation 2023/1542 Annex XIII:
+The `eubat:` module provides full coverage of Battery Regulation 2023/1542 Annex XIII:
 
 - Battery chemistry and composition
 - Technical specifications (capacity, voltage, power)
@@ -154,7 +154,7 @@ The `battery:` module provides full coverage of Battery Regulation 2023/1542 Ann
 
 ### Textile DPP (CIRPASS2 Textile Pilot)
 
-The `textile:` module provides coverage for EU Textile Strategy:
+The `eutex:` module provides coverage for EU Textile Strategy:
 
 - Fiber composition (EU Textile Labelling Regulation)
 - Care instructions (ISO 3758)
@@ -177,5 +177,5 @@ OpenEPCIS provides full supply chain traceability via EPCIS 2.0:
 
 EPCIS Extension Declaration:
 ```http
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/, battery=https://ref.openepcis.io/extensions/eu/battery/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, eubat=https://ref.openepcis.io/extensions/eu/battery/
 ```

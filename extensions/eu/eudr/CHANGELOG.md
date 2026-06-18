@@ -55,10 +55,10 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
   `bizLocation` / `readPoint`.
 - `eudr:batchNumber` property — duplicated `gs1:hasBatchLotNumber`.
 - `eudr:hsCode` / `eudr:cnCode` properties — promoted to core as
-  `dpp:customsCommodityCode` + `dpp:customsCommodityCodeType` so every
+  `oec:customsCommodityCode` + `oec:customsCommodityCodeType` so every
   regulatory module uses the same customs pattern.
 - Stale references to non-existent `gs1:isRegulationCompliant` in
-  examples; replaced with `dpp:isRegulationCompliant` (new core term).
+  examples; replaced with `oec:isRegulationCompliant` (new core term).
 
 ## [0.9.5] - 2026-04-15 (GS1 Standards Week preparation)
 

@@ -20,24 +20,24 @@ in force from 1 January 2025; replaces Directive 94/62/EC.
 
 ## Module philosophy
 
-PPWR's data points map almost entirely onto cross-cutting `dpp:` and
+PPWR's data points map almost entirely onto cross-cutting `oec:` and
 `untp:` vocabulary already in this repository. **This module is intentionally
-thin**: only the genuinely packaging-specific concepts live in the `ppwr:`
+thin**: only the genuinely packaging-specific concepts live in the `euppwr:`
 namespace. Everything else is reused.
 
 | PPWR data point (Article) | Carried by |
 |---|---|
-| Packaging tier (Art. 3) | `ppwr:packagingTier` (this module) |
-| Recyclability grade A/B/C (Art. 4, Annex II) | `ppwr:recyclabilityGrade` (this module) |
-| Harmonised Annex IX symbols (Art. 13) | `ppwr:harmonisedSymbol` (this module) |
-| Recycled content (Art. 6) | `dpp:RecycledContent`, `dpp:recycledContent`, `dpp:preConsumerRecycledContent`, `dpp:postConsumerRecycledContent` |
+| Packaging tier (Art. 3) | `euppwr:packagingTier` (this module) |
+| Recyclability grade A/B/C (Art. 4, Annex II) | `euppwr:recyclabilityGrade` (this module) |
+| Harmonised Annex IX symbols (Art. 13) | `euppwr:harmonisedSymbol` (this module) |
+| Recycled content (Art. 6) | `oec:RecycledContent`, `oec:recycledContent`, `oec:preConsumerRecycledContent`, `oec:postConsumerRecycledContent` |
 | Reusability / refurbished status (Art. 7–9) | `untp:ProductStatus` (UNTP v0.7.0 enum) |
-| Compostability (Art. 13) | `dpp:Compostability` + `dpp:compostabilityType` + `dpp:compostabilityStandard` |
-| Bio-based content (Art. 13, optional) | `dpp:bioBasedFraction` |
-| Restricted substances (Art. 5 — PFAS, heavy metals) | `dpp:HazardousSubstance`, `dpp:SubstanceOfConcern` |
-| EPR registration & scheme (Art. 13) | `dpp:ExtendedProducerResponsibility` + `dpp:eprRegistrationNumber` + `dpp:eprScheme` + `dpp:eprJurisdiction` + `dpp:eprWasteStream` |
-| Deposit-return scheme (Art. 13) | `dpp:DepositReturnScheme` + `dpp:depositAmount` (QuantitativeValue currency) |
-| Material composition + identifier | `gs1:packagingMaterial`, `dpp:MaterialComposition`, `gs1:gtin` |
+| Compostability (Art. 13) | `oec:Compostability` + `oec:compostabilityType` + `oec:compostabilityStandard` |
+| Bio-based content (Art. 13, optional) | `oec:bioBasedFraction` |
+| Restricted substances (Art. 5 — PFAS, heavy metals) | `oec:HazardousSubstance`, `oec:SubstanceOfConcern` |
+| EPR registration & scheme (Art. 13) | `oec:ExtendedProducerResponsibility` + `oec:eprRegistrationNumber` + `oec:eprScheme` + `oec:eprJurisdiction` + `oec:eprWasteStream` |
+| Deposit-return scheme (Art. 13) | `oec:DepositReturnScheme` + `oec:depositAmount` (QuantitativeValue currency) |
+| Material composition + identifier | `gs1:packagingMaterial`, `oec:MaterialComposition`, `gs1:gtin` |
 | Production site / origin | `untp:Facility`, `gs1:Place`, `gs1:GeoShape` |
 | Declaration of conformity (Art. 15–17) | `gs1:regulatoryInformation` + `gs1:regulatoryIdentifier` + `untp:ConformityAttestation` |
 
@@ -64,31 +64,31 @@ ppwr/
 
 ## Vocabulary namespace
 
-**Prefix**: `ppwr:`
+**Prefix**: `euppwr:`
 **URI**: `https://ref.openepcis.io/extensions/eu/ppwr/`
 
 ## Vocabulary
 
 | Class | Description |
 |-------|-------------|
-| `ppwr:Packaging` | Subclass of `gs1:Packaging`. Carrier for PPWR data points. |
-| `ppwr:PackagingTier` | Enumeration: Sales / Grouped / Transport (Article 3). |
-| `ppwr:RecyclabilityGrade` | Enumeration: GradeA / GradeB / GradeC (Article 4, Annex II). |
+| `euppwr:Packaging` | Subclass of `gs1:Packaging`. Carrier for PPWR data points. |
+| `euppwr:PackagingTier` | Enumeration: Sales / Grouped / Transport (Article 3). |
+| `euppwr:RecyclabilityGrade` | Enumeration: GradeA / GradeB / GradeC (Article 4, Annex II). |
 
 | Property | Range | Description |
 |----------|-------|-------------|
-| `ppwr:packagingTier` | `ppwr:PackagingTier` | Sales (primary) / Grouped (secondary) / Transport (tertiary). |
-| `ppwr:recyclabilityGrade` | `ppwr:RecyclabilityGrade` | A / B / C grade per Article 4. |
-| `ppwr:harmonisedSymbol` | `xsd:anyURI` | URI of an Annex IX harmonised symbol entry. |
+| `euppwr:packagingTier` | `euppwr:PackagingTier` | Sales (primary) / Grouped (secondary) / Transport (tertiary). |
+| `euppwr:recyclabilityGrade` | `euppwr:RecyclabilityGrade` | A / B / C grade per Article 4. |
+| `euppwr:harmonisedSymbol` | `xsd:anyURI` | URI of an Annex IX harmonised symbol entry. |
 
 ## EPCIS 2.0 extension declaration
 
 ```http
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/, ppwr=https://ref.openepcis.io/extensions/eu/ppwr/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, euppwr=https://ref.openepcis.io/extensions/eu/ppwr/
 ```
 
 PPWR-specific extension properties (`packagingTier`, `recyclabilityGrade`,
-`harmonisedSymbol`) and lifted `dpp:` properties go at **event level**.
+`harmonisedSymbol`) and lifted `oec:` properties go at **event level**.
 `masterDataAvailableFor` carries only `gs1:` properties.
 
 ## Identifiers used in examples

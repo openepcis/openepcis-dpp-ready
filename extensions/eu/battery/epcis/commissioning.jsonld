@@ -10,13 +10,13 @@
     "Battery commissioning event with product, location, and organization master data inline.",
     "masterDataAvailableFor carries:",
     "  - gs1: product master data (productName, gtin, netWeight, countryOfOrigin, regulatoryInformation)",
-    "  - battery:-prefixed PRODUCT-LEVEL attributes (batteryCategory, batteryChemistry, ratedCapacity,",
+    "  - eubat:-prefixed PRODUCT-LEVEL attributes (batteryCategory, batteryChemistry, ratedCapacity,",
     "    ratedEnergy, batteryModelIdentifier, facilityIdentifier, manufacturerIdentifier); these",
     "    describe the GTIN and are identical across every lot of this SKU. GS1 has no native term",
     "    for them yet; keeping them in the product entry means any downstream consumer gets the",
     "    full product card in one place.",
-    "  - cross-cutting passport metadata (schema:schemaVersion, schema:status, dpp:reportingGranularity,",
-    "    dpp:lastUpdated) per BatteryPass-Ready v1.3 longlist attributes #1-#4.",
+    "  - cross-cutting passport metadata (schema:schemaVersion, schema:status, oec:reportingGranularity,",
+    "    oec:lastUpdated) per BatteryPass-Ready v1.3 longlist attributes #1-#4.",
     "  - gs1:hasSerialNumber surfaced explicitly even though it is also encoded in the EPC URN",
     "    as the (21) AI; the SAMM v1.3 export expects an explicit field. The full gs1:",
     "    prefix is required here because hasSerialNumber has no shortcut in the EPCIS",
@@ -25,7 +25,7 @@
     "Observation-specific readings (stateOfHealth, stateOfCharge, cycleCount at this moment) ride",
     "in sensorElementList, the EPCIS-native place for sensor observations.",
     "",
-    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,battery=https://ref.openepcis.io/extensions/eu/battery/",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eubat=https://ref.openepcis.io/extensions/eu/battery/",
     "The header is REQUIRED for an OpenEPCIS repository to engage v1.3 validation (JSON Schema",
     "+ SHACL shapes per namespace) and to expose the SAMM v1.3 export endpoint that GEFEG",
     "batterypass-ready conformance tests will hit.",
@@ -79,24 +79,24 @@
               }
             ],
             "schema:category": "IndustrialBattery",
-            "battery:batteryModelIdentifier": "ECO-IM-500",
+            "eubat:batteryModelIdentifier": "ECO-IM-500",
             "hasSerialNumber": "BAT2024-001",
-            "battery:facilityIdentifier": "9521234000013",
-            "battery:operatorIdentifier": "9521234000006",
-            "battery:manufacturerIdentifier": "9521234000006",
+            "eubat:facilityIdentifier": "9521234000013",
+            "eubat:operatorIdentifier": "9521234000006",
+            "eubat:manufacturerIdentifier": "9521234000006",
             "schema:schemaVersion": "1.3",
             "schema:status": "Active",
-            "dpp:reportingGranularity": "ItemLevel",
-            "dpp:lastUpdated": "2024-03-15T14:30:00.000Z",
-            "battery:batteryChemistry": {
+            "oec:reportingGranularity": "ItemLevel",
+            "oec:lastUpdated": "2024-03-15T14:30:00.000Z",
+            "eubat:batteryChemistry": {
               "schema:name": "Lithium Iron Phosphate"
             },
-            "battery:ratedCapacity": {
+            "eubat:ratedCapacity": {
               "type": "QuantitativeValue",
               "value": 280,
               "unitCode": "AMH"
             },
-            "battery:ratedEnergy": {
+            "eubat:ratedEnergy": {
               "type": "QuantitativeValue",
               "value": 14.3,
               "unitCode": "KWH"
@@ -155,18 +155,18 @@
             },
             "sensorReport": [
               {
-                "type": "battery:stateOfHealth",
+                "type": "eubat:stateOfHealth",
                 "value": 100,
                 "uom": "P1",
                 "dataProcessingMethod": "https://www.iec.ch/standards/iec-62660-1"
               },
               {
-                "type": "battery:stateOfCharge",
+                "type": "eubat:stateOfCharge",
                 "value": 50,
                 "uom": "P1"
               },
               {
-                "type": "battery:cycleCount",
+                "type": "eubat:cycleCount",
                 "value": 0
               }
             ]

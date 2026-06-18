@@ -8,7 +8,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/Battery",
       "localName": "Battery",
       "label": "Battery",
-      "comment": "A self-contained energy-storage device whose Digital Product Passport falls in scope of EU Regulation 2023/1542. Use as the primary `type` discriminator on a Battery product (typically paired with `gs1:Product` for canonical JSON-LD dual-typing, e.g. `\"type\": [\"Product\", \"Battery\"]`). Subclasses on battery:batteryCategory (LMTBattery, EVBattery, IndustrialBattery, StationaryBattery, PortableBattery, SLIBattery) further qualify the category.",
+      "comment": "A self-contained energy-storage device whose Digital Product Passport falls in scope of EU Regulation 2023/1542. Use as the primary `type` discriminator on a Battery product (typically paired with `gs1:Product` for canonical JSON-LD dual-typing, e.g. `\"type\": [\"Product\", \"Battery\"]`). Subclasses on eubat:batteryCategory (LMTBattery, EVBattery, IndustrialBattery, StationaryBattery, PortableBattery, SLIBattery) further qualify the category.",
       "subClassOf": [
         "https://ref.gs1.org/voc/Product"
       ],
@@ -225,7 +225,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/batteryModelIdentifier",
       "localName": "batteryModelIdentifier",
       "label": "Battery Model Identifier",
-      "comment": "Manufacturer-assigned identifier of the battery model, distinct from the human-readable battery:batteryModel name. Required by the EU Battery Regulation Labelling Implementing Act and referenced in the carbon footprint declaration; enables every batch- and item-level attribute to be tied back to a model.",
+      "comment": "Manufacturer-assigned identifier of the battery model, distinct from the human-readable eubat:batteryModel name. Required by the EU Battery Regulation Labelling Implementing Act and referenced in the carbon footprint declaration; enables every batch- and item-level attribute to be tied back to a model.",
       "domain": [
         "https://ref.gs1.org/voc/Product"
       ],
@@ -685,7 +685,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/declarationOfConformity",
       "localName": "declarationOfConformity",
       "label": "Declaration of Conformity URL",
-      "comment": "URL of the EU Declaration of Conformity document. Sits on the cccev:Evidence referenced by battery:euDeclarationOfConformity.",
+      "comment": "URL of the EU Declaration of Conformity document. Sits on the cccev:Evidence referenced by eubat:euDeclarationOfConformity.",
       "domain": [
         "http://data.europa.eu/m8g/Evidence"
       ],
@@ -887,7 +887,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/euDeclarationOfConformity",
       "localName": "euDeclarationOfConformity",
       "label": "EU Declaration of Conformity",
-      "comment": "The EU Declaration of Conformity for this battery, modelled as a cccev:Evidence supporting the EU Battery Regulation requirements. Carries the document URL (battery:declarationOfConformity), the declaration ID (battery:euDeclarationOfConformityId), and the notified body that signed off (battery:notifiedBody).",
+      "comment": "The EU Declaration of Conformity for this battery, modelled as a cccev:Evidence supporting the EU Battery Regulation requirements. Carries the document URL (eubat:declarationOfConformity), the declaration ID (eubat:euDeclarationOfConformityId), and the notified body that signed off (eubat:notifiedBody).",
       "domain": [
         "https://ref.gs1.org/voc/Product"
       ],
@@ -1113,7 +1113,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/facilityIdentifier",
       "localName": "facilityIdentifier",
       "label": "Facility Identifier",
-      "comment": "Unique identifier of the manufacturing facility (recommended: GS1 GLN). Sits on the dpp:FacilityInformation referenced by battery:manufacturingPlace.",
+      "comment": "Unique identifier of the manufacturing facility (recommended: GS1 GLN). Sits on the oec:FacilityInformation referenced by eubat:manufacturingPlace.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
       ],
@@ -1497,7 +1497,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/manufacturerIdentifier",
       "localName": "manufacturerIdentifier",
       "label": "Manufacturer Identifier",
-      "comment": "Unique identifier of the battery manufacturer (recommended: GS1 GLN). Sits on the dpp:OperatorInformation that plays the Manufacturer role; distinct OperatorInformation instances may identify different operators (manufacturer vs. importer vs. distributor).",
+      "comment": "Unique identifier of the battery manufacturer (recommended: GS1 GLN). Sits on the oec:OperatorInformation that plays the Manufacturer role; distinct OperatorInformation instances may identify different operators (manufacturer vs. importer vs. distributor).",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
       ],
@@ -1515,7 +1515,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/manufacturingPlace",
       "localName": "manufacturingPlace",
       "label": "Manufacturing Place",
-      "comment": "Location where the battery was manufactured. A dpp:FacilityInformation (subClassOf gs1:Place) carrying GLN, certifications, and facility-specific identifiers.",
+      "comment": "Location where the battery was manufactured. A oec:FacilityInformation (subClassOf gs1:Place) carrying GLN, certifications, and facility-specific identifiers.",
       "domain": [
         "https://ref.gs1.org/voc/Product"
       ],
@@ -1700,7 +1700,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/negativeEvents",
       "localName": "negativeEvents",
       "label": "Negative Events",
-      "comment": "Log of safety- or performance-relevant negative events recorded over the battery lifetime: accident, thermal event, deep discharge, short circuit, etc. Range is the existing battery:NegativeEvent class.",
+      "comment": "Log of safety- or performance-relevant negative events recorded over the battery lifetime: accident, thermal event, deep discharge, short circuit, etc. Range is the existing eubat:NegativeEvent class.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
       ],
@@ -1793,7 +1793,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/notifiedBodyName",
       "localName": "notifiedBodyName",
       "label": "Notified Body Name",
-      "comment": "Name of the notified body involved in conformity assessment. Sits on the cv:PublicOrganisation referenced by battery:notifiedBody.",
+      "comment": "Name of the notified body involved in conformity assessment. Sits on the cv:PublicOrganisation referenced by eubat:notifiedBody.",
       "domain": [
         "http://data.europa.eu/m8g/PublicOrganisation"
       ],
@@ -1808,7 +1808,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/notifiedBodyNumber",
       "localName": "notifiedBodyNumber",
       "label": "Notified Body Number",
-      "comment": "Identification number of the notified body involved in conformity assessment. Sits on the cv:PublicOrganisation referenced by battery:notifiedBody.",
+      "comment": "Identification number of the notified body involved in conformity assessment. Sits on the cv:PublicOrganisation referenced by eubat:notifiedBody.",
       "domain": [
         "http://data.europa.eu/m8g/PublicOrganisation"
       ],
@@ -1859,7 +1859,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/operatorIdentifier",
       "localName": "operatorIdentifier",
       "label": "Economic Operator Identifier",
-      "comment": "Unique identifier of the economic operator (recommended: GS1 GLN, ESPR EOID per Article 77). Sits on the dpp:OperatorInformation referenced by battery:operatorInformation.",
+      "comment": "Unique identifier of the economic operator (recommended: GS1 GLN, ESPR EOID per Article 77). Sits on the oec:OperatorInformation referenced by eubat:operatorInformation.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
       ],
@@ -1877,7 +1877,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/battery/operatorInformation",
       "localName": "operatorInformation",
       "label": "Economic Operator Information",
-      "comment": "Non-identifier metadata of the economic operator responsible for the battery (Art. 38): name, postal address, contact point. The operator's identifier is carried separately by battery:operatorIdentifier so the two can be exposed at different access levels (v1.3 separates them: identifier is restricted to authorities, information remains public).",
+      "comment": "Non-identifier metadata of the economic operator responsible for the battery (Art. 38): name, postal address, contact point. The operator's identifier is carried separately by eubat:operatorIdentifier so the two can be exposed at different access levels (v1.3 separates them: identifier is restricted to authorities, information remains public).",
       "domain": [
         "https://ref.gs1.org/voc/Product"
       ],

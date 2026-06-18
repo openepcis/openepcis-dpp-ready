@@ -11,14 +11,14 @@
     "WEEE end-of-life chain: collection (OBSERVE), sorting/inspection (OBSERVE),",
     "and recycling transformation (TransformationEvent).",
     "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
-    "Extension properties (electronics:, dpp:) are at EVENT level.",
+    "Extension properties (euelec:, oec:) are at EVENT level.",
     "All ilmd blocks that previously sat on OBSERVE events have been moved to",
     "event-level extension properties; EPCIS 2.0 §7.3.8 forbids ilmd on OBSERVE.",
     "The recycling TransformationEvent's batch-level recovery-rate / carbon-offset",
     "data is observation-specific to THIS recycling run and therefore also rides",
     "at event level, not in ilmd.",
     "",
-    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,electronics=https://ref.openepcis.io/extensions/eu/electronics/",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,euelec=https://ref.openepcis.io/extensions/eu/electronics/",
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
@@ -46,13 +46,13 @@
         "bizLocation": {
           "id": "urn:epc:id:sgln:6000001.00001.0"
         },
-        "electronics:collectionMethod": "ConsumerDropOffAtRetailer",
+        "euelec:collectionMethod": "ConsumerDropOffAtRetailer",
         "schema:category": "WEEE6_SmallIT",
-        "electronics:deviceCondition": {
+        "euelec:deviceCondition": {
           "@value": "End of useful life - battery degraded",
           "@language": "en"
         },
-        "electronics:dataWiped": true
+        "euelec:dataWiped": true
       },
       {
         "type": "ObjectEvent",
@@ -70,26 +70,26 @@
         "bizLocation": {
           "id": "urn:epc:id:sgln:6000001.00002.0"
         },
-        "electronics:sortingDecision": {
+        "euelec:sortingDecision": {
           "@value": "Proceed to recycling - not suitable for refurbishment",
           "@language": "en"
         },
         "schema:category": "WEEE6_SmallIT",
-        "electronics:hazardousMaterialsIdentified": [
+        "euelec:hazardousMaterialsIdentified": [
           {
-            "electronics:material": "Lithium-ion battery",
-            "electronics:handlingNote": {
+            "euelec:material": "Lithium-ion battery",
+            "euelec:handlingNote": {
               "@value": "Separate removal required before shredding",
               "@language": "en"
             }
           }
         ],
-        "electronics:estimatedRecoverableMaterials": {
-          "electronics:aluminumGrams": 78,
-          "electronics:copperGrams": 25,
-          "electronics:goldGrams": 0.025,
-          "electronics:silverGrams": 0.12,
-          "electronics:plasticsGrams": 45
+        "euelec:estimatedRecoverableMaterials": {
+          "euelec:aluminumGrams": 78,
+          "euelec:copperGrams": 25,
+          "euelec:goldGrams": 0.025,
+          "euelec:silverGrams": 0.12,
+          "euelec:plasticsGrams": 45
         }
       },
       {
@@ -129,12 +129,12 @@
         "bizLocation": {
           "id": "urn:epc:id:sgln:6000001.00003.0"
         },
-        "electronics:recyclingProcess": {
+        "euelec:recyclingProcess": {
           "@value": "WEEE Directive compliant treatment",
           "@language": "en"
         },
         "schema:category": "WEEE6_SmallIT",
-        "electronics:recyclingFacility": {
+        "euelec:recyclingFacility": {
           "id": "https://id.gs1.org/414/6000001000034",
           "type": "Organization",
           "organizationName": {
@@ -149,32 +149,32 @@
             "certificationValue": "WEEELABEX certified"
           }
         },
-        "electronics:materialRecoveryResults": {
-          "electronics:totalInputMassGrams": 185,
-          "electronics:totalRecoveredMassGrams": 170.5,
-          "electronics:recoveryRate": 0.92,
-          "electronics:recyclingRate": 0.88,
-          "electronics:energyRecoveryRate": 0.04
+        "euelec:materialRecoveryResults": {
+          "euelec:totalInputMassGrams": 185,
+          "euelec:totalRecoveredMassGrams": 170.5,
+          "euelec:recoveryRate": 0.92,
+          "euelec:recyclingRate": 0.88,
+          "euelec:energyRecoveryRate": 0.04
         },
-        "electronics:batteryDisposition": {
-          "electronics:batteryChemistry": "LithiumIon",
-          "electronics:batteryMassGrams": 45,
-          "electronics:separatelyTreated": true,
-          "electronics:treatmentFacility": {
+        "euelec:batteryDisposition": {
+          "euelec:batteryChemistry": "LithiumIon",
+          "euelec:batteryMassGrams": 45,
+          "euelec:separatelyTreated": true,
+          "euelec:treatmentFacility": {
             "id": "urn:epc:id:sgln:7000001.00001.0"
           },
-          "electronics:treatmentMethod": "HydrometallurgicalRecycling"
+          "euelec:treatmentMethod": "HydrometallurgicalRecycling"
         },
-        "electronics:hazardousWasteGenerated": {
-          "electronics:wasteDescription": {
+        "euelec:hazardousWasteGenerated": {
+          "euelec:wasteDescription": {
             "@value": "15ml electrolyte waste - sent to hazardous waste treatment",
             "@language": "en"
           },
-          "electronics:treatmentCertificate": "HW-2032-DE-00456"
+          "euelec:treatmentCertificate": "HW-2032-DE-00456"
         },
-        "electronics:carbonOffset": {
-          "electronics:avoidedEmissionsKgCO2e": 48.5,
-          "electronics:calculationMethod": {
+        "euelec:carbonOffset": {
+          "euelec:avoidedEmissionsKgCO2e": 48.5,
+          "euelec:calculationMethod": {
             "@value": "Avoided primary production emissions",
             "@language": "en"
           }

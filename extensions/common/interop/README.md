@@ -160,7 +160,7 @@ The `semic-core-bridge-context.jsonld` exposes the EU **SEMICeu Core Vocabularie
 }
 ```
 
-Strategic value: **CCCEV is the EU upstream of UNTP's conformity model.** Anchoring `dpp:` and module conformity terms to CCCEV (`cccev:Requirement`, `cccev:Constraint`, `cccev:Evidence`, `cccev:InformationConcept`) aligns OpenEPCIS with the same foundation JTC 24 and CIRPASS-2 lean on, without disturbing the existing UNTP bridge.
+Strategic value: **CCCEV is the EU upstream of UNTP's conformity model.** Anchoring `oec:` and module conformity terms to CCCEV (`cccev:Requirement`, `cccev:Constraint`, `cccev:Evidence`, `cccev:InformationConcept`) aligns OpenEPCIS with the same foundation JTC 24 and CIRPASS-2 lean on, without disturbing the existing UNTP bridge.
 
 See [`docs/SEMIC_CORE_VOCABULARIES.md`](./docs/SEMIC_CORE_VOCABULARIES.md) for the full per-vocabulary mapping.
 

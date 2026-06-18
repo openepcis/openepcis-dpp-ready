@@ -1,7 +1,7 @@
 # GEFEG BatteryPass-Ready ↔ OpenEPCIS battery vocabulary mapping
 
-How the OpenEPCIS battery vocabulary (`battery:`, plus `gs1:` / `schema:` /
-`dpp:`) maps onto the GEFEG BatteryPass-Ready **upload** structure that the live
+How the OpenEPCIS battery vocabulary (`eubat:`, plus `gs1:` / `schema:` /
+`oec:`) maps onto the GEFEG BatteryPass-Ready **upload** structure that the live
 `ValidateJSON` server enforces.
 
 - **Canonical mapping** lives in code: [`scripts/export-batterypass-gefeg.ts`](../../../../scripts/export-batterypass-gefeg.ts)
@@ -21,61 +21,61 @@ into seven SAMM aspect groups. Root keys: `EV`, `LMT`, `OtherIndustrial2kWh`,
 |---|---|---|
 | Enumerations → `{ "<name>Value": v }` | controlled IRIs / strings | `dppStatusValue`="Active", `batteryCategoryValue`∈{electric vehicle battery, LMT battery, industrial battery}, `batteryStatusValues`="original" |
 | Quantities → unit + value object | `gs1:QuantitativeValue` (`{value, unitCode}`) | e.g. `RatedCapacity`→`{amperehourMiliamperehourValue, ampereHourMiliamperehour}`; `BatteryMass`→`{gramKgValue, gramKg}`; CO₂→`{kgCO2-equivalentPerKilowattHourValue, …}` |
-| Power at SoC → `{wattValueAt80SoC, wattValueAt20SoC, watt}` | `battery:originalPowerCapability` (per-SoC) | integer/decimal ampere-hour variants differ in unit-key casing (live quirk) |
+| Power at SoC → `{wattValueAt80SoC, wattValueAt20SoC, watt}` | `eubat:originalPowerCapability` (per-SoC) | integer/decimal ampere-hour variants differ in unit-key casing (live quirk) |
 
 ## Group → vocabulary (selected; full map in the exporter)
 
 ### IdentifiersAndProductData
 | GEFEG attribute | OpenEPCIS term |
 |---|---|
-| `DPPSchemaVersion` / `DPPStatus` / `DPPGranularity` / `Date-timeOfLatestUpdateOfDPP` | `schema:schemaVersion` / `schema:status` / `dpp:reportingGranularity` / `dpp:lastUpdated` |
-| `UniqueBatteryPassportIdentifierUniqueDPPIdentifier` / `UniqueBatteryIdentifierUniqueProductIdentifier` | `dpp:` passport id / GS1 Digital Link |
-| `BatteryModelIdentifier` / `BatterySerialNumber` | `battery:batteryModelIdentifier` / `gs1:hasSerialNumber` |
-| `UniqueEconomicOperatorIdentifier` / `UniqueManufacturerIdentifier` / `UniqueFacilityIdentifier` | `battery:operatorIdentifier` / `battery:manufacturerIdentifier` / `battery:facilityIdentifier` |
-| `EconomicOperatorInformation` / `ManufacturerInformation` | `dpp:operatorInformation` / `gs1:manufacturer` (name, registeredTradeName…, postalAddress) |
-| `ManufacturingPlace` / `ManufacturingDate` / `DateOfPuttingTheBatteryIntoService` / `WarrantyPeriodOfTheBattery` | `battery:manufacturingPlace` / `battery:manufacturingDate` / `battery:puttingIntoService` / warranty |
-| `BatteryCategory` / `BatteryMass` / `BatteryStatus` | `schema:category` / `battery:batteryMass` (`gs1:netWeight`) / `schema:status` |
+| `DPPSchemaVersion` / `DPPStatus` / `DPPGranularity` / `Date-timeOfLatestUpdateOfDPP` | `schema:schemaVersion` / `schema:status` / `oec:reportingGranularity` / `oec:lastUpdated` |
+| `UniqueBatteryPassportIdentifierUniqueDPPIdentifier` / `UniqueBatteryIdentifierUniqueProductIdentifier` | `oec:` passport id / GS1 Digital Link |
+| `BatteryModelIdentifier` / `BatterySerialNumber` | `eubat:batteryModelIdentifier` / `gs1:hasSerialNumber` |
+| `UniqueEconomicOperatorIdentifier` / `UniqueManufacturerIdentifier` / `UniqueFacilityIdentifier` | `eubat:operatorIdentifier` / `eubat:manufacturerIdentifier` / `eubat:facilityIdentifier` |
+| `EconomicOperatorInformation` / `ManufacturerInformation` | `oec:operatorInformation` / `gs1:manufacturer` (name, registeredTradeName…, postalAddress) |
+| `ManufacturingPlace` / `ManufacturingDate` / `DateOfPuttingTheBatteryIntoService` / `WarrantyPeriodOfTheBattery` | `eubat:manufacturingPlace` / `eubat:manufacturingDate` / `eubat:puttingIntoService` / warranty |
+| `BatteryCategory` / `BatteryMass` / `BatteryStatus` | `schema:category` / `eubat:batteryMass` (`gs1:netWeight`) / `schema:status` |
 
 ### PerformanceAndDurability
-`RatedCapacity`→`battery:ratedCapacity`; `RemainingCapacity`→`battery:remainingCapacity`;
-`Minimum/Maximum/NominalVoltage`→`battery:{minimum,maximum,nominal}Voltage`;
-`OriginalPowerCapability`/`RemainingPowerCapability`→`battery:originalPowerCapability` (per-SoC);
-**`MaximumPermittedBatteryPower`→`battery:maximumPermittedBatteryPower`** (new);
-`CapacityFade`/`PowerFade`/`EnergyRoundTripEfficiencyFade`→`battery:capacityFade`/`powerFade`/`roundTripEfficiencyFade`;
-`StateOfChargeSoC`/`StateOfCertifiedEnergySOCE`→`battery:stateOfCharge`/`stateOfCertifiedEnergy`;
-`Initial/Remaining RoundTripEnergyEfficiency`→`battery:roundTripEfficiency`/`remainingRoundTripEfficiency`;
-`Initial Self-discharge`/`EvolutionOfSelf-dischargeRates`→`battery:selfDischargeRate`/`evolutionOfSelfDischarge`;
-`InitialInternalResistance…`/`InternalResistanceIncrease…`→`battery:internalResistance`/`internalResistanceIncrease`;
-`ExpectedLifetimeInCalendarYears`/`ExpectedLifetime-NumberOfChargeOrDischargeCycles`/`NumberOfFullChargingAndDischargingCycles`→`battery:expectedLifetimeYears`/`expectedNumberOfCycles`/`numberOfFullCycles`;
-`EnergyThroughput`/`CapacityThroughput`→`battery:energyThroughput`/`capacityThroughput`;
-`TemperatureInformation`/`TemperatureRangeIdleState{Lower,Upper}Boundary`→`battery:` temperature range;
-**`TimeSpentInExtremeTemperatures{Above,Below}Boundary`, `TimeSpentChargingDuringExtremeTemperatures{Above,Below}Boundary`→`battery:timeSpent…`** (new);
-`NumberOfDeepDischargeEvents`→`battery:` deep-discharge counter; `InformationOnAccidents`→accident note.
+`RatedCapacity`→`eubat:ratedCapacity`; `RemainingCapacity`→`eubat:remainingCapacity`;
+`Minimum/Maximum/NominalVoltage`→`eubat:{minimum,maximum,nominal}Voltage`;
+`OriginalPowerCapability`/`RemainingPowerCapability`→`eubat:originalPowerCapability` (per-SoC);
+**`MaximumPermittedBatteryPower`→`eubat:maximumPermittedBatteryPower`** (new);
+`CapacityFade`/`PowerFade`/`EnergyRoundTripEfficiencyFade`→`eubat:capacityFade`/`powerFade`/`roundTripEfficiencyFade`;
+`StateOfChargeSoC`/`StateOfCertifiedEnergySOCE`→`eubat:stateOfCharge`/`stateOfCertifiedEnergy`;
+`Initial/Remaining RoundTripEnergyEfficiency`→`eubat:roundTripEfficiency`/`remainingRoundTripEfficiency`;
+`Initial Self-discharge`/`EvolutionOfSelf-dischargeRates`→`eubat:selfDischargeRate`/`evolutionOfSelfDischarge`;
+`InitialInternalResistance…`/`InternalResistanceIncrease…`→`eubat:internalResistance`/`internalResistanceIncrease`;
+`ExpectedLifetimeInCalendarYears`/`ExpectedLifetime-NumberOfChargeOrDischargeCycles`/`NumberOfFullChargingAndDischargingCycles`→`eubat:expectedLifetimeYears`/`expectedNumberOfCycles`/`numberOfFullCycles`;
+`EnergyThroughput`/`CapacityThroughput`→`eubat:energyThroughput`/`capacityThroughput`;
+`TemperatureInformation`/`TemperatureRangeIdleState{Lower,Upper}Boundary`→`eubat:` temperature range;
+**`TimeSpentInExtremeTemperatures{Above,Below}Boundary`, `TimeSpentChargingDuringExtremeTemperatures{Above,Below}Boundary`→`eubat:timeSpent…`** (new);
+`NumberOfDeepDischargeEvents`→`eubat:` deep-discharge counter; `InformationOnAccidents`→accident note.
 
 ### BatteryCarbonFootprint
 `BatteryCarbonFootprintPerFunctionalUnit` + four `ContributionOf…LifecycleStage` →
-`battery:carbonFootprintTotal` + lifecycle-stage values; `CarbonFootprintPerformanceClass`→`battery:carbonFootprintPerformanceClass` (A–E); `WebLinkToPublicCarbonFootprintStudy`→study URL.
+`eubat:carbonFootprintTotal` + lifecycle-stage values; `CarbonFootprintPerformanceClass`→`eubat:carbonFootprintPerformanceClass` (A–E); `WebLinkToPublicCarbonFootprintStudy`→study URL.
 
 ### BatteryMaterialsAndComposition
-`BatteryChemistry`→`battery:batteryChemistry` (`{CustomChemicalCodes}`); `CriticalRawMaterials`, `HazardousSubstances`, `MaterialsUsedInCathodeAnodeAndElectrolyte`, `ImpactOfSubstances…`→`battery:materialComposition` / `hazardousSubstances` summaries.
+`BatteryChemistry`→`eubat:batteryChemistry` (`{CustomChemicalCodes}`); `CriticalRawMaterials`, `HazardousSubstances`, `MaterialsUsedInCathodeAnodeAndElectrolyte`, `ImpactOfSubstances…`→`eubat:materialComposition` / `hazardousSubstances` summaries.
 
 ### CircularityAndResourceEfficiency
-`{Pre,Post}-consumerRecycled{Nickel,Cobalt,Lithium}Share`, `RecycledLeadShare`, `RenewableContentShare`→`battery:recycledContent`;
-`DismantlingInformation-Manuals…`, `PartNumbersForComponents`, `InformationOnSourcesOfSpareParts`, `SafetyMeasures`, end-user info →`battery:endOfLifeInfo` / `sparePartSources`.
+`{Pre,Post}-consumerRecycled{Nickel,Cobalt,Lithium}Share`, `RecycledLeadShare`, `RenewableContentShare`→`eubat:recycledContent`;
+`DismantlingInformation-Manuals…`, `PartNumbersForComponents`, `InformationOnSourcesOfSpareParts`, `SafetyMeasures`, end-user info →`eubat:endOfLifeInfo` / `sparePartSources`.
 
 ### SupplyChainDueDiligence
-`InformationOfDueDiligenceReport`, `ThirdPartyAssurancesOfRecognisedSchemes`, `SupplyChainIndices`→`battery:supplyChainDueDiligence`.
+`InformationOfDueDiligenceReport`, `ThirdPartyAssurancesOfRecognisedSchemes`, `SupplyChainIndices`→`eubat:supplyChainDueDiligence`.
 
 ### SymbolsLabelsAndDocumentationOfConformity
-`SeparateCollectionSymbol`, `SymbolsForCadmiumAndLead`, `CarbonFootprintLabel`, `ExtinguishingAgent`, `MeaningOfLabelsAndSymbols`, `EUDeclarationOfConformity`, `ResultsOfTestReportsProvingCompliance`→`battery:labels` / `euDeclarationOfConformity` / test-report refs.
+`SeparateCollectionSymbol`, `SymbolsForCadmiumAndLead`, `CarbonFootprintLabel`, `ExtinguishingAgent`, `MeaningOfLabelsAndSymbols`, `EUDeclarationOfConformity`, `ResultsOfTestReportsProvingCompliance`→`eubat:labels` / `euDeclarationOfConformity` / test-report refs.
 
-## Newly minted `battery:` terms (this integration)
+## Newly minted `eubat:` terms (this integration)
 
 Added to `ontology/battery.ttl` because the live GEFEG validator requires them and
 no GS1/upstream term covers them:
 
-- `battery:maximumPermittedBatteryPower`
-- `battery:timeSpentInExtremeTemperaturesAboveBoundary`
-- `battery:timeSpentInExtremeTemperaturesBelowBoundary`
-- `battery:timeSpentChargingDuringExtremeTemperaturesAboveBoundary`
-- `battery:timeSpentChargingDuringExtremeTemperaturesBelowBoundary`
+- `eubat:maximumPermittedBatteryPower`
+- `eubat:timeSpentInExtremeTemperaturesAboveBoundary`
+- `eubat:timeSpentInExtremeTemperaturesBelowBoundary`
+- `eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary`
+- `eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary`

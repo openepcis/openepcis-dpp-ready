@@ -60,7 +60,7 @@ granularity levels: model, batch, item.
   GTIN for the product, GTIN + serial for the item, GLN for operators
   and facilities, GIAI/GRAI for assets. This is a **profile choice**
   among the five permitted schemes.
-- `dpp:granularityLevel` uses the standard's own enumeration **model /
+- `oec:granularityLevel` uses the standard's own enumeration **model /
   batch / item** (exact match). In EPCIS4DPP the level is **derived from
   the GS1 Digital Link key qualifiers (Application Identifiers)** on the
   identifier, so it is not an independent free-form value:
@@ -71,7 +71,7 @@ granularity levels: model, batch, item.
   validation rule that derives granularity from the AIs present and
   enforces the EN 18219 (4.4) consistency rule against the identifier.
 - Economic-operator and facility identifiers are modelled distinctly
-  (`dpp:OperatorInformation`, `dpp:FacilityInformation`), matching the
+  (`oec:OperatorInformation`, `oec:FacilityInformation`), matching the
   separate operator/facility requirements of Clause 6.
 - EUID/EOID/FID: EN 18219 does not name the EU registry identifiers, so
   carrying GS1 keys alongside registry identifiers is an EPCIS4DPP
@@ -271,7 +271,7 @@ named in the Introduction: organisational, semantic, and technical.
 
 **EPCIS4DPP conformance.**
 - The `DigitalProductPassport` attributes map almost one-to-one onto
-  `dpp:` core. Reconciliation of attribute names and `dppStatus` values
+  `oec:` core. Reconciliation of attribute names and `dppStatus` values
   is tracked in [`EN18223_MODEL_ALIGNMENT.md`](./EN18223_MODEL_ALIGNMENT.md).
 - **ref.openepcis.io is a data-dictionary repository in the sense of
   4.3.** Our class and property IRIs are valid `dictionaryReference`
@@ -289,7 +289,7 @@ named in the Introduction: organisational, semantic, and technical.
   "Two routes to interoperability" observation in
   [`GS1_STACK_EN182XX_WHITEPAPER.md`](./GS1_STACK_EN182XX_WHITEPAPER.md).
 
-**Status:** Conformant (model maps to `dpp:`; ref.openepcis.io is a 4.3 repository; compressed↦expanded converter shipped); attribute/`dppStatus` alignment Planned.
+**Status:** Conformant (model maps to `oec:`; ref.openepcis.io is a 4.3 repository; compressed↦expanded converter shipped); attribute/`dppStatus` alignment Planned.
 
 ---
 
@@ -302,7 +302,7 @@ named in the Introduction: organisational, semantic, and technical.
 | EN 18216 | HTTPS/TLS/HTTP-2 + JSON + content negotiation | JSON-LD + HTML over HTTPS; EPCIS transport reuses it |
 | EN 18221 | Storage/archiving/persistence + provider roles | Append-only EPCIS + versioned core (a conformant pattern) |
 | EN 18222 | Concrete DPP REST API (method set + registry) | Expose the method surface (Planned); EPCIS query + resolver added |
-| EN 18223 | UML+JSON information model + data dictionary | `dpp:` core maps to it; ref.openepcis.io is the 4.3 dictionary |
+| EN 18223 | UML+JSON information model + data dictionary | `oec:` core maps to it; ref.openepcis.io is the 4.3 dictionary |
 
 For the attribute-level EN 18223 mapping and the EN 18222 method-to-endpoint
 plan, see [`EN18223_MODEL_ALIGNMENT.md`](./EN18223_MODEL_ALIGNMENT.md). For

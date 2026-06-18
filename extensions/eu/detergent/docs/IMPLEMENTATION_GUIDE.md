@@ -123,16 +123,16 @@ For capsule/pod products, declare film biodegradability:
 
 ## Step 9: Safety Data Sheet
 
-Link the SDS using `dpp:DocumentReference`:
+Link the SDS using `oec:DocumentReference`:
 
 ```json
 {
   "safetyDataSheet": {
     "type": "DocumentReference",
-    "dpp:documentType": {"id": "dpp:SafetyDataSheet"},
-    "dpp:documentUrl": "https://example.com/sds/product-sds.pdf",
+    "oec:documentType": {"id": "oec:SafetyDataSheet"},
+    "oec:documentUrl": "https://example.com/sds/product-sds.pdf",
     "schema:name": "Safety Data Sheet",
-    "dpp:mimeType": "application/pdf"
+    "oec:mimeType": "application/pdf"
   }
 }
 ```
@@ -142,7 +142,7 @@ Link the SDS using `dpp:DocumentReference`:
 For supply chain traceability, use EPCIS 2.0 events:
 
 ```http
-GS1-Extensions: detergent=https://ref.openepcis.io/extensions/eu/detergent/
+GS1-Extensions: eudet=https://ref.openepcis.io/extensions/eu/detergent/
 ```
 
 ```json

@@ -61,7 +61,7 @@ Benefits:
 | Aspect | BatteryPass (SAMM) | Catena-X | OpenEPCIS Battery DPP |
 |--------|-------------------|----------|----------------------|
 | **Identity** | URN (non-resolvable) | URN + EDC | GS1 Digital Link (resolvable) |
-| **Namespace** | `urn:samm:io.BatteryPass.*` | Custom + SAMM | `gs1:` + `battery:` |
+| **Namespace** | `urn:samm:io.BatteryPass.*` | Custom + SAMM | `gs1:` + `eubat:` |
 | **Dereferenceable** | No | Partially | Yes |
 | **Dynamic Data** | Static with `lastUpdate` | Via EDC connectors | EPCIS events with provenance |
 | **Infrastructure** | Custom | Catena-X network | GS1 Digital Link resolvers |
@@ -290,47 +290,47 @@ Record accidents, damage, or temperature excursions:
 
 | Class | Description |
 |-------|-------------|
-| `battery:Battery` | Main class, extends `gs1:Product` |
-| `battery:BatteryChemistry` | Electrochemical system (cathode, anode, electrolyte) |
-| `battery:TechnicalSpecification` | Capacity, voltage, performance parameters |
-| `battery:BatteryMaterial` | Material with composition and CAS number |
-| `battery:RecycledContent` | Recycled material declaration |
-| `battery:HazardousSubstance` | Hazardous substance per EU CLP |
-| `battery:OperatorInformation` | Economic operator (Art. 38) |
-| `battery:SparePartSupplier` | Spare parts source |
-| `battery:DismantlingDocument` | Dismantling documentation |
-| `battery:Label` | Labels per Annex VI |
-| `battery:SupplyChainDueDiligence` | Due diligence info (Art. 39) |
-| `battery:PowerCapabilityAtSoC` | Power capability at specific SoC |
-| `battery:TemperatureRange` | Temperature range specification |
-| `battery:EndOfLifeInfo` | End-of-life handling information |
+| `eubat:Battery` | Main class, extends `gs1:Product` |
+| `eubat:BatteryChemistry` | Electrochemical system (cathode, anode, electrolyte) |
+| `eubat:TechnicalSpecification` | Capacity, voltage, performance parameters |
+| `eubat:BatteryMaterial` | Material with composition and CAS number |
+| `eubat:RecycledContent` | Recycled material declaration |
+| `eubat:HazardousSubstance` | Hazardous substance per EU CLP |
+| `eubat:OperatorInformation` | Economic operator (Art. 38) |
+| `eubat:SparePartSupplier` | Spare parts source |
+| `eubat:DismantlingDocument` | Dismantling documentation |
+| `eubat:Label` | Labels per Annex VI |
+| `eubat:SupplyChainDueDiligence` | Due diligence info (Art. 39) |
+| `eubat:PowerCapabilityAtSoC` | Power capability at specific SoC |
+| `eubat:TemperatureRange` | Temperature range specification |
+| `eubat:EndOfLifeInfo` | End-of-life handling information |
 
 ### Enumerations
 
-**Battery Category** (`battery:BatteryCategory`):
+**Battery Category** (`eubat:BatteryCategory`):
 - `LMTBattery` - Light Means of Transport
 - `EVBattery` - Electric Vehicle
 - `IndustrialBattery` - Industrial
 - `StationaryBattery` - Stationary Energy Storage
 
-**Battery Status** (`battery:BatteryStatus`):
+**Battery Status** (`eubat:BatteryStatus`):
 - `Original`, `Repurposed`, `Reused`, `Remanufactured`, `Waste`
 
-**Material Location** (`battery:MaterialLocation`):
+**Material Location** (`eubat:MaterialLocation`):
 - `Cathode`, `Anode`, `Electrolyte`, `Separator`, `Casing`
 
-**Hazard Class** (`battery:HazardClass`) - per EU CLP:
+**Hazard Class** (`eubat:HazardClass`) - per EU CLP:
 - `AcuteToxicity`, `SkinCorrosionOrIrritation`, `EyeDamageOrIrritation`
 - `RespiratoryOrSkinSensitization`, `GermCellMutagenicity`
 - `Carcinogenicity`, `ReproductiveToxicity`
 - `SpecificTargetOrganToxicity`, `AspirationHazard`
 - `HazardousToAquaticEnvironment`
 
-**Dismantling Document Type** (`battery:DismantlingDocumentType`) - per DIN DKE SPEC:
+**Dismantling Document Type** (`eubat:DismantlingDocumentType`) - per DIN DKE SPEC:
 - `BillOfMaterial`, `Model3D`, `DismantlingManual`
 - `RemovalManual`, `OtherManual`, `Drawing`
 
-**Label Subject** (`battery:LabelSubject`) - per Annex VI:
+**Label Subject** (`eubat:LabelSubject`) - per Annex VI:
 - `SeparateCollection`, `HazardousMaterial`
 - `CarbonFootprintLabel`, `ExtinguishingAgentLabel`
 
@@ -342,32 +342,32 @@ Record accidents, damage, or temperature excursions:
 
 | Type | Description | Unit |
 |------|-------------|------|
-| `battery:StateOfHealth` | Capacity-based SoH | P1 (%) |
-| `battery:StateOfCharge` | Current charge level | P1 (%) |
-| `battery:StateOfCertifiedEnergy` | SOCE per regulation | P1 (%) |
-| `battery:CycleCount` | Full cycles completed | - |
-| `battery:RemainingCapacity` | Current max capacity | AH |
-| `battery:RemainingEnergy` | Current max energy | KWH |
-| `battery:CapacityFade` | Capacity degradation | P1 (%) |
-| `battery:PowerFade` | Power degradation | P1 (%) |
-| `battery:InternalResistance` | Pack/cell resistance | OHM |
-| `battery:EnergyThroughput` | Cumulative energy | KWH |
-| `battery:CapacityThroughput` | Cumulative capacity | AH |
-| `battery:RoundTripEfficiencyFade` | RTE degradation | P1 (%) |
-| `battery:SelfDischargeRate` | Self-discharge rate | P1 (%/month) |
-| `battery:NegativeEvent` | Adverse event | - |
-| `battery:TemperatureExtremeHigh` | High temp exposure | CEL |
-| `battery:TemperatureExtremeLow` | Low temp exposure | CEL |
+| `eubat:StateOfHealth` | Capacity-based SoH | P1 (%) |
+| `eubat:StateOfCharge` | Current charge level | P1 (%) |
+| `eubat:StateOfCertifiedEnergy` | SOCE per regulation | P1 (%) |
+| `eubat:CycleCount` | Full cycles completed | - |
+| `eubat:RemainingCapacity` | Current max capacity | AH |
+| `eubat:RemainingEnergy` | Current max energy | KWH |
+| `eubat:CapacityFade` | Capacity degradation | P1 (%) |
+| `eubat:PowerFade` | Power degradation | P1 (%) |
+| `eubat:InternalResistance` | Pack/cell resistance | OHM |
+| `eubat:EnergyThroughput` | Cumulative energy | KWH |
+| `eubat:CapacityThroughput` | Cumulative capacity | AH |
+| `eubat:RoundTripEfficiencyFade` | RTE degradation | P1 (%) |
+| `eubat:SelfDischargeRate` | Self-discharge rate | P1 (%/month) |
+| `eubat:NegativeEvent` | Adverse event | - |
+| `eubat:TemperatureExtremeHigh` | High temp exposure | CEL |
+| `eubat:TemperatureExtremeLow` | Low temp exposure | CEL |
 
 ### Carbon Footprint Types
 
 | Type | Description |
 |------|-------------|
-| `battery:CarbonFootprintTotal` | Total lifecycle CFP |
-| `battery:CarbonFootprintRawMaterialExtraction` | Raw material phase |
-| `battery:CarbonFootprintProduction` | Manufacturing phase |
-| `battery:CarbonFootprintDistribution` | Distribution phase |
-| `battery:CarbonFootprintRecycling` | End-of-life phase |
+| `eubat:CarbonFootprintTotal` | Total lifecycle CFP |
+| `eubat:CarbonFootprintRawMaterialExtraction` | Raw material phase |
+| `eubat:CarbonFootprintProduction` | Manufacturing phase |
+| `eubat:CarbonFootprintDistribution` | Distribution phase |
+| `eubat:CarbonFootprintRecycling` | End-of-life phase |
 
 ---
 
@@ -379,15 +379,15 @@ When using `battery-context-scientific.jsonld`:
 
 | Battery Ontology | EMMO/BattINFO |
 |-----------------|---------------|
-| `battery:StateOfHealth` | `battinfo:StateOfHealth` |
-| `battery:StateOfCharge` | `battinfo:StateOfCharge` |
-| `battery:CycleCount` | `battinfo:CycleNumber` |
-| `battery:RemainingCapacity` | `battinfo:Capacity` |
-| `battery:InternalResistance` | `battinfo:InternalResistance` |
-| `battery:Cathode` | `battinfo:Cathode` |
-| `battery:Anode` | `battinfo:Anode` |
-| `battery:Electrolyte` | `battinfo:Electrolyte` |
-| `battery:Separator` | `battinfo:Separator` |
+| `eubat:StateOfHealth` | `battinfo:StateOfHealth` |
+| `eubat:StateOfCharge` | `battinfo:StateOfCharge` |
+| `eubat:CycleCount` | `battinfo:CycleNumber` |
+| `eubat:RemainingCapacity` | `battinfo:Capacity` |
+| `eubat:InternalResistance` | `battinfo:InternalResistance` |
+| `eubat:Cathode` | `battinfo:Cathode` |
+| `eubat:Anode` | `battinfo:Anode` |
+| `eubat:Electrolyte` | `battinfo:Electrolyte` |
+| `eubat:Separator` | `battinfo:Separator` |
 
 ### Unit Mappings
 
@@ -412,7 +412,7 @@ Per EU Battery Regulation 2023/1542 Annex XIII:
 |-------------|----------------|------|
 | Unique identifier | `id` = GS1 Digital Link | `battery-product.jsonld` |
 | Manufacturer info | `gs1:manufacturer` with GLN | `battery-product.jsonld` |
-| Operator info | `battery:operatorInformation` | `battery-product.jsonld` |
+| Operator info | `eubat:operatorInformation` | `battery-product.jsonld` |
 | Manufacturing date | `gs1:productionDate` | `battery-product.jsonld` |
 | Manufacturing place | `gs1:placeOfProductProvenance` | `battery-product.jsonld` |
 | Battery category | `schema:category` | `battery-product.jsonld` |
@@ -422,15 +422,15 @@ Per EU Battery Regulation 2023/1542 Annex XIII:
 | State of Health | EPCIS `sensorReport` | `state-of-health.jsonld` |
 | State of Certified Energy | EPCIS `sensorReport` | `state-of-certified-energy.jsonld` |
 | Cycle count | EPCIS `sensorReport` | `state-of-health.jsonld` |
-| Material composition | `battery:materialComposition` | `battery-product.jsonld` |
-| Hazardous substances | `battery:hazardousSubstances` | `battery-product.jsonld` |
-| Recycled content | `battery:recycledContent` (pre/post consumer) | `battery-product.jsonld` |
-| Dismantling info | `battery:dismantlingDocuments` | `battery-product.jsonld` |
-| Spare parts | `battery:sparePartSources` | `battery-product.jsonld` |
-| Labels | `battery:labels` | `battery-product.jsonld` |
-| Due diligence | `battery:supplyChainDueDiligence` | `battery-product.jsonld` |
-| Declaration of conformity | `battery:declarationOfConformity` | `battery-product.jsonld` |
-| Test reports | `battery:resultOfTestReport` | `battery-product.jsonld` |
+| Material composition | `eubat:materialComposition` | `battery-product.jsonld` |
+| Hazardous substances | `eubat:hazardousSubstances` | `battery-product.jsonld` |
+| Recycled content | `eubat:recycledContent` (pre/post consumer) | `battery-product.jsonld` |
+| Dismantling info | `eubat:dismantlingDocuments` | `battery-product.jsonld` |
+| Spare parts | `eubat:sparePartSources` | `battery-product.jsonld` |
+| Labels | `eubat:labels` | `battery-product.jsonld` |
+| Due diligence | `eubat:supplyChainDueDiligence` | `battery-product.jsonld` |
+| Declaration of conformity | `eubat:declarationOfConformity` | `battery-product.jsonld` |
+| Test reports | `eubat:resultOfTestReport` | `battery-product.jsonld` |
 | Negative events | EPCIS event | `negative-event.jsonld` |
 
 ---

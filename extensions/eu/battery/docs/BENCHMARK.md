@@ -35,7 +35,7 @@ A comprehensive comparison of battery Digital Product Passport implementations.
 
 | Aspect | OpenEPCIS | BatteryPass | Catena-X | DPP Keystone |
 |--------|-----------|-------------|----------|--------------|
-| **Primary Namespace** | `gs1:` + `battery:` | `urn:samm:io.BatteryPass.*` | SAMM aspects | `dppk:` |
+| **Primary Namespace** | `gs1:` + `eubat:` | `urn:samm:io.BatteryPass.*` | SAMM aspects | `dppk:` |
 | **GS1 Usage** | Direct | Via mapping | Via mapping | Via `owl:equivalentProperty` |
 | **Dereferenceable** | ✅ All URIs return definitions | ❌ URN scheme | ⚠️ Partial | ❌ No definitions |
 | **Standards Alignment** | GS1, UN/CEFACT | Custom | Custom + SAMM | Custom + mappings |

@@ -10,8 +10,8 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
 
 ### Added
 - `cv:` / `cccev:` prefix declarations in `electronics.ttl`.
-- **`electronics:RepairCriterion` → `rdfs:subClassOf cccev:Criterion`** (EU SEMICeu CCCEV). Repair-Index criteria are a specific kind of CCCEV Criterion: each scored against an InformationConcept within the broader Repairability Requirement. Modelled as subClassOf rather than owl:equivalentClass because cccev:Criterion is broader and covers any conformity-evaluation criterion.
-- `electronics:criterionScore` → `rdfs:seeAlso cccev:SupportedValue` (the score is the supported value for the criterion's InformationConcept).
+- **`euelec:RepairCriterion` → `rdfs:subClassOf cccev:Criterion`** (EU SEMICeu CCCEV). Repair-Index criteria are a specific kind of CCCEV Criterion: each scored against an InformationConcept within the broader Repairability Requirement. Modelled as subClassOf rather than owl:equivalentClass because cccev:Criterion is broader and covers any conformity-evaluation criterion.
+- `euelec:criterionScore` → `rdfs:seeAlso cccev:SupportedValue` (the score is the supported value for the criterion's InformationConcept).
 
 ### Notes
 - No properties removed. JSON-LD payloads round-trip identically. See `extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md`.
@@ -22,7 +22,7 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
 
 ### Added equivalence / cross-reference links
 
-- `electronics:EnergyEfficiency` owl:equivalentClass `schema:EnergyEfficiencyEnumeration`
+- `euelec:EnergyEfficiency` owl:equivalentClass `schema:EnergyEfficiencyEnumeration`
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
@@ -30,7 +30,7 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
 
 ### Added equivalence / cross-reference links
 
-- `electronics:EnergyEfficiency` owl:equivalentClass `schema:EnergyEfficiencyEnumeration`
+- `euelec:EnergyEfficiency` owl:equivalentClass `schema:EnergyEfficiencyEnumeration`
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
@@ -38,7 +38,7 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
 
 ### Added equivalence / cross-reference links
 
-- `electronics:EnergyEfficiency` owl:equivalentClass `schema:EnergyEfficiencyEnumeration`
+- `euelec:EnergyEfficiency` owl:equivalentClass `schema:EnergyEfficiencyEnumeration`
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
@@ -46,7 +46,7 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
 
 ### Added equivalence / cross-reference links
 
-- `electronics:EnergyEfficiency` owl:equivalentClass `schema:EnergyEfficiencyEnumeration`
+- `euelec:EnergyEfficiency` owl:equivalentClass `schema:EnergyEfficiencyEnumeration`
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
@@ -54,16 +54,16 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
 
 ### Removed (use canonical term instead)
 
-- `electronics:commercialName` → `schema:name`
-- `electronics:componentManufacturer` → `gs1:manufacturer`
-- `electronics:componentName` → `schema:name`
-- `electronics:deviceCategory` → `schema:category`
-- `electronics:operatingSystem` → `schema:operatingSystem`
-- `electronics:weeeCategory` → `schema:category`
+- `euelec:commercialName` → `schema:name`
+- `euelec:componentManufacturer` → `gs1:manufacturer`
+- `euelec:componentName` → `schema:name`
+- `euelec:deviceCategory` → `schema:category`
+- `euelec:operatingSystem` → `schema:operatingSystem`
+- `euelec:weeeCategory` → `schema:category`
 
 ### Added equivalence / cross-reference links
 
-- `electronics:EnergyEfficiency` owl:equivalentClass `schema:EnergyEfficiencyEnumeration`
+- `euelec:EnergyEfficiency` owl:equivalentClass `schema:EnergyEfficiencyEnumeration`
 
 ## [0.9.5] - 2025-02-02
 

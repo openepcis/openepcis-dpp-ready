@@ -14,7 +14,7 @@ authoritative GS1 US guidance**:
   ([PDF](https://documents.gs1us.org/adobe/assets/deliver/urn:aaid:aem:8037d451-b557-4b0f-9fa8-fc94f94e4547/GS1-US-Application-of-GS1-System-of-Standards-to-Support-FSMA-204-Guideline.pdf))
 
 All FSMA 204 KDEs map onto **native EPCIS 2.0 / GS1 Web Vocabulary** fields.
-This module deliberately does **not** invent `fsma:` extension properties
+This module deliberately does **not** invent `usfsma:` extension properties
 for event data — GS1 US has already specified exactly how each KDE travels.
 
 ## What this module contributes
@@ -23,10 +23,10 @@ On top of the GS1 US guidance, we add:
 
 1. **RDF class anchors** for the seven CTEs and the TraceabilityLotCode
    concept (documentation/querying aid, not required at runtime).
-2. **`fsma:FoodTraceabilityList` enumeration** — the 23 FDA-defined food
+2. **`usfsma:FoodTraceabilityList` enumeration** — the 23 FDA-defined food
    categories (including the leafy-greens and finfish sub-splits and the
    fresh-cut entries) that the FDA Food Traceability List publishes.
-3. **One master-data property** — `fsma:foodTraceabilityListCategory` —
+3. **One master-data property** — `usfsma:foodTraceabilityListCategory` —
    attached to `gs1:Product` so a GTIN-level master data record can declare
    its FTL category. This is the only FSMA KDE that GS1 US's master-data
    guide does not already cover.
@@ -84,7 +84,7 @@ event's `ilmd`:
 - `gs1:harvestDateStart` / `gs1:harvestDateEnd` — harvest date range
 - `gs1:fishType` — species / acceptable market name
 
-These are GS1 Web Vocabulary terms — no `fsma:` extensions needed.
+These are GS1 Web Vocabulary terms — no `usfsma:` extensions needed.
 
 ### Reference document KDEs
 
@@ -97,7 +97,7 @@ standard CBV transaction types (`po`, `recadv`, `desadv`, `bol`, `cert`,
 Declare the extension via the EPCIS 2.0 `GS1-Extensions` header:
 
 ```
-GS1-Extensions: fsma=https://ref.openepcis.io/extensions/us/fsma204/
+GS1-Extensions: usfsma=https://ref.openepcis.io/extensions/us/fsma204/
 ```
 
 JSON-LD context pattern (only needed on master data or when using the FTL

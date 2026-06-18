@@ -1,7 +1,7 @@
 # EN 18223 / EN 18222 alignment spec (Phase B work list)
 
 This document records, but does not yet implement, the deltas to align
-the `dpp:` core ontology and the OpenEPCIS API surface with the EN 18223
+the `oec:` core ontology and the OpenEPCIS API surface with the EN 18223
 information model and the EN 18222 API. It is the backlog for a later
 implementation pass. The vocabulary is Preview v0.9.6, so renames and
 value changes are safe (no published consumers to break).
@@ -18,9 +18,9 @@ clause-by-clause conformance narrative.
 > the core validation (JSON Schema + SHACL), the regenerated JSON, and the
 > battery example/context/shapes; 66 examples validate with 0 errors.
 > **Update (2026-06-06): Phase B slice 2 done.** §4 DataElement model
-> implemented in `dpp-core.ttl` (`dpp:DataElement` + subclasses, `elementId`,
+> implemented in `dpp-core.ttl` (`oec:DataElement` + subclasses, `elementId`,
 > `dictionaryReference`, `valueDataType`, `value`, `multiLanguageValue`,
-> `language`), `dpp:DocumentReference` documented as the EN 18223
+> `language`), `oec:DocumentReference` documented as the EN 18223
 > RelatedResource, plus a worked envelope example
 > `extensions/eu/battery/examples/battery-product.jsonld` (validates).
 >
@@ -52,7 +52,7 @@ clause-by-clause conformance narrative.
 > the converter logic is split into a browser-safe core
 > (`scripts/en18223/derive-core.ts`) shared by the CLI and the demo.
 >
-> **Remaining:** RelatedResource `resourceTitle` field on `dpp:DocumentReference`
+> **Remaining:** RelatedResource `resourceTitle` field on `oec:DocumentReference`
 > (§4), change management (§5), the EN 18222 API surface + Bruno requests (§6),
 > and the productised Quarkus converter (follow-up).
 
@@ -64,24 +64,24 @@ clause-by-clause conformance narrative.
 
 ## 1. DigitalProductPassport attributes (EN 18223:2026, 4.1.2.1, Table 1)
 
-| EN 18223 attribute | Card. | Current `dpp:` term | Action |
+| EN 18223 attribute | Card. | Current `oec:` term | Action |
 |--------------------|-------|---------------------|--------|
-| `digitalProductPassportId` (URI) | 1 | `dpp:passportIdentifier` | rename/align to the EN name; require URI form |
-| `uniqueProductIdentifier` (per EN 18219) | 1 | the GS1 key / Digital Link (e.g. `gs1:gtin`) | add an explicit `dpp:uniqueProductIdentifier` carrying the Digital Link; keep `gs1:gtin` |
-| `granularity` (model/batch/item) | 1 | `dpp:granularityLevel` | aligned (values match); add derivation + validation from GS1 AIs (see §2) |
-| `dppSchemaVersion` | 1 | (none) | add `dpp:schemaVersion`. NOTE: this is the **schema** version, distinct from our content `dpp:passportVersion` |
-| `dppStatus` | 1 | `dpp:passportStatus` → `dpp:PassportStatus` | reconcile-values (see §3) |
-| `lastUpdated` (ISO 8601 UTC) | 1 | `dpp:passportLastModified` | rename/align; require ISO 8601 UTC |
-| `economicOperatorId` (per EN 18219) | 1 | `dpp:economicOperatorId` | aligned; ensure EN 18219 format |
-| `facilityId` (per EN 18219) | 0..1 | `dpp:FacilityInformation` (+ GLN) | add a direct `dpp:facilityId` literal per EN 18219 |
-| `contentSpecificationIds` | 0..* | (none explicit) | add `dpp:contentSpecificationId`; populate from the declared regulation/module specs (mirrors the `GS1-Extensions` namespaces) |
-| `{DataElement}` | 0..* | named `dpp:`/module properties | serialise (see §4) |
+| `digitalProductPassportId` (URI) | 1 | `oec:passportIdentifier` | rename/align to the EN name; require URI form |
+| `uniqueProductIdentifier` (per EN 18219) | 1 | the GS1 key / Digital Link (e.g. `gs1:gtin`) | add an explicit `oec:uniqueProductIdentifier` carrying the Digital Link; keep `gs1:gtin` |
+| `granularity` (model/batch/item) | 1 | `oec:granularityLevel` | aligned (values match); add derivation + validation from GS1 AIs (see §2) |
+| `dppSchemaVersion` | 1 | (none) | add `oec:schemaVersion`. NOTE: this is the **schema** version, distinct from our content `oec:passportVersion` |
+| `dppStatus` | 1 | `oec:passportStatus` → `oec:PassportStatus` | reconcile-values (see §3) |
+| `lastUpdated` (ISO 8601 UTC) | 1 | `oec:passportLastModified` | rename/align; require ISO 8601 UTC |
+| `economicOperatorId` (per EN 18219) | 1 | `oec:economicOperatorId` | aligned; ensure EN 18219 format |
+| `facilityId` (per EN 18219) | 0..1 | `oec:FacilityInformation` (+ GLN) | add a direct `oec:facilityId` literal per EN 18219 |
+| `contentSpecificationIds` | 0..* | (none explicit) | add `oec:contentSpecificationId`; populate from the declared regulation/module specs (mirrors the `GS1-Extensions` namespaces) |
+| `{DataElement}` | 0..* | named `oec:`/module properties | serialise (see §4) |
 
 Notes:
 - EN 18223 has **no content-version attribute**; versioning is achieved
-  through archiving (EN 18221). Our `dpp:passportVersion` /
-  `dpp:previousPassportVersion` / `dpp:passportIssueDate` /
-  `dpp:passportExpiryDate` / `dpp:passportIssuer` are EPCIS4DPP additions
+  through archiving (EN 18221). Our `oec:passportVersion` /
+  `oec:previousPassportVersion` / `oec:passportIssueDate` /
+  `oec:passportExpiryDate` / `oec:passportIssuer` are EPCIS4DPP additions
   that support the archiving requirement. Keep them; do not conflate with
   `dppSchemaVersion`.
 
@@ -97,28 +97,28 @@ GS1 Application Identifiers present on the `uniqueProductIdentifier`:
 | `01/{gtin}/21/{serial}` | 01 + 21 | item |
 
 AI `22` (consumer product variant) refines the model. *Action (add):* a
-SHACL/JSON-Schema rule that derives `dpp:granularityLevel` from the AIs
+SHACL/JSON-Schema rule that derives `oec:granularityLevel` from the AIs
 and rejects a mismatch, and enforces EN 18219 (4.4) consistency (level
 fixed once on the market; a granularity change needs a new identifier).
 
 ## 3. dppStatus reconciliation (EN 18223 Table 1)
 
 EN 18223 example values: `active`, `inactive`, `archived`, `invalid`
-(extensible "by relevant legal acts"). Current `dpp:PassportStatus`:
+(extensible "by relevant legal acts"). Current `oec:PassportStatus`:
 `Draft`, `Active`, `Updated`, `Withdrawn`, `Archived`, `Suspended`.
 
 | EN 18223 value | EPCIS4DPP mapping | Action |
 |----------------|-------------------|--------|
-| `active` | `dpp:Active` | align casing/value |
-| `inactive` | `dpp:Suspended` (and pre-market `dpp:Draft`) | map |
-| `archived` | `dpp:Archived` | align |
-| `invalid` | `dpp:Withdrawn` (terminal) | map |
-| (none) | `dpp:Updated` | drop or demote; EN 18223 uses `lastUpdated`, not a status, to mark updates |
+| `active` | `oec:Active` | align casing/value |
+| `inactive` | `oec:Suspended` (and pre-market `oec:Draft`) | map |
+| `archived` | `oec:Archived` | align |
+| `invalid` | `oec:Withdrawn` (terminal) | map |
+| (none) | `oec:Updated` | drop or demote; EN 18223 uses `lastUpdated`, not a status, to mark updates |
 
 *Action (reconcile-values):* expose the four EN base values as the
 canonical set, retain our extra states as profile extensions
 (permitted by "further values by legal acts"), and document the mapping.
-Decide whether `dpp:Updated` is removed (recommended) since `lastUpdated`
+Decide whether `oec:Updated` is removed (recommended) since `lastUpdated`
 already conveys it.
 
 ## 4. DataElement model (EN 18223, 4.1.2.3 to 4.1.2.9)
@@ -136,15 +136,15 @@ envelope. The two are bridged by `dictionaryReference`:
   IRI (e.g. `https://ref.openepcis.io/extensions/eu/battery/ratedCapacity`)
   and whose `valueDataType` is the XSD type from the ontology. No new
   ontology classes are strictly required for this.
-- *add (optional):* mirror classes (`dpp:DataElement` and subclasses) if
+- *add (optional):* mirror classes (`oec:DataElement` and subclasses) if
   we want the envelope expressible natively in RDF as well.
 - `valueDataType` follows the EN 18223 (4.1.2.9) XSD-to-JSON rules
   (string-list XSD types and NOTATION/QName excluded; base64 allowed).
   Document this mapping for validators.
 
-### RelatedResource (4.1.2.7) vs `dpp:DocumentReference`
+### RelatedResource (4.1.2.7) vs `oec:DocumentReference`
 
-| EN 18223 RelatedResource | Current `dpp:DocumentReference` | Action |
+| EN 18223 RelatedResource | Current `oec:DocumentReference` | Action |
 |--------------------------|----------------------------------|--------|
 | `contentType` (IANA MIME) | (via `gs1:` referenced-file type) | add `contentType` |
 | `url` (RFC 3986) | document URL | align |
@@ -162,7 +162,7 @@ satisfy the model; provide the EN 18223 projection on serialisation).
 Track per change: identifier, timestamp, actor (per EN 18239),
 changed properties; archive per EN 18221. *Action:* either a change-log
 structure on the passport, or derive it from the EPCIS event history plus
-`dpp:passportLastModified`/version chain. Actor identity waits on
+`oec:passportLastModified`/version chain. Actor identity waits on
 EN 18239 (access rights), still in development.
 
 ## 6. EN 18222 API surface to expose (Phase B)
@@ -206,7 +206,7 @@ the module READMEs, and ensure every published term is dereferenceable as a
 
 ## Phase B execution order (suggested)
 
-1. `dpp:` core attribute alignment (§1) + `dppStatus` reconciliation (§3) in TTL, context, JSON, validation.
+1. `oec:` core attribute alignment (§1) + `dppStatus` reconciliation (§3) in TTL, context, JSON, validation.
 2. Granularity-from-AI derivation + consistency validation (§2).
 3. RelatedResource/DocumentReference + MultiLanguage alignment (§4).
 4. EN 18223 JSON projection (serialise) + XSD-to-JSON value rules (§4).

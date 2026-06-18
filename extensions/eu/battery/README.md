@@ -91,15 +91,15 @@ Uses official GS1 Web Vocabulary for regulatory compliance:
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
 │              JSON-LD Master Data (Static)                   │
-│  gs1: (GS1 Web Vocabulary) + battery: (domain extension)    │
+│  gs1: (GS1 Web Vocabulary) + eubat: (domain extension)    │
 │  gs1:regulatoryInformation → BATTERY_DIRECTIVE, CE          │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 **Architecture rule**: `masterDataAvailableFor` carries product/party/location
 **master data** — GS1 Web Vocabulary terms written bare, plus **product-level**
-extension attributes that have no GS1 equivalent (e.g. `battery:batteryChemistry`,
-`battery:ratedCapacity`, `schema:category`), since they describe the GTIN and are
+extension attributes that have no GS1 equivalent (e.g. `eubat:batteryChemistry`,
+`eubat:ratedCapacity`, `schema:category`), since they describe the GTIN and are
 identical across every item of that SKU. **Event-specific / dynamic** extension
 data (a single measurement, this-shipment KDEs, incident severity) goes at **event
 level**, not in `masterDataAvailableFor`. See the canonical rule in
@@ -169,7 +169,7 @@ DPP card a Digital Link resolver returns when the battery's QR is scanned).
 | Aspect | BatteryPass (SAMM) | Catena-X | **OpenEPCIS Battery DPP** |
 |--------|-------------------|----------|---------------------------|
 | **Identity** | URN (non-resolvable) | URN + EDC | GS1 Digital Link (resolvable) |
-| **Namespace** | `urn:samm:io.BatteryPass.*` | Custom + SAMM | `gs1:` + `battery:` |
+| **Namespace** | `urn:samm:io.BatteryPass.*` | Custom + SAMM | `gs1:` + `eubat:` |
 | **Dereferenceable** | No | Partially | **Yes** |
 | **Dynamic Data** | Static with `lastUpdate` | Via EDC | EPCIS events with provenance |
 | **Infrastructure** | Custom | Catena-X network | GS1 Digital Link resolvers |
@@ -281,7 +281,7 @@ Same data, different semantic views:
 
 The bridge contexts enable **bidirectional compatibility** with BatteryPass (DIN DKE SPEC 99100):
 
-- **`battery-context-batterypass-bridge.jsonld`**: Add to BatteryPass documents to interpret them using OpenEPCIS/GS1 vocabulary. Maps `urn:samm:io.BatteryPass.*` terms to `battery:` equivalents.
+- **`battery-context-batterypass-bridge.jsonld`**: Add to BatteryPass documents to interpret them using OpenEPCIS/GS1 vocabulary. Maps `urn:samm:io.BatteryPass.*` terms to `eubat:` equivalents.
 
 - **`battery-context-to-batterypass.jsonld`**: Add to OpenEPCIS documents to export them with BatteryPass-compatible terminology.
 
@@ -308,12 +308,12 @@ server** (verified 2026-06-17).
 | [`scripts/validate-batterypass-live.ts`](../../../scripts/validate-batterypass-live.ts) | call the live API — authoritative check (`pnpm run validate:batterypass-live`) |
 | [`validation/gefeg-live/`](./validation/gefeg-live/) | live-accurate per-category schemas (`pnpm run build:gefeg-live-schema`; refresh required-sets with `pnpm run probe:gefeg-required`) |
 | [`examples/batterypass-ready/`](./examples/batterypass-ready/) | verified-valid fixture per category + the flat source |
-| [`docs/GEFEG_MAPPING.md`](./docs/GEFEG_MAPPING.md) | GEFEG upload structure ↔ `battery:`/`gs1:`/`schema:`/`dpp:` mapping |
+| [`docs/GEFEG_MAPPING.md`](./docs/GEFEG_MAPPING.md) | GEFEG upload structure ↔ `eubat:`/`gs1:`/`schema:`/`oec:` mapping |
 | [`docs/reference/gefeg-batterypass-ready/`](./docs/reference/gefeg-batterypass-ready/) | the published static schemas (kept as discrepancy evidence) |
 
 **Pipeline (EPCIS 2.0 extension → GEFEG conformance)**
 
-1. EPCIS events declare `GS1-Extensions: dpp=…,battery=…` and carry `battery:`/`dpp:` properties at event level. See [`epcis/commissioning.jsonld`](./epcis/commissioning.jsonld) / [`epcis/shipping.jsonld`](./epcis/shipping.jsonld).
+1. EPCIS events declare `GS1-Extensions: dpp=…,battery=…` and carry `eubat:`/`oec:` properties at event level. See [`epcis/commissioning.jsonld`](./epcis/commissioning.jsonld) / [`epcis/shipping.jsonld`](./epcis/shipping.jsonld).
 2. The repository activates validation (SHACL [`validation/battery-shapes.ttl`](./validation/battery-shapes.ttl), JSON Schema [`validation/battery-schema.json`](./validation/battery-schema.json)).
 3. The assembled master data is exported to the GEFEG upload shape (`export-batterypass-gefeg.ts`).
 4. The result validates against the live-derived schema for its category in [`validation/gefeg-live/`](./validation/gefeg-live/) — and against the live server itself.
@@ -332,11 +332,11 @@ The battery vocabulary extends shared ESPR patterns from the core DPP module:
 
 | ESPR Requirement | Core Class | Battery Usage |
 |------------------|------------|---------------|
-| Article 7 - Performance | `dpp:PerformanceInfo` | State of Health, cycle life, capacity retention |
-| Article 7 - Repairability | `dpp:RepairabilityInfo` | Spare parts availability, repair instructions |
-| Article 8 - Substances | `dpp:SubstanceOfConcern` | Hazardous substances (SCIP aligned) |
-| Article 9 - Access Rights | `dpp:AccessRights` | Public vs. restricted data |
-| Article 77 - Operator ID | `dpp:economicOperatorId` | EOID for economic operators |
+| Article 7 - Performance | `oec:PerformanceInfo` | State of Health, cycle life, capacity retention |
+| Article 7 - Repairability | `oec:RepairabilityInfo` | Spare parts availability, repair instructions |
+| Article 8 - Substances | `oec:SubstanceOfConcern` | Hazardous substances (SCIP aligned) |
+| Article 9 - Access Rights | `oec:AccessRights` | Public vs. restricted data |
+| Article 77 - Operator ID | `oec:economicOperatorId` | EOID for economic operators |
 
 ### Relationship to ESPR
 
@@ -365,18 +365,18 @@ Maps to EU Battery Regulation 2023/1542 Annex XIII:
 |-------------|----------------|
 | Unique identifier | `id` = GS1 Digital Link |
 | Manufacturer info | `gs1:manufacturer` with GLN |
-| Operator info | `battery:operatorInformation` |
+| Operator info | `eubat:operatorInformation` |
 | Carbon footprint | EPCIS event with lifecycle breakdown |
 | State of Health | EPCIS `sensorReport` with provenance |
 | State of Certified Energy | EPCIS `sensorReport` |
-| Material composition | `battery:materialComposition` |
-| Hazardous substances | `battery:hazardousSubstances` |
+| Material composition | `eubat:materialComposition` |
+| Hazardous substances | `eubat:hazardousSubstances` |
 | Recycled content | Pre/post consumer split per material |
-| Dismantling info | `battery:dismantlingDocuments` |
-| Spare parts | `battery:sparePartSources` |
-| Labels | `battery:labels` with symbols |
-| Due diligence | `battery:supplyChainDueDiligence` |
-| Declaration of conformity | `battery:declarationOfConformity` |
+| Dismantling info | `eubat:dismantlingDocuments` |
+| Spare parts | `eubat:sparePartSources` |
+| Labels | `eubat:labels` with symbols |
+| Due diligence | `eubat:supplyChainDueDiligence` |
+| Declaration of conformity | `eubat:declarationOfConformity` |
 | Negative events | EPCIS events with full provenance |
 
 ## Usage
@@ -426,7 +426,7 @@ bruno/digital-link-resolver/
 4. Run requests in sequence
 
 The collection demonstrates:
-- Full battery lifecycle events with `battery:` extensions
+- Full battery lifecycle events with `eubat:` extensions
 - State of Health (SoH) tracking in maintenance events
 - Installation with vehicle VIN linkage
 - Diagnostic results and BMS software version tracking

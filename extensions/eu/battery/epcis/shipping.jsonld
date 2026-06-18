@@ -17,14 +17,14 @@
     "product master-data record (the 'product card') to that DL identifier; this is",
     "the data a resolver returns when the printed QR / DL on the battery is scanned.",
     "",
-    "masterDataAvailableFor carries gs1: product master data plus the battery:-prefixed",
+    "masterDataAvailableFor carries gs1: product master data plus the eubat:-prefixed",
     "PRODUCT-LEVEL attributes and the cross-cutting passport metadata (schema:schemaVersion,",
-    "schema:status, dpp:reportingGranularity, dpp:lastUpdated) — identical to the",
+    "schema:status, oec:reportingGranularity, oec:lastUpdated) — identical to the",
     "commissioning event for this SKU. Extension properties stay at PRODUCT level here",
     "because they describe the GTIN, not this shipment. Shipment-specific facts",
     "(buyer, transaction) ride in destinationList / bizTransactionList at event level.",
     "",
-    "HTTP header: GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,battery=https://ref.openepcis.io/extensions/eu/battery/",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eubat=https://ref.openepcis.io/extensions/eu/battery/",
     "The header activates regulation-specific validation and the SAMM/GEFEG export.",
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
     "and extensions/eu/battery/docs/URL_PATTERNS.md (DL resolver routing)."
@@ -76,24 +76,24 @@
               }
             ],
             "schema:category": "IndustrialBattery",
-            "battery:batteryModelIdentifier": "ECO-IM-500",
+            "eubat:batteryModelIdentifier": "ECO-IM-500",
             "hasSerialNumber": "BAT2024-001",
-            "battery:facilityIdentifier": "9521234000013",
-            "battery:operatorIdentifier": "9521234000006",
-            "battery:manufacturerIdentifier": "9521234000006",
+            "eubat:facilityIdentifier": "9521234000013",
+            "eubat:operatorIdentifier": "9521234000006",
+            "eubat:manufacturerIdentifier": "9521234000006",
             "schema:schemaVersion": "1.3",
             "schema:status": "Active",
-            "dpp:reportingGranularity": "ItemLevel",
-            "dpp:lastUpdated": "2024-03-22T09:15:00.000Z",
-            "battery:batteryChemistry": {
+            "oec:reportingGranularity": "ItemLevel",
+            "oec:lastUpdated": "2024-03-22T09:15:00.000Z",
+            "eubat:batteryChemistry": {
               "schema:name": "Lithium Iron Phosphate"
             },
-            "battery:ratedCapacity": {
+            "eubat:ratedCapacity": {
               "type": "QuantitativeValue",
               "value": 280,
               "unitCode": "AMH"
             },
-            "battery:ratedEnergy": {
+            "eubat:ratedEnergy": {
               "type": "QuantitativeValue",
               "value": 14.3,
               "unitCode": "KWH"

@@ -154,7 +154,7 @@ Use standard properties from GS1 and DPP-Core vocabularies:
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `dpp:eoriNumber` | `xsd:string` | EU customs identifier (from dpp-core) |
+| `oec:eoriNumber` | `xsd:string` | EU customs identifier (from dpp-core) |
 | `gs1:partyGLN` | `xsd:string` | 13-digit GLN (from GS1 Web Vocabulary) |
 
 ### Product Traceability

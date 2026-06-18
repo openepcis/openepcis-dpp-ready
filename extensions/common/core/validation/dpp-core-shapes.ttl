@@ -4,7 +4,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix schema: <https://schema.org/> .
-@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
 @prefix dpp-sh: <https://ref.openepcis.io/extensions/common/core/shapes/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
@@ -28,12 +28,12 @@
 
 dpp-sh:CircularityPerformanceShape
     a sh:NodeShape ;
-    sh:targetClass dpp:CircularityPerformance ;
+    sh:targetClass oec:CircularityPerformance ;
     sh:name "Circularity Performance Shape"@en ;
     sh:description "Validates CircularityPerformance instances"@en ;
 
     sh:property [
-        sh:path dpp:recyclableContent ;
+        sh:path oec:recyclableContent ;
         sh:name "recyclableContent"@en ;
         sh:description "Fraction of product that can be recycled (0-1)"@en ;
         sh:datatype xsd:decimal ;
@@ -44,7 +44,7 @@ dpp-sh:CircularityPerformanceShape
     ] ;
 
     sh:property [
-        sh:path dpp:utilityFactor ;
+        sh:path oec:utilityFactor ;
         sh:name "utilityFactor"@en ;
         sh:description "Durability relative to industry average (typically 0.5-2.0)"@en ;
         sh:datatype xsd:decimal ;
@@ -54,7 +54,7 @@ dpp-sh:CircularityPerformanceShape
     ] ;
 
     sh:property [
-        sh:path dpp:materialCircularityIndicator ;
+        sh:path oec:materialCircularityIndicator ;
         sh:name "materialCircularityIndicator"@en ;
         sh:description "Overall MCI score (0-1)"@en ;
         sh:datatype xsd:decimal ;
@@ -65,21 +65,21 @@ dpp-sh:CircularityPerformanceShape
     ] ;
 
     sh:property [
-        sh:path dpp:endOfLifeInstructions ;
+        sh:path oec:endOfLifeInstructions ;
         sh:name "endOfLifeInstructions"@en ;
         sh:nodeKind sh:IRI ;
         sh:maxCount 1
     ] ;
 
     sh:property [
-        sh:path dpp:wastePreventionInfo ;
+        sh:path oec:wastePreventionInfo ;
         sh:name "wastePreventionInfo"@en ;
         sh:nodeKind sh:IRI ;
         sh:maxCount 1
     ] ;
 
     sh:property [
-        sh:path dpp:separateCollectionInfo ;
+        sh:path oec:separateCollectionInfo ;
         sh:name "separateCollectionInfo"@en ;
         sh:nodeKind sh:IRI ;
         sh:maxCount 1
@@ -91,12 +91,12 @@ dpp-sh:CircularityPerformanceShape
 
 dpp-sh:RecycledContentShape
     a sh:NodeShape ;
-    sh:targetClass dpp:RecycledContent ;
+    sh:targetClass oec:RecycledContent ;
     sh:name "Recycled Content Shape"@en ;
     sh:description "Validates RecycledContent instances"@en ;
 
     sh:property [
-        sh:path dpp:recycledContent ;
+        sh:path oec:recycledContent ;
         sh:name "recycledContent"@en ;
         sh:description "Total fraction of recycled content (0-1)"@en ;
         sh:datatype xsd:decimal ;
@@ -107,7 +107,7 @@ dpp-sh:RecycledContentShape
     ] ;
 
     sh:property [
-        sh:path dpp:preConsumerRecycledContent ;
+        sh:path oec:preConsumerRecycledContent ;
         sh:name "preConsumerRecycledContent"@en ;
         sh:description "Fraction of pre-consumer recycled content (0-1)"@en ;
         sh:datatype xsd:decimal ;
@@ -118,7 +118,7 @@ dpp-sh:RecycledContentShape
     ] ;
 
     sh:property [
-        sh:path dpp:postConsumerRecycledContent ;
+        sh:path oec:postConsumerRecycledContent ;
         sh:name "postConsumerRecycledContent"@en ;
         sh:description "Fraction of post-consumer recycled content (0-1)"@en ;
         sh:datatype xsd:decimal ;
@@ -134,7 +134,7 @@ dpp-sh:RecycledContentShape
 
 dpp-sh:MaterialCompositionShape
     a sh:NodeShape ;
-    sh:targetClass dpp:MaterialComposition ;
+    sh:targetClass oec:MaterialComposition ;
     sh:name "Material Composition Shape"@en ;
     sh:description "Validates MaterialComposition instances"@en ;
 
@@ -149,7 +149,7 @@ dpp-sh:MaterialCompositionShape
     ] ;
 
     sh:property [
-        sh:path dpp:massFraction ;
+        sh:path oec:massFraction ;
         sh:name "massFraction"@en ;
         sh:description "Mass fraction of this material (0-1)"@en ;
         sh:datatype xsd:decimal ;
@@ -169,14 +169,14 @@ dpp-sh:MaterialCompositionShape
     ] ;
 
     sh:property [
-        sh:path dpp:isCriticalRawMaterial ;
+        sh:path oec:isCriticalRawMaterial ;
         sh:name "isCriticalRawMaterial"@en ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
 
     sh:property [
-        sh:path dpp:casNumber ;
+        sh:path oec:casNumber ;
         sh:name "casNumber"@en ;
         sh:description "CAS Registry Number"@en ;
         sh:datatype xsd:string ;
@@ -190,12 +190,12 @@ dpp-sh:MaterialCompositionShape
 
 dpp-sh:EmissionsPerformanceShape
     a sh:NodeShape ;
-    sh:targetClass dpp:EmissionsPerformance ;
+    sh:targetClass oec:EmissionsPerformance ;
     sh:name "Emissions Performance Shape"@en ;
     sh:description "Validates EmissionsPerformance instances"@en ;
 
     sh:property [
-        sh:path dpp:carbonFootprintTotal ;
+        sh:path oec:carbonFootprintTotal ;
         sh:name "carbonFootprintTotal"@en ;
         sh:description "Total carbon footprint in kg CO2e"@en ;
         sh:datatype xsd:decimal ;
@@ -205,7 +205,7 @@ dpp-sh:EmissionsPerformanceShape
     ] ;
 
     sh:property [
-        sh:path dpp:declaredUnit ;
+        sh:path oec:declaredUnit ;
         sh:name "declaredUnit"@en ;
         sh:description "Functional unit for the measurement"@en ;
         sh:datatype xsd:string ;
@@ -213,16 +213,16 @@ dpp-sh:EmissionsPerformanceShape
     ] ;
 
     sh:property [
-        sh:path dpp:operationalScope ;
+        sh:path oec:operationalScope ;
         sh:name "operationalScope"@en ;
         sh:description "Lifecycle boundary"@en ;
-        sh:in ( dpp:CradleToGate dpp:CradleToGrave ) ;
+        sh:in ( oec:CradleToGate oec:CradleToGrave ) ;
         sh:maxCount 1 ;
         sh:message "operationalScope must be CradleToGate or CradleToGrave"@en
     ] ;
 
     sh:property [
-        sh:path dpp:primarySourcedRatio ;
+        sh:path oec:primarySourcedRatio ;
         sh:name "primarySourcedRatio"@en ;
         sh:description "Fraction from direct measurement (0-1)"@en ;
         sh:datatype xsd:decimal ;
@@ -238,12 +238,12 @@ dpp-sh:EmissionsPerformanceShape
 
 dpp-sh:TraceabilityPerformanceShape
     a sh:NodeShape ;
-    sh:targetClass dpp:TraceabilityPerformance ;
+    sh:targetClass oec:TraceabilityPerformance ;
     sh:name "Traceability Performance Shape"@en ;
     sh:description "Validates TraceabilityPerformance instances"@en ;
 
     sh:property [
-        sh:path dpp:verifiedRatio ;
+        sh:path oec:verifiedRatio ;
         sh:name "verifiedRatio"@en ;
         sh:description "Fraction of materials verifiably traced (0-1)"@en ;
         sh:datatype xsd:decimal ;
@@ -259,22 +259,22 @@ dpp-sh:TraceabilityPerformanceShape
 
 dpp-sh:OperatorInformationShape
     a sh:NodeShape ;
-    sh:targetClass dpp:OperatorInformation ;
+    sh:targetClass oec:OperatorInformation ;
     sh:name "Operator Information Shape"@en ;
     sh:description "Validates OperatorInformation instances"@en ;
 
     sh:property [
-        sh:path dpp:operatorRole ;
+        sh:path oec:operatorRole ;
         sh:name "operatorRole"@en ;
         sh:description "Role of the economic operator"@en ;
         sh:in (
-            dpp:Manufacturer
-            dpp:Importer
-            dpp:Distributor
-            dpp:Processor
-            dpp:Trader
-            dpp:AuthorisedRepresentative
-            dpp:FulfilmentServiceProvider
+            oec:Manufacturer
+            oec:Importer
+            oec:Distributor
+            oec:Processor
+            oec:Trader
+            oec:AuthorisedRepresentative
+            oec:FulfilmentServiceProvider
         ) ;
         sh:minCount 1 ;
         sh:message "operatorRole is required and must be a valid OperatorRole"@en
@@ -292,7 +292,7 @@ dpp-sh:OperatorInformationShape
     ] ;
 
     sh:property [
-        sh:path dpp:economicOperatorId ;
+        sh:path oec:economicOperatorId ;
         sh:name "economicOperatorId"@en ;
         sh:description "EU EOID per ESPR Article 77"@en ;
         sh:datatype xsd:string ;
@@ -300,7 +300,7 @@ dpp-sh:OperatorInformationShape
     ] ;
 
     sh:property [
-        sh:path dpp:eoriNumber ;
+        sh:path oec:eoriNumber ;
         sh:name "eoriNumber"@en ;
         sh:description "EORI number for customs"@en ;
         sh:datatype xsd:string ;
@@ -322,7 +322,7 @@ dpp-sh:OperatorInformationShape
 
 dpp-sh:FacilityInformationShape
     a sh:NodeShape ;
-    sh:targetClass dpp:FacilityInformation ;
+    sh:targetClass oec:FacilityInformation ;
     sh:name "Facility Information Shape"@en ;
     sh:description "Validates FacilityInformation instances"@en ;
 
@@ -348,7 +348,7 @@ dpp-sh:FacilityInformationShape
     ] ;
 
     sh:property [
-        sh:path dpp:facilityType ;
+        sh:path oec:facilityType ;
         sh:name "facilityType"@en ;
         sh:datatype xsd:string ;
         sh:maxCount 1
@@ -360,7 +360,7 @@ dpp-sh:FacilityInformationShape
 
 dpp-sh:SubstanceOfConcernShape
     a sh:NodeShape ;
-    sh:targetClass dpp:SubstanceOfConcern ;
+    sh:targetClass oec:SubstanceOfConcern ;
     sh:name "Substance of Concern Shape"@en ;
     sh:description "Validates SubstanceOfConcern instances"@en ;
 
@@ -375,7 +375,7 @@ dpp-sh:SubstanceOfConcernShape
     ] ;
 
     sh:property [
-        sh:path dpp:casNumber ;
+        sh:path oec:casNumber ;
         sh:name "casNumber"@en ;
         sh:description "CAS Registry Number"@en ;
         sh:datatype xsd:string ;
@@ -384,7 +384,7 @@ dpp-sh:SubstanceOfConcernShape
     ] ;
 
     sh:property [
-        sh:path dpp:ecNumber ;
+        sh:path oec:ecNumber ;
         sh:name "ecNumber"@en ;
         sh:description "EC Number (EINECS/ELINCS)"@en ;
         sh:datatype xsd:string ;
@@ -393,7 +393,7 @@ dpp-sh:SubstanceOfConcernShape
     ] ;
 
     sh:property [
-        sh:path dpp:concentration ;
+        sh:path oec:concentration ;
         sh:name "concentration"@en ;
         sh:description "Concentration as fraction (0-1)"@en ;
         sh:datatype xsd:decimal ;
@@ -404,7 +404,7 @@ dpp-sh:SubstanceOfConcernShape
     ] ;
 
     sh:property [
-        sh:path dpp:scipId ;
+        sh:path oec:scipId ;
         sh:name "scipId"@en ;
         sh:description "ECHA SCIP database identifier"@en ;
         sh:datatype xsd:string ;
@@ -412,19 +412,19 @@ dpp-sh:SubstanceOfConcernShape
     ] ;
 
     sh:property [
-        sh:path dpp:hazardClass ;
+        sh:path oec:hazardClass ;
         sh:name "hazardClass"@en ;
         sh:in (
-            dpp:AcuteToxicity
-            dpp:SkinCorrosionOrIrritation
-            dpp:EyeDamageOrIrritation
-            dpp:RespiratoryOrSkinSensitization
-            dpp:GermCellMutagenicity
-            dpp:Carcinogenicity
-            dpp:ReproductiveToxicity
-            dpp:SpecificTargetOrganToxicity
-            dpp:AspirationHazard
-            dpp:HazardousToAquaticEnvironment
+            oec:AcuteToxicity
+            oec:SkinCorrosionOrIrritation
+            oec:EyeDamageOrIrritation
+            oec:RespiratoryOrSkinSensitization
+            oec:GermCellMutagenicity
+            oec:Carcinogenicity
+            oec:ReproductiveToxicity
+            oec:SpecificTargetOrganToxicity
+            oec:AspirationHazard
+            oec:HazardousToAquaticEnvironment
         ) ;
         sh:message "hazardClass must be a valid HazardClass"@en
     ] .
@@ -435,15 +435,15 @@ dpp-sh:SubstanceOfConcernShape
 
 dpp-sh:AccessRightsShape
     a sh:NodeShape ;
-    sh:targetClass dpp:AccessRights ;
+    sh:targetClass oec:AccessRights ;
     sh:name "Access Rights Shape"@en ;
     sh:description "Validates AccessRights instances"@en ;
 
     sh:property [
-        sh:path dpp:accessLevel ;
+        sh:path oec:accessLevel ;
         sh:name "accessLevel"@en ;
         sh:description "ESPR Article 9 access level"@en ;
-        sh:in ( dpp:Public dpp:AuthorizedOnly dpp:Restricted ) ;
+        sh:in ( oec:Public oec:AuthorizedOnly oec:Restricted ) ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "accessLevel is required and must be Public, AuthorizedOnly, or Restricted"@en
@@ -455,12 +455,12 @@ dpp-sh:AccessRightsShape
 
 dpp-sh:RepairabilityInfoShape
     a sh:NodeShape ;
-    sh:targetClass dpp:RepairabilityInfo ;
+    sh:targetClass oec:RepairabilityInfo ;
     sh:name "Repairability Information Shape"@en ;
     sh:description "Validates RepairabilityInfo instances"@en ;
 
     sh:property [
-        sh:path dpp:repairabilityScore ;
+        sh:path oec:repairabilityScore ;
         sh:name "repairabilityScore"@en ;
         sh:description "Repairability score (typically 0-10)"@en ;
         sh:datatype xsd:decimal ;
@@ -471,7 +471,7 @@ dpp-sh:RepairabilityInfoShape
     ] ;
 
     sh:property [
-        sh:path dpp:repairabilityClass ;
+        sh:path oec:repairabilityClass ;
         sh:name "repairabilityClass"@en ;
         sh:description "Repairability class (A-E)"@en ;
         sh:datatype xsd:string ;
@@ -481,14 +481,14 @@ dpp-sh:RepairabilityInfoShape
     ] ;
 
     sh:property [
-        sh:path dpp:diyRepairPossible ;
+        sh:path oec:diyRepairPossible ;
         sh:name "diyRepairPossible"@en ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
 
     sh:property [
-        sh:path dpp:professionalRepairNetwork ;
+        sh:path oec:professionalRepairNetwork ;
         sh:name "professionalRepairNetwork"@en ;
         sh:nodeKind sh:IRI ;
         sh:maxCount 1
@@ -500,12 +500,12 @@ dpp-sh:RepairabilityInfoShape
 
 dpp-sh:PerformanceInfoShape
     a sh:NodeShape ;
-    sh:targetClass dpp:PerformanceInfo ;
+    sh:targetClass oec:PerformanceInfo ;
     sh:name "Performance Information Shape"@en ;
     sh:description "Validates PerformanceInfo instances"@en ;
 
     sh:property [
-        sh:path dpp:usageCycles ;
+        sh:path oec:usageCycles ;
         sh:name "usageCycles"@en ;
         sh:description "Expected number of usage cycles"@en ;
         sh:datatype xsd:integer ;
@@ -515,7 +515,7 @@ dpp-sh:PerformanceInfoShape
     ] ;
 
     sh:property [
-        sh:path dpp:performanceClass ;
+        sh:path oec:performanceClass ;
         sh:name "performanceClass"@en ;
         sh:description "Performance/efficiency class (e.g., A+++ to G)"@en ;
         sh:datatype xsd:string ;
@@ -530,7 +530,7 @@ dpp-sh:GranularityLevelConstraint
     a sh:NodeShape ;
     sh:name "Granularity Level Constraint"@en ;
     sh:property [
-        sh:path dpp:granularityLevel ;
+        sh:path oec:granularityLevel ;
         sh:datatype xsd:string ;
         sh:in ( "model" "batch" "item" ) ;
         sh:maxCount 1 ;
@@ -546,14 +546,14 @@ dpp-sh:GranularityLevelConstraint
 
 dpp-sh:GranularityDigitalLinkConstraint
     a sh:NodeShape ;
-    sh:targetClass dpp:DigitalProductPassport ;
+    sh:targetClass oec:DigitalProductPassport ;
     sh:sparql [
         a sh:SPARQLConstraint ;
         sh:message "granularity must match the GS1 Digital Link Application Identifiers in uniqueProductIdentifier (01 -> model, 01+10 -> batch, 01+21 -> item) per EN 18219 4.4 / EN 18223."@en ;
         sh:prefixes <https://ref.openepcis.io/extensions/common/core/shapes/> ;
         sh:select """
             SELECT $this ?value WHERE {
-                $this dpp:granularityLevel ?value .
+                $this oec:granularityLevel ?value .
                 $this gs1:productID ?dl .
                 BIND( IF(REGEX(STR(?dl), "/21/"), "item",
                        IF(REGEX(STR(?dl), "/10/"), "batch", "model")) AS ?expected )
@@ -593,29 +593,29 @@ dpp-sh:QuantitativeValueShape
 
 dpp-sh:ExpectedLifespanShape
     a sh:NodeShape ;
-    sh:targetSubjectsOf dpp:expectedLifespan ;
+    sh:targetSubjectsOf oec:expectedLifespan ;
     sh:property [
-        sh:path ( dpp:expectedLifespan gs1:unitCode ) ;
+        sh:path ( oec:expectedLifespan gs1:unitCode ) ;
         sh:hasValue "ANN" ;
-        sh:message "dpp:expectedLifespan must use unitCode 'ANN' (years)"@en
+        sh:message "oec:expectedLifespan must use unitCode 'ANN' (years)"@en
     ] .
 
 dpp-sh:GuaranteedLifespanShape
     a sh:NodeShape ;
-    sh:targetSubjectsOf dpp:guaranteedLifespan ;
+    sh:targetSubjectsOf oec:guaranteedLifespan ;
     sh:property [
-        sh:path ( dpp:guaranteedLifespan gs1:unitCode ) ;
+        sh:path ( oec:guaranteedLifespan gs1:unitCode ) ;
         sh:hasValue "ANN" ;
-        sh:message "dpp:guaranteedLifespan must use unitCode 'ANN' (years)"@en
+        sh:message "oec:guaranteedLifespan must use unitCode 'ANN' (years)"@en
     ] .
 
 dpp-sh:TechnicalLifetimeShape
     a sh:NodeShape ;
-    sh:targetSubjectsOf dpp:technicalLifetime ;
+    sh:targetSubjectsOf oec:technicalLifetime ;
     sh:property [
-        sh:path ( dpp:technicalLifetime gs1:unitCode ) ;
+        sh:path ( oec:technicalLifetime gs1:unitCode ) ;
         sh:hasValue "ANN" ;
-        sh:message "dpp:technicalLifetime must use unitCode 'ANN' (years)"@en
+        sh:message "oec:technicalLifetime must use unitCode 'ANN' (years)"@en
     ] .
 
 # =============================================================================
@@ -624,72 +624,72 @@ dpp-sh:TechnicalLifetimeShape
 
 dpp-sh:ExtendedProducerResponsibilityShape
     a sh:NodeShape ;
-    sh:targetClass dpp:ExtendedProducerResponsibility ;
+    sh:targetClass oec:ExtendedProducerResponsibility ;
     sh:name "Extended Producer Responsibility Shape"@en ;
     sh:property [
-        sh:path dpp:eprRegistrationNumber ;
+        sh:path oec:eprRegistrationNumber ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "ExtendedProducerResponsibility must have exactly one eprRegistrationNumber"@en
     ] ;
     sh:property [
-        sh:path dpp:eprJurisdiction ;
+        sh:path oec:eprJurisdiction ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "ExtendedProducerResponsibility must declare exactly one eprJurisdiction"@en
     ] ;
     sh:property [
-        sh:path dpp:eprComplianceUrl ;
+        sh:path oec:eprComplianceUrl ;
         sh:datatype xsd:anyURI ;
         sh:maxCount 1
     ] .
 
 dpp-sh:CompostabilityShape
     a sh:NodeShape ;
-    sh:targetClass dpp:Compostability ;
+    sh:targetClass oec:Compostability ;
     sh:name "Compostability Shape"@en ;
     sh:property [
-        sh:path dpp:compostabilityType ;
-        sh:in ( dpp:IndustrialCompostable dpp:HomeCompostable dpp:NotCompostable ) ;
+        sh:path oec:compostabilityType ;
+        sh:in ( oec:IndustrialCompostable oec:HomeCompostable oec:NotCompostable ) ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "compostabilityType must be IndustrialCompostable, HomeCompostable, or NotCompostable"@en
     ] ;
     sh:property [
-        sh:path dpp:compostabilityStandard ;
+        sh:path oec:compostabilityStandard ;
         sh:datatype xsd:anyURI ;
         sh:maxCount 1
     ] .
 
 dpp-sh:BiodegradabilityShape
     a sh:NodeShape ;
-    sh:targetClass dpp:Biodegradability ;
+    sh:targetClass oec:Biodegradability ;
     sh:name "Biodegradability Shape"@en ;
     sh:property [
-        sh:path dpp:biodegradationPercentage ;
+        sh:path oec:biodegradationPercentage ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "Biodegradability must have exactly one biodegradationPercentage"@en
     ] ;
     sh:property [
-        sh:path dpp:biodegradabilityTestMethod ;
-        sh:in ( dpp:ISO14593 dpp:OECD301B dpp:OECD301D dpp:OECD301F dpp:OECD310 ) ;
+        sh:path oec:biodegradabilityTestMethod ;
+        sh:in ( oec:ISO14593 oec:OECD301B oec:OECD301D oec:OECD301F oec:OECD310 ) ;
         sh:maxCount 1
     ] .
 
 dpp-sh:DepositReturnSchemeShape
     a sh:NodeShape ;
-    sh:targetClass dpp:DepositReturnScheme ;
+    sh:targetClass oec:DepositReturnScheme ;
     sh:name "DepositReturnScheme Shape"@en ;
     sh:property [
-        sh:path dpp:depositAmount ;
+        sh:path oec:depositAmount ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "DepositReturnScheme must declare exactly one depositAmount"@en
     ] ;
     sh:property [
-        sh:path dpp:depositRedemptionChannelUrl ;
+        sh:path oec:depositRedemptionChannelUrl ;
         sh:datatype xsd:anyURI ;
         sh:maxCount 1
     ] .
@@ -697,9 +697,9 @@ dpp-sh:DepositReturnSchemeShape
 # Pin biodegradationPercentage to unitCode 'P1' (percent fraction).
 dpp-sh:BiodegradationPercentageUnitShape
     a sh:NodeShape ;
-    sh:targetSubjectsOf dpp:biodegradationPercentage ;
+    sh:targetSubjectsOf oec:biodegradationPercentage ;
     sh:property [
-        sh:path ( dpp:biodegradationPercentage gs1:unitCode ) ;
+        sh:path ( oec:biodegradationPercentage gs1:unitCode ) ;
         sh:hasValue "P1" ;
-        sh:message "dpp:biodegradationPercentage must use unitCode 'P1' (percent)"@en
+        sh:message "oec:biodegradationPercentage must use unitCode 'P1' (percent)"@en
     ] .

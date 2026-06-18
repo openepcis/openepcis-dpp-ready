@@ -3,8 +3,8 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
-@prefix battery: <https://ref.openepcis.io/extensions/eu/battery/> .
-@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix eubat: <https://ref.openepcis.io/extensions/eu/battery/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
 # UNTP namespace references for semantic alignment
 @prefix untp-core: <https://test.uncefact.org/vocabulary/untp/core/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -60,7 +60,7 @@ Battery categories can also be expressed via gs1:additionalProductClassification
     dcterms:modified "2026-06-07"^^xsd:date ;
     owl:versionInfo "0.9.6" ;
     owl:versionIRI <https://ref.openepcis.io/extensions/eu/battery/0.9.6> ;
-    vann:preferredNamespacePrefix "battery" ;
+    vann:preferredNamespacePrefix "eubat" ;
     vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/eu/battery/" ;
     rdfs:seeAlso <https://ref.gs1.org/voc/RegulationTypeCode-BATTERY_DIRECTIVE> ;
     rdfs:seeAlso <https://ref.gs1.org/voc/CertificationDetails> ;
@@ -75,21 +75,21 @@ Battery categories can also be expressed via gs1:additionalProductClassification
 # PART 1: CORE CLASSES
 # =============================================================================
 
-battery:Battery
+eubat:Battery
     a owl:Class ;
     rdfs:label "Battery"@en ;
-    rdfs:comment "A self-contained energy-storage device whose Digital Product Passport falls in scope of EU Regulation 2023/1542. Use as the primary `type` discriminator on a Battery product (typically paired with `gs1:Product` for canonical JSON-LD dual-typing, e.g. `\"type\": [\"Product\", \"Battery\"]`). Subclasses on battery:batteryCategory (LMTBattery, EVBattery, IndustrialBattery, StationaryBattery, PortableBattery, SLIBattery) further qualify the category."@en ;
+    rdfs:comment "A self-contained energy-storage device whose Digital Product Passport falls in scope of EU Regulation 2023/1542. Use as the primary `type` discriminator on a Battery product (typically paired with `gs1:Product` for canonical JSON-LD dual-typing, e.g. `\"type\": [\"Product\", \"Battery\"]`). Subclasses on eubat:batteryCategory (LMTBattery, EVBattery, IndustrialBattery, StationaryBattery, PortableBattery, SLIBattery) further qualify the category."@en ;
     rdfs:subClassOf gs1:Product ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:BatteryChemistry
+eubat:BatteryChemistry
     a owl:Class ;
     rdfs:label "Battery Chemistry"@en ;
     rdfs:comment "The electrochemical system of the battery including cathode, anode, and electrolyte materials."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:TechnicalSpecification
+eubat:TechnicalSpecification
     a owl:Class ;
     rdfs:label "Technical Specification"@en ;
     rdfs:comment "Technical specifications of a battery including capacity, voltage, and performance parameters."@en ;
@@ -98,37 +98,37 @@ battery:TechnicalSpecification
 specification properties (rated capacity, nominal voltage, cycle life, etc.) required by
 EU Battery Regulation Annex XIII. All measurements use gs1:QuantitativeValue pattern."""@en.
 
-battery:BatteryMaterial
+eubat:BatteryMaterial
     a owl:Class ;
     rdfs:label "Battery Material"@en ;
     rdfs:comment "A material used in battery construction with its composition percentage, CAS/EC identifiers, and sourcing information."@en ;
-    rdfs:seeAlso dpp:MaterialComposition ;
+    rdfs:seeAlso oec:MaterialComposition ;
     rdfs:seeAlso untp-core:Material ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:RecycledContent
+eubat:RecycledContent
     a owl:Class ;
     rdfs:label "Recycled Content"@en ;
     rdfs:comment "Declaration of recycled material content in the battery with pre/post-consumer breakdown."@en ;
-    rdfs:seeAlso dpp:RecycledContent ;
-    rdfs:seeAlso dpp:recycledContent ;
+    rdfs:seeAlso oec:RecycledContent ;
+    rdfs:seeAlso oec:recycledContent ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:EndOfLifeInfo
+eubat:EndOfLifeInfo
     a owl:Class ;
     rdfs:label "End of Life Information"@en ;
     rdfs:comment "Information required for safe handling, dismantling, and recycling at end of battery life."@en ;
-    rdfs:seeAlso dpp:CircularityPerformance ;
+    rdfs:seeAlso oec:CircularityPerformance ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:HazardousSubstance
+eubat:HazardousSubstance
     a owl:Class ;
     rdfs:label "Hazardous Substance"@en ;
     rdfs:comment "A hazardous substance present in the battery, classified per EU CLP Regulation 1272/2008."@en ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:DismantlingDocument
+eubat:DismantlingDocument
     a owl:Class ;
     rdfs:label "Dismantling Document"@en ;
     rdfs:comment "A document supporting battery dismantling, as specified in DIN DKE SPEC 99100."@en ;
@@ -136,14 +136,14 @@ battery:DismantlingDocument
     dcterms:source <https://www.dke.de/de/arbeitsfelder/mobility/din-dke-spec-99100> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:Label
+eubat:Label
     a owl:Class ;
     rdfs:label "Label"@en ;
     rdfs:comment "A label or marking on the battery as required by EU Battery Regulation Annex VI."@en ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:SupplyChainDueDiligence
+eubat:SupplyChainDueDiligence
     a owl:Class ;
     rdfs:label "Supply Chain Due Diligence"@en ;
     rdfs:comment "Supply chain due diligence information as required by EU Battery Regulation Art. 39."@en ;
@@ -153,44 +153,44 @@ battery:SupplyChainDueDiligence
 (cobalt, lithium, nickel, graphite). Aligned with OECD Due Diligence Guidance. GS1 does not
 provide supply chain due diligence vocabulary."""@en.
 
-battery:PowerCapabilityAtSoC
+eubat:PowerCapabilityAtSoC
     a owl:Class ;
     rdfs:label "Power Capability at SoC"@en ;
     rdfs:comment "Power capability measurement at a specific state of charge level (80% or 20%)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:TemperatureRange
+eubat:TemperatureRange
     a owl:Class ;
     rdfs:label "Temperature Range"@en ;
     rdfs:comment "A temperature range specification with minimum and maximum values for a specific operating context."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:NegativeEvent
+eubat:NegativeEvent
     a owl:Class ;
     rdfs:label "Negative Event"@en ;
     rdfs:comment "An adverse event affecting the battery such as accident, damage, or safety incident."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:CarbonFootprintDeclaration
+eubat:CarbonFootprintDeclaration
     a owl:Class ;
     rdfs:label "Carbon Footprint Declaration"@en ;
     rdfs:comment "Carbon footprint declaration for a battery including lifecycle breakdown and third-party verification."@en ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf> ;
-    rdfs:seeAlso dpp:EmissionsPerformance ;
-    rdfs:seeAlso dpp:carbonFootprintTotal ;
+    rdfs:seeAlso oec:EmissionsPerformance ;
+    rdfs:seeAlso oec:carbonFootprintTotal ;
     skos:note """Required extension: Battery Regulation Art. 7 requires lifecycle carbon footprint
 with breakdown by phase (raw materials, production, distribution, recycling). This extends the
 GDSN CFP pattern with battery-specific lifecycle phases and performance class labeling.
-Aligned with dpp:EmissionsPerformance for core carbon footprint properties."""@en.
+Aligned with oec:EmissionsPerformance for core carbon footprint properties."""@en.
 
-battery:ThirdPartyVerification
+eubat:ThirdPartyVerification
     a owl:Class ;
     rdfs:label "Third Party Verification"@en ;
     rdfs:comment "Third-party verification details for carbon footprint or other certified data."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:MaterialRecoveryTarget
+eubat:MaterialRecoveryTarget
     a owl:Class ;
     rdfs:label "Material Recovery Target"@en ;
     rdfs:comment "Recovery rate target or achievement for a specific material."@en ;
@@ -208,7 +208,7 @@ battery:MaterialRecoveryTarget
 # Battery Category (EU Battery Regulation Art. 3)
 # -----------------------------------------------------------------------------
 
-battery:BatteryCategory
+eubat:BatteryCategory
     a owl:Class ;
     rdfs:label "Battery Category"@en ;
     rdfs:comment "Categories of batteries as defined by EU Battery Regulation Art. 3."@en ;
@@ -219,40 +219,40 @@ via gs1:additionalProductClassification with gs1:additionalProductClassification
 set to 'BATTERY_REGULATION_2023_1542' and gs1:additionalProductClassificationCode set to
 the category code (lmt, ev, industrial, stationary, portable, sli)."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
-    owl:oneOf (battery:LMTBattery battery:EVBattery battery:IndustrialBattery battery:StationaryBattery battery:PortableBattery battery:SLIBattery).
+    owl:oneOf (eubat:LMTBattery eubat:EVBattery eubat:IndustrialBattery eubat:StationaryBattery eubat:PortableBattery eubat:SLIBattery).
 
-battery:LMTBattery
-    a battery:BatteryCategory ;
+eubat:LMTBattery
+    a eubat:BatteryCategory ;
     rdfs:label "Light Means of Transport Battery"@en ;
     rdfs:comment "Battery for e-bikes, e-scooters, and other light electric vehicles. Subject to DPP requirements from 18 Feb 2027."@en ;
     skos:notation "lmt" .
 
-battery:EVBattery
-    a battery:BatteryCategory ;
+eubat:EVBattery
+    a eubat:BatteryCategory ;
     rdfs:label "Electric Vehicle Battery"@en ;
     rdfs:comment "Traction battery for electric vehicles providing propulsion power. Subject to most stringent DPP requirements from 18 Feb 2027."@en ;
     skos:notation "ev" .
 
-battery:IndustrialBattery
-    a battery:BatteryCategory ;
+eubat:IndustrialBattery
+    a eubat:BatteryCategory ;
     rdfs:label "Industrial Battery"@en ;
     rdfs:comment "Battery designed for industrial applications with capacity > 2 kWh, excluding LMT and EV batteries. Subject to DPP requirements from 18 Aug 2025."@en ;
     skos:notation "industrial" .
 
-battery:StationaryBattery
-    a battery:BatteryCategory ;
+eubat:StationaryBattery
+    a eubat:BatteryCategory ;
     rdfs:label "Stationary Energy Storage Battery"@en ;
     rdfs:comment "Battery system for stationary energy storage applications such as grid services, backup power, or renewable energy storage."@en ;
     skos:notation "stationary" .
 
-battery:PortableBattery
-    a battery:BatteryCategory ;
+eubat:PortableBattery
+    a eubat:BatteryCategory ;
     rdfs:label "Portable Battery"@en ;
     rdfs:comment "Sealed battery weighing 5 kg or less, not designed for industrial use. Not subject to DPP requirements."@en ;
     skos:notation "portable" .
 
-battery:SLIBattery
-    a battery:BatteryCategory ;
+eubat:SLIBattery
+    a eubat:BatteryCategory ;
     rdfs:label "Starting, Lighting, Ignition Battery"@en ;
     rdfs:comment "Battery designed to supply electric power for starting, lighting, or ignition. Not subject to DPP requirements."@en ;
     skos:notation "sli" .
@@ -261,35 +261,35 @@ battery:SLIBattery
 # Battery Status (Lifecycle)
 # -----------------------------------------------------------------------------
 
-battery:BatteryStatus
+eubat:BatteryStatus
     a owl:Class ;
     rdfs:label "Battery Status"@en ;
     rdfs:comment "Lifecycle status of the battery."@en ;
-    owl:oneOf (battery:Original battery:Repurposed battery:Reused battery:Remanufactured battery:Waste) ;
+    owl:oneOf (eubat:Original eubat:Repurposed eubat:Reused eubat:Remanufactured eubat:Waste) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:Original
-    a battery:BatteryStatus ;
+eubat:Original
+    a eubat:BatteryStatus ;
     rdfs:label "Original"@en ;
     rdfs:comment "Battery in its original state as manufactured, not yet subjected to any second-life operations."@en .
 
-battery:Repurposed
-    a battery:BatteryStatus ;
+eubat:Repurposed
+    a eubat:BatteryStatus ;
     rdfs:label "Repurposed"@en ;
     rdfs:comment "Battery adapted for a different application than originally intended (e.g., EV battery used for stationary storage)."@en .
 
-battery:Reused
-    a battery:BatteryStatus ;
+eubat:Reused
+    a eubat:BatteryStatus ;
     rdfs:label "Reused"@en ;
     rdfs:comment "Battery used again for the same purpose after refurbishment or testing, without major component replacement."@en .
 
-battery:Remanufactured
-    a battery:BatteryStatus ;
+eubat:Remanufactured
+    a eubat:BatteryStatus ;
     rdfs:label "Remanufactured"@en ;
     rdfs:comment "Battery restored to original specifications through replacement of components and comprehensive testing."@en .
 
-battery:Waste
-    a battery:BatteryStatus ;
+eubat:Waste
+    a eubat:BatteryStatus ;
     rdfs:label "Waste"@en ;
     rdfs:comment "Battery at end-of-life designated for recycling or disposal per EU Battery Regulation requirements."@en .
 
@@ -297,35 +297,35 @@ battery:Waste
 # Cell Type (NEW - DIN DKE SPEC 99100)
 # -----------------------------------------------------------------------------
 
-battery:CellType
+eubat:CellType
     a owl:Class ;
     rdfs:label "Cell Type"@en ;
     rdfs:comment "Physical form factor of battery cells."@en ;
-    owl:oneOf (battery:CylindricalCell battery:PrismaticCell battery:PouchCell battery:BladeCell battery:CoinCell) ;
+    owl:oneOf (eubat:CylindricalCell eubat:PrismaticCell eubat:PouchCell eubat:BladeCell eubat:CoinCell) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:CylindricalCell
-    a battery:CellType ;
+eubat:CylindricalCell
+    a eubat:CellType ;
     rdfs:label "Cylindrical Cell"@en ;
     rdfs:comment "Cylindrical cell format (e.g., 18650, 21700, 4680)."@en .
 
-battery:PrismaticCell
-    a battery:CellType ;
+eubat:PrismaticCell
+    a eubat:CellType ;
     rdfs:label "Prismatic Cell"@en ;
     rdfs:comment "Rectangular prismatic cell with hard casing."@en .
 
-battery:PouchCell
-    a battery:CellType ;
+eubat:PouchCell
+    a eubat:CellType ;
     rdfs:label "Pouch Cell"@en ;
     rdfs:comment "Flexible pouch cell with laminate packaging."@en .
 
-battery:BladeCell
-    a battery:CellType ;
+eubat:BladeCell
+    a eubat:CellType ;
     rdfs:label "Blade Cell"@en ;
     rdfs:comment "Blade-shaped cell designed for cell-to-pack architecture."@en .
 
-battery:CoinCell
-    a battery:CellType ;
+eubat:CoinCell
+    a eubat:CellType ;
     rdfs:label "Coin Cell"@en ;
     rdfs:comment "Small disc-shaped cell (button cell format)."@en .
 
@@ -333,297 +333,297 @@ battery:CoinCell
 # Component Location (renamed from MaterialLocation for clarity)
 # -----------------------------------------------------------------------------
 
-battery:ComponentLocation
+eubat:ComponentLocation
     a owl:Class ;
     rdfs:label "Component Location"@en ;
     rdfs:comment "Component location within the battery cell or pack where a material is used."@en ;
-    owl:oneOf (battery:Cathode battery:Anode battery:Electrolyte battery:Separator battery:Casing battery:CurrentCollector battery:BMS) ;
+    owl:oneOf (eubat:Cathode eubat:Anode eubat:Electrolyte eubat:Separator eubat:Casing eubat:CurrentCollector eubat:BMS) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:Cathode a battery:ComponentLocation ; rdfs:label "Cathode"@en ;
+eubat:Cathode a eubat:ComponentLocation ; rdfs:label "Cathode"@en ;
     rdfs:comment "Positive electrode where reduction occurs during discharge. Contains active materials like NMC, LFP, or NCA."@en .
-battery:Anode a battery:ComponentLocation ; rdfs:label "Anode"@en ;
+eubat:Anode a eubat:ComponentLocation ; rdfs:label "Anode"@en ;
     rdfs:comment "Negative electrode where oxidation occurs during discharge. Typically contains graphite or silicon compounds."@en .
-battery:Electrolyte a battery:ComponentLocation ; rdfs:label "Electrolyte"@en ;
+eubat:Electrolyte a eubat:ComponentLocation ; rdfs:label "Electrolyte"@en ;
     rdfs:comment "Ion-conducting medium between electrodes. Can be liquid, gel, or solid-state depending on battery chemistry."@en .
-battery:Separator a battery:ComponentLocation ; rdfs:label "Separator"@en ;
+eubat:Separator a eubat:ComponentLocation ; rdfs:label "Separator"@en ;
     rdfs:comment "Porous membrane preventing direct contact between electrodes while allowing ion transport."@en .
-battery:Casing a battery:ComponentLocation ; rdfs:label "Casing"@en ;
+eubat:Casing a eubat:ComponentLocation ; rdfs:label "Casing"@en ;
     rdfs:comment "External housing and structural components of the battery pack including enclosures, frames, and thermal management elements."@en .
-battery:CurrentCollector a battery:ComponentLocation ; rdfs:label "Current Collector"@en ;
+eubat:CurrentCollector a eubat:ComponentLocation ; rdfs:label "Current Collector"@en ;
     rdfs:comment "Metallic foil that collects current from electrodes (typically aluminum for cathode, copper for anode)."@en .
-battery:BMS a battery:ComponentLocation ; rdfs:label "Battery Management System"@en ;
+eubat:BMS a eubat:ComponentLocation ; rdfs:label "Battery Management System"@en ;
     rdfs:comment "Electronic components for battery monitoring and control."@en .
 
 # -----------------------------------------------------------------------------
 # Material Category (NEW)
 # -----------------------------------------------------------------------------
 
-battery:MaterialCategory
+eubat:MaterialCategory
     a owl:Class ;
     rdfs:label "Material Category"@en ;
     rdfs:comment "Functional category of a battery material."@en ;
-    owl:oneOf (battery:ActiveMaterial battery:Binder battery:Conductor battery:Additive battery:StructuralMaterial) ;
+    owl:oneOf (eubat:ActiveMaterial eubat:Binder eubat:Conductor eubat:Additive eubat:StructuralMaterial) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:ActiveMaterial a battery:MaterialCategory ; rdfs:label "Active Material"@en ;
+eubat:ActiveMaterial a eubat:MaterialCategory ; rdfs:label "Active Material"@en ;
     rdfs:comment "Electrochemically active material participating in charge/discharge reactions."@en .
-battery:Binder a battery:MaterialCategory ; rdfs:label "Binder"@en ;
+eubat:Binder a eubat:MaterialCategory ; rdfs:label "Binder"@en ;
     rdfs:comment "Material binding active materials and conductors to current collector."@en .
-battery:Conductor a battery:MaterialCategory ; rdfs:label "Conductor"@en ;
+eubat:Conductor a eubat:MaterialCategory ; rdfs:label "Conductor"@en ;
     rdfs:comment "Material providing electronic conductivity (e.g., carbon black, carbon nanotubes)."@en .
-battery:Additive a battery:MaterialCategory ; rdfs:label "Additive"@en ;
+eubat:Additive a eubat:MaterialCategory ; rdfs:label "Additive"@en ;
     rdfs:comment "Material added to improve performance, stability, or safety."@en .
-battery:StructuralMaterial a battery:MaterialCategory ; rdfs:label "Structural Material"@en ;
+eubat:StructuralMaterial a eubat:MaterialCategory ; rdfs:label "Structural Material"@en ;
     rdfs:comment "Material providing mechanical structure (casing, frames, etc.)."@en .
 
 # -----------------------------------------------------------------------------
 # Hazard Class (EU CLP Regulation 1272/2008)
 # -----------------------------------------------------------------------------
 
-battery:HazardClass
+eubat:HazardClass
     a owl:Class ;
     rdfs:label "Hazard Class"@en ;
     rdfs:comment "Hazard classification categories per EU CLP Regulation."@en ;
     owl:oneOf (
-        battery:AcuteToxicity
-        battery:SkinCorrosionOrIrritation
-        battery:EyeDamageOrIrritation
-        battery:RespiratoryOrSkinSensitization
-        battery:GermCellMutagenicity
-        battery:Carcinogenicity
-        battery:ReproductiveToxicity
-        battery:SpecificTargetOrganToxicity
-        battery:AspirationHazard
-        battery:HazardousToAquaticEnvironment
+        eubat:AcuteToxicity
+        eubat:SkinCorrosionOrIrritation
+        eubat:EyeDamageOrIrritation
+        eubat:RespiratoryOrSkinSensitization
+        eubat:GermCellMutagenicity
+        eubat:Carcinogenicity
+        eubat:ReproductiveToxicity
+        eubat:SpecificTargetOrganToxicity
+        eubat:AspirationHazard
+        eubat:HazardousToAquaticEnvironment
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:AcuteToxicity a battery:HazardClass ; rdfs:label "Acute Toxicity"@en ;
+eubat:AcuteToxicity a eubat:HazardClass ; rdfs:label "Acute Toxicity"@en ;
     rdfs:comment "Substances causing harmful effects after single or short-term exposure via oral, dermal, or inhalation routes."@en .
-battery:SkinCorrosionOrIrritation a battery:HazardClass ; rdfs:label "Skin Corrosion or Irritation"@en ;
+eubat:SkinCorrosionOrIrritation a eubat:HazardClass ; rdfs:label "Skin Corrosion or Irritation"@en ;
     rdfs:comment "Substances causing irreversible damage (corrosion) or reversible damage (irritation) to skin tissue."@en .
-battery:EyeDamageOrIrritation a battery:HazardClass ; rdfs:label "Eye Damage or Irritation"@en ;
+eubat:EyeDamageOrIrritation a eubat:HazardClass ; rdfs:label "Eye Damage or Irritation"@en ;
     rdfs:comment "Substances causing serious eye damage or reversible eye irritation upon contact."@en .
-battery:RespiratoryOrSkinSensitization a battery:HazardClass ; rdfs:label "Respiratory or Skin Sensitization"@en ;
+eubat:RespiratoryOrSkinSensitization a eubat:HazardClass ; rdfs:label "Respiratory or Skin Sensitization"@en ;
     rdfs:comment "Substances causing hypersensitivity of airways (asthma) or allergic skin reactions after exposure."@en .
-battery:GermCellMutagenicity a battery:HazardClass ; rdfs:label "Germ Cell Mutagenicity"@en ;
+eubat:GermCellMutagenicity a eubat:HazardClass ; rdfs:label "Germ Cell Mutagenicity"@en ;
     rdfs:comment "Substances that may cause heritable genetic mutations in human germ cells."@en .
-battery:Carcinogenicity a battery:HazardClass ; rdfs:label "Carcinogenicity"@en ;
+eubat:Carcinogenicity a eubat:HazardClass ; rdfs:label "Carcinogenicity"@en ;
     rdfs:comment "Substances known or suspected to cause cancer in humans."@en .
-battery:ReproductiveToxicity a battery:HazardClass ; rdfs:label "Reproductive Toxicity"@en ;
+eubat:ReproductiveToxicity a eubat:HazardClass ; rdfs:label "Reproductive Toxicity"@en ;
     rdfs:comment "Substances adversely affecting sexual function, fertility, or development of offspring."@en .
-battery:SpecificTargetOrganToxicity a battery:HazardClass ; rdfs:label "Specific Target Organ Toxicity"@en ;
+eubat:SpecificTargetOrganToxicity a eubat:HazardClass ; rdfs:label "Specific Target Organ Toxicity"@en ;
     rdfs:comment "Substances causing non-lethal damage to specific organs after single or repeated exposure."@en .
-battery:AspirationHazard a battery:HazardClass ; rdfs:label "Aspiration Hazard"@en ;
+eubat:AspirationHazard a eubat:HazardClass ; rdfs:label "Aspiration Hazard"@en ;
     rdfs:comment "Liquid or solid substances causing chemical pneumonia or pulmonary injury if aspirated into airways."@en .
-battery:HazardousToAquaticEnvironment a battery:HazardClass ; rdfs:label "Hazardous to Aquatic Environment"@en ;
+eubat:HazardousToAquaticEnvironment a eubat:HazardClass ; rdfs:label "Hazardous to Aquatic Environment"@en ;
     rdfs:comment "Substances posing acute or chronic toxicity risks to aquatic organisms and ecosystems."@en .
 
 # -----------------------------------------------------------------------------
 # Dismantling Document Type (DIN DKE SPEC 99100)
 # -----------------------------------------------------------------------------
 
-battery:DismantlingDocumentType
+eubat:DismantlingDocumentType
     a owl:Class ;
     rdfs:label "Dismantling Document Type"@en ;
     rdfs:comment "Types of documents supporting battery dismantling per DIN DKE SPEC 99100."@en ;
     owl:oneOf (
-        battery:BillOfMaterial
-        battery:Model3D
-        battery:DismantlingManual
-        battery:RemovalManual
-        battery:SafetyDataSheet
-        battery:OtherManual
-        battery:Drawing
+        eubat:BillOfMaterial
+        eubat:Model3D
+        eubat:DismantlingManual
+        eubat:RemovalManual
+        eubat:SafetyDataSheet
+        eubat:OtherManual
+        eubat:Drawing
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:BillOfMaterial a battery:DismantlingDocumentType ; rdfs:label "Bill of Material"@en ;
+eubat:BillOfMaterial a eubat:DismantlingDocumentType ; rdfs:label "Bill of Material"@en ;
     rdfs:comment "Structured list of all components and materials in the battery with quantities and identifiers."@en .
-battery:Model3D a battery:DismantlingDocumentType ; rdfs:label "3D Model"@en ;
+eubat:Model3D a eubat:DismantlingDocumentType ; rdfs:label "3D Model"@en ;
     rdfs:comment "Three-dimensional CAD model showing battery structure, component layout, and assembly relationships."@en .
-battery:DismantlingManual a battery:DismantlingDocumentType ; rdfs:label "Dismantling Manual"@en ;
+eubat:DismantlingManual a eubat:DismantlingDocumentType ; rdfs:label "Dismantling Manual"@en ;
     rdfs:comment "Step-by-step instructions for safe disassembly of battery components for recycling or repair."@en .
-battery:RemovalManual a battery:DismantlingDocumentType ; rdfs:label "Removal Manual"@en ;
+eubat:RemovalManual a eubat:DismantlingDocumentType ; rdfs:label "Removal Manual"@en ;
     rdfs:comment "Instructions for safely removing the battery from its host device or vehicle."@en .
-battery:SafetyDataSheet a battery:DismantlingDocumentType ; rdfs:label "Safety Data Sheet"@en ;
+eubat:SafetyDataSheet a eubat:DismantlingDocumentType ; rdfs:label "Safety Data Sheet"@en ;
     rdfs:comment "Safety data sheet (SDS) for the battery containing hazard and handling information."@en .
-battery:OtherManual a battery:DismantlingDocumentType ; rdfs:label "Other Manual"@en ;
+eubat:OtherManual a eubat:DismantlingDocumentType ; rdfs:label "Other Manual"@en ;
     rdfs:comment "Other supporting documentation not covered by specific document types."@en .
-battery:Drawing a battery:DismantlingDocumentType ; rdfs:label "Drawing"@en ;
+eubat:Drawing a eubat:DismantlingDocumentType ; rdfs:label "Drawing"@en ;
     rdfs:comment "Technical drawings showing battery dimensions, connection points, and component locations."@en .
 
 # -----------------------------------------------------------------------------
 # Label Subject (EU Battery Regulation Annex VI)
 # -----------------------------------------------------------------------------
 
-battery:LabelSubject
+eubat:LabelSubject
     a owl:Class ;
     rdfs:label "Label Subject"@en ;
     rdfs:comment "Subject matter categories for battery labels per EU Battery Regulation Annex VI."@en ;
     owl:oneOf (
-        battery:SeparateCollection
-        battery:CadmiumContent
-        battery:LeadContent
-        battery:MercuryContent
-        battery:CarbonFootprintLabel
-        battery:ExtinguishingAgentLabel
-        battery:CapacityLabel
-        battery:QRCodeLabel
+        eubat:SeparateCollection
+        eubat:CadmiumContent
+        eubat:LeadContent
+        eubat:MercuryContent
+        eubat:CarbonFootprintLabel
+        eubat:ExtinguishingAgentLabel
+        eubat:CapacityLabel
+        eubat:QRCodeLabel
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:SeparateCollection a battery:LabelSubject ; rdfs:label "Separate Collection"@en ;
+eubat:SeparateCollection a eubat:LabelSubject ; rdfs:label "Separate Collection"@en ;
     rdfs:comment "Crossed-out wheeled bin symbol indicating the battery must be collected separately from household waste."@en .
-battery:CadmiumContent a battery:LabelSubject ; rdfs:label "Cadmium Content"@en ;
+eubat:CadmiumContent a eubat:LabelSubject ; rdfs:label "Cadmium Content"@en ;
     rdfs:comment "Cd symbol indicating cadmium content above threshold (> 0.002% by weight)."@en .
-battery:LeadContent a battery:LabelSubject ; rdfs:label "Lead Content"@en ;
+eubat:LeadContent a eubat:LabelSubject ; rdfs:label "Lead Content"@en ;
     rdfs:comment "Pb symbol indicating lead content above threshold (> 0.004% by weight)."@en .
-battery:MercuryContent a battery:LabelSubject ; rdfs:label "Mercury Content"@en ;
+eubat:MercuryContent a eubat:LabelSubject ; rdfs:label "Mercury Content"@en ;
     rdfs:comment "Hg symbol indicating mercury content (prohibited except exemptions)."@en .
-battery:CarbonFootprintLabel a battery:LabelSubject ; rdfs:label "Carbon Footprint"@en ;
+eubat:CarbonFootprintLabel a eubat:LabelSubject ; rdfs:label "Carbon Footprint"@en ;
     rdfs:comment "Label displaying the carbon footprint class (A-E) and value per EU Battery Regulation requirements."@en .
-battery:ExtinguishingAgentLabel a battery:LabelSubject ; rdfs:label "Extinguishing Agent"@en ;
+eubat:ExtinguishingAgentLabel a eubat:LabelSubject ; rdfs:label "Extinguishing Agent"@en ;
     rdfs:comment "Label indicating the recommended fire extinguishing agent for battery fires."@en .
-battery:CapacityLabel a battery:LabelSubject ; rdfs:label "Capacity Label"@en ;
+eubat:CapacityLabel a eubat:LabelSubject ; rdfs:label "Capacity Label"@en ;
     rdfs:comment "Label showing battery capacity in Ah and/or Wh."@en .
-battery:QRCodeLabel a battery:LabelSubject ; rdfs:label "QR Code"@en ;
+eubat:QRCodeLabel a eubat:LabelSubject ; rdfs:label "QR Code"@en ;
     rdfs:comment "QR code providing access to the battery passport."@en .
 
 # -----------------------------------------------------------------------------
-# Operator Role: use dpp:OperatorRole from common/core; battery-specific
+# Operator Role: use oec:OperatorRole from common/core; battery-specific
 # roles (e.g., Fulfilment Service Provider per EU Battery Regulation Art. 38)
-# are modelled as additional dpp:OperatorRole instances in the core ontology.
+# are modelled as additional oec:OperatorRole instances in the core ontology.
 # -----------------------------------------------------------------------------
 
 # -----------------------------------------------------------------------------
 # Incident Severity
 # -----------------------------------------------------------------------------
 
-battery:IncidentSeverity
+eubat:IncidentSeverity
     a owl:Class ;
     rdfs:label "Incident Severity"@en ;
     rdfs:comment "Severity classification for battery-related incidents."@en ;
-    owl:oneOf (battery:Minor battery:Moderate battery:Major battery:Critical) ;
+    owl:oneOf (eubat:Minor eubat:Moderate eubat:Major eubat:Critical) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:Minor a battery:IncidentSeverity ; rdfs:label "Minor"@en ;
+eubat:Minor a eubat:IncidentSeverity ; rdfs:label "Minor"@en ;
     rdfs:comment "Minor incident with minimal impact on battery performance or safety. No immediate action required."@en .
-battery:Moderate a battery:IncidentSeverity ; rdfs:label "Moderate"@en ;
+eubat:Moderate a eubat:IncidentSeverity ; rdfs:label "Moderate"@en ;
     rdfs:comment "Moderate incident requiring monitoring and potential preventive maintenance."@en .
-battery:Major a battery:IncidentSeverity ; rdfs:label "Major"@en ;
+eubat:Major a eubat:IncidentSeverity ; rdfs:label "Major"@en ;
     rdfs:comment "Major incident significantly affecting battery performance. Immediate inspection and potential replacement recommended."@en .
-battery:Critical a battery:IncidentSeverity ; rdfs:label "Critical"@en ;
+eubat:Critical a eubat:IncidentSeverity ; rdfs:label "Critical"@en ;
     rdfs:comment "Critical incident posing safety risks. Immediate removal from service required."@en .
 
 # -----------------------------------------------------------------------------
 # Negative Event Type
 # -----------------------------------------------------------------------------
 
-battery:NegativeEventType
+eubat:NegativeEventType
     a owl:Class ;
     rdfs:label "Negative Event Type"@en ;
     rdfs:comment "Types of adverse events that can affect a battery."@en ;
-    owl:oneOf (battery:Accident battery:PhysicalDamage battery:ThermalEvent battery:ElectricalFault battery:WaterIngress battery:Overcharge battery:DeepDischarge battery:ShortCircuit) ;
+    owl:oneOf (eubat:Accident eubat:PhysicalDamage eubat:ThermalEvent eubat:ElectricalFault eubat:WaterIngress eubat:Overcharge eubat:DeepDischarge eubat:ShortCircuit) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:Accident a battery:NegativeEventType ; rdfs:label "Accident"@en ;
+eubat:Accident a eubat:NegativeEventType ; rdfs:label "Accident"@en ;
     rdfs:comment "Physical accident involving the battery such as collision or drop."@en .
-battery:PhysicalDamage a battery:NegativeEventType ; rdfs:label "Physical Damage"@en ;
+eubat:PhysicalDamage a eubat:NegativeEventType ; rdfs:label "Physical Damage"@en ;
     rdfs:comment "Mechanical damage to battery casing or internal components."@en .
-battery:ThermalEvent a battery:NegativeEventType ; rdfs:label "Thermal Event"@en ;
+eubat:ThermalEvent a eubat:NegativeEventType ; rdfs:label "Thermal Event"@en ;
     rdfs:comment "Thermal runaway, overheating, or fire incident."@en .
-battery:ElectricalFault a battery:NegativeEventType ; rdfs:label "Electrical Fault"@en ;
+eubat:ElectricalFault a eubat:NegativeEventType ; rdfs:label "Electrical Fault"@en ;
     rdfs:comment "Electrical malfunction including BMS failure or cell imbalance."@en .
-battery:WaterIngress a battery:NegativeEventType ; rdfs:label "Water Ingress"@en ;
+eubat:WaterIngress a eubat:NegativeEventType ; rdfs:label "Water Ingress"@en ;
     rdfs:comment "Water or moisture penetration into the battery pack."@en .
-battery:Overcharge a battery:NegativeEventType ; rdfs:label "Overcharge"@en ;
+eubat:Overcharge a eubat:NegativeEventType ; rdfs:label "Overcharge"@en ;
     rdfs:comment "Charging beyond maximum voltage limits."@en .
-battery:DeepDischarge a battery:NegativeEventType ; rdfs:label "Deep Discharge"@en ;
+eubat:DeepDischarge a eubat:NegativeEventType ; rdfs:label "Deep Discharge"@en ;
     rdfs:comment "Discharge below minimum voltage limits."@en .
-battery:ShortCircuit a battery:NegativeEventType ; rdfs:label "Short Circuit"@en ;
+eubat:ShortCircuit a eubat:NegativeEventType ; rdfs:label "Short Circuit"@en ;
     rdfs:comment "Internal or external short circuit event."@en .
 
 # -----------------------------------------------------------------------------
 # Compliance Status (NEW)
 # -----------------------------------------------------------------------------
 
-battery:ComplianceStatus
+eubat:ComplianceStatus
     a owl:Class ;
     rdfs:label "Compliance Status"@en ;
     rdfs:comment "Regulatory compliance status of the battery."@en ;
-    owl:oneOf (battery:Compliant battery:NonCompliant battery:Pending battery:ConditionallyCompliant) ;
+    owl:oneOf (eubat:Compliant eubat:NonCompliant eubat:Pending eubat:ConditionallyCompliant) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:Compliant a battery:ComplianceStatus ; rdfs:label "Compliant"@en ;
+eubat:Compliant a eubat:ComplianceStatus ; rdfs:label "Compliant"@en ;
     rdfs:comment "Battery fully complies with all applicable regulatory requirements."@en .
-battery:NonCompliant a battery:ComplianceStatus ; rdfs:label "Non-Compliant"@en ;
+eubat:NonCompliant a eubat:ComplianceStatus ; rdfs:label "Non-Compliant"@en ;
     rdfs:comment "Battery does not meet one or more regulatory requirements."@en .
-battery:Pending a battery:ComplianceStatus ; rdfs:label "Pending"@en ;
+eubat:Pending a eubat:ComplianceStatus ; rdfs:label "Pending"@en ;
     rdfs:comment "Compliance assessment is in progress."@en .
-battery:ConditionallyCompliant a battery:ComplianceStatus ; rdfs:label "Conditionally Compliant"@en ;
+eubat:ConditionallyCompliant a eubat:ComplianceStatus ; rdfs:label "Conditionally Compliant"@en ;
     rdfs:comment "Battery complies subject to specified conditions or limitations."@en .
 
 # -----------------------------------------------------------------------------
 # Carbon Footprint Performance Class (EU Battery Regulation)
 # -----------------------------------------------------------------------------
 
-battery:CarbonFootprintClass
+eubat:CarbonFootprintClass
     a owl:Class ;
     rdfs:label "Carbon Footprint Performance Class"@en ;
     rdfs:comment "Carbon footprint performance classification (A-E) per EU Battery Regulation."@en ;
-    owl:oneOf (battery:CFClassA battery:CFClassB battery:CFClassC battery:CFClassD battery:CFClassE) ;
+    owl:oneOf (eubat:CFClassA eubat:CFClassB eubat:CFClassC eubat:CFClassD eubat:CFClassE) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:CFClassA a battery:CarbonFootprintClass ; rdfs:label "Class A"@en ;
+eubat:CFClassA a eubat:CarbonFootprintClass ; rdfs:label "Class A"@en ;
     rdfs:comment "Best carbon footprint performance class."@en .
-battery:CFClassB a battery:CarbonFootprintClass ; rdfs:label "Class B"@en .
-battery:CFClassC a battery:CarbonFootprintClass ; rdfs:label "Class C"@en .
-battery:CFClassD a battery:CarbonFootprintClass ; rdfs:label "Class D"@en .
-battery:CFClassE a battery:CarbonFootprintClass ; rdfs:label "Class E"@en ;
+eubat:CFClassB a eubat:CarbonFootprintClass ; rdfs:label "Class B"@en .
+eubat:CFClassC a eubat:CarbonFootprintClass ; rdfs:label "Class C"@en .
+eubat:CFClassD a eubat:CarbonFootprintClass ; rdfs:label "Class D"@en .
+eubat:CFClassE a eubat:CarbonFootprintClass ; rdfs:label "Class E"@en ;
     rdfs:comment "Lowest carbon footprint performance class."@en .
 
 # -----------------------------------------------------------------------------
 # Responsible Sourcing Standard (NEW)
 # -----------------------------------------------------------------------------
 
-battery:ResponsibleSourcingStandard
+eubat:ResponsibleSourcingStandard
     a owl:Class ;
     rdfs:label "Responsible Sourcing Standard"@en ;
     rdfs:comment "Standards for responsible sourcing of battery materials."@en ;
-    owl:oneOf (battery:OECDGuidelines battery:RMI battery:IRMA battery:CopperMark battery:AluminiumStewardship battery:CobaltIndustryResponsibleAssessment) ;
+    owl:oneOf (eubat:OECDGuidelines eubat:RMI eubat:IRMA eubat:CopperMark eubat:AluminiumStewardship eubat:CobaltIndustryResponsibleAssessment) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:OECDGuidelines a battery:ResponsibleSourcingStandard ; rdfs:label "OECD Due Diligence Guidance"@en ;
+eubat:OECDGuidelines a eubat:ResponsibleSourcingStandard ; rdfs:label "OECD Due Diligence Guidance"@en ;
     rdfs:comment "OECD Due Diligence Guidance for Responsible Supply Chains of Minerals from Conflict-Affected and High-Risk Areas."@en .
-battery:RMI a battery:ResponsibleSourcingStandard ; rdfs:label "Responsible Minerals Initiative"@en ;
+eubat:RMI a eubat:ResponsibleSourcingStandard ; rdfs:label "Responsible Minerals Initiative"@en ;
     rdfs:comment "Responsible Minerals Initiative (RMI) standards and assessments."@en .
-battery:IRMA a battery:ResponsibleSourcingStandard ; rdfs:label "IRMA Standard"@en ;
+eubat:IRMA a eubat:ResponsibleSourcingStandard ; rdfs:label "IRMA Standard"@en ;
     rdfs:comment "Initiative for Responsible Mining Assurance standard."@en .
-battery:CopperMark a battery:ResponsibleSourcingStandard ; rdfs:label "Copper Mark"@en ;
+eubat:CopperMark a eubat:ResponsibleSourcingStandard ; rdfs:label "Copper Mark"@en ;
     rdfs:comment "The Copper Mark responsible production certification."@en .
-battery:AluminiumStewardship a battery:ResponsibleSourcingStandard ; rdfs:label "ASI Standard"@en ;
+eubat:AluminiumStewardship a eubat:ResponsibleSourcingStandard ; rdfs:label "ASI Standard"@en ;
     rdfs:comment "Aluminium Stewardship Initiative certification."@en .
-battery:CobaltIndustryResponsibleAssessment a battery:ResponsibleSourcingStandard ; rdfs:label "CIRA"@en ;
+eubat:CobaltIndustryResponsibleAssessment a eubat:ResponsibleSourcingStandard ; rdfs:label "CIRA"@en ;
     rdfs:comment "Cobalt Industry Responsible Assessment Framework."@en .
 
 # -----------------------------------------------------------------------------
 # Data Access Level (Annex XIII access control)
 # -----------------------------------------------------------------------------
 
-battery:AccessLevel
+eubat:AccessLevel
     a owl:Class ;
     rdfs:label "Data Access Level"@en ;
     rdfs:comment "Access restriction level for battery passport data per Annex XIII."@en ;
-    owl:oneOf (battery:PublicAccess battery:AuthorizedAccess battery:AuthoritiesOnly) ;
+    owl:oneOf (eubat:PublicAccess eubat:AuthorizedAccess eubat:AuthoritiesOnly) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:PublicAccess a battery:AccessLevel ; rdfs:label "Public"@en ;
+eubat:PublicAccess a eubat:AccessLevel ; rdfs:label "Public"@en ;
     rdfs:comment "Data accessible to the general public without authentication."@en .
-battery:AuthorizedAccess a battery:AccessLevel ; rdfs:label "Authorized Personnel"@en ;
+eubat:AuthorizedAccess a eubat:AccessLevel ; rdfs:label "Authorized Personnel"@en ;
     rdfs:comment "Data accessible to authorized economic operators and service providers."@en .
-battery:AuthoritiesOnly a battery:AccessLevel ; rdfs:label "Authorities Only"@en ;
+eubat:AuthoritiesOnly a eubat:AccessLevel ; rdfs:label "Authorities Only"@en ;
     rdfs:comment "Data accessible only to notified bodies, market surveillance authorities, and the Commission."@en .
 
 # =============================================================================
@@ -631,7 +631,7 @@ battery:AuthoritiesOnly a battery:AccessLevel ; rdfs:label "Authorities Only"@en
 # =============================================================================
 # Aligned with schema.org hasPart/isPartOf pattern for web ontology interoperability
 
-battery:hasBattery
+eubat:hasBattery
     a owl:ObjectProperty ;
     rdfs:subPropertyOf schema:hasPart ;
     rdfs:label "Has Battery"@en ;
@@ -645,25 +645,25 @@ battery:hasBattery
 # PART 3: PROPERTIES - GENERAL PRODUCT INFORMATION
 # =============================================================================
 
-battery:manufacturingPlace
+eubat:manufacturingPlace
     a owl:ObjectProperty ;
     rdfs:label "Manufacturing Place"@en ;
-    rdfs:comment "Location where the battery was manufactured. A dpp:FacilityInformation (subClassOf gs1:Place) carrying GLN, certifications, and facility-specific identifiers."@en ;
+    rdfs:comment "Location where the battery was manufactured. A oec:FacilityInformation (subClassOf gs1:Place) carrying GLN, certifications, and facility-specific identifiers."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:FacilityInformation ;
+    rdfs:range oec:FacilityInformation ;
     rdfs:seeAlso gs1:Place ;
     rdfs:seeAlso locn:Location ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:cellType
+eubat:cellType
     a owl:ObjectProperty ;
     rdfs:label "Cell Type"@en ;
     rdfs:comment "Physical form factor of the battery cells."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range battery:CellType ;
+    rdfs:range eubat:CellType ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:numberOfCells
+eubat:numberOfCells
     a owl:DatatypeProperty ;
     rdfs:label "Number of Cells"@en ;
     rdfs:comment "Total number of cells in the battery pack."@en ;
@@ -671,7 +671,7 @@ battery:numberOfCells
     rdfs:range xsd:integer ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:numberOfModules
+eubat:numberOfModules
     a owl:DatatypeProperty ;
     rdfs:label "Number of Modules"@en ;
     rdfs:comment "Number of modules in the battery pack."@en ;
@@ -679,7 +679,7 @@ battery:numberOfModules
     rdfs:range xsd:integer ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:puttingIntoService
+eubat:puttingIntoService
     a owl:DatatypeProperty ;
     rdfs:label "Putting Into Service"@en ;
     rdfs:comment "Date when the battery was first put into service."@en ;
@@ -687,7 +687,7 @@ battery:puttingIntoService
     rdfs:range xsd:date ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:batteryPassportIdentifier
+eubat:batteryPassportIdentifier
     a owl:DatatypeProperty ;
     rdfs:label "Battery Passport Identifier"@en ;
     rdfs:comment "Unique identifier for the battery passport. Note: In this implementation, the primary identifier is the GS1 Digital Link (@id)."@en ;
@@ -695,25 +695,25 @@ battery:batteryPassportIdentifier
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:batteryModelIdentifier
+eubat:batteryModelIdentifier
     a owl:DatatypeProperty ;
     rdfs:label "Battery Model Identifier"@en ;
-    rdfs:comment "Manufacturer-assigned identifier of the battery model, distinct from the human-readable battery:batteryModel name. Required by the EU Battery Regulation Labelling Implementing Act and referenced in the carbon footprint declaration; enables every batch- and item-level attribute to be tied back to a model."@en ;
+    rdfs:comment "Manufacturer-assigned identifier of the battery model, distinct from the human-readable eubat:batteryModel name. Required by the EU Battery Regulation Labelling Implementing Act and referenced in the carbon footprint declaration; enables every batch- and item-level attribute to be tied back to a model."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:string ;
     dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
     skos:note "BatteryPass-Ready v1.3 longlist attribute #7. Mandatory. GS1 Web Vocabulary has gs1:gtin (trade item) but no separate model identifier; in EU regulatory practice these are not always equivalent."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:facilityIdentifier
+eubat:facilityIdentifier
     a owl:DatatypeProperty ;
     rdfs:label "Facility Identifier"@en ;
-    rdfs:comment "Unique identifier of the manufacturing facility (recommended: GS1 GLN). Sits on the dpp:FacilityInformation referenced by battery:manufacturingPlace."@en ;
-    rdfs:domain dpp:FacilityInformation ;
+    rdfs:comment "Unique identifier of the manufacturing facility (recommended: GS1 GLN). Sits on the oec:FacilityInformation referenced by eubat:manufacturingPlace."@en ;
+    rdfs:domain oec:FacilityInformation ;
     rdfs:range xsd:string ;
     rdfs:subPropertyOf skos:notation ;
     dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
-    skos:note "BatteryPass-Ready v1.3 longlist attribute #11. Domain moved from gs1:Product to dpp:FacilityInformation in 0.9.5: the identifier identifies a facility, not the product. Anchored as rdfs:subPropertyOf skos:notation so the value is recognisable as an identifier notation, and rdfs:seeAlso adms:Identifier as the canonical SEMICeu peer (an adms:Identifier instance whose notation is this value and whose schemeAgency is the GLN issuer)."@en ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #11. Domain moved from gs1:Product to oec:FacilityInformation in 0.9.5: the identifier identifies a facility, not the product. Anchored as rdfs:subPropertyOf skos:notation so the value is recognisable as an identifier notation, and rdfs:seeAlso adms:Identifier as the canonical SEMICeu peer (an adms:Identifier instance whose notation is this value and whose schemeAgency is the GLN issuer)."@en ;
     rdfs:seeAlso gs1:gln ;
     rdfs:seeAlso adms:Identifier ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -722,43 +722,43 @@ battery:facilityIdentifier
 # PART 4: PROPERTIES - CHEMISTRY
 # =============================================================================
 
-battery:batteryChemistry
+eubat:batteryChemistry
     a owl:ObjectProperty ;
     rdfs:label "Battery Chemistry"@en ;
     rdfs:comment "The electrochemical system of the battery including cathode, anode, and electrolyte composition."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range battery:BatteryChemistry ;
+    rdfs:range eubat:BatteryChemistry ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:cathodeActiveMaterial
+eubat:cathodeActiveMaterial
     a owl:DatatypeProperty ;
     rdfs:label "Cathode Active Material"@en ;
     rdfs:comment "Chemical composition of the cathode active material (e.g., LiNiMnCoO2, LiFePO4, LiCoO2)."@en ;
-    rdfs:domain battery:BatteryChemistry ;
+    rdfs:domain eubat:BatteryChemistry ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:anodeActiveMaterial
+eubat:anodeActiveMaterial
     a owl:DatatypeProperty ;
     rdfs:label "Anode Active Material"@en ;
     rdfs:comment "Chemical composition of the anode active material (e.g., graphite, silicon, lithium titanate)."@en ;
-    rdfs:domain battery:BatteryChemistry ;
+    rdfs:domain eubat:BatteryChemistry ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:electrolyteType
+eubat:electrolyteType
     a owl:DatatypeProperty ;
     rdfs:label "Electrolyte Type"@en ;
     rdfs:comment "Type of electrolyte used (e.g., liquid organic, polymer gel, solid-state ceramic)."@en ;
-    rdfs:domain battery:BatteryChemistry ;
+    rdfs:domain eubat:BatteryChemistry ;
     rdfs:range rdf:langString ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:electrolyteComposition
+eubat:electrolyteComposition
     a owl:DatatypeProperty ;
     rdfs:label "Electrolyte Composition"@en ;
     rdfs:comment "Chemical composition of the electrolyte."@en ;
-    rdfs:domain battery:BatteryChemistry ;
+    rdfs:domain eubat:BatteryChemistry ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
@@ -766,230 +766,230 @@ battery:electrolyteComposition
 # PART 5: PROPERTIES - TECHNICAL SPECIFICATIONS
 # =============================================================================
 
-battery:technicalSpecifications
+eubat:technicalSpecifications
     a owl:ObjectProperty ;
     rdfs:label "Technical Specifications"@en ;
     rdfs:comment "Technical performance specifications including capacity, voltage, power, and lifetime parameters."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range battery:TechnicalSpecification ;
+    rdfs:range eubat:TechnicalSpecification ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:ratedCapacity
+eubat:ratedCapacity
     a owl:ObjectProperty ;
     rdfs:label "Rated Capacity"@en ;
     rdfs:comment "Rated capacity in Ampere-hours (Ah). Use gs1:QuantitativeValue with unitCode 'AMH'."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:ratedEnergy
+eubat:ratedEnergy
     a owl:ObjectProperty ;
     rdfs:label "Rated Energy"@en ;
     rdfs:comment "Rated energy in kilowatt-hours (kWh). Use gs1:QuantitativeValue with unitCode 'KWH'."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:nominalVoltage
+eubat:nominalVoltage
     a owl:ObjectProperty ;
     rdfs:label "Nominal Voltage"@en ;
     rdfs:comment "Nominal operating voltage of the battery pack in Volts (V). Use unitCode 'VLT' (UN/CEFACT Rec 20)."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:minimumVoltage
+eubat:minimumVoltage
     a owl:ObjectProperty ;
     rdfs:label "Minimum Voltage"@en ;
     rdfs:comment "Minimum allowable voltage to prevent deep discharge damage, in Volts (V). Use unitCode 'VLT' (UN/CEFACT Rec 20)."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:maximumVoltage
+eubat:maximumVoltage
     a owl:ObjectProperty ;
     rdfs:label "Maximum Voltage"@en ;
     rdfs:comment "Maximum allowable voltage when fully charged, in Volts (V). Use unitCode 'VLT' (UN/CEFACT Rec 20)."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:ratedMaximumPower
+eubat:ratedMaximumPower
     a owl:ObjectProperty ;
     rdfs:label "Rated Maximum Power"@en ;
     rdfs:comment "Rated maximum power output in kW. Use unitCode 'KWT' (UN/CEFACT Rec 20)."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:maximumChargingPower
+eubat:maximumChargingPower
     a owl:ObjectProperty ;
     rdfs:label "Maximum Charging Power"@en ;
     rdfs:comment "Maximum allowed charging power in kW. Use unitCode 'KWT' (UN/CEFACT Rec 20)."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:maximumDischargingPower
+eubat:maximumDischargingPower
     a owl:ObjectProperty ;
     rdfs:label "Maximum Discharging Power"@en ;
     rdfs:comment "Maximum allowed discharging power in kW. Use unitCode 'KWT' (UN/CEFACT Rec 20)."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:maximumPermittedBatteryPower
+eubat:maximumPermittedBatteryPower
     a owl:ObjectProperty ;
     rdfs:label "Maximum Permitted Battery Power"@en ;
     rdfs:comment "Maximum permitted battery power (single declared value). Use gs1:QuantitativeValue with unitCode 'WTT' (watt) or 'KWT' (kW), UN/CEFACT Rec 20."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "BatteryPass-Ready v1.3 longlist attribute #72. Performance & durability passport property per Annex XIII; required by the GEFEG BatteryPass-Ready live validator across all four categories (MaximumPermittedBatteryPower, watt_celsius_integer_onevalue). Distinct from battery:ratedMaximumPower (rated output). No equivalent GS1 term exists."@en ;
-    rdfs:seeAlso battery:ratedMaximumPower ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #72. Performance & durability passport property per Annex XIII; required by the GEFEG BatteryPass-Ready live validator across all four categories (MaximumPermittedBatteryPower, watt_celsius_integer_onevalue). Distinct from eubat:ratedMaximumPower (rated output). No equivalent GS1 term exists."@en ;
+    rdfs:seeAlso eubat:ratedMaximumPower ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:maximumChargingCurrent
+eubat:maximumChargingCurrent
     a owl:ObjectProperty ;
     rdfs:label "Maximum Charging Current"@en ;
     rdfs:comment "Maximum allowed charging current in Amperes. Use unitCode 'AMP' (UN/CEFACT Rec 20)."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:maximumDischargingCurrent
+eubat:maximumDischargingCurrent
     a owl:ObjectProperty ;
     rdfs:label "Maximum Discharging Current"@en ;
     rdfs:comment "Maximum allowed discharging current in Amperes. Use unitCode 'AMP' (UN/CEFACT Rec 20)."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:expectedCycleLife
+eubat:expectedCycleLife
     a owl:DatatypeProperty ;
     rdfs:label "Expected Cycle Life"@en ;
     rdfs:comment "Expected number of full charge-discharge cycles under reference test conditions."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range xsd:integer ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:expectedLifetimeYears
+eubat:expectedLifetimeYears
     a owl:DatatypeProperty ;
     rdfs:label "Expected Lifetime (Years)"@en ;
     rdfs:comment "Expected calendar lifetime under normal operating conditions, in years."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range xsd:integer ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:expectedLifetimeEnergyThroughput
+eubat:expectedLifetimeEnergyThroughput
     a owl:ObjectProperty ;
     rdfs:label "Expected Lifetime Energy Throughput"@en ;
     rdfs:comment "Total energy throughput expected over battery lifetime in kWh. Use unitCode 'KWH' (UN/CEFACT Rec 20)."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:expectedLifetimeCapacityThroughput
+eubat:expectedLifetimeCapacityThroughput
     a owl:ObjectProperty ;
     rdfs:label "Expected Lifetime Capacity Throughput"@en ;
     rdfs:comment "Total capacity throughput expected over battery lifetime in Ah. Use unitCode 'AMH' (UN/CEFACT Rec 20)."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:roundTripEfficiency
+eubat:roundTripEfficiency
     a owl:DatatypeProperty ;
     rdfs:label "Round Trip Efficiency"@en ;
     rdfs:comment "Initial round-trip energy efficiency as percentage."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:roundTripEfficiencyAt50PercentCycleLife
+eubat:roundTripEfficiencyAt50PercentCycleLife
     a owl:DatatypeProperty ;
     rdfs:label "Round Trip Efficiency at 50% Cycle Life"@en ;
     rdfs:comment "Expected round trip efficiency at 50% of rated cycle life."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:depthOfDischargeInCycleLifeTest
+eubat:depthOfDischargeInCycleLifeTest
     a owl:DatatypeProperty ;
     rdfs:label "Depth of Discharge in Cycle Life Test"@en ;
     rdfs:comment "Depth of discharge (DoD) percentage used for cycle life testing."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:capacityFadeThreshold
+eubat:capacityFadeThreshold
     a owl:DatatypeProperty ;
     rdfs:label "Capacity Fade Threshold"@en ;
     rdfs:comment "Capacity fade percentage at which battery reaches end of rated cycle life (typically 80%)."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:resistanceIncreaseThreshold
+eubat:resistanceIncreaseThreshold
     a owl:DatatypeProperty ;
     rdfs:label "Resistance Increase Threshold"@en ;
     rdfs:comment "Internal resistance increase percentage at which battery reaches end of rated cycle life."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:initialInternalResistance
+eubat:initialInternalResistance
     a owl:ObjectProperty ;
     rdfs:label "Initial Internal Resistance"@en ;
     rdfs:comment "Initial internal resistance at commissioning in Ohms. Use unitCode 'OHM' (UN/CEFACT Rec 20)."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:initialSelfDischarge
+eubat:initialSelfDischarge
     a owl:DatatypeProperty ;
     rdfs:label "Initial Self Discharge"@en ;
     rdfs:comment "Initial self-discharge rate as percentage per month."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:capacityThresholdForExhaustion
+eubat:capacityThresholdForExhaustion
     a owl:DatatypeProperty ;
     rdfs:label "Capacity Threshold for Exhaustion"@en ;
     rdfs:comment "SOCE percentage threshold below which the battery is considered exhausted."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:lifetimeReferenceTest
+eubat:lifetimeReferenceTest
     a owl:DatatypeProperty ;
     rdfs:label "Lifetime Reference Test"@en ;
     rdfs:comment "URL or reference to the standard test used for lifetime determination."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:powerCapabilityRatio
+eubat:powerCapabilityRatio
     a owl:DatatypeProperty ;
     rdfs:label "Power Capability Ratio"@en ;
     rdfs:comment "Ratio of rated power to rated energy (W/Wh)."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:cRate
+eubat:cRate
     a owl:DatatypeProperty ;
     rdfs:label "C-Rate"@en ;
     rdfs:comment "Nominal charge/discharge rate relative to capacity (e.g., 1C = full charge in 1 hour)."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:cRateLifeCycleTest
+eubat:cRateLifeCycleTest
     a owl:DatatypeProperty ;
     rdfs:label "C-Rate Life Cycle Test"@en ;
     rdfs:comment "C-rate used for lifecycle testing."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
@@ -997,27 +997,27 @@ battery:cRateLifeCycleTest
 # Power Capability at SoC
 # -----------------------------------------------------------------------------
 
-battery:originalPowerCapability
+eubat:originalPowerCapability
     a owl:ObjectProperty ;
     rdfs:label "Original Power Capability"@en ;
     rdfs:comment "Original power capability at specific SoC levels (80% and 20%)."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range battery:PowerCapabilityAtSoC ;
+    rdfs:domain eubat:TechnicalSpecification ;
+    rdfs:range eubat:PowerCapabilityAtSoC ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:stateOfChargeLevel
+eubat:stateOfChargeLevel
     a owl:DatatypeProperty ;
     rdfs:label "State of Charge Level"@en ;
     rdfs:comment "The SoC level at which power capability is measured (e.g., 80 or 20)."@en ;
-    rdfs:domain battery:PowerCapabilityAtSoC ;
+    rdfs:domain eubat:PowerCapabilityAtSoC ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:powerCapability
+eubat:powerCapability
     a owl:ObjectProperty ;
     rdfs:label "Power Capability"@en ;
     rdfs:comment "Power capability value in kW at the specified SoC. Use unitCode 'KWT' (UN/CEFACT Rec 20)."@en ;
-    rdfs:domain battery:PowerCapabilityAtSoC ;
+    rdfs:domain eubat:PowerCapabilityAtSoC ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
@@ -1025,49 +1025,49 @@ battery:powerCapability
 # Temperature Ranges (expanded)
 # -----------------------------------------------------------------------------
 
-battery:temperatureRangeStorage
+eubat:temperatureRangeStorage
     a owl:ObjectProperty ;
     rdfs:label "Temperature Range - Storage"@en ;
     rdfs:comment "Allowable temperature range for battery storage."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range battery:TemperatureRange ;
+    rdfs:domain eubat:TechnicalSpecification ;
+    rdfs:range eubat:TemperatureRange ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:temperatureRangeCharging
+eubat:temperatureRangeCharging
     a owl:ObjectProperty ;
     rdfs:label "Temperature Range - Charging"@en ;
     rdfs:comment "Allowable temperature range during charging."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range battery:TemperatureRange ;
+    rdfs:domain eubat:TechnicalSpecification ;
+    rdfs:range eubat:TemperatureRange ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:temperatureRangeDischarging
+eubat:temperatureRangeDischarging
     a owl:ObjectProperty ;
     rdfs:label "Temperature Range - Discharging"@en ;
     rdfs:comment "Allowable temperature range during discharging."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range battery:TemperatureRange ;
+    rdfs:domain eubat:TechnicalSpecification ;
+    rdfs:range eubat:TemperatureRange ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:temperatureRangeIdleState
+eubat:temperatureRangeIdleState
     a owl:ObjectProperty ;
     rdfs:label "Temperature Range - Idle State"@en ;
     rdfs:comment "Temperature range for the battery in idle state."@en ;
-    rdfs:domain battery:TechnicalSpecification ;
-    rdfs:range battery:TemperatureRange ;
+    rdfs:domain eubat:TechnicalSpecification ;
+    rdfs:range eubat:TemperatureRange ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:minimumTemperature
+eubat:minimumTemperature
     a owl:ObjectProperty ;
     rdfs:label "Minimum Temperature"@en ;
-    rdfs:domain battery:TemperatureRange ;
+    rdfs:domain eubat:TemperatureRange ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:maximumTemperature
+eubat:maximumTemperature
     a owl:ObjectProperty ;
     rdfs:label "Maximum Temperature"@en ;
-    rdfs:domain battery:TemperatureRange ;
+    rdfs:domain eubat:TemperatureRange ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
@@ -1075,72 +1075,72 @@ battery:maximumTemperature
 # PART 6: PROPERTIES - MATERIAL COMPOSITION
 # =============================================================================
 
-battery:materialComposition
+eubat:materialComposition
     a owl:ObjectProperty ;
     rdfs:subPropertyOf schema:hasPart ;
     rdfs:label "Material Composition"@en ;
     rdfs:comment "Materials used in battery construction with their percentages, locations, and critical raw material status. Aligned with schema:hasPart for semantic web interoperability."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range battery:BatteryMaterial ;
+    rdfs:range eubat:BatteryMaterial ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:casNumber
+eubat:casNumber
     a owl:DatatypeProperty ;
     rdfs:label "CAS Number"@en ;
     rdfs:comment "Chemical Abstracts Service registry number."@en ;
-    rdfs:domain battery:BatteryMaterial ;
+    rdfs:domain eubat:BatteryMaterial ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:ecNumber
+eubat:ecNumber
     a owl:DatatypeProperty ;
     rdfs:label "EC Number"@en ;
     rdfs:comment "European Community number (EINECS/ELINCS) for chemical substances."@en ;
-    rdfs:domain battery:BatteryMaterial ;
+    rdfs:domain eubat:BatteryMaterial ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:componentLocation
+eubat:componentLocation
     a owl:ObjectProperty ;
     rdfs:label "Component Location"@en ;
     rdfs:comment "Component location in the battery (cathode, anode, etc.)."@en ;
-    rdfs:domain battery:BatteryMaterial ;
-    rdfs:range battery:ComponentLocation ;
+    rdfs:domain eubat:BatteryMaterial ;
+    rdfs:range eubat:ComponentLocation ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:isCriticalRawMaterial
+eubat:isCriticalRawMaterial
     a owl:DatatypeProperty ;
     rdfs:label "Is Critical Raw Material"@en ;
     rdfs:comment "Whether this material is on the EU Critical Raw Materials list."@en ;
-    rdfs:domain battery:BatteryMaterial ;
+    rdfs:domain eubat:BatteryMaterial ;
     rdfs:range xsd:boolean ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:isSubstanceOfConcern
+eubat:isSubstanceOfConcern
     a owl:DatatypeProperty ;
     rdfs:label "Is Substance of Concern"@en ;
     rdfs:comment "Whether this material is a Substance of Very High Concern (SVHC) per REACH."@en ;
-    rdfs:domain battery:BatteryMaterial ;
+    rdfs:domain eubat:BatteryMaterial ;
     rdfs:range xsd:boolean ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:materialSupplier
+eubat:materialSupplier
     a owl:DatatypeProperty ;
     rdfs:label "Material Supplier"@en ;
     rdfs:comment "Name or identifier of the material supplier."@en ;
-    rdfs:domain battery:BatteryMaterial ;
+    rdfs:domain eubat:BatteryMaterial ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:renewableContentShare
+eubat:renewableContentShare
     a owl:DatatypeProperty ;
     rdfs:label "Renewable Content Share"@en ;
     rdfs:comment "Percentage of this material derived from renewable sources."@en ;
-    rdfs:domain battery:BatteryMaterial ;
+    rdfs:domain eubat:BatteryMaterial ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:criticalRawMaterialsStatement
+eubat:criticalRawMaterialsStatement
     a owl:DatatypeProperty ;
     rdfs:label "Critical Raw Materials Statement"@en ;
     rdfs:comment "Statement about critical raw materials content per EU CRM Act."@en ;
@@ -1152,88 +1152,88 @@ battery:criticalRawMaterialsStatement
 # PART 7: PROPERTIES - RECYCLED CONTENT
 # =============================================================================
 
-battery:recycledContent
+eubat:recycledContent
     a owl:ObjectProperty ;
     rdfs:label "Recycled Content"@en ;
     rdfs:comment "Declaration of recycled material content with breakdown by material type and pre/post-consumer sources."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range battery:RecycledContent ;
+    rdfs:range eubat:RecycledContent ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:lithiumRecycledShare
+eubat:lithiumRecycledShare
     a owl:DatatypeProperty ;
     rdfs:label "Lithium Recycled Share"@en ;
     rdfs:comment "Total percentage of recycled lithium content."@en ;
-    rdfs:domain battery:RecycledContent ;
+    rdfs:domain eubat:RecycledContent ;
     rdfs:range xsd:decimal ;
-    rdfs:seeAlso dpp:recycledContent ;
+    rdfs:seeAlso oec:recycledContent ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:lithiumPreConsumerShare
+eubat:lithiumPreConsumerShare
     a owl:DatatypeProperty ;
     rdfs:label "Lithium Pre-Consumer Recycled Share"@en ;
-    rdfs:domain battery:RecycledContent ;
+    rdfs:domain eubat:RecycledContent ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:lithiumPostConsumerShare
+eubat:lithiumPostConsumerShare
     a owl:DatatypeProperty ;
     rdfs:label "Lithium Post-Consumer Recycled Share"@en ;
-    rdfs:domain battery:RecycledContent ;
+    rdfs:domain eubat:RecycledContent ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:cobaltRecycledShare
+eubat:cobaltRecycledShare
     a owl:DatatypeProperty ;
     rdfs:label "Cobalt Recycled Share"@en ;
     rdfs:comment "Total percentage of recycled cobalt content."@en ;
-    rdfs:domain battery:RecycledContent ;
+    rdfs:domain eubat:RecycledContent ;
     rdfs:range xsd:decimal ;
-    rdfs:seeAlso dpp:recycledContent ;
+    rdfs:seeAlso oec:recycledContent ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:cobaltPreConsumerShare
+eubat:cobaltPreConsumerShare
     a owl:DatatypeProperty ;
     rdfs:label "Cobalt Pre-Consumer Recycled Share"@en ;
-    rdfs:domain battery:RecycledContent ;
+    rdfs:domain eubat:RecycledContent ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:cobaltPostConsumerShare
+eubat:cobaltPostConsumerShare
     a owl:DatatypeProperty ;
     rdfs:label "Cobalt Post-Consumer Recycled Share"@en ;
-    rdfs:domain battery:RecycledContent ;
+    rdfs:domain eubat:RecycledContent ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:nickelRecycledShare
+eubat:nickelRecycledShare
     a owl:DatatypeProperty ;
     rdfs:label "Nickel Recycled Share"@en ;
     rdfs:comment "Total percentage of recycled nickel content."@en ;
-    rdfs:domain battery:RecycledContent ;
+    rdfs:domain eubat:RecycledContent ;
     rdfs:range xsd:decimal ;
-    rdfs:seeAlso dpp:recycledContent ;
+    rdfs:seeAlso oec:recycledContent ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:nickelPreConsumerShare
+eubat:nickelPreConsumerShare
     a owl:DatatypeProperty ;
     rdfs:label "Nickel Pre-Consumer Recycled Share"@en ;
-    rdfs:domain battery:RecycledContent ;
+    rdfs:domain eubat:RecycledContent ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:nickelPostConsumerShare
+eubat:nickelPostConsumerShare
     a owl:DatatypeProperty ;
     rdfs:label "Nickel Post-Consumer Recycled Share"@en ;
-    rdfs:domain battery:RecycledContent ;
+    rdfs:domain eubat:RecycledContent ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:leadRecycledShare
+eubat:leadRecycledShare
     a owl:DatatypeProperty ;
     rdfs:label "Lead Recycled Share"@en ;
     rdfs:comment "Total percentage of recycled lead content (combined pre- and post-consumer). The EU Battery Regulation does not require a pre/post split for lead, in contrast to lithium, cobalt, nickel; v1.3 of the BatteryPass-Ready longlist consolidated the two former v1.2 attributes (#43 + #47) into this single share."@en ;
-    rdfs:domain battery:RecycledContent ;
+    rdfs:domain eubat:RecycledContent ;
     rdfs:range xsd:decimal ;
     dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
     skos:note "BatteryPass-Ready v1.3 longlist attribute #54. Granularity: batch level."@en ;
@@ -1243,116 +1243,116 @@ battery:leadRecycledShare
 # PART 8: PROPERTIES - END OF LIFE & CIRCULARITY
 # =============================================================================
 
-battery:endOfLifeInfo
+eubat:endOfLifeInfo
     a owl:ObjectProperty ;
     rdfs:label "End of Life Information"@en ;
     rdfs:comment "Information required for safe handling, dismantling, recycling, and disposal at end of battery life."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range battery:EndOfLifeInfo ;
+    rdfs:range eubat:EndOfLifeInfo ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:recyclabilityRate
+eubat:recyclabilityRate
     a owl:DatatypeProperty ;
     rdfs:label "Recyclability Rate"@en ;
     rdfs:comment "Percentage of the battery (by weight) that can be recycled."@en ;
-    rdfs:domain battery:EndOfLifeInfo ;
+    rdfs:domain eubat:EndOfLifeInfo ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:materialRecoveryTargets
+eubat:materialRecoveryTargets
     a owl:ObjectProperty ;
     rdfs:label "Material Recovery Targets"@en ;
     rdfs:comment "Recovery rate targets or achievements for specific materials."@en ;
-    rdfs:domain battery:EndOfLifeInfo ;
-    rdfs:range battery:MaterialRecoveryTarget ;
+    rdfs:domain eubat:EndOfLifeInfo ;
+    rdfs:range eubat:MaterialRecoveryTarget ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:recoveryMaterial
+eubat:recoveryMaterial
     a owl:DatatypeProperty ;
     rdfs:label "Recovery Material"@en ;
     rdfs:comment "Material for which recovery rate is specified (e.g., lithium, cobalt, nickel, copper)."@en ;
-    rdfs:domain battery:MaterialRecoveryTarget ;
+    rdfs:domain eubat:MaterialRecoveryTarget ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:recoveryRate
+eubat:recoveryRate
     a owl:DatatypeProperty ;
     rdfs:label "Recovery Rate"@en ;
     rdfs:comment "Recovery rate percentage for the specified material."@en ;
-    rdfs:domain battery:MaterialRecoveryTarget ;
+    rdfs:domain eubat:MaterialRecoveryTarget ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:dismantlingInstructions
+eubat:dismantlingInstructions
     a owl:ObjectProperty ;
     rdfs:label "Dismantling Instructions"@en ;
     rdfs:comment "Reference to dismantling instructions document for safe disassembly of the battery."@en ;
-    rdfs:domain battery:EndOfLifeInfo ;
+    rdfs:domain eubat:EndOfLifeInfo ;
     rdfs:range rdfs:Resource ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:safetyInstructionsForDismantling
+eubat:safetyInstructionsForDismantling
     a owl:DatatypeProperty ;
     rdfs:label "Safety Instructions for Dismantling"@en ;
     rdfs:comment "URL to specific safety requirements for battery dismantling."@en ;
-    rdfs:domain battery:EndOfLifeInfo ;
+    rdfs:domain eubat:EndOfLifeInfo ;
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:dismantlingTime
+eubat:dismantlingTime
     a owl:ObjectProperty ;
     rdfs:label "Estimated Dismantling Time"@en ;
     rdfs:comment "Estimated time required for safe battery dismantling."@en ;
-    rdfs:domain battery:EndOfLifeInfo ;
+    rdfs:domain eubat:EndOfLifeInfo ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:extinguishingAgent
+eubat:extinguishingAgent
     a owl:DatatypeProperty ;
     rdfs:label "Extinguishing Agent"@en ;
     rdfs:comment "Recommended fire extinguishing agent for the battery."@en ;
-    rdfs:domain battery:EndOfLifeInfo ;
+    rdfs:domain eubat:EndOfLifeInfo ;
     rdfs:range rdf:langString ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:wastePrevention
+eubat:wastePrevention
     a owl:DatatypeProperty ;
     rdfs:label "Waste Prevention"@en ;
     rdfs:comment "URL to waste prevention information."@en ;
-    rdfs:domain battery:EndOfLifeInfo ;
+    rdfs:domain eubat:EndOfLifeInfo ;
     rdfs:range xsd:anyURI ;
     rdfs:seeAlso gs1:consumerRecyclingInstructions ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:separateCollection
+eubat:separateCollection
     a owl:DatatypeProperty ;
     rdfs:label "Separate Collection"@en ;
     rdfs:comment "URL to information about separate collection requirements."@en ;
-    rdfs:domain battery:EndOfLifeInfo ;
+    rdfs:domain eubat:EndOfLifeInfo ;
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:informationOnCollection
+eubat:informationOnCollection
     a owl:DatatypeProperty ;
     rdfs:label "Information on Collection"@en ;
     rdfs:comment "URL to information about collection points and procedures."@en ;
-    rdfs:domain battery:EndOfLifeInfo ;
+    rdfs:domain eubat:EndOfLifeInfo ;
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:renewableContent
+eubat:renewableContent
     a owl:DatatypeProperty ;
     rdfs:label "Renewable Content"@en ;
     rdfs:comment "Percentage of renewable content in the battery."@en ;
-    rdfs:domain battery:EndOfLifeInfo ;
+    rdfs:domain eubat:EndOfLifeInfo ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:safetyInstructions
+eubat:safetyInstructions
     a owl:DatatypeProperty ;
     rdfs:label "Safety Instructions"@en ;
     rdfs:comment "URL to general safety instructions document."@en ;
-    rdfs:domain battery:EndOfLifeInfo ;
+    rdfs:domain eubat:EndOfLifeInfo ;
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
@@ -1360,45 +1360,45 @@ battery:safetyInstructions
 # Dismantling Documents
 # -----------------------------------------------------------------------------
 
-battery:dismantlingDocuments
+eubat:dismantlingDocuments
     a owl:ObjectProperty ;
     rdfs:label "Dismantling Documents"@en ;
     rdfs:comment "Documents supporting battery dismantling per DIN DKE SPEC 99100."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range battery:DismantlingDocument ;
+    rdfs:range eubat:DismantlingDocument ;
     rdfs:seeAlso gs1:ReferencedFileDetails ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:documentType
+eubat:documentType
     a owl:ObjectProperty ;
     rdfs:label "Document Type"@en ;
     rdfs:comment "Type of dismantling document per DIN DKE SPEC 99100."@en ;
-    rdfs:domain battery:DismantlingDocument ;
-    rdfs:range battery:DismantlingDocumentType ;
+    rdfs:domain eubat:DismantlingDocument ;
+    rdfs:range eubat:DismantlingDocumentType ;
     rdfs:seeAlso gs1:referencedFileType ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:documentUrl
+eubat:documentUrl
     a owl:DatatypeProperty ;
     rdfs:label "Document URL"@en ;
     rdfs:comment "URL to the document."@en ;
-    rdfs:domain battery:DismantlingDocument ;
+    rdfs:domain eubat:DismantlingDocument ;
     rdfs:range xsd:anyURI ;
     rdfs:seeAlso gs1:referencedFileURL ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:mimeType
+eubat:mimeType
     a owl:DatatypeProperty ;
     rdfs:label "MIME Type"@en ;
-    rdfs:domain battery:DismantlingDocument ;
+    rdfs:domain eubat:DismantlingDocument ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:languageCode
+eubat:languageCode
     a owl:DatatypeProperty ;
     rdfs:label "Language Code"@en ;
     rdfs:comment "ISO 639-1 language code."@en ;
-    rdfs:domain battery:DismantlingDocument ;
+    rdfs:domain eubat:DismantlingDocument ;
     rdfs:range xsd:string ;
     rdfs:seeAlso gs1:fileLanguageCode ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
@@ -1407,116 +1407,116 @@ battery:languageCode
 # PART 9: PROPERTIES - HAZARDOUS SUBSTANCES
 # =============================================================================
 
-battery:hazardousSubstances
+eubat:hazardousSubstances
     a owl:ObjectProperty ;
     rdfs:label "Hazardous Substances"@en ;
     rdfs:comment "Hazardous substances present in the battery."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range battery:HazardousSubstance ;
+    rdfs:range eubat:HazardousSubstance ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:hazardClass
+eubat:hazardClass
     a owl:ObjectProperty ;
     rdfs:label "Hazard Class"@en ;
     rdfs:comment "CLP Regulation hazard classification."@en ;
-    rdfs:domain battery:HazardousSubstance ;
-    rdfs:range battery:HazardClass ;
+    rdfs:domain eubat:HazardousSubstance ;
+    rdfs:range eubat:HazardClass ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:substanceCasNumber
+eubat:substanceCasNumber
     a owl:DatatypeProperty ;
     rdfs:label "Substance CAS Number"@en ;
     rdfs:comment "Chemical Abstracts Service registry number for the hazardous substance."@en ;
-    rdfs:domain battery:HazardousSubstance ;
+    rdfs:domain eubat:HazardousSubstance ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:substanceEcNumber
+eubat:substanceEcNumber
     a owl:DatatypeProperty ;
     rdfs:label "Substance EC Number"@en ;
     rdfs:comment "European Community number for the hazardous substance."@en ;
-    rdfs:domain battery:HazardousSubstance ;
+    rdfs:domain eubat:HazardousSubstance ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:concentration
+eubat:concentration
     a owl:DatatypeProperty ;
     rdfs:label "Concentration"@en ;
     rdfs:comment "Concentration of the hazardous substance as percentage."@en ;
-    rdfs:domain battery:HazardousSubstance ;
+    rdfs:domain eubat:HazardousSubstance ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:hazardImpact
+eubat:hazardImpact
     a owl:DatatypeProperty ;
     rdfs:label "Hazard Impact"@en ;
     rdfs:comment "Description of the hazard impact."@en ;
-    rdfs:domain battery:HazardousSubstance ;
+    rdfs:domain eubat:HazardousSubstance ;
     rdfs:range rdf:langString ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:substanceLocation
+eubat:substanceLocation
     a owl:ObjectProperty ;
     rdfs:label "Substance Location"@en ;
     rdfs:comment "Location of the hazardous substance in the battery."@en ;
-    rdfs:domain battery:HazardousSubstance ;
-    rdfs:range battery:ComponentLocation ;
+    rdfs:domain eubat:HazardousSubstance ;
+    rdfs:range eubat:ComponentLocation ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 # =============================================================================
 # PART 10: PROPERTIES - OPERATOR INFORMATION
 # =============================================================================
 
-battery:operatorInformation
+eubat:operatorInformation
     a owl:ObjectProperty ;
     rdfs:label "Economic Operator Information"@en ;
-    rdfs:comment "Non-identifier metadata of the economic operator responsible for the battery (Art. 38): name, postal address, contact point. The operator's identifier is carried separately by battery:operatorIdentifier so the two can be exposed at different access levels (v1.3 separates them: identifier is restricted to authorities, information remains public)."@en ;
+    rdfs:comment "Non-identifier metadata of the economic operator responsible for the battery (Art. 38): name, postal address, contact point. The operator's identifier is carried separately by eubat:operatorIdentifier so the two can be exposed at different access levels (v1.3 separates them: identifier is restricted to authorities, information remains public)."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:OperatorInformation ;
+    rdfs:range oec:OperatorInformation ;
     skos:note "BatteryPass-Ready v1.3 longlist attribute #12 (was combined #3 in v1.2)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:operatorIdentifier
+eubat:operatorIdentifier
     a owl:DatatypeProperty ;
     rdfs:label "Economic Operator Identifier"@en ;
-    rdfs:comment "Unique identifier of the economic operator (recommended: GS1 GLN, ESPR EOID per Article 77). Sits on the dpp:OperatorInformation referenced by battery:operatorInformation."@en ;
-    rdfs:domain dpp:OperatorInformation ;
+    rdfs:comment "Unique identifier of the economic operator (recommended: GS1 GLN, ESPR EOID per Article 77). Sits on the oec:OperatorInformation referenced by eubat:operatorInformation."@en ;
+    rdfs:domain oec:OperatorInformation ;
     rdfs:range xsd:string ;
     rdfs:subPropertyOf skos:notation ;
     dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
-    skos:note "BatteryPass-Ready v1.3 longlist attribute #9. Recommended access level: AuthorizedOnly. Domain moved from gs1:Product to dpp:OperatorInformation in 0.9.5: the identifier identifies the operator, not the product. Conceptually an adms:Identifier whose notation is the GLN / EOID and whose schemaAgency identifies the issuer."@en ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #9. Recommended access level: AuthorizedOnly. Domain moved from gs1:Product to oec:OperatorInformation in 0.9.5: the identifier identifies the operator, not the product. Conceptually an adms:Identifier whose notation is the GLN / EOID and whose schemaAgency identifies the issuer."@en ;
     rdfs:seeAlso gs1:gln ;
-    rdfs:seeAlso dpp:OperatorInformation ;
+    rdfs:seeAlso oec:OperatorInformation ;
     rdfs:seeAlso adms:Identifier ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:manufacturerIdentifier
+eubat:manufacturerIdentifier
     a owl:DatatypeProperty ;
     rdfs:label "Manufacturer Identifier"@en ;
-    rdfs:comment "Unique identifier of the battery manufacturer (recommended: GS1 GLN). Sits on the dpp:OperatorInformation that plays the Manufacturer role; distinct OperatorInformation instances may identify different operators (manufacturer vs. importer vs. distributor)."@en ;
-    rdfs:domain dpp:OperatorInformation ;
+    rdfs:comment "Unique identifier of the battery manufacturer (recommended: GS1 GLN). Sits on the oec:OperatorInformation that plays the Manufacturer role; distinct OperatorInformation instances may identify different operators (manufacturer vs. importer vs. distributor)."@en ;
+    rdfs:domain oec:OperatorInformation ;
     rdfs:range xsd:string ;
     rdfs:subPropertyOf skos:notation ;
     dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
-    skos:note "BatteryPass-Ready v1.3 longlist attribute #10. Recommended access level: AuthorizedOnly. Granularity: model per manufacturing site. Domain moved from gs1:Product to dpp:OperatorInformation in 0.9.5: the identifier identifies the manufacturer organisation, not the product."@en ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #10. Recommended access level: AuthorizedOnly. Granularity: model per manufacturing site. Domain moved from gs1:Product to oec:OperatorInformation in 0.9.5: the identifier identifies the manufacturer organisation, not the product."@en ;
     rdfs:seeAlso gs1:gln ;
     rdfs:seeAlso gs1:manufacturer ;
     rdfs:seeAlso adms:Identifier ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:operatorRole
+eubat:operatorRole
     a owl:ObjectProperty ;
     rdfs:label "Operator Role"@en ;
     rdfs:comment "Role of the economic operator (manufacturer, importer, distributor, etc.)."@en ;
-    rdfs:domain dpp:OperatorInformation ;
-    rdfs:range dpp:OperatorRole ;
+    rdfs:domain oec:OperatorInformation ;
+    rdfs:range oec:OperatorRole ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 # =============================================================================
 # PART 11: PROPERTIES - SPARE PARTS
 # =============================================================================
 
-battery:sparePartSources
+eubat:sparePartSources
     a owl:ObjectProperty ;
     rdfs:label "Spare Part Sources"@en ;
     rdfs:comment "Sources for spare parts for the battery."@en ;
@@ -1524,7 +1524,7 @@ battery:sparePartSources
     rdfs:range gs1:Organization ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:spareParts
+eubat:spareParts
     a owl:DatatypeProperty ;
     rdfs:label "Spare Parts"@en ;
     rdfs:comment "List of spare part component names available from this supplier."@en ;
@@ -1532,7 +1532,7 @@ battery:spareParts
     rdfs:range rdf:langString ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:supplierContact
+eubat:supplierContact
     a owl:ObjectProperty ;
     rdfs:label "Supplier Contact"@en ;
     rdfs:domain gs1:Organization ;
@@ -1545,39 +1545,39 @@ battery:supplierContact
 # PART 12: PROPERTIES - LABELS & CERTIFICATION
 # =============================================================================
 
-battery:labels
+eubat:labels
     a owl:ObjectProperty ;
     rdfs:label "Labels"@en ;
     rdfs:comment "Labels and markings on the battery per Annex VI."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range battery:Label ;
+    rdfs:range eubat:Label ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:labelSymbol
+eubat:labelSymbol
     a owl:DatatypeProperty ;
     rdfs:label "Label Symbol"@en ;
     rdfs:comment "URL to the label symbol image."@en ;
-    rdfs:domain battery:Label ;
+    rdfs:domain eubat:Label ;
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:labelMeaning
+eubat:labelMeaning
     a owl:DatatypeProperty ;
     rdfs:label "Label Meaning"@en ;
     rdfs:comment "Human-readable meaning of the label."@en ;
-    rdfs:domain battery:Label ;
+    rdfs:domain eubat:Label ;
     rdfs:range rdf:langString ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:labelSubject
+eubat:labelSubject
     a owl:ObjectProperty ;
     rdfs:label "Label Subject"@en ;
     rdfs:comment "Subject matter of the label."@en ;
-    rdfs:domain battery:Label ;
-    rdfs:range battery:LabelSubject ;
+    rdfs:domain eubat:Label ;
+    rdfs:range eubat:LabelSubject ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:separateCollectionSymbolUrl
+eubat:separateCollectionSymbolUrl
     a owl:DatatypeProperty ;
     rdfs:label "Separate Collection Symbol URL"@en ;
     rdfs:comment "URL to the crossed-out wheeled bin symbol."@en ;
@@ -1585,7 +1585,7 @@ battery:separateCollectionSymbolUrl
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:cadmiumSymbolRequired
+eubat:cadmiumSymbolRequired
     a owl:DatatypeProperty ;
     rdfs:label "Cadmium Symbol Required"@en ;
     rdfs:comment "Whether Cd symbol is required (cadmium > 0.002% by weight)."@en ;
@@ -1593,7 +1593,7 @@ battery:cadmiumSymbolRequired
     rdfs:range xsd:boolean ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:leadSymbolRequired
+eubat:leadSymbolRequired
     a owl:DatatypeProperty ;
     rdfs:label "Lead Symbol Required"@en ;
     rdfs:comment "Whether Pb symbol is required (lead > 0.004% by weight)."@en ;
@@ -1601,7 +1601,7 @@ battery:leadSymbolRequired
     rdfs:range xsd:boolean ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:ceMarkingIndicator
+eubat:ceMarkingIndicator
     a owl:DatatypeProperty ;
     rdfs:label "CE Marking Indicator"@en ;
     rdfs:comment "Whether the battery bears CE marking."@en ;
@@ -1609,26 +1609,26 @@ battery:ceMarkingIndicator
     rdfs:range xsd:boolean ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:euDeclarationOfConformity
+eubat:euDeclarationOfConformity
     a owl:ObjectProperty ;
     rdfs:label "EU Declaration of Conformity"@en ;
-    rdfs:comment "The EU Declaration of Conformity for this battery, modelled as a cccev:Evidence supporting the EU Battery Regulation requirements. Carries the document URL (battery:declarationOfConformity), the declaration ID (battery:euDeclarationOfConformityId), and the notified body that signed off (battery:notifiedBody)."@en ;
+    rdfs:comment "The EU Declaration of Conformity for this battery, modelled as a cccev:Evidence supporting the EU Battery Regulation requirements. Carries the document URL (eubat:declarationOfConformity), the declaration ID (eubat:euDeclarationOfConformityId), and the notified body that signed off (eubat:notifiedBody)."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range cccev:Evidence ;
     rdfs:subPropertyOf cccev:hasSupportingEvidence ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:declarationOfConformity
+eubat:declarationOfConformity
     a owl:DatatypeProperty ;
     rdfs:label "Declaration of Conformity URL"@en ;
-    rdfs:comment "URL of the EU Declaration of Conformity document. Sits on the cccev:Evidence referenced by battery:euDeclarationOfConformity."@en ;
+    rdfs:comment "URL of the EU Declaration of Conformity document. Sits on the cccev:Evidence referenced by eubat:euDeclarationOfConformity."@en ;
     rdfs:domain cccev:Evidence ;
     rdfs:range xsd:anyURI ;
     rdfs:seeAlso schema:url ;
-    skos:note "Domain moved from gs1:Product to cccev:Evidence in 0.9.5: the URL identifies the declaration document, not the product directly. Use battery:euDeclarationOfConformity to link the product to the declaration."@en ;
+    skos:note "Domain moved from gs1:Product to cccev:Evidence in 0.9.5: the URL identifies the declaration document, not the product directly. Use eubat:euDeclarationOfConformity to link the product to the declaration."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:euDeclarationOfConformityId
+eubat:euDeclarationOfConformityId
     a owl:DatatypeProperty ;
     rdfs:label "EU Declaration of Conformity ID"@en ;
     rdfs:comment "Unique identifier of the EU Declaration of Conformity. Sits on the declaration (cccev:Evidence), not the product."@en ;
@@ -1639,7 +1639,7 @@ battery:euDeclarationOfConformityId
     skos:note "Domain moved from gs1:Product to cccev:Evidence in 0.9.5. Conceptually an adms:Identifier whose notation is this value and whose schemeAgency is the declarant; subPropertyOf skos:notation expresses that without committing to the full ADMS Identifier instance shape."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:notifiedBody
+eubat:notifiedBody
     a owl:ObjectProperty ;
     rdfs:label "Notified Body"@en ;
     rdfs:comment "The notified body that performed the conformity assessment for this battery. Modelled as cv:PublicOrganisation (SEMICeu CPOV) carrying its number, name, and contact details."@en ;
@@ -1647,10 +1647,10 @@ battery:notifiedBody
     rdfs:range cv:PublicOrganisation ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:notifiedBodyNumber
+eubat:notifiedBodyNumber
     a owl:DatatypeProperty ;
     rdfs:label "Notified Body Number"@en ;
-    rdfs:comment "Identification number of the notified body involved in conformity assessment. Sits on the cv:PublicOrganisation referenced by battery:notifiedBody."@en ;
+    rdfs:comment "Identification number of the notified body involved in conformity assessment. Sits on the cv:PublicOrganisation referenced by eubat:notifiedBody."@en ;
     rdfs:domain cv:PublicOrganisation ;
     rdfs:range xsd:string ;
     rdfs:subPropertyOf skos:notation ;
@@ -1658,10 +1658,10 @@ battery:notifiedBodyNumber
     skos:note "Notified bodies are public bodies: the canonical EU representation is cv:PublicOrganisation (SEMICeu CPOV) carrying an adms:Identifier whose notation is this number and whose schemeAgency is the EU Commission. Domain moved from gs1:Product to cv:PublicOrganisation in 0.9.5: the identifier identifies the body, not the product. Anchored as rdfs:subPropertyOf skos:notation so the notation semantics are explicit while keeping the BatteryPass-Ready v1.3 attribute name."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:notifiedBodyName
+eubat:notifiedBodyName
     a owl:DatatypeProperty ;
     rdfs:label "Notified Body Name"@en ;
-    rdfs:comment "Name of the notified body involved in conformity assessment. Sits on the cv:PublicOrganisation referenced by battery:notifiedBody."@en ;
+    rdfs:comment "Name of the notified body involved in conformity assessment. Sits on the cv:PublicOrganisation referenced by eubat:notifiedBody."@en ;
     rdfs:domain cv:PublicOrganisation ;
     rdfs:range xsd:string ;
     rdfs:subPropertyOf gs1:organizationName ;
@@ -1669,7 +1669,7 @@ battery:notifiedBodyName
     skos:note "Domain moved from gs1:Product to cv:PublicOrganisation in 0.9.5. Anchored as rdfs:subPropertyOf gs1:organizationName so consumers that already speak gs1: get the label transparently."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:resultOfTestReport
+eubat:resultOfTestReport
     a owl:DatatypeProperty ;
     rdfs:label "Result of Test Report URL"@en ;
     rdfs:comment "URL to test report results."@en ;
@@ -1677,7 +1677,7 @@ battery:resultOfTestReport
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:testReportNumber
+eubat:testReportNumber
     a owl:DatatypeProperty ;
     rdfs:label "Test Report Number"@en ;
     rdfs:comment "Identifier of the test report."@en ;
@@ -1685,127 +1685,127 @@ battery:testReportNumber
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:complianceStatus
+eubat:complianceStatus
     a owl:ObjectProperty ;
     rdfs:label "Compliance Status"@en ;
     rdfs:comment "Current regulatory compliance status of the battery."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range battery:ComplianceStatus ;
+    rdfs:range eubat:ComplianceStatus ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 # =============================================================================
 # PART 13: PROPERTIES - CARBON FOOTPRINT
 # =============================================================================
 
-battery:carbonFootprintDeclaration
+eubat:carbonFootprintDeclaration
     a owl:ObjectProperty ;
     rdfs:label "Carbon Footprint Declaration"@en ;
     rdfs:comment "Carbon footprint declaration for the battery."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range battery:CarbonFootprintDeclaration ;
+    rdfs:range eubat:CarbonFootprintDeclaration ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:carbonFootprintTotal
+eubat:carbonFootprintTotal
     a owl:ObjectProperty ;
     rdfs:label "Carbon Footprint Total"@en ;
     rdfs:comment "Total lifecycle carbon footprint in kg CO2e per kWh."@en ;
-    rdfs:domain battery:CarbonFootprintDeclaration ;
+    rdfs:domain eubat:CarbonFootprintDeclaration ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:carbonFootprintRawMaterialExtraction
+eubat:carbonFootprintRawMaterialExtraction
     a owl:ObjectProperty ;
     rdfs:label "Carbon Footprint - Raw Material Extraction"@en ;
-    rdfs:domain battery:CarbonFootprintDeclaration ;
+    rdfs:domain eubat:CarbonFootprintDeclaration ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:carbonFootprintProduction
+eubat:carbonFootprintProduction
     a owl:ObjectProperty ;
     rdfs:label "Carbon Footprint - Production"@en ;
-    rdfs:domain battery:CarbonFootprintDeclaration ;
+    rdfs:domain eubat:CarbonFootprintDeclaration ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:carbonFootprintDistribution
+eubat:carbonFootprintDistribution
     a owl:ObjectProperty ;
     rdfs:label "Carbon Footprint - Distribution"@en ;
-    rdfs:domain battery:CarbonFootprintDeclaration ;
+    rdfs:domain eubat:CarbonFootprintDeclaration ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:carbonFootprintRecycling
+eubat:carbonFootprintRecycling
     a owl:ObjectProperty ;
     rdfs:label "Carbon Footprint - Recycling"@en ;
     rdfs:comment "Carbon footprint share from end-of-life/recycling phase (may be negative credit)."@en ;
-    rdfs:domain battery:CarbonFootprintDeclaration ;
+    rdfs:domain eubat:CarbonFootprintDeclaration ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:lifecycleStage
+eubat:lifecycleStage
     a owl:DatatypeProperty ;
     rdfs:label "Lifecycle Stage"@en ;
     rdfs:comment """Lifecycle stage for carbon footprint declaration, indicating which phase of the
 product lifecycle the emissions data refers to (raw material extraction, production, distribution, or recycling).
 Used in BatteryPass bridge context to map per-stage carbon footprint data."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
-    rdfs:domain battery:CarbonFootprintDeclaration ;
+    rdfs:domain eubat:CarbonFootprintDeclaration ;
     rdfs:range xsd:string ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> .
 
-battery:absoluteCarbonFootprint
+eubat:absoluteCarbonFootprint
     a owl:ObjectProperty ;
     rdfs:label "Absolute Carbon Footprint"@en ;
     rdfs:comment "Total carbon footprint in kg CO2e (not normalized per kWh)."@en ;
-    rdfs:domain battery:CarbonFootprintDeclaration ;
+    rdfs:domain eubat:CarbonFootprintDeclaration ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:carbonFootprintPerformanceClass
+eubat:carbonFootprintPerformanceClass
     a owl:ObjectProperty ;
     rdfs:label "Carbon Footprint Performance Class"@en ;
     rdfs:comment "Performance class for carbon footprint (A-E)."@en ;
-    rdfs:domain battery:CarbonFootprintDeclaration ;
-    rdfs:range battery:CarbonFootprintClass ;
+    rdfs:domain eubat:CarbonFootprintDeclaration ;
+    rdfs:range eubat:CarbonFootprintClass ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:carbonFootprintStudyUrl
+eubat:carbonFootprintStudyUrl
     a owl:DatatypeProperty ;
     rdfs:label "Carbon Footprint Study URL"@en ;
     rdfs:comment "URL to the full carbon footprint study document."@en ;
-    rdfs:domain battery:CarbonFootprintDeclaration ;
+    rdfs:domain eubat:CarbonFootprintDeclaration ;
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:functionalUnit
+eubat:functionalUnit
     a owl:DatatypeProperty ;
     rdfs:label "Functional Unit"@en ;
     rdfs:comment "Functional unit for carbon footprint measurement (e.g., 1 kWh of total energy throughput)."@en ;
-    rdfs:domain battery:CarbonFootprintDeclaration ;
+    rdfs:domain eubat:CarbonFootprintDeclaration ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:calculationStandard
+eubat:calculationStandard
     a owl:DatatypeProperty ;
     rdfs:label "Calculation Standard"@en ;
     rdfs:comment "Standard used for carbon footprint calculation (e.g., ISO 14067:2018)."@en ;
-    rdfs:domain battery:CarbonFootprintDeclaration ;
+    rdfs:domain eubat:CarbonFootprintDeclaration ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:carbonFootprintDeclarationId
+eubat:carbonFootprintDeclarationId
     a owl:DatatypeProperty ;
     rdfs:label "Carbon Footprint Declaration ID"@en ;
     rdfs:comment "Unique identifier for the carbon footprint declaration."@en ;
-    rdfs:domain battery:CarbonFootprintDeclaration ;
+    rdfs:domain eubat:CarbonFootprintDeclaration ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:carbonFootprintGeographicScope
+eubat:carbonFootprintGeographicScope
     a owl:DatatypeProperty ;
     rdfs:label "Carbon Footprint Geographic Scope"@en ;
     rdfs:comment "Geographic scope of the carbon footprint calculation."@en ;
-    rdfs:domain battery:CarbonFootprintDeclaration ;
+    rdfs:domain eubat:CarbonFootprintDeclaration ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
@@ -1813,51 +1813,51 @@ battery:carbonFootprintGeographicScope
 # Third Party Verification (Carbon Footprint)
 # -----------------------------------------------------------------------------
 
-battery:thirdPartyVerification
+eubat:thirdPartyVerification
     a owl:ObjectProperty ;
     rdfs:label "Third Party Verification"@en ;
     rdfs:comment "Third-party verification details for the carbon footprint declaration."@en ;
-    rdfs:domain battery:CarbonFootprintDeclaration ;
-    rdfs:range battery:ThirdPartyVerification ;
+    rdfs:domain eubat:CarbonFootprintDeclaration ;
+    rdfs:range eubat:ThirdPartyVerification ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:verificationBody
+eubat:verificationBody
     a owl:ObjectProperty ;
     rdfs:label "Verification Body"@en ;
     rdfs:comment "Organization that performed the third-party verification."@en ;
-    rdfs:domain battery:ThirdPartyVerification ;
+    rdfs:domain eubat:ThirdPartyVerification ;
     rdfs:range gs1:Organization ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:verificationBodyName
+eubat:verificationBodyName
     a owl:DatatypeProperty ;
     rdfs:label "Verification Body Name"@en ;
     rdfs:comment "Name of the verification body."@en ;
-    rdfs:domain battery:ThirdPartyVerification ;
+    rdfs:domain eubat:ThirdPartyVerification ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:verificationDate
+eubat:verificationDate
     a owl:DatatypeProperty ;
     rdfs:label "Verification Date"@en ;
     rdfs:comment "Date when third-party verification was completed."@en ;
-    rdfs:domain battery:ThirdPartyVerification ;
+    rdfs:domain eubat:ThirdPartyVerification ;
     rdfs:range xsd:date ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:verificationCertificateUrl
+eubat:verificationCertificateUrl
     a owl:DatatypeProperty ;
     rdfs:label "Verification Certificate URL"@en ;
     rdfs:comment "URL to the verification certificate document."@en ;
-    rdfs:domain battery:ThirdPartyVerification ;
+    rdfs:domain eubat:ThirdPartyVerification ;
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:verificationStandard
+eubat:verificationStandard
     a owl:DatatypeProperty ;
     rdfs:label "Verification Standard"@en ;
     rdfs:comment "Standard used for verification (e.g., ISO 14064-3)."@en ;
-    rdfs:domain battery:ThirdPartyVerification ;
+    rdfs:domain eubat:ThirdPartyVerification ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
@@ -1865,83 +1865,83 @@ battery:verificationStandard
 # PART 14: PROPERTIES - SUPPLY CHAIN DUE DILIGENCE
 # =============================================================================
 
-battery:supplyChainDueDiligence
+eubat:supplyChainDueDiligence
     a owl:ObjectProperty ;
     rdfs:label "Supply Chain Due Diligence"@en ;
     rdfs:comment "Supply chain due diligence information per Art. 39."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range battery:SupplyChainDueDiligence ;
+    rdfs:range eubat:SupplyChainDueDiligence ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:dueDiligenceReportUrl
+eubat:dueDiligenceReportUrl
     a owl:DatatypeProperty ;
     rdfs:label "Due Diligence Report URL"@en ;
     rdfs:comment "URL to the supply chain due diligence report (MANDATORY)."@en ;
-    rdfs:domain battery:SupplyChainDueDiligence ;
+    rdfs:domain eubat:SupplyChainDueDiligence ;
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:dueDiligencePolicyUrl
+eubat:dueDiligencePolicyUrl
     a owl:DatatypeProperty ;
     rdfs:label "Due Diligence Policy URL"@en ;
     rdfs:comment "URL to the company's supply chain due diligence policy."@en ;
-    rdfs:domain battery:SupplyChainDueDiligence ;
+    rdfs:domain eubat:SupplyChainDueDiligence ;
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:thirdPartyAssurancesUrl
+eubat:thirdPartyAssurancesUrl
     a owl:DatatypeProperty ;
     rdfs:label "Third Party Assurances URL"@en ;
     rdfs:comment "URL to third party verification or assurances."@en ;
-    rdfs:domain battery:SupplyChainDueDiligence ;
+    rdfs:domain eubat:SupplyChainDueDiligence ;
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:riskAssessmentSummary
+eubat:riskAssessmentSummary
     a owl:DatatypeProperty ;
     rdfs:label "Risk Assessment Summary"@en ;
     rdfs:comment "Summary of the supply chain risk assessment findings."@en ;
-    rdfs:domain battery:SupplyChainDueDiligence ;
+    rdfs:domain eubat:SupplyChainDueDiligence ;
     rdfs:range rdf:langString ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:supplyChainMappingAvailable
+eubat:supplyChainMappingAvailable
     a owl:DatatypeProperty ;
     rdfs:label "Supply Chain Mapping Available"@en ;
     rdfs:comment "Whether detailed supply chain mapping is available."@en ;
-    rdfs:domain battery:SupplyChainDueDiligence ;
+    rdfs:domain eubat:SupplyChainDueDiligence ;
     rdfs:range xsd:boolean ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:conflictMineralFree
+eubat:conflictMineralFree
     a owl:DatatypeProperty ;
     rdfs:label "Conflict Mineral Free"@en ;
     rdfs:comment "Declaration that the battery is free from conflict minerals."@en ;
-    rdfs:domain battery:SupplyChainDueDiligence ;
+    rdfs:domain eubat:SupplyChainDueDiligence ;
     rdfs:range xsd:boolean ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:responsibleSourcingStandard
+eubat:responsibleSourcingStandard
     a owl:ObjectProperty ;
     rdfs:label "Responsible Sourcing Standard"@en ;
     rdfs:comment "Standard followed for responsible sourcing."@en ;
-    rdfs:domain battery:SupplyChainDueDiligence ;
-    rdfs:range battery:ResponsibleSourcingStandard ;
+    rdfs:domain eubat:SupplyChainDueDiligence ;
+    rdfs:range eubat:ResponsibleSourcingStandard ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:auditBody
+eubat:auditBody
     a owl:DatatypeProperty ;
     rdfs:label "Audit Body"@en ;
     rdfs:comment "Name of the organization that conducted the supply chain audit."@en ;
-    rdfs:domain battery:SupplyChainDueDiligence ;
+    rdfs:domain eubat:SupplyChainDueDiligence ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:supplyChainIndex
+eubat:supplyChainIndex
     a owl:DatatypeProperty ;
     rdfs:label "Supply Chain Index"@en ;
     rdfs:comment "Optional supply chain sustainability index score."@en ;
-    rdfs:domain battery:SupplyChainDueDiligence ;
+    rdfs:domain eubat:SupplyChainDueDiligence ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
@@ -1949,7 +1949,7 @@ battery:supplyChainIndex
 # PART 15: PROPERTIES - TRANSPORT & SAFETY
 # =============================================================================
 
-battery:transportationSafetyClass
+eubat:transportationSafetyClass
     a owl:DatatypeProperty ;
     rdfs:label "Transportation Safety Class"@en ;
     rdfs:comment "UN transportation classification (e.g., UN3481, UN3480)."@en ;
@@ -1957,7 +1957,7 @@ battery:transportationSafetyClass
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:dangerousGoodsPackingInstructions
+eubat:dangerousGoodsPackingInstructions
     a owl:DatatypeProperty ;
     rdfs:label "Dangerous Goods Packing Instructions"@en ;
     rdfs:comment "Packing instructions per IATA/ADR/IMDG regulations (e.g., PI965, PI966, PI967)."@en ;
@@ -1965,7 +1965,7 @@ battery:dangerousGoodsPackingInstructions
     rdfs:range rdf:langString ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:shippingName
+eubat:shippingName
     a owl:DatatypeProperty ;
     rdfs:label "Proper Shipping Name"@en ;
     rdfs:comment "UN proper shipping name for dangerous goods transport."@en ;
@@ -1977,7 +1977,7 @@ battery:shippingName
 # PART 16: PROPERTIES - SECOND LIFE / REPURPOSING
 # =============================================================================
 
-battery:repurposingPotential
+eubat:repurposingPotential
     a owl:DatatypeProperty ;
     rdfs:label "Repurposing Potential"@en ;
     rdfs:comment "Assessment of battery suitability for second-life applications."@en ;
@@ -1985,7 +1985,7 @@ battery:repurposingPotential
     rdfs:range rdf:langString ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:repurposingGuidelines
+eubat:repurposingGuidelines
     a owl:DatatypeProperty ;
     rdfs:label "Repurposing Guidelines"@en ;
     rdfs:comment "URL to guidelines for battery repurposing."@en ;
@@ -1993,7 +1993,7 @@ battery:repurposingGuidelines
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:previousApplications
+eubat:previousApplications
     a owl:DatatypeProperty ;
     rdfs:label "Previous Applications"@en ;
     rdfs:comment "Description of previous use cases if battery is repurposed."@en ;
@@ -2001,7 +2001,7 @@ battery:previousApplications
     rdfs:range rdf:langString ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:repurposingDate
+eubat:repurposingDate
     a owl:DatatypeProperty ;
     rdfs:label "Repurposing Date"@en ;
     rdfs:comment "Date when the battery was repurposed."@en ;
@@ -2009,7 +2009,7 @@ battery:repurposingDate
     rdfs:range xsd:date ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:repurposingEntity
+eubat:repurposingEntity
     a owl:ObjectProperty ;
     rdfs:label "Repurposing Entity"@en ;
     rdfs:comment "Organization that performed the repurposing."@en ;
@@ -2024,7 +2024,7 @@ battery:repurposingEntity
 # NOTE: For warranty information, use gs1:warranty with gs1:WarrantyPromise class.
 # Example: gs1:warranty [ a gs1:WarrantyPromise ; gs1:durationOfWarranty "P8Y"^^xsd:duration ] .
 
-battery:warrantyConditions
+eubat:warrantyConditions
     a owl:DatatypeProperty ;
     rdfs:label "Warranty Conditions"@en ;
     rdfs:comment "URL to warranty terms and conditions. For warranty duration, use gs1:warranty."@en ;
@@ -2033,7 +2033,7 @@ battery:warrantyConditions
     rdfs:seeAlso gs1:warranty ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:extendedWarrantyAvailable
+eubat:extendedWarrantyAvailable
     a owl:DatatypeProperty ;
     rdfs:label "Extended Warranty Available"@en ;
     rdfs:comment "Whether extended warranty is available for purchase."@en ;
@@ -2041,7 +2041,7 @@ battery:extendedWarrantyAvailable
     rdfs:range xsd:boolean ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:authorizedServiceCenters
+eubat:authorizedServiceCenters
     a owl:DatatypeProperty ;
     rdfs:label "Authorized Service Centers"@en ;
     rdfs:comment "URL to list of authorized service centers."@en ;
@@ -2053,7 +2053,7 @@ battery:authorizedServiceCenters
 # PART 18: PROPERTIES - DATA QUALITY & PROVENANCE
 # =============================================================================
 
-battery:dataQualityAssessment
+eubat:dataQualityAssessment
     a owl:DatatypeProperty ;
     rdfs:label "Data Quality Assessment"@en ;
     rdfs:comment "Assessment of data quality and completeness (A-E rating)."@en ;
@@ -2061,7 +2061,7 @@ battery:dataQualityAssessment
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:lastDataUpdate
+eubat:lastDataUpdate
     a owl:DatatypeProperty ;
     rdfs:label "Last Data Update"@en ;
     rdfs:comment "Timestamp of the last update to the battery passport data."@en ;
@@ -2069,7 +2069,7 @@ battery:lastDataUpdate
     rdfs:range xsd:dateTime ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:dataProviderCertification
+eubat:dataProviderCertification
     a owl:DatatypeProperty ;
     rdfs:label "Data Provider Certification"@en ;
     rdfs:comment "Certification or accreditation of the data provider."@en ;
@@ -2085,7 +2085,7 @@ battery:dataProviderCertification
 # gs1:QuantitativeValue, and (2) EPCIS sensorReport type URI.
 # Temperature extremes use gs1:Temperature as the sensorReport type.
 
-battery:stateOfHealth
+eubat:stateOfHealth
     a owl:ObjectProperty ;
     rdfs:label "State of Health"@en ;
     rdfs:comment "Battery state of health as percentage of original capacity. Use unitCode 'P1' (UN/CEFACT Rec 20)."@en ;
@@ -2095,7 +2095,7 @@ battery:stateOfHealth
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:stateOfCharge
+eubat:stateOfCharge
     a owl:ObjectProperty ;
     rdfs:label "State of Charge"@en ;
     rdfs:comment "Current charge level as percentage. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
@@ -2105,7 +2105,7 @@ battery:stateOfCharge
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:stateOfCertifiedEnergy
+eubat:stateOfCertifiedEnergy
     a owl:ObjectProperty ;
     rdfs:label "State of Certified Energy"@en ;
     rdfs:comment "SOCE ratio of remaining to certified usable energy. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
@@ -2115,7 +2115,7 @@ battery:stateOfCertifiedEnergy
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:cycleCount
+eubat:cycleCount
     a owl:ObjectProperty ;
     rdfs:label "Cycle Count"@en ;
     rdfs:comment "Number of full charge-discharge cycles. Use gs1:QuantitativeValue with unitCode 'C62' (count)."@en ;
@@ -2125,7 +2125,7 @@ battery:cycleCount
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:remainingCapacity
+eubat:remainingCapacity
     a owl:ObjectProperty ;
     rdfs:label "Remaining Capacity"@en ;
     rdfs:comment "Current maximum capacity. Use gs1:QuantitativeValue with unitCode 'AMP_HR'."@en ;
@@ -2135,7 +2135,7 @@ battery:remainingCapacity
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:remainingEnergy
+eubat:remainingEnergy
     a owl:ObjectProperty ;
     rdfs:label "Remaining Energy"@en ;
     rdfs:comment "Current maximum energy. Use gs1:QuantitativeValue with unitCode 'KWH'."@en ;
@@ -2145,7 +2145,7 @@ battery:remainingEnergy
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:capacityFade
+eubat:capacityFade
     a owl:ObjectProperty ;
     rdfs:label "Capacity Fade"@en ;
     rdfs:comment "Capacity degradation as a percentage of rated capacity, computed as ((rated − remaining) / rated) × 100. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
@@ -2155,7 +2155,7 @@ battery:capacityFade
     skos:note "State-of-health passport data property per Annex XIII. Equation bracket placement corrected per BatteryPass-Ready v1.3 longlist (#61)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:powerFade
+eubat:powerFade
     a owl:ObjectProperty ;
     rdfs:label "Power Fade"@en ;
     rdfs:comment "Power capability degradation as a percentage of original power capability, computed as ((original − remaining) / original) × 100. Use unitCode 'P1' (UN/CEFACT Rec 20)."@en ;
@@ -2165,7 +2165,7 @@ battery:powerFade
     skos:note "State-of-health passport data property per Annex XIII. Equation bracket placement corrected per BatteryPass-Ready v1.3 longlist (#71). No equivalent GS1 term exists for battery-specific power degradation tracking."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:internalResistance
+eubat:internalResistance
     a owl:ObjectProperty ;
     rdfs:label "Internal Resistance"@en ;
     rdfs:comment "Battery internal resistance in Ohms. Use unitCode 'OHM' (UN/CEFACT Rec 20)."@en ;
@@ -2175,7 +2175,7 @@ battery:internalResistance
     skos:note "State-of-health passport data property per Annex XIII. No equivalent GS1 term exists for battery internal resistance."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:internalResistanceIncrease
+eubat:internalResistanceIncrease
     a owl:ObjectProperty ;
     rdfs:label "Internal Resistance Increase"@en ;
     rdfs:comment "Percentage increase in internal resistance. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
@@ -2185,7 +2185,7 @@ battery:internalResistanceIncrease
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:energyThroughput
+eubat:energyThroughput
     a owl:ObjectProperty ;
     rdfs:label "Energy Throughput"@en ;
     rdfs:comment "Cumulative energy throughput. Use gs1:QuantitativeValue with unitCode 'KWH'."@en ;
@@ -2195,7 +2195,7 @@ battery:energyThroughput
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:capacityThroughput
+eubat:capacityThroughput
     a owl:ObjectProperty ;
     rdfs:label "Capacity Throughput"@en ;
     rdfs:comment "Cumulative capacity throughput. Use gs1:QuantitativeValue with unitCode 'AMP_HR'."@en ;
@@ -2205,7 +2205,7 @@ battery:capacityThroughput
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:remainingRoundTripEfficiency
+eubat:remainingRoundTripEfficiency
     a owl:ObjectProperty ;
     rdfs:label "Remaining Round Trip Efficiency"@en ;
     rdfs:comment "Current round trip energy efficiency. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
@@ -2215,7 +2215,7 @@ battery:remainingRoundTripEfficiency
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:roundTripEfficiencyFade
+eubat:roundTripEfficiencyFade
     a owl:ObjectProperty ;
     rdfs:label "Round Trip Efficiency Fade"@en ;
     rdfs:comment "Degradation of round trip efficiency, computed as ((initial RTE − remaining RTE) / initial RTE) × 100. Use unitCode 'P1' (UN/CEFACT Rec 20)."@en ;
@@ -2225,7 +2225,7 @@ battery:roundTripEfficiencyFade
     skos:note "State-of-health passport data property per Annex XIII. Equation bracket placement corrected per BatteryPass-Ready v1.3 longlist (#77). No equivalent GS1 term exists for RTE degradation tracking."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:selfDischargeRate
+eubat:selfDischargeRate
     a owl:ObjectProperty ;
     rdfs:label "Self Discharge Rate"@en ;
     rdfs:comment "Current self-discharge rate. Use gs1:QuantitativeValue with unitCode 'P1' (percent per month)."@en ;
@@ -2235,7 +2235,7 @@ battery:selfDischargeRate
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:evolutionOfSelfDischarge
+eubat:evolutionOfSelfDischarge
     a owl:ObjectProperty ;
     rdfs:label "Evolution of Self Discharge"@en ;
     rdfs:comment "Change in self-discharge rate. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
@@ -2245,65 +2245,65 @@ battery:evolutionOfSelfDischarge
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:timeSpentInExtremeTemperaturesAboveBoundary
+eubat:timeSpentInExtremeTemperaturesAboveBoundary
     a owl:DatatypeProperty ;
     rdfs:label "Time Spent in Extreme Temperatures Above Boundary"@en ;
     rdfs:comment "Cumulative time the battery spent above the upper temperature boundary, in minutes."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:integer ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "BatteryPass-Ready v1.3 longlist attribute #94. Performance & durability passport property per Annex XIII; required by the GEFEG BatteryPass-Ready live validator for LMT and Stationary Industrial batteries (TimeSpentInExtremeTemperaturesAboveBoundary). Cumulative lifetime counter, distinct from the per-event battery:exposureDurationMinutes. No equivalent GS1 term exists."@en ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #94. Performance & durability passport property per Annex XIII; required by the GEFEG BatteryPass-Ready live validator for LMT and Stationary Industrial batteries (TimeSpentInExtremeTemperaturesAboveBoundary). Cumulative lifetime counter, distinct from the per-event eubat:exposureDurationMinutes. No equivalent GS1 term exists."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:timeSpentInExtremeTemperaturesBelowBoundary
+eubat:timeSpentInExtremeTemperaturesBelowBoundary
     a owl:DatatypeProperty ;
     rdfs:label "Time Spent in Extreme Temperatures Below Boundary"@en ;
     rdfs:comment "Cumulative time the battery spent below the lower temperature boundary, in minutes."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:integer ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "BatteryPass-Ready v1.3 longlist attribute #95. Performance & durability passport property per Annex XIII; required by the GEFEG BatteryPass-Ready live validator for LMT and Stationary Industrial batteries (TimeSpentInExtremeTemperaturesBelowBoundary). Cumulative lifetime counter, distinct from the per-event battery:exposureDurationMinutes. No equivalent GS1 term exists."@en ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #95. Performance & durability passport property per Annex XIII; required by the GEFEG BatteryPass-Ready live validator for LMT and Stationary Industrial batteries (TimeSpentInExtremeTemperaturesBelowBoundary). Cumulative lifetime counter, distinct from the per-event eubat:exposureDurationMinutes. No equivalent GS1 term exists."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:timeSpentChargingDuringExtremeTemperaturesAboveBoundary
+eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary
     a owl:DatatypeProperty ;
     rdfs:label "Time Spent Charging During Extreme Temperatures Above Boundary"@en ;
     rdfs:comment "Cumulative time the battery spent charging above the upper temperature boundary, in minutes."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:integer ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "BatteryPass-Ready v1.3 longlist attribute #96. Performance & durability passport property per Annex XIII; required by the GEFEG BatteryPass-Ready live validator for LMT and Stationary Industrial batteries (TimeSpentChargingDuringExtremeTemperaturesAboveBoundary). Cumulative lifetime counter, distinct from the per-event battery:exposureDurationMinutes. No equivalent GS1 term exists."@en ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #96. Performance & durability passport property per Annex XIII; required by the GEFEG BatteryPass-Ready live validator for LMT and Stationary Industrial batteries (TimeSpentChargingDuringExtremeTemperaturesAboveBoundary). Cumulative lifetime counter, distinct from the per-event eubat:exposureDurationMinutes. No equivalent GS1 term exists."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:timeSpentChargingDuringExtremeTemperaturesBelowBoundary
+eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary
     a owl:DatatypeProperty ;
     rdfs:label "Time Spent Charging During Extreme Temperatures Below Boundary"@en ;
     rdfs:comment "Cumulative time the battery spent charging below the lower temperature boundary, in minutes."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:integer ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "BatteryPass-Ready v1.3 longlist attribute #97. Performance & durability passport property per Annex XIII; required by the GEFEG BatteryPass-Ready live validator for LMT and Stationary Industrial batteries (TimeSpentChargingDuringExtremeTemperaturesBelowBoundary). Cumulative lifetime counter, distinct from the per-event battery:exposureDurationMinutes. No equivalent GS1 term exists."@en ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #97. Performance & durability passport property per Annex XIII; required by the GEFEG BatteryPass-Ready live validator for LMT and Stationary Industrial batteries (TimeSpentChargingDuringExtremeTemperaturesBelowBoundary). Cumulative lifetime counter, distinct from the per-event eubat:exposureDurationMinutes. No equivalent GS1 term exists."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 # =============================================================================
 # PART 20: PROPERTIES - EPCIS EVENT EXTENSIONS
 # =============================================================================
 
-battery:note
+eubat:note
     a owl:DatatypeProperty ;
     rdfs:label "Note"@en ;
     rdfs:comment "Additional note or comment about a measurement or event."@en ;
     rdfs:range rdf:langString ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:initialCapacity
+eubat:initialCapacity
     a owl:ObjectProperty ;
     rdfs:label "Initial Capacity"@en ;
     rdfs:comment "Measured capacity at commissioning (ILMD)."@en ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:initialEnergy
+eubat:initialEnergy
     a owl:ObjectProperty ;
     rdfs:label "Initial Energy"@en ;
     rdfs:comment "Measured energy at commissioning (ILMD)."@en ;
@@ -2314,56 +2314,56 @@ battery:initialEnergy
 # SOCE Measurement Properties
 # -----------------------------------------------------------------------------
 
-battery:certifiedUsableEnergy
+eubat:certifiedUsableEnergy
     a owl:ObjectProperty ;
     rdfs:label "Certified Usable Energy"@en ;
     rdfs:comment "The certified usable energy capacity of the battery."@en ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:remainingUsableEnergy
+eubat:remainingUsableEnergy
     a owl:ObjectProperty ;
     rdfs:label "Remaining Usable Energy"@en ;
     rdfs:comment "The current remaining usable energy capacity."@en ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:soceMeasurementId
+eubat:soceMeasurementId
     a owl:DatatypeProperty ;
     rdfs:label "SOCE Measurement ID"@en ;
     rdfs:comment "Unique identifier for the SOCE measurement."@en ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:exhaustionThreshold
+eubat:exhaustionThreshold
     a owl:DatatypeProperty ;
     rdfs:label "Exhaustion Threshold"@en ;
     rdfs:comment "SOCE percentage threshold for battery exhaustion."@en ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:expectedRemainingCycles
+eubat:expectedRemainingCycles
     a owl:DatatypeProperty ;
     rdfs:label "Expected Remaining Cycles"@en ;
     rdfs:comment "Estimated remaining charge-discharge cycles."@en ;
     rdfs:range xsd:integer ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:expectedRemainingLifetimeMonths
+eubat:expectedRemainingLifetimeMonths
     a owl:DatatypeProperty ;
     rdfs:label "Expected Remaining Lifetime (Months)"@en ;
     rdfs:comment "Estimated remaining useful lifetime in months."@en ;
     rdfs:range xsd:integer ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:nextScheduledMeasurement
+eubat:nextScheduledMeasurement
     a owl:DatatypeProperty ;
     rdfs:label "Next Scheduled Measurement"@en ;
     rdfs:comment "Date of next scheduled SOCE measurement."@en ;
     rdfs:range xsd:date ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:measurementCertificateUrl
+eubat:measurementCertificateUrl
     a owl:DatatypeProperty ;
     rdfs:label "Measurement Certificate URL"@en ;
     rdfs:comment "URL to the measurement certificate document."@en ;
@@ -2374,49 +2374,49 @@ battery:measurementCertificateUrl
 # Temperature Excursion Properties
 # -----------------------------------------------------------------------------
 
-battery:exposureDurationMinutes
+eubat:exposureDurationMinutes
     a owl:DatatypeProperty ;
     rdfs:label "Exposure Duration (Minutes)"@en ;
     rdfs:comment "Duration of temperature exposure in minutes."@en ;
     rdfs:range xsd:integer ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:exceedanceThreshold
+eubat:exceedanceThreshold
     a owl:DatatypeProperty ;
     rdfs:label "Exceedance Threshold"@en ;
     rdfs:comment "Temperature threshold that was exceeded (°C)."@en ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:temperatureExcursionId
+eubat:temperatureExcursionId
     a owl:DatatypeProperty ;
     rdfs:label "Temperature Excursion ID"@en ;
     rdfs:comment "Unique identifier for the temperature excursion event."@en ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:exposureEndTime
+eubat:exposureEndTime
     a owl:DatatypeProperty ;
     rdfs:label "Exposure End Time"@en ;
     rdfs:comment "End time of the temperature exposure."@en ;
     rdfs:range xsd:dateTime ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:transportConditions
+eubat:transportConditions
     a owl:DatatypeProperty ;
     rdfs:label "Transport Conditions"@en ;
     rdfs:comment "Description of transport conditions during the event."@en ;
     rdfs:range rdf:langString ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:estimatedImpact
+eubat:estimatedImpact
     a owl:DatatypeProperty ;
     rdfs:label "Estimated Impact"@en ;
     rdfs:comment "Estimated impact of the temperature excursion on battery health."@en ;
     rdfs:range rdf:langString ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:temperatureExcursionReportUrl
+eubat:temperatureExcursionReportUrl
     a owl:DatatypeProperty ;
     rdfs:label "Temperature Excursion Report URL"@en ;
     rdfs:comment "URL to the temperature excursion report."@en ;
@@ -2427,57 +2427,57 @@ battery:temperatureExcursionReportUrl
 # Incident/Negative Event Properties
 # -----------------------------------------------------------------------------
 
-battery:eventType
+eubat:eventType
     a owl:ObjectProperty ;
     rdfs:label "Event Type"@en ;
     rdfs:comment "Type of negative event."@en ;
-    rdfs:domain battery:NegativeEvent ;
-    rdfs:range battery:NegativeEventType ;
+    rdfs:domain eubat:NegativeEvent ;
+    rdfs:range eubat:NegativeEventType ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:eventDate
+eubat:eventDate
     a owl:DatatypeProperty ;
     rdfs:label "Event Date"@en ;
-    rdfs:domain battery:NegativeEvent ;
+    rdfs:domain eubat:NegativeEvent ;
     rdfs:range xsd:dateTime ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:eventLocation
+eubat:eventLocation
     a owl:ObjectProperty ;
     rdfs:label "Event Location"@en ;
-    rdfs:domain battery:NegativeEvent ;
+    rdfs:domain eubat:NegativeEvent ;
     rdfs:range gs1:Place ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:incidentId
+eubat:incidentId
     a owl:DatatypeProperty ;
     rdfs:label "Incident ID"@en ;
     rdfs:comment "Unique identifier for the incident."@en ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:incidentSeverity
+eubat:incidentSeverity
     a owl:ObjectProperty ;
     rdfs:label "Incident Severity"@en ;
     rdfs:comment "Severity level of the incident."@en ;
-    rdfs:range battery:IncidentSeverity ;
+    rdfs:range eubat:IncidentSeverity ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:incidentReportUrl
+eubat:incidentReportUrl
     a owl:DatatypeProperty ;
     rdfs:label "Incident Report URL"@en ;
     rdfs:comment "URL to the full incident report."@en ;
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:inspectorId
+eubat:inspectorId
     a owl:DatatypeProperty ;
     rdfs:label "Inspector ID"@en ;
     rdfs:comment "Identifier of the inspector who assessed the incident."@en ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:recommendedAction
+eubat:recommendedAction
     a owl:DatatypeProperty ;
     rdfs:label "Recommended Action"@en ;
     rdfs:comment "Recommended follow-up action after the incident."@en ;
@@ -2488,21 +2488,21 @@ battery:recommendedAction
 # Remaining Power Capability Properties
 # -----------------------------------------------------------------------------
 
-battery:remainingPowerCapability
+eubat:remainingPowerCapability
     a owl:ObjectProperty ;
     rdfs:label "Remaining Power Capability"@en ;
     rdfs:comment "Current power capability measurements at various SoC levels."@en ;
-    rdfs:range battery:PowerCapabilityAtSoC ;
+    rdfs:range eubat:PowerCapabilityAtSoC ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:powerCapabilityAt80SoC
+eubat:powerCapabilityAt80SoC
     a owl:ObjectProperty ;
     rdfs:label "Power Capability at 80% SoC"@en ;
     rdfs:comment "Current power capability at 80% state of charge. Use unitCode 'KWT' (UN/CEFACT Rec 20)."@en ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:powerCapabilityAt20SoC
+eubat:powerCapabilityAt20SoC
     a owl:ObjectProperty ;
     rdfs:label "Power Capability at 20% SoC"@en ;
     rdfs:comment "Current power capability at 20% state of charge. Use unitCode 'KWT' (UN/CEFACT Rec 20)."@en ;
@@ -2516,16 +2516,16 @@ battery:powerCapabilityAt20SoC
 # Additive properties: see extensions/eu/battery/docs/CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md
 # =============================================================================
 
-battery:currentSelfDischargingRate
+eubat:currentSelfDischargingRate
     a owl:ObjectProperty ;
     rdfs:label "Current Self-Discharging Rate"@en ;
     rdfs:comment "Current rate of self-discharge of the battery. Use unitCode 'P1' (percent) per UN/CEFACT Rec 20; period typically per month."@en ;
-    rdfs:domain dpp:PerformanceInfo ;
+    rdfs:domain oec:PerformanceInfo ;
     rdfs:range gs1:QuantitativeValue ;
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#currentSelfDischargingRate)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:atSoC
+eubat:atSoC
     a owl:DatatypeProperty ;
     rdfs:label "Test Condition: at State of Charge"@en ;
     rdfs:comment "State-of-charge test condition (0-1) at which a performance metric was measured. Annotates a measurement record."@en ;
@@ -2533,25 +2533,25 @@ battery:atSoC
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#atSoC). Used as a qualifier on capacity / power / efficiency measurements."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:numberOfFullCycles
+eubat:numberOfFullCycles
     a owl:DatatypeProperty ;
     rdfs:label "Number of Full Cycles"@en ;
     rdfs:comment "Cumulative number of full equivalent cycles the battery has completed."@en ;
-    rdfs:domain dpp:PerformanceInfo ;
+    rdfs:domain oec:PerformanceInfo ;
     rdfs:range xsd:integer ;
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#numberOfFullCycles)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:roundTripEnergyEfficiency
+eubat:roundTripEnergyEfficiency
     a owl:DatatypeProperty ;
     rdfs:label "Round-Trip Energy Efficiency"@en ;
     rdfs:comment "Current round-trip energy efficiency on the 0-1 decimal scale (0.92 = 92%)."@en ;
-    rdfs:domain dpp:PerformanceInfo ;
+    rdfs:domain oec:PerformanceInfo ;
     rdfs:range xsd:decimal ;
-    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#roundTripEnergyEfficiency). Aligned with the 0-1 ratio convention used throughout dpp:."@en ;
+    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#roundTripEnergyEfficiency). Aligned with the 0-1 ratio convention used throughout oec:."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:expectedLifetime
+eubat:expectedLifetime
     a owl:ObjectProperty ;
     rdfs:label "Expected Lifetime"@en ;
     rdfs:comment "Manufacturer-declared expected service life of the battery. Use unitCode 'MON' (months) or 'ANN' (years) per UN/CEFACT Rec 20."@en ;
@@ -2560,7 +2560,7 @@ battery:expectedLifetime
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#expectedLifetime). ESPR Article 7 durability declaration."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:expectedNumberOfCycles
+eubat:expectedNumberOfCycles
     a owl:DatatypeProperty ;
     rdfs:label "Expected Number of Cycles"@en ;
     rdfs:comment "Manufacturer-declared expected number of full cycles."@en ;
@@ -2569,7 +2569,7 @@ battery:expectedNumberOfCycles
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#ExpectedNumberOfCycles)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:batteryMass
+eubat:batteryMass
     a owl:ObjectProperty ;
     rdfs:label "Battery Mass"@en ;
     rdfs:comment "Net mass of the battery. Use unitCode 'KGM' (kilogram) per UN/CEFACT Rec 20. Sub-property of gs1:netWeight to keep GS1-first."@en ;
@@ -2580,42 +2580,42 @@ battery:batteryMass
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryMass). EU Battery Regulation Annex VI Part A weight declaration."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:dismantlingAndRemovalInformation
+eubat:dismantlingAndRemovalInformation
     a owl:ObjectProperty ;
     rdfs:label "Dismantling and Removal Information"@en ;
     rdfs:comment "Reference to the dismantling and removal instructions document required by EU Battery Regulation Annex VIII §B."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:DocumentReference ;
+    rdfs:range oec:DocumentReference ;
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation). EU Battery Regulation Annex VIII §B safety information."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:safetyMeasures
+eubat:safetyMeasures
     a owl:DatatypeProperty ;
     rdfs:label "Safety Measures"@en ;
     rdfs:comment "End-of-life handling safety guidance: short text or URL fragment."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:string ;
-    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Circularity:1.2.0#safetyMeasures). Pair with battery:dismantlingAndRemovalInformation for full Annex VIII coverage."@en ;
+    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Circularity:1.2.0#safetyMeasures). Pair with eubat:dismantlingAndRemovalInformation for full Annex VIII coverage."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
-battery:negativeEvents
+eubat:negativeEvents
     a owl:ObjectProperty ;
     rdfs:label "Negative Events"@en ;
-    rdfs:comment "Log of safety- or performance-relevant negative events recorded over the battery lifetime: accident, thermal event, deep discharge, short circuit, etc. Range is the existing battery:NegativeEvent class."@en ;
-    rdfs:domain dpp:PerformanceInfo ;
-    rdfs:range battery:NegativeEvent ;
-    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#negativeEvents). battery:NegativeEvent already declared with a typed enumeration of incident classes (Accident / PhysicalDamage / ThermalEvent / ElectricalFault / WaterIngress / Overcharge / DeepDischarge / ShortCircuit)."@en ;
+    rdfs:comment "Log of safety- or performance-relevant negative events recorded over the battery lifetime: accident, thermal event, deep discharge, short circuit, etc. Range is the existing eubat:NegativeEvent class."@en ;
+    rdfs:domain oec:PerformanceInfo ;
+    rdfs:range eubat:NegativeEvent ;
+    skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#negativeEvents). eubat:NegativeEvent already declared with a typed enumeration of incident classes (Accident / PhysicalDamage / ThermalEvent / ElectricalFault / WaterIngress / Overcharge / DeepDischarge / ShortCircuit)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 # =============================================================================
-# Cross-cutting alignment to dpp: (Phase 2 lift)
+# Cross-cutting alignment to oec: (Phase 2 lift)
 # =============================================================================
 
-battery:CarbonFootprintDeclaration  rdfs:subClassOf dpp:CarbonFootprintDeclaration .
+eubat:CarbonFootprintDeclaration  rdfs:subClassOf oec:CarbonFootprintDeclaration .
 
 # Battery lifecycle status enum values align to UNTP ProductStatus.
-battery:Reused          owl:equivalentClass <https://vocabulary.uncefact.org/untp/0.7.0/ProductStatus-repaired> .
-battery:Repurposed      owl:equivalentClass <https://vocabulary.uncefact.org/untp/0.7.0/ProductStatus-recycled> .
-battery:Remanufactured  owl:equivalentClass <https://vocabulary.uncefact.org/untp/0.7.0/ProductStatus-repaired> .
-battery:Waste           owl:equivalentClass <https://vocabulary.uncefact.org/untp/0.7.0/ProductStatus-disposed> .
-battery:Original        owl:equivalentClass <https://vocabulary.uncefact.org/untp/0.7.0/ProductStatus-new> .
+eubat:Reused          owl:equivalentClass <https://vocabulary.uncefact.org/untp/0.7.0/ProductStatus-repaired> .
+eubat:Repurposed      owl:equivalentClass <https://vocabulary.uncefact.org/untp/0.7.0/ProductStatus-recycled> .
+eubat:Remanufactured  owl:equivalentClass <https://vocabulary.uncefact.org/untp/0.7.0/ProductStatus-repaired> .
+eubat:Waste           owl:equivalentClass <https://vocabulary.uncefact.org/untp/0.7.0/ProductStatus-disposed> .
+eubat:Original        owl:equivalentClass <https://vocabulary.uncefact.org/untp/0.7.0/ProductStatus-new> .

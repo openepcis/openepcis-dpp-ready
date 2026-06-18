@@ -3,7 +3,7 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
-@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
 @prefix eudr: <https://ref.openepcis.io/extensions/eu/eudr/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
@@ -219,7 +219,7 @@ eudr:OriginDetails
 # (OpenEPCIS extensions - NOT YET STANDARDISED by GS1)
 # =============================================================================
 
-# NOTE: For EORI number, use dpp:eoriNumber (defined in dpp-core).
+# NOTE: For EORI number, use oec:eoriNumber (defined in dpp-core).
 # NOTE: For party GLN, use gs1:partyGLN (defined in GS1 Web Vocabulary).
 # These properties are intentionally NOT duplicated here - use the standard terms.
 
@@ -676,9 +676,9 @@ eudr:exemptionEffectiveUntil
 eudr:exemptionAuthority
     a owl:ObjectProperty ;
     rdfs:label "Exemption Authority"@en ;
-    rdfs:comment "The economic operator or competent authority asserting this exemption. Uses dpp:OperatorInformation so the party is fully identified by GLN and role."@en ;
+    rdfs:comment "The economic operator or competent authority asserting this exemption. Uses oec:OperatorInformation so the party is fully identified by GLN and role."@en ;
     rdfs:domain eudr:ExemptionDeclaration ;
-    rdfs:range dpp:OperatorInformation ;
+    rdfs:range oec:OperatorInformation ;
     dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
     skos:note "Identifies who is making the exemption declaration. Typically the operator placing the product on the EU market (ESPR Art. 21) or a downstream operator."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .

@@ -3,7 +3,7 @@
     "This example demonstrates GS1-aligned Digital Product Passport modeling for textiles.",
     "Key GS1 patterns used:",
     "- GS1 Digital Link URI for product identification (https://id.demo.epcis.cloud/01/{GTIN}/21/{serial})",
-    "- gs1:Product as base type (textile specificity comes from textile:TextileApparel / textile:TextileFootwear dual-typing plus textile: extension properties)",
+    "- gs1:Product as base type (textile specificity comes from eutex:TextileApparel / eutex:TextileFootwear dual-typing plus eutex: extension properties)",
     "- GS1 properties: gs1:gtin, gs1:productName, gs1:manufacturer, gs1:netWeight",
     "- gs1:textileMaterial with gs1:TextileMaterialDetails for fiber composition (GS1 native)",
     "- gs1:certification with gs1:CertificationDetails for certifications",
@@ -142,13 +142,13 @@
       }
     }
   },
-  "dpp:operatorInformation": {
+  "oec:operatorInformation": {
     "id": "https://id.demo.epcis.cloud/417/9521000000018#operator",
-    "type": "dpp:OperatorInformation",
+    "type": "oec:OperatorInformation",
     "gln": "9521000000018",
     "organizationName": "EcoWear GmbH",
-    "dpp:operatorRole": {
-      "id": "dpp:Manufacturer"
+    "oec:operatorRole": {
+      "id": "oec:Manufacturer"
     },
     "address": {
       "type": "PostalAddress",
@@ -410,16 +410,16 @@
       "endOfLifeHandling": "No special handling required at detected concentration."
     }
   ],
-  "dpp:recycledContent": {
+  "oec:recycledContent": {
     "id": "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#recycled",
-    "type": "dpp:RecycledContent",
-    "dpp:totalRecycledShare": 55,
-    "dpp:preConsumerShare": 5,
-    "dpp:postConsumerShare": 50
+    "type": "oec:RecycledContent",
+    "oec:totalRecycledShare": 55,
+    "oec:preConsumerShare": 5,
+    "oec:postConsumerShare": 50
   },
-  "dpp:carbonFootprintTotal": 18.5,
-  "dpp:carbonFootprintUnit": "kg CO2e per garment",
-  "dpp:carbonFootprintStudyUrl": "https://www.ecowear.example.com/sustainability/cfp-alpine-pro.pdf",
+  "oec:carbonFootprintTotal": 18.5,
+  "oec:carbonFootprintUnit": "kg CO2e per garment",
+  "oec:carbonFootprintStudyUrl": "https://www.ecowear.example.com/sustainability/cfp-alpine-pro.pdf",
   "waterUsage": {
     "type": "QuantitativeValue",
     "value": 2500,
@@ -480,18 +480,18 @@
       }
     }
   ],
-  "dpp:repairabilityInfo": {
+  "oec:repairabilityInfo": {
     "id": "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#repairability",
-    "type": "dpp:RepairabilityInfo",
-    "dpp:repairabilityScore": 7.2,
-    "dpp:repairabilityClass": "B",
-    "dpp:sparePartsAvailability": {
+    "type": "oec:RepairabilityInfo",
+    "oec:repairabilityScore": 7.2,
+    "oec:repairabilityClass": "B",
+    "oec:sparePartsAvailability": {
       "type": "QuantitativeValue",
       "value": 10,
       "unitCode": "ANN"
     },
-    "dpp:diyRepairPossible": true,
-    "dpp:professionalRepairNetwork": "https://repair.ecowear.example.com/find-service"
+    "oec:diyRepairPossible": true,
+    "oec:professionalRepairNetwork": "https://repair.ecowear.example.com/find-service"
   },
   "certification": [
     {
@@ -529,16 +529,16 @@
   ],
   "cutAndSewFacility": {
     "id": "https://id.demo.epcis.cloud/414/9521234000020",
-    "type": "dpp:FacilityInformation",
+    "type": "oec:FacilityInformation",
     "gln": "9521234000020",
     "name": "Porto Textile Manufacturing",
-    "dpp:facilityType": "Cut and Sew",
+    "oec:facilityType": "Cut and Sew",
     "address": {
       "type": "PostalAddress",
       "addressLocality": "Porto",
       "countryCode": "PT"
     },
-    "dpp:facilityCertifications": [
+    "oec:facilityCertifications": [
       {
         "type": "CertificationDetails",
         "certificationStandard": "ISO 14001:2015",
@@ -553,16 +553,16 @@
   },
   "dyeingFacility": {
     "id": "https://id.demo.epcis.cloud/414/9521234000037",
-    "type": "dpp:FacilityInformation",
+    "type": "oec:FacilityInformation",
     "gln": "9521234000037",
     "name": "Eco Dyeing Italy",
-    "dpp:facilityType": "Dyeing and Finishing",
+    "oec:facilityType": "Dyeing and Finishing",
     "address": {
       "type": "PostalAddress",
       "addressLocality": "Como",
       "countryCode": "IT"
     },
-    "dpp:facilityCertifications": [
+    "oec:facilityCertifications": [
       {
         "type": "CertificationDetails",
         "certificationStandard": "ZDHC MRSL v3.1",
@@ -575,29 +575,29 @@
     "durationOfWarranty": "P2Y",
     "warrantyScope": "Covers manufacturing defects. Does not cover normal wear, improper care, or accidental damage."
   },
-  "dpp:documents": [
+  "oec:documents": [
     {
       "id": "https://www.ecowear.example.com/docs/alpine-pro-user-guide.pdf",
-      "type": "dpp:DocumentReference",
-      "dpp:documentType": {
-        "id": "dpp:Manual"
+      "type": "oec:DocumentReference",
+      "oec:documentType": {
+        "id": "oec:Manual"
       },
-      "dpp:documentUrl": "https://www.ecowear.example.com/docs/alpine-pro-user-guide.pdf",
+      "oec:documentUrl": "https://www.ecowear.example.com/docs/alpine-pro-user-guide.pdf",
       "schema:name": "Alpine Pro User & Care Guide",
-      "dpp:mimeType": "application/pdf",
-      "dpp:languageCode": "en"
+      "oec:mimeType": "application/pdf",
+      "oec:languageCode": "en"
     },
     {
       "id": "https://www.ecowear.example.com/docs/supply-chain-transparency-2024.pdf",
-      "type": "dpp:DocumentReference",
-      "dpp:documentType": {
-        "id": "dpp:DueDiligenceDocument"
+      "type": "oec:DocumentReference",
+      "oec:documentType": {
+        "id": "oec:DueDiligenceDocument"
       },
-      "dpp:documentUrl": "https://www.ecowear.example.com/docs/supply-chain-transparency-2024.pdf",
+      "oec:documentUrl": "https://www.ecowear.example.com/docs/supply-chain-transparency-2024.pdf",
       "schema:name": "Supply Chain Transparency Report 2024",
-      "dpp:mimeType": "application/pdf",
-      "dpp:languageCode": "en",
-      "dpp:issueDate": "2024-04-01"
+      "oec:mimeType": "application/pdf",
+      "oec:languageCode": "en",
+      "oec:issueDate": "2024-04-01"
     }
   ],
   "referencedFile": [
@@ -620,20 +620,20 @@
       "fileLanguageCode": "en"
     }
   ],
-  "dpp:accessRights": {
+  "oec:accessRights": {
     "id": "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#access",
-    "type": "dpp:AccessRights",
-    "dpp:accessLevel": {
-      "id": "dpp:Public"
+    "type": "oec:AccessRights",
+    "oec:accessLevel": {
+      "id": "oec:Public"
     }
   },
-  "dpp:passportIdentifier": "https://dpp.ecowear.example.com/passport/WJ-2024-00142",
-  "dpp:passportVersion": "1.0",
-  "dpp:passportIssueDate": "2024-09-20",
-  "dpp:passportStatus": "Active",
-  "dpp:productCategory": {
-    "id": "dpp:Textiles"
+  "oec:passportIdentifier": "https://dpp.ecowear.example.com/passport/WJ-2024-00142",
+  "oec:passportVersion": "1.0",
+  "oec:passportIssueDate": "2024-09-20",
+  "oec:passportStatus": "Active",
+  "oec:productCategory": {
+    "id": "oec:Textiles"
   },
-  "dpp:lastDataUpdate": "2024-10-15T10:30:00Z",
-  "dpp:dataQualityAssessment": "A"
+  "oec:lastDataUpdate": "2024-10-15T10:30:00Z",
+  "oec:dataQualityAssessment": "A"
 }

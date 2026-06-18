@@ -64,12 +64,12 @@ in [`docs/cirpass2/SECTOR_INSPIRATION.md`](../../../../docs/cirpass2/SECTOR_INSP
 | BatteryPass-Ready v1.3 / SAMM v1.2.0 Material Composition submodel | **fully covered** |
 | BatteryPass-Ready v1.3 / SAMM v1.2.0 Carbon Footprint submodel | **fully covered** |
 | BatteryPass-Ready v1.3 / SAMM v1.2.0 Labeling submodel | **fully covered** |
-| BatteryPass-Ready v1.3 / SAMM v1.2.0 Supply Chain Due Diligence submodel | **fully covered** (via `dpp:DueDiligenceReport` + Battery Regulation Art. 39 anchoring) |
+| BatteryPass-Ready v1.3 / SAMM v1.2.0 Supply Chain Due Diligence submodel | **fully covered** (via `oec:DueDiligenceReport` + Battery Regulation Art. 39 anchoring) |
 | DIN DKE SPEC 99100:2025-02 alignment | **needs review** — DIN attribute list to be cross-checked against our 0.9.5 properties |
 | CIRPASS-2 P_DPP module (Battery-relevant classes) | anchor opportunities — see § Anchor recommendations |
-| CIRPASS-2 SOC module | already strongly aligned (`dpp:SubstanceOfConcern` etc.) |
+| CIRPASS-2 SOC module | already strongly aligned (`oec:SubstanceOfConcern` etc.) |
 | CIRPASS-2 ACTOR module | already aligned via dpp-core SEMICeu anchors |
-| CIRPASS-2 LCA module (full EN 15804 / PEFCR / EPD stack) | **out of scope** — we anchor `dpp:EmissionsPerformance` upward via seeAlso; full LCA modelling lives upstream |
+| CIRPASS-2 LCA module (full EN 15804 / PEFCR / EPD stack) | **out of scope** — we anchor `oec:EmissionsPerformance` upward via seeAlso; full LCA modelling lives upstream |
 
 ## BatteryPass-Ready v1.3 / SAMM v1.2.0 — concrete attribute gaps
 
@@ -82,61 +82,61 @@ follows our GS1-first / BatteryPass-Ready v1.3 convention.
 
 | BatteryPass attribute | Status | Recommended addition |
 |---|---|---|
-| `currentSelfDischargingRate` (+ `currentSelfDischargingRateValue`) | gap | `battery:currentSelfDischargingRate` (range `gs1:QuantitativeValue`, %/month) on `dpp:PerformanceInfo` domain |
-| `atSoC` (test condition: SoC at which a metric was measured) | gap | `battery:atSoC` (range `xsd:decimal`, 0–1) — annotation on test-result records |
-| `numberOfFullCycles` (cumulative full equivalent cycles) | gap | `battery:numberOfFullCycles` (range `xsd:integer`) |
-| `roundTripEnergyEfficiency` (current efficiency vs. original) | gap | `battery:roundTripEnergyEfficiency` (range `xsd:decimal`, 0–1) |
-| `expectedLifetime` / `expectedNumberOfCycles` | partial — described in comments only | `battery:expectedLifetime` (range `gs1:QuantitativeValue`) + `battery:expectedNumberOfCycles` (range `xsd:integer`) |
-| `negativeEvents` (failure / fault event log) | partial — `battery:Accident` exists but no top-level negative-event class | New `battery:NegativeEvent` class (`battery:Accident rdfs:subClassOf battery:NegativeEvent`); `battery:negativeEvents` collection |
+| `currentSelfDischargingRate` (+ `currentSelfDischargingRateValue`) | gap | `eubat:currentSelfDischargingRate` (range `gs1:QuantitativeValue`, %/month) on `oec:PerformanceInfo` domain |
+| `atSoC` (test condition: SoC at which a metric was measured) | gap | `eubat:atSoC` (range `xsd:decimal`, 0–1) — annotation on test-result records |
+| `numberOfFullCycles` (cumulative full equivalent cycles) | gap | `eubat:numberOfFullCycles` (range `xsd:integer`) |
+| `roundTripEnergyEfficiency` (current efficiency vs. original) | gap | `eubat:roundTripEnergyEfficiency` (range `xsd:decimal`, 0–1) |
+| `expectedLifetime` / `expectedNumberOfCycles` | partial — described in comments only | `eubat:expectedLifetime` (range `gs1:QuantitativeValue`) + `eubat:expectedNumberOfCycles` (range `xsd:integer`) |
+| `negativeEvents` (failure / fault event log) | partial — `eubat:Accident` exists but no top-level negative-event class | New `eubat:NegativeEvent` class (`eubat:Accident rdfs:subClassOf eubat:NegativeEvent`); `eubat:negativeEvents` collection |
 | `capacityFade` / `capacityThroughput` / `energyThroughput` / `evolutionOfSelfDischarge` / `internalResistanceIncrease` / `originalPowerCapability` / `remainingPowerCapability` / `remainingCapacity` / `remainingEnergy` / `stateOfCertifiedEnergy` / `stateOfCharge` / `stateOfHealth` / `temperatureRangeIdleState` / `cRate` / `cRateLifeCycleTest` / `informationOnCollection` / `puttingIntoService` / `extinguishingAgent` | covered ✓ | — |
 
 ### Circularity (`io.BatteryPass.Circularity:1.2.0`)
 
 | BatteryPass attribute | Status | Recommended addition |
 |---|---|---|
-| `dismantlingAndRemovalInformation` (URL or rich text — Annex VIII §B safety information) | gap | `battery:dismantlingAndRemovalInformation` (range `dpp:DocumentReference`) |
-| `safetyMeasures` (general end-of-life handling guidance) | gap | `battery:safetyMeasures` (range `xsd:string` for now; promote to typed class if structure emerges) |
+| `dismantlingAndRemovalInformation` (URL or rich text — Annex VIII §B safety information) | gap | `eubat:dismantlingAndRemovalInformation` (range `oec:DocumentReference`) |
+| `safetyMeasures` (general end-of-life handling guidance) | gap | `eubat:safetyMeasures` (range `xsd:string` for now; promote to typed class if structure emerges) |
 | `extinguishingAgent` / `addressOfSupplier` / `nameOfSupplier` / `emailAddressOfSupplier` / `components` / `partNumber` / `endOfLifeInformation` / `informationOnCollection` / `postConsumerShare` / `preConsumerShare` / `documentType` / `documentURL` | covered ✓ | — |
 
 ### General Product Information (`io.BatteryPass.GeneralProductInformation:1.2.0`)
 
 | BatteryPass attribute | Status | Recommended addition |
 |---|---|---|
-| `batteryMass` | gap | `battery:batteryMass` (range `gs1:QuantitativeValue`) — `rdfs:subPropertyOf gs1:netWeight` to keep GS1-first |
+| `batteryMass` | gap | `eubat:batteryMass` (range `gs1:QuantitativeValue`) — `rdfs:subPropertyOf gs1:netWeight` to keep GS1-first |
 | `manufacturerInformation` / `manufacturingDate` / `manufacturingPlace` / `operatorInformation` / `BatteryCategory` / `BatteryStatus` / `BatteryPassportIdentifier` / `ProductIdentifier` / `ManufacturerIdentification` / `puttingIntoService` / `postalAddress` / `contactName` | covered ✓ | — |
 
 ### Material Composition (`io.BatteryPass.MaterialComposition:1.2.0`)
 
-Fully covered. We carry `battery:batteryChemistry`, `battery:batteryMaterials`,
-`battery:hazardousSubstances`, the SCIP-aligned `dpp:SubstanceOfConcern`
-parent, `battery:isCriticalRawMaterial`, plus battery-specific
-`battery:CathodeActiveMaterial` / `Anode...` typed classes that go
+Fully covered. We carry `eubat:batteryChemistry`, `eubat:batteryMaterials`,
+`eubat:hazardousSubstances`, the SCIP-aligned `oec:SubstanceOfConcern`
+parent, `eubat:isCriticalRawMaterial`, plus battery-specific
+`eubat:CathodeActiveMaterial` / `Anode...` typed classes that go
 beyond the SAMM submodel's flat shape.
 
 ### Carbon Footprint (`io.BatteryPass.CarbonFootprint:1.2.0`)
 
-Fully covered. `battery:CarbonFootprintDeclaration` carries
+Fully covered. `eubat:CarbonFootprintDeclaration` carries
 `absoluteCarbonFootprint`, `carbonFootprintPerformanceClass`,
-`carbonFootprintPerLifecycleStage`, plus our `dpp:carbonFootprintTotal` /
-`dpp:EmissionsPerformance` cross-module anchor. GDSN CFP pattern.
+`carbonFootprintPerLifecycleStage`, plus our `oec:carbonFootprintTotal` /
+`oec:EmissionsPerformance` cross-module anchor. GDSN CFP pattern.
 
 ### Labeling (`io.BatteryPass.Labels:1.2.0`)
 
-Fully covered. `battery:labels`, `labelingMeaning`, `labelingSubject`,
+Fully covered. `eubat:labels`, `labelingMeaning`, `labelingSubject`,
 `labelingSymbol`, `declarationOfConformity`, `resultOfTestReport` all
 present.
 
 ### Supply Chain Due Diligence (`io.BatteryPass.SupplyChainDueDiligence:1.2.0`)
 
 Fully covered. The upstream SAMM submodel is sparse (28 triples, 4
-attributes). We provide a richer `dpp:DueDiligenceReport` with EUDR /
+attributes). We provide a richer `oec:DueDiligenceReport` with EUDR /
 CSDDD / Forced Labour / Battery Regulation Article 39 enrichments.
 
 ### BatteryPass-Ready v1.3 longlist (GEFEG harness) — coverage
 
 We claim conformance with the v1.3 longlist throughout the TTL (11 explicit
 `BatteryPass-Ready v1.3 longlist attribute #N` annotations on
-`battery:operatorIdentifier`, `manufacturerIdentifier`, `facilityIdentifier`,
+`eubat:operatorIdentifier`, `manufacturerIdentifier`, `facilityIdentifier`,
 `batteryModelIdentifier`, `manufacturingPlace`, the carbon-footprint
 attributes, the Labels block, etc.).
 
@@ -181,14 +181,14 @@ cascade in `dpp-core.ttl`:
 
 | Our battery class / property | CIRPASS-2 see-also pointer | How |
 |---|---|---|
-| `battery:operatorInformation` (range `dpp:OperatorInformation`) | `cirpass2:Actor` / `cirpass2:LegalPerson` / `cirpass2:ManufacturerRecord` | inherited via `dpp:OperatorInformation rdfs:seeAlso cirpass2:*` |
-| `battery:manufacturingPlace` (range `dpp:FacilityInformation`) | `cirpass2:Facility` | inherited via `dpp:FacilityInformation rdfs:seeAlso cirpass2:Facility` |
-| `battery:notifiedBody` (range `cv:PublicOrganisation`) | `cirpass2:ConformityAssessmentRole` actor | already anchored upward via SEMICeu CPOV (Layer 1) |
-| `battery:declarationOfConformity` / `euDeclarationOfConformity` (range `cccev:Evidence`) | `cirpass2:ComplianceDeclaration` | inherited via `dpp:DueDiligenceReport rdfs:seeAlso cirpass2:ComplianceDeclaration` |
-| `dpp:HazardousSubstance` / `battery:hazardousSubstances` | `cirpass2:Substance` / `cirpass2:SubstanceOfConcern` | inherited via dpp-core |
-| `dpp:OperatorRole` enum | `cirpass2:EconomicOperatorRole` | inherited via dpp-core |
-| `battery:CarbonFootprintDeclaration` / `dpp:carbonFootprintTotal` | `cirpass2:CarbonFootprint` | inherited via `dpp:EmissionsPerformance rdfs:seeAlso cirpass2:CarbonFootprint` |
-| `dpp:CircularityPerformance` (used by `battery:circularityInfo`) | `cirpass2:CircularEconomyIndicator` | inherited |
+| `eubat:operatorInformation` (range `oec:OperatorInformation`) | `cirpass2:Actor` / `cirpass2:LegalPerson` / `cirpass2:ManufacturerRecord` | inherited via `oec:OperatorInformation rdfs:seeAlso cirpass2:*` |
+| `eubat:manufacturingPlace` (range `oec:FacilityInformation`) | `cirpass2:Facility` | inherited via `oec:FacilityInformation rdfs:seeAlso cirpass2:Facility` |
+| `eubat:notifiedBody` (range `cv:PublicOrganisation`) | `cirpass2:ConformityAssessmentRole` actor | already anchored upward via SEMICeu CPOV (Layer 1) |
+| `eubat:declarationOfConformity` / `euDeclarationOfConformity` (range `cccev:Evidence`) | `cirpass2:ComplianceDeclaration` | inherited via `oec:DueDiligenceReport rdfs:seeAlso cirpass2:ComplianceDeclaration` |
+| `oec:HazardousSubstance` / `eubat:hazardousSubstances` | `cirpass2:Substance` / `cirpass2:SubstanceOfConcern` | inherited via dpp-core |
+| `oec:OperatorRole` enum | `cirpass2:EconomicOperatorRole` | inherited via dpp-core |
+| `eubat:CarbonFootprintDeclaration` / `oec:carbonFootprintTotal` | `cirpass2:CarbonFootprint` | inherited via `oec:EmissionsPerformance rdfs:seeAlso cirpass2:CarbonFootprint` |
+| `oec:CircularityPerformance` (used by `eubat:circularityInfo`) | `cirpass2:CircularEconomyIndicator` | inherited |
 
 All anchors are `rdfs:seeAlso` only — no `rdfs:subClassOf`, no
 `owl:equivalentClass` against `cirpass2:`. CIRPASS-2 is one input to
@@ -203,43 +203,43 @@ No CIRPASS-2 anchors in `battery.ttl` directly — they propagate from
 ### Phase E (additive — proposed for this module)
 
 The 13 gap-fill properties from the BatteryPass-Ready v1.3 / SAMM v1.2.0 analysis,
-added flat on the appropriate domain (`dpp:PerformanceInfo`,
+added flat on the appropriate domain (`oec:PerformanceInfo`,
 `gs1:Product`, `cccev:Evidence` per the typed-link restructure already
 in place):
 
 ```turtle
 # Performance and Durability
-battery:currentSelfDischargingRate     a owl:DatatypeProperty ;
-    rdfs:domain dpp:PerformanceInfo ; rdfs:range gs1:QuantitativeValue .
-battery:atSoC                          a owl:DatatypeProperty ;
+eubat:currentSelfDischargingRate     a owl:DatatypeProperty ;
+    rdfs:domain oec:PerformanceInfo ; rdfs:range gs1:QuantitativeValue .
+eubat:atSoC                          a owl:DatatypeProperty ;
     rdfs:range xsd:decimal .
-battery:numberOfFullCycles             a owl:DatatypeProperty ;
-    rdfs:domain dpp:PerformanceInfo ; rdfs:range xsd:integer .
-battery:roundTripEnergyEfficiency      a owl:DatatypeProperty ;
-    rdfs:domain dpp:PerformanceInfo ; rdfs:range xsd:decimal .
-battery:expectedLifetime               a owl:DatatypeProperty ;
+eubat:numberOfFullCycles             a owl:DatatypeProperty ;
+    rdfs:domain oec:PerformanceInfo ; rdfs:range xsd:integer .
+eubat:roundTripEnergyEfficiency      a owl:DatatypeProperty ;
+    rdfs:domain oec:PerformanceInfo ; rdfs:range xsd:decimal .
+eubat:expectedLifetime               a owl:DatatypeProperty ;
     rdfs:domain gs1:Product ; rdfs:range gs1:QuantitativeValue .
-battery:expectedNumberOfCycles         a owl:DatatypeProperty ;
+eubat:expectedNumberOfCycles         a owl:DatatypeProperty ;
     rdfs:domain gs1:Product ; rdfs:range xsd:integer .
 
 # General Product Info
-battery:batteryMass                    a owl:DatatypeProperty ;
+eubat:batteryMass                    a owl:DatatypeProperty ;
     rdfs:domain gs1:Product ; rdfs:range gs1:QuantitativeValue ;
     rdfs:subPropertyOf gs1:netWeight .
 
 # Circularity
-battery:dismantlingAndRemovalInformation  a owl:ObjectProperty ;
-    rdfs:domain gs1:Product ; rdfs:range dpp:DocumentReference .
-battery:safetyMeasures                 a owl:DatatypeProperty ;
+eubat:dismantlingAndRemovalInformation  a owl:ObjectProperty ;
+    rdfs:domain gs1:Product ; rdfs:range oec:DocumentReference .
+eubat:safetyMeasures                 a owl:DatatypeProperty ;
     rdfs:domain gs1:Product ; rdfs:range xsd:string .
 
-# Negative-event class (re-parents existing battery:Accident)
-battery:NegativeEvent                  a rdfs:Class ;
+# Negative-event class (re-parents existing eubat:Accident)
+eubat:NegativeEvent                  a rdfs:Class ;
     rdfs:subClassOf cccev:Evidence ;
     rdfs:seeAlso schema:Event .
-battery:Accident                       rdfs:subClassOf battery:NegativeEvent .
-battery:negativeEvents                 a owl:ObjectProperty ;
-    rdfs:domain dpp:PerformanceInfo ; rdfs:range battery:NegativeEvent .
+eubat:Accident                       rdfs:subClassOf eubat:NegativeEvent .
+eubat:negativeEvents                 a owl:ObjectProperty ;
+    rdfs:domain oec:PerformanceInfo ; rdfs:range eubat:NegativeEvent .
 ```
 
 All entries with full skos:notes citing BatteryPass-Ready v1.3 longlist
@@ -260,7 +260,7 @@ Phase B propagates `cirpass2:Actor` / `cirpass2:Facility` / `cirpass2:Substance`
 upward anchors through the typed-link cascade. Add only one
 battery-specific anchor:
 
-- `battery:euDeclarationOfConformity rdfs:seeAlso cirpass2:ComplianceDeclaration`
+- `eubat:euDeclarationOfConformity rdfs:seeAlso cirpass2:ComplianceDeclaration`
   (the typed link is the closest battery-side analogue of the
   CIRPASS-2 Compliance class)
 

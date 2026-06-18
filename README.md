@@ -32,14 +32,14 @@ The EU Battery Regulation requires DPPs starting **February 2027**. Industry can
 | Properties | 430+ |
 | EPCIS Event Examples | 37+ |
 | Bridge Contexts | 5 (UNTP, CIRPASS2, JTC 24, BatteryPass, **SEMICeu Core Vocabularies**) |
-| Regulations Covered | 8 (ESPR, Battery Reg, EUDR, Sustainable Textiles, Electronics DAs, Detergents Reg, PPWR 2025/40, **CPR 2024/3110**) — plus dpp: enrichments for Right-to-Repair 2024/1799, CSDDD 2024/1760, Forced Labour 2024/3015, CRMA 2024/1252 |
+| Regulations Covered | 8 (ESPR, Battery Reg, EUDR, Sustainable Textiles, Electronics DAs, Detergents Reg, PPWR 2025/40, **CPR 2024/3110**) — plus oec: enrichments for Right-to-Repair 2024/1799, CSDDD 2024/1760, Forced Labour 2024/3015, CRMA 2024/1252 |
 
 ## Vocabulary layering — the delegation pattern
 
 OpenEPCIS DPP-Ready is organised as **four stacked layers**, each delegating
 cross-cutting concepts downward. A new EU regulation typically adds only a
 handful of truly regulation-specific terms; everything else reuses the
-common-core (`dpp:`) vocabulary, which itself anchors upward to a
+common-core (`oec:`) vocabulary, which itself anchors upward to a
 **peer triumvirate of foundational vocabularies — schema.org, GS1, and
 EU SEMICeu Core Vocabularies** — and to upstream community profiles
 (UNTP, CIRPASS-2, JTC 24).
@@ -49,7 +49,7 @@ EU SEMICeu Core Vocabularies** — and to upstream community profiles
                                    eu/electronics, eu/detergent, eu/ppwr,
                                    eu/cpr, us/fsma204)
             ↓
-  Layer 3 ─ Common DPP core (dpp:)  cross-cutting concepts ≥2 regs share
+  Layer 3 ─ Common DPP core (oec:)  cross-cutting concepts ≥2 regs share
             ↓ owl:equivalentClass / equivalentProperty
   Layer 2 ─ Upstream community profiles
             UNTP v0.7.0  Party, Facility, Material, Claim,
@@ -72,7 +72,7 @@ and use the *highest* layer that already covers the concept. Within
 Layer 1, check the three foundational vocabularies in this order:
 **GS1 → SEMICeu → schema.org**. Mint a new IRI only when no layer below
 has it. If you find yourself adding the same concept to two modules,
-that's a signal it should move down to `dpp:`. If a `dpp:` term turns
+that's a signal it should move down to `oec:`. If a `oec:` term turns
 out to be a SEMICeu / GS1 / schema.org duplicate, redo it and match
 upstream.
 
@@ -180,8 +180,8 @@ Then open any module's `examples/` directory for JSON-LD samples, or launch the 
 ## Why every module owns a named EPCIS extension
 
 Each module registers its own `https://ref.openepcis.io/extensions/...`
-namespace (`battery:`, `eudr:`, `textile:`, `electronics:`, `detergent:`,
-`fsma:`) even when the extension contributes only a single property. The
+namespace (`eubat:`, `eudr:`, `eutex:`, `euelec:`, `eudet:`,
+`usfsma:`) even when the extension contributes only a single property. The
 namespace is not cosmetic — it is the **switch** that tells an OpenEPCIS
 EPCIS Repository to activate regulation-specific behaviour on every
 capture and query request that declares it via the `GS1-Extensions`
@@ -229,14 +229,14 @@ The project follows a **`gs1:` → SEMICeu (`cv:` / `cccev:` / `locn:` / `adms:`
 
 | Module | Namespace | Prefix |
 |--------|-----------|--------|
-| DPP Core | `https://ref.openepcis.io/extensions/common/core/` | `dpp:` |
-| Interop | `https://ref.openepcis.io/extensions/common/interop/` | `interop:` |
-| Battery | `https://ref.openepcis.io/extensions/eu/battery/` | `battery:` |
+| DPP Core | `https://ref.openepcis.io/extensions/common/core/` | `oec:` |
+| Interop | `https://ref.openepcis.io/extensions/common/interop/` | `oei:` |
+| Battery | `https://ref.openepcis.io/extensions/eu/battery/` | `eubat:` |
 | EUDR | `https://ref.openepcis.io/extensions/eu/eudr/` | `eudr:` |
-| Textile | `https://ref.openepcis.io/extensions/eu/textile/` | `textile:` |
-| Electronics | `https://ref.openepcis.io/extensions/eu/electronics/` | `electronics:` |
-| Detergent | `https://ref.openepcis.io/extensions/eu/detergent/` | `detergent:` |
-| FSMA §204 | `https://ref.openepcis.io/extensions/us/fsma204/` | `fsma:` |
+| Textile | `https://ref.openepcis.io/extensions/eu/textile/` | `eutex:` |
+| Electronics | `https://ref.openepcis.io/extensions/eu/electronics/` | `euelec:` |
+| Detergent | `https://ref.openepcis.io/extensions/eu/detergent/` | `eudet:` |
+| FSMA §204 | `https://ref.openepcis.io/extensions/us/fsma204/` | `usfsma:` |
 | _Reused_: schema.org | `https://schema.org/` | `schema:` |
 | _Reused_: GS1 Web Vocabulary | `https://ref.gs1.org/voc/` | `gs1:` |
 | _Reused_: SEMICeu CCCEV / CPOV / Core Business / Person / Public Event / CPSV-AP | `http://data.europa.eu/m8g/` | `cv:` (general) / `cccev:` (criterion-evidence aliases) |
@@ -388,7 +388,7 @@ Each module in this framework is designed as a **first-class EPCIS 2.0 extension
 
 ### Architecture Rule
 
-**`gs1:masterDataAvailableFor`** in EPCIS events contains ONLY `gs1:` Web Vocabulary properties (product name, country of origin, regulatory information, etc.). Extension properties (`dpp:`, `battery:`, `eudr:`, `textile:`, `electronics:`, `detergent:`) go at **event level** -- as siblings of `bizStep`, `epcList`, etc.
+**`gs1:masterDataAvailableFor`** in EPCIS events contains ONLY `gs1:` Web Vocabulary properties (product name, country of origin, regulatory information, etc.). Extension properties (`oec:`, `eubat:`, `eudr:`, `eutex:`, `euelec:`, `eudet:`) go at **event level** -- as siblings of `bizStep`, `epcList`, etc.
 
 See [extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md](./extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md) for the canonical three-angle reference (EPCIS structure, GS1 WebVoc patterns, RDF correctness).
 
@@ -397,20 +397,20 @@ See [extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md](./extension
 Declare extensions using the `GS1-Extensions` header (per EPCIS 2.0 specification):
 
 ```http
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/, battery=https://ref.openepcis.io/extensions/eu/battery/, textile=https://ref.openepcis.io/extensions/eu/textile/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, eubat=https://ref.openepcis.io/extensions/eu/battery/, eutex=https://ref.openepcis.io/extensions/eu/textile/
 ```
 
 ### Extension Namespaces
 
 | Module | GS1-Extensions Header Value |
 |--------|---------------------------|
-| DPP Core | `dpp=https://ref.openepcis.io/extensions/common/core/` |
-| Battery | `battery=https://ref.openepcis.io/extensions/eu/battery/` |
+| DPP Core | `oec=https://ref.openepcis.io/extensions/common/core/` |
+| Battery | `eubat=https://ref.openepcis.io/extensions/eu/battery/` |
 | EUDR | `eudr=https://ref.openepcis.io/extensions/eu/eudr/` |
-| Textile | `textile=https://ref.openepcis.io/extensions/eu/textile/` |
-| Electronics | `electronics=https://ref.openepcis.io/extensions/eu/electronics/` |
-| Detergent | `detergent=https://ref.openepcis.io/extensions/eu/detergent/` |
-| FSMA §204 | `fsma=https://ref.openepcis.io/extensions/us/fsma204/` |
+| Textile | `eutex=https://ref.openepcis.io/extensions/eu/textile/` |
+| Electronics | `euelec=https://ref.openepcis.io/extensions/eu/electronics/` |
+| Detergent | `eudet=https://ref.openepcis.io/extensions/eu/detergent/` |
+| FSMA §204 | `usfsma=https://ref.openepcis.io/extensions/us/fsma204/` |
 
 ### JSON-LD Context Integration
 

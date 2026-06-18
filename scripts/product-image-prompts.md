@@ -49,7 +49,7 @@ Recommended generation params: `steps=40`, `guidance=3.5`, `seed=<gtin>-<n>` for
 
 ### 09521234000044 — VeloPower e-bike Battery Pack VP-48V-14Ah
 1. **Side hero** — A single integrated e-bike down-tube battery shaped like a long slim rectangular bar (roughly 36 cm long, 8 cm wide, 7 cm tall) with softly rounded corners and a gently tapered profile designed to sit flush inside a bicycle down tube, matte-black anodised aluminium shell, one short end-cap with a recessed circular key barrel and a small rubber-flap charging port, a discrete row of four small capacity LEDs along the side, photographed on its own on a seamless white background in side profile, no bicycle visible, no extra tubes, no T-shapes, no power tool, looks like a clean OEM product render.
-2. **End-cap close-up** — Macro of one short end-cap of the same bar-shaped battery: the recessed cylindrical key barrel with a small ignition-style key inserted, next to it a small rubber flap lifted to reveal the round charging port, soft studio lighting.
+2. **End-cap close-up** — Macro of one short end-cap of the same bar-shaped eubat: the recessed cylindrical key barrel with a small ignition-style key inserted, next to it a small rubber flap lifted to reveal the round charging port, soft studio lighting.
 3. **Mounting rail underside** — Underside view of the same slim rectangular battery showing the flat mounting face with a continuous T-slot dovetail rail running its full length and two spring-loaded electrical contact pads at one end, photographed flat against a white background.
 
 ## Packaging

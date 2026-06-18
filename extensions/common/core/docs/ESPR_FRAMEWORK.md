@@ -66,10 +66,10 @@ ESPR covers virtually all physical products placed on the EU market, with except
 
 | Article | Requirement | OpenEPCIS Support |
 |---------|-------------|-------------------|
-| Article 7 | Performance & Durability | `dpp:PerformanceInfo`, `dpp:RepairabilityInfo` |
-| Article 8 | Substances of Concern | `dpp:SubstanceOfConcern` |
-| Article 9 | Access Rights | `dpp:AccessRights`, `dpp:AccessLevel` |
-| Article 77 | Economic Operator Registry | `dpp:economicOperatorId` |
+| Article 7 | Performance & Durability | `oec:PerformanceInfo`, `oec:RepairabilityInfo` |
+| Article 8 | Substances of Concern | `oec:SubstanceOfConcern` |
+| Article 9 | Access Rights | `oec:AccessRights`, `oec:AccessLevel` |
+| Article 77 | Economic Operator Registry | `oec:economicOperatorId` |
 
 ---
 
@@ -79,27 +79,27 @@ The core module provides the following ESPR-aligned classes:
 
 | Class | Description | ESPR Article |
 |-------|-------------|--------------|
-| `dpp:OperatorInformation` | Economic operator data with EOID support | Article 77 |
-| `dpp:FacilityInformation` | Manufacturing facility details | Article 7 |
-| `dpp:PerformanceInfo` | Product performance and durability | Article 7 |
-| `dpp:RepairabilityInfo` | Repair scores, spare parts, instructions | Article 7 |
-| `dpp:SubstanceOfConcern` | SCIP-aligned hazardous substance tracking | Article 8 |
-| `dpp:AccessRights` | Data visibility control | Article 9 |
-| `dpp:CircularityInfo` | End-of-life and recycling information | Article 7 |
-| `dpp:MaterialComposition` | Material composition with CRM tracking | Article 7 |
-| `dpp:RecycledContent` | Pre/post consumer recycled content | Article 7 |
-| `dpp:DueDiligenceReport` | Supply chain due diligence | Article 7 |
-| `dpp:DocumentReference` | Supporting documents and certificates | General |
+| `oec:OperatorInformation` | Economic operator data with EOID support | Article 77 |
+| `oec:FacilityInformation` | Manufacturing facility details | Article 7 |
+| `oec:PerformanceInfo` | Product performance and durability | Article 7 |
+| `oec:RepairabilityInfo` | Repair scores, spare parts, instructions | Article 7 |
+| `oec:SubstanceOfConcern` | SCIP-aligned hazardous substance tracking | Article 8 |
+| `oec:AccessRights` | Data visibility control | Article 9 |
+| `oec:CircularityInfo` | End-of-life and recycling information | Article 7 |
+| `oec:MaterialComposition` | Material composition with CRM tracking | Article 7 |
+| `oec:RecycledContent` | Pre/post consumer recycled content | Article 7 |
+| `oec:DueDiligenceReport` | Supply chain due diligence | Article 7 |
+| `oec:DocumentReference` | Supporting documents and certificates | General |
 
 ### Enumerations
 
 | Enumeration | Values | Purpose |
 |-------------|--------|---------|
-| `dpp:OperatorRole` | Manufacturer, Importer, Distributor, AuthorisedRepresentative, FulfilmentServiceProvider, Processor, Trader | ESPR Articles 15-17 |
-| `dpp:AccessLevel` | Public, AuthorizedOnly, Restricted | Article 9 |
-| `dpp:ProductCategory` | Batteries, Textiles, Electronics, Furniture, Tyres, ConstructionProducts, Chemicals, Packaging, FoodContact, IronSteel, Aluminium | ESPR priority sectors |
-| `dpp:HazardClass` | CLP Regulation hazard classes | Article 8 |
-| `dpp:DocumentType` | Certificate, TestReport, Manual, SafetyDataSheet, etc. | General |
+| `oec:OperatorRole` | Manufacturer, Importer, Distributor, AuthorisedRepresentative, FulfilmentServiceProvider, Processor, Trader | ESPR Articles 15-17 |
+| `oec:AccessLevel` | Public, AuthorizedOnly, Restricted | Article 9 |
+| `oec:ProductCategory` | Batteries, Textiles, Electronics, Furniture, Tyres, ConstructionProducts, Chemicals, Packaging, FoodContact, IronSteel, Aluminium | ESPR priority sectors |
+| `oec:HazardClass` | CLP Regulation hazard classes | Article 8 |
+| `oec:DocumentType` | Certificate, TestReport, Manual, SafetyDataSheet, etc. | General |
 
 ---
 
@@ -110,26 +110,26 @@ The core module provides the following ESPR-aligned classes:
 | Property | Type | Description |
 |----------|------|-------------|
 | `gs1:productID` | URI | GS1 Digital Link product identifier |
-| `dpp:passportIdentifier` | URI | Unique DPP instance identifier |
-| `dpp:passportVersion` | string | DPP version number |
-| `dpp:passportIssueDate` | date | DPP creation date |
-| `dpp:passportStatus` | PassportStatus | Draft, Active, Updated, Withdrawn, Archived |
-| `dpp:passportLastModified` | dateTime | Last modification timestamp |
-| `dpp:passportExpiryDate` | date | Passport expiry/renewal date |
-| `dpp:passportIssuer` | OperatorInformation | Responsible economic operator |
-| `dpp:previousPassportVersion` | URI | Link to previous passport version |
+| `oec:passportIdentifier` | URI | Unique DPP instance identifier |
+| `oec:passportVersion` | string | DPP version number |
+| `oec:passportIssueDate` | date | DPP creation date |
+| `oec:passportStatus` | PassportStatus | Draft, Active, Updated, Withdrawn, Archived |
+| `oec:passportLastModified` | dateTime | Last modification timestamp |
+| `oec:passportExpiryDate` | date | Passport expiry/renewal date |
+| `oec:passportIssuer` | OperatorInformation | Responsible economic operator |
+| `oec:previousPassportVersion` | URI | Link to previous passport version |
 | `schema:ProductModel` | string | Manufacturer model identifier |
-| `dpp:productCategory` | ProductCategory | ESPR product category |
+| `oec:productCategory` | ProductCategory | ESPR product category |
 
 ### Economic Operator (Article 77)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `dpp:economicOperatorId` | string | EU-wide EOID number |
-| `dpp:eoriNumber` | string | Customs EORI number |
+| `oec:economicOperatorId` | string | EU-wide EOID number |
+| `oec:eoriNumber` | string | Customs EORI number |
 | `schema:vatID` | string | VAT ID |
-| `dpp:operatorRole` | OperatorRole | Role in supply chain |
-| `dpp:registrationNumber` | string | National registration |
+| `oec:operatorRole` | OperatorRole | Role in supply chain |
+| `oec:registrationNumber` | string | National registration |
 
 ### Facility Information
 
@@ -137,53 +137,53 @@ The core module provides the following ESPR-aligned classes:
 |----------|------|-------------|
 | `gs1:gln` | string | Facility identifier (GLN, inherited from gs1:Place) |
 | `gs1:name` | string | Facility name (inherited from gs1:Place) |
-| `dpp:facilityType` | string | Manufacturing, Processing, Assembly |
+| `oec:facilityType` | string | Manufacturing, Processing, Assembly |
 | `gs1:address` | PostalAddress | Physical address (inherited from gs1:Place) |
-| `dpp:facilityCertifications` | CertificationDetails | ISO and other certifications |
+| `oec:facilityCertifications` | CertificationDetails | ISO and other certifications |
 
 ### Performance & Durability (Article 7)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `dpp:expectedLifespan` | QuantitativeValue | Expected product lifetime |
-| `dpp:guaranteedLifespan` | QuantitativeValue | Manufacturer guarantee |
-| `dpp:usageCycles` | integer | Expected usage cycles |
-| `dpp:technicalLifetime` | QuantitativeValue | Technical lifetime |
-| `dpp:performanceClass` | string | A-G efficiency class |
-| `dpp:testedConditions` | string | Test conditions description |
+| `oec:expectedLifespan` | QuantitativeValue | Expected product lifetime |
+| `oec:guaranteedLifespan` | QuantitativeValue | Manufacturer guarantee |
+| `oec:usageCycles` | integer | Expected usage cycles |
+| `oec:technicalLifetime` | QuantitativeValue | Technical lifetime |
+| `oec:performanceClass` | string | A-G efficiency class |
+| `oec:testedConditions` | string | Test conditions description |
 
 ### Repairability (Article 7)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `dpp:repairabilityScore` | decimal | 0-10 repairability index |
-| `dpp:repairabilityClass` | string | A-E repairability class |
-| `dpp:sparePartsAvailability` | QuantitativeValue | Years spare parts available |
+| `oec:repairabilityScore` | decimal | 0-10 repairability index |
+| `oec:repairabilityClass` | string | A-E repairability class |
+| `oec:sparePartsAvailability` | QuantitativeValue | Years spare parts available |
 | `schema:deliveryTime` | QuantitativeValue | Max delivery time |
-| `dpp:diyRepairPossible` | boolean | Consumer repair possible |
-| `dpp:professionalRepairNetwork` | URI | Find repair services |
-| `dpp:repairInstructions` | DocumentReference | Repair manual |
-| `dpp:softwareUpdatesAvailability` | QuantitativeValue | Software support period |
+| `oec:diyRepairPossible` | boolean | Consumer repair possible |
+| `oec:professionalRepairNetwork` | URI | Find repair services |
+| `oec:repairInstructions` | DocumentReference | Repair manual |
+| `oec:softwareUpdatesAvailability` | QuantitativeValue | Software support period |
 
 ### Substances of Concern (Article 8)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `dpp:substancesOfConcern` | SubstanceOfConcern[] | List of SVHCs |
-| `dpp:ecNumber` | string | EINECS/ELINCS number |
-| `dpp:scipId` | string | ECHA SCIP database ID |
-| `dpp:substanceLocation` | string | Location in product |
-| `dpp:safeUseInstructions` | string | Safe handling |
-| `dpp:safeDisassemblyInstructions` | string | Safe disassembly |
+| `oec:substancesOfConcern` | SubstanceOfConcern[] | List of SVHCs |
+| `oec:ecNumber` | string | EINECS/ELINCS number |
+| `oec:scipId` | string | ECHA SCIP database ID |
+| `oec:substanceLocation` | string | Location in product |
+| `oec:safeUseInstructions` | string | Safe handling |
+| `oec:safeDisassemblyInstructions` | string | Safe disassembly |
 
 ### Access Control (Article 9)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `dpp:accessRights` | AccessRights | Access configuration |
-| `dpp:accessLevel` | AccessLevel | Public, AuthorizedOnly, Restricted |
-| `dpp:authorizedParties` | Organization[] | Parties with access |
-| `dpp:dataRetentionPeriod` | QuantitativeValue | Data retention requirement |
+| `oec:accessRights` | AccessRights | Access configuration |
+| `oec:accessLevel` | AccessLevel | Public, AuthorizedOnly, Restricted |
+| `oec:authorizedParties` | Organization[] | Parties with access |
+| `oec:dataRetentionPeriod` | QuantitativeValue | Data retention requirement |
 
 ---
 
@@ -213,10 +213,10 @@ ESPR defines approximately 125 data points grouped into categories. The core mod
 {
   "gs1:productID": { "id": "https://id.gs1.org/01/09521234000013/21/SN-001" },
   "schema:ProductModel": "MODEL-2025-A",
-  "dpp:productCategory": "Electronics",
-  "dpp:passportIdentifier": { "id": "https://id.gs1.org/01/09521234000013/21/SN-001/10/DPP" },
-  "dpp:passportVersion": "1.0",
-  "dpp:passportIssueDate": "2025-01-15"
+  "oec:productCategory": "Electronics",
+  "oec:passportIdentifier": { "id": "https://id.gs1.org/01/09521234000013/21/SN-001/10/DPP" },
+  "oec:passportVersion": "1.0",
+  "oec:passportIssueDate": "2025-01-15"
 }
 ```
 
@@ -225,7 +225,7 @@ ESPR defines approximately 125 data points grouped into categories. The core mod
 {
   "type": "OperatorInformation",
   "operatorRole": "Manufacturer",
-  "dpp:economicOperatorId": "EOID-DE-2025-123456",
+  "oec:economicOperatorId": "EOID-DE-2025-123456",
   "gs1:partyGLN": "9521234000006",
   "gs1:organizationName": "Example GmbH"
 }
@@ -237,7 +237,7 @@ ESPR defines approximately 125 data points grouped into categories. The core mod
   "type": "FacilityInformation",
   "gs1:gln": "9521234000099",
   "gs1:name": "Production Plant Berlin",
-  "dpp:facilityType": "Manufacturing"
+  "oec:facilityType": "Manufacturing"
 }
 ```
 
@@ -245,13 +245,13 @@ ESPR defines approximately 125 data points grouped into categories. The core mod
 ```json
 {
   "type": "PerformanceInfo",
-  "dpp:expectedLifespan": {
+  "oec:expectedLifespan": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
   },
-  "dpp:usageCycles": 3000,
-  "dpp:performanceClass": "A"
+  "oec:usageCycles": 3000,
+  "oec:performanceClass": "A"
 }
 ```
 
@@ -259,14 +259,14 @@ ESPR defines approximately 125 data points grouped into categories. The core mod
 ```json
 {
   "type": "RepairabilityInfo",
-  "dpp:repairabilityScore": 7.5,
-  "dpp:repairabilityClass": "B",
-  "dpp:sparePartsAvailability": {
+  "oec:repairabilityScore": 7.5,
+  "oec:repairabilityClass": "B",
+  "oec:sparePartsAvailability": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
   },
-  "dpp:diyRepairPossible": true
+  "oec:diyRepairPossible": true
 }
 ```
 
@@ -275,19 +275,19 @@ ESPR defines approximately 125 data points grouped into categories. The core mod
 {
   "type": "SubstanceOfConcern",
   "schema:name": "Lead",
-  "dpp:casNumber": "7439-92-1",
-  "dpp:scipId": "SCIP-12345678",
-  "dpp:substanceLocation": "Battery electrodes",
-  "dpp:safeUseInstructions": "Avoid contact"
+  "oec:casNumber": "7439-92-1",
+  "oec:scipId": "SCIP-12345678",
+  "oec:substanceLocation": "Battery electrodes",
+  "oec:safeUseInstructions": "Avoid contact"
 }
 ```
 
 #### 7. Carbon Footprint
 ```json
 {
-  "dpp:carbonFootprintTotal": 45.2,
-  "dpp:carbonFootprintUnit": "kg CO2e/unit",
-  "dpp:carbonFootprintStudyUrl": { "id": "https://example.com/cfp-study.pdf" }
+  "oec:carbonFootprintTotal": 45.2,
+  "oec:carbonFootprintUnit": "kg CO2e/unit",
+  "oec:carbonFootprintStudyUrl": { "id": "https://example.com/cfp-study.pdf" }
 }
 ```
 
@@ -295,8 +295,8 @@ ESPR defines approximately 125 data points grouped into categories. The core mod
 ```json
 {
   "type": "CircularityInfo",
-  "dpp:recyclabilityRate": 95.5,
-  "dpp:endOfLifeInstructions": { "id": "https://example.com/eol-guide.pdf" }
+  "oec:recyclabilityRate": 95.5,
+  "oec:endOfLifeInstructions": { "id": "https://example.com/eol-guide.pdf" }
 }
 ```
 
@@ -316,9 +316,9 @@ Accessible to all users including consumers:
 
 ```json
 {
-  "dpp:accessRights": {
+  "oec:accessRights": {
     "type": "AccessRights",
-    "dpp:accessLevel": "Public"
+    "oec:accessLevel": "Public"
   }
 }
 ```
@@ -332,9 +332,9 @@ Accessible to market surveillance and customs authorities:
 
 ```json
 {
-  "dpp:accessRights": {
+  "oec:accessRights": {
     "type": "AccessRights",
-    "dpp:accessLevel": "AuthorizedOnly"
+    "oec:accessLevel": "AuthorizedOnly"
   }
 }
 ```
@@ -347,10 +347,10 @@ Accessible to specific authorized economic operators:
 
 ```json
 {
-  "dpp:accessRights": {
+  "oec:accessRights": {
     "type": "AccessRights",
-    "dpp:accessLevel": "Restricted",
-    "dpp:authorizedParties": [
+    "oec:accessLevel": "Restricted",
+    "oec:authorizedParties": [
       {
         "type": "gs1:Organization",
         "gs1:partyGLN": "9521234000105"
@@ -369,8 +369,8 @@ ESPR Article 77 establishes a single EU-wide registry for economic operators. Th
 ```json
 {
   "type": "OperatorInformation",
-  "dpp:economicOperatorId": "EOID-DE-2025-123456",
-  "dpp:eoriNumber": "DE123456789012345",
+  "oec:economicOperatorId": "EOID-DE-2025-123456",
+  "oec:eoriNumber": "DE123456789012345",
   "schema:vatID": "DE123456789"
 }
 ```
@@ -379,11 +379,11 @@ ESPR Article 77 establishes a single EU-wide registry for economic operators. Th
 
 | Role | ESPR Article | DPP Value |
 |------|--------------|-----------|
-| Manufacturer | Article 15 | `dpp:Manufacturer` |
-| Importer | Article 16 | `dpp:Importer` |
-| Authorised Representative | Article 16 | `dpp:AuthorisedRepresentative` |
-| Distributor | Article 17 | `dpp:Distributor` |
-| Fulfilment Service Provider | Article 17 | `dpp:FulfilmentServiceProvider` |
+| Manufacturer | Article 15 | `oec:Manufacturer` |
+| Importer | Article 16 | `oec:Importer` |
+| Authorised Representative | Article 16 | `oec:AuthorisedRepresentative` |
+| Distributor | Article 17 | `oec:Distributor` |
+| Fulfilment Service Provider | Article 17 | `oec:FulfilmentServiceProvider` |
 
 ---
 
@@ -399,7 +399,7 @@ The framework aligns with GS1 standards for interoperability:
 ### GS1-Extensions Header
 Declare the DPP extension in EPCIS requests:
 ```http
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/
 ```
 
 ### Context Integration

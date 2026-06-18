@@ -12,7 +12,7 @@ terms, and a single change at a higher layer benefits every module above it.
    │    eu/detergent eu/ppwr  eu/cpr        us/fsma204   …            │
    │  ↓ each module only mints terms unique to its regulation         │
    ├──────────────────────────────────────────────────────────────────┤
-   │  Layer 3 — DPP common core (`dpp:`)                              │
+   │  Layer 3 — DPP common core (`oec:`)                              │
    │    Cross-cutting concepts that ≥2 regulations share:             │
    │    EPR, Compostability, Biodegradability, DepositReturnScheme,   │
    │    RecycledContent, HazardousSubstance, OperatorInformation,     │
@@ -54,7 +54,7 @@ terms, and a single change at a higher layer benefits every module above it.
 The stack diagram above shows containment (which layer holds which
 concept). The diagram below shows **how the vocabularies actually relate
 to each other** — which terms are equivalent, which are derived from
-which, and how `dpp:` and module terms anchor upward.
+which, and how `oec:` and module terms anchor upward.
 
 ```mermaid
 graph BT
@@ -70,20 +70,20 @@ graph BT
         CIRPASS["CIRPASS-2 D3.x<br/>pilot requirements"]
     end
 
-    subgraph L3["Layer 3 — DPP common core (dpp:)"]
-        DPP_OP["dpp:OperatorInformation"]
-        DPP_DDR["dpp:DueDiligenceReport"]
-        DPP_FAC["dpp:FacilityInformation"]
-        DPP_DOC["dpp:DocumentReference"]
-        DPP_PERF["dpp:CircularityPerformance<br/>EmissionsPerformance<br/>TraceabilityPerformance"]
-        DPP_HAZ["dpp:HazardousSubstance<br/>SubstanceOfConcern<br/>(no upstream peer)"]
+    subgraph L3["Layer 3 — DPP common core (oec:)"]
+        DPP_OP["oec:OperatorInformation"]
+        DPP_DDR["oec:DueDiligenceReport"]
+        DPP_FAC["oec:FacilityInformation"]
+        DPP_DOC["oec:DocumentReference"]
+        DPP_PERF["oec:CircularityPerformance<br/>EmissionsPerformance<br/>TraceabilityPerformance"]
+        DPP_HAZ["oec:HazardousSubstance<br/>SubstanceOfConcern<br/>(no upstream peer)"]
     end
 
     subgraph L4["Layer 4 — Regulation modules"]
-        BAT["battery:<br/>operatorIdentifier, notifiedBodyNumber,<br/>declarationOfConformity, supplierContact"]
-        ELEC["electronics:<br/>RepairCriterion, criterionScore"]
+        BAT["eubat:<br/>operatorIdentifier, notifiedBodyNumber,<br/>declarationOfConformity, supplierContact"]
+        ELEC["euelec:<br/>RepairCriterion, criterionScore"]
         EUDR["eudr:<br/>geolocation, transformationLocation"]
-        TEX["textile:<br/>RobustnessAssessment,<br/>spinning/weaving/dyeing/cutAndSew/finishingFacility"]
+        TEX["eutex:<br/>RobustnessAssessment,<br/>spinning/weaving/dyeing/cutAndSew/finishingFacility"]
     end
 
     %% --- Layer 2 → Layer 1 derivations ---
@@ -109,13 +109,13 @@ graph BT
 
     %% --- Layer 4 → Layer 3 / Layer 1 anchors ---
     BAT -.->|"adms:Identifier<br/>cv:PublicOrganisation<br/>cv:ContactPoint<br/>cccev:Evidence"| SEMIC
-    BAT -.->|"dpp:OperatorInformation"| DPP_OP
+    BAT -.->|"oec:OperatorInformation"| DPP_OP
 
     ELEC -.->|"owl:equivalentClass<br/>cccev:Criterion<br/>cccev:SupportedValue"| SEMIC
 
     EUDR -.->|"locn:Geometry<br/>locn:Location"| SEMIC
 
-    TEX -.->|"dpp:FacilityInformation<br/>(cascades to locn:Location)"| DPP_FAC
+    TEX -.->|"oec:FacilityInformation<br/>(cascades to locn:Location)"| DPP_FAC
     TEX -.->|"cccev:Evidence<br/>(RobustnessAssessment)"| SEMIC
 
     classDef l1 fill:#dbeafe,stroke:#1e40af,stroke-width:2px;
@@ -136,10 +136,10 @@ Reading the diagram:
 
 A few things the diagram makes visible that the stack diagram alone hides:
 
-1. **CCCEV → UNTP → `dpp:`** is a real chain. UNTP's conformity model is itself derived from CCCEV (SEMICeu). When the project anchors `dpp:DueDiligenceReport` to both `untp:` and `cccev:Evidence`, those two are upstream-of-upstream — anchoring to the EU foundation doesn't bypass UNTP, it adds a second canonical view of the same fact.
-2. **`dpp:OperatorInformation` is the textbook three-anchor case**: structurally a `gs1:Organization`, semantically equivalent to `untp:Party`, and an EU-portal peer of `cv:LegalEntity`. All three serialisations describe the same operator.
-3. **`dpp:HazardousSubstance` and similar CLP/REACH terms have no upstream peer.** Those `dpp:` terms genuinely fill a gap and stay minted. The diagram shows them isolated at Layer 3 — that's deliberate, not an oversight.
-4. **Module terms cascade through `dpp:` rather than re-anchoring.** `textile:spinningFacility` ranges to `dpp:FacilityInformation`; the upward anchor to `locn:Location` lives on `dpp:`, so every module facility property inherits the SEMICeu peer for free.
+1. **CCCEV → UNTP → `oec:`** is a real chain. UNTP's conformity model is itself derived from CCCEV (SEMICeu). When the project anchors `oec:DueDiligenceReport` to both `untp:` and `cccev:Evidence`, those two are upstream-of-upstream — anchoring to the EU foundation doesn't bypass UNTP, it adds a second canonical view of the same fact.
+2. **`oec:OperatorInformation` is the textbook three-anchor case**: structurally a `gs1:Organization`, semantically equivalent to `untp:Party`, and an EU-portal peer of `cv:LegalEntity`. All three serialisations describe the same operator.
+3. **`oec:HazardousSubstance` and similar CLP/REACH terms have no upstream peer.** Those `oec:` terms genuinely fill a gap and stay minted. The diagram shows them isolated at Layer 3 — that's deliberate, not an oversight.
+4. **Module terms cascade through `oec:` rather than re-anchoring.** `eutex:spinningFacility` ranges to `oec:FacilityInformation`; the upward anchor to `locn:Location` lives on `oec:`, so every module facility property inherits the SEMICeu peer for free.
 
 ## The delegation rule
 
@@ -154,13 +154,13 @@ foundational vocabularies in this order: **GS1 → SEMICeu → schema.org**.
 | Already in **EU SEMICeu Core Vocabularies** (`cv:` / `cccev:` / `locn:` / `adms:` / `cpsv:`) | Use it directly **and** anchor any local alias upward via `owl:equivalentClass` / `owl:equivalentProperty`. SEMICeu is the EU-canonical source for public bodies, conformity (CCCEV), legal entities, persons, addresses, and identifier schemes. |
 | Already in **schema.org** | Use it directly. schema.org is the universal-web fallback for ratings, observations, and generic metadata that GS1 and SEMICeu don't cover. |
 | Already in UNTP / CIRPASS-2 / JTC 24 | Reference it directly **and** anchor any local alias upward. |
-| Cross-cuts ≥2 regulations but absent upstream | Mint at `dpp:` (common/core). |
+| Cross-cuts ≥2 regulations but absent upstream | Mint at `oec:` (common/core). |
 | Specific to one regulation | Mint at the module namespace (`eu/<module>:`). |
 
 **Conversely:** if you find yourself adding the same concept to two modules,
-that's a signal it should move down to `dpp:`. If a `dpp:` term turns out
+that's a signal it should move down to `oec:`. If a `oec:` term turns out
 to be a SEMICeu / GS1 / schema.org duplicate, **redo and match upstream**:
-either delete the `dpp:` term in favour of the upstream IRI, or strong-anchor
+either delete the `oec:` term in favour of the upstream IRI, or strong-anchor
 it via `owl:equivalentClass` / `owl:equivalentProperty` and prefer the
 upstream IRI in JSON-LD serialisations.
 
@@ -206,8 +206,8 @@ reference), and a product description still flows through `gs1:` /
    understands our data.
 2. **Module thinness drives audit clarity.** A reviewer looking at PPWR
    doesn't have to understand what packaging-specific recyclability means
-   versus textile-specific recyclability — both reuse `dpp:RecyclabilityAssessment`.
-3. **A single change cascades.** Adding `dpp:bioBasedFraction` once means
+   versus textile-specific recyclability — both reuse `oec:RecyclabilityAssessment`.
+3. **A single change cascades.** Adding `oec:bioBasedFraction` once means
    PPWR, Detergent, and Textile can all express bio-based content
    identically without coordinating.
 4. **Future EU regulations are cheap to add.** CPR, Right-to-Repair, ELV-
@@ -225,34 +225,34 @@ reference), and a product description still flows through `gs1:` /
 | Detergents 2026/405 | ✅ shipped (`eu/detergent`) | 0 (mature) |
 | **PPWR 2025/40** | ✅ shipped (`eu/ppwr`, v0.1.0) | 4 (Packaging, packagingTier, recyclabilityGrade, harmonisedSymbol) |
 | **CPR 2024/3110** | ✅ shipped (`eu/cpr`, v0.1.0) | 5 (ConstructionProduct, constructionProductType enum, reactionToFireClass enum, declarationOfPerformanceUrl, EssentialCharacteristic) |
-| **Right-to-Repair 2024/1799** | ✅ shipped (dpp: enrichment) | 0 — enriches `dpp:RepairabilityInfo` with `dpp:repairInformationPortalUrl` and `dpp:RepairProvider` class |
-| **CSDDD 2024/1760** | ✅ shipped (dpp: enrichment) | 0 — enriches `dpp:DueDiligenceReport` with `dpp:dueDiligenceRegulationContext` and `dpp:supplyChainTransparencyUrl` |
-| **Forced Labour 2024/3015** | ✅ shipped (dpp: enrichment) | 0 — enriches `dpp:DueDiligenceReport` with `dpp:forcedLabourFreeAssertion` |
-| **CRMA 2024/1252** | ✅ shipped (dpp: enrichment) | 0 — enriches `dpp:MaterialComposition` with `dpp:isStrategicRawMaterial` and `dpp:crmListVersion` |
+| **Right-to-Repair 2024/1799** | ✅ shipped (oec: enrichment) | 0 — enriches `oec:RepairabilityInfo` with `oec:repairInformationPortalUrl` and `oec:RepairProvider` class |
+| **CSDDD 2024/1760** | ✅ shipped (oec: enrichment) | 0 — enriches `oec:DueDiligenceReport` with `oec:dueDiligenceRegulationContext` and `oec:supplyChainTransparencyUrl` |
+| **Forced Labour 2024/3015** | ✅ shipped (oec: enrichment) | 0 — enriches `oec:DueDiligenceReport` with `oec:forcedLabourFreeAssertion` |
+| **CRMA 2024/1252** | ✅ shipped (oec: enrichment) | 0 — enriches `oec:MaterialComposition` with `oec:isStrategicRawMaterial` and `oec:crmListVersion` |
 | FSMA 204 (US) | ✅ shipped (`us/fsma204`) | 0 (mature) |
 | End-of-Life Vehicles (revision) | when adopted | ~5 |
 | Toys Safety (revision) | when adopted | ~5 |
 
-## Genuine `dpp:` gaps — what we minted, why no upstream had it
+## Genuine `oec:` gaps — what we minted, why no upstream had it
 
 CIRPASS-2 D3.2 (April 2025) confirmed three concepts as gaps in published
-vocabulary; we minted them at `dpp:`:
+vocabulary; we minted them at `oec:`:
 
-1. **Extended Producer Responsibility** (`dpp:ExtendedProducerResponsibility`) —
+1. **Extended Producer Responsibility** (`oec:ExtendedProducerResponsibility`) —
    national EPR registries vary per Member State; no single international
    vocabulary covers them.
-2. **Compostability + Biodegradability + Bio-based** (`dpp:Compostability`,
-   `dpp:Biodegradability`, `dpp:bioBasedFraction`) — distinct concepts often
+2. **Compostability + Biodegradability + Bio-based** (`oec:Compostability`,
+   `oec:Biodegradability`, `oec:bioBasedFraction`) — distinct concepts often
    conflated; references to EN 13432, OK-Compost-Home, ASTM D6400, ISO 14593,
    OECD 301B/D/F.
-3. **Deposit-Return Scheme** (`dpp:DepositReturnScheme`) — national / planned
+3. **Deposit-Return Scheme** (`oec:DepositReturnScheme`) — national / planned
    EU-harmonised schemes; no upstream vocabulary.
 
 Everything else delegates upward.
 
 ## Where to read this in code
 
-- `extensions/common/core/ontology/dpp-core.ttl` — the `dpp:` definitions
+- `extensions/common/core/ontology/dpp-core.ttl` — the `oec:` definitions
   with `owl:equivalentClass`/`equivalentProperty` declarations to GS1,
   schema.org, SEMICeu Core Vocabularies, and UNTP.
 - `extensions/common/interop/context/semic-core-bridge-context.jsonld` —
@@ -264,7 +264,7 @@ Everything else delegates upward.
   and UNTP IRIs.
 - `extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md` — the
   canonical reference for how SEMICeu Core Vocabularies are integrated
-  and which `dpp:` / module terms anchor to them.
+  and which `oec:` / module terms anchor to them.
 - `extensions/common/core/docs/PATTERNS.md` — full pattern reference for
   implementers.
 
@@ -272,6 +272,6 @@ Everything else delegates upward.
 
 <https://ref.openepcis.io/extensions/> — region landing pages
 (`/eu`, `/us`, `/common`) list each module with a short description that
-states what it delegates to `dpp:`. Each `dpp:` term page shows its
+states what it delegates to `oec:`. Each `oec:` term page shows its
 `owl:equivalentClass`/`equivalentProperty` upward links to schema.org,
 GS1, SEMICeu (`http://data.europa.eu/m8g/...`), and UNTP.

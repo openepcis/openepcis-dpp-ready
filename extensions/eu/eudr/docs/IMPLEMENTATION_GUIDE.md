@@ -387,7 +387,7 @@ See `eudr/epcis/exemption-declaration.jsonld` for the full example.
 | Exemption reason code | `eudr:exemptionReasonCode` | IMD segment C273:DE7009 | dedicated attribute |
 | Temporary batch/serial scope | `eudr:exemptionScope` + `exemptionScopeReference` | GIN segment under SG22 | exemption attribute on item |
 | Date range | `eudr:exemptionEffectiveFrom/Until` | date segments | date attributes |
-| Declaring party | `eudr:exemptionAuthority` (dpp:OperatorInformation) | NAD segments | partyGLN attribute |
+| Declaring party | `eudr:exemptionAuthority` (oec:OperatorInformation) | NAD segments | partyGLN attribute |
 
 ### Controlled vocabularies (pending)
 

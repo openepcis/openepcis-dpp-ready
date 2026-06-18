@@ -191,10 +191,10 @@ The EUDR module reuses ESPR-aligned patterns from the core DPP module:
 
 | ESPR Pattern | Core Class | EUDR Usage |
 |--------------|------------|------------|
-| Article 77 - Operator ID | `dpp:economicOperatorId` | EOID for operators placing products on EU market |
-| Due Diligence | `dpp:DueDiligenceReport` | EUDR due diligence documentation |
-| Documents | `dpp:DocumentReference` | Supporting certificates and reports |
-| Operators | `dpp:OperatorInformation` | Economic operator details |
+| Article 77 - Operator ID | `oec:economicOperatorId` | EOID for operators placing products on EU market |
+| Due Diligence | `oec:DueDiligenceReport` | EUDR due diligence documentation |
+| Documents | `oec:DocumentReference` | Supporting certificates and reports |
+| Operators | `oec:OperatorInformation` | Economic operator details |
 
 ### Regulatory Framework Relationship
 
@@ -228,9 +228,9 @@ The EUDR module reuses ESPR-aligned patterns from the core DPP module:
 ## Dependencies
 
 - **Core module**: `>= 0.9.6`
-  - Uses `dpp:OperatorInformation` for economic operator data
-  - Uses `dpp:DueDiligenceReport` for due diligence documentation
-  - Uses `dpp:DocumentReference` for supporting documents
+  - Uses `oec:OperatorInformation` for economic operator data
+  - Uses `oec:DueDiligenceReport` for due diligence documentation
+  - Uses `oec:DocumentReference` for supporting documents
 
 ## Usage
 
@@ -249,7 +249,7 @@ GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/
 With multiple extensions:
 
 ```http
-GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/, dpp=https://ref.openepcis.io/extensions/common/core/
+GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/, oec=https://ref.openepcis.io/extensions/common/core/
 ```
 
 See [docs/EPCIS_EXTENSION_GUIDE.md](./docs/EPCIS_EXTENSION_GUIDE.md) for complete EPCIS integration patterns.
@@ -257,7 +257,7 @@ See [docs/EPCIS_EXTENSION_GUIDE.md](./docs/EPCIS_EXTENSION_GUIDE.md) for complet
 ### Import the ontology
 ```turtle
 @prefix eudr: <https://ref.openepcis.io/extensions/eu/eudr/> .
-@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
 
 # Your implementation imports EUDR
 <https://example.com/my-implementation/> owl:imports <https://ref.openepcis.io/extensions/eu/eudr/> .
@@ -279,7 +279,7 @@ See [docs/EPCIS_EXTENSION_GUIDE.md](./docs/EPCIS_EXTENSION_GUIDE.md) for complet
 | Prefix | Namespace | Purpose |
 |--------|-----------|---------|
 | `gs1:` | `https://ref.gs1.org/voc/` | Core GS1 vocabulary (use for master data) |
-| `dpp:` | `https://ref.openepcis.io/extensions/common/core/` | DPP Core extension properties |
+| `oec:` | `https://ref.openepcis.io/extensions/common/core/` | DPP Core extension properties |
 | `eudr:` | `https://ref.openepcis.io/extensions/eu/eudr/` | EUDR extension properties (not yet standardised) |
 
 **Note**: The `eudr:` namespace provides extension properties for EUDR-specific origin data. For master data, always prefer standard `gs1:` vocabulary (`gs1:Place`, `gs1:Product`, `gs1:Organization`).

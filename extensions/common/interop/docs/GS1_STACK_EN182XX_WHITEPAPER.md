@@ -55,7 +55,7 @@ than require:
 - **Keycloak** (OIDC / OAuth2) for identity and tiered access.[^keycloak]
 
 The strongest accurate alignment: EN 18223's `DigitalProductPassport`
-model maps almost one-to-one onto our `dpp:` core, and its decoupled
+model maps almost one-to-one onto our `oec:` core, and its decoupled
 "data-dictionary repository" with `dictionaryReference` pointers is
 exactly what ref.openepcis.io provides.
 
@@ -147,7 +147,7 @@ flowchart TB
 
     subgraph DATA["Data plane"]
         REG["ref.openepcis.io<br/>EN 18223 §4.3 data dictionary<br/>ontologies · JSON-LD @context · JSON Schema + SHACL"]
-        CORE["Immutable core passport<br/>EN 18223 model, JSON-LD over GS1 + SEMICeu + schema.org + dpp:"]
+        CORE["Immutable core passport<br/>EN 18223 model, JSON-LD over GS1 + SEMICeu + schema.org + oec:"]
         EPCIS["OpenEPCIS EPCIS repository<br/>EN 18222 API · EN 18221 storage<br/>speaks 1.2 XML + 2.0 JSON-LD · stores 2.0"]
     end
 
@@ -268,7 +268,7 @@ each namespace at ref.openepcis.io.
 ```http
 POST /capture HTTP/1.1
 Content-Type: application/ld+json
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/, battery=https://ref.openepcis.io/extensions/eu/battery/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, eubat=https://ref.openepcis.io/extensions/eu/battery/
 Authorization: Bearer <access_token>
 ```
 
@@ -352,7 +352,7 @@ carrier choice: QR primary, the radio carriers first-class alongside it.
 ESPR requires differentiated access to passport data: some is public,
 some is limited to authorized parties (repairers, recyclers, customs),
 and some is restricted. EPCIS4DPP expresses these tiers with
-`dpp:AccessLevel` (Public, AuthorizedOnly, Restricted) and enforces them
+`oec:AccessLevel` (Public, AuthorizedOnly, Restricted) and enforces them
 with Keycloak in front of the resolver and the repository.[^keycloak] The
 reference deployment runs Keycloak with OAuth2; the Bruno collection
 authenticates with an OAuth2 client and bearer tokens.
@@ -384,7 +384,7 @@ serialisation**. It does not prescribe JSON-LD, RDF, OWL, or SHACL.
 `contentSpecificationIds`, and any number of `DataElement`s
 (`SingleValuedDataElement`, `MultiValuedDataElement`,
 `MultiLanguageDataElement`, `RelatedResource`, `DataElementCollection`).
-This maps almost one-to-one onto our `dpp:` core; the attribute-level
+This maps almost one-to-one onto our `oec:` core; the attribute-level
 reconciliation is tracked in
 [`EN18223_MODEL_ALIGNMENT.md`](./EN18223_MODEL_ALIGNMENT.md). In
 EPCIS4DPP, `granularity` is derived from the GS1 Digital Link Application
@@ -540,9 +540,9 @@ Concise verdicts; the cited detail is in
 | **EN 18216** Data exchange | HTTPS/TLS/HTTP-2 + JSON + content negotiation | JSON-LD and HTML over HTTPS; EPCIS reuses the transport | Conformant |
 | **EN 18221** Storage | Archiving/persistence + provider roles, neutral on tech | Append-only EPCIS + versioned core (a conformant pattern); roles + OAIS tracked | Partial |
 | **EN 18222** APIs | Concrete DPP REST API + registry | Expose the method surface (tracked); EPCIS query + resolver added | Planned |
-| **EN 18223** Interoperability | UML+JSON model + data dictionary | `dpp:` core maps to it; ref.openepcis.io is the §4.3 dictionary | Conformant |
+| **EN 18223** Interoperability | UML+JSON model + data dictionary | `oec:` core maps to it; ref.openepcis.io is the §4.3 dictionary | Conformant |
 
-`dpp:passportStatus` carries the EN 18223 base set (active, inactive,
+`oec:passportStatus` carries the EN 18223 base set (active, inactive,
 archived, invalid) and adds draft, withdrawn, and suspended; EN 18223
 permits further values defined by legal acts.
 
@@ -613,10 +613,10 @@ Keycloak token, calls `ReadDPPById`; the response is the EN 18223
   "uniqueProductIdentifier": "https://id.example.org/01/09521234000013/21/BAT2024-001",
   "granularity": "item",
   "dppStatus": "active",
-  "type": ["gs1:Product", "battery:Battery"],
-  "battery:ratedCapacity": { "@type": "gs1:QuantitativeValue", "value": 75, "unitCode": "kWh" },
-  "battery:stateOfHealth": 0.92,
-  "dpp:recycledContent": 0.16
+  "type": ["gs1:Product", "eubat:Battery"],
+  "eubat:ratedCapacity": { "@type": "gs1:QuantitativeValue", "value": 75, "unitCode": "kWh" },
+  "eubat:stateOfHealth": 0.92,
+  "oec:recycledContent": 0.16
 }
 ```
 
@@ -663,10 +663,10 @@ four of them (EN 18219, EN 18220, EN 18216, EN 18223); EN 18221 is partial
 and the EN 18222 API is planned. Two standards remain in development:
 
 - **prEN 18239 (Access rights, security, business confidentiality).**
-  `dpp:AccessLevel` plus Keycloak enforce the access tiers today;
+  `oec:AccessLevel` plus Keycloak enforce the access tiers today;
   fine-grained per-role link policies expand as the standard finalises.
-- **prEN 18246 (Data authentication, reliability, integrity).** `dpp:did`
-  and `dpp:identityCredentialUrl` provide hooks; Verifiable Credentials
+- **prEN 18246 (Data authentication, reliability, integrity).** `oec:did`
+  and `oec:identityCredentialUrl` provide hooks; Verifiable Credentials
   and Electronically Signed Data Constructs follow the final text. This
   standard is a normative reference in EN 18221, and appears in the EN 18223
   bibliography.

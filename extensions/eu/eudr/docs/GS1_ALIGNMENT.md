@@ -69,7 +69,7 @@ properties that carry the same semantics:
 | `eudr:exemptionReasonCode` | planned |
 | `eudr:exemptionScope` + `eudr:exemptionScopeReference` | planned |
 | `eudr:exemptionEffectiveFrom` / `…Until` | planned |
-| `eudr:exemptionAuthority` (→ `dpp:OperatorInformation`) | planned |
+| `eudr:exemptionAuthority` (→ `oec:OperatorInformation`) | planned |
 
 **Migration commitment.** When GS1 publishes the canonical exemption
 vocabulary, every `eudr:` term above will be linked via
@@ -114,9 +114,9 @@ the raw-material GTINs — the DDS lives on the raw material.
 - **2026-04-16**: Removed shadow properties (`eudr:sourceLocation`,
   `eudr:batchNumber`, `eudr:hsCode`, `eudr:cnCode`, `eudr:TimberProduct`
   class) that duplicated native EPCIS / GS1 fields. Migrated customs
-  codes to `dpp:customsCommodityCode` + `dpp:customsCommodityCodeType`.
+  codes to `oec:customsCommodityCode` + `oec:customsCommodityCodeType`.
   Fixed references to non-existent `gs1:isRegulationCompliant` (→
-  `dpp:isRegulationCompliant`).
+  `oec:isRegulationCompliant`).
 - **2026-04-13**: Noted the in-flight GS1 exemption model for
   follow-up here.
 

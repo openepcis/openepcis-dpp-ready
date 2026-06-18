@@ -3,8 +3,8 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
-@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
-@prefix detergent: <https://ref.openepcis.io/extensions/eu/detergent/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix eudet: <https://ref.openepcis.io/extensions/eu/detergent/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
@@ -46,9 +46,9 @@ For master data, use standard GS1 Web Vocabulary:
 - gs1:QuantitativeValue for measurements
 
 For shared DPP patterns, reuse from core:
-- dpp:HazardousSubstance for CLP-classified substances
-- dpp:OperatorInformation for economic operator data
-- dpp:DocumentReference for safety data sheets and reports
+- oec:HazardousSubstance for CLP-classified substances
+- oec:OperatorInformation for economic operator data
+- oec:DocumentReference for safety data sheets and reports
 
 References:
 - EU Regulation 2026/405: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405
@@ -60,7 +60,7 @@ References:
     dcterms:modified "2026-06-07"^^xsd:date ;
     owl:versionInfo "0.9.6" ;
     owl:versionIRI <https://ref.openepcis.io/extensions/eu/detergent/0.9.6> ;
-    vann:preferredNamespacePrefix "detergent" ;
+    vann:preferredNamespacePrefix "eudet" ;
     vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/eu/detergent/" ;
     rdfs:seeAlso <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     rdfs:seeAlso <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
@@ -71,202 +71,202 @@ References:
 # Detergent Category Enumeration (Article 2)
 # =============================================================================
 
-detergent:DetergentCategory
+eudet:DetergentCategory
     a owl:Class ;
     rdfs:label "Detergent Category"@en ;
     rdfs:comment "Product categories for detergents and surfactants per EU 2026/405 Article 2."@en ;
     owl:oneOf (
-        detergent:LaundryDetergent
-        detergent:DishwasherDetergent
-        detergent:HandDishwashingDetergent
-        detergent:AllPurposeCleaner
-        detergent:IndustrialDetergent
-        detergent:InstitutionalDetergent
-        detergent:Surfactant
+        eudet:LaundryDetergent
+        eudet:DishwasherDetergent
+        eudet:HandDishwashingDetergent
+        eudet:AllPurposeCleaner
+        eudet:IndustrialDetergent
+        eudet:InstitutionalDetergent
+        eudet:Surfactant
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:LaundryDetergent a detergent:DetergentCategory ; rdfs:label "Laundry Detergent"@en ; skos:notation "laundry-detergent" ;
+eudet:LaundryDetergent a eudet:DetergentCategory ; rdfs:label "Laundry Detergent"@en ; skos:notation "laundry-detergent" ;
     rdfs:comment "Detergent intended for washing textiles in household or commercial laundry machines."@en .
-detergent:DishwasherDetergent a detergent:DetergentCategory ; rdfs:label "Dishwasher Detergent"@en ; skos:notation "dishwasher-detergent" ;
+eudet:DishwasherDetergent a eudet:DetergentCategory ; rdfs:label "Dishwasher Detergent"@en ; skos:notation "dishwasher-detergent" ;
     rdfs:comment "Detergent intended for automatic dishwashing machines."@en .
-detergent:HandDishwashingDetergent a detergent:DetergentCategory ; rdfs:label "Hand Dishwashing Detergent"@en ; skos:notation "hand-dishwashing-detergent" ;
+eudet:HandDishwashingDetergent a eudet:DetergentCategory ; rdfs:label "Hand Dishwashing Detergent"@en ; skos:notation "hand-dishwashing-detergent" ;
     rdfs:comment "Detergent intended for washing dishes by hand."@en .
-detergent:AllPurposeCleaner a detergent:DetergentCategory ; rdfs:label "All-Purpose Cleaner"@en ; skos:notation "all-purpose-cleaner" ;
+eudet:AllPurposeCleaner a eudet:DetergentCategory ; rdfs:label "All-Purpose Cleaner"@en ; skos:notation "all-purpose-cleaner" ;
     rdfs:comment "General surface cleaning product for household or commercial use."@en .
-detergent:IndustrialDetergent a detergent:DetergentCategory ; rdfs:label "Industrial Detergent"@en ; skos:notation "industrial-detergent" ;
+eudet:IndustrialDetergent a eudet:DetergentCategory ; rdfs:label "Industrial Detergent"@en ; skos:notation "industrial-detergent" ;
     rdfs:comment "Detergent intended for industrial cleaning applications."@en .
-detergent:InstitutionalDetergent a detergent:DetergentCategory ; rdfs:label "Institutional Detergent"@en ; skos:notation "institutional-detergent" ;
+eudet:InstitutionalDetergent a eudet:DetergentCategory ; rdfs:label "Institutional Detergent"@en ; skos:notation "institutional-detergent" ;
     rdfs:comment "Detergent intended for institutional cleaning (hospitals, schools, etc.)."@en .
-detergent:Surfactant a detergent:DetergentCategory ; rdfs:label "Surfactant"@en ; skos:notation "surfactant" ;
+eudet:Surfactant a eudet:DetergentCategory ; rdfs:label "Surfactant"@en ; skos:notation "surfactant" ;
     rdfs:comment "Surface-active agent sold as a standalone product or raw material."@en .
 
 # =============================================================================
 # Product Form Enumeration
 # =============================================================================
 
-detergent:ProductForm
+eudet:ProductForm
     a owl:Class ;
     rdfs:label "Product Form"@en ;
     rdfs:comment "Physical form of the detergent product."@en ;
     owl:oneOf (
-        detergent:Liquid
-        detergent:Powder
-        detergent:Gel
-        detergent:Capsule
-        detergent:Tablet
-        detergent:Sheet
-        detergent:Paste
-        detergent:Spray
+        eudet:Liquid
+        eudet:Powder
+        eudet:Gel
+        eudet:Capsule
+        eudet:Tablet
+        eudet:Sheet
+        eudet:Paste
+        eudet:Spray
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:Liquid a detergent:ProductForm ; rdfs:label "Liquid"@en ; skos:notation "liquid" ;
+eudet:Liquid a eudet:ProductForm ; rdfs:label "Liquid"@en ; skos:notation "liquid" ;
     rdfs:comment "Liquid formulation."@en .
-detergent:Powder a detergent:ProductForm ; rdfs:label "Powder"@en ; skos:notation "powder" ;
+eudet:Powder a eudet:ProductForm ; rdfs:label "Powder"@en ; skos:notation "powder" ;
     rdfs:comment "Powder formulation."@en .
-detergent:Gel a detergent:ProductForm ; rdfs:label "Gel"@en ; skos:notation "gel" ;
+eudet:Gel a eudet:ProductForm ; rdfs:label "Gel"@en ; skos:notation "gel" ;
     rdfs:comment "Gel formulation."@en .
-detergent:Capsule a detergent:ProductForm ; rdfs:label "Capsule"@en ; skos:notation "capsule" ;
+eudet:Capsule a eudet:ProductForm ; rdfs:label "Capsule"@en ; skos:notation "capsule" ;
     rdfs:comment "Water-soluble film capsule (pod) containing liquid or powder detergent."@en .
-detergent:Tablet a detergent:ProductForm ; rdfs:label "Tablet"@en ; skos:notation "tablet" ;
+eudet:Tablet a eudet:ProductForm ; rdfs:label "Tablet"@en ; skos:notation "tablet" ;
     rdfs:comment "Compressed tablet formulation."@en .
-detergent:Sheet a detergent:ProductForm ; rdfs:label "Sheet"@en ; skos:notation "sheet" ;
+eudet:Sheet a eudet:ProductForm ; rdfs:label "Sheet"@en ; skos:notation "sheet" ;
     rdfs:comment "Dissolvable sheet formulation."@en .
-detergent:Paste a detergent:ProductForm ; rdfs:label "Paste"@en ; skos:notation "paste" ;
+eudet:Paste a eudet:ProductForm ; rdfs:label "Paste"@en ; skos:notation "paste" ;
     rdfs:comment "Paste formulation."@en .
-detergent:Spray a detergent:ProductForm ; rdfs:label "Spray"@en ; skos:notation "spray" ;
+eudet:Spray a eudet:ProductForm ; rdfs:label "Spray"@en ; skos:notation "spray" ;
     rdfs:comment "Spray formulation."@en .
 
 # =============================================================================
 # Surfactant Type Enumeration (Annex III)
 # =============================================================================
 
-detergent:SurfactantType
+eudet:SurfactantType
     a owl:Class ;
     rdfs:label "Surfactant Type"@en ;
     rdfs:comment "Classification of surfactants by ionic charge per EU 2026/405 Annex III."@en ;
     owl:oneOf (
-        detergent:Anionic
-        detergent:NonIonic
-        detergent:Cationic
-        detergent:Amphoteric
+        eudet:Anionic
+        eudet:NonIonic
+        eudet:Cationic
+        eudet:Amphoteric
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:Anionic a detergent:SurfactantType ; rdfs:label "Anionic"@en ; skos:notation "anionic" ;
+eudet:Anionic a eudet:SurfactantType ; rdfs:label "Anionic"@en ; skos:notation "anionic" ;
     rdfs:comment "Surfactant with a negatively charged hydrophilic group (e.g., LAS, SLS)."@en .
-detergent:NonIonic a detergent:SurfactantType ; rdfs:label "Non-Ionic"@en ; skos:notation "non-ionic" ;
+eudet:NonIonic a eudet:SurfactantType ; rdfs:label "Non-Ionic"@en ; skos:notation "non-ionic" ;
     rdfs:comment "Surfactant with no ionic charge (e.g., alcohol ethoxylates)."@en .
-detergent:Cationic a detergent:SurfactantType ; rdfs:label "Cationic"@en ; skos:notation "cationic" ;
+eudet:Cationic a eudet:SurfactantType ; rdfs:label "Cationic"@en ; skos:notation "cationic" ;
     rdfs:comment "Surfactant with a positively charged hydrophilic group (e.g., quaternary ammonium)."@en .
-detergent:Amphoteric a detergent:SurfactantType ; rdfs:label "Amphoteric"@en ; skos:notation "amphoteric" ;
+eudet:Amphoteric a eudet:SurfactantType ; rdfs:label "Amphoteric"@en ; skos:notation "amphoteric" ;
     rdfs:comment "Surfactant that can carry positive or negative charge depending on pH (e.g., betaines)."@en .
 
 # =============================================================================
 # Biodegradability Test Method Enumeration (Annex III)
 # =============================================================================
 
-detergent:BiodegradabilityTestMethod
+eudet:BiodegradabilityTestMethod
     a owl:Class ;
     rdfs:label "Biodegradability Test Method"@en ;
     rdfs:comment "Standard test methods for ultimate aerobic biodegradability per EU 2026/405 Annex III."@en ;
     owl:oneOf (
-        detergent:ISO14593
-        detergent:OECD301B
-        detergent:OECD301D
-        detergent:OECD301F
-        detergent:OECD310
+        eudet:ISO14593
+        eudet:OECD301B
+        eudet:OECD301D
+        eudet:OECD301F
+        eudet:OECD310
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:ISO14593 a detergent:BiodegradabilityTestMethod ; rdfs:label "ISO 14593"@en ; skos:notation "ISO14593" ;
+eudet:ISO14593 a eudet:BiodegradabilityTestMethod ; rdfs:label "ISO 14593"@en ; skos:notation "ISO14593" ;
     rdfs:comment "CO2 headspace test (ISO 14593) for ultimate aerobic biodegradability."@en .
-detergent:OECD301B a detergent:BiodegradabilityTestMethod ; rdfs:label "OECD 301B"@en ; skos:notation "OECD301B" ;
+eudet:OECD301B a eudet:BiodegradabilityTestMethod ; rdfs:label "OECD 301B"@en ; skos:notation "OECD301B" ;
     rdfs:comment "CO2 evolution test (modified Sturm test) for ready biodegradability."@en .
-detergent:OECD301D a detergent:BiodegradabilityTestMethod ; rdfs:label "OECD 301D"@en ; skos:notation "OECD301D" ;
+eudet:OECD301D a eudet:BiodegradabilityTestMethod ; rdfs:label "OECD 301D"@en ; skos:notation "OECD301D" ;
     rdfs:comment "Closed bottle test for ready biodegradability."@en .
-detergent:OECD301F a detergent:BiodegradabilityTestMethod ; rdfs:label "OECD 301F"@en ; skos:notation "OECD301F" ;
+eudet:OECD301F a eudet:BiodegradabilityTestMethod ; rdfs:label "OECD 301F"@en ; skos:notation "OECD301F" ;
     rdfs:comment "Manometric respirometry test for ready biodegradability."@en .
-detergent:OECD310 a detergent:BiodegradabilityTestMethod ; rdfs:label "OECD 310"@en ; skos:notation "OECD310" ;
+eudet:OECD310 a eudet:BiodegradabilityTestMethod ; rdfs:label "OECD 310"@en ; skos:notation "OECD310" ;
     rdfs:comment "CO2 in sealed vessels test for ready biodegradability."@en .
 
 # =============================================================================
 # Ingredient Function Enumeration
 # =============================================================================
 
-detergent:IngredientFunction
+eudet:IngredientFunction
     a owl:Class ;
     rdfs:label "Ingredient Function"@en ;
     rdfs:comment "Functional roles of ingredients in detergent formulations."@en ;
     owl:oneOf (
-        detergent:SurfactantFunction
-        detergent:Builder
-        detergent:Bleach
-        detergent:Enzyme
-        detergent:Preservative
-        detergent:Fragrance
-        detergent:Colorant
-        detergent:Solvent
-        detergent:pHAdjuster
-        detergent:Thickener
-        detergent:FoamRegulator
-        detergent:AntiRedeposition
-        detergent:Filler
+        eudet:SurfactantFunction
+        eudet:Builder
+        eudet:Bleach
+        eudet:Enzyme
+        eudet:Preservative
+        eudet:Fragrance
+        eudet:Colorant
+        eudet:Solvent
+        eudet:pHAdjuster
+        eudet:Thickener
+        eudet:FoamRegulator
+        eudet:AntiRedeposition
+        eudet:Filler
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:SurfactantFunction a detergent:IngredientFunction ; rdfs:label "Surfactant"@en ; skos:notation "surfactant-function" ;
+eudet:SurfactantFunction a eudet:IngredientFunction ; rdfs:label "Surfactant"@en ; skos:notation "surfactant-function" ;
     rdfs:comment "Surface-active agent providing primary cleaning action."@en .
-detergent:Builder a detergent:IngredientFunction ; rdfs:label "Builder"@en ; skos:notation "builder" ;
+eudet:Builder a eudet:IngredientFunction ; rdfs:label "Builder"@en ; skos:notation "builder" ;
     rdfs:comment "Water softener that enhances surfactant performance (e.g., zeolites, citrates)."@en .
-detergent:Bleach a detergent:IngredientFunction ; rdfs:label "Bleach"@en ; skos:notation "bleach" ;
+eudet:Bleach a eudet:IngredientFunction ; rdfs:label "Bleach"@en ; skos:notation "bleach" ;
     rdfs:comment "Oxidising agent for stain removal (e.g., sodium percarbonate)."@en .
-detergent:Enzyme a detergent:IngredientFunction ; rdfs:label "Enzyme"@en ; skos:notation "enzyme" ;
+eudet:Enzyme a eudet:IngredientFunction ; rdfs:label "Enzyme"@en ; skos:notation "enzyme" ;
     rdfs:comment "Biological catalyst for breaking down specific stain types (protease, amylase, lipase, etc.)."@en .
-detergent:Preservative a detergent:IngredientFunction ; rdfs:label "Preservative"@en ; skos:notation "preservative" ;
+eudet:Preservative a eudet:IngredientFunction ; rdfs:label "Preservative"@en ; skos:notation "preservative" ;
     rdfs:comment "Antimicrobial agent preventing product degradation."@en .
-detergent:Fragrance a detergent:IngredientFunction ; rdfs:label "Fragrance"@en ; skos:notation "fragrance" ;
+eudet:Fragrance a eudet:IngredientFunction ; rdfs:label "Fragrance"@en ; skos:notation "fragrance" ;
     rdfs:comment "Scenting agent (parfum)."@en .
-detergent:Colorant a detergent:IngredientFunction ; rdfs:label "Colorant"@en ; skos:notation "colorant" ;
+eudet:Colorant a eudet:IngredientFunction ; rdfs:label "Colorant"@en ; skos:notation "colorant" ;
     rdfs:comment "Dye or pigment for product appearance."@en .
-detergent:Solvent a detergent:IngredientFunction ; rdfs:label "Solvent"@en ; skos:notation "solvent" ;
+eudet:Solvent a eudet:IngredientFunction ; rdfs:label "Solvent"@en ; skos:notation "solvent" ;
     rdfs:comment "Carrier liquid (typically water or alcohol-based)."@en .
-detergent:pHAdjuster a detergent:IngredientFunction ; rdfs:label "pH Adjuster"@en ; skos:notation "ph-adjuster" ;
+eudet:pHAdjuster a eudet:IngredientFunction ; rdfs:label "pH Adjuster"@en ; skos:notation "ph-adjuster" ;
     rdfs:comment "Acid or base used to control product pH."@en .
-detergent:Thickener a detergent:IngredientFunction ; rdfs:label "Thickener"@en ; skos:notation "thickener" ;
+eudet:Thickener a eudet:IngredientFunction ; rdfs:label "Thickener"@en ; skos:notation "thickener" ;
     rdfs:comment "Viscosity modifier for product consistency."@en .
-detergent:FoamRegulator a detergent:IngredientFunction ; rdfs:label "Foam Regulator"@en ; skos:notation "foam-regulator" ;
+eudet:FoamRegulator a eudet:IngredientFunction ; rdfs:label "Foam Regulator"@en ; skos:notation "foam-regulator" ;
     rdfs:comment "Agent that controls foam generation (booster or suppressor)."@en .
-detergent:AntiRedeposition a detergent:IngredientFunction ; rdfs:label "Anti-Redeposition"@en ; skos:notation "anti-redeposition" ;
+eudet:AntiRedeposition a eudet:IngredientFunction ; rdfs:label "Anti-Redeposition"@en ; skos:notation "anti-redeposition" ;
     rdfs:comment "Agent preventing removed soil from redepositing on surfaces."@en .
-detergent:Filler a detergent:IngredientFunction ; rdfs:label "Filler"@en ; skos:notation "filler" ;
+eudet:Filler a eudet:IngredientFunction ; rdfs:label "Filler"@en ; skos:notation "filler" ;
     rdfs:comment "Inert bulk material (e.g., sodium sulphate in powder detergents)."@en .
 
 # =============================================================================
 # Signal Word Enumeration (CLP Regulation 1272/2008)
 # =============================================================================
 
-detergent:SignalWord
+eudet:SignalWord
     a owl:Class ;
     rdfs:label "Signal Word"@en ;
     rdfs:comment "CLP signal words per EU Regulation 1272/2008 Article 20."@en ;
     owl:oneOf (
-        detergent:Danger
-        detergent:Warning
+        eudet:Danger
+        eudet:Warning
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:Danger a detergent:SignalWord ; rdfs:label "Danger"@en ; skos:notation "danger" ;
+eudet:Danger a eudet:SignalWord ; rdfs:label "Danger"@en ; skos:notation "danger" ;
     rdfs:comment "Signal word for more severe hazard categories."@en .
-detergent:Warning a detergent:SignalWord ; rdfs:label "Warning"@en ; skos:notation "warning" ;
+eudet:Warning a eudet:SignalWord ; rdfs:label "Warning"@en ; skos:notation "warning" ;
     rdfs:comment "Signal word for less severe hazard categories."@en .
 
 # =============================================================================
 # Domain Classes
 # =============================================================================
 
-detergent:DetergentProduct
+eudet:DetergentProduct
     a owl:Class ;
     rdfs:label "Detergent Product"@en ;
     rdfs:comment "A detergent or surfactant product subject to EU 2026/405. Use as @type alongside gs1:Product. The DPP is model-based: same manufacturer + identical formulation = one DPP."@en ;
@@ -275,7 +275,7 @@ detergent:DetergentProduct
     skos:note "GS1 Web Vocabulary has no detergent-specific product class."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:Ingredient
+eudet:Ingredient
     a owl:Class ;
     rdfs:label "Ingredient"@en ;
     rdfs:comment "A single ingredient entry in a detergent formulation, identified by INCI name with functional role and weight percentage range."@en ;
@@ -283,7 +283,7 @@ detergent:Ingredient
     skos:note "GS1 has gs1:FoodBeverageIngredient but no equivalent for detergent/chemical product ingredients."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:SurfactantBiodegradability
+eudet:SurfactantBiodegradability
     a owl:Class ;
     rdfs:label "Surfactant Biodegradability"@en ;
     rdfs:comment "Ultimate aerobic biodegradability test result for a surfactant per EU 2026/405 Annex III. Each surfactant type in the formulation requires a separate test result."@en ;
@@ -291,7 +291,7 @@ detergent:SurfactantBiodegradability
     skos:note "No GS1 equivalent for chemical biodegradability test results."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:MicroorganismInfo
+eudet:MicroorganismInfo
     a owl:Class ;
     rdfs:label "Microorganism Information"@en ;
     rdfs:comment "Information about microorganisms intentionally added to the detergent product per Article 19. Requires species identification and strain designation."@en ;
@@ -299,7 +299,7 @@ detergent:MicroorganismInfo
     skos:note "No GS1 equivalent for microorganism disclosure in products."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:FragranceAllergen
+eudet:FragranceAllergen
     a owl:Class ;
     rdfs:label "Fragrance Allergen"@en ;
     rdfs:comment "A fragrance allergen that must be disclosed when present above the concentration threshold, identified by name and CAS number."@en ;
@@ -311,197 +311,197 @@ detergent:FragranceAllergen
 # Product-Level Properties (on DetergentProduct)
 # =============================================================================
 
-detergent:productForm
+eudet:productForm
     a owl:ObjectProperty ;
     rdfs:label "Product Form"@en ;
     rdfs:comment "The physical form of the detergent product (liquid, powder, capsule, etc.)."@en ;
-    rdfs:domain detergent:DetergentProduct ;
-    rdfs:range detergent:ProductForm ;
+    rdfs:domain eudet:DetergentProduct ;
+    rdfs:range eudet:ProductForm ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "No GS1 equivalent for detergent form classification."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:intendedUse
+eudet:intendedUse
     a owl:DatatypeProperty ;
     rdfs:label "Intended Use"@en ;
     rdfs:comment "Description of the product's intended use or application."@en ;
-    rdfs:domain detergent:DetergentProduct ;
+    rdfs:domain eudet:DetergentProduct ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:ingredientList
+eudet:ingredientList
     a owl:ObjectProperty ;
     rdfs:label "Ingredient List"@en ;
     rdfs:comment "List of ingredients in the detergent formulation, using INCI nomenclature."@en ;
-    rdfs:domain detergent:DetergentProduct ;
-    rdfs:range detergent:Ingredient ;
+    rdfs:domain eudet:DetergentProduct ;
+    rdfs:range eudet:Ingredient ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "GS1 has food ingredient patterns but no detergent ingredient list property."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:surfactantBiodegradability
+eudet:surfactantBiodegradability
     a owl:ObjectProperty ;
     rdfs:label "Surfactant Biodegradability"@en ;
     rdfs:comment "Biodegradability test results for surfactants in the formulation per Annex III."@en ;
-    rdfs:domain detergent:DetergentProduct ;
-    rdfs:range detergent:SurfactantBiodegradability ;
+    rdfs:domain eudet:DetergentProduct ;
+    rdfs:range eudet:SurfactantBiodegradability ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "No GS1 equivalent for biodegradability test data."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:fragranceAllergens
+eudet:fragranceAllergens
     a owl:ObjectProperty ;
     rdfs:label "Fragrance Allergens"@en ;
     rdfs:comment "Fragrance allergens present above the disclosure threshold."@en ;
-    rdfs:domain detergent:DetergentProduct ;
-    rdfs:range detergent:FragranceAllergen ;
+    rdfs:domain eudet:DetergentProduct ;
+    rdfs:range eudet:FragranceAllergen ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "GS1 allergen patterns are food-specific (gs1:hasAllergen)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:microorganisms
+eudet:microorganisms
     a owl:ObjectProperty ;
     rdfs:label "Microorganisms"@en ;
     rdfs:comment "Microorganisms intentionally added to the product per Article 19."@en ;
-    rdfs:domain detergent:DetergentProduct ;
-    rdfs:range detergent:MicroorganismInfo ;
+    rdfs:domain eudet:DetergentProduct ;
+    rdfs:range eudet:MicroorganismInfo ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "No GS1 equivalent for microorganism disclosure."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:hazardousSubstances
+eudet:hazardousSubstances
     a owl:ObjectProperty ;
     rdfs:label "Hazardous Substances"@en ;
-    rdfs:comment "CLP-classified hazardous substances in the product. Reuses dpp:HazardousSubstance."@en ;
-    rdfs:domain detergent:DetergentProduct ;
-    rdfs:range dpp:HazardousSubstance ;
+    rdfs:comment "CLP-classified hazardous substances in the product. Reuses oec:HazardousSubstance."@en ;
+    rdfs:domain eudet:DetergentProduct ;
+    rdfs:range oec:HazardousSubstance ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:hazardPictograms
+eudet:hazardPictograms
     a owl:DatatypeProperty ;
     rdfs:label "Hazard Pictograms"@en ;
     rdfs:comment "GHS hazard pictogram codes (GHS01-GHS09) per CLP Regulation 1272/2008."@en ;
-    rdfs:domain detergent:DetergentProduct ;
+    rdfs:domain eudet:DetergentProduct ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:hStatements
+eudet:hStatements
     a owl:DatatypeProperty ;
     rdfs:label "H Statements"@en ;
     rdfs:comment "CLP hazard statements (e.g., H302, H315, H318)."@en ;
-    rdfs:domain detergent:DetergentProduct ;
+    rdfs:domain eudet:DetergentProduct ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:pStatements
+eudet:pStatements
     a owl:DatatypeProperty ;
     rdfs:label "P Statements"@en ;
     rdfs:comment "CLP precautionary statements (e.g., P101, P102, P280)."@en ;
-    rdfs:domain detergent:DetergentProduct ;
+    rdfs:domain eudet:DetergentProduct ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:signalWord
+eudet:signalWord
     a owl:ObjectProperty ;
     rdfs:label "Signal Word"@en ;
     rdfs:comment "CLP signal word (Danger or Warning) per Regulation 1272/2008."@en ;
-    rdfs:domain detergent:DetergentProduct ;
-    rdfs:range detergent:SignalWord ;
+    rdfs:domain eudet:DetergentProduct ;
+    rdfs:range eudet:SignalWord ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:phosphorusContentPercent
+eudet:phosphorusContentPercent
     a owl:DatatypeProperty ;
     rdfs:label "Phosphorus Content Percent"@en ;
     rdfs:comment "Total elemental phosphorus content as weight percentage."@en ;
-    rdfs:domain detergent:DetergentProduct ;
+    rdfs:domain eudet:DetergentProduct ;
     rdfs:range xsd:decimal ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "No GS1 equivalent for phosphorus content in detergents."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:phosphateCompliant
+eudet:phosphateCompliant
     a owl:DatatypeProperty ;
     rdfs:label "Phosphate Compliant"@en ;
     rdfs:comment "Whether the product complies with phosphorus/phosphate limits set by the regulation."@en ;
-    rdfs:domain detergent:DetergentProduct ;
+    rdfs:domain eudet:DetergentProduct ;
     rdfs:range xsd:boolean ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:filmBiodegradable
+eudet:filmBiodegradable
     a owl:DatatypeProperty ;
     rdfs:label "Film Biodegradable"@en ;
     rdfs:comment "Whether the water-soluble film (for capsules/pods) meets biodegradability requirements."@en ;
-    rdfs:domain detergent:DetergentProduct ;
+    rdfs:domain eudet:DetergentProduct ;
     rdfs:range xsd:boolean ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "Specific to capsule/pod format detergents. No GS1 equivalent."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:filmBiodegradabilityPercentage
+eudet:filmBiodegradabilityPercentage
     a owl:DatatypeProperty ;
     rdfs:label "Film Biodegradability Percentage"@en ;
     rdfs:comment "Measured biodegradability of the water-soluble film as a percentage."@en ;
-    rdfs:domain detergent:DetergentProduct ;
+    rdfs:domain eudet:DetergentProduct ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:recommendedDosage
+eudet:recommendedDosage
     a owl:ObjectProperty ;
     rdfs:label "Recommended Dosage"@en ;
     rdfs:comment "Recommended dosage per use (e.g., 35 ml for medium water hardness). Uses gs1:QuantitativeValue."@en ;
-    rdfs:domain detergent:DetergentProduct ;
+    rdfs:domain eudet:DetergentProduct ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:dosageInstructions
+eudet:dosageInstructions
     a owl:DatatypeProperty ;
     rdfs:label "Dosage Instructions"@en ;
     rdfs:comment "Human-readable dosage instructions including water hardness guidance."@en ;
-    rdfs:domain detergent:DetergentProduct ;
+    rdfs:domain eudet:DetergentProduct ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:safetyDataSheet
+eudet:safetyDataSheet
     a owl:ObjectProperty ;
     rdfs:label "Safety Data Sheet"@en ;
-    rdfs:comment "Reference to the product's Safety Data Sheet (SDS). Reuses dpp:DocumentReference."@en ;
-    rdfs:domain detergent:DetergentProduct ;
-    rdfs:range dpp:DocumentReference ;
+    rdfs:comment "Reference to the product's Safety Data Sheet (SDS). Reuses oec:DocumentReference."@en ;
+    rdfs:domain eudet:DetergentProduct ;
+    rdfs:range oec:DocumentReference ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:biodegradabilityTestReport
+eudet:biodegradabilityTestReport
     a owl:ObjectProperty ;
     rdfs:label "Biodegradability Test Report"@en ;
-    rdfs:comment "Reference to the full biodegradability test report. Reuses dpp:DocumentReference."@en ;
-    rdfs:domain detergent:DetergentProduct ;
-    rdfs:range dpp:DocumentReference ;
+    rdfs:comment "Reference to the full biodegradability test report. Reuses oec:DocumentReference."@en ;
+    rdfs:domain eudet:DetergentProduct ;
+    rdfs:range oec:DocumentReference ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
 # =============================================================================
 # Ingredient Properties
 # =============================================================================
 
-detergent:ingredientFunction
+eudet:ingredientFunction
     a owl:ObjectProperty ;
     rdfs:label "Ingredient Function"@en ;
     rdfs:comment "Functional role of the ingredient in the formulation."@en ;
-    rdfs:domain detergent:Ingredient ;
-    rdfs:range detergent:IngredientFunction ;
+    rdfs:domain eudet:Ingredient ;
+    rdfs:range eudet:IngredientFunction ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:weightPercentRange
+eudet:weightPercentRange
     a owl:DatatypeProperty ;
     rdfs:label "Weight Percent Range"@en ;
     rdfs:comment "Weight percentage range using prescribed brackets (e.g., '<5%', '5-15%', '15-30%', '>=30%') per labelling requirements."@en ;
-    rdfs:domain detergent:Ingredient ;
+    rdfs:domain eudet:Ingredient ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:isSurfactant
+eudet:isSurfactant
     a owl:DatatypeProperty ;
     rdfs:label "Is Surfactant"@en ;
     rdfs:comment "Whether this ingredient is a surfactant (relevant for biodegradability testing requirements)."@en ;
-    rdfs:domain detergent:Ingredient ;
+    rdfs:domain eudet:Ingredient ;
     rdfs:range xsd:boolean ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
@@ -509,43 +509,43 @@ detergent:isSurfactant
 # Surfactant Biodegradability Properties
 # =============================================================================
 
-detergent:surfactantType
+eudet:surfactantType
     a owl:ObjectProperty ;
     rdfs:label "Surfactant Type"@en ;
     rdfs:comment "Classification of the surfactant by ionic charge."@en ;
-    rdfs:domain detergent:SurfactantBiodegradability ;
-    rdfs:range detergent:SurfactantType ;
+    rdfs:domain eudet:SurfactantBiodegradability ;
+    rdfs:range eudet:SurfactantType ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:biodegradationPercentage
+eudet:biodegradationPercentage
     a owl:DatatypeProperty ;
     rdfs:label "Biodegradation Percentage"@en ;
     rdfs:comment "Measured ultimate aerobic biodegradation as percentage (>=60% required to pass)."@en ;
-    rdfs:domain detergent:SurfactantBiodegradability ;
+    rdfs:domain eudet:SurfactantBiodegradability ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:testMethod
+eudet:testMethod
     a owl:ObjectProperty ;
     rdfs:label "Test Method"@en ;
     rdfs:comment "Standard test method used for the biodegradability assessment."@en ;
-    rdfs:domain detergent:SurfactantBiodegradability ;
-    rdfs:range detergent:BiodegradabilityTestMethod ;
+    rdfs:domain eudet:SurfactantBiodegradability ;
+    rdfs:range eudet:BiodegradabilityTestMethod ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:testDurationDays
+eudet:testDurationDays
     a owl:DatatypeProperty ;
     rdfs:label "Test Duration Days"@en ;
     rdfs:comment "Duration of the biodegradability test in days (typically 28 days)."@en ;
-    rdfs:domain detergent:SurfactantBiodegradability ;
+    rdfs:domain eudet:SurfactantBiodegradability ;
     rdfs:range xsd:integer ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:passesUltimateBiodegradability
+eudet:passesUltimateBiodegradability
     a owl:DatatypeProperty ;
     rdfs:label "Passes Ultimate Biodegradability"@en ;
     rdfs:comment "Whether the surfactant passes the ultimate aerobic biodegradability test (>=60% within 28 days)."@en ;
-    rdfs:domain detergent:SurfactantBiodegradability ;
+    rdfs:domain eudet:SurfactantBiodegradability ;
     rdfs:range xsd:boolean ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
@@ -553,19 +553,19 @@ detergent:passesUltimateBiodegradability
 # Fragrance Allergen Properties
 # =============================================================================
 
-detergent:allergenCasNumber
+eudet:allergenCasNumber
     a owl:DatatypeProperty ;
     rdfs:label "Allergen CAS Number"@en ;
     rdfs:comment "CAS registry number of the fragrance allergen."@en ;
-    rdfs:domain detergent:FragranceAllergen ;
+    rdfs:domain eudet:FragranceAllergen ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:allergenConcentration
+eudet:allergenConcentration
     a owl:DatatypeProperty ;
     rdfs:label "Allergen Concentration"@en ;
     rdfs:comment "Concentration of the allergen as weight percentage."@en ;
-    rdfs:domain detergent:FragranceAllergen ;
+    rdfs:domain eudet:FragranceAllergen ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
@@ -573,37 +573,37 @@ detergent:allergenConcentration
 # Microorganism Properties (Article 19)
 # =============================================================================
 
-detergent:strainDesignation
+eudet:strainDesignation
     a owl:DatatypeProperty ;
     rdfs:label "Strain Designation"@en ;
     rdfs:comment "Specific strain designation or collection number."@en ;
-    rdfs:domain detergent:MicroorganismInfo ;
+    rdfs:domain eudet:MicroorganismInfo ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-detergent:endProductCharacteristics
+eudet:endProductCharacteristics
     a owl:DatatypeProperty ;
     rdfs:label "End Product Characteristics"@en ;
     rdfs:comment "Description of the end product characteristics of the microorganism (enzymes produced, metabolites, etc.)."@en ;
-    rdfs:domain detergent:MicroorganismInfo ;
+    rdfs:domain eudet:MicroorganismInfo ;
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
 # =============================================================================
-# Cross-cutting alignment to dpp: (Phase 2 lift)
+# Cross-cutting alignment to oec: (Phase 2 lift)
 # =============================================================================
 
-# CLP signal-word and pictogram terms align to the lifted dpp: equivalents on
-# dpp:HazardousSubstance.
-detergent:SignalWord            owl:equivalentClass    dpp:HazardSignalWord .
-detergent:Danger                owl:equivalentClass    dpp:HazardDanger .
-detergent:Warning               owl:equivalentClass    dpp:HazardWarning .
-detergent:signalWord            owl:equivalentProperty dpp:hazardSignalWord .
-detergent:hazardPictograms      owl:equivalentProperty dpp:hazardPictogramCode .
-detergent:hStatements           owl:equivalentProperty dpp:hazardStatement .
-detergent:pStatements           owl:equivalentProperty dpp:precautionaryStatement .
+# CLP signal-word and pictogram terms align to the lifted oec: equivalents on
+# oec:HazardousSubstance.
+eudet:SignalWord            owl:equivalentClass    oec:HazardSignalWord .
+eudet:Danger                owl:equivalentClass    oec:HazardDanger .
+eudet:Warning               owl:equivalentClass    oec:HazardWarning .
+eudet:signalWord            owl:equivalentProperty oec:hazardSignalWord .
+eudet:hazardPictograms      owl:equivalentProperty oec:hazardPictogramCode .
+eudet:hStatements           owl:equivalentProperty oec:hazardStatement .
+eudet:pStatements           owl:equivalentProperty oec:precautionaryStatement .
 
-# Biodegradability test result aligns to the lifted dpp:Biodegradability.
-detergent:SurfactantBiodegradability rdfs:subClassOf       dpp:Biodegradability .
-detergent:biodegradationPercentage   owl:equivalentProperty dpp:biodegradationPercentage .
-detergent:biodegradabilityTestMethod owl:equivalentProperty dpp:biodegradabilityTestMethod .
+# Biodegradability test result aligns to the lifted oec:Biodegradability.
+eudet:SurfactantBiodegradability rdfs:subClassOf       oec:Biodegradability .
+eudet:biodegradationPercentage   owl:equivalentProperty oec:biodegradationPercentage .
+eudet:biodegradabilityTestMethod owl:equivalentProperty oec:biodegradabilityTestMethod .

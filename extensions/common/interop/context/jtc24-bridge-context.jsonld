@@ -2,47 +2,47 @@
   "_comment": "CEN/CENELEC JTC 24 bridge context: maps JTC 24 terminology to OpenEPCIS vocabulary. Covers EN 18216, 18219, 18220, 18221, 18222, 18223 (FprEN stage, publishing March 2026) and prEN 18239, prEN 18246 (in development). Property names for the six finalised standards reflect the FprEN text; in-development standards (18239, 18246) remain draft-aligned and will be updated on publication.",
   "@context": {
     "@version": 1.1,
-    "dpp": "https://ref.openepcis.io/extensions/common/core/",
+    "oec": "https://ref.openepcis.io/extensions/common/core/",
     "gs1": "https://ref.gs1.org/voc/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 
-    "ProductPassport": "dpp:DigitalProductPassport",
-    "PassportStatus": "dpp:PassportStatus",
+    "ProductPassport": "oec:DigitalProductPassport",
+    "PassportStatus": "oec:PassportStatus",
 
     "passportId": {
-      "@id": "dpp:passportIdentifier",
+      "@id": "oec:passportIdentifier",
       "@type": "@id"
     },
     "passportStatus": {
-      "@id": "dpp:passportStatus",
+      "@id": "oec:passportStatus",
       "@type": "@vocab",
       "@context": {
-        "Draft": "dpp:Draft",
-        "Active": "dpp:Active",
-        "Updated": "dpp:Active",
-        "Withdrawn": "dpp:Withdrawn",
-        "Archived": "dpp:Archived"
+        "Draft": "oec:Draft",
+        "Active": "oec:Active",
+        "Updated": "oec:Active",
+        "Withdrawn": "oec:Withdrawn",
+        "Archived": "oec:Archived"
       }
     },
-    "passportVersion": "dpp:passportVersion",
+    "passportVersion": "oec:passportVersion",
     "passportIssueDate": {
-      "@id": "dpp:passportIssueDate",
+      "@id": "oec:passportIssueDate",
       "@type": "xsd:date"
     },
     "passportLastModified": {
-      "@id": "dpp:lastUpdated",
+      "@id": "oec:lastUpdated",
       "@type": "xsd:dateTime"
     },
     "passportExpiryDate": {
-      "@id": "dpp:passportExpiryDate",
+      "@id": "oec:passportExpiryDate",
       "@type": "xsd:date"
     },
     "passportIssuer": {
-      "@id": "dpp:passportIssuer",
+      "@id": "oec:passportIssuer",
       "@type": "@id"
     },
     "previousVersion": {
-      "@id": "dpp:previousPassportVersion",
+      "@id": "oec:previousPassportVersion",
       "@type": "@id"
     },
 
@@ -55,105 +55,105 @@
     "serialId": "gs1:hasSerialNumber",
     "productModel": "schema:ProductModel",
     "productCategory": {
-      "@id": "dpp:productCategory",
+      "@id": "oec:productCategory",
       "@type": "@vocab"
     },
 
     "granularityLevel": {
-      "@id": "dpp:granularityLevel",
+      "@id": "oec:granularityLevel",
       "@type": "@vocab",
       "@context": {
-        "Model": "dpp:Model",
-        "Batch": "dpp:Batch",
-        "Item": "dpp:Item"
+        "Model": "oec:Model",
+        "Batch": "oec:Batch",
+        "Item": "oec:Item"
       }
     },
 
     "manufacturer": {
-      "@id": "dpp:operatorInformation",
+      "@id": "oec:operatorInformation",
       "@type": "@id"
     },
-    "economicOperatorId": "dpp:economicOperatorId",
+    "economicOperatorId": "oec:economicOperatorId",
     "operatorName": "gs1:organizationName",
     "operatorGln": "gs1:partyGLN",
 
     "facility": {
-      "@id": "dpp:facilityInformation",
+      "@id": "oec:facilityInformation",
       "@type": "@id"
     },
     "facilityGln": "gs1:gln",
 
     "materialComposition": {
-      "@id": "dpp:materialComposition",
+      "@id": "oec:materialComposition",
       "@type": "@id",
       "@container": "@set"
     },
     "materialName": "schema:name",
     "massFraction": {
-      "@id": "dpp:massFraction",
+      "@id": "oec:massFraction",
       "@type": "xsd:decimal"
     },
 
     "substancesOfConcern": {
-      "@id": "dpp:substancesOfConcern",
+      "@id": "oec:substancesOfConcern",
       "@type": "@id",
       "@container": "@set"
     },
     "substanceName": "schema:name",
-    "casNumber": "dpp:casNumber",
-    "ecNumber": "dpp:ecNumber",
+    "casNumber": "oec:casNumber",
+    "ecNumber": "oec:ecNumber",
     "concentration": {
-      "@id": "dpp:concentration",
+      "@id": "oec:concentration",
       "@type": "xsd:decimal"
     },
 
     "carbonFootprint": {
-      "@id": "dpp:carbonFootprintTotal",
+      "@id": "oec:carbonFootprintTotal",
       "@type": "xsd:decimal"
     },
-    "declaredUnit": "dpp:declaredUnit",
+    "declaredUnit": "oec:declaredUnit",
     "operationalScope": {
-      "@id": "dpp:operationalScope",
+      "@id": "oec:operationalScope",
       "@type": "@vocab",
       "@context": {
-        "CradleToGate": "dpp:CradleToGate",
-        "CradleToGrave": "dpp:CradleToGrave"
+        "CradleToGate": "oec:CradleToGate",
+        "CradleToGrave": "oec:CradleToGrave"
       }
     },
 
     "recycledContent": {
-      "@id": "dpp:recycledContent",
+      "@id": "oec:recycledContent",
       "@type": "xsd:decimal"
     },
     "recyclableContent": {
-      "@id": "dpp:recyclableContent",
+      "@id": "oec:recyclableContent",
       "@type": "xsd:decimal"
     },
 
     "repairabilityScore": {
-      "@id": "dpp:repairabilityScore",
+      "@id": "oec:repairabilityScore",
       "@type": "xsd:decimal"
     },
-    "repairabilityClass": "dpp:repairabilityClass",
-    "expectedLifespan": "dpp:expectedLifespan",
-    "guaranteedLifespan": "dpp:guaranteedLifespan",
+    "repairabilityClass": "oec:repairabilityClass",
+    "expectedLifespan": "oec:expectedLifespan",
+    "guaranteedLifespan": "oec:guaranteedLifespan",
 
     "accessLevel": {
-      "@id": "dpp:accessLevel",
+      "@id": "oec:accessLevel",
       "@type": "@vocab",
       "@context": {
-        "Public": "dpp:Public",
-        "AuthorizedOnly": "dpp:AuthorizedOnly",
-        "Restricted": "dpp:Restricted"
+        "Public": "oec:Public",
+        "AuthorizedOnly": "oec:AuthorizedOnly",
+        "Restricted": "oec:Restricted"
       }
     },
 
     "did": {
-      "@id": "dpp:did",
+      "@id": "oec:did",
       "@type": "@id"
     },
     "identityCredential": {
-      "@id": "dpp:identityCredentialUrl",
+      "@id": "oec:identityCredentialUrl",
       "@type": "@id"
     }
   }
