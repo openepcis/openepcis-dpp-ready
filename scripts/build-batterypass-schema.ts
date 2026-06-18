@@ -1,13 +1,24 @@
 /**
  * Build a JSON Schema for the BatteryPass-Ready Data Attribute Longlist v1.3.
  *
- * Source: extensions/eu/battery/docs/reference/2026_BatteryPass-Ready_DataAttributeLongList_v1.3.xlsx
- * (committed copy of https://thebatterypass.eu/wp-content/uploads/2026_BatteryPass-Ready_DataAttributeLongList_v1.3.xlsx)
+ * Source longlist (NOT copied into the repo — it has a stable public URL):
+ *   https://thebatterypass.eu/wp-content/uploads/2026_BatteryPass-Ready_DataAttributeLongList_v1.3.xlsx
+ * The generator downloads it on demand to a temp file. Override with a local copy
+ * via the BPASS_LONGLIST_XLSX env var (path) if working offline.
  *
- * This schema is the *export* contract: it validates the SAMM-shaped JSON our
- * runtime emits (via the to-batterypass bridge context) so the GEFEG
- * batterypass-ready test environment accepts it. It is NOT a schema for the
- * battery: extension itself — that lives in validation/battery-schema.json.
+ * This is an internal *longlist-coverage* view: a flat, camelCase schema
+ * derived from the v1.3 attribute longlist, used to track which attributes we
+ * carry. It is NOT the GEFEG conformance contract.
+ *
+ * The real GEFEG validation schemas are now published and mirrored under
+ * extensions/eu/battery/docs/reference/gefeg-batterypass-ready/. They use a
+ * different serialization (per-category root key, seven SAMM aspect groups,
+ * verbose PascalCase names, unit+value objects, enums-as-objects). The
+ * conformance harness (scripts/test-batterypass-conformance.ts) validates the
+ * output of scripts/export-batterypass-gefeg.ts against those real schemas.
+ *
+ * It is also NOT a schema for the battery: extension itself — that lives in
+ * validation/battery-schema.json.
  *
  * Output: extensions/eu/battery/validation/batterypass-v1.3-schema.json
  *
@@ -17,28 +28,46 @@
  *   tsx scripts/build-batterypass-schema.ts
  *
  * Limitations:
- *   - SAMM v1.3 aspect URNs are placeholders pending publication of GEFEG's
- *     official aspect models. Property names are camelCase-normalised from the
- *     longlist's English attribute names; rename via NAME_OVERRIDES once the
- *     official SAMM names are public.
+ *   - Property names are camelCase-normalised from the longlist's English
+ *     attribute names — they do NOT match GEFEG's published attribute names
+ *     (which this generator predates). Use the mirrored GEFEG schemas, not this
+ *     file, when reconciling field names.
  *   - Type/format inference is keyed off the longlist's Data type column
  *     (String, ID (string), URI/URL, Decimal, Integer, Timestamp UTC-based,
  *     Date[YYYY-MM], Array (string)).
  */
 
-import { readFileSync, writeFileSync } from "fs";
+import { readFileSync, writeFileSync, existsSync } from "fs";
 import { execSync } from "child_process";
 import { join, dirname } from "path";
+import { tmpdir } from "os";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const PROJECT_ROOT = join(__dirname, "..");
 
-const XLSX_PATH = join(
-  PROJECT_ROOT,
-  "extensions/eu/battery/docs/reference/2026_BatteryPass-Ready_DataAttributeLongList_v1.3.xlsx"
-);
+const LONGLIST_URL =
+  "https://thebatterypass.eu/wp-content/uploads/2026_BatteryPass-Ready_DataAttributeLongList_v1.3.xlsx";
+
+/**
+ * Resolve the source longlist without committing it to the repo: prefer a local
+ * path from BPASS_LONGLIST_XLSX, otherwise download the canonical file to a temp
+ * path. The XLSX is upstream-owned and publicly hosted, so we link/fetch rather
+ * than mirror it.
+ */
+function resolveLonglistXlsx(): string {
+  const override = process.env.BPASS_LONGLIST_XLSX;
+  if (override && existsSync(override)) return override;
+  const dest = join(tmpdir(), "2026_BatteryPass-Ready_DataAttributeLongList_v1.3.xlsx");
+  if (!existsSync(dest)) {
+    console.log(`Fetching longlist from ${LONGLIST_URL}`);
+    execSync(`curl -fsSL '${LONGLIST_URL}' -o '${dest}'`, { stdio: "inherit" });
+  }
+  return dest;
+}
+
+const XLSX_PATH = resolveLonglistXlsx();
 const OUTPUT_PATH = join(
   PROJECT_ROOT,
   "extensions/eu/battery/validation/batterypass-v1.3-schema.json"
@@ -306,7 +335,7 @@ function buildSchema(attrs: Attribute[]): object {
     $id: "https://ref.openepcis.io/extensions/eu/battery/batterypass-v1.3-schema.json",
     title: "BatteryPass-Ready v1.3 Data Attribute Longlist",
     description:
-      "JSON Schema generated from the BatteryPass-Ready v1.3 longlist (March 2026). Validates SAMM-shaped passport documents emitted via the battery-context-to-batterypass.jsonld bridge. Generator: scripts/build-batterypass-schema.ts. Source XLSX: extensions/eu/battery/docs/reference/2026_BatteryPass-Ready_DataAttributeLongList_v1.3.xlsx.",
+      "JSON Schema generated from the BatteryPass-Ready v1.3 longlist (March 2026). Internal longlist-coverage view (not the GEFEG conformance contract — see validation/gefeg-live/). Generator: scripts/build-batterypass-schema.ts. Source XLSX (fetched, not mirrored): https://thebatterypass.eu/wp-content/uploads/2026_BatteryPass-Ready_DataAttributeLongList_v1.3.xlsx.",
     type: "object",
     properties,
     required,

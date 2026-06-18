@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ref.openepcis.io/extensions/eu/battery/batterypass-v1.3-schema.json",
   "title": "BatteryPass-Ready v1.3 Data Attribute Longlist",
-  "description": "JSON Schema generated from the BatteryPass-Ready v1.3 longlist (March 2026). Validates SAMM-shaped passport documents emitted via the battery-context-to-batterypass.jsonld bridge. Generator: scripts/build-batterypass-schema.ts. Source XLSX: extensions/eu/battery/docs/reference/2026_BatteryPass-Ready_DataAttributeLongList_v1.3.xlsx.",
+  "description": "JSON Schema generated from the BatteryPass-Ready v1.3 longlist (March 2026). Internal longlist-coverage view (not the GEFEG conformance contract — see validation/gefeg-live/). Generator: scripts/build-batterypass-schema.ts. Source XLSX (fetched, not mirrored): https://thebatterypass.eu/wp-content/uploads/2026_BatteryPass-Ready_DataAttributeLongList_v1.3.xlsx.",
   "type": "object",
   "properties": {
     "dppSchemaVersion": {
@@ -17,7 +17,7 @@
           }
         }
       ],
-      "description": "[1] DPP Schema version: DPP Information",
+      "description": "[1] DPP Schema version — DPP Information",
       "x-batterypass-no": 1,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -35,7 +35,7 @@
           }
         }
       ],
-      "description": "[2] DPP Status: DPP Information",
+      "description": "[2] DPP Status — DPP Information",
       "x-batterypass-no": 2,
       "x-access-level": "Public",
       "x-granularity": "Individual battery",
@@ -53,7 +53,7 @@
           }
         }
       ],
-      "description": "[3] DPP Granularity: DPP Information",
+      "description": "[3] DPP Granularity — DPP Information",
       "x-batterypass-no": 3,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -62,7 +62,7 @@
     "dateTimeOfLatestUpdate": {
       "type": "string",
       "format": "date-time",
-      "description": "[4] Date-time of latest update of DPP: DPP Information",
+      "description": "[4] Date-time of latest update of DPP — DPP Information",
       "x-batterypass-no": 4,
       "x-access-level": "Public",
       "x-granularity": "Individual battery",
@@ -70,7 +70,7 @@
     },
     "batteryPassportIdentifier": {
       "type": "string",
-      "description": "[5] Unique battery passport identifier / unique DPP identifier: Identifier",
+      "description": "[5] Unique battery passport identifier / unique DPP identifier — Identifier",
       "x-batterypass-no": 5,
       "x-access-level": "Public",
       "x-granularity": "Individual battery",
@@ -78,7 +78,7 @@
     },
     "batteryIdentifier": {
       "type": "string",
-      "description": "[6] Unique battery identifier / unique product identifier: Identifier",
+      "description": "[6] Unique battery identifier / unique product identifier — Identifier",
       "x-batterypass-no": 6,
       "x-access-level": "Public",
       "x-granularity": "Individual battery",
@@ -96,7 +96,7 @@
           }
         }
       ],
-      "description": "[7] Battery model identifier: Identifier",
+      "description": "[7] Battery model identifier — Identifier",
       "x-batterypass-no": 7,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -114,7 +114,7 @@
           }
         }
       ],
-      "description": "[8] Battery serial number: Identifier",
+      "description": "[8] Battery serial number — Identifier",
       "x-batterypass-no": 8,
       "x-access-level": "Public",
       "x-granularity": "Individual battery",
@@ -132,7 +132,7 @@
           }
         }
       ],
-      "description": "[9] Unique economic operator identifier: Identifier",
+      "description": "[9] Unique economic operator identifier — Identifier",
       "x-batterypass-no": 9,
       "x-access-level": "Notified bodies, market surveillance authorities and the Commission",
       "x-granularity": "Individual battery",
@@ -150,7 +150,7 @@
           }
         }
       ],
-      "description": "[10] Unique manufacturer identifier: Identifier",
+      "description": "[10] Unique manufacturer identifier — Identifier",
       "x-batterypass-no": 10,
       "x-access-level": "Notified bodies, market surveillance authorities and the Commission",
       "x-granularity": "Battery model per manufacturing site",
@@ -168,7 +168,7 @@
           }
         }
       ],
-      "description": "[11] Unique facility identifier: Identifier",
+      "description": "[11] Unique facility identifier — Identifier",
       "x-batterypass-no": 11,
       "x-access-level": "Notified bodies, market surveillance authorities and the Commission",
       "x-granularity": "Battery model per manufacturing site",
@@ -176,7 +176,7 @@
     },
     "economicOperatorInformation": {
       "type": "object",
-      "description": "[12] Economic operator information: Product data",
+      "description": "[12] Economic operator information — Product data",
       "x-batterypass-no": 12,
       "x-access-level": "Public",
       "x-granularity": "Individual battery",
@@ -184,7 +184,7 @@
     },
     "manufacturerInformation": {
       "type": "object",
-      "description": "[13] Manufacturer information: Product data",
+      "description": "[13] Manufacturer information — Product data",
       "x-batterypass-no": 13,
       "x-access-level": "Public",
       "x-granularity": "Battery model per manufacturing site",
@@ -202,7 +202,7 @@
           }
         }
       ],
-      "description": "[14] Manufacturing place: Product data",
+      "description": "[14] Manufacturing place — Product data",
       "x-batterypass-no": 14,
       "x-access-level": "Public",
       "x-granularity": "Battery model per manufacturing site",
@@ -211,7 +211,7 @@
     "manufacturingDate": {
       "type": "string",
       "pattern": "^\\d{4}-\\d{2}$",
-      "description": "[15] Manufacturing date: Product data",
+      "description": "[15] Manufacturing date — Product data",
       "x-batterypass-no": 15,
       "x-access-level": "Public",
       "x-granularity": "Individual battery",
@@ -220,7 +220,7 @@
     "puttingIntoService": {
       "type": "string",
       "pattern": "^\\d{4}-\\d{2}$",
-      "description": "[16] Date of putting the battery into service: Product data",
+      "description": "[16] Date of putting the battery into service — Product data",
       "x-batterypass-no": 16,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -229,7 +229,7 @@
     "warrantyPeriod": {
       "type": "string",
       "pattern": "^\\d{4}-\\d{2}$",
-      "description": "[17] Warranty period of the battery: Product data",
+      "description": "[17] Warranty period of the battery — Product data",
       "x-batterypass-no": 17,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -247,7 +247,7 @@
           }
         }
       ],
-      "description": "[18] Battery category: Product data",
+      "description": "[18] Battery category — Product data",
       "x-batterypass-no": 18,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -273,7 +273,7 @@
           ]
         }
       ],
-      "description": "[19] Battery mass: Product data",
+      "description": "[19] Battery mass — Product data",
       "x-batterypass-no": 19,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -291,7 +291,7 @@
           }
         }
       ],
-      "description": "[20] Battery status: Product data",
+      "description": "[20] Battery status — Product data",
       "x-batterypass-no": 20,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -299,7 +299,7 @@
     },
     "separateCollectionSymbol": {
       "type": "string",
-      "description": "[21] Separate collection symbol",
+      "description": "[21] Separate collection symbol — -",
       "x-batterypass-no": 21,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -307,7 +307,7 @@
     },
     "symbolsForCadmiumAndLead": {
       "type": "string",
-      "description": "[22] Symbols for cadmium and lead",
+      "description": "[22] Symbols for cadmium and lead — -",
       "x-batterypass-no": 22,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -315,7 +315,7 @@
     },
     "carbonFootprintLabel": {
       "type": "string",
-      "description": "[23] Carbon footprint label",
+      "description": "[23] Carbon footprint label — -",
       "x-batterypass-no": 23,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -333,7 +333,7 @@
           }
         }
       ],
-      "description": "[24] Extinguishing agent",
+      "description": "[24] Extinguishing agent — -",
       "x-batterypass-no": 24,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -351,7 +351,7 @@
           }
         }
       ],
-      "description": "[25] Meaning of labels and symbols",
+      "description": "[25] Meaning of labels and symbols — -",
       "x-batterypass-no": 25,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -359,7 +359,7 @@
     },
     "euDeclarationOfConformity": {
       "type": "string",
-      "description": "[26] EU declaration of conformity",
+      "description": "[26] EU declaration of conformity — -",
       "x-batterypass-no": 26,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -367,7 +367,7 @@
     },
     "resultsOfTestReportsProvingCompliance": {
       "type": "string",
-      "description": "[27] Results of test reports proving compliance",
+      "description": "[27] Results of test reports proving compliance — -",
       "x-batterypass-no": 27,
       "x-access-level": "Notified bodies, market surveillance authorities and the Commission",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -393,7 +393,7 @@
           ]
         }
       ],
-      "description": "[28] Battery carbon footprint per Functional Unit",
+      "description": "[28] Battery carbon footprint per Functional Unit — -",
       "x-batterypass-no": 28,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -419,7 +419,7 @@
           ]
         }
       ],
-      "description": "[29] Contribution of raw material acquisition and pre-processing lifecycle stage",
+      "description": "[29] Contribution of raw material acquisition and pre-processing lifecycle stage — -",
       "x-batterypass-no": 29,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -445,7 +445,7 @@
           ]
         }
       ],
-      "description": "[30] Contribution of main product production lifecycle stage",
+      "description": "[30] Contribution of main product production lifecycle stage — -",
       "x-batterypass-no": 30,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -471,7 +471,7 @@
           ]
         }
       ],
-      "description": "[31] Contribution of distribution lifecycle stage",
+      "description": "[31] Contribution of distribution lifecycle stage — -",
       "x-batterypass-no": 31,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -497,7 +497,7 @@
           ]
         }
       ],
-      "description": "[32] Contribution of end of life and recycling lifecycle stage",
+      "description": "[32] Contribution of end of life and recycling lifecycle stage — -",
       "x-batterypass-no": 32,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -515,7 +515,7 @@
           }
         }
       ],
-      "description": "[33] Carbon footprint performance class",
+      "description": "[33] Carbon footprint performance class — -",
       "x-batterypass-no": 33,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -523,7 +523,7 @@
     },
     "webLinkToPublicCarbonFootprintStudy": {
       "type": "string",
-      "description": "[34] Web link to public carbon footprint study",
+      "description": "[34] Web link to public carbon footprint study — -",
       "x-batterypass-no": 34,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -549,7 +549,7 @@
           ]
         }
       ],
-      "description": "[35] Absolute battery carbon footprint",
+      "description": "[35] Absolute battery carbon footprint — -",
       "x-batterypass-no": 35,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -557,7 +557,7 @@
     },
     "informationOfDueDiligenceReport": {
       "type": "string",
-      "description": "[36] Information of due diligence report",
+      "description": "[36] Information of due diligence report — -",
       "x-batterypass-no": 36,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -575,7 +575,7 @@
           }
         }
       ],
-      "description": "[37] Third party assurances of recognised schemes",
+      "description": "[37] Third party assurances of recognised schemes — -",
       "x-batterypass-no": 37,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -593,7 +593,7 @@
           }
         }
       ],
-      "description": "[38] Supply chain indices",
+      "description": "[38] Supply chain indices — -",
       "x-batterypass-no": 38,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -601,7 +601,7 @@
     },
     "batteryChemistry": {
       "type": "object",
-      "description": "[39] Battery chemistry",
+      "description": "[39] Battery chemistry — -",
       "x-batterypass-no": 39,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -619,7 +619,7 @@
           }
         }
       ],
-      "description": "[40] Critical raw materials",
+      "description": "[40] Critical raw materials — -",
       "x-batterypass-no": 40,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -630,7 +630,7 @@
       "items": {
         "type": "string"
       },
-      "description": "[41] Materials used in cathode, anode and electrolyte",
+      "description": "[41] Materials used in cathode, anode and electrolyte — -",
       "x-batterypass-no": 41,
       "x-access-level": "persons with a legitimate interest and the Commission",
       "x-granularity": "Battery model",
@@ -641,7 +641,7 @@
       "items": {
         "type": "object"
       },
-      "description": "[42] Hazardous substances",
+      "description": "[42] Hazardous substances — -",
       "x-batterypass-no": 42,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -659,7 +659,7 @@
           }
         }
       ],
-      "description": "[43] Impact of substances on environment, human health, safety, persons",
+      "description": "[43] Impact of substances on environment, human health, safety, persons — -",
       "x-batterypass-no": 43,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -670,7 +670,7 @@
       "items": {
         "type": "object"
       },
-      "description": "[44] Dismantling information: Manuals for the removal and the disassembly of the battery pack: Circularity information",
+      "description": "[44] Dismantling information: Manuals for the removal and the disassembly of the battery pack — Circularity information",
       "x-batterypass-no": 44,
       "x-access-level": "persons with a legitimate interest and the Commission",
       "x-granularity": "Battery model",
@@ -688,7 +688,7 @@
           }
         }
       ],
-      "description": "[45] Part numbers for components: Circularity information",
+      "description": "[45] Part numbers for components — Circularity information",
       "x-batterypass-no": 45,
       "x-access-level": "persons with a legitimate interest and the Commission",
       "x-granularity": "Battery model",
@@ -699,7 +699,7 @@
       "items": {
         "type": "object"
       },
-      "description": "[46] Information on sources of spare parts: Circularity Information",
+      "description": "[46] Information on sources of spare parts — Circularity Information",
       "x-batterypass-no": 46,
       "x-access-level": "persons with a legitimate interest and the Commission",
       "x-granularity": "Battery model",
@@ -707,7 +707,7 @@
     },
     "safetyMeasures": {
       "type": "string",
-      "description": "[47] Safety measures: Circularity information",
+      "description": "[47] Safety measures — Circularity information",
       "x-batterypass-no": 47,
       "x-access-level": "persons with a legitimate interest and the Commission",
       "x-granularity": "Battery model",
@@ -733,7 +733,7 @@
           ]
         }
       ],
-      "description": "[48] Pre-consumer recycled nickel share: Recycled and renewable content",
+      "description": "[48] Pre-consumer recycled nickel share — Recycled and renewable content",
       "x-batterypass-no": 48,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -759,7 +759,7 @@
           ]
         }
       ],
-      "description": "[49] Pre-consumer recycled cobalt share: Recycled and renewable content",
+      "description": "[49] Pre-consumer recycled cobalt share — Recycled and renewable content",
       "x-batterypass-no": 49,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -785,7 +785,7 @@
           ]
         }
       ],
-      "description": "[50] Pre-consumer recycled lithium share: Recycled and renewable content",
+      "description": "[50] Pre-consumer recycled lithium share — Recycled and renewable content",
       "x-batterypass-no": 50,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -811,7 +811,7 @@
           ]
         }
       ],
-      "description": "[51] Post-consumer recycled nickel share: Recycled and renewable content",
+      "description": "[51] Post-consumer recycled nickel share — Recycled and renewable content",
       "x-batterypass-no": 51,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -837,7 +837,7 @@
           ]
         }
       ],
-      "description": "[52] Post-consumer recycled cobalt share: Recycled and renewable content",
+      "description": "[52] Post-consumer recycled cobalt share — Recycled and renewable content",
       "x-batterypass-no": 52,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -863,7 +863,7 @@
           ]
         }
       ],
-      "description": "[53] Post-consumer recycled lithium share: Recycled and renewable content",
+      "description": "[53] Post-consumer recycled lithium share — Recycled and renewable content",
       "x-batterypass-no": 53,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -889,7 +889,7 @@
           ]
         }
       ],
-      "description": "[54] Recycled lead share: Recycled and renewable content",
+      "description": "[54] Recycled lead share — Recycled and renewable content",
       "x-batterypass-no": 54,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -915,7 +915,7 @@
           ]
         }
       ],
-      "description": "[55] Renewable content share: Recycled and renewable content",
+      "description": "[55] Renewable content share — Recycled and renewable content",
       "x-batterypass-no": 55,
       "x-access-level": "Public",
       "x-granularity": "Battery model per calendar year and per manufacturing site, i.e. batch level",
@@ -923,7 +923,7 @@
     },
     "informationOnTheRoleOfEndUsersInContributingToWastePrevention": {
       "type": "string",
-      "description": "[56] Information on the role of end-users in contributing to waste prevention: Information on role of end-users in waste prevention and information on battery collection, preparation for second life and on treatment at end of life",
+      "description": "[56] Information on the role of end-users in contributing to waste prevention — Information on role of end-users in waste prevention and information on battery collection, preparation for second life and on treatment at end of life",
       "x-batterypass-no": 56,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -931,7 +931,7 @@
     },
     "informationOnTheRoleOfEndUsersInContributingToTheSeparateCollectionOfWasteBatteries": {
       "type": "string",
-      "description": "[57] Information on the role of end-users in contributing to the separate collection of waste batteries: Information on role of end-users in waste prevention and information on battery collection, preparation for second life and on treatment at end of life",
+      "description": "[57] Information on the role of end-users in contributing to the separate collection of waste batteries — Information on role of end-users in waste prevention and information on battery collection, preparation for second life and on treatment at end of life",
       "x-batterypass-no": 57,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -939,7 +939,7 @@
     },
     "informationOnBatteryCollection": {
       "type": "string",
-      "description": "[58] Information on battery collection, preparation for second life and on treatment at end of life: Information on role of end-users in waste prevention and information on battery collection, preparation for second life and on treatment at end of life",
+      "description": "[58] Information on battery collection, preparation for second life and on treatment at end of life — Information on role of end-users in waste prevention and information on battery collection, preparation for second life and on treatment at end of life",
       "x-batterypass-no": 58,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -965,7 +965,7 @@
           ]
         }
       ],
-      "description": "[59] Rated capacity: Capacity, energy, and voltage",
+      "description": "[59] Rated capacity — Capacity, energy, and voltage",
       "x-batterypass-no": 59,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -991,7 +991,7 @@
           ]
         }
       ],
-      "description": "[60] Remaining capacity: Capacity, energy, and voltage",
+      "description": "[60] Remaining capacity — Capacity, energy, and voltage",
       "x-batterypass-no": 60,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1017,7 +1017,7 @@
           ]
         }
       ],
-      "description": "[61] Capacity fade: Capacity, energy, and voltage",
+      "description": "[61] Capacity fade — Capacity, energy, and voltage",
       "x-batterypass-no": 61,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Battery model",
@@ -1043,7 +1043,7 @@
           ]
         }
       ],
-      "description": "[62] Certified usable battery energy: Capacity, energy, and voltage",
+      "description": "[62] Certified usable battery energy — Capacity, energy, and voltage",
       "x-batterypass-no": 62,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -1069,7 +1069,7 @@
           ]
         }
       ],
-      "description": "[63] Remaining usable battery energy: Capacity, energy, and voltage",
+      "description": "[63] Remaining usable battery energy — Capacity, energy, and voltage",
       "x-batterypass-no": 63,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1095,7 +1095,7 @@
           ]
         }
       ],
-      "description": "[64] State of certified energy (SOCE): Capacity, energy, and voltage",
+      "description": "[64] State of certified energy (SOCE) — Capacity, energy, and voltage",
       "x-batterypass-no": 64,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1121,7 +1121,7 @@
           ]
         }
       ],
-      "description": "[65] State of Charge (SoC): Capacity, energy, and voltage",
+      "description": "[65] State of Charge (SoC) — Capacity, energy, and voltage",
       "x-batterypass-no": 65,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1147,7 +1147,7 @@
           ]
         }
       ],
-      "description": "[66] Minimum voltage: Capacity, energy, and voltage",
+      "description": "[66] Minimum voltage — Capacity, energy, and voltage",
       "x-batterypass-no": 66,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -1173,7 +1173,7 @@
           ]
         }
       ],
-      "description": "[67] Maximum voltage: Capacity, energy, and voltage",
+      "description": "[67] Maximum voltage — Capacity, energy, and voltage",
       "x-batterypass-no": 67,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -1199,7 +1199,7 @@
           ]
         }
       ],
-      "description": "[68] Nominal voltage: Capacity, energy, and voltage",
+      "description": "[68] Nominal voltage — Capacity, energy, and voltage",
       "x-batterypass-no": 68,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -1225,7 +1225,7 @@
           ]
         }
       ],
-      "description": "[69] Original power capability: Power capability",
+      "description": "[69] Original power capability — Power capability",
       "x-batterypass-no": 69,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -1251,7 +1251,7 @@
           ]
         }
       ],
-      "description": "[70] Remaining power capability: Power capability",
+      "description": "[70] Remaining power capability — Power capability",
       "x-batterypass-no": 70,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1277,7 +1277,7 @@
           ]
         }
       ],
-      "description": "[71] Power fade: Power capability",
+      "description": "[71] Power fade — Power capability",
       "x-batterypass-no": 71,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Battery model",
@@ -1303,7 +1303,7 @@
           ]
         }
       ],
-      "description": "[72] Maximum permitted battery power: Power capability",
+      "description": "[72] Maximum permitted battery power — Power capability",
       "x-batterypass-no": 72,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -1329,7 +1329,7 @@
           ]
         }
       ],
-      "description": "[73] Ratio between nominal battery power and battery energy: Power capability",
+      "description": "[73] Ratio between nominal battery power and battery energy — Power capability",
       "x-batterypass-no": 73,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -1355,7 +1355,7 @@
           ]
         }
       ],
-      "description": "[74] Initial round trip energy efficiency: Round trip energy efficiency and self-discharge",
+      "description": "[74] Initial round trip energy efficiency — Round trip energy efficiency and self-discharge",
       "x-batterypass-no": 74,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -1381,7 +1381,7 @@
           ]
         }
       ],
-      "description": "[75] Round trip energy efficiency at 50% of cycle life: Round trip energy efficiency and self-discharge",
+      "description": "[75] Round trip energy efficiency at 50% of cycle life — Round trip energy efficiency and self-discharge",
       "x-batterypass-no": 75,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -1407,7 +1407,7 @@
           ]
         }
       ],
-      "description": "[76] Remaining round trip energy efficiency: Round trip energy efficiency and self-discharge",
+      "description": "[76] Remaining round trip energy efficiency — Round trip energy efficiency and self-discharge",
       "x-batterypass-no": 76,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1433,7 +1433,7 @@
           ]
         }
       ],
-      "description": "[77] Energy round trip efficiency fade: Round trip energy efficiency and self-discharge",
+      "description": "[77] Energy round trip efficiency fade — Round trip energy efficiency and self-discharge",
       "x-batterypass-no": 77,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Battery model",
@@ -1459,7 +1459,7 @@
           ]
         }
       ],
-      "description": "[78] Initial self-discharge rate: Round trip energy efficiency and self-discharge",
+      "description": "[78] Initial self-discharge rate — Round trip energy efficiency and self-discharge",
       "x-batterypass-no": 78,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Battery model",
@@ -1485,7 +1485,7 @@
           ]
         }
       ],
-      "description": "[79] Current self-discharge rate: Round trip energy efficiency and self-discharge",
+      "description": "[79] Current self-discharge rate — Round trip energy efficiency and self-discharge",
       "x-batterypass-no": 79,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1511,7 +1511,7 @@
           ]
         }
       ],
-      "description": "[80] Evolution of self-discharge rates: Round trip energy efficiency and self-discharge",
+      "description": "[80] Evolution of self-discharge rates — Round trip energy efficiency and self-discharge",
       "x-batterypass-no": 80,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1537,7 +1537,7 @@
           ]
         }
       ],
-      "description": "[81] Initial internal resistance of battery cell and pack (module recommended): Internal resistance",
+      "description": "[81] Initial internal resistance of battery cell and pack (module recommended) — Internal resistance",
       "x-batterypass-no": 81,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -1563,7 +1563,7 @@
           ]
         }
       ],
-      "description": "[82] Internal resistance increase of pack (cell and module recommended): Internal resistance",
+      "description": "[82] Internal resistance increase of pack (cell and module recommended) — Internal resistance",
       "x-batterypass-no": 82,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Battery model",
@@ -1589,7 +1589,7 @@
           ]
         }
       ],
-      "description": "[83] Expected lifetime in calendar years: Battery lifetime",
+      "description": "[83] Expected lifetime in calendar years — Battery lifetime",
       "x-batterypass-no": 83,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Battery model",
@@ -1615,7 +1615,7 @@
           ]
         }
       ],
-      "description": "[84] Expected lifetime: Number of charge-discharge cycles: Battery lifetime",
+      "description": "[84] Expected lifetime: Number of charge-discharge cycles — Battery lifetime",
       "x-batterypass-no": 84,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -1641,7 +1641,7 @@
           ]
         }
       ],
-      "description": "[85] Number of full charging and discharging cycles: Battery lifetime",
+      "description": "[85] Number of full charging and discharging cycles — Battery lifetime",
       "x-batterypass-no": 85,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1659,7 +1659,7 @@
           }
         }
       ],
-      "description": "[86] Cycle-life reference test: Battery lifetime",
+      "description": "[86] Cycle-life reference test — Battery lifetime",
       "x-batterypass-no": 86,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -1685,7 +1685,7 @@
           ]
         }
       ],
-      "description": "[87] C-rate of relevant cycle-life test: Battery lifetime",
+      "description": "[87] C-rate of relevant cycle-life test — Battery lifetime",
       "x-batterypass-no": 87,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -1711,7 +1711,7 @@
           ]
         }
       ],
-      "description": "[88] Energy throughput: Battery lifetime",
+      "description": "[88] Energy throughput — Battery lifetime",
       "x-batterypass-no": 88,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1737,7 +1737,7 @@
           ]
         }
       ],
-      "description": "[89] Capacity throughput: Battery lifetime",
+      "description": "[89] Capacity throughput — Battery lifetime",
       "x-batterypass-no": 89,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1763,7 +1763,7 @@
           ]
         }
       ],
-      "description": "[90] Capacity threshold for exhaustion: Battery lifetime",
+      "description": "[90] Capacity threshold for exhaustion — Battery lifetime",
       "x-batterypass-no": 90,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -1778,7 +1778,7 @@
           "type": "object"
         }
       ],
-      "description": "[91] Temperature information: Temperature conditions",
+      "description": "[91] Temperature information — Temperature conditions",
       "x-batterypass-no": 91,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1804,7 +1804,7 @@
           ]
         }
       ],
-      "description": "[92] Temperature range idle state, lower boundary: Temperature conditions",
+      "description": "[92] Temperature range idle state, lower boundary — Temperature conditions",
       "x-batterypass-no": 92,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -1830,7 +1830,7 @@
           ]
         }
       ],
-      "description": "[93] Temperature range idle state, upper boundary: Temperature conditions",
+      "description": "[93] Temperature range idle state, upper boundary — Temperature conditions",
       "x-batterypass-no": 93,
       "x-access-level": "Public",
       "x-granularity": "Battery model",
@@ -1856,7 +1856,7 @@
           ]
         }
       ],
-      "description": "[94] Time spent in extreme temperatures above boundary: Temperature conditions",
+      "description": "[94] Time spent in extreme temperatures above boundary — Temperature conditions",
       "x-batterypass-no": 94,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1882,7 +1882,7 @@
           ]
         }
       ],
-      "description": "[95] Time spent in extreme temperatures below boundary: Temperature conditions",
+      "description": "[95] Time spent in extreme temperatures below boundary — Temperature conditions",
       "x-batterypass-no": 95,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1908,7 +1908,7 @@
           ]
         }
       ],
-      "description": "[96] Time spent charging during extreme temperatures above boundary: Temperature conditions",
+      "description": "[96] Time spent charging during extreme temperatures above boundary — Temperature conditions",
       "x-batterypass-no": 96,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1934,7 +1934,7 @@
           ]
         }
       ],
-      "description": "[97] Time spent charging during extreme temperatures below boundary: Temperature conditions",
+      "description": "[97] Time spent charging during extreme temperatures below boundary — Temperature conditions",
       "x-batterypass-no": 97,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1960,7 +1960,7 @@
           ]
         }
       ],
-      "description": "[98] Number of deep discharge events: Negative events",
+      "description": "[98] Number of deep discharge events — Negative events",
       "x-batterypass-no": 98,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1986,7 +1986,7 @@
           ]
         }
       ],
-      "description": "[99] Number of overcharge events: Negative events",
+      "description": "[99] Number of overcharge events — Negative events",
       "x-batterypass-no": 99,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",
@@ -1994,7 +1994,7 @@
     },
     "informationOnAccidents": {
       "type": "string",
-      "description": "[100] Information on accidents: Negative events",
+      "description": "[100] Information on accidents — Negative events",
       "x-batterypass-no": 100,
       "x-access-level": "persons with a legitimate interest",
       "x-granularity": "Individual battery",

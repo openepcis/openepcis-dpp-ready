@@ -838,6 +838,17 @@ battery:maximumDischargingPower
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
+battery:maximumPermittedBatteryPower
+    a owl:ObjectProperty ;
+    rdfs:label "Maximum Permitted Battery Power"@en ;
+    rdfs:comment "Maximum permitted battery power (single declared value). Use gs1:QuantitativeValue with unitCode 'WTT' (watt) or 'KWT' (kW), UN/CEFACT Rec 20."@en ;
+    rdfs:domain battery:TechnicalSpecification ;
+    rdfs:range gs1:QuantitativeValue ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #72. Performance & durability passport property per Annex XIII; required by the GEFEG BatteryPass-Ready live validator across all four categories (MaximumPermittedBatteryPower, watt_celsius_integer_onevalue). Distinct from battery:ratedMaximumPower (rated output). No equivalent GS1 term exists."@en ;
+    rdfs:seeAlso battery:ratedMaximumPower ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+
 battery:maximumChargingCurrent
     a owl:ObjectProperty ;
     rdfs:label "Maximum Charging Current"@en ;
@@ -2232,6 +2243,46 @@ battery:evolutionOfSelfDischarge
     rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+
+battery:timeSpentInExtremeTemperaturesAboveBoundary
+    a owl:DatatypeProperty ;
+    rdfs:label "Time Spent in Extreme Temperatures Above Boundary"@en ;
+    rdfs:comment "Cumulative time the battery spent above the upper temperature boundary, in minutes."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:integer ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #94. Performance & durability passport property per Annex XIII; required by the GEFEG BatteryPass-Ready live validator for LMT and Stationary Industrial batteries (TimeSpentInExtremeTemperaturesAboveBoundary). Cumulative lifetime counter, distinct from the per-event battery:exposureDurationMinutes. No equivalent GS1 term exists."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+
+battery:timeSpentInExtremeTemperaturesBelowBoundary
+    a owl:DatatypeProperty ;
+    rdfs:label "Time Spent in Extreme Temperatures Below Boundary"@en ;
+    rdfs:comment "Cumulative time the battery spent below the lower temperature boundary, in minutes."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:integer ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #95. Performance & durability passport property per Annex XIII; required by the GEFEG BatteryPass-Ready live validator for LMT and Stationary Industrial batteries (TimeSpentInExtremeTemperaturesBelowBoundary). Cumulative lifetime counter, distinct from the per-event battery:exposureDurationMinutes. No equivalent GS1 term exists."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+
+battery:timeSpentChargingDuringExtremeTemperaturesAboveBoundary
+    a owl:DatatypeProperty ;
+    rdfs:label "Time Spent Charging During Extreme Temperatures Above Boundary"@en ;
+    rdfs:comment "Cumulative time the battery spent charging above the upper temperature boundary, in minutes."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:integer ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #96. Performance & durability passport property per Annex XIII; required by the GEFEG BatteryPass-Ready live validator for LMT and Stationary Industrial batteries (TimeSpentChargingDuringExtremeTemperaturesAboveBoundary). Cumulative lifetime counter, distinct from the per-event battery:exposureDurationMinutes. No equivalent GS1 term exists."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+
+battery:timeSpentChargingDuringExtremeTemperaturesBelowBoundary
+    a owl:DatatypeProperty ;
+    rdfs:label "Time Spent Charging During Extreme Temperatures Below Boundary"@en ;
+    rdfs:comment "Cumulative time the battery spent charging below the lower temperature boundary, in minutes."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:integer ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #97. Performance & durability passport property per Annex XIII; required by the GEFEG BatteryPass-Ready live validator for LMT and Stationary Industrial batteries (TimeSpentChargingDuringExtremeTemperaturesBelowBoundary). Cumulative lifetime counter, distinct from the per-event battery:exposureDurationMinutes. No equivalent GS1 term exists."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 # =============================================================================

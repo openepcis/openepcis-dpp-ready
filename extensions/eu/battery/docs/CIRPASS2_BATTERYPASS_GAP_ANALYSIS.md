@@ -300,6 +300,155 @@ bridge contexts.
 - Catena-X SAMM Aspect Models (Tractus-X): <https://github.com/eclipse-tractusx/sldt-semantic-models/tree/main/io.catenax.battery.battery_pass>
 - Eclipse Semantic Modeling Framework (SAMM): <https://eclipse-esmf.github.io/samm-specification/>
 
+## GEFEG published validation schemas (retrieved 2026-06-17)
+
+The GEFEG **BatteryPass-Ready test environment** (Build 0.1.1, Documentation
+v0.1 April 2026) is now live and publishes the actual validation schemas its
+"Product Passport Data Validation" module runs. We mirror them under
+[`docs/reference/gefeg-batterypass-ready/`](./reference/gefeg-batterypass-ready/)
+(see `SOURCE.md` there). These are the real conformance contract; what we
+previously generated from the longlist Excel
+(`validation/batterypass-v1.3-schema.json`) was a structural *guess* and is now
+superseded for conformance purposes — it stays only as an internal
+longlist-coverage view.
+
+### What the real schemas look like
+
+- **Per-category file, single root key.** Four files (EV / LMT / Other
+  Industrial > 2 kWh / Stationary Industrial > 2 kWh). In the v1.0 export the
+  four are **byte-for-byte identical except the root wrapper key** (`EV`, `LMT`,
+  `OtherIndustrial2kWh`, `Industrial2kWh`), each wrapping a shared
+  `BatteryPass_Master`. The category-specific required-attribute differences the
+  data-model PDF describes are **not** encoded in this prototype release.
+- **Seven SAMM aspect groups** under `BatteryPass_Master`:
+  `IdentifiersAndProductData`, `PerformanceAndDurability`,
+  `CircularityAndResourceEfficiency`, `BatteryMaterialsAndComposition`,
+  `BatteryCarbonFootprint`, `SupplyChainDueDiligence`,
+  `SymbolsLabelsAndDocumentationOfConformity`.
+- **Verbose PascalCase attribute names** carrying the longlist label verbatim,
+  e.g. `UniqueBatteryPassportIdentifierUniqueDPPIdentifier`,
+  `ExpectedLifetime:_NumberOfCharge-dischargeCycles`,
+  `DismantlingInformation:_ManualsForTheRemovalAndTheDisassemblyOfTheBatteryPack`.
+- **Quantities are unit + value objects**, not `{value, unitCode}`:
+  `RatedCapacity` → `{ ampereHourValueDecimal, ampereHourMiliamperehour: "Ah"|"mAh" }`;
+  voltages → `{ voltValue, volt: "V" }`; mass → `{ gram_kgValue, gram_kg: "kg" }`;
+  carbon footprint → `{ "kgCO2-equivalentPerKilowattHourValue", "kgCO2-equivalentPerKilowattHour": "kgCO₂-eq/kWh" }`.
+- **Enumerations are modelled as objects** keyed by the chosen value
+  (`BatteryStatus` → `{ original: … }`, `BatteryCategory` → `{ industrial: … }`,
+  `DPPStatus` → `{ Active: … }`, `BatteryChemistry` → `{ CustomChemicalCodes: "Li-ion LFP" }`).
+- **Lenient.** No `required` arrays and no `additionalProperties:false` anywhere.
+  Present fields are type/enum-checked; unknown fields pass silently. Semantic /
+  cross-field plausibility checks are documented as a future release.
+- **One non-portable artifact:** `operatorInformation.name` carries an
+  XSD-derived `pattern: "\i\c*"` that is not a valid ECMAScript regex; ajv
+  (unicode mode) cannot compile it, so our harness strips it before validating.
+
+### How we map onto it
+
+- `scripts/export-batterypass-gefeg.ts` projects a flat OpenEPCIS battery
+  passport into this grouped/unit-object shape (62 attributes for the reference
+  industrial passport) and is the single place the GEFEG field map lives.
+- `extensions/eu/battery/examples/batterypass-ready/other-industrial.source.json`
+  is the flat reference passport (promoted from the working `phase-c` export);
+  `other-industrial.gefeg.json` is the exporter output that validates clean.
+- `scripts/test-batterypass-conformance.ts` validates the export against all four
+  real schemas, asserts attribute-name recognition (the lenient schema would
+  otherwise hide typos), and keeps cross-field plausibility checks that exceed
+  the tool's current structural-only scope.
+
+### Corrections to earlier assumptions
+
+- Recycled-content and efficiency shares are **percent values (0–100)** inside
+  `percent_decimal` objects, **not** 0–1 decimals as the old mock harness
+  assumed.
+- Numeric attributes are **unit-tagged objects**, not bare numbers or
+  `{value, unitCode}`.
+- The bridge's `bp-*` SAMM URNs (`urn:samm:io.BatteryPass.*:1.3.0#`) remain
+  unverified against GEFEG's published SAMM aspect models; the GEFEG **upload**
+  schema documented here is a distinct serialization and is what the validator
+  actually enforces.
+
+### The live API is stricter than the static schemas (verified 2026-06-17)
+
+Calling the live validation endpoint directly
+(`POST /automation-console/api/ValidateJSON?tag=…&version=1.0`, bearer token
+from the Keycloak `batterypass-ui` Authorization-Code+PKCE flow, body sent as
+`text/plain`) revealed that **the server enforces a newer, stricter schema than
+the downloadable static `.json` files**. The static files declare no `required`;
+the server returns required-property errors and uses different key names. Concrete
+deltas found while making `other-industrial.gefeg.json` pass:
+
+- **Enumerations** are objects with a single `<name>Value` property and a
+  controlled value, e.g. `DPPStatus → { dppStatusValue: "Active" }` (capitalised),
+  `BatteryCategory → { batteryCategoryValue: "industrial battery" }`
+  (EV uses `"electric vehicle battery"`), `BatteryStatus → { batteryStatusValues: "original" }`.
+- **Key names differ** from the static file: the server uses a hyphen where the
+  static schema has `:_` — `ExpectedLifetime-NumberOfChargeOrDischargeCycles`,
+  `DismantlingInformation-ManualsForTheRemovalAndTheDisassemblyOfTheBatteryPack`.
+- **Quantity value keys**: `RatedCapacity.amperehourMiliamperehourValue`,
+  `BatteryMass.gramKgValue/gramKg`, `OriginalPowerCapability` requires
+  `wattValueAt80SoC` + `wattValueAt20SoC` (power at two SoC levels), `ohmValue`
+  must be an **integer**.
+- **Operator blocks** require `registeredTradeNameOrRegisteredTrademark` (and
+  `postalAddress` on `ManufacturerInformation`).
+- The prototype marks effectively the whole longlist **required** (no per-category
+  differentiation yet), including dynamic/per-unit metrics (`CapacityFade`,
+  `StateOfChargeSoC`, `PowerFade`, …). The exporter fills these with representative
+  beginning-of-life values for a model-level passport.
+
+`scripts/export-batterypass-gefeg.ts` encodes this mapping and
+`extensions/eu/battery/examples/batterypass-ready/other-industrial.gefeg.json`
+**validates with zero errors against the live GEFEG validator**. Reproduce with
+`pnpm run validate:batterypass-live <file> Other_Industrial_BatteryPass`
+(provide a token: `BPASS_TOKEN`, or `BPASS_CODE`+`BPASS_VERIFIER` from a PKCE
+round, or `BPASS_USER`+`BPASS_PASSWORD` if direct grants are ever enabled).
+
+All four category passports — EV, LMT, Other Industrial, Stationary — are verified
+**VALID** against the live API (2026-06-17), via `pnpm run export:batterypass-gefeg`
+fixtures in `examples/batterypass-ready/`.
+
+### Per-category differences (the static files hide these)
+
+The published static schemas are byte-identical except the root key. The **live**
+server enforces materially different per-category contracts, discovered by probing
+each tag with an empty-groups document (`scripts/probe-gefeg-required.ts`):
+
+- **Root keys**: `EV`, `LMT`, `OtherIndustrial2kWh`, and **`StationaryIndustrial2kWh`**
+  — the static Stationary file mislabels its root as `Industrial2kWh`.
+- **Required-sets diverge.** Identifiers / Circularity / Materials / Carbon /
+  DueDiligence / Symbols are required-identically across all four. But:
+  - **EV** uniquely requires `StateOfCertifiedEnergySOCE`.
+  - **LMT** and **Stationary** additionally require `DateOfPuttingTheBatteryIntoService`
+    and the extended performance set (`RemainingCapacity`, `RemainingPowerCapability`,
+    `RemainingRoundTripEnergyEfficiency`, `EvolutionOfSelf-dischargeRates`,
+    `EnergyThroughput`, `CapacityThroughput`, `TimeSpent…ExtremeTemperatures…` ×4,
+    `NumberOfDeepDischargeEvents`).
+  - **Other Industrial** is the leanest.
+- **`batteryCategoryValue` enum** (from the data-model PDF "battery category codes"):
+  only `"electric vehicle battery"`, `"LMT battery"`, `"industrial battery"`
+  (Stationary uses `"industrial battery"`).
+- **Integer vs decimal ampere-hour** value objects disagree on unit-key casing:
+  `RatedCapacity`/`RemainingCapacity` need `ampereHourMiliamperehour` (capital H);
+  `CapacityThroughput` needs `amperehourMiliamperehour`.
+
+### Derived schema files (since the published ones don't match)
+
+Because the downloadable schemas are wrong, we derive faithful per-category schemas
+under [`validation/gefeg-live/`](../validation/gefeg-live/) — `EV.schema.json`,
+`LMT.schema.json`, `OtherIndustrial2kWh.schema.json`,
+`StationaryIndustrial2kWh.schema.json` — via `pnpm run build:gefeg-live-schema`
+(required-sets from the live probe; shapes from the verified-valid fixtures). The
+offline `pnpm test` validates each category fixture against its live-derived schema
+and runs plausibility checks; the **live API call remains the authoritative
+conformance check**.
+
+### Still open / system-level
+
+The GEFEG **System-Level DPP Implementation Testing** module (prEN 18222
+Lifecycle API + Test Adapter `PUT /TestSetup` / `PUT /TestTeardown`, roles
+Economic Operator / Backup Provider) is a separate, larger track requiring a
+running DPP API and is not addressed here.
+
 ## Companion documents
 
 - [`docs/cirpass2/ALIGNMENT.md`](../../../../docs/cirpass2/ALIGNMENT.md) — CIRPASS-2 cross-cutting alignment

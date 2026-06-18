@@ -2,6 +2,38 @@
 
 All notable changes to the Battery module will be documented in this file.
 
+## Unreleased — GEFEG BatteryPass-Ready live-conformance alignment (2026-06-17)
+
+### Added
+- 5 additive performance properties required by the **live** GEFEG
+  BatteryPass-Ready validator (no GS1/upstream equivalent), flat on their domain
+  class so existing payloads are unaffected:
+  - `battery:maximumPermittedBatteryPower` (range `gs1:QuantitativeValue`, domain `battery:TechnicalSpecification`)
+  - `battery:timeSpentInExtremeTemperaturesAboveBoundary` / `…BelowBoundary` (range `xsd:integer`, domain `gs1:Product`)
+  - `battery:timeSpentChargingDuringExtremeTemperaturesAboveBoundary` / `…BelowBoundary` (range `xsd:integer`, domain `gs1:Product`)
+- GEFEG exporter `scripts/export-batterypass-gefeg.ts` + live caller
+  `scripts/validate-batterypass-live.ts` + required-set probe
+  `scripts/probe-gefeg-required.ts` + derived-schema generator
+  `scripts/build-gefeg-live-schema.ts`.
+- Live-accurate per-category schemas under `validation/gefeg-live/`, verified-valid
+  fixtures under `examples/batterypass-ready/`, mirrored GEFEG artifacts under
+  `docs/reference/gefeg-batterypass-ready/`, the GEFEG↔OpenEPCIS map
+  (`docs/GEFEG_MAPPING.md`), and EPCIS `epcis/shipping.jsonld` (DPP master data on
+  the GS1 Digital Link via `masterDataAvailableFor`).
+
+### Removed
+- The mirrored longlist `docs/reference/2026_BatteryPass-Ready_DataAttributeLongList_v1.3.xlsx`.
+  It has a stable public URL, so `build:batterypass-schema` now fetches it on
+  demand (override with `BPASS_LONGLIST_XLSX`) rather than committing a copy.
+
+### Notes
+- Documented that GEFEG's downloadable static schemas do not match the live
+  `ValidateJSON` server (no `required`, wrong Stationary root key, differing key
+  names); see `docs/CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md`. All four categories
+  validate clean against the live server. The GEFEG static schemas under
+  `docs/reference/gefeg-batterypass-ready/` are kept (downloaded via the SPA;
+  no stable canonical URL to link to).
+
 ## 0.9.6 — EN 18223 status alignment (2026-06-07)
 
 ### Added

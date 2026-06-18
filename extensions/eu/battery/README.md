@@ -96,7 +96,14 @@ Uses official GS1 Web Vocabulary for regulatory compliance:
 └─────────────────────────────────────────────────────────────┘
 ```
 
-**Architecture rule**: `gs1:masterDataAvailableFor` contains only `gs1:` properties. Battery-specific extensions (`battery:`) go at event level. See [core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md](../core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md).
+**Architecture rule**: `masterDataAvailableFor` carries product/party/location
+**master data** — GS1 Web Vocabulary terms written bare, plus **product-level**
+extension attributes that have no GS1 equivalent (e.g. `battery:batteryChemistry`,
+`battery:ratedCapacity`, `schema:category`), since they describe the GTIN and are
+identical across every item of that SKU. **Event-specific / dynamic** extension
+data (a single measurement, this-shipment KDEs, incident severity) goes at **event
+level**, not in `masterDataAvailableFor`. See the canonical rule in
+[core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md §2](../core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md).
 
 This pattern enables **reuse across all EU DPP regulations** (Battery, EUDR, Textile, Electronics).
 
@@ -151,7 +158,11 @@ For full traceability with provenance, use EPCIS events:
 }
 ```
 
-See `epcis/` directory for 8 complete event examples.
+See the [`epcis/`](./epcis/) directory for 9 complete event examples. Two show
+master data attached to the GS1 Digital Link via `masterDataAvailableFor`:
+[`commissioning.jsonld`](./epcis/commissioning.jsonld) (battery creation) and
+[`shipping.jsonld`](./epcis/shipping.jsonld) (placed on market / dispatched — the
+DPP card a Digital Link resolver returns when the battery's QR is scanned).
 
 ## Comparison
 
@@ -213,7 +224,8 @@ battery/
 │   ├── battery-product.jsonld        # Complete product master data
 │   └── regulatory-notification.jsonld # B2B compliance message
 ├── epcis/
-│   ├── commissioning.jsonld           # Battery created
+│   ├── commissioning.jsonld           # Battery created (master data → Digital Link)
+│   ├── shipping.jsonld                # Placed on market (master data → Digital Link)
 │   ├── regulatory-notification.jsonld # Regulatory compliance notification
 │   ├── carbon-footprint.jsonld        # CFP declaration event
 │   ├── state-of-health.jsonld         # SoH measurement event
@@ -275,36 +287,40 @@ The bridge contexts enable **bidirectional compatibility** with BatteryPass (DIN
 
 This is the proper JSON-LD semantic web approach—no separate migration tools needed, just context files that enable interoperability.
 
-### BatteryPass-Ready v1.3 conformance (GEFEG test environment)
+### BatteryPass-Ready conformance (GEFEG test environment — LIVE)
 
-This module is aligned with the **BatteryPass-Ready Data Attribute Longlist v1.3** (GEFEG, March 2026 — 100 attributes). The public conformance test environment at [batterypass-ready.gefeg.com](https://batterypass-ready.gefeg.com/) is scheduled to come online in **June 2026**.
+The GEFEG **BatteryPass-Ready** test environment at
+[batterypass-ready.gefeg.com](https://batterypass-ready.gefeg.com/) is **live**
+(Build 0.1.1). All four category passports exported from this module — EV, LMT,
+Other Industrial, Stationary — **validate clean against the live `ValidateJSON`
+server** (verified 2026-06-17).
 
-**Pipeline for passing GEFEG conformance tests with our EPCIS 2.0 extension:**
+> **Key finding:** GEFEG's *downloadable* schema files do **not** match what the
+> live server enforces (no `required`, wrong Stationary root key, different key
+> names, per-category required-sets). The server is authoritative. Full analysis:
+> [`docs/CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md`](./docs/CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md).
 
-1. EPCIS 2.0 events declare the extension via the `GS1-Extensions: dpp=…,battery=…` HTTP header (per EPCIS 2.0 §12.3) and carry `battery:`/`dpp:` extension properties at event level. See [`epcis/commissioning.jsonld`](./epcis/commissioning.jsonld).
-2. The OpenEPCIS repository, on seeing the header, activates v1.3 validation (the SHACL shapes in [`validation/battery-shapes.ttl`](./validation/battery-shapes.ttl) and the JSON Schema in [`validation/battery-schema.json`](./validation/battery-schema.json)).
-3. When the GEFEG harness queries for the SAMM-shaped passport, the repository serializes the assembled state through the [`battery-context-to-batterypass.jsonld`](./context/battery-context-to-batterypass.jsonld) reverse bridge.
-4. The resulting document must validate against [`validation/batterypass-v1.3-schema.json`](./validation/batterypass-v1.3-schema.json) — a JSON Schema generated directly from the GEFEG longlist by [`scripts/build-batterypass-schema.ts`](../../../scripts/build-batterypass-schema.ts). 85 of the 100 attributes are required for at least one battery category. See [`examples/batterypass-v1.3.jsonld`](./examples/batterypass-v1.3.jsonld) for a canonical example.
+**Artifacts**
 
-**Regenerating the v1.3 export schema** (after GEFEG publishes a longlist update — replace `docs/reference/2026_BatteryPass-Ready_DataAttributeLongList_v1.3.xlsx` with the new XLSX, then):
+| Path | What |
+|---|---|
+| [`scripts/export-batterypass-gefeg.ts`](../../../scripts/export-batterypass-gefeg.ts) | flat OpenEPCIS passport → GEFEG upload shape (`pnpm run export:batterypass-gefeg`) |
+| [`scripts/validate-batterypass-live.ts`](../../../scripts/validate-batterypass-live.ts) | call the live API — authoritative check (`pnpm run validate:batterypass-live`) |
+| [`validation/gefeg-live/`](./validation/gefeg-live/) | live-accurate per-category schemas (`pnpm run build:gefeg-live-schema`; refresh required-sets with `pnpm run probe:gefeg-required`) |
+| [`examples/batterypass-ready/`](./examples/batterypass-ready/) | verified-valid fixture per category + the flat source |
+| [`docs/GEFEG_MAPPING.md`](./docs/GEFEG_MAPPING.md) | GEFEG upload structure ↔ `battery:`/`gs1:`/`schema:`/`dpp:` mapping |
+| [`docs/reference/gefeg-batterypass-ready/`](./docs/reference/gefeg-batterypass-ready/) | the published static schemas (kept as discrepancy evidence) |
 
-```bash
-pnpm run build:batterypass-schema
-```
+**Pipeline (EPCIS 2.0 extension → GEFEG conformance)**
 
-**Mock conformance harness** — until the live GEFEG test environment opens in June 2026, run a local approximation:
+1. EPCIS events declare `GS1-Extensions: dpp=…,battery=…` and carry `battery:`/`dpp:` properties at event level. See [`epcis/commissioning.jsonld`](./epcis/commissioning.jsonld) / [`epcis/shipping.jsonld`](./epcis/shipping.jsonld).
+2. The repository activates validation (SHACL [`validation/battery-shapes.ttl`](./validation/battery-shapes.ttl), JSON Schema [`validation/battery-schema.json`](./validation/battery-schema.json)).
+3. The assembled master data is exported to the GEFEG upload shape (`export-batterypass-gefeg.ts`).
+4. The result validates against the live-derived schema for its category in [`validation/gefeg-live/`](./validation/gefeg-live/) — and against the live server itself.
 
-```bash
-pnpm test
-```
+**Offline harness** — `pnpm test` runs [`scripts/test-batterypass-conformance.ts`](../../../scripts/test-batterypass-conformance.ts): exports the passport for each category, validates it against the live-derived schema, and runs cross-field plausibility checks (voltage ordering, percent ranges, positivity, UTC timestamps) that exceed the live tool's current structure-only scope.
 
-This runs [`scripts/test-batterypass-conformance.ts`](../../../scripts/test-batterypass-conformance.ts), which exercises three groups against the reference example:
-
-1. **Schema** — ajv-validates `examples/batterypass-v1.3.jsonld` against `validation/batterypass-v1.3-schema.json` (longlist coverage + per-attribute type / format / pattern). Includes negative cases that drop a required attribute and assert the validator rejects the doc.
-2. **Plausibility** — cross-attribute rules: `stateOfCharge` ∈ [0, 100]; `capacityFade` matches `(rated − remaining) / rated × 100` within tolerance; voltage ordering `min ≤ nominal ≤ max`; recycled-content shares ∈ [0, 1]; round-trip efficiency ∈ [0, 1]; idle-temperature lower < upper; UTC timestamps; carbon-footprint class ∈ {A,B,C,D,E}; GS1 GLN check digit on facility / manufacturer identifiers; non-negative event counters. Each rule has a paired negative case that mutates the doc and asserts the rule fires.
-3. **Round-trip** — loads `epcis/commissioning.jsonld`, projects the `battery:` and `dpp:` extension properties from the event's master data through the same field mapping the `to-batterypass` bridge declares, and verifies every key arrives in the SAMM-shaped output. Catches regressions in the bridge mapping itself.
-
-> **Note:** SAMM v1.3 aspect URNs in the bridge contexts are placeholders pending publication of GEFEG's official aspect models. Verify URNs once they are public and adjust the `bp-*` namespace declarations.
+> A separate, internal longlist-coverage schema (`validation/batterypass-v1.3-schema.json`, built by `scripts/build-batterypass-schema.ts`) and the SAMM bridge contexts predate this work; the live-derived schemas above are the conformance contract.
 
 ## ESPR Framework Alignment
 
