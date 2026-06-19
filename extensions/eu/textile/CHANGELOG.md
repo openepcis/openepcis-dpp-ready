@@ -2,6 +2,13 @@
 
 All notable changes to the Textile module will be documented in this file.
 
+## [0.9.7] — 2026-06-19
+
+### Changed
+- Renamed vocabulary prefix `textile:` → `eutex:` (alias only; namespace IRIs unchanged).
+- Completed term governance: 100% `dcterms:source` + `skos:note` coverage.
+- Added `owl:imports` for the SEMICeu Core Vocabularies; cross-layer `rdfs:seeAlso` anchors to `oec:`.
+
 ## 0.9.6 — version alignment (2026-06-07)
 
 Version alignment with the 0.9.6 core release (EN 18223 model alignment). No functional changes to this module.

@@ -2,7 +2,12 @@
 
 All notable changes to the Battery module will be documented in this file.
 
-## Unreleased — GEFEG BatteryPass-Ready live-conformance alignment (2026-06-17)
+## [0.9.7] — 2026-06-19 — GEFEG BatteryPass-Ready conformance + branded prefixes
+
+### Changed
+- Renamed vocabulary prefix `battery:` → `eubat:` (alias only; namespace IRIs unchanged).
+- Completed term governance: 100% `dcterms:source` + `skos:note` coverage.
+- Added `owl:imports` for the SEMICeu Core Vocabularies (m8g / locn / adms) and cross-layer `rdfs:seeAlso` anchors to `oec:`.
 
 ### Added
 - 5 additive performance properties required by the **live** GEFEG

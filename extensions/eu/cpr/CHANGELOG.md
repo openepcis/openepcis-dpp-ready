@@ -2,6 +2,13 @@
 
 All notable changes to the CPR module will be documented in this file.
 
+## [0.9.7] — 2026-06-19
+
+### Changed
+- Renamed vocabulary prefix `cpr:` → `eucpr:` (alias only; namespace IRIs unchanged).
+- Completed term governance: 100% `dcterms:source` + `skos:note` coverage.
+- Tightened SHACL: the Declaration-of-Performance `essentialCharacteristic` chain is now validated.
+
 ## [0.1.0] - 2026-05-01
 
 ### Initial Release

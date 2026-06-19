@@ -2,6 +2,13 @@
 
 All notable changes to the PPWR module will be documented in this file.
 
+## [0.9.7] — 2026-06-19
+
+### Changed
+- Renamed vocabulary prefix `ppwr:` → `euppwr:` (alias only; namespace IRIs unchanged).
+- Completed term governance: 100% `dcterms:source` + `skos:note` coverage.
+- Tightened SHACL (nodeKind / messages on Packaging).
+
 ## [0.1.0] - 2026-05-01
 
 ### Initial Release
