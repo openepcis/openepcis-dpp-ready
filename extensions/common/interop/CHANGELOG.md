@@ -2,6 +2,13 @@
 
 All notable changes to the Interoperability module will be documented in this file.
 
+## [0.9.7] — 2026-06-19
+
+### Changed
+- Renamed vocabulary prefix `interop:` → `oei:` (alias only; namespace IRIs unchanged).
+- Completed term governance: 100% `dcterms:source` + `skos:note` coverage.
+- GS1 Rail bridge context + equivalences to `oec:` / GS1 / SEMICeu.
+
 ## [0.9.6] - 2026-06-07 (EN 18223 conformance + GS1 to EN 18223 converter)
 
 ### Added

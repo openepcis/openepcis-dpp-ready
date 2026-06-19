@@ -2,6 +2,12 @@
 
 All notable changes to the Detergent module will be documented in this file.
 
+## [0.9.7] — 2026-06-19
+
+### Changed
+- Renamed vocabulary prefix `detergent:` → `eudet:` (alias only; namespace IRIs unchanged).
+- Completed term governance: 100% `dcterms:source` + `skos:note` coverage.
+
 ## 0.9.6 — version alignment (2026-06-07)
 
 Version alignment with the 0.9.6 core release (EN 18223 model alignment). No functional changes to this module.

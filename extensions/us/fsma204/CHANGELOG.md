@@ -4,6 +4,12 @@ All notable changes to the FSMA 204 extension are documented here. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this
 module adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.9.7] — 2026-06-19
+
+### Changed
+- Renamed vocabulary prefix `fsma:` → `usfsma:` (alias only; namespace IRIs unchanged).
+- Completed term governance: 100% `dcterms:source` + `skos:note` coverage.
+
 ## [0.1.0] — 2026-04-17
 
 Initial preview release. Models the FDA Food Safety Modernization Act §204

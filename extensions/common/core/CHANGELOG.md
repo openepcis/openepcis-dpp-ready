@@ -2,6 +2,14 @@
 
 All notable changes to the DPP Core module will be documented in this file.
 
+## [0.9.7] — 2026-06-19
+
+### Changed
+- Renamed vocabulary prefix `dpp:` → `oec:` (alias only; namespace IRIs unchanged).
+- Completed term governance: 100% `dcterms:source` + `skos:note` coverage.
+- Added `owl:imports` for the SEMICeu Core Vocabularies (m8g / locn / adms).
+- Added cross-cutting `oec:remanufacturingDate` (anchored to the GS1 Rail bridge).
+
 ## 0.9.6 — EN 18223 information-model alignment + GS1 to EN 18223 converter (2026-06-07)
 
 Aligns `oec:` core with the published EN 18223:2026 `DigitalProductPassport` model (the EPCIS4DPP profile). See [`../../interop/docs/EN18223_MODEL_ALIGNMENT.md`](../../interop/docs/EN18223_MODEL_ALIGNMENT.md) and [`../../interop/docs/CEN_JTC24_CONFORMANCE.md`](../../interop/docs/CEN_JTC24_CONFORMANCE.md).
