@@ -2,38 +2,118 @@
   "_comment_gs1_alignment": [
     "This example demonstrates ITIP (Individual Trade Item Piece) identification for a multi-piece trade item.",
     "A two-piece suit is sold under a single GTIN but consists of two physical pieces (jacket + trousers).",
-    "Pattern aligned with GS1 GSMP Work Request WR 25-212 (Community Review).",
+    "Pattern aligned with GS1 ITIP (AI 8026).",
     "Key GS1 patterns used:",
     "- GS1 Digital Link URI for the parent trade item (the suit set)",
-    "- dpp:tradeItemPieceCount on the parent product (2 pieces)",
-    "- dpp:IndividualTradeItemPiece for each constituent piece, each with its own AI 8026 identifier",
+    "- oec:tradeItemPieceCount on the parent product (2 pieces)",
+    "- oec:IndividualTradeItemPiece for each constituent piece, each with its own AI 8026 identifier",
     "- GS1 AI 8026 encodes GTIN + total piece count + this piece's number",
     "- All pieces share the same GTIN; individual identification is via piece number",
-    "Reference: WR 25-212 (https://xchange.gs1.org/cr/gsmp)"
+    "Reference: GS1 ITIP (AI 8026) (https://ref.gs1.org/ai/8026)"
   ],
   "@context": [
     "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
-    {
-      "gs1": "https://ref.gs1.org/voc/",
-      "xsd": "http://www.w3.org/2001/XMLSchema#"
-    }
+    "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
   ],
-  "id": "https://id.gs1.org/01/09521234000073/21/SUIT-2026-00042",
+  "id": "https://id.demo.epcis.cloud/01/09521000004207/21/SUIT-2026-00042",
   "type": [
-    "Product",
+    "Clothing",
     "TextileApparel"
   ],
-  "gtin": "09521234000073",
-  "gs1:serialNumber": "SUIT-2026-00042",
-  "productName": {
-    "@value": "Classic Business Suit - Charcoal (2-piece)",
-    "@language": "en"
-  },
-  "gs1:productDescription": {
-    "@value": "Two-piece men's business suit consisting of a jacket and matching trousers. Sold as a single trade item under one GTIN but shipped and identifiable as two individual pieces per GS1 AI 8026 (ITIP).",
-    "@language": "en"
-  },
+  "gtin": "09521000004207",
+  "serialNumber": "SUIT-2026-00042",
+  "productName": [
+    {
+      "@value": "Classic Business Suit, Charcoal (2-piece)",
+      "@language": "en"
+    },
+    {
+      "@value": "Klassischer Business-Anzug, Anthrazit (zweiteilig)",
+      "@language": "de"
+    },
+    {
+      "@value": "Costume d'affaires classique, Anthracite (2 pièces)",
+      "@language": "fr"
+    },
+    {
+      "@value": "Traje clásico de oficina, Antracita (2 piezas)",
+      "@language": "es"
+    },
+    {
+      "@value": "Klassiek zakelijk kostuum, Antraciet (tweedelig)",
+      "@language": "nl"
+    },
+    {
+      "@value": "Klassisk forretningsjakkesæt, Koksgrå (todelt)",
+      "@language": "da"
+    },
+    {
+      "@value": "Klasyczny garnitur biznesowy, Grafitowy (2-częściowy)",
+      "@language": "pl"
+    },
+    {
+      "@value": "Klassisk affärskostym, Antracit (tvådelad)",
+      "@language": "sv"
+    },
+    {
+      "@value": "Klassisk forretningsdress, Antrasitt (todelt)",
+      "@language": "no"
+    },
+    {
+      "@value": "Klassinen liikemiehen puku, Antrasiitti (kaksiosainen)",
+      "@language": "fi"
+    },
+    {
+      "@value": "Abito classico da uomo, Antracite (2 pezzi)",
+      "@language": "it"
+    }
+  ],
+  "productDescription": [
+    {
+      "@value": "Two-piece tailored wool suit with subtle pinstripe, single-breasted notch-lapel jacket and matching flat-front trousers. Jacket and trousers are linked via GS1 AI 8026 (ITIP) so the set is tracked as one trade item.",
+      "@language": "en"
+    },
+    {
+      "@value": "Zweiteiliger, taillierter Wollanzug mit dezentem Nadelstreifen, einreihiger Sakko mit Kerblapen und passende Hose ohne Bundfalten. Sakko und Hose sind über GS1 AI 8026 (ITIP) verknüpft, sodass das Set als eine Handelseinheit erfasst wird.",
+      "@language": "de"
+    },
+    {
+      "@value": "Costume deux pièces ajusté en laine à fines rayures discrètes, veste à boutonnage simple à revers crantés et pantalon à pinces plates assorti. La veste et le pantalon sont liés via GS1 AI 8026 (ITIP), de sorte que l'ensemble est suivi comme une seule unité commerciale.",
+      "@language": "fr"
+    },
+    {
+      "@value": "Traje sastre de lana de dos piezas con sutil raya diplomática, chaqueta cruzada de solapa de pico y pantalón de pinzas a juego. La chaqueta y el pantalón están vinculados mediante GS1 AI 8026 (ITIP), por lo que el conjunto se rastrea como una sola unidad comercial.",
+      "@language": "es"
+    },
+    {
+      "@value": "Tweedelig getailleerd wollen kostuum met subtiele krijtstreep, enkelrijige jas met kerflapel en bijpassende pantalon zonder plooien. Jas en pantalon zijn gekoppeld via GS1 AI 8026 (ITIP), zodat de set als één handelsartikel wordt gevolgd.",
+      "@language": "nl"
+    },
+    {
+      "@value": "Todelt skræddersyet uldjakkesæt med diskret nålestribe, enkeltradet jakke med klassisk revers og matchende lige bukser. Jakke og bukser er forbundet via GS1 AI 8026 (ITIP), så sættet spores som én handelsenhed.",
+      "@language": "da"
+    },
+    {
+      "@value": "Dwuczęściowy wełniany garnitur szyty na miarę z dyskretną cienką prążkową fakturą, jednorzędowa marynarka z klapami i pasujące spodnie bez zakładek. Marynarka i spodnie są powiązane przez GS1 AI 8026 (ITIP), dzięki czemu komplet jest śledzony jako jedna jednostka handlowa.",
+      "@language": "pl"
+    },
+    {
+      "@value": "Tvådelad skräddarsydd ullkostym med diskret kritrand, enkelknäppt kavaj med hackad revär och matchande raka byxor. Kavaj och byxor är länkade via GS1 AI 8026 (ITIP) så att uppsättningen spåras som en handelsenhet.",
+      "@language": "sv"
+    },
+    {
+      "@value": "Todelt skreddersydd ulldress med diskret nålestripe, enkeltspent jakke med hakk-revers og matchende rette bukser. Jakke og bukse er knyttet sammen via GS1 AI 8026 (ITIP) slik at settet spores som én handelsenhet.",
+      "@language": "no"
+    },
+    {
+      "@value": "Kaksiosainen räätälöity villapuku, jossa hillitty raitakuvio, yksirivinen lovikäänteinen pikkutakki ja yhteensopivat suorat housut. Pikkutakki ja housut on linkitetty GS1 AI 8026 (ITIP) -tunnisteella, joten setti jäljitetään yhtenä kauppanimikkeenä.",
+      "@language": "fi"
+    },
+    {
+      "@value": "Abito sartoriale due pezzi in lana con discreto gessato, giacca monopetto a revers a lancia e pantaloni dritti coordinati. Giacca e pantaloni sono collegati tramite GS1 AI 8026 (ITIP), così l'insieme viene tracciato come un'unica unità commerciale.",
+      "@language": "it"
+    }
+  ],
   "textileCategory": "Apparel",
   "garmentType": "Business Suit",
   "targetGender": "Men",
@@ -41,39 +121,39 @@
   "seasonCollection": "SS2026",
   "fabricType": "WovenNonDenim",
   "apparelSubcategory": "Suits",
-  "dpp:tradeItemPieceCount": 2,
-  "dpp:tradeItemPieces": [
+  "oec:tradeItemPieceCount": 2,
+  "oec:tradeItemPieces": [
     {
-      "id": "https://id.gs1.org/8026/0952123400007350200010",
-      "type": "dpp:IndividualTradeItemPiece",
-      "dpp:tradeItemPieceNumber": 1,
-      "dpp:tradeItemPieceDescription": "Jacket",
-      "dpp:tradeItemPieceOf": "https://id.gs1.org/01/09521234000073/21/SUIT-2026-00042",
-      "_comment_itip_ai8026": "AI 8026 = GTIN (14 digits) + total pieces (2 digits) + piece number (2 digits). Example: 09521234000073 + 02 + 01 for piece 1 of 2."
+      "id": "https://id.demo.epcis.cloud/8026/0952100000420750200010",
+      "type": "oec:IndividualTradeItemPiece",
+      "oec:tradeItemPieceNumber": 1,
+      "oec:tradeItemPieceDescription": "Jacket",
+      "oec:tradeItemPieceOf": "https://id.demo.epcis.cloud/01/09521000004207/21/SUIT-2026-00042",
+      "_comment_itip_ai8026": "AI 8026 = GTIN (14 digits) + total pieces (2 digits) + piece number (2 digits). Example: 09521000004207 + 02 + 01 for piece 1 of 2."
     },
     {
-      "id": "https://id.gs1.org/8026/0952123400007350200020",
-      "type": "dpp:IndividualTradeItemPiece",
-      "dpp:tradeItemPieceNumber": 2,
-      "dpp:tradeItemPieceDescription": "Trousers",
-      "dpp:tradeItemPieceOf": "https://id.gs1.org/01/09521234000073/21/SUIT-2026-00042",
-      "_comment_itip_ai8026": "AI 8026 for piece 2 of 2: 09521234000073 + 02 + 02."
+      "id": "https://id.demo.epcis.cloud/8026/0952100000420750200020",
+      "type": "oec:IndividualTradeItemPiece",
+      "oec:tradeItemPieceNumber": 2,
+      "oec:tradeItemPieceDescription": "Trousers",
+      "oec:tradeItemPieceOf": "https://id.demo.epcis.cloud/01/09521000004207/21/SUIT-2026-00042",
+      "_comment_itip_ai8026": "AI 8026 for piece 2 of 2: 09521000004207 + 02 + 02."
     }
   ],
-  "gs1:manufacturer": {
-    "id": "https://id.gs1.org/417/9521234000008",
+  "manufacturer": {
+    "id": "https://id.demo.epcis.cloud/417/9521000000018",
     "type": "Organization",
     "organizationName": "EcoWear GmbH",
-    "gln": "9521234000008",
-    "gs1:address": {
-      "type": "gs1:PostalAddress",
-      "gs1:streetAddress": "Textilstraße 25",
-      "gs1:addressLocality": "Munich",
-      "gs1:postalCode": "80331",
-      "gs1:addressCountry": "DE"
+    "gln": "9521000000018",
+    "address": {
+      "type": "PostalAddress",
+      "streetAddress": "Textilstraße 25",
+      "addressLocality": "Munich",
+      "postalCode": "80331",
+      "addressCountry": "DE"
     }
   },
-  "gs1:netWeight": {
+  "netWeight": {
     "type": "QuantitativeValue",
     "value": "1.4",
     "unitCode": "KGM"
@@ -81,28 +161,28 @@
   "textileMaterial": [
     {
       "type": "TextileMaterialDetails",
-      "gs1:textileFibreName": "Wool",
-      "gs1:textileFibrePercentage": 80
+      "textileFibreName": "Wool",
+      "textileFibrePercentage": 80
     },
     {
       "type": "TextileMaterialDetails",
-      "gs1:textileFibreName": "Polyester",
-      "gs1:textileFibrePercentage": 20
+      "textileFibreName": "Polyester",
+      "textileFibrePercentage": 20
     }
   ],
-  "gs1:regulatoryInformation": [
+  "regulatoryInformation": [
     {
-      "type": "gs1:RegulatoryInformation",
-      "gs1:regulationType": {
+      "type": "RegulatoryInformation",
+      "regulationType": {
         "id": "gs1:RegulationTypeCode-TEXTILE_FIBRE_REGULATION"
       },
-      "gs1:regulatoryAct": "EU 1007/2011",
+      "regulatoryAct": "EU 1007/2011",
       "gs1:isRegulationCompliant": true
     }
   ],
   "_notes": [
-    "Pattern status: Reference pattern aligned with GS1 GSMP Work Request WR 25-212 (Community Review). May evolve per eBallot outcome.",
+    "Pattern status: Reference pattern aligned with GS1 ITIP (AI 8026). May evolve as GS1 standardization settles.",
     "Why ITIP: Apparel sets (suits, uniforms, matching sets), flat-pack furniture with multiple cartons, and bundled electronics (tablet + keyboard + stylus) all benefit from piece-level traceability without requiring separate GTINs per piece. AI 8026 provides a compact, scannable identifier per piece while preserving the single-GTIN commercial model.",
-    "DPP implication: For products requiring a Digital Product Passport, ITIP identification enables piece-level lifecycle tracking (e.g., the jacket of a suit can be repaired independently of the trousers) while the DPP itself is scoped at the trade-item level. This matches the apparel use case the Apparel DPP Sub-team is scoping for Q2 2027 requirements gathering."
+    "DPP implication: For products requiring a Digital Product Passport, ITIP identification enables piece-level lifecycle tracking (e.g., the jacket of a suit can be repaired independently of the trousers) while the DPP itself is scoped at the trade-item level. This matches apparel DPP requirements being scoped for 2027."
   ]
 }

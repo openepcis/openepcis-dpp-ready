@@ -35,9 +35,9 @@ body:json {
             "id": "{{bizLocation}}"
           },
           "inputEPCList": [
-            "https://id.gs1.org/01/09521234000028/10/FABRIC-2025-001",
-            "https://id.gs1.org/01/09521234000035/10/THREAD-2025-001",
-            "https://id.gs1.org/01/09521234000042/10/ZIPPER-2025-001"
+            "https://id.gs1.org/01/09521234000099/10/FABRIC-2025-001",
+            "https://id.gs1.org/01/09521234300052/10/THREAD-2025-001",
+            "https://id.gs1.org/01/09521234300069/10/ZIPPER-2025-001"
           ],
           "outputEPCList": ["{{epc}}"],
           "dpp:operatorInformation": {
@@ -72,5 +72,6 @@ body:json {
 tests {
   test("Capture successful", function() {
     expect(res.status).to.be.oneOf([200, 201, 202]);
+    expect((res.headers["content-type"] || "")).to.not.include("text/html");
   });
 }

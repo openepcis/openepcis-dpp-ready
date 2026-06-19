@@ -3,12 +3,12 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
-@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
 @prefix eudr: <https://ref.openepcis.io/extensions/eu/eudr/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
-# EU SEMICeu Core Location Vocabulary (peer Layer 1) — see extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md
+# EU SEMICeu Core Location Vocabulary (peer Layer 1): see extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md
 @prefix locn: <http://www.w3.org/ns/locn#> .
 
 # =============================================================================
@@ -60,9 +60,9 @@ References:
     dcterms:creator "OpenEPCIS" ;
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
     dcterms:created "2025-02-02"^^xsd:date ;
-    dcterms:modified "2025-02-02"^^xsd:date ;
-    owl:versionInfo "0.9.5" ;
-    owl:versionIRI <https://ref.openepcis.io/extensions/eu/eudr/0.9.5> ;
+    dcterms:modified "2026-06-07"^^xsd:date ;
+    owl:versionInfo "0.9.6" ;
+    owl:versionIRI <https://ref.openepcis.io/extensions/eu/eudr/0.9.6> ;
     vann:preferredNamespacePrefix "eudr" ;
     vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/eu/eudr/" ;
     rdfs:seeAlso <https://ref.gs1.org/standards/eudr/> ;
@@ -70,7 +70,8 @@ References:
     rdfs:seeAlso <https://www.gs1-germany.de/branchen-themen/nachhaltigkeit/eu-deforestation-regulation-eudr/> ;
     rdfs:seeAlso <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
     owl:imports <https://ref.gs1.org/voc/> ;
-    owl:imports <https://ref.openepcis.io/extensions/common/core/> .
+    owl:imports <https://ref.openepcis.io/extensions/common/core/> ;
+    owl:imports <http://www.w3.org/ns/locn#> .
 
 # =============================================================================
 # Commodity Type Enumeration (EUDR Article 1.1)
@@ -89,7 +90,9 @@ eudr:CommodityType
         eudr:Soya
         eudr:Wood
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:Cattle a eudr:CommodityType ; rdfs:label "Cattle"@en ; skos:notation "cattle" ;
     rdfs:comment "Live cattle, beef, leather (HS codes 01, 02, 41, 43)."@en .
@@ -120,7 +123,9 @@ eudr:RiskLevel
         eudr:Standard
         eudr:High
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:Negligible a eudr:RiskLevel ; rdfs:label "Negligible"@en ; skos:notation "negligible" ;
     rdfs:comment "Derived from already-verified low-risk sources. Simplified due diligence permitted."@en .
@@ -152,7 +157,9 @@ eudr:TimberProductType
         eudr:Charcoal
         eudr:PrintedMatter
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:RoundWood a eudr:TimberProductType ; rdfs:label "Round Wood"@en ; skos:notation "round-wood" ;
     rdfs:comment "Raw logs (HS 4403)."@en .
@@ -191,7 +198,9 @@ eudr:ActorRole
         eudr:Trader
         eudr:DownstreamOperator
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:Producer a eudr:ActorRole ; rdfs:label "Producer"@en ;
     rdfs:comment "Entity that produces/harvests the commodity."@en .
@@ -212,14 +221,16 @@ eudr:OriginDetails
     a owl:Class ;
     rdfs:label "Origin Details"@en ;
     rdfs:comment "Container class for geolocation and producer identification information per EUDR Article 9."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
 # EPCIS Origin Declaration Event Extension Properties
 # (OpenEPCIS extensions - NOT YET STANDARDISED by GS1)
 # =============================================================================
 
-# NOTE: For EORI number, use dpp:eoriNumber (defined in dpp-core).
+# NOTE: For EORI number, use oec:eoriNumber (defined in dpp-core).
 # NOTE: For party GLN, use gs1:partyGLN (defined in GS1 Web Vocabulary).
 # These properties are intentionally NOT duplicated here - use the standard terms.
 
@@ -228,7 +239,9 @@ eudr:countryList
     rdfs:label "Country List"@en ;
     rdfs:comment "List of countries of origin where geolocations are located."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:originList
     a owl:ObjectProperty ;
@@ -236,7 +249,9 @@ eudr:originList
     rdfs:comment "List of origin details (one per geolocation or polygon)."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range eudr:OriginDetails ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:originDetails
     a owl:ObjectProperty ;
@@ -244,7 +259,9 @@ eudr:originDetails
     rdfs:comment "Container for geolocation and producer identification."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range eudr:OriginDetails ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:geofence
     a owl:DatatypeProperty ;
@@ -252,7 +269,10 @@ eudr:geofence
     rdfs:comment "Area polygon as array of longitude-latitude coordinates per CBV 2.0, 9.3.1. Use for plots > 4 hectares."@en ;
     rdfs:domain eudr:OriginDetails ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "Geolocation of production plots per EUDR (EU) 2023/1115 Article 9. Geometry is carried via SEMICeu Core Location (locn:)."@en ;
+    rdfs:seeAlso locn:geometry .
 
 eudr:geolocation
     a owl:DatatypeProperty ;
@@ -261,8 +281,9 @@ eudr:geolocation
     rdfs:domain eudr:OriginDetails ;
     rdfs:range xsd:anyURI ;
     rdfs:seeAlso locn:Geometry ;
-    skos:note "The geographic coordinates carried as a Geo URI are equivalent in meaning to a locn:Geometry (EU SEMICeu Core Location Vocabulary) — preferred for EU-portal interoperability when the WKT / GeoJSON form is needed."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    skos:note "The geographic coordinates carried as a Geo URI are equivalent in meaning to a locn:Geometry (EU SEMICeu Core Location Vocabulary), preferred for EU-portal interoperability when the WKT / GeoJSON form is needed."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> .
 
 eudr:areaSize
     a owl:ObjectProperty ;
@@ -270,7 +291,9 @@ eudr:areaSize
     rdfs:comment "Quantitative value for field area size. Use unitCode 'HAR' (hectare), 'ARE' (are), or 'MTK' (m²) per UN/CEFACT Rec 20."@en ;
     rdfs:domain eudr:OriginDetails ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:producerIdentification
     a owl:ObjectProperty ;
@@ -278,7 +301,9 @@ eudr:producerIdentification
     rdfs:comment "Identification of the producer. Prefer party GLN when available."@en ;
     rdfs:domain eudr:OriginDetails ;
     rdfs:range gs1:Organization ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
 # Additional Extension Properties for EUDR Compliance
@@ -290,7 +315,9 @@ eudr:commodityType
     rdfs:comment "The EUDR commodity category."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range eudr:CommodityType ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:timberProductType
     a owl:ObjectProperty ;
@@ -298,7 +325,9 @@ eudr:timberProductType
     rdfs:comment "Specific type of timber product."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range eudr:TimberProductType ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:speciesScientificName
     a owl:DatatypeProperty ;
@@ -306,7 +335,9 @@ eudr:speciesScientificName
     rdfs:comment "Scientific (Latin) name of the species. Required per EUDR Article 9.1.c."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:speciesCommonName
     a owl:DatatypeProperty ;
@@ -314,7 +345,9 @@ eudr:speciesCommonName
     rdfs:comment "Common name of the species."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:riskLevel
     a owl:ObjectProperty ;
@@ -322,7 +355,9 @@ eudr:riskLevel
     rdfs:comment "Risk level per EUDR country benchmarking."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range eudr:RiskLevel ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:deforestationFreeDate
     a owl:DatatypeProperty ;
@@ -330,7 +365,9 @@ eudr:deforestationFreeDate
     rdfs:comment "Date confirming deforestation-free status. Must be after 31 Dec 2020 cutoff."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:date ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:legallyHarvested
     a owl:DatatypeProperty ;
@@ -338,7 +375,9 @@ eudr:legallyHarvested
     rdfs:comment "Confirmation that commodity was legally harvested per country of production laws."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:landUseHistory
     a owl:DatatypeProperty ;
@@ -346,7 +385,9 @@ eudr:landUseHistory
     rdfs:comment "Description of land use history supporting deforestation-free claims."@en ;
     rdfs:domain gs1:Place ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:forestManagementUnit
     a owl:DatatypeProperty ;
@@ -354,7 +395,9 @@ eudr:forestManagementUnit
     rdfs:comment "Identifier of forest management unit or concession."@en ;
     rdfs:domain gs1:Place ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:transformationDate
     a owl:DatatypeProperty ;
@@ -362,7 +405,9 @@ eudr:transformationDate
     rdfs:comment "Date when commodity was processed/transformed."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:date ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
 # Due Diligence Statement and Risk Assessment Classes
@@ -372,13 +417,17 @@ eudr:DueDiligenceStatement
     a owl:Class ;
     rdfs:label "Due Diligence Statement"@en ;
     rdfs:comment "A due diligence statement submitted to the EUDR Information System (EUIS) per Article 4."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:RiskAssessment
     a owl:Class ;
     rdfs:label "Risk Assessment"@en ;
     rdfs:comment "Risk assessment results per EUDR Article 10."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
 # Due Diligence and Risk Assessment Properties
@@ -390,7 +439,9 @@ eudr:dueDiligenceStatement
     rdfs:comment "Reference to the EUDR due diligence statement for this product."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range eudr:DueDiligenceStatement ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:statementDate
     a owl:DatatypeProperty ;
@@ -398,7 +449,9 @@ eudr:statementDate
     rdfs:comment "Date the due diligence statement was submitted to EUIS."@en ;
     rdfs:domain eudr:DueDiligenceStatement ;
     rdfs:range xsd:date ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:riskAssessment
     a owl:ObjectProperty ;
@@ -406,7 +459,9 @@ eudr:riskAssessment
     rdfs:comment "Risk assessment associated with the due diligence statement."@en ;
     rdfs:domain eudr:DueDiligenceStatement ;
     rdfs:range eudr:RiskAssessment ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:riskAssessmentDate
     a owl:DatatypeProperty ;
@@ -414,7 +469,9 @@ eudr:riskAssessmentDate
     rdfs:comment "Date the risk assessment was conducted."@en ;
     rdfs:domain eudr:RiskAssessment ;
     rdfs:range xsd:date ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:countryRiskCategory
     a owl:ObjectProperty ;
@@ -422,7 +479,9 @@ eudr:countryRiskCategory
     rdfs:comment "Risk category of the country of origin per EU benchmarking (Article 29)."@en ;
     rdfs:domain eudr:RiskAssessment ;
     rdfs:range eudr:RiskLevel ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:mitigationMeasures
     a owl:DatatypeProperty ;
@@ -430,7 +489,9 @@ eudr:mitigationMeasures
     rdfs:comment "Description of risk mitigation measures applied per Article 10.2."@en ;
     rdfs:domain eudr:RiskAssessment ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
 # Derived Product Properties
@@ -442,7 +503,9 @@ eudr:derivedFrom
     rdfs:comment "Reference to source product(s) from which this product was derived."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range gs1:Product ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:transformationLocation
     a owl:ObjectProperty ;
@@ -451,10 +514,12 @@ eudr:transformationLocation
     rdfs:domain gs1:Product ;
     rdfs:range gs1:Place ;
     rdfs:seeAlso locn:Location ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "Geolocation of production plots per EUDR (EU) 2023/1115 Article 9. Geometry is carried via SEMICeu Core Location (locn:)."@en .
 
 # =============================================================================
-# Stale Context Properties — now backed by TTL
+# Stale Context Properties: now backed by TTL
 # =============================================================================
 
 eudr:areaHectares
@@ -463,7 +528,9 @@ eudr:areaHectares
     rdfs:comment "Area size in hectares."@en ;
     rdfs:domain eudr:OriginDetails ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:verificationMethod
     a owl:DatatypeProperty ;
@@ -471,7 +538,9 @@ eudr:verificationMethod
     rdfs:comment "Method used to verify deforestation-free and legality claims."@en ;
     rdfs:domain eudr:RiskAssessment ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:volumeCubicMeters
     a owl:DatatypeProperty ;
@@ -479,7 +548,9 @@ eudr:volumeCubicMeters
     rdfs:comment "Volume in cubic meters."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:fscCertification
     a owl:ObjectProperty ;
@@ -487,7 +558,9 @@ eudr:fscCertification
     rdfs:comment "Reference to FSC (Forest Stewardship Council) certification."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range gs1:CertificationDetails ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
 # Business Transaction Types for EUDR
@@ -538,7 +611,7 @@ eudr:fscCertification
 #   gs1:regulatedProductName: "Regulated name"
 
 # =============================================================================
-# EUDR Exemption Declaration (WR 25-252 / WR 26-122 reference pattern)
+# EUDR Exemption Declaration (GS1 standardization (EUDR exemptions) reference pattern)
 # =============================================================================
 #
 # GS1 ALIGNMENT STATUS, as of 2026-04-17:
@@ -550,25 +623,24 @@ eudr:fscCertification
 # regulatoryIdentifier property is still mandatory inside a
 # regulatoryInformation block per the published schema.
 #
-# The 13 April 2026 GS1 EUDR MSWG meeting (chaired by Craig Repec)
+# Ongoing GS1 standardization
 # previewed the planned JSON-LD model for exemptions: when an exemption
 # applies, regulatoryIdentifier becomes optional and is replaced by a new
-# regulatoryExemption property. That design is in flight under GSMP Work
-# Request WR 25-252 (EANCOM + GS1 XML) and WR 26-122 (GDSN); neither is
+# regulatoryExemption property. That design is in flight in GS1 standardization across EANCOM, GS1 XML, and GDSN; neither is
 # publicly visible yet.
 #
 # THIS MODULE THEREFORE DEFINES A PROVISIONAL eudr:-NAMESPACED REFERENCE
-# PATTERN that fills the gap, carrying the same semantics the MSWG plans
+# PATTERN that fills the gap, carrying the same semantics GS1 plans
 # to standardise. When GS1 publishes the canonical terms, every class and
 # property in this section will be re-mapped via owl:equivalentClass /
-# owl:equivalentProperty rather than replaced — downstream consumers of
+# owl:equivalentProperty rather than replaced; downstream consumers of
 # the eudr: URIs remain stable.
 #
-# Cross-format equivalents as captured in WR 25-252 (for context):
+# Cross-format equivalents as captured in GS1 standardization (for context):
 # - EANCOM: IMD segment C272:DE7081 (exemption type) + C273:DE7009
 #   (reason codes); temporary exemptions use GIN segment under SG22
 # - GS1 XML: dedicated exemption element structure
-# - GDSN: master data exemption handling (per WR 26-122)
+# - GDSN: master data exemption handling (per GS1 standardization)
 #
 # Example: eudr/epcis/exemption-declaration.jsonld
 # Gap summary: eudr/docs/GS1_ALIGNMENT.md
@@ -581,8 +653,8 @@ eudr:ExemptionType
         eudr:PermanentExemption
         eudr:TemporaryExemption
     ) ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252 / WR 26-122" ;
-    skos:note "Reference pattern; may evolve per WR 25-252 eBallot outcome."@en ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
+    skos:note "Reference pattern; may evolve as GS1 standardization settles."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
 eudr:PermanentExemption a eudr:ExemptionType ;
@@ -599,8 +671,8 @@ eudr:ExemptionDeclaration
     a owl:Class ;
     rdfs:label "Exemption Declaration"@en ;
     rdfs:comment "A structured declaration that specific products (or batches/serials) are exempt from EUDR due diligence obligations, carrying the exemption type, reason code, scope, and effective date range."@en ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
-    skos:note "Reference pattern for WR 25-252 exemption handling. Carries semantics equivalent to EANCOM C272:DE7081 (type) + C273:DE7009 (reason) + GIN/SG22 (temporary scope)."@en ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
+    skos:note "Reference pattern for GS1 standardization exemption handling. Carries semantics equivalent to EANCOM C272:DE7081 (type) + C273:DE7009 (reason) + GIN/SG22 (temporary scope)."@en ;
     rdfs:seeAlso <https://ref.gs1.org/voc/regulatoryInformation> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
@@ -609,8 +681,8 @@ eudr:exemptionDeclaration
     rdfs:label "Exemption Declaration"@en ;
     rdfs:comment "Links a product or EPCIS event to an EUDR exemption declaration."@en ;
     rdfs:range eudr:ExemptionDeclaration ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
-    skos:note "Attached to EPCIS events (bizStep 'notifying') or product master data. Reference pattern per WR 25-252."@en ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
+    skos:note "Attached to EPCIS events (bizStep 'notifying') or product master data. Reference pattern per GS1 standardization."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
 eudr:exemptionType
@@ -619,18 +691,18 @@ eudr:exemptionType
     rdfs:comment "The classification of this exemption (permanent or temporary)."@en ;
     rdfs:domain eudr:ExemptionDeclaration ;
     rdfs:range eudr:ExemptionType ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
     skos:note "Semantically aligned with EANCOM C272:DE7081 exemption type codes."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
 eudr:exemptionReasonCode
     a owl:DatatypeProperty ;
     rdfs:label "Exemption Reason Code"@en ;
-    rdfs:comment "Coded reason for the exemption, drawn from the controlled vocabulary defined by WR 25-252 (aligned with EANCOM C273:DE7009 exemption reason codes)."@en ;
+    rdfs:comment "Coded reason for the exemption, drawn from the controlled vocabulary defined by GS1 standardization (aligned with EANCOM C273:DE7009 exemption reason codes)."@en ;
     rdfs:domain eudr:ExemptionDeclaration ;
     rdfs:range xsd:string ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
-    skos:note "String-typed for now; will become a controlled enumeration once WR 25-252 eBallot closes and the official code list is published."@en ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
+    skos:note "String-typed for now; will become a controlled enumeration once GS1 publishes the official code list."@en ;
     rdfs:seeAlso eudr:riskLevel ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
@@ -640,7 +712,7 @@ eudr:exemptionScope
     rdfs:comment "The scope of the exemption: 'gtin' (all products with the given GTIN), 'batch' (specific lot/batch identified via AI 10), or 'serial' (specific instance identified via AI 21 or AI 8006 ITIP)."@en ;
     rdfs:domain eudr:ExemptionDeclaration ;
     rdfs:range xsd:string ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
     skos:note "Values: gtin, batch, serial. Temporary exemptions typically use 'batch' or 'serial' scope; permanent exemptions typically use 'gtin'."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
@@ -650,7 +722,7 @@ eudr:exemptionScopeReference
     rdfs:comment "The specific batch, lot, or serial identifier (or list thereof) that is in scope of a temporary exemption. For 'batch' scope this is the lot/batch number; for 'serial' scope it is the serial number."@en ;
     rdfs:domain eudr:ExemptionDeclaration ;
     rdfs:range xsd:string ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
     skos:note "Aligned with EANCOM GIN segment under SG22 for batch/serial enumeration in temporary exemptions."@en ;
     rdfs:seeAlso <https://ref.gs1.org/voc/hasBatchLotNumber> ;
     rdfs:seeAlso <https://ref.gs1.org/voc/hasSerialNumber> ;
@@ -662,8 +734,9 @@ eudr:exemptionEffectiveFrom
     rdfs:comment "Start date of the exemption's validity. Before this date the exemption does not apply."@en ;
     rdfs:domain eudr:ExemptionDeclaration ;
     rdfs:range xsd:date ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:exemptionEffectiveUntil
     a owl:DatatypeProperty ;
@@ -671,15 +744,16 @@ eudr:exemptionEffectiveUntil
     rdfs:comment "End date of the exemption's validity. Required for temporary exemptions; omitted for permanent exemptions."@en ;
     rdfs:domain eudr:ExemptionDeclaration ;
     rdfs:range xsd:date ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eudr:exemptionAuthority
     a owl:ObjectProperty ;
     rdfs:label "Exemption Authority"@en ;
-    rdfs:comment "The economic operator or competent authority asserting this exemption. Uses dpp:OperatorInformation so the party is fully identified by GLN and role."@en ;
+    rdfs:comment "The economic operator or competent authority asserting this exemption. Uses oec:OperatorInformation so the party is fully identified by GLN and role."@en ;
     rdfs:domain eudr:ExemptionDeclaration ;
-    rdfs:range dpp:OperatorInformation ;
-    dcterms:source "https://xchange.gs1.org/cr/gsmp WR 25-252" ;
+    rdfs:range oec:OperatorInformation ;
+    dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
     skos:note "Identifies who is making the exemption declaration. Typically the operator placing the product on the EU market (ESPR Art. 21) or a downstream operator."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .

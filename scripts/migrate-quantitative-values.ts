@@ -52,10 +52,10 @@ const CLASS_TO_UNIT: Record<string, string> = {
 // Also accept the prefixed forms.
 const PREFIXED: Record<string, string> = {};
 for (const [k, v] of Object.entries(CLASS_TO_UNIT)) {
-  PREFIXED[`dpp:${k}`] = v;
-  PREFIXED[`battery:${k}`] = v;
-  PREFIXED[`textile:${k}`] = v;
-  PREFIXED[`electronics:${k}`] = v;
+  PREFIXED[`oec:${k}`] = v;
+  PREFIXED[`eubat:${k}`] = v;
+  PREFIXED[`eutex:${k}`] = v;
+  PREFIXED[`euelec:${k}`] = v;
 }
 const ALL_TYPES: Record<string, string> = { ...CLASS_TO_UNIT, ...PREFIXED };
 

@@ -1,0 +1,98 @@
+meta {
+  name: Create Bed Linen Set (HomeTextile)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{dl-url}}/products
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  isAnonymousAccessAllowed: true
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/voc/",
+      "{{textile-context}}",
+      "{{dpp-context}}"
+    ],
+    "@type": "textile:TextileProduct",
+    "gtin": "{{bedlinenGtin}}",
+    "productName": {
+      "en": "Casa Lina Organic Cotton Bed Linen Set",
+      "de": "Casa Lina Bio-Baumwoll Bettwäsche-Set"
+    },
+    "brand": {
+      "brandName": {
+        "en": "Casa Lina"
+      }
+    },
+    "textile:textileCategory": "textile:HomeTextile",
+    "textile:fabricType": "textile:WovenNonDenim",
+    "textile:fiberComposition": [
+      {
+        "@type": "textile:FiberComposition",
+        "textile:fiberType": "textile:OrganicCotton",
+        "textile:fiberPercentage": 100,
+        "textile:fiberOrigin": "IN"
+      }
+    ],
+    "textile:durabilityInfo": {
+      "@type": "textile:DurabilityInfo",
+      "textile:durabilityClass": "textile:DurabilityA",
+      "textile:expectedWashCycles": 200,
+      "textile:pillResistance": 5,
+      "textile:colorFastness": 4
+    },
+    "textile:careInstructions": {
+      "@type": "textile:CareInstructions",
+      "textile:washingTemperature": 60,
+      "textile:bleachingAllowed": false,
+      "textile:ironingTemperature": "medium",
+      "textile:dryCleaningAllowed": false,
+      "textile:tumbleDryAllowed": true
+    },
+    "textile:takeBackProgram": {
+      "@type": "textile:TakeBackProgram",
+      "textile:programName": "Casa Lina Renew",
+      "textile:programUrl": "https://www.casa-lina.example.com/takeback",
+      "textile:acceptedConditions": ["worn", "damaged", "end-of-life"]
+    },
+    "dpp:operatorInformation": {
+      "@type": "dpp:OperatorInformation",
+      "gs1:gln": "9521987000056",
+      "gs1:organizationName": "Casa Lina GmbH",
+      "gs1:streetAddress": "Webergasse 11",
+      "gs1:postalCode": "42103",
+      "gs1:addressLocality": "Wuppertal",
+      "gs1:countryCode": "DE"
+    },
+    "certification": [
+      {
+        "@type": "CertificationDetails",
+        "certificationAgency": "Global Organic Textile Standard",
+        "certificationStandard": "GOTS 7.0",
+        "certificationValue": "Organic"
+      },
+      {
+        "@type": "CertificationDetails",
+        "certificationAgency": "OEKO-TEX",
+        "certificationStandard": "OEKO-TEX Standard 100 Class I",
+        "certificationValue": "Certified"
+      }
+    ]
+  }
+}
+
+tests {
+  test("Product created successfully", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+    expect((res.headers["content-type"] || "")).to.not.include("text/html");
+  });
+}

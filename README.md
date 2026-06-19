@@ -2,17 +2,17 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
 [![Browse the ontology](https://img.shields.io/badge/browse-ref.openepcis.io-2ea44f)](https://ref.openepcis.io)
-[![Status: Preview 0.9.5](https://img.shields.io/badge/status-preview%200.9.5-orange)](#what-you-get)
+[![Status: Preview 0.9.6](https://img.shields.io/badge/status-preview%200.9.6-orange)](#what-you-get)
 
 A comprehensive, standards-harmonizing framework for implementing Digital Product Passports aligned with EU ESPR 2024/1781, schema.org, GS1, **EU SEMICeu Core Vocabularies**, and UN Transparency Protocol (UNTP).
 
 > **Browse the live ontology** at **[ref.openepcis.io](https://ref.openepcis.io)** — every class, property, and JSON-LD context shipped from this repository is published there with stable, dereferenceable URIs. The TTL files in `extensions/*/ontology/` are the source of truth; the browser renders the deployed JSON.
 
-> **TL;DR for decision-makers:** OpenEPCIS DPP-Ready is an open-source platform that harmonises GS1, ESPR, UNTP, and CEN/CENELEC JTC 24 standards in a single codebase. Preview at v0.9.5, six regulations covered (battery, textile, EUDR, electronics, detergent, plus the cross-cutting ESPR core), with US FSMA §204 as a v0.1.0 preview. No vendor lock-in, no proprietary tooling, no translation layers. Built on GS1 Digital Link, EPCIS 2.0, and GS1 Web Vocabulary.
+> **TL;DR for decision-makers:** OpenEPCIS DPP-Ready is an open-source platform that harmonises GS1, ESPR, UNTP, and CEN/CENELEC JTC 24 standards in a single codebase. Preview at v0.9.6, six regulations covered (battery, textile, EUDR, electronics, detergent, plus the cross-cutting ESPR core), with US FSMA §204 as a v0.1.0 preview. No vendor lock-in, no proprietary tooling, no translation layers. Built on GS1 Digital Link, EPCIS 2.0, and GS1 Web Vocabulary.
 
 ## Open and Early
 
-**We believe in building in the open.** The DPP standardization landscape is rapidly evolving—CEN/CENELEC JTC 24 has six of eight harmonised standards (EN 18216, 18219, 18220, 18221, 18222, 18223) at FprEN stage publishing March 2026, with prEN 18239 and prEN 18246 still in development. CIRPASS2 is defining pilot requirements, and industry needs to start building now.
+**We believe in building in the open.** The DPP standardization landscape is rapidly evolving—CEN/CENELEC JTC 24 published six of eight European standards (EN 18216, 18219, 18220, 18221, 18222, 18223) in 2026, with prEN 18239 and prEN 18246 still in development. CIRPASS2 is defining pilot requirements, and industry needs to start building now.
 
 Rather than waiting for all standards to finalize, OpenEPCIS provides:
 
@@ -32,14 +32,14 @@ The EU Battery Regulation requires DPPs starting **February 2027**. Industry can
 | Properties | 430+ |
 | EPCIS Event Examples | 37+ |
 | Bridge Contexts | 5 (UNTP, CIRPASS2, JTC 24, BatteryPass, **SEMICeu Core Vocabularies**) |
-| Regulations Covered | 8 (ESPR, Battery Reg, EUDR, Sustainable Textiles, Electronics DAs, Detergents Reg, PPWR 2025/40, **CPR 2024/3110**) — plus dpp: enrichments for Right-to-Repair 2024/1799, CSDDD 2024/1760, Forced Labour 2024/3015, CRMA 2024/1252 |
+| Regulations Covered | 8 (ESPR, Battery Reg, EUDR, Sustainable Textiles, Electronics DAs, Detergents Reg, PPWR 2025/40, **CPR 2024/3110**) — plus oec: enrichments for Right-to-Repair 2024/1799, CSDDD 2024/1760, Forced Labour 2024/3015, CRMA 2024/1252 |
 
 ## Vocabulary layering — the delegation pattern
 
 OpenEPCIS DPP-Ready is organised as **four stacked layers**, each delegating
 cross-cutting concepts downward. A new EU regulation typically adds only a
 handful of truly regulation-specific terms; everything else reuses the
-common-core (`dpp:`) vocabulary, which itself anchors upward to a
+common-core (`oec:`) vocabulary, which itself anchors upward to a
 **peer triumvirate of foundational vocabularies — schema.org, GS1, and
 EU SEMICeu Core Vocabularies** — and to upstream community profiles
 (UNTP, CIRPASS-2, JTC 24).
@@ -49,7 +49,7 @@ EU SEMICeu Core Vocabularies** — and to upstream community profiles
                                    eu/electronics, eu/detergent, eu/ppwr,
                                    eu/cpr, us/fsma204)
             ↓
-  Layer 3 ─ Common DPP core (dpp:)  cross-cutting concepts ≥2 regs share
+  Layer 3 ─ Common DPP core (oec:)  cross-cutting concepts ≥2 regs share
             ↓ owl:equivalentClass / equivalentProperty
   Layer 2 ─ Upstream community profiles
             UNTP v0.7.0  Party, Facility, Material, Claim,
@@ -72,7 +72,7 @@ and use the *highest* layer that already covers the concept. Within
 Layer 1, check the three foundational vocabularies in this order:
 **GS1 → SEMICeu → schema.org**. Mint a new IRI only when no layer below
 has it. If you find yourself adding the same concept to two modules,
-that's a signal it should move down to `dpp:`. If a `dpp:` term turns
+that's a signal it should move down to `oec:`. If a `oec:` term turns
 out to be a SEMICeu / GS1 / schema.org duplicate, redo it and match
 upstream.
 
@@ -87,7 +87,7 @@ CSDDD): see [`docs/VOCABULARY_LAYERING.md`](docs/VOCABULARY_LAYERING.md).
 | **GS1 Web Vocabulary** | Native foundation (peer Layer 1, `owl:imports`) | Stable |
 | **EU SEMICeu Core Vocabularies** (CCCEV, CPOV, Core Business / Person / Location, Core Public Event, CPSV-AP, ADMS-AP) | Native foundation (peer Layer 1, bridge context + `owl:equivalentClass` anchors) | Stable |
 | **schema.org** | Native foundation (peer Layer 1, fallback) | Stable |
-| **CEN/CENELEC JTC 24** | EN 18216 / 18219 / 18220 / 18221 / 18222 / 18223 (FprEN, publishing Mar 2026); prEN 18239 / 18246 (in development) | 6/8 at FprEN |
+| **CEN/CENELEC JTC 24** | EN 18216 / 18219 / 18220 / 18221 / 18222 / 18223 (published 2026); prEN 18239 / 18246 (in development) | 6/8 published |
 | **UN Transparency Protocol** | Property-aligned (`owl:equivalentProperty`) | Stable |
 | **CIRPASS2** | Requirements coverage | Documented |
 | **ESPR 2024/1781** | Articles 7, 8, 9, 77 covered | Complete |
@@ -120,13 +120,13 @@ This monorepo provides a consistent, GS1-aligned approach to implementing Digita
 
 | Module | Region | Regulation | Status | Version | Last updated |
 |--------|--------|------------|--------|---------|--------------|
-| [common/core](./extensions/common/core/) | Cross-cutting | ESPR 2024/1781 Framework | Preview | 0.9.5 | Apr 2026 |
-| [common/interop](./extensions/common/interop/) | Cross-cutting | Standards Harmonization (UNTP, CIRPASS2, JTC 24, BatteryPass) | Preview | 0.9.5 | Apr 2026 |
-| [eu/battery](./extensions/eu/battery/) | EU | Battery Regulation 2023/1542 | Preview | 0.9.5 | Feb 2026 |
-| [eu/eudr](./extensions/eu/eudr/) | EU | Deforestation Regulation 2023/1115 | Preview | 0.9.5 | Apr 2026 (exemption pattern added) |
-| [eu/textile](./extensions/eu/textile/) | EU | Sustainable Textiles Strategy | Preview | 0.9.5 | Mar 2026 (JRC Milestone 3 alignment) |
-| [eu/electronics](./extensions/eu/electronics/) | EU | ESPR Electronics Delegated Acts | Preview | 0.9.5 | Feb 2026 |
-| [eu/detergent](./extensions/eu/detergent/) | EU | Detergents Regulation 2026/405 | Preview | 0.9.5 | Mar 2026 |
+| [common/core](./extensions/common/core/) | Cross-cutting | ESPR 2024/1781 Framework | Preview | 0.9.6 | Apr 2026 |
+| [common/interop](./extensions/common/interop/) | Cross-cutting | Standards Harmonization (UNTP, CIRPASS2, JTC 24, BatteryPass) | Preview | 0.9.6 | Apr 2026 |
+| [eu/battery](./extensions/eu/battery/) | EU | Battery Regulation 2023/1542 | Preview | 0.9.6 | Feb 2026 |
+| [eu/eudr](./extensions/eu/eudr/) | EU | Deforestation Regulation 2023/1115 | Preview | 0.9.6 | Apr 2026 (exemption pattern added) |
+| [eu/textile](./extensions/eu/textile/) | EU | Sustainable Textiles Strategy | Preview | 0.9.6 | Mar 2026 (JRC Milestone 3 alignment) |
+| [eu/electronics](./extensions/eu/electronics/) | EU | ESPR Electronics Delegated Acts | Preview | 0.9.6 | Feb 2026 |
+| [eu/detergent](./extensions/eu/detergent/) | EU | Detergents Regulation 2026/405 | Preview | 0.9.6 | Mar 2026 |
 | [us/fsma204](./extensions/us/fsma204/) | US | FSMA §204 Food Traceability Rule (21 CFR 1 Subpart S) | Preview | 0.1.0 | Apr 2026 (new module) |
 | [upstream/gs1-rail](./extensions/upstream/gs1-rail/) | Upstream (GS1 AISBL / GS1 Switzerland) | GS1 Rail Vocabulary — sectoral Layer-1 (sensor metadata, wheel diagnostics, rail EPCIS Registry shapes); namespace stays at `https://gs1-epcis-reg.org/rail/voc/data#` | Mirror | upstream 1.6 | May 2026 (initial mirror, bridge to dpp-core) |
 
@@ -181,8 +181,8 @@ Then open any module's `examples/` directory for JSON-LD samples, or launch the 
 ## Why every module owns a named EPCIS extension
 
 Each module registers its own `https://ref.openepcis.io/extensions/...`
-namespace (`battery:`, `eudr:`, `textile:`, `electronics:`, `detergent:`,
-`fsma:`) even when the extension contributes only a single property. The
+namespace (`eubat:`, `eudr:`, `eutex:`, `euelec:`, `eudet:`,
+`usfsma:`) even when the extension contributes only a single property. The
 namespace is not cosmetic — it is the **switch** that tells an OpenEPCIS
 EPCIS Repository to activate regulation-specific behaviour on every
 capture and query request that declares it via the `GS1-Extensions`
@@ -230,14 +230,14 @@ The project follows a **`gs1:` → SEMICeu (`cv:` / `cccev:` / `locn:` / `adms:`
 
 | Module | Namespace | Prefix |
 |--------|-----------|--------|
-| DPP Core | `https://ref.openepcis.io/extensions/common/core/` | `dpp:` |
-| Interop | `https://ref.openepcis.io/extensions/common/interop/` | `interop:` |
-| Battery | `https://ref.openepcis.io/extensions/eu/battery/` | `battery:` |
+| DPP Core | `https://ref.openepcis.io/extensions/common/core/` | `oec:` |
+| Interop | `https://ref.openepcis.io/extensions/common/interop/` | `oei:` |
+| Battery | `https://ref.openepcis.io/extensions/eu/battery/` | `eubat:` |
 | EUDR | `https://ref.openepcis.io/extensions/eu/eudr/` | `eudr:` |
-| Textile | `https://ref.openepcis.io/extensions/eu/textile/` | `textile:` |
-| Electronics | `https://ref.openepcis.io/extensions/eu/electronics/` | `electronics:` |
-| Detergent | `https://ref.openepcis.io/extensions/eu/detergent/` | `detergent:` |
-| FSMA §204 | `https://ref.openepcis.io/extensions/us/fsma204/` | `fsma:` |
+| Textile | `https://ref.openepcis.io/extensions/eu/textile/` | `eutex:` |
+| Electronics | `https://ref.openepcis.io/extensions/eu/electronics/` | `euelec:` |
+| Detergent | `https://ref.openepcis.io/extensions/eu/detergent/` | `eudet:` |
+| FSMA §204 | `https://ref.openepcis.io/extensions/us/fsma204/` | `usfsma:` |
 | GS1 Rail (upstream — GS1 AISBL / GS1 Switzerland; mirrored under `extensions/upstream/gs1-rail/`) | `https://gs1-epcis-reg.org/rail/voc/data#` | `rail:` |
 | _Reused_: schema.org | `https://schema.org/` | `schema:` |
 | _Reused_: GS1 Web Vocabulary | `https://ref.gs1.org/voc/` | `gs1:` |
@@ -327,6 +327,14 @@ Environments: `local` (localhost:8080), `dev` (dev.epcis.cloud with Keycloak OAu
 
 See [bruno/digital-link-resolver/README.md](./bruno/digital-link-resolver/README.md) for setup instructions.
 
+## Demos
+
+**EN 18223 converter** is live at **<https://openepcis.github.io/openepcis-dpp-ready/>** ([source](./demos/en18223-converter/)). It is a self-contained, client-side page that derives a CEN/CENELEC EN 18223 Digital Product Passport from GS1 Web Vocabulary + GS1 Digital Link JSON-LD. Pick a real product passport (one per EU/US regulated domain: battery, electronics, textile, deforestation, packaging, construction, detergent, food) and view it as EN 18223 expanded (Annex A) or compressed, beside the JSON-LD expansion of the input. It runs the same converter as the CLI (`pnpm run derive:en18223`). The derivation is explained in the [EPCIS4DPP whitepaper](./extensions/common/interop/docs/GS1_STACK_EN182XX_WHITEPAPER.md).
+
+```bash
+pnpm run demo:en18223   # build the bundle and serve the page locally
+```
+
 ## Core Patterns
 
 The `core/` module provides reusable patterns aligned with ESPR across all regulations:
@@ -356,13 +364,13 @@ Each module follows [Semantic Versioning](https://semver.org/) and is versioned 
 
 | Module | Version | Notes |
 |--------|---------|-------|
-| `common/core` | 0.9.5 | ESPR framework + shared patterns; breaking changes bump major |
-| `common/interop` | 0.9.5 | UNTP / CIRPASS2 / JTC 24 / BatteryPass bridges |
-| `eu/battery` | 0.9.5 | Battery Regulation 2023/1542 |
-| `eu/eudr` | 0.9.5 | Deforestation Regulation 2023/1115 |
-| `eu/textile` | 0.9.5 | Sustainable Textiles |
-| `eu/electronics` | 0.9.5 | ESPR Electronics Delegated Acts |
-| `eu/detergent` | 0.9.5 | Detergents Regulation 2026/405 |
+| `common/core` | 0.9.6 | ESPR framework + shared patterns; breaking changes bump major |
+| `common/interop` | 0.9.6 | UNTP / CIRPASS2 / JTC 24 / BatteryPass bridges |
+| `eu/battery` | 0.9.6 | Battery Regulation 2023/1542 |
+| `eu/eudr` | 0.9.6 | Deforestation Regulation 2023/1115 |
+| `eu/textile` | 0.9.6 | Sustainable Textiles |
+| `eu/electronics` | 0.9.6 | ESPR Electronics Delegated Acts |
+| `eu/detergent` | 0.9.6 | Detergents Regulation 2026/405 |
 | `us/fsma204` | 0.1.0 | FDA FSMA §204 (preview) |
 
 Modules declare their minimum `common/core` dependency in their respective `README.md` and `CHANGELOG.md`.
@@ -382,7 +390,7 @@ Each module in this framework is designed as a **first-class EPCIS 2.0 extension
 
 ### Architecture Rule
 
-**`gs1:masterDataAvailableFor`** in EPCIS events contains ONLY `gs1:` Web Vocabulary properties (product name, country of origin, regulatory information, etc.). Extension properties (`dpp:`, `battery:`, `eudr:`, `textile:`, `electronics:`, `detergent:`) go at **event level** -- as siblings of `bizStep`, `epcList`, etc.
+**`gs1:masterDataAvailableFor`** in EPCIS events contains ONLY `gs1:` Web Vocabulary properties (product name, country of origin, regulatory information, etc.). Extension properties (`oec:`, `eubat:`, `eudr:`, `eutex:`, `euelec:`, `eudet:`) go at **event level** -- as siblings of `bizStep`, `epcList`, etc.
 
 See [extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md](./extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md) for the canonical three-angle reference (EPCIS structure, GS1 WebVoc patterns, RDF correctness).
 
@@ -391,20 +399,20 @@ See [extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md](./extension
 Declare extensions using the `GS1-Extensions` header (per EPCIS 2.0 specification):
 
 ```http
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/, battery=https://ref.openepcis.io/extensions/eu/battery/, textile=https://ref.openepcis.io/extensions/eu/textile/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, eubat=https://ref.openepcis.io/extensions/eu/battery/, eutex=https://ref.openepcis.io/extensions/eu/textile/
 ```
 
 ### Extension Namespaces
 
 | Module | GS1-Extensions Header Value |
 |--------|---------------------------|
-| DPP Core | `dpp=https://ref.openepcis.io/extensions/common/core/` |
-| Battery | `battery=https://ref.openepcis.io/extensions/eu/battery/` |
+| DPP Core | `oec=https://ref.openepcis.io/extensions/common/core/` |
+| Battery | `eubat=https://ref.openepcis.io/extensions/eu/battery/` |
 | EUDR | `eudr=https://ref.openepcis.io/extensions/eu/eudr/` |
-| Textile | `textile=https://ref.openepcis.io/extensions/eu/textile/` |
-| Electronics | `electronics=https://ref.openepcis.io/extensions/eu/electronics/` |
-| Detergent | `detergent=https://ref.openepcis.io/extensions/eu/detergent/` |
-| FSMA §204 | `fsma=https://ref.openepcis.io/extensions/us/fsma204/` |
+| Textile | `eutex=https://ref.openepcis.io/extensions/eu/textile/` |
+| Electronics | `euelec=https://ref.openepcis.io/extensions/eu/electronics/` |
+| Detergent | `eudet=https://ref.openepcis.io/extensions/eu/detergent/` |
+| FSMA §204 | `usfsma=https://ref.openepcis.io/extensions/us/fsma204/` |
 
 ### JSON-LD Context Integration
 
@@ -476,6 +484,7 @@ Apache License 2.0 - See [LICENSE](./LICENSE)
 ## Links
 
 - [Browse the live ontology — ref.openepcis.io](https://ref.openepcis.io)
+- [EN 18223 converter (live demo)](https://openepcis.github.io/openepcis-dpp-ready/)
 - [OpenEPCIS Documentation](https://openepcis.io/docs/digital-product-passport/)
 - [Contributing guide](./CONTRIBUTING.md)
 - [Code of Conduct](./codeOfConduct.md)

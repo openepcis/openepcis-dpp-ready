@@ -1,8 +1,8 @@
 {
   "namespace": "https://ref.openepcis.io/extensions/eu/electronics/",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "title": "OpenEPCIS Electronics Vocabulary",
-  "description": "Electronics-specific vocabulary extending GS1 Web Vocabulary for Digital Product Passports.\n\nOpenEPCIS DPP-Ready: The Universal DPP Platform - harmonizing GS1, UNTP, and CIRPASS-2 standards.\n\nThis vocabulary provides comprehensive coverage for electronic and electrical equipment under:\n- EU ESPR 2024/1781 framework (computers, servers, smartphones, tablets)\n- French Repairability Index (Indice de Réparabilité) - 5 criteria, 100-point scoring\n- EU Right to Repair 2025 - A-E repairability grades\n- WEEE Directive 2012/19/EU - 6 equipment categories\n- RoHS Directive 2011/65/EU - Restricted hazardous substances\n- EU Energy Labeling 2019/2021 - A-G efficiency classes, EPREL registry\n- CIRPASS-2 electronics pilots - Multi-component DPP tracking\n\nStandards Alignment:\n- GS1 Web Vocabulary (native foundation)\n- UN Transparency Protocol (UNTP) alignment via owl:equivalentProperty\n- IEC 62474 material declarations\n- IEC 82474-1:2025 material efficiency\n- ISO/IEC 12207 software lifecycle\n- ISO/IEC 14764 software maintenance\n\nGS1 Properties to Use (not redefined here):\n- gs1:gtin - Global Trade Item Number\n- gs1:productName - Product name\n- gs1:brand - Brand information\n- gs1:manufacturingDate - Manufacturing date\n- gs1:countryOfOrigin - Country of manufacture\n- gs1:manufacturer - Manufacturer organization\n- gs1:warranty / gs1:WarrantyPromise - Warranty information\n- gs1:certification / gs1:CertificationDetails - Certifications\n- gs1:regulatoryInformation - Regulatory compliance (RoHS, CE, etc.)\n- gs1:netWeight / gs1:grossWeight - Product weight\n\nEPCIS 2.0 Extension Declaration:\nGS1-Extensions: electronics=https://ref.openepcis.io/extensions/eu/electronics/\n\nExtension Governance:\nThis vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.\nEach extension term includes dcterms:source, skos:note, and rdfs:seeAlso where applicable.\nAll ratio/fraction properties use 0-1 decimal scale (e.g., 0.45 = 45%).",
+  "description": "Electronics-specific vocabulary extending GS1 Web Vocabulary for Digital Product Passports.\n\nOpenEPCIS DPP-Ready: The Universal DPP Platform - harmonizing GS1, UNTP, and CIRPASS-2 standards.\n\nThis vocabulary provides comprehensive coverage for electronic and electrical equipment under:\n- EU ESPR 2024/1781 framework (computers, servers, smartphones, tablets)\n- French Repairability Index (Indice de Réparabilité) - 5 criteria, 100-point scoring\n- EU Right to Repair 2025 - A-E repairability grades\n- WEEE Directive 2012/19/EU - 6 equipment categories\n- RoHS Directive 2011/65/EU - Restricted hazardous substances\n- EU Energy Labeling 2019/2021 - A-G efficiency classes, EPREL registry\n- CIRPASS-2 electronics pilots - Multi-component DPP tracking\n\nStandards Alignment:\n- GS1 Web Vocabulary (native foundation)\n- UN Transparency Protocol (UNTP) alignment via owl:equivalentProperty\n- IEC 62474 material declarations\n- IEC 82474-1:2025 material efficiency\n- ISO/IEC 12207 software lifecycle\n- ISO/IEC 14764 software maintenance\n\nGS1 Properties to Use (not redefined here):\n- gs1:gtin - Global Trade Item Number\n- gs1:productName - Product name\n- gs1:brand - Brand information\n- gs1:manufacturingDate - Manufacturing date\n- gs1:countryOfOrigin - Country of manufacture\n- gs1:manufacturer - Manufacturer organization\n- gs1:warranty / gs1:WarrantyPromise - Warranty information\n- gs1:certification / gs1:CertificationDetails - Certifications\n- gs1:regulatoryInformation - Regulatory compliance (RoHS, CE, etc.)\n- gs1:netWeight / gs1:grossWeight - Product weight\n\nEPCIS 2.0 Extension Declaration:\nGS1-Extensions: euelec=https://ref.openepcis.io/extensions/eu/electronics/\n\nExtension Governance:\nThis vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.\nEach extension term includes dcterms:source, skos:note, and rdfs:seeAlso where applicable.\nAll ratio/fraction properties use 0-1 decimal scale (e.g., 0.45 = 45%).",
   "classes": [
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/ComponentBOM",
@@ -27,7 +27,8 @@
       "label": "Energy Efficiency",
       "comment": "EU Energy Label data including efficiency class (A-G), power consumption metrics,\nand EPREL registry information per EU Energy Labeling Regulation 2019/2021.",
       "seeAlso": [
-        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo",
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
       ],
       "subClassOf": [
         "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
@@ -41,7 +42,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/electronics/RepairabilityIndex",
       "localName": "RepairabilityIndex",
       "label": "Repairability Index",
-      "comment": "French Repairability Index (Indice de Réparabilité) assessment using the official\n5-criteria, 100-point scoring methodology. The score is displayed to consumers as 0-10 scale.\n\nFive Criteria (20 points each):\n1. Documentation - Availability of repair documentation\n2. Disassembly - Ease of disassembly and tools required\n3. Spare Parts Availability - Duration and access to spare parts\n4. Spare Parts Pricing - Ratio of part prices to product price\n5. Product Specific - Category-specific criteria (e.g., software support for smartphones)\n\nTotal score (0-100) is converted to display score (0-10) for consumer labeling.",
+      "comment": "French Repairability Index (Indice de Réparabilité) assessment using the official\n5-criteria, 100-point scoring methodology. The score is displayed to consumers as 0-10 scale ;\n    dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;\n    skos:note \"Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent.\"@en .\n\nFive Criteria (20 points each):\n1. Documentation - Availability of repair documentation\n2. Disassembly - Ease of disassembly and tools required\n3. Spare Parts Availability - Duration and access to spare parts\n4. Spare Parts Pricing - Ratio of part prices to product price\n5. Product Specific - Category-specific criteria (e.g., software support for smartphones)\n\nTotal score (0-100) is converted to display score (0-10) for consumer labeling.",
       "seeAlso": [
         "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
       ],
@@ -76,7 +77,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport",
       "localName": "SoftwareSupport",
       "label": "Software Support",
-      "comment": "Operating system and firmware support information including update periods,\nsecurity patch availability, and end-of-support dates. Critical for electronics lifecycle\nand repairability assessments per ESPR delegated acts.\n\nDesigned following ISO/IEC 12207 (software lifecycle) and ISO/IEC 14764 (software maintenance)\npatterns as a potential contribution to UNTP v1.0+.",
+      "comment": "Operating system and firmware support information including update periods,\nsecurity patch availability, and end-of-support dates. Critical for electronics lifecycle\nand repairability assessments per ESPR delegated acts ;\n    dcterms:source <https://www.iso.org/standard/63712.html> ;\n    skos:note \"Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent.\"@en .\n\nDesigned following ISO/IEC 12207 (software lifecycle) and ISO/IEC 14764 (software maintenance)\npatterns as a potential contribution to UNTP v1.0+.",
       "seeAlso": [
         "https://www.iso.org/standard/43447.html"
       ],
@@ -109,9 +110,13 @@
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
       ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/annualEnergyConsumption"
+      ],
       "equivalentProperty": [
         "https://ref.openepcis.io/extensions/common/core/annualEnergyConsumption"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/assessmentBody",
@@ -123,7 +128,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/Organization"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/assessmentDate",
@@ -135,7 +141,8 @@
       ],
       "range": [
         "xsd:date"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/billOfMaterials",
@@ -147,7 +154,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/electronics/ComponentBOM"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/collectionSchemeUrl",
@@ -162,7 +170,8 @@
       ],
       "equivalentProperty": [
         "https://ref.openepcis.io/extensions/common/core/eprComplianceUrl"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/componentPartNumber",
@@ -174,7 +183,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/componentPassport",
@@ -189,7 +199,8 @@
       ],
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/dpp/linkedProduct"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/components",
@@ -201,7 +212,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/Product"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/componentType",
@@ -213,7 +225,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/electronics/ComponentType"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/criterionDetails",
@@ -225,7 +238,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/criterionMaxScore",
@@ -237,7 +251,8 @@
       ],
       "range": [
         "xsd:decimal"
-      ]
+      ],
+      "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/criterionScore",
@@ -252,7 +267,8 @@
       ],
       "seeAlso": [
         "http://data.europa.eu/m8g/SupportedValue"
-      ]
+      ],
+      "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/criterionType",
@@ -264,7 +280,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/electronics/RepairCriterionType"
-      ]
+      ],
+      "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/displayScore",
@@ -289,7 +306,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/electronics/DisplaySpecification"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/displayTechnology",
@@ -301,7 +319,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/energyEfficiency",
@@ -313,7 +332,11 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/energyEfficiency"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/energyEfficiencyClass",
@@ -325,6 +348,9 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiencyClass"
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/energyEfficiencyClass"
       ],
       "equivalentProperty": [
         "https://ref.openepcis.io/extensions/common/core/energyEfficiencyClass"
@@ -341,7 +367,8 @@
       ],
       "range": [
         "xsd:anyURI"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/eprelProductUrl",
@@ -354,9 +381,13 @@
       "range": [
         "xsd:anyURI"
       ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/eprelProductUrl"
+      ],
       "equivalentProperty": [
         "https://ref.openepcis.io/extensions/common/core/eprelProductUrl"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/eprelRegistrationNumber",
@@ -368,6 +399,9 @@
       ],
       "range": [
         "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/eprelRegistrationNumber"
       ],
       "equivalentProperty": [
         "https://ref.openepcis.io/extensions/common/core/eprelRegistrationNumber"
@@ -384,7 +418,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/63712.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/featureUpdateEndDate",
@@ -396,7 +431,8 @@
       ],
       "range": [
         "xsd:date"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/63712.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/firmwareVersion",
@@ -408,7 +444,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/63712.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/iec62474DslVersion",
@@ -417,7 +454,8 @@
       "comment": "Version of the IEC 62474 Declarable Substance List used.",
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/isReplaceable",
@@ -429,7 +467,8 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/latestUpdateDate",
@@ -441,13 +480,14 @@
       ],
       "range": [
         "xsd:date"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/63712.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/materialDeclaration",
       "localName": "materialDeclaration",
       "label": "Material Declaration",
-      "comment": "Material declaration per IEC 62474 (Declarable Substance List).\nLinks to dpp:SubstanceOfConcern for REACH/RoHS substances.",
+      "comment": "Material declaration per IEC 62474 (Declarable Substance List).\nLinks to oec:SubstanceOfConcern for REACH/RoHS substances.",
       "domain": [
         "https://ref.gs1.org/voc/Product"
       ],
@@ -466,7 +506,8 @@
       "comment": "Date of the material declaration.",
       "range": [
         "xsd:date"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/modelIdentifier",
@@ -478,7 +519,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/newVersion",
@@ -487,7 +529,8 @@
       "comment": "Software/firmware version after update.",
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/osVersion",
@@ -499,7 +542,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/63712.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/peakBrightness",
@@ -511,7 +555,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/powerConsumptionOff",
@@ -524,9 +569,13 @@
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
       ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/powerConsumptionOff"
+      ],
       "equivalentProperty": [
         "https://ref.openepcis.io/extensions/common/core/powerConsumptionOff"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/powerConsumptionOn",
@@ -539,9 +588,13 @@
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
       ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/powerConsumptionOn"
+      ],
       "equivalentProperty": [
         "https://ref.openepcis.io/extensions/common/core/powerConsumptionOn"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/powerConsumptionStandby",
@@ -554,9 +607,13 @@
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
       ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/powerConsumptionStandby"
+      ],
       "equivalentProperty": [
         "https://ref.openepcis.io/extensions/common/core/powerConsumptionStandby"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/previousVersion",
@@ -565,7 +622,8 @@
       "comment": "Software/firmware version before update.",
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/recoverabilityRate",
@@ -577,7 +635,8 @@
       ],
       "range": [
         "xsd:decimal"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/recyclabilityRate",
@@ -591,8 +650,10 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://ref.openepcis.io/extensions/common/core/recyclableContent"
-      ]
+        "https://ref.openepcis.io/extensions/common/core/recyclableContent",
+        "https://ref.openepcis.io/extensions/common/core/recyclabilityRate"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/refreshRate",
@@ -604,7 +665,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/repairabilityClass",
@@ -616,7 +678,11 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/electronics/EURepairabilityClass"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/repairabilityClass"
+      ],
+      "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/repairabilityIndex",
@@ -628,7 +694,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/electronics/RepairabilityIndex"
-      ]
+      ],
+      "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/repairabilityLabelUrl",
@@ -640,7 +707,8 @@
       ],
       "range": [
         "xsd:anyURI"
-      ]
+      ],
+      "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/repairCriteria",
@@ -652,7 +720,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/electronics/RepairCriterion"
-      ]
+      ],
+      "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/replacementDifficulty",
@@ -664,7 +733,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/electronics/ReplacementDifficulty"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/rohsCompliance",
@@ -676,7 +746,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/electronics/RoHSCompliance"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dir/2011/65/eu"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/rohsCompliant",
@@ -701,7 +772,8 @@
       ],
       "range": [
         "xsd:anyURI"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dir/2011/65/eu"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/rohsExemptions",
@@ -713,7 +785,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dir/2011/65/eu"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/screenDiagonal",
@@ -725,7 +798,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/screenResolutionHeight",
@@ -737,7 +811,8 @@
       ],
       "range": [
         "xsd:integer"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/screenResolutionWidth",
@@ -749,7 +824,8 @@
       ],
       "range": [
         "xsd:integer"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/securitySupportYears",
@@ -761,7 +837,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/63712.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/securityUpdateEndDate",
@@ -773,7 +850,8 @@
       ],
       "range": [
         "xsd:date"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/63712.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/softwareSupport",
@@ -785,7 +863,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/63712.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/softwareUpdateEvent",
@@ -794,7 +873,8 @@
       "comment": "EPCIS extension data for software/firmware update events.\nUse with bizStep 'inspecting' for software lifecycle tracking.",
       "seeAlso": [
         "https://www.iso.org/standard/63712.html"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/63712.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/sparePartAvailabilityYears",
@@ -806,7 +886,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
+      ],
+      "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/sparePartPrice",
@@ -818,7 +899,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/PriceSpecification"
-      ]
+      ],
+      "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/totalScore",
@@ -843,7 +925,8 @@
       ],
       "range": [
         "xsd:anyURI"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/63712.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/updateSource",
@@ -852,7 +935,8 @@
       "comment": "Source of the update (OTA, manual, service center, etc.).",
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/63712.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/updateType",
@@ -861,7 +945,8 @@
       "comment": "Type of update (security, feature, firmware, driver, etc.).",
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/63712.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/weeeCompliance",
@@ -873,7 +958,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/electronics/WEEECompliance"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/weeeRegistrationCountry",
@@ -888,7 +974,8 @@
       ],
       "equivalentProperty": [
         "https://ref.openepcis.io/extensions/common/core/eprJurisdiction"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/electronics/weeeRegistrationNumber",
@@ -903,7 +990,8 @@
       ],
       "equivalentProperty": [
         "https://ref.openepcis.io/extensions/common/core/eprRegistrationNumber"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj"
     }
   ],
   "enumerations": [

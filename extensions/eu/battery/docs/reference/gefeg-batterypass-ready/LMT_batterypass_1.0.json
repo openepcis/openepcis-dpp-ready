@@ -1,0 +1,724 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "LMT": {
+      "$ref": "#/$defs/BatteryPass_Master"
+    }
+  },
+  "$defs": {
+    "BatteryPass_Master": {
+      "type": "object",
+      "properties": {
+        "SymbolsLabelsAndDocumentationOfConformity": {
+          "$ref": "#/$defs/SymbolsLabelsAndDocumentationOfConformity"
+        },
+        "SupplyChainDueDiligence": {
+          "$ref": "#/$defs/SupplyChainDueDiligence"
+        },
+        "PerformanceAndDurability": {
+          "$ref": "#/$defs/PerformanceAndDurability"
+        },
+        "IdentifiersAndProductData": {
+          "$ref": "#/$defs/IdentifiersAndProductData"
+        },
+        "CircularityAndResourceEfficiency": {
+          "$ref": "#/$defs/CircularityAndResourceEfficiency"
+        },
+        "BatteryMaterialsAndComposition": {
+          "$ref": "#/$defs/BatteryMaterialsAndComposition"
+        },
+        "BatteryCarbonFootprint": {
+          "$ref": "#/$defs/BatteryCarbonFootprint"
+        }
+      }
+    },
+    "BatteryCarbonFootprint": {
+      "type": "object",
+      "properties": {
+        "BatteryCarbonFootprintPerFunctionalUnit": {
+          "$ref": "#/$defs/kg_CO2-equivalent_per_kilowatt_hour_decimal"
+        },
+        "ContributionOfRawMaterialAcquisitionAndPre-processingLifecycleStage": {
+          "$ref": "#/$defs/kg_CO2-equivalent_per_kilowatt_hour_decimal"
+        },
+        "ContributionOfMainProductProductionLifecycleStage": {
+          "$ref": "#/$defs/kg_CO2-equivalent_per_kilowatt_hour_decimal"
+        },
+        "ContributionOfDistributionLifecycleStage": {
+          "$ref": "#/$defs/kg_CO2-equivalent_per_kilowatt_hour_decimal"
+        },
+        "ContributionOfEndOfLifeAndRecyclingLifecycleStage": {
+          "$ref": "#/$defs/kg_CO2-equivalent_per_kilowatt_hour_decimal"
+        },
+        "CarbonFootprintPerformanceClass": {
+          "type": "string"
+        },
+        "WebLinkToPublicCarbonFootprintStudy": {
+          "type": "string"
+        },
+        "AbsoluteBatteryCarbonFootprint": {
+          "$ref": "#/$defs/kg_CO2-equivalent_integer"
+        }
+      }
+    },
+    "BatteryMaterialsAndComposition": {
+      "type": "object",
+      "properties": {
+        "BatteryChemistry": {
+          "$ref": "#/$defs/Battery_chemistry_type"
+        },
+        "CriticalRawMaterials": {
+          "type": "string"
+        },
+        "HazardousSubstances": {
+          "type": "string"
+        },
+        "MaterialsUsedInCathodeAnodeAndElectrolyte": {
+          "type": "string"
+        },
+        "ImpactOfSubstancesOnEnvironmentHumanHealthSafetyPersons": {
+          "type": "string"
+        }
+      }
+    },
+    "CircularityAndResourceEfficiency": {
+      "type": "object",
+      "properties": {
+        "DismantlingInformation:_ManualsForTheRemovalAndTheDisassemblyOfTheBatteryPack": {
+          "type": "string"
+        },
+        "PartNumbersForComponents": {
+          "type": "string"
+        },
+        "InformationOnSourcesOfSpareParts": {
+          "type": "string"
+        },
+        "SafetyMeasures": {
+          "type": "string"
+        },
+        "Pre-consumerRecycledNickelShare": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "Pre-consumerRecycledCobaltShare": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "Pre-consumerRecycledLithiumShare": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "Post-consumerRecycledNickelShare": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "Post-consumerRecycledCobaltShare": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "Post-consumerRecycledLithiumShare": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "RecycledLeadShare": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "RenewableContentShare": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "InformationOnTheRoleOfEnd-usersInContributingToWastePrevention": {
+          "type": "string"
+        },
+        "InformationOnTheRoleOfEnd-usersInContributingToTheSeparateCollectionOfWasteBatteries": {
+          "type": "string"
+        },
+        "InformationOnBatteryCollectionPreparationForSecondLifeAndOnTreatmentAtEndOfLife": {
+          "type": "string"
+        }
+      }
+    },
+    "IdentifiersAndProductData": {
+      "type": "object",
+      "properties": {
+        "DPPSchemaVersion": {
+          "type": "string"
+        },
+        "DPPStatus": {
+          "$ref": "#/$defs/DPP_status_type"
+        },
+        "DPPGranularity": {
+          "type": "string"
+        },
+        "Date-timeOfLatestUpdateOfDPP": {
+          "type": "string"
+        },
+        "BatteryModelIdentifier": {
+          "type": "string"
+        },
+        "UniqueBatteryPassportIdentifierUniqueDPPIdentifier": {
+          "type": "string"
+        },
+        "UniqueBatteryIdentifierUniqueProductIdentifier": {
+          "type": "string"
+        },
+        "BatterySerialNumber": {
+          "type": "string"
+        },
+        "UniqueEconomicOperatorIdentifier": {
+          "type": "string"
+        },
+        "UniqueManufacturerIdentifier": {
+          "type": "string"
+        },
+        "UniqueFacilityIdentifier": {
+          "type": "string"
+        },
+        "EconomicOperatorInformation": {
+          "$ref": "#/$defs/operatorInformation"
+        },
+        "ManufacturerInformation": {
+          "$ref": "#/$defs/operatorInformation"
+        },
+        "ManufacturingPlace": {
+          "type": "string"
+        },
+        "ManufacturingDate": {
+          "type": "string"
+        },
+        "DateOfPuttingTheBatteryIntoService": {
+          "type": "string"
+        },
+        "WarrantyPeriodOfTheBattery": {
+          "type": "string"
+        },
+        "BatteryCategory": {
+          "$ref": "#/$defs/Battery_category_type"
+        },
+        "BatteryMass": {
+          "$ref": "#/$defs/gram_kg_decimal"
+        },
+        "BatteryStatus": {
+          "$ref": "#/$defs/Battery_status_type"
+        }
+      }
+    },
+    "PerformanceAndDurability": {
+      "type": "object",
+      "properties": {
+        "RatedCapacity": {
+          "$ref": "#/$defs/amperehour_miliamperehour_decimal_integer"
+        },
+        "RemainingCapacity": {
+          "$ref": "#/$defs/amperehour_miliamperehour_decimal_integer"
+        },
+        "CapacityFade": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "CertifiedUsableBatteryEnergy": {
+          "$ref": "#/$defs/kilowatthour_integer_decimal"
+        },
+        "RemainingUsableBatteryEnergy": {
+          "$ref": "#/$defs/kilowatthour_integer_decimal"
+        },
+        "StateOfCertifiedEnergySOCE": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "StateOfChargeSoC": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "MinimumVoltage": {
+          "$ref": "#/$defs/volt_celsius_decimal"
+        },
+        "MaximumVoltage": {
+          "$ref": "#/$defs/volt_celsius_decimal"
+        },
+        "NominalVoltage": {
+          "$ref": "#/$defs/volt_celsius_decimal"
+        },
+        "OriginalPowerCapability": {
+          "$ref": "#/$defs/watt_celcius_integer"
+        },
+        "RemainingPowerCapability": {
+          "$ref": "#/$defs/watt_celcius_integer"
+        },
+        "PowerFade": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "MaximumPermittedBatteryPower": {
+          "$ref": "#/$defs/watt_celcius_integer"
+        },
+        "RatioBetweenNominalBatteryPowerAndBatteryEnergy": {
+          "$ref": "#/$defs/watt_per_watt_hour_integer"
+        },
+        "InitialRoundTripEnergyEfficiency": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "RoundTripEnergyEfficiencyAt50OfCycleLife": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "RemainingRoundTripEnergyEfficiency": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "EnergyRoundTripEfficiencyFade": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "InitialSelf-dischargeRate": {
+          "$ref": "#/$defs/percentMonth_decimal"
+        },
+        "CurrentSelf-dischargeRate": {
+          "$ref": "#/$defs/percentMonth_decimal"
+        },
+        "EvolutionOfSelf-dischargeRates": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "InitialInternalResistanceOfBatteryCellAndPackModuleRecommended": {
+          "$ref": "#/$defs/ohm_integer"
+        },
+        "InternalResistanceIncreaseOfPackCellAndModuleRecommended": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "ExpectedLifetimeInCalendarYears": {
+          "type": "number"
+        },
+        "ExpectedLifetime:_NumberOfCharge-dischargeCycles": {
+          "type": "integer"
+        },
+        "NumberOfFullChargingAndDischargingCycles": {
+          "type": "integer"
+        },
+        "Cycle-lifeReferenceTest": {
+          "type": "string"
+        },
+        "C-rateOfRelevantCycle-lifeTest": {
+          "$ref": "#/$defs/ampere_per_ampere_hour_decimal"
+        },
+        "EnergyThroughput": {
+          "$ref": "#/$defs/kilowatthour_integer_decimal"
+        },
+        "CapacityThroughput": {
+          "$ref": "#/$defs/amperehour_miliamperehour_decimal_integer"
+        },
+        "CapacityThresholdForExhaustion": {
+          "$ref": "#/$defs/percent_decimal"
+        },
+        "TemperatureInformation": {
+          "$ref": "#/$defs/celsius_integer"
+        },
+        "TemperatureRangeIdleStateLowerBoundary": {
+          "$ref": "#/$defs/celsius_integer"
+        },
+        "TemperatureRangeIdleStateUpperBoundary": {
+          "$ref": "#/$defs/celsius_integer"
+        },
+        "TimeSpentInExtremeTemperaturesAboveBoundary": {
+          "type": "integer"
+        },
+        "TimeSpentInExtremeTemperaturesBelowBoundary": {
+          "type": "integer"
+        },
+        "TimeSpentChargingDuringExtremeTemperaturesAboveBoundary": {
+          "type": "integer"
+        },
+        "TimeSpentChargingDuringExtremeTemperaturesBelowBoundary": {
+          "type": "integer"
+        },
+        "NumberOfDeepDischargeEvents": {
+          "type": "integer"
+        },
+        "NumberOfOverchargeEvents": {
+          "type": "integer"
+        },
+        "InformationOnAccidents": {
+          "type": "string"
+        }
+      }
+    },
+    "SupplyChainDueDiligence": {
+      "type": "object",
+      "properties": {
+        "InformationOfDueDiligenceReport": {
+          "type": "string"
+        },
+        "ThirdPartyAssurancesOfRecognisedSchemes": {
+          "type": "string"
+        },
+        "SupplyChainIndices": {
+          "type": "string"
+        }
+      }
+    },
+    "SymbolsLabelsAndDocumentationOfConformity": {
+      "type": "object",
+      "properties": {
+        "SeparateCollectionSymbol": {
+          "type": "string"
+        },
+        "SymbolsForCadmiumAndLead": {
+          "type": "string"
+        },
+        "CarbonFootprintLabel": {
+          "type": "string"
+        },
+        "ExtinguishingAgent": {
+          "$ref": "#/$defs/Extinguishing_agent_type"
+        },
+        "MeaningOfLabelsAndSymbols": {
+          "type": "string"
+        },
+        "EUDeclarationOfConformity": {
+          "type": "string"
+        },
+        "ResultsOfTestReportsProvingCompliance": {
+          "type": "string"
+        }
+      }
+    },
+    "Battery_category_type": {
+      "type": "object",
+      "properties": {
+        "electricVehicleEV": {
+          "type": "string"
+        },
+        "LMT": {
+          "type": "string"
+        },
+        "industrial": {
+          "type": "string"
+        }
+      }
+    },
+    "Battery_chemistry_type": {
+      "type": "object",
+      "properties": {
+        "additionallyPossibleValue": {
+          "type": "string"
+        },
+        "CustomChemicalCodes": {
+          "$ref": "#/$defs/customChemicalCodes"
+        }
+      }
+    },
+    "Battery_status_type": {
+      "type": "object",
+      "properties": {
+        "original": {
+          "type": "string"
+        },
+        "repurposed": {
+          "type": "string"
+        },
+        "re-used": {
+          "type": "string"
+        },
+        "remanufactured": {
+          "type": "string"
+        },
+        "waste": {
+          "type": "string"
+        }
+      }
+    },
+    "DPP_status_type": {
+      "type": "object",
+      "properties": {
+        "Active": {
+          "type": "string"
+        },
+        "Archived": {
+          "type": "string"
+        },
+        "Inactive": {
+          "type": "string"
+        },
+        "Marked-for-deletion": {
+          "type": "string"
+        }
+      }
+    },
+    "Extinguishing_agent_type": {
+      "type": "object",
+      "properties": {
+        "agentFireClass": {
+          "type": "string"
+        },
+        "extinguishingAgent": {
+          "type": "string"
+        }
+      }
+    },
+    "ampere_per_ampere_hour_decimal": {
+      "type": "object",
+      "properties": {
+        "amperePerAmpereHourValue": {
+          "type": "number"
+        },
+        "amperePerAmpereHour": {
+          "$ref": "#/$defs/amperePerAmpereHour"
+        }
+      }
+    },
+    "amperehour_miliamperehour_decimal_integer": {
+      "type": "object",
+      "properties": {
+        "amperehourMiliamperehourValueInteger": {
+          "type": "integer"
+        },
+        "ampereHourValueDecimal": {
+          "type": "number"
+        },
+        "ampereHourMiliamperehour": {
+          "$ref": "#/$defs/amperehour_miliamperehour"
+        }
+      }
+    },
+    "celsius_integer": {
+      "type": "object",
+      "properties": {
+        "degreeCelsius": {
+          "$ref": "#/$defs/degreeCelsius"
+        },
+        "celsiusValue": {
+          "type": "integer"
+        }
+      }
+    },
+    "gram_kg_decimal": {
+      "type": "object",
+      "properties": {
+        "gram_kg": {
+          "$ref": "#/$defs/gram_kg"
+        },
+        "gram_kgValue": {
+          "type": "number"
+        }
+      }
+    },
+    "kg_CO2-equivalent_integer": {
+      "type": "object",
+      "properties": {
+        "kgCO2-equivalentValue": {
+          "type": "integer"
+        },
+        "kgCO2-equivalent": {
+          "$ref": "#/$defs/kgCO2-equivalent"
+        }
+      }
+    },
+    "kg_CO2-equivalent_per_kilowatt_hour_decimal": {
+      "type": "object",
+      "properties": {
+        "kgCO2-equivalentPerKilowattHourValue": {
+          "type": "number"
+        },
+        "kgCO2-equivalentPerKilowattHour": {
+          "$ref": "#/$defs/kgCO2-equivalentPerKilowattHour"
+        }
+      }
+    },
+    "kilowatthour_integer_decimal": {
+      "type": "object",
+      "properties": {
+        "kilowattHourValueDecimal": {
+          "type": "number"
+        },
+        "kilowattHourValueInteger": {
+          "type": "integer"
+        },
+        "kilowattHour": {
+          "$ref": "#/$defs/kilowattHour"
+        }
+      }
+    },
+    "ohm_integer": {
+      "type": "object",
+      "properties": {
+        "ohmValue": {
+          "type": "integer"
+        },
+        "ohm": {
+          "$ref": "#/$defs/ohm"
+        }
+      }
+    },
+    "operatorInformation": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "pattern": "\\i\\c*",
+          "type": "string"
+        },
+        "registeredTradeNameOrRegisteredTrademark": {
+          "type": "string"
+        },
+        "postalAddress": {
+          "type": "string"
+        },
+        "webAddress": {
+          "type": "string"
+        },
+        "e-mailAddress": {
+          "type": "string"
+        }
+      }
+    },
+    "percentMonth_decimal": {
+      "type": "object",
+      "properties": {
+        "percentMonth": {
+          "$ref": "#/$defs/percentMonth"
+        },
+        "percentMonthValue": {
+          "type": "number"
+        }
+      }
+    },
+    "percent_decimal": {
+      "type": "object",
+      "properties": {
+        "percent": {
+          "$ref": "#/$defs/percent"
+        },
+        "percentageValue": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        }
+      }
+    },
+    "volt_celsius_decimal": {
+      "type": "object",
+      "properties": {
+        "volt": {
+          "$ref": "#/$defs/volt"
+        },
+        "voltValue": {
+          "type": "number"
+        },
+        "temperatureRangeUpperBoundary": {
+          "$ref": "#/$defs/degreeCelsius"
+        },
+        "temperatureRangeLowerBoundary": {
+          "$ref": "#/$defs/degreeCelsius"
+        }
+      }
+    },
+    "watt_celcius_integer": {
+      "type": "object",
+      "properties": {
+        "wattValue": {
+          "type": "integer"
+        },
+        "watt": {
+          "$ref": "#/$defs/watt"
+        },
+        "temperatureRangeUpperBoundary": {
+          "$ref": "#/$defs/degreeCelsius"
+        },
+        "temperatureRangeLowerBoundary": {
+          "$ref": "#/$defs/degreeCelsius"
+        }
+      }
+    },
+    "watt_per_watt_hour_integer": {
+      "type": "object",
+      "properties": {
+        "wattPerWattHourValue": {
+          "type": "integer"
+        },
+        "wattPerWattHour": {
+          "$ref": "#/$defs/wattPerWattHour"
+        }
+      }
+    },
+    "amperePerAmpereHour": {
+      "enum": [
+        "A/Ah"
+      ],
+      "type": "string"
+    },
+    "amperehour_miliamperehour": {
+      "enum": [
+        "Ah",
+        "mAh"
+      ],
+      "type": "string"
+    },
+    "customChemicalCodes": {
+      "enum": [
+        "Li-ion LCO",
+        "Li-ion LFP",
+        "Li-ion LMO",
+        "Li-ion NCA",
+        "Li-ion NMC",
+        "Li-metal",
+        "Na-ion",
+        "Ni-Cd",
+        "Ni-MH",
+        "Pb"
+      ],
+      "type": "string"
+    },
+    "degreeCelsius": {
+      "enum": [
+        "°C"
+      ],
+      "type": "string"
+    },
+    "gram_kg": {
+      "enum": [
+        "g",
+        "kg"
+      ],
+      "type": "string"
+    },
+    "kgCO2-equivalent": {
+      "enum": [
+        "kgCO₂-eq"
+      ],
+      "type": "string"
+    },
+    "kgCO2-equivalentPerKilowattHour": {
+      "enum": [
+        "kgCO₂-eq/kWh"
+      ],
+      "type": "string"
+    },
+    "kilowattHour": {
+      "enum": [
+        "kWh"
+      ],
+      "type": "string"
+    },
+    "ohm": {
+      "enum": [
+        "Ohm"
+      ],
+      "type": "string"
+    },
+    "percent": {
+      "enum": [
+        "%"
+      ],
+      "type": "string"
+    },
+    "percentMonth": {
+      "enum": [
+        "%/month"
+      ],
+      "type": "string"
+    },
+    "volt": {
+      "enum": [
+        "V"
+      ],
+      "type": "string"
+    },
+    "watt": {
+      "enum": [
+        "W"
+      ],
+      "type": "string"
+    },
+    "wattPerWattHour": {
+      "enum": [
+        "W/Wh"
+      ],
+      "type": "string"
+    }
+  }
+}

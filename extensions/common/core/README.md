@@ -10,11 +10,11 @@ This module is aligned with the **EU Ecodesign for Sustainable Products Regulati
 
 | ESPR Article | Requirement | Core Support |
 |--------------|-------------|--------------|
-| Article 7 | Performance & Durability | `dpp:PerformanceInfo`, `dpp:RepairabilityInfo` |
-| Article 7 | Material Composition | `dpp:MaterialComposition`, `dpp:RecycledContent` |
-| Article 8 | Substances of Concern | `dpp:SubstanceOfConcern` (SCIP aligned) |
-| Article 9 | Access Rights | `dpp:AccessRights`, `dpp:AccessLevel` |
-| Article 77 | Economic Operator Registry | `dpp:economicOperatorId` (EOID) |
+| Article 7 | Performance & Durability | `oec:PerformanceInfo`, `oec:RepairabilityInfo` |
+| Article 7 | Material Composition | `oec:MaterialComposition`, `oec:RecycledContent` |
+| Article 8 | Substances of Concern | `oec:SubstanceOfConcern` (SCIP aligned) |
+| Article 9 | Access Rights | `oec:AccessRights`, `oec:AccessLevel` |
+| Article 77 | Economic Operator Registry | `oec:economicOperatorId` (EOID) |
 
 See [docs/ESPR_FRAMEWORK.md](./docs/ESPR_FRAMEWORK.md) for complete ESPR guidance.
 
@@ -57,7 +57,7 @@ Browse the vocabulary at: [ref.openepcis.io/extensions/common/core/](https://ref
 Declare the DPP extension in EPCIS requests per Section 12.3:
 
 ```http
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/
 ```
 
 ## Ontology Classes
@@ -66,33 +66,33 @@ GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/
 
 | Class | Description | ESPR Article |
 |-------|-------------|--------------|
-| `dpp:FacilityInformation` | Manufacturing facility data | Article 7 |
-| `dpp:PerformanceInfo` | Product durability and lifespan | Article 7 |
-| `dpp:RepairabilityInfo` | Repair scores, spare parts | Article 7 |
-| `dpp:SubstanceOfConcern` | SCIP-aligned substance tracking | Article 8 |
-| `dpp:AccessRights` | Data visibility control | Article 9 |
+| `oec:FacilityInformation` | Manufacturing facility data | Article 7 |
+| `oec:PerformanceInfo` | Product durability and lifespan | Article 7 |
+| `oec:RepairabilityInfo` | Repair scores, spare parts | Article 7 |
+| `oec:SubstanceOfConcern` | SCIP-aligned substance tracking | Article 8 |
+| `oec:AccessRights` | Data visibility control | Article 9 |
 
 ### General DPP Classes
 
 | Class | Description |
 |-------|-------------|
-| `dpp:OperatorInformation` | Economic operator data (now with EOID support) |
-| `dpp:DueDiligenceReport` | Supply chain due diligence |
-| `dpp:CircularityInfo` | End-of-life and recycling |
-| `dpp:HazardousSubstance` | CLP Regulation substances |
-| `dpp:MaterialComposition` | Material and CRM tracking |
-| `dpp:RecycledContent` | Pre/post consumer recycled content |
-| `dpp:DocumentReference` | External document references |
+| `oec:OperatorInformation` | Economic operator data (now with EOID support) |
+| `oec:DueDiligenceReport` | Supply chain due diligence |
+| `oec:CircularityInfo` | End-of-life and recycling |
+| `oec:HazardousSubstance` | CLP Regulation substances |
+| `oec:MaterialComposition` | Material and CRM tracking |
+| `oec:RecycledContent` | Pre/post consumer recycled content |
+| `oec:DocumentReference` | External document references |
 
 ### Enumerations
 
 | Enumeration | Purpose |
 |-------------|---------|
-| `dpp:OperatorRole` | Manufacturer, Importer, Distributor, AuthorisedRepresentative, FulfilmentServiceProvider |
-| `dpp:AccessLevel` | Public, AuthorizedOnly, Restricted |
-| `dpp:ProductCategory` | Batteries, Textiles, Electronics, Furniture, etc. |
-| `dpp:HazardClass` | CLP Regulation hazard classes |
-| `dpp:DocumentType` | Certificate, TestReport, Manual, SafetyDataSheet, etc. |
+| `oec:OperatorRole` | Manufacturer, Importer, Distributor, AuthorisedRepresentative, FulfilmentServiceProvider |
+| `oec:AccessLevel` | Public, AuthorizedOnly, Restricted |
+| `oec:ProductCategory` | Batteries, Textiles, Electronics, Furniture, etc. |
+| `oec:HazardClass` | CLP Regulation hazard classes |
+| `oec:DocumentType` | Certificate, TestReport, Manual, SafetyDataSheet, etc. |
 
 ## Key Properties
 
@@ -101,8 +101,8 @@ GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/
 ```json
 {
   "type": "OperatorInformation",
-  "dpp:economicOperatorId": "EOID-DE-2025-123456",
-  "dpp:eoriNumber": "DE123456789012345",
+  "oec:economicOperatorId": "EOID-DE-2025-123456",
+  "oec:eoriNumber": "DE123456789012345",
   "operatorRole": "Manufacturer",
   "gs1:partyGLN": "9521234000006"
 }
@@ -113,13 +113,13 @@ GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/
 ```json
 {
   "type": "PerformanceInfo",
-  "dpp:expectedLifespan": {
+  "oec:expectedLifespan": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
   },
-  "dpp:usageCycles": 3000,
-  "dpp:performanceClass": "A"
+  "oec:usageCycles": 3000,
+  "oec:performanceClass": "A"
 }
 ```
 
@@ -128,14 +128,14 @@ GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/
 ```json
 {
   "type": "RepairabilityInfo",
-  "dpp:repairabilityScore": 7.5,
-  "dpp:repairabilityClass": "B",
-  "dpp:sparePartsAvailability": {
+  "oec:repairabilityScore": 7.5,
+  "oec:repairabilityClass": "B",
+  "oec:sparePartsAvailability": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
   },
-  "dpp:diyRepairPossible": true
+  "oec:diyRepairPossible": true
 }
 ```
 
@@ -144,7 +144,7 @@ GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/
 ```json
 {
   "type": "AccessRights",
-  "dpp:accessLevel": "Public"
+  "oec:accessLevel": "Public"
 }
 ```
 
@@ -164,7 +164,7 @@ Domain modules declare their minimum required core version:
 ### Import the Ontology
 
 ```turtle
-@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
 
 # Your domain ontology imports core
 <https://ref.openepcis.io/extensions/yourdomain/> owl:imports <https://ref.openepcis.io/extensions/common/core/> .
@@ -220,7 +220,7 @@ Include the GS1-Extensions header in EPCIS requests:
 ```http
 POST /capture HTTP/1.1
 Content-Type: application/ld+json
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/
 ```
 
 ## Documentation

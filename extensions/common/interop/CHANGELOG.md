@@ -2,15 +2,22 @@
 
 All notable changes to the Interoperability module will be documented in this file.
 
+## [0.9.6] - 2026-06-07 (EN 18223 conformance + GS1 to EN 18223 converter)
+
+### Added
+- **`docs/CEN_JTC24_CONFORMANCE.md`** — clause-by-clause conformance map of the OpenEPCIS GS1 + EPCIS profile against the six published CEN/CENELEC JTC 24 standards (EN 18216, 18219, 18220, 18221, 18222, 18223).
+- **`docs/EN18223_MODEL_ALIGNMENT.md`** — the Phase B work list aligning `oec:` core with the EN 18223 information model.
+- **`docs/GS1_STACK_EN182XX_WHITEPAPER.md`** — the EPCIS4DPP whitepaper, with a "Deriving the passport from a GS1 Digital Link" section (GS1 Application Identifiers to granularity) and a "Two routes to interoperability" observation comparing EN 18223 and UNTP serialisation, process, and access.
+- Browser demo `demos/en18223-converter/` that derives the EN 18223 Annex A "expanded" serialization live from GS1 Web Vocabulary + GS1 Digital Link JSON-LD. Linked from the root and interop READMEs.
 ## [0.9.6] - 2026-05-07 (GS1 Rail Vocabulary mirror + bridge)
 
 ### Added
 - **GS1 Rail bridge** (`context/rail-bridge-context.jsonld`) — additive context that
-  brings the `rail:` (`https://gs1-epcis-reg.org/rail/voc/data#`) and `dpp:`
+  brings the `rail:` (`https://gs1-epcis-reg.org/rail/voc/data#`) and `oec:`
   namespaces into scope alongside the upstream rail and dpp-core contexts.
   Documents the rail ↔ dpp / GS1 / SEMICeu equivalences
-  (`rail:itemReconditioningDate` ↔ `dpp:remanufacturingDate`,
-  `rail:VisibilityStatus` ↔ `dpp:AccessLevel`, etc.) so DPP-aware consumers can
+  (`rail:itemReconditioningDate` ↔ `oec:remanufacturingDate`,
+  `rail:VisibilityStatus` ↔ `oec:AccessLevel`, etc.) so DPP-aware consumers can
   read rail-typed EPCIS events.
 - Companion mirror under `extensions/upstream/gs1-rail/` (Apache 2.0; published
   by GS1 AISBL with GS1 Switzerland) — see that module for upstream attribution
@@ -21,7 +28,7 @@ All notable changes to the Interoperability module will be documented in this fi
 - The bridge is intentionally minimal: it does **not** redefine any rail or dpp
   term (the upstream EPCIS context that rail-context transitively loads marks
   all of its terms `@protected`, so additive declarations only). Anchorings
-  live in the TTL ontologies (`dpp-core.ttl` adds `dpp:remanufacturingDate`
+  live in the TTL ontologies (`dpp-core.ttl` adds `oec:remanufacturingDate`
   with `rdfs:seeAlso rail:itemReconditioningDate`) and in the `_equivalences`
   block of the bridge file.
 
@@ -29,7 +36,7 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ### Added
 - **EU SEMICeu Core Vocabularies bridge** (`context/semic-core-bridge-context.jsonld`) covering CCCEV, CPOV, Core Business, Core Person, Core Location, Core Public Event, CPSV-AP, and ADMS / ADMS-AP. Single consolidated context; namespaces `cv:` / `cccev:` (`http://data.europa.eu/m8g/`), `locn:` (`http://www.w3.org/ns/locn#`), `adms:` (`http://www.w3.org/ns/adms#`), `cpsv:` (`http://purl.org/vocab/cpsv#`), plus `org:` / `foaf:` / `skos:` / `dcterms:` reuse.
-- **`docs/SEMIC_CORE_VOCABULARIES.md`** — comprehensive narrative + per-vocabulary mapping. Documents which `dpp:` and module terms anchor to SEMICeu and how to compose payloads.
+- **`docs/SEMIC_CORE_VOCABULARIES.md`** — comprehensive narrative + per-vocabulary mapping. Documents which `oec:` and module terms anchor to SEMICeu and how to compose payloads.
 - New **"Foundational vocabularies (peer Layer 1)"** section at the top of `docs/STANDARDS_ALIGNMENT.md` describing the peer triumvirate: schema.org + GS1 + SEMICeu Core Vocabularies as Layer 1 foundations, with UNTP / CIRPASS-2 / JTC 24 sitting above as Layer 2 community profiles.
 
 ### Changed
@@ -59,7 +66,7 @@ All notable changes to the Interoperability module will be documented in this fi
   - ISO/AWI 25534-1 (ISO/TC 154 DPP Part 1)
   - JRC Methodology Report (JRC145830, March 2026)
   - EU Customs Single Window (CSV-CERTEX) per ESPR Art. 13
-  - GS1 GSMP tracked work requests (WR 23-103, 26-081, 26-108, 25-212, 25-252, 26-122)
+  - Relevant GS1 standardization in progress (DPP foundations, extended packaging, data carriers, ITIP, EUDR exemptions)
 
 ### Notes
 - Version remains v0.9.5; project has not yet had a formal release.

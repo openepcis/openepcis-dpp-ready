@@ -1,0 +1,47 @@
+meta {
+  name: Patch epcis — Crispy Snack Pouch
+  type: http
+  seq: 17
+}
+
+patch {
+  url: {{dl-url}}/01/09521005000808
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+[
+  {
+    "action": "add",
+    "linkset": [
+      {
+        "anchor": "{{dl-url}}/01/09521005000808",
+        "itemDescription": "Crispy Snack Pouch — 80 g multi-layer foil",
+        "epcis": [
+          {
+            "href": "https://api.dev.epcis.cloud/events?MATCH_anyEPC=https%3A%2F%2Fid.gs1.org%2F01%2F09521005000808%2A",
+            "title": "EPCIS event history",
+            "type": "application/ld+json",
+            "hreflang": [
+              "en"
+            ],
+            "context": [
+              "epcis"
+            ],
+            "public": true
+          }
+        ]
+      }
+    ]
+  }
+]
+}
+
+assert {
+  res.status: eq 200
+}

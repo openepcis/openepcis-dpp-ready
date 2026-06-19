@@ -11,7 +11,7 @@ post {
 }
 
 headers {
-  Content-Type: application/ld+json
+  Content-Type: application/json
   isAnonymousAccessAllowed: true
 }
 
@@ -85,7 +85,7 @@ body:json {
     },
     "dpp:operatorInformation": {
       "@type": "dpp:OperatorInformation",
-      "gs1:gln": "{{batteryManufacturerGln}}",
+      "gs1:gln": "9521002000016",
       "gs1:organizationName": "EcoPower Battery GmbH",
       "gs1:streetAddress": "Batterieweg 100",
       "gs1:postalCode": "70173",
@@ -112,6 +112,7 @@ body:json {
 tests {
   test("Battery created successfully", function() {
     expect(res.status).to.be.oneOf([200, 201, 202]);
+    expect((res.headers["content-type"] || "")).to.not.include("text/html");
   });
 
   test("Response contains GTIN", function() {

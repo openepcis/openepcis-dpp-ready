@@ -13,8 +13,8 @@ Layer-1 vocabularies are used directly. Rail terms are **not** re-minted
 under `ref.openepcis.io` — the upstream namespace
 `https://gs1-epcis-reg.org/rail/voc/data#` is the canonical IRI base.
 
-When a rail concept overlaps with a `dpp:` concept (e.g.
-`rail:itemReconditioningDate` ↔ `dpp:remanufacturingDate`), the linkage
+When a rail concept overlaps with a `oec:` concept (e.g.
+`rail:itemReconditioningDate` ↔ `oec:remanufacturingDate`), the linkage
 lives in the **bridge context** at
 [`extensions/common/interop/context/rail-bridge-context.jsonld`](../../../common/interop/context/rail-bridge-context.jsonld),
 not in either ontology. This keeps each vocabulary clean and lets users
@@ -56,10 +56,10 @@ and
    ```http
    GS1-Extensions: rail=https://gs1-epcis-reg.org/rail/voc/data#
    ```
-   Combine with other extensions when the event also carries `dpp:` or
+   Combine with other extensions when the event also carries `oec:` or
    regulation-specific data:
    ```http
-   GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/, rail=https://gs1-epcis-reg.org/rail/voc/data#
+   GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, rail=https://gs1-epcis-reg.org/rail/voc/data#
    ```
 4. **JSON-LD `@context`** lists the EPCIS base context plus rail and any
    bridges:

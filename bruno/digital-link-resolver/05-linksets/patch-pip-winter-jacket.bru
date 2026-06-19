@@ -1,0 +1,52 @@
+meta {
+  name: Patch pip — Winter Jacket
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{dl-url}}/01/09521000001428
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  [
+    {
+      "action": "update",
+      "linkset": [
+        {
+          "anchor": "{{dl-url}}/01/09521000001428",
+          "itemDescription": "Alpine Pro Winter Jacket",
+          "pip": [
+            {
+              "href": "{{ddm-host}}/01/09521000001428?template=textile-overview",
+              "title": "Alpine Pro Winter Jacket — Digital Product Passport",
+              "fwqs": false,
+              "type": "text/html",
+              "hreflang": ["en"],
+              "context": ["product-information-page"],
+              "public": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("pip redirects to ddm host", function() {
+    // Manual sanity check after running this request:
+    //   curl -sI "{{dl-url}}/01/09521000001428?linkType=pip" | grep -i location
+    //   → location: {{ddm-host}}/01/09521000001428?template=textile-overview
+  });
+}

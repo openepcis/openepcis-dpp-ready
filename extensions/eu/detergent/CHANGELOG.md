@@ -2,16 +2,20 @@
 
 All notable changes to the Detergent module will be documented in this file.
 
+## 0.9.6 — version alignment (2026-06-07)
+
+Version alignment with the 0.9.6 core release (EN 18223 model alignment). No functional changes to this module.
+
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
 **Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
 
 ### Removed (use canonical term instead)
 
-- `detergent:allergenName` → `gs1:allergenSpecificationName`
-- `detergent:detergentCategory` → `schema:category`
-- `detergent:inciName` → `schema:name`
-- `detergent:speciesName` → `schema:name`
+- `eudet:allergenName` → `gs1:allergenSpecificationName`
+- `eudet:detergentCategory` → `schema:category`
+- `eudet:inciName` → `schema:name`
+- `eudet:speciesName` → `schema:name`
 
 ## [0.9.5] - 2026-03-12
 

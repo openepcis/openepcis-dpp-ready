@@ -15,7 +15,7 @@ https://id.gs1.org/01/{GTIN}/21/{serial}
 ### 2. Required EPCIS Extension Header
 
 ```http
-GS1-Extensions: textile=https://ref.openepcis.io/extensions/eu/textile/, dpp=https://ref.openepcis.io/extensions/common/core/
+GS1-Extensions: eutex=https://ref.openepcis.io/extensions/eu/textile/, oec=https://ref.openepcis.io/extensions/common/core/
 ```
 
 ### 3. JSON-LD Context
@@ -38,8 +38,8 @@ Every textile product must specify:
 | Property | Description | Example |
 |----------|-------------|---------|
 | `schema:category` | High-level category | `Apparel`, `Footwear` |
-| `textile:fabricType` | Fabric construction | `Knitted`, `Denim`, `WovenNonDenim` |
-| `textile:apparelSubcategory` | Specific subcategory | `JacketsCoats`, `TShirts` |
+| `eutex:fabricType` | Fabric construction | `Knitted`, `Denim`, `WovenNonDenim` |
+| `eutex:apparelSubcategory` | Specific subcategory | `JacketsCoats`, `TShirts` |
 
 Fabric type is critical because robustness test thresholds differ by construction type.
 
@@ -68,7 +68,7 @@ Replace simple boolean `isRecycledFiber` with structured `RecycledContentDeclara
 ```json
 {
   "recycledContentDeclaration": [{
-    "type": "textile:RecycledContentDeclaration",
+    "type": "eutex:RecycledContentDeclaration",
     "secondaryMaterialFraction": 50.0,
     "wasteOriginType": "PostConsumer",
     "recycledSourceType": "OpenLoop",
@@ -85,7 +85,7 @@ Report per PEFCR Apparel & Footwear methodology:
 ```json
 {
   "environmentalFootprint": {
-    "type": "textile:EnvironmentalFootprint",
+    "type": "eutex:EnvironmentalFootprint",
     "carbonFootprintManufacturing": 18.5,
     "pefSingleScore": 42.3,
     "benchmarkPerformance": -15.2,
@@ -109,7 +109,7 @@ Per ESPR Article 7(5), classify substances into 4 types:
 ```json
 {
   "substancesOfConcern": [{
-    "type": "textile:SubstanceOfConcern",
+    "type": "eutex:SubstanceOfConcern",
     "socType": "SoCTypeB",
     "chemicalName": "Disperse Blue 291",
     "casNumber": "56548-64-2",
@@ -139,9 +139,9 @@ See `textile/epcis/` for complete event examples.
 
 | Old Property | Replacement |
 |-------------|-------------|
-| `textile:isRecycledFiber` | `textile:recycledContentDeclaration` |
-| `textile:recycledContentSource` | `textile:recycledContentDeclaration` |
-| `textile:textileChemicals` | `textile:substancesOfConcern` |
+| `eutex:isRecycledFiber` | `eutex:recycledContentDeclaration` |
+| `eutex:recycledContentSource` | `eutex:recycledContentDeclaration` |
+| `eutex:textileChemicals` | `eutex:substancesOfConcern` |
 
 The deprecated properties still work but new implementations should use the replacements.
 

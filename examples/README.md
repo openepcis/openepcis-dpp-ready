@@ -19,6 +19,10 @@ use 952 for real-world identification.
   rated capacity, operator information, manufacturer, state of health,
   carbon footprint, hazardous substances, due diligence, warranty, spare
   parts, dismantling info, labels.
+- [`battery/examples/portable-ebike-battery.jsonld`](../battery/examples/portable-ebike-battery.jsonld)
+  — **NEW:** LMT (Light Means of Transport) counterpart to the EV pack;
+  NMC622 chemistry, 48 V / 14 Ah, hazardous-substance disclosure with
+  EC numbers, EoL material-recovery targets, dismantling docs.
 - [`battery/examples/regulatory-notification.jsonld`](../battery/examples/regulatory-notification.jsonld)
   — B2B compliance message (GS1 RegulatoryNotification pattern).
 
@@ -66,7 +70,7 @@ use 952 for real-world identification.
 - [`eudr/epcis/due-diligence-statement.jsonld`](../eudr/epcis/due-diligence-statement.jsonld)
   — Full DDS declaration with EUIS reference number, risk level, verification method.
 - [`eudr/epcis/exemption-declaration.jsonld`](../eudr/epcis/exemption-declaration.jsonld)
-  — **NEW:** EUDR exemption pattern (WR 25-252 reference implementation).
+  — **NEW:** EUDR exemption pattern (reference implementation).
 
 ---
 
@@ -79,8 +83,12 @@ use 952 for real-world identification.
 - [`textile/examples/footwear-product.jsonld`](../textile/examples/footwear-product.jsonld)
   — Running shoe with material composition and durability attributes.
 - [`textile/examples/garment-set-itip.jsonld`](../textile/examples/garment-set-itip.jsonld)
-  — **NEW:** Two-piece business suit demonstrating ITIP (AI 8026)
-  piece-level identification (WR 25-212 reference implementation).
+  — Two-piece business suit demonstrating ITIP (AI 8026)
+  piece-level identification (GS1 ITIP, AI 8026).
+- [`textile/examples/hometextile-bedlinen.jsonld`](../textile/examples/hometextile-bedlinen.jsonld)
+  — **NEW:** Organic-cotton bed linen set (HomeTextile sub-category);
+  GOTS + OEKO-TEX certifications, ESPR-Annex-V durability metrics,
+  circular take-back program for non-apparel textile.
 
 ### EPCIS events (7 total)
 - [`textile/epcis/commissioning.jsonld`](../textile/epcis/commissioning.jsonld)
@@ -97,6 +105,39 @@ use 952 for real-world identification.
   — Chemical compliance observation.
 - [`textile/epcis/observation-carbon-footprint.jsonld`](../textile/epcis/observation-carbon-footprint.jsonld)
   — PEF carbon footprint observation.
+
+---
+
+## Packaging — EU PPWR 2025/40
+
+### Master data
+- [`ppwr/examples/beverage-bottle.jsonld`](../ppwr/examples/beverage-bottle.jsonld)
+  — 0.5 L PET beverage bottle, 50% post-consumer rPET, Grade A
+  recyclability, deposit-return scheme participation, separate-collection
+  PET harmonised symbol.
+- [`ppwr/examples/multi-layer-pouch.jsonld`](../ppwr/examples/multi-layer-pouch.jsonld)
+  — PET/Aluminium/PE laminate snack pouch; Grade C recyclability
+  (lowest acceptable from 2030, phased out by 2038).
+- [`ppwr/examples/ecommerce-carton.jsonld`](../ppwr/examples/ecommerce-carton.jsonld)
+  — **NEW:** Corrugated cardboard shipping carton; Grouped packaging
+  tier; 95% recycled content (80% post-consumer + 15% pre-consumer);
+  Grade A recyclability against the paper stream.
+
+### EPCIS events (5 total)
+- [`ppwr/epcis/commissioning.jsonld`](../ppwr/epcis/commissioning.jsonld)
+  — Packaging enters the regulated supply chain.
+- [`ppwr/epcis/ownership-transfer.jsonld`](../ppwr/epcis/ownership-transfer.jsonld)
+  — **NEW:** Manufacturer → brand-owner shipment with owning-party
+  source/destination and PO/DESADV bizTransactions.
+- [`ppwr/epcis/deposit-return.jsonld`](../ppwr/epcis/deposit-return.jsonld)
+  — **NEW:** Consumer redeems a deposit-bearing bottle at a Pfand-Automat;
+  bizStep `decommissioning`, disposition `returned`. PPWR Art. 50.
+- [`ppwr/epcis/recovery.jsonld`](../ppwr/epcis/recovery.jsonld)
+  — **NEW:** TransformationEvent at an EPR-registered recycler;
+  bottles → rPET flake. PPWR Art. 47.
+- [`ppwr/epcis/observation-recyclability.jsonld`](../ppwr/epcis/observation-recyclability.jsonld)
+  — **NEW:** Notified-body grading event with PPWR Annex II A/B/C grade
+  and D4R methodology (RecyClass v2.6).
 
 ---
 

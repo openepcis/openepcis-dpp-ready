@@ -1,8 +1,8 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix textile: <https://ref.openepcis.io/extensions/eu/textile/> .
+@prefix eutex: <https://ref.openepcis.io/extensions/eu/textile/> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix schema: <https://schema.org/> .
-@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -12,10 +12,10 @@
     dcterms:title "OpenEPCIS Textile SHACL Shapes"@en ;
     dcterms:description "SHACL validation shapes for Textile Digital Product Passport vocabulary."@en ;
     dcterms:created "2025-02-02"^^xsd:date ;
-    dcterms:modified "2026-03-07"^^xsd:date .
+    dcterms:modified "2026-06-07"^^xsd:date .
 
 # =============================================================================
-# OpenEPCIS Textile Vocabulary SHACL Shapes v0.9.5
+# OpenEPCIS Textile Vocabulary SHACL Shapes v0.9.6
 # Validation shapes for Textile Digital Product Passport data
 # Aligned with EU Sustainable Textiles Strategy, ESPR 2024/1781,
 # and EU Preparatory Study on Textiles 3rd Milestone
@@ -24,8 +24,8 @@
 # -----------------------------------------------------------------------------
 # Textile Product Shape
 # -----------------------------------------------------------------------------
-textile:TextileProductShape a sh:NodeShape ;
-    sh:targetClass textile:TextileProduct ;
+eutex:TextileProductShape a sh:NodeShape ;
+    sh:targetClass eutex:TextileProduct ;
     rdfs:label "Textile Product Shape" ;
     rdfs:comment "Validation shape for TextileProduct instances per EU Textile Labelling Regulation 1007/2011." ;
     sh:property [
@@ -33,23 +33,23 @@ textile:TextileProductShape a sh:NodeShape ;
         sh:name "Textile Category" ;
         sh:description "Category of textile product (apparel, footwear, home textiles, etc.)." ;
         sh:maxCount 1 ;
-        sh:class textile:TextileCategory
+        sh:class eutex:TextileCategory
     ] ;
     sh:property [
-        sh:path textile:fabricType ;
+        sh:path eutex:fabricType ;
         sh:name "Fabric Type" ;
         sh:description "Fabric construction type (knitted, denim, woven non-denim)." ;
         sh:maxCount 1 ;
-        sh:class textile:FabricType
+        sh:class eutex:FabricType
     ] ;
     sh:property [
-        sh:path textile:apparelSubcategory ;
+        sh:path eutex:apparelSubcategory ;
         sh:name "Apparel Subcategory" ;
         sh:maxCount 1 ;
-        sh:class textile:ApparelSubcategory
+        sh:class eutex:ApparelSubcategory
     ] ;
     sh:property [
-        sh:path textile:garmentType ;
+        sh:path eutex:garmentType ;
         sh:name "Garment Type" ;
         sh:datatype xsd:string ;
         sh:maxCount 1
@@ -60,105 +60,105 @@ textile:TextileProductShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:sizeRange ;
+        sh:path eutex:sizeRange ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:seasonCollection ;
+        sh:path eutex:seasonCollection ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:fiberComposition ;
+        sh:path eutex:fiberComposition ;
         sh:name "Fiber Composition" ;
-        sh:class textile:FiberComposition
+        sh:class eutex:FiberComposition
     ] ;
     sh:property [
-        sh:path textile:careInstructions ;
+        sh:path eutex:careInstructions ;
         sh:name "Care Instructions" ;
-        sh:class textile:CareInstruction
+        sh:class eutex:CareInstruction
     ] ;
     sh:property [
-        sh:path textile:durabilityInfo ;
+        sh:path eutex:durabilityInfo ;
         sh:name "Durability Information" ;
-        sh:class textile:DurabilityInfo
+        sh:class eutex:DurabilityInfo
     ] ;
     sh:property [
-        sh:path textile:robustnessAssessment ;
+        sh:path eutex:robustnessAssessment ;
         sh:name "Robustness Assessment" ;
-        sh:class textile:RobustnessAssessment ;
+        sh:class eutex:RobustnessAssessment ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:recyclabilityAssessment ;
+        sh:path eutex:recyclabilityAssessment ;
         sh:name "Recyclability Assessment" ;
-        sh:class textile:RecyclabilityAssessment ;
+        sh:class eutex:RecyclabilityAssessment ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:recycledContentDeclaration ;
+        sh:path eutex:recycledContentDeclaration ;
         sh:name "Recycled Content Declaration" ;
-        sh:class textile:RecycledContentDeclaration
+        sh:class eutex:RecycledContentDeclaration
     ] ;
     sh:property [
-        sh:path textile:environmentalFootprint ;
+        sh:path eutex:environmentalFootprint ;
         sh:name "Environmental Footprint" ;
-        sh:class textile:EnvironmentalFootprint ;
+        sh:class eutex:EnvironmentalFootprint ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:substancesOfConcern ;
+        sh:path eutex:substancesOfConcern ;
         sh:name "Substances of Concern" ;
-        sh:class textile:SubstanceOfConcern
+        sh:class eutex:SubstanceOfConcern
     ] ;
     sh:property [
-        sh:path textile:microplasticInfo ;
+        sh:path eutex:microplasticInfo ;
         sh:name "Microplastic Information" ;
-        sh:class textile:MicroplasticInfo
+        sh:class eutex:MicroplasticInfo
     ] ;
     sh:property [
-        sh:path textile:takeBackProgram ;
+        sh:path eutex:takeBackProgram ;
         sh:name "Take-Back Program" ;
-        sh:class textile:TakeBackProgram
+        sh:class eutex:TakeBackProgram
     ] ;
     sh:property [
-        sh:path textile:hasTakeBackProgram ;
+        sh:path eutex:hasTakeBackProgram ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:repairServices ;
+        sh:path eutex:repairServices ;
         sh:name "Repair Services" ;
-        sh:class textile:RepairService
+        sh:class eutex:RepairService
     ] ;
     sh:property [
-        sh:path textile:isRepairable ;
+        sh:path eutex:isRepairable ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:repairGuideUrl ;
+        sh:path eutex:repairGuideUrl ;
         sh:datatype xsd:anyURI ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:sparePartsAvailable ;
+        sh:path eutex:sparePartsAvailable ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:sparePartsUrl ;
+        sh:path eutex:sparePartsUrl ;
         sh:datatype xsd:anyURI ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:textileChemicals ;
+        sh:path eutex:textileChemicals ;
         sh:name "Textile Chemicals" ;
-        sh:class textile:TextileChemical
+        sh:class eutex:TextileChemical
     ] ;
     sh:property [
-        sh:path textile:pfasFree ;
+        sh:path eutex:pfasFree ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
@@ -168,63 +168,63 @@ textile:TextileProductShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:waterUsage ;
+        sh:path eutex:waterUsage ;
         sh:class gs1:QuantitativeValue
     ] ;
     sh:property [
-        sh:path textile:energyUsage ;
+        sh:path eutex:energyUsage ;
         sh:class gs1:QuantitativeValue
     ] ;
     sh:property [
-        sh:path textile:productionWastePercentage ;
+        sh:path eutex:productionWastePercentage ;
         sh:datatype xsd:decimal
     ] ;
     sh:property [
-        sh:path textile:biodegradable ;
+        sh:path eutex:biodegradable ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:spinningFacility ;
-        sh:class dpp:FacilityInformation ;
+        sh:path eutex:spinningFacility ;
+        sh:class oec:FacilityInformation ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:weavingFacility ;
-        sh:class dpp:FacilityInformation ;
+        sh:path eutex:weavingFacility ;
+        sh:class oec:FacilityInformation ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:dyeingFacility ;
-        sh:class dpp:FacilityInformation ;
+        sh:path eutex:dyeingFacility ;
+        sh:class oec:FacilityInformation ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:cutAndSewFacility ;
-        sh:class dpp:FacilityInformation ;
+        sh:path eutex:cutAndSewFacility ;
+        sh:class oec:FacilityInformation ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:finishingFacility ;
-        sh:class dpp:FacilityInformation ;
+        sh:path eutex:finishingFacility ;
+        sh:class oec:FacilityInformation ;
         sh:maxCount 1
     ] .
 
 # -----------------------------------------------------------------------------
 # Fiber Composition Shape
 # -----------------------------------------------------------------------------
-textile:FiberCompositionShape a sh:NodeShape ;
-    sh:targetClass textile:FiberComposition ;
+eutex:FiberCompositionShape a sh:NodeShape ;
+    sh:targetClass eutex:FiberComposition ;
     rdfs:label "Fiber Composition Shape" ;
     sh:property [
-        sh:path textile:fiberType ;
+        sh:path eutex:fiberType ;
         sh:name "Fiber Type" ;
-        sh:class textile:FiberType ;
+        sh:class eutex:FiberType ;
         sh:minCount 1 ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:fiberPercentage ;
+        sh:path eutex:fiberPercentage ;
         sh:name "Fiber Percentage" ;
         sh:datatype xsd:decimal ;
         sh:minCount 1 ;
@@ -233,64 +233,64 @@ textile:FiberCompositionShape a sh:NodeShape ;
         sh:maxInclusive 100
     ] ;
     sh:property [
-        sh:path textile:fiberOrigin ;
+        sh:path eutex:fiberOrigin ;
         sh:name "Fiber Origin" ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:isRecycledFiber ;
+        sh:path eutex:isRecycledFiber ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:recycledContentSource ;
+        sh:path eutex:recycledContentSource ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:fiberCertification ;
+        sh:path eutex:fiberCertification ;
         sh:class gs1:CertificationDetails
     ] .
 
 # -----------------------------------------------------------------------------
 # Care Instruction Shape
 # -----------------------------------------------------------------------------
-textile:CareInstructionShape a sh:NodeShape ;
-    sh:targetClass textile:CareInstruction ;
+eutex:CareInstructionShape a sh:NodeShape ;
+    sh:targetClass eutex:CareInstruction ;
     rdfs:label "Care Instruction Shape" ;
     sh:property [
-        sh:path textile:washingSymbol ;
+        sh:path eutex:washingSymbol ;
         sh:name "Washing Symbol" ;
-        sh:class textile:CareSymbolCode ;
+        sh:class eutex:CareSymbolCode ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:bleachingSymbol ;
+        sh:path eutex:bleachingSymbol ;
         sh:name "Bleaching Symbol" ;
-        sh:class textile:CareSymbolCode ;
+        sh:class eutex:CareSymbolCode ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:dryingSymbol ;
+        sh:path eutex:dryingSymbol ;
         sh:name "Drying Symbol" ;
-        sh:class textile:CareSymbolCode ;
+        sh:class eutex:CareSymbolCode ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:ironingSymbol ;
+        sh:path eutex:ironingSymbol ;
         sh:name "Ironing Symbol" ;
-        sh:class textile:CareSymbolCode ;
+        sh:class eutex:CareSymbolCode ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:dryCleaningSymbol ;
+        sh:path eutex:dryCleaningSymbol ;
         sh:name "Dry Cleaning Symbol" ;
-        sh:class textile:CareSymbolCode ;
+        sh:class eutex:CareSymbolCode ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:additionalCareInstructions ;
+        sh:path eutex:additionalCareInstructions ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] .
@@ -298,24 +298,24 @@ textile:CareInstructionShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Durability Info Shape
 # -----------------------------------------------------------------------------
-textile:DurabilityInfoShape a sh:NodeShape ;
-    sh:targetClass textile:DurabilityInfo ;
+eutex:DurabilityInfoShape a sh:NodeShape ;
+    sh:targetClass eutex:DurabilityInfo ;
     rdfs:label "Durability Information Shape" ;
     sh:property [
-        sh:path textile:expectedWashCycles ;
+        sh:path eutex:expectedWashCycles ;
         sh:name "Expected Wash Cycles" ;
         sh:datatype xsd:integer ;
         sh:maxCount 1 ;
         sh:minInclusive 0
     ] ;
     sh:property [
-        sh:path textile:durabilityClass ;
+        sh:path eutex:durabilityClass ;
         sh:name "Durability Class" ;
-        sh:class textile:DurabilityClass ;
+        sh:class eutex:DurabilityClass ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:pillingResistance ;
+        sh:path eutex:pillingResistance ;
         sh:name "Pilling Resistance" ;
         sh:datatype xsd:integer ;
         sh:maxCount 1 ;
@@ -323,7 +323,7 @@ textile:DurabilityInfoShape a sh:NodeShape ;
         sh:maxInclusive 5
     ] ;
     sh:property [
-        sh:path textile:colorFastness ;
+        sh:path eutex:colorFastness ;
         sh:name "Color Fastness" ;
         sh:datatype xsd:integer ;
         sh:maxCount 1 ;
@@ -331,26 +331,26 @@ textile:DurabilityInfoShape a sh:NodeShape ;
         sh:maxInclusive 5
     ] ;
     sh:property [
-        sh:path textile:dimensionalStability ;
+        sh:path eutex:dimensionalStability ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:abrasionResistance ;
+        sh:path eutex:abrasionResistance ;
         sh:name "Abrasion Resistance" ;
         sh:datatype xsd:integer ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:tensileStrength ;
+        sh:path eutex:tensileStrength ;
         sh:class gs1:QuantitativeValue
     ] ;
     sh:property [
-        sh:path textile:tearStrength ;
+        sh:path eutex:tearStrength ;
         sh:class gs1:QuantitativeValue
     ] ;
     sh:property [
-        sh:path textile:expectedLifetimeYears ;
+        sh:path eutex:expectedLifetimeYears ;
         sh:datatype xsd:integer ;
         sh:maxCount 1 ;
         sh:minInclusive 0
@@ -359,12 +359,12 @@ textile:DurabilityInfoShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Robustness Assessment Shape
 # -----------------------------------------------------------------------------
-textile:RobustnessAssessmentShape a sh:NodeShape ;
-    sh:targetClass textile:RobustnessAssessment ;
+eutex:RobustnessAssessmentShape a sh:NodeShape ;
+    sh:targetClass eutex:RobustnessAssessment ;
     rdfs:label "Robustness Assessment Shape" ;
     rdfs:comment "Validation shape for the 0-10 robustness scoring system." ;
     sh:property [
-        sh:path textile:robustnessScore ;
+        sh:path eutex:robustnessScore ;
         sh:name "Robustness Score" ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1 ;
@@ -372,153 +372,153 @@ textile:RobustnessAssessmentShape a sh:NodeShape ;
         sh:maxInclusive 10
     ] ;
     sh:property [
-        sh:path textile:cleaningCyclesBeforeTest ;
+        sh:path eutex:cleaningCyclesBeforeTest ;
         sh:datatype xsd:integer ;
         sh:maxCount 1 ;
         sh:minInclusive 0
     ] ;
     sh:property [
-        sh:path textile:robustnessTestFabricType ;
-        sh:class textile:FabricType ;
+        sh:path eutex:robustnessTestFabricType ;
+        sh:class eutex:FabricType ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:spiralityTest ;
-        sh:class textile:SpiralityTestResult ;
+        sh:path eutex:spiralityTest ;
+        sh:class eutex:SpiralityTestResult ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:dimensionalChangeTest ;
-        sh:class textile:DimensionalChangeTestResult ;
+        sh:path eutex:dimensionalChangeTest ;
+        sh:class eutex:DimensionalChangeTestResult ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:visualInspection ;
-        sh:class textile:VisualInspectionResult ;
+        sh:path eutex:visualInspection ;
+        sh:class eutex:VisualInspectionResult ;
         sh:maxCount 1
     ] .
 
 # -----------------------------------------------------------------------------
 # Spirality Test Result Shape
 # -----------------------------------------------------------------------------
-textile:SpiralityTestResultShape a sh:NodeShape ;
-    sh:targetClass textile:SpiralityTestResult ;
+eutex:SpiralityTestResultShape a sh:NodeShape ;
+    sh:targetClass eutex:SpiralityTestResult ;
     rdfs:label "Spirality Test Result Shape" ;
     sh:property [
-        sh:path textile:spiralityScore ;
+        sh:path eutex:spiralityScore ;
         sh:datatype xsd:integer ;
         sh:maxCount 1 ;
         sh:minInclusive 0 ;
         sh:maxInclusive 3
     ] ;
     sh:property [
-        sh:path textile:spiralityPercentage ;
+        sh:path eutex:spiralityPercentage ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1 ;
         sh:minInclusive 0
     ] ;
     sh:property [
-        sh:path textile:spiralityTestMethod ;
+        sh:path eutex:spiralityTestMethod ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:testStandard ;
-        sh:class textile:TestStandard ;
+        sh:path eutex:testStandard ;
+        sh:class eutex:TestStandard ;
         sh:maxCount 1
     ] .
 
 # -----------------------------------------------------------------------------
 # Dimensional Change Test Result Shape
 # -----------------------------------------------------------------------------
-textile:DimensionalChangeTestResultShape a sh:NodeShape ;
-    sh:targetClass textile:DimensionalChangeTestResult ;
+eutex:DimensionalChangeTestResultShape a sh:NodeShape ;
+    sh:targetClass eutex:DimensionalChangeTestResult ;
     rdfs:label "Dimensional Change Test Result Shape" ;
     sh:property [
-        sh:path textile:dimensionalChangeScore ;
+        sh:path eutex:dimensionalChangeScore ;
         sh:datatype xsd:integer ;
         sh:maxCount 1 ;
         sh:minInclusive 0 ;
         sh:maxInclusive 3
     ] ;
     sh:property [
-        sh:path textile:dimensionalChangePercentage ;
+        sh:path eutex:dimensionalChangePercentage ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1 ;
         sh:minInclusive 0
     ] ;
     sh:property [
-        sh:path textile:dimensionalChangeTestMethod ;
+        sh:path eutex:dimensionalChangeTestMethod ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:testStandard ;
-        sh:class textile:TestStandard ;
+        sh:path eutex:testStandard ;
+        sh:class eutex:TestStandard ;
         sh:maxCount 1
     ] .
 
 # -----------------------------------------------------------------------------
 # Visual Inspection Result Shape
 # -----------------------------------------------------------------------------
-textile:VisualInspectionResultShape a sh:NodeShape ;
-    sh:targetClass textile:VisualInspectionResult ;
+eutex:VisualInspectionResultShape a sh:NodeShape ;
+    sh:targetClass eutex:VisualInspectionResult ;
     rdfs:label "Visual Inspection Result Shape" ;
     sh:property [
-        sh:path textile:visualInspectionScore ;
+        sh:path eutex:visualInspectionScore ;
         sh:datatype xsd:integer ;
         sh:maxCount 1 ;
         sh:minInclusive 0 ;
         sh:maxInclusive 4
     ] ;
     sh:property [
-        sh:path textile:colourChangeRating ;
+        sh:path eutex:colourChangeRating ;
         sh:datatype xsd:integer ;
         sh:maxCount 1 ;
         sh:minInclusive 1 ;
         sh:maxInclusive 5
     ] ;
     sh:property [
-        sh:path textile:fabricAppearanceRating ;
+        sh:path eutex:fabricAppearanceRating ;
         sh:datatype xsd:integer ;
         sh:maxCount 1 ;
         sh:minInclusive 1 ;
         sh:maxInclusive 5
     ] ;
     sh:property [
-        sh:path textile:seamAppearanceRating ;
+        sh:path eutex:seamAppearanceRating ;
         sh:datatype xsd:integer ;
         sh:maxCount 1 ;
         sh:minInclusive 1 ;
         sh:maxInclusive 5
     ] ;
     sh:property [
-        sh:path textile:nonTextilePartsRating ;
+        sh:path eutex:nonTextilePartsRating ;
         sh:datatype xsd:integer ;
         sh:maxCount 1 ;
         sh:minInclusive 1 ;
         sh:maxInclusive 5
     ] ;
     sh:property [
-        sh:path textile:visualInspectionTestMethod ;
+        sh:path eutex:visualInspectionTestMethod ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:testStandard ;
-        sh:class textile:TestStandard ;
+        sh:path eutex:testStandard ;
+        sh:class eutex:TestStandard ;
         sh:maxCount 1
     ] .
 
 # -----------------------------------------------------------------------------
 # Recyclability Assessment Shape
 # -----------------------------------------------------------------------------
-textile:RecyclabilityAssessmentShape a sh:NodeShape ;
-    sh:targetClass textile:RecyclabilityAssessment ;
+eutex:RecyclabilityAssessmentShape a sh:NodeShape ;
+    sh:targetClass eutex:RecyclabilityAssessment ;
     rdfs:label "Recyclability Assessment Shape" ;
     rdfs:comment "Validation shape for the 0-10 recyclability scoring system." ;
     sh:property [
-        sh:path textile:recyclabilityScore ;
+        sh:path eutex:recyclabilityScore ;
         sh:name "Recyclability Score" ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1 ;
@@ -526,61 +526,61 @@ textile:RecyclabilityAssessmentShape a sh:NodeShape ;
         sh:maxInclusive 10
     ] ;
     sh:property [
-        sh:path textile:isRecyclable ;
+        sh:path eutex:isRecyclable ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:elastaneContentPercent ;
+        sh:path eutex:elastaneContentPercent ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1 ;
         sh:minInclusive 0 ;
         sh:maxInclusive 100
     ] ;
     sh:property [
-        sh:path textile:sortingFactors ;
-        sh:class textile:SortingFactors ;
+        sh:path eutex:sortingFactors ;
+        sh:class eutex:SortingFactors ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:technicalRecyclability ;
-        sh:class textile:TechnicalRecyclability ;
+        sh:path eutex:technicalRecyclability ;
+        sh:class eutex:TechnicalRecyclability ;
         sh:maxCount 1
     ] .
 
 # -----------------------------------------------------------------------------
 # Sorting Factors Shape
 # -----------------------------------------------------------------------------
-textile:SortingFactorsShape a sh:NodeShape ;
-    sh:targetClass textile:SortingFactors ;
+eutex:SortingFactorsShape a sh:NodeShape ;
+    sh:targetClass eutex:SortingFactors ;
     rdfs:label "Sorting Factors Shape" ;
     sh:property [
-        sh:path textile:sameInnerOuterComposition ;
+        sh:path eutex:sameInnerOuterComposition ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:freeFromPrintings ;
+        sh:path eutex:freeFromPrintings ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:freeFromCoatings ;
+        sh:path eutex:freeFromCoatings ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:freeFromSequins ;
+        sh:path eutex:freeFromSequins ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:freeFromDyes ;
+        sh:path eutex:freeFromDyes ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:isMonoMaterial ;
+        sh:path eutex:isMonoMaterial ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] .
@@ -588,38 +588,38 @@ textile:SortingFactorsShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Recycled Content Declaration Shape
 # -----------------------------------------------------------------------------
-textile:RecycledContentDeclarationShape a sh:NodeShape ;
-    sh:targetClass textile:RecycledContentDeclaration ;
+eutex:RecycledContentDeclarationShape a sh:NodeShape ;
+    sh:targetClass eutex:RecycledContentDeclaration ;
     rdfs:label "Recycled Content Declaration Shape" ;
     sh:property [
-        sh:path textile:secondaryMaterialFraction ;
+        sh:path eutex:secondaryMaterialFraction ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1 ;
         sh:minInclusive 0 ;
         sh:maxInclusive 100
     ] ;
     sh:property [
-        sh:path textile:wasteOriginType ;
-        sh:class textile:WasteOriginType ;
+        sh:path eutex:wasteOriginType ;
+        sh:class eutex:WasteOriginType ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:recycledSourceType ;
-        sh:class textile:RecycledSourceType ;
+        sh:path eutex:recycledSourceType ;
+        sh:class eutex:RecycledSourceType ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:chainOfCustodyMethod ;
-        sh:class textile:ChainOfCustodyMethod ;
+        sh:path eutex:chainOfCustodyMethod ;
+        sh:class eutex:ChainOfCustodyMethod ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:meetsTargetThreshold ;
+        sh:path eutex:meetsTargetThreshold ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:verificationCertification ;
+        sh:path eutex:verificationCertification ;
         sh:class gs1:CertificationDetails ;
         sh:maxCount 1
     ] .
@@ -627,57 +627,57 @@ textile:RecycledContentDeclarationShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Environmental Footprint Shape
 # -----------------------------------------------------------------------------
-textile:EnvironmentalFootprintShape a sh:NodeShape ;
-    sh:targetClass textile:EnvironmentalFootprint ;
+eutex:EnvironmentalFootprintShape a sh:NodeShape ;
+    sh:targetClass eutex:EnvironmentalFootprint ;
     rdfs:label "Environmental Footprint Shape" ;
     sh:property [
-        sh:path textile:carbonFootprintManufacturing ;
+        sh:path eutex:carbonFootprintManufacturing ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:pefSingleScore ;
+        sh:path eutex:pefSingleScore ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:benchmarkPerformance ;
+        sh:path eutex:benchmarkPerformance ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:dataTypeIndicator ;
-        sh:class textile:FootprintDataType ;
+        sh:path eutex:dataTypeIndicator ;
+        sh:class eutex:FootprintDataType ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:pefcrReference ;
+        sh:path eutex:pefcrReference ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:lciaCategories ;
-        sh:class textile:LCIACategory
+        sh:path eutex:lciaCategories ;
+        sh:class eutex:LCIACategory
     ] .
 
 # -----------------------------------------------------------------------------
 # LCIA Category Shape
 # -----------------------------------------------------------------------------
-textile:LCIACategoryShape a sh:NodeShape ;
-    sh:targetClass textile:LCIACategory ;
+eutex:LCIACategoryShape a sh:NodeShape ;
+    sh:targetClass eutex:LCIACategory ;
     rdfs:label "LCIA Category Shape" ;
     sh:property [
-        sh:path textile:lciaCategoryCode ;
-        sh:class textile:LCIACategoryCode ;
+        sh:path eutex:lciaCategoryCode ;
+        sh:class eutex:LCIACategoryCode ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:lciaValue ;
+        sh:path eutex:lciaValue ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:lciaUnit ;
+        sh:path eutex:lciaUnit ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] .
@@ -685,13 +685,13 @@ textile:LCIACategoryShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Substance of Concern Shape
 # -----------------------------------------------------------------------------
-textile:SubstanceOfConcernShape a sh:NodeShape ;
-    sh:targetClass textile:SubstanceOfConcern ;
+eutex:SubstanceOfConcernShape a sh:NodeShape ;
+    sh:targetClass eutex:SubstanceOfConcern ;
     rdfs:label "Substance of Concern Shape" ;
     sh:property [
-        sh:path textile:socType ;
+        sh:path eutex:socType ;
         sh:name "SoC Type" ;
-        sh:class textile:SubstanceOfConcernType ;
+        sh:class eutex:SubstanceOfConcernType ;
         sh:minCount 1 ;
         sh:maxCount 1
     ] ;
@@ -707,49 +707,49 @@ textile:SubstanceOfConcernShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:casNumber ;
+        sh:path eutex:casNumber ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:ecNumber ;
+        sh:path eutex:ecNumber ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:substanceConcentration ;
+        sh:path eutex:substanceConcentration ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1 ;
         sh:minInclusive 0
     ] ;
     sh:property [
-        sh:path textile:maxConcentration ;
+        sh:path eutex:maxConcentration ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1 ;
         sh:minInclusive 0
     ] ;
     sh:property [
-        sh:path textile:clpHazardCategory ;
-        sh:class textile:CLPHazardCategory ;
+        sh:path eutex:clpHazardCategory ;
+        sh:class eutex:CLPHazardCategory ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:concentrationRange ;
+        sh:path eutex:concentrationRange ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:locationInProduct ;
+        sh:path eutex:locationInProduct ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:safeUseInstructions ;
+        sh:path eutex:safeUseInstructions ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:endOfLifeHandling ;
+        sh:path eutex:endOfLifeHandling ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] .
@@ -757,29 +757,29 @@ textile:SubstanceOfConcernShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Microplastic Info Shape
 # -----------------------------------------------------------------------------
-textile:MicroplasticInfoShape a sh:NodeShape ;
-    sh:targetClass textile:MicroplasticInfo ;
+eutex:MicroplasticInfoShape a sh:NodeShape ;
+    sh:targetClass eutex:MicroplasticInfo ;
     rdfs:label "Microplastic Information Shape" ;
     sh:property [
-        sh:path textile:microplasticRiskLevel ;
+        sh:path eutex:microplasticRiskLevel ;
         sh:name "Microplastic Risk Level" ;
-        sh:class textile:MicroplasticRiskLevel ;
+        sh:class eutex:MicroplasticRiskLevel ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:sheddingRate ;
+        sh:path eutex:sheddingRate ;
         sh:name "Shedding Rate" ;
         sh:class gs1:QuantitativeValue
     ] ;
     sh:property [
-        sh:path textile:syntheticFiberContent ;
+        sh:path eutex:syntheticFiberContent ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1 ;
         sh:minInclusive 0 ;
         sh:maxInclusive 100
     ] ;
     sh:property [
-        sh:path textile:microplasticMitigationMeasures ;
+        sh:path eutex:microplasticMitigationMeasures ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] .
@@ -787,21 +787,21 @@ textile:MicroplasticInfoShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Take-Back Program Shape
 # -----------------------------------------------------------------------------
-textile:TakeBackProgramShape a sh:NodeShape ;
-    sh:targetClass textile:TakeBackProgram ;
+eutex:TakeBackProgramShape a sh:NodeShape ;
+    sh:targetClass eutex:TakeBackProgram ;
     rdfs:label "Take-Back Program Shape" ;
     sh:property [
-        sh:path textile:takeBackUrl ;
+        sh:path eutex:takeBackUrl ;
         sh:datatype xsd:anyURI ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:takeBackIncentive ;
+        sh:path eutex:takeBackIncentive ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:endOfLifeDestination ;
+        sh:path eutex:endOfLifeDestination ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] .
@@ -809,15 +809,15 @@ textile:TakeBackProgramShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Repair Service Shape
 # -----------------------------------------------------------------------------
-textile:RepairServiceShape a sh:NodeShape ;
-    sh:targetClass textile:RepairService ;
+eutex:RepairServiceShape a sh:NodeShape ;
+    sh:targetClass eutex:RepairService ;
     rdfs:label "Repair Service Shape" .
 
 # -----------------------------------------------------------------------------
 # Textile Chemical Shape
 # -----------------------------------------------------------------------------
-textile:TextileChemicalShape a sh:NodeShape ;
-    sh:targetClass textile:TextileChemical ;
+eutex:TextileChemicalShape a sh:NodeShape ;
+    sh:targetClass eutex:TextileChemical ;
     rdfs:label "Textile Chemical Shape" ;
     sh:property [
         sh:path schema:name ;
@@ -827,12 +827,12 @@ textile:TextileChemicalShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:chemicalPurpose ;
+        sh:path eutex:chemicalPurpose ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path textile:isMRSLCompliant ;
+        sh:path eutex:isMRSLCompliant ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] .
@@ -841,26 +841,26 @@ textile:TextileChemicalShape a sh:NodeShape ;
 # QuantitativeValue unitCode Shapes (GS1-idiomatic)
 # =============================================================================
 
-textile:WaterUsageShape a sh:NodeShape ;
-    sh:targetSubjectsOf textile:waterUsage ;
+eutex:WaterUsageShape a sh:NodeShape ;
+    sh:targetSubjectsOf eutex:waterUsage ;
     sh:property [
-        sh:path ( textile:waterUsage gs1:unitCode ) ;
+        sh:path ( eutex:waterUsage gs1:unitCode ) ;
         sh:hasValue "LTR" ;
-        sh:message "textile:waterUsage must use unitCode 'LTR' (liters)"@en
+        sh:message "eutex:waterUsage must use unitCode 'LTR' (liters)"@en
     ] .
 
-textile:EnergyUsageShape a sh:NodeShape ;
-    sh:targetSubjectsOf textile:energyUsage ;
+eutex:EnergyUsageShape a sh:NodeShape ;
+    sh:targetSubjectsOf eutex:energyUsage ;
     sh:property [
-        sh:path ( textile:energyUsage gs1:unitCode ) ;
+        sh:path ( eutex:energyUsage gs1:unitCode ) ;
         sh:hasValue "KWH" ;
-        sh:message "textile:energyUsage must use unitCode 'KWH' (kilowatt-hours)"@en
+        sh:message "eutex:energyUsage must use unitCode 'KWH' (kilowatt-hours)"@en
     ] .
 
-textile:SheddingRateShape a sh:NodeShape ;
-    sh:targetSubjectsOf textile:sheddingRate ;
+eutex:SheddingRateShape a sh:NodeShape ;
+    sh:targetSubjectsOf eutex:sheddingRate ;
     sh:property [
-        sh:path ( textile:sheddingRate gs1:unitCode ) ;
+        sh:path ( eutex:sheddingRate gs1:unitCode ) ;
         sh:hasValue "MGM" ;
-        sh:message "textile:sheddingRate must use unitCode 'MGM' (mg/kg)"@en
+        sh:message "eutex:sheddingRate must use unitCode 'MGM' (mg/kg)"@en
     ] .

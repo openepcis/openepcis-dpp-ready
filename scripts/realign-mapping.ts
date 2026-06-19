@@ -555,7 +555,7 @@ function main() {
   // GS1 deduplication section (the user's primary concern)
   const gs1Replaces = rows.filter((r) => r.verdict === "REPLACE_WITH_GS1");
   lines.push(`## GS1 redundancies — ${gs1Replaces.length} extension terms duplicating GS1\n`);
-  lines.push("Per the user's example (\`battery:batterySerialNumber → gs1:hasSerialNumber\`), these are extension terms ");
+  lines.push("Per the user's example (\`eubat:batterySerialNumber → gs1:hasSerialNumber\`), these are extension terms ");
   lines.push("that re-declare what GS1 Web Vocabulary already covers.\n");
   if (gs1Replaces.length > 0) {
     lines.push("| Extension term | → GS1 term | Kind | Confidence | Rationale |");

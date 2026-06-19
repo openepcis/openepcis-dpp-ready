@@ -1,8 +1,8 @@
 # Why every module owns a named EPCIS extension
 
 This project registers one named `https://ref.openepcis.io/extensions/...`
-namespace per regulatory domain (`battery:`, `eudr:`, `textile:`,
-`electronics:`, `detergent:`, `fsma:`) even when — in some cases — the
+namespace per regulatory domain (`eubat:`, `eudr:`, `eutex:`,
+`euelec:`, `eudet:`, `usfsma:`) even when — in some cases — the
 extension contributes only a single property or an enum. This document
 explains why that is deliberate, not incidental.
 
@@ -15,9 +15,9 @@ capture and query request. The header is a comma-separated list of
 ```http
 POST /capture HTTP/1.1
 Content-Type: application/ld+json
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,
                 eudr=https://ref.openepcis.io/extensions/eu/eudr/,
-                fsma=https://ref.openepcis.io/extensions/us/fsma204/
+                usfsma=https://ref.openepcis.io/extensions/us/fsma204/
 ```
 
 An **OpenEPCIS EPCIS Repository** reads this header on every request and
@@ -54,18 +54,18 @@ at `https://ref.openepcis.io/extensions/us/fsma204/` means:
 - The `@context` URI your JSON-LD documents load **never changes** even
   if the community evolves the definitions behind it.
 - SPARQL queries against a merged RDF graph remain stable: every
-  `fsma:traceabilityLotCode` triple in the world has the same subject /
+  `usfsma:traceabilityLotCode` triple in the world has the same subject /
   predicate regardless of which authoring tool emitted it.
 - Tooling consumers (barcodes-to-DPP resolvers, data-quality dashboards)
   can spider the namespace and discover every related artefact.
 - Regulators and auditors get a single, dated, Apache-2.0-licensed
-  anchor for "what did OpenEPCIS mean by `fsma:Crustaceans` on Day X?"
+  anchor for "what did OpenEPCIS mean by `usfsma:Crustaceans` on Day X?"
 
 ## 3. It gives us a landing spot when GS1 eventually publishes
 
 Several modules in this repo (notably the EUDR exemption block and the
 FSMA 204 CTE classes) are **provisional reference patterns** that mirror
-semantics GSMP is still finalising. Owning the namespace means:
+semantics GS1 standardization is still finalising. Owning the namespace means:
 
 - We can ship a working vocabulary today.
 - When GS1 publishes its canonical term, we re-map via
@@ -80,9 +80,9 @@ semantics GSMP is still finalising. Owning the namespace means:
 ## 4. It is consistent even when the module is tiny
 
 The `fsma204` module contributes **one property**
-(`fsma:foodTraceabilityListCategory`) plus the FTL enum. Every other FSMA
+(`usfsma:foodTraceabilityListCategory`) plus the FTL enum. Every other FSMA
 204 KDE already rides on native EPCIS 2.0 / GS1 Web Vocabulary fields per
-the GS1 US R2.0 EPCIS guide. We still register a `fsma:` extension
+the GS1 US R2.0 EPCIS guide. We still register a `usfsma:` extension
 because:
 
 - The FTL enum itself is the "switch" that tells the repository a given
@@ -97,10 +97,10 @@ because:
 
 On a capture or query request that carries OpenEPCIS data, always emit
 the header for the modules whose terms appear in the payload (including
-the core module when `dpp:` terms are present):
+the core module when `oec:` terms are present):
 
 ```http
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,
                 eudr=https://ref.openepcis.io/extensions/eu/eudr/
 ```
 

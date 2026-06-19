@@ -16,11 +16,11 @@ Mirrored:
 
 Authored locally:
 - `extensions/common/interop/context/rail-bridge-context.jsonld` —
-  bridges rail terms upward to `dpp:` / SEMICeu / GS1 equivalents.
+  bridges rail terms upward to `oec:` / SEMICeu / GS1 equivalents.
 - `epcis/wheel-temperature-sensor.jsonld` — EPCIS 2.0 ObjectEvent
   carrying `rail:wheelTemperature` + `rail:bearingTemperature` sensor data.
 - `epcis/refurbishment-event.jsonld` — TransformationEvent linking
-  `rail:itemReconditioningDate` to `dpp:remanufacturingDate`.
+  `rail:itemReconditioningDate` to `oec:remanufacturingDate`.
 
 Notes:
 - Upstream `examples/Example1-3.jsonld` URLs return HTTP 200 with 0 bytes;

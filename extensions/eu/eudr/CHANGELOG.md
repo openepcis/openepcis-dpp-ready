@@ -2,6 +2,10 @@
 
 All notable changes to the EUDR module will be documented in this file.
 
+## 0.9.6 — version alignment (2026-06-07)
+
+Version alignment with the 0.9.6 core release (EN 18223 model alignment). No functional changes to this module.
+
 ## 0.9.5 — SEMICeu Core Location anchoring (2026-05-04)
 
 ### Added
@@ -26,22 +30,22 @@ All notable changes to the EUDR module will be documented in this file.
 - `eudr:unitCode` → `gs1:unitCode`
 - `eudr:value` → `gs1:value`
 
-## [unreleased] — 2026-04-17 (GS1 EUDR MSWG alignment)
+## [unreleased] — 2026-04-17 (GS1 standardization alignment)
 
 ### Changed
 - Strengthened GS1 alignment metadata on the exemption reference pattern:
   - Added a dated prelude to the exemption block in `ontology/eudr.ttl`
     spelling out that GS1 EUDR Release P (Sep 2025) defines no
     `gs1:regulatoryExemption` term and that our `eudr:Exemption*` terms
-    are provisional pending GSMP WR 25-252 / WR 26-122 publication.
+    are provisional pending GS1 standardization publication.
   - Updated `epcis/exemption-declaration.jsonld` comment to record the
     2026-04-17 GS1 alignment snapshot and explain that
     `gs1:regulatoryIdentifier` is correctly omitted from the
     `regulatoryInformation` block when an exemption replaces it
-    (per GS1 EUDR MSWG 2026-04-13).
+    (per ongoing GS1 standardization).
 - New `docs/GS1_ALIGNMENT.md` — dated, citation-backed record of which
   `eudr:` terms are verbatim GS1 Release P, which fill documented gaps,
-  and which are provisional pending GSMP publication.
+  and which are provisional pending GS1 standardization publication.
 
 ### Removed (shadow-vocabulary cleanup, 2026-04-16/17)
 - `eudr:TimberProduct` class — was a thin `rdfs:subClassOf gs1:Product`
@@ -51,26 +55,26 @@ All notable changes to the EUDR module will be documented in this file.
   `bizLocation` / `readPoint`.
 - `eudr:batchNumber` property — duplicated `gs1:hasBatchLotNumber`.
 - `eudr:hsCode` / `eudr:cnCode` properties — promoted to core as
-  `dpp:customsCommodityCode` + `dpp:customsCommodityCodeType` so every
+  `oec:customsCommodityCode` + `oec:customsCommodityCodeType` so every
   regulatory module uses the same customs pattern.
 - Stale references to non-existent `gs1:isRegulationCompliant` in
-  examples; replaced with `dpp:isRegulationCompliant` (new core term).
+  examples; replaced with `oec:isRegulationCompliant` (new core term).
 
 ## [0.9.5] - 2026-04-15 (GS1 Standards Week preparation)
 
 ### Added
-- **EUDR Exemption Declaration pattern** aligned with GS1 GSMP Work Request WR 25-252 (EUDR Exemptions in EANCOM/GS1 XML/GDSN, eBallot) and WR 26-122 (GDSN Exemptions, Community Review):
+- **EUDR Exemption Declaration pattern** aligned with the EU Deforestation Regulation (EU 2023/1115):
   - `eudr:ExemptionType` enumeration (`PermanentExemption`, `TemporaryExemption`)
   - `eudr:ExemptionDeclaration` class
   - Properties: `eudr:exemptionDeclaration`, `eudr:exemptionType`, `eudr:exemptionReasonCode`, `eudr:exemptionScope`, `eudr:exemptionScopeReference`, `eudr:exemptionEffectiveFrom`, `eudr:exemptionEffectiveUntil`, `eudr:exemptionAuthority`
 - New EPCIS event example: `eudr/epcis/exemption-declaration.jsonld`
   (ObjectEvent with `bizStep: notifying` carrying an ExemptionDeclaration)
-- New section in `docs/IMPLEMENTATION_GUIDE.md`: "EUDR Exemption Handling (WR 25-252 reference pattern)" with semantic equivalence table across EPCIS JSON-LD / EANCOM / GDSN
+- New section in `docs/IMPLEMENTATION_GUIDE.md`: "EUDR Exemption Handling (GS1 standardization reference pattern)" with semantic equivalence table across EPCIS JSON-LD / EANCOM / GDSN
 
 ### Notes
-- Reference pattern may evolve per WR 25-252 eBallot outcome.
+- Reference pattern may evolve as GS1 standardization settles.
 - Exemption reason code currently typed as `xsd:string`; will become a
-  controlled enumeration once the official WR 25-252 code list is published.
+  controlled enumeration once the official GS1 standardization code list is published.
 - Version remains v0.9.5; project has not yet had a formal release.
 
 ## [0.9.5] - 2025-02-02

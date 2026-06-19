@@ -9,16 +9,16 @@
   "_comment_gs1us_mapping": [
     "Cooling CTE per GS1 US 'EPCIS Recommendations for FSMA 204 CTEs' R2.0, §3.",
     "Modelled as THREE events because CBV has no dedicated 'cooling' bizStep:",
-    "  1. receiving   — food arrives at the cooling facility from the farm.",
-    "  2. other       — cooling process itself (CBV 'other' is explicitly allowed for operations",
+    "  1. receiving: food arrives at the cooling facility from the farm.",
+    "  2. other: cooling process itself (CBV 'other' is explicitly allowed for operations",
     "                   not yet in CBV). EPCIS 2.0 sensorElementList carries the cooling temperature.",
-    "  3. transporting — cooled food leaves for the immediate subsequent recipient.",
+    "  3. transporting: cooled food leaves for the immediate subsequent recipient.",
     "KDE mapping:",
     "  Farm-of-origin location: event 1 sourceList type=location.",
     "  Cooling location: readPoint on all three events + bizLocation on event 2.",
     "  Cooling date: event 1 / 2 eventTime.",
     "  Subsequent recipient: event 3 destinationList type=location.",
-    "NO fsma: extension fields ride inside the event."
+    "NO usfsma: extension fields ride inside the event."
   ],
   "epcisBody": {
     "eventList": [

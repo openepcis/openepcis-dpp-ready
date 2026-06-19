@@ -2,12 +2,16 @@
 
 All notable changes to the Textile module will be documented in this file.
 
+## 0.9.6 — version alignment (2026-06-07)
+
+Version alignment with the 0.9.6 core release (EN 18223 model alignment). No functional changes to this module.
+
 ## 0.9.5 — SEMICeu Core Vocabularies anchoring (2026-05-04)
 
 ### Added
 - `cv:` / `cccev:` / `locn:` prefix declarations in `textile.ttl`.
-- `textile:RobustnessAssessment` → `rdfs:seeAlso cccev:Evidence` (EU SEMICeu CCCEV) — the assessment is evidence supporting the EU Preparatory Study robustness Requirement.
-- Facility properties (`textile:spinningFacility`, `weavingFacility`, `dyeingFacility`, `cutAndSewFacility`, `finishingFacility`) inherit `locn:Location` anchoring via `dpp:FacilityInformation` (their range), updated in dpp-core in this same release.
+- `eutex:RobustnessAssessment` → `rdfs:seeAlso cccev:Evidence` (EU SEMICeu CCCEV) — the assessment is evidence supporting the EU Preparatory Study robustness Requirement.
+- Facility properties (`eutex:spinningFacility`, `weavingFacility`, `dyeingFacility`, `cutAndSewFacility`, `finishingFacility`) inherit `locn:Location` anchoring via `oec:FacilityInformation` (their range), updated in dpp-core in this same release.
 
 ### Notes
 - See `extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md` for the full mapping.
@@ -18,8 +22,8 @@ All notable changes to the Textile module will be documented in this file.
 
 ### Added equivalence / cross-reference links
 
-- `textile:LCIACategoryCode` owl:equivalentClass `schema:CategoryCode`
-- `textile:TextileFootwear` owl:equivalentClass `gs1:Footwear`
+- `eutex:LCIACategoryCode` owl:equivalentClass `schema:CategoryCode`
+- `eutex:TextileFootwear` owl:equivalentClass `gs1:Footwear`
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
@@ -27,8 +31,8 @@ All notable changes to the Textile module will be documented in this file.
 
 ### Added equivalence / cross-reference links
 
-- `textile:LCIACategoryCode` owl:equivalentClass `schema:CategoryCode`
-- `textile:TextileFootwear` owl:equivalentClass `gs1:Footwear`
+- `eutex:LCIACategoryCode` owl:equivalentClass `schema:CategoryCode`
+- `eutex:TextileFootwear` owl:equivalentClass `gs1:Footwear`
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
@@ -36,8 +40,8 @@ All notable changes to the Textile module will be documented in this file.
 
 ### Added equivalence / cross-reference links
 
-- `textile:LCIACategoryCode` owl:equivalentClass `schema:CategoryCode`
-- `textile:TextileFootwear` owl:equivalentClass `gs1:Footwear`
+- `eutex:LCIACategoryCode` owl:equivalentClass `schema:CategoryCode`
+- `eutex:TextileFootwear` owl:equivalentClass `gs1:Footwear`
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
@@ -45,8 +49,8 @@ All notable changes to the Textile module will be documented in this file.
 
 ### Added equivalence / cross-reference links
 
-- `textile:LCIACategoryCode` owl:equivalentClass `schema:CategoryCode`
-- `textile:TextileFootwear` owl:equivalentClass `gs1:Footwear`
+- `eutex:LCIACategoryCode` owl:equivalentClass `schema:CategoryCode`
+- `eutex:TextileFootwear` owl:equivalentClass `gs1:Footwear`
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
@@ -54,29 +58,28 @@ All notable changes to the Textile module will be documented in this file.
 
 ### Removed (use canonical term instead)
 
-- `textile:chemicalName` → `schema:name`
-- `textile:iupacName` → `schema:iupacName`
-- `textile:recyclingInstructions` → `gs1:consumerRecyclingInstructions`
-- `textile:targetGender` → `gs1:targetConsumerGender`
-- `textile:textileCategory` → `schema:category`
+- `eutex:chemicalName` → `schema:name`
+- `eutex:iupacName` → `schema:iupacName`
+- `eutex:recyclingInstructions` → `gs1:consumerRecyclingInstructions`
+- `eutex:targetGender` → `gs1:targetConsumerGender`
+- `eutex:textileCategory` → `schema:category`
 
 ### Added equivalence / cross-reference links
 
-- `textile:LCIACategoryCode` owl:equivalentClass `schema:CategoryCode`
-- `textile:TextileFootwear` owl:equivalentClass `gs1:Footwear`
+- `eutex:LCIACategoryCode` owl:equivalentClass `schema:CategoryCode`
+- `eutex:TextileFootwear` owl:equivalentClass `gs1:Footwear`
 
 ## [0.9.5] - 2026-04-15 (GS1 Standards Week preparation)
 
 ### Added
 - New example `examples/garment-set-itip.jsonld` demonstrating ITIP (AI 8026)
   piece-level identification for a two-piece business suit. Uses
-  `dpp:IndividualTradeItemPiece` + `dpp:tradeItemPieceCount` from the core
-  module. Reference pattern aligned with GS1 GSMP WR 25-212 (Community Review).
+  `oec:IndividualTradeItemPiece` + `oec:tradeItemPieceCount` from the core
+  module. Reference pattern aligned with GS1 ITIP (AI 8026).
 
 ### Notes
-- Positioning ahead of Apparel DPP Sub-team kick-off (27 May 2026): this
-  textile module is offered as a reference implementation for the Q2 2027
-  EPCIS requirements gathering.
+- This textile module is offered as a reference implementation ahead of
+  anticipated apparel DPP requirements (2027).
 - Version remains v0.9.5; project has not yet had a formal release.
 
 ## [0.9.5] - 2026-03-07
@@ -120,9 +123,9 @@ Major expansion to align with the EU JRC Preparatory Study on Textiles 3rd Miles
 - Test Standards: testStandard
 
 **Deprecations:**
-- `textile:isRecycledFiber` - Use `textile:recycledContentDeclaration` instead
-- `textile:recycledContentSource` - Use `textile:recycledContentDeclaration` instead
-- `textile:textileChemicals` - Use `textile:substancesOfConcern` instead
+- `eutex:isRecycledFiber` - Use `eutex:recycledContentDeclaration` instead
+- `eutex:recycledContentSource` - Use `eutex:recycledContentDeclaration` instead
+- `eutex:textileChemicals` - Use `eutex:substancesOfConcern` instead
 
 **New EPCIS Events (7):**
 - Commissioning at cut-and-sew facility

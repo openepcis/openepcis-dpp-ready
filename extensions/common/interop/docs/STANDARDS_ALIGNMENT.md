@@ -4,7 +4,7 @@ OpenEPCIS DPP-Ready harmonizes multiple Digital Product Passport standards into 
 
 ## Foundational vocabularies (peer Layer 1)
 
-OpenEPCIS DPP-Ready rests on a **peer triumvirate** of foundational vocabularies. Walk these three before minting at `dpp:` or any module namespace, in this order:
+OpenEPCIS DPP-Ready rests on a **peer triumvirate** of foundational vocabularies. Walk these three before minting at `oec:` or any module namespace, in this order:
 
 | # | Vocabulary | Owner | Role in DPP |
 |---|---|---|---|
@@ -80,59 +80,56 @@ This approach lets implementers start building today while standards mature. As 
 
 **CEN/CENELEC JTC 24** (Joint Technical Committee 24) is the official European standardization body for Digital Product Passports under ESPR. Established in 2023, JTC 24 develops the harmonised European standards under Standardisation Request **M/604** that define how DPPs work across the EU.
 
-### The 8 Harmonised EN Standards
+### The 8 EN Standards (CEN/CENELEC JTC 24)
 
-The original work item prEN 17957 has been split into **8 individual standards**. Six have reached FprEN (final draft) stage as of March 2026.
+JTC 24 is developing **8 individual standards** under M/604. Six were published as EN standards in 2026; prEN 18239 and prEN 18246 remain in development. The standards are deliberately technology- and scheme-neutral; OpenEPCIS realises them through the **EPCIS4DPP** profile (GS1 identifiers, GS1 Digital Link, EPCIS, ref.openepcis.io). The clause-by-clause detail is in [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md).
 
-| Standard | Title | WG | Status | OpenEPCIS Alignment |
-|----------|-------|----|--------|---------------------|
-| **EN 18219** | Unique identifiers | WG 2 | FprEN — publishes March 2026 | **Strong** — GS1 GTIN confirmed as identifier; native to our architecture |
-| **EN 18220** | Data carriers and links (physical ↔ digital) | WG 2 | FprEN — publishes March 2026 | **Aligned** — GS1 Digital Link, QR code primary; NFC supplementary per WR 26-108 |
-| **EN 18216** | Data exchange protocols | WG 4 | FprEN — publishes March 2026 | **Aligned** — HTTPS/REST/JSON = our JSON-LD delivery |
-| **EN 18221** | Data storage, archiving, and persistence | WG 4 | FprEN — publishes March 2026 | **Partial** — Versioning via `dpp:passportVersion`; backup/archival roadmap |
-| **EN 18222** | APIs for lifecycle management and searchability | WG 4 | FprEN — publishes March 2026 | **In progress** — `dpp:PassportStatus`, lifecycle vocabulary |
-| **EN 18223** | Interoperability (technical, semantic, organisational) | WG 4 | FprEN — publishes March 2026 | **Strong** — JSON-LD, RDF/OWL, SHACL = our core stack; `rdfs:isDefinedBy`, `owl:versionIRI` for registry discovery |
-| **prEN 18239** | Access rights, security, business confidentiality | WG 3 | In development | **Partial** — `dpp:AccessRights`/`dpp:AccessLevel` covers three-tier model; role-based expansion tracked |
-| **prEN 18246** | Data authentication, reliability, and integrity | WG 5 | In development | **Partial** — `dpp:did`, `dpp:identityCredentialUrl`; ESDC/VC integration tracked |
+| Standard | Title | WG | Status | EPCIS4DPP realisation |
+|----------|-------|----|--------|-----------------------|
+| **EN 18219** | Unique identifiers | WG 2 | Published 2026 | **Conformant** — scheme-neutral (5 ID schemes); we use the GS1 scheme; granularity model/batch/item derived from GS1 AIs |
+| **EN 18220** | Data carriers | WG 2 | Published 2026 | **Conformant** — several carriers permitted; we use QR + GS1 Digital Link (NFC supplementary); resolver/linksets are an EPCIS4DPP profile addition |
+| **EN 18216** | Data exchange protocols | WG 4 | Published 2026 | **Conformant** — HTTPS/TLS/HTTP-2 + JSON + content negotiation; we deliver JSON-LD + HTML |
+| **EN 18221** | Data storage, archiving and data persistence | WG 4 | Published 2026 | **Partial** — append-only EPCIS + versioned core (a conformant pattern); provider roles, RPO, OAIS tracked |
+| **EN 18222** | APIs for the product passport lifecycle management and searchability | WG 4 | Published 2026 | **Planned** — expose the EN 18222 REST API method set; EPCIS query + resolver added as profile |
+| **EN 18223** | System interoperability | WG 4 | Published 2026 | **Conformant** — `oec:` core maps to the EN 18223 model; ref.openepcis.io is the §4.3 data dictionary |
+| **prEN 18239** | Access rights, security, business confidentiality | WG 3 | In development | **Partial** — `oec:AccessLevel` + Keycloak cover the access tiers; role-based expansion tracked |
+| **prEN 18246** | Data authentication, reliability, and integrity | WG 5 | In development | **Partial** — `oec:did`, `oec:identityCredentialUrl`; ESDC/VC integration tracked |
 
-**Sources:**
-- [prEN 18222 on iTeh Standards](https://standards.iteh.ai/catalog/standards/cen/2d02edd9-ec28-4eb3-b99a-6a84c0a84257/pren-18222)
-- [prEN 18223 on iTeh Standards](https://standards.iteh.ai/catalog/standards/cen/a5416a2a-bea0-4ad4-9621-8028c96fc621/pren-18223)
-- [JTC 24 overview on iTeh](https://standards.iteh.ai/catalog/tc/cen/b2e63c3a-8446-4d3f-b148-51c2b3928ecd/jtc-24)
+**Sources:** the standards are published by CEN/CENELEC and adopted nationally (for example as NEN-EN); they are licensed documents. See the clause-cited [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md) and the [CEN/CENELEC site](https://www.cencenelec.eu/).
 
 ### Methodology Standards (Published)
 
 | Standard | Title | OpenEPCIS Alignment |
 |----------|-------|---------------------|
-| **EN 45552** | General method for durability assessment | `dpp:PerformanceInfo`, `dpp:expectedLifespan` |
-| **EN 45553** | General method for remanufacturability assessment | `dpp:CircularityPerformance` |
-| **EN 45554** | General method for repair, reuse, upgrade assessment | `dpp:RepairabilityInfo` |
-| **EN 45555** | General method for recyclability/recoverability assessment | `dpp:recyclableContent`, `dpp:CircularityPerformance` |
+| **EN 45552** | General method for durability assessment | `oec:PerformanceInfo`, `oec:expectedLifespan` |
+| **EN 45553** | General method for remanufacturability assessment | `oec:CircularityPerformance` |
+| **EN 45554** | General method for repair, reuse, upgrade assessment | `oec:RepairabilityInfo` |
+| **EN 45555** | General method for recyclability/recoverability assessment | `oec:recyclableContent`, `oec:CircularityPerformance` |
 
 ### Key Developments
 
 - **OPC Foundation liaison agreement** (Feb 2026) for digital twin interoperability with DPP ([source](https://www.cencenelec.eu/news-events/news/2026/brief-news/2026-02-24-opcf-liaison-agreement/))
 - **CEN/CENELEC Work Programme 2026** confirms DPP as a priority ([source](https://www.cencenelec.eu/news-events/news/2026/brief-news/2026-02-04-work-programme-2026/))
-- **JRC Methodology Report** (JRC145830, March 2026) defines core DPP (immutable) vs. lifecycle log (dynamic) framework ([source](https://publications.jrc.ec.europa.eu/repository/handle/JRC145830))
+- **JRC Methodology Report** (JRC145830, 2026) defines a methodology for specifying and prioritising DPP data requirements (essential / recommended / voluntary) ([source](https://publications.jrc.ec.europa.eu/repository/handle/JRC145830))
 - JTC 24 interview on progress: [wiot-group.com](https://wiot-group.com/think/en/articles/otto-handle-cen-cenelec-on-eu-digital-product-passport/)
 
 ### How OpenEPCIS Aligns with JTC 24
 
-**EN 18219 (Identifiers)** — GS1 GTIN is confirmed as *the* product identifier. OpenEPCIS is GS1-native, supporting GTIN at model, batch, and item granularity via `dpp:granularityLevel`.
+**EN 18219 (Identifiers)** — The standard is scheme-neutral, permitting five identifier schemes. EPCIS4DPP adopts the GS1 scheme (GTIN, GLN, GTIN + serial). Granularity (model/batch/item) is the standard's own enumeration, carried in `oec:granularityLevel` and derived from the GS1 Digital Link Application Identifiers (`01/{gtin}` model, `01/{gtin}/10/{lot}` batch, `01/{gtin}/21/{serial}` item).
 
-**EN 18220 (Data Carriers)** — QR codes with GS1 Digital Link URIs are the primary data carrier. NFC tags carrying the same GS1 Digital Link URI are supported as supplementary carriers per WR 26-108. OpenEPCIS vocabulary is designed for resolution via GS1 Digital Link resolvers.
+**EN 18220 (Data Carriers)** — The standard admits several carriers (QR, Data Matrix, HF RFID, NFC, RAIN RFID). EPCIS4DPP uses a QR code carrying a GS1 Digital Link URI, with NFC carrying the same URI as a supplementary carrier. GS1 Digital Link resolution, RFC 9264 linksets and GS1 link types are an EPCIS4DPP profile addition; EN 18220 specifies the carrier, not the resolver.
 
-**EN 18216 (Data Exchange)** — HTTPS + REST + JSON. OpenEPCIS delivers JSON-LD over HTTPS, fully compatible.
+**EN 18216 (Data Exchange)** — HTTPS (TLS 1.2+, HTTP/2), JSON, and content negotiation (JSON/XML/JSON-LD/HTML). OpenEPCIS delivers JSON-LD and HTML over HTTPS. EPCIS reuses the same transport; EN 18216 does not mention EPCIS.
 
-**EN 18221 (Storage & Persistence)** — Passport versioning via `dpp:passportVersion` and `dpp:previousPassportVersion`. Archival and certified-backup-provider requirements (ESPR Art. 9(3a)) are on the roadmap.
+**EN 18221 (Storage & Persistence)** — The standard is storage-technology-neutral, defining archiving, persistence and the main/back-up DPP service provider roles. EPCIS4DPP's append-only EPCIS store plus versioned core (`oec:passportVersion`, `oec:previousPassportVersion`) is a conformant implementation pattern. Provider roles, Recovery Point Objective, OAIS (ISO 14721) and data lifetime are tracked; integrity follows EN 18246.
 
-**EN 18222 (APIs)** — OpenEPCIS provides vocabulary for DPP lifecycle management: `dpp:PassportStatus` (Draft, Active, Updated, Withdrawn, Archived), `dpp:passportIssueDate`, `dpp:passportLastModified`, `dpp:passportExpiryDate`. The immutable-core vs. dynamic-lifecycle-log distinction maps naturally to EPCIS events for the dynamic part.
+**EN 18222 (APIs)** — The standard defines a concrete DPP REST API (ReadDPPById, ReadDPPByProductId, CreateDPP, UpdateDPPById, DeleteDPPById, RegisterProductDPP, element-level access). EPCIS4DPP will expose this method set over the repository (tracked in [`EN18223_MODEL_ALIGNMENT.md`](./EN18223_MODEL_ALIGNMENT.md)). The EPCIS query interface and the Digital Link resolver are profile additions beyond EN 18222.
 
-**EN 18223 (Interoperability)** — This standard prescribes JSON-LD, RDF, OWL, and SHACL — exactly our technology stack. OpenEPCIS ontologies are defined in RDF/OWL (Turtle), serialized as JSON-LD, and validated with SHACL shapes across all 6 domain modules. Every class and property declares `rdfs:isDefinedBy` for registry/browser discovery. All ontologies carry `owl:versionIRI` for formal semantic versioning per OWL2 Section 3.4.
+**EN 18223 (Interoperability)** — The standard mandates a UML and plain-JSON information model with an externalised `dictionaryReference`; it does not prescribe JSON-LD, RDF, OWL or SHACL. EPCIS4DPP's value-add: the `DigitalProductPassport` model maps almost one-to-one onto `oec:` core, and **ref.openepcis.io is the §4.3 data-dictionary repository** whose definitions our term IRIs supply. JSON-LD is our serialisation choice and remains valid JSON; ontologies declare `rdfs:isDefinedBy` and `owl:versionIRI` for discovery and versioning.
 
-**prEN 18239 (Access Rights)** — `dpp:AccessLevel` implements the three-tier model (Public, AuthorizedOnly, Restricted). Role-based differentiation (consumer, regulator, recycler, repairer, customs, etc.) tracked and will be added as the standard finalises.
+**prEN 18239 (Access Rights)** — `oec:AccessLevel` implements the three-tier model (Public, AuthorizedOnly, Restricted). Role-based differentiation (consumer, regulator, recycler, repairer, customs, etc.) tracked and will be added as the standard finalises.
 
-**prEN 18246 (Data Authentication)** — `dpp:did` and `dpp:identityCredentialUrl` support decentralized identity. Verifiable Credentials and Electronically Signed Data Constructs (ESDC) integration will follow the standard.
+**prEN 18246 (Data Authentication)** — `oec:did` and `oec:identityCredentialUrl` support decentralized identity. Verifiable Credentials and Electronically Signed Data Constructs (ESDC) integration will follow the standard.
 
 ### Why Not Wait?
 
@@ -152,8 +149,8 @@ Multiple initiatives are developing Digital Product Passport specifications. Ope
 
 | Initiative | Technical Foundation | Scope | Status | GS1 Integration |
 |------------|---------------------|-------|--------|-----------------|
-| **CEN/CENELEC JTC 24** | EN 18216-18223 + prEN 18239/18246 (8 standards) | Multi-sector | 6 of 8 at FprEN publishing March 2026 | Confirmed (EN 18219 = GS1 GTIN) |
-| **OpenEPCIS DPP-Ready** | GS1 Web Vocab + EPCIS 2.0 | Multi-sector | Production v0.9.5 | Native |
+| **CEN/CENELEC JTC 24** | EN 18216-18223 + prEN 18239/18246 (8 standards) | Multi-sector | 6 of 8 published 2026 | Confirmed (EN 18219 = GS1 GTIN) |
+| **OpenEPCIS DPP-Ready** | GS1 Web Vocab + EPCIS 2.0 | Multi-sector | Production v0.9.6 | Native |
 | **BatteryPass Data Model** | Eclipse SAMM + Custom URNs | Battery only | Spec v1.2.0 | None |
 | **DPP Keystone** | Custom JSON-LD vocab | Multi-sector | Proof-of-concept | Partial |
 | **CIRPASS2** | Requirements framework | Multi-sector | Requirements → JTC 24 | Reference |
@@ -205,13 +202,13 @@ The [BatteryPass Data Model](https://github.com/battery-pass/BatteryPassDataMode
 | Standard | Properties Aligned | Classes Aligned | Notes |
 |----------|-------------------|-----------------|-------|
 | **GS1 Web Vocabulary** | Foundation | Foundation | Native integration via `owl:imports` |
-| **CEN/CENELEC JTC 24** | Strong (6/8 standards) | Strong | EN 18216-18223 (FprEN) + prEN 18239/18246 (in development); see detailed alignment above |
+| **CEN/CENELEC JTC 24** | Strong (6/8 standards) | Strong | EN 18216-18223 (published 2026) + prEN 18239/18246 (in development); see detailed alignment above |
 | **UNTP** | 22 | 9 | `owl:equivalentProperty`, aligned with v0.6.1 (GitLab) |
 | **CIRPASS2** | Requirements coverage | Bridge context | `cirpass2-bridge-context.jsonld` + `CIRPASS2_COVERAGE.md` |
 | **ESPR 2024/1781** | Full | Full | Core module covers all Article 7/9 requirements |
 | **EN 45552-45555** | Methodology support | N/A | Properties to store assessment results |
-| **Battery Reg 2023/1542** | Full Annex XIII | Domain-specific | `battery:` module |
-| **Textile Strategy** | Anticipated | Domain-specific | `textile:` module |
+| **Battery Reg 2023/1542** | Full Annex XIII | Domain-specific | `eubat:` module |
+| **Textile Strategy** | Anticipated | Domain-specific | `eutex:` module |
 
 ## GS1 Web Vocabulary
 
@@ -221,8 +218,8 @@ OpenEPCIS is built natively on GS1 Web Vocabulary patterns:
 
 | GS1 Pattern | OpenEPCIS Usage |
 |-------------|-----------------|
-| `gs1:Organization` | Base class for `dpp:OperatorInformation` |
-| `gs1:Place` | Base class for `dpp:FacilityInformation` |
+| `gs1:Organization` | Base class for `oec:OperatorInformation` |
+| `gs1:Place` | Base class for `oec:FacilityInformation` |
 | `gs1:CertificationDetails` | Used directly for certifications |
 | `gs1:WarrantyPromise` | Used directly for warranty |
 | `gs1:ReferencedFileDetails` | Used directly for documents |
@@ -244,29 +241,29 @@ OpenEPCIS is built natively on GS1 Web Vocabulary patterns:
 
 | OpenEPCIS Property | UNTP Equivalent | Notes |
 |-------------------|-----------------|-------|
-| `dpp:carbonFootprintTotal` | `untp:carbonFootprint` | Total lifecycle CO2e |
-| `dpp:declaredUnit` | `untp:declaredUnit` | Functional unit |
-| `dpp:recycledContent` | `untp:recycledContent` | Total recycled percentage |
-| `dpp:recyclableContent` | `untp:recyclableContent` | Recyclability percentage |
-| `dpp:massFraction` | `untp:massFraction` | Material mass fraction |
-| `dpp:utilityFactor` | `untp:utilityFactor` | Durability multiplier |
-| `dpp:materialCircularityIndicator` | `untp:materialCircularityIndicator` | MCI score |
-| `dpp:primarySourcedRatio` | `untp:primarySourcedRatio` | Direct measurement ratio |
-| `dpp:operationalScope` | `untp:operationalScope` | Lifecycle boundary |
-| `dpp:verifiedRatio` | `untp:verifiedRatio` | Traceability verification |
-| `dpp:granularityLevel` | `untp:granularityLevel` | Product/Batch/Item |
+| `oec:carbonFootprintTotal` | `untp:carbonFootprint` | Total lifecycle CO2e |
+| `oec:declaredUnit` | `untp:declaredUnit` | Functional unit |
+| `oec:recycledContent` | `untp:recycledContent` | Total recycled percentage |
+| `oec:recyclableContent` | `untp:recyclableContent` | Recyclability percentage |
+| `oec:massFraction` | `untp:massFraction` | Material mass fraction |
+| `oec:utilityFactor` | `untp:utilityFactor` | Durability multiplier |
+| `oec:materialCircularityIndicator` | `untp:materialCircularityIndicator` | MCI score |
+| `oec:primarySourcedRatio` | `untp:primarySourcedRatio` | Direct measurement ratio |
+| `oec:operationalScope` | `untp:operationalScope` | Lifecycle boundary |
+| `oec:verifiedRatio` | `untp:verifiedRatio` | Traceability verification |
+| `oec:granularityLevel` | `untp:granularityLevel` | Product/Batch/Item |
 
 ### Class Alignment
 
 | OpenEPCIS Class | UNTP Equivalent | Notes |
 |-----------------|-----------------|-------|
-| `dpp:CircularityPerformance` | `untp:CircularityPerformance` | Circularity metrics container |
-| `dpp:EmissionsPerformance` | `untp:EmissionsPerformance` | Emissions data container |
-| `dpp:TraceabilityPerformance` | `untp:TraceabilityPerformance` | Traceability metrics |
-| `dpp:MaterialComposition` | `untp:Material` | Material composition |
-| `dpp:DigitalProductPassport` | `untp:ProductPassport` | New in v0.6.x |
-| `dpp:FacilityInformation` | `untp:FacilityRecord` | New in v0.6.x |
-| `dpp:ConformityDeclaration` | `untp:ConformityAttestation` | New in v0.6.x |
+| `oec:CircularityPerformance` | `untp:CircularityPerformance` | Circularity metrics container |
+| `oec:EmissionsPerformance` | `untp:EmissionsPerformance` | Emissions data container |
+| `oec:TraceabilityPerformance` | `untp:TraceabilityPerformance` | Traceability metrics |
+| `oec:MaterialComposition` | `untp:Material` | Material composition |
+| `oec:DigitalProductPassport` | `untp:ProductPassport` | New in v0.6.x |
+| `oec:FacilityInformation` | `untp:FacilityRecord` | New in v0.6.x |
+| `oec:ConformityDeclaration` | `untp:ConformityAttestation` | New in v0.6.x |
 
 ### Value Convention
 
@@ -298,15 +295,15 @@ See [CIRPASS2_COVERAGE.md](./CIRPASS2_COVERAGE.md) for detailed coverage analysi
 
 ## ESPR 2024/1781
 
-**Integration Method**: Full implementation in `dpp:` core module
+**Integration Method**: Full implementation in `oec:` core module
 
 | ESPR Requirement | OpenEPCIS Implementation |
 |-----------------|-------------------------|
-| Article 7 - Performance/Durability | `dpp:PerformanceInfo`, `dpp:expectedLifespan` |
-| Article 7 - Repairability | `dpp:RepairabilityInfo`, `dpp:repairabilityScore` |
-| Article 8 - Substances of Concern | `dpp:SubstanceOfConcern`, SCIP alignment |
-| Article 9 - Access Rights | `dpp:AccessRights`, `dpp:AccessLevel` |
-| Article 77 - Operator ID | `dpp:economicOperatorId`, `dpp:OperatorRole` |
+| Article 7 - Performance/Durability | `oec:PerformanceInfo`, `oec:expectedLifespan` |
+| Article 7 - Repairability | `oec:RepairabilityInfo`, `oec:repairabilityScore` |
+| Article 8 - Substances of Concern | `oec:SubstanceOfConcern`, SCIP alignment |
+| Article 9 - Access Rights | `oec:AccessRights`, `oec:AccessLevel` |
+| Article 77 - Operator ID | `oec:economicOperatorId`, `oec:OperatorRole` |
 
 ## CEN/CENELEC JTC 24 Methodology Standards
 
@@ -316,39 +313,39 @@ The EN 45552-45555 series defines *how* to assess product characteristics. OpenE
 
 | Assessment Output | OpenEPCIS Property |
 |-------------------|-------------------|
-| Expected lifetime | `dpp:expectedLifespan` |
-| Guaranteed lifetime | `dpp:guaranteedLifespan` |
-| Usage cycles | `dpp:usageCycles` |
-| Technical lifetime | `dpp:technicalLifetime` |
-| Test conditions | `dpp:testedConditions` |
+| Expected lifetime | `oec:expectedLifespan` |
+| Guaranteed lifetime | `oec:guaranteedLifespan` |
+| Usage cycles | `oec:usageCycles` |
+| Technical lifetime | `oec:technicalLifetime` |
+| Test conditions | `oec:testedConditions` |
 
 ### EN 45554 - Repairability Assessment
 
 | Assessment Output | OpenEPCIS Property |
 |-------------------|-------------------|
-| Repairability score | `dpp:repairabilityScore` |
-| Repairability class | `dpp:repairabilityClass` (A-E) |
-| Spare parts availability | `dpp:sparePartsAvailability` |
-| Repair documentation | `dpp:repairInstructions` |
-| Professional repair access | `dpp:professionalRepairNetwork` |
-| DIY repairability | `dpp:diyRepairPossible` |
+| Repairability score | `oec:repairabilityScore` |
+| Repairability class | `oec:repairabilityClass` (A-E) |
+| Spare parts availability | `oec:sparePartsAvailability` |
+| Repair documentation | `oec:repairInstructions` |
+| Professional repair access | `oec:professionalRepairNetwork` |
+| DIY repairability | `oec:diyRepairPossible` |
 
 ### EN 45555 - Recyclability Assessment
 
 | Assessment Output | OpenEPCIS Property |
 |-------------------|-------------------|
-| Recyclability rate | `dpp:recyclableContent` |
-| Recovery rate | `dpp:CircularityPerformance` |
-| Material composition | `dpp:MaterialComposition` |
-| Disassembly info | `dpp:dismantlingInstructions` |
+| Recyclability rate | `oec:recyclableContent` |
+| Recovery rate | `oec:CircularityPerformance` |
+| Material composition | `oec:MaterialComposition` |
+| Disassembly info | `oec:dismantlingInstructions` |
 
 ### EN 45553 - Remanufacturability Assessment
 
 | Assessment Output | OpenEPCIS Property |
 |-------------------|-------------------|
-| Remanufacturing potential | `dpp:CircularityPerformance` |
-| Component accessibility | `dpp:dismantlingInstructions` |
-| Material circularity | `dpp:materialCircularityIndicator` |
+| Remanufacturing potential | `oec:CircularityPerformance` |
+| Component accessibility | `oec:dismantlingInstructions` |
+| Material circularity | `oec:materialCircularityIndicator` |
 
 ## Superior OpenEPCIS Patterns
 
@@ -356,13 +353,13 @@ These OpenEPCIS patterns are more comprehensive than alternatives:
 
 | Pattern | Why Superior |
 |---------|-------------|
-| `dpp:OperatorInformation` | Full ESPR Article 77 role enumeration (Manufacturer, Importer, Distributor, AuthorisedRepresentative, FulfilmentServiceProvider, etc.) |
-| `dpp:FacilityInformation` | GLN support, facility certifications, facility type - extends `gs1:Place` |
-| `dpp:SubstanceOfConcern` | Full SCIP database alignment (SCIP ID, EC Number, safe use instructions) |
-| `dpp:RepairabilityInfo` | Complete French Repairability Index support (score, class, spare parts, DIY repair) |
-| `dpp:AccessLevel` | Three-tier ESPR Article 9 access control (Public, AuthorizedOnly, Restricted) |
-| `battery:*` module | Complete Battery Regulation Annex XIII coverage with DIN DKE SPEC 99100 |
-| `textile:*` module | ISO 3758 care symbols, microplastic info, durability classes |
+| `oec:OperatorInformation` | Full ESPR Article 77 role enumeration (Manufacturer, Importer, Distributor, AuthorisedRepresentative, FulfilmentServiceProvider, etc.) |
+| `oec:FacilityInformation` | GLN support, facility certifications, facility type - extends `gs1:Place` |
+| `oec:SubstanceOfConcern` | Full SCIP database alignment (SCIP ID, EC Number, safe use instructions) |
+| `oec:RepairabilityInfo` | Complete French Repairability Index support (score, class, spare parts, DIY repair) |
+| `oec:AccessLevel` | Three-tier ESPR Article 9 access control (Public, AuthorizedOnly, Restricted) |
+| `eubat:*` module | Complete Battery Regulation Annex XIII coverage with DIN DKE SPEC 99100 |
+| `eutex:*` module | ISO 3758 care symbols, microplastic info, durability classes |
 
 ## Related References & Liaison
 
@@ -389,17 +386,16 @@ The following external resources frame OpenEPCIS's work and should be consulted 
 - **Detergents Regulation** — Regulation (EU) 2026/405
 
 ### EU infrastructure
-- **EU DPP Registry** — goes live July 2026 per ESPR Art. 12; stores unique product, operator, and facility identifiers
-- **EU Customs Single Window (CSV-CERTEX)** — ESPR Art. 13 customs interconnect; products cannot clear customs without a registered DPP once a product-specific Delegated Act enters into force
+- **EU DPP Registry** — goes live July 2026 under ESPR; stores unique product, operator, and facility identifiers
+- **EU Customs Single Window (CSV-CERTEX)** — ESPR customs interconnect; products cannot clear customs without a registered DPP once a product-specific Delegated Act enters into force
 
 ### Methodology
-- **JRC Methodology Report** (JRC145830, March 2026) — defines immutable core vs. dynamic lifecycle log framework; directly relevant to `dpp:PassportStatus` and EN 18221 storage patterns ([source](https://publications.jrc.ec.europa.eu/repository/handle/JRC145830))
+- **JRC Methodology Report** (JRC145830, 2026) — methodology for specifying and prioritising DPP data requirements; relevant to `oec:PassportStatus` and EN 18221 storage patterns ([source](https://publications.jrc.ec.europa.eu/repository/handle/JRC145830))
 - **EN 45552–45555** — general methods for durability, remanufacturability, repair/reuse/upgrade, recyclability/recoverability assessment
 
-### GS1 GSMP tracked work requests
-- **WR 23-103** — foundational DPP GSCN; introduces GenSpecs Section 2.1.16 "ESPR"
-- **WR 26-081** — Extended Packaging / Web-based Information GSCN (Community eBallot)
-- **WR 26-108** — NFC as additional data carrier (Community Review)
-- **WR 25-212** — ITIP (Individual Trade Item Piece) identification (Community Review)
-- **WR 25-252** — EUDR exemptions in EANCOM, GS1 XML, GDSN (eBallot / Community Review)
-- **WR 26-122** — EUDR exemptions in GDSN (Community Review)
+### GS1 standardization
+- Relevant GS1 standardization (DPP foundations, extended packaging, data
+  carriers including NFC, ITIP piece-level identification, and EUDR exemption
+  handling) is in progress and tracked alongside these regulations. The
+  reference patterns here align with the published GS1 standards and follow that
+  work as it settles.

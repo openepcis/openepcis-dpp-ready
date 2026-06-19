@@ -25,7 +25,7 @@ Electronic Product Code Information Services (EPCIS) is the standard for capturi
 - Master Data linking via `gs1:masterDataAvailableFor`
 - JSON-LD representation for linked data
 
-**Architecture Rule**: `gs1:masterDataAvailableFor` contains ONLY `gs1:` namespace properties. Extension properties (`dpp:`, `battery:`, `eudr:`, etc.) go at event level. See [EPCIS_MASTERDATA_AND_EXTENSIONS.md](EPCIS_MASTERDATA_AND_EXTENSIONS.md) for the authoritative three-angle guide.
+**Architecture Rule**: `gs1:masterDataAvailableFor` contains ONLY `gs1:` namespace properties. Extension properties (`oec:`, `eubat:`, `eudr:`, etc.) go at event level. See [EPCIS_MASTERDATA_AND_EXTENSIONS.md](EPCIS_MASTERDATA_AND_EXTENSIONS.md) for the authoritative three-angle guide.
 
 #### GS1-Extensions HTTP Header (Section 12.3)
 
@@ -35,7 +35,7 @@ EPCIS 2.0 defines custom HTTP headers for extension discovery and content negoti
 
 **OpenEPCIS DPP Extensions**:
 ```http
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/, eudr=https://ref.openepcis.io/extensions/eu/eudr/, battery=https://ref.openepcis.io/extensions/eu/battery/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, eudr=https://ref.openepcis.io/extensions/eu/eudr/, eubat=https://ref.openepcis.io/extensions/eu/battery/
 ```
 
 This header should be included in:

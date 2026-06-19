@@ -1,0 +1,44 @@
+meta {
+  name: Patch pip — Bed Linen Set
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{dl-url}}/01/09521001001380
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  [
+    {
+      "action": "update",
+      "linkset": [
+        {
+          "anchor": "{{dl-url}}/01/09521001001380",
+          "itemDescription": "Casa Lina Organic Cotton Bed Linen Set",
+          "pip": [
+            {
+              "href": "{{ddm-host}}/01/09521001001380?template=textile-overview",
+              "title": "Casa Lina Organic Cotton Bed Linen Set — Digital Product Passport",
+              "fwqs": false,
+              "type": "text/html",
+              "hreflang": ["en"],
+              "context": ["product-information-page"],
+              "public": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+assert {
+  res.status: eq 200
+}

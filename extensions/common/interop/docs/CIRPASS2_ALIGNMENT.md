@@ -46,18 +46,18 @@ subsumption or equivalence. Three reasons:
 
 | Our IRI | CIRPASS-2 see-also pointer | Note |
 |---|---|---|
-| `dpp:OperatorInformation` | `cirpass2:Actor`, `cirpass2:LegalPerson`, `cirpass2:ManufacturerRecord` | three pointers — operator overlaps each in a different way |
-| `dpp:OperatorRole` | `cirpass2:EconomicOperatorRole` | enum-vs-class shape difference; pointer only |
-| `dpp:FacilityInformation` | `cirpass2:Facility` | |
-| `dpp:HazardousSubstance` | `cirpass2:Substance` | |
-| `dpp:SubstanceOfConcern` | `cirpass2:SubstanceOfConcern` | both SCIP-aligned |
-| `dpp:CircularityPerformance` | `cirpass2:CircularEconomyIndicator` | |
-| `dpp:RecycledContent` | `cirpass2:RecycledMaterialsUse` | |
-| `dpp:EmissionsPerformance` | `cirpass2:CarbonFootprint`, `cirpass2:EnvironmentalFootprint` | |
-| `dpp:PerformanceInfo` | `cirpass2:Durability`, `cirpass2:Reliability` | |
-| `dpp:RepairabilityInfo` | `cirpass2:Reliability`, `cirpass2:Durability` | |
-| `dpp:DueDiligenceReport` | `cirpass2:ComplianceDeclaration` | already anchored more strongly to `cccev:Evidence` (CCCEV is the SEMICeu upstream that CIRPASS-2's compliance model derives from) |
-| `dpp:DocumentReference` | `cirpass2:DigitalInstruction` | |
+| `oec:OperatorInformation` | `cirpass2:Actor`, `cirpass2:LegalPerson`, `cirpass2:ManufacturerRecord` | three pointers — operator overlaps each in a different way |
+| `oec:OperatorRole` | `cirpass2:EconomicOperatorRole` | enum-vs-class shape difference; pointer only |
+| `oec:FacilityInformation` | `cirpass2:Facility` | |
+| `oec:HazardousSubstance` | `cirpass2:Substance` | |
+| `oec:SubstanceOfConcern` | `cirpass2:SubstanceOfConcern` | both SCIP-aligned |
+| `oec:CircularityPerformance` | `cirpass2:CircularEconomyIndicator` | |
+| `oec:RecycledContent` | `cirpass2:RecycledMaterialsUse` | |
+| `oec:EmissionsPerformance` | `cirpass2:CarbonFootprint`, `cirpass2:EnvironmentalFootprint` | |
+| `oec:PerformanceInfo` | `cirpass2:Durability`, `cirpass2:Reliability` | |
+| `oec:RepairabilityInfo` | `cirpass2:Reliability`, `cirpass2:Durability` | |
+| `oec:DueDiligenceReport` | `cirpass2:ComplianceDeclaration` | already anchored more strongly to `cccev:Evidence` (CCCEV is the SEMICeu upstream that CIRPASS-2's compliance model derives from) |
+| `oec:DocumentReference` | `cirpass2:DigitalInstruction` | |
 
 Module ontologies (`battery.ttl`, `eudr.ttl`, `textile.ttl`,
 `electronics.ttl`) inherit these pointers indirectly via property

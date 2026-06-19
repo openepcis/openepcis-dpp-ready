@@ -1,0 +1,52 @@
+meta {
+  name: Shipping — Manufacturer to Brand Owner
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{url}}/capture
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "@context": [
+      "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+      "{{dpp-context}}",
+      "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
+    ],
+    "type": "EPCISDocument",
+    "schemaVersion": "2.0",
+    "creationDate": "{{eventTime}}",
+    "epcisBody": {
+      "eventList": [
+        {
+          "type": "ObjectEvent",
+          "action": "OBSERVE",
+          "bizStep": "shipping",
+          "disposition": "in_transit",
+          "eventTime": "{{eventTime}}",
+          "eventTimeZoneOffset": "+02:00",
+          "epcList": ["{{bottleEpc}}"],
+          "readPoint":   { "id": `https://id.gs1.org/414/${bru.getVar("bottlingPlantGln")}` },
+          "bizLocation": { "id": `https://id.gs1.org/414/${bru.getVar("bottlingPlantGln")}` },
+          "sourceList":      [{ "type": "urn:epcglobal:cbv:sdt:owning_party", "source":      `https://id.gs1.org/417/${bru.getVar("bottlerOrgGln")}` }],
+          "destinationList": [{ "type": "urn:epcglobal:cbv:sdt:owning_party", "destination": `https://id.gs1.org/417/${bru.getVar("brandOwnerOrgGln")}` }],
+          "bizTransactionList": [
+            { "type": "urn:epcglobal:cbv:btt:po",     "bizTransaction": "https://eurobeverage-brands.example.com/orders/PO-2026-04822" },
+            { "type": "urn:epcglobal:cbv:btt:desadv", "bizTransaction": "https://mountain-spring.example.com/shipping/DESADV-2026-01340" }
+          ]
+        }
+      ]
+    }
+  }
+}
+
+tests {
+  test("Capture successful", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+    expect((res.headers["content-type"] || "")).to.not.include("text/html");
+  });
+}

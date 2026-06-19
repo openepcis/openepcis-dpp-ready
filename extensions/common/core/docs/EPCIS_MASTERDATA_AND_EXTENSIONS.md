@@ -59,13 +59,13 @@ is an EPCIS-context term and is written **bare** (no `gs1:` prefix).
   **implicit** — write GS1 property keys and `gs1:`-class `type` / `id`
   values **bare** (e.g. `productName`, `type: "Product"`,
   `id: "RegulationTypeCode-BATTERY_DIRECTIVE"`).
-- Properties from other namespaces (`battery:`, `eudr:`, `textile:`,
-  `dpp:`, …) **keep** their namespace prefix. Only `gs1:` is elided.
+- Properties from other namespaces (`eubat:`, `eudr:`, `eutex:`,
+  `oec:`, …) **keep** their namespace prefix. Only `gs1:` is elided.
 
 **Project convention:** `masterDataAvailableFor` entries are strongly
 biased towards **GS1 Web Vocabulary properties** — every attribute that has
 a native GS1 term MUST use it (written bare). Extension-namespaced
-properties (`battery:batteryChemistry`, `textile:fabricType`,
+properties (`eubat:batteryChemistry`, `eutex:fabricType`,
 `schema:category`, etc.) are permitted **only for genuinely
 product-level attributes that have no GS1 equivalent**. In practice this
 means:
@@ -73,11 +73,11 @@ means:
 - **YES** — `gs1:regulatoryInformation`, `gs1:countryOfOrigin`,
   `gs1:productName`, `gs1:netWeight`, `gs1:manufacturer`,
   `gs1:certification`, `gs1:textileMaterial`, `gs1:harvestDate` etc.
-- **YES**, when no GS1 equivalent exists — `battery:batteryChemistry`,
+- **YES**, when no GS1 equivalent exists — `eubat:batteryChemistry`,
   `schema:category`, `schema:category`,
-  `textile:fabricType`, `schema:category`,
+  `eutex:fabricType`, `schema:category`,
   `schema:category`, `eudr:commodityType`,
-  `fsma:foodTraceabilityListCategory`. These describe the GTIN itself and
+  `usfsma:foodTraceabilityListCategory`. These describe the GTIN itself and
   belong with the other product master data.
 - **NO** — observation-specific data (sensor readings, per-event
   disposition, this-shipment-only KDEs). Those go at event level.
@@ -100,7 +100,7 @@ Properties from our DPP extension vocabularies that describe
 **Rules:**
 - Placed as user extension fields directly on the event object.
 - MUST be properly prefixed (e.g., `eudr:riskLevel`,
-  `battery:incidentSeverity`, not bare `riskLevel` / `incidentSeverity`).
+  `eubat:incidentSeverity`, not bare `riskLevel` / `incidentSeverity`).
 - Declared via `GS1-Extensions` HTTP header (see Section 5).
 - Declared via additional `@context` entries in the JSON-LD document.
 - In XML binding: appear in the `<extension>` element
@@ -114,12 +114,12 @@ of the event's semantics, not part of the product's master data card.
 - `eudr:riskLevel`, `eudr:verificationMethod`,
   `eudr:deforestationFreeDate` on a `notifying` event — observations
   specific to the due-diligence notification.
-- `electronics:repairType`, `electronics:repairTechnician`,
-  `electronics:warrantyStatus` on a repair event — specific to the repair
+- `euelec:repairType`, `euelec:repairTechnician`,
+  `euelec:warrantyStatus` on a repair event — specific to the repair
   action.
-- `battery:incidentSeverity` on a negative event.
-- `textile:environmentalFootprint`, `textile:substancesOfConcern`,
-  `textile:robustnessAssessment` on an observation event — laboratory
+- `eubat:incidentSeverity` on a negative event.
+- `eutex:environmentalFootprint`, `eutex:substancesOfConcern`,
+  `eutex:robustnessAssessment` on an observation event — laboratory
   test results reported at that observation.
 
 ### C. ILMD (Instance/Lot Master Data) — lot-level only
@@ -137,9 +137,9 @@ being commissioned, not attributes of the GTIN itself. For example:
 
 - **YES (lot-level)** — `gs1:bestBeforeDate` for this production run,
   `gs1:catchZone` for this fishing trip,
-  `textile:isRecycledFiber` + `textile:recycledContentSource` for this
+  `eutex:isRecycledFiber` + `eutex:recycledContentSource` for this
   yarn batch, a sensor reading captured at commissioning time.
-- **NO (product-level)** — `battery:batteryChemistry`,
+- **NO (product-level)** — `eubat:batteryChemistry`,
   `schema:category`, `schema:category`,
   `schema:category`. These describe the GTIN (they are the
   same for every lot of the same SKU) and belong in
@@ -177,13 +177,13 @@ inside an EPCIS event structure.
     { "gs1": "https://ref.gs1.org/voc/" }
   ],
   "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
-  "type": ["gs1:Product", "battery:Battery"],
+  "type": ["gs1:Product", "eubat:Battery"],
   "gs1:productName": "EV Battery Pack 280Ah LFP",
   "gs1:manufacturer": { ... },
   "gs1:regulatoryInformation": [{ ... }],
-  "battery:batteryChemistry": "LFP",
-  "battery:ratedCapacity": { ... },
-  "dpp:carbonFootprintTotal": 42.5
+  "eubat:batteryChemistry": "LFP",
+  "eubat:ratedCapacity": { ... },
+  "oec:carbonFootprintTotal": 42.5
 }
 ```
 
@@ -230,12 +230,12 @@ which extension namespaces a server supports.
 
 **OpenEPCIS DPP extensions:**
 ```http
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,battery=https://ref.openepcis.io/extensions/eu/battery/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eubat=https://ref.openepcis.io/extensions/eu/battery/
 ```
 
 **Full set (all modules):**
 ```http
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,battery=https://ref.openepcis.io/extensions/eu/battery/,eudr=https://ref.openepcis.io/extensions/eu/eudr/,textile=https://ref.openepcis.io/extensions/eu/textile/,electronics=https://ref.openepcis.io/extensions/eu/electronics/,detergent=https://ref.openepcis.io/extensions/eu/detergent/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eubat=https://ref.openepcis.io/extensions/eu/battery/,eudr=https://ref.openepcis.io/extensions/eu/eudr/,eutex=https://ref.openepcis.io/extensions/eu/textile/,euelec=https://ref.openepcis.io/extensions/eu/electronics/,eudet=https://ref.openepcis.io/extensions/eu/detergent/
 ```
 
 **Where it appears:**
@@ -335,7 +335,7 @@ have a corresponding context entry, and vice versa.
 ```http
 POST /capture HTTP/1.1
 Content-Type: application/ld+json
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,eudr=https://ref.openepcis.io/extensions/eu/eudr/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eudr=https://ref.openepcis.io/extensions/eu/eudr/
 GS1-EPCIS-Version: 2.0
 GS1-CBV-Version: 2.0
 ```

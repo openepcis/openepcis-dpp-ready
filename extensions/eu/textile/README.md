@@ -2,7 +2,7 @@
 
 This module provides vocabulary and examples for implementing Digital Product Passports for textile products under the EU Sustainable Textiles Strategy, ESPR 2024/1781, and the EU Preparatory Study on Textiles 3rd Milestone.
 
-> **Status**: v0.9.5 - Production Ready
+> **Status**: v0.9.6 - Production Ready
 
 ## Regulation Overview
 
@@ -27,7 +27,7 @@ This module provides vocabulary and examples for implementing Digital Product Pa
 
 ```
 textile/
-├── VERSION                              # 0.9.5
+├── VERSION                              # 0.9.6
 ├── CHANGELOG.md                         # Version history
 ├── README.md                            # This file
 ├── ontology/
@@ -58,7 +58,7 @@ textile/
 
 ## Vocabulary Namespace
 
-**Prefix**: `textile:`
+**Prefix**: `eutex:`
 **URI**: `https://ref.openepcis.io/extensions/eu/textile/`
 
 Browse the vocabulary at: [ref.openepcis.io/extensions/eu/textile/](https://ref.openepcis.io/extensions/eu/textile/)
@@ -67,33 +67,33 @@ Browse the vocabulary at: [ref.openepcis.io/extensions/eu/textile/](https://ref.
 
 | Class | Description |
 |-------|-------------|
-| `textile:TextileProduct` | Base class extending gs1:Product |
-| `textile:FiberComposition` | Detailed fiber composition with traceability |
-| `textile:CareInstruction` | ISO 3758 care symbol support |
-| `textile:DurabilityInfo` | Durability metrics (wash cycles, pilling, etc.) |
-| `textile:RobustnessAssessment` | 0-10 robustness score (spirality + dimensional + visual) |
-| `textile:RecyclabilityAssessment` | 0-10 recyclability score |
-| `textile:RecycledContentDeclaration` | Structured recycled content with chain of custody |
-| `textile:EnvironmentalFootprint` | PEF/PEFCR environmental reporting |
-| `textile:SubstanceOfConcern` | 4-type SoC per ESPR Article 7(5) |
-| `textile:TextileChemical` | Chemical substances (MRSL, REACH) |
-| `textile:TakeBackProgram` | End-of-life take-back program |
-| `textile:MicroplasticInfo` | Microfiber shedding information |
+| `eutex:TextileProduct` | Base class extending gs1:Product |
+| `eutex:FiberComposition` | Detailed fiber composition with traceability |
+| `eutex:CareInstruction` | ISO 3758 care symbol support |
+| `eutex:DurabilityInfo` | Durability metrics (wash cycles, pilling, etc.) |
+| `eutex:RobustnessAssessment` | 0-10 robustness score (spirality + dimensional + visual) |
+| `eutex:RecyclabilityAssessment` | 0-10 recyclability score |
+| `eutex:RecycledContentDeclaration` | Structured recycled content with chain of custody |
+| `eutex:EnvironmentalFootprint` | PEF/PEFCR environmental reporting |
+| `eutex:SubstanceOfConcern` | 4-type SoC per ESPR Article 7(5) |
+| `eutex:TextileChemical` | Chemical substances (MRSL, REACH) |
+| `eutex:TakeBackProgram` | End-of-life take-back program |
+| `eutex:MicroplasticInfo` | Microfiber shedding information |
 
 ## Key Enumerations
 
 | Enumeration | Values |
 |-------------|--------|
-| `textile:TextileCategory` | Apparel, Footwear, HomeTextiles, TechnicalTextiles, Accessories |
-| `textile:FabricType` | Knitted, Denim, WovenNonDenim |
-| `textile:ApparelSubcategory` | TShirts, ShirtsBlouses, Sweaters, JacketsCoats, PantsShorts, DressesSkirts, LeggingsStockingsSocks, Underwear, Swimwear, TextileAccessories |
-| `textile:FiberType` | 20 fiber types including recycled/organic variants |
-| `textile:CareSymbolCode` | 30+ ISO 3758 care symbols |
-| `textile:RecyclingTechnology` | MechanicalRecycling, ChemicalRecyclingCotton, ThermoChemicalRecycling, ChemicalRecyclingPA6, ThermoMechanicalRecycling |
-| `textile:SubstanceOfConcernType` | SoCTypeA (SVHC), SoCTypeB (CLP), SoCTypeC (POPs), SoCTypeD (Recycling) |
-| `textile:CLPHazardCategory` | CMR, EndocrineDisruptor, PMT, Sensitizer, AquaticToxicity |
-| `textile:FootprintDataType` | PrimaryData, SecondaryData, MixedData |
-| `textile:TestStandard` | ISO6330, ISO16322_3, ISO3759, ISO15487, ISO105, ISO12945, ISO12947 |
+| `eutex:TextileCategory` | Apparel, Footwear, HomeTextiles, TechnicalTextiles, Accessories |
+| `eutex:FabricType` | Knitted, Denim, WovenNonDenim |
+| `eutex:ApparelSubcategory` | TShirts, ShirtsBlouses, Sweaters, JacketsCoats, PantsShorts, DressesSkirts, LeggingsStockingsSocks, Underwear, Swimwear, TextileAccessories |
+| `eutex:FiberType` | 20 fiber types including recycled/organic variants |
+| `eutex:CareSymbolCode` | 30+ ISO 3758 care symbols |
+| `eutex:RecyclingTechnology` | MechanicalRecycling, ChemicalRecyclingCotton, ThermoChemicalRecycling, ChemicalRecyclingPA6, ThermoMechanicalRecycling |
+| `eutex:SubstanceOfConcernType` | SoCTypeA (SVHC), SoCTypeB (CLP), SoCTypeC (POPs), SoCTypeD (Recycling) |
+| `eutex:CLPHazardCategory` | CMR, EndocrineDisruptor, PMT, Sensitizer, AquaticToxicity |
+| `eutex:FootprintDataType` | PrimaryData, SecondaryData, MixedData |
+| `eutex:TestStandard` | ISO6330, ISO16322_3, ISO3759, ISO15487, ISO105, ISO12945, ISO12947 |
 
 ## GS1 Integration
 
@@ -103,7 +103,7 @@ This vocabulary follows the GS1-first principle:
 - `gs1:textileMaterial` with `gs1:TextileMaterialDetails` for basic fiber composition
 - `gs1:certification` with `gs1:CertificationDetails` for certifications
 - `gs1:consumerRecyclingInstructions` for recycling text
-- `gs1:referencedFileDetails` for documents
+- `gs1:referencedFile` for documents
 
 **Textile extensions only where GS1 lacks coverage**:
 - Robustness scoring (0-10 per EU methodology)
@@ -119,21 +119,21 @@ This vocabulary follows the GS1-first principle:
 ## Dependencies
 
 **Core module** `>= 1.1.0`:
-- `dpp:OperatorInformation` - Economic operator data
-- `dpp:RecycledContent` - Recycled content percentages
-- `dpp:RepairabilityInfo` - Repair scores and spare parts
-- `dpp:FacilityInformation` - Manufacturing facility data
-- `dpp:CircularityInfo` - End-of-life handling
-- `dpp:DocumentReference` - Supporting documents
-- `dpp:AccessRights` - Data access control (ESPR Article 9)
+- `oec:OperatorInformation` - Economic operator data
+- `oec:RecycledContent` - Recycled content percentages
+- `oec:RepairabilityInfo` - Repair scores and spare parts
+- `oec:FacilityInformation` - Manufacturing facility data
+- `oec:CircularityInfo` - End-of-life handling
+- `oec:DocumentReference` - Supporting documents
+- `oec:AccessRights` - Data access control (ESPR Article 9)
 
 ## EPCIS 2.0 Extension Declaration
 
 ```http
-GS1-Extensions: textile=https://ref.openepcis.io/extensions/eu/textile/, dpp=https://ref.openepcis.io/extensions/common/core/
+GS1-Extensions: eutex=https://ref.openepcis.io/extensions/eu/textile/, oec=https://ref.openepcis.io/extensions/common/core/
 ```
 
-**Architecture rule**: `gs1:masterDataAvailableFor` contains only `gs1:` properties. Textile-specific extensions (`textile:`) go at event level. See [core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md](../core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md).
+**Architecture rule**: `gs1:masterDataAvailableFor` contains only `gs1:` properties. Textile-specific extensions (`eutex:`) go at event level. See [core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md](../core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md).
 
 ## JSON-LD Context Usage
 
@@ -144,8 +144,8 @@ GS1-Extensions: textile=https://ref.openepcis.io/extensions/eu/textile/, dpp=htt
     "dpp": "https://ref.openepcis.io/extensions/common/core/",
     "textile": "https://ref.openepcis.io/extensions/eu/textile/"
   },
-  "type": ["gs1:Product", "textile:TextileProduct"],
-  "gs1:gtin": "09521234000011",
+  "type": ["gs1:Product", "eutex:TextileProduct"],
+  "gs1:gtin": "09521234300014",
   "textileCategory": "Apparel",
   "fabricType": "WovenNonDenim",
   "apparelSubcategory": "JacketsCoats",

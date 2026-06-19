@@ -11,16 +11,16 @@ Final Rule on Food Traceability (21 CFR Part 1 Subpart S) as a first-class
 EPCIS 2.0 extension, sibling to the EU DPP modules under `extensions/eu/`.
 
 ### Added
-- `fsma:TraceabilityLotCode` — the canonical TLC concept (21 CFR 1.1315).
-- `fsma:CriticalTrackingEvent` abstract class with seven subclasses covering
+- `usfsma:TraceabilityLotCode` — the canonical TLC concept (21 CFR 1.1315).
+- `usfsma:CriticalTrackingEvent` abstract class with seven subclasses covering
   the FDA's defined CTEs: Harvesting, Cooling, Initial Packing, First
   Land-Based Receiver, Shipping, Receiving, Transformation.
-- `fsma:KeyDataElement` concept and properties for the KDEs each CTE must
+- `usfsma:KeyDataElement` concept and properties for the KDEs each CTE must
   capture (21 CFR 1.1330–1.1345).
-- `fsma:FoodTraceabilityList` enumeration with the twelve FDA-defined
+- `usfsma:FoodTraceabilityList` enumeration with the twelve FDA-defined
   categories of foods subject to the rule.
 - JSON-LD context (`fsma204-context.jsonld`) that maps the TTL vocabulary
-  to the short `fsma:` prefix and enables bare-string values for enums.
+  to the short `usfsma:` prefix and enables bare-string values for enums.
 - Reference master-data example (`examples/traceability-lot.jsonld`) —
   a leafy-greens product with its assigned TLC.
 - Two EPCIS 2.0 event examples mapping FSMA CTEs to canonical EPCIS

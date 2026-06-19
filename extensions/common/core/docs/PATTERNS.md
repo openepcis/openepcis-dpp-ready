@@ -3,8 +3,8 @@
 This document describes the reusable patterns in the DPP Core module that can be applied across different regulation-specific DPP implementations. The core module is aligned with the EU Ecodesign for Sustainable Products Regulation (ESPR) 2024/1781.
 
 > **Read first**: [Vocabulary Layering](../../../../docs/VOCABULARY_LAYERING.md) — the
-> four-layer delegation pattern (regulation modules → `dpp:` → UNTP/schema.org → GS1).
-> The patterns below are at Layer 3 (`dpp:`); most are anchored upward via
+> four-layer delegation pattern (regulation modules → `oec:` → UNTP/schema.org → GS1).
+> The patterns below are at Layer 3 (`oec:`); most are anchored upward via
 > `owl:equivalentClass`/`equivalentProperty` to a Layer-2 term in UNTP v0.7.0
 > (`vocabulary.uncefact.org/untp/0.7.0/`) or schema.org. When implementing a
 > regulation module, **delegate** — don't redefine.
@@ -38,7 +38,7 @@ This document describes the reusable patterns in the DPP Core module that can be
 
 ### Context Imports
 
-The DPP Core context defines only OpenEPCIS-specific extensions (`dpp:` namespace). GS1 terms must be resolved by importing the appropriate official GS1 context alongside the DPP context.
+The DPP Core context defines only OpenEPCIS-specific extensions (`oec:` namespace). GS1 terms must be resolved by importing the appropriate official GS1 context alongside the DPP context.
 
 **For EPCIS Events** (supply chain traceability):
 ```json
@@ -55,7 +55,7 @@ The DPP Core context defines only OpenEPCIS-specific extensions (`dpp:` namespac
 
 Include the GS1-Extensions header in HTTP requests:
 ```http
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/, battery=https://ref.openepcis.io/extensions/eu/battery/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, eubat=https://ref.openepcis.io/extensions/eu/battery/
 ```
 
 **For Product Master Data** (Digital Link resolution):
@@ -85,8 +85,8 @@ GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/, battery=ht
 | Prefix | Namespace | GS1-Extensions Header |
 |--------|-----------|----------------------|
 | `gs1:` | `https://ref.gs1.org/voc/` | (official GS1, no header needed) |
-| `dpp:` | `https://ref.openepcis.io/extensions/common/core/` | `dpp=https://ref.openepcis.io/extensions/common/core/` |
-| `battery:` | `https://ref.openepcis.io/extensions/eu/battery/` | `battery=https://ref.openepcis.io/extensions/eu/battery/` |
+| `oec:` | `https://ref.openepcis.io/extensions/common/core/` | `oec=https://ref.openepcis.io/extensions/common/core/` |
+| `eubat:` | `https://ref.openepcis.io/extensions/eu/battery/` | `eubat=https://ref.openepcis.io/extensions/eu/battery/` |
 | `eudr:` | `https://ref.openepcis.io/extensions/eu/eudr/` | `eudr=https://ref.openepcis.io/extensions/eu/eudr/` |
 
 ---
@@ -139,7 +139,7 @@ Lightweight JSON-LD message for direct partner-to-partner compliance communicati
 
 Full EPCIS events with provenance for auditable traceability. Per GS1 Germany EUDR Guideline V1.11, `regulatoryInformation` should be **nested inside** the product entry in `gs1:masterDataAvailableFor`.
 
-**Architecture rule**: `gs1:masterDataAvailableFor` contains ONLY `gs1:` namespace properties. Extension properties (`dpp:`, `eudr:`, `battery:`, etc.) go at **event level** -- as siblings of `bizStep`, `epcList`, etc. See [EPCIS_MASTERDATA_AND_EXTENSIONS.md](EPCIS_MASTERDATA_AND_EXTENSIONS.md) for the authoritative guide.
+**Architecture rule**: `gs1:masterDataAvailableFor` contains ONLY `gs1:` namespace properties. Extension properties (`oec:`, `eudr:`, `eubat:`, etc.) go at **event level** -- as siblings of `bizStep`, `epcList`, etc. See [EPCIS_MASTERDATA_AND_EXTENSIONS.md](EPCIS_MASTERDATA_AND_EXTENSIONS.md) for the authoritative guide.
 
 **Important**: Inside `gs1:masterDataAvailableFor`, the `gs1:` prefix is NOT required - use bare property names and string values:
 
@@ -208,7 +208,7 @@ Full EPCIS events with provenance for auditable traceability. Per GS1 Germany EU
 **Key points per GS1 Germany EUDR Guideline V1.11**:
 - `epcList` or `quantityList` contains product identifiers (serialized or batch-level)
 - `gs1:masterDataAvailableFor` is a **top-level array** on the event -- contains ONLY `gs1:` properties
-- **Extension properties** (`eudr:`, `dpp:`, `battery:`, etc.) go at **event level** -- siblings of `bizStep`
+- **Extension properties** (`eudr:`, `oec:`, `eubat:`, etc.) go at **event level** -- siblings of `bizStep`
 - **Inside `masterDataAvailableFor`, use bare property names** (no `gs1:` prefix) - the namespace is assumed
 - **Use bare string values** like `"regulationType": "DEFORESTATION_REGULATION"` (not `{ "id": "gs1:..." }`)
 - **`regulatoryInformation` is nested INSIDE the product entry** (not at event level)
@@ -242,17 +242,17 @@ The EU Ecodesign for Sustainable Products Regulation (ESPR) 2024/1781 establishe
 
 | ESPR Article | Requirement | DPP Pattern |
 |--------------|-------------|-------------|
-| Article 7 | Performance & Durability | `dpp:PerformanceInfo` |
-| Article 7 | Repairability | `dpp:RepairabilityInfo` |
-| Article 8 | Substances of Concern | `dpp:SubstanceOfConcern` |
-| Article 9 | Access Rights | `dpp:AccessRights` |
-| Article 77 | Economic Operator Registration | `dpp:economicOperatorId` |
+| Article 7 | Performance & Durability | `oec:PerformanceInfo` |
+| Article 7 | Repairability | `oec:RepairabilityInfo` |
+| Article 8 | Substances of Concern | `oec:SubstanceOfConcern` |
+| Article 9 | Access Rights | `oec:AccessRights` |
+| Article 77 | Economic Operator Registration | `oec:economicOperatorId` |
 
 ### ESPR Product Categories
 
 ```json
 {
-  "dpp:productCategory": "Electronics"
+  "oec:productCategory": "Electronics"
 }
 ```
 
@@ -265,12 +265,12 @@ Per ESPR, use GS1 Digital Link format:
 ```json
 {
   "gs1:productID": { "id": "https://id.gs1.org/01/09521234000013/21/SN-2025-001" },
-  "dpp:passportIdentifier": { "id": "https://id.gs1.org/01/09521234000013/21/SN-2025-001/10/DPP-v1" },
-  "dpp:passportVersion": "1.0",
-  "dpp:passportIssueDate": "2025-01-15",
-  "dpp:passportStatus": "Active",
-  "dpp:passportLastModified": "2025-01-15T10:30:00Z",
-  "dpp:passportIssuer": {
+  "oec:passportIdentifier": { "id": "https://id.gs1.org/01/09521234000013/21/SN-2025-001/10/DPP-v1" },
+  "oec:passportVersion": "1.0",
+  "oec:passportIssueDate": "2025-01-15",
+  "oec:passportStatus": "Active",
+  "oec:passportLastModified": "2025-01-15T10:30:00Z",
+  "oec:passportIssuer": {
     "type": "OperatorInformation",
     "operatorRole": "Manufacturer",
     "organizationName": "Example Corp"
@@ -292,8 +292,8 @@ Capture economic operator data as required by EU Market Surveillance Regulation,
   "operatorRole": "Manufacturer",
   "gln": "9521234000006",
   "gs1:organizationName": "Example Manufacturing GmbH",
-  "dpp:economicOperatorId": "EOID-DE-2025-123456",
-  "dpp:eoriNumber": "DE123456789012345",
+  "oec:economicOperatorId": "EOID-DE-2025-123456",
+  "oec:eoriNumber": "DE123456789012345",
   "schema:vatID": "DE123456789",
   "registrationNumber": "DE-REG-2024-001234",
   "gs1:address": {
@@ -306,7 +306,7 @@ Capture economic operator data as required by EU Market Surveillance Regulation,
 }
 ```
 
-**Note:** Use `gs1:gln` (mapped as `gln` in context) for operator identification since `dpp:OperatorInformation` extends `gs1:Organization`.
+**Note:** Use `gs1:gln` (mapped as `gln` in context) for operator identification since `oec:OperatorInformation` extends `gs1:Organization`.
 
 ### ESPR Economic Operator ID (Article 77)
 
@@ -314,18 +314,18 @@ ESPR Article 77 establishes a single EU-wide economic operator registry. The `ec
 
 ```json
 {
-  "dpp:economicOperatorId": "EOID-DE-2025-123456"
+  "oec:economicOperatorId": "EOID-DE-2025-123456"
 }
 ```
 
 ### Operator Roles
-- `dpp:Manufacturer` - Entity that manufactures the product
-- `dpp:Importer` - Entity that imports the product into the EU
-- `dpp:Distributor` - Entity that distributes the product
-- `dpp:Processor` - Entity that processes raw materials (EUDR)
-- `dpp:Trader` - Entity that trades commodities (EUDR)
-- `dpp:AuthorisedRepresentative` - Entity authorized to act on behalf of manufacturer (ESPR Article 16)
-- `dpp:FulfilmentServiceProvider` - Entity providing fulfilment services (ESPR Article 17)
+- `oec:Manufacturer` - Entity that manufactures the product
+- `oec:Importer` - Entity that imports the product into the EU
+- `oec:Distributor` - Entity that distributes the product
+- `oec:Processor` - Entity that processes raw materials (EUDR)
+- `oec:Trader` - Entity that trades commodities (EUDR)
+- `oec:AuthorisedRepresentative` - Entity authorized to act on behalf of manufacturer (ESPR Article 16)
+- `oec:FulfilmentServiceProvider` - Entity providing fulfilment services (ESPR Article 17)
 
 ### Usage
 - **Battery DPP**: Required per Article 38
@@ -346,7 +346,7 @@ Capture manufacturing or processing facility information per ESPR requirements.
   "type": "FacilityInformation",
   "gln": "9521234000099",
   "gs1:name": "Example Manufacturing Plant Berlin",
-  "dpp:facilityType": "Manufacturing",
+  "oec:facilityType": "Manufacturing",
   "gs1:address": {
     "type": "gs1:PostalAddress",
     "gs1:streetAddress": "Industrial Park 1",
@@ -354,7 +354,7 @@ Capture manufacturing or processing facility information per ESPR requirements.
     "gs1:postalCode": "10115",
     "gs1:addressCountry": "DE"
   },
-  "dpp:facilityCertifications": [
+  "oec:facilityCertifications": [
     {
       "type": "gs1:CertificationDetails",
       "gs1:certificationStandard": "ISO 14001:2015",
@@ -364,7 +364,7 @@ Capture manufacturing or processing facility information per ESPR requirements.
 }
 ```
 
-**Note:** Use `gs1:gln` (mapped as `gln` in context) for facility identification, `gs1:name` for facility name, and `gs1:address` for location since `dpp:FacilityInformation` extends `gs1:Place`.
+**Note:** Use `gs1:gln` (mapped as `gln` in context) for facility identification, `gs1:name` for facility name, and `gs1:address` for location since `oec:FacilityInformation` extends `gs1:Place`.
 
 ### GS1 Digital Link Format
 
@@ -422,7 +422,7 @@ Declare compliance with specific regulations using the GS1 `gs1:regulatoryInform
     "regulatoryAct": "EU 2023/1542",
     "isRegulationCompliant": true,
     "gs1:regulatoryReferenceNumber": "EU-REF-2024-001234",
-    "dpp:complianceDate": "2025-01-15"
+    "oec:complianceDate": "2025-01-15"
   }]
 }
 ```
@@ -478,14 +478,14 @@ Declare substances of concern aligned with SCIP database and ESPR requirements. 
 {
   "type": "SubstanceOfConcern",
   "schema:name": "Lead",
-  "dpp:casNumber": "7439-92-1",
-  "dpp:ecNumber": "231-100-4",
-  "dpp:scipId": "SCIP-12345678",
-  "dpp:concentration": 0.5,
-  "dpp:hazardClass": "ReproductiveToxicity",
-  "dpp:substanceLocation": "Battery electrodes",
-  "dpp:safeUseInstructions": "Avoid contact. Use protective gloves.",
-  "dpp:safeDisassemblyInstructions": "Remove battery before disassembly. Handle in ventilated area."
+  "oec:casNumber": "7439-92-1",
+  "oec:ecNumber": "231-100-4",
+  "oec:scipId": "SCIP-12345678",
+  "oec:concentration": 0.5,
+  "oec:hazardClass": "ReproductiveToxicity",
+  "oec:substanceLocation": "Battery electrodes",
+  "oec:safeUseInstructions": "Avoid contact. Use protective gloves.",
+  "oec:safeDisassemblyInstructions": "Remove battery before disassembly. Handle in ventilated area."
 }
 ```
 
@@ -509,19 +509,19 @@ Capture product performance, durability, and lifespan information per ESPR requi
 ```json
 {
   "type": "PerformanceInfo",
-  "dpp:expectedLifespan": {
+  "oec:expectedLifespan": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
   },
-  "dpp:guaranteedLifespan": {
+  "oec:guaranteedLifespan": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "5",
     "gs1:unitCode": "ANN"
   },
-  "dpp:usageCycles": 3000,
-  "dpp:performanceClass": "A",
-  "dpp:testedConditions": "Standard laboratory conditions per EN 62040-3"
+  "oec:usageCycles": 3000,
+  "oec:performanceClass": "A",
+  "oec:testedConditions": "Standard laboratory conditions per EN 62040-3"
 }
 ```
 
@@ -550,9 +550,9 @@ Capture repair, maintenance, and spare parts information per ESPR requirements.
 ```json
 {
   "type": "RepairabilityInfo",
-  "dpp:repairabilityScore": 7.5,
-  "dpp:repairabilityClass": "B",
-  "dpp:sparePartsAvailability": {
+  "oec:repairabilityScore": 7.5,
+  "oec:repairabilityClass": "B",
+  "oec:sparePartsAvailability": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
@@ -562,15 +562,15 @@ Capture repair, maintenance, and spare parts information per ESPR requirements.
     "gs1:value": "5",
     "gs1:unitCode": "DAY"
   },
-  "dpp:diyRepairPossible": true,
-  "dpp:professionalRepairNetwork": { "id": "https://example.com/repair-network" },
-  "dpp:repairInstructions": {
+  "oec:diyRepairPossible": true,
+  "oec:professionalRepairNetwork": { "id": "https://example.com/repair-network" },
+  "oec:repairInstructions": {
     "type": "DocumentReference",
     "documentType": "Manual",
     "documentUrl": { "id": "https://example.com/docs/repair-manual.pdf" },
     "languageCode": "en"
   },
-  "dpp:softwareUpdatesAvailability": {
+  "oec:softwareUpdatesAvailability": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "5",
     "gs1:unitCode": "ANN"
@@ -706,7 +706,7 @@ Use sensor reports with specialized types:
 Embed master data in EPCIS events using `gs1:masterDataAvailableFor` as a top-level array. Per [GS1 Germany EUDR Guideline V1.11](https://www.gs1-germany.de/fileadmin/gs1/fachpublikationen/GS1_Germany_EUDR_Guideline_V1.11.pdf), regulatory information should be nested inside the product entry.
 
 ### Architecture Rule
-`gs1:masterDataAvailableFor` contains ONLY `gs1:` namespace properties. Extension properties (`dpp:`, `eudr:`, `battery:`, etc.) go at **event level** -- as siblings of `bizStep`, `epcList`, etc. See [EPCIS_MASTERDATA_AND_EXTENSIONS.md](EPCIS_MASTERDATA_AND_EXTENSIONS.md).
+`gs1:masterDataAvailableFor` contains ONLY `gs1:` namespace properties. Extension properties (`oec:`, `eudr:`, `eubat:`, etc.) go at **event level** -- as siblings of `bizStep`, `epcList`, etc. See [EPCIS_MASTERDATA_AND_EXTENSIONS.md](EPCIS_MASTERDATA_AND_EXTENSIONS.md).
 
 ### Bare String Notation
 Inside `gs1:masterDataAvailableFor`, the `gs1:` prefix is NOT required - it is assumed. Use bare property names and string values:
@@ -813,8 +813,8 @@ Control data visibility per ESPR Article 9 requirements. Define which DPP data i
 ```json
 {
   "type": "AccessRights",
-  "dpp:accessLevel": "Public",
-  "dpp:dataRetentionPeriod": {
+  "oec:accessLevel": "Public",
+  "oec:dataRetentionPeriod": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
@@ -855,15 +855,15 @@ Control data visibility per ESPR Article 9 requirements. Define which DPP data i
 ```json
 {
   "type": "AccessRights",
-  "dpp:accessLevel": "Restricted",
-  "dpp:authorizedParties": [
+  "oec:accessLevel": "Restricted",
+  "oec:authorizedParties": [
     {
       "type": "gs1:Organization",
       "gs1:partyGLN": "9521234000105",
       "gs1:organizationName": "Market Surveillance Authority DE"
     }
   ],
-  "dpp:dataRetentionPeriod": {
+  "oec:dataRetentionPeriod": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
@@ -886,7 +886,7 @@ Control data visibility per ESPR Article 9 requirements. Define which DPP data i
 4. **Provide multilingual documents** with `languageCode`
 5. **Include verification bodies** for third-party assurances
 6. **Track data provenance** with `lastDataUpdate` and `dataQualityAssessment`
-7. **Implement access control** per ESPR Article 9 using `dpp:AccessRights`
+7. **Implement access control** per ESPR Article 9 using `oec:AccessRights`
 8. **Include EOID** for economic operator identification per ESPR Article 77
 9. **Provide repairability information** for applicable product categories
 10. **Document substances of concern** with SCIP database identifiers
@@ -898,7 +898,7 @@ Control data visibility per ESPR Article 9 requirements. Define which DPP data i
 EPR registration applies across PPWR (packaging), WEEE (electronics), Battery
 Regulation, ELV, and the upcoming Textile-DA. National schemes vary per
 Member State — no single international vocabulary covers them, which is why
-this pattern is minted at `dpp:`.
+this pattern is minted at `oec:`.
 
 ```json
 {
@@ -907,7 +907,7 @@ this pattern is minted at `dpp:`.
   "eprWasteStream": "packaging",
   "eprJurisdiction": { "id": "https://ref.gs1.org/voc/Country-DE", "type": "Country" },
   "eprScheme": {
-    "id": "https://id.gs1.org/417/4030101000007",
+    "id": "https://id.gs1.org/417/4030101000001",
     "type": "Organization",
     "organizationName": "Der Grüne Punkt — Duales System Deutschland GmbH"
   },
@@ -915,12 +915,12 @@ this pattern is minted at `dpp:`.
 }
 ```
 
-**Properties** (all on `dpp:ExtendedProducerResponsibility`):
-- `dpp:eprRegistrationNumber` — registry-issued ID
-- `dpp:eprWasteStream` — `"packaging"` / `"weee"` / `"batteries"` / `"vehicles"` / `"textiles"`
-- `dpp:eprJurisdiction` — `gs1:Country` reference
-- `dpp:eprScheme` — `gs1:Organization` (the PRO / scheme operator)
-- `dpp:eprComplianceUrl` — public verification endpoint
+**Properties** (all on `oec:ExtendedProducerResponsibility`):
+- `oec:eprRegistrationNumber` — registry-issued ID
+- `oec:eprWasteStream` — `"packaging"` / `"weee"` / `"batteries"` / `"vehicles"` / `"textiles"`
+- `oec:eprJurisdiction` — `gs1:Country` reference
+- `oec:eprScheme` — `gs1:Organization` (the PRO / scheme operator)
+- `oec:eprComplianceUrl` — public verification endpoint
 
 **Used by**: PPWR (Article 13), WEEE (Article 16), Battery (Annex II §7), ELV-revision, Textile-DA (planned).
 
@@ -981,7 +981,7 @@ expanding under PPWR Article 13. No upstream vocabulary covers them.
     "type": "DepositReturnScheme",
     "depositAmount": { "type": "QuantitativeValue", "value": 0.25, "unitCode": "EUR" },
     "depositSchemeOperator": {
-      "id": "https://id.gs1.org/417/4030101000014",
+      "id": "https://id.gs1.org/417/4030101000018",
       "type": "Organization",
       "organizationName": "Deutsche Pfandsystem GmbH"
     },

@@ -1,0 +1,69 @@
+meta {
+  name: Create linkset — Beverage Bottle Batch (LOT-01)
+  type: http
+  seq: 19
+}
+
+post {
+  url: {{dl-url}}/01/{{bottleGtin}}/10/{{bottleLot}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  isAnonymousAccessAllowed: true
+}
+
+docs {
+  # Batch-level (AI 10) linkset for the beverage bottle
+
+  Creates a linkset anchored at the lot Digital Link `/01/{gtin}/10/{lot}` whose
+  `pip` points at the DDM **lot** page, so scanning `…/10/LOT-01` lands on the
+  batch passport instead of the GTIN product page.
+
+  ## Shape
+  - Bare GS1 linkset object (`{ "linkset": [ … ] }`), **not** the
+    `[{ "action": "update", … }]` PATCH envelope used by the GTIN-level
+    `patch-pip-*.bru` files — sub-product anchors are created via POST/PUT.
+  - Link-type keys are **full GS1 IRIs** (`https://ref.gs1.org/voc/pip`).
+  - `pip` only. `masterData` is **auto-surfaced** by the resolver for the lot
+    anchor once `create-beverage-bottle-batch.bru` has stored the per-lot
+    Product doc, and the create schema rejects user-supplied `defaultLink` /
+    `masterData` as additional properties. The lot `pip` also serves as the
+    default-link redirect.
+
+  ## Order & idempotency
+  Run `01-products/packaging/create-beverage-bottle-batch.bru` first. POST is
+  **create-only** (re-running 500s on a duplicate key). To (re-)apply
+  idempotently, use `scripts/seed-batch-beverage-bottle.sh`, which PUTs (update)
+  and falls back to POST (create) when the linkset doesn't exist yet.
+}
+
+body:json {
+  {
+    "linkset": [
+      {
+        "anchor": "{{dl-url}}/01/{{bottleGtin}}/10/{{bottleLot}}",
+        "itemDescription": "Mountain Spring Mineral Water — 500 mL PET bottle (batch {{bottleLot}})",
+        "https://ref.gs1.org/voc/pip": [
+          {
+            "href": "{{ddm-host}}/01/{{bottleGtin}}/10/{{bottleLot}}?template=ppwr-overview",
+            "title": "Mountain Spring Mineral Water — Batch {{bottleLot}} Digital Product Passport",
+            "fwqs": false,
+            "type": "text/html",
+            "hreflang": ["en"],
+            "context": ["ALL"],
+            "public": true
+          }
+        ]
+      }
+    ]
+  }
+}
+
+tests {
+  test("Batch linkset created", function() {
+    expect(res.status).to.be.oneOf([200, 201, 207]);
+  });
+}

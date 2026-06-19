@@ -1,0 +1,104 @@
+{
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld",
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-06-12T14:25:00.000Z",
+  "_comment_architecture": [
+    "Deposit-return event: a consumer redeems an empty PET bottle at",
+    "a redemption-point reverse-vending machine; the deposit recorded",
+    "on the product (oec:depositReturnScheme) is settled. Modelled as",
+    "an ObjectEvent with action DELETE because the trade-item",
+    "instance is being decommissioned out of the consumer-facing chain",
+    "and handed over to the deposit-return-scheme operator for sorting.",
+    "Disposition `returned` is the CBV value for items going back",
+    "through a return loop; bizStep `decommissioning` reflects that the",
+    "instance is leaving normal supply-chain circulation.",
+    "",
+    "PPWR Reg 2025/40 Title V, Art. 50 (deposit-return systems).",
+    "",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,",
+    "                              euppwr=https://ref.openepcis.io/extensions/eu/ppwr/",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:5c2b4e90-1234-4abc-9876-1f2c3d4e5f62",
+        "eventTime": "2026-06-12T14:25:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "action": "DELETE",
+        "bizStep": "decommissioning",
+        "disposition": "returned",
+        "epcList": [
+          "https://id.gs1.org/01/09521234500018"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000051"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000051"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234500018",
+            "type": "Product",
+            "productName": {
+              "@value": "Mountain Spring Mineral Water, 500 mL PET bottle",
+              "@language": "en"
+            },
+            "gtin": "09521234500018",
+            "packagingTier": "Sales",
+            "recyclabilityGrade": "A",
+            "depositReturnScheme": {
+              "type": "DepositReturnScheme",
+              "depositAmount": {
+                "type": "QuantitativeValue",
+                "value": 0.25,
+                "unitCode": "EUR"
+              }
+            }
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234000051",
+            "type": "Place",
+            "locationGLN": "9521234000051",
+            "physicalLocationName": {
+              "@value": "Pfand-Automat, REWE Berlin Friedrichstraße",
+              "@language": "en"
+            },
+            "address": {
+              "type": "PostalAddress",
+              "addressLocality": "Berlin",
+              "countryCode": "DE"
+            }
+          }
+        ],
+        "sensorElementList": [
+          {
+            "sensorMetadata": {
+              "time": "2026-06-12T14:25:00.000Z",
+              "deviceID": "https://id.gs1.org/8004/95212340RVM-1042",
+              "deviceMetadata": "https://rvm-vendor.example.com/devices/RVM-2300"
+            },
+            "sensorReport": [
+              {
+                "type": "euppwr:depositRefundIssued",
+                "value": 0.25,
+                "uom": "EUR"
+              },
+              {
+                "type": "euppwr:containerCondition",
+                "stringValue": "intact"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

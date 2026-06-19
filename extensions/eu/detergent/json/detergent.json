@@ -1,8 +1,8 @@
 {
   "namespace": "https://ref.openepcis.io/extensions/eu/detergent/",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "title": "OpenEPCIS Detergent Vocabulary",
-  "description": "Detergent-specific vocabulary for EU Regulation 2026/405 on Detergents and Surfactants compliance.\n\nIMPORTANT: The detergent extension properties defined here are NOT YET STANDARDISED by GS1.\nThese are OpenEPCIS extensions for detergent DPP data that have no equivalent in GS1 standards.\n\nEPCIS 2.0 Extension:\nThis vocabulary is a first-class EPCIS 2.0 extension per Section 12.3. Declare it using:\n  GS1-Extensions: detergent=https://ref.openepcis.io/extensions/eu/detergent/\n\nEU Regulation 2026/405 replaces the legacy Detergents Regulation 648/2004 and mandates\nDigital Product Passports for detergents. Entry into force: March 2026, full application:\nSeptember 2029. Detergents are a priority product category under ESPR 2024/1781.\n\nThe DPP is model-based: same manufacturer + identical formulation = one DPP (not per batch).\n\nThis vocabulary provides:\n- Domain-specific enumerations (DetergentCategory, ProductForm, SurfactantType, etc.)\n- Extension properties for detergent-specific formulation and biodegradability data\n- INCI ingredient nomenclature support\n- CLP hazard classification properties\n- Surfactant biodegradability test results per Annex III\n- Microorganism disclosure per Article 19\n\nFor master data, use standard GS1 Web Vocabulary:\n- gs1:Product for products\n- gs1:Organization for supply chain actors\n- gs1:QuantitativeValue for measurements\n\nFor shared DPP patterns, reuse from core:\n- dpp:HazardousSubstance for CLP-classified substances\n- dpp:OperatorInformation for economic operator data\n- dpp:DocumentReference for safety data sheets and reports\n\nReferences:\n- EU Regulation 2026/405: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405\n- ESPR 2024/1781: https://eur-lex.europa.eu/eli/reg/2024/1781\n- Legacy Regulation 648/2004: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0648",
+  "description": "Detergent-specific vocabulary for EU Regulation 2026/405 on Detergents and Surfactants compliance.\n\nIMPORTANT: The detergent extension properties defined here are NOT YET STANDARDISED by GS1.\nThese are OpenEPCIS extensions for detergent DPP data that have no equivalent in GS1 standards.\n\nEPCIS 2.0 Extension:\nThis vocabulary is a first-class EPCIS 2.0 extension per Section 12.3. Declare it using:\n  GS1-Extensions: eudet=https://ref.openepcis.io/extensions/eu/detergent/\n\nEU Regulation 2026/405 replaces the legacy Detergents Regulation 648/2004 and mandates\nDigital Product Passports for detergents. Entry into force: March 2026, full application:\nSeptember 2029. Detergents are a priority product category under ESPR 2024/1781.\n\nThe DPP is model-based: same manufacturer + identical formulation = one DPP (not per batch).\n\nThis vocabulary provides:\n- Domain-specific enumerations (DetergentCategory, ProductForm, SurfactantType, etc.)\n- Extension properties for detergent-specific formulation and biodegradability data\n- INCI ingredient nomenclature support\n- CLP hazard classification properties\n- Surfactant biodegradability test results per Annex III\n- Microorganism disclosure per Article 19\n\nFor master data, use standard GS1 Web Vocabulary:\n- gs1:Product for products\n- gs1:Organization for supply chain actors\n- gs1:QuantitativeValue for measurements\n\nFor shared DPP patterns, reuse from core:\n- oec:HazardousSubstance for CLP-classified substances\n- oec:OperatorInformation for economic operator data\n- oec:DocumentReference for safety data sheets and reports\n\nReferences:\n- EU Regulation 2026/405: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405\n- ESPR 2024/1781: https://eur-lex.europa.eu/eli/reg/2024/1781\n- Legacy Regulation 648/2004: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32004R0648",
   "classes": [
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct",
@@ -57,7 +57,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/allergenConcentration",
@@ -69,19 +70,21 @@
       ],
       "range": [
         "xsd:decimal"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/biodegradabilityTestReport",
       "localName": "biodegradabilityTestReport",
       "label": "Biodegradability Test Report",
-      "comment": "Reference to the full biodegradability test report. Reuses dpp:DocumentReference.",
+      "comment": "Reference to the full biodegradability test report. Reuses oec:DocumentReference.",
       "domain": [
         "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
       ],
       "range": [
         "https://ref.openepcis.io/extensions/common/core/DocumentReference"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/biodegradationPercentage",
@@ -94,9 +97,13 @@
       "range": [
         "xsd:decimal"
       ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/biodegradationPercentage"
+      ],
       "equivalentProperty": [
         "https://ref.openepcis.io/extensions/common/core/biodegradationPercentage"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/dosageInstructions",
@@ -108,7 +115,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/endProductCharacteristics",
@@ -120,7 +128,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/filmBiodegradabilityPercentage",
@@ -132,7 +141,8 @@
       ],
       "range": [
         "xsd:decimal"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/filmBiodegradable",
@@ -164,13 +174,17 @@
       "id": "https://ref.openepcis.io/extensions/eu/detergent/hazardousSubstances",
       "localName": "hazardousSubstances",
       "label": "Hazardous Substances",
-      "comment": "CLP-classified hazardous substances in the product. Reuses dpp:HazardousSubstance.",
+      "comment": "CLP-classified hazardous substances in the product. Reuses oec:HazardousSubstance.",
       "domain": [
         "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
       ],
       "range": [
         "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/hazardousSubstances"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/hazardPictograms",
@@ -185,7 +199,8 @@
       ],
       "equivalentProperty": [
         "https://ref.openepcis.io/extensions/common/core/hazardPictogramCode"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/hStatements",
@@ -200,7 +215,8 @@
       ],
       "equivalentProperty": [
         "https://ref.openepcis.io/extensions/common/core/hazardStatement"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/ingredientFunction",
@@ -212,7 +228,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/detergent/IngredientFunction"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/ingredientList",
@@ -237,7 +254,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/isSurfactant",
@@ -249,7 +267,8 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/microorganisms",
@@ -274,7 +293,8 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/phosphateCompliant",
@@ -286,7 +306,8 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/phosphorusContentPercent",
@@ -327,7 +348,8 @@
       ],
       "equivalentProperty": [
         "https://ref.openepcis.io/extensions/common/core/precautionaryStatement"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/recommendedDosage",
@@ -339,19 +361,21 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/safetyDataSheet",
       "localName": "safetyDataSheet",
       "label": "Safety Data Sheet",
-      "comment": "Reference to the product's Safety Data Sheet (SDS). Reuses dpp:DocumentReference.",
+      "comment": "Reference to the product's Safety Data Sheet (SDS). Reuses oec:DocumentReference.",
       "domain": [
         "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
       ],
       "range": [
         "https://ref.openepcis.io/extensions/common/core/DocumentReference"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/signalWord",
@@ -366,7 +390,8 @@
       ],
       "equivalentProperty": [
         "https://ref.openepcis.io/extensions/common/core/hazardSignalWord"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/strainDesignation",
@@ -378,7 +403,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/surfactantBiodegradability",
@@ -403,7 +429,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/detergent/SurfactantType"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/testDurationDays",
@@ -415,7 +442,8 @@
       ],
       "range": [
         "xsd:integer"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/testMethod",
@@ -427,7 +455,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/detergent/BiodegradabilityTestMethod"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/weightPercentRange",
@@ -439,7 +468,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405"
     }
   ],
   "enumerations": [

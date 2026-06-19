@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JSON-LD → EN 18223 converter</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <h1>GS1 Web Vocabulary → EN 18223 Digital Product Passport</h1>
+    <p class="lead">
+      A Digital Product Passport under CEN/CENELEC EN 18223 is plain JSON, and it
+      falls out of data you may already publish: good GS1 Web Vocabulary, addressed
+      by a GS1 Digital Link. The same identity can be encoded in different data
+      carriers, from a QR code to NFC and RFID tags. Pick a sample, or paste your
+      own, and press <strong>Derive</strong>.
+    </p>
+  </header>
+
+  <div class="toolbar">
+    <label for="sample">Sample</label>
+    <select id="sample"></select>
+    <button id="derive">Derive →</button>
+    <span id="status"></span>
+  </div>
+
+  <main>
+    <section class="card">
+      <div class="pane-head">
+        <h2>Input · GS1 Web Vocabulary JSON-LD</h2>
+        <button id="copy-input" class="ghost" type="button">Copy</button>
+      </div>
+      <textarea id="input" spellcheck="false"></textarea>
+    </section>
+    <section class="card">
+      <div class="pane-head">
+        <h2>Output</h2>
+        <label for="format">View</label>
+        <select id="format">
+          <option value="expanded">EN 18223 expanded (Annex A)</option>
+          <option value="compressed">EN 18223 compressed</option>
+          <option value="jsonld">JSON-LD expanded (input)</option>
+        </select>
+        <button id="copy" class="ghost" type="button">Copy</button>
+      </div>
+      <pre id="output"></pre>
+    </section>
+  </main>
+
+  <section class="explainer">
+    <h2>How the conversion works</h2>
+    <p>
+      Each property becomes an EN 18223 <code>DataElement</code>. Its
+      <code>dictionaryReference</code> is the property's own vocabulary IRI,
+      wherever the term is defined, whether GS1, schema.org, or the OpenEPCIS
+      extensions at ref.openepcis.io, and its <code>valueDataType</code> is the
+      range the ontology declares for it. The passport's <code>granularity</code>
+      follows the Digital Link Application Identifiers: a GTIN on its own
+      describes a model, a GTIN with a lot number a batch, a GTIN with a serial an
+      item. <code>contentSpecificationIds</code> then lists the dictionaries the
+      passport actually draws on.
+    </p>
+    <p>
+      The page runs each example through the same steps a repository would. It
+      first expands the input with standard JSON-LD processing, which replaces
+      every shorthand key with the full IRI of the term it stands for. That IRI
+      is what EN 18223 calls a <code>dictionaryReference</code>. The
+      <strong>JSON-LD expanded</strong> view shows this stage directly, so you
+      can see that <code>netWeight</code> is
+      <code>https://ref.gs1.org/voc/netWeight</code> while a recycled-content
+      figure resolves under an OpenEPCIS extension.
+    </p>
+    <p>
+      EN 18223 is deliberately permissive about what that reference may be. It
+      types <code>dictionaryReference</code> as a plain string and asks only that
+      each definition carry a unique identifier that occurs once within its
+      repository (clause 4.3), with the stated aim of staying open to different
+      technologies; even <code>digitalProductPassportId</code> only
+      <em>should</em> use a URI/URL structure. The identifier need not be
+      resolvable on the web. A resolvable web IRI of the kind GS1 issues is one
+      option; an opaque identifier such as an IRDI (the IEC 61360 / eCl@ss style
+      used by the Asset Administration Shell, for example
+      <code>0173-1#02-AAO677#002</code>) is equally valid under the standard,
+      even though you cannot fetch it over HTTP. GS1 is stricter in a way that
+      pays off: a GS1 Digital Link and a GS1 Web Vocabulary term are HTTPS URLs
+      you can dereference. This derivation keeps that web-native property, so
+      every <code>dictionaryReference</code> it emits is an IRI you can open in a
+      browser to retrieve the definition behind it.
+    </p>
+    <p>
+      From that expanded graph the converter assembles the EN 18223 information
+      model. Each property becomes a <code>DataElement</code> with its
+      <code>dictionaryReference</code>, a <code>valueDataType</code> read from the
+      ontology's declared range, and a value. A nested object such as a quantity
+      or a carbon-footprint breakdown becomes a <code>DataElementCollection</code>;
+      a list of values becomes a multi-valued element; a coded value or a document
+      reference is carried as a single value or a <code>RelatedResource</code>.
+      Around the data the envelope is filled in: the unique identifier and
+      <code>granularity</code> from the Digital Link, the schema version, and the
+      <code>contentSpecificationIds</code> the data drew on.
+    </p>
+    <p>
+      The finished model prints in either EN 18223 serialization. The
+      <strong>expanded</strong> form (Annex A) keeps every data element explicit,
+      which suits validation and machine processing; the <strong>compressed</strong>
+      form folds the same content back into ordinary key-value JSON that reads
+      easily. The <strong>View</strong> dropdown only reformats the passport, so
+      switching is instant.
+    </p>
+    <p>
+      None of this is written per product. The mapping follows from good GS1 Web
+      Vocabulary and the published ontology, so the battery, textile, electronics,
+      deforestation, packaging, construction, detergent, and food examples all
+      pass through the identical code.
+    </p>
+  </section>
+
+  <footer>
+    <a href="https://github.com/openepcis/openepcis-dpp-ready">OpenEPCIS DPP-Ready</a>
+    · EPCIS for DPP · derived by
+    <a href="https://github.com/openepcis/openepcis-dpp-ready/blob/main/scripts/en18223/derive-core.ts"><code>scripts/en18223/derive-core.ts</code></a>.
+    Not official GS1 or CEN/CENELEC guidance.
+  </footer>
+
+  <script type="module" src="app.js"></script>
+  <!-- Progressive enhancement, independent of the bundled app: copy-to-clipboard. -->
+  <script>
+    (function () {
+      function wireCopy(btnId, srcId) {
+        var btn = document.getElementById(btnId);
+        var src = document.getElementById(srcId);
+        if (!btn || !src) return;
+        btn.addEventListener('click', function () {
+          var text = ('value' in src ? src.value : src.textContent) || '';
+          if (!text.trim()) return;
+          navigator.clipboard.writeText(text).then(function () {
+            var prev = btn.getAttribute('data-label') || btn.textContent;
+            btn.setAttribute('data-label', prev);
+            btn.textContent = 'Copied';
+            btn.classList.add('copied');
+            setTimeout(function () { btn.textContent = prev; btn.classList.remove('copied'); }, 1200);
+          });
+        });
+      }
+      wireCopy('copy-input', 'input');
+      wireCopy('copy', 'output');
+    })();
+  </script>
+</body>
+</html>

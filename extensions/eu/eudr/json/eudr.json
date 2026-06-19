@@ -1,6 +1,6 @@
 {
   "namespace": "https://ref.openepcis.io/extensions/eu/eudr/",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "title": "OpenEPCIS EUDR Vocabulary",
   "description": "EUDR-specific vocabulary for EU Deforestation Regulation 2023/1115 compliance.\n\nIMPORTANT: The EUDR extension properties defined here are NOT YET STANDARDISED by GS1.\nThese are OpenEPCIS extensions for origin data that have no equivalent in GS1 standards.\n\nEPCIS 2.0 Extension:\nThis vocabulary is a first-class EPCIS 2.0 extension per Section 12.3. Declare it using:\n  GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/\n\nTwo-Layer Approach:\n1. GS1 EUDR Standard - gs1:RegulatoryNotification for B2B DDS reference sharing\n2. OpenEPCIS eudr: extensions - Origin data (harvest dates, species, geolocation details)\n\nThis vocabulary provides:\n- Domain-specific enumerations (CommodityType, RiskLevel, TimberProductType)\n- Extension properties for EUDR-required origin data\n- Documentation of EUDR concepts for implementation guidance\n\nFor master data, use standard GS1 Web Vocabulary:\n- gs1:Place for locations (including plots of land)\n- gs1:GeoCoordinates for point locations\n- gs1:GeoShape with gs1:polygon for polygon boundaries\n- gs1:Organization for supply chain actors\n- gs1:Product for commodities\n- gs1:QuantitativeValue for measurements\n\nFor regulatory compliance:\n- Use gs1:RegulatoryNotification (GS1 EUDR Standard) for B2B DDS sharing\n- Use EPCIS ObjectEvent with bizStep 'notifying' and persistentDisposition 'subject_to_regulation'\n- Use gs1:masterDataAvailableFor for inline master data\n\nKey Insight: GS1 EUDR Standard provides B2B messaging for DDS references but does NOT cover\nharvest dates, species names, or detailed origin data - these require eudr: extensions.\n\nReferences:\n- GS1 EUDR Standard: https://ref.gs1.org/standards/eudr/\n- GS1 EUDR-tool: https://github.com/gs1/EUDR-tool\n- GS1 Germany EUDR Guideline V1.11: https://www.gs1-germany.de/branchen-themen/nachhaltigkeit/eu-deforestation-regulation-eudr/\n- EU Regulation 2023/1115: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115",
   "classes": [
@@ -8,7 +8,8 @@
       "id": "https://ref.openepcis.io/extensions/eu/eudr/DueDiligenceStatement",
       "localName": "DueDiligenceStatement",
       "label": "Due Diligence Statement",
-      "comment": "A due diligence statement submitted to the EUDR Information System (EUIS) per Article 4."
+      "comment": "A due diligence statement submitted to the EUDR Information System (EUIS) per Article 4.",
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/ExemptionDeclaration",
@@ -18,19 +19,21 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/regulatoryInformation"
       ],
-      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1115/oj"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails",
       "localName": "OriginDetails",
       "label": "Origin Details",
-      "comment": "Container class for geolocation and producer identification information per EUDR Article 9."
+      "comment": "Container class for geolocation and producer identification information per EUDR Article 9.",
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/RiskAssessment",
       "localName": "RiskAssessment",
       "label": "Risk Assessment",
-      "comment": "Risk assessment results per EUDR Article 10."
+      "comment": "Risk assessment results per EUDR Article 10.",
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     }
   ],
   "properties": [
@@ -44,7 +47,8 @@
       ],
       "range": [
         "xsd:decimal"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/areaSize",
@@ -56,7 +60,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/commodityType",
@@ -68,7 +73,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/eudr/CommodityType"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/countryList",
@@ -77,7 +83,8 @@
       "comment": "List of countries of origin where geolocations are located.",
       "domain": [
         "https://ref.gs1.org/voc/Product"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/countryRiskCategory",
@@ -89,7 +96,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/eudr/RiskLevel"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/deforestationFreeDate",
@@ -101,7 +109,8 @@
       ],
       "range": [
         "xsd:date"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/derivedFrom",
@@ -113,7 +122,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/Product"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/dueDiligenceStatement",
@@ -125,20 +135,21 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/eudr/DueDiligenceStatement"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/exemptionAuthority",
       "localName": "exemptionAuthority",
       "label": "Exemption Authority",
-      "comment": "The economic operator or competent authority asserting this exemption. Uses dpp:OperatorInformation so the party is fully identified by GLN and role.",
+      "comment": "The economic operator or competent authority asserting this exemption. Uses oec:OperatorInformation so the party is fully identified by GLN and role.",
       "domain": [
         "https://ref.openepcis.io/extensions/eu/eudr/ExemptionDeclaration"
       ],
       "range": [
         "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
       ],
-      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1115/oj"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/exemptionDeclaration",
@@ -148,7 +159,7 @@
       "range": [
         "https://ref.openepcis.io/extensions/eu/eudr/ExemptionDeclaration"
       ],
-      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1115/oj"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/exemptionEffectiveFrom",
@@ -161,7 +172,7 @@
       "range": [
         "xsd:date"
       ],
-      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1115/oj"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/exemptionEffectiveUntil",
@@ -174,13 +185,13 @@
       "range": [
         "xsd:date"
       ],
-      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1115/oj"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/exemptionReasonCode",
       "localName": "exemptionReasonCode",
       "label": "Exemption Reason Code",
-      "comment": "Coded reason for the exemption, drawn from the controlled vocabulary defined by WR 25-252 (aligned with EANCOM C273:DE7009 exemption reason codes).",
+      "comment": "Coded reason for the exemption, drawn from the controlled vocabulary defined by GS1 standardization (aligned with EANCOM C273:DE7009 exemption reason codes).",
       "domain": [
         "https://ref.openepcis.io/extensions/eu/eudr/ExemptionDeclaration"
       ],
@@ -190,7 +201,7 @@
       "seeAlso": [
         "https://ref.openepcis.io/extensions/eu/eudr/riskLevel"
       ],
-      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1115/oj"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/exemptionScope",
@@ -203,7 +214,7 @@
       "range": [
         "xsd:string"
       ],
-      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1115/oj"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/exemptionScopeReference",
@@ -220,7 +231,7 @@
         "https://ref.gs1.org/voc/hasBatchLotNumber",
         "https://ref.gs1.org/voc/hasSerialNumber"
       ],
-      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1115/oj"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/exemptionType",
@@ -233,7 +244,7 @@
       "range": [
         "https://ref.openepcis.io/extensions/eu/eudr/ExemptionType"
       ],
-      "source": "https://xchange.gs1.org/cr/gsmp WR 25-252"
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/1115/oj"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/forestManagementUnit",
@@ -245,7 +256,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/fscCertification",
@@ -257,7 +269,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/CertificationDetails"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/geofence",
@@ -269,7 +282,11 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "seeAlso": [
+        "http://www.w3.org/ns/locn#geometry"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/geolocation",
@@ -284,7 +301,8 @@
       ],
       "seeAlso": [
         "http://www.w3.org/ns/locn#Geometry"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/landUseHistory",
@@ -296,7 +314,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/legallyHarvested",
@@ -308,7 +327,8 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/mitigationMeasures",
@@ -320,7 +340,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/originDetails",
@@ -332,7 +353,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/originList",
@@ -344,7 +366,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/producerIdentification",
@@ -356,7 +379,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/Organization"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/riskAssessment",
@@ -368,7 +392,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/eudr/RiskAssessment"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/riskAssessmentDate",
@@ -380,7 +405,8 @@
       ],
       "range": [
         "xsd:date"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/riskLevel",
@@ -392,7 +418,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/eudr/RiskLevel"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/speciesCommonName",
@@ -404,7 +431,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/speciesScientificName",
@@ -416,7 +444,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/statementDate",
@@ -428,7 +457,8 @@
       ],
       "range": [
         "xsd:date"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/timberProductType",
@@ -440,7 +470,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/eudr/TimberProductType"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/transformationDate",
@@ -452,7 +483,8 @@
       ],
       "range": [
         "xsd:date"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/transformationLocation",
@@ -467,7 +499,8 @@
       ],
       "seeAlso": [
         "http://www.w3.org/ns/locn#Location"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/verificationMethod",
@@ -479,7 +512,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/eudr/volumeCubicMeters",
@@ -491,7 +525,8 @@
       ],
       "range": [
         "xsd:decimal"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     }
   ],
   "enumerations": [

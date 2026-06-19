@@ -3,8 +3,8 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
-@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
-@prefix cpr: <https://ref.openepcis.io/extensions/eu/cpr/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix eucpr: <https://ref.openepcis.io/extensions/eu/cpr/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
@@ -20,15 +20,15 @@ onward, phased per product family).
 This module is intentionally thin per the project's four-layer delegation
 pattern. The construction-specific concepts live here; cross-cutting concerns
 (recycled content, carbon footprint, hazardous substances, recyclability,
-EPR, end-of-life, due diligence) reuse the lifted `dpp:` vocabulary plus
+EPR, end-of-life, due diligence) reuse the lifted `oec:` vocabulary plus
 `untp:` and `gs1:`."""@en ;
     dcterms:creator "OpenEPCIS" ;
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
     dcterms:created "2026-05-01"^^xsd:date ;
-    dcterms:modified "2026-05-01"^^xsd:date ;
+    dcterms:modified "2026-06-07"^^xsd:date ;
     owl:versionInfo "0.1.0" ;
     owl:versionIRI <https://ref.openepcis.io/extensions/eu/cpr/0.1.0> ;
-    vann:preferredNamespacePrefix "cpr" ;
+    vann:preferredNamespacePrefix "eucpr" ;
     vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/eu/cpr/" ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     owl:imports <https://ref.gs1.org/voc/> ;
@@ -38,160 +38,178 @@ EPR, end-of-life, due diligence) reuse the lifted `dpp:` vocabulary plus
 # Main class
 # =============================================================================
 
-cpr:ConstructionProduct
+eucpr:ConstructionProduct
     a owl:Class ;
     rdfs:subClassOf gs1:Product ;
     rdfs:label "Construction Product"@en ;
     rdfs:comment """A construction product subject to EU Regulation 2024/3110 (revised
 CPR). Carrier for the regulation's DPP and Declaration-of-Performance data.
-Use cpr:declarationOfPerformanceUrl, cpr:essentialCharacteristic, and
-cpr:reactionToFireClass for the substantive declarations; reuse dpp: terms
+Use eucpr:declarationOfPerformanceUrl, eucpr:essentialCharacteristic, and
+eucpr:reactionToFireClass for the substantive declarations; reuse oec: terms
 for recycled content, carbon footprint, hazardous substances, etc."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> .
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
 # Reaction-to-fire class (EN 13501-1)
 # =============================================================================
 
-cpr:ReactionToFireClass
+eucpr:ReactionToFireClass
     a owl:Class ;
     rdfs:label "Reaction-to-fire Class"@en ;
     rdfs:comment """Reaction-to-fire performance per EN 13501-1, ranging from A1 (highest,
-non-combustible — no contribution to fire) through F (no performance
+non-combustible, no contribution to fire) through F (no performance
 determined). CPR requires this declaration for products where reaction to
 fire is an essential characteristic per Annex III."""@en ;
     owl:oneOf (
-        cpr:FireClassA1
-        cpr:FireClassA2
-        cpr:FireClassB
-        cpr:FireClassC
-        cpr:FireClassD
-        cpr:FireClassE
-        cpr:FireClassF
+        eucpr:FireClassA1
+        eucpr:FireClassA2
+        eucpr:FireClassB
+        eucpr:FireClassC
+        eucpr:FireClassD
+        eucpr:FireClassE
+        eucpr:FireClassF
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-13501-1.aspx> .
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-13501-1.aspx> ;
+    skos:note "Reaction-to-fire classification per EN 13501-1, as required by the EU Construction Products Regulation (EU) 2024/3110."@en .
 
-cpr:FireClassA1 a cpr:ReactionToFireClass ; rdfs:label "Class A1"@en ;
-    rdfs:comment "No contribution to fire — non-combustible."@en ; skos:notation "A1" .
-cpr:FireClassA2 a cpr:ReactionToFireClass ; rdfs:label "Class A2"@en ;
+eucpr:FireClassA1 a eucpr:ReactionToFireClass ; rdfs:label "Class A1"@en ;
+    rdfs:comment "No contribution to fire; non-combustible."@en ; skos:notation "A1" .
+eucpr:FireClassA2 a eucpr:ReactionToFireClass ; rdfs:label "Class A2"@en ;
     rdfs:comment "Very limited contribution to fire."@en ; skos:notation "A2" .
-cpr:FireClassB  a cpr:ReactionToFireClass ; rdfs:label "Class B"@en ;
+eucpr:FireClassB  a eucpr:ReactionToFireClass ; rdfs:label "Class B"@en ;
     rdfs:comment "Limited contribution to fire."@en ; skos:notation "B" .
-cpr:FireClassC  a cpr:ReactionToFireClass ; rdfs:label "Class C"@en ;
+eucpr:FireClassC  a eucpr:ReactionToFireClass ; rdfs:label "Class C"@en ;
     rdfs:comment "Major contribution to fire (limited)."@en ; skos:notation "C" .
-cpr:FireClassD  a cpr:ReactionToFireClass ; rdfs:label "Class D"@en ;
+eucpr:FireClassD  a eucpr:ReactionToFireClass ; rdfs:label "Class D"@en ;
     rdfs:comment "Major contribution to fire (acceptable)."@en ; skos:notation "D" .
-cpr:FireClassE  a cpr:ReactionToFireClass ; rdfs:label "Class E"@en ;
+eucpr:FireClassE  a eucpr:ReactionToFireClass ; rdfs:label "Class E"@en ;
     rdfs:comment "Acceptable reaction to fire."@en ; skos:notation "E" .
-cpr:FireClassF  a cpr:ReactionToFireClass ; rdfs:label "Class F"@en ;
+eucpr:FireClassF  a eucpr:ReactionToFireClass ; rdfs:label "Class F"@en ;
     rdfs:comment "No performance determined."@en ; skos:notation "F" .
 
-cpr:reactionToFireClass
+eucpr:reactionToFireClass
     a owl:ObjectProperty ;
     rdfs:label "Reaction-to-fire Class"@en ;
     rdfs:comment "EN 13501-1 reaction-to-fire classification of the construction product."@en ;
-    rdfs:domain cpr:ConstructionProduct ;
-    rdfs:range cpr:ReactionToFireClass ;
+    rdfs:domain eucpr:ConstructionProduct ;
+    rdfs:range eucpr:ReactionToFireClass ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
-    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-13501-1.aspx> .
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-13501-1.aspx> ;
+    skos:note "Reaction-to-fire classification per EN 13501-1, as required by the EU Construction Products Regulation (EU) 2024/3110."@en .
 
 # =============================================================================
 # Construction Product Type (CPR Annex III families)
 # =============================================================================
 
-cpr:ConstructionProductType
+eucpr:ConstructionProductType
     a owl:Class ;
     rdfs:label "Construction Product Type"@en ;
     rdfs:comment "Top-level construction product family per CPR Annex III."@en ;
     owl:oneOf (
-        cpr:Cement
-        cpr:Aggregate
-        cpr:Insulation
-        cpr:WindowAndDoor
-        cpr:Membrane
-        cpr:StructuralTimber
-        cpr:Reinforcement
-        cpr:Mortar
-        cpr:Concrete
-        cpr:CladdingPanel
-        cpr:OtherConstructionProduct
+        eucpr:Cement
+        eucpr:Aggregate
+        eucpr:Insulation
+        eucpr:WindowAndDoor
+        eucpr:Membrane
+        eucpr:StructuralTimber
+        eucpr:Reinforcement
+        eucpr:Mortar
+        eucpr:Concrete
+        eucpr:CladdingPanel
+        eucpr:OtherConstructionProduct
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-cpr:Cement                  a cpr:ConstructionProductType ; rdfs:label "Cement"@en ; skos:notation "cement" .
-cpr:Aggregate               a cpr:ConstructionProductType ; rdfs:label "Aggregate"@en ; skos:notation "aggregate" .
-cpr:Insulation              a cpr:ConstructionProductType ; rdfs:label "Insulation"@en ; skos:notation "insulation" .
-cpr:WindowAndDoor           a cpr:ConstructionProductType ; rdfs:label "Window or Door"@en ; skos:notation "window-door" .
-cpr:Membrane                a cpr:ConstructionProductType ; rdfs:label "Membrane"@en ; skos:notation "membrane" .
-cpr:StructuralTimber        a cpr:ConstructionProductType ; rdfs:label "Structural Timber"@en ; skos:notation "structural-timber" .
-cpr:Reinforcement           a cpr:ConstructionProductType ; rdfs:label "Reinforcement"@en ; skos:notation "reinforcement" .
-cpr:Mortar                  a cpr:ConstructionProductType ; rdfs:label "Mortar"@en ; skos:notation "mortar" .
-cpr:Concrete                a cpr:ConstructionProductType ; rdfs:label "Concrete"@en ; skos:notation "concrete" .
-cpr:CladdingPanel           a cpr:ConstructionProductType ; rdfs:label "Cladding Panel"@en ; skos:notation "cladding-panel" .
-cpr:OtherConstructionProduct a cpr:ConstructionProductType ; rdfs:label "Other Construction Product"@en ; skos:notation "other" .
+eucpr:Cement                  a eucpr:ConstructionProductType ; rdfs:label "Cement"@en ; skos:notation "cement" .
+eucpr:Aggregate               a eucpr:ConstructionProductType ; rdfs:label "Aggregate"@en ; skos:notation "aggregate" .
+eucpr:Insulation              a eucpr:ConstructionProductType ; rdfs:label "Insulation"@en ; skos:notation "insulation" .
+eucpr:WindowAndDoor           a eucpr:ConstructionProductType ; rdfs:label "Window or Door"@en ; skos:notation "window-door" .
+eucpr:Membrane                a eucpr:ConstructionProductType ; rdfs:label "Membrane"@en ; skos:notation "membrane" .
+eucpr:StructuralTimber        a eucpr:ConstructionProductType ; rdfs:label "Structural Timber"@en ; skos:notation "structural-timber" .
+eucpr:Reinforcement           a eucpr:ConstructionProductType ; rdfs:label "Reinforcement"@en ; skos:notation "reinforcement" .
+eucpr:Mortar                  a eucpr:ConstructionProductType ; rdfs:label "Mortar"@en ; skos:notation "mortar" .
+eucpr:Concrete                a eucpr:ConstructionProductType ; rdfs:label "Concrete"@en ; skos:notation "concrete" .
+eucpr:CladdingPanel           a eucpr:ConstructionProductType ; rdfs:label "Cladding Panel"@en ; skos:notation "cladding-panel" .
+eucpr:OtherConstructionProduct a eucpr:ConstructionProductType ; rdfs:label "Other Construction Product"@en ; skos:notation "other" .
 
-cpr:constructionProductType
+eucpr:constructionProductType
     a owl:ObjectProperty ;
     rdfs:label "Construction Product Type"@en ;
-    rdfs:domain cpr:ConstructionProduct ;
-    rdfs:range cpr:ConstructionProductType ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> .
+    rdfs:domain eucpr:ConstructionProduct ;
+    rdfs:range eucpr:ConstructionProductType ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
 # Declaration of Performance (DoP) / Declaration of Conformity (DoC)
 # =============================================================================
 
-cpr:declarationOfPerformanceUrl
+eucpr:declarationOfPerformanceUrl
     a owl:DatatypeProperty ;
     rdfs:label "Declaration of Performance URL"@en ;
     rdfs:comment """URL of the structured Declaration of Performance (DoP) or
 Declaration of Conformity (DoC) document for this construction product, per
 CPR Article 12. The DoP carries the harmonised technical specification
 reference, intended use, essential characteristics, and AVCP system."""@en ;
-    rdfs:domain cpr:ConstructionProduct ;
+    rdfs:domain eucpr:ConstructionProduct ;
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> .
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    skos:note "Declaration of Performance / essential-characteristics concept per the EU Construction Products Regulation (EU) 2024/3110. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
 # Essential Characteristic
 # =============================================================================
 
-cpr:EssentialCharacteristic
+eucpr:EssentialCharacteristic
     a owl:Class ;
     rdfs:label "Essential Characteristic"@en ;
     rdfs:comment "A single declared essential characteristic (e.g. compressive strength, thermal conductivity, water vapour permeability) per CPR Annex III. Pair name + value + unit + harmonised standard reference."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    skos:note "Declaration of Performance / essential-characteristics concept per the EU Construction Products Regulation (EU) 2024/3110. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-cpr:characteristicName
+eucpr:characteristicName
     a owl:DatatypeProperty ;
     rdfs:label "Characteristic Name"@en ;
-    rdfs:domain cpr:EssentialCharacteristic ;
+    rdfs:domain eucpr:EssentialCharacteristic ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-cpr:characteristicValue
+eucpr:characteristicValue
     a owl:ObjectProperty ;
     rdfs:label "Characteristic Value"@en ;
     rdfs:comment "Quantitative value of the essential characteristic. gs1:QuantitativeValue with the unitCode appropriate for the characteristic (e.g. 'N31' for MPa, 'F94' for W/(m·K))."@en ;
-    rdfs:domain cpr:EssentialCharacteristic ;
+    rdfs:domain eucpr:EssentialCharacteristic ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-cpr:harmonisedStandard
+eucpr:harmonisedStandard
     a owl:DatatypeProperty ;
     rdfs:label "Harmonised Standard"@en ;
     rdfs:comment "URI of the harmonised technical specification (hEN) under which the essential characteristic is declared (e.g. EN 197-1 for cement, EN 13162 for mineral wool insulation)."@en ;
-    rdfs:domain cpr:EssentialCharacteristic ;
+    rdfs:domain eucpr:EssentialCharacteristic ;
     rdfs:range xsd:anyURI ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-cpr:essentialCharacteristic
+eucpr:essentialCharacteristic
     a owl:ObjectProperty ;
     rdfs:label "Essential Characteristic"@en ;
-    rdfs:comment "Declared essential characteristic of the product. Set-valued — most products declare multiple."@en ;
-    rdfs:domain cpr:ConstructionProduct ;
-    rdfs:range cpr:EssentialCharacteristic ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> .
+    rdfs:comment "Declared essential characteristic of the product. Set-valued: most products declare multiple."@en ;
+    rdfs:domain eucpr:ConstructionProduct ;
+    rdfs:range eucpr:EssentialCharacteristic ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    skos:note "Declaration of Performance / essential-characteristics concept per the EU Construction Products Regulation (EU) 2024/3110. No GS1, SEMICeu, or schema.org equivalent."@en .

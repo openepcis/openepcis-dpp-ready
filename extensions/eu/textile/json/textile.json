@@ -1,8 +1,8 @@
 {
   "namespace": "https://ref.openepcis.io/extensions/eu/textile/",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "title": "OpenEPCIS Textile DPP Vocabulary",
-  "description": "Textile-specific vocabulary extending GS1 Web Vocabulary for Digital Product Passports.\n\nAligned with:\n- EU Strategy for Sustainable and Circular Textiles (COM/2022/141)\n- EU Ecodesign for Sustainable Products Regulation (ESPR) 2024/1781\n- EU Textile Labelling Regulation 1007/2011\n- ISO 3758:2023 (Care labelling)\n- GS1 Web Vocabulary (gs1:TextileMaterialDetails pattern)\n- GS1 EPCIS 2.0\n\nGS1 Properties to Use (not redefined here):\n- gs1:gtin - Global Trade Item Number\n- gs1:productName - Product name\n- gs1:productDescription - Product description\n- gs1:netWeight / gs1:grossWeight - Product weight\n- gs1:manufacturer - Manufacturer organization\n- gs1:countryOfOrigin - Country of manufacture\n- gs1:warranty / gs1:WarrantyPromise - Warranty information\n- gs1:certification / gs1:CertificationDetails - Certifications (GOTS, OEKO-TEX, etc.)\n- gs1:textileMaterial / gs1:TextileMaterialDetails - Fiber composition (GS1 native)\n- gs1:consumerRecyclingInstructions - Recycling text\n- gs1:referencedFileDetails - Documents\n\nFor fiber composition, prefer gs1:textileMaterial with gs1:TextileMaterialDetails where possible.\nUse textile: extensions for durability metrics, care symbols, and microplastic data not in GS1.\n\nEPCIS 2.0 Extension Declaration:\nGS1-Extensions: textile=https://ref.openepcis.io/extensions/eu/textile/\n\nExtension Governance:\nThis vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.\nEach extension term includes dcterms:source, skos:note, and rdfs:seeAlso where applicable.",
+  "description": "Textile-specific vocabulary extending GS1 Web Vocabulary for Digital Product Passports.\n\nAligned with:\n- EU Strategy for Sustainable and Circular Textiles (COM/2022/141)\n- EU Ecodesign for Sustainable Products Regulation (ESPR) 2024/1781\n- EU Textile Labelling Regulation 1007/2011\n- ISO 3758:2023 (Care labelling)\n- GS1 Web Vocabulary (gs1:TextileMaterialDetails pattern)\n- GS1 EPCIS 2.0\n\nGS1 Properties to Use (not redefined here):\n- gs1:gtin - Global Trade Item Number\n- gs1:productName - Product name\n- gs1:productDescription - Product description\n- gs1:netWeight / gs1:grossWeight - Product weight\n- gs1:manufacturer - Manufacturer organization\n- gs1:countryOfOrigin - Country of manufacture\n- gs1:warranty / gs1:WarrantyPromise - Warranty information\n- gs1:certification / gs1:CertificationDetails - Certifications (GOTS, OEKO-TEX, etc.)\n- gs1:textileMaterial / gs1:TextileMaterialDetails - Fiber composition (GS1 native)\n- gs1:consumerRecyclingInstructions - Recycling text\n- gs1:referencedFile - Documents\n\nFor fiber composition, prefer gs1:textileMaterial with gs1:TextileMaterialDetails where possible.\nUse eutex: extensions for durability metrics, care symbols, and microplastic data not in GS1.\n\nEPCIS 2.0 Extension Declaration:\nGS1-Extensions: eutex=https://ref.openepcis.io/extensions/eu/textile/\n\nExtension Governance:\nThis vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.\nEach extension term includes dcterms:source, skos:note, and rdfs:seeAlso where applicable.",
   "classes": [
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/CareInstruction",
@@ -66,7 +66,8 @@
       "comment": "Recyclability assessment per EU Preparatory Study 3rd Milestone.\nScore 0-10 based on: elastane content threshold (>15% or >20% for PA6-rich >80% blends makes product\nnon-recyclable, score 0), sorting factors (same composition inner/outer, free from printings,\nfree from coatings, free from sequins, free from dyes, mono-material), and\ntechnical recyclability of the applicable recycling technology.",
       "seeAlso": [
         "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
-        "https://schema.org/Rating"
+        "https://schema.org/Rating",
+        "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment"
       ],
       "subClassOf": [
         "https://schema.org/Observation",
@@ -147,13 +148,16 @@
       "localName": "TechnicalRecyclability",
       "label": "Technical Recyclability",
       "comment": "Technical recyclability assessment based on the applicable recycling technology.",
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/TextileApparel",
       "localName": "TextileApparel",
       "label": "Textile Apparel",
-      "comment": "A clothing textile product as defined by EU Textile Labelling Regulation 1007/2011.\nDual inheritance bridges the OpenEPCIS textile vocabulary with the GS1 WearableProduct\nhierarchy — instances are both gs1:Product (DPP properties) and gs1:Clothing\n(GS1 interoperability). Includes outerwear, underwear, sportswear, and workwear.",
+      "comment": "A clothing textile product as defined by EU Textile Labelling Regulation 1007/2011.\nDual inheritance bridges the OpenEPCIS textile vocabulary with the GS1 WearableProduct\nhierarchy: instances are both gs1:Product (DPP properties) and gs1:Clothing\n(GS1 interoperability). Includes outerwear, underwear, sportswear, and workwear.",
       "seeAlso": [
         "https://ref.gs1.org/voc/Clothing",
         "https://ref.gs1.org/voc/WearableProduct"
@@ -168,7 +172,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/textile/TextileFootwear",
       "localName": "TextileFootwear",
       "label": "Textile Footwear",
-      "comment": "A footwear product containing textile materials, per EU Textile Labelling Regulation.\nDual inheritance bridges the OpenEPCIS textile vocabulary with the GS1 WearableProduct\nhierarchy — instances are both gs1:Product (DPP properties) and gs1:Footwear\n(GS1 interoperability). Includes shoes, boots, sandals, and other textile footwear.",
+      "comment": "A footwear product containing textile materials, per EU Textile Labelling Regulation.\nDual inheritance bridges the OpenEPCIS textile vocabulary with the GS1 WearableProduct\nhierarchy: instances are both gs1:Product (DPP properties) and gs1:Footwear\n(GS1 interoperability). Includes shoes, boots, sandals, and other textile footwear.",
       "seeAlso": [
         "https://ref.gs1.org/voc/WearableProduct",
         "https://ref.gs1.org/voc/Footwear"
@@ -207,7 +211,8 @@
       ],
       "seeAlso": [
         "https://schema.org/value"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/additionalCareInstructions",
@@ -222,7 +227,8 @@
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/consumerStorageInstructions"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/42918.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/apparelSubcategory",
@@ -251,7 +257,11 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/RecyclingTechnology"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/benchmarkPerformance",
@@ -263,7 +273,8 @@
       ],
       "range": [
         "xsd:decimal"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/biodegradable",
@@ -275,7 +286,11 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/bleachingSymbol",
@@ -287,7 +302,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/42918.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/carbonFootprintManufacturing",
@@ -303,7 +319,8 @@
       "seeAlso": [
         "https://schema.org/value",
         "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/careInstructions",
@@ -315,7 +332,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/CareInstruction"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/42918.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/chainOfCustodyMethod",
@@ -327,7 +345,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/ChainOfCustodyMethod"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/chemicalPurpose",
@@ -342,7 +361,8 @@
       ],
       "seeAlso": [
         "https://schema.org/description"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32006R1907"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/cleaningCyclesBeforeTest",
@@ -354,7 +374,8 @@
       ],
       "range": [
         "xsd:integer"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/clpHazardCategory",
@@ -366,7 +387,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/CLPHazardCategory"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/colorFastness",
@@ -381,7 +403,8 @@
       ],
       "seeAlso": [
         "https://schema.org/ratingValue"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/colourChangeRating",
@@ -396,7 +419,8 @@
       ],
       "seeAlso": [
         "https://schema.org/ratingValue"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/concentrationRange",
@@ -408,7 +432,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/cutAndSewFacility",
@@ -420,7 +445,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/dataTypeIndicator",
@@ -432,7 +458,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/FootprintDataType"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/dimensionalChangePercentage",
@@ -444,7 +471,8 @@
       ],
       "range": [
         "xsd:decimal"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/dimensionalChangeScore",
@@ -459,7 +487,8 @@
       ],
       "seeAlso": [
         "https://schema.org/ratingValue"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/dimensionalChangeTest",
@@ -471,7 +500,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/DimensionalChangeTestResult"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/dimensionalChangeTestMethod",
@@ -483,7 +513,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/dimensionalStability",
@@ -495,7 +526,8 @@
       ],
       "range": [
         "xsd:decimal"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/dryCleaningSymbol",
@@ -507,7 +539,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/42918.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/dryingSymbol",
@@ -519,7 +552,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/42918.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/durabilityClass",
@@ -531,7 +565,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/DurabilityClass"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/durabilityInfo",
@@ -543,7 +578,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/dyeingFacility",
@@ -555,7 +591,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/ecNumber",
@@ -569,8 +606,10 @@
         "xsd:string"
       ],
       "seeAlso": [
-        "https://schema.org/identifier"
-      ]
+        "https://schema.org/identifier",
+        "https://ref.openepcis.io/extensions/common/core/ecNumber"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/elastaneContentPercent",
@@ -582,7 +621,8 @@
       ],
       "range": [
         "xsd:decimal"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/endOfLifeDestination",
@@ -594,7 +634,11 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/endOfLifeHandling",
@@ -610,7 +654,8 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/consumerRecyclingInstructions",
         "https://ref.gs1.org/voc/sustainabilityInfo"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/energyUsage",
@@ -625,7 +670,8 @@
       ],
       "seeAlso": [
         "https://schema.org/QuantitativeValue"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/environmentalFootprint",
@@ -637,7 +683,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/EnvironmentalFootprint"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/expectedLifetimeYears",
@@ -652,7 +699,8 @@
       ],
       "seeAlso": [
         "https://schema.org/value"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/expectedWashCycles",
@@ -667,7 +715,8 @@
       ],
       "seeAlso": [
         "https://schema.org/value"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/fabricAppearanceRating",
@@ -682,7 +731,8 @@
       ],
       "seeAlso": [
         "https://schema.org/ratingValue"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/fabricType",
@@ -694,6 +744,9 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/FabricType"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/Clothing"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -707,7 +760,11 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/CertificationDetails"
-      ]
+      ],
+      "seeAlso": [
+        "https://schema.org/material"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/fiberOrigin",
@@ -722,7 +779,8 @@
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/countryOfOrigin"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/finishingFacility",
@@ -734,7 +792,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/freeFromCoatings",
@@ -746,7 +805,8 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/freeFromDyes",
@@ -771,7 +831,8 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/freeFromSequins",
@@ -783,7 +844,8 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/garmentType",
@@ -798,7 +860,8 @@
       ],
       "seeAlso": [
         "https://schema.org/category"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/hasTakeBackProgram",
@@ -810,7 +873,11 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/ironingSymbol",
@@ -822,7 +889,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/42918.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/isMonoMaterial",
@@ -847,7 +915,8 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32006R1907"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/isRecyclable",
@@ -859,7 +928,11 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/isRecycledFiber",
@@ -884,7 +957,11 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/lciaCategories",
@@ -896,7 +973,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/LCIACategory"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/lciaCategoryCode",
@@ -908,7 +986,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/LCIACategoryCode"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/lciaUnit",
@@ -923,7 +1002,8 @@
       ],
       "seeAlso": [
         "https://schema.org/unitCode"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/lciaValue",
@@ -938,7 +1018,8 @@
       ],
       "seeAlso": [
         "https://schema.org/value"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/locationInProduct",
@@ -953,7 +1034,8 @@
       ],
       "seeAlso": [
         "https://schema.org/description"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/maxConcentration",
@@ -965,7 +1047,8 @@
       ],
       "range": [
         "xsd:decimal"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/meetsTargetThreshold",
@@ -977,7 +1060,8 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/microplasticInfo",
@@ -989,7 +1073,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/MicroplasticInfo"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/microplasticMitigationMeasures",
@@ -1001,7 +1086,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/microplasticRiskLevel",
@@ -1013,7 +1099,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/MicroplasticRiskLevel"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/nonTextilePartsRating",
@@ -1028,7 +1115,8 @@
       ],
       "seeAlso": [
         "https://schema.org/ratingValue"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/pefcrReference",
@@ -1040,7 +1128,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/pefSingleScore",
@@ -1055,7 +1144,8 @@
       ],
       "seeAlso": [
         "https://schema.org/ratingValue"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/pfasFree",
@@ -1067,7 +1157,8 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32006R1907"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/pillingResistance",
@@ -1082,7 +1173,8 @@
       ],
       "seeAlso": [
         "https://schema.org/ratingValue"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/productionWastePercentage",
@@ -1094,7 +1186,8 @@
       ],
       "range": [
         "xsd:decimal"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/recyclabilityAssessment",
@@ -1106,7 +1199,12 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/RecyclabilityAssessment"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
+        "https://ref.openepcis.io/extensions/common/core/recyclabilityAssessment"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/recyclabilityScore",
@@ -1120,8 +1218,10 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://schema.org/ratingValue"
-      ]
+        "https://schema.org/ratingValue",
+        "https://ref.openepcis.io/extensions/common/core/recyclabilityScore"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/recycledContentDeclaration",
@@ -1133,7 +1233,11 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/RecycledContentDeclaration"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/recycledContentSource",
@@ -1158,7 +1262,11 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/RecycledSourceType"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/repairGuideUrl",
@@ -1173,7 +1281,8 @@
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/instructions"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/repairServices",
@@ -1185,7 +1294,11 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/Organization"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/robustnessAssessment",
@@ -1197,7 +1310,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/RobustnessAssessment"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/robustnessScore",
@@ -1212,7 +1326,8 @@
       ],
       "seeAlso": [
         "https://schema.org/ratingValue"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/robustnessTestFabricType",
@@ -1224,7 +1339,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/FabricType"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/safeUseInstructions",
@@ -1239,8 +1355,10 @@
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/consumerSafetyInformation",
-        "https://ref.gs1.org/voc/safetyInfo"
-      ]
+        "https://ref.gs1.org/voc/safetyInfo",
+        "https://ref.openepcis.io/extensions/common/core/safeUseInstructions"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/sameInnerOuterComposition",
@@ -1252,7 +1370,8 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/seamAppearanceRating",
@@ -1267,7 +1386,8 @@
       ],
       "seeAlso": [
         "https://schema.org/ratingValue"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/seasonCollection",
@@ -1282,7 +1402,8 @@
       ],
       "seeAlso": [
         "https://schema.org/releaseDate"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/secondaryMaterialFraction",
@@ -1297,7 +1418,8 @@
       ],
       "seeAlso": [
         "https://ref.openepcis.io/extensions/common/core/recycledContent"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/sheddingRate",
@@ -1309,7 +1431,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/sizeRange",
@@ -1325,7 +1448,8 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/size",
         "https://schema.org/size"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/socType",
@@ -1337,7 +1461,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcernType"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/sortingFactors",
@@ -1349,7 +1474,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/SortingFactors"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/sparePartsAvailable",
@@ -1361,7 +1487,11 @@
       ],
       "range": [
         "xsd:boolean"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/sparePartsUrl",
@@ -1376,7 +1506,8 @@
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/purchaseSuppliesOrAccessories"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/spinningFacility",
@@ -1388,7 +1519,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/spiralityPercentage",
@@ -1400,7 +1532,8 @@
       ],
       "range": [
         "xsd:decimal"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/spiralityScore",
@@ -1415,7 +1548,8 @@
       ],
       "seeAlso": [
         "https://schema.org/ratingValue"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/spiralityTest",
@@ -1427,7 +1561,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/SpiralityTestResult"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/spiralityTestMethod",
@@ -1439,7 +1574,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/substanceConcentration",
@@ -1454,7 +1590,8 @@
       ],
       "seeAlso": [
         "https://schema.org/value"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/substancesOfConcern",
@@ -1466,7 +1603,11 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcern"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/substancesOfConcern"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/syntheticFiberContent",
@@ -1478,7 +1619,11 @@
       ],
       "range": [
         "xsd:decimal"
-      ]
+      ],
+      "seeAlso": [
+        "https://schema.org/material"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/takeBackIncentive",
@@ -1490,7 +1635,12 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
+        "https://ref.openepcis.io/extensions/common/core/takeBackIncentive"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/takeBackProgram",
@@ -1502,7 +1652,11 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/TakeBackProgram"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/takeBackUrl",
@@ -1516,8 +1670,10 @@
         "xsd:anyURI"
       ],
       "seeAlso": [
-        "https://ref.gs1.org/voc/sustainabilityInfo"
-      ]
+        "https://ref.gs1.org/voc/sustainabilityInfo",
+        "https://ref.openepcis.io/extensions/common/core/takeBackUrl"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/tearStrength",
@@ -1529,7 +1685,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/technicalRecyclability",
@@ -1541,7 +1698,11 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/TechnicalRecyclability"
-      ]
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/technicalRecyclabilityScore",
@@ -1556,7 +1717,8 @@
       ],
       "seeAlso": [
         "https://schema.org/ratingValue"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/tensileStrength",
@@ -1568,7 +1730,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/testStandard",
@@ -1577,7 +1740,8 @@
       "comment": "The test standard used for a durability or robustness test.",
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/TestStandard"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/textileChemicals",
@@ -1602,7 +1766,8 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/CertificationDetails"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/visualInspection",
@@ -1614,7 +1779,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/VisualInspectionResult"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/visualInspectionScore",
@@ -1629,7 +1795,8 @@
       ],
       "seeAlso": [
         "https://schema.org/ratingValue"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/visualInspectionTestMethod",
@@ -1641,7 +1808,8 @@
       ],
       "range": [
         "xsd:string"
-      ]
+      ],
+      "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/washingSymbol",
@@ -1653,7 +1821,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode"
-      ]
+      ],
+      "source": "https://www.iso.org/standard/42918.html"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/wasteOriginType",
@@ -1665,7 +1834,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/WasteOriginType"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/waterUsage",
@@ -1680,7 +1850,8 @@
       ],
       "seeAlso": [
         "https://schema.org/QuantitativeValue"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/textile/weavingFacility",
@@ -1692,7 +1863,8 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
-      ]
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     }
   ],
   "enumerations": [

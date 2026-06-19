@@ -49,14 +49,14 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     dir: "extensions/common/core",
     ttlFile: "dpp-core.ttl",
     namespace: "https://ref.openepcis.io/extensions/common/core/",
-    prefix: "dpp",
+    prefix: "oec",
   },
   {
     name: "battery",
     dir: "extensions/eu/battery",
     ttlFile: "battery.ttl",
     namespace: "https://ref.openepcis.io/extensions/eu/battery/",
-    prefix: "battery",
+    prefix: "eubat",
   },
   {
     name: "eudr",
@@ -70,42 +70,42 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     dir: "extensions/eu/textile",
     ttlFile: "textile.ttl",
     namespace: "https://ref.openepcis.io/extensions/eu/textile/",
-    prefix: "textile",
+    prefix: "eutex",
   },
   {
     name: "electronics",
     dir: "extensions/eu/electronics",
     ttlFile: "electronics.ttl",
     namespace: "https://ref.openepcis.io/extensions/eu/electronics/",
-    prefix: "electronics",
+    prefix: "euelec",
   },
   {
     name: "detergent",
     dir: "extensions/eu/detergent",
     ttlFile: "detergent.ttl",
     namespace: "https://ref.openepcis.io/extensions/eu/detergent/",
-    prefix: "detergent",
+    prefix: "eudet",
   },
   {
     name: "ppwr",
     dir: "extensions/eu/ppwr",
     ttlFile: "ppwr.ttl",
     namespace: "https://ref.openepcis.io/extensions/eu/ppwr/",
-    prefix: "ppwr",
+    prefix: "euppwr",
   },
   {
     name: "cpr",
     dir: "extensions/eu/cpr",
     ttlFile: "cpr.ttl",
     namespace: "https://ref.openepcis.io/extensions/eu/cpr/",
-    prefix: "cpr",
+    prefix: "eucpr",
   },
   {
     name: "fsma204",
     dir: "extensions/us/fsma204",
     ttlFile: "fsma204.ttl",
     namespace: "https://ref.openepcis.io/extensions/us/fsma204/",
-    prefix: "fsma",
+    prefix: "usfsma",
   },
   {
     name: "rail",
@@ -121,16 +121,16 @@ const NAMESPACE_TO_PREFIX: Record<string, string> = {
   [RDFS]: "rdfs",
   [GS1]: "gs1",
   [SCHEMA]: "schema",
-  "https://ref.openepcis.io/extensions/common/core/": "dpp",
-  "https://ref.openepcis.io/extensions/common/interop/": "interop",
-  "https://ref.openepcis.io/extensions/eu/battery/": "battery",
+  "https://ref.openepcis.io/extensions/common/core/": "oec",
+  "https://ref.openepcis.io/extensions/common/interop/": "oei",
+  "https://ref.openepcis.io/extensions/eu/battery/": "eubat",
   "https://ref.openepcis.io/extensions/eu/eudr/": "eudr",
-  "https://ref.openepcis.io/extensions/eu/textile/": "textile",
-  "https://ref.openepcis.io/extensions/eu/electronics/": "electronics",
-  "https://ref.openepcis.io/extensions/eu/detergent/": "detergent",
-  "https://ref.openepcis.io/extensions/eu/ppwr/": "ppwr",
-  "https://ref.openepcis.io/extensions/eu/cpr/": "cpr",
-  "https://ref.openepcis.io/extensions/us/fsma204/": "fsma",
+  "https://ref.openepcis.io/extensions/eu/textile/": "eutex",
+  "https://ref.openepcis.io/extensions/eu/electronics/": "euelec",
+  "https://ref.openepcis.io/extensions/eu/detergent/": "eudet",
+  "https://ref.openepcis.io/extensions/eu/ppwr/": "euppwr",
+  "https://ref.openepcis.io/extensions/eu/cpr/": "eucpr",
+  "https://ref.openepcis.io/extensions/us/fsma204/": "usfsma",
   "https://gs1-epcis-reg.org/rail/voc/data#": "rail",
 };
 
@@ -269,7 +269,7 @@ function buildDerivedContext(store: Store, module: OntologyModule): DerivedConte
       .sort((a, b) => a.localName.localeCompare(b.localName));
     if (values.length === 0) continue;
 
-    // Find any property that ranges over this class — those properties get @vocab coercion.
+    // Find any property that ranges over this class, so those properties get @vocab coercion.
     for (const prop of properties) {
       const propIri = `${namespace}${prop.localName}`;
       const range = getObjectValue(store, propIri, `${RDFS}range`);
@@ -375,7 +375,7 @@ function isPrefixDeclaration(key: string, value: unknown): boolean {
  *     `existing` but not in `derived` (e.g. @container, @vocab subcontexts).
  *
  * Differences where derived has more / different info are intentionally
- * dropped — TTL is authoritative for @id and @type coercion.
+ * dropped; TTL is authoritative for @id and @type coercion.
  */
 function migrateOverrides(existing: ContextMap, derived: ContextMap): ContextMap {
   const overrides: ContextMap = {};
@@ -392,7 +392,7 @@ function migrateOverrides(existing: ContextMap, derived: ContextMap): ContextMap
     if (typeof existingVal !== "object" || existingVal === null || Array.isArray(existingVal)) {
       // Existing is a plain string alias. If it references the same IRI as
       // derived, drop it; derived wins. If it points elsewhere, the user has
-      // intentionally overridden the IRI — keep it.
+      // intentionally overridden the IRI, keep it.
       const derivedIri =
         typeof derivedVal === "string"
           ? derivedVal
@@ -446,7 +446,7 @@ function buildTopComment(store: Store, module: OntologyModule): string {
     getObjectValue(store, namespace, `${OWL}versionInfo`) ||
     getObjectValue(store, ontologyUri, `${OWL}versionInfo`) ||
     "0.0.0";
-  return `${title} v${version} — generated from ${module.dir}/ontology/${module.ttlFile}. Do not edit by hand; re-run \`pnpm run build:context\` and edit ${module.dir}/context/.context-overrides.json for non-derivable hints.`;
+  return `${title} v${version}, generated from ${module.dir}/ontology/${module.ttlFile}. Do not edit by hand; re-run \`pnpm run build:context\` and edit ${module.dir}/context/.context-overrides.json for non-derivable hints.`;
 }
 
 async function buildContext(): Promise<void> {

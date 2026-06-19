@@ -20,25 +20,25 @@ phased from 2026 onwards (per product family in Annex III).
 ## Module philosophy
 
 Same four-layer delegation pattern used by `eu/ppwr`. Construction-specific
-concepts live in `cpr:`; everything else reuses the lifted `dpp:`
+concepts live in `eucpr:`; everything else reuses the lifted `oec:`
 cross-cutting vocabulary plus `untp:` and `gs1:`.
 
 | CPR data point (Article) | Carried by |
 |---|---|
-| Construction Product class | `cpr:ConstructionProduct` (this module) |
-| Construction product family (Annex III) | `cpr:constructionProductType` enum (this module) |
-| Reaction-to-fire (EN 13501-1) | `cpr:reactionToFireClass` enum A1..F (this module) |
-| Declaration of Performance URL (Article 12) | `cpr:declarationOfPerformanceUrl` (this module) |
-| Essential characteristics (Annex III) | `cpr:EssentialCharacteristic` + `cpr:characteristicName` + `cpr:characteristicValue` + `cpr:harmonisedStandard` (this module) |
-| Recycled content | `dpp:RecycledContent`, `dpp:recycledContent`, `dpp:postConsumerRecycledContent` |
-| Carbon footprint with lifecycle stages | `dpp:CarbonFootprintDeclaration` + per-stage properties |
-| Recyclability | `dpp:RecyclabilityAssessment` |
-| End-of-life take-back | `dpp:EndOfLifeProgram` |
-| Hazardous substances | `dpp:HazardousSubstance`, `dpp:SubstanceOfConcern` |
-| Critical raw materials | `dpp:isCriticalRawMaterial`, `dpp:isStrategicRawMaterial`, `dpp:crmListVersion` |
-| EPR (where applicable) | `dpp:ExtendedProducerResponsibility` |
+| Construction Product class | `eucpr:ConstructionProduct` (this module) |
+| Construction product family (Annex III) | `eucpr:constructionProductType` enum (this module) |
+| Reaction-to-fire (EN 13501-1) | `eucpr:reactionToFireClass` enum A1..F (this module) |
+| Declaration of Performance URL (Article 12) | `eucpr:declarationOfPerformanceUrl` (this module) |
+| Essential characteristics (Annex III) | `eucpr:EssentialCharacteristic` + `eucpr:characteristicName` + `eucpr:characteristicValue` + `eucpr:harmonisedStandard` (this module) |
+| Recycled content | `oec:RecycledContent`, `oec:recycledContent`, `oec:postConsumerRecycledContent` |
+| Carbon footprint with lifecycle stages | `oec:CarbonFootprintDeclaration` + per-stage properties |
+| Recyclability | `oec:RecyclabilityAssessment` |
+| End-of-life take-back | `oec:EndOfLifeProgram` |
+| Hazardous substances | `oec:HazardousSubstance`, `oec:SubstanceOfConcern` |
+| Critical raw materials | `oec:isCriticalRawMaterial`, `oec:isStrategicRawMaterial`, `oec:crmListVersion` |
+| EPR (where applicable) | `oec:ExtendedProducerResponsibility` |
 | Production site / facility | `untp:Facility`, `gs1:Place`, `gs1:GeoShape` |
-| Manufacturer / authorised rep | `gs1:manufacturer` / `dpp:OperatorInformation` (= `untp:Party`) |
+| Manufacturer / authorised rep | `gs1:manufacturer` / `oec:OperatorInformation` (= `untp:Party`) |
 | Declaration of regulatory compliance (CE marking) | `gs1:regulatoryInformation` with `gs1:regulationType` set to the construction-products-regulation code |
 
 ## Module contents
@@ -64,36 +64,36 @@ cpr/
 
 ## Vocabulary namespace
 
-**Prefix**: `cpr:`
+**Prefix**: `eucpr:`
 **URI**: `https://ref.openepcis.io/extensions/eu/cpr/`
 
 ## Vocabulary
 
 | Class | Description |
 |-------|-------------|
-| `cpr:ConstructionProduct` | Subclass of `gs1:Product`. Carrier for CPR DPP. |
-| `cpr:ReactionToFireClass` | Enumeration A1..F (EN 13501-1). |
-| `cpr:ConstructionProductType` | Enumeration of CPR Annex III families. |
-| `cpr:EssentialCharacteristic` | A single declared essential characteristic (name + value + harmonised standard). |
+| `eucpr:ConstructionProduct` | Subclass of `gs1:Product`. Carrier for CPR DPP. |
+| `eucpr:ReactionToFireClass` | Enumeration A1..F (EN 13501-1). |
+| `eucpr:ConstructionProductType` | Enumeration of CPR Annex III families. |
+| `eucpr:EssentialCharacteristic` | A single declared essential characteristic (name + value + harmonised standard). |
 
 | Property | Range | Description |
 |----------|-------|-------------|
-| `cpr:constructionProductType` | `cpr:ConstructionProductType` | Top-level family per Annex III. |
-| `cpr:reactionToFireClass` | `cpr:ReactionToFireClass` | A1..F per EN 13501-1. |
-| `cpr:declarationOfPerformanceUrl` | `xsd:anyURI` | DoP / DoC document reference per Article 12. |
-| `cpr:essentialCharacteristic` | `cpr:EssentialCharacteristic` | Set-valued — most products declare multiple. |
-| `cpr:characteristicName` | `xsd:string` | Name of the essential characteristic. |
-| `cpr:characteristicValue` | `gs1:QuantitativeValue` | Value with unitCode appropriate for the characteristic. |
-| `cpr:harmonisedStandard` | `xsd:anyURI` | URI of the harmonised technical specification (hEN). |
+| `eucpr:constructionProductType` | `eucpr:ConstructionProductType` | Top-level family per Annex III. |
+| `eucpr:reactionToFireClass` | `eucpr:ReactionToFireClass` | A1..F per EN 13501-1. |
+| `eucpr:declarationOfPerformanceUrl` | `xsd:anyURI` | DoP / DoC document reference per Article 12. |
+| `eucpr:essentialCharacteristic` | `eucpr:EssentialCharacteristic` | Set-valued — most products declare multiple. |
+| `eucpr:characteristicName` | `xsd:string` | Name of the essential characteristic. |
+| `eucpr:characteristicValue` | `gs1:QuantitativeValue` | Value with unitCode appropriate for the characteristic. |
+| `eucpr:harmonisedStandard` | `xsd:anyURI` | URI of the harmonised technical specification (hEN). |
 
 ## EPCIS 2.0 extension declaration
 
 ```http
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/, cpr=https://ref.openepcis.io/extensions/eu/cpr/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, eucpr=https://ref.openepcis.io/extensions/eu/cpr/
 ```
 
 CPR-specific extension properties (`constructionProductType`, `reactionToFireClass`,
-`declarationOfPerformanceUrl`, `essentialCharacteristic`) and lifted `dpp:`
+`declarationOfPerformanceUrl`, `essentialCharacteristic`) and lifted `oec:`
 properties go at **event level**. `masterDataAvailableFor` carries only
 `gs1:` properties.
 

@@ -1,0 +1,56 @@
+meta {
+  name: Create Org — EcoWear GmbH
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{dl-url}}/organizations
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  isAnonymousAccessAllowed: true
+}
+
+body:json {
+{
+  "@context": [
+    "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld"
+  ],
+  "type": "Organization",
+  "glnType": "LEGAL_ENTITY",
+  "globalLocationNumber": "9521000000018",
+  "organizationName": {
+    "en": "EcoWear GmbH",
+    "de": "EcoWear GmbH"
+  },
+  "organizationRole": "MANUFACTURER_OF_FINISHED_GOODS",
+  "address": {
+    "organizationName": {
+      "en": "EcoWear GmbH"
+    },
+    "streetAddress": {
+      "en": "Nachhaltigkeitsstraße 42"
+    },
+    "addressLocality": {
+      "en": "Berlin"
+    },
+    "postalCode": "10115",
+    "countryCode": "DE"
+  },
+  "email": "info@ecowear.example.com",
+  "telephone": "+00 0 0000 0000",
+  "dpp:economicOperatorId": "DE-DPP-OP-001",
+  "dpp:operatorType": "dpp:Manufacturer"
+}
+}
+
+tests {
+  test("Organization created", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202, 409]);
+  });
+}

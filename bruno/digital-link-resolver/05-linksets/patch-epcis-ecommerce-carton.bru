@@ -1,0 +1,47 @@
+meta {
+  name: Patch epcis — EcoFlow corrugated shipping carton
+  type: http
+  seq: 18
+}
+
+patch {
+  url: {{dl-url}}/01/09521006003013
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+[
+  {
+    "action": "add",
+    "linkset": [
+      {
+        "anchor": "{{dl-url}}/01/09521006003013",
+        "itemDescription": "EcoFlow corrugated shipping carton — 30×20×15 cm",
+        "epcis": [
+          {
+            "href": "https://api.dev.epcis.cloud/events?MATCH_anyEPC=https%3A%2F%2Fid.gs1.org%2F01%2F09521006003013%2A",
+            "title": "EPCIS event history",
+            "type": "application/ld+json",
+            "hreflang": [
+              "en"
+            ],
+            "context": [
+              "epcis"
+            ],
+            "public": true
+          }
+        ]
+      }
+    ]
+  }
+]
+}
+
+assert {
+  res.status: eq 200
+}

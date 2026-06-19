@@ -3,13 +3,13 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
-@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
-@prefix textile: <https://ref.openepcis.io/extensions/eu/textile/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix eutex: <https://ref.openepcis.io/extensions/eu/textile/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix schema: <https://schema.org/> .
 @prefix vann: <http://purl.org/vocab/vann/> .
-# EU SEMICeu Core Vocabularies (peer Layer 1) — see extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md
+# EU SEMICeu Core Vocabularies (peer Layer 1): see extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md
 @prefix cv:    <http://data.europa.eu/m8g/> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix locn:  <http://www.w3.org/ns/locn#> .
@@ -42,13 +42,13 @@ GS1 Properties to Use (not redefined here):
 - gs1:certification / gs1:CertificationDetails - Certifications (GOTS, OEKO-TEX, etc.)
 - gs1:textileMaterial / gs1:TextileMaterialDetails - Fiber composition (GS1 native)
 - gs1:consumerRecyclingInstructions - Recycling text
-- gs1:referencedFileDetails - Documents
+- gs1:referencedFile - Documents
 
 For fiber composition, prefer gs1:textileMaterial with gs1:TextileMaterialDetails where possible.
-Use textile: extensions for durability metrics, care symbols, and microplastic data not in GS1.
+Use eutex: extensions for durability metrics, care symbols, and microplastic data not in GS1.
 
 EPCIS 2.0 Extension Declaration:
-GS1-Extensions: textile=https://ref.openepcis.io/extensions/eu/textile/
+GS1-Extensions: eutex=https://ref.openepcis.io/extensions/eu/textile/
 
 Extension Governance:
 This vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.
@@ -56,10 +56,10 @@ Each extension term includes dcterms:source, skos:note, and rdfs:seeAlso where a
     dcterms:creator "OpenEPCIS" ;
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
     dcterms:created "2025-02-02"^^xsd:date ;
-    dcterms:modified "2026-03-07"^^xsd:date ;
-    owl:versionInfo "0.9.5" ;
-    owl:versionIRI <https://ref.openepcis.io/extensions/eu/textile/0.9.5> ;
-    vann:preferredNamespacePrefix "textile" ;
+    dcterms:modified "2026-06-07"^^xsd:date ;
+    owl:versionInfo "0.9.6" ;
+    owl:versionIRI <https://ref.openepcis.io/extensions/eu/textile/0.9.6> ;
+    vann:preferredNamespacePrefix "eutex" ;
     vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/eu/textile/" ;
     rdfs:seeAlso <https://ref.gs1.org/voc/TextileMaterialDetails> ;
     rdfs:seeAlso <https://ref.gs1.org/voc/CertificationDetails> ;
@@ -68,13 +68,15 @@ Each extension term includes dcterms:source, skos:note, and rdfs:seeAlso where a
     rdfs:seeAlso <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
     owl:imports <https://ref.gs1.org/voc/> ;
-    owl:imports <https://ref.openepcis.io/extensions/common/core/> .
+    owl:imports <https://ref.openepcis.io/extensions/common/core/> ;
+    owl:imports <http://data.europa.eu/m8g/> ;
+    owl:imports <http://www.w3.org/ns/locn#> .
 
 # =============================================================================
 # PART 1: CORE CLASSES
 # =============================================================================
 
-textile:CareInstruction
+eutex:CareInstruction
     a owl:Class ;
     rdfs:label "Care Instruction"@en ;
     rdfs:comment """Care instructions per ISO 3758:2023 including washing, drying, ironing, and dry cleaning symbols."""@en ;
@@ -83,31 +85,31 @@ textile:CareInstruction
 with ISO 3758 symbol codes. This class captures machine-readable care symbols for consumer apps
 and laundry service integration."""@en.
 
-textile:DurabilityInfo
+eutex:DurabilityInfo
     a owl:Class ;
     rdfs:label "Durability Information"@en ;
     rdfs:comment """Product durability metrics including expected lifespan, wash cycles, and usage resistance."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:seeAlso dpp:PerformanceInfo ;
+    rdfs:seeAlso oec:PerformanceInfo ;
     skos:note """Required extension: ESPR requires durability information for textiles including expected
 number of wash cycles, pilling resistance, and dimensional stability. GS1 Web Vocabulary lacks
-textile-specific durability metrics. Aligned with dpp:PerformanceInfo pattern."""@en.
+textile-specific durability metrics. Aligned with oec:PerformanceInfo pattern."""@en.
 
-textile:TakeBackProgram
+eutex:TakeBackProgram
     a owl:Class ;
     rdfs:label "Take-Back Program"@en ;
     rdfs:comment """End-of-life collection and take-back program information for circular textile economy."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:seeAlso dpp:CircularityPerformance ;
+    rdfs:seeAlso oec:CircularityPerformance ;
     rdfs:seeAlso schema:Service ;
     rdfs:seeAlso gs1:consumerRecyclingInstructions ;
     skos:note """Required extension: ESPR and EU Textile Strategy mandate take-back program information.
 GS1 provides gs1:consumerRecyclingInstructions for text but lacks structured take-back data.
 See also schema:Service for web search interoperability."""@en.
 
-textile:MicroplasticInfo
+eutex:MicroplasticInfo
     a owl:Class ;
     rdfs:label "Microplastic Information"@en ;
     rdfs:comment """Information about microplastic/microfiber shedding potential from synthetic textiles."""@en ;
@@ -124,31 +126,33 @@ from synthetic textiles. No GS1 equivalent exists for microfiber shedding data."
 # Textile Product Category
 # -----------------------------------------------------------------------------
 
-textile:TextileCategory
+eutex:TextileCategory
     a owl:Class ;
     rdfs:label "Textile Category"@en ;
     rdfs:comment "Categories of textile products per EU Textile Labelling Regulation."@en ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007> ;
     owl:oneOf (
-        textile:Apparel
-        textile:Footwear
-        textile:HomeTextiles
-        textile:TechnicalTextiles
-        textile:Accessories
+        eutex:Apparel
+        eutex:Footwear
+        eutex:HomeTextiles
+        eutex:TechnicalTextiles
+        eutex:Accessories
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile product classification / attribute per the EU Textile Labelling Regulation (EU) 1007/2011."@en ;
+    rdfs:seeAlso gs1:Clothing .
 
-textile:Apparel a textile:TextileCategory ; rdfs:label "Apparel"@en ;
+eutex:Apparel a eutex:TextileCategory ; rdfs:label "Apparel"@en ;
     rdfs:comment "Clothing items including outerwear, underwear, sportswear, and workwear."@en ;
     rdfs:seeAlso gs1:Clothing , gs1:WearableProduct .
-textile:Footwear a textile:TextileCategory ; rdfs:label "Footwear"@en ;
+eutex:Footwear a eutex:TextileCategory ; rdfs:label "Footwear"@en ;
     rdfs:comment "Shoes, boots, sandals, and other footwear containing textile materials."@en ;
     rdfs:seeAlso gs1:Footwear , gs1:WearableProduct .
-textile:HomeTextiles a textile:TextileCategory ; rdfs:label "Home Textiles"@en ;
+eutex:HomeTextiles a eutex:TextileCategory ; rdfs:label "Home Textiles"@en ;
     rdfs:comment "Household textile products including bedding, towels, curtains, and upholstery."@en .
-textile:TechnicalTextiles a textile:TextileCategory ; rdfs:label "Technical Textiles"@en ;
+eutex:TechnicalTextiles a eutex:TextileCategory ; rdfs:label "Technical Textiles"@en ;
     rdfs:comment "Functional textiles for industrial, medical, protective, or automotive applications."@en .
-textile:Accessories a textile:TextileCategory ; rdfs:label "Accessories"@en ;
+eutex:Accessories a eutex:TextileCategory ; rdfs:label "Accessories"@en ;
     rdfs:comment "Textile accessories including bags, belts, scarves, and hats."@en ;
     rdfs:seeAlso gs1:WearableProduct .
 
@@ -160,17 +164,17 @@ textile:Accessories a textile:TextileCategory ; rdfs:label "Accessories"@en ;
 # WearableProduct (it includes non-wearable categories like HomeTextiles and
 # TechnicalTextiles), so we cannot reparent TextileProduct under WearableProduct.
 # Instead, we introduce dual-inheritance subclasses that bridge both hierarchies.
-# A product typed as textile:TextileApparel is simultaneously a gs1:Product
+# A product typed as eutex:TextileApparel is simultaneously a gs1:Product
 # (inheriting all DPP textile properties) and a gs1:Clothing (inheriting GS1
 # WearableProduct semantics). An OWL reasoner will infer both type chains.
 # -----------------------------------------------------------------------------
 
-textile:TextileApparel
+eutex:TextileApparel
     a owl:Class ;
     rdfs:label "Textile Apparel"@en ;
     rdfs:comment """A clothing textile product as defined by EU Textile Labelling Regulation 1007/2011.
 Dual inheritance bridges the OpenEPCIS textile vocabulary with the GS1 WearableProduct
-hierarchy — instances are both gs1:Product (DPP properties) and gs1:Clothing
+hierarchy: instances are both gs1:Product (DPP properties) and gs1:Clothing
 (GS1 interoperability). Includes outerwear, underwear, sportswear, and workwear."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
     rdfs:subClassOf gs1:Product ;
@@ -181,12 +185,12 @@ gs1:Product) per GS1 First governance. TextileProduct itself cannot subclass Wea
 because it also covers non-wearable categories (HomeTextiles, TechnicalTextiles)."""@en ;
     rdfs:seeAlso gs1:Clothing , gs1:WearableProduct .
 
-textile:TextileFootwear
+eutex:TextileFootwear
     a owl:Class ;
     rdfs:label "Textile Footwear"@en ;
     rdfs:comment """A footwear product containing textile materials, per EU Textile Labelling Regulation.
 Dual inheritance bridges the OpenEPCIS textile vocabulary with the GS1 WearableProduct
-hierarchy — instances are both gs1:Product (DPP properties) and gs1:Footwear
+hierarchy: instances are both gs1:Product (DPP properties) and gs1:Footwear
 (GS1 interoperability). Includes shoes, boots, sandals, and other textile footwear."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
     rdfs:subClassOf gs1:Product ;
@@ -194,7 +198,7 @@ hierarchy — instances are both gs1:Product (DPP properties) and gs1:Footwear
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007> ;
     skos:note """Created to align with gs1:Footwear (subClassOf gs1:WearableProduct subClassOf
 gs1:Product) per GS1 First governance. Named TextileFootwear (not Footwear) to avoid
-collision with the existing textile:Footwear enum individual in TextileCategory."""@en ;
+collision with the existing eutex:Footwear enum individual in TextileCategory."""@en ;
     rdfs:seeAlso gs1:Footwear , gs1:WearableProduct ;
     owl:equivalentClass gs1:Footwear .
 
@@ -202,93 +206,95 @@ collision with the existing textile:Footwear enum individual in TextileCategory.
 # Fiber Type (aligned with EU Textile Labelling Regulation Annex I)
 # -----------------------------------------------------------------------------
 
-textile:FiberType
+eutex:FiberType
     a owl:Class ;
     rdfs:label "Fiber Type"@en ;
     rdfs:comment "Fiber types as defined in EU Textile Labelling Regulation 1007/2011 Annex I."@en ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007> ;
     owl:oneOf (
-        textile:Cotton
-        textile:Wool
-        textile:Silk
-        textile:Linen
-        textile:Hemp
-        textile:Polyester
-        textile:Polyamide
-        textile:Elastane
-        textile:Viscose
-        textile:Lyocell
-        textile:Modal
-        textile:Acrylic
-        textile:Polypropylene
-        textile:RecycledPolyester
-        textile:RecycledCotton
-        textile:RecycledWool
-        textile:OrganicCotton
-        textile:Cashmere
-        textile:Leather
-        textile:Rubber
+        eutex:Cotton
+        eutex:Wool
+        eutex:Silk
+        eutex:Linen
+        eutex:Hemp
+        eutex:Polyester
+        eutex:Polyamide
+        eutex:Elastane
+        eutex:Viscose
+        eutex:Lyocell
+        eutex:Modal
+        eutex:Acrylic
+        eutex:Polypropylene
+        eutex:RecycledPolyester
+        eutex:RecycledCotton
+        eutex:RecycledWool
+        eutex:OrganicCotton
+        eutex:Cashmere
+        eutex:Leather
+        eutex:Rubber
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Fibre-composition / labelling concept per the EU Textile Labelling Regulation (EU) 1007/2011. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    rdfs:seeAlso schema:material .
 
-textile:Cotton a textile:FiberType ; rdfs:label "Cotton"@en ;
+eutex:Cotton a eutex:FiberType ; rdfs:label "Cotton"@en ;
     rdfs:comment "Natural cellulose fiber from cotton plant (Gossypium)."@en ;
     skos:notation "CO" .
-textile:Wool a textile:FiberType ; rdfs:label "Wool"@en ;
+eutex:Wool a eutex:FiberType ; rdfs:label "Wool"@en ;
     rdfs:comment "Natural protein fiber from sheep or lamb fleece."@en ;
     skos:notation "WO" .
-textile:Silk a textile:FiberType ; rdfs:label "Silk"@en ;
+eutex:Silk a eutex:FiberType ; rdfs:label "Silk"@en ;
     rdfs:comment "Natural protein fiber from silkworm cocoons."@en ;
     skos:notation "SE" .
-textile:Linen a textile:FiberType ; rdfs:label "Linen"@en ;
+eutex:Linen a eutex:FiberType ; rdfs:label "Linen"@en ;
     rdfs:comment "Natural cellulose fiber from flax plant (Linum usitatissimum)."@en ;
     skos:notation "LI" .
-textile:Hemp a textile:FiberType ; rdfs:label "Hemp"@en ;
+eutex:Hemp a eutex:FiberType ; rdfs:label "Hemp"@en ;
     rdfs:comment "Natural cellulose fiber from hemp plant (Cannabis sativa)."@en ;
     skos:notation "HA" .
-textile:Polyester a textile:FiberType ; rdfs:label "Polyester"@en ;
+eutex:Polyester a eutex:FiberType ; rdfs:label "Polyester"@en ;
     rdfs:comment "Synthetic fiber made from polyethylene terephthalate (PET)."@en ;
     skos:notation "PL" .
-textile:Polyamide a textile:FiberType ; rdfs:label "Polyamide"@en ;
+eutex:Polyamide a eutex:FiberType ; rdfs:label "Polyamide"@en ;
     rdfs:comment "Synthetic fiber (nylon) made from polyamide polymers."@en ;
     skos:notation "PA" .
-textile:Elastane a textile:FiberType ; rdfs:label "Elastane"@en ;
+eutex:Elastane a eutex:FiberType ; rdfs:label "Elastane"@en ;
     rdfs:comment "Synthetic elastic fiber (spandex/Lycra) for stretch fabrics."@en ;
     skos:notation "EL" .
-textile:Viscose a textile:FiberType ; rdfs:label "Viscose"@en ;
+eutex:Viscose a eutex:FiberType ; rdfs:label "Viscose"@en ;
     rdfs:comment "Regenerated cellulose fiber from wood pulp (rayon)."@en ;
     skos:notation "CV" .
-textile:Lyocell a textile:FiberType ; rdfs:label "Lyocell"@en ;
+eutex:Lyocell a eutex:FiberType ; rdfs:label "Lyocell"@en ;
     rdfs:comment "Regenerated cellulose fiber using closed-loop solvent process (Tencel)."@en ;
     skos:notation "CLY" .
-textile:Modal a textile:FiberType ; rdfs:label "Modal"@en ;
+eutex:Modal a eutex:FiberType ; rdfs:label "Modal"@en ;
     rdfs:comment "Regenerated cellulose fiber from beech wood pulp."@en ;
     skos:notation "CMD" .
-textile:Acrylic a textile:FiberType ; rdfs:label "Acrylic"@en ;
+eutex:Acrylic a eutex:FiberType ; rdfs:label "Acrylic"@en ;
     rdfs:comment "Synthetic fiber made from acrylonitrile polymers."@en ;
     skos:notation "PC" .
-textile:Polypropylene a textile:FiberType ; rdfs:label "Polypropylene"@en ;
+eutex:Polypropylene a eutex:FiberType ; rdfs:label "Polypropylene"@en ;
     rdfs:comment "Synthetic thermoplastic fiber for technical applications."@en ;
     skos:notation "PP" .
-textile:RecycledPolyester a textile:FiberType ; rdfs:label "Recycled Polyester"@en ;
+eutex:RecycledPolyester a eutex:FiberType ; rdfs:label "Recycled Polyester"@en ;
     rdfs:comment "Polyester fiber made from recycled PET bottles or textile waste."@en ;
     skos:notation "rPL" .
-textile:RecycledCotton a textile:FiberType ; rdfs:label "Recycled Cotton"@en ;
+eutex:RecycledCotton a eutex:FiberType ; rdfs:label "Recycled Cotton"@en ;
     rdfs:comment "Cotton fiber reclaimed from pre-consumer or post-consumer textile waste."@en ;
     skos:notation "rCO" .
-textile:RecycledWool a textile:FiberType ; rdfs:label "Recycled Wool"@en ;
+eutex:RecycledWool a eutex:FiberType ; rdfs:label "Recycled Wool"@en ;
     rdfs:comment "Wool fiber reclaimed from pre-consumer or post-consumer textile waste."@en ;
     skos:notation "rWO" .
-textile:OrganicCotton a textile:FiberType ; rdfs:label "Organic Cotton"@en ;
+eutex:OrganicCotton a eutex:FiberType ; rdfs:label "Organic Cotton"@en ;
     rdfs:comment "Cotton grown without synthetic pesticides or fertilizers per organic standards."@en ;
     skos:notation "oCO" .
-textile:Cashmere a textile:FiberType ; rdfs:label "Cashmere"@en ;
+eutex:Cashmere a eutex:FiberType ; rdfs:label "Cashmere"@en ;
     rdfs:comment "Fine natural fiber from cashmere goat undercoat."@en ;
     skos:notation "WS" .
-textile:Leather a textile:FiberType ; rdfs:label "Leather"@en ;
+eutex:Leather a eutex:FiberType ; rdfs:label "Leather"@en ;
     rdfs:comment "Animal hide material (not a textile fiber but used in footwear composition)."@en ;
     skos:notation "LE" .
-textile:Rubber a textile:FiberType ; rdfs:label "Rubber"@en ;
+eutex:Rubber a eutex:FiberType ; rdfs:label "Rubber"@en ;
     rdfs:comment "Natural or synthetic rubber material (used in footwear soles)."@en ;
     skos:notation "RU" .
 
@@ -296,98 +302,99 @@ textile:Rubber a textile:FiberType ; rdfs:label "Rubber"@en ;
 # Care Symbol Codes (ISO 3758:2023)
 # -----------------------------------------------------------------------------
 
-textile:CareSymbolCode
+eutex:CareSymbolCode
     a owl:Class ;
     rdfs:label "Care Symbol Code"@en ;
     rdfs:comment "Care symbols per ISO 3758:2023 for textile care labelling."@en ;
     dcterms:source <https://www.iso.org/standard/78056.html> ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile care-labelling concept per ISO 3758 (GINETEX care symbols). No GS1, SEMICeu, or schema.org term covers textile care symbology."@en .
 
 # Washing symbols
-textile:Wash30 a textile:CareSymbolCode ; rdfs:label "Wash 30C"@en ;
+eutex:Wash30 a eutex:CareSymbolCode ; rdfs:label "Wash 30C"@en ;
     rdfs:comment "Machine wash at maximum 30C."@en ;
     skos:notation "200" .
-textile:Wash40 a textile:CareSymbolCode ; rdfs:label "Wash 40C"@en ;
+eutex:Wash40 a eutex:CareSymbolCode ; rdfs:label "Wash 40C"@en ;
     rdfs:comment "Machine wash at maximum 40C."@en ;
     skos:notation "210" .
-textile:Wash60 a textile:CareSymbolCode ; rdfs:label "Wash 60C"@en ;
+eutex:Wash60 a eutex:CareSymbolCode ; rdfs:label "Wash 60C"@en ;
     rdfs:comment "Machine wash at maximum 60C."@en ;
     skos:notation "230" .
-textile:WashHandOnly a textile:CareSymbolCode ; rdfs:label "Hand Wash Only"@en ;
+eutex:WashHandOnly a eutex:CareSymbolCode ; rdfs:label "Hand Wash Only"@en ;
     rdfs:comment "Hand wash only, maximum 40C."@en ;
     skos:notation "100" .
-textile:DoNotWash a textile:CareSymbolCode ; rdfs:label "Do Not Wash"@en ;
+eutex:DoNotWash a eutex:CareSymbolCode ; rdfs:label "Do Not Wash"@en ;
     rdfs:comment "Do not wash."@en ;
     skos:notation "001" .
-textile:WashGentle a textile:CareSymbolCode ; rdfs:label "Gentle Wash"@en ;
+eutex:WashGentle a eutex:CareSymbolCode ; rdfs:label "Gentle Wash"@en ;
     rdfs:comment "Gentle/delicate wash cycle."@en ;
     skos:notation "211" .
 
 # Bleaching symbols
-textile:BleachAllowed a textile:CareSymbolCode ; rdfs:label "Bleach Allowed"@en ;
+eutex:BleachAllowed a eutex:CareSymbolCode ; rdfs:label "Bleach Allowed"@en ;
     rdfs:comment "Any bleach allowed."@en ;
     skos:notation "300" .
-textile:NonChlorineBleach a textile:CareSymbolCode ; rdfs:label "Non-Chlorine Bleach"@en ;
+eutex:NonChlorineBleach a eutex:CareSymbolCode ; rdfs:label "Non-Chlorine Bleach"@en ;
     rdfs:comment "Only non-chlorine/oxygen bleach allowed."@en ;
     skos:notation "310" .
-textile:DoNotBleach a textile:CareSymbolCode ; rdfs:label "Do Not Bleach"@en ;
+eutex:DoNotBleach a eutex:CareSymbolCode ; rdfs:label "Do Not Bleach"@en ;
     rdfs:comment "Do not bleach."@en ;
     skos:notation "301" .
 
 # Drying symbols
-textile:TumbleDryLow a textile:CareSymbolCode ; rdfs:label "Tumble Dry Low"@en ;
+eutex:TumbleDryLow a eutex:CareSymbolCode ; rdfs:label "Tumble Dry Low"@en ;
     rdfs:comment "Tumble dry at low temperature."@en ;
     skos:notation "400" .
-textile:TumbleDryMedium a textile:CareSymbolCode ; rdfs:label "Tumble Dry Medium"@en ;
+eutex:TumbleDryMedium a eutex:CareSymbolCode ; rdfs:label "Tumble Dry Medium"@en ;
     rdfs:comment "Tumble dry at medium temperature."@en ;
     skos:notation "410" .
-textile:TumbleDryHigh a textile:CareSymbolCode ; rdfs:label "Tumble Dry High"@en ;
+eutex:TumbleDryHigh a eutex:CareSymbolCode ; rdfs:label "Tumble Dry High"@en ;
     rdfs:comment "Tumble dry at high temperature."@en ;
     skos:notation "420" .
-textile:DoNotTumbleDry a textile:CareSymbolCode ; rdfs:label "Do Not Tumble Dry"@en ;
+eutex:DoNotTumbleDry a eutex:CareSymbolCode ; rdfs:label "Do Not Tumble Dry"@en ;
     rdfs:comment "Do not tumble dry."@en ;
     skos:notation "401" .
-textile:LineDry a textile:CareSymbolCode ; rdfs:label "Line Dry"@en ;
+eutex:LineDry a eutex:CareSymbolCode ; rdfs:label "Line Dry"@en ;
     rdfs:comment "Line dry / hang to dry."@en ;
     skos:notation "440" .
-textile:DryFlat a textile:CareSymbolCode ; rdfs:label "Dry Flat"@en ;
+eutex:DryFlat a eutex:CareSymbolCode ; rdfs:label "Dry Flat"@en ;
     rdfs:comment "Dry flat."@en ;
     skos:notation "450" .
-textile:DripDry a textile:CareSymbolCode ; rdfs:label "Drip Dry"@en ;
+eutex:DripDry a eutex:CareSymbolCode ; rdfs:label "Drip Dry"@en ;
     rdfs:comment "Drip dry without wringing."@en ;
     skos:notation "460" .
 
 # Ironing symbols
-textile:IronLow a textile:CareSymbolCode ; rdfs:label "Iron Low"@en ;
+eutex:IronLow a eutex:CareSymbolCode ; rdfs:label "Iron Low"@en ;
     rdfs:comment "Iron at low temperature (max 110C)."@en ;
     skos:notation "500" .
-textile:IronMedium a textile:CareSymbolCode ; rdfs:label "Iron Medium"@en ;
+eutex:IronMedium a eutex:CareSymbolCode ; rdfs:label "Iron Medium"@en ;
     rdfs:comment "Iron at medium temperature (max 150C)."@en ;
     skos:notation "510" .
-textile:IronHigh a textile:CareSymbolCode ; rdfs:label "Iron High"@en ;
+eutex:IronHigh a eutex:CareSymbolCode ; rdfs:label "Iron High"@en ;
     rdfs:comment "Iron at high temperature (max 200C)."@en ;
     skos:notation "520" .
-textile:DoNotIron a textile:CareSymbolCode ; rdfs:label "Do Not Iron"@en ;
+eutex:DoNotIron a eutex:CareSymbolCode ; rdfs:label "Do Not Iron"@en ;
     rdfs:comment "Do not iron."@en ;
     skos:notation "501" .
-textile:NoSteam a textile:CareSymbolCode ; rdfs:label "No Steam"@en ;
+eutex:NoSteam a eutex:CareSymbolCode ; rdfs:label "No Steam"@en ;
     rdfs:comment "Iron without steam."@en ;
     skos:notation "530" .
 
 # Dry cleaning symbols
-textile:DryCleanAny a textile:CareSymbolCode ; rdfs:label "Dry Clean Any Solvent"@en ;
+eutex:DryCleanAny a eutex:CareSymbolCode ; rdfs:label "Dry Clean Any Solvent"@en ;
     rdfs:comment "Dry clean with any solvent."@en ;
     skos:notation "600" .
-textile:DryCleanPCE a textile:CareSymbolCode ; rdfs:label "Dry Clean PCE"@en ;
+eutex:DryCleanPCE a eutex:CareSymbolCode ; rdfs:label "Dry Clean PCE"@en ;
     rdfs:comment "Dry clean with tetrachloroethylene (PCE)."@en ;
     skos:notation "610" .
-textile:DryCleanHydrocarbon a textile:CareSymbolCode ; rdfs:label "Dry Clean Hydrocarbon"@en ;
+eutex:DryCleanHydrocarbon a eutex:CareSymbolCode ; rdfs:label "Dry Clean Hydrocarbon"@en ;
     rdfs:comment "Dry clean with hydrocarbon solvents only."@en ;
     skos:notation "620" .
-textile:DoNotDryClean a textile:CareSymbolCode ; rdfs:label "Do Not Dry Clean"@en ;
+eutex:DoNotDryClean a eutex:CareSymbolCode ; rdfs:label "Do Not Dry Clean"@en ;
     rdfs:comment "Do not dry clean."@en ;
     skos:notation "601" .
-textile:WetClean a textile:CareSymbolCode ; rdfs:label "Professional Wet Clean"@en ;
+eutex:WetClean a eutex:CareSymbolCode ; rdfs:label "Professional Wet Clean"@en ;
     rdfs:comment "Professional wet cleaning."@en ;
     skos:notation "700" .
 
@@ -395,42 +402,44 @@ textile:WetClean a textile:CareSymbolCode ; rdfs:label "Professional Wet Clean"@
 # Microplastic Risk Level
 # -----------------------------------------------------------------------------
 
-textile:MicroplasticRiskLevel
+eutex:MicroplasticRiskLevel
     a owl:Class ;
     rdfs:label "Microplastic Risk Level"@en ;
     rdfs:comment "Risk classification for microplastic/microfiber shedding from textiles."@en ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
-    owl:oneOf (textile:LowShedding textile:MediumShedding textile:HighShedding) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    owl:oneOf (eutex:LowShedding eutex:MediumShedding eutex:HighShedding) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Microfibre / microplastic-release concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR. No upstream vocabulary covers it."@en .
 
-textile:LowShedding a textile:MicroplasticRiskLevel ; rdfs:label "Low Shedding"@en ;
+eutex:LowShedding a eutex:MicroplasticRiskLevel ; rdfs:label "Low Shedding"@en ;
     rdfs:comment "Low microfiber shedding risk (< 50 mg/kg per wash). Natural fibers or tightly woven synthetics."@en .
-textile:MediumShedding a textile:MicroplasticRiskLevel ; rdfs:label "Medium Shedding"@en ;
+eutex:MediumShedding a eutex:MicroplasticRiskLevel ; rdfs:label "Medium Shedding"@en ;
     rdfs:comment "Medium microfiber shedding risk (50-500 mg/kg per wash). Typical synthetic fabrics."@en .
-textile:HighShedding a textile:MicroplasticRiskLevel ; rdfs:label "High Shedding"@en ;
+eutex:HighShedding a eutex:MicroplasticRiskLevel ; rdfs:label "High Shedding"@en ;
     rdfs:comment "High microfiber shedding risk (> 500 mg/kg per wash). Fleece, chenille, or cut-pile synthetics."@en .
 
 # -----------------------------------------------------------------------------
 # Durability Class
 # -----------------------------------------------------------------------------
 
-textile:DurabilityClass
+eutex:DurabilityClass
     a owl:Class ;
     rdfs:label "Durability Class"@en ;
     rdfs:comment "Durability rating for textile products."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    owl:oneOf (textile:DurabilityA textile:DurabilityB textile:DurabilityC textile:DurabilityD textile:DurabilityE) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    owl:oneOf (eutex:DurabilityA eutex:DurabilityB eutex:DurabilityC eutex:DurabilityD eutex:DurabilityE) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:DurabilityA a textile:DurabilityClass ; rdfs:label "Durability Class A"@en ;
+eutex:DurabilityA a eutex:DurabilityClass ; rdfs:label "Durability Class A"@en ;
     rdfs:comment "Highest durability - designed for extended lifetime (>200 wash cycles, >10 years)."@en .
-textile:DurabilityB a textile:DurabilityClass ; rdfs:label "Durability Class B"@en ;
+eutex:DurabilityB a eutex:DurabilityClass ; rdfs:label "Durability Class B"@en ;
     rdfs:comment "High durability (100-200 wash cycles, 5-10 years)."@en .
-textile:DurabilityC a textile:DurabilityClass ; rdfs:label "Durability Class C"@en ;
+eutex:DurabilityC a eutex:DurabilityClass ; rdfs:label "Durability Class C"@en ;
     rdfs:comment "Standard durability (50-100 wash cycles, 3-5 years)."@en .
-textile:DurabilityD a textile:DurabilityClass ; rdfs:label "Durability Class D"@en ;
+eutex:DurabilityD a eutex:DurabilityClass ; rdfs:label "Durability Class D"@en ;
     rdfs:comment "Below average durability (25-50 wash cycles, 1-3 years)."@en .
-textile:DurabilityE a textile:DurabilityClass ; rdfs:label "Durability Class E"@en ;
+eutex:DurabilityE a eutex:DurabilityClass ; rdfs:label "Durability Class E"@en ;
     rdfs:comment "Low durability (<25 wash cycles, <1 year). Single-use or disposable items."@en .
 
 # =============================================================================
@@ -443,16 +452,18 @@ textile:DurabilityE a textile:DurabilityClass ; rdfs:label "Durability Class E"@
 # gs1:certificationValue + gs1:certificationStandard. This module adds only
 # textile-specific traceability properties on the fiber-composition object.
 
-textile:fiberOrigin
+eutex:fiberOrigin
     a owl:DatatypeProperty ;
     rdfs:label "Fiber Origin"@en ;
     rdfs:comment "Country or region of fiber origin (ISO 3166-1 alpha-2 code)."@en ;
     rdfs:domain gs1:TextileMaterialDetails ;
     rdfs:range xsd:string ;
     rdfs:seeAlso gs1:countryOfOrigin ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007> ;
+    skos:note "Fibre-composition / labelling concept per the EU Textile Labelling Regulation (EU) 1007/2011. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:isRecycledFiber
+eutex:isRecycledFiber
     a owl:DatatypeProperty ;
     rdfs:label "Is Recycled Fiber"@en ;
     rdfs:comment "Indicates whether this fiber is from recycled sources."@en ;
@@ -462,7 +473,7 @@ textile:isRecycledFiber
     skos:note "Extension: GS1 TextileMaterialDetails does not distinguish recycled vs virgin fibers at the individual fiber level." ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
 
-textile:recycledContentSource
+eutex:recycledContentSource
     a owl:DatatypeProperty ;
     rdfs:label "Recycled Content Source"@en ;
     rdfs:comment "Source of recycled content (e.g. post-consumer PET bottles, ocean plastic, post-industrial textile waste)."@en ;
@@ -472,334 +483,417 @@ textile:recycledContentSource
     skos:note "Extension: Provides fiber-level recycled source traceability not available in GS1 TextileMaterialDetails." ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
 
-textile:fiberCertification
+eutex:fiberCertification
     a owl:ObjectProperty ;
     rdfs:label "Fiber Certification"@en ;
     rdfs:comment "Certification specific to this fiber (GOTS, RWS, etc.). Use gs1:CertificationDetails pattern."@en ;
     rdfs:domain gs1:TextileMaterialDetails ;
     rdfs:range gs1:CertificationDetails ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007> ;
+    skos:note "Fibre-composition / labelling concept per the EU Textile Labelling Regulation (EU) 1007/2011. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    rdfs:seeAlso schema:material .
 
 # =============================================================================
 # PART 4: PROPERTIES - Care Instructions
 # =============================================================================
 
-textile:careInstructions
+eutex:careInstructions
     a owl:ObjectProperty ;
     rdfs:label "Care Instructions"@en ;
     rdfs:comment "Care and maintenance instructions for the textile product."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range textile:CareInstruction ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:range eutex:CareInstruction ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://www.iso.org/standard/42918.html> ;
+    skos:note "Textile care-labelling concept per ISO 3758 (GINETEX care symbols). No GS1, SEMICeu, or schema.org term covers textile care symbology."@en .
 
-textile:washingSymbol
+eutex:washingSymbol
     a owl:ObjectProperty ;
     rdfs:label "Washing Symbol"@en ;
     rdfs:comment "ISO 3758 washing care symbol."@en ;
-    rdfs:domain textile:CareInstruction ;
-    rdfs:range textile:CareSymbolCode ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:CareInstruction ;
+    rdfs:range eutex:CareSymbolCode ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://www.iso.org/standard/42918.html> ;
+    skos:note "Textile care-labelling concept per ISO 3758 (GINETEX care symbols). No GS1, SEMICeu, or schema.org term covers textile care symbology."@en .
 
-textile:bleachingSymbol
+eutex:bleachingSymbol
     a owl:ObjectProperty ;
     rdfs:label "Bleaching Symbol"@en ;
     rdfs:comment "ISO 3758 bleaching care symbol."@en ;
-    rdfs:domain textile:CareInstruction ;
-    rdfs:range textile:CareSymbolCode ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:CareInstruction ;
+    rdfs:range eutex:CareSymbolCode ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://www.iso.org/standard/42918.html> ;
+    skos:note "Textile care-labelling concept per ISO 3758 (GINETEX care symbols). No GS1, SEMICeu, or schema.org term covers textile care symbology."@en .
 
-textile:dryingSymbol
+eutex:dryingSymbol
     a owl:ObjectProperty ;
     rdfs:label "Drying Symbol"@en ;
     rdfs:comment "ISO 3758 drying care symbol."@en ;
-    rdfs:domain textile:CareInstruction ;
-    rdfs:range textile:CareSymbolCode ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:CareInstruction ;
+    rdfs:range eutex:CareSymbolCode ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://www.iso.org/standard/42918.html> ;
+    skos:note "Textile care-labelling concept per ISO 3758 (GINETEX care symbols). No GS1, SEMICeu, or schema.org term covers textile care symbology."@en .
 
-textile:ironingSymbol
+eutex:ironingSymbol
     a owl:ObjectProperty ;
     rdfs:label "Ironing Symbol"@en ;
     rdfs:comment "ISO 3758 ironing care symbol."@en ;
-    rdfs:domain textile:CareInstruction ;
-    rdfs:range textile:CareSymbolCode ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:CareInstruction ;
+    rdfs:range eutex:CareSymbolCode ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://www.iso.org/standard/42918.html> ;
+    skos:note "Textile care-labelling concept per ISO 3758 (GINETEX care symbols). No GS1, SEMICeu, or schema.org term covers textile care symbology."@en .
 
-textile:dryCleaningSymbol
+eutex:dryCleaningSymbol
     a owl:ObjectProperty ;
     rdfs:label "Dry Cleaning Symbol"@en ;
     rdfs:comment "ISO 3758 dry cleaning care symbol."@en ;
-    rdfs:domain textile:CareInstruction ;
-    rdfs:range textile:CareSymbolCode ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:CareInstruction ;
+    rdfs:range eutex:CareSymbolCode ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://www.iso.org/standard/42918.html> ;
+    skos:note "Textile care-labelling concept per ISO 3758 (GINETEX care symbols). No GS1, SEMICeu, or schema.org term covers textile care symbology."@en .
 
-textile:additionalCareInstructions
+eutex:additionalCareInstructions
     a owl:DatatypeProperty ;
     rdfs:label "Additional Care Instructions"@en ;
     rdfs:comment "Additional care instructions in text form."@en ;
-    rdfs:domain textile:CareInstruction ;
+    rdfs:domain eutex:CareInstruction ;
     rdfs:range xsd:string ;
     rdfs:seeAlso gs1:consumerStorageInstructions ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://www.iso.org/standard/42918.html> ;
+    skos:note "Textile care-labelling concept per ISO 3758 (GINETEX care symbols). No GS1, SEMICeu, or schema.org term covers textile care symbology."@en .
 
 # =============================================================================
 # PART 5: PROPERTIES - Durability
 # =============================================================================
 
-textile:durabilityInfo
+eutex:durabilityInfo
     a owl:ObjectProperty ;
     rdfs:label "Durability Information"@en ;
     rdfs:comment "Durability metrics for the textile product."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range textile:DurabilityInfo ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:range eutex:DurabilityInfo ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:expectedWashCycles
+eutex:expectedWashCycles
     a owl:DatatypeProperty ;
     rdfs:label "Expected Wash Cycles"@en ;
     rdfs:comment "Expected number of wash cycles before significant degradation."@en ;
-    rdfs:domain textile:DurabilityInfo ;
+    rdfs:domain eutex:DurabilityInfo ;
     rdfs:range xsd:integer ;
     rdfs:seeAlso schema:value ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:durabilityClass
+eutex:durabilityClass
     a owl:ObjectProperty ;
     rdfs:label "Durability Class"@en ;
     rdfs:comment "Durability rating class (A-E)."@en ;
-    rdfs:domain textile:DurabilityInfo ;
-    rdfs:range textile:DurabilityClass ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:DurabilityInfo ;
+    rdfs:range eutex:DurabilityClass ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:pillingResistance
+eutex:pillingResistance
     a owl:DatatypeProperty ;
     rdfs:label "Pilling Resistance"@en ;
     rdfs:comment "Pilling resistance rating (1-5 per ISO 12945, where 5 is best)."@en ;
-    rdfs:domain textile:DurabilityInfo ;
+    rdfs:domain eutex:DurabilityInfo ;
     rdfs:range xsd:integer ;
     rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:colorFastness
+eutex:colorFastness
     a owl:DatatypeProperty ;
     rdfs:label "Color Fastness"@en ;
     rdfs:comment "Color fastness rating (1-5 per ISO 105, where 5 is best)."@en ;
-    rdfs:domain textile:DurabilityInfo ;
+    rdfs:domain eutex:DurabilityInfo ;
     rdfs:range xsd:integer ;
     rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:dimensionalStability
+eutex:dimensionalStability
     a owl:DatatypeProperty ;
     rdfs:label "Dimensional Stability"@en ;
     rdfs:comment "Maximum dimensional change (shrinkage/stretch) as percentage after washing."@en ;
-    rdfs:domain textile:DurabilityInfo ;
+    rdfs:domain eutex:DurabilityInfo ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:abrasionResistance
+eutex:abrasionResistance
     a owl:DatatypeProperty ;
     rdfs:label "Abrasion Resistance"@en ;
     rdfs:comment "Abrasion resistance in Martindale cycles."@en ;
-    rdfs:domain textile:DurabilityInfo ;
+    rdfs:domain eutex:DurabilityInfo ;
     rdfs:range xsd:integer ;
     rdfs:seeAlso schema:value ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:tensileStrength
+eutex:tensileStrength
     a owl:ObjectProperty ;
     rdfs:label "Tensile Strength"@en ;
     rdfs:comment "Fabric tensile strength. Use unitCode 'NEW' (newtons, UN/CEFACT Rec 20)."@en ;
-    rdfs:domain textile:DurabilityInfo ;
+    rdfs:domain eutex:DurabilityInfo ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:tearStrength
+eutex:tearStrength
     a owl:ObjectProperty ;
     rdfs:label "Tear Strength"@en ;
     rdfs:comment "Fabric tear strength. Use unitCode 'NEW' (newtons, UN/CEFACT Rec 20)."@en ;
-    rdfs:domain textile:DurabilityInfo ;
+    rdfs:domain eutex:DurabilityInfo ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:expectedLifetimeYears
+eutex:expectedLifetimeYears
     a owl:DatatypeProperty ;
     rdfs:label "Expected Lifetime Years"@en ;
     rdfs:comment "Expected product lifetime in years under normal use."@en ;
-    rdfs:domain textile:DurabilityInfo ;
+    rdfs:domain eutex:DurabilityInfo ;
     rdfs:range xsd:integer ;
     rdfs:seeAlso schema:value ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
 # PART 6: PROPERTIES - Microplastic
 # =============================================================================
 
-textile:microplasticInfo
+eutex:microplasticInfo
     a owl:ObjectProperty ;
     rdfs:label "Microplastic Information"@en ;
     rdfs:comment "Information about microfiber shedding from synthetic textiles."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range textile:MicroplasticInfo ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:range eutex:MicroplasticInfo ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Microfibre / microplastic-release concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR. No upstream vocabulary covers it."@en .
 
-textile:microplasticRiskLevel
+eutex:microplasticRiskLevel
     a owl:ObjectProperty ;
     rdfs:label "Microplastic Risk Level"@en ;
     rdfs:comment "Risk classification for microfiber shedding."@en ;
-    rdfs:domain textile:MicroplasticInfo ;
-    rdfs:range textile:MicroplasticRiskLevel ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:MicroplasticInfo ;
+    rdfs:range eutex:MicroplasticRiskLevel ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Microfibre / microplastic-release concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR. No upstream vocabulary covers it."@en .
 
-textile:sheddingRate
+eutex:sheddingRate
     a owl:ObjectProperty ;
     rdfs:label "Shedding Rate"@en ;
     rdfs:comment "Microfiber shedding rate per wash. Use unitCode 'MGM' (mg/kg, UN/CEFACT Rec 20)."@en ;
-    rdfs:domain textile:MicroplasticInfo ;
+    rdfs:domain eutex:MicroplasticInfo ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Microfibre / microplastic-release concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR. No upstream vocabulary covers it."@en .
 
-textile:syntheticFiberContent
+eutex:syntheticFiberContent
     a owl:DatatypeProperty ;
     rdfs:label "Synthetic Fiber Content"@en ;
     rdfs:comment "Total percentage of synthetic fibers that may shed microplastics."@en ;
-    rdfs:domain textile:MicroplasticInfo ;
+    rdfs:domain eutex:MicroplasticInfo ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007> ;
+    skos:note "Fibre-composition / labelling concept per the EU Textile Labelling Regulation (EU) 1007/2011. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    rdfs:seeAlso schema:material .
 
-textile:microplasticMitigationMeasures
+eutex:microplasticMitigationMeasures
     a owl:DatatypeProperty ;
     rdfs:label "Microplastic Mitigation Measures"@en ;
     rdfs:comment "Description of measures taken to reduce microplastic shedding."@en ;
-    rdfs:domain textile:MicroplasticInfo ;
+    rdfs:domain eutex:MicroplasticInfo ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Microfibre / microplastic-release concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR. No upstream vocabulary covers it."@en .
 
 # =============================================================================
 # PART 7: PROPERTIES - Circularity and Take-Back
 # =============================================================================
 
-textile:takeBackProgram
+eutex:takeBackProgram
     a owl:ObjectProperty ;
     rdfs:label "Take-Back Program"@en ;
     rdfs:comment "End-of-life take-back program information."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range textile:TakeBackProgram ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:range eutex:TakeBackProgram ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance .
 
-textile:hasTakeBackProgram
+eutex:hasTakeBackProgram
     a owl:DatatypeProperty ;
     rdfs:label "Has Take-Back Program"@en ;
     rdfs:comment "Whether a take-back program is available for this product."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance .
 
-textile:takeBackUrl
+eutex:takeBackUrl
     a owl:DatatypeProperty ;
     rdfs:label "Take-Back URL"@en ;
     rdfs:comment "URL with take-back program information and collection points."@en ;
-    rdfs:domain textile:TakeBackProgram ;
+    rdfs:domain eutex:TakeBackProgram ;
     rdfs:range xsd:anyURI ;
     rdfs:seeAlso gs1:sustainabilityInfo ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:takeBackUrl .
 
-textile:takeBackIncentive
+eutex:takeBackIncentive
     a owl:DatatypeProperty ;
     rdfs:label "Take-Back Incentive"@en ;
     rdfs:comment "Description of incentive for returning products (discount, voucher, etc.)."@en ;
-    rdfs:domain textile:TakeBackProgram ;
+    rdfs:domain eutex:TakeBackProgram ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance ;
+    rdfs:seeAlso oec:takeBackIncentive .
 
-textile:endOfLifeDestination
+eutex:endOfLifeDestination
     a owl:DatatypeProperty ;
     rdfs:label "End of Life Destination"@en ;
     rdfs:comment "What happens to collected items (recycled, upcycled, resold, donated)."@en ;
-    rdfs:domain textile:TakeBackProgram ;
+    rdfs:domain eutex:TakeBackProgram ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance .
 
 # =============================================================================
 # PART 8: PROPERTIES - Repair
 # =============================================================================
 
-textile:repairServices
+eutex:repairServices
     a owl:ObjectProperty ;
     rdfs:label "Repair Services"@en ;
     rdfs:comment "Information about available repair services."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range gs1:Organization ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance .
 
-textile:isRepairable
+eutex:isRepairable
     a owl:DatatypeProperty ;
     rdfs:label "Is Repairable"@en ;
     rdfs:comment "Whether the product is designed to be repairable."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance .
 
-textile:repairGuideUrl
+eutex:repairGuideUrl
     a owl:DatatypeProperty ;
     rdfs:label "Repair Guide URL"@en ;
     rdfs:comment "URL to repair/care guide for DIY repairs."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:anyURI ;
     rdfs:seeAlso gs1:instructions ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en .
 
-textile:sparePartsAvailable
+eutex:sparePartsAvailable
     a owl:DatatypeProperty ;
     rdfs:label "Spare Parts Available"@en ;
     rdfs:comment "Whether spare parts (buttons, zippers, etc.) are available for purchase."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance .
 
-textile:sparePartsUrl
+eutex:sparePartsUrl
     a owl:DatatypeProperty ;
     rdfs:label "Spare Parts URL"@en ;
     rdfs:comment "URL to purchase spare parts."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:anyURI ;
     rdfs:seeAlso gs1:purchaseSuppliesOrAccessories ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en .
 
 # =============================================================================
 # PART 9: PROPERTIES - Chemicals
 # =============================================================================
 
-textile:chemicalPurpose
+eutex:chemicalPurpose
     a owl:DatatypeProperty ;
     rdfs:label "Chemical Purpose"@en ;
     rdfs:comment "Purpose of the chemical (dye, finish, water-repellent treatment, etc.)."@en ;
-    rdfs:domain dpp:HazardousSubstance ;
+    rdfs:domain oec:HazardousSubstance ;
     rdfs:range xsd:string ;
     rdfs:seeAlso schema:description ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32006R1907> ;
+    skos:note "Restricted-substance / chemical-management concept aligned with REACH (EC 1907/2006) and the ZDHC MRSL. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:isMRSLCompliant
+eutex:isMRSLCompliant
     a owl:DatatypeProperty ;
     rdfs:label "Is MRSL Compliant"@en ;
     rdfs:comment "Whether the chemical complies with ZDHC Manufacturing Restricted Substances List."@en ;
-    rdfs:domain dpp:HazardousSubstance ;
+    rdfs:domain oec:HazardousSubstance ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32006R1907> ;
+    skos:note "Restricted-substance / chemical-management concept aligned with REACH (EC 1907/2006) and the ZDHC MRSL. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:pfasFree
+eutex:pfasFree
     a owl:DatatypeProperty ;
     rdfs:label "PFAS Free"@en ;
     rdfs:comment "Whether the product is free from per- and polyfluoroalkyl substances (PFAS)."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32006R1907> ;
+    skos:note "Restricted-substance / chemical-management concept aligned with REACH (EC 1907/2006) and the ZDHC MRSL. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:textileChemicals
+eutex:textileChemicals
     a owl:ObjectProperty ;
     rdfs:label "Textile Chemicals"@en ;
     rdfs:comment "Chemical substances used in the production of this textile product."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:HazardousSubstance ;
+    rdfs:range oec:HazardousSubstance ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32006R1907> ;
     skos:note "Extension: Links a textile product to its chemical inputs for REACH/MRSL compliance tracking." ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
@@ -808,16 +902,18 @@ textile:textileChemicals
 # PART 10: PROPERTIES - Product Classification
 # =============================================================================
 
-textile:garmentType
+eutex:garmentType
     a owl:DatatypeProperty ;
     rdfs:label "Garment Type"@en ;
     rdfs:comment "Specific type of garment (jacket, trousers, shirt, etc.)."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:string ;
     rdfs:seeAlso schema:category ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007> ;
+    skos:note "Textile product classification / attribute per the EU Textile Labelling Regulation (EU) 1007/2011."@en .
 
-textile:sizeRange
+eutex:sizeRange
     a owl:DatatypeProperty ;
     rdfs:label "Size Range"@en ;
     rdfs:comment "Available size range (e.g., XS-XXL, 36-52)."@en ;
@@ -825,98 +921,121 @@ textile:sizeRange
     rdfs:range xsd:string ;
     rdfs:seeAlso gs1:size ;
     rdfs:seeAlso schema:size ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007> ;
+    skos:note "Textile product classification / attribute per the EU Textile Labelling Regulation (EU) 1007/2011."@en .
 
-textile:seasonCollection
+eutex:seasonCollection
     a owl:DatatypeProperty ;
     rdfs:label "Season Collection"@en ;
     rdfs:comment "Season and year of the collection (e.g., FW2024, SS2025)."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:string ;
     rdfs:seeAlso schema:releaseDate ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007> ;
+    skos:note "Textile product classification / attribute per the EU Textile Labelling Regulation (EU) 1007/2011."@en .
 
 # =============================================================================
 # PART 11: PROPERTIES - Environmental Impact
 # =============================================================================
 
-textile:waterUsage
+eutex:waterUsage
     a owl:ObjectProperty ;
     rdfs:label "Water Usage"@en ;
     rdfs:comment "Water consumed in production. Use unitCode 'LTR' (liters, UN/CEFACT Rec 20)."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:seeAlso schema:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile production / facility attribute per ESPR 2024/1781 and the PEFCR for Apparel & Footwear. No GS1 equivalent."@en .
 
-textile:energyUsage
+eutex:energyUsage
     a owl:ObjectProperty ;
     rdfs:label "Energy Usage"@en ;
     rdfs:comment "Energy consumed in production. Use gs1:QuantitativeValue with KWH unit."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:EnergyKilowattHours ;
+    rdfs:range oec:EnergyKilowattHours ;
     rdfs:seeAlso schema:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile production / facility attribute per ESPR 2024/1781 and the PEFCR for Apparel & Footwear. No GS1 equivalent."@en .
 
-textile:productionWastePercentage
+eutex:productionWastePercentage
     a owl:DatatypeProperty ;
     rdfs:label "Production Waste Percentage"@en ;
     rdfs:comment "Percentage of material waste during production."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile production / facility attribute per ESPR 2024/1781 and the PEFCR for Apparel & Footwear. No GS1 equivalent."@en .
 
-textile:biodegradable
+eutex:biodegradable
     a owl:DatatypeProperty ;
     rdfs:label "Biodegradable"@en ;
     rdfs:comment "Whether the product is biodegradable at end of life."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance .
 
 # =============================================================================
 # PART 12: PROPERTIES - Supply Chain
 # =============================================================================
 
-textile:spinningFacility
+eutex:spinningFacility
     a owl:ObjectProperty ;
     rdfs:label "Spinning Facility"@en ;
     rdfs:comment "Facility where fiber was spun into yarn."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:FacilityInformation ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:range oec:FacilityInformation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile production / facility attribute per ESPR 2024/1781 and the PEFCR for Apparel & Footwear. No GS1 equivalent."@en .
 
-textile:weavingFacility
+eutex:weavingFacility
     a owl:ObjectProperty ;
     rdfs:label "Weaving Facility"@en ;
     rdfs:comment "Facility where yarn was woven or knitted into fabric."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:FacilityInformation ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:range oec:FacilityInformation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile production / facility attribute per ESPR 2024/1781 and the PEFCR for Apparel & Footwear. No GS1 equivalent."@en .
 
-textile:dyeingFacility
+eutex:dyeingFacility
     a owl:ObjectProperty ;
     rdfs:label "Dyeing Facility"@en ;
     rdfs:comment "Facility where fabric was dyed or printed."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:FacilityInformation ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:range oec:FacilityInformation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile production / facility attribute per ESPR 2024/1781 and the PEFCR for Apparel & Footwear. No GS1 equivalent."@en .
 
-textile:cutAndSewFacility
+eutex:cutAndSewFacility
     a owl:ObjectProperty ;
     rdfs:label "Cut and Sew Facility"@en ;
     rdfs:comment "Facility where garment was cut and assembled."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:FacilityInformation ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:range oec:FacilityInformation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile production / facility attribute per ESPR 2024/1781 and the PEFCR for Apparel & Footwear. No GS1 equivalent."@en .
 
-textile:finishingFacility
+eutex:finishingFacility
     a owl:ObjectProperty ;
     rdfs:label "Finishing Facility"@en ;
     rdfs:comment "Facility where finishing treatments were applied."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range dpp:FacilityInformation ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:range oec:FacilityInformation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile production / facility attribute per ESPR 2024/1781 and the PEFCR for Apparel & Footwear. No GS1 equivalent."@en .
 
 # =============================================================================
 # PART 13: FABRIC TYPE & PRODUCT SUBCATEGORY (WP1)
@@ -927,7 +1046,7 @@ textile:finishingFacility
 # Fabric Type
 # -----------------------------------------------------------------------------
 
-textile:FabricType
+eutex:FabricType
     a owl:Class ;
     rdfs:label "Fabric Type"@en ;
     rdfs:comment """Fabric construction type that determines robustness thresholds, recyclability scoring,
@@ -936,23 +1055,23 @@ and recycled content targets per EU Preparatory Study on Textiles 3rd Milestone.
     skos:note """Required extension: Robustness test thresholds (spirality, dimensional change) differ by
 fabric type. GS1 Web Vocabulary does not distinguish fabric construction types."""@en ;
     owl:oneOf (
-        textile:Knitted
-        textile:Denim
-        textile:WovenNonDenim
+        eutex:Knitted
+        eutex:Denim
+        eutex:WovenNonDenim
     ).
 
-textile:Knitted a textile:FabricType ; rdfs:label "Knitted"@en ;
+eutex:Knitted a eutex:FabricType ; rdfs:label "Knitted"@en ;
     rdfs:comment "Fabric constructed by interlocking loops of yarn (jersey, rib, interlock, etc.)."@en .
-textile:Denim a textile:FabricType ; rdfs:label "Denim"@en ;
+eutex:Denim a eutex:FabricType ; rdfs:label "Denim"@en ;
     rdfs:comment "Twill-woven fabric typically made from cotton, characterised by indigo dyeing."@en .
-textile:WovenNonDenim a textile:FabricType ; rdfs:label "Woven Non-Denim"@en ;
+eutex:WovenNonDenim a eutex:FabricType ; rdfs:label "Woven Non-Denim"@en ;
     rdfs:comment "Woven fabric other than denim (plain weave, twill, satin, etc.)."@en .
 
 # -----------------------------------------------------------------------------
 # Apparel Subcategory
 # -----------------------------------------------------------------------------
 
-textile:ApparelSubcategory
+eutex:ApparelSubcategory
     a owl:Class ;
     rdfs:label "Apparel Subcategory"@en ;
     rdfs:comment """Apparel product subcategories per EU Preparatory Study on Textiles 3rd Milestone.
@@ -965,59 +1084,62 @@ Used for targeted recycled content thresholds and recyclability requirements."""
 differentiated requirements. GS1 provides gs1:additionalProductClassification but lacks
 these regulatory subcategories. See also schema:category."""@en ;
     owl:oneOf (
-        textile:TShirts
-        textile:ShirtsBlouses
-        textile:Sweaters
-        textile:JacketsCoats
-        textile:PantsShorts
-        textile:DressesSkirts
-        textile:LeggingsStockingsSocks
-        textile:Underwear
-        textile:Swimwear
-        textile:TextileAccessories
+        eutex:TShirts
+        eutex:ShirtsBlouses
+        eutex:Sweaters
+        eutex:JacketsCoats
+        eutex:PantsShorts
+        eutex:DressesSkirts
+        eutex:LeggingsStockingsSocks
+        eutex:Underwear
+        eutex:Swimwear
+        eutex:TextileAccessories
     ) .
 
-textile:TShirts a textile:ApparelSubcategory ; rdfs:label "T-Shirts"@en ;
+eutex:TShirts a eutex:ApparelSubcategory ; rdfs:label "T-Shirts"@en ;
     rdfs:comment "Short-sleeved casual tops including t-shirts and polo shirts."@en .
-textile:ShirtsBlouses a textile:ApparelSubcategory ; rdfs:label "Shirts & Blouses"@en ;
+eutex:ShirtsBlouses a eutex:ApparelSubcategory ; rdfs:label "Shirts & Blouses"@en ;
     rdfs:comment "Woven shirts, blouses, and formal tops."@en .
-textile:Sweaters a textile:ApparelSubcategory ; rdfs:label "Sweaters"@en ;
+eutex:Sweaters a eutex:ApparelSubcategory ; rdfs:label "Sweaters"@en ;
     rdfs:comment "Knitted pullovers, cardigans, and sweaters."@en .
-textile:JacketsCoats a textile:ApparelSubcategory ; rdfs:label "Jackets & Coats"@en ;
+eutex:JacketsCoats a eutex:ApparelSubcategory ; rdfs:label "Jackets & Coats"@en ;
     rdfs:comment "Outerwear including jackets, coats, blazers, and vests."@en .
-textile:PantsShorts a textile:ApparelSubcategory ; rdfs:label "Pants & Shorts"@en ;
+eutex:PantsShorts a eutex:ApparelSubcategory ; rdfs:label "Pants & Shorts"@en ;
     rdfs:comment "Trousers, jeans, shorts, and skorts."@en .
-textile:DressesSkirts a textile:ApparelSubcategory ; rdfs:label "Dresses & Skirts"@en ;
+eutex:DressesSkirts a eutex:ApparelSubcategory ; rdfs:label "Dresses & Skirts"@en ;
     rdfs:comment "Dresses, skirts, and jumpsuits."@en .
-textile:LeggingsStockingsSocks a textile:ApparelSubcategory ; rdfs:label "Leggings, Stockings & Socks"@en ;
+eutex:LeggingsStockingsSocks a eutex:ApparelSubcategory ; rdfs:label "Leggings, Stockings & Socks"@en ;
     rdfs:comment "Legwear including leggings, tights, stockings, and socks."@en .
-textile:Underwear a textile:ApparelSubcategory ; rdfs:label "Underwear"@en ;
+eutex:Underwear a eutex:ApparelSubcategory ; rdfs:label "Underwear"@en ;
     rdfs:comment "Undergarments and intimate apparel."@en .
-textile:Swimwear a textile:ApparelSubcategory ; rdfs:label "Swimwear"@en ;
+eutex:Swimwear a eutex:ApparelSubcategory ; rdfs:label "Swimwear"@en ;
     rdfs:comment "Swimming and bathing garments."@en .
-textile:TextileAccessories a textile:ApparelSubcategory ; rdfs:label "Textile Accessories"@en ;
+eutex:TextileAccessories a eutex:ApparelSubcategory ; rdfs:label "Textile Accessories"@en ;
     rdfs:comment "Textile accessories including scarves, gloves, hats, and ties."@en .
 
 # Properties for WP1
-textile:fabricType
+eutex:fabricType
     a owl:ObjectProperty ;
     rdfs:label "Fabric Type"@en ;
     rdfs:comment "The fabric construction type of the textile product."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range textile:FabricType ;
+    rdfs:range eutex:FabricType ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile product classification / attribute per the EU Textile Labelling Regulation (EU) 1007/2011."@en ;
+    rdfs:seeAlso gs1:Clothing .
 
-textile:apparelSubcategory
+eutex:apparelSubcategory
     a owl:ObjectProperty ;
     rdfs:label "Apparel Subcategory"@en ;
     rdfs:comment "The specific apparel subcategory per EU Preparatory Study classification."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range textile:ApparelSubcategory ;
+    rdfs:range eutex:ApparelSubcategory ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso gs1:additionalProductClassification ;
     rdfs:seeAlso schema:category ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile product classification / attribute per the EU Textile Labelling Regulation (EU) 1007/2011."@en .
 
 # =============================================================================
 # PART 14: ROBUSTNESS SCORING SYSTEM (WP2)
@@ -1025,7 +1147,7 @@ textile:apparelSubcategory
 # 0-10 composite score based on spirality, dimensional change, visual inspection
 # =============================================================================
 
-textile:RobustnessAssessment
+eutex:RobustnessAssessment
     a owl:Class ;
     rdfs:subClassOf schema:Observation ;
     rdfs:label "Robustness Assessment"@en ;
@@ -1036,17 +1158,17 @@ Thresholds differ by fabric type (knitted vs woven)."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    rdfs:seeAlso textile:DurabilityInfo ;
+    rdfs:seeAlso eutex:DurabilityInfo ;
     rdfs:seeAlso schema:Rating ;
     rdfs:seeAlso cccev:Evidence ;
     skos:note """Required extension: The EU preparatory study defines a specific 0-10 robustness scoring
-methodology not covered by GS1 or existing durability metrics. Complements textile:DurabilityInfo
+methodology not covered by GS1 or existing durability metrics. Complements eutex:DurabilityInfo
 with a standardised composite score. See also schema:Rating for the rating-style aggregate score.
-Anchored to cccev:Evidence (EU SEMICeu CCCEV) — the assessment is evidence supporting the
+Anchored to cccev:Evidence (EU SEMICeu CCCEV): the assessment is evidence supporting the
 robustness Requirement defined by the EU Preparatory Study; component test results
 (spirality, dimensional change, visual inspection) are cccev:Constraint instances."""@en .
 
-textile:SpiralityTestResult
+eutex:SpiralityTestResult
     a owl:Class ;
     rdfs:subClassOf schema:Observation ;
     rdfs:label "Spirality Test Result"@en ;
@@ -1054,9 +1176,10 @@ textile:SpiralityTestResult
 Scoring (woven): >6%=0pt, 5.5-6%=1pt, 5-5.5%=2pt, <=5%=3pt.
 Scoring (knitted): >7%=0pt, 6-7%=1pt, 5-6%=2pt, <=5%=3pt."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
-    dcterms:source <https://www.iso.org/standard/56326.html> .
+    dcterms:source <https://www.iso.org/standard/56326.html> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:DimensionalChangeTestResult
+eutex:DimensionalChangeTestResult
     a owl:Class ;
     rdfs:subClassOf schema:Observation ;
     rdfs:label "Dimensional Change Test Result"@en ;
@@ -1064,9 +1187,10 @@ textile:DimensionalChangeTestResult
 Scoring (woven): >+-4%=0pt, +-3.5-4%=1pt, +-3-3.5%=2pt, <=+-3%=3pt.
 Scoring (knitted): >+-6%=0pt, +-5.5-6%=1pt, +-5-5.5%=2pt, <=+-5%=3pt."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
-    dcterms:source <https://www.iso.org/standard/22198.html> .
+    dcterms:source <https://www.iso.org/standard/22198.html> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:VisualInspectionResult
+eutex:VisualInspectionResult
     a owl:Class ;
     rdfs:subClassOf schema:Observation ;
     rdfs:label "Visual Inspection Result"@en ;
@@ -1074,171 +1198,210 @@ textile:VisualInspectionResult
 Score 0-4 pts based on sub-ratings (1-5 scale each) for colour change,
 fabric appearance, seam appearance, and non-textile parts condition."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
-    dcterms:source <https://www.iso.org/standard/55312.html> .
+    dcterms:source <https://www.iso.org/standard/55312.html> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # Robustness Assessment properties
-textile:robustnessAssessment
+eutex:robustnessAssessment
     a owl:ObjectProperty ;
     rdfs:label "Robustness Assessment"@en ;
     rdfs:comment "Robustness assessment for the textile product."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range textile:RobustnessAssessment ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:range eutex:RobustnessAssessment ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:robustnessScore
+eutex:robustnessScore
     a owl:DatatypeProperty ;
     rdfs:label "Robustness Score"@en ;
     rdfs:comment "Composite robustness score (0-10). Sum of spirality (0-3), dimensional change (0-3), and visual inspection (0-4)."@en ;
-    rdfs:domain textile:RobustnessAssessment ;
+    rdfs:domain eutex:RobustnessAssessment ;
     rdfs:range xsd:decimal ;
     rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:cleaningCyclesBeforeTest
+eutex:cleaningCyclesBeforeTest
     a owl:DatatypeProperty ;
     rdfs:label "Cleaning Cycles Before Test"@en ;
     rdfs:comment "Number of cleaning cycles performed before testing (default 5 per EU methodology)."@en ;
-    rdfs:domain textile:RobustnessAssessment ;
+    rdfs:domain eutex:RobustnessAssessment ;
     rdfs:range xsd:integer ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:robustnessTestFabricType
+eutex:robustnessTestFabricType
     a owl:ObjectProperty ;
     rdfs:label "Robustness Test Fabric Type"@en ;
     rdfs:comment "Fabric type used to determine test thresholds (knitted vs woven scoring tables differ)."@en ;
-    rdfs:domain textile:RobustnessAssessment ;
-    rdfs:range textile:FabricType ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:RobustnessAssessment ;
+    rdfs:range eutex:FabricType ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:spiralityTest
+eutex:spiralityTest
     a owl:ObjectProperty ;
     rdfs:label "Spirality Test"@en ;
     rdfs:comment "Spirality test result component of robustness assessment."@en ;
-    rdfs:domain textile:RobustnessAssessment ;
-    rdfs:range textile:SpiralityTestResult ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:RobustnessAssessment ;
+    rdfs:range eutex:SpiralityTestResult ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:dimensionalChangeTest
+eutex:dimensionalChangeTest
     a owl:ObjectProperty ;
     rdfs:label "Dimensional Change Test"@en ;
     rdfs:comment "Dimensional change test result component of robustness assessment."@en ;
-    rdfs:domain textile:RobustnessAssessment ;
-    rdfs:range textile:DimensionalChangeTestResult ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:RobustnessAssessment ;
+    rdfs:range eutex:DimensionalChangeTestResult ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:visualInspection
+eutex:visualInspection
     a owl:ObjectProperty ;
     rdfs:label "Visual Inspection"@en ;
     rdfs:comment "Visual inspection result component of robustness assessment."@en ;
-    rdfs:domain textile:RobustnessAssessment ;
-    rdfs:range textile:VisualInspectionResult ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:RobustnessAssessment ;
+    rdfs:range eutex:VisualInspectionResult ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # Spirality Test properties
-textile:spiralityScore
+eutex:spiralityScore
     a owl:DatatypeProperty ;
     rdfs:label "Spirality Score"@en ;
     rdfs:comment "Spirality component score (0-3 points)."@en ;
-    rdfs:domain textile:SpiralityTestResult ;
+    rdfs:domain eutex:SpiralityTestResult ;
     rdfs:range xsd:integer ;
     rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:spiralityPercentage
+eutex:spiralityPercentage
     a owl:DatatypeProperty ;
     rdfs:label "Spirality Percentage"@en ;
     rdfs:comment "Measured spirality as percentage after cleaning cycles."@en ;
-    rdfs:domain textile:SpiralityTestResult ;
+    rdfs:domain eutex:SpiralityTestResult ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:spiralityTestMethod
+eutex:spiralityTestMethod
     a owl:DatatypeProperty ;
     rdfs:label "Spirality Test Method"@en ;
     rdfs:comment "Test method reference (e.g. ISO 16322-3)."@en ;
-    rdfs:domain textile:SpiralityTestResult ;
+    rdfs:domain eutex:SpiralityTestResult ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # Dimensional Change Test properties
-textile:dimensionalChangeScore
+eutex:dimensionalChangeScore
     a owl:DatatypeProperty ;
     rdfs:label "Dimensional Change Score"@en ;
     rdfs:comment "Dimensional change component score (0-3 points)."@en ;
-    rdfs:domain textile:DimensionalChangeTestResult ;
+    rdfs:domain eutex:DimensionalChangeTestResult ;
     rdfs:range xsd:integer ;
     rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:dimensionalChangePercentage
+eutex:dimensionalChangePercentage
     a owl:DatatypeProperty ;
     rdfs:label "Dimensional Change Percentage"@en ;
     rdfs:comment "Measured dimensional change as percentage (absolute value) after cleaning cycles."@en ;
-    rdfs:domain textile:DimensionalChangeTestResult ;
+    rdfs:domain eutex:DimensionalChangeTestResult ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:dimensionalChangeTestMethod
+eutex:dimensionalChangeTestMethod
     a owl:DatatypeProperty ;
     rdfs:label "Dimensional Change Test Method"@en ;
     rdfs:comment "Test method reference (e.g. ISO 3759)."@en ;
-    rdfs:domain textile:DimensionalChangeTestResult ;
+    rdfs:domain eutex:DimensionalChangeTestResult ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # Visual Inspection properties
-textile:visualInspectionScore
+eutex:visualInspectionScore
     a owl:DatatypeProperty ;
     rdfs:label "Visual Inspection Score"@en ;
     rdfs:comment "Visual inspection component score (0-4 points)."@en ;
-    rdfs:domain textile:VisualInspectionResult ;
+    rdfs:domain eutex:VisualInspectionResult ;
     rdfs:range xsd:integer ;
     rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:colourChangeRating
+eutex:colourChangeRating
     a owl:DatatypeProperty ;
     rdfs:label "Colour Change Rating"@en ;
     rdfs:comment "Colour change sub-rating (1-5 per ISO 15487, where 5 is no change)."@en ;
-    rdfs:domain textile:VisualInspectionResult ;
+    rdfs:domain eutex:VisualInspectionResult ;
     rdfs:range xsd:integer ;
     rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:fabricAppearanceRating
+eutex:fabricAppearanceRating
     a owl:DatatypeProperty ;
     rdfs:label "Fabric Appearance Rating"@en ;
     rdfs:comment "Fabric surface appearance sub-rating (1-5 per ISO 15487, where 5 is no change)."@en ;
-    rdfs:domain textile:VisualInspectionResult ;
+    rdfs:domain eutex:VisualInspectionResult ;
     rdfs:range xsd:integer ;
     rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:seamAppearanceRating
+eutex:seamAppearanceRating
     a owl:DatatypeProperty ;
     rdfs:label "Seam Appearance Rating"@en ;
     rdfs:comment "Seam appearance sub-rating (1-5 per ISO 15487, where 5 is no change)."@en ;
-    rdfs:domain textile:VisualInspectionResult ;
+    rdfs:domain eutex:VisualInspectionResult ;
     rdfs:range xsd:integer ;
     rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:nonTextilePartsRating
+eutex:nonTextilePartsRating
     a owl:DatatypeProperty ;
     rdfs:label "Non-Textile Parts Rating"@en ;
     rdfs:comment "Non-textile parts condition sub-rating (1-5 per ISO 15487, where 5 is no change)."@en ;
-    rdfs:domain textile:VisualInspectionResult ;
+    rdfs:domain eutex:VisualInspectionResult ;
     rdfs:range xsd:integer ;
     rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:visualInspectionTestMethod
+eutex:visualInspectionTestMethod
     a owl:DatatypeProperty ;
     rdfs:label "Visual Inspection Test Method"@en ;
     rdfs:comment "Test method reference (e.g. ISO 15487)."@en ;
-    rdfs:domain textile:VisualInspectionResult ;
+    rdfs:domain eutex:VisualInspectionResult ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
 # PART 15: RECYCLABILITY SCORING SYSTEM (WP3)
@@ -1246,7 +1409,7 @@ textile:visualInspectionTestMethod
 # 0-10 score based on elastane content, sorting factors, technical recyclability
 # =============================================================================
 
-textile:RecyclabilityAssessment
+eutex:RecyclabilityAssessment
     a owl:Class ;
     rdfs:subClassOf schema:Observation ;
     rdfs:label "Recyclability Assessment"@en ;
@@ -1258,170 +1421,208 @@ technical recyclability of the applicable recycling technology."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    rdfs:seeAlso dpp:CircularityPerformance ;
+    rdfs:seeAlso oec:CircularityPerformance ;
     rdfs:seeAlso schema:Rating ;
     skos:note """Required extension: The EU preparatory study defines a specific recyclability scoring
-methodology not present in GS1 or the core DPP vocabulary. See also schema:Rating for the rating-style aggregate score."""@en .
+methodology not present in GS1 or the core DPP vocabulary. See also schema:Rating for the rating-style aggregate score."""@en ;
+    rdfs:seeAlso oec:RecyclabilityAssessment .
 
-textile:SortingFactors
+eutex:SortingFactors
     a owl:Class ;
     rdfs:label "Sorting Factors"@en ;
     rdfs:comment """Sorting factors affecting recyclability score. Each factor satisfied adds 1 point:
 same composition inner/outer, free from printings, free from coatings, free from sequins,
 free from dyes, mono-material."""@en ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>.
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:TechnicalRecyclability
+eutex:TechnicalRecyclability
     a owl:Class ;
     rdfs:label "Technical Recyclability"@en ;
     rdfs:comment "Technical recyclability assessment based on the applicable recycling technology."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance .
 
 # Recycling Technology enumeration
-textile:RecyclingTechnology
+eutex:RecyclingTechnology
     a owl:Class ;
     rdfs:label "Recycling Technology"@en ;
     rdfs:comment "Applicable recycling technologies per EU Preparatory Study 3rd Milestone."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     owl:oneOf (
-        textile:MechanicalRecycling
-        textile:ChemicalRecyclingCotton
-        textile:ThermoChemicalRecycling
-        textile:ChemicalRecyclingPA6
-        textile:ThermoMechanicalRecycling
+        eutex:MechanicalRecycling
+        eutex:ChemicalRecyclingCotton
+        eutex:ThermoChemicalRecycling
+        eutex:ChemicalRecyclingPA6
+        eutex:ThermoMechanicalRecycling
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance .
 
-textile:MechanicalRecycling a textile:RecyclingTechnology ; rdfs:label "Mechanical Recycling"@en ;
+eutex:MechanicalRecycling a eutex:RecyclingTechnology ; rdfs:label "Mechanical Recycling"@en ;
     rdfs:comment "Mechanical fiber recycling through shredding and re-spinning."@en .
-textile:ChemicalRecyclingCotton a textile:RecyclingTechnology ; rdfs:label "Chemical Recycling (Cotton)"@en ;
+eutex:ChemicalRecyclingCotton a eutex:RecyclingTechnology ; rdfs:label "Chemical Recycling (Cotton)"@en ;
     rdfs:comment "Chemical recycling process for cellulosic/cotton fibers (e.g. dissolution-regeneration)."@en .
-textile:ThermoChemicalRecycling a textile:RecyclingTechnology ; rdfs:label "Thermo-Chemical Recycling"@en ;
+eutex:ThermoChemicalRecycling a eutex:RecyclingTechnology ; rdfs:label "Thermo-Chemical Recycling"@en ;
     rdfs:comment "Thermo-chemical treatment to recover cotton from cotton-rich blends (>60%)."@en .
-textile:ChemicalRecyclingPA6 a textile:RecyclingTechnology ; rdfs:label "Chemical Recycling (PA6)"@en ;
+eutex:ChemicalRecyclingPA6 a eutex:RecyclingTechnology ; rdfs:label "Chemical Recycling (PA6)"@en ;
     rdfs:comment "Chemical recycling for polyamide 6 (depolymerisation to caprolactam)."@en .
-textile:ThermoMechanicalRecycling a textile:RecyclingTechnology ; rdfs:label "Thermo-Mechanical Recycling"@en ;
+eutex:ThermoMechanicalRecycling a eutex:RecyclingTechnology ; rdfs:label "Thermo-Mechanical Recycling"@en ;
     rdfs:comment "Thermo-mechanical recycling through melting and re-extrusion of thermoplastic fibers."@en .
 
 # Recyclability Assessment properties
-textile:recyclabilityAssessment
+eutex:recyclabilityAssessment
     a owl:ObjectProperty ;
     rdfs:label "Recyclability Assessment"@en ;
     rdfs:comment "Recyclability assessment for the textile product."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range textile:RecyclabilityAssessment ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:range eutex:RecyclabilityAssessment ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance ;
+    rdfs:seeAlso oec:recyclabilityAssessment .
 
-textile:recyclabilityScore
+eutex:recyclabilityScore
     a owl:DatatypeProperty ;
     rdfs:label "Recyclability Score"@en ;
     rdfs:comment "Composite recyclability score (0-10)."@en ;
-    rdfs:domain textile:RecyclabilityAssessment ;
+    rdfs:domain eutex:RecyclabilityAssessment ;
     rdfs:range xsd:decimal ;
     rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:recyclabilityScore .
 
-textile:isRecyclable
+eutex:isRecyclable
     a owl:DatatypeProperty ;
     rdfs:label "Is Recyclable"@en ;
     rdfs:comment "Whether the product is considered recyclable (score above minimum threshold)."@en ;
-    rdfs:domain textile:RecyclabilityAssessment ;
+    rdfs:domain eutex:RecyclabilityAssessment ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance .
 
-textile:elastaneContentPercent
+eutex:elastaneContentPercent
     a owl:DatatypeProperty ;
     rdfs:label "Elastane Content Percent"@en ;
     rdfs:comment "Elastane/spandex content as percentage of total weight. Content >15% (>20% for PA6-rich >80% blends) makes product non-recyclable (score 0)."@en ;
-    rdfs:domain textile:RecyclabilityAssessment ;
+    rdfs:domain eutex:RecyclabilityAssessment ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:sortingFactors
+eutex:sortingFactors
     a owl:ObjectProperty ;
     rdfs:label "Sorting Factors"@en ;
     rdfs:comment "Sorting factors assessment for recyclability."@en ;
-    rdfs:domain textile:RecyclabilityAssessment ;
-    rdfs:range textile:SortingFactors ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:RecyclabilityAssessment ;
+    rdfs:range eutex:SortingFactors ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:technicalRecyclability
+eutex:technicalRecyclability
     a owl:ObjectProperty ;
     rdfs:label "Technical Recyclability"@en ;
     rdfs:comment "Technical recyclability assessment for the product."@en ;
-    rdfs:domain textile:RecyclabilityAssessment ;
-    rdfs:range textile:TechnicalRecyclability ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:RecyclabilityAssessment ;
+    rdfs:range eutex:TechnicalRecyclability ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance .
 
 # Sorting Factors properties
-textile:sameInnerOuterComposition
+eutex:sameInnerOuterComposition
     a owl:DatatypeProperty ;
     rdfs:label "Same Inner/Outer Composition"@en ;
     rdfs:comment "Whether inner and outer fabric layers have the same fiber composition (+1 pt if true)."@en ;
-    rdfs:domain textile:SortingFactors ;
+    rdfs:domain eutex:SortingFactors ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:freeFromPrintings
+eutex:freeFromPrintings
     a owl:DatatypeProperty ;
     rdfs:label "Free From Printings"@en ;
     rdfs:comment "Whether the product is free from non-removable printings (+1 pt if true)."@en ;
-    rdfs:domain textile:SortingFactors ;
+    rdfs:domain eutex:SortingFactors ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:freeFromCoatings
+eutex:freeFromCoatings
     a owl:DatatypeProperty ;
     rdfs:label "Free From Coatings"@en ;
     rdfs:comment "Whether the product is free from non-removable coatings (+1 pt if true)."@en ;
-    rdfs:domain textile:SortingFactors ;
+    rdfs:domain eutex:SortingFactors ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:freeFromSequins
+eutex:freeFromSequins
     a owl:DatatypeProperty ;
     rdfs:label "Free From Sequins"@en ;
     rdfs:comment "Whether the product is free from sequins, beads, and non-textile embellishments (+1 pt if true)."@en ;
-    rdfs:domain textile:SortingFactors ;
+    rdfs:domain eutex:SortingFactors ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:freeFromDyes
+eutex:freeFromDyes
     a owl:DatatypeProperty ;
     rdfs:label "Free From Dyes"@en ;
     rdfs:comment "Whether the product is free from dyes (+1 pt if true)."@en ;
-    rdfs:domain textile:SortingFactors ;
+    rdfs:domain eutex:SortingFactors ;
     rdfs:range xsd:boolean ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:isMonoMaterial
+eutex:isMonoMaterial
     a owl:DatatypeProperty ;
     rdfs:label "Is Mono-Material"@en ;
     rdfs:comment "Whether the product is made of a single fiber type (+1 pt if true). Mono-material products are more likely to be recycled."@en ;
-    rdfs:domain textile:SortingFactors ;
+    rdfs:domain eutex:SortingFactors ;
     rdfs:range xsd:boolean ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # Technical Recyclability properties
-textile:technicalRecyclabilityScore
+eutex:technicalRecyclabilityScore
     a owl:DatatypeProperty ;
     rdfs:label "Technical Recyclability Score"@en ;
     rdfs:comment "Technical recyclability component score based on applicable recycling technology."@en ;
-    rdfs:domain textile:TechnicalRecyclability ;
+    rdfs:domain eutex:TechnicalRecyclability ;
     rdfs:range xsd:decimal ;
     rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en .
 
-textile:applicableRecyclingTechnology
+eutex:applicableRecyclingTechnology
     a owl:ObjectProperty ;
     rdfs:label "Applicable Recycling Technology"@en ;
     rdfs:comment "The recycling technology applicable to this product based on its fiber composition."@en ;
-    rdfs:domain textile:TechnicalRecyclability ;
-    rdfs:range textile:RecyclingTechnology ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:TechnicalRecyclability ;
+    rdfs:range eutex:RecyclingTechnology ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance .
 
 # =============================================================================
 # PART 16: RECYCLED CONTENT ENHANCEMENT (WP4)
@@ -1429,7 +1630,7 @@ textile:applicableRecyclingTechnology
 # Structured recycled content declarations replacing simple boolean/string
 # =============================================================================
 
-textile:RecycledContentDeclaration
+eutex:RecycledContentDeclaration
     a owl:Class ;
     rdfs:label "Recycled Content Declaration"@en ;
     rdfs:comment """Structured recycled content declaration per EU Preparatory Study 3rd Milestone.
@@ -1437,121 +1638,141 @@ Captures secondary material fraction, waste origin type (post-consumer/post-indu
 recycled source type (fiber-to-fiber/open loop), and chain of custody method."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:seeAlso dpp:RecycledContent ;
+    rdfs:seeAlso oec:RecycledContent ;
     rdfs:seeAlso schema:QuantitativeValue ;
     skos:note """Required extension: The EU preparatory study requires structured recycled content
 declarations with specific categorisation not available in GS1 or core DPP vocabulary.
-Complements dpp:RecycledContent with textile-specific regulatory detail.
+Complements oec:RecycledContent with textile-specific regulatory detail.
 See also schema:QuantitativeValue for the secondary material fraction."""@en .
 
 # Waste Origin Type enumeration
-textile:WasteOriginType
+eutex:WasteOriginType
     a owl:Class ;
     rdfs:label "Waste Origin Type"@en ;
     rdfs:comment "Origin classification of recycled waste material."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    owl:oneOf (textile:PostConsumer textile:PostIndustrial) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    owl:oneOf (eutex:PostConsumer eutex:PostIndustrial) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:PostConsumer a textile:WasteOriginType ; rdfs:label "Post-Consumer"@en ;
+eutex:PostConsumer a eutex:WasteOriginType ; rdfs:label "Post-Consumer"@en ;
     rdfs:comment "Waste generated by end consumers after product use."@en .
-textile:PostIndustrial a textile:WasteOriginType ; rdfs:label "Post-Industrial"@en ;
+eutex:PostIndustrial a eutex:WasteOriginType ; rdfs:label "Post-Industrial"@en ;
     rdfs:comment "Waste generated during manufacturing processes (pre-consumer)."@en .
 
 # Recycled Source Type enumeration
-textile:RecycledSourceType
+eutex:RecycledSourceType
     a owl:Class ;
     rdfs:label "Recycled Source Type"@en ;
     rdfs:comment "Type of recycling pathway for the recycled content."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    owl:oneOf (textile:FiberToFiber textile:OpenLoop) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    owl:oneOf (eutex:FiberToFiber eutex:OpenLoop) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance .
 
-textile:FiberToFiber a textile:RecycledSourceType ; rdfs:label "Fiber-to-Fiber"@en ;
+eutex:FiberToFiber a eutex:RecycledSourceType ; rdfs:label "Fiber-to-Fiber"@en ;
     rdfs:comment "Closed-loop recycling where textile waste is recycled back into textile fibers."@en .
-textile:OpenLoop a textile:RecycledSourceType ; rdfs:label "Open Loop"@en ;
+eutex:OpenLoop a eutex:RecycledSourceType ; rdfs:label "Open Loop"@en ;
     rdfs:comment "Open-loop recycling where non-textile waste (e.g. PET bottles) is converted into textile fibers."@en .
 
 # Chain of Custody Method enumeration
-textile:ChainOfCustodyMethod
+eutex:ChainOfCustodyMethod
     a owl:Class ;
     rdfs:label "Chain of Custody Method"@en ;
     rdfs:comment "Chain of custody method used to verify recycled content claims."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     owl:oneOf (
-        textile:MassBalance
-        textile:Segregation
-        textile:IdentityPreserved
-        textile:Certified
+        eutex:MassBalance
+        eutex:Segregation
+        eutex:IdentityPreserved
+        eutex:Certified
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:MassBalance a textile:ChainOfCustodyMethod ; rdfs:label "Mass Balance"@en ;
+eutex:MassBalance a eutex:ChainOfCustodyMethod ; rdfs:label "Mass Balance"@en ;
     rdfs:comment "Mass balance accounting method where recycled and virgin inputs are tracked by quantity."@en .
-textile:Segregation a textile:ChainOfCustodyMethod ; rdfs:label "Segregation"@en ;
+eutex:Segregation a eutex:ChainOfCustodyMethod ; rdfs:label "Segregation"@en ;
     rdfs:comment "Segregation method where recycled materials are kept physically separate from virgin."@en .
-textile:IdentityPreserved a textile:ChainOfCustodyMethod ; rdfs:label "Identity Preserved"@en ;
+eutex:IdentityPreserved a eutex:ChainOfCustodyMethod ; rdfs:label "Identity Preserved"@en ;
     rdfs:comment "Identity preserved method with full physical traceability from source to product."@en .
-textile:Certified a textile:ChainOfCustodyMethod ; rdfs:label "Certified"@en ;
+eutex:Certified a eutex:ChainOfCustodyMethod ; rdfs:label "Certified"@en ;
     rdfs:comment "Third-party certified chain of custody (e.g. GRS, RCS)."@en .
 
 # Recycled Content Declaration properties
-textile:recycledContentDeclaration
+eutex:recycledContentDeclaration
     a owl:ObjectProperty ;
     rdfs:label "Recycled Content Declaration"@en ;
     rdfs:comment "Structured recycled content declaration for the textile product or fiber."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range textile:RecycledContentDeclaration ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:range eutex:RecycledContentDeclaration ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance .
 
-textile:secondaryMaterialFraction
+eutex:secondaryMaterialFraction
     a owl:DatatypeProperty ;
     rdfs:label "Secondary Material Fraction"@en ;
     rdfs:comment "Percentage of secondary (recycled) material by weight."@en ;
-    rdfs:domain textile:RecycledContentDeclaration ;
+    rdfs:domain eutex:RecycledContentDeclaration ;
     rdfs:range xsd:decimal ;
-    rdfs:seeAlso dpp:recycledContent ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:seeAlso oec:recycledContent ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:wasteOriginType
+eutex:wasteOriginType
     a owl:ObjectProperty ;
     rdfs:label "Waste Origin Type"@en ;
     rdfs:comment "Origin classification of the recycled waste material."@en ;
-    rdfs:domain textile:RecycledContentDeclaration ;
-    rdfs:range textile:WasteOriginType ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:RecycledContentDeclaration ;
+    rdfs:range eutex:WasteOriginType ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:recycledSourceType
+eutex:recycledSourceType
     a owl:ObjectProperty ;
     rdfs:label "Recycled Source Type"@en ;
     rdfs:comment "Type of recycling pathway."@en ;
-    rdfs:domain textile:RecycledContentDeclaration ;
-    rdfs:range textile:RecycledSourceType ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:RecycledContentDeclaration ;
+    rdfs:range eutex:RecycledSourceType ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en ;
+    rdfs:seeAlso oec:CircularityPerformance .
 
-textile:chainOfCustodyMethod
+eutex:chainOfCustodyMethod
     a owl:ObjectProperty ;
     rdfs:label "Chain of Custody Method"@en ;
     rdfs:comment "Chain of custody method used to verify the recycled content claim."@en ;
-    rdfs:domain textile:RecycledContentDeclaration ;
-    rdfs:range textile:ChainOfCustodyMethod ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:RecycledContentDeclaration ;
+    rdfs:range eutex:ChainOfCustodyMethod ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:meetsTargetThreshold
+eutex:meetsTargetThreshold
     a owl:DatatypeProperty ;
     rdfs:label "Meets Target Threshold"@en ;
     rdfs:comment "Whether the recycled content meets the regulatory target threshold for this product category."@en ;
-    rdfs:domain textile:RecycledContentDeclaration ;
+    rdfs:domain eutex:RecycledContentDeclaration ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:verificationCertification
+eutex:verificationCertification
     a owl:ObjectProperty ;
     rdfs:label "Verification Certification"@en ;
     rdfs:comment "Third-party certification verifying the recycled content claim. Use gs1:CertificationDetails pattern."@en ;
-    rdfs:domain textile:RecycledContentDeclaration ;
+    rdfs:domain eutex:RecycledContentDeclaration ;
     rdfs:range gs1:CertificationDetails ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
 # PART 17: ENVIRONMENTAL/CARBON FOOTPRINT (WP5)
@@ -1559,7 +1780,7 @@ textile:verificationCertification
 # PEF/PEFCR-based environmental footprint reporting
 # =============================================================================
 
-textile:EnvironmentalFootprint
+eutex:EnvironmentalFootprint
     a owl:Class ;
     rdfs:label "Environmental Footprint"@en ;
     rdfs:comment """Environmental footprint declaration per EU Preparatory Study 3rd Milestone,
@@ -1567,157 +1788,180 @@ aligned with Product Environmental Footprint Category Rules for Apparel & Footwe
 Includes manufacturing carbon footprint, PEF single score, and benchmark comparison."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:seeAlso dpp:EmissionsPerformance ;
+    rdfs:seeAlso oec:EmissionsPerformance ;
     rdfs:seeAlso schema:PropertyValue ;
     skos:note """Required extension: The EU preparatory study mandates PEF-based environmental footprint
 reporting with specific metrics (single score in mPt, benchmark performance) not available
-in GS1 or core DPP vocabulary. Keeps existing textile:waterUsage and textile:energyUsage
+in GS1 or core DPP vocabulary. Keeps existing eutex:waterUsage and eutex:energyUsage
 as convenience properties. See also schema:PropertyValue for generic structured values."""@en .
 
-textile:LCIACategory
+eutex:LCIACategory
     a owl:Class ;
     rdfs:label "LCIA Category"@en ;
     rdfs:comment "Individual Life Cycle Impact Assessment category result within the environmental footprint."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso schema:PropertyValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # Footprint Data Type enumeration
-textile:FootprintDataType
+eutex:FootprintDataType
     a owl:Class ;
     rdfs:label "Footprint Data Type"@en ;
     rdfs:comment "Type of data used in the environmental footprint calculation."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     owl:oneOf (
-        textile:PrimaryData
-        textile:SecondaryData
-        textile:MixedData
+        eutex:PrimaryData
+        eutex:SecondaryData
+        eutex:MixedData
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:PrimaryData a textile:FootprintDataType ; rdfs:label "Primary Data"@en ;
+eutex:PrimaryData a eutex:FootprintDataType ; rdfs:label "Primary Data"@en ;
     rdfs:comment "Footprint based on primary (company-specific) data from actual production processes."@en .
-textile:SecondaryData a textile:FootprintDataType ; rdfs:label "Secondary Data"@en ;
+eutex:SecondaryData a eutex:FootprintDataType ; rdfs:label "Secondary Data"@en ;
     rdfs:comment "Footprint based on secondary (generic/database) data from LCI databases."@en .
-textile:MixedData a textile:FootprintDataType ; rdfs:label "Mixed Data"@en ;
+eutex:MixedData a eutex:FootprintDataType ; rdfs:label "Mixed Data"@en ;
     rdfs:comment "Footprint based on a combination of primary and secondary data sources."@en .
 
 # LCIA Category Code enumeration
-textile:LCIACategoryCode
+eutex:LCIACategoryCode
     a owl:Class ;
     rdfs:label "LCIA Category Code"@en ;
     rdfs:comment "Life Cycle Impact Assessment category codes per PEF methodology."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     owl:oneOf (
-        textile:GWP
-        textile:WaterUse
-        textile:Eutrophication
-        textile:Acidification
-        textile:Ecotoxicity
-        textile:HumanToxicity
+        eutex:GWP
+        eutex:WaterUse
+        eutex:Eutrophication
+        eutex:Acidification
+        eutex:Ecotoxicity
+        eutex:HumanToxicity
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
-    owl:equivalentClass schema:CategoryCode .
+    owl:equivalentClass schema:CategoryCode ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:GWP a textile:LCIACategoryCode ; rdfs:label "Global Warming Potential"@en ;
+eutex:GWP a eutex:LCIACategoryCode ; rdfs:label "Global Warming Potential"@en ;
     rdfs:comment "Climate change impact category (kg CO2-eq)."@en .
-textile:WaterUse a textile:LCIACategoryCode ; rdfs:label "Water Use"@en ;
+eutex:WaterUse a eutex:LCIACategoryCode ; rdfs:label "Water Use"@en ;
     rdfs:comment "Water scarcity footprint impact category (m3 world-eq)."@en .
-textile:Eutrophication a textile:LCIACategoryCode ; rdfs:label "Eutrophication"@en ;
+eutex:Eutrophication a eutex:LCIACategoryCode ; rdfs:label "Eutrophication"@en ;
     rdfs:comment "Freshwater eutrophication impact category (kg P-eq)."@en .
-textile:Acidification a textile:LCIACategoryCode ; rdfs:label "Acidification"@en ;
+eutex:Acidification a eutex:LCIACategoryCode ; rdfs:label "Acidification"@en ;
     rdfs:comment "Acidification impact category (mol H+-eq)."@en .
-textile:Ecotoxicity a textile:LCIACategoryCode ; rdfs:label "Ecotoxicity"@en ;
+eutex:Ecotoxicity a eutex:LCIACategoryCode ; rdfs:label "Ecotoxicity"@en ;
     rdfs:comment "Freshwater ecotoxicity impact category (CTUe)."@en .
-textile:HumanToxicity a textile:LCIACategoryCode ; rdfs:label "Human Toxicity"@en ;
+eutex:HumanToxicity a eutex:LCIACategoryCode ; rdfs:label "Human Toxicity"@en ;
     rdfs:comment "Human toxicity (cancer + non-cancer) impact category (CTUh)."@en .
 
 # Environmental Footprint properties
-textile:environmentalFootprint
+eutex:environmentalFootprint
     a owl:ObjectProperty ;
     rdfs:label "Environmental Footprint"@en ;
     rdfs:comment "Environmental footprint declaration for the textile product."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range textile:EnvironmentalFootprint ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:range eutex:EnvironmentalFootprint ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:carbonFootprintManufacturing
+eutex:carbonFootprintManufacturing
     a owl:DatatypeProperty ;
     rdfs:label "Carbon Footprint Manufacturing"@en ;
     rdfs:comment "Carbon footprint of manufacturing phase in kg CO2-eq per product unit."@en ;
-    rdfs:domain textile:EnvironmentalFootprint ;
+    rdfs:domain eutex:EnvironmentalFootprint ;
     rdfs:range xsd:decimal ;
-    rdfs:seeAlso dpp:carbonFootprintTotal ;
+    rdfs:seeAlso oec:carbonFootprintTotal ;
     rdfs:seeAlso schema:value ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:pefSingleScore
+eutex:pefSingleScore
     a owl:DatatypeProperty ;
     rdfs:label "PEF Single Score"@en ;
     rdfs:comment "Product Environmental Footprint single score in milli-points (mPt) per PEFCR A&F methodology."@en ;
-    rdfs:domain textile:EnvironmentalFootprint ;
+    rdfs:domain eutex:EnvironmentalFootprint ;
     rdfs:range xsd:decimal ;
     rdfs:seeAlso schema:ratingValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:benchmarkPerformance
+eutex:benchmarkPerformance
     a owl:DatatypeProperty ;
     rdfs:label "Benchmark Performance"@en ;
     rdfs:comment "Performance relative to product category benchmark as percentage (negative = better than benchmark)."@en ;
-    rdfs:domain textile:EnvironmentalFootprint ;
+    rdfs:domain eutex:EnvironmentalFootprint ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:dataTypeIndicator
+eutex:dataTypeIndicator
     a owl:ObjectProperty ;
     rdfs:label "Data Type Indicator"@en ;
     rdfs:comment "Type of data used in the footprint calculation (primary, secondary, or mixed)."@en ;
-    rdfs:domain textile:EnvironmentalFootprint ;
-    rdfs:range textile:FootprintDataType ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:EnvironmentalFootprint ;
+    rdfs:range eutex:FootprintDataType ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:pefcrReference
+eutex:pefcrReference
     a owl:DatatypeProperty ;
     rdfs:label "PEFCR Reference"@en ;
     rdfs:comment "Reference to the applicable PEFCR version (e.g. 'PEFCR Apparel & Footwear v1.3')."@en ;
-    rdfs:domain textile:EnvironmentalFootprint ;
+    rdfs:domain eutex:EnvironmentalFootprint ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:lciaCategories
+eutex:lciaCategories
     a owl:ObjectProperty ;
     rdfs:label "LCIA Categories"@en ;
     rdfs:comment "Individual LCIA category results within the environmental footprint."@en ;
-    rdfs:domain textile:EnvironmentalFootprint ;
-    rdfs:range textile:LCIACategory ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:EnvironmentalFootprint ;
+    rdfs:range eutex:LCIACategory ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # LCIA Category properties
-textile:lciaCategoryCode
+eutex:lciaCategoryCode
     a owl:ObjectProperty ;
     rdfs:label "LCIA Category Code"@en ;
     rdfs:comment "The impact category code."@en ;
-    rdfs:domain textile:LCIACategory ;
-    rdfs:range textile:LCIACategoryCode ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:LCIACategory ;
+    rdfs:range eutex:LCIACategoryCode ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:lciaValue
+eutex:lciaValue
     a owl:DatatypeProperty ;
     rdfs:label "LCIA Value"@en ;
     rdfs:comment "The impact category value in the category-specific unit."@en ;
-    rdfs:domain textile:LCIACategory ;
+    rdfs:domain eutex:LCIACategory ;
     rdfs:range xsd:decimal ;
     rdfs:seeAlso schema:value ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:lciaUnit
+eutex:lciaUnit
     a owl:DatatypeProperty ;
     rdfs:label "LCIA Unit"@en ;
     rdfs:comment "Unit of the LCIA value (e.g. 'kg CO2-eq', 'm3 world-eq', 'mol H+-eq')."@en ;
-    rdfs:domain textile:LCIACategory ;
+    rdfs:domain eutex:LCIACategory ;
     rdfs:range xsd:string ;
     rdfs:seeAlso schema:unitCode ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
 # PART 18: SUBSTANCE OF CONCERN 4-TYPE CLASSIFICATION (WP6)
@@ -1725,214 +1969,242 @@ textile:lciaUnit
 # ESPR Article 7(5) 4-type SoC classification
 # =============================================================================
 
-textile:SubstanceOfConcern
+eutex:SubstanceOfConcern
     a owl:Class ;
     rdfs:label "Substance of Concern"@en ;
     rdfs:comment """A substance of concern present in the textile product, classified per ESPR Article 7(5)
 into 4 types: Type A (SVHC per REACH), Type B (CLP hazard), Type C (POPs),
 Type D (substances hindering reuse/recycling)."""@en ;
-    rdfs:subClassOf dpp:HazardousSubstance ;
+    rdfs:subClassOf oec:HazardousSubstance ;
     rdfs:seeAlso gs1:hasAllergen ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Required extension: ESPR Article 7(5) mandates a 4-type classification for substances
-of concern with specific disclosure requirements per type. Extends dpp:HazardousSubstance
+of concern with specific disclosure requirements per type. Extends oec:HazardousSubstance
 with regulatory classification detail."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
 
 # Substance of Concern Type enumeration
-textile:SubstanceOfConcernType
+eutex:SubstanceOfConcernType
     a owl:Class ;
     rdfs:label "Substance of Concern Type"@en ;
     rdfs:comment "The 4-type classification of substances of concern per ESPR Article 7(5)."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     owl:oneOf (
-        textile:SoCTypeA
-        textile:SoCTypeB
-        textile:SoCTypeC
-        textile:SoCTypeD
+        eutex:SoCTypeA
+        eutex:SoCTypeB
+        eutex:SoCTypeC
+        eutex:SoCTypeD
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:SoCTypeA a textile:SubstanceOfConcernType ; rdfs:label "SoC Type A - SVHC"@en ;
+eutex:SoCTypeA a eutex:SubstanceOfConcernType ; rdfs:label "SoC Type A - SVHC"@en ;
     rdfs:comment "Substances of Very High Concern per REACH Regulation (EC) 1907/2006, with 0.1% w/w threshold."@en ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32006R1907> .
-textile:SoCTypeB a textile:SubstanceOfConcernType ; rdfs:label "SoC Type B - CLP Hazard"@en ;
+eutex:SoCTypeB a eutex:SubstanceOfConcernType ; rdfs:label "SoC Type B - CLP Hazard"@en ;
     rdfs:comment "Substances classified under CLP Regulation 1272/2008 with hazard classifications (CMR, ED, PMT, sensitiser, aquatic toxicity)."@en ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272> .
-textile:SoCTypeC a textile:SubstanceOfConcernType ; rdfs:label "SoC Type C - POPs"@en ;
+eutex:SoCTypeC a eutex:SubstanceOfConcernType ; rdfs:label "SoC Type C - POPs"@en ;
     rdfs:comment "Persistent Organic Pollutants per EU Regulation 2019/1021 (recast of Stockholm Convention obligations)."@en ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32019R1021> .
-textile:SoCTypeD a textile:SubstanceOfConcernType ; rdfs:label "SoC Type D - Recycling Hindrance"@en ;
+eutex:SoCTypeD a eutex:SubstanceOfConcernType ; rdfs:label "SoC Type D - Recycling Hindrance"@en ;
     rdfs:comment "Substances that hinder reuse or recycling of the product at end of life."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
 # CLP Hazard Category enumeration
-textile:CLPHazardCategory
+eutex:CLPHazardCategory
     a owl:Class ;
     rdfs:label "CLP Hazard Category"@en ;
     rdfs:comment "CLP Regulation hazard categories relevant to textile substances of concern (Type B)."@en ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272> ;
     owl:oneOf (
-        textile:CMR
-        textile:EndocrineDisruptor
-        textile:PMT
-        textile:Sensitizer
-        textile:AquaticToxicity
+        eutex:CMR
+        eutex:EndocrineDisruptor
+        eutex:PMT
+        eutex:Sensitizer
+        eutex:AquaticToxicity
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:CMR a textile:CLPHazardCategory ; rdfs:label "CMR"@en ;
+eutex:CMR a eutex:CLPHazardCategory ; rdfs:label "CMR"@en ;
     rdfs:comment "Carcinogenic, Mutagenic, or toxic to Reproduction (categories 1A, 1B, 2)."@en .
-textile:EndocrineDisruptor a textile:CLPHazardCategory ; rdfs:label "Endocrine Disruptor"@en ;
+eutex:EndocrineDisruptor a eutex:CLPHazardCategory ; rdfs:label "Endocrine Disruptor"@en ;
     rdfs:comment "Endocrine disrupting substance per EU criteria."@en .
-textile:PMT a textile:CLPHazardCategory ; rdfs:label "PMT"@en ;
+eutex:PMT a eutex:CLPHazardCategory ; rdfs:label "PMT"@en ;
     rdfs:comment "Persistent, Mobile, and Toxic or very Persistent, very Mobile (PMT/vPvM)."@en .
-textile:Sensitizer a textile:CLPHazardCategory ; rdfs:label "Sensitizer"@en ;
+eutex:Sensitizer a eutex:CLPHazardCategory ; rdfs:label "Sensitizer"@en ;
     rdfs:comment "Skin or respiratory sensitiser."@en .
-textile:AquaticToxicity a textile:CLPHazardCategory ; rdfs:label "Aquatic Toxicity"@en ;
+eutex:AquaticToxicity a eutex:CLPHazardCategory ; rdfs:label "Aquatic Toxicity"@en ;
     rdfs:comment "Hazardous to the aquatic environment (acute or chronic)."@en .
 
 # Substance of Concern properties
-textile:substancesOfConcern
+eutex:substancesOfConcern
     a owl:ObjectProperty ;
     rdfs:label "Substances of Concern"@en ;
     rdfs:comment "Substances of concern present in the textile product per ESPR Article 7(5)."@en ;
     rdfs:domain gs1:Product ;
-    rdfs:range textile:SubstanceOfConcern ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:range eutex:SubstanceOfConcern ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
+    rdfs:seeAlso oec:substancesOfConcern .
 
-textile:socType
+eutex:socType
     a owl:ObjectProperty ;
     rdfs:label "SoC Type"@en ;
     rdfs:comment "The ESPR Article 7(5) type classification (A, B, C, or D)."@en ;
-    rdfs:domain textile:SubstanceOfConcern ;
-    rdfs:range textile:SubstanceOfConcernType ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:SubstanceOfConcern ;
+    rdfs:range eutex:SubstanceOfConcernType ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-# textile:casNumber removed — use dpp:casNumber from core.
+# eutex:casNumber removed; use oec:casNumber from core.
 
-textile:ecNumber
+eutex:ecNumber
     a owl:DatatypeProperty ;
     rdfs:label "EC Number"@en ;
     rdfs:comment "European Community number (EINECS/ELINCS)."@en ;
-    rdfs:domain textile:SubstanceOfConcern ;
+    rdfs:domain eutex:SubstanceOfConcern ;
     rdfs:range xsd:string ;
     rdfs:seeAlso schema:identifier ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
+    rdfs:seeAlso oec:ecNumber .
 
-textile:substanceConcentration
+eutex:substanceConcentration
     a owl:DatatypeProperty ;
     rdfs:label "Substance Concentration"@en ;
     rdfs:comment "Concentration of the substance in the product as percentage by weight (w/w)."@en ;
-    rdfs:domain textile:SubstanceOfConcern ;
+    rdfs:domain eutex:SubstanceOfConcern ;
     rdfs:range xsd:decimal ;
     rdfs:seeAlso schema:value ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:concentrationRange
+eutex:concentrationRange
     a owl:DatatypeProperty ;
     rdfs:label "Concentration Range"@en ;
     rdfs:comment "Concentration range as text (e.g. '0.01-0.05% w/w') when exact value is confidential."@en ;
-    rdfs:domain textile:SubstanceOfConcern ;
+    rdfs:domain eutex:SubstanceOfConcern ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:maxConcentration
+eutex:maxConcentration
     a owl:DatatypeProperty ;
     rdfs:label "Maximum Concentration"@en ;
     rdfs:comment "Maximum concentration of the substance as percentage by weight."@en ;
-    rdfs:domain textile:SubstanceOfConcern ;
+    rdfs:domain eutex:SubstanceOfConcern ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:locationInProduct
+eutex:locationInProduct
     a owl:DatatypeProperty ;
     rdfs:label "Location in Product"@en ;
     rdfs:comment "Where in the product the substance is located (e.g. 'shell fabric', 'dye', 'water-repellent finish')."@en ;
-    rdfs:domain textile:SubstanceOfConcern ;
+    rdfs:domain eutex:SubstanceOfConcern ;
     rdfs:range xsd:string ;
     rdfs:seeAlso schema:description ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:safeUseInstructions
+eutex:safeUseInstructions
     a owl:DatatypeProperty ;
     rdfs:label "Safe Use Instructions"@en ;
     rdfs:comment "Instructions for safe use of the product considering the substance of concern."@en ;
-    rdfs:domain textile:SubstanceOfConcern ;
+    rdfs:domain eutex:SubstanceOfConcern ;
     rdfs:range xsd:string ;
     rdfs:seeAlso gs1:consumerSafetyInformation, gs1:safetyInfo ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
+    rdfs:seeAlso oec:safeUseInstructions .
 
-textile:endOfLifeHandling
+eutex:endOfLifeHandling
     a owl:DatatypeProperty ;
     rdfs:label "End of Life Handling"@en ;
     rdfs:comment "Special handling instructions for end-of-life treatment due to the substance of concern."@en ;
-    rdfs:domain textile:SubstanceOfConcern ;
+    rdfs:domain eutex:SubstanceOfConcern ;
     rdfs:range xsd:string ;
     rdfs:seeAlso gs1:consumerRecyclingInstructions, gs1:sustainabilityInfo ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141> ;
+    skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en .
 
-textile:clpHazardCategory
+eutex:clpHazardCategory
     a owl:ObjectProperty ;
     rdfs:label "CLP Hazard Category"@en ;
     rdfs:comment "CLP hazard category classification (applicable to Type B substances)."@en ;
-    rdfs:domain textile:SubstanceOfConcern ;
-    rdfs:range textile:CLPHazardCategory ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:domain eutex:SubstanceOfConcern ;
+    rdfs:range eutex:CLPHazardCategory ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
 # PART 19: TEST STANDARD REFERENCES (WP7)
 # EU Preparatory Study on Textiles - 3rd Milestone
 # =============================================================================
 
-textile:TestStandard
+eutex:TestStandard
     a owl:Class ;
     rdfs:label "Test Standard"@en ;
     rdfs:comment "Test standards referenced in the EU Preparatory Study for textile robustness and durability testing."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     owl:oneOf (
-        textile:ISO6330
-        textile:ISO16322_3
-        textile:ISO3759
-        textile:ISO15487
-        textile:ISO105
-        textile:ISO12945
-        textile:ISO12947
+        eutex:ISO6330
+        eutex:ISO16322_3
+        eutex:ISO3759
+        eutex:ISO15487
+        eutex:ISO105
+        eutex:ISO12945
+        eutex:ISO12947
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
-textile:ISO6330 a textile:TestStandard ; rdfs:label "ISO 6330"@en ;
+eutex:ISO6330 a eutex:TestStandard ; rdfs:label "ISO 6330"@en ;
     rdfs:comment "Textiles - Domestic washing and drying procedures for textile testing."@en ;
     rdfs:seeAlso <https://www.iso.org/standard/75934.html> .
-textile:ISO16322_3 a textile:TestStandard ; rdfs:label "ISO 16322-3"@en ;
+eutex:ISO16322_3 a eutex:TestStandard ; rdfs:label "ISO 16322-3"@en ;
     rdfs:comment "Textiles - Determination of spirality after laundering - Part 3: Woven and knitted garments."@en ;
     rdfs:seeAlso <https://www.iso.org/standard/56326.html> .
-textile:ISO3759 a textile:TestStandard ; rdfs:label "ISO 3759"@en ;
+eutex:ISO3759 a eutex:TestStandard ; rdfs:label "ISO 3759"@en ;
     rdfs:comment "Textiles - Preparation, marking and measuring of fabric specimens and garments in tests for determination of dimensional change."@en ;
     rdfs:seeAlso <https://www.iso.org/standard/22198.html> .
-textile:ISO15487 a textile:TestStandard ; rdfs:label "ISO 15487"@en ;
+eutex:ISO15487 a eutex:TestStandard ; rdfs:label "ISO 15487"@en ;
     rdfs:comment "Textiles - Method for assessing the appearance of apparel and other textile end products after domestic washing and drying."@en ;
     rdfs:seeAlso <https://www.iso.org/standard/55312.html> .
-textile:ISO105 a textile:TestStandard ; rdfs:label "ISO 105"@en ;
+eutex:ISO105 a eutex:TestStandard ; rdfs:label "ISO 105"@en ;
     rdfs:comment "Textiles - Tests for colour fastness (multi-part standard)."@en ;
     rdfs:seeAlso <https://www.iso.org/standard/65207.html> .
-textile:ISO12945 a textile:TestStandard ; rdfs:label "ISO 12945"@en ;
+eutex:ISO12945 a eutex:TestStandard ; rdfs:label "ISO 12945"@en ;
     rdfs:comment "Textiles - Determination of fabric propensity to surface pilling, fuzzing or matting."@en ;
     rdfs:seeAlso <https://www.iso.org/standard/75375.html> .
-textile:ISO12947 a textile:TestStandard ; rdfs:label "ISO 12947"@en ;
+eutex:ISO12947 a eutex:TestStandard ; rdfs:label "ISO 12947"@en ;
     rdfs:comment "Textiles - Determination of the abrasion resistance of fabrics by the Martindale method."@en ;
     rdfs:seeAlso <https://www.iso.org/standard/75376.html> .
 
 # Test Standard property
-textile:testStandard
+eutex:testStandard
     a owl:ObjectProperty ;
     rdfs:label "Test Standard"@en ;
     rdfs:comment "The test standard used for a durability or robustness test."@en ;
-    rdfs:range textile:TestStandard ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> .
+    rdfs:range eutex:TestStandard ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
-# Cross-cutting alignment to dpp: (Phase 2 lift)
+# Cross-cutting alignment to oec: (Phase 2 lift)
 # =============================================================================
 
-textile:RecyclabilityAssessment rdfs:subClassOf dpp:RecyclabilityAssessment .
+eutex:RecyclabilityAssessment rdfs:subClassOf oec:RecyclabilityAssessment .

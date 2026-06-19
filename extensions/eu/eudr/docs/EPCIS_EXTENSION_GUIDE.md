@@ -40,8 +40,8 @@ master data file.
 unprefixed because the EPCIS JSON-LD context sets `@vocab` to the GS1
 Web Vocabulary namespace.
 
-**Not allowed:** Any property from `eudr:`, `dpp:`, `battery:`,
-`textile:`, `electronics:`, or `detergent:` namespaces.
+**Not allowed:** Any property from `eudr:`, `oec:`, `eubat:`,
+`eutex:`, `euelec:`, or `eudet:` namespaces.
 
 **Reference:** GS1 Germany EUDR Guideline V1.11, Section 4.2 -- every
 EPCIS example in V1.11 uses `gs1:masterDataAvailableFor` with
@@ -87,7 +87,7 @@ GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/
 For multiple extensions:
 
 ```http
-GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/, dpp=https://ref.openepcis.io/extensions/common/core/
+GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/, oec=https://ref.openepcis.io/extensions/common/core/
 ```
 
 ### Where it appears
@@ -269,9 +269,9 @@ GS1-CBV-Version: 2.0
 
 ## Exemption Handling
 
-> **Status:** Reference pattern aligned with GS1 GSMP Work Request
-> **WR 25-252** (eBallot) and **WR 26-122** (Community Review) as of
-> April 2026. May evolve as the ballots close.
+> **Status:** Reference pattern aligned with the EU Deforestation Regulation
+> (EU 2023/1115) and ongoing GS1 standardization for EUDR exemption handling. May
+> evolve as that standardization settles.
 
 An EUDR exemption allows an economic operator to be relieved from the
 full due diligence obligation for specific products or batches. The
@@ -329,13 +329,13 @@ inside `masterDataAvailableFor`.
     "eudr:exemptionEffectiveUntil": "2026-07-15",
     "eudr:exemptionAuthority": {
       "id": "https://id.gs1.org/417/9521234000006",
-      "type": "dpp:OperatorInformation",
+      "type": "oec:OperatorInformation",
       "organizationName": {
         "en": "Waldwirtschaft Schmidt GmbH"
       },
       "partyGLN": "9521234000006",
-      "dpp:operatorRole": "DownstreamOperator",
-      "dpp:economicOperatorId": "EOID-DE-2026-009988"
+      "oec:operatorRole": "DownstreamOperator",
+      "oec:economicOperatorId": "EOID-DE-2026-009988"
     }
   }
 }
@@ -372,7 +372,7 @@ Use GS1 Web Vocabulary (`gs1:`) for standard properties. Only use
 
 ### 3. Keep Extensions Out of masterDataAvailableFor
 
-This is the most common mistake. Extension properties (`eudr:`, `dpp:`,
+This is the most common mistake. Extension properties (`eudr:`, `oec:`,
 etc.) belong at event level, never inside `masterDataAvailableFor`.
 
 Wrong:

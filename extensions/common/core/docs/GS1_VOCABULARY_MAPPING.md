@@ -4,7 +4,7 @@ This document maps OpenEPCIS DPP properties to existing [GS1 Web Vocabulary](htt
 
 ## Principle
 
-**Use GS1 Web Vocabulary terms when they exist.** Only define custom terms in `dpp:`, `battery:`, or `eudr:` namespaces for domain-specific concepts that have no GS1 equivalent.
+**Use GS1 Web Vocabulary terms when they exist.** Only define custom terms in `oec:`, `eubat:`, or `eudr:` namespaces for domain-specific concepts that have no GS1 equivalent.
 
 ## GS1 Properties Available
 
@@ -60,7 +60,7 @@ This document maps OpenEPCIS DPP properties to existing [GS1 Web Vocabulary](htt
 | GS1 Class/Property | Description | Use Instead Of |
 |--------------------|-------------|----------------|
 | `gs1:WarrantyPromise` | Warranty class | - |
-| `gs1:durationOfWarranty` | Warranty duration (ISO 8601) | `battery:warrantyPeriodMonths` |
+| `gs1:durationOfWarranty` | Warranty duration (ISO 8601) | `eubat:warrantyPeriodMonths` |
 | `gs1:warrantyScope` | What warranty covers | - |
 
 **Example:**
@@ -105,10 +105,10 @@ This document maps OpenEPCIS DPP properties to existing [GS1 Web Vocabulary](htt
 
 | GS1 Class/Property | Description | Use Instead Of |
 |--------------------|-------------|----------------|
-| `gs1:ReferencedFileDetails` | File reference class | `dpp:DocumentReference` |
-| `gs1:referencedFileURL` | File URL | `dpp:documentUrl` |
-| `gs1:referencedFileType` | File type code | `dpp:documentType` |
-| `gs1:fileLanguageCode` | Language code | `dpp:languageCode` |
+| `gs1:ReferencedFileDetails` | File reference class | `oec:DocumentReference` |
+| `gs1:referencedFileURL` | File URL | `oec:documentUrl` |
+| `gs1:referencedFileType` | File type code | `oec:documentType` |
+| `gs1:fileLanguageCode` | Language code | `oec:languageCode` |
 
 **Example:**
 ```json
@@ -128,7 +128,7 @@ This document maps OpenEPCIS DPP properties to existing [GS1 Web Vocabulary](htt
 |--------------|-------------|----------------|
 | `gs1:consumerRecyclingInstructions` | Recycling text instructions | - |
 
-**Note:** GS1 Web Vocabulary has limited sustainability properties. The `dpp:` and `battery:` extensions for carbon footprint, recycled content percentages, and circularity information are appropriate custom extensions.
+**Note:** GS1 Web Vocabulary has limited sustainability properties. The `oec:` and `eubat:` extensions for carbon footprint, recycled content percentages, and circularity information are appropriate custom extensions.
 
 ### Regulatory Information
 
@@ -147,43 +147,43 @@ This document maps OpenEPCIS DPP properties to existing [GS1 Web Vocabulary](htt
 
 | Current | Recommendation | Reason |
 |---------|----------------|--------|
-| `battery:warrantyPeriodMonths` | Use `gs1:warranty` with `gs1:WarrantyPromise` | GS1 has warranty class |
+| `eubat:warrantyPeriodMonths` | Use `gs1:warranty` with `gs1:WarrantyPromise` | GS1 has warranty class |
 | Custom weight properties | Use `gs1:netWeight`, `gs1:grossWeight` | Standard GS1 properties |
-| `battery:ratedCapacity` | **Keep** - uses `gs1:QuantitativeValue` range | Battery-specific, correctly typed |
-| `battery:ratedEnergy` | **Keep** | Battery-specific |
-| `battery:StateOfHealth` | **Keep** | Battery-specific sensor type |
-| `battery:materialComposition` | **Keep** | Battery-specific (by component) |
+| `eubat:ratedCapacity` | **Keep** - uses `gs1:QuantitativeValue` range | Battery-specific, correctly typed |
+| `eubat:ratedEnergy` | **Keep** | Battery-specific |
+| `eubat:StateOfHealth` | **Keep** | Battery-specific sensor type |
+| `eubat:materialComposition` | **Keep** | Battery-specific (by component) |
 
 ### DPP Core
 
 | Current | Recommendation | Reason |
 |---------|----------------|--------|
-| `dpp:DocumentReference` | Consider `gs1:ReferencedFileDetails` | GS1 has file reference class |
-| `dpp:documentUrl` | Consider `gs1:referencedFileURL` | GS1 property exists |
+| `oec:DocumentReference` | Consider `gs1:ReferencedFileDetails` | GS1 has file reference class |
+| `oec:documentUrl` | Consider `gs1:referencedFileURL` | GS1 property exists |
 | `gs1:countryOfOrigin` | Consider `gs1:countryOfOrigin` | GS1 property exists |
-| `dpp:recycledContent` | **Keep** | No GS1 equivalent for percentages |
-| `dpp:carbonFootprint*` | **Keep** | No GS1 equivalent |
-| `dpp:HazardousSubstance` | **Keep** | CLP-specific, no GS1 equivalent |
+| `oec:recycledContent` | **Keep** | No GS1 equivalent for percentages |
+| `oec:carbonFootprint*` | **Keep** | No GS1 equivalent |
+| `oec:HazardousSubstance` | **Keep** | CLP-specific, no GS1 equivalent |
 
 ### Properties to Keep Custom
 
 These have no GS1 Web Vocabulary equivalent and should remain in domain namespaces:
 
 **Battery-specific (no GS1 equivalent):**
-- `battery:StateOfHealth`, `battery:StateOfCharge`, `battery:CycleCount`
-- `battery:batteryChemistry`, `schema:category`, `schema:status`
-- `battery:ratedCapacity`, `battery:ratedEnergy`, `battery:nominalVoltage`
-- `battery:lithiumRecycledShare`, `battery:cobaltRecycledShare`, etc.
-- `battery:CarbonFootprintTotal`, `battery:CarbonFootprintProduction`, etc.
-- `battery:extinguishingAgent`, `battery:dismantlingInstructions`
+- `eubat:StateOfHealth`, `eubat:StateOfCharge`, `eubat:CycleCount`
+- `eubat:batteryChemistry`, `schema:category`, `schema:status`
+- `eubat:ratedCapacity`, `eubat:ratedEnergy`, `eubat:nominalVoltage`
+- `eubat:lithiumRecycledShare`, `eubat:cobaltRecycledShare`, etc.
+- `eubat:CarbonFootprintTotal`, `eubat:CarbonFootprintProduction`, etc.
+- `eubat:extinguishingAgent`, `eubat:dismantlingInstructions`
 
 **DPP Core (no GS1 equivalent):**
-- `dpp:OperatorInformation` with operator roles
-- `dpp:DueDiligenceReport`
-- `dpp:CircularityInfo` with recyclability rates
-- `dpp:RecycledContent` with pre/post-consumer splits
-- `dpp:HazardousSubstance` with CLP hazard classes
-- `dpp:carbonFootprint*` properties
+- `oec:OperatorInformation` with operator roles
+- `oec:DueDiligenceReport`
+- `oec:CircularityInfo` with recyclability rates
+- `oec:RecycledContent` with pre/post-consumer splits
+- `oec:HazardousSubstance` with CLP hazard classes
+- `oec:carbonFootprint*` properties
 
 **EUDR-specific (no GS1 equivalent):**
 - `eudr:PlotOfLand`, `eudr:polygonCoordinates`
@@ -214,7 +214,7 @@ For document references, use GS1's file type codes:
 GS1 uses `gs1:Product` as the base class with domain-specific subclasses:
 
 ```turtle
-battery:Battery rdfs:subClassOf gs1:Product .
+eubat:Battery rdfs:subClassOf gs1:Product .
 eudr:TimberProduct rdfs:subClassOf gs1:Product .
 ```
 
@@ -244,7 +244,7 @@ Always use `gs1:QuantitativeValue` for measurements with units:
 
 ```json
 {
-  "battery:ratedCapacity": {
+  "eubat:ratedCapacity": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "280",
     "gs1:unitCode": "AH"

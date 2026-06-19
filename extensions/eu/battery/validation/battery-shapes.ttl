@@ -1,6 +1,6 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix battery: <https://ref.openepcis.io/extensions/eu/battery/> .
-@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix eubat: <https://ref.openepcis.io/extensions/eu/battery/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix schema: <https://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -12,18 +12,18 @@
     dcterms:title "OpenEPCIS Battery SHACL Shapes"@en ;
     dcterms:description "SHACL validation shapes for Battery Digital Product Passport vocabulary, aligned with BatteryPass-Ready Data Attribute Longlist v1.3 (March 2026)."@en ;
     dcterms:created "2025-02-02"^^xsd:date ;
-    dcterms:modified "2026-04-29"^^xsd:date .
+    dcterms:modified "2026-06-07"^^xsd:date .
 
 # =============================================================================
-# OpenEPCIS Battery Vocabulary SHACL Shapes v0.9.5
+# OpenEPCIS Battery Vocabulary SHACL Shapes v0.9.6
 # Basic validation shapes for Battery Digital Product Passport data
 # =============================================================================
 
 # -----------------------------------------------------------------------------
 # Battery Shape
 # -----------------------------------------------------------------------------
-battery:BatteryShape a sh:NodeShape ;
-    sh:targetClass battery:Battery ;
+eubat:BatteryShape a sh:NodeShape ;
+    sh:targetClass eubat:Battery ;
     rdfs:label "Battery Shape" ;
     rdfs:comment "Validation shape for Battery instances as defined by EU Battery Regulation 2023/1542." ;
     sh:property [
@@ -31,58 +31,58 @@ battery:BatteryShape a sh:NodeShape ;
         sh:name "Battery Category" ;
         sh:description "The regulatory category of the battery (LMT, EV, Industrial, Stationary)." ;
         sh:maxCount 1 ;
-        sh:class battery:BatteryCategory
+        sh:class eubat:BatteryCategory
     ] ;
     sh:property [
         sh:path schema:status ;
         sh:name "Battery Status" ;
         sh:description "Current lifecycle status of the battery." ;
         sh:maxCount 1 ;
-        sh:class battery:BatteryStatus
+        sh:class eubat:BatteryStatus
     ] ;
     sh:property [
-        sh:path battery:batteryChemistry ;
+        sh:path eubat:batteryChemistry ;
         sh:name "Battery Chemistry" ;
-        sh:class battery:BatteryChemistry
+        sh:class eubat:BatteryChemistry
     ] ;
     sh:property [
-        sh:path battery:technicalSpecifications ;
+        sh:path eubat:technicalSpecifications ;
         sh:name "Technical Specifications" ;
-        sh:class battery:TechnicalSpecification
+        sh:class eubat:TechnicalSpecification
     ] ;
     sh:property [
-        sh:path battery:materialComposition ;
+        sh:path eubat:materialComposition ;
         sh:name "Material Composition" ;
-        sh:class battery:BatteryMaterial
+        sh:class eubat:BatteryMaterial
     ] ;
     sh:property [
-        sh:path battery:recycledContent ;
+        sh:path eubat:recycledContent ;
         sh:name "Recycled Content" ;
-        sh:class battery:RecycledContent
+        sh:class eubat:RecycledContent
     ] ;
     sh:property [
-        sh:path battery:endOfLifeInfo ;
+        sh:path eubat:endOfLifeInfo ;
         sh:name "End of Life Information" ;
-        sh:class battery:EndOfLifeInfo
+        sh:class eubat:EndOfLifeInfo
     ] ;
     sh:property [
-        sh:path battery:hazardousSubstances ;
+        sh:path eubat:hazardousSubstances ;
         sh:name "Hazardous Substances" ;
-        sh:class battery:HazardousSubstance
+        sh:class eubat:HazardousSubstance
     ] ;
     sh:property [
-        sh:path battery:operatorInformation ;
+        sh:path eubat:operatorInformation ;
         sh:name "Operator Information" ;
-        sh:class battery:OperatorInformation
+        sh:class eubat:OperatorInformation
     ] ;
     sh:property [
-        sh:path battery:supplyChainDueDiligence ;
+        sh:path eubat:supplyChainDueDiligence ;
         sh:name "Supply Chain Due Diligence" ;
-        sh:class battery:SupplyChainDueDiligence
+        sh:class eubat:SupplyChainDueDiligence
     ] ;
     # BatteryPass-Ready v1.3 mandatory identifier attributes (#7, #8, #11)
     sh:property [
-        sh:path battery:batteryModelIdentifier ;
+        sh:path eubat:batteryModelIdentifier ;
         sh:name "Battery Model Identifier" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#7). Manufacturer-assigned model ID; referenced by the carbon footprint declaration." ;
         sh:datatype xsd:string ;
@@ -98,21 +98,21 @@ battery:BatteryShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path battery:facilityIdentifier ;
+        sh:path eubat:facilityIdentifier ;
         sh:name "Facility Identifier" ;
-        sh:description "Mandatory per BatteryPass-Ready v1.3 (#11). Recommend GLN of the gs1:Place referenced by battery:manufacturingPlace." ;
+        sh:description "Mandatory per BatteryPass-Ready v1.3 (#11). Recommend GLN of the gs1:Place referenced by eubat:manufacturingPlace." ;
         sh:datatype xsd:string ;
         sh:minCount 1
     ] ;
     sh:property [
-        sh:path battery:operatorIdentifier ;
+        sh:path eubat:operatorIdentifier ;
         sh:name "Economic Operator Identifier" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#9). Access-restricted (AuthorizedOnly)." ;
         sh:datatype xsd:string ;
         sh:minCount 1
     ] ;
     sh:property [
-        sh:path battery:manufacturerIdentifier ;
+        sh:path eubat:manufacturerIdentifier ;
         sh:name "Manufacturer Identifier" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#10). Access-restricted (AuthorizedOnly)." ;
         sh:datatype xsd:string ;
@@ -122,7 +122,7 @@ battery:BatteryShape a sh:NodeShape ;
         sh:path gs1:manufacturer ;
         sh:name "Manufacturer Information" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#13)." ;
-        sh:class dpp:OperatorInformation ;
+        sh:class oec:OperatorInformation ;
         sh:minCount 1
     ] ;
     # BatteryPass-Ready v1.3 cross-cutting DPP information (#1-#4)
@@ -135,23 +135,24 @@ battery:BatteryShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path schema:status ;
+        sh:path oec:passportStatus ;
         sh:name "DPP Status" ;
-        sh:description "Mandatory per BatteryPass-Ready v1.3 (#2)." ;
-        sh:class dpp:PassportStatus ;
+        sh:description "Mandatory per BatteryPass-Ready v1.3 (#2). EN 18223 dppStatus." ;
+        sh:datatype xsd:string ;
+        sh:in ( "active" "inactive" "archived" "invalid" "draft" "withdrawn" "suspended" ) ;
         sh:minCount 1 ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path dpp:granularity ;
-        sh:name "DPP Granularity" ;
+        sh:path oec:reportingGranularity ;
+        sh:name "DPP Reporting Granularity" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#3)." ;
-        sh:class dpp:DPPGranularity ;
+        sh:class oec:DPPGranularity ;
         sh:minCount 1 ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path dpp:lastUpdate ;
+        sh:path oec:lastUpdated ;
         sh:name "Date-time of latest update" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#4). Updated whenever any passport attribute changes." ;
         sh:datatype xsd:dateTime ;
@@ -163,22 +164,22 @@ battery:BatteryShape a sh:NodeShape ;
 # Carbon Footprint Declaration Shape
 # Carbon footprint *label* (#23) is MANDATORY in v1.3 (was voluntary in v1.2).
 # -----------------------------------------------------------------------------
-battery:CarbonFootprintDeclarationShape a sh:NodeShape ;
-    sh:targetClass battery:CarbonFootprintDeclaration ;
+eubat:CarbonFootprintDeclarationShape a sh:NodeShape ;
+    sh:targetClass eubat:CarbonFootprintDeclaration ;
     rdfs:label "Carbon Footprint Declaration Shape" ;
     sh:property [
-        sh:path battery:carbonFootprintTotal ;
+        sh:path eubat:carbonFootprintTotal ;
         sh:name "Battery Carbon Footprint per Functional Unit" ;
         sh:minCount 1
     ] ;
     sh:property [
-        sh:path battery:carbonFootprintPerformanceClass ;
+        sh:path eubat:carbonFootprintPerformanceClass ;
         sh:name "Carbon Footprint Performance Class" ;
-        sh:class battery:CarbonFootprintClass ;
+        sh:class eubat:CarbonFootprintClass ;
         sh:minCount 1
     ] ;
     sh:property [
-        sh:path battery:carbonFootprintStudyUrl ;
+        sh:path eubat:carbonFootprintStudyUrl ;
         sh:name "Web link to public carbon footprint study" ;
         sh:datatype xsd:anyURI ;
         sh:minCount 1
@@ -187,8 +188,8 @@ battery:CarbonFootprintDeclarationShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Battery Chemistry Shape
 # -----------------------------------------------------------------------------
-battery:BatteryChemistryShape a sh:NodeShape ;
-    sh:targetClass battery:BatteryChemistry ;
+eubat:BatteryChemistryShape a sh:NodeShape ;
+    sh:targetClass eubat:BatteryChemistry ;
     rdfs:label "Battery Chemistry Shape" ;
     sh:property [
         sh:path schema:name ;
@@ -205,53 +206,53 @@ battery:BatteryChemistryShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path battery:cathodeActiveMaterial ;
+        sh:path eubat:cathodeActiveMaterial ;
         sh:datatype xsd:string
     ] ;
     sh:property [
-        sh:path battery:anodeActiveMaterial ;
+        sh:path eubat:anodeActiveMaterial ;
         sh:datatype xsd:string
     ] ;
     sh:property [
-        sh:path battery:electrolyteType ;
+        sh:path eubat:electrolyteType ;
         sh:datatype xsd:string
     ] .
 
 # -----------------------------------------------------------------------------
 # Technical Specification Shape
 # -----------------------------------------------------------------------------
-battery:TechnicalSpecificationShape a sh:NodeShape ;
-    sh:targetClass battery:TechnicalSpecification ;
+eubat:TechnicalSpecificationShape a sh:NodeShape ;
+    sh:targetClass eubat:TechnicalSpecification ;
     rdfs:label "Technical Specification Shape" ;
     sh:property [
-        sh:path battery:ratedCapacity ;
+        sh:path eubat:ratedCapacity ;
         sh:name "Rated Capacity" ;
         sh:class gs1:QuantitativeValue
     ] ;
     sh:property [
-        sh:path battery:ratedEnergy ;
+        sh:path eubat:ratedEnergy ;
         sh:name "Rated Energy" ;
         sh:class gs1:QuantitativeValue
     ] ;
     sh:property [
-        sh:path battery:nominalVoltage ;
+        sh:path eubat:nominalVoltage ;
         sh:name "Nominal Voltage" ;
         sh:class gs1:QuantitativeValue
     ] ;
     sh:property [
-        sh:path battery:expectedCycleLife ;
+        sh:path eubat:expectedCycleLife ;
         sh:datatype xsd:integer
     ] ;
     sh:property [
-        sh:path battery:roundTripEfficiency ;
+        sh:path eubat:roundTripEfficiency ;
         sh:datatype xsd:decimal
     ] .
 
 # -----------------------------------------------------------------------------
 # Battery Material Shape
 # -----------------------------------------------------------------------------
-battery:BatteryMaterialShape a sh:NodeShape ;
-    sh:targetClass battery:BatteryMaterial ;
+eubat:BatteryMaterialShape a sh:NodeShape ;
+    sh:targetClass eubat:BatteryMaterial ;
     rdfs:label "Battery Material Shape" ;
     sh:property [
         sh:path schema:name ;
@@ -259,66 +260,66 @@ battery:BatteryMaterialShape a sh:NodeShape ;
         sh:minCount 1
     ] ;
     sh:property [
-        sh:path battery:casNumber ;
+        sh:path eubat:casNumber ;
         sh:name "CAS Number" ;
         sh:datatype xsd:string
     ] ;
     sh:property [
-        sh:path battery:componentLocation ;
-        sh:class battery:ComponentLocation
+        sh:path eubat:componentLocation ;
+        sh:class eubat:ComponentLocation
     ] ;
     sh:property [
         sh:path schema:weightPercentage ;
         sh:datatype xsd:decimal
     ] ;
     sh:property [
-        sh:path battery:isCriticalRawMaterial ;
+        sh:path eubat:isCriticalRawMaterial ;
         sh:datatype xsd:boolean
     ] .
 
 # -----------------------------------------------------------------------------
 # Recycled Content Shape
 # -----------------------------------------------------------------------------
-battery:RecycledContentShape a sh:NodeShape ;
-    sh:targetClass battery:RecycledContent ;
+eubat:RecycledContentShape a sh:NodeShape ;
+    sh:targetClass eubat:RecycledContent ;
     rdfs:label "Recycled Content Shape" ;
     sh:property [
-        sh:path battery:lithiumRecycledShare ;
+        sh:path eubat:lithiumRecycledShare ;
         sh:datatype xsd:decimal
     ] ;
     sh:property [
-        sh:path battery:cobaltRecycledShare ;
+        sh:path eubat:cobaltRecycledShare ;
         sh:datatype xsd:decimal
     ] ;
     sh:property [
-        sh:path battery:nickelRecycledShare ;
+        sh:path eubat:nickelRecycledShare ;
         sh:datatype xsd:decimal
     ] ;
     sh:property [
-        sh:path battery:leadRecycledShare ;
+        sh:path eubat:leadRecycledShare ;
         sh:datatype xsd:decimal
     ] .
 
 # -----------------------------------------------------------------------------
 # End of Life Info Shape
 # -----------------------------------------------------------------------------
-battery:EndOfLifeInfoShape a sh:NodeShape ;
-    sh:targetClass battery:EndOfLifeInfo ;
+eubat:EndOfLifeInfoShape a sh:NodeShape ;
+    sh:targetClass eubat:EndOfLifeInfo ;
     rdfs:label "End of Life Information Shape" ;
     sh:property [
-        sh:path battery:dismantlingInstructions ;
+        sh:path eubat:dismantlingInstructions ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
-        sh:path battery:extinguishingAgent ;
+        sh:path eubat:extinguishingAgent ;
         sh:datatype xsd:string
     ] .
 
 # -----------------------------------------------------------------------------
 # Hazardous Substance Shape
 # -----------------------------------------------------------------------------
-battery:HazardousSubstanceShape a sh:NodeShape ;
-    sh:targetClass battery:HazardousSubstance ;
+eubat:HazardousSubstanceShape a sh:NodeShape ;
+    sh:targetClass eubat:HazardousSubstance ;
     rdfs:label "Hazardous Substance Shape" ;
     sh:property [
         sh:path schema:name ;
@@ -326,42 +327,42 @@ battery:HazardousSubstanceShape a sh:NodeShape ;
         sh:minCount 1
     ] ;
     sh:property [
-        sh:path battery:substanceCasNumber ;
+        sh:path eubat:substanceCasNumber ;
         sh:datatype xsd:string
     ] ;
     sh:property [
-        sh:path battery:hazardClass ;
-        sh:class battery:HazardClass
+        sh:path eubat:hazardClass ;
+        sh:class eubat:HazardClass
     ] ;
     sh:property [
-        sh:path battery:concentration ;
+        sh:path eubat:concentration ;
         sh:datatype xsd:decimal
     ] .
 
 # -----------------------------------------------------------------------------
 # Operator Information Shape
 # -----------------------------------------------------------------------------
-battery:OperatorInformationShape a sh:NodeShape ;
-    sh:targetClass battery:OperatorInformation ;
+eubat:OperatorInformationShape a sh:NodeShape ;
+    sh:targetClass eubat:OperatorInformation ;
     rdfs:label "Operator Information Shape" ;
     sh:property [
-        sh:path battery:operatorRole ;
+        sh:path eubat:operatorRole ;
         sh:datatype xsd:string
     ] .
 
 # -----------------------------------------------------------------------------
 # Supply Chain Due Diligence Shape
 # -----------------------------------------------------------------------------
-battery:SupplyChainDueDiligenceShape a sh:NodeShape ;
-    sh:targetClass battery:SupplyChainDueDiligence ;
+eubat:SupplyChainDueDiligenceShape a sh:NodeShape ;
+    sh:targetClass eubat:SupplyChainDueDiligence ;
     rdfs:label "Supply Chain Due Diligence Shape" ;
     sh:property [
-        sh:path battery:dueDiligenceReportUrl ;
+        sh:path eubat:dueDiligenceReportUrl ;
         sh:datatype xsd:anyURI ;
         sh:minCount 1
     ] ;
     sh:property [
-        sh:path battery:thirdPartyAssurancesUrl ;
+        sh:path eubat:thirdPartyAssurancesUrl ;
         sh:datatype xsd:anyURI
     ] .
 
@@ -370,37 +371,37 @@ battery:SupplyChainDueDiligenceShape a sh:NodeShape ;
 # =============================================================================
 # Pin gs1:unitCode to the canonical UN/CEFACT Rec 20 code documented for each
 # battery property. These complement dpp-sh:QuantitativeValueShape (which
-# enforces value+unitCode presence) — here we add the per-property hasValue
+# enforces value+unitCode presence); here we add the per-property hasValue
 # check. Extend with more shapes as additional regulated properties are added.
 
-battery:RatedCapacityShape a sh:NodeShape ;
-    sh:targetSubjectsOf battery:ratedCapacity ;
+eubat:RatedCapacityShape a sh:NodeShape ;
+    sh:targetSubjectsOf eubat:ratedCapacity ;
     sh:property [
-        sh:path ( battery:ratedCapacity gs1:unitCode ) ;
+        sh:path ( eubat:ratedCapacity gs1:unitCode ) ;
         sh:hasValue "AMH" ;
-        sh:message "battery:ratedCapacity must use unitCode 'AMH' (ampere-hours)"@en
+        sh:message "eubat:ratedCapacity must use unitCode 'AMH' (ampere-hours)"@en
     ] .
 
-battery:RatedEnergyShape a sh:NodeShape ;
-    sh:targetSubjectsOf battery:ratedEnergy ;
+eubat:RatedEnergyShape a sh:NodeShape ;
+    sh:targetSubjectsOf eubat:ratedEnergy ;
     sh:property [
-        sh:path ( battery:ratedEnergy gs1:unitCode ) ;
+        sh:path ( eubat:ratedEnergy gs1:unitCode ) ;
         sh:hasValue "KWH" ;
-        sh:message "battery:ratedEnergy must use unitCode 'KWH' (kilowatt-hours)"@en
+        sh:message "eubat:ratedEnergy must use unitCode 'KWH' (kilowatt-hours)"@en
     ] .
 
-battery:NominalVoltageShape a sh:NodeShape ;
-    sh:targetSubjectsOf battery:nominalVoltage ;
+eubat:NominalVoltageShape a sh:NodeShape ;
+    sh:targetSubjectsOf eubat:nominalVoltage ;
     sh:property [
-        sh:path ( battery:nominalVoltage gs1:unitCode ) ;
+        sh:path ( eubat:nominalVoltage gs1:unitCode ) ;
         sh:hasValue "VLT" ;
-        sh:message "battery:nominalVoltage must use unitCode 'VLT' (volts)"@en
+        sh:message "eubat:nominalVoltage must use unitCode 'VLT' (volts)"@en
     ] .
 
-battery:RatedMaximumPowerShape a sh:NodeShape ;
-    sh:targetSubjectsOf battery:ratedMaximumPower ;
+eubat:RatedMaximumPowerShape a sh:NodeShape ;
+    sh:targetSubjectsOf eubat:ratedMaximumPower ;
     sh:property [
-        sh:path ( battery:ratedMaximumPower gs1:unitCode ) ;
+        sh:path ( eubat:ratedMaximumPower gs1:unitCode ) ;
         sh:hasValue "KWT" ;
-        sh:message "battery:ratedMaximumPower must use unitCode 'KWT' (kilowatts)"@en
+        sh:message "eubat:ratedMaximumPower must use unitCode 'KWT' (kilowatts)"@en
     ] .

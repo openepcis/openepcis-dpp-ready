@@ -11,10 +11,10 @@
     "GS1 US requires the packer to persist upstream Harvest and Cooling KDEs alongside its own pack event,",
     "so this document carries all five events end-to-end: harvest → transport → receive → cool → transport → pack.",
     "",
-    "Events 1-2: Harvest (creating_class_instance) + Transport (transporting) — see harvest-cte.jsonld.",
+    "Events 1-2: Harvest (creating_class_instance) + Transport (transporting); see harvest-cte.jsonld.",
     "Event 3: Receive at packer (ObjectEvent / receiving / in_progress). Records 'date received' KDE (eventTime)",
     "         and 'quantity received' KDE (quantityList).",
-    "Events 4-5: Cooling (other) + Transport — optional intermediate cooling step before packing.",
+    "Events 4-5: Cooling (other) + Transport, optional intermediate cooling step before packing.",
     "Event 6: Initial Packing itself:",
     "  TransformationEvent, bizStep=creating_class_instance, disposition=active.",
     "  inputQuantityList.epcClass = upstream TLC of the raw commodity.",
@@ -22,7 +22,7 @@
     "  readPoint + bizLocation = TLC source location KDE.",
     "  eventTime = date of initial packing KDE.",
     "  bizTransactionList = reference document type + number KDEs.",
-    "NO fsma: extension fields ride inside the event."
+    "NO usfsma: extension fields ride inside the event."
   ],
   "epcisBody": {
     "eventList": [

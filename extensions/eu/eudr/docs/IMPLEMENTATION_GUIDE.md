@@ -309,17 +309,16 @@ See the `epcis/` directory for event examples:
 - **`harvesting.jsonld`** - Timber harvest commissioning event
 - **`processing.jsonld`** - Transformation to furniture
 - **`due-diligence-statement.jsonld`** - EUDR compliance declaration
-- **`exemption-declaration.jsonld`** - EUDR exemption (reference pattern, WR 25-252)
+- **`exemption-declaration.jsonld`** - EUDR exemption (reference pattern, GS1 standardization)
 
 ---
 
-## EUDR Exemption Handling (WR 25-252 reference pattern)
+## EUDR Exemption Handling (reference pattern)
 
-> **Status:** This section describes a **reference pattern** aligned with GS1
-> GSMP Work Request **WR 25-252** (EUDR Exemptions in EANCOM, GS1 XML, and
-> GDSN) and **WR 26-122** (GDSN Exemptions). These work requests are in
-> eBallot / Community Review as of April 2026. The pattern here may evolve
-> as the ballots close.
+> **Status:** This section describes a **reference pattern** aligned with the EU
+> Deforestation Regulation (EU 2023/1115) and ongoing GS1 standardization for
+> EUDR exemption handling across EANCOM, GS1 XML, and GDSN. The pattern here may
+> evolve as that standardization settles.
 
 ### What is an EUDR exemption?
 
@@ -334,8 +333,8 @@ conditions. Typical exemption triggers include:
 - **Re-import or re-export of previously compliant product**
 - **Temporary grace period** — for example during a transition period
 
-WR 25-252 codifies the exemption mechanism across three GS1 data sharing
-formats (EANCOM, GS1 XML, GDSN). WR 26-122 covers the GDSN master data
+GS1 standardization codifies the exemption mechanism across three GS1 data sharing
+formats (EANCOM, GS1 XML, GDSN). GS1 standardization covers the GDSN master data
 handling. The EPCIS / JSON-LD pattern below mirrors the semantics.
 
 ### Two exemption types
@@ -382,19 +381,18 @@ See `eudr/epcis/exemption-declaration.jsonld` for the full example.
 
 ### Semantic equivalence across formats
 
-| Concept | EPCIS JSON-LD (this guide) | EANCOM (WR 25-252) | GDSN (WR 26-122) |
+| Concept | EPCIS JSON-LD (this guide) | EANCOM (GS1 standardization) | GDSN (GS1 standardization) |
 |---|---|---|---|
 | Exemption type | `eudr:exemptionType` | IMD segment C272:DE7081 | dedicated attribute |
 | Exemption reason code | `eudr:exemptionReasonCode` | IMD segment C273:DE7009 | dedicated attribute |
 | Temporary batch/serial scope | `eudr:exemptionScope` + `exemptionScopeReference` | GIN segment under SG22 | exemption attribute on item |
 | Date range | `eudr:exemptionEffectiveFrom/Until` | date segments | date attributes |
-| Declaring party | `eudr:exemptionAuthority` (dpp:OperatorInformation) | NAD segments | partyGLN attribute |
+| Declaring party | `eudr:exemptionAuthority` (oec:OperatorInformation) | NAD segments | partyGLN attribute |
 
 ### Controlled vocabularies (pending)
 
 The exemption reason code is currently typed as `xsd:string` because the
-official code list from WR 25-252 is not yet final. Once the eBallot
-closes, the reason codes will be published as a controlled enumeration
+official code list from GS1 standardization is not yet final. Once it is published, the reason codes will become a controlled enumeration
 in this ontology.
 
 The `eudr:exemptionScope` property uses the string values `gtin`, `batch`,
@@ -424,5 +422,5 @@ A supply chain can use both patterns in sequence:
 - [GS1 EUDR Standard](https://ref.gs1.org/standards/eudr/)
 - [European Commission EUDR FAQ](https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en)
 - [OpenEPCIS DPP Core Patterns](../../core/docs/PATTERNS.md)
-- GS1 GSMP Work Request WR 25-252 (EUDR exemptions — EANCOM / GS1 XML / GDSN)
-- GS1 GSMP Work Request WR 26-122 (EUDR exemptions — GDSN)
+- GS1 standardization GS1 standardization (EUDR exemptions — EANCOM / GS1 XML / GDSN)
+- GS1 standardization GS1 standardization (EUDR exemptions — GDSN)

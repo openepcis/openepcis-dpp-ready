@@ -1,8 +1,8 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix detergent: <https://ref.openepcis.io/extensions/eu/detergent/> .
+@prefix eudet: <https://ref.openepcis.io/extensions/eu/detergent/> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix schema: <https://schema.org/> .
-@prefix dpp: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -12,10 +12,10 @@
     dcterms:title "OpenEPCIS Detergent SHACL Shapes"@en ;
     dcterms:description "SHACL validation shapes for Detergent vocabulary."@en ;
     dcterms:created "2026-03-12"^^xsd:date ;
-    dcterms:modified "2026-03-12"^^xsd:date .
+    dcterms:modified "2026-06-07"^^xsd:date .
 
 # =============================================================================
-# OpenEPCIS Detergent Vocabulary SHACL Shapes v0.9.5
+# OpenEPCIS Detergent Vocabulary SHACL Shapes v0.9.6
 # Validation shapes for Detergent Digital Product Passport data
 # Aligned with EU Regulation 2026/405 on Detergents and Surfactants
 # =============================================================================
@@ -23,8 +23,8 @@
 # -----------------------------------------------------------------------------
 # Detergent Product Shape
 # -----------------------------------------------------------------------------
-detergent:DetergentProductShape a sh:NodeShape ;
-    sh:targetClass detergent:DetergentProduct ;
+eudet:DetergentProductShape a sh:NodeShape ;
+    sh:targetClass eudet:DetergentProduct ;
     rdfs:label "Detergent Product Shape" ;
     rdfs:comment "Validation shape for DetergentProduct instances per EU 2026/405." ;
     sh:property [
@@ -32,120 +32,120 @@ detergent:DetergentProductShape a sh:NodeShape ;
         sh:name "Detergent Category" ;
         sh:description "Product category (laundry, dishwasher, etc.)." ;
         sh:maxCount 1 ;
-        sh:class detergent:DetergentCategory
+        sh:class eudet:DetergentCategory
     ] ;
     sh:property [
-        sh:path detergent:productForm ;
+        sh:path eudet:productForm ;
         sh:name "Product Form" ;
         sh:description "Physical form (liquid, powder, capsule, etc.)." ;
         sh:maxCount 1 ;
-        sh:class detergent:ProductForm
+        sh:class eudet:ProductForm
     ] ;
     sh:property [
-        sh:path detergent:intendedUse ;
+        sh:path eudet:intendedUse ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:cnCode ;
+        sh:path eudet:cnCode ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:ingredientList ;
+        sh:path eudet:ingredientList ;
         sh:name "Ingredient List" ;
-        sh:class detergent:Ingredient
+        sh:class eudet:Ingredient
     ] ;
     sh:property [
-        sh:path detergent:surfactantBiodegradability ;
+        sh:path eudet:surfactantBiodegradability ;
         sh:name "Surfactant Biodegradability" ;
-        sh:class detergent:SurfactantBiodegradability
+        sh:class eudet:SurfactantBiodegradability
     ] ;
     sh:property [
-        sh:path detergent:fragranceAllergens ;
+        sh:path eudet:fragranceAllergens ;
         sh:name "Fragrance Allergens" ;
-        sh:class detergent:FragranceAllergen
+        sh:class eudet:FragranceAllergen
     ] ;
     sh:property [
-        sh:path detergent:microorganisms ;
+        sh:path eudet:microorganisms ;
         sh:name "Microorganisms" ;
-        sh:class detergent:MicroorganismInfo
+        sh:class eudet:MicroorganismInfo
     ] ;
     sh:property [
-        sh:path detergent:hazardousSubstances ;
+        sh:path eudet:hazardousSubstances ;
         sh:name "Hazardous Substances" ;
-        sh:class dpp:HazardousSubstance
+        sh:class oec:HazardousSubstance
     ] ;
     sh:property [
-        sh:path detergent:hazardPictograms ;
+        sh:path eudet:hazardPictograms ;
         sh:name "Hazard Pictograms" ;
         sh:datatype xsd:string
     ] ;
     sh:property [
-        sh:path detergent:hStatements ;
+        sh:path eudet:hStatements ;
         sh:name "H Statements" ;
         sh:datatype xsd:string
     ] ;
     sh:property [
-        sh:path detergent:pStatements ;
+        sh:path eudet:pStatements ;
         sh:name "P Statements" ;
         sh:datatype xsd:string
     ] ;
     sh:property [
-        sh:path detergent:signalWord ;
+        sh:path eudet:signalWord ;
         sh:name "Signal Word" ;
         sh:maxCount 1 ;
-        sh:class detergent:SignalWord
+        sh:class eudet:SignalWord
     ] ;
     sh:property [
-        sh:path detergent:phosphorusContentPercent ;
+        sh:path eudet:phosphorusContentPercent ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1 ;
         sh:minInclusive 0
     ] ;
     sh:property [
-        sh:path detergent:phosphateCompliant ;
+        sh:path eudet:phosphateCompliant ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:filmBiodegradable ;
+        sh:path eudet:filmBiodegradable ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:filmBiodegradabilityPercentage ;
+        sh:path eudet:filmBiodegradabilityPercentage ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1 ;
         sh:minInclusive 0 ;
         sh:maxInclusive 100
     ] ;
     sh:property [
-        sh:path detergent:recommendedDosage ;
+        sh:path eudet:recommendedDosage ;
         sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:dosageInstructions ;
+        sh:path eudet:dosageInstructions ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:safetyDataSheet ;
-        sh:class dpp:DocumentReference ;
+        sh:path eudet:safetyDataSheet ;
+        sh:class oec:DocumentReference ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:biodegradabilityTestReport ;
-        sh:class dpp:DocumentReference ;
+        sh:path eudet:biodegradabilityTestReport ;
+        sh:class oec:DocumentReference ;
         sh:maxCount 1
     ] .
 
 # -----------------------------------------------------------------------------
 # Ingredient Shape
 # -----------------------------------------------------------------------------
-detergent:IngredientShape a sh:NodeShape ;
-    sh:targetClass detergent:Ingredient ;
+eudet:IngredientShape a sh:NodeShape ;
+    sh:targetClass eudet:Ingredient ;
     rdfs:label "Ingredient Shape" ;
     sh:property [
         sh:path schema:name ;
@@ -155,25 +155,25 @@ detergent:IngredientShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:ingredientFunction ;
+        sh:path eudet:ingredientFunction ;
         sh:name "Ingredient Function" ;
-        sh:class detergent:IngredientFunction ;
+        sh:class eudet:IngredientFunction ;
         sh:minCount 1 ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:weightPercentRange ;
+        sh:path eudet:weightPercentRange ;
         sh:name "Weight Percent Range" ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:casNumber ;
+        sh:path eudet:casNumber ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:isSurfactant ;
+        sh:path eudet:isSurfactant ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] .
@@ -181,18 +181,18 @@ detergent:IngredientShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Surfactant Biodegradability Shape
 # -----------------------------------------------------------------------------
-detergent:SurfactantBiodegradabilityShape a sh:NodeShape ;
-    sh:targetClass detergent:SurfactantBiodegradability ;
+eudet:SurfactantBiodegradabilityShape a sh:NodeShape ;
+    sh:targetClass eudet:SurfactantBiodegradability ;
     rdfs:label "Surfactant Biodegradability Shape" ;
     sh:property [
-        sh:path detergent:surfactantType ;
+        sh:path eudet:surfactantType ;
         sh:name "Surfactant Type" ;
-        sh:class detergent:SurfactantType ;
+        sh:class eudet:SurfactantType ;
         sh:minCount 1 ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:biodegradationPercentage ;
+        sh:path eudet:biodegradationPercentage ;
         sh:name "Biodegradation Percentage" ;
         sh:datatype xsd:decimal ;
         sh:minCount 1 ;
@@ -201,20 +201,20 @@ detergent:SurfactantBiodegradabilityShape a sh:NodeShape ;
         sh:maxInclusive 100
     ] ;
     sh:property [
-        sh:path detergent:testMethod ;
+        sh:path eudet:testMethod ;
         sh:name "Test Method" ;
-        sh:class detergent:BiodegradabilityTestMethod ;
+        sh:class eudet:BiodegradabilityTestMethod ;
         sh:minCount 1 ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:testDurationDays ;
+        sh:path eudet:testDurationDays ;
         sh:datatype xsd:integer ;
         sh:maxCount 1 ;
         sh:minInclusive 1
     ] ;
     sh:property [
-        sh:path detergent:passesUltimateBiodegradability ;
+        sh:path eudet:passesUltimateBiodegradability ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] .
@@ -222,8 +222,8 @@ detergent:SurfactantBiodegradabilityShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Fragrance Allergen Shape
 # -----------------------------------------------------------------------------
-detergent:FragranceAllergenShape a sh:NodeShape ;
-    sh:targetClass detergent:FragranceAllergen ;
+eudet:FragranceAllergenShape a sh:NodeShape ;
+    sh:targetClass eudet:FragranceAllergen ;
     rdfs:label "Fragrance Allergen Shape" ;
     sh:property [
         sh:path gs1:allergenSpecificationName ;
@@ -233,12 +233,12 @@ detergent:FragranceAllergenShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:allergenCasNumber ;
+        sh:path eudet:allergenCasNumber ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:allergenConcentration ;
+        sh:path eudet:allergenConcentration ;
         sh:datatype xsd:decimal ;
         sh:maxCount 1 ;
         sh:minInclusive 0
@@ -247,8 +247,8 @@ detergent:FragranceAllergenShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Microorganism Info Shape
 # -----------------------------------------------------------------------------
-detergent:MicroorganismInfoShape a sh:NodeShape ;
-    sh:targetClass detergent:MicroorganismInfo ;
+eudet:MicroorganismInfoShape a sh:NodeShape ;
+    sh:targetClass eudet:MicroorganismInfo ;
     rdfs:label "Microorganism Info Shape" ;
     sh:property [
         sh:path schema:name ;
@@ -258,12 +258,12 @@ detergent:MicroorganismInfoShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:strainDesignation ;
+        sh:path eudet:strainDesignation ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path detergent:endProductCharacteristics ;
+        sh:path eudet:endProductCharacteristics ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] .

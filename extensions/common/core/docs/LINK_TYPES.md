@@ -28,7 +28,7 @@ curl -H "Accept: application/ld+json" \
 
 | Domain | Additional Type | Key GS1 Properties |
 |--------|-----------------|-------------------|
-| Battery | `battery:Battery` | Plus `battery:technicalSpecifications`, `battery:materialComposition` |
+| Battery | `eubat:Battery` | Plus `eubat:technicalSpecifications`, `eubat:materialComposition` |
 | EUDR | `eudr:TimberProduct` | Plus `eudr:sourceLocation`, `eudr:commodityType` |
 
 **Example**:
@@ -36,7 +36,7 @@ curl -H "Accept: application/ld+json" \
 {
   "@context": {"gs1": "https://ref.gs1.org/voc/", ...},
   "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
-  "type": ["gs1:Product", "battery:Battery"],
+  "type": ["gs1:Product", "eubat:Battery"],
   "gs1:gtin": "09521234000013",
   "gs1:serialNumber": "BAT2024-001",
   "gs1:productName": "EcoCell Industrial Battery Module IM-500",
@@ -47,7 +47,7 @@ curl -H "Accept: application/ld+json" \
   },
   "gs1:certificationInfo": [...],
   "schema:category": "IndustrialBattery",
-  "battery:technicalSpecifications": {...}
+  "eubat:technicalSpecifications": {...}
 }
 ```
 
@@ -215,19 +215,19 @@ Useful for EUDR's EU Information System (EUIS) reference numbers:
   "@context": [...],
   "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
   "gs1:sustainabilityInfo": {
-    "dpp:carbonFootprintTotal": 45.2,
-    "dpp:carbonFootprintUnit": "kg CO2e/kWh",
-    "dpp:carbonFootprintStudyUrl": {"id": "https://example.com/cfp/study.pdf"},
-    "dpp:recycledContent": {
-      "type": "dpp:RecycledContent",
-      "dpp:totalRecycledShare": 35.0,
-      "dpp:postConsumerShare": 23.0,
-      "dpp:preConsumerShare": 12.0
+    "oec:carbonFootprintTotal": 45.2,
+    "oec:carbonFootprintUnit": "kg CO2e/kWh",
+    "oec:carbonFootprintStudyUrl": {"id": "https://example.com/cfp/study.pdf"},
+    "oec:recycledContent": {
+      "type": "oec:RecycledContent",
+      "oec:totalRecycledShare": 35.0,
+      "oec:postConsumerShare": 23.0,
+      "oec:preConsumerShare": 12.0
     },
-    "dpp:circularityInfo": {
-      "type": "dpp:CircularityInfo",
-      "dpp:recyclabilityRate": 95.5,
-      "dpp:endOfLifeInstructions": {"id": "https://example.com/eol-guide.pdf"}
+    "oec:circularityInfo": {
+      "type": "oec:CircularityInfo",
+      "oec:recyclabilityRate": 95.5,
+      "oec:endOfLifeInstructions": {"id": "https://example.com/eol-guide.pdf"}
     }
   }
 }
@@ -248,14 +248,14 @@ Useful for EUDR's EU Information System (EUIS) reference numbers:
   "@context": [...],
   "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
   "gs1:safetyInfo": {
-    "dpp:hazardousSubstances": [
+    "oec:hazardousSubstances": [
       {
-        "type": "dpp:HazardousSubstance",
+        "type": "oec:HazardousSubstance",
         "schema:name": "Cobalt compounds",
-        "dpp:casNumber": "7440-48-4",
-        "dpp:hazardClass": "Carcinogenicity",
-        "dpp:concentration": 12.5,
-        "dpp:hazardImpact": "May cause cancer by inhalation"
+        "oec:casNumber": "7440-48-4",
+        "oec:hazardClass": "Carcinogenicity",
+        "oec:concentration": 12.5,
+        "oec:hazardImpact": "May cause cancer by inhalation"
       }
     ],
     "gs1:consumerSafetyInformation": "Handle with care. Do not puncture or expose to fire."
@@ -332,7 +332,7 @@ Or with active recall:
   "@context": [...],
   "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
   "gs1:serviceInfo": {
-    "battery:sparePartsSupplier": [
+    "eubat:sparePartsSupplier": [
       {
         "type": "gs1:Organization",
         "gs1:partyGLN": "9521987000001",

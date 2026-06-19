@@ -20,63 +20,63 @@ This ensures **native interoperability** - no value conversion is needed when ex
 
 | OpenEPCIS Property | UNTP Equivalent | Domain | Type | Notes |
 |-------------------|-----------------|--------|------|-------|
-| `dpp:recyclableContent` | `untp:recyclableContent` | CircularityPerformance | decimal | Recyclability percentage |
-| `dpp:recycledContent` | `untp:recycledContent` | RecycledContent | decimal | Total recycled content |
-| `dpp:preConsumerRecycledContent` | - | RecycledContent | decimal | Pre-consumer breakdown |
-| `dpp:postConsumerRecycledContent` | - | RecycledContent | decimal | Post-consumer breakdown |
-| `dpp:utilityFactor` | `untp:utilityFactor` | CircularityPerformance | decimal | Durability multiplier (1.0 = average) |
-| `dpp:materialCircularityIndicator` | `untp:materialCircularityIndicator` | CircularityPerformance | decimal | Overall MCI score |
+| `oec:recyclableContent` | `untp:recyclableContent` | CircularityPerformance | decimal | Recyclability percentage |
+| `oec:recycledContent` | `untp:recycledContent` | RecycledContent | decimal | Total recycled content |
+| `oec:preConsumerRecycledContent` | - | RecycledContent | decimal | Pre-consumer breakdown |
+| `oec:postConsumerRecycledContent` | - | RecycledContent | decimal | Post-consumer breakdown |
+| `oec:utilityFactor` | `untp:utilityFactor` | CircularityPerformance | decimal | Durability multiplier (1.0 = average) |
+| `oec:materialCircularityIndicator` | `untp:materialCircularityIndicator` | CircularityPerformance | decimal | Overall MCI score |
 
 ### Material Properties
 
 | OpenEPCIS Property | UNTP Equivalent | Domain | Type | Notes |
 |-------------------|-----------------|--------|------|-------|
-| `dpp:massFraction` | `untp:massFraction` | MaterialComposition | decimal | Mass percentage of material |
-| `dpp:materialName` | `untp:materialName` | MaterialComposition | string | Material identifier |
-| `dpp:isCriticalRawMaterial` | - | MaterialComposition | boolean | EU CRM flag (OpenEPCIS extension) |
+| `oec:massFraction` | `untp:massFraction` | MaterialComposition | decimal | Mass percentage of material |
+| `oec:materialName` | `untp:materialName` | MaterialComposition | string | Material identifier |
+| `oec:isCriticalRawMaterial` | - | MaterialComposition | boolean | EU CRM flag (OpenEPCIS extension) |
 
 ### Emissions Properties
 
 | OpenEPCIS Property | UNTP Equivalent | Domain | Type | Notes |
 |-------------------|-----------------|--------|------|-------|
-| `dpp:carbonFootprintTotal` | `untp:carbonFootprint` | EmissionsPerformance | decimal | Total CO2e in kg |
-| `dpp:declaredUnit` | `untp:declaredUnit` | EmissionsPerformance | string | Functional unit (kg CO2e/kWh) |
-| `dpp:operationalScope` | `untp:operationalScope` | EmissionsPerformance | enum | CradleToGate / CradleToGrave |
-| `dpp:primarySourcedRatio` | `untp:primarySourcedRatio` | EmissionsPerformance | decimal | Direct measurement ratio |
+| `oec:carbonFootprintTotal` | `untp:carbonFootprint` | EmissionsPerformance | decimal | Total CO2e in kg |
+| `oec:declaredUnit` | `untp:declaredUnit` | EmissionsPerformance | string | Functional unit (kg CO2e/kWh) |
+| `oec:operationalScope` | `untp:operationalScope` | EmissionsPerformance | enum | CradleToGate / CradleToGrave |
+| `oec:primarySourcedRatio` | `untp:primarySourcedRatio` | EmissionsPerformance | decimal | Direct measurement ratio |
 
 ### Traceability Properties
 
 | OpenEPCIS Property | UNTP Equivalent | Domain | Type | Notes |
 |-------------------|-----------------|--------|------|-------|
-| `dpp:verifiedRatio` | `untp:verifiedRatio` | TraceabilityPerformance | decimal | Verified supply chain ratio |
-| `dpp:granularityLevel` | `untp:granularityLevel` | - | enum | ProductClass / Batch / Item |
+| `oec:verifiedRatio` | `untp:verifiedRatio` | TraceabilityPerformance | decimal | Verified supply chain ratio |
+| `oec:granularityLevel` | `untp:granularityLevel` | - | enum | ProductClass / Batch / Item |
 
 ### UNTP v0.6.x Additional Properties
 
 | OpenEPCIS Property | UNTP Equivalent | Domain | Type | Notes |
 |-------------------|-----------------|--------|------|-------|
-| `dpp:circularityPerformance` | `untp:circularityScorecard` | - | @id | UNTP v0.6.x scorecard concept |
-| `dpp:emissionsPerformance` | `untp:emissionsScorecard` | - | @id | UNTP v0.6.x scorecard concept |
-| `dpp:conformityDeclaration` | `untp:conformityClaim` | - | @id | New in UNTP v0.6.x |
-| `dpp:dueDiligenceReport` | `untp:dueDiligenceDeclaration` | - | @id | New in UNTP v0.6.x |
-| `dpp:materialComposition` | `untp:materialsProvenance` | - | @id | New in UNTP v0.6.x |
+| `oec:circularityPerformance` | `untp:circularityScorecard` | - | @id | UNTP v0.6.x scorecard concept |
+| `oec:emissionsPerformance` | `untp:emissionsScorecard` | - | @id | UNTP v0.6.x scorecard concept |
+| `oec:conformityDeclaration` | `untp:conformityClaim` | - | @id | New in UNTP v0.6.x |
+| `oec:dueDiligenceReport` | `untp:dueDiligenceDeclaration` | - | @id | New in UNTP v0.6.x |
+| `oec:materialComposition` | `untp:materialsProvenance` | - | @id | New in UNTP v0.6.x |
 | `gs1:product` | `untp:product` | - | @id | Product reference |
-| `dpp:materialName` | `untp:materialName` | MaterialComposition | string | Material identifier |
-| `dpp:isCriticalRawMaterial` | `untp:isCriticalRawMaterial` | MaterialComposition | boolean | EU CRM flag |
+| `oec:materialName` | `untp:materialName` | MaterialComposition | string | Material identifier |
+| `oec:isCriticalRawMaterial` | `untp:isCriticalRawMaterial` | MaterialComposition | boolean | EU CRM flag |
 
 ## Class Mapping Table
 
 | OpenEPCIS Class | UNTP Equivalent | Notes |
 |-----------------|-----------------|-------|
-| `dpp:CircularityPerformance` | `untp:CircularityPerformance` | `owl:equivalentClass` |
-| `dpp:EmissionsPerformance` | `untp:EmissionsPerformance` | `owl:equivalentClass` |
-| `dpp:TraceabilityPerformance` | `untp:TraceabilityPerformance` | `rdfs:seeAlso` |
-| `dpp:MaterialComposition` | `untp:Material` | `rdfs:seeAlso` |
-| `dpp:OperatorInformation` | `untp:Party` | OpenEPCIS has role enumeration |
-| `dpp:FacilityInformation` | `untp:Facility` | OpenEPCIS has GLN support |
-| `dpp:DigitalProductPassport` | `untp:ProductPassport` | New in UNTP v0.6.x |
-| `dpp:FacilityInformation` | `untp:FacilityRecord` | New in UNTP v0.6.x |
-| `dpp:ConformityDeclaration` | `untp:ConformityAttestation` | New in UNTP v0.6.x |
+| `oec:CircularityPerformance` | `untp:CircularityPerformance` | `owl:equivalentClass` |
+| `oec:EmissionsPerformance` | `untp:EmissionsPerformance` | `owl:equivalentClass` |
+| `oec:TraceabilityPerformance` | `untp:TraceabilityPerformance` | `rdfs:seeAlso` |
+| `oec:MaterialComposition` | `untp:Material` | `rdfs:seeAlso` |
+| `oec:OperatorInformation` | `untp:Party` | OpenEPCIS has role enumeration |
+| `oec:FacilityInformation` | `untp:Facility` | OpenEPCIS has GLN support |
+| `oec:DigitalProductPassport` | `untp:ProductPassport` | New in UNTP v0.6.x |
+| `oec:FacilityInformation` | `untp:FacilityRecord` | New in UNTP v0.6.x |
+| `oec:ConformityDeclaration` | `untp:ConformityAttestation` | New in UNTP v0.6.x |
 
 ## Enumeration Mapping
 
@@ -84,16 +84,16 @@ This ensures **native interoperability** - no value conversion is needed when ex
 
 | OpenEPCIS | UNTP |
 |-----------|------|
-| `dpp:CradleToGate` | `untp:CradleToGate` |
-| `dpp:CradleToGrave` | `untp:CradleToGrave` |
+| `oec:CradleToGate` | `untp:CradleToGate` |
+| `oec:CradleToGrave` | `untp:CradleToGrave` |
 
 ### Granularity Level
 
 | OpenEPCIS | UNTP |
 |-----------|------|
-| `dpp:ProductClass` | `untp:ProductClass` |
-| `dpp:Batch` | `untp:Batch` |
-| `dpp:Item` | `untp:Item` |
+| `oec:ProductClass` | `untp:ProductClass` |
+| `oec:Batch` | `untp:Batch` |
+| `oec:Item` | `untp:Item` |
 
 ## OpenEPCIS-Only Properties
 
@@ -101,13 +101,13 @@ These properties exist in OpenEPCIS but have no UNTP equivalent:
 
 | Property | Purpose |
 |----------|---------|
-| `dpp:economicOperatorId` | EU EOID per ESPR Article 77 |
-| `dpp:scipId` | ECHA SCIP database identifier |
-| `dpp:repairabilityScore` | French Repairability Index |
-| `dpp:repairabilityClass` | A-E repair classification |
-| `dpp:accessLevel` | ESPR Article 9 access control |
-| `dpp:safeUseInstructions` | SCIP safe use text |
-| `dpp:safeDisassemblyInstructions` | SCIP disassembly text |
+| `oec:economicOperatorId` | EU EOID per ESPR Article 77 |
+| `oec:scipId` | ECHA SCIP database identifier |
+| `oec:repairabilityScore` | French Repairability Index |
+| `oec:repairabilityClass` | A-E repair classification |
+| `oec:accessLevel` | ESPR Article 9 access control |
+| `oec:safeUseInstructions` | SCIP safe use text |
+| `oec:safeDisassemblyInstructions` | SCIP disassembly text |
 
 ## Deprecated Property Aliases
 

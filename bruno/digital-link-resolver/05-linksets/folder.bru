@@ -1,0 +1,32 @@
+meta {
+  name: 05-linksets
+  seq: 5
+}
+
+docs {
+  # Linkset PATCH operations
+
+  Override the auto-populated `pip` link for each seeded demo product so
+  `?linkType=pip` (and the no-linkType default-link redirect) lands on the
+  webapp's Digital Product Passport page instead of bouncing to
+  `id.gs1.org`.
+
+  ## Why this exists
+
+  When a product is POSTed to `/products`, the DLR's
+  `ProductLinkSetPopulator` auto-emits a `pip` entry with
+  `href = https://id.gs1.org/01/{gtin}` — the canonical GS1 anchor. For
+  self-hosted demo GTINs (`0952…`), `id.gs1.org` has no record and 404s,
+  making the demo path useless in a browser. These PATCH requests
+  override the `pip` href with the webapp URL so end users see the
+  rendered product page.
+
+  ## Mechanics
+
+  - **Method:** `PATCH /{path}` with `action: "update"` — replaces the
+    entire `pip` array on the existing linkset.
+  - **Auth:** OAuth2 password grant (inherits from the collection root).
+  - **Target host:** `{{ddm-host}}` (env var) — defaults to
+    `https://ddm.dev.epcis.cloud`.
+  - **Idempotent:** repeated PATCHes with the same body are no-ops.
+}

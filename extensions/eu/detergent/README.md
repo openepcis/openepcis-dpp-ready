@@ -32,7 +32,7 @@ This module provides vocabulary and examples for implementing EU Regulation 2026
 
 ```
 detergent/
-├── VERSION                              # Module version (0.9.5)
+├── VERSION                              # Module version (0.9.6)
 ├── CHANGELOG.md                         # Version history
 ├── README.md                            # This file
 ├── ontology/
@@ -117,16 +117,16 @@ The Detergent module reuses ESPR-aligned patterns from the core DPP module:
 
 | ESPR Pattern | Core Class | Detergent Usage |
 |--------------|------------|-----------------|
-| Hazardous Substances | `dpp:HazardousSubstance` | CLP-classified substances in formulation |
-| Article 77 - Operator ID | `dpp:OperatorInformation` | Manufacturer placing product on EU market |
-| Documents | `dpp:DocumentReference` | Safety data sheets, test reports |
+| Hazardous Substances | `oec:HazardousSubstance` | CLP-classified substances in formulation |
+| Article 77 - Operator ID | `oec:OperatorInformation` | Manufacturer placing product on EU market |
+| Documents | `oec:DocumentReference` | Safety data sheets, test reports |
 
 ## Dependencies
 
-- **Core module**: `>= 0.9.5`
-  - Uses `dpp:HazardousSubstance` for CLP-classified substances
-  - Uses `dpp:OperatorInformation` for economic operator data
-  - Uses `dpp:DocumentReference` for SDS and test reports
+- **Core module**: `>= 0.9.6`
+  - Uses `oec:HazardousSubstance` for CLP-classified substances
+  - Uses `oec:OperatorInformation` for economic operator data
+  - Uses `oec:DocumentReference` for SDS and test reports
 
 ## Usage
 
@@ -135,10 +135,10 @@ The Detergent module reuses ESPR-aligned patterns from the core DPP module:
 Declare the Detergent extension in EPCIS capture/query requests:
 
 ```http
-GS1-Extensions: detergent=https://ref.openepcis.io/extensions/eu/detergent/
+GS1-Extensions: eudet=https://ref.openepcis.io/extensions/eu/detergent/
 ```
 
-**Architecture rule**: `gs1:masterDataAvailableFor` contains only `gs1:` properties. Detergent-specific extensions (`detergent:`) go at event level. See [core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md](../core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md).
+**Architecture rule**: `gs1:masterDataAvailableFor` contains only `gs1:` properties. Detergent-specific extensions (`eudet:`) go at event level. See [core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md](../core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md).
 
 ### Use the JSON-LD context
 ```json
@@ -156,8 +156,8 @@ GS1-Extensions: detergent=https://ref.openepcis.io/extensions/eu/detergent/
 | Prefix | Namespace | Purpose |
 |--------|-----------|---------|
 | `gs1:` | `https://ref.gs1.org/voc/` | Core GS1 vocabulary |
-| `dpp:` | `https://ref.openepcis.io/extensions/common/core/` | DPP Core extension properties |
-| `detergent:` | `https://ref.openepcis.io/extensions/eu/detergent/` | Detergent extension properties |
+| `oec:` | `https://ref.openepcis.io/extensions/common/core/` | DPP Core extension properties |
+| `eudet:` | `https://ref.openepcis.io/extensions/eu/detergent/` | Detergent extension properties |
 
 ## Scope Decisions
 

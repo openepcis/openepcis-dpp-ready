@@ -2,7 +2,7 @@
 
 This module provides vocabulary and examples for implementing Digital Product Passports for electronic and electrical equipment under ESPR delegated acts and related EU regulations.
 
-> **Status**: Production Ready (v0.9.5)
+> **Status**: Production Ready (v0.9.6)
 
 ## Regulation Coverage
 
@@ -20,7 +20,7 @@ This module provides vocabulary and examples for implementing Digital Product Pa
 
 ```
 electronics/
-├── VERSION                              # 0.9.5
+├── VERSION                              # 0.9.6
 ├── CHANGELOG.md                         # Version history
 ├── README.md                            # This file
 ├── ontology/
@@ -93,18 +93,18 @@ electronics/
 
 ## Dependencies
 
-- **Core module**: `>= 0.9.5` (required)
-  - Uses `dpp:OperatorInformation`, `dpp:RepairabilityInfo`, `dpp:PerformanceInfo`
-  - Uses `dpp:SubstanceOfConcern`, `dpp:CircularityPerformance`, `dpp:EmissionsPerformance`
+- **Core module**: `>= 0.9.6` (required)
+  - Uses `oec:OperatorInformation`, `oec:RepairabilityInfo`, `oec:PerformanceInfo`
+  - Uses `oec:SubstanceOfConcern`, `oec:CircularityPerformance`, `oec:EmissionsPerformance`
 - **Battery module**: Optional (for devices with batteries linking to battery DPPs)
 
 ## EPCIS 2.0 Extension Declaration
 
 ```http
-GS1-Extensions: electronics=https://ref.openepcis.io/extensions/eu/electronics/, dpp=https://ref.openepcis.io/extensions/common/core/
+GS1-Extensions: euelec=https://ref.openepcis.io/extensions/eu/electronics/, oec=https://ref.openepcis.io/extensions/common/core/
 ```
 
-**Architecture rule**: `gs1:masterDataAvailableFor` contains only `gs1:` properties. Electronics-specific extensions (`electronics:`) go at event level. See [core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md](../core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md).
+**Architecture rule**: `gs1:masterDataAvailableFor` contains only `gs1:` properties. Electronics-specific extensions (`euelec:`) go at event level. See [core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md](../core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md).
 
 ## JSON-LD Context Usage
 
@@ -152,7 +152,7 @@ The electronics module is aligned with UN Transparency Protocol (UNTP) where app
 | Electronics Property | UNTP Equivalent | Notes |
 |---------------------|-----------------|-------|
 | `componentPassport` | `linkedProduct` | Nested DPP for components |
-| Core properties | Via dpp: module | Full alignment |
+| Core properties | Via oec: module | Full alignment |
 
 Novel patterns (software lifecycle) are designed as potential UNTP v1.0+ contributions.
 

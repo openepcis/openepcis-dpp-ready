@@ -1,0 +1,61 @@
+name: Deploy EN 18223 demo to GitHub Pages
+
+# Builds the client-side GS1 JSON-LD -> EN 18223 converter demo
+# (demos/en18223-converter) and publishes it to GitHub Pages.
+# One-time setup: repo Settings -> Pages -> Source: GitHub Actions.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'demos/en18223-converter/**'
+      - 'scripts/en18223/**'
+      - 'scripts/build-en18223-rangeindex.ts'
+      - 'extensions/common/core/context/dpp-core-context.jsonld'
+      - 'extensions/common/core/examples/en18223-passport.compressed.jsonld'
+      - 'extensions/**/ontology/*.ttl'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build the demo bundle
+        run: pnpm run demo:en18223:build
+      - name: Disable Jekyll processing
+        run: touch demos/en18223-converter/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: demos/en18223-converter
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

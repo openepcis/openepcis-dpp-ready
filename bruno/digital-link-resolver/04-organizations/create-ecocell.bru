@@ -1,0 +1,56 @@
+meta {
+  name: Create Org — EcoCell Industrial Batteries AB
+  type: http
+  seq: 12
+}
+
+post {
+  url: {{dl-url}}/organizations
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  isAnonymousAccessAllowed: true
+}
+
+body:json {
+{
+  "@context": [
+    "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld"
+  ],
+  "type": "Organization",
+  "glnType": "LEGAL_ENTITY",
+  "globalLocationNumber": "9521002000016",
+  "organizationName": {
+    "en": "EcoCell Industrial Batteries AB",
+    "se": "EcoCell Industrial Batteries AB"
+  },
+  "organizationRole": "MANUFACTURER_OF_FINISHED_GOODS",
+  "address": {
+    "organizationName": {
+      "en": "EcoCell Industrial Batteries AB"
+    },
+    "streetAddress": {
+      "en": "Batterivägen 12"
+    },
+    "addressLocality": {
+      "en": "Göteborg"
+    },
+    "postalCode": "417 56",
+    "countryCode": "SE"
+  },
+  "email": "info@ecocell.example.com",
+  "telephone": "+00 0 0000 0000",
+  "dpp:economicOperatorId": "SE-DPP-OP-003",
+  "dpp:operatorType": "dpp:Manufacturer"
+}
+}
+
+tests {
+  test("Organization created", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202, 409]);
+  });
+}
