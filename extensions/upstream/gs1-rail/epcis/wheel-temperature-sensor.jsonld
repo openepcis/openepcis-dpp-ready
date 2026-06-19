@@ -1,0 +1,135 @@
+{
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://gs1-epcis-reg.org/rail/rail-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/interop/rail-bridge-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-05-07T08:14:00.000Z",
+  "_comment_architecture": [
+    "Wayside Train Monitoring System (WTMS) heat-detection event for a freight wagon.",
+    "Rail-specific sensor metadata (rail:typeWtms = HFO, rail:visibility = Public,",
+    "rail:sideIndicator) and sensor report fields (rail:wheelTemperature,",
+    "rail:bearingTemperature, rail:normalizedAxle, rail:leftValue, rail:rightValue)",
+    "ride at event level inside sensorElementList — the EPCIS-native place for sensor",
+    "observations.",
+    "",
+    "rail:visibility carries the bare value 'Public', which the rail-bridge-context",
+    "expands to oec:Public via the @vocab term coercion. A consumer that has the",
+    "bridge in scope sees a oec:AccessLevel hit; one that doesn't sees the rail enum.",
+    "",
+    "masterDataAvailableFor carries gs1:-only product master data (productName, gtin,",
+    "netWeight) per the EPCIS extension rule. rail: properties never go inside it.",
+    "",
+    "HTTP header (REQUIRED for an OpenEPCIS repository to engage rail-specific",
+    "validation against Rail-EPCIS-SHACL-Generic.json):",
+    "  GS1-Extensions: rail=https://gs1-epcis-reg.org/rail/voc/data#, oec=https://ref.openepcis.io/extensions/common/core/",
+    "",
+    "GS1 demo prefix 952. Wagon EPC encodes a rail vehicle identifier via GIAI-style",
+    "Digital Link (8004 AI)."
+  ],
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:c8f4a2e9-1b67-4a3f-b9d0-2c5f8e7a1b4d",
+        "eventTime": "2026-05-07T08:14:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "action": "OBSERVE",
+        "bizStep": "sensor_reporting",
+        "disposition": "in_transit",
+        "epcList": [
+          "https://id.gs1.org/8004/9521234W-A-9876543"
+        ],
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234560019"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234560019",
+          "europeanTrackLocation": "DE 1733 km 142.500",
+          "geo": "48.7766,9.1832"
+        },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/8004/9521234W-A-9876543",
+            "type": "Product",
+            "productName": {
+              "@value": "Sgnss-class freight wagon",
+              "@language": "en"
+            },
+            "gtin": "09521234560057",
+            "netWeight": {
+              "type": "QuantitativeValue",
+              "value": 23.5,
+              "unitCode": "TNE"
+            },
+            "countryOfOrigin": {
+              "countryCode": "CH"
+            }
+          },
+          {
+            "id": "https://id.gs1.org/414/9521234560019",
+            "type": "Place",
+            "locationGLN": "9521234560019",
+            "physicalLocationName": {
+              "@value": "WTMS Pforzheim — heat detection station",
+              "@language": "en"
+            },
+            "address": {
+              "type": "PostalAddress",
+              "addressLocality": "Pforzheim",
+              "countryCode": "DE"
+            }
+          }
+        ],
+        "sensorElementList": [
+          {
+            "sensorMetadata": {
+              "time": "2026-05-07T08:14:00.000Z",
+              "deviceID": "https://id.gs1.org/8004/9521234WTMS-PF-001",
+              "typeWtms": "HFO",
+              "visibility": "Public",
+              "sideIndicator": 1,
+              "en15654Speed": {
+                "type": "QuantitativeValue",
+                "value": 84.2,
+                "unitCode": "KMH"
+              }
+            },
+            "sensorReport": [
+              {
+                "type": "rail:wheelTemperature",
+                "normalizedAxle": 1,
+                "leftValue": 41.7,
+                "rightValue": 39.2,
+                "uom": "CEL"
+              },
+              {
+                "type": "rail:wheelTemperature",
+                "normalizedAxle": 2,
+                "leftValue": 42.1,
+                "rightValue": 40.0,
+                "uom": "CEL"
+              },
+              {
+                "type": "rail:bearingTemperature",
+                "normalizedAxle": 1,
+                "leftValue": 38.4,
+                "rightValue": 37.9,
+                "uom": "CEL"
+              },
+              {
+                "type": "rail:bearingTemperature",
+                "normalizedAxle": 2,
+                "leftValue": 38.0,
+                "rightValue": 37.6,
+                "uom": "CEL"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

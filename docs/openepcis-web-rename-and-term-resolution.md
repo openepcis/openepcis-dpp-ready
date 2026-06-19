@@ -36,8 +36,8 @@ only places the **old prefixes are shown to users** are hardcoded prose/example
 strings:
 
 1. **`app/data/moduleDocumentation.ts`** — ~43 occurrences: CURIE examples
-   (`textile:TextileApparel`, `dpp:HazardousSubstance`, `detergent:INCIIngredient`,
-   `fsma:FoodTraceabilityList`, …) and `GS1-Extensions:` header labels.
+   (`eutex:TextileApparel`, `oec:HazardousSubstance`, `eudet:INCIIngredient`,
+   `usfsma:FoodTraceabilityList`, …) and `GS1-Extensions:` header labels.
 2. **`app/pages/extensions/index.vue`** — 4 occurrences: `GS1-Extensions:`
    header examples (`dpp=…`, `battery=…`, `fsma=…`).
 
@@ -48,8 +48,8 @@ SEMICeu prefixes untouched. Scoped migration (run from `apps/ref-openepcis/`):
 ```js
 // scripts/rename-prefixes-docs.mjs  (one-off; mirrors dpp-ready/scripts/rename-prefixes.mjs)
 import { readFileSync, writeFileSync } from "fs";
-const MAP = { dpp:"oec", interop:"oei", battery:"eubat", textile:"eutex",
-  electronics:"euelec", detergent:"eudet", ppwr:"euppwr", cpr:"eucpr", fsma:"usfsma" };
+const MAP = { oec:"oec", oei:"oei", eubat:"eubat", eutex:"eutex",
+  euelec:"euelec", eudet:"eudet", euppwr:"euppwr", eucpr:"eucpr", usfsma:"usfsma" };
 const FILES = ["app/data/moduleDocumentation.ts", "app/pages/extensions/index.vue"];
 const lb = "(?<![A-Za-z0-9_/-])";
 for (const f of FILES) {
@@ -62,8 +62,8 @@ for (const f of FILES) {
 }
 ```
 
-> Note the `dpp:`→`oec:` and `fsma:`→`usfsma:` rewrites also affect prose like
-> "reuses `dpp:HazardousSubstance`" — desired. Spot-check that no rename hit an
+> Note the `oec:`→`oec:` and `usfsma:`→`usfsma:` rewrites also affect prose like
+> "reuses `oec:HazardousSubstance`" — desired. Spot-check that no rename hit an
 > unrelated English word (the `prefix:Uppercase` / `prefix=https` guards avoid that).
 
 **Refresh served artifacts** so the published contexts/JSON carry the new

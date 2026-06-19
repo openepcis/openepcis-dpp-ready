@@ -4,6 +4,7 @@
   "description": "OpenEPCIS Digital Product Passport Ontologies",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.33.0",
   "scripts": {
     "build": "tsx scripts/build-json.ts",
     "build:json": "tsx scripts/build-json.ts",
@@ -18,7 +19,8 @@
     "derive:en18223": "tsx scripts/derive-en18223.ts",
     "demo:en18223:data": "tsx scripts/build-en18223-demo-data.ts",
     "demo:en18223:build": "pnpm run demo:en18223:data && esbuild demos/en18223-converter/app.ts --bundle --format=esm --platform=browser --loader:.jsonld=json --outfile=demos/en18223-converter/app.js",
-    "demo:en18223": "pnpm run demo:en18223:build && esbuild demos/en18223-converter/app.ts --bundle --format=esm --platform=browser --loader:.jsonld=json --servedir=demos/en18223-converter --outfile=demos/en18223-converter/app.js"
+    "demo:en18223": "pnpm run demo:en18223:build && esbuild demos/en18223-converter/app.ts --bundle --format=esm --platform=browser --loader:.jsonld=json --servedir=demos/en18223-converter --outfile=demos/en18223-converter/app.js",
+    "sync:rail": "tsx scripts/sync-rail.ts"
   },
   "devDependencies": {
     "@types/jsonld": "^1.5.15",

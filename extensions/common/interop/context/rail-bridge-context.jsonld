@@ -1,0 +1,19 @@
+{
+  "_comment": "GS1 Rail Vocabulary bridge context — anchors GS1 Rail terms (https://gs1-epcis-reg.org/rail/voc/data#) upward to OpenEPCIS DPP, GS1 Web Vocabulary, and SEMICeu equivalents. ADDITIVE: this context only declares the rail and dpp namespaces, plus rail-specific shortcut terms that are NOT in the rail or dpp-core base contexts. The semantic anchorings live as rdfs:seeAlso / owl:equivalentProperty in the TTL ontologies (dpp-core.ttl ↔ rail's gs1RailVoc.ttl) and are documented in the equivalence table below.",
+  "_equivalences": [
+    "rail:itemReconditioningDate ↔ oec:remanufacturingDate (cross-sector ESPR Annex II durability / re-use date)",
+    "rail:VisibilityStatus + rail:public/restricted ↔ oec:AccessLevel + oec:Public/dpp:Restricted (dpp-core also defines AuthorizedOnly)",
+    "rail:Manufacturer ↔ oec:OperatorInformation / cv:LegalEntity",
+    "rail:grossLadenWeight ↔ gs1:netWeight",
+    "rail:europeanTrackLocation, rail:geo apply to gs1:Place where the EPCIS event occurs",
+    "rail:functionalStatus, rail:revisionStatus refine schema:additionalProperty on schema:Product",
+    "WTMS station types (rail:typeWtms-*), EPCIS Registry response shapes (rail:resultsOverview, rail:totalEventCount …), and rail authentication (rail:auth, rail:apiKey) are intentionally NOT bridged — sector-specific by design"
+  ],
+  "@context": {
+    "@version": 1.1,
+    "rail": "https://gs1-epcis-reg.org/rail/voc/data#",
+    "oec": "https://ref.openepcis.io/extensions/common/core/",
+    "oei": "https://ref.openepcis.io/extensions/common/interop/",
+    "cv": "http://data.europa.eu/m8g/"
+  }
+}

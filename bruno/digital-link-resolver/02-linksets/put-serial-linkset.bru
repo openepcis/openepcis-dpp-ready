@@ -1,0 +1,74 @@
+meta {
+  name: PUT SGTIN linkset (Narravero serial)
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{dl-url}}/01/04068977934335/21/19odefMoeoIbBwfuFZa5?isAnonymousAccessAllowed=true
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "linkset": [
+      {
+        "anchor": "{{dl-url}}/01/04068977934335/21/19odefMoeoIbBwfuFZa5",
+        "itemDescription": "T-shirt — Narravero",
+        "https://ref.gs1.org/voc/defaultLink": [
+          {
+            "href": "https://nvero.app/wdemYj/19odefMoeoIbBwfuFZa5/01/04068977934335",
+            "title": "T-shirt — Narravero"
+          }
+        ],
+        "https://ref.gs1.org/voc/pip": [
+          {
+            "href": "https://nvero.app/wdemYj/19odefMoeoIbBwfuFZa5/01/04068977934335",
+            "title": "T-shirt — Narravero",
+            "fwqs": true,
+            "type": "text/html",
+            "hreflang": ["en", "de"],
+            "context": ["ALL"],
+            "public": true
+          }
+        ],
+        "https://ref.gs1.org/voc/epcis": [
+          {
+            "href": "{{url}}/events?MATCH_anyEPC=https%3A%2F%2Fid.dev.epcis.cloud%2F01%2F04068977934335%2F21%2F19odefMoeoIbBwfuFZa5",
+            "title": "EPCIS Events",
+            "type": "application/ld+json",
+            "hreflang": ["en"],
+            "context": ["ALL"],
+            "public": true
+          }
+        ]
+      }
+    ]
+  }
+}
+
+docs {
+  Serial-level (SGTIN) linkset upsert. Deliberately carries only
+  defaultLink, pip, and epcis — masterData and certificationInfo are
+  GTIN-scoped class-level facts. Putting them on both anchors creates a
+  multi-anchor 300 Multiple Choices when ?linkType=masterData filters by
+  identical (type, hreflang, context). The resolver's walk-up to the GTIN
+  anchor surfaces masterData/certificationInfo cleanly.
+
+  pip overrides the GTIN-level representative URL with this serial's own
+  nvero pass URL so per-serial QR scans land on the right page.
+
+  epcis MATCH_anyEPC anchors at THIS serial only (no wildcard) so the
+  events query returns only this instance's history.
+}
+
+tests {
+  test("Linkset upserted successfully", function() {
+    expect(res.status).to.be.oneOf([200, 201, 204]);
+  });
+}
