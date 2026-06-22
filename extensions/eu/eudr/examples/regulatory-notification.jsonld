@@ -3,41 +3,47 @@
     "https://ref.gs1.org/standards/eudr/context.jsonld",
     "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld"
   ],
-  "type": "RegulatoryNotification",
+  "type": "gs1:RegulatoryNotification",
   "_comment": "gs1:RegulatoryNotification message per GS1 EUDR Standard. This B2B message shares Due Diligence Statement references between supply chain partners. Structure matches GS1 EUDR-tool output (https://github.com/gs1/EUDR-tool). Uses GS1 demo prefix 952.",
-  "messageSender": {
-    "partyGLN": "9521234000006"
+  "gs1:messageSender": {
+    "gs1:partyGLN": "9521234000006"
   },
-  "messageRecipient": {
-    "partyGLN": "9521234000105"
+  "gs1:messageRecipient": {
+    "gs1:partyGLN": "9521234000105"
   },
-  "regulatoryInformation": {
-    "regulatoryAct": "EU 2023/1115",
-    "regulationType": "DEFORESTATION_REGULATION",
-    "regulatoryIdentifier": {
-      "regulatoryIdentifierType": "DUE_DILIGENCE_STATEMENT",
-      "regulatoryReferenceNumber": "EUIS-2025-DE-00012345",
-      "regulatoryVerificationNumber": "VN-2025-DE-00012345",
-      "regulatoryInformationProvider": {
-        "partyGLN": "9521234000006"
+  "gs1:regulatoryInformation": {
+    "gs1:regulatoryAct": "EU 2023/1115",
+    "gs1:regulationType": "DEFORESTATION_REGULATION",
+    "gs1:regulatoryIdentifier": {
+      "gs1:regulatoryIdentifierType": {
+        "@id": "gs1:RegulatoryIdentifierType-DUE_DILIGENCE_STATEMENT"
       },
-      "regulatoryReferenceApplicabilityStartDate": "2025-01-20",
-      "applicableProducts": [
+      "gs1:regulatoryReferenceNumber": "EUIS-2025-DE-00012345",
+      "gs1:regulatoryVerificationNumber": "VN-2025-DE-00012345",
+      "gs1:regulatoryInformationProvider": {
+        "gs1:partyGLN": "9521234000006"
+      },
+      "gs1:regulatoryReferenceApplicabilityStartDate": "2025-01-20",
+      "gs1:applicableProducts": [
         {
-          "gtin": "09521234000020",
-          "hasBatchLotNumber": "BATCH-2025-01"
+          "gs1:gtin": "09521234000020",
+          "gs1:hasBatchLotNumber": "BATCH-2025-01"
         }
       ]
     },
-    "applicableTransactions": [
+    "gs1:applicableTransactions": [
       {
-        "transactionType": "ON",
-        "transactionID": "PO-2025-001",
+        "gs1:transactionType": {
+          "@id": "gs1:TransactionType-ON"
+        },
+        "gs1:transactionID": "PO-2025-001",
         "transactionDate": "2025-01-18"
       },
       {
-        "transactionType": "IV",
-        "transactionID": "INV-2025-001",
+        "gs1:transactionType": {
+          "@id": "gs1:TransactionType-IV"
+        },
+        "gs1:transactionID": "INV-2025-001",
         "transactionDate": "2025-01-20"
       }
     ]

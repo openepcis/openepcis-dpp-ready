@@ -16,13 +16,13 @@
   ],
   "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001",
   "type": [
-    "Product",
-    "Battery"
+    "gs1:Product",
+    "eubat:Battery"
   ],
-  "lastUpdated": "2024-03-20T14:30:00Z",
-  "gtin": "09521002005004",
-  "serialNumber": "BAT2024-001",
-  "productName": [
+  "oec:lastUpdated": "2024-03-20T14:30:00Z",
+  "gs1:gtin": "09521002005004",
+  "gs1:serialNumber": "BAT2024-001",
+  "gs1:productName": [
     {
       "@value": "EcoCell Industrial Battery Module IM-500",
       "@language": "en"
@@ -68,7 +68,7 @@
       "@language": "it"
     }
   ],
-  "productDescription": [
+  "gs1:productDescription": [
     {
       "@value": "High-capacity lithium iron phosphate battery module for industrial energy storage. Designed for long cycle life and safety.",
       "@language": "en"
@@ -114,695 +114,749 @@
       "@language": "it"
     }
   ],
-  "batteryCategory": "IndustrialBattery",
+  "schema:category": {
+    "@id": "eubat:IndustrialBattery"
+  },
   "_comment_classification": "Alternative GS1 pattern for battery category using gs1:additionalProductClassification",
-  "additionalProductClassification": {
-    "type": "AdditionalProductClassificationDetails",
-    "additionalProductClassificationCode": "industrial",
-    "additionalProductClassificationCodeDescription": {
+  "gs1:additionalProductClassification": {
+    "type": "gs1:AdditionalProductClassificationDetails",
+    "gs1:additionalProductClassificationCode": "industrial",
+    "gs1:additionalProductClassificationCodeDescription": {
       "@value": "Industrial Battery - Battery designed for industrial applications with capacity > 2 kWh",
       "@language": "en"
     },
-    "additionalProductClassificationSystemCode": "BATTERY_REGULATION_2023_1542"
+    "gs1:additionalProductClassificationSystemCode": "BATTERY_REGULATION_2023_1542"
   },
-  "batteryStatus": "Original",
-  "batteryModel": {
+  "schema:status": {
+    "@id": "eubat:Original"
+  },
+  "schema:model": {
     "@value": "IM-500",
     "@language": "en"
   },
-  "cellType": "PrismaticCell",
-  "numberOfCells": 16,
-  "numberOfModules": 1,
-  "manufacturer": {
+  "eubat:cellType": {
+    "@id": "eubat:PrismaticCell"
+  },
+  "eubat:numberOfCells": 16,
+  "eubat:numberOfModules": 1,
+  "gs1:manufacturer": {
     "id": "https://id.demo.epcis.cloud/417/9521234000006",
-    "type": "Organization",
-    "organizationName": "EcoCell GmbH",
-    "gln": "9521234000006",
-    "address": {
+    "type": "gs1:Organization",
+    "gs1:organizationName": "EcoCell GmbH",
+    "gs1:gln": "9521234000006",
+    "gs1:address": {
       "id": "https://id.demo.epcis.cloud/417/9521234000006#address",
-      "type": "PostalAddress",
-      "streetAddress": "Batteriestraße 42",
-      "addressLocality": "Stuttgart",
-      "postalCode": "70173",
-      "countryCode": "DE"
+      "type": "gs1:PostalAddress",
+      "gs1:streetAddress": "Batteriestraße 42",
+      "gs1:addressLocality": "Stuttgart",
+      "gs1:postalCode": "70173",
+      "gs1:countryCode": "DE"
     },
-    "contactPoint": {
-      "type": "ContactPoint",
-      "email": "info@ecocell-batteries.example.com",
-      "url": {
+    "gs1:contactPoint": {
+      "type": "gs1:ContactPoint",
+      "gs1:email": "info@ecocell-batteries.example.com",
+      "gs1:url": {
         "id": "https://www.ecocell-batteries.example.com"
       }
     }
   },
-  "manufacturingPlace": {
+  "eubat:manufacturingPlace": {
     "id": "https://id.demo.epcis.cloud/414/9521234000013",
-    "type": "Place",
-    "gln": "9521234000013",
-    "address": {
-      "type": "PostalAddress",
-      "addressLocality": "Stuttgart",
-      "countryCode": "DE"
+    "type": "gs1:Place",
+    "gs1:gln": "9521234000013",
+    "gs1:address": {
+      "type": "gs1:PostalAddress",
+      "gs1:addressLocality": "Stuttgart",
+      "gs1:countryCode": "DE"
     }
   },
-  "operatorInformation": {
+  "eubat:operatorInformation": {
     "id": "https://id.demo.epcis.cloud/417/9521234000006#operator",
     "type": "oec:OperatorInformation",
-    "gln": "9521234000006",
-    "organizationName": "EcoCell GmbH",
-    "operatorRole": "Manufacturer",
-    "address": {
-      "type": "PostalAddress",
-      "streetAddress": "Batteriestraße 42",
-      "addressLocality": "Stuttgart",
-      "postalCode": "70173",
-      "countryCode": "DE"
+    "gs1:gln": "9521234000006",
+    "gs1:organizationName": "EcoCell GmbH",
+    "eubat:operatorRole": {
+      "@id": "oec:Manufacturer"
     },
-    "contactPoint": {
-      "type": "ContactPoint",
-      "email": "compliance@ecocell-batteries.example.com",
-      "telephone": "+49-711-555-0100"
+    "gs1:address": {
+      "type": "gs1:PostalAddress",
+      "gs1:streetAddress": "Batteriestraße 42",
+      "gs1:addressLocality": "Stuttgart",
+      "gs1:postalCode": "70173",
+      "gs1:countryCode": "DE"
+    },
+    "gs1:contactPoint": {
+      "type": "gs1:ContactPoint",
+      "gs1:email": "compliance@ecocell-batteries.example.com",
+      "gs1:telephone": "+49-711-555-0100"
     }
   },
-  "countryOfOrigin": "DE",
-  "manufacturingDate": "2024-03-15",
-  "netWeight": {
-    "type": "QuantitativeValue",
-    "value": 125.5,
-    "unitCode": "KGM"
+  "gs1:countryOfOrigin": "DE",
+  "gs1:manufacturingDate": "2024-03-15",
+  "gs1:netWeight": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 125.5,
+    "gs1:unitCode": "KGM"
   },
-  "grossWeight": {
-    "type": "QuantitativeValue",
-    "value": 132,
-    "unitCode": "KGM"
+  "gs1:grossWeight": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 132,
+    "gs1:unitCode": "KGM"
   },
-  "batteryChemistry": {
+  "eubat:batteryChemistry": {
     "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#chemistry",
-    "type": "BatteryChemistry",
+    "type": "eubat:BatteryChemistry",
     "shortName": "LFP",
     "fullName": {
       "@value": "Lithium Iron Phosphate",
       "@language": "en"
     },
-    "cathodeActiveMaterial": "LiFePO4",
-    "anodeActiveMaterial": "Graphite",
-    "electrolyteType": {
+    "eubat:cathodeActiveMaterial": "LiFePO4",
+    "eubat:anodeActiveMaterial": "Graphite",
+    "eubat:electrolyteType": {
       "@value": "Liquid organic carbonate-based",
       "@language": "en"
     }
   },
-  "technicalSpecifications": {
+  "eubat:technicalSpecifications": {
     "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#specs",
-    "type": "TechnicalSpecification",
-    "ratedCapacity": {
-      "type": "QuantitativeValue",
-      "value": 280,
-      "unitCode": "AMH"
+    "type": "eubat:TechnicalSpecification",
+    "eubat:ratedCapacity": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 280,
+      "gs1:unitCode": "AMH"
     },
-    "ratedEnergy": {
-      "type": "QuantitativeValue",
-      "value": 14.3,
-      "unitCode": "KWH"
+    "eubat:ratedEnergy": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 14.3,
+      "gs1:unitCode": "KWH"
     },
-    "nominalVoltage": {
-      "type": "QuantitativeValue",
-      "value": 51.2,
-      "unitCode": "VLT"
+    "eubat:nominalVoltage": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 51.2,
+      "gs1:unitCode": "VLT"
     },
-    "minimumVoltage": {
-      "type": "QuantitativeValue",
-      "value": 40,
-      "unitCode": "VLT"
+    "eubat:minimumVoltage": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 40,
+      "gs1:unitCode": "VLT"
     },
-    "maximumVoltage": {
-      "type": "QuantitativeValue",
-      "value": 58.4,
-      "unitCode": "VLT"
+    "eubat:maximumVoltage": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 58.4,
+      "gs1:unitCode": "VLT"
     },
-    "ratedMaximumPower": {
-      "type": "QuantitativeValue",
-      "value": 7.5,
-      "unitCode": "KWT"
+    "eubat:ratedMaximumPower": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 7.5,
+      "gs1:unitCode": "KWT"
     },
-    "maximumChargingPower": {
-      "type": "QuantitativeValue",
-      "value": 7.5,
-      "unitCode": "KWT"
+    "eubat:maximumChargingPower": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 7.5,
+      "gs1:unitCode": "KWT"
     },
-    "maximumDischargingPower": {
-      "type": "QuantitativeValue",
-      "value": 7.5,
-      "unitCode": "KWT"
+    "eubat:maximumDischargingPower": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 7.5,
+      "gs1:unitCode": "KWT"
     },
-    "maximumChargingCurrent": {
-      "type": "QuantitativeValue",
-      "value": 140,
-      "unitCode": "AMP"
+    "eubat:maximumChargingCurrent": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 140,
+      "gs1:unitCode": "AMP"
     },
-    "maximumDischargingCurrent": {
-      "type": "QuantitativeValue",
-      "value": 140,
-      "unitCode": "AMP"
+    "eubat:maximumDischargingCurrent": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 140,
+      "gs1:unitCode": "AMP"
     },
-    "originalPowerCapability": [
+    "eubat:originalPowerCapability": [
       {
         "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#power-80",
-        "type": "PowerCapabilityAtSoC",
-        "stateOfChargeLevel": 80,
-        "powerCapability": {
-          "type": "QuantitativeValue",
-          "value": 7.2,
-          "unitCode": "KWT"
+        "type": "eubat:PowerCapabilityAtSoC",
+        "eubat:stateOfChargeLevel": 80,
+        "eubat:powerCapability": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 7.2,
+          "gs1:unitCode": "KWT"
         }
       },
       {
         "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#power-20",
-        "type": "PowerCapabilityAtSoC",
-        "stateOfChargeLevel": 20,
-        "powerCapability": {
-          "type": "QuantitativeValue",
-          "value": 6.8,
-          "unitCode": "KWT"
+        "type": "eubat:PowerCapabilityAtSoC",
+        "eubat:stateOfChargeLevel": 20,
+        "eubat:powerCapability": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 6.8,
+          "gs1:unitCode": "KWT"
         }
       }
     ],
-    "initialInternalResistance": {
-      "type": "QuantitativeValue",
-      "value": 2.1,
-      "unitCode": "OHM"
+    "eubat:initialInternalResistance": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 2.1,
+      "gs1:unitCode": "OHM"
     },
-    "initialSelfDischarge": 1.5,
-    "expectedCycleLife": 6000,
-    "expectedLifetimeYears": 15,
-    "expectedLifetimeEnergyThroughput": {
-      "type": "QuantitativeValue",
-      "value": 85800,
-      "unitCode": "KWH"
+    "eubat:initialSelfDischarge": 1.5,
+    "eubat:expectedCycleLife": 6000,
+    "eubat:expectedLifetimeYears": 15,
+    "eubat:expectedLifetimeEnergyThroughput": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 85800,
+      "gs1:unitCode": "KWH"
     },
-    "expectedLifetimeCapacityThroughput": {
-      "type": "QuantitativeValue",
-      "value": 1680000,
-      "unitCode": "AMH"
+    "eubat:expectedLifetimeCapacityThroughput": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 1680000,
+      "gs1:unitCode": "AMH"
     },
-    "depthOfDischargeInCycleLifeTest": 80,
-    "capacityFadeThreshold": 20,
-    "resistanceIncreaseThreshold": 50,
-    "roundTripEfficiency": 96,
-    "capacityThresholdForExhaustion": 70,
-    "lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
-    "powerCapabilityRatio": 0.52,
-    "cRate": 0.5,
-    "cRateLifeCycleTest": 0.33,
-    "roundTripEfficiencyAt50PercentCycleLife": 94,
-    "temperatureRangeStorage": {
+    "eubat:depthOfDischargeInCycleLifeTest": 80,
+    "eubat:capacityFadeThreshold": 20,
+    "eubat:resistanceIncreaseThreshold": 50,
+    "eubat:roundTripEfficiency": 96,
+    "eubat:capacityThresholdForExhaustion": 70,
+    "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
+    "eubat:powerCapabilityRatio": 0.52,
+    "eubat:cRate": 0.5,
+    "eubat:cRateLifeCycleTest": 0.33,
+    "eubat:roundTripEfficiencyAt50PercentCycleLife": 94,
+    "eubat:temperatureRangeStorage": {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-storage",
-      "type": "TemperatureRange",
-      "minimumTemperature": {
-        "type": "QuantitativeValue",
-        "value": -20,
-        "unitCode": "CEL"
+      "type": "eubat:TemperatureRange",
+      "eubat:minimumTemperature": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": -20,
+        "gs1:unitCode": "CEL"
       },
-      "maximumTemperature": {
-        "type": "QuantitativeValue",
-        "value": 45,
-        "unitCode": "CEL"
+      "eubat:maximumTemperature": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": 45,
+        "gs1:unitCode": "CEL"
       }
     },
-    "temperatureRangeCharging": {
+    "eubat:temperatureRangeCharging": {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-charging",
-      "type": "TemperatureRange",
-      "minimumTemperature": {
-        "type": "QuantitativeValue",
-        "value": 0,
-        "unitCode": "CEL"
+      "type": "eubat:TemperatureRange",
+      "eubat:minimumTemperature": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": 0,
+        "gs1:unitCode": "CEL"
       },
-      "maximumTemperature": {
-        "type": "QuantitativeValue",
-        "value": 45,
-        "unitCode": "CEL"
+      "eubat:maximumTemperature": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": 45,
+        "gs1:unitCode": "CEL"
       }
     },
-    "temperatureRangeDischarging": {
+    "eubat:temperatureRangeDischarging": {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-discharging",
-      "type": "TemperatureRange",
-      "minimumTemperature": {
-        "type": "QuantitativeValue",
-        "value": -20,
-        "unitCode": "CEL"
+      "type": "eubat:TemperatureRange",
+      "eubat:minimumTemperature": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": -20,
+        "gs1:unitCode": "CEL"
       },
-      "maximumTemperature": {
-        "type": "QuantitativeValue",
-        "value": 55,
-        "unitCode": "CEL"
+      "eubat:maximumTemperature": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": 55,
+        "gs1:unitCode": "CEL"
       }
     },
-    "temperatureRangeIdleState": {
+    "eubat:temperatureRangeIdleState": {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-idle",
-      "type": "TemperatureRange",
-      "minimumTemperature": {
-        "type": "QuantitativeValue",
-        "value": -30,
-        "unitCode": "CEL"
+      "type": "eubat:TemperatureRange",
+      "eubat:minimumTemperature": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": -30,
+        "gs1:unitCode": "CEL"
       },
-      "maximumTemperature": {
-        "type": "QuantitativeValue",
-        "value": 60,
-        "unitCode": "CEL"
+      "eubat:maximumTemperature": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": 60,
+        "gs1:unitCode": "CEL"
       }
     }
   },
-  "materialComposition": [
+  "eubat:materialComposition": [
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-li",
-      "type": "BatteryMaterial",
-      "materialName": {
+      "type": "eubat:BatteryMaterial",
+      "schema:name": {
         "@value": "Lithium",
         "@language": "en"
       },
-      "casNumber": "7439-93-2",
-      "ecNumber": "231-102-5",
-      "componentLocation": "Cathode",
-      "materialCategory": "ActiveMaterial",
-      "massPercentage": 4.2,
-      "isCriticalRawMaterial": true,
-      "isSubstanceOfConcern": false,
-      "materialSourceCountry": "CL"
+      "eubat:casNumber": "7439-93-2",
+      "eubat:ecNumber": "231-102-5",
+      "eubat:componentLocation": {
+        "@id": "eubat:Cathode"
+      },
+      "schema:category": {
+        "@id": "eubat:ActiveMaterial"
+      },
+      "schema:weightPercentage": 4.2,
+      "eubat:isCriticalRawMaterial": true,
+      "eubat:isSubstanceOfConcern": false,
+      "gs1:countryOfOrigin": "CL"
     },
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-fe",
-      "type": "BatteryMaterial",
-      "materialName": {
+      "type": "eubat:BatteryMaterial",
+      "schema:name": {
         "@value": "Iron",
         "@language": "en"
       },
-      "casNumber": "7439-89-6",
-      "ecNumber": "231-096-4",
-      "componentLocation": "Cathode",
-      "materialCategory": "ActiveMaterial",
-      "massPercentage": 21.5,
-      "isCriticalRawMaterial": false,
-      "isSubstanceOfConcern": false
+      "eubat:casNumber": "7439-89-6",
+      "eubat:ecNumber": "231-096-4",
+      "eubat:componentLocation": {
+        "@id": "eubat:Cathode"
+      },
+      "schema:category": {
+        "@id": "eubat:ActiveMaterial"
+      },
+      "schema:weightPercentage": 21.5,
+      "eubat:isCriticalRawMaterial": false,
+      "eubat:isSubstanceOfConcern": false
     },
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-c",
-      "type": "BatteryMaterial",
-      "materialName": {
+      "type": "eubat:BatteryMaterial",
+      "schema:name": {
         "@value": "Graphite",
         "@language": "en"
       },
-      "casNumber": "7782-42-5",
-      "ecNumber": "231-955-3",
-      "componentLocation": "Anode",
-      "materialCategory": "ActiveMaterial",
-      "massPercentage": 18.3,
-      "isCriticalRawMaterial": true,
-      "isSubstanceOfConcern": false,
-      "renewableContentShare": 0
+      "eubat:casNumber": "7782-42-5",
+      "eubat:ecNumber": "231-955-3",
+      "eubat:componentLocation": {
+        "@id": "eubat:Anode"
+      },
+      "schema:category": {
+        "@id": "eubat:ActiveMaterial"
+      },
+      "schema:weightPercentage": 18.3,
+      "eubat:isCriticalRawMaterial": true,
+      "eubat:isSubstanceOfConcern": false,
+      "eubat:renewableContentShare": 0
     },
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-p",
-      "type": "BatteryMaterial",
-      "materialName": {
+      "type": "eubat:BatteryMaterial",
+      "schema:name": {
         "@value": "Phosphorus",
         "@language": "en"
       },
-      "casNumber": "7723-14-0",
-      "ecNumber": "231-768-7",
-      "componentLocation": "Cathode",
-      "materialCategory": "ActiveMaterial",
-      "massPercentage": 9.8,
-      "isCriticalRawMaterial": true,
-      "isSubstanceOfConcern": false
+      "eubat:casNumber": "7723-14-0",
+      "eubat:ecNumber": "231-768-7",
+      "eubat:componentLocation": {
+        "@id": "eubat:Cathode"
+      },
+      "schema:category": {
+        "@id": "eubat:ActiveMaterial"
+      },
+      "schema:weightPercentage": 9.8,
+      "eubat:isCriticalRawMaterial": true,
+      "eubat:isSubstanceOfConcern": false
     }
   ],
-  "hazardousSubstances": [
+  "eubat:hazardousSubstances": [
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#haz-electrolyte",
-      "type": "HazardousSubstance",
-      "substanceName": {
+      "type": "eubat:HazardousSubstance",
+      "schema:name": {
         "@value": "Lithium hexafluorophosphate (LiPF6)",
         "@language": "en"
       },
-      "substanceCasNumber": "21324-40-3",
-      "substanceEcNumber": "244-334-7",
-      "hazardClass": "AcuteToxicity",
-      "concentration": 12.5,
-      "hazardImpact": {
+      "eubat:substanceCasNumber": "21324-40-3",
+      "eubat:substanceEcNumber": "244-334-7",
+      "eubat:hazardClass": {
+        "@id": "eubat:AcuteToxicity"
+      },
+      "eubat:concentration": 12.5,
+      "eubat:hazardImpact": {
         "@value": "Toxic if swallowed; causes skin irritation; causes serious eye damage",
         "@language": "en"
       },
-      "substanceLocation": "Electrolyte"
+      "eubat:substanceLocation": {
+        "@id": "eubat:Electrolyte"
+      }
     },
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#haz-solvent",
-      "type": "HazardousSubstance",
-      "substanceName": {
+      "type": "eubat:HazardousSubstance",
+      "schema:name": {
         "@value": "Ethylene carbonate",
         "@language": "en"
       },
-      "substanceCasNumber": "96-49-1",
-      "substanceEcNumber": "202-510-0",
-      "hazardClass": "EyeDamageOrIrritation",
-      "concentration": 8.2,
-      "hazardImpact": {
+      "eubat:substanceCasNumber": "96-49-1",
+      "eubat:substanceEcNumber": "202-510-0",
+      "eubat:hazardClass": {
+        "@id": "eubat:EyeDamageOrIrritation"
+      },
+      "eubat:concentration": 8.2,
+      "eubat:hazardImpact": {
         "@value": "Causes serious eye irritation",
         "@language": "en"
       },
-      "substanceLocation": "Electrolyte"
+      "eubat:substanceLocation": {
+        "@id": "eubat:Electrolyte"
+      }
     }
   ],
-  "recycledContent": {
+  "eubat:recycledContent": {
     "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#recycled",
-    "type": "RecycledContent",
-    "lithiumRecycledShare": 12,
-    "lithiumPreConsumerShare": 5,
-    "lithiumPostConsumerShare": 7,
-    "cobaltRecycledShare": 0,
-    "cobaltPreConsumerShare": 0,
-    "cobaltPostConsumerShare": 0,
-    "nickelRecycledShare": 0,
-    "nickelPreConsumerShare": 0,
-    "nickelPostConsumerShare": 0,
-    "leadRecycledShare": 0,
-    "leadPreConsumerShare": 0,
-    "leadPostConsumerShare": 0
+    "type": "eubat:RecycledContent",
+    "eubat:lithiumRecycledShare": 12,
+    "eubat:lithiumPreConsumerShare": 5,
+    "eubat:lithiumPostConsumerShare": 7,
+    "eubat:cobaltRecycledShare": 0,
+    "eubat:cobaltPreConsumerShare": 0,
+    "eubat:cobaltPostConsumerShare": 0,
+    "eubat:nickelRecycledShare": 0,
+    "eubat:nickelPreConsumerShare": 0,
+    "eubat:nickelPostConsumerShare": 0,
+    "eubat:leadRecycledShare": 0,
+    "eubat:leadPreConsumerShare": 0,
+    "eubat:leadPostConsumerShare": 0
   },
-  "carbonFootprintDeclaration": {
+  "eubat:carbonFootprintDeclaration": {
     "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#cfp",
-    "type": "CarbonFootprintDeclaration",
-    "carbonFootprintTotal": {
-      "type": "QuantitativeValue",
-      "value": 45.2,
-      "unitCode": "KGM"
+    "type": "eubat:CarbonFootprintDeclaration",
+    "eubat:carbonFootprintTotal": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 45.2,
+      "gs1:unitCode": "KGM"
     },
-    "carbonFootprintRawMaterialExtraction": {
-      "type": "QuantitativeValue",
-      "value": 18.5,
-      "unitCode": "KGM"
+    "eubat:carbonFootprintRawMaterialExtraction": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 18.5,
+      "gs1:unitCode": "KGM"
     },
-    "carbonFootprintProduction": {
-      "type": "QuantitativeValue",
-      "value": 15.3,
-      "unitCode": "KGM"
+    "eubat:carbonFootprintProduction": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 15.3,
+      "gs1:unitCode": "KGM"
     },
-    "carbonFootprintDistribution": {
-      "type": "QuantitativeValue",
-      "value": 2.8,
-      "unitCode": "KGM"
+    "eubat:carbonFootprintDistribution": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 2.8,
+      "gs1:unitCode": "KGM"
     },
-    "carbonFootprintRecycling": {
-      "type": "QuantitativeValue",
-      "value": 8.6,
-      "unitCode": "KGM"
+    "eubat:carbonFootprintRecycling": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 8.6,
+      "gs1:unitCode": "KGM"
     },
-    "carbonFootprintPerformanceClass": "CFClassB",
-    "carbonFootprintStudyUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-cfp-study.pdf",
-    "functionalUnit": "1 kWh of total energy throughput over battery lifetime",
-    "calculationStandard": "ISO 14067:2018",
-    "carbonFootprintDeclarationId": "CFP-2024-ECOCELL-IM500-001",
-    "carbonFootprintGeographicScope": "EU production, global material sourcing",
-    "thirdPartyVerification": {
+    "eubat:carbonFootprintPerformanceClass": {
+      "@id": "eubat:CFClassB"
+    },
+    "eubat:carbonFootprintStudyUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-cfp-study.pdf",
+    "eubat:functionalUnit": "1 kWh of total energy throughput over battery lifetime",
+    "eubat:calculationStandard": "ISO 14067:2018",
+    "eubat:carbonFootprintDeclarationId": "CFP-2024-ECOCELL-IM500-001",
+    "eubat:carbonFootprintGeographicScope": "EU production, global material sourcing",
+    "eubat:thirdPartyVerification": {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#cfp-verification",
-      "type": "ThirdPartyVerification",
-      "verificationBodyName": "TÜV Rheinland",
-      "verificationDate": "2024-02-28",
-      "verificationCertificateUrl": "https://www.ecocell-batteries.example.com/docs/cfp-verification-cert.pdf",
-      "verificationStandard": "ISO 14064-3:2019"
+      "type": "eubat:ThirdPartyVerification",
+      "eubat:verificationBodyName": "TÜV Rheinland",
+      "eubat:verificationDate": "2024-02-28",
+      "eubat:verificationCertificateUrl": "https://www.ecocell-batteries.example.com/docs/cfp-verification-cert.pdf",
+      "eubat:verificationStandard": "ISO 14064-3:2019"
     }
   },
-  "warranty": {
-    "type": "WarrantyPromise",
-    "durationOfWarranty": "P8Y",
-    "warrantyScope": "Full replacement warranty for manufacturing defects"
+  "gs1:warranty": {
+    "type": "gs1:WarrantyPromise",
+    "gs1:durationOfWarranty": "P8Y",
+    "gs1:warrantyScope": "Full replacement warranty for manufacturing defects"
   },
-  "warrantyConditions": "https://www.ecocell-batteries.example.com/warranty/terms",
-  "extendedWarrantyAvailable": true,
-  "serviceContactPoint": {
-    "type": "ContactPoint",
-    "email": "service@ecocell-batteries.example.com",
-    "telephone": "+49-711-555-0300",
-    "url": {
+  "eubat:warrantyConditions": "https://www.ecocell-batteries.example.com/warranty/terms",
+  "eubat:extendedWarrantyAvailable": true,
+  "schema:contactPoint": {
+    "type": "gs1:ContactPoint",
+    "gs1:email": "service@ecocell-batteries.example.com",
+    "gs1:telephone": "+49-711-555-0300",
+    "gs1:url": {
       "id": "https://service.ecocell-batteries.example.com"
     }
   },
-  "authorizedServiceCenters": "https://www.ecocell-batteries.example.com/service-centers",
-  "transportationSafetyClass": "UN3481",
-  "dangerousGoodsPackingInstructions": {
+  "eubat:authorizedServiceCenters": "https://www.ecocell-batteries.example.com/service-centers",
+  "eubat:transportationSafetyClass": "UN3481",
+  "eubat:dangerousGoodsPackingInstructions": {
     "@value": "PI966 Section II - Lithium ion batteries packed with equipment",
     "@language": "en"
   },
-  "shippingName": {
+  "eubat:shippingName": {
     "@value": "LITHIUM ION BATTERIES PACKED WITH EQUIPMENT",
     "@language": "en"
   },
-  "repurposingPotential": {
+  "eubat:repurposingPotential": {
     "@value": "High - suitable for stationary energy storage after EV use",
     "@language": "en"
   },
-  "repurposingGuidelines": "https://www.ecocell-batteries.example.com/docs/repurposing-guide.pdf",
-  "dataQualityAssessment": "A",
-  "lastDataUpdate": "2024-03-20T14:30:00Z",
-  "dataProviderCertification": "ISO 27001 certified data management",
-  "criticalRawMaterialsStatement": {
+  "eubat:repurposingGuidelines": "https://www.ecocell-batteries.example.com/docs/repurposing-guide.pdf",
+  "eubat:dataQualityAssessment": "A",
+  "eubat:lastDataUpdate": "2024-03-20T14:30:00Z",
+  "eubat:dataProviderCertification": "ISO 27001 certified data management",
+  "eubat:criticalRawMaterialsStatement": {
     "@value": "Contains lithium (4.2%), graphite (18.3%), and phosphorus (9.8%) which are on the EU Critical Raw Materials list.",
     "@language": "en"
   },
-  "ceMarkingIndicator": true,
-  "euDeclarationOfConformity": {
+  "eubat:ceMarkingIndicator": true,
+  "eubat:euDeclarationOfConformity": {
     "type": "cccev:Evidence",
-    "euDeclarationOfConformityId": "DoC-2024-ECOCELL-IM500",
-    "declarationOfConformity": "https://www.ecocell-batteries.example.com/docs/IM-500-eu-doc.pdf",
-    "notifiedBody": {
+    "eubat:euDeclarationOfConformityId": "DoC-2024-ECOCELL-IM500",
+    "eubat:declarationOfConformity": "https://www.ecocell-batteries.example.com/docs/IM-500-eu-doc.pdf",
+    "eubat:notifiedBody": {
       "type": "cv:PublicOrganisation",
-      "notifiedBodyNumber": "0123",
-      "notifiedBodyName": "TÜV SÜD"
+      "eubat:notifiedBodyNumber": "0123",
+      "eubat:notifiedBodyName": "TÜV SÜD"
     }
   },
-  "resultOfTestReport": "https://www.ecocell-batteries.example.com/docs/IM-500-test-report.pdf",
-  "testReportNumber": "TR-2024-ECOCELL-IM500-001",
-  "complianceStatus": "Compliant",
-  "separateCollectionSymbolUrl": "https://www.ecocell-batteries.example.com/labels/weee-symbol.svg",
-  "cadmiumSymbolRequired": false,
-  "leadSymbolRequired": false,
-  "labels": [
+  "eubat:resultOfTestReport": "https://www.ecocell-batteries.example.com/docs/IM-500-test-report.pdf",
+  "eubat:testReportNumber": "TR-2024-ECOCELL-IM500-001",
+  "eubat:complianceStatus": {
+    "@id": "eubat:Compliant"
+  },
+  "eubat:separateCollectionSymbolUrl": "https://www.ecocell-batteries.example.com/labels/weee-symbol.svg",
+  "eubat:cadmiumSymbolRequired": false,
+  "eubat:leadSymbolRequired": false,
+  "eubat:labels": [
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#label-weee",
-      "type": "Label",
-      "labelSubject": "SeparateCollection",
-      "labelSymbol": "https://www.ecocell-batteries.example.com/labels/weee-symbol.svg",
-      "labelMeaning": {
+      "type": "eubat:Label",
+      "eubat:labelSubject": {
+        "@id": "eubat:SeparateCollection"
+      },
+      "eubat:labelSymbol": "https://www.ecocell-batteries.example.com/labels/weee-symbol.svg",
+      "eubat:labelMeaning": {
         "@value": "Do not dispose of with household waste. Return to designated collection points.",
         "@language": "en"
       }
     },
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#label-cfp",
-      "type": "Label",
-      "labelSubject": "CarbonFootprintLabel",
-      "labelSymbol": "https://www.ecocell-batteries.example.com/labels/cfp-class-b.svg",
-      "labelMeaning": {
+      "type": "eubat:Label",
+      "eubat:labelSubject": {
+        "@id": "eubat:CarbonFootprintLabel"
+      },
+      "eubat:labelSymbol": "https://www.ecocell-batteries.example.com/labels/cfp-class-b.svg",
+      "eubat:labelMeaning": {
         "@value": "Carbon Footprint Performance Class B: 45.2 kg CO2e/kWh",
         "@language": "en"
       }
     },
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#label-fire",
-      "type": "Label",
-      "labelSubject": "ExtinguishingAgentLabel",
-      "labelSymbol": "https://www.ecocell-batteries.example.com/labels/class-d-fire.svg",
-      "labelMeaning": {
+      "type": "eubat:Label",
+      "eubat:labelSubject": {
+        "@id": "eubat:ExtinguishingAgentLabel"
+      },
+      "eubat:labelSymbol": "https://www.ecocell-batteries.example.com/labels/class-d-fire.svg",
+      "eubat:labelMeaning": {
         "@value": "In case of fire, use Class D fire extinguisher or dry sand. Do not use water.",
         "@language": "en"
       }
     },
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#label-qr",
-      "type": "Label",
-      "labelSubject": "QRCodeLabel",
-      "labelMeaning": {
+      "type": "eubat:Label",
+      "eubat:labelSubject": {
+        "@id": "eubat:QRCodeLabel"
+      },
+      "eubat:labelMeaning": {
         "@value": "Scan QR code to access battery passport",
         "@language": "en"
       }
     }
   ],
-  "regulatoryInformation": [
+  "gs1:regulatoryInformation": [
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#reg-battery",
-      "type": "RegulatoryInformation",
-      "regulationType": {
+      "type": "gs1:RegulatoryInformation",
+      "gs1:regulationType": {
         "id": "gs1:RegulationTypeCode-BATTERY_DIRECTIVE"
       },
-      "regulatoryAct": "EU 2023/1542",
-      "regulatoryActStatus": "ACTIVE",
-      "regulatoryPermitIdentification": "EU-TEC-2024-ECOCELL-IM500",
+      "gs1:regulatoryAct": "EU 2023/1542",
+      "gs1:regulatoryActStatus": "ACTIVE",
+      "gs1:regulatoryPermitIdentification": "EU-TEC-2024-ECOCELL-IM500",
       "gs1:isRegulationCompliant": true
     },
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#reg-ce",
-      "type": "RegulatoryInformation",
-      "regulationType": {
+      "type": "gs1:RegulatoryInformation",
+      "gs1:regulationType": {
         "id": "gs1:RegulationTypeCode-CE"
       },
-      "regulatoryAct": "CE Marking",
+      "gs1:regulatoryAct": "CE Marking",
       "gs1:isRegulationCompliant": true
     }
   ],
-  "supplyChainDueDiligence": {
+  "eubat:supplyChainDueDiligence": {
     "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#due-diligence",
-    "type": "SupplyChainDueDiligence",
-    "dueDiligenceReportUrl": "https://www.ecocell-batteries.example.com/docs/supply-chain-due-diligence-2024.pdf",
-    "dueDiligencePolicyUrl": "https://www.ecocell-batteries.example.com/policies/supply-chain-due-diligence",
-    "thirdPartyAssurancesUrl": "https://www.ecocell-batteries.example.com/docs/third-party-audit-2024.pdf",
-    "riskAssessmentSummary": {
+    "type": "eubat:SupplyChainDueDiligence",
+    "eubat:dueDiligenceReportUrl": "https://www.ecocell-batteries.example.com/docs/supply-chain-due-diligence-2024.pdf",
+    "eubat:dueDiligencePolicyUrl": "https://www.ecocell-batteries.example.com/policies/supply-chain-due-diligence",
+    "eubat:thirdPartyAssurancesUrl": "https://www.ecocell-batteries.example.com/docs/third-party-audit-2024.pdf",
+    "eubat:riskAssessmentSummary": {
       "@value": "Low to medium risk profile. Key risks identified in lithium sourcing from Chile mitigated through certified suppliers.",
       "@language": "en"
     },
-    "supplyChainMappingAvailable": true,
-    "conflictMineralFree": true,
-    "responsibleSourcingStandard": "OECDGuidelines",
-    "auditDate": "2024-01-15",
-    "auditBody": "PwC Germany",
-    "supplyChainIndex": 78.5
+    "eubat:supplyChainMappingAvailable": true,
+    "eubat:conflictMineralFree": true,
+    "eubat:responsibleSourcingStandard": {
+      "@id": "eubat:OECDGuidelines"
+    },
+    "schema:auditDate": "2024-01-15",
+    "eubat:auditBody": "PwC Germany",
+    "eubat:supplyChainIndex": 78.5
   },
-  "sparePartSources": [
+  "eubat:sparePartSources": [
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#spare-1",
-      "type": "Organization",
-      "organizationName": "EcoCell Service GmbH",
-      "spareParts": {
+      "type": "gs1:Organization",
+      "gs1:organizationName": "EcoCell Service GmbH",
+      "eubat:spareParts": {
         "@value": "BMS Module, Cell Connectors, Cooling System Components, Terminal Covers",
         "@language": "en"
       },
-      "address": {
-        "type": "PostalAddress",
-        "streetAddress": "Serviceweg 10",
-        "addressLocality": "Stuttgart",
-        "postalCode": "70174",
-        "countryCode": "DE"
+      "gs1:address": {
+        "type": "gs1:PostalAddress",
+        "gs1:streetAddress": "Serviceweg 10",
+        "gs1:addressLocality": "Stuttgart",
+        "gs1:postalCode": "70174",
+        "gs1:countryCode": "DE"
       },
-      "supplierContact": {
-        "type": "ContactPoint",
-        "email": "spareparts@ecocell-batteries.example.com",
-        "telephone": "+49-711-555-0200",
-        "url": {
+      "eubat:supplierContact": {
+        "type": "gs1:ContactPoint",
+        "gs1:email": "spareparts@ecocell-batteries.example.com",
+        "gs1:telephone": "+49-711-555-0200",
+        "gs1:url": {
           "id": "https://parts.ecocell-batteries.example.com"
         }
       }
     }
   ],
-  "dismantlingDocuments": [
+  "eubat:dismantlingDocuments": [
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-bom",
-      "type": "DismantlingDocument",
-      "documentType": "BillOfMaterial",
-      "documentUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-bom.pdf",
-      "mimeType": "application/pdf",
-      "languageCode": "en"
+      "type": "eubat:DismantlingDocument",
+      "eubat:documentType": {
+        "@id": "eubat:BillOfMaterial"
+      },
+      "eubat:documentUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-bom.pdf",
+      "eubat:mimeType": "application/pdf",
+      "eubat:languageCode": "en"
     },
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-3d",
-      "type": "DismantlingDocument",
-      "documentType": "Model3D",
-      "documentUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-3d-model.step",
-      "mimeType": "model/step",
-      "languageCode": "en"
+      "type": "eubat:DismantlingDocument",
+      "eubat:documentType": {
+        "@id": "eubat:Model3D"
+      },
+      "eubat:documentUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-3d-model.step",
+      "eubat:mimeType": "model/step",
+      "eubat:languageCode": "en"
     },
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-manual",
-      "type": "DismantlingDocument",
-      "documentType": "DismantlingManual",
-      "documentUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-dismantling.pdf",
-      "mimeType": "application/pdf",
-      "languageCode": "en"
+      "type": "eubat:DismantlingDocument",
+      "eubat:documentType": {
+        "@id": "eubat:DismantlingManual"
+      },
+      "eubat:documentUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-dismantling.pdf",
+      "eubat:mimeType": "application/pdf",
+      "eubat:languageCode": "en"
     },
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-sds",
-      "type": "DismantlingDocument",
-      "documentType": "SafetyDataSheet",
-      "documentUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-sds.pdf",
-      "mimeType": "application/pdf",
-      "languageCode": "de"
+      "type": "eubat:DismantlingDocument",
+      "eubat:documentType": {
+        "@id": "eubat:SafetyDataSheet"
+      },
+      "eubat:documentUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-sds.pdf",
+      "eubat:mimeType": "application/pdf",
+      "eubat:languageCode": "de"
     }
   ],
-  "endOfLifeInfo": {
+  "eubat:endOfLifeInfo": {
     "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#eol",
-    "type": "EndOfLifeInfo",
-    "recyclabilityRate": 95,
-    "materialRecoveryTargets": [
+    "type": "eubat:EndOfLifeInfo",
+    "eubat:recyclabilityRate": 95,
+    "eubat:materialRecoveryTargets": [
       {
-        "type": "MaterialRecoveryTarget",
-        "recoveryMaterial": "Lithium",
-        "recoveryRate": 70
+        "type": "eubat:MaterialRecoveryTarget",
+        "eubat:recoveryMaterial": "Lithium",
+        "eubat:recoveryRate": 70
       },
       {
-        "type": "MaterialRecoveryTarget",
-        "recoveryMaterial": "Cobalt",
-        "recoveryRate": 95
+        "type": "eubat:MaterialRecoveryTarget",
+        "eubat:recoveryMaterial": "Cobalt",
+        "eubat:recoveryRate": 95
       },
       {
-        "type": "MaterialRecoveryTarget",
-        "recoveryMaterial": "Nickel",
-        "recoveryRate": 95
+        "type": "eubat:MaterialRecoveryTarget",
+        "eubat:recoveryMaterial": "Nickel",
+        "eubat:recoveryRate": 95
       },
       {
-        "type": "MaterialRecoveryTarget",
-        "recoveryMaterial": "Copper",
-        "recoveryRate": 95
+        "type": "eubat:MaterialRecoveryTarget",
+        "eubat:recoveryMaterial": "Copper",
+        "eubat:recoveryRate": 95
       }
     ],
-    "dismantlingInstructions": {
+    "eubat:dismantlingInstructions": {
       "id": "https://www.ecocell-batteries.example.com/docs/IM-500-dismantling.pdf"
     },
-    "safetyInstructionsForDismantling": "https://www.ecocell-batteries.example.com/docs/IM-500-dismantling-safety.pdf",
-    "dismantlingTime": {
-      "type": "QuantitativeValue",
-      "value": 45,
-      "unitCode": "MIN"
+    "eubat:safetyInstructionsForDismantling": "https://www.ecocell-batteries.example.com/docs/IM-500-dismantling-safety.pdf",
+    "eubat:dismantlingTime": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 45,
+      "gs1:unitCode": "MIN"
     },
-    "extinguishingAgent": {
+    "eubat:extinguishingAgent": {
       "@value": "Class D fire extinguisher or dry sand",
       "@language": "en"
     },
-    "wastePrevention": "https://www.ecocell-batteries.example.com/sustainability/waste-prevention",
-    "separateCollection": "https://www.ecocell-batteries.example.com/recycling/separate-collection",
-    "informationOnCollection": "https://www.ecocell-batteries.example.com/recycling/collection-points",
-    "safetyInstructions": "https://www.ecocell-batteries.example.com/docs/IM-500-safety.pdf",
-    "renewableContent": 3.2
+    "eubat:wastePrevention": "https://www.ecocell-batteries.example.com/sustainability/waste-prevention",
+    "eubat:separateCollection": "https://www.ecocell-batteries.example.com/recycling/separate-collection",
+    "eubat:informationOnCollection": "https://www.ecocell-batteries.example.com/recycling/collection-points",
+    "eubat:safetyInstructions": "https://www.ecocell-batteries.example.com/docs/IM-500-safety.pdf",
+    "eubat:renewableContent": 3.2
   },
-  "referencedFile": [
+  "gs1:referencedFile": [
     {
       "id": "https://www.ecocell-batteries.example.com/docs/IM-500-eu-doc.pdf",
-      "type": "ReferencedFileDetails",
-      "referencedFileType": {
+      "type": "gs1:ReferencedFileDetails",
+      "gs1:referencedFileType": {
         "id": "gs1:ReferencedFileTypeCode-DOCUMENT"
       },
-      "contentDescription": "EU Declaration of Conformity (EU 2023/1542)",
-      "fileLanguageCode": "en"
+      "gs1:contentDescription": "EU Declaration of Conformity (EU 2023/1542)",
+      "gs1:fileLanguageCode": "en"
     },
     {
       "id": "https://www.ecocell-batteries.example.com/docs/IM-500-test-report.pdf",
-      "type": "ReferencedFileDetails",
-      "referencedFileType": {
+      "type": "gs1:ReferencedFileDetails",
+      "gs1:referencedFileType": {
         "id": "gs1:ReferencedFileTypeCode-CERTIFICATION"
       },
-      "contentDescription": "EU Type Examination Test Report",
-      "fileLanguageCode": "en"
+      "gs1:contentDescription": "EU Type Examination Test Report",
+      "gs1:fileLanguageCode": "en"
     },
     {
       "id": "https://www.ecocell-batteries.example.com/docs/IM-500-manual.pdf",
-      "type": "ReferencedFileDetails",
-      "referencedFileType": {
+      "type": "gs1:ReferencedFileDetails",
+      "gs1:referencedFileType": {
         "id": "gs1:ReferencedFileTypeCode-USER_MANUAL"
       },
-      "fileLanguageCode": "en"
+      "gs1:fileLanguageCode": "en"
     },
     {
       "id": "https://www.ecocell-batteries.example.com/docs/IM-500-cfp-study.pdf",
-      "type": "ReferencedFileDetails",
-      "referencedFileType": {
+      "type": "gs1:ReferencedFileDetails",
+      "gs1:referencedFileType": {
         "id": "gs1:ReferencedFileTypeCode-CERTIFICATION"
       },
-      "contentDescription": "Carbon Footprint Study (ISO 14067)",
-      "fileLanguageCode": "en"
+      "gs1:contentDescription": "Carbon Footprint Study (ISO 14067)",
+      "gs1:fileLanguageCode": "en"
     }
   ]
 }
