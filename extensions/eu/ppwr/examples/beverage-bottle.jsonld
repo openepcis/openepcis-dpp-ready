@@ -8,9 +8,9 @@
     "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
   ],
   "id": "https://id.demo.epcis.cloud/01/09521004005019",
-  "type": "Packaging",
-  "gtin": "09521004005019",
-  "productName": [
+  "type": "euppwr:Packaging",
+  "gs1:gtin": "09521004005019",
+  "gs1:productName": [
     {
       "@value": "Mountain Spring Mineral Water, 500 mL PET bottle",
       "@language": "en"
@@ -56,84 +56,88 @@
       "@language": "it"
     }
   ],
-  "packagingTier": "Sales",
-  "recyclabilityGrade": "A",
-  "harmonisedSymbol": "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/separate-collection-pet",
-  "manufacturingDate": "2026-04-15",
-  "manufacturer": {
+  "euppwr:packagingTier": {
+    "@id": "euppwr:Sales"
+  },
+  "euppwr:recyclabilityGrade": {
+    "@id": "euppwr:GradeA"
+  },
+  "euppwr:harmonisedSymbol": "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/separate-collection-pet",
+  "gs1:manufacturingDate": "2026-04-15",
+  "gs1:manufacturer": {
     "id": "https://id.demo.epcis.cloud/417/9521234000020",
-    "type": "Organization",
-    "organizationName": "AlpenQuell GmbH",
-    "partyGLN": "9521234000020"
+    "type": "gs1:Organization",
+    "gs1:organizationName": "AlpenQuell GmbH",
+    "gs1:partyGLN": "9521234000020"
   },
-  "extendedProducerResponsibility": [
+  "oec:extendedProducerResponsibility": [
     {
-      "type": "ExtendedProducerResponsibility",
-      "eprRegistrationNumber": "DE-VPC-58092100",
-      "eprWasteStream": "packaging",
-      "eprJurisdiction": {
+      "type": "oec:ExtendedProducerResponsibility",
+      "oec:eprRegistrationNumber": "DE-VPC-58092100",
+      "oec:eprWasteStream": "packaging",
+      "oec:eprJurisdiction": {
         "id": "https://ref.gs1.org/voc/Country-DE",
-        "type": "Country"
+        "type": "gs1:Country"
       },
-      "eprScheme": {
+      "oec:eprScheme": {
         "id": "https://id.demo.epcis.cloud/417/4030101000001",
-        "type": "Organization",
-        "organizationName": "Der Grüne Punkt, Duales System Deutschland GmbH"
+        "type": "gs1:Organization",
+        "gs1:organizationName": "Der Grüne Punkt, Duales System Deutschland GmbH"
       },
-      "eprComplianceUrl": "https://ldb.zsvr.de/marken/58092100"
+      "oec:eprComplianceUrl": "https://ldb.zsvr.de/marken/58092100"
     }
   ],
-  "depositReturnScheme": {
-    "type": "DepositReturnScheme",
-    "depositAmount": {
-      "type": "QuantitativeValue",
-      "value": 0.25,
-      "unitCode": "EUR"
+  "oec:depositReturnScheme": {
+    "type": "oec:DepositReturnScheme",
+    "oec:depositAmount": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 0.25,
+      "gs1:unitCode": "EUR"
     },
-    "depositSchemeOperator": {
+    "oec:depositSchemeOperator": {
       "id": "https://id.demo.epcis.cloud/417/4030101000018",
-      "type": "Organization",
-      "organizationName": "Deutsche Pfandsystem GmbH"
+      "type": "gs1:Organization",
+      "gs1:organizationName": "Deutsche Pfandsystem GmbH"
     },
-    "depositRedemptionChannelUrl": "https://www.dpg-pfandsystem.de/find-redemption-point"
+    "oec:depositRedemptionChannelUrl": "https://www.dpg-pfandsystem.de/find-redemption-point"
   },
-  "recycledContent": {
-    "type": "RecycledContent",
-    "recycledContent": {
-      "type": "QuantitativeValue",
-      "value": 0.5,
-      "unitCode": "P1"
+  "oec:recycledContent": {
+    "type": "oec:RecycledContent",
+    "oec:recycledContent": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 0.5,
+      "gs1:unitCode": "P1"
     },
-    "postConsumerRecycledContent": {
-      "type": "QuantitativeValue",
-      "value": 0.5,
-      "unitCode": "P1"
+    "oec:postConsumerRecycledContent": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 0.5,
+      "gs1:unitCode": "P1"
     },
-    "preConsumerRecycledContent": {
-      "type": "QuantitativeValue",
-      "value": 0.0,
-      "unitCode": "P1"
+    "oec:preConsumerRecycledContent": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 0,
+      "gs1:unitCode": "P1"
     }
   },
-  "materialComposition": [
+  "oec:materialComposition": [
     {
-      "type": "MaterialComposition",
-      "materialName": "PET (polyethylene terephthalate)",
-      "massFraction": 1.0,
-      "casNumber": "25038-59-9"
+      "type": "oec:MaterialComposition",
+      "schema:name": "PET (polyethylene terephthalate)",
+      "oec:massFraction": 1,
+      "oec:casNumber": "25038-59-9"
     }
   ],
-  "regulatoryInformation": [
+  "gs1:regulatoryInformation": [
     {
-      "type": "RegulatoryInformation",
-      "regulationType": {
+      "type": "gs1:RegulatoryInformation",
+      "gs1:regulationType": {
         "id": "gs1:RegulationTypeCode-PACKAGING_REGULATION"
       },
-      "regulatoryAct": "EU 2025/40",
-      "isRegulationCompliant": true
+      "gs1:regulatoryAct": "EU 2025/40",
+      "oec:isRegulationCompliant": true
     }
   ],
-  "productDescription": [
+  "gs1:productDescription": [
     {
       "@value": "50% post-consumer rPET bottle with Grade A recyclability, deposit-return scheme membership, and harmonised separate-collection PET symbol.",
       "@language": "en"

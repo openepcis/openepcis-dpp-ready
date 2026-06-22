@@ -2,7 +2,7 @@
   "@context": [
     "https://ref.openepcis.io/extensions/us/fsma204/fsma204-context.jsonld"
   ],
-  "type": "Product",
+  "type": "gs1:Product",
   "id": "https://id.demo.epcis.cloud/01/00860009999923",
   "_comment_gs1us_mapping": [
     "Trade-item master data for a food on the Food Traceability List.",
@@ -14,28 +14,33 @@
     "gs1:importClassificationTypeCode + gs1:importClassificationValue,",
     "gs1:gpcCategoryCode) plus any FDA-categorisation such as usfsma:foodTraceabilityListCategory."
   ],
-  "gtin": "00860009999923",
-  "productName": [
-    { "@value": "Romaine lettuce, fresh-cut, whole heads", "@language": "en" }
+  "gs1:gtin": "00860009999923",
+  "gs1:productName": [
+    {
+      "@value": "Romaine lettuce, fresh-cut, whole heads",
+      "@language": "en"
+    }
   ],
-  "functionalName": "Romaine lettuce, fresh-cut, whole heads",
-  "importClassificationTypeCode": "HTSUS",
-  "importClassificationValue": "0705.11.2000",
-  "gpcCategoryCode": "10006423",
-  "foodTraceabilityListCategory": "LeafyGreensFreshCut",
-  "netWeight": {
-    "type": "QuantitativeValue",
-    "value": 11.34,
-    "unitCode": "KGM"
+  "gs1:functionalName": "Romaine lettuce, fresh-cut, whole heads",
+  "gs1:importClassificationTypeCode": "HTSUS",
+  "gs1:importClassificationValue": "0705.11.2000",
+  "gs1:gpcCategoryCode": "10006423",
+  "usfsma:foodTraceabilityListCategory": {
+    "@id": "usfsma:LeafyGreensFreshCut"
   },
-  "countryOfOrigin": {
-    "type": "Country",
-    "countryCode": "US"
+  "gs1:netWeight": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 11.34,
+    "gs1:unitCode": "KGM"
   },
-  "manufacturer": {
+  "gs1:countryOfOrigin": {
+    "type": "gs1:Country",
+    "gs1:countryCode": "US"
+  },
+  "gs1:manufacturer": {
     "id": "https://id.gs1.org/417/0860009999060",
-    "type": "Organization",
-    "organizationName": "Sunrise Valley Farm LLC",
-    "partyGLN": "0860009999060"
+    "type": "gs1:Organization",
+    "gs1:organizationName": "Sunrise Valley Farm LLC",
+    "gs1:partyGLN": "0860009999060"
   }
 }

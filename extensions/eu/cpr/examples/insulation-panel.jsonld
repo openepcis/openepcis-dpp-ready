@@ -12,83 +12,87 @@
     "https://ref.openepcis.io/extensions/eu/cpr/cpr-context.jsonld"
   ],
   "id": "https://id.gs1.org/01/09521234600022",
-  "type": "ConstructionProduct",
-  "gtin": "09521234600022",
-  "productName": {
+  "type": "eucpr:ConstructionProduct",
+  "gs1:gtin": "09521234600022",
+  "gs1:productName": {
     "@value": "ThermoWool Plus 100, 1200×600×100 mm mineral wool panel",
     "@language": "en"
   },
-  "constructionProductType": "Insulation",
-  "reactionToFireClass": "A1",
-  "declarationOfPerformanceUrl": "https://manufacturer.example/dop/ThermoWool-Plus-100-2026-001.pdf",
-  "manufacturer": {
+  "eucpr:constructionProductType": {
+    "@id": "eucpr:Insulation"
+  },
+  "eucpr:reactionToFireClass": {
+    "@id": "eucpr:FireClassA1"
+  },
+  "eucpr:declarationOfPerformanceUrl": "https://manufacturer.example/dop/ThermoWool-Plus-100-2026-001.pdf",
+  "gs1:manufacturer": {
     "id": "https://id.gs1.org/417/9521234000051",
-    "type": "Organization",
-    "organizationName": "IsolierTech AG",
-    "partyGLN": "9521234000051"
+    "type": "gs1:Organization",
+    "gs1:organizationName": "IsolierTech AG",
+    "gs1:partyGLN": "9521234000051"
   },
-  "essentialCharacteristic": [
+  "eucpr:essentialCharacteristic": [
     {
-      "type": "EssentialCharacteristic",
-      "characteristicName": "Thermal Conductivity λD",
-      "characteristicValue": {
-        "type": "QuantitativeValue",
-        "value": 0.034,
-        "unitCode": "F94"
+      "type": "eucpr:EssentialCharacteristic",
+      "eucpr:characteristicName": "Thermal Conductivity λD",
+      "eucpr:characteristicValue": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": 0.034,
+        "gs1:unitCode": "F94"
       },
-      "harmonisedStandard": "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30562,5839"
+      "eucpr:harmonisedStandard": "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30562,5839"
     },
     {
-      "type": "EssentialCharacteristic",
-      "characteristicName": "Density",
-      "characteristicValue": {
-        "type": "QuantitativeValue",
-        "value": 60,
-        "unitCode": "KMQ"
+      "type": "eucpr:EssentialCharacteristic",
+      "eucpr:characteristicName": "Density",
+      "eucpr:characteristicValue": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": 60,
+        "gs1:unitCode": "KMQ"
       },
-      "harmonisedStandard": "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30562,5839"
+      "eucpr:harmonisedStandard": "https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:30562,5839"
     }
   ],
-  "recycledContent": {
-    "type": "RecycledContent",
-    "recycledContent": {
-      "type": "QuantitativeValue",
-      "value": 0.30,
-      "unitCode": "P1"
+  "oec:recycledContent": {
+    "type": "oec:RecycledContent",
+    "oec:recycledContent": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 0.3,
+      "gs1:unitCode": "P1"
     },
-    "postConsumerRecycledContent": {
-      "type": "QuantitativeValue",
-      "value": 0.30,
-      "unitCode": "P1"
+    "oec:postConsumerRecycledContent": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 0.3,
+      "gs1:unitCode": "P1"
     }
   },
-  "materialComposition": [
+  "oec:materialComposition": [
     {
-      "type": "MaterialComposition",
-      "materialName": "Mineral wool (rock + recycled glass cullet)",
-      "massFraction": 0.97
+      "type": "oec:MaterialComposition",
+      "schema:name": "Mineral wool (rock + recycled glass cullet)",
+      "oec:massFraction": 0.97
     },
     {
-      "type": "MaterialComposition",
-      "materialName": "Phenolic resin binder",
-      "massFraction": 0.03
+      "type": "oec:MaterialComposition",
+      "schema:name": "Phenolic resin binder",
+      "oec:massFraction": 0.03
     }
   ],
-  "endOfLifeProgram": {
-    "type": "EndOfLifeProgram",
-    "takeBackUrl": "https://isoliertech.example/take-back",
-    "takeBackIncentive": "Free pick-up for site quantities >500 kg",
-    "collectionPointDirectoryUrl": "https://isoliertech.example/collection-points",
-    "dismantlingGuideUrl": "https://isoliertech.example/dismantling-guide-thermowool"
+  "oec:endOfLifeProgram": {
+    "type": "oec:EndOfLifeProgram",
+    "oec:takeBackUrl": "https://isoliertech.example/take-back",
+    "oec:takeBackIncentive": "Free pick-up for site quantities >500 kg",
+    "oec:collectionPointDirectoryUrl": "https://isoliertech.example/collection-points",
+    "oec:dismantlingGuideUrl": "https://isoliertech.example/dismantling-guide-thermowool"
   },
-  "regulatoryInformation": [
+  "gs1:regulatoryInformation": [
     {
-      "type": "RegulatoryInformation",
-      "regulationType": {
+      "type": "gs1:RegulatoryInformation",
+      "gs1:regulationType": {
         "id": "gs1:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION"
       },
-      "regulatoryAct": "EU 2024/3110",
-      "isRegulationCompliant": true
+      "gs1:regulatoryAct": "EU 2024/3110",
+      "oec:isRegulationCompliant": true
     }
   ]
 }

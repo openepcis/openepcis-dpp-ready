@@ -41,6 +41,37 @@ be queryable via SPARQL, and validateable via SHACL. This is not optional
 
 ## 2. EPCIS Events — Extension Rules
 
+### 0. Namespace prefix rule (canonical)
+
+**Principle.** A bare term means `gs1:` — the GS1 Web Vocabulary is the ambient
+default. We rely on that implicit behaviour in exactly **one** place:
+`masterDataAvailableFor`, a self-contained GS1 master-data card. **Everywhere else
+no namespace is left implicit:** every vocabulary term — `gs1:` included — is
+written with its prefix, so a reader sees where each field originates.
+
+| Location | Prefix rule |
+|---|---|
+| EPCIS event-model / CBV fields (`type`, `eventTime`, `action`, `bizStep`, `disposition`, `epcList`, `readPoint`, `ilmd`, `quantityList`, `sensorElementList`, `value`, `uom`, …) | **Bare always.** These are EPCIS structural terms (the `epcis:`/`cbv:` namespaces), not GS1/extension vocabulary. Never prefix them — `epcis:ilmd` is RDF-equivalent but breaks EPCIS schema conformance. |
+| `masterDataAvailableFor` (key is bare) | INSIDE: gs1 property keys **bare**, gs1 class `type`/`id` values **bare**, extension keys **prefixed**. |
+| `ilmd` (the contents) | **All** vocabulary terms prefixed incl. `gs1:` — `gs1:bestBeforeDate`, `gs1:catchZone`, `eutex:isRecycledFiber`. The `ilmd` key itself stays bare (it is EPCIS-structural). |
+| Event-level extension properties | Prefixed (`eubat:incidentSeverity`, `eudr:riskLevel`). |
+| Standalone product / DPP master-data files | **All** terms prefixed incl. `gs1:` — `gs1:productName`, `eubat:batteryChemistry`; `type: ["gs1:Product", "eubat:Battery"]`. |
+
+**How clean values are kept.** Each module `@context` defines, for every coerced
+term, BOTH a bare alias and a prefixed-form alias carrying the same coercion (e.g.
+`"gs1:harvestDateStart": {"@id": "gs1:harvestDateStart", "@type": "xsd:date"}`). So
+`"gs1:harvestDateStart": "2026-02-16"` keeps its `xsd:date` typing while staying a
+simple scalar — the prefix is visible on the key, the value stays clean. (A raw
+CURIE key without this alias would silently drop the coercion.) These aliases are
+generated: re-run `pnpm run build:context` then `tsx scripts/promote-context.ts`.
+
+**Legitimately-bare exceptions** (prefixing them would change the RDF, so they stay
+bare): EPCIS-structural terms (above); a term shadowed by two namespaces in one
+document (e.g. `materialComposition` when both `oec:` and `eubat:` contexts load);
+synonym aliases that collapse onto one IRI (`shortName` + `fullName` → `schema:name`);
+and open-vocabulary enum values not defined in the term's scoped `@context`. When in
+doubt, the test is RDF identity: a rename is allowed only if expansion is unchanged.
+
 ### A. `masterDataAvailableFor` — product/party/location master data
 
 `masterDataAvailableFor` is a mechanism to embed **master data about
