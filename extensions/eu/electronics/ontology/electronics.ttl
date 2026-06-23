@@ -11,6 +11,8 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix schema: <https://schema.org/> .
+# DPP Keystone (dpp-keystone.org), a peer DPP profile this module aligns with.
+@prefix dppk: <https://dpp-keystone.org/spec/v2/terms#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 # EU SEMICeu Core Vocabularies (peer Layer 1): see extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md
 @prefix cv:    <http://data.europa.eu/m8g/> .
@@ -124,18 +126,18 @@ euelec:SoftwareSupport
     rdfs:label "Software Support"@en ;
     rdfs:comment """Operating system and firmware support information including update periods,
 security patch availability, and end-of-support dates. Critical for electronics lifecycle
-and repairability assessments per ESPR delegated acts ;
-    dcterms:source <https://www.iso.org/standard/63712.html> ;
-    skos:note "Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent."@en .
+and repairability assessments per ESPR delegated acts.
 
 Designed following ISO/IEC 12207 (software lifecycle) and ISO/IEC 14764 (software maintenance)
 patterns as a potential contribution to UNTP v1.0+."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     rdfs:seeAlso <https://www.iso.org/standard/43447.html> ;
+    rdfs:seeAlso dppk:softwareUpdatePolicy ;
+    skos:closeMatch dppk:softwareUpdatePolicy ;
     skos:note """Software lifecycle tracking per ISO/IEC 12207. Designed as potential UNTP extension.
 UNTP v0.6 does not yet include software support properties, making this a candidate for
-contribution to UNTP v1.0+."""@en .
+contribution to UNTP v1.0+. Aligns approximately with DPP Keystone dppk:softwareUpdatePolicy."""@en .
 
 euelec:EnergyEfficiency
     a owl:Class ;
@@ -452,7 +454,9 @@ euelec:WEEECategory
         euelec:WEEE6_SmallIT
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
-    skos:note "E-waste / separate-collection concept per the WEEE Directive 2012/19/EU. No GS1, SEMICeu, or schema.org equivalent."@en .
+    rdfs:seeAlso dppk:weeeCategory ;
+    skos:closeMatch dppk:weeeCategory ;
+    skos:note "E-waste / separate-collection concept per the WEEE Directive 2012/19/EU. Aligns approximately with the DPP Keystone field dppk:weeeCategory. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 euelec:WEEE1_TemperatureExchange a euelec:WEEECategory ;
     rdfs:label "WEEE Category 1: Temperature Exchange Equipment"@en ;
@@ -1027,7 +1031,9 @@ euelec:sparePartAvailabilityYears
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en .
+    rdfs:seeAlso dppk:sparePartsAvailable ;
+    skos:closeMatch dppk:sparePartsAvailable ;
+    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. Aligns approximately with the DPP Keystone field dppk:sparePartsAvailable. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 euelec:sparePartPrice
     a owl:ObjectProperty ;

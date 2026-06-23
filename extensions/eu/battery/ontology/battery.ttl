@@ -9,6 +9,8 @@
 @prefix untp-core: <https://test.uncefact.org/vocabulary/untp/core/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+# DPP Keystone (dpp-keystone.org), a peer DPP profile this module aligns with.
+@prefix dppk: <https://dpp-keystone.org/spec/v2/terms#> .
 @prefix schema: <https://schema.org/> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 # EU SEMICeu Core Vocabularies (peer Layer 1): see extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md
@@ -80,6 +82,8 @@ Battery categories can also be expressed via gs1:additionalProductClassification
 
 eubat:Battery
     a owl:Class ;
+    rdfs:seeAlso dppk:BatteryProduct ;
+    skos:closeMatch dppk:BatteryProduct ;
     rdfs:label "Battery"@en ;
     rdfs:comment "A self-contained energy-storage device whose Digital Product Passport falls in scope of EU Regulation 2023/1542. Use as the primary `type` discriminator on a Battery product (typically paired with `gs1:Product` for canonical JSON-LD dual-typing, e.g. `\"type\": [\"Product\", \"Battery\"]`). Subclasses on eubat:batteryCategory (LMTBattery, EVBattery, IndustrialBattery, StationaryBattery, PortableBattery, SLIBattery) further qualify the category."@en ;
     rdfs:subClassOf gs1:Product ;
@@ -701,6 +705,8 @@ eubat:hasBattery
 
 eubat:manufacturingPlace
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:manufacturingPlace ;
+    skos:exactMatch dppk:manufacturingPlace ;
     rdfs:label "Manufacturing Place"@en ;
     rdfs:comment "Location where the battery was manufactured. A oec:FacilityInformation (subClassOf gs1:Place) carrying GLN, certifications, and facility-specific identifiers."@en ;
     rdfs:domain gs1:Product ;
@@ -790,6 +796,8 @@ eubat:facilityIdentifier
 
 eubat:batteryChemistry
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:batteryChemistry ;
+    skos:exactMatch dppk:batteryChemistry ;
     rdfs:label "Battery Chemistry"@en ;
     rdfs:comment "The electrochemical system of the battery including cathode, anode, and electrolyte composition."@en ;
     rdfs:domain gs1:Product ;
@@ -854,6 +862,8 @@ eubat:technicalSpecifications
 
 eubat:ratedCapacity
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:ratedCapacity ;
+    skos:exactMatch dppk:ratedCapacity ;
     rdfs:label "Rated Capacity"@en ;
     rdfs:comment "Rated capacity in Ampere-hours (Ah). Use gs1:QuantitativeValue with unitCode 'AMH'."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
@@ -874,6 +884,8 @@ eubat:ratedEnergy
 
 eubat:nominalVoltage
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:voltageNominal ;
+    skos:exactMatch dppk:voltageNominal ;
     rdfs:label "Nominal Voltage"@en ;
     rdfs:comment "Nominal operating voltage of the battery pack in Volts (V). Use unitCode 'VLT' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
@@ -884,6 +896,8 @@ eubat:nominalVoltage
 
 eubat:minimumVoltage
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:voltageMinimum ;
+    skos:exactMatch dppk:voltageMinimum ;
     rdfs:label "Minimum Voltage"@en ;
     rdfs:comment "Minimum allowable voltage to prevent deep discharge damage, in Volts (V). Use unitCode 'VLT' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
@@ -894,6 +908,8 @@ eubat:minimumVoltage
 
 eubat:maximumVoltage
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:voltageMaximum ;
+    skos:exactMatch dppk:voltageMaximum ;
     rdfs:label "Maximum Voltage"@en ;
     rdfs:comment "Maximum allowable voltage when fully charged, in Volts (V). Use unitCode 'VLT' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
@@ -934,6 +950,8 @@ eubat:maximumDischargingPower
 
 eubat:maximumPermittedBatteryPower
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:powerMaximumPermitted ;
+    skos:exactMatch dppk:powerMaximumPermitted ;
     rdfs:label "Maximum Permitted Battery Power"@en ;
     rdfs:comment "Maximum permitted battery power (single declared value). Use gs1:QuantitativeValue with unitCode 'WTT' (watt) or 'KWT' (kW), UN/CEFACT Rec 20."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
@@ -965,6 +983,8 @@ eubat:maximumDischargingCurrent
 
 eubat:expectedCycleLife
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:expectedLifetimeCycles ;
+    skos:exactMatch dppk:expectedLifetimeCycles ;
     rdfs:label "Expected Cycle Life"@en ;
     rdfs:comment "Expected number of full charge-discharge cycles under reference test conditions."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
@@ -975,6 +995,8 @@ eubat:expectedCycleLife
 
 eubat:expectedLifetimeYears
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:expectedLifetimeYears ;
+    skos:exactMatch dppk:expectedLifetimeYears ;
     rdfs:label "Expected Lifetime (Years)"@en ;
     rdfs:comment "Expected calendar lifetime under normal operating conditions, in years."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
@@ -1005,6 +1027,8 @@ eubat:expectedLifetimeCapacityThroughput
 
 eubat:roundTripEfficiency
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:roundTripEfficiencyInitial ;
+    skos:exactMatch dppk:roundTripEfficiencyInitial ;
     rdfs:label "Round Trip Efficiency"@en ;
     rdfs:comment "Initial round-trip energy efficiency as percentage."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
@@ -1015,6 +1039,8 @@ eubat:roundTripEfficiency
 
 eubat:roundTripEfficiencyAt50PercentCycleLife
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:roundTripEfficiencyAt50Cycles ;
+    skos:closeMatch dppk:roundTripEfficiencyAt50Cycles ;
     rdfs:label "Round Trip Efficiency at 50% Cycle Life"@en ;
     rdfs:comment "Expected round trip efficiency at 50% of rated cycle life."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
@@ -1055,6 +1081,8 @@ eubat:resistanceIncreaseThreshold
 
 eubat:initialInternalResistance
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:internalResistanceInitial ;
+    skos:exactMatch dppk:internalResistanceInitial ;
     rdfs:label "Initial Internal Resistance"@en ;
     rdfs:comment "Initial internal resistance at commissioning in Ohms. Use unitCode 'OHM' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
@@ -1065,6 +1093,8 @@ eubat:initialInternalResistance
 
 eubat:initialSelfDischarge
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:selfDischargeInitial ;
+    skos:exactMatch dppk:selfDischargeInitial ;
     rdfs:label "Initial Self Discharge"@en ;
     rdfs:comment "Initial self-discharge rate as percentage per month."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
@@ -1075,6 +1105,8 @@ eubat:initialSelfDischarge
 
 eubat:capacityThresholdForExhaustion
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:exhaustionCapacityThreshold ;
+    skos:exactMatch dppk:exhaustionCapacityThreshold ;
     rdfs:label "Capacity Threshold for Exhaustion"@en ;
     rdfs:comment "SOCE percentage threshold below which the battery is considered exhausted."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
@@ -1085,6 +1117,8 @@ eubat:capacityThresholdForExhaustion
 
 eubat:lifetimeReferenceTest
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:referenceTestCycleLife ;
+    skos:closeMatch dppk:referenceTestCycleLife ;
     rdfs:label "Lifetime Reference Test"@en ;
     rdfs:comment "URL or reference to the standard test used for lifetime determination."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
@@ -1095,6 +1129,8 @@ eubat:lifetimeReferenceTest
 
 eubat:powerCapabilityRatio
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:powerEnergyRatio ;
+    skos:exactMatch dppk:powerEnergyRatio ;
     rdfs:label "Power Capability Ratio"@en ;
     rdfs:comment "Ratio of rated power to rated energy (W/Wh)."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
@@ -1115,6 +1151,8 @@ eubat:cRate
 
 eubat:cRateLifeCycleTest
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:cRateCycleTest ;
+    skos:exactMatch dppk:cRateCycleTest ;
     rdfs:label "C-Rate Life Cycle Test"@en ;
     rdfs:comment "C-rate used for lifecycle testing."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
@@ -1226,6 +1264,8 @@ eubat:maximumTemperature
 eubat:materialComposition
     a owl:ObjectProperty ;
     rdfs:subPropertyOf schema:hasPart ;
+    rdfs:seeAlso dppk:materialComposition ;
+    skos:exactMatch dppk:materialComposition ;
     rdfs:label "Material Composition"@en ;
     rdfs:comment "Materials used in battery construction with their percentages, locations, and critical raw material status. Aligned with schema:hasPart for semantic web interoperability."@en ;
     rdfs:domain gs1:Product ;
@@ -1269,6 +1309,8 @@ eubat:componentLocation
 
 eubat:isCriticalRawMaterial
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:criticalRawMaterials ;
+    skos:closeMatch dppk:criticalRawMaterials ;
     rdfs:label "Is Critical Raw Material"@en ;
     rdfs:comment "Whether this material is on the EU Critical Raw Materials list."@en ;
     rdfs:domain eubat:BatteryMaterial ;
@@ -1518,6 +1560,8 @@ eubat:dismantlingTime
 
 eubat:extinguishingAgent
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:extinguishingAgent ;
+    skos:exactMatch dppk:extinguishingAgent ;
     rdfs:label "Extinguishing Agent"@en ;
     rdfs:comment "Recommended fire extinguishing agent for the battery."@en ;
     rdfs:domain eubat:EndOfLifeInfo ;
@@ -1528,6 +1572,8 @@ eubat:extinguishingAgent
 
 eubat:wastePrevention
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:wastePreventionInfo ;
+    skos:exactMatch dppk:wastePreventionInfo ;
     rdfs:label "Waste Prevention"@en ;
     rdfs:comment "URL to waste prevention information."@en ;
     rdfs:domain eubat:EndOfLifeInfo ;
@@ -1539,6 +1585,8 @@ eubat:wastePrevention
 
 eubat:separateCollection
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:separateCollectionSymbol ;
+    skos:closeMatch dppk:separateCollectionSymbol ;
     rdfs:label "Separate Collection"@en ;
     rdfs:comment "URL to information about separate collection requirements."@en ;
     rdfs:domain eubat:EndOfLifeInfo ;
@@ -1559,6 +1607,8 @@ eubat:informationOnCollection
 
 eubat:renewableContent
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:renewableContent ;
+    skos:exactMatch dppk:renewableContent ;
     rdfs:label "Renewable Content"@en ;
     rdfs:comment "Percentage of renewable content in the battery."@en ;
     rdfs:domain eubat:EndOfLifeInfo ;
@@ -1644,6 +1694,8 @@ eubat:languageCode
 
 eubat:hazardousSubstances
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:hazardousSubstances ;
+    skos:exactMatch dppk:hazardousSubstances ;
     rdfs:label "Hazardous Substances"@en ;
     rdfs:comment "Hazardous substances present in the battery."@en ;
     rdfs:domain gs1:Product ;
@@ -1697,6 +1749,8 @@ eubat:concentration
 
 eubat:hazardImpact
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:hazardousSubstancesImpact ;
+    skos:closeMatch dppk:hazardousSubstancesImpact ;
     rdfs:label "Hazard Impact"@en ;
     rdfs:comment "Description of the hazard impact."@en ;
     rdfs:domain eubat:HazardousSubstance ;
@@ -1831,6 +1885,8 @@ eubat:labelSymbol
 
 eubat:labelMeaning
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:labelMeaning ;
+    skos:exactMatch dppk:labelMeaning ;
     rdfs:label "Label Meaning"@en ;
     rdfs:comment "Human-readable meaning of the label."@en ;
     rdfs:domain eubat:Label ;
@@ -2067,6 +2123,8 @@ Used in BatteryPass bridge context to map per-stage carbon footprint data."""@en
 
 eubat:absoluteCarbonFootprint
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:carbonFootprintAbsolute ;
+    skos:exactMatch dppk:carbonFootprintAbsolute ;
     rdfs:label "Absolute Carbon Footprint"@en ;
     rdfs:comment "Total carbon footprint in kg CO2e (not normalized per kWh)."@en ;
     rdfs:domain eubat:CarbonFootprintDeclaration ;
@@ -2077,6 +2135,8 @@ eubat:absoluteCarbonFootprint
 
 eubat:carbonFootprintPerformanceClass
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:carbonFootprintClass ;
+    skos:exactMatch dppk:carbonFootprintClass ;
     rdfs:label "Carbon Footprint Performance Class"@en ;
     rdfs:comment "Performance class for carbon footprint (A-E)."@en ;
     rdfs:domain eubat:CarbonFootprintDeclaration ;
@@ -2087,6 +2147,8 @@ eubat:carbonFootprintPerformanceClass
 
 eubat:carbonFootprintStudyUrl
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:carbonFootprintStudy ;
+    skos:closeMatch dppk:carbonFootprintStudy ;
     rdfs:label "Carbon Footprint Study URL"@en ;
     rdfs:comment "URL to the full carbon footprint study document."@en ;
     rdfs:domain eubat:CarbonFootprintDeclaration ;
@@ -2217,6 +2279,8 @@ eubat:supplyChainDueDiligence
 
 eubat:dueDiligenceReportUrl
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:dueDiligenceReport ;
+    skos:closeMatch dppk:dueDiligenceReport ;
     rdfs:label "Due Diligence Report URL"@en ;
     rdfs:comment "URL to the supply chain due diligence report (MANDATORY)."@en ;
     rdfs:domain eubat:SupplyChainDueDiligence ;
@@ -2298,6 +2362,8 @@ eubat:auditBody
 
 eubat:supplyChainIndex
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:supplyChainIndices ;
+    skos:closeMatch dppk:supplyChainIndices ;
     rdfs:label "Supply Chain Index"@en ;
     rdfs:comment "Optional supply chain sustainability index score."@en ;
     rdfs:domain eubat:SupplyChainDueDiligence ;
@@ -2489,6 +2555,8 @@ eubat:stateOfHealth
 
 eubat:stateOfCharge
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:stateOfCharge ;
+    skos:exactMatch dppk:stateOfCharge ;
     rdfs:label "State of Charge"@en ;
     rdfs:comment "Current charge level as percentage. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
     rdfs:domain gs1:Product ;
@@ -2499,6 +2567,8 @@ eubat:stateOfCharge
 
 eubat:stateOfCertifiedEnergy
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:soce ;
+    skos:exactMatch dppk:soce ;
     rdfs:label "State of Certified Energy"@en ;
     rdfs:comment "SOCE ratio of remaining to certified usable energy. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
     rdfs:domain gs1:Product ;
@@ -2509,6 +2579,8 @@ eubat:stateOfCertifiedEnergy
 
 eubat:cycleCount
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:cycleCountFull ;
+    skos:exactMatch dppk:cycleCountFull ;
     rdfs:label "Cycle Count"@en ;
     rdfs:comment "Number of full charge-discharge cycles. Use gs1:QuantitativeValue with unitCode 'C62' (count)."@en ;
     rdfs:domain gs1:Product ;
@@ -2519,6 +2591,8 @@ eubat:cycleCount
 
 eubat:remainingCapacity
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:remainingCapacity ;
+    skos:exactMatch dppk:remainingCapacity ;
     rdfs:label "Remaining Capacity"@en ;
     rdfs:comment "Current maximum capacity. Use gs1:QuantitativeValue with unitCode 'AMP_HR'."@en ;
     rdfs:domain gs1:Product ;
@@ -2539,6 +2613,8 @@ eubat:remainingEnergy
 
 eubat:capacityFade
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:capacityFade ;
+    skos:exactMatch dppk:capacityFade ;
     rdfs:label "Capacity Fade"@en ;
     rdfs:comment "Capacity degradation as a percentage of rated capacity, computed as ((rated − remaining) / rated) × 100. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
     rdfs:domain gs1:Product ;
@@ -2549,6 +2625,8 @@ eubat:capacityFade
 
 eubat:powerFade
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:powerFade ;
+    skos:exactMatch dppk:powerFade ;
     rdfs:label "Power Fade"@en ;
     rdfs:comment "Power capability degradation as a percentage of original power capability, computed as ((original − remaining) / original) × 100. Use unitCode 'P1' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain gs1:Product ;
@@ -2569,6 +2647,8 @@ eubat:internalResistance
 
 eubat:internalResistanceIncrease
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:internalResistanceIncrease ;
+    skos:exactMatch dppk:internalResistanceIncrease ;
     rdfs:label "Internal Resistance Increase"@en ;
     rdfs:comment "Percentage increase in internal resistance. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
     rdfs:domain gs1:Product ;
@@ -2579,6 +2659,8 @@ eubat:internalResistanceIncrease
 
 eubat:energyThroughput
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:energyThroughput ;
+    skos:exactMatch dppk:energyThroughput ;
     rdfs:label "Energy Throughput"@en ;
     rdfs:comment "Cumulative energy throughput. Use gs1:QuantitativeValue with unitCode 'KWH'."@en ;
     rdfs:domain gs1:Product ;
@@ -2589,6 +2671,8 @@ eubat:energyThroughput
 
 eubat:capacityThroughput
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:capacityThroughput ;
+    skos:exactMatch dppk:capacityThroughput ;
     rdfs:label "Capacity Throughput"@en ;
     rdfs:comment "Cumulative capacity throughput. Use gs1:QuantitativeValue with unitCode 'AMP_HR'."@en ;
     rdfs:domain gs1:Product ;
@@ -2599,6 +2683,8 @@ eubat:capacityThroughput
 
 eubat:remainingRoundTripEfficiency
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:roundTripEfficiencyRemaining ;
+    skos:exactMatch dppk:roundTripEfficiencyRemaining ;
     rdfs:label "Remaining Round Trip Efficiency"@en ;
     rdfs:comment "Current round trip energy efficiency. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
     rdfs:domain gs1:Product ;
@@ -2609,6 +2695,8 @@ eubat:remainingRoundTripEfficiency
 
 eubat:roundTripEfficiencyFade
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:roundTripEfficiencyFade ;
+    skos:exactMatch dppk:roundTripEfficiencyFade ;
     rdfs:label "Round Trip Efficiency Fade"@en ;
     rdfs:comment "Degradation of round trip efficiency, computed as ((initial RTE − remaining RTE) / initial RTE) × 100. Use unitCode 'P1' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain gs1:Product ;
@@ -2619,6 +2707,8 @@ eubat:roundTripEfficiencyFade
 
 eubat:selfDischargeRate
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:selfDischargeCurrent ;
+    skos:exactMatch dppk:selfDischargeCurrent ;
     rdfs:label "Self Discharge Rate"@en ;
     rdfs:comment "Current self-discharge rate. Use gs1:QuantitativeValue with unitCode 'P1' (percent per month)."@en ;
     rdfs:domain gs1:Product ;
@@ -2629,6 +2719,8 @@ eubat:selfDischargeRate
 
 eubat:evolutionOfSelfDischarge
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:selfDischargeEvolution ;
+    skos:exactMatch dppk:selfDischargeEvolution ;
     rdfs:label "Evolution of Self Discharge"@en ;
     rdfs:comment "Change in self-discharge rate. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en ;
     rdfs:domain gs1:Product ;
@@ -2714,6 +2806,8 @@ eubat:initialEnergy
 
 eubat:certifiedUsableEnergy
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:certifiedUsableEnergy ;
+    skos:exactMatch dppk:certifiedUsableEnergy ;
     rdfs:label "Certified Usable Energy"@en ;
     rdfs:comment "The certified usable energy capacity of the battery."@en ;
     rdfs:range gs1:QuantitativeValue ;
@@ -2723,6 +2817,8 @@ eubat:certifiedUsableEnergy
 
 eubat:remainingUsableEnergy
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:remainingUsableEnergy ;
+    skos:exactMatch dppk:remainingUsableEnergy ;
     rdfs:label "Remaining Usable Energy"@en ;
     rdfs:comment "The current remaining usable energy capacity."@en ;
     rdfs:range gs1:QuantitativeValue ;
@@ -2934,6 +3030,8 @@ eubat:recommendedAction
 
 eubat:remainingPowerCapability
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:powerRemaining ;
+    skos:exactMatch dppk:powerRemaining ;
     rdfs:label "Remaining Power Capability"@en ;
     rdfs:comment "Current power capability measurements at various SoC levels."@en ;
     rdfs:range eubat:PowerCapabilityAtSoC ;
@@ -3027,6 +3125,8 @@ eubat:expectedNumberOfCycles
 
 eubat:batteryMass
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:batteryMass ;
+    skos:exactMatch dppk:batteryMass ;
     rdfs:label "Battery Mass"@en ;
     rdfs:comment "Net mass of the battery. Use unitCode 'KGM' (kilogram) per UN/CEFACT Rec 20. Sub-property of gs1:netWeight to keep GS1-first."@en ;
     rdfs:domain gs1:Product ;
@@ -3039,6 +3139,8 @@ eubat:batteryMass
 
 eubat:dismantlingAndRemovalInformation
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:dismantlingInformation ;
+    skos:closeMatch dppk:dismantlingInformation ;
     rdfs:label "Dismantling and Removal Information"@en ;
     rdfs:comment "Reference to the dismantling and removal instructions document required by EU Battery Regulation Annex VIII §B."@en ;
     rdfs:domain gs1:Product ;
@@ -3049,6 +3151,8 @@ eubat:dismantlingAndRemovalInformation
 
 eubat:safetyMeasures
     a owl:DatatypeProperty ;
+    rdfs:seeAlso dppk:safetyMeasures ;
+    skos:exactMatch dppk:safetyMeasures ;
     rdfs:label "Safety Measures"@en ;
     rdfs:comment "End-of-life handling safety guidance: short text or URL fragment."@en ;
     rdfs:domain gs1:Product ;
@@ -3059,6 +3163,8 @@ eubat:safetyMeasures
 
 eubat:negativeEvents
     a owl:ObjectProperty ;
+    rdfs:seeAlso dppk:negativeEvents ;
+    skos:exactMatch dppk:negativeEvents ;
     rdfs:label "Negative Events"@en ;
     rdfs:comment "Log of safety- or performance-relevant negative events recorded over the battery lifetime: accident, thermal event, deep discharge, short circuit, etc. Range is the existing eubat:NegativeEvent class."@en ;
     rdfs:domain oec:PerformanceInfo ;
