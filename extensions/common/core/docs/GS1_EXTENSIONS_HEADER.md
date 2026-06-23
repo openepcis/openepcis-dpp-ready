@@ -71,7 +71,7 @@ semantics GS1 standardization is still finalising. Owning the namespace means:
 
 - We can ship a working vocabulary today.
 - When GS1 publishes its canonical term, we re-map via
-  `owl:equivalentClass` / `owl:equivalentProperty` — downstream consumers
+  a graded SKOS mapping relation (`skos:exactMatch` / `skos:closeMatch` / `skos:broadMatch`) — downstream consumers
   keep using our URIs, and their graphs continue to validate against both
   vocabularies.
 - Our CHANGELOG and the per-module `GS1_ALIGNMENT.md` (e.g.,

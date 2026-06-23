@@ -38,7 +38,7 @@ This vocabulary provides comprehensive coverage for electronic and electrical eq
 
 Standards Alignment:
 - GS1 Web Vocabulary (native foundation)
-- UN Transparency Protocol (UNTP) alignment via owl:equivalentProperty
+- UN Transparency Protocol (UNTP) alignment via SKOS mapping (skos:exactMatch / skos:closeMatch)
 - IEC 62474 material declarations
 - IEC 82474-1:2025 material efficiency
 - ISO/IEC 12207 software lifecycle
@@ -146,7 +146,7 @@ and EPREL registry information per EU Energy Labeling Regulation 2019/2021."""@e
     rdfs:seeAlso oec:PerformanceInfo ;
     skos:note """Required extension: GS1 provides performance information patterns but lacks specific
 EU Energy Label properties (A-G classes, EPREL registration) required for electronics."""@en ;
-    owl:equivalentClass schema:EnergyEfficiencyEnumeration ;
+    skos:exactMatch schema:EnergyEfficiencyEnumeration ;
     rdfs:seeAlso oec:EnergyEfficiency .
 
 euelec:ComponentBOM
@@ -1314,15 +1314,15 @@ euelec:materialDeclarationDate
 # oec: terms (which themselves anchor up to UNTP / schema.org).
 
 euelec:WEEECompliance        rdfs:subClassOf       oec:ExtendedProducerResponsibility .
-euelec:weeeRegistrationNumber  owl:equivalentProperty oec:eprRegistrationNumber .
-euelec:weeeRegistrationCountry owl:equivalentProperty oec:eprJurisdiction .
-euelec:collectionSchemeUrl     owl:equivalentProperty oec:eprComplianceUrl .
+euelec:weeeRegistrationNumber  skos:exactMatch oec:eprRegistrationNumber .
+euelec:weeeRegistrationCountry skos:exactMatch oec:eprJurisdiction .
+euelec:collectionSchemeUrl     skos:exactMatch oec:eprComplianceUrl .
 
 euelec:EnergyEfficiency        rdfs:subClassOf       oec:EnergyEfficiency .
-euelec:energyEfficiencyClass   owl:equivalentProperty oec:energyEfficiencyClass .
-euelec:annualEnergyConsumption owl:equivalentProperty oec:annualEnergyConsumption .
-euelec:powerConsumptionOn      owl:equivalentProperty oec:powerConsumptionOn .
-euelec:powerConsumptionStandby owl:equivalentProperty oec:powerConsumptionStandby .
-euelec:powerConsumptionOff     owl:equivalentProperty oec:powerConsumptionOff .
-euelec:eprelRegistrationNumber owl:equivalentProperty oec:eprelRegistrationNumber .
-euelec:eprelProductUrl         owl:equivalentProperty oec:eprelProductUrl .
+euelec:energyEfficiencyClass   skos:exactMatch oec:energyEfficiencyClass .
+euelec:annualEnergyConsumption skos:exactMatch oec:annualEnergyConsumption .
+euelec:powerConsumptionOn      skos:exactMatch oec:powerConsumptionOn .
+euelec:powerConsumptionStandby skos:exactMatch oec:powerConsumptionStandby .
+euelec:powerConsumptionOff     skos:exactMatch oec:powerConsumptionOff .
+euelec:eprelRegistrationNumber skos:exactMatch oec:eprelRegistrationNumber .
+euelec:eprelProductUrl         skos:exactMatch oec:eprelProductUrl .

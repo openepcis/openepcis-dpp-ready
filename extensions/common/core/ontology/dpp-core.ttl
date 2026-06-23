@@ -30,6 +30,12 @@
 # Strictly rdfs:seeAlso: no rdfs:subClassOf, no owl:equivalentClass.
 @prefix cirpass2: <https://w3id.org/eudpp#> .
 
+# DPP Keystone (dpp-keystone.org), a peer Digital Product Passport profile.
+# Layer 2 community profile; aligned via the bridge in extensions/common/interop/.
+# Published namespace pinned to the v2 spec. Used for SKOS mapping anchors
+# (skos:exactMatch / skos:closeMatch / skos:broadMatch) from oec: terms to dppk: terms.
+@prefix dppk: <https://dpp-keystone.org/spec/v2/terms#> .
+
 # =============================================================================
 # Ontology Declaration
 # =============================================================================
@@ -65,7 +71,8 @@ GS1 Web Vocabulary patterns to use:
 
 UNTP Alignment:
 Property naming, patterns, and value conventions are aligned with UN Transparency Protocol (UNTP)
-to enable native interoperability. Semantic equivalences are declared via owl:equivalentProperty.
+to enable native interoperability. Cross-vocabulary mappings are declared via graded SKOS relations
+(skos:exactMatch for 1:1, skos:closeMatch for approximate, skos:broadMatch where this term is narrower).
 All ratio/fraction properties use 0-1 decimal scale (e.g., 0.45 = 45%).
 
 EPCIS 2.0 Extension Declaration:
@@ -77,7 +84,7 @@ Each extension term includes:
 - dcterms:source linking to the regulatory requirement
 - skos:note explaining why the extension is needed
 - rdfs:seeAlso linking to related GS1/schema.org/UNTP terms where applicable
-- owl:equivalentProperty where a semantic equivalent exists
+- a graded SKOS mapping relation (skos:exactMatch / skos:closeMatch / skos:broadMatch) where a cross-vocabulary match exists
 
 Domain-specific vocabularies import this core and add regulation-specific extensions."""@en ;
     dcterms:creator "OpenEPCIS" ;
@@ -168,7 +175,7 @@ Aligned with UNTP CircularityPerformance pattern."""@en ;
     rdfs:seeAlso gs1:consumerRecyclingInstructions ;
     rdfs:seeAlso untp-core:CircularityPerformance ;
     rdfs:seeAlso cirpass2:CircularEconomyIndicator ;
-    owl:equivalentClass untp-core:CircularityPerformance ;
+    skos:exactMatch untp-core:CircularityPerformance ;
     skos:note """Required extension: GS1 provides gs1:consumerRecyclingInstructions for text-based
 recycling guidance but lacks structured circularity data (recyclability rates, end-of-life URLs,
 waste prevention info) required by ESPR. Use gs1:consumerRecyclingInstructions for simple text.
@@ -197,7 +204,7 @@ See also gs1:ReferencedFileDetails for GS1 Web Vocabulary equivalent."""@en ;
     rdfs:seeAlso gs1:ReferencedFileDetails ;
     rdfs:seeAlso foaf:Document ;
     rdfs:seeAlso cirpass2:DigitalInstruction ;
-    owl:equivalentClass gs1:ReferencedFileDetails ;
+    skos:exactMatch gs1:ReferencedFileDetails ;
     skos:note """PREFER gs1:ReferencedFileDetails where possible. This class provides equivalent
 functionality with additional ESPR-specific document types. Use gs1:referencedFile
 property with gs1:ReferencedFileDetails for standard documents (manuals, certificates).
@@ -244,7 +251,7 @@ Use GS1 Digital Link format: https://id.gs1.org/414/{GLN}"""@en ;
     rdfs:seeAlso locn:Address ;
     rdfs:seeAlso locn:Geometry ;
     rdfs:seeAlso cirpass2:Facility ;
-    owl:equivalentClass untp-core:Facility ;
+    skos:exactMatch untp-core:Facility ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Extension of gs1:Place to capture ESPR-specific facility requirements.
 Use gs1:gln for facility GLN identification, gs1:name for facility name, gs1:address for location.
@@ -317,7 +324,7 @@ lifecycle phases, and verification status. Aligned with UNTP EmissionsPerformanc
     rdfs:seeAlso cirpass2:CarbonFootprint ;
     rdfs:seeAlso cirpass2:EnvironmentalFootprint ;
     rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf> ;
-    owl:equivalentClass untp-core:EmissionsPerformance ;
+    skos:exactMatch untp-core:EmissionsPerformance ;
     skos:note """Required extension: Structured emissions performance data for ESPR requirements.
 Aligned with UNTP EmissionsPerformance for interoperability. Extends the GDSN CFP pattern
 with operational scope and verification metrics."""@en.
@@ -751,6 +758,18 @@ oec:casNumber
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
 
+oec:iupacName
+    a owl:DatatypeProperty ;
+    rdfs:label "IUPAC Name"@en ;
+    rdfs:comment "Systematic IUPAC chemical name of the substance, complementing the CAS/EC registry numbers."@en ;
+    rdfs:domain oec:HazardousSubstance ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso dppk:componentIupacName ;
+    skos:exactMatch dppk:componentIupacName ;
+    skos:note "Required extension: GS1 Web Vocabulary has no IUPAC-name property. Anchored to DPP Keystone dppk:componentIupacName (peer DPP profile) for interoperability."@en .
+
 oec:concentration
     a owl:DatatypeProperty ;
     rdfs:label "Concentration"@en ;
@@ -843,7 +862,7 @@ oec:circularityPerformance
     rdfs:comment "Circularity performance data for the product."@en ;
     rdfs:range oec:CircularityPerformance ;
     rdfs:seeAlso untp-core:circularityPerformance ;
-    owl:equivalentProperty untp-core:circularityPerformance ;
+    skos:exactMatch untp-core:circularityPerformance ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en .
@@ -855,7 +874,7 @@ oec:recyclableContent
     rdfs:domain oec:CircularityPerformance ;
     rdfs:range xsd:decimal ;
     rdfs:seeAlso untp-core:recyclableContent ;
-    owl:equivalentProperty untp-core:recyclableContent ;
+    skos:exactMatch untp-core:recyclableContent ;
     skos:note "Value is a decimal fraction 0-1. Aligned with UNTP recyclableContent."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
@@ -909,7 +928,7 @@ oec:utilityFactor
     rdfs:domain oec:CircularityPerformance ;
     rdfs:range xsd:decimal ;
     rdfs:seeAlso untp-core:utilityFactor ;
-    owl:equivalentProperty untp-core:utilityFactor ;
+    skos:exactMatch untp-core:utilityFactor ;
     dcterms:source <https://uncefact.github.io/spec-untp/> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
@@ -921,7 +940,7 @@ oec:materialCircularityIndicator
     rdfs:domain oec:CircularityPerformance ;
     rdfs:range xsd:decimal ;
     rdfs:seeAlso untp-core:materialCircularityIndicator ;
-    owl:equivalentProperty untp-core:materialCircularityIndicator ;
+    skos:exactMatch untp-core:materialCircularityIndicator ;
     dcterms:source <https://ellenmacarthurfoundation.org/material-circularity-indicator> ;
     skos:note "Value is a decimal fraction 0-1. Based on Ellen MacArthur Foundation MCI methodology. Aligned with UNTP."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
@@ -949,7 +968,7 @@ oec:recycledContent
     rdfs:domain oec:RecycledContent ;
     rdfs:range xsd:decimal ;
     rdfs:seeAlso untp-core:recycledContent ;
-    owl:equivalentProperty untp-core:recycledContent ;
+    skos:exactMatch untp-core:recycledContent ;
     skos:note "Value is a decimal fraction 0-1. Aligned with UNTP recycledContent."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
@@ -993,7 +1012,7 @@ oec:massFraction
     rdfs:domain oec:MaterialComposition ;
     rdfs:range xsd:decimal ;
     rdfs:seeAlso untp-core:massFraction ;
-    owl:equivalentProperty untp-core:massFraction ;
+    skos:exactMatch untp-core:massFraction ;
     skos:note "Value is a decimal fraction 0-1. Aligned with UNTP massFraction."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
@@ -1007,6 +1026,32 @@ oec:isCriticalRawMaterial
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+
+oec:componentName
+    a owl:DatatypeProperty ;
+    rdfs:label "Component Name"@en ;
+    rdfs:comment "Human-readable name of the material or component (e.g. a fibre type, alloy, or constituent material)."@en ;
+    rdfs:domain oec:MaterialComposition ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso schema:name ;
+    rdfs:seeAlso dppk:componentName ;
+    skos:exactMatch dppk:componentName ;
+    skos:note "Generic component-naming pattern shared by textile fibre composition, steel material composition, and substance declarations. Anchored to DPP Keystone dppk:componentName (peer DPP profile) and schema:name."@en .
+
+oec:componentIdentifier
+    a owl:DatatypeProperty ;
+    rdfs:label "Component Identifier"@en ;
+    rdfs:comment "Identifier for the material or component (e.g. an internal material code or GS1 identifier)."@en ;
+    rdfs:domain oec:MaterialComposition ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso schema:identifier ;
+    rdfs:seeAlso dppk:componentIdentifier ;
+    skos:exactMatch dppk:componentIdentifier ;
+    skos:note "Generic component-identifier pattern. Anchored to DPP Keystone dppk:componentIdentifier (peer DPP profile) and schema:identifier."@en .
 
 # =============================================================================
 # Properties - Carbon Footprint / Emissions Performance
@@ -1044,7 +1089,7 @@ oec:carbonFootprintTotal
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf> ;
     rdfs:seeAlso untp-core:carbonFootprint ;
-    owl:equivalentProperty untp-core:carbonFootprint ;
+    skos:exactMatch untp-core:carbonFootprint ;
     skos:note "Aligned with GDSN CarbonFootprintHeader/cfpValue and UNTP carbonFootprint. Value in kg CO2 equivalent."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
@@ -1054,7 +1099,7 @@ oec:declaredUnit
     rdfs:comment "Functional unit for carbon footprint or other metrics (e.g., kg CO2e/kWh, kg CO2e/kg). Aligned with UNTP declaredUnit."@en ;
     rdfs:range xsd:string ;
     rdfs:seeAlso untp-core:declaredUnit ;
-    owl:equivalentProperty untp-core:declaredUnit ;
+    skos:exactMatch untp-core:declaredUnit ;
     skos:note "Aligned with GDSN cfpFunctionalUnit and UNTP declaredUnit. Specifies the reference unit for measurements."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
@@ -1076,7 +1121,7 @@ oec:operationalScope
     rdfs:domain oec:EmissionsPerformance ;
     rdfs:range oec:OperationalScope ;
     rdfs:seeAlso untp-core:operationalScope ;
-    owl:equivalentProperty untp-core:operationalScope ;
+    skos:exactMatch untp-core:operationalScope ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
@@ -1088,7 +1133,7 @@ oec:primarySourcedRatio
     rdfs:domain oec:EmissionsPerformance ;
     rdfs:range xsd:decimal ;
     rdfs:seeAlso untp-core:primarySourcedRatio ;
-    owl:equivalentProperty untp-core:primarySourcedRatio ;
+    skos:exactMatch untp-core:primarySourcedRatio ;
     skos:note "Value is a decimal fraction 0-1. Higher values indicate more reliable data from direct measurement. Aligned with UNTP."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
@@ -1145,7 +1190,7 @@ oec:verifiedRatio
     rdfs:domain oec:TraceabilityPerformance ;
     rdfs:range xsd:decimal ;
     rdfs:seeAlso untp-core:verifiedRatio ;
-    owl:equivalentProperty untp-core:verifiedRatio ;
+    skos:exactMatch untp-core:verifiedRatio ;
     skos:note "Value is a decimal fraction 0-1. Higher values indicate better supply chain traceability. Aligned with UNTP."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
@@ -1158,7 +1203,7 @@ oec:granularityLevel
     rdfs:range xsd:string ;
     dcterms:source "EN 18223:2026, 4.1.2.2 (CEN/CENELEC JTC 24)" ;
     rdfs:seeAlso untp-dpp:granularityLevel ;
-    owl:equivalentProperty untp-dpp:granularityLevel ;
+    skos:exactMatch untp-dpp:granularityLevel ;
     skos:note "EN 18223 'granularity'. Allowed values model/batch/item; in EPCIS4DPP derived from the GS1 Digital Link AIs (01 model, 01+10 batch, 01+21 item)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
@@ -1595,7 +1640,7 @@ oec:DigitalProductPassport
     rdfs:comment "The DPP envelope: identification and lifecycle metadata plus the product data elements, per the EN 18223 information model."@en ;
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)" ;
     rdfs:seeAlso untp-dpp:ProductPassport ;
-    owl:equivalentClass untp-dpp:ProductPassport ;
+    skos:exactMatch untp-dpp:ProductPassport ;
     skos:note "EN 18223 DigitalProductPassport. Attributes: digitalProductPassportId (oec:passportIdentifier), uniqueProductIdentifier, granularity (oec:granularityLevel), dppSchemaVersion, dppStatus (oec:passportStatus), lastUpdated, economicOperatorId, facilityId, contentSpecificationIds, plus product data elements."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
@@ -2187,9 +2232,9 @@ oec:depositReturnScheme
 # tooling can recognise our vocabulary as UNTP-aligned. UNTP v0.7.0 is in
 # formal public review (closes 2026-07-10); equivalences may evolve at v1.0.
 
-oec:OperatorInformation owl:equivalentClass <https://vocabulary.uncefact.org/untp/0.7.0/Party> .
-oec:FacilityInformation owl:equivalentClass <https://vocabulary.uncefact.org/untp/0.7.0/Facility> .
-oec:GranularityLevel    owl:equivalentClass <https://vocabulary.uncefact.org/untp/0.7.0/ProductIDGranularity> .
+oec:OperatorInformation skos:broadMatch <https://vocabulary.uncefact.org/untp/0.7.0/Party> .
+oec:FacilityInformation skos:exactMatch <https://vocabulary.uncefact.org/untp/0.7.0/Facility> .
+oec:GranularityLevel    skos:exactMatch <https://vocabulary.uncefact.org/untp/0.7.0/ProductIDGranularity> .
 
 # =============================================================================
 # schema.org alignment: energy & measurement
@@ -2354,7 +2399,7 @@ oec:EnergyEfficiency
     a owl:Class ;
     rdfs:label "Energy Efficiency"@en ;
     rdfs:comment "A product's energy efficiency declaration: A-G class, EPREL registration, consumption modes."@en ;
-    owl:equivalentClass schema:EnergyConsumptionDetails ;
+    skos:closeMatch schema:EnergyConsumptionDetails ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
@@ -2722,3 +2767,230 @@ oec:remanufacturingDate
     skos:note "No upstream equivalent: GS1 Web Vocabulary covers production dates but not refurbishment; schema.org has schema:productionDate / schema:purchaseDate but no remanufacture/reconditioning date; SEMICeu does not cover product lifecycle dates."@en ;
     rdfs:seeAlso <https://gs1-epcis-reg.org/rail/voc/data#itemReconditioningDate> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Environmental Product Declaration (EN 15804:2012+A2:2019)
+# =============================================================================
+# A full EN 15804 EPD: a set of environmental impact indicators (GWP, ODP, AP,
+# EP, POCP, ADP, WDP), each broken down over the EN 15804 lifecycle modules
+# (A1-A5, B1-B7, C1-C4, D). Cross-cutting: construction (eu/cpr), iron & steel
+# (eu/iron-steel), and any sector reporting a third-party-verified LCA reference
+# the same structure. This complements the coarser oec:CarbonFootprintDeclaration
+# (5 aggregate stages, GWP only) and the single-value oec:EmissionsPerformance.
+# Modelled normalised (indicator result -> per-stage result) to avoid a flat
+# explosion of indicator x stage properties. Anchored to the DPP Keystone EPD
+# block (dppk:EPDBlock / dppk:ImpactValues), a peer DPP profile.
+
+oec:EnvironmentalProductDeclaration
+    a owl:Class ;
+    rdfs:subClassOf schema:Certification ;
+    rdfs:label "Environmental Product Declaration"@en ;
+    rdfs:comment """A type III environmental declaration per EN 15804:2012+A2:2019 / ISO 14025,
+reporting life-cycle environmental impact indicators broken down by lifecycle module."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso oec:EmissionsPerformance ;
+    rdfs:seeAlso oec:CarbonFootprintDeclaration ;
+    rdfs:seeAlso untp-core:EmissionsPerformance ;
+    rdfs:seeAlso dppk:EPDBlock ;
+    skos:exactMatch dppk:EPDBlock ;
+    skos:note """Required extension: EN 15804 EPDs carry a full impact-indicator set with modular
+lifecycle breakdown not covered by GS1 Web Vocabulary, schema.org, or SEMICeu. Aligned with
+DPP Keystone dppk:EPDBlock (peer DPP profile). For a single aggregate carbon figure use
+oec:carbonFootprintTotal; for a 5-stage carbon breakdown use oec:CarbonFootprintDeclaration."""@en .
+
+oec:ImpactIndicatorResult
+    a owl:Class ;
+    rdfs:label "Impact Indicator Result"@en ;
+    rdfs:comment """One environmental impact indicator (e.g. Global Warming Potential) reported within
+an EPD: its indicator type, declared unit, aggregate value, and optional per-lifecycle-module values."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso dppk:ImpactValues ;
+    skos:closeMatch dppk:ImpactValues ;
+    skos:note "EN 15804 impact-indicator result. Anchored to DPP Keystone dppk:ImpactValues (peer DPP profile)."@en .
+
+oec:LifecycleStageResult
+    a owl:Class ;
+    rdfs:label "Lifecycle Stage Result"@en ;
+    rdfs:comment "The value of an impact indicator for a single EN 15804 lifecycle module (e.g. A1, B6, C3, D)."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "EN 15804 modular lifecycle value. Pairs an oec:LifecycleStage code with a decimal value in the indicator's declared unit."@en .
+
+# --- Impact indicator type enumeration (EN 15804+A2 core indicators) ---------
+
+oec:ImpactIndicatorType
+    a rdfs:Class ;
+    rdfs:label "Impact Indicator Type"@en ;
+    rdfs:comment "Controlled list of EN 15804:2012+A2:2019 environmental impact indicators."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "EN 15804+A2 core impact category set."@en .
+
+oec:GWPTotal     a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, total"@en ; skos:notation "GWP-total" ; rdfs:seeAlso dppk:gwp .
+oec:GWPFossil    a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, fossil"@en ; skos:notation "GWP-fossil" ; rdfs:seeAlso dppk:gwpF .
+oec:GWPBiogenic  a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, biogenic"@en ; skos:notation "GWP-biogenic" ; rdfs:seeAlso dppk:gwpB .
+oec:GWPLuluc     a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, land use and land-use change"@en ; skos:notation "GWP-luluc" ; rdfs:seeAlso dppk:gwpLuluc .
+oec:ODP          a oec:ImpactIndicatorType ; rdfs:label "Depletion potential of the stratospheric ozone layer"@en ; skos:notation "ODP" ; rdfs:seeAlso dppk:odp .
+oec:AP           a oec:ImpactIndicatorType ; rdfs:label "Acidification potential"@en ; skos:notation "AP" ; rdfs:seeAlso dppk:ap .
+oec:EPFreshwater a oec:ImpactIndicatorType ; rdfs:label "Eutrophication potential, freshwater"@en ; skos:notation "EP-freshwater" ; rdfs:seeAlso dppk:epF .
+oec:EPMarine     a oec:ImpactIndicatorType ; rdfs:label "Eutrophication potential, marine"@en ; skos:notation "EP-marine" ; rdfs:seeAlso dppk:epM .
+oec:EPTerrestrial a oec:ImpactIndicatorType ; rdfs:label "Eutrophication potential, terrestrial"@en ; skos:notation "EP-terrestrial" ; rdfs:seeAlso dppk:epT .
+oec:POCP         a oec:ImpactIndicatorType ; rdfs:label "Formation potential of tropospheric ozone"@en ; skos:notation "POCP" ; rdfs:seeAlso dppk:pocp .
+oec:ADPElements  a oec:ImpactIndicatorType ; rdfs:label "Abiotic depletion potential, minerals and metals"@en ; skos:notation "ADP-minerals&metals" ; rdfs:seeAlso dppk:adpe .
+oec:ADPFossil    a oec:ImpactIndicatorType ; rdfs:label "Abiotic depletion potential, fossil resources"@en ; skos:notation "ADP-fossil" ; rdfs:seeAlso dppk:adpf .
+oec:WDP          a oec:ImpactIndicatorType ; rdfs:label "Water (user) deprivation potential"@en ; skos:notation "WDP" ; rdfs:seeAlso dppk:wdp .
+
+# --- Lifecycle stage enumeration (EN 15804 modules A1-A5, B1-B7, C1-C4, D) ----
+
+oec:LifecycleStage
+    a rdfs:Class ;
+    rdfs:label "Lifecycle Stage"@en ;
+    rdfs:comment "Controlled list of EN 15804 lifecycle modules (product, construction, use, end-of-life, and benefits beyond the system boundary)."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "EN 15804 modular lifecycle stages."@en .
+
+oec:StageA1 a oec:LifecycleStage ; rdfs:label "A1 Raw material supply"@en ; skos:notation "A1" ; rdfs:seeAlso dppk:a1 .
+oec:StageA2 a oec:LifecycleStage ; rdfs:label "A2 Transport to manufacturer"@en ; skos:notation "A2" ; rdfs:seeAlso dppk:a2 .
+oec:StageA3 a oec:LifecycleStage ; rdfs:label "A3 Manufacturing"@en ; skos:notation "A3" ; rdfs:seeAlso dppk:a3 .
+oec:StageA4 a oec:LifecycleStage ; rdfs:label "A4 Transport to site"@en ; skos:notation "A4" ; rdfs:seeAlso dppk:a4 .
+oec:StageA5 a oec:LifecycleStage ; rdfs:label "A5 Installation"@en ; skos:notation "A5" ; rdfs:seeAlso dppk:a5 .
+oec:StageB1 a oec:LifecycleStage ; rdfs:label "B1 Use"@en ; skos:notation "B1" ; rdfs:seeAlso dppk:b1 .
+oec:StageB2 a oec:LifecycleStage ; rdfs:label "B2 Maintenance"@en ; skos:notation "B2" ; rdfs:seeAlso dppk:b2 .
+oec:StageB3 a oec:LifecycleStage ; rdfs:label "B3 Repair"@en ; skos:notation "B3" ; rdfs:seeAlso dppk:b3 .
+oec:StageB4 a oec:LifecycleStage ; rdfs:label "B4 Replacement"@en ; skos:notation "B4" ; rdfs:seeAlso dppk:b4 .
+oec:StageB5 a oec:LifecycleStage ; rdfs:label "B5 Refurbishment"@en ; skos:notation "B5" ; rdfs:seeAlso dppk:b5 .
+oec:StageB6 a oec:LifecycleStage ; rdfs:label "B6 Operational energy use"@en ; skos:notation "B6" ; rdfs:seeAlso dppk:b6 .
+oec:StageB7 a oec:LifecycleStage ; rdfs:label "B7 Operational water use"@en ; skos:notation "B7" ; rdfs:seeAlso dppk:b7 .
+oec:StageC1 a oec:LifecycleStage ; rdfs:label "C1 Deconstruction / demolition"@en ; skos:notation "C1" ; rdfs:seeAlso dppk:c1 .
+oec:StageC2 a oec:LifecycleStage ; rdfs:label "C2 Transport to waste processing"@en ; skos:notation "C2" .
+oec:StageC3 a oec:LifecycleStage ; rdfs:label "C3 Waste processing"@en ; skos:notation "C3" .
+oec:StageC4 a oec:LifecycleStage ; rdfs:label "C4 Disposal"@en ; skos:notation "C4" .
+oec:StageD  a oec:LifecycleStage ; rdfs:label "D Benefits and loads beyond the system boundary"@en ; skos:notation "D" .
+
+# --- EPD properties -----------------------------------------------------------
+
+oec:environmentalProductDeclaration
+    a owl:ObjectProperty ;
+    rdfs:label "Environmental Product Declaration"@en ;
+    rdfs:comment "Links a product to its EN 15804 environmental product declaration."@en ;
+    rdfs:range oec:EnvironmentalProductDeclaration ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso dppk:epd ;
+    skos:exactMatch dppk:epd ;
+    skos:note "EN 15804 EPD link. Anchored to DPP Keystone dppk:epd (peer DPP profile)."@en .
+
+oec:epdRegistrationNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "EPD Registration Number"@en ;
+    rdfs:comment "Registration / declaration number assigned by the EPD programme operator."@en ;
+    rdfs:domain oec:EnvironmentalProductDeclaration ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "EN 15804 / ISO 14025 EPD metadata."@en .
+
+oec:epdProgramOperator
+    a owl:DatatypeProperty ;
+    rdfs:label "EPD Programme Operator"@en ;
+    rdfs:comment "Name of the EPD programme operator (e.g. EPD International, IBU, EcoPlatform)."@en ;
+    rdfs:domain oec:EnvironmentalProductDeclaration ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "EN 15804 / ISO 14025 EPD metadata."@en .
+
+oec:epdStandard
+    a owl:DatatypeProperty ;
+    rdfs:label "EPD Reference Standard"@en ;
+    rdfs:comment "Reference standard and product category rules version used (e.g. EN 15804+A2)."@en ;
+    rdfs:domain oec:EnvironmentalProductDeclaration ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "EN 15804 / ISO 14025 EPD metadata."@en .
+
+oec:epdValidUntil
+    a owl:DatatypeProperty ;
+    rdfs:label "EPD Valid Until"@en ;
+    rdfs:comment "Date until which the EPD is valid."@en ;
+    rdfs:domain oec:EnvironmentalProductDeclaration ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "EN 15804 / ISO 14025 EPD metadata."@en .
+
+oec:impactIndicator
+    a owl:ObjectProperty ;
+    rdfs:label "Impact Indicator"@en ;
+    rdfs:comment "An environmental impact indicator result reported within the EPD."@en ;
+    rdfs:domain oec:EnvironmentalProductDeclaration ;
+    rdfs:range oec:ImpactIndicatorResult ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso dppk:indicator ;
+    skos:note "EN 15804 impact indicator. Anchored to DPP Keystone dppk:indicator (peer DPP profile)."@en .
+
+oec:indicatorType
+    a owl:ObjectProperty ;
+    rdfs:label "Indicator Type"@en ;
+    rdfs:comment "The EN 15804 impact category this result reports (e.g. oec:GWPTotal)."@en ;
+    rdfs:domain oec:ImpactIndicatorResult ;
+    rdfs:range oec:ImpactIndicatorType ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "EN 15804+A2 impact category selector."@en .
+
+oec:indicatorUnit
+    a owl:DatatypeProperty ;
+    rdfs:label "Indicator Unit"@en ;
+    rdfs:comment "Declared unit for this indicator (e.g. kg CO2 eq, kg CFC11 eq, mol H+ eq, m3 world eq deprived)."@en ;
+    rdfs:domain oec:ImpactIndicatorResult ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "EN 15804 declared characterisation unit for the indicator."@en .
+
+oec:indicatorTotalValue
+    a owl:DatatypeProperty ;
+    rdfs:label "Indicator Total Value"@en ;
+    rdfs:comment "Aggregate value of the indicator across the declared lifecycle modules, in the declared unit."@en ;
+    rdfs:domain oec:ImpactIndicatorResult ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "EN 15804 aggregate indicator value. Use oec:lifecycleStageResult for the modular breakdown."@en .
+
+oec:lifecycleStageResult
+    a owl:ObjectProperty ;
+    rdfs:label "Lifecycle Stage Result"@en ;
+    rdfs:comment "A single EN 15804 module value contributing to this indicator."@en ;
+    rdfs:domain oec:ImpactIndicatorResult ;
+    rdfs:range oec:LifecycleStageResult ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "EN 15804 modular lifecycle breakdown."@en .
+
+oec:lifecycleStage
+    a owl:ObjectProperty ;
+    rdfs:label "Lifecycle Stage"@en ;
+    rdfs:comment "The EN 15804 lifecycle module this value applies to (e.g. oec:StageA1)."@en ;
+    rdfs:domain oec:LifecycleStageResult ;
+    rdfs:range oec:LifecycleStage ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "EN 15804 module selector."@en .
+
+oec:stageValue
+    a owl:DatatypeProperty ;
+    rdfs:label "Stage Value"@en ;
+    rdfs:comment "Indicator value for this lifecycle module, in the indicator's declared unit."@en ;
+    rdfs:domain oec:LifecycleStageResult ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso schema:value ;
+    skos:note "EN 15804 modular value. DPP Keystone expresses these as flat dppk:a1..dppk:d properties; here normalised as oec:LifecycleStage + oec:stageValue pairs."@en .

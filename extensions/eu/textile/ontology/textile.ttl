@@ -13,6 +13,8 @@
 @prefix cv:    <http://data.europa.eu/m8g/> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix locn:  <http://www.w3.org/ns/locn#> .
+# DPP Keystone (dpp-keystone.org), a peer DPP profile this module aligns with.
+@prefix dppk:  <https://dpp-keystone.org/spec/v2/terms#> .
 
 # =============================================================================
 # Ontology Declaration
@@ -56,7 +58,7 @@ Each extension term includes dcterms:source, skos:note, and rdfs:seeAlso where a
     dcterms:creator "OpenEPCIS" ;
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
     dcterms:created "2025-02-02"^^xsd:date ;
-    dcterms:modified "2026-06-19"^^xsd:date ;
+    dcterms:modified "2026-06-23"^^xsd:date ;
     owl:versionInfo "0.9.7" ;
     owl:versionIRI <https://ref.openepcis.io/extensions/eu/textile/0.9.7> ;
     vann:preferredNamespacePrefix "eutex" ;
@@ -200,7 +202,7 @@ hierarchy: instances are both gs1:Product (DPP properties) and gs1:Footwear
 gs1:Product) per GS1 First governance. Named TextileFootwear (not Footwear) to avoid
 collision with the existing eutex:Footwear enum individual in TextileCategory."""@en ;
     rdfs:seeAlso gs1:Footwear , gs1:WearableProduct ;
-    owl:equivalentClass gs1:Footwear .
+    skos:broadMatch gs1:Footwear .
 
 # -----------------------------------------------------------------------------
 # Fiber Type (aligned with EU Textile Labelling Regulation Annex I)
@@ -1840,7 +1842,7 @@ eutex:LCIACategoryCode
         eutex:HumanToxicity
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
-    owl:equivalentClass schema:CategoryCode ;
+    skos:broadMatch schema:CategoryCode ;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
 
 eutex:GWP a eutex:LCIACategoryCode ; rdfs:label "Global Warming Potential"@en ;
@@ -2208,3 +2210,110 @@ eutex:testStandard
 # =============================================================================
 
 eutex:RecyclabilityAssessment rdfs:subClassOf oec:RecyclabilityAssessment .
+
+# =============================================================================
+# PART 18: DPP Keystone ESPR harvest
+# =============================================================================
+# Deltas harvested from the DPP Keystone textile ESPR profile (dppk:) that the
+# richer eutex: model did not yet cover: organic content, animal-origin flag,
+# EU Ecolabel, EU Declaration of Conformity, weight excluding trims, and the
+# discrete PEF/carbon footprint performance classes. Each anchored to its dppk:
+# counterpart. Recycled-content detail, the PEF single score, and the LCIA
+# breakdown are already covered above (PART 16/17) and are not re-minted.
+
+eutex:organicContentPercentage
+    a owl:DatatypeProperty ;
+    rdfs:label "Organic Content Percentage"@en ;
+    rdfs:comment "Share of certified organic fibre content by mass (%), per Regulation (EU) 2018/848."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2018/848> ;
+    rdfs:seeAlso dppk:organicContentPercentage ;
+    skos:exactMatch dppk:organicContentPercentage ;
+    skos:note "Organic content per Regulation (EU) 2018/848. Anchored to the DPP Keystone peer profile dppk:organicContentPercentage. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+eutex:organicContentMass
+    a owl:DatatypeProperty ;
+    rdfs:label "Organic Content Mass"@en ;
+    rdfs:comment "Mass of certified organic fibre content (grams), per Regulation (EU) 2018/848."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2018/848> ;
+    rdfs:seeAlso dppk:organicContentMass ;
+    skos:exactMatch dppk:organicContentMass ;
+    skos:note "Organic content per Regulation (EU) 2018/848. Anchored to the DPP Keystone peer profile dppk:organicContentMass. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+eutex:containsAnimalNonTextileParts
+    a owl:DatatypeProperty ;
+    rdfs:label "Contains Non-Textile Parts of Animal Origin"@en ;
+    rdfs:comment "Whether the product contains non-textile parts of animal origin, per the Textile Labelling Regulation (EU) 1007/2011 Article 12."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:boolean ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007> ;
+    rdfs:seeAlso dppk:animalOriginNonTextile ;
+    skos:exactMatch dppk:animalOriginNonTextile ;
+    skos:note "Non-textile animal-origin disclosure per Regulation (EU) 1007/2011 Article 12. Anchored to the DPP Keystone peer profile dppk:animalOriginNonTextile. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+eutex:euEcolabel
+    a owl:DatatypeProperty ;
+    rdfs:label "EU Ecolabel"@en ;
+    rdfs:comment "Whether the product carries the EU Ecolabel (Regulation (EC) 66/2010)."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:boolean ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32010R0066> ;
+    rdfs:seeAlso dppk:euEcolabel ;
+    skos:exactMatch dppk:euEcolabel ;
+    skos:note "EU Ecolabel flag per Regulation (EC) 66/2010. Anchored to the DPP Keystone peer profile dppk:euEcolabel. Use gs1:CertificationDetails for the full certificate where available."@en .
+
+eutex:euDeclarationOfConformity
+    a owl:ObjectProperty ;
+    rdfs:label "EU Declaration of Conformity"@en ;
+    rdfs:comment "Reference to the product's EU Declaration of Conformity under the ESPR textile delegated act. Reuse oec:DocumentReference."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range oec:DocumentReference ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso dppk:euDeclarationOfConformity ;
+    skos:exactMatch dppk:euDeclarationOfConformity ;
+    skos:note "EU Declaration of Conformity per the ESPR textile delegated act. Reuses oec:DocumentReference; anchored to the DPP Keystone peer profile dppk:euDeclarationOfConformity."@en .
+
+eutex:weightExcludingTrims
+    a owl:DatatypeProperty ;
+    rdfs:label "Weight Excluding Trims"@en ;
+    rdfs:comment "Product weight excluding trims and accessories (grams), used for recycled/organic content denominators. Use gs1:netWeight for the total product weight."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso gs1:netWeight ;
+    rdfs:seeAlso dppk:weightExcludingTrims ;
+    skos:exactMatch dppk:weightExcludingTrims ;
+    skos:note "Textile content-denominator weight per the ESPR textile delegated act. Anchored to the DPP Keystone peer profile dppk:weightExcludingTrims; complements gs1:netWeight."@en .
+
+eutex:carbonFootprintClass
+    a owl:DatatypeProperty ;
+    rdfs:label "Carbon Footprint Class"@en ;
+    rdfs:comment "Discrete performance class (A–G style band, expressed as an integer 1..n) for the manufacturing carbon footprint relative to the PEFCR climate-change benchmark."@en ;
+    rdfs:domain eutex:EnvironmentalFootprint ;
+    rdfs:range xsd:integer ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso dppk:carbonFootprintClass ;
+    skos:exactMatch dppk:carbonFootprintClass ;
+    skos:note "Discrete PEF carbon-footprint class per the ESPR textile delegated act. Complements eutex:carbonFootprintManufacturing (the value) and eutex:benchmarkPerformance (the percentage). Anchored to the DPP Keystone peer profile dppk:carbonFootprintClass."@en .
+
+eutex:environmentalFootprintClass
+    a owl:DatatypeProperty ;
+    rdfs:label "Environmental Footprint Class"@en ;
+    rdfs:comment "Discrete performance class (A–G style band, expressed as an integer 1..n) for the PEF single score relative to the product-category benchmark."@en ;
+    rdfs:domain eutex:EnvironmentalFootprint ;
+    rdfs:range xsd:integer ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso dppk:environmentalFootprintClass ;
+    skos:exactMatch dppk:environmentalFootprintClass ;
+    skos:note "Discrete PEF single-score class per the ESPR textile delegated act. Complements eutex:pefSingleScore (the value) and eutex:benchmarkPerformance (the percentage). Anchored to the DPP Keystone peer profile dppk:environmentalFootprintClass."@en .

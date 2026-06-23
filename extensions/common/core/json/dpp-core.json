@@ -2,7 +2,7 @@
   "namespace": "https://ref.openepcis.io/extensions/common/core/",
   "version": "0.9.7",
   "title": "OpenEPCIS DPP Core Vocabulary",
-  "description": "Core vocabulary for Digital Product Passports aligned with the EU Ecodesign\nfor Sustainable Products Regulation (ESPR) EU 2024/1781 and GS1 DPP Standards.\n\nOpenEPCIS DPP-Ready: The Universal DPP Platform - harmonizing GS1, UNTP, and CIRPASS2 standards.\n\nThis vocabulary provides shared patterns reusable across domain-specific regulations\n(Battery, EUDR, Textile, Electronics, etc.) and supports the ESPR framework including:\n- Economic operator identification (EOID per ESPR Article 77)\n- Facility information (manufacturing location data)\n- Performance and durability information\n- Repairability and maintenance data\n- Substances of concern (SCIP database alignment)\n- Circularity information (end-of-life, recycling)\n- Due diligence reporting (supply chain transparency)\n- Document references (reports, certificates, guides)\n- Access rights (public vs authorized data per ESPR Article 9)\n- Emissions performance (carbon footprint with UNTP alignment)\n- Traceability performance (supply chain verification metrics)\n\nGS1 Web Vocabulary patterns to use:\n- For certifications: gs1:certification with gs1:CertificationDetails\n- For warranty: gs1:warranty with gs1:WarrantyPromise\n- For regulatory compliance: gs1:regulatoryInformation with gs1:RegulatoryInformation\n- For documents: gs1:referencedFile with gs1:ReferencedFileDetails\n- For recycling text: gs1:consumerRecyclingInstructions\n\nUNTP Alignment:\nProperty naming, patterns, and value conventions are aligned with UN Transparency Protocol (UNTP)\nto enable native interoperability. Semantic equivalences are declared via owl:equivalentProperty.\nAll ratio/fraction properties use 0-1 decimal scale (e.g., 0.45 = 45%).\n\nEPCIS 2.0 Extension Declaration:\nGS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/\n\nExtension Governance:\nThis vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.\nEach extension term includes:\n- dcterms:source linking to the regulatory requirement\n- skos:note explaining why the extension is needed\n- rdfs:seeAlso linking to related GS1/schema.org/UNTP terms where applicable\n- owl:equivalentProperty where a semantic equivalent exists\n\nDomain-specific vocabularies import this core and add regulation-specific extensions.",
+  "description": "Core vocabulary for Digital Product Passports aligned with the EU Ecodesign\nfor Sustainable Products Regulation (ESPR) EU 2024/1781 and GS1 DPP Standards.\n\nOpenEPCIS DPP-Ready: The Universal DPP Platform - harmonizing GS1, UNTP, and CIRPASS2 standards.\n\nThis vocabulary provides shared patterns reusable across domain-specific regulations\n(Battery, EUDR, Textile, Electronics, etc.) and supports the ESPR framework including:\n- Economic operator identification (EOID per ESPR Article 77)\n- Facility information (manufacturing location data)\n- Performance and durability information\n- Repairability and maintenance data\n- Substances of concern (SCIP database alignment)\n- Circularity information (end-of-life, recycling)\n- Due diligence reporting (supply chain transparency)\n- Document references (reports, certificates, guides)\n- Access rights (public vs authorized data per ESPR Article 9)\n- Emissions performance (carbon footprint with UNTP alignment)\n- Traceability performance (supply chain verification metrics)\n\nGS1 Web Vocabulary patterns to use:\n- For certifications: gs1:certification with gs1:CertificationDetails\n- For warranty: gs1:warranty with gs1:WarrantyPromise\n- For regulatory compliance: gs1:regulatoryInformation with gs1:RegulatoryInformation\n- For documents: gs1:referencedFile with gs1:ReferencedFileDetails\n- For recycling text: gs1:consumerRecyclingInstructions\n\nUNTP Alignment:\nProperty naming, patterns, and value conventions are aligned with UN Transparency Protocol (UNTP)\nto enable native interoperability. Cross-vocabulary mappings are declared via graded SKOS relations\n(skos:exactMatch for 1:1, skos:closeMatch for approximate, skos:broadMatch where this term is narrower).\nAll ratio/fraction properties use 0-1 decimal scale (e.g., 0.45 = 45%).\n\nEPCIS 2.0 Extension Declaration:\nGS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/\n\nExtension Governance:\nThis vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.\nEach extension term includes:\n- dcterms:source linking to the regulatory requirement\n- skos:note explaining why the extension is needed\n- rdfs:seeAlso linking to related GS1/schema.org/UNTP terms where applicable\n- a graded SKOS mapping relation (skos:exactMatch / skos:closeMatch / skos:broadMatch) where a cross-vocabulary match exists\n\nDomain-specific vocabularies import this core and add regulation-specific extensions.",
   "classes": [
     {
       "id": "https://ref.openepcis.io/extensions/common/core/AccessRights",
@@ -41,7 +41,7 @@
         "https://test.uncefact.org/vocabulary/untp/core/CircularityPerformance",
         "https://w3id.org/eudpp#CircularEconomyIndicator"
       ],
-      "equivalentClass": [
+      "exactMatch": [
         "https://test.uncefact.org/vocabulary/untp/core/CircularityPerformance"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -85,7 +85,7 @@
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/dpp/ProductPassport"
       ],
-      "equivalentClass": [
+      "exactMatch": [
         "https://test.uncefact.org/vocabulary/untp/dpp/ProductPassport"
       ],
       "source": "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)"
@@ -100,7 +100,7 @@
         "http://xmlns.com/foaf/0.1/Document",
         "https://w3id.org/eudpp#DigitalInstruction"
       ],
-      "equivalentClass": [
+      "exactMatch": [
         "https://ref.gs1.org/voc/ReferencedFileDetails"
       ]
     },
@@ -130,7 +130,7 @@
         "https://w3id.org/eudpp#CarbonFootprint",
         "https://w3id.org/eudpp#EnvironmentalFootprint"
       ],
-      "equivalentClass": [
+      "exactMatch": [
         "https://test.uncefact.org/vocabulary/untp/core/EmissionsPerformance"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -147,8 +147,27 @@
       "localName": "EnergyEfficiency",
       "label": "Energy Efficiency",
       "comment": "A product's energy efficiency declaration: A-G class, EPREL registration, consumption modes.",
-      "equivalentClass": [
+      "closeMatch": [
         "https://schema.org/EnergyConsumptionDetails"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/EnvironmentalProductDeclaration",
+      "localName": "EnvironmentalProductDeclaration",
+      "label": "Environmental Product Declaration",
+      "comment": "A type III environmental declaration per EN 15804:2012+A2:2019 / ISO 14025,\nreporting life-cycle environmental impact indicators broken down by lifecycle module.",
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance",
+        "https://test.uncefact.org/vocabulary/untp/core/EmissionsPerformance",
+        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration",
+        "https://dpp-keystone.org/spec/v2/terms#EPDBlock"
+      ],
+      "subClassOf": [
+        "https://schema.org/Certification"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#EPDBlock"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -176,7 +195,7 @@
       "subClassOf": [
         "https://ref.gs1.org/voc/Place"
       ],
-      "equivalentClass": [
+      "exactMatch": [
         "https://test.uncefact.org/vocabulary/untp/core/Facility",
         "https://vocabulary.uncefact.org/untp/0.7.0/Facility"
       ],
@@ -194,6 +213,19 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorResult",
+      "localName": "ImpactIndicatorResult",
+      "label": "Impact Indicator Result",
+      "comment": "One environmental impact indicator (e.g. Global Warming Potential) reported within\nan EPD: its indicator type, declared unit, aggregate value, and optional per-lifecycle-module values.",
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#ImpactValues"
+      ],
+      "closeMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#ImpactValues"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/IndividualTradeItemPiece",
       "localName": "IndividualTradeItemPiece",
       "label": "Individual Trade Item Piece",
@@ -202,6 +234,13 @@
         "https://www.gs1.org/standards/barcodes/application-identifiers/8026"
       ],
       "source": "https://ref.gs1.org/ai/8026"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/LifecycleStageResult",
+      "localName": "LifecycleStageResult",
+      "label": "Lifecycle Stage Result",
+      "comment": "The value of an impact indicator for a single EN 15804 lifecycle module (e.g. A1, B6, C3, D).",
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/MaterialComposition",
@@ -257,7 +296,7 @@
       "subClassOf": [
         "https://ref.gs1.org/voc/Organization"
       ],
-      "equivalentClass": [
+      "broadMatch": [
         "https://vocabulary.uncefact.org/untp/0.7.0/Party"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32019R1020"
@@ -563,7 +602,7 @@
         "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf",
         "https://test.uncefact.org/vocabulary/untp/core/carbonFootprint"
       ],
-      "equivalentProperty": [
+      "exactMatch": [
         "https://test.uncefact.org/vocabulary/untp/core/carbonFootprint"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -605,7 +644,7 @@
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/core/circularityPerformance"
       ],
-      "equivalentProperty": [
+      "exactMatch": [
         "https://test.uncefact.org/vocabulary/untp/core/circularityPerformance"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -640,6 +679,46 @@
       "comment": "Current compliance status.",
       "range": [
         "xsd:boolean"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/componentIdentifier",
+      "localName": "componentIdentifier",
+      "label": "Component Identifier",
+      "comment": "Identifier for the material or component (e.g. an internal material code or GS1 identifier).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://schema.org/identifier",
+        "https://dpp-keystone.org/spec/v2/terms#componentIdentifier"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#componentIdentifier"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/componentName",
+      "localName": "componentName",
+      "label": "Component Name",
+      "comment": "Human-readable name of the material or component (e.g. a fibre type, alloy, or constituent material).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://schema.org/name",
+        "https://dpp-keystone.org/spec/v2/terms#componentName"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#componentName"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -788,7 +867,7 @@
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/core/declaredUnit"
       ],
-      "equivalentProperty": [
+      "exactMatch": [
         "https://test.uncefact.org/vocabulary/untp/core/declaredUnit"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -1085,6 +1164,22 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/environmentalProductDeclaration",
+      "localName": "environmentalProductDeclaration",
+      "label": "Environmental Product Declaration",
+      "comment": "Links a product to its EN 15804 environmental product declaration.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/EnvironmentalProductDeclaration"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#epd"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#epd"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/eoriNumber",
       "localName": "eoriNumber",
       "label": "EORI Number",
@@ -1094,6 +1189,58 @@
       ],
       "range": [
         "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/epdProgramOperator",
+      "localName": "epdProgramOperator",
+      "label": "EPD Programme Operator",
+      "comment": "Name of the EPD programme operator (e.g. EPD International, IBU, EcoPlatform).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnvironmentalProductDeclaration"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/epdRegistrationNumber",
+      "localName": "epdRegistrationNumber",
+      "label": "EPD Registration Number",
+      "comment": "Registration / declaration number assigned by the EPD programme operator.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnvironmentalProductDeclaration"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/epdStandard",
+      "localName": "epdStandard",
+      "label": "EPD Reference Standard",
+      "comment": "Reference standard and product category rules version used (e.g. EN 15804+A2).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnvironmentalProductDeclaration"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/epdValidUntil",
+      "localName": "epdValidUntil",
+      "label": "EPD Valid Until",
+      "comment": "Date until which the EPD is valid.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnvironmentalProductDeclaration"
+      ],
+      "range": [
+        "xsd:date"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1287,7 +1434,7 @@
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/dpp/granularityLevel"
       ],
-      "equivalentProperty": [
+      "exactMatch": [
         "https://test.uncefact.org/vocabulary/untp/dpp/granularityLevel"
       ],
       "source": "EN 18223:2026, 4.1.2.2 (CEN/CENELEC JTC 24)"
@@ -1395,6 +1542,61 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/impactIndicator",
+      "localName": "impactIndicator",
+      "label": "Impact Indicator",
+      "comment": "An environmental impact indicator result reported within the EPD.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnvironmentalProductDeclaration"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorResult"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#indicator"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/indicatorTotalValue",
+      "localName": "indicatorTotalValue",
+      "label": "Indicator Total Value",
+      "comment": "Aggregate value of the indicator across the declared lifecycle modules, in the declared unit.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorResult"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/indicatorType",
+      "localName": "indicatorType",
+      "label": "Indicator Type",
+      "comment": "The EN 15804 impact category this result reports (e.g. oec:GWPTotal).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorResult"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorType"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/indicatorUnit",
+      "localName": "indicatorUnit",
+      "label": "Indicator Unit",
+      "comment": "Declared unit for this indicator (e.g. kg CO2 eq, kg CFC11 eq, mol H+ eq, m3 world eq deprived).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorResult"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/isCriticalRawMaterial",
       "localName": "isCriticalRawMaterial",
       "label": "Is Critical Raw Material",
@@ -1440,6 +1642,25 @@
       ],
       "range": [
         "xsd:date"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/iupacName",
+      "localName": "iupacName",
+      "label": "IUPAC Name",
+      "comment": "Systematic IUPAC chemical name of the substance, complementing the CAS/EC registry numbers.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#componentIupacName"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#componentIupacName"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1493,6 +1714,32 @@
       "source": "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/lifecycleStage",
+      "localName": "lifecycleStage",
+      "label": "Lifecycle Stage",
+      "comment": "The EN 15804 lifecycle module this value applies to (e.g. oec:StageA1).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/LifecycleStageResult"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/LifecycleStage"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/lifecycleStageResult",
+      "localName": "lifecycleStageResult",
+      "label": "Lifecycle Stage Result",
+      "comment": "A single EN 15804 module value contributing to this indicator.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorResult"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/LifecycleStageResult"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/massFraction",
       "localName": "massFraction",
       "label": "Mass Fraction",
@@ -1506,7 +1753,7 @@
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/core/massFraction"
       ],
-      "equivalentProperty": [
+      "exactMatch": [
         "https://test.uncefact.org/vocabulary/untp/core/massFraction"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -1525,7 +1772,7 @@
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/core/materialCircularityIndicator"
       ],
-      "equivalentProperty": [
+      "exactMatch": [
         "https://test.uncefact.org/vocabulary/untp/core/materialCircularityIndicator"
       ],
       "source": "https://ellenmacarthurfoundation.org/material-circularity-indicator"
@@ -1580,7 +1827,7 @@
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/core/operationalScope"
       ],
-      "equivalentProperty": [
+      "exactMatch": [
         "https://test.uncefact.org/vocabulary/untp/core/operationalScope"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -1799,7 +2046,7 @@
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/core/primarySourcedRatio"
       ],
-      "equivalentProperty": [
+      "exactMatch": [
         "https://test.uncefact.org/vocabulary/untp/core/primarySourcedRatio"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -1890,7 +2137,7 @@
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/core/recyclableContent"
       ],
-      "equivalentProperty": [
+      "exactMatch": [
         "https://test.uncefact.org/vocabulary/untp/core/recyclableContent"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -1909,7 +2156,7 @@
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/core/recycledContent"
       ],
-      "equivalentProperty": [
+      "exactMatch": [
         "https://test.uncefact.org/vocabulary/untp/core/recycledContent"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -2172,6 +2419,22 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/stageValue",
+      "localName": "stageValue",
+      "label": "Stage Value",
+      "comment": "Indicator value for this lifecycle module, in the indicator's declared unit.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/LifecycleStageResult"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://schema.org/value"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/substanceLocation",
       "localName": "substanceLocation",
       "label": "Substance Location",
@@ -2367,7 +2630,7 @@
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/core/utilityFactor"
       ],
-      "equivalentProperty": [
+      "exactMatch": [
         "https://test.uncefact.org/vocabulary/untp/core/utilityFactor"
       ],
       "source": "https://uncefact.github.io/spec-untp/"
@@ -2416,7 +2679,7 @@
       "seeAlso": [
         "https://test.uncefact.org/vocabulary/untp/core/verifiedRatio"
       ],
-      "equivalentProperty": [
+      "exactMatch": [
         "https://test.uncefact.org/vocabulary/untp/core/verifiedRatio"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -2815,6 +3078,202 @@
           "id": "https://ref.openepcis.io/extensions/common/core/HazardWarning",
           "localName": "HazardWarning",
           "label": "Warning",
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorType",
+      "localName": "ImpactIndicatorType",
+      "label": "Impact Indicator Type",
+      "comment": "Controlled list of EN 15804:2012+A2:2019 environmental impact indicators.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ADPElements",
+          "localName": "ADPElements",
+          "label": "Abiotic depletion potential, minerals and metals",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ADPFossil",
+          "localName": "ADPFossil",
+          "label": "Abiotic depletion potential, fossil resources",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/AP",
+          "localName": "AP",
+          "label": "Acidification potential",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/EPFreshwater",
+          "localName": "EPFreshwater",
+          "label": "Eutrophication potential, freshwater",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/EPMarine",
+          "localName": "EPMarine",
+          "label": "Eutrophication potential, marine",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/EPTerrestrial",
+          "localName": "EPTerrestrial",
+          "label": "Eutrophication potential, terrestrial",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/GWPBiogenic",
+          "localName": "GWPBiogenic",
+          "label": "Global Warming Potential, biogenic",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/GWPFossil",
+          "localName": "GWPFossil",
+          "label": "Global Warming Potential, fossil",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/GWPLuluc",
+          "localName": "GWPLuluc",
+          "label": "Global Warming Potential, land use and land-use change",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/GWPTotal",
+          "localName": "GWPTotal",
+          "label": "Global Warming Potential, total",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ODP",
+          "localName": "ODP",
+          "label": "Depletion potential of the stratospheric ozone layer",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/POCP",
+          "localName": "POCP",
+          "label": "Formation potential of tropospheric ozone",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/WDP",
+          "localName": "WDP",
+          "label": "Water (user) deprivation potential",
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/LifecycleStage",
+      "localName": "LifecycleStage",
+      "label": "Lifecycle Stage",
+      "comment": "Controlled list of EN 15804 lifecycle modules (product, construction, use, end-of-life, and benefits beyond the system boundary).",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageA1",
+          "localName": "StageA1",
+          "label": "A1 Raw material supply",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageA2",
+          "localName": "StageA2",
+          "label": "A2 Transport to manufacturer",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageA3",
+          "localName": "StageA3",
+          "label": "A3 Manufacturing",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageA4",
+          "localName": "StageA4",
+          "label": "A4 Transport to site",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageA5",
+          "localName": "StageA5",
+          "label": "A5 Installation",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageB1",
+          "localName": "StageB1",
+          "label": "B1 Use",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageB2",
+          "localName": "StageB2",
+          "label": "B2 Maintenance",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageB3",
+          "localName": "StageB3",
+          "label": "B3 Repair",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageB4",
+          "localName": "StageB4",
+          "label": "B4 Replacement",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageB5",
+          "localName": "StageB5",
+          "label": "B5 Refurbishment",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageB6",
+          "localName": "StageB6",
+          "label": "B6 Operational energy use",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageB7",
+          "localName": "StageB7",
+          "label": "B7 Operational water use",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageC1",
+          "localName": "StageC1",
+          "label": "C1 Deconstruction / demolition",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageC2",
+          "localName": "StageC2",
+          "label": "C2 Transport to waste processing",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageC3",
+          "localName": "StageC3",
+          "label": "C3 Waste processing",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageC4",
+          "localName": "StageC4",
+          "label": "C4 Disposal",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/StageD",
+          "localName": "StageD",
+          "label": "D Benefits and loads beyond the system boundary",
           "comment": ""
         }
       ]

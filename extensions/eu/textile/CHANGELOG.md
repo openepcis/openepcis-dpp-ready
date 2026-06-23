@@ -4,6 +4,10 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [0.9.7] — 2026-06-19
 
+### Added
+- DPP Keystone ESPR harvest (PART 18): delta terms the existing model did not cover, each anchored `skos:exactMatch` to its `dppk:` counterpart — `eutex:organicContentPercentage` / `organicContentMass` (Regulation (EU) 2018/848), `eutex:containsAnimalNonTextileParts` (Regulation (EU) 1007/2011 Art. 12), `eutex:euEcolabel` (Regulation (EC) 66/2010), `eutex:euDeclarationOfConformity` (→ `oec:DocumentReference`), `eutex:weightExcludingTrims` (complements `gs1:netWeight`), and the discrete PEF performance classes `eutex:carbonFootprintClass` / `eutex:environmentalFootprintClass` (complementing the existing `eutex:pefSingleScore`, `eutex:carbonFootprintManufacturing`, and `eutex:benchmarkPerformance`).
+- `dppk:` prefix for SKOS mapping anchors to the DPP Keystone peer profile. Recycled-content detail, PEF single score, and the LCIA breakdown were already present and were not re-minted.
+
 ### Changed
 - Renamed vocabulary prefix `textile:` → `eutex:` (alias only; namespace IRIs unchanged).
 - Completed term governance: 100% `dcterms:source` + `skos:note` coverage.

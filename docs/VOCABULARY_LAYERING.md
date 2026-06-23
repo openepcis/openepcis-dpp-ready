@@ -17,7 +17,7 @@ terms, and a single change at a higher layer benefits every module above it.
    │    EPR, Compostability, Biodegradability, DepositReturnScheme,   │
    │    RecycledContent, HazardousSubstance, OperatorInformation,     │
    │    FacilityInformation, RepairabilityInfo, AccessRights, …       │
-   │  ↓ anchored upward via owl:equivalentClass / equivalentProperty  │
+   │  ↓ anchored upward via skos:exactMatch / closeMatch / broadMatch │
    ├──────────────────────────────────────────────────────────────────┤
    │  Layer 2 — Upstream community profiles                           │
    │    UNTP Core Vocabulary v0.7.0                                   │
@@ -85,6 +85,7 @@ graph BT
         ELEC["euelec:<br/>RepairCriterion, criterionScore"]
         EUDR["eudr:<br/>geolocation, transformationLocation"]
         TEX["eutex:<br/>RobustnessAssessment,<br/>spinning/weaving/dyeing/cutAndSew/finishingFacility"]
+        STEEL["eusteel:<br/>IronSteelProduct, heat/cast number,<br/>steelDesignation, MaterialTestCertificate (EN 10204/10168)"]
     end
 
     %% --- Layer 2 → Layer 1 derivations ---
@@ -94,30 +95,33 @@ graph BT
 
     %% --- Layer 3 → Layer 1/2 anchors ---
     DPP_OP ==>|"subClassOf"| GS1
-    DPP_OP -.->|"owl:equivalentClass<br/>cv:LegalEntity"| SEMIC
-    DPP_OP -.->|"owl:equivalentClass<br/>untp:Party"| UNTP
+    DPP_OP -.->|"rdfs:seeAlso<br/>cv:LegalEntity"| SEMIC
+    DPP_OP -.->|"skos:broadMatch<br/>untp:Party"| UNTP
 
-    DPP_DDR -.->|"owl:equivalentClass<br/>cccev:Evidence"| SEMIC
+    DPP_DDR ==>|"subClassOf<br/>cccev:Evidence"| SEMIC
 
     DPP_FAC ==>|"subClassOf<br/>gs1:Place"| GS1
-    DPP_FAC -.->|"owl:equivalentClass<br/>untp:Facility"| UNTP
+    DPP_FAC -.->|"skos:exactMatch<br/>untp:Facility"| UNTP
     DPP_FAC -.->|"rdfs:seeAlso<br/>locn:Location"| SEMIC
 
-    DPP_DOC -.->|"owl:equivalentClass<br/>gs1:ReferencedFileDetails"| GS1
+    DPP_DOC -.->|"skos:exactMatch<br/>gs1:ReferencedFileDetails"| GS1
     DPP_DOC -.->|"rdfs:seeAlso<br/>foaf:Document"| SEMIC
 
-    DPP_PERF -.->|"owl:equivalentClass<br/>untp-core:*Performance"| UNTP
+    DPP_PERF -.->|"skos:exactMatch<br/>untp-core:*Performance"| UNTP
 
     %% --- Layer 4 → Layer 3 / Layer 1 anchors ---
     BAT -.->|"adms:Identifier<br/>cv:PublicOrganisation<br/>cv:ContactPoint<br/>cccev:Evidence"| SEMIC
     BAT -.->|"oec:OperatorInformation"| DPP_OP
 
-    ELEC -.->|"owl:equivalentClass<br/>cccev:Criterion<br/>cccev:SupportedValue"| SEMIC
+    ELEC ==>|"subClassOf<br/>cccev:Criterion"| SEMIC
 
     EUDR -.->|"locn:Geometry<br/>locn:Location"| SEMIC
 
     TEX -.->|"oec:FacilityInformation<br/>(cascades to locn:Location)"| DPP_FAC
     TEX -.->|"cccev:Evidence<br/>(RobustnessAssessment)"| SEMIC
+
+    STEEL -.->|"oec:RecycledContent, oec:EnvironmentalProductDeclaration,<br/>oec:substancesOfConcern, oec:DocumentReference"| DPP_DOC
+    STEEL -.->|"skos:broadMatch schema:Certification<br/>(MaterialTestCertificate)"| GS1
 
     classDef l1 fill:#dbeafe,stroke:#1e40af,stroke-width:2px;
     classDef l2 fill:#fef3c7,stroke:#92400e;
@@ -132,7 +136,7 @@ graph BT
 Reading the diagram:
 
 - **Solid arrows** (`==>`) = `rdfs:subClassOf` — strict structural inheritance.
-- **Dashed arrows** (`-.->`) = `owl:equivalentClass` / `owl:equivalentProperty` / `rdfs:seeAlso` — semantic anchors that don't change the term's structural ancestry.
+- **Dashed arrows** (`-.->`) = graded SKOS mapping relations (`skos:exactMatch` / `skos:closeMatch` / `skos:broadMatch`) or `rdfs:seeAlso` — semantic anchors that don't change the term's structural ancestry and don't assert OWL logical equivalence.
 - **Dotted "derived from" / "leans on"** = informal upstream relationships (UNTP's conformity model derives from CCCEV; JTC 24 leans on SEMICeu).
 
 A few things the diagram makes visible that the stack diagram alone hides:
@@ -152,7 +156,7 @@ foundational vocabularies in this order: **GS1 → SEMICeu → schema.org**.
 | Decision | Action |
 |---|---|
 | Already in **GS1 Web Vocabulary** (`gs1:`) | Use it directly. GS1 is `owl:imports`-ed and is the canonical source for product / identifier / EPCIS-aligned attributes. |
-| Already in **EU SEMICeu Core Vocabularies** (`cv:` / `cccev:` / `locn:` / `adms:` / `cpsv:`) | Use it directly **and** anchor any local alias upward via `owl:equivalentClass` / `owl:equivalentProperty`. SEMICeu is the EU-canonical source for public bodies, conformity (CCCEV), legal entities, persons, addresses, and identifier schemes. |
+| Already in **EU SEMICeu Core Vocabularies** (`cv:` / `cccev:` / `locn:` / `adms:` / `cpsv:`) | Use it directly **and** anchor any local alias upward via a graded SKOS mapping relation (`skos:exactMatch` / `skos:closeMatch` / `skos:broadMatch`), or `rdfs:subClassOf` where the local term is a true specialisation. SEMICeu is the EU-canonical source for public bodies, conformity (CCCEV), legal entities, persons, addresses, and identifier schemes. |
 | Already in **schema.org** | Use it directly. schema.org is the universal-web fallback for ratings, observations, and generic metadata that GS1 and SEMICeu don't cover. |
 | Already in **GS1 Rail Vocabulary** (`rail:` — `https://gs1-epcis-reg.org/rail/voc/data#`) for railway-specific concepts | Use it directly. GS1 Rail is a sectoral peer to `gs1:` published by GS1 AISBL with GS1 Switzerland. Mirrored under `extensions/upstream/gs1-rail/`; cross-cutting overlaps (e.g. `rail:itemReconditioningDate` ↔ `oec:remanufacturingDate`) are bridged via `extensions/common/interop/context/rail-bridge-context.jsonld`. |
 | Already in UNTP / CIRPASS-2 / JTC 24 | Reference it directly **and** anchor any local alias upward. |
@@ -162,8 +166,8 @@ foundational vocabularies in this order: **GS1 → SEMICeu → schema.org**.
 **Conversely:** if you find yourself adding the same concept to two modules,
 that's a signal it should move down to `oec:`. If a `oec:` term turns out
 to be a SEMICeu / GS1 / schema.org duplicate, **redo and match upstream**:
-either delete the `oec:` term in favour of the upstream IRI, or strong-anchor
-it via `owl:equivalentClass` / `owl:equivalentProperty` and prefer the
+either delete the `oec:` term in favour of the upstream IRI, or anchor
+it via a graded SKOS mapping relation (`skos:exactMatch` / `skos:closeMatch` / `skos:broadMatch`) and prefer the
 upstream IRI in JSON-LD serialisations.
 
 ## Why three foundational peers, not one
@@ -255,7 +259,7 @@ Everything else delegates upward.
 ## Where to read this in code
 
 - `extensions/common/core/ontology/dpp-core.ttl` — the `oec:` definitions
-  with `owl:equivalentClass`/`equivalentProperty` declarations to GS1,
+  with graded SKOS mapping relations (`skos:exactMatch` / `skos:closeMatch` / `skos:broadMatch`) to GS1,
   schema.org, SEMICeu Core Vocabularies, and UNTP.
 - `extensions/common/interop/context/semic-core-bridge-context.jsonld` —
   the term-by-term bridge between our JSON-LD aliases and the SEMICeu
@@ -275,5 +279,5 @@ Everything else delegates upward.
 <https://ref.openepcis.io/extensions/> — region landing pages
 (`/eu`, `/us`, `/common`) list each module with a short description that
 states what it delegates to `oec:`. Each `oec:` term page shows its
-`owl:equivalentClass`/`equivalentProperty` upward links to schema.org,
+SKOS mapping (`skos:exactMatch` / `skos:closeMatch` / `skos:broadMatch`) upward links to schema.org,
 GS1, SEMICeu (`http://data.europa.eu/m8g/...`), and UNTP.

@@ -1,0 +1,605 @@
+{
+  "namespace": "https://ref.openepcis.io/extensions/eu/iron-steel/",
+  "version": "0.9.7",
+  "title": "OpenEPCIS Iron & Steel Vocabulary",
+  "description": "Vocabulary for the iron & steel ESPR priority product group\n(Regulation (EU) 2024/1781 Annex I; iron & steel named in Article 5 / the 2025-2030\nworking plan). Covers steel-specific identification (heat / cast / lot numbers,\ngrade classification per EN 10020 and designation per EN 10027), production route,\nand the Material Test Certificate (EN 10204 inspection documents with EN 10168\nmechanical and chemical parameters).\n\nThis module is intentionally thin per the project's four-layer delegation pattern.\nSteel-specific concepts live here; cross-cutting concerns (recycled content,\nsubstances of concern, environmental product declaration, carbon footprint,\ndocuments) reuse the lifted `oec:` vocabulary plus `untp:` and `gs1:`.\n\nAligned with the DPP Keystone iron & steel profile (dppk:IronSteelProduct /\ndppk:MaterialTestCertificate).",
+  "classes": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/IronSteelProduct",
+      "localName": "IronSteelProduct",
+      "label": "Iron & Steel Product",
+      "comment": "An iron or steel product (e.g. rebar, structural section, plate, coil,\nwire rod) subject to the ESPR iron & steel delegated act. Carrier for steel\nidentification, grade/designation, production route, and the Material Test\nCertificate. Reuse oec: terms for recycled content, substances of concern,\nenvironmental product declaration, and supporting documents.",
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/IronSteel",
+        "https://dpp-keystone.org/spec/v2/terms#IronSteelProduct"
+      ],
+      "subClassOf": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#IronSteelProduct"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate",
+      "localName": "MaterialTestCertificate",
+      "label": "Material Test Certificate",
+      "comment": "An inspection document for metallic products per EN 10204 (type 2.1, 2.2,\n3.1, or 3.2), carrying the EN 10168 mechanical and chemical test parameters that\nsubstantiate the declared grade.",
+      "seeAlso": [
+        "https://schema.org/Certification",
+        "https://dpp-keystone.org/spec/v2/terms#MaterialTestCertificate"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#MaterialTestCertificate"
+      ],
+      "broadMatch": [
+        "https://schema.org/Certification"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx"
+    }
+  ],
+  "properties": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/castNumber",
+      "localName": "castNumber",
+      "label": "Cast Number",
+      "comment": "Cast number identifying the casting run within a heat (EN 10168 traceability).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/IronSteelProduct"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/batchLot",
+        "https://dpp-keystone.org/spec/v2/terms#castNumber"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#castNumber"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/cbamReportId",
+      "localName": "cbamReportId",
+      "label": "CBAM Report ID",
+      "comment": "Identifier of the Carbon Border Adjustment Mechanism report associated with the steel product.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/IronSteelProduct"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#cbamReportId"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#cbamReportId"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2023/956"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/heatNumber",
+      "localName": "heatNumber",
+      "label": "Heat Number",
+      "comment": "Heat (melt) number identifying the batch of molten steel from which the product was cast (EN 10168 traceability).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/IronSteelProduct"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/batchLot",
+        "https://dpp-keystone.org/spec/v2/terms#heatNumber"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#heatNumber"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/lotNumber",
+      "localName": "lotNumber",
+      "label": "Lot Number",
+      "comment": "Delivery lot number for the steel product.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/IronSteelProduct"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/batchLot",
+        "https://dpp-keystone.org/spec/v2/terms#lotNumber"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#lotNumber"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/meltAndPourCountry",
+      "localName": "meltAndPourCountry",
+      "label": "Melt and Pour Country",
+      "comment": "Country where the steel was melted and poured (ISO 3166-1 alpha-2). Relevant to origin and CBAM reporting.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/IronSteelProduct"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://schema.org/countryOfOrigin",
+        "https://dpp-keystone.org/spec/v2/terms#meltAndPourCountry"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#meltAndPourCountry"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtc",
+      "localName": "mtc",
+      "label": "Material Test Certificate",
+      "comment": "Links a steel product to its Material Test Certificate (EN 10204).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/IronSteelProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#mtc"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#mtc"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcCarbonContent",
+      "localName": "mtcCarbonContent",
+      "label": "MTC Carbon Content",
+      "comment": "Carbon content from the cast/ladle analysis (mass %).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcCarbonContent"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcCarbonContent"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcCarbonEquivalent",
+      "localName": "mtcCarbonEquivalent",
+      "label": "MTC Carbon Equivalent",
+      "comment": "Carbon equivalent value (CEV / CET), a weldability indicator derived from the cast analysis.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcCarbonEquivalent"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcCarbonEquivalent"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcCopperContent",
+      "localName": "mtcCopperContent",
+      "label": "MTC Copper Content",
+      "comment": "Copper content from the cast analysis (mass %).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcCopperContent"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcCopperContent"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcElongation",
+      "localName": "mtcElongation",
+      "label": "MTC Elongation",
+      "comment": "Percentage elongation after fracture (A%).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcElongation"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcElongation"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcFinishing",
+      "localName": "mtcFinishing",
+      "label": "MTC Finishing",
+      "comment": "Finishing / delivery condition recorded on the certificate (e.g. hot-rolled, normalised, quenched and tempered).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcFinishing"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcFinishing"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcInspectionType",
+      "localName": "mtcInspectionType",
+      "label": "MTC Inspection Document Type",
+      "comment": "EN 10204 inspection document type: 2.1, 2.2, 3.1, or 3.2.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcNitrogenContent",
+      "localName": "mtcNitrogenContent",
+      "label": "MTC Nitrogen Content",
+      "comment": "Nitrogen content from the cast analysis (mass %).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcNitrogenContent"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcNitrogenContent"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcNominalSize",
+      "localName": "mtcNominalSize",
+      "label": "MTC Nominal Size",
+      "comment": "Nominal dimension of the tested product (mm).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcNominalSize"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcNominalSize"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcPhosphorusContent",
+      "localName": "mtcPhosphorusContent",
+      "label": "MTC Phosphorus Content",
+      "comment": "Phosphorus content from the cast analysis (mass %).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcPhosphorusContent"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcPhosphorusContent"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcRadiometricControl",
+      "localName": "mtcRadiometricControl",
+      "label": "MTC Radiometric Control",
+      "comment": "Radiometric (radioactivity) control result for the steel, where declared.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcRadiometricControl"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcRadiometricControl"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcRelativeRibArea",
+      "localName": "mtcRelativeRibArea",
+      "label": "MTC Relative Rib Area",
+      "comment": "Relative rib area fR for ribbed reinforcing steel (bond performance).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcRelativeRibArea"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcRelativeRibArea"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcSteelProcess",
+      "localName": "mtcSteelProcess",
+      "label": "MTC Steel Process",
+      "comment": "Steelmaking process recorded on the certificate (free text where the controlled eusteel:TechnologyRoute is not used).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcSteelProcess"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcSteelProcess"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcSulfurContent",
+      "localName": "mtcSulfurContent",
+      "label": "MTC Sulfur Content",
+      "comment": "Sulfur content from the cast analysis (mass %).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcSulfurContent"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcSulfurContent"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcTensileStrength",
+      "localName": "mtcTensileStrength",
+      "label": "MTC Tensile Strength",
+      "comment": "Measured ultimate tensile strength Rm (MPa).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcWeightTolerance",
+      "localName": "mtcWeightTolerance",
+      "label": "MTC Weight Tolerance",
+      "comment": "Permitted weight tolerance of the tested product (%).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcWeightTolerance"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcWeightTolerance"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcYieldStrength",
+      "localName": "mtcYieldStrength",
+      "label": "MTC Yield Strength",
+      "comment": "Measured yield strength Re (MPa).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcYieldStrength"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcYieldStrength"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/mtcYieldStrengthRatio",
+      "localName": "mtcYieldStrengthRatio",
+      "label": "MTC Yield Strength Ratio",
+      "comment": "Ratio of yield strength to tensile strength (Re/Rm).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcYieldStrengthRatio"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#mtcYieldStrengthRatio"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/productNumber",
+      "localName": "productNumber",
+      "label": "Product Number",
+      "comment": "Manufacturer product / article number for the steel product.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/IronSteelProduct"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://schema.org/productID",
+        "https://ref.gs1.org/voc/globalModelNumber",
+        "https://dpp-keystone.org/spec/v2/terms#productNumber"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#productNumber"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/purchaserOrder",
+      "localName": "purchaserOrder",
+      "label": "Purchaser Order",
+      "comment": "Purchaser order reference associated with the steel delivery.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/IronSteelProduct"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://schema.org/orderNumber",
+        "https://dpp-keystone.org/spec/v2/terms#purchaserOrder"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#purchaserOrder"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/steelDesignation",
+      "localName": "steelDesignation",
+      "label": "Steel Designation",
+      "comment": "Steel name / number designation per EN 10027 (e.g. S355J2 / 1.0577).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/IronSteelProduct"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#steelDesignation"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#steelDesignation"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10027-1.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/steelGradeClassification",
+      "localName": "steelGradeClassification",
+      "label": "Steel Grade Classification",
+      "comment": "Classification of the steel grade per EN 10020 (unalloyed, stainless, other alloy).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/IronSteelProduct"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#steelGradeClassification"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#steelGradeClassification"
+      ],
+      "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10020.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/technologyRoute",
+      "localName": "technologyRoute",
+      "label": "Technology Route",
+      "comment": "Primary steelmaking route used to produce the product.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/IronSteelProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/iron-steel/TechnologyRoute"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#technologyRoute"
+      ],
+      "closeMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#technologyRoute"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    }
+  ],
+  "enumerations": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/iron-steel/TechnologyRoute",
+      "localName": "TechnologyRoute",
+      "label": "Steel Production Technology Route",
+      "comment": "Primary steelmaking route, a key driver of embodied carbon.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/iron-steel/BlastFurnaceBOF",
+          "localName": "BlastFurnaceBOF",
+          "label": "Blast Furnace / Basic Oxygen Furnace",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/iron-steel/ElectricArcFurnace",
+          "localName": "ElectricArcFurnace",
+          "label": "Electric Arc Furnace",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/iron-steel/OpenHearthFurnace",
+          "localName": "OpenHearthFurnace",
+          "label": "Open Hearth Furnace",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/iron-steel/OtherRoute",
+          "localName": "OtherRoute",
+          "label": "Other Route",
+          "comment": ""
+        }
+      ]
+    }
+  ]
+}

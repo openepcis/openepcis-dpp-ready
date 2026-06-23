@@ -4,6 +4,9 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [0.9.7] — 2026-06-19
 
+### Added
+- **DPP Keystone bridge.** New `context/dpp-keystone-bridge-context.jsonld` mapping the DPP Keystone profile (`dpp-keystone.org`, `dppk:`, spec v2) onto the OpenEPCIS vocabulary, plus full coverage analysis in [`docs/DPP_KEYSTONE_MAPPING.md`](docs/DPP_KEYSTONE_MAPPING.md). Covers product/organization/component, iron & steel + Material Test Certificate (`eusteel:`), EN 15804 EPD (`oec:`), construction/DoP (`eucpr:`), and the textile ESPR deltas (`eutex:`). Structural reshapes (EPD indicator/lifecycle objects, DoPC per-test groups) and lossy conversions (0–100 vs 0–1 scales, dppk 4-value visibility vs `oec:AccessLevel`) are documented rather than forced into the context. Semantic anchors are graded SKOS mapping relations (`skos:exactMatch` / `skos:closeMatch` / `skos:broadMatch`) in the respective module ontologies.
+
 ### Changed
 - Renamed vocabulary prefix `interop:` → `oei:` (alias only; namespace IRIs unchanged).
 - Completed term governance: 100% `dcterms:source` + `skos:note` coverage.

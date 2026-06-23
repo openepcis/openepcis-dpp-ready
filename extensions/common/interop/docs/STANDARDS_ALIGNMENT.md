@@ -15,9 +15,10 @@ OpenEPCIS DPP-Ready rests on a **peer triumvirate** of foundational vocabularies
 Above these foundations sit the **upstream community profiles and standardisation tracks** (Layer 2):
 
 - **CEN/CENELEC JTC 24** — the formal EU standardisation track for DPP under M/604 (EN 18216–18223 + prEN 18239 / 18246). This is the regulation-binding track that JTC 24's harmonised standards will deliver.
-- **UNTP v0.7.0** — UN/CEFACT product transparency protocol; bridge context + `owl:equivalentClass` / `owl:equivalentProperty` anchors where extensions match.
+- **UNTP v0.7.0** — UN/CEFACT product transparency protocol; bridge context + graded SKOS mapping (`skos:exactMatch` / `skos:closeMatch`) anchors where extensions match.
 - **CIRPASS-2 pilot programme** — EU pilot, one input among several into JTC 24. Their ontology proposal at `https://w3id.org/eudpp#` is referenced via `rdfs:seeAlso` only (W3ID redirect currently 404s; not a finalised standard). See [`CIRPASS2_ALIGNMENT.md`](./CIRPASS2_ALIGNMENT.md).
 - **BatteryPass Consortium** — sectoral SAMM data model (v1.2) + BatteryPass-Ready v1.3 conformance harness; bidirectional bridge contexts, no formal anchors. Battery-specific analysis in [`extensions/eu/battery/docs/CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md`](../../../eu/battery/docs/CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md).
+- **DPP Keystone** (`dpp-keystone.org`, `dppk:`, spec v2) — a peer DPP profile published as JSON-LD + JSON Schema, with mature iron & steel (Material Test Certificate, EN 10204/10168), EN 15804 EPD, construction/DoP, and textile ESPR coverage. Bidirectional bridge context + graded SKOS mapping (`skos:exactMatch` / `skos:closeMatch` / `skos:broadMatch`) anchors in the module ontologies; full mapping in [`DPP_KEYSTONE_MAPPING.md`](./DPP_KEYSTONE_MAPPING.md).
 
 CCCEV (Layer 1, SEMICeu) is the EU upstream of UNTP's conformity model — the two are anchored to each other, with UNTP retained as the operative bridge for DPP-specific detail.
 
@@ -203,7 +204,7 @@ The [BatteryPass Data Model](https://github.com/battery-pass/BatteryPassDataMode
 |----------|-------------------|-----------------|-------|
 | **GS1 Web Vocabulary** | Foundation | Foundation | Native integration via `owl:imports` |
 | **CEN/CENELEC JTC 24** | Strong (6/8 standards) | Strong | EN 18216-18223 (published 2026) + prEN 18239/18246 (in development); see detailed alignment above |
-| **UNTP** | 22 | 9 | `owl:equivalentProperty`, aligned with v0.6.1 (GitLab) |
+| **UNTP** | 22 | 9 | SKOS mapping (`skos:exactMatch` / `skos:closeMatch`), aligned with v0.6.1 (GitLab) |
 | **CIRPASS2** | Requirements coverage | Bridge context | `cirpass2-bridge-context.jsonld` + `CIRPASS2_COVERAGE.md` |
 | **ESPR 2024/1781** | Full | Full | Core module covers all Article 7/9 requirements |
 | **EN 45552-45555** | Methodology support | N/A | Properties to store assessment results |
@@ -235,7 +236,7 @@ OpenEPCIS is built natively on GS1 Web Vocabulary patterns:
 
 **Source**: https://opensource.unicc.org/un/unece/uncefact/spec-untp (moved from GitHub Nov 2025)
 **Version aligned**: v0.6.1 (heading to v1.0, expected Jun 2026)
-**Integration Method**: `owl:equivalentProperty`, `rdfs:seeAlso`, bridge context
+**Integration Method**: graded SKOS mapping (`skos:exactMatch` / `skos:closeMatch`), `rdfs:seeAlso`, bridge context
 
 ### Property Alignment
 

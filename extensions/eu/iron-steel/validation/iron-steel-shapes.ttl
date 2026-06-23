@@ -1,0 +1,74 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix eusteel: <https://ref.openepcis.io/extensions/eu/iron-steel/> .
+@prefix steel-sh: <https://ref.openepcis.io/extensions/eu/iron-steel/shapes/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<https://ref.openepcis.io/extensions/eu/iron-steel/shapes/>
+    a sh:ShapesGraph ;
+    dcterms:title "OpenEPCIS Iron & Steel SHACL Shapes"@en ;
+    dcterms:description "SHACL validation shapes for the iron & steel vocabulary (ESPR (EU) 2024/1781; EN 10204 / EN 10168)."@en ;
+    dcterms:created "2026-06-23"^^xsd:date ;
+    dcterms:modified "2026-06-23"^^xsd:date .
+
+steel-sh:IronSteelProductShape
+    a sh:NodeShape ;
+    sh:targetClass eusteel:IronSteelProduct ;
+    rdfs:label "Iron & Steel Product Shape"@en ;
+    sh:property [
+        sh:path eusteel:heatNumber ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "eusteel:IronSteelProduct must declare exactly one heatNumber (EN 10168 traceability)"@en
+    ] ;
+    sh:property [
+        sh:path eusteel:steelDesignation ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:message "eusteel:IronSteelProduct must declare a steelDesignation (EN 10027)"@en
+    ] ;
+    sh:property [
+        sh:path eusteel:technologyRoute ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( eusteel:BlastFurnaceBOF eusteel:ElectricArcFurnace eusteel:OpenHearthFurnace eusteel:OtherRoute ) ;
+        sh:maxCount 1 ;
+        sh:message "eusteel:technologyRoute must be BF-BOF, EAF, OHF, or other"@en
+    ] ;
+    sh:property [
+        sh:path eusteel:mtc ;
+        sh:node steel-sh:MaterialTestCertificateShape ;
+        sh:maxCount 1 ;
+        sh:message "Where present, eusteel:mtc must conform to MaterialTestCertificateShape (EN 10204)"@en
+    ] .
+
+steel-sh:MaterialTestCertificateShape
+    a sh:NodeShape ;
+    sh:targetClass eusteel:MaterialTestCertificate ;
+    rdfs:label "Material Test Certificate Shape"@en ;
+    sh:property [
+        sh:path eusteel:mtcInspectionType ;
+        sh:datatype xsd:string ;
+        sh:in ( "2.1" "2.2" "3.1" "3.2" ) ;
+        sh:maxCount 1 ;
+        sh:message "eusteel:mtcInspectionType must be an EN 10204 document type (2.1, 2.2, 3.1, 3.2)"@en
+    ] ;
+    sh:property [
+        sh:path eusteel:mtcYieldStrength ;
+        sh:datatype xsd:decimal ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path eusteel:mtcTensileStrength ;
+        sh:datatype xsd:decimal ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path eusteel:mtcCarbonEquivalent ;
+        sh:datatype xsd:decimal ;
+        sh:maxCount 1
+    ] .

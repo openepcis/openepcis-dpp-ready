@@ -10,6 +10,9 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix schema: <https://schema.org/> .
 
+# DPP Keystone (dpp-keystone.org), a peer DPP profile this module aligns with.
+@prefix dppk: <https://dpp-keystone.org/spec/v2/terms#> .
+
 <https://ref.openepcis.io/extensions/eu/cpr/>
     a owl:Ontology ;
     dcterms:title "OpenEPCIS CPR Vocabulary"@en ;
@@ -25,7 +28,7 @@ EPR, end-of-life, due diligence) reuse the lifted `oec:` vocabulary plus
     dcterms:creator "OpenEPCIS" ;
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
     dcterms:created "2026-05-01"^^xsd:date ;
-    dcterms:modified "2026-06-19"^^xsd:date ;
+    dcterms:modified "2026-06-23"^^xsd:date ;
     owl:versionInfo "0.9.7" ;
     owl:versionIRI <https://ref.openepcis.io/extensions/eu/cpr/0.9.7> ;
     vann:preferredNamespacePrefix "eucpr" ;
@@ -213,3 +216,172 @@ eucpr:essentialCharacteristic
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     skos:note "Declaration of Performance / essential-characteristics concept per the EU Construction Products Regulation (EU) 2024/3110. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+# Convenience named essential characteristics. Either declare these directly on
+# the product, or use the generic eucpr:essentialCharacteristic pattern above;
+# both carry a gs1:QuantitativeValue. Harvested from the DPP Keystone peer
+# profile (dppk:thermalConductivity / dppk:compressiveStrength).
+
+eucpr:thermalConductivity
+    a owl:ObjectProperty ;
+    rdfs:label "Thermal Conductivity"@en ;
+    rdfs:comment "Declared thermal conductivity λ of the product. gs1:QuantitativeValue with unitCode 'F94' (W/(m·K))."@en ;
+    rdfs:domain eucpr:ConstructionProduct ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    rdfs:seeAlso dppk:thermalConductivity ;
+    skos:exactMatch dppk:thermalConductivity ;
+    skos:note "Named essential characteristic per CPR Annex III. Anchored to the DPP Keystone peer profile dppk:thermalConductivity."@en .
+
+eucpr:compressiveStrength
+    a owl:ObjectProperty ;
+    rdfs:label "Compressive Strength"@en ;
+    rdfs:comment "Declared compressive strength of the product. gs1:QuantitativeValue with unitCode 'N31' (MPa)."@en ;
+    rdfs:domain eucpr:ConstructionProduct ;
+    rdfs:range gs1:QuantitativeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    rdfs:seeAlso dppk:compressiveStrength ;
+    skos:exactMatch dppk:compressiveStrength ;
+    skos:note "Named essential characteristic per CPR Annex III. Anchored to the DPP Keystone peer profile dppk:compressiveStrength."@en .
+
+# =============================================================================
+# Structured Declaration of Performance (DoP), AVCP system, assessment bodies
+# =============================================================================
+# eucpr:declarationOfPerformanceUrl (above) carries a link to the DoP document.
+# For machine-readable DoP metadata, use the structured eucpr:DeclarationOfPerformance
+# block. Harvested from / aligned with the DPP Keystone CPR profile
+# (dppk:DeclarationOfPerformance / dppk:DoPCBlock).
+
+eucpr:DeclarationOfPerformance
+    a owl:Class ;
+    rdfs:label "Declaration of Performance"@en ;
+    rdfs:comment """Structured Declaration of Performance per CPR Article 12: declaration code,
+date of issue, AVCP system, harmonised standard, intended use, and the assessment
+bodies involved. Complements eucpr:declarationOfPerformanceUrl (the document link)."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    rdfs:seeAlso schema:Certification ;
+    rdfs:seeAlso dppk:DoPCBlock ;
+    skos:exactMatch dppk:DeclarationOfPerformance ;
+    skos:note "Declaration of Performance per the EU Construction Products Regulation (EU) 2024/3110. Anchored to the DPP Keystone peer profile dppk:DeclarationOfPerformance / dppk:DoPCBlock."@en .
+
+eucpr:declarationOfPerformance
+    a owl:ObjectProperty ;
+    rdfs:label "Declaration of Performance"@en ;
+    rdfs:comment "Links a construction product to its structured Declaration of Performance."@en ;
+    rdfs:domain eucpr:ConstructionProduct ;
+    rdfs:range eucpr:DeclarationOfPerformance ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    rdfs:seeAlso dppk:hasDoP ;
+    rdfs:seeAlso dppk:dopc ;
+    skos:exactMatch dppk:hasDoP ;
+    skos:note "DoP link per CPR Article 12. Anchored to the DPP Keystone peer profile dppk:hasDoP / dppk:dopc."@en .
+
+eucpr:declarationCode
+    a owl:DatatypeProperty ;
+    rdfs:label "Declaration Code"@en ;
+    rdfs:comment "Unique reference number of the Declaration of Performance (CPR Article 12)."@en ;
+    rdfs:domain eucpr:DeclarationOfPerformance ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    rdfs:seeAlso dppk:declarationCode ;
+    rdfs:seeAlso dppk:dopIdentifier ;
+    skos:exactMatch dppk:declarationCode ;
+    skos:note "DoP unique reference per CPR Article 12. Anchored to the DPP Keystone peer profile dppk:declarationCode / dppk:dopIdentifier."@en .
+
+eucpr:dateOfIssue
+    a owl:DatatypeProperty ;
+    rdfs:label "Date of Issue"@en ;
+    rdfs:comment "Date on which the Declaration of Performance was issued."@en ;
+    rdfs:domain eucpr:DeclarationOfPerformance ;
+    rdfs:range xsd:date ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    rdfs:seeAlso dppk:dateOfIssue ;
+    skos:exactMatch dppk:dateOfIssue ;
+    skos:note "DoP issue date per CPR Article 12. Anchored to the DPP Keystone peer profile dppk:dateOfIssue."@en .
+
+eucpr:AVCPSystem
+    a owl:Class ;
+    rdfs:label "AVCP System"@en ;
+    rdfs:comment "Assessment and Verification of Constancy of Performance system per CPR Annex V (1+, 1, 2+, 3, 4), determining the role of notified bodies."@en ;
+    owl:oneOf (
+        eucpr:System1Plus
+        eucpr:System1
+        eucpr:System2Plus
+        eucpr:System3
+        eucpr:System4
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    skos:note "AVCP system per CPR Annex V. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+eucpr:System1Plus  a eucpr:AVCPSystem ; rdfs:label "System 1+"@en ; skos:notation "1+" .
+eucpr:System1      a eucpr:AVCPSystem ; rdfs:label "System 1"@en ; skos:notation "1" .
+eucpr:System2Plus  a eucpr:AVCPSystem ; rdfs:label "System 2+"@en ; skos:notation "2+" .
+eucpr:System3      a eucpr:AVCPSystem ; rdfs:label "System 3"@en ; skos:notation "3" .
+eucpr:System4      a eucpr:AVCPSystem ; rdfs:label "System 4"@en ; skos:notation "4" .
+
+eucpr:avcpSystem
+    a owl:ObjectProperty ;
+    rdfs:label "AVCP System"@en ;
+    rdfs:comment "Applicable AVCP system (CPR Annex V) for the product's essential characteristics."@en ;
+    rdfs:domain eucpr:DeclarationOfPerformance ;
+    rdfs:range eucpr:AVCPSystem ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    rdfs:seeAlso dppk:avsSystem ;
+    skos:closeMatch dppk:avsSystem ;
+    skos:note "AVCP system selector per CPR Annex V. Anchored to the DPP Keystone peer profile dppk:avsSystem."@en .
+
+eucpr:notifiedBody
+    a owl:ObjectProperty ;
+    rdfs:label "Notified Body"@en ;
+    rdfs:comment "Notified body (NB) involved in the AVCP. Reuse oec:OperatorInformation (carries name, identifier, address)."@en ;
+    rdfs:domain eucpr:DeclarationOfPerformance ;
+    rdfs:range oec:OperatorInformation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    rdfs:seeAlso dppk:notifiedBody ;
+    skos:exactMatch dppk:notifiedBody ;
+    skos:note "Notified body per CPR Annex V. Reuses oec:OperatorInformation; anchored to the DPP Keystone peer profile dppk:notifiedBody."@en .
+
+eucpr:technicalAssessmentBody
+    a owl:ObjectProperty ;
+    rdfs:label "Technical Assessment Body"@en ;
+    rdfs:comment "Technical Assessment Body (TAB) that issued the European Technical Assessment. Reuse oec:OperatorInformation."@en ;
+    rdfs:domain eucpr:DeclarationOfPerformance ;
+    rdfs:range oec:OperatorInformation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    rdfs:seeAlso dppk:technicalAssessmentBody ;
+    skos:exactMatch dppk:technicalAssessmentBody ;
+    skos:note "Technical Assessment Body per CPR. Reuses oec:OperatorInformation; anchored to the DPP Keystone peer profile dppk:technicalAssessmentBody."@en .
+
+eucpr:europeanAssessmentDocument
+    a owl:ObjectProperty ;
+    rdfs:label "European Assessment Document"@en ;
+    rdfs:comment "Reference to the European Assessment Document (EAD) underpinning a European Technical Assessment, where no harmonised standard applies. Reuse oec:DocumentReference."@en ;
+    rdfs:domain eucpr:DeclarationOfPerformance ;
+    rdfs:range oec:DocumentReference ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    rdfs:seeAlso dppk:europeanAssessmentDocument ;
+    skos:exactMatch dppk:europeanAssessmentDocument ;
+    skos:note "EAD reference per CPR. Reuses oec:DocumentReference; anchored to the DPP Keystone peer profile dppk:europeanAssessmentDocument."@en .
+
+eucpr:validationReports
+    a owl:ObjectProperty ;
+    rdfs:label "Validation Reports"@en ;
+    rdfs:comment "References to test / validation reports supporting the declared performance. Reuse oec:DocumentReference."@en ;
+    rdfs:domain eucpr:DeclarationOfPerformance ;
+    rdfs:range oec:DocumentReference ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    rdfs:seeAlso dppk:validationReports ;
+    skos:exactMatch dppk:validationReports ;
+    skos:note "Validation report references per CPR. Reuses oec:DocumentReference; anchored to the DPP Keystone peer profile dppk:validationReports."@en .

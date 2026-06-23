@@ -1,0 +1,125 @@
+{
+  "_comment": [
+    "Iron & Steel DPP example: a batch of S500B ribbed reinforcing steel bar,",
+    "Ø16 mm, produced via the electric-arc-furnace (EAF) scrap route.",
+    "Demonstrates steel identification (heat/cast number, EN 10020 grade,",
+    "EN 10027 designation), a 3.1 Material Test Certificate (EN 10204) with",
+    "EN 10168 mechanical + chemical parameters, ~98% post-consumer recycled",
+    "content via oec:RecycledContent, and an EN 15804 EPD (oec:EnvironmentalProductDeclaration)",
+    "with the GWP-total indicator broken down over modules A1-A3.",
+    "GS1 demo prefix 952 (7-digit GCP: 9521234)."
+  ],
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/iron-steel/iron-steel-context.jsonld"
+  ],
+  "id": "https://id.gs1.org/01/09521234601005/10/H7740025",
+  "type": "eusteel:IronSteelProduct",
+  "gs1:gtin": "09521234601005",
+  "gs1:productName": {
+    "@value": "S500B ribbed reinforcing bar, Ø16 mm",
+    "@language": "en"
+  },
+  "eusteel:heatNumber": "H7740025",
+  "eusteel:castNumber": "C7740025-3",
+  "eusteel:lotNumber": "L-2026-0418",
+  "eusteel:productNumber": "REBAR-S500B-16",
+  "eusteel:steelGradeClassification": "Non-alloy quality steel (EN 10020)",
+  "eusteel:steelDesignation": "B500B / 1.0439",
+  "eusteel:meltAndPourCountry": "DE",
+  "eusteel:technologyRoute": {"@id": "eusteel:ElectricArcFurnace"},
+  "eusteel:cbamReportId": "CBAM-2026-DE-0099421",
+  "gs1:manufacturer": {
+    "id": "https://id.gs1.org/417/9521234000051",
+    "type": "gs1:Organization",
+    "gs1:organizationName": "Recycling Steelworks GmbH",
+    "gs1:partyGLN": "9521234000051"
+  },
+  "eusteel:mtc": {
+    "type": "eusteel:MaterialTestCertificate",
+    "eusteel:mtcInspectionType": "3.1",
+    "eusteel:mtcNominalSize": 16,
+    "eusteel:mtcYieldStrength": 547,
+    "eusteel:mtcTensileStrength": 632,
+    "eusteel:mtcYieldStrengthRatio": 1.16,
+    "eusteel:mtcElongation": 14.2,
+    "eusteel:mtcRelativeRibArea": 0.075,
+    "eusteel:mtcCarbonContent": 0.21,
+    "eusteel:mtcPhosphorusContent": 0.024,
+    "eusteel:mtcSulfurContent": 0.031,
+    "eusteel:mtcCopperContent": 0.42,
+    "eusteel:mtcNitrogenContent": 0.011,
+    "eusteel:mtcCarbonEquivalent": 0.41,
+    "eusteel:mtcSteelProcess": "Electric arc furnace, continuous casting",
+    "eusteel:mtcFinishing": "Hot-rolled"
+  },
+  "oec:recycledContent": {
+    "type": "oec:RecycledContent",
+    "oec:recycledContent": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 0.98,
+      "gs1:unitCode": "P1"
+    },
+    "oec:postConsumerRecycledContent": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 0.93,
+      "gs1:unitCode": "P1"
+    },
+    "oec:preConsumerRecycledContent": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 0.05,
+      "gs1:unitCode": "P1"
+    }
+  },
+  "oec:materialComposition": [
+    {
+      "type": "oec:MaterialComposition",
+      "oec:componentName": "Iron (Fe)",
+      "oec:massFraction": 0.978
+    },
+    {
+      "type": "oec:MaterialComposition",
+      "oec:componentName": "Carbon and alloying elements (C, Mn, Cu, Si)",
+      "oec:massFraction": 0.022
+    }
+  ],
+  "oec:environmentalProductDeclaration": {
+    "type": "oec:EnvironmentalProductDeclaration",
+    "oec:epdRegistrationNumber": "EPD-IES-2026-00417",
+    "oec:epdProgramOperator": "EPD International",
+    "oec:epdStandard": "EN 15804+A2",
+    "oec:epdValidUntil": "2031-04-30",
+    "oec:impactIndicator": [
+      {
+        "type": "oec:ImpactIndicatorResult",
+        "oec:indicatorType": {"id": "oec:GWPTotal"},
+        "oec:indicatorUnit": "kg CO2 eq / t",
+        "oec:indicatorTotalValue": 640,
+        "oec:lifecycleStageResult": [
+          {
+            "type": "oec:LifecycleStageResult",
+            "oec:lifecycleStage": {"id": "oec:StageA1"},
+            "oec:stageValue": 180
+          },
+          {
+            "type": "oec:LifecycleStageResult",
+            "oec:lifecycleStage": {"id": "oec:StageA2"},
+            "oec:stageValue": 60
+          },
+          {
+            "type": "oec:LifecycleStageResult",
+            "oec:lifecycleStage": {"id": "oec:StageA3"},
+            "oec:stageValue": 400
+          }
+        ]
+      }
+    ]
+  },
+  "gs1:regulatoryInformation": [
+    {
+      "type": "gs1:RegulatoryInformation",
+      "gs1:regulatoryAct": "EU 2024/1781",
+      "oec:isRegulationCompliant": true
+    }
+  ]
+}

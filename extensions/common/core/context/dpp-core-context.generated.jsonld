@@ -29,13 +29,18 @@
     "EndOfLifeProgram": "oec:EndOfLifeProgram",
     "EnergyEfficiency": "oec:EnergyEfficiency",
     "EnergyEfficiencyClass": "oec:EnergyEfficiencyClass",
+    "EnvironmentalProductDeclaration": "oec:EnvironmentalProductDeclaration",
     "ExtendedProducerResponsibility": "oec:ExtendedProducerResponsibility",
     "FacilityInformation": "oec:FacilityInformation",
     "GranularityLevel": "oec:GranularityLevel",
     "HazardClass": "oec:HazardClass",
     "HazardousSubstance": "oec:HazardousSubstance",
     "HazardSignalWord": "oec:HazardSignalWord",
+    "ImpactIndicatorResult": "oec:ImpactIndicatorResult",
+    "ImpactIndicatorType": "oec:ImpactIndicatorType",
     "IndividualTradeItemPiece": "oec:IndividualTradeItemPiece",
+    "LifecycleStage": "oec:LifecycleStage",
+    "LifecycleStageResult": "oec:LifecycleStageResult",
     "MaterialComposition": "oec:MaterialComposition",
     "MultiLanguageDataElement": "oec:MultiLanguageDataElement",
     "MultiLanguageValue": "oec:MultiLanguageValue",
@@ -157,6 +162,14 @@
     "complianceStatus": {
       "@id": "oec:complianceStatus",
       "@type": "xsd:boolean"
+    },
+    "componentIdentifier": {
+      "@id": "oec:componentIdentifier",
+      "@type": "xsd:string"
+    },
+    "componentName": {
+      "@id": "oec:componentName",
+      "@type": "xsd:string"
     },
     "compostabilityStandard": {
       "@id": "oec:compostabilityStandard",
@@ -330,9 +343,29 @@
         "EnergyClassG": "oec:EnergyClassG"
       }
     },
+    "environmentalProductDeclaration": {
+      "@id": "oec:environmentalProductDeclaration",
+      "@type": "@id"
+    },
     "eoriNumber": {
       "@id": "oec:eoriNumber",
       "@type": "xsd:string"
+    },
+    "epdProgramOperator": {
+      "@id": "oec:epdProgramOperator",
+      "@type": "xsd:string"
+    },
+    "epdRegistrationNumber": {
+      "@id": "oec:epdRegistrationNumber",
+      "@type": "xsd:string"
+    },
+    "epdStandard": {
+      "@id": "oec:epdStandard",
+      "@type": "xsd:string"
+    },
+    "epdValidUntil": {
+      "@id": "oec:epdValidUntil",
+      "@type": "xsd:date"
     },
     "eprComplianceUrl": {
       "@id": "oec:eprComplianceUrl",
@@ -444,6 +477,37 @@
       "@id": "oec:identityCredentialUrl",
       "@type": "xsd:anyURI"
     },
+    "impactIndicator": {
+      "@id": "oec:impactIndicator",
+      "@type": "@id"
+    },
+    "indicatorTotalValue": {
+      "@id": "oec:indicatorTotalValue",
+      "@type": "xsd:decimal"
+    },
+    "indicatorType": {
+      "@id": "oec:indicatorType",
+      "@type": "@vocab",
+      "@context": {
+        "ADPElements": "oec:ADPElements",
+        "ADPFossil": "oec:ADPFossil",
+        "AP": "oec:AP",
+        "EPFreshwater": "oec:EPFreshwater",
+        "EPMarine": "oec:EPMarine",
+        "EPTerrestrial": "oec:EPTerrestrial",
+        "GWPBiogenic": "oec:GWPBiogenic",
+        "GWPFossil": "oec:GWPFossil",
+        "GWPLuluc": "oec:GWPLuluc",
+        "GWPTotal": "oec:GWPTotal",
+        "ODP": "oec:ODP",
+        "POCP": "oec:POCP",
+        "WDP": "oec:WDP"
+      }
+    },
+    "indicatorUnit": {
+      "@id": "oec:indicatorUnit",
+      "@type": "xsd:string"
+    },
     "isCriticalRawMaterial": {
       "@id": "oec:isCriticalRawMaterial",
       "@type": "xsd:boolean"
@@ -460,6 +524,10 @@
       "@id": "oec:issueDate",
       "@type": "xsd:date"
     },
+    "iupacName": {
+      "@id": "oec:iupacName",
+      "@type": "xsd:string"
+    },
     "language": {
       "@id": "oec:language",
       "@type": "xsd:string"
@@ -475,6 +543,33 @@
     "lastUpdated": {
       "@id": "oec:lastUpdated",
       "@type": "xsd:dateTime"
+    },
+    "lifecycleStage": {
+      "@id": "oec:lifecycleStage",
+      "@type": "@vocab",
+      "@context": {
+        "StageA1": "oec:StageA1",
+        "StageA2": "oec:StageA2",
+        "StageA3": "oec:StageA3",
+        "StageA4": "oec:StageA4",
+        "StageA5": "oec:StageA5",
+        "StageB1": "oec:StageB1",
+        "StageB2": "oec:StageB2",
+        "StageB3": "oec:StageB3",
+        "StageB4": "oec:StageB4",
+        "StageB5": "oec:StageB5",
+        "StageB6": "oec:StageB6",
+        "StageB7": "oec:StageB7",
+        "StageC1": "oec:StageC1",
+        "StageC2": "oec:StageC2",
+        "StageC3": "oec:StageC3",
+        "StageC4": "oec:StageC4",
+        "StageD": "oec:StageD"
+      }
+    },
+    "lifecycleStageResult": {
+      "@id": "oec:lifecycleStageResult",
+      "@type": "@id"
     },
     "massFraction": {
       "@id": "oec:massFraction",
@@ -716,6 +811,10 @@
     "sparePartsAvailability": {
       "@id": "oec:sparePartsAvailability",
       "@type": "@id"
+    },
+    "stageValue": {
+      "@id": "oec:stageValue",
+      "@type": "xsd:decimal"
     },
     "substanceLocation": {
       "@id": "oec:substanceLocation",

@@ -1,0 +1,451 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix eusteel: <https://ref.openepcis.io/extensions/eu/iron-steel/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix schema: <https://schema.org/> .
+
+# DPP Keystone (dpp-keystone.org), a peer DPP profile this module aligns with.
+@prefix dppk: <https://dpp-keystone.org/spec/v2/terms#> .
+
+<https://ref.openepcis.io/extensions/eu/iron-steel/>
+    a owl:Ontology ;
+    dcterms:title "OpenEPCIS Iron & Steel Vocabulary"@en ;
+    dcterms:description """Vocabulary for the iron & steel ESPR priority product group
+(Regulation (EU) 2024/1781 Annex I; iron & steel named in Article 5 / the 2025-2030
+working plan). Covers steel-specific identification (heat / cast / lot numbers,
+grade classification per EN 10020 and designation per EN 10027), production route,
+and the Material Test Certificate (EN 10204 inspection documents with EN 10168
+mechanical and chemical parameters).
+
+This module is intentionally thin per the project's four-layer delegation pattern.
+Steel-specific concepts live here; cross-cutting concerns (recycled content,
+substances of concern, environmental product declaration, carbon footprint,
+documents) reuse the lifted `oec:` vocabulary plus `untp:` and `gs1:`.
+
+Aligned with the DPP Keystone iron & steel profile (dppk:IronSteelProduct /
+dppk:MaterialTestCertificate)."""@en ;
+    dcterms:creator "OpenEPCIS" ;
+    dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+    dcterms:created "2026-06-23"^^xsd:date ;
+    dcterms:modified "2026-06-23"^^xsd:date ;
+    owl:versionInfo "0.9.7" ;
+    owl:versionIRI <https://ref.openepcis.io/extensions/eu/iron-steel/0.9.7> ;
+    vann:preferredNamespacePrefix "eusteel" ;
+    vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/eu/iron-steel/" ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    owl:imports <https://ref.gs1.org/voc/> ;
+    owl:imports <https://ref.openepcis.io/extensions/common/core/> .
+
+# =============================================================================
+# Main class
+# =============================================================================
+
+eusteel:IronSteelProduct
+    a owl:Class ;
+    rdfs:subClassOf gs1:Product ;
+    rdfs:label "Iron & Steel Product"@en ;
+    rdfs:comment """An iron or steel product (e.g. rebar, structural section, plate, coil,
+wire rod) subject to the ESPR iron & steel delegated act. Carrier for steel
+identification, grade/designation, production route, and the Material Test
+Certificate. Reuse oec: terms for recycled content, substances of concern,
+environmental product declaration, and supporting documents."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso oec:IronSteel ;
+    rdfs:seeAlso dppk:IronSteelProduct ;
+    skos:exactMatch dppk:IronSteelProduct ;
+    skos:note """ESPR iron & steel product group. GS1 Web Vocabulary has gs1:Product but no
+steel-specific identification or test-certificate structure. Anchored to the DPP Keystone
+peer profile dppk:IronSteelProduct and to the oec:IronSteel product category."""@en .
+
+# =============================================================================
+# Steel identification
+# =============================================================================
+
+eusteel:heatNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "Heat Number"@en ;
+    rdfs:comment "Heat (melt) number identifying the batch of molten steel from which the product was cast (EN 10168 traceability)."@en ;
+    rdfs:domain eusteel:IronSteelProduct ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso gs1:batchLot ;
+    rdfs:seeAlso dppk:heatNumber ;
+    skos:exactMatch dppk:heatNumber ;
+    skos:note "Steel traceability identifier per EN 10168. GS1 gs1:batchLot is the closest generic batch identifier; this property names the steel heat specifically."@en .
+
+eusteel:castNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "Cast Number"@en ;
+    rdfs:comment "Cast number identifying the casting run within a heat (EN 10168 traceability)."@en ;
+    rdfs:domain eusteel:IronSteelProduct ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso gs1:batchLot ;
+    rdfs:seeAlso dppk:castNumber ;
+    skos:exactMatch dppk:castNumber ;
+    skos:note "Steel traceability identifier per EN 10168. Closest GS1 generic is gs1:batchLot."@en .
+
+eusteel:lotNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "Lot Number"@en ;
+    rdfs:comment "Delivery lot number for the steel product."@en ;
+    rdfs:domain eusteel:IronSteelProduct ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso gs1:batchLot ;
+    rdfs:seeAlso dppk:lotNumber ;
+    skos:exactMatch dppk:lotNumber ;
+    skos:note "Closest GS1 generic is gs1:batchLot; this property names the steel delivery lot specifically."@en .
+
+eusteel:productNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "Product Number"@en ;
+    rdfs:comment "Manufacturer product / article number for the steel product."@en ;
+    rdfs:domain eusteel:IronSteelProduct ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso schema:productID ;
+    rdfs:seeAlso gs1:globalModelNumber ;
+    rdfs:seeAlso dppk:productNumber ;
+    skos:exactMatch dppk:productNumber ;
+    skos:note "Manufacturer product number. Anchored to schema:productID and gs1:globalModelNumber."@en .
+
+eusteel:purchaserOrder
+    a owl:DatatypeProperty ;
+    rdfs:label "Purchaser Order"@en ;
+    rdfs:comment "Purchaser order reference associated with the steel delivery."@en ;
+    rdfs:domain eusteel:IronSteelProduct ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso schema:orderNumber ;
+    rdfs:seeAlso dppk:purchaserOrder ;
+    skos:exactMatch dppk:purchaserOrder ;
+    skos:note "Order reference per EN 10168 certificate metadata. Anchored to schema:orderNumber."@en .
+
+eusteel:steelGradeClassification
+    a owl:DatatypeProperty ;
+    rdfs:label "Steel Grade Classification"@en ;
+    rdfs:comment "Classification of the steel grade per EN 10020 (unalloyed, stainless, other alloy)."@en ;
+    rdfs:domain eusteel:IronSteelProduct ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10020.aspx> ;
+    rdfs:seeAlso dppk:steelGradeClassification ;
+    skos:exactMatch dppk:steelGradeClassification ;
+    skos:note "Steel grade classification per EN 10020. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+eusteel:steelDesignation
+    a owl:DatatypeProperty ;
+    rdfs:label "Steel Designation"@en ;
+    rdfs:comment "Steel name / number designation per EN 10027 (e.g. S355J2 / 1.0577)."@en ;
+    rdfs:domain eusteel:IronSteelProduct ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10027-1.aspx> ;
+    rdfs:seeAlso dppk:steelDesignation ;
+    skos:exactMatch dppk:steelDesignation ;
+    skos:note "Steel designation per EN 10027 (parts 1 name, 2 number). No GS1, SEMICeu, or schema.org equivalent."@en .
+
+eusteel:meltAndPourCountry
+    a owl:DatatypeProperty ;
+    rdfs:label "Melt and Pour Country"@en ;
+    rdfs:comment "Country where the steel was melted and poured (ISO 3166-1 alpha-2). Relevant to origin and CBAM reporting."@en ;
+    rdfs:domain eusteel:IronSteelProduct ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso schema:countryOfOrigin ;
+    rdfs:seeAlso dppk:meltAndPourCountry ;
+    skos:exactMatch dppk:meltAndPourCountry ;
+    skos:note "Melt-and-pour origin per steel-sector practice and CBAM. Anchored to schema:countryOfOrigin."@en .
+
+eusteel:cbamReportId
+    a owl:DatatypeProperty ;
+    rdfs:label "CBAM Report ID"@en ;
+    rdfs:comment "Identifier of the Carbon Border Adjustment Mechanism report associated with the steel product."@en ;
+    rdfs:domain eusteel:IronSteelProduct ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2023/956> ;
+    rdfs:seeAlso dppk:cbamReportId ;
+    skos:exactMatch dppk:cbamReportId ;
+    skos:note "CBAM (Regulation (EU) 2023/956) report reference. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+# =============================================================================
+# Production / technology route
+# =============================================================================
+
+eusteel:TechnologyRoute
+    a owl:Class ;
+    rdfs:label "Steel Production Technology Route"@en ;
+    rdfs:comment "Primary steelmaking route, a key driver of embodied carbon."@en ;
+    owl:oneOf (
+        eusteel:BlastFurnaceBOF
+        eusteel:ElectricArcFurnace
+        eusteel:OpenHearthFurnace
+        eusteel:OtherRoute
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Steelmaking route classification. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+eusteel:BlastFurnaceBOF   a eusteel:TechnologyRoute ; rdfs:label "Blast Furnace / Basic Oxygen Furnace"@en ; skos:notation "BF-BOF" .
+eusteel:ElectricArcFurnace a eusteel:TechnologyRoute ; rdfs:label "Electric Arc Furnace"@en ; skos:notation "EAF" .
+eusteel:OpenHearthFurnace a eusteel:TechnologyRoute ; rdfs:label "Open Hearth Furnace"@en ; skos:notation "OHF" .
+eusteel:OtherRoute        a eusteel:TechnologyRoute ; rdfs:label "Other Route"@en ; skos:notation "other" .
+
+eusteel:technologyRoute
+    a owl:ObjectProperty ;
+    rdfs:label "Technology Route"@en ;
+    rdfs:comment "Primary steelmaking route used to produce the product."@en ;
+    rdfs:domain eusteel:IronSteelProduct ;
+    rdfs:range eusteel:TechnologyRoute ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso dppk:technologyRoute ;
+    skos:closeMatch dppk:technologyRoute ;
+    skos:note "Production-route classifier; DPP Keystone expresses dppk:technologyRoute as free text. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+# =============================================================================
+# Material Test Certificate (EN 10204 inspection document, EN 10168 metadata)
+# =============================================================================
+
+eusteel:MaterialTestCertificate
+    a owl:Class ;
+    rdfs:label "Material Test Certificate"@en ;
+    rdfs:comment """An inspection document for metallic products per EN 10204 (type 2.1, 2.2,
+3.1, or 3.2), carrying the EN 10168 mechanical and chemical test parameters that
+substantiate the declared grade."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> ;
+    rdfs:seeAlso schema:Certification ;
+    rdfs:seeAlso dppk:MaterialTestCertificate ;
+    skos:exactMatch dppk:MaterialTestCertificate ;
+    skos:broadMatch schema:Certification ;
+    skos:note """Mill test certificate (EN 10204 / EN 10168). schema:Certification is the generic
+upstream; this class names the steel inspection document and its EN 10168 parameter set.
+Anchored to the DPP Keystone peer profile dppk:MaterialTestCertificate."""@en .
+
+eusteel:mtc
+    a owl:ObjectProperty ;
+    rdfs:label "Material Test Certificate"@en ;
+    rdfs:comment "Links a steel product to its Material Test Certificate (EN 10204)."@en ;
+    rdfs:domain eusteel:IronSteelProduct ;
+    rdfs:range eusteel:MaterialTestCertificate ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> ;
+    rdfs:seeAlso dppk:mtc ;
+    skos:exactMatch dppk:mtc ;
+    skos:note "Mill test certificate link per EN 10204. Anchored to the DPP Keystone peer profile dppk:mtc."@en .
+
+eusteel:mtcInspectionType
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Inspection Document Type"@en ;
+    rdfs:comment "EN 10204 inspection document type: 2.1, 2.2, 3.1, or 3.2."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> ;
+    skos:note "EN 10204 inspection document type. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+eusteel:mtcNominalSize
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Nominal Size"@en ;
+    rdfs:comment "Nominal dimension of the tested product (mm)."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso dppk:mtcNominalSize ;
+    skos:exactMatch dppk:mtcNominalSize ;
+    skos:note "EN 10168 dimensional parameter."@en .
+
+eusteel:mtcWeightTolerance
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Weight Tolerance"@en ;
+    rdfs:comment "Permitted weight tolerance of the tested product (%)."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso dppk:mtcWeightTolerance ;
+    skos:exactMatch dppk:mtcWeightTolerance ;
+    skos:note "EN 10168 dimensional parameter."@en .
+
+eusteel:mtcYieldStrength
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Yield Strength"@en ;
+    rdfs:comment "Measured yield strength Re (MPa)."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso dppk:mtcYieldStrength ;
+    skos:exactMatch dppk:mtcYieldStrength ;
+    skos:note "EN 10168 mechanical parameter."@en .
+
+eusteel:mtcTensileStrength
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Tensile Strength"@en ;
+    rdfs:comment "Measured ultimate tensile strength Rm (MPa)."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    skos:note "EN 10168 mechanical parameter (Rm)."@en .
+
+eusteel:mtcYieldStrengthRatio
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Yield Strength Ratio"@en ;
+    rdfs:comment "Ratio of yield strength to tensile strength (Re/Rm)."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso dppk:mtcYieldStrengthRatio ;
+    skos:exactMatch dppk:mtcYieldStrengthRatio ;
+    skos:note "EN 10168 mechanical parameter."@en .
+
+eusteel:mtcElongation
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Elongation"@en ;
+    rdfs:comment "Percentage elongation after fracture (A%)."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso dppk:mtcElongation ;
+    skos:exactMatch dppk:mtcElongation ;
+    skos:note "EN 10168 mechanical parameter."@en .
+
+eusteel:mtcRelativeRibArea
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Relative Rib Area"@en ;
+    rdfs:comment "Relative rib area fR for ribbed reinforcing steel (bond performance)."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso dppk:mtcRelativeRibArea ;
+    skos:exactMatch dppk:mtcRelativeRibArea ;
+    skos:note "EN 10168 mechanical parameter for reinforcing steel."@en .
+
+eusteel:mtcCarbonContent
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Carbon Content"@en ;
+    rdfs:comment "Carbon content from the cast/ladle analysis (mass %)."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso dppk:mtcCarbonContent ;
+    skos:exactMatch dppk:mtcCarbonContent ;
+    skos:note "EN 10168 chemical parameter."@en .
+
+eusteel:mtcPhosphorusContent
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Phosphorus Content"@en ;
+    rdfs:comment "Phosphorus content from the cast analysis (mass %)."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso dppk:mtcPhosphorusContent ;
+    skos:exactMatch dppk:mtcPhosphorusContent ;
+    skos:note "EN 10168 chemical parameter."@en .
+
+eusteel:mtcSulfurContent
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Sulfur Content"@en ;
+    rdfs:comment "Sulfur content from the cast analysis (mass %)."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso dppk:mtcSulfurContent ;
+    skos:exactMatch dppk:mtcSulfurContent ;
+    skos:note "EN 10168 chemical parameter."@en .
+
+eusteel:mtcCopperContent
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Copper Content"@en ;
+    rdfs:comment "Copper content from the cast analysis (mass %)."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso dppk:mtcCopperContent ;
+    skos:exactMatch dppk:mtcCopperContent ;
+    skos:note "EN 10168 chemical parameter."@en .
+
+eusteel:mtcNitrogenContent
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Nitrogen Content"@en ;
+    rdfs:comment "Nitrogen content from the cast analysis (mass %)."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso dppk:mtcNitrogenContent ;
+    skos:exactMatch dppk:mtcNitrogenContent ;
+    skos:note "EN 10168 chemical parameter."@en .
+
+eusteel:mtcCarbonEquivalent
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Carbon Equivalent"@en ;
+    rdfs:comment "Carbon equivalent value (CEV / CET), a weldability indicator derived from the cast analysis."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso dppk:mtcCarbonEquivalent ;
+    skos:exactMatch dppk:mtcCarbonEquivalent ;
+    skos:note "EN 10168 derived chemical parameter (weldability)."@en .
+
+eusteel:mtcSteelProcess
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Steel Process"@en ;
+    rdfs:comment "Steelmaking process recorded on the certificate (free text where the controlled eusteel:TechnologyRoute is not used)."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso dppk:mtcSteelProcess ;
+    skos:exactMatch dppk:mtcSteelProcess ;
+    skos:note "EN 10168 process descriptor."@en .
+
+eusteel:mtcFinishing
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Finishing"@en ;
+    rdfs:comment "Finishing / delivery condition recorded on the certificate (e.g. hot-rolled, normalised, quenched and tempered)."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso dppk:mtcFinishing ;
+    skos:exactMatch dppk:mtcFinishing ;
+    skos:note "EN 10168 delivery-condition descriptor."@en .
+
+eusteel:mtcRadiometricControl
+    a owl:DatatypeProperty ;
+    rdfs:label "MTC Radiometric Control"@en ;
+    rdfs:comment "Radiometric (radioactivity) control result for the steel, where declared."@en ;
+    rdfs:domain eusteel:MaterialTestCertificate ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
+    dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
+    rdfs:seeAlso dppk:mtcRadiometricControl ;
+    skos:exactMatch dppk:mtcRadiometricControl ;
+    skos:note "EN 10168 radiometric control parameter."@en .

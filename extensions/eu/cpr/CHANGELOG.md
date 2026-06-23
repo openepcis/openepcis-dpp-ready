@@ -4,6 +4,13 @@ All notable changes to the CPR module will be documented in this file.
 
 ## [0.9.7] — 2026-06-19
 
+### Added
+- Structured Declaration of Performance, harvested from / aligned with the DPP Keystone CPR profile: `eucpr:DeclarationOfPerformance` (`skos:exactMatch dppk:DeclarationOfPerformance`, `rdfs:seeAlso dppk:DoPCBlock`) + `eucpr:declarationOfPerformance` link, with `eucpr:declarationCode` and `eucpr:dateOfIssue`. Complements the existing `eucpr:declarationOfPerformanceUrl` (document link).
+- `eucpr:AVCPSystem` enumeration (1+, 1, 2+, 3, 4 per CPR Annex V) + `eucpr:avcpSystem` (`skos:closeMatch dppk:avsSystem`).
+- Assessment bodies and supporting documents on the DoP, reusing core: `eucpr:notifiedBody` / `eucpr:technicalAssessmentBody` (→ `oec:OperatorInformation`), `eucpr:europeanAssessmentDocument` / `eucpr:validationReports` (→ `oec:DocumentReference`).
+- Convenience named essential characteristics `eucpr:thermalConductivity` and `eucpr:compressiveStrength` (`gs1:QuantitativeValue`), anchored `skos:exactMatch` to `dppk:thermalConductivity` / `dppk:compressiveStrength`.
+- `dppk:` prefix for SKOS mapping anchors to the DPP Keystone peer profile.
+
 ### Changed
 - Renamed vocabulary prefix `cpr:` → `eucpr:` (alias only; namespace IRIs unchanged).
 - Completed term governance: 100% `dcterms:source` + `skos:note` coverage.

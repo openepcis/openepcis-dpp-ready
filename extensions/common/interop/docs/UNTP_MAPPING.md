@@ -68,8 +68,8 @@ This ensures **native interoperability** - no value conversion is needed when ex
 
 | OpenEPCIS Class | UNTP Equivalent | Notes |
 |-----------------|-----------------|-------|
-| `oec:CircularityPerformance` | `untp:CircularityPerformance` | `owl:equivalentClass` |
-| `oec:EmissionsPerformance` | `untp:EmissionsPerformance` | `owl:equivalentClass` |
+| `oec:CircularityPerformance` | `untp:CircularityPerformance` | `skos:exactMatch` |
+| `oec:EmissionsPerformance` | `untp:EmissionsPerformance` | `skos:exactMatch` |
 | `oec:TraceabilityPerformance` | `untp:TraceabilityPerformance` | `rdfs:seeAlso` |
 | `oec:MaterialComposition` | `untp:Material` | `rdfs:seeAlso` |
 | `oec:OperatorInformation` | `untp:Party` | OpenEPCIS has role enumeration |

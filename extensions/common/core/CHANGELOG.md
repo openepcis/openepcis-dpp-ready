@@ -4,7 +4,13 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [0.9.7] — 2026-06-19
 
+### Added
+- EN 15804:2012+A2:2019 Environmental Product Declaration: `oec:EnvironmentalProductDeclaration` (anchored `skos:exactMatch dppk:EPDBlock`), `oec:ImpactIndicatorResult` (`skos:closeMatch dppk:ImpactValues`), and `oec:LifecycleStageResult`. Normalised indicator-by-stage model (avoids a flat indicator × stage property explosion) with the `oec:ImpactIndicatorType` enumeration (13 EN 15804+A2 core indicators: GWP total/fossil/biogenic/luluc, ODP, AP, EP freshwater/marine/terrestrial, POCP, ADP elements/fossil, WDP) and the `oec:LifecycleStage` enumeration (modules A1–A5, B1–B7, C1–C4, D). Properties: `oec:environmentalProductDeclaration`, `oec:epdRegistrationNumber`/`epdProgramOperator`/`epdStandard`/`epdValidUntil`, `oec:impactIndicator`, `oec:indicatorType`/`indicatorUnit`/`indicatorTotalValue`, `oec:lifecycleStageResult`, `oec:lifecycleStage`, `oec:stageValue`. Complements the coarser `oec:CarbonFootprintDeclaration` (5 aggregate stages, GWP only) and single-value `oec:carbonFootprintTotal`.
+- Generic component fields harvested from the DPP Keystone `dppk:Component` pattern: `oec:componentName` and `oec:componentIdentifier` (domain `oec:MaterialComposition`, anchored to `dppk:componentName`/`dppk:componentIdentifier` + schema.org), and `oec:iupacName` (domain `oec:HazardousSubstance`, anchored to `dppk:componentIupacName`) alongside the existing CAS/EC numbers.
+- `dppk:` prefix declaration (`https://dpp-keystone.org/spec/v2/terms#`) for SKOS mapping anchors to the DPP Keystone peer profile; see the bridge in [`../../interop/`](../../interop/).
+
 ### Changed
+- Cross-vocabulary alignment migrated from `owl:equivalentClass` / `owl:equivalentProperty` to graded SKOS mapping relations across every module: `skos:exactMatch` for true 1:1 cross-walks, `skos:closeMatch` for approximate matches (scale, enum-vs-string, structural differences), and `skos:broadMatch` where an OpenEPCIS term is narrower than its target (e.g. `eusteel:MaterialTestCertificate` → `schema:Certification`). Cross-walks no longer assert OWL logical equivalence, which avoids reasoner / SHACL over-entailment; `rdfs:seeAlso` pointers are retained. `scripts/build-json.ts` now emits `exactMatch` / `closeMatch` / `broadMatch` / `narrowMatch` / `relatedMatch` arrays.
 - Renamed vocabulary prefix `dpp:` → `oec:` (alias only; namespace IRIs unchanged).
 - Completed term governance: 100% `dcterms:source` + `skos:note` coverage.
 - Added `owl:imports` for the SEMICeu Core Vocabularies (m8g / locn / adms).

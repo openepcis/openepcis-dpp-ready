@@ -101,6 +101,13 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     prefix: "eucpr",
   },
   {
+    name: "iron-steel",
+    dir: "extensions/eu/iron-steel",
+    ttlFile: "iron-steel.ttl",
+    namespace: "https://ref.openepcis.io/extensions/eu/iron-steel/",
+    prefix: "eusteel",
+  },
+  {
     name: "fsma204",
     dir: "extensions/us/fsma204",
     ttlFile: "fsma204.ttl",
@@ -130,6 +137,7 @@ const NAMESPACE_TO_PREFIX: Record<string, string> = {
   "https://ref.openepcis.io/extensions/eu/detergent/": "eudet",
   "https://ref.openepcis.io/extensions/eu/ppwr/": "euppwr",
   "https://ref.openepcis.io/extensions/eu/cpr/": "eucpr",
+  "https://ref.openepcis.io/extensions/eu/iron-steel/": "eusteel",
   "https://ref.openepcis.io/extensions/us/fsma204/": "usfsma",
   "https://gs1-epcis-reg.org/rail/voc/data#": "rail",
 };

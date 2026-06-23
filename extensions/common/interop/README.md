@@ -13,11 +13,11 @@ OpenEPCIS DPP-Ready is **THE comprehensive, authoritative Digital Product Passpo
 | Standard | Alignment Level | Integration Method |
 |----------|----------------|-------------------|
 | **GS1 Web Vocabulary** | Native Foundation (peer Layer 1) | Built on GS1 patterns, `owl:imports` |
-| **EU SEMICeu Core Vocabularies** (CCCEV, CPOV, Core Business / Person / Location, Core Public Event, CPSV-AP, ADMS-AP) | Native Foundation (peer Layer 1) | Bridge context (`semic-core-bridge-context.jsonld`) + `owl:equivalentClass` / `rdfs:seeAlso` anchors |
-| **schema.org** | Native Foundation (peer Layer 1, fallback) | Direct reference + `owl:equivalentClass` anchors |
+| **EU SEMICeu Core Vocabularies** (CCCEV, CPOV, Core Business / Person / Location, Core Public Event, CPSV-AP, ADMS-AP) | Native Foundation (peer Layer 1) | Bridge context (`semic-core-bridge-context.jsonld`) + SKOS mapping (`skos:exactMatch`/`closeMatch`/`broadMatch`) / `rdfs:subClassOf` / `rdfs:seeAlso` anchors |
+| **schema.org** | Native Foundation (peer Layer 1, fallback) | Direct reference + SKOS mapping anchors |
 | **GS1 Rail Vocabulary** (GS1 AISBL / GS1 Switzerland) | Sectoral Layer 1 — railway-specific sensor metadata, wheel diagnostics, EPCIS Registry shapes | Mirror under `extensions/upstream/gs1-rail/`, additive bridge context (`rail-bridge-context.jsonld`) |
 | **CEN/CENELEC JTC 24** | Tracking | Structural alignment via CIRPASS2 |
-| **UN Transparency Protocol (UNTP)** | Property-aligned | `owl:equivalentProperty`, bridge context |
+| **UN Transparency Protocol (UNTP)** | Property-aligned | SKOS mapping (`skos:exactMatch`/`closeMatch`), bridge context |
 | **CIRPASS2** | Requirements coverage | Documentation, feeds into JTC 24 |
 | **ESPR 2024/1781** | Full compliance | Core module implementation |
 | **EN 45552-45555** | Methodology support | Properties to store assessment results |
@@ -57,6 +57,7 @@ We don't force you to abandon existing investments. OpenEPCIS provides **bridge 
 | UNTP documents | `untp-bridge-context.jsonld` | Property-aligned import |
 | CEN/CENELEC JTC 24 | `jtc24-bridge-context.jsonld` | EN 18216-18223 + prEN 18239/18246 alignment |
 | EU SEMICeu Core Vocabularies (CCCEV, CPOV, Core Business / Person / Location, Core Public Event, CPSV-AP, ADMS-AP) | `semic-core-bridge-context.jsonld` | Direct reuse of EU public-sector / conformity / legal-entity / address IRIs |
+| DPP Keystone (`dppk:`, spec v2) | `dpp-keystone-bridge-context.jsonld` | Iron & steel + MTC, EN 15804 EPD, construction/DoP, textile ESPR — see [`docs/DPP_KEYSTONE_MAPPING.md`](docs/DPP_KEYSTONE_MAPPING.md) |
 | Legacy systems | Custom bridge contexts | Gradual migration path |
 
 This means you can:
@@ -113,7 +114,8 @@ interop/
     ├── untp-bridge-context.jsonld    # JSON-LD context for UNTP-style property names
     ├── cirpass2-bridge-context.jsonld # JSON-LD context for CIRPASS2 property names
     ├── jtc24-bridge-context.jsonld   # JSON-LD context for CEN/CENELEC JTC 24 (EN 18216-18223 + prEN 18239/18246)
-    └── semic-core-bridge-context.jsonld # JSON-LD context for EU SEMICeu Core Vocabularies
+    ├── semic-core-bridge-context.jsonld # JSON-LD context for EU SEMICeu Core Vocabularies
+    └── dpp-keystone-bridge-context.jsonld # JSON-LD context for DPP Keystone (dppk:, spec v2)
 ```
 
 ## UNTP Bridge Context

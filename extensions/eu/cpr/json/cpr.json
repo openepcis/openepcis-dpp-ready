@@ -15,6 +15,20 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance",
+      "localName": "DeclarationOfPerformance",
+      "label": "Declaration of Performance",
+      "comment": "Structured Declaration of Performance per CPR Article 12: declaration code,\ndate of issue, AVCP system, harmonised standard, intended use, and the assessment\nbodies involved. Complements eucpr:declarationOfPerformanceUrl (the document link).",
+      "seeAlso": [
+        "https://schema.org/Certification",
+        "https://dpp-keystone.org/spec/v2/terms#DoPCBlock"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#DeclarationOfPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic",
       "localName": "EssentialCharacteristic",
       "label": "Essential Characteristic",
@@ -23,6 +37,25 @@
     }
   ],
   "properties": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/avcpSystem",
+      "localName": "avcpSystem",
+      "label": "AVCP System",
+      "comment": "Applicable AVCP system (CPR Annex V) for the product's essential characteristics.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/cpr/AVCPSystem"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#avsSystem"
+      ],
+      "closeMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#avsSystem"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
+    },
     {
       "id": "https://ref.openepcis.io/extensions/eu/cpr/characteristicName",
       "localName": "characteristicName",
@@ -50,6 +83,25 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/compressiveStrength",
+      "localName": "compressiveStrength",
+      "label": "Compressive Strength",
+      "comment": "Declared compressive strength of the product. gs1:QuantitativeValue with unitCode 'N31' (MPa).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#compressiveStrength"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#compressiveStrength"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/eu/cpr/constructionProductType",
       "localName": "constructionProductType",
       "label": "Construction Product Type",
@@ -59,6 +111,65 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProductType"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/dateOfIssue",
+      "localName": "dateOfIssue",
+      "label": "Date of Issue",
+      "comment": "Date on which the Declaration of Performance was issued.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+      ],
+      "range": [
+        "xsd:date"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#dateOfIssue"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#dateOfIssue"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/declarationCode",
+      "localName": "declarationCode",
+      "label": "Declaration Code",
+      "comment": "Unique reference number of the Declaration of Performance (CPR Article 12).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#declarationCode",
+        "https://dpp-keystone.org/spec/v2/terms#dopIdentifier"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#declarationCode"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/declarationOfPerformance",
+      "localName": "declarationOfPerformance",
+      "label": "Declaration of Performance",
+      "comment": "Links a construction product to its structured Declaration of Performance.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#hasDoP",
+        "https://dpp-keystone.org/spec/v2/terms#dopc"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#hasDoP"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
     },
@@ -89,6 +200,25 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/europeanAssessmentDocument",
+      "localName": "europeanAssessmentDocument",
+      "label": "European Assessment Document",
+      "comment": "Reference to the European Assessment Document (EAD) underpinning a European Technical Assessment, where no harmonised standard applies. Reuse oec:DocumentReference.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#europeanAssessmentDocument"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#europeanAssessmentDocument"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/eu/cpr/harmonisedStandard",
       "localName": "harmonisedStandard",
       "label": "Harmonised Standard",
@@ -98,6 +228,25 @@
       ],
       "range": [
         "xsd:anyURI"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/notifiedBody",
+      "localName": "notifiedBody",
+      "label": "Notified Body",
+      "comment": "Notified body (NB) involved in the AVCP. Reuse oec:OperatorInformation (carries name, identifier, address).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#notifiedBody"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#notifiedBody"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
     },
@@ -113,9 +262,104 @@
         "https://ref.openepcis.io/extensions/eu/cpr/ReactionToFireClass"
       ],
       "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-13501-1.aspx"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/technicalAssessmentBody",
+      "localName": "technicalAssessmentBody",
+      "label": "Technical Assessment Body",
+      "comment": "Technical Assessment Body (TAB) that issued the European Technical Assessment. Reuse oec:OperatorInformation.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#technicalAssessmentBody"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#technicalAssessmentBody"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/thermalConductivity",
+      "localName": "thermalConductivity",
+      "label": "Thermal Conductivity",
+      "comment": "Declared thermal conductivity λ of the product. gs1:QuantitativeValue with unitCode 'F94' (W/(m·K)).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#thermalConductivity"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#thermalConductivity"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/validationReports",
+      "localName": "validationReports",
+      "label": "Validation Reports",
+      "comment": "References to test / validation reports supporting the declared performance. Reuse oec:DocumentReference.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#validationReports"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#validationReports"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
     }
   ],
   "enumerations": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/AVCPSystem",
+      "localName": "AVCPSystem",
+      "label": "AVCP System",
+      "comment": "Assessment and Verification of Constancy of Performance system per CPR Annex V (1+, 1, 2+, 3, 4), determining the role of notified bodies.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/System1",
+          "localName": "System1",
+          "label": "System 1",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/System1Plus",
+          "localName": "System1Plus",
+          "label": "System 1+",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/System2Plus",
+          "localName": "System2Plus",
+          "label": "System 2+",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/System3",
+          "localName": "System3",
+          "label": "System 3",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/cpr/System4",
+          "localName": "System4",
+          "label": "System 4",
+          "comment": ""
+        }
+      ]
+    },
     {
       "id": "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProductType",
       "localName": "ConstructionProductType",

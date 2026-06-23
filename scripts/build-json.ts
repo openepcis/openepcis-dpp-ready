@@ -83,6 +83,11 @@ interface TermData {
   subClassOf?: string[];
   equivalentClass?: string[];
   equivalentProperty?: string[];
+  exactMatch?: string[];
+  closeMatch?: string[];
+  broadMatch?: string[];
+  narrowMatch?: string[];
+  relatedMatch?: string[];
   source?: string;
   deprecated?: boolean;
 }
@@ -170,6 +175,12 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     namespace: "https://ref.openepcis.io/extensions/eu/cpr/",
   },
   {
+    name: "iron-steel",
+    dir: "extensions/eu/iron-steel",
+    ttlFile: "iron-steel.ttl",
+    namespace: "https://ref.openepcis.io/extensions/eu/iron-steel/",
+  },
+  {
     name: "fsma204",
     dir: "extensions/us/fsma204",
     ttlFile: "fsma204.ttl",
@@ -245,6 +256,11 @@ function extractTermData(store: Store, subject: string, namespace: string): Term
   const subClassOf = toPrefixedForms(getObjectValues(store, subject, `${RDFS}subClassOf`));
   const equivalentClass = toPrefixedForms(getObjectValues(store, subject, `${OWL}equivalentClass`));
   const equivalentProperty = toPrefixedForms(getObjectValues(store, subject, `${OWL}equivalentProperty`));
+  const exactMatch = toPrefixedForms(getObjectValues(store, subject, `${SKOS}exactMatch`));
+  const closeMatch = toPrefixedForms(getObjectValues(store, subject, `${SKOS}closeMatch`));
+  const broadMatch = toPrefixedForms(getObjectValues(store, subject, `${SKOS}broadMatch`));
+  const narrowMatch = toPrefixedForms(getObjectValues(store, subject, `${SKOS}narrowMatch`));
+  const relatedMatch = toPrefixedForms(getObjectValues(store, subject, `${SKOS}relatedMatch`));
   const source = getObjectValue(store, subject, `${DCTERMS}source`);
   const deprecated = getObjectValue(store, subject, `${OWL}deprecated`) === "true";
 
@@ -259,6 +275,11 @@ function extractTermData(store: Store, subject: string, namespace: string): Term
     ...(subClassOf.length > 0 && { subClassOf }),
     ...(equivalentClass.length > 0 && { equivalentClass }),
     ...(equivalentProperty.length > 0 && { equivalentProperty }),
+    ...(exactMatch.length > 0 && { exactMatch }),
+    ...(closeMatch.length > 0 && { closeMatch }),
+    ...(broadMatch.length > 0 && { broadMatch }),
+    ...(narrowMatch.length > 0 && { narrowMatch }),
+    ...(relatedMatch.length > 0 && { relatedMatch }),
     ...(source && { source }),
     ...(deprecated && { deprecated }),
   };

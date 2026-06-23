@@ -1,0 +1,63 @@
+{
+  "_comment": "OpenEPCIS Iron & Steel Vocabulary v0.9.7, ESPR iron & steel product group. Module is intentionally thin; cross-cutting data points (recycled content, substances of concern, environmental product declaration, documents) reuse the lifted oec: vocabulary plus untp: and gs1:. Only steel-specific terms (IronSteelProduct, steel identification, technologyRoute, MaterialTestCertificate + EN 10168 parameters) live in the eusteel: namespace.",
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    {
+      "@version": 1.1,
+      "eusteel": "https://ref.openepcis.io/extensions/eu/iron-steel/",
+      "oec": "https://ref.openepcis.io/extensions/common/core/",
+      "gs1": "https://ref.gs1.org/voc/",
+      "schema": "https://schema.org/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "id": "@id",
+      "type": "@type",
+
+      "IronSteelProduct": "eusteel:IronSteelProduct",
+      "MaterialTestCertificate": "eusteel:MaterialTestCertificate",
+      "TechnologyRoute": "eusteel:TechnologyRoute",
+
+      "heatNumber": "eusteel:heatNumber",
+      "castNumber": "eusteel:castNumber",
+      "lotNumber": "eusteel:lotNumber",
+      "productNumber": "eusteel:productNumber",
+      "purchaserOrder": "eusteel:purchaserOrder",
+      "steelGradeClassification": "eusteel:steelGradeClassification",
+      "steelDesignation": "eusteel:steelDesignation",
+      "meltAndPourCountry": "eusteel:meltAndPourCountry",
+      "cbamReportId": "eusteel:cbamReportId",
+
+      "technologyRoute": {
+        "@id": "eusteel:technologyRoute",
+        "@type": "@vocab",
+        "@context": {
+          "BF-BOF": "eusteel:BlastFurnaceBOF",
+          "EAF": "eusteel:ElectricArcFurnace",
+          "OHF": "eusteel:OpenHearthFurnace",
+          "other": "eusteel:OtherRoute"
+        }
+      },
+
+      "mtc": {
+        "@id": "eusteel:mtc",
+        "@type": "@id"
+      },
+      "mtcInspectionType": "eusteel:mtcInspectionType",
+      "mtcSteelProcess": "eusteel:mtcSteelProcess",
+      "mtcFinishing": "eusteel:mtcFinishing",
+      "mtcNominalSize": {"@id": "eusteel:mtcNominalSize", "@type": "xsd:decimal"},
+      "mtcWeightTolerance": {"@id": "eusteel:mtcWeightTolerance", "@type": "xsd:decimal"},
+      "mtcYieldStrength": {"@id": "eusteel:mtcYieldStrength", "@type": "xsd:decimal"},
+      "mtcTensileStrength": {"@id": "eusteel:mtcTensileStrength", "@type": "xsd:decimal"},
+      "mtcYieldStrengthRatio": {"@id": "eusteel:mtcYieldStrengthRatio", "@type": "xsd:decimal"},
+      "mtcElongation": {"@id": "eusteel:mtcElongation", "@type": "xsd:decimal"},
+      "mtcRelativeRibArea": {"@id": "eusteel:mtcRelativeRibArea", "@type": "xsd:decimal"},
+      "mtcCarbonContent": {"@id": "eusteel:mtcCarbonContent", "@type": "xsd:decimal"},
+      "mtcPhosphorusContent": {"@id": "eusteel:mtcPhosphorusContent", "@type": "xsd:decimal"},
+      "mtcSulfurContent": {"@id": "eusteel:mtcSulfurContent", "@type": "xsd:decimal"},
+      "mtcCopperContent": {"@id": "eusteel:mtcCopperContent", "@type": "xsd:decimal"},
+      "mtcNitrogenContent": {"@id": "eusteel:mtcNitrogenContent", "@type": "xsd:decimal"},
+      "mtcCarbonEquivalent": {"@id": "eusteel:mtcCarbonEquivalent", "@type": "xsd:decimal"},
+      "mtcRadiometricControl": {"@id": "eusteel:mtcRadiometricControl", "@type": "xsd:decimal"}
+    }
+  ]
+}
