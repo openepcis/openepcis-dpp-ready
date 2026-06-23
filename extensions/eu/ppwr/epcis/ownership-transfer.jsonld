@@ -9,16 +9,10 @@
   "creationDate": "2026-05-20T09:00:00.000Z",
   "_comment_architecture": [
     "PPWR ownership transfer: filled beverage bottles ship from the",
-    "bottling plant (manufacturer) to a brand owner's distribution",
-    "centre. Standard owning-party source/destination plus a Purchase",
-    "Order / Despatch Advice pair so the chain of custody is auditable.",
-    "Inline product attributes (euppwr:packagingTier, recyclabilityGrade,",
-    "harmonisedSymbol, deposit-return scheme) live inside",
-    "masterDataAvailableFor on the product entry, same discipline as",
-    "the commissioning template.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,",
-    "                              euppwr=https://ref.openepcis.io/extensions/eu/ppwr/",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
   "epcisBody": {
@@ -40,58 +34,6 @@
         "bizLocation": {
           "id": "https://id.gs1.org/414/9521234000013"
         },
-        "masterDataAvailableFor": [
-          {
-            "id": "https://id.gs1.org/01/09521234500018",
-            "type": "Product",
-            "productName": {
-              "@value": "Mountain Spring Mineral Water, 500 mL PET bottle",
-              "@language": "en"
-            },
-            "gtin": "09521234500018",
-            "packagingTier": "Sales",
-            "recyclabilityGrade": "A",
-            "harmonisedSymbol": "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/separate-collection-pet",
-            "depositReturnScheme": {
-              "type": "DepositReturnScheme",
-              "depositAmount": {
-                "type": "QuantitativeValue",
-                "value": 0.25,
-                "unitCode": "EUR"
-              }
-            }
-          },
-          {
-            "id": "https://id.gs1.org/414/9521234000013",
-            "type": "Place",
-            "locationGLN": "9521234000013",
-            "physicalLocationName": {
-              "@value": "Mountain Spring Bottling Plant",
-              "@language": "en"
-            },
-            "countryCode": "DE"
-          },
-          {
-            "id": "https://id.gs1.org/417/9521234000020",
-            "type": "Organization",
-            "organizationName": {
-              "@value": "Mountain Spring Bottlers GmbH",
-              "@language": "en"
-            },
-            "partyGLN": "9521234000020",
-            "countryCode": "DE"
-          },
-          {
-            "id": "https://id.gs1.org/417/9521234000037",
-            "type": "Organization",
-            "organizationName": {
-              "@value": "EuroBeverage Brands AG",
-              "@language": "en"
-            },
-            "partyGLN": "9521234000037",
-            "countryCode": "DE"
-          }
-        ],
         "sourceList": [
           {
             "type": "urn:epcglobal:cbv:sdt:owning_party",

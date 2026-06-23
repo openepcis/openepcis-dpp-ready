@@ -9,8 +9,8 @@
   "creationDate": "2025-08-15T07:00:00.000Z",
   "_comment_architecture": [
     "Yarn to fabric transformation at weaving facility.",
-    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
-    "Extension properties (eutex:, oec:) are at EVENT level.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eutex=https://ref.openepcis.io/extensions/eu/textile/",
     "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
@@ -37,37 +37,7 @@
         },
         "bizLocation": {
           "id": "https://id.gs1.org/414/9521234000051"
-        },
-        "masterDataAvailableFor": [
-          {
-            "id": "https://id.gs1.org/01/09521234000136/10/FABRIC-WJ-2025-015",
-            "type": "Product",
-            "productName": {
-              "@value": "Water-Resistant Shell Fabric Roll - rPET/PA",
-              "@language": "en"
-            },
-            "netWeight": {
-              "type": "QuantitativeValue",
-              "unitCode": "KGM",
-              "value": 250
-            },
-            "eutex:fabricType": "WovenNonDenim"
-          },
-          {
-            "id": "https://id.gs1.org/414/9521234000051",
-            "type": "Place",
-            "locationGLN": "9521234000051",
-            "physicalLocationName": {
-              "@value": "Mediterranean Weaving Co.",
-              "@language": "en"
-            },
-            "address": {
-              "type": "PostalAddress",
-              "addressLocality": "Como",
-              "countryCode": "IT"
-            }
-          }
-        ]
+        }
       }
     ]
   }

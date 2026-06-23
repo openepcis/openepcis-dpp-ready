@@ -9,18 +9,8 @@
   "creationDate": "2025-10-10T11:00:00.000Z",
   "_comment_architecture": [
     "Pattern A: PEF/Carbon footprint OBSERVATION.",
-    "",
-    "An LCA practitioner re-runs the PEFCR Apparel & Footwear methodology against",
-    "this individual jacket using lot-specific supplier data, and records the",
-    "result against the inspection event. The score IS the observation, so",
-    "environmentalFootprint stays at EVENT level; it captures what was",
-    "measured at this point in time, not the product's published declaration.",
-    "",
-    "Use this pattern when: the score may differ across lots / inspections, or",
-    "the event itself is what produced the value.",
-    "Use the declaration pattern (declaration-environmental-footprint.jsonld)",
-    "when: the score is the product's authoritative published PEF declaration",
-    "that travels with every unit of this SKU.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eutex=https://ref.openepcis.io/extensions/eu/textile/",
     "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
@@ -85,32 +75,7 @@
               "eutex:lciaUnit": "mol H+-eq"
             }
           ]
-        },
-        "masterDataAvailableFor": [
-          {
-            "id": "https://id.gs1.org/01/09521234000013/21/WJ-2025-00301",
-            "type": "Product",
-            "productName": {
-              "@value": "Alpine Pro Winter Jacket - Navy",
-              "@language": "en"
-            },
-            "gtin": "09521234000013"
-          },
-          {
-            "id": "https://id.gs1.org/414/9521234000068",
-            "type": "Place",
-            "locationGLN": "9521234000068",
-            "physicalLocationName": {
-              "@value": "EcoWear Quality Testing Lab",
-              "@language": "en"
-            },
-            "address": {
-              "type": "PostalAddress",
-              "addressLocality": "Munich",
-              "countryCode": "DE"
-            }
-          }
-        ]
+        }
       }
     ]
   }

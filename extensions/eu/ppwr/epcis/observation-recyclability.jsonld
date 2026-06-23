@@ -9,18 +9,10 @@
   "creationDate": "2026-05-04T10:00:00.000Z",
   "_comment_architecture": [
     "Recyclability-grade declaration observation. Captures the",
-    "moment a notified body / conformity-assessment lab assigns the",
-    "PPWR Annex II recyclability grade (A / B / C) to a packaging",
-    "SKU. The grade itself is a static attribute of the product and",
-    "is therefore carried on the product entry inside",
-    "masterDataAvailableFor; the event records WHEN the declaration",
-    "happened, WHO declared it, and against which methodology.",
-    "",
-    "PPWR Reg 2025/40 Art. 6 + Annex II (recyclability grading).",
-    "Grade B / C carry phase-out dates (B from 2030, C by 2038).",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,",
-    "                              euppwr=https://ref.openepcis.io/extensions/eu/ppwr/",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
   "epcisBody": {
@@ -34,23 +26,15 @@
         "bizStep": "inspecting",
         "disposition": "active",
         "epcList": [
-          "https://id.gs1.org/01/09521234500018"
+          "https://id.gs1.org/01/09521234500018/10/LOT-2026-0117"
         ],
         "readPoint": {
           "id": "https://id.gs1.org/414/9521234000082"
         },
         "masterDataAvailableFor": [
           {
-            "id": "https://id.gs1.org/01/09521234500018",
+            "id": "https://id.gs1.org/01/09521234500018/10/LOT-2026-0117",
             "type": "Product",
-            "productName": {
-              "@value": "Mountain Spring Mineral Water, 500 mL PET bottle",
-              "@language": "en"
-            },
-            "gtin": "09521234500018",
-            "packagingTier": "Sales",
-            "recyclabilityGrade": "A",
-            "harmonisedSymbol": "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/separate-collection-pet",
             "regulatoryInformation": [
               {
                 "type": "RegulatoryInformation",
@@ -61,30 +45,6 @@
                 "isRegulationCompliant": true
               }
             ]
-          },
-          {
-            "id": "https://id.gs1.org/414/9521234000082",
-            "type": "Place",
-            "locationGLN": "9521234000082",
-            "physicalLocationName": {
-              "@value": "TÜV PackCert Notified Body Lab",
-              "@language": "en"
-            },
-            "address": {
-              "type": "PostalAddress",
-              "addressLocality": "Köln",
-              "countryCode": "DE"
-            }
-          },
-          {
-            "id": "https://id.gs1.org/417/9521234000099",
-            "type": "Organization",
-            "organizationName": {
-              "@value": "TÜV PackCert GmbH (EU Notified Body 2189)",
-              "@language": "en"
-            },
-            "partyGLN": "9521234000099",
-            "countryCode": "DE"
           }
         ],
         "sensorElementList": [

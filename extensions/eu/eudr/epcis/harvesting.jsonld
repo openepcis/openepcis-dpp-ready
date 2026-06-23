@@ -8,12 +8,8 @@
   "creationDate": "2025-01-15T16:00:00.000Z",
   "_comment_architecture": [
     "Timber harvesting (commissioning) event for a single serialized log.",
-    "masterDataAvailableFor carries: GS1 product master data plus product-level eudr:",
-    "attributes (commodityType, timberProductType, speciesScientificName / CommonName)",
-    "on the product entry, and plot-specific eudr: attributes (forestManagementUnit,",
-    "areaHectares) on the place entry.",
-    "ilmd carries the lot-specific eudr:volumeCubicMeters: the measured volume of THIS",
-    "particular log, fixed at commissioning time and unique to this item.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/",
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
@@ -41,10 +37,6 @@
         "masterDataAvailableFor": [
           {
             "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
-            "productName": {
-              "@value": "European Oak Round Wood - Grade A",
-              "@language": "en"
-            },
             "countryOfOrigin": {
               "countryCode": "DE"
             },
@@ -62,34 +54,11 @@
           },
           {
             "id": "https://id.gs1.org/414/9521234000099",
-            "physicalLocationName": {
-              "@value": "Sustainable Oak Forest - Plot 47",
-              "@language": "en"
-            },
             "geo": {
               "polygon": "13.40,52.51 13.41,52.51 13.41,52.52 13.40,52.52 13.40,52.51"
             },
-            "countryCode": "DE",
             "eudr:forestManagementUnit": "FMU-DE-2024-00123",
             "eudr:areaHectares": 2.5
-          },
-          {
-            "id": "https://id.gs1.org/417/9521234000006",
-            "organizationName": {
-              "@value": "Waldwirtschaft Schmidt GmbH",
-              "@language": "en"
-            },
-            "partyGLN": "9521234000006",
-            "countryCode": "DE",
-            "certification": [
-              {
-                "certificationAgency": {
-                  "@value": "Forest Stewardship Council",
-                  "@language": "en"
-                },
-                "certificationURI": "https://fsc.org/en/certificate/FSC-C123456"
-              }
-            ]
           }
         ],
         "ilmd": {

@@ -9,9 +9,8 @@
   "creationDate": "2026-09-15T06:00:00.000Z",
   "_comment_architecture": [
     "Model-level commissioning event for a detergent DPP (no serial -- model-based per EU 2026/405).",
-    "masterDataAvailableFor carries GS1 product master data plus product-level detergent",
-    "classification (detergentCategory, productForm); these describe the GTIN itself. No ilmd",
-    "is used because the EPC is a bare GTIN (no lot qualifier) and we have no lot-specific data.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eudet=https://ref.openepcis.io/extensions/eu/detergent/",
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
@@ -28,7 +27,7 @@
         "bizStep": "commissioning",
         "disposition": "active",
         "epcList": [
-          "https://id.gs1.org/01/09521234200017"
+          "https://id.gs1.org/01/09521234200017/10/LOT-2026-0088"
         ],
         "readPoint": {
           "id": "https://id.gs1.org/414/9521234000044"
@@ -38,40 +37,9 @@
         },
         "masterDataAvailableFor": [
           {
-            "id": "https://id.gs1.org/01/09521234200017",
+            "id": "https://id.gs1.org/01/09521234200017/10/LOT-2026-0088",
             "type": "Product",
-            "productName": {
-              "@value": "EcoClean Pro Liquid Laundry Detergent - Sensitive",
-              "@language": "en"
-            },
-            "gtin": "09521234200017",
-            "countryOfOrigin": "DE",
-            "schema:category": "LaundryDetergent",
-            "eudet:productForm": "Liquid"
-          },
-          {
-            "id": "https://id.gs1.org/414/9521234000044",
-            "type": "Place",
-            "locationGLN": "9521234000044",
-            "physicalLocationName": {
-              "@value": "EcoClean Production Facility Hamburg",
-              "@language": "en"
-            },
-            "address": {
-              "type": "PostalAddress",
-              "addressLocality": "Hamburg",
-              "countryCode": "DE"
-            }
-          },
-          {
-            "id": "https://id.gs1.org/417/9521234000006",
-            "type": "Organization",
-            "organizationName": {
-              "@value": "EcoClean Industries GmbH",
-              "@language": "en"
-            },
-            "partyGLN": "9521234000006",
-            "countryCode": "DE"
+            "countryOfOrigin": "DE"
           }
         ],
         "sourceList": [

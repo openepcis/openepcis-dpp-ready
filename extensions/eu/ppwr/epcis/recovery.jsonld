@@ -9,19 +9,10 @@
   "creationDate": "2026-06-25T11:00:00.000Z",
   "_comment_architecture": [
     "Material recovery event at an EPR-registered recycler. The",
-    "returned trade-item instances enter the recycling stream and are",
-    "transformed into a recovered material output (rPET flake).",
-    "Modelled as an EPCIS TransformationEvent: inputEPCList carries",
-    "the returned bottle instances; outputEPCList carries a new",
-    "rPET-flake trade item identified by its own GTIN. The oec:",
-    "recycledContent statistics produced by this run live on the",
-    "output product entry inside masterDataAvailableFor.",
-    "",
-    "PPWR Reg 2025/40 Title VII, Art. 47 (recycled-content claims)",
-    "and the EPR registration link via oec:extendedProducerResponsibility.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,",
-    "                              euppwr=https://ref.openepcis.io/extensions/eu/ppwr/",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
   "epcisBody": {
@@ -58,76 +49,32 @@
         "bizLocation": {
           "id": "https://id.gs1.org/414/9521234000068"
         },
-        "masterDataAvailableFor": [
-          {
-            "id": "https://id.gs1.org/01/09521234500032",
-            "type": "Product",
-            "productName": {
-              "@value": "Recycled PET flake (food-contact grade)",
-              "@language": "en"
-            },
-            "gtin": "09521234500032",
-            "recycledContent": {
-              "type": "RecycledContent",
-              "recycledContent": {
-                "type": "QuantitativeValue",
-                "value": 1.00,
-                "unitCode": "P1"
-              },
-              "postConsumerRecycledContent": {
-                "type": "QuantitativeValue",
-                "value": 1.00,
-                "unitCode": "P1"
-              },
-              "preConsumerRecycledContent": {
-                "type": "QuantitativeValue",
-                "value": 0.00,
-                "unitCode": "P1"
-              }
-            },
-            "extendedProducerResponsibility": [
-              {
-                "type": "ExtendedProducerResponsibility",
-                "eprRegistrationNumber": "DE-VPC-44217820",
-                "eprWasteStream": "packaging",
-                "eprJurisdiction": {
-                  "id": "https://ref.gs1.org/voc/Country-DE",
-                  "type": "Country"
-                }
-              }
-            ]
-          },
-          {
-            "id": "https://id.gs1.org/414/9521234000068",
-            "type": "Place",
-            "locationGLN": "9521234000068",
-            "physicalLocationName": {
-              "@value": "GreenCycle PET Recycling Facility",
-              "@language": "en"
-            },
-            "address": {
-              "type": "PostalAddress",
-              "addressLocality": "Leipzig",
-              "countryCode": "DE"
-            }
-          },
-          {
-            "id": "https://id.gs1.org/417/9521234000075",
-            "type": "Organization",
-            "organizationName": {
-              "@value": "GreenCycle Recycling GmbH",
-              "@language": "en"
-            },
-            "partyGLN": "9521234000075",
-            "countryCode": "DE"
-          }
-        ],
         "sourceList": [
           {
             "type": "urn:epcglobal:cbv:sdt:owning_party",
             "source": "https://id.gs1.org/417/9521234000075"
           }
-        ]
+        ],
+        "ilmd": {
+          "oec:recycledContent": {
+            "type": "oec:RecycledContent",
+            "oec:recycledContent": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 1,
+              "gs1:unitCode": "P1"
+            },
+            "oec:postConsumerRecycledContent": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 1,
+              "gs1:unitCode": "P1"
+            },
+            "oec:preConsumerRecycledContent": {
+              "type": "gs1:QuantitativeValue",
+              "gs1:value": 0,
+              "gs1:unitCode": "P1"
+            }
+          }
+        }
       }
     ]
   }
