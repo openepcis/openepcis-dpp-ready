@@ -9,10 +9,8 @@
   "creationDate": "2025-01-25T10:15:00.000Z",
   "_comment_architecture": [
     "Software/firmware update events for electronic devices (OTA security patch and manual BIOS update).",
-    "softwareUpdateEvent is the actual observation (what changed in this event) and stays at event level.",
-    "softwareSupport describes the product's resulting current support state (OS, firmware, latest update",
-    "date) and lives inside masterDataAvailableFor on the product entry; it's master data, not an",
-    "event observation.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,euelec=https://ref.openepcis.io/extensions/eu/electronics/",
     "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
@@ -30,6 +28,13 @@
         "action": "OBSERVE",
         "bizStep": "urn:epcglobal:cbv:bizstep:inspecting",
         "disposition": "urn:epcglobal:cbv:disp:active",
+        "euelec:softwareSupport": {
+          "type": "euelec:SoftwareSupport",
+          "schema:operatingSystem": "Android",
+          "euelec:osVersion": "15.0",
+          "euelec:firmwareVersion": "EP2025.1.2.45",
+          "euelec:latestUpdateDate": "2025-01-25"
+        },
         "euelec:softwareUpdateEvent": {
           "euelec:previousVersion": "EP2025.1.0.0",
           "euelec:newVersion": "EP2025.1.2.45",
@@ -37,19 +42,6 @@
           "euelec:updateSource": "OTA",
           "euelec:updateChannel": "https://updates.ecotech-electronics.example.com/ecophone-pro"
         },
-        "masterDataAvailableFor": [
-          {
-            "id": "https://id.gs1.org/01/09506000134352/21/ABC123456",
-            "type": "Product",
-            "softwareSupport": {
-              "type": "SoftwareSupport",
-              "operatingSystem": "Android",
-              "osVersion": "15.0",
-              "firmwareVersion": "EP2025.1.2.45",
-              "latestUpdateDate": "2025-01-25"
-            }
-          }
-        ],
         "bizTransactionList": [
           {
             "type": "urn:epcglobal:cbv:btt:updnotification",
@@ -67,24 +59,18 @@
         "action": "OBSERVE",
         "bizStep": "urn:epcglobal:cbv:bizstep:inspecting",
         "disposition": "urn:epcglobal:cbv:disp:active",
+        "euelec:softwareSupport": {
+          "type": "euelec:SoftwareSupport",
+          "euelec:firmwareVersion": "BIOS 1.8.0 / EC 2.3.1",
+          "euelec:latestUpdateDate": "2025-01-28"
+        },
         "euelec:softwareUpdateEvent": {
           "euelec:previousVersion": "BIOS 1.7.0 / EC 2.2.0",
           "euelec:newVersion": "BIOS 1.8.0 / EC 2.3.1",
           "euelec:updateType": "firmware",
           "euelec:updateSource": "manual",
           "euelec:updateChannel": "https://support.greentech-computers.example.com/drivers/greenbook-pro-15"
-        },
-        "masterDataAvailableFor": [
-          {
-            "id": "https://id.gs1.org/01/09506000467894/21/LPT-2025-001",
-            "type": "Product",
-            "softwareSupport": {
-              "type": "SoftwareSupport",
-              "firmwareVersion": "BIOS 1.8.0 / EC 2.3.1",
-              "latestUpdateDate": "2025-01-28"
-            }
-          }
-        ]
+        }
       }
     ]
   }

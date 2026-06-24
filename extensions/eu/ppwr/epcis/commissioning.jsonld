@@ -9,12 +9,10 @@
   "creationDate": "2026-04-15T10:00:00.000Z",
   "_comment_architecture": [
     "PPWR commissioning event: packaging item enters the regulated supply chain.",
-    "Static product attributes (euppwr: and oec: extension data) live INSIDE",
-    "masterDataAvailableFor on the product entry. Event-level slot is reserved",
-    "for the actual observation (action / bizStep / disposition / epcList).",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,",
-    "                              euppwr=https://ref.openepcis.io/extensions/eu/ppwr/",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
   "epcisBody": {
@@ -28,7 +26,7 @@
         "bizStep": "commissioning",
         "disposition": "active",
         "epcList": [
-          "https://id.gs1.org/01/09521234500018"
+          "https://id.gs1.org/01/09521234500018/10/LOT-2026-0117"
         ],
         "readPoint": {
           "id": "https://id.gs1.org/414/9521234000013"
@@ -38,40 +36,8 @@
         },
         "masterDataAvailableFor": [
           {
-            "id": "https://id.gs1.org/01/09521234500018",
+            "id": "https://id.gs1.org/01/09521234500018/10/LOT-2026-0117",
             "type": "Product",
-            "productName": {
-              "@value": "Mountain Spring Mineral Water, 500 mL PET bottle",
-              "@language": "en"
-            },
-            "gtin": "09521234500018",
-            "netWeight": {
-              "type": "QuantitativeValue",
-              "value": 0.020,
-              "unitCode": "KGM"
-            },
-            "packagingTier": "Sales",
-            "recyclabilityGrade": "A",
-            "harmonisedSymbol": "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/separate-collection-pet",
-            "extendedProducerResponsibility": [
-              {
-                "type": "ExtendedProducerResponsibility",
-                "eprRegistrationNumber": "DE-VPC-58092100",
-                "eprWasteStream": "packaging",
-                "eprJurisdiction": {
-                  "id": "https://ref.gs1.org/voc/Country-DE",
-                  "type": "Country"
-                }
-              }
-            ],
-            "depositReturnScheme": {
-              "type": "DepositReturnScheme",
-              "depositAmount": {
-                "type": "QuantitativeValue",
-                "value": 0.25,
-                "unitCode": "EUR"
-              }
-            },
             "regulatoryInformation": [
               {
                 "type": "RegulatoryInformation",

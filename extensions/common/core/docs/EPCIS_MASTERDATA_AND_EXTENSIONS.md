@@ -72,55 +72,55 @@ synonym aliases that collapse onto one IRI (`shortName` + `fullName` → `schema
 and open-vocabulary enum values not defined in the term's scoped `@context`. When in
 doubt, the test is RDF identity: a rename is allowed only if expansion is unchanged.
 
-### A. `masterDataAvailableFor` — product/party/location master data
+### A. `masterDataAvailableFor` — item/lot-level master data only
 
-`masterDataAvailableFor` is a mechanism to embed **master data about
-identifiers** that are referenced elsewhere in the event. It provides the
-"product/location/party card" for an EPC, GLN, SSCC, etc. The key itself
-is an EPCIS-context term and is written **bare** (no `gs1:` prefix).
+`masterDataAvailableFor` embeds **item- or lot-level master data** for an
+identifier referenced in the event. It is **not** a full product/party/location
+card. **Granularity decides placement, not vocabulary:**
+
+- **Model/SKU-level** attributes (intrinsic to the GTIN — identical for every
+  unit ever made) and **party/location** master data (the GLN's name, address,
+  the organization behind a party GLN) are **resolver-served**: a consumer
+  dereferences the GTIN / GLN / party URI against a GS1 Digital Link / Web
+  Vocabulary master-data service to obtain them. They must **not** be embedded
+  in the event — the event already carries the URI.
+- Only data that varies **per serialized item or per production lot** — data a
+  model-level resolver could not supply — travels in `masterDataAvailableFor`.
+
+The key itself is an EPCIS-context term, written **bare**.
 
 **Rules:**
-- The `id` (`@id`) in each entry MUST match an identifier already present
-  in the event (`epcList`, `readPoint`, `bizLocation`, `parentID`,
-  `sourceList`, `destinationList`, etc.).
-- Structure is identical to a standalone GTIN/GLN master data file
-  (On-Demand Data Retrieval pattern).
-- Unprefixed properties resolve to `gs1:` via the EPCIS JSON-LD context's
-  `@vocab`. Inside `masterDataAvailableFor` the `gs1:` prefix is
-  **implicit** — write GS1 property keys and `gs1:`-class `type` / `id`
-  values **bare** (e.g. `productName`, `type: "Product"`,
-  `id: "RegulationTypeCode-BATTERY_DIRECTIVE"`).
-- Properties from other namespaces (`eubat:`, `eudr:`, `eutex:`,
-  `oec:`, …) **keep** their namespace prefix. Only `gs1:` is elided.
+- The `id` (`@id`) in each entry MUST match an identifier already present in the
+  event (`epcList`, `parentID`, etc.). In practice the only entries are
+  `/01/.../21|10/...` (item/lot) Product cards.
+- Include only item/lot-level attributes. GS1 keys and `gs1:`-class `type`/`id`
+  values are written **bare** (resolved via the EPCIS `@vocab`); extension-
+  namespaced lot/item properties (`eudr:`, `eutex:`, …) **keep** their prefix.
+- Do **not** add `Place` or `Organization` (GLN/party) entries — reference those
+  by their `/414/` and `/417/` URIs in `readPoint`/`bizLocation`/`sourceList`/
+  `destinationList`; their master data is resolver-served.
 
-**Project convention:** `masterDataAvailableFor` entries are strongly
-biased towards **GS1 Web Vocabulary properties** — every attribute that has
-a native GS1 term MUST use it (written bare). Extension-namespaced
-properties (`eubat:batteryChemistry`, `eutex:fabricType`,
-`schema:category`, etc.) are permitted **only for genuinely
-product-level attributes that have no GS1 equivalent**. In practice this
-means:
+**By granularity:**
 
-- **YES** — `gs1:regulatoryInformation`, `gs1:countryOfOrigin`,
-  `gs1:productName`, `gs1:netWeight`, `gs1:manufacturer`,
-  `gs1:certification`, `gs1:textileMaterial`, `gs1:harvestDate` etc.
-- **YES**, when no GS1 equivalent exists — `eubat:batteryChemistry`,
-  `schema:category`, `schema:category`,
-  `eutex:fabricType`, `schema:category`,
-  `schema:category`, `eudr:commodityType`,
-  `usfsma:foodTraceabilityListCategory`. These describe the GTIN itself and
-  belong with the other product master data.
-- **NO** — observation-specific data (sensor readings, per-event
-  disposition, this-shipment-only KDEs). Those go at event level.
-- **NO** — lot-specific master data (harvest date of THIS batch, recycled
-  content source of THIS yarn run). Those go in `ilmd` on ADD /
-  TransformationEvent.
-
-**Reference:** GS1 Germany EUDR Guideline V1.11, Section 4.2 — every EPCIS
-example in V1.11 uses `masterDataAvailableFor` with exclusively `gs1:`
-properties (pages 23, 29, 30, 34, 35, 42, 44, 46, 48). Our rule is the
-same with one narrow carve-out for extension-namespaced
-product-classification terms that GS1 has not yet published.
+- **YES (item/lot-level)** — `gs1:countryOfOrigin` (where *this lot* was made),
+  `gs1:regulatoryInformation` (compliance asserted for *this lot/consignment*),
+  `gs1:harvestDate` / `harvestDateStart` / `harvestDateEnd` / `productionDate`,
+  EUDR plot geolocation (`geo`, `eudr:areaHectares`, `eudr:forestManagementUnit`),
+  `eudr:deforestationFreeDate` / `legallyHarvested` / `riskLevel` / `verificationMethod`,
+  the EUDR consignment commodity & species (`eudr:commodityType`,
+  `eudr:timberProductType`, `eudr:speciesScientificName`, `eudr:speciesCommonName`
+  — traceability that travels with the lot), `recycledContent` of *this* run, a
+  lot-/instance-measured `oec:emissionsPerformance` / `oec:circularityPerformance`,
+  and other lot-level extension attributes.
+- **NO (model/SKU-level → resolver)** — `productName`, `netWeight`,
+  `schema:category`, `gtin`/`serialNumber` echoes, `eubat:batteryChemistry`/
+  `ratedCapacity`, `eutex:fabricType`/`apparelSubcategory`,
+  `euppwr:packagingTier`/`recyclabilityGrade`, model identifiers. These
+  describe the GTIN; dereference it instead.
+- **NO (party/location → resolver)** — organization names, GLNs, addresses,
+  physical-location names. Dereference the `/414/` or `/417/` URI.
+- **NO (observation → event level)** — sensor readings, lab/test results,
+  per-event assertions. Those are event-level extension properties (§B).
 
 ### B. Extension Properties — at event level
 
@@ -170,22 +170,22 @@ being commissioned, not attributes of the GTIN itself. For example:
   `gs1:catchZone` for this fishing trip,
   `eutex:isRecycledFiber` + `eutex:recycledContentSource` for this
   yarn batch, a sensor reading captured at commissioning time.
-- **NO (product-level)** — `eubat:batteryChemistry`,
-  `schema:category`, `schema:category`,
-  `schema:category`. These describe the GTIN (they are the
-  same for every lot of the same SKU) and belong in
-  `masterDataAvailableFor` (see §A).
+- **NO (model/SKU-level)** — `eubat:batteryChemistry`, `schema:category`,
+  `eutex:fabricType`, `eudr:commodityType`. These describe the GTIN (identical
+  for every lot of the same SKU), so they are **resolver-served** and embedded
+  nowhere in the event — neither in `ilmd` nor in `masterDataAvailableFor`.
 
-**Rule of thumb:** If the value would be identical across every batch of
-the same GTIN, it is **not** ilmd. Put it in the product master data
-block. If the value is specific to this batch (different harvest date,
-different lot of recycled input, different test-certificate number),
-then ilmd is the right place.
+**Rule of thumb:** If the value would be identical across every batch of the
+same GTIN, it is model-level → **do not embed it** (a consumer dereferences the
+GTIN to get it). If the value is specific to this batch (harvest date, recycled-
+input lot, heat number, test-certificate number), embed it: in **`ilmd`** for the
+items the event *creates* (ADD / Transformation), or in **`masterDataAvailableFor`**
+as lot/item master data for a *referenced* identifier.
 
 Do NOT confuse:
-- `masterDataAvailableFor` — product/location/party master data;
-  applies to any event type/action.
-- `ilmd` — lot-level master data for newly-created items; only on
+- `masterDataAvailableFor` — item/lot-level master data for identifiers
+  referenced by the event; applies to any event type/action.
+- `ilmd` — lot/instance master data for newly-created items; only on
   ADD / Transformation.
 
 ---
@@ -218,9 +218,13 @@ inside an EPCIS event structure.
 }
 ```
 
-This is the On-Demand Data Retrieval pattern from the GS1 Germany EUDR
-Guideline V1.11 — the data structure that `masterDataAvailableFor`
-mirrors for `gs1:` properties.
+This is the **resolver-served** standalone master-data document — what a
+consumer gets by dereferencing the GTIN/GLN URI (On-Demand Data Retrieval,
+GS1 Germany EUDR Guideline V1.11). Model/SKU-level attributes
+(`gs1:productName`, `eubat:batteryChemistry`, `eubat:ratedCapacity`, …) live
+**here**, not in the event. An EPCIS event references the GTIN by URI and lets
+this document supply those attributes; `masterDataAvailableFor` in the event
+adds only the item/lot-level deltas the resolver can't know (see §A).
 
 ---
 
@@ -331,19 +335,10 @@ have a corresponding context entry, and vice versa.
           "countryOfOrigin": {
             "countryCode": "DE"
           },
-          "harvestDate": "2025-01-15",
-          "productName": {
-            "en": "European Oak Round Wood - Grade A"
-          }
-        },
-        {
-          "id": "https://id.gs1.org/414/9521234000006",
-          "physicalLocationName": {
-            "en": "Waldwirtschaft Schmidt - Head Office"
-          },
-          "countryCode": "DE"
+          "harvestDate": "2025-01-15"
         }
       ],
+      "_note": "Only lot-level fields here. productName is model-level (resolver-served via the GTIN); the /414/ head-office location is resolver-served via its GLN in readPoint — neither is embedded.",
 
       "eudr:commodityType": "Wood",
       "eudr:speciesScientificName": "Quercus robur",
@@ -406,17 +401,21 @@ because the EPCIS context is not loaded.
 
 ## 7. Common Mistakes to Avoid
 
-### Mistake 1: Extension properties inside masterDataAvailableFor
+### Mistake 1: Model-level (or party/location) data inside masterDataAvailableFor
 
 ```json
 "masterDataAvailableFor": [{
   "id": "https://id.gs1.org/01/.../10/LOT-001",
-  "regulatoryInformation": [...],
-  "eudr:commodityType": "Wood"    // ← WRONG: observation-specific, belongs at event level
+  "regulatoryInformation": [...],       // ← OK: lot-level
+  "eudr:deforestationFreeDate": "...",  // ← OK: lot-level extension attribute
+  "productName": { "en": "..." },       // ← WRONG: model-level → resolver-served via the GTIN
+  "eudr:commodityType": "Wood"          // ← WRONG: model-level (describes the product type)
 }]
 ```
 
-Fix: Move `eudr:commodityType` to event level.
+`masterDataAvailableFor` holds **item/lot-level** data only — `gs1:` (bare) or
+extension-prefixed alike. Model/SKU-level attributes and `Place`/`Organization`
+(GLN) cards are resolver-served: drop them and let the GTIN/GLN URI resolve.
 
 ### Mistake 2: Unprefixed extension properties
 

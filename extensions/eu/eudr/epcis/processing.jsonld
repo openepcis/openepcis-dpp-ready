@@ -8,11 +8,8 @@
   "creationDate": "2025-02-15T18:00:00.000Z",
   "_comment_architecture": [
     "Timber transformation event: two oak logs assembled into one dining table.",
-    "eventTime IS the transformation date; no separate eudr:transformationDate is needed.",
-    "masterDataAvailableFor carries GS1 product master data for inputs and output,",
-    "plus product-level eudr: attributes (commodityType / timberProductType /",
-    "speciesScientificName / CommonName) on each product entry; those describe the GTIN.",
-    "No ilmd: we have no lot-specific data to assert for this example.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/",
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
@@ -43,10 +40,6 @@
         "masterDataAvailableFor": [
           {
             "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
-            "productName": {
-              "@value": "European Oak Round Wood - Grade A",
-              "@language": "en"
-            },
             "countryOfOrigin": {
               "countryCode": "DE"
             },
@@ -63,10 +56,6 @@
           },
           {
             "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-002",
-            "productName": {
-              "@value": "European Oak Round Wood - Grade A",
-              "@language": "en"
-            },
             "countryOfOrigin": {
               "countryCode": "DE"
             },
@@ -83,10 +72,6 @@
           },
           {
             "id": "https://id.gs1.org/01/09521234000037/21/TABLE-2025-001",
-            "productName": {
-              "@value": "Handcrafted Oak Dining Table",
-              "@language": "en"
-            },
             "countryOfOrigin": {
               "countryCode": "DE"
             },
@@ -100,45 +85,6 @@
             "eudr:timberProductType": "Furniture",
             "eudr:speciesScientificName": "Quercus robur",
             "eudr:speciesCommonName": "European Oak"
-          },
-          {
-            "id": "https://id.gs1.org/414/9521234000105",
-            "physicalLocationName": {
-              "@value": "Möbelwerkstatt Weber - Furniture Workshop",
-              "@language": "en"
-            },
-            "address": {
-              "streetAddress": {
-                "@value": "Holzweg 15",
-                "@language": "en"
-              },
-              "addressLocality": {
-                "@value": "Munich",
-                "@language": "en"
-              },
-              "postalCode": "80331",
-              "addressCountry": {
-                "countryCode": "DE"
-              }
-            }
-          },
-          {
-            "id": "https://id.gs1.org/417/9521234000105",
-            "organizationName": {
-              "@value": "Möbelwerkstatt Weber GmbH",
-              "@language": "en"
-            },
-            "partyGLN": "9521234000105",
-            "countryCode": "DE",
-            "certification": [
-              {
-                "certificationAgency": {
-                  "@value": "Forest Stewardship Council",
-                  "@language": "en"
-                },
-                "certificationURI": "https://fsc.org/en/certificate/FSC-C789012"
-              }
-            ]
           }
         ],
         "bizTransactionList": [

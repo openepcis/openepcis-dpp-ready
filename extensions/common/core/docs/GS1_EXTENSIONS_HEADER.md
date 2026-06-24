@@ -34,9 +34,11 @@ uses the declared extensions to:
   "give me every Due Diligence Statement reference for this GTIN").
 - **Trigger regulation-specific master-data resolution.** The repository
   can recognise extension-namespaced properties (e.g. `eudr:`) carried at
-  **event level** or in **`ilmd`** and resolve them against the matching
-  ontology, schema, and SHACL artefacts. (Extension properties never go inside
-  `masterDataAvailableFor`, which holds GS1 master data only — see
+  **event level**, in **`ilmd`**, or as **item/lot-level** attributes in
+  `masterDataAvailableFor`, and resolve them against the matching ontology,
+  schema, and SHACL artefacts. (`masterDataAvailableFor` holds item/lot-level
+  master data only — model/party/location master data is resolver-served, not
+  embedded — see
   [EPCIS_MASTERDATA_AND_EXTENSIONS.md](./EPCIS_MASTERDATA_AND_EXTENSIONS.md).)
 - **Attach the right conformance profile to EPCIS documents at rest.**
   Stored events remember which extensions were declared at capture time,

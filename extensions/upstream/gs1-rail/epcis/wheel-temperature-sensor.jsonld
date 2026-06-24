@@ -9,25 +9,11 @@
   "creationDate": "2026-05-07T08:14:00.000Z",
   "_comment_architecture": [
     "Wayside Train Monitoring System (WTMS) heat-detection event for a freight wagon.",
-    "Rail-specific sensor metadata (rail:typeWtms = HFO, rail:visibility = Public,",
-    "rail:sideIndicator) and sensor report fields (rail:wheelTemperature,",
-    "rail:bearingTemperature, rail:normalizedAxle, rail:leftValue, rail:rightValue)",
-    "ride at event level inside sensorElementList — the EPCIS-native place for sensor",
-    "observations.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
-    "rail:visibility carries the bare value 'Public', which the rail-bridge-context",
-    "expands to oec:Public via the @vocab term coercion. A consumer that has the",
-    "bridge in scope sees a oec:AccessLevel hit; one that doesn't sees the rail enum.",
-    "",
-    "masterDataAvailableFor carries gs1:-only product master data (productName, gtin,",
-    "netWeight) per the EPCIS extension rule. rail: properties never go inside it.",
-    "",
-    "HTTP header (REQUIRED for an OpenEPCIS repository to engage rail-specific",
-    "validation against Rail-EPCIS-SHACL-Generic.json):",
     "  GS1-Extensions: rail=https://gs1-epcis-reg.org/rail/voc/data#, oec=https://ref.openepcis.io/extensions/common/core/",
-    "",
-    "GS1 demo prefix 952. Wagon EPC encodes a rail vehicle identifier via GIAI-style",
-    "Digital Link (8004 AI)."
+    "GS1 demo prefix 952. Wagon EPC encodes a rail vehicle identifier via GIAI-style"
   ],
   "epcisBody": {
     "eventList": [
@@ -54,32 +40,8 @@
           {
             "id": "https://id.gs1.org/8004/9521234W-A-9876543",
             "type": "Product",
-            "productName": {
-              "@value": "Sgnss-class freight wagon",
-              "@language": "en"
-            },
-            "gtin": "09521234560057",
-            "netWeight": {
-              "type": "QuantitativeValue",
-              "value": 23.5,
-              "unitCode": "TNE"
-            },
             "countryOfOrigin": {
               "countryCode": "CH"
-            }
-          },
-          {
-            "id": "https://id.gs1.org/414/9521234560019",
-            "type": "Place",
-            "locationGLN": "9521234560019",
-            "physicalLocationName": {
-              "@value": "WTMS Pforzheim — heat detection station",
-              "@language": "en"
-            },
-            "address": {
-              "type": "PostalAddress",
-              "addressLocality": "Pforzheim",
-              "countryCode": "DE"
             }
           }
         ],

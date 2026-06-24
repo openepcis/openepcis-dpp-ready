@@ -8,8 +8,8 @@
   "creationDate": "2024-03-15T16:00:00.000Z",
   "_comment_architecture": [
     "Regulatory notification event for sharing compliance status (Declaration of Conformity, CE marking).",
-    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
-    "Extension properties (eubat:, oec:) are at EVENT level.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eubat=https://ref.openepcis.io/extensions/eu/battery/",
     "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
@@ -38,12 +38,6 @@
           {
             "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
             "type": "Product",
-            "productName": {
-              "@value": "EcoCell Industrial Battery Module IM-500",
-              "@language": "en"
-            },
-            "gtin": "09521234000013",
-            "serialNumber": "BAT2024-001",
             "regulatoryInformation": [
               {
                 "type": "RegulatoryInformation",
@@ -69,26 +63,6 @@
                 "isRegulationCompliant": true
               }
             ]
-          },
-          {
-            "id": "https://id.gs1.org/414/9521234000013",
-            "type": "Place",
-            "locationGLN": "9521234000013",
-            "physicalLocationName": {
-              "@value": "EcoCell GmbH - Production Facility",
-              "@language": "en"
-            },
-            "countryCode": "DE"
-          },
-          {
-            "id": "https://id.gs1.org/417/9521234000006",
-            "type": "Organization",
-            "organizationName": {
-              "@value": "EcoCell GmbH",
-              "@language": "en"
-            },
-            "partyGLN": "9521234000006",
-            "countryCode": "DE"
           }
         ],
         "sourceList": [

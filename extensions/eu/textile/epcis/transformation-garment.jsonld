@@ -9,10 +9,8 @@
   "creationDate": "2025-09-18T10:00:00.000Z",
   "_comment_architecture": [
     "Fabric to finished garment transformation at cut-and-sew facility.",
-    "masterDataAvailableFor carries GS1 product master data plus product-level",
-    "textile classification (textileCategory / apparelSubcategory / fabricType) on the",
-    "output garment; those describe the GTIN, not a specific lot. No ilmd is used",
-    "because we have no lot-specific data to carry on this event.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eutex=https://ref.openepcis.io/extensions/eu/textile/",
     "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
@@ -40,82 +38,7 @@
         },
         "bizLocation": {
           "id": "https://id.gs1.org/414/9521234000020"
-        },
-        "masterDataAvailableFor": [
-          {
-            "id": "https://id.gs1.org/01/09521234000013/21/WJ-2025-00301",
-            "type": "Product",
-            "productName": {
-              "@value": "Alpine Pro Winter Jacket - Navy",
-              "@language": "en"
-            },
-            "gtin": "09521234000013",
-            "serialNumber": "WJ-2025-00301",
-            "schema:category": "Apparel",
-            "eutex:apparelSubcategory": "JacketsCoats",
-            "eutex:fabricType": "WovenNonDenim",
-            "textileMaterial": [
-              {
-                "type": "TextileMaterialDetails",
-                "textileMaterialContent": {
-                  "type": "QuantitativeValue",
-                  "unitCode": "P1",
-                  "value": 55
-                },
-                "textileMaterialDescription": {
-                  "en": "Recycled Polyester (Shell)"
-                }
-              },
-              {
-                "type": "TextileMaterialDetails",
-                "textileMaterialContent": {
-                  "type": "QuantitativeValue",
-                  "unitCode": "P1",
-                  "value": 25
-                },
-                "textileMaterialDescription": {
-                  "en": "Down (Insulation - RDS Certified)"
-                }
-              },
-              {
-                "type": "TextileMaterialDetails",
-                "textileMaterialContent": {
-                  "type": "QuantitativeValue",
-                  "unitCode": "P1",
-                  "value": 15
-                },
-                "textileMaterialDescription": {
-                  "en": "Polyamide (Lining)"
-                }
-              },
-              {
-                "type": "TextileMaterialDetails",
-                "textileMaterialContent": {
-                  "type": "QuantitativeValue",
-                  "unitCode": "P1",
-                  "value": 5
-                },
-                "textileMaterialDescription": {
-                  "en": "Elastane (Cuffs)"
-                }
-              }
-            ]
-          },
-          {
-            "id": "https://id.gs1.org/414/9521234000020",
-            "type": "Place",
-            "locationGLN": "9521234000020",
-            "physicalLocationName": {
-              "@value": "Porto Textile Manufacturing",
-              "@language": "en"
-            },
-            "address": {
-              "type": "PostalAddress",
-              "addressLocality": "Porto",
-              "countryCode": "PT"
-            }
-          }
-        ]
+        }
       }
     ]
   }

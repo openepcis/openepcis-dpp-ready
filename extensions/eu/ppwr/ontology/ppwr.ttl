@@ -9,6 +9,8 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix schema: <https://schema.org/> .
+# DPP Keystone (dpp-keystone.org), a peer DPP profile this module aligns with.
+@prefix dppk: <https://dpp-keystone.org/spec/v2/terms#> .
 
 <https://ref.openepcis.io/extensions/eu/ppwr/>
     a owl:Ontology ;
@@ -59,7 +61,9 @@ the substantive declarations. Standardly identified via gs1:gtin (or AI 8003
 GIAI for returnable transport items)."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
-    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    rdfs:seeAlso dppk:Packaging ;
+    skos:closeMatch dppk:Packaging ;
+    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. Aligns approximately with the DPP Keystone packaging card dppk:Packaging (material-composition oriented) vs this item-level class."@en .
 
 # =============================================================================
 # Packaging Tier (Article 3)

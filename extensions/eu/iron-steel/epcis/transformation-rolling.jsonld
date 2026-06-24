@@ -9,15 +9,10 @@
   "creationDate": "2026-04-18T12:00:00.000Z",
   "_comment_architecture": [
     "Iron & Steel transformation event: hot rolling of EAF billets into a batch",
-    "of S500B reinforcing bar. Input = billets (by quantity), output = the rebar",
-    "batch (by EPC). The heat number that ties the output to its cast travels in",
-    "ilmd as an event-level extension property (prefixed eusteel:). Static product",
-    "attributes (steel identification, MTC, recycled content) live INSIDE",
-    "masterDataAvailableFor on the output product entry, where gs1: is the ambient",
-    "vocab so GS1 terms are bare and extension terms keep their context alias.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,",
-    "                              eusteel=https://ref.openepcis.io/extensions/eu/iron-steel/",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
   "epcisBody": {
@@ -53,27 +48,8 @@
         },
         "masterDataAvailableFor": [
           {
-            "id": "https://id.gs1.org/01/09521234601005",
+            "id": "https://id.gs1.org/01/09521234601005/10/H7740025",
             "type": "Product",
-            "productName": {
-              "@value": "S500B ribbed reinforcing bar, Ø16 mm",
-              "@language": "en"
-            },
-            "gtin": "09521234601005",
-            "eusteel:heatNumber": "H7740025",
-            "eusteel:castNumber": "C7740025-3",
-            "eusteel:steelGradeClassification": "Non-alloy quality steel (EN 10020)",
-            "eusteel:steelDesignation": "B500B / 1.0439",
-            "eusteel:meltAndPourCountry": "DE",
-            "eusteel:technologyRoute": {"@id": "eusteel:ElectricArcFurnace"},
-            "eusteel:mtc": {
-              "type": "eusteel:MaterialTestCertificate",
-              "eusteel:mtcInspectionType": "3.1",
-              "eusteel:mtcYieldStrength": 547,
-              "eusteel:mtcTensileStrength": 632,
-              "eusteel:mtcElongation": 14.2,
-              "eusteel:mtcCarbonEquivalent": 0.41
-            },
             "regulatoryInformation": [
               {
                 "type": "RegulatoryInformation",

@@ -8,8 +8,8 @@
   "creationDate": "2025-01-25T12:00:00.000Z",
   "_comment_architecture": [
     "Supply chain transfer events recording ownership change (shipping + receiving).",
-    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
-    "Extension properties (eudr:) are at EVENT level.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/",
     "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
@@ -38,10 +38,6 @@
         "masterDataAvailableFor": [
           {
             "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
-            "productName": {
-              "@value": "European Oak Round Wood - Grade A",
-              "@language": "en"
-            },
             "countryOfOrigin": {
               "countryCode": "DE"
             },
@@ -54,10 +50,6 @@
           },
           {
             "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-002",
-            "productName": {
-              "@value": "European Oak Round Wood - Grade A",
-              "@language": "en"
-            },
             "countryOfOrigin": {
               "countryCode": "DE"
             },
@@ -67,32 +59,6 @@
                 "regulatoryAct": "EU 2023/1115"
               }
             ]
-          },
-          {
-            "id": "https://id.gs1.org/414/9521234000006",
-            "physicalLocationName": {
-              "@value": "Waldwirtschaft Schmidt - Shipping Dock",
-              "@language": "en"
-            },
-            "countryCode": "DE"
-          },
-          {
-            "id": "https://id.gs1.org/417/9521234000006",
-            "organizationName": {
-              "@value": "Waldwirtschaft Schmidt GmbH",
-              "@language": "en"
-            },
-            "partyGLN": "9521234000006",
-            "countryCode": "DE"
-          },
-          {
-            "id": "https://id.gs1.org/417/9521234000105",
-            "organizationName": {
-              "@value": "Möbelwerkstatt Weber GmbH",
-              "@language": "en"
-            },
-            "partyGLN": "9521234000105",
-            "countryCode": "DE"
           }
         ],
         "sourceList": [
@@ -144,16 +110,6 @@
         "bizLocation": {
           "id": "https://id.gs1.org/414/9521234000105"
         },
-        "masterDataAvailableFor": [
-          {
-            "id": "https://id.gs1.org/414/9521234000105",
-            "physicalLocationName": {
-              "@value": "Möbelwerkstatt Weber - Receiving Dock",
-              "@language": "en"
-            },
-            "countryCode": "DE"
-          }
-        ],
         "sourceList": [
           {
             "type": "urn:epcglobal:cbv:sdt:owning_party",

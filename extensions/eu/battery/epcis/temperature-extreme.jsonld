@@ -8,8 +8,8 @@
   "creationDate": "2025-07-18T08:15:00.000Z",
   "_comment_architecture": [
     "Temperature extreme event recording a thermal excursion beyond rated limits.",
-    "masterDataAvailableFor lists GS1 master data; the gs1: prefix is implicit and omitted inside the block.",
-    "Extension properties (eubat:, oec:) are at EVENT level.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eubat=https://ref.openepcis.io/extensions/eu/battery/",
     "See: core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
@@ -38,12 +38,6 @@
           {
             "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
             "type": "Product",
-            "productName": {
-              "@value": "EcoCell Industrial Battery Module IM-500",
-              "@language": "en"
-            },
-            "gtin": "09521234000013",
-            "serialNumber": "BAT2024-001",
             "regulatoryInformation": [
               {
                 "type": "RegulatoryInformation",
@@ -52,35 +46,7 @@
                 },
                 "regulatoryAct": "EU 2023/1542"
               }
-            ],
-            "schema:category": "IndustrialBattery",
-            "eubat:temperatureRangeDischarging": {
-              "eubat:maximumTemperature": {
-                "type": "QuantitativeValue",
-                "value": 45,
-                "unitCode": "CEL"
-              }
-            }
-          },
-          {
-            "id": "https://id.gs1.org/414/9521987000025",
-            "type": "Place",
-            "locationGLN": "9521987000025",
-            "physicalLocationName": {
-              "@value": "Energy Systems AG - Berlin Site",
-              "@language": "en"
-            },
-            "countryCode": "DE"
-          },
-          {
-            "id": "https://id.gs1.org/417/9521987000001",
-            "type": "Organization",
-            "organizationName": {
-              "@value": "Energy Systems AG",
-              "@language": "en"
-            },
-            "partyGLN": "9521987000001",
-            "countryCode": "DE"
+            ]
           }
         ],
         "sensorElementList": [

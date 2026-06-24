@@ -9,13 +9,8 @@
   "creationDate": "2025-01-15T14:30:00.000Z",
   "_comment_architecture": [
     "Commissioning of a serialized electronic device (smartphone).",
-    "masterDataAvailableFor carries the full product card: GS1-native attributes",
-    "plus product-level electronics extensions (deviceCategory, modelIdentifier,",
-    "repairabilityIndex, softwareSupport, energyEfficiency, weeeCompliance,",
-    "rohsCompliance, circularityPerformance, emissionsPerformance, operatorInformation).",
-    "All of these describe the GTIN, identical for every unit of this SKU, so they",
-    "live with the product master data, not in ilmd (which is for lot-specific data).",
-    "No ilmd: the EPC is a serialized item and we have no batch-specific data to assert.",
+    "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
+    "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,euelec=https://ref.openepcis.io/extensions/eu/electronics/",
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
@@ -43,59 +38,8 @@
           {
             "id": "https://id.gs1.org/01/09506000134352/21/ABC123456",
             "type": "Product",
-            "gtin": "09506000134352",
-            "productName": {
-              "@value": "EcoPhone Pro 2025",
-              "@language": "en"
-            },
             "productionDate": "2025-01-15",
             "countryOfOrigin": "DE",
-            "manufacturer": {
-              "type": "Organization",
-              "organizationName": {
-                "@value": "EcoTech Electronics GmbH",
-                "@language": "en"
-              },
-              "gln": "9521234000006"
-            },
-            "netWeight": {
-              "type": "QuantitativeValue",
-              "value": 185,
-              "unitCode": "GRM"
-            },
-            "schema:category": "Smartphone",
-            "euelec:modelIdentifier": "EP-2025-PRO-256",
-            "euelec:repairabilityIndex": {
-              "type": "euelec:RepairabilityIndex",
-              "euelec:displayScore": 7.3,
-              "euelec:repairabilityClass": "RepairClassB",
-              "euelec:assessmentDate": "2025-01-10"
-            },
-            "euelec:softwareSupport": {
-              "type": "euelec:SoftwareSupport",
-              "schema:operatingSystem": "Android",
-              "euelec:osVersion": "15.0",
-              "euelec:firmwareVersion": "EP2025.1.0.0",
-              "euelec:securityUpdateEndDate": "2032-01-15",
-              "euelec:featureUpdateEndDate": "2030-01-15"
-            },
-            "euelec:energyEfficiency": {
-              "type": "euelec:EnergyEfficiency",
-              "euelec:powerConsumptionStandby": {
-                "type": "QuantitativeValue",
-                "euelec:value": 0.3,
-                "unitCode": "WTT"
-              }
-            },
-            "euelec:weeeCompliance": {
-              "type": "euelec:WEEECompliance",
-              "schema:category": "WEEE6_SmallIT",
-              "euelec:weeeRegistrationNumber": "DE-2024-EE-12345"
-            },
-            "euelec:rohsCompliance": {
-              "type": "euelec:RoHSCompliance",
-              "euelec:rohsCompliant": true
-            },
             "oec:circularityPerformance": {
               "type": "oec:CircularityPerformance",
               "oec:recyclableContent": 0.85,
@@ -106,11 +50,6 @@
               "oec:carbonFootprintTotal": 52.5,
               "oec:declaredUnit": "kg CO2e/unit",
               "oec:operationalScope": "CradleToGate"
-            },
-            "oec:operatorInformation": {
-              "type": "oec:OperatorInformation",
-              "oec:operatorRole": "Manufacturer",
-              "oec:economicOperatorId": "EU-EOID-DE-2024-123456"
             }
           }
         ],
