@@ -1,0 +1,580 @@
+openapi: 3.1.0
+info:
+  title: EPCIS4DPP — EN 18222 Digital Product Passport API
+  version: 0.1.0
+  summary: >-
+    OpenEPCIS realisation of the CEN/CENELEC EN 18222:2026 abstract API method
+    set (DPP lifecycle management and searchability), carrying the EN 18223:2026
+    information model as its payload.
+  description: |
+    This specification renders the abstract EN 18222 method set (Clauses 4–6,
+    REST-HTTP binding per Clause 8) as a concrete OpenAPI contract for the
+    **EPCIS4DPP** profile. It is derived from the work list in
+    [`EN18223_MODEL_ALIGNMENT.md` §6](../docs/EN18223_MODEL_ALIGNMENT.md) and the
+    clause-by-clause map in
+    [`CEN_JTC24_CONFORMANCE.md`](../docs/CEN_JTC24_CONFORMANCE.md).
+
+    **Standard separation of concerns**
+    - **EN 18222** — the API methods modelled here (read / create / update /
+      delete / register, plus product-id discovery).
+    - **EN 18223** — the payload: the `DigitalProductPassport` information model.
+      Responses default to the *expanded* Annex A serialisation
+      (`elements[]` of typed `DataElement`s); `representation=compressed` returns
+      the key-value GS1 Web Vocabulary JSON-LD form (Clauses 5.2.6–5.2.9).
+    - **EN 18216** — transport and content negotiation (`Accept`).
+    - **EN 18221** — storage / archiving; `UpdateDPPById` archives the prior
+      version rather than overwriting it (EN 18223 has no content-version field).
+    - **EN 18239 / EN 18246** — access rights and data authentication, still in
+      development; the `bearerAuth` scheme below is a placeholder to be aligned
+      on publication.
+
+    **EPCIS4DPP additions, deliberately out of scope here** (they sit *alongside*
+    this API, not inside it): the GS1 Digital Link resolver (carrier-to-resource
+    discovery, RFC 9264 linksets) and the EPCIS 2.0 query interface (event-level
+    search by EPC, business step, disposition, location, time).
+
+    **Conventions** (EN 18222 Clause 8): an in-path `dppId` is a URI and MUST be
+    percent-encoded; element paths use RFC 9535 JSONPath; an optional
+    `representation` flag selects compressed vs full; every method returns an
+    HTTP status code.
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  contact:
+    name: OpenEPCIS DPP-Ready
+    url: https://ref.openepcis.io/
+
+servers:
+  - url: https://{host}/v1
+    description: EPCIS4DPP DPP API base
+    variables:
+      host:
+        default: api.dev.epcis.cloud
+
+tags:
+  - name: Passports
+    description: Read, create, update and delete Digital Product Passports (EN 18222 Clause 4).
+  - name: Data elements
+    description: Read or update a single data element within a passport (EN 18222 Clause 5).
+  - name: Discovery
+    description: Resolve passport identifiers from product identifiers (EN 18222 searchability).
+  - name: Registry
+    description: Register a product's DPP with a DPP registry (EN 18222 Clause 6).
+
+security:
+  - bearerAuth: []
+
+paths:
+  /dpps:
+    post:
+      tags: [Passports]
+      operationId: createDPP
+      summary: CreateDPP — create a new Digital Product Passport.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DigitalProductPassport'
+      responses:
+        '201':
+          description: Created. The `Location` header carries the new passport URI.
+          headers:
+            Location:
+              description: URI of the created passport (its `digitalProductPassportId`).
+              schema: { type: string, format: uri }
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DigitalProductPassport'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /dpps/{dppId}:
+    parameters:
+      - $ref: '#/components/parameters/DppId'
+    get:
+      tags: [Passports]
+      operationId: readDPPById
+      summary: ReadDPPById — fetch a Digital Product Passport by its DPP id.
+      parameters:
+        - $ref: '#/components/parameters/Representation'
+      responses:
+        '200':
+          description: The current passport.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DigitalProductPassport'
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/CompressedDigitalProductPassport'
+        '404': { $ref: '#/components/responses/NotFound' }
+    patch:
+      tags: [Passports]
+      operationId: updateDPPById
+      summary: UpdateDPPById — partial update; the prior version is archived (EN 18221).
+      description: >-
+        A JSON Merge Patch (RFC 7396) over the passport. Per EN 18223 there is no
+        content-version field — the implementation archives the superseded
+        version (EN 18221) and refreshes `lastUpdated`.
+      requestBody:
+        required: true
+        content:
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/DigitalProductPassport'
+      responses:
+        '200':
+          description: The updated passport.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DigitalProductPassport'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [Passports]
+      operationId: deleteDPPById
+      summary: DeleteDPPById — end-of-life delete (the record is archived per EN 18221).
+      responses:
+        '204':
+          description: Deleted (archived).
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /dppsByProductId/{productId}:
+    get:
+      tags: [Discovery]
+      operationId: readDPPByProductId
+      summary: ReadDPPByProductId — the current active passport for a product identifier.
+      parameters:
+        - $ref: '#/components/parameters/ProductId'
+        - $ref: '#/components/parameters/Representation'
+      responses:
+        '200':
+          description: The current active passport for the product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DigitalProductPassport'
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /dppsByIdAndDate/{dppId}:
+    get:
+      tags: [Passports]
+      operationId: readDPPVersionByIdAndDate
+      summary: ReadDPPVersionByIdAndDate — the passport version effective at a date (EN 18221).
+      parameters:
+        - $ref: '#/components/parameters/DppId'
+        - name: date
+          in: query
+          required: true
+          description: Point in time (ISO 8601 UTC) for which to return the archived version.
+          schema: { type: string, format: date-time }
+        - $ref: '#/components/parameters/Representation'
+      responses:
+        '200':
+          description: The passport version effective at the requested date.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DigitalProductPassport'
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /dppsByProductIds:
+    post:
+      tags: [Discovery]
+      operationId: readDPPIdsByProductIds
+      summary: ReadDPPIdsByProductIds — resolve many product ids to passport ids (paginated).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DppIdQuery'
+      responses:
+        '200':
+          description: A page of product-id → passport-id matches.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DppIdPage'
+        '400': { $ref: '#/components/responses/BadRequest' }
+
+  /dpps/{dppId}/elements/{path}:
+    parameters:
+      - $ref: '#/components/parameters/DppId'
+      - $ref: '#/components/parameters/ElementPath'
+    get:
+      tags: [Data elements]
+      operationId: readDataElement
+      summary: ReadDataElement — a single data element addressed by RFC 9535 JSONPath.
+      responses:
+        '200':
+          description: The addressed data element.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataElement'
+        '404': { $ref: '#/components/responses/NotFound' }
+    patch:
+      tags: [Data elements]
+      operationId: updateDataElement
+      summary: UpdateDataElement — update a single data element (prior version archived).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataElement'
+      responses:
+        '200':
+          description: The updated data element.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataElement'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /registry:
+    post:
+      tags: [Registry]
+      operationId: registerProductDPP
+      summary: RegisterProductDPP — register a product's DPP with a DPP registry.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DppRegistryEntry'
+      responses:
+        '201':
+          description: Registered. Returns the registration identifier.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationResult'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+components:
+  parameters:
+    DppId:
+      name: dppId
+      in: path
+      required: true
+      description: The Digital Product Passport identifier (a URI), percent-encoded into one path segment.
+      schema: { type: string }
+      example: https%3A%2F%2Fid.demo.epcis.cloud%2F01%2F09521002005004%2F21%2FBAT2024-001
+    ProductId:
+      name: productId
+      in: path
+      required: true
+      description: Unique product identifier per EN 18219 (e.g. a GS1 Digital Link), percent-encoded into one path segment.
+      schema: { type: string }
+    ElementPath:
+      name: path
+      in: path
+      required: true
+      description: RFC 9535 JSONPath addressing one data element within the passport, percent-encoded.
+      schema: { type: string }
+      example: $.elements%5B0%5D
+    Representation:
+      name: representation
+      in: query
+      required: false
+      description: >-
+        `full` (default) returns the expanded EN 18223 Annex A serialisation;
+        `compressed` returns the key-value GS1 Web Vocabulary JSON-LD form.
+      schema:
+        type: string
+        enum: [full, compressed]
+        default: full
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        Placeholder access scheme. EN 18239 (access rights) and EN 18246 (data
+        authentication) are in development; this will be aligned on publication.
+
+  responses:
+    NotFound:
+      description: No matching passport or data element.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+    BadRequest:
+      description: The request is malformed or fails EN 18223 validation.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+    Conflict:
+      description: The passport already exists, or the registration conflicts.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+
+  schemas:
+    Granularity:
+      type: string
+      description: Level at which the passport applies (EN 18223 Table 1; EPCIS4DPP derives it from the Digital Link AIs).
+      enum: [model, batch, item]
+
+    DppStatus:
+      type: string
+      description: >-
+        EN 18223 Table 1 status. The four base values are canonical; further
+        values may be added by legal acts.
+      enum: [active, inactive, archived, invalid]
+
+    DigitalProductPassport:
+      type: object
+      description: EN 18223:2026 (4.1.2.1, Table 1) Digital Product Passport, expanded Annex A serialisation.
+      required:
+        - digitalProductPassportId
+        - uniqueProductIdentifier
+        - granularity
+        - dppSchemaVersion
+        - dppStatus
+        - lastUpdated
+        - economicOperatorId
+      properties:
+        digitalProductPassportId:
+          type: string
+          format: uri
+          description: Globally unique passport identifier (URI).
+        uniqueProductIdentifier:
+          type: string
+          format: uri
+          description: Product identifier per EN 18219, typically a GS1 Digital Link.
+        granularity:
+          $ref: '#/components/schemas/Granularity'
+        dppSchemaVersion:
+          type: string
+          description: Version of the EN 18223 schema the passport conforms to.
+          examples: ['EN 18223:2026']
+        dppStatus:
+          $ref: '#/components/schemas/DppStatus'
+        lastUpdated:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp of the last update.
+        economicOperatorId:
+          type: string
+          format: uri
+          description: Responsible economic operator identifier per EN 18219.
+        facilityId:
+          type: string
+          format: uri
+          description: Optional facility identifier per EN 18219.
+        contentSpecificationIds:
+          type: array
+          description: Identifiers of the content specifications populated (mirrors the GS1-Extensions namespaces).
+          items: { type: string, format: uri }
+        elements:
+          type: array
+          description: The passport's data elements (EN 18223 4.1.2.3–4.1.2.9).
+          items: { $ref: '#/components/schemas/DataElement' }
+      additionalProperties: false
+
+    CompressedDigitalProductPassport:
+      type: object
+      description: >-
+        EN 18223 *compressed* serialisation (Clauses 5.2.6–5.2.9): the GS1 Web
+        Vocabulary JSON-LD object for the product, minus its `@context`.
+      additionalProperties: true
+
+    DataElement:
+      description: Abstract EN 18223 data element; the concrete shape is selected by `objectType`.
+      oneOf:
+        - $ref: '#/components/schemas/SingleValuedDataElement'
+        - $ref: '#/components/schemas/MultiValuedDataElement'
+        - $ref: '#/components/schemas/MultiLanguageDataElement'
+        - $ref: '#/components/schemas/RelatedResource'
+        - $ref: '#/components/schemas/DataElementCollection'
+      discriminator:
+        propertyName: objectType
+        mapping:
+          SingleValuedDataElement: '#/components/schemas/SingleValuedDataElement'
+          MultiValuedDataElement: '#/components/schemas/MultiValuedDataElement'
+          MultiLanguageDataElement: '#/components/schemas/MultiLanguageDataElement'
+          RelatedResource: '#/components/schemas/RelatedResource'
+          DataElementCollection: '#/components/schemas/DataElementCollection'
+
+    DataElementBase:
+      type: object
+      required: [elementId, objectType]
+      properties:
+        elementId:
+          type: string
+          description: Local element name.
+        dictionaryReference:
+          type: string
+          format: uri
+          description: IRI of the defining term in the EN 18223 (4.3) data dictionary (ref.openepcis.io).
+        objectType:
+          type: string
+          enum:
+            - SingleValuedDataElement
+            - MultiValuedDataElement
+            - MultiLanguageDataElement
+            - RelatedResource
+            - DataElementCollection
+
+    ScalarValue:
+      description: A single scalar data value.
+      anyOf:
+        - type: string
+        - type: number
+        - type: boolean
+        - type: integer
+
+    LocalizedValue:
+      type: object
+      description: EN 18223 (4.1.2.8) language-tagged value.
+      required: [value, language]
+      properties:
+        value: { type: string }
+        language:
+          type: string
+          description: ISO 639 language (optionally with an ISO 3166-1 region).
+          examples: ['en', 'de-DE']
+
+    SingleValuedDataElement:
+      allOf:
+        - $ref: '#/components/schemas/DataElementBase'
+        - type: object
+          required: [value]
+          properties:
+            valueDataType:
+              type: string
+              description: XSD type per EN 18223 (4.1.2.9).
+              examples: ['xsd:string', 'xsd:anyURI', 'xsd:decimal']
+            value: { $ref: '#/components/schemas/ScalarValue' }
+
+    MultiValuedDataElement:
+      allOf:
+        - $ref: '#/components/schemas/DataElementBase'
+        - type: object
+          required: [value]
+          properties:
+            valueDataType: { type: string }
+            value:
+              type: array
+              items: { $ref: '#/components/schemas/ScalarValue' }
+
+    MultiLanguageDataElement:
+      allOf:
+        - $ref: '#/components/schemas/DataElementBase'
+        - type: object
+          required: [value]
+          properties:
+            value:
+              type: array
+              items: { $ref: '#/components/schemas/LocalizedValue' }
+
+    RelatedResource:
+      allOf:
+        - $ref: '#/components/schemas/DataElementBase'
+        - type: object
+          required: [url]
+          properties:
+            contentType:
+              type: string
+              description: IANA MIME type (EN 18223 4.1.2.7).
+            url:
+              type: string
+              format: uri
+              description: Resource URL (RFC 3986).
+            language:
+              type: string
+              description: ISO 639 (+ ISO 3166-1) language of the resource.
+            resourceTitle:
+              type: string
+
+    DataElementCollection:
+      allOf:
+        - $ref: '#/components/schemas/DataElementBase'
+        - type: object
+          required: [elements]
+          properties:
+            elements:
+              type: array
+              items: { $ref: '#/components/schemas/DataElement' }
+
+    DppIdQuery:
+      type: object
+      required: [productIds]
+      properties:
+        productIds:
+          type: array
+          minItems: 1
+          items: { type: string, format: uri }
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 100
+        cursor:
+          type: string
+          description: Opaque pagination cursor returned by a prior page.
+      additionalProperties: false
+
+    DppIdMatch:
+      type: object
+      required: [productId]
+      properties:
+        productId: { type: string, format: uri }
+        digitalProductPassportId:
+          type: string
+          format: uri
+          description: The current active passport id, omitted if none is registered.
+
+    DppIdPage:
+      type: object
+      required: [results]
+      properties:
+        results:
+          type: array
+          items: { $ref: '#/components/schemas/DppIdMatch' }
+        nextCursor:
+          type: string
+          description: Cursor for the next page; absent when the result set is exhausted.
+
+    DppRegistryEntry:
+      type: object
+      required: [productId, digitalProductPassportId, economicOperatorId]
+      properties:
+        productId: { type: string, format: uri }
+        digitalProductPassportId: { type: string, format: uri }
+        economicOperatorId: { type: string, format: uri }
+        dppEndpoint:
+          type: string
+          format: uri
+          description: Resolvable endpoint serving the passport.
+        status: { $ref: '#/components/schemas/DppStatus' }
+      additionalProperties: false
+
+    RegistrationResult:
+      type: object
+      required: [registrationId]
+      properties:
+        registrationId:
+          type: string
+          description: Identifier assigned by the registry.
+        productId: { type: string, format: uri }
+        digitalProductPassportId: { type: string, format: uri }
+
+    Problem:
+      type: object
+      description: RFC 9457 problem detail. `status` mirrors the HTTP status code (EN 18222 returns a status on every method).
+      properties:
+        type: { type: string, format: uri, default: 'about:blank' }
+        title: { type: string }
+        status: { type: integer }
+        detail: { type: string }
+        instance: { type: string, format: uri }

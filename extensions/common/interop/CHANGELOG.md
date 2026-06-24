@@ -2,6 +2,11 @@
 
 All notable changes to the Interoperability module will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- **EN 18222 DPP API** — `api/en18222-dpp-api.openapi.yaml`, an OpenAPI 3.1 contract realising the EN 18222:2026 method set (DPP lifecycle management + searchability: read/create/update/delete, product-id discovery, registry) with the EN 18223 `DigitalProductPassport` as payload (expanded Annex A by default; `representation=compressed` for the GS1 Web Vocabulary JSON-LD form). Closes [`docs/EN18223_MODEL_ALIGNMENT.md`](docs/EN18223_MODEL_ALIGNMENT.md) §6. The GS1 Digital Link resolver and EPCIS 2.0 query interface remain separate APIs alongside it.
+
 ## [0.9.7] — 2026-06-19
 
 ### Added

@@ -52,9 +52,13 @@ clause-by-clause conformance narrative.
 > the converter logic is split into a browser-safe core
 > (`scripts/en18223/derive-core.ts`) shared by the CLI and the demo.
 >
+> **Update (2026-06-24): §6 EN 18222 API surface done.** The abstract method
+> set is now an OpenAPI 3.1 contract at `../api/en18222-dpp-api.openapi.yaml`
+> (validates clean), with the EN 18223 model as payload.
+>
 > **Remaining:** RelatedResource `resourceTitle` field on `oec:DocumentReference`
-> (§4), change management (§5), the EN 18222 API surface + Bruno requests (§6),
-> and the productised Quarkus converter (follow-up).
+> (§4), change management (§5), the §6 Bruno request collection, and the
+> productised Quarkus converter (follow-up).
 
 **Action legend:** *aligned* (no change) · *rename* · *add* ·
 *reconcile-values* · *serialise* (projection rule, no new class needed) ·
@@ -166,6 +170,12 @@ structure on the passport, or derive it from the EPCIS event history plus
 EN 18239 (access rights), still in development.
 
 ## 6. EN 18222 API surface to expose (Phase B)
+
+> **Realised (2026-06-24):** the method set below is now a valid OpenAPI 3.1
+> contract at [`../api/en18222-dpp-api.openapi.yaml`](../api/en18222-dpp-api.openapi.yaml)
+> — 10 operations carrying the EN 18223 `DigitalProductPassport` model as payload
+> (expanded Annex A by default, `representation=compressed` for the GS1 WebVoc
+> JSON-LD form). Bruno request collection still to follow.
 
 Abstract methods (EN 18222 Clauses 4 to 6); REST-HTTP mapping in Clause 8.
 The payload is the EN 18223 model; transport/serialisation per EN 18216;

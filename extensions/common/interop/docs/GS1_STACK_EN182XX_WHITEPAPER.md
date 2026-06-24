@@ -237,6 +237,8 @@ does not mention it.
 
 The repository holds the record of what happened to an item, and is where
 EPCIS4DPP meets EN 18221 (storage and archiving) and EN 18222 (the API).
+The EN 18222 method set is published as an OpenAPI 3.1 contract:
+[`../api/en18222-dpp-api.openapi.yaml`](../api/en18222-dpp-api.openapi.yaml).
 
 **Event coverage (EPCIS4DPP).** OpenEPCIS exercises the full EPCIS 2.0
 surface: `ObjectEvent`, `TransformationEvent`, `AggregationEvent`, and

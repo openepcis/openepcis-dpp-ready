@@ -110,6 +110,8 @@ interop/
 │   ├── UNTP_MAPPING.md               # Complete OpenEPCIS ↔ UNTP property mapping
 │   ├── CIRPASS2_COVERAGE.md          # CIRPASS2 pilot requirements coverage
 │   └── SEMIC_CORE_VOCABULARIES.md    # SEMICeu Core Vocabularies mapping (CCCEV, CPOV, Core Business / Person / Location, Core Public Event, CPSV-AP, ADMS-AP)
+├── api/
+│   └── en18222-dpp-api.openapi.yaml  # EN 18222 DPP lifecycle/searchability API (OpenAPI 3.1; EN 18223 model as payload)
 └── context/
     ├── untp-bridge-context.jsonld    # JSON-LD context for UNTP-style property names
     ├── cirpass2-bridge-context.jsonld # JSON-LD context for CIRPASS2 property names
@@ -174,6 +176,7 @@ See [`docs/SEMIC_CORE_VOCABULARIES.md`](./docs/SEMIC_CORE_VOCABULARIES.md) for t
 - [Standards Alignment Overview](./docs/STANDARDS_ALIGNMENT.md)
 - [CEN/CENELEC JTC 24 Conformance Map](./docs/CEN_JTC24_CONFORMANCE.md)
 - [EN 18223/18222 Alignment Spec (Phase B)](./docs/EN18223_MODEL_ALIGNMENT.md)
+- [EN 18222 DPP API (OpenAPI 3.1)](./api/en18222-dpp-api.openapi.yaml)
 - [EPCIS4DPP Whitepaper](./docs/GS1_STACK_EN182XX_WHITEPAPER.md)
 - [EN 18223 converter (live demo)](https://openepcis.github.io/openepcis-dpp-ready/) ([source](../../../demos/en18223-converter/))
 - [Licensing and Attribution](./docs/LICENSING.md)
