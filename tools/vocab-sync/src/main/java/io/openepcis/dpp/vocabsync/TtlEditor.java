@@ -82,4 +82,23 @@ public final class TtlEditor {
             lines.add(end + 1 + i, indent + triples.get(i) + terminator);
         }
     }
+
+    /**
+     * Remove the predicate-object line at {@code idx}, keeping the block valid. If that line was
+     * the block terminator ({@code … .}) and a prior predicate line exists in the block, the
+     * prior line's trailing {@code ;} becomes {@code .}. A one-liner statement (its own block)
+     * is removed wholesale.
+     */
+    public static void removeLine(List<String> lines, int idx, int blockStart) {
+        String line = lines.get(idx).stripTrailing();
+        boolean wasTerminator = line.endsWith(".") && !line.endsWith("\\.");
+        if (wasTerminator && idx > blockStart) {
+            // Promote the previous predicate line to the new terminator.
+            int prev = idx - 1;
+            String p = lines.get(prev).stripTrailing();
+            int semi = p.lastIndexOf(';');
+            if (semi >= 0) lines.set(prev, p.substring(0, semi) + "." + p.substring(semi + 1));
+        }
+        lines.remove(idx);
+    }
 }

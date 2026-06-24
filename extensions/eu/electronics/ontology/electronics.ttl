@@ -121,8 +121,8 @@ euelec:RepairCriterion
     skos:note "A RepairCriterion is a specific kind of cccev:Criterion (EU SEMICeu CCCEV): the five Repairability-Index criteria (Documentation, Disassembly, SparePartsAvailability, SparePartsPricing, ProductSpecific) each scored against an InformationConcept within the broader Repairability Requirement. Modelled as rdfs:subClassOf rather than owl:equivalentClass because cccev:Criterion is broader and covers any conformity-evaluation criterion. CCCEV is the EU foundation that JTC 24 / CIRPASS-2 lean on for conformity / scoring."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     skos:narrowMatch cv:Criterion ;
-    skos:narrowMatch <https://vocabulary.uncefact.org/untp/0.7.0/Criterion> ;
-    skos:narrowMatch schema:Rating .
+    rdfs:seeAlso <https://vocabulary.uncefact.org/untp/0.7.0/Criterion> ;
+    rdfs:seeAlso schema:Rating .
 
 euelec:SoftwareSupport
     a owl:Class ;
@@ -177,7 +177,7 @@ including equipment category, registration number, and collection scheme."""@en 
     rdfs:seeAlso oec:CircularityPerformance ;
     skos:note """Required extension: WEEE has 6 specific equipment categories not in GS1 vocabulary.
 Use gs1:regulatoryInformation for general compliance, this class for WEEE-specific data."""@en;
-    skos:narrowMatch gs1:RegulatoryInformation .
+    rdfs:seeAlso gs1:RegulatoryInformation .
 
 euelec:RoHSCompliance
     a owl:Class ;
@@ -191,7 +191,7 @@ including compliance status and applicable exemptions."""@en ;
     skos:note """Required extension: RoHS has specific exemption categories not in GS1 vocabulary.
 Use gs1:regulatoryInformation for general compliance, this class for RoHS-specific data."""@en;
     skos:narrowMatch gs1:RegulatoryInformation ;
-    skos:narrowMatch schema:Certification .
+    rdfs:seeAlso schema:Certification .
 
 euelec:DisplaySpecification
     a owl:Class ;
@@ -327,7 +327,7 @@ euelec:RepairCriterionType
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:narrowMatch cv:Criterion .
+    rdfs:seeAlso cv:Criterion .
 
 euelec:Documentation a euelec:RepairCriterionType ;
     rdfs:label "Documentation"@en ;
@@ -414,7 +414,6 @@ euelec:EnergyEfficiencyClass
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:EnergyEfficiencyClass ;
-    skos:narrowMatch oec:EnergyEfficiency ;
     skos:narrowMatch schema:EnergyConsumptionDetails .
 
 euelec:EnergyClassA a euelec:EnergyEfficiencyClass ;
@@ -668,7 +667,7 @@ euelec:displayScore
     rdfs:range xsd:decimal ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No exact GS1 or SEMICeu equivalent; loosely related to the generic schema:ratingValue."@en ;
     skos:closeMatch schema:ratingValue .
 
 euelec:repairabilityClass
@@ -733,7 +732,7 @@ euelec:criterionDetails
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:closeMatch schema:ratingExplanation .
+    rdfs:seeAlso schema:ratingExplanation .
 
 euelec:assessmentDate
     a owl:DatatypeProperty ;
@@ -788,7 +787,7 @@ euelec:osVersion
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     skos:note "Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:narrowMatch schema:softwareVersion .
+    rdfs:seeAlso schema:softwareVersion .
 
 euelec:firmwareVersion
     a owl:DatatypeProperty ;
@@ -1061,7 +1060,7 @@ euelec:sparePartPrice
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:narrowMatch schema:priceSpecification .
+    rdfs:seeAlso schema:priceSpecification .
 
 # =============================================================================
 # PART 14: PROPERTIES - WEEE COMPLIANCE
@@ -1174,7 +1173,7 @@ euelec:rohsDeclarationUrl
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2011/65/eu> ;
     skos:note "Restricted-substance concept per the RoHS Directive 2011/65/EU. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:narrowMatch gs1:referencedFileURL .
+    rdfs:seeAlso gs1:referencedFileURL .
 
 # =============================================================================
 # PART 16: PROPERTIES - DISPLAY SPECIFICATION
@@ -1281,7 +1280,7 @@ euelec:newVersion
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:closeMatch schema:version .
+    rdfs:seeAlso schema:version .
 
 euelec:updateType
     a owl:DatatypeProperty ;

@@ -242,7 +242,7 @@ eudr:countryList
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
     skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:broadMatch <https://schema.org/addressCountry> .
+    rdfs:seeAlso <https://schema.org/addressCountry> .
 
 eudr:originList
     a owl:ObjectProperty ;
@@ -274,8 +274,7 @@ eudr:geofence
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
     skos:note "Geolocation of production plots per EUDR (EU) 2023/1115 Article 9. Geometry is carried via SEMICeu Core Location (locn:)."@en ;
     rdfs:seeAlso locn:geometry ;
-    skos:closeMatch <http://data.europa.eu/m8g/coordinates> ;
-    skos:narrowMatch locn:geometry .
+    rdfs:seeAlso <http://data.europa.eu/m8g/coordinates> .
 
 eudr:geolocation
     a owl:DatatypeProperty ;
@@ -288,7 +287,7 @@ eudr:geolocation
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
     skos:closeMatch <https://schema.org/geo> ;
-    skos:narrowMatch <http://data.europa.eu/m8g/coordinates> .
+    rdfs:seeAlso <http://data.europa.eu/m8g/coordinates> .
 
 eudr:areaSize
     a owl:ObjectProperty ;
@@ -414,8 +413,8 @@ eudr:transformationDate
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
     skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:closeMatch gs1:productionDate ;
-    skos:closeMatch gs1:productionDateTime .
+    rdfs:seeAlso gs1:productionDate ;
+    rdfs:seeAlso gs1:productionDateTime .
 
 # =============================================================================
 # Due Diligence Statement and Risk Assessment Classes
@@ -736,8 +735,7 @@ eudr:exemptionScopeReference
     skos:note "Aligned with EANCOM GIN segment under SG22 for batch/serial enumeration in temporary exemptions."@en ;
     rdfs:seeAlso <https://ref.gs1.org/voc/hasBatchLotNumber> ;
     rdfs:seeAlso <https://ref.gs1.org/voc/hasSerialNumber> ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
-    skos:narrowMatch gs1:hasBatchLotNumber .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
 eudr:exemptionEffectiveFrom
     a owl:DatatypeProperty ;

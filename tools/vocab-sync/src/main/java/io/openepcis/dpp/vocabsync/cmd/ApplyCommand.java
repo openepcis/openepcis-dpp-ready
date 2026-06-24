@@ -76,6 +76,17 @@ public class ApplyCommand implements Runnable {
                     + "relation (e.g. exactMatch→closeMatch). Requires WRONG in --status.")
     boolean rewrite;
 
+    @CommandLine.Option(names = "--min-qa-confidence", defaultValue = "0.75",
+            description = "Floor for asserting a graded skos:*Match. Below it, an added mapping is "
+                    + "emitted as rdfs:seeAlso instead (the discovered link without the semantic claim).")
+    double minQaConfidence;
+
+    @CommandLine.Option(names = "--downgrade-applied", defaultValue = "false",
+            description = "Remediation: for already-applied confirmed adds with QA confidence below "
+                    + "--min-qa-confidence, downgrade the in-place graded relation to rdfs:seeAlso "
+                    + "(or drop it if a seeAlso to that target already exists).")
+    boolean downgradeApplied;
+
     /** One planned triple insertion. */
     private record Plan(String ourId, String predicate, String iri, String upstreamLabel,
                          double confidence, String statusName) {
@@ -146,6 +157,7 @@ public class ApplyCommand implements Runnable {
             String iri = f.path("upstreamIri").asText();
             String ourIri = f.path("ourIri").asText();
             String ourId = f.path("ourId").asText();
+            double qaConf = f.path("qaConfidence").isNumber() ? f.path("qaConfidence").asDouble() : 0.0;
             if (!approved.isEmpty() && !approved.contains(ourIri + "\t" + iri)) continue;
             if (!upstreamIndex.contains(iri)) { // hallucination guard
                 System.err.println("apply: dropping IRI absent from upstream index: " + iri);
@@ -172,13 +184,30 @@ public class ApplyCommand implements Runnable {
 
             String pred = f.path("proposedPredicate").asText(null);
             if (pred == null || pred.isBlank() || "null".equals(pred)) continue;
+
+            if (downgradeApplied) {
+                // Remediation of an already-applied batch: only sub-floor graded adds; downgrade
+                // the in-place skos:*Match to rdfs:seeAlso (the rewrite phase dedups vs existing seeAlso).
+                boolean graded = pred.startsWith("skos:") && pred.endsWith("Match");
+                if (!graded || qaConf >= minQaConfidence) continue;
+                rewritesByModule.computeIfAbsent(mod, k -> new LinkedHashMap<>())
+                        .computeIfAbsent(ourId, k -> new ArrayList<>())
+                        .add(new Rewrite(ourId, pred, "rdfs:seeAlso", iri));
+                rewrites++;
+                continue;
+            }
+
+            // Normal apply: below the QA floor, assert only rdfs:seeAlso (the discovered link
+            // without the unwarranted graded semantic claim).
+            String effPred = (pred.startsWith("skos:") && pred.endsWith("Match") && qaConf < minQaConfidence)
+                    ? "rdfs:seeAlso" : pred;
             byModule.computeIfAbsent(mod, k -> new LinkedHashMap<>())
                     .computeIfAbsent(ourId, k -> new ArrayList<>())
-                    .add(new Plan(ourId, pred, iri, f.path("upstreamLabel").asText(""), conf, st));
+                    .add(new Plan(ourId, effPred, iri, f.path("upstreamLabel").asText(""), conf, st));
             selected++;
         }
-        System.err.printf("apply: %d inserts + %d rewrites selected (status=%s, conf≥%.2f)%s%s%n",
-                selected, rewrites, statuses, minConfidence,
+        System.err.printf("apply: %d inserts + %d rewrites selected (status=%s, conf≥%.2f, qa≥%.2f)%s%s%n",
+                selected, rewrites, statuses, minConfidence, minQaConfidence,
                 skippedGuard > 0 ? ", " + skippedGuard + " dropped by guard" : "",
                 skippedNoRel > 0 ? ", " + skippedNoRel + " WRONG skipped (NONE/unchanged → manual)" : "");
 
@@ -227,11 +256,13 @@ public class ApplyCommand implements Runnable {
         int swapped = 0;
         for (var e : rewriteByTerm.entrySet()) {
             String subject = e.getKey();
-            int[] block = TtlEditor.blockRange(lines, subject);
             for (Rewrite rw : e.getValue()) {
+                // Recompute the block each time: a downgrade-to-seeAlso may remove a line and shift indices.
+                int[] block = TtlEditor.blockRange(lines, subject);
                 String obj = curie(rw.iri(), nsToPrefix);
                 String full = "<" + rw.iri() + ">";
                 int hit = -1;
+                int blockStart = block != null ? block[0] : 0;
                 if (block != null) {
                     for (int i = block[0]; i <= block[1] && hit < 0; i++) {
                         String l = lines.get(i);
@@ -244,6 +275,7 @@ public class ApplyCommand implements Runnable {
                         if ((s.startsWith(subject + " ") || s.startsWith(subject + "\t"))
                                 && s.contains(rw.oldPredicate()) && (s.contains(obj) || s.contains(full))) {
                             hit = i;
+                            blockStart = i;
                         }
                     }
                 }
@@ -252,10 +284,21 @@ public class ApplyCommand implements Runnable {
                             + rw.oldPredicate() + " " + obj + " (" + ttl.getFileName() + ")");
                     continue;
                 }
+                // Downgrading to seeAlso but a seeAlso to this target already exists → drop the
+                // redundant line instead of creating a duplicate.
+                boolean dedupRemove = rw.newPredicate().equals("rdfs:seeAlso") && block != null
+                        && hasSeeAlsoElsewhere(lines, block[0], block[1], hit, obj, full);
                 if (!headerPrinted) { System.out.printf("%n%s%n", ttl); headerPrinted = true; }
-                System.out.printf("  %s: %s → %s  %s%n", subject, rw.oldPredicate(), rw.newPredicate(), obj);
-                if (apply) lines.set(hit, lines.get(hit).replaceFirst(
-                        java.util.regex.Pattern.quote(rw.oldPredicate()), rw.newPredicate()));
+                System.out.printf("  %s: %s → %s  %s%s%n", subject, rw.oldPredicate(),
+                        dedupRemove ? "(remove, seeAlso exists)" : rw.newPredicate(), obj, "");
+                if (apply) {
+                    if (dedupRemove) {
+                        TtlEditor.removeLine(lines, hit, blockStart);
+                    } else {
+                        lines.set(hit, lines.get(hit).replaceFirst(
+                                java.util.regex.Pattern.quote(rw.oldPredicate()), rw.newPredicate()));
+                    }
+                }
                 swapped++;
             }
         }
@@ -336,6 +379,17 @@ public class ApplyCommand implements Runnable {
             }
         }
         return "<" + iri + ">";
+    }
+
+    /** True if some line in the block other than {@code exclude} is an rdfs:seeAlso to the target. */
+    private static boolean hasSeeAlsoElsewhere(List<String> lines, int start, int end,
+                                               int exclude, String obj, String full) {
+        for (int i = start; i <= end; i++) {
+            if (i == exclude) continue;
+            String l = lines.get(i);
+            if (l.contains("rdfs:seeAlso") && (l.contains(obj) || l.contains(full))) return true;
+        }
+        return false;
     }
 
     /** True if the block already asserts this predicate to the target (CURIE or full-IRI form). */

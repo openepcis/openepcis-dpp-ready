@@ -1,0 +1,3156 @@
+@prefix vsprov: <https://ref.openepcis.io/vocab-sync/provenance#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Provenance for vocab-sync-applied SKOS mappings. The mappings themselves live
+# in the module ontologies as bare graded relations; this graph records how each
+# was decided (models, confidences, action) for audit. Not consumed at runtime.
+
+vsprov:run a prov:Activity ;
+    dcterms:date "2026-06-24" ;
+    vsprov:bulkModel "openai/gpt-oss-20b" ;
+    vsprov:qaModel "claude-opus-4-8" .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/cobaltPreConsumerShare> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/recycledContent> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Our term is a specific specialization (single material cobalt, single pre-consumer stream) of the upstream generic recycled-content measure, so it is properly narrower than the candidate." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/carbonFootprintRecycling> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/sustainabilityInfo> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Our term is a single quantitative carbon-footprint metric for the recycling phase, far narrower than GS1's general link to sustainability and recycling information, so it is at most a broadMatch (NARROW) to the GS1 property." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/capacityFadeThreshold> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#exhaustionCapacityThreshold> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both properties denote the end-of-life capacity threshold of a battery, but the undefined upstream term may express an absolute capacity value rather than our fade percentage, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/expectedLifetimeEnergyThroughput> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#energyThroughput> ;
+    vsprov:bulkConfidence "0.75"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Our term is a specific lifetime-scoped energy throughput measure that overlaps with the undefined upstream energyThroughput but cannot be confirmed interchangeable given the missing upstream definition, so a weaker CLOSE is warranted." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/selfDischargeRate> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:previousPredicate "skos:exactMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#selfDischargeCurrent> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both properties characterize a battery's self-discharge phenomenon, but ours quantifies it as a percentage rate per month while the upstream term frames it as a current, so they overlap conceptually without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/selfDischargeRate> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#selfDischargeEvolution> ;
+    vsprov:bulkConfidence "0.75"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.50"^^xsd:decimal ;
+    vsprov:rationale "Both are battery self-discharge properties, but 'evolution' connotes a change-over-time trajectory rather than our single instantaneous percent-per-month rate, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/documentUrl> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/referencedFileURL> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are properties holding a URL to a referenced resource, but ours is constrained to a document on a DismantlingDocument while gs1:referencedFileURL covers any internet resource, making ours the narrower term." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/absoluteCarbonFootprint> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/carbonFootprintProduction> ;
+    vsprov:bulkConfidence "0.96"^^xsd:decimal ;
+    vsprov:qaRelation "BROAD" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are carbon-footprint properties, and the candidate's label scopes it to the production stage while our term is the total (absolute, full-lifecycle) footprint, making ours the broader concept—though the candidate's missing definition leaves residual uncertainty." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/batteryModelIdentifier> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/model> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are properties expressing a product's model identifier; schema:model is the generic product-model property and our term is a battery-specific, regulation-mandated narrowing of it." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/measurementCertificateUrl> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/referencedFileURL> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both are properties pointing to a resource URL, and our measurement-certificate URL is a specific specialization of GS1's generic referenced-file URL, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/safetyInstructions> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/consumerSafetyInformation> ;
+    vsprov:bulkConfidence "0.75"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.55"^^xsd:decimal ;
+    vsprov:rationale "Both are product safety-information properties, but ours is a URL to an end-of-life-specific safety instructions document while the GS1 term covers general consumer-use safety information, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/labelSubject> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#labelMeaning> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.40"^^xsd:decimal ;
+    vsprov:rationale "Both are label-content properties, but the upstream term lacks any definition and 'meaning' (semantic interpretation) is not clearly interchangeable with 'subject matter', so only an approximate overlap can be asserted." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/operatorRole> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/organizationRole> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.80"^^xsd:decimal ;
+    vsprov:rationale "Both are properties assigning a role to an entity, but ours is restricted to economic-operator roles (a subset of the candidate's general party/organization roles), making our term narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/operatorRole> ;
+    vsprov:predicate "skos:exactMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/operatorRole> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "EXACT" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "Our eubat:operatorRole is a property capturing the economic operator's role and is built directly on oec: types (domain oec:OperatorInformation, range oec:OperatorRole), so it is interchangeable with the oec core operatorRole property it anchors to." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/operatorRole> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <http://data.europa.eu/m8g/role> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both are properties denoting an actor's function; m8g:role is the generic role of any Agent within a Participation while our property is the constrained case of an economic operator's role, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/supplierContact> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <http://data.europa.eu/m8g/contactPoint> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are properties linking an entity to its contact information, but ours is restricted to a supplier organization's contact point, making it a specialization of the upstream generic contactPoint." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/supplierContact> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/contactPoints> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.85"^^xsd:decimal ;
+    vsprov:rationale "Both link an organization to a contact point, but our supplierContact is a role-specific subset of schema.org's generic contactPoints, making ours narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/expectedLifetime> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#expectedLifetimeYears> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "BROAD" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both are properties for manufacturer-declared expected service life; ours accepts a QuantitativeValue in months or years and thus subsumes the year-only upstream property, making ours broader." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/cobaltRecycledShare> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/recycledContent> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both are properties; ours measures recycled fraction for a single material (cobalt), a material-specific specialization of the generic recycledContent property, so OUR term is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/remainingPowerCapability> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:previousPredicate "skos:exactMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#powerRemaining> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both describe remaining/current power capability of a battery, but ours is a structured measurement set across multiple SoC levels while the upstream term is an unspecified generic remaining-power value, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/exposureEndTime> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/endTime> ;
+    vsprov:bulkConfidence "0.90"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are dateTime end-time properties and ours is a domain-specific specialization (end of a temperature-exposure interval) of schema.org's generic endTime, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/exposureEndTime> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/endDate> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Both are dateTime end-point properties and ours is a domain-specific specialization of schema:endDate (end of a temperature-exposure interval vs. the generic end of any item), making ours strictly narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/eventLocation> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/location> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.80"^^xsd:decimal ;
+    vsprov:rationale "Both are properties expressing location; ours is a domain-restricted specialization (NegativeEvent → gs1:Place) of schema.org's general-purpose location property, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/safetyMeasures> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/safetyInfo> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are string/link properties about product safety, but ours is restricted to end-of-life handling guidance whereas gs1:safetyInfo covers safety information generally, making ours a narrower specialization." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/dismantlingTime> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#dismantlingInformation> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.55"^^xsd:decimal ;
+    vsprov:rationale "Our term is a specific estimated-time quantity, which is one narrower facet of the upstream's undefined but apparently general 'dismantling information', so ours is subsumed by it." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/internalResistance> ;
+    vsprov:predicate "skos:broadMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#internalResistanceInitial> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "BROAD" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Our general internal-resistance property subsumes the candidate's initial-state (beginning-of-life) internal resistance, so ours is broader." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/safetyInstructionsForDismantling> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#dismantlingInformation> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Both are properties about battery/product dismantling, but ours is restricted to safety-specific instructions whereas the upstream candidate covers dismantling information generally, making ours narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/safetyInstructionsForDismantling> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#safetyMeasures> ;
+    vsprov:bulkConfidence "0.94"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.42"^^xsd:decimal ;
+    vsprov:rationale "Our term is a dismantling-specific safety-instruction URL that plausibly falls under the upstream's general safetyMeasures, but the upstream lacks any definition so the subsumption is uncertain rather than firm." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "remove" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/isCriticalRawMaterial> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#criticalRawMaterials> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "NONE" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Ours is a per-material boolean predicate (range xsd:boolean, domain BatteryMaterial) asserting membership on the EU CRM list, whereas the plural-labeled candidate is structurally a list-valued property enumerating critical raw materials of a product, so they model different concepts rather than a broader/narrower version of the same one." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/BatteryStatus> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/StatusEnumeration> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.58"^^xsd:decimal ;
+    vsprov:rationale "Both are classes and a battery lifecycle status is plausibly a specialization of schema.org's generic status-enumeration parent, so ours is narrower, though the overlap is thin enough to be borderline." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/nickelPreConsumerShare> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/recycledContent> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are decimal recycled-content fraction properties, but ours is restricted to one material (nickel) and one source category (pre-consumer), making it a strict specialization of the generic recycledContent property." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/nickelPreConsumerShare> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://vocabulary.uncefact.org/untp/0.7.0/recycledMassFraction> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are decimal fractional properties expressing recycled material mass share, but ours is a strict specialization restricted to nickel and the pre-consumer sub-stream, whereas the upstream is the generic recycled mass fraction." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/mimeType> ;
+    vsprov:predicate "skos:exactMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/mimeType> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "EXACT" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "Both are string-valued properties expressing the identical MIME-type concept; the only difference is eubat's domain restriction, which does not change the property's meaning." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/renewableContentShare> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#renewableContent> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are properties about the renewable-sourced proportion of a material, but the upstream term has no definition to confirm it is a decimal share rather than a broader descriptor, so they overlap without being provably interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/hazardousSubstances> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:previousPredicate "skos:exactMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#hazardousSubstances> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both are properties expressing hazardous substances associated with a product, but the upstream term lacks any definition or battery-specific scoping, so identity cannot be confirmed and the weaker overlapping grade is warranted." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "remove" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/roundTripEfficiencyAt50PercentCycleLife> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyAt50Cycles> ;
+    vsprov:bulkConfidence "0.90"^^xsd:decimal ;
+    vsprov:qaRelation "NONE" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Our property measures round-trip efficiency at 50% of rated cycle life (a regulation-defined fraction of total lifespan), whereas the candidate measures it after a fixed 50 cycles, so the reference points and resulting values are materially different concepts." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/roundTripEfficiencyAt50PercentCycleLife> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyRemaining> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.50"^^xsd:decimal ;
+    vsprov:rationale "Both denote round-trip efficiency at a degraded life stage, but ours fixes the specific 50%-of-rated-cycle-life point while the undefined 'remaining' candidate is a generic end-of-life efficiency, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/nickelRecycledShare> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/recycledContent> ;
+    vsprov:bulkConfidence "0.78"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are properties measuring recycled material content, but ours is restricted to the nickel fraction specifically, making it a narrower specialization of the generic recycledContent property." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/maximumChargingPower> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#powerMaximumPermitted> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both denote a maximum permitted charging/power value for a battery and plausibly align, but the candidate has no definition to confirm it specifically means charging power (not discharge or rated output) and lacks a declared range, so EXACT cannot be justified." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "remove" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/separateCollection> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#separateCollectionSymbol> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NONE" ;
+    vsprov:qaConfidence "0.86"^^xsd:decimal ;
+    vsprov:rationale "Our term is a URL pointing to separate-collection requirement information, whereas the candidate denotes a separate-collection symbol/marking, so they reference distinct concepts." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/remainingEnergy> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#remainingUsableEnergy> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are product-energy properties about energy remaining in the item, but the candidate has no definition and 'usable energy' may denote currently available charge rather than our 'current maximum energy' (degraded capacity), so they overlap without being provably interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/remainingEnergy> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#remainingCapacity> ;
+    vsprov:bulkConfidence "0.75"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.55"^^xsd:decimal ;
+    vsprov:rationale "Both are battery state-of-life properties for what remains in the cell, but ours measures energy (kWh) while the candidate names capacity (typically Ah), which are distinct physical quantities, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/dismantlingInstructions> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#dismantlingInformation> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are battery-dismantling properties, but ours is specifically a document reference (rdfs:Resource) for safe disassembly while the undefined 'dismantlingInformation' likely covers dismantling info more broadly, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/dueDiligenceReportUrl> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/referencedFileURL> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Our property is a specialized case of the generic gs1 referenced-file/URL property, pointing specifically to a supply-chain due-diligence report rather than any resource." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/cobaltPostConsumerShare> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/recycledContent> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "Our term is a specific subset (post-consumer cobalt fraction) of the candidate's generic recycled-content property, both being decimal-valued properties, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/verificationStandard> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/certificationStandard> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both name a conformity-assessment standard as a free-text string, but verification and certification are distinct conformity activities (ISO/IEC 17000), so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/nickelPostConsumerShare> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/recycledContent> ;
+    vsprov:bulkConfidence "0.90"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.62"^^xsd:decimal ;
+    vsprov:rationale "Both are recycled-content fraction properties, but ours restricts to a single material (nickel) and a single source tier (post-consumer), making it a strict specialization of the generic upstream property." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/nickelPostConsumerShare> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://vocabulary.uncefact.org/untp/0.7.0/recycledMassFraction> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Our property restricts the generic recycled mass fraction to nickel material and post-consumer source only, making it a strict specialization of the upstream term." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/exposureDurationMinutes> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/duration> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Our term is a specific kind of duration (temperature exposure, counted in integer minutes) that is conceptually narrower than schema:duration's generic ISO 8601 time-length property, so a narrowMatch holds despite differing representation." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/batteryMass> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/netWeight> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "Battery mass is the net weight of a specific product type (a battery), so it is a narrower instance of the same net-weight concept measured on the same domain and range." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/dismantlingDocuments> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/dismantlingInstructions> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are properties about battery dismantling guidance, but 'documents' (supporting artifacts) and 'instructions' (procedural guidance) are overlapping rather than interchangeable concepts, and the undefined upstream term blocks any stronger claim." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/ratedCapacity> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/fuelCapacity> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Both can be expressed in ampere-hours, but schema:fuelCapacity is a broad vehicle-storage property (fuel tank or EV battery total) while eubat:ratedCapacity is the specific rated capacity of a battery, making ours narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintClass> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/EmissionsPerformance> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are classes and our battery-specific carbon footprint A–E classification is a specialized kind of the generic emissions-performance concept, so ours is narrower, though the upstream term's missing definition leaves some residual uncertainty." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/carbonFootprintProduction> ;
+    vsprov:predicate "skos:exactMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/carbonFootprintProduction> ;
+    vsprov:bulkConfidence "1.00"^^xsd:decimal ;
+    vsprov:qaRelation "EXACT" ;
+    vsprov:qaConfidence "0.88"^^xsd:decimal ;
+    vsprov:rationale "Both are properties expressing the production-phase carbon footprint value with matching label and semantics, with OUR eubat term anchoring upward to its oec core counterpart." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/endOfLifeInfo> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/sustainabilityInfo> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Our battery end-of-life handling/dismantling/recycling/disposal property is a more specific child of GS1's general sustainability-and-recycling-information link, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/endOfLifeInfo> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/consumerHandlingStorageInfo> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are properties about safe handling instructions, but ours covers end-of-life dismantling, recycling, and disposal whereas the GS1 candidate covers consumer in-use handling and storage, so the two address different lifecycle phases and overlap only partially rather than ours being a clean subset." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/carbonFootprintDistribution> ;
+    vsprov:predicate "skos:exactMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/carbonFootprintDistribution> ;
+    vsprov:bulkConfidence "0.90"^^xsd:decimal ;
+    vsprov:qaRelation "EXACT" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "Both are properties representing the distribution-stage carbon footprint value; the eubat term is the regulation-layer alias of the identical oec core property, making them interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/wastePrevention> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/sustainabilityInfo> ;
+    vsprov:bulkConfidence "0.78"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Our waste-prevention link is one specific facet of the candidate's broader sustainability-and-recycling information, so ours is narrower than the GS1 property." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/labelSymbol> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/url> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are properties yielding a URL, but ours is a constrained subtype pointing specifically to a label symbol image whereas schema:url is the generic URL of any item, making ours strictly narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/exhaustionThreshold> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#exhaustionCapacityThreshold> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both are properties expressing a battery-exhaustion threshold, but ours is specifically an SOCE percentage while the undefined upstream term is framed around capacity, so they overlap without being provably interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/facilityIdentifier> ;
+    vsprov:predicate "skos:broadMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/globalLocationNumber> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "BROAD" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are properties identifying a facility/location, but ours accepts any identifier scheme (xsd:string, GLN merely recommended) whereas gs1:globalLocationNumber denotes specifically the GS1 GLN key, so ours subsumes the candidate." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/thirdPartyAssurancesUrl> ;
+    vsprov:predicate "skos:exactMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/thirdPartyAssurancesUrl> ;
+    vsprov:bulkConfidence "0.99"^^xsd:decimal ;
+    vsprov:qaRelation "EXACT" ;
+    vsprov:qaConfidence "0.88"^^xsd:decimal ;
+    vsprov:rationale "Both are properties named thirdPartyAssurancesUrl carrying a URL to third-party verification/assurance; the upstream oec: term is the core counterpart our eubat: term anchors to, and despite the missing upstream definition the identical name and matching property semantics make them interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/dismantlingAndRemovalInformation> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/dismantlingInstructions> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are document-reference properties for dismantling instructions and overlap heavily, but ours is battery-specific and additionally scopes 'removal' while the undefined upstream term is generic dismantling-only, so they overlap without being a clean subset or equivalent." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/dataProviderCertification> ;
+    vsprov:predicate "skos:exactMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/dataProviderCertification> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "EXACT" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "Same property name in this project's own core layer, identical label, and the eubat term is a regulation-level alias of the oec core term for data provider certification." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/declarationOfConformity> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <http://data.europa.eu/m8g/hasSupportingEvidence> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "A declaration-of-conformity URL is one specific kind of supporting evidence for a requirement, so our property is narrower than the generic hasSupportingEvidence link, though the range differs (anyURI vs evidence resource)." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/declarationOfConformity> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/url> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "Our property is a specialized URL (specifically the EU Declaration of Conformity document link) and is thus a narrower form of schema.org's generic url property, but both are properties carrying a URL value so the kinship is real." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/HazardousSubstance> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/ChemicalSubstance> ;
+    vsprov:bulkConfidence "0.90"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are classes and our hazardous substance is a CLP-classified subset of the general chemical substance concept, hence narrower, though our term may also span mixtures that schema:ChemicalSubstance's constant-composition definition excludes." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/casNumber> ;
+    vsprov:predicate "skos:exactMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/casNumber> ;
+    vsprov:bulkConfidence "1.00"^^xsd:decimal ;
+    vsprov:qaRelation "EXACT" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "Both are properties capturing the Chemical Abstracts Service registry number string, an unambiguous identifier concept, with ours simply being the battery-scoped alias of the core term." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/cathodeActiveMaterial> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/chemicalComposition> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "Our property restricts schema:chemicalComposition to the cathode active material of a battery, so it is a narrower specialization of the general chemical-composition property." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/thirdPartyVerification> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/hasCertification> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Our property attaches third-party verification specifically to a carbon footprint declaration, a narrower specialization of schema.org's general product/organization certification property." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/estimatedImpact> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/hazardImpact> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.62"^^xsd:decimal ;
+    vsprov:rationale "A temperature excursion is a type of hazard, so our battery-specific estimated impact is a narrower specialization of the general hazardImpact property, though the upstream term's missing definition limits certainty." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/currentSelfDischargingRate> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#selfDischargeCurrent> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.50"^^xsd:decimal ;
+    vsprov:rationale "Both concern battery self-discharge, but the undefined upstream label 'selfDischargeCurrent' may denote self-discharge electrical current (amperes) rather than our percent-per-month rate, so overlap is plausible but identity is unconfirmed." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/lithiumRecycledShare> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/recycledContent> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are properties expressing recycled-content share, but ours is restricted specifically to lithium whereas the upstream covers recycled content generally, making ours narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/lithiumRecycledShare> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://vocabulary.uncefact.org/untp/0.7.0/recycledMassFraction> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "Ours measures recycled mass fraction restricted to lithium content, a proper subconcept of UNTP's general recycledMassFraction, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/incidentReportUrl> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/referencedFileURL> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.55"^^xsd:decimal ;
+    vsprov:rationale "Our property is a specialized URL reference (to an incident report) that is subsumed by GS1's generic referenced-file/resource URL, so ours is narrower; the link is genuine but weak since the target carries no incident semantics." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://test.uncefact.org/vocabulary/untp/core/Material> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are material-composition classes, but our BatteryMaterial specializes the generic UNTP Material with battery-specific construction use, CAS/EC identifiers, and sourcing, making ours strictly narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/Substance> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "BatteryMaterial is matter of defined composition (a Substance) specialized to battery construction with composition/CAS-EC/sourcing attributes, so ours is a genuine narrower subclass of the broader schema:Substance." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/expectedNumberOfCycles> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#expectedLifetimeCycles> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are properties expressing a product's expected battery cycle count, but the candidate has no definition to confirm it means full charge-discharge cycles, so interchangeability cannot be asserted." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/roundTripEnergyEfficiency> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyRemaining> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.50"^^xsd:decimal ;
+    vsprov:rationale "Both are battery round-trip efficiency properties on the same domain, but ours measures current absolute efficiency while the candidate's 'Remaining' suffix signals a distinct present-vs-rated retention metric, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "battery" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/battery/electrolyteComposition> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/chemicalComposition> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Both are properties expressing chemical composition, but ours is constrained to a battery's electrolyte while schema:chemicalComposition applies to any substance, making ours a narrower specialization." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/ecNumber> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:previousPredicate "skos:exactMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#componentEcNumber> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both encode the EINECS/ELINCS EC number identifier, but ours attaches it to a SubstanceOfConcern while the undefined upstream term frames it for a component, so the property meaning overlaps without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/carbonFootprintDistribution> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://test.uncefact.org/vocabulary/untp/core/carbonFootprint> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.62"^^xsd:decimal ;
+    vsprov:rationale "Both are properties yielding a carbon-footprint quantity, and distribution-stage emissions are a stage-scoped specialization of the generic product carbon footprint, so ours is narrower—though the relation is partly partitive (one stage of a multi-stage declaration) which weakens confidence." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/EnvironmentalProductDeclaration> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:previousPredicate "skos:exactMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#EPDBlock> ;
+    vsprov:bulkConfidence "0.60"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both classes concern the EPD concept, but 'EPDBlock' (no definition) most plausibly names the passport's EPD container/section rather than a sub-block of a declaration, so the first-pass BROAD reading is unsupported and an overlapping CLOSE match is the defensible grade." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/carbonFootprintStudyUrl> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/referencedFileURL> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are properties carrying a URL to a referenced document, and ours is a semantically constrained subtype (specifically the carbon footprint study) of the generic gs1:referencedFileURL, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/carbonFootprintProduction> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://test.uncefact.org/vocabulary/untp/core/carbonFootprint> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are properties carrying a carbon-footprint value, but ours is restricted to one lifecycle stage (production) whereas the untp term is a generic, whole-product carbon footprint, making ours a narrower specialization." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/compostabilityStandard> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/certificationStandard> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are properties naming the standard a claim is certified against, but ours is restricted to compostability certifications while gs1:certificationStandard covers any certification standard, making ours a narrower instance of the same concept." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/safeUseInstructions> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/consumerSafetyInformation> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.62"^^xsd:decimal ;
+    vsprov:rationale "Safe-use instructions for a substance of concern are a specific subtype of the broader consumer safety information, so our property is narrower than the upstream one." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/TraceabilityPerformance> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://vocabulary.uncefact.org/untp/0.7.0/PerformanceMetric> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Our class is one specific performance-metric category (proportion of materials verifiably traced), making it a subtype of UNTP's generic PerformanceMetric class, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/scipId> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/identifier> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.80"^^xsd:decimal ;
+    vsprov:rationale "Both are properties and a SCIP database identifier is a specific instance of schema.org's generic identifier concept, so ours is genuinely narrower than the catch-all target." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/repairabilityInfo> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/serviceInfo> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are properties conveying repair/maintenance information, but GS1 serviceInfo is a simple hyperlink to service instructions while ours references a structured RepairabilityInfo object, so they overlap without being interchangeable or cleanly nested." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/preConsumerRecycledContent> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://test.uncefact.org/vocabulary/untp/core/recycledContent> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.62"^^xsd:decimal ;
+    vsprov:rationale "Both are recycled-content properties, but ours measures only the pre-consumer (post-industrial) fraction, a strict subset of the upstream's overall recycled content, so our term is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/componentIdentifier> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/identifier> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both are identifier properties and ours is a domain-restricted specialization of schema:identifier's generic any-Thing identifier, so ours is the narrower concept." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/previousPassportVersion> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <http://www.w3.org/ns/adms#prev> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are properties asserting a link to the immediately prior version of the same entity, but adms:prev is domain-scoped to ADMS Assets (semantic assets) rather than passports, so the predecessor-version semantics overlap without being fully interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/eprJurisdiction> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/jurisdiction> ;
+    vsprov:bulkConfidence "0.97"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.62"^^xsd:decimal ;
+    vsprov:rationale "Both are properties expressing a jurisdiction relation, and our term is a domain-constrained specialization (the country/member-state of an EPR registration) of schema.org's general legal-jurisdiction property, justifying a broadMatch/NARROW grade." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/recyclabilityRate> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:object <https://test.uncefact.org/vocabulary/untp/core/recycledContent> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.75"^^xsd:decimal ;
+    vsprov:rationale "Both quantify a recycling-related fraction of a product, but recyclabilityRate measures the portion that *can be* recycled (end-of-life recyclability) whereas untp:recycledContent measures the portion *already made from* recycled material (input content), so they are related but not the same concept." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/repairInstructions> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/instructions> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.85"^^xsd:decimal ;
+    vsprov:rationale "Both are link-type properties; GS1 'instructions' is a generic link to any instructions (assembly, usage, etc.) of which repair instructions is one specific subtype, so our term is properly narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/repairInstructions> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/serviceInfo> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "GS1 serviceInfo links broadly to service or maintenance instructions, and repair instructions are a narrower subset of that documentation scope, so ours is the more specific concept." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/iupacName> ;
+    vsprov:predicate "skos:exactMatch" ;
+    vsprov:object <https://schema.org/iupacName> ;
+    vsprov:bulkConfidence "0.99"^^xsd:decimal ;
+    vsprov:qaRelation "EXACT" ;
+    vsprov:qaConfidence "0.95"^^xsd:decimal ;
+    vsprov:rationale "Both are properties carrying the systematic IUPAC chemical name of a substance with identical meaning and string range, differing only in domain scope which does not affect property semantics." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/iupacName> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:previousPredicate "skos:exactMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#componentIupacName> ;
+    vsprov:bulkConfidence "0.96"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both properties carry the systematic IUPAC name of a chemical entity and their string values are interchangeable, but ours is scoped to a hazardous substance while the candidate targets a generic product component, so they overlap without being identical." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/emissionsPerformance> ;
+    vsprov:predicate "skos:exactMatch" ;
+    vsprov:object <https://test.uncefact.org/vocabulary/untp/core/emissionsPerformance> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "EXACT" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Both are properties carrying an emissions-performance data container and OUR term explicitly mirrors UNTP's emissionsPerformance 1:1 (same role, same range class), making them interchangeable despite the upstream lacking an inline definition." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/casNumber> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:previousPredicate "skos:exactMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#componentCasNumber> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both record the same CAS registry identifier so they overlap strongly, but they attach to different (and not cleanly nested) bearers — our hazardous-substance vs. their component — and the upstream term lacks a definition, so a clean BROAD subsumption can't be asserted." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/carbonFootprintRawMaterial> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://test.uncefact.org/vocabulary/untp/core/carbonFootprint> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.62"^^xsd:decimal ;
+    vsprov:rationale "Both are carbon-footprint properties, but ours scopes a single lifecycle stage (raw-material acquisition) which is a more granular slice of the upstream term's overall product carbon footprint." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/dataProviderCertification> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/hasCertification> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both express certification, but ours is scoped specifically to the data provider (a kind of organization) whereas schema:hasCertification covers certification of any product, organization, service, place, or person, making ours a strict specialization." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/dataProviderCertification> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/certification> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.68"^^xsd:decimal ;
+    vsprov:rationale "Both are certification properties and a data provider is an organisation, so OUR term is a narrower, role-specific specialization of GS1's general certification of a product/organisation/location." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/impactIndicator> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#indicator> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "A generic upstream 'indicator' property plausibly subsumes our EPD-specific impactIndicator, making ours the narrower term, but the upstream definition is absent so the conceptual match cannot be confirmed beyond name similarity." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://w3id.org/eudpp#Substance> ;
+    vsprov:bulkConfidence "0.94"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are classes; a substance of concern is a regulatory subset of the generic upstream Substance, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/dismantlingInstructions> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#endOfLifeInstructions> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Dismantling is one specific end-of-life operation, so our property is a genuine narrower (subset) case of the upstream endOfLifeInstructions, both being properties." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/passportIssueDate> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/dateIssued> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both are date-issued properties with range date, but schema:dateIssued is scoped to tickets/credentials while ours specifically records DPP issuance, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/professionalRepairNetwork> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <http://data.europa.eu/m8g/contactPage> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are properties pointing to a web page for contact/service access, and ours is a specialized subset (authorized repair providers) of the generic upstream contact page, so it is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/facilityCertifications> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/certification> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.85"^^xsd:decimal ;
+    vsprov:rationale "Both are properties asserting held certifications, but ours is restricted to facility (location/organisation) subjects whereas gs1:certification spans products, organisations, and locations, making ours a proper subset." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/facilityCertifications> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/hasCertification> ;
+    vsprov:bulkConfidence "0.90"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are properties asserting certifications on an entity, but ours is scoped specifically to facilities whereas schema:hasCertification ranges over products, organizations, services, places, and persons, making ours a narrower specialization." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/facilityCertifications> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/certificationInfo> ;
+    vsprov:bulkConfidence "0.90"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are properties linking to certification data, but oec:facilityCertifications is a facility-scoped specialization of gs1:certificationInfo's general certification link, making ours narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/operatorInformation> ;
+    vsprov:predicate "skos:broadMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/manufacturer> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "BROAD" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Our 'economic operator responsible for the product' is a regulatory super-category that subsumes manufacturer along with importer, distributor and authorised representative, so ours is strictly broader than gs1:manufacturer (the producing organization only)." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/passportVersion> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/version> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are version-identifier properties of a resource, but schema.org scopes its property to CreativeWork while ours scopes to a Digital Product Passport, and a DPP is not unambiguously a CreativeWork, so they overlap without identity or a safe subsumption claim." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/takeBackUrl> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/merchantReturnLink> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both are properties giving a URL for product return/take-back, but schema.org's merchantReturnLink targets commercial merchant returns while ours denotes a consumer-facing end-of-life take-back program, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/materialComposition> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/textileMaterialContent> ;
+    vsprov:bulkConfidence "0.60"^^xsd:decimal ;
+    vsprov:qaRelation "BROAD" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Our generic material-composition property subsumes the textile-specific GS1 property, which is scoped to textile material content with percentages, so ours is broader." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/EnergyEfficiency> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:previousPredicate "skos:closeMatch" ;
+    vsprov:object <https://schema.org/EnergyConsumptionDetails> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Our class is the EU A-G/EPREL efficiency-declaration subset of schema.org's broader EnergyConsumptionDetails, which spans all regulation-based energy-consumption information for an energy-using product." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/PerformanceInfo> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://vocabulary.uncefact.org/untp/0.7.0/PerformanceMetric> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.55"^^xsd:decimal ;
+    vsprov:rationale "Ours is an ESPR-scoped information container aggregating lifespan, usage cycles, and metrics, while the upstream is a single atomic performance metric, so they overlap conceptually but are not interchangeable nor cleanly broader/narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/PerformanceInfo> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://w3id.org/eudpp#Durability> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "BROAD" ;
+    vsprov:qaConfidence "0.62"^^xsd:decimal ;
+    vsprov:rationale "Our PerformanceInfo covers durability plus broader performance metrics (lifespan, usage cycles), so durability is a proper subset, making ours broader; both are classes." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/eprRegistrationNumber> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/registryEntry> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "An EPR compliance-scheme producer registration number is a specific instance of the general 'entry in a register that acts as an alternative identifier' that gs1:registryEntry models, so ours is the narrower concept." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/elementId> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/identifier> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "oec:elementId is a specific kind of identifier (a container-scoped element id) and thus a proper subtype of schema:identifier's generic any-Thing identifier." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/reportUrl> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/referencedFileURL> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "oec:reportUrl is a specialized slot for a due diligence report's URL, a proper subset of gs1:referencedFileURL's generic any-resource file reference, so ours is strictly narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/wastePreventionInfo> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/sustainabilityInfo> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Our waste-prevention URL property is a specific subset of the candidate's broader sustainability-and-recycling link, so ours is narrower than the GS1 term." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/performanceClass> ;
+    vsprov:predicate "skos:broadMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#energyEfficiencyClass> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "BROAD" ;
+    vsprov:qaConfidence "0.80"^^xsd:decimal ;
+    vsprov:rationale "Our property covers any performance or efficiency class while the candidate is restricted to energy efficiency, so ours subsumes it (both are properties)." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/did> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/identifier> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "A DID is one specific kind of identifier, so oec:did is a narrower property under schema:identifier's general identifier concept." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/EnergyEfficiencyClass> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/EnergyEfficiencyEnumeration> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are classes denoting energy-efficiency classification scales, but ours is restricted to the EU 2017/1369 A-G classes while schema:EnergyEfficiencyEnumeration spans multiple international energy-efficiency standards, making ours a proper subset." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/collectionPointDirectoryUrl> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/referencedFileURL> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.55"^^xsd:decimal ;
+    vsprov:rationale "Both are property-type URLs and ours points to a specific kind of internet resource (a collection-point directory), making it a genuine narrowing of GS1's generic referencedFileURL/Website rather than a separate concept." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/stageValue> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/value> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are unit-qualified numeric-value properties, and our stageValue is a domain-specific specialization of GS1's generic measurement value, making ours genuinely narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/postConsumerRecycledContent> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://test.uncefact.org/vocabulary/untp/core/recycledContent> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are properties expressing recycled-content fraction, but ours restricts to the post-consumer subset whereas the untp term covers recycled content generally, making ours narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/EmissionsPerformance> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://vocabulary.uncefact.org/untp/0.7.0/Performance> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.80"^^xsd:decimal ;
+    vsprov:rationale "Our emissions-specific container is one specialization of UNTP's generic abstract Performance class (which also subsumes circularity, traceability, etc.), so ours is properly narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/EmissionsPerformance> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://w3id.org/eudpp#EnvironmentalFootprint> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are classes, and our GHG-emissions-specific container is a proper subset of the broader multi-category EnvironmentalFootprint concept, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/passportIdentifier> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/identifier> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.95"^^xsd:decimal ;
+    vsprov:rationale "oec:passportIdentifier is a specialized identifier property for a single DPP instance, semantically subsumed by schema.org's generic identifier property for any Thing, so ours is the narrower property." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/language> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/inLanguage> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both are properties asserting the language of something via standard language codes, but oec:language is a generic value-level language tag whereas schema:inLanguage scopes specifically to the language of content or an action, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/endOfLifeInstructions> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/sustainabilityInfo> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Our end-of-life handling instructions URL is a specific subset of GS1's broad sustainability-and-recycling information link, so ours is narrower than the upstream property." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/DocumentReference> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:previousPredicate "skos:exactMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/ReferencedFileDetails> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are classes pointing to an external file/document with URL and metadata, but neither is clearly broader since GS1's ReferencedFileDetails covers any electronic file (not only documents) while ours is document-scoped yet adds language handling, so they overlap without one subsuming the other." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/dppSchemaVersion> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/version> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "oec:dppSchemaVersion records a version identifier like schema.org/version but is constrained to the schema/standard a DigitalProductPassport conforms to, a narrower instance of the general CreativeWork version property." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/HazardousSubstance> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://w3id.org/eudpp#Substance> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both are classes and our hazardous-substance concept (CLP-declared) is a proper subset of the upstream generic Substance class, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/substanceLocation> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:previousPredicate "skos:exactMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#componentLocationInProduct> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are string properties locating a constituent within a product, but ours locates a substance of concern while theirs locates a component, which are different entity types, so NARROW is unjustified and only an approximate overlap holds." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/operatorRole> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <http://data.europa.eu/m8g/role> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are properties expressing the function/role an actor plays; ours restricts the generic agent-in-participation role to specifically the economic operator's role, making it a genuine narrowing of the upstream term." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/substancesOfConcern> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/ingredientOfConcern> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are properties flagging product-contained substances of regulatory concern, but GS1's 'ingredient' (intentionally-added component, claim-based) and our 'substance' (any SVHC present per SCIP/ESPR) frame overlapping-not-identical scopes, so CLOSE rather than EXACT." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/complianceDate> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/auditDate> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are date properties marking a compliance/audit verification event, overlapping in meaning but not interchangeable since auditDate is scoped to a certification's last audit while complianceDate generically records compliance verification." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/activityClassification> ;
+    vsprov:predicate "skos:broadMatch" ;
+    vsprov:object <https://schema.org/naics> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "BROAD" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "Both are properties, and our term generalizes across multiple industry classification schemes (ISIC, NACE, NAICS) while schema:naics is specifically the NAICS code, making ours strictly broader." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/activityClassification> ;
+    vsprov:predicate "skos:broadMatch" ;
+    vsprov:object <https://schema.org/isicV4> ;
+    vsprov:bulkConfidence "0.90"^^xsd:decimal ;
+    vsprov:qaRelation "BROAD" ;
+    vsprov:qaConfidence "0.85"^^xsd:decimal ;
+    vsprov:rationale "Our property generically captures any industry-activity classification code (ISIC, NACE, NAICS), whereas schema:isicV4 is restricted to the single ISIC Revision 4 scheme, so ours properly subsumes the candidate." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/lastDataUpdate> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/sdDatePublished> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are record-level metadata timestamps about the data itself rather than the product, but ours marks the last update of DPP data generically while sdDatePublished specifically marks when the current structured-data serialization was generated/published, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/GranularityLevel> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:previousPredicate "skos:exactMatch" ;
+    vsprov:object <https://vocabulary.uncefact.org/untp/0.7.0/ProductIDGranularity> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are classes enumerating the same model/batch/item granularity tristate, but ours is framed as passport-level granularity anchored to EN 18223 and EPCIS4DPP Digital Link AIs while UNTP's is product-identifier granularity, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/documentUrl> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/referencedFileURL> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.80"^^xsd:decimal ;
+    vsprov:rationale "Both are properties supplying a URL; ours is constrained to a document reference while GS1 referencedFileURL covers any internet resource (documents, people, etc.), so our term is a narrower specialization." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/separateCollectionInfo> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/sustainabilityInfo> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.75"^^xsd:decimal ;
+    vsprov:rationale "Both are properties linking to external information; separate-collection requirements are one specific subset of GS1's broader sustainability-and-recycling link, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/FacilityInformation> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:previousPredicate "skos:exactMatch" ;
+    vsprov:object <https://vocabulary.uncefact.org/untp/0.7.0/Facility> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.80"^^xsd:decimal ;
+    vsprov:rationale "Our ESPR-specific FacilityInformation, scoped to manufacturing/processing facilities with regulatory certification data, is a specialized subtype of UNTP's generic Facility class, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/FacilityInformation> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:previousPredicate "skos:exactMatch" ;
+    vsprov:object <https://test.uncefact.org/vocabulary/untp/core/Facility> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.62"^^xsd:decimal ;
+    vsprov:rationale "Both are classes denoting a manufacturing/processing facility, overlapping in concept, but ours is an ESPR-scoped information record keyed to GS1 identifiers rather than UNTP's generic Facility entity, so they are related but not interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/FacilityInformation> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://w3id.org/eudpp#Facility> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are facility classes, but ours is an ESPR-scoped information container inheriting from gs1:Place while the upstream's lack of a definition leaves exact scope unverifiable, so overlapping-not-identical is the safest grade." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/FacilityInformation> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/Place> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Our class models a manufacturing/processing facility as a gs1:Place subtype, which is a specific kind of the general schema:Place, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/FacilityInformation> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/Place> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.85"^^xsd:decimal ;
+    vsprov:rationale "A manufacturing/processing facility is a specialized subtype of the generic gs1:Place (and explicitly inherits gln/name/address from it), so our class is narrower than the upstream class." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/OperatorInformation> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/Organization> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are classes; our term scopes the broad gs1:Organization down to the regulatory subset of economic operators (manufacturer/importer/distributor) identified by GLN, making ours strictly narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/OperatorInformation> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:previousPredicate "skos:broadMatch" ;
+    vsprov:object <https://vocabulary.uncefact.org/untp/0.7.0/Party> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "OperatorInformation is a role-constrained subtype of party (economic operators only) inheriting from gs1:Organization, so it is narrower than the generic untp:Party class." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/OperatorInformation> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://w3id.org/eudpp#Actor> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.62"^^xsd:decimal ;
+    vsprov:rationale "Both are classes for supply-chain parties and our economic-operator concept (manufacturer/importer/distributor, identified by GLN as a gs1:Organization) is a specific subtype of the generic, undefined upstream Actor." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/OperatorInformation> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/Organization> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "OperatorInformation inherits from gs1:Organization and represents economic operators (manufacturer, importer, distributor), a regulatory subset of the very general schema:Organization, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/OperatorInformation> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://w3id.org/eudpp#ManufacturerRecord> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "BROAD" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Our OperatorInformation class covers all economic operator roles (manufacturer, importer, distributor), so it subsumes a manufacturer-specific record, though the upstream term's missing definition limits certainty." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/OperatorInformation> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <http://data.europa.eu/m8g/LegalEntity> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "An economic operator is a legal entity acting in specific regulated roles (manufacturer, importer, distributor), making OperatorInformation a class-to-class hyponym of the general LegalEntity concept." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/CustomsCommodityCodeType> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/TypeCode> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.50"^^xsd:decimal ;
+    vsprov:rationale "A customs-commodity-code classification scheme is a specific kind of the generic GS1 code-list type, so ours is a narrower specialization, though the upstream class is an abstract placeholder making the anchor weak." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/identityCredentialUrl> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://uncefact.github.io/spec-untp/docs/specification/DigitalIdentityAnchor/> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Our generic 'URL to an identity verifiable credential' overlaps the UNTP DigitalIdentityAnchor concept but is broader and less specific, so it is not an exact interchangeable match." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/energyEfficiency> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#energyEfficiencyClass> ;
+    vsprov:bulkConfidence "0.82"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are energy-efficiency properties that overlap, but the candidate denotes a specific efficiency classification (e.g. A–G label) while our undefined term reads as a generic efficiency attribute, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/energyEfficiency> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/hasEnergyConsumptionDetails> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are properties expressing a product's energy efficiency class/rating, but ours points directly to an efficiency value while schema:hasEnergyConsumptionDetails links to a broader consumption-details object, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "core" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/common/core/eprelRegistrationNumber> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/regulatoryReferenceNumber> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.85"^^xsd:decimal ;
+    vsprov:rationale "Both are properties carrying a registry reference number, and the EPREL registration number is a specific instance of the generic regulatoryReferenceNumber, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "cpr" ;
+    vsprov:action "remove" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/cpr/avcpSystem> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#avsSystem> ;
+    vsprov:bulkConfidence "0.60"^^xsd:decimal ;
+    vsprov:qaRelation "NONE" ;
+    vsprov:qaConfidence "0.80"^^xsd:decimal ;
+    vsprov:rationale "The upstream property has no definition and its label 'avsSystem' (AVS) does not reliably correspond to the AVCP-system concept, so a match cannot be confirmed." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "cpr" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/cpr/dateOfIssue> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/dateIssued> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both denote the issuance date of a formal credential/document, but schema.org dateIssued is scoped to tickets/certifications while ours is specific to a Declaration of Performance, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "detergent" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/Product> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "DetergentProduct is a regulation-specific subclass of the general GS1 Product (any priceable/orderable item), so ours is strictly narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "detergent" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/detergent/FragranceAllergen> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/ChemicalSubstance> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "A fragrance allergen identified by name and CAS number is genuinely a kind of chemical substance, so ours is a narrower (more specialized, disclosure-scoped) class of schema.org's general ChemicalSubstance." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "detergent" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/detergent/dosageInstructions> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/consumerUsageInstructions> ;
+    vsprov:bulkConfidence "0.90"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are free-text product-instruction properties, and dosage instructions (with water-hardness guidance) are a specific subset of the broader consumer usage instructions, so OUR term is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "detergent" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/detergent/recommendedDosage> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/doseValue> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both express a dose amount, but schema:doseValue is a bare numeric value rooted in medication DoseSchedule whereas ours is a unit-bearing recommended per-use detergent quantity, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "detergent" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/detergent/ingredientList> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/ingredientStatement> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.85"^^xsd:decimal ;
+    vsprov:rationale "Both convey the product's constituent ingredients, but eudet:ingredientList is a structured list of typed Ingredient entities under INCI nomenclature whereas GS1's ingredientStatement is a single free-text string, making ours a narrower, more specialized expression of the same concept." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/displayScore> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:object <https://schema.org/ratingValue> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.75"^^xsd:decimal ;
+    vsprov:rationale "Both are decimal rating properties, but displayScore is a domain-specific repairability sub-score on a fixed 0-10 scale whereas schema:ratingValue is a generic rating value, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/rohsCompliance> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/hasCertification> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.85"^^xsd:decimal ;
+    vsprov:rationale "RoHS compliance is one specific certification type, so as a property it is narrower than the general hasCertification property covering all certifications." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/rohsCompliance> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/certificationInfo> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "RoHS Compliance is a specific regulatory compliance/certification topic, which is narrower than a generic link to any certification information, so ours is the narrower term." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/criterionDetails> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/ratingExplanation> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.62"^^xsd:decimal ;
+    vsprov:rationale "Both are properties carrying free-text explanation of a score, but schema:ratingExplanation is bound to a Rating (and fact-check context) while ours explains a repair-criterion score, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/weeeRegistrationNumber> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:previousPredicate "skos:exactMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/eprRegistrationNumber> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "WEEE registration is a specific instance of EPR producer registration, so our term is a narrower specialization of the general eprRegistrationNumber property." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport> ;
+    vsprov:predicate "skos:broadMatch" ;
+    vsprov:previousPredicate "skos:closeMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#softwareUpdatePolicy> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "BROAD" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are classes; our SoftwareSupport spans the full OS/firmware support picture (update periods, patches, end-of-support dates) whereas dppk's softwareUpdatePolicy is confined to update policy, a subset of that scope." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/modelIdentifier> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/model> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "schema:model denotes the product's model and may reference a full ProductModel entity or URL as well as a textual model identifier, so our text-only manufacturer model number is a narrower subset of it." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/modelIdentifier> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/identifier> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "A manufacturer's model number is a specific kind of the generic schema.org identifier property, so our term is narrower than the upstream term." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/componentPassport> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/dpp> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are properties whose value is a link to a digital product passport; ours restricts that link to the specific case of a component's nested DPP, making it a narrower specialization of the general gs1:dpp link." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/weeeRegistrationCountry> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:previousPredicate "skos:exactMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/eprJurisdiction> ;
+    vsprov:bulkConfidence "1.00"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "WEEE registration is a specific EPR scheme, so our WEEE registration country is a narrower instance of the upstream EPR jurisdiction (country where an EPR registration applies)." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/sparePartPrice> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/priceSpecification> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are price-association properties pointing to a PriceSpecification; ours restricts the general schema:priceSpecification to the specific spare-part price, making it a genuine sub-property (narrower)." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/newVersion> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/version> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are version-identifier properties, but ours denotes specifically the post-update software/firmware version (a role within an update event) rather than schema.org's generic CreativeWork version, so they overlap without being interchangeable or a clean subtype." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/RepairCriterion> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <http://data.europa.eu/m8g/Criterion> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Our class is a domain-specific repairability criterion that is a true specialization of the generic CCCEV evaluation Criterion, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/RepairCriterion> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://vocabulary.uncefact.org/untp/0.7.0/Criterion> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "A repairability index sub-criterion is a specific species of UNTP's generic evaluation Criterion, so ours is narrower, though the upstream's conformity-assessment framing only partially overlaps our scoring-index sense." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/RepairCriterion> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/Rating> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "A repair criterion is a domain-specific numeric evaluation score, making it a specialized subtype of schema:Rating's general numeric-evaluation concept." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/osVersion> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/softwareVersion> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both are version-string properties, and an operating system is a specific kind of software instance, so euelec:osVersion is a narrower specialization of schema.org/softwareVersion." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "remove" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency> ;
+    vsprov:predicate "skos:exactMatch" ;
+    vsprov:object <https://schema.org/EnergyEfficiencyEnumeration> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "NONE" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "schema.org/EnergyEfficiencyEnumeration is a controlled enumeration of rating values (A-G classes), whereas euelec:EnergyEfficiency is a composite data class aggregating efficiency class plus power-consumption metrics and EPREL registry info, so they are different kinds of concept rather than broader/narrower forms of the same one." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/EnergyConsumptionDetails> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Both are classes modeling product energy-efficiency/labeling information, but ours is constrained to the EU Energy Label scheme (A-G classes, EPREL registry, Reg. 2019/2021) while schema.org's class spans international regimes including the US EPCA rule, making ours a narrower specialization." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/eprelRegistrationNumber> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/regulatoryReferenceNumber> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "EPREL is a regulatory product registry, so our EPREL registration number is a specific instance of the candidate's generic regulatory reference number, making ours narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/powerConsumptionOff> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:previousPredicate "skos:exactMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/powerConsumptionOff> ;
+    vsprov:bulkConfidence "0.90"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "The identical local name and matching property type in our own core layer make this almost certainly the same 'power consumption when off but plugged in' concept, but the absent upstream definition prevents confirming full interchangeability, so CLOSE is the safest non-rejecting grade." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "remove" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/collectionSchemeUrl> ;
+    vsprov:predicate "skos:exactMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/eprComplianceUrl> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "NONE" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Our term is a specific WEEE collection/take-back scheme URL whereas the candidate is a generic EPR-compliance URL property, and absent any candidate definition I cannot confirm they denote the same concept rather than merely overlapping naming." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/RoHSCompliance> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/RegulatoryInformation> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are classes about product regulatory data, and RoHS compliance is a specific instance of the broader 'applicable government regulations' concept, so our term is genuinely narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/RoHSCompliance> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/Certification> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "RoHS Compliance is a specific regulatory compliance/attestation that fits as a narrower kind of schema.org Certification, though the match is approximate since compliance status differs subtly from a formal third-party certification." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/WEEECompliance> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/RegulatoryInformation> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both are classes and WEEE compliance is a specific instance of regulatory information about a trade item, so ours is properly narrower than the generic gs1:RegulatoryInformation." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/RepairCriterionType> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <http://data.europa.eu/m8g/Criterion> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Our term is a domain-specific enumeration of the five French Repairability Index criteria, which is a proper specialization of the generic CCCEV Criterion class (both classes), so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/rohsDeclarationUrl> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/referencedFileURL> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both are URL-valued properties and our RoHS declaration URL is a specific specialization of the generic gs1:referencedFileURL (referenced document URL), so ours is genuinely narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiencyClass> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/EnergyEfficiency> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are classes in the energy-efficiency domain, and the EU A-G label grades are a specialized subset of the broader, undefined upstream EnergyEfficiency concept, so ours is narrower rather than interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiencyClass> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/EnergyConsumptionDetails> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Our class is one specific facet (the A-G efficiency class label) of schema.org's broader EnergyConsumptionDetails, which encompasses energy-consumption information generally, so ours is the narrower concept." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "electronics" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/electronics/criterionMaxScore> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/maxValue> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Our term is a specialized maximum bounded to a repair criterion's score, whereas schema:maxValue is the generic upper value of any characteristic, so ours is strictly narrower than the upstream property." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "eudr" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/eudr/areaSize> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/size> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "eudr:areaSize is a QuantitativeValue for a geographic field's area (hectares/ares/m²), a specific instance of schema.org/size's general product-dimension concept, so ours is the narrower property." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "eudr" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/eudr/transformationDate> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/productionDate> ;
+    vsprov:bulkConfidence "0.78"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are properties recording the date of a processing/production event on a product, but EUDR's transformation date is a regulation-specific commodity-processing concept that overlaps with but is not interchangeable with GS1's manufacturer production/assembly date." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "eudr" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/eudr/transformationDate> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/productionDateTime> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.55"^^xsd:decimal ;
+    vsprov:rationale "Both are date-valued properties marking a creation/processing point, and overlap substantially, but transformation/processing of a commodity is not interchangeable with a manufacturer-determined production/assembly date-time, so they are close rather than exact." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "eudr" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/eudr/exemptionScopeReference> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/hasBatchLotNumber> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "exemptionScopeReference can hold a batch/lot identifier scoped to an exemption, but it also covers serial identifiers and is semantically tied to exemption scope rather than general traceability, making it a narrower, specialized subset of hasBatchLotNumber only when batch-scoped." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "eudr" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/eudr/fscCertification> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/hasCertification> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "Our FSC-specific certification property is a narrower specialization of schema.org's generic hasCertification, and both are properties relating a product to certification information." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "eudr" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/eudr/fscCertification> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/certification> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.85"^^xsd:decimal ;
+    vsprov:rationale "Both are properties linking a product to its certification; ours is restricted to FSC certifications specifically, making it a strict specialization of gs1's generic certification property." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "eudr" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/eudr/geofence> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <http://data.europa.eu/m8g/coordinates> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are properties expressing geographic coordinates that delimit an area, but ours is a CBV-formatted polygon string scoped to plots >4ha while the upstream is a generic structured coordinate list for any geometry extent, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "eudr" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/eudr/geofence> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <http://www.w3.org/ns/locn#geometry> ;
+    vsprov:bulkConfidence "0.90"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are properties expressing the geometry of a location, and eudr:geofence is a constrained specialization (a coordinate-array polygon for plots >4ha) of locn:geometry's general resource-to-geometry association, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "eudr" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/eudr/geolocation> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:object <https://schema.org/geo> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.75"^^xsd:decimal ;
+    vsprov:rationale "Both express geographic coordinates as a property, but schema.org's geo ranges over a GeoCoordinates/GeoShape object on a Place whereas eudr:geolocation carries a Geo URI string on OriginDetails, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "eudr" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/eudr/geolocation> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <http://data.europa.eu/m8g/coordinates> ;
+    vsprov:bulkConfidence "0.90"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "eudr:geolocation is a single Geo URI point/coordinate for one small plot, a specific case of m8g:coordinates which is a list of coordinates defining a geometry's extent, but the structural mismatch (single anyURI vs coordinate list) keeps this short of CLOSE." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "eudr" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/eudr/exemptionEffectiveFrom> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/regulatoryReferenceApplicabilityStartDate> ;
+    vsprov:bulkConfidence "0.90"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are property-typed applicability start dates, but ours is the start of an exemption's validity (a narrower, exemption-scoped case) versus the upstream's general start date for any referenced regulatory information." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "eudr" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/eudr/countryList> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/addressCountry> ;
+    vsprov:bulkConfidence "0.60"^^xsd:decimal ;
+    vsprov:qaRelation "BROAD" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Both concern country-of-origin/location, but eudr:countryList is a list of countries on a Product while schema.org/addressCountry is a single country value within a PostalAddress/Place, so ours is the broader (multi-valued, product-scoped) concept." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "iron-steel" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/iron-steel/meltAndPourCountry> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/countryOfOrigin> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are properties; melt-and-pour country is a precise, regulation-specific (CBAM) form of product origin that falls under schema.org's deliberately broad, context-varying countryOfOrigin, making ours the narrower term." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "iron-steel" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/iron-steel/productNumber> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/serialNumber> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "schema.org serialNumber denotes a per-instance serial/alphanumeric product identifier, while our productNumber is a manufacturer's model/article number; these overlap as product identifiers but our term is the narrower, more specific notion so NARROW is acceptable though CLOSE is defensible." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "iron-steel" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/iron-steel/heatNumber> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/hasBatchLotNumber> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Heat number is a steel-specific production-lot identifier and GS1's batch/lot definition explicitly enumerates production lot numbers, so ours is a genuine specialization, though the referent (molten-steel melt vs trade-item lot) is not a perfectly clean subsumption." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "iron-steel" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/iron-steel/lotNumber> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/hasBatchLotNumber> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.85"^^xsd:decimal ;
+    vsprov:rationale "Our term is a steel-specific delivery lot number constrained to IronSteelProduct, a specialization of GS1's general batch/lot identifier for any trade item, so it is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "iron-steel" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/CertificationDetails> ;
+    vsprov:bulkConfidence "0.90"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Our EN 10204 material test certificate is a specific kind of product certification, so it is narrower than GS1's generic Certification class, which legitimately covers product certifications." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "iron-steel" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:previousPredicate "skos:broadMatch" ;
+    vsprov:object <https://schema.org/Certification> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "A material test certificate is an EN 10204 inspection/test document recording measured batch values, which overlaps with schema:Certification's attestation-of-characteristics intent but is not cleanly subsumed by it since types 2.1/2.2 are the manufacturer's own declarations rather than an independent certification body's authoritative credential." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "iron-steel" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/iron-steel/castNumber> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#heatNumber> ;
+    vsprov:bulkConfidence "0.90"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Cast number identifies a casting run within a heat, so it is a finer-grained subdivision of the upstream heat number, making OUR term narrower than the heat identifier." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "iron-steel" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/iron-steel/castNumber> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/hasBatchLotNumber> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "A cast number is a steel-specific production-lot identifier that falls within GS1's explicitly broad batch/lot concept (which names 'production lot number' among its examples), so our term is a narrower specialization of the same property." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "iron-steel" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/iron-steel/mtcNominalSize> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/size> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Our term is a specific numeric nominal dimension (mm) of a steel test product, which is one constrained sub-case of schema.org's general product size property, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/garmentType> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/category> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.62"^^xsd:decimal ;
+    vsprov:rationale "garmentType is a specialized garment-classification slot that is subsumed by schema.org's general-purpose category property, so ours is narrower than the target." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/dyeingFacility> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/manufacturingPlant> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are product-to-facility properties and dyeing/printing is a manufacturing step, so eutex:dyeingFacility is a role-specialized subproperty of the general gs1:manufacturingPlant relation." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/takeBackIncentive> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/discount> ;
+    vsprov:bulkConfidence "0.60"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both denote a monetary reduction, but takeBackIncentive is a string description scoped to product-return programs while schema:discount is a general order-level discount, making ours the narrower concept." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/sizeRange> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/size> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.70"^^xsd:decimal ;
+    vsprov:rationale "Our sizeRange is a single xsd:string property listing the available size range, whereas gs1:size links a product to structured gs1:SizeDetails groupings, so ours expresses a narrower, simpler facet of the same size concept." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/TestStandard> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://vocabulary.uncefact.org/untp/0.7.0/Standard> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are classes; eutex:TestStandard is a domain-specific subtype (textile durability/robustness test standards) of the generic untp:Standard concept, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/spiralityTestMethod> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/measurementMethod> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.68"^^xsd:decimal ;
+    vsprov:rationale "Our property is a domain-specific specialization (spirality test method reference) of the general schema:measurementMethod that names the method used for a measurement, so it is narrower rather than interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/weavingFacility> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/manufacturingPlant> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are product-to-facility properties and a weaving/knitting facility is a specific type of manufacturing plant, so our term is a narrower specialization of gs1:manufacturingPlant." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/TextileFootwear> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:previousPredicate "skos:broadMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/Footwear> ;
+    vsprov:bulkConfidence "0.98"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "Both are footwear classes, but our term restricts to textile-containing footwear, a proper subset of gs1:Footwear, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/TextileFootwear> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/WearableProduct> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.85"^^xsd:decimal ;
+    vsprov:rationale "Both are classes and textile footwear is a strict subset of products worn on the body, so our term is narrower than gs1:WearableProduct." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/verificationCertification> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/hasCertification> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "Our property is a specialized third-party certification of recycled-content claims on a RecycledContentDeclaration, a strict specialization of schema:hasCertification's general product/organization certification, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/verificationCertification> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/certification> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are properties sharing the gs1:CertificationDetails range, but ours is gs1:certification scoped specifically to third-party verification of recycled-content claims, making it a narrower specialization." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/organicContentPercentage> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:previousPredicate "skos:exactMatch" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#organicContentPercentage> ;
+    vsprov:bulkConfidence "0.60"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.45"^^xsd:decimal ;
+    vsprov:rationale "Identical name and property type suggest the same concept family, but the upstream term carries no definition while ours is narrowly scoped to certified organic fibre by mass under EU 2018/848, so identity cannot be confirmed and only an overlapping match is defensible." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/secondaryMaterialFraction> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/textileMaterialPercentage> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Both are weight-based material percentages, but ours is restricted to secondary/recycled material while the GS1 term covers any textile material component, making ours a narrower specialization." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/visualInspectionTestMethod> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/measurementMethod> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are properties naming the method used; our visual-inspection test-method reference is a domain-specific specialization of schema.org's generic measurementMethod, hence narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/takeBackUrl> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/sustainabilityInfo> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.68"^^xsd:decimal ;
+    vsprov:rationale "Both are link-type properties and a take-back program URL is a specific subset of GS1's general sustainability-and-recycling information link, so OUR term is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/apparelSubcategory> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/additionalProductClassification> ;
+    vsprov:bulkConfidence "0.60"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.62"^^xsd:decimal ;
+    vsprov:rationale "Both are classification properties on a product and apparelSubcategory is a specific kind of additional product classification, so ours is the narrower term, though the fit is approximate since GS1's property targets generic classification-detail objects rather than a controlled apparel taxonomy." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/apparelSubcategory> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/category> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "schema:category is a generic item-classification property whose value space subsumes apparel subcategories, so our EU-specific apparel subcategory property is a narrower specialization of it." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/robustnessAssessment> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://dpp-keystone.org/spec/v2/terms#robustnessScore> ;
+    vsprov:bulkConfidence "0.88"^^xsd:decimal ;
+    vsprov:qaRelation "BROAD" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Both are product-level properties about textile robustness, but ours yields a full RobustnessAssessment object that would encompass the single numeric robustnessScore the upstream property captures, making ours broader." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/VisualInspectionResult> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/Rating> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.62"^^xsd:decimal ;
+    vsprov:rationale "Both are classes representing a numeric-scale evaluation, and the ISO 15487 visual inspection result is a domain-specific specialization of the generic schema.org Rating." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/recyclabilityScore> ;
+    vsprov:predicate "skos:closeMatch" ;
+    vsprov:object <https://schema.org/ratingValue> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "CLOSE" ;
+    vsprov:qaConfidence "0.75"^^xsd:decimal ;
+    vsprov:rationale "Both are numeric rating properties, but schema.org's ratingValue is a generic rating tied to schema:Rating while eutex:recyclabilityScore is a domain-specific composite recyclability metric on RecyclabilityAssessment, so they overlap without being interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/cutAndSewFacility> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/manufacturingPlant> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are product-to-facility properties and a cut-and-sew (garment assembly) site is a specific kind of manufacturing plant, so our term is a narrower specialization of gs1:manufacturingPlant." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/cutAndSewFacility> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/location> ;
+    vsprov:bulkConfidence "0.94"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "Our cut-and-sew facility property is a specialized subtype of the upstream general organization-location property, designating one specific production-step location." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/RecyclabilityAssessment> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/CircularityPerformance> ;
+    vsprov:bulkConfidence "0.70"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "Recyclability is one dimension of circularity, so our recyclability-specific scoring class falls under the broader CircularityPerformance class, though the upstream term's missing definition leaves some uncertainty." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/RobustnessAssessment> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://schema.org/Rating> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.62"^^xsd:decimal ;
+    vsprov:rationale "Both are classes and our composite 0-10 robustness score is a domain-specific instance of a numeric evaluation on a scale, making it a narrower specialization of schema.org Rating." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/recycledContentSource> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/recycledContent> ;
+    vsprov:bulkConfidence "0.85"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.75"^^xsd:decimal ;
+    vsprov:rationale "recycledContentSource names the origin/feedstock of recycled material while oec:recycledContent denotes the recycled content itself, so ours is a narrower facet of that broader concept." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/TextileApparel> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/WearableProduct> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "Textile Apparel (clothing) is a proper subset of gs1:WearableProduct, which also covers non-apparel worn items like footwear, eyewear, and jewelry, so our class-to-class match is genuinely narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/TextileApparel> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/Clothing> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.85"^^xsd:decimal ;
+    vsprov:rationale "Both are classes; textile apparel is a specific subset of clothing-worn-on-the-body (excluding non-textile clothing), so our class is properly narrower than gs1:Clothing." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/weightExcludingTrims> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/weight> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are weight properties and our term is a specialized weight metric (excluding trims) that is a more specific subset of schema.org's generic product weight." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/repairGuideUrl> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/instructions> ;
+    vsprov:bulkConfidence "0.75"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "GS1 instructions is a general instructions link (assembly, usage, etc.) and our repair/care guide URL is a specific subtype of that link, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/finishingFacility> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/manufacturingPlant> ;
+    vsprov:bulkConfidence "0.75"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.60"^^xsd:decimal ;
+    vsprov:rationale "A finishing facility is a specialized type of manufacturing plant (one performing the finishing sub-process), so our property is a narrower specialization of the broader gs1:manufacturingPlant relation, though role ambiguity about which facility is referenced keeps confidence moderate." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/spinningFacility> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/manufacturingPlant> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are properties linking a product to a production facility, and a spinning facility is a specific kind of manufacturing plant, so our term is a genuine narrowing of gs1:manufacturingPlant." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "rewrite" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/LCIACategoryCode> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:previousPredicate "skos:broadMatch" ;
+    vsprov:object <https://schema.org/CategoryCode> ;
+    vsprov:bulkConfidence "0.80"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are classes representing category codes; ours is a domain-specific specialization restricted to PEF LCIA impact-assessment categories, making it strictly narrower than schema:CategoryCode's generic any-categorization-system code." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/ecNumber> ;
+    vsprov:predicate "skos:exactMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/ecNumber> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "EXACT" ;
+    vsprov:qaConfidence "0.88"^^xsd:decimal ;
+    vsprov:rationale "Both name the same EINECS/ELINCS European Community number identifier property; the textile term simply scopes the core oec:ecNumber to SubstanceOfConcern without changing the identifier's meaning, so they are interchangeable." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/ecNumber> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/identifier> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.90"^^xsd:decimal ;
+    vsprov:rationale "eutex:ecNumber is a specific kind of textual identifier (EINECS/ELINCS) and schema.org/identifier is the generic identifier supertype, so ours is strictly narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/fiberCertification> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://schema.org/hasCertification> ;
+    vsprov:bulkConfidence "0.95"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.85"^^xsd:decimal ;
+    vsprov:rationale "Our fiber-specific certification property is a specialization of schema.org's general product/organization certification property, so ours is narrower." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/fiberCertification> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/certification> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.80"^^xsd:decimal ;
+    vsprov:rationale "Both are properties expressing a certification relation, but ours restricts the domain to textile fiber material and scopes to fiber-specific certifications, making it a specialization of the upstream general certification property." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/repairServices> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.gs1.org/voc/serviceInfo> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.78"^^xsd:decimal ;
+    vsprov:rationale "Both are properties about post-sale service, but ours covers only repair services while gs1:serviceInfo links to general service or maintenance instructions, making ours narrower in scope." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/environmentalFootprint> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal> ;
+    vsprov:bulkConfidence "0.93"^^xsd:decimal ;
+    vsprov:qaRelation "BROAD" ;
+    vsprov:qaConfidence "0.58"^^xsd:decimal ;
+    vsprov:rationale "Environmental footprint conceptually subsumes carbon footprint as one of several impact indicators, so ours is broader, though the structured-declaration range versus a single total-value differs enough to keep confidence modest." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/TechnicalRecyclability> ;
+    vsprov:predicate "skos:narrowMatch" ;
+    vsprov:object <https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment> ;
+    vsprov:bulkConfidence "0.90"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.82"^^xsd:decimal ;
+    vsprov:rationale "Our term is a specific technical-recyclability assessment scoped to applicable recycling technology, making it a narrower kind of the upstream general RecyclabilityAssessment class." .
+
+[] a vsprov:MappingDecision ;
+    prov:wasGeneratedBy vsprov:run ;
+    vsprov:module "textile" ;
+    vsprov:action "add-seealso" ;
+    vsprov:subject <https://ref.openepcis.io/extensions/eu/textile/elastaneContentPercent> ;
+    vsprov:predicate "rdfs:seeAlso" ;
+    vsprov:object <https://ref.gs1.org/voc/textileMaterialPercentage> ;
+    vsprov:bulkConfidence "0.92"^^xsd:decimal ;
+    vsprov:qaRelation "NARROW" ;
+    vsprov:qaConfidence "0.72"^^xsd:decimal ;
+    vsprov:rationale "Both are decimal material-percentage properties, but ours fixes the material to elastane (a specific case of GS1's generic per-material percentage), making ours a genuine specialization." .
+

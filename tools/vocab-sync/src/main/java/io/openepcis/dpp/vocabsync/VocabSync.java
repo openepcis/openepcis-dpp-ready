@@ -2,6 +2,7 @@ package io.openepcis.dpp.vocabsync;
 
 import io.openepcis.dpp.vocabsync.cmd.ApplyCommand;
 import io.openepcis.dpp.vocabsync.cmd.AuditCommand;
+import io.openepcis.dpp.vocabsync.cmd.ProvenanceCommand;
 import io.openepcis.dpp.vocabsync.cmd.RetrieveCommand;
 import io.openepcis.dpp.vocabsync.cmd.SmokeCommand;
 import io.openepcis.dpp.vocabsync.cmd.StatsCommand;
@@ -27,6 +28,7 @@ import picocli.CommandLine;
                 RetrieveCommand.class,
                 AuditCommand.class,
                 ApplyCommand.class,
+                ProvenanceCommand.class,
         })
 public class VocabSync {
 }
