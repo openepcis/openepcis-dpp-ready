@@ -118,6 +118,18 @@ public class UpstreamIndex {
         for (Path ctx : dppkContexts(root)) {
             sources.add(Source.context("dppk", dppkNamespace, "dppk", ctx));
         }
+        // Extra discovery vocabs from the interop bridge contexts. Note: the CIRPASS-2 and
+        // JTC24 bridges carry NO distinct term IRIs (they alias those frameworks' term names to
+        // oec:/gs1:/schema:, already loaded), so they are not discovery sources. What they add is
+        // org:/cpsv:/foaf: (semic-core bridge, beyond the m8g/locn/adms RDF already loaded) and
+        // a few rail: terms. m8g/locn/adms here dedup against the richer RDF load above.
+        Path interop = root.resolve("extensions/common/interop/context");
+        Path semicBridge = interop.resolve("semic-core-bridge-context.jsonld");
+        sources.add(Source.context("semic", "http://www.w3.org/ns/org#", "org", semicBridge));
+        sources.add(Source.context("semic", "http://purl.org/vocab/cpsv#", "cpsv", semicBridge));
+        sources.add(Source.context("foaf", "http://xmlns.com/foaf/0.1/", "foaf", semicBridge));
+        sources.add(Source.context("rail", "https://gs1-epcis-reg.org/rail/voc/data#", "rail",
+                interop.resolve("rail-bridge-context.jsonld")));
 
         terms = new ArrayList<>();
         byIri = new HashMap<>();
