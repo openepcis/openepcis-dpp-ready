@@ -63,7 +63,11 @@ Commands:
 | `stats [--module S]` | Load both indexes and print counts (no LLM). |
 | `retrieve --term NAME [--k K]` | Show embedding-retrieved candidates for one term (no grading). |
 | `audit [--module S] [--limit N] [--concurrency C] [--no-qa]` | Find MISSING/WEAK/WRONG mappings, QA-verify them → `docs/skos-completeness-report.{md,json}`. |
-| `apply --report R [--status …] [--min-confidence X] [--confirmed-only] [--apply]` | Insert approved mappings into the TTLs (dry-run unless `--apply`). |
+| `apply --report R [--status …] [--confirmed-only] [--min-qa-confidence X] [--rewrite] [--apply]` | Insert/rewrite mappings into the TTLs (dry-run unless `--apply`). Below `--min-qa-confidence` (0.75) an add is emitted as `rdfs:seeAlso`, not a graded relation; re-parses + restores on invalid output. |
+| `provenance [--min-qa-confidence X]` | From the reports, write `docs/skos-alignment-review.md` (human review sheet) + `docs/alignment-provenance.{ttl,json}` (audit trail of applied mappings). |
+| `reverse [--vocab V] [--min-cosine X]` | Reverse coverage: upstream terms with no incoming mapping that are embedding-near one of ours → `docs/skos-reverse-coverage.{md,json}`. |
+| `manifest [--qa-model M]` | Reproducibility manifest: models, parameters, upstream versions + cache hashes → `docs/alignment-run-manifest.json`. |
+| `fetch --from URL\|file --against cached [--save]` | Diff a refreshed upstream vocabulary against the cached copy (added/removed/changed terms) to decide when to re-audit. |
 
 Typical loop:
 
