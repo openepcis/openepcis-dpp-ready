@@ -6,8 +6,7 @@
 @prefix euelec: <https://ref.openepcis.io/extensions/eu/electronics/> .
 @prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
 # UNTP namespace references for semantic alignment
-@prefix untp-core: <https://test.uncefact.org/vocabulary/untp/core/> .
-@prefix untp-dpp: <https://test.uncefact.org/vocabulary/untp/dpp/> .
+@prefix untp: <https://vocabulary.uncefact.org/untp/0.7.0/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix schema: <https://schema.org/> .
@@ -121,7 +120,7 @@ euelec:RepairCriterion
     skos:note "A RepairCriterion is a specific kind of cccev:Criterion (EU SEMICeu CCCEV): the five Repairability-Index criteria (Documentation, Disassembly, SparePartsAvailability, SparePartsPricing, ProductSpecific) each scored against an InformationConcept within the broader Repairability Requirement. Modelled as rdfs:subClassOf rather than owl:equivalentClass because cccev:Criterion is broader and covers any conformity-evaluation criterion. CCCEV is the EU foundation that JTC 24 / CIRPASS-2 lean on for conformity / scoring."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     skos:narrowMatch cv:Criterion ;
-    rdfs:seeAlso <https://vocabulary.uncefact.org/untp/0.7.0/Criterion> ;
+    rdfs:seeAlso untp:Criterion ;
     rdfs:seeAlso schema:Rating .
 
 euelec:SoftwareSupport
@@ -161,7 +160,7 @@ euelec:ComponentBOM
 requirements. Links individual components to their own Digital Product Passports."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://cirpassproject.eu/> ;
-    rdfs:seeAlso untp-dpp:linkedProduct ;
+    rdfs:seeAlso untp:linkedProduct ;
     skos:note """Required extension: CIRPASS-2 electronics pilots require multi-component tracking
 where each component (battery, display, etc.) may have its own DPP. Aligned with UNTP
 linkedProduct pattern."""@en.
@@ -1034,7 +1033,7 @@ Enables CIRPASS-2 multi-component tracking."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:anyURI ;
-    rdfs:seeAlso untp-dpp:linkedProduct ;
+    rdfs:seeAlso untp:linkedProduct ;
     skos:note "Aligned with UNTP linkedProduct pattern for nested DPPs."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:narrowMatch gs1:dpp .

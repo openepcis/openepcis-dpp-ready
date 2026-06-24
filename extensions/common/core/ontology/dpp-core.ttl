@@ -9,8 +9,7 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 # UNTP namespace references for semantic alignment (rdfs:seeAlso and owl:equivalentProperty only)
-@prefix untp-core: <https://test.uncefact.org/vocabulary/untp/core/> .
-@prefix untp-dpp: <https://test.uncefact.org/vocabulary/untp/dpp/> .
+@prefix untp: <https://vocabulary.uncefact.org/untp/0.7.0/> .
 # EU SEMICeu Core Vocabularies, peer Layer 1 alongside GS1 and schema.org.
 # Bridge context: extensions/common/interop/context/semic-core-bridge-context.jsonld
 # Mapping doc:    extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md
@@ -174,9 +173,9 @@ Aligned with UNTP CircularityPerformance pattern."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso gs1:consumerRecyclingInstructions ;
-    rdfs:seeAlso untp-core:CircularityPerformance ;
+    rdfs:seeAlso untp:CircularityPerformance ;
     rdfs:seeAlso cirpass2:CircularEconomyIndicator ;
-    skos:exactMatch untp-core:CircularityPerformance ;
+    skos:exactMatch untp:CircularityPerformance ;
     skos:note """Required extension: GS1 provides gs1:consumerRecyclingInstructions for text-based
 recycling guidance but lacks structured circularity data (recyclability rates, end-of-life URLs,
 waste prevention info) required by ESPR. Use gs1:consumerRecyclingInstructions for simple text.
@@ -247,12 +246,12 @@ Use GS1 Digital Link format: https://id.gs1.org/414/{GLN}"""@en ;
     rdfs:subClassOf gs1:Place ;
     rdfs:seeAlso gs1:Place ;
     rdfs:seeAlso schema:Place ;
-    rdfs:seeAlso untp-core:Facility ;
+    rdfs:seeAlso untp:Facility ;
     rdfs:seeAlso locn:Location ;
     rdfs:seeAlso locn:Address ;
     rdfs:seeAlso locn:Geometry ;
     rdfs:seeAlso cirpass2:Facility ;
-    skos:closeMatch untp-core:Facility ;
+    skos:closeMatch untp:Facility ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Extension of gs1:Place to capture ESPR-specific facility requirements.
 Use gs1:gln for facility GLN identification, gs1:name for facility name, gs1:address for location.
@@ -290,7 +289,7 @@ Captures expected lifespan, usage cycles, and performance metrics."""@en ;
     skos:note """Required extension: GS1 provides gs1:warranty for warranty information but lacks
 structured performance and durability data (expected lifespan, usage cycles, performance class)
 required by ESPR Article 7. Use in conjunction with gs1:warranty where applicable."""@en ;
-    rdfs:seeAlso <https://vocabulary.uncefact.org/untp/0.7.0/PerformanceMetric> .
+    rdfs:seeAlso untp:PerformanceMetric .
 
 oec:RepairabilityInfo
     a rdfs:Class ;
@@ -324,15 +323,15 @@ oec:EmissionsPerformance
     rdfs:comment """Container for greenhouse gas emissions data including carbon footprint,
 lifecycle phases, and verification status. Aligned with UNTP EmissionsPerformance."""@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:seeAlso untp-core:EmissionsPerformance ;
+    rdfs:seeAlso untp:EmissionsPerformance ;
     rdfs:seeAlso cirpass2:CarbonFootprint ;
     rdfs:seeAlso cirpass2:EnvironmentalFootprint ;
     rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf> ;
-    skos:exactMatch untp-core:EmissionsPerformance ;
+    skos:exactMatch untp:EmissionsPerformance ;
     skos:note """Required extension: Structured emissions performance data for ESPR requirements.
 Aligned with UNTP EmissionsPerformance for interoperability. Extends the GDSN CFP pattern
 with operational scope and verification metrics."""@en;
-    skos:narrowMatch <https://vocabulary.uncefact.org/untp/0.7.0/Performance> .
+    skos:narrowMatch untp:Performance .
 
 oec:TraceabilityPerformance
     a rdfs:Class ;
@@ -341,10 +340,10 @@ oec:TraceabilityPerformance
 of materials that are verifiably traced through the supply chain."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:seeAlso untp-dpp:TraceabilityPerformance ;
+    rdfs:seeAlso untp:TraceabilityPerformance ;
     skos:note """Required extension: ESPR and due diligence regulations require traceability metrics.
 Aligned with UNTP TraceabilityPerformance for supply chain transparency reporting."""@en;
-    rdfs:seeAlso <https://vocabulary.uncefact.org/untp/0.7.0/PerformanceMetric> .
+    rdfs:seeAlso untp:PerformanceMetric .
 
 # =============================================================================
 # Operator Role Enumeration
@@ -616,7 +615,7 @@ oec:OperationalScope
     rdfs:label "Operational Scope"@en ;
     rdfs:comment "Lifecycle boundary for emissions or environmental impact calculations."@en ;
     dcterms:source <https://uncefact.github.io/spec-untp/> ;
-    rdfs:seeAlso untp-core:OperationalScope ;
+    rdfs:seeAlso untp:OperationalScope ;
     owl:oneOf (oec:CradleToGate oec:CradleToGrave) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
@@ -634,7 +633,7 @@ oec:GranularityLevel
     rdfs:label "Granularity Level"@en ;
     rdfs:comment "Passport-level granularity per EN 18223 'granularity': model, batch, or item. Values are the lowercase string tokens given by skos:notation. In EPCIS4DPP the level is derived from the GS1 Digital Link Application Identifiers."@en ;
     dcterms:source "EN 18223:2026, 4.1.2.2 (CEN/CENELEC JTC 24)" ;
-    rdfs:seeAlso untp-dpp:GranularityLevel ;
+    rdfs:seeAlso untp:GranularityLevel ;
     owl:oneOf (oec:Model oec:Batch oec:Item) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
@@ -874,8 +873,8 @@ oec:circularityPerformance
     rdfs:label "Circularity Performance"@en ;
     rdfs:comment "Circularity performance data for the product."@en ;
     rdfs:range oec:CircularityPerformance ;
-    rdfs:seeAlso untp-core:circularityPerformance ;
-    skos:exactMatch untp-core:circularityPerformance ;
+    rdfs:seeAlso untp:circularityPerformance ;
+    skos:exactMatch untp:circularityPerformance ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en .
@@ -886,8 +885,8 @@ oec:recyclableContent
     rdfs:comment "Fraction of product that can be recycled (0-1 scale where 0.45 = 45%)."@en ;
     rdfs:domain oec:CircularityPerformance ;
     rdfs:range xsd:decimal ;
-    rdfs:seeAlso untp-core:recyclableContent ;
-    skos:exactMatch untp-core:recyclableContent ;
+    rdfs:seeAlso untp:recyclableContent ;
+    skos:exactMatch untp:recyclableContent ;
     skos:note "Value is a decimal fraction 0-1. Aligned with UNTP recyclableContent."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
@@ -945,8 +944,8 @@ oec:utilityFactor
     rdfs:comment "Durability of the product relative to industry average (1.0 = average). A value >1 indicates above-average durability."@en ;
     rdfs:domain oec:CircularityPerformance ;
     rdfs:range xsd:decimal ;
-    rdfs:seeAlso untp-core:utilityFactor ;
-    skos:exactMatch untp-core:utilityFactor ;
+    rdfs:seeAlso untp:utilityFactor ;
+    skos:exactMatch untp:utilityFactor ;
     dcterms:source <https://uncefact.github.io/spec-untp/> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
@@ -957,8 +956,8 @@ oec:materialCircularityIndicator
     rdfs:comment "Overall circularity score combining recycled input, recyclability, and utility (0-1 scale)."@en ;
     rdfs:domain oec:CircularityPerformance ;
     rdfs:range xsd:decimal ;
-    rdfs:seeAlso untp-core:materialCircularityIndicator ;
-    skos:exactMatch untp-core:materialCircularityIndicator ;
+    rdfs:seeAlso untp:materialCircularityIndicator ;
+    skos:exactMatch untp:materialCircularityIndicator ;
     dcterms:source <https://ellenmacarthurfoundation.org/material-circularity-indicator> ;
     skos:note "Value is a decimal fraction 0-1. Based on Ellen MacArthur Foundation MCI methodology. Aligned with UNTP."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
@@ -985,8 +984,8 @@ oec:recycledContent
     rdfs:comment "Total fraction of recycled content (0-1 scale where 0.45 = 45%)."@en ;
     rdfs:domain oec:RecycledContent ;
     rdfs:range xsd:decimal ;
-    rdfs:seeAlso untp-core:recycledContent ;
-    skos:exactMatch untp-core:recycledContent ;
+    rdfs:seeAlso untp:recycledContent ;
+    skos:exactMatch untp:recycledContent ;
     skos:note "Value is a decimal fraction 0-1. Aligned with UNTP recycledContent."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
@@ -1034,8 +1033,8 @@ oec:massFraction
     rdfs:comment "Mass fraction of this material (0-1 scale where 0.45 = 45%)."@en ;
     rdfs:domain oec:MaterialComposition ;
     rdfs:range xsd:decimal ;
-    rdfs:seeAlso untp-core:massFraction ;
-    skos:exactMatch untp-core:massFraction ;
+    rdfs:seeAlso untp:massFraction ;
+    skos:exactMatch untp:massFraction ;
     skos:note "Value is a decimal fraction 0-1. Aligned with UNTP massFraction."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
@@ -1087,7 +1086,7 @@ oec:emissionsPerformance
     rdfs:label "Emissions Performance"@en ;
     rdfs:comment "Emissions performance data container. Aligned with UNTP EmissionsPerformance."@en ;
     rdfs:range oec:EmissionsPerformance ;
-    rdfs:seeAlso untp-core:emissionsPerformance ;
+    rdfs:seeAlso untp:emissionsPerformance ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en .
@@ -1099,7 +1098,7 @@ oec:carbonFootprint
     rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf> ;
-    rdfs:seeAlso untp-core:carbonFootprint ;
+    rdfs:seeAlso untp:carbonFootprint ;
     skos:note """Required extension: GS1 GDSN provides carbon footprint attributes but they are not
 yet part of GS1 Web Vocabulary. This property aligns with the GDSN CFP Implementation Guideline.
 Use gs1:QuantitativeValue for the measurement value with appropriate unitCode."""@en.
@@ -1111,8 +1110,8 @@ oec:carbonFootprintTotal
     rdfs:range xsd:decimal ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf> ;
-    rdfs:seeAlso untp-core:carbonFootprint ;
-    skos:exactMatch untp-core:carbonFootprint ;
+    rdfs:seeAlso untp:carbonFootprint ;
+    skos:exactMatch untp:carbonFootprint ;
     skos:note "Aligned with GDSN CarbonFootprintHeader/cfpValue and UNTP carbonFootprint. Value in kg CO2 equivalent."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
@@ -1121,8 +1120,8 @@ oec:declaredUnit
     rdfs:label "Declared Unit"@en ;
     rdfs:comment "Functional unit for carbon footprint or other metrics (e.g., kg CO2e/kWh, kg CO2e/kg). Aligned with UNTP declaredUnit."@en ;
     rdfs:range xsd:string ;
-    rdfs:seeAlso untp-core:declaredUnit ;
-    skos:exactMatch untp-core:declaredUnit ;
+    rdfs:seeAlso untp:declaredUnit ;
+    skos:exactMatch untp:declaredUnit ;
     skos:note "Aligned with GDSN cfpFunctionalUnit and UNTP declaredUnit. Specifies the reference unit for measurements."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
@@ -1143,8 +1142,8 @@ oec:operationalScope
     rdfs:comment "Lifecycle boundary for emissions calculation (CradleToGate or CradleToGrave)."@en ;
     rdfs:domain oec:EmissionsPerformance ;
     rdfs:range oec:OperationalScope ;
-    rdfs:seeAlso untp-core:operationalScope ;
-    skos:exactMatch untp-core:operationalScope ;
+    rdfs:seeAlso untp:operationalScope ;
+    skos:exactMatch untp:operationalScope ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
@@ -1155,8 +1154,8 @@ oec:primarySourcedRatio
     rdfs:comment "Proportion of data from direct measurement vs estimates (0-1 scale)."@en ;
     rdfs:domain oec:EmissionsPerformance ;
     rdfs:range xsd:decimal ;
-    rdfs:seeAlso untp-core:primarySourcedRatio ;
-    skos:exactMatch untp-core:primarySourcedRatio ;
+    rdfs:seeAlso untp:primarySourcedRatio ;
+    skos:exactMatch untp:primarySourcedRatio ;
     skos:note "Value is a decimal fraction 0-1. Higher values indicate more reliable data from direct measurement. Aligned with UNTP."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
@@ -1204,7 +1203,7 @@ oec:traceabilityPerformance
     rdfs:label "Traceability Performance"@en ;
     rdfs:comment "Traceability performance metrics for supply chain verification."@en ;
     rdfs:range oec:TraceabilityPerformance ;
-    rdfs:seeAlso untp-dpp:traceabilityPerformance ;
+    rdfs:seeAlso untp:traceabilityPerformance ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
@@ -1215,8 +1214,8 @@ oec:verifiedRatio
     rdfs:comment "Proportion of materials verifiably traced through the supply chain (0-1 scale)."@en ;
     rdfs:domain oec:TraceabilityPerformance ;
     rdfs:range xsd:decimal ;
-    rdfs:seeAlso untp-core:verifiedRatio ;
-    skos:exactMatch untp-core:verifiedRatio ;
+    rdfs:seeAlso untp:verifiedRatio ;
+    skos:exactMatch untp:verifiedRatio ;
     skos:note "Value is a decimal fraction 0-1. Higher values indicate better supply chain traceability. Aligned with UNTP."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
@@ -1228,8 +1227,8 @@ oec:granularityLevel
     rdfs:domain oec:DigitalProductPassport ;
     rdfs:range xsd:string ;
     dcterms:source "EN 18223:2026, 4.1.2.2 (CEN/CENELEC JTC 24)" ;
-    rdfs:seeAlso untp-dpp:granularityLevel ;
-    skos:exactMatch untp-dpp:granularityLevel ;
+    rdfs:seeAlso untp:granularityLevel ;
+    skos:exactMatch untp:granularityLevel ;
     skos:note "EN 18223 'granularity'. Allowed values model/batch/item; in EPCIS4DPP derived from the GS1 Digital Link AIs (01 model, 01+10 batch, 01+21 item)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
@@ -1688,8 +1687,8 @@ oec:DigitalProductPassport
     rdfs:label "Digital Product Passport"@en ;
     rdfs:comment "The DPP envelope: identification and lifecycle metadata plus the product data elements, per the EN 18223 information model."@en ;
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)" ;
-    rdfs:seeAlso untp-dpp:ProductPassport ;
-    skos:exactMatch untp-dpp:ProductPassport ;
+    rdfs:seeAlso untp:ProductPassport ;
+    skos:exactMatch untp:ProductPassport ;
     skos:note "EN 18223 DigitalProductPassport. Attributes: digitalProductPassportId (oec:passportIdentifier), uniqueProductIdentifier, granularity (oec:granularityLevel), dppSchemaVersion, dppStatus (oec:passportStatus), lastUpdated, economicOperatorId, facilityId, contentSpecificationIds, plus product data elements."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
@@ -2291,7 +2290,7 @@ oec:depositReturnScheme
 # tooling can recognise our vocabulary as UNTP-aligned. UNTP v0.7.0 is in
 # formal public review (closes 2026-07-10); equivalences may evolve at v1.0.
 
-oec:OperatorInformation skos:narrowMatch untp-core:Party .
+oec:OperatorInformation skos:narrowMatch untp:Party .
 
 # =============================================================================
 # schema.org alignment: energy & measurement
@@ -2855,7 +2854,7 @@ reporting life-cycle environmental impact indicators broken down by lifecycle mo
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso oec:EmissionsPerformance ;
     rdfs:seeAlso oec:CarbonFootprintDeclaration ;
-    rdfs:seeAlso untp-core:EmissionsPerformance ;
+    rdfs:seeAlso untp:EmissionsPerformance ;
     rdfs:seeAlso dppk:EPDBlock ;
     skos:closeMatch dppk:EPDBlock ;
     skos:note """Required extension: EN 15804 EPDs carry a full impact-indicator set with modular
