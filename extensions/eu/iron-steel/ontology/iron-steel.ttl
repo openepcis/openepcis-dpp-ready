@@ -79,7 +79,8 @@ eusteel:heatNumber
     rdfs:seeAlso gs1:batchLot ;
     rdfs:seeAlso dppk:heatNumber ;
     skos:exactMatch dppk:heatNumber ;
-    skos:note "Steel traceability identifier per EN 10168. GS1 gs1:batchLot is the closest generic batch identifier; this property names the steel heat specifically."@en .
+    skos:note "Steel traceability identifier per EN 10168. GS1 gs1:batchLot is the closest generic batch identifier; this property names the steel heat specifically."@en ;
+    skos:narrowMatch gs1:hasBatchLotNumber .
 
 eusteel:castNumber
     a owl:DatatypeProperty ;
@@ -92,7 +93,9 @@ eusteel:castNumber
     rdfs:seeAlso gs1:batchLot ;
     rdfs:seeAlso dppk:castNumber ;
     skos:exactMatch dppk:castNumber ;
-    skos:note "Steel traceability identifier per EN 10168. Closest GS1 generic is gs1:batchLot."@en .
+    skos:note "Steel traceability identifier per EN 10168. Closest GS1 generic is gs1:batchLot."@en ;
+    skos:narrowMatch dppk:heatNumber ;
+    skos:narrowMatch gs1:hasBatchLotNumber .
 
 eusteel:lotNumber
     a owl:DatatypeProperty ;
@@ -105,7 +108,8 @@ eusteel:lotNumber
     rdfs:seeAlso gs1:batchLot ;
     rdfs:seeAlso dppk:lotNumber ;
     skos:exactMatch dppk:lotNumber ;
-    skos:note "Closest GS1 generic is gs1:batchLot; this property names the steel delivery lot specifically."@en .
+    skos:note "Closest GS1 generic is gs1:batchLot; this property names the steel delivery lot specifically."@en ;
+    skos:narrowMatch gs1:hasBatchLotNumber .
 
 eusteel:productNumber
     a owl:DatatypeProperty ;
@@ -119,7 +123,8 @@ eusteel:productNumber
     rdfs:seeAlso gs1:globalModelNumber ;
     rdfs:seeAlso dppk:productNumber ;
     skos:exactMatch dppk:productNumber ;
-    skos:note "Manufacturer product number. Anchored to schema:productID and gs1:globalModelNumber."@en .
+    skos:note "Manufacturer product number. Anchored to schema:productID and gs1:globalModelNumber."@en ;
+    skos:narrowMatch schema:serialNumber .
 
 eusteel:purchaserOrder
     a owl:DatatypeProperty ;
@@ -169,7 +174,8 @@ eusteel:meltAndPourCountry
     rdfs:seeAlso schema:countryOfOrigin ;
     rdfs:seeAlso dppk:meltAndPourCountry ;
     skos:exactMatch dppk:meltAndPourCountry ;
-    skos:note "Melt-and-pour origin per steel-sector practice and CBAM. Anchored to schema:countryOfOrigin."@en .
+    skos:note "Melt-and-pour origin per steel-sector practice and CBAM. Anchored to schema:countryOfOrigin."@en ;
+    skos:narrowMatch schema:countryOfOrigin .
 
 eusteel:cbamReportId
     a owl:DatatypeProperty ;
@@ -233,10 +239,11 @@ substantiate the declared grade."""@en ;
     rdfs:seeAlso schema:Certification ;
     rdfs:seeAlso dppk:MaterialTestCertificate ;
     skos:exactMatch dppk:MaterialTestCertificate ;
-    skos:broadMatch schema:Certification ;
+    skos:closeMatch schema:Certification ;
     skos:note """Mill test certificate (EN 10204 / EN 10168). schema:Certification is the generic
 upstream; this class names the steel inspection document and its EN 10168 parameter set.
-Anchored to the DPP Keystone peer profile dppk:MaterialTestCertificate."""@en .
+Anchored to the DPP Keystone peer profile dppk:MaterialTestCertificate."""@en ;
+    skos:narrowMatch gs1:CertificationDetails .
 
 eusteel:mtc
     a owl:ObjectProperty ;
@@ -270,7 +277,8 @@ eusteel:mtcNominalSize
     dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
     rdfs:seeAlso dppk:mtcNominalSize ;
     skos:exactMatch dppk:mtcNominalSize ;
-    skos:note "EN 10168 dimensional parameter."@en .
+    skos:note "EN 10168 dimensional parameter."@en ;
+    skos:narrowMatch schema:size .
 
 eusteel:mtcWeightTolerance
     a owl:DatatypeProperty ;

@@ -116,7 +116,9 @@ eubat:BatteryMaterial
     rdfs:seeAlso untp-core:Material ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch untp-core:Material ;
+    skos:narrowMatch schema:Substance .
 
 eubat:RecycledContent
     a owl:Class ;
@@ -143,7 +145,8 @@ eubat:HazardousSubstance
     rdfs:comment "A hazardous substance present in the battery, classified per EU CLP Regulation 1272/2008."@en ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
-    skos:note "Hazardous-substance classification aligned with CLP (EC) 1272/2008, as required by the EU Battery Regulation (EU) 2023/1542."@en .
+    skos:note "Hazardous-substance classification aligned with CLP (EC) 1272/2008, as required by the EU Battery Regulation (EU) 2023/1542."@en ;
+    skos:narrowMatch schema:ChemicalSubstance .
 
 eubat:DismantlingDocument
     a owl:Class ;
@@ -298,7 +301,8 @@ eubat:BatteryStatus
     owl:oneOf (eubat:Original eubat:Repurposed eubat:Reused eubat:Remanufactured eubat:Waste) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch schema:StatusEnumeration .
 
 eubat:Original
     a eubat:BatteryStatus ;
@@ -626,7 +630,8 @@ eubat:CarbonFootprintClass
     owl:oneOf (eubat:CFClassA eubat:CFClassB eubat:CFClassC eubat:CFClassD eubat:CFClassE) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch oec:EmissionsPerformance .
 
 eubat:CFClassA a eubat:CarbonFootprintClass ; rdfs:label "Class A"@en ;
     rdfs:comment "Best carbon footprint performance class."@en .
@@ -775,7 +780,8 @@ eubat:batteryModelIdentifier
     rdfs:range xsd:string ;
     dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
     skos:note "BatteryPass-Ready v1.3 longlist attribute #7. Mandatory. GS1 Web Vocabulary has gs1:gtin (trade item) but no separate model identifier; in EU regulatory practice these are not always equivalent."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
+    skos:narrowMatch schema:model .
 
 eubat:facilityIdentifier
     a owl:DatatypeProperty ;
@@ -788,7 +794,8 @@ eubat:facilityIdentifier
     skos:note "BatteryPass-Ready v1.3 longlist attribute #11. Domain moved from gs1:Product to oec:FacilityInformation in 0.9.5: the identifier identifies a facility, not the product. Anchored as rdfs:subPropertyOf skos:notation so the value is recognisable as an identifier notation, and rdfs:seeAlso adms:Identifier as the canonical SEMICeu peer (an adms:Identifier instance whose notation is this value and whose schemeAgency is the GLN issuer)."@en ;
     rdfs:seeAlso gs1:gln ;
     rdfs:seeAlso adms:Identifier ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
+    skos:broadMatch gs1:globalLocationNumber .
 
 # =============================================================================
 # PART 4: PROPERTIES - CHEMISTRY
@@ -814,7 +821,8 @@ eubat:cathodeActiveMaterial
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch schema:chemicalComposition .
 
 eubat:anodeActiveMaterial
     a owl:DatatypeProperty ;
@@ -844,7 +852,8 @@ eubat:electrolyteComposition
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch schema:chemicalComposition .
 
 # =============================================================================
 # PART 5: PROPERTIES - TECHNICAL SPECIFICATIONS
@@ -870,7 +879,8 @@ eubat:ratedCapacity
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch schema:fuelCapacity .
 
 eubat:ratedEnergy
     a owl:ObjectProperty ;
@@ -936,7 +946,8 @@ eubat:maximumChargingPower
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:closeMatch dppk:powerMaximumPermitted .
 
 eubat:maximumDischargingPower
     a owl:ObjectProperty ;
@@ -1013,7 +1024,8 @@ eubat:expectedLifetimeEnergyThroughput
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:closeMatch dppk:energyThroughput .
 
 eubat:expectedLifetimeCapacityThroughput
     a owl:ObjectProperty ;
@@ -1040,14 +1052,14 @@ eubat:roundTripEfficiency
 eubat:roundTripEfficiencyAt50PercentCycleLife
     a owl:DatatypeProperty ;
     rdfs:seeAlso dppk:roundTripEfficiencyAt50Cycles ;
-    skos:closeMatch dppk:roundTripEfficiencyAt50Cycles ;
     rdfs:label "Round Trip Efficiency at 50% Cycle Life"@en ;
     rdfs:comment "Expected round trip efficiency at 50% of rated cycle life."@en ;
     rdfs:domain eubat:TechnicalSpecification ;
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:closeMatch dppk:roundTripEfficiencyRemaining .
 
 eubat:depthOfDischargeInCycleLifeTest
     a owl:DatatypeProperty ;
@@ -1067,7 +1079,8 @@ eubat:capacityFadeThreshold
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:closeMatch dppk:exhaustionCapacityThreshold .
 
 eubat:resistanceIncreaseThreshold
     a owl:DatatypeProperty ;
@@ -1284,7 +1297,8 @@ eubat:casNumber
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272> ;
     skos:note "Hazardous-substance classification aligned with CLP (EC) 1272/2008, as required by the EU Battery Regulation (EU) 2023/1542."@en ;
-    rdfs:seeAlso oec:casNumber .
+    rdfs:seeAlso oec:casNumber ;
+    skos:exactMatch oec:casNumber .
 
 eubat:ecNumber
     a owl:DatatypeProperty ;
@@ -1310,7 +1324,6 @@ eubat:componentLocation
 eubat:isCriticalRawMaterial
     a owl:DatatypeProperty ;
     rdfs:seeAlso dppk:criticalRawMaterials ;
-    skos:closeMatch dppk:criticalRawMaterials ;
     rdfs:label "Is Critical Raw Material"@en ;
     rdfs:comment "Whether this material is on the EU Critical Raw Materials list."@en ;
     rdfs:domain eubat:BatteryMaterial ;
@@ -1348,7 +1361,8 @@ eubat:renewableContentShare
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:closeMatch dppk:renewableContent .
 
 eubat:criticalRawMaterialsStatement
     a owl:DatatypeProperty ;
@@ -1384,7 +1398,9 @@ eubat:lithiumRecycledShare
     rdfs:seeAlso oec:recycledContent ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch oec:recycledContent ;
+    skos:narrowMatch <https://vocabulary.uncefact.org/untp/0.7.0/recycledMassFraction> .
 
 eubat:lithiumPreConsumerShare
     a owl:DatatypeProperty ;
@@ -1413,7 +1429,8 @@ eubat:cobaltRecycledShare
     rdfs:seeAlso oec:recycledContent ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch oec:recycledContent .
 
 eubat:cobaltPreConsumerShare
     a owl:DatatypeProperty ;
@@ -1422,7 +1439,8 @@ eubat:cobaltPreConsumerShare
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch oec:recycledContent .
 
 eubat:cobaltPostConsumerShare
     a owl:DatatypeProperty ;
@@ -1431,7 +1449,8 @@ eubat:cobaltPostConsumerShare
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch oec:recycledContent .
 
 eubat:nickelRecycledShare
     a owl:DatatypeProperty ;
@@ -1442,7 +1461,8 @@ eubat:nickelRecycledShare
     rdfs:seeAlso oec:recycledContent ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch oec:recycledContent .
 
 eubat:nickelPreConsumerShare
     a owl:DatatypeProperty ;
@@ -1451,7 +1471,9 @@ eubat:nickelPreConsumerShare
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch oec:recycledContent ;
+    skos:narrowMatch <https://vocabulary.uncefact.org/untp/0.7.0/recycledMassFraction> .
 
 eubat:nickelPostConsumerShare
     a owl:DatatypeProperty ;
@@ -1460,7 +1482,9 @@ eubat:nickelPostConsumerShare
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch oec:recycledContent ;
+    skos:narrowMatch <https://vocabulary.uncefact.org/untp/0.7.0/recycledMassFraction> .
 
 eubat:leadRecycledShare
     a owl:DatatypeProperty ;
@@ -1484,7 +1508,9 @@ eubat:endOfLifeInfo
     rdfs:range eubat:EndOfLifeInfo ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch gs1:sustainabilityInfo ;
+    skos:narrowMatch gs1:consumerHandlingStorageInfo .
 
 eubat:recyclabilityRate
     a owl:DatatypeProperty ;
@@ -1536,7 +1562,8 @@ eubat:dismantlingInstructions
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:dismantlingInstructions .
+    rdfs:seeAlso oec:dismantlingInstructions ;
+    skos:closeMatch dppk:dismantlingInformation .
 
 eubat:safetyInstructionsForDismantling
     a owl:DatatypeProperty ;
@@ -1546,7 +1573,9 @@ eubat:safetyInstructionsForDismantling
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch dppk:dismantlingInformation ;
+    skos:narrowMatch dppk:safetyMeasures .
 
 eubat:dismantlingTime
     a owl:ObjectProperty ;
@@ -1556,7 +1585,8 @@ eubat:dismantlingTime
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch dppk:dismantlingInformation .
 
 eubat:extinguishingAgent
     a owl:DatatypeProperty ;
@@ -1581,12 +1611,12 @@ eubat:wastePrevention
     rdfs:seeAlso gs1:consumerRecyclingInstructions ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch gs1:sustainabilityInfo .
 
 eubat:separateCollection
     a owl:DatatypeProperty ;
     rdfs:seeAlso dppk:separateCollectionSymbol ;
-    skos:closeMatch dppk:separateCollectionSymbol ;
     rdfs:label "Separate Collection"@en ;
     rdfs:comment "URL to information about separate collection requirements."@en ;
     rdfs:domain eubat:EndOfLifeInfo ;
@@ -1625,7 +1655,8 @@ eubat:safetyInstructions
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:closeMatch gs1:consumerSafetyInformation .
 
 # -----------------------------------------------------------------------------
 # Dismantling Documents
@@ -1640,7 +1671,8 @@ eubat:dismantlingDocuments
     rdfs:seeAlso gs1:ReferencedFileDetails ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:closeMatch oec:dismantlingInstructions .
 
 eubat:documentType
     a owl:ObjectProperty ;
@@ -1664,7 +1696,8 @@ eubat:documentUrl
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:documentUrl .
+    rdfs:seeAlso oec:documentUrl ;
+    skos:narrowMatch gs1:referencedFileURL .
 
 eubat:mimeType
     a owl:DatatypeProperty ;
@@ -1674,7 +1707,8 @@ eubat:mimeType
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:mimeType .
+    rdfs:seeAlso oec:mimeType ;
+    skos:exactMatch oec:mimeType .
 
 eubat:languageCode
     a owl:DatatypeProperty ;
@@ -1695,7 +1729,7 @@ eubat:languageCode
 eubat:hazardousSubstances
     a owl:ObjectProperty ;
     rdfs:seeAlso dppk:hazardousSubstances ;
-    skos:exactMatch dppk:hazardousSubstances ;
+    skos:closeMatch dppk:hazardousSubstances ;
     rdfs:label "Hazardous Substances"@en ;
     rdfs:comment "Hazardous substances present in the battery."@en ;
     rdfs:domain gs1:Product ;
@@ -1823,7 +1857,10 @@ eubat:operatorRole
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:operatorRole .
+    rdfs:seeAlso oec:operatorRole ;
+    skos:narrowMatch gs1:organizationRole ;
+    skos:exactMatch oec:operatorRole ;
+    skos:narrowMatch cv:role .
 
 # =============================================================================
 # PART 11: PROPERTIES - SPARE PARTS
@@ -1857,7 +1894,9 @@ eubat:supplierContact
     rdfs:seeAlso cv:ContactPoint ;
     skos:note "gs1:ContactPoint is range-equivalent to cv:ContactPoint (EU SEMICeu CPOV). Either is acceptable; cv:ContactPoint is the EU-portal canonical for recall coordinators / customer service / regulatory liaison."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> .
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    skos:narrowMatch cv:contactPoint ;
+    skos:narrowMatch schema:contactPoints .
 
 # =============================================================================
 # PART 12: PROPERTIES - LABELS & CERTIFICATION
@@ -1881,7 +1920,8 @@ eubat:labelSymbol
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch schema:url .
 
 eubat:labelMeaning
     a owl:DatatypeProperty ;
@@ -1903,7 +1943,8 @@ eubat:labelSubject
     rdfs:range eubat:LabelSubject ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:closeMatch dppk:labelMeaning .
 
 eubat:separateCollectionSymbolUrl
     a owl:DatatypeProperty ;
@@ -1965,7 +2006,9 @@ eubat:declarationOfConformity
     rdfs:seeAlso schema:url ;
     skos:note "Domain moved from gs1:Product to cccev:Evidence in 0.9.5: the URL identifies the declaration document, not the product directly. Use eubat:euDeclarationOfConformity to link the product to the declaration."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> .
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    skos:narrowMatch cv:hasSupportingEvidence ;
+    skos:narrowMatch schema:url .
 
 eubat:euDeclarationOfConformityId
     a owl:DatatypeProperty ;
@@ -2087,7 +2130,8 @@ eubat:carbonFootprintProduction
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:carbonFootprintProduction .
+    rdfs:seeAlso oec:carbonFootprintProduction ;
+    skos:exactMatch oec:carbonFootprintProduction .
 
 eubat:carbonFootprintDistribution
     a owl:ObjectProperty ;
@@ -2097,7 +2141,8 @@ eubat:carbonFootprintDistribution
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:carbonFootprintDistribution .
+    rdfs:seeAlso oec:carbonFootprintDistribution ;
+    skos:exactMatch oec:carbonFootprintDistribution .
 
 eubat:carbonFootprintRecycling
     a owl:ObjectProperty ;
@@ -2107,7 +2152,8 @@ eubat:carbonFootprintRecycling
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch gs1:sustainabilityInfo .
 
 eubat:lifecycleStage
     a owl:DatatypeProperty ;
@@ -2131,7 +2177,8 @@ eubat:absoluteCarbonFootprint
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:broadMatch oec:carbonFootprintProduction .
 
 eubat:carbonFootprintPerformanceClass
     a owl:ObjectProperty ;
@@ -2210,7 +2257,8 @@ eubat:thirdPartyVerification
     rdfs:range eubat:ThirdPartyVerification ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch schema:hasCertification .
 
 eubat:verificationBody
     a owl:ObjectProperty ;
@@ -2261,7 +2309,8 @@ eubat:verificationStandard
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:closeMatch gs1:certificationStandard .
 
 # =============================================================================
 # PART 14: PROPERTIES - SUPPLY CHAIN DUE DILIGENCE
@@ -2287,7 +2336,8 @@ eubat:dueDiligenceReportUrl
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch gs1:referencedFileURL .
 
 eubat:dueDiligencePolicyUrl
     a owl:DatatypeProperty ;
@@ -2308,7 +2358,8 @@ eubat:thirdPartyAssurancesUrl
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:thirdPartyAssurancesUrl .
+    rdfs:seeAlso oec:thirdPartyAssurancesUrl ;
+    skos:exactMatch oec:thirdPartyAssurancesUrl .
 
 eubat:riskAssessmentSummary
     a owl:DatatypeProperty ;
@@ -2533,7 +2584,8 @@ eubat:dataProviderCertification
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:dataProviderCertification .
+    rdfs:seeAlso oec:dataProviderCertification ;
+    skos:exactMatch oec:dataProviderCertification .
 
 # =============================================================================
 # PART 19: DYNAMIC BATTERY MEASUREMENTS
@@ -2609,7 +2661,9 @@ eubat:remainingEnergy
     rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
+    skos:closeMatch dppk:remainingUsableEnergy ;
+    skos:closeMatch dppk:remainingCapacity .
 
 eubat:capacityFade
     a owl:ObjectProperty ;
@@ -2643,7 +2697,8 @@ eubat:internalResistance
     rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII. No equivalent GS1 term exists for battery internal resistance."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
+    skos:broadMatch dppk:internalResistanceInitial .
 
 eubat:internalResistanceIncrease
     a owl:ObjectProperty ;
@@ -2708,14 +2763,15 @@ eubat:roundTripEfficiencyFade
 eubat:selfDischargeRate
     a owl:ObjectProperty ;
     rdfs:seeAlso dppk:selfDischargeCurrent ;
-    skos:exactMatch dppk:selfDischargeCurrent ;
+    skos:closeMatch dppk:selfDischargeCurrent ;
     rdfs:label "Self Discharge Rate"@en ;
     rdfs:comment "Current self-discharge rate. Use gs1:QuantitativeValue with unitCode 'P1' (percent per month)."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
+    skos:closeMatch dppk:selfDischargeEvolution .
 
 eubat:evolutionOfSelfDischarge
     a owl:ObjectProperty ;
@@ -2842,7 +2898,8 @@ eubat:exhaustionThreshold
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:closeMatch dppk:exhaustionCapacityThreshold .
 
 eubat:expectedRemainingCycles
     a owl:DatatypeProperty ;
@@ -2878,7 +2935,8 @@ eubat:measurementCertificateUrl
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch gs1:referencedFileURL .
 
 # -----------------------------------------------------------------------------
 # Temperature Excursion Properties
@@ -2891,7 +2949,8 @@ eubat:exposureDurationMinutes
     rdfs:range xsd:integer ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch schema:duration .
 
 eubat:exceedanceThreshold
     a owl:DatatypeProperty ;
@@ -2918,7 +2977,9 @@ eubat:exposureEndTime
     rdfs:range xsd:dateTime ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch schema:endTime ;
+    skos:narrowMatch schema:endDate .
 
 eubat:transportConditions
     a owl:DatatypeProperty ;
@@ -2936,7 +2997,8 @@ eubat:estimatedImpact
     rdfs:range rdf:langString ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch oec:hazardImpact .
 
 eubat:temperatureExcursionReportUrl
     a owl:DatatypeProperty ;
@@ -2977,7 +3039,8 @@ eubat:eventLocation
     rdfs:range gs1:Place ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch schema:location .
 
 eubat:incidentId
     a owl:DatatypeProperty ;
@@ -3004,7 +3067,8 @@ eubat:incidentReportUrl
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch gs1:referencedFileURL .
 
 eubat:inspectorId
     a owl:DatatypeProperty ;
@@ -3031,7 +3095,7 @@ eubat:recommendedAction
 eubat:remainingPowerCapability
     a owl:ObjectProperty ;
     rdfs:seeAlso dppk:powerRemaining ;
-    skos:exactMatch dppk:powerRemaining ;
+    skos:closeMatch dppk:powerRemaining ;
     rdfs:label "Remaining Power Capability"@en ;
     rdfs:comment "Current power capability measurements at various SoC levels."@en ;
     rdfs:range eubat:PowerCapabilityAtSoC ;
@@ -3072,7 +3136,8 @@ eubat:currentSelfDischargingRate
     rdfs:range gs1:QuantitativeValue ;
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#currentSelfDischargingRate)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> .
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    skos:closeMatch dppk:selfDischargeCurrent .
 
 eubat:atSoC
     a owl:DatatypeProperty ;
@@ -3101,7 +3166,8 @@ eubat:roundTripEnergyEfficiency
     rdfs:range xsd:decimal ;
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#roundTripEnergyEfficiency). Aligned with the 0-1 ratio convention used throughout oec:."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> .
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    skos:closeMatch dppk:roundTripEfficiencyRemaining .
 
 eubat:expectedLifetime
     a owl:ObjectProperty ;
@@ -3111,7 +3177,8 @@ eubat:expectedLifetime
     rdfs:range gs1:QuantitativeValue ;
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#expectedLifetime). ESPR Article 7 durability declaration."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> .
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    skos:broadMatch dppk:expectedLifetimeYears .
 
 eubat:expectedNumberOfCycles
     a owl:DatatypeProperty ;
@@ -3121,7 +3188,8 @@ eubat:expectedNumberOfCycles
     rdfs:range xsd:integer ;
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Performance:1.2.0#ExpectedNumberOfCycles)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> .
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    skos:closeMatch dppk:expectedLifetimeCycles .
 
 eubat:batteryMass
     a owl:ObjectProperty ;
@@ -3135,7 +3203,8 @@ eubat:batteryMass
     rdfs:seeAlso gs1:netWeight ;
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryMass). EU Battery Regulation Annex VI Part A weight declaration."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> .
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    skos:narrowMatch gs1:netWeight .
 
 eubat:dismantlingAndRemovalInformation
     a owl:ObjectProperty ;
@@ -3147,7 +3216,8 @@ eubat:dismantlingAndRemovalInformation
     rdfs:range oec:DocumentReference ;
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation). EU Battery Regulation Annex VIII §B safety information."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> .
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    skos:closeMatch oec:dismantlingInstructions .
 
 eubat:safetyMeasures
     a owl:DatatypeProperty ;
@@ -3159,7 +3229,8 @@ eubat:safetyMeasures
     rdfs:range xsd:string ;
     skos:note "BatteryPass-Ready v1.3 (current canonical SAMM submodel: urn:samm:io.BatteryPass.Circularity:1.2.0#safetyMeasures). Pair with eubat:dismantlingAndRemovalInformation for full Annex VIII coverage."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> .
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
+    skos:narrowMatch gs1:safetyInfo .
 
 eubat:negativeEvents
     a owl:ObjectProperty ;

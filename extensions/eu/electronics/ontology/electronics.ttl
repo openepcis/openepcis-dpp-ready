@@ -119,7 +119,10 @@ euelec:RepairCriterion
     rdfs:seeAlso cccev:Criterion ;
     rdfs:seeAlso cccev:Constraint ;
     skos:note "A RepairCriterion is a specific kind of cccev:Criterion (EU SEMICeu CCCEV): the five Repairability-Index criteria (Documentation, Disassembly, SparePartsAvailability, SparePartsPricing, ProductSpecific) each scored against an InformationConcept within the broader Repairability Requirement. Modelled as rdfs:subClassOf rather than owl:equivalentClass because cccev:Criterion is broader and covers any conformity-evaluation criterion. CCCEV is the EU foundation that JTC 24 / CIRPASS-2 lean on for conformity / scoring."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    skos:narrowMatch cv:Criterion ;
+    skos:narrowMatch <https://vocabulary.uncefact.org/untp/0.7.0/Criterion> ;
+    skos:narrowMatch schema:Rating .
 
 euelec:SoftwareSupport
     a owl:Class ;
@@ -134,7 +137,7 @@ patterns as a potential contribution to UNTP v1.0+."""@en ;
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     rdfs:seeAlso <https://www.iso.org/standard/43447.html> ;
     rdfs:seeAlso dppk:softwareUpdatePolicy ;
-    skos:closeMatch dppk:softwareUpdatePolicy ;
+    skos:broadMatch dppk:softwareUpdatePolicy ;
     skos:note """Software lifecycle tracking per ISO/IEC 12207. Designed as potential UNTP extension.
 UNTP v0.6 does not yet include software support properties, making this a candidate for
 contribution to UNTP v1.0+. Aligns approximately with DPP Keystone dppk:softwareUpdatePolicy."""@en .
@@ -148,8 +151,8 @@ and EPREL registry information per EU Energy Labeling Regulation 2019/2021."""@e
     rdfs:seeAlso oec:PerformanceInfo ;
     skos:note """Required extension: GS1 provides performance information patterns but lacks specific
 EU Energy Label properties (A-G classes, EPREL registration) required for electronics."""@en ;
-    skos:exactMatch schema:EnergyEfficiencyEnumeration ;
-    rdfs:seeAlso oec:EnergyEfficiency .
+    rdfs:seeAlso oec:EnergyEfficiency ;
+    skos:narrowMatch schema:EnergyConsumptionDetails .
 
 euelec:ComponentBOM
     a owl:Class ;
@@ -173,7 +176,8 @@ including equipment category, registration number, and collection scheme."""@en 
     rdfs:seeAlso gs1:regulatoryInformation ;
     rdfs:seeAlso oec:CircularityPerformance ;
     skos:note """Required extension: WEEE has 6 specific equipment categories not in GS1 vocabulary.
-Use gs1:regulatoryInformation for general compliance, this class for WEEE-specific data."""@en.
+Use gs1:regulatoryInformation for general compliance, this class for WEEE-specific data."""@en;
+    skos:narrowMatch gs1:RegulatoryInformation .
 
 euelec:RoHSCompliance
     a owl:Class ;
@@ -185,7 +189,9 @@ including compliance status and applicable exemptions."""@en ;
     rdfs:seeAlso gs1:regulatoryInformation ;
     rdfs:seeAlso oec:SubstanceOfConcern ;
     skos:note """Required extension: RoHS has specific exemption categories not in GS1 vocabulary.
-Use gs1:regulatoryInformation for general compliance, this class for RoHS-specific data."""@en.
+Use gs1:regulatoryInformation for general compliance, this class for RoHS-specific data."""@en;
+    skos:narrowMatch gs1:RegulatoryInformation ;
+    skos:narrowMatch schema:Certification .
 
 euelec:DisplaySpecification
     a owl:Class ;
@@ -320,7 +326,8 @@ euelec:RepairCriterionType
         euelec:ProductSpecific
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch cv:Criterion .
 
 euelec:Documentation a euelec:RepairCriterionType ;
     rdfs:label "Documentation"@en ;
@@ -406,7 +413,9 @@ euelec:EnergyEfficiencyClass
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:EnergyEfficiencyClass .
+    rdfs:seeAlso oec:EnergyEfficiencyClass ;
+    skos:narrowMatch oec:EnergyEfficiency ;
+    skos:narrowMatch schema:EnergyConsumptionDetails .
 
 euelec:EnergyClassA a euelec:EnergyEfficiencyClass ;
     rdfs:label "Energy Class A"@en ;
@@ -623,7 +632,9 @@ euelec:modelIdentifier
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch schema:model ;
+    skos:narrowMatch schema:identifier .
 
 # =============================================================================
 # PART 10: PROPERTIES - FRENCH REPAIRABILITY INDEX
@@ -657,7 +668,8 @@ euelec:displayScore
     rdfs:range xsd:decimal ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:closeMatch schema:ratingValue .
 
 euelec:repairabilityClass
     a owl:ObjectProperty ;
@@ -709,7 +721,8 @@ euelec:criterionMaxScore
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch schema:maxValue .
 
 euelec:criterionDetails
     a owl:DatatypeProperty ;
@@ -719,7 +732,8 @@ euelec:criterionDetails
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:closeMatch schema:ratingExplanation .
 
 euelec:assessmentDate
     a owl:DatatypeProperty ;
@@ -773,7 +787,8 @@ euelec:osVersion
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> ;
-    skos:note "Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch schema:softwareVersion .
 
 euelec:firmwareVersion
     a owl:DatatypeProperty ;
@@ -924,7 +939,8 @@ euelec:eprelRegistrationNumber
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:eprelRegistrationNumber .
+    rdfs:seeAlso oec:eprelRegistrationNumber ;
+    skos:narrowMatch gs1:regulatoryReferenceNumber .
 
 euelec:energyLabelUrl
     a owl:DatatypeProperty ;
@@ -1021,7 +1037,8 @@ Enables CIRPASS-2 multi-component tracking."""@en ;
     rdfs:range xsd:anyURI ;
     rdfs:seeAlso untp-dpp:linkedProduct ;
     skos:note "Aligned with UNTP linkedProduct pattern for nested DPPs."@en ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:narrowMatch gs1:dpp .
 
 euelec:sparePartAvailabilityYears
     a owl:ObjectProperty ;
@@ -1043,7 +1060,8 @@ euelec:sparePartPrice
     rdfs:range gs1:PriceSpecification ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
-    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch schema:priceSpecification .
 
 # =============================================================================
 # PART 14: PROPERTIES - WEEE COMPLIANCE
@@ -1123,7 +1141,9 @@ euelec:rohsCompliance
     rdfs:range euelec:RoHSCompliance ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2011/65/eu> ;
-    skos:note "Restricted-substance concept per the RoHS Directive 2011/65/EU. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Restricted-substance concept per the RoHS Directive 2011/65/EU. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch schema:hasCertification ;
+    skos:narrowMatch gs1:certificationInfo .
 
 euelec:rohsCompliant
     a owl:DatatypeProperty ;
@@ -1153,7 +1173,8 @@ euelec:rohsDeclarationUrl
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2011/65/eu> ;
-    skos:note "Restricted-substance concept per the RoHS Directive 2011/65/EU. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Restricted-substance concept per the RoHS Directive 2011/65/EU. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch gs1:referencedFileURL .
 
 # =============================================================================
 # PART 16: PROPERTIES - DISPLAY SPECIFICATION
@@ -1259,7 +1280,8 @@ euelec:newVersion
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:closeMatch schema:version .
 
 euelec:updateType
     a owl:DatatypeProperty ;
@@ -1320,15 +1342,14 @@ euelec:materialDeclarationDate
 # oec: terms (which themselves anchor up to UNTP / schema.org).
 
 euelec:WEEECompliance        rdfs:subClassOf       oec:ExtendedProducerResponsibility .
-euelec:weeeRegistrationNumber  skos:exactMatch oec:eprRegistrationNumber .
-euelec:weeeRegistrationCountry skos:exactMatch oec:eprJurisdiction .
-euelec:collectionSchemeUrl     skos:exactMatch oec:eprComplianceUrl .
+euelec:weeeRegistrationNumber  skos:narrowMatch oec:eprRegistrationNumber .
+euelec:weeeRegistrationCountry skos:narrowMatch oec:eprJurisdiction .
 
 euelec:EnergyEfficiency        rdfs:subClassOf       oec:EnergyEfficiency .
 euelec:energyEfficiencyClass   skos:exactMatch oec:energyEfficiencyClass .
 euelec:annualEnergyConsumption skos:exactMatch oec:annualEnergyConsumption .
 euelec:powerConsumptionOn      skos:exactMatch oec:powerConsumptionOn .
 euelec:powerConsumptionStandby skos:exactMatch oec:powerConsumptionStandby .
-euelec:powerConsumptionOff     skos:exactMatch oec:powerConsumptionOff .
+euelec:powerConsumptionOff     skos:closeMatch oec:powerConsumptionOff .
 euelec:eprelRegistrationNumber skos:exactMatch oec:eprelRegistrationNumber .
 euelec:eprelProductUrl         skos:exactMatch oec:eprelProductUrl .

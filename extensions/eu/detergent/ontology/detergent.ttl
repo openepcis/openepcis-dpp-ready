@@ -286,7 +286,8 @@ eudet:DetergentProduct
     rdfs:subClassOf gs1:Product ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "GS1 Web Vocabulary has no detergent-specific product class."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> ;
+    skos:narrowMatch gs1:Product .
 
 eudet:Ingredient
     a owl:Class ;
@@ -318,7 +319,8 @@ eudet:FragranceAllergen
     rdfs:comment "A fragrance allergen that must be disclosed when present above the concentration threshold, identified by name and CAS number."@en ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "GS1 has gs1:hasAllergen for food allergens but no equivalent for fragrance/chemical allergens in non-food products."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> ;
+    skos:narrowMatch schema:ChemicalSubstance .
 
 # =============================================================================
 # Product-Level Properties (on DetergentProduct)
@@ -352,7 +354,8 @@ eudet:ingredientList
     rdfs:range eudet:Ingredient ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "GS1 has food ingredient patterns but no detergent ingredient list property."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> ;
+    skos:narrowMatch gs1:ingredientStatement .
 
 eudet:surfactantBiodegradability
     a owl:ObjectProperty ;
@@ -483,7 +486,8 @@ eudet:recommendedDosage
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
-    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:closeMatch schema:doseValue .
 
 eudet:dosageInstructions
     a owl:DatatypeProperty ;
@@ -493,7 +497,8 @@ eudet:dosageInstructions
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
-    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch gs1:consumerUsageInstructions .
 
 eudet:safetyDataSheet
     a owl:ObjectProperty ;
