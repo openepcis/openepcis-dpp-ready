@@ -212,7 +212,7 @@ public class ApplyCommand implements Runnable {
                 skippedNoRel > 0 ? ", " + skippedNoRel + " WRONG skipped (NONE/unchanged → manual)" : "");
 
         Map<String, Path> ttlFiles = ourIndex.moduleTtlFiles();
-        int inserted = 0, swapped = 0, files = 0;
+        int inserted = 0, swapped = 0, files = 0, missed = 0;
         Set<String> mods = new LinkedHashSet<>();
         mods.addAll(byModule.keySet());
         mods.addAll(rewritesByModule.keySet());
@@ -225,11 +225,23 @@ public class ApplyCommand implements Runnable {
             int[] n = applyToFile(ttl,
                     byModule.getOrDefault(mod, Map.of()),
                     rewritesByModule.getOrDefault(mod, Map.of()));
+            missed += n[2];
             if (n[0] + n[1] > 0) {
                 inserted += n[0];
                 swapped += n[1];
                 files++;
             }
+        }
+        // A selected edit that could not be located is a silent-skip hazard in the primary
+        // insert/rewrite paths — fail loudly. (In --downgrade-applied remediation, a miss just
+        // means an idempotency-skipped add was never written, which is benign.)
+        if (missed > 0 && !downgradeApplied) {
+            throw new IllegalStateException("apply: " + missed + " selected edit(s) could not be located "
+                    + "in the TTLs (see warnings above). Reconcile the report against the ontology.");
+        }
+        if (missed > 0) {
+            System.err.println("apply: " + missed + " selected edit(s) not located (expected for "
+                    + "idempotency-skipped adds in --downgrade-applied).");
         }
         System.out.printf("%napply %s: %d inserted + %d rewritten into %d file(s)%s%n",
                 apply ? "WROTE" : "DRY-RUN", inserted, swapped, files,
@@ -239,11 +251,13 @@ public class ApplyCommand implements Runnable {
     private int[] applyToFile(Path ttl, Map<String, List<Plan>> byTerm,
                               Map<String, List<Rewrite>> rewriteByTerm) {
         List<String> lines;
+        byte[] original;
         try {
+            original = Files.readAllBytes(ttl);
             lines = new ArrayList<>(Files.readAllLines(ttl));
         } catch (Exception e) {
             System.err.println("apply: cannot read " + ttl + ": " + e.getMessage());
-            return new int[]{0, 0};
+            return new int[]{0, 0, 0};
         }
 
         // Emit CURIEs that match the file's own @prefix declarations (house style), not raw IRIs.
@@ -254,6 +268,7 @@ public class ApplyCommand implements Runnable {
         // The asserting line may be inside the term's definition block OR a one-liner
         // (`subject pred obj .`) in a separate alignment section, so search both.
         int swapped = 0;
+        int misses = 0;
         for (var e : rewriteByTerm.entrySet()) {
             String subject = e.getKey();
             for (Rewrite rw : e.getValue()) {
@@ -282,6 +297,7 @@ public class ApplyCommand implements Runnable {
                 if (hit < 0) {
                     System.err.println("apply: rewrite target not found: " + subject + " "
                             + rw.oldPredicate() + " " + obj + " (" + ttl.getFileName() + ")");
+                    misses++;
                     continue;
                 }
                 // Downgrading to seeAlso but a seeAlso to this target already exists → drop the
@@ -312,6 +328,7 @@ public class ApplyCommand implements Runnable {
             int[] block = TtlEditor.blockRange(lines, ourId);
             if (block == null) {
                 System.err.println("apply: block not found for " + ourId + " in " + ttl.getFileName());
+                misses++;
                 continue;
             }
             List<String> triples = new ArrayList<>();
@@ -345,10 +362,23 @@ public class ApplyCommand implements Runnable {
                 Files.write(ttl, String.join("\n", lines).concat("\n").getBytes());
             } catch (Exception e) {
                 System.err.println("apply: cannot write " + ttl + ": " + e.getMessage());
-                return new int[]{0, 0};
+                return new int[]{0, 0, misses};
+            }
+            // Safety net: re-parse what we just wrote; if the edit produced invalid TTL,
+            // restore the original bytes and abort so a corrupting edit can never persist.
+            try {
+                org.apache.jena.riot.RDFDataMgr.loadModel(ttl.toString());
+            } catch (RuntimeException re) {
+                try {
+                    Files.write(ttl, original);
+                } catch (Exception ignore) {
+                    // fall through to the abort below
+                }
+                throw new IllegalStateException("apply ABORTED — edit produced invalid TTL, restored "
+                        + ttl.getFileName() + ": " + re.getMessage(), re);
             }
         }
-        return new int[]{inserted, swapped};
+        return new int[]{inserted, swapped, misses};
     }
 
     /** Build a namespace→prefix map from the TTL's own @prefix declarations. */
