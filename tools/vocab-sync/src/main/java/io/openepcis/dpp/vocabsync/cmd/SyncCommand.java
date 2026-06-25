@@ -59,6 +59,14 @@ public class SyncCommand implements Runnable {
             description = "Parallel bulk-grading requests (passed to audit; raise for a cluster endpoint).")
     Integer concurrency;
 
+    @CommandLine.Option(names = "--max-candidates",
+            description = "Cap graded candidates per term (passed to audit; lower to trim the work-list).")
+    Integer maxCandidates;
+
+    @CommandLine.Option(names = "--min-cosine",
+            description = "Cosine gate for retrieved candidates (passed to audit; raise to trim the work-list).")
+    Double minCosine;
+
     @CommandLine.Option(names = "--push", defaultValue = "false",
             description = "Push the created branch to origin (default: leave it local for review).")
     boolean push;
@@ -98,6 +106,8 @@ public class SyncCommand implements Runnable {
         if (module != null) { auditArgs.add("--module"); auditArgs.add(module); }
         if (noQa) auditArgs.add("--no-qa");
         if (concurrency != null) { auditArgs.add("--concurrency"); auditArgs.add(concurrency.toString()); }
+        if (maxCandidates != null) { auditArgs.add("--max-candidates"); auditArgs.add(maxCandidates.toString()); }
+        if (minCosine != null) { auditArgs.add("--min-cosine"); auditArgs.add(minCosine.toString()); }
         System.err.println("sync: auditing " + (module == null ? "all modules" : module) + " …");
         if (exec(auditArgs) != 0) {
             System.err.println("sync: audit failed; aborting before apply.");
