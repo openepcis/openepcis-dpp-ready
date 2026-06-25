@@ -14,9 +14,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Disk-backed cache of grader verdicts, keyed by (chat-model, our-IRI, upstream-IRI).
- * Makes audit re-runs reproducible and ~free, and lets a long grading run resume after
- * an interruption. Thread-safe so the grading pass can run concurrently.
+ * Disk-backed cache of grader verdicts, keyed by (chat-model, our-IRI, upstream-IRI, content-sig).
+ * The content signature is a hash of what the grader actually saw (both terms' label, definition,
+ * domain/range, type); folding it into the key means an upstream definition edit that keeps the
+ * same IRI <em>invalidates</em> the cached verdict, so a scheduled re-run re-grades exactly the
+ * pairs whose content moved instead of serving a stale verdict. Makes re-runs reproducible and
+ * ~free for unchanged pairs, and lets a long grading run resume after an interruption. Thread-safe
+ * so the grading pass can run concurrently.
  */
 @ApplicationScoped
 public class VerdictCache {
@@ -35,30 +39,25 @@ public class VerdictCache {
 
     private Map<String, Verdict> cache;
 
-    public synchronized boolean has(String ourIri, String upIri) {
+    public synchronized Verdict get(String ourIri, String upIri, String contentSig) {
         ensureLoaded();
-        return cache.containsKey(key(chatModelName, ourIri, upIri));
+        return cache.get(key(chatModelName, ourIri, upIri, contentSig));
     }
 
-    public synchronized Verdict get(String ourIri, String upIri) {
+    public synchronized void put(String ourIri, String upIri, String contentSig, Verdict v) {
         ensureLoaded();
-        return cache.get(key(chatModelName, ourIri, upIri));
-    }
-
-    public synchronized void put(String ourIri, String upIri, Verdict v) {
-        ensureLoaded();
-        cache.put(key(chatModelName, ourIri, upIri), v);
+        cache.put(key(chatModelName, ourIri, upIri, contentSig), v);
     }
 
     /** Variant keyed by an explicit model tag — used by the QA pass (a different model). */
-    public synchronized Verdict get(String modelTag, String ourIri, String upIri) {
+    public synchronized Verdict get(String modelTag, String ourIri, String upIri, String contentSig) {
         ensureLoaded();
-        return cache.get(key(modelTag, ourIri, upIri));
+        return cache.get(key(modelTag, ourIri, upIri, contentSig));
     }
 
-    public synchronized void put(String modelTag, String ourIri, String upIri, Verdict v) {
+    public synchronized void put(String modelTag, String ourIri, String upIri, String contentSig, Verdict v) {
         ensureLoaded();
-        cache.put(key(modelTag, ourIri, upIri), v);
+        cache.put(key(modelTag, ourIri, upIri, contentSig), v);
     }
 
     public synchronized void save() {
@@ -72,8 +71,8 @@ public class VerdictCache {
         }
     }
 
-    private String key(String modelTag, String ourIri, String upIri) {
-        return modelTag + "\n" + ourIri + "\n" + upIri;
+    private String key(String modelTag, String ourIri, String upIri, String contentSig) {
+        return modelTag + "\n" + ourIri + "\n" + upIri + "\n" + (contentSig == null ? "" : contentSig);
     }
 
     private Path file() {

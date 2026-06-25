@@ -2,6 +2,7 @@ package io.openepcis.dpp.vocabsync;
 
 import io.openepcis.dpp.vocabsync.cmd.ApplyCommand;
 import io.openepcis.dpp.vocabsync.cmd.AuditCommand;
+import io.openepcis.dpp.vocabsync.cmd.BenchmarkCommand;
 import io.openepcis.dpp.vocabsync.cmd.FetchCommand;
 import io.openepcis.dpp.vocabsync.cmd.ManifestCommand;
 import io.openepcis.dpp.vocabsync.cmd.ProvenanceCommand;
@@ -9,6 +10,7 @@ import io.openepcis.dpp.vocabsync.cmd.RetrieveCommand;
 import io.openepcis.dpp.vocabsync.cmd.ReverseCommand;
 import io.openepcis.dpp.vocabsync.cmd.SmokeCommand;
 import io.openepcis.dpp.vocabsync.cmd.StatsCommand;
+import io.openepcis.dpp.vocabsync.cmd.SyncCommand;
 import io.quarkus.picocli.runtime.annotations.TopCommand;
 import picocli.CommandLine;
 
@@ -35,6 +37,8 @@ import picocli.CommandLine;
                 ReverseCommand.class,
                 ManifestCommand.class,
                 FetchCommand.class,
+                BenchmarkCommand.class,
+                SyncCommand.class,
         })
 public class VocabSync {
 }

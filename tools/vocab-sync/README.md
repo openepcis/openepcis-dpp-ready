@@ -44,6 +44,27 @@ upstream ─┘                              └─ embed (cached) ─┘       
   requests; the blocking AiService call runs on the Vert.x worker pool with declarative
   backoff retry (`onFailure().retry().withBackOff(…)`).
 
+## Why these model and floor defaults (measured)
+
+The bulk grader (`gpt-oss-20b`) and the 0.75 confidence floor were validated empirically with the
+`benchmark` subcommand against a published, human-curated graded-SKOS concordance (STW ↔ Wikidata).
+The pipeline, the model choices, and what made sense vs what didn't are documented in
+[`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md); the leaderboard and matrices are in
+[`docs/bench/skos-grader-benchmark.md`](../../docs/bench/skos-grader-benchmark.md).
+
+Headline findings (200 balanced gold pairs, identical production prompt, temperature 0):
+
+- **`gpt-oss-20b` ties the frontier ceiling** (52.0% exact-relation accuracy vs Claude Opus 52.5%)
+  at 5.6× the speed and zero parse failures — so the local bulk-grader default holds; you do not
+  need a hosted model for the high-volume pass.
+- **The confidence floor is volume control, not quality control.** For the bulk grader, "a relation
+  exists" is ~99% reliable at any confidence, but *which* graded relation is correct stays ~50%
+  regardless of confidence. So the floor trims the low-confidence tail (and routes those to
+  `rdfs:seeAlso`), while the **QA second pass**, not the floor, is what polices graded-relation
+  correctness. Keeping it around 0.75–0.80 is reasonable; raising it does not buy better grades.
+- **Prefer precision over size:** an 8-bit Qwen3-32B beats its own 4-bit by +4 points and a 4-bit
+  122B by six, reaching the ceiling. Reasoning-tuned models were slower and no more accurate.
+
 ## Run it
 
 Requires **JDK 25** (GraalVM CE) and an OpenAI-compatible LLM endpoint. Defaults target
@@ -68,6 +89,9 @@ Commands:
 | `reverse [--vocab V] [--min-cosine X]` | Reverse coverage: upstream terms with no incoming mapping that are embedding-near one of ours → `docs/skos-reverse-coverage.{md,json}`. |
 | `manifest [--qa-model M]` | Reproducibility manifest: models, parameters, upstream versions + cache hashes → `docs/alignment-run-manifest.json`. |
 | `fetch --from URL\|file --against cached [--save]` | Diff a refreshed upstream vocabulary against the cached copy (added/removed/changed terms) to decide when to re-audit. |
+| `fetch --all [--save]` | Refresh **every** configured upstream source (`vocab-sync.source.*.url`), diff each, and write `docs/skos-upstream-delta.json`. |
+| `sync [--module S] [--stamp D] [--force] [--no-apply] [--no-qa] [--push] [--min-qa-confidence X]` | The regular-run loop: refresh upstream → if moved, re-audit (only changed pairs hit the LLM) → apply QA-confirmed mappings to a `vocab-sync/upstream-<stamp>` branch. See [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md#running-it-regularly-the-sync-loop). |
+| `benchmark [--per-class N] [--models CSV] [--include-opus] [--max-tokens T] [--tag S]` | Benchmark LLMs on graded-SKOS classification against published STW↔Wikidata mappings; builds a balanced gold set, runs the field model-by-model (resumable JSONL log), and scores accuracy/F1/confusion/calibration → `docs/bench/`. |
 
 Typical loop:
 
@@ -111,11 +135,19 @@ export LLM_EMBED_MODEL=text-embedding-3-small
 Swapping the embedding model invalidates only that model's cached vectors (cache keys are
 namespaced by model id), so mixing vector spaces is impossible.
 
-### QA verifier model (point it at Claude Opus)
+### QA verifier model — local by default; Claude Opus optional (and unnecessary)
 
 The second-tier QA pass uses its own model config, independent of the bulk grader. Default
-is the local flagship (`qwen3.5-122b-a10b`). There are **two ways** to run the final QA with
-Claude Opus:
+is the **local flagship** (`qwen3.5-122b-a10b`, or `Qwen3-32B` 8-bit), so the whole chain runs
+locally with no API key and no data leaving the machine.
+
+> **Opus adds no measured benefit.** In the benchmark Opus scored 52.5% exact-relation accuracy,
+> statistically level with the local models (52.0–52.5%). A hosted QA pass buys no accuracy on this
+> task — only a cost, an external dependency, and data egress. Its only marginal value is
+> model-family independence, which pairing two *different local* models already gives. Keep it as an
+> option; default to local. See [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md).
+
+If you still want Opus in the QA slot, there are **two ways** to run it:
 
 **1. Claude API key (`--qa-provider openai`, the default transport).** Officially supported;
 billed pay-as-you-go via console.anthropic.com. Uses Anthropic's OpenAI-compatible endpoint:
@@ -153,12 +185,17 @@ finding the QA model confirms; `apply --confirmed-only` writes just those.
 ## Inputs
 
 - Our terms + existing SKOS: `extensions/*/*/ontology/*.ttl`.
-- Upstream term sets, two source kinds (see `UpstreamIndex`):
+- Upstream term sets, three source kinds (see `UpstreamIndex`):
   - **RDF** (real labels/comments, via Jena): GS1 + schema.org (`.cache/vocab/{gs1-voc.ttl,
-    schemaorg.ttl}`) and SEMICeu (`.cache/vocab/semic-{m8g,adms,locn}.jsonld`).
+    schemaorg.ttl}`), SEMICeu (`.cache/vocab/semic-{m8g,adms,locn}.jsonld`), and the in-repo
+    GS1 Rail vocabulary (`extensions/upstream/gs1-rail/ontology/gs1RailVoc.ttl`).
+  - **SAMM** (Eclipse ESMF aspect models): BatteryPass — `samm:Property`/`samm:Entity` with
+    `samm:preferredName`/`samm:description`, latest version per aspect from the sibling checkout
+    (`batterypass-root`).
   - **JSON-LD @context** (term→IRI, name-only, class/property guessed from casing): DPP
     Keystone (`.cache/vocab/dppk/*.context.jsonld`) and UNTP (the in-repo
     `interop/context/untp-bridge-context.jsonld`).
+  - Total ≈ 3,550 terms {gs1, schemaorg, semic, untp, dppk, rail, batterypass, foaf}.
 - **Existing-target seeding:** the audit also seeds the exact IRIs our TTLs already map to,
   so every current mapping can be re-graded (validation) even when its vocabulary has no
   machine-readable term set. This is what lets the report classify existing mappings as

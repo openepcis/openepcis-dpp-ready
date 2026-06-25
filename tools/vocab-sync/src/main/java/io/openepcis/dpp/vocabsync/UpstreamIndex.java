@@ -38,7 +38,7 @@ import java.util.stream.Stream;
 @ApplicationScoped
 public class UpstreamIndex {
 
-    enum Kind {RDF, CONTEXT}
+    enum Kind {RDF, CONTEXT, SAMM}
 
     /** One upstream source: id, the term namespace to keep, where, and how to read it. */
     record Source(String vocabId, String namespace, Path path, Kind kind, String prefix) {
@@ -48,6 +48,11 @@ public class UpstreamIndex {
 
         static Source context(String vocabId, String namespace, String prefix, Path path) {
             return new Source(vocabId, namespace, path, Kind.CONTEXT, prefix);
+        }
+
+        /** A SAMM (Eclipse ESMF) aspect model — samm:Property / samm:Entity with preferredName/description. */
+        static Source samm(String vocabId, String namespace, Path path) {
+            return new Source(vocabId, namespace, path, Kind.SAMM, null);
         }
     }
 
@@ -62,6 +67,11 @@ public class UpstreamIndex {
     @ConfigProperty(name = "vocab-sync.dppk-namespace") String dppkNamespace;
     @ConfigProperty(name = "vocab-sync.untp-context") String untpContext;
     @ConfigProperty(name = "vocab-sync.untp-namespace") String untpNamespace;
+    @ConfigProperty(name = "vocab-sync.rail-voc") String railVoc;
+    @ConfigProperty(name = "vocab-sync.batterypass-root") String batterypassRoot;
+
+    /** Term namespace prefix for the BatteryPass SAMM aspect models (all aspects share it). */
+    private static final String BATTERYPASS_NS = "urn:samm:io.BatteryPass";
 
     private List<UpstreamTerm> terms;
     private Map<String, UpstreamTerm> byIri;
@@ -102,6 +112,7 @@ public class UpstreamIndex {
         if (iri.startsWith("https://dpp-keystone.org/")) return "dppk";
         if (iri.contains("uncefact.org")) return "untp";
         if (iri.startsWith("https://gs1-epcis-reg.org/rail/")) return "rail";
+        if (iri.startsWith("urn:samm:io.BatteryPass")) return "batterypass";
         if (iri.startsWith("http://xmlns.com/foaf/")) return "foaf";
         return "other";
     }
@@ -128,8 +139,16 @@ public class UpstreamIndex {
         sources.add(Source.context("semic", "http://www.w3.org/ns/org#", "org", semicBridge));
         sources.add(Source.context("semic", "http://purl.org/vocab/cpsv#", "cpsv", semicBridge));
         sources.add(Source.context("foaf", "http://xmlns.com/foaf/0.1/", "foaf", semicBridge));
+        // GS1 Rail: index the full in-repo vocabulary mirror (a Layer-1 sectoral peer), not just the
+        // bridge context alias — so our terms can be aligned against the actual rail: terms.
+        sources.add(Source.rdf("rail", "https://gs1-epcis-reg.org/rail/voc/data#", root.resolve(railVoc)));
         sources.add(Source.context("rail", "https://gs1-epcis-reg.org/rail/voc/data#", "rail",
                 interop.resolve("rail-bridge-context.jsonld")));
+        // BatteryPass: Eclipse ESMF/SAMM aspect models (sibling checkout); index the latest version of
+        // each aspect as a discovery source for the battery / circularity / carbon-footprint concepts.
+        for (Path aspect : batteryPassAspects()) {
+            sources.add(Source.samm("batterypass", BATTERYPASS_NS, aspect));
+        }
 
         terms = new ArrayList<>();
         byIri = new HashMap<>();
@@ -140,6 +159,7 @@ public class UpstreamIndex {
             }
             int before = terms.size();
             if (s.kind() == Kind.RDF) loadRdf(s);
+            else if (s.kind() == Kind.SAMM) loadSamm(s);
             else loadContext(s);
             int added = terms.size() - before;
             if (added > 0) {
@@ -176,6 +196,99 @@ public class UpstreamIndex {
             String comment = RdfSupport.firstString(r, RDFS.comment, RdfSupport.SKOS_DEFINITION);
             add(new UpstreamTerm(s.vocabId(), r.getURI(), r.getLocalName(), label, comment, type, version));
         }
+    }
+
+    /**
+     * Load a SAMM (Eclipse ESMF) aspect model: {@code samm:Property} → a property term,
+     * {@code samm:Entity}/{@code samm:AbstractEntity} → a class term, with the label from
+     * {@code samm:preferredName} and the definition from {@code samm:description} (both @en-preferred,
+     * reusing {@link RdfSupport#firstString}). The samm meta-model namespace is read from the file's
+     * own {@code samm:} prefix so the loader is version-tolerant.
+     */
+    private void loadSamm(Source s) {
+        Model model = RDFDataMgr.loadModel(s.path().toString());
+        String samm = model.getNsPrefixURI("samm");
+        if (samm == null) samm = "urn:samm:org.eclipse.esmf.samm:meta-model:2.1.0#";
+        Resource cProperty = model.createResource(samm + "Property");
+        Resource cEntity = model.createResource(samm + "Entity");
+        Resource cAbstractEntity = model.createResource(samm + "AbstractEntity");
+        org.apache.jena.rdf.model.Property pName = model.createProperty(samm + "preferredName");
+        org.apache.jena.rdf.model.Property pDesc = model.createProperty(samm + "description");
+        ResIterator subjects = model.listSubjects();
+        while (subjects.hasNext()) {
+            Resource r = subjects.next();
+            if (r.isAnon() || r.getURI() == null || !r.getURI().startsWith(s.namespace())) continue;
+            TermType type;
+            if (r.hasProperty(RDF.type, cProperty)) {
+                type = TermType.PROPERTY;
+            } else if (r.hasProperty(RDF.type, cEntity) || r.hasProperty(RDF.type, cAbstractEntity)) {
+                type = TermType.CLASS;
+            } else {
+                continue;
+            }
+            if (byIri.containsKey(r.getURI())) continue;
+            String label = RdfSupport.firstString(r, pName);
+            String comment = RdfSupport.firstString(r, pDesc);
+            add(new UpstreamTerm(s.vocabId(), r.getURI(), RdfSupport.localOf(r.getURI()), label, comment,
+                    type, sammVersion(r.getURI())));
+        }
+    }
+
+    /** Latest-version aspect .ttl files under the BatteryPass sibling checkout (empty if absent). */
+    private List<Path> batteryPassAspects() {
+        Path base = Path.of(batterypassRoot).resolve("BatteryPass");
+        if (!Files.isDirectory(base)) return List.of();
+        List<Path> out = new ArrayList<>();
+        try (Stream<Path> aspects = Files.list(base)) {
+            for (Path aspect : aspects.filter(Files::isDirectory).sorted().toList()) {
+                Path latest = latestVersion(aspect);
+                if (latest == null) continue;
+                try (Stream<Path> files = Files.list(latest)) {
+                    files.filter(p -> p.getFileName().toString().endsWith(".ttl")).sorted().forEach(out::add);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("upstream: BatteryPass scan failed: " + e.getMessage());
+        }
+        return out;
+    }
+
+    /** Pick the highest semver-ish version subdirectory (e.g. 1.2.1 over 1.2.0 over 1.0.0). */
+    private static Path latestVersion(Path aspectDir) {
+        try (Stream<Path> vers = Files.list(aspectDir)) {
+            return vers.filter(Files::isDirectory)
+                    .max(java.util.Comparator.comparing(p -> p.getFileName().toString(),
+                            UpstreamIndex::compareVersions))
+                    .orElse(null);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private static int compareVersions(String a, String b) {
+        String[] pa = a.split("\\."), pb = b.split("\\.");
+        for (int i = 0; i < Math.max(pa.length, pb.length); i++) {
+            int x = i < pa.length ? parseIntSafe(pa[i]) : 0;
+            int y = i < pb.length ? parseIntSafe(pb[i]) : 0;
+            if (x != y) return Integer.compare(x, y);
+        }
+        return 0;
+    }
+
+    private static int parseIntSafe(String s) {
+        try {
+            return Integer.parseInt(s.replaceAll("\\D", "").isEmpty() ? "0" : s.replaceAll("\\D", ""));
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    /** Extract the version segment from a SAMM term IRI like urn:samm:io.BatteryPass.X:1.2.0#term. */
+    private static String sammVersion(String iri) {
+        int hash = iri.indexOf('#');
+        String head = hash >= 0 ? iri.substring(0, hash) : iri;
+        int colon = head.lastIndexOf(':');
+        return colon >= 0 && colon < head.length() - 1 ? head.substring(colon + 1) : null;
     }
 
     /** Parse a JSON-LD @context: each entry resolving to {prefix}:local in the namespace. */

@@ -1,6 +1,8 @@
 package io.openepcis.dpp.vocabsync.cmd;
 
 import io.openepcis.dpp.vocabsync.RdfSupport;
+import io.openepcis.dpp.vocabsync.UpstreamRefresh;
+import jakarta.inject.Inject;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ResIterator;
 import org.apache.jena.rdf.model.Resource;
@@ -32,13 +34,24 @@ import java.util.TreeSet;
                 + "(added/removed/changed terms). Use --from URL|file; --against the cached file.")
 public class FetchCommand implements Runnable {
 
+    @Inject UpstreamRefresh refresh;
+
     @ConfigProperty(name = "vocab-sync.repo-root") String repoRoot;
 
-    @CommandLine.Option(names = "--from", required = true,
-            description = "New version: an http(s) URL or a local file path (TTL/JSON-LD).")
+    @CommandLine.Option(names = "--all", defaultValue = "false",
+            description = "Refresh every configured upstream source (see application.properties), diff each "
+                    + "vs its cache, and write a structured delta JSON. Ignores --from/--against.")
+    boolean all;
+
+    @CommandLine.Option(names = "--delta-out", defaultValue = "docs/skos-upstream-delta.json",
+            description = "Where --all writes the machine-readable delta (repo-relative).")
+    String deltaOut;
+
+    @CommandLine.Option(names = "--from",
+            description = "New version: an http(s) URL or a local file path (TTL/JSON-LD). Required without --all.")
     String from;
 
-    @CommandLine.Option(names = "--against", required = true,
+    @CommandLine.Option(names = "--against",
             description = "Cached file to diff against (repo-relative), e.g. .cache/vocab/gs1-voc.ttl.")
     String against;
 
@@ -53,6 +66,14 @@ public class FetchCommand implements Runnable {
     @Override
     public void run() {
         Path root = Path.of(repoRoot).normalize();
+        if (all) {
+            runAll(root);
+            return;
+        }
+        if (from == null || against == null) {
+            System.err.println("fetch: provide --from and --against, or use --all.");
+            return;
+        }
         Path cached = root.resolve(against).normalize();
         if (!Files.isReadable(cached)) {
             System.err.println("fetch: cached file not readable: " + cached);
@@ -98,6 +119,26 @@ public class FetchCommand implements Runnable {
                 System.err.println("  save failed: " + e.getMessage());
             }
         }
+    }
+
+    /** Refresh every configured source, diff vs cache, write the delta JSON, print a summary. */
+    private void runAll(Path root) {
+        UpstreamRefresh.RefreshResult r = refresh.refreshAll(save);
+        Path out = root.resolve(deltaOut).normalize();
+        refresh.writeDelta(r, out, null);
+        System.out.printf("%nfetch --all (save=%s):%n", save);
+        for (UpstreamRefresh.SourceDelta d : r.sources()) {
+            if (d.error() != null) {
+                System.out.printf("  %-12s ERROR %s%n", d.name(), d.error());
+            } else {
+                System.out.printf("  %-12s old %d → new %d   +%d -%d ~%d%s%n", d.name(),
+                        d.oldCount(), d.newCount(), d.added().size(), d.removed().size(),
+                        d.changed().size(), d.saved() ? "  (saved)" : "");
+            }
+        }
+        System.out.println(r.moved()
+                ? "  → upstream moved: re-audit recommended (see " + deltaOut + ")."
+                : "  → no change.");
     }
 
     /** Term IRI → "label|comment" signature, for class/property terms (optionally namespace-filtered). */

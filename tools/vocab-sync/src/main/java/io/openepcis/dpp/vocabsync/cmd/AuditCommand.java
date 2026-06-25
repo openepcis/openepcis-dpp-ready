@@ -81,8 +81,13 @@ public class AuditCommand implements Runnable {
             description = "Hard cap on graded candidates per term (exact-name + existing exempt).")
     int maxCandidates;
 
+    // Default 2 is the safe value with langchain4j's JDK HttpClient, which negotiates HTTP/2 to LM
+    // Studio and stalls under sustained parallelism (the benchmark hit the same wall and pinned
+    // HTTP/1.1; see docs/AI_PIPELINE.md "Runtime"). Once the grading path is on HTTP/1.1 this can be
+    // raised toward LM Studio's parallel slots (gpt-oss-20b loads with 4). The content-aware verdict
+    // cache means a regular re-run grades only changed pairs, so this rarely bites in practice.
     @CommandLine.Option(names = "--concurrency", defaultValue = "2",
-            description = "Parallel grading requests to the LLM endpoint (LM Studio 500s above ~2 sustained).")
+            description = "Parallel grading requests to the LLM endpoint (raise once HTTP/1.1 is pinned).")
     int concurrency;
 
     @CommandLine.Option(names = "--retries", defaultValue = "4",
@@ -258,7 +263,8 @@ public class AuditCommand implements Runnable {
         if (t == null || up == null) return Uni.createFrom().item(f);
         boolean cli = "claude-cli".equalsIgnoreCase(qaProvider);
         String modelTag = cli ? qaCliModel : qaModelName;
-        Verdict cached = verdicts.get(modelTag, f.ourIri(), f.upstreamIri());
+        String sig = contentSig(t, up);
+        Verdict cached = verdicts.get(modelTag, f.ourIri(), f.upstreamIri(), sig);
         Uni<Verdict> vu;
         if (cached != null) {
             vu = Uni.createFrom().item(cached);
@@ -279,7 +285,7 @@ public class AuditCommand implements Runnable {
             vu = raw
                     .onFailure().retry().withBackOff(Duration.ofMillis(500), Duration.ofSeconds(8))
                         .atMost(Math.max(1, retries))
-                    .onItem().invoke(v -> verdicts.put(modelTag, f.ourIri(), f.upstreamIri(), v))
+                    .onItem().invoke(v -> verdicts.put(modelTag, f.ourIri(), f.upstreamIri(), sig, v))
                     .onFailure().recoverWithItem(e ->
                             new Verdict(Verdict.Relation.NONE, 0, "qa failed: " + e.getMessage()));
         }
@@ -342,7 +348,8 @@ public class AuditCommand implements Runnable {
      * terminal failure leaves the pair ungraded for the next run to retry.
      */
     private Uni<Verdict> gradeCachedUni(OurTerm t, UpstreamTerm up) {
-        Verdict cached = verdicts.get(t.iri(), up.iri());
+        String sig = contentSig(t, up);
+        Verdict cached = verdicts.get(t.iri(), up.iri(), sig);
         if (cached != null) return Uni.createFrom().item(cached);
         // langchain4j's structured-output AiService is blocking, so run it as a deferred
         // Uni on the worker pool. merge(concurrency) upstream bounds how many run at once.
@@ -354,7 +361,7 @@ public class AuditCommand implements Runnable {
                 .onFailure().retry()
                     .withBackOff(Duration.ofMillis(500), Duration.ofSeconds(8))
                     .atMost(Math.max(1, retries))
-                .onItem().invoke(v -> verdicts.put(t.iri(), up.iri(), v))
+                .onItem().invoke(v -> verdicts.put(t.iri(), up.iri(), sig, v))
                 .onFailure().recoverWithItem(e ->
                         new Verdict(Verdict.Relation.NONE, 0, "grade failed: " + e.getMessage()));
     }
@@ -418,5 +425,25 @@ public class AuditCommand implements Runnable {
 
     private static String nz(String s) {
         return s == null ? "(none)" : s;
+    }
+
+    /**
+     * Fingerprint of everything the grader sees for a pair except the IRIs (which are already in the
+     * cache key). Folding this into the verdict key means an upstream definition/label/domain edit
+     * that keeps the same IRI invalidates the cached verdict, so a re-run re-grades only moved pairs.
+     */
+    private static String contentSig(OurTerm t, UpstreamTerm up) {
+        String raw = String.join("\u0001",
+                t.type().label(), nz(t.label()), nz(t.comment()), nz(t.domain()), nz(t.range()),
+                up.type().label(), nz(up.label()), nz(up.comment()));
+        try {
+            byte[] h = java.security.MessageDigest.getInstance("SHA-1")
+                    .digest(raw.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+            StringBuilder sb = new StringBuilder(16);
+            for (int i = 0; i < 8; i++) sb.append(String.format("%02x", h[i]));
+            return sb.toString();
+        } catch (java.security.NoSuchAlgorithmException e) {
+            return Integer.toHexString(raw.hashCode());
+        }
     }
 }
