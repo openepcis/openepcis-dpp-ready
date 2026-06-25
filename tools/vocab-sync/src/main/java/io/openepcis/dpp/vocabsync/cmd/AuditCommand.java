@@ -106,6 +106,12 @@ public class AuditCommand implements Runnable {
             description = "Parallel QA requests (the flagship model is large; keep low).")
     int qaConcurrency;
 
+    @CommandLine.Option(names = "--qa-judges", defaultValue = "3",
+            description = "QA panel size: N blind judges (distinct lenses) vote; a strict majority that "
+                    + "matches the bulk relation is STRONG, an existence-only agreement is WEAK "
+                    + "(applied as closeMatch), a NONE majority is REJECT, no majority is SPLIT (review).")
+    int qaJudges;
+
     @CommandLine.Option(names = "--qa-provider", defaultValue = "openai",
             description = "QA backend: 'openai' (HTTP, needs API key for Claude) or 'claude-cli' "
                     + "(shells out to `claude -p`, uses your Claude subscription login).")
@@ -210,12 +216,12 @@ public class AuditCommand implements Runnable {
             List<Finding> toQa = findings.stream().filter(f -> f.confidence() >= qaMinConfidence).toList();
             String qaLabel = "claude-cli".equalsIgnoreCase(qaProvider)
                     ? qaCliModel + " (claude -p)" : qaModelName;
-            System.err.printf("QA: verifying %d / %d findings with %s%n",
-                    toQa.size(), findings.size(), qaLabel);
+            System.err.printf("QA: verifying %d / %d findings with a %d-judge blind panel on %s%n",
+                    toQa.size(), findings.size(), selectedLenses().size(), qaLabel);
             AtomicInteger qd = new AtomicInteger();
             int qaTotal = toQa.size();
             List<Finding> verified = Multi.createFrom().iterable(toQa)
-                    .onItem().transformToUni(f -> qaVerifyUni(f, ourByIri.get(f.ourIri()),
+                    .onItem().transformToUni(f -> qaPanelUni(f, ourByIri.get(f.ourIri()),
                             upstreamIndex.get(f.upstreamIri()))
                             .onItem().transform(vf -> {
                                 int n = qd.incrementAndGet();
@@ -246,69 +252,136 @@ public class AuditCommand implements Runnable {
             by.put(s, findings.stream().filter(x -> x.status() == s).count());
         }
         long confirmed = findings.stream().filter(f -> Boolean.TRUE.equals(f.confirmed())).count();
+        String qaSummary = "";
+        if (qa) {
+            Map<String, Long> byTier = new java.util.TreeMap<>();
+            for (Finding f : findings) {
+                if (f.qaTier() != null) byTier.merge(f.qaTier(), 1L, Long::sum);
+            }
+            qaSummary = "  (QA-confirmed=" + confirmed + " " + byTier + ")";
+        }
         System.out.printf("%naudit complete: %d findings  MISSING=%d WEAK=%d WRONG=%d OK=%d%s%n",
                 findings.size(), by.get(Finding.Status.MISSING), by.get(Finding.Status.WEAK),
-                by.get(Finding.Status.WRONG), by.get(Finding.Status.OK),
-                qa ? "  (QA-confirmed=" + confirmed + ")" : "");
+                by.get(Finding.Status.WRONG), by.get(Finding.Status.OK), qaSummary);
         System.out.println("report: " + md);
         System.out.println("json:   " + json);
     }
 
+    /** Distinct QA lenses; a panel of these (run blind) gives decorrelated votes from the QA model. */
+    private static final List<String[]> QA_LENSES = List.of(
+            new String[]{"scope", "Lens: compare the DEFINITIONS' scope — are the two concepts the same, "
+                    + "strongly overlapping, or does one fully contain the other?"},
+            new String[]{"direction", "Lens: focus on HIERARCHY — is OUR term broader than, narrower than, "
+                    + "or equal in scope to the upstream term? Choose BROAD/NARROW only if one genuinely "
+                    + "subsumes the other."},
+            new String[]{"skeptic", "Lens: be a strict skeptic — default to NONE unless the concepts are "
+                    + "genuinely the same or clearly overlapping; a similar label with a differing definition, "
+                    + "domain, or range is NONE."},
+            new String[]{"neutral", "Lens: weigh definition, domain, and range together and choose the single "
+                    + "best relation."});
+
+    /** N distinct lenses (capped at the available set — extra judges at temperature 0 only duplicate). */
+    private List<String[]> selectedLenses() {
+        int n = Math.min(Math.max(1, qaJudges), QA_LENSES.size());
+        return QA_LENSES.subList(0, n);
+    }
+
     /**
-     * QA-verify one finding with the second-tier model. A cache hit resolves immediately;
-     * otherwise the QA grader runs on the worker pool with backoff retry. {@code confirmed}
-     * means the QA relation exactly matches the bulk-proposed relation.
+     * QA panel: run {@code --qa-judges} blind judges (distinct lenses, NOT shown the bulk proposal) and
+     * {@link #reconcile} their votes against the bulk relation into a two-tier verdict. Each judge is
+     * cached by {@code (qa-model|lens, ourIri, upIri, contentSig)}; the judges for a finding run together
+     * and the blocking HTTP calls go on the worker pool. The outer merge bounds findings in flight.
      */
-    private Uni<Finding> qaVerifyUni(Finding f, OurTerm t, UpstreamTerm up) {
+    private Uni<Finding> qaPanelUni(Finding f, OurTerm t, UpstreamTerm up) {
         if (t == null || up == null) return Uni.createFrom().item(f);
         boolean cli = "claude-cli".equalsIgnoreCase(qaProvider);
-        String modelTag = cli ? qaCliModel : qaModelName;
         String sig = contentSig(t, up);
-        Verdict cached = verdicts.get(modelTag, f.ourIri(), f.upstreamIri(), sig);
-        Uni<Verdict> vu;
-        if (cached != null) {
-            vu = Uni.createFrom().item(cached);
-        } else {
-            // claude-cli is already non-blocking (Process.onExit → Uni); the HTTP grader is
-            // blocking, so it runs on the worker pool. Both share retry/cache/recover below.
-            Uni<Verdict> raw;
-            if (cli) {
-                raw = claudeCli.runAsync(QA_SYSTEM, qaUserPrompt(f, t, up), qaCliModel, 300);
-            } else {
-                raw = Uni.createFrom().item((Supplier<Verdict>) () -> qaGrader.verify(
-                                t.prefixedId(), t.type().label(), nz(t.label()), nz(t.comment()),
-                                nz(t.domain()), nz(t.range()), up.vocabId(), up.iri(), up.type().label(),
-                                nz(up.label()), nz(up.comment()),
-                                f.relation().name(), nz(f.rationale())))
-                        .runSubscriptionOn(Infrastructure.getDefaultWorkerPool());
+        List<Uni<Verdict>> judges = new ArrayList<>();
+        for (String[] lens : selectedLenses()) {
+            String lensId = lens[0], lensText = lens[1];
+            String modelTag = (cli ? qaCliModel : qaModelName) + "|" + lensId;
+            Verdict cached = verdicts.get(modelTag, f.ourIri(), f.upstreamIri(), sig);
+            if (cached != null) {
+                judges.add(Uni.createFrom().item(cached));
+                continue;
             }
-            vu = raw
+            Uni<Verdict> raw = cli
+                    ? claudeCli.runAsync(QA_BLIND_SYSTEM, qaBlindUserPrompt(lensText, t, up), qaCliModel, 300)
+                    : Uni.createFrom().item((Supplier<Verdict>) () -> qaGrader.judgeBlind(
+                                    lensText, t.prefixedId(), t.type().label(), nz(t.label()), nz(t.comment()),
+                                    nz(t.domain()), nz(t.range()), up.vocabId(), up.iri(), up.type().label(),
+                                    nz(up.label()), nz(up.comment())))
+                            .runSubscriptionOn(Infrastructure.getDefaultWorkerPool());
+            judges.add(raw
                     .onFailure().retry().withBackOff(Duration.ofMillis(500), Duration.ofSeconds(8))
                         .atMost(Math.max(1, retries))
                     .onItem().invoke(v -> verdicts.put(modelTag, f.ourIri(), f.upstreamIri(), sig, v))
                     .onFailure().recoverWithItem(e ->
-                            new Verdict(Verdict.Relation.NONE, 0, "qa failed: " + e.getMessage()));
+                            new Verdict(Verdict.Relation.NONE, 0, "qa failed: " + e.getMessage())));
         }
-        return vu.onItem().transform(qv ->
-                f.withQa(qv.relation(), qv.confidence(), qv.rationale(), qv.relation() == f.relation()));
+        return Uni.join().all(judges).andFailFast().onItem().transform(votes -> {
+            Recon r = reconcile(f.relation(), votes);
+            return f.withQaPanel(r.relation(), r.confidence(), r.rationale(), r.tier(), r.predicate());
+        });
     }
 
-    /** QA verifier instructions for the claude-cli path (mirrors {@link QaGrader}'s system prompt). */
-    private static final String QA_SYSTEM = """
-            You are the senior QA reviewer for cross-vocabulary term alignment in a Digital
-            Product Passport ontology. A first-pass grader proposed a graded-SKOS relation
-            between OUR term and ONE upstream term. Independently decide the correct relation
-            from OUR term's perspective; do not defer to the first pass. Be stricter than it.
-            Relations: EXACT (interchangeable), CLOSE (overlapping not identical), BROAD (ours
-            is broader), NARROW (ours is narrower), NONE (not the same concept; reject). Judge
-            meaning not name similarity; a class matches only a class, a property only a
-            property; when uncertain prefer the weaker grade or NONE.
+    /** Panel outcome: the gating tier, the panel-consensus relation, its confidence, and the predicate to write. */
+    record Recon(String tier, Verdict.Relation relation, double confidence, String rationale, String predicate) {
+    }
+
+    /**
+     * Reconcile a panel of blind votes against the bulk relation into a two-tier verdict:
+     * STRONG (strict majority equals the bulk relation → write that relation), WEAK (majority is a
+     * different non-NONE relation → existence agreed but not the grade → write skos:closeMatch),
+     * REJECT (majority NONE), SPLIT (no strict majority → leave for review). Pure for unit testing.
+     */
+    static Recon reconcile(Verdict.Relation bulk, List<Verdict> votes) {
+        int k = votes.size();
+        Map<Verdict.Relation, Integer> tally = new java.util.EnumMap<>(Verdict.Relation.class);
+        Map<Verdict.Relation, Double> confSum = new java.util.EnumMap<>(Verdict.Relation.class);
+        for (Verdict v : votes) {
+            tally.merge(v.relation(), 1, Integer::sum);
+            confSum.merge(v.relation(), v.confidence(), Double::sum);
+        }
+        Verdict.Relation maj = null;
+        int best = 0;
+        for (var e : tally.entrySet()) {
+            if (e.getValue() > best) { best = e.getValue(); maj = e.getKey(); }
+        }
+        String tallyStr = tally.toString();
+        if (maj == null || best * 2 <= k) {
+            return new Recon("SPLIT", Verdict.Relation.NONE, 0, "panel split " + tallyStr, null);
+        }
+        double conf = confSum.get(maj) / best;
+        if (maj == Verdict.Relation.NONE) {
+            return new Recon("REJECT", Verdict.Relation.NONE, conf, "panel majority NONE " + tallyStr, null);
+        }
+        if (maj == bulk) {
+            return new Recon("STRONG", maj, conf, "panel agrees " + tallyStr, maj.predicate());
+        }
+        return new Recon("WEAK", maj, conf,
+                "panel agrees a relation but not the grade (bulk " + bulk + ") " + tallyStr,
+                Verdict.Relation.CLOSE.predicate());
+    }
+
+    /** Blind QA-judge instructions for the claude-cli path (mirrors {@link QaGrader#judgeBlind}). */
+    private static final String QA_BLIND_SYSTEM = """
+            You are a senior reviewer aligning terms from a Digital Product Passport ontology to an
+            upstream vocabulary. Decide the single best graded-SKOS relation between OUR term and ONE
+            upstream term, judged from OUR term's perspective: EXACT (interchangeable), CLOSE
+            (overlapping not identical), BROAD (ours is broader), NARROW (ours is narrower), NONE (not
+            the same concept). Judge meaning not name similarity; a class matches only a class, a
+            property only a property; when uncertain between two grades choose the weaker, and when
+            uncertain it is a match at all return NONE.
             Respond with ONLY a JSON object, no prose:
             {"relation":"EXACT|CLOSE|BROAD|NARROW|NONE","confidence":0.0,"rationale":"one sentence"}
             """;
 
-    private String qaUserPrompt(Finding f, OurTerm t, UpstreamTerm up) {
+    /** Blind user prompt for a panel judge: the lens directive + the two terms, with NO bulk proposal. */
+    private String qaBlindUserPrompt(String lens, OurTerm t, UpstreamTerm up) {
         return """
+                %s
+
                 OUR TERM
                   id: %s
                   type: %s
@@ -323,15 +396,10 @@ public class AuditCommand implements Runnable {
                   type: %s
                   label: %s
                   definition: %s
-
-                FIRST-PASS PROPOSAL (verify or correct)
-                  relation: %s
-                  rationale: %s
-                """.formatted(
+                """.formatted(lens,
                 t.prefixedId(), t.type().label(), nz(t.label()), nz(t.comment()),
                 nz(t.domain()), nz(t.range()),
-                up.vocabId(), up.iri(), up.type().label(), nz(up.label()), nz(up.comment()),
-                f.relation().name(), nz(f.rationale()));
+                up.vocabId(), up.iri(), up.type().label(), nz(up.label()), nz(up.comment()));
     }
 
     private double scoreOf(OurTerm t, UpstreamTerm up) {
@@ -381,7 +449,7 @@ public class AuditCommand implements Runnable {
                 return new Finding(t.moduleSlug(), t.prefixedId(), t.type().label(), t.iri(),
                         up.vocabId(), up.iri(), up.label(), Verdict.Relation.NONE, null,
                         v.confidence(), cosine, v.rationale(), Finding.Status.WRONG, gradedExisting,
-                        null, null, null, null);
+                        null, null, null, null, null);
             }
             return null;
         }
@@ -400,7 +468,7 @@ public class AuditCommand implements Runnable {
         return new Finding(t.moduleSlug(), t.prefixedId(), t.type().label(), t.iri(),
                 up.vocabId(), up.iri(), up.label(), v.relation(), v.relation().predicate(),
                 v.confidence(), cosine, v.rationale(), status, existingPred,
-                null, null, null, null);
+                null, null, null, null, null);
     }
 
     /** A predicate counts as a graded assertion (vs informational seeAlso). */

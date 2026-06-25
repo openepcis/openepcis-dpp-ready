@@ -37,9 +37,16 @@ upstream ─┘                              └─ embed (cached) ─┘       
    self-reported confidence and a one-sentence rationale. Verdicts are cached by
    `(model, ourIri, upstreamIri)`, so re-runs are reproducible and a long run resumes after an
    interruption.
-4. **QA verify** (`QaGrader`, a second AiService on its own model). A stronger model independently
-   re-judges every finding, seeing the first pass's proposal, and either confirms (`✓`) or
-   overturns (`✗`) it. This is the real quality gate (see the findings).
+4. **QA verify — a blind, multi-judge panel with a two-tier gate** (`QaGrader.judgeBlind`,
+   `AuditCommand.reconcile`). A stronger model judges each finding under `--qa-judges` (default 3)
+   decorrelated *lenses* (definition-scope, subsumption-direction, strict-skeptic), **blind** — none
+   of them sees the bulk proposal, so they cannot anchor on it. Their votes reconcile against the
+   bulk relation into a tier: **STRONG** (strict majority equals the bulk relation → write that
+   relation), **WEAK** (majority is a different non-NONE relation → existence agreed but not the
+   grade → write `skos:closeMatch`), **REJECT** (majority NONE → drop), **SPLIT** (no majority →
+   leave for human review). This is the real quality gate. It exploits the benchmark's key
+   asymmetry — "is there a relation?" is reliable, "which graded relation?" is not — so a
+   grade-uncertain pair is salvaged as a safe `closeMatch` instead of discarded.
 5. **Diff & classify.** Each graded pair is compared with the SKOS already in the TTL and labelled
    MISSING / WEAK / WRONG / OK.
 6. **Gated apply.** Dry-run by default. Below the confidence floor an add is emitted as

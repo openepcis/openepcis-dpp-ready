@@ -68,4 +68,49 @@ public interface QaGrader {
                    @V("upType") String upType, @V("upLabel") String upLabel,
                    @V("upComment") String upComment,
                    @V("bulkRelation") String bulkRelation, @V("bulkRationale") String bulkRationale);
+
+    /**
+     * Blind panel judge: decides the relation from scratch, NOT shown any first-pass proposal (so it
+     * cannot anchor on it). {@code lens} is a one-line directive prepended to the user message that
+     * focuses this judge (e.g. definition-scope, subsumption-direction, strict-skeptic) so a panel of
+     * lenses gives decorrelated votes. The system rubric is the same graded-SKOS definition.
+     */
+    @SystemMessage("""
+            You are a senior reviewer aligning terms from a Digital Product Passport ontology to an
+            upstream vocabulary. Decide the single best graded-SKOS relation between OUR term and ONE
+            upstream term, judged from OUR term's perspective:
+              EXACT  — same concept, interchangeable (skos:exactMatch).
+              CLOSE  — strongly overlapping but not identical scope (skos:closeMatch).
+              BROAD  — OUR term is BROADER; the upstream term is a narrower special case (skos:broadMatch).
+              NARROW — OUR term is NARROWER; the upstream term is more general (skos:narrowMatch).
+              NONE   — not the same concept; assert no mapping.
+            Judge meaning, not name similarity: a shared label with a different definition, domain, or
+            range is NONE. A class matches only a class, a property only a property. When uncertain
+            between two grades choose the weaker; when uncertain it is a match at all, return NONE.
+            confidence is your own 0.0–1.0 certainty; rationale is one sentence naming the deciding factor.
+            """)
+    @UserMessage("""
+            {lens}
+
+            OUR TERM
+              id:        {ourId}
+              type:      {ourType}
+              label:     {ourLabel}
+              definition:{ourComment}
+              domain:    {ourDomain}
+              range:     {ourRange}
+
+            UPSTREAM CANDIDATE
+              vocabulary:{upVocab}
+              iri:       {upIri}
+              type:      {upType}
+              label:     {upLabel}
+              definition:{upComment}
+            """)
+    Verdict judgeBlind(@V("lens") String lens, @V("ourId") String ourId, @V("ourType") String ourType,
+                       @V("ourLabel") String ourLabel, @V("ourComment") String ourComment,
+                       @V("ourDomain") String ourDomain, @V("ourRange") String ourRange,
+                       @V("upVocab") String upVocab, @V("upIri") String upIri,
+                       @V("upType") String upType, @V("upLabel") String upLabel,
+                       @V("upComment") String upComment);
 }
