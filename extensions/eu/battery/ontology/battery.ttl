@@ -6,7 +6,7 @@
 @prefix eubat: <https://ref.openepcis.io/extensions/eu/battery/> .
 @prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
 # UNTP namespace references for semantic alignment
-@prefix untp: <https://vocabulary.uncefact.org/untp/0.7.0/> .
+@prefix untp: <https://vocabulary.uncefact.org/untp/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 # DPP Keystone (dpp-keystone.org), a peer DPP profile this module aligns with.
@@ -113,11 +113,9 @@ eubat:BatteryMaterial
     rdfs:label "Battery Material"@en ;
     rdfs:comment "A material used in battery construction with its composition percentage, CAS/EC identifiers, and sourcing information."@en ;
     rdfs:seeAlso oec:MaterialComposition ;
-    rdfs:seeAlso untp:Material ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:narrowMatch untp:Material ;
     skos:narrowMatch schema:Substance .
 
 eubat:RecycledContent
@@ -3247,9 +3245,5 @@ eubat:negativeEvents
 
 eubat:CarbonFootprintDeclaration  rdfs:subClassOf oec:CarbonFootprintDeclaration .
 
-# Battery lifecycle status enum values align to UNTP ProductStatus.
-eubat:Reused          skos:closeMatch untp:ProductStatus-repaired .
-eubat:Repurposed      skos:closeMatch untp:ProductStatus-recycled .
-eubat:Remanufactured  skos:closeMatch untp:ProductStatus-repaired .
-eubat:Waste           skos:closeMatch untp:ProductStatus-disposed .
-eubat:Original        skos:closeMatch untp:ProductStatus-new .
+# Battery lifecycle status enum values: no UNTP ProductStatus code list exists upstream
+# (the prior UNTP ProductStatus code-list targets were fabricated); re-propose against real UNTP if/when added.

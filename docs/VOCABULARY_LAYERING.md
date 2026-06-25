@@ -207,7 +207,7 @@ reference), and a product description still flows through `gs1:` /
    cross-web data models. Where they have a term, we adopt it; the
    published IRIs (`schema:Product`, `gs1:gtin`,
    `http://data.europa.eu/m8g/PublicOrganisation`,
-   `vocabulary.uncefact.org/untp/0.7.0/Party`, …) are canonical and
+   `vocabulary.uncefact.org/untp/Party`, …) are canonical and
    tooling that recognises any of these vocabularies automatically
    understands our data.
 2. **Module thinness drives audit clarity.** A reviewer looking at PPWR

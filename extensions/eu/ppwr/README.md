@@ -105,5 +105,5 @@ Apache License 2.0 — see LICENSE file in repository root.
 
 - [EU Regulation 2025/40 (PPWR) full text](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040)
 - [ESPR 2024/1781](https://eur-lex.europa.eu/eli/reg/2024/1781)
-- [UNTP Core Vocabulary v0.7.0](https://vocabulary.uncefact.org/untp/0.7.0/) (used for `untp:ProductStatus`, `untp:Facility`)
+- [UNTP Core Vocabulary v0.7.0](https://vocabulary.uncefact.org/untp/) (used for `untp:Facility`)
 - [Single-Use Plastics Directive 2019/904](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32019L0904) (substance restrictions overlap)

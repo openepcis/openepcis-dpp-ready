@@ -106,6 +106,6 @@ Apache License 2.0 — see LICENSE file in repository root.
 - [EU Regulation 2024/3110 (revised CPR) full text](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110)
 - [ESPR 2024/1781](https://eur-lex.europa.eu/eli/reg/2024/1781)
 - [EN 13501-1 (Reaction to fire classification)](https://standards.cencenelec.eu/dyn/www/f?p=205:110::::::FSP_PROJECT,FSP_ORG_ID:38901,5839)
-- [UNTP Core Vocabulary v0.7.0](https://vocabulary.uncefact.org/untp/0.7.0/)
+- [UNTP Core Vocabulary v0.7.0](https://vocabulary.uncefact.org/untp/)
 - [`docs/VOCABULARY_LAYERING.md`](../../../docs/VOCABULARY_LAYERING.md) — how this
   module fits into the four-layer delegation pattern.

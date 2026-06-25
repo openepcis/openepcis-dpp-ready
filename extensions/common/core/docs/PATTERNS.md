@@ -6,7 +6,7 @@ This document describes the reusable patterns in the DPP Core module that can be
 > four-layer delegation pattern (regulation modules → `oec:` → UNTP/schema.org → GS1).
 > The patterns below are at Layer 3 (`oec:`); most are anchored upward via
 > a graded SKOS mapping relation (`skos:exactMatch` / `skos:closeMatch` / `skos:broadMatch`) to a Layer-2 term in UNTP v0.7.0
-> (`vocabulary.uncefact.org/untp/0.7.0/`) or schema.org. When implementing a
+> (`vocabulary.uncefact.org/untp/`) or schema.org. When implementing a
 > regulation module, **delegate** — don't redefine.
 
 ## Table of Contents

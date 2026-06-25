@@ -298,29 +298,45 @@ public class UpstreamIndex {
             JsonNode root = mapper.reader()
                     .with(com.fasterxml.jackson.core.JsonParser.Feature.ALLOW_COMMENTS)
                     .readTree(Files.readString(s.path()));
-            JsonNode ctx = root.has("@context") ? root.get("@context") : root;
-            if (!ctx.isObject()) return;
-            Iterator<Map.Entry<String, JsonNode>> it = ctx.fields();
-            while (it.hasNext()) {
-                Map.Entry<String, JsonNode> e = it.next();
-                String key = e.getKey();
-                if (key.startsWith("@")) continue;
-                JsonNode v = e.getValue();
-                String id = v.isTextual() ? v.asText()
-                        : (v.isObject() && v.has("@id") ? v.get("@id").asText() : null);
-                if (id == null) continue;
-                if (v.isTextual() && (id.endsWith("#") || id.endsWith("/"))) continue; // prefix binding
-                String local = null;
-                if (id.startsWith(s.prefix() + ":")) local = id.substring(s.prefix().length() + 1);
-                else if (id.startsWith(s.namespace())) local = id.substring(s.namespace().length());
-                if (local == null || local.isBlank()) continue;
-                String iri = s.namespace() + local;
-                if (byIri.containsKey(iri)) continue;
-                TermType type = Character.isUpperCase(local.charAt(0)) ? TermType.CLASS : TermType.PROPERTY;
-                add(new UpstreamTerm(s.vocabId(), iri, local, key, null, type, null));
-            }
+            collectContextTerms(root.has("@context") ? root.get("@context") : root, s);
         } catch (Exception e) {
             System.err.println("upstream: context parse failed for " + s.path() + ": " + e.getMessage());
+        }
+    }
+
+    /**
+     * Collect terms from a JSON-LD @context, recursing into nested per-entry @context blocks. UNTP
+     * defines its property terms deep inside per-type sub-contexts (e.g. Product → materialProvenance
+     * → massFraction), so a flat top-level scan would miss most of the vocabulary. Terms dedup by IRI.
+     */
+    private void collectContextTerms(JsonNode ctx, Source s) {
+        if (ctx == null) return;
+        if (ctx.isArray()) {
+            for (JsonNode n : ctx) collectContextTerms(n, s);
+            return;
+        }
+        if (!ctx.isObject()) return;
+        Iterator<Map.Entry<String, JsonNode>> it = ctx.fields();
+        while (it.hasNext()) {
+            Map.Entry<String, JsonNode> e = it.next();
+            String key = e.getKey();
+            JsonNode v = e.getValue();
+            if (!key.startsWith("@")) {
+                String id = v.isTextual() ? v.asText()
+                        : (v.isObject() && v.has("@id") ? v.get("@id").asText() : null);
+                if (id != null && !(v.isTextual() && (id.endsWith("#") || id.endsWith("/")))) {
+                    String local = null;
+                    if (id.startsWith(s.prefix() + ":")) local = id.substring(s.prefix().length() + 1);
+                    else if (id.startsWith(s.namespace())) local = id.substring(s.namespace().length());
+                    String iri = local == null ? null : s.namespace() + local;
+                    if (local != null && !local.isBlank() && !byIri.containsKey(iri)) {
+                        TermType type = Character.isUpperCase(local.charAt(0)) ? TermType.CLASS : TermType.PROPERTY;
+                        add(new UpstreamTerm(s.vocabId(), iri, local, key, null, type, null));
+                    }
+                }
+            }
+            // UNTP-style nesting: an entry may carry its own @context defining further terms.
+            if (v.isObject() && v.has("@context")) collectContextTerms(v.get("@context"), s);
         }
     }
 
