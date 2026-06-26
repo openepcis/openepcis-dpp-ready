@@ -17,46 +17,30 @@ import jsonld from 'jsonld';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 
-const URL_TO_FILE: Record<string, string> = {
-  'https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld':
-    'extensions/common/core/context/dpp-core-context.jsonld',
-  'https://ref.openepcis.io/extensions/common/core/gs1-shortcuts-context.jsonld':
-    'extensions/common/core/context/gs1-shortcuts-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld':
-    'extensions/eu/battery/context/battery-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/battery/battery-context-scientific.jsonld':
-    'extensions/eu/battery/context/battery-context-scientific.jsonld',
-  'https://ref.openepcis.io/extensions/eu/battery/battery-context-batterypass-bridge.jsonld':
-    'extensions/eu/battery/context/battery-context-batterypass-bridge.jsonld',
-  'https://ref.openepcis.io/extensions/eu/battery/battery-context-to-batterypass.jsonld':
-    'extensions/eu/battery/context/battery-context-to-batterypass.jsonld',
-  'https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld':
-    'extensions/eu/textile/context/textile-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/textile/textile-context-pefcr-bridge.jsonld':
-    'extensions/eu/textile/context/textile-context-pefcr-bridge.jsonld',
-  'https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld':
-    'extensions/eu/electronics/context/electronics-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld':
-    'extensions/eu/eudr/context/eudr-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld':
-    'extensions/eu/detergent/context/detergent-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld':
-    'extensions/eu/ppwr/context/ppwr-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/cpr/cpr-context.jsonld':
-    'extensions/eu/cpr/context/cpr-context.jsonld',
-  'https://ref.openepcis.io/extensions/us/fsma204/fsma204-context.jsonld':
-    'extensions/us/fsma204/context/fsma204-context.jsonld',
-  'https://ref.openepcis.io/extensions/common/interop/untp-bridge-context.jsonld':
-    'extensions/common/interop/context/untp-bridge-context.jsonld',
-  'https://ref.openepcis.io/extensions/common/interop/jtc24-bridge-context.jsonld':
-    'extensions/common/interop/context/jtc24-bridge-context.jsonld',
-  'https://ref.openepcis.io/extensions/common/interop/cirpass2-bridge-context.jsonld':
-    'extensions/common/interop/context/cirpass2-bridge-context.jsonld',
-  'https://ref.openepcis.io/extensions/common/interop/rail-bridge-context.jsonld':
-    'extensions/common/interop/context/rail-bridge-context.jsonld',
+// Context IRI → local file. Auto-discovered from every extensions/**/context/*.jsonld
+// so a new module (or a new context file) is covered with no edit here — the old
+// hardcoded map silently skipped iron-steel and would skip any future module.
+// Published URL convention: a context at extensions/<path>/context/<name>.jsonld is
+// served at https://ref.openepcis.io/extensions/<path>/<name>.jsonld (no "context/").
+// Non-openepcis hosts (e.g. the GS1 Rail mirror) are listed explicitly below.
+const SPECIAL_HOST_MAP: Record<string, string> = {
   'https://gs1-epcis-reg.org/rail/rail-context.jsonld':
     'extensions/upstream/gs1-rail/context/rail-context.jsonld',
 };
+
+async function buildContextMap(): Promise<Record<string, string>> {
+  const map: Record<string, string> = { ...SPECIAL_HOST_MAP };
+  const extRoot = path.join(ROOT, 'extensions');
+  const entries = await fs.readdir(extRoot, { recursive: true });
+  for (const rel of entries) {
+    const relStr = String(rel).split(path.sep).join('/');
+    const m = relStr.match(/^(.+)\/context\/([^/]+\.jsonld)$/);
+    if (!m) continue;
+    const url = `https://ref.openepcis.io/extensions/${m[1]}/${m[2]}`;
+    map[url] = `extensions/${relStr}`;
+  }
+  return map;
+}
 
 const remoteCache = new Map<string, any>();
 
@@ -70,22 +54,25 @@ async function loadRemote(url: string): Promise<any> {
   return doc;
 }
 
-const documentLoader = async (url: string) => {
-  if (URL_TO_FILE[url]) {
-    const localPath = path.join(ROOT, URL_TO_FILE[url]);
-    const text = await fs.readFile(localPath, 'utf8');
-    return { contextUrl: undefined, documentUrl: url, document: JSON.parse(text) };
-  }
-  const doc = await loadRemote(url);
-  return { contextUrl: undefined, documentUrl: url, document: doc };
-};
+function makeDocumentLoader(urlToFile: Record<string, string>) {
+  return async (url: string) => {
+    if (urlToFile[url]) {
+      const localPath = path.join(ROOT, urlToFile[url]);
+      const text = await fs.readFile(localPath, 'utf8');
+      return { contextUrl: undefined, documentUrl: url, document: JSON.parse(text) };
+    }
+    const doc = await loadRemote(url);
+    return { contextUrl: undefined, documentUrl: url, document: doc };
+  };
+}
+type DocumentLoader = ReturnType<typeof makeDocumentLoader>;
 
 interface DropEvent {
   property: string;
   expandedProperty: string;
 }
 
-async function validateFile(filePath: string) {
+async function validateFile(filePath: string, documentLoader: DocumentLoader) {
   const rel = path.relative(ROOT, filePath);
   let raw: any;
   try {
@@ -114,29 +101,20 @@ async function validateFile(filePath: string) {
 }
 
 async function main() {
+  // Auto-discover every examples/ and epcis/ JSON-LD under extensions/ (no
+  // hardcoded module list — new modules are covered automatically).
+  const extRoot = path.join(ROOT, 'extensions');
   const targets: string[] = [];
-  const exts = [
-    'extensions/eu/battery',
-    'extensions/eu/textile',
-    'extensions/eu/electronics',
-    'extensions/eu/eudr',
-    'extensions/eu/detergent',
-    'extensions/eu/ppwr',
-    'extensions/eu/cpr',
-    'extensions/us/fsma204',
-    'extensions/upstream/gs1-rail',
-    'extensions/common/core',
-    'extensions/common/interop',
-  ];
-  for (const dir of exts) {
-    for (const sub of ['examples', 'epcis']) {
-      const full = path.join(ROOT, dir, sub);
-      try {
-        const files = await fs.readdir(full);
-        for (const f of files) if (f.endsWith('.jsonld')) targets.push(path.join(full, f));
-      } catch {}
+  for (const rel of await fs.readdir(extRoot, { recursive: true })) {
+    const relStr = String(rel).split(path.sep).join('/');
+    if (/(^|\/)(examples|epcis)\/[^/]+\.jsonld$/.test(relStr)) {
+      targets.push(path.join(extRoot, relStr));
     }
   }
+  targets.sort();
+
+  const urlToFile = await buildContextMap();
+  const documentLoader = makeDocumentLoader(urlToFile);
 
   const filter = process.argv[2];
   const filtered = filter ? targets.filter((t) => t.includes(filter)) : targets;
@@ -147,7 +125,7 @@ async function main() {
   let totalErrors = 0;
 
   for (const t of filtered) {
-    const r = await validateFile(t);
+    const r = await validateFile(t, documentLoader);
     if (r.error) {
       totalErrors++;
       console.log(`ERROR  ${r.file}: ${r.error}`);
