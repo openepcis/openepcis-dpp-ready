@@ -45,7 +45,7 @@ public class ManifestCommand implements Runnable {
     double minQaConfidence;
 
     @CommandLine.Option(names = "--qa-model",
-            description = "Record the QA model actually used (e.g. claude-opus-4-8 via claude-cli); "
+            description = "Record the QA model actually used (e.g. qwen/qwen3-32b); "
                     + "defaults to the configured one.")
     String qaModelOverride;
 

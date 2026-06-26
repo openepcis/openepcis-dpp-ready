@@ -38,8 +38,8 @@ upstream ─┘                              └─ embed (cached) ─┘       
   runs at the END of an audit: a stronger model independently re-judges every finding,
   seeing the first pass's proposal, and either confirms it (`✓`, QA relation == proposal)
   or overturns it (`✗`). Only confirmed findings should be adopted without extra scrutiny.
-  The QA model is its own swappable config — local flagship by default, or **Claude Opus**
-  (see below).
+  The QA model is its own swappable config — a local model by default, repointable to any
+  OpenAI-compatible endpoint (see below).
 - **Concurrency** is Mutiny: `Multi … transformToUni(…).merge(N)` bounds in-flight grading
   requests; the blocking AiService call runs on the Vert.x worker pool with declarative
   backoff retry (`onFailure().retry().withBackOff(…)`).
@@ -92,7 +92,7 @@ Commands:
 | `fetch --from URL\|file --against cached [--save]` | Diff a refreshed upstream vocabulary against the cached copy (added/removed/changed terms) to decide when to re-audit. |
 | `fetch --all [--save]` | Refresh **every** configured upstream source (`vocab-sync.source.*.url`), diff each, and write `docs/skos-upstream-delta.json`. |
 | `sync [--module S] [--stamp D] [--force] [--no-apply] [--no-qa] [--push] [--min-qa-confidence X]` | The regular-run loop: refresh upstream → if moved, re-audit (only changed pairs hit the LLM) → apply QA-confirmed mappings to a `vocab-sync/upstream-<stamp>` branch. See [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md#running-it-regularly-the-sync-loop). |
-| `benchmark [--per-class N] [--models CSV] [--include-opus] [--max-tokens T] [--tag S]` | Benchmark LLMs on graded-SKOS classification against published STW↔Wikidata mappings; builds a balanced gold set, runs the field model-by-model (resumable JSONL log), and scores accuracy/F1/confusion/calibration → `docs/bench/`. |
+| `benchmark [--per-class N] [--models CSV] [--max-tokens T] [--tag S]` | Benchmark LLMs on graded-SKOS classification against published STW↔Wikidata mappings; builds a balanced gold set, runs the field model-by-model (resumable JSONL log), and scores accuracy/F1/confusion/calibration → `docs/bench/`. |
 
 Typical loop:
 
@@ -169,50 +169,31 @@ export LLM_EMBED_MODEL=text-embedding-3-small
 Swapping the embedding model invalidates only that model's cached vectors (cache keys are
 namespaced by model id), so mixing vector spaces is impossible.
 
-### QA verifier model — local by default; Claude Opus optional (and unnecessary)
+### QA verifier model — local-first, fully OSS
 
 The second-tier QA pass uses its own model config, independent of the bulk grader. Default
-is the **local flagship** (`qwen3.5-122b-a10b`, or `Qwen3-32B` 8-bit), so the whole chain runs
-locally with no API key and no data leaving the machine.
+is a **local model** (`Qwen3-32B` 8-bit, or any flagship you load), so the whole chain runs
+locally with no API key and no data leaving the machine. Pairing two *different* local models
+(bulk vs QA) already gives model-family independence.
 
-> **Opus adds no measured benefit.** In the benchmark Opus scored 52.5% exact-relation accuracy,
-> statistically level with the local models (52.0–52.5%). A hosted QA pass buys no accuracy on this
-> task — only a cost, an external dependency, and data egress. Its only marginal value is
-> model-family independence, which pairing two *different local* models already gives. Keep it as an
-> option; default to local. See [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md).
+> **A frontier hosted model adds no measured benefit on this task.** In the benchmark, Claude
+> Opus scored 52.5% exact-relation accuracy — statistically level with the local models
+> (52.0–52.5%). A hosted QA pass buys no accuracy here, only cost, an external dependency, and
+> data egress. See [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md).
 
-If you still want Opus in the QA slot, there are **two ways** to run it:
-
-**1. Claude API key (`--qa-provider openai`, the default transport).** Officially supported;
-billed pay-as-you-go via console.anthropic.com. Uses Anthropic's OpenAI-compatible endpoint:
+The verifier is just another OpenAI-compatible endpoint, so you can point it anywhere (an Ollama
+cluster, a hosted vLLM, a frontier API) without code changes:
 
 ```bash
-export QA_BASE_URL=https://api.anthropic.com/v1/
-export QA_CHAT_MODEL=claude-opus-4-8
-export QA_API_KEY=sk-ant-…
+export QA_BASE_URL=http://localhost:11434/v1     # e.g. an Ollama endpoint
+export QA_CHAT_MODEL=qwen/qwen3-32b
+export QA_API_KEY=…                              # if the endpoint needs one
 java -jar target/quarkus-app/quarkus-run.jar audit --module core
 ```
 
-**2. Claude Pro/Max subscription, via the Claude Code CLI (`--qa-provider claude-cli`).** The
-tool shells out to `claude -p` (headless mode), which authenticates with your existing Claude
-Code login — no API key in this tool:
-
-```bash
-claude login                      # or: export CLAUDE_CODE_OAUTH_TOKEN=$(claude setup-token)
-java -jar target/quarkus-app/quarkus-run.jar audit --module core \
-     --qa-provider claude-cli --qa-cli-model claude-opus-4-8
-```
-
-> Why a CLI bridge and not just an OAuth token in the HTTP path? Per Anthropic's policy,
-> Pro/Max **subscription OAuth is only for Claude Code and claude.ai** — using those tokens
-> in a third-party HTTP client (or a community proxy) violates the Consumer Terms. Going
-> through `claude -p` keeps usage inside the sanctioned Claude Code path. Note that as of
-> mid-2026 programmatic `claude -p` usage draws on a separate per-plan credit pool billed at
-> API rates, not the chat allowance. The subprocess is driven reactively (`Process.onExit()`
-> → Mutiny `Uni`), so `--qa-concurrency` bounds how many `claude` processes run at once.
-
-QA verdicts are cached by `(qa-model, ourIri, upstreamIri)`, separate from the bulk grader's,
-so the bulk pass stays local/free while only the (smaller) set of findings goes to Opus.
+QA verdicts are cached by `(qa-model, ourIri, upstreamIri, content-fingerprint)`, separate from
+the bulk grader's — so swapping the QA model re-judges only with the new model, and a re-run
+re-grades only the pairs whose definitions changed.
 Disable QA with `--no-qa`; restrict it with `--qa-min-confidence`. In the report, `✓` marks a
 finding the QA model confirms; `apply --confirmed-only` writes just those.
 

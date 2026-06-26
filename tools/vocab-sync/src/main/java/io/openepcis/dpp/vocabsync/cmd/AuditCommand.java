@@ -2,7 +2,6 @@ package io.openepcis.dpp.vocabsync.cmd;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.openepcis.dpp.vocabsync.ClaudeCli;
 import io.openepcis.dpp.vocabsync.Embeddings;
 import io.openepcis.dpp.vocabsync.Grader;
 import io.openepcis.dpp.vocabsync.OurIndex;
@@ -56,7 +55,6 @@ public class AuditCommand implements Runnable {
     @Inject Retriever retriever;
     @Inject Grader grader;
     @Inject QaGrader qaGrader;
-    @Inject ClaudeCli claudeCli;
     @Inject VerdictCache verdicts;
     @Inject ReportWriter reportWriter;
     @Inject Embeddings embeddings;
@@ -128,15 +126,6 @@ public class AuditCommand implements Runnable {
     @CommandLine.Option(names = "--qa-rejudge-tiers", defaultValue = "WEAK,SPLIT",
             description = "Comma-separated prior QA tiers to re-judge when --qa-rejudge-from is set.")
     String qaRejudgeTiers;
-
-    @CommandLine.Option(names = "--qa-provider", defaultValue = "openai",
-            description = "QA backend: 'openai' (HTTP, needs API key for Claude) or 'claude-cli' "
-                    + "(shells out to `claude -p`, uses your Claude subscription login).")
-    String qaProvider;
-
-    @CommandLine.Option(names = "--qa-cli-model", defaultValue = "claude-opus-4-8",
-            description = "Model id for the claude-cli QA provider.")
-    String qaCliModel;
 
     @CommandLine.Option(names = "--out", description = "Report basename (default docs/skos-completeness-report).")
     String out;
@@ -255,10 +244,8 @@ public class AuditCommand implements Runnable {
                     .filter(f -> f.confidence() >= qaMinConfidence)
                     .filter(f -> !targeted || rejudge.contains(key(f)))
                     .toList();
-            String qaLabel = "claude-cli".equalsIgnoreCase(qaProvider)
-                    ? qaCliModel + " (claude -p)" : qaModelName;
             System.err.printf("QA: verifying %d / %d findings with a %d-judge blind panel on %s%n",
-                    toQa.size(), findings.size(), selectedLenses().size(), qaLabel);
+                    toQa.size(), findings.size(), selectedLenses().size(), qaModelName);
             AtomicInteger qd = new AtomicInteger();
             int qaTotal = toQa.size();
             List<Finding> verified = Multi.createFrom().iterable(toQa)
@@ -349,20 +336,17 @@ public class AuditCommand implements Runnable {
      */
     private Uni<Finding> qaPanelUni(Finding f, OurTerm t, UpstreamTerm up) {
         if (t == null || up == null) return Uni.createFrom().item(f);
-        boolean cli = "claude-cli".equalsIgnoreCase(qaProvider);
         String sig = contentSig(t, up);
         List<Uni<Verdict>> judges = new ArrayList<>();
         for (String[] lens : selectedLenses()) {
             String lensId = lens[0], lensText = lens[1];
-            String modelTag = (cli ? qaCliModel : qaModelName) + "|" + lensId;
+            String modelTag = qaModelName + "|" + lensId;
             Verdict cached = verdicts.get(modelTag, f.ourIri(), f.upstreamIri(), sig);
             if (cached != null) {
                 judges.add(Uni.createFrom().item(cached));
                 continue;
             }
-            Uni<Verdict> raw = cli
-                    ? claudeCli.runAsync(QA_BLIND_SYSTEM, qaBlindUserPrompt(lensText, t, up), qaCliModel, 300)
-                    : Uni.createFrom().item((Supplier<Verdict>) () -> qaGrader.judgeBlind(
+            Uni<Verdict> raw = Uni.createFrom().item((Supplier<Verdict>) () -> qaGrader.judgeBlind(
                                     lensText, t.prefixedId(), t.type().label(), nz(t.label()), nz(t.comment()),
                                     nz(t.domain()), nz(t.range()), up.vocabId(), up.iri(), up.type().label(),
                                     nz(up.label()), nz(up.comment())))
@@ -417,44 +401,6 @@ public class AuditCommand implements Runnable {
         return new Recon("WEAK", maj, conf,
                 "panel agrees a relation but not the grade (bulk " + bulk + ") " + tallyStr,
                 Verdict.Relation.CLOSE.predicate());
-    }
-
-    /** Blind QA-judge instructions for the claude-cli path (mirrors {@link QaGrader#judgeBlind}). */
-    private static final String QA_BLIND_SYSTEM = """
-            You are a senior reviewer aligning terms from a Digital Product Passport ontology to an
-            upstream vocabulary. Decide the single best graded-SKOS relation between OUR term and ONE
-            upstream term, judged from OUR term's perspective: EXACT (interchangeable), CLOSE
-            (overlapping not identical), BROAD (ours is broader), NARROW (ours is narrower), NONE (not
-            the same concept). Judge meaning not name similarity; a class matches only a class, a
-            property only a property; when uncertain between two grades choose the weaker, and when
-            uncertain it is a match at all return NONE.
-            Respond with ONLY a JSON object, no prose:
-            {"relation":"EXACT|CLOSE|BROAD|NARROW|NONE","confidence":0.0,"rationale":"one sentence"}
-            """;
-
-    /** Blind user prompt for a panel judge: the lens directive + the two terms, with NO bulk proposal. */
-    private String qaBlindUserPrompt(String lens, OurTerm t, UpstreamTerm up) {
-        return """
-                %s
-
-                OUR TERM
-                  id: %s
-                  type: %s
-                  label: %s
-                  definition: %s
-                  domain: %s
-                  range: %s
-
-                UPSTREAM CANDIDATE
-                  vocabulary: %s
-                  iri: %s
-                  type: %s
-                  label: %s
-                  definition: %s
-                """.formatted(lens,
-                t.prefixedId(), t.type().label(), nz(t.label()), nz(t.comment()),
-                nz(t.domain()), nz(t.range()),
-                up.vocabId(), up.iri(), up.type().label(), nz(up.label()), nz(up.comment()));
     }
 
     /** Stable finding key: (our IRI, upstream IRI). Matches the prior-report join key. */

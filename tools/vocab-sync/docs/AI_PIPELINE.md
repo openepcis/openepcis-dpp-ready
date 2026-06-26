@@ -6,8 +6,9 @@ OpenEPCIS DPP-extension ontology to upstream vocabularies, and what we learned m
 **The whole chain runs locally.** Bulk grading, QA verification, and embeddings are all served
 by [LM Studio](https://lmstudio.ai/)'s OpenAI-compatible endpoint on the workstation. No term
 data leaves the machine, there is no API key, and a full run costs nothing but local compute.
-A hosted model (Claude Opus) can be slotted into the QA stage, but the measurements below show
-it adds no accuracy over the local flagship, so it is an option, not a recommendation.
+A hosted model can be slotted into the QA stage by repointing the OpenAI-compatible endpoint
+(`QA_BASE_URL`/`QA_CHAT_MODEL`), but the measurements below show it adds no accuracy over the
+local model, so staying local is the recommendation.
 
 ## The stages
 
@@ -179,7 +180,7 @@ this machine and only does work when LM Studio is running.
 ## Reproduce the benchmark
 
 ```bash
-# fully local; discovers loaded models, or pass --models; --include-opus is optional
+# fully local; discovers loaded models, or pass --models
 java -jar target/quarkus-app/quarkus-run.jar benchmark --per-class 40
 ```
 

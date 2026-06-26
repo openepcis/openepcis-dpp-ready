@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.openepcis.dpp.vocabsync.ClaudeCli;
 import io.openepcis.dpp.vocabsync.GraderPrompts;
 import jakarta.inject.Inject;
 import org.apache.jena.rdf.model.Model;
@@ -44,7 +43,7 @@ import java.util.TreeSet;
  * Benchmarks LLMs on graded-SKOS relation classification against a published ground truth
  * (STW ↔ Wikidata mappings). Phases: build a balanced gold set (Jena over the STW thesaurus +
  * the STW→Wikidata concordance, Wikidata labels/descriptions via API); run the model field
- * (each local model over LM Studio's OpenAI API, plus Opus via claude-cli) using the identical
+ * (each local model over LM Studio's OpenAI API) using the identical
  * production grading prompt ({@link GraderPrompts}); score (per-model accuracy, per-relation
  * P/R/F1, confusion, confidence calibration, latency). Predictions are appended to a JSONL log
  * so the long run is fully resumable. Outputs feed the white paper.
@@ -66,7 +65,6 @@ public class BenchmarkCommand implements Runnable {
             "exactMatch", "EXACT", "closeMatch", "CLOSE", "broadMatch", "NARROW", "narrowMatch", "BROAD");
 
     @Inject ObjectMapper mapper;
-    @Inject ClaudeCli claudeCli;
 
     @ConfigProperty(name = "vocab-sync.repo-root") String repoRoot;
     @ConfigProperty(name = "quarkus.langchain4j.openai.base-url") String baseUrl;
@@ -82,8 +80,6 @@ public class BenchmarkCommand implements Runnable {
     @CommandLine.Option(names = "--models",
             description = "CSV of local model ids; default = discover via /v1/models (minus embeddings).")
     String models;
-    @CommandLine.Option(names = "--include-opus", defaultValue = "false") boolean includeOpus;
-    @CommandLine.Option(names = "--opus-model", defaultValue = "claude-opus-4-8") String opusModel;
     @CommandLine.Option(names = "--limit", defaultValue = "0", description = "Cap gold examples (smoke).")
     int limit;
     @CommandLine.Option(names = "--skip-run", defaultValue = "false") boolean skipRun;
@@ -256,7 +252,7 @@ public class BenchmarkCommand implements Runnable {
 
     private void runField(List<ObjectNode> gold, Path predPath) {
         List<String> field = resolveField();
-        System.err.println("benchmark: field = " + field + (includeOpus ? " + opus:" + opusModel : ""));
+        System.err.println("benchmark: field = " + field);
         Set<String> done = loadDone(predPath);
         try {
             Files.createDirectories(predPath.getParent());
@@ -264,12 +260,11 @@ public class BenchmarkCommand implements Runnable {
             throw new UncheckedIOException(e);
         }
         for (String model : field) {
-            boolean opus = model.equals("OPUS");
-            String stored = (opus ? opusModel : model) + tag; // tag -> distinct leaderboard row
-            String label = (opus ? opusModel + " (claude-cli)" : model) + (tag.isEmpty() ? "" : " " + tag);
+            String stored = model + tag; // tag -> distinct leaderboard row
+            String label = model + (tag.isEmpty() ? "" : " " + tag);
             long todo = gold.stream().filter(g -> !done.contains(stored + " " + g.get("id").asText())).count();
             if (todo == 0) { System.err.println("benchmark: " + label + " — all cached, skip"); continue; }
-            if (!opus && !skipLmsLoad) lmsLoad(model);
+            if (!skipLmsLoad) lmsLoad(model);
             System.err.printf("benchmark: %s — %d/%d to grade%n", label, todo, gold.size());
             int n = 0;
             for (ObjectNode g : gold) {
@@ -282,7 +277,7 @@ public class BenchmarkCommand implements Runnable {
                 long t0 = System.nanoTime();
                 String[] pv;
                 try {
-                    pv = opus ? viaOpus(user) : viaLmStudio(model, user);
+                    pv = viaLmStudio(model, user);
                 } catch (Exception e) {
                     pv = new String[]{"PARSEFAIL", "0", "error: " + e.getMessage(), ""};
                 }
@@ -325,7 +320,6 @@ public class BenchmarkCommand implements Runnable {
                 System.err.println("benchmark: /v1/models discovery failed: " + e.getMessage());
             }
         }
-        if (includeOpus) field.add("OPUS");
         return field;
     }
 
@@ -373,12 +367,6 @@ public class BenchmarkCommand implements Runnable {
         String content = mapper.readTree(resp.body()).path("choices").path(0).path("message")
                 .path("content").asText("");
         return parseVerdict(content);
-    }
-
-    private String[] viaOpus(String user) {
-        var v = claudeCli.runAsync(GraderPrompts.SYSTEM, user + GraderPrompts.JSON_INSTRUCTION, opusModel, 300)
-                .await().indefinitely();
-        return new String[]{v.relation().name(), String.valueOf(v.confidence()), v.rationale(), ""};
     }
 
     private static final java.util.regex.Pattern RELATION_RX = java.util.regex.Pattern.compile(
