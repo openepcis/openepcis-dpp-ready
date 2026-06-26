@@ -20,7 +20,7 @@
  * Usage: pnpm run diagrams:build
  */
 import { execFileSync } from "child_process";
-import { existsSync, readdirSync, rmSync } from "fs";
+import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -117,6 +117,13 @@ function build(): void {
         );
         process.exit(1);
       }
+      // Normalize the embedded version string so output is independent of how the
+      // d2 binary was built: Homebrew reports "0.7.1" but the GitHub-release binary
+      // (used in CI) reports "v0.7.1". Without this, the committed SVGs and the
+      // CI-regenerated SVGs differ only by that "v" and the stale-check fails.
+      const svg = readFileSync(out, "utf8");
+      const normalized = svg.replace('data-d2-version="v', 'data-d2-version="');
+      if (normalized !== svg) writeFileSync(out, normalized);
       console.log(`[build-diagrams] ${base}.d2 → ${base}-${suffix}.svg  (${dir.slice(REPO_ROOT.length + 1)})`);
       built++;
     }
