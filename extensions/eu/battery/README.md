@@ -80,21 +80,11 @@ Uses official GS1 Web Vocabulary for regulatory compliance:
 
 ### EPCIS + Master Data Integration
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                 EPCIS Events (Dynamic)                      │
-│  bizStep: "notifying" | "inspecting" | "commissioning"      │
-│  gs1:masterDataAvailableFor → links to master data          │
-│  gs1:regulatoryInformation → regulatory compliance          │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│              JSON-LD Master Data (Static)                   │
-│  gs1: (GS1 Web Vocabulary) + eubat: (domain extension)    │
-│  gs1:regulatoryInformation → BATTERY_DIRECTIVE, CE          │
-└─────────────────────────────────────────────────────────────┘
-```
+<!-- Diagram source: docs/diagrams/battery-epcis-masterdata.d2 — regenerate with `pnpm run diagrams:build`. -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/battery-epcis-masterdata-dark.svg">
+  <img alt="Dynamic EPCIS events (bizStep notifying/inspecting/commissioning, gs1:masterDataAvailableFor, gs1:regulatoryInformation) link down to static JSON-LD master data (gs1: plus eubat:, regulatory information)." src="docs/diagrams/battery-epcis-masterdata-light.svg" width="560">
+</picture>
 
 **Architecture rule**: `masterDataAvailableFor` carries product/party/location
 **master data** — GS1 Web Vocabulary terms written bare, plus **product-level**
@@ -178,38 +168,11 @@ DPP card a Digital Link resolver returns when the battery's QR is scanned).
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  GS1 Digital Link Resolver                                  │
-│  https://id.gs1.org/01/{gtin}/21/{serial}                   │
-│  - Content negotiation (JSON-LD / HTML)                     │
-│  - Link type routing (?linkType=gs1:epcis)                  │
-└─────────────────────────────────────────────────────────────┘
-                              │
-          ┌───────────────────┴───────────────────┐
-          ▼                                       ▼
-┌─────────────────────┐                 ┌─────────────────────┐
-│  Product Master     │                 │  EPCIS Repository   │
-│  (Static Data)      │                 │  (Dynamic Events)   │
-├─────────────────────┤                 ├─────────────────────┤
-│ • Manufacturer      │                 │ • State of Health   │
-│ • Battery category  │                 │ • Cycle count       │
-│ • Rated capacity    │                 │ • Carbon footprint  │
-│ • Chemistry         │                 │ • Ownership history │
-│ • Materials         │                 │ • Negative events   │
-│ • Hazardous subst.  │                 │ • Temperature logs  │
-│ • Due diligence     │                 │ • SOCE measurements │
-└─────────────────────┘                 └─────────────────────┘
-          │                                       │
-          └───────────────────┬───────────────────┘
-                              ▼
-                 ┌─────────────────────┐
-                 │  Battery Ontology   │
-                 │  (Extends GS1 Voc)  │
-                 │  - Dereferenceable  │
-                 │  - OWL/RDFS         │
-                 └─────────────────────┘
-```
+<!-- Diagram source: docs/diagrams/battery-architecture.d2 — regenerate with `pnpm run diagrams:build`. -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/battery-architecture-dark.svg">
+  <img alt="The GS1 Digital Link Resolver fans out to a static Product Master and a dynamic EPCIS Repository, both backed by the Battery Ontology that extends the GS1 Web Vocabulary." src="docs/diagrams/battery-architecture-light.svg" width="520">
+</picture>
 
 ## Directory Structure
 

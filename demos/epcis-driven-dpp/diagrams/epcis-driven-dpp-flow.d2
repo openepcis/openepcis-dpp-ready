@@ -1,0 +1,26 @@
+# Source for epcis-driven-dpp-flow-{light,dark}.svg — `pnpm run diagrams:build`.
+# Demo pipeline: input + masterdata → merge → /capture → Kafka/OpenSearch,
+# with masterdata also seeding the Digital Link resolver. For demo README.
+
+direction: down
+
+input: "flows/<flow>.input.json"
+tools: "tools.openepcis.io"
+raw: "out/<flow>.raw.jsonld"
+md: "flows/<flow>.masterdata.jsonld"
+merge: "merge-masterdata.ts"
+final: "out/<flow>.final.jsonld"
+capture: "api.epcis.local:8443/capture\n(with GS1-Extensions header)"
+store: "Kafka → OpenSearch"
+seed: "seed-dlr.ts"
+dlr: "id.epcis.local:8443\n(Product + LinkSet)"
+
+input -> tools
+tools -> raw
+raw -> merge
+md -> merge
+merge -> final
+final -> capture
+capture -> store
+md -> seed
+seed -> dlr

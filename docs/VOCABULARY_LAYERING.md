@@ -5,49 +5,11 @@ cross-cutting concepts to the layer below. The result is that a new EU
 regulation module typically adds only a handful of truly regulation-specific
 terms, and a single change at a higher layer benefits every module above it.
 
-```
-   ┌──────────────────────────────────────────────────────────────────┐
-   │  Layer 4 — Regulation modules                                    │
-   │    eu/battery   eu/eudr   eu/textile   eu/electronics            │
-   │    eu/detergent eu/ppwr  eu/cpr        us/fsma204   …            │
-   │  ↓ each module only mints terms unique to its regulation         │
-   ├──────────────────────────────────────────────────────────────────┤
-   │  Layer 3 — DPP common core (`oec:`)                              │
-   │    Cross-cutting concepts that ≥2 regulations share:             │
-   │    EPR, Compostability, Biodegradability, DepositReturnScheme,   │
-   │    RecycledContent, HazardousSubstance, OperatorInformation,     │
-   │    FacilityInformation, RepairabilityInfo, AccessRights, …       │
-   │  ↓ anchored upward via skos:exactMatch / closeMatch / broadMatch │
-   ├──────────────────────────────────────────────────────────────────┤
-   │  Layer 2 — Upstream community profiles                           │
-   │    UNTP Core Vocabulary v0.7.0                                   │
-   │      Party, Facility, Material, Claim, Criterion, Standard,      │
-   │      Regulation, ConformityAttestation, ConformityScheme,        │
-   │      ProductStatus, ProductIDGranularity, PerformanceMetric, …   │
-   │    CIRPASS-2 D3.x pilot requirements                             │
-   │    CEN/CENELEC JTC 24 (EN 18216-18223 + prEN 18239/18246)        │
-   │  ↓                                                               │
-   ├──────────────────────────────────────────────────────────────────┤
-   │  Layer 1 — Foundational vocabularies (peer triumvirate)          │
-   │    GS1 Web Vocabulary (`gs1:`) — imported foundation             │
-   │      Product, Organization, Place, GeoShape,                     │
-   │      QuantitativeValue, regulatoryInformation, regulatoryAct,    │
-   │      regulatoryIdentifier, packagingMaterial,                    │
-   │      UN/CEFACT Rec 20 unit codes (KGM, KWH, AMH, P1, ANN, EUR …) │
-   │    EU SEMICeu Core Vocabularies (`cv:` / `cccev:` / `locn:` /    │
-   │      `adms:` / `cpsv:`)                                          │
-   │      CCCEV — Requirement, Constraint, Evidence, InformationConcept │
-   │      CPOV  — PublicOrganisation, ContactPoint, contactPage       │
-   │      Core Business — LegalEntity, legalName, companyActivity     │
-   │      Core Person   — Person, givenName, familyName               │
-   │      Core Location — Address, Location, Geometry                 │
-   │      Core Public Event, CPSV-AP, ADMS / ADMS-AP                  │
-   │    schema.org                                                    │
-   │      Product, Country, GeoCoordinates, QuantitativeValue,        │
-   │      Observation, Certification, hasMeasurement,                 │
-   │      EnergyConsumptionDetails, Place                             │
-   └──────────────────────────────────────────────────────────────────┘
-```
+<!-- Diagram source: diagrams/vocabulary-layering.d2 — regenerate with `pnpm run diagrams:build`. -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/vocabulary-layering-dark.svg">
+  <img alt="The four-layer delegation stack with the concepts each layer holds: Layer 4 regulation modules; Layer 3 DPP common core (oec:) cross-cutting concepts, anchored upward via graded SKOS; Layer 2 upstream community profiles (UNTP, CIRPASS-2, JTC 24); Layer 1 foundational vocabularies (GS1, EU SEMICeu, schema.org)." src="diagrams/vocabulary-layering-light.svg" width="720">
+</picture>
 
 ## How the vocabularies relate
 

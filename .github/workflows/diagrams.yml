@@ -1,22 +1,26 @@
 name: Verify diagrams
 
-# D2 is the single source of truth for diagrams in this repo. Every
-# tools/vocab-sync/docs/diagrams/*.d2 is compiled to committed light + dark
-# SVGs. This job recompiles them and fails if the committed SVGs are stale,
+# D2 is the single source of truth for diagrams in this repo. Every *.d2 (in any
+# diagrams/ folder next to the doc that uses it) is compiled to committed light +
+# dark SVGs. This job recompiles them and fails if the committed SVGs are stale,
 # so a .d2 edit can never land without its regenerated SVGs.
 
 on:
   push:
     branches: [main]
     paths:
-      - 'tools/vocab-sync/docs/diagrams/**'
+      - '**/*.d2'
+      - '**/*-light.svg'
+      - '**/*-dark.svg'
       - 'scripts/build-diagrams.ts'
       - 'package.json'
       - 'pnpm-lock.yaml'
       - '.github/workflows/diagrams.yml'
   pull_request:
     paths:
-      - 'tools/vocab-sync/docs/diagrams/**'
+      - '**/*.d2'
+      - '**/*-light.svg'
+      - '**/*-dark.svg'
       - 'scripts/build-diagrams.ts'
   workflow_dispatch:
 
@@ -42,7 +46,7 @@ jobs:
         run: pnpm run diagrams:build
       - name: Fail if committed SVGs are stale
         run: |
-          if ! git diff --exit-code -- tools/vocab-sync/docs/diagrams; then
+          if ! git diff --exit-code -- '*-light.svg' '*-dark.svg'; then
             echo "::error::Committed SVGs are out of date. Run 'pnpm run diagrams:build' and commit the result."
             exit 1
           fi

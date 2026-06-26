@@ -44,28 +44,11 @@ common-core (`oec:`) vocabulary, which itself anchors upward to a
 EU SEMICeu Core Vocabularies** — and to upstream community profiles
 (UNTP, CIRPASS-2, JTC 24).
 
-```
-  Layer 4 ─ Regulation modules    (eu/battery, eu/eudr, eu/textile,
-                                   eu/electronics, eu/detergent, eu/ppwr,
-                                   eu/cpr, us/fsma204)
-            ↓
-  Layer 3 ─ Common DPP core (oec:)  cross-cutting concepts ≥2 regs share
-            ↓ owl:equivalentClass / equivalentProperty
-  Layer 2 ─ Upstream community profiles
-            UNTP v0.7.0  Party, Facility, Material, Claim,
-                          ConformityAttestation, PerformanceMetric, …
-            CIRPASS-2 D3.x; CEN/CENELEC JTC 24 (EN 18216-18223)
-            ↓
-  Layer 1 ─ Foundational vocabularies (peer triumvirate)
-            GS1 (gs1:)   Product, Organization, Place, GeoShape,
-                         regulatoryInformation, UN/CEFACT unit codes
-                         (imported foundation, owl:imports)
-            SEMICeu      cv:PublicOrganisation, cv:ContactPoint,
-                         cv:LegalEntity, cccev:Requirement,
-                         cccev:Evidence, locn:Location, adms:Identifier
-            schema.org   Observation, QuantitativeValue, GeoCoordinates,
-                         Country, Rating, hasMeasurement
-```
+<!-- Diagram source: docs/diagrams/vocabulary-layering-overview.d2 — regenerate with `pnpm run diagrams:build`. -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/vocabulary-layering-overview-dark.svg">
+  <img alt="The four-layer delegation stack: Layer 4 regulation modules delegate down to Layer 3 common DPP core (oec:), which anchors to Layer 2 upstream community profiles (UNTP, CIRPASS-2, JTC 24) and Layer 1 foundational vocabularies (GS1, SEMICeu, schema.org)." src="docs/diagrams/vocabulary-layering-overview-light.svg" width="640">
+</picture>
 
 **The rule when defining a new term:** walk downward through the layers
 and use the *highest* layer that already covers the concept. Within

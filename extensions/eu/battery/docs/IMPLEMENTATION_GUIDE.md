@@ -72,38 +72,11 @@ Benefits:
 
 ## Architecture Overview
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  GS1 Digital Link Resolver                                  │
-│  https://id.gs1.org/01/{gtin}/21/{serial}                  │
-│  - Content negotiation (JSON-LD / HTML)                     │
-│  - Link type routing (?linkType=gs1:epcis)                 │
-└─────────────────────────────────────────────────────────────┘
-                              │
-          ┌───────────────────┴───────────────────┐
-          ▼                                       ▼
-┌─────────────────────┐                 ┌─────────────────────┐
-│  Product Master     │                 │  EPCIS Repository   │
-│  (Static Data)      │                 │  (Dynamic Events)   │
-├─────────────────────┤                 ├─────────────────────┤
-│ • Manufacturer      │                 │ • State of Health   │
-│ • Battery category  │                 │ • Cycle count       │
-│ • Rated capacity    │                 │ • Carbon footprint  │
-│ • Chemistry         │                 │ • Ownership history │
-│ • Materials         │                 │ • Negative events   │
-│ • Hazardous subst.  │                 │ • Temperature logs  │
-│ • Due diligence     │                 │ • SOCE measurements │
-└─────────────────────┘                 └─────────────────────┘
-          │                                       │
-          └───────────────────┬───────────────────┘
-                              ▼
-                 ┌─────────────────────┐
-                 │  Battery Ontology   │
-                 │  (Extends GS1 Voc)  │
-                 │  - Dereferenceable  │
-                 │  - OWL/RDFS         │
-                 └─────────────────────┘
-```
+<!-- Diagram source: diagrams/battery-architecture.d2 — regenerate with `pnpm run diagrams:build`. -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/battery-architecture-dark.svg">
+  <img alt="The GS1 Digital Link Resolver fans out to a static Product Master and a dynamic EPCIS Repository, both backed by the Battery Ontology that extends the GS1 Web Vocabulary." src="diagrams/battery-architecture-light.svg" width="520">
+</picture>
 
 ### Static vs Dynamic Data
 

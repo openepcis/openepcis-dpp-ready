@@ -26,24 +26,11 @@ existing examples in `extensions/eu/battery/epcis/` and
 
 ## How it fits together
 
-```
-flows/<flow>.input.json       ──► tools.openepcis.io  ──► out/<flow>.raw.jsonld
-                                                                  │
-flows/<flow>.masterdata.jsonld ─┐                                 │
-                                ├─► merge-masterdata.ts ──────────┤
-                                │                                 ▼
-                                │                       out/<flow>.final.jsonld
-                                │                                 │
-                                │                                 ▼
-                                │             api.epcis.local:8443/capture
-                                │                  (with GS1-Extensions header)
-                                │                                 │
-                                │                                 ▼
-                                │                       Kafka ── OpenSearch
-                                │
-                                └─► seed-dlr.ts ──► id.epcis.local:8443
-                                                          (Product + LinkSet)
-```
+<!-- Diagram source: diagrams/epcis-driven-dpp-flow.d2 — regenerate with `pnpm run diagrams:build`. -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/epcis-driven-dpp-flow-dark.svg">
+  <img alt="Demo pipeline: a flow input goes through tools.openepcis.io to a raw JSON-LD, then merge-masterdata.ts combines it with the flow's master data into a final JSON-LD that is POSTed to api.epcis.local /capture (with the GS1-Extensions header) and flows into Kafka then OpenSearch; the master data also seeds the Digital Link resolver via seed-dlr.ts." src="diagrams/epcis-driven-dpp-flow-light.svg" width="560">
+</picture>
 
 The same `*.masterdata.jsonld` sidecar feeds both the DLR seed (as
 served via content-negotiation on the GS1 Digital Link) and the

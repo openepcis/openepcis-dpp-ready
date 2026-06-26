@@ -1,0 +1,18 @@
+# Source for battery-architecture-{light,dark}.svg — `pnpm run diagrams:build`.
+# Resolver fans out to static product master + dynamic EPCIS, both backed by the
+# battery ontology. Shared by battery/README.md and docs/IMPLEMENTATION_GUIDE.md.
+
+direction: down
+
+resolver: "GS1 Digital Link Resolver\nhttps://id.gs1.org/01/{gtin}/21/{serial}\n- Content negotiation (JSON-LD / HTML)\n- Link type routing (?linkType=gs1:epcis)"
+
+pm: "Product Master\n(Static Data)\n• Manufacturer\n• Battery category\n• Rated capacity\n• Chemistry\n• Materials\n• Hazardous subst.\n• Due diligence"
+
+repo: "EPCIS Repository\n(Dynamic Events)\n• State of Health\n• Cycle count\n• Carbon footprint\n• Ownership history\n• Negative events\n• Temperature logs\n• SOCE measurements"
+
+onto: "Battery Ontology\n(Extends GS1 Voc)\n- Dereferenceable\n- OWL/RDFS"
+
+resolver -> pm
+resolver -> repo
+pm -> onto
+repo -> onto

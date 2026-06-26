@@ -1,0 +1,16 @@
+# Source for vocabulary-layering-{light,dark}.svg — `pnpm run diagrams:build`.
+# The four-layer delegation stack (detailed) for docs/VOCABULARY_LAYERING.md.
+
+direction: down
+
+l4: "Layer 4 — Regulation modules\neu/battery   eu/eudr   eu/textile   eu/electronics\neu/detergent eu/ppwr  eu/cpr        us/fsma204   …"
+
+l3: "Layer 3 — DPP common core (oec:)\nCross-cutting concepts that ≥2 regulations share:\nEPR, Compostability, Biodegradability, DepositReturnScheme,\nRecycledContent, HazardousSubstance, OperatorInformation,\nFacilityInformation, RepairabilityInfo, AccessRights, …"
+
+l2: "Layer 2 — Upstream community profiles\nUNTP Core Vocabulary v0.7.0\n  Party, Facility, Material, Claim, Criterion, Standard,\n  Regulation, ConformityAttestation, ConformityScheme,\n  ProductStatus, ProductIDGranularity, PerformanceMetric, …\nCIRPASS-2 D3.x pilot requirements\nCEN/CENELEC JTC 24 (EN 18216-18223 + prEN 18239/18246)"
+
+l1: "Layer 1 — Foundational vocabularies (peer triumvirate)\nGS1 Web Vocabulary (gs1:) — imported foundation\n  Product, Organization, Place, GeoShape,\n  QuantitativeValue, regulatoryInformation, regulatoryAct,\n  regulatoryIdentifier, packagingMaterial,\n  UN/CEFACT Rec 20 unit codes (KGM, KWH, AMH, P1, ANN, EUR …)\nEU SEMICeu Core Vocabularies (cv: / cccev: / locn: / adms: / cpsv:)\n  CCCEV — Requirement, Constraint, Evidence, InformationConcept\n  CPOV  — PublicOrganisation, ContactPoint, contactPage\n  Core Business — LegalEntity, legalName, companyActivity\n  Core Person   — Person, givenName, familyName\n  Core Location — Address, Location, Geometry\n  Core Public Event, CPSV-AP, ADMS / ADMS-AP\nschema.org\n  Product, Country, GeoCoordinates, QuantitativeValue,\n  Observation, Certification, hasMeasurement,\n  EnergyConsumptionDetails, Place"
+
+l4 -> l3: "each module only mints terms\nunique to its regulation"
+l3 -> l2: "anchored upward via\nskos:exactMatch / closeMatch / broadMatch"
+l2 -> l1
