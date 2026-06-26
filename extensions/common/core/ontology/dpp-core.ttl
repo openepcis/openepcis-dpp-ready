@@ -142,7 +142,13 @@ side (some jurisdictions treat sole-proprietor operators as natural persons, not
 entities). Use cv:LegalEntity for EU-portal interoperability when the operator is
 known to be a legally-registered business; the rdfs:seeAlso anchor is intentional and
 the strongest formal claim that holds in general."""@en ;
-    skos:narrowMatch schema:Organization .
+    skos:narrowMatch schema:Organization ;
+    skos:closeMatch gs1:OrganizationID_Details ;
+    skos:narrowMatch gs1:Organization ;
+    rdfs:seeAlso dppk:EconomicOperatorRole ;
+    skos:narrowMatch cirpass2:Actor ;
+    skos:broadMatch cirpass2:ManufacturerRecord ;
+    skos:narrowMatch cv:LegalEntity .
 
 oec:DueDiligenceReport
     a rdfs:Class ;
@@ -162,7 +168,9 @@ Anchored as rdfs:subClassOf cccev:Evidence (EU SEMICeu Core Criterion and Eviden
 Vocabulary, http://data.europa.eu/m8g/Evidence), every due-diligence report is evidence
 supporting a regulatory cccev:Requirement, but cccev:Evidence is much broader (test
 reports, certificates, attestations, audit logs) so the relationship is subClassOf, not
-owl:equivalentClass. CCCEV is the EU upstream of the UNTP conformity model."""@en .
+owl:equivalentClass. CCCEV is the EU upstream of the UNTP conformity model."""@en ;
+    skos:narrowMatch schema:Report ;
+    skos:narrowMatch cv:Evidence .
 
 oec:CircularityPerformance
     a rdfs:Class ;
@@ -190,7 +198,10 @@ Reusable across product categories."""@en ;
     rdfs:seeAlso cirpass2:Substance ;
     skos:note """Required extension: GS1 Web Vocabulary provides allergen tracking (gs1:hasAllergen)
 for food products but lacks hazardous substance classes for industrial products per EU CLP
-Regulation 1272/2008. This class supports REACH, SCIP, and ESPR requirements."""@en .
+Regulation 1272/2008. This class supports REACH, SCIP, and ESPR requirements."""@en ;
+    skos:broadMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#HazardousSubstanceEntity> ;
+    skos:narrowMatch schema:ChemicalSubstance ;
+    skos:narrowMatch schema:Substance .
 
 oec:DocumentReference
     a rdfs:Class ;
@@ -202,11 +213,14 @@ See also gs1:ReferencedFileDetails for GS1 Web Vocabulary equivalent."""@en ;
     rdfs:seeAlso gs1:ReferencedFileDetails ;
     rdfs:seeAlso foaf:Document ;
     rdfs:seeAlso cirpass2:DigitalInstruction ;
-    skos:closeMatch gs1:ReferencedFileDetails ;
+    skos:broadMatch gs1:ReferencedFileDetails ;
     skos:note """PREFER gs1:ReferencedFileDetails where possible. This class provides equivalent
 functionality with additional ESPR-specific document types. Use gs1:referencedFile
 property with gs1:ReferencedFileDetails for standard documents (manuals, certificates).
-Use oec:DocumentReference only when ESPR-specific document types are required."""@en .
+Use oec:DocumentReference only when ESPR-specific document types are required."""@en ;
+    skos:broadMatch schema:APIReference ;
+    skos:narrowMatch foaf:Document ;
+    skos:broadMatch schema:NoteDigitalDocument .
 
 oec:RecycledContent
     a rdfs:Class ;
@@ -218,7 +232,9 @@ and post-consumer splits."""@en ;
 properties. ESPR and Battery Regulation require pre-consumer/post-consumer breakdown which is
 not available in GS1 vocabulary. Aligned with GDSN sustainability attributes."""@en ;
     rdfs:seeAlso cirpass2:RecycledMaterialsUse ;
-    rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf>.
+    rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf>;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#RecycledContentEntity> ;
+    rdfs:seeAlso gs1:PackagingDetails .
 
 oec:MaterialComposition
     a rdfs:Class ;
@@ -231,7 +247,10 @@ percentage, and critical raw material classification."""@en ;
     rdfs:seeAlso gs1:PackagingMaterialDetails ;
     skos:note """Required extension: GS1 provides gs1:TextileMaterialDetails and
 gs1:PackagingMaterialDetails for specific domains but lacks a generic material composition
-class with CAS/EC number support and critical raw material flags required by ESPR."""@en.
+class with CAS/EC number support and critical raw material flags required by ESPR."""@en;
+    skos:exactMatch oec:MaterialComposition ;
+    skos:broadMatch gs1:TextileMaterialDetails ;
+    skos:broadMatch gs1:PackagingMaterialDetails .
 
 oec:FacilityInformation
     a rdfs:Class ;
@@ -249,7 +268,6 @@ Use GS1 Digital Link format: https://id.gs1.org/414/{GLN}"""@en ;
     rdfs:seeAlso locn:Address ;
     rdfs:seeAlso locn:Geometry ;
     rdfs:seeAlso cirpass2:Facility ;
-    skos:closeMatch untp:Facility ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Extension of gs1:Place to capture ESPR-specific facility requirements.
 Use gs1:gln for facility GLN identification, gs1:name for facility name, gs1:address for location.
@@ -259,7 +277,8 @@ Anchored to locn:Location (EU SEMICeu Core Location Vocabulary, http://www.w3.or
 for EU-portal interoperability: locn:Address and locn:Geometry are the canonical
 sub-structures for the address and geographic-coordinate parts."""@en ;
     skos:narrowMatch schema:Place ;
-    skos:narrowMatch gs1:Place .
+    skos:narrowMatch gs1:Place ;
+    rdfs:seeAlso cv:InformationConcept .
 
 oec:SubstanceOfConcern
     a rdfs:Class ;
@@ -272,7 +291,10 @@ and ESPR requirements. Extends HazardousSubstance for detailed tracking."""@en ;
     rdfs:seeAlso cirpass2:SubstanceOfConcern ;
     skos:note """Required extension: SCIP database integration requires specific fields (SCIP ID,
 EC Number, safe use instructions) not available in GS1 Web Vocabulary. Supports REACH Article 33
-and Waste Framework Directive requirements."""@en.
+and Waste Framework Directive requirements."""@en;
+    skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#HazardousSubstanceEntity> ;
+    skos:narrowMatch schema:ChemicalSubstance ;
+    skos:narrowMatch schema:Substance .
 
 oec:PerformanceInfo
     a rdfs:Class ;
@@ -349,7 +371,9 @@ oec:OperatorRole
     rdfs:comment "Role of an economic operator in the supply chain."@en ;
     rdfs:seeAlso cirpass2:EconomicOperatorRole ;
     owl:oneOf (oec:Manufacturer oec:Importer oec:Distributor oec:Processor oec:Trader) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    skos:broadMatch schema:OrganizationRole ;
+    skos:exactMatch cirpass2:EconomicOperatorRole .
 
 oec:Manufacturer a oec:OperatorRole ; rdfs:label "Manufacturer"@en ;
     rdfs:comment "Entity that produces the product, including own-brand labellers per EU Market Surveillance Regulation 2019/1020."@en .
@@ -401,7 +425,8 @@ oec:PassportStatus
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)" ;
     skos:note "Base values active/inactive/archived/invalid per EN 18223 Table 1; draft/withdrawn/suspended are EPCIS4DPP profile extensions permitted by 'further values by relevant legal acts'."@en ;
     owl:oneOf (oec:Active oec:Inactive oec:Archived oec:Invalid oec:Draft oec:Withdrawn oec:Suspended) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    skos:narrowMatch schema:StatusEnumeration .
 
 oec:Active a oec:PassportStatus ; rdfs:label "Active"@en ; skos:notation "active" ;
     rdfs:comment "Passport is published and represents the current state of the product."@en ;
@@ -458,7 +483,8 @@ oec:reportingGranularity
     rdfs:range oec:DPPGranularity ;
     dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
     skos:note "BatteryPass-Ready v1.3 longlist attribute #3. Renamed from oec:granularity to free the 'granularity' key for the EN 18223 passport-level attribute (oec:granularityLevel)."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    skos:closeMatch dppk:granularity .
 
 oec:lastUpdated
     a owl:DatatypeProperty ;
@@ -468,7 +494,8 @@ oec:lastUpdated
     rdfs:range xsd:dateTime ;
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)" ;
     skos:note "Consolidates the former oec:lastUpdate (BatteryPass-Ready v1.3 #4) and oec:passportLastModified into the EN 18223 'lastUpdated' attribute."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#lastUpdate> .
 
 # =============================================================================
 # ESPR Product Category Enumeration (Priority Sectors)
@@ -492,7 +519,12 @@ oec:ProductCategory
         oec:IronSteel
         oec:Aluminium
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    skos:narrowMatch gs1:Product ;
+    skos:narrowMatch schema:CategoryCode ;
+    skos:narrowMatch schema:Product ;
+    skos:closeMatch gs1:FoodBeverageTobaccoProduct ;
+    skos:broadMatch dppk:BatteryProduct .
 
 oec:Batteries a oec:ProductCategory ; rdfs:label "Batteries"@en ;
     rdfs:comment "Batteries and accumulators per EU Battery Regulation 2023/1542."@en .
@@ -581,7 +613,9 @@ See also gs1:ReferencedFileTypeCode for GS1 standard document types (PRODUCT_MAN
         oec:SafetyDataSheet
         oec:EnvironmentalReport
         oec:ThirdPartyVerification
-    ) .
+    ) ;
+    rdfs:seeAlso schema:SpreadsheetDigitalDocument ;
+    skos:broadMatch gs1:ReferencedFileTypeCode .
 
 oec:DueDiligenceDocument a oec:DocumentType ; rdfs:label "Due Diligence Document"@en ;
     rdfs:comment "Documentation of supply chain due diligence processes and risk assessments."@en .
@@ -610,7 +644,8 @@ oec:OperationalScope
     rdfs:comment "Lifecycle boundary for emissions or environmental impact calculations."@en ;
     dcterms:source <https://uncefact.github.io/spec-untp/> ;
     owl:oneOf (oec:CradleToGate oec:CradleToGrave) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity> .
 
 oec:CradleToGate a oec:OperationalScope ; rdfs:label "Cradle to Gate"@en ;
     rdfs:comment "Emissions from raw material extraction through manufacturing, excluding use phase and end-of-life."@en .
@@ -648,7 +683,9 @@ oec:operatorInformation
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Economic-operator / facility pattern per ESPR 2024/1781 Article 77. Anchored to SEMICeu CPOV / GS1 where applicable."@en ;
-    skos:broadMatch gs1:manufacturer .
+    skos:broadMatch gs1:manufacturer ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#operatorInformation> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturerInformation> .
 
 oec:operatorRole
     a owl:ObjectProperty ;
@@ -659,7 +696,8 @@ oec:operatorRole
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Economic-operator / facility pattern per ESPR 2024/1781 Article 77. Anchored to SEMICeu CPOV / GS1 where applicable."@en ;
-    rdfs:seeAlso cv:role .
+    rdfs:seeAlso cv:role ;
+    skos:closeMatch gs1:organizationRole .
 
 oec:registrationNumber
     a owl:DatatypeProperty ;
@@ -669,7 +707,10 @@ oec:registrationNumber
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:narrowMatch gs1:registryEntry ;
+    skos:narrowMatch gs1:regulatoryReferenceNumber ;
+    skos:narrowMatch schema:companyRegistration .
 
 # =============================================================================
 # Properties - Due Diligence
@@ -682,7 +723,9 @@ oec:dueDiligenceReport
     rdfs:range oec:DueDiligenceReport ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Labels:1.2.0#resultOfTestReport> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#supplyChainDueDiligenceReport> .
 
 oec:reportUrl
     a owl:DatatypeProperty ;
@@ -693,7 +736,8 @@ oec:reportUrl
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    rdfs:seeAlso gs1:referencedFileURL .
+    rdfs:seeAlso gs1:referencedFileURL ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#supplyChainDueDiligenceReport> .
 
 oec:thirdPartyAssurancesUrl
     a owl:DatatypeProperty ;
@@ -736,7 +780,11 @@ oec:hazardousSubstances
     rdfs:range oec:HazardousSubstance ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272> ;
-    skos:note "Substance-of-concern pattern aligned with CLP (EC) 1272/2008 and the ECHA SCIP database. Reusable across regulation modules."@en .
+    skos:note "Substance-of-concern pattern aligned with CLP (EC) 1272/2008 and the ECHA SCIP database. Reusable across regulation modules."@en ;
+    skos:closeMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstances> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceIdentifier> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass> ;
+    rdfs:seeAlso dppk:substancesOfConcern .
 
 oec:hazardClass
     a owl:ObjectProperty ;
@@ -746,7 +794,8 @@ oec:hazardClass
     rdfs:range oec:HazardClass ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272> ;
-    skos:note "Substance-of-concern pattern aligned with CLP (EC) 1272/2008 and the ECHA SCIP database. Reusable across regulation modules."@en .
+    skos:note "Substance-of-concern pattern aligned with CLP (EC) 1272/2008 and the ECHA SCIP database. Reusable across regulation modules."@en ;
+    skos:exactMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass> .
 
 oec:casNumber
     a owl:DatatypeProperty ;
@@ -781,7 +830,8 @@ oec:concentration
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:exactMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceConcentration> .
 
 oec:hazardImpact
     a owl:DatatypeProperty ;
@@ -813,7 +863,10 @@ oec:documentType
     rdfs:range oec:DocumentType ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:exactMatch oec:documentType ;
+    skos:exactMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#documentType> ;
+    skos:broadMatch dppk:europeanAssessmentDocument .
 
 oec:documentUrl
     a owl:DatatypeProperty ;
@@ -825,7 +878,9 @@ oec:documentUrl
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:narrowMatch gs1:referencedFileURL .
+    skos:narrowMatch gs1:referencedFileURL ;
+    skos:exactMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#documentURL> ;
+    skos:closeMatch gs1:referencedFile .
 
 oec:mimeType
     a owl:DatatypeProperty ;
@@ -834,7 +889,9 @@ oec:mimeType
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:exactMatch oec:mimeType ;
+    skos:exactMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#mimeType> .
 
 oec:languageCode
     a owl:DatatypeProperty ;
@@ -845,7 +902,9 @@ oec:languageCode
     rdfs:seeAlso gs1:fileLanguageCode ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:exactMatch gs1:fileLanguageCode ;
+    skos:narrowMatch schema:inLanguage .
 
 oec:issueDate
     a owl:DatatypeProperty ;
@@ -854,7 +913,9 @@ oec:issueDate
     rdfs:range xsd:date ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:exactMatch untp:issueDate ;
+    skos:exactMatch dppk:dateOfIssue .
 
 # =============================================================================
 # Properties - Circularity Performance
@@ -867,7 +928,8 @@ oec:circularityPerformance
     rdfs:range oec:CircularityPerformance ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en .
+    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
+    rdfs:seeAlso dppk:performance .
 
 oec:recyclableContent
     a owl:DatatypeProperty ;
@@ -891,7 +953,10 @@ oec:endOfLifeInstructions
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
     rdfs:seeAlso dppk:endOfLifeInstructions ;
     skos:exactMatch dppk:endOfLifeInstructions ;
-    rdfs:seeAlso gs1:sustainabilityInfo .
+    rdfs:seeAlso gs1:sustainabilityInfo ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation> ;
+    skos:narrowMatch gs1:instructions ;
+    skos:narrowMatch gs1:sustainabilityInfo .
 
 oec:wastePreventionInfo
     a owl:DatatypeProperty ;
@@ -903,7 +968,8 @@ oec:wastePreventionInfo
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:narrowMatch gs1:sustainabilityInfo .
+    skos:narrowMatch gs1:sustainabilityInfo ;
+    skos:exactMatch dppk:wastePreventionInfo .
 
 oec:separateCollectionInfo
     a owl:DatatypeProperty ;
@@ -924,7 +990,12 @@ oec:dismantlingInstructions
     rdfs:range oec:DocumentReference ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:exactMatch oec:dismantlingInstructions ;
+    rdfs:seeAlso dppk:dismantlingInformation ;
+    skos:exactMatch dppk:disassemblyInstructions ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation> ;
+    skos:narrowMatch gs1:instructions .
 
 oec:utilityFactor
     a owl:DatatypeProperty ;
@@ -934,7 +1005,8 @@ oec:utilityFactor
     rdfs:range xsd:decimal ;
     dcterms:source <https://uncefact.github.io/spec-untp/> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:narrowMatch schema:measuredProperty .
 
 oec:materialCircularityIndicator
     a owl:DatatypeProperty ;
@@ -944,7 +1016,10 @@ oec:materialCircularityIndicator
     rdfs:range xsd:decimal ;
     dcterms:source <https://ellenmacarthurfoundation.org/material-circularity-indicator> ;
     skos:note "Value is a decimal fraction 0-1. Based on Ellen MacArthur Foundation MCI methodology. Aligned with UNTP."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    rdfs:seeAlso dppk:recyclabilityScore ;
+    skos:broadMatch oec:recyclabilityScore ;
+    rdfs:seeAlso oec:recyclabilityAssessment .
 
 # =============================================================================
 # Properties - Recycled Content
@@ -957,7 +1032,18 @@ oec:recycledContentDetails
     rdfs:range oec:RecycledContent ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en .
+    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
+    rdfs:seeAlso dppk:recycledContentPercentage ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent> ;
+    skos:broadMatch untp:recycledMassFraction ;
+    rdfs:seeAlso oec:recyclableContent ;
+    rdfs:seeAlso dppk:postConsumerRecycledContent ;
+    skos:closeMatch dppk:postConsumerRecycledContentMass ;
+    rdfs:seeAlso dppk:preConsumerRecycledContentPercentage ;
+    rdfs:seeAlso dppk:postConsumerRecycledMaterialComposition ;
+    rdfs:seeAlso dppk:preConsumerRecycledContent ;
+    rdfs:seeAlso dppk:preConsumerRecycledContentMass ;
+    rdfs:seeAlso dppk:preConsumerRecycledMaterialComposition .
 
 # Note: oec:recycledContent as DatatypeProperty (total percentage) is defined below
 # to align with UNTP. The ObjectProperty version is renamed to recycledContentDetails.
@@ -970,7 +1056,14 @@ oec:recycledContent
     rdfs:range xsd:decimal ;
     skos:note "Value is a decimal fraction 0-1. Aligned with UNTP recycledContent."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:exactMatch oec:recycledContent ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent> ;
+    rdfs:seeAlso dppk:packagingRecycledContent ;
+    rdfs:seeAlso dppk:postConsumerRecycledContentPercentage ;
+    skos:broadMatch dppk:preConsumerRecycledContentPercentage ;
+    skos:broadMatch dppk:postConsumerRecycledContent ;
+    skos:broadMatch dppk:preConsumerRecycledContent .
 
 oec:preConsumerRecycledContent
     a owl:DatatypeProperty ;
@@ -982,7 +1075,13 @@ oec:preConsumerRecycledContent
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso dppk:preConsumerRecycledContent ;
-    skos:exactMatch dppk:preConsumerRecycledContent .
+    skos:exactMatch dppk:preConsumerRecycledContent ;
+    skos:exactMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent> ;
+    skos:exactMatch dppk:preConsumerRecycledContentPercentage ;
+    rdfs:seeAlso oec:recyclableContent ;
+    rdfs:seeAlso untp:recycledMassFraction ;
+    rdfs:seeAlso gs1:textileMaterialContent .
 
 oec:postConsumerRecycledContent
     a owl:DatatypeProperty ;
@@ -994,7 +1093,9 @@ oec:postConsumerRecycledContent
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso dppk:postConsumerRecycledContent ;
-    skos:exactMatch dppk:postConsumerRecycledContent .
+    skos:exactMatch dppk:postConsumerRecycledContent ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent> ;
+    skos:closeMatch untp:recycledMassFraction .
 
 # =============================================================================
 # Properties - Material Composition
@@ -1007,7 +1108,17 @@ oec:materialComposition
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    rdfs:seeAlso gs1:textileMaterialContent .
+    rdfs:seeAlso gs1:textileMaterialContent ;
+    rdfs:seeAlso dppk:fibreComposition ;
+    rdfs:seeAlso dppk:packagingMaterialCompositionQuantity ;
+    rdfs:seeAlso dppk:postConsumerRecycledMaterialComposition ;
+    rdfs:seeAlso gs1:textileMaterialDescription ;
+    rdfs:seeAlso dppk:preConsumerRecycledMaterialComposition ;
+    rdfs:seeAlso gs1:packagingMaterial ;
+    rdfs:seeAlso gs1:packagingMaterialType ;
+    rdfs:seeAlso dppk:packagingMaterialType ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#recycledMaterial> ;
+    rdfs:seeAlso gs1:upperMaterialType .
 
 oec:massFraction
     a owl:DatatypeProperty ;
@@ -1042,7 +1153,10 @@ oec:componentName
     rdfs:seeAlso schema:name ;
     rdfs:seeAlso dppk:componentName ;
     skos:exactMatch dppk:componentName ;
-    skos:note "Generic component-naming pattern shared by textile fibre composition, steel material composition, and substance declarations. Anchored to DPP Keystone dppk:componentName (peer DPP profile) and schema:name."@en .
+    skos:note "Generic component-naming pattern shared by textile fibre composition, steel material composition, and substance declarations. Anchored to DPP Keystone dppk:componentName (peer DPP profile) and schema:name."@en ;
+    rdfs:seeAlso gs1:ingredientName ;
+    skos:broadMatch gs1:additiveName ;
+    skos:narrowMatch schema:name .
 
 oec:componentIdentifier
     a owl:DatatypeProperty ;
@@ -1055,7 +1169,11 @@ oec:componentIdentifier
     rdfs:seeAlso schema:identifier ;
     rdfs:seeAlso dppk:componentIdentifier ;
     skos:exactMatch dppk:componentIdentifier ;
-    skos:note "Generic component-identifier pattern. Anchored to DPP Keystone dppk:componentIdentifier (peer DPP profile) and schema:identifier."@en .
+    skos:note "Generic component-identifier pattern. Anchored to DPP Keystone dppk:componentIdentifier (peer DPP profile) and schema:identifier."@en ;
+    skos:narrowMatch schema:identifier ;
+    skos:broadMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier> ;
+    skos:exactMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#componentId> ;
+    skos:narrowMatch adms:identifier .
 
 # =============================================================================
 # Properties - Carbon Footprint / Emissions Performance
@@ -1070,7 +1188,8 @@ oec:emissionsPerformance
     rdfs:range oec:EmissionsPerformance ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en .
+    skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en ;
+    rdfs:seeAlso dppk:performance .
 
 oec:carbonFootprint
     a owl:ObjectProperty ;
@@ -1081,7 +1200,11 @@ oec:carbonFootprint
     rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf> ;
     skos:note """Required extension: GS1 GDSN provides carbon footprint attributes but they are not
 yet part of GS1 Web Vocabulary. This property aligns with the GDSN CFP Implementation Guideline.
-Use gs1:QuantitativeValue for the measurement value with appropriate unitCode."""@en.
+Use gs1:QuantitativeValue for the measurement value with appropriate unitCode."""@en;
+    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint> .
 
 oec:carbonFootprintTotal
     a owl:DatatypeProperty ;
@@ -1091,7 +1214,12 @@ oec:carbonFootprintTotal
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf> ;
     skos:note "Aligned with GDSN CarbonFootprintHeader/cfpValue and UNTP carbonFootprint. Value in kg CO2 equivalent."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint> ;
+    skos:exactMatch oec:carbonFootprintTotal ;
+    skos:broadMatch oec:carbonFootprintProduction ;
+    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage> ;
+    skos:exactMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint> .
 
 oec:declaredUnit
     a owl:DatatypeProperty ;
@@ -1100,7 +1228,9 @@ oec:declaredUnit
     rdfs:range xsd:string ;
     skos:note "Aligned with GDSN cfpFunctionalUnit and UNTP declaredUnit. Specifies the reference unit for measurements."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:exactMatch dppk:declaredUnit ;
+    skos:narrowMatch gs1:unitCode .
 
 oec:carbonFootprintStudyUrl
     a owl:DatatypeProperty ;
@@ -1110,7 +1240,10 @@ oec:carbonFootprintStudyUrl
     rdfs:seeAlso gs1:referencedFileURL ;
     skos:note "Consider also using gs1:referencedFile with gs1:ReferencedFileTypeCode-CERTIFICATION for the study document."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:exactMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintStudy> ;
+    skos:exactMatch oec:carbonFootprintStudyUrl ;
+    skos:narrowMatch gs1:referencedFileURL .
 
 oec:operationalScope
     a owl:ObjectProperty ;
@@ -1120,7 +1253,8 @@ oec:operationalScope
     rdfs:range oec:OperationalScope ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#lifecycleStage> .
 
 oec:primarySourcedRatio
     a owl:DatatypeProperty ;
@@ -1144,7 +1278,10 @@ oec:lastDataUpdate
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    rdfs:seeAlso schema:sdDatePublished .
+    rdfs:seeAlso schema:sdDatePublished ;
+    skos:exactMatch oec:lastDataUpdate ;
+    skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#lastUpdate> ;
+    skos:exactMatch dppk:lastUpdate .
 
 oec:dataQualityAssessment
     a owl:DatatypeProperty ;
@@ -1164,7 +1301,10 @@ oec:dataProviderCertification
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     rdfs:seeAlso schema:hasCertification ;
-    rdfs:seeAlso gs1:certification .
+    rdfs:seeAlso gs1:certification ;
+    skos:exactMatch oec:dataProviderCertification ;
+    skos:narrowMatch schema:hasCertification ;
+    skos:narrowMatch gs1:certification .
 
 # =============================================================================
 # Properties - Traceability Performance (UNTP alignment)
@@ -1211,7 +1351,8 @@ oec:complianceDate
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    rdfs:seeAlso schema:auditDate .
+    rdfs:seeAlso schema:auditDate ;
+    rdfs:seeAlso gs1:certificationAuditDate .
 
 oec:complianceStatus
     a owl:DatatypeProperty ;
@@ -1235,7 +1376,9 @@ This replaces individual national registrations with a single EU-wide identifier
     rdfs:domain oec:OperatorInformation ;
     rdfs:range xsd:string ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Economic-operator / facility pattern per ESPR 2024/1781 Article 77. Anchored to SEMICeu CPOV / GS1 where applicable."@en .
+    skos:note "Economic-operator / facility pattern per ESPR 2024/1781 Article 77. Anchored to SEMICeu CPOV / GS1 where applicable."@en ;
+    skos:exactMatch dppk:economicOperatorId ;
+    rdfs:seeAlso gs1:additionalOrganizationID .
 
 oec:eoriNumber
     a owl:DatatypeProperty ;
@@ -1245,7 +1388,8 @@ oec:eoriNumber
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:narrowMatch gs1:regulatoryReferenceNumber .
 
 # =============================================================================
 # Properties - Facility Information
@@ -1258,7 +1402,8 @@ oec:facilityInformation
     rdfs:range oec:FacilityInformation ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Economic-operator / facility pattern per ESPR 2024/1781 Article 77. Anchored to SEMICeu CPOV / GS1 where applicable."@en .
+    skos:note "Economic-operator / facility pattern per ESPR 2024/1781 Article 77. Anchored to SEMICeu CPOV / GS1 where applicable."@en ;
+    rdfs:seeAlso schema:cvdFacilityId .
 
 oec:facilityType
     a owl:DatatypeProperty ;
@@ -1281,7 +1426,8 @@ oec:facilityCertifications
     skos:note "Economic-operator / facility pattern per ESPR 2024/1781 Article 77. Anchored to SEMICeu CPOV / GS1 where applicable."@en ;
     skos:narrowMatch gs1:certification ;
     skos:narrowMatch schema:hasCertification ;
-    skos:narrowMatch gs1:certificationInfo .
+    skos:narrowMatch gs1:certificationInfo ;
+    rdfs:seeAlso gs1:certificationIdentification .
 
 # =============================================================================
 # Properties - Substances of Concern (SCIP Database Alignment)
@@ -1297,7 +1443,8 @@ oec:substancesOfConcern
     skos:note "Substance-of-concern pattern aligned with CLP (EC) 1272/2008 and the ECHA SCIP database. Reusable across regulation modules."@en ;
     rdfs:seeAlso dppk:substancesOfConcern ;
     skos:exactMatch dppk:substancesOfConcern ;
-    rdfs:seeAlso gs1:ingredientOfConcern .
+    rdfs:seeAlso gs1:ingredientOfConcern ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstances> .
 
 oec:ecNumber
     a owl:DatatypeProperty ;
@@ -1309,7 +1456,8 @@ oec:ecNumber
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     rdfs:seeAlso dppk:componentEcNumber ;
-    skos:closeMatch dppk:componentEcNumber .
+    skos:closeMatch dppk:componentEcNumber ;
+    skos:exactMatch oec:ecNumber .
 
 oec:scipId
     a owl:DatatypeProperty ;
@@ -1332,7 +1480,10 @@ oec:substanceLocation
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272> ;
     skos:note "Substance-of-concern pattern aligned with CLP (EC) 1272/2008 and the ECHA SCIP database. Reusable across regulation modules."@en ;
     rdfs:seeAlso dppk:componentLocationInProduct ;
-    skos:closeMatch dppk:componentLocationInProduct .
+    skos:closeMatch dppk:componentLocationInProduct ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceLocation> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialLocation> ;
+    rdfs:seeAlso locn:location .
 
 oec:safeUseInstructions
     a owl:DatatypeProperty ;
@@ -1345,7 +1496,12 @@ oec:safeUseInstructions
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     rdfs:seeAlso dppk:safeUseInstructions ;
     skos:exactMatch dppk:safeUseInstructions ;
-    rdfs:seeAlso gs1:consumerSafetyInformation .
+    rdfs:seeAlso gs1:consumerSafetyInformation ;
+    skos:narrowMatch gs1:consumerUsageInstructions ;
+    skos:narrowMatch gs1:instructions ;
+    skos:narrowMatch gs1:instructionsForUse ;
+    skos:narrowMatch dppk:instructionsForUse ;
+    skos:narrowMatch gs1:consumerSafetyInformation .
 
 oec:safeDisassemblyInstructions
     a owl:DatatypeProperty ;
@@ -1355,7 +1511,8 @@ oec:safeDisassemblyInstructions
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:narrowMatch gs1:instructions .
 
 # =============================================================================
 # Properties - Performance and Durability (ESPR Article 7)
@@ -1378,7 +1535,8 @@ oec:expectedLifespan
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime> .
 
 oec:guaranteedLifespan
     a owl:ObjectProperty ;
@@ -1388,7 +1546,8 @@ oec:guaranteedLifespan
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    rdfs:seeAlso schema:durationOfWarranty .
 
 oec:usageCycles
     a owl:DatatypeProperty ;
@@ -1398,7 +1557,9 @@ oec:usageCycles
     rdfs:range xsd:integer ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles> ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#batteryCondition> .
 
 oec:technicalLifetime
     a owl:ObjectProperty ;
@@ -1408,7 +1569,9 @@ oec:technicalLifetime
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime> ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#batteryTechnicalProperties> .
 
 oec:performanceClass
     a owl:DatatypeProperty ;
@@ -1418,7 +1581,10 @@ oec:performanceClass
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    rdfs:seeAlso dppk:energyEfficiencyClass ;
+    rdfs:seeAlso oec:energyEfficiencyClass ;
+    rdfs:seeAlso schema:energyEfficiencyScaleMax .
 
 oec:testedConditions
     a owl:DatatypeProperty ;
@@ -1442,7 +1608,8 @@ oec:repairabilityInfo
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
-    rdfs:seeAlso gs1:serviceInfo .
+    rdfs:seeAlso gs1:serviceInfo ;
+    skos:closeMatch gs1:serviceInfo .
 
 oec:repairabilityScore
     a owl:DatatypeProperty ;
@@ -1462,7 +1629,8 @@ oec:repairabilityClass
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en .
+    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
+    skos:exactMatch oec:repairabilityClass .
 
 oec:sparePartsAvailability
     a owl:ObjectProperty ;
@@ -1484,7 +1652,8 @@ oec:repairInstructions
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
     skos:narrowMatch gs1:instructions ;
-    rdfs:seeAlso gs1:serviceInfo .
+    rdfs:seeAlso gs1:serviceInfo ;
+    skos:narrowMatch gs1:serviceInfo .
 
 oec:professionalRepairNetwork
     a owl:DatatypeProperty ;
@@ -1495,7 +1664,9 @@ oec:professionalRepairNetwork
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
-    rdfs:seeAlso cv:contactPage .
+    rdfs:seeAlso cv:contactPage ;
+    rdfs:seeAlso dppk:repairServices ;
+    rdfs:seeAlso dppk:repairService .
 
 oec:diyRepairPossible
     a owl:DatatypeProperty ;
@@ -1538,7 +1709,8 @@ oec:accessLevel
     rdfs:range oec:AccessLevel ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:narrowMatch schema:conditionsOfAccess .
 
 oec:authorizedParties
     a owl:ObjectProperty ;
@@ -1571,7 +1743,10 @@ oec:productCategory
     rdfs:range oec:ProductCategory ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:narrowMatch schema:category ;
+    skos:narrowMatch gs1:additionalProductClassificationCode ;
+    skos:broadMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryCategory> .
 
 oec:passportIdentifier
     a owl:DatatypeProperty ;
@@ -1582,7 +1757,8 @@ oec:passportIdentifier
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)" ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:narrowMatch schema:identifier .
+    skos:narrowMatch schema:identifier ;
+    skos:broadMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier> .
 
 oec:passportVersion
     a owl:DatatypeProperty ;
@@ -1592,7 +1768,8 @@ oec:passportVersion
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    rdfs:seeAlso schema:version .
+    rdfs:seeAlso schema:version ;
+    skos:closeMatch schema:version .
 
 oec:passportIssueDate
     a owl:DatatypeProperty ;
@@ -1612,7 +1789,8 @@ oec:passportStatus
     rdfs:range xsd:string ;
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)" ;
     skos:note "EN 18223 'dppStatus'. Base values active/inactive/archived/invalid; EPCIS4DPP adds draft/withdrawn/suspended."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    skos:exactMatch dppk:dppStatus .
 
 oec:passportExpiryDate
     a owl:DatatypeProperty ;
@@ -1630,7 +1808,8 @@ oec:passportIssuer
     rdfs:range oec:OperatorInformation ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "ESPR Article 9 requires clear identification of the responsible economic operator."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    skos:narrowMatch schema:issuedBy .
 
 oec:previousPassportVersion
     a owl:DatatypeProperty ;
@@ -1640,7 +1819,9 @@ oec:previousPassportVersion
     dcterms:source "EN 18221:2026 (CEN/CENELEC JTC 24)" ;
     skos:note "Supports the EN 18221 requirement that previous versions remain available."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    rdfs:seeAlso adms:prev .
+    rdfs:seeAlso adms:prev ;
+    skos:narrowMatch schema:predecessorOf ;
+    skos:exactMatch adms:prev .
 
 # =============================================================================
 # Digital Product Passport envelope (EN 18223 information model)
@@ -1655,7 +1836,8 @@ oec:DigitalProductPassport
     rdfs:comment "The DPP envelope: identification and lifecycle metadata plus the product data elements, per the EN 18223 information model."@en ;
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)" ;
     skos:note "EN 18223 DigitalProductPassport. Attributes: digitalProductPassportId (oec:passportIdentifier), uniqueProductIdentifier, granularity (oec:granularityLevel), dppSchemaVersion, dppStatus (oec:passportStatus), lastUpdated, economicOperatorId, facilityId, contentSpecificationIds, plus product data elements."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    skos:narrowMatch schema:DigitalDocument .
 
 # EN 18223 'uniqueProductIdentifier' maps to gs1:productID (the GS1 Digital
 # Link) in the dpp-core context; no oec: term is minted (GS1-first governance).
@@ -1671,7 +1853,8 @@ oec:dppSchemaVersion
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)" ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:narrowMatch schema:version .
+    skos:exactMatch dppk:dppSchemaVersion ;
+    skos:closeMatch schema:schemaVersion .
 
 oec:facilityId
     a owl:DatatypeProperty ;
@@ -1681,7 +1864,9 @@ oec:facilityId
     rdfs:range xsd:string ;
     dcterms:source "EN 18223:2026, 4.1.2.1; EN 18219:2026 (CEN/CENELEC JTC 24)" ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    skos:note "Economic-operator / facility pattern per ESPR 2024/1781 Article 77. Anchored to SEMICeu CPOV / GS1 where applicable."@en .
+    skos:note "Economic-operator / facility pattern per ESPR 2024/1781 Article 77. Anchored to SEMICeu CPOV / GS1 where applicable."@en ;
+    skos:exactMatch dppk:facilityId ;
+    skos:broadMatch dppk:manufacturingFacility .
 
 oec:contentSpecificationId
     a owl:DatatypeProperty ;
@@ -1691,7 +1876,8 @@ oec:contentSpecificationId
     rdfs:range xsd:anyURI ;
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)" ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:closeMatch dppk:contentSpecificationIds .
 
 # =============================================================================
 # DataElement model (EN 18223 4.1.2.3 to 4.1.2.8)
@@ -1716,7 +1902,9 @@ oec:DataElementCollection
     rdfs:label "Data Element Collection"@en ;
     rdfs:comment "A container of one or more DataElements (EN 18223 4.1.2.4)."@en ;
     dcterms:source "EN 18223:2026, 4.1.2.4 (CEN/CENELEC JTC 24)" ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    skos:narrowMatch schema:Dataset ;
+    skos:narrowMatch schema:Collection .
 
 oec:SingleValuedDataElement
     a rdfs:Class ;
@@ -1724,7 +1912,9 @@ oec:SingleValuedDataElement
     rdfs:label "Single-Valued Data Element"@en ;
     rdfs:comment "A single data point with one value (EN 18223 4.1.2.5)."@en ;
     dcterms:source "EN 18223:2026, 4.1.2.5 (CEN/CENELEC JTC 24)" ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    rdfs:seeAlso schema:QuantitativeValue ;
+    rdfs:seeAlso gs1:QuantitativeValue .
 
 oec:MultiValuedDataElement
     a rdfs:Class ;
@@ -1747,7 +1937,8 @@ oec:MultiLanguageValue
     rdfs:label "Multi-Language Value"@en ;
     rdfs:comment "A language-tagged value: a string plus its language (EN 18223 4.1.2.8.2)."@en ;
     dcterms:source "EN 18223:2026, 4.1.2.8.2 (CEN/CENELEC JTC 24)" ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    skos:narrowMatch schema:StructuredValue .
 
 oec:elementId
     a owl:DatatypeProperty ;
@@ -1758,7 +1949,8 @@ oec:elementId
     dcterms:source "EN 18223:2026, 4.1.2.3 (CEN/CENELEC JTC 24)" ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    rdfs:seeAlso schema:identifier .
+    rdfs:seeAlso schema:identifier ;
+    skos:narrowMatch schema:identifier .
 
 oec:dictionaryReference
     a owl:DatatypeProperty ;
@@ -1785,7 +1977,27 @@ oec:value
     rdfs:comment "The value of a SingleValuedDataElement or MultiLanguageValue (EN 18223 4.1.2.5, 4.1.2.8.2). Any JSON data type."@en ;
     dcterms:source "EN 18223:2026, 4.1.2.5 (CEN/CENELEC JTC 24)" ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:exactMatch untp:value ;
+    rdfs:seeAlso schema:value ;
+    rdfs:seeAlso schema:codeValue ;
+    rdfs:seeAlso gs1:certificationValue ;
+    rdfs:seeAlso cv:hasValue ;
+    rdfs:seeAlso cv:value ;
+    rdfs:seeAlso gs1:value ;
+    rdfs:seeAlso cv:expressionOfExpectedValue ;
+    rdfs:seeAlso gs1:originalCodeValue ;
+    skos:broadMatch schema:textValue ;
+    skos:broadMatch <https://gs1-epcis-reg.org/rail/voc/data#nominalValue> ;
+    skos:broadMatch schema:maxValue ;
+    skos:broadMatch gs1:authenticitySecurityFeatureValue ;
+    skos:broadMatch schema:valueReference ;
+    skos:broadMatch <https://gs1-epcis-reg.org/rail/voc/data#topValue> ;
+    skos:broadMatch gs1:colourCodeValue ;
+    skos:broadMatch <https://gs1-epcis-reg.org/rail/voc/data#rightValue> ;
+    skos:broadMatch <https://gs1-epcis-reg.org/rail/voc/data#leftValueString> ;
+    skos:broadMatch gs1:additionalProductClassificationValue ;
+    skos:broadMatch <https://gs1-epcis-reg.org/rail/voc/data#rightValueString> .
 
 oec:dataElement
     a owl:ObjectProperty ;
@@ -1794,7 +2006,8 @@ oec:dataElement
     rdfs:range oec:DataElement ;
     dcterms:source "EN 18223:2026, 4.1.2.4 (CEN/CENELEC JTC 24)" ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    rdfs:seeAlso schema:itemListElement .
 
 oec:multiLanguageValue
     a owl:ObjectProperty ;
@@ -1814,7 +2027,11 @@ oec:language
     dcterms:source "EN 18223:2026, 4.1.2.8.2 (CEN/CENELEC JTC 24)" ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    rdfs:seeAlso schema:inLanguage .
+    rdfs:seeAlso schema:inLanguage ;
+    skos:closeMatch gs1:fileLanguageCode ;
+    skos:narrowMatch schema:inLanguage ;
+    skos:narrowMatch schema:subtitleLanguage ;
+    skos:broadMatch schema:availableLanguage .
 
 # =============================================================================
 # Properties - Digital Facility Record (DFR) Support
@@ -1831,7 +2048,8 @@ No domain restriction - can be used on OperatorInformation, FacilityInformation,
 Supports UNTP Digital Facility Record (DFR) activity classification requirements."""@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:broadMatch schema:naics ;
-    skos:broadMatch schema:isicV4 .
+    skos:broadMatch schema:isicV4 ;
+    skos:broadMatch <https://unstats.un.org/unsd/classifications/Econ/isic> .
 
 # =============================================================================
 # Properties - Digital Identity Anchor (DIA) Support
@@ -1861,7 +2079,9 @@ oec:identityCredentialUrl
 proving DID-to-traditional-ID binding. Supports UNTP Digital Identity Anchor requirements.
 No domain restriction - can be used on OperatorInformation, FacilityInformation, or any entity."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    rdfs:seeAlso gs1:referencedFileURL ;
+    skos:narrowMatch dppk:verifiableCredential .
 
 # =============================================================================
 # Individual Trade Item Piece (ITIP) - GS1 Application Identifier 8026
@@ -1883,7 +2103,8 @@ oec:IndividualTradeItemPiece
     dcterms:source "https://ref.gs1.org/ai/8026" ;
     rdfs:seeAlso <https://www.gs1.org/standards/barcodes/application-identifiers/8026> ;
     skos:note "Reference pattern aligned with GS1 ITIP (AI 8026). The ITIP AI 8026 encodes GTIN + total piece count + piece number in one identifier."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    skos:narrowMatch schema:IndividualProduct .
 
 oec:tradeItemPieceCount
     a owl:DatatypeProperty ;
@@ -1904,7 +2125,9 @@ oec:tradeItemPieceNumber
     rdfs:range xsd:positiveInteger ;
     dcterms:source "https://ref.gs1.org/ai/8026" ;
     skos:note "Maps to the piece-number component of GS1 AI 8026. MUST be less than or equal to oec:tradeItemPieceCount on the parent product."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    skos:closeMatch schema:clipNumber ;
+    skos:closeMatch schema:episodeNumber .
 
 oec:tradeItemPieceOf
     a owl:ObjectProperty ;
@@ -1924,7 +2147,11 @@ oec:tradeItemPieceDescription
     rdfs:range xsd:string ;
     dcterms:source "https://ref.gs1.org/ai/8026" ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:narrowMatch schema:description ;
+    rdfs:seeAlso gs1:productDescription ;
+    rdfs:seeAlso gs1:offerDescription ;
+    rdfs:seeAlso gs1:additionalProductDescription .
 
 # =============================================================================
 # Customs Commodity Classification (shared across EU/US regulatory modules)
@@ -1948,7 +2175,8 @@ oec:CustomsCommodityCodeType
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    rdfs:seeAlso gs1:TypeCode .
+    rdfs:seeAlso gs1:TypeCode ;
+    rdfs:seeAlso schema:CategoryCode .
 
 oec:HS6      a oec:CustomsCommodityCodeType ; rdfs:label "HS 6-digit (World Customs Organization Harmonized System)"@en .
 oec:HS8      a oec:CustomsCommodityCodeType ; rdfs:label "HS 8-digit subheading"@en .
@@ -2029,7 +2257,8 @@ oec:eprRegistrationNumber
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    rdfs:seeAlso gs1:registryEntry .
+    rdfs:seeAlso gs1:registryEntry ;
+    skos:narrowMatch gs1:regulatoryReferenceNumber .
 
 oec:eprScheme
     a owl:ObjectProperty ;
@@ -2050,7 +2279,9 @@ oec:eprJurisdiction
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    rdfs:seeAlso schema:jurisdiction .
+    rdfs:seeAlso schema:jurisdiction ;
+    skos:exactMatch oec:eprJurisdiction ;
+    skos:narrowMatch schema:jurisdiction .
 
 oec:eprComplianceUrl
     a owl:DatatypeProperty ;
@@ -2060,7 +2291,8 @@ oec:eprComplianceUrl
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:narrowMatch gs1:certificationAgencyURL .
 
 oec:eprWasteStream
     a owl:DatatypeProperty ;
@@ -2130,7 +2362,8 @@ oec:BiodegradabilityTestMethod
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:narrowMatch cv:Criterion .
 
 oec:ISO14593  a oec:BiodegradabilityTestMethod ; rdfs:label "ISO 14593 (CO2 evolution test)"@en .
 oec:OECD301B  a oec:BiodegradabilityTestMethod ; rdfs:label "OECD 301B (CO2 evolution test)"@en .
@@ -2146,7 +2379,8 @@ oec:biodegradabilityTestMethod
     rdfs:range oec:BiodegradabilityTestMethod ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:narrowMatch schema:measurementMethod .
 
 oec:Compostability
     a owl:Class ;
@@ -2192,8 +2426,7 @@ oec:compostabilityStandard
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:narrowMatch gs1:certificationStandard .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
 
 # -----------------------------------------------------------------------------
 # Deposit-Return Scheme (DRS)
@@ -2205,7 +2438,8 @@ oec:DepositReturnScheme
     rdfs:comment "A deposit-return scheme that the product participates in (PPWR Article 13, beverage container DRS in DE/AT/NL/SE/etc., and any future EU-harmonised DRS)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:closeMatch gs1:ReturnablePackageDepositDetails .
 
 oec:depositAmount
     a owl:ObjectProperty ;
@@ -2215,7 +2449,9 @@ oec:depositAmount
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:exactMatch gs1:returnablePackageDepositAmount ;
+    rdfs:seeAlso schema:amount .
 
 oec:depositSchemeOperator
     a owl:ObjectProperty ;
@@ -2225,7 +2461,9 @@ oec:depositSchemeOperator
     rdfs:range gs1:Organization ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Economic-operator / facility pattern per ESPR 2024/1781 Article 77. Anchored to SEMICeu CPOV / GS1 where applicable."@en .
+    skos:note "Economic-operator / facility pattern per ESPR 2024/1781 Article 77. Anchored to SEMICeu CPOV / GS1 where applicable."@en ;
+    skos:closeMatch schema:serviceOperator ;
+    rdfs:seeAlso dppk:economicOperator .
 
 oec:depositRedemptionChannelUrl
     a owl:DatatypeProperty ;
@@ -2235,7 +2473,8 @@ oec:depositRedemptionChannelUrl
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:narrowMatch schema:availableChannel .
 
 oec:depositReturnScheme
     a owl:ObjectProperty ;
@@ -2244,7 +2483,9 @@ oec:depositReturnScheme
     rdfs:range oec:DepositReturnScheme ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    rdfs:seeAlso untp:referenceScheme ;
+    rdfs:seeAlso untp:idScheme .
 
 # =============================================================================
 # UNTP v0.7.0 alignment
@@ -2285,7 +2526,8 @@ oec:CarbonFootprintDeclaration
     rdfs:comment "An observation of a product's lifecycle carbon footprint, broken down by lifecycle stage. Used for EU Battery Annex II §8, ESPR carbon-footprint declarations, PEF reporting, and PPWR optional disclosures."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en .
+    skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en ;
+    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity> .
 
 oec:carbonFootprintRawMaterial
     a owl:ObjectProperty ;
@@ -2295,7 +2537,11 @@ oec:carbonFootprintRawMaterial
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en .
+    skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint> ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage> ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint> .
 
 oec:carbonFootprintProduction
     a owl:ObjectProperty ;
@@ -2305,7 +2551,13 @@ oec:carbonFootprintProduction
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en .
+    skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint> ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage> ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint> ;
+    skos:narrowMatch oec:carbonFootprintTotal ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint> ;
+    skos:narrowMatch dppk:carbonFootprint .
 
 oec:carbonFootprintDistribution
     a owl:ObjectProperty ;
@@ -2315,7 +2567,9 @@ oec:carbonFootprintDistribution
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en .
+    skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint> ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage> .
 
 oec:carbonFootprintUse
     a owl:ObjectProperty ;
@@ -2325,7 +2579,8 @@ oec:carbonFootprintUse
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en .
+    skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint> .
 
 oec:carbonFootprintEndOfLife
     a owl:ObjectProperty ;
@@ -2335,7 +2590,13 @@ oec:carbonFootprintEndOfLife
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en .
+    skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint> ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage> ;
+    skos:narrowMatch oec:carbonFootprintTotal ;
+    rdfs:seeAlso dppk:carbonFootprintAbsolute ;
+    rdfs:seeAlso dppk:carbonFootprint ;
+    rdfs:seeAlso dppk:environmentalFootprint .
 
 oec:carbonFootprintMethodology
     a owl:DatatypeProperty ;
@@ -2354,7 +2615,8 @@ oec:carbonFootprintDeclaration
     rdfs:range oec:CarbonFootprintDeclaration ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en .
+    skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en ;
+    skos:exactMatch oec:carbonFootprintDeclaration .
 
 # -----------------------------------------------------------------------------
 # Recyclability Assessment
@@ -2369,7 +2631,9 @@ oec:RecyclabilityAssessment
     rdfs:comment "An assessment of a product's recyclability. Different regulations express the same concept differently: PPWR uses letter grades A/B/C, the JRC textile methodology uses a 0-10 score, electronics WEEE uses a 0-1 rate. All three are optional; pick whichever your regulation requires."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en .
+    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
+    skos:narrowMatch cv:Criterion ;
+    skos:narrowMatch untp:ConformityAssessment .
 
 oec:recyclabilityScore
     a owl:DatatypeProperty ;
@@ -2379,7 +2643,8 @@ oec:recyclabilityScore
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en .
+    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
+    skos:exactMatch dppk:recyclabilityScore .
 
 oec:recyclabilityRate
     a owl:DatatypeProperty ;
@@ -2408,7 +2673,8 @@ oec:recyclabilityAssessment
     rdfs:range oec:RecyclabilityAssessment ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en .
+    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
+    skos:exactMatch oec:recyclabilityAssessment .
 
 # -----------------------------------------------------------------------------
 # Energy Efficiency
@@ -2423,7 +2689,8 @@ oec:EnergyEfficiency
     skos:narrowMatch schema:EnergyConsumptionDetails ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    rdfs:seeAlso schema:EUEnergyEfficiencyEnumeration .
 
 oec:EnergyEfficiencyClass
     a owl:Class ;
@@ -2441,7 +2708,10 @@ oec:EnergyEfficiencyClass
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:narrowMatch schema:EnergyEfficiencyEnumeration .
+    skos:narrowMatch schema:EnergyEfficiencyEnumeration ;
+    skos:narrowMatch schema:EUEnergyEfficiencyEnumeration ;
+    skos:narrowMatch schema:EnergyConsumptionDetails ;
+    skos:narrowMatch schema:Class .
 
 oec:EnergyClassA a oec:EnergyEfficiencyClass ; rdfs:label "Class A"@en ; skos:notation "A" .
 oec:EnergyClassB a oec:EnergyEfficiencyClass ; rdfs:label "Class B"@en ; skos:notation "B" .
@@ -2460,7 +2730,10 @@ oec:energyEfficiencyClass
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso dppk:energyEfficiencyClass ;
     skos:exactMatch dppk:energyEfficiencyClass ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP and DPP Keystone (dppk:energyEfficiencyClass) where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP and DPP Keystone (dppk:energyEfficiencyClass) where an equivalent exists."@en ;
+    rdfs:seeAlso oec:energyEfficiencyClass ;
+    rdfs:seeAlso schema:energyEfficiencyScaleMin ;
+    skos:closeMatch schema:hasEnergyEfficiencyCategory .
 
 oec:annualEnergyConsumption
     a owl:ObjectProperty ;
@@ -2511,7 +2784,8 @@ oec:eprelRegistrationNumber
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:narrowMatch gs1:regulatoryReferenceNumber .
+    skos:narrowMatch gs1:regulatoryReferenceNumber ;
+    skos:narrowMatch schema:serialNumber .
 
 oec:eprelProductUrl
     a owl:DatatypeProperty ;
@@ -2530,7 +2804,14 @@ oec:energyEfficiency
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    rdfs:seeAlso schema:hasEnergyConsumptionDetails .
+    rdfs:seeAlso schema:hasEnergyConsumptionDetails ;
+    skos:exactMatch oec:energyEfficiency ;
+    rdfs:seeAlso schema:energyEfficiencyScaleMax ;
+    rdfs:seeAlso schema:energyEfficiencyScaleMin ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiency> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyFade> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife> ;
+    skos:broadMatch dppk:roundTripEfficiencyAt50Cycles .
 
 # -----------------------------------------------------------------------------
 # End-of-Life Program
@@ -2554,7 +2835,8 @@ oec:takeBackUrl
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    rdfs:seeAlso schema:merchantReturnLink .
+    rdfs:seeAlso schema:merchantReturnLink ;
+    skos:narrowMatch schema:merchantReturnLink .
 
 oec:takeBackIncentive
     a owl:DatatypeProperty ;
@@ -2564,7 +2846,8 @@ oec:takeBackIncentive
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:broadMatch schema:cashBack .
 
 oec:collectionPointDirectoryUrl
     a owl:DatatypeProperty ;
@@ -2575,7 +2858,9 @@ oec:collectionPointDirectoryUrl
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    rdfs:seeAlso gs1:referencedFileURL .
+    rdfs:seeAlso gs1:referencedFileURL ;
+    skos:narrowMatch schema:url ;
+    skos:narrowMatch gs1:referencedFileURL .
 
 oec:dismantlingGuideUrl
     a owl:DatatypeProperty ;
@@ -2680,7 +2965,9 @@ oec:RepairProvider
     rdfs:comment "An authorised repair provider for a product. Supports the European online platform for repair (Article 7 of Directive 2024/1799) and manufacturer-published repair networks."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en .
+    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
+    skos:broadMatch schema:AutoRepair ;
+    skos:broadMatch schema:MotorcycleRepair .
 
 oec:repairProvider
     a owl:ObjectProperty ;
@@ -2689,7 +2976,8 @@ oec:repairProvider
     rdfs:range oec:RepairProvider ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en .
+    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
+    skos:narrowMatch schema:provider .
 
 oec:repairProviderName
     a owl:DatatypeProperty ;
@@ -2698,7 +2986,8 @@ oec:repairProviderName
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en .
+    skos:note "Cross-cutting circularity pattern per ESPR 2024/1781 Article 7, reusable across regulation modules."@en ;
+    skos:narrowMatch schema:provider .
 
 oec:repairProviderUrl
     a owl:DatatypeProperty ;
@@ -2725,7 +3014,10 @@ oec:dueDiligenceRegulationContext
     rdfs:range gs1:RegulatoryInformation ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:narrowMatch cv:isDerivedFrom ;
+    skos:closeMatch untp:regulation ;
+    skos:closeMatch untp:referenceRegulation .
 
 oec:supplyChainTransparencyUrl
     a owl:DatatypeProperty ;
@@ -2762,7 +3054,10 @@ oec:isStrategicRawMaterial
     rdfs:range xsd:boolean ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1252> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#isCriticalRawMaterial> ;
+    skos:narrowMatch dppk:criticalRawMaterials ;
+    skos:narrowMatch oec:isCriticalRawMaterial .
 
 oec:crmListVersion
     a owl:DatatypeProperty ;
@@ -2772,7 +3067,10 @@ oec:crmListVersion
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:narrowMatch untp:version ;
+    skos:narrowMatch dppk:dppSchemaVersion ;
+    skos:narrowMatch dppk:versionNumber .
 
 # =============================================================================
 # Cross-cutting refurbishment / remanufacturing
@@ -2794,7 +3092,8 @@ oec:remanufacturingDate
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "No upstream equivalent: GS1 Web Vocabulary covers production dates but not refurbishment; schema.org has schema:productionDate / schema:purchaseDate but no remanufacture/reconditioning date; SEMICeu does not cover product lifecycle dates."@en ;
     rdfs:seeAlso <https://gs1-epcis-reg.org/rail/voc/data#itemReconditioningDate> ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    skos:broadMatch <https://gs1-epcis-reg.org/rail/voc/data#itemReconditioningDate> .
 
 # =============================================================================
 # Environmental Product Declaration (EN 15804:2012+A2:2019)
@@ -2820,11 +3119,11 @@ reporting life-cycle environmental impact indicators broken down by lifecycle mo
     rdfs:seeAlso oec:EmissionsPerformance ;
     rdfs:seeAlso oec:CarbonFootprintDeclaration ;
     rdfs:seeAlso dppk:EPDBlock ;
-    skos:closeMatch dppk:EPDBlock ;
     skos:note """Required extension: EN 15804 EPDs carry a full impact-indicator set with modular
 lifecycle breakdown not covered by GS1 Web Vocabulary, schema.org, or SEMICeu. Aligned with
 DPP Keystone dppk:EPDBlock (peer DPP profile). For a single aggregate carbon figure use
-oec:carbonFootprintTotal; for a 5-stage carbon breakdown use oec:CarbonFootprintDeclaration."""@en .
+oec:carbonFootprintTotal; for a 5-stage carbon breakdown use oec:CarbonFootprintDeclaration."""@en ;
+    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity> .
 
 oec:ImpactIndicatorResult
     a owl:Class ;
@@ -2843,7 +3142,8 @@ oec:LifecycleStageResult
     rdfs:comment "The value of an impact indicator for a single EN 15804 lifecycle module (e.g. A1, B6, C3, D)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "EN 15804 modular lifecycle value. Pairs an oec:LifecycleStage code with a decimal value in the indicator's declared unit."@en .
+    skos:note "EN 15804 modular lifecycle value. Pairs an oec:LifecycleStage code with a decimal value in the indicator's declared unit."@en ;
+    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity> .
 
 # --- Impact indicator type enumeration (EN 15804+A2 core indicators) ---------
 
@@ -2928,7 +3228,8 @@ oec:epdProgramOperator
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "EN 15804 / ISO 14025 EPD metadata."@en .
+    skos:note "EN 15804 / ISO 14025 EPD metadata."@en ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#operatorInformation> .
 
 oec:epdStandard
     a owl:DatatypeProperty ;
@@ -2948,7 +3249,9 @@ oec:epdValidUntil
     rdfs:range xsd:date ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "EN 15804 / ISO 14025 EPD metadata."@en .
+    skos:note "EN 15804 / ISO 14025 EPD metadata."@en ;
+    skos:exactMatch schema:validUntil ;
+    skos:narrowMatch schema:validThrough .
 
 oec:impactIndicator
     a owl:ObjectProperty ;
@@ -2979,7 +3282,8 @@ oec:indicatorUnit
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "EN 15804 declared characterisation unit for the indicator."@en .
+    skos:note "EN 15804 declared characterisation unit for the indicator."@en ;
+    skos:closeMatch gs1:unitCode .
 
 oec:indicatorTotalValue
     a owl:DatatypeProperty ;
@@ -2989,7 +3293,9 @@ oec:indicatorTotalValue
     rdfs:range xsd:decimal ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "EN 15804 aggregate indicator value. Use oec:lifecycleStageResult for the modular breakdown."@en .
+    skos:note "EN 15804 aggregate indicator value. Use oec:lifecycleStageResult for the modular breakdown."@en ;
+    skos:narrowMatch gs1:value ;
+    skos:narrowMatch schema:value .
 
 oec:lifecycleStageResult
     a owl:ObjectProperty ;
@@ -2999,7 +3305,8 @@ oec:lifecycleStageResult
     rdfs:range oec:LifecycleStageResult ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "EN 15804 modular lifecycle breakdown."@en .
+    skos:note "EN 15804 modular lifecycle breakdown."@en ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage> .
 
 oec:lifecycleStage
     a owl:ObjectProperty ;
@@ -3009,7 +3316,8 @@ oec:lifecycleStage
     rdfs:range oec:LifecycleStage ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "EN 15804 module selector."@en .
+    skos:note "EN 15804 module selector."@en ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#lifecycleStage> .
 
 oec:stageValue
     a owl:DatatypeProperty ;
@@ -3021,4 +3329,16 @@ oec:stageValue
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso schema:value ;
     skos:note "EN 15804 modular value. DPP Keystone expresses these as flat dppk:a1..dppk:d properties; here normalised as oec:LifecycleStage + oec:stageValue pairs."@en ;
-    rdfs:seeAlso gs1:value .
+    rdfs:seeAlso gs1:value ;
+    skos:closeMatch gs1:value ;
+    skos:narrowMatch schema:value ;
+    skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapabilityValue> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#evolutionOfSelfDischargeValue> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCyclesValue> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#remainingCapacityValue> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#capacityThroughputValue> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Performance:1.2.1#internalResistanceIncreaseValue> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#energyThroughputValue> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergyValue> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#capacityFadeValue> .

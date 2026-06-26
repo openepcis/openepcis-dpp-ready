@@ -62,7 +62,13 @@ environmental product declaration, and supporting documents."""@en ;
     skos:exactMatch dppk:IronSteelProduct ;
     skos:note """ESPR iron & steel product group. GS1 Web Vocabulary has gs1:Product but no
 steel-specific identification or test-certificate structure. Anchored to the DPP Keystone
-peer profile dppk:IronSteelProduct and to the oec:IronSteel product category."""@en .
+peer profile dppk:IronSteelProduct and to the oec:IronSteel product category."""@en ;
+    skos:narrowMatch dppk:ConstructionProduct ;
+    skos:narrowMatch gs1:Product ;
+    skos:narrowMatch <https://vocabulary.uncefact.org/untp/Product> ;
+    skos:narrowMatch dppk:Product ;
+    skos:broadMatch schema:IndividualProduct ;
+    skos:narrowMatch schema:Product .
 
 # =============================================================================
 # Steel identification
@@ -80,7 +86,9 @@ eusteel:heatNumber
     rdfs:seeAlso dppk:heatNumber ;
     skos:exactMatch dppk:heatNumber ;
     skos:note "Steel traceability identifier per EN 10168. GS1 gs1:batchLot is the closest generic batch identifier; this property names the steel heat specifically."@en ;
-    rdfs:seeAlso gs1:hasBatchLotNumber .
+    rdfs:seeAlso gs1:hasBatchLotNumber ;
+    skos:closeMatch gs1:hasBatchLotNumber ;
+    rdfs:seeAlso schema:serialNumber .
 
 eusteel:castNumber
     a owl:DatatypeProperty ;
@@ -95,7 +103,9 @@ eusteel:castNumber
     skos:exactMatch dppk:castNumber ;
     skos:note "Steel traceability identifier per EN 10168. Closest GS1 generic is gs1:batchLot."@en ;
     skos:narrowMatch dppk:heatNumber ;
-    rdfs:seeAlso gs1:hasBatchLotNumber .
+    rdfs:seeAlso gs1:hasBatchLotNumber ;
+    skos:narrowMatch schema:serialNumber ;
+    skos:narrowMatch gs1:batchLot .
 
 eusteel:lotNumber
     a owl:DatatypeProperty ;
@@ -109,7 +119,8 @@ eusteel:lotNumber
     rdfs:seeAlso dppk:lotNumber ;
     skos:exactMatch dppk:lotNumber ;
     skos:note "Closest GS1 generic is gs1:batchLot; this property names the steel delivery lot specifically."@en ;
-    skos:narrowMatch gs1:hasBatchLotNumber .
+    skos:narrowMatch gs1:hasBatchLotNumber ;
+    skos:narrowMatch schema:serialNumber .
 
 eusteel:productNumber
     a owl:DatatypeProperty ;
@@ -124,7 +135,11 @@ eusteel:productNumber
     rdfs:seeAlso dppk:productNumber ;
     skos:exactMatch dppk:productNumber ;
     skos:note "Manufacturer product number. Anchored to schema:productID and gs1:globalModelNumber."@en ;
-    rdfs:seeAlso schema:serialNumber .
+    rdfs:seeAlso schema:serialNumber ;
+    skos:exactMatch schema:mpn ;
+    skos:narrowMatch schema:serialNumber ;
+    skos:closeMatch schema:productID ;
+    skos:narrowMatch gs1:productID .
 
 eusteel:purchaserOrder
     a owl:DatatypeProperty ;
@@ -137,7 +152,8 @@ eusteel:purchaserOrder
     rdfs:seeAlso schema:orderNumber ;
     rdfs:seeAlso dppk:purchaserOrder ;
     skos:exactMatch dppk:purchaserOrder ;
-    skos:note "Order reference per EN 10168 certificate metadata. Anchored to schema:orderNumber."@en .
+    skos:note "Order reference per EN 10168 certificate metadata. Anchored to schema:orderNumber."@en ;
+    skos:narrowMatch schema:orderNumber .
 
 eusteel:steelGradeClassification
     a owl:DatatypeProperty ;
@@ -174,7 +190,20 @@ eusteel:meltAndPourCountry
     rdfs:seeAlso schema:countryOfOrigin ;
     rdfs:seeAlso dppk:meltAndPourCountry ;
     skos:exactMatch dppk:meltAndPourCountry ;
-    skos:note "Melt-and-pour origin per steel-sector practice and CBAM. Anchored to schema:countryOfOrigin."@en .
+    skos:note "Melt-and-pour origin per steel-sector practice and CBAM. Anchored to schema:countryOfOrigin."@en ;
+    skos:narrowMatch schema:addressCountry ;
+    skos:closeMatch schema:countryOfOrigin ;
+    skos:narrowMatch gs1:countryOfOriginStatement ;
+    skos:narrowMatch <https://vocabulary.uncefact.org/untp/countryOfProduction> ;
+    skos:narrowMatch gs1:countryOfOrigin ;
+    skos:narrowMatch gs1:countryCode ;
+    rdfs:seeAlso dppk:productionLocationCountry ;
+    rdfs:seeAlso <https://vocabulary.uncefact.org/untp/addressCountry> ;
+    rdfs:seeAlso dppk:addressCountry ;
+    rdfs:seeAlso dppk:countryOfOrigin ;
+    skos:narrowMatch <https://vocabulary.uncefact.org/untp/countryOfOperation> ;
+    skos:narrowMatch <https://vocabulary.uncefact.org/untp/countryName> ;
+    rdfs:seeAlso <https://vocabulary.uncefact.org/untp/countryCode> .
 
 eusteel:cbamReportId
     a owl:DatatypeProperty ;
@@ -186,7 +215,8 @@ eusteel:cbamReportId
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2023/956> ;
     rdfs:seeAlso dppk:cbamReportId ;
     skos:exactMatch dppk:cbamReportId ;
-    skos:note "CBAM (Regulation (EU) 2023/956) report reference. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "CBAM (Regulation (EU) 2023/956) report reference. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:closeMatch schema:reportNumber .
 
 # =============================================================================
 # Production / technology route
@@ -220,7 +250,7 @@ eusteel:technologyRoute
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso dppk:technologyRoute ;
-    skos:closeMatch dppk:technologyRoute ;
+    skos:exactMatch dppk:technologyRoute ;
     skos:note "Production-route classifier; DPP Keystone expresses dppk:technologyRoute as free text. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # =============================================================================
@@ -238,7 +268,7 @@ substantiate the declared grade."""@en ;
     rdfs:seeAlso schema:Certification ;
     rdfs:seeAlso dppk:MaterialTestCertificate ;
     skos:exactMatch dppk:MaterialTestCertificate ;
-    skos:closeMatch schema:Certification ;
+    skos:narrowMatch schema:Certification ;
     skos:note """Mill test certificate (EN 10204 / EN 10168). schema:Certification is the generic
 upstream; this class names the steel inspection document and its EN 10168 parameter set.
 Anchored to the DPP Keystone peer profile dppk:MaterialTestCertificate."""@en ;
@@ -264,7 +294,8 @@ eusteel:mtcInspectionType
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
     dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx> ;
-    skos:note "EN 10204 inspection document type. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EN 10204 inspection document type. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch gs1:certificationType .
 
 eusteel:mtcNominalSize
     a owl:DatatypeProperty ;
@@ -277,7 +308,9 @@ eusteel:mtcNominalSize
     rdfs:seeAlso dppk:mtcNominalSize ;
     skos:exactMatch dppk:mtcNominalSize ;
     skos:note "EN 10168 dimensional parameter."@en ;
-    skos:narrowMatch schema:size .
+    skos:narrowMatch schema:size ;
+    skos:closeMatch gs1:sizeDimension ;
+    skos:narrowMatch <https://gs1-epcis-reg.org/rail/voc/data#setNominalValues> .
 
 eusteel:mtcWeightTolerance
     a owl:DatatypeProperty ;
@@ -431,7 +464,8 @@ eusteel:mtcSteelProcess
     dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
     rdfs:seeAlso dppk:mtcSteelProcess ;
     skos:exactMatch dppk:mtcSteelProcess ;
-    skos:note "EN 10168 process descriptor."@en .
+    skos:note "EN 10168 process descriptor."@en ;
+    rdfs:seeAlso <https://vocabulary.uncefact.org/untp/processCategory> .
 
 eusteel:mtcFinishing
     a owl:DatatypeProperty ;

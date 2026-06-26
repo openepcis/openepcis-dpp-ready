@@ -54,7 +54,10 @@ for recycled content, carbon footprint, hazardous substances, etc."""@en ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso dppk:ConstructionProduct ;
-    skos:exactMatch dppk:ConstructionProduct .
+    skos:exactMatch dppk:ConstructionProduct ;
+    skos:broadMatch schema:IndividualProduct ;
+    skos:narrowMatch gs1:Product ;
+    skos:narrowMatch schema:Product .
 
 # =============================================================================
 # Reaction-to-fire class (EN 13501-1)
@@ -130,7 +133,13 @@ eucpr:ConstructionProductType
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
-    skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch dppk:Product ;
+    skos:narrowMatch gs1:Product ;
+    skos:broadMatch schema:IndividualProduct ;
+    skos:broadMatch dppk:BatteryProduct ;
+    skos:narrowMatch schema:Product ;
+    skos:broadMatch dppk:IronSteelProduct .
 
 eucpr:Cement                  a eucpr:ConstructionProductType ; rdfs:label "Cement"@en ; skos:notation "cement" .
 eucpr:Aggregate               a eucpr:ConstructionProductType ; rdfs:label "Aggregate"@en ; skos:notation "aggregate" .
@@ -180,7 +189,8 @@ eucpr:EssentialCharacteristic
     rdfs:comment "A single declared essential characteristic (e.g. compressive strength, thermal conductivity, water vapour permeability) per CPR Annex III. Pair name + value + unit + harmonised standard reference."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
-    skos:note "Declaration of Performance / essential-characteristics concept per the EU Construction Products Regulation (EU) 2024/3110. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Declaration of Performance / essential-characteristics concept per the EU Construction Products Regulation (EU) 2024/3110. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    rdfs:seeAlso dppk:ProductCharacteristic .
 
 eucpr:characteristicName
     a owl:DatatypeProperty ;
@@ -189,7 +199,8 @@ eucpr:characteristicName
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
-    skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:exactMatch dppk:characteristicName .
 
 eucpr:characteristicValue
     a owl:ObjectProperty ;
@@ -199,7 +210,24 @@ eucpr:characteristicValue
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
-    skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:narrowMatch gs1:value ;
+    skos:narrowMatch schema:value ;
+    skos:broadMatch schema:strengthValue ;
+    skos:broadMatch schema:maxValue ;
+    skos:broadMatch schema:doseValue ;
+    skos:broadMatch schema:minValue ;
+    skos:broadMatch <https://gs1-epcis-reg.org/rail/voc/data#rightValue> ;
+    skos:broadMatch <https://gs1-epcis-reg.org/rail/voc/data#leftValue> ;
+    skos:narrowMatch <http://data.europa.eu/m8g/providesValueFor> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#stateOfChargeValue> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingCapacityValue> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#evolutionOfSelfDischargeValue> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#energyThroughputValue> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#capacityThroughputValue> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#internalResistanceIncreaseValue> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergyValue> ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#capacityFadeValue> .
 
 eucpr:harmonisedStandard
     a owl:DatatypeProperty ;
@@ -271,7 +299,8 @@ bodies involved. Complements eucpr:declarationOfPerformanceUrl (the document lin
     rdfs:seeAlso schema:Certification ;
     rdfs:seeAlso dppk:DoPCBlock ;
     skos:exactMatch dppk:DeclarationOfPerformance ;
-    skos:note "Declaration of Performance per the EU Construction Products Regulation (EU) 2024/3110. Anchored to the DPP Keystone peer profile dppk:DeclarationOfPerformance / dppk:DoPCBlock."@en .
+    skos:note "Declaration of Performance per the EU Construction Products Regulation (EU) 2024/3110. Anchored to the DPP Keystone peer profile dppk:DeclarationOfPerformance / dppk:DoPCBlock."@en ;
+    skos:narrowMatch schema:Certification .
 
 eucpr:declarationOfPerformance
     a owl:ObjectProperty ;
@@ -390,4 +419,5 @@ eucpr:validationReports
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     rdfs:seeAlso dppk:validationReports ;
     skos:exactMatch dppk:validationReports ;
-    skos:note "Validation report references per CPR. Reuses oec:DocumentReference; anchored to the DPP Keystone peer profile dppk:validationReports."@en .
+    skos:note "Validation report references per CPR. Reuses oec:DocumentReference; anchored to the DPP Keystone peer profile dppk:validationReports."@en ;
+    skos:broadMatch <urn:samm:io.BatteryPass.Labels:1.2.0#resultOfTestReport> .
