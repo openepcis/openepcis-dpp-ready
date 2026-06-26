@@ -85,7 +85,8 @@ Commands:
 | `retrieve --term NAME [--k K]` | Show embedding-retrieved candidates for one term (no grading). |
 | `audit [--module S] [--limit N] [--concurrency C] [--no-qa]` | Find MISSING/WEAK/WRONG mappings, QA-verify them → `docs/skos-completeness-report.{md,json}`. |
 | `apply --report R [--status …] [--confirmed-only] [--min-qa-confidence X] [--rewrite] [--apply]` | Insert/rewrite mappings into the TTLs (dry-run unless `--apply`). Below `--min-qa-confidence` (0.75) an add is emitted as `rdfs:seeAlso`, not a graded relation; re-parses + restores on invalid output. |
-| `provenance [--min-qa-confidence X]` | From the reports, write `docs/skos-alignment-review.md` (human review sheet) + `docs/alignment-provenance.{ttl,json}` (audit trail of applied mappings). |
+| `provenance [--report R] [--approve F] [--xlsx P] [--min-qa-confidence X]` | From the report(s), write `docs/skos-alignment-review.md` (review sheet) + `docs/alignment-provenance.{ttl,json}` (audit trail). `--report` reads one report (vs the `*-opus.json` glob); `--xlsx` also writes the editable Excel curation workbook. |
+| `curate --report R [--xlsx P] [--stamp D] [--base-branch B] [--push]` | Read a curator-edited workbook and rebuild the `vocab-sync/upstream-<stamp>` branch from only the `Apply?=yes` rows (adds, rewrites, **and** removes). See [Curate via Excel](#curate-via-excel). |
 | `reverse [--vocab V] [--min-cosine X]` | Reverse coverage: upstream terms with no incoming mapping that are embedding-near one of ours → `docs/skos-reverse-coverage.{md,json}`. |
 | `manifest [--qa-model M]` | Reproducibility manifest: models, parameters, upstream versions + cache hashes → `docs/alignment-run-manifest.json`. |
 | `fetch --from URL\|file --against cached [--save]` | Diff a refreshed upstream vocabulary against the cached copy (added/removed/changed terms) to decide when to re-audit. |
@@ -114,6 +115,39 @@ pnpm build:json        # in the repo root
 ```
 
 `--approve` takes a file of `<ourIri><TAB><upstreamIri>` lines for fine-grained gating.
+
+## Curate via Excel
+
+For row-by-row review without hand-editing TSVs, export an Excel workbook, accept/reject in a
+spreadsheet, and rebuild the review branch from your choices.
+
+```bash
+J=target/quarkus-app/quarkus-run.jar
+
+# 1) Export the workbook from a report (the `sync` run leaves docs/skos-completeness-sync.json).
+java -jar $J provenance --report docs/skos-completeness-sync.json \
+     --xlsx docs/skos-alignment-review.xlsx --qa-model qwen/qwen3-32b
+
+# 2) Open docs/skos-alignment-review.xlsx and edit the `Apply?` column.
+#    - Every row defaults to `yes`. Set the ones you reject to `no`.
+#    - Filter `Scrutiny = review` to triage the contested rows first; the `legend` sheet explains the columns.
+#    - Do NOT edit the hidden columns (ourIri/upstreamIri/predicate/oldPredicate) — they are the keys.
+
+# 3) Rebuild the review branch from only the accepted rows.
+java -jar $J curate --xlsx docs/skos-alignment-review.xlsx \
+     --report docs/skos-completeness-sync.json --stamp $(date +%F)
+```
+
+`curate` recreates `vocab-sync/upstream-<stamp>` from the clean base branch
+(`--base-branch`, default `feat/upstream-skos-vocab-sync`), applies exactly the `Apply?=yes`
+decisions — `add`/`add-seealso` inserts, `rewrite` predicate swaps, and `remove` drops of
+QA-rejected mappings — regenerates the provenance/review docs to match, and commits (no push unless
+`--push`). It refuses to run on a dirty tree and never touches the base or current branch. Edit and
+re-run as often as you like; each run rebuilds the branch from scratch, so it is idempotent.
+
+The `.xlsx` is a transient local artifact (gitignored); the curated mappings live on the branch.
+`apply --apply-removes` is the destructive primitive `curate` uses to drop a QA-rejected
+(`WRONG` + `qaRelation=NONE`) mapping; it is gated behind that flag and `--approve`.
 
 ## Run it elsewhere / repoint the LLM
 
