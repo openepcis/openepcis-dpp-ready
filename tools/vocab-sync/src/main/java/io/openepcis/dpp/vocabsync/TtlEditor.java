@@ -19,8 +19,18 @@ public final class TtlEditor {
     /** Inclusive [start, end] line indices of the block whose subject is prefixedId, or null. */
     public static int[] blockRange(List<String> lines, String prefixedId) {
         int start = -1;
+        // Track triple-quote state while scanning so a subject token that appears at column 0 INSIDE
+        // an rdfs:comment """…""" string is not mistaken for the statement's actual subject line.
+        boolean inComment = false;
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
+            boolean startedInComment = inComment;
+            int q = 0;
+            while ((q = line.indexOf("\"\"\"", q)) >= 0) {
+                inComment = !inComment;
+                q += 3;
+            }
+            if (startedInComment) continue; // this line begins inside a comment → not a subject line
             if (!SUBJECT_AT_COL0.matcher(line).matches()) continue;
             if (!line.startsWith(prefixedId)) continue;
             char after = line.length() > prefixedId.length() ? line.charAt(prefixedId.length()) : ' ';

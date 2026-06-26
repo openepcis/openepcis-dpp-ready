@@ -36,6 +36,24 @@ class TtlEditorTest {
     }
 
     @Test
+    void blockRange_ignoresSubjectTokenInsideComment() {
+        // A subject token appears at column 0 INSIDE an rdfs:comment """…""" string (wrapped text);
+        // the real statement is further down. blockRange must pick the real subject, not the comment.
+        List<String> l = lines(
+                "eucpr:ConstructionProduct a owl:Class ;",
+                "    rdfs:comment \"\"\"A construction product.",
+                "Use eucpr:reactionToFireClass for the substantive declarations;",
+                "reuse oec: terms elsewhere.\"\"\"@en ;",
+                "    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> .",
+                "",
+                "eucpr:reactionToFireClass a owl:DatatypeProperty ;",
+                "    rdfs:seeAlso dppk:reactionToFire ;",
+                "    skos:closeMatch dppk:reactionToFire .");
+        int[] r = TtlEditor.blockRange(l, "eucpr:reactionToFireClass");
+        assertArrayEquals(new int[]{6, 8}, r);
+    }
+
+    @Test
     void blockRange_oneLiner() {
         List<String> l = lines(
                 "oec:Foo a owl:Class .",
