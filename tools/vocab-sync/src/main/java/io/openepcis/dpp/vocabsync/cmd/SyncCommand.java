@@ -82,6 +82,12 @@ public class SyncCommand implements Runnable {
     public void run() {
         Path root = Path.of(repoRoot).normalize();
 
+        // Snapshot working-tree cleanliness BEFORE the run writes anything. The apply-to-branch step
+        // uses `git add -A`, so a pre-existing dirty tree must block it (else unrelated edits get swept
+        // into the commit). This must be captured up front: the run itself writes the report + delta,
+        // which would otherwise always trip a check done later.
+        boolean treeCleanAtStart = git(root, "status", "--porcelain").isBlank();
+
         // 1) Pull upstream and record the delta.
         System.err.println("sync: refreshing upstream sources …");
         UpstreamRefresh.RefreshResult delta = refresh.refreshAll(true);
@@ -131,11 +137,11 @@ public class SyncCommand implements Runnable {
             System.err.println("sync: not a git repo or detached HEAD; skipping apply.");
             return;
         }
-        // Refuse to apply onto a dirty tree: the commit uses `git add -A`, which would otherwise sweep
-        // unrelated working-tree changes into the vocab-sync commit. A scheduled run sees a clean tree.
-        if (!git(root, "status", "--porcelain").isBlank()) {
-            System.err.println("sync: working tree not clean; leaving the report for manual apply "
-                    + "(commit or stash your changes first to enable auto-apply).");
+        // Refuse to apply if the tree was dirty BEFORE the run (captured up front): `git add -A` would
+        // otherwise sweep unrelated working-tree changes into the vocab-sync commit.
+        if (!treeCleanAtStart) {
+            System.err.println("sync: working tree was not clean at start; leaving the report for manual "
+                    + "apply (commit or stash your changes first to enable auto-apply).");
             return;
         }
         if (gitCode(root, "checkout", "-b", branch) != 0 && gitCode(root, "checkout", branch) != 0) {
