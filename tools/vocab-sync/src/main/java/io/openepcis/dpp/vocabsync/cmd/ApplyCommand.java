@@ -87,13 +87,23 @@ public class ApplyCommand implements Runnable {
                     + "(or drop it if a seeAlso to that target already exists).")
     boolean downgradeApplied;
 
+    @CommandLine.Option(names = "--apply-removes", defaultValue = "false",
+            description = "Destructive: for WRONG findings the QA verifier rejected outright (qaRelation = "
+                    + "NONE), drop the existing graded mapping line from the TTL. Independent of --rewrite. "
+                    + "Use with --approve so only curator-accepted removals are carried out.")
+    boolean applyRemoves;
+
     /** One planned triple insertion. */
     private record Plan(String ourId, String predicate, String iri, String upstreamLabel,
                          double confidence, String statusName) {
     }
 
-    /** One planned in-place predicate swap on an existing mapping (WRONG findings). */
-    private record Rewrite(String ourId, String oldPredicate, String newPredicate, String iri) {
+    /**
+     * One planned edit to an existing mapping line (WRONG findings): an in-place predicate swap, or —
+     * when {@code remove} is true — dropping the line entirely (QA said the mapping is not a match).
+     */
+    private record Rewrite(String ourId, String oldPredicate, String newPredicate, String iri,
+                           boolean remove) {
     }
 
     /** Map a Verdict.Relation enum name (from the report's qaRelation/relation) to a SKOS predicate. */
@@ -143,7 +153,7 @@ public class ApplyCommand implements Runnable {
         // rewrites (WRONG, when --rewrite) are collected separately.
         Map<String, Map<String, List<Plan>>> byModule = new LinkedHashMap<>();
         Map<String, Map<String, List<Rewrite>>> rewritesByModule = new LinkedHashMap<>();
-        int selected = 0, rewrites = 0, skippedGuard = 0, skippedNoRel = 0;
+        int selected = 0, rewrites = 0, removed = 0, skippedGuard = 0, skippedNoRel = 0;
         for (JsonNode f : root.path("findings")) {
             String st = f.path("status").asText();
             if (!statuses.contains(st)) continue;
@@ -166,18 +176,29 @@ public class ApplyCommand implements Runnable {
             }
 
             if ("WRONG".equals(st)) {
-                if (!rewrite) continue; // WRONG only handled in --rewrite mode
+                if (!rewrite && !applyRemoves) continue; // WRONG needs --rewrite (swap) or --apply-removes (drop)
                 String oldPred = f.path("existingPredicate").asText(null);
                 // Prefer the QA verifier's relation; fall back to the bulk grader's.
                 String qaRel = f.path("qaRelation").isNull() ? null : f.path("qaRelation").asText(null);
                 String newPred = relationToPredicate(qaRel != null ? qaRel : f.path("relation").asText(null));
-                if (oldPred == null || newPred == null || oldPred.equals(newPred)) {
-                    skippedNoRel++; // grader says drop (NONE) or no change → manual decision
+                if (newPred == null) { // QA said NONE → drop the existing mapping (only with --apply-removes)
+                    if (applyRemoves && oldPred != null && "NONE".equals(qaRel)) {
+                        rewritesByModule.computeIfAbsent(mod, k -> new LinkedHashMap<>())
+                                .computeIfAbsent(ourId, k -> new ArrayList<>())
+                                .add(new Rewrite(ourId, oldPred, oldPred, iri, true));
+                        removed++;
+                    } else {
+                        skippedNoRel++; // no existing line, or no clear NONE verdict → manual decision
+                    }
+                    continue;
+                }
+                if (!rewrite || oldPred == null || oldPred.equals(newPred)) {
+                    skippedNoRel++; // swap needs --rewrite and a genuinely different predicate
                     continue;
                 }
                 rewritesByModule.computeIfAbsent(mod, k -> new LinkedHashMap<>())
                         .computeIfAbsent(ourId, k -> new ArrayList<>())
-                        .add(new Rewrite(ourId, oldPred, newPred, iri));
+                        .add(new Rewrite(ourId, oldPred, newPred, iri, false));
                 rewrites++;
                 continue;
             }
@@ -192,7 +213,7 @@ public class ApplyCommand implements Runnable {
                 if (!graded || qaConf >= minQaConfidence) continue;
                 rewritesByModule.computeIfAbsent(mod, k -> new LinkedHashMap<>())
                         .computeIfAbsent(ourId, k -> new ArrayList<>())
-                        .add(new Rewrite(ourId, pred, "rdfs:seeAlso", iri));
+                        .add(new Rewrite(ourId, pred, "rdfs:seeAlso", iri, false));
                 rewrites++;
                 continue;
             }
@@ -206,8 +227,8 @@ public class ApplyCommand implements Runnable {
                     .add(new Plan(ourId, effPred, iri, f.path("upstreamLabel").asText(""), conf, st));
             selected++;
         }
-        System.err.printf("apply: %d inserts + %d rewrites selected (status=%s, conf≥%.2f, qa≥%.2f)%s%s%n",
-                selected, rewrites, statuses, minConfidence, minQaConfidence,
+        System.err.printf("apply: %d inserts + %d rewrites + %d removes selected (status=%s, conf≥%.2f, qa≥%.2f)%s%s%n",
+                selected, rewrites, removed, statuses, minConfidence, minQaConfidence,
                 skippedGuard > 0 ? ", " + skippedGuard + " dropped by guard" : "",
                 skippedNoRel > 0 ? ", " + skippedNoRel + " WRONG skipped (NONE/unchanged → manual)" : "");
 
@@ -300,15 +321,17 @@ public class ApplyCommand implements Runnable {
                     misses++;
                     continue;
                 }
-                // Downgrading to seeAlso but a seeAlso to this target already exists → drop the
-                // redundant line instead of creating a duplicate.
+                // A QA-rejected mapping (rw.remove()) is dropped outright. Downgrading to seeAlso when a
+                // seeAlso to this target already exists also drops the now-redundant line.
                 boolean dedupRemove = rw.newPredicate().equals("rdfs:seeAlso") && block != null
                         && hasSeeAlsoElsewhere(lines, block[0], block[1], hit, obj, full);
+                boolean dropLine = rw.remove() || dedupRemove;
                 if (!headerPrinted) { System.out.printf("%n%s%n", ttl); headerPrinted = true; }
-                System.out.printf("  %s: %s → %s  %s%s%n", subject, rw.oldPredicate(),
-                        dedupRemove ? "(remove, seeAlso exists)" : rw.newPredicate(), obj, "");
+                System.out.printf("  %s: %s → %s  %s%n", subject, rw.oldPredicate(),
+                        rw.remove() ? "(remove, QA rejected)"
+                                : (dedupRemove ? "(remove, seeAlso exists)" : rw.newPredicate()), obj);
                 if (apply) {
-                    if (dedupRemove) {
+                    if (dropLine) {
                         TtlEditor.removeLine(lines, hit, blockStart);
                     } else {
                         lines.set(hit, lines.get(hit).replaceFirst(

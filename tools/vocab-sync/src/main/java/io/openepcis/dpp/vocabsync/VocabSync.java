@@ -3,6 +3,7 @@ package io.openepcis.dpp.vocabsync;
 import io.openepcis.dpp.vocabsync.cmd.ApplyCommand;
 import io.openepcis.dpp.vocabsync.cmd.AuditCommand;
 import io.openepcis.dpp.vocabsync.cmd.BenchmarkCommand;
+import io.openepcis.dpp.vocabsync.cmd.CurateCommand;
 import io.openepcis.dpp.vocabsync.cmd.FetchCommand;
 import io.openepcis.dpp.vocabsync.cmd.ManifestCommand;
 import io.openepcis.dpp.vocabsync.cmd.ProvenanceCommand;
@@ -39,6 +40,7 @@ import picocli.CommandLine;
                 FetchCommand.class,
                 BenchmarkCommand.class,
                 SyncCommand.class,
+                CurateCommand.class,
         })
 public class VocabSync {
 }

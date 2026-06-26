@@ -2,6 +2,7 @@ package io.openepcis.dpp.vocabsync.cmd;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.openepcis.dpp.vocabsync.ReviewWorkbook;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import picocli.CommandLine;
@@ -12,9 +13,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 /**
@@ -43,6 +48,19 @@ public class ProvenanceCommand implements Runnable {
     @CommandLine.Option(names = "--reports-glob", defaultValue = "docs",
             description = "Directory holding the *-opus.json reports.")
     String reportsDir;
+
+    @CommandLine.Option(names = "--report",
+            description = "Single report JSON to derive decisions from (alternative to --reports-glob).")
+    String reportFile;
+
+    @CommandLine.Option(names = "--approve",
+            description = "Approval file ('<ourIri><TAB><upstreamIri>' lines): restrict the provenance to "
+                    + "these pairs, so the audit trail matches a curated apply.")
+    String approveFile;
+
+    @CommandLine.Option(names = "--xlsx",
+            description = "Also write an Excel curation workbook to this path (repo-relative).")
+    String xlsxOut;
 
     @CommandLine.Option(names = "--bulk-model", defaultValue = "openai/gpt-oss-20b",
             description = "Bulk grader model id (for the provenance record).")
@@ -80,34 +98,46 @@ public class ProvenanceCommand implements Runnable {
     @Override
     public void run() {
         Path root = Path.of(repoRoot).normalize();
-        Path dir = root.resolve(reportsDir).normalize();
         List<Path> reports;
-        try (Stream<Path> w = Files.list(dir)) {
-            reports = w.filter(p -> {
-                String n = p.getFileName().toString();
-                return n.startsWith("skos-completeness-") && n.endsWith("-opus.json");
-            }).sorted().toList();
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-        if (reports.isEmpty()) {
-            System.err.println("provenance: no *-opus.json reports under " + dir);
-            return;
+        if (reportFile != null) {
+            Path rp = root.resolve(reportFile).normalize();
+            if (!Files.isReadable(rp)) {
+                System.err.println("provenance: report not found: " + rp);
+                return;
+            }
+            reports = List.of(rp);
+        } else {
+            Path dir = root.resolve(reportsDir).normalize();
+            try (Stream<Path> w = Files.list(dir)) {
+                reports = w.filter(p -> {
+                    String n = p.getFileName().toString();
+                    return n.startsWith("skos-completeness-") && n.endsWith("-opus.json");
+                }).sorted().toList();
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
+            if (reports.isEmpty()) {
+                System.err.println("provenance: no *-opus.json reports under " + dir);
+                return;
+            }
         }
 
+        Set<String> approved = loadApproval(root);
         List<Decision> decisions = new ArrayList<>();
         for (Path rp : reports) {
             try {
                 JsonNode doc = mapper.readTree(rp.toFile());
                 for (JsonNode f : doc.path("findings")) {
                     Decision d = toDecision(f);
-                    if (d != null) decisions.add(d);
+                    if (d == null) continue;
+                    if (!approved.isEmpty() && !approved.contains(d.ourIri() + "\t" + d.upstreamIri())) continue;
+                    decisions.add(d);
                 }
             } catch (IOException e) {
                 System.err.println("provenance: cannot read " + rp + ": " + e.getMessage());
             }
         }
-        System.err.printf("provenance: %d applied decisions across %d reports%n",
+        System.err.printf("provenance: %d applied decisions across %d report(s)%n",
                 decisions.size(), reports.size());
 
         writeReview(root.resolve(reviewOut), decisions);
@@ -115,6 +145,69 @@ public class ProvenanceCommand implements Runnable {
         writeProvenanceJson(root.resolve(provOut + ".json"), decisions);
         System.out.println("review: " + root.resolve(reviewOut));
         System.out.println("prov:   " + root.resolve(provOut) + ".{ttl,json}");
+        if (xlsxOut != null) {
+            Path xp = root.resolve(xlsxOut).normalize();
+            ReviewWorkbook.write(xp, toWorkbookRows(decisions), stamp, bulkModel, qaModel);
+            System.out.println("xlsx:   " + xp);
+        }
+    }
+
+    /** Load an approval file as a set of {@code ourIri<TAB>upstreamIri} keys (empty if none). */
+    private Set<String> loadApproval(Path root) {
+        Set<String> set = new LinkedHashSet<>();
+        if (approveFile == null) return set;
+        try {
+            for (String line : Files.readAllLines(root.resolve(approveFile).normalize())) {
+                String s = line.strip();
+                if (s.isEmpty() || s.startsWith("#")) continue;
+                String[] parts = s.split("\t");
+                if (parts.length >= 2) set.add(parts[0].strip() + "\t" + parts[1].strip());
+            }
+        } catch (IOException e) {
+            System.err.println("provenance: cannot read approval file: " + e.getMessage());
+        }
+        return set;
+    }
+
+    /** Map reconstructed decisions to workbook rows, computing each row's scrutiny flag and vote tally. */
+    private List<ReviewWorkbook.Decision> toWorkbookRows(List<Decision> ds) {
+        List<ReviewWorkbook.Decision> rows = new ArrayList<>(ds.size());
+        for (Decision d : ds) {
+            String votes = votesOf(d.qaRatOrBulk());
+            rows.add(new ReviewWorkbook.Decision(d.module(), d.action(), d.ourId(), d.ourIri(),
+                    d.predicate(), d.oldPredicate(), d.upstreamIri(), d.bulkConfidence(),
+                    d.qaRelation(), d.qaConfidence(), scrutinyOf(d, votes), votes, clean(d.qaRatOrBulk())));
+        }
+        return rows;
+    }
+
+    private static final Pattern VOTE_TALLY = Pattern.compile("\\{[^}]*}");
+    private static final Pattern VOTE_TOKEN = Pattern.compile("([A-Z]+)=(\\d+)");
+
+    /** The brace-delimited panel tally from a rationale (e.g. {@code {NARROW=2, NONE=1}}), or "". */
+    private static String votesOf(String rationale) {
+        if (rationale == null) return "";
+        Matcher m = VOTE_TALLY.matcher(rationale);
+        return m.find() ? m.group() : "";
+    }
+
+    /**
+     * Flag a decision for human attention. Removes and rewrites touch existing TTL content; seeAlso
+     * downgrades and graded adds that drew a dissenting panel vote or only moderate confidence are
+     * worth a look. A unanimous, high-confidence add is a rubber-stamp ("ok").
+     */
+    private static String scrutinyOf(Decision d, String votes) {
+        if (!"add".equals(d.action())) return "review"; // add-seealso / rewrite / remove
+        boolean unanimous = votes != null && countVoteTokens(votes) == 1;
+        boolean confident = d.bulkConfidence() >= 0.90 && d.qaConfidence() >= 0.85;
+        return unanimous && confident ? "ok" : "review";
+    }
+
+    private static int countVoteTokens(String votes) {
+        Matcher m = VOTE_TOKEN.matcher(votes);
+        int n = 0;
+        while (m.find()) n++;
+        return n;
     }
 
     /** Reconstruct the applied action for a finding, or null if it was not applied. */
