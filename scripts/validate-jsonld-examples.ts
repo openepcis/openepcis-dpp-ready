@@ -68,9 +68,21 @@ function makeDocumentLoader(urlToFile: Record<string, string>) {
 type DocumentLoader = ReturnType<typeof makeDocumentLoader>;
 
 interface DropEvent {
+  code: string;
   property: string;
-  expandedProperty: string;
+  expandedProperty?: string;
 }
+
+// Codes that mean a term/value is dropped or expands to a relative (broken) IRI
+// — i.e. the document does NOT cleanly expand on the JSON-LD Playground. Other
+// jsonld events (e.g. "invalid @language value", where the text still survives)
+// are surfaced as WARN but don't fail the build.
+const FATAL_CODES = new Set<string>([
+  'invalid property',
+  'relative @id reference',
+  'relative @type reference',
+  'relative @vocab mapping',
+]);
 
 async function validateFile(filePath: string, documentLoader: DocumentLoader) {
   const rel = path.relative(ROOT, filePath);
@@ -84,16 +96,22 @@ async function validateFile(filePath: string, documentLoader: DocumentLoader) {
 
   const drops: DropEvent[] = [];
 
+  // Capture EVERY expansion event, not just "invalid property". jsonld also
+  // signals data loss / mangling via "relative IRI after expansion" (a term that
+  // expands to a non-absolute IRI — silently dropped on the Playground), reserved
+  // terms, null @value, etc. A document that "completely expands" emits none.
   const eventHandler = ({ event, next }: any) => {
-    if (event && event.code === 'invalid property') {
+    if (event && event.code) {
       const det = event.details ?? {};
-      drops.push({ property: det.property, expandedProperty: det.expandedProperty });
+      const subject = det.property ?? det.term ?? det.value ?? det.id ?? det.relativeIri ?? '?';
+      drops.push({ code: event.code, property: String(subject), expandedProperty: det.expandedProperty });
     }
     next();
   };
 
   try {
-    await jsonld.expand(raw, { documentLoader, eventHandler });
+    // safe:false so we collect ALL events in one pass (safe:true throws on the first).
+    await jsonld.expand(raw, { documentLoader, eventHandler, safe: false });
   } catch (e: any) {
     return { file: rel, drops, error: `expand: ${e.message}` };
   }
@@ -123,24 +141,40 @@ async function main() {
 
   let totalDropped = 0;
   let totalErrors = 0;
+  const codeTally = new Map<string, number>();
 
   for (const t of filtered) {
     const r = await validateFile(t, documentLoader);
     if (r.error) {
       totalErrors++;
       console.log(`ERROR  ${r.file}: ${r.error}`);
-    } else if (r.drops.length) {
-      const counts = new Map<string, number>();
-      for (const d of r.drops) counts.set(d.property, (counts.get(d.property) ?? 0) + 1);
-      totalDropped += r.drops.length;
-      const summary = [...counts.entries()].map(([p, n]) => (n > 1 ? `${p}×${n}` : p)).join(', ');
-      console.log(`DROP   ${r.file}: ${summary}`);
     } else {
-      console.log(`OK     ${r.file}`);
+      const fatal = r.drops.filter((d) => FATAL_CODES.has(d.code));
+      const warn = r.drops.filter((d) => !FATAL_CODES.has(d.code));
+      for (const d of r.drops) codeTally.set(d.code, (codeTally.get(d.code) ?? 0) + 1);
+      const fmt = (list: DropEvent[]) => {
+        const c = new Map<string, number>();
+        for (const d of list) {
+          const key = `${d.code}: ${d.property}`;
+          c.set(key, (c.get(key) ?? 0) + 1);
+        }
+        return [...c.entries()].map(([p, n]) => (n > 1 ? `${p}×${n}` : p)).join('; ');
+      };
+      if (fatal.length) {
+        totalDropped += fatal.length;
+        console.log(`DROP   ${r.file}: ${fmt(fatal)}`);
+      } else if (warn.length) {
+        console.log(`WARN   ${r.file}: ${fmt(warn)}`);
+      } else {
+        console.log(`OK     ${r.file}`);
+      }
     }
   }
 
-  console.log(`\nSummary: ${filtered.length} files, ${totalErrors} errors, ${totalDropped} dropped properties.`);
+  console.log(`\nSummary: ${filtered.length} files, ${totalErrors} errors, ${totalDropped} lost properties (fatal).`);
+  if (codeTally.size) {
+    console.log('All expansion events: ' + [...codeTally.entries()].map(([c, n]) => `${c}=${n}`).join(', '));
+  }
   if (totalErrors || totalDropped) process.exit(1);
 }
 

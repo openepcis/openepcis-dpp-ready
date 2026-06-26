@@ -1,0 +1,35 @@
+name: Validate JSON-LD examples
+
+# Every example / EPCIS document under extensions/**/{examples,epcis} must expand
+# cleanly with no lost or relative-IRI properties (i.e. it round-trips on the
+# JSON-LD Playground). Gates pushes and PRs so a context/example mismatch can't
+# land silently.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'extensions/**'
+      - 'scripts/validate-jsonld-examples.ts'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/validate-examples.yml'
+  pull_request:
+    paths:
+      - 'extensions/**'
+      - 'scripts/validate-jsonld-examples.ts'
+  workflow_dispatch:
+
+jobs:
+  validate-examples:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Expand every example and fail on any lost / relative-IRI property
+        run: pnpm run validate:examples
