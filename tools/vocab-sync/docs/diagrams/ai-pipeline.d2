@@ -1,0 +1,26 @@
+# vocab-sync AI pipeline — detailed flow (docs/AI_PIPELINE.md).
+# Source of truth for the diagram; compiled to ai-pipeline-{light,dark}.svg
+# by `pnpm run diagrams:build`. Edit this file, never the SVGs.
+
+direction: down
+
+our: our TTLs
+upstream: upstream vocabularies
+
+index: "Apache Jena → term indexes" {
+  style.bold: true
+}
+
+bulk: "bulk grader (local LLM, per pair)\nVerdict { relation, confidence, rationale }"
+qa: "QA verifier (second local LLM)\nre-judges each finding → ✓ confirm / ✗ overturn" {
+  style.bold: true
+}
+diff: "diff vs the SKOS already in the TTL\nMISSING / WEAK / WRONG / OK"
+apply: "gated apply\nconfidence floor → seeAlso fallback; dry-run by default\nTTL edits"
+
+our -> index
+upstream -> index
+index -> bulk: "embed (cached) →\nretrieve top-K per vocab + lexical"
+bulk -> qa
+qa -> diff
+diff -> apply

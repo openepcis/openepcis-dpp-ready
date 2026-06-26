@@ -1,0 +1,24 @@
+# vocab-sync pipeline overview (README.md).
+# Source of truth for the diagram; compiled to pipeline-overview-{light,dark}.svg
+# by `pnpm run diagrams:build`. Edit this file, never the SVGs.
+
+direction: down
+
+our: our TTLs
+upstream: upstream vocabularies
+
+index: "Apache Jena → term indexes" {
+  style.bold: true
+}
+
+grade: "LLM grader (per pair)\nVerdict { relation, confidence, rationale }"
+diff: "diff vs SKOS already in the TTL\nMISSING / WEAK / WRONG / OK"
+report: "docs/skos-completeness-*.{md,json}"
+apply: "apply (gated, dry-run by default)\nTTL edits"
+
+our -> index
+upstream -> index
+index -> grade: "embed (cached) →\nretrieve top-K per vocab"
+grade -> diff
+diff -> report
+report -> apply

@@ -12,19 +12,11 @@ local model, so staying local is the recommendation.
 
 ## The stages
 
-```
-our TTLs ─┐                              ┌─ embed (cached) ─┐
-          ├─ Apache Jena → term indexes ─┤                  ├─ retrieve top-K per vocab + lexical
-upstream ─┘                              └─ embed (cached) ─┘            │
-                                                                         ▼
-                          bulk grader (local LLM, per pair) → Verdict{relation, confidence, rationale}
-                                                                         │
-                          QA verifier (second local LLM) re-judges each finding → ✓ confirm / ✗ overturn
-                                                                         │
-                       diff vs the SKOS already in the TTL → MISSING / WEAK / WRONG / OK
-                                                                         │
-                          gated apply (confidence floor → seeAlso fallback; dry-run by default) → TTL edits
-```
+<!-- Diagram source: diagrams/ai-pipeline.d2 — regenerate with `pnpm run diagrams:build`, do not edit the SVGs. -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/ai-pipeline-dark.svg">
+  <img alt="vocab-sync AI pipeline: our TTLs and upstream vocabularies feed Apache Jena term indexes; embed and retrieve top-K per vocab feed a bulk grader, then a blind QA verifier, then a diff against the SKOS in the TTL, then gated apply." src="diagrams/ai-pipeline-light.svg" width="420">
+</picture>
 
 1. **Index** (`OurIndex`, `UpstreamIndex`, Apache Jena). Both our ontology and the upstream
    vocabularies are parsed into typed term records. Every IRI a mapping is proposed against must

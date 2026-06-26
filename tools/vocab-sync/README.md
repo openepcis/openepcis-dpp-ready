@@ -11,19 +11,11 @@ TTLs are never auto-edited.
 
 ## How it works
 
-```
-our TTLs ─┐                              ┌─ embed (cached) ─┐
-          ├─ Apache Jena → term indexes ─┤                  ├─ retrieve top-K per vocab
-upstream ─┘                              └─ embed (cached) ─┘        │
-                                                                      ▼
-                              LLM grader (per pair) → Verdict{relation, confidence, rationale}
-                                                                      │
-                       diff vs SKOS already in the TTL → MISSING / WEAK / WRONG / OK
-                                                                      │
-                                            docs/skos-completeness-*.{md,json}
-                                                                      │
-                                   apply (gated, dry-run by default) → TTL edits
-```
+<!-- Diagram source: docs/diagrams/pipeline-overview.d2 — regenerate with `pnpm run diagrams:build`, do not edit the SVGs. -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/pipeline-overview-dark.svg">
+  <img alt="vocab-sync pipeline: our TTLs and upstream vocabularies feed Apache Jena term indexes; embed and retrieve top-K per vocab feed an LLM grader, then a diff against the SKOS in the TTL produces completeness reports, then gated apply." src="docs/diagrams/pipeline-overview-light.svg" width="420">
+</picture>
 
 - **Indexes** (`OurIndex`, `UpstreamIndex`) are built with Apache Jena (RIOT reads TTL +
   JSON-LD). Every IRI a mapping is proposed against must exist in the upstream index — the
