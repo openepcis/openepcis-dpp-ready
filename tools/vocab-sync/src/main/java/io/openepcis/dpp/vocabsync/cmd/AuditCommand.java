@@ -1,5 +1,7 @@
 package io.openepcis.dpp.vocabsync.cmd;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.openepcis.dpp.vocabsync.ClaudeCli;
 import io.openepcis.dpp.vocabsync.Embeddings;
 import io.openepcis.dpp.vocabsync.Grader;
@@ -23,15 +25,19 @@ import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import picocli.CommandLine;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * Completeness audit. For each of our terms: retrieve type-compatible upstream candidates
@@ -54,6 +60,7 @@ public class AuditCommand implements Runnable {
     @Inject VerdictCache verdicts;
     @Inject ReportWriter reportWriter;
     @Inject Embeddings embeddings;
+    @Inject ObjectMapper mapper;
 
     @ConfigProperty(name = "vocab-sync.repo-root") String repoRoot;
 
@@ -111,6 +118,16 @@ public class AuditCommand implements Runnable {
                     + "matches the bulk relation is STRONG, an existence-only agreement is WEAK "
                     + "(applied as closeMatch), a NONE majority is REJECT, no majority is SPLIT (review).")
     int qaJudges;
+
+    @CommandLine.Option(names = "--qa-rejudge-from",
+            description = "Re-run the QA panel ONLY on findings whose tier in this prior report JSON is in "
+                    + "--qa-rejudge-tiers, and carry every other finding's QA verdict over unchanged. Point "
+                    + "QA at a stronger model to resolve just the contested set without re-judging everything.")
+    String qaRejudgeFrom;
+
+    @CommandLine.Option(names = "--qa-rejudge-tiers", defaultValue = "WEAK,SPLIT",
+            description = "Comma-separated prior QA tiers to re-judge when --qa-rejudge-from is set.")
+    String qaRejudgeTiers;
 
     @CommandLine.Option(names = "--qa-provider", defaultValue = "openai",
             description = "QA backend: 'openai' (HTTP, needs API key for Claude) or 'claude-cli' "
@@ -213,7 +230,31 @@ public class AuditCommand implements Runnable {
         if (qa && !findings.isEmpty()) {
             Map<String, OurTerm> ourByIri = ours.stream()
                     .collect(java.util.stream.Collectors.toMap(OurTerm::iri, x -> x, (a, b) -> a));
-            List<Finding> toQa = findings.stream().filter(f -> f.confidence() >= qaMinConfidence).toList();
+
+            // Targeted re-judge: with --qa-rejudge-from, only findings whose tier in the prior report is
+            // in --qa-rejudge-tiers go to the (presumably stronger) panel; every other finding keeps its
+            // prior QA verdict verbatim. Lets a heavy model resolve just the contested set cheaply.
+            final boolean targeted = qaRejudgeFrom != null;
+            final Map<String, JsonNode> prior = targeted
+                    ? loadPriorQa(Path.of(repoRoot).resolve(qaRejudgeFrom).normalize()) : Map.of();
+            final Set<String> rejudge;
+            if (targeted) {
+                Set<String> tierSet = Arrays.stream(qaRejudgeTiers.split(","))
+                        .map(s -> s.trim().toUpperCase()).filter(s -> !s.isEmpty())
+                        .collect(Collectors.toSet());
+                rejudge = prior.entrySet().stream()
+                        .filter(e -> tierSet.contains(e.getValue().path("qaTier").asText("")))
+                        .map(Map.Entry::getKey).collect(Collectors.toSet());
+                System.err.printf("QA re-judge: %d finding(s) in tiers %s from %s; others carried over%n",
+                        rejudge.size(), tierSet, qaRejudgeFrom);
+            } else {
+                rejudge = Set.of();
+            }
+
+            List<Finding> toQa = findings.stream()
+                    .filter(f -> f.confidence() >= qaMinConfidence)
+                    .filter(f -> !targeted || rejudge.contains(key(f)))
+                    .toList();
             String qaLabel = "claude-cli".equalsIgnoreCase(qaProvider)
                     ? qaCliModel + " (claude -p)" : qaModelName;
             System.err.printf("QA: verifying %d / %d findings with a %d-judge blind panel on %s%n",
@@ -236,8 +277,22 @@ public class AuditCommand implements Runnable {
                     .await().indefinitely();
             verdicts.save();
             Map<String, Finding> merged = new LinkedHashMap<>();
-            for (Finding f : findings) merged.put(f.ourIri() + "\t" + f.upstreamIri(), f);
-            for (Finding f : verified) merged.put(f.ourIri() + "\t" + f.upstreamIri(), f);
+            for (Finding f : findings) merged.put(key(f), f);
+            for (Finding f : verified) merged.put(key(f), f);
+            // In targeted mode, overlay the prior QA verdict on every finding we did NOT re-judge, so the
+            // output report shows the carried-over tiers alongside the freshly re-judged contested ones.
+            if (targeted) {
+                int carried = 0;
+                for (var e : merged.entrySet()) {
+                    if (rejudge.contains(e.getKey())) continue; // freshly judged this run
+                    JsonNode p = prior.get(e.getKey());
+                    if (p != null && p.hasNonNull("qaTier")) {
+                        merged.put(e.getKey(), applyPriorQa(e.getValue(), p));
+                        carried++;
+                    }
+                }
+                System.err.printf("QA re-judge: carried over %d prior verdict(s)%n", carried);
+            }
             findings = new ArrayList<>(merged.values());
         }
 
@@ -400,6 +455,48 @@ public class AuditCommand implements Runnable {
                 t.prefixedId(), t.type().label(), nz(t.label()), nz(t.comment()),
                 nz(t.domain()), nz(t.range()),
                 up.vocabId(), up.iri(), up.type().label(), nz(up.label()), nz(up.comment()));
+    }
+
+    /** Stable finding key: (our IRI, upstream IRI). Matches the prior-report join key. */
+    private static String key(Finding f) {
+        return f.ourIri() + "\t" + f.upstreamIri();
+    }
+
+    /** Read a prior report's findings into a key→node map for the targeted re-judge carry-over. */
+    private Map<String, JsonNode> loadPriorQa(Path reportJson) {
+        if (!Files.isReadable(reportJson)) {
+            throw new IllegalArgumentException("--qa-rejudge-from: cannot read " + reportJson);
+        }
+        try {
+            JsonNode root = mapper.readTree(reportJson.toFile());
+            JsonNode arr = root.isArray() ? root : root.path("findings");
+            Map<String, JsonNode> m = new LinkedHashMap<>();
+            for (JsonNode f : arr) {
+                m.put(f.path("ourIri").asText() + "\t" + f.path("upstreamIri").asText(), f);
+            }
+            return m;
+        } catch (java.io.IOException e) {
+            throw new IllegalArgumentException("--qa-rejudge-from: " + e.getMessage(), e);
+        }
+    }
+
+    /** Reconstruct a carried-over finding's QA fields from its prior-report node (no model call). */
+    private Finding applyPriorQa(Finding f, JsonNode p) {
+        Verdict.Relation rel = relOf(p.path("qaRelation").asText(null));
+        double conf = p.path("qaConfidence").asDouble(0);
+        String rat = p.path("qaRationale").asText(null);
+        String tier = p.path("qaTier").asText(null);
+        String pred = p.hasNonNull("proposedPredicate") ? p.path("proposedPredicate").asText() : null;
+        return f.withQaPanel(rel, conf, rat, tier, pred);
+    }
+
+    private static Verdict.Relation relOf(String s) {
+        if (s == null || s.isBlank()) return Verdict.Relation.NONE;
+        try {
+            return Verdict.Relation.valueOf(s);
+        } catch (IllegalArgumentException e) {
+            return Verdict.Relation.NONE;
+        }
     }
 
     private double scoreOf(OurTerm t, UpstreamTerm up) {
