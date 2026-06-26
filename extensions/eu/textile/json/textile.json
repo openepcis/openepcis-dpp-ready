@@ -38,7 +38,8 @@
       "comment": "Environmental footprint declaration per EU Preparatory Study 3rd Milestone,\naligned with Product Environmental Footprint Category Rules for Apparel & Footwear (PEFCR A&F).\nIncludes manufacturing carbon footprint, PEF single score, and benchmark comparison.",
       "seeAlso": [
         "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance",
-        "https://schema.org/PropertyValue"
+        "https://schema.org/PropertyValue",
+        "https://w3id.org/eudpp#CarbonFootprint"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -84,6 +85,9 @@
         "https://schema.org/QuantitativeValue",
         "https://ref.openepcis.io/extensions/common/core/RecycledContent"
       ],
+      "narrowMatch": [
+        "https://ref.openepcis.io/extensions/common/core/RecycledContent"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -98,6 +102,9 @@
       ],
       "subClassOf": [
         "https://schema.org/Observation"
+      ],
+      "narrowMatch": [
+        "https://schema.org/Rating"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -124,10 +131,14 @@
       "label": "Substance of Concern",
       "comment": "A substance of concern present in the textile product, classified per ESPR Article 7(5)\ninto 4 types: Type A (SVHC per REACH), Type B (CLP hazard), Type C (POPs),\nType D (substances hindering reuse/recycling).",
       "seeAlso": [
-        "https://ref.gs1.org/voc/hasAllergen"
+        "https://ref.gs1.org/voc/hasAllergen",
+        "https://schema.org/Substance"
       ],
       "subClassOf": [
         "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
+      "narrowMatch": [
+        "https://schema.org/ChemicalSubstance"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -140,6 +151,9 @@
         "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
         "https://schema.org/Service",
         "https://ref.gs1.org/voc/consumerRecyclingInstructions"
+      ],
+      "narrowMatch": [
+        "https://schema.org/Service"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -168,6 +182,9 @@
       "subClassOf": [
         "https://ref.gs1.org/voc/Clothing",
         "https://ref.gs1.org/voc/Product"
+      ],
+      "broadMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#PefcrShirtsAndBlouses"
       ],
       "narrowMatch": [
         "https://ref.gs1.org/voc/Clothing",
@@ -205,6 +222,9 @@
       "subClassOf": [
         "https://schema.org/Observation"
       ],
+      "narrowMatch": [
+        "https://schema.org/Rating"
+      ],
       "source": "https://www.iso.org/standard/55312.html"
     }
   ],
@@ -239,6 +259,9 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/consumerStorageInstructions"
       ],
+      "narrowMatch": [
+        "https://schema.org/additionalProperty"
+      ],
       "source": "https://www.iso.org/standard/42918.html"
     },
     {
@@ -254,7 +277,8 @@
       ],
       "seeAlso": [
         "https://schema.org/category",
-        "https://ref.gs1.org/voc/additionalProductClassification"
+        "https://ref.gs1.org/voc/additionalProductClassification",
+        "https://vocabulary.uncefact.org/untp/productCategory"
       ],
       "narrowMatch": [
         "https://schema.org/category"
@@ -287,6 +311,10 @@
       ],
       "range": [
         "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#environmentalFootprintBenchmarkPercentage",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprintBenchmarkPercentage"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -336,6 +364,9 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#carbonFootprintClass"
       ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerformanceClass"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -351,7 +382,13 @@
       ],
       "seeAlso": [
         "https://schema.org/value",
-        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal"
+        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
+      ],
+      "narrowMatch": [
+        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -365,6 +402,14 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/CareInstruction"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/consumerUsageInstructions",
+        "https://dpp-keystone.org/spec/v2/terms#instructionsForUse"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/instructions",
+        "https://ref.gs1.org/voc/instructionsForUse"
       ],
       "source": "https://www.iso.org/standard/42918.html"
     },
@@ -394,6 +439,9 @@
       ],
       "seeAlso": [
         "https://schema.org/description"
+      ],
+      "narrowMatch": [
+        "https://schema.org/potentialUse"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32006R1907"
     },
@@ -435,6 +483,9 @@
         "xsd:integer"
       ],
       "seeAlso": [
+        "https://schema.org/ratingValue"
+      ],
+      "narrowMatch": [
         "https://schema.org/ratingValue"
       ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
@@ -499,10 +550,19 @@
         "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
       ],
       "seeAlso": [
-        "https://ref.gs1.org/voc/manufacturingPlant"
+        "https://ref.gs1.org/voc/manufacturingPlant",
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace",
+        "https://dpp-keystone.org/spec/v2/terms#facilityId",
+        "https://vocabulary.uncefact.org/untp/modifiedAtFacility",
+        "https://schema.org/countryOfAssembly",
+        "https://dpp-keystone.org/spec/v2/terms#manufacturingFacility",
+        "https://vocabulary.uncefact.org/untp/madeAtFacility",
+        "https://vocabulary.uncefact.org/untp/producedAtFacility"
       ],
       "narrowMatch": [
-        "https://ref.gs1.org/voc/location"
+        "https://ref.gs1.org/voc/manufacturingPlant",
+        "https://ref.gs1.org/voc/location",
+        "https://vocabulary.uncefact.org/untp/fromFacility"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -530,6 +590,9 @@
       "range": [
         "xsd:decimal"
       ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#dimensionalChange"
+      ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
@@ -545,6 +608,9 @@
       ],
       "seeAlso": [
         "https://schema.org/ratingValue"
+      ],
+      "narrowMatch": [
+        "https://vocabulary.uncefact.org/untp/score"
       ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
@@ -571,6 +637,9 @@
       ],
       "range": [
         "xsd:string"
+      ],
+      "seeAlso": [
+        "https://schema.org/measurementMethod"
       ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
@@ -653,6 +722,10 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/manufacturingPlant"
       ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/manufacturingPlant",
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -692,6 +765,10 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/textileMaterialPercentage"
       ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/textileMaterialPercentage",
+        "https://ref.gs1.org/voc/ingredientContentPercentage"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -723,6 +800,10 @@
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/consumerRecyclingInstructions",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation",
+        "https://ref.gs1.org/voc/sustainabilityInfo"
+      ],
+      "narrowMatch": [
         "https://ref.gs1.org/voc/sustainabilityInfo"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
@@ -739,7 +820,8 @@
         "https://ref.openepcis.io/extensions/common/core/EnergyKilowattHours"
       ],
       "seeAlso": [
-        "https://schema.org/QuantitativeValue"
+        "https://schema.org/QuantitativeValue",
+        "https://ref.openepcis.io/extensions/common/core/annualEnergyConsumption"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -756,6 +838,13 @@
       ],
       "seeAlso": [
         "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#environmentalFootprint"
+      ],
+      "narrowMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprintGeneralInfo",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprintAbsolute"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -814,6 +903,10 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#euEcolabel"
       ],
+      "narrowMatch": [
+        "https://vocabulary.uncefact.org/untp/productLabel",
+        "https://ref.gs1.org/voc/compulsoryAdditionalLabelInformation"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32010R0066"
     },
     {
@@ -828,7 +921,8 @@
         "xsd:integer"
       ],
       "seeAlso": [
-        "https://schema.org/value"
+        "https://schema.org/value",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime"
       ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
@@ -862,6 +956,9 @@
       "seeAlso": [
         "https://schema.org/ratingValue"
       ],
+      "narrowMatch": [
+        "https://schema.org/ratingValue"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -878,6 +975,9 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/Clothing"
       ],
+      "narrowMatch": [
+        "https://vocabulary.uncefact.org/untp/materialType"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -892,11 +992,14 @@
         "https://ref.gs1.org/voc/CertificationDetails"
       ],
       "seeAlso": [
-        "https://schema.org/material"
+        "https://schema.org/material",
+        "https://ref.gs1.org/voc/certificationIdentification"
       ],
       "narrowMatch": [
         "https://schema.org/hasCertification",
-        "https://ref.gs1.org/voc/certification"
+        "https://ref.gs1.org/voc/certification",
+        "https://schema.org/certificationIdentification",
+        "https://ref.gs1.org/voc/certificationInfo"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
     },
@@ -914,6 +1017,11 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/countryOfOrigin"
       ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/countryOfOrigin",
+        "https://ref.gs1.org/voc/countryOfOriginStatement",
+        "https://schema.org/countryOfOrigin"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
     },
     {
@@ -928,7 +1036,11 @@
         "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
       ],
       "seeAlso": [
-        "https://ref.gs1.org/voc/manufacturingPlant"
+        "https://ref.gs1.org/voc/manufacturingPlant",
+        "https://vocabulary.uncefact.org/untp/modifiedAtFacility"
+      ],
+      "narrowMatch": [
+        "https://vocabulary.uncefact.org/untp/facility"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -996,6 +1108,9 @@
         "xsd:string"
       ],
       "seeAlso": [
+        "https://schema.org/category"
+      ],
+      "narrowMatch": [
         "https://schema.org/category"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
@@ -1124,6 +1239,12 @@
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/LCIACategoryCode"
       ],
+      "seeAlso": [
+        "https://schema.org/hasCategoryCode"
+      ],
+      "narrowMatch": [
+        "https://schema.org/category"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1139,6 +1260,9 @@
       ],
       "seeAlso": [
         "https://schema.org/unitCode"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/unitCode"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1156,6 +1280,12 @@
       "seeAlso": [
         "https://schema.org/value"
       ],
+      "narrowMatch": [
+        "https://schema.org/value",
+        "https://ref.gs1.org/voc/value",
+        "http://data.europa.eu/m8g/value",
+        "http://data.europa.eu/m8g/providesValueFor"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1170,7 +1300,11 @@
         "xsd:string"
       ],
       "seeAlso": [
-        "https://schema.org/description"
+        "https://schema.org/description",
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceLocation"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/locationDescription"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1184,6 +1318,9 @@
       ],
       "range": [
         "xsd:decimal"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceConcentration"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1253,6 +1390,9 @@
       "seeAlso": [
         "https://schema.org/ratingValue"
       ],
+      "narrowMatch": [
+        "https://schema.org/ratingValue"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1272,6 +1412,9 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#organicContentMass"
       ],
+      "narrowMatch": [
+        "https://schema.org/fiberContent"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2018/848"
     },
     {
@@ -1290,6 +1433,10 @@
       ],
       "closeMatch": [
         "https://dpp-keystone.org/spec/v2/terms#organicContentPercentage"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/organicPercentClaim",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2018/848"
     },
@@ -1417,7 +1564,12 @@
         "https://ref.openepcis.io/extensions/eu/textile/RecycledContentDeclaration"
       ],
       "seeAlso": [
-        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/textileMaterialContent"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
@@ -1431,9 +1583,6 @@
       ],
       "range": [
         "xsd:string"
-      ],
-      "narrowMatch": [
-        "https://ref.openepcis.io/extensions/common/core/recycledContent"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1467,6 +1616,10 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/instructions"
       ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/instructions",
+        "https://ref.gs1.org/voc/referencedFileURL"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
@@ -1487,9 +1640,6 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#repairServices"
       ],
-      "narrowMatch": [
-        "https://ref.gs1.org/voc/serviceInfo"
-      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
@@ -1504,7 +1654,8 @@
         "https://ref.openepcis.io/extensions/eu/textile/RobustnessAssessment"
       ],
       "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#robustnessScore"
+        "https://dpp-keystone.org/spec/v2/terms#robustnessScore",
+        "https://vocabulary.uncefact.org/untp/assessedPerformance"
       ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
@@ -1553,9 +1704,17 @@
         "xsd:string"
       ],
       "seeAlso": [
+        "https://ref.gs1.org/voc/consumerUsageInstructions",
+        "https://ref.gs1.org/voc/instructions",
         "https://ref.gs1.org/voc/consumerSafetyInformation",
         "https://ref.gs1.org/voc/safetyInfo",
         "https://ref.openepcis.io/extensions/common/core/safeUseInstructions"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#safeUseInstructions"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/consumerSafetyInformation"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1602,6 +1761,13 @@
       "seeAlso": [
         "https://schema.org/releaseDate"
       ],
+      "broadMatch": [
+        "https://ref.gs1.org/voc/seasonParameter"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/seasonCalendarYear",
+        "https://ref.gs1.org/voc/seasonName"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
     },
     {
@@ -1616,7 +1782,10 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://ref.openepcis.io/extensions/common/core/recycledContent"
+        "https://ref.openepcis.io/extensions/common/core/recycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#materialComposition",
+        "https://dpp-keystone.org/spec/v2/terms#packagingMaterialCompositionQuantity",
+        "https://vocabulary.uncefact.org/untp/massFraction"
       ],
       "narrowMatch": [
         "https://ref.gs1.org/voc/textileMaterialPercentage"
@@ -1648,6 +1817,10 @@
         "xsd:string"
       ],
       "seeAlso": [
+        "https://ref.gs1.org/voc/size",
+        "https://schema.org/size"
+      ],
+      "narrowMatch": [
         "https://ref.gs1.org/voc/size",
         "https://schema.org/size"
       ],
@@ -1693,6 +1866,9 @@
       "seeAlso": [
         "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
       ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#sparePartsAvailable"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
@@ -1709,6 +1885,9 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/purchaseSuppliesOrAccessories"
       ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/purchaseSuppliesOrAccessories"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
@@ -1723,7 +1902,8 @@
         "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
       ],
       "narrowMatch": [
-        "https://ref.gs1.org/voc/manufacturingPlant"
+        "https://ref.gs1.org/voc/manufacturingPlant",
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1752,7 +1932,8 @@
         "xsd:integer"
       ],
       "seeAlso": [
-        "https://schema.org/ratingValue"
+        "https://schema.org/ratingValue",
+        "https://vocabulary.uncefact.org/untp/score"
       ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
@@ -1781,7 +1962,8 @@
         "xsd:string"
       ],
       "seeAlso": [
-        "https://schema.org/measurementMethod"
+        "https://schema.org/measurementMethod",
+        "https://dpp-keystone.org/spec/v2/terms#testMethod"
       ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
@@ -1797,7 +1979,11 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://schema.org/value"
+        "https://schema.org/value",
+        "https://ref.gs1.org/voc/ingredientContentPercentage"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceConcentration"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1813,7 +1999,8 @@
         "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcern"
       ],
       "seeAlso": [
-        "https://ref.openepcis.io/extensions/common/core/substancesOfConcern"
+        "https://ref.openepcis.io/extensions/common/core/substancesOfConcern",
+        "https://ref.gs1.org/voc/ingredientOfConcern"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1829,7 +2016,12 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://schema.org/material"
+        "https://schema.org/material",
+        "https://ref.gs1.org/voc/textileMaterialPercentage"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/textileMaterialContent",
+        "https://ref.gs1.org/voc/ingredientContentPercentage"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
     },
@@ -1867,6 +2059,12 @@
       "seeAlso": [
         "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
       ],
+      "broadMatch": [
+        "https://ref.openepcis.io/extensions/common/core/takeBackUrl"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
@@ -1881,8 +2079,14 @@
         "xsd:anyURI"
       ],
       "seeAlso": [
-        "https://ref.gs1.org/voc/sustainabilityInfo",
+        "https://ref.openepcis.io/extensions/common/core/takeBackUrl",
+        "https://ref.gs1.org/voc/sustainabilityInfo"
+      ],
+      "exactMatch": [
         "https://ref.openepcis.io/extensions/common/core/takeBackUrl"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/sustainabilityInfo"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
@@ -1927,7 +2131,9 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://schema.org/ratingValue"
+        "https://schema.org/ratingValue",
+        "https://vocabulary.uncefact.org/untp/score",
+        "https://vocabulary.uncefact.org/untp/profileScore"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
@@ -1980,7 +2186,9 @@
       ],
       "narrowMatch": [
         "https://schema.org/hasCertification",
-        "https://ref.gs1.org/voc/certification"
+        "https://ref.gs1.org/voc/certification",
+        "https://ref.gs1.org/voc/certificationInfo",
+        "https://ref.gs1.org/voc/certificationType"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1994,6 +2202,9 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/VisualInspectionResult"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#visualInspection"
       ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
@@ -2027,6 +2238,9 @@
       "seeAlso": [
         "https://schema.org/measurementMethod"
       ],
+      "closeMatch": [
+        "https://schema.org/measurementMethod"
+      ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf"
     },
     {
@@ -2052,6 +2266,10 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/WasteOriginType"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerTypeOfWaste",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerTypeOfWaste"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2082,8 +2300,14 @@
       "range": [
         "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
       ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace",
+        "https://vocabulary.uncefact.org/untp/facility"
+      ],
       "narrowMatch": [
-        "https://ref.gs1.org/voc/manufacturingPlant"
+        "https://ref.gs1.org/voc/manufacturingPlant",
+        "https://dpp-keystone.org/spec/v2/terms#facilityId",
+        "https://vocabulary.uncefact.org/untp/modifiedAtFacility"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },

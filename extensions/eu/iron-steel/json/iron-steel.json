@@ -19,6 +19,16 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#IronSteelProduct"
       ],
+      "broadMatch": [
+        "https://schema.org/IndividualProduct"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/Product",
+        "https://dpp-keystone.org/spec/v2/terms#ConstructionProduct",
+        "https://vocabulary.uncefact.org/untp/Product",
+        "https://dpp-keystone.org/spec/v2/terms#Product",
+        "https://schema.org/Product"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -33,10 +43,8 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#MaterialTestCertificate"
       ],
-      "closeMatch": [
-        "https://schema.org/Certification"
-      ],
       "narrowMatch": [
+        "https://schema.org/Certification",
         "https://ref.gs1.org/voc/CertificationDetails"
       ],
       "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx"
@@ -63,7 +71,9 @@
         "https://dpp-keystone.org/spec/v2/terms#castNumber"
       ],
       "narrowMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#heatNumber"
+        "https://ref.gs1.org/voc/batchLot",
+        "https://dpp-keystone.org/spec/v2/terms#heatNumber",
+        "https://schema.org/serialNumber"
       ],
       "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
     },
@@ -84,6 +94,9 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#cbamReportId"
       ],
+      "closeMatch": [
+        "https://schema.org/reportNumber"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2023/956"
     },
     {
@@ -100,10 +113,14 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/batchLot",
         "https://dpp-keystone.org/spec/v2/terms#heatNumber",
-        "https://ref.gs1.org/voc/hasBatchLotNumber"
+        "https://ref.gs1.org/voc/hasBatchLotNumber",
+        "https://schema.org/serialNumber"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#heatNumber"
+      ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/hasBatchLotNumber"
       ],
       "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
     },
@@ -126,7 +143,8 @@
         "https://dpp-keystone.org/spec/v2/terms#lotNumber"
       ],
       "narrowMatch": [
-        "https://ref.gs1.org/voc/hasBatchLotNumber"
+        "https://ref.gs1.org/voc/hasBatchLotNumber",
+        "https://schema.org/serialNumber"
       ],
       "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
     },
@@ -143,10 +161,27 @@
       ],
       "seeAlso": [
         "https://schema.org/countryOfOrigin",
-        "https://dpp-keystone.org/spec/v2/terms#meltAndPourCountry"
+        "https://dpp-keystone.org/spec/v2/terms#meltAndPourCountry",
+        "https://dpp-keystone.org/spec/v2/terms#productionLocationCountry",
+        "https://vocabulary.uncefact.org/untp/addressCountry",
+        "https://dpp-keystone.org/spec/v2/terms#addressCountry",
+        "https://dpp-keystone.org/spec/v2/terms#countryOfOrigin",
+        "https://vocabulary.uncefact.org/untp/countryCode"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#meltAndPourCountry"
+      ],
+      "closeMatch": [
+        "https://schema.org/countryOfOrigin"
+      ],
+      "narrowMatch": [
+        "https://schema.org/addressCountry",
+        "https://ref.gs1.org/voc/countryOfOriginStatement",
+        "https://vocabulary.uncefact.org/untp/countryOfProduction",
+        "https://ref.gs1.org/voc/countryOfOrigin",
+        "https://ref.gs1.org/voc/countryCode",
+        "https://vocabulary.uncefact.org/untp/countryOfOperation",
+        "https://vocabulary.uncefact.org/untp/countryName"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -275,6 +310,9 @@
       "range": [
         "xsd:string"
       ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/certificationType"
+      ],
       "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10204.aspx"
     },
     {
@@ -313,8 +351,12 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#mtcNominalSize"
       ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/sizeDimension"
+      ],
       "narrowMatch": [
-        "https://schema.org/size"
+        "https://schema.org/size",
+        "https://gs1-epcis-reg.org/rail/voc/data#setNominalValues"
       ],
       "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
     },
@@ -387,7 +429,8 @@
         "xsd:string"
       ],
       "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#mtcSteelProcess"
+        "https://dpp-keystone.org/spec/v2/terms#mtcSteelProcess",
+        "https://vocabulary.uncefact.org/untp/processCategory"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#mtcSteelProcess"
@@ -495,13 +538,21 @@
         "xsd:string"
       ],
       "seeAlso": [
+        "https://schema.org/serialNumber",
         "https://schema.org/productID",
         "https://ref.gs1.org/voc/globalModelNumber",
-        "https://dpp-keystone.org/spec/v2/terms#productNumber",
-        "https://schema.org/serialNumber"
+        "https://dpp-keystone.org/spec/v2/terms#productNumber"
       ],
       "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#productNumber"
+        "https://dpp-keystone.org/spec/v2/terms#productNumber",
+        "https://schema.org/mpn"
+      ],
+      "closeMatch": [
+        "https://schema.org/productID"
+      ],
+      "narrowMatch": [
+        "https://schema.org/serialNumber",
+        "https://ref.gs1.org/voc/productID"
       ],
       "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
     },
@@ -522,6 +573,9 @@
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#purchaserOrder"
+      ],
+      "narrowMatch": [
+        "https://schema.org/orderNumber"
       ],
       "source": "https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx"
     },
@@ -577,7 +631,7 @@
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#technologyRoute"
       ],
-      "closeMatch": [
+      "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#technologyRoute"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"

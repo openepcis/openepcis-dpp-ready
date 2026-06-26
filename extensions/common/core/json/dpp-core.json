@@ -29,6 +29,9 @@
       "subClassOf": [
         "https://schema.org/Observation"
       ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -38,11 +41,7 @@
       "comment": "Information supporting circular economy requirements including\nend-of-life handling, recycling, waste prevention, and circularity metrics.\nAligned with UNTP CircularityPerformance pattern.",
       "seeAlso": [
         "https://ref.gs1.org/voc/consumerRecyclingInstructions",
-        "https://vocabulary.uncefact.org/untp/0.7.0/CircularityPerformance",
         "https://w3id.org/eudpp#CircularEconomyIndicator"
-      ],
-      "exactMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/CircularityPerformance"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -68,6 +67,10 @@
       "subClassOf": [
         "https://ref.openepcis.io/extensions/common/core/DataElement"
       ],
+      "narrowMatch": [
+        "https://schema.org/Dataset",
+        "https://schema.org/Collection"
+      ],
       "source": "EN 18223:2026, 4.1.2.4 (CEN/CENELEC JTC 24)"
     },
     {
@@ -75,6 +78,9 @@
       "localName": "DepositReturnScheme",
       "label": "Deposit-Return Scheme",
       "comment": "A deposit-return scheme that the product participates in (PPWR Article 13, beverage container DRS in DE/AT/NL/SE/etc., and any future EU-harmonised DRS).",
+      "closeMatch": [
+        "https://ref.gs1.org/voc/ReturnablePackageDepositDetails"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -82,11 +88,8 @@
       "localName": "DigitalProductPassport",
       "label": "Digital Product Passport",
       "comment": "The DPP envelope: identification and lifecycle metadata plus the product data elements, per the EN 18223 information model.",
-      "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/ProductPassport"
-      ],
-      "exactMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/ProductPassport"
+      "narrowMatch": [
+        "https://schema.org/DigitalDocument"
       ],
       "source": "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)"
     },
@@ -100,8 +103,13 @@
         "http://xmlns.com/foaf/0.1/Document",
         "https://w3id.org/eudpp#DigitalInstruction"
       ],
-      "closeMatch": [
-        "https://ref.gs1.org/voc/ReferencedFileDetails"
+      "broadMatch": [
+        "https://ref.gs1.org/voc/ReferencedFileDetails",
+        "https://schema.org/APIReference",
+        "https://schema.org/NoteDigitalDocument"
+      ],
+      "narrowMatch": [
+        "http://xmlns.com/foaf/0.1/Document"
       ]
     },
     {
@@ -117,6 +125,10 @@
       "subClassOf": [
         "http://data.europa.eu/m8g/Evidence"
       ],
+      "narrowMatch": [
+        "http://data.europa.eu/m8g/Evidence",
+        "https://schema.org/Report"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
     },
     {
@@ -126,15 +138,8 @@
       "comment": "Container for greenhouse gas emissions data including carbon footprint,\nlifecycle phases, and verification status. Aligned with UNTP EmissionsPerformance.",
       "seeAlso": [
         "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf",
-        "https://vocabulary.uncefact.org/untp/0.7.0/EmissionsPerformance",
         "https://w3id.org/eudpp#CarbonFootprint",
         "https://w3id.org/eudpp#EnvironmentalFootprint"
-      ],
-      "exactMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/EmissionsPerformance"
-      ],
-      "narrowMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/Performance"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -150,6 +155,9 @@
       "localName": "EnergyEfficiency",
       "label": "Energy Efficiency",
       "comment": "A product's energy efficiency declaration: A-G class, EPREL registration, consumption modes.",
+      "seeAlso": [
+        "https://schema.org/EUEnergyEfficiencyEnumeration"
+      ],
       "narrowMatch": [
         "https://schema.org/EnergyConsumptionDetails"
       ],
@@ -162,15 +170,14 @@
       "comment": "A type III environmental declaration per EN 15804:2012+A2:2019 / ISO 14025,\nreporting life-cycle environmental impact indicators broken down by lifecycle module.",
       "seeAlso": [
         "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance",
-        "https://vocabulary.uncefact.org/untp/0.7.0/EmissionsPerformance",
         "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration",
         "https://dpp-keystone.org/spec/v2/terms#EPDBlock"
       ],
       "subClassOf": [
         "https://schema.org/Certification"
       ],
-      "closeMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#EPDBlock"
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -189,17 +196,15 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/Place",
         "https://schema.org/Place",
-        "https://vocabulary.uncefact.org/untp/0.7.0/Facility",
+        "https://vocabulary.uncefact.org/untp/Facility",
         "http://www.w3.org/ns/locn#Location",
         "http://www.w3.org/ns/locn#Address",
         "http://www.w3.org/ns/locn#Geometry",
-        "https://w3id.org/eudpp#Facility"
+        "https://w3id.org/eudpp#Facility",
+        "http://data.europa.eu/m8g/InformationConcept"
       ],
       "subClassOf": [
         "https://ref.gs1.org/voc/Place"
-      ],
-      "closeMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/Facility"
       ],
       "narrowMatch": [
         "https://ref.gs1.org/voc/Place",
@@ -215,6 +220,13 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/hasAllergen",
         "https://w3id.org/eudpp#Substance"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#HazardousSubstanceEntity"
+      ],
+      "narrowMatch": [
+        "https://schema.org/ChemicalSubstance",
+        "https://schema.org/Substance"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272"
     },
@@ -239,6 +251,9 @@
       "seeAlso": [
         "https://www.gs1.org/standards/barcodes/application-identifiers/8026"
       ],
+      "narrowMatch": [
+        "https://schema.org/IndividualProduct"
+      ],
       "source": "https://ref.gs1.org/ai/8026"
     },
     {
@@ -246,6 +261,9 @@
       "localName": "LifecycleStageResult",
       "label": "Lifecycle Stage Result",
       "comment": "The value of an impact indicator for a single EN 15804 lifecycle module (e.g. A1, B6, C3, D).",
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -254,6 +272,13 @@
       "label": "Material Composition",
       "comment": "Material composition information including source country,\npercentage, and critical raw material classification.",
       "seeAlso": [
+        "https://ref.gs1.org/voc/TextileMaterialDetails",
+        "https://ref.gs1.org/voc/PackagingMaterialDetails"
+      ],
+      "exactMatch": [
+        "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
+      ],
+      "broadMatch": [
         "https://ref.gs1.org/voc/TextileMaterialDetails",
         "https://ref.gs1.org/voc/PackagingMaterialDetails"
       ],
@@ -274,6 +299,9 @@
       "localName": "MultiLanguageValue",
       "label": "Multi-Language Value",
       "comment": "A language-tagged value: a string plus its language (EN 18223 4.1.2.8.2).",
+      "narrowMatch": [
+        "https://schema.org/StructuredValue"
+      ],
       "source": "EN 18223:2026, 4.1.2.8.2 (CEN/CENELEC JTC 24)"
     },
     {
@@ -297,14 +325,24 @@
         "http://data.europa.eu/m8g/LegalEntity",
         "https://w3id.org/eudpp#Actor",
         "https://w3id.org/eudpp#LegalPerson",
-        "https://w3id.org/eudpp#ManufacturerRecord"
+        "https://w3id.org/eudpp#ManufacturerRecord",
+        "https://dpp-keystone.org/spec/v2/terms#EconomicOperatorRole"
       ],
       "subClassOf": [
         "https://ref.gs1.org/voc/Organization"
       ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/OrganizationID_Details"
+      ],
+      "broadMatch": [
+        "https://w3id.org/eudpp#ManufacturerRecord"
+      ],
       "narrowMatch": [
+        "https://ref.gs1.org/voc/Organization",
         "https://schema.org/Organization",
-        "https://vocabulary.uncefact.org/untp/0.7.0/Party"
+        "http://data.europa.eu/m8g/LegalEntity",
+        "https://w3id.org/eudpp#Actor",
+        "https://vocabulary.uncefact.org/untp/Party"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32019R1020"
     },
@@ -317,7 +355,7 @@
         "https://ref.gs1.org/voc/warranty",
         "https://w3id.org/eudpp#Durability",
         "https://w3id.org/eudpp#Reliability",
-        "https://vocabulary.uncefact.org/untp/0.7.0/PerformanceMetric"
+        "https://vocabulary.uncefact.org/untp/PerformanceMetric"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -329,6 +367,10 @@
       "subClassOf": [
         "https://schema.org/Observation"
       ],
+      "narrowMatch": [
+        "http://data.europa.eu/m8g/Criterion",
+        "https://vocabulary.uncefact.org/untp/ConformityAssessment"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -338,7 +380,9 @@
       "comment": "Declaration of recycled material content with pre-consumer\nand post-consumer splits.",
       "seeAlso": [
         "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf",
-        "https://w3id.org/eudpp#RecycledMaterialsUse"
+        "https://w3id.org/eudpp#RecycledMaterialsUse",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#RecycledContentEntity",
+        "https://ref.gs1.org/voc/PackagingDetails"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -360,6 +404,10 @@
       "localName": "RepairProvider",
       "label": "Repair Provider",
       "comment": "An authorised repair provider for a product. Supports the European online platform for repair (Article 7 of Directive 2024/1799) and manufacturer-published repair networks.",
+      "broadMatch": [
+        "https://schema.org/AutoRepair",
+        "https://schema.org/MotorcycleRepair"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -367,6 +415,10 @@
       "localName": "SingleValuedDataElement",
       "label": "Single-Valued Data Element",
       "comment": "A single data point with one value (EN 18223 4.1.2.5).",
+      "seeAlso": [
+        "https://ref.gs1.org/voc/QuantitativeValue",
+        "https://schema.org/QuantitativeValue"
+      ],
       "subClassOf": [
         "https://ref.openepcis.io/extensions/common/core/DataElement"
       ],
@@ -384,6 +436,11 @@
       "subClassOf": [
         "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
       ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#HazardousSubstanceEntity",
+        "https://schema.org/ChemicalSubstance",
+        "https://schema.org/Substance"
+      ],
       "source": "https://echa.europa.eu/scip"
     },
     {
@@ -392,8 +449,7 @@
       "label": "Traceability Performance",
       "comment": "Supply chain verification and traceability metrics indicating the proportion\nof materials that are verifiably traced through the supply chain.",
       "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/PerformanceMetric",
-        "https://vocabulary.uncefact.org/untp/0.7.0/TraceabilityPerformance"
+        "https://vocabulary.uncefact.org/untp/PerformanceMetric"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     }
@@ -409,6 +465,9 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/common/core/AccessLevel"
+      ],
+      "narrowMatch": [
+        "https://schema.org/conditionsOfAccess"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -434,6 +493,7 @@
         "https://unstats.un.org/unsd/classifications/Econ/isic"
       ],
       "broadMatch": [
+        "https://unstats.un.org/unsd/classifications/Econ/isic",
         "https://schema.org/naics",
         "https://schema.org/isicV4"
       ],
@@ -486,6 +546,9 @@
       "range": [
         "https://ref.openepcis.io/extensions/common/core/BiodegradabilityTestMethod"
       ],
+      "narrowMatch": [
+        "https://schema.org/measurementMethod"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -511,7 +574,12 @@
       ],
       "seeAlso": [
         "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf",
-        "https://vocabulary.uncefact.org/untp/0.7.0/carbonFootprint"
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -522,6 +590,9 @@
       "comment": "Links a product to its carbon footprint declaration.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
+      ],
+      "exactMatch": [
+        "https://ref.openepcis.io/extensions/common/core/carbonFootprintDeclaration"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -536,6 +607,10 @@
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
       ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -548,6 +623,16 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprintAbsolute",
+        "https://dpp-keystone.org/spec/v2/terms#environmentalFootprint"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
+        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -575,6 +660,14 @@
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
       ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint",
+        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -587,6 +680,14 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -601,6 +702,13 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/referencedFileURL"
       ],
+      "exactMatch": [
+        "https://ref.openepcis.io/extensions/common/core/carbonFootprintStudyUrl",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintStudy"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/referencedFileURL"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -612,11 +720,16 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf",
-        "https://vocabulary.uncefact.org/untp/0.7.0/carbonFootprint"
+        "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf"
       ],
       "exactMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/carbonFootprint"
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint",
+        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
+        "https://ref.openepcis.io/extensions/common/core/carbonFootprintProduction"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -630,6 +743,9 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -661,10 +777,7 @@
         "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
       ],
       "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/circularityPerformance"
-      ],
-      "exactMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/circularityPerformance"
+        "https://dpp-keystone.org/spec/v2/terms#performance"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -682,6 +795,10 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/referencedFileURL"
       ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/referencedFileURL",
+        "https://schema.org/url"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -693,7 +810,8 @@
         "xsd:date"
       ],
       "seeAlso": [
-        "https://schema.org/auditDate"
+        "https://schema.org/auditDate",
+        "https://ref.gs1.org/voc/certificationAuditDate"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -723,7 +841,15 @@
         "https://dpp-keystone.org/spec/v2/terms#componentIdentifier"
       ],
       "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#componentIdentifier"
+        "https://dpp-keystone.org/spec/v2/terms#componentIdentifier",
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#componentId"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier"
+      ],
+      "narrowMatch": [
+        "https://schema.org/identifier",
+        "http://www.w3.org/ns/adms#identifier"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -740,10 +866,17 @@
       ],
       "seeAlso": [
         "https://schema.org/name",
-        "https://dpp-keystone.org/spec/v2/terms#componentName"
+        "https://dpp-keystone.org/spec/v2/terms#componentName",
+        "https://ref.gs1.org/voc/ingredientName"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#componentName"
+      ],
+      "broadMatch": [
+        "https://ref.gs1.org/voc/additiveName"
+      ],
+      "narrowMatch": [
+        "https://schema.org/name"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -757,9 +890,6 @@
       ],
       "range": [
         "xsd:anyURI"
-      ],
-      "narrowMatch": [
-        "https://ref.gs1.org/voc/certificationStandard"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -787,6 +917,9 @@
       "range": [
         "xsd:decimal"
       ],
+      "exactMatch": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceConcentration"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -800,6 +933,9 @@
       "range": [
         "xsd:anyURI"
       ],
+      "closeMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#contentSpecificationIds"
+      ],
       "source": "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)"
     },
     {
@@ -812,6 +948,11 @@
       ],
       "range": [
         "xsd:string"
+      ],
+      "narrowMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#dppSchemaVersion",
+        "https://vocabulary.uncefact.org/untp/version",
+        "https://dpp-keystone.org/spec/v2/terms#versionNumber"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -849,6 +990,9 @@
       "range": [
         "https://ref.openepcis.io/extensions/common/core/DataElement"
       ],
+      "seeAlso": [
+        "https://schema.org/itemListElement"
+      ],
       "source": "EN 18223:2026, 4.1.2.4 (CEN/CENELEC JTC 24)"
     },
     {
@@ -860,6 +1004,13 @@
         "xsd:string"
       ],
       "seeAlso": [
+        "https://schema.org/hasCertification",
+        "https://ref.gs1.org/voc/certification"
+      ],
+      "exactMatch": [
+        "https://ref.openepcis.io/extensions/common/core/dataProviderCertification"
+      ],
+      "narrowMatch": [
         "https://schema.org/hasCertification",
         "https://ref.gs1.org/voc/certification"
       ],
@@ -896,11 +1047,11 @@
       "range": [
         "xsd:string"
       ],
-      "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/declaredUnit"
-      ],
       "exactMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/declaredUnit"
+        "https://dpp-keystone.org/spec/v2/terms#declaredUnit"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/unitCode"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -915,6 +1066,12 @@
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
       ],
+      "seeAlso": [
+        "https://schema.org/amount"
+      ],
+      "exactMatch": [
+        "https://ref.gs1.org/voc/returnablePackageDepositAmount"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -928,6 +1085,9 @@
       "range": [
         "xsd:anyURI"
       ],
+      "narrowMatch": [
+        "https://schema.org/availableChannel"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -937,6 +1097,10 @@
       "comment": "Links a product (typically gs1:Packaging) to the DRS it participates in.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme"
+      ],
+      "seeAlso": [
+        "https://vocabulary.uncefact.org/untp/referenceScheme",
+        "https://vocabulary.uncefact.org/untp/idScheme"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -950,6 +1114,12 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/Organization"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#economicOperator"
+      ],
+      "closeMatch": [
+        "https://schema.org/serviceOperator"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1007,6 +1177,19 @@
       "range": [
         "https://ref.openepcis.io/extensions/common/core/DocumentReference"
       ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#dismantlingInformation"
+      ],
+      "exactMatch": [
+        "https://ref.openepcis.io/extensions/common/core/dismantlingInstructions",
+        "https://dpp-keystone.org/spec/v2/terms#disassemblyInstructions"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/instructions"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1043,6 +1226,13 @@
       "range": [
         "https://ref.openepcis.io/extensions/common/core/DocumentType"
       ],
+      "exactMatch": [
+        "https://ref.openepcis.io/extensions/common/core/documentType",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#documentType"
+      ],
+      "broadMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#europeanAssessmentDocument"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1058,6 +1248,12 @@
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/referencedFileURL"
+      ],
+      "exactMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#documentURL"
+      ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/referencedFile"
       ],
       "narrowMatch": [
         "https://ref.gs1.org/voc/referencedFileURL"
@@ -1075,8 +1271,11 @@
       "range": [
         "xsd:string"
       ],
-      "narrowMatch": [
-        "https://schema.org/version"
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#dppSchemaVersion"
+      ],
+      "closeMatch": [
+        "https://schema.org/schemaVersion"
       ],
       "source": "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)"
     },
@@ -1091,6 +1290,13 @@
       "range": [
         "https://ref.gs1.org/voc/RegulatoryInformation"
       ],
+      "closeMatch": [
+        "https://vocabulary.uncefact.org/untp/regulation",
+        "https://vocabulary.uncefact.org/untp/referenceRegulation"
+      ],
+      "narrowMatch": [
+        "http://data.europa.eu/m8g/isDerivedFrom"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1100,6 +1306,12 @@
       "comment": "Reference to due diligence documentation.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#supplyChainDueDiligenceReport"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Labels:1.2.0#resultOfTestReport"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1117,6 +1329,9 @@
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#componentEcNumber"
       ],
+      "exactMatch": [
+        "https://ref.openepcis.io/extensions/common/core/ecNumber"
+      ],
       "closeMatch": [
         "https://dpp-keystone.org/spec/v2/terms#componentEcNumber"
       ],
@@ -1132,6 +1347,12 @@
       ],
       "range": [
         "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/additionalOrganizationID"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#economicOperatorId"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1149,6 +1370,9 @@
       "seeAlso": [
         "https://schema.org/identifier"
       ],
+      "narrowMatch": [
+        "https://schema.org/identifier"
+      ],
       "source": "EN 18223:2026, 4.1.2.3 (CEN/CENELEC JTC 24)"
     },
     {
@@ -1160,7 +1384,7 @@
         "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance"
       ],
       "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/emissionsPerformance"
+        "https://dpp-keystone.org/spec/v2/terms#performance"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1183,6 +1407,11 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#endOfLifeInstructions"
       ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/sustainabilityInfo",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation",
+        "https://ref.gs1.org/voc/instructions"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1204,7 +1433,18 @@
         "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
       ],
       "seeAlso": [
-        "https://schema.org/hasEnergyConsumptionDetails"
+        "https://schema.org/energyEfficiencyScaleMax",
+        "https://schema.org/energyEfficiencyScaleMin",
+        "https://schema.org/hasEnergyConsumptionDetails",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyFade",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife"
+      ],
+      "exactMatch": [
+        "https://ref.openepcis.io/extensions/common/core/energyEfficiency"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiency",
+        "https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyAt50Cycles"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1220,10 +1460,15 @@
         "https://ref.openepcis.io/extensions/common/core/EnergyEfficiencyClass"
       ],
       "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#energyEfficiencyClass"
+        "https://dpp-keystone.org/spec/v2/terms#energyEfficiencyClass",
+        "https://ref.openepcis.io/extensions/common/core/energyEfficiencyClass",
+        "https://schema.org/energyEfficiencyScaleMin"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#energyEfficiencyClass"
+      ],
+      "closeMatch": [
+        "https://schema.org/hasEnergyEfficiencyCategory"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1254,6 +1499,9 @@
       "range": [
         "xsd:string"
       ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/regulatoryReferenceNumber"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1266,6 +1514,9 @@
       ],
       "range": [
         "xsd:string"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#operatorInformation"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1306,6 +1557,12 @@
       "range": [
         "xsd:date"
       ],
+      "exactMatch": [
+        "https://schema.org/validUntil"
+      ],
+      "narrowMatch": [
+        "https://schema.org/validThrough"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1318,6 +1575,9 @@
       ],
       "range": [
         "xsd:anyURI"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/certificationAgencyURL"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1346,7 +1606,8 @@
         "xsd:string"
       ],
       "narrowMatch": [
-        "https://ref.gs1.org/voc/regulatoryReferenceNumber"
+        "https://ref.gs1.org/voc/regulatoryReferenceNumber",
+        "https://schema.org/serialNumber"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1364,6 +1625,12 @@
       "seeAlso": [
         "https://schema.org/jurisdiction"
       ],
+      "exactMatch": [
+        "https://ref.openepcis.io/extensions/common/core/eprJurisdiction"
+      ],
+      "narrowMatch": [
+        "https://schema.org/jurisdiction"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1379,6 +1646,9 @@
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/registryEntry"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/regulatoryReferenceNumber"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1419,6 +1689,9 @@
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
       ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1442,6 +1715,9 @@
       "range": [
         "https://ref.gs1.org/voc/CertificationDetails"
       ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/certificationIdentification"
+      ],
       "narrowMatch": [
         "https://schema.org/hasCertification",
         "https://ref.gs1.org/voc/certification",
@@ -1460,6 +1736,12 @@
       "range": [
         "xsd:string"
       ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#facilityId"
+      ],
+      "broadMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#manufacturingFacility"
+      ],
       "source": "EN 18223:2026, 4.1.2.1; EN 18219:2026 (CEN/CENELEC JTC 24)"
     },
     {
@@ -1469,6 +1751,9 @@
       "comment": "Manufacturing or processing facility details.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
+      ],
+      "seeAlso": [
+        "https://schema.org/cvdFacilityId"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1509,12 +1794,6 @@
       "range": [
         "xsd:string"
       ],
-      "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/granularityLevel"
-      ],
-      "exactMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/granularityLevel"
-      ],
       "source": "EN 18223:2026, 4.1.2.2 (CEN/CENELEC JTC 24)"
     },
     {
@@ -1528,6 +1807,9 @@
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
       ],
+      "seeAlso": [
+        "https://schema.org/durationOfWarranty"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1540,6 +1822,9 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/common/core/HazardClass"
+      ],
+      "exactMatch": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272"
     },
@@ -1563,6 +1848,14 @@
       "comment": "Hazardous substances present in the product.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceIdentifier",
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass",
+        "https://dpp-keystone.org/spec/v2/terms#substancesOfConcern"
+      ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstances"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272"
     },
@@ -1614,8 +1907,12 @@
         "xsd:anyURI"
       ],
       "seeAlso": [
+        "https://ref.gs1.org/voc/referencedFileURL",
         "https://uncefact.github.io/spec-untp/docs/specification/DigitalIdentityAnchor/",
         "https://www.w3.org/TR/vc-data-model-2.0/"
+      ],
+      "narrowMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#verifiableCredential"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1646,6 +1943,10 @@
       "range": [
         "xsd:decimal"
       ],
+      "narrowMatch": [
+        "https://schema.org/value",
+        "https://ref.gs1.org/voc/value"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1671,6 +1972,9 @@
       ],
       "range": [
         "xsd:string"
+      ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/unitCode"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1708,6 +2012,11 @@
       "range": [
         "xsd:boolean"
       ],
+      "narrowMatch": [
+        "https://ref.openepcis.io/extensions/common/core/isCriticalRawMaterial",
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#isCriticalRawMaterial",
+        "https://dpp-keystone.org/spec/v2/terms#criticalRawMaterials"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1252"
     },
     {
@@ -1720,6 +2029,10 @@
       ],
       "range": [
         "xsd:date"
+      ],
+      "exactMatch": [
+        "https://vocabulary.uncefact.org/untp/issueDate",
+        "https://dpp-keystone.org/spec/v2/terms#dateOfIssue"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1756,6 +2069,16 @@
       "seeAlso": [
         "https://schema.org/inLanguage"
       ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/fileLanguageCode"
+      ],
+      "broadMatch": [
+        "https://schema.org/availableLanguage"
+      ],
+      "narrowMatch": [
+        "https://schema.org/inLanguage",
+        "https://schema.org/subtitleLanguage"
+      ],
       "source": "EN 18223:2026, 4.1.2.8.2 (CEN/CENELEC JTC 24)"
     },
     {
@@ -1772,6 +2095,12 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/fileLanguageCode"
       ],
+      "exactMatch": [
+        "https://ref.gs1.org/voc/fileLanguageCode"
+      ],
+      "narrowMatch": [
+        "https://schema.org/inLanguage"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1784,6 +2113,11 @@
       ],
       "seeAlso": [
         "https://schema.org/sdDatePublished"
+      ],
+      "exactMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#lastUpdate",
+        "https://ref.openepcis.io/extensions/common/core/lastDataUpdate",
+        "https://dpp-keystone.org/spec/v2/terms#lastUpdate"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1798,6 +2132,9 @@
       "range": [
         "xsd:dateTime"
       ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#lastUpdate"
+      ],
       "source": "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)"
     },
     {
@@ -1811,6 +2148,9 @@
       "range": [
         "https://ref.openepcis.io/extensions/common/core/LifecycleStage"
       ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#lifecycleStage"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1823,6 +2163,9 @@
       ],
       "range": [
         "https://ref.openepcis.io/extensions/common/core/LifecycleStageResult"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1838,10 +2181,10 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/massFraction"
+        "https://vocabulary.uncefact.org/untp/massFraction"
       ],
       "exactMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/massFraction"
+        "https://vocabulary.uncefact.org/untp/massFraction"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1857,10 +2200,11 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/materialCircularityIndicator"
+        "https://dpp-keystone.org/spec/v2/terms#recyclabilityScore",
+        "https://ref.openepcis.io/extensions/common/core/recyclabilityAssessment"
       ],
-      "exactMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/materialCircularityIndicator"
+      "broadMatch": [
+        "https://ref.openepcis.io/extensions/common/core/recyclabilityScore"
       ],
       "source": "https://ellenmacarthurfoundation.org/material-circularity-indicator"
     },
@@ -1873,7 +2217,17 @@
         "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
       ],
       "seeAlso": [
-        "https://ref.gs1.org/voc/textileMaterialContent"
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
+        "https://ref.gs1.org/voc/textileMaterialContent",
+        "https://dpp-keystone.org/spec/v2/terms#fibreComposition",
+        "https://dpp-keystone.org/spec/v2/terms#packagingMaterialCompositionQuantity",
+        "https://ref.gs1.org/voc/textileMaterialDescription",
+        "https://ref.gs1.org/voc/packagingMaterial",
+        "https://ref.gs1.org/voc/packagingMaterialType",
+        "https://dpp-keystone.org/spec/v2/terms#packagingMaterialType",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledMaterial",
+        "https://ref.gs1.org/voc/upperMaterialType"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1887,6 +2241,10 @@
       ],
       "range": [
         "xsd:string"
+      ],
+      "exactMatch": [
+        "https://ref.openepcis.io/extensions/common/core/mimeType",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#mimeType"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1915,10 +2273,7 @@
         "https://ref.openepcis.io/extensions/common/core/OperationalScope"
       ],
       "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/operationalScope"
-      ],
-      "exactMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/operationalScope"
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#lifecycleStage"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1929,6 +2284,10 @@
       "comment": "Economic operator responsible for the product.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#operatorInformation",
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturerInformation"
       ],
       "broadMatch": [
         "https://ref.gs1.org/voc/manufacturer"
@@ -1948,6 +2307,9 @@
       ],
       "seeAlso": [
         "http://data.europa.eu/m8g/role"
+      ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/organizationRole"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -1971,6 +2333,9 @@
       ],
       "range": [
         "xsd:anyURI"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier"
       ],
       "narrowMatch": [
         "https://schema.org/identifier"
@@ -1998,6 +2363,9 @@
       "range": [
         "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
       ],
+      "narrowMatch": [
+        "https://schema.org/issuedBy"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2010,6 +2378,9 @@
       ],
       "range": [
         "xsd:string"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#dppStatus"
       ],
       "source": "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)"
     },
@@ -2024,6 +2395,9 @@
       "seeAlso": [
         "https://schema.org/version"
       ],
+      "closeMatch": [
+        "https://schema.org/version"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2036,6 +2410,11 @@
       ],
       "range": [
         "xsd:string"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#energyEfficiencyClass",
+        "https://ref.openepcis.io/extensions/common/core/energyEfficiencyClass",
+        "https://schema.org/energyEfficiencyScaleMax"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2061,10 +2440,14 @@
         "xsd:decimal"
       ],
       "seeAlso": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
         "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent"
+      ],
+      "closeMatch": [
+        "https://vocabulary.uncefact.org/untp/recycledMassFraction"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2132,10 +2515,16 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent"
+        "https://ref.openepcis.io/extensions/common/core/recyclableContent",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
+        "https://vocabulary.uncefact.org/untp/recycledMassFraction",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent",
+        "https://ref.gs1.org/voc/textileMaterialContent"
       ],
       "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent"
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2150,6 +2539,12 @@
       "seeAlso": [
         "http://www.w3.org/ns/adms#prev"
       ],
+      "exactMatch": [
+        "http://www.w3.org/ns/adms#prev"
+      ],
+      "narrowMatch": [
+        "https://schema.org/predecessorOf"
+      ],
       "source": "EN 18221:2026 (CEN/CENELEC JTC 24)"
     },
     {
@@ -2163,12 +2558,6 @@
       "range": [
         "xsd:decimal"
       ],
-      "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/primarySourcedRatio"
-      ],
-      "exactMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/primarySourcedRatio"
-      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2178,6 +2567,13 @@
       "comment": "ESPR product category classification.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/ProductCategory"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryCategory"
+      ],
+      "narrowMatch": [
+        "https://schema.org/category",
+        "https://ref.gs1.org/voc/additionalProductClassificationCode"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2193,7 +2589,9 @@
         "xsd:anyURI"
       ],
       "seeAlso": [
-        "http://data.europa.eu/m8g/contactPage"
+        "http://data.europa.eu/m8g/contactPage",
+        "https://dpp-keystone.org/spec/v2/terms#repairServices",
+        "https://dpp-keystone.org/spec/v2/terms#repairService"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2204,6 +2602,9 @@
       "comment": "Links a product to its recyclability assessment.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment"
+      ],
+      "exactMatch": [
+        "https://ref.openepcis.io/extensions/common/core/recyclabilityAssessment"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2224,7 +2625,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/recyclabilityRate",
       "localName": "recyclabilityRate",
       "label": "Recyclability Rate",
-      "comment": "Decimal fraction (0-1) of the product that can be recycled. Aligns with untp:recyclableContent.",
+      "comment": "Decimal fraction (0-1) of the product that can be recycled.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment"
       ],
@@ -2244,6 +2645,9 @@
       "range": [
         "xsd:decimal"
       ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#recyclabilityScore"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2256,12 +2660,6 @@
       ],
       "range": [
         "xsd:decimal"
-      ],
-      "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/recyclableContent"
-      ],
-      "exactMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/recyclableContent"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2277,10 +2675,17 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/recycledContent"
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#packagingRecycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage"
       ],
       "exactMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/recycledContent"
+        "https://ref.openepcis.io/extensions/common/core/recycledContent"
+      ],
+      "broadMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2291,6 +2696,23 @@
       "comment": "Detailed recycled content breakdown with pre/post-consumer splits.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/RecycledContent"
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/recyclableContent",
+        "https://dpp-keystone.org/spec/v2/terms#recycledContentPercentage",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition"
+      ],
+      "closeMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentMass"
+      ],
+      "broadMatch": [
+        "https://vocabulary.uncefact.org/untp/recycledMassFraction"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2304,6 +2726,11 @@
       ],
       "range": [
         "xsd:string"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/registryEntry",
+        "https://ref.gs1.org/voc/regulatoryReferenceNumber",
+        "https://schema.org/companyRegistration"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2321,6 +2748,9 @@
       "seeAlso": [
         "https://gs1-epcis-reg.org/rail/voc/data#itemReconditioningDate"
       ],
+      "broadMatch": [
+        "https://gs1-epcis-reg.org/rail/voc/data#itemReconditioningDate"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2334,6 +2764,9 @@
       "range": [
         "xsd:string"
       ],
+      "exactMatch": [
+        "https://ref.openepcis.io/extensions/common/core/repairabilityClass"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2345,6 +2778,9 @@
         "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
       ],
       "seeAlso": [
+        "https://ref.gs1.org/voc/serviceInfo"
+      ],
+      "closeMatch": [
         "https://ref.gs1.org/voc/serviceInfo"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -2390,7 +2826,8 @@
         "https://ref.gs1.org/voc/serviceInfo"
       ],
       "narrowMatch": [
-        "https://ref.gs1.org/voc/instructions"
+        "https://ref.gs1.org/voc/instructions",
+        "https://ref.gs1.org/voc/serviceInfo"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2401,6 +2838,9 @@
       "comment": "Links a product to one or more authorised repair providers.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/RepairProvider"
+      ],
+      "narrowMatch": [
+        "https://schema.org/provider"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2414,6 +2854,9 @@
       ],
       "range": [
         "xsd:string"
+      ],
+      "narrowMatch": [
+        "https://schema.org/provider"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2454,6 +2897,9 @@
       "range": [
         "https://ref.openepcis.io/extensions/common/core/DPPGranularity"
       ],
+      "closeMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#granularity"
+      ],
       "source": "https://thebatterypass.eu/battery-pass-ready/publications/"
     },
     {
@@ -2468,6 +2914,7 @@
         "xsd:anyURI"
       ],
       "seeAlso": [
+        "urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#supplyChainDueDiligenceReport",
         "https://ref.gs1.org/voc/referencedFileURL"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -2482,6 +2929,9 @@
       ],
       "range": [
         "xsd:string"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/instructions"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2502,6 +2952,13 @@
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#safeUseInstructions"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/instructions",
+        "https://ref.gs1.org/voc/consumerSafetyInformation",
+        "https://ref.gs1.org/voc/consumerUsageInstructions",
+        "https://ref.gs1.org/voc/instructionsForUse",
+        "https://dpp-keystone.org/spec/v2/terms#instructionsForUse"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2579,7 +3036,25 @@
       ],
       "seeAlso": [
         "https://schema.org/value",
+        "https://ref.gs1.org/voc/value",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapabilityValue",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCyclesValue",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingCapacityValue",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#capacityThroughputValue",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#internalResistanceIncreaseValue"
+      ],
+      "closeMatch": [
         "https://ref.gs1.org/voc/value"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#evolutionOfSelfDischargeValue",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#energyThroughputValue",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergyValue",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#capacityFadeValue"
+      ],
+      "narrowMatch": [
+        "https://schema.org/value"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2595,7 +3070,10 @@
         "xsd:string"
       ],
       "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#componentLocationInProduct"
+        "https://dpp-keystone.org/spec/v2/terms#componentLocationInProduct",
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceLocation",
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialLocation",
+        "http://www.w3.org/ns/locn#location"
       ],
       "closeMatch": [
         "https://dpp-keystone.org/spec/v2/terms#componentLocationInProduct"
@@ -2611,6 +3089,7 @@
         "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern"
       ],
       "seeAlso": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstances",
         "https://dpp-keystone.org/spec/v2/terms#substancesOfConcern",
         "https://ref.gs1.org/voc/ingredientOfConcern"
       ],
@@ -2643,6 +3122,9 @@
       "range": [
         "xsd:string"
       ],
+      "broadMatch": [
+        "https://schema.org/cashBack"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2659,6 +3141,9 @@
       "seeAlso": [
         "https://schema.org/merchantReturnLink"
       ],
+      "narrowMatch": [
+        "https://schema.org/merchantReturnLink"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2671,6 +3156,12 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#batteryTechnicalProperties"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2708,9 +3199,6 @@
       "range": [
         "https://ref.openepcis.io/extensions/common/core/TraceabilityPerformance"
       ],
-      "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/traceabilityPerformance"
-      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2740,6 +3228,14 @@
       "range": [
         "xsd:string"
       ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/productDescription",
+        "https://ref.gs1.org/voc/offerDescription",
+        "https://ref.gs1.org/voc/additionalProductDescription"
+      ],
+      "narrowMatch": [
+        "https://schema.org/description"
+      ],
       "source": "https://ref.gs1.org/ai/8026"
     },
     {
@@ -2752,6 +3248,10 @@
       ],
       "range": [
         "xsd:positiveInteger"
+      ],
+      "closeMatch": [
+        "https://schema.org/clipNumber",
+        "https://schema.org/episodeNumber"
       ],
       "source": "https://ref.gs1.org/ai/8026"
     },
@@ -2779,6 +3279,12 @@
       "range": [
         "xsd:integer"
       ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#batteryCondition"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2792,11 +3298,8 @@
       "range": [
         "xsd:decimal"
       ],
-      "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/utilityFactor"
-      ],
-      "exactMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/utilityFactor"
+      "narrowMatch": [
+        "https://schema.org/measuredProperty"
       ],
       "source": "https://uncefact.github.io/spec-untp/"
     },
@@ -2805,6 +3308,32 @@
       "localName": "value",
       "label": "Value",
       "comment": "The value of a SingleValuedDataElement or MultiLanguageValue (EN 18223 4.1.2.5, 4.1.2.8.2). Any JSON data type.",
+      "seeAlso": [
+        "https://schema.org/value",
+        "https://schema.org/codeValue",
+        "https://ref.gs1.org/voc/certificationValue",
+        "http://data.europa.eu/m8g/hasValue",
+        "http://data.europa.eu/m8g/value",
+        "https://ref.gs1.org/voc/value",
+        "http://data.europa.eu/m8g/expressionOfExpectedValue",
+        "https://ref.gs1.org/voc/originalCodeValue"
+      ],
+      "exactMatch": [
+        "https://vocabulary.uncefact.org/untp/value"
+      ],
+      "broadMatch": [
+        "https://schema.org/textValue",
+        "https://gs1-epcis-reg.org/rail/voc/data#nominalValue",
+        "https://schema.org/maxValue",
+        "https://ref.gs1.org/voc/authenticitySecurityFeatureValue",
+        "https://schema.org/valueReference",
+        "https://gs1-epcis-reg.org/rail/voc/data#topValue",
+        "https://ref.gs1.org/voc/colourCodeValue",
+        "https://gs1-epcis-reg.org/rail/voc/data#rightValue",
+        "https://gs1-epcis-reg.org/rail/voc/data#leftValueString",
+        "https://ref.gs1.org/voc/additionalProductClassificationValue",
+        "https://gs1-epcis-reg.org/rail/voc/data#rightValueString"
+      ],
       "source": "EN 18223:2026, 4.1.2.5 (CEN/CENELEC JTC 24)"
     },
     {
@@ -2841,12 +3370,6 @@
       "range": [
         "xsd:decimal"
       ],
-      "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/verifiedRatio"
-      ],
-      "exactMatch": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/verifiedRatio"
-      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2862,6 +3385,9 @@
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/consumerRecyclingInstructions"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#wastePreventionInfo"
       ],
       "narrowMatch": [
         "https://ref.gs1.org/voc/sustainabilityInfo"

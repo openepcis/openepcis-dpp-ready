@@ -9,9 +9,6 @@
       "localName": "ComponentBOM",
       "label": "Component Bill of Materials",
       "comment": "Bill of Materials for multi-component electronics supporting CIRPASS-2 nested DPP\nrequirements. Links individual components to their own Digital Product Passports.",
-      "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/linkedProduct"
-      ],
       "source": "https://cirpassproject.eu/"
     },
     {
@@ -33,8 +30,12 @@
       "subClassOf": [
         "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
       ],
+      "broadMatch": [
+        "https://schema.org/EUEnergyEfficiencyEnumeration"
+      ],
       "narrowMatch": [
-        "https://schema.org/EnergyConsumptionDetails"
+        "https://schema.org/EnergyConsumptionDetails",
+        "https://schema.org/EnergyEfficiencyEnumeration"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
     },
@@ -56,7 +57,7 @@
       "seeAlso": [
         "http://data.europa.eu/m8g/Criterion",
         "http://data.europa.eu/m8g/Constraint",
-        "https://vocabulary.uncefact.org/untp/0.7.0/Criterion",
+        "https://vocabulary.uncefact.org/untp/Criterion",
         "https://schema.org/Rating"
       ],
       "subClassOf": [
@@ -78,7 +79,8 @@
         "https://schema.org/Certification"
       ],
       "narrowMatch": [
-        "https://ref.gs1.org/voc/RegulatoryInformation"
+        "https://ref.gs1.org/voc/RegulatoryInformation",
+        "https://schema.org/Certification"
       ],
       "source": "https://eur-lex.europa.eu/eli/dir/2011/65/eu"
     },
@@ -108,6 +110,9 @@
       ],
       "subClassOf": [
         "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/RegulatoryInformation"
       ],
       "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj"
     }
@@ -169,6 +174,9 @@
       "range": [
         "https://ref.openepcis.io/extensions/eu/electronics/ComponentBOM"
       ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -195,6 +203,9 @@
       "range": [
         "xsd:string"
       ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#partNumber"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -207,9 +218,6 @@
       ],
       "range": [
         "xsd:anyURI"
-      ],
-      "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/0.7.0/linkedProduct"
       ],
       "narrowMatch": [
         "https://ref.gs1.org/voc/dpp"
@@ -240,6 +248,9 @@
       "range": [
         "https://ref.openepcis.io/extensions/eu/electronics/ComponentType"
       ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryCategory"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -268,6 +279,9 @@
       ],
       "range": [
         "xsd:decimal"
+      ],
+      "closeMatch": [
+        "https://schema.org/bestRating"
       ],
       "narrowMatch": [
         "https://schema.org/maxValue"
@@ -359,6 +373,13 @@
       "seeAlso": [
         "https://ref.openepcis.io/extensions/common/core/energyEfficiency"
       ],
+      "broadMatch": [
+        "https://schema.org/energyEfficiencyScaleMax"
+      ],
+      "narrowMatch": [
+        "https://schema.org/hasEnergyEfficiencyCategory",
+        "https://schema.org/hasEnergyConsumptionDetails"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
     },
     {
@@ -373,10 +394,14 @@
         "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiencyClass"
       ],
       "seeAlso": [
+        "https://schema.org/hasEnergyEfficiencyCategory",
         "https://ref.openepcis.io/extensions/common/core/energyEfficiencyClass"
       ],
       "exactMatch": [
         "https://ref.openepcis.io/extensions/common/core/energyEfficiencyClass"
+      ],
+      "narrowMatch": [
+        "https://schema.org/hasEnergyConsumptionDetails"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
     },
@@ -430,7 +455,8 @@
         "https://ref.openepcis.io/extensions/common/core/eprelRegistrationNumber"
       ],
       "narrowMatch": [
-        "https://ref.gs1.org/voc/regulatoryReferenceNumber"
+        "https://ref.gs1.org/voc/regulatoryReferenceNumber",
+        "https://ref.gs1.org/voc/regulatoryVerificationNumber"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
     },
@@ -471,6 +497,9 @@
       "range": [
         "xsd:string"
       ],
+      "closeMatch": [
+        "https://schema.org/softwareVersion"
+      ],
       "source": "https://www.iso.org/standard/63712.html"
     },
     {
@@ -480,6 +509,12 @@
       "comment": "Version of the IEC 62474 Declarable Substance List used.",
       "range": [
         "xsd:string"
+      ],
+      "closeMatch": [
+        "https://schema.org/assemblyVersion"
+      ],
+      "narrowMatch": [
+        "https://schema.org/schemaVersion"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -507,6 +542,9 @@
       "range": [
         "xsd:date"
       ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#lastUpdate"
+      ],
       "source": "https://www.iso.org/standard/63712.html"
     },
     {
@@ -522,6 +560,10 @@
       ],
       "seeAlso": [
         "https://std.iec.ch/iec62474"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#isCriticalRawMaterial",
+        "https://ref.gs1.org/voc/packagingMaterialType"
       ],
       "source": "https://std.iec.ch/iec62474"
     },
@@ -547,8 +589,8 @@
         "xsd:string"
       ],
       "narrowMatch": [
-        "https://schema.org/model",
-        "https://schema.org/identifier"
+        "https://schema.org/identifier",
+        "http://www.w3.org/ns/adms#identifier"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -562,6 +604,10 @@
       ],
       "seeAlso": [
         "https://schema.org/version"
+      ],
+      "narrowMatch": [
+        "https://schema.org/softwareVersion",
+        "https://schema.org/assemblyVersion"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -577,6 +623,9 @@
         "xsd:string"
       ],
       "seeAlso": [
+        "https://schema.org/softwareVersion"
+      ],
+      "closeMatch": [
         "https://schema.org/softwareVersion"
       ],
       "source": "https://www.iso.org/standard/63712.html"
@@ -608,7 +657,7 @@
       "seeAlso": [
         "https://ref.openepcis.io/extensions/common/core/powerConsumptionOff"
       ],
-      "closeMatch": [
+      "exactMatch": [
         "https://ref.openepcis.io/extensions/common/core/powerConsumptionOff"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
@@ -689,6 +738,9 @@
         "https://ref.openepcis.io/extensions/common/core/recyclableContent",
         "https://ref.openepcis.io/extensions/common/core/recyclabilityRate"
       ],
+      "exactMatch": [
+        "https://ref.openepcis.io/extensions/common/core/recyclabilityRate"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -701,6 +753,9 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/value"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -816,6 +871,11 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/referencedFileURL"
       ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/referencedFileURL",
+        "https://dpp-keystone.org/spec/v2/terms#certificationUrl",
+        "urn:samm:io.BatteryPass.Labels:1.2.0#resultOfTestReport"
+      ],
       "source": "https://eur-lex.europa.eu/eli/dir/2011/65/eu"
     },
     {
@@ -842,6 +902,9 @@
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
       ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/value"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -854,6 +917,11 @@
       ],
       "range": [
         "xsd:integer"
+      ],
+      "narrowMatch": [
+        "https://schema.org/height",
+        "https://vocabulary.uncefact.org/untp/height",
+        "https://dpp-keystone.org/spec/v2/terms#height"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -893,6 +961,9 @@
       ],
       "range": [
         "xsd:date"
+      ],
+      "seeAlso": [
+        "https://schema.org/endDate"
       ],
       "source": "https://www.iso.org/standard/63712.html"
     },
@@ -952,6 +1023,13 @@
       "seeAlso": [
         "https://schema.org/priceSpecification"
       ],
+      "closeMatch": [
+        "https://schema.org/priceSpecification",
+        "https://ref.gs1.org/voc/priceSpecification"
+      ],
+      "narrowMatch": [
+        "https://schema.org/price"
+      ],
       "source": "https://www.ecologie.gouv.fr/indice-reparabilite"
     },
     {
@@ -978,6 +1056,10 @@
       "range": [
         "xsd:anyURI"
       ],
+      "narrowMatch": [
+        "https://schema.org/availableChannel",
+        "http://data.europa.eu/m8g/hasChannel"
+      ],
       "source": "https://www.iso.org/standard/63712.html"
     },
     {
@@ -987,6 +1069,9 @@
       "comment": "Source of the update (OTA, manual, service center, etc.).",
       "range": [
         "xsd:string"
+      ],
+      "narrowMatch": [
+        "https://schema.org/source"
       ],
       "source": "https://www.iso.org/standard/63712.html"
     },
@@ -1024,7 +1109,11 @@
       "range": [
         "xsd:string"
       ],
+      "closeMatch": [
+        "https://schema.org/addressCountry"
+      ],
       "narrowMatch": [
+        "https://vocabulary.uncefact.org/untp/addressCountry",
         "https://ref.openepcis.io/extensions/common/core/eprJurisdiction"
       ],
       "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj"
@@ -1041,6 +1130,9 @@
         "xsd:string"
       ],
       "narrowMatch": [
+        "https://ref.gs1.org/voc/regulatoryReferenceNumber",
+        "https://ref.gs1.org/voc/registryEntry",
+        "https://schema.org/companyRegistration",
         "https://ref.openepcis.io/extensions/common/core/eprRegistrationNumber"
       ],
       "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj"

@@ -9,6 +9,9 @@
       "localName": "DueDiligenceStatement",
       "label": "Due Diligence Statement",
       "comment": "A due diligence statement submitted to the EUDR Information System (EUIS) per Article 4.",
+      "narrowMatch": [
+        "https://schema.org/Statement"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
@@ -90,6 +93,16 @@
       "seeAlso": [
         "https://schema.org/addressCountry"
       ],
+      "broadMatch": [
+        "https://ref.gs1.org/voc/countryOfOrigin",
+        "https://vocabulary.uncefact.org/untp/originCountry",
+        "https://dpp-keystone.org/spec/v2/terms#countryOfOrigin",
+        "https://vocabulary.uncefact.org/untp/countryOfProduction",
+        "https://dpp-keystone.org/spec/v2/terms#meltAndPourCountry"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/countryOfOriginStatement"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
@@ -142,6 +155,9 @@
       "range": [
         "https://ref.openepcis.io/extensions/eu/eudr/DueDiligenceStatement"
       ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#supplyChainDueDiligenceReport"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
@@ -178,8 +194,11 @@
       "range": [
         "xsd:date"
       ],
-      "narrowMatch": [
+      "closeMatch": [
         "https://ref.gs1.org/voc/regulatoryReferenceApplicabilityStartDate"
+      ],
+      "narrowMatch": [
+        "https://schema.org/validFrom"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2023/1115/oj"
     },
@@ -193,6 +212,9 @@
       ],
       "range": [
         "xsd:date"
+      ],
+      "closeMatch": [
+        "https://schema.org/validUntil"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2023/1115/oj"
     },
@@ -240,6 +262,9 @@
         "https://ref.gs1.org/voc/hasBatchLotNumber",
         "https://ref.gs1.org/voc/hasSerialNumber"
       ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/hasBatchLotNumber"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2023/1115/oj"
     },
     {
@@ -279,9 +304,18 @@
       "range": [
         "https://ref.gs1.org/voc/CertificationDetails"
       ],
+      "broadMatch": [
+        "https://ref.gs1.org/voc/certificationStartDate",
+        "https://ref.gs1.org/voc/certificationEndDate",
+        "https://ref.gs1.org/voc/certificationAuditDate"
+      ],
       "narrowMatch": [
         "https://schema.org/hasCertification",
-        "https://ref.gs1.org/voc/certification"
+        "https://ref.gs1.org/voc/certification",
+        "https://ref.gs1.org/voc/certificationIdentification",
+        "https://schema.org/certificationIdentification",
+        "https://ref.gs1.org/voc/certificationType",
+        "https://ref.gs1.org/voc/certificationInfo"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
@@ -297,6 +331,10 @@
         "xsd:string"
       ],
       "seeAlso": [
+        "http://www.w3.org/ns/locn#geometry",
+        "http://data.europa.eu/m8g/coordinates"
+      ],
+      "narrowMatch": [
         "http://www.w3.org/ns/locn#geometry",
         "http://data.europa.eu/m8g/coordinates"
       ],
@@ -372,6 +410,15 @@
       "range": [
         "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails"
       ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/countryOfOriginStatement",
+        "https://schema.org/countryOfOrigin"
+      ],
+      "broadMatch": [
+        "https://ref.gs1.org/voc/countryOfOrigin",
+        "https://vocabulary.uncefact.org/untp/originCountry",
+        "https://ref.gs1.org/voc/provenanceStatement"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
@@ -385,6 +432,15 @@
       "range": [
         "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails"
       ],
+      "seeAlso": [
+        "https://schema.org/countryOfOrigin"
+      ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/countryOfOriginStatement"
+      ],
+      "broadMatch": [
+        "https://ref.gs1.org/voc/countryOfOrigin"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
@@ -397,6 +453,9 @@
       ],
       "range": [
         "https://ref.gs1.org/voc/Organization"
+      ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturerInformation"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
@@ -423,6 +482,9 @@
       ],
       "range": [
         "xsd:date"
+      ],
+      "closeMatch": [
+        "https://vocabulary.uncefact.org/untp/assessmentDate"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
@@ -522,6 +584,13 @@
       "seeAlso": [
         "http://www.w3.org/ns/locn#Location"
       ],
+      "broadMatch": [
+        "https://schema.org/sportsActivityLocation"
+      ],
+      "narrowMatch": [
+        "https://schema.org/location",
+        "http://www.w3.org/ns/locn#location"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     },
     {
@@ -547,6 +616,9 @@
       ],
       "range": [
         "xsd:decimal"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/grossVolume"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115"
     }
