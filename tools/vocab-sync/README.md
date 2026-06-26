@@ -1,13 +1,95 @@
 # vocab-sync
 
-A Quarkus + LangChain4j CLI that audits and maintains the graded-SKOS mappings from the
-OpenEPCIS DPP-extension ontology to upstream vocabularies (GS1, schema.org, SEMICeu, UNTP,
-DPP Keystone, GS1 Rail).
+**vocab-sync keeps the OpenEPCIS Digital Product Passport vocabulary connected to the standards
+everyone else already uses, and it leans on local, open-source AI models to do the matching.**
+It reads our terms and the published vocabularies (GS1, schema.org, the EU SEMIC Core
+Vocabularies, UNTP, DPP Keystone, GS1 Rail), proposes how each of our terms relates to theirs,
+has a second AI model double-check every proposal, and turns the result into reviewable, gated
+edits that a human approves before anything is written.
 
-It answers one recurring question — **"which upstream mappings are we missing, weak on, or
-wrong about?"** — and turns the answer into reviewable, gated edits to the TTLs. The tool
-**proposes**; a human approves; a separate `apply` step writes the ontology. The canonical
-TTLs are never auto-edited.
+It is a command-line tool built on Quarkus and LangChain4j (Java 25).
+
+> New to this domain? Start with [Concepts in 60 seconds](#concepts-in-60-seconds). Want the
+> engineering depth and the measurements behind the defaults? See
+> [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md).
+
+## The problem in plain words
+
+We define vocabulary terms for Digital Product Passports: durability, recycled content, battery
+state-of-health, deforestation due-diligence, and so on. Many of those concepts already exist in
+vocabularies that other organisations publish and maintain. For our data to be interoperable,
+each term we define should record how it relates to the established one: this is the same
+concept, this one is broader, this one is narrower, this one is roughly equivalent.
+
+Stating those relationships by hand across thousands of terms, and keeping them correct as the
+upstream vocabularies change, is slow and easy to get wrong. vocab-sync does the heavy lifting:
+it finds the likely matches, grades each relationship, checks its own work with a second model,
+and writes the surviving, human-approved mappings back into the ontology. In one sentence, it
+answers **"which upstream mappings are we missing, weak on, or wrong about?"** The tool
+**proposes**; a human approves; a separate `apply` step writes the files. The canonical source
+files are never edited automatically.
+
+## Concepts in 60 seconds
+
+If terms like "TTL" and "SKOS" are new to you, this is all you need to follow the rest:
+
+- **RDF** is a simple data model where every fact is a triple of `subject` `predicate` `object`
+  (for example, "Battery has-chemistry Lithium"). It is the common language for describing
+  vocabularies on the web.
+- **Turtle**, file extension **`.ttl`**, is a readable text syntax for RDF. When this README
+  says "the TTLs", it means our ontology written as Turtle text files.
+- **Ontology** is our controlled set of terms: the classes (things, such as `Battery`) and
+  properties (attributes, such as `recycledContent`) we define.
+- **Upstream vocabulary** is a term set that someone else owns and publishes: GS1, schema.org,
+  the EU SEMIC Core Vocabularies, UNTP, DPP Keystone, GS1 Rail.
+- **SKOS** is the standard RDF vocabulary for linking concepts across vocabularies. We use its
+  **graded** relations to record how close a match is:
+  - `skos:exactMatch`: the same concept
+  - `skos:closeMatch`: almost the same, safe to treat as related
+  - `skos:broadMatch`: ours is narrower than theirs (theirs is the broader concept)
+  - `skos:narrowMatch`: ours is broader than theirs
+- **Embedding** turns a term's meaning into a vector of numbers, so terms with similar meaning
+  land near each other. That is how candidates are found without comparing everything to
+  everything.
+- **LLM-as-judge** (grading) means a language model reads two terms and decides which graded
+  relation, if any, holds between them.
+
+## Why it is interesting (the AI engineering)
+
+vocab-sync is a small but complete local-LLM pipeline. The parts worth knowing, each covered in
+depth in [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md):
+
+- **Fully local, fully open models.** Bulk grading, the QA pass, and embeddings all run against a
+  local OpenAI-compatible endpoint (LM Studio by default; Ollama or any compatible server work
+  too). No API key, no term data leaves the machine, and a full run costs nothing but local
+  compute.
+- **Retrieval before generation.** Each term is embedded once (vectors cached on disk), then the
+  nearest upstream terms per vocabulary are gathered. That narrows millions of possible pairs to
+  a plausible few before any model grades them. Type is enforced, so a class only ever pairs with
+  a class and a property with a property.
+- **Structured LLM grading.** Grading is a LangChain4j `@RegisterAiService` that returns a typed
+  verdict (relation, confidence, one-sentence rationale), so there is no brittle text parsing.
+- **A blind multi-judge QA panel.** A second, independent model re-judges every finding under
+  several decorrelated lenses (definition-scope, subsumption-direction, strict-skeptic) without
+  seeing the first proposal, and the votes reconcile into a two-tier verdict: STRONG, WEAK,
+  REJECT, or SPLIT. This panel is the real quality gate.
+- **A measured, counter-intuitive result.** On a 200-pair human-curated benchmark, "does a
+  relation exist?" is about 99% reliable, while "which graded relation is it?" tops out near 52%
+  for every model tried, frontier hosted models included, and self-reported confidence does not
+  predict which grade is correct. The practical consequences: a local 20B model (`gpt-oss-20b`)
+  is enough for the bulk pass, the confidence floor is volume control rather than a quality dial,
+  and the QA pass is what actually lifts output quality.
+- **Anti-hallucination guard.** A proposed mapping can only target an IRI that genuinely exists in
+  the upstream index, re-checked again at apply time.
+- **Cheap incremental re-runs.** Verdicts are cached against a content fingerprint of both terms,
+  so a scheduled re-run re-grades only the terms whose text actually changed and serves everything
+  else from cache.
+- **A reproducible benchmark harness.** The `benchmark` command builds a balanced gold set from a
+  published concordance and scores any set of models for accuracy, F1, confusion, and calibration,
+  with a resumable run log.
+- **Human-in-the-loop by design.** The tool only ever proposes. Review happens in an Excel
+  workbook (accept or reject row by row), and a gated `apply` writes the approved mappings into the
+  TTLs. Nothing reaches the canonical files without a person saying yes.
 
 ## How it works
 
