@@ -47,7 +47,7 @@ EU SEMICeu Core Vocabularies** — and to upstream community profiles
 <!-- Diagram source: docs/diagrams/vocabulary-layering-overview.d2 — regenerate with `pnpm run diagrams:build`. -->
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/vocabulary-layering-overview-dark.svg">
-  <img alt="The four-layer delegation stack: Layer 4 regulation modules delegate down to Layer 3 common DPP core (oec:), which anchors to Layer 2 upstream community profiles (UNTP, CIRPASS-2, JTC 24) and Layer 1 foundational vocabularies (GS1, SEMICeu, schema.org)." src="docs/diagrams/vocabulary-layering-overview-light.svg" width="640">
+  <img alt="The four-layer delegation stack: Layer 4 regulation modules delegate down to Layer 3 common DPP core (oec:), which anchors to Layer 2 upstream community and sectoral profiles (UNTP, CIRPASS-2, JTC 24, GS1 Rail) and Layer 1 foundational vocabularies (GS1, SEMICeu, schema.org)." src="docs/diagrams/vocabulary-layering-overview-light.svg" width="640">
 </picture>
 
 **The rule when defining a new term:** walk downward through the layers
