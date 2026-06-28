@@ -18,87 +18,16 @@ concept). The diagram below shows **how the vocabularies actually relate
 to each other** — which terms are equivalent, which are derived from
 which, and how `oec:` and module terms anchor upward.
 
-```mermaid
-graph BT
-    subgraph L1["Layer 1 — Foundational peer triumvirate + sectoral"]
-        GS1["gs1:<br/>GS1 Web Vocabulary<br/>(imported, owl:imports)"]
-        SEMIC["SEMICeu Core Vocabularies<br/>cv: / cccev: / locn: / adms: / cpsv:<br/>(http://data.europa.eu/m8g/)"]
-        SCHEMA["schema:<br/>schema.org"]
-        RAIL["rail:<br/>GS1 Rail Vocabulary<br/>(GS1 AISBL / GS1 Switzerland;<br/>https://gs1-epcis-reg.org/rail/voc/data#;<br/>mirrored under extensions/upstream/gs1-rail/)"]
-    end
-
-    subgraph L2["Layer 2 — Upstream community profiles"]
-        UNTP["untp:<br/>UNTP Core v0.7.0<br/>Party, Facility, Claim,<br/>ConformityAttestation, …"]
-        JTC["CEN/CENELEC JTC 24<br/>EN 18216–18223 + prEN 18239/18246"]
-        CIRPASS["CIRPASS-2 D3.x<br/>pilot requirements"]
-    end
-
-    subgraph L3["Layer 3 — DPP common core (oec:)"]
-        DPP_OP["oec:OperatorInformation"]
-        DPP_DDR["oec:DueDiligenceReport"]
-        DPP_FAC["oec:FacilityInformation"]
-        DPP_DOC["oec:DocumentReference"]
-        DPP_PERF["oec:CircularityPerformance<br/>EmissionsPerformance<br/>TraceabilityPerformance"]
-        DPP_HAZ["oec:HazardousSubstance<br/>SubstanceOfConcern<br/>(no upstream peer)"]
-    end
-
-    subgraph L4["Layer 4 — Regulation modules"]
-        BAT["eubat:<br/>operatorIdentifier, notifiedBodyNumber,<br/>declarationOfConformity, supplierContact"]
-        ELEC["euelec:<br/>RepairCriterion, criterionScore"]
-        EUDR["eudr:<br/>geolocation, transformationLocation"]
-        TEX["eutex:<br/>RobustnessAssessment,<br/>spinning/weaving/dyeing/cutAndSew/finishingFacility"]
-        STEEL["eusteel:<br/>IronSteelProduct, heat/cast number,<br/>steelDesignation, MaterialTestCertificate (EN 10204/10168)"]
-    end
-
-    %% --- Layer 2 → Layer 1 derivations ---
-    UNTP -. "derived from" .-> SEMIC
-    JTC -. "leans on" .-> SEMIC
-    CIRPASS -. "feeds into" .-> JTC
-
-    %% --- Layer 3 → Layer 1/2 anchors ---
-    DPP_OP ==>|"subClassOf"| GS1
-    DPP_OP -.->|"rdfs:seeAlso<br/>cv:LegalEntity"| SEMIC
-    DPP_OP -.->|"skos:broadMatch<br/>untp:Party"| UNTP
-
-    DPP_DDR ==>|"subClassOf<br/>cccev:Evidence"| SEMIC
-
-    DPP_FAC ==>|"subClassOf<br/>gs1:Place"| GS1
-    DPP_FAC -.->|"skos:exactMatch<br/>untp:Facility"| UNTP
-    DPP_FAC -.->|"rdfs:seeAlso<br/>locn:Location"| SEMIC
-
-    DPP_DOC -.->|"skos:exactMatch<br/>gs1:ReferencedFileDetails"| GS1
-    DPP_DOC -.->|"rdfs:seeAlso<br/>foaf:Document"| SEMIC
-
-    DPP_PERF -.->|"skos:exactMatch<br/>untp-core:*Performance"| UNTP
-
-    %% --- Layer 4 → Layer 3 / Layer 1 anchors ---
-    BAT -.->|"adms:Identifier<br/>cv:PublicOrganisation<br/>cv:ContactPoint<br/>cccev:Evidence"| SEMIC
-    BAT -.->|"oec:OperatorInformation"| DPP_OP
-
-    ELEC ==>|"subClassOf<br/>cccev:Criterion"| SEMIC
-
-    EUDR -.->|"locn:Geometry<br/>locn:Location"| SEMIC
-
-    TEX -.->|"oec:FacilityInformation<br/>(cascades to locn:Location)"| DPP_FAC
-    TEX -.->|"cccev:Evidence<br/>(RobustnessAssessment)"| SEMIC
-
-    STEEL -.->|"oec:RecycledContent, oec:EnvironmentalProductDeclaration,<br/>oec:substancesOfConcern, oec:DocumentReference"| DPP_DOC
-    STEEL -.->|"skos:broadMatch schema:Certification<br/>(MaterialTestCertificate)"| GS1
-
-    classDef l1 fill:#dbeafe,stroke:#1e40af,stroke-width:2px;
-    classDef l2 fill:#fef3c7,stroke:#92400e;
-    classDef l3 fill:#dcfce7,stroke:#166534;
-    classDef l4 fill:#fce7f3,stroke:#9d174d;
-    class GS1,SEMIC,SCHEMA l1;
-    class UNTP,JTC,CIRPASS l2;
-    class DPP_OP,DPP_DDR,DPP_FAC,DPP_DOC,DPP_PERF,DPP_HAZ l3;
-    class BAT,ELEC,EUDR,TEX l4;
-```
+<!-- Diagram source: diagrams/vocabulary-layering-relations.d2 — regenerate with `pnpm run diagrams:build`. -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/vocabulary-layering-relations-dark.svg">
+  <img alt="Relationship graph across the four layers. Solid arrows are rdfs:subClassOf; dashed arrows are graded SKOS mappings or rdfs:seeAlso anchors; dotted edges are informal upstream derivations. Layer 3 oec: terms anchor to Layer 1 (GS1, SEMICeu, schema.org) and Layer 2 (UNTP, JTC 24, CIRPASS-2, GS1 Rail); Layer 4 regulation modules (eubat:, euelec:, eudr:, eutex:, eusteel:) cascade through oec: or anchor directly to SEMICeu." src="diagrams/vocabulary-layering-relations-light.svg" width="760">
+</picture>
 
 Reading the diagram:
 
-- **Solid arrows** (`==>`) = `rdfs:subClassOf` — strict structural inheritance.
-- **Dashed arrows** (`-.->`) = graded SKOS mapping relations (`skos:exactMatch` / `skos:closeMatch` / `skos:broadMatch`) or `rdfs:seeAlso` — semantic anchors that don't change the term's structural ancestry and don't assert OWL logical equivalence.
+- **Solid arrows** = `rdfs:subClassOf` — strict structural inheritance.
+- **Dashed arrows** = graded SKOS mapping relations (`skos:exactMatch` / `skos:closeMatch` / `skos:broadMatch`) or `rdfs:seeAlso` — semantic anchors that don't change the term's structural ancestry and don't assert OWL logical equivalence.
 - **Dotted "derived from" / "leans on"** = informal upstream relationships (UNTP's conformity model derives from CCCEV; JTC 24 leans on SEMICeu).
 
 A few things the diagram makes visible that the stack diagram alone hides:
