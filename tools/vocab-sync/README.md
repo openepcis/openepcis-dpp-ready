@@ -17,16 +17,20 @@ It is a command-line tool built on Quarkus and LangChain4j (Java 25).
 
 We define vocabulary terms for Digital Product Passports: durability, recycled content, battery
 state-of-health, deforestation due-diligence, and so on. Many of those concepts already exist in
-vocabularies that other organisations publish and maintain. For our data to be interoperable,
-each term we define should record how it relates to the established one: this is the same
-concept, this one is broader, this one is narrower, this one is roughly equivalent.
+vocabularies that other organisations publish and maintain. GS1 describes products, parties and
+locations; schema.org covers general web data; the EU SEMIC Core Vocabularies cover public-sector
+and conformity data; community profiles such as UNTP and DPP Keystone cover passport-specific
+structures. For our data to be interoperable, each term we define should record how it relates to
+the established one. Our `recycledContent` might be the same concept as a GS1 property, our
+`Battery` class might be a narrower kind of a schema.org `Product`, and some of our terms have no
+upstream counterpart at all and stay unmapped.
 
-Stating those relationships by hand across thousands of terms, and keeping them correct as the
-upstream vocabularies change, is slow and easy to get wrong. vocab-sync does the heavy lifting:
-it finds the likely matches, grades each relationship, checks its own work with a second model,
-and writes the surviving, human-approved mappings back into the ontology. In one sentence, it
-answers **"which upstream mappings are we missing, weak on, or wrong about?"** The tool
-**proposes**; a human approves; a separate `apply` step writes the files. The canonical source
+Recording those relationships by hand across thousands of terms, and keeping them correct as the
+upstream vocabularies change over time, is slow and easy to get wrong. vocab-sync does that work
+for us: it finds the likely matches, grades each relationship, checks its own work with a second
+model, and writes the surviving, human-approved mappings back into the ontology. In one sentence,
+it answers **"which upstream mappings are we missing, weak on, or wrong about?"** The tool
+proposes, a human approves, and a separate `apply` step writes the files. The canonical source
 files are never edited automatically.
 
 ## Concepts in 60 seconds
@@ -34,11 +38,13 @@ files are never edited automatically.
 If terms like "TTL" and "SKOS" are new to you, this is all you need to follow the rest:
 
 - **RDF** is a simple data model where every fact is a triple of `subject` `predicate` `object`
-  (for example, "Battery has-chemistry Lithium"). It is the common language for describing
-  vocabularies on the web.
-- **Turtle**, file extension **`.ttl`**, is a readable text syntax for RDF. When this README
+  (for example, "Battery has-chemistry Lithium"). It is the common language for describing things
+  on the web, and almost every published vocabulary is available as RDF.
+- **IRI** is the web-style identifier RDF gives every term, much like a URL. Two vocabularies say
+  they mean the same thing by sharing an IRI, or by linking their two separate IRIs together.
+- **Turtle**, file extension **`.ttl`**, is a readable text syntax for RDF. Where this README
   says "the TTLs", it means our ontology written as Turtle text files.
-- **Ontology** is our controlled set of terms: the classes (things, such as `Battery`) and
+- **Ontology** is our controlled set of terms: the classes (things, such as `Battery`) and the
   properties (attributes, such as `recycledContent`) we define.
 - **Upstream vocabulary** is a term set that someone else owns and publishes: GS1, schema.org,
   the EU SEMIC Core Vocabularies, UNTP, DPP Keystone, GS1 Rail.
@@ -46,61 +52,68 @@ If terms like "TTL" and "SKOS" are new to you, this is all you need to follow th
   **graded** relations to record how close a match is:
   - `skos:exactMatch`: the same concept
   - `skos:closeMatch`: almost the same, safe to treat as related
-  - `skos:broadMatch`: ours is narrower than theirs (theirs is the broader concept)
-  - `skos:narrowMatch`: ours is broader than theirs
+  - `skos:broadMatch`: ours is narrower (theirs is the broader concept)
+  - `skos:narrowMatch`: ours is broader (theirs is the narrower concept)
+
+  A finished mapping is just one more triple in our Turtle file, of the shape
+  `ourTerm skos:closeMatch theirTerm`.
 - **Embedding** turns a term's meaning into a vector of numbers, so terms with similar meaning
-  land near each other. That is how candidates are found without comparing everything to
-  everything.
-- **LLM-as-judge** (grading) means a language model reads two terms and decides which graded
-  relation, if any, holds between them.
+  land near each other in that space. It lets the tool find candidate matches by similarity, so it
+  never has to compare every term against every other term.
+- **LLM-as-judge** (grading) is the step where a language model reads two terms, with their labels
+  and definitions, and decides which graded relation, if any, holds between them.
 
 ## Why it is interesting (the AI engineering)
 
 vocab-sync is a small but complete local-LLM pipeline. The parts worth knowing, each covered in
 depth in [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md):
 
-- **Fully local, fully open models.** Bulk grading, the QA pass, and embeddings all run against a
-  local OpenAI-compatible endpoint (LM Studio by default; Ollama or any compatible server work
-  too). No API key, no term data leaves the machine, and a full run costs nothing but local
-  compute.
-- **Retrieval before generation.** Each term is embedded once (vectors cached on disk), then the
-  nearest upstream terms per vocabulary are gathered. That narrows millions of possible pairs to
-  a plausible few before any model grades them. Type is enforced, so a class only ever pairs with
-  a class and a property with a property.
+- **Fully local, fully open models.** Bulk grading, the QA pass, and the embeddings all run against
+  a local OpenAI-compatible endpoint (LM Studio by default; Ollama or any compatible server work
+  too). There is no API key, no term data leaves the machine, and a full run costs nothing but
+  local compute. The same setup runs on a laptop and in CI.
+- **Retrieval before generation.** Each term is embedded once and the vectors are cached on disk.
+  The tool then gathers the nearest upstream terms per vocabulary, which narrows millions of
+  possible pairs down to a plausible few before any model grades them. Type is enforced, so a class
+  is only ever paired with a class and a property with a property.
 - **Structured LLM grading.** Grading is a LangChain4j `@RegisterAiService` that returns a typed
-  verdict (relation, confidence, one-sentence rationale), so there is no brittle text parsing.
-- **A blind multi-judge QA panel.** A second, independent model re-judges every finding under
-  several decorrelated lenses (definition-scope, subsumption-direction, strict-skeptic) without
-  seeing the first proposal, and the votes reconcile into a two-tier verdict: STRONG, WEAK,
-  REJECT, or SPLIT. This panel is the real quality gate.
-- **A measured, counter-intuitive result.** On a 200-pair human-curated benchmark, "does a
-  relation exist?" is about 99% reliable, while "which graded relation is it?" tops out near 52%
-  for every model tried, frontier hosted models included, and self-reported confidence does not
-  predict which grade is correct. The practical consequences: a local 20B model (`gpt-oss-20b`)
-  is enough for the bulk pass, the confidence floor is volume control rather than a quality dial,
-  and the QA pass is what actually lifts output quality.
-- **Anti-hallucination guard.** A proposed mapping can only target an IRI that genuinely exists in
-  the upstream index, re-checked again at apply time.
+  verdict (the relation, a confidence, and a one-sentence rationale). The model's answer is
+  validated against that type, so the pipeline reads a real object and never scrapes free-form text.
+- **A blind multi-judge QA panel.** A second, independent model re-judges every finding through
+  several decorrelated lenses (definition-scope, subsumption-direction, strict-skeptic). It stays
+  blind on purpose: it does not see the first proposal, so it cannot simply rubber-stamp it. The
+  votes reconcile into a two-tier verdict (STRONG, WEAK, REJECT, SPLIT), and that panel is the real
+  quality gate.
+- **A measured, counter-intuitive result.** On a 200-pair human-curated benchmark, the question of
+  whether a relation exists at all is answered correctly about 99% of the time. The question of
+  which graded relation it is tops out near 52% for every model tried, frontier hosted models
+  included, and a model's self-reported confidence does not track whether it picked the right
+  grade. Three things follow: a local 20B model (`gpt-oss-20b`) is enough for the bulk pass, the
+  confidence floor decides how many mappings get asserted, and the QA panel decides whether the
+  grades can be trusted.
+- **Anti-hallucination guard.** A proposed mapping can only point at an IRI that genuinely exists in
+  the upstream index, and that is re-checked again when the mapping is written. The tool cannot
+  invent a target term.
 - **Cheap incremental re-runs.** Verdicts are cached against a content fingerprint of both terms,
   so a scheduled re-run re-grades only the terms whose text actually changed and serves everything
-  else from cache.
+  else from cache. A routine sync therefore costs a handful of model calls.
 - **A reproducible benchmark harness.** The `benchmark` command builds a balanced gold set from a
   published concordance and scores any set of models for accuracy, F1, confusion, and calibration,
-  with a resumable run log.
-- **Human-in-the-loop by design.** The tool only ever proposes. Review happens in an Excel
-  workbook (accept or reject row by row), and a gated `apply` writes the approved mappings into the
-  TTLs. Nothing reaches the canonical files without a person saying yes.
+  writing a resumable run log so a long benchmark can stop and continue.
+- **Human-in-the-loop by design.** The tool only ever proposes. Review happens in an Excel workbook
+  where each row is accepted or rejected, and a gated `apply` writes the approved mappings into the
+  TTLs. A human sign-off is always required before anything reaches the canonical files.
 
 ## How it works
 
-<!-- Diagram source: docs/diagrams/pipeline-overview.d2 — regenerate with `pnpm run diagrams:build`, do not edit the SVGs. -->
+<!-- Diagram source: docs/diagrams/pipeline-overview.d2. Regenerate with `pnpm run diagrams:build`; do not edit the SVGs. -->
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/pipeline-overview-dark.svg">
   <img alt="vocab-sync pipeline: our TTLs and upstream vocabularies feed Apache Jena term indexes; embed and retrieve top-K per vocab feed an LLM grader, then a diff against the SKOS in the TTL produces completeness reports, then gated apply." src="docs/diagrams/pipeline-overview-light.svg" width="420">
 </picture>
 
-- **Indexes** (`OurIndex`, `UpstreamIndex`) are built with Apache Jena (RIOT reads TTL +
-  JSON-LD). Every IRI a mapping is proposed against must exist in the upstream index — the
+- **Indexes** (`OurIndex`, `UpstreamIndex`) are built with Apache Jena (RIOT reads TTL and
+  JSON-LD). Every IRI a mapping is proposed against must exist in the upstream index. This is the
   anti-hallucination guard, re-checked again at apply time.
 - **Retrieval** (`Embeddings`, `Retriever`) embeds each term once (vectors cached on disk),
   then gathers top-K nearest upstream terms *per vocabulary* plus exact local-name matches.
@@ -112,7 +125,7 @@ depth in [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md):
   runs at the END of an audit: a stronger model independently re-judges every finding,
   seeing the first pass's proposal, and either confirms it (`✓`, QA relation == proposal)
   or overturns it (`✗`). Only confirmed findings should be adopted without extra scrutiny.
-  The QA model is its own swappable config — a local model by default, repointable to any
+  The QA model is its own swappable config: a local model by default, repointable to any
   OpenAI-compatible endpoint (see below).
 - **Concurrency** is Mutiny: `Multi … transformToUni(…).merge(N)` bounds in-flight grading
   requests; the blocking AiService call runs on the Vert.x worker pool with declarative
@@ -128,16 +141,17 @@ The pipeline, the model choices, and what made sense vs what didn't are document
 
 Headline findings (200 balanced gold pairs, identical production prompt, temperature 0):
 
-- **`gpt-oss-20b` ties the frontier ceiling** (52.0% exact-relation accuracy vs Claude Opus 52.5%)
-  at 5.6× the speed and zero parse failures — so the local bulk-grader default holds; you do not
-  need a hosted model for the high-volume pass.
-- **The confidence floor is volume control, not quality control.** For the bulk grader, "a relation
-  exists" is ~99% reliable at any confidence, but *which* graded relation is correct stays ~50%
-  regardless of confidence. So the floor trims the low-confidence tail (and routes those to
-  `rdfs:seeAlso`), while the **QA second pass**, not the floor, is what polices graded-relation
-  correctness. Keeping it around 0.75–0.80 is reasonable; raising it does not buy better grades.
+- **`gpt-oss-20b` ties the frontier ceiling** (52.0% exact-relation accuracy versus Claude Opus
+  52.5%) at 5.6× the speed with zero parse failures, so the local bulk-grader default holds. You do
+  not need a hosted model for the high-volume pass.
+- **What the confidence floor controls.** For the bulk grader, whether a relation exists is about
+  99% reliable at any confidence. Which graded relation is correct stays about 50% regardless of
+  confidence. So the floor trims the low-confidence tail and routes those adds to `rdfs:seeAlso`.
+  The QA second pass is what polices graded-relation correctness. Keeping the floor around 0.75 to
+  0.80 is reasonable; raising it does not buy better grades.
 - **Prefer precision over size:** an 8-bit Qwen3-32B beats its own 4-bit by +4 points and a 4-bit
-  122B by six, reaching the ceiling. Reasoning-tuned models were slower and no more accurate.
+  122B by six points, reaching the ceiling. Reasoning-tuned models ran slower with no gain in
+  accuracy.
 
 ## Run it
 
@@ -154,11 +168,11 @@ Commands:
 
 | Command | Purpose |
 |---|---|
-| `smoke` | Grade one known pair — verifies the endpoint + structured output. |
+| `smoke` | Grade one known pair to verify the endpoint and structured output. |
 | `stats [--module S]` | Load both indexes and print counts (no LLM). |
 | `retrieve --term NAME [--k K]` | Show embedding-retrieved candidates for one term (no grading). |
 | `audit [--module S] [--limit N] [--concurrency C] [--no-qa]` | Find MISSING/WEAK/WRONG mappings, QA-verify them → `docs/skos-completeness-report.{md,json}`. |
-| `apply --report R [--status …] [--confirmed-only] [--min-qa-confidence X] [--rewrite] [--apply]` | Insert/rewrite mappings into the TTLs (dry-run unless `--apply`). Below `--min-qa-confidence` (0.75) an add is emitted as `rdfs:seeAlso`, not a graded relation; re-parses + restores on invalid output. |
+| `apply --report R [--status …] [--confirmed-only] [--min-qa-confidence X] [--rewrite] [--apply]` | Insert/rewrite mappings into the TTLs (dry-run unless `--apply`). Below `--min-qa-confidence` (0.75) an add becomes a non-committal `rdfs:seeAlso` in place of a graded relation; re-parses and restores on invalid output. |
 | `provenance [--report R] [--approve F] [--xlsx P] [--min-qa-confidence X]` | From the report(s), write `docs/skos-alignment-review.md` (review sheet) + `docs/alignment-provenance.{ttl,json}` (audit trail). `--report` reads one report (vs the `*-opus.json` glob); `--xlsx` also writes the editable Excel curation workbook. |
 | `curate --report R [--xlsx P] [--stamp D] [--base-branch B] [--push]` | Read a curator-edited workbook and rebuild the `vocab-sync/upstream-<stamp>` branch from only the `Apply?=yes` rows (adds, rewrites, **and** removes). See [Curate via Excel](#curate-via-excel). |
 | `reverse [--vocab V] [--min-cosine X]` | Reverse coverage: upstream terms with no incoming mapping that are embedding-near one of ours → `docs/skos-reverse-coverage.{md,json}`. |
@@ -205,7 +219,7 @@ java -jar $J provenance --report docs/skos-completeness-sync.json \
 # 2) Open docs/skos-alignment-review.xlsx and edit the `Apply?` column.
 #    - Every row defaults to `yes`. Set the ones you reject to `no`.
 #    - Filter `Scrutiny = review` to triage the contested rows first; the `legend` sheet explains the columns.
-#    - Do NOT edit the hidden columns (ourIri/upstreamIri/predicate/oldPredicate) — they are the keys.
+#    - Do NOT edit the hidden columns (ourIri/upstreamIri/predicate/oldPredicate); they are the keys.
 
 # 3) Rebuild the review branch from only the accepted rows.
 java -jar $J curate --xlsx docs/skos-alignment-review.xlsx \
@@ -214,8 +228,8 @@ java -jar $J curate --xlsx docs/skos-alignment-review.xlsx \
 
 `curate` recreates `vocab-sync/upstream-<stamp>` from the clean base branch
 (`--base-branch`, default `feat/upstream-skos-vocab-sync`), applies exactly the `Apply?=yes`
-decisions — `add`/`add-seealso` inserts, `rewrite` predicate swaps, and `remove` drops of
-QA-rejected mappings — regenerates the provenance/review docs to match, and commits (no push unless
+decisions (`add`/`add-seealso` inserts, `rewrite` predicate swaps, and `remove` drops of
+QA-rejected mappings), regenerates the provenance/review docs to match, and commits (no push unless
 `--push`). It refuses to run on a dirty tree and never touches the base or current branch. Edit and
 re-run as often as you like; each run rebuilds the branch from scratch, so it is idempotent.
 
@@ -225,7 +239,7 @@ The `.xlsx` is a transient local artifact (gitignored); the curated mappings liv
 
 ## Run it elsewhere / repoint the LLM
 
-Everything is `base-url` + model config — no host lock-in. Override by env var:
+Everything is `base-url` and model config, with no host lock-in. Override by env var:
 
 ```bash
 # Ollama (its OpenAI-compatible endpoint)
@@ -243,7 +257,7 @@ export LLM_EMBED_MODEL=text-embedding-3-small
 Swapping the embedding model invalidates only that model's cached vectors (cache keys are
 namespaced by model id), so mixing vector spaces is impossible.
 
-### QA verifier model — local-first, fully OSS
+### QA verifier model (local-first, fully OSS)
 
 The second-tier QA pass uses its own model config, independent of the bulk grader. Default
 is a **local model** (`Qwen3-32B` 8-bit, or any flagship you load), so the whole chain runs
@@ -251,8 +265,8 @@ locally with no API key and no data leaving the machine. Pairing two *different*
 (bulk vs QA) already gives model-family independence.
 
 > **A frontier hosted model adds no measured benefit on this task.** In the benchmark, Claude
-> Opus scored 52.5% exact-relation accuracy — statistically level with the local models
-> (52.0–52.5%). A hosted QA pass buys no accuracy here, only cost, an external dependency, and
+> Opus scored 52.5% exact-relation accuracy, statistically level with the local models
+> (52.0% to 52.5%). A hosted QA pass buys no accuracy here, only cost, an external dependency, and
 > data egress. See [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md).
 
 The verifier is just another OpenAI-compatible endpoint, so you can point it anywhere (an Ollama
@@ -266,7 +280,7 @@ java -jar target/quarkus-app/quarkus-run.jar audit --module core
 ```
 
 QA verdicts are cached by `(qa-model, ourIri, upstreamIri, content-fingerprint)`, separate from
-the bulk grader's — so swapping the QA model re-judges only with the new model, and a re-run
+the bulk grader's, so swapping the QA model re-judges only with the new model, and a re-run
 re-grades only the pairs whose definitions changed.
 Disable QA with `--no-qa`; restrict it with `--qa-min-confidence`. In the report, `✓` marks a
 finding the QA model confirms; `apply --confirmed-only` writes just those.
@@ -278,7 +292,7 @@ finding the QA model confirms; `apply --confirmed-only` writes just those.
   - **RDF** (real labels/comments, via Jena): GS1 + schema.org (`.cache/vocab/{gs1-voc.ttl,
     schemaorg.ttl}`), SEMICeu (`.cache/vocab/semic-{m8g,adms,locn}.jsonld`), and the in-repo
     GS1 Rail vocabulary (`extensions/upstream/gs1-rail/ontology/gs1RailVoc.ttl`).
-  - **SAMM** (Eclipse ESMF aspect models): BatteryPass — `samm:Property`/`samm:Entity` with
+  - **SAMM** (Eclipse ESMF aspect models): BatteryPass, read as `samm:Property`/`samm:Entity` with
     `samm:preferredName`/`samm:description`, latest version per aspect from the sibling checkout
     (`batterypass-root`).
   - **JSON-LD @context** (term→IRI, name-only, class/property guessed from casing): DPP
@@ -287,12 +301,12 @@ finding the QA model confirms; `apply --confirmed-only` writes just those.
   - Total ≈ 3,550 terms {gs1, schemaorg, semic, untp, dppk, rail, batterypass, foaf}.
 - **Existing-target seeding:** the audit also seeds the exact IRIs our TTLs already map to,
   so every current mapping can be re-graded (validation) even when its vocabulary has no
-  machine-readable term set. This is what lets the report classify existing mappings as
-  OK / WEAK / WRONG rather than only finding MISSING ones.
+  machine-readable term set. That is what lets the report classify existing mappings as
+  OK, WEAK, or WRONG, in addition to surfacing MISSING ones.
 
 ## Caches (under `tools/vocab-sync/.cache/`)
 
-- `embeddings.json` — term vectors, keyed by `(embed-model, text)`.
-- `verdicts.json` — grader verdicts, keyed by `(chat-model, ourIri, upstreamIri)`.
+- `embeddings.json`: term vectors, keyed by `(embed-model, text)`.
+- `verdicts.json`: grader verdicts, keyed by `(chat-model, ourIri, upstreamIri)`.
 
 Delete a cache to force recomputation. Both are safe to commit-ignore.
