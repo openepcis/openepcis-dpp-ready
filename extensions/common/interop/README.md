@@ -15,7 +15,7 @@ OpenEPCIS DPP-Ready is **THE comprehensive, authoritative Digital Product Passpo
 | **GS1 Web Vocabulary** | Native Foundation (peer Layer 1) | Built on GS1 patterns, `owl:imports` |
 | **EU SEMICeu Core Vocabularies** (CCCEV, CPOV, Core Business / Person / Location, Core Public Event, CPSV-AP, ADMS-AP) | Native Foundation (peer Layer 1) | Bridge context (`semic-core-bridge-context.jsonld`) + SKOS mapping (`skos:exactMatch`/`closeMatch`/`broadMatch`) / `rdfs:subClassOf` / `rdfs:seeAlso` anchors |
 | **schema.org** | Native Foundation (peer Layer 1, fallback) | Direct reference + SKOS mapping anchors |
-| **GS1 Rail Vocabulary** (GS1 AISBL / GS1 Switzerland) | Sectoral Layer 1 — railway-specific sensor metadata, wheel diagnostics, EPCIS Registry shapes | Mirror under `extensions/upstream/gs1-rail/`, additive bridge context (`rail-bridge-context.jsonld`) |
+| **GS1 Rail Vocabulary** (GS1 AISBL / GS1 Switzerland) | Sectoral Layer 2 upstream profile — railway-specific sensor metadata, wheel diagnostics, EPCIS Registry shapes | Mirror under `extensions/upstream/gs1-rail/`, additive bridge context (`rail-bridge-context.jsonld`) |
 | **CEN/CENELEC JTC 24** | Tracking | Structural alignment via CIRPASS2 |
 | **UN Transparency Protocol (UNTP)** | Property-aligned | SKOS mapping (`skos:exactMatch`/`closeMatch`), bridge context |
 | **CIRPASS2** | Requirements coverage | Documentation, feeds into JTC 24 |

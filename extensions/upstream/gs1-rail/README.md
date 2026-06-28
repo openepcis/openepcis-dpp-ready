@@ -1,6 +1,6 @@
 # GS1 Rail Vocabulary — upstream mirror
 
-**Status:** Mirror (upstream v1.6, last upstream update 2026-04-25) • **Layer:** 1 (sectoral upstream peer to GS1 Web Vocabulary) • **Licence:** Apache 2.0 (upstream)
+**Status:** Mirror (upstream v1.6, last upstream update 2026-04-25) • **Layer:** 2 (sectoral upstream profile; peer to GS1 Web Vocabulary, used directly for railway-specific concepts) • **Licence:** Apache 2.0 (upstream)
 
 This module mirrors the **GS1 Rail Vocabulary** published by GS1 AISBL with
 GS1 Switzerland. The authoritative source is upstream:

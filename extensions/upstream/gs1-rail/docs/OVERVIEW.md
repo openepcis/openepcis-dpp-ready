@@ -2,14 +2,12 @@
 
 ## Layering
 
-GS1 Rail is a **Layer-1 sectoral vocabulary**, peer to:
-
-- GS1 Web Vocabulary (`gs1:` — `https://ref.gs1.org/voc/`)
-- SEMICeu Core Vocabularies (`cv:`, `cccev:`, `locn:`, `adms:`, `cpsv:`)
-- schema.org (`schema:`)
+GS1 Rail is a **Layer-2 sectoral upstream profile**, sitting alongside the
+community profiles (UNTP / CIRPASS-2 / JTC 24) and acting as a sectoral peer to
+the GS1 Web Vocabulary (`gs1:` — `https://ref.gs1.org/voc/`).
 
 Per [`docs/VOCABULARY_LAYERING.md`](../../../../docs/VOCABULARY_LAYERING.md),
-Layer-1 vocabularies are used directly. Rail terms are **not** re-minted
+it is referenced directly for railway-specific concepts. Rail terms are **not** re-minted
 under `ref.openepcis.io` — the upstream namespace
 `https://gs1-epcis-reg.org/rail/voc/data#` is the canonical IRI base.
 

@@ -111,7 +111,7 @@ This monorepo provides a consistent, GS1-aligned approach to implementing Digita
 | [eu/electronics](./extensions/eu/electronics/) | EU | ESPR Electronics Delegated Acts | Preview | 0.9.6 | Feb 2026 |
 | [eu/detergent](./extensions/eu/detergent/) | EU | Detergents Regulation 2026/405 | Preview | 0.9.6 | Mar 2026 |
 | [us/fsma204](./extensions/us/fsma204/) | US | FSMA §204 Food Traceability Rule (21 CFR 1 Subpart S) | Preview | 0.1.0 | Apr 2026 (new module) |
-| [upstream/gs1-rail](./extensions/upstream/gs1-rail/) | Upstream (GS1 AISBL / GS1 Switzerland) | GS1 Rail Vocabulary — sectoral Layer-1 (sensor metadata, wheel diagnostics, rail EPCIS Registry shapes); namespace stays at `https://gs1-epcis-reg.org/rail/voc/data#` | Mirror | upstream 1.6 | May 2026 (initial mirror, bridge to dpp-core) |
+| [upstream/gs1-rail](./extensions/upstream/gs1-rail/) | Upstream (GS1 AISBL / GS1 Switzerland) | GS1 Rail Vocabulary — sectoral Layer-2 upstream profile (sensor metadata, wheel diagnostics, rail EPCIS Registry shapes); namespace stays at `https://gs1-epcis-reg.org/rail/voc/data#` | Mirror | upstream 1.6 | May 2026 (initial mirror, bridge to dpp-core) |
 
 ## Repository Structure
 
