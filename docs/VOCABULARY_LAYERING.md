@@ -8,7 +8,7 @@ terms, and a single change at a higher layer benefits every module above it.
 <!-- Diagram source: diagrams/vocabulary-layering.d2 — regenerate with `pnpm run diagrams:build`. -->
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="diagrams/vocabulary-layering-dark.svg">
-  <img alt="The four-layer delegation stack with the concepts each layer holds: Layer 4 regulation modules; Layer 3 DPP common core (oec:) cross-cutting concepts, anchored upward via graded SKOS; Layer 2 upstream community profiles (UNTP, CIRPASS-2, JTC 24); Layer 1 foundational vocabularies (GS1, EU SEMICeu, schema.org)." src="diagrams/vocabulary-layering-light.svg" width="720">
+  <img alt="The four-layer delegation stack with the concepts each layer holds: Layer 4 regulation modules; Layer 3 DPP common core (oec:) cross-cutting concepts, anchored upward via graded SKOS; Layer 2 upstream community and sectoral profiles (UNTP, CIRPASS-2, JTC 24, GS1 Rail); Layer 1 foundational vocabularies (GS1, EU SEMICeu, schema.org)." src="diagrams/vocabulary-layering-light.svg" width="720">
 </picture>
 
 ## How the vocabularies relate

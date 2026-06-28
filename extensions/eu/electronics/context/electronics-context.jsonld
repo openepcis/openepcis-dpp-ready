@@ -1,30 +1,339 @@
 {
+  "_comment": "OpenEPCIS Electronics Vocabulary v0.9.7, generated from extensions/eu/electronics/ontology/electronics.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/electronics/context/.context-overrides.json for non-derivable hints.",
   "@context": [
     "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
     {
       "@version": 1.1,
-      "euelec": "https://ref.openepcis.io/extensions/eu/electronics/",
-      "oec": "https://ref.openepcis.io/extensions/common/core/",
-      "gs1": "https://ref.gs1.org/voc/",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
       "id": "@id",
       "type": "@type",
+      "euelec": "https://ref.openepcis.io/extensions/eu/electronics/",
+      "gs1": "https://ref.gs1.org/voc/",
+      "oec": "https://ref.openepcis.io/extensions/common/core/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "ComponentBOM": "euelec:ComponentBOM",
       "ComponentType": "euelec:ComponentType",
       "DeviceCategory": "euelec:DeviceCategory",
-      "EURepairabilityClass": "euelec:EURepairabilityClass",
+      "DisplaySpecification": "euelec:DisplaySpecification",
+      "EnergyEfficiency": "euelec:EnergyEfficiency",
       "EnergyEfficiencyClass": "euelec:EnergyEfficiencyClass",
-      "RepairCriterionType": "euelec:RepairCriterionType",
-      "ReplacementDifficulty": "euelec:ReplacementDifficulty",
-      "WEEECategory": "euelec:WEEECategory",
+      "EURepairabilityClass": "euelec:EURepairabilityClass",
       "RepairabilityIndex": "euelec:RepairabilityIndex",
       "RepairCriterion": "euelec:RepairCriterion",
-      "SoftwareSupport": "euelec:SoftwareSupport",
-      "EnergyEfficiency": "euelec:EnergyEfficiency",
-      "ComponentBOM": "euelec:ComponentBOM",
-      "WEEECompliance": "euelec:WEEECompliance",
+      "RepairCriterionType": "euelec:RepairCriterionType",
+      "ReplacementDifficulty": "euelec:ReplacementDifficulty",
       "RoHSCompliance": "euelec:RoHSCompliance",
-      "DisplaySpecification": "euelec:DisplaySpecification",
+      "SoftwareSupport": "euelec:SoftwareSupport",
+      "WEEECategory": "euelec:WEEECategory",
+      "WEEECompliance": "euelec:WEEECompliance",
+      "annualEnergyConsumption": {
+        "@id": "euelec:annualEnergyConsumption",
+        "@type": "@id"
+      },
+      "assessmentBody": {
+        "@id": "euelec:assessmentBody",
+        "@type": "@id"
+      },
+      "assessmentDate": {
+        "@id": "euelec:assessmentDate",
+        "@type": "xsd:date"
+      },
+      "billOfMaterials": {
+        "@id": "euelec:billOfMaterials",
+        "@type": "@id"
+      },
+      "collectionSchemeUrl": {
+        "@id": "euelec:collectionSchemeUrl",
+        "@type": "@id"
+      },
+      "componentPartNumber": {
+        "@id": "euelec:componentPartNumber",
+        "@type": "xsd:string"
+      },
+      "componentPassport": {
+        "@id": "euelec:componentPassport",
+        "@type": "@id"
+      },
+      "components": {
+        "@id": "euelec:components",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "componentType": {
+        "@id": "euelec:componentType",
+        "@type": "@vocab",
+        "@context": {
+          "BatteryComponent": "euelec:BatteryComponent",
+          "CameraComponent": "euelec:CameraComponent",
+          "ConnectorComponent": "euelec:ConnectorComponent",
+          "CoolingSystemComponent": "euelec:CoolingSystemComponent",
+          "DisplayComponent": "euelec:DisplayComponent",
+          "EnclosureComponent": "euelec:EnclosureComponent",
+          "KeyboardComponent": "euelec:KeyboardComponent",
+          "MemoryComponent": "euelec:MemoryComponent",
+          "MicrophoneComponent": "euelec:MicrophoneComponent",
+          "MotherboardComponent": "euelec:MotherboardComponent",
+          "PowerSupplyComponent": "euelec:PowerSupplyComponent",
+          "ProcessorComponent": "euelec:ProcessorComponent",
+          "SpeakerComponent": "euelec:SpeakerComponent",
+          "StorageComponent": "euelec:StorageComponent",
+          "TrackpadComponent": "euelec:TrackpadComponent"
+        }
+      },
+      "criterionDetails": {
+        "@id": "euelec:criterionDetails",
+        "@type": "xsd:string"
+      },
+      "criterionMaxScore": {
+        "@id": "euelec:criterionMaxScore",
+        "@type": "xsd:decimal"
+      },
+      "criterionScore": {
+        "@id": "euelec:criterionScore",
+        "@type": "xsd:decimal"
+      },
+      "criterionType": {
+        "@id": "euelec:criterionType",
+        "@type": "@vocab",
+        "@context": {
+          "Disassembly": "euelec:Disassembly",
+          "Documentation": "euelec:Documentation",
+          "ProductSpecific": "euelec:ProductSpecific",
+          "SparePartsAvailability": "euelec:SparePartsAvailability",
+          "SparePartsPricing": "euelec:SparePartsPricing"
+        }
+      },
+      "displayScore": {
+        "@id": "euelec:displayScore",
+        "@type": "xsd:decimal"
+      },
+      "displaySpecification": {
+        "@id": "euelec:displaySpecification",
+        "@type": "@id"
+      },
+      "displayTechnology": {
+        "@id": "euelec:displayTechnology",
+        "@type": "xsd:string"
+      },
+      "energyEfficiency": {
+        "@id": "euelec:energyEfficiency",
+        "@type": "@id"
+      },
+      "energyEfficiencyClass": {
+        "@id": "euelec:energyEfficiencyClass",
+        "@type": "@vocab",
+        "@context": {
+          "EnergyClassA": "euelec:EnergyClassA",
+          "EnergyClassB": "euelec:EnergyClassB",
+          "EnergyClassC": "euelec:EnergyClassC",
+          "EnergyClassD": "euelec:EnergyClassD",
+          "EnergyClassE": "euelec:EnergyClassE",
+          "EnergyClassF": "euelec:EnergyClassF",
+          "EnergyClassG": "euelec:EnergyClassG"
+        }
+      },
+      "energyLabelUrl": {
+        "@id": "euelec:energyLabelUrl",
+        "@type": "@id"
+      },
+      "eprelProductUrl": {
+        "@id": "euelec:eprelProductUrl",
+        "@type": "@id"
+      },
+      "eprelRegistrationNumber": {
+        "@id": "euelec:eprelRegistrationNumber",
+        "@type": "xsd:string"
+      },
+      "featureSupportYears": {
+        "@id": "euelec:featureSupportYears",
+        "@type": "@id"
+      },
+      "featureUpdateEndDate": {
+        "@id": "euelec:featureUpdateEndDate",
+        "@type": "xsd:date"
+      },
+      "firmwareVersion": {
+        "@id": "euelec:firmwareVersion",
+        "@type": "xsd:string"
+      },
+      "iec62474DslVersion": {
+        "@id": "euelec:iec62474DslVersion",
+        "@type": "xsd:string"
+      },
+      "isReplaceable": {
+        "@id": "euelec:isReplaceable",
+        "@type": "xsd:boolean"
+      },
+      "latestUpdateDate": {
+        "@id": "euelec:latestUpdateDate",
+        "@type": "xsd:date"
+      },
+      "materialDeclaration": {
+        "@id": "euelec:materialDeclaration",
+        "@type": "@id"
+      },
+      "materialDeclarationDate": {
+        "@id": "euelec:materialDeclarationDate",
+        "@type": "xsd:date"
+      },
+      "modelIdentifier": {
+        "@id": "euelec:modelIdentifier",
+        "@type": "xsd:string"
+      },
+      "newVersion": {
+        "@id": "euelec:newVersion",
+        "@type": "xsd:string"
+      },
+      "osVersion": {
+        "@id": "euelec:osVersion",
+        "@type": "xsd:string"
+      },
+      "peakBrightness": {
+        "@id": "euelec:peakBrightness",
+        "@type": "@id"
+      },
+      "powerConsumptionOff": {
+        "@id": "euelec:powerConsumptionOff",
+        "@type": "@id"
+      },
+      "powerConsumptionOn": {
+        "@id": "euelec:powerConsumptionOn",
+        "@type": "@id"
+      },
+      "powerConsumptionStandby": {
+        "@id": "euelec:powerConsumptionStandby",
+        "@type": "@id"
+      },
+      "previousVersion": {
+        "@id": "euelec:previousVersion",
+        "@type": "xsd:string"
+      },
+      "recoverabilityRate": {
+        "@id": "euelec:recoverabilityRate",
+        "@type": "xsd:decimal"
+      },
+      "recyclabilityRate": {
+        "@id": "euelec:recyclabilityRate",
+        "@type": "xsd:decimal"
+      },
+      "refreshRate": {
+        "@id": "euelec:refreshRate",
+        "@type": "@id"
+      },
+      "repairabilityClass": {
+        "@id": "euelec:repairabilityClass",
+        "@type": "@vocab",
+        "@context": {
+          "RepairClassA": "euelec:RepairClassA",
+          "RepairClassB": "euelec:RepairClassB",
+          "RepairClassC": "euelec:RepairClassC",
+          "RepairClassD": "euelec:RepairClassD",
+          "RepairClassE": "euelec:RepairClassE"
+        }
+      },
+      "repairabilityIndex": {
+        "@id": "euelec:repairabilityIndex",
+        "@type": "@id"
+      },
+      "repairabilityLabelUrl": {
+        "@id": "euelec:repairabilityLabelUrl",
+        "@type": "@id"
+      },
+      "repairCriteria": {
+        "@id": "euelec:repairCriteria",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "replacementDifficulty": {
+        "@id": "euelec:replacementDifficulty",
+        "@type": "@vocab",
+        "@context": {
+          "NotReplaceable": "euelec:NotReplaceable",
+          "ProfessionalOnly": "euelec:ProfessionalOnly",
+          "ToolRequired": "euelec:ToolRequired",
+          "UserReplaceable": "euelec:UserReplaceable"
+        }
+      },
+      "rohsCompliance": {
+        "@id": "euelec:rohsCompliance",
+        "@type": "@id"
+      },
+      "rohsCompliant": {
+        "@id": "euelec:rohsCompliant",
+        "@type": "xsd:boolean"
+      },
+      "rohsDeclarationUrl": {
+        "@id": "euelec:rohsDeclarationUrl",
+        "@type": "@id"
+      },
+      "rohsExemptions": {
+        "@id": "euelec:rohsExemptions",
+        "@type": "xsd:string"
+      },
+      "screenDiagonal": {
+        "@id": "euelec:screenDiagonal",
+        "@type": "@id"
+      },
+      "screenResolutionHeight": {
+        "@id": "euelec:screenResolutionHeight",
+        "@type": "xsd:integer"
+      },
+      "screenResolutionWidth": {
+        "@id": "euelec:screenResolutionWidth",
+        "@type": "xsd:integer"
+      },
+      "securitySupportYears": {
+        "@id": "euelec:securitySupportYears",
+        "@type": "@id"
+      },
+      "securityUpdateEndDate": {
+        "@id": "euelec:securityUpdateEndDate",
+        "@type": "xsd:date"
+      },
+      "softwareSupport": {
+        "@id": "euelec:softwareSupport",
+        "@type": "@id"
+      },
+      "softwareUpdateEvent": {
+        "@id": "euelec:softwareUpdateEvent",
+        "@type": "@id"
+      },
+      "sparePartAvailabilityYears": {
+        "@id": "euelec:sparePartAvailabilityYears",
+        "@type": "@id"
+      },
+      "sparePartPrice": {
+        "@id": "euelec:sparePartPrice",
+        "@type": "@id"
+      },
+      "totalScore": {
+        "@id": "euelec:totalScore",
+        "@type": "xsd:decimal"
+      },
+      "updateChannel": {
+        "@id": "euelec:updateChannel",
+        "@type": "@id"
+      },
+      "updateSource": {
+        "@id": "euelec:updateSource",
+        "@type": "xsd:string"
+      },
+      "updateType": {
+        "@id": "euelec:updateType",
+        "@type": "xsd:string"
+      },
+      "weeeCompliance": {
+        "@id": "euelec:weeeCompliance",
+        "@type": "@id"
+      },
+      "weeeRegistrationCountry": {
+        "@id": "euelec:weeeRegistrationCountry",
+        "@type": "xsd:string"
+      },
+      "weeeRegistrationNumber": {
+        "@id": "euelec:weeeRegistrationNumber",
+        "@type": "xsd:string"
+      },
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
       "deviceCategory": {
         "@id": "schema:category",
         "@type": "@vocab",
@@ -47,205 +356,11 @@
           "Wearable": "euelec:Wearable"
         }
       },
-      "modelIdentifier": "euelec:modelIdentifier",
       "commercialName": "schema:name",
-      "repairabilityIndex": {
-        "@id": "euelec:repairabilityIndex",
-        "@type": "@id"
-      },
-      "totalScore": {
-        "@id": "euelec:totalScore",
-        "@type": "xsd:decimal"
-      },
-      "displayScore": {
-        "@id": "euelec:displayScore",
-        "@type": "xsd:decimal"
-      },
-      "repairabilityClass": {
-        "@id": "euelec:repairabilityClass",
-        "@type": "@vocab",
-        "@context": {
-          "RepairClassA": "euelec:RepairClassA",
-          "RepairClassB": "euelec:RepairClassB",
-          "RepairClassC": "euelec:RepairClassC",
-          "RepairClassD": "euelec:RepairClassD",
-          "RepairClassE": "euelec:RepairClassE"
-        }
-      },
-      "repairCriteria": {
-        "@id": "euelec:repairCriteria",
-        "@type": "@id",
-        "@container": "@set"
-      },
-      "criterionType": {
-        "@id": "euelec:criterionType",
-        "@type": "@vocab",
-        "@context": {
-          "Documentation": "euelec:Documentation",
-          "Disassembly": "euelec:Disassembly",
-          "SparePartsAvailability": "euelec:SparePartsAvailability",
-          "SparePartsPricing": "euelec:SparePartsPricing",
-          "ProductSpecific": "euelec:ProductSpecific"
-        }
-      },
-      "criterionScore": {
-        "@id": "euelec:criterionScore",
-        "@type": "xsd:decimal"
-      },
-      "criterionMaxScore": {
-        "@id": "euelec:criterionMaxScore",
-        "@type": "xsd:decimal"
-      },
-      "criterionDetails": "euelec:criterionDetails",
-      "assessmentDate": {
-        "@id": "euelec:assessmentDate",
-        "@type": "xsd:date"
-      },
-      "assessmentBody": {
-        "@id": "euelec:assessmentBody",
-        "@type": "@id"
-      },
-      "repairabilityLabelUrl": {
-        "@id": "euelec:repairabilityLabelUrl",
-        "@type": "@id"
-      },
-      "softwareSupport": {
-        "@id": "euelec:softwareSupport",
-        "@type": "@id"
-      },
       "operatingSystem": "schema:operatingSystem",
-      "osVersion": "euelec:osVersion",
-      "firmwareVersion": "euelec:firmwareVersion",
-      "securityUpdateEndDate": {
-        "@id": "euelec:securityUpdateEndDate",
-        "@type": "xsd:date"
-      },
-      "featureUpdateEndDate": {
-        "@id": "euelec:featureUpdateEndDate",
-        "@type": "xsd:date"
-      },
-      "securitySupportYears": {
-        "@id": "euelec:securitySupportYears",
-        "@type": "@id"
-      },
-      "featureSupportYears": {
-        "@id": "euelec:featureSupportYears",
-        "@type": "@id"
-      },
-      "updateChannel": {
-        "@id": "euelec:updateChannel",
-        "@type": "@id"
-      },
-      "latestUpdateDate": {
-        "@id": "euelec:latestUpdateDate",
-        "@type": "xsd:date"
-      },
-      "energyEfficiency": {
-        "@id": "euelec:energyEfficiency",
-        "@type": "@id"
-      },
-      "energyEfficiencyClass": {
-        "@id": "euelec:energyEfficiencyClass",
-        "@type": "@vocab",
-        "@context": {
-          "EnergyClassA": "euelec:EnergyClassA",
-          "EnergyClassB": "euelec:EnergyClassB",
-          "EnergyClassC": "euelec:EnergyClassC",
-          "EnergyClassD": "euelec:EnergyClassD",
-          "EnergyClassE": "euelec:EnergyClassE",
-          "EnergyClassF": "euelec:EnergyClassF",
-          "EnergyClassG": "euelec:EnergyClassG"
-        }
-      },
-      "annualEnergyConsumption": {
-        "@id": "euelec:annualEnergyConsumption",
-        "@type": "@id"
-      },
-      "powerConsumptionOn": {
-        "@id": "euelec:powerConsumptionOn",
-        "@type": "@id"
-      },
-      "powerConsumptionStandby": {
-        "@id": "euelec:powerConsumptionStandby",
-        "@type": "@id"
-      },
-      "powerConsumptionOff": {
-        "@id": "euelec:powerConsumptionOff",
-        "@type": "@id"
-      },
-      "eprelRegistrationNumber": "euelec:eprelRegistrationNumber",
-      "energyLabelUrl": {
-        "@id": "euelec:energyLabelUrl",
-        "@type": "@id"
-      },
-      "eprelProductUrl": {
-        "@id": "euelec:eprelProductUrl",
-        "@type": "@id"
-      },
-      "billOfMaterials": {
-        "@id": "euelec:billOfMaterials",
-        "@type": "@id"
-      },
-      "components": {
-        "@id": "euelec:components",
-        "@type": "@id",
-        "@container": "@set"
-      },
-      "componentType": {
-        "@id": "euelec:componentType",
-        "@type": "@vocab",
-        "@context": {
-          "BatteryComponent": "euelec:BatteryComponent",
-          "DisplayComponent": "euelec:DisplayComponent",
-          "ProcessorComponent": "euelec:ProcessorComponent",
-          "MemoryComponent": "euelec:MemoryComponent",
-          "StorageComponent": "euelec:StorageComponent",
-          "MotherboardComponent": "euelec:MotherboardComponent",
-          "PowerSupplyComponent": "euelec:PowerSupplyComponent",
-          "CoolingSystemComponent": "euelec:CoolingSystemComponent",
-          "CameraComponent": "euelec:CameraComponent",
-          "SpeakerComponent": "euelec:SpeakerComponent",
-          "MicrophoneComponent": "euelec:MicrophoneComponent",
-          "KeyboardComponent": "euelec:KeyboardComponent",
-          "TrackpadComponent": "euelec:TrackpadComponent",
-          "ConnectorComponent": "euelec:ConnectorComponent",
-          "EnclosureComponent": "euelec:EnclosureComponent"
-        }
-      },
       "componentName": "schema:name",
       "componentManufacturer": {
         "@id": "gs1:manufacturer",
-        "@type": "@id"
-      },
-      "componentPartNumber": "euelec:componentPartNumber",
-      "isReplaceable": {
-        "@id": "euelec:isReplaceable",
-        "@type": "xsd:boolean"
-      },
-      "replacementDifficulty": {
-        "@id": "euelec:replacementDifficulty",
-        "@type": "@vocab",
-        "@context": {
-          "UserReplaceable": "euelec:UserReplaceable",
-          "ToolRequired": "euelec:ToolRequired",
-          "ProfessionalOnly": "euelec:ProfessionalOnly",
-          "NotReplaceable": "euelec:NotReplaceable"
-        }
-      },
-      "componentPassport": {
-        "@id": "euelec:componentPassport",
-        "@type": "@id"
-      },
-      "sparePartAvailabilityYears": {
-        "@id": "euelec:sparePartAvailabilityYears",
-        "@type": "@id"
-      },
-      "sparePartPrice": {
-        "@id": "euelec:sparePartPrice",
-        "@type": "@id"
-      },
-      "weeeCompliance": {
-        "@id": "euelec:weeeCompliance",
         "@type": "@id"
       },
       "weeeCategory": {
@@ -259,75 +374,6 @@
           "WEEE5_SmallEquipment": "euelec:WEEE5_SmallEquipment",
           "WEEE6_SmallIT": "euelec:WEEE6_SmallIT"
         }
-      },
-      "weeeRegistrationNumber": "euelec:weeeRegistrationNumber",
-      "weeeRegistrationCountry": "euelec:weeeRegistrationCountry",
-      "collectionSchemeUrl": {
-        "@id": "euelec:collectionSchemeUrl",
-        "@type": "@id"
-      },
-      "recyclabilityRate": {
-        "@id": "euelec:recyclabilityRate",
-        "@type": "xsd:decimal"
-      },
-      "recoverabilityRate": {
-        "@id": "euelec:recoverabilityRate",
-        "@type": "xsd:decimal"
-      },
-      "rohsCompliance": {
-        "@id": "euelec:rohsCompliance",
-        "@type": "@id"
-      },
-      "rohsCompliant": {
-        "@id": "euelec:rohsCompliant",
-        "@type": "xsd:boolean"
-      },
-      "rohsExemptions": "euelec:rohsExemptions",
-      "rohsDeclarationUrl": {
-        "@id": "euelec:rohsDeclarationUrl",
-        "@type": "@id"
-      },
-      "displaySpecification": {
-        "@id": "euelec:displaySpecification",
-        "@type": "@id"
-      },
-      "screenDiagonal": {
-        "@id": "euelec:screenDiagonal",
-        "@type": "@id"
-      },
-      "screenResolutionWidth": {
-        "@id": "euelec:screenResolutionWidth",
-        "@type": "xsd:integer"
-      },
-      "screenResolutionHeight": {
-        "@id": "euelec:screenResolutionHeight",
-        "@type": "xsd:integer"
-      },
-      "displayTechnology": "euelec:displayTechnology",
-      "refreshRate": {
-        "@id": "euelec:refreshRate",
-        "@type": "@id"
-      },
-      "peakBrightness": {
-        "@id": "euelec:peakBrightness",
-        "@type": "@id"
-      },
-      "softwareUpdateEvent": {
-        "@id": "euelec:softwareUpdateEvent",
-        "@type": "@id"
-      },
-      "previousVersion": "euelec:previousVersion",
-      "newVersion": "euelec:newVersion",
-      "updateType": "euelec:updateType",
-      "updateSource": "euelec:updateSource",
-      "materialDeclaration": {
-        "@id": "euelec:materialDeclaration",
-        "@type": "@id"
-      },
-      "iec62474DslVersion": "euelec:iec62474DslVersion",
-      "materialDeclarationDate": {
-        "@id": "euelec:materialDeclarationDate",
-        "@type": "xsd:date"
       },
       "Product": "gs1:Product",
       "QuantitativeValue": "gs1:QuantitativeValue",

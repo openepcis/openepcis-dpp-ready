@@ -7,10 +7,10 @@ l4: "Layer 4 — Regulation modules\n(eu/battery, eu/eudr, eu/textile, eu/electr
 
 l3: "Layer 3 — Common DPP core (oec:)\ncross-cutting concepts ≥2 regs share"
 
-l2: "Layer 2 — Upstream community profiles\nUNTP v0.7.0  Party, Facility, Material, Claim,\n             ConformityAttestation, PerformanceMetric, …\nCIRPASS-2 D3.x; CEN/CENELEC JTC 24 (EN 18216-18223)"
+l2: "Layer 2 — Upstream community & sectoral profiles\nUNTP v0.7.0  Party, Facility, Claim, ConformityAttestation,\n             ConformityScheme, PerformanceMetric, …\nCIRPASS-2 D3.x; CEN/CENELEC JTC 24 (EN 18216-18223)\nGS1 Rail (rail:) — sectoral peer to gs1:"
 
 l1: "Layer 1 — Foundational vocabularies (peer triumvirate)\nGS1 (gs1:)   Product, Organization, Place, GeoShape,\n             regulatoryInformation, UN/CEFACT unit codes\n             (imported foundation, owl:imports)\nSEMICeu      cv:PublicOrganisation, cv:ContactPoint,\n             cv:LegalEntity, cccev:Requirement,\n             cccev:Evidence, locn:Location, adms:Identifier\nschema.org   Observation, QuantitativeValue, GeoCoordinates,\n             Country, Rating, hasMeasurement"
 
 l4 -> l3
-l3 -> l2: "owl:equivalentClass / equivalentProperty"
+l3 -> l2: "anchored upward via graded SKOS\n(exactMatch / closeMatch / broadMatch)"
 l2 -> l1

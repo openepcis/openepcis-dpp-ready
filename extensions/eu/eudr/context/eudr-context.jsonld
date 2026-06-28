@@ -1,22 +1,213 @@
 {
+  "_comment": "OpenEPCIS EUDR Vocabulary v0.9.7, generated from extensions/eu/eudr/ontology/eudr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/eudr/context/.context-overrides.json for non-derivable hints.",
   "@context": [
     "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
     {
       "@version": 1.1,
-      "eudr": "https://ref.openepcis.io/extensions/eu/eudr/",
-      "oec": "https://ref.openepcis.io/extensions/common/core/",
-      "gs1": "https://ref.gs1.org/voc/",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
       "id": "@id",
       "type": "@type",
+      "eudr": "https://ref.openepcis.io/extensions/eu/eudr/",
+      "gs1": "https://ref.gs1.org/voc/",
+      "oec": "https://ref.openepcis.io/extensions/common/core/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
       "ActorRole": "eudr:ActorRole",
-      "QuantitativeValue": "gs1:QuantitativeValue",
       "CommodityType": "eudr:CommodityType",
       "DueDiligenceStatement": "eudr:DueDiligenceStatement",
+      "ExemptionDeclaration": "eudr:ExemptionDeclaration",
+      "ExemptionType": "eudr:ExemptionType",
       "OriginDetails": "eudr:OriginDetails",
       "RiskAssessment": "eudr:RiskAssessment",
       "RiskLevel": "eudr:RiskLevel",
       "TimberProductType": "eudr:TimberProductType",
+      "areaHectares": {
+        "@id": "eudr:areaHectares",
+        "@type": "xsd:decimal"
+      },
+      "areaSize": {
+        "@id": "eudr:areaSize",
+        "@type": "@id"
+      },
+      "commodityType": {
+        "@id": "eudr:commodityType",
+        "@type": "@vocab",
+        "@context": {
+          "Cattle": "eudr:Cattle",
+          "Cocoa": "eudr:Cocoa",
+          "Coffee": "eudr:Coffee",
+          "OilPalm": "eudr:OilPalm",
+          "Rubber": "eudr:Rubber",
+          "Soya": "eudr:Soya",
+          "Wood": "eudr:Wood"
+        }
+      },
+      "countryList": {
+        "@id": "eudr:countryList",
+        "@container": "@set"
+      },
+      "countryRiskCategory": {
+        "@id": "eudr:countryRiskCategory",
+        "@type": "@vocab",
+        "@context": {
+          "High": "eudr:High",
+          "Low": "eudr:Low",
+          "Negligible": "eudr:Negligible",
+          "Standard": "eudr:Standard"
+        }
+      },
+      "deforestationFreeDate": {
+        "@id": "eudr:deforestationFreeDate",
+        "@type": "xsd:date"
+      },
+      "derivedFrom": {
+        "@id": "eudr:derivedFrom",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "dueDiligenceStatement": {
+        "@id": "eudr:dueDiligenceStatement",
+        "@type": "@id"
+      },
+      "exemptionAuthority": {
+        "@id": "eudr:exemptionAuthority",
+        "@type": "@id"
+      },
+      "exemptionDeclaration": {
+        "@id": "eudr:exemptionDeclaration",
+        "@type": "@id"
+      },
+      "exemptionEffectiveFrom": {
+        "@id": "eudr:exemptionEffectiveFrom",
+        "@type": "xsd:date"
+      },
+      "exemptionEffectiveUntil": {
+        "@id": "eudr:exemptionEffectiveUntil",
+        "@type": "xsd:date"
+      },
+      "exemptionReasonCode": {
+        "@id": "eudr:exemptionReasonCode",
+        "@type": "xsd:string"
+      },
+      "exemptionScope": {
+        "@id": "eudr:exemptionScope",
+        "@type": "xsd:string"
+      },
+      "exemptionScopeReference": {
+        "@id": "eudr:exemptionScopeReference",
+        "@type": "xsd:string"
+      },
+      "exemptionType": {
+        "@id": "eudr:exemptionType",
+        "@type": "@vocab",
+        "@context": {
+          "PermanentExemption": "eudr:PermanentExemption",
+          "TemporaryExemption": "eudr:TemporaryExemption"
+        }
+      },
+      "forestManagementUnit": {
+        "@id": "eudr:forestManagementUnit",
+        "@type": "xsd:string"
+      },
+      "fscCertification": {
+        "@id": "eudr:fscCertification",
+        "@type": "@id"
+      },
+      "geofence": {
+        "@id": "eudr:geofence",
+        "@type": "xsd:string"
+      },
+      "geolocation": {
+        "@id": "eudr:geolocation",
+        "@type": "xsd:anyURI"
+      },
+      "landUseHistory": {
+        "@id": "eudr:landUseHistory",
+        "@type": "xsd:string"
+      },
+      "legallyHarvested": {
+        "@id": "eudr:legallyHarvested",
+        "@type": "xsd:boolean"
+      },
+      "mitigationMeasures": {
+        "@id": "eudr:mitigationMeasures",
+        "@type": "xsd:string"
+      },
+      "originDetails": {
+        "@id": "eudr:originDetails",
+        "@type": "@id"
+      },
+      "originList": {
+        "@id": "eudr:originList",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "producerIdentification": {
+        "@id": "eudr:producerIdentification",
+        "@type": "@id"
+      },
+      "riskAssessment": {
+        "@id": "eudr:riskAssessment",
+        "@type": "@id"
+      },
+      "riskAssessmentDate": {
+        "@id": "eudr:riskAssessmentDate",
+        "@type": "xsd:date"
+      },
+      "riskLevel": {
+        "@id": "eudr:riskLevel",
+        "@type": "@vocab",
+        "@context": {
+          "High": "eudr:High",
+          "Low": "eudr:Low",
+          "Negligible": "eudr:Negligible",
+          "Standard": "eudr:Standard"
+        }
+      },
+      "speciesCommonName": {
+        "@id": "eudr:speciesCommonName",
+        "@type": "xsd:string"
+      },
+      "speciesScientificName": {
+        "@id": "eudr:speciesScientificName",
+        "@type": "xsd:string"
+      },
+      "statementDate": {
+        "@id": "eudr:statementDate",
+        "@type": "xsd:date"
+      },
+      "timberProductType": {
+        "@id": "eudr:timberProductType",
+        "@type": "@vocab",
+        "@context": {
+          "Charcoal": "eudr:Charcoal",
+          "Furniture": "eudr:Furniture",
+          "Paper": "eudr:Paper",
+          "Plywood": "eudr:Plywood",
+          "PrintedMatter": "eudr:PrintedMatter",
+          "Pulp": "eudr:Pulp",
+          "RoundWood": "eudr:RoundWood",
+          "SawnWood": "eudr:SawnWood",
+          "Veneer": "eudr:Veneer",
+          "WoodChips": "eudr:WoodChips",
+          "WoodPellets": "eudr:WoodPellets"
+        }
+      },
+      "transformationDate": {
+        "@id": "eudr:transformationDate",
+        "@type": "xsd:date"
+      },
+      "transformationLocation": {
+        "@id": "eudr:transformationLocation",
+        "@type": "@id"
+      },
+      "verificationMethod": {
+        "@id": "eudr:verificationMethod",
+        "@type": "xsd:string"
+      },
+      "volumeCubicMeters": {
+        "@id": "eudr:volumeCubicMeters",
+        "@type": "xsd:decimal"
+      },
+      "QuantitativeValue": "gs1:QuantitativeValue",
       "Product": "gs1:Product",
       "Place": "gs1:Place",
       "GeoShape": "gs1:GeoShape",
@@ -147,58 +338,6 @@
       "Producer": "eudr:Producer",
       "Trader": "eudr:Trader",
       "DownstreamOperator": "eudr:DownstreamOperator",
-      "commodityType": {
-        "@id": "eudr:commodityType",
-        "@type": "@vocab",
-        "@context": {
-          "Cattle": "eudr:Cattle",
-          "Cocoa": "eudr:Cocoa",
-          "Coffee": "eudr:Coffee",
-          "OilPalm": "eudr:OilPalm",
-          "Rubber": "eudr:Rubber",
-          "Soya": "eudr:Soya",
-          "Wood": "eudr:Wood"
-        }
-      },
-      "timberProductType": {
-        "@id": "eudr:timberProductType",
-        "@type": "@vocab",
-        "@context": {
-          "RoundWood": "eudr:RoundWood",
-          "SawnWood": "eudr:SawnWood",
-          "Plywood": "eudr:Plywood",
-          "Veneer": "eudr:Veneer",
-          "WoodPellets": "eudr:WoodPellets",
-          "WoodChips": "eudr:WoodChips",
-          "Pulp": "eudr:Pulp",
-          "Paper": "eudr:Paper",
-          "Furniture": "eudr:Furniture",
-          "Charcoal": "eudr:Charcoal",
-          "PrintedMatter": "eudr:PrintedMatter"
-        }
-      },
-      "riskLevel": {
-        "@id": "eudr:riskLevel",
-        "@type": "@vocab",
-        "@context": {
-          "Negligible": "eudr:Negligible",
-          "Low": "eudr:Low",
-          "Standard": "eudr:Standard",
-          "High": "eudr:High"
-        }
-      },
-      "countryRiskCategory": {
-        "@id": "eudr:countryRiskCategory",
-        "@type": "@vocab",
-        "@context": {
-          "Negligible": "eudr:Negligible",
-          "Low": "eudr:Low",
-          "Standard": "eudr:Standard",
-          "High": "eudr:High"
-        }
-      },
-      "speciesScientificName": "eudr:speciesScientificName",
-      "speciesCommonName": "eudr:speciesCommonName",
       "additionalOrganizationID": {
         "@id": "eudr:additionalOrganizationID",
         "@type": "@id"
@@ -232,58 +371,11 @@
         "@id": "oec:isRegulationCompliant",
         "@type": "xsd:boolean"
       },
-      "transformationLocation": {
-        "@id": "eudr:transformationLocation",
-        "@type": "@id"
-      },
-      "derivedFrom": {
-        "@id": "eudr:derivedFrom",
-        "@type": "@id",
-        "@container": "@set"
-      },
-      "originDetails": {
-        "@id": "eudr:originDetails",
-        "@type": "@id"
-      },
-      "originList": {
-        "@id": "eudr:originList",
-        "@type": "@id",
-        "@container": "@set"
-      },
-      "countryList": {
-        "@id": "eudr:countryList",
-        "@container": "@set"
-      },
       "countryCode": "gs1:countryCode",
-      "geofence": "eudr:geofence",
-      "geolocation": "eudr:geolocation",
-      "areaSize": {
-        "@id": "eudr:areaSize",
-        "@type": "@id"
-      },
-      "producerIdentification": {
-        "@id": "eudr:producerIdentification",
-        "@type": "@id"
-      },
       "unitCode": "gs1:unitCode",
       "value": {
         "@id": "gs1:value",
         "@type": "xsd:decimal"
-      },
-      "deforestationFreeDate": {
-        "@id": "eudr:deforestationFreeDate",
-        "@type": "xsd:date"
-      },
-      "legallyHarvested": {
-        "@id": "eudr:legallyHarvested",
-        "@type": "xsd:boolean"
-      },
-      "verificationMethod": "eudr:verificationMethod",
-      "landUseHistory": "eudr:landUseHistory",
-      "forestManagementUnit": "eudr:forestManagementUnit",
-      "fscCertification": {
-        "@id": "eudr:fscCertification",
-        "@type": "@id"
       },
       "harvestDate": {
         "@id": "gs1:harvestDate",
@@ -297,67 +389,9 @@
         "@id": "gs1:harvestDateEnd",
         "@type": "xsd:date"
       },
-      "transformationDate": {
-        "@id": "eudr:transformationDate",
-        "@type": "xsd:date"
-      },
-      "volumeCubicMeters": {
-        "@id": "eudr:volumeCubicMeters",
-        "@type": "xsd:decimal"
-      },
-      "areaHectares": {
-        "@id": "eudr:areaHectares",
-        "@type": "xsd:decimal"
-      },
-      "dueDiligenceStatement": {
-        "@id": "eudr:dueDiligenceStatement",
-        "@type": "@id"
-      },
       "euisReferenceNumber": "gs1:regulatoryReferenceNumber",
-      "statementDate": {
-        "@id": "eudr:statementDate",
-        "@type": "xsd:date"
-      },
-      "riskAssessment": {
-        "@id": "eudr:riskAssessment",
-        "@type": "@id"
-      },
-      "riskAssessmentDate": {
-        "@id": "eudr:riskAssessmentDate",
-        "@type": "xsd:date"
-      },
-      "mitigationMeasures": "eudr:mitigationMeasures",
-      "ExemptionType": "eudr:ExemptionType",
-      "ExemptionDeclaration": "eudr:ExemptionDeclaration",
       "PermanentExemption": "eudr:PermanentExemption",
       "TemporaryExemption": "eudr:TemporaryExemption",
-      "exemptionDeclaration": {
-        "@id": "eudr:exemptionDeclaration",
-        "@type": "@id"
-      },
-      "exemptionType": {
-        "@id": "eudr:exemptionType",
-        "@type": "@vocab",
-        "@context": {
-          "PermanentExemption": "eudr:PermanentExemption",
-          "TemporaryExemption": "eudr:TemporaryExemption"
-        }
-      },
-      "exemptionReasonCode": "eudr:exemptionReasonCode",
-      "exemptionScope": "eudr:exemptionScope",
-      "exemptionScopeReference": "eudr:exemptionScopeReference",
-      "exemptionEffectiveFrom": {
-        "@id": "eudr:exemptionEffectiveFrom",
-        "@type": "xsd:date"
-      },
-      "exemptionEffectiveUntil": {
-        "@id": "eudr:exemptionEffectiveUntil",
-        "@type": "xsd:date"
-      },
-      "exemptionAuthority": {
-        "@id": "eudr:exemptionAuthority",
-        "@type": "@id"
-      },
       "gs1:netWeight": {
         "@id": "gs1:netWeight",
         "@type": "@id"

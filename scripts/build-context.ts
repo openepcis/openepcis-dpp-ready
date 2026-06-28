@@ -1,15 +1,22 @@
 /**
  * Build JSON-LD @context files from TTL ontology source files.
  *
- * Output is written to {module}/context/{name}-context.generated.jsonld
- * alongside the existing hand-maintained file. Review the diff and promote
- * the generated file once it looks correct.
+ * Output is written in place to {module}/context/{name}-context.jsonld — the
+ * shipped artifact. The pipeline round-trips: edit the TTL (term IRIs and type
+ * coercion) or .context-overrides.json (non-derivable hints), re-run the build,
+ * and the live context is regenerated faithfully. Do not hand-edit the context.
  *
- * Non-derivable hints (@container, @vocab subcontexts, term aliases) live in
+ * Each context is emitted as `[...imports, { inline terms }]` where `imports`
+ * is the module's import list (the dpp-core context for the regulation modules,
+ * the EPCIS base context for the rail mirror) and the inline object is the
+ * TTL-derived terms merged with the overrides.
+ *
+ * Non-derivable hints (@container, @vocab subcontexts, extra prefixes, and
+ * cross-vocabulary / GS1 alias terms not present in the module TTL) live in
  * {module}/context/.context-overrides.json. On first run, if the overrides
  * file does not exist and a hand-maintained context does, the script
- * auto-extracts the differences into the overrides file so existing
- * semantics are preserved. From then on, edit the overrides file directly.
+ * auto-extracts everything not derivable from TTL into the overrides file so
+ * existing semantics are preserved. From then on, edit the overrides file.
  *
  * Usage: npx tsx scripts/build-context.ts
  */
@@ -41,7 +48,17 @@ interface OntologyModule {
   ttlFile: string;
   namespace: string;
   prefix: string;
+  /**
+   * Context documents imported ahead of the inline object, emitted as the
+   * leading string entries of the `@context` array. Regulation modules import
+   * the dpp-core context; the rail mirror imports the EPCIS base context;
+   * dpp-core itself imports nothing (emitted as a bare object).
+   */
+  imports?: string[];
 }
+
+const DPP_CORE_IMPORT = "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld";
+const EPCIS_BASE_IMPORT = "https://ref.gs1.org/standards/epcis/epcis-context.jsonld";
 
 const ONTOLOGY_MODULES: OntologyModule[] = [
   {
@@ -57,6 +74,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ttlFile: "battery.ttl",
     namespace: "https://ref.openepcis.io/extensions/eu/battery/",
     prefix: "eubat",
+    imports: [DPP_CORE_IMPORT],
   },
   {
     name: "eudr",
@@ -64,6 +82,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ttlFile: "eudr.ttl",
     namespace: "https://ref.openepcis.io/extensions/eu/eudr/",
     prefix: "eudr",
+    imports: [DPP_CORE_IMPORT],
   },
   {
     name: "textile",
@@ -71,6 +90,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ttlFile: "textile.ttl",
     namespace: "https://ref.openepcis.io/extensions/eu/textile/",
     prefix: "eutex",
+    imports: [DPP_CORE_IMPORT],
   },
   {
     name: "electronics",
@@ -78,6 +98,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ttlFile: "electronics.ttl",
     namespace: "https://ref.openepcis.io/extensions/eu/electronics/",
     prefix: "euelec",
+    imports: [DPP_CORE_IMPORT],
   },
   {
     name: "detergent",
@@ -85,6 +106,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ttlFile: "detergent.ttl",
     namespace: "https://ref.openepcis.io/extensions/eu/detergent/",
     prefix: "eudet",
+    imports: [DPP_CORE_IMPORT],
   },
   {
     name: "ppwr",
@@ -92,6 +114,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ttlFile: "ppwr.ttl",
     namespace: "https://ref.openepcis.io/extensions/eu/ppwr/",
     prefix: "euppwr",
+    imports: [DPP_CORE_IMPORT],
   },
   {
     name: "cpr",
@@ -99,6 +122,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ttlFile: "cpr.ttl",
     namespace: "https://ref.openepcis.io/extensions/eu/cpr/",
     prefix: "eucpr",
+    imports: [DPP_CORE_IMPORT],
   },
   {
     name: "iron-steel",
@@ -106,6 +130,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ttlFile: "iron-steel.ttl",
     namespace: "https://ref.openepcis.io/extensions/eu/iron-steel/",
     prefix: "eusteel",
+    imports: [DPP_CORE_IMPORT],
   },
   {
     name: "fsma204",
@@ -113,6 +138,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ttlFile: "fsma204.ttl",
     namespace: "https://ref.openepcis.io/extensions/us/fsma204/",
     prefix: "usfsma",
+    imports: [DPP_CORE_IMPORT],
   },
   {
     name: "rail",
@@ -120,6 +146,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ttlFile: "gs1RailVoc.ttl",
     namespace: "https://gs1-epcis-reg.org/rail/voc/data#",
     prefix: "rail",
+    imports: [EPCIS_BASE_IMPORT],
   },
 ];
 
@@ -234,7 +261,7 @@ interface DerivedContext {
   context: ContextMap;
   classes: { localName: string; iri: string }[];
   properties: { localName: string; iri: string; coercion?: string }[];
-  enumerations: { property: string; values: { localName: string; iri: string }[] }[];
+  enumerations: { property: string; values: { key: string; iri: string }[] }[];
 }
 
 function buildDerivedContext(store: Store, module: OntologyModule): DerivedContext {
@@ -265,7 +292,7 @@ function buildDerivedContext(store: Store, module: OntologyModule): DerivedConte
   // Enumerations: classes that have instances in this namespace whose @vocab
   // mapping should be exposed. Find properties whose range is one of these classes.
   const classIds = new Set(classes.map((c) => `${namespace}${c.localName}`));
-  const enumerations: { property: string; values: { localName: string; iri: string }[] }[] = [];
+  const enumerations: { property: string; values: { key: string; iri: string }[] }[] = [];
 
   for (const cls of classes) {
     const classIri = `${namespace}${cls.localName}`;
@@ -273,8 +300,16 @@ function buildDerivedContext(store: Store, module: OntologyModule): DerivedConte
     const values = instanceQuads
       .map((q) => q.subject.value)
       .filter((iri) => iri.startsWith(namespace))
-      .map((iri) => ({ localName: getLocalName(iri, namespace), iri: `${module.prefix}:${getLocalName(iri, namespace)}` }))
-      .sort((a, b) => a.localName.localeCompare(b.localName));
+      .map((iri) => {
+        const localName = getLocalName(iri, namespace);
+        // Best-effort default key for a brand-new enum: the instance local
+        // name. The data code an enum actually uses (a skos:notation code, a
+        // dual short+long form, etc.) is an editorial / standards choice that
+        // is not reliably encoded in TTL, so for an existing context the live
+        // @vocab subcontext is preserved verbatim via the overrides instead.
+        return { key: localName, iri: `${module.prefix}:${localName}` };
+      })
+      .sort((a, b) => a.key.localeCompare(b.key));
     if (values.length === 0) continue;
 
     // Find any property that ranges over this class, so those properties get @vocab coercion.
@@ -329,7 +364,7 @@ function buildDerivedContext(store: Store, module: OntologyModule): DerivedConte
     if (enumByProp.has(p.localName)) {
       const values = enumByProp.get(p.localName)!;
       const subContext: Record<string, string> = {};
-      for (const v of values) subContext[v.localName] = v.iri;
+      for (const v of values) subContext[v.key] = v.iri;
       context[p.localName] = {
         "@id": p.iri,
         "@type": "@vocab",
@@ -345,12 +380,27 @@ function buildDerivedContext(store: Store, module: OntologyModule): DerivedConte
   return { context, classes, properties, enumerations };
 }
 
+/**
+ * Read the inline term object from an existing context, whether it is emitted
+ * as a bare object (`"@context": { ... }`) or as an array with leading imports
+ * (`"@context": ["...import.jsonld", { ... }]`). The string imports are
+ * ignored here — they come from the module config — and any object parts are
+ * merged into a single map.
+ */
 function readExistingContext(path: string): ContextMap | undefined {
   if (!existsSync(path)) return undefined;
   try {
     const json = JSON.parse(readFileSync(path, "utf-8"));
-    if (json && typeof json["@context"] === "object" && !Array.isArray(json["@context"])) {
-      return json["@context"] as ContextMap;
+    const ctx = json["@context"];
+    if (Array.isArray(ctx)) {
+      const objectParts = ctx.filter(
+        (e) => e && typeof e === "object" && !Array.isArray(e)
+      ) as ContextMap[];
+      if (objectParts.length > 0) return Object.assign({}, ...objectParts) as ContextMap;
+      return undefined;
+    }
+    if (ctx && typeof ctx === "object") {
+      return ctx as ContextMap;
     }
   } catch (e) {
     console.warn(`  Could not parse existing context at ${path}: ${(e as Error).message}`);
@@ -372,13 +422,10 @@ function deepEqual(a: unknown, b: unknown): boolean {
 
 const KEYWORD_KEYS = new Set(["@version", "@vocab", "@base", "@language", "@protected", "id", "type"]);
 
-function isPrefixDeclaration(key: string, value: unknown): boolean {
-  return typeof value === "string" && (value.startsWith("http://") || value.startsWith("https://")) && !key.includes(":");
-}
-
 /**
  * Capture only information in `existing` that is NOT derivable from TTL:
- *   - Keys not present in derived at all (hand-only aliases / cross-vocab terms).
+ *   - Keys not present in derived at all: hand-only aliases, cross-vocabulary
+ *     terms, and extra prefix declarations the module TTL never references.
  *   - For object-valued entries that exist in both, fields that exist in
  *     `existing` but not in `derived` (e.g. @container, @vocab subcontexts).
  *
@@ -389,18 +436,21 @@ function migrateOverrides(existing: ContextMap, derived: ContextMap): ContextMap
   const overrides: ContextMap = {};
   for (const [key, existingVal] of Object.entries(existing)) {
     if (KEYWORD_KEYS.has(key)) continue;
-    if (isPrefixDeclaration(key, existingVal)) continue;
     const derivedVal = derived[key];
 
     if (derivedVal === undefined) {
+      // Not derivable from TTL: hand-only alias, cross-vocabulary term, or an
+      // extra prefix declaration (schema/cv/cccev/rdfs) that the module TTL
+      // never references. Capture it verbatim so the merge reproduces it.
       overrides[key] = existingVal;
       continue;
     }
 
     if (typeof existingVal !== "object" || existingVal === null || Array.isArray(existingVal)) {
       // Existing is a plain string alias. If it references the same IRI as
-      // derived, drop it; derived wins. If it points elsewhere, the user has
-      // intentionally overridden the IRI, keep it.
+      // derived, drop it; derived wins, and may add @type coercion from the
+      // TTL range (e.g. a bare "oec:casNumber" becomes {@id, @type: xsd:string}).
+      // If it points elsewhere, the user has intentionally overridden the IRI.
       const derivedIri =
         typeof derivedVal === "string"
           ? derivedVal
@@ -409,36 +459,31 @@ function migrateOverrides(existing: ContextMap, derived: ContextMap): ContextMap
       continue;
     }
 
-    // Existing is an object. Capture fields that derived doesn't provide.
-    const derivedObj =
-      typeof derivedVal === "object" && derivedVal !== null && !Array.isArray(derivedVal)
-        ? (derivedVal as Record<string, unknown>)
-        : { "@id": derivedVal as unknown };
-    const extras: Record<string, unknown> = {};
-    for (const [k, v] of Object.entries(existingVal as Record<string, unknown>)) {
-      if (!(k in derivedObj)) extras[k] = v;
-    }
-    if (Object.keys(extras).length > 0) overrides[key] = extras as ContextValue;
+    // Existing is an object. Reproduce it verbatim unless the TTL already
+    // derives an identical definition. Object-valued terms carry editorial
+    // detail that is not reliably derivable — @vocab enum subcontexts (whose
+    // data codes are a standards choice, not the instance local name),
+    // @container hints, and @id aliases that point at another vocabulary (e.g.
+    // the JSON key `value` mapped to gs1:value while the module TTL defines its
+    // own oec:value). Pinning the live object guarantees a faithful round-trip.
+    if (!deepEqual(existingVal, derivedVal)) overrides[key] = existingVal;
   }
   return overrides;
 }
 
+/**
+ * Overlay the overrides on the TTL-derived context. An override entry is a
+ * COMPLETE term definition and replaces the derived one outright — it does not
+ * shallow-merge. This matters because a derived definition can carry @type
+ * coercion (from the TTL range) that the live term deliberately omits: a
+ * @container:@set list of literal codes must not silently gain @type:@id and
+ * turn its values into IRIs. Derived terms only fill in keys no override
+ * defines, so newly added TTL terms still appear automatically.
+ */
 function mergeOverrides(derived: ContextMap, overrides: ContextMap): ContextMap {
   const out: ContextMap = { ...derived };
   for (const [key, val] of Object.entries(overrides)) {
-    const base = out[key];
-    if (
-      base &&
-      typeof base === "object" &&
-      !Array.isArray(base) &&
-      val &&
-      typeof val === "object" &&
-      !Array.isArray(val)
-    ) {
-      out[key] = { ...(base as object), ...(val as object) } as ContextValue;
-    } else {
-      out[key] = val;
-    }
+    out[key] = val;
   }
   return out;
 }
@@ -465,7 +510,6 @@ async function buildContext(): Promise<void> {
     const contextDir = join(PROJECT_ROOT, module.dir, "context");
     const overridesPath = join(contextDir, ".context-overrides.json");
     const existingPath = join(contextDir, `${module.name}-context.jsonld`);
-    const generatedPath = join(contextDir, `${module.name}-context.generated.jsonld`);
 
     if (!existsSync(ttlPath)) {
       console.warn(`Warning: TTL file not found: ${ttlPath}`);
@@ -506,13 +550,21 @@ async function buildContext(): Promise<void> {
 
       const merged = mergeOverrides(derived.context, overrides);
 
+      // Emit `[...imports, merged]` when the module imports other contexts
+      // (regulation modules import dpp-core; rail imports the EPCIS base), or a
+      // bare object otherwise (dpp-core itself).
+      const contextValue =
+        module.imports && module.imports.length > 0
+          ? [...module.imports, merged]
+          : merged;
+
       const output = {
         _comment: buildTopComment(store, module),
-        "@context": merged,
+        "@context": contextValue,
       };
 
-      writeFileSync(generatedPath, JSON.stringify(output, null, 2) + "\n");
-      console.log(`  Output: ${generatedPath}\n`);
+      writeFileSync(existingPath, JSON.stringify(output, null, 2) + "\n");
+      console.log(`  Output: ${existingPath}\n`);
     } catch (error) {
       console.error(`  Error processing ${module.name}:`, error);
     }

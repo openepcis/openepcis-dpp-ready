@@ -63,7 +63,8 @@ term, BOTH a bare alias and a prefixed-form alias carrying the same coercion (e.
 `"gs1:harvestDateStart": "2026-02-16"` keeps its `xsd:date` typing while staying a
 simple scalar — the prefix is visible on the key, the value stays clean. (A raw
 CURIE key without this alias would silently drop the coercion.) These aliases are
-generated: re-run `pnpm run build:context` then `tsx scripts/promote-context.ts`.
+generated: edit the TTL (or `.context-overrides.json` for non-derivable hints) and
+re-run `pnpm run build:context`, which rewrites `{name}-context.jsonld` in place.
 
 **Legitimately-bare exceptions** (prefixing them would change the RDF, so they stay
 bare): EPCIS-structural terms (above); a term shadowed by two namespaces in one

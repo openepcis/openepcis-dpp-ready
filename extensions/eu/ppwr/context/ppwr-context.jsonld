@@ -1,16 +1,41 @@
 {
-  "_comment": "OpenEPCIS PPWR Vocabulary v0.1.0, EU Regulation 2025/40. Module is intentionally thin; nearly every PPWR data point reuses the lifted oec: cross-cutting terms (ExtendedProducerResponsibility, Compostability, Biodegradability, DepositReturnScheme, bioBasedFraction, RecycledContent, HazardousSubstance) plus untp: (Facility, Material, Claim) and gs1: (Packaging, regulatoryInformation). Only packaging-specific terms (Packaging, packagingTier, recyclabilityGrade, harmonisedSymbol) live in the euppwr: namespace.",
+  "_comment": "OpenEPCIS PPWR Vocabulary v0.9.7, generated from extensions/eu/ppwr/ontology/ppwr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/ppwr/context/.context-overrides.json for non-derivable hints.",
   "@context": [
     "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
     {
       "@version": 1.1,
-      "euppwr": "https://ref.openepcis.io/extensions/eu/ppwr/",
-      "oec": "https://ref.openepcis.io/extensions/common/core/",
-      "gs1": "https://ref.gs1.org/voc/",
-      "schema": "https://schema.org/",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
       "id": "@id",
       "type": "@type",
+      "euppwr": "https://ref.openepcis.io/extensions/eu/ppwr/",
+      "gs1": "https://ref.gs1.org/voc/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "Packaging": "euppwr:Packaging",
+      "PackagingTier": "euppwr:PackagingTier",
+      "RecyclabilityGrade": "euppwr:RecyclabilityGrade",
+      "harmonisedSymbol": {
+        "@id": "euppwr:harmonisedSymbol",
+        "@type": "xsd:anyURI"
+      },
+      "packagingTier": {
+        "@id": "euppwr:packagingTier",
+        "@type": "@vocab",
+        "@context": {
+          "Grouped": "euppwr:Grouped",
+          "Sales": "euppwr:Sales",
+          "Transport": "euppwr:Transport"
+        }
+      },
+      "recyclabilityGrade": {
+        "@id": "euppwr:recyclabilityGrade",
+        "@type": "@vocab",
+        "@context": {
+          "A": "euppwr:GradeA",
+          "B": "euppwr:GradeB",
+          "C": "euppwr:GradeC"
+        }
+      },
+      "oec": "https://ref.openepcis.io/extensions/common/core/",
+      "schema": "https://schema.org/",
       "manufacturer": {
         "@id": "gs1:manufacturer",
         "@type": "@id"
@@ -33,31 +58,6 @@
         "@id": "oec:isRegulationCompliant",
         "@type": "xsd:boolean"
       },
-      "Packaging": "euppwr:Packaging",
-      "packagingTier": {
-        "@id": "euppwr:packagingTier",
-        "@type": "@vocab",
-        "@context": {
-          "Sales": "euppwr:Sales",
-          "Grouped": "euppwr:Grouped",
-          "Transport": "euppwr:Transport"
-        }
-      },
-      "recyclabilityGrade": {
-        "@id": "euppwr:recyclabilityGrade",
-        "@type": "@vocab",
-        "@context": {
-          "A": "euppwr:GradeA",
-          "B": "euppwr:GradeB",
-          "C": "euppwr:GradeC"
-        }
-      },
-      "harmonisedSymbol": {
-        "@id": "euppwr:harmonisedSymbol",
-        "@type": "xsd:anyURI"
-      },
-      "PackagingTier": "euppwr:PackagingTier",
-      "RecyclabilityGrade": "euppwr:RecyclabilityGrade",
       "QuantitativeValue": "gs1:QuantitativeValue",
       "gs1:manufacturer": {
         "@id": "gs1:manufacturer",

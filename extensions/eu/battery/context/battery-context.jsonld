@@ -1,18 +1,1000 @@
 {
+  "_comment": "OpenEPCIS Battery Vocabulary v0.9.7, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
   "@context": [
     "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
     {
       "@version": 1.1,
-      "gs1": "https://ref.gs1.org/voc/",
-      "eubat": "https://ref.openepcis.io/extensions/eu/battery/",
-      "oec": "https://ref.openepcis.io/extensions/common/core/",
-      "schema": "https://schema.org/",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-      "cv": "http://data.europa.eu/m8g/",
-      "cccev": "http://data.europa.eu/m8g/",
       "id": "@id",
       "type": "@type",
+      "eubat": "https://ref.openepcis.io/extensions/eu/battery/",
+      "gs1": "https://ref.gs1.org/voc/",
+      "oec": "https://ref.openepcis.io/extensions/common/core/",
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "AccessLevel": "eubat:AccessLevel",
+      "Battery": "eubat:Battery",
+      "BatteryCategory": "eubat:BatteryCategory",
+      "BatteryChemistry": "eubat:BatteryChemistry",
+      "BatteryMaterial": "eubat:BatteryMaterial",
+      "BatteryStatus": "eubat:BatteryStatus",
+      "CarbonFootprintClass": "eubat:CarbonFootprintClass",
+      "CarbonFootprintDeclaration": "eubat:CarbonFootprintDeclaration",
+      "CellType": "eubat:CellType",
+      "ComplianceStatus": "eubat:ComplianceStatus",
+      "ComponentLocation": "eubat:ComponentLocation",
+      "DismantlingDocument": "eubat:DismantlingDocument",
+      "DismantlingDocumentType": "eubat:DismantlingDocumentType",
+      "EndOfLifeInfo": "eubat:EndOfLifeInfo",
+      "HazardClass": "eubat:HazardClass",
+      "HazardousSubstance": "eubat:HazardousSubstance",
+      "IncidentSeverity": "eubat:IncidentSeverity",
+      "Label": "eubat:Label",
+      "LabelSubject": "eubat:LabelSubject",
+      "MaterialCategory": "eubat:MaterialCategory",
+      "MaterialRecoveryTarget": "eubat:MaterialRecoveryTarget",
+      "NegativeEvent": "eubat:NegativeEvent",
+      "NegativeEventType": "eubat:NegativeEventType",
+      "PowerCapabilityAtSoC": "eubat:PowerCapabilityAtSoC",
+      "RecycledContent": "eubat:RecycledContent",
+      "ResponsibleSourcingStandard": "eubat:ResponsibleSourcingStandard",
+      "SupplyChainDueDiligence": "eubat:SupplyChainDueDiligence",
+      "TechnicalSpecification": "eubat:TechnicalSpecification",
+      "TemperatureRange": "eubat:TemperatureRange",
+      "ThirdPartyVerification": "eubat:ThirdPartyVerification",
+      "absoluteCarbonFootprint": {
+        "@id": "eubat:absoluteCarbonFootprint",
+        "@type": "@id"
+      },
+      "anodeActiveMaterial": {
+        "@id": "eubat:anodeActiveMaterial",
+        "@type": "xsd:string"
+      },
+      "atSoC": {
+        "@id": "eubat:atSoC",
+        "@type": "xsd:decimal"
+      },
+      "auditBody": {
+        "@id": "eubat:auditBody",
+        "@type": "xsd:string"
+      },
+      "authorizedServiceCenters": {
+        "@id": "eubat:authorizedServiceCenters",
+        "@type": "@id"
+      },
+      "batteryChemistry": {
+        "@id": "eubat:batteryChemistry",
+        "@type": "@id"
+      },
+      "batteryMass": {
+        "@id": "eubat:batteryMass",
+        "@type": "@id"
+      },
+      "batteryModelIdentifier": {
+        "@id": "eubat:batteryModelIdentifier",
+        "@type": "xsd:string"
+      },
+      "batteryPassportIdentifier": {
+        "@id": "eubat:batteryPassportIdentifier",
+        "@type": "@id"
+      },
+      "cadmiumSymbolRequired": {
+        "@id": "eubat:cadmiumSymbolRequired",
+        "@type": "xsd:boolean"
+      },
+      "calculationStandard": {
+        "@id": "eubat:calculationStandard",
+        "@type": "xsd:string"
+      },
+      "capacityFade": {
+        "@id": "eubat:capacityFade",
+        "@type": "@id"
+      },
+      "capacityFadeThreshold": {
+        "@id": "eubat:capacityFadeThreshold",
+        "@type": "xsd:decimal"
+      },
+      "capacityThresholdForExhaustion": {
+        "@id": "eubat:capacityThresholdForExhaustion",
+        "@type": "xsd:decimal"
+      },
+      "capacityThroughput": {
+        "@id": "eubat:capacityThroughput",
+        "@type": "@id"
+      },
+      "carbonFootprintDeclaration": {
+        "@id": "eubat:carbonFootprintDeclaration",
+        "@type": "@id"
+      },
+      "carbonFootprintDeclarationId": {
+        "@id": "eubat:carbonFootprintDeclarationId",
+        "@type": "xsd:string"
+      },
+      "carbonFootprintDistribution": {
+        "@id": "eubat:carbonFootprintDistribution",
+        "@type": "@id"
+      },
+      "carbonFootprintGeographicScope": {
+        "@id": "eubat:carbonFootprintGeographicScope",
+        "@type": "xsd:string"
+      },
+      "carbonFootprintPerformanceClass": {
+        "@id": "eubat:carbonFootprintPerformanceClass",
+        "@type": "@vocab",
+        "@context": {
+          "CFClassA": "eubat:CFClassA",
+          "CFClassB": "eubat:CFClassB",
+          "CFClassC": "eubat:CFClassC",
+          "CFClassD": "eubat:CFClassD",
+          "CFClassE": "eubat:CFClassE"
+        }
+      },
+      "carbonFootprintProduction": {
+        "@id": "eubat:carbonFootprintProduction",
+        "@type": "@id"
+      },
+      "carbonFootprintRawMaterialExtraction": {
+        "@id": "eubat:carbonFootprintRawMaterialExtraction",
+        "@type": "@id"
+      },
+      "carbonFootprintRecycling": {
+        "@id": "eubat:carbonFootprintRecycling",
+        "@type": "@id"
+      },
+      "carbonFootprintStudyUrl": {
+        "@id": "eubat:carbonFootprintStudyUrl",
+        "@type": "@id"
+      },
+      "carbonFootprintTotal": {
+        "@id": "eubat:carbonFootprintTotal",
+        "@type": "@id"
+      },
+      "casNumber": {
+        "@id": "eubat:casNumber",
+        "@type": "xsd:string"
+      },
+      "cathodeActiveMaterial": {
+        "@id": "eubat:cathodeActiveMaterial",
+        "@type": "xsd:string"
+      },
+      "cellType": {
+        "@id": "eubat:cellType",
+        "@type": "@vocab",
+        "@context": {
+          "BladeCell": "eubat:BladeCell",
+          "CoinCell": "eubat:CoinCell",
+          "CylindricalCell": "eubat:CylindricalCell",
+          "PouchCell": "eubat:PouchCell",
+          "PrismaticCell": "eubat:PrismaticCell"
+        }
+      },
+      "ceMarkingIndicator": {
+        "@id": "eubat:ceMarkingIndicator",
+        "@type": "xsd:boolean"
+      },
+      "certifiedUsableEnergy": {
+        "@id": "eubat:certifiedUsableEnergy",
+        "@type": "@id"
+      },
+      "cobaltPostConsumerShare": {
+        "@id": "eubat:cobaltPostConsumerShare",
+        "@type": "xsd:decimal"
+      },
+      "cobaltPreConsumerShare": {
+        "@id": "eubat:cobaltPreConsumerShare",
+        "@type": "xsd:decimal"
+      },
+      "cobaltRecycledShare": {
+        "@id": "eubat:cobaltRecycledShare",
+        "@type": "xsd:decimal"
+      },
+      "complianceStatus": {
+        "@id": "eubat:complianceStatus",
+        "@type": "@vocab",
+        "@context": {
+          "Compliant": "eubat:Compliant",
+          "ConditionallyCompliant": "eubat:ConditionallyCompliant",
+          "NonCompliant": "eubat:NonCompliant",
+          "Pending": "eubat:Pending"
+        }
+      },
+      "componentLocation": {
+        "@id": "eubat:componentLocation",
+        "@type": "@vocab",
+        "@context": {
+          "Anode": "eubat:Anode",
+          "BMS": "eubat:BMS",
+          "Casing": "eubat:Casing",
+          "Cathode": "eubat:Cathode",
+          "CurrentCollector": "eubat:CurrentCollector",
+          "Electrolyte": "eubat:Electrolyte",
+          "Separator": "eubat:Separator"
+        }
+      },
+      "concentration": {
+        "@id": "eubat:concentration",
+        "@type": "xsd:decimal"
+      },
+      "conflictMineralFree": {
+        "@id": "eubat:conflictMineralFree",
+        "@type": "xsd:boolean"
+      },
+      "cRate": {
+        "@id": "eubat:cRate",
+        "@type": "xsd:decimal"
+      },
+      "cRateLifeCycleTest": {
+        "@id": "eubat:cRateLifeCycleTest",
+        "@type": "xsd:decimal"
+      },
+      "criticalRawMaterialsStatement": "eubat:criticalRawMaterialsStatement",
+      "currentSelfDischargingRate": {
+        "@id": "eubat:currentSelfDischargingRate",
+        "@type": "@id"
+      },
+      "cycleCount": {
+        "@id": "eubat:cycleCount",
+        "@type": "@id"
+      },
+      "dangerousGoodsPackingInstructions": "eubat:dangerousGoodsPackingInstructions",
+      "dataProviderCertification": {
+        "@id": "eubat:dataProviderCertification",
+        "@type": "xsd:string"
+      },
+      "dataQualityAssessment": {
+        "@id": "eubat:dataQualityAssessment",
+        "@type": "xsd:string"
+      },
+      "declarationOfConformity": {
+        "@id": "eubat:declarationOfConformity",
+        "@type": "@id"
+      },
+      "depthOfDischargeInCycleLifeTest": {
+        "@id": "eubat:depthOfDischargeInCycleLifeTest",
+        "@type": "xsd:decimal"
+      },
+      "dismantlingAndRemovalInformation": {
+        "@id": "eubat:dismantlingAndRemovalInformation",
+        "@type": "@id"
+      },
+      "dismantlingDocuments": {
+        "@id": "eubat:dismantlingDocuments",
+        "@type": "@id"
+      },
+      "dismantlingInstructions": {
+        "@id": "eubat:dismantlingInstructions",
+        "@type": "@id"
+      },
+      "dismantlingTime": {
+        "@id": "eubat:dismantlingTime",
+        "@type": "@id"
+      },
+      "documentType": {
+        "@id": "eubat:documentType",
+        "@type": "@vocab",
+        "@context": {
+          "BillOfMaterial": "eubat:BillOfMaterial",
+          "DismantlingManual": "eubat:DismantlingManual",
+          "Drawing": "eubat:Drawing",
+          "Model3D": "eubat:Model3D",
+          "OtherManual": "eubat:OtherManual",
+          "RemovalManual": "eubat:RemovalManual",
+          "SafetyDataSheet": "eubat:SafetyDataSheet"
+        }
+      },
+      "documentUrl": {
+        "@id": "eubat:documentUrl",
+        "@type": "@id"
+      },
+      "dueDiligencePolicyUrl": {
+        "@id": "eubat:dueDiligencePolicyUrl",
+        "@type": "@id"
+      },
+      "dueDiligenceReportUrl": {
+        "@id": "eubat:dueDiligenceReportUrl",
+        "@type": "@id"
+      },
+      "ecNumber": {
+        "@id": "eubat:ecNumber",
+        "@type": "xsd:string"
+      },
+      "electrolyteComposition": {
+        "@id": "eubat:electrolyteComposition",
+        "@type": "xsd:string"
+      },
+      "electrolyteType": "eubat:electrolyteType",
+      "endOfLifeInfo": {
+        "@id": "eubat:endOfLifeInfo",
+        "@type": "@id"
+      },
+      "energyThroughput": {
+        "@id": "eubat:energyThroughput",
+        "@type": "@id"
+      },
+      "estimatedImpact": "eubat:estimatedImpact",
+      "euDeclarationOfConformity": {
+        "@id": "eubat:euDeclarationOfConformity",
+        "@type": "@id"
+      },
+      "euDeclarationOfConformityId": {
+        "@id": "eubat:euDeclarationOfConformityId",
+        "@type": "xsd:string"
+      },
+      "eventDate": {
+        "@id": "eubat:eventDate",
+        "@type": "xsd:dateTime"
+      },
+      "eventLocation": {
+        "@id": "eubat:eventLocation",
+        "@type": "@id"
+      },
+      "eventType": {
+        "@id": "eubat:eventType",
+        "@type": "@vocab",
+        "@context": {
+          "Accident": "eubat:Accident",
+          "DeepDischarge": "eubat:DeepDischarge",
+          "ElectricalFault": "eubat:ElectricalFault",
+          "Overcharge": "eubat:Overcharge",
+          "PhysicalDamage": "eubat:PhysicalDamage",
+          "ShortCircuit": "eubat:ShortCircuit",
+          "ThermalEvent": "eubat:ThermalEvent",
+          "WaterIngress": "eubat:WaterIngress"
+        }
+      },
+      "evolutionOfSelfDischarge": {
+        "@id": "eubat:evolutionOfSelfDischarge",
+        "@type": "@id"
+      },
+      "exceedanceThreshold": {
+        "@id": "eubat:exceedanceThreshold",
+        "@type": "xsd:decimal"
+      },
+      "exhaustionThreshold": {
+        "@id": "eubat:exhaustionThreshold",
+        "@type": "xsd:decimal"
+      },
+      "expectedCycleLife": {
+        "@id": "eubat:expectedCycleLife",
+        "@type": "xsd:integer"
+      },
+      "expectedLifetime": {
+        "@id": "eubat:expectedLifetime",
+        "@type": "@id"
+      },
+      "expectedLifetimeCapacityThroughput": {
+        "@id": "eubat:expectedLifetimeCapacityThroughput",
+        "@type": "@id"
+      },
+      "expectedLifetimeEnergyThroughput": {
+        "@id": "eubat:expectedLifetimeEnergyThroughput",
+        "@type": "@id"
+      },
+      "expectedLifetimeYears": {
+        "@id": "eubat:expectedLifetimeYears",
+        "@type": "xsd:integer"
+      },
+      "expectedNumberOfCycles": {
+        "@id": "eubat:expectedNumberOfCycles",
+        "@type": "xsd:integer"
+      },
+      "expectedRemainingCycles": {
+        "@id": "eubat:expectedRemainingCycles",
+        "@type": "xsd:integer"
+      },
+      "expectedRemainingLifetimeMonths": {
+        "@id": "eubat:expectedRemainingLifetimeMonths",
+        "@type": "xsd:integer"
+      },
+      "exposureDurationMinutes": {
+        "@id": "eubat:exposureDurationMinutes",
+        "@type": "xsd:integer"
+      },
+      "exposureEndTime": {
+        "@id": "eubat:exposureEndTime",
+        "@type": "xsd:dateTime"
+      },
+      "extendedWarrantyAvailable": {
+        "@id": "eubat:extendedWarrantyAvailable",
+        "@type": "xsd:boolean"
+      },
+      "extinguishingAgent": "eubat:extinguishingAgent",
+      "facilityIdentifier": {
+        "@id": "eubat:facilityIdentifier",
+        "@type": "xsd:string"
+      },
+      "functionalUnit": {
+        "@id": "eubat:functionalUnit",
+        "@type": "xsd:string"
+      },
+      "hasBattery": {
+        "@id": "eubat:hasBattery",
+        "@type": "@id"
+      },
+      "hazardClass": {
+        "@id": "eubat:hazardClass",
+        "@type": "@vocab",
+        "@context": {
+          "AcuteToxicity": "eubat:AcuteToxicity",
+          "AspirationHazard": "eubat:AspirationHazard",
+          "Carcinogenicity": "eubat:Carcinogenicity",
+          "EyeDamageOrIrritation": "eubat:EyeDamageOrIrritation",
+          "GermCellMutagenicity": "eubat:GermCellMutagenicity",
+          "HazardousToAquaticEnvironment": "eubat:HazardousToAquaticEnvironment",
+          "ReproductiveToxicity": "eubat:ReproductiveToxicity",
+          "RespiratoryOrSkinSensitization": "eubat:RespiratoryOrSkinSensitization",
+          "SkinCorrosionOrIrritation": "eubat:SkinCorrosionOrIrritation",
+          "SpecificTargetOrganToxicity": "eubat:SpecificTargetOrganToxicity"
+        }
+      },
+      "hazardImpact": "eubat:hazardImpact",
+      "hazardousSubstances": {
+        "@id": "eubat:hazardousSubstances",
+        "@type": "@id"
+      },
+      "incidentId": {
+        "@id": "eubat:incidentId",
+        "@type": "xsd:string"
+      },
+      "incidentReportUrl": {
+        "@id": "eubat:incidentReportUrl",
+        "@type": "@id"
+      },
+      "incidentSeverity": {
+        "@id": "eubat:incidentSeverity",
+        "@type": "@vocab",
+        "@context": {
+          "Critical": "eubat:Critical",
+          "Major": "eubat:Major",
+          "Minor": "eubat:Minor",
+          "Moderate": "eubat:Moderate"
+        }
+      },
+      "informationOnCollection": {
+        "@id": "eubat:informationOnCollection",
+        "@type": "@id"
+      },
+      "initialCapacity": {
+        "@id": "eubat:initialCapacity",
+        "@type": "@id"
+      },
+      "initialEnergy": {
+        "@id": "eubat:initialEnergy",
+        "@type": "@id"
+      },
+      "initialInternalResistance": {
+        "@id": "eubat:initialInternalResistance",
+        "@type": "@id"
+      },
+      "initialSelfDischarge": {
+        "@id": "eubat:initialSelfDischarge",
+        "@type": "xsd:decimal"
+      },
+      "inspectorId": {
+        "@id": "eubat:inspectorId",
+        "@type": "xsd:string"
+      },
+      "internalResistance": {
+        "@id": "eubat:internalResistance",
+        "@type": "@id"
+      },
+      "internalResistanceIncrease": {
+        "@id": "eubat:internalResistanceIncrease",
+        "@type": "@id"
+      },
+      "isCriticalRawMaterial": {
+        "@id": "eubat:isCriticalRawMaterial",
+        "@type": "xsd:boolean"
+      },
+      "isSubstanceOfConcern": {
+        "@id": "eubat:isSubstanceOfConcern",
+        "@type": "xsd:boolean"
+      },
+      "labelMeaning": "eubat:labelMeaning",
+      "labels": {
+        "@id": "eubat:labels",
+        "@type": "@id"
+      },
+      "labelSubject": {
+        "@id": "eubat:labelSubject",
+        "@type": "@vocab",
+        "@context": {
+          "CadmiumContent": "eubat:CadmiumContent",
+          "CapacityLabel": "eubat:CapacityLabel",
+          "CarbonFootprintLabel": "eubat:CarbonFootprintLabel",
+          "ExtinguishingAgentLabel": "eubat:ExtinguishingAgentLabel",
+          "LeadContent": "eubat:LeadContent",
+          "MercuryContent": "eubat:MercuryContent",
+          "QRCodeLabel": "eubat:QRCodeLabel",
+          "SeparateCollection": "eubat:SeparateCollection"
+        }
+      },
+      "labelSymbol": {
+        "@id": "eubat:labelSymbol",
+        "@type": "@id"
+      },
+      "languageCode": {
+        "@id": "eubat:languageCode",
+        "@type": "xsd:string"
+      },
+      "lastDataUpdate": {
+        "@id": "eubat:lastDataUpdate",
+        "@type": "xsd:dateTime"
+      },
+      "leadRecycledShare": {
+        "@id": "eubat:leadRecycledShare",
+        "@type": "xsd:decimal"
+      },
+      "leadSymbolRequired": {
+        "@id": "eubat:leadSymbolRequired",
+        "@type": "xsd:boolean"
+      },
+      "lifecycleStage": {
+        "@id": "eubat:lifecycleStage",
+        "@type": "xsd:string"
+      },
+      "lifetimeReferenceTest": {
+        "@id": "eubat:lifetimeReferenceTest",
+        "@type": "@id"
+      },
+      "lithiumPostConsumerShare": {
+        "@id": "eubat:lithiumPostConsumerShare",
+        "@type": "xsd:decimal"
+      },
+      "lithiumPreConsumerShare": {
+        "@id": "eubat:lithiumPreConsumerShare",
+        "@type": "xsd:decimal"
+      },
+      "lithiumRecycledShare": {
+        "@id": "eubat:lithiumRecycledShare",
+        "@type": "xsd:decimal"
+      },
+      "manufacturerIdentifier": {
+        "@id": "eubat:manufacturerIdentifier",
+        "@type": "xsd:string"
+      },
+      "manufacturingPlace": {
+        "@id": "eubat:manufacturingPlace",
+        "@type": "@id"
+      },
+      "materialComposition": {
+        "@id": "eubat:materialComposition",
+        "@type": "@id"
+      },
+      "materialRecoveryTargets": {
+        "@id": "eubat:materialRecoveryTargets",
+        "@type": "@id"
+      },
+      "materialSupplier": {
+        "@id": "eubat:materialSupplier",
+        "@type": "xsd:string"
+      },
+      "maximumChargingCurrent": {
+        "@id": "eubat:maximumChargingCurrent",
+        "@type": "@id"
+      },
+      "maximumChargingPower": {
+        "@id": "eubat:maximumChargingPower",
+        "@type": "@id"
+      },
+      "maximumDischargingCurrent": {
+        "@id": "eubat:maximumDischargingCurrent",
+        "@type": "@id"
+      },
+      "maximumDischargingPower": {
+        "@id": "eubat:maximumDischargingPower",
+        "@type": "@id"
+      },
+      "maximumPermittedBatteryPower": {
+        "@id": "eubat:maximumPermittedBatteryPower",
+        "@type": "@id"
+      },
+      "maximumTemperature": {
+        "@id": "eubat:maximumTemperature",
+        "@type": "@id"
+      },
+      "maximumVoltage": {
+        "@id": "eubat:maximumVoltage",
+        "@type": "@id"
+      },
+      "measurementCertificateUrl": {
+        "@id": "eubat:measurementCertificateUrl",
+        "@type": "@id"
+      },
+      "mimeType": {
+        "@id": "eubat:mimeType",
+        "@type": "xsd:string"
+      },
+      "minimumTemperature": {
+        "@id": "eubat:minimumTemperature",
+        "@type": "@id"
+      },
+      "minimumVoltage": {
+        "@id": "eubat:minimumVoltage",
+        "@type": "@id"
+      },
+      "negativeEvents": {
+        "@id": "eubat:negativeEvents",
+        "@type": "@id"
+      },
+      "nextScheduledMeasurement": {
+        "@id": "eubat:nextScheduledMeasurement",
+        "@type": "xsd:date"
+      },
+      "nickelPostConsumerShare": {
+        "@id": "eubat:nickelPostConsumerShare",
+        "@type": "xsd:decimal"
+      },
+      "nickelPreConsumerShare": {
+        "@id": "eubat:nickelPreConsumerShare",
+        "@type": "xsd:decimal"
+      },
+      "nickelRecycledShare": {
+        "@id": "eubat:nickelRecycledShare",
+        "@type": "xsd:decimal"
+      },
+      "nominalVoltage": {
+        "@id": "eubat:nominalVoltage",
+        "@type": "@id"
+      },
+      "note": "eubat:note",
+      "notifiedBody": {
+        "@id": "eubat:notifiedBody",
+        "@type": "@id"
+      },
+      "notifiedBodyName": {
+        "@id": "eubat:notifiedBodyName",
+        "@type": "xsd:string"
+      },
+      "notifiedBodyNumber": {
+        "@id": "eubat:notifiedBodyNumber",
+        "@type": "xsd:string"
+      },
+      "numberOfCells": {
+        "@id": "eubat:numberOfCells",
+        "@type": "xsd:integer"
+      },
+      "numberOfFullCycles": {
+        "@id": "eubat:numberOfFullCycles",
+        "@type": "xsd:integer"
+      },
+      "numberOfModules": {
+        "@id": "eubat:numberOfModules",
+        "@type": "xsd:integer"
+      },
+      "operatorIdentifier": {
+        "@id": "eubat:operatorIdentifier",
+        "@type": "xsd:string"
+      },
+      "operatorInformation": {
+        "@id": "eubat:operatorInformation",
+        "@type": "@id"
+      },
+      "operatorRole": {
+        "@id": "eubat:operatorRole",
+        "@type": "@vocab",
+        "@context": {
+          "Manufacturer": "oec:Manufacturer",
+          "Importer": "oec:Importer",
+          "Distributor": "oec:Distributor",
+          "Fulfilment": "oec:FulfilmentServiceProvider",
+          "AuthorisedRepresentative": "oec:AuthorisedRepresentative"
+        }
+      },
+      "originalPowerCapability": {
+        "@id": "eubat:originalPowerCapability",
+        "@type": "@id"
+      },
+      "powerCapability": {
+        "@id": "eubat:powerCapability",
+        "@type": "@id"
+      },
+      "powerCapabilityAt20SoC": {
+        "@id": "eubat:powerCapabilityAt20SoC",
+        "@type": "@id"
+      },
+      "powerCapabilityAt80SoC": {
+        "@id": "eubat:powerCapabilityAt80SoC",
+        "@type": "@id"
+      },
+      "powerCapabilityRatio": {
+        "@id": "eubat:powerCapabilityRatio",
+        "@type": "xsd:decimal"
+      },
+      "powerFade": {
+        "@id": "eubat:powerFade",
+        "@type": "@id"
+      },
+      "previousApplications": "eubat:previousApplications",
+      "puttingIntoService": {
+        "@id": "eubat:puttingIntoService",
+        "@type": "xsd:date"
+      },
+      "ratedCapacity": {
+        "@id": "eubat:ratedCapacity",
+        "@type": "@id"
+      },
+      "ratedEnergy": {
+        "@id": "eubat:ratedEnergy",
+        "@type": "@id"
+      },
+      "ratedMaximumPower": {
+        "@id": "eubat:ratedMaximumPower",
+        "@type": "@id"
+      },
+      "recommendedAction": "eubat:recommendedAction",
+      "recoveryMaterial": {
+        "@id": "eubat:recoveryMaterial",
+        "@type": "xsd:string"
+      },
+      "recoveryRate": {
+        "@id": "eubat:recoveryRate",
+        "@type": "xsd:decimal"
+      },
+      "recyclabilityRate": {
+        "@id": "eubat:recyclabilityRate",
+        "@type": "xsd:decimal"
+      },
+      "recycledContent": {
+        "@id": "eubat:recycledContent",
+        "@type": "@id"
+      },
+      "remainingCapacity": {
+        "@id": "eubat:remainingCapacity",
+        "@type": "@id"
+      },
+      "remainingEnergy": {
+        "@id": "eubat:remainingEnergy",
+        "@type": "@id"
+      },
+      "remainingPowerCapability": {
+        "@id": "eubat:remainingPowerCapability",
+        "@type": "@id"
+      },
+      "remainingRoundTripEfficiency": {
+        "@id": "eubat:remainingRoundTripEfficiency",
+        "@type": "@id"
+      },
+      "remainingUsableEnergy": {
+        "@id": "eubat:remainingUsableEnergy",
+        "@type": "@id"
+      },
+      "renewableContent": {
+        "@id": "eubat:renewableContent",
+        "@type": "xsd:decimal"
+      },
+      "renewableContentShare": {
+        "@id": "eubat:renewableContentShare",
+        "@type": "xsd:decimal"
+      },
+      "repurposingDate": {
+        "@id": "eubat:repurposingDate",
+        "@type": "xsd:date"
+      },
+      "repurposingEntity": {
+        "@id": "eubat:repurposingEntity",
+        "@type": "@id"
+      },
+      "repurposingGuidelines": {
+        "@id": "eubat:repurposingGuidelines",
+        "@type": "@id"
+      },
+      "repurposingPotential": "eubat:repurposingPotential",
+      "resistanceIncreaseThreshold": {
+        "@id": "eubat:resistanceIncreaseThreshold",
+        "@type": "xsd:decimal"
+      },
+      "responsibleSourcingStandard": {
+        "@id": "eubat:responsibleSourcingStandard",
+        "@type": "@vocab",
+        "@context": {
+          "AluminiumStewardship": "eubat:AluminiumStewardship",
+          "CobaltIndustryResponsibleAssessment": "eubat:CobaltIndustryResponsibleAssessment",
+          "CopperMark": "eubat:CopperMark",
+          "IRMA": "eubat:IRMA",
+          "OECDGuidelines": "eubat:OECDGuidelines",
+          "RMI": "eubat:RMI"
+        }
+      },
+      "resultOfTestReport": {
+        "@id": "eubat:resultOfTestReport",
+        "@type": "@id"
+      },
+      "riskAssessmentSummary": "eubat:riskAssessmentSummary",
+      "roundTripEfficiency": {
+        "@id": "eubat:roundTripEfficiency",
+        "@type": "xsd:decimal"
+      },
+      "roundTripEfficiencyAt50PercentCycleLife": {
+        "@id": "eubat:roundTripEfficiencyAt50PercentCycleLife",
+        "@type": "xsd:decimal"
+      },
+      "roundTripEfficiencyFade": {
+        "@id": "eubat:roundTripEfficiencyFade",
+        "@type": "@id"
+      },
+      "roundTripEnergyEfficiency": {
+        "@id": "eubat:roundTripEnergyEfficiency",
+        "@type": "xsd:decimal"
+      },
+      "safetyInstructions": {
+        "@id": "eubat:safetyInstructions",
+        "@type": "@id"
+      },
+      "safetyInstructionsForDismantling": {
+        "@id": "eubat:safetyInstructionsForDismantling",
+        "@type": "@id"
+      },
+      "safetyMeasures": {
+        "@id": "eubat:safetyMeasures",
+        "@type": "xsd:string"
+      },
+      "selfDischargeRate": {
+        "@id": "eubat:selfDischargeRate",
+        "@type": "@id"
+      },
+      "separateCollection": {
+        "@id": "eubat:separateCollection",
+        "@type": "@id"
+      },
+      "separateCollectionSymbolUrl": {
+        "@id": "eubat:separateCollectionSymbolUrl",
+        "@type": "@id"
+      },
+      "shippingName": "eubat:shippingName",
+      "soceMeasurementId": {
+        "@id": "eubat:soceMeasurementId",
+        "@type": "xsd:string"
+      },
+      "spareParts": "eubat:spareParts",
+      "sparePartSources": {
+        "@id": "eubat:sparePartSources",
+        "@type": "@id"
+      },
+      "stateOfCertifiedEnergy": {
+        "@id": "eubat:stateOfCertifiedEnergy",
+        "@type": "@id"
+      },
+      "stateOfCharge": {
+        "@id": "eubat:stateOfCharge",
+        "@type": "@id"
+      },
+      "stateOfChargeLevel": {
+        "@id": "eubat:stateOfChargeLevel",
+        "@type": "xsd:decimal"
+      },
+      "stateOfHealth": {
+        "@id": "eubat:stateOfHealth",
+        "@type": "@id"
+      },
+      "substanceCasNumber": {
+        "@id": "eubat:substanceCasNumber",
+        "@type": "xsd:string"
+      },
+      "substanceEcNumber": {
+        "@id": "eubat:substanceEcNumber",
+        "@type": "xsd:string"
+      },
+      "substanceLocation": {
+        "@id": "eubat:substanceLocation",
+        "@type": "@vocab",
+        "@context": {
+          "Anode": "eubat:Anode",
+          "BMS": "eubat:BMS",
+          "Casing": "eubat:Casing",
+          "Cathode": "eubat:Cathode",
+          "CurrentCollector": "eubat:CurrentCollector",
+          "Electrolyte": "eubat:Electrolyte",
+          "Separator": "eubat:Separator"
+        }
+      },
+      "supplierContact": {
+        "@id": "eubat:supplierContact",
+        "@type": "@id"
+      },
+      "supplyChainDueDiligence": {
+        "@id": "eubat:supplyChainDueDiligence",
+        "@type": "@id"
+      },
+      "supplyChainIndex": {
+        "@id": "eubat:supplyChainIndex",
+        "@type": "xsd:decimal"
+      },
+      "supplyChainMappingAvailable": {
+        "@id": "eubat:supplyChainMappingAvailable",
+        "@type": "xsd:boolean"
+      },
+      "technicalSpecifications": {
+        "@id": "eubat:technicalSpecifications",
+        "@type": "@id"
+      },
+      "temperatureExcursionId": {
+        "@id": "eubat:temperatureExcursionId",
+        "@type": "xsd:string"
+      },
+      "temperatureExcursionReportUrl": {
+        "@id": "eubat:temperatureExcursionReportUrl",
+        "@type": "@id"
+      },
+      "temperatureRangeCharging": {
+        "@id": "eubat:temperatureRangeCharging",
+        "@type": "@id"
+      },
+      "temperatureRangeDischarging": {
+        "@id": "eubat:temperatureRangeDischarging",
+        "@type": "@id"
+      },
+      "temperatureRangeIdleState": {
+        "@id": "eubat:temperatureRangeIdleState",
+        "@type": "@id"
+      },
+      "temperatureRangeStorage": {
+        "@id": "eubat:temperatureRangeStorage",
+        "@type": "@id"
+      },
+      "testReportNumber": {
+        "@id": "eubat:testReportNumber",
+        "@type": "xsd:string"
+      },
+      "thirdPartyAssurancesUrl": {
+        "@id": "eubat:thirdPartyAssurancesUrl",
+        "@type": "@id"
+      },
+      "thirdPartyVerification": {
+        "@id": "eubat:thirdPartyVerification",
+        "@type": "@id"
+      },
+      "timeSpentChargingDuringExtremeTemperaturesAboveBoundary": {
+        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
+        "@type": "xsd:integer"
+      },
+      "timeSpentChargingDuringExtremeTemperaturesBelowBoundary": {
+        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
+        "@type": "xsd:integer"
+      },
+      "timeSpentInExtremeTemperaturesAboveBoundary": {
+        "@id": "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
+        "@type": "xsd:integer"
+      },
+      "timeSpentInExtremeTemperaturesBelowBoundary": {
+        "@id": "eubat:timeSpentInExtremeTemperaturesBelowBoundary",
+        "@type": "xsd:integer"
+      },
+      "transportationSafetyClass": {
+        "@id": "eubat:transportationSafetyClass",
+        "@type": "xsd:string"
+      },
+      "transportConditions": "eubat:transportConditions",
+      "verificationBody": {
+        "@id": "eubat:verificationBody",
+        "@type": "@id"
+      },
+      "verificationBodyName": {
+        "@id": "eubat:verificationBodyName",
+        "@type": "xsd:string"
+      },
+      "verificationCertificateUrl": {
+        "@id": "eubat:verificationCertificateUrl",
+        "@type": "@id"
+      },
+      "verificationDate": {
+        "@id": "eubat:verificationDate",
+        "@type": "xsd:date"
+      },
+      "verificationStandard": {
+        "@id": "eubat:verificationStandard",
+        "@type": "xsd:string"
+      },
+      "warrantyConditions": {
+        "@id": "eubat:warrantyConditions",
+        "@type": "@id"
+      },
+      "wastePrevention": {
+        "@id": "eubat:wastePrevention",
+        "@type": "@id"
+      },
+      "schema": "https://schema.org/",
+      "cv": "http://data.europa.eu/m8g/",
+      "cccev": "http://data.europa.eu/m8g/",
       "Product": "gs1:Product",
       "productName": "gs1:productName",
       "gtin": "gs1:gtin",
@@ -31,10 +1013,6 @@
       },
       "grossWeight": {
         "@id": "gs1:grossWeight",
-        "@type": "@id"
-      },
-      "hasBattery": {
-        "@id": "eubat:hasBattery",
         "@type": "@id"
       },
       "AdditionalProductClassificationDetails": "gs1:AdditionalProductClassificationDetails",
@@ -60,38 +1038,8 @@
       "regulatoryPermitIdentification": "gs1:regulatoryPermitIdentification",
       "isRegulationCompliant": "gs1:isRegulationCompliant",
       "regulatoryInformationProvider": "gs1:regulatoryInformationProvider",
-      "Battery": "eubat:Battery",
-      "BatteryChemistry": "eubat:BatteryChemistry",
-      "TechnicalSpecification": "eubat:TechnicalSpecification",
-      "BatteryMaterial": "eubat:BatteryMaterial",
-      "RecycledContent": "eubat:RecycledContent",
-      "EndOfLifeInfo": "eubat:EndOfLifeInfo",
-      "HazardousSubstance": "eubat:HazardousSubstance",
-      "DismantlingDocument": "eubat:DismantlingDocument",
-      "Label": "eubat:Label",
-      "SupplyChainDueDiligence": "eubat:SupplyChainDueDiligence",
-      "PowerCapabilityAtSoC": "eubat:PowerCapabilityAtSoC",
-      "TemperatureRange": "eubat:TemperatureRange",
-      "NegativeEvent": "eubat:NegativeEvent",
-      "CarbonFootprintDeclaration": "eubat:CarbonFootprintDeclaration",
-      "ThirdPartyVerification": "eubat:ThirdPartyVerification",
-      "MaterialRecoveryTarget": "eubat:MaterialRecoveryTarget",
       "QuantitativeValue": "gs1:QuantitativeValue",
-      "BatteryCategory": "eubat:BatteryCategory",
-      "BatteryStatus": "eubat:BatteryStatus",
-      "CellType": "eubat:CellType",
-      "ComponentLocation": "eubat:ComponentLocation",
-      "MaterialCategory": "eubat:MaterialCategory",
-      "HazardClass": "eubat:HazardClass",
-      "DismantlingDocumentType": "eubat:DismantlingDocumentType",
-      "LabelSubject": "eubat:LabelSubject",
       "OperatorRole": "oec:OperatorRole",
-      "IncidentSeverity": "eubat:IncidentSeverity",
-      "NegativeEventType": "eubat:NegativeEventType",
-      "ComplianceStatus": "eubat:ComplianceStatus",
-      "CarbonFootprintClass": "eubat:CarbonFootprintClass",
-      "ResponsibleSourcingStandard": "eubat:ResponsibleSourcingStandard",
-      "AccessLevel": "eubat:AccessLevel",
       "PublicAccess": "eubat:PublicAccess",
       "AuthorizedAccess": "eubat:AuthorizedAccess",
       "AuthoritiesOnly": "eubat:AuthoritiesOnly",
@@ -119,40 +1067,7 @@
         }
       },
       "batteryModel": "schema:model",
-      "batteryModelIdentifier": "eubat:batteryModelIdentifier",
       "batterySerialNumber": "gs1:hasSerialNumber",
-      "facilityIdentifier": "eubat:facilityIdentifier",
-      "manufacturingPlace": {
-        "@id": "eubat:manufacturingPlace",
-        "@type": "@id"
-      },
-      "cellType": {
-        "@id": "eubat:cellType",
-        "@type": "@vocab",
-        "@context": {
-          "CylindricalCell": "eubat:CylindricalCell",
-          "PrismaticCell": "eubat:PrismaticCell",
-          "PouchCell": "eubat:PouchCell",
-          "BladeCell": "eubat:BladeCell",
-          "CoinCell": "eubat:CoinCell"
-        }
-      },
-      "numberOfCells": {
-        "@id": "eubat:numberOfCells",
-        "@type": "xsd:integer"
-      },
-      "numberOfModules": {
-        "@id": "eubat:numberOfModules",
-        "@type": "xsd:integer"
-      },
-      "puttingIntoService": {
-        "@id": "eubat:puttingIntoService",
-        "@type": "xsd:date"
-      },
-      "batteryPassportIdentifier": {
-        "@id": "eubat:batteryPassportIdentifier",
-        "@type": "@id"
-      },
       "schemaVersion": "schema:schemaVersion",
       "dppStatus": {
         "@id": "oec:passportStatus"
@@ -171,189 +1086,9 @@
         "@id": "oec:lastUpdated",
         "@type": "xsd:dateTime"
       },
-      "batteryChemistry": {
-        "@id": "eubat:batteryChemistry",
-        "@type": "@id"
-      },
       "shortName": "schema:name",
       "fullName": "schema:name",
-      "cathodeActiveMaterial": "eubat:cathodeActiveMaterial",
-      "anodeActiveMaterial": "eubat:anodeActiveMaterial",
-      "electrolyteType": "eubat:electrolyteType",
-      "electrolyteComposition": "eubat:electrolyteComposition",
-      "technicalSpecifications": {
-        "@id": "eubat:technicalSpecifications",
-        "@type": "@id"
-      },
-      "ratedCapacity": {
-        "@id": "eubat:ratedCapacity",
-        "@type": "@id"
-      },
-      "ratedEnergy": {
-        "@id": "eubat:ratedEnergy",
-        "@type": "@id"
-      },
-      "nominalVoltage": {
-        "@id": "eubat:nominalVoltage",
-        "@type": "@id"
-      },
-      "minimumVoltage": {
-        "@id": "eubat:minimumVoltage",
-        "@type": "@id"
-      },
-      "maximumVoltage": {
-        "@id": "eubat:maximumVoltage",
-        "@type": "@id"
-      },
-      "ratedMaximumPower": {
-        "@id": "eubat:ratedMaximumPower",
-        "@type": "@id"
-      },
-      "maximumChargingPower": {
-        "@id": "eubat:maximumChargingPower",
-        "@type": "@id"
-      },
-      "maximumDischargingPower": {
-        "@id": "eubat:maximumDischargingPower",
-        "@type": "@id"
-      },
-      "maximumChargingCurrent": {
-        "@id": "eubat:maximumChargingCurrent",
-        "@type": "@id"
-      },
-      "maximumDischargingCurrent": {
-        "@id": "eubat:maximumDischargingCurrent",
-        "@type": "@id"
-      },
-      "expectedCycleLife": {
-        "@id": "eubat:expectedCycleLife",
-        "@type": "xsd:integer"
-      },
-      "expectedLifetimeYears": {
-        "@id": "eubat:expectedLifetimeYears",
-        "@type": "xsd:integer"
-      },
-      "expectedLifetimeEnergyThroughput": {
-        "@id": "eubat:expectedLifetimeEnergyThroughput",
-        "@type": "@id"
-      },
-      "expectedLifetimeCapacityThroughput": {
-        "@id": "eubat:expectedLifetimeCapacityThroughput",
-        "@type": "@id"
-      },
-      "roundTripEfficiency": {
-        "@id": "eubat:roundTripEfficiency",
-        "@type": "xsd:decimal"
-      },
-      "roundTripEfficiencyAt50PercentCycleLife": {
-        "@id": "eubat:roundTripEfficiencyAt50PercentCycleLife",
-        "@type": "xsd:decimal"
-      },
-      "depthOfDischargeInCycleLifeTest": {
-        "@id": "eubat:depthOfDischargeInCycleLifeTest",
-        "@type": "xsd:decimal"
-      },
-      "capacityFadeThreshold": {
-        "@id": "eubat:capacityFadeThreshold",
-        "@type": "xsd:decimal"
-      },
-      "resistanceIncreaseThreshold": {
-        "@id": "eubat:resistanceIncreaseThreshold",
-        "@type": "xsd:decimal"
-      },
-      "initialInternalResistance": {
-        "@id": "eubat:initialInternalResistance",
-        "@type": "@id"
-      },
-      "initialSelfDischarge": {
-        "@id": "eubat:initialSelfDischarge",
-        "@type": "xsd:decimal"
-      },
-      "capacityThresholdForExhaustion": {
-        "@id": "eubat:capacityThresholdForExhaustion",
-        "@type": "xsd:decimal"
-      },
-      "lifetimeReferenceTest": {
-        "@id": "eubat:lifetimeReferenceTest",
-        "@type": "@id"
-      },
-      "powerCapabilityRatio": {
-        "@id": "eubat:powerCapabilityRatio",
-        "@type": "xsd:decimal"
-      },
-      "cRate": {
-        "@id": "eubat:cRate",
-        "@type": "xsd:decimal"
-      },
-      "cRateLifeCycleTest": {
-        "@id": "eubat:cRateLifeCycleTest",
-        "@type": "xsd:decimal"
-      },
-      "originalPowerCapability": {
-        "@id": "eubat:originalPowerCapability",
-        "@type": "@id"
-      },
-      "stateOfChargeLevel": {
-        "@id": "eubat:stateOfChargeLevel",
-        "@type": "xsd:decimal"
-      },
-      "powerCapability": {
-        "@id": "eubat:powerCapability",
-        "@type": "@id"
-      },
-      "powerCapabilityAt80SoC": {
-        "@id": "eubat:powerCapabilityAt80SoC",
-        "@type": "@id"
-      },
-      "powerCapabilityAt20SoC": {
-        "@id": "eubat:powerCapabilityAt20SoC",
-        "@type": "@id"
-      },
-      "temperatureRangeStorage": {
-        "@id": "eubat:temperatureRangeStorage",
-        "@type": "@id"
-      },
-      "temperatureRangeCharging": {
-        "@id": "eubat:temperatureRangeCharging",
-        "@type": "@id"
-      },
-      "temperatureRangeDischarging": {
-        "@id": "eubat:temperatureRangeDischarging",
-        "@type": "@id"
-      },
-      "temperatureRangeIdleState": {
-        "@id": "eubat:temperatureRangeIdleState",
-        "@type": "@id"
-      },
-      "minimumTemperature": {
-        "@id": "eubat:minimumTemperature",
-        "@type": "@id"
-      },
-      "maximumTemperature": {
-        "@id": "eubat:maximumTemperature",
-        "@type": "@id"
-      },
-      "lifecycleStage": "eubat:lifecycleStage",
-      "materialComposition": {
-        "@id": "eubat:materialComposition",
-        "@type": "@id"
-      },
       "materialName": "schema:name",
-      "casNumber": "eubat:casNumber",
-      "ecNumber": "eubat:ecNumber",
-      "componentLocation": {
-        "@id": "eubat:componentLocation",
-        "@type": "@vocab",
-        "@context": {
-          "Cathode": "eubat:Cathode",
-          "Anode": "eubat:Anode",
-          "Electrolyte": "eubat:Electrolyte",
-          "Separator": "eubat:Separator",
-          "Casing": "eubat:Casing",
-          "CurrentCollector": "eubat:CurrentCollector",
-          "BMS": "eubat:BMS"
-        }
-      },
       "materialCategory": {
         "@id": "schema:category",
         "@type": "@vocab",
@@ -369,57 +1104,7 @@
         "@id": "schema:weightPercentage",
         "@type": "xsd:decimal"
       },
-      "isCriticalRawMaterial": {
-        "@id": "eubat:isCriticalRawMaterial",
-        "@type": "xsd:boolean"
-      },
-      "isSubstanceOfConcern": {
-        "@id": "eubat:isSubstanceOfConcern",
-        "@type": "xsd:boolean"
-      },
       "materialSourceCountry": "gs1:countryOfOrigin",
-      "materialSupplier": "eubat:materialSupplier",
-      "renewableContentShare": {
-        "@id": "eubat:renewableContentShare",
-        "@type": "xsd:decimal"
-      },
-      "criticalRawMaterialsStatement": "eubat:criticalRawMaterialsStatement",
-      "recycledContent": {
-        "@id": "eubat:recycledContent",
-        "@type": "@id"
-      },
-      "lithiumRecycledShare": {
-        "@id": "eubat:lithiumRecycledShare",
-        "@type": "xsd:decimal"
-      },
-      "lithiumPreConsumerShare": {
-        "@id": "eubat:lithiumPreConsumerShare",
-        "@type": "xsd:decimal"
-      },
-      "lithiumPostConsumerShare": {
-        "@id": "eubat:lithiumPostConsumerShare",
-        "@type": "xsd:decimal"
-      },
-      "cobaltRecycledShare": {
-        "@id": "eubat:cobaltRecycledShare",
-        "@type": "xsd:decimal"
-      },
-      "cobaltPreConsumerShare": {
-        "@id": "eubat:cobaltPreConsumerShare",
-        "@type": "xsd:decimal"
-      },
-      "cobaltPostConsumerShare": {
-        "@id": "eubat:cobaltPostConsumerShare",
-        "@type": "xsd:decimal"
-      },
-      "nickelRecycledShare": {
-        "@id": "eubat:nickelRecycledShare",
-        "@type": "xsd:decimal"
-      },
-      "nickelPreConsumerShare": {
-        "@id": "eubat:nickelPreConsumerShare",
-        "@type": "xsd:decimal"
-      },
       "leadPreConsumerShare": {
         "@id": "eubat:leadPreConsumerShare",
         "@type": "xsd:decimal"
@@ -437,612 +1122,30 @@
         "@type": "@id"
       },
       "regulatoryReferenceNumber": "gs1:regulatoryReferenceNumber",
-      "nickelPostConsumerShare": {
-        "@id": "eubat:nickelPostConsumerShare",
-        "@type": "xsd:decimal"
-      },
-      "leadRecycledShare": {
-        "@id": "eubat:leadRecycledShare",
-        "@type": "xsd:decimal"
-      },
-      "endOfLifeInfo": {
-        "@id": "eubat:endOfLifeInfo",
-        "@type": "@id"
-      },
-      "recyclabilityRate": {
-        "@id": "eubat:recyclabilityRate",
-        "@type": "xsd:decimal"
-      },
-      "materialRecoveryTargets": {
-        "@id": "eubat:materialRecoveryTargets",
-        "@type": "@id"
-      },
-      "recoveryMaterial": "eubat:recoveryMaterial",
-      "recoveryRate": {
-        "@id": "eubat:recoveryRate",
-        "@type": "xsd:decimal"
-      },
-      "dismantlingInstructions": {
-        "@id": "eubat:dismantlingInstructions",
-        "@type": "@id"
-      },
-      "safetyInstructionsForDismantling": {
-        "@id": "eubat:safetyInstructionsForDismantling",
-        "@type": "@id"
-      },
-      "dismantlingTime": {
-        "@id": "eubat:dismantlingTime",
-        "@type": "@id"
-      },
-      "extinguishingAgent": "eubat:extinguishingAgent",
-      "wastePrevention": {
-        "@id": "eubat:wastePrevention",
-        "@type": "@id"
-      },
-      "separateCollection": {
-        "@id": "eubat:separateCollection",
-        "@type": "@id"
-      },
-      "informationOnCollection": {
-        "@id": "eubat:informationOnCollection",
-        "@type": "@id"
-      },
-      "renewableContent": {
-        "@id": "eubat:renewableContent",
-        "@type": "xsd:decimal"
-      },
-      "safetyInstructions": {
-        "@id": "eubat:safetyInstructions",
-        "@type": "@id"
-      },
-      "dismantlingDocuments": {
-        "@id": "eubat:dismantlingDocuments",
-        "@type": "@id"
-      },
-      "documentType": {
-        "@id": "eubat:documentType",
-        "@type": "@vocab",
-        "@context": {
-          "BillOfMaterial": "eubat:BillOfMaterial",
-          "Model3D": "eubat:Model3D",
-          "DismantlingManual": "eubat:DismantlingManual",
-          "RemovalManual": "eubat:RemovalManual",
-          "SafetyDataSheet": "eubat:SafetyDataSheet",
-          "OtherManual": "eubat:OtherManual",
-          "Drawing": "eubat:Drawing"
-        }
-      },
-      "documentUrl": {
-        "@id": "eubat:documentUrl",
-        "@type": "@id"
-      },
-      "mimeType": "eubat:mimeType",
-      "languageCode": "eubat:languageCode",
-      "hazardousSubstances": {
-        "@id": "eubat:hazardousSubstances",
-        "@type": "@id"
-      },
-      "hazardClass": {
-        "@id": "eubat:hazardClass",
-        "@type": "@vocab",
-        "@context": {
-          "AcuteToxicity": "eubat:AcuteToxicity",
-          "SkinCorrosionOrIrritation": "eubat:SkinCorrosionOrIrritation",
-          "EyeDamageOrIrritation": "eubat:EyeDamageOrIrritation",
-          "RespiratoryOrSkinSensitization": "eubat:RespiratoryOrSkinSensitization",
-          "GermCellMutagenicity": "eubat:GermCellMutagenicity",
-          "Carcinogenicity": "eubat:Carcinogenicity",
-          "ReproductiveToxicity": "eubat:ReproductiveToxicity",
-          "SpecificTargetOrganToxicity": "eubat:SpecificTargetOrganToxicity",
-          "AspirationHazard": "eubat:AspirationHazard",
-          "HazardousToAquaticEnvironment": "eubat:HazardousToAquaticEnvironment"
-        }
-      },
       "substanceName": "schema:name",
-      "substanceCasNumber": "eubat:substanceCasNumber",
-      "substanceEcNumber": "eubat:substanceEcNumber",
-      "concentration": {
-        "@id": "eubat:concentration",
-        "@type": "xsd:decimal"
-      },
-      "hazardImpact": "eubat:hazardImpact",
-      "substanceLocation": {
-        "@id": "eubat:substanceLocation",
-        "@type": "@vocab",
-        "@context": {
-          "Cathode": "eubat:Cathode",
-          "Anode": "eubat:Anode",
-          "Electrolyte": "eubat:Electrolyte",
-          "Separator": "eubat:Separator",
-          "Casing": "eubat:Casing",
-          "CurrentCollector": "eubat:CurrentCollector",
-          "BMS": "eubat:BMS"
-        }
-      },
-      "operatorInformation": {
-        "@id": "eubat:operatorInformation",
-        "@type": "@id"
-      },
-      "operatorIdentifier": "eubat:operatorIdentifier",
       "manufacturerInformation": {
         "@id": "gs1:manufacturer",
         "@type": "@id"
-      },
-      "manufacturerIdentifier": "eubat:manufacturerIdentifier",
-      "operatorRole": {
-        "@id": "eubat:operatorRole",
-        "@type": "@vocab",
-        "@context": {
-          "Manufacturer": "oec:Manufacturer",
-          "Importer": "oec:Importer",
-          "Distributor": "oec:Distributor",
-          "Fulfilment": "oec:FulfilmentServiceProvider",
-          "AuthorisedRepresentative": "oec:AuthorisedRepresentative"
-        }
-      },
-      "sparePartSources": {
-        "@id": "eubat:sparePartSources",
-        "@type": "@id"
-      },
-      "spareParts": "eubat:spareParts",
-      "supplierContact": {
-        "@id": "eubat:supplierContact",
-        "@type": "@id"
-      },
-      "labels": {
-        "@id": "eubat:labels",
-        "@type": "@id"
-      },
-      "labelSymbol": {
-        "@id": "eubat:labelSymbol",
-        "@type": "@id"
-      },
-      "labelMeaning": "eubat:labelMeaning",
-      "labelSubject": {
-        "@id": "eubat:labelSubject",
-        "@type": "@vocab",
-        "@context": {
-          "SeparateCollection": "eubat:SeparateCollection",
-          "CadmiumContent": "eubat:CadmiumContent",
-          "LeadContent": "eubat:LeadContent",
-          "MercuryContent": "eubat:MercuryContent",
-          "CarbonFootprintLabel": "eubat:CarbonFootprintLabel",
-          "ExtinguishingAgentLabel": "eubat:ExtinguishingAgentLabel",
-          "CapacityLabel": "eubat:CapacityLabel",
-          "QRCodeLabel": "eubat:QRCodeLabel"
-        }
-      },
-      "separateCollectionSymbolUrl": {
-        "@id": "eubat:separateCollectionSymbolUrl",
-        "@type": "@id"
-      },
-      "cadmiumSymbolRequired": {
-        "@id": "eubat:cadmiumSymbolRequired",
-        "@type": "xsd:boolean"
-      },
-      "leadSymbolRequired": {
-        "@id": "eubat:leadSymbolRequired",
-        "@type": "xsd:boolean"
-      },
-      "ceMarkingIndicator": {
-        "@id": "eubat:ceMarkingIndicator",
-        "@type": "xsd:boolean"
-      },
-      "euDeclarationOfConformity": {
-        "@id": "eubat:euDeclarationOfConformity",
-        "@type": "@id"
-      },
-      "declarationOfConformity": {
-        "@id": "eubat:declarationOfConformity",
-        "@type": "@id"
-      },
-      "euDeclarationOfConformityId": "eubat:euDeclarationOfConformityId",
-      "notifiedBody": {
-        "@id": "eubat:notifiedBody",
-        "@type": "@id"
-      },
-      "notifiedBodyNumber": "eubat:notifiedBodyNumber",
-      "notifiedBodyName": "eubat:notifiedBodyName",
-      "resultOfTestReport": {
-        "@id": "eubat:resultOfTestReport",
-        "@type": "@id"
-      },
-      "testReportNumber": "eubat:testReportNumber",
-      "complianceStatus": {
-        "@id": "eubat:complianceStatus",
-        "@type": "@vocab",
-        "@context": {
-          "Compliant": "eubat:Compliant",
-          "NonCompliant": "eubat:NonCompliant",
-          "Pending": "eubat:Pending",
-          "ConditionallyCompliant": "eubat:ConditionallyCompliant"
-        }
-      },
-      "carbonFootprintDeclaration": {
-        "@id": "eubat:carbonFootprintDeclaration",
-        "@type": "@id"
-      },
-      "carbonFootprintTotal": {
-        "@id": "eubat:carbonFootprintTotal",
-        "@type": "@id"
-      },
-      "carbonFootprintRawMaterialExtraction": {
-        "@id": "eubat:carbonFootprintRawMaterialExtraction",
-        "@type": "@id"
-      },
-      "carbonFootprintProduction": {
-        "@id": "eubat:carbonFootprintProduction",
-        "@type": "@id"
-      },
-      "carbonFootprintDistribution": {
-        "@id": "eubat:carbonFootprintDistribution",
-        "@type": "@id"
-      },
-      "carbonFootprintRecycling": {
-        "@id": "eubat:carbonFootprintRecycling",
-        "@type": "@id"
-      },
-      "absoluteCarbonFootprint": {
-        "@id": "eubat:absoluteCarbonFootprint",
-        "@type": "@id"
-      },
-      "carbonFootprintPerformanceClass": {
-        "@id": "eubat:carbonFootprintPerformanceClass",
-        "@type": "@vocab",
-        "@context": {
-          "CFClassA": "eubat:CFClassA",
-          "CFClassB": "eubat:CFClassB",
-          "CFClassC": "eubat:CFClassC",
-          "CFClassD": "eubat:CFClassD",
-          "CFClassE": "eubat:CFClassE"
-        }
-      },
-      "carbonFootprintStudyUrl": {
-        "@id": "eubat:carbonFootprintStudyUrl",
-        "@type": "@id"
-      },
-      "functionalUnit": "eubat:functionalUnit",
-      "calculationStandard": "eubat:calculationStandard",
-      "carbonFootprintDeclarationId": "eubat:carbonFootprintDeclarationId",
-      "carbonFootprintGeographicScope": "eubat:carbonFootprintGeographicScope",
-      "thirdPartyVerification": {
-        "@id": "eubat:thirdPartyVerification",
-        "@type": "@id"
-      },
-      "verificationBody": {
-        "@id": "eubat:verificationBody",
-        "@type": "@id"
-      },
-      "verificationBodyName": "eubat:verificationBodyName",
-      "verificationDate": {
-        "@id": "eubat:verificationDate",
-        "@type": "xsd:date"
-      },
-      "verificationCertificateUrl": {
-        "@id": "eubat:verificationCertificateUrl",
-        "@type": "@id"
-      },
-      "verificationStandard": "eubat:verificationStandard",
-      "supplyChainDueDiligence": {
-        "@id": "eubat:supplyChainDueDiligence",
-        "@type": "@id"
-      },
-      "dueDiligenceReportUrl": {
-        "@id": "eubat:dueDiligenceReportUrl",
-        "@type": "@id"
-      },
-      "dueDiligencePolicyUrl": {
-        "@id": "eubat:dueDiligencePolicyUrl",
-        "@type": "@id"
-      },
-      "thirdPartyAssurancesUrl": {
-        "@id": "eubat:thirdPartyAssurancesUrl",
-        "@type": "@id"
-      },
-      "riskAssessmentSummary": "eubat:riskAssessmentSummary",
-      "supplyChainMappingAvailable": {
-        "@id": "eubat:supplyChainMappingAvailable",
-        "@type": "xsd:boolean"
-      },
-      "conflictMineralFree": {
-        "@id": "eubat:conflictMineralFree",
-        "@type": "xsd:boolean"
-      },
-      "responsibleSourcingStandard": {
-        "@id": "eubat:responsibleSourcingStandard",
-        "@type": "@vocab",
-        "@context": {
-          "OECDGuidelines": "eubat:OECDGuidelines",
-          "RMI": "eubat:RMI",
-          "IRMA": "eubat:IRMA",
-          "CopperMark": "eubat:CopperMark",
-          "AluminiumStewardship": "eubat:AluminiumStewardship",
-          "CobaltIndustryResponsibleAssessment": "eubat:CobaltIndustryResponsibleAssessment"
-        }
       },
       "auditDate": {
         "@id": "schema:auditDate",
         "@type": "xsd:date"
       },
-      "auditBody": "eubat:auditBody",
-      "supplyChainIndex": {
-        "@id": "eubat:supplyChainIndex",
-        "@type": "xsd:decimal"
-      },
-      "transportationSafetyClass": "eubat:transportationSafetyClass",
-      "dangerousGoodsPackingInstructions": "eubat:dangerousGoodsPackingInstructions",
-      "shippingName": "eubat:shippingName",
-      "repurposingPotential": "eubat:repurposingPotential",
-      "repurposingGuidelines": {
-        "@id": "eubat:repurposingGuidelines",
-        "@type": "@id"
-      },
-      "previousApplications": "eubat:previousApplications",
-      "repurposingDate": {
-        "@id": "eubat:repurposingDate",
-        "@type": "xsd:date"
-      },
-      "repurposingEntity": {
-        "@id": "eubat:repurposingEntity",
-        "@type": "@id"
-      },
-      "warrantyConditions": {
-        "@id": "eubat:warrantyConditions",
-        "@type": "@id"
-      },
-      "extendedWarrantyAvailable": {
-        "@id": "eubat:extendedWarrantyAvailable",
-        "@type": "xsd:boolean"
-      },
       "serviceContactPoint": {
         "@id": "schema:contactPoint",
         "@type": "@id"
       },
-      "authorizedServiceCenters": {
-        "@id": "eubat:authorizedServiceCenters",
-        "@type": "@id"
-      },
-      "dataQualityAssessment": "eubat:dataQualityAssessment",
-      "lastDataUpdate": {
-        "@id": "eubat:lastDataUpdate",
-        "@type": "xsd:dateTime"
-      },
-      "dataProviderCertification": "eubat:dataProviderCertification",
-      "stateOfHealth": {
-        "@id": "eubat:stateOfHealth",
-        "@type": "@id"
-      },
-      "stateOfCharge": {
-        "@id": "eubat:stateOfCharge",
-        "@type": "@id"
-      },
-      "stateOfCertifiedEnergy": {
-        "@id": "eubat:stateOfCertifiedEnergy",
-        "@type": "@id"
-      },
-      "cycleCount": {
-        "@id": "eubat:cycleCount",
-        "@type": "@id"
-      },
-      "remainingCapacity": {
-        "@id": "eubat:remainingCapacity",
-        "@type": "@id"
-      },
-      "remainingEnergy": {
-        "@id": "eubat:remainingEnergy",
-        "@type": "@id"
-      },
-      "capacityFade": {
-        "@id": "eubat:capacityFade",
-        "@type": "@id"
-      },
-      "powerFade": {
-        "@id": "eubat:powerFade",
-        "@type": "@id"
-      },
-      "internalResistance": {
-        "@id": "eubat:internalResistance",
-        "@type": "@id"
-      },
-      "internalResistanceIncrease": {
-        "@id": "eubat:internalResistanceIncrease",
-        "@type": "@id"
-      },
-      "energyThroughput": {
-        "@id": "eubat:energyThroughput",
-        "@type": "@id"
-      },
-      "capacityThroughput": {
-        "@id": "eubat:capacityThroughput",
-        "@type": "@id"
-      },
-      "remainingRoundTripEfficiency": {
-        "@id": "eubat:remainingRoundTripEfficiency",
-        "@type": "@id"
-      },
-      "roundTripEfficiencyFade": {
-        "@id": "eubat:roundTripEfficiencyFade",
-        "@type": "@id"
-      },
-      "selfDischargeRate": {
-        "@id": "eubat:selfDischargeRate",
-        "@type": "@id"
-      },
-      "evolutionOfSelfDischarge": {
-        "@id": "eubat:evolutionOfSelfDischarge",
-        "@type": "@id"
-      },
-      "exposureDurationMinutes": {
-        "@id": "eubat:exposureDurationMinutes",
-        "@type": "xsd:integer"
-      },
       "measurementMethod": "schema:measurementMethod",
-      "note": "eubat:note",
-      "initialCapacity": {
-        "@id": "eubat:initialCapacity",
-        "@type": "@id"
-      },
-      "initialEnergy": {
-        "@id": "eubat:initialEnergy",
-        "@type": "@id"
-      },
-      "certifiedUsableEnergy": {
-        "@id": "eubat:certifiedUsableEnergy",
-        "@type": "@id"
-      },
-      "remainingUsableEnergy": {
-        "@id": "eubat:remainingUsableEnergy",
-        "@type": "@id"
-      },
-      "soceMeasurementId": "eubat:soceMeasurementId",
-      "exhaustionThreshold": {
-        "@id": "eubat:exhaustionThreshold",
-        "@type": "xsd:decimal"
-      },
-      "expectedRemainingCycles": {
-        "@id": "eubat:expectedRemainingCycles",
-        "@type": "xsd:integer"
-      },
-      "expectedRemainingLifetimeMonths": {
-        "@id": "eubat:expectedRemainingLifetimeMonths",
-        "@type": "xsd:integer"
-      },
-      "nextScheduledMeasurement": {
-        "@id": "eubat:nextScheduledMeasurement",
-        "@type": "xsd:date"
-      },
-      "measurementCertificateUrl": {
-        "@id": "eubat:measurementCertificateUrl",
-        "@type": "@id"
-      },
-      "exceedanceThreshold": {
-        "@id": "eubat:exceedanceThreshold",
-        "@type": "xsd:decimal"
-      },
-      "temperatureExcursionId": "eubat:temperatureExcursionId",
       "exposureStartTime": {
         "@id": "schema:startDate",
         "@type": "xsd:dateTime"
       },
-      "exposureEndTime": {
-        "@id": "eubat:exposureEndTime",
-        "@type": "xsd:dateTime"
-      },
-      "transportConditions": "eubat:transportConditions",
-      "estimatedImpact": "eubat:estimatedImpact",
-      "temperatureExcursionReportUrl": {
-        "@id": "eubat:temperatureExcursionReportUrl",
-        "@type": "@id"
-      },
-      "eventType": {
-        "@id": "eubat:eventType",
-        "@type": "@vocab",
-        "@context": {
-          "Accident": "eubat:Accident",
-          "PhysicalDamage": "eubat:PhysicalDamage",
-          "ThermalEvent": "eubat:ThermalEvent",
-          "ElectricalFault": "eubat:ElectricalFault",
-          "WaterIngress": "eubat:WaterIngress",
-          "Overcharge": "eubat:Overcharge",
-          "DeepDischarge": "eubat:DeepDischarge",
-          "ShortCircuit": "eubat:ShortCircuit"
-        }
-      },
       "eventDescription": "schema:description",
-      "eventDate": {
-        "@id": "eubat:eventDate",
-        "@type": "xsd:dateTime"
-      },
-      "eventLocation": {
-        "@id": "eubat:eventLocation",
-        "@type": "@id"
-      },
-      "incidentId": "eubat:incidentId",
-      "incidentSeverity": {
-        "@id": "eubat:incidentSeverity",
-        "@type": "@vocab",
-        "@context": {
-          "Minor": "eubat:Minor",
-          "Moderate": "eubat:Moderate",
-          "Major": "eubat:Major",
-          "Critical": "eubat:Critical"
-        }
-      },
-      "incidentReportUrl": {
-        "@id": "eubat:incidentReportUrl",
-        "@type": "@id"
-      },
-      "inspectorId": "eubat:inspectorId",
-      "recommendedAction": "eubat:recommendedAction",
-      "remainingPowerCapability": {
-        "@id": "eubat:remainingPowerCapability",
-        "@type": "@id"
-      },
       "value": {
         "@id": "gs1:value",
         "@type": "xsd:decimal"
       },
       "unitCode": "gs1:unitCode",
-      "atSoC": {
-        "@id": "eubat:atSoC",
-        "@type": "xsd:decimal"
-      },
-      "batteryMass": {
-        "@id": "eubat:batteryMass",
-        "@type": "@id"
-      },
-      "currentSelfDischargingRate": {
-        "@id": "eubat:currentSelfDischargingRate",
-        "@type": "@id"
-      },
-      "dismantlingAndRemovalInformation": {
-        "@id": "eubat:dismantlingAndRemovalInformation",
-        "@type": "@id"
-      },
-      "expectedLifetime": {
-        "@id": "eubat:expectedLifetime",
-        "@type": "@id"
-      },
-      "expectedNumberOfCycles": {
-        "@id": "eubat:expectedNumberOfCycles",
-        "@type": "xsd:integer"
-      },
-      "maximumPermittedBatteryPower": {
-        "@id": "eubat:maximumPermittedBatteryPower",
-        "@type": "@id"
-      },
-      "negativeEvents": {
-        "@id": "eubat:negativeEvents",
-        "@type": "@id"
-      },
-      "numberOfFullCycles": {
-        "@id": "eubat:numberOfFullCycles",
-        "@type": "xsd:integer"
-      },
-      "roundTripEnergyEfficiency": {
-        "@id": "eubat:roundTripEnergyEfficiency",
-        "@type": "xsd:decimal"
-      },
-      "safetyMeasures": {
-        "@id": "eubat:safetyMeasures",
-        "@type": "xsd:string"
-      },
-      "timeSpentChargingDuringExtremeTemperaturesAboveBoundary": {
-        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
-        "@type": "xsd:integer"
-      },
-      "timeSpentChargingDuringExtremeTemperaturesBelowBoundary": {
-        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
-        "@type": "xsd:integer"
-      },
-      "timeSpentInExtremeTemperaturesAboveBoundary": {
-        "@id": "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
-        "@type": "xsd:integer"
-      },
-      "timeSpentInExtremeTemperaturesBelowBoundary": {
-        "@id": "eubat:timeSpentInExtremeTemperaturesBelowBoundary",
-        "@type": "xsd:integer"
-      },
       "gs1:manufacturer": {
         "@id": "gs1:manufacturer",
         "@type": "@id"

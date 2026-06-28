@@ -1,19 +1,197 @@
 {
+  "_comment": "OpenEPCIS Detergent Vocabulary v0.9.7, generated from extensions/eu/detergent/ontology/detergent.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/detergent/context/.context-overrides.json for non-derivable hints.",
   "@context": [
     "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
     {
       "@version": 1.1,
-      "eudet": "https://ref.openepcis.io/extensions/eu/detergent/",
-      "oec": "https://ref.openepcis.io/extensions/common/core/",
-      "gs1": "https://ref.gs1.org/voc/",
-      "xsd": "http://www.w3.org/2001/XMLSchema#",
       "id": "@id",
       "type": "@type",
+      "eudet": "https://ref.openepcis.io/extensions/eu/detergent/",
+      "gs1": "https://ref.gs1.org/voc/",
+      "oec": "https://ref.openepcis.io/extensions/common/core/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "BiodegradabilityTestMethod": "eudet:BiodegradabilityTestMethod",
+      "DetergentCategory": "eudet:DetergentCategory",
       "DetergentProduct": "eudet:DetergentProduct",
-      "Ingredient": "eudet:Ingredient",
-      "SurfactantBiodegradability": "eudet:SurfactantBiodegradability",
-      "MicroorganismInfo": "eudet:MicroorganismInfo",
       "FragranceAllergen": "eudet:FragranceAllergen",
+      "Ingredient": "eudet:Ingredient",
+      "IngredientFunction": "eudet:IngredientFunction",
+      "MicroorganismInfo": "eudet:MicroorganismInfo",
+      "ProductForm": "eudet:ProductForm",
+      "SignalWord": "eudet:SignalWord",
+      "SurfactantBiodegradability": "eudet:SurfactantBiodegradability",
+      "SurfactantType": "eudet:SurfactantType",
+      "allergenCasNumber": {
+        "@id": "eudet:allergenCasNumber",
+        "@type": "xsd:string"
+      },
+      "allergenConcentration": {
+        "@id": "eudet:allergenConcentration",
+        "@type": "xsd:decimal"
+      },
+      "biodegradabilityTestReport": {
+        "@id": "eudet:biodegradabilityTestReport",
+        "@type": "@id"
+      },
+      "biodegradationPercentage": {
+        "@id": "eudet:biodegradationPercentage",
+        "@type": "xsd:decimal"
+      },
+      "dosageInstructions": {
+        "@id": "eudet:dosageInstructions",
+        "@type": "xsd:string"
+      },
+      "endProductCharacteristics": {
+        "@id": "eudet:endProductCharacteristics",
+        "@type": "xsd:string"
+      },
+      "filmBiodegradabilityPercentage": {
+        "@id": "eudet:filmBiodegradabilityPercentage",
+        "@type": "xsd:decimal"
+      },
+      "filmBiodegradable": {
+        "@id": "eudet:filmBiodegradable",
+        "@type": "xsd:boolean"
+      },
+      "fragranceAllergens": {
+        "@id": "eudet:fragranceAllergens",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "hazardousSubstances": {
+        "@id": "eudet:hazardousSubstances",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "hazardPictograms": {
+        "@id": "eudet:hazardPictograms",
+        "@container": "@set"
+      },
+      "hStatements": {
+        "@id": "eudet:hStatements",
+        "@container": "@set"
+      },
+      "ingredientFunction": {
+        "@id": "eudet:ingredientFunction",
+        "@type": "@vocab",
+        "@context": {
+          "AntiRedeposition": "eudet:AntiRedeposition",
+          "Bleach": "eudet:Bleach",
+          "Builder": "eudet:Builder",
+          "Colorant": "eudet:Colorant",
+          "Enzyme": "eudet:Enzyme",
+          "Filler": "eudet:Filler",
+          "FoamRegulator": "eudet:FoamRegulator",
+          "Fragrance": "eudet:Fragrance",
+          "pHAdjuster": "eudet:pHAdjuster",
+          "Preservative": "eudet:Preservative",
+          "Solvent": "eudet:Solvent",
+          "SurfactantFunction": "eudet:SurfactantFunction",
+          "Thickener": "eudet:Thickener"
+        }
+      },
+      "ingredientList": {
+        "@id": "eudet:ingredientList",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "intendedUse": {
+        "@id": "eudet:intendedUse",
+        "@type": "xsd:string"
+      },
+      "isSurfactant": {
+        "@id": "eudet:isSurfactant",
+        "@type": "xsd:boolean"
+      },
+      "microorganisms": {
+        "@id": "eudet:microorganisms",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "passesUltimateBiodegradability": {
+        "@id": "eudet:passesUltimateBiodegradability",
+        "@type": "xsd:boolean"
+      },
+      "phosphateCompliant": {
+        "@id": "eudet:phosphateCompliant",
+        "@type": "xsd:boolean"
+      },
+      "phosphorusContentPercent": {
+        "@id": "eudet:phosphorusContentPercent",
+        "@type": "xsd:decimal"
+      },
+      "productForm": {
+        "@id": "eudet:productForm",
+        "@type": "@vocab",
+        "@context": {
+          "Capsule": "eudet:Capsule",
+          "Gel": "eudet:Gel",
+          "Liquid": "eudet:Liquid",
+          "Paste": "eudet:Paste",
+          "Powder": "eudet:Powder",
+          "Sheet": "eudet:Sheet",
+          "Spray": "eudet:Spray",
+          "Tablet": "eudet:Tablet"
+        }
+      },
+      "pStatements": {
+        "@id": "eudet:pStatements",
+        "@container": "@set"
+      },
+      "recommendedDosage": {
+        "@id": "eudet:recommendedDosage",
+        "@type": "@id"
+      },
+      "safetyDataSheet": {
+        "@id": "eudet:safetyDataSheet",
+        "@type": "@id"
+      },
+      "signalWord": {
+        "@id": "eudet:signalWord",
+        "@type": "@vocab",
+        "@context": {
+          "Danger": "eudet:Danger",
+          "Warning": "eudet:Warning"
+        }
+      },
+      "strainDesignation": {
+        "@id": "eudet:strainDesignation",
+        "@type": "xsd:string"
+      },
+      "surfactantBiodegradability": {
+        "@id": "eudet:surfactantBiodegradability",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      "surfactantType": {
+        "@id": "eudet:surfactantType",
+        "@type": "@vocab",
+        "@context": {
+          "Amphoteric": "eudet:Amphoteric",
+          "Anionic": "eudet:Anionic",
+          "Cationic": "eudet:Cationic",
+          "NonIonic": "eudet:NonIonic"
+        }
+      },
+      "testDurationDays": {
+        "@id": "eudet:testDurationDays",
+        "@type": "xsd:integer"
+      },
+      "testMethod": {
+        "@id": "eudet:testMethod",
+        "@type": "@vocab",
+        "@context": {
+          "ISO14593": "eudet:ISO14593",
+          "OECD301B": "eudet:OECD301B",
+          "OECD301D": "eudet:OECD301D",
+          "OECD301F": "eudet:OECD301F",
+          "OECD310": "eudet:OECD310"
+        }
+      },
+      "weightPercentRange": {
+        "@id": "eudet:weightPercentRange",
+        "@type": "xsd:string"
+      },
       "Product": "gs1:Product",
       "Organization": "gs1:Organization",
       "PostalAddress": "gs1:PostalAddress",
@@ -76,173 +254,14 @@
           "Surfactant": "eudet:Surfactant"
         }
       },
-      "productForm": {
-        "@id": "eudet:productForm",
-        "@type": "@vocab",
-        "@context": {
-          "Liquid": "eudet:Liquid",
-          "Powder": "eudet:Powder",
-          "Gel": "eudet:Gel",
-          "Capsule": "eudet:Capsule",
-          "Tablet": "eudet:Tablet",
-          "Sheet": "eudet:Sheet",
-          "Paste": "eudet:Paste",
-          "Spray": "eudet:Spray"
-        }
-      },
-      "signalWord": {
-        "@id": "eudet:signalWord",
-        "@type": "@vocab",
-        "@context": {
-          "Danger": "eudet:Danger",
-          "Warning": "eudet:Warning"
-        }
-      },
-      "ingredientFunction": {
-        "@id": "eudet:ingredientFunction",
-        "@type": "@vocab",
-        "@context": {
-          "SurfactantFunction": "eudet:SurfactantFunction",
-          "Builder": "eudet:Builder",
-          "Bleach": "eudet:Bleach",
-          "Enzyme": "eudet:Enzyme",
-          "Preservative": "eudet:Preservative",
-          "Fragrance": "eudet:Fragrance",
-          "Colorant": "eudet:Colorant",
-          "Solvent": "eudet:Solvent",
-          "pHAdjuster": "eudet:pHAdjuster",
-          "Thickener": "eudet:Thickener",
-          "FoamRegulator": "eudet:FoamRegulator",
-          "AntiRedeposition": "eudet:AntiRedeposition",
-          "Filler": "eudet:Filler"
-        }
-      },
-      "surfactantType": {
-        "@id": "eudet:surfactantType",
-        "@type": "@vocab",
-        "@context": {
-          "Anionic": "eudet:Anionic",
-          "NonIonic": "eudet:NonIonic",
-          "Cationic": "eudet:Cationic",
-          "Amphoteric": "eudet:Amphoteric"
-        }
-      },
-      "testMethod": {
-        "@id": "eudet:testMethod",
-        "@type": "@vocab",
-        "@context": {
-          "ISO14593": "eudet:ISO14593",
-          "OECD301B": "eudet:OECD301B",
-          "OECD301D": "eudet:OECD301D",
-          "OECD301F": "eudet:OECD301F",
-          "OECD310": "eudet:OECD310"
-        }
-      },
-      "intendedUse": "eudet:intendedUse",
-      "ingredientList": {
-        "@id": "eudet:ingredientList",
-        "@type": "@id",
-        "@container": "@set"
-      },
-      "surfactantBiodegradability": {
-        "@id": "eudet:surfactantBiodegradability",
-        "@type": "@id",
-        "@container": "@set"
-      },
-      "fragranceAllergens": {
-        "@id": "eudet:fragranceAllergens",
-        "@type": "@id",
-        "@container": "@set"
-      },
-      "microorganisms": {
-        "@id": "eudet:microorganisms",
-        "@type": "@id",
-        "@container": "@set"
-      },
-      "hazardousSubstances": {
-        "@id": "eudet:hazardousSubstances",
-        "@type": "@id",
-        "@container": "@set"
-      },
-      "hazardPictograms": {
-        "@id": "eudet:hazardPictograms",
-        "@container": "@set"
-      },
-      "hStatements": {
-        "@id": "eudet:hStatements",
-        "@container": "@set"
-      },
-      "pStatements": {
-        "@id": "eudet:pStatements",
-        "@container": "@set"
-      },
-      "phosphorusContentPercent": {
-        "@id": "eudet:phosphorusContentPercent",
-        "@type": "xsd:decimal"
-      },
-      "phosphateCompliant": {
-        "@id": "eudet:phosphateCompliant",
-        "@type": "xsd:boolean"
-      },
-      "filmBiodegradable": {
-        "@id": "eudet:filmBiodegradable",
-        "@type": "xsd:boolean"
-      },
-      "filmBiodegradabilityPercentage": {
-        "@id": "eudet:filmBiodegradabilityPercentage",
-        "@type": "xsd:decimal"
-      },
-      "recommendedDosage": {
-        "@id": "eudet:recommendedDosage",
-        "@type": "@id"
-      },
-      "dosageInstructions": "eudet:dosageInstructions",
-      "safetyDataSheet": {
-        "@id": "eudet:safetyDataSheet",
-        "@type": "@id"
-      },
-      "biodegradabilityTestReport": {
-        "@id": "eudet:biodegradabilityTestReport",
-        "@type": "@id"
-      },
       "inciName": "schema:name",
-      "weightPercentRange": "eudet:weightPercentRange",
-      "isSurfactant": {
-        "@id": "eudet:isSurfactant",
-        "@type": "xsd:boolean"
-      },
-      "biodegradationPercentage": {
-        "@id": "eudet:biodegradationPercentage",
-        "@type": "xsd:decimal"
-      },
-      "testDurationDays": {
-        "@id": "eudet:testDurationDays",
-        "@type": "xsd:integer"
-      },
-      "passesUltimateBiodegradability": {
-        "@id": "eudet:passesUltimateBiodegradability",
-        "@type": "xsd:boolean"
-      },
       "allergenName": "gs1:allergenSpecificationName",
-      "allergenCasNumber": "eudet:allergenCasNumber",
-      "allergenConcentration": {
-        "@id": "eudet:allergenConcentration",
-        "@type": "xsd:decimal"
-      },
       "speciesName": "schema:name",
-      "strainDesignation": "eudet:strainDesignation",
-      "endProductCharacteristics": "eudet:endProductCharacteristics",
       "value": {
         "@id": "gs1:value",
         "@type": "xsd:decimal"
       },
       "unitCode": "gs1:unitCode",
-      "BiodegradabilityTestMethod": "eudet:BiodegradabilityTestMethod",
-      "DetergentCategory": "eudet:DetergentCategory",
-      "IngredientFunction": "eudet:IngredientFunction",
-      "ProductForm": "eudet:ProductForm",
-      "SignalWord": "eudet:SignalWord",
-      "SurfactantType": "eudet:SurfactantType",
       "gs1:manufacturer": {
         "@id": "gs1:manufacturer",
         "@type": "@id"
