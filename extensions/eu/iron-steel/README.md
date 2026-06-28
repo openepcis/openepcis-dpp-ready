@@ -53,5 +53,6 @@ iron-steel/
 └── json/iron-steel.json          # generated (pnpm build)
 ```
 
-TTL is the source of truth. Regenerate `json/` and `context/*.generated.jsonld`
-with `pnpm build` and `pnpm build:context` (run `/dpp-sync iron-steel`).
+TTL is the source of truth. Regenerate `json/` and `context/iron-steel-context.jsonld`
+with `pnpm build` and `pnpm build:context` (run `/dpp-sync iron-steel`). Put any
+non-derivable JSON-LD hints in `context/.context-overrides.json`.
