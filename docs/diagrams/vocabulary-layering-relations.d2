@@ -1,20 +1,10 @@
 # Source for vocabulary-layering-relations-{light,dark}.svg — `pnpm run diagrams:build`.
-# How the layers actually relate: subClassOf (solid) and graded-SKOS / seeAlso
-# anchors (dashed), plus informal upstream derivations. For docs/VOCABULARY_LAYERING.md.
+# A worked example of the delegation pattern: one regulation-module term cascades
+# through the shared core (oec:) up to the foundational and upstream vocabularies.
+# The full term-by-term anchor list lives in the prose below the diagram.
 
 direction: up
 
-# This dense layered graph lays out far more compactly (portrait, readable when
-# embedded) under ELK than the default dagre engine. Set per-file so the shared
-# build script needs no special-casing.
-vars: {
-  d2-config: {
-    layout-engine: elk
-  }
-}
-
-# Layer palette. Explicit dark font-color keeps text readable on the pastel fills
-# in both the light and dark themed SVGs.
 classes: {
   l1: { style: { fill: "#dbeafe"; stroke: "#1e40af"; stroke-width: 2; font-color: "#0f172a" } }
   l2: { style: { fill: "#fef3c7"; stroke: "#92400e"; font-color: "#0f172a" } }
@@ -22,67 +12,13 @@ classes: {
   l4: { style: { fill: "#fce7f3"; stroke: "#9d174d"; font-color: "#0f172a" } }
 }
 
-L1: "Layer 1 — Foundational peer triumvirate" {
-  GS1: "gs1:\nGS1 Web Vocabulary\n(imported, owl:imports)" { class: l1 }
-  SEMIC: "SEMICeu Core Vocabularies\ncv: / cccev: / locn: / adms: / cpsv:\n(http://data.europa.eu/m8g/)" { class: l1 }
-  SCHEMA: "schema:\nschema.org" { class: l1 }
-}
+spin: "eutex:spinningFacility\nLayer 4 · a textile spinning site" { class: l4 }
+fac: "oec:FacilityInformation\nLayer 3 · shared DPP facility concept" { class: l3 }
+gs1place: "gs1:Place\nLayer 1 · GS1" { class: l1 }
+untpfac: "untp:Facility\nLayer 2 · UNTP" { class: l2 }
+locn: "locn:Location\nLayer 1 · SEMICeu" { class: l1 }
 
-L2: "Layer 2 — Upstream community & sectoral profiles" {
-  UNTP: "untp:\nUNTP Core v0.7.0\nParty, Facility, Claim,\nConformityAttestation, …" { class: l2 }
-  JTC: "CEN/CENELEC JTC 24\nEN 18216–18223 + prEN 18239/18246" { class: l2 }
-  CIRPASS: "CIRPASS-2 D3.x\npilot requirements" { class: l2 }
-  RAIL: "rail:\nGS1 Rail Vocabulary\n(GS1 AISBL / GS1 Switzerland;\ngs1-epcis-reg.org/rail/voc/data#;\nmirrored under extensions/upstream/gs1-rail/)" { class: l2 }
-}
-
-L3: "Layer 3 — DPP common core (oec:)" {
-  DPP_OP: "oec:OperatorInformation" { class: l3 }
-  DPP_DDR: "oec:DueDiligenceReport" { class: l3 }
-  DPP_FAC: "oec:FacilityInformation" { class: l3 }
-  DPP_DOC: "oec:DocumentReference" { class: l3 }
-  DPP_PERF: "oec:CircularityPerformance\nEmissionsPerformance\nTraceabilityPerformance" { class: l3 }
-  DPP_HAZ: "oec:HazardousSubstance\nSubstanceOfConcern\n(no upstream peer)" { class: l3 }
-}
-
-L4: "Layer 4 — Regulation modules" {
-  BAT: "eubat:\noperatorIdentifier, notifiedBodyNumber,\ndeclarationOfConformity, supplierContact" { class: l4 }
-  ELEC: "euelec:\nRepairCriterion, criterionScore" { class: l4 }
-  EUDR: "eudr:\ngeolocation, transformationLocation" { class: l4 }
-  TEX: "eutex:\nRobustnessAssessment,\nspinning/weaving/dyeing/cutAndSew/finishingFacility" { class: l4 }
-  STEEL: "eusteel:\nIronSteelProduct, heat/cast number,\nsteelDesignation, MaterialTestCertificate (EN 10204/10168)" { class: l4 }
-}
-
-# Layer 2 → Layer 1 informal derivations (dotted in the original).
-L2.UNTP -> L1.SEMIC: "derived from" { style.stroke-dash: 3 }
-L2.JTC -> L1.SEMIC: "leans on" { style.stroke-dash: 3 }
-L2.CIRPASS -> L2.JTC: "feeds into" { style.stroke-dash: 3 }
-
-# Layer 3 anchors. Solid = rdfs:subClassOf; dashed = graded SKOS / rdfs:seeAlso.
-L3.DPP_OP -> L1.GS1: "subClassOf"
-L3.DPP_OP -> L1.SEMIC: "rdfs:seeAlso\ncv:LegalEntity" { style.stroke-dash: 3 }
-L3.DPP_OP -> L2.UNTP: "skos:broadMatch\nuntp:Party" { style.stroke-dash: 3 }
-
-L3.DPP_DDR -> L1.SEMIC: "subClassOf\ncccev:Evidence"
-
-L3.DPP_FAC -> L1.GS1: "subClassOf\ngs1:Place"
-L3.DPP_FAC -> L2.UNTP: "skos:exactMatch\nuntp:Facility" { style.stroke-dash: 3 }
-L3.DPP_FAC -> L1.SEMIC: "rdfs:seeAlso\nlocn:Location" { style.stroke-dash: 3 }
-
-L3.DPP_DOC -> L1.GS1: "skos:exactMatch\ngs1:ReferencedFileDetails" { style.stroke-dash: 3 }
-L3.DPP_DOC -> L1.SEMIC: "rdfs:seeAlso\nfoaf:Document" { style.stroke-dash: 3 }
-
-L3.DPP_PERF -> L2.UNTP: "skos:exactMatch\nuntp-core:*Performance" { style.stroke-dash: 3 }
-
-# Layer 4 → Layer 3 / Layer 1 anchors.
-L4.BAT -> L1.SEMIC: "adms:Identifier\ncv:PublicOrganisation\ncv:ContactPoint\ncccev:Evidence" { style.stroke-dash: 3 }
-L4.BAT -> L3.DPP_OP: "oec:OperatorInformation" { style.stroke-dash: 3 }
-
-L4.ELEC -> L1.SEMIC: "subClassOf\ncccev:Criterion"
-
-L4.EUDR -> L1.SEMIC: "locn:Geometry\nlocn:Location" { style.stroke-dash: 3 }
-
-L4.TEX -> L3.DPP_FAC: "oec:FacilityInformation\n(cascades to locn:Location)" { style.stroke-dash: 3 }
-L4.TEX -> L1.SEMIC: "cccev:Evidence\n(RobustnessAssessment)" { style.stroke-dash: 3 }
-
-L4.STEEL -> L3.DPP_DOC: "oec:RecycledContent, oec:EnvironmentalProductDeclaration,\noec:substancesOfConcern, oec:DocumentReference" { style.stroke-dash: 3 }
-L4.STEEL -> L1.GS1: "skos:broadMatch schema:Certification\n(MaterialTestCertificate)" { style.stroke-dash: 3 }
+spin -> fac: "ranges to"
+fac -> gs1place: "rdfs:subClassOf"
+fac -> untpfac: "skos:exactMatch" { style.stroke-dash: 3 }
+fac -> locn: "rdfs:seeAlso" { style.stroke-dash: 3 }

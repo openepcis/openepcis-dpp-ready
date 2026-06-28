@@ -14,28 +14,27 @@ terms, and a single change at a higher layer benefits every module above it.
 ## How the vocabularies relate
 
 The stack diagram above shows containment (which layer holds which
-concept). The diagram below shows **how the vocabularies actually relate
-to each other** — which terms are equivalent, which are derived from
-which, and how `oec:` and module terms anchor upward.
+concept). The worked example below shows **how a term anchors upward**: a
+single regulation-module property cascading through the shared core (`oec:`)
+to the foundational and upstream vocabularies. The notable cases after it
+generalise the same pattern.
 
 <!-- Diagram source: diagrams/vocabulary-layering-relations.d2 — regenerate with `pnpm run diagrams:build`. -->
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="diagrams/vocabulary-layering-relations-dark.svg">
-  <img alt="Relationship graph across the four layers. Solid arrows are rdfs:subClassOf; dashed arrows are graded SKOS mappings or rdfs:seeAlso anchors; dotted edges are informal upstream derivations. Layer 3 oec: terms anchor to Layer 1 (GS1, SEMICeu, schema.org) and Layer 2 (UNTP, JTC 24, CIRPASS-2, GS1 Rail); Layer 4 regulation modules (eubat:, euelec:, eudr:, eutex:, eusteel:) cascade through oec: or anchor directly to SEMICeu." src="diagrams/vocabulary-layering-relations-light.svg" width="760">
+  <img alt="Worked example of the delegation pattern. eutex:spinningFacility (Layer 4) ranges to oec:FacilityInformation (Layer 3), which is rdfs:subClassOf gs1:Place (Layer 1, GS1), skos:exactMatch untp:Facility (Layer 2, UNTP), and rdfs:seeAlso locn:Location (Layer 1, SEMICeu). Solid arrows are structural (subClassOf or property range); dashed arrows are graded SKOS or rdfs:seeAlso anchors." src="diagrams/vocabulary-layering-relations-light.svg" width="520">
 </picture>
 
 Reading the diagram:
 
-- **Solid arrows** = `rdfs:subClassOf` — strict structural inheritance.
+- **Solid arrows** = structural relationships — `rdfs:subClassOf` or a property `range`.
 - **Dashed arrows** = graded SKOS mapping relations (`skos:exactMatch` / `skos:closeMatch` / `skos:broadMatch`) or `rdfs:seeAlso` — semantic anchors that don't change the term's structural ancestry and don't assert OWL logical equivalence.
-- **Dotted "derived from" / "leans on"** = informal upstream relationships (UNTP's conformity model derives from CCCEV; JTC 24 leans on SEMICeu).
 
-A few things the diagram makes visible that the stack diagram alone hides:
+The example reads bottom-up: a module property (`eutex:spinningFacility`) ranges to the shared `oec:FacilityInformation`, and the upward anchors live on `oec:`, so every module facility property inherits the GS1, UNTP, and SEMICeu peers for free. The same delegation pattern produces a few other cases worth calling out:
 
 1. **CCCEV → UNTP → `oec:`** is a real chain. UNTP's conformity model is itself derived from CCCEV (SEMICeu). When the project anchors `oec:DueDiligenceReport` to both `untp:` and `cccev:Evidence`, those two are upstream-of-upstream — anchoring to the EU foundation doesn't bypass UNTP, it adds a second canonical view of the same fact.
 2. **`oec:OperatorInformation` is the textbook three-anchor case**: structurally a `gs1:Organization`, semantically equivalent to `untp:Party`, and an EU-portal peer of `cv:LegalEntity`. All three serialisations describe the same operator.
-3. **`oec:HazardousSubstance` and similar CLP/REACH terms have no upstream peer.** Those `oec:` terms genuinely fill a gap and stay minted. The diagram shows them isolated at Layer 3 — that's deliberate, not an oversight.
-4. **Module terms cascade through `oec:` rather than re-anchoring.** `eutex:spinningFacility` ranges to `oec:FacilityInformation`; the upward anchor to `locn:Location` lives on `oec:`, so every module facility property inherits the SEMICeu peer for free.
+3. **`oec:HazardousSubstance` and similar CLP/REACH terms have no upstream peer.** Those `oec:` terms genuinely fill a gap and stay minted, with no upward anchor — deliberate, not an oversight.
 
 ## The delegation rule
 
