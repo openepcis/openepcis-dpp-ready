@@ -2,12 +2,15 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "properties": {
-    "OtherIndustrial2kWh": {
-      "$ref": "#/$defs/BatteryPass_Master"
+    "Battery_Passport": {
+      "$ref": "#/$defs/Battery_Passport_Master"
     }
   },
+  "required": [
+    "Battery_Passport"
+  ],
   "$defs": {
-    "BatteryPass_Master": {
+    "Battery_Passport_Master": {
       "type": "object",
       "properties": {
         "SymbolsLabelsAndDocumentationOfConformity": {
@@ -31,356 +34,1149 @@
         "BatteryCarbonFootprint": {
           "$ref": "#/$defs/BatteryCarbonFootprint"
         }
-      }
+      },
+      "required": [
+        "SymbolsLabelsAndDocumentationOfConformity",
+        "SupplyChainDueDiligence",
+        "PerformanceAndDurability",
+        "IdentifiersAndProductData",
+        "CircularityAndResourceEfficiency",
+        "BatteryMaterialsAndComposition",
+        "BatteryCarbonFootprint"
+      ]
     },
     "BatteryCarbonFootprint": {
       "type": "object",
       "properties": {
-        "BatteryCarbonFootprintPerFunctionalUnit": {
+        "ContributionOfRawMaterialAcquisitionAndPre-processingLifecycleStage": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/kg_CO2-equivalent_per_kilowatt_hour_decimal"
         },
-        "ContributionOfRawMaterialAcquisitionAndPre-processingLifecycleStage": {
+        "BatteryCarbonFootprintPerFunctionalUnit": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/kg_CO2-equivalent_per_kilowatt_hour_decimal"
         },
         "ContributionOfMainProductProductionLifecycleStage": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/kg_CO2-equivalent_per_kilowatt_hour_decimal"
         },
         "ContributionOfDistributionLifecycleStage": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/kg_CO2-equivalent_per_kilowatt_hour_decimal"
         },
         "ContributionOfEndOfLifeAndRecyclingLifecycleStage": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/kg_CO2-equivalent_per_kilowatt_hour_decimal"
         },
         "CarbonFootprintPerformanceClass": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
         "WebLinkToPublicCarbonFootprintStudy": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "uri"
         },
         "AbsoluteBatteryCarbonFootprint": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/kg_CO2-equivalent_integer"
         }
-      }
+      },
+      "required": [
+        "ContributionOfRawMaterialAcquisitionAndPre-processingLifecycleStage",
+        "BatteryCarbonFootprintPerFunctionalUnit",
+        "ContributionOfMainProductProductionLifecycleStage",
+        "ContributionOfDistributionLifecycleStage",
+        "ContributionOfEndOfLifeAndRecyclingLifecycleStage",
+        "CarbonFootprintPerformanceClass",
+        "WebLinkToPublicCarbonFootprintStudy"
+      ]
     },
     "BatteryMaterialsAndComposition": {
       "type": "object",
       "properties": {
         "BatteryChemistry": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/Battery_chemistry_type"
         },
         "CriticalRawMaterials": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
         "HazardousSubstances": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
         "MaterialsUsedInCathodeAnodeAndElectrolyte": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest",
+              "commission"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
         "ImpactOfSubstancesOnEnvironmentHumanHealthSafetyPersons": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         }
-      }
+      },
+      "required": [
+        "BatteryChemistry",
+        "CriticalRawMaterials",
+        "HazardousSubstances",
+        "MaterialsUsedInCathodeAnodeAndElectrolyte",
+        "ImpactOfSubstancesOnEnvironmentHumanHealthSafetyPersons"
+      ]
     },
     "CircularityAndResourceEfficiency": {
       "type": "object",
       "properties": {
-        "DismantlingInformation:_ManualsForTheRemovalAndTheDisassemblyOfTheBatteryPack": {
-          "type": "string"
+        "DismantlingInformation-ManualsForTheRemovalAndTheDisassemblyOfTheBatteryPack": {
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest",
+              "commission"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "uri"
         },
         "PartNumbersForComponents": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest",
+              "commission"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "uri"
         },
         "InformationOnSourcesOfSpareParts": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest",
+              "commission"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "uri"
         },
         "SafetyMeasures": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest",
+              "commission"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "uri"
         },
         "Pre-consumerRecycledNickelShare": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/percent_decimal"
         },
         "Pre-consumerRecycledCobaltShare": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/percent_decimal"
         },
         "Pre-consumerRecycledLithiumShare": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/percent_decimal"
         },
         "Post-consumerRecycledNickelShare": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/percent_decimal"
         },
         "Post-consumerRecycledCobaltShare": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/percent_decimal"
         },
         "Post-consumerRecycledLithiumShare": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/percent_decimal"
         },
         "RecycledLeadShare": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/percent_decimal"
         },
         "RenewableContentShare": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/percent_decimal"
         },
         "InformationOnTheRoleOfEnd-usersInContributingToWastePrevention": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "uri"
         },
         "InformationOnTheRoleOfEnd-usersInContributingToTheSeparateCollectionOfWasteBatteries": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "uri"
         },
         "InformationOnBatteryCollectionPreparationForSecondLifeAndOnTreatmentAtEndOfLife": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "uri"
         }
-      }
+      },
+      "required": [
+        "DismantlingInformation-ManualsForTheRemovalAndTheDisassemblyOfTheBatteryPack",
+        "PartNumbersForComponents",
+        "InformationOnSourcesOfSpareParts",
+        "SafetyMeasures",
+        "Pre-consumerRecycledNickelShare",
+        "Pre-consumerRecycledCobaltShare",
+        "Pre-consumerRecycledLithiumShare",
+        "Post-consumerRecycledNickelShare",
+        "Post-consumerRecycledCobaltShare",
+        "Post-consumerRecycledLithiumShare",
+        "RecycledLeadShare",
+        "RenewableContentShare",
+        "InformationOnTheRoleOfEnd-usersInContributingToWastePrevention",
+        "InformationOnTheRoleOfEnd-usersInContributingToTheSeparateCollectionOfWasteBatteries",
+        "InformationOnBatteryCollectionPreparationForSecondLifeAndOnTreatmentAtEndOfLife"
+      ]
     },
     "IdentifiersAndProductData": {
       "type": "object",
       "properties": {
         "DPPSchemaVersion": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
         "DPPStatus": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/DPP_status_type"
         },
         "DPPGranularity": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
         "Date-timeOfLatestUpdateOfDPP": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator",
+              "third_parties_authorized_by_economic_operator"
+            ]
+          },
+          "format": "date-time"
         },
         "BatteryModelIdentifier": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
         "UniqueBatteryPassportIdentifierUniqueDPPIdentifier": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator",
+              "third_parties_authorized_by_economic_operator"
+            ]
+          },
+          "format": "uri"
         },
         "UniqueBatteryIdentifierUniqueProductIdentifier": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "uri"
         },
         "BatterySerialNumber": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
         "UniqueEconomicOperatorIdentifier": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "notified_bodies",
+              "authorities",
+              "commission"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
         "UniqueManufacturerIdentifier": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "notified_bodies",
+              "authorities",
+              "commission"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
         "UniqueFacilityIdentifier": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "notified_bodies",
+              "authorities",
+              "commission"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
         "EconomicOperatorInformation": {
-          "$ref": "#/$defs/operatorInformation"
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "$ref": "#/$defs/Operator_information_type"
         },
         "ManufacturerInformation": {
-          "$ref": "#/$defs/operatorInformation"
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "$ref": "#/$defs/Operator_information_type"
         },
         "ManufacturingPlace": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
         "ManufacturingDate": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "date"
         },
         "DateOfPuttingTheBatteryIntoService": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "date"
         },
         "WarrantyPeriodOfTheBattery": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "date"
         },
         "BatteryCategory": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/Battery_category_type"
         },
         "BatteryMass": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/gram_kg_decimal"
         },
         "BatteryStatus": {
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest"
+            ],
+            "write": [
+              "economic_operator",
+              "third_parties_authorized_by_economic_operator"
+            ]
+          },
           "$ref": "#/$defs/Battery_status_type"
         }
-      }
+      },
+      "required": [
+        "DPPSchemaVersion",
+        "DPPStatus",
+        "DPPGranularity",
+        "Date-timeOfLatestUpdateOfDPP",
+        "BatteryModelIdentifier",
+        "UniqueBatteryPassportIdentifierUniqueDPPIdentifier",
+        "UniqueBatteryIdentifierUniqueProductIdentifier",
+        "BatterySerialNumber",
+        "UniqueEconomicOperatorIdentifier",
+        "UniqueManufacturerIdentifier",
+        "UniqueFacilityIdentifier",
+        "EconomicOperatorInformation",
+        "ManufacturerInformation",
+        "ManufacturingPlace",
+        "ManufacturingDate",
+        "WarrantyPeriodOfTheBattery",
+        "BatteryCategory",
+        "BatteryMass",
+        "BatteryStatus"
+      ]
     },
     "PerformanceAndDurability": {
       "type": "object",
       "properties": {
         "RatedCapacity": {
-          "$ref": "#/$defs/amperehour_miliamperehour_decimal_integer"
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "$ref": "#/$defs/amperehour_miliamperehour_integer"
         },
         "RemainingCapacity": {
-          "$ref": "#/$defs/amperehour_miliamperehour_decimal_integer"
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest"
+            ],
+            "write": [
+              "economic_operator",
+              "third_parties_authorized_by_economic_operator"
+            ]
+          },
+          "$ref": "#/$defs/amperehour_miliamperehour_integer_2"
         },
         "CapacityFade": {
-          "$ref": "#/$defs/percent_decimal"
-        },
-        "CertifiedUsableBatteryEnergy": {
-          "$ref": "#/$defs/kilowatthour_integer_decimal"
-        },
-        "RemainingUsableBatteryEnergy": {
-          "$ref": "#/$defs/kilowatthour_integer_decimal"
-        },
-        "StateOfCertifiedEnergySOCE": {
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest"
+            ],
+            "write": [
+              "economic_operator",
+              "third_parties_authorized_by_economic_operator"
+            ]
+          },
           "$ref": "#/$defs/percent_decimal"
         },
         "StateOfChargeSoC": {
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest"
+            ],
+            "write": [
+              "economic_operator",
+              "third_parties_authorized_by_economic_operator"
+            ]
+          },
           "$ref": "#/$defs/percent_decimal"
         },
         "MinimumVoltage": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/volt_celsius_decimal"
         },
         "MaximumVoltage": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/volt_celsius_decimal"
         },
         "NominalVoltage": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/volt_celsius_decimal"
         },
         "OriginalPowerCapability": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/watt_celcius_integer"
         },
         "RemainingPowerCapability": {
-          "$ref": "#/$defs/watt_celcius_integer"
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest"
+            ],
+            "write": [
+              "economic_operator",
+              "third_parties_authorized_by_economic_operator"
+            ]
+          },
+          "$ref": "#/$defs/watt_celcius_integer_2"
         },
         "PowerFade": {
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest"
+            ],
+            "write": [
+              "economic_operator",
+              "third_parties_authorized_by_economic_operator"
+            ]
+          },
           "$ref": "#/$defs/percent_decimal"
         },
         "MaximumPermittedBatteryPower": {
-          "$ref": "#/$defs/watt_celcius_integer"
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "$ref": "#/$defs/watt_celsius_integer_onevalue"
         },
         "RatioBetweenNominalBatteryPowerAndBatteryEnergy": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator",
+              "third_parties_authorized_by_economic_operator"
+            ]
+          },
           "$ref": "#/$defs/watt_per_watt_hour_integer"
         },
         "InitialRoundTripEnergyEfficiency": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/percent_decimal"
         },
         "RoundTripEnergyEfficiencyAt50OfCycleLife": {
-          "$ref": "#/$defs/percent_decimal"
-        },
-        "RemainingRoundTripEnergyEfficiency": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/percent_decimal"
         },
         "EnergyRoundTripEfficiencyFade": {
-          "$ref": "#/$defs/percent_decimal"
-        },
-        "InitialSelf-dischargeRate": {
-          "$ref": "#/$defs/percentMonth_decimal"
-        },
-        "CurrentSelf-dischargeRate": {
-          "$ref": "#/$defs/percentMonth_decimal"
-        },
-        "EvolutionOfSelf-dischargeRates": {
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest"
+            ],
+            "write": [
+              "economic_operator",
+              "third_parties_authorized_by_economic_operator"
+            ]
+          },
           "$ref": "#/$defs/percent_decimal"
         },
         "InitialInternalResistanceOfBatteryCellAndPackModuleRecommended": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/ohm_integer"
         },
         "InternalResistanceIncreaseOfPackCellAndModuleRecommended": {
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest"
+            ],
+            "write": [
+              "economic_operator",
+              "third_parties_authorized_by_economic_operator"
+            ]
+          },
           "$ref": "#/$defs/percent_decimal"
         },
         "ExpectedLifetimeInCalendarYears": {
-          "type": "number"
+          "type": "number",
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
-        "ExpectedLifetime:_NumberOfCharge-dischargeCycles": {
-          "type": "integer"
+        "ExpectedLifetime-NumberOfCharge-dischargeCycles": {
+          "type": "integer",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
         "NumberOfFullChargingAndDischargingCycles": {
-          "type": "integer"
+          "type": "integer",
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest"
+            ],
+            "write": [
+              "economic_operator",
+              "third_parties_authorized_by_economic_operator"
+            ]
+          }
         },
         "Cycle-lifeReferenceTest": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
         "C-rateOfRelevantCycle-lifeTest": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/ampere_per_ampere_hour_decimal"
         },
-        "EnergyThroughput": {
-          "$ref": "#/$defs/kilowatthour_integer_decimal"
-        },
-        "CapacityThroughput": {
-          "$ref": "#/$defs/amperehour_miliamperehour_decimal_integer"
-        },
-        "CapacityThresholdForExhaustion": {
-          "$ref": "#/$defs/percent_decimal"
-        },
         "TemperatureInformation": {
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest"
+            ],
+            "write": [
+              "economic_operator",
+              "third_parties_authorized_by_economic_operator"
+            ]
+          },
           "$ref": "#/$defs/celsius_integer"
         },
         "TemperatureRangeIdleStateLowerBoundary": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/celsius_integer"
         },
         "TemperatureRangeIdleStateUpperBoundary": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/celsius_integer"
         },
-        "TimeSpentInExtremeTemperaturesAboveBoundary": {
-          "type": "integer"
-        },
-        "TimeSpentInExtremeTemperaturesBelowBoundary": {
-          "type": "integer"
-        },
-        "TimeSpentChargingDuringExtremeTemperaturesAboveBoundary": {
-          "type": "integer"
-        },
-        "TimeSpentChargingDuringExtremeTemperaturesBelowBoundary": {
-          "type": "integer"
-        },
         "NumberOfDeepDischargeEvents": {
-          "type": "integer"
+          "type": "integer",
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest"
+            ],
+            "write": [
+              "economic_operator",
+              "third_parties_authorized_by_economic_operator"
+            ]
+          }
         },
         "NumberOfOverchargeEvents": {
-          "type": "integer"
+          "type": "integer",
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest"
+            ],
+            "write": [
+              "economic_operator",
+              "third_parties_authorized_by_economic_operator"
+            ]
+          }
         },
         "InformationOnAccidents": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "legitimate_interest"
+            ],
+            "write": [
+              "economic_operator",
+              "third_parties_authorized_by_economic_operator"
+            ]
+          },
+          "format": "uri"
         }
-      }
+      },
+      "required": [
+        "RatedCapacity",
+        "CapacityFade",
+        "StateOfChargeSoC",
+        "MinimumVoltage",
+        "MaximumVoltage",
+        "NominalVoltage",
+        "OriginalPowerCapability",
+        "PowerFade",
+        "MaximumPermittedBatteryPower",
+        "InitialRoundTripEnergyEfficiency",
+        "RoundTripEnergyEfficiencyAt50OfCycleLife",
+        "EnergyRoundTripEfficiencyFade",
+        "InitialInternalResistanceOfBatteryCellAndPackModuleRecommended",
+        "InternalResistanceIncreaseOfPackCellAndModuleRecommended",
+        "ExpectedLifetimeInCalendarYears",
+        "ExpectedLifetime-NumberOfCharge-dischargeCycles",
+        "NumberOfFullChargingAndDischargingCycles",
+        "Cycle-lifeReferenceTest",
+        "C-rateOfRelevantCycle-lifeTest",
+        "TemperatureInformation",
+        "TemperatureRangeIdleStateLowerBoundary",
+        "TemperatureRangeIdleStateUpperBoundary",
+        "InformationOnAccidents"
+      ]
     },
     "SupplyChainDueDiligence": {
       "type": "object",
       "properties": {
         "InformationOfDueDiligenceReport": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "uri"
         },
         "ThirdPartyAssurancesOfRecognisedSchemes": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
         "SupplyChainIndices": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         }
-      }
+      },
+      "required": [
+        "InformationOfDueDiligenceReport"
+      ]
     },
     "SymbolsLabelsAndDocumentationOfConformity": {
       "type": "object",
       "properties": {
         "SeparateCollectionSymbol": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "uri"
         },
         "SymbolsForCadmiumAndLead": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "uri"
         },
         "CarbonFootprintLabel": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "uri"
         },
         "ExtinguishingAgent": {
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
           "$ref": "#/$defs/Extinguishing_agent_type"
         },
         "MeaningOfLabelsAndSymbols": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          }
         },
         "EUDeclarationOfConformity": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "public"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "uri"
         },
         "ResultsOfTestReportsProvingCompliance": {
-          "type": "string"
+          "type": "string",
+          "x-AccessRights": {
+            "read": [
+              "notified_bodies",
+              "authorities",
+              "commission"
+            ],
+            "write": [
+              "economic_operator"
+            ]
+          },
+          "format": "uri"
         }
-      }
+      },
+      "required": [
+        "SeparateCollectionSymbol",
+        "SymbolsForCadmiumAndLead",
+        "CarbonFootprintLabel",
+        "ExtinguishingAgent",
+        "MeaningOfLabelsAndSymbols",
+        "EUDeclarationOfConformity",
+        "ResultsOfTestReportsProvingCompliance"
+      ]
     },
     "Battery_category_type": {
       "type": "object",
       "properties": {
-        "electricVehicleEV": {
-          "type": "string"
-        },
-        "LMT": {
-          "type": "string"
-        },
-        "industrial": {
-          "type": "string"
+        "batteryCategoryValue": {
+          "$ref": "#/$defs/batteryCategoryCodes"
         }
-      }
+      },
+      "required": [
+        "batteryCategoryValue"
+      ]
     },
     "Battery_chemistry_type": {
       "type": "object",
@@ -388,7 +1184,7 @@
         "additionallyPossibleValue": {
           "type": "string"
         },
-        "CustomChemicalCodes": {
+        "chemicalCodeValue": {
           "$ref": "#/$defs/customChemicalCodes"
         }
       }
@@ -396,39 +1192,24 @@
     "Battery_status_type": {
       "type": "object",
       "properties": {
-        "original": {
-          "type": "string"
-        },
-        "repurposed": {
-          "type": "string"
-        },
-        "re-used": {
-          "type": "string"
-        },
-        "remanufactured": {
-          "type": "string"
-        },
-        "waste": {
-          "type": "string"
+        "batteryStatusValues": {
+          "$ref": "#/$defs/batteryStatusCodes"
         }
-      }
+      },
+      "required": [
+        "batteryStatusValues"
+      ]
     },
     "DPP_status_type": {
       "type": "object",
       "properties": {
-        "Active": {
-          "type": "string"
-        },
-        "Archived": {
-          "type": "string"
-        },
-        "Inactive": {
-          "type": "string"
-        },
-        "Marked-for-deletion": {
-          "type": "string"
+        "dppStatusValue": {
+          "$ref": "#/$defs/dppStatusCodes"
         }
-      }
+      },
+      "required": [
+        "dppStatusValue"
+      ]
     },
     "Extinguishing_agent_type": {
       "type": "object",
@@ -441,105 +1222,10 @@
         }
       }
     },
-    "ampere_per_ampere_hour_decimal": {
-      "type": "object",
-      "properties": {
-        "amperePerAmpereHourValue": {
-          "type": "number"
-        },
-        "amperePerAmpereHour": {
-          "$ref": "#/$defs/amperePerAmpereHour"
-        }
-      }
-    },
-    "amperehour_miliamperehour_decimal_integer": {
-      "type": "object",
-      "properties": {
-        "amperehourMiliamperehourValueInteger": {
-          "type": "integer"
-        },
-        "ampereHourValueDecimal": {
-          "type": "number"
-        },
-        "ampereHourMiliamperehour": {
-          "$ref": "#/$defs/amperehour_miliamperehour"
-        }
-      }
-    },
-    "celsius_integer": {
-      "type": "object",
-      "properties": {
-        "degreeCelsius": {
-          "$ref": "#/$defs/degreeCelsius"
-        },
-        "celsiusValue": {
-          "type": "integer"
-        }
-      }
-    },
-    "gram_kg_decimal": {
-      "type": "object",
-      "properties": {
-        "gram_kg": {
-          "$ref": "#/$defs/gram_kg"
-        },
-        "gram_kgValue": {
-          "type": "number"
-        }
-      }
-    },
-    "kg_CO2-equivalent_integer": {
-      "type": "object",
-      "properties": {
-        "kgCO2-equivalentValue": {
-          "type": "integer"
-        },
-        "kgCO2-equivalent": {
-          "$ref": "#/$defs/kgCO2-equivalent"
-        }
-      }
-    },
-    "kg_CO2-equivalent_per_kilowatt_hour_decimal": {
-      "type": "object",
-      "properties": {
-        "kgCO2-equivalentPerKilowattHourValue": {
-          "type": "number"
-        },
-        "kgCO2-equivalentPerKilowattHour": {
-          "$ref": "#/$defs/kgCO2-equivalentPerKilowattHour"
-        }
-      }
-    },
-    "kilowatthour_integer_decimal": {
-      "type": "object",
-      "properties": {
-        "kilowattHourValueDecimal": {
-          "type": "number"
-        },
-        "kilowattHourValueInteger": {
-          "type": "integer"
-        },
-        "kilowattHour": {
-          "$ref": "#/$defs/kilowattHour"
-        }
-      }
-    },
-    "ohm_integer": {
-      "type": "object",
-      "properties": {
-        "ohmValue": {
-          "type": "integer"
-        },
-        "ohm": {
-          "$ref": "#/$defs/ohm"
-        }
-      }
-    },
-    "operatorInformation": {
+    "Operator_information_type": {
       "type": "object",
       "properties": {
         "name": {
-          "pattern": "\\i\\c*",
           "type": "string"
         },
         "registeredTradeNameOrRegisteredTrademark": {
@@ -554,18 +1240,132 @@
         "e-mailAddress": {
           "type": "string"
         }
-      }
+      },
+      "required": [
+        "name",
+        "registeredTradeNameOrRegisteredTrademark",
+        "postalAddress"
+      ]
     },
-    "percentMonth_decimal": {
+    "ampere_per_ampere_hour_decimal": {
       "type": "object",
       "properties": {
-        "percentMonth": {
-          "$ref": "#/$defs/percentMonth"
+        "amperePerAmpereHourValue": {
+          "type": "number"
         },
-        "percentMonthValue": {
+        "amperePerAmpereHour": {
+          "$ref": "#/$defs/amperePerAmpereHour"
+        }
+      },
+      "required": [
+        "amperePerAmpereHourValue",
+        "amperePerAmpereHour"
+      ]
+    },
+    "amperehour_miliamperehour_integer": {
+      "type": "object",
+      "properties": {
+        "amperehourMiliamperehourValue": {
+          "type": "integer"
+        },
+        "ampereHourMiliamperehour": {
+          "$ref": "#/$defs/amperehour_miliamperehour"
+        }
+      },
+      "required": [
+        "amperehourMiliamperehourValue",
+        "ampereHourMiliamperehour"
+      ]
+    },
+    "amperehour_miliamperehour_integer_2": {
+      "type": "object",
+      "properties": {
+        "amperehourMiliamperehourValue": {
+          "type": "integer"
+        },
+        "ampereHourMiliamperehour": {
+          "$ref": "#/$defs/amperehour_miliamperehour_2"
+        }
+      },
+      "required": [
+        "amperehourMiliamperehourValue",
+        "ampereHourMiliamperehour"
+      ]
+    },
+    "celsius_integer": {
+      "type": "object",
+      "properties": {
+        "degreeCelsius": {
+          "$ref": "#/$defs/degreeCelsius"
+        },
+        "celsiusValue": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "degreeCelsius",
+        "celsiusValue"
+      ]
+    },
+    "gram_kg_decimal": {
+      "type": "object",
+      "properties": {
+        "gramKg": {
+          "$ref": "#/$defs/gram_kg"
+        },
+        "gramKgValue": {
           "type": "number"
         }
-      }
+      },
+      "required": [
+        "gramKg",
+        "gramKgValue"
+      ]
+    },
+    "kg_CO2-equivalent_integer": {
+      "type": "object",
+      "properties": {
+        "kgCO2-equivalentValue": {
+          "type": "integer"
+        },
+        "kgCO2-equivalent": {
+          "$ref": "#/$defs/kgCO2-equivalent"
+        }
+      },
+      "required": [
+        "kgCO2-equivalentValue",
+        "kgCO2-equivalent"
+      ]
+    },
+    "kg_CO2-equivalent_per_kilowatt_hour_decimal": {
+      "type": "object",
+      "properties": {
+        "kgCO2-equivalentPerKilowattHourValue": {
+          "type": "number"
+        },
+        "kgCO2-equivalentPerKilowattHour": {
+          "$ref": "#/$defs/kgCO2-equivalentPerKilowattHour"
+        }
+      },
+      "required": [
+        "kgCO2-equivalentPerKilowattHourValue",
+        "kgCO2-equivalentPerKilowattHour"
+      ]
+    },
+    "ohm_integer": {
+      "type": "object",
+      "properties": {
+        "ohmValue": {
+          "type": "integer"
+        },
+        "ohm": {
+          "$ref": "#/$defs/ohm"
+        }
+      },
+      "required": [
+        "ohmValue",
+        "ohm"
+      ]
     },
     "percent_decimal": {
       "type": "object",
@@ -574,20 +1374,60 @@
           "$ref": "#/$defs/percent"
         },
         "percentageValue": {
-          "maximum": 100,
+          "type": "number",
           "minimum": 0,
-          "type": "number"
+          "maximum": 100
         }
-      }
+      },
+      "required": [
+        "percent",
+        "percentageValue"
+      ]
     },
     "volt_celsius_decimal": {
       "type": "object",
       "properties": {
+        "voltValue": {
+          "type": "number"
+        },
         "volt": {
           "$ref": "#/$defs/volt"
         },
-        "voltValue": {
-          "type": "number"
+        "temperatureRangeUpperBoundary": {
+          "$ref": "#/$defs/degreeCelsius"
+        },
+        "temperatureRangeLowerBoundary": {
+          "$ref": "#/$defs/degreeCelsius"
+        },
+        "temperatureRangeUpperBoundaryValue": {
+          "type": "integer"
+        },
+        "temperatureRangeLowerBoundaryValue": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "voltValue",
+        "volt"
+      ]
+    },
+    "watt_celcius_integer": {
+      "type": "object",
+      "properties": {
+        "wattValueAt80SoC": {
+          "type": "integer"
+        },
+        "wattValueAt20SoC": {
+          "type": "integer"
+        },
+        "watt": {
+          "$ref": "#/$defs/watt"
+        },
+        "temperatureRangeUpperBoundaryValue": {
+          "type": "integer"
+        },
+        "temperatureRangeLowerBoundaryValue": {
+          "type": "integer"
         },
         "temperatureRangeUpperBoundary": {
           "$ref": "#/$defs/degreeCelsius"
@@ -595,9 +1435,39 @@
         "temperatureRangeLowerBoundary": {
           "$ref": "#/$defs/degreeCelsius"
         }
-      }
+      },
+      "required": [
+        "wattValueAt80SoC",
+        "wattValueAt20SoC",
+        "watt"
+      ]
     },
-    "watt_celcius_integer": {
+    "watt_celcius_integer_2": {
+      "type": "object",
+      "properties": {
+        "wattValueAt80SoC": {
+          "type": "integer"
+        },
+        "wattValueAt20SoC": {
+          "type": "integer"
+        },
+        "watt": {
+          "$ref": "#/$defs/watt"
+        },
+        "temperatureRangeUpperBoundaryValue": {
+          "type": "integer"
+        },
+        "temperatureRangeLowerBoundaryValue": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "wattValueAt80SoC",
+        "wattValueAt20SoC",
+        "watt"
+      ]
+    },
+    "watt_celsius_integer_onevalue": {
       "type": "object",
       "properties": {
         "wattValue": {
@@ -606,13 +1476,23 @@
         "watt": {
           "$ref": "#/$defs/watt"
         },
+        "temperatureRangeUpperBoundaryValue": {
+          "type": "integer"
+        },
+        "temperatureRangeLowerBoundaryValue": {
+          "type": "integer"
+        },
         "temperatureRangeUpperBoundary": {
           "$ref": "#/$defs/degreeCelsius"
         },
         "temperatureRangeLowerBoundary": {
           "$ref": "#/$defs/degreeCelsius"
         }
-      }
+      },
+      "required": [
+        "wattValue",
+        "watt"
+      ]
     },
     "watt_per_watt_hour_integer": {
       "type": "object",
@@ -623,22 +1503,49 @@
         "wattPerWattHour": {
           "$ref": "#/$defs/wattPerWattHour"
         }
-      }
+      },
+      "required": [
+        "wattPerWattHourValue",
+        "wattPerWattHour"
+      ]
     },
     "amperePerAmpereHour": {
+      "type": "string",
       "enum": [
         "A/Ah"
-      ],
-      "type": "string"
+      ]
     },
     "amperehour_miliamperehour": {
+      "type": "string",
       "enum": [
         "Ah",
         "mAh"
-      ],
-      "type": "string"
+      ]
+    },
+    "amperehour_miliamperehour_2": {
+      "type": "string",
+      "enum": [
+        "Ah"
+      ]
+    },
+    "batteryCategoryCodes": {
+      "type": "string",
+      "enum": [
+        "industrial/non-stationary battery"
+      ]
+    },
+    "batteryStatusCodes": {
+      "type": "string",
+      "enum": [
+        "original",
+        "re-used",
+        "remanufactured",
+        "repurposed",
+        "waste"
+      ]
     },
     "customChemicalCodes": {
+      "type": "string",
       "enum": [
         "Li-ion LCO",
         "Li-ion LFP",
@@ -650,75 +1557,71 @@
         "Ni-Cd",
         "Ni-MH",
         "Pb"
-      ],
-      "type": "string"
+      ]
     },
     "degreeCelsius": {
+      "type": "string",
       "enum": [
         "°C"
-      ],
-      "type": "string"
+      ]
+    },
+    "dppStatusCodes": {
+      "type": "string",
+      "enum": [
+        "Active",
+        "Archived",
+        "Inactive",
+        "Marked-for-deletion"
+      ]
     },
     "gram_kg": {
+      "type": "string",
       "enum": [
         "g",
         "kg"
-      ],
-      "type": "string"
+      ]
     },
     "kgCO2-equivalent": {
+      "type": "string",
       "enum": [
-        "kgCO₂-eq"
-      ],
-      "type": "string"
+        "kgCO2-eq"
+      ]
     },
     "kgCO2-equivalentPerKilowattHour": {
+      "type": "string",
       "enum": [
-        "kgCO₂-eq/kWh"
-      ],
-      "type": "string"
-    },
-    "kilowattHour": {
-      "enum": [
-        "kWh"
-      ],
-      "type": "string"
+        "kgCO2-eq/kWh"
+      ]
     },
     "ohm": {
+      "type": "string",
       "enum": [
         "Ohm"
-      ],
-      "type": "string"
+      ]
     },
     "percent": {
+      "type": "string",
       "enum": [
         "%"
-      ],
-      "type": "string"
-    },
-    "percentMonth": {
-      "enum": [
-        "%/month"
-      ],
-      "type": "string"
+      ]
     },
     "volt": {
+      "type": "string",
       "enum": [
         "V"
-      ],
-      "type": "string"
+      ]
     },
     "watt": {
+      "type": "string",
       "enum": [
         "W"
-      ],
-      "type": "string"
+      ]
     },
     "wattPerWattHour": {
+      "type": "string",
       "enum": [
         "W/Wh"
-      ],
-      "type": "string"
+      ]
     }
   }
 }

@@ -7,19 +7,44 @@ schemas rather than ones we generate ourselves.
 | Source | Value |
 |--------|-------|
 | Site | https://batterypass-ready.gefeg.com/ |
-| Build | 0.1.1 (Prototype / Early Access) |
-| Documentation | v0.1, April 2026 |
-| Data basis | BatteryPass-Ready Data Attribute Longlist **V1.3** (March 2026) |
-| Retrieved | 2026-06-17 |
+| Canonical repo | https://git.gefeg.com/bp/BatteryPassDataModel (`BatteryPass-Ready/JSONSchemaFiles/`) |
+| Data-model version | **1.0** (work in progress) |
+| Data basis | BatteryPass-Ready Data Attribute Longlist **V1.3** (March 2026) — note: the longlist is v1.3, the data model / these schemas are v1.0 |
+| Upstream commit | `6ee348bb` "Update JSON schemas in JSONSchemaFiles" (2026-06-23) |
+| Retrieved | 2026-06-30 |
 
-## Files
+> **SAMM aspect models are unaffected.** The `urn:samm:io.BatteryPass.*` aspect
+> models (batterypass/BatteryPassDataModel) remain at **1.2.0** (Performance 1.2.1);
+> no 1.3.0 SAMM submodels exist. The ontology alignment URNs are correct as-is.
+
+## Files (refreshed 2026-06-30 from upstream `6ee348bb`)
 
 | File | Origin |
 |------|--------|
 | `EV_batterypass_1.0.json` | Validation schema, Electric Vehicle |
 | `LMT_batterypass_1.0.json` | Validation schema, Light Means of Transport |
+| `Industrial_Without_BMS_batterypass_1.0.json` | Validation schema, Industrial without BMS (NEW in this update) |
 | `Other_Industrial_batterypass_1.0.json` | Validation schema, Other Industrial (> 2 kWh) |
 | `Stationary_Industrial_batterypass_1.0.json` | Validation schema, Stationary Industrial (> 2 kWh) |
+
+### Changes in the 2026-06-23 upstream update (vs the 2026-06-17 mirror)
+
+The published static schemas grew ~19 KB → ~42 KB and now include `required`
+arrays, `format` constraints, and tightened enums. Drift detected against our
+exporter (`scripts/export-batterypass-gefeg.ts`), inner `Battery_Passport_Master`:
+
+- **Fixed**: carbon-footprint unit enum is ASCII `kgCO2-eq/kWh` (our exporter had a
+  Unicode-subscript `kgCO₂-eq/kWh` — corrected).
+- **Pending live confirmation** (static-vs-live divergence; the live-derived schemas
+  under `validation/gefeg-live/` still reflect the older live server):
+  - `ExpectedLifetime-NumberOfCharge-dischargeCycles` — static key name; the
+    live-derived schema uses `…NumberOfChargeOrDischargeCycles`.
+  - `WarrantyPeriodOfTheBattery` now `format: date`.
+  - `SymbolsForCadmiumAndLead`, `InformationOnAccidents`,
+    `InformationOnSourcesOfSpareParts` now `format: uri`.
+  These need re-deriving/validating against the live `ValidateJSON` server
+  (`scripts/validate-batterypass-live.ts`, requires a session token) before the
+  exporter is changed, to avoid breaking conformance with the live contract.
 
 Hashed asset paths at retrieval time, e.g.
 `https://batterypass-ready.gefeg.com/assets/EV_batterypass_1.0-CMI21Ips.json`.

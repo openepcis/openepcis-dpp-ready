@@ -92,7 +92,7 @@ const co2PerKwh = (v?: { value?: number } | number) => {
   const n = typeof v === "number" ? v : v?.value;
   return n === undefined
     ? undefined
-    : { "kgCO2-equivalentPerKilowattHourValue": n, "kgCO2-equivalentPerKilowattHour": "kgCO₂-eq/kWh" };
+    : { "kgCO2-equivalentPerKilowattHourValue": n, "kgCO2-equivalentPerKilowattHour": "kgCO2-eq/kWh" };
 };
 const aPerAh = (v?: number) =>
   v === undefined || v === null ? undefined : { amperePerAmpereHourValue: v, amperePerAmpereHour: "A/Ah" };

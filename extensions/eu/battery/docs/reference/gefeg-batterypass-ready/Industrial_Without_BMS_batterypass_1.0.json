@@ -3,7 +3,8 @@
   "type": "object",
   "properties": {
     "Battery_Passport": {
-      "$ref": "#/$defs/Battery_Passport_Master"
+      "$ref": "#/$defs/Battery_Passport_Master",
+      "description": "Contains Battery Passport Information for Industrial Batteries without BMS"
     }
   },
   "required": [
@@ -582,30 +583,6 @@
             ]
           }
         },
-        "ManufacturingDate": {
-          "type": "string",
-          "x-AccessRights": {
-            "read": [
-              "public"
-            ],
-            "write": [
-              "economic_operator"
-            ]
-          },
-          "format": "date"
-        },
-        "DateOfPuttingTheBatteryIntoService": {
-          "type": "string",
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator"
-            ]
-          },
-          "format": "date"
-        },
         "WarrantyPeriodOfTheBattery": {
           "type": "string",
           "x-AccessRights": {
@@ -668,8 +645,6 @@
         "EconomicOperatorInformation",
         "ManufacturerInformation",
         "ManufacturingPlace",
-        "ManufacturingDate",
-        "DateOfPuttingTheBatteryIntoService",
         "WarrantyPeriodOfTheBattery",
         "BatteryCategory",
         "BatteryMass",
@@ -689,18 +664,6 @@
             ]
           },
           "$ref": "#/$defs/amperehour_miliamperehour_integer"
-        },
-        "RemainingCapacity": {
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator",
-              "third_parties_authorized_by_economic_operator"
-            ]
-          },
-          "$ref": "#/$defs/amperehour_miliamperehour_integer_2"
         },
         "CapacityFade": {
           "x-AccessRights": {
@@ -770,18 +733,6 @@
           },
           "$ref": "#/$defs/watt_celcius_integer"
         },
-        "RemainingPowerCapability": {
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator",
-              "third_parties_authorized_by_economic_operator"
-            ]
-          },
-          "$ref": "#/$defs/watt_celcius_integer_2"
-        },
         "PowerFade": {
           "x-AccessRights": {
             "read": [
@@ -839,77 +790,7 @@
           },
           "$ref": "#/$defs/percent_decimal"
         },
-        "RemainingRoundTripEnergyEfficiency": {
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator",
-              "third_parties_authorized_by_economic_operator"
-            ]
-          },
-          "$ref": "#/$defs/percent_decimal"
-        },
         "EnergyRoundTripEfficiencyFade": {
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator",
-              "third_parties_authorized_by_economic_operator"
-            ]
-          },
-          "$ref": "#/$defs/percent_decimal"
-        },
-        "InitialSelf-dischargeRate": {
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator"
-            ]
-          },
-          "$ref": "#/$defs/percentMonth_decimal"
-        },
-        "CurrentSelf-dischargeRate": {
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator",
-              "third_parties_authorized_by_economic_operator"
-            ]
-          },
-          "$ref": "#/$defs/percentMonth_decimal"
-        },
-        "EvolutionOfSelf-dischargeRates": {
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator",
-              "third_parties_authorized_by_economic_operator"
-            ]
-          },
-          "$ref": "#/$defs/percent_decimal"
-        },
-        "InitialInternalResistanceOfBatteryCellAndPackModuleRecommended": {
-          "x-AccessRights": {
-            "read": [
-              "public"
-            ],
-            "write": [
-              "economic_operator"
-            ]
-          },
-          "$ref": "#/$defs/ohm_integer"
-        },
-        "InternalResistanceIncreaseOfPackCellAndModuleRecommended": {
           "x-AccessRights": {
             "read": [
               "legitimate_interest"
@@ -943,18 +824,6 @@
             ]
           }
         },
-        "NumberOfFullChargingAndDischargingCycles": {
-          "type": "integer",
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator",
-              "third_parties_authorized_by_economic_operator"
-            ]
-          }
-        },
         "Cycle-lifeReferenceTest": {
           "type": "string",
           "x-AccessRights": {
@@ -976,30 +845,6 @@
             ]
           },
           "$ref": "#/$defs/ampere_per_ampere_hour_decimal"
-        },
-        "EnergyThroughput": {
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator",
-              "third_parties_authorized_by_economic_operator"
-            ]
-          },
-          "$ref": "#/$defs/kilowatthour_decimal"
-        },
-        "CapacityThroughput": {
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator",
-              "third_parties_authorized_by_economic_operator"
-            ]
-          },
-          "$ref": "#/$defs/amperehour_miliamperehour_decimal"
         },
         "TemperatureInformation": {
           "x-AccessRights": {
@@ -1035,78 +880,6 @@
           },
           "$ref": "#/$defs/celsius_integer"
         },
-        "TimeSpentInExtremeTemperaturesAboveBoundary": {
-          "type": "integer",
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator",
-              "third_parties_authorized_by_economic_operator"
-            ]
-          }
-        },
-        "TimeSpentInExtremeTemperaturesBelowBoundary": {
-          "type": "integer",
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator",
-              "third_parties_authorized_by_economic_operator"
-            ]
-          }
-        },
-        "TimeSpentChargingDuringExtremeTemperaturesAboveBoundary": {
-          "type": "integer",
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator",
-              "third_parties_authorized_by_economic_operator"
-            ]
-          }
-        },
-        "TimeSpentChargingDuringExtremeTemperaturesBelowBoundary": {
-          "type": "integer",
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator",
-              "third_parties_authorized_by_economic_operator"
-            ]
-          }
-        },
-        "NumberOfDeepDischargeEvents": {
-          "type": "integer",
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator",
-              "third_parties_authorized_by_economic_operator"
-            ]
-          }
-        },
-        "NumberOfOverchargeEvents": {
-          "type": "integer",
-          "x-AccessRights": {
-            "read": [
-              "legitimate_interest"
-            ],
-            "write": [
-              "economic_operator",
-              "third_parties_authorized_by_economic_operator"
-            ]
-          }
-        },
         "InformationOnAccidents": {
           "type": "string",
           "x-AccessRights": {
@@ -1123,38 +896,24 @@
       },
       "required": [
         "RatedCapacity",
-        "RemainingCapacity",
         "CapacityFade",
         "StateOfChargeSoC",
         "MinimumVoltage",
         "MaximumVoltage",
         "NominalVoltage",
         "OriginalPowerCapability",
-        "RemainingPowerCapability",
         "PowerFade",
         "MaximumPermittedBatteryPower",
         "InitialRoundTripEnergyEfficiency",
         "RoundTripEnergyEfficiencyAt50OfCycleLife",
-        "RemainingRoundTripEnergyEfficiency",
         "EnergyRoundTripEfficiencyFade",
-        "EvolutionOfSelf-dischargeRates",
-        "InitialInternalResistanceOfBatteryCellAndPackModuleRecommended",
-        "InternalResistanceIncreaseOfPackCellAndModuleRecommended",
         "ExpectedLifetimeInCalendarYears",
         "ExpectedLifetime-NumberOfCharge-dischargeCycles",
-        "NumberOfFullChargingAndDischargingCycles",
         "Cycle-lifeReferenceTest",
         "C-rateOfRelevantCycle-lifeTest",
-        "EnergyThroughput",
-        "CapacityThroughput",
         "TemperatureInformation",
         "TemperatureRangeIdleStateLowerBoundary",
         "TemperatureRangeIdleStateUpperBoundary",
-        "TimeSpentInExtremeTemperaturesAboveBoundary",
-        "TimeSpentInExtremeTemperaturesBelowBoundary",
-        "TimeSpentChargingDuringExtremeTemperaturesAboveBoundary",
-        "TimeSpentChargingDuringExtremeTemperaturesBelowBoundary",
-        "NumberOfDeepDischargeEvents",
         "InformationOnAccidents"
       ]
     },
@@ -1393,37 +1152,7 @@
         "amperePerAmpereHour"
       ]
     },
-    "amperehour_miliamperehour_decimal": {
-      "type": "object",
-      "properties": {
-        "amperehourMiliamperehourValue": {
-          "type": "number"
-        },
-        "amperehourMiliamperehour": {
-          "$ref": "#/$defs/amperehour_miliamperehour"
-        }
-      },
-      "required": [
-        "amperehourMiliamperehourValue",
-        "amperehourMiliamperehour"
-      ]
-    },
     "amperehour_miliamperehour_integer": {
-      "type": "object",
-      "properties": {
-        "amperehourMiliamperehourValue": {
-          "type": "integer"
-        },
-        "ampereHourMiliamperehour": {
-          "$ref": "#/$defs/amperehour_miliamperehour_2"
-        }
-      },
-      "required": [
-        "amperehourMiliamperehourValue",
-        "ampereHourMiliamperehour"
-      ]
-    },
-    "amperehour_miliamperehour_integer_2": {
       "type": "object",
       "properties": {
         "amperehourMiliamperehourValue": {
@@ -1496,53 +1225,6 @@
       "required": [
         "kgCO2-equivalentPerKilowattHourValue",
         "kgCO2-equivalentPerKilowattHour"
-      ]
-    },
-    "kilowatthour_decimal": {
-      "type": "object",
-      "properties": {
-        "kilowattHourValue": {
-          "type": "number"
-        },
-        "kilowattHour": {
-          "$ref": "#/$defs/kilowattHour"
-        }
-      },
-      "required": [
-        "kilowattHourValue",
-        "kilowattHour"
-      ]
-    },
-    "ohm_integer": {
-      "type": "object",
-      "properties": {
-        "ohmValue": {
-          "type": "integer"
-        },
-        "ohm": {
-          "$ref": "#/$defs/ohm"
-        }
-      },
-      "required": [
-        "ohmValue",
-        "ohm"
-      ]
-    },
-    "percentMonth_decimal": {
-      "type": "object",
-      "properties": {
-        "percentMonth": {
-          "$ref": "#/$defs/percentMonth"
-        },
-        "percentMonthValue": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 100
-        }
-      },
-      "required": [
-        "percentMonth",
-        "percentMonthValue"
       ]
     },
     "percent_decimal": {
@@ -1620,31 +1302,6 @@
         "watt"
       ]
     },
-    "watt_celcius_integer_2": {
-      "type": "object",
-      "properties": {
-        "wattValueAt80SoC": {
-          "type": "integer"
-        },
-        "wattValueAt20SoC": {
-          "type": "integer"
-        },
-        "watt": {
-          "$ref": "#/$defs/watt"
-        },
-        "temperatureRangeUpperBoundaryValue": {
-          "type": "integer"
-        },
-        "temperatureRangeLowerBoundaryValue": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "wattValueAt80SoC",
-        "wattValueAt20SoC",
-        "watt"
-      ]
-    },
     "watt_celsius_integer_onevalue": {
       "type": "object",
       "properties": {
@@ -1696,12 +1353,6 @@
     "amperehour_miliamperehour": {
       "type": "string",
       "enum": [
-        "Ah"
-      ]
-    },
-    "amperehour_miliamperehour_2": {
-      "type": "string",
-      "enum": [
         "Ah",
         "mAh"
       ]
@@ -1709,7 +1360,7 @@
     "batteryCategoryCodes": {
       "type": "string",
       "enum": [
-        "LMT battery"
+        "industrial battery without BMS"
       ]
     },
     "batteryStatusCodes": {
@@ -1725,15 +1376,6 @@
     "customChemicalCodes": {
       "type": "string",
       "enum": [
-        "Li-ion LCO",
-        "Li-ion LFP",
-        "Li-ion LMO",
-        "Li-ion NCA",
-        "Li-ion NMC",
-        "Li-metal",
-        "Na-ion",
-        "Ni-Cd",
-        "Ni-MH",
         "Pb"
       ]
     },
@@ -1771,28 +1413,10 @@
         "kgCO2-eq/kWh"
       ]
     },
-    "kilowattHour": {
-      "type": "string",
-      "enum": [
-        "kWh"
-      ]
-    },
-    "ohm": {
-      "type": "string",
-      "enum": [
-        "Ohm"
-      ]
-    },
     "percent": {
       "type": "string",
       "enum": [
         "%"
-      ]
-    },
-    "percentMonth": {
-      "type": "string",
-      "enum": [
-        "%/month"
       ]
     },
     "volt": {
