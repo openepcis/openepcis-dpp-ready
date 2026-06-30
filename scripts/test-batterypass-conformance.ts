@@ -77,7 +77,7 @@ function runSchemaTests(source: Doc): Doc {
 
     // Negative: drop a required identifier field → must be rejected.
     const broken: Doc = JSON.parse(JSON.stringify(exported));
-    delete broken[c.rootKey].IdentifiersAndProductData.BatteryModelIdentifier;
+    delete broken.Battery_Passport.IdentifiersAndProductData.BatteryModelIdentifier;
     record(
       `SCHEMA neg: ${c.param} missing BatteryModelIdentifier is rejected`,
       !validate(broken),
@@ -94,7 +94,7 @@ const num = (v: any): number | undefined => (typeof v === "number" ? v : undefin
 const isUtc = (s: unknown) => typeof s === "string" && /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?(\.\d+)?Z$/.test(s);
 
 function runPlausibilityTests(exported: Doc): void {
-  const m = exported.OtherIndustrial2kWh as Doc;
+  const m = exported.Battery_Passport as Doc;
   const perf = m.PerformanceAndDurability as Doc;
   const ident = m.IdentifiersAndProductData as Doc;
   const circ = m.CircularityAndResourceEfficiency as Doc;

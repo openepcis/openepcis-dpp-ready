@@ -33,18 +33,24 @@ The published static schemas grew ~19 KB → ~42 KB and now include `required`
 arrays, `format` constraints, and tightened enums. Drift detected against our
 exporter (`scripts/export-batterypass-gefeg.ts`), inner `Battery_Passport_Master`:
 
-- **Fixed**: carbon-footprint unit enum is ASCII `kgCO2-eq/kWh` (our exporter had a
-  Unicode-subscript `kgCO₂-eq/kWh` — corrected).
-- **Pending live confirmation** (static-vs-live divergence; the live-derived schemas
-  under `validation/gefeg-live/` still reflect the older live server):
-  - `ExpectedLifetime-NumberOfCharge-dischargeCycles` — static key name; the
-    live-derived schema uses `…NumberOfChargeOrDischargeCycles`.
-  - `WarrantyPeriodOfTheBattery` now `format: date`.
-  - `SymbolsForCadmiumAndLead`, `InformationOnAccidents`,
-    `InformationOnSourcesOfSpareParts` now `format: uri`.
-  These need re-deriving/validating against the live `ValidateJSON` server
-  (`scripts/validate-batterypass-live.ts`, requires a session token) before the
-  exporter is changed, to avoid breaking conformance with the live contract.
+**RESOLVED — live-verified 2026-06-30** against the GEFEG `ValidateJSON` server
+(`EV_Guide` / `LMT_Guide` / `Other_Industrial_2kWh_Guide` /
+`Stationary_Industrial_2kWh_Guide`, version `1.0`). All four category exports now
+return ✅ no errors. The static and live contracts have **converged**, so the
+`validation/gefeg-live/` schemas are now exact mirrors of these published static
+schemas (`scripts/build-gefeg-live-schema.ts` copies them). Exporter changes made:
+
+- carbon-footprint unit enum → ASCII `kgCO2-eq/kWh` (was Unicode-subscript).
+- root key → single `Battery_Passport` for every category (per-category roots removed).
+- `ExpectedLifetime-NumberOfChargeOrDischargeCycles` → `…NumberOfCharge-dischargeCycles`.
+- `WarrantyPeriodOfTheBattery` → `format: date` (`warrantyExpiryDate`).
+- `SymbolsForCadmiumAndLead`, `InformationOnAccidents`,
+  `InformationOnSourcesOfSpareParts` → `format: uri` (mapped to source URLs).
+- `BatteryChemistry` key `CustomChemicalCodes` → `chemicalCodeValue`.
+- category-aware emission: each export is pruned to its category schema's allowed
+  group properties (EV no longer carries LMT/Stationary-only fields); the
+  `BatteryCategory` enum value is per-category (`industrial/non-stationary battery`,
+  `industrial/stationary battery`, …).
 
 Hashed asset paths at retrieval time, e.g.
 `https://batterypass-ready.gefeg.com/assets/EV_batterypass_1.0-CMI21Ips.json`.

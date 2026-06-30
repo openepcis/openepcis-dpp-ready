@@ -117,46 +117,25 @@ function inferSchema(value: any): Obj {
   return { type: "string" };
 }
 
-function build(param: string, rootKey: string): Obj {
-  const fixture = JSON.parse(readFileSync(join(FIX, `${param}.gefeg.json`), "utf-8")) as Obj;
-  const master = fixture[rootKey] as Obj;
-  const req = requiredFor(param);
-
-  const groups: Obj = {};
-  for (const [group, required] of Object.entries(req)) {
-    const present = (master[group] ?? {}) as Obj;
-    const properties: Obj = {};
-    // union of required names and whatever the fixture demonstrates
-    const names = new Set<string>([...required, ...Object.keys(present)]);
-    for (const name of names) {
-      properties[name] = name in present ? inferSchema(present[name]) : { description: "required by live server; shape not demonstrated by the reference fixture" };
-    }
-    groups[group] = { type: "object", properties, required };
-  }
-
-  return {
-    $schema: "https://json-schema.org/draft/2020-12/schema",
-    $id: `https://ref.openepcis.io/extensions/eu/battery/validation/gefeg-live/${rootKey}.schema.json`,
-    title: `GEFEG BatteryPass-Ready ${rootKey} (live-derived)`,
-    description:
-      "Live-accurate schema derived from the GEFEG ValidateJSON server (retrieved 2026-06-17) — required-sets from empty-group probing, shapes from verified-valid fixtures. The downloadable GEFEG static schema for this category does NOT match the server; use this. Generator: scripts/build-gefeg-live-schema.ts.",
-    type: "object",
-    required: [rootKey],
-    properties: {
-      [rootKey]: {
-        type: "object",
-        required: Object.keys(groups),
-        properties: groups,
-      },
-    },
-  };
-}
+// CONVERGENCE (2026-06-23 GEFEG v1.0 update, verified against the live
+// ValidateJSON server 2026-06-30): the published static schemas now MATCH the
+// live server — single "Battery_Passport" root for every category, with the
+// required / format / enum constraints the live server enforces. The bespoke
+// "derive from probed required-sets + fixtures" path (the inferSchema/REQUIRED
+// machinery above) is therefore obsolete; the live-derived schemas are now exact
+// mirrors of the published static schemas, one per harness root-key filename.
+const STATIC_DIR = join(ROOT, "extensions/eu/battery/docs/reference/gefeg-batterypass-ready");
+const STATIC_FILE: Record<string, string> = {
+  EV: "EV_batterypass_1.0.json",
+  LMT: "LMT_batterypass_1.0.json",
+  OtherIndustrial2kWh: "Other_Industrial_batterypass_1.0.json",
+  StationaryIndustrial2kWh: "Stationary_Industrial_batterypass_1.0.json",
+};
 
 mkdirSync(OUT, { recursive: true });
 for (const c of CATEGORIES) {
-  const schema = build(c.param, c.rootKey);
+  const schema = JSON.parse(readFileSync(join(STATIC_DIR, STATIC_FILE[c.rootKey]), "utf-8")) as Obj;
   const path = join(OUT, `${c.rootKey}.schema.json`);
   writeFileSync(path, JSON.stringify(schema, null, 2) + "\n");
-  const groupReq = Object.values(requiredFor(c.param)).reduce((n, a) => n + a.length, 0);
-  console.log(`Wrote ${path} (root ${c.rootKey}, ${groupReq} required leaves)`);
+  console.log(`Wrote ${path} (mirror of published static ${STATIC_FILE[c.rootKey]}; live-verified 2026-06-30)`);
 }

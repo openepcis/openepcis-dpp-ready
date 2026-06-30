@@ -27,12 +27,48 @@ import { readFileSync, writeFileSync } from "fs";
 
 // ---- category → root wrapper key (per the LIVE schema; the static Stationary
 // file mislabels its root as "Industrial2kWh").
+// As of the 2026-06-23 GEFEG v1.0 update the live ValidateJSON server uses a
+// single root key "Battery_Passport" for every category (the per-category root
+// keys EV/LMT/… were removed); category is selected by the schema tag
+// (EV_Guide / LMT_Guide / …). All categories therefore map to Battery_Passport.
 const ROOT_KEY: Record<string, string> = {
-  ev: "EV",
-  lmt: "LMT",
-  "other-industrial": "OtherIndustrial2kWh",
-  stationary: "StationaryIndustrial2kWh",
+  ev: "Battery_Passport",
+  lmt: "Battery_Passport",
+  "other-industrial": "Battery_Passport",
+  stationary: "Battery_Passport",
 };
+
+// ---- category → vendored GEFEG schema file. The four BatteryPass-Ready
+// categories share the same group structure but differ in which attributes are
+// allowed per group (additionalProperties:false), so an EV passport must NOT
+// carry LMT/Stationary-only fields. We prune each export against its category
+// schema's allowed group properties.
+const CATEGORY_SCHEMA: Record<string, string> = {
+  ev: "EV_batterypass_1.0.json",
+  lmt: "LMT_batterypass_1.0.json",
+  "other-industrial": "Other_Industrial_batterypass_1.0.json",
+  stationary: "Stationary_Industrial_batterypass_1.0.json",
+};
+const GEFEG_REF_DIR = "extensions/eu/battery/docs/reference/gefeg-batterypass-ready";
+
+/** Drop each group's properties not allowed by the target category schema. */
+function pruneToSchema(master: Record<string, unknown>, category: string): void {
+  const file = CATEGORY_SCHEMA[category];
+  if (!file) return;
+  let defs: Record<string, { properties?: Record<string, unknown> }>;
+  try {
+    defs = JSON.parse(readFileSync(`${GEFEG_REF_DIR}/${file}`, "utf-8")).$defs;
+  } catch {
+    return; // schema unavailable — skip pruning rather than fail the export
+  }
+  for (const [group, body] of Object.entries(master)) {
+    const allowed = defs?.[group]?.properties;
+    if (!allowed || typeof body !== "object" || body === null) continue;
+    for (const key of Object.keys(body as Record<string, unknown>)) {
+      if (!(key in allowed)) delete (body as Record<string, unknown>)[key];
+    }
+  }
+}
 
 // ---- unit-code translation: OpenEPCIS UN/CEFACT codes → GEFEG unit enums
 function ahUnit(unitCode?: string) {
@@ -124,8 +160,8 @@ const CATEGORY_KEY: Record<string, string> = {
 const CATEGORY_VALUE_BY_PARAM: Record<string, string> = {
   ev: "electric vehicle battery",
   lmt: "LMT battery",
-  "other-industrial": "industrial battery",
-  stationary: "industrial battery",
+  "other-industrial": "industrial/non-stationary battery",
+  stationary: "industrial/stationary battery",
 };
 const STATUS_KEY: Record<string, string> = {
   Original: "original",
@@ -223,7 +259,8 @@ export function exportGefeg(src: Q, category: string): Q {
   set(ident, "ManufacturingDate", src.manufacturingDate);
   // Required by LMT + Stationary; falls back to the manufacturing date.
   set(ident, "DateOfPuttingTheBatteryIntoService", src.puttingIntoService ?? src.manufacturingDate);
-  set(ident, "WarrantyPeriodOfTheBattery", src.warrantyConditions);
+  // GEFEG types WarrantyPeriodOfTheBattery as format:date (warranty end date).
+  set(ident, "WarrantyPeriodOfTheBattery", src.warrantyExpiryDate);
   set(ident, "BatteryCategory", enumVal("batteryCategoryValue", CATEGORY_VALUE_BY_PARAM[category] ?? CATEGORY_KEY[tail(src.category as string) ?? ""]));
   set(ident, "BatteryMass", kg(src.netWeight as Q));
   set(ident, "BatteryStatus", enumVal("batteryStatusValues", STATUS_KEY[tail(src.status as string) ?? ""]));
@@ -243,7 +280,7 @@ export function exportGefeg(src: Q, category: string): Q {
   set(perf, "RoundTripEnergyEfficiencyAt50OfCycleLife", percent(ts.roundTripEfficiencyAt50PercentCycleLife as number));
   set(perf, "InitialSelf-dischargeRate", percentMonth(ts.initialSelfDischarge as number));
   set(perf, "ExpectedLifetimeInCalendarYears", ts.expectedLifetimeYears);
-  set(perf, "ExpectedLifetime-NumberOfChargeOrDischargeCycles", ts.expectedCycleLife);
+  set(perf, "ExpectedLifetime-NumberOfCharge-dischargeCycles", ts.expectedCycleLife);
   set(perf, "Cycle-lifeReferenceTest", ts.lifetimeReferenceTest);
   set(perf, "C-rateOfRelevantCycle-lifeTest", aPerAh(ts.cRateLifeCycleTest as number));
   set(perf, "TemperatureRangeIdleStateLowerBoundary", celsius((idle.minimumTemperature as Q)?.value as number));
@@ -263,7 +300,8 @@ export function exportGefeg(src: Q, category: string): Q {
   set(perf, "InternalResistanceIncreaseOfPackCellAndModuleRecommended", percent(0));
   set(perf, "NumberOfFullChargingAndDischargingCycles", 0);
   set(perf, "TemperatureInformation", celsius(25));
-  set(perf, "InformationOnAccidents", "None reported");
+  // GEFEG types InformationOnAccidents as format:uri (link to the incident log).
+  set(perf, "InformationOnAccidents", src.accidentInformationUrl);
   // Category-specific required fields (EV needs SOCE; LMT + Stationary need the
   // remaining/throughput/extreme-temperature set). Emitting the union keeps a
   // single passport valid against all four category schemas.
@@ -290,7 +328,7 @@ export function exportGefeg(src: Q, category: string): Q {
 
   const materials: Q = {};
   const chemKey = CHEMISTRY_KEY[(chem.cathodeActiveMaterial as string) ?? ""];
-  set(materials, "BatteryChemistry", chemKey ? { CustomChemicalCodes: chemKey } : undefined);
+  set(materials, "BatteryChemistry", chemKey ? { chemicalCodeValue: chemKey } : undefined);
   const matUsed = [chem.cathodeActiveMaterial, chem.anodeActiveMaterial, chem.electrolyteType]
     .filter(Boolean)
     .join("; ");
@@ -331,7 +369,8 @@ export function exportGefeg(src: Q, category: string): Q {
   set(circ, "InformationOnTheRoleOfEnd-usersInContributingToWastePrevention", eol.wastePrevention);
   set(circ, "InformationOnTheRoleOfEnd-usersInContributingToTheSeparateCollectionOfWasteBatteries", eol.separateCollection);
   set(circ, "InformationOnBatteryCollectionPreparationForSecondLifeAndOnTreatmentAtEndOfLife", eol.informationOnCollection);
-  set(circ, "InformationOnSourcesOfSpareParts", (src.sparePartSources as Q)?.organizationName);
+  // GEFEG types InformationOnSourcesOfSpareParts as format:uri.
+  set(circ, "InformationOnSourcesOfSpareParts", (src.sparePartSources as Q)?.url);
 
   const dueDiligence: Q = {};
   set(dueDiligence, "InformationOfDueDiligenceReport", scdd.dueDiligenceReportUrl);
@@ -349,7 +388,9 @@ export function exportGefeg(src: Q, category: string): Q {
   // SymbolsForCadmiumAndLead: source records whether Cd/Pb symbols are required.
   const cd = src.cadmiumSymbolRequired === true;
   const pb = src.leadSymbolRequired === true;
-  set(symbols, "SymbolsForCadmiumAndLead", cd || pb ? `Required: ${[cd ? "Cd" : "", pb ? "Pb" : ""].filter(Boolean).join(", ")}` : "Not required (Cd/Pb below thresholds)");
+  // GEFEG types SymbolsForCadmiumAndLead as format:uri (link to the symbol /
+  // its documentation). cd/pb flags drive which symbol doc is referenced.
+  set(symbols, "SymbolsForCadmiumAndLead", src.cadmiumLeadSymbolUrl);
   // ExtinguishingAgent: object with fire class + agent, derived from labels.
   const extLabel = Array.isArray(src.labels)
     ? (src.labels as Q[]).find((l) => /ExtinguishingAgentLabel$/.test((l.labelSubject as string) ?? ""))
@@ -369,6 +410,9 @@ export function exportGefeg(src: Q, category: string): Q {
     SupplyChainDueDiligence: dueDiligence,
     SymbolsLabelsAndDocumentationOfConformity: symbols,
   };
+  // Drop attributes the target category schema does not allow (EV must not carry
+  // LMT/Stationary-only performance fields, etc.).
+  pruneToSchema(master, category);
   return { [rootKey]: master };
 }
 
