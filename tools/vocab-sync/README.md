@@ -137,7 +137,7 @@ The bulk grader (`gpt-oss-20b`) and the 0.75 confidence floor were validated emp
 `benchmark` subcommand against a published, human-curated graded-SKOS concordance (STW ↔ Wikidata).
 The pipeline, the model choices, and what made sense vs what didn't are documented in
 [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md); the leaderboard and matrices are in
-[`docs/bench/skos-grader-benchmark.md`](../../docs/bench/skos-grader-benchmark.md).
+[`docs/skos-alignment/bench/skos-grader-benchmark.md`](../../docs/skos-alignment/bench/skos-grader-benchmark.md).
 
 Headline findings (200 balanced gold pairs, identical production prompt, temperature 0):
 
@@ -171,30 +171,30 @@ Commands:
 | `smoke` | Grade one known pair to verify the endpoint and structured output. |
 | `stats [--module S]` | Load both indexes and print counts (no LLM). |
 | `retrieve --term NAME [--k K]` | Show embedding-retrieved candidates for one term (no grading). |
-| `audit [--module S] [--limit N] [--concurrency C] [--no-qa]` | Find MISSING/WEAK/WRONG mappings, QA-verify them → `docs/skos-completeness-report.{md,json}`. |
+| `audit [--module S] [--limit N] [--concurrency C] [--no-qa]` | Find MISSING/WEAK/WRONG mappings, QA-verify them → `docs/skos-alignment/skos-completeness-report.{md,json}`. |
 | `apply --report R [--status …] [--confirmed-only] [--min-qa-confidence X] [--rewrite] [--apply]` | Insert/rewrite mappings into the TTLs (dry-run unless `--apply`). Below `--min-qa-confidence` (0.75) an add becomes a non-committal `rdfs:seeAlso` in place of a graded relation; re-parses and restores on invalid output. |
-| `provenance [--report R] [--approve F] [--xlsx P] [--min-qa-confidence X]` | From the report(s), write `docs/skos-alignment-review.md` (review sheet) + `docs/alignment-provenance.{ttl,json}` (audit trail). `--report` reads one report (vs the `*-opus.json` glob); `--xlsx` also writes the editable Excel curation workbook. |
+| `provenance [--report R] [--approve F] [--xlsx P] [--min-qa-confidence X]` | From the report(s), write `docs/skos-alignment/skos-alignment-review.md` (review sheet) + `docs/skos-alignment/alignment-provenance.{ttl,json}` (audit trail). `--report` reads one report (vs the `*-opus.json` glob); `--xlsx` also writes the editable Excel curation workbook. |
 | `curate --report R [--xlsx P] [--stamp D] [--base-branch B] [--push]` | Read a curator-edited workbook and rebuild the `vocab-sync/upstream-<stamp>` branch from only the `Apply?=yes` rows (adds, rewrites, **and** removes). See [Curate via Excel](#curate-via-excel). |
-| `reverse [--vocab V] [--min-cosine X]` | Reverse coverage: upstream terms with no incoming mapping that are embedding-near one of ours → `docs/skos-reverse-coverage.{md,json}`. |
-| `manifest [--qa-model M]` | Reproducibility manifest: models, parameters, upstream versions + cache hashes → `docs/alignment-run-manifest.json`. |
+| `reverse [--vocab V] [--min-cosine X]` | Reverse coverage: upstream terms with no incoming mapping that are embedding-near one of ours → `docs/skos-alignment/skos-reverse-coverage.{md,json}`. |
+| `manifest [--qa-model M]` | Reproducibility manifest: models, parameters, upstream versions + cache hashes → `docs/skos-alignment/alignment-run-manifest.json`. |
 | `fetch --from URL\|file --against cached [--save]` | Diff a refreshed upstream vocabulary against the cached copy (added/removed/changed terms) to decide when to re-audit. |
-| `fetch --all [--save]` | Refresh **every** configured upstream source (`vocab-sync.source.*.url`), diff each, and write `docs/skos-upstream-delta.json`. |
+| `fetch --all [--save]` | Refresh **every** configured upstream source (`vocab-sync.source.*.url`), diff each, and write `docs/skos-alignment/skos-upstream-delta.json`. |
 | `sync [--module S] [--stamp D] [--force] [--no-apply] [--no-qa] [--push] [--min-qa-confidence X]` | The regular-run loop: refresh upstream → if moved, re-audit (only changed pairs hit the LLM) → apply QA-confirmed mappings to a `vocab-sync/upstream-<stamp>` branch. See [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md#running-it-regularly-the-sync-loop). |
-| `benchmark [--per-class N] [--models CSV] [--max-tokens T] [--tag S]` | Benchmark LLMs on graded-SKOS classification against published STW↔Wikidata mappings; builds a balanced gold set, runs the field model-by-model (resumable JSONL log), and scores accuracy/F1/confusion/calibration → `docs/bench/`. |
+| `benchmark [--per-class N] [--models CSV] [--max-tokens T] [--tag S]` | Benchmark LLMs on graded-SKOS classification against published STW↔Wikidata mappings; builds a balanced gold set, runs the field model-by-model (resumable JSONL log), and scores accuracy/F1/confusion/calibration → `docs/skos-alignment/bench/`. |
 
 Typical loop:
 
 ```bash
 # 1) audit one module, review the report
-java -jar target/quarkus-app/quarkus-run.jar audit --module core --out docs/skos-completeness-core
-$EDITOR docs/skos-completeness-core.md
+java -jar target/quarkus-app/quarkus-run.jar audit --module core --out docs/skos-alignment/skos-completeness-core
+$EDITOR docs/skos-alignment/skos-completeness-core.md
 
 # 2) dry-run the high-confidence MISSING/WEAK insertions
-java -jar target/quarkus-app/quarkus-run.jar apply --report docs/skos-completeness-core.json \
+java -jar target/quarkus-app/quarkus-run.jar apply --report docs/skos-alignment/skos-completeness-core.json \
      --status MISSING,WEAK --min-confidence 0.85
 
 # 3) approve a subset (optional) and write
-java -jar target/quarkus-app/quarkus-run.jar apply --report docs/skos-completeness-core.json \
+java -jar target/quarkus-app/quarkus-run.jar apply --report docs/skos-alignment/skos-completeness-core.json \
      --approve docs/approved.tsv --apply
 
 # 4) regenerate derived artifacts
@@ -212,18 +212,18 @@ spreadsheet, and rebuild the review branch from your choices.
 ```bash
 J=target/quarkus-app/quarkus-run.jar
 
-# 1) Export the workbook from a report (the `sync` run leaves docs/skos-completeness-sync.json).
-java -jar $J provenance --report docs/skos-completeness-sync.json \
-     --xlsx docs/skos-alignment-review.xlsx --qa-model qwen/qwen3-32b
+# 1) Export the workbook from a report (the `sync` run leaves docs/skos-alignment/skos-completeness-sync.json).
+java -jar $J provenance --report docs/skos-alignment/skos-completeness-sync.json \
+     --xlsx docs/skos-alignment/skos-alignment-review.xlsx --qa-model qwen/qwen3-32b
 
-# 2) Open docs/skos-alignment-review.xlsx and edit the `Apply?` column.
+# 2) Open docs/skos-alignment/skos-alignment-review.xlsx and edit the `Apply?` column.
 #    - Every row defaults to `yes`. Set the ones you reject to `no`.
 #    - Filter `Scrutiny = review` to triage the contested rows first; the `legend` sheet explains the columns.
 #    - Do NOT edit the hidden columns (ourIri/upstreamIri/predicate/oldPredicate); they are the keys.
 
 # 3) Rebuild the review branch from only the accepted rows.
-java -jar $J curate --xlsx docs/skos-alignment-review.xlsx \
-     --report docs/skos-completeness-sync.json --stamp $(date +%F)
+java -jar $J curate --xlsx docs/skos-alignment/skos-alignment-review.xlsx \
+     --report docs/skos-alignment/skos-completeness-sync.json --stamp $(date +%F)
 ```
 
 `curate` recreates `vocab-sync/upstream-<stamp>` from the clean base branch

@@ -71,11 +71,11 @@ public class SyncCommand implements Runnable {
             description = "Push the created branch to origin (default: leave it local for review).")
     boolean push;
 
-    @CommandLine.Option(names = "--report", defaultValue = "docs/skos-completeness-sync",
+    @CommandLine.Option(names = "--report", defaultValue = "docs/skos-alignment/skos-completeness-sync",
             description = "Audit report basename (repo-relative).")
     String report;
 
-    @CommandLine.Option(names = "--delta-out", defaultValue = "docs/skos-upstream-delta.json")
+    @CommandLine.Option(names = "--delta-out", defaultValue = "docs/skos-alignment/skos-upstream-delta.json")
     String deltaOut;
 
     @Override

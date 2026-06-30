@@ -37,7 +37,7 @@ public class ApplyCommand implements Runnable {
 
     @ConfigProperty(name = "vocab-sync.repo-root") String repoRoot;
 
-    @CommandLine.Option(names = "--report", defaultValue = "docs/skos-completeness-core.json",
+    @CommandLine.Option(names = "--report", defaultValue = "docs/skos-alignment/skos-completeness-core.json",
             description = "Report JSON to apply (repo-relative).")
     String report;
 

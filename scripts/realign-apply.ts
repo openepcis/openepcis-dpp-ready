@@ -1,7 +1,7 @@
 /**
  * Phase 2 — apply ontology realignment changes from the mapping JSON.
  *
- * For each row in docs/ontology-realignment-mapping.json:
+ * For each row in docs/skos-alignment/ontology-realignment-mapping.json:
  *   REPLACE_WITH_GS1 / REPLACE_WITH_SCHEMA
  *     → delete the term's block from its TTL file
  *     → retarget any JSON-LD context aliases that pointed at the deleted term
@@ -170,7 +170,7 @@ const OVERRIDES: Record<string, { verdict?: MappingRow["verdict"]; canonical?: s
 };
 
 function loadMapping(): MappingRow[] {
-  const path = join(PROJECT_ROOT, "docs/ontology-realignment-mapping.json");
+  const path = join(PROJECT_ROOT, "docs/skos-alignment/ontology-realignment-mapping.json");
   if (!existsSync(path)) {
     throw new Error(`Mapping JSON not found at ${path}. Run scripts/realign-mapping.ts first.`);
   }

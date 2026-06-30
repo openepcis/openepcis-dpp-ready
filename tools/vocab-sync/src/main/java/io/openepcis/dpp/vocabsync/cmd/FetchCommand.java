@@ -43,7 +43,7 @@ public class FetchCommand implements Runnable {
                     + "vs its cache, and write a structured delta JSON. Ignores --from/--against.")
     boolean all;
 
-    @CommandLine.Option(names = "--delta-out", defaultValue = "docs/skos-upstream-delta.json",
+    @CommandLine.Option(names = "--delta-out", defaultValue = "docs/skos-alignment/skos-upstream-delta.json",
             description = "Where --all writes the machine-readable delta (repo-relative).")
     String deltaOut;
 

@@ -35,7 +35,7 @@ import java.util.Set;
 @CommandLine.Command(
         name = "reverse",
         description = "Find upstream terms with no incoming mapping that are embedding-near one of "
-                + "our terms (coverage gaps) → docs/skos-reverse-coverage.{md,json}.")
+                + "our terms (coverage gaps) → docs/skos-alignment/skos-reverse-coverage.{md,json}.")
 public class ReverseCommand implements Runnable {
 
     @Inject OurIndex ourIndex;
@@ -57,7 +57,7 @@ public class ReverseCommand implements Runnable {
             description = "Max gaps to list per vocabulary in the report.")
     int perVocab;
 
-    @CommandLine.Option(names = "--out", defaultValue = "docs/skos-reverse-coverage")
+    @CommandLine.Option(names = "--out", defaultValue = "docs/skos-alignment/skos-reverse-coverage")
     String out;
 
     private record Gap(String vocabId, String upstreamIri, String upstreamLocal, String upstreamType,

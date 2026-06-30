@@ -72,7 +72,7 @@ public class BenchmarkCommand implements Runnable {
 
     @CommandLine.Option(names = "--bench-dir", defaultValue = "tools/vocab-sync/.cache/bench")
     String benchDir;
-    @CommandLine.Option(names = "--out", defaultValue = "docs/bench/skos-grader-benchmark") String out;
+    @CommandLine.Option(names = "--out", defaultValue = "docs/skos-alignment/bench/skos-grader-benchmark") String out;
     @CommandLine.Option(names = "--per-class", defaultValue = "40",
             description = "Gold examples per relation class (EXACT/CLOSE/BROAD/NARROW/NONE).")
     int perClass;
@@ -105,7 +105,7 @@ public class BenchmarkCommand implements Runnable {
         Path bench = root.resolve(benchDir).normalize();
         Path goldPath = root.resolve(out.replace("skos-grader-benchmark", "skos-grader-goldset") + ".json");
         // goldset lives next to the report basename's dir
-        goldPath = root.resolve("docs/bench/skos-grader-goldset.json");
+        goldPath = root.resolve("docs/skos-alignment/bench/skos-grader-goldset.json");
         Path predPath = bench.resolve("predictions.jsonl");
 
         List<ObjectNode> gold;
@@ -464,7 +464,7 @@ public class BenchmarkCommand implements Runnable {
         rows.forEach(board::add);
 
         writeJson(root.resolve(out + ".json"), report);
-        writeManifest(root.resolve("docs/bench/benchmark-manifest.json"), gold.size(), byModel.keySet());
+        writeManifest(root.resolve("docs/skos-alignment/bench/benchmark-manifest.json"), gold.size(), byModel.keySet());
         writeMarkdown(root.resolve(out + ".md"), rows, gold.size());
         System.out.printf("%nbenchmark scored: %d models → %s.{md,json}%n", rows.size(), root.resolve(out));
     }

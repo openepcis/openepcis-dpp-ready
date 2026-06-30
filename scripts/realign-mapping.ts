@@ -10,7 +10,7 @@
  *   KEEP_NO_LINK         — genuinely regulation-specific, no external equivalent
  *
  * Reads cached GS1 + schema.org vocabularies from .cache/vocab/.
- * Outputs a markdown report at docs/ontology-realignment-mapping.md.
+ * Outputs a markdown report at docs/skos-alignment/ontology-realignment-mapping.md.
  *
  * Usage: npx tsx scripts/realign-mapping.ts
  */
@@ -607,7 +607,7 @@ function main() {
     lines.push("");
   }
 
-  const outPath = join(PROJECT_ROOT, "docs/ontology-realignment-mapping.md");
+  const outPath = join(PROJECT_ROOT, "docs/skos-alignment/ontology-realignment-mapping.md");
   mkdirSync(dirname(outPath), { recursive: true });
   writeFileSync(outPath, lines.join("\n"));
   console.log(`\nWrote mapping to ${outPath}`);
@@ -639,7 +639,7 @@ function main() {
       reason: m.reason,
     })),
   }));
-  const jsonPath = join(PROJECT_ROOT, "docs/ontology-realignment-mapping.json");
+  const jsonPath = join(PROJECT_ROOT, "docs/skos-alignment/ontology-realignment-mapping.json");
   writeFileSync(jsonPath, JSON.stringify(jsonOut, null, 2));
   console.log(`Wrote JSON to ${jsonPath}`);
 

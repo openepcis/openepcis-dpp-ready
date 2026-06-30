@@ -26,7 +26,7 @@ import java.util.TreeMap;
  */
 @CommandLine.Command(
         name = "manifest",
-        description = "Write docs/alignment-run-manifest.json: models, parameters, and upstream "
+        description = "Write docs/skos-alignment/alignment-run-manifest.json: models, parameters, and upstream "
                 + "source versions/hashes for reproducibility.")
 public class ManifestCommand implements Runnable {
 
@@ -53,7 +53,7 @@ public class ManifestCommand implements Runnable {
             description = "Run date (Date.now is unavailable to the tool by policy).")
     String stamp;
 
-    @CommandLine.Option(names = "--out", defaultValue = "docs/alignment-run-manifest.json")
+    @CommandLine.Option(names = "--out", defaultValue = "docs/skos-alignment/alignment-run-manifest.json")
     String out;
 
     @Override

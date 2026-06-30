@@ -35,8 +35,8 @@ import java.util.stream.Stream;
  */
 @CommandLine.Command(
         name = "provenance",
-        description = "From the *-opus.json reports, write docs/skos-alignment-review.md (review sheet) "
-                + "and docs/alignment-provenance.{ttl,json} (audit trail of applied mappings).")
+        description = "From the *-opus.json reports, write docs/skos-alignment/skos-alignment-review.md (review sheet) "
+                + "and docs/skos-alignment/alignment-provenance.{ttl,json} (audit trail of applied mappings).")
 public class ProvenanceCommand implements Runnable {
 
     @Inject
@@ -78,10 +78,10 @@ public class ProvenanceCommand implements Runnable {
             description = "QA-confidence floor (matches apply): below it an add is recorded as rdfs:seeAlso.")
     double minQaConfidence;
 
-    @CommandLine.Option(names = "--review-out", defaultValue = "docs/skos-alignment-review.md")
+    @CommandLine.Option(names = "--review-out", defaultValue = "docs/skos-alignment/skos-alignment-review.md")
     String reviewOut;
 
-    @CommandLine.Option(names = "--out", defaultValue = "docs/alignment-provenance")
+    @CommandLine.Option(names = "--out", defaultValue = "docs/skos-alignment/alignment-provenance")
     String provOut;
 
     /** One reconstructed applied decision. */

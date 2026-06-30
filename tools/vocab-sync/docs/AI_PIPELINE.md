@@ -80,7 +80,7 @@ confidence 0.75 to 0.90. What *is* near-certain at any confidence is that *some*
 We picked the grader and the floor by measurement, not intuition: a balanced 200-pair gold set
 built from a published, human-curated graded-SKOS concordance (STW ↔ Wikidata), every model judged
 with the identical production prompt at temperature 0. Full leaderboard, confusion matrices, and
-calibration: [`docs/bench/skos-grader-benchmark.{md,json}`](../../../docs/bench/skos-grader-benchmark.md);
+calibration: [`docs/skos-alignment/bench/skos-grader-benchmark.{md,json}`](../../../docs/skos-alignment/bench/skos-grader-benchmark.md);
 gold set and raw predictions are alongside it.
 
 **What made sense:**
@@ -134,7 +134,7 @@ java -jar target/quarkus-app/quarkus-run.jar sync --stamp 2026-06-25
 What it does, in order:
 
 1. **Refresh upstream.** Downloads each configured source (`vocab-sync.source.<vocab>.url` in
-   `application.properties`), diffs it against the cache, and writes `docs/skos-upstream-delta.json`.
+   `application.properties`), diffs it against the cache, and writes `docs/skos-alignment/skos-upstream-delta.json`.
    `fetch --all` runs just this step. Sources with no URL configured are skipped; schema.org has a
    working default. (gzip responses are inflated automatically.)
 2. **Gate.** If nothing moved, `sync` stops — no audit, no LLM calls, no branch. `--force` overrides.

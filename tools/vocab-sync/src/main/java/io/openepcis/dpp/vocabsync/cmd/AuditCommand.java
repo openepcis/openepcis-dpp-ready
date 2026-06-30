@@ -47,7 +47,7 @@ import java.util.stream.Collectors;
 @CommandLine.Command(
         name = "audit",
         description = "Find missing / weak / wrong SKOS mappings from our terms to upstream "
-                + "and write docs/skos-completeness-report.{md,json}.")
+                + "and write docs/skos-alignment/skos-completeness-report.{md,json}.")
 public class AuditCommand implements Runnable {
 
     @Inject OurIndex ourIndex;
@@ -127,7 +127,7 @@ public class AuditCommand implements Runnable {
             description = "Comma-separated prior QA tiers to re-judge when --qa-rejudge-from is set.")
     String qaRejudgeTiers;
 
-    @CommandLine.Option(names = "--out", description = "Report basename (default docs/skos-completeness-report).")
+    @CommandLine.Option(names = "--out", description = "Report basename (default docs/skos-alignment/skos-completeness-report).")
     String out;
 
     @CommandLine.Option(names = "--stamp", defaultValue = "unset",
@@ -284,7 +284,7 @@ public class AuditCommand implements Runnable {
         }
 
         // 4) Write the report.
-        String base = out != null ? out : "docs/skos-completeness-report";
+        String base = out != null ? out : "docs/skos-alignment/skos-completeness-report";
         Path md = Path.of(repoRoot).resolve(base + ".md").normalize();
         Path json = Path.of(repoRoot).resolve(base + ".json").normalize();
         reportWriter.write(md, json, findings, scope, stamp);

@@ -30,7 +30,7 @@ public class CurateCommand implements Runnable {
 
     @ConfigProperty(name = "vocab-sync.repo-root") String repoRoot;
 
-    @CommandLine.Option(names = "--xlsx", defaultValue = "docs/skos-alignment-review.xlsx",
+    @CommandLine.Option(names = "--xlsx", defaultValue = "docs/skos-alignment/skos-alignment-review.xlsx",
             description = "Edited review workbook to import (repo-relative).")
     String xlsx;
 
@@ -148,8 +148,8 @@ public class CurateCommand implements Runnable {
                     "--bulk-model", bulkModel, "--qa-model", qaModel));
             // 6) Commit the ontology edits and the provenance docs (not the workbook or approval file).
             gitCode(root, "add", "extensions",
-                    "docs/alignment-provenance.json", "docs/alignment-provenance.ttl",
-                    "docs/skos-alignment-review.md");
+                    "docs/skos-alignment/alignment-provenance.json", "docs/skos-alignment/alignment-provenance.ttl",
+                    "docs/skos-alignment/skos-alignment-review.md");
             gitCode(root, "commit", "-m",
                     "vocab-sync: apply curator-accepted upstream mappings (" + stamp + ")");
             if (push) gitCode(root, "push", "-u", "origin", target);
