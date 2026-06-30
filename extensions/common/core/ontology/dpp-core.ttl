@@ -118,7 +118,7 @@ oec:OperatorInformation
     rdfs:label "Operator Information"@en ;
     rdfs:comment """Economic operator information as required by various EU regulations.
 Captures manufacturer, importer, distributor, and other operator roles.
-Use gs1:gln for operator identification (inherited from gs1:Organization).
+Use gs1:globalLocationNumber for operator identification (inherited from gs1:Organization).
 Use GS1 Digital Link format: https://id.gs1.org/417/{GLN}"""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     rdfs:subClassOf gs1:Organization ;
@@ -130,7 +130,7 @@ Use GS1 Digital Link format: https://id.gs1.org/417/{GLN}"""@en ;
     rdfs:seeAlso cirpass2:ManufacturerRecord ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32019R1020> ;
     skos:note """Extension of gs1:Organization to capture ESPR-specific operator role requirements.
-Use gs1:gln for operator GLN, gs1:organizationName for name.
+Use gs1:globalLocationNumber for operator GLN, gs1:organizationName for name.
 GS1 Web Vocabulary provides gs1:Organization but lacks the specific operator role enumeration
 required by EU Market Surveillance Regulation 2019/1020 and ESPR Article 77.
 
@@ -257,7 +257,7 @@ oec:FacilityInformation
     rdfs:label "Facility Information"@en ;
     rdfs:comment """Manufacturing or processing facility information per ESPR.
 Captures facility identification, location, and certification data.
-Use gs1:gln for facility identification, gs1:name for facility name, gs1:address for location (all inherited from gs1:Place).
+Use gs1:globalLocationNumber for facility identification, schema:name for facility name, gs1:address for location (all inherited from gs1:Place).
 Use GS1 Digital Link format: https://id.gs1.org/414/{GLN}"""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     rdfs:subClassOf gs1:Place ;
@@ -270,7 +270,7 @@ Use GS1 Digital Link format: https://id.gs1.org/414/{GLN}"""@en ;
     rdfs:seeAlso cirpass2:Facility ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Extension of gs1:Place to capture ESPR-specific facility requirements.
-Use gs1:gln for facility GLN identification, gs1:name for facility name, gs1:address for location.
+Use gs1:globalLocationNumber for facility GLN identification, schema:name for facility name, gs1:address for location.
 GS1 provides gs1:Place but lacks facility certification and type properties required by ESPR.
 Aligned with UNTP Facility for Digital Facility Record (DFR) interoperability.
 Anchored to locn:Location (EU SEMICeu Core Location Vocabulary, http://www.w3.org/ns/locn#)
@@ -2222,6 +2222,28 @@ oec:isRegulationCompliant
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
+oec:regulatoryActStatus
+    a owl:DatatypeProperty ;
+    rdfs:label "Regulatory Act Status"@en ;
+    rdfs:comment "Status of a trade item with respect to a specific regulatory act (e.g. ACTIVE, EXEMPT, PENDING). Used inside a gs1:regulatoryInformation block alongside gs1:regulatoryAct."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "oec: extension: GS1 Web Vocabulary names a regulatory act (gs1:regulatoryAct) but carries no status of an item against that act. Replaces the non-existent gs1:regulatoryActStatus referenced in earlier drafts."@en ;
+    rdfs:seeAlso gs1:regulatoryAct ;
+    skos:relatedMatch gs1:regulatoryAct .
+
+oec:regulatoryPermitIdentification
+    a owl:DatatypeProperty ;
+    rdfs:label "Regulatory Permit Identification"@en ;
+    rdfs:comment "Identifier of a permit, authorisation, or type-examination certificate issued by a regulatory body for the trade item. Used inside a gs1:regulatoryInformation block."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "oec: extension: GS1 gs1:regulatoryIdentifier links to identifier groupings within a regulatory information system and gs1:regulatoryReferenceNumber is a reference number, neither of which is a literal permit identifier. Replaces the non-existent gs1:regulatoryPermitIdentification referenced in earlier drafts."@en ;
+    rdfs:seeAlso gs1:regulatoryReferenceNumber, gs1:regulatoryIdentifier ;
+    skos:closeMatch gs1:regulatoryReferenceNumber .
+
 # =============================================================================
 # Cross-Cutting EU Regulatory Concepts (lifted from per-module modules)
 # =============================================================================
@@ -2479,7 +2501,7 @@ oec:depositRedemptionChannelUrl
 oec:depositReturnScheme
     a owl:ObjectProperty ;
     rdfs:label "Deposit-Return Scheme"@en ;
-    rdfs:comment "Links a product (typically gs1:Packaging) to the DRS it participates in."@en ;
+    rdfs:comment "Links a product (typically gs1:PackagingDetails) to the DRS it participates in."@en ;
     rdfs:range oec:DepositReturnScheme ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;

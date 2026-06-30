@@ -40,7 +40,7 @@ Aligned with:
 GS1 Properties to Use (not redefined here):
 - gs1:gtin - Global Trade Item Number
 - gs1:netWeight / gs1:grossWeight - Battery weight
-- gs1:manufacturingDate - Manufacturing date
+- gs1:productionDate - Manufacturing date
 - gs1:countryOfOrigin - Country of manufacture
 - gs1:manufacturer - Manufacturer organization
 - gs1:warranty / gs1:WarrantyPromise - Warranty information
@@ -268,7 +268,7 @@ eubat:BatteryCategory
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     rdfs:seeAlso gs1:additionalProductClassification ;
     skos:note """Battery categories per EU Battery Regulation Art. 3. Can alternatively be expressed
-via gs1:additionalProductClassification with gs1:additionalProductClassificationSystemCode
+via gs1:additionalProductClassification with gs1:additionalProductClassificationCode
 set to 'BATTERY_REGULATION_2023_1542' and gs1:additionalProductClassificationCode set to
 the category code (lmt, ev, industrial, stationary, portable, sli)."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
@@ -827,7 +827,6 @@ eubat:batteryModelIdentifier
     skos:broadMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier> ;
     skos:narrowMatch schema:identifier ;
     skos:narrowMatch dppk:componentIdentifier ;
-    skos:narrowMatch gs1:globalModelNumber ;
     skos:narrowMatch dppk:identifier ;
     skos:narrowMatch adms:identifier .
 
@@ -840,14 +839,14 @@ eubat:facilityIdentifier
     rdfs:subPropertyOf skos:notation ;
     dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
     skos:note "BatteryPass-Ready v1.3 longlist attribute #11. Domain moved from gs1:Product to oec:FacilityInformation in 0.9.5: the identifier identifies a facility, not the product. Anchored as rdfs:subPropertyOf skos:notation so the value is recognisable as an identifier notation, and rdfs:seeAlso adms:Identifier as the canonical SEMICeu peer (an adms:Identifier instance whose notation is this value and whose schemeAgency is the GLN issuer)."@en ;
-    rdfs:seeAlso gs1:gln ;
+    rdfs:seeAlso gs1:globalLocationNumber ;
     rdfs:seeAlso adms:Identifier ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     skos:broadMatch gs1:globalLocationNumber ;
     skos:narrowMatch schema:identifier ;
     skos:exactMatch dppk:facilityId ;
     skos:exactMatch dppk:manufacturingFacility ;
-    skos:closeMatch gs1:gln .
+    skos:closeMatch gs1:globalLocationNumber .
 
 # =============================================================================
 # PART 4: PROPERTIES - CHEMISTRY
@@ -2053,7 +2052,7 @@ eubat:operatorIdentifier
     rdfs:subPropertyOf skos:notation ;
     dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
     skos:note "BatteryPass-Ready v1.3 longlist attribute #9. Recommended access level: AuthorizedOnly. Domain moved from gs1:Product to oec:OperatorInformation in 0.9.5: the identifier identifies the operator, not the product. Conceptually an adms:Identifier whose notation is the GLN / EOID and whose schemaAgency identifies the issuer."@en ;
-    rdfs:seeAlso gs1:gln ;
+    rdfs:seeAlso gs1:globalLocationNumber ;
     rdfs:seeAlso oec:OperatorInformation ;
     rdfs:seeAlso adms:Identifier ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
@@ -2070,7 +2069,7 @@ eubat:manufacturerIdentifier
     rdfs:subPropertyOf skos:notation ;
     dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
     skos:note "BatteryPass-Ready v1.3 longlist attribute #10. Recommended access level: AuthorizedOnly. Granularity: model per manufacturing site. Domain moved from gs1:Product to oec:OperatorInformation in 0.9.5: the identifier identifies the manufacturer organisation, not the product."@en ;
-    rdfs:seeAlso gs1:gln ;
+    rdfs:seeAlso gs1:globalLocationNumber ;
     rdfs:seeAlso gs1:manufacturer ;
     rdfs:seeAlso adms:Identifier ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;

@@ -2,7 +2,7 @@
   "namespace": "https://ref.openepcis.io/extensions/eu/battery/",
   "version": "0.9.7",
   "title": "OpenEPCIS Battery Vocabulary",
-  "description": "Battery-specific vocabulary extending GS1 Web Vocabulary for Digital Product Passports.\n\nA lightweight, 100% JSON-LD compatible alternative to BatteryPass/SAMM that covers all\nEU Battery Regulation 2023/1542 Annex XIII requirements while leveraging existing GS1 standards.\n\nAligned with:\n- EU Battery Regulation 2023/1542 Annex XIII\n- DIN DKE SPEC 99100:2025-02\n- GS1 Web Vocabulary (gs1:regulatoryInformation pattern)\n- GS1 EPCIS 2.0 (gs1:masterDataAvailableFor)\n\nGS1 Properties to Use (not redefined here):\n- gs1:gtin - Global Trade Item Number\n- gs1:netWeight / gs1:grossWeight - Battery weight\n- gs1:manufacturingDate - Manufacturing date\n- gs1:countryOfOrigin - Country of manufacture\n- gs1:manufacturer - Manufacturer organization\n- gs1:warranty / gs1:WarrantyPromise - Warranty information\n- gs1:certification / gs1:CertificationDetails - Certifications\n- gs1:regulatoryInformation - Regulatory compliance\n\nFor regulatory compliance data, use gs1:regulatoryInformation with gs1:RegulationTypeCode-BATTERY_DIRECTIVE.\n\nEPCIS 2.0 Extension Declaration:\nGS1-Extensions: eubat=https://ref.openepcis.io/extensions/eu/battery/\n\nExtension Governance:\nThis vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.\nEach extension term includes dcterms:source, skos:note, and rdfs:seeAlso where applicable.\nBattery categories can also be expressed via gs1:additionalProductClassification.",
+  "description": "Battery-specific vocabulary extending GS1 Web Vocabulary for Digital Product Passports.\n\nA lightweight, 100% JSON-LD compatible alternative to BatteryPass/SAMM that covers all\nEU Battery Regulation 2023/1542 Annex XIII requirements while leveraging existing GS1 standards.\n\nAligned with:\n- EU Battery Regulation 2023/1542 Annex XIII\n- DIN DKE SPEC 99100:2025-02\n- GS1 Web Vocabulary (gs1:regulatoryInformation pattern)\n- GS1 EPCIS 2.0 (gs1:masterDataAvailableFor)\n\nGS1 Properties to Use (not redefined here):\n- gs1:gtin - Global Trade Item Number\n- gs1:netWeight / gs1:grossWeight - Battery weight\n- gs1:productionDate - Manufacturing date\n- gs1:countryOfOrigin - Country of manufacture\n- gs1:manufacturer - Manufacturer organization\n- gs1:warranty / gs1:WarrantyPromise - Warranty information\n- gs1:certification / gs1:CertificationDetails - Certifications\n- gs1:regulatoryInformation - Regulatory compliance\n\nFor regulatory compliance data, use gs1:regulatoryInformation with gs1:RegulationTypeCode-BATTERY_DIRECTIVE.\n\nEPCIS 2.0 Extension Declaration:\nGS1-Extensions: eubat=https://ref.openepcis.io/extensions/eu/battery/\n\nExtension Governance:\nThis vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.\nEach extension term includes dcterms:source, skos:note, and rdfs:seeAlso where applicable.\nBattery categories can also be expressed via gs1:additionalProductClassification.",
   "classes": [
     {
       "id": "https://ref.openepcis.io/extensions/eu/battery/Battery",
@@ -367,7 +367,6 @@
         "http://www.w3.org/ns/adms#identifier",
         "https://schema.org/model",
         "https://dpp-keystone.org/spec/v2/terms#componentIdentifier",
-        "https://ref.gs1.org/voc/globalModelNumber",
         "https://dpp-keystone.org/spec/v2/terms#identifier"
       ],
       "source": "https://thebatterypass.eu/battery-pass-ready/publications/"
@@ -1765,7 +1764,7 @@
         "xsd:string"
       ],
       "seeAlso": [
-        "https://ref.gs1.org/voc/gln",
+        "https://ref.gs1.org/voc/globalLocationNumber",
         "http://www.w3.org/ns/adms#Identifier"
       ],
       "exactMatch": [
@@ -1773,7 +1772,7 @@
         "https://dpp-keystone.org/spec/v2/terms#manufacturingFacility"
       ],
       "closeMatch": [
-        "https://ref.gs1.org/voc/gln"
+        "https://ref.gs1.org/voc/globalLocationNumber"
       ],
       "broadMatch": [
         "https://ref.gs1.org/voc/globalLocationNumber"
@@ -2345,7 +2344,7 @@
         "xsd:string"
       ],
       "seeAlso": [
-        "https://ref.gs1.org/voc/gln",
+        "https://ref.gs1.org/voc/globalLocationNumber",
         "http://www.w3.org/ns/adms#Identifier",
         "https://ref.gs1.org/voc/manufacturer"
       ],
@@ -2895,7 +2894,7 @@
         "xsd:string"
       ],
       "seeAlso": [
-        "https://ref.gs1.org/voc/gln",
+        "https://ref.gs1.org/voc/globalLocationNumber",
         "http://www.w3.org/ns/adms#Identifier",
         "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
         "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturerInformation"

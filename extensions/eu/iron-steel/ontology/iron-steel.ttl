@@ -82,10 +82,9 @@ eusteel:heatNumber
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
     dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
-    rdfs:seeAlso gs1:batchLot ;
     rdfs:seeAlso dppk:heatNumber ;
     skos:exactMatch dppk:heatNumber ;
-    skos:note "Steel traceability identifier per EN 10168. GS1 gs1:batchLot is the closest generic batch identifier; this property names the steel heat specifically."@en ;
+    skos:note "Steel traceability identifier per EN 10168. GS1 gs1:hasBatchLotNumber is the closest generic batch identifier; this property names the steel heat specifically."@en ;
     rdfs:seeAlso gs1:hasBatchLotNumber ;
     skos:closeMatch gs1:hasBatchLotNumber ;
     rdfs:seeAlso schema:serialNumber .
@@ -98,14 +97,13 @@ eusteel:castNumber
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
     dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
-    rdfs:seeAlso gs1:batchLot ;
     rdfs:seeAlso dppk:castNumber ;
     skos:exactMatch dppk:castNumber ;
-    skos:note "Steel traceability identifier per EN 10168. Closest GS1 generic is gs1:batchLot."@en ;
+    skos:note "Steel traceability identifier per EN 10168. Closest GS1 generic is gs1:hasBatchLotNumber."@en ;
     skos:narrowMatch dppk:heatNumber ;
     rdfs:seeAlso gs1:hasBatchLotNumber ;
     skos:narrowMatch schema:serialNumber ;
-    skos:narrowMatch gs1:batchLot .
+    skos:narrowMatch gs1:hasBatchLotNumber .
 
 eusteel:lotNumber
     a owl:DatatypeProperty ;
@@ -115,10 +113,10 @@ eusteel:lotNumber
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
     dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
-    rdfs:seeAlso gs1:batchLot ;
+    rdfs:seeAlso gs1:hasBatchLotNumber ;
     rdfs:seeAlso dppk:lotNumber ;
     skos:exactMatch dppk:lotNumber ;
-    skos:note "Closest GS1 generic is gs1:batchLot; this property names the steel delivery lot specifically."@en ;
+    skos:note "Closest GS1 generic is gs1:hasBatchLotNumber; this property names the steel delivery lot specifically."@en ;
     skos:narrowMatch gs1:hasBatchLotNumber ;
     skos:narrowMatch schema:serialNumber .
 
@@ -131,10 +129,9 @@ eusteel:productNumber
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/> ;
     dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-10168.aspx> ;
     rdfs:seeAlso schema:productID ;
-    rdfs:seeAlso gs1:globalModelNumber ;
     rdfs:seeAlso dppk:productNumber ;
     skos:exactMatch dppk:productNumber ;
-    skos:note "Manufacturer product number. Anchored to schema:productID and gs1:globalModelNumber."@en ;
+    skos:note "Manufacturer product number. Anchored to schema:productID and schema:mpn. GS1 Web Vocabulary has no product/model-number property."@en ;
     rdfs:seeAlso schema:serialNumber ;
     skos:exactMatch schema:mpn ;
     skos:narrowMatch schema:serialNumber ;

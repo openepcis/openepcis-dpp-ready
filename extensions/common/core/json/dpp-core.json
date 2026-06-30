@@ -192,7 +192,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
       "localName": "FacilityInformation",
       "label": "Facility Information",
-      "comment": "Manufacturing or processing facility information per ESPR.\nCaptures facility identification, location, and certification data.\nUse gs1:gln for facility identification, gs1:name for facility name, gs1:address for location (all inherited from gs1:Place).\nUse GS1 Digital Link format: https://id.gs1.org/414/{GLN}",
+      "comment": "Manufacturing or processing facility information per ESPR.\nCaptures facility identification, location, and certification data.\nUse gs1:globalLocationNumber for facility identification, schema:name for facility name, gs1:address for location (all inherited from gs1:Place).\nUse GS1 Digital Link format: https://id.gs1.org/414/{GLN}",
       "seeAlso": [
         "https://ref.gs1.org/voc/Place",
         "https://schema.org/Place",
@@ -318,7 +318,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
       "localName": "OperatorInformation",
       "label": "Operator Information",
-      "comment": "Economic operator information as required by various EU regulations.\nCaptures manufacturer, importer, distributor, and other operator roles.\nUse gs1:gln for operator identification (inherited from gs1:Organization).\nUse GS1 Digital Link format: https://id.gs1.org/417/{GLN}",
+      "comment": "Economic operator information as required by various EU regulations.\nCaptures manufacturer, importer, distributor, and other operator roles.\nUse gs1:globalLocationNumber for operator identification (inherited from gs1:Organization).\nUse GS1 Digital Link format: https://id.gs1.org/417/{GLN}",
       "seeAlso": [
         "https://ref.gs1.org/voc/Organization",
         "https://schema.org/Organization",
@@ -1094,7 +1094,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/depositReturnScheme",
       "localName": "depositReturnScheme",
       "label": "Deposit-Return Scheme",
-      "comment": "Links a product (typically gs1:Packaging) to the DRS it participates in.",
+      "comment": "Links a product (typically gs1:PackagingDetails) to the DRS it participates in.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme"
       ],
@@ -2731,6 +2731,39 @@
         "https://ref.gs1.org/voc/registryEntry",
         "https://ref.gs1.org/voc/regulatoryReferenceNumber",
         "https://schema.org/companyRegistration"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/regulatoryActStatus",
+      "localName": "regulatoryActStatus",
+      "label": "Regulatory Act Status",
+      "comment": "Status of a trade item with respect to a specific regulatory act (e.g. ACTIVE, EXEMPT, PENDING). Used inside a gs1:regulatoryInformation block alongside gs1:regulatoryAct.",
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/regulatoryAct"
+      ],
+      "relatedMatch": [
+        "https://ref.gs1.org/voc/regulatoryAct"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/regulatoryPermitIdentification",
+      "localName": "regulatoryPermitIdentification",
+      "label": "Regulatory Permit Identification",
+      "comment": "Identifier of a permit, authorisation, or type-examination certificate issued by a regulatory body for the trade item. Used inside a gs1:regulatoryInformation block.",
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/regulatoryReferenceNumber",
+        "https://ref.gs1.org/voc/regulatoryIdentifier"
+      ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/regulatoryReferenceNumber"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
