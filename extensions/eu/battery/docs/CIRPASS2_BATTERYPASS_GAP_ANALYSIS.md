@@ -454,4 +454,4 @@ running DPP API and is not addressed here.
 - [`docs/cirpass2/ALIGNMENT.md`](../../../../docs/cirpass2/ALIGNMENT.md) — CIRPASS-2 cross-cutting alignment
 - [`docs/cirpass2/SECTOR_INSPIRATION.md`](../../../../docs/cirpass2/SECTOR_INSPIRATION.md) — wider sectoral / foundation gap analysis
 - [`extensions/eu/battery/docs/IMPLEMENTATION_GUIDE.md`](./IMPLEMENTATION_GUIDE.md) — implementation guide
-- [`extensions/eu/battery/docs/BENCHMARK.md`](./BENCHMARK.md) — performance benchmarks
+- [`extensions/eu/battery/docs/POSITIONING.md`](./POSITIONING.md) — design rationale and how the OpenEPCIS battery DPP relates to BatteryPass, Catena-X, and DPP Keystone

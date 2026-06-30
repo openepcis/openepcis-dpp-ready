@@ -417,11 +417,10 @@ See [docs/URL_PATTERNS.md](docs/URL_PATTERNS.md) for:
 - Event identifier schemes
 - Process assumptions and validation checklists
 
-See [docs/BENCHMARK.md](docs/BENCHMARK.md) for:
-- Detailed comparison with BatteryPass, Catena-X, and DPP Keystone
-- Feature-by-feature analysis
-- Cost and barrier-to-entry comparison
-- Regulatory compliance matrix
+See [docs/POSITIONING.md](docs/POSITIONING.md) for:
+- The design rationale behind the OpenEPCIS battery DPP (dereferenceable IDs, EPCIS event provenance, standards-native vocabulary, scientific bridge)
+- How it relates to BatteryPass, Catena-X, and DPP Keystone, and the bridges between them
+- The trade-offs and when another approach fits better
 
 ## Statistics
 
