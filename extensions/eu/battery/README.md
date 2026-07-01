@@ -232,19 +232,20 @@ Same data, different semantic views:
 // Scientific systems use enriched context
 { "@context": "https://ref.openepcis.io/extensions/eu/battery/battery-context-scientific.jsonld" }
 
-// Interpret BatteryPass/SAMM data using OpenEPCIS vocabulary
-{ "@context": [
-    "urn:samm:io.BatteryPass.GeneralProductInformation:1.3.0#",
-    "https://ref.openepcis.io/extensions/eu/battery/battery-context-batterypass-bridge.jsonld"
-  ]
-}
+// Interpret BatteryPass documents using OpenEPCIS vocabulary
+{ "@context": "https://ref.openepcis.io/extensions/eu/battery/battery-context-batterypass-bridge.jsonld" }
 ```
 
-### BatteryPass/SAMM Interoperability
+### BatteryPass interoperability — two distinct sources
 
-The bridge contexts enable **bidirectional compatibility** with BatteryPass (DIN DKE SPEC 99100):
+BatteryPass has two separate sources, and the bridge contexts reference each on its own:
 
-- **`battery-context-batterypass-bridge.jsonld`**: Add to BatteryPass documents to interpret them using OpenEPCIS/GS1 vocabulary. Maps `urn:samm:io.BatteryPass.*` terms to `eubat:` equivalents.
+- **BatteryPass Consortium SAMM aspect models** (github.com/batterypass/BatteryPassDataModel) — the semantic data model, real published versions **1.2.0** (Performance **1.2.1**). Referenced via the `samm-*` prefixes; these match the SKOS mappings in `battery.ttl`.
+- **GEFEG BatteryPass-Ready** (thebatterypass.eu / batterypass-ready.gefeg.com) — the **v1.3 attribute longlist** plus the **v1.0 validation** test environment. It publishes no RDF IRIs, so its longlist-only attributes (the DPP-information group #1–#4) are referenced via the OpenEPCIS-hosted `bpr:` namespace (`https://ref.openepcis.io/vocab/batterypass-ready/1.3#`). There is no SAMM 1.3.0 and no SAMM `DPPInformation` submodel.
+
+The bridge contexts enable **bidirectional compatibility**:
+
+- **`battery-context-batterypass-bridge.jsonld`**: Add to BatteryPass documents to interpret them using OpenEPCIS/GS1 vocabulary. Maps SAMM (`samm-*`, 1.2.x) and GEFEG BatteryPass-Ready (`bpr:`) terms to `eubat:`/`oec:`/`gs1:` equivalents.
 
 - **`battery-context-to-batterypass.jsonld`**: Add to OpenEPCIS documents to export them with BatteryPass-compatible terminology.
 
