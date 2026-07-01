@@ -186,11 +186,11 @@ GEFEG published the **Battery Passport Data Attribute Longlist v1.3** (March 202
 **Removed properties — `eubat:`**
 - `eubat:leadPreConsumerShare` and `eubat:leadPostConsumerShare` — combined into the existing `eubat:leadRecycledShare` per v1.3 #54 (the EU Battery Regulation does not require a pre/post split for lead, in contrast to lithium, cobalt, nickel).
 
-**SAMM bridge context updates**
-- Bumped SAMM URN namespace versions from `1.2.0` / `1.2.1` to `1.3.0` in both forward (`battery-context-batterypass-bridge.jsonld`) and reverse (`battery-context-to-batterypass.jsonld`) bridges.
-- Added new `bp-dpp` prefix → `urn:samm:io.BatteryPass.DPPInformation:1.3.0#` for the DPP-information sub-category.
-- Added mappings for all v1.3 new attributes.
-- Note: v1.3 SAMM URNs are placeholders pending publication of GEFEG aspect models.
+**BatteryPass bridge contexts — two sources referenced separately**
+- The bridge contexts now reference each BatteryPass source with its own prefix, instead of a single (incorrect) `bp-*` set pointing at non-existent SAMM `1.3.0` URNs and a fabricated `DPPInformation` submodel.
+- `samm-*` prefixes → the BatteryPass Consortium SAMM aspect models at their real published versions `1.2.0` (Performance `1.2.1`), matching the SKOS mappings in `battery.ttl`.
+- `bpr:` prefix → `https://ref.openepcis.io/vocab/batterypass-ready/1.3#`, an OpenEPCIS-hosted reference namespace for the GEFEG BatteryPass-Ready longlist v1.3 attributes that have no SAMM/RDF equivalent (the DPP-information group #1–#4: schema version, status, granularity, last update).
+- Added mappings for the v1.3 longlist attributes across both bridges.
 
 **Validation profiles**
 - `battery-shapes.ttl` — added SHACL `minCount` constraints on all v1.3-mandatory identifiers and DPP-info fields. Carbon footprint label, performance class and study URL are now required.
