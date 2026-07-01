@@ -101,6 +101,10 @@ Benefits:
 - Temperature excursions
 - Location history
 
+For which attribute belongs at which level (model / batch / item) and how the EPCIS event stream
+reconstructs the item passport's dynamic fields, see
+[EPCIS_AND_BATTERYPASS_READY.md](./EPCIS_AND_BATTERYPASS_READY.md).
+
 ---
 
 ## Context Selection Guide

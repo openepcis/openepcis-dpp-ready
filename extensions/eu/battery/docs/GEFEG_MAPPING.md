@@ -8,6 +8,7 @@ How the OpenEPCIS battery vocabulary (`eubat:`, plus `gs1:` / `schema:` /
   (flat OpenEPCIS passport → GEFEG upload JSON).
 - **Live-accurate target schemas**: [`validation/gefeg-live/`](../validation/gefeg-live/).
 - **Discrepancy vs the published static schemas**: see [`CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md`](./CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md).
+- **Per-attribute reporting level (model / batch / item) and how EPCIS events reconstruct the item passport**: see [`EPCIS_AND_BATTERYPASS_READY.md`](./EPCIS_AND_BATTERYPASS_READY.md) and the machine-readable [`../validation/batterypass-granularity.json`](../validation/batterypass-granularity.json).
 
 ## Envelope
 

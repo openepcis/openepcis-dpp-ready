@@ -1,0 +1,163 @@
+{
+  "_comment_architecture": [
+    "MODEL-LEVEL battery master data (GS1 Digital Link 01/{GTIN}, no serial, no lot).",
+    "This is the resource a GS1-conformant Digital Link resolver serves for the battery model when the plain 01/ GTIN Digital Link is dereferenced (Accept: application/ld+json).",
+    "It carries only attributes reported once per model: identifiers, category, chemistry, rated/design technical specifications, materials, dismantling and spare-part information, warranty, symbols and conformity, due diligence.",
+    "Attributes that vary per manufacturing batch (manufacturing date/place, carbon footprint, recycled-content shares) live in battery-product-batch.jsonld (01/{GTIN}/10/{lot}).",
+    "Attributes measured per physical battery (state of health, cycle count, capacity fade, ...) are carried by EPCIS events and folded into the item passport (01/{GTIN}/21/{serial}); see battery-product.jsonld and docs/EPCIS_AND_BATTERYPASS_READY.md.",
+    "See: extensions/eu/battery/validation/batterypass-granularity.json for the per-attribute level map."
+  ],
+  "@context": [
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+  ],
+  "id": "https://id.gs1.org/01/09521234000013",
+  "type": [
+    "gs1:Product",
+    "eubat:Battery"
+  ],
+  "oec:granularityLevel": "model",
+  "gs1:gtin": "09521234000013",
+  "gs1:productName": [
+    {
+      "@value": "EcoCell Industrial Battery Module IM-500",
+      "@language": "en"
+    },
+    {
+      "@value": "EcoCell Industrie-Batteriemodul IM-500",
+      "@language": "de"
+    }
+  ],
+  "gs1:productDescription": [
+    {
+      "@value": "High-capacity lithium iron phosphate battery module for industrial energy storage. Designed for long cycle life and safety.",
+      "@language": "en"
+    }
+  ],
+  "schema:category": {
+    "@id": "eubat:IndustrialBattery"
+  },
+  "schema:model": {
+    "@value": "IM-500",
+    "@language": "en"
+  },
+  "eubat:cellType": {
+    "@id": "eubat:PrismaticCell"
+  },
+  "eubat:numberOfCells": 16,
+  "eubat:numberOfModules": 1,
+  "gs1:manufacturer": {
+    "id": "https://id.gs1.org/417/9521234000006",
+    "type": "gs1:Organization",
+    "gs1:organizationName": "EcoCell GmbH",
+    "gs1:globalLocationNumber": "9521234000006",
+    "gs1:address": {
+      "type": "gs1:PostalAddress",
+      "gs1:streetAddress": "Batteriestraße 42",
+      "gs1:addressLocality": "Stuttgart",
+      "gs1:postalCode": "70173",
+      "gs1:countryCode": "DE"
+    }
+  },
+  "eubat:operatorInformation": {
+    "id": "https://id.gs1.org/417/9521234000006#operator",
+    "type": "oec:OperatorInformation",
+    "gs1:globalLocationNumber": "9521234000006",
+    "gs1:organizationName": "EcoCell GmbH",
+    "eubat:operatorRole": {
+      "@id": "oec:Manufacturer"
+    }
+  },
+  "gs1:countryOfOrigin": "DE",
+  "gs1:netWeight": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 125.5,
+    "gs1:unitCode": "KGM"
+  },
+  "eubat:batteryChemistry": {
+    "id": "https://id.gs1.org/01/09521234000013#chemistry",
+    "type": "eubat:BatteryChemistry",
+    "eubat:cathodeActiveMaterial": "LiFePO4",
+    "eubat:anodeActiveMaterial": "Graphite",
+    "eubat:electrolyteType": {
+      "@value": "Liquid organic carbonate-based",
+      "@language": "en"
+    }
+  },
+  "eubat:technicalSpecifications": {
+    "id": "https://id.gs1.org/01/09521234000013#specs",
+    "type": "eubat:TechnicalSpecification",
+    "eubat:ratedCapacity": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 280,
+      "gs1:unitCode": "AMH"
+    },
+    "eubat:ratedEnergy": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 14.3,
+      "gs1:unitCode": "KWH"
+    },
+    "eubat:nominalVoltage": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 51.2,
+      "gs1:unitCode": "VLT"
+    },
+    "eubat:minimumVoltage": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 40,
+      "gs1:unitCode": "VLT"
+    },
+    "eubat:maximumVoltage": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 58.4,
+      "gs1:unitCode": "VLT"
+    },
+    "eubat:ratedMaximumPower": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 7.5,
+      "gs1:unitCode": "KWT"
+    },
+    "eubat:initialInternalResistance": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 2.1,
+      "gs1:unitCode": "OHM"
+    },
+    "eubat:expectedCycleLife": 6000,
+    "eubat:expectedLifetimeYears": 15,
+    "eubat:roundTripEfficiency": 96,
+    "eubat:capacityThresholdForExhaustion": 70,
+    "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
+    "eubat:temperatureRangeIdleState": {
+      "id": "https://id.gs1.org/01/09521234000013#temp-idle",
+      "type": "eubat:TemperatureRange",
+      "eubat:minimumTemperature": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": -30,
+        "gs1:unitCode": "CEL"
+      },
+      "eubat:maximumTemperature": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": 60,
+        "gs1:unitCode": "CEL"
+      }
+    }
+  },
+  "gs1:warranty": {
+    "type": "gs1:WarrantyPromise",
+    "gs1:durationOfWarranty": "P8Y",
+    "gs1:warrantyScopeDescription": "Full replacement warranty for manufacturing defects"
+  },
+  "eubat:supplyChainDueDiligence": {
+    "id": "https://id.gs1.org/01/09521234000013#due-diligence",
+    "type": "eubat:SupplyChainDueDiligence",
+    "eubat:dueDiligenceReportUrl": "https://www.ecocell-batteries.example.com/docs/supply-chain-due-diligence-2024.pdf",
+    "eubat:thirdPartyAssurancesUrl": "https://www.ecocell-batteries.example.com/docs/third-party-audit-2024.pdf",
+    "eubat:supplyChainIndex": 78.5
+  },
+  "eubat:euDeclarationOfConformity": {
+    "type": "cccev:Evidence",
+    "eubat:euDeclarationOfConformityId": "DoC-2024-ECOCELL-IM500",
+    "eubat:declarationOfConformity": "https://www.ecocell-batteries.example.com/docs/IM-500-eu-doc.pdf"
+  },
+  "eubat:resultOfTestReport": "https://www.ecocell-batteries.example.com/docs/IM-500-test-report.pdf",
+  "eubat:separateCollectionSymbolUrl": "https://www.ecocell-batteries.example.com/labels/weee-symbol.svg"
+}

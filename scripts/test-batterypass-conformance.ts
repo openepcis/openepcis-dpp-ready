@@ -29,6 +29,7 @@ import { readFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import { exportGefeg, lastPopulatedCount } from "./export-batterypass-gefeg.js";
+import { reconstruct } from "./reconstruct-passport-from-epcis.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -131,8 +132,65 @@ function runPlausibilityTests(exported: Doc): void {
 }
 
 // =============================================================================
+// 3. RECONSTRUCTION group — fold the item-level EPCIS event stream onto the
+//    model+batch master data and validate the resulting item passport.
+// =============================================================================
+function runReconstructionTests(): void {
+  const res = reconstruct({
+    sources: [join(SRC_DIR, "reconstruction.source.json")],
+    category: "stationary",
+    events: join(ROOT, "extensions/eu/battery/epcis"),
+  });
+  const schema = loadJson(join(SCHEMA_DIR, "StationaryIndustrial2kWh.schema.json"));
+  const validate = ajv.compile(schema);
+  const ok = validate(res.passport);
+  record(
+    "RECONSTRUCTION: item passport folded from EPCIS events validates against StationaryIndustrial2kWh.schema.json",
+    !!ok,
+    ok ? `${res.summary.eventCount} events, ${Object.keys(res.summary.folded).length} attributes folded` : describe(validate.errors)
+  );
+
+  const perf = (res.passport.Battery_Passport as Doc).PerformanceAndDurability as Doc;
+  const n = (o: any): number | undefined => (o && typeof o === "object" ? o.percentageValue ?? o.kilowattHourValue ?? o.amperehourMiliamperehourValue : typeof o === "number" ? o : undefined);
+  // The event fold must move the item-level fields off their beginning-of-life
+  // defaults: cycles > 0, energy throughput > 0, capacity fade > 0, and time in
+  // extreme temperatures > 0 (from the temperature-excursion event).
+  record("RECONSTRUCTION: NumberOfFullChargingAndDischargingCycles folded > 0", (n(perf.NumberOfFullChargingAndDischargingCycles) ?? 0) > 0, `cycles=${n(perf.NumberOfFullChargingAndDischargingCycles)}`);
+  record("RECONSTRUCTION: EnergyThroughput folded > 0", (n(perf.EnergyThroughput) ?? 0) > 0, `kWh=${n(perf.EnergyThroughput)}`);
+  record("RECONSTRUCTION: CapacityFade folded > 0", (n(perf.CapacityFade) ?? 0) > 0, `%=${n(perf.CapacityFade)}`);
+  record("RECONSTRUCTION: TimeSpentInExtremeTemperaturesAboveBoundary folded > 0", (n(perf.TimeSpentInExtremeTemperaturesAboveBoundary) ?? 0) > 0, `min=${n(perf.TimeSpentInExtremeTemperaturesAboveBoundary)}`);
+}
+
+// =============================================================================
+// 4. COVERAGE group — every attribute the exporter emits (across all 5
+//    categories) must be classified in batterypass-granularity.json.
+// =============================================================================
+function runCoverageTests(): void {
+  const gran = loadJson<Doc>(join(ROOT, "extensions/eu/battery/validation/batterypass-granularity.json"));
+  const validLevels = new Set(gran.levels as string[]);
+  const missing: string[] = [];
+  const badLevel: string[] = [];
+  for (const c of CATEGORIES) {
+    const source = loadJson<Doc>(join(SRC_DIR, `${c.param}.source.json`));
+    const master = (exportGefeg(source, c.param) as Doc).Battery_Passport as Doc;
+    for (const [group, body] of Object.entries(master)) {
+      const map = (gran.groups as Doc)[group] as Record<string, string[]> | undefined;
+      for (const key of Object.keys(body as Doc)) {
+        const levels = map?.[key];
+        if (!levels) { missing.push(`${group}.${key}`); continue; }
+        if (!Array.isArray(levels) || levels.length === 0 || !levels.every((l) => validLevels.has(l))) badLevel.push(`${group}.${key}`);
+      }
+    }
+  }
+  record("COVERAGE: every emitted GEFEG attribute is classified in batterypass-granularity.json", missing.length === 0, missing.length ? `unclassified: ${[...new Set(missing)].join(", ")}` : "all classified");
+  record("COVERAGE: every classification is a non-empty list of valid levels", badLevel.length === 0, badLevel.length ? `invalid: ${[...new Set(badLevel)].join(", ")}` : "");
+}
+
+// =============================================================================
 const primary = runSchemaTests();
 runPlausibilityTests(primary);
+runReconstructionTests();
+runCoverageTests();
 
 const passed = results.filter((r) => r.passed).length;
 const failed = results.length - passed;
