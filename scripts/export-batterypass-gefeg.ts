@@ -310,7 +310,12 @@ export function exportGefeg(src: Q, category: string): Q {
   set(perf, "InitialInternalResistanceOfBatteryCellAndPackModuleRecommended", ohm((ts.initialInternalResistance as Q)?.value as number));
   set(perf, "InternalResistanceIncreaseOfPackCellAndModuleRecommended", percent(0));
   set(perf, "NumberOfFullChargingAndDischargingCycles", 0);
-  set(perf, "TemperatureInformation", celsius(25));
+  // Representative operating temperature: midpoint of the real idle-state
+  // temperature range from the source (falls back to 25 °C if absent).
+  const idleMin = (idle.minimumTemperature as Q)?.value as number | undefined;
+  const idleMax = (idle.maximumTemperature as Q)?.value as number | undefined;
+  const idleMid = idleMin !== undefined && idleMax !== undefined ? Math.round((idleMin + idleMax) / 2) : 25;
+  set(perf, "TemperatureInformation", celsius(idleMid));
   // GEFEG types InformationOnAccidents as format:uri (link to the incident log).
   set(perf, "InformationOnAccidents", src.accidentInformationUrl);
   // Category-specific required fields (EV needs SOCE; LMT + Stationary need the
