@@ -94,3 +94,20 @@ identical property set across the four categories in this prototype release.
 > `<name>Value` key, `OriginalPowerCapability` at 80/20 SoC). Treat the live API
 > as authoritative; see the "live API is stricter" section in
 > `../CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md` and `scripts/validate-batterypass-live.ts`.
+
+
+## 5-category coverage + per-category real-data fixtures (2026-07-01, live-verified)
+
+The exporter now covers all **5** published categories (EV, LMT, Other Industrial
+>2 kWh, Stationary Industrial >2 kWh, **Industrial Without BMS**). Each has its own
+realistic source fixture under `examples/batterypass-ready/<category>.source.json`
+(EV traction NMC, LMT e-bike NMC, industrial Li-ion LFP, stationary LFP storage,
+lead-acid without-BMS) rather than one reused battery. All five return ✅ from the
+live `ValidateJSON` server (`*_Guide` tags, v1.0).
+
+Live divergences captured (live is authoritative over the published static files):
+- **Industrial_Without_BMS chemistry** is restricted to `Pb` (lead-acid) — the
+  fixture is a lead-acid battery accordingly.
+- **Industrial_Without_BMS batteryCategory**: static lists `industrial battery
+  without BMS`, but the live server rejects it and accepts `industrial/non-stationary
+  battery`. `build-gefeg-live-schema.ts` patches the live-derived schema's enum to match.

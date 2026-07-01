@@ -33,13 +33,14 @@ import { exportGefeg, lastPopulatedCount } from "./export-batterypass-gefeg.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const SCHEMA_DIR = join(ROOT, "extensions/eu/battery/validation/gefeg-live");
-const SOURCE = join(ROOT, "extensions/eu/battery/examples/batterypass-ready/other-industrial.source.json");
+const SRC_DIR = join(ROOT, "extensions/eu/battery/examples/batterypass-ready");
 
 const CATEGORIES = [
   { param: "ev", rootKey: "EV" },
   { param: "lmt", rootKey: "LMT" },
   { param: "other-industrial", rootKey: "OtherIndustrial2kWh" },
   { param: "stationary", rootKey: "StationaryIndustrial2kWh" },
+  { param: "industrial-without-bms", rootKey: "IndustrialWithoutBMS" },
 ];
 const PRIMARY = "other-industrial";
 
@@ -59,9 +60,12 @@ type Doc = Record<string, any>;
 // =============================================================================
 // 1. SCHEMA group — every category against its live-derived schema
 // =============================================================================
-function runSchemaTests(source: Doc): Doc {
+function runSchemaTests(): Doc {
   let primaryExport: Doc = {};
   for (const c of CATEGORIES) {
+    // Each category has its own realistic source fixture (EV traction, LMT
+    // e-bike, industrial Li-ion, stationary LFP, lead-acid without-BMS).
+    const source = loadJson<Doc>(join(SRC_DIR, `${c.param}.source.json`));
     const exported = exportGefeg(source, c.param) as Doc;
     const coverage = lastPopulatedCount();
     if (c.param === PRIMARY) primaryExport = exported;
@@ -127,8 +131,7 @@ function runPlausibilityTests(exported: Doc): void {
 }
 
 // =============================================================================
-const source = loadJson<Doc>(SOURCE);
-const primary = runSchemaTests(source);
+const primary = runSchemaTests();
 runPlausibilityTests(primary);
 
 const passed = results.filter((r) => r.passed).length;

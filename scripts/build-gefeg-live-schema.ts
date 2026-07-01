@@ -32,10 +32,11 @@ const OUT = join(ROOT, "extensions/eu/battery/validation/gefeg-live");
 type Obj = Record<string, any>;
 
 const CATEGORIES = [
-  { param: "ev", rootKey: "EV", tag: "EV_BatteryPass" },
-  { param: "lmt", rootKey: "LMT", tag: "LMT_BatteryPass" },
-  { param: "other-industrial", rootKey: "OtherIndustrial2kWh", tag: "Other_Industrial_BatteryPass" },
-  { param: "stationary", rootKey: "StationaryIndustrial2kWh", tag: "Stationary_Industrial_BatteryPass" },
+  { param: "ev", rootKey: "EV", tag: "EV_Guide" },
+  { param: "lmt", rootKey: "LMT", tag: "LMT_Guide" },
+  { param: "other-industrial", rootKey: "OtherIndustrial2kWh", tag: "Other_Industrial_2kWh_Guide" },
+  { param: "stationary", rootKey: "StationaryIndustrial2kWh", tag: "Stationary_Industrial_2kWh_Guide" },
+  { param: "industrial-without-bms", rootKey: "IndustrialWithoutBMS", tag: "Industrial_Without_BMS_Guide" },
 ] as const;
 
 // Required-property sets enforced by the LIVE server, per category, per group.
@@ -130,11 +131,19 @@ const STATIC_FILE: Record<string, string> = {
   LMT: "LMT_batterypass_1.0.json",
   OtherIndustrial2kWh: "Other_Industrial_batterypass_1.0.json",
   StationaryIndustrial2kWh: "Stationary_Industrial_batterypass_1.0.json",
+  IndustrialWithoutBMS: "Industrial_Without_BMS_batterypass_1.0.json",
 };
 
 mkdirSync(OUT, { recursive: true });
 for (const c of CATEGORIES) {
   const schema = JSON.parse(readFileSync(join(STATIC_DIR, STATIC_FILE[c.rootKey]), "utf-8")) as Obj;
+  // Live divergence: the Industrial_Without_BMS static schema lists the battery
+  // category as "industrial battery without BMS", but the live ValidateJSON
+  // server rejects that and accepts "industrial/non-stationary battery" (probed
+  // 2026-07-01). Reflect the live contract here so the harness matches live.
+  if (c.rootKey === "IndustrialWithoutBMS" && schema.$defs?.batteryCategoryCodes) {
+    schema.$defs.batteryCategoryCodes.enum = ["industrial/non-stationary battery"];
+  }
   const path = join(OUT, `${c.rootKey}.schema.json`);
   writeFileSync(path, JSON.stringify(schema, null, 2) + "\n");
   console.log(`Wrote ${path} (mirror of published static ${STATIC_FILE[c.rootKey]}; live-verified 2026-06-30)`);

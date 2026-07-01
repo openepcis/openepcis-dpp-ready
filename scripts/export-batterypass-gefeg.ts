@@ -36,6 +36,7 @@ const ROOT_KEY: Record<string, string> = {
   lmt: "Battery_Passport",
   "other-industrial": "Battery_Passport",
   stationary: "Battery_Passport",
+  "industrial-without-bms": "Battery_Passport",
 };
 
 // ---- category → vendored GEFEG schema file. The four BatteryPass-Ready
@@ -48,6 +49,7 @@ const CATEGORY_SCHEMA: Record<string, string> = {
   lmt: "LMT_batterypass_1.0.json",
   "other-industrial": "Other_Industrial_batterypass_1.0.json",
   stationary: "Stationary_Industrial_batterypass_1.0.json",
+  "industrial-without-bms": "Industrial_Without_BMS_batterypass_1.0.json",
 };
 const GEFEG_REF_DIR = "extensions/eu/battery/docs/reference/gefeg-batterypass-ready";
 
@@ -162,6 +164,10 @@ const CATEGORY_VALUE_BY_PARAM: Record<string, string> = {
   lmt: "LMT battery",
   "other-industrial": "industrial/non-stationary battery",
   stationary: "industrial/stationary battery",
+  // Live server accepts the same value as non-stationary industrial for the
+  // without-BMS category (its batteryCategory enum diverges from the static file,
+  // which lists "industrial battery without BMS" — the live server rejects that).
+  "industrial-without-bms": "industrial/non-stationary battery",
 };
 const STATUS_KEY: Record<string, string> = {
   Original: "original",
@@ -178,6 +184,11 @@ const CHEMISTRY_KEY: Record<string, string> = {
   NCA: "Li-ion NCA",
   LCO: "Li-ion LCO",
   LMO: "Li-ion LMO",
+  // Lead-acid (industrial batteries without a BMS — the only chemistry that
+  // category's schema allows).
+  PbO2: "Pb",
+  Pb: "Pb",
+  "Lead-acid": "Pb",
 };
 const CF_CLASS: Record<string, string> = {
   CFClassA: "A",
