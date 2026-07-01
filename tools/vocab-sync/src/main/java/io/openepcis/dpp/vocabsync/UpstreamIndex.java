@@ -69,6 +69,7 @@ public class UpstreamIndex {
     @ConfigProperty(name = "vocab-sync.untp-namespace") String untpNamespace;
     @ConfigProperty(name = "vocab-sync.rail-voc") String railVoc;
     @ConfigProperty(name = "vocab-sync.batterypass-root") String batterypassRoot;
+    @ConfigProperty(name = "vocab-sync.batterypass-ready-vocab") String batterypassReadyVocab;
 
     /** Term namespace prefix for the BatteryPass SAMM aspect models (all aspects share it). */
     private static final String BATTERYPASS_NS = "urn:samm:io.BatteryPass";
@@ -113,6 +114,7 @@ public class UpstreamIndex {
         if (iri.contains("uncefact.org")) return "untp";
         if (iri.startsWith("https://gs1-epcis-reg.org/rail/")) return "rail";
         if (iri.startsWith("urn:samm:io.BatteryPass")) return "batterypass";
+        if (iri.startsWith("https://ref.openepcis.io/vocab/batterypass-ready/")) return "bpr";
         if (iri.startsWith("http://xmlns.com/foaf/")) return "foaf";
         return "other";
     }
@@ -149,6 +151,10 @@ public class UpstreamIndex {
         for (Path aspect : batteryPassAspects()) {
             sources.add(Source.samm("batterypass", BATTERYPASS_NS, aspect));
         }
+        // GEFEG BatteryPass-Ready: an OpenEPCIS-hosted RDF reference for the v1.3 attribute
+        // longlist (GEFEG publishes no IRIs). A distinct source from the Consortium SAMM above.
+        sources.add(Source.rdf("bpr", "https://ref.openepcis.io/vocab/batterypass-ready/1.3#",
+                root.resolve(batterypassReadyVocab)));
 
         terms = new ArrayList<>();
         byIri = new HashMap<>();
