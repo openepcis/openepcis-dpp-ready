@@ -62,8 +62,11 @@ function walk(dir: string): string[] {
   const out: string[] = [];
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     const p = join(dir, entry.name);
+    const norm = p.split("\\").join("/");
     if (entry.isDirectory()) out.push(...walk(p));
-    else if (entry.isFile() && /\/examples\/[^/]+\.jsonld$/.test(p.split("\\").join("/"))) out.push(p);
+    // example passports (examples/*.jsonld) and the flat GEFEG source fixtures
+    // (examples/**/*.source.json) both declare a granularity + identifier.
+    else if (entry.isFile() && (/\/examples\/[^/]+\.jsonld$/.test(norm) || /\/examples\/.*\.source\.json$/.test(norm))) out.push(p);
   }
   return out;
 }
