@@ -21,14 +21,99 @@
  * Run: pnpm run build:batterypass-ready-vocab
  */
 
-import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "fs";
-import { join, dirname } from "path";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, existsSync } from "fs";
+import { join, dirname, relative, sep } from "path";
 import { fileURLToPath } from "url";
+import { homedir } from "os";
+import { Parser } from "n3";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const NS = "https://ref.openepcis.io/vocab/batterypass-ready/1.3#";
 const ONT = "https://ref.openepcis.io/vocab/batterypass-ready/1.3";
+
+// ── BatteryPass Consortium SAMM descriptions (optional enrichment) ───────────
+// GEFEG publishes the BatteryPass-Ready v1.3 attributes as a bare longlist (names
+// only, no definitions). The longlist is the same attribute set as the BatteryPass
+// Consortium SAMM data model, whose properties DO carry regulation-quoting
+// samm:description text. When that model checkout is available we join each bpr
+// attribute to the corresponding SAMM property (by normalized name) and reuse its
+// definition — giving the vocabulary real, human- and machine-verifiable semantics
+// (better vocab pages + alignments the SKOS audit's QA panel can actually confirm,
+// rather than the boilerplate that made every candidate read as unverifiable).
+// Falls back to a generic note when the checkout is absent or a name has no match.
+const SAMM_ROOT =
+  process.env.BATTERYPASS_ROOT ?? join(homedir(), "Documents/projects/BatteryPassDataModel");
+
+const normName = (s: string) => s.replace(/[^A-Za-z0-9]+/g, "").toLowerCase();
+const versionKey = (p: string) =>
+  (relative(SAMM_ROOT, p).split(sep).find((seg) => /^\d+\.\d+\.\d+$/.test(seg)) ?? "0.0.0")
+    .split(".")
+    .map((n) => Number(n).toString().padStart(4, "0"))
+    .join(".");
+
+function walkTtl(dir: string, out: string[] = []): string[] {
+  for (const e of readdirSync(dir)) {
+    const p = join(dir, e);
+    const st = statSync(p);
+    if (st.isDirectory()) walkTtl(p, out);
+    else if (e.endsWith(".ttl")) out.push(p);
+  }
+  return out;
+}
+
+interface SammDef {
+  preferredName?: string;
+  description?: string;
+}
+
+/** name(normalized) -> SAMM preferredName/description, taking the highest model version. */
+function loadSammDescriptions(): Map<string, SammDef> {
+  const map = new Map<string, SammDef>();
+  if (!existsSync(SAMM_ROOT)) {
+    console.warn(`  [warn] SAMM checkout not found at ${SAMM_ROOT}; bpr terms keep generic notes.`);
+    return map;
+  }
+  const parser = new Parser();
+  // Process files oldest-version first so a higher version's text overwrites.
+  const files = walkTtl(SAMM_ROOT).sort((a, b) => versionKey(a).localeCompare(versionKey(b)));
+  for (const f of files) {
+    let quads;
+    try {
+      quads = parser.parse(readFileSync(f, "utf-8"));
+    } catch {
+      continue; // skip anything that is not clean Turtle
+    }
+    // Only read text off samm:Property subjects. SAMM Characteristics are PascalCase
+    // (:NominalVoltage) and collide with their camelCase property (:nominalVoltage)
+    // under case-insensitive name matching — and some carry junk descriptions ("s").
+    const propIris = new Set<string>();
+    for (const q of quads) {
+      if (q.predicate.value.endsWith("#type") && q.object.value.endsWith("#Property")) {
+        propIris.add(q.subject.value);
+      }
+    }
+    for (const q of quads) {
+      if (!propIris.has(q.subject.value)) continue;
+      const pred = q.predicate.value;
+      if (!pred.endsWith("#preferredName") && !pred.endsWith("#description")) continue;
+      if (q.object.termType !== "Literal") continue;
+      // preferredName is language-tagged; prefer @en (or untagged).
+      const lang = (q.object as unknown as { language?: string }).language ?? "";
+      if (lang && lang.toLowerCase() !== "en") continue;
+      const val = q.object.value.trim();
+      if (val.length < 3) continue; // skip stub text like "s"
+      const local = q.subject.value.split(/[#/]/).pop() ?? "";
+      if (!local) continue;
+      const key = normName(local);
+      const entry = map.get(key) ?? {};
+      if (pred.endsWith("#preferredName")) entry.preferredName = val;
+      else entry.description = val;
+      map.set(key, entry);
+    }
+  }
+  return map;
+}
 const GEFEG_DIR = join(ROOT, "extensions/eu/battery/validation/gefeg-live");
 
 // The seven SAMM aspect groups, in canonical order.
@@ -84,7 +169,16 @@ function label(name: string): string {
     .trim();
 }
 
-const esc = (s: string) => s.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+const esc = (s: string) =>
+  s
+    .replace(/\\/g, "\\\\")
+    .replace(/"/g, '\\"')
+    .replace(/\r/g, "")
+    .replace(/\n/g, "\\n")
+    .replace(/\t/g, "\\t");
+
+const sammDefs = loadSammDescriptions();
+let enriched = 0;
 const lines: string[] = [];
 
 lines.push("@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .");
@@ -109,10 +203,22 @@ for (const group of GROUPS) {
   const attrs = groupAttrs[group];
   lines.push(`# ${group}`);
   for (const attr of attrs) {
+    const samm = sammDefs.get(normName(attr));
     lines.push(`<${NS}${attr}>`);
     lines.push("    a rdf:Property ;");
     lines.push(`    rdfs:label "${esc(label(attr))}"@en ;`);
-    lines.push(`    rdfs:comment "GEFEG BatteryPass-Ready longlist v1.3 attribute (group ${group})."@en ;`);
+    if (samm?.description) {
+      // Real definition sourced from the corresponding BatteryPass Consortium SAMM
+      // property (the longlist and the SAMM model describe the same attribute).
+      lines.push(`    rdfs:comment "${esc(samm.description)}"@en ;`);
+      lines.push(`    skos:definition "${esc(samm.description)}"@en ;`);
+      lines.push(
+        `    skos:note "GEFEG BatteryPass-Ready longlist v1.3 attribute (group ${group}). Definition sourced from the corresponding BatteryPass Consortium SAMM property (io.BatteryPass.*), which the longlist derives from."@en ;`
+      );
+      enriched++;
+    } else {
+      lines.push(`    rdfs:comment "GEFEG BatteryPass-Ready longlist v1.3 attribute (group ${group})."@en ;`);
+    }
     lines.push(`    rdfs:isDefinedBy <${ONT}> ;`);
     lines.push(`    dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> .`);
     lines.push("");
@@ -144,4 +250,5 @@ const OUT = join(OUT_DIR, "batterypass-ready-1.3.ttl");
 writeFileSync(OUT, lines.join("\n") + "\n");
 console.log(`Wrote ${OUT}`);
 console.log(`  ${propCount} attribute properties across ${GROUPS.length} groups`);
+console.log(`  ${enriched}/${propCount} enriched with a BatteryPass SAMM definition`);
 console.log(`  ${conceptCount} controlled-value concepts across ${ENUM_DEFS.length} enums`);
