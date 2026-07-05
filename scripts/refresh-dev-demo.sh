@@ -74,13 +74,18 @@ case "$ENV" in
     FILES_URL="${FILES_URL:-https://files.dev.epcis.cloud}"
     AUTH_URL="${AUTH_URL:-https://auth.dev.epcis.cloud}"
     ;;
+  demo)
+    DL_URL="${DL_URL:-https://id.demo.epcis.cloud}"
+    FILES_URL="${FILES_URL:-https://files.demo.epcis.cloud}"
+    AUTH_URL="${AUTH_URL:-https://auth.demo.epcis.cloud}"
+    ;;
   local)
     DL_URL="${DL_URL:-https://id.epcis.local:8443}"
     FILES_URL="${FILES_URL:-https://files.epcis.local:8443}"
     AUTH_URL="${AUTH_URL:-https://auth.epcis.local:8443}"
     ;;
   *)
-    printf "Unknown --env: %s (expected dev|local)\n" "$ENV" >&2
+    printf "Unknown --env: %s (expected dev|demo|local)\n" "$ENV" >&2
     exit 64 ;;
 esac
 
