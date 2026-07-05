@@ -1,0 +1,112 @@
+{
+  "_comment_architecture": [
+    "Multi-source EPCIS 2.0 supply-chain trail assembling one Fjordline Aurora Shell garment (01/09521234003007/21/AUR-2026-000001).",
+    "Chained TransformationEvents across four sites — spinning (rPET fibre -> yarn) at the spinning mill, weaving (yarn + merino -> greige fabric) at the weaving mill, dyeing/laminating (greige -> 3-layer laminate) at the dyeing house, and cut-and-sew (laminate -> finished garment) at the cut-and-sew facility — then commissioning (ADD) and shipping. Each step's site is an EPCIS readPoint (source dimension), consistent with granularity = Model/Batch/Item only; the ilmd stamps the batch lot the garment is created into.",
+    "Intermediate materials use GTIN+lot Digital Links; all identifiers use the 952 demo prefix with valid mod-10 check digits.",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eutex=https://ref.openepcis.io/extensions/eu/textile/",
+    "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md"
+  ],
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-03-06T08:00:00.000Z",
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "TransformationEvent",
+        "eventID": "urn:uuid:fj0e8400-0000-4a00-9c00-b02600000001",
+        "eventTime": "2026-02-05T06:00:00.000Z",
+        "eventTimeZoneOffset": "+00:00",
+        "bizStep": "commissioning",
+        "disposition": "active",
+        "inputEPCList": ["https://id.gs1.org/01/09521234008002/10/RPET-2026-011"],
+        "outputEPCList": ["https://id.gs1.org/01/09521234008019/10/YARN-2026-021"],
+        "readPoint": { "id": "https://id.gs1.org/414/9521234000143" },
+        "bizLocation": { "id": "https://id.gs1.org/414/9521234000143" },
+        "ilmd": {
+          "eutex:isRecycledFiber": true,
+          "eutex:recycledContentSource": "Post-consumer PET bottles"
+        }
+      },
+      {
+        "type": "TransformationEvent",
+        "eventID": "urn:uuid:fj0e8400-0000-4a00-9c00-b02600000002",
+        "eventTime": "2026-02-12T07:30:00.000Z",
+        "eventTimeZoneOffset": "+00:00",
+        "bizStep": "commissioning",
+        "disposition": "active",
+        "inputEPCList": ["https://id.gs1.org/01/09521234008019/10/YARN-2026-021"],
+        "outputEPCList": ["https://id.gs1.org/01/09521234008026/10/GREIGE-2026-031"],
+        "readPoint": { "id": "https://id.gs1.org/414/9521234000150" },
+        "bizLocation": { "id": "https://id.gs1.org/414/9521234000150" }
+      },
+      {
+        "type": "TransformationEvent",
+        "eventID": "urn:uuid:fj0e8400-0000-4a00-9c00-b02600000003",
+        "eventTime": "2026-02-20T09:00:00.000Z",
+        "eventTimeZoneOffset": "+00:00",
+        "bizStep": "commissioning",
+        "disposition": "active",
+        "inputEPCList": ["https://id.gs1.org/01/09521234008026/10/GREIGE-2026-031"],
+        "outputEPCList": ["https://id.gs1.org/01/09521234008033/10/LAMINATE-2026-041"],
+        "readPoint": { "id": "https://id.gs1.org/414/9521234000228" },
+        "bizLocation": { "id": "https://id.gs1.org/414/9521234000228" },
+        "ilmd": {
+          "eutex:pfasFree": true
+        }
+      },
+      {
+        "type": "TransformationEvent",
+        "eventID": "urn:uuid:fj0e8400-0000-4a00-9c00-b02600000004",
+        "eventTime": "2026-03-04T10:15:00.000Z",
+        "eventTimeZoneOffset": "+00:00",
+        "bizStep": "commissioning",
+        "disposition": "active",
+        "inputEPCList": ["https://id.gs1.org/01/09521234008033/10/LAMINATE-2026-041"],
+        "outputEPCList": ["https://id.gs1.org/01/09521234003007/21/AUR-2026-000001"],
+        "readPoint": { "id": "https://id.gs1.org/414/9521234000235" },
+        "bizLocation": { "id": "https://id.gs1.org/414/9521234000235" },
+        "ilmd": {
+          "gs1:hasBatchLotNumber": "LOT-2026-FJ03",
+          "gs1:productionDate": "2026-03-04"
+        }
+      },
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:fj0e8400-0000-4a00-9c00-b02600000005",
+        "eventTime": "2026-03-06T09:00:00.000Z",
+        "eventTimeZoneOffset": "+00:00",
+        "action": "ADD",
+        "bizStep": "commissioning",
+        "disposition": "active",
+        "persistentDisposition": { "set": ["active"] },
+        "epcList": ["https://id.gs1.org/01/09521234003007/21/AUR-2026-000001"],
+        "readPoint": { "id": "https://id.gs1.org/414/9521234000235" }
+      },
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:fj0e8400-0000-4a00-9c00-b02600000006",
+        "eventTime": "2026-03-12T06:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "OBSERVE",
+        "bizStep": "shipping",
+        "disposition": "in_transit",
+        "epcList": ["https://id.gs1.org/01/09521234003007/21/AUR-2026-000001"],
+        "readPoint": { "id": "https://id.gs1.org/414/9521234000235" },
+        "bizTransactionList": [
+          { "type": "urn:epcglobal:cbv:btt:desadv", "bizTransaction": "https://www.fjordline.example/despatch/DA-2026-0119" }
+        ],
+        "sourceList": [
+          { "type": "urn:epcglobal:cbv:sdt:owning_party", "source": "https://id.gs1.org/417/9521234000136" }
+        ],
+        "destinationList": [
+          { "type": "urn:epcglobal:cbv:sdt:owning_party", "destination": "https://id.gs1.org/417/9521234000211" }
+        ]
+      }
+    ]
+  }
+}

@@ -3635,13 +3635,7 @@
           "id": "https://ref.openepcis.io/extensions/common/core/ModelLevel",
           "localName": "ModelLevel",
           "label": "Battery model",
-          "comment": "Attribute reported once per battery model (e.g. nominal voltage, expected cycle life)."
-        },
-        {
-          "id": "https://ref.openepcis.io/extensions/common/core/ModelPerSiteLevel",
-          "localName": "ModelPerSiteLevel",
-          "label": "Battery model per manufacturing site",
-          "comment": "Attribute reported per (model, manufacturing site) tuple (e.g. manufacturer information, manufacturing place)."
+          "comment": "Attribute reported once per battery model (e.g. nominal voltage, expected cycle life). Model master data has a single source of truth: the same model built at different manufacturing sites is NOT a distinct granularity level. Site is a source/location dimension carried by EPCIS events (readPoint / bizLocation); facts that vary per production run are reported at BatchLevel."
         }
       ]
     },

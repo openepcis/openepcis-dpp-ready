@@ -5,7 +5,7 @@
  * WHY: a battery passport is inherently multi-level (see
  * extensions/eu/battery/validation/batterypass-granularity.json and
  * extensions/eu/battery/docs/EPCIS_AND_BATTERYPASS_READY.md):
- *   - Model + ModelPerSite + Batch attributes are static master data, served by
+ *   - Model + Batch attributes are static master data, served by
  *     the GS1 Digital Link resolver (01 / 01+10 Digital Links).
  *   - Item attributes (state of health, cycle count, capacity fade, energy
  *     throughput, time in extreme temperatures, ...) are measured per physical
@@ -43,6 +43,7 @@
 import { readFileSync, writeFileSync, readdirSync } from "fs";
 import { join } from "path";
 import { exportGefeg } from "./export-batterypass-gefeg.js";
+import { deepMerge, parseEpcisEvents, inferTargetEpc, foldItemEvents } from "./passport/assemble-core.js";
 
 type Obj = Record<string, any>;
 
@@ -53,24 +54,9 @@ const kwh = (v?: number) => (v === undefined ? undefined : { kilowattHourValue: 
 const celsius = (v?: number) => (v === undefined ? undefined : { celsiusValue: v, degreeCelsius: "°C" });
 const round = (v: number, n = 1) => Math.round(v * 10 ** n) / 10 ** n;
 
-// ---- deep merge (later source wins; arrays replace) ----
-function deepMerge(a: Obj, b: Obj): Obj {
-  const out: Obj = Array.isArray(a) ? [...a] : { ...a };
-  for (const [k, v] of Object.entries(b)) {
-    if (v && typeof v === "object" && !Array.isArray(v) && out[k] && typeof out[k] === "object" && !Array.isArray(out[k])) {
-      out[k] = deepMerge(out[k], v);
-    } else {
-      out[k] = v;
-    }
-  }
-  return out;
-}
-
-// ---- EPCIS event model ----
-interface Report { type: string; value: number; uom?: string; }
-interface Ev { epc: string; time: number; timeIso: string; bizStep?: string; disposition?: string; incidentType?: string; reports: Report[]; }
-
-function loadEvents(pathArg: string): Ev[] {
+// ---- fs helper: read EPCIS files/dirs into parsed documents. The pure parse +
+// fold live in ./passport/assemble-core (shared with the browser demo). ----
+function loadEventDocs(pathArg: string): Obj[] {
   const files: string[] = [];
   for (const p of pathArg.split(",").map((s) => s.trim()).filter(Boolean)) {
     let isDir = false;
@@ -78,48 +64,11 @@ function loadEvents(pathArg: string): Ev[] {
     if (isDir) files.push(...readdirSync(p).filter((f) => f.endsWith(".jsonld")).map((f) => join(p, f)));
     else files.push(p);
   }
-  const evs: Ev[] = [];
+  const docs: Obj[] = [];
   for (const f of files) {
-    let doc: Obj;
-    try { doc = JSON.parse(readFileSync(f, "utf-8")); } catch { continue; }
-    const list = doc?.epcisBody?.eventList ?? [];
-    for (const e of list) {
-      const epcs: string[] = Array.isArray(e.epcList) ? e.epcList : [];
-      const reports: Report[] = [];
-      for (const se of e.sensorElementList ?? []) {
-        for (const r of se.sensorReport ?? []) {
-          if (typeof r.value === "number" && typeof r.type === "string") reports.push({ type: r.type, value: r.value, uom: r.uom });
-        }
-      }
-      for (const epc of epcs) {
-        evs.push({
-          epc,
-          time: Date.parse(e.eventTime),
-          timeIso: e.eventTime,
-          bizStep: e.bizStep,
-          disposition: e.disposition,
-          incidentType: e["eubat:incidentType"],
-          reports,
-        });
-      }
-    }
+    try { docs.push(JSON.parse(readFileSync(f, "utf-8"))); } catch { /* skip unparseable */ }
   }
-  return evs;
-}
-
-// Pick the serialized (01+21) EPC that appears in the most events.
-function inferTargetEpc(evs: Ev[]): string | undefined {
-  const counts = new Map<string, number>();
-  for (const e of evs) if (/\/21\//.test(e.epc)) counts.set(e.epc, (counts.get(e.epc) ?? 0) + 1);
-  let best: string | undefined;
-  let n = -1;
-  for (const [epc, c] of counts) if (c > n) { best = epc; n = c; }
-  return best;
-}
-
-function parseDl(epc: string): { gtin?: string; serial?: string } {
-  const m = epc.match(/\/01\/(\d{14})(?:\/21\/([^/#?]+))?/);
-  return { gtin: m?.[1], serial: m?.[2] };
+  return docs;
 }
 
 export interface ReconstructOpts {
@@ -153,43 +102,19 @@ export function reconstruct(opts: ReconstructOpts): ReconstructResult {
     return { passport, summary: { level, folded, leftBeginningOfLife: [], eventCount: 0 } };
   }
 
-  // 3. Load and fold the item-level EPCIS event stream.
+  // 3. Load + fold the item-level EPCIS event stream (pure fold in assemble-core).
   const eventsPath = opts.events ?? "extensions/eu/battery/epcis";
-  const allEvs = loadEvents(eventsPath);
+  const allEvs = parseEpcisEvents(loadEventDocs(eventsPath));
   const targetEpc = opts.epc ?? inferTargetEpc(allEvs);
-  const evs = allEvs.filter((e) => e.epc === targetEpc).sort((a, b) => a.time - b.time);
-
-  const reportsAsc = (type: string) => evs.flatMap((e) => e.reports.filter((r) => r.type === type).map((r) => ({ t: e.time, v: r.value })));
-  const latest = (type: string): number | undefined => { const xs = reportsAsc(type); return xs.length ? xs[xs.length - 1].v : undefined; };
-  const maxVal = (type: string): number | undefined => { const xs = reportsAsc(type); return xs.length ? Math.max(...xs.map((x) => x.v)) : undefined; };
 
   const ts = (merged.technicalSpecifications ?? {}) as Obj;
   const initialR = (ts.initialInternalResistance as Obj)?.value as number | undefined;
   const ratedEnergy = (ts.ratedEnergy as Obj)?.value as number | undefined;
   const idleMin = ((ts.temperatureRangeIdleState as Obj)?.minimumTemperature as Obj)?.value as number | undefined;
   const idleMax = ((ts.temperatureRangeIdleState as Obj)?.maximumTemperature as Obj)?.value as number | undefined;
-  const idleMid = idleMin !== undefined && idleMax !== undefined ? (idleMin + idleMax) / 2 : 25;
 
-  // Temperature excursions: events carrying both a Temperature and an
-  // exposure-duration report. Bucket the duration above/below the idle-state
-  // boundary; charging buckets need a charging signal (bizStep), absent here.
-  const buckets = { above: 0, below: 0, chargingAbove: 0, chargingBelow: 0 };
-  let deepDischarge = 0;
-  const excursionEventTimes = new Set<number>();
-  for (const e of evs) {
-    const temp = e.reports.find((r) => r.type === "Temperature")?.value;
-    const dur = e.reports.find((r) => r.type === "eubat:exposureDurationMinutes")?.value;
-    if (temp !== undefined && dur !== undefined) {
-      excursionEventTimes.add(e.time);
-      const above = idleMax !== undefined && temp > idleMax ? true : idleMin !== undefined && temp < idleMin ? false : temp >= idleMid;
-      const charging = /charg/i.test(e.bizStep ?? "");
-      if (charging) buckets[above ? "chargingAbove" : "chargingBelow"] += dur;
-      else buckets[above ? "above" : "below"] += dur;
-    }
-    if (/deep.?discharge/i.test(e.incidentType ?? "")) deepDischarge += 1;
-  }
-  // Latest representative operating temperature from a non-excursion reading.
-  const opTemp = evs.filter((e) => !excursionEventTimes.has(e.time)).flatMap((e) => e.reports.filter((r) => r.type === "Temperature").map((r) => r.value)).pop();
+  const fold = foldItemEvents(allEvs, targetEpc, { idleMin, idleMax });
+  const { latest, maxVal, buckets, deepDischarge, opTemp } = fold;
 
   // 4. Overlay folded values onto the item-level slots the passport carries.
   const set = (group: Obj, key: string, val: unknown) => {
@@ -226,8 +151,7 @@ export function reconstruct(opts: ReconstructOpts): ReconstructResult {
   // Stamp the passport as item-level and refresh the update timestamp from the
   // most recent event.
   set(ident, "DPPGranularity", "item");
-  const lastTime = evs.length ? evs[evs.length - 1].timeIso : undefined;
-  if (lastTime) set(ident, "Date-timeOfLatestUpdateOfDPP", lastTime);
+  if (fold.lastTimeIso) set(ident, "Date-timeOfLatestUpdateOfDPP", fold.lastTimeIso);
 
   // 5. Report the Item-level slots the passport carries that no event fed (so
   // no coverage is silently capped). Uses the granularity map as the authority.
@@ -237,7 +161,7 @@ export function reconstruct(opts: ReconstructOpts): ReconstructResult {
     .map(([k]) => k);
   const leftBeginningOfLife = itemPerf.filter((k) => k in perf && !(k in folded));
 
-  return { passport, summary: { level, targetEpc, folded, leftBeginningOfLife, eventCount: evs.length } };
+  return { passport, summary: { level, targetEpc, folded, leftBeginningOfLife, eventCount: fold.events.length } };
 }
 
 // ---- CLI ----

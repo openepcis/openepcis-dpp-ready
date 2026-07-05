@@ -1,0 +1,70 @@
+{
+  "_comment_architecture": [
+    "ITEM-LEVEL passport for one physical Amperia StaxWall 10 (GS1 Digital Link 01/{GTIN}/21/{serial}).",
+    "The in-use values below are RECONSTRUCTED by folding this battery's EPCIS event stream (amperia-staxwall-lifecycle.jsonld) — see scripts/reconstruct-passport-from-epcis.ts and docs/EPCIS_AND_BATTERYPASS_READY.md. Model design specs are resolved from amperia-staxwall-model.jsonld (01/{GTIN}); per-batch facts from amperia-staxwall-batch.jsonld (01/{GTIN}/10/{lot}).",
+    "Only item-scoped data lives here: per-battery identity + status, date put into service, and the dynamic metrics measured over life. oec:granularityLevel is 'item'; oec:lastUpdated reflects the latest folded event.",
+    "GTIN 09521234002000, serial STAX10-2026-000001."
+  ],
+  "@context": [
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+  ],
+  "id": "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001",
+  "type": [
+    "gs1:Product",
+    "eubat:Battery"
+  ],
+  "oec:granularityLevel": "item",
+  "oec:dppStatus": { "@id": "oec:Active" },
+  "oec:lastUpdated": "2026-06-01T07:20:00Z",
+  "gs1:gtin": "09521234002000",
+  "schema:serialNumber": "STAX10-2026-000001",
+  "schema:status": { "@id": "eubat:Original" },
+  "eubat:puttingIntoService": "2026-02-10",
+  "eubat:stateOfHealth": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 97.5,
+    "gs1:unitCode": "P1"
+  },
+  "eubat:stateOfCharge": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 62,
+    "gs1:unitCode": "P1"
+  },
+  "eubat:remainingCapacity": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 195,
+    "gs1:unitCode": "AMH"
+  },
+  "eubat:remainingEnergy": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 9.98,
+    "gs1:unitCode": "KWH"
+  },
+  "eubat:stateOfCertifiedEnergy": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 9.98,
+    "gs1:unitCode": "KWH"
+  },
+  "eubat:capacityFade": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 2.5,
+    "gs1:unitCode": "P1"
+  },
+  "eubat:remainingRoundTripEfficiency": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 94,
+    "gs1:unitCode": "P1"
+  },
+  "eubat:internalResistance": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 1.9,
+    "gs1:unitCode": "OHM"
+  },
+  "eubat:numberOfFullCycles": 640,
+  "eubat:cycleCount": 640,
+  "eubat:energyThroughput": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 6550,
+    "gs1:unitCode": "KWH"
+  }
+}

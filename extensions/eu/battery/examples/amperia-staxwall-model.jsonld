@@ -1,0 +1,123 @@
+{
+  "_comment_architecture": [
+    "MODEL-LEVEL passport for the Amperia StaxWall 10 stationary LFP battery (GS1 Digital Link 01/{GTIN}).",
+    "Flagship demo example for the Passport Explorer: at least as rich as a real-world consumer DPP viewer, but machine-typed in eubat:/oec:/gs1: with unitCodes and per-attribute upstream alignment (SAMM / GEFEG bpr) rather than loose strings.",
+    "Model-level attributes only (identifiers, category, chemistry, rated specs, materials, warranty, symbols, conformity, due diligence). Batch- and item-level values live in amperia-staxwall-batch.jsonld and are folded from EPCIS events into amperia-staxwall-item.jsonld.",
+    "GS1 demo prefix 952 (GCP 9521234); GTIN 09521234002000 (valid mod-10 check digit)."
+  ],
+  "@context": [
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+  ],
+  "id": "https://id.gs1.org/01/09521234002000",
+  "type": [
+    "gs1:Product",
+    "eubat:Battery"
+  ],
+  "oec:granularityLevel": "model",
+  "oec:dppStatus": { "@id": "oec:Active" },
+  "oec:accessRights": { "@id": "oec:Public" },
+  "gs1:gtin": "09521234002000",
+  "schema:brand": "Amperia",
+  "schema:model": { "@value": "StaxWall 10", "@language": "en" },
+  "gs1:productName": [
+    { "@value": "Amperia StaxWall 10 Home Battery", "@language": "en" },
+    { "@value": "Amperia StaxWall 10 Heimspeicher", "@language": "de" },
+    { "@value": "Batterie domestique Amperia StaxWall 10", "@language": "fr" }
+  ],
+  "gs1:productDescription": [
+    { "@value": "10 kWh wall-mounted lithium iron phosphate (LFP) home energy storage battery for residential solar self-consumption and backup power. Modular, stackable, with an integrated battery management system.", "@language": "en" },
+    { "@value": "10-kWh-Wandspeicher auf Lithium-Eisenphosphat-Basis (LFP) für den privaten Solar-Eigenverbrauch und die Notstromversorgung. Modular, stapelbar, mit integriertem Batteriemanagementsystem.", "@language": "de" },
+    { "@value": "Batterie domestique murale de 10 kWh au lithium-fer-phosphate (LFP) pour l'autoconsommation solaire résidentielle et l'alimentation de secours. Modulaire, empilable, avec système de gestion de batterie intégré.", "@language": "fr" }
+  ],
+  "schema:category": [
+    { "@value": "Stationary energy storage battery", "@language": "en" },
+    { "@value": "Stationärer Energiespeicher", "@language": "de" },
+    { "@value": "Batterie de stockage stationnaire", "@language": "fr" }
+  ],
+  "schema:image": [
+    {
+      "type": "schema:ImageObject",
+      "schema:thumbnailUrl": "https://www.amperia.example/img/staxwall-10-thumb.jpg",
+      "schema:contentUrl": "https://www.amperia.example/img/staxwall-10.jpg",
+      "schema:caption": "Amperia StaxWall 10 wall-mounted home battery"
+    }
+  ],
+  "eubat:batteryCategory": { "@id": "eubat:StationaryBattery" },
+  "eubat:cellType": { "@id": "eubat:PrismaticCell" },
+  "eubat:numberOfCells": 16,
+  "eubat:numberOfModules": 1,
+  "gs1:manufacturer": {
+    "id": "https://id.gs1.org/417/9521234000105",
+    "type": "gs1:Organization",
+    "gs1:organizationName": "Amperia Energy Systems AB",
+    "gs1:globalLocationNumber": "9521234000105",
+    "gs1:address": {
+      "type": "gs1:PostalAddress",
+      "gs1:streetAddress": "Batterivägen 10",
+      "gs1:addressLocality": "Göteborg",
+      "gs1:postalCode": "417 56",
+      "gs1:countryCode": "SE"
+    }
+  },
+  "eubat:operatorInformation": {
+    "id": "https://id.gs1.org/417/9521234000105#operator",
+    "type": "oec:OperatorInformation",
+    "gs1:globalLocationNumber": "9521234000105",
+    "gs1:organizationName": "Amperia Energy Systems AB",
+    "eubat:operatorRole": { "@id": "oec:Manufacturer" }
+  },
+  "gs1:countryOfOrigin": "SE",
+  "gs1:netWeight": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 92,
+    "gs1:unitCode": "KGM"
+  },
+  "eubat:batteryChemistry": {
+    "id": "https://id.gs1.org/01/09521234002000#chemistry",
+    "type": "eubat:BatteryChemistry",
+    "eubat:cathodeActiveMaterial": "LiFePO4",
+    "eubat:anodeActiveMaterial": "Graphite",
+    "eubat:electrolyteType": { "@value": "Liquid organic carbonate-based with LiPF6 salt", "@language": "en" }
+  },
+  "eubat:technicalSpecifications": {
+    "id": "https://id.gs1.org/01/09521234002000#specs",
+    "type": "eubat:TechnicalSpecification",
+    "eubat:ratedCapacity": { "type": "gs1:QuantitativeValue", "gs1:value": 200, "gs1:unitCode": "AMH" },
+    "eubat:ratedEnergy": { "type": "gs1:QuantitativeValue", "gs1:value": 10.24, "gs1:unitCode": "KWH" },
+    "eubat:nominalVoltage": { "type": "gs1:QuantitativeValue", "gs1:value": 51.2, "gs1:unitCode": "VLT" },
+    "eubat:minimumVoltage": { "type": "gs1:QuantitativeValue", "gs1:value": 44.8, "gs1:unitCode": "VLT" },
+    "eubat:maximumVoltage": { "type": "gs1:QuantitativeValue", "gs1:value": 58.4, "gs1:unitCode": "VLT" },
+    "eubat:ratedMaximumPower": { "type": "gs1:QuantitativeValue", "gs1:value": 5, "gs1:unitCode": "KWT" },
+    "eubat:initialInternalResistance": { "type": "gs1:QuantitativeValue", "gs1:value": 1.8, "gs1:unitCode": "OHM" },
+    "eubat:expectedCycleLife": 8000,
+    "eubat:expectedLifetimeYears": 15,
+    "eubat:roundTripEfficiency": 95,
+    "eubat:capacityThresholdForExhaustion": 70,
+    "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
+    "eubat:temperatureRangeIdleState": {
+      "id": "https://id.gs1.org/01/09521234002000#temp-idle",
+      "type": "eubat:TemperatureRange",
+      "eubat:minimumTemperature": { "type": "gs1:QuantitativeValue", "gs1:value": -20, "gs1:unitCode": "CEL" },
+      "eubat:maximumTemperature": { "type": "gs1:QuantitativeValue", "gs1:value": 55, "gs1:unitCode": "CEL" }
+    }
+  },
+  "gs1:warranty": {
+    "type": "gs1:WarrantyPromise",
+    "gs1:durationOfWarranty": "P10Y",
+    "gs1:warrantyScopeDescription": "10-year / 8000-cycle warranty retaining at least 70% of rated capacity"
+  },
+  "eubat:supplyChainDueDiligence": {
+    "id": "https://id.gs1.org/01/09521234002000#due-diligence",
+    "type": "eubat:SupplyChainDueDiligence",
+    "eubat:dueDiligenceReportUrl": "https://www.amperia.example/docs/supply-chain-due-diligence-2026.pdf",
+    "eubat:thirdPartyAssurancesUrl": "https://www.amperia.example/docs/third-party-audit-2026.pdf",
+    "eubat:supplyChainIndex": 84.0
+  },
+  "eubat:euDeclarationOfConformity": {
+    "type": "cccev:Evidence",
+    "eubat:euDeclarationOfConformityId": "DoC-2026-AMPERIA-STAX10",
+    "eubat:declarationOfConformity": "https://www.amperia.example/docs/StaxWall-10-eu-doc.pdf"
+  },
+  "eubat:resultOfTestReport": "https://www.amperia.example/docs/StaxWall-10-test-report.pdf",
+  "eubat:separateCollectionSymbolUrl": "https://www.amperia.example/labels/weee-symbol.svg"
+}

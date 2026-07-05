@@ -180,7 +180,7 @@ GEFEG published the **Battery Passport Data Attribute Longlist v1.3** (March 202
 **New properties — `oec:` core (cross-cutting DPP information, v1.3 #1-#4)**
 - `oec:schemaVersion` — schema version this DPP follows (e.g. `"1.3"`).
 - `oec:status` — reuses existing `oec:PassportStatus` enumeration; added `oec:Suspended` individual.
-- `oec:granularity` — new `oec:DPPGranularity` enumeration (`ModelLevel`, `ModelPerSiteLevel`, `BatchLevel`, `ItemLevel`).
+- `oec:granularity` — new `oec:DPPGranularity` enumeration (`ModelLevel`, `BatchLevel`, `ItemLevel`).
 - `oec:lastUpdate` — date-time of latest DPP update.
 
 **Removed properties — `eubat:`**

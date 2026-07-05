@@ -1,0 +1,82 @@
+{
+  "_comment_architecture": [
+    "BATCH-LEVEL passport for the Amperia StaxWall 10 (GS1 Digital Link 01/{GTIN}/10/{lot}).",
+    "Served by the resolver for one production batch (model + site + calendar period). Carries only per-batch facts: manufacturing date + place/facility, carbon-footprint declaration + performance class, recycled/renewable content shares, batch-specific material sourcing. Model-level design data lives in amperia-staxwall-model.jsonld; per-item measured values are folded from EPCIS events into amperia-staxwall-item.jsonld.",
+    "The batch identity is the /10/ lot; oec:granularityLevel is 'batch'. Site is intrinsic to the batch (the facility GLN of the run), consistent with granularity = Model/Batch/Item only.",
+    "GTIN 09521234002000, lot LOT-2026-AMP01 (Amperia Göteborg plant, GLN 9521234000112)."
+  ],
+  "@context": [
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+  ],
+  "id": "https://id.gs1.org/01/09521234002000/10/LOT-2026-AMP01",
+  "type": [
+    "gs1:Product",
+    "eubat:Battery"
+  ],
+  "oec:granularityLevel": "batch",
+  "oec:dppStatus": { "@id": "oec:Active" },
+  "gs1:gtin": "09521234002000",
+  "gs1:productionDate": "2026-01-22",
+  "eubat:manufacturingPlace": {
+    "id": "https://id.gs1.org/414/9521234000112",
+    "type": "gs1:Place",
+    "gs1:globalLocationNumber": "9521234000112",
+    "gs1:address": {
+      "type": "gs1:PostalAddress",
+      "gs1:streetAddress": "Batterivägen 10",
+      "gs1:addressLocality": "Göteborg",
+      "gs1:postalCode": "417 56",
+      "gs1:countryCode": "SE"
+    }
+  },
+  "eubat:recycledContent": {
+    "id": "https://id.gs1.org/01/09521234002000/10/LOT-2026-AMP01#recycled",
+    "type": "eubat:RecycledContent",
+    "eubat:lithiumPreConsumerShare": 6,
+    "eubat:lithiumPostConsumerShare": 11,
+    "eubat:cobaltPreConsumerShare": 0,
+    "eubat:cobaltPostConsumerShare": 0,
+    "eubat:nickelPreConsumerShare": 0,
+    "eubat:nickelPostConsumerShare": 0,
+    "eubat:leadRecycledShare": 0
+  },
+  "eubat:carbonFootprintDeclaration": {
+    "id": "https://id.gs1.org/01/09521234002000/10/LOT-2026-AMP01#cfp",
+    "type": "eubat:CarbonFootprintDeclaration",
+    "eubat:carbonFootprintTotal": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 41.6,
+      "gs1:unitCode": "KGM"
+    },
+    "eubat:carbonFootprintRawMaterialExtraction": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 17.9,
+      "gs1:unitCode": "KGM"
+    },
+    "eubat:carbonFootprintProduction": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 13.2,
+      "gs1:unitCode": "KGM"
+    },
+    "eubat:carbonFootprintDistribution": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 2.1,
+      "gs1:unitCode": "KGM"
+    },
+    "eubat:carbonFootprintRecycling": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 8.4,
+      "gs1:unitCode": "KGM"
+    },
+    "eubat:carbonFootprintPerformanceClass": {
+      "@id": "eubat:CFClassB"
+    },
+    "eubat:carbonFootprintStudyUrl": "https://www.amperia.example/docs/StaxWall-10-cfp-study-2026.pdf",
+    "eubat:carbonFootprintDeclarationId": "CFP-2026-AMPERIA-STAX10-AMP01"
+  },
+  "eubat:endOfLifeInfo": {
+    "id": "https://id.gs1.org/01/09521234002000/10/LOT-2026-AMP01#eol",
+    "type": "eubat:EndOfLifeInfo",
+    "eubat:renewableContent": 4.5
+  }
+}

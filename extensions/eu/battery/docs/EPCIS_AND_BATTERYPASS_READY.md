@@ -40,9 +40,12 @@ The BatteryPass-Ready data model is **v1.0** (Attribute Longlist v1.3, SAMM 1.2.
 A battery passport is inherently multi-level. The repo carries two related granularity concepts:
 
 - **`oec:reportingGranularity`** (per attribute) → `oec:DPPGranularity`, one of
-  `ModelLevel / ModelPerSiteLevel / BatchLevel / ItemLevel`
+  `ModelLevel / BatchLevel / ItemLevel`
   ([`../../../common/core/ontology/dpp-core.ttl`](../../../common/core/ontology/dpp-core.ttl)).
-  It feeds the GEFEG `DPPGranularity` field.
+  It feeds the GEFEG `DPPGranularity` field. Granularity is the product hierarchy only — it maps
+  1:1 to the GS1 Digital Link AIs. "Per manufacturing site" is **not** a granularity: the model has
+  a single source of truth, and the site is a source/location dimension carried by EPCIS events
+  (`readPoint` / `bizLocation`); facts that vary per production run are `BatchLevel`.
 - **`oec:granularityLevel`** (per passport, EN 18223) → `model` / `batch` / `item`, derived from the
   GS1 Digital Link Application Identifiers (`01` model, `01+10` batch, `01+21` item) and enforced by
   `dpp-sh:GranularityLevelConstraint` + `dpp-sh:GranularityDigitalLinkConstraint`
@@ -56,19 +59,18 @@ more than one level because they are genuinely reported at more than one). In su
 | Level | GS1 Digital Link | Served / derived by | Representative BatteryPass-Ready attributes |
 |---|---|---|---|
 | **Model** | `01/{gtin}` | resolver master data | BatteryModelIdentifier, manufacturer / economic-operator identity, BatteryCategory, BatteryMass, WarrantyPeriod, all rated / type-tested PerformanceAndDurability (RatedCapacity, voltages, OriginalPowerCapability, Initial* efficiencies and resistances, ExpectedLifetime*, cycle-life reference tests, TemperatureRangeIdleState bounds), BatteryChemistry and composition, dismantling / spare-part / safety / end-user information, due diligence, most symbols and conformity |
-| **ModelPerSite / Batch** | `01/{gtin}/10/{lot}` | resolver master data | ManufacturingPlace, ManufacturingDate, UniqueFacilityIdentifier, the whole BatteryCarbonFootprint group, recycled- and renewable-content shares, CarbonFootprintLabel |
+| **Batch** | `01/{gtin}/10/{lot}` | resolver master data | ManufacturingPlace, ManufacturingDate, UniqueFacilityIdentifier, the whole BatteryCarbonFootprint group, recycled- and renewable-content shares, CarbonFootprintLabel |
 | **Item** | `01/{gtin}/21/{serial}` | folded from the EPCIS event stream | per-battery identifiers, DPPStatus, DateOfPuttingIntoService, Date-timeOfLatestUpdate, and every dynamic metric: CapacityFade, StateOfChargeSoC, RemainingCapacity, NumberOfFullChargingAndDischargingCycles, EnergyThroughput, StateOfCertifiedEnergySOCE, RemainingRoundTripEnergyEfficiency, InternalResistanceIncrease, TimeSpentInExtremeTemperatures*, NumberOfDeepDischargeEvents, TemperatureInformation |
 
-Some attributes are multi-level by nature: the carbon footprint is declared per model-per-site or
-per batch; the manufacturing date is a batch fact also stamped per item; recycled-content shares are
-batch facts sometimes aggregated per model-per-site; material composition is model data that can
-vary per batch when sourcing changes; temperature information is a model design range at beginning
-of life and an item-observed value over life. The map records the primary level first and lists the
-others.
+Some attributes are multi-level by nature: the manufacturing date is a batch fact also stamped per
+item; material composition is model data that can vary per batch when sourcing changes; temperature
+information is a model design range at beginning of life and an item-observed value over life; and
+the passport-instance metadata (DPPStatus, DPPGranularity, Date-timeOfLatestUpdate) exists at every
+level a passport instance does. The map records the primary level first and lists the others.
 
 The corresponding `eubat:` dynamic sensor terms carry `oec:reportingGranularity oec:ItemLevel` in
-[`../ontology/battery.ttl`](../ontology/battery.ttl); `eubat:carbonFootprintTotal` carries both
-`oec:BatchLevel` and `oec:ModelPerSiteLevel`.
+[`../ontology/battery.ttl`](../ontology/battery.ttl); `eubat:carbonFootprintTotal` carries
+`oec:BatchLevel`.
 
 ## How multiple EPCIS events reconstruct the passport
 

@@ -1,0 +1,277 @@
+{
+  "_comment_architecture": [
+    "FLAGSHIP EPCIS 2.0 lifecycle trail for one Amperia StaxWall 10 battery (01/09521234002000/21/STAX10-2026-000001).",
+    "Deliberately exercises the breadth of EPCIS 2.0: TransformationEvent (cells + BMS -> assembled pack, inputEPCList/inputQuantityList/outputEPCList + ilmd), AssociationEvent (BMS module ASSOCIATEd to the pack), AggregationEvent (pack -> shipment SSCC), and ObjectEvents for commissioning / shipping / installing / in-use inspection / thermal excursion / SOCE certification, with rich sensorElementList (sensorMetadata + sensorReport min/max/mean/sDev, deviceID, deviceMetadata, dataProcessingMethod, bizRules, exception), persistentDisposition, quantityList, bizTransactionList and source/destination parties.",
+    "These are the events scripts/reconstruct-passport-from-epcis.ts folds into the item passport (amperia-staxwall-item.jsonld). Model/batch master data is served by the resolver (01 / 01+10); the item-level dynamic values are derived here. Identifiers use the GS1 952 demo prefix with valid mod-10 check digits; the BMS is an individual asset (GIAI /8004).",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eubat=https://ref.openepcis.io/extensions/eu/battery/",
+    "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md and extensions/eu/battery/docs/EPCIS_AND_BATTERYPASS_READY.md"
+  ],
+  "@context": [
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-06-01T08:00:00.000Z",
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "TransformationEvent",
+        "eventID": "urn:uuid:a30e8400-0000-4a00-9c00-b02600000001",
+        "eventTime": "2026-01-22T09:15:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "ADD",
+        "bizStep": "assembling",
+        "disposition": "in_progress",
+        "inputEPCList": [
+          "https://id.gs1.org/8004/95212340BMS26001"
+        ],
+        "inputQuantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/09521234007005",
+            "quantity": 16,
+            "uom": "EA"
+          }
+        ],
+        "outputEPCList": [
+          "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001"
+        ],
+        "readPoint": { "id": "https://id.gs1.org/414/9521234000112" },
+        "bizLocation": { "id": "https://id.gs1.org/414/9521234000112" },
+        "ilmd": {
+          "gs1:hasBatchLotNumber": "LOT-2026-AMP01",
+          "gs1:productionDate": "2026-01-22"
+        }
+      },
+      {
+        "type": "AssociationEvent",
+        "eventID": "urn:uuid:a30e8400-0000-4a00-9c00-b02600000002",
+        "eventTime": "2026-01-22T11:40:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "ADD",
+        "bizStep": "assembling",
+        "disposition": "in_progress",
+        "parentID": "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001",
+        "childEPCs": [
+          "https://id.gs1.org/8004/95212340BMS26001"
+        ],
+        "readPoint": { "id": "https://id.gs1.org/414/9521234000112" },
+        "bizLocation": { "id": "https://id.gs1.org/414/9521234000112" }
+      },
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:a30e8400-0000-4a00-9c00-b02600000003",
+        "eventTime": "2026-01-23T14:05:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "ADD",
+        "bizStep": "commissioning",
+        "disposition": "active",
+        "persistentDisposition": {
+          "set": ["active"]
+        },
+        "epcList": [
+          "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001"
+        ],
+        "readPoint": { "id": "https://id.gs1.org/414/9521234000112" },
+        "bizLocation": { "id": "https://id.gs1.org/414/9521234000112" },
+        "masterDataAvailableFor": [
+          {
+            "id": "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001",
+            "type": "Product",
+            "regulatoryInformation": [
+              {
+                "type": "RegulatoryInformation",
+                "regulationType": { "id": "RegulationTypeCode-BATTERY_DIRECTIVE" },
+                "regulatoryAct": "EU 2023/1542"
+              }
+            ]
+          }
+        ],
+        "sensorElementList": [
+          {
+            "sensorMetadata": {
+              "time": "2026-01-23T14:05:00.000Z",
+              "deviceID": "https://id.gs1.org/8004/95212340BMS26001",
+              "deviceMetadata": "https://www.amperia.example/devices/bms-v2",
+              "bizRules": "Beginning-of-life factory test per IEC 62660-1"
+            },
+            "sensorReport": [
+              { "type": "eubat:stateOfHealth", "value": 100, "uom": "P1" },
+              { "type": "eubat:stateOfCharge", "value": 50, "uom": "P1" },
+              { "type": "eubat:internalResistance", "value": 1.8, "uom": "OHM" }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "AggregationEvent",
+        "eventID": "urn:uuid:a30e8400-0000-4a00-9c00-b02600000004",
+        "eventTime": "2026-02-01T07:30:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "ADD",
+        "bizStep": "packing",
+        "disposition": "in_progress",
+        "parentID": "https://id.gs1.org/00/095212340000000174",
+        "childEPCs": [
+          "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001"
+        ],
+        "readPoint": { "id": "https://id.gs1.org/414/9521234000112" },
+        "bizLocation": { "id": "https://id.gs1.org/414/9521234000112" }
+      },
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:a30e8400-0000-4a00-9c00-b02600000005",
+        "eventTime": "2026-02-03T06:00:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "OBSERVE",
+        "bizStep": "shipping",
+        "disposition": "in_transit",
+        "epcList": [
+          "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001"
+        ],
+        "readPoint": { "id": "https://id.gs1.org/414/9521234000112" },
+        "bizTransactionList": [
+          {
+            "type": "urn:epcglobal:cbv:btt:desadv",
+            "bizTransaction": "https://www.amperia.example/despatch/DA-2026-0042"
+          }
+        ],
+        "sourceList": [
+          { "type": "urn:epcglobal:cbv:sdt:owning_party", "source": "https://id.gs1.org/417/9521234000105" }
+        ],
+        "destinationList": [
+          { "type": "urn:epcglobal:cbv:sdt:owning_party", "destination": "https://id.gs1.org/417/9521234000211" }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:a30e8400-0000-4a00-9c00-b02600000006",
+        "eventTime": "2026-02-10T10:20:00.000Z",
+        "eventTimeZoneOffset": "+01:00",
+        "action": "OBSERVE",
+        "bizStep": "installing",
+        "disposition": "active",
+        "persistentDisposition": {
+          "set": ["active"],
+          "unset": ["in_transit"]
+        },
+        "epcList": [
+          "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001"
+        ],
+        "readPoint": { "id": "https://id.gs1.org/414/9521234000204" },
+        "bizLocation": { "id": "https://id.gs1.org/414/9521234000204" },
+        "sourceList": [
+          { "type": "urn:epcglobal:cbv:sdt:possessing_party", "source": "https://id.gs1.org/417/9521234000211" }
+        ],
+        "destinationList": [
+          { "type": "urn:epcglobal:cbv:sdt:owning_party", "destination": "https://id.gs1.org/417/9521234000204" }
+        ],
+        "sensorElementList": [
+          {
+            "sensorMetadata": { "time": "2026-02-10T10:20:00.000Z", "deviceID": "https://id.gs1.org/8004/95212340BMS26001" },
+            "sensorReport": [
+              { "type": "eubat:stateOfCharge", "value": 48, "uom": "P1" }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:a30e8400-0000-4a00-9c00-b02600000007",
+        "eventTime": "2026-05-15T13:12:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "action": "OBSERVE",
+        "bizStep": "inspecting",
+        "disposition": "active",
+        "epcList": [
+          "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001"
+        ],
+        "readPoint": { "id": "https://id.gs1.org/414/9521234000204" },
+        "sensorElementList": [
+          {
+            "sensorMetadata": {
+              "startTime": "2026-05-15T12:00:00.000Z",
+              "endTime": "2026-05-15T13:12:00.000Z",
+              "deviceID": "https://id.gs1.org/8004/95212340BMS26001",
+              "dataProcessingMethod": "https://www.iso.org/standard/79080.html",
+              "bizRules": "Thermal-excursion alert: cell temperature above the idle-state upper boundary (55 C)"
+            },
+            "sensorReport": [
+              {
+                "type": "Temperature",
+                "value": 58.4,
+                "minValue": 41.0,
+                "maxValue": 58.4,
+                "meanValue": 49.7,
+                "sDev": 4.2,
+                "uom": "CEL",
+                "exception": "ALARM_CONDITION"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:a30e8400-0000-4a00-9c00-b02600000008",
+        "eventTime": "2026-05-30T07:00:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "action": "OBSERVE",
+        "bizStep": "inspecting",
+        "disposition": "active",
+        "epcList": [
+          "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001"
+        ],
+        "readPoint": { "id": "https://id.gs1.org/414/9521234000204" },
+        "sensorElementList": [
+          {
+            "sensorMetadata": {
+              "startTime": "2026-05-01T00:00:00.000Z",
+              "endTime": "2026-05-30T07:00:00.000Z",
+              "deviceID": "https://id.gs1.org/8004/95212340BMS26001",
+              "deviceMetadata": "https://www.amperia.example/devices/bms-v2",
+              "dataProcessingMethod": "https://www.amperia.example/methods/soh-coulomb-counting",
+              "bizRules": "Monthly state-of-health assessment (SoH) per EU 2023/1542 Annex XIII"
+            },
+            "sensorReport": [
+              { "type": "eubat:stateOfHealth", "value": 97.5, "minValue": 97.3, "maxValue": 97.8, "meanValue": 97.5, "sDev": 0.12, "uom": "P1" },
+              { "type": "eubat:stateOfCharge", "value": 62, "uom": "P1" },
+              { "type": "eubat:remainingCapacity", "value": 195, "uom": "AMH" },
+              { "type": "eubat:remainingEnergy", "value": 9.98, "uom": "KWH" },
+              { "type": "eubat:capacityFade", "value": 2.5, "uom": "P1" },
+              { "type": "eubat:numberOfFullCycles", "value": 640, "uom": "C62" },
+              { "type": "eubat:internalResistance", "value": 1.9, "uom": "OHM" },
+              { "type": "eubat:energyThroughput", "value": 6550, "uom": "KWH" },
+              { "type": "eubat:remainingRoundTripEfficiency", "value": 94, "uom": "P1" }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "ObjectEvent",
+        "eventID": "urn:uuid:a30e8400-0000-4a00-9c00-b02600000009",
+        "eventTime": "2026-05-31T09:45:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "action": "OBSERVE",
+        "bizStep": "inspecting",
+        "disposition": "active",
+        "epcList": [
+          "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001"
+        ],
+        "readPoint": { "id": "https://id.gs1.org/414/9521234000204" },
+        "sensorElementList": [
+          {
+            "sensorMetadata": {
+              "time": "2026-05-31T09:45:00.000Z",
+              "deviceID": "https://id.gs1.org/8004/95212340BMS26001",
+              "bizRules": "State of Certified Energy (SOCE) measurement per EU 2023/1542"
+            },
+            "sensorReport": [
+              { "type": "eubat:stateOfCertifiedEnergy", "value": 9.98, "uom": "KWH" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

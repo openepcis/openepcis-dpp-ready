@@ -455,13 +455,11 @@ oec:DPPGranularity
     rdfs:comment "Reporting granularity of a Digital Product Passport: which level of the product hierarchy a given attribute set describes."@en ;
     dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;
     skos:note "Introduced by BatteryPass-Ready Data Attribute Longlist v1.3 (March 2026) to align EU Battery Passport reporting with CEN/CENELEC JTC-24 drafts. Some attributes (e.g. recycled-content shares, carbon-footprint label) are reported at batch level, others at model or item level."@en ;
-    owl:oneOf (oec:ModelLevel oec:ModelPerSiteLevel oec:BatchLevel oec:ItemLevel) ;
+    owl:oneOf (oec:ModelLevel oec:BatchLevel oec:ItemLevel) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
 oec:ModelLevel a oec:DPPGranularity ; rdfs:label "Battery model"@en ;
-    rdfs:comment "Attribute reported once per battery model (e.g. nominal voltage, expected cycle life)."@en .
-oec:ModelPerSiteLevel a oec:DPPGranularity ; rdfs:label "Battery model per manufacturing site"@en ;
-    rdfs:comment "Attribute reported per (model, manufacturing site) tuple (e.g. manufacturer information, manufacturing place)."@en .
+    rdfs:comment "Attribute reported once per battery model (e.g. nominal voltage, expected cycle life). Model master data has a single source of truth: the same model built at different manufacturing sites is NOT a distinct granularity level. Site is a source/location dimension carried by EPCIS events (readPoint / bizLocation); facts that vary per production run are reported at BatchLevel."@en .
 oec:BatchLevel a oec:DPPGranularity ; rdfs:label "Battery model per calendar year and per manufacturing site (batch)"@en ;
     rdfs:comment "Attribute reported per batch: model, calendar year, manufacturing site (e.g. carbon footprint, recycled-content shares)."@en .
 oec:ItemLevel a oec:DPPGranularity ; rdfs:label "Individual battery item"@en ;
