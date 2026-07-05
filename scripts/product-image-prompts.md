@@ -98,3 +98,29 @@ BRUNO_PW=… BRUNO_CLIENT_SECRET=… ./scripts/upload-product-images.sh
 The script uploads every numbered variant for a GTIN to
 `files.dev.epcis.cloud` and PUTs the product's master-data with the
 full list of image URLs under `referencedFileDetails`.
+
+---
+
+## Provenance-demo products (multi-granularity, DDM Provenance widget)
+
+Generated locally with Draw Things (`flux_2_dev`, `steps=18`, `cfg=3.5`)
+via its Automatic1111-compatible API at `http://127.0.0.1:7860/sdapi/v1/txt2img`.
+Negative prompt used: `text, watermark, logo/brand logo, people, hands,
+blurry, distorted, car battery, aa battery, cartoon`.
+
+### 09521234002000 — Amperia StaxWall 10 Home Battery (1024×1024)
+1. **Front** — Professional product photograph of a sleek wall-mounted residential home battery energy storage unit, matte white and charcoal grey minimalist Scandinavian industrial design, slim rectangular wall cabinet, small status LED, mounted on a clean light grey modern utility room wall, soft studio lighting, straight-on front view.
+2. **Three-quarter** — Same unit, three-quarter angled view showing slim depth, small status display.
+3. **Stacked/modular** — Two sleek modular stackable home battery units mounted together on a modern garage utility wall (shows the "modular, stackable" story), soft daylight.
+
+### 09521234003007 — Fjordline Aurora Shell (896×1152 portrait)
+1. **Front hero** — Modern 3-layer recycled-polyester waterproof shell jacket, deep fjord blue with subtle grey accents, technical outdoor hardshell with hood and sealed seams, on an invisible ghost mannequin, straight-on front view, clean white studio background.
+2. **Three-quarter back** — Same jacket, three-quarter angled back view on invisible ghost mannequin.
+3. **Fabric macro** — Close-up of the deep fjord-blue recycled-polyester technical shell fabric with a sealed seam and a matte zipper pull, water droplets beading on the waterproof surface.
+
+Re-image just these two without touching the other demo products:
+
+```bash
+ONLY_GTINS="09521234002000 09521234003007" \
+  BRUNO_PW=… BRUNO_CLIENT_SECRET=… ./scripts/upload-product-images.sh
+```

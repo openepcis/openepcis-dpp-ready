@@ -1,0 +1,79 @@
+// Build a bareTerm -> source-vocabulary-prefix index from the OpenEPCIS
+// JSON-LD context files, so the DDM Provenance widget can attribute a
+// compacted (bare) key like "garmentType" to eutex: even when the resolver
+// serves it without a prefix. Prefixed keys need no lookup; only bare keys do.
+//
+// Run:  node scripts/build-term-vocab-index.mjs
+// Emits the index to the DDM app's app/utils/term-vocab-index.json.
+
+import { writeFileSync } from "fs";
+
+const ROOTS = [
+  "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+  "https://ref.openepcis.io/extensions/common/interop/interop-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/iron-steel/iron-steel-context.jsonld",
+];
+
+// Prefixes we care to attribute (everything else falls back to gs1 in the app).
+const KNOWN = new Set([
+  "eubat", "eutex", "euelec", "eudet", "eudr", "eusteel", "euppwr", "eucpr",
+  "usfsma", "oec", "oei", "gs1", "schema", "cccev", "cv", "locn", "adms", "dpp",
+]);
+
+const index = {}; // bareTerm -> canonical CURIE (e.g. "garmentType":"eutex:garmentType",
+                  //                              "textileCategory":"schema:category")
+const seen = new Set();
+
+function prefixOf(id) {
+  if (typeof id !== "string") return null;
+  const m = id.match(/^([A-Za-z0-9]+):(?!\/)/); // "eutex:foo" but not "http://"
+  return m ? m[1] : null;
+}
+
+function ingest(ctxObj) {
+  for (const [key, val] of Object.entries(ctxObj)) {
+    if (key.startsWith("@")) continue;
+    // Prefix definition (value is a namespace URL) — skip; not a term.
+    if (typeof val === "string" && /^https?:\/\//.test(val)) continue;
+    const id = typeof val === "string" ? val : val && typeof val === "object" ? val["@id"] : null;
+    const px = prefixOf(id);
+    if (px && KNOWN.has(px) && !(key in index)) index[key] = id; // store full CURIE
+    // Nested @context (enum value maps) — recurse for completeness.
+    if (val && typeof val === "object" && val["@context"] && typeof val["@context"] === "object") {
+      ingest(val["@context"]);
+    }
+  }
+}
+
+async function resolve(url) {
+  if (seen.has(url)) return;
+  seen.add(url);
+  let doc;
+  try {
+    const res = await fetch(url, { headers: { Accept: "application/ld+json" } });
+    if (!res.ok) { console.warn(`skip ${url} (${res.status})`); return; }
+    doc = await res.json();
+  } catch (e) { console.warn(`skip ${url} (${e.message})`); return; }
+  const ctx = doc["@context"];
+  const parts = Array.isArray(ctx) ? ctx : [ctx];
+  for (const part of parts) {
+    if (typeof part === "string") await resolve(part); // nested context URL
+    else if (part && typeof part === "object") ingest(part);
+  }
+}
+
+for (const root of ROOTS) await resolve(root);
+
+const out = Object.keys(index).sort().reduce((o, k) => ((o[k] = index[k]), o), {});
+const dest = "/Users/sven/Documents/projects/openepcis-web/apps/digital-data-management/app/utils/term-vocab-index.json";
+writeFileSync(dest, JSON.stringify(out, null, 0) + "\n");
+const counts = {};
+for (const curie of Object.values(out)) { const p = curie.split(":")[0]; counts[p] = (counts[p] || 0) + 1; }
+console.log(`Wrote ${Object.keys(out).length} terms to ${dest}`);
+console.log("by prefix:", counts);

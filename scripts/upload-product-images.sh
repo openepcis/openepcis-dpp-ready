@@ -83,7 +83,14 @@ DEMOS=(
   "09521004005019|water-bottle-500ml|Mountain Spring 500 mL PET Bottle"
   "09521005000808|snack-pouch-80g|FlexiSnack Multi-layer Pouch"
   "09521006003013|ecommerce-carton|EcoFlow corrugated shipping carton"
+  "09521234002000|amperia-staxwall-10|Amperia StaxWall 10 Home Battery"
+  "09521234003007|fjordline-aurora-shell|Fjordline Aurora Shell jacket"
 )
+
+# Optional space-separated GTIN allowlist. When set, only these GTINs are
+# processed (e.g. ONLY_GTINS="09521234002000 09521234003007" to (re)image just
+# the provenance-demo products without re-PUTting the others' master data).
+ONLY_GTINS="${ONLY_GTINS:-}"
 
 sign_with_c2pa() {
   # Embed a minimal C2PA manifest declaring Flux.2 as the creator and
@@ -236,6 +243,9 @@ fi
 
 for row in "${DEMOS[@]}"; do
   IFS="|" read -r gtin key description <<<"$row"
+  if [[ -n "$ONLY_GTINS" && " $ONLY_GTINS " != *" $gtin "* ]]; then
+    continue
+  fi
   # Collect every numbered variant (<gtin>-1.png, <gtin>-2.png, …) by
   # enumerating candidate paths explicitly and keeping only those that
   # exist. Globbing was off the table — nullglob + an empty match makes
