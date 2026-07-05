@@ -92,6 +92,18 @@ DEMOS=(
 # the provenance-demo products without re-PUTting the others' master data).
 ONLY_GTINS="${ONLY_GTINS:-}"
 
+# Product images are model-level (they identify the product, not a serial), but
+# the provenance-demo products are seeded at three granularities as separate
+# Digital Link records (model 01/{gtin}, batch 01/{gtin}/10/{lot}, item
+# 01/{gtin}/21/{serial}) by seed-dev-passports.sh. Those batch/item records
+# don't inherit the model's referencedFile, so after imaging the model we
+# propagate the same images down to each sub-Digital-Link listed here. Format:
+#   <gtin>|<space-separated sub-paths, each "10/{lot}" or "21/{serial}">
+INSTANCE_IMAGE_TARGETS=(
+  "09521234002000|10/LOT-2026-AMP01 21/STAX10-2026-000001"
+  "09521234003007|10/LOT-2026-FJ03 21/AUR-2026-000001"
+)
+
 sign_with_c2pa() {
   # Embed a minimal C2PA manifest declaring Flux.2 as the creator and
   # marking the asset as AI-generated with training/mining opted out.
@@ -190,27 +202,23 @@ upload_image() {
   echo "$FILES_URL/files/products/$gtin/$key"
 }
 
-put_product_with_images() {
-  local gtin="$1" description="$2"
-  shift 2
-  local urls=("$@")
-  # MUST send Accept: application/ld+json so @context comes back; without
-  # it the server returns plain JSON with no @context and our PUT then
-  # persists null, wiping the openepcis.io extension contexts.
+# apply_images FETCH_DL PUT_TARGET LABEL DESCRIPTION URLS_JSON [CONTENT_TYPE]
+# Fetch a record's master-data (Accept: application/ld+json so the @context
+# comes back — otherwise the PUT would persist null and wipe the extension
+# contexts), overlay the gs1:referencedFile image array, and PUT it back.
+# CONTENT_TYPE defaults to application/ld+json (accepted by the GTIN-level
+# /products/{gtin} endpoint); the /10/{lot} and /21/{serial} sub-path
+# endpoints only accept application/json (ld+json → 415).
+apply_images() {
+  local fetch_dl="$1" put_target="$2" label="$3" desc="$4" urls_json="$5"
+  local content_type="${6:-application/ld+json}"
   curl -sk -L -H "Accept: application/ld+json" \
-    "$DL_URL/01/$gtin?linkType=masterData" -o /tmp/p.json
-  # Build the gs1:referencedFile array — one entry per uploaded image.
-  local urls_json
-  urls_json=$(printf '%s\n' "${urls[@]}" | jq -R . | jq -s .)
-  # Each entry sets both the JSON-LD entity id and the gs1:referencedFileURL
-  # property to the uploaded image URL. The DLR's auto-linkset-populator
-  # reads referencedFileURL + referencedFileType (PRODUCT_IMAGE) when
-  # emitting the gs1:relatedImage link entry.
-  #
-  # Canonical GS1 property name is `referencedFile` (singular). The DLR DTO
-  # still aliases the older `referencedFileDetails` for backwards-compat
-  # PUTs, but new payloads use the ratified spelling.
-  jq --argjson urls "$urls_json" --arg desc "$description" '
+    "$DL_URL$fetch_dl?linkType=masterData" -o /tmp/p.json
+  # Each entry sets the JSON-LD entity id + gs1:referencedFileURL to the image
+  # URL and marks it PRODUCT_IMAGE (the DLR auto-linkset-populator reads these).
+  # `referencedFile` is the ratified GS1 spelling (DTO still aliases the older
+  # `referencedFileDetails`).
+  jq --argjson urls "$urls_json" --arg desc "$desc" '
     .referencedFile = (
       $urls
       | to_entries
@@ -225,13 +233,33 @@ put_product_with_images() {
     )
   ' /tmp/p.json > /tmp/p2.json
   local code
-  code=$(curl -sk -X PUT "$DL_URL/products/$gtin" \
+  code=$(curl -sk -X PUT "$DL_URL$put_target" \
     -H "Authorization: Bearer $TOKEN" \
-    -H "Content-Type: application/ld+json" \
+    -H "Content-Type: $content_type" \
     --data-binary @/tmp/p2.json \
     -w "%{http_code}" -o /tmp/r.json)
-  if [[ "$code" =~ ^20[0-2]$ ]]; then green "  PUT $gtin → $code (${#urls[@]} image(s))"
-  else red "  FAIL PUT $gtin → $code"; head -c 300 /tmp/r.json; echo; fi
+  if [[ "$code" =~ ^20[0-2]$ ]]; then green "  PUT $label → $code"
+  else red "  FAIL PUT $label → $code"; head -c 300 /tmp/r.json; echo; fi
+}
+
+put_product_with_images() {
+  local gtin="$1" description="$2"
+  shift 2
+  local urls=("$@")
+  local urls_json
+  urls_json=$(printf '%s\n' "${urls[@]}" | jq -R . | jq -s .)
+  # 1. The model record (01/{gtin}).
+  apply_images "/01/$gtin" "/products/$gtin" "$gtin (${#urls[@]} img)" "$description" "$urls_json"
+  # 2. Propagate to any batch/item Digital Links this product carries so every
+  #    granularity shows the (model-level) product images.
+  local irow ig sub_paths sub
+  for irow in "${INSTANCE_IMAGE_TARGETS[@]}"; do
+    IFS="|" read -r ig sub_paths <<<"$irow"
+    [[ "$ig" == "$gtin" ]] || continue
+    for sub in $sub_paths; do
+      apply_images "/01/$gtin/$sub" "/products/$gtin/$sub" "$gtin/$sub" "$description" "$urls_json" "application/json"
+    done
+  done
 }
 
 cd "$(dirname "$0")"
