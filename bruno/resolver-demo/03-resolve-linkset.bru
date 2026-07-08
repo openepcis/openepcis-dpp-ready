@@ -1,0 +1,29 @@
+meta {
+  name: 3. Resolve — full linkset
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{dl-url}}/01/{{gtin}}?linkType=all
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+tests {
+  test("linkset returned with pip -> DDM", function() {
+    expect(res.status).to.eq(200);
+    var ls = res.body.linkset[0];
+    expect(ls["https://ref.gs1.org/voc/pip"][0].href).to.include("{{ddm-host}}");
+  });
+}
+
+docs {
+  The GS1 Digital Link "linkset" — every link type registered for this GTIN
+  (defaultLink, pip, masterData, dpp, …). Anonymous; no token needed. This is
+  the money shot for a resolver demo: one identifier, many typed links.
+}

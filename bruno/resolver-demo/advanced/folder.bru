@@ -1,0 +1,27 @@
+meta {
+  name: advanced
+  seq: 2
+}
+
+docs {
+  Richness demos beyond the basic create→resolve flow:
+    1. Add more link types (instructions, certificationInfo, sustainability, epcis, traceability)
+    2. Multi-language PIP (one entry, multiple hreflang)
+    3. FWQS true vs false (forward-query-string semantics)
+    4. Link-only GTIN — a resolvable DL with NO product master data behind it
+    5. Beyond products — GDTI (a compliance document, AI 253)
+    6. Beyond products — GIAI (a reusable asset, AI 8004)
+    7. Cleanup — remove the advanced link-only / GDTI / GIAI entries
+
+  Requests 1-3 enrich the product from ../01-create-product (needs {{gtin}}).
+  4-6 are self-contained (POST creates the entry; no product needed).
+
+  Resolver behaviour learned the hard way (baked into these examples):
+   - A link set is created by POST /products (with master data) OR by POST
+     /{ai}/{id} WITHOUT a `defaultLink` (link-only; resolver auto-derives it).
+   - PATCH/PUT require the link set to already exist ("Linkset not found").
+   - Only ONE entry per link type is kept — express multi-language as one entry
+     with multiple `hreflang`, not several entries.
+   - On create, a user-supplied `defaultLink` is rejected; add/repoint it via PATCH.
+   - AI 00 (SSCC) writes are 403 (restricted) on demo; 01/253/8004/414/417 work.
+}

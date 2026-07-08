@@ -1,0 +1,43 @@
+meta {
+  name: 6. Beyond products — GIAI (asset, AI 8004)
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{dl-url}}/8004/{{giai}}?isAnonymousAccessAllowed=true
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "linkset": [
+      {
+        "anchor": "{{dl-url}}/8004/{{giai}}",
+        "itemDescription": "Reusable transport asset (GIAI)",
+        "pip": [
+          { "href": "{{ddm-host}}/8004/{{giai}}", "title": "Asset record", "type": "text/html", "hreflang": ["en"], "context": ["ALL"], "public": true }
+        ],
+        "https://ref.gs1.org/voc/epcis": [
+          { "href": "{{url}}/events?MATCH_anyEPC=https%3A%2F%2Fid.demo.epcis.cloud%2F8004%2F{{giai}}", "title": "Asset movement history (EPCIS)", "type": "application/ld+json", "context": ["ALL"], "public": true }
+        ]
+      }
+    ]
+  }
+}
+
+tests {
+  test("GIAI entry created", function() { expect(res.status).to.be.oneOf([200, 201]); });
+}
+
+docs {
+  GIAI (AI 8004) — Global Individual Asset Identifier: a specific reusable asset
+  (pallet, container, tool). Not a product/org/place. Resolves to an asset record
+  (pip) and its movement history (EPCIS). Note: SSCC (AI 00) writes are 403 on
+  demo (restricted), so GIAI/GDTI are the "beyond products" examples that work.
+}

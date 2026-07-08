@@ -1,0 +1,60 @@
+meta {
+  name: 2. Set GS1-conformant linkset (defaultLink + pip)
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{dl-url}}/01/{{gtin}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  [
+    {
+      "action": "update",
+      "linkset": [
+        {
+          "anchor": "{{dl-url}}/01/{{gtin}}",
+          "itemDescription": "{{product-name}}",
+          "https://ref.gs1.org/voc/defaultLink": [
+            { "href": "{{ddm-host}}/01/{{gtin}}", "title": "{{product-name}}" }
+          ],
+          "pip": [
+            {
+              "href": "{{ddm-host}}/01/{{gtin}}",
+              "title": "{{product-name}} — Digital Product Passport",
+              "fwqs": false,
+              "type": "text/html",
+              "hreflang": ["en"],
+              "context": ["product-information-page"],
+              "public": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+tests {
+  test("linkset updated", function() {
+    expect(res.status).to.eq(200);
+  });
+}
+
+docs {
+  Merge-update the link set so a scan (defaultLink) and the Product Information
+  Page (gs1:pip) resolve to the DDM product page on demo.epcis.cloud instead of
+  looping back to the resolver. Merge (action:update) preserves other links
+  (e.g. gs1:dpp, masterData).
+
+  GOTCHAS: `itemDescription` is required; `defaultLink` takes only href+title;
+  `pip` only updates when context is ["product-information-page"] (["ALL"] is
+  silently ignored).
+}

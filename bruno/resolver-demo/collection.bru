@@ -1,0 +1,41 @@
+meta {
+  name: OpenEPCIS Resolver Demo
+}
+
+auth {
+  mode: oauth2
+}
+
+auth:oauth2 {
+  grant_type: password
+  access_token_url: {{accessTokenUrl}}
+  username: {{username}}
+  password: {{password}}
+  client_id: {{clientId}}
+  client_secret: {{clientSecret}}
+  scope: {{jwtScope}}
+  credentials_placement: body
+  credentials_id: credentials
+  token_placement: header
+  token_header_prefix: Bearer
+  auto_fetch_token: true
+  auto_refresh_token: true
+}
+
+docs {
+  A minimal, demo-oriented collection for the GS1 Digital Link resolver on
+  demo.epcis.cloud. Run the requests top to bottom:
+
+    1. Create product        — register a GTIN (master data)
+    2. Set conformant linkset — GS1 Digital Link linkset: defaultLink + pip
+    3. Resolve — linkset      — GET ?linkType=all (the full link set)
+    4. Resolve — pip          — GET ?linkType=gs1:pip (302 -> the product page)
+    5. Resolve — default      — GET /01/{gtin} bare (302 -> defaultLink)
+    6. Resolve — master data  — GET ?linkType=gs1:masterData (JSON-LD)
+    7. Delete product         — reset the demo
+
+  Reads (3-6) are anonymous. Writes (1, 2, 7) auto-fetch an OAuth2 token via the
+  collection auth above — fill the two SECRET env vars (password, clientSecret)
+  in the demo environment. Scope is "openid roles" (demo client has no profile
+  scope). See README.md.
+}

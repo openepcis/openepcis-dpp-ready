@@ -1,0 +1,18 @@
+meta {
+  name: 5. Resolve — default link (bare scan)
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{dl-url}}/01/{{gtin}}
+  body: none
+  auth: none
+}
+
+docs {
+  What a plain QR scan does: GET /01/{gtin} with no linkType returns the
+  defaultLink as a 302 -> demo.epcis.cloud/01/{gtin} (the product page). Before
+  the fix this looped back to the resolver ("too many redirects"); now it lands
+  on the DDM. Toggle "Follow Redirects" off to show the raw 302 in the demo.
+}

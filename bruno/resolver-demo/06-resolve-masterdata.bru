@@ -1,0 +1,27 @@
+meta {
+  name: 6. Resolve — master data (JSON-LD)
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{dl-url}}/01/{{gtin}}?linkType=gs1:masterData
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/ld+json
+}
+
+tests {
+  test("master data returned", function() {
+    expect(res.status).to.be.oneOf([200, 302]);
+  });
+}
+
+docs {
+  The machine-readable side: gs1:masterData returns the product's JSON-LD master
+  data (name, manufacturer, GS1/DPP context). Contrast with gs1:pip (a
+  human-facing HTML page) — same identifier, content-typed links.
+}

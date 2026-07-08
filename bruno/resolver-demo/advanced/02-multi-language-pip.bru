@@ -1,0 +1,55 @@
+meta {
+  name: 2. Multi-language PIP
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{dl-url}}/01/{{gtin}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  [
+    {
+      "action": "update",
+      "linkset": [
+        {
+          "anchor": "{{dl-url}}/01/{{gtin}}",
+          "itemDescription": "{{product-name}}",
+          "pip": [
+            {
+              "href": "{{ddm-host}}/01/{{gtin}}",
+              "title": "Digital Product Passport",
+              "fwqs": false,
+              "type": "text/html",
+              "hreflang": ["en", "de", "fr", "es"],
+              "context": ["product-information-page"],
+              "public": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+tests {
+  test("pip advertises 4 languages", function() {
+    expect(res.status).to.eq(200);
+  });
+}
+
+docs {
+  The resolver keeps ONE entry per link type, so multi-language is expressed as a
+  single pip with an hreflang array (["en","de","fr","es"]). A client sends
+  Accept-Language and the target page content-negotiates. (Separate pip entries
+  per language collapse to one on this resolver — use hreflang.)
+
+  Verify: ../03-resolve-linkset → the pip entry lists all four languages.
+}

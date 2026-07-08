@@ -1,0 +1,52 @@
+meta {
+  name: 3. FWQS — forward query string (true vs false)
+  type: http
+  seq: 3
+}
+
+patch {
+  url: {{dl-url}}/01/{{gtin}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  [
+    {
+      "action": "update",
+      "linkset": [
+        {
+          "anchor": "{{dl-url}}/01/{{gtin}}",
+          "itemDescription": "{{product-name}}",
+          "https://ref.gs1.org/voc/smartLabel": [
+            { "href": "{{ddm-host}}/01/{{gtin}}", "title": "Smart label (query forwarded)", "fwqs": true, "type": "text/html", "hreflang": ["en"], "context": ["ALL"], "public": true }
+          ],
+          "https://ref.gs1.org/voc/instructions": [
+            { "href": "{{ddm-host}}/01/{{gtin}}/care", "title": "Instructions (query NOT forwarded)", "fwqs": false, "type": "text/html", "hreflang": ["en"], "context": ["ALL"], "public": true }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+tests {
+  test("fwqs links set", function() { expect(res.status).to.eq(200); });
+}
+
+docs {
+  FWQS = "forward query string". When a DL is scanned with extra AI query params
+  (e.g. .../01/{gtin}?10=LOT42&21=SER7), the resolver:
+    - fwqs:true  → APPENDS ?10=LOT42&21=SER7 to the target href (the target page
+                   can react to the exact lot/serial). Here: gs1:smartLabel.
+    - fwqs:false → DROPS the query string; target gets the clean URL. Here:
+                   gs1:instructions.
+
+  Demo it: resolve with a query string and compare the two Location headers:
+    curl -sI "{{dl-url}}/01/{{gtin}}?10=LOT42&linkType=gs1:smartLabel"    # -> ...?10=LOT42
+    curl -sI "{{dl-url}}/01/{{gtin}}?10=LOT42&linkType=gs1:instructions"  # -> no query
+}

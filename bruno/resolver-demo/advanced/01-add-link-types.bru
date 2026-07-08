@@ -1,0 +1,54 @@
+meta {
+  name: 1. Add more link types
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{dl-url}}/01/{{gtin}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  [
+    {
+      "action": "update",
+      "linkset": [
+        {
+          "anchor": "{{dl-url}}/01/{{gtin}}",
+          "itemDescription": "{{product-name}}",
+          "https://ref.gs1.org/voc/instructions": [
+            { "href": "{{ddm-host}}/01/{{gtin}}/care", "title": "Care & repair instructions", "type": "text/html", "hreflang": ["en"], "context": ["ALL"], "public": true }
+          ],
+          "https://ref.gs1.org/voc/certificationInfo": [
+            { "href": "{{ddm-host}}/01/{{gtin}}/certificates", "title": "Certifications", "type": "text/html", "hreflang": ["en"], "context": ["ALL"], "public": true }
+          ],
+          "https://ref.gs1.org/voc/sustainabilityInfo": [
+            { "href": "{{ddm-host}}/01/{{gtin}}/sustainability", "title": "Sustainability", "type": "text/html", "hreflang": ["en"], "context": ["ALL"], "public": true }
+          ],
+          "https://ref.gs1.org/voc/traceability": [
+            { "href": "{{ddm-host}}/01/{{gtin}}/trace", "title": "Traceability", "type": "text/html", "hreflang": ["en"], "context": ["ALL"], "public": true }
+          ],
+          "https://ref.gs1.org/voc/epcis": [
+            { "href": "{{url}}/events?MATCH_anyEPC=https%3A%2F%2Fid.demo.epcis.cloud%2F01%2F{{gtin}}*", "title": "EPCIS events", "type": "application/ld+json", "hreflang": ["en"], "context": ["ALL"], "public": true }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+tests {
+  test("link types added", function() { expect(res.status).to.eq(200); });
+}
+
+docs {
+  Merge-adds five more GS1 Web Vocabulary link types to the product's link set.
+  Re-run ../03-resolve-linkset to see them appear alongside pip/defaultLink/dpp.
+  These are all real gs1: link types — a scanner/app picks the one it wants.
+}

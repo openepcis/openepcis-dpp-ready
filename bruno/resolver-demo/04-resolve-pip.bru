@@ -1,0 +1,18 @@
+meta {
+  name: 4. Resolve — pip (Product Information Page)
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{dl-url}}/01/{{gtin}}?linkType=gs1:pip
+  body: none
+  auth: none
+}
+
+docs {
+  Requesting the gs1:pip link type returns a 302 redirect to the product page on
+  demo.epcis.cloud. Bruno follows redirects by default (you'll land on the DDM
+  page, 200). To *show* the raw 302 + Location header in the demo, turn off
+  "Follow Redirects" (request Settings tab, or Bruno preferences).
+}

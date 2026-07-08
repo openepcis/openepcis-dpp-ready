@@ -1,0 +1,47 @@
+meta {
+  name: 4. Link-only DL (no product master data)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{dl-url}}/01/{{linkonly-gtin}}?isAnonymousAccessAllowed=true
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "linkset": [
+      {
+        "anchor": "{{dl-url}}/01/{{linkonly-gtin}}",
+        "itemDescription": "Link-only DL — no product master data behind it",
+        "pip": [
+          { "href": "{{ddm-host}}/01/{{linkonly-gtin}}", "title": "Information page", "type": "text/html", "hreflang": ["en", "de"], "context": ["ALL"], "public": true }
+        ],
+        "https://ref.gs1.org/voc/instructions": [
+          { "href": "{{ddm-host}}/01/{{linkonly-gtin}}/how-to", "title": "How-to", "type": "text/html", "context": ["ALL"], "public": true }
+        ]
+      }
+    ]
+  }
+}
+
+tests {
+  test("link-only entry created", function() { expect(res.status).to.be.oneOf([200, 201]); });
+}
+
+docs {
+  Registers a resolvable Digital Link with NO product master data — just links.
+  POST /01/{id} with a link set but WITHOUT `defaultLink` creates the entry (the
+  resolver auto-derives defaultLink); a user-supplied defaultLink is rejected on
+  create — repoint it afterwards with a PATCH if needed.
+
+  After running: `?linkType=gs1:masterData` returns 404 (nothing behind it), but
+  the identifier resolves (pip/instructions/default). Great for "I just want a
+  QR that points somewhere" without modelling a product.
+}

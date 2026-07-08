@@ -1,0 +1,33 @@
+meta {
+  name: 7. Cleanup — remove advanced entries
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{dl-url}}/01/{{linkonly-gtin}}
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("link-only GTIN removed", function() {
+    expect(res.status).to.be.oneOf([200, 202, 204, 404]);
+  });
+}
+
+docs {
+  Removes the three self-contained "beyond products" entries so the collection
+  can be re-run from scratch:
+    - link-only GTIN  01/{{linkonly-gtin}}   (this request)
+    - GDTI document    253/{{gdti}}           (duplicate this request, swap the URL)
+    - GIAI asset       8004/{{giai}}
+
+  Link-only entries created by POST /{ai}/{id} are removed by DELETE /{ai}/{id}
+  (no /products/ prefix — there is no product master data behind them). Run once
+  per identifier, or run the live cleanup script. Safe to repeat (404 = gone).
+
+  To delete the GDTI/GIAI too, change the url line to:
+    {{dl-url}}/253/{{gdti}}
+    {{dl-url}}/8004/{{giai}}
+}

@@ -1,0 +1,43 @@
+meta {
+  name: 5. Beyond products — GDTI (document, AI 253)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{dl-url}}/253/{{gdti}}?isAnonymousAccessAllowed=true
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "linkset": [
+      {
+        "anchor": "{{dl-url}}/253/{{gdti}}",
+        "itemDescription": "EU Declaration of Conformity (GDTI document)",
+        "pip": [
+          { "href": "{{ddm-host}}/253/{{gdti}}", "title": "Declaration of Conformity", "type": "text/html", "hreflang": ["en"], "context": ["ALL"], "public": true }
+        ],
+        "https://ref.gs1.org/voc/certificationInfo": [
+          { "href": "{{ddm-host}}/253/{{gdti}}/pdf", "title": "Signed PDF", "type": "application/pdf", "context": ["ALL"], "public": true }
+        ]
+      }
+    ]
+  }
+}
+
+tests {
+  test("GDTI entry created", function() { expect(res.status).to.be.oneOf([200, 201]); });
+}
+
+docs {
+  A GS1 Digital Link key that is NOT a product/org/place: GDTI (AI 253) — a
+  Global Document Type Identifier. Here it fronts a compliance document (an EU
+  Declaration of Conformity). Resolves like any DL: pip -> the document page,
+  certificationInfo -> the signed PDF. Shows the resolver is identifier-agnostic.
+}

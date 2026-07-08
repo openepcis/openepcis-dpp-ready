@@ -1,0 +1,22 @@
+meta {
+  name: 7. Delete product (reset demo)
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{dl-url}}/products/{{gtin}}
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("product removed", function() {
+    expect(res.status).to.be.oneOf([200, 202, 204, 404]);
+  });
+}
+
+docs {
+  Removes the demo GTIN so step 1 can recreate it cleanly. Authenticated
+  (demo-admin token). Safe to run repeatedly (404 if already gone).
+}

@@ -1,0 +1,44 @@
+meta {
+  name: 1. Create product (register GTIN)
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{dl-url}}/products?isAnonymousAccessAllowed=true
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  isAnonymousAccessAllowed: true
+}
+
+body:json {
+  {
+    "@context": ["{{dpp-context}}"],
+    "type": "Product",
+    "gtin": "{{gtin}}",
+    "productName": { "en": "{{product-name}}" },
+    "manufacturer": {
+      "type": "Organization",
+      "organizationName": "OpenEPCIS Demo Co",
+      "partyGLN": "{{party-gln}}"
+    }
+  }
+}
+
+tests {
+  test("product registered", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+  });
+}
+
+docs {
+  Registers a GTIN in the resolver with minimal master data. The resolver
+  auto-creates a starter link set (defaultLink + masterData + pip, all pointing
+  at itself). Re-running may 400 "already exists" — run "7. Delete product"
+  first, or just move on to step 2. Requires `type` (Product) — omitting it
+  fails GS1 global validation.
+}
