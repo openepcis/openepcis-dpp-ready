@@ -135,7 +135,7 @@ the CTE mapping is entirely in native EPCIS field values.
 ## References
 
 - FDA Food Traceability Final Rule:
-  <https://www.fda.gov/food/food-safety-modernization-act-fsma/fsma-final-rule-food-traceability>
+  <https://www.fda.gov/food/food-safety-modernization-act-fsma/fsma-final-rule-requirements-additional-traceability-records-certain-foods>
 - Food Traceability List:
   <https://www.fda.gov/food/food-safety-modernization-act-fsma/food-traceability-list>
 - 21 CFR Part 1 Subpart S:

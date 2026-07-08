@@ -426,6 +426,6 @@ Per EU Battery Regulation 2023/1542 Annex XIII:
 - [GS1 Web Vocabulary](https://ref.gs1.org/voc/)
 - [EPCIS 2.0 Standard](https://ref.gs1.org/standards/epcis/)
 - [EU Battery Regulation 2023/1542](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542)
-- [DIN DKE SPEC 99100](https://www.dke.de/de/arbeitsfelder/mobility/din-dke-spec-99100)
+- [DIN DKE SPEC 99100](https://www.dinmedia.de/en/technical-rule/din-dke-spec-99100/385692321)
 - [EMMO Battery Domain](https://github.com/emmo-repo/domain-battery)
 - [OpenEPCIS](https://github.com/openepcis)

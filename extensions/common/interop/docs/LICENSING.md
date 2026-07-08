@@ -17,7 +17,7 @@ GS1 Web Vocabulary provides the foundational patterns for product identification
 
 ### UN Transparency Protocol (UNTP)
 
-- **Source**: https://uncefact.github.io/spec-untp/
+- **Source**: https://untp.unece.org/docs/specification/
 - **License**: GPL-3.0
 - **Usage**: Semantic alignment via `owl:equivalentProperty` and `rdfs:seeAlso`
 - **Note**: Property names aligned with UNTP patterns for interoperability
@@ -68,7 +68,7 @@ Each OpenEPCIS ontology file includes appropriate attribution:
 
 ```turtle
 <https://ref.openepcis.io/extensions/common/core/>
-    dcterms:source <https://uncefact.github.io/spec-untp/> ;
+    dcterms:source <https://untp.unece.org/docs/specification/> ;
     rdfs:comment "Aligned with UN Transparency Protocol patterns"@en ;
     rdfs:seeAlso <https://ref.gs1.org/voc/> ;
     rdfs:seeAlso <https://eur-lex.europa.eu/eli/reg/2024/1781> .

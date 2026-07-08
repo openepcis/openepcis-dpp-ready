@@ -449,6 +449,6 @@ Joint working group developing ISO 25534-1:
 ## References
 
 - [ESPR Regulation 2024/1781](https://eur-lex.europa.eu/eli/reg/2024/1781)
-- [GS1 DPP Standards](https://ref.gs1.org/standards/dpp/)
+- [GS1 DPP Standards](https://ref.gs1.org/standards/)
 - [CIRPASS Project](https://cirpassproject.eu/)
 - [ECHA SCIP Database](https://echa.europa.eu/scip)

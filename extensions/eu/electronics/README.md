@@ -182,10 +182,10 @@ Novel patterns (software lifecycle) are designed as potential UNTP v1.0+ contrib
 - [French Indice de Réparabilité](https://www.ecologie.gouv.fr/indice-reparabilite)
 - [EU Energy Labeling](https://eur-lex.europa.eu/eli/reg/2019/2021)
 - [WEEE Directive](https://eur-lex.europa.eu/eli/dir/2012/19/oj)
-- [RoHS Directive](https://eur-lex.europa.eu/eli/dir/2011/65/eu)
+- [RoHS Directive](https://eur-lex.europa.eu/eli/dir/2011/65/oj)
 - [CIRPASS-2 Project](https://cirpassproject.eu/)
 - [EPREL Database](https://eprel.ec.europa.eu/)
-- [UN Transparency Protocol](https://uncefact.github.io/spec-untp/)
+- [UN Transparency Protocol](https://untp.unece.org/docs/specification/)
 
 ## License
 

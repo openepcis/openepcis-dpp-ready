@@ -497,7 +497,7 @@ These are the official GS1 standards and guidelines we used to build this implem
 ### EU Regulations & Other References
 
 - [EU Battery Regulation 2023/1542](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542) — Legal requirements
-- [DIN DKE SPEC 99100](https://www.dke.de/de/arbeitsfelder/mobility/din-dke-spec-99100) — Technical specification
+- [DIN DKE SPEC 99100](https://www.dinmedia.de/en/technical-rule/din-dke-spec-99100/385692321) — Technical specification
 - [UN/CEFACT Rec 20](https://unece.org/trade/uncefact/cl-recommendations) — Unit of measure codes
 - [EMMO Battery Domain](https://github.com/emmo-repo/domain-battery) — Scientific ontology bridge
 - [BatteryPass Data Model](https://github.com/batterypass/BatteryPassDataModel) — Alternative approach comparison

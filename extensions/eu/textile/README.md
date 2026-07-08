@@ -185,7 +185,7 @@ rapper -i turtle textile/ontology/textile.ttl
 - [EU Preparatory Study on Textiles (JRC)](https://susproc.jrc.ec.europa.eu/product-bureau/product-groups/sustainable-textiles)
 - [ESPR Regulation 2024/1781](https://eur-lex.europa.eu/eli/reg/2024/1781)
 - [EU Textile Labelling Regulation 1007/2011](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007)
-- [ISO 3758:2023 Care labelling](https://www.iso.org/standard/78056.html)
+- [ISO 3758:2023 Care labelling](https://www.iso.org/standard/74401.html)
 - [PEFCR Apparel & Footwear](https://ec.europa.eu/environment/eussd/smgp/PEFCR_OEFSR_en.htm)
 - [GS1 Web Vocabulary](https://ref.gs1.org/voc/)
 - [ZDHC MRSL](https://www.roadmaptozero.com/mrsl)

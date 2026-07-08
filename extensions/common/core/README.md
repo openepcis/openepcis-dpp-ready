@@ -239,7 +239,7 @@ This is **not official GS1 guidance**, but follows official GS1 standards:
 - [GS1 Digital Link](https://www.gs1.org/standards/gs1-digital-link)
 - [EPCIS 2.0](https://ref.gs1.org/standards/epcis/)
 - [GS1 Web Vocabulary](https://www.gs1.org/voc/)
-- [GS1 DPP Standards](https://ref.gs1.org/standards/dpp/)
+- [GS1 DPP Standards](https://ref.gs1.org/standards/)
 
 ## References
 
