@@ -5,7 +5,7 @@
 #   POST /userExtension/jsonSchema?namespace=&defaultPrefix=&jsonldContextUrl=  (body = schema)
 # so events declaring GS1-Extensions <prefix>=<namespace> validate + capture instead of
 # failing closed. Reads scripts/out/extension-schemas.manifest.json (from
-# gen-extension-schemas.py). Idempotent: a namespace already mapped returns a 4xx we treat
+# `pnpm run build:extension-schemas`). Idempotent: a namespace already mapped returns a 4xx we treat
 # as "already registered".
 #
 # Usage:
@@ -15,7 +15,7 @@ REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 API="${API:-https://api.demo.epcis.cloud}"
 MANIFEST="$REPO/scripts/out/extension-schemas.manifest.json"
 CREDS=/tmp/epcis-demo-users.json; SVC=/tmp/epcis-demo-svc.env
-[ -f "$MANIFEST" ] || { echo "ABORT: run scripts/gen-extension-schemas.py first"; exit 1; }
+[ -f "$MANIFEST" ] || { echo "ABORT: run 'pnpm run build:extension-schemas' first"; exit 1; }
 [ -f "$CREDS" ] && [ -f "$SVC" ] || { echo "ABORT: run scripts/e2e-demo-users.sh first"; exit 1; }
 . "$SVC"
 PW=$(python3 -c "import json;print([u['password'] for u in json.load(open('$CREDS')) if u['username']=='demo-admin'][0])")
