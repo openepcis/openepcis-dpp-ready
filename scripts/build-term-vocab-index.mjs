@@ -6,7 +6,7 @@
 // Run:  node scripts/build-term-vocab-index.mjs
 // Emits the index to the DDM app's app/utils/term-vocab-index.json.
 
-import { writeFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 
 const ROOTS = [
   "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
@@ -20,7 +20,9 @@ const ROOTS = [
   "https://ref.openepcis.io/extensions/eu/iron-steel/iron-steel-context.jsonld",
 ];
 
-// Prefixes we care to attribute (everything else falls back to gs1 in the app).
+// Prefixes we care to attribute from the extension contexts. Bare keys that are
+// neither aliased here nor a foundational (gs1/schema) term are left unattributed
+// by the app (no fabricated badge/link).
 const KNOWN = new Set([
   "eubat", "eutex", "euelec", "eudet", "eudr", "eusteel", "euppwr", "eucpr",
   "usfsma", "oec", "oei", "gs1", "schema", "cccev", "cv", "locn", "adms", "dpp",
@@ -69,6 +71,21 @@ async function resolve(url) {
 }
 
 for (const root of ROOTS) await resolve(root);
+
+// Fold in the full foundational vocabularies from the committed snapshot. The
+// resolver compacts foundational terms to bare keys (against the gs1Voc / schema
+// contexts it serves), so a bare key the extension contexts didn't alias is still
+// a real GS1/schema term — recovering it here lets the Provenance widget attribute
+// and link it instead of dropping it to "unattributed". Add-only and ordered so
+// extension aliases win first, then GS1, then schema.org (the ~83 gs1∩schema
+// name collisions resolve to GS1, matching the GS1→schema layering order).
+const snapshot = JSON.parse(
+  readFileSync(new URL("./vocab-snapshot.json", import.meta.url), "utf8"),
+);
+for (const prefix of ["gs1", "schema"]) {
+  const terms = snapshot.vocabs?.[prefix]?.terms ?? [];
+  for (const local of terms) if (!(local in index)) index[local] = `${prefix}:${local}`;
+}
 
 const out = Object.keys(index).sort().reduce((o, k) => ((o[k] = index[k]), o), {});
 const dest = "/Users/sven/Documents/projects/openepcis-web/apps/digital-data-management/app/utils/term-vocab-index.json";
