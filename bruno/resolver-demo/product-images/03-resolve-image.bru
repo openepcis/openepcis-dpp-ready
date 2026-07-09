@@ -1,0 +1,25 @@
+meta {
+  name: 3. Resolve image (public file URL)
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{files-url}}/files/products/{{gtin}}/{{image-key}}
+  body: none
+  auth: none
+}
+
+tests {
+  test("image served publicly", function() {
+    expect(res.status).to.equal(200);
+    expect(res.headers["content-type"]).to.match(/^image\//);
+  });
+}
+
+docs {
+  Fetches the uploaded file straight from the files service — no token, because
+  step 1 set `anonymous=true`. Confirms the object is stored and served with an
+  `image/*` content type. This is the same URL the passport ImageGallery and the
+  resolved `gs1:referencedFile` point at.
+}

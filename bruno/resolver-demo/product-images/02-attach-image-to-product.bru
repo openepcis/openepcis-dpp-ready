@@ -1,0 +1,69 @@
+meta {
+  name: 2. Attach image to product master data
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{dl-url}}/products/{{gtin}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/ld+json
+}
+
+body:json {
+  {
+    "@context": ["{{dpp-context}}"],
+    "type": "Product",
+    "gtin": "{{gtin}}",
+    "productName": { "en": "{{product-name}}" },
+    "manufacturer": {
+      "type": "Organization",
+      "organizationName": "EcoWear GmbH",
+      "partyGLN": "{{party-gln}}"
+    },
+    "referencedFile": [
+      {
+        "fileLanguageCode": "en",
+        "referencedFileType": "PRODUCT_IMAGE",
+        "referencedFileURL": "{{files-url}}/files/products/{{gtin}}/{{image-key}}"
+      }
+    ]
+  }
+}
+
+tests {
+  test("master data updated with image", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202]);
+  });
+}
+
+docs {
+  Writes the uploaded image into the product's master data as a
+  `gs1:referencedFile` entry of type `PRODUCT_IMAGE`, with `referencedFileURL`
+  pointing at the public file URL from step 1.
+
+  Body shape matters. This uses the SAME minimal form the resolver itself
+  serves — `referencedFileType` as the plain string `"PRODUCT_IMAGE"` and a bare
+  `referencedFileURL` — so the PUT/GET round-trip is clean. The resolver stores
+  master data through a DTO (mapping by field name), so a hand-built PUT that
+  mixes the richer linked-data spelling (`type`, `referencedFileType` as
+  `{ "id": "gs1:ReferencedFileTypeCode-PRODUCT_IMAGE" }`, `contentDescription`)
+  into a minimal document can leave a record that a later GET fails to
+  deserialize (500). Two ways to stay safe: send the served shape as done here,
+  OR do fetch-then-overlay against the full record (below).
+
+  PUT **replaces** the record's master data, so the body carries the whole
+  document (name + manufacturer + the image), not just the image — anything
+  omitted here is dropped. In automation prefer fetch-then-overlay: GET
+  `?linkType=gs1:masterData` with `Accept: application/ld+json`, splice in
+  `referencedFile`, and PUT the full result back (see
+  scripts/upload-product-images.sh) — that preserves every field and the
+  record's own @context.
+
+  After this, "6. Resolve — master data" returns the image in `referencedFile`,
+  and the DDM passport page (ImageGallery) renders it.
+}

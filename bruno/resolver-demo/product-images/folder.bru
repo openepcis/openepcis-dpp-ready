@@ -1,0 +1,28 @@
+meta {
+  name: product-images
+  seq: 8
+}
+
+docs {
+  Upload a product image to the OpenEPCIS files service and attach it to a
+  product's master data so it shows on the passport page (ImageGallery) and
+  in the resolved `gs1:masterData`.
+
+  Run **after** step 1 (Create product) so the GTIN exists, then top to bottom:
+
+    1. Upload product image   — POST multipart to the files service (files-writer role)
+    2. Attach image           — PUT master data with gs1:referencedFile (PRODUCT_IMAGE)
+    3. Resolve image          — GET the public file URL (anonymous) to confirm it serves
+
+  How it fits together:
+    - The file is stored under the key `products/{{gtin}}/{{image-key}}` and,
+      because it is uploaded with `anonymous=true`, is publicly readable at
+      `{{files-url}}/files/products/{{gtin}}/{{image-key}}` — a deterministic
+      URL (no need to parse the upload response).
+    - Attaching = writing that URL into the product's `gs1:referencedFile`
+      array as a `PRODUCT_IMAGE`. The resolver's linkset populator reads it,
+      and the DDM passport ImageGallery renders it.
+
+  Requires the OAuth2 account (demo-admin) to hold the **files-writer** (or
+  files-admin) realm role — the same token used by the other write requests.
+}

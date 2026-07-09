@@ -1,0 +1,44 @@
+meta {
+  name: 1. Upload product image (files service)
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{files-url}}/files
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  file: @file(assets/sample-product-image.png)
+  key: products/{{gtin}}/{{image-key}}
+  anonymous: true
+}
+
+tests {
+  test("image uploaded", function() {
+    expect(res.status).to.be.oneOf([200, 201]);
+  });
+}
+
+docs {
+  Uploads an image to the OpenEPCIS files service (MinIO-backed). The
+  multipart form has three parts:
+
+    - `file`      — the binary. Here a bundled 64x64 placeholder
+                    (`assets/sample-product-image.png`); swap in your own
+                    product shot. Bruno infers the content type from the
+                    file extension.
+    - `key`       — the object key. Convention: `products/{gtin}/{name}`.
+                    Uploading the same key again overwrites in place.
+    - `anonymous` — `true` makes the object publicly readable (no token to
+                    fetch it later), which is what a product image needs.
+
+  Auth: inherits the collection's OAuth2 password grant. The account must
+  hold the **files-writer** (or files-admin) realm role, or this returns 403.
+
+  The stored file is then served at a deterministic URL:
+    {{files-url}}/files/products/{{gtin}}/{{image-key}}
+  so the next request can reference it directly without parsing the response.
+}
