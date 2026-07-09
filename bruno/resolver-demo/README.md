@@ -48,6 +48,6 @@ propagates images to batch/item Digital Links).
 - To *show* the raw `302` + `Location` on requests 4/5, turn **Follow Redirects
   off** (request Settings tab). Otherwise Bruno follows to the page (`200`).
 - Change `gtin` in the env to demo a different identifier — keep a valid GTIN-14
-  mod-10 check digit. Default `09521000077775` is a fresh demo GTIN (GCP 9521000).
-- Point a browser / phone camera at `https://id.demo.epcis.cloud/01/09521000077775`
+  mod-10 check digit. Default `09521890340331` is the seeded **Organic Tee** demo product.
+- Point a browser / phone camera at `https://id.demo.epcis.cloud/01/09521890340331`
   to show the real scan → product-page hop live.
