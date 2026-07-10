@@ -94,7 +94,7 @@ Aligns `oec:` core with the published EN 18223:2026 `DigitalProductPassport` mod
 ### Added
 - New SEMICeu Core Vocabulary `@prefix` declarations in `dpp-core.ttl` — `cv:` / `cccev:` (`http://data.europa.eu/m8g/`), `locn:` (`http://www.w3.org/ns/locn#`), `adms:` (`http://www.w3.org/ns/adms#`), `cpsv:` (`http://purl.org/vocab/cpsv#`), `org:` (`http://www.w3.org/ns/org#`), `foaf:` (`http://xmlns.com/foaf/0.1/`).
 - Upward anchors on cross-cutting `oec:` classes:
-  - `oec:OperatorInformation` → `rdfs:seeAlso cv:LegalEntity` (EU Core Business peer; **not** owl:equivalentClass — see below).
+  - `oec:OperatorInformation` → `rdfs:seeAlso legal:LegalEntity` (EU Core Business peer; **not** owl:equivalentClass — see below).
   - `oec:DueDiligenceReport` → `rdfs:subClassOf cccev:Evidence` + `rdfs:seeAlso cccev:Requirement` (a DDR is a specific kind of CCCEV Evidence; CCCEV is the EU upstream of UNTP's conformity model).
   - `oec:FacilityInformation` → `rdfs:seeAlso locn:Location` (EU Core Location peer; `locn:Address` and `locn:Geometry` carry the structured sub-parts).
   - `oec:DocumentReference` → `rdfs:seeAlso foaf:Document` (used by SEMICeu CPOV for contact pages and homepages).
@@ -103,7 +103,7 @@ Aligns `oec:` core with the published EN 18223:2026 `DigitalProductPassport` mod
 ### Anchor strength — design note
 The strongest formal claim that actually holds is preferred:
 
-- `oec:OperatorInformation` ↔ `cv:LegalEntity` is `rdfs:seeAlso` only. The two extensions **overlap but neither contains the other**: cv:LegalEntity includes charities / non-profits that are not ESPR operators, and ESPR operators include sole proprietors that some Member States classify as natural persons rather than legal entities. seeAlso is the strongest claim that's universally true; subClassOf and equivalentClass would both over-claim.
+- `oec:OperatorInformation` ↔ `legal:LegalEntity` is `rdfs:seeAlso` only. The two extensions **overlap but neither contains the other**: legal:LegalEntity includes charities / non-profits that are not ESPR operators, and ESPR operators include sole proprietors that some Member States classify as natural persons rather than legal entities. seeAlso is the strongest claim that's universally true; subClassOf and equivalentClass would both over-claim.
 - `oec:DueDiligenceReport` ↔ `cccev:Evidence` is `rdfs:subClassOf`. Every DDR is evidence, but cccev:Evidence is far broader (test reports, certificates, audit logs, attestations) — subsumption holds, equivalence does not.
 
 ### Notes

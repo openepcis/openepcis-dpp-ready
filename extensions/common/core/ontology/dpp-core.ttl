@@ -14,6 +14,7 @@
 # Bridge context: extensions/common/interop/context/semic-core-bridge-context.jsonld
 # Mapping doc:    extensions/common/interop/docs/SEMIC_CORE_VOCABULARIES.md
 @prefix cv:    <http://data.europa.eu/m8g/> .
+@prefix legal: <http://www.w3.org/ns/legal#> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix locn:  <http://www.w3.org/ns/locn#> .
 @prefix adms:  <http://www.w3.org/ns/adms#> .
@@ -124,7 +125,7 @@ Use GS1 Digital Link format: https://id.gs1.org/417/{GLN}"""@en ;
     rdfs:subClassOf gs1:Organization ;
     rdfs:seeAlso gs1:Organization ;
     rdfs:seeAlso schema:Organization ;
-    rdfs:seeAlso cv:LegalEntity ;
+    rdfs:seeAlso legal:LegalEntity ;
     rdfs:seeAlso cirpass2:Actor ;
     rdfs:seeAlso cirpass2:LegalPerson ;
     rdfs:seeAlso cirpass2:ManufacturerRecord ;
@@ -134,21 +135,20 @@ Use gs1:globalLocationNumber for operator GLN, gs1:organizationName for name.
 GS1 Web Vocabulary provides gs1:Organization but lacks the specific operator role enumeration
 required by EU Market Surveillance Regulation 2019/1020 and ESPR Article 77.
 
-Related to (but NOT owl:equivalentClass with) cv:LegalEntity in the EU SEMICeu Core
+Related to (but NOT owl:equivalentClass with) legal:LegalEntity in the EU SEMICeu Core
 Business Vocabulary. The two extensions overlap but neither contains the other:
-cv:LegalEntity is broader on the non-operator side (charities, non-profits, government
+legal:LegalEntity is broader on the non-operator side (charities, non-profits, government
 bodies that are legal entities but not ESPR operators) and stricter on the registration
 side (some jurisdictions treat sole-proprietor operators as natural persons, not legal
-entities). Use cv:LegalEntity for EU-portal interoperability when the operator is
+entities). Use legal:LegalEntity for EU-portal interoperability when the operator is
 known to be a legally-registered business; the rdfs:seeAlso anchor is intentional and
 the strongest formal claim that holds in general."""@en ;
     skos:narrowMatch schema:Organization ;
     skos:closeMatch gs1:OrganizationID_Details ;
-    skos:narrowMatch gs1:Organization ;
+    skos:broadMatch gs1:Organization ;
     rdfs:seeAlso dppk:EconomicOperatorRole ;
-    skos:narrowMatch cirpass2:Actor ;
-    skos:broadMatch cirpass2:ManufacturerRecord ;
-    skos:narrowMatch cv:LegalEntity .
+    skos:broadMatch cirpass2:Actor ;
+    skos:narrowMatch cirpass2:ManufacturerRecord .
 
 oec:DueDiligenceReport
     a rdfs:Class ;
@@ -277,7 +277,7 @@ Anchored to locn:Location (EU SEMICeu Core Location Vocabulary, http://www.w3.or
 for EU-portal interoperability: locn:Address and locn:Geometry are the canonical
 sub-structures for the address and geographic-coordinate parts."""@en ;
     skos:narrowMatch schema:Place ;
-    skos:narrowMatch gs1:Place ;
+    skos:broadMatch gs1:Place ;
     rdfs:seeAlso cv:InformationConcept .
 
 oec:SubstanceOfConcern
@@ -2123,9 +2123,7 @@ oec:tradeItemPieceNumber
     rdfs:range xsd:positiveInteger ;
     dcterms:source "https://ref.gs1.org/ai/8026" ;
     skos:note "Maps to the piece-number component of GS1 AI 8026. MUST be less than or equal to oec:tradeItemPieceCount on the parent product."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    skos:closeMatch schema:clipNumber ;
-    skos:closeMatch schema:episodeNumber .
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
 
 oec:tradeItemPieceOf
     a owl:ObjectProperty ;
@@ -2866,8 +2864,7 @@ oec:takeBackIncentive
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:broadMatch schema:cashBack .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
 
 oec:collectionPointDirectoryUrl
     a owl:DatatypeProperty ;

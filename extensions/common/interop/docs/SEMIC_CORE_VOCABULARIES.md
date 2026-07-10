@@ -2,7 +2,9 @@
 
 The **EU SEMICeu Core Vocabularies** are reference data models published and maintained by the European Commission's Directorate-General for Digital Services (DG DIGIT, SEMIC team) under the Interoperable Europe initiative. They are openly licensed (CC0 / EUPL) and are the canonical EU representation of public-sector entities, conformity requirements, legal entities, natural persons, and addresses.
 
-OpenEPCIS DPP-Ready treats SEMICeu as a **peer Layer 1 foundation** alongside schema.org and GS1 Web Vocabulary. Where a `oec:` or module term overlaps a SEMICeu term, the SEMICeu IRI is canonical and our term is anchored upward via the relationship that actually holds: `rdfs:subClassOf` (when the local term is a true specialisation of the SEMICeu peer), a graded SKOS mapping relation — `skos:exactMatch` (identical extension), `skos:closeMatch` (sufficiently similar, interchangeable in some applications), or `skos:broadMatch` (the SEMICeu term is broader) — or `rdfs:seeAlso` (the two extensions overlap but neither contains the other). SKOS mapping relations are deliberately used in place of `owl:equivalentClass` / `owl:equivalentProperty` so that anchoring across independently-governed vocabularies never asserts OWL logical equivalence (which would over-entail under a reasoner). The strong-equivalence trap is real: `gs1:Organization`, `cv:LegalEntity`, `untp:Party` and `oec:OperatorInformation` are all closely related but none are extensionally equal (charities are legal entities but not ESPR operators; sole proprietors are ESPR operators but in some jurisdictions not legal entities; etc.) — so these take `skos:closeMatch` / `skos:broadMatch`, not `skos:exactMatch`.
+Note: SEMICeu Core Business defines LegalEntity in the `legal:` namespace (`http://www.w3.org/ns/legal#LegalEntity`), not under `data.europa.eu/m8g/` — the m8g IRI does not resolve.
+
+OpenEPCIS DPP-Ready treats SEMICeu as a **peer Layer 1 foundation** alongside schema.org and GS1 Web Vocabulary. Where a `oec:` or module term overlaps a SEMICeu term, the SEMICeu IRI is canonical and our term is anchored upward via the relationship that actually holds: `rdfs:subClassOf` (when the local term is a true specialisation of the SEMICeu peer), a graded SKOS mapping relation — `skos:exactMatch` (identical extension), `skos:closeMatch` (sufficiently similar, interchangeable in some applications), or `skos:broadMatch` (the SEMICeu term is broader) — or `rdfs:seeAlso` (the two extensions overlap but neither contains the other). SKOS mapping relations are deliberately used in place of `owl:equivalentClass` / `owl:equivalentProperty` so that anchoring across independently-governed vocabularies never asserts OWL logical equivalence (which would over-entail under a reasoner). The strong-equivalence trap is real: `gs1:Organization`, `legal:LegalEntity`, `untp:Party` and `oec:OperatorInformation` are all closely related but none are extensionally equal (charities are legal entities but not ESPR operators; sole proprietors are ESPR operators but in some jurisdictions not legal entities; etc.) — so these take `skos:closeMatch` / `skos:broadMatch`, not `skos:exactMatch`.
 
 ## Source and provenance
 
@@ -86,7 +88,7 @@ CPOV models **public** organisations: regulators, notified bodies, market survei
 
 **Decision rule** — when modelling an organisation:
 1. Public-sector body? → `cv:PublicOrganisation`.
-2. Commercial operator (manufacturer, importer, distributor)? → `cv:LegalEntity` (Core Business) or `gs1:Organization` (legacy / EPCIS-native consumers).
+2. Commercial operator (manufacturer, importer, distributor)? → `legal:LegalEntity` (Core Business) or `gs1:Organization` (legacy / EPCIS-native consumers).
 3. Generic party with no specific role? → `untp:Party` or `org:Organization`.
 
 ### Core Business Vocabulary
@@ -95,9 +97,9 @@ Models legal entities — the EU peer to `gs1:Organization` for commercial opera
 
 | OpenEPCIS term | Core Business peer | Action |
 |---|---|---|
-| `oec:OperatorInformation` | `cv:LegalEntity` | **`rdfs:seeAlso` only** — the two overlap but neither contains the other. cv:LegalEntity includes charities and non-profit bodies that are not ESPR operators; ESPR operators include sole proprietors that some jurisdictions classify as natural persons rather than legal entities. Use cv:LegalEntity for EU-portal interoperability when the operator is known to be a legally-registered business. |
-| `eubat:operatorInformation` | `cv:LegalEntity` | Anchor via the `oec:` cascade |
-| `gs1:Organization` | `cv:LegalEntity` (sibling) | Both legitimate; pick by audience — GS1 for EPCIS-native consumers, `cv:` for EU-portal consumers |
+| `oec:OperatorInformation` | `legal:LegalEntity` | **`rdfs:seeAlso` only** — the two overlap but neither contains the other. legal:LegalEntity includes charities and non-profit bodies that are not ESPR operators; ESPR operators include sole proprietors that some jurisdictions classify as natural persons rather than legal entities. Use legal:LegalEntity for EU-portal interoperability when the operator is known to be a legally-registered business. |
+| `eubat:operatorInformation` | `legal:LegalEntity` | Anchor via the `oec:` cascade |
+| `gs1:Organization` | `legal:LegalEntity` (sibling) | Both legitimate; pick by audience — GS1 for EPCIS-native consumers, `cv:` for EU-portal consumers |
 
 ### Core Person Vocabulary
 
