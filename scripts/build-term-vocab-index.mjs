@@ -10,7 +10,7 @@ import { readFileSync, writeFileSync } from "fs";
 
 const ROOTS = [
   "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-  "https://ref.openepcis.io/extensions/common/interop/interop-context.jsonld",
+  "https://ref.openepcis.io/extensions/common/interop/semic-core-bridge-context.jsonld",
   "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
   "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
   "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld",
