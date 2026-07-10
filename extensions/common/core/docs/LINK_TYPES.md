@@ -343,9 +343,14 @@ Or with active recall:
         }
       }
     ],
-    "gs1:warrantyPromise": {
-      "gs1:durationOfWarranty": "P8Y",
-      "gs1:warrantyType": "Full Warranty"
+    "oec:warranty": {
+      "type": "gs1:WarrantyPromise",
+      "gs1:durationOfWarranty": {
+        "type": "gs1:QuantitativeValue",
+        "gs1:value": 8,
+        "gs1:unitCode": "ANN"
+      },
+      "gs1:warrantyScopeDescription": "Full warranty"
     }
   }
 }

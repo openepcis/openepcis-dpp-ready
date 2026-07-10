@@ -4,7 +4,7 @@
     "Key GS1 patterns used:",
     "- GS1 Digital Link URI for product identification (https://id.demo.epcis.cloud/01/{GTIN}/21/{serial})",
     "- Product as base type with eubat:Battery extension",
-    "- GS1 properties: gtin, productName, manufacturer, netWeight, gs1:warranty",
+    "- GS1 properties: gtin, productName, manufacturer, netWeight, oec:warranty",
     "- QuantitativeValue for all measurements with unitCode",
     "- gs1:regulatoryInformation for compliance with gs1:RegulationTypeCode-BATTERY_DIRECTIVE",
     "- gs1:referencedFile for documents",
@@ -564,9 +564,13 @@
       "eubat:verificationStandard": "ISO 14064-3:2019"
     }
   },
-  "gs1:warranty": {
+  "oec:warranty": {
     "type": "gs1:WarrantyPromise",
-    "gs1:durationOfWarranty": "P8Y",
+    "gs1:durationOfWarranty": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 8,
+      "gs1:unitCode": "ANN"
+    },
     "gs1:warrantyScopeDescription": "Full replacement warranty for manufacturing defects"
   },
   "eubat:warrantyConditions": "https://www.ecocell-batteries.example.com/warranty/terms",

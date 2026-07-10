@@ -60,16 +60,21 @@ This document maps OpenEPCIS DPP properties to existing [GS1 Web Vocabulary](htt
 | GS1 Class/Property | Description | Use Instead Of |
 |--------------------|-------------|----------------|
 | `gs1:WarrantyPromise` | Warranty class | - |
-| `gs1:durationOfWarranty` | Warranty duration (ISO 8601) | `eubat:warrantyPeriodMonths` |
-| `gs1:warrantyScope` | What warranty covers | - |
+| `gs1:durationOfWarranty` | Warranty duration (gs1:QuantitativeValue, unitCode ANN) | `eubat:warrantyPeriodMonths` |
+| `gs1:warrantyScopeDescription` | What the warranty covers | - |
+| `oec:warranty` | **Product-level** warranty link to gs1:WarrantyPromise (gs1:warranty is Offer-scoped) | `gs1:warranty` on a product |
 
 **Example:**
 ```json
 {
-  "gs1:warranty": {
+  "oec:warranty": {
     "type": "gs1:WarrantyPromise",
-    "gs1:durationOfWarranty": "P8Y",
-    "gs1:warrantyScope": "Full replacement warranty"
+    "gs1:durationOfWarranty": {
+      "type": "gs1:QuantitativeValue",
+      "gs1:value": 8,
+      "gs1:unitCode": "ANN"
+    },
+    "gs1:warrantyScopeDescription": "Full replacement warranty"
   }
 }
 ```
@@ -147,7 +152,7 @@ This document maps OpenEPCIS DPP properties to existing [GS1 Web Vocabulary](htt
 
 | Current | Recommendation | Reason |
 |---------|----------------|--------|
-| `eubat:warrantyPeriodMonths` | Use `gs1:warranty` with `gs1:WarrantyPromise` | GS1 has warranty class |
+| `eubat:warrantyPeriodMonths` | Use `oec:warranty` with `gs1:WarrantyPromise` | GS1 has warranty class |
 | Custom weight properties | Use `gs1:netWeight`, `gs1:grossWeight` | Standard GS1 properties |
 | `eubat:ratedCapacity` | **Keep** - uses `gs1:QuantitativeValue` range | Battery-specific, correctly typed |
 | `eubat:ratedEnergy` | **Keep** | Battery-specific |

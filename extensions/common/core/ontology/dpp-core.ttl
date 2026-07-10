@@ -63,7 +63,7 @@ This vocabulary provides shared patterns reusable across domain-specific regulat
 
 GS1 Web Vocabulary patterns to use:
 - For certifications: gs1:certification with gs1:CertificationDetails
-- For warranty: gs1:warranty with gs1:WarrantyPromise
+- For warranty: oec:warranty with gs1:WarrantyPromise (gs1:warranty itself is Offer-scoped; a DPP is a product)
 - For regulatory compliance: gs1:regulatoryInformation with gs1:RegulatoryInformation
 - For documents: gs1:referencedFile with gs1:ReferencedFileDetails
 - For recycling text: gs1:consumerRecyclingInstructions
@@ -1546,6 +1546,19 @@ oec:guaranteedLifespan
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     rdfs:seeAlso schema:durationOfWarranty .
+
+oec:warranty
+    a owl:ObjectProperty ;
+    rdfs:label "Product Warranty"@en ;
+    rdfs:comment "The manufacturer warranty promise for a product, as a gs1:WarrantyPromise value. Product-level counterpart to gs1:warranty, whose domain is gs1:Offer: a Digital Product Passport describes a product, not a commercial offer."@en ;
+    rdfs:domain gs1:Product ;
+    rdfs:range gs1:WarrantyPromise ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "gs1:warranty and schema:warranty both scope warranty to an Offer/Demand. A DPP is product-scoped, so warranty is attached at product level here while reusing the upstream gs1:WarrantyPromise value class (and its gs1:durationOfWarranty / gs1:warrantyScopeDescription)."@en ;
+    rdfs:seeAlso gs1:warranty ;
+    rdfs:seeAlso schema:warranty ;
+    skos:closeMatch gs1:warranty .
 
 oec:usageCycles
     a owl:DatatypeProperty ;
