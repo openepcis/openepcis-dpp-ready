@@ -4,7 +4,7 @@
     "Key GS1 patterns used:",
     "- GS1 Digital Link URI for product identification (https://id.demo.epcis.cloud/01/{GTIN}/21/{serial})",
     "- Product as base type with eubat:Battery extension",
-    "- GS1 properties: gtin, productName, manufacturer, netWeight, oec:warranty",
+    "- GS1 properties: gtin, productName, manufacturer, netWeight, gs1:manufacturersWarranty",
     "- QuantitativeValue for all measurements with unitCode",
     "- gs1:regulatoryInformation for compliance with gs1:RegulationTypeCode-BATTERY_DIRECTIVE",
     "- gs1:referencedFile for documents",
@@ -121,12 +121,11 @@
   "_comment_classification": "Alternative GS1 pattern for battery category using gs1:additionalProductClassification",
   "gs1:additionalProductClassification": {
     "type": "gs1:AdditionalProductClassificationDetails",
-    "gs1:additionalProductClassificationCode": "industrial",
+    "gs1:additionalProductClassificationCode": "BATTERY_REGULATION_2023_1542",
     "gs1:additionalProductClassificationCodeDescription": {
       "@value": "Industrial Battery - Battery designed for industrial applications with capacity > 2 kWh",
       "@language": "en"
-    },
-    "gs1:additionalProductClassificationCode": "BATTERY_REGULATION_2023_1542"
+    }
   },
   "schema:status": {
     "@id": "eubat:Original"
@@ -151,7 +150,10 @@
       "gs1:streetAddress": "Batteriestraße 42",
       "gs1:addressLocality": "Stuttgart",
       "gs1:postalCode": "70173",
-      "gs1:countryCode": "DE"
+      "gs1:addressCountry": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "DE"
+      }
     },
     "gs1:contactPoint": {
       "type": "gs1:ContactPoint",
@@ -168,7 +170,10 @@
     "gs1:address": {
       "type": "gs1:PostalAddress",
       "gs1:addressLocality": "Stuttgart",
-      "gs1:countryCode": "DE"
+      "gs1:addressCountry": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "DE"
+      }
     }
   },
   "eubat:operatorInformation": {
@@ -184,7 +189,10 @@
       "gs1:streetAddress": "Batteriestraße 42",
       "gs1:addressLocality": "Stuttgart",
       "gs1:postalCode": "70173",
-      "gs1:countryCode": "DE"
+      "gs1:addressCountry": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "DE"
+      }
     },
     "gs1:contactPoint": {
       "type": "gs1:ContactPoint",
@@ -192,7 +200,10 @@
       "gs1:telephone": "+49-711-555-0100"
     }
   },
-  "gs1:countryOfOrigin": "DE",
+  "gs1:countryOfOrigin": {
+    "type": "gs1:Country",
+    "gs1:countryCode": "DE"
+  },
   "gs1:productionDate": "2024-03-15",
   "gs1:netWeight": {
     "type": "gs1:QuantitativeValue",
@@ -398,7 +409,10 @@
       "schema:weightPercentage": 4.2,
       "eubat:isCriticalRawMaterial": true,
       "eubat:isSubstanceOfConcern": false,
-      "gs1:countryOfOrigin": "CL"
+      "oec:materialOrigin": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "CL"
+      }
     },
     {
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-fe",
@@ -564,7 +578,7 @@
       "eubat:verificationStandard": "ISO 14064-3:2019"
     }
   },
-  "oec:warranty": {
+  "gs1:manufacturersWarranty": {
     "type": "gs1:WarrantyPromise",
     "gs1:durationOfWarranty": {
       "type": "gs1:QuantitativeValue",
@@ -728,7 +742,10 @@
         "gs1:streetAddress": "Serviceweg 10",
         "gs1:addressLocality": "Stuttgart",
         "gs1:postalCode": "70174",
-        "gs1:countryCode": "DE"
+        "gs1:addressCountry": {
+          "type": "gs1:Country",
+          "gs1:countryCode": "DE"
+        }
       },
       "eubat:supplierContact": {
         "type": "gs1:ContactPoint",

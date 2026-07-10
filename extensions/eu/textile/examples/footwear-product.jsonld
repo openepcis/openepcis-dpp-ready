@@ -116,7 +116,9 @@
     "@id": "eutex:Footwear"
   },
   "eutex:garmentType": "Trail Running Shoe",
-  "gs1:targetConsumerGender": "Unisex",
+  "gs1:targetConsumerGender": {
+    "id": "gs1:TargetConsumerGenderCode-UNISEX"
+  },
   "eutex:sizeRange": "36-48 EU",
   "eutex:seasonCollection": "SS2025",
   "eutex:fabricType": {
@@ -133,7 +135,10 @@
       "gs1:streetAddress": "Via della Sostenibilita 100",
       "gs1:addressLocality": "Montebelluna",
       "gs1:postalCode": "31044",
-      "gs1:countryCode": "IT"
+      "gs1:addressCountry": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "IT"
+      }
     },
     "gs1:contactPoint": {
       "type": "gs1:ContactPoint",
@@ -156,10 +161,16 @@
       "gs1:streetAddress": "Via della Sostenibilita 100",
       "gs1:addressLocality": "Montebelluna",
       "gs1:postalCode": "31044",
-      "gs1:countryCode": "IT"
+      "gs1:addressCountry": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "IT"
+      }
     }
   },
-  "gs1:countryOfOrigin": "IT",
+  "gs1:countryOfOrigin": {
+    "type": "gs1:Country",
+    "gs1:countryCode": "IT"
+  },
   "gs1:productionDate": "2024-11-20",
   "gs1:netWeight": {
     "type": "gs1:QuantitativeValue",
@@ -167,14 +178,11 @@
     "gs1:unitCode": "KGM"
   },
   "_comment_composition": "Footwear typically has distinct upper, midsole, and outsole compositions",
+  "_comment_textileMaterial": "gs1:textileMaterial is declared with rdfs:domain gs1:Clothing (gs1:Footwear subclasses WearableProduct, not Clothing), but its range class gs1:TextileMaterialDetails is documented for 'any product using textiles'; used here as the closest upstream pattern for footwear textile composition.",
   "gs1:textileMaterial": [
     {
       "type": "gs1:TextileMaterialDetails",
-      "gs1:textileMaterialContent": {
-        "type": "gs1:QuantitativeValue",
-        "gs1:value": 45,
-        "gs1:unitCode": "P1"
-      },
+      "gs1:textileMaterialPercentage": 45,
       "gs1:textileMaterialDescription": {
         "@value": "Recycled Polyester Mesh (Upper)",
         "@language": "en"
@@ -182,11 +190,7 @@
     },
     {
       "type": "gs1:TextileMaterialDetails",
-      "gs1:textileMaterialContent": {
-        "type": "gs1:QuantitativeValue",
-        "gs1:value": 15,
-        "gs1:unitCode": "P1"
-      },
+      "gs1:textileMaterialPercentage": 15,
       "gs1:textileMaterialDescription": {
         "@value": "Chrome-Free Leather (Accents)",
         "@language": "en"
@@ -194,11 +198,7 @@
     },
     {
       "type": "gs1:TextileMaterialDetails",
-      "gs1:textileMaterialContent": {
-        "type": "gs1:QuantitativeValue",
-        "gs1:value": 25,
-        "gs1:unitCode": "P1"
-      },
+      "gs1:textileMaterialPercentage": 25,
       "gs1:textileMaterialDescription": {
         "@value": "Bio-based EVA (Midsole)",
         "@language": "en"
@@ -206,11 +206,7 @@
     },
     {
       "type": "gs1:TextileMaterialDetails",
-      "gs1:textileMaterialContent": {
-        "type": "gs1:QuantitativeValue",
-        "gs1:value": 10,
-        "gs1:unitCode": "P1"
-      },
+      "gs1:textileMaterialPercentage": 10,
       "gs1:textileMaterialDescription": {
         "@value": "Natural Rubber (Outsole)",
         "@language": "en"
@@ -218,11 +214,7 @@
     },
     {
       "type": "gs1:TextileMaterialDetails",
-      "gs1:textileMaterialContent": {
-        "type": "gs1:QuantitativeValue",
-        "gs1:value": 5,
-        "gs1:unitCode": "P1"
-      },
+      "gs1:textileMaterialPercentage": 5,
       "gs1:textileMaterialDescription": {
         "@value": "Recycled Polyester (Laces)",
         "@language": "en"
@@ -498,7 +490,10 @@
     "gs1:address": {
       "type": "gs1:PostalAddress",
       "gs1:addressLocality": "Montebelluna",
-      "gs1:countryCode": "IT"
+      "gs1:addressCountry": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "IT"
+      }
     },
     "oec:facilityCertifications": [
       {
@@ -518,7 +513,7 @@
       }
     ]
   },
-  "oec:warranty": {
+  "gs1:manufacturersWarranty": {
     "type": "gs1:WarrantyPromise",
     "gs1:durationOfWarranty": {
       "type": "gs1:QuantitativeValue",

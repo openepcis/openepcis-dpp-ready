@@ -63,7 +63,7 @@ This vocabulary provides shared patterns reusable across domain-specific regulat
 
 GS1 Web Vocabulary patterns to use:
 - For certifications: gs1:certification with gs1:CertificationDetails
-- For warranty: oec:warranty with gs1:WarrantyPromise (gs1:warranty itself is Offer-scoped; a DPP is a product)
+- For warranty: gs1:manufacturersWarranty with gs1:WarrantyPromise (product-scoped; gs1:warranty is Offer-scoped)
 - For regulatory compliance: gs1:regulatoryInformation with gs1:RegulatoryInformation
 - For documents: gs1:referencedFile with gs1:ReferencedFileDetails
 - For recycling text: gs1:consumerRecyclingInstructions
@@ -303,12 +303,12 @@ oec:PerformanceInfo
 Captures expected lifespan, usage cycles, and performance metrics."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:seeAlso gs1:warranty ;
+    rdfs:seeAlso gs1:manufacturersWarranty ;
     rdfs:seeAlso cirpass2:Durability ;
     rdfs:seeAlso cirpass2:Reliability ;
-    skos:note """Required extension: GS1 provides gs1:warranty for warranty information but lacks
+    skos:note """Required extension: GS1 provides gs1:manufacturersWarranty for warranty information but lacks
 structured performance and durability data (expected lifespan, usage cycles, performance class)
-required by ESPR Article 7. Use in conjunction with gs1:warranty where applicable."""@en ;
+required by ESPR Article 7. Use in conjunction with gs1:manufacturersWarranty where applicable."""@en ;
     rdfs:seeAlso untp:PerformanceMetric .
 
 oec:RepairabilityInfo
@@ -318,7 +318,7 @@ oec:RepairabilityInfo
 Captures repair scores, spare part availability, and repair instructions."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:seeAlso gs1:warranty ;
+    rdfs:seeAlso gs1:manufacturersWarranty ;
     rdfs:seeAlso gs1:referencedFile ;
     rdfs:seeAlso cirpass2:Reliability ;
     rdfs:seeAlso cirpass2:Durability ;
@@ -807,18 +807,16 @@ oec:casNumber
     rdfs:seeAlso dppk:componentCasNumber ;
     skos:closeMatch dppk:componentCasNumber .
 
-oec:iupacName
-    a owl:DatatypeProperty ;
-    rdfs:label "IUPAC Name"@en ;
-    rdfs:comment "Systematic IUPAC chemical name of the substance, complementing the CAS/EC registry numbers."@en ;
-    rdfs:domain oec:HazardousSubstance ;
-    rdfs:range xsd:string ;
+oec:materialOrigin
+    a owl:ObjectProperty ;
+    rdfs:label "Material Origin"@en ;
+    rdfs:comment "Country of origin of an individual material or component within the product composition, as a gs1:Country value."@en ;
+    rdfs:domain oec:MaterialComposition ;
+    rdfs:range gs1:Country ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    rdfs:seeAlso dppk:componentIupacName ;
-    skos:closeMatch dppk:componentIupacName ;
-    skos:note "Required extension: GS1 Web Vocabulary has no IUPAC-name property. Anchored to DPP Keystone dppk:componentIupacName (peer DPP profile) for interoperability."@en ;
-    skos:exactMatch schema:iupacName .
+    skos:note "Required extension: gs1:countryOfOrigin and schema:countryOfOrigin are product-scoped (rdfs:domain gs1:Product); ESPR Article 7 supply-chain transparency needs origin per material/component entry."@en ;
+    rdfs:seeAlso gs1:countryOfOrigin .
 
 oec:concentration
     a owl:DatatypeProperty ;
@@ -848,11 +846,13 @@ oec:hazardImpact
 oec:documents
     a owl:ObjectProperty ;
     rdfs:label "Documents"@en ;
-    rdfs:comment "Supporting documents for the product."@en ;
+    rdfs:comment "Supporting documents for the product. DPP-specific counterpart to gs1:referencedFile: the oec:DocumentReference range adds document typing and ESPR access-rights semantics that gs1:ReferencedFileDetails does not carry."@en ;
     rdfs:range oec:DocumentReference ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    rdfs:seeAlso gs1:referencedFile ;
+    skos:closeMatch gs1:referencedFile .
 
 oec:documentType
     a owl:ObjectProperty ;
@@ -1546,19 +1546,6 @@ oec:guaranteedLifespan
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     rdfs:seeAlso schema:durationOfWarranty .
-
-oec:warranty
-    a owl:ObjectProperty ;
-    rdfs:label "Product Warranty"@en ;
-    rdfs:comment "The manufacturer warranty promise for a product, as a gs1:WarrantyPromise value. Product-level counterpart to gs1:warranty, whose domain is gs1:Offer: a Digital Product Passport describes a product, not a commercial offer."@en ;
-    rdfs:domain gs1:Product ;
-    rdfs:range gs1:WarrantyPromise ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "gs1:warranty and schema:warranty both scope warranty to an Offer/Demand. A DPP is product-scoped, so warranty is attached at product level here while reusing the upstream gs1:WarrantyPromise value class (and its gs1:durationOfWarranty / gs1:warrantyScopeDescription)."@en ;
-    rdfs:seeAlso gs1:warranty ;
-    rdfs:seeAlso schema:warranty ;
-    skos:closeMatch gs1:warranty .
 
 oec:usageCycles
     a owl:DatatypeProperty ;

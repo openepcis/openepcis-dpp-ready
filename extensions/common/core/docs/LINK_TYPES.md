@@ -78,7 +78,7 @@ Returns complete master data records suitable for B2B system integration.
   "gs1:gtin": "09521234000013",
   "gs1:brand": {...},
   "gs1:manufacturer": {...},
-  "gs1:countryOfOrigin": "DE",
+  "gs1:countryOfOrigin": { "type": "gs1:Country", "gs1:countryCode": "DE" },
   "gs1:netWeight": {"gs1:value": "45.5", "gs1:unitCode": "KGM"},
   "gs1:grossWeight": {"gs1:value": "52.0", "gs1:unitCode": "KGM"}
 }
@@ -343,7 +343,7 @@ Or with active recall:
         }
       }
     ],
-    "oec:warranty": {
+    "gs1:manufacturersWarranty": {
       "type": "gs1:WarrantyPromise",
       "gs1:durationOfWarranty": {
         "type": "gs1:QuantitativeValue",

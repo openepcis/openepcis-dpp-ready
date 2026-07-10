@@ -118,7 +118,9 @@
     "@id": "eutex:Apparel"
   },
   "eutex:garmentType": "Winter Jacket",
-  "gs1:targetConsumerGender": "Unisex",
+  "gs1:targetConsumerGender": {
+    "id": "gs1:TargetConsumerGenderCode-UNISEX"
+  },
   "eutex:sizeRange": "XS-3XL",
   "eutex:seasonCollection": "FW2024",
   "eutex:fabricType": {
@@ -138,7 +140,10 @@
       "gs1:streetAddress": "Textilstraße 25",
       "gs1:addressLocality": "Munich",
       "gs1:postalCode": "80331",
-      "gs1:countryCode": "DE"
+      "gs1:addressCountry": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "DE"
+      }
     },
     "gs1:contactPoint": {
       "type": "gs1:ContactPoint",
@@ -161,7 +166,10 @@
       "gs1:streetAddress": "Textilstraße 25",
       "gs1:addressLocality": "Munich",
       "gs1:postalCode": "80331",
-      "gs1:countryCode": "DE"
+      "gs1:addressCountry": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "DE"
+      }
     },
     "gs1:contactPoint": {
       "type": "gs1:ContactPoint",
@@ -169,22 +177,21 @@
       "gs1:telephone": "+49-89-555-0100"
     }
   },
-  "gs1:countryOfOrigin": "PT",
+  "gs1:countryOfOrigin": {
+    "type": "gs1:Country",
+    "gs1:countryCode": "PT"
+  },
   "gs1:productionDate": "2024-09-15",
   "gs1:netWeight": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": 0.85,
     "gs1:unitCode": "KGM"
   },
-  "_comment_composition": "GS1-native fiber composition (gs1:textileMaterial + gs1:TextileMaterialDetails + gs1:textileMaterialContent + gs1:textileMaterialDescription). Textile-specific traceability fields (fiberOrigin, isRecycledFiber, recycledContentSource, fiberCertification) are attached inline on each gs1:TextileMaterialDetails entry.",
+  "_comment_composition": "GS1-native fiber composition (gs1:textileMaterial + gs1:TextileMaterialDetails + gs1:textileMaterialPercentage + gs1:textileMaterialDescription). Textile-specific traceability fields (fiberOrigin, isRecycledFiber, recycledContentSource, fiberCertification) are attached inline on each gs1:TextileMaterialDetails entry.",
   "gs1:textileMaterial": [
     {
       "type": "gs1:TextileMaterialDetails",
-      "gs1:textileMaterialContent": {
-        "type": "gs1:QuantitativeValue",
-        "gs1:value": 55,
-        "gs1:unitCode": "P1"
-      },
+      "gs1:textileMaterialPercentage": 55,
       "gs1:textileMaterialDescription": {
         "@value": "Recycled Polyester (Shell)",
         "@language": "en"
@@ -201,11 +208,7 @@
     },
     {
       "type": "gs1:TextileMaterialDetails",
-      "gs1:textileMaterialContent": {
-        "type": "gs1:QuantitativeValue",
-        "gs1:value": 25,
-        "gs1:unitCode": "P1"
-      },
+      "gs1:textileMaterialPercentage": 25,
       "gs1:textileMaterialDescription": {
         "@value": "Down (Insulation - RDS Certified)",
         "@language": "en"
@@ -221,11 +224,7 @@
     },
     {
       "type": "gs1:TextileMaterialDetails",
-      "gs1:textileMaterialContent": {
-        "type": "gs1:QuantitativeValue",
-        "gs1:value": 15,
-        "gs1:unitCode": "P1"
-      },
+      "gs1:textileMaterialPercentage": 15,
       "gs1:textileMaterialDescription": {
         "@value": "Polyamide (Lining)",
         "@language": "en"
@@ -235,11 +234,7 @@
     },
     {
       "type": "gs1:TextileMaterialDetails",
-      "gs1:textileMaterialContent": {
-        "type": "gs1:QuantitativeValue",
-        "gs1:value": 5,
-        "gs1:unitCode": "P1"
-      },
+      "gs1:textileMaterialPercentage": 5,
       "gs1:textileMaterialDescription": {
         "@value": "Elastane (Cuffs)",
         "@language": "en"
@@ -521,7 +516,10 @@
         "gs1:streetAddress": "Reparaturweg 5",
         "gs1:addressLocality": "Munich",
         "gs1:postalCode": "80333",
-        "gs1:countryCode": "DE"
+        "gs1:addressCountry": {
+          "type": "gs1:Country",
+          "gs1:countryCode": "DE"
+        }
       },
       "gs1:contactPoint": {
         "type": "gs1:ContactPoint",
@@ -588,7 +586,10 @@
     "gs1:address": {
       "type": "gs1:PostalAddress",
       "gs1:addressLocality": "Porto",
-      "gs1:countryCode": "PT"
+      "gs1:addressCountry": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "PT"
+      }
     },
     "oec:facilityCertifications": [
       {
@@ -612,7 +613,10 @@
     "gs1:address": {
       "type": "gs1:PostalAddress",
       "gs1:addressLocality": "Como",
-      "gs1:countryCode": "IT"
+      "gs1:addressCountry": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "IT"
+      }
     },
     "oec:facilityCertifications": [
       {
@@ -622,7 +626,7 @@
       }
     ]
   },
-  "oec:warranty": {
+  "gs1:manufacturersWarranty": {
     "type": "gs1:WarrantyPromise",
     "gs1:durationOfWarranty": {
       "type": "gs1:QuantitativeValue",

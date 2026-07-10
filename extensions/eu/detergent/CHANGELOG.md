@@ -18,7 +18,7 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
 
 ### Removed (use canonical term instead)
 
-- `eudet:allergenName` → `gs1:allergenSpecificationName`
+- `eudet:allergenName` → `schema:name` (allergen display name; gs1:allergenSpecificationName is food-scoped and names the spec standard, not the allergen)
 - `eudet:detergentCategory` → `schema:category`
 - `eudet:inciName` → `schema:name`
 - `eudet:speciesName` → `schema:name`

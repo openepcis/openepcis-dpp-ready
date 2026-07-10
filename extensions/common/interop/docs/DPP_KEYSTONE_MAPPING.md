@@ -41,7 +41,7 @@ mismatches the bridge context cannot rescale (JSON-LD maps IRIs, not values):
 | `dppk:organizationName` / `gln` / `manufacturer` | `gs1:organizationName` / `gs1:globalLocationNumber` / `gs1:manufacturer` | Mapped | |
 | `dppk:Component` | `oec:MaterialComposition` | Mapped | The generic component class splits across `oec:MaterialComposition` (+ `oec:SubstanceOfConcern` for chemical identity). |
 | `dppk:componentName` / `componentIdentifier` | `oec:componentName` / `oec:componentIdentifier` | Mapped | Harvested into `oec:` to give the bridge a clean target. |
-| `dppk:componentCasNumber` / `componentEcNumber` / `componentIupacName` | `oec:casNumber` / `oec:ecNumber` / `oec:iupacName` | Mapped | `oec:iupacName` newly added. Domain is `oec:HazardousSubstance`, not `MaterialComposition` — semantically fine for ingest. |
+| `dppk:componentCasNumber` / `componentEcNumber` / `componentIupacName` | `oec:casNumber` / `oec:ecNumber` / `schema:iupacName` | Mapped | IUPAC name maps to the foundational `schema:iupacName` directly (no local term needed). |
 | `dppk:componentLocationInProduct` | `oec:substanceLocation` | Mapped | |
 | `dppk:componentPercentage` | `oec:massFraction` | Partial | 0–100 → 0–1 rescale (see above). |
 

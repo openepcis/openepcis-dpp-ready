@@ -2,7 +2,7 @@
   "namespace": "https://ref.openepcis.io/extensions/common/core/",
   "version": "0.9.7",
   "title": "OpenEPCIS DPP Core Vocabulary",
-  "description": "Core vocabulary for Digital Product Passports aligned with the EU Ecodesign\nfor Sustainable Products Regulation (ESPR) EU 2024/1781 and GS1 DPP Standards.\n\nOpenEPCIS DPP-Ready: The Universal DPP Platform - harmonizing GS1, UNTP, and CIRPASS2 standards.\n\nThis vocabulary provides shared patterns reusable across domain-specific regulations\n(Battery, EUDR, Textile, Electronics, etc.) and supports the ESPR framework including:\n- Economic operator identification (EOID per ESPR Article 77)\n- Facility information (manufacturing location data)\n- Performance and durability information\n- Repairability and maintenance data\n- Substances of concern (SCIP database alignment)\n- Circularity information (end-of-life, recycling)\n- Due diligence reporting (supply chain transparency)\n- Document references (reports, certificates, guides)\n- Access rights (public vs authorized data per ESPR Article 9)\n- Emissions performance (carbon footprint with UNTP alignment)\n- Traceability performance (supply chain verification metrics)\n\nGS1 Web Vocabulary patterns to use:\n- For certifications: gs1:certification with gs1:CertificationDetails\n- For warranty: oec:warranty with gs1:WarrantyPromise (gs1:warranty itself is Offer-scoped; a DPP is a product)\n- For regulatory compliance: gs1:regulatoryInformation with gs1:RegulatoryInformation\n- For documents: gs1:referencedFile with gs1:ReferencedFileDetails\n- For recycling text: gs1:consumerRecyclingInstructions\n\nUNTP Alignment:\nProperty naming, patterns, and value conventions are aligned with UN Transparency Protocol (UNTP)\nto enable native interoperability. Cross-vocabulary mappings are declared via graded SKOS relations\n(skos:exactMatch for 1:1, skos:closeMatch for approximate, skos:broadMatch where this term is narrower).\nAll ratio/fraction properties use 0-1 decimal scale (e.g., 0.45 = 45%).\n\nEPCIS 2.0 Extension Declaration:\nGS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/\n\nExtension Governance:\nThis vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.\nEach extension term includes:\n- dcterms:source linking to the regulatory requirement\n- skos:note explaining why the extension is needed\n- rdfs:seeAlso linking to related GS1/schema.org/UNTP terms where applicable\n- a graded SKOS mapping relation (skos:exactMatch / skos:closeMatch / skos:broadMatch) where a cross-vocabulary match exists\n\nDomain-specific vocabularies import this core and add regulation-specific extensions.",
+  "description": "Core vocabulary for Digital Product Passports aligned with the EU Ecodesign\nfor Sustainable Products Regulation (ESPR) EU 2024/1781 and GS1 DPP Standards.\n\nOpenEPCIS DPP-Ready: The Universal DPP Platform - harmonizing GS1, UNTP, and CIRPASS2 standards.\n\nThis vocabulary provides shared patterns reusable across domain-specific regulations\n(Battery, EUDR, Textile, Electronics, etc.) and supports the ESPR framework including:\n- Economic operator identification (EOID per ESPR Article 77)\n- Facility information (manufacturing location data)\n- Performance and durability information\n- Repairability and maintenance data\n- Substances of concern (SCIP database alignment)\n- Circularity information (end-of-life, recycling)\n- Due diligence reporting (supply chain transparency)\n- Document references (reports, certificates, guides)\n- Access rights (public vs authorized data per ESPR Article 9)\n- Emissions performance (carbon footprint with UNTP alignment)\n- Traceability performance (supply chain verification metrics)\n\nGS1 Web Vocabulary patterns to use:\n- For certifications: gs1:certification with gs1:CertificationDetails\n- For warranty: gs1:manufacturersWarranty with gs1:WarrantyPromise (product-scoped; gs1:warranty is Offer-scoped)\n- For regulatory compliance: gs1:regulatoryInformation with gs1:RegulatoryInformation\n- For documents: gs1:referencedFile with gs1:ReferencedFileDetails\n- For recycling text: gs1:consumerRecyclingInstructions\n\nUNTP Alignment:\nProperty naming, patterns, and value conventions are aligned with UN Transparency Protocol (UNTP)\nto enable native interoperability. Cross-vocabulary mappings are declared via graded SKOS relations\n(skos:exactMatch for 1:1, skos:closeMatch for approximate, skos:broadMatch where this term is narrower).\nAll ratio/fraction properties use 0-1 decimal scale (e.g., 0.45 = 45%).\n\nEPCIS 2.0 Extension Declaration:\nGS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/\n\nExtension Governance:\nThis vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.\nEach extension term includes:\n- dcterms:source linking to the regulatory requirement\n- skos:note explaining why the extension is needed\n- rdfs:seeAlso linking to related GS1/schema.org/UNTP terms where applicable\n- a graded SKOS mapping relation (skos:exactMatch / skos:closeMatch / skos:broadMatch) where a cross-vocabulary match exists\n\nDomain-specific vocabularies import this core and add regulation-specific extensions.",
   "classes": [
     {
       "id": "https://ref.openepcis.io/extensions/common/core/AccessRights",
@@ -352,7 +352,7 @@
       "label": "Performance Information",
       "comment": "Product performance and durability information per ESPR Article 7.\nCaptures expected lifespan, usage cycles, and performance metrics.",
       "seeAlso": [
-        "https://ref.gs1.org/voc/warranty",
+        "https://ref.gs1.org/voc/manufacturersWarranty",
         "https://w3id.org/eudpp#Durability",
         "https://w3id.org/eudpp#Reliability",
         "https://vocabulary.uncefact.org/untp/PerformanceMetric"
@@ -392,7 +392,7 @@
       "label": "Repairability Information",
       "comment": "Repair and maintenance information per ESPR Article 7.\nCaptures repair scores, spare part availability, and repair instructions.",
       "seeAlso": [
-        "https://ref.gs1.org/voc/warranty",
+        "https://ref.gs1.org/voc/manufacturersWarranty",
         "https://w3id.org/eudpp#Durability",
         "https://w3id.org/eudpp#Reliability",
         "https://ref.gs1.org/voc/referencedFile"
@@ -1209,9 +1209,15 @@
       "id": "https://ref.openepcis.io/extensions/common/core/documents",
       "localName": "documents",
       "label": "Documents",
-      "comment": "Supporting documents for the product.",
+      "comment": "Supporting documents for the product. DPP-specific counterpart to gs1:referencedFile: the oec:DocumentReference range adds document typing and ESPR access-rights semantics that gs1:ReferencedFileDetails does not carry.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/referencedFile"
+      ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/referencedFile"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -2037,28 +2043,6 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/iupacName",
-      "localName": "iupacName",
-      "label": "IUPAC Name",
-      "comment": "Systematic IUPAC chemical name of the substance, complementing the CAS/EC registry numbers.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
-      ],
-      "range": [
-        "xsd:string"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#componentIupacName"
-      ],
-      "exactMatch": [
-        "https://schema.org/iupacName"
-      ],
-      "closeMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#componentIupacName"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/language",
       "localName": "language",
       "label": "Language",
@@ -2228,6 +2212,22 @@
         "https://dpp-keystone.org/spec/v2/terms#packagingMaterialType",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledMaterial",
         "https://ref.gs1.org/voc/upperMaterialType"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/materialOrigin",
+      "localName": "materialOrigin",
+      "label": "Material Origin",
+      "comment": "Country of origin of an individual material or component within the product composition, as a gs1:Country value.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Country"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/countryOfOrigin"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -3402,26 +3402,6 @@
       ],
       "range": [
         "xsd:decimal"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/warranty",
-      "localName": "warranty",
-      "label": "Product Warranty",
-      "comment": "The manufacturer warranty promise for a product, as a gs1:WarrantyPromise value. Product-level counterpart to gs1:warranty, whose domain is gs1:Offer: a Digital Product Passport describes a product, not a commercial offer.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/WarrantyPromise"
-      ],
-      "seeAlso": [
-        "https://ref.gs1.org/voc/warranty",
-        "https://schema.org/warranty"
-      ],
-      "closeMatch": [
-        "https://ref.gs1.org/voc/warranty"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },

@@ -9,21 +9,40 @@
     "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
   ],
   "id": "https://id.gs1.org/01/09521234003007/10/LOT-2026-FJ03",
-  "type": ["gs1:Clothing", "eutex:TextileApparel"],
+  "type": [
+    "gs1:Clothing",
+    "eutex:TextileApparel"
+  ],
   "oec:granularityLevel": "batch",
-  "oec:dppStatus": { "@id": "oec:Active" },
+  "oec:dppStatus": {
+    "@id": "oec:Active"
+  },
   "gs1:gtin": "09521234003007",
   "gs1:productionDate": "2026-03-04",
-  "gs1:countryOfOrigin": "PT",
+  "gs1:countryOfOrigin": {
+    "type": "gs1:Country",
+    "gs1:countryCode": "PT"
+  },
   "eutex:cutAndSewFacility": {
     "id": "https://id.gs1.org/414/9521234000235",
     "type": "oec:FacilityInformation",
     "gs1:globalLocationNumber": "9521234000235",
     "schema:name": "Guimarães Cut & Sew",
     "oec:facilityType": "Cut and Sew",
-    "gs1:address": { "type": "gs1:PostalAddress", "gs1:addressLocality": "Guimarães", "gs1:countryCode": "PT" },
+    "gs1:address": {
+      "type": "gs1:PostalAddress",
+      "gs1:addressLocality": "Guimarães",
+      "gs1:addressCountry": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "PT"
+      }
+    },
     "oec:facilityCertifications": [
-      { "type": "gs1:CertificationDetails", "gs1:certificationStandard": "SA8000", "gs1:certificationIdentification": "SA-PT-2026-771" }
+      {
+        "type": "gs1:CertificationDetails",
+        "gs1:certificationStandard": "SA8000",
+        "gs1:certificationIdentification": "SA-PT-2026-771"
+      }
     ]
   },
   "eutex:dyeingFacility": {
@@ -32,9 +51,20 @@
     "gs1:globalLocationNumber": "9521234000228",
     "schema:name": "Vale do Ave Dyeing House",
     "oec:facilityType": "Dyeing and Finishing",
-    "gs1:address": { "type": "gs1:PostalAddress", "gs1:addressLocality": "Vila Nova de Famalicão", "gs1:countryCode": "PT" },
+    "gs1:address": {
+      "type": "gs1:PostalAddress",
+      "gs1:addressLocality": "Vila Nova de Famalicão",
+      "gs1:addressCountry": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "PT"
+      }
+    },
     "oec:facilityCertifications": [
-      { "type": "gs1:CertificationDetails", "gs1:certificationStandard": "ZDHC MRSL v3.1", "gs1:certificationIdentification": "ZDHC-PT-2026-334" }
+      {
+        "type": "gs1:CertificationDetails",
+        "gs1:certificationStandard": "ZDHC MRSL v3.1",
+        "gs1:certificationIdentification": "ZDHC-PT-2026-334"
+      }
     ]
   },
   "eutex:environmentalFootprint": {
@@ -43,24 +73,54 @@
     "eutex:carbonFootprintManufacturing": 14.8,
     "eutex:pefSingleScore": 38.1,
     "eutex:benchmarkPerformance": -18.4,
-    "eutex:dataTypeIndicator": { "@id": "eutex:MixedData" },
+    "eutex:dataTypeIndicator": {
+      "@id": "eutex:MixedData"
+    },
     "eutex:pefcrReference": "PEFCR Apparel & Footwear v1.3",
     "eutex:lciaCategories": [
-      { "type": "eutex:LCIACategory", "eutex:lciaCategoryCode": { "@id": "eutex:GWP" }, "eutex:lciaValue": 14.8, "eutex:lciaUnit": "kg CO2-eq" },
-      { "type": "eutex:LCIACategory", "eutex:lciaCategoryCode": { "@id": "eutex:WaterUse" }, "eutex:lciaValue": 2.1, "eutex:lciaUnit": "m3 world-eq" }
+      {
+        "type": "eutex:LCIACategory",
+        "eutex:lciaCategoryCode": {
+          "@id": "eutex:GWP"
+        },
+        "eutex:lciaValue": 14.8,
+        "eutex:lciaUnit": "kg CO2-eq"
+      },
+      {
+        "type": "eutex:LCIACategory",
+        "eutex:lciaCategoryCode": {
+          "@id": "eutex:WaterUse"
+        },
+        "eutex:lciaValue": 2.1,
+        "eutex:lciaUnit": "m3 world-eq"
+      }
     ]
   },
-  "eutex:waterUsage": { "type": "gs1:QuantitativeValue", "gs1:value": 2100, "gs1:unitCode": "LTR" },
-  "eutex:energyUsage": { "type": "gs1:QuantitativeValue", "gs1:value": 39, "gs1:unitCode": "KWH" },
+  "eutex:waterUsage": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 2100,
+    "gs1:unitCode": "LTR"
+  },
+  "eutex:energyUsage": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 39,
+    "gs1:unitCode": "KWH"
+  },
   "eutex:productionWastePercentage": 7.2,
   "eutex:recycledContentDeclaration": [
     {
       "id": "https://id.gs1.org/01/09521234003007/10/LOT-2026-FJ03#rc-rpet",
       "type": "eutex:RecycledContentDeclaration",
       "eutex:secondaryMaterialFraction": 70,
-      "eutex:wasteOriginType": { "@id": "eutex:PostConsumer" },
-      "eutex:recycledSourceType": { "@id": "eutex:OpenLoop" },
-      "eutex:chainOfCustodyMethod": { "@id": "eutex:Certified" },
+      "eutex:wasteOriginType": {
+        "@id": "eutex:PostConsumer"
+      },
+      "eutex:recycledSourceType": {
+        "@id": "eutex:OpenLoop"
+      },
+      "eutex:chainOfCustodyMethod": {
+        "@id": "eutex:Certified"
+      },
       "eutex:meetsTargetThreshold": true
     }
   ],

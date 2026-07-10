@@ -445,11 +445,12 @@ eudr:transformationDate
 
 eudr:DueDiligenceStatement
     a owl:Class ;
+    rdfs:subClassOf gs1:RegulatoryIdentifier ;
     rdfs:label "Due Diligence Statement"@en ;
-    rdfs:comment "A due diligence statement submitted to the EUDR Information System (EUIS) per Article 4."@en ;
+    rdfs:comment "A due diligence statement submitted to the EUDR Information System (EUIS) per Article 4. Subclasses gs1:RegulatoryIdentifier: the GS1 EUDR standard carries DDS references as regulatory identifiers (gs1:RegulatoryIdentifierType-DUE_DILIGENCE_STATEMENT with reference and verification numbers)."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
-    skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. The statement record itself has no GS1, SEMICeu, or schema.org equivalent; its reference numbers reuse the gs1:RegulatoryIdentifier pattern."@en ;
     skos:narrowMatch <https://schema.org/Statement> .
 
 eudr:RiskAssessment
