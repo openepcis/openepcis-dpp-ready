@@ -47,7 +47,10 @@ const ALLOW = new Set([
   // composition property; the examples carry a _comment noting the deviation.
   "textileMaterial|eutex:TextileFootwear",
   "textileMaterial|eutex:Footwear",
-  "textileMaterial|eutex:HomeTextiles",
+  // Home textiles are typed plain gs1:Product (eutex:HomeTextiles is a
+  // TextileCategory value, not a product class) — hometextile-bedlinen carries
+  // the composition via gs1:textileMaterial with a _comment noting the deviation.
+  "textileMaterial|gs1:Product",
 ]);
 
 // ---------------------------------------------------------------------------
