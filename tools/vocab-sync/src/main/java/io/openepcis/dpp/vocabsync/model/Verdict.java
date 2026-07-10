@@ -13,10 +13,16 @@ public record Verdict(Relation relation, double confidence, String rationale) {
         EXACT("skos:exactMatch"),
         /** Approximate / overlapping meaning → {@code skos:closeMatch}. */
         CLOSE("skos:closeMatch"),
-        /** Our term is broader than the upstream term → {@code skos:broadMatch}. */
-        BROAD("skos:broadMatch"),
-        /** Our term is narrower than the upstream term → {@code skos:narrowMatch}. */
-        NARROW("skos:narrowMatch"),
+        /**
+         * Our term is broader than the upstream term → {@code skos:narrowMatch}
+         * (SKOS: {@code A skos:narrowMatch B} asserts B is the narrower concept).
+         */
+        BROAD("skos:narrowMatch"),
+        /**
+         * Our term is narrower than the upstream term → {@code skos:broadMatch}
+         * (SKOS: {@code A skos:broadMatch B} asserts B is the broader concept).
+         */
+        NARROW("skos:broadMatch"),
         /** Not a match; do not assert any mapping. */
         NONE(null);
 

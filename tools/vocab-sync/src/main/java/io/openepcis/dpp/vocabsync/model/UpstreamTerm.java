@@ -13,13 +13,22 @@ public record UpstreamTerm(
         String label,
         String comment,
         TermType type,
+        String domain,
+        String range,
         String version) {
+
+    /** Pre-domain/range constructor (seeded terms, context aliases, SAMM aspects). */
+    public UpstreamTerm(String vocabId, String iri, String localName, String label,
+                        String comment, TermType type, String version) {
+        this(vocabId, iri, localName, label, comment, type, null, null, version);
+    }
 
     /** Text fed to the embedding model: name + label + definition. */
     public String embedText() {
         StringBuilder sb = new StringBuilder(localName);
         if (label != null && !label.isBlank()) sb.append(" — ").append(label);
         if (comment != null && !comment.isBlank()) sb.append(". ").append(comment);
+        if (domain != null && !domain.isBlank()) sb.append(" Applies to: ").append(domain).append(".");
         return sb.toString();
     }
 }

@@ -21,15 +21,19 @@ public final class GraderPrompts {
             Return exactly one relation, judged from OUR term's perspective:
               EXACT  — same concept, interchangeable (skos:exactMatch).
               CLOSE  — strongly overlapping but not identical scope (skos:closeMatch).
-              BROAD  — OUR term is BROADER (the upstream term is a narrower special case)
-                       (skos:broadMatch).
-              NARROW — OUR term is NARROWER (the upstream term is more general)
-                       (skos:narrowMatch).
+              BROAD  — OUR term is BROADER (the upstream term is a narrower special case;
+                       written as skos:narrowMatch — the object of the triple is the narrower one).
+              NARROW — OUR term is NARROWER (the upstream term is more general;
+                       written as skos:broadMatch — the object of the triple is the broader one).
               NONE   — not the same concept; do not assert any mapping.
 
             Rules:
             - Judge meaning, not name similarity. Same label with different definition
               or domain/range is NOT a match.
+            - If the upstream term's domain or range places it in a different subject
+              area than OUR term (food/beverage preparation, nutrition, medicine,
+              vehicles, film/TV, software artifacts, payments, commercial offers),
+              return NONE no matter how similar the names are.
             - A class only matches a class; a property only matches a property.
             - When uncertain between two grades, choose the weaker one. When uncertain
               whether it is a match at all, return NONE.
@@ -53,6 +57,8 @@ public final class GraderPrompts {
               type:      {upType}
               label:     {upLabel}
               definition:{upComment}
+              domain:    {upDomain}
+              range:     {upRange}
             """;
 
     /** Appended when a model is driven directly (no langchain4j structured-output enforcement). */
@@ -65,14 +71,16 @@ public final class GraderPrompts {
     /** Fill {@link #USER_TEMPLATE} the same way langchain4j's @V substitution does (for the benchmark). */
     public static String fillUser(String ourId, String ourType, String ourLabel, String ourComment,
                                   String ourDomain, String ourRange, String upVocab, String upIri,
-                                  String upType, String upLabel, String upComment) {
+                                  String upType, String upLabel, String upComment,
+                                  String upDomain, String upRange) {
         return USER_TEMPLATE
                 .replace("{ourId}", nz(ourId)).replace("{ourType}", nz(ourType))
                 .replace("{ourLabel}", nz(ourLabel)).replace("{ourComment}", nz(ourComment))
                 .replace("{ourDomain}", nz(ourDomain)).replace("{ourRange}", nz(ourRange))
                 .replace("{upVocab}", nz(upVocab)).replace("{upIri}", nz(upIri))
                 .replace("{upType}", nz(upType)).replace("{upLabel}", nz(upLabel))
-                .replace("{upComment}", nz(upComment));
+                .replace("{upComment}", nz(upComment))
+                .replace("{upDomain}", nz(upDomain)).replace("{upRange}", nz(upRange));
     }
 
     private static String nz(String s) {

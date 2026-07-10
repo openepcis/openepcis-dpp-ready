@@ -349,7 +349,7 @@ public class AuditCommand implements Runnable {
             Uni<Verdict> raw = Uni.createFrom().item((Supplier<Verdict>) () -> qaGrader.judgeBlind(
                                     lensText, t.prefixedId(), t.type().label(), nz(t.label()), nz(t.comment()),
                                     nz(t.domain()), nz(t.range()), up.vocabId(), up.iri(), up.type().label(),
-                                    nz(up.label()), nz(up.comment())))
+                                    nz(up.label()), nz(up.comment()), nz(up.domain()), nz(up.range())))
                             .runSubscriptionOn(Infrastructure.getDefaultWorkerPool());
             judges.add(raw
                     .onFailure().retry().withBackOff(Duration.ofMillis(500), Duration.ofSeconds(8))
@@ -467,7 +467,7 @@ public class AuditCommand implements Runnable {
         return Uni.createFrom().item(() -> grader.grade(
                         t.prefixedId(), t.type().label(), nz(t.label()), nz(t.comment()),
                         nz(t.domain()), nz(t.range()), up.vocabId(), up.iri(), up.type().label(),
-                        nz(up.label()), nz(up.comment())))
+                        nz(up.label()), nz(up.comment()), nz(up.domain()), nz(up.range())))
                 .runSubscriptionOn(Infrastructure.getDefaultWorkerPool())
                 .onFailure().retry()
                     .withBackOff(Duration.ofMillis(500), Duration.ofSeconds(8))

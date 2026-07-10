@@ -29,13 +29,15 @@ public interface QaGrader {
               EXACT  — same concept, interchangeable (skos:exactMatch).
               CLOSE  — strongly overlapping but not identical scope (skos:closeMatch).
               BROAD  — OUR term is BROADER; the upstream term is a narrower special case
-                       (skos:broadMatch).
+                       (written as skos:narrowMatch — the object is the narrower concept).
               NARROW — OUR term is NARROWER; the upstream term is more general
-                       (skos:narrowMatch).
+                       (written as skos:broadMatch — the object is the broader concept).
               NONE   — not the same concept; reject the proposed mapping.
 
             Be stricter than the first pass. Judge meaning, not name similarity: a shared label
-            with a different definition, domain, or range is NONE. A class matches only a class,
+            with a different definition, domain, or range is NONE. A term whose
+            domain or range places it in a foreign subject area (food/beverage, nutrition,
+            medicine, vehicles, film/TV, software artifacts, payments, commercial offers) is NONE. A class matches only a class,
             a property only a property. When uncertain between two grades, choose the weaker;
             when uncertain that it is a match at all, return NONE. confidence is your own
             0.0–1.0 certainty. rationale is one sentence naming the deciding factor; if you
@@ -56,6 +58,8 @@ public interface QaGrader {
               type:      {upType}
               label:     {upLabel}
               definition:{upComment}
+              domain:    {upDomain}
+              range:     {upRange}
 
             FIRST-PASS PROPOSAL (verify or correct)
               relation:  {bulkRelation}
@@ -67,6 +71,7 @@ public interface QaGrader {
                    @V("upVocab") String upVocab, @V("upIri") String upIri,
                    @V("upType") String upType, @V("upLabel") String upLabel,
                    @V("upComment") String upComment,
+                   @V("upDomain") String upDomain, @V("upRange") String upRange,
                    @V("bulkRelation") String bulkRelation, @V("bulkRationale") String bulkRationale);
 
     /**
@@ -81,11 +86,15 @@ public interface QaGrader {
             upstream term, judged from OUR term's perspective:
               EXACT  — same concept, interchangeable (skos:exactMatch).
               CLOSE  — strongly overlapping but not identical scope (skos:closeMatch).
-              BROAD  — OUR term is BROADER; the upstream term is a narrower special case (skos:broadMatch).
-              NARROW — OUR term is NARROWER; the upstream term is more general (skos:narrowMatch).
+              BROAD  — OUR term is BROADER; the upstream term is a narrower special case
+                       (written as skos:narrowMatch — the object is the narrower concept).
+              NARROW — OUR term is NARROWER; the upstream term is more general
+                       (written as skos:broadMatch — the object is the broader concept).
               NONE   — not the same concept; assert no mapping.
             Judge meaning, not name similarity: a shared label with a different definition, domain, or
-            range is NONE. A class matches only a class, a property only a property. When uncertain
+            range is NONE. A term whose
+            domain or range places it in a foreign subject area (food/beverage, nutrition,
+            medicine, vehicles, film/TV, software artifacts, payments, commercial offers) is NONE. A class matches only a class, a property only a property. When uncertain
             between two grades choose the weaker; when uncertain it is a match at all, return NONE.
             confidence is your own 0.0–1.0 certainty; rationale is one sentence naming the deciding factor.
             """)
@@ -106,11 +115,14 @@ public interface QaGrader {
               type:      {upType}
               label:     {upLabel}
               definition:{upComment}
+              domain:    {upDomain}
+              range:     {upRange}
             """)
     Verdict judgeBlind(@V("lens") String lens, @V("ourId") String ourId, @V("ourType") String ourType,
                        @V("ourLabel") String ourLabel, @V("ourComment") String ourComment,
                        @V("ourDomain") String ourDomain, @V("ourRange") String ourRange,
                        @V("upVocab") String upVocab, @V("upIri") String upIri,
                        @V("upType") String upType, @V("upLabel") String upLabel,
-                       @V("upComment") String upComment);
+                       @V("upComment") String upComment,
+                       @V("upDomain") String upDomain, @V("upRange") String upRange);
 }

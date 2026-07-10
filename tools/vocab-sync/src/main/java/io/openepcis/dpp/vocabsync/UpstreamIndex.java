@@ -187,6 +187,25 @@ public class UpstreamIndex {
         }
     }
 
+
+    /**
+     * Local names of the resource objects of the given properties, joined with "/" (max 4) —
+     * the domain/range hint fed to the graders so keyword matches into foreign subject areas
+     * (drinking temperature, dietary fibre, vehicle fuel, ...) are recognisable.
+     */
+    private static String refLocals(Resource r, org.apache.jena.rdf.model.Property... props) {
+        java.util.LinkedHashSet<String> out = new java.util.LinkedHashSet<>();
+        for (org.apache.jena.rdf.model.Property p : props) {
+            var it = r.listProperties(p);
+            while (it.hasNext()) {
+                var o = it.next().getObject();
+                if (o.isURIResource()) out.add(o.asResource().getLocalName());
+            }
+        }
+        if (out.isEmpty()) return null;
+        return String.join("/", out.stream().limit(4).toList());
+    }
+
     private void loadRdf(Source s) {
         Model model = RDFDataMgr.loadModel(s.path().toString());
         String version = firstVersion(model);
@@ -200,7 +219,14 @@ public class UpstreamIndex {
             if (byIri.containsKey(r.getURI())) continue;
             String label = RdfSupport.firstString(r, RDFS.label, RdfSupport.SKOS_PREF_LABEL);
             String comment = RdfSupport.firstString(r, RDFS.comment, RdfSupport.SKOS_DEFINITION);
-            add(new UpstreamTerm(s.vocabId(), r.getURI(), r.getLocalName(), label, comment, type, version));
+            String domain = refLocals(r, RDFS.domain,
+                    model.createProperty("https://schema.org/domainIncludes"),
+                    model.createProperty("http://schema.org/domainIncludes"));
+            String range = refLocals(r, RDFS.range,
+                    model.createProperty("https://schema.org/rangeIncludes"),
+                    model.createProperty("http://schema.org/rangeIncludes"));
+            add(new UpstreamTerm(s.vocabId(), r.getURI(), r.getLocalName(), label, comment, type,
+                    domain, range, version));
         }
     }
 

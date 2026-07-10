@@ -345,8 +345,10 @@ public class ProvenanceCommand implements Runnable {
         return switch (rel) {
             case "EXACT" -> "skos:exactMatch";
             case "CLOSE" -> "skos:closeMatch";
-            case "BROAD" -> "skos:broadMatch";
-            case "NARROW" -> "skos:narrowMatch";
+            // SKOS direction: BROAD (our term broader) => the upstream target is the
+            // NARROWER concept => skos:narrowMatch, and vice versa.
+            case "BROAD" -> "skos:narrowMatch";
+            case "NARROW" -> "skos:broadMatch";
             default -> null;
         };
     }

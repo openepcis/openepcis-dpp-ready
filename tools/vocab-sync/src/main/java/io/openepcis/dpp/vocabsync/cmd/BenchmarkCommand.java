@@ -273,7 +273,7 @@ public class BenchmarkCommand implements Runnable {
                 String user = GraderPrompts.fillUser(g.get("sourceLabel").asText(), "concept",
                         g.get("sourceLabel").asText(), txt(g, "sourceDef"), "(none)", "(none)",
                         "Wikidata", g.get("targetIri").asText(), "concept",
-                        g.get("targetLabel").asText(), txt(g, "targetDef"));
+                        g.get("targetLabel").asText(), txt(g, "targetDef"), "(none)", "(none)");
                 long t0 = System.nanoTime();
                 String[] pv;
                 try {

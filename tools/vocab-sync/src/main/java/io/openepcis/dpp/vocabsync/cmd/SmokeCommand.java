@@ -28,7 +28,8 @@ public class SmokeCommand implements Runnable {
                 "oec:Product", "xsd:decimal",
                 "UNTP", "https://test.uncefact.org/vocabulary/untp/core/carbonFootprint",
                 "property", "carbon footprint",
-                "The product carbon footprint declared in a conformity claim.");
+                "The product carbon footprint declared in a conformity claim.",
+                "Product", "decimal");
         System.out.printf("relation=%s  confidence=%.2f%n", v.relation(), v.confidence());
         System.out.println("predicate=" + v.relation().predicate());
         System.out.println("rationale=" + v.rationale());

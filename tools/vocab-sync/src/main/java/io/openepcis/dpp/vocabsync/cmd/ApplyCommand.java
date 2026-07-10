@@ -112,8 +112,10 @@ public class ApplyCommand implements Runnable {
         return switch (rel) {
             case "EXACT" -> "skos:exactMatch";
             case "CLOSE" -> "skos:closeMatch";
-            case "BROAD" -> "skos:broadMatch";
-            case "NARROW" -> "skos:narrowMatch";
+            // SKOS direction: BROAD (our term broader) => the upstream target is the
+            // NARROWER concept => skos:narrowMatch, and vice versa.
+            case "BROAD" -> "skos:narrowMatch";
+            case "NARROW" -> "skos:broadMatch";
             default -> null; // NONE / unknown → no safe rewrite (removal is a manual decision)
         };
     }
@@ -266,7 +268,8 @@ public class ApplyCommand implements Runnable {
         }
         System.out.printf("%napply %s: %d inserted + %d rewritten into %d file(s)%s%n",
                 apply ? "WROTE" : "DRY-RUN", inserted, swapped, files,
-                apply ? "" : "  (re-run with --apply to write; then `pnpm build:json` + web copy:ontologies)");
+                apply ? "  (now run `pnpm run check:mappings` + `pnpm run build` as the deterministic gate)"
+                      : "  (re-run with --apply to write; then `pnpm run check:mappings` + `pnpm build:json` + web copy:ontologies)");
     }
 
     private int[] applyToFile(Path ttl, Map<String, List<Plan>> byTerm,

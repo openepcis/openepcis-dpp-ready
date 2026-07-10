@@ -55,6 +55,15 @@ If terms like "TTL" and "SKOS" are new to you, this is all you need to follow th
   - `skos:broadMatch`: ours is narrower (theirs is the broader concept)
   - `skos:narrowMatch`: ours is broader (theirs is the narrower concept)
 
+  > Note (2026-07): earlier versions of the tool wrote these two predicates **inverted**
+  > (the internal BROAD/NARROW verdicts were bound to the wrong SKOS predicate, contrary to
+  > this README). That is fixed; additionally the graders now see the upstream term's
+  > **domain and range** and are instructed to return NONE for keyword matches into foreign
+  > subject areas (drinking temperature, dietary fibre, vehicle fuel, medical doses, .NET
+  > assemblies, ...). The repository build's `check:mappings` + `check:domains` guards are
+  > the deterministic net for anything the models still get wrong — run `pnpm run build`
+  > on every applied branch before review.
+
   A finished mapping is just one more triple in our Turtle file, of the shape
   `ourTerm skos:closeMatch theirTerm`.
 - **Embedding** turns a term's meaning into a vector of numbers, so terms with similar meaning

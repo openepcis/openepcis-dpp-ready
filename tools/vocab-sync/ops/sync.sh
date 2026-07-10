@@ -32,4 +32,8 @@ fi
 # the current branch). Pass extra args through, e.g. ops/sync.sh --no-apply, or --module battery.
 cd "$TOOL_DIR" || exit 0
 "$JAVA_HOME/bin/java" -jar "$JAR" sync --stamp "$STAMP" "$@"
-echo "sync.sh: done (exit $?)."
+rc=$?
+# Deterministic gate: the repo build now includes check:domains + check:mappings, which
+# catch foreign-domain anchors, inverted SKOS directions and unverified SEMICeu targets.
+# Any branch the sync applied to must pass `pnpm run build` before review/merge.
+echo "sync.sh: done (exit $rc). Gate: run 'pnpm run check:mappings' on the applied branch before review."

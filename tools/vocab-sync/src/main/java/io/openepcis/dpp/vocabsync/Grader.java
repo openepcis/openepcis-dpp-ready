@@ -24,5 +24,6 @@ public interface Grader {
                   @V("ourDomain") String ourDomain, @V("ourRange") String ourRange,
                   @V("upVocab") String upVocab, @V("upIri") String upIri,
                   @V("upType") String upType, @V("upLabel") String upLabel,
-                  @V("upComment") String upComment);
+                  @V("upComment") String upComment,
+                  @V("upDomain") String upDomain, @V("upRange") String upRange);
 }
