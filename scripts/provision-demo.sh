@@ -250,7 +250,7 @@ provision_epcis() { # gtin desc
 import json,sys
 print(json.dumps([{'action':'add','linkset':[{
  'anchor': sys.argv[1], 'itemDescription': sys.argv[2],
- 'epcis':[{'href': sys.argv[3],'title':'EPCIS event history','type':'application/ld+json',
+ 'epcisRepository':[{'href': sys.argv[3],'title':'EPCIS event history','type':'application/ld+json',
            'hreflang':['en'],'context':['epcis'],'public':True}]}]}]))" \
     "$DL_URL/01/$gtin" "$desc" "$href")
   local code; code=$(curl -sk -o /dev/null -w '%{http_code}' -X PATCH "$DL_URL/01/$gtin" \
