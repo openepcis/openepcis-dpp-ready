@@ -6,8 +6,11 @@
 # traceability link). One command, one source of truth.
 #
 # Supersedes the scattered flow (seed-dev-demo.sh + upload-product-images.sh +
-# seed-organizations.sh + provision-demo-epcis-links.sh + refresh-dev-demo.sh),
-# and deliberately does NOT touch persona passwords (unlike seed-dev-passports.sh).
+# seed-organizations.sh + provision-demo-epcis-links.sh + refresh-dev-demo.sh +
+# seed-dev-passports.sh). Persona passwords are never touched (that is
+# e2e-demo-users.sh's job). The two hero products (Fjordline / Amperia) are
+# provisioned at all three granularities (model + batch + item) because
+# DELETE /products/{gtin} removes the WHOLE tree including lot/serial rows.
 #
 # WHY a single script:
 #   - The 11-product catalogue (9 canonical + Fjordline/Amperia heroes) lived
@@ -92,6 +95,16 @@ PRODUCTS=(
   "09521234002000|extensions/eu/battery/examples/amperia-staxwall-model.jsonld|amperia-staxwall-10|Amperia StaxWall 10 Home Battery"
 )
 
+# Hero products additionally carry batch + item granularities (model⊂batch⊂item
+# deep-merge, PUT sub-paths) — the DDM provenance/assemble demo resolves the
+# item level, and DELETE /products/{gtin} above wipes the whole tree.
+# gtin | lot | serial | batch overlay | item overlay
+HEROES=(
+  "09521234002000|LOT-2026-AMP01|STAX10-2026-000001|extensions/eu/battery/examples/amperia-staxwall-batch.jsonld|extensions/eu/battery/examples/amperia-staxwall-item.jsonld"
+  "09521234003007|LOT-2026-FJ03|AUR-2026-000001|extensions/eu/textile/examples/fjordline-aurora-batch.jsonld|extensions/eu/textile/examples/fjordline-aurora-item.jsonld"
+)
+STRIP='walk(if type == "object" then with_entries(select(.key | startswith("_") | not)) else . end)'
+
 # ------------------------------------------------------------------ auth
 TOKEN=""
 fetch_token() {
@@ -141,7 +154,9 @@ collect_image_urls() { # gtin slug -> prints JSON array of uploaded URLs
       [[ -f "$src" ]] && { url=$(upload_image "$gtin" "$slug" "$src") && urls+=("$url"); break; }
     done
   fi
-  printf '%s\n' "${urls[@]}" | jq -R . | jq -s .
+  # bash 3.2 (macOS default) errors on "${urls[@]}" when the array is empty
+  # under set -u, and an empty printf line would become [""] — guard both.
+  if [[ ${#urls[@]} -eq 0 ]]; then echo '[]'; else printf '%s\n' "${urls[@]}" | jq -R . | jq -s .; fi
 }
 
 provision_product() { # gtin file slug desc
@@ -151,7 +166,9 @@ provision_product() { # gtin file slug desc
   local urls_json; urls_json=$(collect_image_urls "$gtin" "$slug")
   # Embed the image referencedFile array into the seed body so a single POST
   # yields a complete linkset (no lossy follow-up PUT).
+  # Strip editorial _comment* keys (same STRIP as the passport seeder), then embed images.
   local body; body=$(jq --argjson urls "$urls_json" --arg desc "$desc" '
+    walk(if type == "object" then with_entries(select(.key | startswith("_") | not)) else . end) |
     if ($urls|length) > 0 then .referencedFile = ($urls | to_entries | map({
         "type":"gs1:ReferencedFileDetails","fileLanguageCode":"en",
         "contentDescription": ($desc + " (image " + ((.key+1)|tostring) + ")"),
@@ -167,6 +184,27 @@ provision_product() { # gtin file slug desc
     20[0-2]) grn "  product $gtin ($nimg img) -> $code" ;;
     *) red "  product $gtin -> $code $(jq -rc '.detail // empty' /tmp/pd_prov.json 2>/dev/null)" ;;
   esac
+}
+
+# ------------------------------------------------------------------ hero batch/item granularities
+provision_hero_sublevels() {
+  local row gtin lot serial batch item model code doc
+  for row in "${HEROES[@]}"; do
+    IFS='|' read -r gtin lot serial batch item <<<"$row"
+    model=""
+    local prow
+    for prow in "${PRODUCTS[@]}"; do
+      [[ "$prow" == "$gtin|"* ]] && { IFS='|' read -r _ model _ _ <<<"$prow"; break; }
+    done
+    [[ -n "$model" && -f "$REPO_ROOT/$model" && -f "$REPO_ROOT/$batch" && -f "$REPO_ROOT/$item" ]]       || { red "  hero $gtin: missing model/batch/item file"; continue; }
+    if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] hero $gtin batch=$lot item=$serial"; continue; fi
+    doc=$(jq -s '.[0] * .[1]' "$REPO_ROOT/$model" "$REPO_ROOT/$batch" | jq "$STRIP")
+    code=$(curl -sk -o /dev/null -w '%{http_code}' -X PUT "$DL_URL/products/$gtin/10/$lot"       -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true'       --data-binary "$doc")
+    case "$code" in 20[0-2]) grn "  hero batch $gtin/10/$lot -> $code" ;; *) red "  hero batch $gtin/10/$lot -> $code" ;; esac
+    doc=$(jq -s '.[0] * .[1] * .[2]' "$REPO_ROOT/$model" "$REPO_ROOT/$batch" "$REPO_ROOT/$item" | jq "$STRIP")
+    code=$(curl -sk -o /dev/null -w '%{http_code}' -X PUT "$DL_URL/products/$gtin/21/$serial"       -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true'       --data-binary "$doc")
+    case "$code" in 20[0-2]) grn "  hero item  $gtin/21/$serial -> $code" ;; *) red "  hero item  $gtin/21/$serial -> $code" ;; esac
+  done
 }
 
 # ------------------------------------------------------------------ organizations (compact Bruno bodies)
@@ -221,15 +259,35 @@ print(json.dumps([{'action':'add','linkset':[{
 }
 
 # ------------------------------------------------------------------ EPCIS events (optional)
+ext_header_for() { # repo-relative epcis file path -> GS1-Extensions header value
+  # Rule 3 of the EPCIS integration guide: ALWAYS declare the extension header —
+  # it activates the regulation's validation/query behaviour in the repository.
+  local base="https://ref.openepcis.io/extensions" mod=""
+  case "$1" in
+    */eu/battery/*)     mod="eubat=$base/eu/battery/" ;;
+    */eu/textile/*)     mod="eutex=$base/eu/textile/" ;;
+    */eu/electronics/*) mod="euelec=$base/eu/electronics/" ;;
+    */eu/detergent/*)   mod="eudet=$base/eu/detergent/" ;;
+    */eu/eudr/*)        mod="eudr=$base/eu/eudr/" ;;
+    */eu/ppwr/*)        mod="euppwr=$base/eu/ppwr/" ;;
+    */eu/iron-steel/*)  mod="eusteel=$base/eu/iron-steel/" ;;
+    */eu/cpr/*)         mod="eucpr=$base/eu/cpr/" ;;
+    */us/fsma204/*)     mod="usfsma=$base/us/fsma204/" ;;
+  esac
+  echo "oec=$base/common/core/${mod:+,$mod}"
+}
+
 provision_events() {
   cyan "▸ EPCIS events -> $API_URL/capture"
-  local f code
+  local f code ext
   while IFS= read -r f; do
-    if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] event $(basename "$f")"; continue; fi
+    ext=$(ext_header_for "$f")
+    if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] event $(basename "$f")  [$ext]"; continue; fi
     code=$(curl -sk -o /dev/null -w '%{http_code}' -X POST "$API_URL/capture" \
-      -H "$(auth)" -H 'Content-Type: application/ld+json' --data-binary @"$f")
+      -H "$(auth)" -H 'Content-Type: application/ld+json' \
+      -H "GS1-Extensions: $ext" --data-binary @"$f")
     case "$code" in 20[0-2]) grn "  $(basename "$f") -> $code" ;; *) red "  $(basename "$f") -> $code" ;; esac
-  done < <(find "$REPO_ROOT/extensions/eu"/*/epcis -name '*.jsonld' 2>/dev/null | sort)
+  done < <(find "$REPO_ROOT/extensions"/*/*/epcis -name '*.jsonld' 2>/dev/null | sort)
 }
 
 # ------------------------------------------------------------------ verify
@@ -249,10 +307,12 @@ verify() {
 
 # ------------------------------------------------------------------ run
 cyan "=== provision-demo ($ENV) phases: $PHASES ==="
-fetch_token
+if [[ "$DRY" -eq 1 ]]; then ylw "dry-run: skipping token"; TOKEN=dry-run; else fetch_token; fi
 if has products; then
   cyan "▸ Products (+ embedded images)"
   for row in "${PRODUCTS[@]}"; do IFS='|' read -r g f s d <<<"$row"; provision_product "$g" "$f" "$s" "$d"; done
+  cyan "▸ Hero batch/item granularities"
+  provision_hero_sublevels
 fi
 has orgs   && provision_orgs
 if has epcis; then
