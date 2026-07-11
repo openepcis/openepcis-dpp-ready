@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+#
+# DEPRECATED — superseded by scripts/provision-demo.sh, the single idempotent,
+# env-parameterized provisioner for the full 11-product demo (products + embedded
+# images + organizations + epcis links). Kept for reference only. Prefer:
+#   SEED_PW=… SEED_CLIENT_SECRET=… scripts/provision-demo.sh --env=demo
+#
 # Upload product images for the 9 demo GTINs to files.dev.epcis.cloud,
 # then PUT each product's master-data with the new image URLs in
 # referencedFileDetails.
@@ -63,7 +69,7 @@ TOKEN=$(curl -sk -X POST "$AUTH_URL/realms/$REALM/protocol/openid-connect/token"
   --data-urlencode "client_secret=$BRUNO_CLIENT_SECRET" \
   --data-urlencode "username=$USERNAME" \
   --data-urlencode "password=$BRUNO_PW" \
-  --data-urlencode "scope=openid roles profile" \
+  --data-urlencode "scope=openid roles" \
   | jq -r '.access_token // empty')
 
 if [[ -z "$TOKEN" ]]; then

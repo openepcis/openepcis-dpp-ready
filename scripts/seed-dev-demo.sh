@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 #
+# DEPRECATED — superseded by scripts/provision-demo.sh, the single idempotent,
+# env-parameterized provisioner for the full 11-product demo (products + embedded
+# images + organizations + epcis links). Kept for reference only. Prefer:
+#   SEED_PW=… SEED_CLIENT_SECRET=… scripts/provision-demo.sh --env=demo
+#
+#
 # seed-dev-demo.sh — Seed dev.epcis.cloud with the canonical-context demo
 # data the digital-data-management webapp resolves at runtime.
 #
@@ -116,21 +122,21 @@ case "$ENV" in
     EPCIS_URL="https://api.dev.epcis.cloud"
     TOKEN_URL="https://keycloak.dev.epcis.cloud/realms/openepcis/protocol/openid-connect/token"
     CLIENT_ID="backend-service"
-    USERNAME="admin"
+    USERNAME="${USERNAME:-admin}"
     ;;
   demo)
     DL_URL="https://id.demo.epcis.cloud"
     EPCIS_URL="https://api.demo.epcis.cloud"
     TOKEN_URL="https://auth.demo.epcis.cloud/realms/openepcis/protocol/openid-connect/token"
     CLIENT_ID="backend-service"
-    USERNAME="admin"
+    USERNAME="${USERNAME:-admin}"
     ;;
   local)
     DL_URL="http://localhost:8080"
     EPCIS_URL="http://localhost:8080"
     TOKEN_URL="http://localhost:8180/realms/openepcis/protocol/openid-connect/token"
     CLIENT_ID="backend-service"
-    USERNAME="admin"
+    USERNAME="${USERNAME:-admin}"
     ;;
   *) echo "Unknown --env=$ENV (expected: dev, demo, local)" >&2; exit 64 ;;
 esac
@@ -183,6 +189,19 @@ post_jsonld() {
     200|201|202)  green "  OK   ($code) $label  ← $file" ;;
     204)           green "  OK   (204 no content) $label  ← $file" ;;
     409)           yellow "  SKIP (409 already exists) $label  ← $file" ;;
+    400)
+      # The resolver reports a duplicate GTIN as 400 ("Product already exists
+      # with gtin: …") rather than 409, so a re-seed of existing data would
+      # otherwise read as a failure. Treat that specific 400 as idempotent.
+      if grep -q 'already exists' /tmp/seed-resp.$$ 2>/dev/null; then
+        yellow "  SKIP (400 already exists) $label  ← $file"
+      else
+        red "  FAIL ($code) $label  ← $file"
+        head -c 400 /tmp/seed-resp.$$ >&2 || true; echo "" >&2
+        rm -f /tmp/seed-resp.$$
+        return 1
+      fi
+      ;;
     *)
       red "  FAIL ($code) $label  ← $file"
       head -c 400 /tmp/seed-resp.$$ >&2 || true; echo "" >&2
