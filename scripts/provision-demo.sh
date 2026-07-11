@@ -299,7 +299,11 @@ verify() {
     md=$(curl -sk -o /dev/null -w '%{http_code}' "$DL_URL/01/$gtin?linkType=gs1:masterData" -H "$(auth)")
     dpp=$(curl -sk -o /dev/null -w '%{http_code}' "$DL_URL/01/$gtin?linkType=gs1:dpp" -H "$(auth)")
     img=$(curl -sk "$DL_URL/01/$gtin?linkType=all" -H "$(auth)" | grep -oiE "$(echo "$FILES_URL"|sed 's#https\?://##')[^\"]*" | wc -l | tr -d ' ')
-    if [[ "$md" == 302 && "$dpp" == 302 ]]; then grn "  $gtin  md=$md dpp=$dpp img=$img"; ok=$((ok+1));
+    # The conformant resolver serves master-data INLINE (200) for a self-anchored
+    # linkType=gs1:masterData request rather than 302-redirecting to itself
+    # (avoids a self-referential redirect); a 302 is also acceptable when the
+    # master-data href points elsewhere. dpp always 302s to the DPP API.
+    if [[ ( "$md" == 200 || "$md" == 302 ) && "$dpp" == 302 ]]; then grn "  $gtin  md=$md dpp=$dpp img=$img"; ok=$((ok+1));
     else red "  $gtin  md=$md dpp=$dpp img=$img"; fi
   done
   echo "  $ok/$total products resolve (masterData + dpp)."
