@@ -88,16 +88,16 @@ case "$ENV" in
     DL_URL="https://id.dev.epcis.cloud"
     EPCIS_URL="https://api.dev.epcis.cloud"
     TOKEN_URL="https://keycloak.dev.epcis.cloud/realms/openepcis/protocol/openid-connect/token"
-    CLIENT_ID="backend-service"; USERNAME="admin" ;;
+    CLIENT_ID="backend-service"; USERNAME="${USERNAME:-admin}" ;;
   demo)
     DL_URL="https://id.demo.epcis.cloud"
     EPCIS_URL="https://api.demo.epcis.cloud"
     TOKEN_URL="https://auth.demo.epcis.cloud/realms/openepcis/protocol/openid-connect/token"
-    CLIENT_ID="backend-service"; USERNAME="admin" ;;
+    CLIENT_ID="backend-service"; USERNAME="${USERNAME:-admin}" ;;
   local)
     DL_URL="http://localhost:8080"; EPCIS_URL="http://localhost:8080"
     TOKEN_URL="http://localhost:8180/realms/openepcis/protocol/openid-connect/token"
-    CLIENT_ID="backend-service"; USERNAME="admin" ;;
+    CLIENT_ID="backend-service"; USERNAME="${USERNAME:-admin}" ;;
   *) echo "Unknown --env=$ENV (expected: dev, demo, local)" >&2; exit 64 ;;
 esac
 
