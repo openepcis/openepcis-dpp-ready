@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 #
+# DEPRECATED — superseded by scripts/provision-demo.sh, the single idempotent,
+# env-parameterized provisioner for the full 11-product demo (products + embedded
+# images + organizations + epcis links). Kept for reference only. Prefer:
+#   SEED_PW=… SEED_CLIENT_SECRET=… scripts/provision-demo.sh --env=demo
+#
+#
 # refresh-dev-demo.sh — One-command refresh of the dev demo dataset.
 #
 # Re-runs the full DLR seed cycle for the 9 demo products without leaving the

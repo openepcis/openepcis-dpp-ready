@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+#
+# DEPRECATED — superseded by scripts/provision-demo.sh, the single idempotent,
+# env-parameterized provisioner for the full 11-product demo (products + embedded
+# images + organizations + epcis links). Kept for reference only. Prefer:
+#   SEED_PW=… SEED_CLIENT_SECRET=… scripts/provision-demo.sh --env=demo
+#
 # Seed the 7 manufacturer Organization records to the configured DLR.
 #
 # Reads every *.jsonld in extensions/common/core/examples/organizations/
