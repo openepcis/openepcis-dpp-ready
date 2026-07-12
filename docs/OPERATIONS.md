@@ -8,7 +8,7 @@ Deploy chains, seeding, guards, and the production gates for the DPP stack
 
 | Component | Host | Source | Image / deploy path |
 |---|---|---|---|
-| GS1 Digital Link Resolver (DLR) | `id.demo.epcis.cloud` | `openepcis-digital-link-resolver` (submodule of `openepcis-build`) | demo runs the dedicated `:dlr-main-demo` tag (resolver main `d458050`, digest `sha256:ff90e47f…`, rollback digest `sha256:cfb36915…`) built by the branch-guarded `dlrdemo:dl:amd64` job on branch `deploy/dlr-main-demo`; deployed by **digest pin** (`kubectl -n openepcis-demo set image deploy/openepcis-digital-link digital-link=…@sha256:…`) |
+| GS1 Digital Link Resolver (DLR) | `id.demo.epcis.cloud` | `openepcis-digital-link-resolver` (submodule of `openepcis-build`) | demo runs the dedicated `:dlr-main-demo` tag (resolver main, digest pinned in `demo.epcis.cloud/variables.tf` — keep tf default and live pin in sync or an unrelated apply rolls the deployment) built by the branch-guarded `dlrdemo:dl:amd64` job on branch `deploy/dlr-main-demo`; deployed by **digest pin** (`kubectl -n openepcis-demo set image deploy/openepcis-digital-link digital-link=…@sha256:…`) |
 | DPP API (EN 18223) | `dpp.demo.epcis.cloud` | `openepcis-dpp-api` (submodule) | `docker:dpp` → `:stable`; demo image needs the baked flags `-Ddpp.masterdata.backend=resolver`, `-Ddpp.access.backend=keycloak`, `-Dquarkus.oidc.enabled=true` |
 | EPCIS 2.0 repository | `api.demo.epcis.cloud` | `openepcis-rest-quarkus` (build superproject) | `docker:rest` → `:stable` multi-arch manifest; demo deployed by **digest pin** on `openepcis-demo/openepcis-rest-api` |
 | Vocabulary browser | `ref.openepcis.io` | `openepcis-web` `apps/ref-openepcis` + this repo's generated JSON | openepcis-web pipeline: `build:ref-openepcis` (clones dpp-ready main, runs its build) → `deploy:ref-openepcis` → `deploy:ref-openepcis-prod` (all manual) |
@@ -78,20 +78,82 @@ Proposed promotion path (not built): a manual `docker:promote:prod` CI job that
 retags the verified `:stable` manifest to `:prod`, followed by a digest-pin
 rollout and the demo verification battery. Execute only with an explicit go.
 
-### DLR — multi-tenant `:stable` (openepcis-build MR !83)
-**Blocked on masterdata DLS.** The sole-store read path queries
-`products-*`/`linksets-*` across all tenant indices and delegates isolation to
-OpenSearch Document-Level Security. DLS currently covers only the EPCIS indices
-(`epcis.cloud` platform, `opensearch-operator` module; tenants benelog/gs1de/
-gs1global/gs1us). To unblock !83:
-1. extend the `opensearch-operator` roles with `products-*`/`linksets-*` index
-   patterns + the tenant DLS query template,
-2. strip the resolver **default** OpenSearch client credentials (reads must run
-   with the propagated user Bearer token; only the named `admin` client keeps
-   basic-auth for writes/bootstrap),
-3. security-bootstrap the clusters, then merge !83 and rebuild `:stable`.
-The **single-tenant demo** does not need DLS and runs resolver main via the
-`:dlr-main-demo` tag (see above).
+### DLR — multi-tenant `:stable` (dev/prod rollout)
+**DLS + ESPR tiers are BUILT and live-verified on demo** (2026-07-12); the
+remaining gate is the DEV/PROD rollout, which needs a maintenance window:
+1. **Pin the dev resolver by digest FIRST.** Dev runs the floating
+   `:stable-amd64` tag with `IfNotPresent` — once `:stable` is rebuilt from
+   resolver main, any pod reschedule silently pulls the sole-store image and
+   dev master data (still in Postgres!) goes dark. Pin before rebuilding.
+2. **Migrate dev tenant master data Postgres → OpenSearch** (real
+   benelog/gs1de data — a migration, not the demo fixture reseed).
+3. `tofu apply` the dev platform (submodule bump to platform `02d0741`+
+   carries the tier DLS roles in `opensearch-operator`) — NOTE: the dev root
+   has accumulated unapplied drift (image references, Keycloak health/metrics,
+   CNPG monitoring, observability adds); review the whole plan, reconcile the
+   image pins like on demo, do not apply blind.
+4. Provision the `dpp-*` realm roles on the dev realm (`dpp-admin` composite
+   of `dpp-restricted`), verify the EPCIS DLS regression (benelog/gs1de/
+   gs1global unchanged) and run `scripts/verify-access-tiers.sh` against dev.
+5. Then bump the resolver submodule on openepcis-build main (a FRESH MR —
+   the old !83 targets the outdated d458050 and is superseded), rebuild
+   `:stable`, digest-pin dev.
+
+## ESPR access tiers (live on demo)
+
+Master-data documents carry an `accessLevel` keyword
+(`Public`/`AuthorizedOnly`/`Restricted`, wire-identical to the DPP API's
+`AccessLevel`); OpenSearch DLS enforces it:
+- **anonymous** → `public_masterdata_role`: linksets unrestricted (resolution
+  is public GS1 infrastructure), master data only at `Public`;
+- **any authenticated realm user** → same public floor (mapped via the realm
+  default roles — deliberately NOT `users:"*"`, which would drag the internal
+  basic-auth admin into the DLS role and filter admin-client reads);
+- **tenant role** (realm role = tenant, e.g. `demo`) → own-tenant documents
+  except `Restricted`;
+- **`<tenant>_restricted_role`** (`and_backend_roles [tenant, dpp-restricted]`;
+  `dpp-admin` is a Keycloak composite of `dpp-restricted`) → own-tenant
+  `Restricted`.
+`AuthorizedOnly` is readable by EVERY authenticated tenant member (mirrors the
+DPP API's AccessRoles — only writes need `dpp-writer`/`dpp-admin`). Writers
+set the tier explicitly or the indexing chokepoint derives it from
+`isAnonymousAccessAllowed` (Public ⇔ true, reconciled both ways).
+Verification: `scripts/verify-access-tiers.sh` (persona matrix + public
+resolution regression); tier probe products `09521000002005` (Restricted) and
+`09521000002104` (AuthorizedOnly) are seeded by `provision-demo.sh`.
+
+**Hard-learned:** (1) index mappings freeze at index creation — template
+changes need `scripts/demo-reindex-masterdata.sh` (recreate indices + full
+reseed), else DLS clauses match nothing; (2) per-request Bearer propagation
+to OpenSearch only happens through the extension's request-scoped client —
+the resolver's `DlrContextAwareOpenSearchClient` selects it; a directly
+injected client reads anonymously.
+
+## GS1-DE Service Platform integration
+
+Two capability areas (sources in
+`openepcis-build/modules/openepcis-core/openepcis-gs1de-service-platform/`):
+- **Verified-by-GS1** — fully implemented: verify_ids/gtins/glns + licensee
+  search, OpenSearch cache `gs1-verified-ids` (7d TTL), REST facade
+  `/gs1verifier/**`, resolver inbound import (`/sync/{key}`) and the
+  GCP-length SPI.
+- **Central resolver population** (id.gs1.org / id.gs1.de ResolutionRules/
+  Targets) — client APIs generated and per-token wiring ready
+  (`Gs1DeServiceGateway.ruleApiFor/targetApiFor`), **push subscriber is a
+  follow-up feature** (mapping linkset→ResolutionRule + probe against the
+  GS1-DE test environment; must run under the licensee's token, never the
+  platform token).
+
+Outbound product sync (GEN-446, OpenSearch edition): flag
+`openepcis.gs1de-outbound-sync.enabled` (default OFF); per-GCP client
+registry `gs1de-clients-<group>` managed via `/gs1de/clients` (secrets
+write-only/masked; admin group only), attempts + per-GCP usage metering in
+`sync-operations-<group>` (`/gs1de/clients/{name}/usage`). Both indices are
+deliberately in NO DLS role (admin client only). Activation is an explicit
+ops step: register clients (licenceKey + authToken per GCP), set the flag,
+probe against the GS1-DE test environment. Known follow-ups: no retry sweeper
+for FAILED_RETRYABLE yet (fire-and-forget vs the old SQL outbox) and no
+ILM/retention on sync-operations.
 
 ## Open external threads
 - `openepcis-reactive-event-publisher` PR #4 (parser `@context` robustness) —
