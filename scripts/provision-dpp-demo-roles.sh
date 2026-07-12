@@ -46,10 +46,23 @@ assign_role() { # username rolename
   case "$rc" in 204|201) echo "  assign $2 -> $1: ok" ;; *) echo "  assign $2 -> $1: FAILED ($rc)"; return 1 ;; esac
 }
 
+make_composite() { # parent child — parent role includes child role
+  local rid rc
+  rid=$($CURL -sS -H "Authorization: Bearer $AT" "$B/roles/$2" | $JQ -c '{id,name}')
+  rc=$($CURL -sS -o /dev/null -w '%{http_code}' -X POST "$B/roles/$1/composites" \
+    -H "Authorization: Bearer $AT" -H "Content-Type: application/json" -d "[$rid]")
+  case "$rc" in 204|201) echo "  composite $1 ⊇ $2: ok" ;; *) echo "  composite $1 ⊇ $2: FAILED ($rc)"; return 1 ;; esac
+}
+
 echo "=== realm roles ==="
 create_role dpp-writer     "EN 18223 DPP API: write (POST/PATCH)"
 create_role dpp-admin      "EN 18223 DPP API: write + Restricted read"
 create_role dpp-restricted "EN 18223 DPP API: Restricted-tier read"
+# dpp-admin is a COMPOSITE including dpp-restricted: the JWT roles claim of an
+# admin then carries BOTH names, so the OpenSearch and_backend_roles mapping
+# [tenant, dpp-restricted] activates the Restricted-tier DLS role for admins
+# without a second mapping per tenant.
+make_composite dpp-admin dpp-restricted
 echo "=== assignments ==="
 assign_role demo-operator  dpp-writer
 assign_role demo-admin     dpp-admin

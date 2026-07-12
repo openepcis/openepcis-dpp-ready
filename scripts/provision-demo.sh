@@ -207,6 +207,43 @@ provision_hero_sublevels() {
   done
 }
 
+# ------------------------------------------------------------------ ESPR access-tier probes
+# Two extra products exercising the OpenSearch DLS tiers end-to-end:
+#   AuthorizedOnly -> hidden for anonymous, visible for any logged-in persona
+#   Restricted     -> visible only for dpp-restricted / dpp-admin (composite)
+# Derived from the garment seed so the body shape matches what the resolver
+# accepts; accessLevel is the bare DTO field the indexing chokepoint stores.
+TIER_PROBES=(
+  "09521000002005|Restricted|Bergwacht Compliance Dossier Jacket"
+  "09521000002104|AuthorizedOnly|Bergwacht Partner Catalogue Jacket"
+)
+
+provision_tier_probes() {
+  cyan "▸ ESPR access-tier probe products"
+  local row gtin tier name src="$REPO_ROOT/extensions/eu/textile/examples/garment-product.jsonld" body code
+  for row in "${TIER_PROBES[@]}"; do
+    IFS='|' read -r gtin tier name <<<"$row"
+    if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] tier probe $gtin ($tier)"; continue; fi
+    body=$(jq --arg g "$gtin" --arg tier "$tier" --arg name "$name" --arg dl "$DL_URL" '
+      walk(if type == "object" then with_entries(select(.key | startswith("_") | not)) else . end) |
+      .id = ($dl + "/01/" + $g) |
+      ."gs1:gtin" = $g |
+      ."gs1:productName" = [{"@value": $name, "@language": "en"}] |
+      del(."schema:serialNumber") |
+      .accessLevel = $tier' "$src")
+    curl -sk -o /dev/null -X DELETE "$DL_URL/products/$gtin" -H "$(auth)"
+    # No isAnonymousAccessAllowed header: the tier field is authoritative and
+    # the indexing chokepoint reconciles the boolean (non-Public -> false).
+    code=$(curl -sk -o /tmp/pd_tier.json -w '%{http_code}' -X POST "$DL_URL/products" \
+      -H "$(auth)" -H 'Content-Type: application/json' \
+      --data-binary "$body")
+    case "$code" in
+      20[0-2]) grn "  tier probe $gtin ($tier) -> $code" ;;
+      *) red "  tier probe $gtin ($tier) -> $code $(jq -rc '.detail // empty' /tmp/pd_tier.json 2>/dev/null)" ;;
+    esac
+  done
+}
+
 # ------------------------------------------------------------------ organizations (compact Bruno bodies)
 extract_bru_body() { # bru-file -> JSON body
   python3 -c "
@@ -317,6 +354,7 @@ if has products; then
   for row in "${PRODUCTS[@]}"; do IFS='|' read -r g f s d <<<"$row"; provision_product "$g" "$f" "$s" "$d"; done
   cyan "▸ Hero batch/item granularities"
   provision_hero_sublevels
+  provision_tier_probes
 fi
 has orgs   && provision_orgs
 if has epcis; then
