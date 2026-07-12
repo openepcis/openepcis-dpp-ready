@@ -220,7 +220,7 @@ step_patch_epcis() {
     yellow "  SKIP (--skip-images implies --skip-patches)"
     return 0
   fi
-  local bruno="$REPO_ROOT/bruno/digital-link-resolver/05-linksets"
+  local bruno="$REPO_ROOT/bruno/digital-link-resolver/05-linkset-patches"
   if [[ ! -d "$bruno" ]]; then
     yellow "  SKIP (Bruno collection not found: $bruno)"
     return 0

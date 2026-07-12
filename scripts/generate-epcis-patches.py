@@ -18,7 +18,7 @@ import subprocess
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-BRUNO_DIR = ROOT / "bruno" / "digital-link-resolver" / "05-linksets"
+BRUNO_DIR = ROOT / "bruno" / "digital-link-resolver" / "05-linkset-patches"
 
 # Slug → (seq, item description shown in the link). The seq builds on
 # the existing pip patches (1–9) so the epcis patches sort after them.

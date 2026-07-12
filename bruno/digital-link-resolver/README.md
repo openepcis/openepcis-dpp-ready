@@ -82,7 +82,7 @@ digital-link-resolver/
 │   ├── create-manufacturer.bru
 │   └── create-retailer.bru
 │
-└── 05-resolution/
+└── 06-resolution/
     ├── resolve-by-gtin.bru
     ├── resolve-with-linktype.bru
     └── well-known-resolver.bru

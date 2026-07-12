@@ -23,7 +23,7 @@
 # Bruno CLI can't send collection OAuth2 headlessly, so — like seed-dev-demo.sh
 # — we fetch a token and hit the API with curl directly. The matching .bru
 # files (01-products/packaging/create-beverage-bottle-batch.bru and
-# 05-linksets/patch-batch-beverage-bottle.bru) remain for interactive runs.
+# 05-linkset-patches/patch-batch-beverage-bottle.bru) remain for interactive runs.
 #
 # Prerequisites: BRUNO_PW, BRUNO_CLIENT_SECRET, jq, curl.
 #

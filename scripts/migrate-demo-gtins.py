@@ -9,7 +9,7 @@ Touches:
       extensions/eu/{textile,battery,ppwr}/examples/*.jsonld
   - Bruno collection
       bruno/digital-link-resolver/01-products/**.bru
-      bruno/digital-link-resolver/05-linksets/patch-pip-*.bru
+      bruno/digital-link-resolver/05-linkset-patches/patch-pip-*.bru
   - Image files in scripts/images/ (renamed in place)
   - DDM demo-catalog.ts (relative path passed via CLI)
 
@@ -340,7 +340,7 @@ def main() -> int:
 
     print("=== Bruno collection ===")
     bruno_root = REPO_ROOT / "bruno" / "digital-link-resolver"
-    for sub in ("01-products", "05-linksets"):
+    for sub in ("01-products", "05-linkset-patches"):
         for p in (bruno_root / sub).rglob("*.bru"):
             rewrite_bruno(p, new_map, args.dry_run)
 
