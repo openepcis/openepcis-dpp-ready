@@ -96,8 +96,10 @@ remaining gate is the DEV/PROD rollout, which needs a maintenance window:
    of `dpp-restricted`), verify the EPCIS DLS regression (benelog/gs1de/
    gs1global unchanged) and run `scripts/verify-access-tiers.sh` against dev.
 5. Then bump the resolver submodule on openepcis-build main (a FRESH MR —
-   the old !83 targets the outdated d458050 and is superseded), rebuild
-   `:stable`, digest-pin dev.
+   the old !83 targets the outdated d458050 and is superseded) TOGETHER with
+   the openepcis-core submodule (>= f1a2452 — the resolver needs the
+   GS1GermanyServicePlatformV1 wiring constructor), rebuild `:stable`,
+   digest-pin dev.
 
 ## ESPR access tiers (live on demo)
 
