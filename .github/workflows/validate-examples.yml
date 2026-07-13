@@ -11,6 +11,8 @@ on:
     paths:
       - 'extensions/**'
       - 'scripts/validate-jsonld-examples.ts'
+      - 'scripts/check-operational-contexts.ts'
+      - 'scripts/en18223/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
       - '.github/workflows/validate-examples.yml'
@@ -18,6 +20,8 @@ on:
     paths:
       - 'extensions/**'
       - 'scripts/validate-jsonld-examples.ts'
+      - 'scripts/check-operational-contexts.ts'
+      - 'scripts/en18223/**'
   workflow_dispatch:
 
 jobs:
@@ -33,3 +37,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Expand every example and fail on any lost / relative-IRI property
         run: pnpm run validate:examples
+      - name: Standard-vs-operational context contract (bare terms only via operational; seeds prefixed; RDF round-trip)
+        run: pnpm run check:operational
+      - name: Operational serialization idempotence (GET -> PUT -> GET byte-stable)
+        run: pnpm run check:idempotence

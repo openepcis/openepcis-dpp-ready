@@ -1,0 +1,32 @@
+{
+  "_comment": [
+    "EN 18223:2026 operational data-dictionary BASE context for OpenEPCIS Digital Product Passports.",
+    "§5.2.2: the operational serialization keys by elementId and externalises the",
+    "dictionaryReference/valueDataType to a data dictionary — this file is that dictionary for the",
+    "cross-cutting DPP core (envelope + gs1:/oec: shared terms). Each regulation module publishes its",
+    "own operational context (e.g. eu/battery/battery-operational-context.jsonld) that layers this base",
+    "plus that module's vocabulary, so a battery passport resolves the battery terms without dragging in",
+    "textile/electronics. Attaching the applicable operational context to the compact GS1 master-data",
+    "body (the resolver POST /products payload) makes it self-describing JSON-LD that expands to the RDF."
+  ],
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/gs1-shortcuts-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-shortcut-context.jsonld",
+    {
+      "@version": 1.1,
+      "gs1": "https://ref.gs1.org/voc/",
+      "oec": "https://ref.openepcis.io/extensions/common/core/",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "digitalProductPassportId": { "@id": "oec:passportIdentifier", "@type": "@id" },
+      "uniqueProductIdentifier": { "@id": "gs1:productID", "@type": "@id" },
+      "granularity": "oec:granularityLevel",
+      "dppSchemaVersion": "oec:dppSchemaVersion",
+      "dppStatus": "oec:passportStatus",
+      "lastUpdated": { "@id": "oec:lastUpdated", "@type": "xsd:dateTime" },
+      "economicOperatorId": { "@id": "oec:economicOperatorId", "@type": "@id" },
+      "facilityId": { "@id": "oec:facilityId", "@type": "@id" },
+      "contentSpecificationIds": { "@id": "oec:contentSpecificationId", "@container": "@set" }
+    }
+  ]
+}

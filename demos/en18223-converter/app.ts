@@ -8,6 +8,7 @@
  * (see package.json demo:en18223:build), so the demo runs with no network.
  */
 import { deriveEN18223, compressEN18223, expandJsonLd, type DocumentLoader } from "../../scripts/en18223/derive-core.ts";
+import { operationalContextFor, buildOperationalKeyMap, operationalOptions, toTurtle, toXmlOperational, toXmlExpanded } from "../../scripts/en18223/serialize.ts";
 import rangeIndex from "./range-index.json";
 import contexts from "./contexts.json";
 import samples from "./samples.json";
@@ -37,15 +38,22 @@ function setStatus(msg: string, kind: "ok" | "err" | "" = "") {
   el.className = kind;
 }
 
-// The three views of the last successful derivation: the two EN 18223
-// serializations plus the JSON-LD expansion of the input.
-type ViewKey = "expanded" | "compressed" | "jsonld";
+// Views of the last successful derivation. EN 18223 has one JSON payload: the
+// "operational"/"compressed" form. We show it both ways — carrying the
+// operational @context (valid JSON-LD) and without it (plain JSON, dictionary
+// externalised) — so it is clear they are the same bytes modulo the context.
+// Alongside: the Annex A expanded JSON, both XML serializations (Annex B
+// compressed + an expanded analogue), the Turtle RDF, and the raw JSON-LD
+// expansion of the input.
+type ViewKey = "operational" | "compressed" | "expanded" | "xmlOperational" | "xmlExpanded" | "turtle" | "jsonld";
 let views: Record<ViewKey, any> | null = null;
 
 function render() {
   if (!views) return;
   const fmt = formatEl().value as ViewKey;
-  outputEl().textContent = JSON.stringify(views[fmt] ?? views.expanded, null, 2);
+  const v = views[fmt] ?? views.operational;
+  // Turtle is already serialized text; the JSON views are pretty-printed.
+  outputEl().textContent = typeof v === "string" ? v : JSON.stringify(v, null, 2);
 }
 
 async function derive() {
@@ -61,8 +69,24 @@ async function derive() {
   }
   try {
     const expanded = await deriveEN18223(input, range, documentLoader);
-    const jsonld = await expandJsonLd(input, documentLoader);
-    views = { expanded, compressed: compressEN18223(expanded), jsonld };
+    const jsonldExpanded = await expandJsonLd(input, documentLoader);
+    // One EN 18223 payload keyed by the operational-context aliases (so it
+    // round-trips through that context); operational = payload + @context,
+    // compressed = the same payload with the dictionary (@context) externalised.
+    const ctx = operationalContextFor(input);
+    const keyMap = await buildOperationalKeyMap(ctx, documentLoader);
+    const compressed = compressEN18223(expanded, operationalOptions(keyMap));
+    const operational = { "@context": ctx, ...compressed };
+    const turtle = await toTurtle(operational, documentLoader);
+    views = {
+      operational,
+      compressed,
+      expanded,
+      xmlOperational: toXmlOperational(expanded),
+      xmlExpanded: toXmlExpanded(expanded),
+      turtle,
+      jsonld: jsonldExpanded,
+    };
     render();
     const n = Array.isArray(expanded.elements) ? expanded.elements.length : 0;
     const specs = Array.isArray(expanded.contentSpecificationIds) ? expanded.contentSpecificationIds.length : 0;

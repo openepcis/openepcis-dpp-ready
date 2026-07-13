@@ -94,6 +94,7 @@ function buildElement(propIri: string, values: any[], range: Map<string, string>
         ...base,
         objectType: "MultiValuedDataElement",
         valueDataType: valueTypeForId(values[0]["@id"]),
+        reference: true,
         value: values.map((n) => n["@id"]),
       };
     }
@@ -104,7 +105,7 @@ function buildElement(propIri: string, values: any[], range: Map<string, string>
     };
   }
   if (values.length === 1 && values[0] && values[0]["@id"]) {
-    return { ...base, objectType: "SingleValuedDataElement", valueDataType: "xsd:anyURI", value: values[0]["@id"] };
+    return { ...base, objectType: "SingleValuedDataElement", valueDataType: "xsd:anyURI", reference: true, value: values[0]["@id"] };
   }
   return { ...base, objectType: "SingleValuedDataElement", value: null };
 }
@@ -115,6 +116,10 @@ function classifyNode(node: any, range: Map<string, string>): any {
   if (hasDoc) {
     const first = (iri: string) => (node[iri] && node[iri][0] ? node[iri][0]["@value"] ?? node[iri][0]["@id"] : undefined);
     const res: any = { objectType: "RelatedResource" };
+    // Carry the DocumentReference type so the compressed form re-expands as a
+    // document (the operational context type-scopes resourceTitle/contentType/url/
+    // language to the doc IRIs only under this type), keeping the round-trip exact.
+    res.nodeTypes = types.includes(`${DPP}DocumentReference`) ? types : [`${DPP}DocumentReference`, ...types];
     const title = first(`${DPP}documentTitle`) ?? first(`${DPP}title`);
     if (title) res.resourceTitle = title;
     const ct = first(`${DPP}mimeType`);
@@ -126,9 +131,12 @@ function classifyNode(node: any, range: Map<string, string>): any {
     return res;
   }
   if (isBareRef(node)) {
-    return { objectType: "SingleValuedDataElement", valueDataType: valueTypeForId(node["@id"]), value: node["@id"] };
+    return { objectType: "SingleValuedDataElement", valueDataType: valueTypeForId(node["@id"]), reference: true, value: node["@id"] };
   }
-  return { objectType: "DataElementCollection", elements: collectionElements(node, range) };
+  // Preserve the node @type: a term whose coercion is type-scoped (e.g. a coded
+  // value under a scoped context) resolves the same way on re-derivation only if
+  // the type survives, so the compressed body is a byte-stable fixed point.
+  return { objectType: "DataElementCollection", nodeTypes: types, elements: collectionElements(node, range) };
 }
 
 function collectionElements(node: any, range: Map<string, string>): any[] {
@@ -265,19 +273,57 @@ export async function expandJsonLd(input: any, documentLoader: DocumentLoader): 
   return jsonld.expand(input, { documentLoader });
 }
 
+/** IRI -> the JSON term it compresses to. The default is the local name; the
+ *  operational projection passes a term function that returns the operational-
+ *  context alias (with a CURIE fallback), used for element keys and `type` values. */
+export type TermFn = (iri: string) => string;
+/** Compress options.
+ *  - `term` names keys and `type` values (context alias, else CURIE).
+ *  - `codeTerm` compacts a coded VALUE IRI to its bare code (context alias, else
+ *    local name), used only for @vocab-coerced properties so the code round-trips
+ *    via @vocab and satisfies the JSON-Schema enum.
+ *  - `isVocabProperty` tells whether a property is @vocab-coerced. Coded values of
+ *    @vocab properties are compacted; @id references keep their full IRI (which
+ *    round-trips unchanged). This split is what makes both stable. */
+export interface CompressOptions {
+  term: TermFn;
+  codeTerm: TermFn;
+  isVocabProperty: (iri: string) => boolean;
+}
+const localTerm: TermFn = (iri) => localName(iri);
+const defaultOptions: CompressOptions = { term: localTerm, codeTerm: localTerm, isVocabProperty: () => false };
+
+// A coded reference value: compact to its bare code only when the property is
+// @vocab-coerced; otherwise keep the full IRI (an @id reference).
+function codeValue(iri: string, propIri: string, opts: CompressOptions): string {
+  return opts.isVocabProperty(propIri) ? opts.codeTerm(iri) : iri;
+}
+
+// The compressed `type` value for a node's @type IRIs (single term or array).
+function typeValue(nodeTypes: string[] | undefined, term: TermFn): any {
+  if (!nodeTypes || nodeTypes.length === 0) return undefined;
+  const ts = nodeTypes.map(term);
+  return ts.length === 1 ? ts[0] : ts;
+}
+
 // Render one EN 18223 expanded element as its compressed value.
-function compressElement(el: any): any {
+function compressElement(el: any, opts: CompressOptions): any {
   switch (el.objectType) {
     case "SingleValuedDataElement":
-      return el.value;
+      return el.reference ? codeValue(el.value, el.dictionaryReference, opts) : el.value;
     case "MultiLanguageDataElement":
-      return el.value; // already [{ value, language }]
+      // JSON-LD-native language literals: unambiguous (they never collide with
+      // gs1:value the way a bare {value,language} would), so the body round-trips.
+      return (el.value || []).map((v: any) => ({ "@value": v.value, "@language": v.language }));
     case "MultiValuedDataElement":
-      return (el.value || []).map((v: any) => (Array.isArray(v) ? compressElements(v) : v));
+      return (el.value || []).map((v: any) =>
+        Array.isArray(v) ? compressElements(v, opts) : el.reference ? codeValue(v, el.dictionaryReference, opts) : v);
     case "DataElementCollection":
-      return compressElements(el.elements || []);
+      return compressElements(el.elements || [], opts, el.nodeTypes);
     case "RelatedResource": {
       const o: any = {};
+      const t = typeValue(el.nodeTypes, opts.term);
+      if (t !== undefined) o.type = t;
       for (const k of ["resourceTitle", "contentType", "url", "language"]) if (el[k] != null) o[k] = el[k];
       return o;
     }
@@ -285,17 +331,26 @@ function compressElement(el: any): any {
       return el.value ?? null;
   }
 }
-function compressElements(elements: any[]): any {
+// Emit collection members keyed by term(dictionaryReference), in a canonical
+// (sorted-by-key) order so the output is byte-stable regardless of the source
+// document's property order. A carried node @type is emitted as a leading `type`.
+function compressElements(elements: any[], opts: CompressOptions, nodeTypes?: string[]): any {
+  const keyed = elements.map((el) => [opts.term(el.dictionaryReference), el] as [string, any]);
+  keyed.sort((a, b) => a[0].localeCompare(b[0]));
   const o: any = {};
-  for (const el of elements) o[el.elementId] = compressElement(el);
+  const t = typeValue(nodeTypes, opts.term);
+  if (t !== undefined) o.type = t;
+  for (const [key, el] of keyed) o[key] = compressElement(el, opts);
   return o;
 }
 
-/** The EN 18223 "compressed" serialization (clauses 5.2.6 to 5.2.9): the same
- *  passport as plain key-value JSON, derived from the expanded Annex A form.
- *  Envelope attributes are kept; each data element collapses to elementId:value
- *  (collections nest, multi-values become arrays). */
-export function compressEN18223(passport: any): any {
+/** The EN 18223 "compressed" / operational serialization (clauses 5.2.6 to 5.2.9):
+ *  the same passport as plain key-value JSON, derived from the expanded Annex A
+ *  form. The envelope is kept in EN 18223 order; each data element collapses to
+ *  key:value (collections nest, multi-values become arrays). With the operational
+ *  term functions the result carries the operational-context aliases, so attaching
+ *  that context makes it self-describing JSON-LD that round-trips (GET == valid PUT). */
+export function compressEN18223(passport: any, opts: CompressOptions = defaultOptions): any {
   const { elements, ...envelope } = passport;
-  return { ...envelope, ...compressElements(elements || []) };
+  return { ...envelope, ...compressElements(elements || [], opts) };
 }

@@ -1,0 +1,821 @@
+{
+  "_comment": [
+    "Bare (unprefixed) term aliases for the textile vocabulary.",
+    "Included only by the operational contexts, so bare terms resolve under an",
+    "operational @context but the standard context requires proper prefixing."
+  ],
+  "@context": {
+    "@version": 1.1,
+    "eutex": "https://ref.openepcis.io/extensions/eu/textile/",
+    "gs1": "https://ref.gs1.org/voc/",
+    "oec": "https://ref.openepcis.io/extensions/common/core/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "ApparelSubcategory": "eutex:ApparelSubcategory",
+    "CareInstruction": "eutex:CareInstruction",
+    "CareSymbolCode": "eutex:CareSymbolCode",
+    "ChainOfCustodyMethod": "eutex:ChainOfCustodyMethod",
+    "CLPHazardCategory": "eutex:CLPHazardCategory",
+    "DimensionalChangeTestResult": "eutex:DimensionalChangeTestResult",
+    "DurabilityClass": "eutex:DurabilityClass",
+    "DurabilityInfo": "eutex:DurabilityInfo",
+    "EnvironmentalFootprint": "eutex:EnvironmentalFootprint",
+    "FabricType": "eutex:FabricType",
+    "FiberType": "eutex:FiberType",
+    "FootprintDataType": "eutex:FootprintDataType",
+    "LCIACategory": "eutex:LCIACategory",
+    "LCIACategoryCode": "eutex:LCIACategoryCode",
+    "MicroplasticInfo": "eutex:MicroplasticInfo",
+    "MicroplasticRiskLevel": "eutex:MicroplasticRiskLevel",
+    "RecyclabilityAssessment": "eutex:RecyclabilityAssessment",
+    "RecycledContentDeclaration": "eutex:RecycledContentDeclaration",
+    "RecycledSourceType": "eutex:RecycledSourceType",
+    "RecyclingTechnology": "eutex:RecyclingTechnology",
+    "RobustnessAssessment": "eutex:RobustnessAssessment",
+    "SortingFactors": "eutex:SortingFactors",
+    "SpiralityTestResult": "eutex:SpiralityTestResult",
+    "SubstanceOfConcern": "eutex:SubstanceOfConcern",
+    "SubstanceOfConcernType": "eutex:SubstanceOfConcernType",
+    "TakeBackProgram": "eutex:TakeBackProgram",
+    "TechnicalRecyclability": "eutex:TechnicalRecyclability",
+    "TestStandard": "eutex:TestStandard",
+    "TextileApparel": "eutex:TextileApparel",
+    "TextileCategory": "eutex:TextileCategory",
+    "TextileFootwear": "eutex:TextileFootwear",
+    "VisualInspectionResult": "eutex:VisualInspectionResult",
+    "WasteOriginType": "eutex:WasteOriginType",
+    "abrasionResistance": {
+      "@id": "eutex:abrasionResistance",
+      "@type": "xsd:integer"
+    },
+    "additionalCareInstructions": {
+      "@id": "eutex:additionalCareInstructions",
+      "@type": "xsd:string"
+    },
+    "apparelSubcategory": {
+      "@id": "eutex:apparelSubcategory",
+      "@type": "@vocab",
+      "@context": {
+        "DressesSkirts": "eutex:DressesSkirts",
+        "JacketsCoats": "eutex:JacketsCoats",
+        "LeggingsStockingsSocks": "eutex:LeggingsStockingsSocks",
+        "PantsShorts": "eutex:PantsShorts",
+        "ShirtsBlouses": "eutex:ShirtsBlouses",
+        "Sweaters": "eutex:Sweaters",
+        "Swimwear": "eutex:Swimwear",
+        "TextileAccessories": "eutex:TextileAccessories",
+        "TShirts": "eutex:TShirts",
+        "Underwear": "eutex:Underwear"
+      }
+    },
+    "applicableRecyclingTechnology": {
+      "@id": "eutex:applicableRecyclingTechnology",
+      "@type": "@vocab",
+      "@context": {
+        "ChemicalRecyclingCotton": "eutex:ChemicalRecyclingCotton",
+        "ChemicalRecyclingPA6": "eutex:ChemicalRecyclingPA6",
+        "MechanicalRecycling": "eutex:MechanicalRecycling",
+        "ThermoChemicalRecycling": "eutex:ThermoChemicalRecycling",
+        "ThermoMechanicalRecycling": "eutex:ThermoMechanicalRecycling"
+      }
+    },
+    "benchmarkPerformance": {
+      "@id": "eutex:benchmarkPerformance",
+      "@type": "xsd:decimal"
+    },
+    "biodegradable": {
+      "@id": "eutex:biodegradable",
+      "@type": "xsd:boolean"
+    },
+    "bleachingSymbol": {
+      "@id": "eutex:bleachingSymbol",
+      "@type": "@vocab",
+      "@context": {
+        "BleachAllowed": "eutex:BleachAllowed",
+        "DoNotBleach": "eutex:DoNotBleach",
+        "DoNotDryClean": "eutex:DoNotDryClean",
+        "DoNotIron": "eutex:DoNotIron",
+        "DoNotTumbleDry": "eutex:DoNotTumbleDry",
+        "DoNotWash": "eutex:DoNotWash",
+        "DripDry": "eutex:DripDry",
+        "DryCleanAny": "eutex:DryCleanAny",
+        "DryCleanHydrocarbon": "eutex:DryCleanHydrocarbon",
+        "DryCleanPCE": "eutex:DryCleanPCE",
+        "DryFlat": "eutex:DryFlat",
+        "IronHigh": "eutex:IronHigh",
+        "IronLow": "eutex:IronLow",
+        "IronMedium": "eutex:IronMedium",
+        "LineDry": "eutex:LineDry",
+        "NonChlorineBleach": "eutex:NonChlorineBleach",
+        "NoSteam": "eutex:NoSteam",
+        "TumbleDryHigh": "eutex:TumbleDryHigh",
+        "TumbleDryLow": "eutex:TumbleDryLow",
+        "TumbleDryMedium": "eutex:TumbleDryMedium",
+        "Wash30": "eutex:Wash30",
+        "Wash40": "eutex:Wash40",
+        "Wash60": "eutex:Wash60",
+        "WashGentle": "eutex:WashGentle",
+        "WashHandOnly": "eutex:WashHandOnly",
+        "WetClean": "eutex:WetClean"
+      }
+    },
+    "carbonFootprintClass": {
+      "@id": "eutex:carbonFootprintClass",
+      "@type": "xsd:integer"
+    },
+    "carbonFootprintManufacturing": {
+      "@id": "eutex:carbonFootprintManufacturing",
+      "@type": "xsd:decimal"
+    },
+    "careInstructions": {
+      "@id": "eutex:careInstructions",
+      "@type": "@id"
+    },
+    "chainOfCustodyMethod": {
+      "@id": "eutex:chainOfCustodyMethod",
+      "@type": "@vocab",
+      "@context": {
+        "Certified": "eutex:Certified",
+        "IdentityPreserved": "eutex:IdentityPreserved",
+        "MassBalance": "eutex:MassBalance",
+        "Segregation": "eutex:Segregation"
+      }
+    },
+    "chemicalPurpose": {
+      "@id": "eutex:chemicalPurpose",
+      "@type": "xsd:string"
+    },
+    "cleaningCyclesBeforeTest": {
+      "@id": "eutex:cleaningCyclesBeforeTest",
+      "@type": "xsd:integer"
+    },
+    "clpHazardCategory": {
+      "@id": "eutex:clpHazardCategory",
+      "@type": "@vocab",
+      "@context": {
+        "AquaticToxicity": "eutex:AquaticToxicity",
+        "CMR": "eutex:CMR",
+        "EndocrineDisruptor": "eutex:EndocrineDisruptor",
+        "PMT": "eutex:PMT",
+        "Sensitizer": "eutex:Sensitizer"
+      }
+    },
+    "colorFastness": {
+      "@id": "eutex:colorFastness",
+      "@type": "xsd:integer"
+    },
+    "colourChangeRating": {
+      "@id": "eutex:colourChangeRating",
+      "@type": "xsd:integer"
+    },
+    "concentrationRange": {
+      "@id": "eutex:concentrationRange",
+      "@type": "xsd:string"
+    },
+    "containsAnimalNonTextileParts": {
+      "@id": "eutex:containsAnimalNonTextileParts",
+      "@type": "xsd:boolean"
+    },
+    "cutAndSewFacility": {
+      "@id": "eutex:cutAndSewFacility",
+      "@type": "@id"
+    },
+    "dataTypeIndicator": {
+      "@id": "eutex:dataTypeIndicator",
+      "@type": "@vocab",
+      "@context": {
+        "MixedData": "eutex:MixedData",
+        "PrimaryData": "eutex:PrimaryData",
+        "SecondaryData": "eutex:SecondaryData"
+      }
+    },
+    "dimensionalChangePercentage": {
+      "@id": "eutex:dimensionalChangePercentage",
+      "@type": "xsd:decimal"
+    },
+    "dimensionalChangeScore": {
+      "@id": "eutex:dimensionalChangeScore",
+      "@type": "xsd:integer"
+    },
+    "dimensionalChangeTest": {
+      "@id": "eutex:dimensionalChangeTest",
+      "@type": "@id"
+    },
+    "dimensionalChangeTestMethod": {
+      "@id": "eutex:dimensionalChangeTestMethod",
+      "@type": "xsd:string"
+    },
+    "dimensionalStability": {
+      "@id": "eutex:dimensionalStability",
+      "@type": "xsd:decimal"
+    },
+    "dryCleaningSymbol": {
+      "@id": "eutex:dryCleaningSymbol",
+      "@type": "@vocab",
+      "@context": {
+        "BleachAllowed": "eutex:BleachAllowed",
+        "DoNotBleach": "eutex:DoNotBleach",
+        "DoNotDryClean": "eutex:DoNotDryClean",
+        "DoNotIron": "eutex:DoNotIron",
+        "DoNotTumbleDry": "eutex:DoNotTumbleDry",
+        "DoNotWash": "eutex:DoNotWash",
+        "DripDry": "eutex:DripDry",
+        "DryCleanAny": "eutex:DryCleanAny",
+        "DryCleanHydrocarbon": "eutex:DryCleanHydrocarbon",
+        "DryCleanPCE": "eutex:DryCleanPCE",
+        "DryFlat": "eutex:DryFlat",
+        "IronHigh": "eutex:IronHigh",
+        "IronLow": "eutex:IronLow",
+        "IronMedium": "eutex:IronMedium",
+        "LineDry": "eutex:LineDry",
+        "NonChlorineBleach": "eutex:NonChlorineBleach",
+        "NoSteam": "eutex:NoSteam",
+        "TumbleDryHigh": "eutex:TumbleDryHigh",
+        "TumbleDryLow": "eutex:TumbleDryLow",
+        "TumbleDryMedium": "eutex:TumbleDryMedium",
+        "Wash30": "eutex:Wash30",
+        "Wash40": "eutex:Wash40",
+        "Wash60": "eutex:Wash60",
+        "WashGentle": "eutex:WashGentle",
+        "WashHandOnly": "eutex:WashHandOnly",
+        "WetClean": "eutex:WetClean"
+      }
+    },
+    "dryingSymbol": {
+      "@id": "eutex:dryingSymbol",
+      "@type": "@vocab",
+      "@context": {
+        "BleachAllowed": "eutex:BleachAllowed",
+        "DoNotBleach": "eutex:DoNotBleach",
+        "DoNotDryClean": "eutex:DoNotDryClean",
+        "DoNotIron": "eutex:DoNotIron",
+        "DoNotTumbleDry": "eutex:DoNotTumbleDry",
+        "DoNotWash": "eutex:DoNotWash",
+        "DripDry": "eutex:DripDry",
+        "DryCleanAny": "eutex:DryCleanAny",
+        "DryCleanHydrocarbon": "eutex:DryCleanHydrocarbon",
+        "DryCleanPCE": "eutex:DryCleanPCE",
+        "DryFlat": "eutex:DryFlat",
+        "IronHigh": "eutex:IronHigh",
+        "IronLow": "eutex:IronLow",
+        "IronMedium": "eutex:IronMedium",
+        "LineDry": "eutex:LineDry",
+        "NonChlorineBleach": "eutex:NonChlorineBleach",
+        "NoSteam": "eutex:NoSteam",
+        "TumbleDryHigh": "eutex:TumbleDryHigh",
+        "TumbleDryLow": "eutex:TumbleDryLow",
+        "TumbleDryMedium": "eutex:TumbleDryMedium",
+        "Wash30": "eutex:Wash30",
+        "Wash40": "eutex:Wash40",
+        "Wash60": "eutex:Wash60",
+        "WashGentle": "eutex:WashGentle",
+        "WashHandOnly": "eutex:WashHandOnly",
+        "WetClean": "eutex:WetClean"
+      }
+    },
+    "durabilityClass": {
+      "@id": "eutex:durabilityClass",
+      "@type": "@vocab",
+      "@context": {
+        "DurabilityA": "eutex:DurabilityA",
+        "DurabilityB": "eutex:DurabilityB",
+        "DurabilityC": "eutex:DurabilityC",
+        "DurabilityD": "eutex:DurabilityD",
+        "DurabilityE": "eutex:DurabilityE"
+      }
+    },
+    "durabilityInfo": {
+      "@id": "eutex:durabilityInfo",
+      "@type": "@id"
+    },
+    "dyeingFacility": {
+      "@id": "eutex:dyeingFacility",
+      "@type": "@id"
+    },
+    "ecNumber": {
+      "@id": "eutex:ecNumber",
+      "@type": "xsd:string"
+    },
+    "elastaneContentPercent": {
+      "@id": "eutex:elastaneContentPercent",
+      "@type": "xsd:decimal"
+    },
+    "endOfLifeDestination": {
+      "@id": "eutex:endOfLifeDestination",
+      "@type": "xsd:string"
+    },
+    "endOfLifeHandling": {
+      "@id": "eutex:endOfLifeHandling",
+      "@type": "xsd:string"
+    },
+    "energyUsage": {
+      "@id": "eutex:energyUsage",
+      "@type": "@id"
+    },
+    "environmentalFootprint": {
+      "@id": "eutex:environmentalFootprint",
+      "@type": "@id"
+    },
+    "environmentalFootprintClass": {
+      "@id": "eutex:environmentalFootprintClass",
+      "@type": "xsd:integer"
+    },
+    "euDeclarationOfConformity": {
+      "@id": "eutex:euDeclarationOfConformity",
+      "@type": "@id"
+    },
+    "euEcolabel": {
+      "@id": "eutex:euEcolabel",
+      "@type": "xsd:boolean"
+    },
+    "expectedLifetimeYears": {
+      "@id": "eutex:expectedLifetimeYears",
+      "@type": "xsd:integer"
+    },
+    "expectedWashCycles": {
+      "@id": "eutex:expectedWashCycles",
+      "@type": "xsd:integer"
+    },
+    "fabricAppearanceRating": {
+      "@id": "eutex:fabricAppearanceRating",
+      "@type": "xsd:integer"
+    },
+    "fabricType": {
+      "@id": "eutex:fabricType",
+      "@type": "@vocab",
+      "@context": {
+        "Denim": "eutex:Denim",
+        "Knitted": "eutex:Knitted",
+        "WovenNonDenim": "eutex:WovenNonDenim"
+      }
+    },
+    "fiberCertification": {
+      "@id": "eutex:fiberCertification",
+      "@type": "@id"
+    },
+    "fiberOrigin": {
+      "@id": "eutex:fiberOrigin",
+      "@type": "xsd:string"
+    },
+    "finishingFacility": {
+      "@id": "eutex:finishingFacility",
+      "@type": "@id"
+    },
+    "freeFromCoatings": {
+      "@id": "eutex:freeFromCoatings",
+      "@type": "xsd:boolean"
+    },
+    "freeFromDyes": {
+      "@id": "eutex:freeFromDyes",
+      "@type": "xsd:boolean"
+    },
+    "freeFromPrintings": {
+      "@id": "eutex:freeFromPrintings",
+      "@type": "xsd:boolean"
+    },
+    "freeFromSequins": {
+      "@id": "eutex:freeFromSequins",
+      "@type": "xsd:boolean"
+    },
+    "garmentType": {
+      "@id": "eutex:garmentType",
+      "@type": "xsd:string"
+    },
+    "hasTakeBackProgram": {
+      "@id": "eutex:hasTakeBackProgram",
+      "@type": "xsd:boolean"
+    },
+    "ironingSymbol": {
+      "@id": "eutex:ironingSymbol",
+      "@type": "@vocab",
+      "@context": {
+        "BleachAllowed": "eutex:BleachAllowed",
+        "DoNotBleach": "eutex:DoNotBleach",
+        "DoNotDryClean": "eutex:DoNotDryClean",
+        "DoNotIron": "eutex:DoNotIron",
+        "DoNotTumbleDry": "eutex:DoNotTumbleDry",
+        "DoNotWash": "eutex:DoNotWash",
+        "DripDry": "eutex:DripDry",
+        "DryCleanAny": "eutex:DryCleanAny",
+        "DryCleanHydrocarbon": "eutex:DryCleanHydrocarbon",
+        "DryCleanPCE": "eutex:DryCleanPCE",
+        "DryFlat": "eutex:DryFlat",
+        "IronHigh": "eutex:IronHigh",
+        "IronLow": "eutex:IronLow",
+        "IronMedium": "eutex:IronMedium",
+        "LineDry": "eutex:LineDry",
+        "NonChlorineBleach": "eutex:NonChlorineBleach",
+        "NoSteam": "eutex:NoSteam",
+        "TumbleDryHigh": "eutex:TumbleDryHigh",
+        "TumbleDryLow": "eutex:TumbleDryLow",
+        "TumbleDryMedium": "eutex:TumbleDryMedium",
+        "Wash30": "eutex:Wash30",
+        "Wash40": "eutex:Wash40",
+        "Wash60": "eutex:Wash60",
+        "WashGentle": "eutex:WashGentle",
+        "WashHandOnly": "eutex:WashHandOnly",
+        "WetClean": "eutex:WetClean"
+      }
+    },
+    "isMonoMaterial": {
+      "@id": "eutex:isMonoMaterial",
+      "@type": "xsd:boolean"
+    },
+    "isMRSLCompliant": {
+      "@id": "eutex:isMRSLCompliant",
+      "@type": "xsd:boolean"
+    },
+    "isRecyclable": {
+      "@id": "eutex:isRecyclable",
+      "@type": "xsd:boolean"
+    },
+    "isRecycledFiber": {
+      "@id": "eutex:isRecycledFiber",
+      "@type": "xsd:boolean"
+    },
+    "isRepairable": {
+      "@id": "eutex:isRepairable",
+      "@type": "xsd:boolean"
+    },
+    "lciaCategories": {
+      "@id": "eutex:lciaCategories",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "lciaCategoryCode": {
+      "@id": "eutex:lciaCategoryCode",
+      "@type": "@vocab",
+      "@context": {
+        "Acidification": "eutex:Acidification",
+        "Ecotoxicity": "eutex:Ecotoxicity",
+        "Eutrophication": "eutex:Eutrophication",
+        "GWP": "eutex:GWP",
+        "HumanToxicity": "eutex:HumanToxicity",
+        "WaterUse": "eutex:WaterUse"
+      }
+    },
+    "lciaUnit": {
+      "@id": "eutex:lciaUnit",
+      "@type": "xsd:string"
+    },
+    "lciaValue": {
+      "@id": "eutex:lciaValue",
+      "@type": "xsd:decimal"
+    },
+    "locationInProduct": {
+      "@id": "eutex:locationInProduct",
+      "@type": "xsd:string"
+    },
+    "maxConcentration": {
+      "@id": "eutex:maxConcentration",
+      "@type": "xsd:decimal"
+    },
+    "meetsTargetThreshold": {
+      "@id": "eutex:meetsTargetThreshold",
+      "@type": "xsd:boolean"
+    },
+    "microplasticInfo": {
+      "@id": "eutex:microplasticInfo",
+      "@type": "@id"
+    },
+    "microplasticMitigationMeasures": {
+      "@id": "eutex:microplasticMitigationMeasures",
+      "@type": "xsd:string"
+    },
+    "microplasticRiskLevel": {
+      "@id": "eutex:microplasticRiskLevel",
+      "@type": "@vocab",
+      "@context": {
+        "HighShedding": "eutex:HighShedding",
+        "LowShedding": "eutex:LowShedding",
+        "MediumShedding": "eutex:MediumShedding"
+      }
+    },
+    "nonTextilePartsRating": {
+      "@id": "eutex:nonTextilePartsRating",
+      "@type": "xsd:integer"
+    },
+    "organicContentMass": {
+      "@id": "eutex:organicContentMass",
+      "@type": "xsd:decimal"
+    },
+    "organicContentPercentage": {
+      "@id": "eutex:organicContentPercentage",
+      "@type": "xsd:decimal"
+    },
+    "pefcrReference": {
+      "@id": "eutex:pefcrReference",
+      "@type": "xsd:string"
+    },
+    "pefSingleScore": {
+      "@id": "eutex:pefSingleScore",
+      "@type": "xsd:decimal"
+    },
+    "pfasFree": {
+      "@id": "eutex:pfasFree",
+      "@type": "xsd:boolean"
+    },
+    "pillingResistance": {
+      "@id": "eutex:pillingResistance",
+      "@type": "xsd:integer"
+    },
+    "productionWastePercentage": {
+      "@id": "eutex:productionWastePercentage",
+      "@type": "xsd:decimal"
+    },
+    "recyclabilityAssessment": {
+      "@id": "eutex:recyclabilityAssessment",
+      "@type": "@id"
+    },
+    "recyclabilityScore": {
+      "@id": "eutex:recyclabilityScore",
+      "@type": "xsd:decimal"
+    },
+    "recycledContentDeclaration": {
+      "@id": "eutex:recycledContentDeclaration",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "recycledContentSource": {
+      "@id": "eutex:recycledContentSource",
+      "@type": "xsd:string"
+    },
+    "recycledSourceType": {
+      "@id": "eutex:recycledSourceType",
+      "@type": "@vocab",
+      "@context": {
+        "FiberToFiber": "eutex:FiberToFiber",
+        "OpenLoop": "eutex:OpenLoop"
+      }
+    },
+    "repairGuideUrl": {
+      "@id": "eutex:repairGuideUrl",
+      "@type": "@id"
+    },
+    "repairServices": {
+      "@id": "eutex:repairServices",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "robustnessAssessment": {
+      "@id": "eutex:robustnessAssessment",
+      "@type": "@id"
+    },
+    "robustnessScore": {
+      "@id": "eutex:robustnessScore",
+      "@type": "xsd:decimal"
+    },
+    "robustnessTestFabricType": {
+      "@id": "eutex:robustnessTestFabricType",
+      "@type": "@vocab",
+      "@context": {
+        "Denim": "eutex:Denim",
+        "Knitted": "eutex:Knitted",
+        "WovenNonDenim": "eutex:WovenNonDenim"
+      }
+    },
+    "safeUseInstructions": {
+      "@id": "eutex:safeUseInstructions",
+      "@type": "xsd:string"
+    },
+    "sameInnerOuterComposition": {
+      "@id": "eutex:sameInnerOuterComposition",
+      "@type": "xsd:boolean"
+    },
+    "seamAppearanceRating": {
+      "@id": "eutex:seamAppearanceRating",
+      "@type": "xsd:integer"
+    },
+    "seasonCollection": {
+      "@id": "eutex:seasonCollection",
+      "@type": "xsd:string"
+    },
+    "secondaryMaterialFraction": {
+      "@id": "eutex:secondaryMaterialFraction",
+      "@type": "xsd:decimal"
+    },
+    "sheddingRate": {
+      "@id": "eutex:sheddingRate",
+      "@type": "@id"
+    },
+    "sizeRange": {
+      "@id": "eutex:sizeRange",
+      "@type": "xsd:string"
+    },
+    "socType": {
+      "@id": "eutex:socType",
+      "@type": "@vocab",
+      "@context": {
+        "SoCTypeA": "eutex:SoCTypeA",
+        "SoCTypeB": "eutex:SoCTypeB",
+        "SoCTypeC": "eutex:SoCTypeC",
+        "SoCTypeD": "eutex:SoCTypeD"
+      }
+    },
+    "sortingFactors": {
+      "@id": "eutex:sortingFactors",
+      "@type": "@id"
+    },
+    "sparePartsAvailable": {
+      "@id": "eutex:sparePartsAvailable",
+      "@type": "xsd:boolean"
+    },
+    "sparePartsUrl": {
+      "@id": "eutex:sparePartsUrl",
+      "@type": "@id"
+    },
+    "spinningFacility": {
+      "@id": "eutex:spinningFacility",
+      "@type": "@id"
+    },
+    "spiralityPercentage": {
+      "@id": "eutex:spiralityPercentage",
+      "@type": "xsd:decimal"
+    },
+    "spiralityScore": {
+      "@id": "eutex:spiralityScore",
+      "@type": "xsd:integer"
+    },
+    "spiralityTest": {
+      "@id": "eutex:spiralityTest",
+      "@type": "@id"
+    },
+    "spiralityTestMethod": {
+      "@id": "eutex:spiralityTestMethod",
+      "@type": "xsd:string"
+    },
+    "substanceConcentration": {
+      "@id": "eutex:substanceConcentration",
+      "@type": "xsd:decimal"
+    },
+    "substancesOfConcern": {
+      "@id": "eutex:substancesOfConcern",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "syntheticFiberContent": {
+      "@id": "eutex:syntheticFiberContent",
+      "@type": "xsd:decimal"
+    },
+    "takeBackIncentive": {
+      "@id": "eutex:takeBackIncentive",
+      "@type": "xsd:string"
+    },
+    "takeBackProgram": {
+      "@id": "eutex:takeBackProgram",
+      "@type": "@id"
+    },
+    "takeBackUrl": {
+      "@id": "eutex:takeBackUrl",
+      "@type": "@id"
+    },
+    "tearStrength": {
+      "@id": "eutex:tearStrength",
+      "@type": "@id"
+    },
+    "technicalRecyclability": {
+      "@id": "eutex:technicalRecyclability",
+      "@type": "@id"
+    },
+    "technicalRecyclabilityScore": {
+      "@id": "eutex:technicalRecyclabilityScore",
+      "@type": "xsd:decimal"
+    },
+    "tensileStrength": {
+      "@id": "eutex:tensileStrength",
+      "@type": "@id"
+    },
+    "testStandard": {
+      "@id": "eutex:testStandard",
+      "@type": "@vocab",
+      "@context": {
+        "ISO105": "eutex:ISO105",
+        "ISO12945": "eutex:ISO12945",
+        "ISO12947": "eutex:ISO12947",
+        "ISO15487": "eutex:ISO15487",
+        "ISO16322_3": "eutex:ISO16322_3",
+        "ISO3759": "eutex:ISO3759",
+        "ISO6330": "eutex:ISO6330"
+      }
+    },
+    "textileChemicals": {
+      "@id": "eutex:textileChemicals",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "textileFibreScientificName": {
+      "@id": "eutex:textileFibreScientificName",
+      "@type": "xsd:string"
+    },
+    "verificationCertification": {
+      "@id": "eutex:verificationCertification",
+      "@type": "@id"
+    },
+    "visualInspection": {
+      "@id": "eutex:visualInspection",
+      "@type": "@id"
+    },
+    "visualInspectionScore": {
+      "@id": "eutex:visualInspectionScore",
+      "@type": "xsd:integer"
+    },
+    "visualInspectionTestMethod": {
+      "@id": "eutex:visualInspectionTestMethod",
+      "@type": "xsd:string"
+    },
+    "washingSymbol": {
+      "@id": "eutex:washingSymbol",
+      "@type": "@vocab",
+      "@context": {
+        "BleachAllowed": "eutex:BleachAllowed",
+        "DoNotBleach": "eutex:DoNotBleach",
+        "DoNotDryClean": "eutex:DoNotDryClean",
+        "DoNotIron": "eutex:DoNotIron",
+        "DoNotTumbleDry": "eutex:DoNotTumbleDry",
+        "DoNotWash": "eutex:DoNotWash",
+        "DripDry": "eutex:DripDry",
+        "DryCleanAny": "eutex:DryCleanAny",
+        "DryCleanHydrocarbon": "eutex:DryCleanHydrocarbon",
+        "DryCleanPCE": "eutex:DryCleanPCE",
+        "DryFlat": "eutex:DryFlat",
+        "IronHigh": "eutex:IronHigh",
+        "IronLow": "eutex:IronLow",
+        "IronMedium": "eutex:IronMedium",
+        "LineDry": "eutex:LineDry",
+        "NonChlorineBleach": "eutex:NonChlorineBleach",
+        "NoSteam": "eutex:NoSteam",
+        "TumbleDryHigh": "eutex:TumbleDryHigh",
+        "TumbleDryLow": "eutex:TumbleDryLow",
+        "TumbleDryMedium": "eutex:TumbleDryMedium",
+        "Wash30": "eutex:Wash30",
+        "Wash40": "eutex:Wash40",
+        "Wash60": "eutex:Wash60",
+        "WashGentle": "eutex:WashGentle",
+        "WashHandOnly": "eutex:WashHandOnly",
+        "WetClean": "eutex:WetClean"
+      }
+    },
+    "wasteOriginType": {
+      "@id": "eutex:wasteOriginType",
+      "@type": "@vocab",
+      "@context": {
+        "PostConsumer": "eutex:PostConsumer",
+        "PostIndustrial": "eutex:PostIndustrial"
+      }
+    },
+    "waterUsage": {
+      "@id": "eutex:waterUsage",
+      "@type": "@id"
+    },
+    "weavingFacility": {
+      "@id": "eutex:weavingFacility",
+      "@type": "@id"
+    },
+    "weightExcludingTrims": {
+      "@id": "eutex:weightExcludingTrims",
+      "@type": "xsd:decimal"
+    },
+    "Product": "gs1:Product",
+    "productName": "gs1:productName",
+    "gtin": "gs1:gtin",
+    "TextileMaterialDetails": "gs1:TextileMaterialDetails",
+    "textileMaterial": {
+      "@id": "gs1:textileMaterial",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "textileMaterialPercentage": "gs1:textileMaterialPercentage",
+    "textileMaterialDescription": {
+      "@id": "gs1:textileMaterialDescription"
+    },
+    "Clothing": "gs1:Clothing",
+    "WearableProduct": "gs1:WearableProduct",
+    "QuantitativeValue": "gs1:QuantitativeValue",
+    "value": {
+      "@id": "gs1:value",
+      "@type": "xsd:decimal"
+    },
+    "unitCode": "gs1:unitCode",
+    "CertificationDetails": "gs1:CertificationDetails",
+    "certificationAgency": "gs1:certificationAgency",
+    "certificationValue": "gs1:certificationValue",
+    "certificationStandard": "gs1:certificationStandard",
+    "textileCategory": {
+      "@id": "schema:category",
+      "@type": "@vocab",
+      "@context": {
+        "Apparel": "eutex:Apparel",
+        "Footwear": "eutex:Footwear",
+        "HomeTextiles": "eutex:HomeTextiles",
+        "TechnicalTextiles": "eutex:TechnicalTextiles",
+        "Accessories": "eutex:Accessories"
+      }
+    },
+    "recyclingInstructions": "gs1:consumerRecyclingInstructions",
+    "chemicalName": "schema:name",
+    "targetGender": "gs1:targetConsumerGender",
+    "iupacName": "schema:iupacName",
+    "casNumber": "oec:casNumber"
+  }
+}

@@ -22,6 +22,42 @@ const RDFS = "http://www.w3.org/2000/01/rdf-schema#";
 export const URL_TO_FILE: Record<string, string> = {
   "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld":
     "extensions/common/core/context/dpp-core-context.jsonld",
+  "https://ref.openepcis.io/extensions/common/core/dpp-operational-context.jsonld":
+    "extensions/common/core/context/dpp-operational-context.jsonld",
+  "https://ref.openepcis.io/extensions/common/core/dpp-core-shortcut-context.jsonld":
+    "extensions/common/core/context/dpp-core-shortcut-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/battery/battery-shortcut-context.jsonld":
+    "extensions/eu/battery/context/battery-shortcut-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/textile/textile-shortcut-context.jsonld":
+    "extensions/eu/textile/context/textile-shortcut-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/electronics/electronics-shortcut-context.jsonld":
+    "extensions/eu/electronics/context/electronics-shortcut-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/eudr/eudr-shortcut-context.jsonld":
+    "extensions/eu/eudr/context/eudr-shortcut-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-shortcut-context.jsonld":
+    "extensions/eu/ppwr/context/ppwr-shortcut-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/cpr/cpr-shortcut-context.jsonld":
+    "extensions/eu/cpr/context/cpr-shortcut-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/detergent/detergent-shortcut-context.jsonld":
+    "extensions/eu/detergent/context/detergent-shortcut-context.jsonld",
+  "https://ref.openepcis.io/extensions/us/fsma204/fsma204-shortcut-context.jsonld":
+    "extensions/us/fsma204/context/fsma204-shortcut-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/battery/battery-operational-context.jsonld":
+    "extensions/eu/battery/context/battery-operational-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/textile/textile-operational-context.jsonld":
+    "extensions/eu/textile/context/textile-operational-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/electronics/electronics-operational-context.jsonld":
+    "extensions/eu/electronics/context/electronics-operational-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/eudr/eudr-operational-context.jsonld":
+    "extensions/eu/eudr/context/eudr-operational-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-operational-context.jsonld":
+    "extensions/eu/ppwr/context/ppwr-operational-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/cpr/cpr-operational-context.jsonld":
+    "extensions/eu/cpr/context/cpr-operational-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/detergent/detergent-operational-context.jsonld":
+    "extensions/eu/detergent/context/detergent-operational-context.jsonld",
+  "https://ref.openepcis.io/extensions/us/fsma204/fsma204-operational-context.jsonld":
+    "extensions/us/fsma204/context/fsma204-operational-context.jsonld",
   "https://ref.openepcis.io/extensions/common/core/gs1-shortcuts-context.jsonld":
     "extensions/common/core/context/gs1-shortcuts-context.jsonld",
   "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld":
@@ -42,12 +78,28 @@ export const URL_TO_FILE: Record<string, string> = {
     "extensions/eu/detergent/context/detergent-context.jsonld",
   "https://ref.openepcis.io/extensions/us/fsma204/fsma204-context.jsonld":
     "extensions/us/fsma204/context/fsma204-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/iron-steel/iron-steel-context.jsonld":
+    "extensions/eu/iron-steel/context/iron-steel-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/iron-steel/iron-steel-shortcut-context.jsonld":
+    "extensions/eu/iron-steel/context/iron-steel-shortcut-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/iron-steel/iron-steel-operational-context.jsonld":
+    "extensions/eu/iron-steel/context/iron-steel-operational-context.jsonld",
+};
+
+// Loader-only mappings (NOT bundled into the browser demo's contexts.json, which
+// iterates URL_TO_FILE). The GS1 Web Vocabulary context is large and only needed
+// by upstream-referencing docs (e.g. the resolver Organization records); vendoring
+// it keeps the CLI/tooling fully offline and deterministic.
+const LOADER_ONLY: Record<string, string> = {
+  "https://ref.gs1.org/voc/": "vendor/gs1/gs1Voc.jsonld",
+  "https://ref.gs1.org/voc/data/gs1Voc.jsonld": "vendor/gs1/gs1Voc.jsonld",
 };
 
 const remoteCache = new Map<string, any>();
 export const documentLoader: DocumentLoader = async (url: string) => {
-  if (URL_TO_FILE[url]) {
-    const text = await fs.readFile(path.join(ROOT, URL_TO_FILE[url]), "utf8");
+  const local = URL_TO_FILE[url] ?? LOADER_ONLY[url];
+  if (local) {
+    const text = await fs.readFile(path.join(ROOT, local), "utf8");
     return { contextUrl: undefined, documentUrl: url, document: JSON.parse(text) };
   }
   if (!remoteCache.has(url)) {

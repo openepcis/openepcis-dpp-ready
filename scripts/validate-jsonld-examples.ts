@@ -84,6 +84,17 @@ const FATAL_CODES = new Set<string>([
   'relative @vocab mapping',
 ]);
 
+// Recursively drop underscore-prefixed editorial keys (e.g. _comment).
+function stripEditorial(o: any): any {
+  if (Array.isArray(o)) return o.map(stripEditorial);
+  if (o && typeof o === 'object') {
+    return Object.fromEntries(
+      Object.entries(o).filter(([k]) => !k.startsWith('_')).map(([k, v]) => [k, stripEditorial(v)]),
+    );
+  }
+  return o;
+}
+
 async function validateFile(filePath: string, documentLoader: DocumentLoader) {
   const rel = path.relative(ROOT, filePath);
   let raw: any;
@@ -93,6 +104,10 @@ async function validateFile(filePath: string, documentLoader: DocumentLoader) {
     return { file: rel, drops: [] as DropEvent[], error: `parse: ${e.message}` };
   }
   if (!raw['@context']) return { file: rel, drops: [], error: 'no @context' };
+  // Editorial keys (underscore-prefixed, e.g. _comment) are intentional
+  // documentation, not data; they never expand. Strip them before expanding so
+  // they are not reported as lost properties (the round-trip gate does the same).
+  raw = stripEditorial(raw);
 
   const drops: DropEvent[] = [];
 
