@@ -1,0 +1,257 @@
+{
+  "_comment_gs1_alignment": [
+    "Organic Tee — model-level textile DPP for the demo catalogue (GTIN 09521890340331, manufacturer Organic Corp.).",
+    "Same GS1-aligned patterns as garment-product.jsonld, trimmed to a plain organic-cotton t-shirt:",
+    "- GS1 Digital Link URI (https://id.demo.epcis.cloud/01/{GTIN}), model level (no serial).",
+    "- gs1:Clothing base type + eutex:TextileApparel dual-typing.",
+    "- gs1:textileMaterial with a single 100% organic-cotton gs1:TextileMaterialDetails (GOTS certified).",
+    "- Product images are injected as bare `referencedFile` by provision-demo.sh at POST time; not listed here.",
+    "See EXTENSION-GOVERNANCE.md for rationale on each extension term."
+  ],
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
+  ],
+  "id": "https://id.demo.epcis.cloud/01/09521890340331",
+  "type": [
+    "gs1:Clothing",
+    "eutex:TextileApparel"
+  ],
+  "gs1:gtin": "09521890340331",
+  "gs1:productName": [
+    {
+      "@value": "Organic Tee",
+      "@language": "en"
+    },
+    {
+      "@value": "Bio-T-Shirt",
+      "@language": "de"
+    },
+    {
+      "@value": "T-shirt bio",
+      "@language": "fr"
+    },
+    {
+      "@value": "Camiseta orgánica",
+      "@language": "es"
+    }
+  ],
+  "gs1:productDescription": [
+    {
+      "@value": "Soft everyday t-shirt in a calm eucalyptus green-teal, made from 100% GOTS-certified organic cotton jersey. Designed for durability, comfort and easy recycling at end of life.",
+      "@language": "en"
+    },
+    {
+      "@value": "Weiches Alltags-T-Shirt in ruhigem Eukalyptus-Grünblau aus 100% GOTS-zertifizierter Bio-Baumwolle. Auf Langlebigkeit, Tragekomfort und einfache Wiederverwertung ausgelegt.",
+      "@language": "de"
+    }
+  ],
+  "schema:category": {
+    "@id": "eutex:Apparel"
+  },
+  "eutex:garmentType": "T-Shirt",
+  "gs1:targetConsumerGender": {
+    "id": "gs1:TargetConsumerGenderCode-UNISEX"
+  },
+  "eutex:sizeRange": "XS-3XL",
+  "eutex:seasonCollection": "SS2026",
+  "eutex:fabricType": {
+    "@id": "eutex:Knitted"
+  },
+  "eutex:apparelSubcategory": {
+    "@id": "eutex:TShirts"
+  },
+  "gs1:manufacturer": {
+    "id": "https://id.demo.epcis.cloud/417/9521890000013",
+    "type": "gs1:Organization",
+    "gs1:organizationName": "Organic Corp.",
+    "gs1:globalLocationNumber": "9521890000013",
+    "gs1:address": {
+      "id": "https://id.demo.epcis.cloud/417/9521890000013#address",
+      "type": "gs1:PostalAddress",
+      "gs1:streetAddress": "Baumwollallee 8",
+      "gs1:addressLocality": "Hamburg",
+      "gs1:postalCode": "20095",
+      "gs1:addressCountry": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "DE"
+      }
+    },
+    "gs1:contactPoint": {
+      "type": "gs1:ContactPoint",
+      "gs1:email": "info@organic-corp.example.com",
+      "schema:url": {
+        "id": "https://files.demo.epcis.cloud/files/products/09521890340331/docs/company.pdf"
+      }
+    }
+  },
+  "oec:operatorInformation": {
+    "id": "https://id.demo.epcis.cloud/417/9521890000013#operator",
+    "type": "oec:OperatorInformation",
+    "gs1:globalLocationNumber": "9521890000013",
+    "gs1:organizationName": "Organic Corp.",
+    "oec:operatorRole": {
+      "id": "oec:Manufacturer"
+    },
+    "gs1:address": {
+      "type": "gs1:PostalAddress",
+      "gs1:streetAddress": "Baumwollallee 8",
+      "gs1:addressLocality": "Hamburg",
+      "gs1:postalCode": "20095",
+      "gs1:addressCountry": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "DE"
+      }
+    },
+    "gs1:contactPoint": {
+      "type": "gs1:ContactPoint",
+      "gs1:email": "sustainability@organic-corp.example.com",
+      "gs1:telephone": "+49-40-555-0180"
+    }
+  },
+  "gs1:countryOfOrigin": {
+    "type": "gs1:Country",
+    "gs1:countryCode": "PT"
+  },
+  "gs1:productionDate": "2026-02-10",
+  "gs1:netWeight": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 0.18,
+    "gs1:unitCode": "KGM"
+  },
+  "_comment_composition": "100% GOTS-certified organic cotton (single-fibre knit). No synthetics, so no microplastic block is declared.",
+  "gs1:textileMaterial": [
+    {
+      "type": "gs1:TextileMaterialDetails",
+      "gs1:textileMaterialPercentage": 100,
+      "gs1:textileMaterialDescription": {
+        "@value": "Organic Cotton (Jersey knit)",
+        "@language": "en"
+      },
+      "eutex:fiberOrigin": "IN",
+      "eutex:isRecycledFiber": false,
+      "eutex:fiberCertification": {
+        "type": "gs1:CertificationDetails",
+        "gs1:certificationAgency": "Global Standard gGmbH",
+        "gs1:certificationStandard": "Global Organic Textile Standard (GOTS)",
+        "gs1:certificationValue": "GOTS-2026-IN-44120"
+      }
+    }
+  ],
+  "eutex:careInstructions": {
+    "id": "https://id.demo.epcis.cloud/01/09521890340331#care",
+    "type": "eutex:CareInstruction",
+    "eutex:washingSymbol": {
+      "@id": "eutex:Wash30"
+    },
+    "eutex:bleachingSymbol": {
+      "@id": "eutex:DoNotBleach"
+    },
+    "eutex:dryingSymbol": {
+      "@id": "eutex:TumbleDryLow"
+    },
+    "eutex:ironingSymbol": {
+      "@id": "eutex:IronMedium"
+    },
+    "eutex:dryCleaningSymbol": {
+      "@id": "eutex:DoNotDryClean"
+    },
+    "eutex:additionalCareInstructions": {
+      "@value": "Wash inside out with similar colours. Line dry to save energy and preserve the fabric.",
+      "@language": "en"
+    }
+  },
+  "eutex:durabilityInfo": {
+    "id": "https://id.demo.epcis.cloud/01/09521890340331#durability",
+    "type": "eutex:DurabilityInfo",
+    "eutex:expectedWashCycles": 60,
+    "eutex:durabilityClass": {
+      "@id": "eutex:DurabilityB"
+    },
+    "eutex:pillingResistance": 4,
+    "eutex:colorFastness": 4,
+    "eutex:dimensionalStability": 3,
+    "eutex:abrasionResistance": 25000,
+    "eutex:expectedLifetimeYears": 4
+  },
+  "_comment_recyclability": "Single-fibre organic cotton scores well on sorting/recyclability (no elastane, no coatings).",
+  "eutex:recyclabilityAssessment": {
+    "id": "https://id.demo.epcis.cloud/01/09521890340331#recyclability",
+    "type": "eutex:RecyclabilityAssessment",
+    "eutex:recyclabilityScore": 8.5,
+    "eutex:isRecyclable": true,
+    "eutex:elastaneContentPercent": 0,
+    "eutex:sortingFactors": {
+      "type": "eutex:SortingFactors",
+      "eutex:sameInnerOuterComposition": true,
+      "eutex:freeFromPrintings": true,
+      "eutex:freeFromCoatings": true,
+      "eutex:freeFromSequins": true
+    },
+    "eutex:technicalRecyclability": {
+      "type": "eutex:TechnicalRecyclability",
+      "eutex:technicalRecyclabilityScore": 5,
+      "eutex:applicableRecyclingTechnology": {
+        "@id": "eutex:MechanicalRecycling"
+      }
+    }
+  },
+  "oec:recycledContent": {
+    "id": "https://id.demo.epcis.cloud/01/09521890340331#recycled",
+    "type": "oec:RecycledContent",
+    "oec:totalRecycledShare": 0,
+    "oec:preConsumerShare": 0,
+    "oec:postConsumerShare": 0
+  },
+  "eutex:pfasFree": true,
+  "eutex:biodegradable": true,
+  "eutex:hasTakeBackProgram": true,
+  "eutex:takeBackProgram": {
+    "id": "https://id.demo.epcis.cloud/01/09521890340331#takeback",
+    "type": "eutex:TakeBackProgram",
+    "eutex:takeBackUrl": "https://files.demo.epcis.cloud/files/products/09521890340331/docs/take-back-programme.pdf",
+    "eutex:endOfLifeDestination": {
+      "@value": "Return to any Organic Corp. store for fiber-to-fiber recycling of pure cotton garments.",
+      "@language": "en"
+    }
+  },
+  "gs1:consumerRecyclingInstructions": {
+    "@value": "100% cotton — return to an Organic Corp. take-back point or textile recycling collection. Do not dispose of in household waste.",
+    "@language": "en"
+  },
+  "eutex:isRepairable": true,
+  "gs1:certification": [
+    {
+      "id": "https://id.demo.epcis.cloud/01/09521890340331#cert-gots",
+      "type": "gs1:CertificationDetails",
+      "gs1:certificationAgency": "Global Standard gGmbH",
+      "gs1:certificationStandard": "Global Organic Textile Standard (GOTS)",
+      "gs1:certificationIdentification": "GOTS-2026-ORGANIC-001",
+      "gs1:certificationStartDate": "2026-01-01",
+      "gs1:certificationEndDate": "2026-12-31"
+    },
+    {
+      "id": "https://id.demo.epcis.cloud/01/09521890340331#cert-oekotex",
+      "type": "gs1:CertificationDetails",
+      "gs1:certificationAgency": "OEKO-TEX Association",
+      "gs1:certificationStandard": "OEKO-TEX Standard 100",
+      "gs1:certificationIdentification": "SH025 654321 TESTEX"
+    }
+  ],
+  "oec:accessRights": {
+    "id": "https://id.demo.epcis.cloud/01/09521890340331#access",
+    "type": "oec:AccessRights",
+    "oec:accessLevel": {
+      "id": "oec:Public"
+    }
+  },
+  "oec:passportIdentifier": "https://id.demo.epcis.cloud/01/09521890340331",
+  "oec:passportVersion": "1.0",
+  "oec:passportIssueDate": "2026-02-15",
+  "oec:passportStatus": "Active",
+  "oec:productCategory": {
+    "id": "oec:Textiles"
+  },
+  "oec:lastDataUpdate": "2026-02-15T09:00:00Z",
+  "oec:dataQualityAssessment": "A"
+}

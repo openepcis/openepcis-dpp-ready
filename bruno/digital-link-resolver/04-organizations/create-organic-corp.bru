@@ -1,0 +1,56 @@
+meta {
+  name: Create Org — Organic Corp.
+  type: http
+  seq: 17
+}
+
+post {
+  url: {{dl-url}}/organizations
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  isAnonymousAccessAllowed: true
+}
+
+body:json {
+{
+  "@context": [
+    "https://ref.gs1.org/voc/",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld"
+  ],
+  "type": "Organization",
+  "glnType": "LEGAL_ENTITY",
+  "globalLocationNumber": "9521890000013",
+  "organizationName": {
+    "en": "Organic Corp.",
+    "de": "Organic Corp."
+  },
+  "organizationRole": "MANUFACTURER_OF_FINISHED_GOODS",
+  "address": {
+    "organizationName": {
+      "en": "Organic Corp."
+    },
+    "streetAddress": {
+      "en": "Baumwollallee 8"
+    },
+    "addressLocality": {
+      "en": "Hamburg"
+    },
+    "postalCode": "20095",
+    "countryCode": "DE"
+  },
+  "email": "info@organic-corp.example.com",
+  "telephone": "+49 40 555 0180",
+  "dpp:economicOperatorId": "DE-DPP-OP-018",
+  "dpp:operatorType": "dpp:Manufacturer"
+}
+}
+
+tests {
+  test("Organization created", function() {
+    expect(res.status).to.be.oneOf([200, 201, 202, 409]);
+  });
+}

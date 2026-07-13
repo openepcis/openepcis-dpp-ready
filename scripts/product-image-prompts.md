@@ -35,6 +35,21 @@ Recommended generation params: `steps=40`, `guidance=3.5`, `seed=<gtin>-<n>` for
 2. **Jacket detail** — Close-up of the lapel with hand-stitched edge, working buttonhole, and dimpled tie knot just below.
 3. **Trouser cuff** — Close-up of the trouser cuff with a single turn-up, sharp crease, sitting on a hardwood floor.
 
+### 09521890340331 — Organic Tee (Organic Corp.)
+
+Green-teal DPP hero set. Generated with Draw Things (Flux.2 Klein) via
+`scripts/gen-drawthings.sh 09521890340331`. This composition supplies its own
+lighting/background, so the common white-studio style suffix is **not** appended.
+Negative prompt: `text, printing, logo, letters, numbers, qr code, barcode,
+watermark, hangtag, price tag, swing tag, string, tablet, phone, device, screen,
+perspective distortion, tilted angle, oversaturated, cartoonish` (plus the
+fabric-specific wool negatives on the macro shot).
+
+1. **Hero flat-lay** — Clean product photograph, top-down flat lay shot straight from directly above, no perspective distortion. A single soft organic cotton t-shirt in a calm organic green-teal (around #8FB3A6) lies flat and fills most of the frame, short sleeves relaxed to the sides, crew neckline, fine cotton weave and gentle natural folds, high fabric detail. Nothing else in the scene: no hangtag, no label, no tablet, no props. Soft even natural daylight, gentle realistic shadows, seamless pale neutral surface. Muted eucalyptus and teal palette, soft and premium, minimalist modern corporate aesthetic, real studio photograph.
+   (An earlier variant staged a blank hangtag + tablet showing blurry DPP data — that was for an article; the catalogue image is the plain shirt.)
+2. **Folded** — Same organic-cotton tee neatly folded into a tidy rectangle, top-down, centred, crisp folded edges, fine cotton weave and subtle texture, a small blank sewn-in neck label peeking at the top fold, soft natural daylight, seamless pale neutral surface, same muted eucalyptus/teal palette.
+3. **Fabric macro** — Extreme close-up macro of lightweight fine single-jersey cotton t-shirt fabric in green-teal (#8FB3A6), smooth knit filling the frame edge to edge, single thin flat layer straight-on, very fine tight jersey of thin combed cotton yarn, tiny uniform V-shaped stitches, soft matte low-relief everyday t-shirt cotton (**not** wool, not a chunky/ribbed sweater), neutral daylight, shallow depth of field. Extra negatives: `wool, woolen, chunky knit, cable knit, ribbed sweater, coarse thick yarn, fuzzy fluffy fibres`.
+
 ### 09521234300038 — Casa Lina Organic Cotton Bed Linen Set
 1. **Folded stack** — Pure white organic cotton duvet cover folded into a neat square, matching pillowcase folded on top, percale weave subtly visible, overhead three-quarter view.
 2. **Made-up bed** — Same linen styled on a queen bed, light wrinkles, natural daylight from a side window.

@@ -63,6 +63,11 @@ ORGS: dict[str, dict] = {
         "name": "EcoFlow Packaging Sp. z o.o.",
         "country": "PL",
     },
+    "organic-corp": {
+        "gcp": "9521890",
+        "name": "Organic Corp.",
+        "country": "DE",
+    },
 }
 
 # Each product carries:
@@ -81,6 +86,7 @@ PRODUCTS: list[dict] = [
     {"slug": "beverage-bottle",     "org": "mountain-spring",   "item_ref": "00501"},
     {"slug": "multi-layer-pouch",   "org": "flexisnack",        "item_ref": "00080"},
     {"slug": "ecommerce-carton",    "org": "ecoflow-packaging", "item_ref": "00301"},
+    {"slug": "organic-tee",         "org": "organic-corp",      "item_ref": "34033"},
 ]
 
 

@@ -26,6 +26,7 @@
 #   SEED_PW=… SEED_CLIENT_SECRET=… scripts/provision-demo.sh --env=demo
 #   scripts/provision-demo.sh --env=demo --only=products      # one phase
 #   scripts/provision-demo.sh --env=demo --only=orgs,epcis
+#   scripts/provision-demo.sh --env=demo --gtin=09521890340331  # only this product
 #   scripts/provision-demo.sh --env=demo --events             # also capture EPCIS events
 #   scripts/provision-demo.sh --env=demo --dry-run
 #
@@ -35,15 +36,17 @@
 #   SEED_USER            override the seed user (default per-env; demo=demo-admin)
 #   Optional overrides: DL_URL FILES_URL AUTH_URL API_URL SEED_CLIENT_ID
 #
-# Phases (default: products orgs epcis verify): products, orgs, epcis, events, verify.
+# Phases (default: products docs orgs epcis verify): products, docs (generated
+# PDFs + shared symbols), orgs, epcis, events, verify.
 set -uo pipefail
 
 # ------------------------------------------------------------------ args
-ENV=demo; ONLY=""; DRY=0; WANT_EVENTS=0
+ENV=demo; ONLY=""; DRY=0; WANT_EVENTS=0; GTIN_FILTER=""
 for arg in "$@"; do
   case "$arg" in
     --env=*)   ENV="${arg#--env=}" ;;
     --only=*)  ONLY="${arg#--only=}" ;;
+    --gtin=*)  GTIN_FILTER="${arg#--gtin=}" ;;
     --events)  WANT_EVENTS=1 ;;
     --dry-run) DRY=1 ;;
     -h|--help) grep '^#' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
@@ -69,7 +72,7 @@ REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 IMAGES_DIR="${IMAGES_DIR:-$REPO_ROOT/scripts/images}"
 ORG_BRU_DIR="$REPO_ROOT/bruno/digital-link-resolver/04-organizations"
 
-PHASES="${ONLY:-products orgs epcis verify}"
+PHASES="${ONLY:-products docs orgs epcis verify}"
 PHASES="${PHASES//,/ }"
 [ "$WANT_EVENTS" -eq 1 ] && PHASES="$PHASES events"
 
@@ -78,6 +81,8 @@ red(){ printf '\033[31m%s\033[0m\n' "$*"; }
 grn(){ printf '\033[32m%s\033[0m\n' "$*"; }
 ylw(){ printf '\033[33m%s\033[0m\n' "$*"; }
 has(){ [[ " $PHASES " == *" $1 "* ]]; }
+# --gtin filter: when set, only the matching GTIN is provisioned/verified.
+gtin_selected(){ [[ -z "$GTIN_FILTER" || "$1" == "$GTIN_FILTER" ]]; }
 
 # ------------------------------------------------------------------ catalogue
 # gtin | seed JSON-LD (repo-relative) | image slug | description
@@ -93,6 +98,7 @@ PRODUCTS=(
   "09521006003013|extensions/eu/ppwr/examples/ecommerce-carton.jsonld|ecommerce-carton|EcoFlow corrugated shipping carton"
   "09521234003007|extensions/eu/textile/examples/fjordline-aurora-model.jsonld|fjordline-aurora-shell|Fjordline Aurora Shell jacket"
   "09521234002000|extensions/eu/battery/examples/amperia-staxwall-model.jsonld|amperia-staxwall-10|Amperia StaxWall 10 Home Battery"
+  "09521890340331|extensions/eu/textile/examples/organic-tee-product.jsonld|organic-tee|Organic Tee"
 )
 
 # Hero products additionally carry batch + item granularities (model⊂batch⊂item
@@ -127,11 +133,12 @@ fetch_token() {
 auth() { echo "Authorization: Bearer $TOKEN"; }
 
 # ------------------------------------------------------------------ products (+ embedded images)
-upload_image() { # gtin key src  -> echoes URL
+upload_image() { # gtin key src  -> echoes URL (handles images, PDFs, SVG, HTML)
   local gtin="$1" key="$2" src="$3" mime resp code
   case "$src" in
     *.png) mime=image/png ;; *.jpg|*.jpeg) mime=image/jpeg ;; *.webp) mime=image/webp ;;
-    *) red "  unknown image type: $src" >&2; return 1 ;;
+    *.pdf) mime=application/pdf ;; *.svg) mime=image/svg+xml ;; *.html|*.htm) mime=text/html ;;
+    *) red "  unknown file type: $src" >&2; return 1 ;;
   esac
   resp=$(curl -sk -X POST "$FILES_URL/files" -H "$(auth)" \
     -F "file=@$src;type=$mime" -F "key=products/$gtin/$key" -F "anonymous=true" -w '\n%{http_code}')
@@ -167,13 +174,15 @@ provision_product() { # gtin file slug desc
   # Embed the image referencedFile array into the seed body so a single POST
   # yields a complete linkset (no lossy follow-up PUT).
   # Strip editorial _comment* keys (same STRIP as the passport seeder), then embed images.
+  # Append image entries to any referencedFile the seed already declares (e.g.
+  # certificate / manual documents), rather than replacing them.
   local body; body=$(jq --argjson urls "$urls_json" --arg desc "$desc" '
     walk(if type == "object" then with_entries(select(.key | startswith("_") | not)) else . end) |
-    if ($urls|length) > 0 then .referencedFile = ($urls | to_entries | map({
+    if ($urls|length) > 0 then .referencedFile = ((.referencedFile // []) + ($urls | to_entries | map({
         "type":"gs1:ReferencedFileDetails","fileLanguageCode":"en",
         "contentDescription": ($desc + " (image " + ((.key+1)|tostring) + ")"),
         "referencedFileType": {"id":"gs1:ReferencedFileTypeCode-PRODUCT_IMAGE"},
-        "id": .value, "referencedFileURL": .value })) else . end' "$file")
+        "id": .value, "referencedFileURL": .value }))) else . end' "$file")
   # Idempotent: delete-then-create so the linkset is rebuilt cleanly each run.
   curl -sk -o /dev/null -X DELETE "$DL_URL/products/$gtin" -H "$(auth)"
   local code; code=$(curl -sk -o /tmp/pd_prov.json -w '%{http_code}' -X POST "$DL_URL/products" \
@@ -191,6 +200,7 @@ provision_hero_sublevels() {
   local row gtin lot serial batch item model code doc
   for row in "${HEROES[@]}"; do
     IFS='|' read -r gtin lot serial batch item <<<"$row"
+    gtin_selected "$gtin" || continue
     model=""
     local prow
     for prow in "${PRODUCTS[@]}"; do
@@ -223,6 +233,7 @@ provision_tier_probes() {
   local row gtin tier name src="$REPO_ROOT/extensions/eu/textile/examples/garment-product.jsonld" body code
   for row in "${TIER_PROBES[@]}"; do
     IFS='|' read -r gtin tier name <<<"$row"
+    gtin_selected "$gtin" || continue
     if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] tier probe $gtin ($tier)"; continue; fi
     body=$(jq --arg g "$gtin" --arg tier "$tier" --arg name "$name" --arg dl "$DL_URL" '
       walk(if type == "object" then with_entries(select(.key | startswith("_") | not)) else . end) |
@@ -241,6 +252,34 @@ provision_tier_probes() {
       20[0-2]) grn "  tier probe $gtin ($tier) -> $code" ;;
       *) red "  tier probe $gtin ($tier) -> $code $(jq -rc '.detail // empty' /tmp/pd_tier.json 2>/dev/null)" ;;
     esac
+  done
+}
+
+# ------------------------------------------------------------------ product documents (PDFs) + shared symbols
+provision_docs() {
+  cyan "▸ Product documents + shared symbols"
+  local row gtin f name dir
+  # shared regulatory/marker symbols, uploaded once under products/_common/symbols/
+  if [[ -d "$REPO_ROOT/scripts/symbols" ]]; then
+    for f in "$REPO_ROOT/scripts/symbols/"*; do
+      [[ -f "$f" ]] || continue
+      name=$(basename "$f")
+      if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] symbol $name"; continue; fi
+      if upload_image "_common" "symbols/$name" "$f" >/dev/null; then grn "  symbol $name"; else red "  symbol $name failed"; fi
+    done
+  fi
+  # per-product generated PDFs under products/{gtin}/docs/
+  for row in "${PRODUCTS[@]}"; do
+    IFS='|' read -r gtin _ _ _ <<<"$row"
+    gtin_selected "$gtin" || continue
+    dir="$REPO_ROOT/scripts/docs/$gtin"
+    [[ -d "$dir" ]] || continue
+    for f in "$dir"/*; do
+      [[ -f "$f" ]] || continue
+      name=$(basename "$f")
+      if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] doc $gtin/$name"; continue; fi
+      if upload_image "$gtin" "docs/$name" "$f" >/dev/null; then grn "  doc $gtin/$name"; else red "  doc $gtin/$name failed"; fi
+    done
   done
 }
 
@@ -332,7 +371,7 @@ verify() {
   cyan "▸ Verify (resolver-side)"
   local row gtin ok=0 total=0 md dpp img
   for row in "${PRODUCTS[@]}"; do
-    IFS='|' read -r gtin _ _ _ <<<"$row"; total=$((total+1))
+    IFS='|' read -r gtin _ _ _ <<<"$row"; gtin_selected "$gtin" || continue; total=$((total+1))
     md=$(curl -sk -o /dev/null -w '%{http_code}' "$DL_URL/01/$gtin?linkType=gs1:masterData" -H "$(auth)")
     dpp=$(curl -sk -o /dev/null -w '%{http_code}' "$DL_URL/01/$gtin?linkType=gs1:dpp" -H "$(auth)")
     img=$(curl -sk "$DL_URL/01/$gtin?linkType=all" -H "$(auth)" | grep -oiE "$(echo "$FILES_URL"|sed 's#https\?://##')[^\"]*" | wc -l | tr -d ' ')
@@ -348,18 +387,26 @@ verify() {
 
 # ------------------------------------------------------------------ run
 cyan "=== provision-demo ($ENV) phases: $PHASES ==="
+if [[ -n "$GTIN_FILTER" ]]; then
+  # Warn (not fatal) if the filter matches nothing in the catalogue/heroes/probes.
+  if ! printf '%s\n' "${PRODUCTS[@]}" "${HEROES[@]}" "${TIER_PROBES[@]}" | grep -q "^$GTIN_FILTER|"; then
+    ylw "⚠ --gtin=$GTIN_FILTER matches no catalogue product; product/epcis/verify phases will be empty."
+  fi
+  ylw "▸ --gtin filter active: only $GTIN_FILTER (note: the 'orgs' phase is not GTIN-scoped)."
+fi
 if [[ "$DRY" -eq 1 ]]; then ylw "dry-run: skipping token"; TOKEN=dry-run; else fetch_token; fi
 if has products; then
   cyan "▸ Products (+ embedded images)"
-  for row in "${PRODUCTS[@]}"; do IFS='|' read -r g f s d <<<"$row"; provision_product "$g" "$f" "$s" "$d"; done
+  for row in "${PRODUCTS[@]}"; do IFS='|' read -r g f s d <<<"$row"; gtin_selected "$g" && provision_product "$g" "$f" "$s" "$d"; done
   cyan "▸ Hero batch/item granularities"
   provision_hero_sublevels
   provision_tier_probes
 fi
+has docs   && provision_docs
 has orgs   && provision_orgs
 if has epcis; then
   cyan "▸ EPCIS traceability links"
-  for row in "${PRODUCTS[@]}"; do IFS='|' read -r g f s d <<<"$row"; provision_epcis "$g" "$d"; done
+  for row in "${PRODUCTS[@]}"; do IFS='|' read -r g f s d <<<"$row"; gtin_selected "$g" && provision_epcis "$g" "$d"; done
 fi
 has events && provision_events
 has verify && verify
