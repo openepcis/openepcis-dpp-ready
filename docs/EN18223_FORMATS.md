@@ -17,17 +17,23 @@ EN 18223 defines **one JSON payload** and two serializations of it (§5.2.1):
   `DataElement` spelled out (`elementId`, `objectType`, `dictionaryReference`,
   `valueDataType`, value).
 
-A JSON-LD `@context` is exactly that data dictionary. So the compressed payload
-**is** the operational payload; attaching the published operational `@context`
-makes it self-describing JSON-LD without changing a single data byte. "Operational
-JSON-LD" and "compressed JSON" are the same payload — one carries the `@context`,
-one leaves the dictionary external.
+A JSON-LD `@context` is exactly that data dictionary.
 
-The JSON, JSON-LD, and RDF forms are deterministic projections of one canonical
-RDF graph, produced by a JSON-LD/RDF processor (Titanium in Java, jsonld.js in the
-TypeScript reference), never by bespoke string assembly. The two XML forms are
-projections of the same EN 18223 information model (the Annex A structure), not of
-the RDF graph — XML is not RDF.
+**Fidelity — the operational form is returned as it came.** The operational /
+compressed payload is the stored master-data body echoed **verbatim**: the EN
+18223 envelope plus the product properties in the exact JSON shape they were
+written. A scalar stays a scalar, an array stays an array, a single object stays
+an object; both scalar and array are supported wherever a property allows
+repetition (`GET` of what you `PUT` returns the same bytes). Attaching the
+published operational `@context` makes that same body self-describing JSON-LD
+without changing a single data byte, so "operational JSON-LD" and "compressed
+JSON" are the same payload — one carries the `@context`, one leaves the dictionary
+external. The operational form is **not** normalized or re-shaped.
+
+The **expanded** (Annex A) form is the deliberately normalized, typed derivation
+for machine processing. The RDF forms are projections of the one canonical graph
+(Titanium in Java, jsonld.js in the TypeScript reference); the two XML forms are
+projections of the Annex A information model (XML is not RDF).
 
 ## The representations
 
@@ -37,8 +43,8 @@ DPP read endpoints (`GET /v1/dpps/{id}`, `/v1/dppsByProductId/{id}`,
 
 | Representation | Media type | `?representation` | What it is |
 |---|---|---|---|
-| **Compressed / operational (JSON-LD)** | `application/ld+json` | `operational` | The EN 18223 §5.2 payload carrying the published operational `@context` as its data dictionary. Valid JSON and valid JSON-LD; expands to the product RDF. Closest to what you `POST`. |
-| **Compressed (JSON)** | `application/json` | `compressed` (default) | The same §5.2 payload with the dictionary left external (no `@context`). Byte-identical to the operational body minus the context line. |
+| **Operational (JSON-LD)** | `application/ld+json` | `operational` | The stored body echoed verbatim (shape preserved) carrying the published operational `@context` as its data dictionary. Valid JSON and valid JSON-LD; expands to the product RDF. Exactly what you `POST`. |
+| **Compressed (JSON)** | `application/json` | `compressed` (default) | The same echoed body with the dictionary left external (no `@context`). Byte-identical to the operational body minus the context line. |
 | **Expanded (JSON)** | `application/json` | `full` / `expanded` | The Annex A typed form: an `elements[]` array where each `DataElement` carries `elementId`, `objectType`, `dictionaryReference`, `valueDataType`. |
 | **Compressed (XML)** | `application/xml` | `operational` / `compressed` | The Annex B XML: the payload as XML, header in the `dpp:` namespace, each data element under its dictionary's namespace prefix. |
 | **Expanded (XML)** | `application/xml` | `full` / `expanded` | An XML rendering of the Annex A model (the standard defines only compressed XML; this is the faithful analogue). |
@@ -95,30 +101,23 @@ properties — never more than the compressed/expanded JSON.
 
 Two guarantees hold:
 
-1. **Graph fidelity** — the operational JSON-LD expands to the **same** RDF graph
+1. **Byte fidelity** — the operational / compressed form echoes the stored body
+   verbatim, so `GET → PUT → GET` returns the identical body (modulo the
+   per-request `lastUpdated` stamp), with the producer's exact shape preserved
+   (scalar/array/object). Safe to read, edit, and write straight back.
+2. **Graph fidelity** — the operational JSON-LD expands to the **same** RDF graph
    as the master-data body under URDNA2015 canonicalization; Turtle re-serializes
    that same graph.
-2. **Byte stability** — the operational / compressed payload is a *fixed point*:
-   `GET → PUT → GET` returns the identical body (modulo the per-request
-   `lastUpdated` stamp). This is what makes the operational form safe to read,
-   edit, and write straight back.
-
-Byte stability is achieved by keying the compressed body with the operational
-context aliases (so nothing drops or drifts on re-derivation), emitting
-multilingual values as JSON-LD-native `@value`/`@language` (they never collide
-with `gs1:value`), preserving node `@type`, compacting `@vocab` coded values to
-their bare code while leaving `@id` references as full IRIs, and sorting keys
-canonically.
 
 Enforced by:
 
 - `scripts/en18223/roundtrip-check.ts` (graph fidelity): `expand(operational ⊕
   context)` ≡ `expand(POST /products body)`, and Turtle → parse-back ≡ the graph.
-- `scripts/en18223/idempotence-check.ts` (byte stability): every product example
-  compresses, re-derives, and re-compresses to the identical payload. Runs in
-  `pnpm run build` and CI.
+- `scripts/en18223/idempotence-check.ts`: the §5.2 `compress` normalization (used
+  for the fine-granular element endpoints) is a fixed point across every product
+  example. Runs in `pnpm run build` and CI.
 - `En18223FormatsTest` (Java): the live endpoints return operational JSON-LD +
-  context, `operational == compressed`, `GET → PUT → GET` byte-stable, XML
+  context, `operational == compressed`, `GET → PUT → GET` byte-faithful, XML
   (Annex B + expanded), Turtle/N-Quads, OPTIONS discovery, and 406.
 
 Run the reference gates:

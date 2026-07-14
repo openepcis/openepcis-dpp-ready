@@ -16666,50 +16666,6 @@ async function deriveEN18223(input, range2, documentLoader2) {
 async function expandJsonLd(input, documentLoader2) {
   return import_jsonld.default.expand(input, { documentLoader: documentLoader2 });
 }
-var localTerm = (iri) => localName(iri);
-var defaultOptions = { term: localTerm, codeTerm: localTerm, isVocabProperty: () => false };
-function codeValue(iri, propIri, opts) {
-  return opts.isVocabProperty(propIri) ? opts.codeTerm(iri) : iri;
-}
-function typeValue(nodeTypes, term) {
-  if (!nodeTypes || nodeTypes.length === 0) return void 0;
-  const ts = nodeTypes.map(term);
-  return ts.length === 1 ? ts[0] : ts;
-}
-function compressElement(el, opts) {
-  switch (el.objectType) {
-    case "SingleValuedDataElement":
-      return el.reference ? codeValue(el.value, el.dictionaryReference, opts) : el.value;
-    case "MultiLanguageDataElement":
-      return (el.value || []).map((v) => ({ "@value": v.value, "@language": v.language }));
-    case "MultiValuedDataElement":
-      return (el.value || []).map((v) => Array.isArray(v) ? compressElements(v, opts) : el.reference ? codeValue(v, el.dictionaryReference, opts) : v);
-    case "DataElementCollection":
-      return compressElements(el.elements || [], opts, el.nodeTypes);
-    case "RelatedResource": {
-      const o = {};
-      const t = typeValue(el.nodeTypes, opts.term);
-      if (t !== void 0) o.type = t;
-      for (const k of ["resourceTitle", "contentType", "url", "language"]) if (el[k] != null) o[k] = el[k];
-      return o;
-    }
-    default:
-      return el.value ?? null;
-  }
-}
-function compressElements(elements, opts, nodeTypes) {
-  const keyed = elements.map((el) => [opts.term(el.dictionaryReference), el]);
-  keyed.sort((a, b) => a[0].localeCompare(b[0]));
-  const o = {};
-  const t = typeValue(nodeTypes, opts.term);
-  if (t !== void 0) o.type = t;
-  for (const [key, el] of keyed) o[key] = compressElement(el, opts);
-  return o;
-}
-function compressEN18223(passport, opts = defaultOptions) {
-  const { elements, ...envelope } = passport;
-  return { ...envelope, ...compressElements(elements || [], opts) };
-}
 
 // scripts/en18223/serialize.ts
 var import_jsonld2 = __toESM(require_jsonld(), 1);
@@ -20191,66 +20147,6 @@ var PREFIXES = {
   rdfs: "http://www.w3.org/2000/01/rdf-schema#"
 };
 var NS_PREFIX = Object.entries(PREFIXES).map(([p, ns]) => [ns, p]).sort((a, b) => b[0].length - a[0].length);
-var toCurie = (iri) => {
-  for (const [ns, p] of NS_PREFIX) if (iri.startsWith(ns)) return `${p}:${iri.slice(ns.length)}`;
-  return iri;
-};
-var expandCurie = (iri) => {
-  const i = iri.indexOf(":");
-  if (i > 0) {
-    const p = iri.slice(0, i);
-    if (PREFIXES[p]) return PREFIXES[p] + iri.slice(i + 1);
-  }
-  return iri;
-};
-var localNameOf = (iri) => {
-  const i = Math.max(iri.lastIndexOf("/"), iri.lastIndexOf("#"));
-  return i >= 0 ? iri.slice(i + 1) : iri;
-};
-async function collectAliases(ctxValue, documentLoader2, acc, vocab) {
-  if (Array.isArray(ctxValue)) {
-    for (const c of ctxValue) await collectAliases(c, documentLoader2, acc, vocab);
-    return;
-  }
-  if (typeof ctxValue === "string") {
-    const doc = (await documentLoader2(ctxValue)).document;
-    await collectAliases(doc["@context"], documentLoader2, acc, vocab);
-    return;
-  }
-  if (ctxValue && typeof ctxValue === "object") {
-    for (const [term, def] of Object.entries(ctxValue)) {
-      if (term.startsWith("@") || term.includes(":")) continue;
-      if (typeof def === "string") {
-        acc.push([term, expandCurie(def)]);
-        continue;
-      }
-      if (def && typeof def === "object") {
-        const iri = def["@id"];
-        if (iri) acc.push([term, expandCurie(iri)]);
-        if (def["@type"] === "@vocab") {
-          if (iri) vocab.add(expandCurie(iri));
-          if (def["@context"]) await collectAliases(def["@context"], documentLoader2, acc, vocab);
-        }
-      }
-    }
-  }
-}
-async function buildOperationalKeyMap(operationalContext, documentLoader2) {
-  const defs = [];
-  const vocabProps = /* @__PURE__ */ new Set();
-  await collectAliases(operationalContext, documentLoader2, defs, vocabProps);
-  const keyMap = /* @__PURE__ */ new Map();
-  for (const [term, iri] of defs) if (!keyMap.has(iri)) keyMap.set(iri, term);
-  return { keyMap, vocabProps };
-}
-function operationalOptions(dict) {
-  const { keyMap, vocabProps } = dict;
-  return {
-    term: (iri) => keyMap.get(iri) ?? toCurie(iri),
-    codeTerm: (iri) => keyMap.get(iri) ?? localNameOf(iri),
-    isVocabProperty: (iri) => vocabProps.has(iri)
-  };
-}
 async function toNQuads(master, documentLoader2) {
   return await import_jsonld2.default.canonize(master, {
     algorithm: "URDNA2015",
@@ -29862,13 +29758,11 @@ var samples_default = [
           "@value": "Liquid organic carbonate-based",
           "@language": "en"
         },
-        "schema:name": [
-          "LFP",
-          {
-            "@value": "Lithium Iron Phosphate",
-            "@language": "en"
-          }
-        ]
+        "schema:name": {
+          "@value": "Lithium Iron Phosphate",
+          "@language": "en"
+        },
+        "schema:alternateName": "LFP"
       },
       "eubat:technicalSpecifications": {
         id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#specs",
@@ -30700,13 +30594,11 @@ var samples_default = [
           "@value": "Liquid organic carbonate-based",
           "@language": "en"
         },
-        "schema:name": [
-          "NMC622",
-          {
-            "@value": "Lithium Nickel Manganese Cobalt Oxide (NMC 6:2:2)",
-            "@language": "en"
-          }
-        ]
+        "schema:name": {
+          "@value": "Lithium Nickel Manganese Cobalt Oxide (NMC 6:2:2)",
+          "@language": "en"
+        },
+        "schema:alternateName": "NMC622"
       },
       "eubat:technicalSpecifications": {
         type: "eubat:TechnicalSpecification",
@@ -36424,9 +36316,13 @@ async function derive() {
     const expanded = await deriveEN18223(input, range, documentLoader);
     const jsonldExpanded = await expandJsonLd(input, documentLoader);
     const ctx = operationalContextFor(input);
-    const keyMap = await buildOperationalKeyMap(ctx, documentLoader);
-    const compressed = compressEN18223(expanded, operationalOptions(keyMap));
-    const operational = { "@context": ctx, ...compressed };
+    const echo = {};
+    for (const [k, v] of Object.entries(input)) {
+      if (k === "@context" || k.startsWith("_")) continue;
+      echo[k] = v;
+    }
+    const compressed = echo;
+    const operational = { "@context": ctx, ...echo };
     const turtle = await toTurtle(operational, documentLoader);
     views = {
       operational,

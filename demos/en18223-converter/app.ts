@@ -7,8 +7,8 @@
  * repo sources by scripts/build-en18223-demo-data.ts and bundled with esbuild
  * (see package.json demo:en18223:build), so the demo runs with no network.
  */
-import { deriveEN18223, compressEN18223, expandJsonLd, type DocumentLoader } from "../../scripts/en18223/derive-core.ts";
-import { operationalContextFor, buildOperationalKeyMap, operationalOptions, toTurtle, toXmlOperational, toXmlExpanded } from "../../scripts/en18223/serialize.ts";
+import { deriveEN18223, expandJsonLd, type DocumentLoader } from "../../scripts/en18223/derive-core.ts";
+import { operationalContextFor, toTurtle, toXmlOperational, toXmlExpanded } from "../../scripts/en18223/serialize.ts";
 import rangeIndex from "./range-index.json";
 import contexts from "./contexts.json";
 import samples from "./samples.json";
@@ -70,13 +70,18 @@ async function derive() {
   try {
     const expanded = await deriveEN18223(input, range, documentLoader);
     const jsonldExpanded = await expandJsonLd(input, documentLoader);
-    // One EN 18223 payload keyed by the operational-context aliases (so it
-    // round-trips through that context); operational = payload + @context,
-    // compressed = the same payload with the dictionary (@context) externalised.
+    // Operational / compressed: the master-data body echoed VERBATIM (shape
+    // preserved — a scalar stays a scalar, an array stays an array, an object
+    // stays an object), minus the source @context and editorial _comment keys.
+    // operational carries the operational @context; compressed leaves it external.
     const ctx = operationalContextFor(input);
-    const keyMap = await buildOperationalKeyMap(ctx, documentLoader);
-    const compressed = compressEN18223(expanded, operationalOptions(keyMap));
-    const operational = { "@context": ctx, ...compressed };
+    const echo: any = {};
+    for (const [k, v] of Object.entries(input)) {
+      if (k === "@context" || k.startsWith("_")) continue;
+      echo[k] = v;
+    }
+    const compressed = echo;
+    const operational = { "@context": ctx, ...echo };
     const turtle = await toTurtle(operational, documentLoader);
     views = {
       operational,
