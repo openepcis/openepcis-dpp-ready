@@ -56,9 +56,9 @@ done
 
 # ------------------------------------------------------------------ env
 case "$ENV" in
-  dev)   : "${DL_URL:=https://id.dev.epcis.cloud}";   : "${FILES_URL:=https://files.dev.epcis.cloud}";   : "${AUTH_URL:=https://keycloak.dev.epcis.cloud}"; : "${API_URL:=https://api.dev.epcis.cloud}";   DEF_USER=admin ;;
-  demo)  : "${DL_URL:=https://id.demo.epcis.cloud}";  : "${FILES_URL:=https://files.demo.epcis.cloud}";  : "${AUTH_URL:=https://auth.demo.epcis.cloud}";    : "${API_URL:=https://api.demo.epcis.cloud}";  DEF_USER=demo-admin ;;
-  local) : "${DL_URL:=https://id.epcis.local:8443}";  : "${FILES_URL:=https://files.epcis.local:8443}";  : "${AUTH_URL:=https://auth.epcis.local:8443}";    : "${API_URL:=https://api.epcis.local:8443}";  DEF_USER=admin ;;
+  dev)   : "${DL_URL:=https://id.dev.epcis.cloud}";   : "${FILES_URL:=https://files.dev.epcis.cloud}";   : "${AUTH_URL:=https://keycloak.dev.epcis.cloud}"; : "${API_URL:=https://api.dev.epcis.cloud}";   : "${WEB_URL:=https://ddm.dev.epcis.cloud}";  DEF_USER=admin ;;
+  demo)  : "${DL_URL:=https://id.demo.epcis.cloud}";  : "${FILES_URL:=https://files.demo.epcis.cloud}";  : "${AUTH_URL:=https://auth.demo.epcis.cloud}";    : "${API_URL:=https://api.demo.epcis.cloud}";  : "${WEB_URL:=https://demo.epcis.cloud}";     DEF_USER=demo-admin ;;
+  local) : "${DL_URL:=https://id.epcis.local:8443}";  : "${FILES_URL:=https://files.epcis.local:8443}";  : "${AUTH_URL:=https://auth.epcis.local:8443}";    : "${API_URL:=https://api.epcis.local:8443}";  : "${WEB_URL:=https://epcis.local:8443}";     DEF_USER=admin ;;
   *) echo "Unknown --env: $ENV (expected dev|demo|local)" >&2; exit 64 ;;
 esac
 REALM="${REALM:-openepcis}"
@@ -317,21 +317,53 @@ provision_orgs() {
   done
 }
 
-# ------------------------------------------------------------------ epcis traceability link
-provision_epcis() { # gtin desc
-  local gtin="$1" desc="$2"
-  if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] epcis link $gtin"; return 0; fi
-  local href="$API_URL/events?MATCH_anyEPC=$(python3 -c "import urllib.parse,sys;print(urllib.parse.quote(sys.argv[1]+'*'))" "$DL_URL/01/$gtin")"
+# ------------------------------------------------------------------ linkset links
+# The resolver keeps ONE entry per link type; action:update upserts/replaces it
+# (also killing any self-referential placeholder the resolver minted at create time,
+# which otherwise 302-loops). Short link-type keys map to gs1: IRIs resolver-side.
+patch_link() { # gtin linkType detail-json
+  local gtin="$1" lt="$2" detail="$3"
+  if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] $lt $gtin"; return 0; fi
   local body; body=$(python3 -c "
 import json,sys
-print(json.dumps([{'action':'add','linkset':[{
- 'anchor': sys.argv[1], 'itemDescription': sys.argv[2],
- 'epcisRepository':[{'href': sys.argv[3],'title':'EPCIS event history','type':'application/ld+json',
-           'hreflang':['en'],'context':['epcis'],'public':True}]}]}]))" \
-    "$DL_URL/01/$gtin" "$desc" "$href")
+print(json.dumps([{'action':'update','linkset':[{
+ 'anchor': sys.argv[1], sys.argv[2]: [json.loads(sys.argv[3])]}]}]))" \
+    "$DL_URL/01/$gtin" "$lt" "$detail")
   local code; code=$(curl -sk -o /dev/null -w '%{http_code}' -X PATCH "$DL_URL/01/$gtin" \
     -H "$(auth)" -H 'Content-Type: application/json' -d "$body")
-  case "$code" in 20[0-2]) grn "  epcis $gtin -> $code" ;; *) red "  epcis $gtin -> $code" ;; esac
+  case "$code" in 20[0-2]) grn "  $lt $gtin -> $code" ;; *) red "  $lt $gtin -> $code" ;; esac
+}
+
+# traceability -> the human HTML product page on the DDM/demo site (which surfaces the
+# serialized/batch instances + EPCIS event view). Replaces any self-referential loop.
+provision_traceability() { # gtin
+  local gtin="$1" detail
+  detail=$(python3 -c "import json,sys;print(json.dumps({'href':sys.argv[1],'title':'Traceability information','type':'text/html','hreflang':['en'],'context':['traceability'],'public':True}))" "$WEB_URL/01/$gtin")
+  patch_link "$gtin" "traceability" "$detail"
+}
+
+# certificationInfo -> the generated certificate PDF on the files service, when one
+# exists for this product (prefer declaration-of-conformity, then verification, then
+# the certifications summary). Replaces any self-referential loop.
+provision_cert() { # gtin
+  local gtin="$1" slug="" s detail
+  for s in declaration-of-conformity verification-certificate certifications; do
+    [[ -f "$REPO_ROOT/scripts/docs/$gtin/$s.pdf" ]] && { slug="$s"; break; }
+  done
+  [[ -n "$slug" ]] || return 0
+  detail=$(python3 -c "import json,sys;print(json.dumps({'href':sys.argv[1],'title':'Certification information','type':'application/pdf','hreflang':['en'],'context':['certificationInfo'],'public':True}))" "$FILES_URL/files/products/$gtin/docs/$slug.pdf")
+  patch_link "$gtin" "certificationInfo" "$detail"
+}
+
+# epcisRepository -> the EPCIS event history. EPC= matches BOTH instance (epcList /21/)
+# and class (quantityList.epcClass /10/ lot) fields in one wildcard query, against the
+# canonical id.gs1.org EPCs the events carry.
+provision_epcisrepo() { # gtin
+  local gtin="$1" epc href detail
+  epc=$(python3 -c "import urllib.parse,sys;print(urllib.parse.quote('https://id.gs1.org/01/'+sys.argv[1]+'*'))" "$gtin")
+  href="$API_URL/events?EPC=$epc"
+  detail=$(python3 -c "import json,sys;print(json.dumps({'href':sys.argv[1],'title':'EPCIS event history','type':'application/ld+json','hreflang':['en'],'context':['epcis'],'public':True}))" "$href")
+  patch_link "$gtin" "epcisRepository" "$detail"
 }
 
 # ------------------------------------------------------------------ EPCIS events (optional)
@@ -405,8 +437,12 @@ fi
 has docs   && provision_docs
 has orgs   && provision_orgs
 if has epcis; then
-  cyan "▸ EPCIS traceability links"
-  for row in "${PRODUCTS[@]}"; do IFS='|' read -r g f s d <<<"$row"; gtin_selected "$g" && provision_epcis "$g" "$d"; done
+  cyan "▸ Linkset: traceability + certificationInfo + epcisRepository"
+  # traceability (HTML page) + certificationInfo (cert PDF where present) for every product
+  for row in "${PRODUCTS[@]}"; do IFS='|' read -r g f s d <<<"$row"; gtin_selected "$g" || continue
+    provision_traceability "$g"; provision_cert "$g"; done
+  # epcisRepository only for the event-bearing hero products (item + lot via EPC=)
+  for row in "${HEROES[@]}"; do IFS='|' read -r g _ _ _ _ <<<"$row"; gtin_selected "$g" && provision_epcisrepo "$g"; done
 fi
 has events && provision_events
 has verify && verify
