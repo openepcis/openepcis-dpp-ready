@@ -321,17 +321,29 @@ provision_orgs() {
 # The resolver keeps ONE entry per link type; action:update upserts/replaces it
 # (also killing any self-referential placeholder the resolver minted at create time,
 # which otherwise 302-loops). Short link-type keys map to gs1: IRIs resolver-side.
-patch_link() { # gtin linkType detail-json
-  local gtin="$1" lt="$2" detail="$3"
+VOC="https://ref.gs1.org/voc"
+desc_for() { # gtin -> product description from PRODUCTS (itemDescription is required)
+  local g="$1" prow
+  for prow in "${PRODUCTS[@]}"; do [[ "$prow" == "$g|"* ]] && { IFS='|' read -r _ _ _ d <<<"$prow"; printf '%s' "$d"; return; }; done
+  printf 'Product %s' "$g"
+}
+patch_link() { # gtin linkTypeName detail-json desc  (linkTypeName -> gs1: voc IRI key)
+  local gtin="$1" lt="$2" detail="$3" desc="${4:-$(desc_for "$1")}"
   if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] $lt $gtin"; return 0; fi
+  # The gs1 linkset schema keys link relations by their full voc IRI (or a
+  # lowercase-hyphen token); camelCase short names like certificationInfo are
+  # rejected, so use the IRI form the resolver also stores/returns. itemDescription
+  # is a required Link field.
   local body; body=$(python3 -c "
 import json,sys
 print(json.dumps([{'action':'update','linkset':[{
- 'anchor': sys.argv[1], sys.argv[2]: [json.loads(sys.argv[3])]}]}]))" \
-    "$DL_URL/01/$gtin" "$lt" "$detail")
-  local code; code=$(curl -sk -o /dev/null -w '%{http_code}' -X PATCH "$DL_URL/01/$gtin" \
+ 'anchor': sys.argv[1], 'itemDescription': sys.argv[4], sys.argv[2]: [json.loads(sys.argv[3])]}]}]))" \
+    "$DL_URL/01/$gtin" "$VOC/$lt" "$detail" "$desc")
+  local resp code rbody
+  resp=$(curl -sk -w '\n%{http_code}' -X PATCH "$DL_URL/01/$gtin" \
     -H "$(auth)" -H 'Content-Type: application/json' -d "$body")
-  case "$code" in 20[0-2]) grn "  $lt $gtin -> $code" ;; *) red "  $lt $gtin -> $code" ;; esac
+  code=$(printf '%s' "$resp" | tail -n1); rbody=$(printf '%s' "$resp" | sed '$d')
+  case "$code" in 20[0-2]) grn "  $lt $gtin -> $code" ;; *) red "  $lt $gtin -> $code ${rbody:0:200}" ;; esac
 }
 
 # traceability -> the human HTML product page on the DDM/demo site (which surfaces the
