@@ -310,11 +310,20 @@ provision_orgs() {
     code=$(curl -sk -o /tmp/orgr_prov.json -w '%{http_code}' -X POST "$DL_URL/organizations" \
       -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' \
       --data-binary @/tmp/org_prov.json)
-    case "$code" in
-      20[0-2]) grn "  org $gln -> $code" ;;
-      409) ylw "  org $gln -> 409 (exists)" ;;
-      *) red "  org $gln -> $code $(jq -rc '.detail // empty' /tmp/orgr_prov.json 2>/dev/null)" ;;
-    esac
+    # Upsert: an existing org (409) is PUT so the isAnonymousAccessAllowed=true header is
+    # reconciled to accessLevel=Public (a create-only POST would leave a stale non-Public
+    # tier, keeping the org invisible to anonymous resolution).
+    if [[ "$code" == 409 ]]; then
+      code=$(curl -sk -o /tmp/orgr_prov.json -w '%{http_code}' -X PUT "$DL_URL/organizations/$gln" \
+        -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' \
+        --data-binary @/tmp/org_prov.json)
+      case "$code" in 20[0-2]) grn "  org $gln -> 409->PUT $code (Public)" ;; *) red "  org $gln -> PUT $code $(jq -rc '.detail // empty' /tmp/orgr_prov.json 2>/dev/null)" ;; esac
+    else
+      case "$code" in
+        20[0-2]) grn "  org $gln -> $code" ;;
+        *) red "  org $gln -> $code $(jq -rc '.detail // empty' /tmp/orgr_prov.json 2>/dev/null)" ;;
+      esac
+    fi
     # Fix the resolver's self-referential organisationInfo placeholder -> DDM org page.
     provision_org_link "$gln" "$name"
   done
@@ -379,6 +388,37 @@ provision_org_link() { # gln name
   local gln="$1" name="${2:-Organisation $1}" detail
   detail=$(python3 -c "import json,sys;print(json.dumps({'href':sys.argv[1],'title':'Organisation information','type':'text/html','hreflang':['en'],'context':['organisationInfo'],'public':True}))" "$WEB_URL/414/$gln")
   patch_link "414/$gln" "organisationInfo" "$detail" "$name"
+}
+
+# locationInfo -> the human HTML place page on the DDM/demo site (mirror of org).
+provision_place_link() { # gln name
+  local gln="$1" name="${2:-Location $1}" detail
+  detail=$(python3 -c "import json,sys;print(json.dumps({'href':sys.argv[1],'title':'Location information','type':'text/html','hreflang':['en'],'context':['locationInfo'],'public':True}))" "$WEB_URL/414/$gln")
+  patch_link "414/$gln" "locationInfo" "$detail" "$name"
+}
+
+# ------------------------------------------------------------------ places
+# A demo Place, anonymously resolvable (Public tier) exactly like products/orgs. The
+# isAnonymousAccessAllowed=true header reconciles to accessLevel=Public at the resolver's
+# indexing chokepoint; upsert (PUT on 409) so an existing place is re-stamped Public.
+PLACE_NAME="EcoWear Manufacturing Plant, Stuttgart"
+provision_places() {
+  cyan "▸ Places"
+  local gln body code
+  # 12-digit base distinct from the seeded org GLNs; append the GS1 mod-10 check digit.
+  gln=$(python3 -c "b='952100000090';s=sum(int(d)*(3 if i%2==0 else 1) for i,d in enumerate(reversed(b)));print(b+str((10-s%10)%10))")
+  if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] place $gln"; provision_place_link "$gln" "$PLACE_NAME"; return 0; fi
+  body=$(python3 -c "import json,sys;g=sys.argv[1];print(json.dumps({'glnType':'FIXED_PHYSICAL_LOCATION','globalLocationNumber':g,'locationGLN':g,'digitalLocationName':{'en':sys.argv[2]}}))" "$gln" "$PLACE_NAME")
+  code=$(curl -sk -o /tmp/pl_prov.json -w '%{http_code}' -X POST "$DL_URL/places" \
+    -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' --data-binary "$body")
+  if [[ "$code" == 409 ]]; then
+    code=$(curl -sk -o /tmp/pl_prov.json -w '%{http_code}' -X PUT "$DL_URL/places/$gln" \
+      -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' --data-binary "$body")
+    case "$code" in 20[0-2]) grn "  place $gln -> 409->PUT $code (Public)" ;; *) red "  place $gln -> PUT $code $(jq -rc '.detail // empty' /tmp/pl_prov.json 2>/dev/null)" ;; esac
+  else
+    case "$code" in 20[0-2]) grn "  place $gln -> $code (Public)" ;; *) red "  place $gln -> $code $(jq -rc '.detail // empty' /tmp/pl_prov.json 2>/dev/null)" ;; esac
+  fi
+  provision_place_link "$gln" "$PLACE_NAME"
 }
 
 # ------------------------------------------------------------------ EPCIS events (optional)
@@ -450,7 +490,7 @@ if has products; then
   provision_tier_probes
 fi
 has docs   && provision_docs
-has orgs   && provision_orgs
+has orgs   && { provision_orgs; provision_places; }
 if has epcis; then
   cyan "▸ Linkset: traceability + certificationInfo + epcisRepository"
   # traceability (HTML page) for every product. certificationInfo is NOT set here —
