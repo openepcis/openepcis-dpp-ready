@@ -299,13 +299,14 @@ for j in range(s,len(t)):
 
 provision_orgs() {
   cyan "▸ Organizations"
-  local f gln code
+  local f gln name code
   for f in "$ORG_BRU_DIR"/create-*.bru; do
     [[ -f "$f" ]] || continue
     extract_bru_body "$f" > /tmp/org_prov.json 2>/dev/null || continue
     gln=$(jq -r '.globalLocationNumber // empty' /tmp/org_prov.json 2>/dev/null)
+    name=$(jq -r '(.organizationName.en // .organizationName // empty)' /tmp/org_prov.json 2>/dev/null)
     [[ -n "$gln" ]] || { ylw "  skip $(basename "$f" .bru) (no GLN / templated)"; continue; }
-    if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] org $gln ($(basename "$f" .bru))"; continue; fi
+    if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] org $gln ($(basename "$f" .bru))"; provision_org_link "$gln" "$name"; continue; fi
     code=$(curl -sk -o /tmp/orgr_prov.json -w '%{http_code}' -X POST "$DL_URL/organizations" \
       -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' \
       --data-binary @/tmp/org_prov.json)
@@ -314,6 +315,8 @@ provision_orgs() {
       409) ylw "  org $gln -> 409 (exists)" ;;
       *) red "  org $gln -> $code $(jq -rc '.detail // empty' /tmp/orgr_prov.json 2>/dev/null)" ;;
     esac
+    # Fix the resolver's self-referential organisationInfo placeholder -> DDM org page.
+    provision_org_link "$gln" "$name"
   done
 }
 
@@ -327,9 +330,9 @@ desc_for() { # gtin -> product description from PRODUCTS (itemDescription is req
   for prow in "${PRODUCTS[@]}"; do [[ "$prow" == "$g|"* ]] && { IFS='|' read -r _ _ _ d <<<"$prow"; printf '%s' "$d"; return; }; done
   printf 'Product %s' "$g"
 }
-patch_link() { # gtin linkTypeName detail-json desc  (linkTypeName -> gs1: voc IRI key)
-  local gtin="$1" lt="$2" detail="$3" desc="${4:-$(desc_for "$1")}"
-  if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] $lt $gtin"; return 0; fi
+patch_link() { # anchorPath linkTypeName detail-json desc  (linkTypeName -> gs1: voc IRI key)
+  local ap="$1" lt="$2" detail="$3" desc="$4"
+  if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] $lt $ap"; return 0; fi
   # The gs1 linkset schema keys link relations by their full voc IRI (or a
   # lowercase-hyphen token); camelCase short names like certificationInfo are
   # rejected, so use the IRI form the resolver also stores/returns. itemDescription
@@ -338,12 +341,12 @@ patch_link() { # gtin linkTypeName detail-json desc  (linkTypeName -> gs1: voc I
 import json,sys
 print(json.dumps([{'action':'update','linkset':[{
  'anchor': sys.argv[1], 'itemDescription': sys.argv[4], sys.argv[2]: [json.loads(sys.argv[3])]}]}]))" \
-    "$DL_URL/01/$gtin" "$VOC/$lt" "$detail" "$desc")
+    "$DL_URL/$ap" "$VOC/$lt" "$detail" "$desc")
   local resp code rbody
-  resp=$(curl -sk -w '\n%{http_code}' -X PATCH "$DL_URL/01/$gtin" \
+  resp=$(curl -sk -w '\n%{http_code}' -X PATCH "$DL_URL/$ap" \
     -H "$(auth)" -H 'Content-Type: application/json' -d "$body")
   code=$(printf '%s' "$resp" | tail -n1); rbody=$(printf '%s' "$resp" | sed '$d')
-  case "$code" in 20[0-2]) grn "  $lt $gtin -> $code" ;; *) red "  $lt $gtin -> $code ${rbody:0:200}" ;; esac
+  case "$code" in 20[0-2]) grn "  $lt $ap -> $code" ;; *) red "  $lt $ap -> $code ${rbody:0:200}" ;; esac
 }
 
 # traceability -> the human HTML product page on the DDM/demo site (which surfaces the
@@ -351,7 +354,7 @@ print(json.dumps([{'action':'update','linkset':[{
 provision_traceability() { # gtin
   local gtin="$1" detail
   detail=$(python3 -c "import json,sys;print(json.dumps({'href':sys.argv[1],'title':'Traceability information','type':'text/html','hreflang':['en'],'context':['traceability'],'public':True}))" "$WEB_URL/01/$gtin")
-  patch_link "$gtin" "traceability" "$detail"
+  patch_link "01/$gtin" "traceability" "$detail" "$(desc_for "$gtin")"
 }
 
 # certificationInfo -> the generated certificate PDF on the files service, when one
@@ -364,7 +367,7 @@ provision_cert() { # gtin
   done
   [[ -n "$slug" ]] || return 0
   detail=$(python3 -c "import json,sys;print(json.dumps({'href':sys.argv[1],'title':'Certification information','type':'application/pdf','hreflang':['en'],'context':['certificationInfo'],'public':True}))" "$FILES_URL/files/products/$gtin/docs/$slug.pdf")
-  patch_link "$gtin" "certificationInfo" "$detail"
+  patch_link "01/$gtin" "certificationInfo" "$detail" "$(desc_for "$gtin")"
 }
 
 # epcisRepository -> the EPCIS event history. EPC= matches BOTH instance (epcList /21/)
@@ -375,7 +378,15 @@ provision_epcisrepo() { # gtin
   epc=$(python3 -c "import urllib.parse,sys;print(urllib.parse.quote('https://id.gs1.org/01/'+sys.argv[1]+'*'))" "$gtin")
   href="$API_URL/events?EPC=$epc"
   detail=$(python3 -c "import json,sys;print(json.dumps({'href':sys.argv[1],'title':'EPCIS event history','type':'application/ld+json','hreflang':['en'],'context':['epcis'],'public':True}))" "$href")
-  patch_link "$gtin" "epcisRepository" "$detail"
+  patch_link "01/$gtin" "epcisRepository" "$detail" "$(desc_for "$gtin")"
+}
+
+# organisationInfo -> the human HTML organisation page on the DDM/demo site. Orgs are
+# anchored at /414/{gln}; replaces the resolver's self-referential placeholder loop.
+provision_org_link() { # gln name
+  local gln="$1" name="${2:-Organisation $1}" detail
+  detail=$(python3 -c "import json,sys;print(json.dumps({'href':sys.argv[1],'title':'Organisation information','type':'text/html','hreflang':['en'],'context':['organisationInfo'],'public':True}))" "$WEB_URL/414/$gln")
+  patch_link "414/$gln" "organisationInfo" "$detail" "$name"
 }
 
 # ------------------------------------------------------------------ EPCIS events (optional)
