@@ -2,11 +2,12 @@
  * EN 18223 DPP serializations, all projections of one canonical RDF graph.
  *
  * JSON dialects:
- *   - operational (GS1 profile): the compact master-data body keyed by elementId.
- *       operationalJson  -> pure JSON (no @context)
- *       operationalJsonLd -> same body + the single operational @context IRI
- *         (valid, self-describing JSON-LD that expands to the product RDF)
- *   - expanded (Annex A) and EN 18223 bare "compressed" live in derive-core.ts.
+ *   - compressed (EN 18223 §5.2, also written "operational"): the compact master-data
+ *       body keyed by elementId.
+ *       operationalJsonLd -> the body + the single operational @context IRI, always
+ *         carrying it (self-describing JSON-LD that expands to the product RDF, and
+ *         still plain JSON — there is no context-less variant).
+ *   - expanded (Annex A) lives in derive-core.ts.
  *
  * RDF serializations (from jsonld.toRDF, so guaranteed graph-consistent with the
  * JSON-LD): Turtle, N-Quads, N-Triples. TTL round-trips (parse-back canonicalises
@@ -170,14 +171,10 @@ export function operationalOptions(dict: OperationalDictionary): CompressOptions
   };
 }
 
-/** Operational GS1-profile JSON: the master-data body with no @context (pure JSON). */
-export function operationalJson(master: any): any {
-  const { "@context": _ctx, ...rest } = master;
-  return rest;
-}
-
-/** Operational JSON-LD: the same body carrying the applicable operational context
- *  (per-module) — valid JSON-LD that expands to the product RDF ("JSON-LD that works"). */
+/** Compressed (EN 18223 §5.2) JSON-LD: the master-data body carrying the applicable
+ *  operational @context (per-module) as its data dictionary — self-describing JSON-LD
+ *  that expands to the product RDF, and still plain JSON. This is the single §5.2 form
+ *  (also written "operational"); there is no context-less variant. */
 export function operationalJsonLd(master: any): any {
   const { "@context": _ctx, ...rest } = master;
   return { "@context": operationalContextFor(master), ...rest };

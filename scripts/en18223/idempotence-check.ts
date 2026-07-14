@@ -1,12 +1,12 @@
 /**
- * Idempotence gate for the operational / compressed EN 18223 serialization.
+ * Idempotence gate for the compressed EN 18223 §5.2 serialization (also written
+ * "operational").
  *
- * Proves that the operational body a read emits is a byte-stable write body: for
- * every product example, compressing the derived passport (keyed by the module
- * operational context), attaching that context, deriving + compressing again
- * yields the IDENTICAL payload. That is the GET -> PUT -> GET stability guarantee
- * the DPP API relies on (operational == compressed, and writing back a read is a
- * fixed point).
+ * Proves that the body a read emits is a byte-stable write body: for every product
+ * example, compressing the derived passport (keyed by the module operational
+ * context), attaching that context, deriving + compressing again yields the
+ * IDENTICAL payload. That is the GET -> PUT -> GET stability guarantee the DPP API
+ * relies on (writing back a read is a fixed point).
  *
  * Usage: tsx scripts/en18223/idempotence-check.ts [<file.jsonld> ...]
  * With no args it scans every extensions/**\/examples/*.jsonld product passport.

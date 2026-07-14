@@ -38,8 +38,7 @@
         <h2>Output</h2>
         <label for="format">View</label>
         <select id="format">
-          <option value="operational">Operational JSON-LD (payload + @context)</option>
-          <option value="compressed">Compressed JSON (same payload, no @context)</option>
+          <option value="compressed">Compressed / Operational (EN 18223 §5.2, JSON-LD)</option>
           <option value="expanded">EN 18223 expanded JSON (Annex A)</option>
           <option value="xmlOperational">Compressed XML (Annex B)</option>
           <option value="xmlExpanded">Expanded XML (Annex A analogue)</option>
@@ -105,19 +104,18 @@
       <code>contentSpecificationIds</code> the data drew on.
     </p>
     <p>
-      EN 18223 defines one JSON payload and two serializations of it. The
+      EN 18223 defines one JSON payload with two serializations. The
       <strong>compressed</strong> form (clause 5.2) is ordinary key-value JSON
       keyed by <code>elementId</code>, with the <code>dictionaryReference</code>
-      and <code>valueDataType</code> held in an external data dictionary; the
+      and <code>valueDataType</code> held in a data dictionary — which is exactly a
+      JSON-LD <code>@context</code>. We always carry that operational
+      <code>@context</code>, so the compressed form is self-describing JSON-LD and
+      still plain JSON (also written <strong>operational</strong>). The
       <strong>expanded</strong> form (Annex A) keeps every data element explicit,
-      which suits validation and machine processing. The
-      <strong>operational</strong> view is that same compressed payload carrying
-      the operational <code>@context</code> as its data dictionary: identical
-      bytes plus one context line, so it is valid JSON-LD and still plain JSON.
-      The same model also serializes to <strong>XML</strong> in both the Annex B
-      compressed form and an expanded analogue, and to <strong>Turtle</strong>
-      RDF. The <strong>View</strong> dropdown only reprojects the passport, so
-      switching is instant.
+      which suits validation and machine processing. The same model also serializes
+      to <strong>XML</strong> in both the Annex B compressed form and an expanded
+      analogue, and to <strong>Turtle</strong> RDF. The <strong>View</strong>
+      dropdown only reprojects the passport, so switching is instant.
     </p>
     <p>
       None of this is written per product. The mapping follows from good GS1 Web

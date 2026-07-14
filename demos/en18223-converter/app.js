@@ -36298,7 +36298,7 @@ var views = null;
 function render() {
   if (!views) return;
   const fmt = formatEl().value;
-  const v = views[fmt] ?? views.operational;
+  const v = views[fmt] ?? views.compressed;
   outputEl().textContent = typeof v === "string" ? v : JSON.stringify(v, null, 2);
 }
 async function derive() {
@@ -36321,11 +36321,9 @@ async function derive() {
       if (k === "@context" || k.startsWith("_")) continue;
       echo[k] = v;
     }
-    const compressed = echo;
-    const operational = { "@context": ctx, ...echo };
-    const turtle = await toTurtle(operational, documentLoader);
+    const compressed = { "@context": ctx, ...echo };
+    const turtle = await toTurtle(compressed, documentLoader);
     views = {
-      operational,
       compressed,
       expanded,
       xmlOperational: toXmlOperational(expanded),

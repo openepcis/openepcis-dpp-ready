@@ -38,20 +38,19 @@ function setStatus(msg: string, kind: "ok" | "err" | "" = "") {
   el.className = kind;
 }
 
-// Views of the last successful derivation. EN 18223 has one JSON payload: the
-// "operational"/"compressed" form. We show it both ways — carrying the
-// operational @context (valid JSON-LD) and without it (plain JSON, dictionary
-// externalised) — so it is clear they are the same bytes modulo the context.
-// Alongside: the Annex A expanded JSON, both XML serializations (Annex B
-// compressed + an expanded analogue), the Turtle RDF, and the raw JSON-LD
-// expansion of the input.
-type ViewKey = "operational" | "compressed" | "expanded" | "xmlOperational" | "xmlExpanded" | "turtle" | "jsonld";
+// Views of the last successful derivation. EN 18223 §5.2 has one JSON payload: the
+// compressed form, keyed by elementId with the dictionary externalised to a
+// @context. We always carry that operational @context (valid JSON-LD — JSON with a
+// @context is still ordinary JSON), so there is a single JSON view. Alongside: the
+// Annex A expanded JSON, both XML serializations (Annex B compressed + an expanded
+// analogue), the Turtle RDF, and the raw JSON-LD expansion of the input.
+type ViewKey = "compressed" | "expanded" | "xmlOperational" | "xmlExpanded" | "turtle" | "jsonld";
 let views: Record<ViewKey, any> | null = null;
 
 function render() {
   if (!views) return;
   const fmt = formatEl().value as ViewKey;
-  const v = views[fmt] ?? views.operational;
+  const v = views[fmt] ?? views.compressed;
   // Turtle is already serialized text; the JSON views are pretty-printed.
   outputEl().textContent = typeof v === "string" ? v : JSON.stringify(v, null, 2);
 }
@@ -70,21 +69,19 @@ async function derive() {
   try {
     const expanded = await deriveEN18223(input, range, documentLoader);
     const jsonldExpanded = await expandJsonLd(input, documentLoader);
-    // Operational / compressed: the master-data body echoed VERBATIM (shape
-    // preserved — a scalar stays a scalar, an array stays an array, an object
-    // stays an object), minus the source @context and editorial _comment keys.
-    // operational carries the operational @context; compressed leaves it external.
+    // Compressed (§5.2): the master-data body echoed VERBATIM (shape preserved — a
+    // scalar stays a scalar, an array stays an array, an object stays an object),
+    // minus the source @context and editorial _comment keys, always carrying the
+    // operational @context as its data dictionary.
     const ctx = operationalContextFor(input);
     const echo: any = {};
     for (const [k, v] of Object.entries(input)) {
       if (k === "@context" || k.startsWith("_")) continue;
       echo[k] = v;
     }
-    const compressed = echo;
-    const operational = { "@context": ctx, ...echo };
-    const turtle = await toTurtle(operational, documentLoader);
+    const compressed = { "@context": ctx, ...echo };
+    const turtle = await toTurtle(compressed, documentLoader);
     views = {
-      operational,
       compressed,
       expanded,
       xmlOperational: toXmlOperational(expanded),
