@@ -204,35 +204,6 @@ def slugify(s: str) -> str:
     return s or "document"
 
 
-# leaf slugs that already stand in for a certificate document
-CERT_SLUGS = {"certifications", "certificate", "declaration-of-conformity",
-              "verification-certificate"}
-
-
-def collect_cert_rows(node, out=None):
-    """Certification claims (gs1:CertificationDetails anywhere in the seed) as
-    (agency, standard/value) fact rows, so a synthesized certifications.pdf can be
-    generated for products that assert certifications structurally but carry no
-    certificate document URL."""
-    if out is None:
-        out = []
-    if isinstance(node, dict):
-        t = node.get("type") or node.get("@type") or ""
-        if isinstance(t, str) and "CertificationDetails" in t:
-            agency = first_str(node.get("gs1:certificationAgency"))
-            standard = first_str(node.get("gs1:certificationStandard"))
-            value = first_str(node.get("gs1:certificationValue"))
-            label = " · ".join(x for x in [standard, value] if x)
-            if agency or label:
-                out.append((agency or "Certification", label or "certified"))
-        for v in node.values():
-            collect_cert_rows(v, out)
-    elif isinstance(node, list):
-        for v in node:
-            collect_cert_rows(v, out)
-    return out
-
-
 def classify(url: str, keys: set[str]):
     """Return (action, slug, title, intro). action in {pdf, icon-<name>, image, dpp}."""
     if keys & ICON_FIELDS:
@@ -376,18 +347,6 @@ def process_seed(rel: str, gtin: str, do_pdf: bool) -> tuple[int, int]:
             out = DOCS_DIR / gtin / f"{slug}.pdf"
             if render_pdf(doc_html(meta, title, intro), out):
                 made += 1
-        # Synthesize a certifications document from structured certification claims
-        # when the seed asserts certifications but references no certificate URL, so
-        # gs1:certificationInfo has a real file to point at.
-        if not (pdfs.keys() & CERT_SLUGS):
-            cert_rows = collect_cert_rows(seed)
-            if cert_rows:
-                cert_meta = dict(meta)
-                cert_meta["facts"] = meta["facts"] + cert_rows
-                out = DOCS_DIR / gtin / "certifications.pdf"
-                if render_pdf(doc_html(cert_meta, "Product Certifications",
-                        "Certifications and conformity standards held by this product."), out):
-                    made += 1
     return rewrites, made
 
 

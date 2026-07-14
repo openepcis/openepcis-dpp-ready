@@ -357,18 +357,10 @@ provision_traceability() { # gtin
   patch_link "01/$gtin" "traceability" "$detail" "$(desc_for "$gtin")"
 }
 
-# certificationInfo -> the generated certificate PDF on the files service, when one
-# exists for this product (prefer declaration-of-conformity, then verification, then
-# the certifications summary). Replaces any self-referential loop.
-provision_cert() { # gtin
-  local gtin="$1" slug="" s detail
-  for s in declaration-of-conformity verification-certificate certifications; do
-    [[ -f "$REPO_ROOT/scripts/docs/$gtin/$s.pdf" ]] && { slug="$s"; break; }
-  done
-  [[ -n "$slug" ]] || return 0
-  detail=$(python3 -c "import json,sys;print(json.dumps({'href':sys.argv[1],'title':'Certification information','type':'application/pdf','hreflang':['en'],'context':['certificationInfo'],'public':True}))" "$FILES_URL/files/products/$gtin/docs/$slug.pdf")
-  patch_link "01/$gtin" "certificationInfo" "$detail" "$(desc_for "$gtin")"
-}
+# NOTE: certificationInfo is intentionally NOT provisioned here — it is masterdata-driven.
+# The resolver derives it from gs1:certification[].gs1:certificationURI (or a referencedFile
+# typed CERTIFICATION) on POST /products, pointing at the real certificate authority page or
+# the files-hosted Declaration of Conformity.
 
 # epcisRepository -> the EPCIS event history. EPC= matches BOTH instance (epcList /21/)
 # and class (quantityList.epcClass /10/ lot) fields in one wildcard query, against the
@@ -461,9 +453,11 @@ has docs   && provision_docs
 has orgs   && provision_orgs
 if has epcis; then
   cyan "▸ Linkset: traceability + certificationInfo + epcisRepository"
-  # traceability (HTML page) + certificationInfo (cert PDF where present) for every product
+  # traceability (HTML page) for every product. certificationInfo is NOT set here —
+  # it is masterdata-driven: the resolver derives it from gs1:certification[].certificationURI
+  # (or a referencedFile typed CERTIFICATION) on POST /products.
   for row in "${PRODUCTS[@]}"; do IFS='|' read -r g f s d <<<"$row"; gtin_selected "$g" || continue
-    provision_traceability "$g"; provision_cert "$g"; done
+    provision_traceability "$g"; done
   # epcisRepository only for the event-bearing hero products (item + lot via EPC=)
   for row in "${HEROES[@]}"; do IFS='|' read -r g _ _ _ _ <<<"$row"; gtin_selected "$g" && provision_epcisrepo "$g"; done
 fi
