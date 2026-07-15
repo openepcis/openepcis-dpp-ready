@@ -58,9 +58,11 @@ def build_patch_bru(slug: str, seq: int, item_desc: str, gtin: str) -> str:
         [{
             "action": "add",
             "linkset": [{
-                "anchor": f"https://id.gs1.org/01/{gtin}",
+                "anchor": f"{{{{dl-url}}}}/01/{gtin}",
                 "itemDescription": item_desc,
-                "epcis": [{
+                # Ratified GS1 linkType is `epcisRepository` (full voc IRI);
+                # the legacy `gs1:epcis` is deprecated and must not be used.
+                "https://ref.gs1.org/voc/epcisRepository": [{
                     "href": (
                         "https://api.dev.epcis.cloud/events"
                         f"?MATCH_anyEPC=https%3A%2F%2Fid.gs1.org%2F01%2F{gtin}%2A"
@@ -68,7 +70,7 @@ def build_patch_bru(slug: str, seq: int, item_desc: str, gtin: str) -> str:
                     "title": "EPCIS event history",
                     "type": "application/ld+json",
                     "hreflang": ["en"],
-                    "context": ["epcis"],
+                    "context": ["epcisRepository"],
                     "public": True,
                 }],
             }],
