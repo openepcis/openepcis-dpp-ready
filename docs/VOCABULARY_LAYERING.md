@@ -119,7 +119,7 @@ reference), and a product description still flows through `gs1:` /
 | Sustainable Textiles | ✅ shipped (`eu/textile`) | 0 (mature) |
 | ESPR Electronics DA | ✅ shipped (`eu/electronics`) | 0 (mature) |
 | Detergents 2026/405 | ✅ shipped (`eu/detergent`) | 0 (mature) |
-| **PPWR 2025/40** | ✅ shipped (`eu/ppwr`, v0.1.0) | 4 (Packaging, packagingTier, recyclabilityGrade, harmonisedSymbol) |
+| **PPWR 2025/40** | ✅ shipped (`eu/ppwr`) | 8 (Packaging ⊑ gs1:PackagingDetails, packagingTier, recyclabilityGrade, harmonisedSymbol, designForRecyclingMethodology, depositRefundIssued, containerCondition, RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION) — material/deposit data rides on gs1:PackagingDetails / PackagingMaterialDetails / ReturnablePackageDepositDetails |
 | **CPR 2024/3110** | ✅ shipped (`eu/cpr`, v0.1.0) | 5 (ConstructionProduct, constructionProductType enum, reactionToFireClass enum, declarationOfPerformanceUrl, EssentialCharacteristic) |
 | **Right-to-Repair 2024/1799** | ✅ shipped (oec: enrichment) | 0 — enriches `oec:RepairabilityInfo` with `oec:repairInformationPortalUrl` and `oec:RepairProvider` class |
 | **CSDDD 2024/1760** | ✅ shipped (oec: enrichment) | 0 — enriches `oec:DueDiligenceReport` with `oec:dueDiligenceRegulationContext` and `oec:supplyChainTransparencyUrl` |

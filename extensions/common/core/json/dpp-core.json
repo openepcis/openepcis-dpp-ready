@@ -77,8 +77,8 @@
       "id": "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme",
       "localName": "DepositReturnScheme",
       "label": "Deposit-Return Scheme",
-      "comment": "A deposit-return scheme that the product participates in (PPWR Article 13, beverage container DRS in DE/AT/NL/SE/etc., and any future EU-harmonised DRS).",
-      "closeMatch": [
+      "comment": "A deposit-return scheme that the product participates in (PPWR Article 50, beverage container DRS in DE/AT/NL/SE/etc., and any future EU-harmonised DRS). Subclass of gs1:ReturnablePackageDepositDetails: instances carry the deposit amount and region via gs1:returnablePackageDepositAmount / gs1:returnablePackageDepositRegion and add the operator and redemption-channel data points GS1 does not model.",
+      "subClassOf": [
         "https://ref.gs1.org/voc/ReturnablePackageDepositDetails"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -1060,7 +1060,7 @@
       "id": "https://ref.openepcis.io/extensions/common/core/depositAmount",
       "localName": "depositAmount",
       "label": "Deposit Amount",
-      "comment": "Refundable deposit applied at point of sale. Modelled as gs1:QuantitativeValue with unitCode = ISO 4217 currency code (e.g. 'EUR').",
+      "comment": "Refundable deposit applied at point of sale. Modelled as gs1:QuantitativeValue with unitCode = ISO 4217 currency code (e.g. 'EUR'). Prefer the upstream gs1:returnablePackageDepositAmount (range gs1:PriceSpecification) where the GS1 packaging model is in use; this property remains for QuantitativeValue-based expressions.",
       "domain": [
         "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme"
       ],
@@ -1070,7 +1070,7 @@
       "seeAlso": [
         "https://schema.org/amount"
       ],
-      "exactMatch": [
+      "closeMatch": [
         "https://ref.gs1.org/voc/returnablePackageDepositAmount"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -1095,13 +1095,16 @@
       "id": "https://ref.openepcis.io/extensions/common/core/depositReturnScheme",
       "localName": "depositReturnScheme",
       "label": "Deposit-Return Scheme",
-      "comment": "Links a product (typically gs1:PackagingDetails) to the DRS it participates in.",
+      "comment": "Links a product (typically gs1:PackagingDetails) to the DRS it participates in. Where the GS1 packaging model is in use, prefer the upstream gs1:hasReturnablePackageDeposit (gs1:PackagingDetails → gs1:ReturnablePackageDepositDetails); since oec:DepositReturnScheme subclasses the GS1 target class, the same node works for both.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme"
       ],
       "seeAlso": [
         "https://vocabulary.uncefact.org/untp/referenceScheme",
         "https://vocabulary.uncefact.org/untp/idScheme"
+      ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/hasReturnablePackageDeposit"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -4184,6 +4187,20 @@
           "localName": "Tyres",
           "label": "Tyres",
           "comment": "Tyres for motor vehicles and their trailers."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.gs1.org/voc/RegulationTypeCode",
+      "localName": "RegulationTypeCode",
+      "label": "RegulationTypeCode",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/RegulationTypeCode-ESPR",
+          "localName": "RegulationTypeCode-ESPR",
+          "label": "Ecodesign for Sustainable Products Regulation (ESPR)",
+          "comment": "Regulation (EU) 2024/1781 establishing a framework for the setting\nof ecodesign requirements for sustainable products (ESPR), replacing the\nEcodesign Directive 2009/125/EC. Use as the gs1:regulationType of a\ngs1:RegulatoryInformation entry declaring compliance with ESPR or one of\nits delegated acts. Cross-cuts every regulation module, hence owned by\ncommon/core."
         }
       ]
     }

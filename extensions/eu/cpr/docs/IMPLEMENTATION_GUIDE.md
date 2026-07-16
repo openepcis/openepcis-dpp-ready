@@ -37,8 +37,9 @@ A CPR-compliant DPP needs, at minimum:
 6. **Manufacturer / authorised rep** — `gs1:manufacturer` or
    `oec:operatorInformation` (which equivalents `untp:Party`).
 7. **CE-marking declaration** — `gs1:regulatoryInformation` referencing
-   `gs1:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION` and
-   `oec:isRegulationCompliant`.
+   `eucpr:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION` (module-owned
+   `gs1:RegulationTypeCode` member; the upstream list has no
+   construction-products entry) and `oec:isRegulationCompliant`.
 
 Optional but strongly recommended:
 

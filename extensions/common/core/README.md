@@ -211,7 +211,7 @@ With shortcuts:
 "gs1:regulationType": "BATTERY_DIRECTIVE"
 ```
 
-Available shortcuts include: `BATTERY_DIRECTIVE`, `DEFORESTATION_REGULATION`, `ROHS_DIRECTIVE`, `WEEE_DIRECTIVE`, `REACH`, `CE_MARKING`, and more.
+Available shortcuts include: `BATTERY_DIRECTIVE`, `DEFORESTATION_REGULATION`, `ROHS_DIRECTIVE`, `WEEE_DIRECTIVE`, `CE_MARKING`, `ESPR`, and more — see [docs/GS1_STANDARDS.md](docs/GS1_STANDARDS.md) for the full list. Every shortcut resolves to a code that exists upstream or is a module-/core-owned `gs1:RegulationTypeCode` member.
 
 ### HTTP Headers
 

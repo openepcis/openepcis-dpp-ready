@@ -16,27 +16,40 @@
     a owl:Ontology ;
     dcterms:title "OpenEPCIS PPWR Vocabulary"@en ;
     dcterms:description """Vocabulary for the EU Packaging and Packaging Waste Regulation
-(Regulation 2025/40, in force from 2025-01-01; labelling from 2025-08-12;
-recyclability grading mandatory from 2030-01-01; minimum Grade B from
-2038-01-01).
+(Regulation 2025/40, in force since 2025-02-11; general application from
+2026-08-12; harmonised labelling per Article 12 from 2028-08-12;
+recyclability grading (Article 6, Annex II) mandatory from 2030-01-01 with
+Grade C minimum; Grades A/B only from 2038-01-01).
 
 This module is intentionally thin: nearly every PPWR data point reuses the
+GS1 Web Vocabulary packaging model (gs1:PackagingDetails,
+gs1:PackagingMaterialDetails, gs1:ReturnablePackageDepositDetails) plus the
 cross-cutting `oec:` and `untp:` vocabulary already lifted to common/core.
 Packaging-specific concepts only live here:
 
   - `euppwr:Packaging` (subClassOf gs1:PackagingDetails)
   - `euppwr:packagingTier` (Sales / Grouped / Transport; Article 3)
-  - `euppwr:recyclabilityGrade` (A / B / C; Article 4, Annex II)
-  - `euppwr:harmonisedSymbol` (URI of an Annex IX symbol code)
+  - `euppwr:recyclabilityGrade` (A / B / C; Article 6, Annex II)
+  - `euppwr:harmonisedSymbol` (URI of an Article 12 harmonised label entry)
+  - `euppwr:designForRecyclingMethodology` (D4R methodology citation)
+  - `euppwr:depositRefundIssued` / `euppwr:containerCondition`
+    (deposit-return EPCIS observation properties)
+  - `euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION`
+    (module-owned gs1:RegulationTypeCode member; the upstream code list has
+    no packaging-waste entry)
 
+Material composition, recycling process and deposit amounts use the GS1
+packaging terms directly (gs1:packagingMaterial, gs1:packagingMaterialType,
+gs1:packagingRecyclingProcessType, gs1:hasReturnablePackageDeposit).
 Recyclability scoring/rate, recycled content, reuse, compostability,
-bio-based content, hazardous substances, EPR, deposit-return, production
-site, declaration of conformity; all use existing `oec:` / `untp:` /
-`gs1:` terms."""@en ;
+bio-based content, hazardous substances, EPR, production site and the
+declaration of conformity all use existing `oec:` / `untp:` / `gs1:`
+terms. Alignment reference: GS1 in Europe White Paper "Packaging and
+Packaging Waste Regulation and GS1 standards"."""@en ;
     dcterms:creator "OpenEPCIS" ;
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
     dcterms:created "2026-05-01"^^xsd:date ;
-    dcterms:modified "2026-06-19"^^xsd:date ;
+    dcterms:modified "2026-07-16"^^xsd:date ;
     owl:versionInfo "0.9.7" ;
     owl:versionIRI <https://ref.openepcis.io/extensions/eu/ppwr/0.9.7> ;
     vann:preferredNamespacePrefix "euppwr" ;
@@ -51,23 +64,26 @@ site, declaration of conformity; all use existing `oec:` / `untp:` /
 
 euppwr:Packaging
     a owl:Class ;
-    rdfs:subClassOf gs1:Product ;
     rdfs:subClassOf gs1:PackagingDetails ;
     rdfs:label "PPWR Packaging"@en ;
     rdfs:comment """A packaging item subject to EU Regulation 2025/40 (PPWR). Carrier
-for the regulation's labelling and DPP data points. Use packagingTier to
-indicate sales/grouped/transport position; use recyclabilityGrade,
-oec:recycledContent, oec:Compostability, oec:bioBasedFraction, etc. for
-the substantive declarations. Standardly identified via gs1:gtin (or AI 8003
-GIAI for returnable transport items)."""@en ;
+for the regulation's labelling and DPP data points. Reached from a trade
+item via gs1:packaging (gs1:Product → gs1:PackagingDetails); when packaging
+is itself placed on the market as a trade item (e.g. an empty e-commerce
+carton), type the node as both gs1:Product and euppwr:Packaging. Use
+packagingTier for the sales/grouped/transport position; use
+recyclabilityGrade, gs1:packagingMaterial, gs1:packagingRecyclingProcessType,
+gs1:hasReturnablePackageDeposit, oec:recycledContent, oec:Compostability,
+oec:bioBasedFraction, etc. for the substantive declarations. Identified via
+gs1:gtin; reusable/returnable packaging assets use GRAI (AI 8003)."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
     rdfs:seeAlso dppk:Packaging ;
+    rdfs:seeAlso gs1:packaging ;
+    rdfs:seeAlso gs1:PackagingMaterialDetails ;
+    rdfs:seeAlso gs1:ReturnablePackageDepositDetails ;
     skos:closeMatch dppk:Packaging ;
-    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. Aligns approximately with the DPP Keystone packaging card dppk:Packaging (material-composition oriented) vs this item-level class."@en ;
-    skos:broadMatch gs1:PackagingDetails ;
-    skos:broadMatch gs1:ReturnablePackageDepositDetails ;
-    skos:broadMatch gs1:PackagingMaterialDetails .
+    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. Subclass of gs1:PackagingDetails: the GS1 Web Vocabulary packaging model carries the material, recycling-process and deposit data points; this subclass adds only the PPWR-specific regulatory expressions (tier, grade, harmonised symbol). Aligns approximately with the DPP Keystone packaging card dppk:Packaging (material-composition oriented) vs this item-level class."@en .
 
 # =============================================================================
 # Packaging Tier (Article 3)
@@ -115,10 +131,12 @@ euppwr:packagingTier
 euppwr:RecyclabilityGrade
     a owl:Class ;
     rdfs:label "PPWR Recyclability Grade"@en ;
-    rdfs:comment """Letter grade A/B/C per PPWR Article 4 and Annex II, covering
-design-for-recycling performance. Grade A is best; Grade C is the minimum to be
-placed on the EU market from 2030; Grade B becomes minimum from 2038. The
-detailed Annex II methodology is operator-side; the grade is the regulatory
+    rdfs:comment """Recyclability performance grade per PPWR Article 6 and Annex II:
+design-for-recycling assessment per unit in weight — Grade A (≥ 95 %),
+Grade B (≥ 80 %), Grade C (≥ 70 %); below 70 % the packaging is considered
+technically non-recyclable. Grade C is the minimum to be placed on the EU
+market from 2030; from 2038 only Grades A and B may be placed. The detailed
+Annex II methodology is operator-side; the grade is the regulatory
 output."""@en ;
     owl:oneOf (
         euppwr:GradeA
@@ -131,19 +149,19 @@ output."""@en ;
     rdfs:seeAlso oec:CircularityPerformance .
 
 euppwr:GradeA a euppwr:RecyclabilityGrade ; rdfs:label "Grade A"@en ;
-    rdfs:comment "Highest recyclability performance per PPWR Annex II."@en ;
+    rdfs:comment "Highest recyclability performance per PPWR Annex II: ≥ 95 % of unit weight recyclable."@en ;
     skos:notation "A" .
 euppwr:GradeB a euppwr:RecyclabilityGrade ; rdfs:label "Grade B"@en ;
-    rdfs:comment "Mid recyclability per PPWR Annex II: minimum from 2038."@en ;
+    rdfs:comment "Recyclability per PPWR Annex II: ≥ 80 % of unit weight recyclable. Minimum grade from 2038."@en ;
     skos:notation "B" .
 euppwr:GradeC a euppwr:RecyclabilityGrade ; rdfs:label "Grade C"@en ;
-    rdfs:comment "Lowest acceptable recyclability per PPWR Annex II: minimum from 2030; phased out by 2038."@en ;
+    rdfs:comment "Lowest acceptable recyclability per PPWR Annex II: ≥ 70 % of unit weight recyclable. Minimum grade from 2030; cannot be placed on the market from 2038."@en ;
     skos:notation "C" .
 
 euppwr:recyclabilityGrade
     a owl:ObjectProperty ;
     rdfs:label "PPWR Recyclability Grade"@en ;
-    rdfs:comment "PPWR Article 4 letter grade (A/B/C). Companion to oec:recyclabilityScore (numeric, JRC-style) and oec:recyclabilityRate (decimal fraction); use the grade for regulatory expression and a score/rate for the underlying methodology output."@en ;
+    rdfs:comment "PPWR Article 6 letter grade (A/B/C). Companion to oec:recyclabilityScore (numeric, JRC-style) and oec:recyclabilityRate (decimal fraction); use the grade for regulatory expression and a score/rate for the underlying methodology output."@en ;
     rdfs:domain euppwr:Packaging ;
     rdfs:range euppwr:RecyclabilityGrade ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
@@ -152,19 +170,89 @@ euppwr:recyclabilityGrade
     rdfs:seeAlso oec:CircularityPerformance .
 
 # =============================================================================
-# Harmonised Symbol (Article 13)
+# Harmonised Symbol (Article 12)
 # =============================================================================
 
 euppwr:harmonisedSymbol
     a owl:DatatypeProperty ;
     rdfs:label "Harmonised Symbol"@en ;
-    rdfs:comment """URI / code reference of a harmonised PPWR Annex IX symbol that
-appears on the packaging: material composition pictograms, separate-collection
-indicators, deposit-return labels, etc. The Commission publishes the symbol
-catalogue as implementing acts; this property points to the entry."""@en ;
+    rdfs:comment """URI / code reference of a harmonised PPWR Article 12 label
+that appears on the packaging: material-composition pictograms,
+separate-collection indicators, deposit-return labels, etc. The Commission
+establishes the harmonised labels by implementing acts (due 2026-08-12,
+applying from 2028-08-12); this property points to the catalogue entry.
+Until the implementing acts publish the label registry, use a documented
+placeholder URI."""@en ;
     rdfs:domain euppwr:Packaging ;
     rdfs:range xsd:anyURI ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
     skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch dppk:separateCollectionSymbol .
+
+# =============================================================================
+# Regulation type code (module-owned gs1:RegulationTypeCode member)
+# =============================================================================
+
+euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION
+    a gs1:RegulationTypeCode ;
+    rdfs:label "Packaging and Packaging Waste Regulation"@en ;
+    skos:prefLabel "PACKAGING_AND_PACKAGING_WASTE_REGULATION" ;
+    rdfs:comment """Regulation (EU) 2025/40 on packaging and packaging waste (PPWR),
+replacing Directive 94/62/EC. Use as the gs1:regulationType of a
+gs1:RegulatoryInformation entry declaring PPWR compliance."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
+    skos:note "Module-owned member of the gs1:RegulationTypeCode code list: the upstream list has no packaging-waste entry (gs1:RegulationTypeCode-PACKAGING_SAFETY_DIRECTIVE covers child-resistant packaging safety, not packaging waste). Candidate for upstream GS1 code-list submission."@en ;
+    rdfs:seeAlso gs1:RegulationTypeCode-PACKAGING_SAFETY_DIRECTIVE ;
+    rdfs:seeAlso gs1:RegulationTypeCode-PLASTIC_DIRECTIVE .
+
+# =============================================================================
+# Design-for-recycling methodology (Article 4 / Annex II supporting evidence)
+# =============================================================================
+
+euppwr:designForRecyclingMethodology
+    a owl:DatatypeProperty ;
+    rdfs:label "Design-for-Recycling Methodology"@en ;
+    rdfs:comment """Name and version of the design-for-recycling (D4R) assessment
+methodology substantiating a recyclabilityGrade, e.g. "RecyClass v2.6",
+"CEFLEX D4ACE", "APR Design Guide". Cited in the recyclability-grade
+declaration observation until the Commission's Annex II delegated acts
+prescribe the harmonised methodology."""@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
+    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute (Article 4 / Annex II supporting evidence). No GS1, SEMICeu, or schema.org equivalent."@en ;
+    rdfs:seeAlso euppwr:recyclabilityGrade .
+
+# =============================================================================
+# Deposit-return observation properties (Article 50, EPCIS event level)
+# =============================================================================
+
+euppwr:depositRefundIssued
+    a owl:DatatypeProperty ;
+    rdfs:label "Deposit Refund Issued"@en ;
+    rdfs:comment """Monetary amount refunded when a deposit-bearing packaging item is
+returned (PPWR Article 50 deposit-return systems). EPCIS event-level
+observation property, typically a sensorReport entry of a decommissioning
+event captured by a reverse-vending machine; the currency travels in the
+report's uom. The static deposit amount of the packaging model is
+resolver-served master data via gs1:hasReturnablePackageDeposit /
+gs1:returnablePackageDepositAmount."""@en ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
+    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. Event-bound refund amount; gs1:returnablePackageDepositAmount carries the model-level deposit, not the transaction."@en ;
+    rdfs:seeAlso gs1:returnablePackageDepositAmount .
+
+euppwr:containerCondition
+    a owl:DatatypeProperty ;
+    rdfs:label "Container Condition"@en ;
+    rdfs:comment """Observed physical condition of a returned packaging item at
+redemption or take-back, e.g. "intact", "crushed", "contaminated". Drives
+routing between reuse (washing/refill) and recycling streams in
+deposit-return and reuse systems (PPWR Articles 27, 50)."""@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
+    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .

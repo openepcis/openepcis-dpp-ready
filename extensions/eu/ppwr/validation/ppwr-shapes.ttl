@@ -32,12 +32,38 @@ ppwr-sh:PackagingShape
         sh:nodeKind sh:IRI ;
         sh:in ( euppwr:GradeA euppwr:GradeB euppwr:GradeC ) ;
         sh:maxCount 1 ;
-        sh:message "euppwr:recyclabilityGrade must be A, B, or C (PPWR Article 4)"@en
+        sh:message "euppwr:recyclabilityGrade must be A, B, or C (PPWR Article 6, Annex II)"@en
     ] ;
     sh:property [
         sh:path euppwr:harmonisedSymbol ;
         sh:datatype xsd:anyURI ;
-        sh:message "euppwr:harmonisedSymbol must be a URI referencing the harmonised label per PPWR Article 12 / Annex IX"@en
+        sh:message "euppwr:harmonisedSymbol must be a URI referencing a harmonised label per PPWR Article 12"@en
+    ] .
+
+# GS1 packaging-model hygiene: every material entry linked via
+# gs1:packagingMaterial must name its material via the upstream code list,
+# and every deposit card linked via gs1:hasReturnablePackageDeposit must
+# state the deposit amount.
+
+ppwr-sh:PackagingMaterialDetailsShape
+    a sh:NodeShape ;
+    rdfs:label "Packaging material details shape"@en ;
+    sh:targetObjectsOf gs1:packagingMaterial ;
+    sh:property [
+        sh:path gs1:packagingMaterialType ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:message "Each gs1:PackagingMaterialDetails entry must reference a gs1:PackagingMaterialTypeCode member via gs1:packagingMaterialType"@en
+    ] .
+
+ppwr-sh:ReturnablePackageDepositShape
+    a sh:NodeShape ;
+    rdfs:label "Returnable package deposit shape"@en ;
+    sh:targetObjectsOf gs1:hasReturnablePackageDeposit ;
+    sh:property [
+        sh:path gs1:returnablePackageDepositAmount ;
+        sh:minCount 1 ;
+        sh:message "A returnable-package deposit card must state the deposit via gs1:returnablePackageDepositAmount (gs1:PriceSpecification with gs1:price + gs1:priceCurrency)"@en
     ] .
 
 # Event-bound observations introduced with the lifecycle event templates
@@ -61,11 +87,11 @@ ppwr-sh:RecyclabilityGradeObservationShape
     rdfs:label "Recyclability-grade declaration shape"@en ;
     sh:targetSubjectsOf euppwr:recyclabilityGrade ;
     sh:property [
-        sh:path euppwr:recyclabilityScore ;
+        sh:path oec:recyclabilityScore ;
         sh:datatype xsd:decimal ;
         sh:minInclusive 0 ;
         sh:maxInclusive 100 ;
-        sh:message "euppwr:recyclabilityScore is a percentage in [0, 100] aligned with the grade boundaries in Annex II"@en
+        sh:message "oec:recyclabilityScore is a percentage in [0, 100] aligned with the grade boundaries in Annex II (A ≥ 95, B ≥ 80, C ≥ 70)"@en
     ] ;
     sh:property [
         sh:path euppwr:designForRecyclingMethodology ;

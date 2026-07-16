@@ -1,10 +1,14 @@
 {
   "_comment": [
-    "PPWR DPP example: a multi-layer PET/aluminium/PE laminate snack-food pouch.",
-    "Demonstrates Grade C (lowest acceptable from 2030, phased out by 2038), no",
-    "recycled content, PFAS-free declaration via oec:HazardousSubstance, sales-tier",
-    "primary packaging, no deposit-return scheme participation. The harmonised",
-    "symbol points at the 'mixed-materials' / 'household-waste' Annex IX entry.",
+    "PPWR DPP example: a snack trade item in a multi-layer PET/aluminium/PE laminate",
+    "pouch. Packaging data hangs off the product via gs1:packaging → euppwr:Packaging",
+    "(subclass of gs1:PackagingDetails), with one gs1:PackagingMaterialDetails entry",
+    "per laminate layer. Demonstrates Grade C (lowest acceptable from 2030, cannot be",
+    "placed on the market from 2038), no recycled content, PFAS-free declaration via",
+    "oec:HazardousSubstance, sales-tier primary packaging, no deposit-return",
+    "participation.",
+    "The euppwr:harmonisedSymbol URI is a placeholder: the PPWR Article 12",
+    "implementing acts (due 2026-08-12) will publish the harmonised label catalogue.",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
   "@context": [
@@ -12,8 +16,13 @@
     "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
   ],
   "id": "https://id.demo.epcis.cloud/01/09521005000808",
-  "type": "euppwr:Packaging",
+  "type": "gs1:Product",
   "gs1:gtin": "09521005000808",
+  "gs1:netWeight": {
+    "type": "gs1:QuantitativeValue",
+    "gs1:value": 80,
+    "gs1:unitCode": "GRM"
+  },
   "gs1:productName": [
     {
       "@value": "Crispy Snack Pouch, 80 g multi-layer foil",
@@ -60,13 +69,6 @@
       "@language": "it"
     }
   ],
-  "euppwr:packagingTier": {
-    "@id": "euppwr:Sales"
-  },
-  "euppwr:recyclabilityGrade": {
-    "@id": "euppwr:GradeC"
-  },
-  "euppwr:harmonisedSymbol": "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/mixed-materials-household-waste",
   "gs1:productionDate": "2026-03-20",
   "gs1:manufacturer": {
     "id": "https://id.demo.epcis.cloud/417/9521234000037",
@@ -74,54 +76,89 @@
     "gs1:organizationName": "Knusprig GmbH",
     "gs1:partyGLN": "9521234000037"
   },
-  "oec:extendedProducerResponsibility": [
-    {
-      "type": "oec:ExtendedProducerResponsibility",
-      "oec:eprRegistrationNumber": "DE-VPC-58092345",
-      "oec:eprWasteStream": "packaging",
-      "oec:eprJurisdiction": {
-        "id": "https://ref.gs1.org/voc/Country-DE",
-        "type": "gs1:Country"
+  "gs1:packaging": {
+    "type": "euppwr:Packaging",
+    "gs1:packagingType": "Pouch",
+    "euppwr:packagingTier": {
+      "@id": "euppwr:Sales"
+    },
+    "euppwr:recyclabilityGrade": {
+      "@id": "euppwr:GradeC"
+    },
+    "euppwr:harmonisedSymbol": "https://harmonised-labels.example.com/ppwr/mixed-materials-household-waste",
+    "gs1:packagingMaterial": [
+      {
+        "type": "gs1:PackagingMaterialDetails",
+        "schema:name": "Outer layer: PET",
+        "gs1:packagingMaterialType": {
+          "id": "gs1:PackagingMaterialTypeCode-POLYMER_PET"
+        },
+        "gs1:packagingMaterialCompositionQuantity": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 3.2,
+          "gs1:unitCode": "GRM"
+        }
       },
-      "oec:eprScheme": {
-        "id": "https://id.demo.epcis.cloud/417/4030101000001",
-        "type": "gs1:Organization",
-        "gs1:organizationName": "Der Grüne Punkt, Duales System Deutschland GmbH"
+      {
+        "type": "gs1:PackagingMaterialDetails",
+        "schema:name": "Barrier layer: aluminium (critical raw material)",
+        "gs1:packagingMaterialType": {
+          "id": "gs1:PackagingMaterialTypeCode-METAL_ALUMINUM"
+        },
+        "gs1:packagingMaterialCompositionQuantity": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 0.7,
+          "gs1:unitCode": "GRM"
+        },
+        "gs1:packagingMaterialThickness": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 9,
+          "gs1:unitCode": "4H"
+        }
+      },
+      {
+        "type": "gs1:PackagingMaterialDetails",
+        "schema:name": "Inner sealing layer: PE",
+        "gs1:packagingMaterialType": {
+          "id": "gs1:PackagingMaterialTypeCode-POLYMER_PE"
+        },
+        "gs1:packagingMaterialCompositionQuantity": {
+          "type": "gs1:QuantitativeValue",
+          "gs1:value": 3.1,
+          "gs1:unitCode": "GRM"
+        }
       }
-    }
-  ],
-  "oec:materialComposition": [
-    {
-      "type": "oec:MaterialComposition",
-      "schema:name": "PET outer layer",
-      "oec:massFraction": 0.45
-    },
-    {
-      "type": "oec:MaterialComposition",
-      "schema:name": "Aluminium barrier layer",
-      "oec:massFraction": 0.1,
-      "oec:isCriticalRawMaterial": true
-    },
-    {
-      "type": "oec:MaterialComposition",
-      "schema:name": "PE inner layer",
-      "oec:massFraction": 0.45,
-      "oec:casNumber": "9002-88-4"
-    }
-  ],
-  "oec:hazardousSubstances": [
-    {
-      "type": "oec:HazardousSubstance",
-      "schema:name": "PFAS (per- and polyfluoroalkyl substances)",
-      "oec:hazardImpact": "absent",
-      "_comment": "PPWR Article 5 PFAS restriction declaration: packaging contains no intentionally added PFAS. concentration omitted because below detection threshold."
-    }
-  ],
+    ],
+    "oec:hazardousSubstances": [
+      {
+        "type": "oec:HazardousSubstance",
+        "schema:name": "PFAS (per- and polyfluoroalkyl substances)",
+        "oec:hazardImpact": "absent",
+        "_comment": "PPWR Article 5 PFAS restriction declaration: packaging contains no intentionally added PFAS. concentration omitted because below detection threshold."
+      }
+    ],
+    "oec:extendedProducerResponsibility": [
+      {
+        "type": "oec:ExtendedProducerResponsibility",
+        "oec:eprRegistrationNumber": "DE-VPC-58092345",
+        "oec:eprWasteStream": "packaging",
+        "oec:eprJurisdiction": {
+          "id": "https://ref.gs1.org/voc/Country-DE",
+          "type": "gs1:Country"
+        },
+        "oec:eprScheme": {
+          "id": "https://id.demo.epcis.cloud/417/4030101000001",
+          "type": "gs1:Organization",
+          "gs1:organizationName": "Der Grüne Punkt, Duales System Deutschland GmbH"
+        }
+      }
+    ]
+  },
   "gs1:regulatoryInformation": [
     {
       "type": "gs1:RegulatoryInformation",
       "gs1:regulationType": {
-        "id": "gs1:RegulationTypeCode-PACKAGING_WASTE_DIRECTIVE"
+        "id": "euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION"
       },
       "gs1:regulatoryAct": "EU 2025/40",
       "oec:isRegulationCompliant": true

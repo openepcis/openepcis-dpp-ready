@@ -2218,6 +2218,21 @@ oec:isRegulationCompliant
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
+oec:RegulationTypeCode-ESPR
+    a gs1:RegulationTypeCode ;
+    rdfs:label "Ecodesign for Sustainable Products Regulation (ESPR)"@en ;
+    skos:prefLabel "ESPR" ;
+    rdfs:comment """Regulation (EU) 2024/1781 establishing a framework for the setting
+of ecodesign requirements for sustainable products (ESPR), replacing the
+Ecodesign Directive 2009/125/EC. Use as the gs1:regulationType of a
+gs1:RegulatoryInformation entry declaring compliance with ESPR or one of
+its delegated acts. Cross-cuts every regulation module, hence owned by
+common/core."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note "Core-owned member of the gs1:RegulationTypeCode code list: the upstream list has no ecodesign/ESPR entry. Candidate for upstream GS1 code-list submission."@en ;
+    rdfs:seeAlso gs1:RegulationTypeCode-EFFICIENCY_OF_LAMPS_LUMINARIES .
+
 oec:regulatoryActStatus
     a owl:DatatypeProperty ;
     rdfs:label "Regulatory Act Status"@en ;
@@ -2452,23 +2467,23 @@ oec:compostabilityStandard
 
 oec:DepositReturnScheme
     a owl:Class ;
+    rdfs:subClassOf gs1:ReturnablePackageDepositDetails ;
     rdfs:label "Deposit-Return Scheme"@en ;
-    rdfs:comment "A deposit-return scheme that the product participates in (PPWR Article 13, beverage container DRS in DE/AT/NL/SE/etc., and any future EU-harmonised DRS)."@en ;
+    rdfs:comment "A deposit-return scheme that the product participates in (PPWR Article 50, beverage container DRS in DE/AT/NL/SE/etc., and any future EU-harmonised DRS). Subclass of gs1:ReturnablePackageDepositDetails: instances carry the deposit amount and region via gs1:returnablePackageDepositAmount / gs1:returnablePackageDepositRegion and add the operator and redemption-channel data points GS1 does not model."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:closeMatch gs1:ReturnablePackageDepositDetails .
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward as a subclass of gs1:ReturnablePackageDepositDetails."@en .
 
 oec:depositAmount
     a owl:ObjectProperty ;
     rdfs:label "Deposit Amount"@en ;
-    rdfs:comment "Refundable deposit applied at point of sale. Modelled as gs1:QuantitativeValue with unitCode = ISO 4217 currency code (e.g. 'EUR')."@en ;
+    rdfs:comment "Refundable deposit applied at point of sale. Modelled as gs1:QuantitativeValue with unitCode = ISO 4217 currency code (e.g. 'EUR'). Prefer the upstream gs1:returnablePackageDepositAmount (range gs1:PriceSpecification) where the GS1 packaging model is in use; this property remains for QuantitativeValue-based expressions."@en ;
     rdfs:domain oec:DepositReturnScheme ;
     rdfs:range gs1:QuantitativeValue ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:exactMatch gs1:returnablePackageDepositAmount ;
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists. closeMatch (not exactMatch) to gs1:returnablePackageDepositAmount: same meaning, different value structure (QuantitativeValue vs PriceSpecification)."@en ;
+    skos:closeMatch gs1:returnablePackageDepositAmount ;
     rdfs:seeAlso schema:amount .
 
 oec:depositSchemeOperator
@@ -2497,11 +2512,12 @@ oec:depositRedemptionChannelUrl
 oec:depositReturnScheme
     a owl:ObjectProperty ;
     rdfs:label "Deposit-Return Scheme"@en ;
-    rdfs:comment "Links a product (typically gs1:PackagingDetails) to the DRS it participates in."@en ;
+    rdfs:comment "Links a product (typically gs1:PackagingDetails) to the DRS it participates in. Where the GS1 packaging model is in use, prefer the upstream gs1:hasReturnablePackageDeposit (gs1:PackagingDetails → gs1:ReturnablePackageDepositDetails); since oec:DepositReturnScheme subclasses the GS1 target class, the same node works for both."@en ;
     rdfs:range oec:DepositReturnScheme ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    skos:closeMatch gs1:hasReturnablePackageDeposit ;
     rdfs:seeAlso untp:referenceScheme ;
     rdfs:seeAlso untp:idScheme .
 

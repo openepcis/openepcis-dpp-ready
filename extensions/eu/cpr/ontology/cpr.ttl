@@ -420,3 +420,20 @@ eucpr:validationReports
     skos:exactMatch dppk:validationReports ;
     skos:note "Validation report references per CPR. Reuses oec:DocumentReference; anchored to the DPP Keystone peer profile dppk:validationReports."@en ;
     skos:broadMatch <urn:samm:io.BatteryPass.Labels:1.2.0#resultOfTestReport> .
+
+# =============================================================================
+# Regulation type code (module-owned gs1:RegulationTypeCode member)
+# =============================================================================
+
+eucpr:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION
+    a gs1:RegulationTypeCode ;
+    rdfs:label "Construction Products Regulation"@en ;
+    skos:prefLabel "CONSTRUCTION_PRODUCTS_REGULATION" ;
+    rdfs:comment """Regulation (EU) 2024/3110 laying down harmonised rules for the
+marketing of construction products (CPR), replacing Regulation (EU) No
+305/2011. Use as the gs1:regulationType of a gs1:RegulatoryInformation
+entry declaring CPR compliance."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
+    skos:note "Module-owned member of the gs1:RegulationTypeCode code list: the upstream list has no construction-products entry (nearest, gs1:RegulationTypeCode-DECLARATION_OF_PERFORMANCE_REQUIRED, covers only the DoP obligation). Candidate for upstream GS1 code-list submission."@en ;
+    rdfs:seeAlso gs1:RegulationTypeCode-DECLARATION_OF_PERFORMANCE_REQUIRED .

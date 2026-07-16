@@ -8,11 +8,11 @@
   "schemaVersion": "2.0",
   "creationDate": "2026-04-15T10:00:00.000Z",
   "_comment_architecture": [
-    "PPWR commissioning event: packaging item enters the regulated supply chain.",
+    "PPWR commissioning event: a production lot of the beverage-bottle trade item (see examples/beverage-bottle-lot-01.jsonld) enters the regulated supply chain. The lot is class-level (AI 01 + AI 10), so it travels in quantityList, not epcList.",
     "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
     "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
-    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, euppwr=https://ref.openepcis.io/extensions/eu/ppwr/",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
   "epcisBody": {
@@ -25,8 +25,12 @@
         "action": "ADD",
         "bizStep": "commissioning",
         "disposition": "active",
-        "epcList": [
-          "https://id.gs1.org/01/09521234500018/10/LOT-2026-0117"
+        "quantityList": [
+          {
+            "epcClass": "https://id.gs1.org/01/09521004005019/10/LOT-01",
+            "quantity": 24000,
+            "uom": "H87"
+          }
         ],
         "readPoint": {
           "id": "https://id.gs1.org/414/9521234000013"
@@ -36,13 +40,13 @@
         },
         "masterDataAvailableFor": [
           {
-            "id": "https://id.gs1.org/01/09521234500018/10/LOT-2026-0117",
+            "id": "https://id.gs1.org/01/09521004005019/10/LOT-01",
             "type": "Product",
             "regulatoryInformation": [
               {
                 "type": "RegulatoryInformation",
                 "regulationType": {
-                  "id": "RegulationTypeCode-PACKAGING_WASTE_DIRECTIVE"
+                  "id": "euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION"
                 },
                 "regulatoryAct": "EU 2025/40",
                 "isRegulationCompliant": true

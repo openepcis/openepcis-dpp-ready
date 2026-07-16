@@ -91,8 +91,8 @@ GS1 implementation guidance for EU Deforestation Regulation 2023/1115.
 | Regulation | GS1 Code | Reference |
 |------------|----------|-----------|
 | RoHS | `gs1:RegulationTypeCode-ROHS_DIRECTIVE` | EU 2011/65/EU |
-| WEEE | `gs1:RegulationTypeCode-WEEE_DIRECTIVE` | EU 2012/19/EU |
-| REACH | `gs1:RegulationTypeCode-REACH` | EU 1907/2006 |
+| WEEE | `gs1:RegulationTypeCode-RETURNING_OF_ELECTRONICAL_PRODUCT_DIRECTIVE` | EU 2012/19/EU |
+| REACH | N/A (no upstream code; use `gs1:regulatoryAct` + HazardousSubstance pattern) | EU 1907/2006 |
 | CLP | N/A (use HazardousSubstance pattern) | EU 1272/2008 |
 
 ### GS1 Shortcuts Context (Optional)
@@ -109,7 +109,15 @@ For cleaner syntax, the optional [gs1-shortcuts-context.jsonld](../context/gs1-s
 "gs1:regulationType": "BATTERY_DIRECTIVE"
 ```
 
-Available shortcuts: `BATTERY_DIRECTIVE`, `DEFORESTATION_REGULATION`, `ROHS_DIRECTIVE`, `WEEE_DIRECTIVE`, `REACH`, `CE_MARKING`, `CE`, `E_MARK`, `ECODESIGN_DIRECTIVE`, `LVD_DIRECTIVE`, `EMC_DIRECTIVE`, `MACHINERY_DIRECTIVE`, `PACKAGING_WASTE_DIRECTIVE`, `FOOD_CONTACT_MATERIAL`, `MEDICAL_DEVICE_REGULATION`, `BIOCIDE_REGULATION`, `COSMETICS_REGULATION`, `TOYS_DIRECTIVE`, `PPE_REGULATION`, `CONSTRUCTION_PRODUCTS_REGULATION`, `INFANT_FORMULA_LABELLING`, `AEROSOL_REVERSE_EPSILON`, `UVA`.
+Available shortcuts: `BATTERY_DIRECTIVE`, `DEFORESTATION_REGULATION`, `ROHS_DIRECTIVE`, `WEEE_DIRECTIVE` (→ `RETURNING_OF_ELECTRONICAL_PRODUCT_DIRECTIVE`), `CE_MARKING` (→ `CE`), `CE`, `E_MARK`, `ESPR` (→ `oec:RegulationTypeCode-ESPR`), `LVD_DIRECTIVE`, `EMC_DIRECTIVE`, `FOOD_CONTACT_MATERIAL` (→ `INTENDED_TO_COME_INTO_CONTACT_WITH_FOOD`), `MEDICAL_DEVICE_REGULATION` (→ `MEDICAL_DEVICE_SAFETY`), `BIOCIDE_REGULATION`, `COSMETICS_REGULATION` (→ `COSMETIC_INFORMATION_REGULATION`), `TOYS_DIRECTIVE` (→ `TOY_SAFETY_DIRECTIVE`), `TEXTILE_LABELLING_REGULATION`, `INFANT_FORMULA_LABELLING`, `AEROSOL_REVERSE_EPSILON`, `UVA`. Every shortcut resolves to a code that actually exists — either upstream in the GS1 Web Vocabulary or as a module-/core-owned `gs1:RegulationTypeCode` member.
+
+Regulations with no upstream code are owned by the responsible layer, typed `gs1:RegulationTypeCode`, and aliased in that module's shortcut context:
+
+- `oec:RegulationTypeCode-ESPR` (Regulation 2024/1781; cross-cutting, core-owned; aliased `ESPR` here)
+- `euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION` (Regulation 2025/40; ppwr shortcut context)
+- `eucpr:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION` (Regulation 2024/3110; cpr shortcut context)
+
+REACH, the Machinery Regulation, and the PPE Regulation have no upstream code and no module yet; declare them via `gs1:regulatoryAct` free text (plus the `oec:HazardousSubstance` pattern for REACH substances) until a module owns them.
 
 ---
 

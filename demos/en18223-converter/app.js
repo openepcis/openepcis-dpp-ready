@@ -20884,6 +20884,9 @@ var range_index_default = {
   "https://ref.openepcis.io/extensions/eu/eudr/transformationLocation": "https://ref.gs1.org/voc/Place",
   "https://ref.openepcis.io/extensions/eu/eudr/verificationMethod": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/eudr/volumeCubicMeters": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.io/extensions/eu/ppwr/containerCondition": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/eu/ppwr/depositRefundIssued": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.io/extensions/eu/ppwr/designForRecyclingMethodology": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/ppwr/harmonisedSymbol": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/ppwr/packagingTier": "https://ref.openepcis.io/extensions/eu/ppwr/PackagingTier",
   "https://ref.openepcis.io/extensions/eu/ppwr/recyclabilityGrade": "https://ref.openepcis.io/extensions/eu/ppwr/RecyclabilityGrade",
@@ -25593,6 +25596,62 @@ var contexts_default = {
         "@id": "gs1:manufacturer",
         "@type": "@id"
       },
+      packaging: {
+        "@id": "gs1:packaging",
+        "@type": "@id"
+      },
+      packagingType: "gs1:packagingType",
+      PackagingMaterialDetails: "gs1:PackagingMaterialDetails",
+      packagingMaterial: {
+        "@id": "gs1:packagingMaterial",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      packagingMaterialType: {
+        "@id": "gs1:packagingMaterialType",
+        "@type": "@id",
+        "@context": {
+          "@base": "https://ref.gs1.org/voc/"
+        }
+      },
+      packagingMaterialCompositionQuantity: "gs1:packagingMaterialCompositionQuantity",
+      packagingMaterialThickness: "gs1:packagingMaterialThickness",
+      packagingFeature: {
+        "@id": "gs1:packagingFeature",
+        "@type": "@id",
+        "@container": "@set",
+        "@context": {
+          "@base": "https://ref.gs1.org/voc/"
+        }
+      },
+      packagingRecyclingProcessType: {
+        "@id": "gs1:packagingRecyclingProcessType",
+        "@type": "@id",
+        "@context": {
+          "@base": "https://ref.gs1.org/voc/"
+        }
+      },
+      hasReturnablePackageDeposit: {
+        "@id": "gs1:hasReturnablePackageDeposit",
+        "@type": "@id"
+      },
+      returnablePackageDepositAmount: {
+        "@id": "gs1:returnablePackageDepositAmount",
+        "@type": "@id"
+      },
+      returnablePackageDepositRegion: {
+        "@id": "gs1:returnablePackageDepositRegion",
+        "@type": "@id",
+        "@context": {
+          "@base": "https://ref.gs1.org/voc/"
+        }
+      },
+      PriceSpecification: "gs1:PriceSpecification",
+      price: "gs1:price",
+      priceCurrency: "gs1:priceCurrency",
+      netContent: "gs1:netContent",
+      netWeight: "gs1:netWeight",
+      PACKAGING_AND_PACKAGING_WASTE_REGULATION: "euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION",
       regulatoryInformation: {
         "@id": "gs1:regulatoryInformation",
         "@type": "@id",
@@ -25628,6 +25687,7 @@ var contexts_default = {
       xsd: "http://www.w3.org/2001/XMLSchema#",
       schema: "https://schema.org/",
       AVCPSystem: "eucpr:AVCPSystem",
+      CONSTRUCTION_PRODUCTS_REGULATION: "eucpr:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION",
       ConstructionProduct: "eucpr:ConstructionProduct",
       ConstructionProductType: "eucpr:ConstructionProductType",
       DeclarationOfPerformance: "eucpr:DeclarationOfPerformance",
@@ -26213,23 +26273,19 @@ var contexts_default = {
       BATTERY_DIRECTIVE: "gs1:RegulationTypeCode-BATTERY_DIRECTIVE",
       DEFORESTATION_REGULATION: "gs1:RegulationTypeCode-DEFORESTATION_REGULATION",
       ROHS_DIRECTIVE: "gs1:RegulationTypeCode-ROHS_DIRECTIVE",
-      WEEE_DIRECTIVE: "gs1:RegulationTypeCode-WEEE_DIRECTIVE",
-      REACH: "gs1:RegulationTypeCode-REACH",
-      CE_MARKING: "gs1:RegulationTypeCode-CE_MARKING",
+      WEEE_DIRECTIVE: "gs1:RegulationTypeCode-RETURNING_OF_ELECTRONICAL_PRODUCT_DIRECTIVE",
+      CE_MARKING: "gs1:RegulationTypeCode-CE",
       CE: "gs1:RegulationTypeCode-CE",
       E_MARK: "gs1:RegulationTypeCode-E_MARK",
-      ECODESIGN_DIRECTIVE: "gs1:RegulationTypeCode-ECODESIGN_DIRECTIVE",
+      ESPR: "oec:RegulationTypeCode-ESPR",
       LVD_DIRECTIVE: "gs1:RegulationTypeCode-LVD_DIRECTIVE",
       EMC_DIRECTIVE: "gs1:RegulationTypeCode-EMC_DIRECTIVE",
-      MACHINERY_DIRECTIVE: "gs1:RegulationTypeCode-MACHINERY_DIRECTIVE",
-      PACKAGING_WASTE_DIRECTIVE: "gs1:RegulationTypeCode-PACKAGING_WASTE_DIRECTIVE",
-      FOOD_CONTACT_MATERIAL: "gs1:RegulationTypeCode-FOOD_CONTACT_MATERIAL",
-      MEDICAL_DEVICE_REGULATION: "gs1:RegulationTypeCode-MEDICAL_DEVICE_REGULATION",
+      FOOD_CONTACT_MATERIAL: "gs1:RegulationTypeCode-INTENDED_TO_COME_INTO_CONTACT_WITH_FOOD",
+      MEDICAL_DEVICE_REGULATION: "gs1:RegulationTypeCode-MEDICAL_DEVICE_SAFETY",
       BIOCIDE_REGULATION: "gs1:RegulationTypeCode-BIOCIDE_REGULATION",
-      COSMETICS_REGULATION: "gs1:RegulationTypeCode-COSMETICS_REGULATION",
-      TOYS_DIRECTIVE: "gs1:RegulationTypeCode-TOYS_DIRECTIVE",
-      PPE_REGULATION: "gs1:RegulationTypeCode-PPE_REGULATION",
-      CONSTRUCTION_PRODUCTS_REGULATION: "gs1:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION",
+      COSMETICS_REGULATION: "gs1:RegulationTypeCode-COSMETIC_INFORMATION_REGULATION",
+      TOYS_DIRECTIVE: "gs1:RegulationTypeCode-TOY_SAFETY_DIRECTIVE",
+      TEXTILE_LABELLING_REGULATION: "gs1:RegulationTypeCode-TEXTILE_LABELLING_REGULATION",
       INFANT_FORMULA_LABELLING: "gs1:RegulationTypeCode-INFANT_FORMULA_LABELLING",
       AEROSOL_REVERSE_EPSILON: "gs1:RegulationTypeCode-AEROSOL_REVERSE_EPSILON",
       UVA: "gs1:RegulationTypeCode-UVA",
@@ -28493,6 +28549,36 @@ var contexts_default = {
           "@id": "gs1:manufacturer",
           "@type": "@id"
         },
+        "gs1:packaging": {
+          "@id": "gs1:packaging",
+          "@type": "@id"
+        },
+        "gs1:packagingMaterial": {
+          "@id": "gs1:packagingMaterial",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "gs1:packagingMaterialType": {
+          "@id": "gs1:packagingMaterialType",
+          "@type": "@id"
+        },
+        "gs1:packagingFeature": {
+          "@id": "gs1:packagingFeature",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "gs1:packagingRecyclingProcessType": {
+          "@id": "gs1:packagingRecyclingProcessType",
+          "@type": "@id"
+        },
+        "gs1:hasReturnablePackageDeposit": {
+          "@id": "gs1:hasReturnablePackageDeposit",
+          "@type": "@id"
+        },
+        "gs1:returnablePackageDepositRegion": {
+          "@id": "gs1:returnablePackageDepositRegion",
+          "@type": "@id"
+        },
         "gs1:regulatoryInformation": {
           "@id": "gs1:regulatoryInformation",
           "@type": "@id",
@@ -28509,6 +28595,18 @@ var contexts_default = {
         "euppwr:harmonisedSymbol": {
           "@id": "euppwr:harmonisedSymbol",
           "@type": "xsd:anyURI"
+        },
+        "euppwr:designForRecyclingMethodology": {
+          "@id": "euppwr:designForRecyclingMethodology",
+          "@type": "xsd:string"
+        },
+        "euppwr:depositRefundIssued": {
+          "@id": "euppwr:depositRefundIssued",
+          "@type": "xsd:decimal"
+        },
+        "euppwr:containerCondition": {
+          "@id": "euppwr:containerCondition",
+          "@type": "xsd:string"
         }
       }
     ]
@@ -29256,6 +29354,13 @@ var samples_default = [
         "eubat:thirdPartyAssurancesUrl": "https://files.demo.epcis.cloud/files/products/09521234002000/docs/third-party-assurance.pdf",
         "eubat:supplyChainIndex": 84
       },
+      "gs1:certification": [
+        {
+          type: "gs1:CertificationDetails",
+          "gs1:certificationSubject": "EU Declaration of Conformity (Battery Regulation 2023/1542)",
+          "gs1:certificationURI": "https://files.demo.epcis.cloud/files/products/09521234002000/docs/declaration-of-conformity.pdf"
+        }
+      ],
       "eubat:euDeclarationOfConformity": {
         type: "cccev:Evidence",
         "eubat:euDeclarationOfConformityId": "DoC-2026-AMPERIA-STAX10",
@@ -30154,6 +30259,14 @@ var samples_default = [
         "@language": "en"
       },
       "eubat:ceMarkingIndicator": true,
+      "gs1:certification": [
+        {
+          type: "gs1:CertificationDetails",
+          "gs1:certificationSubject": "EU Declaration of Conformity (Battery Regulation 2023/1542)",
+          "gs1:certificationAgency": "T\xDCV S\xDCD (Notified Body 0123)",
+          "gs1:certificationURI": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/declaration-of-conformity.pdf"
+        }
+      ],
       "eubat:euDeclarationOfConformity": {
         type: "cccev:Evidence",
         "eubat:euDeclarationOfConformityId": "DoC-2024-ECOCELL-IM500",
@@ -32555,7 +32668,8 @@ var samples_default = [
           type: "gs1:CertificationDetails",
           "gs1:certificationAgency": "Textile Exchange",
           "gs1:certificationStandard": "Global Recycled Standard (GRS)",
-          "gs1:certificationIdentification": "GRS-2026-FJORDLINE-001"
+          "gs1:certificationIdentification": "GRS-2026-FJORDLINE-001",
+          "gs1:certificationURI": "https://textileexchange.org/standards/global-recycled-standard/"
         },
         {
           id: "https://id.gs1.org/01/09521234003007#cert-oekotex",
@@ -33026,6 +33140,7 @@ var samples_default = [
           "gs1:certificationAgency": "Textile Exchange",
           "gs1:certificationStandard": "Global Recycled Standard (GRS)",
           "gs1:certificationIdentification": "GRS-2024-GREENSTEP-001",
+          "gs1:certificationURI": "https://textileexchange.org/standards/global-recycled-standard/",
           "gs1:certificationStartDate": "2024-06-01",
           "gs1:certificationEndDate": "2025-05-31"
         },
@@ -33723,6 +33838,7 @@ var samples_default = [
           "gs1:certificationAgency": "Textile Exchange",
           "gs1:certificationStandard": "Global Recycled Standard (GRS)",
           "gs1:certificationIdentification": "GRS-2024-ECOWEAR-001",
+          "gs1:certificationURI": "https://textileexchange.org/standards/global-recycled-standard/",
           "gs1:certificationStartDate": "2024-01-15",
           "gs1:certificationEndDate": "2025-01-14"
         },
@@ -34059,7 +34175,7 @@ var samples_default = [
         {
           type: "gs1:RegulatoryInformation",
           "gs1:regulationType": {
-            id: "gs1:RegulationTypeCode-TEXTILE_FIBRE_REGULATION"
+            id: "gs1:RegulationTypeCode-TEXTILE_LABELLING_REGULATION"
           },
           "gs1:regulatoryAct": "EU 1007/2011",
           "oec:isRegulationCompliant": true
@@ -34304,7 +34420,7 @@ var samples_default = [
         {
           type: "gs1:RegulatoryInformation",
           "gs1:regulationType": {
-            id: "gs1:RegulationTypeCode-TEXTILE"
+            id: "oec:RegulationTypeCode-ESPR"
           },
           "gs1:regulatoryAct": "EU ESPR 2024/1781",
           "oec:isRegulationCompliant": true
@@ -34547,6 +34663,7 @@ var samples_default = [
           "gs1:certificationAgency": "Global Standard gGmbH",
           "gs1:certificationStandard": "Global Organic Textile Standard (GOTS)",
           "gs1:certificationIdentification": "GOTS-2026-ORGANIC-001",
+          "gs1:certificationURI": "https://global-standard.org/",
           "gs1:certificationStartDate": "2026-01-01",
           "gs1:certificationEndDate": "2026-12-31"
         },
@@ -34750,7 +34867,8 @@ var samples_default = [
     label: "beverage-bottle-lot-01 (batch)",
     doc: {
       _comment: [
-        "PPWR DPP example: BATCH-LEVEL (AI 10) variant of beverage-bottle.jsonld. Same 0.5 L PET bottle, scoped to batch/lot LOT-01 via the GS1 Digital Link key /01/{gtin}/10/{lot}. Demonstrates per-lot master data: the lot inherits the full GTIN-level PPWR attribute set and adds hasBatchLotNumber.",
+        "PPWR DPP example: BATCH-LEVEL (AI 10) variant of beverage-bottle.jsonld. Same 0.5 L PET bottle, scoped to batch/lot LOT-01 via the GS1 Digital Link key /01/{gtin}/10/{lot}. Demonstrates per-lot master data: the lot inherits the full GTIN-level PPWR attribute set (including the gs1:packaging \u2192 euppwr:Packaging card) and adds hasBatchLotNumber.",
+        "The euppwr:harmonisedSymbol URI is a placeholder: the PPWR Article 12 implementing acts (due 2026-08-12) will publish the harmonised label catalogue.",
         "GS1 demo prefix 952 (7-digit GCP: 9521234). Registered at /01/09521004005019/10/LOT-01."
       ],
       "@context": [
@@ -34758,9 +34876,14 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
       ],
       id: "https://id.demo.epcis.cloud/01/09521004005019/10/LOT-01",
-      type: "euppwr:Packaging",
+      type: "gs1:Product",
       "gs1:gtin": "09521004005019",
       "gs1:hasBatchLotNumber": "LOT-01",
+      "gs1:netContent": {
+        type: "gs1:QuantitativeValue",
+        "gs1:value": 500,
+        "gs1:unitCode": "MLT"
+      },
       "gs1:productName": [
         {
           "@value": "Mountain Spring Mineral Water, 500 mL PET bottle",
@@ -34807,13 +34930,6 @@ var samples_default = [
           "@language": "it"
         }
       ],
-      "euppwr:packagingTier": {
-        "@id": "euppwr:Sales"
-      },
-      "euppwr:recyclabilityGrade": {
-        "@id": "euppwr:GradeA"
-      },
-      "euppwr:harmonisedSymbol": "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/separate-collection-pet",
       "gs1:productionDate": "2026-04-15",
       "gs1:manufacturer": {
         id: "https://id.demo.epcis.cloud/417/9521234000020",
@@ -34821,68 +34937,97 @@ var samples_default = [
         "gs1:organizationName": "AlpenQuell GmbH",
         "gs1:partyGLN": "9521234000020"
       },
-      "oec:extendedProducerResponsibility": [
-        {
-          type: "oec:ExtendedProducerResponsibility",
-          "oec:eprRegistrationNumber": "DE-VPC-58092100",
-          "oec:eprWasteStream": "packaging",
-          "oec:eprJurisdiction": {
+      "gs1:packaging": {
+        type: "euppwr:Packaging",
+        "gs1:packagingType": "Bottle",
+        "euppwr:packagingTier": {
+          "@id": "euppwr:Sales"
+        },
+        "euppwr:recyclabilityGrade": {
+          "@id": "euppwr:GradeA"
+        },
+        "euppwr:harmonisedSymbol": "https://harmonised-labels.example.com/ppwr/separate-collection-pet",
+        "gs1:packagingFeature": [
+          {
+            id: "gs1:PackagingFeatureCode-CAP"
+          }
+        ],
+        "gs1:packagingRecyclingProcessType": {
+          id: "gs1:PackagingRecyclingProcessTypeCode-RECYCLABLE"
+        },
+        "gs1:packagingMaterial": [
+          {
+            type: "gs1:PackagingMaterialDetails",
+            "schema:name": "Bottle body: PET (polyethylene terephthalate), 50% post-consumer rPET",
+            "gs1:packagingMaterialType": {
+              id: "gs1:PackagingMaterialTypeCode-POLYMER_PET"
+            },
+            "gs1:packagingMaterialCompositionQuantity": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 18.5,
+              "gs1:unitCode": "GRM"
+            }
+          },
+          {
+            type: "gs1:PackagingMaterialDetails",
+            "schema:name": "Cap: HDPE (tethered, stays attached per SUP Directive)",
+            "gs1:packagingMaterialType": {
+              id: "gs1:PackagingMaterialTypeCode-POLYMER_HDPE"
+            },
+            "gs1:packagingMaterialCompositionQuantity": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 2.1,
+              "gs1:unitCode": "GRM"
+            }
+          }
+        ],
+        "gs1:hasReturnablePackageDeposit": {
+          type: "oec:DepositReturnScheme",
+          "gs1:returnablePackageDepositAmount": {
+            type: "gs1:PriceSpecification",
+            "gs1:price": 0.25,
+            "gs1:priceCurrency": "EUR"
+          },
+          "gs1:returnablePackageDepositRegion": {
             id: "https://ref.gs1.org/voc/Country-DE",
             type: "gs1:Country"
           },
-          "oec:eprScheme": {
-            id: "https://id.demo.epcis.cloud/417/4030101000001",
+          "oec:depositSchemeOperator": {
+            id: "https://id.demo.epcis.cloud/417/4030101000018",
             type: "gs1:Organization",
-            "gs1:organizationName": "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
+            "gs1:organizationName": "Deutsche Pfandsystem GmbH"
           },
-          "oec:eprComplianceUrl": "https://ldb.zsvr.de/marken/58092100"
-        }
-      ],
-      "oec:depositReturnScheme": {
-        type: "oec:DepositReturnScheme",
-        "oec:depositAmount": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 0.25,
-          "gs1:unitCode": "EUR"
+          "oec:depositRedemptionChannelUrl": "https://www.dpg-pfandsystem.de/find-redemption-point"
         },
-        "oec:depositSchemeOperator": {
-          id: "https://id.demo.epcis.cloud/417/4030101000018",
-          type: "gs1:Organization",
-          "gs1:organizationName": "Deutsche Pfandsystem GmbH"
+        "oec:recycledContentDetails": {
+          type: "oec:RecycledContent",
+          "oec:recycledContent": 0.5,
+          "oec:postConsumerRecycledContent": 0.5,
+          "oec:preConsumerRecycledContent": 0
         },
-        "oec:depositRedemptionChannelUrl": "https://www.dpg-pfandsystem.de/find-redemption-point"
+        "oec:extendedProducerResponsibility": [
+          {
+            type: "oec:ExtendedProducerResponsibility",
+            "oec:eprRegistrationNumber": "DE-VPC-58092100",
+            "oec:eprWasteStream": "packaging",
+            "oec:eprJurisdiction": {
+              id: "https://ref.gs1.org/voc/Country-DE",
+              type: "gs1:Country"
+            },
+            "oec:eprScheme": {
+              id: "https://id.demo.epcis.cloud/417/4030101000001",
+              type: "gs1:Organization",
+              "gs1:organizationName": "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
+            },
+            "oec:eprComplianceUrl": "https://ldb.zsvr.de/marken/58092100"
+          }
+        ]
       },
-      "oec:recycledContent": {
-        type: "oec:RecycledContent",
-        "oec:recycledContent": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 0.5,
-          "gs1:unitCode": "P1"
-        },
-        "oec:postConsumerRecycledContent": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 0.5,
-          "gs1:unitCode": "P1"
-        },
-        "oec:preConsumerRecycledContent": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 0,
-          "gs1:unitCode": "P1"
-        }
-      },
-      "oec:materialComposition": [
-        {
-          type: "oec:MaterialComposition",
-          "schema:name": "PET (polyethylene terephthalate)",
-          "oec:massFraction": 1,
-          "oec:casNumber": "25038-59-9"
-        }
-      ],
       "gs1:regulatoryInformation": [
         {
           type: "gs1:RegulatoryInformation",
           "gs1:regulationType": {
-            id: "gs1:RegulationTypeCode-PACKAGING_WASTE_DIRECTIVE"
+            id: "euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION"
           },
           "gs1:regulatoryAct": "EU 2025/40",
           "oec:isRegulationCompliant": true
@@ -34941,7 +35086,8 @@ var samples_default = [
     label: "beverage-bottle (model)",
     doc: {
       _comment: [
-        "PPWR DPP example: a 0.5 L PET beverage bottle with 50% post-consumer rPET, recyclability Grade A, deposit-return scheme participation, and the standard separate-collection harmonised symbol. Demonstrates that nearly all PPWR data points reuse common oec:/gs1:/untp: vocabulary; only packagingTier and recyclabilityGrade come from the euppwr: namespace.",
+        "PPWR DPP example: a 0.5 L mineral-water trade item whose PET bottle carries 50% post-consumer rPET, recyclability Grade A, deposit-return participation, and the harmonised separate-collection label. The packaging data hangs off the product via the GS1 Web Vocabulary chain: gs1:packaging \u2192 euppwr:Packaging (subclass of gs1:PackagingDetails) \u2192 gs1:packagingMaterial (gs1:PackagingMaterialDetails) and gs1:hasReturnablePackageDeposit (oec:DepositReturnScheme, subclass of gs1:ReturnablePackageDepositDetails). Only packagingTier, recyclabilityGrade and harmonisedSymbol come from the euppwr: namespace.",
+        "The euppwr:harmonisedSymbol URI is a placeholder: the PPWR Article 12 implementing acts (due 2026-08-12) will publish the harmonised label catalogue.",
         "GS1 demo prefix 952 (7-digit GCP: 9521234)."
       ],
       "@context": [
@@ -34949,8 +35095,13 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
       ],
       id: "https://id.demo.epcis.cloud/01/09521004005019",
-      type: "euppwr:Packaging",
+      type: "gs1:Product",
       "gs1:gtin": "09521004005019",
+      "gs1:netContent": {
+        type: "gs1:QuantitativeValue",
+        "gs1:value": 500,
+        "gs1:unitCode": "MLT"
+      },
       "gs1:productName": [
         {
           "@value": "Mountain Spring Mineral Water, 500 mL PET bottle",
@@ -34997,13 +35148,6 @@ var samples_default = [
           "@language": "it"
         }
       ],
-      "euppwr:packagingTier": {
-        "@id": "euppwr:Sales"
-      },
-      "euppwr:recyclabilityGrade": {
-        "@id": "euppwr:GradeA"
-      },
-      "euppwr:harmonisedSymbol": "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/separate-collection-pet",
       "gs1:productionDate": "2026-04-15",
       "gs1:manufacturer": {
         id: "https://id.demo.epcis.cloud/417/9521234000020",
@@ -35011,68 +35155,97 @@ var samples_default = [
         "gs1:organizationName": "AlpenQuell GmbH",
         "gs1:partyGLN": "9521234000020"
       },
-      "oec:extendedProducerResponsibility": [
-        {
-          type: "oec:ExtendedProducerResponsibility",
-          "oec:eprRegistrationNumber": "DE-VPC-58092100",
-          "oec:eprWasteStream": "packaging",
-          "oec:eprJurisdiction": {
+      "gs1:packaging": {
+        type: "euppwr:Packaging",
+        "gs1:packagingType": "Bottle",
+        "euppwr:packagingTier": {
+          "@id": "euppwr:Sales"
+        },
+        "euppwr:recyclabilityGrade": {
+          "@id": "euppwr:GradeA"
+        },
+        "euppwr:harmonisedSymbol": "https://harmonised-labels.example.com/ppwr/separate-collection-pet",
+        "gs1:packagingFeature": [
+          {
+            id: "gs1:PackagingFeatureCode-CAP"
+          }
+        ],
+        "gs1:packagingRecyclingProcessType": {
+          id: "gs1:PackagingRecyclingProcessTypeCode-RECYCLABLE"
+        },
+        "gs1:packagingMaterial": [
+          {
+            type: "gs1:PackagingMaterialDetails",
+            "schema:name": "Bottle body: PET (polyethylene terephthalate), 50% post-consumer rPET",
+            "gs1:packagingMaterialType": {
+              id: "gs1:PackagingMaterialTypeCode-POLYMER_PET"
+            },
+            "gs1:packagingMaterialCompositionQuantity": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 18.5,
+              "gs1:unitCode": "GRM"
+            }
+          },
+          {
+            type: "gs1:PackagingMaterialDetails",
+            "schema:name": "Cap: HDPE (tethered, stays attached per SUP Directive)",
+            "gs1:packagingMaterialType": {
+              id: "gs1:PackagingMaterialTypeCode-POLYMER_HDPE"
+            },
+            "gs1:packagingMaterialCompositionQuantity": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 2.1,
+              "gs1:unitCode": "GRM"
+            }
+          }
+        ],
+        "gs1:hasReturnablePackageDeposit": {
+          type: "oec:DepositReturnScheme",
+          "gs1:returnablePackageDepositAmount": {
+            type: "gs1:PriceSpecification",
+            "gs1:price": 0.25,
+            "gs1:priceCurrency": "EUR"
+          },
+          "gs1:returnablePackageDepositRegion": {
             id: "https://ref.gs1.org/voc/Country-DE",
             type: "gs1:Country"
           },
-          "oec:eprScheme": {
-            id: "https://id.demo.epcis.cloud/417/4030101000001",
+          "oec:depositSchemeOperator": {
+            id: "https://id.demo.epcis.cloud/417/4030101000018",
             type: "gs1:Organization",
-            "gs1:organizationName": "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
+            "gs1:organizationName": "Deutsche Pfandsystem GmbH"
           },
-          "oec:eprComplianceUrl": "https://ldb.zsvr.de/marken/58092100"
-        }
-      ],
-      "oec:depositReturnScheme": {
-        type: "oec:DepositReturnScheme",
-        "oec:depositAmount": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 0.25,
-          "gs1:unitCode": "EUR"
+          "oec:depositRedemptionChannelUrl": "https://www.dpg-pfandsystem.de/find-redemption-point"
         },
-        "oec:depositSchemeOperator": {
-          id: "https://id.demo.epcis.cloud/417/4030101000018",
-          type: "gs1:Organization",
-          "gs1:organizationName": "Deutsche Pfandsystem GmbH"
+        "oec:recycledContentDetails": {
+          type: "oec:RecycledContent",
+          "oec:recycledContent": 0.5,
+          "oec:postConsumerRecycledContent": 0.5,
+          "oec:preConsumerRecycledContent": 0
         },
-        "oec:depositRedemptionChannelUrl": "https://www.dpg-pfandsystem.de/find-redemption-point"
+        "oec:extendedProducerResponsibility": [
+          {
+            type: "oec:ExtendedProducerResponsibility",
+            "oec:eprRegistrationNumber": "DE-VPC-58092100",
+            "oec:eprWasteStream": "packaging",
+            "oec:eprJurisdiction": {
+              id: "https://ref.gs1.org/voc/Country-DE",
+              type: "gs1:Country"
+            },
+            "oec:eprScheme": {
+              id: "https://id.demo.epcis.cloud/417/4030101000001",
+              type: "gs1:Organization",
+              "gs1:organizationName": "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
+            },
+            "oec:eprComplianceUrl": "https://ldb.zsvr.de/marken/58092100"
+          }
+        ]
       },
-      "oec:recycledContent": {
-        type: "oec:RecycledContent",
-        "oec:recycledContent": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 0.5,
-          "gs1:unitCode": "P1"
-        },
-        "oec:postConsumerRecycledContent": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 0.5,
-          "gs1:unitCode": "P1"
-        },
-        "oec:preConsumerRecycledContent": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 0,
-          "gs1:unitCode": "P1"
-        }
-      },
-      "oec:materialComposition": [
-        {
-          type: "oec:MaterialComposition",
-          "schema:name": "PET (polyethylene terephthalate)",
-          "oec:massFraction": 1,
-          "oec:casNumber": "25038-59-9"
-        }
-      ],
       "gs1:regulatoryInformation": [
         {
           type: "gs1:RegulatoryInformation",
           "gs1:regulationType": {
-            id: "gs1:RegulationTypeCode-PACKAGING_WASTE_DIRECTIVE"
+            id: "euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION"
           },
           "gs1:regulatoryAct": "EU 2025/40",
           "oec:isRegulationCompliant": true
@@ -35132,10 +35305,15 @@ var samples_default = [
     doc: {
       _comment: [
         "PPWR DPP example: a corrugated cardboard e-commerce shipping carton.",
+        "The carton is placed on the market as a trade item in its own right,",
+        "so the node is typed both gs1:Product and euppwr:Packaging (subclass of",
+        "gs1:PackagingDetails) and carries the GS1 packaging properties directly \u2014",
+        "the per-component-GTIN pattern from the GS1 in Europe PPWR white paper.",
         "Demonstrates the Grouped/Transport packaging tier (vs Sales for the",
         "beverage bottle), a Grade A recyclability claim against the cellulose-",
-        "fibre stream, high post-consumer recycled-content (PCR cellulose),",
-        "and the separate-collection-paper harmonised symbol.",
+        "fibre stream, and high post-consumer recycled content (PCR cellulose).",
+        "The euppwr:harmonisedSymbol URI is a placeholder: the PPWR Article 12",
+        "implementing acts (due 2026-08-12) will publish the harmonised label catalogue.",
         "GS1 demo prefix 952 (7-digit GCP: 9521234)."
       ],
       "@context": [
@@ -35143,8 +35321,12 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
       ],
       id: "https://id.demo.epcis.cloud/01/09521006003013",
-      type: "euppwr:Packaging",
+      type: [
+        "gs1:Product",
+        "euppwr:Packaging"
+      ],
       "gs1:gtin": "09521006003013",
+      "gs1:packagingType": "Box",
       "gs1:productName": [
         {
           "@value": "EcoFlow corrugated shipping carton, 30\xD720\xD715 cm",
@@ -35197,7 +35379,10 @@ var samples_default = [
       "euppwr:recyclabilityGrade": {
         "@id": "euppwr:GradeA"
       },
-      "euppwr:harmonisedSymbol": "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/separate-collection-paper",
+      "euppwr:harmonisedSymbol": "https://harmonised-labels.example.com/ppwr/separate-collection-paper",
+      "gs1:packagingRecyclingProcessType": {
+        id: "gs1:PackagingRecyclingProcessTypeCode-RECYCLABLE"
+      },
       "gs1:productionDate": "2026-03-08",
       "gs1:manufacturer": {
         id: "https://id.demo.epcis.cloud/417/9521987000049",
@@ -35221,41 +35406,43 @@ var samples_default = [
           }
         }
       ],
-      "oec:recycledContent": {
+      "oec:recycledContentDetails": {
         type: "oec:RecycledContent",
-        "oec:recycledContent": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 0.95,
-          "gs1:unitCode": "P1"
-        },
-        "oec:postConsumerRecycledContent": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 0.8,
-          "gs1:unitCode": "P1"
-        },
-        "oec:preConsumerRecycledContent": {
-          type: "gs1:QuantitativeValue",
-          "gs1:value": 0.15,
-          "gs1:unitCode": "P1"
-        }
+        "oec:recycledContent": 0.95,
+        "oec:postConsumerRecycledContent": 0.8,
+        "oec:preConsumerRecycledContent": 0.15
       },
-      "oec:materialComposition": [
+      "gs1:packagingMaterial": [
         {
-          type: "oec:MaterialComposition",
+          type: "gs1:PackagingMaterialDetails",
           "schema:name": "Recycled corrugated cardboard (kraftliner + fluting)",
-          "oec:massFraction": 0.97
+          "gs1:packagingMaterialType": {
+            id: "gs1:PackagingMaterialTypeCode-CORRUGATED_BOARD_SINGLE_WALL"
+          },
+          "gs1:packagingMaterialCompositionQuantity": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 244,
+            "gs1:unitCode": "GRM"
+          }
         },
         {
-          type: "oec:MaterialComposition",
+          type: "gs1:PackagingMaterialDetails",
           "schema:name": "Starch-based adhesive",
-          "oec:massFraction": 0.03
+          "gs1:packagingMaterialType": {
+            id: "gs1:PackagingMaterialTypeCode-OTHER"
+          },
+          "gs1:packagingMaterialCompositionQuantity": {
+            type: "gs1:QuantitativeValue",
+            "gs1:value": 7.5,
+            "gs1:unitCode": "GRM"
+          }
         }
       ],
       "gs1:regulatoryInformation": [
         {
           type: "gs1:RegulatoryInformation",
           "gs1:regulationType": {
-            id: "gs1:RegulationTypeCode-PACKAGING_WASTE_DIRECTIVE"
+            id: "euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION"
           },
           "gs1:regulatoryAct": "EU 2025/40",
           "oec:isRegulationCompliant": true
@@ -35314,11 +35501,15 @@ var samples_default = [
     label: "multi-layer-pouch (model)",
     doc: {
       _comment: [
-        "PPWR DPP example: a multi-layer PET/aluminium/PE laminate snack-food pouch.",
-        "Demonstrates Grade C (lowest acceptable from 2030, phased out by 2038), no",
-        "recycled content, PFAS-free declaration via oec:HazardousSubstance, sales-tier",
-        "primary packaging, no deposit-return scheme participation. The harmonised",
-        "symbol points at the 'mixed-materials' / 'household-waste' Annex IX entry.",
+        "PPWR DPP example: a snack trade item in a multi-layer PET/aluminium/PE laminate",
+        "pouch. Packaging data hangs off the product via gs1:packaging \u2192 euppwr:Packaging",
+        "(subclass of gs1:PackagingDetails), with one gs1:PackagingMaterialDetails entry",
+        "per laminate layer. Demonstrates Grade C (lowest acceptable from 2030, cannot be",
+        "placed on the market from 2038), no recycled content, PFAS-free declaration via",
+        "oec:HazardousSubstance, sales-tier primary packaging, no deposit-return",
+        "participation.",
+        "The euppwr:harmonisedSymbol URI is a placeholder: the PPWR Article 12",
+        "implementing acts (due 2026-08-12) will publish the harmonised label catalogue.",
         "GS1 demo prefix 952 (7-digit GCP: 9521234)."
       ],
       "@context": [
@@ -35326,8 +35517,13 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
       ],
       id: "https://id.demo.epcis.cloud/01/09521005000808",
-      type: "euppwr:Packaging",
+      type: "gs1:Product",
       "gs1:gtin": "09521005000808",
+      "gs1:netWeight": {
+        type: "gs1:QuantitativeValue",
+        "gs1:value": 80,
+        "gs1:unitCode": "GRM"
+      },
       "gs1:productName": [
         {
           "@value": "Crispy Snack Pouch, 80 g multi-layer foil",
@@ -35374,13 +35570,6 @@ var samples_default = [
           "@language": "it"
         }
       ],
-      "euppwr:packagingTier": {
-        "@id": "euppwr:Sales"
-      },
-      "euppwr:recyclabilityGrade": {
-        "@id": "euppwr:GradeC"
-      },
-      "euppwr:harmonisedSymbol": "https://ec.europa.eu/eli/reg/2025/40/annex/IX/symbol/mixed-materials-household-waste",
       "gs1:productionDate": "2026-03-20",
       "gs1:manufacturer": {
         id: "https://id.demo.epcis.cloud/417/9521234000037",
@@ -35388,54 +35577,89 @@ var samples_default = [
         "gs1:organizationName": "Knusprig GmbH",
         "gs1:partyGLN": "9521234000037"
       },
-      "oec:extendedProducerResponsibility": [
-        {
-          type: "oec:ExtendedProducerResponsibility",
-          "oec:eprRegistrationNumber": "DE-VPC-58092345",
-          "oec:eprWasteStream": "packaging",
-          "oec:eprJurisdiction": {
-            id: "https://ref.gs1.org/voc/Country-DE",
-            type: "gs1:Country"
+      "gs1:packaging": {
+        type: "euppwr:Packaging",
+        "gs1:packagingType": "Pouch",
+        "euppwr:packagingTier": {
+          "@id": "euppwr:Sales"
+        },
+        "euppwr:recyclabilityGrade": {
+          "@id": "euppwr:GradeC"
+        },
+        "euppwr:harmonisedSymbol": "https://harmonised-labels.example.com/ppwr/mixed-materials-household-waste",
+        "gs1:packagingMaterial": [
+          {
+            type: "gs1:PackagingMaterialDetails",
+            "schema:name": "Outer layer: PET",
+            "gs1:packagingMaterialType": {
+              id: "gs1:PackagingMaterialTypeCode-POLYMER_PET"
+            },
+            "gs1:packagingMaterialCompositionQuantity": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 3.2,
+              "gs1:unitCode": "GRM"
+            }
           },
-          "oec:eprScheme": {
-            id: "https://id.demo.epcis.cloud/417/4030101000001",
-            type: "gs1:Organization",
-            "gs1:organizationName": "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
+          {
+            type: "gs1:PackagingMaterialDetails",
+            "schema:name": "Barrier layer: aluminium (critical raw material)",
+            "gs1:packagingMaterialType": {
+              id: "gs1:PackagingMaterialTypeCode-METAL_ALUMINUM"
+            },
+            "gs1:packagingMaterialCompositionQuantity": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 0.7,
+              "gs1:unitCode": "GRM"
+            },
+            "gs1:packagingMaterialThickness": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 9,
+              "gs1:unitCode": "4H"
+            }
+          },
+          {
+            type: "gs1:PackagingMaterialDetails",
+            "schema:name": "Inner sealing layer: PE",
+            "gs1:packagingMaterialType": {
+              id: "gs1:PackagingMaterialTypeCode-POLYMER_PE"
+            },
+            "gs1:packagingMaterialCompositionQuantity": {
+              type: "gs1:QuantitativeValue",
+              "gs1:value": 3.1,
+              "gs1:unitCode": "GRM"
+            }
           }
-        }
-      ],
-      "oec:materialComposition": [
-        {
-          type: "oec:MaterialComposition",
-          "schema:name": "PET outer layer",
-          "oec:massFraction": 0.45
-        },
-        {
-          type: "oec:MaterialComposition",
-          "schema:name": "Aluminium barrier layer",
-          "oec:massFraction": 0.1,
-          "oec:isCriticalRawMaterial": true
-        },
-        {
-          type: "oec:MaterialComposition",
-          "schema:name": "PE inner layer",
-          "oec:massFraction": 0.45,
-          "oec:casNumber": "9002-88-4"
-        }
-      ],
-      "oec:hazardousSubstances": [
-        {
-          type: "oec:HazardousSubstance",
-          "schema:name": "PFAS (per- and polyfluoroalkyl substances)",
-          "oec:hazardImpact": "absent",
-          _comment: "PPWR Article 5 PFAS restriction declaration: packaging contains no intentionally added PFAS. concentration omitted because below detection threshold."
-        }
-      ],
+        ],
+        "oec:hazardousSubstances": [
+          {
+            type: "oec:HazardousSubstance",
+            "schema:name": "PFAS (per- and polyfluoroalkyl substances)",
+            "oec:hazardImpact": "absent",
+            _comment: "PPWR Article 5 PFAS restriction declaration: packaging contains no intentionally added PFAS. concentration omitted because below detection threshold."
+          }
+        ],
+        "oec:extendedProducerResponsibility": [
+          {
+            type: "oec:ExtendedProducerResponsibility",
+            "oec:eprRegistrationNumber": "DE-VPC-58092345",
+            "oec:eprWasteStream": "packaging",
+            "oec:eprJurisdiction": {
+              id: "https://ref.gs1.org/voc/Country-DE",
+              type: "gs1:Country"
+            },
+            "oec:eprScheme": {
+              id: "https://id.demo.epcis.cloud/417/4030101000001",
+              type: "gs1:Organization",
+              "gs1:organizationName": "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
+            }
+          }
+        ]
+      },
       "gs1:regulatoryInformation": [
         {
           type: "gs1:RegulatoryInformation",
           "gs1:regulationType": {
-            id: "gs1:RegulationTypeCode-PACKAGING_WASTE_DIRECTIVE"
+            id: "euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION"
           },
           "gs1:regulatoryAct": "EU 2025/40",
           "oec:isRegulationCompliant": true
@@ -35607,7 +35831,7 @@ var samples_default = [
         {
           type: "gs1:RegulatoryInformation",
           "gs1:regulationType": {
-            id: "gs1:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION"
+            id: "eucpr:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION"
           },
           "gs1:regulatoryAct": "EU 2024/3110",
           "oec:isRegulationCompliant": true
@@ -35709,7 +35933,7 @@ var samples_default = [
         {
           type: "gs1:RegulatoryInformation",
           "gs1:regulationType": {
-            id: "gs1:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION"
+            id: "eucpr:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION"
           },
           "gs1:regulatoryAct": "EU 2024/3110",
           "oec:isRegulationCompliant": true
