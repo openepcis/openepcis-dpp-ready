@@ -18,6 +18,16 @@
  * auto-extracts everything not derivable from TTL into the overrides file so
  * existing semantics are preserved. From then on, edit the overrides file.
  *
+ * PREFIXING CONTRACT: standard contexts are prefix-only — documents under a
+ * standard context write every term as a CURIE (gs1:productName,
+ * euppwr:packagingTier), so the emitted context carries only prefix
+ * declarations plus the CURIE-keyed coercion hints from the overrides. Bare
+ * term aliases live exclusively in the hand-maintained
+ * {module}-shortcut-context.jsonld, which only the operational contexts
+ * include (enforced by check:operational). The one exception is the GS1 Rail
+ * upstream mirror (bareTermAliases: true), whose context intentionally exposes
+ * the bare vocabulary of the upstream profile.
+ *
  * Usage: npx tsx scripts/build-context.ts
  */
 
@@ -55,6 +65,12 @@ interface OntologyModule {
    * dpp-core itself imports nothing (emitted as a bare object).
    */
   imports?: string[];
+  /**
+   * Emit bare local-name aliases for the module's own TTL terms and keep
+   * bare-keyed override entries. Only the GS1 Rail upstream mirror does this;
+   * every DPP module context is prefix-only (see PREFIXING CONTRACT above).
+   */
+  bareTermAliases?: boolean;
 }
 
 const DPP_CORE_IMPORT = "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld";
@@ -147,6 +163,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     namespace: "https://gs1-epcis-reg.org/rail/voc/data#",
     prefix: "rail",
     imports: [EPCIS_BASE_IMPORT],
+    bareTermAliases: true,
   },
 ];
 
@@ -351,29 +368,35 @@ function buildDerivedContext(store: Store, module: OntologyModule): DerivedConte
     if (ns) context[prefix] = ns;
   }
 
-  // Emit class terms (PascalCase IRI alias).
-  for (const c of classes) {
-    context[c.localName] = c.iri;
-  }
+  // Bare local-name term aliases are emitted only for modules that opt in
+  // (the GS1 Rail upstream mirror). DPP module contexts are prefix-only:
+  // a CURIE term needs no context entry unless it carries a coercion hint,
+  // and those hints live in the overrides under their CURIE key.
+  if (module.bareTermAliases) {
+    // Emit class terms (PascalCase IRI alias).
+    for (const c of classes) {
+      context[c.localName] = c.iri;
+    }
 
-  // Build a map of properties that have enum coercion.
-  const enumByProp = new Map(enumerations.map((e) => [e.property, e.values]));
+    // Build a map of properties that have enum coercion.
+    const enumByProp = new Map(enumerations.map((e) => [e.property, e.values]));
 
-  // Emit property terms.
-  for (const p of properties) {
-    if (enumByProp.has(p.localName)) {
-      const values = enumByProp.get(p.localName)!;
-      const subContext: Record<string, string> = {};
-      for (const v of values) subContext[v.key] = v.iri;
-      context[p.localName] = {
-        "@id": p.iri,
-        "@type": "@vocab",
-        "@context": subContext,
-      };
-    } else if (p.coercion) {
-      context[p.localName] = { "@id": p.iri, "@type": p.coercion };
-    } else {
-      context[p.localName] = p.iri;
+    // Emit property terms.
+    for (const p of properties) {
+      if (enumByProp.has(p.localName)) {
+        const values = enumByProp.get(p.localName)!;
+        const subContext: Record<string, string> = {};
+        for (const v of values) subContext[v.key] = v.iri;
+        context[p.localName] = {
+          "@id": p.iri,
+          "@type": "@vocab",
+          "@context": subContext,
+        };
+      } else if (p.coercion) {
+        context[p.localName] = { "@id": p.iri, "@type": p.coercion };
+      } else {
+        context[p.localName] = p.iri;
+      }
     }
   }
 
@@ -548,7 +571,20 @@ async function buildContext(): Promise<void> {
         }
       }
 
-      const merged = mergeOverrides(derived.context, overrides);
+      // Prefix-only modules emit CURIE-keyed override entries (coercion
+      // hints) and bare-keyed prefix declarations (string value that is a
+      // namespace IRI). Bare term aliases in the overrides are historical /
+      // shortcut-layer material and stay out of the standard context.
+      const emittedOverrides: ContextMap = module.bareTermAliases
+        ? overrides
+        : Object.fromEntries(
+            Object.entries(overrides).filter(
+              ([key, value]) =>
+                key.includes(":") || (typeof value === "string" && value.startsWith("http"))
+            )
+          );
+
+      const merged = mergeOverrides(derived.context, emittedOverrides);
 
       // Emit `[...imports, merged]` when the module imports other contexts
       // (regulation modules import dpp-core; rail imports the EPCIS base), or a
