@@ -36,6 +36,14 @@ const GS1 = JSON.parse(readFileSync(join(__dirname, "gs1-domains.json"), "utf8")
   subClassOf: Record<string, string[]>;
 };
 
+// Full gs1 term list (incl. code-list members) from the vocab-guard snapshot,
+// used to verify @vocab-coded bare code values against the real code list.
+const vocabTerms = new Set<string>(
+  (JSON.parse(readFileSync(join(__dirname, "vocab-snapshot.json"), "utf8")) as {
+    vocabs: { gs1: { terms: string[] } };
+  }).vocabs.gs1.terms
+);
+
 /**
  * Documented deviations: [property local name, node type] pairs accepted with
  * justification. Keep this list short and each entry explained.
@@ -144,12 +152,18 @@ function walk(node: unknown, file: string): void {
           });
         }
       }
-      // range: gs1-class-ranged property with a bare string literal
+      // range: gs1-class-ranged property with a bare string literal.
+      // Exception: code-list classes (…Code). A bare code value ("POLYMER_PET")
+      // is the @vocab-coded compact form the module contexts define (and the
+      // form the GS1 global product schema requires) — accept it iff the code
+      // actually exists upstream as gs1:{Range}-{VALUE}, so typo'd codes are
+      // still caught.
       const rng = GS1.propRange[local];
       if (rng && GS1.subClassOf && !rng.includes(":") && GS1.propDomain && isGs1Class(rng)) {
         const vals = Array.isArray(v) ? v : [v];
         for (const x of vals) {
           if (typeof x === "string" && !x.startsWith("gs1:") && !/^https?:/.test(x)) {
+            if (rng.endsWith("Code") && vocabTerms.has(`${rng}-${x}`)) continue;
             violations.push({
               file,
               kind: "range",
