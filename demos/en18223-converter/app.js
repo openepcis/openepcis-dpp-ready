@@ -35239,7 +35239,8 @@ var samples_default = [
           },
           "gs1:returnablePackageDepositRegion": {
             id: "https://ref.gs1.org/voc/Country-DE",
-            type: "gs1:Country"
+            type: "gs1:Country",
+            "gs1:countryCode": "DE"
           },
           "oec:depositSchemeOperator": {
             id: "https://id.demo.epcis.cloud/417/4030101000018",
@@ -35447,7 +35448,8 @@ var samples_default = [
           },
           "gs1:returnablePackageDepositRegion": {
             id: "https://ref.gs1.org/voc/Country-DE",
-            type: "gs1:Country"
+            type: "gs1:Country",
+            "gs1:countryCode": "DE"
           },
           "oec:depositSchemeOperator": {
             id: "https://id.demo.epcis.cloud/417/4030101000018",
