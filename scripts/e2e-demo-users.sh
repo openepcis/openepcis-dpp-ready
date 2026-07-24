@@ -66,6 +66,12 @@ echo "=== ensure access-tier roles ==="
 create_role dpp-writer     "EN 18223 DPP API: write (POST/PATCH)"
 create_role dpp-admin      "EN 18223 DPP API: write + Restricted read"
 create_role dpp-restricted "EN 18223 DPP API: Restricted-tier read"
+# Tenant membership role: OpenSearch maps backend role "demo" -> demo_role
+# (own-tenant DLS). Since public_masterdata_role stopped mapping the realm
+# default roles (FLS allowlist prep), authenticated personas NEED this role
+# for any master-data visibility. demo-consumer deliberately stays without it
+# (authenticated NON-member persona: Public-tier fields/docs only).
+create_role demo           "Tenant membership: demo (OpenSearch tenant DLS)"
 
 echo "=== reset passwords + roles ==="
 # bash 3.2-safe (no associative arrays): map username -> "tier|role" via case.
@@ -82,6 +88,8 @@ for u in demo-admin demo-operator demo-authority demo-viewer demo-consumer; do
   set_pw "$u" "$PW" || continue
   meta=$(persona_meta "$u"); tier=${meta%%|*}; r=${meta##*|}
   [ "$r" != none ] && assign_role "$u" "$r"
+  # tenant membership for everyone except the non-member consumer persona
+  [ "$u" != demo-consumer ] && assign_role "$u" demo
   [ "$u" = demo-admin ] && ensure_admins_group "$u"
   tmp=$($JQ -c --arg u "$u" --arg p "$PW" --arg t "$tier" --arg r "$r" \
         '. + [{username:$u,password:$p,tier:$t,role:$r}]' "$OUT")

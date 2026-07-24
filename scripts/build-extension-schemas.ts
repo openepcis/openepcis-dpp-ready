@@ -41,19 +41,21 @@ interface ExtensionModule {
   nsSuffix: string;
   /** canonical JSON-LD context file under {dir}/context/ */
   ctxFile: string;
+  /** generated ontology JSON under {dir}/json/ (build-json.ts output) */
+  jsonFile?: string;
 }
 
 // Keep this list in step with the module table in CLAUDE.md / architecture.md.
 const MODULES: ExtensionModule[] = [
-  { dir: "extensions/common/core", prefix: "oec", nsSuffix: "common/core/", ctxFile: "dpp-core-context.jsonld" },
+  { dir: "extensions/common/core", prefix: "oec", nsSuffix: "common/core/", ctxFile: "dpp-core-context.jsonld", jsonFile: "dpp-core.json" },
   { dir: "extensions/common/interop", prefix: "oei", nsSuffix: "common/interop/", ctxFile: "semic-core-bridge-context.jsonld" },
-  { dir: "extensions/eu/battery", prefix: "eubat", nsSuffix: "eu/battery/", ctxFile: "battery-context.jsonld" },
-  { dir: "extensions/eu/eudr", prefix: "eudr", nsSuffix: "eu/eudr/", ctxFile: "eudr-context.jsonld" },
-  { dir: "extensions/eu/textile", prefix: "eutex", nsSuffix: "eu/textile/", ctxFile: "textile-context.jsonld" },
-  { dir: "extensions/eu/electronics", prefix: "euelec", nsSuffix: "eu/electronics/", ctxFile: "electronics-context.jsonld" },
-  { dir: "extensions/eu/detergent", prefix: "eudet", nsSuffix: "eu/detergent/", ctxFile: "detergent-context.jsonld" },
-  { dir: "extensions/eu/iron-steel", prefix: "eusteel", nsSuffix: "eu/iron-steel/", ctxFile: "iron-steel-context.jsonld" },
-  { dir: "extensions/us/fsma204", prefix: "usfsma", nsSuffix: "us/fsma204/", ctxFile: "fsma204-context.jsonld" },
+  { dir: "extensions/eu/battery", prefix: "eubat", nsSuffix: "eu/battery/", ctxFile: "battery-context.jsonld", jsonFile: "battery.json" },
+  { dir: "extensions/eu/eudr", prefix: "eudr", nsSuffix: "eu/eudr/", ctxFile: "eudr-context.jsonld", jsonFile: "eudr.json" },
+  { dir: "extensions/eu/textile", prefix: "eutex", nsSuffix: "eu/textile/", ctxFile: "textile-context.jsonld", jsonFile: "textile.json" },
+  { dir: "extensions/eu/electronics", prefix: "euelec", nsSuffix: "eu/electronics/", ctxFile: "electronics-context.jsonld", jsonFile: "electronics.json" },
+  { dir: "extensions/eu/detergent", prefix: "eudet", nsSuffix: "eu/detergent/", ctxFile: "detergent-context.jsonld", jsonFile: "detergent.json" },
+  { dir: "extensions/eu/iron-steel", prefix: "eusteel", nsSuffix: "eu/iron-steel/", ctxFile: "iron-steel-context.jsonld", jsonFile: "iron-steel.json" },
+  { dir: "extensions/us/fsma204", prefix: "usfsma", nsSuffix: "us/fsma204/", ctxFile: "fsma204-context.jsonld", jsonFile: "fsma204.json" },
 ];
 
 type JsonValue = string | number | boolean | null | JsonValue[] | { [k: string]: JsonValue };
@@ -86,12 +88,55 @@ function contextTerms(ctxPath: string): string[] {
   return [...terms].sort();
 }
 
-function buildSchema(namespace: string, prefix: string, terms: string[]): Record<string, JsonValue> {
+interface AccessInfo {
+  accessLevel: string;
+  accessLevelMandatedBy?: string;
+}
+
+/**
+ * Read the module's generated ontology JSON (build-json.ts output) and return
+ * localName -> ESPR access tier for every property carrying oec:defaultAccessLevel.
+ */
+function accessLevels(jsonPath: string): Record<string, AccessInfo> {
+  const map: Record<string, AccessInfo> = {};
+  if (!existsSync(jsonPath)) return map;
+  try {
+    const doc = JSON.parse(readFileSync(jsonPath, "utf8"));
+    for (const term of [...(doc.properties ?? []), ...(doc.classes ?? [])]) {
+      if (term.localName && term.accessLevel) {
+        map[term.localName] = {
+          accessLevel: term.accessLevel,
+          ...(term.accessLevelMandatedBy && { accessLevelMandatedBy: term.accessLevelMandatedBy }),
+        };
+      }
+    }
+  } catch (e) {
+    console.error(`  ! cannot parse ${jsonPath}: ${(e as Error).message}`);
+  }
+  return map;
+}
+
+function buildSchema(
+  namespace: string,
+  prefix: string,
+  terms: string[],
+  access: Record<string, AccessInfo> = {}
+): Record<string, JsonValue> {
   const props: Record<string, JsonValue> = {};
   for (const t of terms) {
-    // accept both the short alias and the explicitly-prefixed form
-    props[t] = {};
-    props[`${prefix}:${t}`] = {};
+    // accept both the short alias and the explicitly-prefixed form; carry the
+    // ESPR tier as x-access-level (batterypass-v1.3-schema.json precedent).
+    // Context aliases may already be prefixed (eubat:ratedCapacity) while the
+    // ontology JSON keys by bare localName — strip the prefix for the lookup.
+    const a = access[t.includes(":") ? t.slice(t.indexOf(":") + 1) : t];
+    const annotation: Record<string, JsonValue> = a
+      ? {
+          "x-access-level": a.accessLevel,
+          ...(a.accessLevelMandatedBy && { "x-access-level-mandated-by": a.accessLevelMandatedBy }),
+        }
+      : {};
+    props[t] = { ...annotation };
+    props[`${prefix}:${t}`] = { ...annotation };
   }
   return {
     $schema: "http://json-schema.org/draft-07/schema#",
@@ -128,7 +173,8 @@ function main(): void {
     const ctxPath = join(d, "context", m.ctxFile);
     const ctxUrl = `${BASE_URL}/${m.nsSuffix}${m.ctxFile}`;
     const terms = existsSync(ctxPath) ? contextTerms(ctxPath) : [];
-    const schema = buildSchema(namespace, m.prefix, terms);
+    const access = m.jsonFile ? accessLevels(join(d, "json", m.jsonFile)) : {};
+    const schema = buildSchema(namespace, m.prefix, terms, access);
 
     const valDir = join(d, "validation");
     mkdirSync(valDir, { recursive: true });

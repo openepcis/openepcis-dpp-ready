@@ -1,0 +1,60 @@
+# Access-tier annotations for the EU Battery extension (ESPR Article 9 tiers).
+# One statement per term; merged into the module by scripts/build-json.ts.
+# Derived from the per-field audiences in validation/batterypass-v1.3-schema.json
+# (Battery Regulation (EU) 2023/1542 Annex XIII):
+#   "Public"                                      -> oec:Public
+#   "persons with a legitimate interest [...]"     -> oec:AuthorizedOnly
+#   "Notified bodies, market surveillance [...]"   -> oec:Restricted
+# All tiers here are regulation-mandated, hence oec:accessLevelMandatedBy (locked
+# against runtime overrides). Terms not listed default to AuthorizedOnly.
+
+@prefix eubat: <https://ref.openepcis.io/extensions/eu/battery/> .
+@prefix oec:   <https://ref.openepcis.io/extensions/common/core/> .
+
+
+# --- AuthorizedOnly ---
+eubat:capacityFade oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:capacityThroughput oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:energyThroughput oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:powerFade oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:puttingIntoService oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:remainingCapacity oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:remainingPowerCapability oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:remainingUsableEnergy oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:safetyMeasures oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:stateOfCertifiedEnergy oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:stateOfCharge oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:timeSpentInExtremeTemperaturesAboveBoundary oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:timeSpentInExtremeTemperaturesBelowBoundary oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# --- Public ---
+eubat:absoluteCarbonFootprint oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+# batterypass "webLinkToPublicCarbonFootprintStudy" (Annex XIII public); shares its
+# bare shortcut alias with oec:carbonFootprintStudyUrl (Public) — an unannotated
+# battery term would tighten the alias to AuthorizedOnly for everyone.
+eubat:carbonFootprintStudyUrl oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:batteryChemistry oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:batteryMass oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:batteryModelIdentifier oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:batteryPassportIdentifier oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:capacityThresholdForExhaustion oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:carbonFootprintPerformanceClass oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:certifiedUsableEnergy oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:euDeclarationOfConformity oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:extinguishingAgent oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:hazardousSubstances oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:informationOnCollection oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:manufacturingPlace oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:maximumPermittedBatteryPower oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:maximumVoltage oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:minimumVoltage oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:nominalVoltage oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:originalPowerCapability oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:ratedCapacity oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:renewableContentShare oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# --- Restricted ---
+eubat:facilityIdentifier oec:defaultAccessLevel oec:Restricted ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:manufacturerIdentifier oec:defaultAccessLevel oec:Restricted ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .

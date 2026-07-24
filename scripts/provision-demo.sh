@@ -111,6 +111,20 @@ HEROES=(
 )
 STRIP='walk(if type == "object" then with_entries(select(.key | startswith("_") | not)) else . end)'
 
+# Field-level security (FLS) probe: the PUBLIC hero product additionally carries
+# one top-level oec-core marker field per vocabulary field tier so
+# verify-access-tiers.sh (CHECK_FIELD_TIERS=1) can assert per-persona field
+# filtering on a single document:
+#   carbonFootprintStudyUrl   Public
+#   dataQualityAssessment     AuthorizedOnly
+#   eoriNumber                Restricted
+# BARE shortcut spellings (not oec:-prefixed): the resolver's typed write path
+# drops unknown prefixed top-level keys but carries the shortcut-compacted core
+# fields, and the policy map matches both spellings since the alias fix.
+# Injected script-side (not in the shared garment seed file); idempotent because
+# provision_product is delete-then-create. Obvious "42" probe values.
+FLS_PROBE_GTIN=09521000001428
+
 # ------------------------------------------------------------------ auth
 TOKEN=""
 fetch_token() {
@@ -183,6 +197,14 @@ provision_product() { # gtin file slug desc
         "contentDescription": ($desc + " (image " + ((.key+1)|tostring) + ")"),
         "referencedFileType": {"id":"gs1:ReferencedFileTypeCode-PRODUCT_IMAGE"},
         "id": .value, "referencedFileURL": .value }))) else . end' "$file")
+  # FLS probe markers (see FLS_PROBE_GTIN above): three oec-core fields at three
+  # field tiers, in bare shortcut spelling (survives the typed write path).
+  if [[ "$gtin" == "$FLS_PROBE_GTIN" ]]; then
+    body=$(jq '
+      ."carbonFootprintStudyUrl" = "https://demo.epcis.cloud/fls-probe/cf-study-42" |
+      ."dataQualityAssessment"   = "FLS-PROBE-AO-42" |
+      ."eoriNumber"              = "FLS-PROBE-RESTRICTED-42"' <<<"$body")
+  fi
   # Idempotent: delete-then-create so the linkset is rebuilt cleanly each run.
   curl -sk -o /dev/null -X DELETE "$DL_URL/products/$gtin" -H "$(auth)"
   local code; code=$(curl -sk -o /tmp/pd_prov.json -w '%{http_code}' -X POST "$DL_URL/products" \
@@ -307,14 +329,17 @@ provision_orgs() {
     name=$(jq -r '(.organizationName.en // .organizationName // empty)' /tmp/org_prov.json 2>/dev/null)
     [[ -n "$gln" ]] || { ylw "  skip $(basename "$f" .bru) (no GLN / templated)"; continue; }
     if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] org $gln ($(basename "$f" .bru))"; provision_org_link "$gln" "$name"; continue; fi
-    code=$(curl -sk -o /tmp/orgr_prov.json -w '%{http_code}' -X POST "$DL_URL/organizations" \
+    code=$(curl -sk -o /tmp/orgr_prov.json -w '%{http_code}' -X POST "$DL_URL/organizations?isAnonymousAccessAllowed=true" \
       -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' \
       --data-binary @/tmp/org_prov.json)
-    # Upsert: an existing org (409) is PUT so the isAnonymousAccessAllowed=true header is
+    # Upsert: an existing org (409) is PUT so the isAnonymousAccessAllowed=true flag is
     # reconciled to accessLevel=Public (a create-only POST would leave a stale non-Public
     # tier, keeping the org invisible to anonymous resolution).
+    # Sent BOTH as query param and header: the Organization/Place APIs historically bound
+    # the flag as @RestQuery (query), while products use @HeaderParam (header). The APIs are
+    # being aligned to @HeaderParam; sending both makes this work against either resolver build.
     if [[ "$code" == 409 ]]; then
-      code=$(curl -sk -o /tmp/orgr_prov.json -w '%{http_code}' -X PUT "$DL_URL/organizations/$gln" \
+      code=$(curl -sk -o /tmp/orgr_prov.json -w '%{http_code}' -X PUT "$DL_URL/organizations/$gln?isAnonymousAccessAllowed=true" \
         -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' \
         --data-binary @/tmp/org_prov.json)
       case "$code" in 20[0-2]) grn "  org $gln -> 409->PUT $code (Public)" ;; *) red "  org $gln -> PUT $code $(jq -rc '.detail // empty' /tmp/orgr_prov.json 2>/dev/null)" ;; esac
@@ -409,10 +434,12 @@ provision_places() {
   gln=$(python3 -c "b='952100000090';s=sum(int(d)*(3 if i%2==0 else 1) for i,d in enumerate(reversed(b)));print(b+str((10-s%10)%10))")
   if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] place $gln"; provision_place_link "$gln" "$PLACE_NAME"; return 0; fi
   body=$(python3 -c "import json,sys;g=sys.argv[1];print(json.dumps({'glnType':'FIXED_PHYSICAL_LOCATION','globalLocationNumber':g,'locationGLN':g,'digitalLocationName':{'en':sys.argv[2]}}))" "$gln" "$PLACE_NAME")
-  code=$(curl -sk -o /tmp/pl_prov.json -w '%{http_code}' -X POST "$DL_URL/places" \
+  # Flag sent as both query param and header (see provision_orgs note): org/place APIs
+  # bound it as @RestQuery historically, products as @HeaderParam.
+  code=$(curl -sk -o /tmp/pl_prov.json -w '%{http_code}' -X POST "$DL_URL/places?isAnonymousAccessAllowed=true" \
     -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' --data-binary "$body")
   if [[ "$code" == 409 ]]; then
-    code=$(curl -sk -o /tmp/pl_prov.json -w '%{http_code}' -X PUT "$DL_URL/places/$gln" \
+    code=$(curl -sk -o /tmp/pl_prov.json -w '%{http_code}' -X PUT "$DL_URL/places/$gln?isAnonymousAccessAllowed=true" \
       -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' --data-binary "$body")
     case "$code" in 20[0-2]) grn "  place $gln -> 409->PUT $code (Public)" ;; *) red "  place $gln -> PUT $code $(jq -rc '.detail // empty' /tmp/pl_prov.json 2>/dev/null)" ;; esac
   else

@@ -131,6 +131,47 @@ to OpenSearch only happens through the extension's request-scoped client —
 the resolver's `DlrContextAwareOpenSearchClient` selects it; a directly
 injected client reads anonymously.
 
+### Field-level security (FLS) — plugin semantics, verified empirically
+
+Spiked against OpenSearch 2.18 (security plugin 2.18.0.0, single node,
+internal test users/roles; 2026-07-24). The multi-role combination rules are
+NOT the intuitive "visible if any role allows":
+
+1. **Exclude-form (`~field`) accumulates across roles** — visibility is the
+   INTERSECTION. A field excluded by any one of the user's roles stays hidden,
+   even when every other role omits it.
+2. **A role without FLS does not re-open anything** — combined with an
+   FLS-bearing role on the same index pattern, the FLS list still applies
+   (an include-list role + a no-FLS role = clamped to the include list).
+3. **Include-form (allowlist) UNIONS across roles** — a user with includes
+   {A} and {A,B,C} sees {A,B,C}. This is the only form with usable
+   tier-lattice semantics.
+4. FLS filters unmapped `_source` fields and nested dot-paths
+   (`~nested.deepSecret`) correctly — mappings (`dynamic:false`) don't limit it.
+5. FLS closes the query-probing oracle: a term query on an FLS-hidden mapped
+   field returns 0 hits for the restricted persona (1 hit for admin).
+
+**Design consequence:** native FLS can tier ONLY personas that map to a
+single effective role set with one allowlist — i.e. anonymous
+(`public_masterdata_role` gets the include-form Public-field allowlist, which
+is also fail-closed for unclassified fields). Authenticated operators need
+"everything except Restricted fields, including unknown custom fields" —
+inexpressible as an include list and broken as an exclude list (rule 1
+clamps `<tenant>_restricted_role` holders too, who also hold the tenant
+role). Operator/authority field tiering therefore happens in the resolver's
+app-layer projection (`TierFieldFilter`), and once the Public allowlist
+lands on `public_masterdata_role`, authenticated users must STOP mapping to
+that role (rule 2 would clamp them to Public fields): drop the realm-default
+mapping and widen the tenant-role DLS to
+`(defaultGroup == tenant AND accessLevel != Restricted) OR accessLevel == Public`.
+
+**Reconcile caveat:** the demo applies its securityconfig via a
+`securityadmin.sh` full reload from the `opensearch-security-config`
+ConfigMap (see `opensearch-securityadmin-script`) — every deploy/apply
+REVERTS runtime role changes. The resolver's `POST /field-access/sync`
+(pushes the anonymous Public-field allowlist to `public_masterdata_role`)
+must be re-invoked after every securityconfig apply.
+
 ## GS1-DE Service Platform integration
 
 Two capability areas (sources in

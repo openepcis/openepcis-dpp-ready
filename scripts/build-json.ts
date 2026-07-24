@@ -39,6 +39,7 @@ const DC11 = "http://purl.org/dc/elements/1.1/";
 const SKOS = "http://www.w3.org/2004/02/skos/core#";
 const GS1 = "https://ref.gs1.org/voc/";
 const SCHEMA = "https://schema.org/";
+const OEC = "https://ref.openepcis.io/extensions/common/core/";
 
 // Namespace to prefix mapping for compact output
 // Only convert datatype namespaces - keep vocabulary URIs (gs1, schema) as full URIs
@@ -90,6 +91,8 @@ interface TermData {
   relatedMatch?: string[];
   source?: string;
   deprecated?: boolean;
+  accessLevel?: string;
+  accessLevelMandatedBy?: string;
 }
 
 interface EnumValue {
@@ -263,6 +266,13 @@ function extractTermData(store: Store, subject: string, namespace: string): Term
   const relatedMatch = toPrefixedForms(getObjectValues(store, subject, `${SKOS}relatedMatch`));
   const source = getObjectValue(store, subject, `${DCTERMS}source`);
   const deprecated = getObjectValue(store, subject, `${OWL}deprecated`) === "true";
+  // ESPR Article 9 tier: oec:defaultAccessLevel points at oec:Public/AuthorizedOnly/Restricted;
+  // emit the bare tier name so consumers don't need to strip the namespace
+  const accessLevelIri = getObjectValue(store, subject, `${OEC}defaultAccessLevel`);
+  const accessLevel = accessLevelIri?.startsWith(OEC)
+    ? accessLevelIri.substring(OEC.length)
+    : accessLevelIri;
+  const accessLevelMandatedBy = getObjectValue(store, subject, `${OEC}accessLevelMandatedBy`);
 
   return {
     id: subject,
@@ -282,6 +292,8 @@ function extractTermData(store: Store, subject: string, namespace: string): Term
     ...(relatedMatch.length > 0 && { relatedMatch }),
     ...(source && { source }),
     ...(deprecated && { deprecated }),
+    ...(accessLevel && { accessLevel }),
+    ...(accessLevelMandatedBy && { accessLevelMandatedBy }),
   };
 }
 
@@ -486,6 +498,16 @@ async function buildOntologyJson(): Promise<void> {
       store.addQuads(quads);
 
       console.log(`  Parsed ${quads.length} triples`);
+
+      // Optional sidecar with ESPR access-tier annotations (oec:defaultAccessLevel /
+      // oec:accessLevelMandatedBy) so tier decisions stay reviewable in one file
+      // per module instead of being scattered through the main ontology.
+      const accessTtlPath = ttlPath.replace(/\.ttl$/, "-access-levels.ttl");
+      if (existsSync(accessTtlPath)) {
+        const accessQuads = await parseAsync(new Parser(), readFileSync(accessTtlPath, "utf-8"));
+        store.addQuads(accessQuads);
+        console.log(`  Merged ${accessQuads.length} access-level triples from ${accessTtlPath}`);
+      }
 
       const data = extractOntologyData(store, module);
 

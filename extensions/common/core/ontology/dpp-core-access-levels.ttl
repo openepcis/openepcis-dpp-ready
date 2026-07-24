@@ -1,0 +1,176 @@
+# Access-tier annotations for the shared oec: core (ESPR Article 9 tiers).
+# One statement per term; merged into the module by scripts/build-json.ts.
+#
+# Curated defaults pending the ESPR delegated acts: none are marked
+# oec:accessLevelMandatedBy, so deployments may tighten (never loosen) them at
+# runtime. Rationale per group is noted inline. Terms not listed default to
+# AuthorizedOnly; structural sub-properties (value, elementId, stageValue, ...)
+# stay unannotated and inherit their parent's tier.
+
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
+
+# --- Public: passport lifecycle & metadata (consumers must be able to
+# --- interpret the passport itself; mirrors batterypass dppSchemaVersion etc.)
+oec:dppSchemaVersion oec:defaultAccessLevel oec:Public .
+oec:passportIdentifier oec:defaultAccessLevel oec:Public .
+oec:passportStatus oec:defaultAccessLevel oec:Public .
+oec:passportVersion oec:defaultAccessLevel oec:Public .
+oec:passportIssueDate oec:defaultAccessLevel oec:Public .
+oec:passportIssuer oec:defaultAccessLevel oec:Public .
+oec:passportExpiryDate oec:defaultAccessLevel oec:Public .
+oec:previousPassportVersion oec:defaultAccessLevel oec:Public .
+oec:granularityLevel oec:defaultAccessLevel oec:Public .
+oec:language oec:defaultAccessLevel oec:Public .
+oec:languageCode oec:defaultAccessLevel oec:Public .
+oec:lastUpdated oec:defaultAccessLevel oec:Public .
+oec:lastDataUpdate oec:defaultAccessLevel oec:Public .
+oec:issueDate oec:defaultAccessLevel oec:Public .
+oec:productCategory oec:defaultAccessLevel oec:Public .
+# access metadata is needed to interpret any tiered document
+oec:accessRights oec:defaultAccessLevel oec:Public .
+oec:accessLevel oec:defaultAccessLevel oec:Public .
+oec:dataRetentionPeriod oec:defaultAccessLevel oec:Public .
+
+# --- Public: ESPR Article 7 consumer-facing sustainability information ---
+oec:expectedLifespan oec:defaultAccessLevel oec:Public .
+oec:guaranteedLifespan oec:defaultAccessLevel oec:Public .
+oec:technicalLifetime oec:defaultAccessLevel oec:Public .
+oec:usageCycles oec:defaultAccessLevel oec:Public .
+oec:repairabilityScore oec:defaultAccessLevel oec:Public .
+oec:repairabilityClass oec:defaultAccessLevel oec:Public .
+oec:repairabilityInfo oec:defaultAccessLevel oec:Public .
+oec:repairInstructions oec:defaultAccessLevel oec:Public .
+oec:repairInformationPortalUrl oec:defaultAccessLevel oec:Public .
+oec:diyRepairPossible oec:defaultAccessLevel oec:Public .
+oec:professionalRepairNetwork oec:defaultAccessLevel oec:Public .
+oec:repairProvider oec:defaultAccessLevel oec:Public .
+oec:repairProviderName oec:defaultAccessLevel oec:Public .
+oec:repairProviderUrl oec:defaultAccessLevel oec:Public .
+oec:sparePartsAvailability oec:defaultAccessLevel oec:Public .
+oec:softwareUpdatesAvailability oec:defaultAccessLevel oec:Public .
+
+# --- Public: energy labelling (EPREL is a public register) ---
+oec:energyEfficiency oec:defaultAccessLevel oec:Public .
+oec:energyEfficiencyClass oec:defaultAccessLevel oec:Public .
+oec:annualEnergyConsumption oec:defaultAccessLevel oec:Public .
+oec:powerConsumptionOn oec:defaultAccessLevel oec:Public .
+oec:powerConsumptionOff oec:defaultAccessLevel oec:Public .
+oec:powerConsumptionStandby oec:defaultAccessLevel oec:Public .
+oec:eprelProductUrl oec:defaultAccessLevel oec:Public .
+oec:eprelRegistrationNumber oec:defaultAccessLevel oec:Public .
+
+# --- Public: circularity & end-of-life consumer information ---
+oec:recycledContent oec:defaultAccessLevel oec:Public .
+oec:recyclableContent oec:defaultAccessLevel oec:Public .
+oec:postConsumerRecycledContent oec:defaultAccessLevel oec:Public .
+oec:preConsumerRecycledContent oec:defaultAccessLevel oec:Public .
+oec:recyclabilityRate oec:defaultAccessLevel oec:Public .
+oec:recyclabilityScore oec:defaultAccessLevel oec:Public .
+oec:bioBasedFraction oec:defaultAccessLevel oec:Public .
+oec:biodegradationPercentage oec:defaultAccessLevel oec:Public .
+oec:biodegradabilityTestMethod oec:defaultAccessLevel oec:Public .
+oec:compostabilityStandard oec:defaultAccessLevel oec:Public .
+oec:compostabilityType oec:defaultAccessLevel oec:Public .
+oec:endOfLifeInstructions oec:defaultAccessLevel oec:Public .
+oec:endOfLifeProgram oec:defaultAccessLevel oec:Public .
+oec:separateCollectionInfo oec:defaultAccessLevel oec:Public .
+oec:wastePreventionInfo oec:defaultAccessLevel oec:Public .
+oec:collectionPointDirectoryUrl oec:defaultAccessLevel oec:Public .
+oec:takeBackUrl oec:defaultAccessLevel oec:Public .
+oec:takeBackIncentive oec:defaultAccessLevel oec:Public .
+oec:depositReturnScheme oec:defaultAccessLevel oec:Public .
+oec:depositAmount oec:defaultAccessLevel oec:Public .
+oec:depositRedemptionChannelUrl oec:defaultAccessLevel oec:Public .
+oec:depositSchemeOperator oec:defaultAccessLevel oec:Public .
+oec:safeUseInstructions oec:defaultAccessLevel oec:Public .
+
+# --- Public: hazard & safety labelling (CLP pictograms and statements are
+# --- consumer-facing; SCIP is a public ECHA database) ---
+oec:hazardClass oec:defaultAccessLevel oec:Public .
+oec:hazardPictogramCode oec:defaultAccessLevel oec:Public .
+oec:hazardSignalWord oec:defaultAccessLevel oec:Public .
+oec:hazardStatement oec:defaultAccessLevel oec:Public .
+oec:precautionaryStatement oec:defaultAccessLevel oec:Public .
+oec:hazardousSubstances oec:defaultAccessLevel oec:Public .
+oec:substancesOfConcern oec:defaultAccessLevel oec:Public .
+oec:scipId oec:defaultAccessLevel oec:Public .
+
+# --- Public: carbon footprint & EPD (published declarations; mirrors the
+# --- Battery Regulation where CF incl. lifecycle-stage shares is public) ---
+oec:carbonFootprint oec:defaultAccessLevel oec:Public .
+oec:carbonFootprintTotal oec:defaultAccessLevel oec:Public .
+oec:carbonFootprintDeclaration oec:defaultAccessLevel oec:Public .
+oec:carbonFootprintDistribution oec:defaultAccessLevel oec:Public .
+oec:carbonFootprintProduction oec:defaultAccessLevel oec:Public .
+oec:carbonFootprintRawMaterial oec:defaultAccessLevel oec:Public .
+oec:carbonFootprintUse oec:defaultAccessLevel oec:Public .
+oec:carbonFootprintEndOfLife oec:defaultAccessLevel oec:Public .
+oec:carbonFootprintMethodology oec:defaultAccessLevel oec:Public .
+oec:carbonFootprintStudyUrl oec:defaultAccessLevel oec:Public .
+oec:declaredUnit oec:defaultAccessLevel oec:Public .
+oec:performanceClass oec:defaultAccessLevel oec:Public .
+oec:environmentalProductDeclaration oec:defaultAccessLevel oec:Public .
+oec:epdProgramOperator oec:defaultAccessLevel oec:Public .
+oec:epdRegistrationNumber oec:defaultAccessLevel oec:Public .
+oec:epdStandard oec:defaultAccessLevel oec:Public .
+oec:epdValidUntil oec:defaultAccessLevel oec:Public .
+
+# --- Public: compliance & transparency assertions ---
+oec:complianceStatus oec:defaultAccessLevel oec:Public .
+oec:complianceDate oec:defaultAccessLevel oec:Public .
+oec:isRegulationCompliant oec:defaultAccessLevel oec:Public .
+oec:regulatoryActStatus oec:defaultAccessLevel oec:Public .
+oec:eprComplianceUrl oec:defaultAccessLevel oec:Public .
+oec:forcedLabourFreeAssertion oec:defaultAccessLevel oec:Public .
+oec:supplyChainTransparencyUrl oec:defaultAccessLevel oec:Public .
+oec:traceabilityPerformance oec:defaultAccessLevel oec:Public .
+oec:verifiedRatio oec:defaultAccessLevel oec:Public .
+oec:verificationBody oec:defaultAccessLevel oec:Public .
+oec:thirdPartyAssurancesUrl oec:defaultAccessLevel oec:Public .
+
+# --- AuthorizedOnly: professional / legitimate-interest information
+# --- (mirrors Battery Regulation Annex XIII(2): dismantling, detailed
+# --- composition, due diligence detail) ---
+oec:dismantlingInstructions oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:dismantlingGuideUrl oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:safeDisassemblyInstructions oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:materialComposition oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:materialOrigin oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:massFraction oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:concentration oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:casNumber oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:ecNumber oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:substanceLocation oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:componentIdentifier oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:componentName oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:isCriticalRawMaterial oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:isStrategicRawMaterial oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:crmListVersion oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:dueDiligenceReport oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:dueDiligenceRegulationContext oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:dataQualityAssessment oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:dataProviderCertification oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:economicOperatorId oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:operatorInformation oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:operatorRole oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:registrationNumber oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:did oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:identityCredentialUrl oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:customsCommodityCode oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:customsCommodityCodeType oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:regulatoryPermitIdentification oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:activityClassification oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:extendedProducerResponsibility oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:eprRegistrationNumber oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:eprScheme oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:eprJurisdiction oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:eprWasteStream oec:defaultAccessLevel oec:AuthorizedOnly .
+
+# --- Restricted: authority-only identifiers (mirrors Battery Regulation
+# --- facility/manufacturer identifiers for notified bodies & surveillance) ---
+oec:facilityId oec:defaultAccessLevel oec:Restricted .
+oec:facilityInformation oec:defaultAccessLevel oec:Restricted .
+oec:facilityType oec:defaultAccessLevel oec:Restricted .
+oec:facilityCertifications oec:defaultAccessLevel oec:Restricted .
+oec:eoriNumber oec:defaultAccessLevel oec:Restricted .
+oec:authorizedParties oec:defaultAccessLevel oec:Restricted .

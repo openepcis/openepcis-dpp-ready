@@ -409,6 +409,31 @@ oec:AuthorizedOnly a oec:AccessLevel ; rdfs:label "Authorized Only"@en ;
 oec:Restricted a oec:AccessLevel ; rdfs:label "Restricted"@en ;
     rdfs:comment "Data accessible only to specific authorized economic operators. Per ESPR Article 9(3)."@en .
 
+oec:defaultAccessLevel
+    a owl:AnnotationProperty ;
+    rdfs:label "default access level"@en ;
+    rdfs:comment """Default ESPR Article 9 access tier for values of the annotated property in
+DPP / master-data documents (Public, AuthorizedOnly, Restricted). Deployments may tighten a
+field's tier at runtime but never loosen it below this default. Properties without this
+annotation default to AuthorizedOnly (fail-closed toward the public)."""@en ;
+    rdfs:range oec:AccessLevel ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:note """Field-level counterpart of oec:accessLevel: while oec:accessLevel classifies a
+document instance via its AccessRights object, oec:defaultAccessLevel classifies the property
+definition itself. Generators carry it into JSON Schemas as x-access-level and into the
+vocabulary browser JSON as accessLevel."""@en .
+
+oec:accessLevelMandatedBy
+    a owl:AnnotationProperty ;
+    rdfs:label "access level mandated by"@en ;
+    rdfs:comment """Legal act that fixes the access tier of the annotated property. Presence of
+this annotation makes the oec:defaultAccessLevel non-overridable at runtime (locked in both
+directions)."""@en ;
+    rdfs:range rdfs:Resource ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
 # =============================================================================
 # Passport Status (EN 18223 dppStatus; EN 18222 lifecycle management)
 # =============================================================================
