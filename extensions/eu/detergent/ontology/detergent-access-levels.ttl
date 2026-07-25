@@ -1,0 +1,64 @@
+# Access-tier annotations for the EU Detergent extension (ESPR Article 9 tiers).
+# One statement per term; merged into the module by scripts/build-json.ts.
+#
+# Curated defaults for the Detergents Regulation. The public ingredient data
+# sheet, hazard/CLP labelling, dosage and biodegradability claims are consumer-
+# facing (Public); exact allergen concentrations, CAS numbers, microorganism
+# strain detail and full test reports are professional detail (AuthorizedOnly).
+# None marked oec:accessLevelMandatedBy; terms not listed default to
+# AuthorizedOnly.
+
+@prefix eudet: <https://ref.openepcis.io/extensions/eu/detergent/> .
+@prefix oec:   <https://ref.openepcis.io/extensions/common/core/> .
+
+
+# --- Public: product identity, form and use ---
+eudet:productForm oec:defaultAccessLevel oec:Public .
+eudet:intendedUse oec:defaultAccessLevel oec:Public .
+
+# --- Public: dosage instructions (on-pack) ---
+eudet:dosageInstructions oec:defaultAccessLevel oec:Public .
+eudet:recommendedDosage oec:defaultAccessLevel oec:Public .
+
+# --- Public: ingredient data sheet (Detergents Regulation requires a publicly
+# --- accessible ingredient list; INCI names, function and weight brackets) ---
+eudet:ingredientList oec:defaultAccessLevel oec:Public .
+eudet:ingredientFunction oec:defaultAccessLevel oec:Public .
+eudet:weightPercentRange oec:defaultAccessLevel oec:Public .
+eudet:isSurfactant oec:defaultAccessLevel oec:Public .
+eudet:surfactantType oec:defaultAccessLevel oec:Public .
+eudet:fragranceAllergens oec:defaultAccessLevel oec:Public .
+eudet:microorganisms oec:defaultAccessLevel oec:Public .
+eudet:phosphorusContentPercent oec:defaultAccessLevel oec:Public .
+
+# --- Public: hazard & safety labelling (CLP pictograms, signal word and H/P
+# --- statements are consumer-facing) ---
+eudet:hazardousSubstances oec:defaultAccessLevel oec:Public .
+eudet:hazardPictograms oec:defaultAccessLevel oec:Public .
+eudet:signalWord oec:defaultAccessLevel oec:Public .
+eudet:hStatements oec:defaultAccessLevel oec:Public .
+eudet:pStatements oec:defaultAccessLevel oec:Public .
+
+# --- Public: biodegradability & phosphate compliance claims ---
+eudet:biodegradationPercentage oec:defaultAccessLevel oec:Public .
+eudet:passesUltimateBiodegradability oec:defaultAccessLevel oec:Public .
+eudet:filmBiodegradable oec:defaultAccessLevel oec:Public .
+eudet:filmBiodegradabilityPercentage oec:defaultAccessLevel oec:Public .
+eudet:phosphateCompliant oec:defaultAccessLevel oec:Public .
+
+
+# --- AuthorizedOnly: exact allergen concentrations & substance identifiers
+# --- (full concentration disclosure is for professionals / medical personnel) ---
+eudet:allergenConcentration oec:defaultAccessLevel oec:AuthorizedOnly .
+eudet:allergenCasNumber oec:defaultAccessLevel oec:AuthorizedOnly .
+
+# --- AuthorizedOnly: microorganism strain detail (Article 19) ---
+eudet:strainDesignation oec:defaultAccessLevel oec:AuthorizedOnly .
+eudet:endProductCharacteristics oec:defaultAccessLevel oec:AuthorizedOnly .
+
+# --- AuthorizedOnly: detailed test results, methods and professional documents ---
+eudet:surfactantBiodegradability oec:defaultAccessLevel oec:AuthorizedOnly .
+eudet:biodegradabilityTestReport oec:defaultAccessLevel oec:AuthorizedOnly .
+eudet:testMethod oec:defaultAccessLevel oec:AuthorizedOnly .
+eudet:testDurationDays oec:defaultAccessLevel oec:AuthorizedOnly .
+eudet:safetyDataSheet oec:defaultAccessLevel oec:AuthorizedOnly .

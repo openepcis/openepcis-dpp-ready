@@ -1,0 +1,103 @@
+# Access-tier annotations for the EU Electronics extension (ESPR Article 9 tiers).
+# One statement per term; merged into the module by scripts/build-json.ts.
+#
+# Curated defaults for the energy-labelling / ecodesign / right-to-repair scope.
+# Energy class, repairability index, EPREL registration and software-support
+# horizons are consumer-facing (Public). Bill-of-materials, IEC 62474 material
+# declarations and WEEE producer-registration specifics are professional detail
+# (AuthorizedOnly). None marked oec:accessLevelMandatedBy (delegated acts
+# pending); terms not listed default to AuthorizedOnly.
+
+@prefix euelec: <https://ref.openepcis.io/extensions/eu/electronics/> .
+@prefix oec:    <https://ref.openepcis.io/extensions/common/core/> .
+
+
+# --- Public: model identity ---
+euelec:modelIdentifier oec:defaultAccessLevel oec:Public .
+
+# --- Public: EU energy label & consumption (EPREL is a public register) ---
+euelec:energyEfficiency oec:defaultAccessLevel oec:Public .
+euelec:energyEfficiencyClass oec:defaultAccessLevel oec:Public .
+euelec:energyLabelUrl oec:defaultAccessLevel oec:Public .
+euelec:annualEnergyConsumption oec:defaultAccessLevel oec:Public .
+euelec:powerConsumptionOn oec:defaultAccessLevel oec:Public .
+euelec:powerConsumptionOff oec:defaultAccessLevel oec:Public .
+euelec:powerConsumptionStandby oec:defaultAccessLevel oec:Public .
+euelec:eprelProductUrl oec:defaultAccessLevel oec:Public .
+euelec:eprelRegistrationNumber oec:defaultAccessLevel oec:Public .
+
+# --- Public: repairability index & criteria (EU right to repair; French Indice
+# --- de Reparabilite — a consumer-facing label) ---
+euelec:repairabilityIndex oec:defaultAccessLevel oec:Public .
+euelec:repairabilityClass oec:defaultAccessLevel oec:Public .
+euelec:repairabilityLabelUrl oec:defaultAccessLevel oec:Public .
+euelec:displayScore oec:defaultAccessLevel oec:Public .
+euelec:totalScore oec:defaultAccessLevel oec:Public .
+euelec:repairCriteria oec:defaultAccessLevel oec:Public .
+euelec:criterionType oec:defaultAccessLevel oec:Public .
+euelec:criterionScore oec:defaultAccessLevel oec:Public .
+euelec:criterionMaxScore oec:defaultAccessLevel oec:Public .
+euelec:criterionDetails oec:defaultAccessLevel oec:Public .
+euelec:assessmentBody oec:defaultAccessLevel oec:Public .
+euelec:assessmentDate oec:defaultAccessLevel oec:Public .
+euelec:isReplaceable oec:defaultAccessLevel oec:Public .
+euelec:componentType oec:defaultAccessLevel oec:Public .
+euelec:replacementDifficulty oec:defaultAccessLevel oec:Public .
+
+# --- Public: spare-part availability & pricing (consumer repair info) ---
+euelec:sparePartAvailabilityYears oec:defaultAccessLevel oec:Public .
+euelec:sparePartPrice oec:defaultAccessLevel oec:Public .
+
+# --- Public: software / firmware support horizons and update transparency ---
+euelec:softwareSupport oec:defaultAccessLevel oec:Public .
+euelec:securitySupportYears oec:defaultAccessLevel oec:Public .
+euelec:securityUpdateEndDate oec:defaultAccessLevel oec:Public .
+euelec:featureSupportYears oec:defaultAccessLevel oec:Public .
+euelec:featureUpdateEndDate oec:defaultAccessLevel oec:Public .
+euelec:firmwareVersion oec:defaultAccessLevel oec:Public .
+euelec:osVersion oec:defaultAccessLevel oec:Public .
+euelec:latestUpdateDate oec:defaultAccessLevel oec:Public .
+euelec:updateChannel oec:defaultAccessLevel oec:Public .
+euelec:updateType oec:defaultAccessLevel oec:Public .
+euelec:updateSource oec:defaultAccessLevel oec:Public .
+euelec:newVersion oec:defaultAccessLevel oec:Public .
+euelec:previousVersion oec:defaultAccessLevel oec:Public .
+
+# --- Public: display technical specifications (on the spec sheet) ---
+euelec:displaySpecification oec:defaultAccessLevel oec:Public .
+euelec:displayTechnology oec:defaultAccessLevel oec:Public .
+euelec:screenDiagonal oec:defaultAccessLevel oec:Public .
+euelec:screenResolutionWidth oec:defaultAccessLevel oec:Public .
+euelec:screenResolutionHeight oec:defaultAccessLevel oec:Public .
+euelec:refreshRate oec:defaultAccessLevel oec:Public .
+euelec:peakBrightness oec:defaultAccessLevel oec:Public .
+
+# --- Public: recyclability & WEEE take-back / compliance claims ---
+euelec:recyclabilityRate oec:defaultAccessLevel oec:Public .
+euelec:recoverabilityRate oec:defaultAccessLevel oec:Public .
+euelec:collectionSchemeUrl oec:defaultAccessLevel oec:Public .
+euelec:weeeCompliance oec:defaultAccessLevel oec:Public .
+euelec:rohsCompliance oec:defaultAccessLevel oec:Public .
+euelec:rohsCompliant oec:defaultAccessLevel oec:Public .
+euelec:rohsDeclarationUrl oec:defaultAccessLevel oec:Public .
+euelec:rohsExemptions oec:defaultAccessLevel oec:Public .
+
+
+# --- AuthorizedOnly: bill of materials & component detail (professional /
+# --- legitimate-interest disassembly and sourcing information) ---
+euelec:billOfMaterials oec:defaultAccessLevel oec:AuthorizedOnly .
+euelec:components oec:defaultAccessLevel oec:AuthorizedOnly .
+euelec:componentPartNumber oec:defaultAccessLevel oec:AuthorizedOnly .
+euelec:componentPassport oec:defaultAccessLevel oec:AuthorizedOnly .
+
+# --- AuthorizedOnly: IEC 62474 material / substance declarations (detailed
+# --- REACH/RoHS composition) ---
+euelec:materialDeclaration oec:defaultAccessLevel oec:AuthorizedOnly .
+euelec:materialDeclarationDate oec:defaultAccessLevel oec:AuthorizedOnly .
+euelec:iec62474DslVersion oec:defaultAccessLevel oec:AuthorizedOnly .
+
+# --- AuthorizedOnly: WEEE producer-registration specifics (EPR detail) and
+# --- raw software-update event log ---
+euelec:weeeRegistrationNumber oec:defaultAccessLevel oec:AuthorizedOnly .
+euelec:weeeRegistrationCountry oec:defaultAccessLevel oec:AuthorizedOnly .
+euelec:softwareUpdateEvent oec:defaultAccessLevel oec:AuthorizedOnly .

@@ -1,0 +1,23 @@
+# Access-tier annotations for the EU PPWR extension (ESPR Article 9 tiers).
+# One statement per term; merged into the module by scripts/build-json.ts.
+#
+# Curated defaults pending the PPWR (Regulation (EU) 2025/40) implementing acts:
+# none are marked oec:accessLevelMandatedBy, so deployments may tighten (never
+# loosen) them at runtime. Terms not listed default to AuthorizedOnly.
+
+@prefix euppwr: <https://ref.openepcis.io/extensions/eu/ppwr/> .
+@prefix oec:    <https://ref.openepcis.io/extensions/common/core/> .
+
+
+# --- Public: on-pack labelling, packaging classification and the recyclability
+# --- grade/methodology consumers and separate-collection schemes rely on
+# --- (PPWR Articles 6 & 12) ---
+euppwr:packagingTier oec:defaultAccessLevel oec:Public .
+euppwr:harmonisedSymbol oec:defaultAccessLevel oec:Public .
+euppwr:recyclabilityGrade oec:defaultAccessLevel oec:Public .
+euppwr:designForRecyclingMethodology oec:defaultAccessLevel oec:Public .
+
+# --- AuthorizedOnly: deposit-return / take-back operational event observations
+# --- (item condition and refund amounts are operational, not consumer-facing) ---
+euppwr:containerCondition oec:defaultAccessLevel oec:AuthorizedOnly .
+euppwr:depositRefundIssued oec:defaultAccessLevel oec:AuthorizedOnly .

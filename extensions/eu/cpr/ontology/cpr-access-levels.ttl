@@ -1,0 +1,35 @@
+# Access-tier annotations for the EU CPR extension (ESPR Article 9 tiers).
+# One statement per term; merged into the module by scripts/build-json.ts.
+#
+# Curated defaults for the Construction Products Regulation. The Declaration of
+# Performance (CPR Article 12) and the declared essential characteristics are
+# public by design; notified/assessment bodies and supporting test reports are
+# professional detail. None marked oec:accessLevelMandatedBy; terms not listed
+# default to AuthorizedOnly.
+
+@prefix eucpr: <https://ref.openepcis.io/extensions/eu/cpr/> .
+@prefix oec:   <https://ref.openepcis.io/extensions/common/core/> .
+
+
+# --- Public: Declaration of Performance and its publicly declared content
+# --- (CPR Article 12 — the DoP is made publicly available) ---
+eucpr:constructionProductType oec:defaultAccessLevel oec:Public .
+eucpr:declarationOfPerformance oec:defaultAccessLevel oec:Public .
+eucpr:declarationOfPerformanceUrl oec:defaultAccessLevel oec:Public .
+eucpr:declarationCode oec:defaultAccessLevel oec:Public .
+eucpr:dateOfIssue oec:defaultAccessLevel oec:Public .
+eucpr:essentialCharacteristic oec:defaultAccessLevel oec:Public .
+eucpr:characteristicName oec:defaultAccessLevel oec:Public .
+eucpr:characteristicValue oec:defaultAccessLevel oec:Public .
+eucpr:compressiveStrength oec:defaultAccessLevel oec:Public .
+eucpr:thermalConductivity oec:defaultAccessLevel oec:Public .
+eucpr:reactionToFireClass oec:defaultAccessLevel oec:Public .
+eucpr:harmonisedStandard oec:defaultAccessLevel oec:Public .
+eucpr:avcpSystem oec:defaultAccessLevel oec:Public .
+
+# --- AuthorizedOnly: notified/assessment bodies and supporting technical
+# --- documents (professional / legitimate-interest detail) ---
+eucpr:notifiedBody oec:defaultAccessLevel oec:AuthorizedOnly .
+eucpr:technicalAssessmentBody oec:defaultAccessLevel oec:AuthorizedOnly .
+eucpr:europeanAssessmentDocument oec:defaultAccessLevel oec:AuthorizedOnly .
+eucpr:validationReports oec:defaultAccessLevel oec:AuthorizedOnly .

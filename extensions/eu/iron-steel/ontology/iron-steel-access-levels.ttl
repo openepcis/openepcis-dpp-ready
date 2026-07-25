@@ -1,0 +1,54 @@
+# Access-tier annotations for the EU Iron & Steel extension (ESPR Article 9 tiers).
+# One statement per term; merged into the module by scripts/build-json.ts.
+#
+# Curated defaults for the CBAM / iron & steel scope. Steel grade designation,
+# steelmaking route and country of melt & pour are product/sustainability info
+# (Public); the EN 10204 Material Test Certificate detail and batch traceability
+# identifiers are professional detail (AuthorizedOnly); the CBAM report id ties
+# to embedded-emissions supplier detail for customs/authority use (Restricted).
+# None marked oec:accessLevelMandatedBy; terms not listed default to
+# AuthorizedOnly.
+
+@prefix eusteel: <https://ref.openepcis.io/extensions/eu/iron-steel/> .
+@prefix oec:     <https://ref.openepcis.io/extensions/common/core/> .
+
+
+# --- Public: product identity, grade designation and origin / process route
+# --- (green-steel and CBAM route claims buyers rely on) ---
+eusteel:productNumber oec:defaultAccessLevel oec:Public .
+eusteel:steelDesignation oec:defaultAccessLevel oec:Public .
+eusteel:steelGradeClassification oec:defaultAccessLevel oec:Public .
+eusteel:technologyRoute oec:defaultAccessLevel oec:Public .
+eusteel:meltAndPourCountry oec:defaultAccessLevel oec:Public .
+
+# --- AuthorizedOnly: EN 10204 Material Test Certificate detail (cast/ladle
+# --- chemistry and mechanical properties — professional / legitimate interest) ---
+eusteel:mtc oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcInspectionType oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcSteelProcess oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcFinishing oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcNominalSize oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcWeightTolerance oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcCarbonContent oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcCarbonEquivalent oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcCopperContent oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcNitrogenContent oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcPhosphorusContent oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcSulfurContent oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcTensileStrength oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcYieldStrength oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcYieldStrengthRatio oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcElongation oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcRelativeRibArea oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:mtcRadiometricControl oec:defaultAccessLevel oec:AuthorizedOnly .
+
+# --- AuthorizedOnly: batch traceability & commercial delivery references
+# --- (EN 10168 heat/cast/lot, purchaser order) ---
+eusteel:heatNumber oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:castNumber oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:lotNumber oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:purchaserOrder oec:defaultAccessLevel oec:AuthorizedOnly .
+
+# --- Restricted: CBAM report identifier (ties to embedded-emissions supplier
+# --- detail; customs / competent-authority use) ---
+eusteel:cbamReportId oec:defaultAccessLevel oec:Restricted .

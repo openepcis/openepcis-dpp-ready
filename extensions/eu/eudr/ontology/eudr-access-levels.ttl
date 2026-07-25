@@ -1,0 +1,57 @@
+# Access-tier annotations for the EU EUDR extension (ESPR Article 9 tiers).
+# One statement per term; merged into the module by scripts/build-json.ts.
+#
+# Curated defaults for the Deforestation Regulation (EU) 2023/1115. Precise plot
+# geolocation and producer identity are the most sensitive fields (the due
+# diligence statement is confidential to competent authorities under Art. 33),
+# so they are curated Restricted. Left as defaults (no oec:accessLevelMandatedBy)
+# so deployments may tighten further; terms not listed default to AuthorizedOnly.
+
+@prefix eudr: <https://ref.openepcis.io/extensions/eu/eudr/> .
+@prefix oec:  <https://ref.openepcis.io/extensions/common/core/> .
+
+
+# --- Public: commodity, species, origin country and compliance claims ---
+eudr:commodityType oec:defaultAccessLevel oec:Public .
+eudr:timberProductType oec:defaultAccessLevel oec:Public .
+eudr:speciesCommonName oec:defaultAccessLevel oec:Public .
+eudr:speciesScientificName oec:defaultAccessLevel oec:Public .
+eudr:countryList oec:defaultAccessLevel oec:Public .
+eudr:countryRiskCategory oec:defaultAccessLevel oec:Public .
+eudr:deforestationFreeDate oec:defaultAccessLevel oec:Public .
+eudr:legallyHarvested oec:defaultAccessLevel oec:Public .
+
+# --- AuthorizedOnly: due-diligence detail, risk assessment, exemptions and
+# --- supply-chain transformation data (professional / legitimate interest) ---
+eudr:dueDiligenceStatement oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:statementDate oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:riskAssessment oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:riskAssessmentDate oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:riskLevel oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:mitigationMeasures oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:verificationMethod oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:landUseHistory oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:fscCertification oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:derivedFrom oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:transformationDate oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:transformationLocation oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:volumeCubicMeters oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:areaHectares oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:areaSize oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:exemptionDeclaration oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:exemptionAuthority oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:exemptionType oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:exemptionScope oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:exemptionScopeReference oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:exemptionReasonCode oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:exemptionEffectiveFrom oec:defaultAccessLevel oec:AuthorizedOnly .
+eudr:exemptionEffectiveUntil oec:defaultAccessLevel oec:AuthorizedOnly .
+
+# --- Restricted: precise plot geolocation and producer identity (competent-
+# --- authority / customs use; commercially sensitive origin coordinates) ---
+eudr:geolocation oec:defaultAccessLevel oec:Restricted .
+eudr:geofence oec:defaultAccessLevel oec:Restricted .
+eudr:originDetails oec:defaultAccessLevel oec:Restricted .
+eudr:originList oec:defaultAccessLevel oec:Restricted .
+eudr:producerIdentification oec:defaultAccessLevel oec:Restricted .
+eudr:forestManagementUnit oec:defaultAccessLevel oec:Restricted .
