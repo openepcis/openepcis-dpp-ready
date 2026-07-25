@@ -1,166 +1,462 @@
 # Access-tier annotations for the EU Textile extension (ESPR Article 9 tiers).
-# One statement per term; merged into the module by scripts/build-json.ts.
+# One entry per term; merged into the module by scripts/build-json.ts.
 #
-# Curated defaults pending the ESPR textile delegated act: none are marked
-# oec:accessLevelMandatedBy, so deployments may tighten (never loosen) them at
-# runtime. Rationale per group is noted inline. Terms not listed default to
-# AuthorizedOnly.
+# Re-curated with per-term oec:accessLevelRationale and oec:accessLevelSource.
+# The ESPR textile delegated act is still pending, so tiers grounded only in
+# ESPR (EU) 2024/1781 are curated defaults (no oec:accessLevelMandatedBy;
+# deployments may tighten, never loosen). The exception is fibre-composition
+# labelling, which the in-force Textile Labelling Regulation (EU) 1007/2011
+# (Arts. 9, 12 and 14-16) fixes as consumer-facing: those terms are locked
+# Public via oec:accessLevelMandatedBy. Structural value-carriers with no tier
+# of their own are declared oec:accessLevelInherited (governed by the embedding
+# parent). Terms not listed default to AuthorizedOnly.
 
 @prefix eutex: <https://ref.openepcis.io/extensions/eu/textile/> .
 @prefix oec:   <https://ref.openepcis.io/extensions/common/core/> .
 
 
-# --- Public: on-label product info & fibre composition (Textile Labelling
-# --- Regulation (EU) 1007/2011 makes fibre composition, animal-origin parts and
-# --- fibre scientific names consumer-facing on the label) ---
-eutex:apparelSubcategory oec:defaultAccessLevel oec:Public .
-eutex:fabricType oec:defaultAccessLevel oec:Public .
-eutex:garmentType oec:defaultAccessLevel oec:Public .
-eutex:sizeRange oec:defaultAccessLevel oec:Public .
-eutex:seasonCollection oec:defaultAccessLevel oec:Public .
-eutex:socType oec:defaultAccessLevel oec:Public .
-eutex:elastaneContentPercent oec:defaultAccessLevel oec:Public .
-eutex:syntheticFiberContent oec:defaultAccessLevel oec:Public .
-eutex:isRecycledFiber oec:defaultAccessLevel oec:Public .
-eutex:fiberOrigin oec:defaultAccessLevel oec:Public .
-eutex:fiberCertification oec:defaultAccessLevel oec:Public .
-eutex:textileFibreScientificName oec:defaultAccessLevel oec:Public .
-eutex:containsAnimalNonTextileParts oec:defaultAccessLevel oec:Public .
-eutex:isMonoMaterial oec:defaultAccessLevel oec:Public .
-eutex:sameInnerOuterComposition oec:defaultAccessLevel oec:Public .
-eutex:weightExcludingTrims oec:defaultAccessLevel oec:Public .
+# =============================================================================
+# Public: on-label product information & fibre composition
+# =============================================================================
 
-# --- Public: care & maintenance instructions (ISO 3758 care symbols are printed
-# --- on the label) ---
-eutex:careInstructions oec:defaultAccessLevel oec:Public .
-eutex:additionalCareInstructions oec:defaultAccessLevel oec:Public .
-eutex:washingSymbol oec:defaultAccessLevel oec:Public .
-eutex:bleachingSymbol oec:defaultAccessLevel oec:Public .
-eutex:dryingSymbol oec:defaultAccessLevel oec:Public .
-eutex:ironingSymbol oec:defaultAccessLevel oec:Public .
-eutex:dryCleaningSymbol oec:defaultAccessLevel oec:Public .
+eutex:apparelSubcategory oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Apparel subcategory is a product classification apparent from the garment itself and used in consumer-facing product information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:fabricType oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Fabric construction type (woven/knitted/nonwoven) is basic consumer product information visible on the product itself." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:garmentType oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Garment type is ordinary retail product information with no confidentiality dimension." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:sizeRange oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Size range is ordinary retail information printed on the label and shown at point of sale." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:seasonCollection oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Season/collection identifier is public catalogue information the brand itself markets." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
-# --- Public: durability & robustness metrics and their substantiating test
-# --- results (ESPR Article 7 consumer-facing durability information) ---
-eutex:durabilityInfo oec:defaultAccessLevel oec:Public .
-eutex:durabilityClass oec:defaultAccessLevel oec:Public .
-eutex:expectedLifetimeYears oec:defaultAccessLevel oec:Public .
-eutex:expectedWashCycles oec:defaultAccessLevel oec:Public .
-eutex:abrasionResistance oec:defaultAccessLevel oec:Public .
-eutex:pillingResistance oec:defaultAccessLevel oec:Public .
-eutex:colorFastness oec:defaultAccessLevel oec:Public .
-eutex:colourChangeRating oec:defaultAccessLevel oec:Public .
-eutex:tensileStrength oec:defaultAccessLevel oec:Public .
-eutex:tearStrength oec:defaultAccessLevel oec:Public .
-eutex:dimensionalStability oec:defaultAccessLevel oec:Public .
-eutex:testStandard oec:defaultAccessLevel oec:Public .
-eutex:cleaningCyclesBeforeTest oec:defaultAccessLevel oec:Public .
-eutex:robustnessAssessment oec:defaultAccessLevel oec:Public .
-eutex:robustnessScore oec:defaultAccessLevel oec:Public .
-eutex:robustnessTestFabricType oec:defaultAccessLevel oec:Public .
-eutex:spiralityTest oec:defaultAccessLevel oec:Public .
-eutex:spiralityScore oec:defaultAccessLevel oec:Public .
-eutex:spiralityPercentage oec:defaultAccessLevel oec:Public .
-eutex:spiralityTestMethod oec:defaultAccessLevel oec:Public .
-eutex:dimensionalChangeTest oec:defaultAccessLevel oec:Public .
-eutex:dimensionalChangeScore oec:defaultAccessLevel oec:Public .
-eutex:dimensionalChangePercentage oec:defaultAccessLevel oec:Public .
-eutex:dimensionalChangeTestMethod oec:defaultAccessLevel oec:Public .
-eutex:visualInspection oec:defaultAccessLevel oec:Public .
-eutex:visualInspectionScore oec:defaultAccessLevel oec:Public .
-eutex:visualInspectionTestMethod oec:defaultAccessLevel oec:Public .
-eutex:fabricAppearanceRating oec:defaultAccessLevel oec:Public .
-eutex:seamAppearanceRating oec:defaultAccessLevel oec:Public .
-eutex:nonTextilePartsRating oec:defaultAccessLevel oec:Public .
+# Fibre composition is fixed as consumer-facing by the in-force Textile
+# Labelling Regulation (EU) 1007/2011: percentage composition (Art. 9) must be
+# labelled and made available to the consumer (Arts. 14-16), animal-origin
+# non-textile parts must be indicated (Art. 12).
+eutex:elastaneContentPercent oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Elastane share is fibre-composition information that Regulation (EU) 1007/2011 Arts. 9 and 14-16 require on the consumer-facing label." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2011/1007> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2011/1007> .
+eutex:syntheticFiberContent oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Aggregate synthetic-fibre share is fibre-composition information required on the consumer label by Regulation (EU) 1007/2011 Arts. 9 and 14-16." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2011/1007> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2011/1007> .
+eutex:textileFibreScientificName oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The scientific fibre name accompanies the fibre name in consumer-facing labelling for certain fibres under Regulation (EU) 1007/2011 (labelling per Arts. 14-16)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2011/1007> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2011/1007> .
+eutex:containsAnimalNonTextileParts oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Non-textile parts of animal origin must be indicated on the consumer label per Regulation (EU) 1007/2011 Art. 12 (labelling per Arts. 14-16)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2011/1007> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2011/1007> .
 
-# --- Public: repairability & spare parts (ESPR Article 7 right-to-repair info) ---
-eutex:isRepairable oec:defaultAccessLevel oec:Public .
-eutex:repairServices oec:defaultAccessLevel oec:Public .
-eutex:repairGuideUrl oec:defaultAccessLevel oec:Public .
-eutex:sparePartsAvailable oec:defaultAccessLevel oec:Public .
-eutex:sparePartsUrl oec:defaultAccessLevel oec:Public .
+eutex:isRecycledFiber oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Recycled-fibre status is a consumer-facing circularity claim (ESPR Annex I circularity parameters)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:fiberOrigin oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Fibre origin at country granularity is a consumer-facing sourcing claim that exposes no operational facility detail." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:fiberCertification oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Fibre certifications such as GOTS or RWS are public marketing claims verifiable in the certifiers' public registries." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:isMonoMaterial oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Mono-material status is a recyclability sorting factor derived from label-level fibre composition, useful to consumers and sorters alike." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:sameInnerOuterComposition oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Layer-composition equality is a recyclability sorting factor derived from label-level fibre composition." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:weightExcludingTrims oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Net textile weight is needed to interpret the public recycled/organic content percentages and carries no competitive sensitivity." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
-# --- Public: recyclability & recycled-content claims (consumer-facing) ---
-eutex:isRecyclable oec:defaultAccessLevel oec:Public .
-eutex:recyclabilityAssessment oec:defaultAccessLevel oec:Public .
-eutex:recyclabilityScore oec:defaultAccessLevel oec:Public .
-eutex:technicalRecyclability oec:defaultAccessLevel oec:Public .
-eutex:technicalRecyclabilityScore oec:defaultAccessLevel oec:Public .
-eutex:applicableRecyclingTechnology oec:defaultAccessLevel oec:Public .
-eutex:sortingFactors oec:defaultAccessLevel oec:Public .
-eutex:freeFromCoatings oec:defaultAccessLevel oec:Public .
-eutex:freeFromDyes oec:defaultAccessLevel oec:Public .
-eutex:freeFromPrintings oec:defaultAccessLevel oec:Public .
-eutex:freeFromSequins oec:defaultAccessLevel oec:Public .
-eutex:recycledContentDeclaration oec:defaultAccessLevel oec:Public .
-eutex:recycledContentSource oec:defaultAccessLevel oec:Public .
-eutex:recycledSourceType oec:defaultAccessLevel oec:Public .
-eutex:wasteOriginType oec:defaultAccessLevel oec:Public .
-eutex:secondaryMaterialFraction oec:defaultAccessLevel oec:Public .
-eutex:meetsTargetThreshold oec:defaultAccessLevel oec:Public .
-eutex:organicContentMass oec:defaultAccessLevel oec:Public .
-eutex:organicContentPercentage oec:defaultAccessLevel oec:Public .
+# =============================================================================
+# Public: care & maintenance instructions (printed on the sewn-in label)
+# =============================================================================
 
-# --- Public: environmental footprint & climate performance declarations
-# --- (PEF single score and carbon-footprint class are consumer-facing bands) ---
-eutex:environmentalFootprint oec:defaultAccessLevel oec:Public .
-eutex:environmentalFootprintClass oec:defaultAccessLevel oec:Public .
-eutex:pefSingleScore oec:defaultAccessLevel oec:Public .
-eutex:pefcrReference oec:defaultAccessLevel oec:Public .
-eutex:benchmarkPerformance oec:defaultAccessLevel oec:Public .
-eutex:carbonFootprintClass oec:defaultAccessLevel oec:Public .
-eutex:carbonFootprintManufacturing oec:defaultAccessLevel oec:Public .
+eutex:careInstructions oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Care instructions are consumer use information already printed on the sewn-in label (ESPR Art. 7 use/maintenance information)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:additionalCareInstructions oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Supplementary care text is consumer use information of the same nature as the printed care label." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:washingSymbol oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "ISO 3758 washing symbol is printed on the consumer care label." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:bleachingSymbol oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "ISO 3758 bleaching symbol is printed on the consumer care label." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:dryingSymbol oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "ISO 3758 drying symbol is printed on the consumer care label." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:ironingSymbol oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "ISO 3758 ironing symbol is printed on the consumer care label." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:dryCleaningSymbol oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "ISO 3758 dry-cleaning symbol is printed on the consumer care label." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
-# --- Public: end-of-life, take-back and biodegradability (consumer EOL info) ---
-eutex:biodegradable oec:defaultAccessLevel oec:Public .
-eutex:endOfLifeDestination oec:defaultAccessLevel oec:Public .
-eutex:endOfLifeHandling oec:defaultAccessLevel oec:Public .
-eutex:hasTakeBackProgram oec:defaultAccessLevel oec:Public .
-eutex:takeBackProgram oec:defaultAccessLevel oec:Public .
-eutex:takeBackUrl oec:defaultAccessLevel oec:Public .
-eutex:takeBackIncentive oec:defaultAccessLevel oec:Public .
+# =============================================================================
+# Public: durability & robustness metrics with substantiating test results
+# (ESPR Art. 7 / Annex I durability is headline consumer information; the
+# substantiating scores keep the public claim verifiable)
+# =============================================================================
 
-# --- Public: safety, hazard & compliance claims consumers rely on ---
-eutex:substancesOfConcern oec:defaultAccessLevel oec:Public .
-eutex:safeUseInstructions oec:defaultAccessLevel oec:Public .
-eutex:clpHazardCategory oec:defaultAccessLevel oec:Public .
-eutex:pfasFree oec:defaultAccessLevel oec:Public .
-eutex:isMRSLCompliant oec:defaultAccessLevel oec:Public .
-eutex:euDeclarationOfConformity oec:defaultAccessLevel oec:Public .
-eutex:euEcolabel oec:defaultAccessLevel oec:Public .
+eutex:durabilityInfo oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Durability is an ESPR Art. 7/Annex I consumer-facing product parameter; this is its container structure." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:durabilityClass oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The A-E durability class is the consumer-facing summary band of the durability assessment." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:expectedLifetimeYears oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Expected lifetime is ESPR Art. 7/Annex I consumer durability information, kept Public in step with the battery module's expectedLifetime* family." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:expectedWashCycles oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Expected wash-cycle count is consumer durability information equivalent to expected lifetime." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:abrasionResistance oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Martindale abrasion result substantiates the public durability claim and reveals no formulation or supply-chain secret." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:pillingResistance oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "ISO 12945 pilling rating substantiates the public durability claim." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:colorFastness oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "ISO 105 colour-fastness rating substantiates the public durability claim." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:colourChangeRating oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "ISO 15487 colour-change sub-rating is part of the public robustness result." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:tensileStrength oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Tensile strength is a spec-sheet durability metric substantiating the public durability claim." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:tearStrength oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Tear strength is a spec-sheet durability metric substantiating the public durability claim." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:dimensionalStability oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Shrinkage/stretch behaviour is consumer-relevant durability information about how the garment survives washing." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:cleaningCyclesBeforeTest oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The pre-test cleaning-cycle count is methodology context without which the public robustness scores cannot be interpreted." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:robustnessAssessment oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The robustness assessment is the structured substantiation of the public durability claim per the EU textile methodology." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:robustnessScore oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The composite robustness score is the consumer-facing headline of the robustness assessment." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:robustnessTestFabricType oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The knitted/woven scoring-table selector is methodology context needed to interpret the public robustness score." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:spiralityTest oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The spirality test result is a component of the public robustness assessment." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:spiralityScore oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The spirality component score contributes to the public robustness score." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:spiralityPercentage oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The measured spirality percentage substantiates the public spirality score." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:spiralityTestMethod oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The spirality test-method reference (e.g. ISO 16322-3) makes the public result reproducible and verifiable." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:dimensionalChangeTest oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The dimensional-change test result is a component of the public robustness assessment." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:dimensionalChangeScore oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The dimensional-change component score contributes to the public robustness score." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:dimensionalChangePercentage oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The measured dimensional-change percentage substantiates the public dimensional-change score." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:dimensionalChangeTestMethod oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The dimensional-change test-method reference (e.g. ISO 3759) makes the public result reproducible and verifiable." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:visualInspection oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The visual-inspection result is a component of the public robustness assessment." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:visualInspectionScore oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The visual-inspection component score contributes to the public robustness score." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:visualInspectionTestMethod oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The visual-inspection test-method reference (e.g. ISO 15487) makes the public result reproducible and verifiable." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:fabricAppearanceRating oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The fabric-appearance sub-rating is part of the public visual-inspection result." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:seamAppearanceRating oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The seam-appearance sub-rating is part of the public visual-inspection result." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:nonTextilePartsRating oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The non-textile-parts sub-rating is part of the public visual-inspection result." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
-# --- Public: microplastic / microfibre shedding disclosure (consumer safety) ---
-eutex:microplasticInfo oec:defaultAccessLevel oec:Public .
-eutex:microplasticRiskLevel oec:defaultAccessLevel oec:Public .
-eutex:microplasticMitigationMeasures oec:defaultAccessLevel oec:Public .
-eutex:sheddingRate oec:defaultAccessLevel oec:Public .
+# =============================================================================
+# Public: repairability & spare parts (ESPR Annex I repairability parameters)
+# =============================================================================
 
+eutex:isRepairable oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Repairability status is ESPR Annex I consumer information supporting the right to repair." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:repairServices oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Available repair services are consumer information the provider publishes to be found." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:repairGuideUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "A DIY repair-guide link only works as consumer information if it is public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:sparePartsAvailable oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Spare-part availability is consumer purchase and repair information (ESPR Annex I)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:sparePartsUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "A spare-part purchase link only works as consumer information if it is public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
-# --- AuthorizedOnly: detailed material/chemical composition & concentrations
-# --- (professional / legitimate-interest detail, not on the consumer label) ---
-eutex:textileChemicals oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:chemicalPurpose oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:substanceConcentration oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:concentrationRange oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:maxConcentration oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:locationInProduct oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:ecNumber oec:defaultAccessLevel oec:AuthorizedOnly .
+# =============================================================================
+# Public: recyclability & recycled-content claims (ESPR Annex I circularity)
+# =============================================================================
 
-# --- AuthorizedOnly: supply-chain facilities & operational production data ---
-eutex:spinningFacility oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:weavingFacility oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:dyeingFacility oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:finishingFacility oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:cutAndSewFacility oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:energyUsage oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:waterUsage oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:productionWastePercentage oec:defaultAccessLevel oec:AuthorizedOnly .
+eutex:isRecyclable oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Recyclability status is a consumer-facing circularity claim (ESPR Annex I)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:recyclabilityAssessment oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The recyclability assessment substantiates the public recyclability claim; kept Public consistently with the shared oec:recyclabilityAssessment alias." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:recyclabilityScore oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The composite recyclability score is the headline of the public recyclability assessment; aligned with core oec:recyclabilityScore (Public)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:technicalRecyclability oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Technical recyclability is a component of the public recyclability assessment." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:technicalRecyclabilityScore oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The technical-recyclability component score contributes to the public recyclability score." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:applicableRecyclingTechnology oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The applicable recycling technology tells sorters and consumers which stream the product can actually enter." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:sortingFactors oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Sorting factors are recyclability inputs derived from externally observable product features." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:freeFromCoatings oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Coating-free status is an externally observable sorting factor of the public recyclability assessment." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:freeFromDyes oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Dye-free status is an externally observable sorting factor of the public recyclability assessment." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:freeFromPrintings oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Print-free status is an externally observable sorting factor of the public recyclability assessment." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:freeFromSequins oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Embellishment-free status is an externally observable sorting factor of the public recyclability assessment." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:recycledContentDeclaration oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The structured recycled-content declaration substantiates the consumer-facing recycled-content claim (ESPR Annex I)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:recycledContentSource oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The recycled-content source description (e.g. post-consumer PET) is part of the public recycled-content claim." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:recycledSourceType oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The recycling-pathway type qualifies the public recycled-content claim." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:wasteOriginType oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The pre-/post-consumer waste-origin classification qualifies the public recycled-content claim." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:secondaryMaterialFraction oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The secondary-material percentage is the quantitative core of the public recycled-content claim." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:meetsTargetThreshold oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Whether the recycled content meets the regulatory target is a compliance claim consumers and authorities can both check." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:organicContentMass oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Certified organic fibre mass substantiates an organic claim regulated as consumer-facing by Regulation (EU) 2018/848." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2018/848> .
+eutex:organicContentPercentage oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Certified organic fibre share substantiates an organic claim regulated as consumer-facing by Regulation (EU) 2018/848." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2018/848> .
 
-# --- AuthorizedOnly: certificates, chain-of-custody & LCA methodology detail ---
-eutex:verificationCertification oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:chainOfCustodyMethod oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:dataTypeIndicator oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:lciaCategories oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:lciaCategoryCode oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:lciaUnit oec:defaultAccessLevel oec:AuthorizedOnly .
-eutex:lciaValue oec:defaultAccessLevel oec:AuthorizedOnly .
+# =============================================================================
+# Public: environmental footprint & climate performance declarations
+# =============================================================================
+
+eutex:environmentalFootprint oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The environmental-footprint declaration is ESPR Annex I consumer-facing sustainability information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:environmentalFootprintClass oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The footprint performance class is a consumer-facing band designed for point-of-sale comparison." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:pefSingleScore oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The PEF single score is the aggregate result the public footprint class is derived from, without exposing inventory-level detail." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:pefcrReference oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The PEFCR version reference is methodology context required to interpret the public PEF score." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:benchmarkPerformance oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Performance relative to the category benchmark is the comparative message the public footprint class conveys." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:carbonFootprintClass oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The carbon-footprint class is a consumer-facing band, mirroring the public carbon-footprint class of the battery DPP." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:carbonFootprintManufacturing oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The manufacturing-phase carbon footprint per unit is a product-level disclosure that does not reveal facility-level operational data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# =============================================================================
+# Public: end-of-life, take-back & biodegradability (consumer EOL info)
+# =============================================================================
+
+eutex:biodegradable oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Biodegradability status is consumer end-of-life information (ESPR Annex I)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:endOfLifeDestination oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "What happens to returned items is consumer-facing take-back information that motivates participation." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:endOfLifeHandling oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Special end-of-life handling instructions caused by a substance of concern are safety-relevant to consumers and waste operators (ESPR Art. 7(5))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:hasTakeBackProgram oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Take-back availability is consumer end-of-life information that only works if public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:takeBackProgram oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Take-back programme details are consumer end-of-life information published to drive returns." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:takeBackUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The take-back link is consumer end-of-life information; aligned with core oec:takeBackUrl (Public)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:takeBackIncentive oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The return incentive is consumer end-of-life information; aligned with core oec:takeBackIncentive (Public)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# =============================================================================
+# Public: safety, hazard & compliance claims consumers rely on
+# =============================================================================
+
+eutex:substancesOfConcern oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "ESPR Art. 7(5) requires substances-of-concern presence to be traceable in the DPP for consumers and waste operators; aligned with core oec:substancesOfConcern (Public)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:socType oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The ESPR Art. 7(5) A-D type classification qualifies the public substances-of-concern disclosure." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:safeUseInstructions oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Safe-use instructions are consumer safety information; aligned with core oec:safeUseInstructions (Public)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:clpHazardCategory oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "CLP hazard categories are the basis of label elements CLP Regulation (EC) 1272/2008 puts on every consumer label." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2008/1272> .
+eutex:pfasFree oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "A PFAS-free claim is a consumer-facing chemical-safety claim with no confidentiality dimension." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:isMRSLCompliant oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "ZDHC MRSL compliance is a pass/fail chemical-management claim brands publish for consumers without exposing formulation detail." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:euDeclarationOfConformity oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The EU Declaration of Conformity reference is a compliance document pointer; kept Public consistently with the battery module's euDeclarationOfConformity." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:euEcolabel oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The EU Ecolabel is by design a public consumer label under Regulation (EC) 66/2010." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2010/66> .
+
+# =============================================================================
+# Public: microplastic / microfibre shedding disclosure
+# =============================================================================
+
+eutex:microplasticInfo oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Microplastic release is an ESPR Annex I product parameter disclosed to consumers." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:microplasticRiskLevel oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The shedding risk classification is the consumer-facing summary of the microplastic disclosure." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:microplasticMitigationMeasures oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Described mitigation measures qualify the public microplastic disclosure without revealing process secrets." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:sheddingRate oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The measured shedding rate is the quantitative substantiation of the public microplastic disclosure." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# =============================================================================
+# AuthorizedOnly: detailed chemical composition & concentrations (not part of
+# the consumer label; legitimate-interest detail under the ESPR DPP framework)
+# =============================================================================
+
+eutex:textileChemicals oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The production-chemicals inventory is formulation-level detail beyond the consumer label, for actors with a legitimate interest (recyclers, authorities)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:chemicalPurpose oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The purpose of a production chemical is part of the confidential formulation detail, not of the public hazard disclosure." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:substanceConcentration oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Exact substance concentrations are commercially sensitive formulation data; the public tier carries the qualitative presence disclosure instead." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:concentrationRange oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Concentration ranges exist precisely because the exact value is confidential; the range stays with the professional-detail record." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:maxConcentration oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Maximum substance concentration is quantitative formulation detail for recyclers and authorities, not consumer label content." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:locationInProduct oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Where a substance sits in the product is dismantling/recycling detail for professional end-of-life actors." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:ecNumber oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The EC substance identifier belongs to the detailed chemical declaration; kept AuthorizedOnly to match the shared oec:ecNumber alias in every module." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# =============================================================================
+# AuthorizedOnly: supply-chain facilities & operational production data
+# =============================================================================
+
+eutex:spinningFacility oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Named production facilities are commercially sensitive supplier relationships, disclosed to authorities and legitimate-interest actors only." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:weavingFacility oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Named production facilities are commercially sensitive supplier relationships, disclosed to authorities and legitimate-interest actors only." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:dyeingFacility oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Named production facilities are commercially sensitive supplier relationships, disclosed to authorities and legitimate-interest actors only." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:finishingFacility oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Named production facilities are commercially sensitive supplier relationships, disclosed to authorities and legitimate-interest actors only." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:cutAndSewFacility oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Named production facilities are commercially sensitive supplier relationships, disclosed to authorities and legitimate-interest actors only." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:energyUsage oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Production energy consumption is operational facility data; the consumer-facing climate message is carried by the public footprint fields." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:waterUsage oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Production water consumption is operational facility data; aggregate impacts surface publicly via the PEF fields." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:productionWastePercentage oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Production waste rates are operational performance data of the manufacturer, relevant to auditors and authorities." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# =============================================================================
+# AuthorizedOnly: certificates, chain-of-custody & LCA methodology detail
+# =============================================================================
+
+eutex:verificationCertification oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The underlying third-party certificate for the recycled-content claim is audit evidence for verifiers; the claim itself is already public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:chainOfCustodyMethod oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The chain-of-custody model (mass balance, segregation) is verification methodology for auditors rather than consumer information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:dataTypeIndicator oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Primary/secondary data typing is LCA quality metadata used by reviewers of the footprint study, not by consumers." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eutex:lciaCategories oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Per-category LCIA results are study-level detail for reviewers and authorities; the public message is the PEF single score and class." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# =============================================================================
+# Inherited: structural value-carriers with no tier of their own (visibility
+# is governed by the embedding parent structure)
+# =============================================================================
+
+# Carriers of a single LCIACategory entry inside eutex:lciaCategories.
+eutex:lciaCategoryCode oec:accessLevelInherited true .
+eutex:lciaUnit oec:accessLevelInherited true .
+eutex:lciaValue oec:accessLevelInherited true .
+# Generic test-standard reference attached to whichever durability/robustness
+# test structure embeds it.
+eutex:testStandard oec:accessLevelInherited true .

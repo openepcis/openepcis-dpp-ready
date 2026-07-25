@@ -1,35 +1,86 @@
 # Access-tier annotations for the EU CPR extension (ESPR Article 9 tiers).
-# One statement per term; merged into the module by scripts/build-json.ts.
+# One entry per term; merged into the module by scripts/build-json.ts.
 #
-# Curated defaults for the Construction Products Regulation. The Declaration of
-# Performance (CPR Article 12) and the declared essential characteristics are
-# public by design; notified/assessment bodies and supporting test reports are
-# professional detail. None marked oec:accessLevelMandatedBy; terms not listed
-# default to AuthorizedOnly.
+# Re-curated with per-term oec:accessLevelRationale and oec:accessLevelSource,
+# grounded in the Construction Products Regulation (EU) 2024/3110 (in force and
+# applicable). The CPR obliges manufacturers to draw up a Declaration of
+# Performance and Conformity and supply/make it available with every product
+# (Art. 13 ff., including in digital form via permalink), which legally fixes a
+# public audience for the DoP and its declared content - those terms are locked
+# Public via oec:accessLevelMandatedBy. AVCP-body involvement and supporting
+# test reports are technical-documentation detail for authorities and
+# professional users (overridable defaults). Generic name/value carriers of an
+# essential characteristic are declared oec:accessLevelInherited. Terms not
+# listed default to AuthorizedOnly.
 
 @prefix eucpr: <https://ref.openepcis.io/extensions/eu/cpr/> .
 @prefix oec:   <https://ref.openepcis.io/extensions/common/core/> .
 
 
-# --- Public: Declaration of Performance and its publicly declared content
-# --- (CPR Article 12 — the DoP is made publicly available) ---
-eucpr:constructionProductType oec:defaultAccessLevel oec:Public .
-eucpr:declarationOfPerformance oec:defaultAccessLevel oec:Public .
-eucpr:declarationOfPerformanceUrl oec:defaultAccessLevel oec:Public .
-eucpr:declarationCode oec:defaultAccessLevel oec:Public .
-eucpr:dateOfIssue oec:defaultAccessLevel oec:Public .
-eucpr:essentialCharacteristic oec:defaultAccessLevel oec:Public .
-eucpr:characteristicName oec:defaultAccessLevel oec:Public .
-eucpr:characteristicValue oec:defaultAccessLevel oec:Public .
-eucpr:compressiveStrength oec:defaultAccessLevel oec:Public .
-eucpr:thermalConductivity oec:defaultAccessLevel oec:Public .
-eucpr:reactionToFireClass oec:defaultAccessLevel oec:Public .
-eucpr:harmonisedStandard oec:defaultAccessLevel oec:Public .
-eucpr:avcpSystem oec:defaultAccessLevel oec:Public .
+# --- Public: the Declaration of Performance and its declared content ---
 
-# --- AuthorizedOnly: notified/assessment bodies and supporting technical
-# --- documents (professional / legitimate-interest detail) ---
-eucpr:notifiedBody oec:defaultAccessLevel oec:AuthorizedOnly .
-eucpr:technicalAssessmentBody oec:defaultAccessLevel oec:AuthorizedOnly .
-eucpr:europeanAssessmentDocument oec:defaultAccessLevel oec:AuthorizedOnly .
-eucpr:validationReports oec:defaultAccessLevel oec:AuthorizedOnly .
+eucpr:declarationOfPerformance oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The DoP is the document the CPR obliges manufacturers to supply with the product and keep available, so its content is public by design (Reg. (EU) 2024/3110 Art. 13 ff.)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/3110> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2024/3110> .
+eucpr:declarationOfPerformanceUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The CPR foresees digital supply of the DoP via a permanent link, which only works if the link is public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/3110> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2024/3110> .
+eucpr:declarationCode oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The DoP reference number is printed on the public declaration and identifies it." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/3110> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2024/3110> .
+eucpr:dateOfIssue oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The issue date is part of the public DoP document content." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/3110> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2024/3110> .
+eucpr:essentialCharacteristic oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Declared essential characteristics are the core content of the public DoP that specifiers and users rely on." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/3110> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2024/3110> .
+eucpr:harmonisedStandard oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The harmonised technical specification under which performance is declared is stated in the public DoP." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/3110> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2024/3110> .
+eucpr:avcpSystem oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The applicable AVCP system is stated in the public DoP." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/3110> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2024/3110> .
+eucpr:compressiveStrength oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Declared compressive strength is an essential characteristic published in the DoP." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/3110> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2024/3110> .
+eucpr:thermalConductivity oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Declared thermal conductivity is an essential characteristic published in the DoP." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/3110> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2024/3110> .
+eucpr:reactionToFireClass oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The EN 13501-1 reaction-to-fire class is a safety-critical declared characteristic published in the DoP." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/3110> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2024/3110> .
+
+eucpr:constructionProductType oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The product-type classification is basic public product information needed to find and read the DoP, though not itself DoP content fixed by the CPR." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/3110> .
+
+# --- AuthorizedOnly: AVCP bodies and supporting technical documents ---
+
+eucpr:notifiedBody oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Notified-body involvement detail (full OperatorInformation with address) is AVCP process data for authorities and professional users beyond the NB number cited on the DoP." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/3110> .
+eucpr:technicalAssessmentBody oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "TAB involvement is assessment-process detail for authorities and professional users of the ETA route." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/3110> .
+eucpr:europeanAssessmentDocument oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The EAD reference points into the technical-assessment file used where no harmonised standard applies, professional detail behind the public declaration." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/3110> .
+eucpr:validationReports oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Supporting test/validation reports are technical documentation made available to surveillance authorities on request, not published with the DoP." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/3110> .
+
+# --- Inherited: generic name/value carriers of a declared essential
+# --- characteristic (governed by eucpr:essentialCharacteristic) ---
+
+eucpr:characteristicName oec:accessLevelInherited true .
+eucpr:characteristicValue oec:accessLevelInherited true .

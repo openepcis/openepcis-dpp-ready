@@ -1,0 +1,1030 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix gs1md: <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+# =============================================================================
+# Ontology Declaration
+# =============================================================================
+
+<https://ref.openepcis.io/extensions/common/gs1-masterdata/>
+    a owl:Ontology ;
+    dcterms:title "OpenEPCIS GS1 Master-Data Field Vocabulary"@en ;
+    dcterms:description """Vocabulary of the flat served master-data field names exposed by the
+OpenEPCIS Digital Link resolver for GS1 Product, Place, and Organization master data.
+
+Each term corresponds 1:1 to a top-level field name in the resolver's served
+master-data documents (bare names, no prefix). The vocabulary exists so that
+access-tier defaults, rationales, and provenance can be curated per served
+field, and so that per-field access enforcement in the resolver can be driven
+from the same generated JSON as the other extension modules.
+
+Nearly every term mirrors a property of the GS1 Web Vocabulary
+(https://ref.gs1.org/voc/) under the identical local name; those terms carry
+skos:exactMatch links to their GS1 counterparts. Terms without an identically
+named GS1 property (flattened plurals or resolver-specific field shapes) carry
+skos:closeMatch links to the nearest GS1 property instead.
+
+System/facet fields of the resolver DTOs (accessLevel, isAnonymousAccessAllowed,
+extensions, jws, type) are intentionally NOT part of this vocabulary: they are
+envelope metadata, not master data."""@en ;
+    dcterms:creator "OpenEPCIS" ;
+    dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+    dcterms:created "2026-07-25"^^xsd:date ;
+    dcterms:modified "2026-07-25"^^xsd:date ;
+    owl:versionInfo "0.1.0" ;
+    owl:versionIRI <https://ref.openepcis.io/extensions/common/gs1-masterdata/0.1.0> ;
+    vann:preferredNamespacePrefix "gs1md" ;
+    vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/common/gs1-masterdata/" ;
+    rdfs:seeAlso <https://ref.gs1.org/voc/> ;
+    owl:imports <https://ref.gs1.org/voc/> .
+
+# =============================================================================
+# Product Master-Data Properties
+# =============================================================================
+
+gs1md:gtin
+    a owl:DatatypeProperty ;
+    rdfs:label "GTIN"@en ;
+    rdfs:comment "A Global Trade Item Number (GTIN) is the 14 digit GS1 Identification Key used to identify products."@en ;
+    skos:exactMatch gs1:gtin ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:productID
+    a owl:DatatypeProperty ;
+    rdfs:label "Product ID"@en ;
+    rdfs:comment "Additional means to the Global Trade Item Number to identify a product."@en ;
+    skos:exactMatch gs1:productID ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:productName
+    a owl:DatatypeProperty ;
+    rdfs:label "Product Name"@en ;
+    rdfs:comment "Consumer friendly short description of the product suitable for compact presentation."@en ;
+    skos:exactMatch gs1:productName ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:productDescription
+    a owl:DatatypeProperty ;
+    rdfs:label "Product Description"@en ;
+    rdfs:comment "An understandable and useable description of a product using brand and other descriptors."@en ;
+    skos:exactMatch gs1:productDescription ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:productRange
+    a owl:DatatypeProperty ;
+    rdfs:label "Product Range"@en ;
+    rdfs:comment "A name, used by a Brand Owner, that span multiple consumer categories or uses."@en ;
+    skos:exactMatch gs1:productRange ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:gpcCategoryCode
+    a owl:DatatypeProperty ;
+    rdfs:label "GPC Category Code"@en ;
+    rdfs:comment "8-digit code (GPC Brick Value) specifying a product category according to the GS1 Global Product Classification (GPC) standard."@en ;
+    skos:exactMatch gs1:gpcCategoryCode ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:gpcCategoryDescription
+    a owl:DatatypeProperty ;
+    rdfs:label "GPC Category Description"@en ;
+    rdfs:comment "A description of the code specifying a product category according to the GS1 Global Product Classification (GPC) standard."@en ;
+    skos:exactMatch gs1:gpcCategoryDescription ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:includedAccessories
+    a owl:DatatypeProperty ;
+    rdfs:label "Included Accessories"@en ;
+    rdfs:comment "Any included object or device not part of the core product itself but which adds to its functionality or use."@en ;
+    skos:exactMatch gs1:includedAccessories ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:isProductRecalled
+    a owl:DatatypeProperty ;
+    rdfs:label "Is Product Recalled"@en ;
+    rdfs:comment "An indicator for the product to determine if the Manufacturer or Supplier has recalled the product."@en ;
+    skos:exactMatch gs1:isProductRecalled ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:productionDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Production Date"@en ;
+    rdfs:comment "The production date is the production or assembly date determined by the manufacturer."@en ;
+    skos:exactMatch gs1:productionDate ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:productionDateTime
+    a owl:DatatypeProperty ;
+    rdfs:label "Production Date Time"@en ;
+    rdfs:comment "The date and time of production (or assembly)."@en ;
+    skos:exactMatch gs1:productionDateTime ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:brand
+    a owl:ObjectProperty ;
+    rdfs:label "Brand"@en ;
+    rdfs:comment "The brand of the product that appears on the consumer package."@en ;
+    skos:exactMatch gs1:brand ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:brandOwner
+    a owl:ObjectProperty ;
+    rdfs:label "Brand Owner"@en ;
+    rdfs:comment "The brand owner of the product."@en ;
+    skos:exactMatch gs1:brandOwner ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:manufacturer
+    a owl:ObjectProperty ;
+    rdfs:label "Manufacturer"@en ;
+    rdfs:comment "The organization that produces the item."@en ;
+    skos:exactMatch gs1:manufacturer ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:manufacturingPlant
+    a owl:ObjectProperty ;
+    rdfs:label "Manufacturing Plant"@en ;
+    rdfs:comment "A physical location consisting of one or more buildings with facilities for manufacturing."@en ;
+    skos:exactMatch gs1:manufacturingPlant ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:countryOfLastProcessing
+    a owl:ObjectProperty ;
+    rdfs:label "Country Of Last Processing"@en ;
+    rdfs:comment "The place where the product or ingredient was last processed and tested before importation."@en ;
+    skos:exactMatch gs1:countryOfLastProcessing ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:countryOfOrigin
+    a owl:ObjectProperty ;
+    rdfs:label "Country Of Origin"@en ;
+    rdfs:comment "Code indicating the country of origin of the product."@en ;
+    skos:exactMatch gs1:countryOfOrigin ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:countryOfAssembly
+    a owl:ObjectProperty ;
+    rdfs:label "Country Of Assembly"@en ;
+    rdfs:comment "The place where product is assembled."@en ;
+    skos:exactMatch gs1:countryOfAssembly ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:grossArea
+    a owl:ObjectProperty ;
+    rdfs:label "Gross Area"@en ;
+    rdfs:comment "The overall area of the item including packaging."@en ;
+    skos:exactMatch gs1:grossArea ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:grossVolume
+    a owl:ObjectProperty ;
+    rdfs:label "Gross Volume"@en ;
+    rdfs:comment "The overall volume of the item including packaging."@en ;
+    skos:exactMatch gs1:grossVolume ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:grossWeight
+    a owl:ObjectProperty ;
+    rdfs:label "Gross Weight"@en ;
+    rdfs:comment "Used to identify the gross weight of the product."@en ;
+    skos:exactMatch gs1:grossWeight ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:manufacturersWarranty
+    a owl:ObjectProperty ;
+    rdfs:label "Manufacturers Warranty"@en ;
+    rdfs:comment "The warranty associated with the product."@en ;
+    skos:exactMatch gs1:manufacturersWarranty ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:targetMarket
+    a owl:ObjectProperty ;
+    rdfs:label "Target Market"@en ;
+    rdfs:comment "Relates to a set of target market details (product release date and associated countries)."@en ;
+    skos:exactMatch gs1:targetMarket ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:colourCode
+    a owl:ObjectProperty ;
+    rdfs:label "Colour Code"@en ;
+    rdfs:comment "Relates to a set of details about the colour code for a product."@en ;
+    skos:exactMatch gs1:colourCode ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:additionalProductDescription
+    a owl:DatatypeProperty ;
+    rdfs:label "Additional Product Description"@en ;
+    rdfs:comment "Additional variants necessary to communicate to the industry to help define the product."@en ;
+    skos:exactMatch gs1:additionalProductDescription ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:bestBeforeDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Best Before Date"@en ;
+    rdfs:comment "Best before date on the label or package signifies the end of the period under which the product will retain specific quality attributes or claims even though the product may continue to retain positive quality attributes after this date."@en ;
+    skos:exactMatch gs1:bestBeforeDate ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:colourDescription
+    a owl:DatatypeProperty ;
+    rdfs:label "Colour Description"@en ;
+    rdfs:comment "A description of the colour of an object."@en ;
+    skos:exactMatch gs1:colourDescription ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:consumerPackageDisclaimer
+    a owl:DatatypeProperty ;
+    rdfs:label "Consumer Package Disclaimer"@en ;
+    rdfs:comment "Additional information that should be used in advertising and in displaying."@en ;
+    skos:exactMatch gs1:consumerPackageDisclaimer ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:consumerProductVariant
+    a owl:DatatypeProperty ;
+    rdfs:label "Consumer Product Variant"@en ;
+    rdfs:comment "The consumer product variant may be used to distinguish one variant of a retail consumer trade item from another if the change does not require the allocation of a different Global Trade Item Number (per the GTIN Management Standard),..."@en ;
+    skos:exactMatch gs1:consumerProductVariant ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:consumerSafetyInformation
+    a owl:DatatypeProperty ;
+    rdfs:label "Consumer Safety Information"@en ;
+    rdfs:comment "Information on consumer safety regarding the product."@en ;
+    skos:exactMatch gs1:consumerSafetyInformation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:consumerStorageInstructions
+    a owl:DatatypeProperty ;
+    rdfs:label "Consumer Storage Instructions"@en ;
+    rdfs:comment "Expresses in text the consumer storage instructions of a product which are normally held on the label or accompanying the product."@en ;
+    skos:exactMatch gs1:consumerStorageInstructions ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:consumerUsageInstructions
+    a owl:DatatypeProperty ;
+    rdfs:label "Consumer Usage Instructions"@en ;
+    rdfs:comment "Free text containing the usage instructions of a product, which are normally held on the label or accompanying the product."@en ;
+    skos:exactMatch gs1:consumerUsageInstructions ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:countryOfOriginStatement
+    a owl:DatatypeProperty ;
+    rdfs:label "Country Of Origin Statement"@en ;
+    rdfs:comment "A description of the geographic area the item may have originated from or has been processed."@en ;
+    skos:exactMatch gs1:countryOfOriginStatement ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:descriptiveSize
+    a owl:DatatypeProperty ;
+    rdfs:label "Descriptive Size"@en ;
+    rdfs:comment "An alphanumeric size factor the brand owner wishes to communicate to the consumer."@en ;
+    skos:exactMatch gs1:descriptiveSize ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:dueDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Due Date"@en ;
+    rdfs:comment "The date by which an invoice should be paid."@en ;
+    skos:exactMatch gs1:dueDate ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:expirationDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Expiration Date"@en ;
+    rdfs:comment "The expiration date is the date that determines the limit of consumption or use of a product/coupon."@en ;
+    skos:exactMatch gs1:expirationDate ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:expirationDateTime
+    a owl:DatatypeProperty ;
+    rdfs:label "Expiration Date Time"@en ;
+    rdfs:comment "The manufacturer determines the expiration date and time, which is relevant only for short duration and for items that will not be sent on long distances and not outside of the time zone."@en ;
+    skos:exactMatch gs1:expirationDateTime ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:firstFreezeDate
+    a owl:DatatypeProperty ;
+    rdfs:label "First Freeze Date"@en ;
+    rdfs:comment "The first freeze date is applicable to products that are frozen directly after slaughtering, harvesting, catching or after initial processing of the product."@en ;
+    skos:exactMatch gs1:firstFreezeDate ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:functionalName
+    a owl:DatatypeProperty ;
+    rdfs:label "Functional Name"@en ;
+    rdfs:comment "Describes use of the product or service by the consumer."@en ;
+    skos:exactMatch gs1:functionalName ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:growingMethod
+    a owl:DatatypeProperty ;
+    rdfs:label "Growing Method"@en ;
+    rdfs:comment "The process through which fresh produce is grown and cultivated."@en ;
+    skos:exactMatch gs1:growingMethod ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:harvestDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Harvest Date"@en ;
+    rdfs:comment "The harvest date."@en ;
+    skos:exactMatch gs1:harvestDate ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:harvestDateEnd
+    a owl:DatatypeProperty ;
+    rdfs:label "Harvest Date End"@en ;
+    rdfs:comment "The harvest end date."@en ;
+    skos:exactMatch gs1:harvestDateEnd ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:harvestDateStart
+    a owl:DatatypeProperty ;
+    rdfs:label "Harvest Date Start"@en ;
+    rdfs:comment "The harvest start date."@en ;
+    skos:exactMatch gs1:harvestDateStart ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:hasBatchLotNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "Has Batch Lot Number"@en ;
+    rdfs:comment "The batch or lot number associates an item with information the manufacturer considers relevant for traceability of the trade item to which the element string is applied."@en ;
+    skos:exactMatch gs1:hasBatchLotNumber ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:hasSerialNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "Has Serial Number"@en ;
+    rdfs:comment "A serial number is assigned to an entity for its lifetime."@en ;
+    skos:exactMatch gs1:hasSerialNumber ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:hasThirdPartyControlledSerialNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "Has Third Party Controlled Serial Number"@en ;
+    rdfs:comment "This identifier is assigned to an entity for its lifetime."@en ;
+    skos:exactMatch gs1:hasThirdPartyControlledSerialNumber ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:healthClaimDescription
+    a owl:DatatypeProperty ;
+    rdfs:label "Health Claim Description"@en ;
+    rdfs:comment "A description of health claims according to regulations of the target market."@en ;
+    skos:exactMatch gs1:healthClaimDescription ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:packagingDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Packaging Date"@en ;
+    rdfs:comment "The packaging date is the date when the goods were packed as determined by the packager."@en ;
+    skos:exactMatch gs1:packagingDate ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:packagingMarkedLabelAccreditation
+    a owl:DatatypeProperty ;
+    rdfs:label "Packaging Marked Label Accreditation"@en ;
+    rdfs:comment "A marking that the product received recognition, endorsement, certification by following guidelines by the label issuing agency."@en ;
+    skos:exactMatch gs1:packagingMarkedLabelAccreditation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:productFeatureBenefit
+    a owl:DatatypeProperty ;
+    rdfs:label "Product Feature Benefit"@en ;
+    rdfs:comment "Element for consumer facing marketing content to describe the key features or benefits of the style suitable for display purposes."@en ;
+    skos:exactMatch gs1:productFeatureBenefit ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:productFormDescription
+    a owl:DatatypeProperty ;
+    rdfs:label "Product Form Description"@en ;
+    rdfs:comment "The physical form or shape of the product."@en ;
+    skos:exactMatch gs1:productFormDescription ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:productMarketingMessage
+    a owl:DatatypeProperty ;
+    rdfs:label "Product Marketing Message"@en ;
+    rdfs:comment "Marketing message associated with the product."@en ;
+    skos:exactMatch gs1:productMarketingMessage ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:productSustainabilityInfo
+    a owl:DatatypeProperty ;
+    rdfs:label "Product Sustainability Info"@en ;
+    rdfs:comment "This term has been deprecated."@en ;
+    skos:exactMatch gs1:productSustainabilityInfo ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:productionVariantDescription
+    a owl:DatatypeProperty ;
+    rdfs:label "Production Variant Description"@en ;
+    rdfs:comment "Free text assigned by the manufacturer to describe the production variant."@en ;
+    skos:exactMatch gs1:productionVariantDescription ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:productionVariantEffectiveDateTime
+    a owl:DatatypeProperty ;
+    rdfs:label "Production Variant Effective Date Time"@en ;
+    rdfs:comment "The start date of a production variant."@en ;
+    skos:exactMatch gs1:productionVariantEffectiveDateTime ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:provenanceStatement
+    a owl:DatatypeProperty ;
+    rdfs:label "Provenance Statement"@en ;
+    rdfs:comment "Free text description of the region or place the product originates from."@en ;
+    skos:exactMatch gs1:provenanceStatement ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:regulatedProductName
+    a owl:DatatypeProperty ;
+    rdfs:label "Regulated Product Name"@en ;
+    rdfs:comment "The prescribed, regulated or generic product name or denomination that describes the true nature of the product."@en ;
+    skos:exactMatch gs1:regulatedProductName ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:sellByDate
+    a owl:DatatypeProperty ;
+    rdfs:label "Sell By Date"@en ;
+    rdfs:comment "The date specified by the manufacturer as the last date the retailer is to offer the product for sale to the consumer."@en ;
+    skos:exactMatch gs1:sellByDate ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:supplierSpecifiedMinimumConsumerStorageDays
+    a owl:DatatypeProperty ;
+    rdfs:label "Supplier Specified Minimum Consumer Storage Days"@en ;
+    rdfs:comment "Represents the number of days between a product's sell by date and its use by date."@en ;
+    skos:exactMatch gs1:supplierSpecifiedMinimumConsumerStorageDays ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:variantDescription
+    a owl:DatatypeProperty ;
+    rdfs:label "Variant Description"@en ;
+    rdfs:comment "Free text field used to identify the variant of the product."@en ;
+    skos:exactMatch gs1:variantDescription ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:warningCopyDescription
+    a owl:DatatypeProperty ;
+    rdfs:label "Warning Copy Description"@en ;
+    rdfs:comment "Warning information is additional information that outlines special requirements, warning and caution information printed on the package."@en ;
+    skos:exactMatch gs1:warningCopyDescription ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:additionalProductClassification
+    a owl:ObjectProperty ;
+    rdfs:label "Additional Product Classification"@en ;
+    rdfs:comment "Relates to a set of additional product classification details."@en ;
+    skos:exactMatch gs1:additionalProductClassification ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:additive
+    a owl:ObjectProperty ;
+    rdfs:label "Additive"@en ;
+    rdfs:comment "Relates to details about any additives that a product may contain."@en ;
+    skos:exactMatch gs1:additive ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:audioFile
+    a owl:ObjectProperty ;
+    rdfs:label "Audio File"@en ;
+    rdfs:comment "Link to a file containing an audio clip which is relevant to the product."@en ;
+    skos:exactMatch gs1:audioFile ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:authenticity
+    a owl:ObjectProperty ;
+    rdfs:label "Authenticity"@en ;
+    rdfs:comment "Links to details of covert/overt security markings that may be used to check authenticity of a product instance."@en ;
+    skos:exactMatch gs1:authenticity ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:awardPrize
+    a owl:ObjectProperty ;
+    rdfs:label "Award Prize"@en ;
+    rdfs:comment "An award or prize given to the product."@en ;
+    skos:exactMatch gs1:awardPrize ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:certification
+    a owl:ObjectProperty ;
+    rdfs:label "Certification"@en ;
+    rdfs:comment "Certification information about a product, organisation or location."@en ;
+    skos:exactMatch gs1:certification ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:consumerHandlingStorage
+    a owl:ObjectProperty ;
+    rdfs:label "Consumer Handling Storage"@en ;
+    rdfs:comment "Link to a website, file, or image containing the manufacturer's recommendations for how the consumer or end user should store and handle the product."@en ;
+    skos:exactMatch gs1:consumerHandlingStorage ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:customerSupportCentre
+    a owl:ObjectProperty ;
+    rdfs:label "Customer Support Centre"@en ;
+    rdfs:comment "The organization which provides product support to the trading partner organization to which merchandise is sold."@en ;
+    skos:exactMatch gs1:customerSupportCentre ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:dependentProprietaryProduct
+    a owl:ObjectProperty ;
+    rdfs:label "Dependent Proprietary Product"@en ;
+    rdfs:comment "Dependent products are products which are required to make the current product functional."@en ;
+    skos:exactMatch gs1:dependentProprietaryProduct ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:equivalentProduct
+    a owl:ObjectProperty ;
+    rdfs:label "Equivalent Product"@en ;
+    rdfs:comment "A product which can be substituted for the product based on supplier-defined functional equivalence to the product."@en ;
+    skos:exactMatch gs1:equivalentProduct ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:inPackageDepth
+    a owl:ObjectProperty ;
+    rdfs:label "In Package Depth"@en ;
+    rdfs:comment "The depth of the product in its packaging, as measured according to the GS1 Package Measurement Rules."@en ;
+    skos:exactMatch gs1:inPackageDepth ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:inPackageDiameter
+    a owl:ObjectProperty ;
+    rdfs:label "In Package Diameter"@en ;
+    rdfs:comment "The measurement of the diameter of the product in its package at its largest point."@en ;
+    skos:exactMatch gs1:inPackageDiameter ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:inPackageHeight
+    a owl:ObjectProperty ;
+    rdfs:label "In Package Height"@en ;
+    rdfs:comment "The height of the product in the package, as measured according to the GS1 Package Measurement Rules."@en ;
+    skos:exactMatch gs1:inPackageHeight ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:inPackageWidth
+    a owl:ObjectProperty ;
+    rdfs:label "In Package Width"@en ;
+    rdfs:comment "The width of the product in the package, as measured according to the GS1 Package Measurement Rules."@en ;
+    skos:exactMatch gs1:inPackageWidth ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:massPerUnitArea
+    a owl:ObjectProperty ;
+    rdfs:label "Mass Per Unit Area"@en ;
+    rdfs:comment "The mass per unit area of the item."@en ;
+    skos:exactMatch gs1:massPerUnitArea ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:netArea
+    a owl:ObjectProperty ;
+    rdfs:label "Net Area"@en ;
+    rdfs:comment "The net area of the item."@en ;
+    skos:exactMatch gs1:netArea ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:netContent
+    a owl:ObjectProperty ;
+    rdfs:label "Net Content"@en ;
+    rdfs:comment "The quantity of the product contained by a package, usually as claimed on the label."@en ;
+    skos:exactMatch gs1:netContent ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:netWeight
+    a owl:ObjectProperty ;
+    rdfs:label "Net Weight"@en ;
+    rdfs:comment "Used to identify the net weight of the product."@en ;
+    skos:exactMatch gs1:netWeight ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:organicClaim
+    a owl:ObjectProperty ;
+    rdfs:label "Organic Claim"@en ;
+    rdfs:comment "Relates to an organic claim about the product."@en ;
+    skos:exactMatch gs1:organicClaim ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:outOfPackageDepth
+    a owl:ObjectProperty ;
+    rdfs:label "Out Of Package Depth"@en ;
+    rdfs:comment "The depth of the product out of its packaging, as measured according to the GS1 Package Measurement Rules."@en ;
+    skos:exactMatch gs1:outOfPackageDepth ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:outOfPackageDiameter
+    a owl:ObjectProperty ;
+    rdfs:label "Out Of Package Diameter"@en ;
+    rdfs:comment "The measurement of the diameter of the product out of its package at its largest point."@en ;
+    skos:exactMatch gs1:outOfPackageDiameter ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:outOfPackageHeight
+    a owl:ObjectProperty ;
+    rdfs:label "Out Of Package Height"@en ;
+    rdfs:comment "The height of the product out of the package, as measured according to the GS1 Package Measurement Rules."@en ;
+    skos:exactMatch gs1:outOfPackageHeight ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:outOfPackageWidth
+    a owl:ObjectProperty ;
+    rdfs:label "Out Of Package Width"@en ;
+    rdfs:comment "The width of the product out of the package, as measured according to the GS1 Package Measurement Rules."@en ;
+    skos:exactMatch gs1:outOfPackageWidth ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:packaging
+    a owl:ObjectProperty ;
+    rdfs:label "Packaging"@en ;
+    rdfs:comment "Details on the packaging for a product including type, weight and materials."@en ;
+    skos:exactMatch gs1:packaging ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:referencedFile
+    a owl:ObjectProperty ;
+    rdfs:label "Referenced File"@en ;
+    rdfs:comment "Link to a file or website containing additional information on product."@en ;
+    skos:exactMatch gs1:referencedFile ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:primaryAlternateProduct
+    a owl:ObjectProperty ;
+    rdfs:label "Primary Alternate Product"@en ;
+    rdfs:comment "A product that is similar to the current product but is not exact match."@en ;
+    skos:exactMatch gs1:primaryAlternateProduct ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:replacedByProduct
+    a owl:ObjectProperty ;
+    rdfs:label "Replaced By Product"@en ;
+    rdfs:comment "The product which permanently replaces the current product."@en ;
+    skos:exactMatch gs1:replacedByProduct ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:replacedProduct
+    a owl:ObjectProperty ;
+    rdfs:label "Replaced Product"@en ;
+    rdfs:comment "Indicates the product identification of an item that is being permanently replaced by this product."@en ;
+    skos:exactMatch gs1:replacedProduct ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:images
+    a owl:ObjectProperty ;
+    rdfs:label "Images"@en ;
+    rdfs:comment "Referenced image files for the product (flattened plural of the GS1 image link)."@en ;
+    skos:closeMatch gs1:image ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:instructionsForUse
+    a owl:ObjectProperty ;
+    rdfs:label "Instructions For Use"@en ;
+    rdfs:comment "Link to a file containing the Instructions For Use."@en ;
+    skos:exactMatch gs1:instructionsForUse ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:sizeCodes
+    a owl:DatatypeProperty ;
+    rdfs:label "Size Codes"@en ;
+    rdfs:comment "Size codes assigned to the product (flattened plural of the GS1 size code)."@en ;
+    skos:closeMatch gs1:sizeCode ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+# =============================================================================
+# Place / Location Master-Data Properties
+# =============================================================================
+
+gs1md:additionalLocationID
+    a owl:ObjectProperty ;
+    rdfs:label "Additional Location ID"@en ;
+    rdfs:comment "Location identifiers assigned and managed by government bodies, trade organisations, and other entities."@en ;
+    skos:exactMatch gs1:additionalLocationID ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:address
+    a owl:ObjectProperty ;
+    rdfs:label "Address"@en ;
+    rdfs:comment "The postal address for an organization or place."@en ;
+    skos:exactMatch gs1:address ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:contactPoint
+    a owl:ObjectProperty ;
+    rdfs:label "Contact Point"@en ;
+    rdfs:comment "Contact information."@en ;
+    skos:exactMatch gs1:contactPoint ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:glnType
+    a owl:DatatypeProperty ;
+    rdfs:label "GLN Type"@en ;
+    rdfs:comment "Indicates what type of thing is being identified by a GLN."@en ;
+    skos:exactMatch gs1:glnType ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:globalLocationNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "Global Location Number"@en ;
+    rdfs:comment "A Global Location Number (GLN) is the GS1 Identification Key used to identify physical locations or parties."@en ;
+    skos:exactMatch gs1:globalLocationNumber ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:locationGLN
+    a owl:DatatypeProperty ;
+    rdfs:label "Location GLN"@en ;
+    rdfs:comment "13-digit GLN that is being used to identify a physical or digital location."@en ;
+    skos:exactMatch gs1:locationGLN ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:afterHoursContact
+    a owl:ObjectProperty ;
+    rdfs:label "After Hours Contact"@en ;
+    rdfs:comment "Links to after-hours contact information."@en ;
+    skos:exactMatch gs1:afterHoursContact ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:baseLocation
+    a owl:ObjectProperty ;
+    rdfs:label "Base Location"@en ;
+    rdfs:comment "A fixed physical location where a mobile location most commonly resides."@en ;
+    skos:exactMatch gs1:baseLocation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:digitalAddress
+    a owl:DatatypeProperty ;
+    rdfs:label "Digital Address"@en ;
+    rdfs:comment "The location reference associated to a digital place."@en ;
+    skos:exactMatch gs1:digitalAddress ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:digitalLocationName
+    a owl:DatatypeProperty ;
+    rdfs:label "Digital Location Name"@en ;
+    rdfs:comment "The name of a digital place."@en ;
+    skos:exactMatch gs1:digitalLocationName ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:geoCoordinates
+    a owl:ObjectProperty ;
+    rdfs:label "Geo Coordinates"@en ;
+    rdfs:comment "Geographic coordinates (latitude/longitude) of the place."@en ;
+    skos:closeMatch gs1:geo ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:geoShape
+    a owl:ObjectProperty ;
+    rdfs:label "Geo Shape"@en ;
+    rdfs:comment "Geographic shape describing the boundary or area covered by the place."@en ;
+    skos:closeMatch gs1:geo ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:leasedFrom
+    a owl:ObjectProperty ;
+    rdfs:label "Leased From"@en ;
+    rdfs:comment "Links to the organisation (lessor) from which this place is leased."@en ;
+    skos:exactMatch gs1:leasedFrom ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:leasedTo
+    a owl:ObjectProperty ;
+    rdfs:label "Leased To"@en ;
+    rdfs:comment "Links to the organisation(s) (lessee(s)) to which this place is leased."@en ;
+    skos:exactMatch gs1:leasedTo ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:locationHistory
+    a owl:ObjectProperty ;
+    rdfs:label "Location History"@en ;
+    rdfs:comment "Provides details on if and when a location is active or inactive."@en ;
+    skos:exactMatch gs1:locationHistory ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:locationRole
+    a owl:DatatypeProperty ;
+    rdfs:label "Location Role"@en ;
+    rdfs:comment "A location classification based on the purpose, type of site and/or what occurs there."@en ;
+    skos:exactMatch gs1:locationRole ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:managedBy
+    a owl:ObjectProperty ;
+    rdfs:label "Managed By"@en ;
+    rdfs:comment "Links to the organisation that manages this place or organisation, as designated by the owner or another organisation."@en ;
+    skos:exactMatch gs1:managedBy ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:managedFor
+    a owl:ObjectProperty ;
+    rdfs:label "Managed For"@en ;
+    rdfs:comment "Links to the organisation(s) for whom this place is managed."@en ;
+    skos:exactMatch gs1:managedFor ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:occupiedBy
+    a owl:ObjectProperty ;
+    rdfs:label "Occupied By"@en ;
+    rdfs:comment "Links to the organisation(s) that occupy this place."@en ;
+    skos:exactMatch gs1:occupiedBy ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:ownedBy
+    a owl:ObjectProperty ;
+    rdfs:label "Owned By"@en ;
+    rdfs:comment "Links to the organisation(s) that own this place, in full or in part."@en ;
+    skos:exactMatch gs1:ownedBy ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:physicalLocationName
+    a owl:DatatypeProperty ;
+    rdfs:label "Physical Location Name"@en ;
+    rdfs:comment "The name of a physical place."@en ;
+    skos:exactMatch gs1:physicalLocationName ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:primaryLocationOf
+    a owl:ObjectProperty ;
+    rdfs:label "Primary Location Of"@en ;
+    rdfs:comment "Links to the organisation(s) that designate this place as its/their primary location."@en ;
+    skos:exactMatch gs1:primaryLocationOf ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:relatedOrganization
+    a owl:ObjectProperty ;
+    rdfs:label "Related Organization"@en ;
+    rdfs:comment "The organisation(s) associated with a place."@en ;
+    skos:exactMatch gs1:relatedOrganization ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:replacedByPlace
+    a owl:ObjectProperty ;
+    rdfs:label "Replaced By Place"@en ;
+    rdfs:comment "Links to the successor location that is used in place of a previous location."@en ;
+    skos:exactMatch gs1:replacedByPlace ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:replacedPlace
+    a owl:ObjectProperty ;
+    rdfs:label "Replaced Place"@en ;
+    rdfs:comment "Links to the previous location that this location replaces."@en ;
+    skos:exactMatch gs1:replacedPlace ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:responsibleOrganization
+    a owl:ObjectProperty ;
+    rdfs:label "Responsible Organization"@en ;
+    rdfs:comment "Links to the organisation that is directly responsible for this place."@en ;
+    skos:exactMatch gs1:responsibleOrganization ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+# =============================================================================
+# Organization Master-Data Properties
+# =============================================================================
+
+gs1md:organizationName
+    a owl:DatatypeProperty ;
+    rdfs:label "Organization Name"@en ;
+    rdfs:comment "The name of the organization expressed in text."@en ;
+    skos:exactMatch gs1:organizationName ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:organizationRole
+    a owl:DatatypeProperty ;
+    rdfs:label "Organization Role"@en ;
+    rdfs:comment "The role and/or purpose of a party (i.e. legal entity or function)."@en ;
+    skos:exactMatch gs1:organizationRole ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:additionalOrganizationIdentificationTypeValue
+    a owl:DatatypeProperty ;
+    rdfs:label "Additional Organization Identification Type Value"@en ;
+    rdfs:comment "The value associated with the Additional Organization Identification Type Value."@en ;
+    skos:exactMatch gs1:additionalOrganizationIdentificationTypeValue ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:department
+    a owl:DatatypeProperty ;
+    rdfs:label "Department"@en ;
+    rdfs:comment "The name of a division of an organization dealing with a specific activity."@en ;
+    skos:exactMatch gs1:department ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:partyGLN
+    a owl:DatatypeProperty ;
+    rdfs:label "Party GLN"@en ;
+    rdfs:comment "13-digit GLN that is being used to identify a legal entity or function."@en ;
+    skos:exactMatch gs1:partyGLN ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:additionalOrganizationID
+    a owl:ObjectProperty ;
+    rdfs:label "Additional Organization ID"@en ;
+    rdfs:comment "Party/organisation identifiers assigned and managed by government bodies, trade organisations, and other entities."@en ;
+    skos:exactMatch gs1:additionalOrganizationID ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:makesOffer
+    a owl:ObjectProperty ;
+    rdfs:label "Makes Offer"@en ;
+    rdfs:comment "An offer made by an organization."@en ;
+    skos:exactMatch gs1:makesOffer ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:manages
+    a owl:ObjectProperty ;
+    rdfs:label "Manages"@en ;
+    rdfs:comment "Links to the place(s) or organisation(s) that this organisation manages, on behalf of the owner or another organisation."@en ;
+    skos:exactMatch gs1:manages ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:hasPrimaryLocation
+    a owl:ObjectProperty ;
+    rdfs:label "Has Primary Location"@en ;
+    rdfs:comment "Links to the place(s) that this organisation designates as their primary location(s)."@en ;
+    skos:exactMatch gs1:hasPrimaryLocation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:location
+    a owl:ObjectProperty ;
+    rdfs:label "Location"@en ;
+    rdfs:comment "The place(s) associated with an organization."@en ;
+    skos:exactMatch gs1:location ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:owns
+    a owl:ObjectProperty ;
+    rdfs:label "Owns"@en ;
+    rdfs:comment "Links to the place(s) or organisation(s) that this organisation owns."@en ;
+    skos:exactMatch gs1:owns ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:lesseeOf
+    a owl:ObjectProperty ;
+    rdfs:label "Lessee Of"@en ;
+    rdfs:comment "Links to the place(s) for which this organisation is the lessee (i.e., this organisation leases those places from another organisation, the lessor)."@en ;
+    skos:exactMatch gs1:lesseeOf ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:lessorFor
+    a owl:ObjectProperty ;
+    rdfs:label "Lessor For"@en ;
+    rdfs:comment "Links to the place(s) for which this organisation is the lessor (i.e., this organisation leases those places to others)."@en ;
+    skos:exactMatch gs1:lessorFor ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:responsibleForLocation
+    a owl:ObjectProperty ;
+    rdfs:label "Responsible For Location"@en ;
+    rdfs:comment "Links to the place(s) for which this organisation is responsible."@en ;
+    skos:exactMatch gs1:responsibleForLocation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:organizationHistory
+    a owl:ObjectProperty ;
+    rdfs:label "Organization History"@en ;
+    rdfs:comment "Provides details on if and when an organisation/party is active or inactive."@en ;
+    skos:exactMatch gs1:organizationHistory ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:parentOrganization
+    a owl:ObjectProperty ;
+    rdfs:label "Parent Organization"@en ;
+    rdfs:comment "Designates the legal entity or function directly above the organisation/party being identified in a hierarchy."@en ;
+    skos:exactMatch gs1:parentOrganization ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:replacedByOrganization
+    a owl:ObjectProperty ;
+    rdfs:label "Replaced By Organization"@en ;
+    rdfs:comment "Links to the successor organisation that is used in place of a previous organisation."@en ;
+    skos:exactMatch gs1:replacedByOrganization ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:replacedOrganization
+    a owl:ObjectProperty ;
+    rdfs:label "Replaced Organization"@en ;
+    rdfs:comment "Links to the previous organisation that this organisation replaces."@en ;
+    skos:exactMatch gs1:replacedOrganization ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:usesManagedLocation
+    a owl:ObjectProperty ;
+    rdfs:label "Uses Managed Location"@en ;
+    rdfs:comment "Links to the place(s) that this organisation uses as a managed space."@en ;
+    skos:exactMatch gs1:usesManagedLocation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:occupies
+    a owl:ObjectProperty ;
+    rdfs:label "Occupies"@en ;
+    rdfs:comment "Links to the place(s) that this organisation occupies."@en ;
+    skos:exactMatch gs1:occupies ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+
+gs1md:subOrganization
+    a owl:ObjectProperty ;
+    rdfs:label "Sub Organization"@en ;
+    rdfs:comment "Designates a legal entity or function directly below the organisation/party being identified in a hierarchy."@en ;
+    skos:exactMatch gs1:subOrganization ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .

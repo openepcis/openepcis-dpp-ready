@@ -1,60 +1,1074 @@
 # Access-tier annotations for the EU Battery extension (ESPR Article 9 tiers).
-# One statement per term; merged into the module by scripts/build-json.ts.
-# Derived from the per-field audiences in validation/batterypass-v1.3-schema.json
-# (Battery Regulation (EU) 2023/1542 Annex XIII):
-#   "Public"                                      -> oec:Public
-#   "persons with a legitimate interest [...]"     -> oec:AuthorizedOnly
-#   "Notified bodies, market surveillance [...]"   -> oec:Restricted
-# All tiers here are regulation-mandated, hence oec:accessLevelMandatedBy (locked
-# against runtime overrides). Terms not listed default to AuthorizedOnly.
+# One block per term; merged into the module by scripts/build-json.ts.
+#
+# Fully re-curated: every property defined in battery.ttl appears here exactly
+# once and carries EITHER
+#   oec:defaultAccessLevel + oec:accessLevelRationale + oec:accessLevelSource
+# OR
+#   oec:accessLevelInherited true   (structural value-carrier whose runtime
+#   tier is governed entirely by the embedding parent property).
+#
+# Legal grounding: Regulation (EU) 2023/1542 (Battery Regulation), which is in
+# force and fixes the battery-passport audiences directly:
+#   Annex XIII(1) + Art. 77(2)  -> Public (general public)
+#   Annex XIII(2) + Art. 77(2)  -> AuthorizedOnly (persons with a legitimate
+#                                  interest and the Commission)
+#   Annex XIII(3)               -> Restricted (notified bodies, market
+#                                  surveillance authorities, the Commission)
+#   Annex XIII(4) + Art. 14 +
+#   Annex VII                   -> AuthorizedOnly (SoH/lifetime data readable
+#                                  via the BMS for the legitimate-interest
+#                                  audience: owner, independent operators,
+#                                  repurposers, recyclers)
+# Where one of those provisions fixes the audience the tier additionally
+# carries oec:accessLevelMandatedBy (locked against runtime overrides).
+# Judgment-call tiers for DIN DKE SPEC 99100 / vocabulary-extension terms carry
+# only oec:accessLevelSource and stay overridable (tighten-only) at runtime.
+#
+# Citation form: one consistent ELI IRI for the Battery Regulation,
+# <https://eur-lex.europa.eu/eli/reg/2023/1542>; the pinpoint article/annex is
+# named in each rationale.
+#
+# Cross-module alias consistency (enforcement merges tiers by bare local name):
+# casNumber/ecNumber/concentration/substanceLocation/materialComposition/
+# isCriticalRawMaterial/dismantlingInstructions/dataQualityAssessment/
+# dataProviderCertification/operatorInformation/operatorRole = AuthorizedOnly,
+# and hazardClass/hazardousSubstances/recycledContent/recyclabilityRate/
+# complianceStatus/carbonFootprint*/languageCode/lastDataUpdate/
+# verificationBody/thirdPartyAssurancesUrl = Public, matching dpp-core;
+# notifiedBody = AuthorizedOnly matching eucpr; euDeclarationOfConformity and
+# expectedLifetimeYears = Public matching eutex.
 
 @prefix eubat: <https://ref.openepcis.io/extensions/eu/battery/> .
 @prefix oec:   <https://ref.openepcis.io/extensions/common/core/> .
 
+# =============================================================================
+# Public: battery identification & general information
+# (Annex XIII(1)(a) via Annex VI Part A; Art. 77(2))
+# =============================================================================
 
-# --- AuthorizedOnly ---
-eubat:capacityFade oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:capacityThroughput oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:energyThroughput oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:powerFade oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:puttingIntoService oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:remainingCapacity oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:remainingPowerCapability oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:remainingUsableEnergy oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:safetyMeasures oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:stateOfCertifiedEnergy oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:stateOfCharge oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:timeSpentInExtremeTemperaturesAboveBoundary oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:timeSpentInExtremeTemperaturesBelowBoundary oec:defaultAccessLevel oec:AuthorizedOnly ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:batteryPassportIdentifier oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 77(3): the unique passport identifier is the public entry point resolved from the QR code and cannot itself be gated." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
-# --- Public ---
-eubat:absoluteCarbonFootprint oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-# batterypass "webLinkToPublicCarbonFootprintStudy" (Annex XIII public); shares its
-# bare shortcut alias with oec:carbonFootprintStudyUrl (Public) — an unannotated
-# battery term would tighten the alias to AuthorizedOnly for everyone.
-eubat:carbonFootprintStudyUrl oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:batteryChemistry oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:batteryMass oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:batteryModelIdentifier oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:batteryPassportIdentifier oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:capacityThresholdForExhaustion oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:carbonFootprintPerformanceClass oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:certifiedUsableEnergy oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:euDeclarationOfConformity oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:extinguishingAgent oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:hazardousSubstances oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:informationOnCollection oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:manufacturingPlace oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:maximumPermittedBatteryPower oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:maximumVoltage oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:minimumVoltage oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:nominalVoltage oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:originalPowerCapability oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:ratedCapacity oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:renewableContentShare oec:defaultAccessLevel oec:Public ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:batteryModelIdentifier oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(a) via Annex VI Part A: battery model/type identification is public labelling information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
 
-# --- Restricted ---
-eubat:facilityIdentifier oec:defaultAccessLevel oec:Restricted ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
-eubat:manufacturerIdentifier oec:defaultAccessLevel oec:Restricted ; oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+eubat:batteryChemistry oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(a) via Annex VI Part A: the general battery chemistry is public passport data — only the detailed cathode/anode/electrolyte composition moves to Annex XIII(2)(a)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:batteryMass oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(a) via Annex VI Part A: the weight of the battery is public labelling information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:manufacturingPlace oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(a) via Annex VI Part A: the place of manufacturing (geographical location of the plant) is public — only the internal facility identifier is tiered separately (see eubat:facilityIdentifier)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:criticalRawMaterialsStatement oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(a) via Annex VI Part A: critical raw materials present above 0.1 % w/w must be stated publicly; only the per-material CRM flags inside the detailed composition are AuthorizedOnly." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:hasBattery oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The product-to-battery link only enables passport discovery from the containing product and reveals no data beyond what each linked passport tier gates itself (Art. 77(2))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:cellType oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The cell form factor (cylindrical/prismatic/pouch) is catalogue-level product data with no confidentiality content, aligned with the public Annex XIII(1) identification block (DIN DKE SPEC 99100 extension)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:numberOfCells oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Cell count is coarse pack-architecture catalogue data, not the detailed composition reserved by Annex XIII(2)(a) (DIN DKE SPEC 99100 extension)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:numberOfModules oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Module count is coarse pack-architecture catalogue data, not the detailed composition reserved by Annex XIII(2)(a) (DIN DKE SPEC 99100 extension)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:languageCode oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Language codes are rendering metadata with no confidentiality content; dpp-core serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:lastDataUpdate oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 77(7) requires the passport to stay up to date, so the update timestamp is interpretation metadata every audience needs; dpp-core serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:complianceStatus oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Compliance assertions exist to be shown to buyers and authorities alike, mirroring the public EU declaration of conformity (Annex XIII(1)(r)); dpp-core serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# =============================================================================
+# Public: performance & durability ratings
+# (Annex XIII(1)(g)-(p) referencing Annex IV Part A; Art. 10)
+# =============================================================================
+# Declared/rated values and their reference test conditions are public
+# passport data; the measured, battery-individual state values from the BMS
+# sit in the Annex XIII(4)/Art. 14 AuthorizedOnly block further down.
+
+eubat:technicalSpecifications oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Container for the Annex IV Part A rated performance and durability parameters that Annex XIII(1)(g)-(p) makes public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:ratedCapacity oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(g): the rated capacity is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:ratedEnergy oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(g)/Annex IV Part A: rated energy is a declared capacity parameter in the public performance block." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:ratedMaximumPower oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(i)/Annex IV Part A: rated power capability is public passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:nominalVoltage oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(h): nominal voltage (with its temperature boundaries) is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:minimumVoltage oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(h): the minimum voltage boundary is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:maximumVoltage oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(h): the maximum voltage boundary is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:originalPowerCapability oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(i): original power capability (with limits and temperature boundaries) is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:maximumPermittedBatteryPower oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(i): the maximum permitted battery power is a public power-capability limit." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:powerCapabilityRatio oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex IV Part A/Annex XIII(1)(i): the ratio between nominal allowed power (W) and battery energy (Wh) is a public declared parameter." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:certifiedUsableEnergy oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1): the certified usable battery energy is a public rated value against which SoCE is later judged." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:capacityThresholdForExhaustion oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(k): the capacity threshold for exhaustion is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:exhaustionThreshold oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Duplicate expression of the public exhaustion threshold (Annex XIII(1)(k)); tier kept identical to eubat:capacityThresholdForExhaustion." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:initialInternalResistance oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(o): internal cell/pack resistance as a declared parameter is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:roundTripEfficiency oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(n): the initial round-trip energy efficiency is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:roundTripEfficiencyAt50PercentCycleLife oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(n): round-trip efficiency expected at 50 % of cycle life is a public declared value." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:initialSelfDischarge oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The initial (declared) self-discharge rate belongs to the public Annex IV Part A performance ratings — only its measured evolution is BMS state data under Annex XIII(4)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:expectedLifetime oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(j): the expected battery lifetime under reference conditions is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:expectedLifetimeYears oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(j): expected calendar lifetime is a public declared durability value; eutex serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:expectedCycleLife oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(j): expected lifetime expressed in cycles under reference test conditions is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:expectedNumberOfCycles oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(j): the manufacturer-declared expected number of full cycles is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:expectedLifetimeCapacityThroughput oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex IV Part A/Annex XIII(1)(j): the declared lifetime capacity throughput is a public durability rating." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:expectedLifetimeEnergyThroughput oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex IV Part A/Annex XIII(1)(j): the declared lifetime energy throughput is a public durability rating." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:capacityFadeThreshold oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The capacity-fade level that defines rated cycle life is part of the public declared durability ratings (Annex IV Part A), not battery-individual state." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:resistanceIncreaseThreshold oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The resistance-increase level that defines rated cycle life is part of the public declared durability ratings (Annex IV Part A), not battery-individual state." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:cRate oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(p): the C-rate of the relevant cycle-life test is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:cRateLifeCycleTest oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(p): the C-rate applied in the cycle-life test is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:depthOfDischargeInCycleLifeTest oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The depth of discharge used in the cycle-life test is a public reference test condition that makes the public lifetime ratings interpretable (Annex XIII(1)(j))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:lifetimeReferenceTest oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The reference test standard behind the public lifetime ratings must be public for those ratings to be checkable (Annex XIII(1)(j))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:maximumChargingCurrent oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Charging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:maximumChargingPower oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Charging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:maximumDischargingCurrent oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Discharging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:maximumDischargingPower oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Discharging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:temperatureRangeCharging oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(h)-(i) publish voltage/power values together with their temperature boundaries, so the charging temperature window is public rating data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:temperatureRangeDischarging oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(h)-(i) publish voltage/power values together with their temperature boundaries, so the discharging temperature window is public rating data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:temperatureRangeIdleState oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(l): the temperature range the battery can withstand when not in use is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:temperatureRangeStorage oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(l): storage temperature boundaries are public data the end user needs for safe keeping of the battery." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# =============================================================================
+# Public: carbon footprint (Art. 7; Annex XIII(1)(c))
+# =============================================================================
+# Art. 7 makes the CF declaration, its performance class, the per-lifecycle-
+# stage shares and the link to the underlying study publicly available.
+
+eubat:carbonFootprintDeclaration oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 7(1)/Annex XIII(1)(c): the carbon footprint declaration accompanies the battery publicly; dpp-core serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:carbonFootprintTotal oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 7(1)(d)/Annex XIII(1)(c): the lifecycle CF per kWh is the headline public figure of the declaration; dpp-core serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:absoluteCarbonFootprint oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The non-normalised total CF only restates the public Art. 7/Annex XIII(1)(c) figure in absolute terms and stays in the public CF block." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:carbonFootprintPerformanceClass oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 7(2)/Annex XIII(1)(c): the CF performance class is public labelling information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:carbonFootprintRawMaterialExtraction oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 7(1)(e): the CF share of the raw-material acquisition stage is part of the public declaration." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:carbonFootprintProduction oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 7(1)(e): the CF share of the production stage is part of the public declaration; dpp-core serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:carbonFootprintDistribution oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 7(1)(e): the CF share of the distribution stage is part of the public declaration; dpp-core serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:carbonFootprintRecycling oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 7(1)(e): the CF share of the end-of-life/recycling stage is part of the public declaration." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:carbonFootprintStudyUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 7(1)(f): a web link to the public version of the CF study is mandatory public data; dpp-core serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:carbonFootprintGeographicScope oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The geographic scope is methodology metadata of the public CF declaration and must be visible for the public figure to be interpretable (Art. 7/Annex II)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:functionalUnit oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The functional unit is methodology metadata of the public CF declaration required to interpret the public figure (Art. 7/Annex II)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:calculationStandard oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The calculation standard is methodology metadata of the public CF declaration required to interpret the public figure (Art. 7/Annex II)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:thirdPartyVerification oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Third-party verification details are what make the public CF declaration checkable, mirroring the public verification terms in dpp-core (Art. 7/Annex II)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:verificationBody oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Naming the third-party verifier is what makes the public CF declaration checkable; dpp-core serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:verificationBodyName oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The verifier's name is part of the public verification statement backing the public CF declaration (Art. 7/Annex II)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:verificationCertificateUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The verification certificate substantiates the public CF declaration and is public by function, like oec:thirdPartyAssurancesUrl." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:verificationDate oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The verification date qualifies the currency of the public verification statement (Art. 7/Annex II)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:verificationStandard oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The standard the verifier applied is part of the public verification statement (Art. 7/Annex II)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# =============================================================================
+# Public: recycled & renewable content (Art. 8; Annex XIII(1)(e)-(f))
+# =============================================================================
+
+eubat:recycledContent oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 8/Annex XIII(1)(e): recycled-content documentation for cobalt, lithium, nickel and lead is public passport data; dpp-core serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:cobaltRecycledShare oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 8(1): the share of cobalt recovered from waste is a publicly documented percentage." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:lithiumRecycledShare oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 8(1): the share of lithium recovered from waste is a publicly documented percentage." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:nickelRecycledShare oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 8(1): the share of nickel recovered from waste is a publicly documented percentage." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:leadRecycledShare oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 8(1): the share of lead recovered from waste is a publicly documented percentage (no pre/post split required for lead)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:cobaltPreConsumerShare oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Pre-consumer breakdown of the public Art. 8 cobalt share per the recycled-content calculation methodology; stays in the public block." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:cobaltPostConsumerShare oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Post-consumer breakdown of the public Art. 8 cobalt share per the recycled-content calculation methodology; stays in the public block." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:lithiumPreConsumerShare oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Pre-consumer breakdown of the public Art. 8 lithium share per the recycled-content calculation methodology; stays in the public block." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:lithiumPostConsumerShare oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Post-consumer breakdown of the public Art. 8 lithium share per the recycled-content calculation methodology; stays in the public block." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:nickelPreConsumerShare oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Pre-consumer breakdown of the public Art. 8 nickel share per the recycled-content calculation methodology; stays in the public block." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:nickelPostConsumerShare oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Post-consumer breakdown of the public Art. 8 nickel share per the recycled-content calculation methodology; stays in the public block." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:renewableContent oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(f): the share of renewable content is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:renewableContentShare oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(f): the per-material renewable content share expresses the public renewable-content disclosure." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# =============================================================================
+# Public: labelling & symbols (Art. 13; Annex VI Part B; Annex XIII(1)(q))
+# =============================================================================
+
+eubat:labels oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(q): the labels and markings required by Art. 13(3)-(4) and their meaning are public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:cadmiumSymbolRequired oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The Cd mark above 0.002 % cadmium is mandatory public labelling (Art. 13(6)/Annex VI Part B), so the flag restates on-battery information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:leadSymbolRequired oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The Pb mark above 0.004 % lead is mandatory public labelling (Art. 13(6)/Annex VI Part B), so the flag restates on-battery information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:separateCollectionSymbolUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The crossed-out wheeled bin is the mandatory separate-collection symbol printed on every battery (Art. 13(5)/Annex VI Part B)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# =============================================================================
+# Public: hazardous-substances presence (Annex VI Part A; Annex XIII(1)(a))
+# =============================================================================
+# Presence and identity of hazardous substances are public; exact
+# concentrations and in-battery locations are composition detail under
+# Annex XIII(2)(a) and sit in the AuthorizedOnly block below.
+
+eubat:hazardousSubstances oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(a) via Annex VI Part A: hazardous substances contained in the battery beyond Hg/Cd/Pb must be disclosed publicly; dpp-core serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:hazardClass oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "CLP hazard classes drive mandatory public label elements and qualify the public hazardous-substances disclosure; dpp-core serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:substanceCasNumber oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The CAS number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike eubat:casNumber it carries no formulation context." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:substanceEcNumber oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The EC number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike eubat:ecNumber it carries no formulation context." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# =============================================================================
+# Public: conformity (Art. 18; Annex XIII(1)(r))
+# =============================================================================
+
+eubat:euDeclarationOfConformity oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(r): the EU declaration of conformity is public battery-passport data; eutex serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:ceMarkingIndicator oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The CE marking is affixed visibly on the battery itself (Arts. 19-20), so the indicator restates public information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# =============================================================================
+# Public: end-of-life, separate collection & waste information
+# (Art. 74(1)(a)-(f); Annex XIII(1)(s))
+# =============================================================================
+
+eubat:endOfLifeInfo oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(s): information on prevention and management of waste batteries per Art. 74(1)(a)-(f) is public battery-passport data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:informationOnCollection oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 74(1)(b)/Annex XIII(1)(s): collection points and take-back information must reach end users publicly." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:separateCollection oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 74(1)(a)/Annex XIII(1)(s): end users' role in separate collection is public waste-prevention information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:wastePrevention oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 74(1)(a)/Annex XIII(1)(s): waste-prevention information is directed at the general public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:extinguishingAgent oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex VI Part A/Annex XIII(1)(a): the usable extinguishing agent must be publicly stated — first responders cannot authenticate before acting." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:recyclabilityRate oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The recyclable fraction is consumer-facing circularity information in the public Art. 74 end-of-life block; dpp-core and euelec serve the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:materialRecoveryTargets oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Recovery targets restate the regulation's own Annex XII objectives and support the public Art. 74 end-of-life information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:safetyInstructions oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "General safe-use and handling instructions address end users (Art. 74(1)(f)); only dismantling-specific safety measures are reserved to Annex XIII(2)(d)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# =============================================================================
+# Public: transport classification & warranty (consumer/logistics-facing)
+# =============================================================================
+
+eubat:transportationSafetyClass oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "UN dangerous-goods classes (UN3480/UN3481) are printed on packages and shipping papers by transport law, so the passport only restates public markings (DIN DKE SPEC 99100 extension)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:shippingName oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The UN proper shipping name appears on public transport documents and package markings (DIN DKE SPEC 99100 extension)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:dangerousGoodsPackingInstructions oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "IATA/ADR/IMDG packing-instruction codes are standardised public transport-safety information any shipper must see (DIN DKE SPEC 99100 extension)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:warrantyConditions oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annex XIII(1)(m): the period of the commercial warranty for calendar life is public battery-passport data, and its terms address the purchaser." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:extendedWarrantyAvailable oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Availability of an extended warranty is purchase-decision information for consumers, alongside the public Annex XIII(1)(m) warranty period." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# =============================================================================
+# Public: supply-chain due-diligence public reporting (Arts. 47-52)
+# =============================================================================
+# Art. 52(3) obliges operators to report publicly on their due-diligence
+# policy (annual report, widely accessible incl. via the internet); detailed
+# supplier/chain data stays with the legitimate-interest audience below.
+
+eubat:dueDiligenceReportUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 52(3): operators must publicly report on their battery due-diligence policy, so the report link is public data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:dueDiligencePolicyUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 48(2) requires the due-diligence policy to be communicated, and the Art. 52(3) public report covers it, so the policy link is public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:supplyChainDueDiligence oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The container must be publicly reachable so the Art. 52(3) public report link inside it is servable; sensitive members carry their own stricter tiers." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:riskAssessmentSummary oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 52(3): the public due-diligence report summarises identified supply-chain risks and their mitigation, so the summary (not the underlying data) is public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:responsibleSourcingStandard oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Naming the due-diligence scheme followed (Art. 50 recognised schemes) is part of the public policy communication." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:auditBody oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Art. 51 third-party verification is what makes the Art. 52(3) public report credible, so naming the auditor is public like eubat:verificationBody." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:conflictMineralFree oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "A conflict-mineral-free declaration is a public-facing assertion of the due-diligence outcome (Arts. 47-52), analogous to oec:forcedLabourFreeAssertion (Public)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:supplyChainMappingAvailable oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The boolean only advertises that detailed mapping exists; the mapping data itself stays with the legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:thirdPartyAssurancesUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Third-party assurance links substantiate the public due-diligence claims and are public by function; dpp-core serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# =============================================================================
+# AuthorizedOnly: detailed composition (Annex XIII(2)(a); Art. 77(2))
+# =============================================================================
+# Detailed composition, including materials used in the cathode, anode and
+# electrolyte, is accessible only to persons with a legitimate interest and
+# the Commission.
+
+eubat:cathodeActiveMaterial oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex XIII(2)(a): cathode materials are part of the detailed composition reserved for persons with a legitimate interest." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:anodeActiveMaterial oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex XIII(2)(a): anode materials are part of the detailed composition reserved for persons with a legitimate interest." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:electrolyteComposition oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex XIII(2)(a): electrolyte materials are part of the detailed composition reserved for persons with a legitimate interest." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:electrolyteType oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The electrolyte type qualifies the Annex XIII(2)(a) electrolyte detail block; the public chemistry disclosure is already covered by eubat:batteryChemistry." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:materialComposition oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex XIII(2)(a): the per-material breakdown with percentages is the detailed composition reserved for persons with a legitimate interest; dpp-core serves the same name AuthorizedOnly." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:componentLocation oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Where a material sits in the battery (cathode/anode/electrolyte) is Annex XIII(2)(a) composition detail for professional users." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:casNumber oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "CAS numbers inside the material breakdown enable formulation reconstruction and belong to the Annex XIII(2)(a) detail tier; dpp-core serves the same name AuthorizedOnly." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:ecNumber oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "EC numbers inside the material breakdown are formulation-level identifiers under Annex XIII(2)(a); dpp-core and eutex serve the same name AuthorizedOnly." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:isCriticalRawMaterial oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Per-material CRM flags serve recyclers' recovery obligations inside the Annex XIII(2)(a) composition detail — the public CRM disclosure is eubat:criticalRawMaterialsStatement; dpp-core serves the same name AuthorizedOnly." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:isSubstanceOfConcern oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The per-material SVHC flag qualifies rows of the Annex XIII(2)(a) composition detail — public presence disclosure is already served by eubat:hazardousSubstances." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:materialSupplier oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Supplier identities are detailed supply-chain data behind the public Art. 52(3) report summary and serve the legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:concentration oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VI Part A discloses hazardous-substance presence publicly, but exact concentrations are Annex XIII(2)(a) composition detail; dpp-core serves the same name AuthorizedOnly." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:substanceLocation oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Where a hazardous substance sits in the battery is dismantling/processing detail for waste operators (Annex XIII(2)); dpp-core serves the same name AuthorizedOnly." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# =============================================================================
+# AuthorizedOnly: dismantling, spare parts, repair & repurposing
+# (Annex XIII(2)(b)-(d); Arts. 59-60)
+# =============================================================================
+
+eubat:dismantlingAndRemovalInformation oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex XIII(2)(c): dismantling information including disassembly sequences and removal instructions is reserved for persons with a legitimate interest." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:dismantlingInstructions oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex XIII(2)(c): dismantling instructions are reserved for persons with a legitimate interest; dpp-core serves the same name AuthorizedOnly." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:dismantlingDocuments oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex XIII(2)(c): the exploded diagrams and supporting documents ARE the dismantling information reserved for the legitimate-interest audience (structured per DIN DKE SPEC 99100)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:safetyInstructionsForDismantling oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex XIII(2)(d): safety measures for the dismantling process address trained professionals, not the general public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:safetyMeasures oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex XIII(2)(d): end-of-life handling safety measures accompany the dismantling information for the legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:dismantlingTime oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Estimated dismantling time is planning detail for the Annex XIII(2)(c) dismantling audience (DIN DKE SPEC 99100 extension)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:spareParts oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex XIII(2)(b): part numbers for components are reserved for persons with a legitimate interest." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:sparePartSources oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex XIII(2)(b): sources for spare parts are reserved for persons with a legitimate interest." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:supplierContact oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex XIII(2)(b): contact details of spare-part sources are part of the legitimate-interest spare-parts information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:authorizedServiceCenters oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Service-center listings extend the Annex XIII(2)(b) spare-part/repair sourcing information addressed to professional repairers." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:repurposingGuidelines oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Art. 59(1): information relevant for repurposing and preparation for repurposing is granted to legitimate-interest operators, not the general public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:repurposingPotential oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Second-life suitability assessments serve repurposers and remanufacturers under Art. 59, based on the AuthorizedOnly SoH data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:previousApplications oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The battery's use history informs the Art. 59/Annex XIII(4) legitimate-interest audience evaluating repurposed batteries." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:repurposingDate oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Repurposing lifecycle bookkeeping belongs to the Art. 59 status history evaluated by the legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:repurposingEntity oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The operator that repurposed the battery is responsibility-chain detail for the Art. 59 audience and authorities, like oec:operatorInformation." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# =============================================================================
+# AuthorizedOnly: state of health & usage telemetry
+# (Art. 14; Annex VII; Annex XIII(4))
+# =============================================================================
+# Battery-individual SoH and expected-lifetime data determined per Annex VII
+# is readable via the BMS by the purchaser/owner, independent operators,
+# repurposers, remanufacturers and recyclers — a fixed legitimate-interest
+# audience, hence AuthorizedOnly and mandated.
+
+eubat:stateOfHealth oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Art. 14(1)/Annex VII: state-of-health data is BMS-readable for the legitimate-interest audience, not the general public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:stateOfCharge oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part A: state of charge is battery-individual BMS data for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:stateOfCertifiedEnergy oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part A: SoCE is battery-individual health state for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:remainingCapacity oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part A: remaining capacity is battery-individual health state for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:remainingEnergy oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part A: remaining energy is battery-individual health state for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:remainingUsableEnergy oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part A: remaining usable energy is battery-individual health state for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:remainingPowerCapability oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part A: remaining power capability is battery-individual health state for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:powerCapabilityAt20SoC oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Current power capability at 20 % SoC is a measured expression of the Annex VII remaining-power-capability state for the Art. 14 audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:powerCapabilityAt80SoC oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Current power capability at 80 % SoC is a measured expression of the Annex VII remaining-power-capability state for the Art. 14 audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:remainingRoundTripEfficiency oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part A: remaining round-trip efficiency is battery-individual health state for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:roundTripEnergyEfficiency oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The current measured round-trip efficiency is Annex VII health state — only the initial declared value (eubat:roundTripEfficiency) is public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:roundTripEfficiencyFade oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part A: measured efficiency fade is battery-individual degradation state for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:capacityFade oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part A: measured capacity fade is battery-individual degradation state for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:powerFade oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part A: measured power fade is battery-individual degradation state for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:internalResistance oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The current measured internal resistance is Annex VII health state — only the initial declared value (eubat:initialInternalResistance) is public under Annex XIII(1)(o)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:internalResistanceIncrease oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part A: measured resistance increase is battery-individual degradation state for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:selfDischargeRate oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part A: the current self-discharge rate is battery-individual health state for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:currentSelfDischargingRate oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part A: the current self-discharge rate is battery-individual health state for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:evolutionOfSelfDischarge oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part A: the evolution of self-discharge is battery-individual degradation state for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:cycleCount oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part B: the number of charge-discharge cycles is battery-individual usage data for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:numberOfFullCycles oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part B: full equivalent cycles are battery-individual usage data for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:capacityThroughput oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part B: cumulative capacity throughput is battery-individual usage data for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:energyThroughput oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part B: cumulative energy throughput is battery-individual usage data for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:timeSpentInExtremeTemperaturesAboveBoundary oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part B: temperature-exposure history is battery-individual usage data for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:timeSpentInExtremeTemperaturesBelowBoundary oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part B: temperature-exposure history is battery-individual usage data for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part B: charging-in-extreme-temperature history is battery-individual usage data for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part B: charging-in-extreme-temperature history is battery-individual usage data for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:puttingIntoService oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part B: the date of putting into service is battery-individual lifecycle data for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:initialCapacity oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The capacity measured at commissioning (ILMD) is the battery-individual SoH baseline used by the Art. 14/Annex VII audience — the declared rating stays public separately." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:initialEnergy oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The energy measured at commissioning (ILMD) is the battery-individual SoH baseline used by the Art. 14/Annex VII audience — the declared rating stays public separately." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:expectedRemainingCycles oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Estimated remaining cycles derive from the AuthorizedOnly SoH state and serve the Art. 14 expected-lifetime evaluation, unlike the public declared cycle-life rating." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:expectedRemainingLifetimeMonths oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Estimated remaining lifetime derives from the AuthorizedOnly SoH state and serves the Art. 14 expected-lifetime evaluation, unlike the public declared lifetime rating." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:nextScheduledMeasurement oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "SOCE measurement scheduling is maintenance bookkeeping for the Art. 14 SoH audience, not consumer information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:measurementCertificateUrl oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The certificate documents an individual SoH/SOCE measurement and accompanies the Annex VII data served to the Art. 14 audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# =============================================================================
+# AuthorizedOnly: negative events & condition-history bookkeeping
+# (Annex VII Part B: information on accidents; Art. 14)
+# =============================================================================
+
+eubat:negativeEvents oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Annex VII Part B: information on accidents and other negative events is battery-individual history for the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:eventDate oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "When a negative event occurred is Annex VII Part B accident history evaluated by the Art. 14 legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:eventType oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The kind of negative event (thermal event, deep discharge, ...) is Annex VII Part B accident history for the Art. 14 audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:eventLocation oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Where a negative event occurred is Annex VII Part B accident-history detail for the Art. 14 audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:incidentSeverity oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Severity grading qualifies the Annex VII Part B accident record for repurposers and recyclers judging reusability." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:recommendedAction oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Post-incident follow-up instructions address the professional handlers of the battery, not the general public (Annex VII Part B context)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:inspectorId oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The assessing inspector's identifier is operational bookkeeping of the Annex VII Part B accident record; it names a person and has no public function." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:estimatedImpact oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The estimated health impact of a temperature excursion feeds the Annex VII SoH evaluation for the Art. 14 audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:transportConditions oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Transport conditions during an excursion are condition-history detail of the Annex VII Part B record for the Art. 14 audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:exposureDurationMinutes oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Per-excursion exposure duration is the granular form of the Annex VII Part B extreme-temperature history served to the Art. 14 audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:exposureEndTime oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Per-excursion timing is the granular form of the Annex VII Part B extreme-temperature history served to the Art. 14 audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:temperatureExcursionReportUrl oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The excursion report documents condition history for downstream evaluators (repurposers, recyclers) under Art. 14, unlike authority incident submissions." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# =============================================================================
+# AuthorizedOnly: economic operators & data governance
+# =============================================================================
+
+eubat:operatorInformation oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Detailed operator records (Art. 38: name, address, contact point) serve surveillance and professional traceability; dpp-core serves the same name AuthorizedOnly." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:operatorRole oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The operator's supply-chain role maps responsibility chains for authorities and professional users; dpp-core serves the same name AuthorizedOnly." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:operatorIdentifier oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The economic-operator identifier (GLN/EOID) serves customs and market-surveillance cross-checks, matching oec:economicOperatorId (AuthorizedOnly)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:dataQualityAssessment oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "A-E data-quality ratings qualify professional use of the passport data; dpp-core serves the same name AuthorizedOnly." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:dataProviderCertification oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Provider accreditation detail supports authority and auditor verification of the data pipeline; dpp-core serves the same name AuthorizedOnly." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:notifiedBody oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The structured conformity-assessment-body record serves verification workflows; its number already appears on the public DoC document, and eucpr serves the same name AuthorizedOnly." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:supplyChainIndex oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "A proprietary supply-chain score is detailed chain data behind the public Art. 52(3) report summary, for the legitimate-interest audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# =============================================================================
+# Restricted: notified bodies, market surveillance & the Commission
+# (Annex XIII(3); Chapter IX)
+# =============================================================================
+
+eubat:resultOfTestReport oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "Annex XIII(3): results of test reports proving compliance are accessible only to notified bodies, market surveillance authorities and the Commission." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:testReportNumber oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "The report identifier belongs to the Annex XIII(3) compliance test reports and has no function outside the authority audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:incidentReportUrl oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "Full incident reports function as safety submissions evaluated by market surveillance authorities (Chapter IX), beyond the Annex VII accident summary served to the Art. 14 audience." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:facilityIdentifier oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "Internal facility identifiers (GLN of the plant) map the physical supply chain for notified bodies and surveillance — the public sees the manufacturing place itself via eubat:manufacturingPlace; matches oec:facilityId (Restricted)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+eubat:manufacturerIdentifier oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "The manufacturer's internal operator identifier serves authority cross-checks; public identification is already served by the Annex VI Part A manufacturer information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+# =============================================================================
+# Structural value-carriers: tier inherited from the embedding parent
+# =============================================================================
+# These properties never appear as independently served fields: their runtime
+# visibility is governed entirely by the parent property/object that embeds
+# them.
+
+# Measurement/test-condition scaffolding (tier follows the measurement parent)
+eubat:atSoC oec:accessLevelInherited true .
+eubat:powerCapability oec:accessLevelInherited true .
+eubat:stateOfChargeLevel oec:accessLevelInherited true .
+eubat:soceMeasurementId oec:accessLevelInherited true .
+eubat:note oec:accessLevelInherited true .
+
+# TemperatureRange sub-values (tier follows the temperatureRange* parent)
+eubat:maximumTemperature oec:accessLevelInherited true .
+eubat:minimumTemperature oec:accessLevelInherited true .
+
+# Carbon-footprint declaration sub-fields (tier follows carbonFootprintDeclaration)
+eubat:carbonFootprintDeclarationId oec:accessLevelInherited true .
+eubat:lifecycleStage oec:accessLevelInherited true .
+
+# EU DoC evidence sub-fields (tier follows euDeclarationOfConformity)
+eubat:declarationOfConformity oec:accessLevelInherited true .
+eubat:euDeclarationOfConformityId oec:accessLevelInherited true .
+
+# Notified-body organisation sub-fields (tier follows notifiedBody)
+eubat:notifiedBodyName oec:accessLevelInherited true .
+eubat:notifiedBodyNumber oec:accessLevelInherited true .
+
+# Dismantling-document sub-fields (tier follows dismantlingDocuments)
+eubat:documentType oec:accessLevelInherited true .
+eubat:documentUrl oec:accessLevelInherited true .
+eubat:mimeType oec:accessLevelInherited true .
+
+# Label sub-fields (tier follows labels)
+eubat:labelMeaning oec:accessLevelInherited true .
+eubat:labelSubject oec:accessLevelInherited true .
+eubat:labelSymbol oec:accessLevelInherited true .
+
+# Material-recovery-target sub-fields (tier follows materialRecoveryTargets)
+eubat:recoveryMaterial oec:accessLevelInherited true .
+eubat:recoveryRate oec:accessLevelInherited true .
+
+# Negative-event / excursion record sub-fields (tier follows negativeEvents)
+eubat:incidentId oec:accessLevelInherited true .
+eubat:temperatureExcursionId oec:accessLevelInherited true .
+eubat:exceedanceThreshold oec:accessLevelInherited true .
+
+# Hazard sub-field (tier follows hazardousSubstances; dpp-core marks the same
+# name inherited)
+eubat:hazardImpact oec:accessLevelInherited true .

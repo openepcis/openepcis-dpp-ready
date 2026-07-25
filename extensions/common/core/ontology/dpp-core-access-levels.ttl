@@ -1,176 +1,781 @@
 # Access-tier annotations for the shared oec: core (ESPR Article 9 tiers).
-# One statement per term; merged into the module by scripts/build-json.ts.
+# One block per term; merged into the module by scripts/build-json.ts.
 #
-# Curated defaults pending the ESPR delegated acts: none are marked
-# oec:accessLevelMandatedBy, so deployments may tighten (never loosen) them at
-# runtime. Rationale per group is noted inline. Terms not listed default to
-# AuthorizedOnly; structural sub-properties (value, elementId, stageValue, ...)
-# stay unannotated and inherit their parent's tier.
+# Fully re-curated: every property defined in dpp-core.ttl appears here exactly
+# once and carries EITHER
+#   oec:defaultAccessLevel + oec:accessLevelRationale + oec:accessLevelSource
+# OR
+#   oec:accessLevelInherited true   (structural value-carrier whose runtime
+#   tier is governed entirely by the embedding parent property).
+#
+# The ESPR (EU) 2024/1781 delegated acts are still pending, so
+# oec:accessLevelMandatedBy is used sparingly — only where an in-force act
+# already fixes the audience today:
+#   - Regulation (EU) 2017/1369 (energy labelling): EPREL public-part entries
+#   - Regulation (EC) No 1272/2008 (CLP): mandatory label elements
+#   - Directive 2008/98/EC Art. 9(2) (WFD): ECHA's public SCIP database
+# Every other tier is an overridable default: deployments may tighten (never
+# loosen) it at runtime.
+#
+# Grounding shorthand used in rationales:
+#   ESPR Art. 7(5)/Annex III  = information directed at consumers/end users
+#   ESPR Art. 9               = tiered access via the data carrier
+#   Battery Reg. Annex XIII   = (EU) 2023/1542 public (1) vs legitimate-
+#                               interest (2)-(3) split, used as precedent
 
 @prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
 
-# --- Public: passport lifecycle & metadata (consumers must be able to
-# --- interpret the passport itself; mirrors batterypass dppSchemaVersion etc.)
-oec:dppSchemaVersion oec:defaultAccessLevel oec:Public .
-oec:passportIdentifier oec:defaultAccessLevel oec:Public .
-oec:passportStatus oec:defaultAccessLevel oec:Public .
-oec:passportVersion oec:defaultAccessLevel oec:Public .
-oec:passportIssueDate oec:defaultAccessLevel oec:Public .
-oec:passportIssuer oec:defaultAccessLevel oec:Public .
-oec:passportExpiryDate oec:defaultAccessLevel oec:Public .
-oec:previousPassportVersion oec:defaultAccessLevel oec:Public .
-oec:granularityLevel oec:defaultAccessLevel oec:Public .
-oec:language oec:defaultAccessLevel oec:Public .
-oec:languageCode oec:defaultAccessLevel oec:Public .
-oec:lastUpdated oec:defaultAccessLevel oec:Public .
-oec:lastDataUpdate oec:defaultAccessLevel oec:Public .
-oec:issueDate oec:defaultAccessLevel oec:Public .
-oec:productCategory oec:defaultAccessLevel oec:Public .
-# access metadata is needed to interpret any tiered document
-oec:accessRights oec:defaultAccessLevel oec:Public .
-oec:accessLevel oec:defaultAccessLevel oec:Public .
-oec:dataRetentionPeriod oec:defaultAccessLevel oec:Public .
+# =============================================================================
+# Public: passport lifecycle & metadata
+# =============================================================================
+# The passport must be interpretable by every audience reaching it from the
+# ESPR Art. 9 data carrier; none of this metadata carries commercial content.
 
-# --- Public: ESPR Article 7 consumer-facing sustainability information ---
-oec:expectedLifespan oec:defaultAccessLevel oec:Public .
-oec:guaranteedLifespan oec:defaultAccessLevel oec:Public .
-oec:technicalLifetime oec:defaultAccessLevel oec:Public .
-oec:usageCycles oec:defaultAccessLevel oec:Public .
-oec:repairabilityScore oec:defaultAccessLevel oec:Public .
-oec:repairabilityClass oec:defaultAccessLevel oec:Public .
-oec:repairabilityInfo oec:defaultAccessLevel oec:Public .
-oec:repairInstructions oec:defaultAccessLevel oec:Public .
-oec:repairInformationPortalUrl oec:defaultAccessLevel oec:Public .
-oec:diyRepairPossible oec:defaultAccessLevel oec:Public .
-oec:professionalRepairNetwork oec:defaultAccessLevel oec:Public .
-oec:repairProvider oec:defaultAccessLevel oec:Public .
-oec:repairProviderName oec:defaultAccessLevel oec:Public .
-oec:repairProviderUrl oec:defaultAccessLevel oec:Public .
-oec:sparePartsAvailability oec:defaultAccessLevel oec:Public .
-oec:softwareUpdatesAvailability oec:defaultAccessLevel oec:Public .
+oec:dppSchemaVersion oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Every reader needs the schema version to parse the passport at all, so it belongs to the ESPR Art. 9(1) public baseline." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
-# --- Public: energy labelling (EPREL is a public register) ---
-oec:energyEfficiency oec:defaultAccessLevel oec:Public .
-oec:energyEfficiencyClass oec:defaultAccessLevel oec:Public .
-oec:annualEnergyConsumption oec:defaultAccessLevel oec:Public .
-oec:powerConsumptionOn oec:defaultAccessLevel oec:Public .
-oec:powerConsumptionOff oec:defaultAccessLevel oec:Public .
-oec:powerConsumptionStandby oec:defaultAccessLevel oec:Public .
-oec:eprelProductUrl oec:defaultAccessLevel oec:Public .
-oec:eprelRegistrationNumber oec:defaultAccessLevel oec:Public .
+oec:passportIdentifier oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The passport identifier is the public entry point resolved from the ESPR Art. 9 data carrier and cannot itself be gated." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
-# --- Public: circularity & end-of-life consumer information ---
-oec:recycledContent oec:defaultAccessLevel oec:Public .
-oec:recyclableContent oec:defaultAccessLevel oec:Public .
-oec:postConsumerRecycledContent oec:defaultAccessLevel oec:Public .
-oec:preConsumerRecycledContent oec:defaultAccessLevel oec:Public .
-oec:recyclabilityRate oec:defaultAccessLevel oec:Public .
-oec:recyclabilityScore oec:defaultAccessLevel oec:Public .
-oec:bioBasedFraction oec:defaultAccessLevel oec:Public .
-oec:biodegradationPercentage oec:defaultAccessLevel oec:Public .
-oec:biodegradabilityTestMethod oec:defaultAccessLevel oec:Public .
-oec:compostabilityStandard oec:defaultAccessLevel oec:Public .
-oec:compostabilityType oec:defaultAccessLevel oec:Public .
-oec:endOfLifeInstructions oec:defaultAccessLevel oec:Public .
-oec:endOfLifeProgram oec:defaultAccessLevel oec:Public .
-oec:separateCollectionInfo oec:defaultAccessLevel oec:Public .
-oec:wastePreventionInfo oec:defaultAccessLevel oec:Public .
-oec:collectionPointDirectoryUrl oec:defaultAccessLevel oec:Public .
-oec:takeBackUrl oec:defaultAccessLevel oec:Public .
-oec:takeBackIncentive oec:defaultAccessLevel oec:Public .
-oec:depositReturnScheme oec:defaultAccessLevel oec:Public .
-oec:depositAmount oec:defaultAccessLevel oec:Public .
-oec:depositRedemptionChannelUrl oec:defaultAccessLevel oec:Public .
-oec:depositSchemeOperator oec:defaultAccessLevel oec:Public .
-oec:safeUseInstructions oec:defaultAccessLevel oec:Public .
+oec:passportStatus oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Consumers and repairers must be able to tell an active passport from an archived or invalid one before relying on its content." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
-# --- Public: hazard & safety labelling (CLP pictograms and statements are
-# --- consumer-facing; SCIP is a public ECHA database) ---
-oec:hazardClass oec:defaultAccessLevel oec:Public .
-oec:hazardPictogramCode oec:defaultAccessLevel oec:Public .
-oec:hazardSignalWord oec:defaultAccessLevel oec:Public .
-oec:hazardStatement oec:defaultAccessLevel oec:Public .
-oec:precautionaryStatement oec:defaultAccessLevel oec:Public .
-oec:hazardousSubstances oec:defaultAccessLevel oec:Public .
-oec:substancesOfConcern oec:defaultAccessLevel oec:Public .
-oec:scipId oec:defaultAccessLevel oec:Public .
+oec:passportVersion oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Version metadata lets any reader confirm they are looking at the current passport revision (EN 18223 lifecycle management)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
-# --- Public: carbon footprint & EPD (published declarations; mirrors the
-# --- Battery Regulation where CF incl. lifecycle-stage shares is public) ---
-oec:carbonFootprint oec:defaultAccessLevel oec:Public .
-oec:carbonFootprintTotal oec:defaultAccessLevel oec:Public .
-oec:carbonFootprintDeclaration oec:defaultAccessLevel oec:Public .
-oec:carbonFootprintDistribution oec:defaultAccessLevel oec:Public .
-oec:carbonFootprintProduction oec:defaultAccessLevel oec:Public .
-oec:carbonFootprintRawMaterial oec:defaultAccessLevel oec:Public .
-oec:carbonFootprintUse oec:defaultAccessLevel oec:Public .
-oec:carbonFootprintEndOfLife oec:defaultAccessLevel oec:Public .
-oec:carbonFootprintMethodology oec:defaultAccessLevel oec:Public .
-oec:carbonFootprintStudyUrl oec:defaultAccessLevel oec:Public .
-oec:declaredUnit oec:defaultAccessLevel oec:Public .
-oec:performanceClass oec:defaultAccessLevel oec:Public .
-oec:environmentalProductDeclaration oec:defaultAccessLevel oec:Public .
-oec:epdProgramOperator oec:defaultAccessLevel oec:Public .
-oec:epdRegistrationNumber oec:defaultAccessLevel oec:Public .
-oec:epdStandard oec:defaultAccessLevel oec:Public .
-oec:epdValidUntil oec:defaultAccessLevel oec:Public .
+oec:passportIssueDate oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The issue date is neutral passport metadata every audience needs to judge the currency of the information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
-# --- Public: compliance & transparency assertions ---
-oec:complianceStatus oec:defaultAccessLevel oec:Public .
-oec:complianceDate oec:defaultAccessLevel oec:Public .
-oec:isRegulationCompliant oec:defaultAccessLevel oec:Public .
-oec:regulatoryActStatus oec:defaultAccessLevel oec:Public .
-oec:eprComplianceUrl oec:defaultAccessLevel oec:Public .
-oec:forcedLabourFreeAssertion oec:defaultAccessLevel oec:Public .
-oec:supplyChainTransparencyUrl oec:defaultAccessLevel oec:Public .
-oec:traceabilityPerformance oec:defaultAccessLevel oec:Public .
-oec:verifiedRatio oec:defaultAccessLevel oec:Public .
-oec:verificationBody oec:defaultAccessLevel oec:Public .
-oec:thirdPartyAssurancesUrl oec:defaultAccessLevel oec:Public .
+oec:passportIssuer oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "ESPR makes the passport-issuing economic operator accountable for the passport (Art. 9, Art. 77 registry), so issuer identity is part of the public record." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
-# --- AuthorizedOnly: professional / legitimate-interest information
-# --- (mirrors Battery Regulation Annex XIII(2): dismantling, detailed
-# --- composition, due diligence detail) ---
-oec:dismantlingInstructions oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:dismantlingGuideUrl oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:safeDisassemblyInstructions oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:materialComposition oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:materialOrigin oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:massFraction oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:concentration oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:casNumber oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:ecNumber oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:substanceLocation oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:componentIdentifier oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:componentName oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:isCriticalRawMaterial oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:isStrategicRawMaterial oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:crmListVersion oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:dueDiligenceReport oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:dueDiligenceRegulationContext oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:dataQualityAssessment oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:dataProviderCertification oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:economicOperatorId oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:operatorInformation oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:operatorRole oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:registrationNumber oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:did oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:identityCredentialUrl oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:customsCommodityCode oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:customsCommodityCodeType oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:regulatoryPermitIdentification oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:activityClassification oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:extendedProducerResponsibility oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:eprRegistrationNumber oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:eprScheme oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:eprJurisdiction oec:defaultAccessLevel oec:AuthorizedOnly .
-oec:eprWasteStream oec:defaultAccessLevel oec:AuthorizedOnly .
+oec:passportExpiryDate oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Readers must know when a passport ceases to be valid; expiry is interpretation metadata like the issue date." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
-# --- Restricted: authority-only identifiers (mirrors Battery Regulation
-# --- facility/manufacturer identifiers for notified bodies & surveillance) ---
-oec:facilityId oec:defaultAccessLevel oec:Restricted .
-oec:facilityInformation oec:defaultAccessLevel oec:Restricted .
-oec:facilityType oec:defaultAccessLevel oec:Restricted .
-oec:facilityCertifications oec:defaultAccessLevel oec:Restricted .
-oec:eoriNumber oec:defaultAccessLevel oec:Restricted .
-oec:authorizedParties oec:defaultAccessLevel oec:Restricted .
+oec:previousPassportVersion oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The version-history link (EN 18221) keeps the public record auditable without exposing any additional substantive data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:granularityLevel oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Whether the passport describes a model, batch, or item is required to interpret every other statement in it." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:reportingGranularity oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Per-attribute reporting granularity (model/batch/item) is interpretation metadata needed to read the value it qualifies, like the passport-level granularity." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:language oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Language tags are rendering metadata with no confidentiality content." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:languageCode oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Language codes are rendering metadata with no confidentiality content." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:lastUpdated oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Update timestamps let all audiences judge data currency (EN 18223 lastUpdated)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:lastDataUpdate oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Update timestamps let all audiences judge data currency; battery module serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:issueDate oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "A generic issue date is neutral document metadata needed to judge currency, on par with passportIssueDate." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:productCategory oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The ESPR product-group classification determines which delegated act applies and is inherently public market information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# Access metadata is needed by every client to interpret a tiered document.
+oec:accessRights oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Tier metadata must be readable by every client so it knows what it may and may not fetch under ESPR Art. 9." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:accessLevel oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The declared tier of a data element must itself be visible for ESPR Art. 9 gating to be interpretable." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:dataRetentionPeriod oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The regulatory retention period is compliance metadata about the passport itself, not commercial data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# =============================================================================
+# Public: product identification — multi-piece trade items
+# =============================================================================
+# Piece structure is basic product identification of the kind ESPR Annex III
+# directs at consumers (which physical pieces belong to the purchased item).
+
+oec:tradeItemPieceCount oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "How many physical pieces constitute the trade item is basic product identification within the consumer-facing ESPR Annex III information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:tradeItemPieceDescription oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The human-readable description of each piece (jacket, trousers, booklet) is consumer product identification per ESPR Annex III." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:tradeItemPieceNumber oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The sequential piece number carries no commercial content and is needed to identify which piece of the item one holds." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:tradeItemPieceOf oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Linking a piece to its parent GTIN is product identification equivalent to the public product identifier itself." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# =============================================================================
+# Public: ESPR Article 7 consumer-facing durability & repair information
+# =============================================================================
+# Durability, reliability and repairability are the archetypal Annex I
+# parameters that Art. 7(5)/Annex III direct at consumers; the French
+# repairability index (Indice de Réparabilité, displayed at point of sale)
+# is the operating precedent for public repair scoring.
+
+oec:expectedLifespan oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Durability expressed as expected lifespan is a consumer-facing product parameter under ESPR Art. 7(5) and Annex I(a)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:guaranteedLifespan oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The guaranteed minimum lifespan is warranty information that must reach the buyer before purchase (ESPR Annex III consumer information)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:technicalLifetime oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Technical lifetime under specified conditions is a durability parameter directed at end users per ESPR Annex I(a)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:usageCycles oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Expected usage cycles are a durability metric of the same consumer-comparison kind as expected lifespan (ESPR Annex I(a))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:utilityFactor oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Durability relative to the industry average is a consumer comparison metric of the same kind as expected lifespan (ESPR Annex I(a))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:performanceInfo oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Container for the durability and performance parameters that ESPR Art. 7(5)/Annex III direct at consumers; its members are individually Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:remanufacturingDate oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Whether and when a product was remanufactured or refurbished is purchase-relevant consumer information supporting ESPR's reuse objectives (Annex I)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:repairabilityScore oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Repairability index scores exist to steer purchase decisions (ESPR Annex I(b)); the French Indice de Réparabilité mandates display at point of sale." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:repairabilityClass oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "A repairability class is the at-a-glance consumer form of the repairability score, mirroring public energy-label classes." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:repairabilityInfo oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Repair and maintenance information is directed at end users and independent repairers under ESPR Annex I(b) and the right-to-repair framework." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:repairInstructions oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Access to repair instructions for consumers and independent operators is a core ESPR/right-to-repair objective (Annex I(b), Dir. 2024/1799)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:repairInformationPortalUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The Right-to-Repair Directive requires manufacturers to make repair information available via a freely accessible portal (Dir. 2024/1799 Art. 4/5)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2024/1799> .
+
+oec:diyRepairPossible oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Whether self-repair is possible is consumer purchase information of the same kind as the repairability score (ESPR Annex I(b))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:professionalRepairNetwork oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Consumers must be able to find authorised repairers; the Right-to-Repair Directive builds on public repairer discovery (Dir. 2024/1799)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2024/1799> .
+
+oec:repairProvider oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Links to authorised repair providers serve consumer repairer discovery under the right-to-repair framework (Dir. 2024/1799)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2024/1799> .
+
+oec:repairProviderName oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The name of a repair provider that has agreed to be listed is consumer-facing directory information (Dir. 2024/1799)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2024/1799> .
+
+oec:repairProviderUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The listed repair provider's URL is consumer-facing directory information (Dir. 2024/1799)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2024/1799> .
+
+oec:sparePartsAvailability oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Spare-parts availability duration is a consumer purchase parameter under ESPR Annex I(d) and existing ecodesign implementing measures." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:softwareUpdatesAvailability oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The guaranteed software/firmware update period is a consumer durability parameter (ESPR Annex I; smartphone/tablet labelling precedent)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# =============================================================================
+# Public: energy labelling — EPREL is a public register
+# =============================================================================
+# Regulation (EU) 2017/1369 fixes the publicity of the label and of EPREL's
+# public product part; those entries are marked accessLevelMandatedBy. The
+# mode-specific power values are product-information-sheet data whose exact
+# public scope varies per product-group delegated act, so they stay
+# overridable defaults.
+
+oec:energyEfficiency oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Energy performance data feeds the public energy label under the Energy Labelling Framework Regulation; electronics module serves it Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2017/1369> .
+
+oec:energyEfficiencyClass oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The energy efficiency class is printed on the mandatory public label and published in EPREL's public part, so its audience is fixed by Regulation (EU) 2017/1369." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2017/1369> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2017/1369> .
+
+oec:annualEnergyConsumption oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Annual energy consumption appears on the mandatory energy label and in EPREL's public part (Regulation (EU) 2017/1369)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2017/1369> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2017/1369> .
+
+oec:powerConsumptionOn oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Mode-specific power values are product-information-sheet data published for labelled product groups; kept overridable pending each group's delegated act." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2017/1369> .
+
+oec:powerConsumptionOff oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Off-mode power is regulated and published under ecodesign/energy-labelling measures (standby regulation lineage); no confidentiality interest exists." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2017/1369> .
+
+oec:powerConsumptionStandby oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Standby power is regulated and published under ecodesign/energy-labelling measures; product-fiche data for labelled groups." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2017/1369> .
+
+oec:eprelProductUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "EPREL's product database part is public by design; this URL merely points into it (Regulation (EU) 2017/1369 Art. 12/Annex I)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2017/1369> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2017/1369> .
+
+oec:eprelRegistrationNumber oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The EPREL registration number identifies the product's entry in a public register (Regulation (EU) 2017/1369)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2017/1369> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2017/1369> .
+
+# =============================================================================
+# Public: circularity & end-of-life consumer information
+# =============================================================================
+# Recycled content, recyclability and end-of-life handling are ESPR Annex I
+# parameters directed at consumers (Art. 7(5), Annex III); collection and
+# take-back information additionally serves WFD/WEEE consumer-information
+# duties. Cross-module: recyclabilityRate (electronics) and
+# recyclabilityAssessment (textile) are Public — tiers kept aligned.
+
+oec:recycledContent oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Recycled-content share is a consumer-facing sustainability parameter (ESPR Annex I(h)); the Battery Regulation makes it public on-pack/passport." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:recyclableContent oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The recyclable fraction is a consumer comparison parameter under ESPR Annex I(i)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:postConsumerRecycledContent oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The post-consumer split substantiates the public recycled-content claim (ESPR Annex I(h); PPWR recycled-content rules)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:preConsumerRecycledContent oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The pre-consumer split substantiates the public recycled-content claim (ESPR Annex I(h))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:recycledContentDetails oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Detailed pre-/post-consumer breakdown of a figure whose components (recycledContent, pre-/postConsumerRecycledContent) are individually Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:recyclabilityRate oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The recyclable fraction is consumer-facing under ESPR Annex I(i); electronics module serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:recyclabilityScore oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Numeric recyclability scores (e.g. JRC textile methodology) exist for consumer comparison; textile module serves it Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:recyclabilityAssessment oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The recyclability assessment substantiates public recyclability claims (ESPR Annex I(i)); textile module serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:recyclabilityMethodology oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "A public recyclability claim is only checkable with its methodology reference, mirroring the public carbonFootprintMethodology." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:circularityPerformance oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Container for the circularity parameters (recycled content, recyclability) that ESPR Art. 7(5)/Annex I direct at consumers; its members are individually Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:materialCircularityIndicator oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "An aggregate circularity score is a consumer comparison metric composed of inputs (recycled content, recyclability, utility) that are themselves Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:bioBasedFraction oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The bio-based share is a consumer-facing environmental claim of the same kind as recycled content (ESPR Annex I; SUP marking precedent)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:biodegradationPercentage oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Biodegradability results substantiate consumer-facing end-of-life claims (ESPR Annex I(m)); detergent module serves related data Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:biodegradabilityTestMethod oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The test method makes the public biodegradation percentage checkable; a claim without its method is unverifiable." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:compostabilityStandard oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The certified compostability standard backs an on-pack consumer claim (EN 13432 marking precedent; ESPR Annex I(m))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:compostabilityType oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Home- vs industrial-compostability determines correct consumer disposal and is the point of the on-pack claim." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:endOfLifeInstructions oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "End-of-life handling instructions are directed at end users (ESPR Annex I(m); WFD consumer-information duties)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:endOfLifeProgram oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Producer end-of-life/take-back programmes only work if consumers can find them (WFD Art. 8a(2) information duty)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+oec:separateCollectionInfo oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Separate-collection requirements must reach end users under the WFD/WEEE consumer-information duties (Dir. 2008/98/EC Art. 8a(2))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+oec:wastePreventionInfo oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Waste-prevention information is consumer-directed by definition (Dir. 2008/98/EC Art. 9)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+oec:collectionPointDirectoryUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "A directory of physical collection points is only useful if consumers can reach it (WFD Art. 8a(2) information duty)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+oec:takeBackUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The consumer-facing take-back landing page is public by function; textile module serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+oec:takeBackIncentive oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "A take-back incentive only steers consumer behaviour if consumers can see it; textile module serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+oec:depositReturnScheme oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "DRS participation is marked on-pack and must be visible to consumers for the scheme to function (WFD/PPWR deposit-return provisions)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+oec:depositAmount oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The refundable deposit is printed at point of sale and on-pack; it is consumer price information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+oec:depositRedemptionChannelUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Consumers must be able to find where to redeem the deposit for the DRS to function." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+oec:depositSchemeOperator oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The operating PRO of a deposit-return scheme is public scheme information, not commercial data of the producer." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+oec:safeUseInstructions oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Safe-use instructions for products containing substances of concern are directed at end users (ESPR Art. 7(5); CLP supplemental information); textile module agrees on Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# =============================================================================
+# Public: hazard & safety labelling (CLP) and SCIP
+# =============================================================================
+# CLP label elements are mandatory public label content (Reg. (EC) 1272/2008
+# Art. 17-18) — marked mandated. SCIP notifications are made publicly
+# available by ECHA under WFD Art. 9(2) — the identifier is marked mandated.
+# Presence of substances is public; exact concentrations stay AuthorizedOnly
+# (see below), mirroring the label-vs-formulation split.
+
+oec:hazardClass oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "CLP hazard classification drives mandatory public label elements and is published in ECHA's C&L Inventory (Reg. (EC) 1272/2008); battery module serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2008/1272> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2008/1272> .
+
+oec:hazardPictogramCode oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "GHS pictograms are mandatory elements of the public CLP label (Reg. (EC) 1272/2008 Art. 17)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2008/1272> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2008/1272> .
+
+oec:hazardSignalWord oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The signal word (Danger/Warning) is a mandatory element of the public CLP label (Reg. (EC) 1272/2008 Art. 17)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2008/1272> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2008/1272> .
+
+oec:hazardStatement oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "H-statements are mandatory elements of the public CLP label (Reg. (EC) 1272/2008 Art. 17)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2008/1272> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2008/1272> .
+
+oec:precautionaryStatement oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "P-statements are mandatory elements of the public CLP label (Reg. (EC) 1272/2008 Art. 17)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2008/1272> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2008/1272> .
+
+oec:hazardousSubstances oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The presence and identity of hazardous substances is disclosed on the CLP label (Reg. (EC) 1272/2008 Art. 18); battery and detergent modules serve the same name Public — exact concentrations stay tiered separately." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2008/1272> .
+
+oec:substancesOfConcern oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Tracking substances of concern is a stated DPP objective (ESPR Art. 7(5)(b)) and presence data is already public via ECHA's SCIP database; textile module agrees on Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:scipId oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "SCIP notifications are made publicly available by ECHA under WFD Art. 9(2), so the SCIP identifier points into a public database by design." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> ;
+    oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+# =============================================================================
+# Public: carbon footprint & EPD (published declarations)
+# =============================================================================
+# The Battery Regulation Annex XIII(1) makes the carbon footprint including
+# lifecycle-stage shares and the study URL public; EPDs under ISO 14025 /
+# EN 15804 are published third-party-verified declarations by definition.
+
+oec:carbonFootprint oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The product carbon footprint is a consumer-comparable parameter (ESPR Annex I(l)); the Battery Regulation Annex XIII(1) makes it public, and battery module serves the shared names Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:carbonFootprintTotal oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The total lifecycle CF figure is the headline public value of the CF declaration (Battery Reg. Annex XIII(1) precedent; UNTP alignment)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:carbonFootprintDeclaration oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The CF declaration is the published container of figures that are individually public under the battery precedent." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:carbonFootprintDistribution oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:carbonFootprintProduction oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:carbonFootprintRawMaterial oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:carbonFootprintUse oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:carbonFootprintEndOfLife oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:carbonFootprintMethodology oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "A public CF number is only meaningful and checkable with its methodology reference (ISO 14067/PEF citation)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:carbonFootprintStudyUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The Battery Regulation requires a public web link to the underlying CF study (Reg. 2023/1542 Annex XIII(1)); battery module serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:declaredUnit oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The declared/functional unit is required to interpret any public footprint or EPD value (EN 15804; UNTP alignment)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:performanceClass oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Performance/efficiency classes (e.g. A-G) exist precisely for at-a-glance consumer comparison, mirroring the public energy-label and battery CF classes." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:emissionsPerformance oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Container for emissions figures (carbonFootprint*) that are individually Public under the battery precedent; aligned with UNTP EmissionsPerformance." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:environmentalProductDeclaration oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "EPDs under ISO 14025/EN 15804 are published, third-party-verified declarations by definition." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:epdProgramOperator oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The programme operator's name is part of every published EPD's identification per ISO 14025." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:epdRegistrationNumber oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The EPD registration number points into the programme operator's public declaration library (ISO 14025 publication requirement)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:epdStandard oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The reference standard and PCR version make the published EPD interpretable and comparable (EN 15804+A2)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:epdValidUntil oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "EPD validity is part of the published declaration's identification per ISO 14025." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# =============================================================================
+# Public: compliance & transparency assertions
+# =============================================================================
+# Conformity assertions exist to be shown: the EU declaration of conformity is
+# a public-facing document, CSDDD Art. 16 requires a public communication of
+# due-diligence policy, and the Forced Labour Regulation presumes public
+# marketability claims. Verifier identity is what makes assurances checkable.
+
+oec:complianceStatus oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Compliance assertions exist to be shown to buyers and authorities — the EU declaration of conformity is a public-facing document (ESPR Art. 44); battery module serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:complianceDate oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The verification date qualifies the public compliance assertion it accompanies." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:isRegulationCompliant oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "A per-act compliance flag is a public conformity claim of the declaration-of-conformity kind (ESPR Art. 44)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:regulatoryActStatus oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The product's status under a named regulatory act (ACTIVE/EXEMPT/PENDING) is public market-access information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:eprComplianceUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "This URL points to the EPR scheme operator's public verification endpoint, which exists to be consulted (WFD Art. 8a transparency)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+oec:forcedLabourFreeAssertion oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "A forced-labour-free assertion is a public marketability claim under the Forced Labour Regulation (EU) 2024/3015." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/3015> .
+
+oec:supplyChainTransparencyUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "CSDDD Art. 16 requires companies to publicly communicate on due diligence; a transparency endpoint is public by function." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2024/1760> .
+
+oec:traceabilityPerformance oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Aggregate traceability metrics substantiate public transparency claims without exposing individual suppliers (ESPR Art. 7; CSDDD context)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:verifiedRatio oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The verifiably-traced share is an aggregate metric that qualifies the public traceability claim without naming suppliers." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:primarySourcedRatio oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The measured-vs-estimated data share qualifies the public traceability and footprint claims it accompanies, like its sibling verifiedRatio." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:verificationBody oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Naming the third-party verifier is what makes public assurances checkable; battery module serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:thirdPartyAssurancesUrl oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Third-party assurance links substantiate public claims and are public by function; battery module serves the same name Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# =============================================================================
+# AuthorizedOnly: professional / legitimate-interest information
+# =============================================================================
+# Mirrors the Battery Regulation Annex XIII(2)-(3) split: dismantling detail,
+# full composition beyond label disclosure, due-diligence documentation, and
+# operator/registry identifiers go to persons with a legitimate interest,
+# market surveillance, and customs (ESPR Art. 9(2)) — not the general public.
+
+oec:dismantlingInstructions oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The battery precedent gives dismantling information to persons with a legitimate interest, not the general public (Reg. 2023/1542 Annex XIII(2)(c))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:dismantlingGuideUrl oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The dismantling guide targets end-of-life processors and repairers — the legitimate-interest tier of the battery precedent (Annex XIII(2))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:safeDisassemblyInstructions oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Safe-disassembly detail for substance-bearing components addresses professional handlers, not consumers (battery Annex XIII(2) precedent)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:materialComposition oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Detailed composition beyond CLP label disclosure is commercially sensitive; the battery precedent serves it to legitimate-interest parties (Annex XIII(2))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:materialOrigin oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Per-material origin exposes supplier relationships; supply-chain mapping detail is for authorities and legitimate-interest parties (ESPR Art. 9(2))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:massFraction oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Exact mass fractions enable formulation reconstruction; recyclers and authorities need them, consumers do not (battery Annex XIII(2) precedent)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:concentration oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The CLP label already discloses presence; exact concentrations are trade-secret-adjacent and serve professional risk assessment (battery Annex XIII(2) precedent)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:casNumber oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Substance registry numbers combined with fractions enable full formulation reconstruction; they serve professional and authority use (battery Annex XIII(2) precedent)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:ecNumber oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "EC numbers are formulation-level substance identifiers for professional and authority use; textile module agrees on AuthorizedOnly." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:substanceLocation oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Where a substance sits in the product is dismantling/processing detail for waste operators (battery Annex XIII(2); SCIP notification detail)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:componentIdentifier oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Internal component/material codes reveal bill-of-materials structure; they serve repairers, recyclers and authorities (ESPR Art. 9(2))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:componentName oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Component-level naming belongs to the detailed composition tier served to legitimate-interest parties (battery Annex XIII(2) precedent)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:isCriticalRawMaterial oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "CRM flags support recovery obligations of recyclers and authorities under the CRMA (Reg. 2024/1252), not consumer information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1252> .
+
+oec:isStrategicRawMaterial oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Strategic-raw-material flags are supply-security-sensitive and serve authorities and recyclers under the CRMA (Reg. 2024/1252 Annex I)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1252> .
+
+oec:crmListVersion oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The CRM list version qualifies the CRM/SRM flags and shares their audience (Reg. 2024/1252)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1252> .
+
+oec:dueDiligenceReport oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Full due-diligence documentation contains supplier-level detail; the battery precedent routes it to notified bodies, surveillance authorities and the Commission (Annex XIII(3)) — public summaries go via thirdPartyAssurancesUrl." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:dueDiligenceRegulationContext oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The regulatory anchor of a due-diligence report shares the report's legitimate-interest audience (battery Annex XIII(3) precedent)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:dataQualityAssessment oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "A-E data-quality ratings qualify professional use of the underlying data and mirror the battery precedent's legitimate-interest tier." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:dataProviderCertification oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Provider accreditation detail supports authority and auditor verification of the data pipeline, not consumer decisions." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:economicOperatorId oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The ESPR Art. 77 operator registry identifier serves customs and market-surveillance cross-checks (Art. 9(2)), not consumers." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:operatorInformation oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Detailed operator records (addresses, contacts) serve surveillance and customs under ESPR Art. 9(2); the public sees the issuer via passportIssuer." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:operatorRole oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The operator's supply-chain role (importer, fulfilment provider, ...) maps responsibility chains for authorities (ESPR Art. 9(2))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:registrationNumber oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Official registration/licence numbers support authority verification; broadcasting them invites impersonation without serving consumers." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:did oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Decentralised identifiers anchor operator identity verification for authorized verifiers, not consumer display." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:identityCredentialUrl oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Identity-credential endpoints serve verifier workflows and share the operator-identity tier (ESPR Art. 9(2))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:customsCommodityCode oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Commodity codes serve the customs controls of ESPR Art. 9/UCC and reveal sourcing and tariff strategy if broadcast (Reg. (EU) 952/2013)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2013/952> .
+
+oec:customsCommodityCodeType oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The classification-system qualifier shares the audience of the commodity code it qualifies (Reg. (EU) 952/2013)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2013/952> .
+
+oec:regulatoryPermitIdentification oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Permit and type-examination certificate identifiers serve authority verification; publishing them aids certificate fraud, not consumers." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:activityClassification oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "ISIC/NACE/NAICS activity codes are operator-registry data for authority cross-checks, not product information for consumers." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:extendedProducerResponsibility oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "EPR registration records serve scheme operators and enforcement under WFD Art. 8a; member-state registers are not uniformly public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+oec:eprRegistrationNumber oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Producer registration numbers support scheme and authority verification (WFD Art. 8a); the consumer-facing proof is eprComplianceUrl." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+oec:eprScheme oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The producer's PRO affiliation is compliance-registry detail for authorities and schemes (WFD Art. 8a)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+oec:eprJurisdiction oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Per-member-state registration coverage maps the producer's market footprint for enforcement (WFD Art. 8a)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+oec:eprWasteStream oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The covered waste stream is a qualifier of the EPR registration record and shares its audience (WFD Art. 8a)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+
+# =============================================================================
+# Restricted: authority-only / designated-party identifiers
+# =============================================================================
+# Facility-level data maps the physical supply chain — the battery precedent
+# reserves manufacturing-site detail for notified bodies, authorities and the
+# Commission; EORI is customs-registration data published only with consent.
+
+oec:facilityId oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "Facility identifiers map the physical supply chain; the battery precedent reserves manufacturing-site detail for notified bodies, authorities and the Commission (Reg. 2023/1542 Annex XIII(4))." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:facilityInformation oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "Full facility records (location, type, certifications) are commercially sensitive supply-chain mapping data for authorities and designated operators (battery precedent)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:facilityType oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "The facility's function reveals production-network structure and shares the facility record's authority-only audience (battery precedent)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:facilityCertifications oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "Per-facility certification detail identifies specific sites and shares the facility record's authority-only audience (battery precedent)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1542> .
+
+oec:eoriNumber oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "EORI is customs-registration data that the Commission publishes only with the operator's consent (UCC, Reg. (EU) 952/2013)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2013/952> .
+
+oec:authorizedParties oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "The access-control list itself reveals business relationships and is only actionable by the passport owner and authorities (ESPR Art. 9)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# =============================================================================
+# Structural value-carriers: tier inherited from the embedding parent
+# =============================================================================
+# These properties never appear as independently served fields: their runtime
+# visibility is governed entirely by the parent property/object that embeds
+# them (EN 18223 data-element scaffolding, EPD indicator structure, document
+# and due-diligence-report sub-fields, hazard sub-fields).
+
+# EN 18223 data-element scaffolding
+oec:value oec:accessLevelInherited true .
+oec:valueDataType oec:accessLevelInherited true .
+oec:elementId oec:accessLevelInherited true .
+oec:dataElement oec:accessLevelInherited true .
+oec:dictionaryReference oec:accessLevelInherited true .
+oec:contentSpecificationId oec:accessLevelInherited true .
+oec:multiLanguageValue oec:accessLevelInherited true .
+
+# Document reference sub-fields (tier follows the referencing parent)
+oec:documents oec:accessLevelInherited true .
+oec:documentType oec:accessLevelInherited true .
+oec:documentUrl oec:accessLevelInherited true .
+oec:mimeType oec:accessLevelInherited true .
+
+# Due-diligence report sub-fields (tier follows dueDiligenceReport)
+oec:reportUrl oec:accessLevelInherited true .
+oec:reportDate oec:accessLevelInherited true .
+
+# Performance-measurement context (tier follows the performance parent)
+oec:testedConditions oec:accessLevelInherited true .
+
+# EPD / footprint indicator structure (tier follows the declaration parent)
+oec:impactIndicator oec:accessLevelInherited true .
+oec:indicatorType oec:accessLevelInherited true .
+oec:indicatorUnit oec:accessLevelInherited true .
+oec:indicatorTotalValue oec:accessLevelInherited true .
+oec:lifecycleStage oec:accessLevelInherited true .
+oec:lifecycleStageResult oec:accessLevelInherited true .
+oec:stageValue oec:accessLevelInherited true .
+oec:operationalScope oec:accessLevelInherited true .
+
+# Hazard sub-field (tier follows hazardousSubstances / substancesOfConcern)
+oec:hazardImpact oec:accessLevelInherited true .

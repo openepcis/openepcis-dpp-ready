@@ -1,0 +1,1678 @@
+{
+  "namespace": "https://ref.openepcis.io/extensions/common/gs1-masterdata/",
+  "version": "0.1.0",
+  "title": "OpenEPCIS GS1 Master-Data Field Vocabulary",
+  "description": "Vocabulary of the flat served master-data field names exposed by the\nOpenEPCIS Digital Link resolver for GS1 Product, Place, and Organization master data.\n\nEach term corresponds 1:1 to a top-level field name in the resolver's served\nmaster-data documents (bare names, no prefix). The vocabulary exists so that\naccess-tier defaults, rationales, and provenance can be curated per served\nfield, and so that per-field access enforcement in the resolver can be driven\nfrom the same generated JSON as the other extension modules.\n\nNearly every term mirrors a property of the GS1 Web Vocabulary\n(https://ref.gs1.org/voc/) under the identical local name; those terms carry\nskos:exactMatch links to their GS1 counterparts. Terms without an identically\nnamed GS1 property (flattened plurals or resolver-specific field shapes) carry\nskos:closeMatch links to the nearest GS1 property instead.\n\nSystem/facet fields of the resolver DTOs (accessLevel, isAnonymousAccessAllowed,\nextensions, jws, type) are intentionally NOT part of this vocabulary: they are\nenvelope metadata, not master data.",
+  "classes": [],
+  "properties": [
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/additionalLocationID",
+      "localName": "additionalLocationID",
+      "label": "Additional Location ID",
+      "comment": "Location identifiers assigned and managed by government bodies, trade organisations, and other entities.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/additionalLocationID"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Secondary location identifiers from government or trade schemes serve administrative cross-referencing, not consumer information.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/additionalOrganizationID",
+      "localName": "additionalOrganizationID",
+      "label": "Additional Organization ID",
+      "comment": "Party/organisation identifiers assigned and managed by government bodies, trade organisations, and other entities.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/additionalOrganizationID"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Secondary party identifiers (tax, customs, trade-body numbers) are administrative identifiers for authorities and B2B partners.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/additionalOrganizationIdentificationTypeValue",
+      "localName": "additionalOrganizationIdentificationTypeValue",
+      "label": "Additional Organization Identification Type Value",
+      "comment": "The value associated with the Additional Organization Identification Type Value.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/additionalOrganizationIdentificationTypeValue"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "This value qualifies the non-public additional organization identifier and shares its administrative audience.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/additionalProductClassification",
+      "localName": "additionalProductClassification",
+      "label": "Additional Product Classification",
+      "comment": "Relates to a set of additional product classification details.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/additionalProductClassification"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Additional classification codes categorise the product the same way the public GPC classification does.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/additionalProductDescription",
+      "localName": "additionalProductDescription",
+      "label": "Additional Product Description",
+      "comment": "Additional variants necessary to communicate to the industry to help define the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/additionalProductDescription"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Additional descriptive variants refine the public product description and carry no confidential content beyond it.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/additive",
+      "localName": "additive",
+      "label": "Additive",
+      "comment": "Relates to details about any additives that a product may contain.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/additive"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Additive details mirror ingredient information consumers already read on the label of the products concerned.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/address",
+      "localName": "address",
+      "label": "Address",
+      "comment": "The postal address for an organization or place.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/address"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The postal address of a registered business party or site is public registry and business-directory information.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/afterHoursContact",
+      "localName": "afterHoursContact",
+      "label": "After Hours Contact",
+      "comment": "Links to after-hours contact information.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/afterHoursContact"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "After-hours contacts are operational emergency channels for partners and authorities, distinct from the published consumer contact point.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/audioFile",
+      "localName": "audioFile",
+      "label": "Audio File",
+      "comment": "Link to a file containing an audio clip which is relevant to the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/audioFile"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Product audio clips are published brand media intended for consumer consumption.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/authenticity",
+      "localName": "authenticity",
+      "label": "Authenticity",
+      "comment": "Links to details of covert/overt security markings that may be used to check authenticity of a product instance.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/authenticity"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Authenticity-checking details only fulfil their purpose if the consumer verifying a product instance can read them.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/awardPrize",
+      "localName": "awardPrize",
+      "label": "Award Prize",
+      "comment": "An award or prize given to the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/awardPrize"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Awards and prizes are promotional facts the brand itself publicises on pack and product page.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/baseLocation",
+      "localName": "baseLocation",
+      "label": "Base Location",
+      "comment": "A fixed physical location where a mobile location most commonly resides.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/baseLocation"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The home base of a mobile asset is logistics-network detail with no consumer-information function.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/bestBeforeDate",
+      "localName": "bestBeforeDate",
+      "label": "Best Before Date",
+      "comment": "Best before date on the label or package signifies the end of the period under which the product will retain specific quality attributes or claims even though the product may continue to retain positive quality attributes after this date.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/bestBeforeDate"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The best-before date is printed on the label or package by definition and consumers rely on it directly.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/brand",
+      "localName": "brand",
+      "label": "Brand",
+      "comment": "The brand of the product that appears on the consumer package.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/brand"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The brand appears on the consumer package by definition and is core public product identity.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/brandOwner",
+      "localName": "brandOwner",
+      "label": "Brand Owner",
+      "comment": "The brand owner of the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/brandOwner"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The brand owner is the accountable party behind the on-package brand and is published in the GS1 registry (Verified by GS1).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/certification",
+      "localName": "certification",
+      "label": "Certification",
+      "comment": "Certification information about a product, organisation or location.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/certification"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Certification claims must be publicly verifiable by the consumers and market-surveillance actors they are addressed to.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/colourCode",
+      "localName": "colourCode",
+      "label": "Colour Code",
+      "comment": "Relates to a set of details about the colour code for a product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/colourCode"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Colour codes describe an attribute visible on the product itself and shown in every retail listing.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/colourDescription",
+      "localName": "colourDescription",
+      "label": "Colour Description",
+      "comment": "A description of the colour of an object.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/colourDescription"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The colour description states an attribute visible on the product itself.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/consumerHandlingStorage",
+      "localName": "consumerHandlingStorage",
+      "label": "Consumer Handling Storage",
+      "comment": "Link to a website, file, or image containing the manufacturer's recommendations for how the consumer or end user should store and handle the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/consumerHandlingStorage"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The manufacturer's handling and storage recommendations are consumer use-and-maintenance information under ESPR Annex III.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/consumerPackageDisclaimer",
+      "localName": "consumerPackageDisclaimer",
+      "label": "Consumer Package Disclaimer",
+      "comment": "Additional information that should be used in advertising and in displaying.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/consumerPackageDisclaimer"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The package disclaimer is defined as information to be used in advertising and display, i.e. inherently public.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/consumerProductVariant",
+      "localName": "consumerProductVariant",
+      "label": "Consumer Product Variant",
+      "comment": "The consumer product variant may be used to distinguish one variant of a retail consumer trade item from another if the change does not require the allocation of a different Global Trade Item Number (per the GTIN Management Standard),...",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/consumerProductVariant"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The consumer product variant distinguishes retail variants under the same GTIN and is by name and purpose consumer-facing.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/consumerSafetyInformation",
+      "localName": "consumerSafetyInformation",
+      "label": "Consumer Safety Information",
+      "comment": "Information on consumer safety regarding the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/consumerSafetyInformation"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Safety information exists to protect the end user and must reach every anonymous scanner of the product.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/consumerStorageInstructions",
+      "localName": "consumerStorageInstructions",
+      "label": "Consumer Storage Instructions",
+      "comment": "Expresses in text the consumer storage instructions of a product which are normally held on the label or accompanying the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/consumerStorageInstructions"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Storage instructions are normally held on the label or accompany the product, so they are already public consumer information.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/consumerUsageInstructions",
+      "localName": "consumerUsageInstructions",
+      "label": "Consumer Usage Instructions",
+      "comment": "Free text containing the usage instructions of a product, which are normally held on the label or accompanying the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/consumerUsageInstructions"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Usage instructions are label-carried consumer information ESPR Annex III explicitly directs at customers.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/contactPoint",
+      "localName": "contactPoint",
+      "label": "Contact Point",
+      "comment": "Contact information.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/contactPoint"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Published contact points are how the organization asks to be reached and are ordinary business-directory content.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/countryOfAssembly",
+      "localName": "countryOfAssembly",
+      "label": "Country Of Assembly",
+      "comment": "The place where product is assembled.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/countryOfAssembly"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Country of assembly is an origin fact at country granularity, revealing no supplier or facility identity.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/countryOfLastProcessing",
+      "localName": "countryOfLastProcessing",
+      "label": "Country Of Last Processing",
+      "comment": "The place where the product or ingredient was last processed and tested before importation.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/countryOfLastProcessing"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Country of last processing is origin information at country granularity, consistent with on-label origin marking.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/countryOfOrigin",
+      "localName": "countryOfOrigin",
+      "label": "Country Of Origin",
+      "comment": "Code indicating the country of origin of the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/countryOfOrigin"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Country of origin is a consumer-facing declaration frequently required on the label of the target market.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/countryOfOriginStatement",
+      "localName": "countryOfOriginStatement",
+      "label": "Country Of Origin Statement",
+      "comment": "A description of the geographic area the item may have originated from or has been processed.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/countryOfOriginStatement"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The origin statement is the free-text form of the public country-of-origin declaration.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/customerSupportCentre",
+      "localName": "customerSupportCentre",
+      "label": "Customer Support Centre",
+      "comment": "The organization which provides product support to the trading partner organization to which merchandise is sold.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/customerSupportCentre"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The support-centre contact is printed on packaging precisely so any customer can reach product support.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/department",
+      "localName": "department",
+      "label": "Department",
+      "comment": "The name of a division of an organization dealing with a specific activity.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/department"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Internal department structure is organizational detail relevant to business partners, not to a consumer scanning a product.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/dependentProprietaryProduct",
+      "localName": "dependentProprietaryProduct",
+      "label": "Dependent Proprietary Product",
+      "comment": "Dependent products are products which are required to make the current product functional.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/dependentProprietaryProduct"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Products required to make this one functional are compatibility information a purchaser needs before and after buying.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/descriptiveSize",
+      "localName": "descriptiveSize",
+      "label": "Descriptive Size",
+      "comment": "An alphanumeric size factor the brand owner wishes to communicate to the consumer.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/descriptiveSize"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The descriptive size is, per its GS1 definition, a size factor the brand owner wishes to communicate to the consumer.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/digitalAddress",
+      "localName": "digitalAddress",
+      "label": "Digital Address",
+      "comment": "The location reference associated to a digital place.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/digitalAddress"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The digital address points at a publicly reachable digital location and reveals nothing beyond that endpoint.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/digitalLocationName",
+      "localName": "digitalLocationName",
+      "label": "Digital Location Name",
+      "comment": "The name of a digital place.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/digitalLocationName"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The name of a digital place (e.g. a webshop) identifies a publicly reachable endpoint.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/dueDate",
+      "localName": "dueDate",
+      "label": "Due Date",
+      "comment": "The date by which an invoice should be paid.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/dueDate"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The due date is encodable in the GS1 element string on the payment document itself, so the holder already sees it.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/equivalentProduct",
+      "localName": "equivalentProduct",
+      "label": "Equivalent Product",
+      "comment": "A product which can be substituted for the product based on supplier-defined functional equivalence to the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/equivalentProduct"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Supplier-declared substitutes help consumers find an equivalent product and are ordinary catalogue information.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/expirationDate",
+      "localName": "expirationDate",
+      "label": "Expiration Date",
+      "comment": "The expiration date is the date that determines the limit of consumption or use of a product/coupon.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/expirationDate"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The expiration date limits safe consumption or use and is printed on the package for the consumer.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/expirationDateTime",
+      "localName": "expirationDateTime",
+      "label": "Expiration Date Time",
+      "comment": "The manufacturer determines the expiration date and time, which is relevant only for short duration and for items that will not be sent on long distances and not outside of the time zone.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/expirationDateTime"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The expiration date-time is the finer-grained form of the on-package expiration date for short-life products.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/firstFreezeDate",
+      "localName": "firstFreezeDate",
+      "label": "First Freeze Date",
+      "comment": "The first freeze date is applicable to products that are frozen directly after slaughtering, harvesting, catching or after initial processing of the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/firstFreezeDate"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The first-freeze date is food-quality information consumers use like a best-before date for frozen produce.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/functionalName",
+      "localName": "functionalName",
+      "label": "Functional Name",
+      "comment": "Describes use of the product or service by the consumer.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/functionalName"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The functional name tells the consumer what the product is used for — ordinary retail product information.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/geoCoordinates",
+      "localName": "geoCoordinates",
+      "label": "Geo Coordinates",
+      "comment": "Geographic coordinates (latitude/longitude) of the place.",
+      "closeMatch": [
+        "https://ref.gs1.org/voc/geo"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Coordinates of a GLN-identified business site restate the public location of that site per the GS1 registry (unlike a product's manufacturingPlant link, this describes the place entity itself).",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/geoShape",
+      "localName": "geoShape",
+      "label": "Geo Shape",
+      "comment": "Geographic shape describing the boundary or area covered by the place.",
+      "closeMatch": [
+        "https://ref.gs1.org/voc/geo"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The boundary shape of a GLN-identified site is the same public site-location fact as its coordinates.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/glnType",
+      "localName": "glnType",
+      "label": "GLN Type",
+      "comment": "Indicates what type of thing is being identified by a GLN.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/glnType"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The GLN type only says what kind of thing the public GLN identifies and is needed to interpret it.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/globalLocationNumber",
+      "localName": "globalLocationNumber",
+      "label": "Global Location Number",
+      "comment": "A Global Location Number (GLN) is the GS1 Identification Key used to identify physical locations or parties.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/globalLocationNumber"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The GLN is the public GS1 identification key for the party or location and is discoverable in the GS1 registry.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/gpcCategoryCode",
+      "localName": "gpcCategoryCode",
+      "label": "GPC Category Code",
+      "comment": "8-digit code (GPC Brick Value) specifying a product category according to the GS1 Global Product Classification (GPC) standard.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/gpcCategoryCode"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The GPC brick code is a standard product classification published with the GTIN in the GS1 registry (Verified by GS1).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/gpcCategoryDescription",
+      "localName": "gpcCategoryDescription",
+      "label": "GPC Category Description",
+      "comment": "A description of the code specifying a product category according to the GS1 Global Product Classification (GPC) standard.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/gpcCategoryDescription"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The GPC category description is the human-readable form of the public GPC brick code.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/grossArea",
+      "localName": "grossArea",
+      "label": "Gross Area",
+      "comment": "The overall area of the item including packaging.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/grossArea"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Gross area describes the packaged retail unit and carries no confidential content.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/grossVolume",
+      "localName": "grossVolume",
+      "label": "Gross Volume",
+      "comment": "The overall volume of the item including packaging.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/grossVolume"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Gross volume describes the packaged retail unit and carries no confidential content.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/grossWeight",
+      "localName": "grossWeight",
+      "label": "Gross Weight",
+      "comment": "Used to identify the gross weight of the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/grossWeight"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Gross weight describes the packaged retail unit the consumer physically handles.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/growingMethod",
+      "localName": "growingMethod",
+      "label": "Growing Method",
+      "comment": "The process through which fresh produce is grown and cultivated.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/growingMethod"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The growing method (e.g. organic, hydroponic) is a consumer-facing produce claim shown at point of sale.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/gtin",
+      "localName": "gtin",
+      "label": "GTIN",
+      "comment": "A Global Trade Item Number (GTIN) is the 14 digit GS1 Identification Key used to identify products.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/gtin"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The GTIN is encoded in the barcode on every consumer package and is the public key that resolves the ESPR Art. 9 data carrier in the first place.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/harvestDate",
+      "localName": "harvestDate",
+      "label": "Harvest Date",
+      "comment": "The harvest date.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/harvestDate"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The harvest date is provenance information for fresh produce that supports the consumer's freshness and origin judgement.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/harvestDateEnd",
+      "localName": "harvestDateEnd",
+      "label": "Harvest Date End",
+      "comment": "The harvest end date.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/harvestDateEnd"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The harvest end date bounds the same public provenance window as the harvest date itself.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/harvestDateStart",
+      "localName": "harvestDateStart",
+      "label": "Harvest Date Start",
+      "comment": "The harvest start date.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/harvestDateStart"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The harvest start date bounds the same public provenance window as the harvest date itself.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/hasBatchLotNumber",
+      "localName": "hasBatchLotNumber",
+      "label": "Has Batch Lot Number",
+      "comment": "The batch or lot number associates an item with information the manufacturer considers relevant for traceability of the trade item to which the element string is applied.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/hasBatchLotNumber"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The batch/lot number is printed on the label and appears in the GS1 Digital Link path the scanner itself resolved.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/hasPrimaryLocation",
+      "localName": "hasPrimaryLocation",
+      "label": "Has Primary Location",
+      "comment": "Links to the place(s) that this organisation designates as their primary location(s).",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/hasPrimaryLocation"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "An organization's self-designated primary location is headline registry identity, like a head-office address.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/hasSerialNumber",
+      "localName": "hasSerialNumber",
+      "label": "Has Serial Number",
+      "comment": "A serial number is assigned to an entity for its lifetime.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/hasSerialNumber"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The serial number is marked on the item and appears in the GS1 Digital Link path the scanner itself resolved.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/hasThirdPartyControlledSerialNumber",
+      "localName": "hasThirdPartyControlledSerialNumber",
+      "label": "Has Third Party Controlled Serial Number",
+      "comment": "This identifier is assigned to an entity for its lifetime.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/hasThirdPartyControlledSerialNumber"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "A third-party-controlled serial number belongs to an external identification scheme for professional traceability, unlike the on-label GS1 serial.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/healthClaimDescription",
+      "localName": "healthClaimDescription",
+      "label": "Health Claim Description",
+      "comment": "A description of health claims according to regulations of the target market.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/healthClaimDescription"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Health claims are made to consumers under target-market regulations and must be as visible as the claim itself.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/images",
+      "localName": "images",
+      "label": "Images",
+      "comment": "Referenced image files for the product (flattened plural of the GS1 image link).",
+      "closeMatch": [
+        "https://ref.gs1.org/voc/image"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Product images are the published visual identity of the product shown in every listing.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/includedAccessories",
+      "localName": "includedAccessories",
+      "label": "Included Accessories",
+      "comment": "Any included object or device not part of the core product itself but which adds to its functionality or use.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/includedAccessories"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Included accessories are box-contents information every retail listing and package already states.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/inPackageDepth",
+      "localName": "inPackageDepth",
+      "label": "In Package Depth",
+      "comment": "The depth of the product in its packaging, as measured according to the GS1 Package Measurement Rules.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/inPackageDepth"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Packaged depth is a measurable fact about the retail unit shown in any product listing.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/inPackageDiameter",
+      "localName": "inPackageDiameter",
+      "label": "In Package Diameter",
+      "comment": "The measurement of the diameter of the product in its package at its largest point.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/inPackageDiameter"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Packaged diameter is a measurable fact about the retail unit shown in any product listing.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/inPackageHeight",
+      "localName": "inPackageHeight",
+      "label": "In Package Height",
+      "comment": "The height of the product in the package, as measured according to the GS1 Package Measurement Rules.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/inPackageHeight"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Packaged height is a measurable fact about the retail unit shown in any product listing.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/inPackageWidth",
+      "localName": "inPackageWidth",
+      "label": "In Package Width",
+      "comment": "The width of the product in the package, as measured according to the GS1 Package Measurement Rules.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/inPackageWidth"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Packaged width is a measurable fact about the retail unit shown in any product listing.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/instructionsForUse",
+      "localName": "instructionsForUse",
+      "label": "Instructions For Use",
+      "comment": "Link to a file containing the Instructions For Use.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/instructionsForUse"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The instructions-for-use file is the document a consumer or repairer needs to use the product correctly (ESPR Annex III).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/isProductRecalled",
+      "localName": "isProductRecalled",
+      "label": "Is Product Recalled",
+      "comment": "An indicator for the product to determine if the Manufacturer or Supplier has recalled the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/isProductRecalled"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Recall status is critical public safety information that must reach every holder of the product without any login.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/leasedFrom",
+      "localName": "leasedFrom",
+      "label": "Leased From",
+      "comment": "Links to the organisation (lessor) from which this place is leased.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/leasedFrom"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Lessor identity discloses a commercial lease relationship between businesses.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/leasedTo",
+      "localName": "leasedTo",
+      "label": "Leased To",
+      "comment": "Links to the organisation(s) (lessee(s)) to which this place is leased.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/leasedTo"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Lessee identity discloses a commercial lease relationship between businesses.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/lesseeOf",
+      "localName": "lesseeOf",
+      "label": "Lessee Of",
+      "comment": "Links to the place(s) for which this organisation is the lessee (i.e., this organisation leases those places from another organisation, the lessor).",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/lesseeOf"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The set of places an organization leases in maps its property dealings — commercial-relations data.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/lessorFor",
+      "localName": "lessorFor",
+      "label": "Lessor For",
+      "comment": "Links to the place(s) for which this organisation is the lessor (i.e., this organisation leases those places to others).",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/lessorFor"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The set of places an organization leases out maps its property dealings — commercial-relations data.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/location",
+      "localName": "location",
+      "label": "Location",
+      "comment": "The place(s) associated with an organization.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/location"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The places associated with an organization are its public registry footprint of identified sites.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/locationGLN",
+      "localName": "locationGLN",
+      "label": "Location GLN",
+      "comment": "13-digit GLN that is being used to identify a physical or digital location.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/locationGLN"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The location GLN is the public registry key of the physical or digital location being described.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/locationHistory",
+      "localName": "locationHistory",
+      "label": "Location History",
+      "comment": "Provides details on if and when a location is active or inactive.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/locationHistory"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Activation/deactivation history of a location is registry lifecycle bookkeeping for data managers, not consumer information.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/locationRole",
+      "localName": "locationRole",
+      "label": "Location Role",
+      "comment": "A location classification based on the purpose, type of site and/or what occurs there.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/locationRole"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The location role classifies what kind of site a place is — coarse registry classification, not operational detail.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/makesOffer",
+      "localName": "makesOffer",
+      "label": "Makes Offer",
+      "comment": "An offer made by an organization.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/makesOffer"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Offers attached to a party record are commercial trading terms between businesses, not product information for the end user.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/managedBy",
+      "localName": "managedBy",
+      "label": "Managed By",
+      "comment": "Links to the organisation that manages this place or organisation, as designated by the owner or another organisation.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/managedBy"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The managing organization behind a site or party discloses an outsourcing/management contract between businesses.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/managedFor",
+      "localName": "managedFor",
+      "label": "Managed For",
+      "comment": "Links to the organisation(s) for whom this place is managed.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/managedFor"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Whose behalf a place is managed on discloses the same commercial management relationship as managedBy.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/manages",
+      "localName": "manages",
+      "label": "Manages",
+      "comment": "Links to the place(s) or organisation(s) that this organisation manages, on behalf of the owner or another organisation.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/manages"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The portfolio of places and parties an organization manages enumerates its service contracts — commercial-relations data.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/manufacturer",
+      "localName": "manufacturer",
+      "label": "Manufacturer",
+      "comment": "The organization that produces the item.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/manufacturer"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The producing organization behind a brand is supply-chain sourcing detail; consumers see the brand owner, while manufacturer identity serves authorities and B2B partners.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/manufacturersWarranty",
+      "localName": "manufacturersWarranty",
+      "label": "Manufacturers Warranty",
+      "comment": "The warranty associated with the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/manufacturersWarranty"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Guarantee and warranty terms are customer information ESPR Annex III expects to be available to product owners.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/manufacturingPlant",
+      "localName": "manufacturingPlant",
+      "label": "Manufacturing Plant",
+      "comment": "A physical location consisting of one or more buildings with facilities for manufacturing.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/manufacturingPlant"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Linking a product to its production facility exposes the manufacturer's production network, which the battery-passport precedent keeps non-public.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/massPerUnitArea",
+      "localName": "massPerUnitArea",
+      "label": "Mass Per Unit Area",
+      "comment": "The mass per unit area of the item.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/massPerUnitArea"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Mass per unit area (e.g. fabric grammage) is a physical product characteristic quoted in ordinary retail listings.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/netArea",
+      "localName": "netArea",
+      "label": "Net Area",
+      "comment": "The net area of the item.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/netArea"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Net area is a net-quantity measurement of the retail unit, equivalent to on-label content declarations.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/netContent",
+      "localName": "netContent",
+      "label": "Net Content",
+      "comment": "The quantity of the product contained by a package, usually as claimed on the label.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/netContent"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Net content is, per its GS1 definition, the quantity as claimed on the label.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/netWeight",
+      "localName": "netWeight",
+      "label": "Net Weight",
+      "comment": "Used to identify the net weight of the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/netWeight"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Net weight is mandatory on-label net-quantity information for consumers.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/occupiedBy",
+      "localName": "occupiedBy",
+      "label": "Occupied By",
+      "comment": "Links to the organisation(s) that occupy this place.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/occupiedBy"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The tenant list of a site maps commercial occupancy relationships beyond the public operator identity.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/occupies",
+      "localName": "occupies",
+      "label": "Occupies",
+      "comment": "Links to the place(s) that this organisation occupies.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/occupies"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The full list of places an organization occupies is operational-footprint detail beyond its public primary location.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/organicClaim",
+      "localName": "organicClaim",
+      "label": "Organic Claim",
+      "comment": "Relates to an organic claim about the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/organicClaim"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Organic claims are regulated consumer-facing label claims and must be as visible as the label itself.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/organizationHistory",
+      "localName": "organizationHistory",
+      "label": "Organization History",
+      "comment": "Provides details on if and when an organisation/party is active or inactive.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/organizationHistory"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Activation/deactivation history of a party record is registry lifecycle bookkeeping for data managers, not consumer information.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/organizationName",
+      "localName": "organizationName",
+      "label": "Organization Name",
+      "comment": "The name of the organization expressed in text.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/organizationName"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The organization name is the public legal-entity identity behind the GLN, published via Verified by GS1.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/organizationRole",
+      "localName": "organizationRole",
+      "label": "Organization Role",
+      "comment": "The role and/or purpose of a party (i.e. legal entity or function).",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/organizationRole"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The declared role of a party (e.g. manufacturer, retailer) is coarse registry classification with no commercial detail.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/outOfPackageDepth",
+      "localName": "outOfPackageDepth",
+      "label": "Out Of Package Depth",
+      "comment": "The depth of the product out of its packaging, as measured according to the GS1 Package Measurement Rules.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/outOfPackageDepth"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Unpackaged depth is measurable by anyone holding the product and helps consumers judge fit before purchase.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/outOfPackageDiameter",
+      "localName": "outOfPackageDiameter",
+      "label": "Out Of Package Diameter",
+      "comment": "The measurement of the diameter of the product out of its package at its largest point.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/outOfPackageDiameter"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Unpackaged diameter is measurable by anyone holding the product and helps consumers judge fit before purchase.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/outOfPackageHeight",
+      "localName": "outOfPackageHeight",
+      "label": "Out Of Package Height",
+      "comment": "The height of the product out of the package, as measured according to the GS1 Package Measurement Rules.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/outOfPackageHeight"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Unpackaged height is measurable by anyone holding the product and helps consumers judge fit before purchase.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/outOfPackageWidth",
+      "localName": "outOfPackageWidth",
+      "label": "Out Of Package Width",
+      "comment": "The width of the product out of the package, as measured according to the GS1 Package Measurement Rules.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/outOfPackageWidth"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Unpackaged width is measurable by anyone holding the product and helps consumers judge fit before purchase.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/ownedBy",
+      "localName": "ownedBy",
+      "label": "Owned By",
+      "comment": "Links to the organisation(s) that own this place, in full or in part.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/ownedBy"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Ownership of a site maps commercial relationships and asset holdings beyond the public registry identity of the place.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/owns",
+      "localName": "owns",
+      "label": "Owns",
+      "comment": "Links to the place(s) or organisation(s) that this organisation owns.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/owns"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "An organization's owned places and entities enumerate its asset portfolio — commercial detail, not consumer information.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/packaging",
+      "localName": "packaging",
+      "label": "Packaging",
+      "comment": "Details on the packaging for a product including type, weight and materials.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/packaging"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Packaging type and material details are consumer-relevant circularity information ESPR Annex I makes central to the passport.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/packagingDate",
+      "localName": "packagingDate",
+      "label": "Packaging Date",
+      "comment": "The packaging date is the date when the goods were packed as determined by the packager.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/packagingDate"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The packaging date is marked on packs (GS1 element strings) and informs the consumer's freshness judgement.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/packagingMarkedLabelAccreditation",
+      "localName": "packagingMarkedLabelAccreditation",
+      "label": "Packaging Marked Label Accreditation",
+      "comment": "A marking that the product received recognition, endorsement, certification by following guidelines by the label issuing agency.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/packagingMarkedLabelAccreditation"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Accreditation marks are printed on the packaging by definition, so the field only mirrors the label.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/parentOrganization",
+      "localName": "parentOrganization",
+      "label": "Parent Organization",
+      "comment": "Designates the legal entity or function directly above the organisation/party being identified in a hierarchy.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/parentOrganization"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The parent legal entity is corporate-structure information disclosed in public company registers.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/partyGLN",
+      "localName": "partyGLN",
+      "label": "Party GLN",
+      "comment": "13-digit GLN that is being used to identify a legal entity or function.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/partyGLN"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The party GLN is the public registry key of the legal entity or function being described.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/physicalLocationName",
+      "localName": "physicalLocationName",
+      "label": "Physical Location Name",
+      "comment": "The name of a physical place.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/physicalLocationName"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The name of a physical business site is public registry identity, typically also signposted at the site itself.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/primaryAlternateProduct",
+      "localName": "primaryAlternateProduct",
+      "label": "Primary Alternate Product",
+      "comment": "A product that is similar to the current product but is not exact match.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/primaryAlternateProduct"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The primary alternate is a similar-product suggestion of the same public catalogue nature as equivalent products.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/primaryLocationOf",
+      "localName": "primaryLocationOf",
+      "label": "Primary Location Of",
+      "comment": "Links to the organisation(s) that designate this place as its/their primary location.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/primaryLocationOf"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The reverse index of every organization headquartered at a place aggregates tenancy relationships beyond any single party's public record.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/productDescription",
+      "localName": "productDescription",
+      "label": "Product Description",
+      "comment": "An understandable and useable description of a product using brand and other descriptors.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/productDescription"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The product description is the basic consumer-facing account of what the scanned item is (ESPR Annex III information for customers).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/productFeatureBenefit",
+      "localName": "productFeatureBenefit",
+      "label": "Product Feature Benefit",
+      "comment": "Element for consumer facing marketing content to describe the key features or benefits of the style suitable for display purposes.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/productFeatureBenefit"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Feature-benefit copy is, per its GS1 definition, consumer-facing marketing content suitable for display.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/productFormDescription",
+      "localName": "productFormDescription",
+      "label": "Product Form Description",
+      "comment": "The physical form or shape of the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/productFormDescription"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The physical form or shape of the product is apparent from the product itself and its package.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/productID",
+      "localName": "productID",
+      "label": "Product ID",
+      "comment": "Additional means to the Global Trade Item Number to identify a product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/productID"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Additional product identifiers serve the same public identification purpose as the GTIN printed on the package.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/productionDate",
+      "localName": "productionDate",
+      "label": "Production Date",
+      "comment": "The production date is the production or assembly date determined by the manufacturer.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/productionDate"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The production date is encodable in the GS1 element strings on the label, so the document repeats on-pack information.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/productionDateTime",
+      "localName": "productionDateTime",
+      "label": "Production Date Time",
+      "comment": "The date and time of production (or assembly).",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/productionDateTime"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The production date-time is the finer-grained form of the on-pack production date, not production-process detail.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/productionVariantDescription",
+      "localName": "productionVariantDescription",
+      "label": "Production Variant Description",
+      "comment": "Free text assigned by the manufacturer to describe the production variant.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/productionVariantDescription"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Production variants are manufacturer bookkeeping about production runs, not information addressed to the consumer.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/productionVariantEffectiveDateTime",
+      "localName": "productionVariantEffectiveDateTime",
+      "label": "Production Variant Effective Date Time",
+      "comment": "The start date of a production variant.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/productionVariantEffectiveDateTime"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The effective date of a production variant is production bookkeeping tied to the non-public variant record.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/productMarketingMessage",
+      "localName": "productMarketingMessage",
+      "label": "Product Marketing Message",
+      "comment": "Marketing message associated with the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/productMarketingMessage"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The marketing message is authored for consumer display and is public by intent.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/productName",
+      "localName": "productName",
+      "label": "Product Name",
+      "comment": "Consumer friendly short description of the product suitable for compact presentation.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/productName"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The consumer-friendly product name is on-package and point-of-sale information every customer already sees.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/productRange",
+      "localName": "productRange",
+      "label": "Product Range",
+      "comment": "A name, used by a Brand Owner, that span multiple consumer categories or uses.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/productRange"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The product-range name is public catalogue information the brand owner itself markets across categories.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/productSustainabilityInfo",
+      "localName": "productSustainabilityInfo",
+      "label": "Product Sustainability Info",
+      "comment": "This term has been deprecated.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/productSustainabilityInfo"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Sustainability information is exactly the consumer transparency ESPR exists to deliver through the data carrier.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/provenanceStatement",
+      "localName": "provenanceStatement",
+      "label": "Provenance Statement",
+      "comment": "Free text description of the region or place the product originates from.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/provenanceStatement"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The provenance statement is a marketing-grade origin description brands print on the product page and pack.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/referencedFile",
+      "localName": "referencedFile",
+      "label": "Referenced File",
+      "comment": "Link to a file or website containing additional information on product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/referencedFile"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Referenced files are links to additional product information the brand publishes for its audience.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/regulatedProductName",
+      "localName": "regulatedProductName",
+      "label": "Regulated Product Name",
+      "comment": "The prescribed, regulated or generic product name or denomination that describes the true nature of the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/regulatedProductName"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The regulated or generic denomination is required on the label to describe the true nature of the product to consumers.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/relatedOrganization",
+      "localName": "relatedOrganization",
+      "label": "Related Organization",
+      "comment": "The organisation(s) associated with a place.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/relatedOrganization"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The organization associated with a place is the public operator identity a visitor to the site can observe.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/replacedByOrganization",
+      "localName": "replacedByOrganization",
+      "label": "Replaced By Organization",
+      "comment": "Links to the successor organisation that is used in place of a previous organisation.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/replacedByOrganization"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The successor-organization link keeps the public registry record resolvable after a party is superseded.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/replacedByPlace",
+      "localName": "replacedByPlace",
+      "label": "Replaced By Place",
+      "comment": "Links to the successor location that is used in place of a previous location.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/replacedByPlace"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The successor-location link keeps the public registry record resolvable after a location is superseded.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/replacedByProduct",
+      "localName": "replacedByProduct",
+      "label": "Replaced By Product",
+      "comment": "The product which permanently replaces the current product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/replacedByProduct"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The successor-product link routes owners of a discontinued item to its replacement — public catalogue succession.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/replacedOrganization",
+      "localName": "replacedOrganization",
+      "label": "Replaced Organization",
+      "comment": "Links to the previous organisation that this organisation replaces.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/replacedOrganization"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The predecessor-organization link is public registry succession history for the party identifier.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/replacedPlace",
+      "localName": "replacedPlace",
+      "label": "Replaced Place",
+      "comment": "Links to the previous location that this location replaces.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/replacedPlace"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The predecessor-location link is public registry succession history for the location identifier.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/replacedProduct",
+      "localName": "replacedProduct",
+      "label": "Replaced Product",
+      "comment": "Indicates the product identification of an item that is being permanently replaced by this product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/replacedProduct"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The predecessor-product link is the public catalogue history of what this product permanently replaces.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/responsibleForLocation",
+      "localName": "responsibleForLocation",
+      "label": "Responsible For Location",
+      "comment": "Links to the place(s) for which this organisation is responsible.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/responsibleForLocation"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The places an organization is responsible for map internal accountability across the site network — B2B operational structure.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/responsibleOrganization",
+      "localName": "responsibleOrganization",
+      "label": "Responsible Organization",
+      "comment": "Links to the organisation that is directly responsible for this place.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/responsibleOrganization"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The organization directly responsible for a place is internal accountability structure, distinct from the public operator identity.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/sellByDate",
+      "localName": "sellByDate",
+      "label": "Sell By Date",
+      "comment": "The date specified by the manufacturer as the last date the retailer is to offer the product for sale to the consumer.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/sellByDate"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The sell-by date is marked on retail packaging and lets the consumer judge product freshness at the shelf.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/sizeCodes",
+      "localName": "sizeCodes",
+      "label": "Size Codes",
+      "comment": "Size codes assigned to the product (flattened plural of the GS1 size code).",
+      "closeMatch": [
+        "https://ref.gs1.org/voc/sizeCode"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Size codes are ordinary retail information printed on the label and shown at point of sale.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/subOrganization",
+      "localName": "subOrganization",
+      "label": "Sub Organization",
+      "comment": "Designates a legal entity or function directly below the organisation/party being identified in a hierarchy.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/subOrganization"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Subsidiary legal entities are corporate-structure information disclosed in public company registers.",
+      "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/supplierSpecifiedMinimumConsumerStorageDays",
+      "localName": "supplierSpecifiedMinimumConsumerStorageDays",
+      "label": "Supplier Specified Minimum Consumer Storage Days",
+      "comment": "Represents the number of days between a product's sell by date and its use by date.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/supplierSpecifiedMinimumConsumerStorageDays"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The supplier-specified minimum storage-days figure steers retail shelf-life logistics between trading partners; the consumer relies on the printed dates instead.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/targetMarket",
+      "localName": "targetMarket",
+      "label": "Target Market",
+      "comment": "Relates to a set of target market details (product release date and associated countries).",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/targetMarket"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Target-market countries and release dates are public availability information visible from where the product is sold.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/usesManagedLocation",
+      "localName": "usesManagedLocation",
+      "label": "Uses Managed Location",
+      "comment": "Links to the place(s) that this organisation uses as a managed space.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/usesManagedLocation"
+      ],
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Which managed spaces an organization uses reveals its operational footprint and supplier relationships.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/variantDescription",
+      "localName": "variantDescription",
+      "label": "Variant Description",
+      "comment": "Free text field used to identify the variant of the product.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/variantDescription"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "The variant description distinguishes retail variants the consumer chooses between at point of sale.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/gs1-masterdata/warningCopyDescription",
+      "localName": "warningCopyDescription",
+      "label": "Warning Copy Description",
+      "comment": "Warning information is additional information that outlines special requirements, warning and caution information printed on the package.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/warningCopyDescription"
+      ],
+      "accessLevel": "Public",
+      "accessLevelRationale": "Warning copy reproduces caution information printed on the package and is critical consumer safety content.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    }
+  ],
+  "enumerations": []
+}
