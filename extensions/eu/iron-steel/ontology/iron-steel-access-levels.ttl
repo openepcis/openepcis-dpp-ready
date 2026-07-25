@@ -1,54 +1,118 @@
 # Access-tier annotations for the EU Iron & Steel extension (ESPR Article 9 tiers).
-# One statement per term; merged into the module by scripts/build-json.ts.
+# One entry per term; merged into the module by scripts/build-json.ts.
 #
-# Curated defaults for the CBAM / iron & steel scope. Steel grade designation,
-# steelmaking route and country of melt & pour are product/sustainability info
-# (Public); the EN 10204 Material Test Certificate detail and batch traceability
-# identifiers are professional detail (AuthorizedOnly); the CBAM report id ties
-# to embedded-emissions supplier detail for customs/authority use (Restricted).
-# None marked oec:accessLevelMandatedBy; terms not listed default to
-# AuthorizedOnly.
+# Re-curated with per-term oec:accessLevelRationale and oec:accessLevelSource.
+# Product identity, grade and steelmaking-route claims are Public (green-steel
+# transparency under the ESPR DPP framework). EN 10204 Material Test Certificate
+# content and EN 10168 batch/delivery references are B2B professional documents
+# (AuthorizedOnly, grounded in the ESPR legitimate-interest tier). The CBAM
+# report reference stays Restricted: CBAM (EU) 2023/956 channels embedded-
+# emissions filings between operators, declarants and authorities, never to the
+# public. No steel-specific act fixes DPP field audiences yet, so nothing is
+# locked via oec:accessLevelMandatedBy (deployments may tighten, never loosen).
+# Terms not listed default to AuthorizedOnly.
 
 @prefix eusteel: <https://ref.openepcis.io/extensions/eu/iron-steel/> .
 @prefix oec:     <https://ref.openepcis.io/extensions/common/core/> .
 
 
-# --- Public: product identity, grade designation and origin / process route
-# --- (green-steel and CBAM route claims buyers rely on) ---
-eusteel:productNumber oec:defaultAccessLevel oec:Public .
-eusteel:steelDesignation oec:defaultAccessLevel oec:Public .
-eusteel:steelGradeClassification oec:defaultAccessLevel oec:Public .
-eusteel:technologyRoute oec:defaultAccessLevel oec:Public .
-eusteel:meltAndPourCountry oec:defaultAccessLevel oec:Public .
+# --- Public: product identity, grade designation and origin / process route ---
 
-# --- AuthorizedOnly: EN 10204 Material Test Certificate detail (cast/ladle
-# --- chemistry and mechanical properties — professional / legitimate interest) ---
-eusteel:mtc oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcInspectionType oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcSteelProcess oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcFinishing oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcNominalSize oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcWeightTolerance oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcCarbonContent oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcCarbonEquivalent oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcCopperContent oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcNitrogenContent oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcPhosphorusContent oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcSulfurContent oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcTensileStrength oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcYieldStrength oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcYieldStrengthRatio oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcElongation oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcRelativeRibArea oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:mtcRadiometricControl oec:defaultAccessLevel oec:AuthorizedOnly .
+eusteel:productNumber oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The manufacturer article number is ordinary public product identity, stamped or tagged on the product." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:steelDesignation oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The EN 10027 steel designation is standardised public product identity every buyer specifies against." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:steelGradeClassification oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The EN 10020 grade classification is a coarse public typing of the material with no commercial sensitivity." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:technologyRoute oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The steelmaking route (e.g. BF-BOF vs EAF) is the headline green-steel differentiator buyers and consumers rely on, without exposing installation-level emissions data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:meltAndPourCountry oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Country of melt and pour is an origin-transparency claim at country granularity, exposing no facility or supplier detail." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
-# --- AuthorizedOnly: batch traceability & commercial delivery references
-# --- (EN 10168 heat/cast/lot, purchaser order) ---
-eusteel:heatNumber oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:castNumber oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:lotNumber oec:defaultAccessLevel oec:AuthorizedOnly .
-eusteel:purchaserOrder oec:defaultAccessLevel oec:AuthorizedOnly .
+# --- AuthorizedOnly: EN 10204 Material Test Certificate detail (B2B
+# --- professional inspection documents exchanged between producer, purchaser
+# --- and certifying inspectors; legitimate-interest detail under the ESPR
+# --- DPP framework) ---
 
-# --- Restricted: CBAM report identifier (ties to embedded-emissions supplier
-# --- detail; customs / competent-authority use) ---
-eusteel:cbamReportId oec:defaultAccessLevel oec:Restricted .
+eusteel:mtc oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The EN 10204 certificate is a B2B inspection document issued to the purchaser, professional detail rather than consumer information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcInspectionType oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The EN 10204 document type (2.1-3.2) is certificate metadata belonging to the professional MTC record." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcSteelProcess oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The free-text process entry on the certificate is production detail for the purchaser; the public claim is the controlled technologyRoute." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcFinishing oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The delivery/finishing condition is certificate content agreed between producer and purchaser." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcNominalSize oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The tested nominal dimension is certificate content of the B2B inspection document." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcWeightTolerance oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The permitted weight tolerance is contractual certificate content between producer and purchaser." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcCarbonContent oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Cast/ladle chemistry is professional certificate data used by fabricators and inspectors, not consumer information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcCarbonEquivalent oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The weldability indicator (CEV/CET) is professional certificate data derived from the cast analysis." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcCopperContent oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Cast/ladle chemistry is professional certificate data used by fabricators and inspectors, not consumer information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcNitrogenContent oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Cast/ladle chemistry is professional certificate data used by fabricators and inspectors, not consumer information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcPhosphorusContent oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Cast/ladle chemistry is professional certificate data used by fabricators and inspectors, not consumer information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcSulfurContent oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Cast/ladle chemistry is professional certificate data used by fabricators and inspectors, not consumer information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcTensileStrength oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Measured mechanical test values are certificate data for the purchaser and inspectors; declared performance for construction use surfaces publicly via the CPR DoP instead." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcYieldStrength oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Measured mechanical test values are certificate data for the purchaser and inspectors; declared performance for construction use surfaces publicly via the CPR DoP instead." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcYieldStrengthRatio oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The Re/Rm ratio is derived mechanical certificate data of the professional MTC record." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcElongation oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Measured elongation is mechanical certificate data of the professional MTC record." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcRelativeRibArea oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The rib-area bond parameter for reinforcing steel is certificate data for structural professionals." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:mtcRadiometricControl oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The radiometric control result is inspection evidence of the professional MTC record." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# --- AuthorizedOnly: batch traceability & commercial delivery references ---
+
+eusteel:heatNumber oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Heat numbers are EN 10168 batch-traceability identifiers linking deliveries to production runs, supply-chain data for professional actors." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:castNumber oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Cast numbers are EN 10168 batch-traceability identifiers of the professional delivery record." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:lotNumber oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Delivery lot numbers tie the product to specific commercial shipments, supply-chain data for professional actors." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+eusteel:purchaserOrder oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The purchaser order reference exposes a specific commercial relationship and belongs to the B2B delivery record." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# --- Restricted: CBAM report reference. CBAM (EU) 2023/956 routes embedded-
+# --- emissions data between operators, authorised declarants and authorities
+# --- (Arts. 6, 35); the report id keys into those confidential filings. ---
+
+eusteel:cbamReportId oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "The CBAM report identifier keys into embedded-emissions filings that Reg. (EU) 2023/956 (Arts. 6, 35) exchanges only between operators, authorised declarants and authorities, so it stays with the authority/declarant tier." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/956> .

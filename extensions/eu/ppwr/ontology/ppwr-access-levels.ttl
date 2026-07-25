@@ -1,23 +1,39 @@
 # Access-tier annotations for the EU PPWR extension (ESPR Article 9 tiers).
-# One statement per term; merged into the module by scripts/build-json.ts.
+# One entry per term; merged into the module by scripts/build-json.ts.
 #
-# Curated defaults pending the PPWR (Regulation (EU) 2025/40) implementing acts:
-# none are marked oec:accessLevelMandatedBy, so deployments may tighten (never
-# loosen) them at runtime. Terms not listed default to AuthorizedOnly.
+# Re-curated with per-term oec:accessLevelRationale and oec:accessLevelSource,
+# grounded in the Packaging and Packaging Waste Regulation (EU) 2025/40. The
+# PPWR is in force, but its recyclability-grade delegated acts (Art. 6) and
+# harmonised-labelling implementing acts (Art. 12) are still pending and the
+# labelling obligations apply only from 2028, so no term is locked via
+# oec:accessLevelMandatedBy: deployments may tighten (never loosen) these
+# defaults at runtime. Terms not listed default to AuthorizedOnly.
 
 @prefix euppwr: <https://ref.openepcis.io/extensions/eu/ppwr/> .
 @prefix oec:    <https://ref.openepcis.io/extensions/common/core/> .
 
 
-# --- Public: on-pack labelling, packaging classification and the recyclability
-# --- grade/methodology consumers and separate-collection schemes rely on
-# --- (PPWR Articles 6 & 12) ---
-euppwr:packagingTier oec:defaultAccessLevel oec:Public .
-euppwr:harmonisedSymbol oec:defaultAccessLevel oec:Public .
-euppwr:recyclabilityGrade oec:defaultAccessLevel oec:Public .
-euppwr:designForRecyclingMethodology oec:defaultAccessLevel oec:Public .
+# --- Public: on-pack labelling, packaging classification and the
+# --- recyclability grade/methodology consumers and sorters rely on ---
 
-# --- AuthorizedOnly: deposit-return / take-back operational event observations
-# --- (item condition and refund amounts are operational, not consumer-facing) ---
-euppwr:containerCondition oec:defaultAccessLevel oec:AuthorizedOnly .
-euppwr:depositRefundIssued oec:defaultAccessLevel oec:AuthorizedOnly .
+euppwr:packagingTier oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The sales/grouped/transport classification (PPWR Art. 3) is basic packaging typing visible from the packaging itself and needed to interpret every other packaging claim." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2025/40> .
+euppwr:harmonisedSymbol oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "PPWR Art. 12 harmonised labels are printed on the packaging for consumers and separate-collection schemes, so their digital reference is inherently public (label formats pending implementing acts, hence not locked)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2025/40> .
+euppwr:recyclabilityGrade oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The PPWR Art. 6 recyclability performance grade is a consumer- and scheme-facing band (grading criteria pending delegated acts, hence not locked)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2025/40> .
+euppwr:designForRecyclingMethodology oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Naming the design-for-recycling methodology (e.g. RecyClass) is the transparency that makes the public recyclability grade verifiable." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2025/40> .
+
+# --- AuthorizedOnly: deposit-return / take-back operational event data ---
+
+euppwr:containerCondition oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The observed condition of a returned item is operational routing data of the deposit-return system (PPWR Arts. 27, 50), not consumer product information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2025/40> .
+euppwr:depositRefundIssued oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Per-return refund amounts are operational financial event data of the deposit-return scheme (PPWR Art. 50); the static deposit amount is served publicly via GS1 master data instead." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2025/40> .

@@ -139,6 +139,12 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     namespace: "https://ref.openepcis.io/extensions/common/core/",
   },
   {
+    name: "gs1-masterdata",
+    dir: "extensions/common/gs1-masterdata",
+    ttlFile: "gs1-masterdata.ttl",
+    namespace: "https://ref.openepcis.io/extensions/common/gs1-masterdata/",
+  },
+  {
     name: "battery",
     dir: "extensions/eu/battery",
     ttlFile: "battery.ttl",

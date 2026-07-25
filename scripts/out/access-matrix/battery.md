@@ -2,231 +2,231 @@
 
 Regulatory frame: Battery Regulation (EU) 2023/1542, Annex XIII + Art. 14
 
-Coverage: 224 properties — 21 Public / 15 AuthorizedOnly / 2 Restricted / 0 inherited / 186 UNCLASSIFIED; 38 legally locked.
+Coverage: 224 properties — 113 Public / 81 AuthorizedOnly / 5 Restricted / 25 inherited / 0 UNCLASSIFIED; 93 legally locked.
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
-| `absoluteCarbonFootprint` | Absolute Carbon Footprint | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `anodeActiveMaterial` | Anode Active Material | **UNCLASSIFIED** |  |  |  |
-| `atSoC` | Test Condition: at State of Charge | **UNCLASSIFIED** |  |  |  |
-| `auditBody` | Audit Body | **UNCLASSIFIED** |  |  |  |
-| `authorizedServiceCenters` | Authorized Service Centers | **UNCLASSIFIED** |  |  |  |
-| `batteryChemistry` | Battery Chemistry | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `batteryMass` | Battery Mass | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `batteryModelIdentifier` | Battery Model Identifier | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `batteryPassportIdentifier` | Battery Passport Identifier | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `cadmiumSymbolRequired` | Cadmium Symbol Required | **UNCLASSIFIED** |  |  |  |
-| `calculationStandard` | Calculation Standard | **UNCLASSIFIED** |  |  |  |
-| `capacityFade` | Capacity Fade | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 |  |  |
-| `capacityFadeThreshold` | Capacity Fade Threshold | **UNCLASSIFIED** |  |  |  |
-| `capacityThresholdForExhaustion` | Capacity Threshold for Exhaustion | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `capacityThroughput` | Capacity Throughput | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 |  |  |
-| `carbonFootprintDeclaration` | Carbon Footprint Declaration | **UNCLASSIFIED** |  |  |  |
-| `carbonFootprintDeclarationId` | Carbon Footprint Declaration ID | **UNCLASSIFIED** |  |  |  |
-| `carbonFootprintDistribution` | Carbon Footprint - Distribution | **UNCLASSIFIED** |  |  |  |
-| `carbonFootprintGeographicScope` | Carbon Footprint Geographic Scope | **UNCLASSIFIED** |  |  |  |
-| `carbonFootprintPerformanceClass` | Carbon Footprint Performance Class | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `carbonFootprintProduction` | Carbon Footprint - Production | **UNCLASSIFIED** |  |  |  |
-| `carbonFootprintRawMaterialExtraction` | Carbon Footprint - Raw Material Extraction | **UNCLASSIFIED** |  |  |  |
-| `carbonFootprintRecycling` | Carbon Footprint - Recycling | **UNCLASSIFIED** |  |  |  |
-| `carbonFootprintStudyUrl` | Carbon Footprint Study URL | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `carbonFootprintTotal` | Carbon Footprint Total | **UNCLASSIFIED** |  |  |  |
-| `casNumber` | CAS Number | **UNCLASSIFIED** |  |  |  |
-| `cathodeActiveMaterial` | Cathode Active Material | **UNCLASSIFIED** |  |  |  |
-| `cellType` | Cell Type | **UNCLASSIFIED** |  |  |  |
-| `ceMarkingIndicator` | CE Marking Indicator | **UNCLASSIFIED** |  |  |  |
-| `certifiedUsableEnergy` | Certified Usable Energy | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `cobaltPostConsumerShare` | Cobalt Post-Consumer Recycled Share | **UNCLASSIFIED** |  |  |  |
-| `cobaltPreConsumerShare` | Cobalt Pre-Consumer Recycled Share | **UNCLASSIFIED** |  |  |  |
-| `cobaltRecycledShare` | Cobalt Recycled Share | **UNCLASSIFIED** |  |  |  |
-| `complianceStatus` | Compliance Status | **UNCLASSIFIED** |  |  |  |
-| `componentLocation` | Component Location | **UNCLASSIFIED** |  |  |  |
-| `concentration` | Concentration | **UNCLASSIFIED** |  |  |  |
-| `conflictMineralFree` | Conflict Mineral Free | **UNCLASSIFIED** |  |  |  |
-| `cRate` | C-Rate | **UNCLASSIFIED** |  |  |  |
-| `cRateLifeCycleTest` | C-Rate Life Cycle Test | **UNCLASSIFIED** |  |  |  |
-| `criticalRawMaterialsStatement` | Critical Raw Materials Statement | **UNCLASSIFIED** |  |  |  |
-| `currentSelfDischargingRate` | Current Self-Discharging Rate | **UNCLASSIFIED** |  |  |  |
-| `cycleCount` | Cycle Count | **UNCLASSIFIED** |  |  |  |
-| `dangerousGoodsPackingInstructions` | Dangerous Goods Packing Instructions | **UNCLASSIFIED** |  |  |  |
-| `dataProviderCertification` | Data Provider Certification | **UNCLASSIFIED** |  |  |  |
-| `dataQualityAssessment` | Data Quality Assessment | **UNCLASSIFIED** |  |  |  |
-| `declarationOfConformity` | Declaration of Conformity URL | **UNCLASSIFIED** |  |  |  |
-| `depthOfDischargeInCycleLifeTest` | Depth of Discharge in Cycle Life Test | **UNCLASSIFIED** |  |  |  |
-| `dismantlingAndRemovalInformation` | Dismantling and Removal Information | **UNCLASSIFIED** |  |  |  |
-| `dismantlingDocuments` | Dismantling Documents | **UNCLASSIFIED** |  |  |  |
-| `dismantlingInstructions` | Dismantling Instructions | **UNCLASSIFIED** |  |  |  |
-| `dismantlingTime` | Estimated Dismantling Time | **UNCLASSIFIED** |  |  |  |
-| `documentType` | Document Type | **UNCLASSIFIED** |  |  |  |
-| `documentUrl` | Document URL | **UNCLASSIFIED** |  |  |  |
-| `dueDiligencePolicyUrl` | Due Diligence Policy URL | **UNCLASSIFIED** |  |  |  |
-| `dueDiligenceReportUrl` | Due Diligence Report URL | **UNCLASSIFIED** |  |  |  |
-| `ecNumber` | EC Number | **UNCLASSIFIED** |  |  |  |
-| `electrolyteComposition` | Electrolyte Composition | **UNCLASSIFIED** |  |  |  |
-| `electrolyteType` | Electrolyte Type | **UNCLASSIFIED** |  |  |  |
-| `endOfLifeInfo` | End of Life Information | **UNCLASSIFIED** |  |  |  |
-| `energyThroughput` | Energy Throughput | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 |  |  |
-| `estimatedImpact` | Estimated Impact | **UNCLASSIFIED** |  |  |  |
-| `euDeclarationOfConformity` | EU Declaration of Conformity | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `euDeclarationOfConformityId` | EU Declaration of Conformity ID | **UNCLASSIFIED** |  |  |  |
-| `eventDate` | Event Date | **UNCLASSIFIED** |  |  |  |
-| `eventLocation` | Event Location | **UNCLASSIFIED** |  |  |  |
-| `eventType` | Event Type | **UNCLASSIFIED** |  |  |  |
-| `evolutionOfSelfDischarge` | Evolution of Self Discharge | **UNCLASSIFIED** |  |  |  |
-| `exceedanceThreshold` | Exceedance Threshold | **UNCLASSIFIED** |  |  |  |
-| `exhaustionThreshold` | Exhaustion Threshold | **UNCLASSIFIED** |  |  |  |
-| `expectedCycleLife` | Expected Cycle Life | **UNCLASSIFIED** |  |  |  |
-| `expectedLifetime` | Expected Lifetime | **UNCLASSIFIED** |  |  |  |
-| `expectedLifetimeCapacityThroughput` | Expected Lifetime Capacity Throughput | **UNCLASSIFIED** |  |  |  |
-| `expectedLifetimeEnergyThroughput` | Expected Lifetime Energy Throughput | **UNCLASSIFIED** |  |  |  |
-| `expectedLifetimeYears` | Expected Lifetime (Years) | **UNCLASSIFIED** |  |  |  |
-| `expectedNumberOfCycles` | Expected Number of Cycles | **UNCLASSIFIED** |  |  |  |
-| `expectedRemainingCycles` | Expected Remaining Cycles | **UNCLASSIFIED** |  |  |  |
-| `expectedRemainingLifetimeMonths` | Expected Remaining Lifetime (Months) | **UNCLASSIFIED** |  |  |  |
-| `exposureDurationMinutes` | Exposure Duration (Minutes) | **UNCLASSIFIED** |  |  |  |
-| `exposureEndTime` | Exposure End Time | **UNCLASSIFIED** |  |  |  |
-| `extendedWarrantyAvailable` | Extended Warranty Available | **UNCLASSIFIED** |  |  |  |
-| `extinguishingAgent` | Extinguishing Agent | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `facilityIdentifier` | Facility Identifier | **Restricted** | 🔒 eli/reg/2023/1542 |  |  |
-| `functionalUnit` | Functional Unit | **UNCLASSIFIED** |  |  |  |
-| `hasBattery` | Has Battery | **UNCLASSIFIED** |  |  |  |
-| `hazardClass` | Hazard Class | **UNCLASSIFIED** |  |  |  |
-| `hazardImpact` | Hazard Impact | **UNCLASSIFIED** |  |  |  |
-| `hazardousSubstances` | Hazardous Substances | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `incidentId` | Incident ID | **UNCLASSIFIED** |  |  |  |
-| `incidentReportUrl` | Incident Report URL | **UNCLASSIFIED** |  |  |  |
-| `incidentSeverity` | Incident Severity | **UNCLASSIFIED** |  |  |  |
-| `informationOnCollection` | Information on Collection | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `initialCapacity` | Initial Capacity | **UNCLASSIFIED** |  |  |  |
-| `initialEnergy` | Initial Energy | **UNCLASSIFIED** |  |  |  |
-| `initialInternalResistance` | Initial Internal Resistance | **UNCLASSIFIED** |  |  |  |
-| `initialSelfDischarge` | Initial Self Discharge | **UNCLASSIFIED** |  |  |  |
-| `inspectorId` | Inspector ID | **UNCLASSIFIED** |  |  |  |
-| `internalResistance` | Internal Resistance | **UNCLASSIFIED** |  |  |  |
-| `internalResistanceIncrease` | Internal Resistance Increase | **UNCLASSIFIED** |  |  |  |
-| `isCriticalRawMaterial` | Is Critical Raw Material | **UNCLASSIFIED** |  |  |  |
-| `isSubstanceOfConcern` | Is Substance of Concern | **UNCLASSIFIED** |  |  |  |
-| `labelMeaning` | Label Meaning | **UNCLASSIFIED** |  |  |  |
-| `labels` | Labels | **UNCLASSIFIED** |  |  |  |
-| `labelSubject` | Label Subject | **UNCLASSIFIED** |  |  |  |
-| `labelSymbol` | Label Symbol | **UNCLASSIFIED** |  |  |  |
-| `languageCode` | Language Code | **UNCLASSIFIED** |  |  |  |
-| `lastDataUpdate` | Last Data Update | **UNCLASSIFIED** |  |  |  |
-| `leadRecycledShare` | Lead Recycled Share | **UNCLASSIFIED** |  |  |  |
-| `leadSymbolRequired` | Lead Symbol Required | **UNCLASSIFIED** |  |  |  |
-| `lifecycleStage` | Lifecycle Stage | **UNCLASSIFIED** |  |  |  |
-| `lifetimeReferenceTest` | Lifetime Reference Test | **UNCLASSIFIED** |  |  |  |
-| `lithiumPostConsumerShare` | Lithium Post-Consumer Recycled Share | **UNCLASSIFIED** |  |  |  |
-| `lithiumPreConsumerShare` | Lithium Pre-Consumer Recycled Share | **UNCLASSIFIED** |  |  |  |
-| `lithiumRecycledShare` | Lithium Recycled Share | **UNCLASSIFIED** |  |  |  |
-| `manufacturerIdentifier` | Manufacturer Identifier | **Restricted** | 🔒 eli/reg/2023/1542 |  |  |
-| `manufacturingPlace` | Manufacturing Place | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `materialComposition` | Material Composition | **UNCLASSIFIED** |  |  |  |
-| `materialRecoveryTargets` | Material Recovery Targets | **UNCLASSIFIED** |  |  |  |
-| `materialSupplier` | Material Supplier | **UNCLASSIFIED** |  |  |  |
-| `maximumChargingCurrent` | Maximum Charging Current | **UNCLASSIFIED** |  |  |  |
-| `maximumChargingPower` | Maximum Charging Power | **UNCLASSIFIED** |  |  |  |
-| `maximumDischargingCurrent` | Maximum Discharging Current | **UNCLASSIFIED** |  |  |  |
-| `maximumDischargingPower` | Maximum Discharging Power | **UNCLASSIFIED** |  |  |  |
-| `maximumPermittedBatteryPower` | Maximum Permitted Battery Power | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `maximumTemperature` | Maximum Temperature | **UNCLASSIFIED** |  |  |  |
-| `maximumVoltage` | Maximum Voltage | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `measurementCertificateUrl` | Measurement Certificate URL | **UNCLASSIFIED** |  |  |  |
-| `mimeType` | MIME Type | **UNCLASSIFIED** |  |  |  |
-| `minimumTemperature` | Minimum Temperature | **UNCLASSIFIED** |  |  |  |
-| `minimumVoltage` | Minimum Voltage | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `negativeEvents` | Negative Events | **UNCLASSIFIED** |  |  |  |
-| `nextScheduledMeasurement` | Next Scheduled Measurement | **UNCLASSIFIED** |  |  |  |
-| `nickelPostConsumerShare` | Nickel Post-Consumer Recycled Share | **UNCLASSIFIED** |  |  |  |
-| `nickelPreConsumerShare` | Nickel Pre-Consumer Recycled Share | **UNCLASSIFIED** |  |  |  |
-| `nickelRecycledShare` | Nickel Recycled Share | **UNCLASSIFIED** |  |  |  |
-| `nominalVoltage` | Nominal Voltage | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `note` | Note | **UNCLASSIFIED** |  |  |  |
-| `notifiedBody` | Notified Body | **UNCLASSIFIED** |  |  |  |
-| `notifiedBodyName` | Notified Body Name | **UNCLASSIFIED** |  |  |  |
-| `notifiedBodyNumber` | Notified Body Number | **UNCLASSIFIED** |  |  |  |
-| `numberOfCells` | Number of Cells | **UNCLASSIFIED** |  |  |  |
-| `numberOfFullCycles` | Number of Full Cycles | **UNCLASSIFIED** |  |  |  |
-| `numberOfModules` | Number of Modules | **UNCLASSIFIED** |  |  |  |
-| `operatorIdentifier` | Economic Operator Identifier | **UNCLASSIFIED** |  |  |  |
-| `operatorInformation` | Economic Operator Information | **UNCLASSIFIED** |  |  |  |
-| `operatorRole` | Operator Role | **UNCLASSIFIED** |  |  |  |
-| `originalPowerCapability` | Original Power Capability | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `powerCapability` | Power Capability | **UNCLASSIFIED** |  |  |  |
-| `powerCapabilityAt20SoC` | Power Capability at 20% SoC | **UNCLASSIFIED** |  |  |  |
-| `powerCapabilityAt80SoC` | Power Capability at 80% SoC | **UNCLASSIFIED** |  |  |  |
-| `powerCapabilityRatio` | Power Capability Ratio | **UNCLASSIFIED** |  |  |  |
-| `powerFade` | Power Fade | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 |  |  |
-| `previousApplications` | Previous Applications | **UNCLASSIFIED** |  |  |  |
-| `puttingIntoService` | Putting Into Service | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 |  |  |
-| `ratedCapacity` | Rated Capacity | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `ratedEnergy` | Rated Energy | **UNCLASSIFIED** |  |  |  |
-| `ratedMaximumPower` | Rated Maximum Power | **UNCLASSIFIED** |  |  |  |
-| `recommendedAction` | Recommended Action | **UNCLASSIFIED** |  |  |  |
-| `recoveryMaterial` | Recovery Material | **UNCLASSIFIED** |  |  |  |
-| `recoveryRate` | Recovery Rate | **UNCLASSIFIED** |  |  |  |
-| `recyclabilityRate` | Recyclability Rate | **UNCLASSIFIED** |  |  |  |
-| `recycledContent` | Recycled Content | **UNCLASSIFIED** |  |  |  |
-| `remainingCapacity` | Remaining Capacity | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 |  |  |
-| `remainingEnergy` | Remaining Energy | **UNCLASSIFIED** |  |  |  |
-| `remainingPowerCapability` | Remaining Power Capability | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 |  |  |
-| `remainingRoundTripEfficiency` | Remaining Round Trip Efficiency | **UNCLASSIFIED** |  |  |  |
-| `remainingUsableEnergy` | Remaining Usable Energy | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 |  |  |
-| `renewableContent` | Renewable Content | **UNCLASSIFIED** |  |  |  |
-| `renewableContentShare` | Renewable Content Share | **Public** | 🔒 eli/reg/2023/1542 |  |  |
-| `repurposingDate` | Repurposing Date | **UNCLASSIFIED** |  |  |  |
-| `repurposingEntity` | Repurposing Entity | **UNCLASSIFIED** |  |  |  |
-| `repurposingGuidelines` | Repurposing Guidelines | **UNCLASSIFIED** |  |  |  |
-| `repurposingPotential` | Repurposing Potential | **UNCLASSIFIED** |  |  |  |
-| `resistanceIncreaseThreshold` | Resistance Increase Threshold | **UNCLASSIFIED** |  |  |  |
-| `responsibleSourcingStandard` | Responsible Sourcing Standard | **UNCLASSIFIED** |  |  |  |
-| `resultOfTestReport` | Result of Test Report URL | **UNCLASSIFIED** |  |  |  |
-| `riskAssessmentSummary` | Risk Assessment Summary | **UNCLASSIFIED** |  |  |  |
-| `roundTripEfficiency` | Round Trip Efficiency | **UNCLASSIFIED** |  |  |  |
-| `roundTripEfficiencyAt50PercentCycleLife` | Round Trip Efficiency at 50% Cycle Life | **UNCLASSIFIED** |  |  |  |
-| `roundTripEfficiencyFade` | Round Trip Efficiency Fade | **UNCLASSIFIED** |  |  |  |
-| `roundTripEnergyEfficiency` | Round-Trip Energy Efficiency | **UNCLASSIFIED** |  |  |  |
-| `safetyInstructions` | Safety Instructions | **UNCLASSIFIED** |  |  |  |
-| `safetyInstructionsForDismantling` | Safety Instructions for Dismantling | **UNCLASSIFIED** |  |  |  |
-| `safetyMeasures` | Safety Measures | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 |  |  |
-| `selfDischargeRate` | Self Discharge Rate | **UNCLASSIFIED** |  |  |  |
-| `separateCollection` | Separate Collection | **UNCLASSIFIED** |  |  |  |
-| `separateCollectionSymbolUrl` | Separate Collection Symbol URL | **UNCLASSIFIED** |  |  |  |
-| `shippingName` | Proper Shipping Name | **UNCLASSIFIED** |  |  |  |
-| `soceMeasurementId` | SOCE Measurement ID | **UNCLASSIFIED** |  |  |  |
-| `spareParts` | Spare Parts | **UNCLASSIFIED** |  |  |  |
-| `sparePartSources` | Spare Part Sources | **UNCLASSIFIED** |  |  |  |
-| `stateOfCertifiedEnergy` | State of Certified Energy | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 |  |  |
-| `stateOfCharge` | State of Charge | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 |  |  |
-| `stateOfChargeLevel` | State of Charge Level | **UNCLASSIFIED** |  |  |  |
-| `stateOfHealth` | State of Health | **UNCLASSIFIED** |  |  |  |
-| `substanceCasNumber` | Substance CAS Number | **UNCLASSIFIED** |  |  |  |
-| `substanceEcNumber` | Substance EC Number | **UNCLASSIFIED** |  |  |  |
-| `substanceLocation` | Substance Location | **UNCLASSIFIED** |  |  |  |
-| `supplierContact` | Supplier Contact | **UNCLASSIFIED** |  |  |  |
-| `supplyChainDueDiligence` | Supply Chain Due Diligence | **UNCLASSIFIED** |  |  |  |
-| `supplyChainIndex` | Supply Chain Index | **UNCLASSIFIED** |  |  |  |
-| `supplyChainMappingAvailable` | Supply Chain Mapping Available | **UNCLASSIFIED** |  |  |  |
-| `technicalSpecifications` | Technical Specifications | **UNCLASSIFIED** |  |  |  |
-| `temperatureExcursionId` | Temperature Excursion ID | **UNCLASSIFIED** |  |  |  |
-| `temperatureExcursionReportUrl` | Temperature Excursion Report URL | **UNCLASSIFIED** |  |  |  |
-| `temperatureRangeCharging` | Temperature Range - Charging | **UNCLASSIFIED** |  |  |  |
-| `temperatureRangeDischarging` | Temperature Range - Discharging | **UNCLASSIFIED** |  |  |  |
-| `temperatureRangeIdleState` | Temperature Range - Idle State | **UNCLASSIFIED** |  |  |  |
-| `temperatureRangeStorage` | Temperature Range - Storage | **UNCLASSIFIED** |  |  |  |
-| `testReportNumber` | Test Report Number | **UNCLASSIFIED** |  |  |  |
-| `thirdPartyAssurancesUrl` | Third Party Assurances URL | **UNCLASSIFIED** |  |  |  |
-| `thirdPartyVerification` | Third Party Verification | **UNCLASSIFIED** |  |  |  |
-| `timeSpentChargingDuringExtremeTemperaturesAboveBoundary` | Time Spent Charging During Extreme Temperatures Above Boundary | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 |  |  |
-| `timeSpentChargingDuringExtremeTemperaturesBelowBoundary` | Time Spent Charging During Extreme Temperatures Below Boundary | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 |  |  |
-| `timeSpentInExtremeTemperaturesAboveBoundary` | Time Spent in Extreme Temperatures Above Boundary | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 |  |  |
-| `timeSpentInExtremeTemperaturesBelowBoundary` | Time Spent in Extreme Temperatures Below Boundary | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 |  |  |
-| `transportationSafetyClass` | Transportation Safety Class | **UNCLASSIFIED** |  |  |  |
-| `transportConditions` | Transport Conditions | **UNCLASSIFIED** |  |  |  |
-| `verificationBody` | Verification Body | **UNCLASSIFIED** |  |  |  |
-| `verificationBodyName` | Verification Body Name | **UNCLASSIFIED** |  |  |  |
-| `verificationCertificateUrl` | Verification Certificate URL | **UNCLASSIFIED** |  |  |  |
-| `verificationDate` | Verification Date | **UNCLASSIFIED** |  |  |  |
-| `verificationStandard` | Verification Standard | **UNCLASSIFIED** |  |  |  |
-| `warrantyConditions` | Warranty Conditions | **UNCLASSIFIED** |  |  |  |
-| `wastePrevention` | Waste Prevention | **UNCLASSIFIED** |  |  |  |
+| `absoluteCarbonFootprint` | Absolute Carbon Footprint | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | The non-normalised total CF only restates the public Art. 7/Annex XIII(1)(c) figure in absolute terms and stays in the public CF block. |
+| `anodeActiveMaterial` | Anode Active Material | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(2)(a): anode materials are part of the detailed composition reserved for persons with a legitimate interest. |
+| `atSoC` | Test Condition: at State of Charge | **(inherited)** |  |  |  |
+| `auditBody` | Audit Body | **Public** |  | eli/reg/2023/1542 | Art. 51 third-party verification is what makes the Art. 52(3) public report credible, so naming the auditor is public like eubat:verificationBody. |
+| `authorizedServiceCenters` | Authorized Service Centers | **AuthorizedOnly** |  | eli/reg/2023/1542 | Service-center listings extend the Annex XIII(2)(b) spare-part/repair sourcing information addressed to professional repairers. |
+| `batteryChemistry` | Battery Chemistry | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(a) via Annex VI Part A: the general battery chemistry is public passport data — only the detailed cathode/anode/electrolyte composition moves to Annex XIII(2)(a). |
+| `batteryMass` | Battery Mass | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(a) via Annex VI Part A: the weight of the battery is public labelling information. |
+| `batteryModelIdentifier` | Battery Model Identifier | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(a) via Annex VI Part A: battery model/type identification is public labelling information. |
+| `batteryPassportIdentifier` | Battery Passport Identifier | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 77(3): the unique passport identifier is the public entry point resolved from the QR code and cannot itself be gated. |
+| `cadmiumSymbolRequired` | Cadmium Symbol Required | **Public** |  | eli/reg/2023/1542 | The Cd mark above 0.002 % cadmium is mandatory public labelling (Art. 13(6)/Annex VI Part B), so the flag restates on-battery information. |
+| `calculationStandard` | Calculation Standard | **Public** |  | eli/reg/2023/1542 | The calculation standard is methodology metadata of the public CF declaration required to interpret the public figure (Art. 7/Annex II). |
+| `capacityFade` | Capacity Fade | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part A: measured capacity fade is battery-individual degradation state for the Art. 14 legitimate-interest audience. |
+| `capacityFadeThreshold` | Capacity Fade Threshold | **Public** |  | eli/reg/2023/1542 | The capacity-fade level that defines rated cycle life is part of the public declared durability ratings (Annex IV Part A), not battery-individual state. |
+| `capacityThresholdForExhaustion` | Capacity Threshold for Exhaustion | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(k): the capacity threshold for exhaustion is public battery-passport data. |
+| `capacityThroughput` | Capacity Throughput | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part B: cumulative capacity throughput is battery-individual usage data for the Art. 14 legitimate-interest audience. |
+| `carbonFootprintDeclaration` | Carbon Footprint Declaration | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 7(1)/Annex XIII(1)(c): the carbon footprint declaration accompanies the battery publicly; dpp-core serves the same name Public. |
+| `carbonFootprintDeclarationId` | Carbon Footprint Declaration ID | **(inherited)** |  |  |  |
+| `carbonFootprintDistribution` | Carbon Footprint - Distribution | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 7(1)(e): the CF share of the distribution stage is part of the public declaration; dpp-core serves the same name Public. |
+| `carbonFootprintGeographicScope` | Carbon Footprint Geographic Scope | **Public** |  | eli/reg/2023/1542 | The geographic scope is methodology metadata of the public CF declaration and must be visible for the public figure to be interpretable (Art. 7/Annex II). |
+| `carbonFootprintPerformanceClass` | Carbon Footprint Performance Class | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 7(2)/Annex XIII(1)(c): the CF performance class is public labelling information. |
+| `carbonFootprintProduction` | Carbon Footprint - Production | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 7(1)(e): the CF share of the production stage is part of the public declaration; dpp-core serves the same name Public. |
+| `carbonFootprintRawMaterialExtraction` | Carbon Footprint - Raw Material Extraction | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 7(1)(e): the CF share of the raw-material acquisition stage is part of the public declaration. |
+| `carbonFootprintRecycling` | Carbon Footprint - Recycling | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 7(1)(e): the CF share of the end-of-life/recycling stage is part of the public declaration. |
+| `carbonFootprintStudyUrl` | Carbon Footprint Study URL | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 7(1)(f): a web link to the public version of the CF study is mandatory public data; dpp-core serves the same name Public. |
+| `carbonFootprintTotal` | Carbon Footprint Total | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 7(1)(d)/Annex XIII(1)(c): the lifecycle CF per kWh is the headline public figure of the declaration; dpp-core serves the same name Public. |
+| `casNumber` | CAS Number | **AuthorizedOnly** |  | eli/reg/2023/1542 | CAS numbers inside the material breakdown enable formulation reconstruction and belong to the Annex XIII(2)(a) detail tier; dpp-core serves the same name AuthorizedOnly. |
+| `cathodeActiveMaterial` | Cathode Active Material | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(2)(a): cathode materials are part of the detailed composition reserved for persons with a legitimate interest. |
+| `cellType` | Cell Type | **Public** |  | eli/reg/2023/1542 | The cell form factor (cylindrical/prismatic/pouch) is catalogue-level product data with no confidentiality content, aligned with the public Annex XIII(1) identification block (DIN DKE SPEC 99100 extension). |
+| `ceMarkingIndicator` | CE Marking Indicator | **Public** |  | eli/reg/2023/1542 | The CE marking is affixed visibly on the battery itself (Arts. 19-20), so the indicator restates public information. |
+| `certifiedUsableEnergy` | Certified Usable Energy | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1): the certified usable battery energy is a public rated value against which SoCE is later judged. |
+| `cobaltPostConsumerShare` | Cobalt Post-Consumer Recycled Share | **Public** |  | eli/reg/2023/1542 | Post-consumer breakdown of the public Art. 8 cobalt share per the recycled-content calculation methodology; stays in the public block. |
+| `cobaltPreConsumerShare` | Cobalt Pre-Consumer Recycled Share | **Public** |  | eli/reg/2023/1542 | Pre-consumer breakdown of the public Art. 8 cobalt share per the recycled-content calculation methodology; stays in the public block. |
+| `cobaltRecycledShare` | Cobalt Recycled Share | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 8(1): the share of cobalt recovered from waste is a publicly documented percentage. |
+| `complianceStatus` | Compliance Status | **Public** |  | eli/reg/2023/1542 | Compliance assertions exist to be shown to buyers and authorities alike, mirroring the public EU declaration of conformity (Annex XIII(1)(r)); dpp-core serves the same name Public. |
+| `componentLocation` | Component Location | **AuthorizedOnly** |  | eli/reg/2023/1542 | Where a material sits in the battery (cathode/anode/electrolyte) is Annex XIII(2)(a) composition detail for professional users. |
+| `concentration` | Concentration | **AuthorizedOnly** |  | eli/reg/2023/1542 | Annex VI Part A discloses hazardous-substance presence publicly, but exact concentrations are Annex XIII(2)(a) composition detail; dpp-core serves the same name AuthorizedOnly. |
+| `conflictMineralFree` | Conflict Mineral Free | **Public** |  | eli/reg/2023/1542 | A conflict-mineral-free declaration is a public-facing assertion of the due-diligence outcome (Arts. 47-52), analogous to oec:forcedLabourFreeAssertion (Public). |
+| `cRate` | C-Rate | **Public** |  | eli/reg/2023/1542 | Annex XIII(1)(p): the C-rate of the relevant cycle-life test is public battery-passport data. |
+| `cRateLifeCycleTest` | C-Rate Life Cycle Test | **Public** |  | eli/reg/2023/1542 | Annex XIII(1)(p): the C-rate applied in the cycle-life test is public battery-passport data. |
+| `criticalRawMaterialsStatement` | Critical Raw Materials Statement | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(a) via Annex VI Part A: critical raw materials present above 0.1 % w/w must be stated publicly; only the per-material CRM flags inside the detailed composition are AuthorizedOnly. |
+| `currentSelfDischargingRate` | Current Self-Discharging Rate | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part A: the current self-discharge rate is battery-individual health state for the Art. 14 legitimate-interest audience. |
+| `cycleCount` | Cycle Count | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part B: the number of charge-discharge cycles is battery-individual usage data for the Art. 14 legitimate-interest audience. |
+| `dangerousGoodsPackingInstructions` | Dangerous Goods Packing Instructions | **Public** |  | eli/reg/2023/1542 | IATA/ADR/IMDG packing-instruction codes are standardised public transport-safety information any shipper must see (DIN DKE SPEC 99100 extension). |
+| `dataProviderCertification` | Data Provider Certification | **AuthorizedOnly** |  | eli/reg/2023/1542 | Provider accreditation detail supports authority and auditor verification of the data pipeline; dpp-core serves the same name AuthorizedOnly. |
+| `dataQualityAssessment` | Data Quality Assessment | **AuthorizedOnly** |  | eli/reg/2023/1542 | A-E data-quality ratings qualify professional use of the passport data; dpp-core serves the same name AuthorizedOnly. |
+| `declarationOfConformity` | Declaration of Conformity URL | **(inherited)** |  |  |  |
+| `depthOfDischargeInCycleLifeTest` | Depth of Discharge in Cycle Life Test | **Public** |  | eli/reg/2023/1542 | The depth of discharge used in the cycle-life test is a public reference test condition that makes the public lifetime ratings interpretable (Annex XIII(1)(j)). |
+| `dismantlingAndRemovalInformation` | Dismantling and Removal Information | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(2)(c): dismantling information including disassembly sequences and removal instructions is reserved for persons with a legitimate interest. |
+| `dismantlingDocuments` | Dismantling Documents | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(2)(c): the exploded diagrams and supporting documents ARE the dismantling information reserved for the legitimate-interest audience (structured per DIN DKE SPEC 99100). |
+| `dismantlingInstructions` | Dismantling Instructions | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(2)(c): dismantling instructions are reserved for persons with a legitimate interest; dpp-core serves the same name AuthorizedOnly. |
+| `dismantlingTime` | Estimated Dismantling Time | **AuthorizedOnly** |  | eli/reg/2023/1542 | Estimated dismantling time is planning detail for the Annex XIII(2)(c) dismantling audience (DIN DKE SPEC 99100 extension). |
+| `documentType` | Document Type | **(inherited)** |  |  |  |
+| `documentUrl` | Document URL | **(inherited)** |  |  |  |
+| `dueDiligencePolicyUrl` | Due Diligence Policy URL | **Public** |  | eli/reg/2023/1542 | Art. 48(2) requires the due-diligence policy to be communicated, and the Art. 52(3) public report covers it, so the policy link is public. |
+| `dueDiligenceReportUrl` | Due Diligence Report URL | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 52(3): operators must publicly report on their battery due-diligence policy, so the report link is public data. |
+| `ecNumber` | EC Number | **AuthorizedOnly** |  | eli/reg/2023/1542 | EC numbers inside the material breakdown are formulation-level identifiers under Annex XIII(2)(a); dpp-core and eutex serve the same name AuthorizedOnly. |
+| `electrolyteComposition` | Electrolyte Composition | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(2)(a): electrolyte materials are part of the detailed composition reserved for persons with a legitimate interest. |
+| `electrolyteType` | Electrolyte Type | **AuthorizedOnly** |  | eli/reg/2023/1542 | The electrolyte type qualifies the Annex XIII(2)(a) electrolyte detail block; the public chemistry disclosure is already covered by eubat:batteryChemistry. |
+| `endOfLifeInfo` | End of Life Information | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(s): information on prevention and management of waste batteries per Art. 74(1)(a)-(f) is public battery-passport data. |
+| `energyThroughput` | Energy Throughput | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part B: cumulative energy throughput is battery-individual usage data for the Art. 14 legitimate-interest audience. |
+| `estimatedImpact` | Estimated Impact | **AuthorizedOnly** |  | eli/reg/2023/1542 | The estimated health impact of a temperature excursion feeds the Annex VII SoH evaluation for the Art. 14 audience. |
+| `euDeclarationOfConformity` | EU Declaration of Conformity | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(r): the EU declaration of conformity is public battery-passport data; eutex serves the same name Public. |
+| `euDeclarationOfConformityId` | EU Declaration of Conformity ID | **(inherited)** |  |  |  |
+| `eventDate` | Event Date | **AuthorizedOnly** |  | eli/reg/2023/1542 | When a negative event occurred is Annex VII Part B accident history evaluated by the Art. 14 legitimate-interest audience. |
+| `eventLocation` | Event Location | **AuthorizedOnly** |  | eli/reg/2023/1542 | Where a negative event occurred is Annex VII Part B accident-history detail for the Art. 14 audience. |
+| `eventType` | Event Type | **AuthorizedOnly** |  | eli/reg/2023/1542 | The kind of negative event (thermal event, deep discharge, ...) is Annex VII Part B accident history for the Art. 14 audience. |
+| `evolutionOfSelfDischarge` | Evolution of Self Discharge | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part A: the evolution of self-discharge is battery-individual degradation state for the Art. 14 legitimate-interest audience. |
+| `exceedanceThreshold` | Exceedance Threshold | **(inherited)** |  |  |  |
+| `exhaustionThreshold` | Exhaustion Threshold | **Public** |  | eli/reg/2023/1542 | Duplicate expression of the public exhaustion threshold (Annex XIII(1)(k)); tier kept identical to eubat:capacityThresholdForExhaustion. |
+| `expectedCycleLife` | Expected Cycle Life | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(j): expected lifetime expressed in cycles under reference test conditions is public battery-passport data. |
+| `expectedLifetime` | Expected Lifetime | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(j): the expected battery lifetime under reference conditions is public battery-passport data. |
+| `expectedLifetimeCapacityThroughput` | Expected Lifetime Capacity Throughput | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex IV Part A/Annex XIII(1)(j): the declared lifetime capacity throughput is a public durability rating. |
+| `expectedLifetimeEnergyThroughput` | Expected Lifetime Energy Throughput | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex IV Part A/Annex XIII(1)(j): the declared lifetime energy throughput is a public durability rating. |
+| `expectedLifetimeYears` | Expected Lifetime (Years) | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(j): expected calendar lifetime is a public declared durability value; eutex serves the same name Public. |
+| `expectedNumberOfCycles` | Expected Number of Cycles | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(j): the manufacturer-declared expected number of full cycles is public battery-passport data. |
+| `expectedRemainingCycles` | Expected Remaining Cycles | **AuthorizedOnly** |  | eli/reg/2023/1542 | Estimated remaining cycles derive from the AuthorizedOnly SoH state and serve the Art. 14 expected-lifetime evaluation, unlike the public declared cycle-life rating. |
+| `expectedRemainingLifetimeMonths` | Expected Remaining Lifetime (Months) | **AuthorizedOnly** |  | eli/reg/2023/1542 | Estimated remaining lifetime derives from the AuthorizedOnly SoH state and serves the Art. 14 expected-lifetime evaluation, unlike the public declared lifetime rating. |
+| `exposureDurationMinutes` | Exposure Duration (Minutes) | **AuthorizedOnly** |  | eli/reg/2023/1542 | Per-excursion exposure duration is the granular form of the Annex VII Part B extreme-temperature history served to the Art. 14 audience. |
+| `exposureEndTime` | Exposure End Time | **AuthorizedOnly** |  | eli/reg/2023/1542 | Per-excursion timing is the granular form of the Annex VII Part B extreme-temperature history served to the Art. 14 audience. |
+| `extendedWarrantyAvailable` | Extended Warranty Available | **Public** |  | eli/reg/2023/1542 | Availability of an extended warranty is purchase-decision information for consumers, alongside the public Annex XIII(1)(m) warranty period. |
+| `extinguishingAgent` | Extinguishing Agent | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VI Part A/Annex XIII(1)(a): the usable extinguishing agent must be publicly stated — first responders cannot authenticate before acting. |
+| `facilityIdentifier` | Facility Identifier | **Restricted** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Internal facility identifiers (GLN of the plant) map the physical supply chain for notified bodies and surveillance — the public sees the manufacturing place itself via eubat:manufacturingPlace; matches oec:facilityId (Restricted). |
+| `functionalUnit` | Functional Unit | **Public** |  | eli/reg/2023/1542 | The functional unit is methodology metadata of the public CF declaration required to interpret the public figure (Art. 7/Annex II). |
+| `hasBattery` | Has Battery | **Public** |  | eli/reg/2023/1542 | The product-to-battery link only enables passport discovery from the containing product and reveals no data beyond what each linked passport tier gates itself (Art. 77(2)). |
+| `hazardClass` | Hazard Class | **Public** |  | eli/reg/2023/1542 | CLP hazard classes drive mandatory public label elements and qualify the public hazardous-substances disclosure; dpp-core serves the same name Public. |
+| `hazardImpact` | Hazard Impact | **(inherited)** |  |  |  |
+| `hazardousSubstances` | Hazardous Substances | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(a) via Annex VI Part A: hazardous substances contained in the battery beyond Hg/Cd/Pb must be disclosed publicly; dpp-core serves the same name Public. |
+| `incidentId` | Incident ID | **(inherited)** |  |  |  |
+| `incidentReportUrl` | Incident Report URL | **Restricted** |  | eli/reg/2023/1542 | Full incident reports function as safety submissions evaluated by market surveillance authorities (Chapter IX), beyond the Annex VII accident summary served to the Art. 14 audience. |
+| `incidentSeverity` | Incident Severity | **AuthorizedOnly** |  | eli/reg/2023/1542 | Severity grading qualifies the Annex VII Part B accident record for repurposers and recyclers judging reusability. |
+| `informationOnCollection` | Information on Collection | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 74(1)(b)/Annex XIII(1)(s): collection points and take-back information must reach end users publicly. |
+| `initialCapacity` | Initial Capacity | **AuthorizedOnly** |  | eli/reg/2023/1542 | The capacity measured at commissioning (ILMD) is the battery-individual SoH baseline used by the Art. 14/Annex VII audience — the declared rating stays public separately. |
+| `initialEnergy` | Initial Energy | **AuthorizedOnly** |  | eli/reg/2023/1542 | The energy measured at commissioning (ILMD) is the battery-individual SoH baseline used by the Art. 14/Annex VII audience — the declared rating stays public separately. |
+| `initialInternalResistance` | Initial Internal Resistance | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(o): internal cell/pack resistance as a declared parameter is public battery-passport data. |
+| `initialSelfDischarge` | Initial Self Discharge | **Public** |  | eli/reg/2023/1542 | The initial (declared) self-discharge rate belongs to the public Annex IV Part A performance ratings — only its measured evolution is BMS state data under Annex XIII(4). |
+| `inspectorId` | Inspector ID | **AuthorizedOnly** |  | eli/reg/2023/1542 | The assessing inspector's identifier is operational bookkeeping of the Annex VII Part B accident record; it names a person and has no public function. |
+| `internalResistance` | Internal Resistance | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | The current measured internal resistance is Annex VII health state — only the initial declared value (eubat:initialInternalResistance) is public under Annex XIII(1)(o). |
+| `internalResistanceIncrease` | Internal Resistance Increase | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part A: measured resistance increase is battery-individual degradation state for the Art. 14 legitimate-interest audience. |
+| `isCriticalRawMaterial` | Is Critical Raw Material | **AuthorizedOnly** |  | eli/reg/2023/1542 | Per-material CRM flags serve recyclers' recovery obligations inside the Annex XIII(2)(a) composition detail — the public CRM disclosure is eubat:criticalRawMaterialsStatement; dpp-core serves the same name AuthorizedOnly. |
+| `isSubstanceOfConcern` | Is Substance of Concern | **AuthorizedOnly** |  | eli/reg/2023/1542 | The per-material SVHC flag qualifies rows of the Annex XIII(2)(a) composition detail — public presence disclosure is already served by eubat:hazardousSubstances. |
+| `labelMeaning` | Label Meaning | **(inherited)** |  |  |  |
+| `labels` | Labels | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(q): the labels and markings required by Art. 13(3)-(4) and their meaning are public battery-passport data. |
+| `labelSubject` | Label Subject | **(inherited)** |  |  |  |
+| `labelSymbol` | Label Symbol | **(inherited)** |  |  |  |
+| `languageCode` | Language Code | **Public** |  | eli/reg/2023/1542 | Language codes are rendering metadata with no confidentiality content; dpp-core serves the same name Public. |
+| `lastDataUpdate` | Last Data Update | **Public** |  | eli/reg/2023/1542 | Art. 77(7) requires the passport to stay up to date, so the update timestamp is interpretation metadata every audience needs; dpp-core serves the same name Public. |
+| `leadRecycledShare` | Lead Recycled Share | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 8(1): the share of lead recovered from waste is a publicly documented percentage (no pre/post split required for lead). |
+| `leadSymbolRequired` | Lead Symbol Required | **Public** |  | eli/reg/2023/1542 | The Pb mark above 0.004 % lead is mandatory public labelling (Art. 13(6)/Annex VI Part B), so the flag restates on-battery information. |
+| `lifecycleStage` | Lifecycle Stage | **(inherited)** |  |  |  |
+| `lifetimeReferenceTest` | Lifetime Reference Test | **Public** |  | eli/reg/2023/1542 | The reference test standard behind the public lifetime ratings must be public for those ratings to be checkable (Annex XIII(1)(j)). |
+| `lithiumPostConsumerShare` | Lithium Post-Consumer Recycled Share | **Public** |  | eli/reg/2023/1542 | Post-consumer breakdown of the public Art. 8 lithium share per the recycled-content calculation methodology; stays in the public block. |
+| `lithiumPreConsumerShare` | Lithium Pre-Consumer Recycled Share | **Public** |  | eli/reg/2023/1542 | Pre-consumer breakdown of the public Art. 8 lithium share per the recycled-content calculation methodology; stays in the public block. |
+| `lithiumRecycledShare` | Lithium Recycled Share | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 8(1): the share of lithium recovered from waste is a publicly documented percentage. |
+| `manufacturerIdentifier` | Manufacturer Identifier | **Restricted** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | The manufacturer's internal operator identifier serves authority cross-checks; public identification is already served by the Annex VI Part A manufacturer information. |
+| `manufacturingPlace` | Manufacturing Place | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(a) via Annex VI Part A: the place of manufacturing (geographical location of the plant) is public — only the internal facility identifier is tiered separately (see eubat:facilityIdentifier). |
+| `materialComposition` | Material Composition | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(2)(a): the per-material breakdown with percentages is the detailed composition reserved for persons with a legitimate interest; dpp-core serves the same name AuthorizedOnly. |
+| `materialRecoveryTargets` | Material Recovery Targets | **Public** |  | eli/reg/2023/1542 | Recovery targets restate the regulation's own Annex XII objectives and support the public Art. 74 end-of-life information. |
+| `materialSupplier` | Material Supplier | **AuthorizedOnly** |  | eli/reg/2023/1542 | Supplier identities are detailed supply-chain data behind the public Art. 52(3) report summary and serve the legitimate-interest audience. |
+| `maximumChargingCurrent` | Maximum Charging Current | **Public** |  | eli/reg/2023/1542 | Charging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension). |
+| `maximumChargingPower` | Maximum Charging Power | **Public** |  | eli/reg/2023/1542 | Charging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension). |
+| `maximumDischargingCurrent` | Maximum Discharging Current | **Public** |  | eli/reg/2023/1542 | Discharging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension). |
+| `maximumDischargingPower` | Maximum Discharging Power | **Public** |  | eli/reg/2023/1542 | Discharging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension). |
+| `maximumPermittedBatteryPower` | Maximum Permitted Battery Power | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(i): the maximum permitted battery power is a public power-capability limit. |
+| `maximumTemperature` | Maximum Temperature | **(inherited)** |  |  |  |
+| `maximumVoltage` | Maximum Voltage | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(h): the maximum voltage boundary is public battery-passport data. |
+| `measurementCertificateUrl` | Measurement Certificate URL | **AuthorizedOnly** |  | eli/reg/2023/1542 | The certificate documents an individual SoH/SOCE measurement and accompanies the Annex VII data served to the Art. 14 audience. |
+| `mimeType` | MIME Type | **(inherited)** |  |  |  |
+| `minimumTemperature` | Minimum Temperature | **(inherited)** |  |  |  |
+| `minimumVoltage` | Minimum Voltage | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(h): the minimum voltage boundary is public battery-passport data. |
+| `negativeEvents` | Negative Events | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part B: information on accidents and other negative events is battery-individual history for the Art. 14 legitimate-interest audience. |
+| `nextScheduledMeasurement` | Next Scheduled Measurement | **AuthorizedOnly** |  | eli/reg/2023/1542 | SOCE measurement scheduling is maintenance bookkeeping for the Art. 14 SoH audience, not consumer information. |
+| `nickelPostConsumerShare` | Nickel Post-Consumer Recycled Share | **Public** |  | eli/reg/2023/1542 | Post-consumer breakdown of the public Art. 8 nickel share per the recycled-content calculation methodology; stays in the public block. |
+| `nickelPreConsumerShare` | Nickel Pre-Consumer Recycled Share | **Public** |  | eli/reg/2023/1542 | Pre-consumer breakdown of the public Art. 8 nickel share per the recycled-content calculation methodology; stays in the public block. |
+| `nickelRecycledShare` | Nickel Recycled Share | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 8(1): the share of nickel recovered from waste is a publicly documented percentage. |
+| `nominalVoltage` | Nominal Voltage | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(h): nominal voltage (with its temperature boundaries) is public battery-passport data. |
+| `note` | Note | **(inherited)** |  |  |  |
+| `notifiedBody` | Notified Body | **AuthorizedOnly** |  | eli/reg/2023/1542 | The structured conformity-assessment-body record serves verification workflows; its number already appears on the public DoC document, and eucpr serves the same name AuthorizedOnly. |
+| `notifiedBodyName` | Notified Body Name | **(inherited)** |  |  |  |
+| `notifiedBodyNumber` | Notified Body Number | **(inherited)** |  |  |  |
+| `numberOfCells` | Number of Cells | **Public** |  | eli/reg/2023/1542 | Cell count is coarse pack-architecture catalogue data, not the detailed composition reserved by Annex XIII(2)(a) (DIN DKE SPEC 99100 extension). |
+| `numberOfFullCycles` | Number of Full Cycles | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part B: full equivalent cycles are battery-individual usage data for the Art. 14 legitimate-interest audience. |
+| `numberOfModules` | Number of Modules | **Public** |  | eli/reg/2023/1542 | Module count is coarse pack-architecture catalogue data, not the detailed composition reserved by Annex XIII(2)(a) (DIN DKE SPEC 99100 extension). |
+| `operatorIdentifier` | Economic Operator Identifier | **AuthorizedOnly** |  | eli/reg/2023/1542 | The economic-operator identifier (GLN/EOID) serves customs and market-surveillance cross-checks, matching oec:economicOperatorId (AuthorizedOnly). |
+| `operatorInformation` | Economic Operator Information | **AuthorizedOnly** |  | eli/reg/2023/1542 | Detailed operator records (Art. 38: name, address, contact point) serve surveillance and professional traceability; dpp-core serves the same name AuthorizedOnly. |
+| `operatorRole` | Operator Role | **AuthorizedOnly** |  | eli/reg/2023/1542 | The operator's supply-chain role maps responsibility chains for authorities and professional users; dpp-core serves the same name AuthorizedOnly. |
+| `originalPowerCapability` | Original Power Capability | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(i): original power capability (with limits and temperature boundaries) is public battery-passport data. |
+| `powerCapability` | Power Capability | **(inherited)** |  |  |  |
+| `powerCapabilityAt20SoC` | Power Capability at 20% SoC | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Current power capability at 20 % SoC is a measured expression of the Annex VII remaining-power-capability state for the Art. 14 audience. |
+| `powerCapabilityAt80SoC` | Power Capability at 80% SoC | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Current power capability at 80 % SoC is a measured expression of the Annex VII remaining-power-capability state for the Art. 14 audience. |
+| `powerCapabilityRatio` | Power Capability Ratio | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex IV Part A/Annex XIII(1)(i): the ratio between nominal allowed power (W) and battery energy (Wh) is a public declared parameter. |
+| `powerFade` | Power Fade | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part A: measured power fade is battery-individual degradation state for the Art. 14 legitimate-interest audience. |
+| `previousApplications` | Previous Applications | **AuthorizedOnly** |  | eli/reg/2023/1542 | The battery's use history informs the Art. 59/Annex XIII(4) legitimate-interest audience evaluating repurposed batteries. |
+| `puttingIntoService` | Putting Into Service | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part B: the date of putting into service is battery-individual lifecycle data for the Art. 14 legitimate-interest audience. |
+| `ratedCapacity` | Rated Capacity | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(g): the rated capacity is public battery-passport data. |
+| `ratedEnergy` | Rated Energy | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(g)/Annex IV Part A: rated energy is a declared capacity parameter in the public performance block. |
+| `ratedMaximumPower` | Rated Maximum Power | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(i)/Annex IV Part A: rated power capability is public passport data. |
+| `recommendedAction` | Recommended Action | **AuthorizedOnly** |  | eli/reg/2023/1542 | Post-incident follow-up instructions address the professional handlers of the battery, not the general public (Annex VII Part B context). |
+| `recoveryMaterial` | Recovery Material | **(inherited)** |  |  |  |
+| `recoveryRate` | Recovery Rate | **(inherited)** |  |  |  |
+| `recyclabilityRate` | Recyclability Rate | **Public** |  | eli/reg/2023/1542 | The recyclable fraction is consumer-facing circularity information in the public Art. 74 end-of-life block; dpp-core and euelec serve the same name Public. |
+| `recycledContent` | Recycled Content | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 8/Annex XIII(1)(e): recycled-content documentation for cobalt, lithium, nickel and lead is public passport data; dpp-core serves the same name Public. |
+| `remainingCapacity` | Remaining Capacity | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part A: remaining capacity is battery-individual health state for the Art. 14 legitimate-interest audience. |
+| `remainingEnergy` | Remaining Energy | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part A: remaining energy is battery-individual health state for the Art. 14 legitimate-interest audience. |
+| `remainingPowerCapability` | Remaining Power Capability | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part A: remaining power capability is battery-individual health state for the Art. 14 legitimate-interest audience. |
+| `remainingRoundTripEfficiency` | Remaining Round Trip Efficiency | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part A: remaining round-trip efficiency is battery-individual health state for the Art. 14 legitimate-interest audience. |
+| `remainingUsableEnergy` | Remaining Usable Energy | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part A: remaining usable energy is battery-individual health state for the Art. 14 legitimate-interest audience. |
+| `renewableContent` | Renewable Content | **Public** |  | eli/reg/2023/1542 | Annex XIII(1)(f): the share of renewable content is public battery-passport data. |
+| `renewableContentShare` | Renewable Content Share | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(f): the per-material renewable content share expresses the public renewable-content disclosure. |
+| `repurposingDate` | Repurposing Date | **AuthorizedOnly** |  | eli/reg/2023/1542 | Repurposing lifecycle bookkeeping belongs to the Art. 59 status history evaluated by the legitimate-interest audience. |
+| `repurposingEntity` | Repurposing Entity | **AuthorizedOnly** |  | eli/reg/2023/1542 | The operator that repurposed the battery is responsibility-chain detail for the Art. 59 audience and authorities, like oec:operatorInformation. |
+| `repurposingGuidelines` | Repurposing Guidelines | **AuthorizedOnly** |  | eli/reg/2023/1542 | Art. 59(1): information relevant for repurposing and preparation for repurposing is granted to legitimate-interest operators, not the general public. |
+| `repurposingPotential` | Repurposing Potential | **AuthorizedOnly** |  | eli/reg/2023/1542 | Second-life suitability assessments serve repurposers and remanufacturers under Art. 59, based on the AuthorizedOnly SoH data. |
+| `resistanceIncreaseThreshold` | Resistance Increase Threshold | **Public** |  | eli/reg/2023/1542 | The resistance-increase level that defines rated cycle life is part of the public declared durability ratings (Annex IV Part A), not battery-individual state. |
+| `responsibleSourcingStandard` | Responsible Sourcing Standard | **Public** |  | eli/reg/2023/1542 | Naming the due-diligence scheme followed (Art. 50 recognised schemes) is part of the public policy communication. |
+| `resultOfTestReport` | Result of Test Report URL | **Restricted** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(3): results of test reports proving compliance are accessible only to notified bodies, market surveillance authorities and the Commission. |
+| `riskAssessmentSummary` | Risk Assessment Summary | **Public** |  | eli/reg/2023/1542 | Art. 52(3): the public due-diligence report summarises identified supply-chain risks and their mitigation, so the summary (not the underlying data) is public. |
+| `roundTripEfficiency` | Round Trip Efficiency | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(1)(n): the initial round-trip energy efficiency is public battery-passport data. |
+| `roundTripEfficiencyAt50PercentCycleLife` | Round Trip Efficiency at 50% Cycle Life | **Public** |  | eli/reg/2023/1542 | Annex XIII(1)(n): round-trip efficiency expected at 50 % of cycle life is a public declared value. |
+| `roundTripEfficiencyFade` | Round Trip Efficiency Fade | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part A: measured efficiency fade is battery-individual degradation state for the Art. 14 legitimate-interest audience. |
+| `roundTripEnergyEfficiency` | Round-Trip Energy Efficiency | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | The current measured round-trip efficiency is Annex VII health state — only the initial declared value (eubat:roundTripEfficiency) is public. |
+| `safetyInstructions` | Safety Instructions | **Public** |  | eli/reg/2023/1542 | General safe-use and handling instructions address end users (Art. 74(1)(f)); only dismantling-specific safety measures are reserved to Annex XIII(2)(d). |
+| `safetyInstructionsForDismantling` | Safety Instructions for Dismantling | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(2)(d): safety measures for the dismantling process address trained professionals, not the general public. |
+| `safetyMeasures` | Safety Measures | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(2)(d): end-of-life handling safety measures accompany the dismantling information for the legitimate-interest audience. |
+| `selfDischargeRate` | Self Discharge Rate | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part A: the current self-discharge rate is battery-individual health state for the Art. 14 legitimate-interest audience. |
+| `separateCollection` | Separate Collection | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 74(1)(a)/Annex XIII(1)(s): end users' role in separate collection is public waste-prevention information. |
+| `separateCollectionSymbolUrl` | Separate Collection Symbol URL | **Public** |  | eli/reg/2023/1542 | The crossed-out wheeled bin is the mandatory separate-collection symbol printed on every battery (Art. 13(5)/Annex VI Part B). |
+| `shippingName` | Proper Shipping Name | **Public** |  | eli/reg/2023/1542 | The UN proper shipping name appears on public transport documents and package markings (DIN DKE SPEC 99100 extension). |
+| `soceMeasurementId` | SOCE Measurement ID | **(inherited)** |  |  |  |
+| `spareParts` | Spare Parts | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(2)(b): part numbers for components are reserved for persons with a legitimate interest. |
+| `sparePartSources` | Spare Part Sources | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(2)(b): sources for spare parts are reserved for persons with a legitimate interest. |
+| `stateOfCertifiedEnergy` | State of Certified Energy | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part A: SoCE is battery-individual health state for the Art. 14 legitimate-interest audience. |
+| `stateOfCharge` | State of Charge | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part A: state of charge is battery-individual BMS data for the Art. 14 legitimate-interest audience. |
+| `stateOfChargeLevel` | State of Charge Level | **(inherited)** |  |  |  |
+| `stateOfHealth` | State of Health | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 14(1)/Annex VII: state-of-health data is BMS-readable for the legitimate-interest audience, not the general public. |
+| `substanceCasNumber` | Substance CAS Number | **Public** |  | eli/reg/2023/1542 | The CAS number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike eubat:casNumber it carries no formulation context. |
+| `substanceEcNumber` | Substance EC Number | **Public** |  | eli/reg/2023/1542 | The EC number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike eubat:ecNumber it carries no formulation context. |
+| `substanceLocation` | Substance Location | **AuthorizedOnly** |  | eli/reg/2023/1542 | Where a hazardous substance sits in the battery is dismantling/processing detail for waste operators (Annex XIII(2)); dpp-core serves the same name AuthorizedOnly. |
+| `supplierContact` | Supplier Contact | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex XIII(2)(b): contact details of spare-part sources are part of the legitimate-interest spare-parts information. |
+| `supplyChainDueDiligence` | Supply Chain Due Diligence | **Public** |  | eli/reg/2023/1542 | The container must be publicly reachable so the Art. 52(3) public report link inside it is servable; sensitive members carry their own stricter tiers. |
+| `supplyChainIndex` | Supply Chain Index | **AuthorizedOnly** |  | eli/reg/2023/1542 | A proprietary supply-chain score is detailed chain data behind the public Art. 52(3) report summary, for the legitimate-interest audience. |
+| `supplyChainMappingAvailable` | Supply Chain Mapping Available | **Public** |  | eli/reg/2023/1542 | The boolean only advertises that detailed mapping exists; the mapping data itself stays with the legitimate-interest audience. |
+| `technicalSpecifications` | Technical Specifications | **Public** |  | eli/reg/2023/1542 | Container for the Annex IV Part A rated performance and durability parameters that Annex XIII(1)(g)-(p) makes public. |
+| `temperatureExcursionId` | Temperature Excursion ID | **(inherited)** |  |  |  |
+| `temperatureExcursionReportUrl` | Temperature Excursion Report URL | **AuthorizedOnly** |  | eli/reg/2023/1542 | The excursion report documents condition history for downstream evaluators (repurposers, recyclers) under Art. 14, unlike authority incident submissions. |
+| `temperatureRangeCharging` | Temperature Range - Charging | **Public** |  | eli/reg/2023/1542 | Annex XIII(1)(h)-(i) publish voltage/power values together with their temperature boundaries, so the charging temperature window is public rating data. |
+| `temperatureRangeDischarging` | Temperature Range - Discharging | **Public** |  | eli/reg/2023/1542 | Annex XIII(1)(h)-(i) publish voltage/power values together with their temperature boundaries, so the discharging temperature window is public rating data. |
+| `temperatureRangeIdleState` | Temperature Range - Idle State | **Public** |  | eli/reg/2023/1542 | Annex XIII(1)(l): the temperature range the battery can withstand when not in use is public battery-passport data. |
+| `temperatureRangeStorage` | Temperature Range - Storage | **Public** |  | eli/reg/2023/1542 | Annex XIII(1)(l): storage temperature boundaries are public data the end user needs for safe keeping of the battery. |
+| `testReportNumber` | Test Report Number | **Restricted** |  | eli/reg/2023/1542 | The report identifier belongs to the Annex XIII(3) compliance test reports and has no function outside the authority audience. |
+| `thirdPartyAssurancesUrl` | Third Party Assurances URL | **Public** |  | eli/reg/2023/1542 | Third-party assurance links substantiate the public due-diligence claims and are public by function; dpp-core serves the same name Public. |
+| `thirdPartyVerification` | Third Party Verification | **Public** |  | eli/reg/2023/1542 | Third-party verification details are what make the public CF declaration checkable, mirroring the public verification terms in dpp-core (Art. 7/Annex II). |
+| `timeSpentChargingDuringExtremeTemperaturesAboveBoundary` | Time Spent Charging During Extreme Temperatures Above Boundary | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part B: charging-in-extreme-temperature history is battery-individual usage data for the Art. 14 legitimate-interest audience. |
+| `timeSpentChargingDuringExtremeTemperaturesBelowBoundary` | Time Spent Charging During Extreme Temperatures Below Boundary | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part B: charging-in-extreme-temperature history is battery-individual usage data for the Art. 14 legitimate-interest audience. |
+| `timeSpentInExtremeTemperaturesAboveBoundary` | Time Spent in Extreme Temperatures Above Boundary | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part B: temperature-exposure history is battery-individual usage data for the Art. 14 legitimate-interest audience. |
+| `timeSpentInExtremeTemperaturesBelowBoundary` | Time Spent in Extreme Temperatures Below Boundary | **AuthorizedOnly** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Annex VII Part B: temperature-exposure history is battery-individual usage data for the Art. 14 legitimate-interest audience. |
+| `transportationSafetyClass` | Transportation Safety Class | **Public** |  | eli/reg/2023/1542 | UN dangerous-goods classes (UN3480/UN3481) are printed on packages and shipping papers by transport law, so the passport only restates public markings (DIN DKE SPEC 99100 extension). |
+| `transportConditions` | Transport Conditions | **AuthorizedOnly** |  | eli/reg/2023/1542 | Transport conditions during an excursion are condition-history detail of the Annex VII Part B record for the Art. 14 audience. |
+| `verificationBody` | Verification Body | **Public** |  | eli/reg/2023/1542 | Naming the third-party verifier is what makes the public CF declaration checkable; dpp-core serves the same name Public. |
+| `verificationBodyName` | Verification Body Name | **Public** |  | eli/reg/2023/1542 | The verifier's name is part of the public verification statement backing the public CF declaration (Art. 7/Annex II). |
+| `verificationCertificateUrl` | Verification Certificate URL | **Public** |  | eli/reg/2023/1542 | The verification certificate substantiates the public CF declaration and is public by function, like oec:thirdPartyAssurancesUrl. |
+| `verificationDate` | Verification Date | **Public** |  | eli/reg/2023/1542 | The verification date qualifies the currency of the public verification statement (Art. 7/Annex II). |
+| `verificationStandard` | Verification Standard | **Public** |  | eli/reg/2023/1542 | The standard the verifier applied is part of the public verification statement (Art. 7/Annex II). |
+| `warrantyConditions` | Warranty Conditions | **Public** |  | eli/reg/2023/1542 | Annex XIII(1)(m): the period of the commercial warranty for calendar life is public battery-passport data, and its terms address the purchaser. |
+| `wastePrevention` | Waste Prevention | **Public** | 🔒 eli/reg/2023/1542 | eli/reg/2023/1542 | Art. 74(1)(a)/Annex XIII(1)(s): waste-prevention information is directed at the general public. |

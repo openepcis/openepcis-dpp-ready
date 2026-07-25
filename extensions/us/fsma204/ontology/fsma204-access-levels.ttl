@@ -1,15 +1,22 @@
 # Access-tier annotations for the US FSMA 204 extension (ESPR Article 9 tiers).
-# One statement per term; merged into the module by scripts/build-json.ts.
+# One entry per term; merged into the module by scripts/build-json.ts.
 #
-# FSMA 204 (FDA Food Traceability Rule) is a US regime; the ESPR tier vocabulary
-# is reused only to express default field visibility. The Food Traceability List
-# category is a benign product classification (which FTL category the item falls
-# under), curated Public. None marked oec:accessLevelMandatedBy; terms not listed
-# default to AuthorizedOnly.
+# FSMA 204 (FDA Food Traceability Rule, 21 CFR Part 1 Subpart S) is a US regime;
+# the ESPR tier vocabulary is reused only to express default field visibility.
+# Traceability RECORDS under the rule are made available to FDA on request
+# (21 CFR 1.1455(b)), but this module's single term is not record content: it
+# declares which category of the FDA's published Food Traceability List the
+# trade item falls under, and that list membership is public information.
+# Tier re-reviewed 2026-07 and kept Public; not locked (no EU act applies), so
+# deployments may tighten at runtime. Terms not listed default to
+# AuthorizedOnly.
 
 @prefix usfsma: <https://ref.openepcis.io/extensions/us/fsma204/> .
 @prefix oec:    <https://ref.openepcis.io/extensions/common/core/> .
 
 
 # --- Public: Food Traceability List category classification ---
-usfsma:foodTraceabilityListCategory oec:defaultAccessLevel oec:Public .
+
+usfsma:foodTraceabilityListCategory oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The FTL category only restates that the product falls under a category of the FDA's publicly published Food Traceability List, revealing scope of the rule rather than any traceability record content (which goes to FDA on request per 21 CFR 1.1455(b))." ;
+    oec:accessLevelSource <https://www.fda.gov/food/food-safety-modernization-act-fsma/food-traceability-list> .

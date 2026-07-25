@@ -55,7 +55,17 @@ const MODULE_JSON: string[] = [
  * everything strict unconditionally) once all modules are curated.
  */
 const STRICT_MODULES = new Set<string>([
-  // populated as re-curation lands, e.g. "dpp-core", "battery", ...
+  "dpp-core",
+  "gs1-masterdata",
+  "battery",
+  "eudr",
+  "textile",
+  "electronics",
+  "detergent",
+  "ppwr",
+  "cpr",
+  "iron-steel",
+  "fsma204",
 ]);
 
 const TIERS = new Set(["Public", "AuthorizedOnly", "Restricted"]);
