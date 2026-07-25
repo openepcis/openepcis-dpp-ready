@@ -93,6 +93,9 @@ interface TermData {
   deprecated?: boolean;
   accessLevel?: string;
   accessLevelMandatedBy?: string;
+  accessLevelRationale?: string;
+  accessLevelSource?: string;
+  accessLevelInherited?: boolean;
 }
 
 interface EnumValue {
@@ -273,6 +276,11 @@ function extractTermData(store: Store, subject: string, namespace: string): Term
     ? accessLevelIri.substring(OEC.length)
     : accessLevelIri;
   const accessLevelMandatedBy = getObjectValue(store, subject, `${OEC}accessLevelMandatedBy`);
+  // Tier provenance: rationale (reviewer-checkable sentence), grounding source
+  // (citation, non-locking) and the structural-inheritance marker.
+  const accessLevelRationale = getObjectValue(store, subject, `${OEC}accessLevelRationale`);
+  const accessLevelSource = getObjectValue(store, subject, `${OEC}accessLevelSource`);
+  const accessLevelInherited = getObjectValue(store, subject, `${OEC}accessLevelInherited`) === "true";
 
   return {
     id: subject,
@@ -294,6 +302,9 @@ function extractTermData(store: Store, subject: string, namespace: string): Term
     ...(deprecated && { deprecated }),
     ...(accessLevel && { accessLevel }),
     ...(accessLevelMandatedBy && { accessLevelMandatedBy }),
+    ...(accessLevelRationale && { accessLevelRationale }),
+    ...(accessLevelSource && { accessLevelSource }),
+    ...(accessLevelInherited && { accessLevelInherited }),
   };
 }
 

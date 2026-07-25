@@ -91,6 +91,8 @@ function contextTerms(ctxPath: string): string[] {
 interface AccessInfo {
   accessLevel: string;
   accessLevelMandatedBy?: string;
+  accessLevelRationale?: string;
+  accessLevelSource?: string;
 }
 
 /**
@@ -107,6 +109,8 @@ function accessLevels(jsonPath: string): Record<string, AccessInfo> {
         map[term.localName] = {
           accessLevel: term.accessLevel,
           ...(term.accessLevelMandatedBy && { accessLevelMandatedBy: term.accessLevelMandatedBy }),
+          ...(term.accessLevelRationale && { accessLevelRationale: term.accessLevelRationale }),
+          ...(term.accessLevelSource && { accessLevelSource: term.accessLevelSource }),
         };
       }
     }
@@ -133,6 +137,8 @@ function buildSchema(
       ? {
           "x-access-level": a.accessLevel,
           ...(a.accessLevelMandatedBy && { "x-access-level-mandated-by": a.accessLevelMandatedBy }),
+          ...(a.accessLevelRationale && { "x-access-level-rationale": a.accessLevelRationale }),
+          ...(a.accessLevelSource && { "x-access-level-source": a.accessLevelSource }),
         }
       : {};
     props[t] = { ...annotation };

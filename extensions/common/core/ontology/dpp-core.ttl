@@ -434,6 +434,38 @@ directions)."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
+oec:accessLevelRationale
+    a owl:AnnotationProperty ;
+    rdfs:label "access level rationale"@en ;
+    rdfs:comment """One-sentence justification for the annotated property's
+oec:defaultAccessLevel — why this tier, in terms a reviewer or auditor can check
+against the underlying regulation. REQUIRED wherever oec:defaultAccessLevel is
+set (enforced by check-access-levels). Rendered on ref.openepcis.io term pages
+and in the DDM field-access matrix."""@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+oec:accessLevelSource
+    a owl:AnnotationProperty ;
+    rdfs:label "access level source"@en ;
+    rdfs:comment """Legal act or article that GROUNDS the tier decision (citation).
+Unlike oec:accessLevelMandatedBy it does NOT lock the tier — it documents where
+the default came from. Use an ELI/CELEX IRI, as specific as available."""@en ;
+    rdfs:range rdfs:Resource ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
+oec:accessLevelInherited
+    a owl:AnnotationProperty ;
+    rdfs:label "access level inherited"@en ;
+    rdfs:comment """Marks a structural value-carrier sub-property (value, unit,
+document URL, ...) that has NO tier of its own: at runtime its visibility is
+governed entirely by the embedding parent property's tier. Declaring it keeps
+the vocabulary 100% explicitly classified (the completeness guard accepts
+accessLevelInherited in lieu of defaultAccessLevel) without inventing a fake
+tier, and keeps such terms out of the enforcement alias map."""@en ;
+    rdfs:range xsd:boolean ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> .
+
 # =============================================================================
 # Passport Status (EN 18223 dppStatus; EN 18222 lifecycle management)
 # =============================================================================
