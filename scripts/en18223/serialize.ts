@@ -18,7 +18,15 @@
  */
 import jsonld from "jsonld";
 import n3 from "n3";
-import type { DocumentLoader, CompressOptions } from "./derive-core.ts";
+import { deriveEN18223, compressEN18223, type DocumentLoader, type CompressOptions } from "./derive-core.ts";
+
+// EN 18223 header (envelope) fields in standard order; the top-level keys of a
+// compressed passport are emitted in this order, everything else sorted.
+const ENVELOPE_ORDER = [
+  "digitalProductPassportId", "uniqueProductIdentifier", "granularity",
+  "dppSchemaVersion", "dppStatus", "lastUpdated", "economicOperatorId",
+  "facilityId", "contentSpecificationIds",
+];
 
 const EXT = "https://ref.openepcis.io/extensions";
 export const OPERATIONAL_CONTEXT_URL = `${EXT}/common/core/dpp-operational-context.jsonld`;
@@ -66,6 +74,7 @@ const PREFIXES: Record<string, string> = {
   eucpr: "https://ref.openepcis.io/extensions/eu/cpr/",
   eudet: "https://ref.openepcis.io/extensions/eu/detergent/",
   euelec: "https://ref.openepcis.io/extensions/eu/electronics/",
+  eusteel: "https://ref.openepcis.io/extensions/eu/iron-steel/",
   usfsma: "https://ref.openepcis.io/extensions/us/fsma204/",
   schema: "https://schema.org/",
   xsd: "http://www.w3.org/2001/XMLSchema#",
@@ -178,6 +187,55 @@ export function operationalOptions(dict: OperationalDictionary): CompressOptions
 export function operationalJsonLd(master: any): any {
   const { "@context": _ctx, ...rest } = master;
   return { "@context": operationalContextFor(master), ...rest };
+}
+
+/**
+ * The compressed (EN 18223 §5.2 operational) JSON-LD. Every vocabulary term is
+ * re-keyed to its bare context alias (no `gs1:`/`eutex:` CURIEs) wherever the
+ * operational chain defines one, using the operational data dictionary resolved
+ * from that context. This is a shape-preserving re-key of the derived passport —
+ * a scalar stays a scalar, an array an array, a coded value its bare code — NOT a
+ * lossy JSON-LD compaction (which mangles typed literals into {@value,@type}
+ * objects and misses terms whose coercion doesn't match the untyped resolver
+ * data). The published operational context is attached so the body is
+ * self-describing JSON-LD that round-trips, and `orderCompacted` gives a stable,
+ * envelope-first key order so the output is a byte-stable fixed point and the
+ * Java service (which re-keys through the same dictionary) produces identical bytes.
+ */
+export async function compactOperational(
+  master: any,
+  range: Map<string, string>,
+  documentLoader: DocumentLoader,
+): Promise<any> {
+  const passport = await deriveEN18223(master, range, documentLoader);
+  const ctx = operationalContextFor(master);
+  const dict = await buildOperationalKeyMap(ctx, documentLoader);
+  const body = compressEN18223(passport, operationalOptions(dict));
+  return orderCompacted({ "@context": ctx, ...body });
+}
+
+// Canonical key order for a compacted passport: @context first, the EN 18223
+// envelope fields (top level only), then `type`/`id`, then the remaining keys
+// sorted. Applied recursively so nested objects are stable too. This is what
+// makes Titanium (Java) and jsonld.js (TS) output byte-comparable despite each
+// library's own key ordering.
+function orderNode(node: any, topLevel: boolean): any {
+  if (Array.isArray(node)) return node.map((n) => orderNode(n, false));
+  if (!node || typeof node !== "object") return node;
+  const out: any = {};
+  const put = (k: string) => {
+    if (k in node && !(k in out)) out[k] = orderNode(node[k], false);
+  };
+  put("@context");
+  if (topLevel) for (const k of ENVELOPE_ORDER) put(k);
+  put("type");
+  put("id");
+  for (const k of Object.keys(node).filter((k) => !(k in out)).sort()) put(k);
+  return out;
+}
+
+export function orderCompacted(doc: any): any {
+  return orderNode(doc, true);
 }
 
 /** Canonical N-Quads (URDNA2015) — the reference graph all other forms must match. */

@@ -1,5 +1,10 @@
 # GS1 Web Vocabulary Mapping
 
+> **The GS1 Web Vocabulary is the masterdata engine's upstream vocabulary, not an
+> EPCIS extension.** For how it is anchored, vendored, and modelled (Products,
+> Places, Organizations), see [`masterdata/gs1/OVERVIEW.md`](../../../masterdata/gs1/OVERVIEW.md).
+> This file is the property-level mapping only.
+
 This document maps OpenEPCIS DPP properties to existing [GS1 Web Vocabulary](https://ref.gs1.org/voc/) terms to maximize interoperability.
 
 ## Principle

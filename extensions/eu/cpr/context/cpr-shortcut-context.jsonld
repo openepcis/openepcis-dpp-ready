@@ -1,23 +1,21 @@
 {
-  "_comment": [
-    "Bare (unprefixed) term aliases for the cpr vocabulary.",
-    "Included only by the operational contexts, so bare terms resolve under an",
-    "operational @context but the standard context requires proper prefixing."
-  ],
+  "_comment": "Generated bare-term shortcut aliases for cpr. Do not edit by hand; re-run `pnpm run build:context` and edit the sibling .shortcut-overrides.json (or .gs1-shortcuts-overrides.json) for curated aliases. Only the operational contexts include this layer.",
   "@context": {
     "@version": 1.1,
-    "eucpr": "https://ref.openepcis.io/extensions/eu/cpr/",
     "gs1": "https://ref.gs1.org/voc/",
     "oec": "https://ref.openepcis.io/extensions/common/core/",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
     "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "eucpr": "https://ref.openepcis.io/extensions/eu/cpr/",
     "AVCPSystem": "eucpr:AVCPSystem",
     "CONSTRUCTION_PRODUCTS_REGULATION": "eucpr:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION",
     "ConstructionProduct": "eucpr:ConstructionProduct",
     "ConstructionProductType": "eucpr:ConstructionProductType",
     "DeclarationOfPerformance": "eucpr:DeclarationOfPerformance",
     "EssentialCharacteristic": "eucpr:EssentialCharacteristic",
+    "QuantitativeValue": "gs1:QuantitativeValue",
     "ReactionToFireClass": "eucpr:ReactionToFireClass",
+    "RegulatoryInformation": "gs1:RegulatoryInformation",
     "avcpSystem": {
       "@id": "eucpr:avcpSystem",
       "@type": "@vocab",
@@ -87,6 +85,14 @@
       "@id": "eucpr:harmonisedStandard",
       "@type": "xsd:anyURI"
     },
+    "isRegulationCompliant": {
+      "@id": "oec:isRegulationCompliant",
+      "@type": "xsd:boolean"
+    },
+    "manufacturer": {
+      "@id": "gs1:manufacturer",
+      "@type": "@id"
+    },
     "notifiedBody": {
       "@id": "eucpr:notifiedBody",
       "@type": "@id"
@@ -104,6 +110,19 @@
         "F": "eucpr:FireClassF"
       }
     },
+    "regulationType": {
+      "@id": "gs1:regulationType",
+      "@type": "@id"
+    },
+    "regulatoryAct": "gs1:regulatoryAct",
+    "regulatoryInformation": {
+      "@id": "gs1:regulatoryInformation",
+      "@type": "@id",
+      "@container": "@set",
+      "@context": {
+        "@base": "https://ref.gs1.org/voc/"
+      }
+    },
     "technicalAssessmentBody": {
       "@id": "eucpr:technicalAssessmentBody",
       "@type": "@id"
@@ -116,29 +135,6 @@
       "@id": "eucpr:validationReports",
       "@type": "@id",
       "@container": "@set"
-    },
-    "manufacturer": {
-      "@id": "gs1:manufacturer",
-      "@type": "@id"
-    },
-    "regulatoryInformation": {
-      "@id": "gs1:regulatoryInformation",
-      "@type": "@id",
-      "@container": "@set",
-      "@context": {
-        "@base": "https://ref.gs1.org/voc/"
-      }
-    },
-    "RegulatoryInformation": "gs1:RegulatoryInformation",
-    "regulationType": {
-      "@id": "gs1:regulationType",
-      "@type": "@id"
-    },
-    "regulatoryAct": "gs1:regulatoryAct",
-    "isRegulationCompliant": {
-      "@id": "oec:isRegulationCompliant",
-      "@type": "xsd:boolean"
-    },
-    "QuantitativeValue": "gs1:QuantitativeValue"
+    }
   }
 }

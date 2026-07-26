@@ -279,6 +279,46 @@ interface DerivedContext {
   classes: { localName: string; iri: string }[];
   properties: { localName: string; iri: string; coercion?: string }[];
   enumerations: { property: string; values: { key: string; iri: string }[] }[];
+  /**
+   * Bare local-name term aliases for every class and property of the module,
+   * with @type coercion and @vocab enum subcontexts. This is the shortcut-layer
+   * material: the standard context stays prefix-only (see PREFIXING CONTRACT),
+   * while {module}-shortcut-context.jsonld ships these bare aliases and only the
+   * operational contexts include them. Keyed by bare local name.
+   */
+  bareAliases: ContextMap;
+}
+
+/**
+ * Emit bare local-name aliases (class PascalCase terms, property terms with
+ * @type / @vocab coercion) for a derived vocabulary. Shared by the rail standard
+ * context (which opts into bare terms) and every module's generated shortcut
+ * context. A property that ranges over an enumerated class becomes a
+ * {@id, @type: @vocab, @context: {code: iri}} term; a datatype/object property
+ * carries its coercion; everything else is a plain {bare: curie} alias.
+ */
+function emitBareAliases(
+  classes: { localName: string; iri: string }[],
+  properties: { localName: string; iri: string; coercion?: string }[],
+  enumerations: { property: string; values: { key: string; iri: string }[] }[]
+): ContextMap {
+  const out: ContextMap = {};
+  for (const c of classes) out[c.localName] = c.iri;
+
+  const enumByProp = new Map(enumerations.map((e) => [e.property, e.values]));
+  for (const p of properties) {
+    if (enumByProp.has(p.localName)) {
+      const values = enumByProp.get(p.localName)!;
+      const subContext: Record<string, string> = {};
+      for (const v of values) subContext[v.key] = v.iri;
+      out[p.localName] = { "@id": p.iri, "@type": "@vocab", "@context": subContext };
+    } else if (p.coercion) {
+      out[p.localName] = { "@id": p.iri, "@type": p.coercion };
+    } else {
+      out[p.localName] = p.iri;
+    }
+  }
+  return out;
 }
 
 function buildDerivedContext(store: Store, module: OntologyModule): DerivedContext {
@@ -368,39 +408,17 @@ function buildDerivedContext(store: Store, module: OntologyModule): DerivedConte
     if (ns) context[prefix] = ns;
   }
 
-  // Bare local-name term aliases are emitted only for modules that opt in
-  // (the GS1 Rail upstream mirror). DPP module contexts are prefix-only:
-  // a CURIE term needs no context entry unless it carries a coercion hint,
-  // and those hints live in the overrides under their CURIE key.
+  // Bare aliases for every class/property are always computed, but they are the
+  // shortcut layer's material. They are folded into THIS (standard) context only
+  // for modules that opt in — the GS1 Rail upstream mirror. Every DPP module
+  // context stays prefix-only (see PREFIXING CONTRACT); its bare aliases are
+  // emitted into a separate {module}-shortcut-context.jsonld.
+  const bareAliases = emitBareAliases(classes, properties, enumerations);
   if (module.bareTermAliases) {
-    // Emit class terms (PascalCase IRI alias).
-    for (const c of classes) {
-      context[c.localName] = c.iri;
-    }
-
-    // Build a map of properties that have enum coercion.
-    const enumByProp = new Map(enumerations.map((e) => [e.property, e.values]));
-
-    // Emit property terms.
-    for (const p of properties) {
-      if (enumByProp.has(p.localName)) {
-        const values = enumByProp.get(p.localName)!;
-        const subContext: Record<string, string> = {};
-        for (const v of values) subContext[v.key] = v.iri;
-        context[p.localName] = {
-          "@id": p.iri,
-          "@type": "@vocab",
-          "@context": subContext,
-        };
-      } else if (p.coercion) {
-        context[p.localName] = { "@id": p.iri, "@type": p.coercion };
-      } else {
-        context[p.localName] = p.iri;
-      }
-    }
+    Object.assign(context, bareAliases);
   }
 
-  return { context, classes, properties, enumerations };
+  return { context, classes, properties, enumerations, bareAliases };
 }
 
 /**
@@ -511,6 +529,231 @@ function mergeOverrides(derived: ContextMap, overrides: ContextMap): ContextMap 
   return out;
 }
 
+// ---------------------------------------------------------------------------
+// Shortcut / operational alias layers
+//
+// The operational EN 18223 §5.2 form is produced by TRUE JSON-LD compaction
+// against a module's operational context. For a term to compact to a bare name
+// (instead of a `gs1:`/`eutex:` CURIE) that name must be defined as a bare alias
+// somewhere in the operational chain. The chain is:
+//     [ dpp-operational-context  (= base + gs1-shortcuts + dpp-core-shortcut),
+//       {module}-context         (standard, prefix-only),
+//       {module}-shortcut-context ]
+// so the three alias sources are gs1-shortcuts, dpp-core-shortcut, and the
+// module shortcut. This build regenerates all three from their vocabularies so
+// EVERY vocabulary term gets a bare alias (full coverage → no prefix leaks),
+// with hand-curated `.shortcut-overrides.json` entries layered on top and a
+// deterministic collision policy (a bare name mapping to two different IRIs in
+// one chain stays a CURIE unless an override pins it).
+// ---------------------------------------------------------------------------
+
+const GS1_VOC_PATH = join(PROJECT_ROOT, "vendor/gs1/gs1Voc.jsonld");
+const GS1_SHORTCUT_DIR = join(PROJECT_ROOT, "extensions/common/core/context");
+const COLLISION_MANIFEST = join(GS1_SHORTCUT_DIR, ".alias-collisions.json");
+
+// The prefixes a shortcut layer needs so its CURIE-valued aliases resolve. The
+// cross-cutting vocabularies (gs1, oec, schema, xsd) are always declared because
+// curated overrides can point a bare alias at any of them regardless of what the
+// module TTL itself references.
+function prefixDeclsFrom(ctx: ContextMap): ContextMap {
+  const out: ContextMap = {
+    "@version": 1.1,
+    gs1: GS1,
+    oec: "https://ref.openepcis.io/extensions/common/core/",
+    schema: SCHEMA,
+    xsd: XSD,
+  };
+  for (const [k, v] of Object.entries(ctx)) {
+    if (typeof v === "string" && /^https?:\/\//.test(v)) out[k] = v;
+  }
+  return out;
+}
+
+// Expand a CURIE (gs1:gtin) to its full IRI using the known prefix table; used
+// for collision detection (two aliases collide only if their IRIs differ).
+function expandCurieToFull(curie: string): string {
+  const i = curie.indexOf(":");
+  if (i > 0) {
+    const p = curie.slice(0, i);
+    const ns = PREFIX_TO_NAMESPACE[p];
+    if (ns && !curie.slice(i + 1).startsWith("/")) return ns + curie.slice(i + 1);
+  }
+  return curie;
+}
+
+// The target IRI of a bare-alias definition (string CURIE or {@id: curie, …}).
+function aliasIri(def: ContextValue | undefined): string | undefined {
+  if (typeof def === "string") return expandCurieToFull(def);
+  if (def && typeof def === "object") {
+    const id = (def as Record<string, unknown>)["@id"];
+    if (typeof id === "string") return expandCurieToFull(id);
+  }
+  return undefined;
+}
+
+// Read the bare-alias object from an existing shortcut context file (its
+// `@context` is a bare object of prefix decls + bare aliases). Returns only the
+// bare aliases (prefix decls and @-keywords dropped), for first-run migration.
+function readShortcutBareTerms(path: string): ContextMap | undefined {
+  if (!existsSync(path)) return undefined;
+  try {
+    const ctx = JSON.parse(readFileSync(path, "utf-8"))["@context"];
+    const obj = Array.isArray(ctx)
+      ? Object.assign({}, ...ctx.filter((e) => e && typeof e === "object"))
+      : ctx;
+    if (!obj || typeof obj !== "object") return undefined;
+    const out: ContextMap = {};
+    for (const [k, v] of Object.entries(obj)) {
+      if (k.startsWith("@")) continue;
+      if (typeof v === "string" && /^https?:\/\//.test(v)) continue; // prefix decl
+      out[k] = v as ContextValue;
+    }
+    return out;
+  } catch {
+    return undefined;
+  }
+}
+
+// Load (or first-run migrate) the .shortcut-overrides.json beside a shortcut
+// context. Migration captures whatever the existing hand-maintained shortcut
+// carried that the TTL-derived bare aliases do NOT reproduce (cross-vocabulary
+// aliases like `gtin: gs1:gtin`, @vocab code maps, @container hints).
+function loadShortcutOverrides(overridesPath: string, existingShortcut: string, derivedBare: ContextMap): ContextMap {
+  if (existsSync(overridesPath)) {
+    return JSON.parse(readFileSync(overridesPath, "utf-8")) as ContextMap;
+  }
+  const existing = readShortcutBareTerms(existingShortcut);
+  const overrides = existing ? migrateOverrides(existing, derivedBare) : {};
+  writeFileSync(overridesPath, JSON.stringify(overrides, null, 2) + "\n");
+  console.log(`  First run: migrated ${Object.keys(overrides).length} shortcut overrides → ${overridesPath}`);
+  return overrides;
+}
+
+interface Gs1Layer {
+  bareAliases: ContextMap;
+  overrides: ContextMap;
+}
+
+// Build the GS1 upstream bare-alias layer from vendor/gs1/gs1Voc.jsonld. Every
+// GS1 class and property (not the code-list instance values) gets a plain bare
+// alias `localName -> gs1:localName`. Plain aliases (no @type coercion) are
+// deliberate: they only rename the key, never reshape the value, so compacting
+// resolver master data can't turn a stored string into an @id/@value object.
+// Coercions and enum-code aliases live in .gs1-shortcuts-overrides.json.
+function buildGs1AliasLayer(): Gs1Layer {
+  const voc = JSON.parse(readFileSync(GS1_VOC_PATH, "utf-8"));
+  const graph: any[] = voc["@graph"] || [];
+  const bare: ContextMap = {};
+  for (const node of graph) {
+    const id = node["@id"];
+    if (typeof id !== "string" || !id.startsWith("gs1:")) continue;
+    const local = id.slice("gs1:".length);
+    if (!local || local.includes("-")) continue; // skip code-list instances (RegulationTypeCode-CE)
+    const types: string[] = ([] as string[]).concat(node["@type"] || []);
+    const isClass = types.includes("owl:Class") || types.includes("rdfs:Class");
+    const isProp =
+      types.includes("rdf:Property") ||
+      types.includes("owl:ObjectProperty") ||
+      types.includes("owl:DatatypeProperty");
+    if (!isClass && !isProp) continue;
+    if (!(local in bare)) bare[local] = id;
+  }
+
+  const overridesPath = join(GS1_SHORTCUT_DIR, ".gs1-shortcuts-overrides.json");
+  const overrides = loadShortcutOverrides(
+    overridesPath,
+    join(GS1_SHORTCUT_DIR, "gs1-shortcuts-context.jsonld"),
+    bare
+  );
+  return { bareAliases: bare, overrides };
+}
+
+interface ShortcutLayer {
+  name: string; // "gs1" | "dpp-core" | module name
+  file: string; // absolute path of the shortcut context to write
+  prefixes: ContextMap;
+  generated: ContextMap; // TTL/vocab-derived bare aliases
+  overrides: ContextMap; // curated .shortcut-overrides.json
+  chainKey: string; // module dir this shortcut belongs to ("" for shared gs1/dpp-core)
+}
+
+// Effective aliases = generated ∪ overrides (override replaces the generated
+// entry outright), minus any bare name the collision policy poisoned for this
+// layer.
+function effectiveAliases(layer: ShortcutLayer, remove: Set<string>): ContextMap {
+  const out: ContextMap = {};
+  for (const [k, v] of Object.entries(layer.generated)) if (!remove.has(k)) out[k] = v;
+  for (const [k, v] of Object.entries(layer.overrides)) {
+    if (k.startsWith("@")) continue;
+    out[k] = v; // curated entries survive poisoning (they resolve the collision)
+  }
+  return out;
+}
+
+interface Collision {
+  term: string;
+  chain: string;
+  winner: string; // IRI the bare term resolves to in this chain
+  shadowed: string[]; // same-name IRIs that stay CURIEs in this chain
+}
+
+/**
+ * Detect bare-name collisions over each module's operational chain
+ * [gs1-shortcuts, dpp-core-shortcut, module-shortcut] and record them for
+ * transparency. A bare name defined in ≥2 layers with DIFFERENT target IRIs is
+ * a collision; JSON-LD resolves it to the LAST layer in the chain (module wins
+ * over dpp-core wins over gs1, because the module shortcut is last in the
+ * operational context array). That is the desired outcome — the module's own
+ * term compacts to the bare name for that module's data — and it never corrupts
+ * a round-trip: the shadowed same-name term simply stays a CURIE (its IRI has
+ * no bare alias in this chain), and the data was CURIE-keyed to begin with, so
+ * nothing is mis-resolved. No aliases are dropped; the manifest just names which
+ * term wins and which are shadowed, so the coverage gate can treat a residual
+ * CURIE on a shadowed term as expected rather than a leak.
+ */
+function detectCollisions(
+  gs1: ShortcutLayer,
+  dppCore: ShortcutLayer,
+  moduleLayers: ShortcutLayer[]
+): Collision[] {
+  const manifest: Collision[] = [];
+  for (const mod of moduleLayers) {
+    const chain = [gs1, dppCore, mod]; // resolution order: last wins
+    const names = new Set<string>();
+    for (const l of chain) {
+      for (const k of Object.keys(l.generated)) if (!k.startsWith("@")) names.add(k);
+      for (const k of Object.keys(l.overrides)) if (!k.startsWith("@")) names.add(k);
+    }
+    for (const term of names) {
+      const iris: string[] = [];
+      for (const l of chain) {
+        const iri = aliasIri(term in l.overrides ? l.overrides[term] : l.generated[term]);
+        if (iri !== undefined) iris.push(iri);
+      }
+      const distinct = [...new Set(iris)];
+      if (distinct.length < 2) continue;
+      const winner = iris[iris.length - 1]; // last layer in the chain wins
+      manifest.push({
+        term,
+        chain: mod.chainKey,
+        winner,
+        shadowed: distinct.filter((i) => i !== winner).sort(),
+      });
+    }
+  }
+  manifest.sort((a, b) => a.chain.localeCompare(b.chain) || a.term.localeCompare(b.term));
+  return manifest;
+}
+
+function writeShortcut(layer: ShortcutLayer, remove: Set<string>, comment: string): void {
+  const aliases = effectiveAliases(layer, remove);
+  const sortedAliases: ContextMap = {};
+  for (const k of Object.keys(aliases).sort()) sortedAliases[k] = aliases[k];
+  const output = { _comment: comment, "@context": { ...layer.prefixes, ...sortedAliases } };
+  writeFileSync(layer.file, JSON.stringify(output, null, 2) + "\n");
+  console.log(`  Shortcut: ${layer.file} (${Object.keys(sortedAliases).length} aliases)`);
+}
+
 function buildTopComment(store: Store, module: OntologyModule): string {
   const namespace = module.namespace;
   const ontologyUri = namespace.endsWith("/") ? namespace.slice(0, -1) : namespace;
@@ -527,6 +770,11 @@ function buildTopComment(store: Store, module: OntologyModule): string {
 
 async function buildContext(): Promise<void> {
   console.log("Building JSON-LD @context files from TTL...\n");
+
+  // dpp-core and each regulation module also produce a shortcut layer; collect
+  // them and resolve collisions once all layers (plus gs1) are built.
+  let dppCoreLayer: ShortcutLayer | undefined;
+  const moduleLayers: ShortcutLayer[] = [];
 
   for (const module of ONTOLOGY_MODULES) {
     const ttlPath = join(PROJECT_ROOT, module.dir, "ontology", module.ttlFile);
@@ -600,13 +848,75 @@ async function buildContext(): Promise<void> {
       };
 
       writeFileSync(existingPath, JSON.stringify(output, null, 2) + "\n");
-      console.log(`  Output: ${existingPath}\n`);
+      console.log(`  Output: ${existingPath}`);
+
+      // Every module except the rail mirror (whose standard context already
+      // exposes bare terms) contributes a generated shortcut layer.
+      if (!module.bareTermAliases) {
+        const shortcutFile = join(contextDir, `${module.name}-shortcut-context.jsonld`);
+        const shortcutOverrides = loadShortcutOverrides(
+          join(contextDir, ".shortcut-overrides.json"),
+          shortcutFile,
+          derived.bareAliases
+        );
+        const layer: ShortcutLayer = {
+          name: module.name,
+          file: shortcutFile,
+          prefixes: prefixDeclsFrom(derived.context),
+          generated: derived.bareAliases,
+          overrides: shortcutOverrides,
+          chainKey: module.name === "dpp-core" ? "" : module.dir,
+        };
+        if (module.name === "dpp-core") dppCoreLayer = layer;
+        else moduleLayers.push(layer);
+      }
+      console.log("");
     } catch (error) {
       console.error(`  Error processing ${module.name}:`, error);
     }
   }
 
-  console.log("Done!");
+  // GS1 upstream bare-alias layer (external vocabulary, not TTL-derived).
+  console.log("Processing gs1-shortcuts (upstream GS1 vocabulary)...");
+  const gs1 = buildGs1AliasLayer();
+  const gs1Layer: ShortcutLayer = {
+    name: "gs1",
+    file: join(GS1_SHORTCUT_DIR, "gs1-shortcuts-context.jsonld"),
+    prefixes: {
+      "@version": 1.1,
+      gs1: GS1,
+      oec: "https://ref.openepcis.io/extensions/common/core/",
+      schema: SCHEMA,
+      xsd: XSD,
+    },
+    generated: gs1.bareAliases,
+    overrides: gs1.overrides,
+    chainKey: "",
+  };
+  console.log(`  ${Object.keys(gs1.bareAliases).length} generated GS1 aliases, ${Object.keys(gs1.overrides).length} overrides`);
+
+  if (!dppCoreLayer) throw new Error("dpp-core shortcut layer was not built");
+
+  // Record cross-vocabulary bare-name collisions (informational): JSON-LD's
+  // context order resolves each to the module's own term; the shadowed same-name
+  // terms stay CURIEs, which the coverage gate treats as expected.
+  const manifest = detectCollisions(gs1Layer, dppCoreLayer, moduleLayers);
+  writeFileSync(COLLISION_MANIFEST, JSON.stringify(manifest, null, 2) + "\n");
+  if (manifest.length > 0) {
+    console.log(`  ${manifest.length} shadowed bare-name collision(s) recorded → ${COLLISION_MANIFEST}`);
+  }
+
+  // Write all shortcut layers (no aliases dropped — order resolves collisions).
+  const empty = new Set<string>();
+  const shortcutComment = (name: string) =>
+    `Generated bare-term shortcut aliases for ${name}. Do not edit by hand; re-run \`pnpm run build:context\` and edit the sibling .shortcut-overrides.json (or .gs1-shortcuts-overrides.json) for curated aliases. Only the operational contexts include this layer.`;
+  writeShortcut(gs1Layer, empty, shortcutComment("the GS1 upstream vocabulary"));
+  writeShortcut(dppCoreLayer, empty, shortcutComment("dpp-core"));
+  for (const layer of moduleLayers) {
+    writeShortcut(layer, empty, shortcutComment(layer.name));
+  }
+
+  console.log("\nDone!");
 }
 
 buildContext().catch(console.error);

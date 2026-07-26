@@ -1,26 +1,53 @@
 {
-  "_comment": [
-    "Bare (unprefixed) term aliases for the detergent vocabulary.",
-    "Included only by the operational contexts, so bare terms resolve under an",
-    "operational @context but the standard context requires proper prefixing."
-  ],
+  "_comment": "Generated bare-term shortcut aliases for detergent. Do not edit by hand; re-run `pnpm run build:context` and edit the sibling .shortcut-overrides.json (or .gs1-shortcuts-overrides.json) for curated aliases. Only the operational contexts include this layer.",
   "@context": {
     "@version": 1.1,
-    "eudet": "https://ref.openepcis.io/extensions/eu/detergent/",
     "gs1": "https://ref.gs1.org/voc/",
     "oec": "https://ref.openepcis.io/extensions/common/core/",
+    "schema": "https://schema.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "eudet": "https://ref.openepcis.io/extensions/eu/detergent/",
     "BiodegradabilityTestMethod": "eudet:BiodegradabilityTestMethod",
     "DetergentCategory": "eudet:DetergentCategory",
     "DetergentProduct": "eudet:DetergentProduct",
+    "DocumentReference": {
+      "@id": "oec:DocumentReference",
+      "@context": {
+        "resourceTitle": {
+          "@id": "oec:documentTitle"
+        },
+        "contentType": {
+          "@id": "oec:mimeType"
+        },
+        "url": {
+          "@id": "oec:documentUrl",
+          "@type": "@id"
+        },
+        "language": {
+          "@id": "oec:languageCode"
+        }
+      }
+    },
     "FragranceAllergen": "eudet:FragranceAllergen",
+    "HazardousSubstance": "oec:HazardousSubstance",
     "Ingredient": "eudet:Ingredient",
     "IngredientFunction": "eudet:IngredientFunction",
     "MicroorganismInfo": "eudet:MicroorganismInfo",
+    "OperatorInformation": "oec:OperatorInformation",
+    "Organization": "gs1:Organization",
+    "PostalAddress": "gs1:PostalAddress",
+    "Product": "gs1:Product",
     "ProductForm": "eudet:ProductForm",
+    "QuantitativeValue": "gs1:QuantitativeValue",
     "SignalWord": "eudet:SignalWord",
     "SurfactantBiodegradability": "eudet:SurfactantBiodegradability",
     "SurfactantType": "eudet:SurfactantType",
+    "address": {
+      "@id": "gs1:address",
+      "@type": "@id"
+    },
+    "addressCountry": "gs1:addressCountry",
+    "addressLocality": "gs1:addressLocality",
     "allergenCasNumber": {
       "@id": "eudet:allergenCasNumber",
       "@type": "xsd:string"
@@ -29,6 +56,7 @@
       "@id": "eudet:allergenConcentration",
       "@type": "xsd:decimal"
     },
+    "allergenName": "schema:name",
     "biodegradabilityTestReport": {
       "@id": "eudet:biodegradabilityTestReport",
       "@type": "@id"
@@ -36,6 +64,36 @@
     "biodegradationPercentage": {
       "@id": "eudet:biodegradationPercentage",
       "@type": "xsd:decimal"
+    },
+    "casNumber": "oec:casNumber",
+    "countryOfOrigin": {
+      "@id": "gs1:countryOfOrigin",
+      "@type": "@id"
+    },
+    "customsCommodityCode": "oec:customsCommodityCode",
+    "customsCommodityCodeType": {
+      "@id": "oec:customsCommodityCodeType",
+      "@type": "@vocab",
+      "@context": {
+        "HS6": "oec:HS6",
+        "HS8": "oec:HS8",
+        "CN8": "oec:CN8",
+        "CN10": "oec:CN10",
+        "HTSUS10": "oec:HTSUS10"
+      }
+    },
+    "detergentCategory": {
+      "@id": "schema:category",
+      "@type": "@vocab",
+      "@context": {
+        "LaundryDetergent": "eudet:LaundryDetergent",
+        "DishwasherDetergent": "eudet:DishwasherDetergent",
+        "HandDishwashingDetergent": "eudet:HandDishwashingDetergent",
+        "AllPurposeCleaner": "eudet:AllPurposeCleaner",
+        "IndustrialDetergent": "eudet:IndustrialDetergent",
+        "InstitutionalDetergent": "eudet:InstitutionalDetergent",
+        "Surfactant": "eudet:Surfactant"
+      }
     },
     "dosageInstructions": {
       "@id": "eudet:dosageInstructions",
@@ -58,19 +116,22 @@
       "@type": "@id",
       "@container": "@set"
     },
-    "hazardousSubstances": {
-      "@id": "eudet:hazardousSubstances",
-      "@type": "@id",
+    "gln": "gs1:globalLocationNumber",
+    "gtin": "gs1:gtin",
+    "hStatements": {
+      "@id": "eudet:hStatements",
       "@container": "@set"
     },
     "hazardPictograms": {
       "@id": "eudet:hazardPictograms",
       "@container": "@set"
     },
-    "hStatements": {
-      "@id": "eudet:hStatements",
+    "hazardousSubstances": {
+      "@id": "eudet:hazardousSubstances",
+      "@type": "@id",
       "@container": "@set"
     },
+    "inciName": "schema:name",
     "ingredientFunction": {
       "@id": "eudet:ingredientFunction",
       "@type": "@vocab",
@@ -103,11 +164,29 @@
       "@id": "eudet:isSurfactant",
       "@type": "xsd:boolean"
     },
+    "manufacturer": {
+      "@id": "gs1:manufacturer",
+      "@type": "@id"
+    },
     "microorganisms": {
       "@id": "eudet:microorganisms",
       "@type": "@id",
       "@container": "@set"
     },
+    "netContent": {
+      "@id": "gs1:netContent",
+      "@type": "@id"
+    },
+    "netWeight": {
+      "@id": "gs1:netWeight",
+      "@type": "@id"
+    },
+    "organizationName": "gs1:organizationName",
+    "pStatements": {
+      "@id": "eudet:pStatements",
+      "@container": "@set"
+    },
+    "partyGLN": "gs1:partyGLN",
     "passesUltimateBiodegradability": {
       "@id": "eudet:passesUltimateBiodegradability",
       "@type": "xsd:boolean"
@@ -120,6 +199,7 @@
       "@id": "eudet:phosphorusContentPercent",
       "@type": "xsd:decimal"
     },
+    "postalCode": "gs1:postalCode",
     "productForm": {
       "@id": "eudet:productForm",
       "@type": "@vocab",
@@ -134,10 +214,7 @@
         "Tablet": "eudet:Tablet"
       }
     },
-    "pStatements": {
-      "@id": "eudet:pStatements",
-      "@container": "@set"
-    },
+    "productName": "gs1:productName",
     "recommendedDosage": {
       "@id": "eudet:recommendedDosage",
       "@type": "@id"
@@ -154,10 +231,12 @@
         "Warning": "eudet:Warning"
       }
     },
+    "speciesName": "schema:name",
     "strainDesignation": {
       "@id": "eudet:strainDesignation",
       "@type": "xsd:string"
     },
+    "streetAddress": "gs1:streetAddress",
     "surfactantBiodegradability": {
       "@id": "eudet:surfactantBiodegradability",
       "@type": "@id",
@@ -188,87 +267,14 @@
         "OECD310": "eudet:OECD310"
       }
     },
-    "weightPercentRange": {
-      "@id": "eudet:weightPercentRange",
-      "@type": "xsd:string"
-    },
-    "Product": "gs1:Product",
-    "Organization": "gs1:Organization",
-    "PostalAddress": "gs1:PostalAddress",
-    "QuantitativeValue": "gs1:QuantitativeValue",
-    "HazardousSubstance": "oec:HazardousSubstance",
-    "DocumentReference": {
-      "@id": "oec:DocumentReference",
-      "@context": {
-        "resourceTitle": { "@id": "oec:documentTitle" },
-        "contentType": { "@id": "oec:mimeType" },
-        "url": { "@id": "oec:documentUrl", "@type": "@id" },
-        "language": { "@id": "oec:languageCode" }
-      }
-    },
-    "OperatorInformation": "oec:OperatorInformation",
-    "casNumber": "oec:casNumber",
-    "customsCommodityCode": "oec:customsCommodityCode",
-    "customsCommodityCodeType": {
-      "@id": "oec:customsCommodityCodeType",
-      "@type": "@vocab",
-      "@context": {
-        "HS6": "oec:HS6",
-        "HS8": "oec:HS8",
-        "CN8": "oec:CN8",
-        "CN10": "oec:CN10",
-        "HTSUS10": "oec:HTSUS10"
-      }
-    },
-    "productName": "gs1:productName",
-    "gtin": "gs1:gtin",
-    "organizationName": "gs1:organizationName",
-    "partyGLN": "gs1:partyGLN",
-    "gln": "gs1:globalLocationNumber",
-    "manufacturer": {
-      "@id": "gs1:manufacturer",
-      "@type": "@id"
-    },
-    "address": {
-      "@id": "gs1:address",
-      "@type": "@id"
-    },
-    "streetAddress": "gs1:streetAddress",
-    "addressLocality": "gs1:addressLocality",
-    "postalCode": "gs1:postalCode",
-    "addressCountry": "gs1:addressCountry",
-    "countryOfOrigin": {
-      "@id": "gs1:countryOfOrigin",
-      "@type": "@id"
-    },
-    "netWeight": {
-      "@id": "gs1:netWeight",
-      "@type": "@id"
-    },
-    "netContent": {
-      "@id": "gs1:netContent",
-      "@type": "@id"
-    },
-    "detergentCategory": {
-      "@id": "schema:category",
-      "@type": "@vocab",
-      "@context": {
-        "LaundryDetergent": "eudet:LaundryDetergent",
-        "DishwasherDetergent": "eudet:DishwasherDetergent",
-        "HandDishwashingDetergent": "eudet:HandDishwashingDetergent",
-        "AllPurposeCleaner": "eudet:AllPurposeCleaner",
-        "IndustrialDetergent": "eudet:IndustrialDetergent",
-        "InstitutionalDetergent": "eudet:InstitutionalDetergent",
-        "Surfactant": "eudet:Surfactant"
-      }
-    },
-    "inciName": "schema:name",
-    "allergenName": "schema:name",
-    "speciesName": "schema:name",
+    "unitCode": "gs1:unitCode",
     "value": {
       "@id": "gs1:value",
       "@type": "xsd:decimal"
     },
-    "unitCode": "gs1:unitCode"
+    "weightPercentRange": {
+      "@id": "eudet:weightPercentRange",
+      "@type": "xsd:string"
+    }
   }
 }

@@ -8,7 +8,7 @@
  * (see package.json demo:en18223:build), so the demo runs with no network.
  */
 import { deriveEN18223, expandJsonLd, type DocumentLoader } from "../../scripts/en18223/derive-core.ts";
-import { operationalContextFor, toTurtle, toXmlOperational, toXmlExpanded } from "../../scripts/en18223/serialize.ts";
+import { compactOperational, toTurtle, toXmlOperational, toXmlExpanded } from "../../scripts/en18223/serialize.ts";
 import rangeIndex from "./range-index.json";
 import contexts from "./contexts.json";
 import samples from "./samples.json";
@@ -69,17 +69,11 @@ async function derive() {
   try {
     const expanded = await deriveEN18223(input, range, documentLoader);
     const jsonldExpanded = await expandJsonLd(input, documentLoader);
-    // Compressed (§5.2): the master-data body echoed VERBATIM (shape preserved — a
-    // scalar stays a scalar, an array stays an array, an object stays an object),
-    // minus the source @context and editorial _comment keys, always carrying the
-    // operational @context as its data dictionary.
-    const ctx = operationalContextFor(input);
-    const echo: any = {};
-    for (const [k, v] of Object.entries(input)) {
-      if (k === "@context" || k.startsWith("_")) continue;
-      echo[k] = v;
-    }
-    const compressed = { "@context": ctx, ...echo };
+    // Compressed (§5.2 operational): the EN 18223 header plus the master-data
+    // product properties re-keyed to their bare operational-context aliases
+    // (gs1:/eutex: CURIEs resolved to bare terms), shape preserved. Carries the
+    // operational @context so it stays self-describing JSON-LD.
+    const compressed = await compactOperational(input, range, documentLoader);
     const turtle = await toTurtle(compressed, documentLoader);
     views = {
       compressed,
