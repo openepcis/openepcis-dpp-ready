@@ -79,7 +79,9 @@ const canon = (doc: any) =>
 // Not OpenEPCIS GS1-prefixed DPP master data, so out of scope for the prefix rule:
 //  - batterypass-*: BatteryPass-vocabulary compare samples (use the bridge context)
 //  - regulatory-notification: a GS1 regulatory-message doc that pulls a remote context
-const EXCLUDE = /(batterypass-|regulatory-notification)/;
+// Skip non-DPP examples and the generated .operational.jsonld golden artifacts
+// (those are the bare-keyed compressed form, not prefixed standard-context seeds).
+const EXCLUDE = /(batterypass-|regulatory-notification|\.operational\.jsonld$)/;
 
 async function productSeeds(): Promise<string[]> {
   const out: string[] = [];

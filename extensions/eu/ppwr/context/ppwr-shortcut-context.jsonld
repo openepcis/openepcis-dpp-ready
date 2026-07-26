@@ -1,56 +1,93 @@
 {
-  "_comment": [
-    "Bare (unprefixed) term aliases for the ppwr vocabulary.",
-    "Included only by the operational contexts, so bare terms resolve under an",
-    "operational @context but the standard context requires proper prefixing."
-  ],
+  "_comment": "Generated bare-term shortcut aliases for ppwr. Do not edit by hand; re-run `pnpm run build:context` and edit the sibling .shortcut-overrides.json (or .gs1-shortcuts-overrides.json) for curated aliases. Only the operational contexts include this layer.",
   "@context": {
     "@version": 1.1,
-    "euppwr": "https://ref.openepcis.io/extensions/eu/ppwr/",
     "gs1": "https://ref.gs1.org/voc/",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
     "oec": "https://ref.openepcis.io/extensions/common/core/",
     "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "euppwr": "https://ref.openepcis.io/extensions/eu/ppwr/",
+    "PACKAGING_AND_PACKAGING_WASTE_REGULATION": "euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION",
     "Packaging": "euppwr:Packaging",
+    "PackagingMaterialDetails": "gs1:PackagingMaterialDetails",
     "PackagingTier": "euppwr:PackagingTier",
+    "PriceSpecification": "gs1:PriceSpecification",
+    "QuantitativeValue": "gs1:QuantitativeValue",
     "RecyclabilityGrade": "euppwr:RecyclabilityGrade",
+    "RegulatoryInformation": "gs1:RegulatoryInformation",
+    "containerCondition": {
+      "@id": "euppwr:containerCondition",
+      "@type": "xsd:string"
+    },
+    "depositRefundIssued": {
+      "@id": "euppwr:depositRefundIssued",
+      "@type": "xsd:decimal"
+    },
+    "designForRecyclingMethodology": {
+      "@id": "euppwr:designForRecyclingMethodology",
+      "@type": "xsd:string"
+    },
     "harmonisedSymbol": {
       "@id": "euppwr:harmonisedSymbol",
       "@type": "xsd:anyURI"
     },
-    "packagingTier": {
-      "@id": "euppwr:packagingTier",
-      "@type": "@vocab",
-      "@context": {
-        "Grouped": "euppwr:Grouped",
-        "Sales": "euppwr:Sales",
-        "Transport": "euppwr:Transport"
-      }
+    "hasReturnablePackageDeposit": {
+      "@id": "gs1:hasReturnablePackageDeposit",
+      "@type": "@id"
     },
-    "recyclabilityGrade": {
-      "@id": "euppwr:recyclabilityGrade",
-      "@type": "@vocab",
-      "@context": {
-        "A": "euppwr:GradeA",
-        "B": "euppwr:GradeB",
-        "C": "euppwr:GradeC"
-      }
+    "isRegulationCompliant": {
+      "@id": "oec:isRegulationCompliant",
+      "@type": "xsd:boolean"
     },
     "manufacturer": {
       "@id": "gs1:manufacturer",
       "@type": "@id"
     },
+    "netContent": "gs1:netContent",
+    "netWeight": "gs1:netWeight",
     "packaging": {
       "@id": "gs1:packaging",
       "@type": "@id"
     },
-    "packagingType": "gs1:packagingType",
-    "PackagingMaterialDetails": "gs1:PackagingMaterialDetails",
+    "packagingFeature": {
+      "@id": "gs1:packagingFeature",
+      "@type": "@vocab",
+      "@context": {
+        "BASE": "gs1:PackagingFeatureCode-BASE",
+        "BEAM": "gs1:PackagingFeatureCode-BEAM",
+        "BUNG_SEAL": "gs1:PackagingFeatureCode-BUNG_SEAL",
+        "CAP": "gs1:PackagingFeatureCode-CAP",
+        "CARRIER": "gs1:PackagingFeatureCode-CARRIER",
+        "CONSUMPTION_UTENSIL": "gs1:PackagingFeatureCode-CONSUMPTION_UTENSIL",
+        "CORE": "gs1:PackagingFeatureCode-CORE",
+        "CREEL": "gs1:PackagingFeatureCode-CREEL",
+        "EDGE_PROTECTION": "gs1:PackagingFeatureCode-EDGE_PROTECTION",
+        "HANDLE": "gs1:PackagingFeatureCode-HANDLE",
+        "INNER_CONTAINER": "gs1:PackagingFeatureCode-INNER_CONTAINER",
+        "INTERNAL_DIVIDER": "gs1:PackagingFeatureCode-INTERNAL_DIVIDER",
+        "LABEL": "gs1:PackagingFeatureCode-LABEL",
+        "LID": "gs1:PackagingFeatureCode-LID",
+        "LINER": "gs1:PackagingFeatureCode-LINER",
+        "LUG": "gs1:PackagingFeatureCode-LUG",
+        "NESTING_EDGE": "gs1:PackagingFeatureCode-NESTING_EDGE",
+        "PEG": "gs1:PackagingFeatureCode-PEG",
+        "PULL_OFF_TAB": "gs1:PackagingFeatureCode-PULL_OFF_TAB",
+        "RING_HOLDER": "gs1:PackagingFeatureCode-RING_HOLDER",
+        "RIVET": "gs1:PackagingFeatureCode-RIVET",
+        "SLEEVE": "gs1:PackagingFeatureCode-SLEEVE",
+        "SPOUT": "gs1:PackagingFeatureCode-SPOUT",
+        "TAG": "gs1:PackagingFeatureCode-TAG",
+        "WICKER_OUTER_CONTAINER": "gs1:PackagingFeatureCode-WICKER_OUTER_CONTAINER",
+        "WRAP": "gs1:PackagingFeatureCode-WRAP"
+      }
+    },
     "packagingMaterial": {
       "@id": "gs1:packagingMaterial",
       "@type": "@id",
       "@container": "@set"
     },
+    "packagingMaterialCompositionQuantity": "gs1:packagingMaterialCompositionQuantity",
+    "packagingMaterialThickness": "gs1:packagingMaterialThickness",
     "packagingMaterialType": {
       "@id": "gs1:packagingMaterialType",
       "@type": "@vocab",
@@ -156,40 +193,6 @@
         "WOOD_SOFTWOOD": "gs1:PackagingMaterialTypeCode-WOOD_SOFTWOOD"
       }
     },
-    "packagingMaterialCompositionQuantity": "gs1:packagingMaterialCompositionQuantity",
-    "packagingMaterialThickness": "gs1:packagingMaterialThickness",
-    "packagingFeature": {
-      "@id": "gs1:packagingFeature",
-      "@type": "@vocab",
-      "@context": {
-        "BASE": "gs1:PackagingFeatureCode-BASE",
-        "BEAM": "gs1:PackagingFeatureCode-BEAM",
-        "BUNG_SEAL": "gs1:PackagingFeatureCode-BUNG_SEAL",
-        "CAP": "gs1:PackagingFeatureCode-CAP",
-        "CARRIER": "gs1:PackagingFeatureCode-CARRIER",
-        "CONSUMPTION_UTENSIL": "gs1:PackagingFeatureCode-CONSUMPTION_UTENSIL",
-        "CORE": "gs1:PackagingFeatureCode-CORE",
-        "CREEL": "gs1:PackagingFeatureCode-CREEL",
-        "EDGE_PROTECTION": "gs1:PackagingFeatureCode-EDGE_PROTECTION",
-        "HANDLE": "gs1:PackagingFeatureCode-HANDLE",
-        "INNER_CONTAINER": "gs1:PackagingFeatureCode-INNER_CONTAINER",
-        "INTERNAL_DIVIDER": "gs1:PackagingFeatureCode-INTERNAL_DIVIDER",
-        "LABEL": "gs1:PackagingFeatureCode-LABEL",
-        "LID": "gs1:PackagingFeatureCode-LID",
-        "LINER": "gs1:PackagingFeatureCode-LINER",
-        "LUG": "gs1:PackagingFeatureCode-LUG",
-        "NESTING_EDGE": "gs1:PackagingFeatureCode-NESTING_EDGE",
-        "PEG": "gs1:PackagingFeatureCode-PEG",
-        "PULL_OFF_TAB": "gs1:PackagingFeatureCode-PULL_OFF_TAB",
-        "RING_HOLDER": "gs1:PackagingFeatureCode-RING_HOLDER",
-        "RIVET": "gs1:PackagingFeatureCode-RIVET",
-        "SLEEVE": "gs1:PackagingFeatureCode-SLEEVE",
-        "SPOUT": "gs1:PackagingFeatureCode-SPOUT",
-        "TAG": "gs1:PackagingFeatureCode-TAG",
-        "WICKER_OUTER_CONTAINER": "gs1:PackagingFeatureCode-WICKER_OUTER_CONTAINER",
-        "WRAP": "gs1:PackagingFeatureCode-WRAP"
-      }
-    },
     "packagingRecyclingProcessType": {
       "@id": "gs1:packagingRecyclingProcessType",
       "@type": "@vocab",
@@ -200,9 +203,39 @@
         "REUSABLE": "gs1:PackagingRecyclingProcessTypeCode-REUSABLE"
       }
     },
-    "hasReturnablePackageDeposit": {
-      "@id": "gs1:hasReturnablePackageDeposit",
+    "packagingTier": {
+      "@id": "euppwr:packagingTier",
+      "@type": "@vocab",
+      "@context": {
+        "Grouped": "euppwr:Grouped",
+        "Sales": "euppwr:Sales",
+        "Transport": "euppwr:Transport"
+      }
+    },
+    "packagingType": "gs1:packagingType",
+    "price": "gs1:price",
+    "priceCurrency": "gs1:priceCurrency",
+    "recyclabilityGrade": {
+      "@id": "euppwr:recyclabilityGrade",
+      "@type": "@vocab",
+      "@context": {
+        "A": "euppwr:GradeA",
+        "B": "euppwr:GradeB",
+        "C": "euppwr:GradeC"
+      }
+    },
+    "regulationType": {
+      "@id": "gs1:regulationType",
       "@type": "@id"
+    },
+    "regulatoryAct": "gs1:regulatoryAct",
+    "regulatoryInformation": {
+      "@id": "gs1:regulatoryInformation",
+      "@type": "@id",
+      "@container": "@set",
+      "@context": {
+        "@base": "https://ref.gs1.org/voc/"
+      }
     },
     "returnablePackageDepositAmount": {
       "@id": "gs1:returnablePackageDepositAmount",
@@ -214,31 +247,6 @@
       "@context": {
         "@base": "https://ref.gs1.org/voc/"
       }
-    },
-    "PriceSpecification": "gs1:PriceSpecification",
-    "price": "gs1:price",
-    "priceCurrency": "gs1:priceCurrency",
-    "netContent": "gs1:netContent",
-    "netWeight": "gs1:netWeight",
-    "PACKAGING_AND_PACKAGING_WASTE_REGULATION": "euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION",
-    "regulatoryInformation": {
-      "@id": "gs1:regulatoryInformation",
-      "@type": "@id",
-      "@container": "@set",
-      "@context": {
-        "@base": "https://ref.gs1.org/voc/"
-      }
-    },
-    "RegulatoryInformation": "gs1:RegulatoryInformation",
-    "regulationType": {
-      "@id": "gs1:regulationType",
-      "@type": "@id"
-    },
-    "regulatoryAct": "gs1:regulatoryAct",
-    "isRegulationCompliant": {
-      "@id": "oec:isRegulationCompliant",
-      "@type": "xsd:boolean"
-    },
-    "QuantitativeValue": "gs1:QuantitativeValue"
+    }
   }
 }
