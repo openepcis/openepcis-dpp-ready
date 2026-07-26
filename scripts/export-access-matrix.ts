@@ -22,7 +22,7 @@ const OUT = join(ROOT, "scripts", "out", "access-matrix");
 
 const MODULE_JSON: Array<{ rel: string; regulation: string }> = [
   { rel: "extensions/common/core/json/dpp-core.json", regulation: "ESPR 2024/1781 Art. 7–9, Annex III" },
-  { rel: "extensions/common/gs1-masterdata/json/gs1-masterdata.json", regulation: "GS1 Web Vocabulary / ESPR consumer-information baseline" },
+  { rel: "masterdata/served-fields/json/served-fields.json", regulation: "GS1 Web Vocabulary / ESPR consumer-information baseline" },
   { rel: "extensions/eu/battery/json/battery.json", regulation: "Battery Regulation (EU) 2023/1542, Annex XIII + Art. 14" },
   { rel: "extensions/eu/eudr/json/eudr.json", regulation: "EUDR (EU) 2023/1115, Art. 9–12 (DDS)" },
   { rel: "extensions/eu/textile/json/textile.json", regulation: "ESPR textile delegated act (draft) / Textile Labelling 1007/2011" },

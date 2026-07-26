@@ -127,7 +127,16 @@ interface OntologyModule {
   name: string;
   dir: string;
   ttlFile: string;
+  /** Primary namespace terms are minted under, and the ontology IRI unless
+   *  `ontologyIri` overrides it. */
   namespace: string;
+  /** Additional namespaces whose subjects also belong to this dataset. Used by
+   *  served-fields, whose terms are GS1's own IRIs (identity stays upstream)
+   *  plus a handful of local identifiers for resolver-specific field shapes. */
+  extraNamespaces?: string[];
+  /** Ontology IRI when it is not the term namespace — again served-fields,
+   *  which is described at /masterdata/served-fields/ but whose terms are gs1:. */
+  ontologyIri?: string;
 }
 
 // Ontology modules configuration
@@ -138,11 +147,17 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ttlFile: "dpp-core.ttl",
     namespace: "https://ref.openepcis.io/extensions/common/core/",
   },
+  // Served master-data fields. NOT an EPCIS extension and not a vocabulary of
+  // its own: 135 of the 139 served fields are GS1 Web Vocabulary properties
+  // under the identical local name, so identity stays with GS1 and the terms
+  // are gs1: IRIs. Only 4 flattened/resolver-specific shapes carry a local id.
   {
-    name: "gs1-masterdata",
-    dir: "extensions/common/gs1-masterdata",
-    ttlFile: "gs1-masterdata.ttl",
-    namespace: "https://ref.openepcis.io/extensions/common/gs1-masterdata/",
+    name: "served-fields",
+    dir: "masterdata/served-fields",
+    ttlFile: "served-fields.ttl",
+    namespace: "https://ref.gs1.org/voc/",
+    extraNamespaces: ["https://ref.openepcis.io/masterdata/served-fields/"],
+    ontologyIri: "https://ref.openepcis.io/masterdata/served-fields/",
   },
   {
     name: "battery",
@@ -414,29 +429,39 @@ function extractExternalEnumerations(
 
 function extractOntologyData(store: Store, module: OntologyModule): OntologyData {
   const namespace = module.namespace;
-  const ontologyUri = namespace.endsWith("/") ? namespace.slice(0, -1) : namespace;
+  // Namespaces whose subjects belong to this dataset, longest first so a
+  // localName is stripped with the most specific match.
+  const termNamespaces = [namespace, ...(module.extraNamespaces ?? [])].sort(
+    (a, b) => b.length - a.length,
+  );
+  const nsFor = (uri: string) => termNamespaces.find((ns) => uri.startsWith(ns)) ?? namespace;
+  const describedBy = module.ontologyIri ?? namespace;
+  const ontologyUri = describedBy.endsWith("/") ? describedBy.slice(0, -1) : describedBy;
 
   const title =
-    getObjectValue(store, namespace, `${DCTERMS}title`) ||
+    getObjectValue(store, describedBy, `${DCTERMS}title`) ||
     getObjectValue(store, ontologyUri, `${DCTERMS}title`) ||
-    getObjectValue(store, namespace, `${DC11}title`) ||
+    getObjectValue(store, describedBy, `${DC11}title`) ||
     getObjectValue(store, ontologyUri, `${DC11}title`) ||
     `${module.name} Vocabulary`;
   const description =
-    getObjectValue(store, namespace, `${DCTERMS}description`) ||
+    getObjectValue(store, describedBy, `${DCTERMS}description`) ||
     getObjectValue(store, ontologyUri, `${DCTERMS}description`) ||
-    getObjectValue(store, namespace, `${DC11}description`) ||
+    getObjectValue(store, describedBy, `${DC11}description`) ||
     getObjectValue(store, ontologyUri, `${DC11}description`) ||
     "";
   const version =
-    getObjectValue(store, namespace, `${OWL}versionInfo`) ||
+    getObjectValue(store, describedBy, `${OWL}versionInfo`) ||
     getObjectValue(store, ontologyUri, `${OWL}versionInfo`) ||
     "0.9.6";
 
   const allSubjects = new Set<string>();
   store.getQuads(null, null, null, null).forEach((quad) => {
-    if (quad.subject.value.startsWith(namespace)) {
-      allSubjects.add(quad.subject.value);
+    const subject = quad.subject.value;
+    // The ontology node itself is described, not a term of the dataset.
+    if (subject === describedBy || subject === ontologyUri) return;
+    if (termNamespaces.some((ns) => subject.startsWith(ns))) {
+      allSubjects.add(subject);
     }
   });
 
@@ -444,10 +469,12 @@ function extractOntologyData(store: Store, module: OntologyModule): OntologyData
   const properties: TermData[] = [];
 
   for (const subject of allSubjects) {
+    // Strip whichever namespace the subject actually sits in, so a served
+    // field keeps the bare key the resolver serves it under.
     if (isClass(store, subject)) {
-      classes.push(extractTermData(store, subject, namespace));
+      classes.push(extractTermData(store, subject, nsFor(subject)));
     } else if (isProperty(store, subject)) {
-      properties.push(extractTermData(store, subject, namespace));
+      properties.push(extractTermData(store, subject, nsFor(subject)));
     }
   }
 
@@ -465,7 +492,10 @@ function extractOntologyData(store: Store, module: OntologyModule): OntologyData
   enumerations.sort((a, b) => a.localName.localeCompare(b.localName));
 
   return {
-    namespace,
+    // The dataset's own IRI. For most modules that is also the namespace its
+    // terms are minted under; for served-fields the terms are GS1's own IRIs,
+    // so there is no single term namespace and this identifies the dataset.
+    namespace: describedBy,
     version,
     title,
     description,

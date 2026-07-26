@@ -37,7 +37,7 @@ const ROOT = join(new URL(".", import.meta.url).pathname, "..");
 
 const MODULE_JSON: string[] = [
   "extensions/common/core/json/dpp-core.json",
-  "extensions/common/gs1-masterdata/json/gs1-masterdata.json",
+  "masterdata/served-fields/json/served-fields.json",
   "extensions/eu/battery/json/battery.json",
   "extensions/eu/eudr/json/eudr.json",
   "extensions/eu/textile/json/textile.json",
@@ -56,7 +56,7 @@ const MODULE_JSON: string[] = [
  */
 const STRICT_MODULES = new Set<string>([
   "dpp-core",
-  "gs1-masterdata",
+  "served-fields",
   "battery",
   "eudr",
   "textile",

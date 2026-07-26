@@ -1,4 +1,4 @@
-# Access-tier review matrix — gs1-masterdata
+# Access-tier review matrix — served-fields
 
 Regulatory frame: GS1 Web Vocabulary / ESPR consumer-information baseline
 

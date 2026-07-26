@@ -46,6 +46,31 @@ service) reads exactly these GS1-typed records and projects them to the passport
   OpenEPCIS-defined is documented in
   [`../../extensions/common/core/docs/GS1_VOCABULARY_MAPPING.md`](../../extensions/common/core/docs/GS1_VOCABULARY_MAPPING.md).
 
+## Served fields
+
+The flat field names the Digital Link resolver actually serves for Product,
+Place, and Organization master data live in
+[`../served-fields/`](../served-fields/), alongside this document — deliberately
+**not** under `extensions/`, because they are not an EPCIS extension.
+
+They also mint nothing of their own. 135 of the 139 served fields *are* a GS1 Web
+Vocabulary property under the identical local name, so the GS1 IRI is the term
+and `served-fields.ttl` merely annotates it; the only thing OpenEPCIS contributes
+is the curated default ESPR Article 9 access tier (see
+`served-fields-access-levels.ttl`). The remaining 4 are flattened plurals or
+resolver-specific field shapes with no identically named GS1 property
+(`images → gs1:image`, `sizeCodes → gs1:sizeCode`, `geoCoordinates` and
+`geoShape → gs1:geo`); two of them share a single GS1 target, and every served
+key must survive verbatim because per-field access enforcement matches the bare
+keys of the served documents — so those four keep a local identifier under
+`https://ref.openepcis.io/masterdata/served-fields/` and point at their nearest
+GS1 property with `skos:closeMatch`.
+
+Earlier versions published these as an extension module
+(`extensions/common/gs1-masterdata/`) that re-minted all 139 terms under
+`https://ref.openepcis.io/extensions/common/gs1-masterdata/`. That was a parallel
+identity for terms GS1 already defines; it is gone.
+
 ## Note on context URLs
 
 The generated `gs1-shortcuts-context.jsonld` is currently hosted under

@@ -1,4 +1,4 @@
-# Access-tier annotations for the GS1 Master-Data Field Vocabulary
+# Access-tier annotations for the served master-data fields
 # (ESPR Article 9 tiers). One entry per term; merged into the module by
 # scripts/build-json.ts.
 #
@@ -25,7 +25,8 @@
 #   <https://ref.gs1.org/voc/>                     pure GS1-registry facts —
 #       GLN/party/place identity published via Verified by GS1
 
-@prefix gs1md: <https://ref.openepcis.io/extensions/common/gs1-masterdata/> .
+@prefix gs1:   <https://ref.gs1.org/voc/> .
+@prefix oemd:  <https://ref.openepcis.io/masterdata/served-fields/> .
 @prefix oec:   <https://ref.openepcis.io/extensions/common/core/> .
 
 
@@ -36,64 +37,64 @@
 # it appears on the consumer package, in retail listings, and in the GS1
 # registry (ESPR Art. 7(5)/Annex III information for customers).
 
-gs1md:gtin oec:defaultAccessLevel oec:Public ;
+gs1:gtin oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The GTIN is encoded in the barcode on every consumer package and is the public key that resolves the ESPR Art. 9 data carrier in the first place." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:productID oec:defaultAccessLevel oec:Public ;
+gs1:productID oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Additional product identifiers serve the same public identification purpose as the GTIN printed on the package." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:productName oec:defaultAccessLevel oec:Public ;
+gs1:productName oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The consumer-friendly product name is on-package and point-of-sale information every customer already sees." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:productDescription oec:defaultAccessLevel oec:Public ;
+gs1:productDescription oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The product description is the basic consumer-facing account of what the scanned item is (ESPR Annex III information for customers)." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:additionalProductDescription oec:defaultAccessLevel oec:Public ;
+gs1:additionalProductDescription oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Additional descriptive variants refine the public product description and carry no confidential content beyond it." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:brand oec:defaultAccessLevel oec:Public ;
+gs1:brand oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The brand appears on the consumer package by definition and is core public product identity." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:brandOwner oec:defaultAccessLevel oec:Public ;
+gs1:brandOwner oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The brand owner is the accountable party behind the on-package brand and is published in the GS1 registry (Verified by GS1)." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:functionalName oec:defaultAccessLevel oec:Public ;
+gs1:functionalName oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The functional name tells the consumer what the product is used for — ordinary retail product information." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:regulatedProductName oec:defaultAccessLevel oec:Public ;
+gs1:regulatedProductName oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The regulated or generic denomination is required on the label to describe the true nature of the product to consumers." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:productFormDescription oec:defaultAccessLevel oec:Public ;
+gs1:productFormDescription oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The physical form or shape of the product is apparent from the product itself and its package." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:productRange oec:defaultAccessLevel oec:Public ;
+gs1:productRange oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The product-range name is public catalogue information the brand owner itself markets across categories." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:variantDescription oec:defaultAccessLevel oec:Public ;
+gs1:variantDescription oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The variant description distinguishes retail variants the consumer chooses between at point of sale." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:consumerProductVariant oec:defaultAccessLevel oec:Public ;
+gs1:consumerProductVariant oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The consumer product variant distinguishes retail variants under the same GTIN and is by name and purpose consumer-facing." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:colourCode oec:defaultAccessLevel oec:Public ;
+gs1:colourCode oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Colour codes describe an attribute visible on the product itself and shown in every retail listing." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:colourDescription oec:defaultAccessLevel oec:Public ;
+gs1:colourDescription oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The colour description states an attribute visible on the product itself." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:descriptiveSize oec:defaultAccessLevel oec:Public ;
+gs1:descriptiveSize oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The descriptive size is, per its GS1 definition, a size factor the brand owner wishes to communicate to the consumer." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:sizeCodes oec:defaultAccessLevel oec:Public ;
+oemd:sizeCodes oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Size codes are ordinary retail information printed on the label and shown at point of sale." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:gpcCategoryCode oec:defaultAccessLevel oec:Public ;
+gs1:gpcCategoryCode oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The GPC brick code is a standard product classification published with the GTIN in the GS1 registry (Verified by GS1)." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:gpcCategoryDescription oec:defaultAccessLevel oec:Public ;
+gs1:gpcCategoryDescription oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The GPC category description is the human-readable form of the public GPC brick code." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:additionalProductClassification oec:defaultAccessLevel oec:Public ;
+gs1:additionalProductClassification oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Additional classification codes categorise the product the same way the public GPC classification does." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
@@ -105,40 +106,40 @@ gs1md:additionalProductClassification oec:defaultAccessLevel oec:Public ;
 # information at consumers and end users; withholding it would defeat the
 # purpose of the data carrier.
 
-gs1md:consumerUsageInstructions oec:defaultAccessLevel oec:Public ;
+gs1:consumerUsageInstructions oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Usage instructions are label-carried consumer information ESPR Annex III explicitly directs at customers." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:consumerSafetyInformation oec:defaultAccessLevel oec:Public ;
+gs1:consumerSafetyInformation oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Safety information exists to protect the end user and must reach every anonymous scanner of the product." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:consumerStorageInstructions oec:defaultAccessLevel oec:Public ;
+gs1:consumerStorageInstructions oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Storage instructions are normally held on the label or accompany the product, so they are already public consumer information." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:consumerHandlingStorage oec:defaultAccessLevel oec:Public ;
+gs1:consumerHandlingStorage oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The manufacturer's handling and storage recommendations are consumer use-and-maintenance information under ESPR Annex III." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:consumerPackageDisclaimer oec:defaultAccessLevel oec:Public ;
+gs1:consumerPackageDisclaimer oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The package disclaimer is defined as information to be used in advertising and display, i.e. inherently public." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:warningCopyDescription oec:defaultAccessLevel oec:Public ;
+gs1:warningCopyDescription oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Warning copy reproduces caution information printed on the package and is critical consumer safety content." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:healthClaimDescription oec:defaultAccessLevel oec:Public ;
+gs1:healthClaimDescription oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Health claims are made to consumers under target-market regulations and must be as visible as the claim itself." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:instructionsForUse oec:defaultAccessLevel oec:Public ;
+gs1:instructionsForUse oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The instructions-for-use file is the document a consumer or repairer needs to use the product correctly (ESPR Annex III)." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:manufacturersWarranty oec:defaultAccessLevel oec:Public ;
+gs1:manufacturersWarranty oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Guarantee and warranty terms are customer information ESPR Annex III expects to be available to product owners." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:isProductRecalled oec:defaultAccessLevel oec:Public ;
+gs1:isProductRecalled oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Recall status is critical public safety information that must reach every holder of the product without any login." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:customerSupportCentre oec:defaultAccessLevel oec:Public ;
+gs1:customerSupportCentre oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The support-centre contact is printed on packaging precisely so any customer can reach product support." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:additive oec:defaultAccessLevel oec:Public ;
+gs1:additive oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Additive details mirror ingredient information consumers already read on the label of the products concerned." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
@@ -149,40 +150,40 @@ gs1md:additive oec:defaultAccessLevel oec:Public ;
 # These dates are printed on the package or encoded in the GS1 element
 # strings on the label; the served document only repeats label content.
 
-gs1md:bestBeforeDate oec:defaultAccessLevel oec:Public ;
+gs1:bestBeforeDate oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The best-before date is printed on the label or package by definition and consumers rely on it directly." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:expirationDate oec:defaultAccessLevel oec:Public ;
+gs1:expirationDate oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The expiration date limits safe consumption or use and is printed on the package for the consumer." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:expirationDateTime oec:defaultAccessLevel oec:Public ;
+gs1:expirationDateTime oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The expiration date-time is the finer-grained form of the on-package expiration date for short-life products." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:sellByDate oec:defaultAccessLevel oec:Public ;
+gs1:sellByDate oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The sell-by date is marked on retail packaging and lets the consumer judge product freshness at the shelf." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:harvestDate oec:defaultAccessLevel oec:Public ;
+gs1:harvestDate oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The harvest date is provenance information for fresh produce that supports the consumer's freshness and origin judgement." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:harvestDateStart oec:defaultAccessLevel oec:Public ;
+gs1:harvestDateStart oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The harvest start date bounds the same public provenance window as the harvest date itself." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:harvestDateEnd oec:defaultAccessLevel oec:Public ;
+gs1:harvestDateEnd oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The harvest end date bounds the same public provenance window as the harvest date itself." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:packagingDate oec:defaultAccessLevel oec:Public ;
+gs1:packagingDate oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The packaging date is marked on packs (GS1 element strings) and informs the consumer's freshness judgement." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:productionDate oec:defaultAccessLevel oec:Public ;
+gs1:productionDate oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The production date is encodable in the GS1 element strings on the label, so the document repeats on-pack information." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:productionDateTime oec:defaultAccessLevel oec:Public ;
+gs1:productionDateTime oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The production date-time is the finer-grained form of the on-pack production date, not production-process detail." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:firstFreezeDate oec:defaultAccessLevel oec:Public ;
+gs1:firstFreezeDate oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The first-freeze date is food-quality information consumers use like a best-before date for frozen produce." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:dueDate oec:defaultAccessLevel oec:Public ;
+gs1:dueDate oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The due date is encodable in the GS1 element string on the payment document itself, so the holder already sees it." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
@@ -193,25 +194,25 @@ gs1md:dueDate oec:defaultAccessLevel oec:Public ;
 # Origin declarations are consumer-facing claims (often mandatory on-label)
 # and central to the sustainability transparency ESPR pursues.
 
-gs1md:countryOfOrigin oec:defaultAccessLevel oec:Public ;
+gs1:countryOfOrigin oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Country of origin is a consumer-facing declaration frequently required on the label of the target market." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:countryOfOriginStatement oec:defaultAccessLevel oec:Public ;
+gs1:countryOfOriginStatement oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The origin statement is the free-text form of the public country-of-origin declaration." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:countryOfAssembly oec:defaultAccessLevel oec:Public ;
+gs1:countryOfAssembly oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Country of assembly is an origin fact at country granularity, revealing no supplier or facility identity." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:countryOfLastProcessing oec:defaultAccessLevel oec:Public ;
+gs1:countryOfLastProcessing oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Country of last processing is origin information at country granularity, consistent with on-label origin marking." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:provenanceStatement oec:defaultAccessLevel oec:Public ;
+gs1:provenanceStatement oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The provenance statement is a marketing-grade origin description brands print on the product page and pack." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:growingMethod oec:defaultAccessLevel oec:Public ;
+gs1:growingMethod oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The growing method (e.g. organic, hydroponic) is a consumer-facing produce claim shown at point of sale." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:organicClaim oec:defaultAccessLevel oec:Public ;
+gs1:organicClaim oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Organic claims are regulated consumer-facing label claims and must be as visible as the label itself." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
@@ -223,52 +224,52 @@ gs1md:organicClaim oec:defaultAccessLevel oec:Public ;
 # Package Measurement Rules measurements describe the retail unit, not any
 # production process).
 
-gs1md:netWeight oec:defaultAccessLevel oec:Public ;
+gs1:netWeight oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Net weight is mandatory on-label net-quantity information for consumers." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:grossWeight oec:defaultAccessLevel oec:Public ;
+gs1:grossWeight oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Gross weight describes the packaged retail unit the consumer physically handles." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:netContent oec:defaultAccessLevel oec:Public ;
+gs1:netContent oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Net content is, per its GS1 definition, the quantity as claimed on the label." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:netArea oec:defaultAccessLevel oec:Public ;
+gs1:netArea oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Net area is a net-quantity measurement of the retail unit, equivalent to on-label content declarations." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:grossArea oec:defaultAccessLevel oec:Public ;
+gs1:grossArea oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Gross area describes the packaged retail unit and carries no confidential content." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:grossVolume oec:defaultAccessLevel oec:Public ;
+gs1:grossVolume oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Gross volume describes the packaged retail unit and carries no confidential content." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:massPerUnitArea oec:defaultAccessLevel oec:Public ;
+gs1:massPerUnitArea oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Mass per unit area (e.g. fabric grammage) is a physical product characteristic quoted in ordinary retail listings." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:inPackageDepth oec:defaultAccessLevel oec:Public ;
+gs1:inPackageDepth oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Packaged depth is a measurable fact about the retail unit shown in any product listing." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:inPackageDiameter oec:defaultAccessLevel oec:Public ;
+gs1:inPackageDiameter oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Packaged diameter is a measurable fact about the retail unit shown in any product listing." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:inPackageHeight oec:defaultAccessLevel oec:Public ;
+gs1:inPackageHeight oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Packaged height is a measurable fact about the retail unit shown in any product listing." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:inPackageWidth oec:defaultAccessLevel oec:Public ;
+gs1:inPackageWidth oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Packaged width is a measurable fact about the retail unit shown in any product listing." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:outOfPackageDepth oec:defaultAccessLevel oec:Public ;
+gs1:outOfPackageDepth oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Unpackaged depth is measurable by anyone holding the product and helps consumers judge fit before purchase." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:outOfPackageDiameter oec:defaultAccessLevel oec:Public ;
+gs1:outOfPackageDiameter oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Unpackaged diameter is measurable by anyone holding the product and helps consumers judge fit before purchase." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:outOfPackageHeight oec:defaultAccessLevel oec:Public ;
+gs1:outOfPackageHeight oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Unpackaged height is measurable by anyone holding the product and helps consumers judge fit before purchase." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:outOfPackageWidth oec:defaultAccessLevel oec:Public ;
+gs1:outOfPackageWidth oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Unpackaged width is measurable by anyone holding the product and helps consumers judge fit before purchase." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:packaging oec:defaultAccessLevel oec:Public ;
+gs1:packaging oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Packaging type and material details are consumer-relevant circularity information ESPR Annex I makes central to the passport." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
@@ -279,34 +280,34 @@ gs1md:packaging oec:defaultAccessLevel oec:Public ;
 # Content the brand itself publishes to consumers, plus third-party marks
 # consumers must be able to verify.
 
-gs1md:productMarketingMessage oec:defaultAccessLevel oec:Public ;
+gs1:productMarketingMessage oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The marketing message is authored for consumer display and is public by intent." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:productFeatureBenefit oec:defaultAccessLevel oec:Public ;
+gs1:productFeatureBenefit oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Feature-benefit copy is, per its GS1 definition, consumer-facing marketing content suitable for display." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:productSustainabilityInfo oec:defaultAccessLevel oec:Public ;
+gs1:productSustainabilityInfo oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Sustainability information is exactly the consumer transparency ESPR exists to deliver through the data carrier." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:includedAccessories oec:defaultAccessLevel oec:Public ;
+gs1:includedAccessories oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Included accessories are box-contents information every retail listing and package already states." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:awardPrize oec:defaultAccessLevel oec:Public ;
+gs1:awardPrize oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Awards and prizes are promotional facts the brand itself publicises on pack and product page." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:certification oec:defaultAccessLevel oec:Public ;
+gs1:certification oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Certification claims must be publicly verifiable by the consumers and market-surveillance actors they are addressed to." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:packagingMarkedLabelAccreditation oec:defaultAccessLevel oec:Public ;
+gs1:packagingMarkedLabelAccreditation oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Accreditation marks are printed on the packaging by definition, so the field only mirrors the label." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:audioFile oec:defaultAccessLevel oec:Public ;
+gs1:audioFile oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Product audio clips are published brand media intended for consumer consumption." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:images oec:defaultAccessLevel oec:Public ;
+oemd:images oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Product images are the published visual identity of the product shown in every listing." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:referencedFile oec:defaultAccessLevel oec:Public ;
+gs1:referencedFile oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Referenced files are links to additional product information the brand publishes for its audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
@@ -318,25 +319,25 @@ gs1md:referencedFile oec:defaultAccessLevel oec:Public ;
 # and compatible products (ESPR circularity goals); authenticity features
 # only work if the checking public can read them.
 
-gs1md:equivalentProduct oec:defaultAccessLevel oec:Public ;
+gs1:equivalentProduct oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Supplier-declared substitutes help consumers find an equivalent product and are ordinary catalogue information." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:dependentProprietaryProduct oec:defaultAccessLevel oec:Public ;
+gs1:dependentProprietaryProduct oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Products required to make this one functional are compatibility information a purchaser needs before and after buying." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:replacedByProduct oec:defaultAccessLevel oec:Public ;
+gs1:replacedByProduct oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The successor-product link routes owners of a discontinued item to its replacement — public catalogue succession." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:replacedProduct oec:defaultAccessLevel oec:Public ;
+gs1:replacedProduct oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The predecessor-product link is the public catalogue history of what this product permanently replaces." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:primaryAlternateProduct oec:defaultAccessLevel oec:Public ;
+gs1:primaryAlternateProduct oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The primary alternate is a similar-product suggestion of the same public catalogue nature as equivalent products." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:authenticity oec:defaultAccessLevel oec:Public ;
+gs1:authenticity oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Authenticity-checking details only fulfil their purpose if the consumer verifying a product instance can read them." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:targetMarket oec:defaultAccessLevel oec:Public ;
+gs1:targetMarket oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Target-market countries and release dates are public availability information visible from where the product is sold." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
@@ -348,10 +349,10 @@ gs1md:targetMarket oec:defaultAccessLevel oec:Public ;
 # frequently part of the GS1 Digital Link URI the consumer scans, so gating
 # them in the response would hide what the requester already presented.
 
-gs1md:hasBatchLotNumber oec:defaultAccessLevel oec:Public ;
+gs1:hasBatchLotNumber oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The batch/lot number is printed on the label and appears in the GS1 Digital Link path the scanner itself resolved." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:hasSerialNumber oec:defaultAccessLevel oec:Public ;
+gs1:hasSerialNumber oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The serial number is marked on the item and appears in the GS1 Digital Link path the scanner itself resolved." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
@@ -363,73 +364,73 @@ gs1md:hasSerialNumber oec:defaultAccessLevel oec:Public ;
 # (Verified by GS1); the resolver adds nothing beyond what the registry
 # already discloses about a business site or legal entity.
 
-gs1md:globalLocationNumber oec:defaultAccessLevel oec:Public ;
+gs1:globalLocationNumber oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The GLN is the public GS1 identification key for the party or location and is discoverable in the GS1 registry." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:locationGLN oec:defaultAccessLevel oec:Public ;
+gs1:locationGLN oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The location GLN is the public registry key of the physical or digital location being described." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:partyGLN oec:defaultAccessLevel oec:Public ;
+gs1:partyGLN oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The party GLN is the public registry key of the legal entity or function being described." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:glnType oec:defaultAccessLevel oec:Public ;
+gs1:glnType oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The GLN type only says what kind of thing the public GLN identifies and is needed to interpret it." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:organizationName oec:defaultAccessLevel oec:Public ;
+gs1:organizationName oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The organization name is the public legal-entity identity behind the GLN, published via Verified by GS1." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:physicalLocationName oec:defaultAccessLevel oec:Public ;
+gs1:physicalLocationName oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The name of a physical business site is public registry identity, typically also signposted at the site itself." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:digitalLocationName oec:defaultAccessLevel oec:Public ;
+gs1:digitalLocationName oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The name of a digital place (e.g. a webshop) identifies a publicly reachable endpoint." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:address oec:defaultAccessLevel oec:Public ;
+gs1:address oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The postal address of a registered business party or site is public registry and business-directory information." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:digitalAddress oec:defaultAccessLevel oec:Public ;
+gs1:digitalAddress oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The digital address points at a publicly reachable digital location and reveals nothing beyond that endpoint." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:contactPoint oec:defaultAccessLevel oec:Public ;
+gs1:contactPoint oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Published contact points are how the organization asks to be reached and are ordinary business-directory content." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:organizationRole oec:defaultAccessLevel oec:Public ;
+gs1:organizationRole oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The declared role of a party (e.g. manufacturer, retailer) is coarse registry classification with no commercial detail." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:locationRole oec:defaultAccessLevel oec:Public ;
+gs1:locationRole oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The location role classifies what kind of site a place is — coarse registry classification, not operational detail." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:relatedOrganization oec:defaultAccessLevel oec:Public ;
+gs1:relatedOrganization oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The organization associated with a place is the public operator identity a visitor to the site can observe." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:parentOrganization oec:defaultAccessLevel oec:Public ;
+gs1:parentOrganization oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The parent legal entity is corporate-structure information disclosed in public company registers." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:subOrganization oec:defaultAccessLevel oec:Public ;
+gs1:subOrganization oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Subsidiary legal entities are corporate-structure information disclosed in public company registers." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:replacedByOrganization oec:defaultAccessLevel oec:Public ;
+gs1:replacedByOrganization oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The successor-organization link keeps the public registry record resolvable after a party is superseded." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:replacedOrganization oec:defaultAccessLevel oec:Public ;
+gs1:replacedOrganization oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The predecessor-organization link is public registry succession history for the party identifier." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:replacedByPlace oec:defaultAccessLevel oec:Public ;
+gs1:replacedByPlace oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The successor-location link keeps the public registry record resolvable after a location is superseded." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:replacedPlace oec:defaultAccessLevel oec:Public ;
+gs1:replacedPlace oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The predecessor-location link is public registry succession history for the location identifier." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:hasPrimaryLocation oec:defaultAccessLevel oec:Public ;
+gs1:hasPrimaryLocation oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "An organization's self-designated primary location is headline registry identity, like a head-office address." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:location oec:defaultAccessLevel oec:Public ;
+gs1:location oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The places associated with an organization are its public registry footprint of identified sites." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:geoCoordinates oec:defaultAccessLevel oec:Public ;
+oemd:geoCoordinates oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Coordinates of a GLN-identified business site restate the public location of that site per the GS1 registry (unlike a product's manufacturingPlant link, this describes the place entity itself)." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
-gs1md:geoShape oec:defaultAccessLevel oec:Public ;
+oemd:geoShape oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The boundary shape of a GLN-identified site is the same public site-location fact as its coordinates." ;
     oec:accessLevelSource <https://ref.gs1.org/voc/> .
 
@@ -442,22 +443,22 @@ gs1md:geoShape oec:defaultAccessLevel oec:Public ;
 # the public passport part, and ESPR Art. 9 tiering exists to protect
 # exactly this class of commercially sensitive supply-chain data.
 
-gs1md:manufacturer oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:manufacturer oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The producing organization behind a brand is supply-chain sourcing detail; consumers see the brand owner, while manufacturer identity serves authorities and B2B partners." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:manufacturingPlant oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:manufacturingPlant oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Linking a product to its production facility exposes the manufacturer's production network, which the battery-passport precedent keeps non-public." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:productionVariantDescription oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:productionVariantDescription oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Production variants are manufacturer bookkeeping about production runs, not information addressed to the consumer." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:productionVariantEffectiveDateTime oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:productionVariantEffectiveDateTime oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The effective date of a production variant is production bookkeeping tied to the non-public variant record." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:hasThirdPartyControlledSerialNumber oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:hasThirdPartyControlledSerialNumber oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "A third-party-controlled serial number belongs to an external identification scheme for professional traceability, unlike the on-label GS1 serial." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:supplierSpecifiedMinimumConsumerStorageDays oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:supplierSpecifiedMinimumConsumerStorageDays oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The supplier-specified minimum storage-days figure steers retail shelf-life logistics between trading partners; the consumer relies on the printed dates instead." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
@@ -468,25 +469,25 @@ gs1md:supplierSpecifiedMinimumConsumerStorageDays oec:defaultAccessLevel oec:Aut
 # Secondary identifier schemes and internal operational contacts serve
 # administrative B2B and authority workflows, not the anonymous consumer.
 
-gs1md:additionalLocationID oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:additionalLocationID oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Secondary location identifiers from government or trade schemes serve administrative cross-referencing, not consumer information." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:additionalOrganizationID oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:additionalOrganizationID oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Secondary party identifiers (tax, customs, trade-body numbers) are administrative identifiers for authorities and B2B partners." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:additionalOrganizationIdentificationTypeValue oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:additionalOrganizationIdentificationTypeValue oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "This value qualifies the non-public additional organization identifier and shares its administrative audience." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:department oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:department oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Internal department structure is organizational detail relevant to business partners, not to a consumer scanning a product." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:afterHoursContact oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:afterHoursContact oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "After-hours contacts are operational emergency channels for partners and authorities, distinct from the published consumer contact point." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:baseLocation oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:baseLocation oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The home base of a mobile asset is logistics-network detail with no consumer-information function." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:makesOffer oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:makesOffer oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Offers attached to a party record are commercial trading terms between businesses, not product information for the end user." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
@@ -498,54 +499,54 @@ gs1md:makesOffer oec:defaultAccessLevel oec:AuthorizedOnly ;
 # relationships between companies — the class of confidential business
 # information ESPR's tiered-access design shields from anonymous readers.
 
-gs1md:ownedBy oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:ownedBy oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Ownership of a site maps commercial relationships and asset holdings beyond the public registry identity of the place." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:owns oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:owns oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "An organization's owned places and entities enumerate its asset portfolio — commercial detail, not consumer information." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:leasedFrom oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:leasedFrom oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Lessor identity discloses a commercial lease relationship between businesses." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:leasedTo oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:leasedTo oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Lessee identity discloses a commercial lease relationship between businesses." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:lessorFor oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:lessorFor oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The set of places an organization leases out maps its property dealings — commercial-relations data." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:lesseeOf oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:lesseeOf oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The set of places an organization leases in maps its property dealings — commercial-relations data." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:managedBy oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:managedBy oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The managing organization behind a site or party discloses an outsourcing/management contract between businesses." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:managedFor oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:managedFor oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Whose behalf a place is managed on discloses the same commercial management relationship as managedBy." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:manages oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:manages oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The portfolio of places and parties an organization manages enumerates its service contracts — commercial-relations data." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:usesManagedLocation oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:usesManagedLocation oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Which managed spaces an organization uses reveals its operational footprint and supplier relationships." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:occupies oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:occupies oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The full list of places an organization occupies is operational-footprint detail beyond its public primary location." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:occupiedBy oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:occupiedBy oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The tenant list of a site maps commercial occupancy relationships beyond the public operator identity." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:responsibleForLocation oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:responsibleForLocation oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The places an organization is responsible for map internal accountability across the site network — B2B operational structure." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:responsibleOrganization oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:responsibleOrganization oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The organization directly responsible for a place is internal accountability structure, distinct from the public operator identity." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:primaryLocationOf oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:primaryLocationOf oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The reverse index of every organization headquartered at a place aggregates tenancy relationships beyond any single party's public record." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:locationHistory oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:locationHistory oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Activation/deactivation history of a location is registry lifecycle bookkeeping for data managers, not consumer information." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
-gs1md:organizationHistory oec:defaultAccessLevel oec:AuthorizedOnly ;
+gs1:organizationHistory oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Activation/deactivation history of a party record is registry lifecycle bookkeeping for data managers, not consumer information." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
