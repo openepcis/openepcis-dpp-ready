@@ -385,10 +385,16 @@ print(json.dumps([{'action':'update','linkset':[{
 
 # traceability -> the human HTML product page on the DDM/demo site (which surfaces the
 # serialized/batch instances + EPCIS event view). Replaces any self-referential loop.
-provision_traceability() { # gtin
-  local gtin="$1" detail
-  detail=$(python3 -c "import json,sys;print(json.dumps({'href':sys.argv[1],'title':'Traceability information','type':'text/html','hreflang':['en'],'context':['traceability'],'public':True}))" "$WEB_URL/01/$gtin")
-  patch_link "01/$gtin" "traceability" "$detail" "$(desc_for "$gtin")"
+#
+# Applied per GRANULARITY PATH, not per GTIN: traceability is the journey of a
+# specific batch or item, so it belongs on 01/<gtin>/10/<lot> and
+# 01/<gtin>/21/<serial>. A bare 01/<gtin> is a product class with no single journey,
+# and advertising it there is what made the GS1 conformance suite fail — the
+# resolver cannot redirect a link type it has no distinct destination for.
+provision_traceability() { # ap gtin
+  local ap="$1" gtin="$2" detail
+  detail=$(python3 -c "import json,sys;print(json.dumps({'href':sys.argv[1],'title':'Traceability information','type':'text/html','hreflang':['en'],'context':['traceability'],'public':True}))" "$WEB_URL/$ap")
+  patch_link "$ap" "traceability" "$detail" "$(desc_for "$gtin")"
 }
 
 # NOTE: certificationInfo is intentionally NOT provisioned here — it is masterdata-driven.
@@ -520,11 +526,14 @@ has docs   && provision_docs
 has orgs   && { provision_orgs; provision_places; }
 if has epcis; then
   cyan "▸ Linkset: traceability + certificationInfo + epcisRepository"
-  # traceability (HTML page) for every product. certificationInfo is NOT set here —
-  # it is masterdata-driven: the resolver derives it from gs1:certification[].certificationURI
+  # traceability (HTML page) only where there IS a journey to trace: the hero
+  # products' lot and item granularities. Not on the bare GTIN — see
+  # provision_traceability. certificationInfo is NOT set here — it is
+  # masterdata-driven: the resolver derives it from gs1:certification[].certificationURI
   # (or a referencedFile typed CERTIFICATION) on POST /products.
-  for row in "${PRODUCTS[@]}"; do IFS='|' read -r g f s d <<<"$row"; gtin_selected "$g" || continue
-    provision_traceability "$g"; done
+  for row in "${HEROES[@]}"; do IFS='|' read -r g lot ser _ _ <<<"$row"; gtin_selected "$g" || continue
+    provision_traceability "01/$g/10/$lot" "$g"
+    provision_traceability "01/$g/21/$ser" "$g"; done
   # epcisRepository only for the event-bearing hero products (item + lot via EPC=)
   for row in "${HEROES[@]}"; do IFS='|' read -r g _ _ _ _ <<<"$row"; gtin_selected "$g" && provision_epcisrepo "$g"; done
 fi
