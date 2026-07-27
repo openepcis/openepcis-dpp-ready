@@ -179,10 +179,38 @@ This is the distinction most often got wrong, so it is worth stating flatly:
 | lot/batch level — `…/01/<gtin>/10/<lot>`, or `urn:epc:class:lgtin:…` | **`ilmd`** |
 | instance level (a serial) — `…/01/<gtin>/21/<serial>`, or `urn:epc:id:sgtin:…` | **`gs1:masterDataAvailableFor`** |
 
-`ilmd` describes the batch as a whole, so it needs a batch to describe. Once an
-identifier is serialised there is no lot in the event to attach it to, and the
-per-item attributes belong in `gs1:masterDataAvailableFor` keyed by that
-identifier. The key carries its `gs1:` prefix; *inside* the card the ambient
+**The difference is scope, and it is the reason both exist.**
+
+`ilmd` is **implicit and collective**: it applies to *everything the event creates* —
+every LGTIN referenced in `quantityList` / `outputQuantityList`, with no need to name
+any of them. One `ilmd` block, and it attaches to all of them. That is why it needs a
+lot: it describes the batch as a whole, and once an identifier is serialised there is
+no lot in the event for it to attach to.
+
+`gs1:masterDataAvailableFor` is **explicit and targeted**: each card carries an `id`,
+and it applies to *that identifier only*. The identifier must already appear somewhere
+in the event — in `epcList`, `childEPCs`, `parentID`, a `quantityList` `epcClass`, or
+as a location — because the card supplies additional data *about something the event
+already references*. Nothing is implied: what is not named gets nothing.
+
+That explicitness is precisely why it was introduced. It covers what `ilmd` cannot:
+serialised items (SGTIN), locations and parties (SGLN), and anything else the event
+identifies by id. Where `ilmd` says "all the items I am creating share this", a card
+says "this specific identifier has this".
+
+**A card may target an LGTIN too.** Naming a lot explicitly is a perfectly valid
+alternative to `ilmd` — use it when you want to attach data to *one* lot rather than to
+every lot the event creates, or when the event references a lot it did not create. The
+rule is not "lots use `ilmd`, serials use cards"; it is:
+
+| you want to say… | use |
+|---|---|
+| this applies to every lot this event creates, implicitly | **`ilmd`** |
+| this applies to exactly this identifier, named | **`gs1:masterDataAvailableFor`** |
+
+What remains forbidden is only the combination `ilmd` has no home for: batch attributes
+on an event whose identifiers are all serialised, where there is no lot for an implicit
+block to describe. The key carries its `gs1:` prefix; *inside* the card the ambient
 `gs1:` applies, so a bare term there means `https://ref.gs1.org/voc/` — while
 every other vocabulary, **including the `ref.openepcis.io` extensions**, must be
 prefixed explicitly.
