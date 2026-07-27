@@ -164,8 +164,29 @@ applies to:
 - `TransformationEvent` (for output items).
 - EPCIS 2.0 §7.3.8 **forbids** ilmd on `action: OBSERVE` or `action: DELETE`.
 
-**ILMD is for lot-level data** — attributes of the specific batch/lot
-being commissioned, not attributes of the GTIN itself. For example:
+**ILMD is for LOT/BATCH granularity only — never for a serialised item.**
+This is the distinction most often got wrong, so it is worth stating flatly:
+
+| The event's identifiers are… | Carry batch attributes in… |
+|---|---|
+| lot/batch level — `…/01/<gtin>/10/<lot>`, or `urn:epc:class:lgtin:…` | **`ilmd`** |
+| instance level (a serial) — `…/01/<gtin>/21/<serial>`, or `urn:epc:id:sgtin:…` | **`masterDataAvailableFor`** |
+
+`ilmd` describes the batch as a whole, so it needs a batch to describe. Once an
+identifier is serialised there is no lot in the event to attach it to, and the
+per-item attributes belong in `masterDataAvailableFor` keyed by that identifier.
+Note that `masterDataAvailableFor` assumes the ambient `gs1:` prefix — a bare
+term there means `gs1:`, i.e. `https://ref.gs1.org/voc/` — while every other
+vocabulary, **including the `ref.openepcis.io` extensions**, must be prefixed
+explicitly.
+
+Beware the EPCIS test corpus here: several of its documents attach `ilmd` to
+serialised SGTINs. The schema permits it, but it is not the OpenEPCIS pattern —
+copy their structure, not that placement.
+
+**ILMD is also for lot-level data in the other sense** — attributes of the
+specific batch/lot being commissioned, not attributes of the GTIN itself. For
+example:
 
 - **YES (lot-level)** — `gs1:bestBeforeDate` for this production run,
   `gs1:catchZone` for this fishing trip,
@@ -185,9 +206,10 @@ as lot/item master data for a *referenced* identifier.
 
 Do NOT confuse:
 - `masterDataAvailableFor` — item/lot-level master data for identifiers
-  referenced by the event; applies to any event type/action.
-- `ilmd` — lot/instance master data for newly-created items; only on
-  ADD / Transformation.
+  referenced by the event; applies to any event type/action, and is the correct
+  place for per-item data when the identifier is serialised.
+- `ilmd` — **lot/batch** master data for newly-created items; only on
+  ADD / Transformation, and only at lot granularity.
 
 ---
 
@@ -442,7 +464,8 @@ Fix: Add extension context to the `@context` array.
 
 - `masterDataAvailableFor` = provides master data for identifiers in the event.
   Works on any event type and action.
-- `ilmd` = instance/lot master data for newly created items. Only on
+- `ilmd` = lot/batch master data for newly created items — not for serialised
+  items, which use `masterDataAvailableFor`. Only on
   ObjectEvent (action=ADD) or TransformationEvent.
 
 ---
