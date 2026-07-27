@@ -44,15 +44,21 @@ be queryable via SPARQL, and validateable via SHACL. This is not optional
 ### 0. Namespace prefix rule (canonical)
 
 **Principle.** A bare term means `gs1:` — the GS1 Web Vocabulary is the ambient
-default. We rely on that implicit behaviour in exactly **one** place:
-`masterDataAvailableFor`, a self-contained GS1 master-data card. **Everywhere else
-no namespace is left implicit:** every vocabulary term — `gs1:` included — is
-written with its prefix, so a reader sees where each field originates.
+default. We rely on that implicit behaviour in exactly **one** place: *inside* a
+`gs1:masterDataAvailableFor` card, which is self-contained GS1 master data.
+**Everywhere else no namespace is left implicit:** every vocabulary term — `gs1:`
+included — is written with its prefix, so a reader sees where each field originates.
+
+Note the key itself: **`gs1:masterDataAvailableFor`**, prefixed. It is a GS1 Web
+Vocabulary term (`https://ref.gs1.org/voc/masterDataAvailableFor`), not an
+EPCIS-structural one, so the rule above applies to it like any other GS1 term. The
+bare-means-`gs1:` shortcut applies to the card's *contents*, not to the key that
+introduces it.
 
 | Location | Prefix rule |
 |---|---|
 | EPCIS event-model / CBV fields (`type`, `eventTime`, `action`, `bizStep`, `disposition`, `epcList`, `readPoint`, `ilmd`, `quantityList`, `sensorElementList`, `value`, `uom`, …) | **Bare always.** These are EPCIS structural terms (the `epcis:`/`cbv:` namespaces), not GS1/extension vocabulary. Never prefix them — `epcis:ilmd` is RDF-equivalent but breaks EPCIS schema conformance. |
-| `masterDataAvailableFor` (key is bare) | INSIDE: gs1 property keys **bare**, gs1 class `type`/`id` values **bare**, extension keys **prefixed**. |
+| `gs1:masterDataAvailableFor` (key is **prefixed** — a GS1 WebVoc term, not EPCIS-structural) | INSIDE: gs1 property keys **bare**, gs1 class `type`/`id` values **bare**, extension keys **prefixed**. |
 | `ilmd` (the contents) | **All** vocabulary terms prefixed incl. `gs1:` — `gs1:bestBeforeDate`, `gs1:catchZone`, `eutex:isRecycledFiber`. The `ilmd` key itself stays bare (it is EPCIS-structural). |
 | Event-level extension properties | Prefixed (`eubat:incidentSeverity`, `eudr:riskLevel`). |
 | Standalone product / DPP master-data files | **All** terms prefixed incl. `gs1:` — `gs1:productName`, `eubat:batteryChemistry`; `type: ["gs1:Product", "eubat:Battery"]`. |
@@ -73,9 +79,9 @@ synonym aliases that collapse onto one IRI (`shortName` + `fullName` → `schema
 and open-vocabulary enum values not defined in the term's scoped `@context`. When in
 doubt, the test is RDF identity: a rename is allowed only if expansion is unchanged.
 
-### A. `masterDataAvailableFor` — item/lot-level master data only
+### A. `gs1:masterDataAvailableFor` — item/lot-level master data only
 
-`masterDataAvailableFor` embeds **item- or lot-level master data** for an
+`gs1:masterDataAvailableFor` embeds **item- or lot-level master data** for an
 identifier referenced in the event. It is **not** a full product/party/location
 card. **Granularity decides placement, not vocabulary:**
 
@@ -88,7 +94,8 @@ card. **Granularity decides placement, not vocabulary:**
 - Only data that varies **per serialized item or per production lot** — data a
   model-level resolver could not supply — travels in `masterDataAvailableFor`.
 
-The key itself is an EPCIS-context term, written **bare**.
+The key itself is a GS1 Web Vocabulary term, written **prefixed**:
+`gs1:masterDataAvailableFor`. Only its contents fall back to `gs1:` when bare.
 
 **Rules:**
 - The `id` (`@id`) in each entry MUST match an identifier already present in the
@@ -170,15 +177,15 @@ This is the distinction most often got wrong, so it is worth stating flatly:
 | The event's identifiers are… | Carry batch attributes in… |
 |---|---|
 | lot/batch level — `…/01/<gtin>/10/<lot>`, or `urn:epc:class:lgtin:…` | **`ilmd`** |
-| instance level (a serial) — `…/01/<gtin>/21/<serial>`, or `urn:epc:id:sgtin:…` | **`masterDataAvailableFor`** |
+| instance level (a serial) — `…/01/<gtin>/21/<serial>`, or `urn:epc:id:sgtin:…` | **`gs1:masterDataAvailableFor`** |
 
 `ilmd` describes the batch as a whole, so it needs a batch to describe. Once an
 identifier is serialised there is no lot in the event to attach it to, and the
-per-item attributes belong in `masterDataAvailableFor` keyed by that identifier.
-Note that `masterDataAvailableFor` assumes the ambient `gs1:` prefix — a bare
-term there means `gs1:`, i.e. `https://ref.gs1.org/voc/` — while every other
-vocabulary, **including the `ref.openepcis.io` extensions**, must be prefixed
-explicitly.
+per-item attributes belong in `gs1:masterDataAvailableFor` keyed by that
+identifier. The key carries its `gs1:` prefix; *inside* the card the ambient
+`gs1:` applies, so a bare term there means `https://ref.gs1.org/voc/` — while
+every other vocabulary, **including the `ref.openepcis.io` extensions**, must be
+prefixed explicitly.
 
 Beware the EPCIS test corpus here: several of its documents attach `ilmd` to
 serialised SGTINs. The schema permits it, but it is not the OpenEPCIS pattern —
@@ -195,17 +202,17 @@ example:
 - **NO (model/SKU-level)** — `eubat:batteryChemistry`, `schema:category`,
   `eutex:fabricType`, `eudr:commodityType`. These describe the GTIN (identical
   for every lot of the same SKU), so they are **resolver-served** and embedded
-  nowhere in the event — neither in `ilmd` nor in `masterDataAvailableFor`.
+  nowhere in the event — neither in `ilmd` nor in `gs1:masterDataAvailableFor`.
 
 **Rule of thumb:** If the value would be identical across every batch of the
 same GTIN, it is model-level → **do not embed it** (a consumer dereferences the
 GTIN to get it). If the value is specific to this batch (harvest date, recycled-
 input lot, heat number, test-certificate number), embed it: in **`ilmd`** for the
-items the event *creates* (ADD / Transformation), or in **`masterDataAvailableFor`**
+items the event *creates* (ADD / Transformation), or in **`gs1:masterDataAvailableFor`**
 as lot/item master data for a *referenced* identifier.
 
 Do NOT confuse:
-- `masterDataAvailableFor` — item/lot-level master data for identifiers
+- `gs1:masterDataAvailableFor` — item/lot-level master data for identifiers
   referenced by the event; applies to any event type/action, and is the correct
   place for per-item data when the identifier is serialised.
 - `ilmd` — **lot/batch** master data for newly-created items; only on
@@ -343,7 +350,7 @@ have a corresponding context entry, and vice versa.
         "id": "https://id.gs1.org/414/9521234000006"
       },
 
-      "masterDataAvailableFor": [
+      "gs1:masterDataAvailableFor": [
         {
           "id": "https://id.gs1.org/01/09521234000020/10/LOT-2025-001",
           "regulatoryInformation": [{
@@ -427,7 +434,7 @@ because the EPCIS context is not loaded.
 ### Mistake 1: Model-level (or party/location) data inside masterDataAvailableFor
 
 ```json
-"masterDataAvailableFor": [{
+"gs1:masterDataAvailableFor": [{
   "id": "https://id.gs1.org/01/.../10/LOT-001",
   "regulatoryInformation": [...],       // ← OK: lot-level
   "eudr:deforestationFreeDate": "...",  // ← OK: lot-level extension attribute
@@ -462,10 +469,10 @@ Fix: Add extension context to the `@context` array.
 
 ### Mistake 4: Confusing masterDataAvailableFor with ILMD
 
-- `masterDataAvailableFor` = provides master data for identifiers in the event.
+- `gs1:masterDataAvailableFor` = provides master data for identifiers in the event.
   Works on any event type and action.
 - `ilmd` = lot/batch master data for newly created items — not for serialised
-  items, which use `masterDataAvailableFor`. Only on
+  items, which use `gs1:masterDataAvailableFor`. Only on
   ObjectEvent (action=ADD) or TransformationEvent.
 
 ---
