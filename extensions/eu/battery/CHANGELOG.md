@@ -4,13 +4,13 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.8] - 2026-07-29
+
 ### Fixed: 4 value spaces no longer mapped onto the class of things they classify
 
 A closed list of codes and the class of things those codes classify sit at different levels, so no graded SKOS relation between them holds in either direction. `eubat:ComponentLocation` (to `locn:Location`), `eubat:DismantlingDocumentType` (to `schema:DigitalDocument`), `eubat:NegativeEventType` (to `schema:Event`) and `eubat:ResponsibleSourcingStandard` (to `untp:Standard`) now use `rdfs:seeAlso`.
 
 `check:mappings` rule 7 covers the pattern and runs before the direction rule, since at different levels the question of which term is narrower does not arise. Project-wide this corrected 31 assertions across eight modules; see the [root changelog](../../../CHANGELOG.md).
-
-## [0.9.8] - 2026-07-29
 
 ### Fixed: 52 inverted SKOS mapping directions
 
@@ -187,7 +187,6 @@ intersections sit in [`docs/CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md`](./docs/CIRPAS
 - No CIRPASS-2 anchors needed in `battery.ttl` directly — they propagate
   from `dpp-core.ttl` through the typed-link cascade (operator → Actor /
   facility → Facility / hazardousSubstance → Substance / etc.).
-
 
 ## 0.9.5 — SEMICeu Core Vocabularies anchoring (2026-05-04)
 

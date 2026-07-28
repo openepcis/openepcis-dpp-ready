@@ -4,6 +4,8 @@ All notable changes to the Detergent module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.8] - 2026-07-29
+
 ### Fixed: 3 value spaces no longer mapped onto the class of things they classify
 
 A closed list of codes and the class of things those codes classify sit at different levels, so no graded SKOS relation between them holds in either direction. `eudet:ProductForm` (to `gs1:Product`), `eudet:SurfactantType` (to `schema:ChemicalSubstance`) and `eudet:BiodegradabilityTestMethod` (to `cv:Criterion`) now use `rdfs:seeAlso`.
@@ -11,8 +13,6 @@ A closed list of codes and the class of things those codes classify sit at diffe
 `eudet:DetergentCategory` needed no change: its `skos:broadMatch schema:CategoryCode` is the pattern the rest now follow, a value space anchored to a value space.
 
 `check:mappings` rule 7 covers the pattern and runs before the direction rule, since at different levels the question of which term is narrower does not arise. Project-wide this corrected 31 assertions across eight modules; see the [root changelog](../../../CHANGELOG.md).
-
-## [0.9.8] - 2026-07-29
 
 ### Changed: mapping directions and anchors from the vocab-sync audit
 
