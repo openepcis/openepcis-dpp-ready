@@ -143,32 +143,12 @@ function toCurie(target: string): string {
 }
 
 /**
- * Generic Layer-1 head terms. A project term that maps to one of these is the narrower of
- * the pair, so only skos:broadMatch (or exact/close) is meaningful; skos:narrowMatch here
- * asserts the reverse of what it means. Keep this list to terms that are unambiguously
- * general: a bare identifier, URL, instruction, certification, category, place, document.
+ * Generic Layer-1 head terms, in scripts/general-l1-terms.json so the audit triage reads the same list.
+ * See that file for why it is shared.
  */
-const GENERAL_L1_TERMS = new Set([
-  "schema:identifier", "adms:identifier", "gs1:productID", "schema:serialNumber", "gs1:hasBatchLotNumber",
-  "gs1:instructions", "gs1:instructionsForUse", "gs1:consumerUsageInstructions",
-  "gs1:referencedFileURL", "schema:url", "gs1:certificationAgencyURL",
-  "gs1:sustainabilityInfo", "gs1:safetyInfo", "gs1:consumerSafetyInformation", "gs1:serviceInfo",
-  "gs1:certification", "gs1:certificationInfo", "gs1:certificationIdentification", "gs1:CertificationDetails",
-  "schema:hasCertification", "schema:Certification",
-  "gs1:regulatoryReferenceNumber", "gs1:regulatoryVerificationNumber", "gs1:registryEntry", "gs1:regulatoryInformation",
-  "gs1:manufacturingPlant", "gs1:location", "gs1:locationDescription", "locn:location", "locn:Location",
-  "schema:location", "schema:Place",
-  "schema:CategoryCode", "schema:CategoryCodeSet", "schema:category", "gs1:additionalProductClassificationCode",
-  "schema:ChemicalSubstance", "schema:Substance", "gs1:AllergenDetails",
-  "schema:DigitalDocument", "foaf:Document", "schema:Report",
-  "schema:StatusEnumeration", "schema:inLanguage", "schema:ratingValue",
-  "gs1:countryOfOriginStatement", "gs1:countryOfOrigin", "gs1:countryCode",
-  "gs1:WearableProduct", "schema:Product", "schema:IndividualProduct",
-  "gs1:size", "schema:size", "gs1:organizationRole", "schema:provider",
-  "schema:addressCountry", "schema:orderNumber", "gs1:certificationType",
-  "gs1:ingredientContentPercentage", "gs1:textileMaterialPercentage", "gs1:organicPercentClaim",
-  "gs1:textileMaterialContent", "schema:material", "schema:activeIngredient", "schema:chemicalComposition",
-]);
+const GENERAL_L1_TERMS = new Set<string>(
+  JSON.parse(readFileSync(join(__dirname, "general-l1-terms.json"), "utf8")).terms as string[],
+);
 
 /**
  * schema.org identifiers scoped to a single item, read from the domains rather than named by
@@ -216,6 +196,14 @@ function ttlFiles(dir: string, out: string[] = []): string[] {
 function blankLongLiterals(ttl: string): string {
   return ttl.replace(/"""[\s\S]*?"""/g, (lit) => '""' + lit.replace(/[^\n]/g, " ").slice(2) + '""');
 }
+
+/**
+ * Serialisation slots: properties that carry a number or a string wherever a vocabulary needs
+ * one. They denote no concept, so no graded relation against them is meaningful. The general
+ * value CLASSES (schema:StructuredValue, schema:PropertyValueSpecification) are not slots and
+ * are handled as ordinary general head terms.
+ */
+const VALUE_SLOTS = new Set(["gs1:value", "schema:value", "schema:minValue", "schema:maxValue"]);
 
 /** The namespaces this project governs, so a target inside them is a cross-reference. */
 const OUR_PREFIXES = new Set(["oec", "eubat", "eutex", "euelec", "eudet", "eucpr", "eusteel", "eudr", "euppwr", "usfsma"]);
@@ -275,6 +263,19 @@ for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
       // 4. self-reference: the subject mapped to itself
       if (target === subj) {
         violations.push({ file: rel, subject: subj, detail: `skos:${relName} ${target} maps the term to itself; a mapping relation links across schemes` });
+        continue;
+      }
+
+      // 8. graded mapping onto a serialisation slot. gs1:value, schema:value and the min/max
+      // bounds carry a number or a string wherever a vocabulary needs one; they denote no concept,
+      // so a subsumption claim against them says nothing. The 14 that existed contradicted each
+      // other: oec:indicatorTotalValue was broader than schema:value while eucpr:characteristicValue
+      // was both narrower than it and broader than schema:minValue.
+      if (VALUE_SLOTS.has(target)) {
+        violations.push({
+          file: rel, subject: subj, rule: "graded-onto-value-slot", relation: relName, target: rawTarget,
+          detail: `skos:${relName} ${target} maps onto a serialisation slot, which denotes no concept; use rdfs:seeAlso`,
+        });
         continue;
       }
 

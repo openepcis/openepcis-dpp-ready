@@ -33,11 +33,20 @@ all 47 files before and after. Detail in the
 sub-property of it. 174 assertions across eight modules used `narrowMatch` while pointing at a
 general foundational term, asserting the reverse of their intent. They now read `skos:broadMatch`.
 
-Eight modules were then audited by the local model pipeline (`tools/vocab-sync`), whose confirmed
+Nine modules were then audited by the local model pipeline (`tools/vocab-sync`), whose confirmed
 findings were triaged, reviewed by hand, and applied: fsma204, ppwr, cpr, iron-steel, detergent,
-eudr, electronics and textile. The pipeline pass for `common/core` and `eu/battery` is outstanding
-and lands in a later version; both are covered by the direction sweep above, with 51 and 52
-corrections respectively.
+eudr, electronics, textile and common/core. The core pass alone produced 878 findings and 95 applied
+changes, most of them anchoring an `oec:` term as the broader one against the peer profile that
+specialises it, which is the shape the layering predicts. The pipeline pass for `eu/battery` is
+still running and lands in a later version; it is covered by the direction sweep above, with 52
+corrections.
+
+The core pass also surfaced four assertions that had been inverted and invisible, because the
+head-term list rule 6 checks did not contain their targets (`cv:Evidence`, `schema:name`,
+`schema:measurementMethod`, `schema:validThrough`). That list now lives in
+[`scripts/general-l1-terms.json`](scripts/general-l1-terms.json) and the triage reads the same one,
+so a proposal that would reintroduce the inverted direction is held rather than applied. Without
+that, 47 further `narrowMatch` proposals from the core panel had nothing checking them.
 
 The review is deliberately not fully automatic. Six panel-confirmed proposals in textile alone were
 refused on documented evidence: a GS1 term scoped to `FoodBeverageTobaccoProduct`, two directions
@@ -73,6 +82,22 @@ pointer.
 Not touched, and worth a decision of its own: 73 graded mappings point at this project's own
 namespaces, where the project's rule sends cross-references to `rdfs:seeAlso` regardless of level.
 
+### 14 graded mappings onto a serialisation slot
+
+`gs1:value`, `schema:value` and the min/max bounds carry a number or a string wherever a vocabulary
+needs one. They denote no concept, so a subsumption claim against them says nothing, and the 14 that
+existed contradicted each other: `oec:indicatorTotalValue` was broader than `schema:value` while
+`eucpr:characteristicValue` was both narrower than it and broader than `schema:minValue`. All are
+`rdfs:seeAlso` now, held there by `check:mappings` rule 8.
+
+The two general value CLASSES are a different case, since they do denote something, and were flipped
+rather than downgraded: `oec:MultiLanguageValue` is narrower than `schema:StructuredValue`, and
+`eubat:TechnicalSpecification` than `schema:PropertyValueSpecification`.
+
+The audit triage learned the same lesson from the subject side. The core panel proposed eleven
+mappings making `oec:value` the broader term of every specific value property it could find, from
+`rail:topValue` to `semic:hasValue`; the carrier filter had only ever looked at the target.
+
 ### Five new guards, each for a class of error that had reached the repository
 
 Every one was written after finding real instances, not in anticipation:
@@ -81,7 +106,7 @@ Every one was written after finding real instances, not in anticipation:
 |---|---|---|
 | `check:extension-terms` | a reference to a project-owned CURIE that no ontology defines | 124 phantom IRIs, including `oec:dppStatus` in six product seeds |
 | `check:operational` rules d, e, f | an EPCIS example on the wrong context chain, prefixing wrong in either direction, a lossy organization record | all 47 EPCIS examples, 7 organization records |
-| `check:mappings` rules 3b, 3c, 4, 6, 7 | property mapped to a class, batch identifier under an item-scoped one, self-reference, inverted direction, value space over the things it classifies | 3 iron-steel batch identifiers under `schema:serialNumber`, 31 value-space assertions, 6 mappings hidden behind angle-bracket IRIs |
+| `check:mappings` rules 3b, 3c, 4, 6, 7, 8 | property mapped to a class, batch identifier under an item-scoped one, self-reference, inverted direction, value space over the things it classifies, graded mapping onto a serialisation slot | 3 iron-steel batch identifiers under `schema:serialNumber`, 31 value-space and 14 value-slot assertions, 4 inversions the head-term list could not see, 6 mappings hidden behind angle-bracket IRIs |
 | `check:golden-fidelity` | a compressed artifact with a relative IRI or a flattened node reference | the fixture drift that motivated it |
 | `check:release` | version stamps that disagree | README.md at 0.9.6 with three modules missing from both tables |
 

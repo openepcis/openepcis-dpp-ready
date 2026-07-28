@@ -6,6 +6,13 @@ All notable changes to the Electronics module will be documented in this file.
 
 ## [0.9.8] - 2026-07-29
 
+### Fixed: 3 graded mappings onto a serialisation slot
+
+`euelec:criterionMaxScore` under `schema:maxValue`, and `euelec:screenDiagonal` and
+`euelec:refreshRate` under `gs1:value`. A value slot denotes no concept, so all three are
+`rdfs:seeAlso` now. `check:mappings` rule 8 covers the pattern; see the
+[root changelog](../../../CHANGELOG.md).
+
 ### Fixed: a value space no longer mapped onto the class of things it classifies
 
 A closed list of codes and the class of things those codes classify sit at different levels, so no graded SKOS relation between them holds in either direction. `euelec:EnergyEfficiencyClass` (to `schema:EnergyConsumptionDetails`) now uses `rdfs:seeAlso`.

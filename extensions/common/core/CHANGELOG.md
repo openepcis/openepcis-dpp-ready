@@ -6,6 +6,46 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [0.9.8] - 2026-07-29
 
+### Changed: mapping anchors and directions from the vocab-sync audit
+
+A `vocab-sync audit --module core` run (878 findings, 419 QA-confirmed) produced 95 applied
+changes: 35 directions corrected and 60 anchors added. Most of the additions anchor `oec:` terms
+into the peer profiles that specialise them, which is the shape the layering predicts:
+`oec:energyEfficiency` is the broader term against six battery round-trip efficiency metrics,
+`oec:recycledContentDetails` against the DPP Keystone and BatteryPass pre- and post-consumer
+properties, `oec:substanceLocation` against their hazardous-substance locations, and
+`oec:materialComposition` against the GS1 textile and packaging material properties.
+
+Four assertions already in the ontology were inverted and had been invisible, because the head-term
+list rule 6 checks did not contain their targets: `oec:DueDiligenceReport` under `cv:Evidence`,
+`oec:componentName` under `schema:name`, `oec:biodegradabilityTestMethod` under
+`schema:measurementMethod`, and `oec:epdValidUntil` under `schema:validThrough`. All four now read
+`skos:broadMatch`, and the list moved to
+[`scripts/general-l1-terms.json`](../../../scripts/general-l1-terms.json) so the audit triage reads
+the same one. That matters: the core panel proposed 47 further `narrowMatch` assertions, and without
+the shared list nothing would have stopped the ones aimed at a general term.
+
+Refused, with the reason recorded in `scripts/skos-deferred.json`: `oec:OperatorInformation` under
+CIRPASS-2's `EconomicOperatorRole` (an operator record against a role enumeration, the same level
+confusion `CIRPASS2_ALIGNMENT.md` already records as pointer-only), `oec:EnvironmentalProductDeclaration`
+over `schema:EnergyConsumptionDetails` (an EN 15804 declaration is not a broader form of appliance
+energy figures), and `oec:facilityId` over `dppk:manufacturingFacility` (an identifier is not
+broader than the thing it identifies; `oec:facilityInformation` is the term that compares).
+
+Eleven proposals made `oec:value` the broader term of every specific value property the panel could
+find, from `rail:topValue` to `semic:hasValue`. A generic value slot says nothing about meaning, so
+the triage now treats our own structural carriers the way it already treated upstream ones.
+
+### Fixed: 14 graded mappings onto a serialisation slot
+
+`gs1:value`, `schema:value` and the min/max bounds carry a number or a string wherever a vocabulary
+needs one; they denote no concept, so a subsumption claim against them says nothing. The 14 that
+existed contradicted each other: `oec:indicatorTotalValue` was broader than `schema:value` while
+`eucpr:characteristicValue` was both narrower than it and broader than `schema:minValue`. All are
+`rdfs:seeAlso` now, and `check:mappings` rule 8 keeps it that way. The two general value CLASSES are
+a different case and were flipped rather than downgraded: `oec:MultiLanguageValue` is narrower than
+`schema:StructuredValue`, and `eubat:TechnicalSpecification` than `schema:PropertyValueSpecification`.
+
 ### Fixed: 8 value spaces no longer mapped onto the class of things they classify
 
 A closed list of codes and the class of things those codes classify sit at different levels, so no graded SKOS relation between them holds in either direction. `oec:OperatorRole` (to `schema:OrganizationRole` and `cirpass2:EconomicOperatorRole`), `oec:ProductCategory` (to `gs1:Product`, `schema:Product`, `gs1:FoodBeverageTobaccoProduct` and `dppk:BatteryProduct`), `oec:BiodegradabilityTestMethod` (to `cv:Criterion`) and `oec:EnergyEfficiencyClass` (to `schema:EnergyConsumptionDetails`) now use `rdfs:seeAlso`.

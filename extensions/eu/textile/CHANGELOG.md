@@ -6,6 +6,12 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [0.9.8] - 2026-07-29
 
+### Fixed: 2 graded mappings onto a serialisation slot
+
+`eutex:lciaValue` under `gs1:value` and `schema:value`. A value slot denotes no concept, so the
+pointer is `rdfs:seeAlso`; the `schema:value` line was a duplicate of one and is gone.
+`check:mappings` rule 8 covers the pattern; see the [root changelog](../../../CHANGELOG.md).
+
 ### Fixed: 3 value spaces no longer mapped onto the class of things they classify
 
 A closed list of codes and the class of things those codes classify sit at different levels, so no graded SKOS relation between them holds in either direction. `eutex:ApparelSubcategory` (to `dppk:PefcrApparelAccessories`), `eutex:SubstanceOfConcernType` (to `schema:Substance`) and `eutex:TestStandard` (to `untp:Standard`) now use `rdfs:seeAlso`.

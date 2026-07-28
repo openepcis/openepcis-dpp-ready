@@ -6,6 +6,12 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [0.9.8] - 2026-07-29
 
+### Changed: `eubat:TechnicalSpecification` is the narrower term against `schema:PropertyValueSpecification`
+
+It read `skos:narrowMatch`, which asserts the reverse. The general value classes were added to the
+shared head-term list, so rule 6 catches this shape now. See the
+[root changelog](../../../CHANGELOG.md).
+
 ### Fixed: 4 value spaces no longer mapped onto the class of things they classify
 
 A closed list of codes and the class of things those codes classify sit at different levels, so no graded SKOS relation between them holds in either direction. `eubat:ComponentLocation` (to `locn:Location`), `eubat:DismantlingDocumentType` (to `schema:DigitalDocument`), `eubat:NegativeEventType` (to `schema:Event`) and `eubat:ResponsibleSourcingStandard` (to `untp:Standard`) now use `rdfs:seeAlso`.

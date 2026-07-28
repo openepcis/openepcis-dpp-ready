@@ -37,6 +37,26 @@ const CARRIERS = new Set([
   "https://schema.org/StructuredValue", "https://schema.org/PropertyValueSpecification",
   "https://schema.org/minValue", "https://schema.org/maxValue",
 ]);
+
+/**
+ * Our own structural value carriers. The CARRIERS check above looks at the target only, so the
+ * core audit could propose eleven mappings making `oec:value` the broader term of every specific
+ * value property it could find (`rail:topValue`, `schema:textValue`, `semic:hasValue`, ...). A
+ * generic value slot mapped onto another vocabulary's value slot says nothing about meaning.
+ */
+const OUR_CARRIERS = new Set(["oec:value", "oec:unitCode"]);
+
+/**
+ * Generic Layer-1 head terms, from the list `check:mappings` rule 6 enforces. A proposal that
+ * would introduce `narrowMatch` toward one of these is the inverted direction in a new mapping,
+ * which the flip logic below only catches for relations that already exist.
+ */
+const GENERAL_L1: Set<string> = new Set(
+  (() => {
+    try { return JSON.parse(readFileSync("scripts/general-l1-terms.json", "utf8")).terms as string[]; }
+    catch { return []; }
+  })(),
+);
 const META = new Set(["https://schema.org/Class", "https://schema.org/DataType", "https://schema.org/Enumeration"]);
 const FLOOR = 0.8;
 
@@ -66,7 +86,7 @@ const SCHEMA_FOREIGN = new Set([
   "SoftwareApplication", "DoseSchedule", "MedicalProcedure", "Drug", "PaymentCard",
   "LoyaltyProgram", "FinancialProduct", "Offer", "Demand", "MusicRecording", "Movie",
   "BroadcastService", "BroadcastFrequencySpecification", "Recipe", "MenuItem",
-  "ServiceChannel", "Flight",
+  "ServiceChannel", "Flight", "AutoRepair", "MotorcycleRepair", "Collection",
 ]);
 const SCHEMA_DOMAINS: Record<string, { domains?: string[] }> = (() => {
   try {
@@ -203,15 +223,26 @@ function verdict(f: Finding): { action: "APPLY" | "HOLD" | "SKIP"; reason: strin
     return { action: "HOLD", reason: "the asserted relation is a recorded decision in mapping-allowlist.json" };
   }
   if (f.upstreamIri.startsWith(OWN)) return { action: "SKIP", reason: "intra-project target" };
-  if (CARRIERS.has(f.upstreamIri)) return { action: "HOLD", reason: "target is a structural value carrier" };
-  if (META.has(f.upstreamIri)) return { action: "HOLD", reason: "target is a meta-class" };
-  if (isTypeTerm(f.ourId) && isEntityTarget(f)) return { action: "HOLD", reason: "our term is a type, target is the entity" };
-  // A graded relation holds between two concepts at the same level. The panel judges meaning,
-  // so it happily proposes `eudr:transformationLocation broadMatch locn:Location`, a property
-  // under a class, while the same report already carries the correct `locn:location` pairing.
-  const kind = targetKind(f.upstreamIri);
-  if (kind && (f.ourType === "class" || f.ourType === "property") && kind !== f.ourType) {
-    return { action: "HOLD", reason: `our term is a ${f.ourType}, target is a ${kind}` };
+
+  // The mechanical filters are skipped for a pre-blessed proposal: an allowlist entry IS the
+  // decision, so a rule must not overrule it. `eudr:countryList narrowMatch gs1:countryOfOrigin`
+  // is recorded as a container that aggregates the upstream concept, and the general-Layer-1 rule
+  // below would otherwise hold it as an inverted direction.
+  if (!proposedIsAllowed) {
+    if (CARRIERS.has(f.upstreamIri)) return { action: "HOLD", reason: "target is a structural value carrier" };
+    if (OUR_CARRIERS.has(f.ourId)) return { action: "HOLD", reason: "our term is a structural value carrier" };
+    if (f.proposedPredicate === "skos:narrowMatch" && GENERAL_L1.has(curie)) {
+      return { action: "HOLD", reason: `${curie} is a general Layer-1 term, so narrowMatch inverts the relation; broadMatch is the direction` };
+    }
+    if (META.has(f.upstreamIri)) return { action: "HOLD", reason: "target is a meta-class" };
+    if (isTypeTerm(f.ourId) && isEntityTarget(f)) return { action: "HOLD", reason: "our term is a type, target is the entity" };
+    // A graded relation holds between two concepts at the same level. The panel judges meaning,
+    // so it happily proposes `eudr:transformationLocation broadMatch locn:Location`, a property
+    // under a class, while the same report already carries the correct `locn:location` pairing.
+    const kind = targetKind(f.upstreamIri);
+    if (kind && (f.ourType === "class" || f.ourType === "property") && kind !== f.ourType) {
+      return { action: "HOLD", reason: `our term is a ${f.ourType}, target is a ${kind}` };
+    }
   }
   if (f.upstreamIri.startsWith("https://ref.gs1.org/voc/") && !proposedIsAllowed) {
     const dom = GS1_DOMAINS[f.upstreamIri.slice("https://ref.gs1.org/voc/".length)];
@@ -224,6 +255,13 @@ function verdict(f: Finding): { action: "APPLY" | "HOLD" | "SKIP"; reason: strin
   }
   if (f.upstreamIri.startsWith("https://schema.org/")) {
     const local = f.upstreamIri.slice("https://schema.org/".length);
+    // A foreign CLASS as the target, not just a property with a foreign domain. The domain check
+    // below cannot see this, because a class has no domains: that is how `oec:DocumentReference`
+    // reached the apply list under `schema:APIReference`, and `oec:RepairProvider` under
+    // `schema:AutoRepair` and `schema:MotorcycleRepair`, car and motorcycle repair shops.
+    if (SCHEMA_FOREIGN.has(local) && /^[A-Z]/.test(local)) {
+      return { action: "HOLD", reason: `schema:${local} belongs to an area foreign to a passport` };
+    }
     const doms = SCHEMA_DOMAINS[local]?.domains ?? [];
     // Match check:mappings: a term is foreign only when EVERY declared domain is foreign.
     // schema:itemCondition also applies to Product, so a partial hit is not disqualifying.

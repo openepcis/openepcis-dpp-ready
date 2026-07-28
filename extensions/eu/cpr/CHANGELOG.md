@@ -6,6 +6,13 @@ All notable changes to the CPR module will be documented in this file.
 
 ## [0.9.8] - 2026-07-29
 
+### Fixed: 4 graded mappings onto a serialisation slot
+
+`eucpr:characteristicValue` claimed to be narrower than `gs1:value` and `schema:value` while also
+being broader than `schema:minValue` and `schema:maxValue`, which cannot all hold. Those slots carry
+a number wherever a vocabulary needs one and denote no concept, so all four are `rdfs:seeAlso` now.
+`check:mappings` rule 8 covers the pattern; see the [root changelog](../../../CHANGELOG.md).
+
 ### Fixed: 6 value spaces no longer mapped onto the class of things they classify
 
 A closed list of codes and the class of things those codes classify sit at different levels, so no graded SKOS relation between them holds in either direction. All six sat on `eucpr:ConstructionProductType`, aimed at `gs1:Product`, `schema:Product`, `schema:IndividualProduct`, `dppk:Product`, `dppk:BatteryProduct` and `dppk:IronSteelProduct`; each is now `rdfs:seeAlso`.
