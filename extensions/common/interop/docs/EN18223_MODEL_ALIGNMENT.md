@@ -54,7 +54,9 @@ clause-by-clause conformance narrative.
 >
 > **Update (2026-06-24): §6 EN 18222 API surface done.** The abstract method
 > set is now an OpenAPI 3.1 contract at `../api/en18222-dpp-api.openapi.yaml`
-> (validates clean), with the EN 18223 model as payload.
+> (validates clean), with the EN 18223 model as payload. Since 2026-07-28 that
+> file is the implemented contract and this repo is its source of truth; the
+> `openepcis-dpp-api` service mirrors it byte-for-byte at `/q/openapi`.
 >
 > **Remaining:** RelatedResource `resourceTitle` field on `oec:DocumentReference`
 > (§4), change management (§5), the §6 Bruno request collection, and the
@@ -173,9 +175,18 @@ EN 18239 (access rights), still in development.
 
 > **Realised (2026-06-24):** the method set below is now a valid OpenAPI 3.1
 > contract at [`../api/en18222-dpp-api.openapi.yaml`](../api/en18222-dpp-api.openapi.yaml)
-> — 10 operations carrying the EN 18223 `DigitalProductPassport` model as payload
-> (expanded Annex A by default, `representation=compressed` for the GS1 WebVoc
-> JSON-LD form). Bruno request collection still to follow.
+> — 10 operations carrying the EN 18223 `DigitalProductPassport` model as payload.
+> Bruno request collection still to follow.
+>
+> **Update (2026-07-28):** the contract here is the implemented one, and this
+> repository is its source of truth — the `openepcis-dpp-api` service serves a
+> byte-identical mirror at `/q/openapi` (`pnpm run sync:dpp-api-openapi`).
+> Two things settled differently from the sketch below: `representation`
+> defaults to `compressed` (clause 8.1 — the clause 5.2 key/value form served
+> verbatim), with `full` for the Annex A `elements[]` form; and the registry
+> method is `POST /v1/registerDPP` (clause 5.2), not `POST /v1/registry`. Errors
+> are the EN 18222 Table 12 `Result` object with Table 15 status codes, and each
+> operation records its clause 4.1 conformance level.
 
 Abstract methods (EN 18222 Clauses 4 to 6); REST-HTTP mapping in Clause 8.
 The payload is the EN 18223 model; transport/serialisation per EN 18216;
@@ -192,7 +203,7 @@ access/security per EN 18246.
 | `UpdateDPPById` | partial update (archive per EN 18221) | `PATCH /v1/dpps/{dppId}` |
 | `UpdateDataElement` | update one element | `PATCH /v1/dpps/{dppId}/elements/{path}` |
 | `DeleteDPPById` | delete (end of life) | `DELETE /v1/dpps/{dppId}` |
-| `RegisterProductDPP` | register at the DPP registry | `POST /v1/registry` (`DppRegistryEntry` → registrationId) |
+| `RegisterProductDPP` | register at the DPP registry | `POST /v1/registerDPP` (`DppRegistryEntry` → registrationId) |
 
 Conventions from the standard: element paths use RFC 9535 JSONPath;
 in-path `dppId` is percent-encoded; an optional `representation=compressed|full`

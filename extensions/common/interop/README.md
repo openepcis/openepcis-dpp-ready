@@ -111,7 +111,7 @@ interop/
 │   ├── CIRPASS2_COVERAGE.md          # CIRPASS2 pilot requirements coverage
 │   └── SEMIC_CORE_VOCABULARIES.md    # SEMICeu Core Vocabularies mapping (CCCEV, CPOV, Core Business / Person / Location, Core Public Event, CPSV-AP, ADMS-AP)
 ├── api/
-│   └── en18222-dpp-api.openapi.yaml  # EN 18222 DPP lifecycle/searchability API (OpenAPI 3.1; EN 18223 model as payload)
+│   └── en18222-dpp-api.openapi.yaml  # EN 18222 DPP lifecycle/searchability API (OpenAPI 3.1; EN 18223 model as payload) — source of truth for openepcis-dpp-api
 └── context/
     ├── untp-bridge-context.jsonld    # JSON-LD context for UNTP-style property names
     ├── cirpass2-bridge-context.jsonld # JSON-LD context for CIRPASS2 property names
@@ -119,6 +119,56 @@ interop/
     ├── semic-core-bridge-context.jsonld # JSON-LD context for EU SEMICeu Core Vocabularies
     └── dpp-keystone-bridge-context.jsonld # JSON-LD context for DPP Keystone (dppk:, spec v2)
 ```
+
+## EN 18222 DPP API contract
+
+[`api/en18222-dpp-api.openapi.yaml`](./api/en18222-dpp-api.openapi.yaml) is the
+OpenAPI 3.1 contract for the CEN/CENELEC EN 18222 DPP API: 7 paths, 10
+operations, each citing its EN 18222 clause and its conformance level (clause
+4.1 shall / should / conditional), with the EN 18223 `DigitalProductPassport` as
+payload and the EN 18222 Table 12 `Result` object on error. `representation`
+selects the payload form per clause 8.1 — `compressed` (default, the clause 5.2
+key/value form) or `full` (the Annex A `elements[]` form). There is no published
+EN 18222 OpenAPI definition, so this document is hand-authored; EN texts are
+licensed, so it cites by clause and reproduces no standard text.
+
+**This repository is the source of truth for that file.** The `openepcis-dpp-api`
+Quarkus service serves a byte-identical mirror at `/q/openapi` from
+`openepcis-dpp-api-application/src/main/resources/META-INF/openapi.yaml`. Edit
+the contract here, then:
+
+```bash
+pnpm run check:dpp-api-openapi   # report drift between here and the service
+pnpm run sync:dpp-api-openapi    # write this file over the service's copy
+```
+
+The mirror is looked up at `../openepcis-build/modules/openepcis-dpp-api/…` by
+default; override with `OPENEPCIS_BUILD_PATH` (repo root) or
+`DPP_API_OPENAPI_PATH` (the file). The service side still needs its own commit
+after a sync.
+
+### Authentication
+
+Access itself is EN 18246 (with prEN 18239 pending); the contract declares the
+credential forms, each a self-sufficient alternative:
+
+| Scheme | Carrier | Notes |
+|---|---|---|
+| `bearerAuth` / `oidc` | `Authorization: Bearer …` (JWT) | Keycloak-issued; the primary form |
+| `xApiKey` | `X-API-KEY: …` | Single-header API key — the form OpenDPP expects. **Contract only: not supported by the OpenEPCIS implementation** |
+| `apiKey` + `apiKeySecret` | `API-KEY: …` + `API-KEY-SECRET: …` | The OpenEPCIS pair, as used by the EPCIS repository and Digital Link resolver |
+| `basicAuth` | `Authorization: Basic …` | |
+| *(none)* | — | Anonymous reads where the access level is Public |
+
+`X-API-KEY` is declared because the contract describes the EN 18222 API, not only
+the OpenEPCIS service behind it: implementations that require that single-header
+form (OpenDPP) are then describable by this same document, and clients written
+against it can generate from it. `openepcis-dpp-api` itself authenticates OIDC
+bearer tokens and will not accept `X-API-KEY`.
+
+The GS1 Digital Link resolver (carrier-to-resource discovery, RFC 9264 linksets)
+and the EPCIS 2.0 query interface (event-level search) sit alongside this API,
+not inside it.
 
 ## UNTP Bridge Context
 
