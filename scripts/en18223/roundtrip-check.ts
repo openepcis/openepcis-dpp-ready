@@ -8,7 +8,9 @@
  * N-Quads) as the original master data. That is the "perfect RDF" guarantee: the
  * operational/JSON-LD tier is lossless and graph-equal to what you POST.
  *
- * Usage: tsx scripts/en18223/roundtrip-check.ts <master.jsonld> [<master2.jsonld> ...]
+ * Usage: tsx scripts/en18223/roundtrip-check.ts [<master.jsonld> ...]
+ *   With no arguments it checks every product seed; that is how `pnpm run build`
+ *   and CI run it. Named files narrow it while investigating one document.
  */
 import { promises as fs } from "node:fs";
 import path from "node:path";
@@ -65,11 +67,21 @@ async function checkOne(rel: string): Promise<boolean> {
   return ok;
 }
 
-const files = process.argv.slice(2);
-if (!files.length) {
-  console.error("usage: tsx scripts/en18223/roundtrip-check.ts <master.jsonld> ...");
-  process.exit(64);
+// Same seed set the sibling gates use, so a no-arg run is the build-wired default:
+// every product master-data example except the non-DPP compare samples.
+const SKIP = /(batterypass-|regulatory-notification|plot-of-land|\.operational\.jsonld$)/;
+
+async function defaultSeeds(): Promise<string[]> {
+  const out: string[] = [];
+  for (const rel of await fs.readdir(path.join(ROOT, "extensions"), { recursive: true })) {
+    const r = String(rel).split(path.sep).join("/");
+    if (/(^|\/)examples\/[^/]+\.jsonld$/.test(r) && !SKIP.test(r)) out.push(`extensions/${r}`);
+  }
+  return out.sort();
 }
+
+const args = process.argv.slice(2);
+const files = args.length ? args : await defaultSeeds();
 let allOk = true;
 for (const f of files) allOk = (await checkOne(f)) && allOk;
 console.log(`\n${allOk ? "✓ all round-trips isomorphic" : "✗ round-trip differences found"}`);
