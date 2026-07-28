@@ -1,15 +1,15 @@
 openapi: 3.1.0
 info:
-  title: EPCIS4DPP — EN 18222 Digital Product Passport API
+  title: EN 18222 Digital Product Passport API
   version: 0.1.0
   summary: >-
-    OpenEPCIS realisation of the CEN/CENELEC EN 18222:2026 abstract API method
+    Realisation of the CEN/CENELEC EN 18222:2026 abstract API method
     set (DPP lifecycle management and searchability), carrying the EN 18223:2026
     information model as its payload.
   description: |
     This specification renders the abstract EN 18222 method set (Clauses 4–6,
     REST-HTTP binding per Clause 8) as a concrete OpenAPI contract for the
-    **EPCIS4DPP** profile. It is derived from the work list in
+    **EN 18222 DPP** profile. It is derived from the work list in
     [`EN18223_MODEL_ALIGNMENT.md` §6](../docs/EN18223_MODEL_ALIGNMENT.md) and the
     clause-by-clause map in
     [`CEN_JTC24_CONFORMANCE.md`](../docs/CEN_JTC24_CONFORMANCE.md).
@@ -28,11 +28,6 @@ info:
       development; the `bearerAuth` scheme below is a placeholder to be aligned
       on publication.
 
-    **EPCIS4DPP additions, deliberately out of scope here** (they sit *alongside*
-    this API, not inside it): the GS1 Digital Link resolver (carrier-to-resource
-    discovery, RFC 9264 linksets) and the EPCIS 2.0 query interface (event-level
-    search by EPC, business step, disposition, location, time).
-
     **Conventions** (EN 18222 Clause 8): an in-path `dppId` is a URI and MUST be
     percent-encoded; element paths use RFC 9535 JSONPath; an optional
     `representation` flag selects compressed vs full; every method returns an
@@ -46,10 +41,10 @@ info:
 
 servers:
   - url: https://{host}/v1
-    description: EPCIS4DPP DPP API base
+    description: EU DPP EN 18222 API base
     variables:
       host:
-        default: api.dev.epcis.cloud
+        default: api.demo.epcis.cloud
 
 tags:
   - name: Passports
@@ -384,8 +379,8 @@ components:
     CompressedDigitalProductPassport:
       type: object
       description: >-
-        EN 18223 *compressed* serialisation (Clauses 5.2.6–5.2.9): the GS1 Web
-        Vocabulary JSON-LD object for the product, minus its `@context`.
+        EN 18223 *compressed* serialisation (Clauses 5.2.6–5.2.9): The EN 18223 compressed or operational 
+        Vocabulary JSON object for the product.
       additionalProperties: true
 
     DataElement:
@@ -415,7 +410,7 @@ components:
         dictionaryReference:
           type: string
           format: uri
-          description: IRI of the defining term in the EN 18223 (4.3) data dictionary (ref.openepcis.io).
+          description: IRI of the defining term in the EN 18223 (4.3) data dictionary.
         objectType:
           type: string
           enum:
