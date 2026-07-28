@@ -4,6 +4,8 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.8] - 2026-07-29
+
 ### Fixed: 52 inverted SKOS mapping directions
 
 SKOS reads `A skos:narrowMatch B` as "B is narrower than A". 52 mappings in this module

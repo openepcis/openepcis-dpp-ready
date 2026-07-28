@@ -4,6 +4,8 @@ All notable changes to the Detergent module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.8] - 2026-07-29
+
 ### Changed: mapping directions and anchors from the vocab-sync audit
 
 A `vocab-sync audit --module detergent` run (82 findings, 31 QA-confirmed) corrected three

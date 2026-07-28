@@ -2,13 +2,13 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
 [![Browse the ontology](https://img.shields.io/badge/browse-ref.openepcis.io-2ea44f)](https://ref.openepcis.io)
-[![Status: Preview 0.9.7](https://img.shields.io/badge/status-preview%200.9.7-orange)](#what-you-get)
+[![Status: Preview 0.9.8](https://img.shields.io/badge/status-preview%200.9.8-orange)](#what-you-get)
 
 A comprehensive, standards-harmonizing framework for implementing Digital Product Passports aligned with EU ESPR 2024/1781, schema.org, GS1, **EU SEMICeu Core Vocabularies**, and UN Transparency Protocol (UNTP).
 
 > **Browse the live ontology** at **[ref.openepcis.io](https://ref.openepcis.io)** — every class, property, and JSON-LD context shipped from this repository is published there with stable, dereferenceable URIs. The TTL files in `extensions/*/ontology/` are the source of truth; the browser renders the deployed JSON.
 
-> **TL;DR for decision-makers:** OpenEPCIS DPP-Ready is an open-source platform that harmonises GS1, ESPR, UNTP, and CEN/CENELEC JTC 24 standards in a single codebase. Preview at v0.9.7, nine regulations covered (battery, textile, EUDR, electronics, detergent, packaging, construction products, the ESPR iron and steel product group, plus the cross-cutting ESPR core), with US FSMA §204 as a preview module. No vendor lock-in, no proprietary tooling, no translation layers. Built on GS1 Digital Link, EPCIS 2.0, and GS1 Web Vocabulary.
+> **TL;DR for decision-makers:** OpenEPCIS DPP-Ready is an open-source platform that harmonises GS1, ESPR, UNTP, and CEN/CENELEC JTC 24 standards in a single codebase. Preview at v0.9.8, nine regulations covered (battery, textile, EUDR, electronics, detergent, packaging, construction products, the ESPR iron and steel product group, plus the cross-cutting ESPR core), with US FSMA §204 as a preview module. No vendor lock-in, no proprietary tooling, no translation layers. Built on GS1 Digital Link, EPCIS 2.0, and GS1 Web Vocabulary.
 
 ## Open and Early
 
@@ -106,17 +106,17 @@ This monorepo provides a consistent, GS1-aligned approach to implementing Digita
 
 | Module | Region | Regulation | Status | Version | Last updated |
 |--------|--------|------------|--------|---------|--------------|
-| [common/core](./extensions/common/core/) | Cross-cutting | ESPR 2024/1781 Framework | Preview | 0.9.7 | Apr 2026 |
-| [common/interop](./extensions/common/interop/) | Cross-cutting | Standards Harmonization (UNTP, CIRPASS2, JTC 24, BatteryPass) | Preview | 0.9.7 | Apr 2026 |
-| [eu/battery](./extensions/eu/battery/) | EU | Battery Regulation 2023/1542 | Preview | 0.9.7 | Feb 2026 |
-| [eu/eudr](./extensions/eu/eudr/) | EU | Deforestation Regulation 2023/1115 | Preview | 0.9.7 | Apr 2026 (exemption pattern added) |
-| [eu/textile](./extensions/eu/textile/) | EU | Sustainable Textiles Strategy | Preview | 0.9.7 | Mar 2026 (JRC Milestone 3 alignment) |
-| [eu/electronics](./extensions/eu/electronics/) | EU | ESPR Electronics Delegated Acts | Preview | 0.9.7 | Feb 2026 |
-| [eu/detergent](./extensions/eu/detergent/) | EU | Detergents Regulation 2026/405 | Preview | 0.9.7 | Mar 2026 |
-| [eu/iron-steel](./extensions/eu/iron-steel/) | EU | ESPR iron & steel product group (EN 10204 inspection certificates, CBAM) | Preview | 0.9.7 | Jul 2026 |
-| [eu/ppwr](./extensions/eu/ppwr/) | EU | Packaging and Packaging Waste Regulation (EU) 2025/40 | Preview | 0.9.7 | Jul 2026 (GS1 packaging model) |
-| [eu/cpr](./extensions/eu/cpr/) | EU | Construction Products Regulation (EU) 2024/3110 | Preview | 0.9.7 | Jul 2026 |
-| [us/fsma204](./extensions/us/fsma204/) | US | FSMA §204 Food Traceability Rule (21 CFR 1 Subpart S) | Preview | 0.9.7 | Apr 2026 (new module) |
+| [common/core](./extensions/common/core/) | Cross-cutting | ESPR 2024/1781 Framework | Preview | 0.9.8 | Apr 2026 |
+| [common/interop](./extensions/common/interop/) | Cross-cutting | Standards Harmonization (UNTP, CIRPASS2, JTC 24, BatteryPass) | Preview | 0.9.8 | Apr 2026 |
+| [eu/battery](./extensions/eu/battery/) | EU | Battery Regulation 2023/1542 | Preview | 0.9.8 | Feb 2026 |
+| [eu/eudr](./extensions/eu/eudr/) | EU | Deforestation Regulation 2023/1115 | Preview | 0.9.8 | Apr 2026 (exemption pattern added) |
+| [eu/textile](./extensions/eu/textile/) | EU | Sustainable Textiles Strategy | Preview | 0.9.8 | Mar 2026 (JRC Milestone 3 alignment) |
+| [eu/electronics](./extensions/eu/electronics/) | EU | ESPR Electronics Delegated Acts | Preview | 0.9.8 | Feb 2026 |
+| [eu/detergent](./extensions/eu/detergent/) | EU | Detergents Regulation 2026/405 | Preview | 0.9.8 | Mar 2026 |
+| [eu/iron-steel](./extensions/eu/iron-steel/) | EU | ESPR iron & steel product group (EN 10204 inspection certificates, CBAM) | Preview | 0.9.8 | Jul 2026 |
+| [eu/ppwr](./extensions/eu/ppwr/) | EU | Packaging and Packaging Waste Regulation (EU) 2025/40 | Preview | 0.9.8 | Jul 2026 (GS1 packaging model) |
+| [eu/cpr](./extensions/eu/cpr/) | EU | Construction Products Regulation (EU) 2024/3110 | Preview | 0.9.8 | Jul 2026 |
+| [us/fsma204](./extensions/us/fsma204/) | US | FSMA §204 Food Traceability Rule (21 CFR 1 Subpart S) | Preview | 0.9.8 | Apr 2026 (new module) |
 | [upstream/gs1-rail](./extensions/upstream/gs1-rail/) | Upstream (GS1 AISBL / GS1 Switzerland) | GS1 Rail Vocabulary — sectoral Layer-2 upstream profile (sensor metadata, wheel diagnostics, rail EPCIS Registry shapes); namespace stays at `https://gs1-epcis-reg.org/rail/voc/data#` | Mirror | upstream 1.6 | May 2026 (initial mirror, bridge to dpp-core) |
 
 ## Repository Structure
@@ -353,17 +353,17 @@ Each module follows [Semantic Versioning](https://semver.org/) and is versioned 
 
 | Module | Version | Notes |
 |--------|---------|-------|
-| `common/core` | 0.9.7 | ESPR framework + shared patterns; breaking changes bump major |
-| `common/interop` | 0.9.7 | UNTP / CIRPASS2 / JTC 24 / BatteryPass bridges |
-| `eu/battery` | 0.9.7 | Battery Regulation 2023/1542 |
-| `eu/eudr` | 0.9.7 | Deforestation Regulation 2023/1115 |
-| `eu/textile` | 0.9.7 | Sustainable Textiles |
-| `eu/electronics` | 0.9.7 | ESPR Electronics Delegated Acts |
-| `eu/detergent` | 0.9.7 | Detergents Regulation 2026/405 |
-| `eu/iron-steel` | 0.9.7 | ESPR iron & steel product group (EN 10204 MTC) |
-| `eu/ppwr` | 0.9.7 | Packaging and Packaging Waste Regulation (EU) 2025/40 |
-| `eu/cpr` | 0.9.7 | Construction Products Regulation (EU) 2024/3110 |
-| `us/fsma204` | 0.9.7 | FDA FSMA §204 (preview) |
+| `common/core` | 0.9.8 | ESPR framework + shared patterns; breaking changes bump major |
+| `common/interop` | 0.9.8 | UNTP / CIRPASS2 / JTC 24 / BatteryPass bridges |
+| `eu/battery` | 0.9.8 | Battery Regulation 2023/1542 |
+| `eu/eudr` | 0.9.8 | Deforestation Regulation 2023/1115 |
+| `eu/textile` | 0.9.8 | Sustainable Textiles |
+| `eu/electronics` | 0.9.8 | ESPR Electronics Delegated Acts |
+| `eu/detergent` | 0.9.8 | Detergents Regulation 2026/405 |
+| `eu/iron-steel` | 0.9.8 | ESPR iron & steel product group (EN 10204 MTC) |
+| `eu/ppwr` | 0.9.8 | Packaging and Packaging Waste Regulation (EU) 2025/40 |
+| `eu/cpr` | 0.9.8 | Construction Products Regulation (EU) 2024/3110 |
+| `us/fsma204` | 0.9.8 | FDA FSMA §204 (preview) |
 
 Modules declare their minimum `common/core` dependency in their respective `README.md` and `CHANGELOG.md`.
 

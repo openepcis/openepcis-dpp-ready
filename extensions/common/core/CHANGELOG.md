@@ -4,6 +4,8 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.8] - 2026-07-29
+
 ### Changed: EPCIS examples serve the standard contexts; the operational chain is EN 18223 only
 
 Two serializations had blurred into one. The design is that standard JSON-LD prefixes every

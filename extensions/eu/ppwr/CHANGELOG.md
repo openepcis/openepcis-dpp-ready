@@ -4,6 +4,8 @@ All notable changes to the PPWR module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.8] - 2026-07-29
+
 ### Changed: mapping anchors from the vocab-sync audit
 
 A `vocab-sync audit --module ppwr` run (10 findings, 4 QA-confirmed) graded two new anchors,

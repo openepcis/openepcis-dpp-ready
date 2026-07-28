@@ -4,6 +4,8 @@ All notable changes to the Electronics module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.8] - 2026-07-29
+
 ### Fixed: 1 inverted SKOS mapping directions
 
 SKOS reads `A skos:narrowMatch B` as "B is narrower than A". 1 mapping in this module

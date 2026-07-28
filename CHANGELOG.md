@@ -9,6 +9,8 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+## [0.9.8] - 2026-07-29
+
 ### The two serializations are separated
 
 The design has always been that standard JSON-LD prefixes every vocabulary term, `gs1:` included,
@@ -31,10 +33,19 @@ all 47 files before and after. Detail in the
 sub-property of it. 174 assertions across eight modules used `narrowMatch` while pointing at a
 general foundational term, asserting the reverse of their intent. They now read `skos:broadMatch`.
 
-Each module was then audited by the local model pipeline (`tools/vocab-sync`), whose confirmed
-findings were triaged, reviewed by hand, and applied. Findings a curator declined are recorded
-with their reasons in [`docs/skos-alignment/OPEN_DECISIONS.md`](docs/skos-alignment/OPEN_DECISIONS.md),
-and the loop itself is documented in
+Eight modules were then audited by the local model pipeline (`tools/vocab-sync`), whose confirmed
+findings were triaged, reviewed by hand, and applied: fsma204, ppwr, cpr, iron-steel, detergent,
+eudr, electronics and textile. The pipeline pass for `common/core` and `eu/battery` is outstanding
+and lands in a later version; both are covered by the direction sweep above, with 51 and 52
+corrections respectively.
+
+The review is deliberately not fully automatic. Six panel-confirmed proposals in textile alone were
+refused on documented evidence: a GS1 term scoped to `FoodBeverageTobaccoProduct`, two directions
+the project had already recorded as intentional, an `exactMatch` our own bridge documentation calls
+Partial, and four instruction mappings from a free-text overflow field. Findings a curator declined
+are recorded with their reasons in
+[`docs/skos-alignment/OPEN_DECISIONS.md`](docs/skos-alignment/OPEN_DECISIONS.md), which also counts
+the 87 assertions where the pipeline's two stages contradict each other. The loop is documented in
 [`docs/skos-alignment/REVIEW_LOOP.md`](docs/skos-alignment/REVIEW_LOOP.md).
 
 ### Five new guards, each for a class of error that had reached the repository

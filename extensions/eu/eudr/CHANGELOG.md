@@ -4,6 +4,8 @@ All notable changes to the EUDR module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.8] - 2026-07-29
+
 ### Changed: mapping directions and anchors from the vocab-sync audit
 
 A `vocab-sync audit --module eudr` run (108 findings, 26 QA-confirmed) corrected nine directions

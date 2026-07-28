@@ -4,6 +4,8 @@ All notable changes to the DPP Iron & Steel module will be documented in this fi
 
 ## [Unreleased]
 
+## [0.9.8] - 2026-07-29
+
 ### Fixed: three batch identifiers no longer claim to be serial numbers
 
 `eusteel:heatNumber`, `eusteel:castNumber` and `eusteel:lotNumber` each asserted

@@ -6,6 +6,8 @@ module adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.9.8] - 2026-07-29
+
 ### Changed
 - The three CTE event examples and `examples/ftl-product.jsonld` list the standard context chain
   (EPCIS base, then `dpp-core-context`, then `fsma204-context`) in place of the operational

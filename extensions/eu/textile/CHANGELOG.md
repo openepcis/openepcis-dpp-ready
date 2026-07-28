@@ -4,6 +4,8 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.8] - 2026-07-29
+
 ### Changed: mapping directions and anchors from the vocab-sync audit
 
 A `vocab-sync audit --module textile` run (371 findings, 139 QA-confirmed) produced 30 applied
