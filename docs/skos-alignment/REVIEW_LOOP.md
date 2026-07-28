@@ -53,6 +53,10 @@ up when a human reads the target's own definition:
 - **Granularity.** Three iron-steel batch identifiers were graded under `schema:serialNumber`,
   which schema.org domains on `IndividualProduct`. A heat number identifies the melt, not one
   piece. `check:mappings` rule 3c now catches this class mechanically.
+- **Level.** A closed list of codes is not in a subsumption relation with the class of things it
+  classifies, in either direction. The triage holds these as "our term is a type, target is the
+  entity"; `check:mappings` rule 7 now enforces the same thing in the ontology, and runs before
+  the direction rule so a level error is not reported as a direction error.
 - **A scope clause inside the definition.** `gs1:consumerProductVariant` is explicitly limited to
   variants that do not require a different GTIN, which rules out a detergent's physical form.
   No guard can generalise this one; it is why the APPLY list gets read.

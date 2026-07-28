@@ -371,8 +371,7 @@ oec:OperatorRole
     rdfs:seeAlso cirpass2:EconomicOperatorRole ;
     owl:oneOf (oec:Manufacturer oec:Importer oec:Distributor oec:Processor oec:Trader) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    skos:broadMatch schema:OrganizationRole ;
-    skos:exactMatch cirpass2:EconomicOperatorRole .
+    rdfs:seeAlso schema:OrganizationRole  .
 
 oec:Manufacturer a oec:OperatorRole ; rdfs:label "Manufacturer"@en ;
     rdfs:comment "Entity that produces the product, including own-brand labellers per EU Market Surveillance Regulation 2019/1020."@en .
@@ -617,11 +616,11 @@ oec:ProductCategory
         oec:Aluminium
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
-    skos:narrowMatch gs1:Product ;
+    rdfs:seeAlso gs1:Product ;
     skos:broadMatch schema:CategoryCode ;
-    skos:narrowMatch schema:Product ;
-    skos:closeMatch gs1:FoodBeverageTobaccoProduct ;
-    skos:broadMatch dppk:BatteryProduct .
+    rdfs:seeAlso schema:Product ;
+    rdfs:seeAlso gs1:FoodBeverageTobaccoProduct ;
+    rdfs:seeAlso dppk:BatteryProduct .
 
 oec:Batteries a oec:ProductCategory ; rdfs:label "Batteries"@en ;
     rdfs:comment "Batteries and accumulators per EU Battery Regulation 2023/1542."@en .
@@ -2555,7 +2554,7 @@ oec:BiodegradabilityTestMethod
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
-    skos:narrowMatch cv:Criterion .
+    rdfs:seeAlso cv:Criterion .
 
 oec:ISO14593  a oec:BiodegradabilityTestMethod ; rdfs:label "ISO 14593 (CO2 evolution test)"@en .
 oec:OECD301B  a oec:BiodegradabilityTestMethod ; rdfs:label "OECD 301B (CO2 evolution test)"@en .
@@ -2901,7 +2900,7 @@ oec:EnergyEfficiencyClass
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     skos:narrowMatch schema:EnergyEfficiencyEnumeration ;
     skos:narrowMatch schema:EUEnergyEfficiencyEnumeration ;
-    skos:narrowMatch schema:EnergyConsumptionDetails ;
+    rdfs:seeAlso schema:EnergyConsumptionDetails ;
     skos:narrowMatch schema:Class .
 
 oec:EnergyClassA a oec:EnergyEfficiencyClass ; rdfs:label "Class A"@en ; skos:notation "A" .

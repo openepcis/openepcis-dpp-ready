@@ -4,6 +4,14 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed: 8 value spaces no longer mapped onto the class of things they classify
+
+A closed list of codes and the class of things those codes classify sit at different levels, so no graded SKOS relation between them holds in either direction. `oec:OperatorRole` (to `schema:OrganizationRole` and `cirpass2:EconomicOperatorRole`), `oec:ProductCategory` (to `gs1:Product`, `schema:Product`, `gs1:FoodBeverageTobaccoProduct` and `dppk:BatteryProduct`), `oec:BiodegradabilityTestMethod` (to `cv:Criterion`) and `oec:EnergyEfficiencyClass` (to `schema:EnergyConsumptionDetails`) now use `rdfs:seeAlso`.
+
+The `cirpass2:EconomicOperatorRole` pair is a case where the ontology contradicted our own documentation: [`CIRPASS2_ALIGNMENT.md`](../interop/docs/CIRPASS2_ALIGNMENT.md) records it as an "enum-vs-class shape difference; pointer only", and the `rdfs:seeAlso` beside it was already that pointer, so the `skos:exactMatch` is simply gone.
+
+`check:mappings` rule 7 covers the pattern and runs before the direction rule, since at different levels the question of which term is narrower does not arise. Project-wide this corrected 31 assertions across eight modules; see the [root changelog](../../../CHANGELOG.md).
+
 ## [0.9.8] - 2026-07-29
 
 ### Changed: EPCIS examples serve the standard contexts; the operational chain is EN 18223 only

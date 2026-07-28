@@ -9,6 +9,31 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### 31 value spaces no longer mapped onto the classes of things they classify
+
+A closed list of codes and the class of things those codes classify sit at different levels, so no
+graded SKOS relation between them holds in either direction. `eudet:ProductForm` was not broader
+than `gs1:Product`, and `eucpr:ConstructionProductType` was not narrower than
+`dppk:BatteryProduct`. All 31 such assertions across eight modules now use `rdfs:seeAlso`, which
+carries the pointer without the claim. The graded mapping of a value space belongs on another value
+space, as `eudet:DetergentCategory` already did with `skos:broadMatch schema:CategoryCode`.
+
+`check:mappings` rule 7 covers the pattern, and it runs **before** the direction rule: at different
+levels the question of which term is narrower does not arise, and the direction rule advised
+flipping to `broadMatch`, which only mirrors the confusion. That ordering is why the family stayed
+hidden. Six of the pairs were parked on the mapping allowlist as "type mapped to the entity class",
+which silenced the guard on the schema.org side of each pair while the `gs1:Product` twin of the
+same assertion went unchecked, because `gs1:Product` was not among the guard's head terms even
+though GS1 is the vocabulary the layering rule consults first. Those six allowlist entries are gone.
+
+One pair contradicted our own documentation: `CIRPASS2_ALIGNMENT.md` records
+`oec:OperatorRole` to `cirpass2:EconomicOperatorRole` as an "enum-vs-class shape difference; pointer
+only", and the ontology asserted `skos:exactMatch` next to the `rdfs:seeAlso` that was already the
+pointer.
+
+Not touched, and worth a decision of its own: 73 graded mappings point at this project's own
+namespaces, where the project's rule sends cross-references to `rdfs:seeAlso` regardless of level.
+
 ## [0.9.8] - 2026-07-29
 
 ### The two serializations are separated

@@ -6,6 +6,12 @@ module adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed: 1 value space no longer mapped onto the class of things they classify
+
+A closed list of codes and the class of things those codes classify sit at different levels, so no graded SKOS relation between them holds in either direction. `usfsma:FoodTraceabilityList` (to `gs1:FruitsVegetables`) now use `rdfs:seeAlso`.
+
+`check:mappings` rule 7 covers the pattern and runs before the direction rule, since at different levels the question of which term is narrower does not arise. Project-wide this corrected 31 assertions across eight modules; see the [root changelog](../../../CHANGELOG.md).
+
 ## [0.9.8] - 2026-07-29
 
 ### Changed

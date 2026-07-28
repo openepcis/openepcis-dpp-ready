@@ -30,10 +30,20 @@
  *     instruction, certification, category, country, location, document, ...). Nothing a
  *     regulation module defines is broader than those, so the relation is inverted: SKOS
  *     reads `A skos:narrowMatch B` as "B is narrower than A". The 2026-07 sweep corrected
- *     174 such assertions. Two kinds of pair are allowlisted instead: our term is a TYPE or
- *     CATEGORY and the target denotes the entity itself, so neither direction fits; or our term
- *     is a CONTAINER or LIST that aggregates the upstream concept (eudr:originDetails holds a
- *     country plus a geolocation and a producer), where being the broader term is correct.
+ *     174 such assertions. A CONTAINER or LIST term that aggregates the upstream concept is
+ *     allowlisted instead (eudr:originDetails holds a country plus a geolocation and a
+ *     producer), because being the broader term is correct there.
+ *
+ *  7. VALUE SPACE MAPPED ONTO AN ENTITY CLASS. A closed list of codes and the class of things
+ *     those codes classify sit at different levels, so no graded relation between them holds
+ *     in either direction: eudet:ProductForm is not broader than gs1:Product, and
+ *     eucpr:ConstructionProductType is not narrower than dppk:BatteryProduct. 31 such
+ *     assertions were downgraded to rdfs:seeAlso in 2026-07; the graded mapping of a value
+ *     space belongs on another value space, the way eudet:DetergentCategory anchors to
+ *     schema:CategoryCode. Checked BEFORE rule 6, since at different levels the question of
+ *     which term is narrower does not arise and rule 6 would advise flipping the direction,
+ *     which only mirrors the confusion. An intra-project target is left to the separate
+ *     question of what cross-references inside this project should be.
  *
  *  5. UNVERIFIED SEMICeu TARGET: any cv:/cccev:/locn:/adms:/cpsv:/foaf:/
  *     legal:/org: mapping target must be listed in scripts/semiceu-terms.json
@@ -176,7 +186,14 @@ const BATCH_LEVEL = /(^|[a-z])(Lot|Batch|Heat|Cast|Melt|Coil)([A-Z]|$)|^(lot|bat
 const SEMICEU_PREFIXES = new Set(["cv", "cccev", "locn", "adms", "cpsv", "foaf", "legal", "org"]);
 const RELS = ["exactMatch", "closeMatch", "broadMatch", "narrowMatch"];
 
-interface Violation { file: string; subject: string; detail: string; }
+/**
+ * `rule`, `relation` and `target` are set where a fix can be applied mechanically, so
+ * `--json` can drive one instead of a script re-deriving the census by parsing this output.
+ */
+interface Violation {
+  file: string; subject: string; detail: string;
+  rule?: string; relation?: string; target?: string;
+}
 const violations: Violation[] = [];
 
 function ttlFiles(dir: string, out: string[] = []): string[] {
@@ -198,6 +215,41 @@ function ttlFiles(dir: string, out: string[] = []): string[] {
  */
 function blankLongLiterals(ttl: string): string {
   return ttl.replace(/"""[\s\S]*?"""/g, (lit) => '""' + lit.replace(/[^\n]/g, " ").slice(2) + '""');
+}
+
+/** The namespaces this project governs, so a target inside them is a cross-reference. */
+const OUR_PREFIXES = new Set(["oec", "eubat", "eutex", "euelec", "eudet", "eucpr", "eusteel", "eudr", "euppwr", "usfsma"]);
+
+/** Names that denote a closed set of codes rather than a set of things. */
+const VALUE_SPACE_SUFFIX = /(Type|Types|Category|Categories|Class|Code|Codes|CodeSet|Status|Enumeration|Tier|Grade|Level|Scheme|Form)$/;
+
+/**
+ * Is this subject a value space: an enumeration, or a class named for one?
+ *
+ * Properties are excluded even when named like one, because `oec:documentType` is a property
+ * whose values are codes rather than a class of codes, and a property-to-property mapping is
+ * a different question.
+ */
+function isValueSpace(subj: string, block: string): boolean {
+  const aClause = block.match(/\ba\s+([^;.]+)[;.]/)?.[1] ?? "";
+  if (/Property\b/.test(aClause)) return false;
+  if (/\bowl:oneOf\b/.test(block)) return true;
+  return VALUE_SPACE_SUFFIX.test(subj.split(":")[1] ?? "");
+}
+
+/**
+ * Does this target denote a class of THINGS, as opposed to a property or a value space?
+ *
+ * Read from the local name: an initial capital marks a class in every vocabulary this project
+ * maps onto, and a value-space suffix marks a code list, which is a legitimate partner for one
+ * of ours. schema.org is checked against its own kind data first, since it is available.
+ */
+function isEntityClass(target: string): boolean {
+  const [px, local] = target.split(":", 2);
+  if (!local || !/^[A-Z]/.test(local)) return false;
+  if (VALUE_SPACE_SUFFIX.test(local)) return false;
+  if (px === "schema") return SCHEMA.terms[local]?.kind !== "property";
+  return true;
 }
 
 for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
@@ -226,11 +278,30 @@ for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
         continue;
       }
 
+      // 7 before 6 on purpose: when the two terms sit at different levels, which of them is
+      // narrower is not a question that arises, and rule 6 would advise flipping to broadMatch,
+      // which only mirrors the confusion. `oec:ProductCategory narrowMatch schema:Product` was
+      // reported that way while its gs1:Product twin was reported as the level error it is.
+      if (isValueSpace(subj, block) && isEntityClass(target) && !OUR_PREFIXES.has(target.split(":")[0])) {
+        violations.push({
+          file: rel, subject: subj, rule: "value-space-to-entity", relation: relName, target: rawTarget,
+          detail: `skos:${relName} ${target} maps a value space onto the class of things it classifies; neither direction subsumes, so use rdfs:seeAlso (and anchor the value space to a code list, as eudet:DetergentCategory does)`,
+        });
+        continue;
+      }
+
       // 6. inverted direction toward a general foundational term
       if (relName === "narrowMatch" && GENERAL_L1_TERMS.has(target)) {
         violations.push({ file: rel, subject: subj, detail: `skos:narrowMatch ${target} inverts the relation: ${target} is a general foundational term, so this term is the narrower one; use skos:broadMatch` });
         continue;
       }
+
+      // 7. value space mapped onto an entity class. A closed list of codes and the class of
+      // things those codes classify are at different levels, so no graded relation between them
+      // holds in either direction: eudet:ProductForm is not broader than gs1:Product, and
+      // eucpr:ConstructionProductType is not narrower than dppk:BatteryProduct. The honest
+      // relation is rdfs:seeAlso, with any graded mapping going to a value space of its own,
+      // the way eudet:DetergentCategory anchors to schema:CategoryCode.
 
       // 2. inverted direction: narrowMatch toward own superclass/superproperty
       if (relName === "narrowMatch" && supers.has(target)) {
@@ -284,6 +355,11 @@ for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
       // ground truth available here — covered by their own module audits.
     }
   }
+}
+
+if (process.argv.includes("--json")) {
+  console.log(JSON.stringify(violations, null, 2));
+  process.exit(0);
 }
 
 console.log(`check:mappings — SKOS mapping sanity across extension ontologies`);
