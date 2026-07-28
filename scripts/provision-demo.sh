@@ -200,8 +200,11 @@ provision_product() { # gtin file slug desc
   # FLS probe markers (see FLS_PROBE_GTIN above): three oec-core fields at three
   # field tiers, in bare shortcut spelling (survives the typed write path).
   if [[ "$gtin" == "$FLS_PROBE_GTIN" ]]; then
-    body=$(jq '
-      ."carbonFootprintStudyUrl" = "https://demo.epcis.cloud/fls-probe/cf-study-42" |
+    # $WEB_URL, not a literal demo host: seeding dev with this hardcoded left dev's
+    # records pointing at demo, which is how dev ended up serving a DPP whose own
+    # carbonFootprintStudyUrl named the demo environment.
+    body=$(jq --arg web "$WEB_URL" '
+      ."carbonFootprintStudyUrl" = ($web + "/fls-probe/cf-study-42") |
       ."dataQualityAssessment"   = "FLS-PROBE-AO-42" |
       ."eoriNumber"              = "FLS-PROBE-RESTRICTED-42"' <<<"$body")
   fi
