@@ -5,17 +5,32 @@
  *
  * The audit's QA panel says whether a mapping is real and which graded relation fits.
  * It does not know this project's conventions, so a confirmed finding still has to pass
- * the filters below before it may be written. They encode the judgements made while
- * working through the electronics report by hand:
+ * the filters below before it may be written. Every one of them was added after a panel
+ * proposed the thing it now refuses:
  *
  *   SKIP  intra-project target      mapping relations link ACROSS schemes; an oec:/module
  *                                   target is an internal cross-reference (rdfs:seeAlso).
- *   SKIP  structural carrier        gs1:value / schema:value and friends are serialisation
- *                                   slots, not concepts.
- *   SKIP  meta-class                schema:Class is the class of classes.
+ *   HOLD  recorded decision         the pair is in mapping-allowlist.json under a different
+ *                                   relation, so the ontology already holds the answer. A
+ *                                   proposal that lands ON an entry is pre-blessed and skips
+ *                                   every mechanical filter below.
+ *   HOLD  structural carrier        gs1:value / schema:value and friends are serialisation
+ *                                   slots, not concepts. Checked on BOTH sides: the core panel
+ *                                   proposed eleven mappings making oec:value the broader term
+ *                                   of every specific value property it could find.
+ *   HOLD  inverted direction        narrowMatch toward a general Layer-1 head term
+ *                                   (general-l1-terms.json, shared with check:mappings rule 6).
+ *   HOLD  identical local names     a subsumption between eubat:ratedMaximumPower and
+ *                                   batterypass:ratedMaximumPower is not what a name match says;
+ *                                   exactMatch or closeMatch is the question.
+ *   HOLD  meta-class                schema:Class is the class of classes.
  *   HOLD  type versus entity        our term names a Type / Category / Class while the
  *                                   target denotes the entity itself, so neither
  *                                   subsumption direction fits.
+ *   HOLD  level mismatch            a property mapped to a class, or the reverse.
+ *   HOLD  foreign or retired target a foreign schema.org CLASS (schema:AutoRepair for a repair
+ *                                   provider), a foreign GS1 or schema.org domain, or a term
+ *                                   schema.org has superseded.
  *   APPLY direction flip            an existing graded relation whose direction the panel
  *                                   reverses: mechanical, the meaning was inverted.
  *   APPLY seeAlso upgrade           an existing rdfs:seeAlso the panel grades, above the
@@ -24,7 +39,9 @@
  *                                   own gate would emit rdfs:seeAlso instead.
  *
  * Everything not in APPLY lands in HOLD with its reason, for
- * docs/skos-alignment/OPEN_DECISIONS.md.
+ * docs/skos-alignment/OPEN_DECISIONS.md. Read the APPLY list before writing it: the filters
+ * cannot see a scope clause inside an upstream definition, which is why
+ * scripts/skos-deferred.json exists.
  *
  * Usage: tsx scripts/triage-skos-report.ts <report.json> [--json]
  */
@@ -87,6 +104,7 @@ const SCHEMA_FOREIGN = new Set([
   "LoyaltyProgram", "FinancialProduct", "Offer", "Demand", "MusicRecording", "Movie",
   "BroadcastService", "BroadcastFrequencySpecification", "Recipe", "MenuItem",
   "ServiceChannel", "Flight", "AutoRepair", "MotorcycleRepair", "Collection",
+  "SportsActivityLocation", "SportsEvent", "ExerciseAction",
 ]);
 const SCHEMA_DOMAINS: Record<string, { domains?: string[] }> = (() => {
   try {
@@ -234,6 +252,17 @@ function verdict(f: Finding): { action: "APPLY" | "HOLD" | "SKIP"; reason: strin
     if (f.proposedPredicate === "skos:narrowMatch" && GENERAL_L1.has(curie)) {
       return { action: "HOLD", reason: `${curie} is a general Layer-1 term, so narrowMatch inverts the relation; broadMatch is the direction` };
     }
+    // Identical local names on both sides, with a subsumption proposed between them. Two terms
+    // that named themselves the same thing are candidates for exactMatch or closeMatch; claiming
+    // one contains the other needs a reason a name match does not supply. The battery panel
+    // proposed `eubat:hazardousSubstances` above `batterypass:hazardousSubstances` and
+    // `eubat:ratedMaximumPower` above `batterypass:ratedMaximumPower`.
+    const ourLocal = (f.ourId.split(":")[1] ?? "").toLowerCase();
+    const upLocal = (f.upstreamIri.split(/[#/]/).pop() ?? "").toLowerCase();
+    if (ourLocal && ourLocal === upLocal
+        && (f.proposedPredicate === "skos:narrowMatch" || f.proposedPredicate === "skos:broadMatch")) {
+      return { action: "HOLD", reason: `identical local names, so exactMatch or closeMatch is the question, not which contains which` };
+    }
     if (META.has(f.upstreamIri)) return { action: "HOLD", reason: "target is a meta-class" };
     if (isTypeTerm(f.ourId) && isEntityTarget(f)) return { action: "HOLD", reason: "our term is a type, target is the entity" };
     // A graded relation holds between two concepts at the same level. The panel judges meaning,
@@ -261,6 +290,14 @@ function verdict(f: Finding): { action: "APPLY" | "HOLD" | "SKIP"; reason: strin
     // `schema:AutoRepair` and `schema:MotorcycleRepair`, car and motorcycle repair shops.
     if (SCHEMA_FOREIGN.has(local) && /^[A-Z]/.test(local)) {
       return { action: "HOLD", reason: `schema:${local} belongs to an area foreign to a passport` };
+    }
+    // schema.org retires a term by superseding it. The battery panel proposed
+    // `schema:contactPoints`, retired in favour of `schema:contactPoint`, which the term already
+    // mapped to; `check:mappings` rejected it after the fact, which is the guard doing its job but
+    // a wasted round trip.
+    const superseded = (SCHEMA_DOMAINS as Record<string, { supersededBy?: string[] }>)[local]?.supersededBy;
+    if (superseded?.length) {
+      return { action: "HOLD", reason: `schema:${local} is superseded by schema:${superseded.join(", ")}` };
     }
     const doms = SCHEMA_DOMAINS[local]?.domains ?? [];
     // Match check:mappings: a term is foreign only when EVERY declared domain is foreign.

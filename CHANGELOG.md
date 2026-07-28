@@ -33,13 +33,12 @@ all 47 files before and after. Detail in the
 sub-property of it. 174 assertions across eight modules used `narrowMatch` while pointing at a
 general foundational term, asserting the reverse of their intent. They now read `skos:broadMatch`.
 
-Nine modules were then audited by the local model pipeline (`tools/vocab-sync`), whose confirmed
-findings were triaged, reviewed by hand, and applied: fsma204, ppwr, cpr, iron-steel, detergent,
-eudr, electronics, textile and common/core. The core pass alone produced 878 findings and 95 applied
-changes, most of them anchoring an `oec:` term as the broader one against the peer profile that
-specialises it, which is the shape the layering predicts. The pipeline pass for `eu/battery` is
-still running and lands in a later version; it is covered by the direction sweep above, with 52
-corrections.
+All ten modules were then audited by the local model pipeline (`tools/vocab-sync`), whose confirmed
+findings were triaged, reviewed by hand, and applied. The two largest passes show the layering
+working: `common/core` (878 findings, 95 applied) mostly anchors an `oec:` term as the broader one
+against the peer profile that specialises it, and `eu/battery` (1182 findings, 130 applied) mostly
+anchors into the BatteryPass SAMM model and DPP Keystone, the two community profiles that cover its
+domain in detail.
 
 The core pass also surfaced four assertions that had been inverted and invisible, because the
 head-term list rule 6 checks did not contain their targets (`cv:Evidence`, `schema:name`,
@@ -48,10 +47,12 @@ head-term list rule 6 checks did not contain their targets (`cv:Evidence`, `sche
 so a proposal that would reintroduce the inverted direction is held rather than applied. Without
 that, 47 further `narrowMatch` proposals from the core panel had nothing checking them.
 
-The review is deliberately not fully automatic. Six panel-confirmed proposals in textile alone were
-refused on documented evidence: a GS1 term scoped to `FoodBeverageTobaccoProduct`, two directions
-the project had already recorded as intentional, an `exactMatch` our own bridge documentation calls
-Partial, and four instruction mappings from a free-text overflow field. Findings a curator declined
+The review is deliberately not fully automatic, and 28 panel-confirmed proposals were refused on
+documented evidence rather than taste. Textile alone accounts for six: a GS1 term scoped to
+`FoodBeverageTobaccoProduct`, two directions the project had already recorded as intentional, an
+`exactMatch` our own bridge documentation calls Partial, and four instruction mappings from a
+free-text overflow field. Battery accounts for twelve, among them six claiming a metal-specific
+recycled share is broader than BatteryPass's generic one, which is inverted. Findings a curator declined
 are recorded with their reasons in
 [`docs/skos-alignment/OPEN_DECISIONS.md`](docs/skos-alignment/OPEN_DECISIONS.md), which also counts
 the 87 assertions where the pipeline's two stages contradict each other. The loop is documented in

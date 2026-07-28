@@ -62,7 +62,7 @@
       "subClassOf": [
         "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
       ],
-      "broadMatch": [
+      "narrowMatch": [
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
@@ -89,7 +89,10 @@
       "seeAlso": [
         "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
       ],
-      "broadMatch": [
+      "exactMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#EndOfLifeInformationEntity"
+      ],
+      "narrowMatch": [
         "urn:samm:io.BatteryPass.Circularity:1.2.0#DismantlingAndRemovalDocumentation"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
@@ -104,9 +107,8 @@
         "https://schema.org/ChemicalSubstance"
       ],
       "broadMatch": [
-        "https://schema.org/ChemicalSubstance"
-      ],
-      "narrowMatch": [
+        "https://schema.org/Substance",
+        "https://schema.org/ChemicalSubstance",
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#HazardousSubstanceEntity"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272"
@@ -136,7 +138,7 @@
       "exactMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#NegativeEventEntity"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/Event"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
@@ -146,8 +148,10 @@
       "localName": "PowerCapabilityAtSoC",
       "label": "Power Capability at SoC",
       "comment": "Power capability measurement at a specific state of charge level (80% or 20%).",
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#BatteryTechnicalPropertiesEntity"
+      ],
       "narrowMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#BatteryTechnicalPropertiesEntity",
         "urn:samm:io.BatteryPass.Performance:1.2.1#PowerCapabilityAtEntity"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
@@ -164,7 +168,7 @@
       "exactMatch": [
         "https://ref.openepcis.io/extensions/common/core/RecycledContent"
       ],
-      "broadMatch": [
+      "narrowMatch": [
         "urn:samm:io.BatteryPass.Circularity:1.2.0#RecycledContentEntity"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
@@ -185,10 +189,8 @@
       "label": "Technical Specification",
       "comment": "Technical specifications of a battery including capacity, voltage, and performance parameters.",
       "broadMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#BatteryTechnicalPropertiesEntity",
         "https://schema.org/PropertyValueSpecification"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#BatteryTechnicalPropertiesEntity"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
     },
@@ -238,9 +240,11 @@
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#AbsoluteBatteryCarbonFootprint"
       ],
       "broadMatch": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#BatteryCarbonFootprintPerFunctionalUnit"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -263,10 +267,11 @@
         "https://schema.org/material"
       ],
       "broadMatch": [
-        "https://schema.org/activeIngredient"
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryChemistry",
+        "https://schema.org/activeIngredient",
+        "https://vocabulary.uncefact.org/untp/materialConsumed"
       ],
       "narrowMatch": [
-        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryChemistry",
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#BatteryChemistry",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#MaterialsUsedInCathodeAnodeAndElectrolyte",
@@ -288,6 +293,9 @@
       ],
       "seeAlso": [
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#StateOfChargeSoC"
+      ],
+      "exactMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#atSoC"
       ],
       "closeMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCharge"
@@ -409,12 +417,14 @@
         "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier",
         "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#productIdentifier",
         "https://schema.org/identifier",
-        "http://www.w3.org/ns/adms#identifier"
+        "http://www.w3.org/ns/adms#identifier",
+        "https://dpp-keystone.org/spec/v2/terms#identifier",
+        "https://dpp-keystone.org/spec/v2/terms#uniqueProductIdentifier",
+        "https://dpp-keystone.org/spec/v2/terms#model"
       ],
       "narrowMatch": [
         "https://schema.org/model",
-        "https://dpp-keystone.org/spec/v2/terms#componentIdentifier",
-        "https://dpp-keystone.org/spec/v2/terms#identifier"
+        "https://dpp-keystone.org/spec/v2/terms#componentIdentifier"
       ],
       "source": "https://thebatterypass.eu/battery-pass-ready/publications/",
       "accessLevel": "Public",
@@ -604,11 +614,12 @@
       "exactMatch": [
         "https://ref.openepcis.io/extensions/common/core/carbonFootprintDeclaration"
       ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint"
-      ],
       "narrowMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#environmentalFootprint"
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
+        "https://dpp-keystone.org/spec/v2/terms#environmentalFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -651,11 +662,13 @@
         "https://ref.openepcis.io/extensions/common/core/carbonFootprintDistribution",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#ContributionOfDistributionLifecycleStage"
       ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint"
+      ],
       "narrowMatch": [
         "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal",
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint",
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
-        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint",
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -728,8 +741,10 @@
         "https://ref.openepcis.io/extensions/common/core/carbonFootprintProduction",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#ContributionOfMainProductProductionLifecycleStage"
       ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint"
+      ],
       "narrowMatch": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint",
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
         "https://dpp-keystone.org/spec/v2/terms#environmentalFootprint",
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
@@ -754,8 +769,8 @@
       "seeAlso": [
         "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal",
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
-        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint",
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#ContributionOfRawMaterialAcquisitionAndPre-processingLifecycleStage"
       ],
       "exactMatch": [
@@ -788,13 +803,15 @@
       "closeMatch": [
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#ContributionOfEndOfLifeAndRecyclingLifecycleStage"
       ],
-      "narrowMatch": [
-        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal",
+      "broadMatch": [
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint",
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
-        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint",
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint"
+      ],
+      "narrowMatch": [
+        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -850,9 +867,11 @@
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#AbsoluteBatteryCarbonFootprint"
       ],
       "broadMatch": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
         "https://ref.openepcis.io/extensions/common/core/carbonFootprintDistribution"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -876,7 +895,8 @@
       ],
       "exactMatch": [
         "https://ref.openepcis.io/extensions/common/core/casNumber",
-        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier"
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier",
+        "https://dpp-keystone.org/spec/v2/terms#componentCasNumber"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272",
       "accessLevel": "AuthorizedOnly",
@@ -895,13 +915,14 @@
         "xsd:string"
       ],
       "broadMatch": [
-        "https://schema.org/chemicalComposition",
-        "https://schema.org/activeIngredient",
-        "https://schema.org/material"
-      ],
-      "narrowMatch": [
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryChemistry",
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials",
+        "https://schema.org/chemicalComposition",
+        "https://schema.org/activeIngredient",
+        "https://schema.org/material",
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialName"
+      ],
+      "narrowMatch": [
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#BatteryChemistry",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#MaterialsUsedInCathodeAnodeAndElectrolyte"
       ],
@@ -986,9 +1007,11 @@
       "closeMatch": [
         "urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare"
       ],
+      "broadMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage"
+      ],
       "narrowMatch": [
         "https://ref.openepcis.io/extensions/common/core/recycledContent",
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage",
         "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#RenewableContentShare"
       ],
@@ -1014,12 +1037,15 @@
       "exactMatch": [
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#Pre-consumerRecycledCobaltShare"
       ],
-      "narrowMatch": [
-        "https://ref.openepcis.io/extensions/common/core/recycledContent",
+      "broadMatch": [
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare",
         "https://dpp-keystone.org/spec/v2/terms#recycledContentPercentage"
+      ],
+      "narrowMatch": [
+        "https://ref.openepcis.io/extensions/common/core/recycledContent"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -1044,14 +1070,16 @@
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition"
       ],
       "broadMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#Post-consumerRecycledCobaltShare",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#Pre-consumerRecycledCobaltShare",
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare"
+        "https://vocabulary.uncefact.org/untp/recycledMassFraction",
+        "https://dpp-keystone.org/spec/v2/terms#recycledContentPercentage"
       ],
       "narrowMatch": [
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent",
-        "https://dpp-keystone.org/spec/v2/terms#recycledContentPercentage"
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -1181,7 +1209,7 @@
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#C-rateOfRelevantCycle-lifeTest",
         "https://dpp-keystone.org/spec/v2/terms#cRateCycleTest"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#cRate"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -1413,7 +1441,7 @@
       "closeMatch": [
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#DismantlingInformation-ManualsForTheRemovalAndTheDisassemblyOfTheBatteryPack"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://dpp-keystone.org/spec/v2/terms#documents"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -1442,8 +1470,11 @@
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#DismantlingInformation-ManualsForTheRemovalAndTheDisassemblyOfTheBatteryPack"
       ],
       "broadMatch": [
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions",
         "https://ref.gs1.org/voc/instructions"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "AuthorizedOnly",
@@ -1599,11 +1630,11 @@
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#MaterialsUsedInCathodeAnodeAndElectrolyte"
       ],
       "broadMatch": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryChemistry",
         "https://schema.org/chemicalComposition"
       ],
       "narrowMatch": [
         "https://dpp-keystone.org/spec/v2/terms#batteryChemistry",
-        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryChemistry",
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#BatteryChemistry"
       ],
@@ -1624,9 +1655,11 @@
       "range": [
         "rdf:langString"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryChemistry",
-        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials",
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials"
+      ],
+      "narrowMatch": [
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#MaterialsUsedInCathodeAnodeAndElectrolyte"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -1655,6 +1688,10 @@
       ],
       "broadMatch": [
         "https://ref.gs1.org/voc/sustainabilityInfo"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#informationOnCollection",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -1789,7 +1826,8 @@
         "http://www.w3.org/ns/locn#location",
         "https://schema.org/location",
         "https://gs1-epcis-reg.org/rail/voc/data#europeanTrackLocation",
-        "https://schema.org/sportsActivityLocation"
+        "https://schema.org/sportsActivityLocation",
+        "https://vocabulary.uncefact.org/untp/geoLocation"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "AuthorizedOnly",
@@ -1862,6 +1900,7 @@
         "https://dpp-keystone.org/spec/v2/terms#exhaustionCapacityThreshold"
       ],
       "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#exhaustionCapacityThreshold",
         "urn:samm:io.BatteryPass.Performance:1.2.1#capacityThresholdForExhaustion"
       ],
       "closeMatch": [
@@ -1892,6 +1931,9 @@
       ],
       "closeMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#batteryCondition"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -2010,7 +2052,7 @@
         "urn:samm:io.BatteryPass.Performance:1.2.1#expectedNumberOfCycles",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#ExpectedLifetime-NumberOfCharge-dischargeCycles"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "http://data.europa.eu/m8g/expressionOfExpectedValue"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -2082,7 +2124,7 @@
       "closeMatch": [
         "https://schema.org/endTime"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/endDate"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -2157,6 +2199,7 @@
         "https://ref.gs1.org/voc/globalLocationNumber"
       ],
       "broadMatch": [
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace",
         "https://schema.org/identifier",
         "https://ref.gs1.org/voc/globalLocationNumber"
       ],
@@ -2281,6 +2324,9 @@
       "broadMatch": [
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstances",
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceIdentifier"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272",
       "accessLevel": "Public",
@@ -2460,7 +2506,9 @@
       ],
       "broadMatch": [
         "https://dpp-keystone.org/spec/v2/terms#internalResistanceInitial",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#ohmicResistance",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#ohmicResistance"
+      ],
+      "narrowMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -2686,10 +2734,11 @@
         "urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare"
       ],
       "broadMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage",
         "https://ref.openepcis.io/extensions/eu/battery/leadRecycledShare"
       ],
       "narrowMatch": [
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#RecycledLeadShare"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -2716,10 +2765,12 @@
         "urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare"
       ],
       "broadMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent",
         "https://ref.openepcis.io/extensions/eu/battery/leadRecycledShare"
       ],
       "narrowMatch": [
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#RecycledLeadShare"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -2742,15 +2793,15 @@
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#RecycledLeadShare"
       ],
       "broadMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage"
+      ],
+      "narrowMatch": [
         "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent"
       ],
       "source": "https://thebatterypass.eu/battery-pass-ready/publications/",
       "accessLevel": "Public",
@@ -2859,7 +2910,7 @@
       "exactMatch": [
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#Pre-consumerRecycledLithiumShare"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -2884,12 +2935,12 @@
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#Pre-consumerRecycledLithiumShare"
       ],
       "broadMatch": [
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare",
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare"
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare"
       ],
       "narrowMatch": [
         "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
-        "https://vocabulary.uncefact.org/untp/recycledMassFraction"
+        "https://vocabulary.uncefact.org/untp/recycledMassFraction",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -2988,11 +3039,12 @@
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialName"
       ],
       "broadMatch": [
-        "https://ref.openepcis.io/vocab/batterypass-ready/1.3#CriticalRawMaterials"
+        "https://schema.org/materialExtent",
+        "https://ref.openepcis.io/vocab/batterypass-ready/1.3#CriticalRawMaterials",
+        "https://vocabulary.uncefact.org/untp/materialType"
       ],
       "narrowMatch": [
-        "https://schema.org/material",
-        "https://schema.org/materialExtent"
+        "https://schema.org/material"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "AuthorizedOnly",
@@ -3107,6 +3159,9 @@
         "urn:samm:io.BatteryPass.Performance:1.2.1#ratedMaximumPower",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#MaximumPermittedBatteryPower"
       ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability"
+      ],
       "narrowMatch": [
         "https://dpp-keystone.org/spec/v2/terms#ratedPower",
         "https://dpp-keystone.org/spec/v2/terms#powerMaximumPermitted",
@@ -3165,6 +3220,9 @@
       "closeMatch": [
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#TemperatureRangeIdleStateUpperBoundary",
         "urn:samm:io.BatteryPass.Performance:1.2.1#maximum"
+      ],
+      "narrowMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#temperatureIdleUpper"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevelInherited": true
@@ -3307,8 +3365,11 @@
         "urn:samm:io.BatteryPass.Performance:1.2.1#negativeEvent"
       ],
       "broadMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#eventsOvercharge",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#NumberOfOverchargeEvents"
+      ],
+      "narrowMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#eventsOvercharge",
+        "https://dpp-keystone.org/spec/v2/terms#eventsDeepDischarge"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "AuthorizedOnly",
@@ -3324,7 +3385,7 @@
       "range": [
         "xsd:date"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/scheduledTime"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -3351,10 +3412,12 @@
       "exactMatch": [
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#Post-consumerRecycledNickelShare"
       ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
+        "https://vocabulary.uncefact.org/untp/recycledMassFraction"
+      ],
       "narrowMatch": [
         "https://ref.openepcis.io/extensions/common/core/recycledContent",
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
-        "https://vocabulary.uncefact.org/untp/recycledMassFraction",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -3382,10 +3445,12 @@
       "closeMatch": [
         "urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent",
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition"
+      ],
+      "narrowMatch": [
         "https://vocabulary.uncefact.org/untp/recycledMassFraction"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -3408,16 +3473,19 @@
         "https://ref.openepcis.io/extensions/common/core/recycledContent"
       ],
       "broadMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#Post-consumerRecycledNickelShare",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#Pre-consumerRecycledNickelShare",
+        "https://vocabulary.uncefact.org/untp/recycledMassFraction",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare"
       ],
       "narrowMatch": [
         "https://ref.openepcis.io/extensions/common/core/recycledContent",
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition",
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
         "https://dpp-keystone.org/spec/v2/terms#recycledContentPercentage",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#RenewableContentShare"
       ],
@@ -3447,6 +3515,9 @@
       ],
       "closeMatch": [
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#NominalVoltage"
+      ],
+      "broadMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#voltage"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -3616,13 +3687,13 @@
         "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturerInformation"
       ],
       "exactMatch": [
-        "https://ref.openepcis.io/vocab/batterypass-ready/1.3#UniqueEconomicOperatorIdentifier"
+        "https://ref.openepcis.io/vocab/batterypass-ready/1.3#UniqueEconomicOperatorIdentifier",
+        "https://dpp-keystone.org/spec/v2/terms#economicOperatorId"
       ],
       "broadMatch": [
-        "https://schema.org/identifier"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#operatorInformation"
+        "https://schema.org/identifier",
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#operatorInformation",
+        "https://dpp-keystone.org/spec/v2/terms#economicOperator"
       ],
       "source": "https://thebatterypass.eu/battery-pass-ready/publications/",
       "accessLevel": "AuthorizedOnly",
@@ -3725,13 +3796,13 @@
       ],
       "broadMatch": [
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#OriginalPowerCapability",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability"
+        "urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability"
       ],
       "narrowMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#ratedMaximumPower",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#MaximumPermittedBatteryPower",
-        "https://ref.openepcis.io/vocab/batterypass-ready/1.3#RemainingPowerCapability",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability"
+        "https://ref.openepcis.io/vocab/batterypass-ready/1.3#RemainingPowerCapability"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevelInherited": true
@@ -3747,13 +3818,15 @@
       "seeAlso": [
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#OriginalPowerCapability"
       ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability"
+      ],
       "narrowMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#ratedMaximumPower",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#OriginalPowerCapability",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#MaximumPermittedBatteryPower",
         "urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability",
-        "https://ref.openepcis.io/vocab/batterypass-ready/1.3#RemainingPowerCapability",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability"
+        "https://ref.openepcis.io/vocab/batterypass-ready/1.3#RemainingPowerCapability"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "AuthorizedOnly",
@@ -3773,8 +3846,10 @@
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#OriginalPowerCapability",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#RemainingPowerCapability"
       ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability"
+      ],
       "narrowMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#originalPowerCapability",
         "urn:samm:io.BatteryPass.Performance:1.2.1#remainingPowerCapability"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -4025,11 +4100,6 @@
       ],
       "broadMatch": [
         "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage",
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent",
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition",
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent",
         "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentMass",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass",
@@ -4039,7 +4109,15 @@
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#Post-consumerRecycledLithiumShare",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#Pre-consumerRecycledCobaltShare",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#Pre-consumerRecycledLithiumShare",
-        "https://ref.openepcis.io/vocab/batterypass-ready/1.3#Pre-consumerRecycledNickelShare"
+        "https://ref.openepcis.io/vocab/batterypass-ready/1.3#Pre-consumerRecycledNickelShare",
+        "https://vocabulary.uncefact.org/untp/recycledMassFraction"
+      ],
+      "narrowMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -4085,6 +4163,9 @@
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#remainingCapacity",
         "https://dpp-keystone.org/spec/v2/terms#remainingUsableEnergy"
+      ],
+      "exactMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergyValue"
       ],
       "broadMatch": [
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#RemainingUsableBatteryEnergy",
@@ -4145,7 +4226,7 @@
         "urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiency",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#RemainingRoundTripEnergyEfficiency"
       ],
-      "broadMatch": [
+      "narrowMatch": [
         "https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyAt50Cycles"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -4275,7 +4356,7 @@
         "urn:samm:io.BatteryPass.Circularity:1.2.0#informationOnCollection",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#wastePrevention"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/newsUpdatesAndGuidelines"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -4392,7 +4473,7 @@
         "urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#InitialRoundTripEnergyEfficiency"
       ],
-      "broadMatch": [
+      "narrowMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -4420,8 +4501,10 @@
         "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#RoundTripEnergyEfficiencyAt50OfCycleLife"
       ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency"
+      ],
       "narrowMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundtripEfficiency",
         "https://dpp-keystone.org/spec/v2/terms#efficiency"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -4481,6 +4564,10 @@
       "broadMatch": [
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#RoundTripEnergyEfficiencyAt50OfCycleLife"
       ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
+        "https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyAt50Cycles"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "AuthorizedOnly",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
@@ -4535,13 +4622,13 @@
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#SafetyMeasures"
       ],
       "broadMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions",
         "https://ref.gs1.org/voc/instructions",
         "https://ref.gs1.org/voc/safetyInfo",
         "https://ref.gs1.org/voc/consumerSafetyInformation"
       ],
       "narrowMatch": [
         "https://dpp-keystone.org/spec/v2/terms#dismantlingInformation",
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#safetyMeasures",
         "https://vocabulary.uncefact.org/untp/materialSafetyInformation",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#SafetyMeasures"
@@ -4574,6 +4661,7 @@
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#SafetyMeasures"
       ],
       "broadMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#safetyInstructions",
         "https://ref.gs1.org/voc/safetyInfo",
         "https://ref.gs1.org/voc/consumerSafetyInformation"
@@ -4630,6 +4718,9 @@
       "exactMatch": [
         "urn:samm:io.BatteryPass.Circularity:1.2.0#separateCollection",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#InformationOnTheRoleOfEnd-usersInContributingToTheSeparateCollectionOfWasteBatteries"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#informationOnCollection"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -4899,11 +4990,11 @@
       "broadMatch": [
         "http://data.europa.eu/m8g/contactPoint",
         "https://schema.org/contactPoint",
-        "https://ref.gs1.org/voc/afterHoursContact",
-        "http://data.europa.eu/m8g/contactPage"
+        "http://data.europa.eu/m8g/contactPage",
+        "https://ref.gs1.org/voc/contactPoint"
       ],
       "narrowMatch": [
-        "https://ref.gs1.org/voc/contactPoint"
+        "https://ref.gs1.org/voc/afterHoursContact"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "AuthorizedOnly",
@@ -4982,10 +5073,10 @@
         "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification"
       ],
       "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#nominalVoltage"
+        "urn:samm:io.BatteryPass.Performance:1.2.1#batteryTechnicalProperties"
       ],
       "narrowMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#batteryTechnicalProperties"
+        "urn:samm:io.BatteryPass.Performance:1.2.1#nominalVoltage"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -5062,15 +5153,19 @@
       "range": [
         "https://ref.openepcis.io/extensions/eu/battery/TemperatureRange"
       ],
+      "exactMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#temperatureRangeIdleState"
+      ],
       "closeMatch": [
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#TemperatureInformation"
       ],
       "broadMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#temperatureInformation",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#TemperatureRangeIdleStateUpperBoundary",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#TemperatureRangeIdleStateLowerBoundary"
       ],
       "narrowMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#temperatureInformation"
+        "https://dpp-keystone.org/spec/v2/terms#temperatureIdleLower"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
@@ -5091,6 +5186,9 @@
       "seeAlso": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#temperatureRangeIdleState"
       ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#temperatureInformation"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "Public",
       "accessLevelRationale": "Annex XIII(1)(l): storage temperature boundaries are public data the end user needs for safe keeping of the battery.",
@@ -5107,7 +5205,7 @@
       "range": [
         "xsd:string"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/reportNumber"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
@@ -5195,6 +5293,9 @@
         "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTempCharging",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#TimeSpentChargingDuringExtremeTemperaturesBelowBoundary"
       ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTemp"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "AuthorizedOnly",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2023/1542",
@@ -5216,8 +5317,10 @@
         "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTemp"
       ],
       "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTempCharging",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#TimeSpentChargingDuringExtremeTemperaturesAboveBoundary"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeHighTempCharging"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "AuthorizedOnly",
@@ -5241,8 +5344,10 @@
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#TimeSpentInExtremeTemperaturesBelowBoundary"
       ],
       "broadMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTempCharging",
         "https://ref.openepcis.io/vocab/batterypass-ready/1.3#TimeSpentChargingDuringExtremeTemperaturesBelowBoundary"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#timeExtremeLowTempCharging"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542",
       "accessLevel": "AuthorizedOnly",
@@ -5324,6 +5429,9 @@
       ],
       "range": [
         "xsd:anyURI"
+      ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/certificationURI"
       ],
       "broadMatch": [
         "https://schema.org/hasCertification"

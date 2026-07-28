@@ -6,6 +6,34 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [0.9.8] - 2026-07-29
 
+### Changed: mapping anchors and directions from the vocab-sync audit
+
+A `vocab-sync audit --module battery` run (1182 findings, 614 QA-confirmed) produced 130 applied
+changes: 84 directions corrected and 46 anchors added. The bulk anchors `eubat:` into the two peer
+profiles that model batteries in detail, the BatteryPass consortium SAMM model (75 targets) and DPP
+Keystone (43), which is what the layering predicts for a module whose domain a community profile
+already covers closely.
+
+Twelve panel-confirmed proposals were refused, each recorded in `scripts/skos-deferred.json`:
+
+- Six claimed a metal-specific recycled share (`eubat:cobaltRecycledShare`, `leadRecycledShare`,
+  `lithiumRecycledShare`) is broader than BatteryPass's generic `preConsumerShare` and
+  `postConsumerShare`. That is inverted; if anything ours are the narrower terms.
+- `eubat:batteryModelIdentifier` under `batterypass:batteryPassportIdentifier`. Different referents:
+  ours identifies the battery model, theirs the passport document about it.
+- `eubat:separateCollectionSymbolUrl` as `skos:exactMatch dppk:separateCollectionSymbol`. A URL that
+  points at the symbol is not the symbol.
+- `eubat:eventLocation` under `schema:sportsActivityLocation` and `rail:europeanTrackLocation`, a
+  sports venue and a railway track.
+- Two proposed that `eubat:hazardousSubstances` and `eubat:ratedMaximumPower` are broader than the
+  identically named BatteryPass terms. Two terms that named themselves the same thing are candidates
+  for `exactMatch` or `closeMatch`; the triage now holds a subsumption between identical local names.
+
+`check:mappings` caught one more after the fact, which is the guard doing its job: the panel proposed
+`schema:contactPoints`, which schema.org retired in favour of `schema:contactPoint`, and
+`eubat:supplierContact` already mapped to the current term. The triage reads schema.org's
+`supersededBy` data now, so that round trip does not repeat.
+
 ### Changed: `eubat:TechnicalSpecification` is the narrower term against `schema:PropertyValueSpecification`
 
 It read `skos:narrowMatch`, which asserts the reverse. The general value classes were added to the
