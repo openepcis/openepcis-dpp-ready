@@ -1,25 +1,36 @@
 {
   "@context": [
-    "https://ref.gs1.org/voc/",
     "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld"
   ],
-  "type": "Organization",
-  "glnType": "LEGAL_ENTITY",
+  "type": [
+    "gs1:Organization",
+    "oec:OperatorInformation"
+  ],
+  "gs1:glnType": "gs1:GLN_TypeCode-LEGAL_ENTITY",
   "gs1:globalLocationNumber": "9521003000015",
-  "gs1:organizationName": {
-    "en": "VeloPower BV",
-    "nl": "VeloPower BV"
-  },
-  "organizationRole": "MANUFACTURER_OF_FINISHED_GOODS",
+  "gs1:organizationName": [
+    {
+      "@value": "VeloPower BV",
+      "@language": "en"
+    },
+    {
+      "@value": "VeloPower BV",
+      "@language": "nl"
+    }
+  ],
+  "gs1:organizationRole": "gs1:OrganizationRoleType-MANUFACTURER_OF_FINISHED_GOODS",
   "gs1:address": {
     "gs1:organizationName": {
-      "en": "VeloPower BV"
+      "@value": "VeloPower BV",
+      "@language": "en"
     },
     "gs1:streetAddress": {
-      "en": "Fietsstraat 88"
+      "@value": "Fietsstraat 88",
+      "@language": "en"
     },
     "gs1:addressLocality": {
-      "en": "Eindhoven"
+      "@value": "Eindhoven",
+      "@language": "en"
     },
     "gs1:postalCode": "5612 AB",
     "gs1:addressCountry": {
@@ -33,5 +44,7 @@
     "gs1:telephone": "+00 0 0000 0000"
   },
   "oec:economicOperatorId": "NL-DPP-OP-004",
-  "oec:operatorType": "oec:Manufacturer"
+  "oec:operatorRole": {
+    "@id": "oec:Manufacturer"
+  }
 }

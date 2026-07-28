@@ -245,14 +245,14 @@ euelec:SoftwareSupportShape a sh:NodeShape ;
         sh:path euelec:securitySupportYears ;
         sh:name "Security Support Years" ;
         sh:description "Duration in years of security update support." ;
-        sh:class oec:DurationYears ;
+        sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
     sh:property [
         sh:path euelec:featureSupportYears ;
         sh:name "Feature Support Years" ;
         sh:description "Duration in years of feature update support." ;
-        sh:class oec:DurationYears ;
+        sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
     sh:property [
@@ -288,28 +288,28 @@ euelec:EnergyEfficiencyShape a sh:NodeShape ;
         sh:path euelec:annualEnergyConsumption ;
         sh:name "Annual Energy Consumption" ;
         sh:description "Estimated annual energy consumption in kilowatt-hours." ;
-        sh:class oec:EnergyKilowattHours ;
+        sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
     sh:property [
         sh:path euelec:powerConsumptionOn ;
         sh:name "Power Consumption On" ;
         sh:description "Power consumption in on-mode in watts." ;
-        sh:class oec:PowerWatts ;
+        sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
     sh:property [
         sh:path euelec:powerConsumptionStandby ;
         sh:name "Power Consumption Standby" ;
         sh:description "Power consumption in standby mode in watts." ;
-        sh:class oec:PowerWatts ;
+        sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
     sh:property [
         sh:path euelec:powerConsumptionOff ;
         sh:name "Power Consumption Off" ;
         sh:description "Power consumption in off mode in watts." ;
-        sh:class oec:PowerWatts ;
+        sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
     sh:property [
@@ -345,7 +345,7 @@ euelec:ComponentBOMShape a sh:NodeShape ;
         sh:path euelec:components ;
         sh:name "Components" ;
         sh:description "List of electronic components that make up the device." ;
-        sh:class euelec:ElectronicComponent ;
+        sh:class gs1:Product ;
         sh:minCount 1
     ] .
 
@@ -354,8 +354,11 @@ euelec:ComponentBOMShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 euelec:ElectronicComponentShape a sh:NodeShape ;
     sh:targetClass euelec:ElectronicComponent ;
+    sh:targetObjectsOf euelec:components ;
     rdfs:label "Electronic Component Shape" ;
-    rdfs:comment "Validation shape for individual electronic component entries." ;
+    rdfs:comment """Validation shape for individual electronic component entries. Targets both the
+euelec:ElectronicComponent class and whatever a bill of materials lists via euelec:components, whose
+range is the generic gs1:Product.""" ;
     sh:property [
         sh:path euelec:componentType ;
         sh:name "Component Type" ;
@@ -410,7 +413,7 @@ euelec:ElectronicComponentShape a sh:NodeShape ;
         sh:path euelec:sparePartAvailabilityYears ;
         sh:name "Spare Part Availability Years" ;
         sh:description "Duration in years that spare parts will remain available." ;
-        sh:class oec:DurationYears ;
+        sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
     sh:property [
@@ -550,20 +553,80 @@ euelec:DisplaySpecificationShape a sh:NodeShape ;
         sh:path euelec:refreshRate ;
         sh:name "Refresh Rate" ;
         sh:description "Display refresh rate." ;
-        sh:class euelec:FrequencyHertz ;
+        sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
     sh:property [
         sh:path euelec:peakBrightness ;
         sh:name "Peak Brightness" ;
         sh:description "Peak display luminance." ;
-        sh:class euelec:LuminanceCandela ;
+        sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] .
 
 # =============================================================================
 # QuantitativeValue unitCode Shapes (GS1-idiomatic)
 # =============================================================================
+# Every quantity in this module ranges to gs1:QuantitativeValue, so the class
+# constraint above only says "a GS1 quantity"; the unit is what makes it a
+# duration, a power or a frequency. These shapes pin the UN/CEFACT Rec 20
+# unitCode declared in each property's rdfs:comment.
+
+euelec:SecuritySupportYearsShape a sh:NodeShape ;
+    sh:targetSubjectsOf euelec:securitySupportYears ;
+    sh:property [
+        sh:path ( euelec:securitySupportYears gs1:unitCode ) ;
+        sh:hasValue "ANN" ;
+        sh:message "euelec:securitySupportYears must use unitCode 'ANN' (years)"@en
+    ] .
+
+euelec:FeatureSupportYearsShape a sh:NodeShape ;
+    sh:targetSubjectsOf euelec:featureSupportYears ;
+    sh:property [
+        sh:path ( euelec:featureSupportYears gs1:unitCode ) ;
+        sh:hasValue "ANN" ;
+        sh:message "euelec:featureSupportYears must use unitCode 'ANN' (years)"@en
+    ] .
+
+euelec:SparePartAvailabilityYearsShape a sh:NodeShape ;
+    sh:targetSubjectsOf euelec:sparePartAvailabilityYears ;
+    sh:property [
+        sh:path ( euelec:sparePartAvailabilityYears gs1:unitCode ) ;
+        sh:hasValue "ANN" ;
+        sh:message "euelec:sparePartAvailabilityYears must use unitCode 'ANN' (years)"@en
+    ] .
+
+euelec:AnnualEnergyConsumptionShape a sh:NodeShape ;
+    sh:targetSubjectsOf euelec:annualEnergyConsumption ;
+    sh:property [
+        sh:path ( euelec:annualEnergyConsumption gs1:unitCode ) ;
+        sh:hasValue "KWH" ;
+        sh:message "euelec:annualEnergyConsumption must use unitCode 'KWH' (kilowatt hours)"@en
+    ] .
+
+euelec:PowerConsumptionOnShape a sh:NodeShape ;
+    sh:targetSubjectsOf euelec:powerConsumptionOn ;
+    sh:property [
+        sh:path ( euelec:powerConsumptionOn gs1:unitCode ) ;
+        sh:hasValue "WTT" ;
+        sh:message "euelec:powerConsumptionOn must use unitCode 'WTT' (watts)"@en
+    ] .
+
+euelec:PowerConsumptionStandbyShape a sh:NodeShape ;
+    sh:targetSubjectsOf euelec:powerConsumptionStandby ;
+    sh:property [
+        sh:path ( euelec:powerConsumptionStandby gs1:unitCode ) ;
+        sh:hasValue "WTT" ;
+        sh:message "euelec:powerConsumptionStandby must use unitCode 'WTT' (watts)"@en
+    ] .
+
+euelec:PowerConsumptionOffShape a sh:NodeShape ;
+    sh:targetSubjectsOf euelec:powerConsumptionOff ;
+    sh:property [
+        sh:path ( euelec:powerConsumptionOff gs1:unitCode ) ;
+        sh:hasValue "WTT" ;
+        sh:message "euelec:powerConsumptionOff must use unitCode 'WTT' (watts)"@en
+    ] .
 
 euelec:RefreshRateShape a sh:NodeShape ;
     sh:targetSubjectsOf euelec:refreshRate ;

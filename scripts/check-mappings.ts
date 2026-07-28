@@ -19,7 +19,23 @@
  *  3. SUPERSEDED / KIND MISMATCH (schema.org) — mapping to a supersededBy'd
  *     term, or a property mapped to a class (and vice versa).
  *
- *  4. UNVERIFIED SEMICeu TARGET — any cv:/cccev:/locn:/adms:/cpsv:/foaf:/
+ *  4. SELF-REFERENCE. A mapping or rdfs:seeAlso whose target is the subject itself.
+ *     Vacuous (SKOS mapping relations link ACROSS schemes) and it poisons tooling:
+ *     vocab-sync seeds existing mapping targets into its upstream index, so a
+ *     self-reference reappears as a candidate and the panel "confirms" mapping the
+ *     term to itself.
+ *
+ *  6. INVERTED TOWARD A GENERAL FOUNDATIONAL TERM. skos:narrowMatch aimed at one of
+ *     the generic Layer-1 head terms in GENERAL_L1_TERMS (a plain identifier, URL,
+ *     instruction, certification, category, country, location, document, ...). Nothing a
+ *     regulation module defines is broader than those, so the relation is inverted: SKOS
+ *     reads `A skos:narrowMatch B` as "B is narrower than A". The 2026-07 sweep corrected
+ *     174 such assertions. Two kinds of pair are allowlisted instead: our term is a TYPE or
+ *     CATEGORY and the target denotes the entity itself, so neither direction fits; or our term
+ *     is a CONTAINER or LIST that aggregates the upstream concept (eudr:originDetails holds a
+ *     country plus a geolocation and a producer), where being the broader term is correct.
+ *
+ *  5. UNVERIFIED SEMICeu TARGET: any cv:/cccev:/locn:/adms:/cpsv:/foaf:/
  *     legal:/org: mapping target must be listed in scripts/semiceu-terms.json
  *     (dereference-verified; cv:LegalEntity famously does not exist — the term
  *     lives at legal:LegalEntity).
@@ -50,6 +66,21 @@ const SEMICEU = new Set<string>(
   (JSON.parse(readFileSync(join(__dirname, "semiceu-terms.json"), "utf8")) as { verified: string[] }).verified,
 );
 
+/** Prefixes that denote the SAME namespace, so a term verified under one is
+ *  verified under the other. `cv:` and `cccev:` both expand to
+ *  http://data.europa.eu/m8g/. CCCEV terms are commonly written with the
+ *  `cccev:` alias to show which SEMICeu vocabulary they come from, and the
+ *  registry happens to list many of them under `cv:`. Comparing prefix strings
+ *  without this would reject a term that is already verified. */
+const PREFIX_ALIASES: Record<string, string[]> = { cv: ["cccev"], cccev: ["cv"] };
+
+/** Is this SEMICeu CURIE verified, under its own prefix or an equivalent one? */
+function semiceuVerified(curie: string): boolean {
+  if (SEMICEU.has(curie)) return true;
+  const [px, local] = curie.split(":");
+  return (PREFIX_ALIASES[px] ?? []).some((alt) => SEMICEU.has(`${alt}:${local}`));
+}
+
 /** GS1 domains that are foreign to a DPP product context unless allowlisted. */
 const GS1_FOREIGN = /^(FoodAndBeverage|FoodBeverageTobacco|Meat|Seafood|Fruits|Milk|Beverage|Offer|Demand|Transaction)/;
 /** schema.org domains that mark a term as belonging to a foreign area. */
@@ -62,21 +93,85 @@ const SCHEMA_FOREIGN = new Set([
 
 /**
  * Deliberate cross-domain anchors, each with a reason. Key: `subject|relation|target`.
+ *
+ * Kept in scripts/mapping-allowlist.json rather than inline, because the audit triage needs the
+ * same list: an entry records a decision, so a panel may not propose reversing it. When the two
+ * disagreed, the textile panel proposed flipping eutex:seasonCollection, whose narrowMatch is
+ * intentional.
  */
-const ALLOW = new Map<string, string>([
-  // Detergent ingredients are the documented analogue of GS1's food ingredient
-  // model (see eudet:Ingredient's skos:note) — the anchor is intentional.
-  ["eudet:ingredientList|narrowMatch|gs1:ingredientStatement", "documented food-ingredient analogue"],
-  ["eudet:ingredientList|broadMatch|gs1:ingredientName", "documented food-ingredient analogue"],
-  ["eudet:phosphorusContentPercent|narrowMatch|gs1:ingredientContentPercentage", "documented food-ingredient analogue"],
-  // Textile terms may map to WearableProduct-scoped GS1 terms.
-  ["eutex:syntheticFiberContent|narrowMatch|gs1:textileMaterialContent", "textile module; WearableProduct scope fits"],
-  ["eutex:recycledContentDeclaration|narrowMatch|gs1:textileMaterialContent", "textile module; WearableProduct scope fits"],
-  ["eutex:sizeRange|narrowMatch|gs1:size", "textile module; WearableProduct scope fits"],
-  ["eutex:seasonCollection|narrowMatch|gs1:seasonCalendarYear", "textile module; WearableProduct scope fits"],
-  ["eutex:seasonCollection|narrowMatch|gs1:seasonName", "textile module; WearableProduct scope fits"],
-  ["eutex:seasonCollection|broadMatch|gs1:seasonParameter", "textile module; WearableProduct scope fits"],
+const ALLOW = new Map<string, string>(
+  (JSON.parse(readFileSync(join(__dirname, "mapping-allowlist.json"), "utf8")).allow as {
+    subject: string; relation: string; target: string; reason: string;
+  }[]).map((a) => [`${a.subject}|${a.relation}|${a.target}`, a.reason]),
+);
+
+/**
+ * Namespace to prefix, so a target written as a full IRI in angle brackets is checked like
+ * the CURIE form. Without this the guard simply did not see those mappings: its matcher only
+ * recognised CURIEs, and six inverted directions hid behind `<https://schema.org/...>`.
+ */
+const NS_TO_PREFIX: [string, string][] = [
+  ["https://ref.gs1.org/voc/", "gs1:"],
+  ["https://schema.org/", "schema:"],
+  ["http://schema.org/", "schema:"],
+  ["http://data.europa.eu/m8g/", "cv:"],
+  ["http://www.w3.org/ns/locn#", "locn:"],
+  ["http://www.w3.org/ns/adms#", "adms:"],
+  ["http://purl.org/vocab/cpsv#", "cpsv:"],
+  ["http://www.w3.org/ns/org#", "org:"],
+  ["http://xmlns.com/foaf/0.1/", "foaf:"],
+  ["https://dpp-keystone.org/spec/v2/terms#", "dppk:"],
+  ["https://vocabulary.uncefact.org/untp/", "untp:"],
+];
+
+/** `<https://schema.org/category>` -> `schema:category`; anything else is returned as is. */
+function toCurie(target: string): string {
+  if (!target.startsWith("<")) return target;
+  const iri = target.slice(1, -1);
+  for (const [ns, px] of NS_TO_PREFIX) if (iri.startsWith(ns)) return px + iri.slice(ns.length);
+  return target;
+}
+
+/**
+ * Generic Layer-1 head terms. A project term that maps to one of these is the narrower of
+ * the pair, so only skos:broadMatch (or exact/close) is meaningful; skos:narrowMatch here
+ * asserts the reverse of what it means. Keep this list to terms that are unambiguously
+ * general: a bare identifier, URL, instruction, certification, category, place, document.
+ */
+const GENERAL_L1_TERMS = new Set([
+  "schema:identifier", "adms:identifier", "gs1:productID", "schema:serialNumber", "gs1:hasBatchLotNumber",
+  "gs1:instructions", "gs1:instructionsForUse", "gs1:consumerUsageInstructions",
+  "gs1:referencedFileURL", "schema:url", "gs1:certificationAgencyURL",
+  "gs1:sustainabilityInfo", "gs1:safetyInfo", "gs1:consumerSafetyInformation", "gs1:serviceInfo",
+  "gs1:certification", "gs1:certificationInfo", "gs1:certificationIdentification", "gs1:CertificationDetails",
+  "schema:hasCertification", "schema:Certification",
+  "gs1:regulatoryReferenceNumber", "gs1:regulatoryVerificationNumber", "gs1:registryEntry", "gs1:regulatoryInformation",
+  "gs1:manufacturingPlant", "gs1:location", "gs1:locationDescription", "locn:location", "locn:Location",
+  "schema:location", "schema:Place",
+  "schema:CategoryCode", "schema:CategoryCodeSet", "schema:category", "gs1:additionalProductClassificationCode",
+  "schema:ChemicalSubstance", "schema:Substance", "gs1:AllergenDetails",
+  "schema:DigitalDocument", "foaf:Document", "schema:Report",
+  "schema:StatusEnumeration", "schema:inLanguage", "schema:ratingValue",
+  "gs1:countryOfOriginStatement", "gs1:countryOfOrigin", "gs1:countryCode",
+  "gs1:WearableProduct", "schema:Product", "schema:IndividualProduct",
+  "gs1:size", "schema:size", "gs1:organizationRole", "schema:provider",
+  "schema:addressCountry", "schema:orderNumber", "gs1:certificationType",
+  "gs1:ingredientContentPercentage", "gs1:textileMaterialPercentage", "gs1:organicPercentClaim",
+  "gs1:textileMaterialContent", "schema:material", "schema:activeIngredient", "schema:chemicalComposition",
 ]);
+
+/**
+ * schema.org identifiers scoped to a single item, read from the domains rather than named by
+ * hand: a term that applies to IndividualProduct and not to Product identifies one piece.
+ * Today that is schema:serialNumber alone; deriving it keeps the rule current if more appear.
+ */
+const ITEM_SCOPED = new Set(
+  Object.entries(SCHEMA.terms)
+    .filter(([, e]) => (e.domains ?? []).includes("IndividualProduct") && !(e.domains ?? []).includes("Product"))
+    .map(([k]) => k),
+);
+/** Subject names that denote a production or delivery group rather than one piece. */
+const BATCH_LEVEL = /(^|[a-z])(Lot|Batch|Heat|Cast|Melt|Coil)([A-Z]|$)|^(lot|batch|heat|cast|melt|coil)/;
 
 const SEMICEU_PREFIXES = new Set(["cv", "cccev", "locn", "adms", "cpsv", "foaf", "legal", "org"]);
 const RELS = ["exactMatch", "closeMatch", "broadMatch", "narrowMatch"];
@@ -93,8 +188,20 @@ function ttlFiles(dir: string, out: string[] = []): string[] {
   return out;
 }
 
+/**
+ * Blank the contents of triple-quoted literals, keeping every newline so line
+ * numbers and offsets stay valid. Prose inside a skos:note routinely starts a line
+ * with a CURIE ("schema:Product is the universal root."), which the subject-block
+ * scanner below would read as a new subject: the real subject's block would then be
+ * cut short and its mappings attributed to a term that has no rdfs:subClassOf, so
+ * the direction rule silently stopped firing. Strip the literals first.
+ */
+function blankLongLiterals(ttl: string): string {
+  return ttl.replace(/"""[\s\S]*?"""/g, (lit) => '""' + lit.replace(/[^\n]/g, " ").slice(2) + '""');
+}
+
 for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
-  const ttl = readFileSync(f, "utf8");
+  const ttl = blankLongLiterals(readFileSync(f, "utf8"));
   const rel = relative(PROJECT_ROOT, f);
   const isTextile = rel.includes("/textile/");
   // subject blocks: line-initial CURIE to the next line-initial CURIE
@@ -107,10 +214,23 @@ for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
     const supers = new Set(
       [...block.matchAll(/rdfs:sub(?:ClassOf|PropertyOf)\s+([A-Za-z]\w*:[\w-]+)/g)].map((m) => m[1]),
     );
-    for (const m of block.matchAll(/skos:(exactMatch|closeMatch|broadMatch|narrowMatch)\s+([A-Za-z]\w*:[\w-]+)/g)) {
-      const [_, relName, target] = m;
+    for (const m of block.matchAll(/skos:(exactMatch|closeMatch|broadMatch|narrowMatch)\s+(<[^>]+>|[A-Za-z]\w*:[\w-]+)/g)) {
+      const [_, relName, rawTarget] = m;
+      const target = toCurie(rawTarget);
       const key = `${subj}|${relName}|${target}`;
       if (ALLOW.has(key)) continue;
+
+      // 4. self-reference: the subject mapped to itself
+      if (target === subj) {
+        violations.push({ file: rel, subject: subj, detail: `skos:${relName} ${target} maps the term to itself; a mapping relation links across schemes` });
+        continue;
+      }
+
+      // 6. inverted direction toward a general foundational term
+      if (relName === "narrowMatch" && GENERAL_L1_TERMS.has(target)) {
+        violations.push({ file: rel, subject: subj, detail: `skos:narrowMatch ${target} inverts the relation: ${target} is a general foundational term, so this term is the narrower one; use skos:broadMatch` });
+        continue;
+      }
 
       // 2. inverted direction: narrowMatch toward own superclass/superproperty
       if (relName === "narrowMatch" && supers.has(target)) {
@@ -147,9 +267,16 @@ for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
         if (subjKind && (e.kind === "class" || e.kind === "property") && subjKind !== e.kind) {
           violations.push({ file: rel, subject: subj, detail: `skos:${relName} schema:${local} — ${subjKind} mapped to a schema ${e.kind}` });
         }
+        // 3c. identifier granularity: a batch-level identifier under an item-scoped one.
+        // A heat, cast, melt or lot number names the group every piece came from, while an
+        // item-scoped identifier names one piece, so neither subsumes the other and the
+        // pointer belongs in rdfs:seeAlso. Applies to graded relations only.
+        if (ITEM_SCOPED.has(local) && BATCH_LEVEL.test(subj.split(":")[1] ?? "")) {
+          violations.push({ file: rel, subject: subj, detail: `skos:${relName} schema:${local} — schema:${local} is domained on IndividualProduct (one piece) while this term identifies a batch; use rdfs:seeAlso` });
+        }
       } else if (SEMICEU_PREFIXES.has(px)) {
         // 4. SEMICeu target must be dereference-verified
-        if (!SEMICEU.has(target)) {
+        if (!semiceuVerified(target)) {
           violations.push({ file: rel, subject: subj, detail: `skos:${relName} ${target} — not in scripts/semiceu-terms.json; dereference the IRI and add it once verified (cv:LegalEntity does NOT exist — use legal:LegalEntity)` });
         }
       }

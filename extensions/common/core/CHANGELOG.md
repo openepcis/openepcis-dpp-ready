@@ -2,6 +2,75 @@
 
 All notable changes to the DPP Core module will be documented in this file.
 
+## [Unreleased]
+
+### Changed: EPCIS examples serve the standard contexts; the operational chain is EN 18223 only
+
+Two serializations had blurred into one. The design is that standard JSON-LD prefixes every
+vocabulary term, `gs1:` included, and that bare terms exist only in the compressed EN 18223 §5.2
+form ([`docs/EN18223_FORMATS.md`](../../../docs/EN18223_FORMATS.md)). In practice all 47
+`epcis/*.jsonld` examples across every module referenced a `*-operational-context.jsonld`,
+against rule 4 in [`CLAUDE.md`](../../../CLAUDE.md), because the bare GS1 keys inside
+`masterDataAvailableFor` needed the shortcut aliases that only the operational chain carried.
+
+`dpp-core-context.jsonld` now gives `gs1:masterDataAvailableFor` a property-scoped `@context`
+pointing at `gs1-shortcuts-context.jsonld`. A JSON-LD 1.1 property-scoped context propagates into
+the nested nodes and may override the `@protected` terms of the EPCIS base context, so the bare
+GS1 keys inside the card resolve while every key outside it stays prefixed. All 47 examples now
+list the standard chain, EPCIS base first:
+
+```json
+"@context": [
+  "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+  "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+]
+```
+
+The switch is graph-preserving: each file was canonicalized (URDNA2015) before and after, and the
+N-Quads are identical. One file changed on purpose, `eudr/epcis/exemption-declaration.jsonld`,
+which carried a party card (`organizationName`, `partyGLN`) inside `masterDataAvailableFor`. Party
+data is resolver-served, so the card was removed per rule 1.
+
+The EPCIS base context is now vendored at `vendor/gs1/epcis-context.jsonld`, which makes
+`validate:examples` and the guards deterministic offline.
+
+### Added: guards for the two serializations
+
+- `check:operational` grew from three rules to six. It now checks that every EPCIS example lists
+  the standard chain with the EPCIS base first and no operational context (d), that prefixing is
+  correct in both directions, so a bare key outside `masterDataAvailableFor` and a `gs1:`-prefixed
+  key inside it are both errors (e), and that the organization records expand losslessly (f).
+- `check:extension-terms` is new: the mirror image of `check:vocab` for the namespaces this
+  project governs. It found 124 references to project-owned CURIEs that no ontology defines, all
+  now resolved. Such a phantom expands to a well-formed but undefined IRI, and a curated bare
+  alias can even give it a clean operational round-trip, so nothing else caught them. The worst
+  case was `oec:dppStatus` in six product seeds, which is not a term; the property is
+  `oec:passportStatus` and its value is the lowercase `skos:notation` token.
+- `check:golden-fidelity` asserts no compressed artifact contains a relative IRI or a flattened
+  node reference.
+- `check:release` verifies that every place recording a version agrees. At 0.9.7 the package, the
+  VERSION files, the ontologies and CLAUDE.md said 0.9.7 while README.md said 0.9.6, listed
+  fsma204 at 0.1.0, and omitted cpr, ppwr and iron-steel from both of its module tables.
+
+### Fixed: 51 inverted SKOS mapping directions
+
+SKOS reads `A skos:narrowMatch B` as "B is narrower than A". 51 mappings in this module
+used `narrowMatch` while pointing at a general foundational term, so they asserted the
+reverse of their intent, for example claiming `schema:identifier` was narrower than a
+specific passport identifier. They now read `skos:broadMatch`, the project convention for
+"this term is narrower than the target". The sweep covered 174 assertions across eight
+modules; `check:mappings` rule 6 now rejects the pattern against a curated list of general
+Layer-1 terms, and pairs where our term is a type or category while the target denotes the
+entity itself are allowlisted for a curator instead (see
+[`docs/skos-alignment/OPEN_DECISIONS.md`](../../../docs/skos-alignment/OPEN_DECISIONS.md)).
+
+### Added
+- Terms that the JSON-LD contexts and shapes referenced without any TTL definition are now defined: `oec:tradeItemPieces` (ObjectProperty, the forward direction of `oec:tradeItemPieceOf`, `skos:broadMatch schema:hasPart`), `oec:biodegradability` and `oec:compostability` (the entry ObjectProperties that make `oec:Biodegradability` / `oec:Compostability` and their members reachable from a product), `oec:conformityDeclaration` (`skos:closeMatch untp:conformityClaim`, `skos:broadMatch cccev:Evidence`, the target the UNTP bridge compacts `conformityClaim` onto), `oec:combinedNomenclatureCode` (EU CN commodity code; cross-cuts Detergents 2026/405, EUDR Annex I, CBAM and PPWR, and GS1 publishes no tariff property), and `oec:Detergents` as an `oec:ProductCategory` member. All carry access tiers in `dpp-core-access-levels.ttl`.
+
+### Changed
+- Curated context aliases repointed off undefined IRIs and onto the vocabulary term that already covers the concept: the `oec:DocumentReference` scoped alias `resourceTitle` now targets `schema:name` (matching the top-level `documentTitle` alias, which already did), and the bare aliases `carbonFootprintUnit`, `totalRecycledShare`, `preConsumerShare` and `postConsumerShare` are dropped in favour of `oec:declaredUnit`, `oec:recycledContent`, `oec:preConsumerRecycledContent` and `oec:postConsumerRecycledContent`.
+
 ## [0.9.7] — 2026-06-19
 
 ### Added
@@ -88,7 +157,6 @@ Aligns `oec:` core with the published EN 18223:2026 `DigitalProductPassport` mod
   and [`CIRPASS2_ALIGNMENT.md`](../interop/docs/CIRPASS2_ALIGNMENT.md)
   for the full mapping rationale.
 
-
 ## 0.9.5 — SEMICeu Core Vocabularies anchoring (2026-05-04)
 
 ### Added
@@ -112,7 +180,7 @@ The strongest formal claim that actually holds is preferred:
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
-**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+Extension terms that duplicated GS1 / schema.org were removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
 
 ### Removed (use canonical term instead)
 

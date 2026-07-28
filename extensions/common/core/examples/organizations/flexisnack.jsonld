@@ -1,25 +1,36 @@
 {
   "@context": [
-    "https://ref.gs1.org/voc/",
     "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld"
   ],
-  "type": "Organization",
-  "glnType": "LEGAL_ENTITY",
+  "type": [
+    "gs1:Organization",
+    "oec:OperatorInformation"
+  ],
+  "gs1:glnType": "gs1:GLN_TypeCode-LEGAL_ENTITY",
   "gs1:globalLocationNumber": "9521005000013",
-  "gs1:organizationName": {
-    "en": "FlexiSnack Foods Oy",
-    "fi": "FlexiSnack Foods Oy"
-  },
-  "organizationRole": "MANUFACTURER_OF_FINISHED_GOODS",
+  "gs1:organizationName": [
+    {
+      "@value": "FlexiSnack Foods Oy",
+      "@language": "en"
+    },
+    {
+      "@value": "FlexiSnack Foods Oy",
+      "@language": "fi"
+    }
+  ],
+  "gs1:organizationRole": "gs1:OrganizationRoleType-MANUFACTURER_OF_FINISHED_GOODS",
   "gs1:address": {
     "gs1:organizationName": {
-      "en": "FlexiSnack Foods Oy"
+      "@value": "FlexiSnack Foods Oy",
+      "@language": "en"
     },
     "gs1:streetAddress": {
-      "en": "Tehdaskatu 14"
+      "@value": "Tehdaskatu 14",
+      "@language": "en"
     },
     "gs1:addressLocality": {
-      "en": "Tampere"
+      "@value": "Tampere",
+      "@language": "en"
     },
     "gs1:postalCode": "33100",
     "gs1:addressCountry": {
@@ -33,5 +44,7 @@
     "gs1:telephone": "+00 0 0000 0000"
   },
   "oec:economicOperatorId": "FI-DPP-OP-006",
-  "oec:operatorType": "oec:Manufacturer"
+  "oec:operatorRole": {
+    "@id": "oec:Manufacturer"
+  }
 }

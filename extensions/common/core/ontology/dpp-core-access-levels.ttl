@@ -95,6 +95,10 @@ oec:productCategory oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The ESPR product-group classification determines which delegated act applies and is inherently public market information." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
+oec:combinedNomenclatureCode oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The CN commodity code is published on customs declarations and delimits which product law applies, so it carries no commercial confidence beyond the public product classification." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
 # Access metadata is needed by every client to interpret a tiered document.
 oec:accessRights oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Tier metadata must be readable by every client so it knows what it may and may not fetch under ESPR Art. 9." ;
@@ -128,6 +132,10 @@ oec:tradeItemPieceNumber oec:defaultAccessLevel oec:Public ;
 
 oec:tradeItemPieceOf oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Linking a piece to its parent GTIN is product identification equivalent to the public product identifier itself." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:tradeItemPieces oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The piece set is the container for piece data that is itself Public throughout; gating it would hide public product identification behind a closed door." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
 # =============================================================================
@@ -314,6 +322,14 @@ oec:materialCircularityIndicator oec:defaultAccessLevel oec:Public ;
 
 oec:bioBasedFraction oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The bio-based share is a consumer-facing environmental claim of the same kind as recycled content (ESPR Annex I; SUP marking precedent)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:biodegradability oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Entry property for a biodegradability observation whose members (biodegradationPercentage, biodegradabilityTestMethod) are individually Public." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:compostability oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "Entry property for a compostability classification whose members (compostabilityType, compostabilityStandard) are individually Public and back an on-pack consumer claim." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
 oec:biodegradationPercentage oec:defaultAccessLevel oec:Public ;
@@ -524,6 +540,10 @@ oec:complianceDate oec:defaultAccessLevel oec:Public ;
 
 oec:isRegulationCompliant oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "A per-act compliance flag is a public conformity claim of the declaration-of-conformity kind (ESPR Art. 44)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:conformityDeclaration oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The EU declaration of conformity must accompany the product and be produced on request (ESPR Art. 44), so the reference to it cannot be gated." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
 
 oec:regulatoryActStatus oec:defaultAccessLevel oec:Public ;

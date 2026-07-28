@@ -1,0 +1,17 @@
+{
+  "_comment": "Deliberate exceptions to the extension-term guard (scripts/check-extension-terms.ts): project-owned or mirrored IRIs that are referenced without a definition in any ontology, for a documented reason. Keep this list short: the normal fix is to define the term or repoint the reference. Every entry needs a reason that says why the term cannot simply be defined.",
+  "allow": [
+    {
+      "term": "rail:manufacturer",
+      "reason": "Upstream inconsistency, mirrored faithfully: the GS1 Rail context (https://gs1-epcis-reg.org/rail/rail-context.jsonld) declares this term while the GS1 Rail vocabulary (gs1RailVoc, v1.6) does not define it. rail: is an upstream namespace (GS1 AISBL / GS1 Switzerland); minting into it is not ours to do. Re-check with `pnpm sync:rail`."
+    },
+    {
+      "term": "rail:revisionStatus",
+      "reason": "Same upstream context-vs-vocabulary gap as rail:manufacturer, and used by extensions/upstream/gs1-rail/epcis/refurbishment-event.jsonld because the upstream context defines the term. Re-check with `pnpm sync:rail`."
+    },
+    {
+      "term": "rail:runDistance",
+      "reason": "Same upstream context-vs-vocabulary gap as rail:manufacturer, and used by extensions/upstream/gs1-rail/epcis/refurbishment-event.jsonld because the upstream context defines the term. Re-check with `pnpm sync:rail`."
+    }
+  ]
+}

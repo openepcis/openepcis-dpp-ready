@@ -2,6 +2,105 @@
 
 All notable changes to the Battery module will be documented in this file.
 
+## [Unreleased]
+
+### Fixed: 52 inverted SKOS mapping directions
+
+SKOS reads `A skos:narrowMatch B` as "B is narrower than A". 52 mappings in this module
+used `narrowMatch` while pointing at a general foundational term, so they asserted the
+reverse of their intent, for example claiming `schema:identifier` was narrower than a
+specific passport identifier. They now read `skos:broadMatch`, the project convention for
+"this term is narrower than the target". The sweep covered 174 assertions across eight
+modules; `check:mappings` rule 6 now rejects the pattern against a curated list of general
+Layer-1 terms, and pairs where our term is a type or category while the target denotes the
+entity itself are allowlisted for a curator instead (see
+[`docs/skos-alignment/OPEN_DECISIONS.md`](../../../docs/skos-alignment/OPEN_DECISIONS.md)).
+
+### Fixed: phantom `eubat:` IRIs removed
+
+The new `check-extension-terms` guard found 42 distinct `eubat:` CURIEs referenced
+by published artifacts but defined in no ontology. Every reference now resolves.
+
+### Added
+- `eubat:leadPreConsumerShare` / `eubat:leadPostConsumerShare` (range `xsd:decimal`,
+  domain `eubat:RecycledContent`): voluntary pre/post breakdown of the Art. 8
+  recycled-lead share, mirroring the lithium / cobalt / nickel pattern. The
+  Regulation mandates only the aggregate `eubat:leadRecycledShare` for lead, so the
+  `skos:note` records the split as voluntary; both were already pinned in the
+  context overrides and used by `examples/battery-product.jsonld`.
+- `eubat:numberOfDeepDischargeEvents` (range `xsd:integer`, domain `gs1:Product`):
+  a flat cumulative lifetime counter in the same family as
+  `eubat:timeSpentInExtremeTemperaturesAboveBoundary`, where `eubat:negativeEvents`
+  carries the individually dated `eubat:DeepDischarge` events.
+- Graded SKOS anchors from existing terms to the BatteryPass-Ready longlist
+  attributes they answer (`bpr:CriticalRawMaterials`, `bpr:PartNumbersForComponents`,
+  `bpr:SeparateCollectionSymbol`, `bpr:ResultsOfTestReportsProvingCompliance`,
+  `bpr:BatteryCarbonFootprintPerFunctionalUnit`, the three `bpr:ContributionOf…`
+  lifecycle stages, `bpr:MeaningOfLabelsAndSymbols`, the two end-user role
+  attributes, `bpr:DismantlingInformation-Manuals…`,
+  `bpr:ImpactOfSubstancesOnEnvironment…`, `bpr:NumberOfDeepDischargeEvents`).
+- `eubat:note` on `epcis/negative-event.jsonld` carrying the free-text incident
+  description that the phantom key had encoded in its value.
+
+### Changed
+- `context/battery-context-batterypass-bridge.jsonld`: 28 longlist keys repointed
+  from phantom IRIs to the vocabulary term that already covers the concept:
+  `warrantyPeriod` → `gs1:warranty` (Layer 1, as `battery.ttl` already directs),
+  the six pre/post metal shares → `eubat:{lithium,cobalt,nickel}{Pre,Post}ConsumerShare`,
+  `recycledLeadShare` → `eubat:leadRecycledShare`, the four carbon-footprint
+  contributions → `eubat:carbonFootprint{RawMaterialExtraction,Production,Distribution,Recycling}`,
+  `batteryCarbonFootprintPerFunctionalUnit` → `eubat:carbonFootprintTotal` (already
+  defined as kg CO2e per kWh), `webLinkToPublicCarbonFootprintStudy` →
+  `eubat:carbonFootprintStudyUrl`, `resultsOfTestReportsProvingCompliance` →
+  `eubat:resultOfTestReport`, `informationOfDueDiligenceReport` →
+  `eubat:dueDiligenceReportUrl`, `separateCollectionSymbol` →
+  `eubat:separateCollectionSymbolUrl`, `meaningOfLabelsAndSymbols` →
+  `eubat:labelMeaning`, `criticalRawMaterials` → `eubat:criticalRawMaterialsStatement`,
+  `impactOfSubstancesOnEnvironment` → `eubat:hazardImpact`,
+  `dismantlingInformationManuals…` → `eubat:dismantlingDocuments`,
+  `partNumbersForComponents` → `eubat:spareParts`, `informationOnSourcesOfSpareParts`
+  → `eubat:sparePartSources`, the two end-user role keys → `eubat:wastePrevention` /
+  `eubat:separateCollection`, `informationOnBatteryCollection` →
+  `eubat:informationOnCollection`, `initialRoundTripEnergyEfficiency` →
+  `eubat:roundTripEfficiency`, the idle-state boundaries →
+  `eubat:minimumTemperature` / `eubat:maximumTemperature`, and the four
+  extreme-temperature durations → the `eubat:timeSpent…Boundary` properties.
+- Four longlist keys that OpenEPCIS models structurally across several terms keep
+  their upstream `bpr:` IRI instead of a partial match: `materialsUsedInCathode`,
+  `symbolsForCadmiumAndLead`, `carbonFootprintLabel`, `informationOnAccidents`. The
+  bridge `_comment` now states this target-selection rule.
+- Same bridge, two further corrections: the SAMM-shaped `timeExtreme*` keys pointed
+  at the class `gs1:Temperature` (a temperature, not a duration) and `negativeEvents`
+  pointed at the class `eubat:NegativeEvent` from a property position; both now
+  resolve to the matching properties.
+- `examples/batterypass-v1.3.jsonld`: the 24 phantom `eubat:` keys are written as
+  the bridge's BatteryPass aliases, which are also the property names
+  `validation/batterypass-v1.3-schema.json` expects.
+- `examples/batterypass-v1.3.jsonld` now satisfies that schema completely: 85/85
+  required attributes, 0 validation errors (it was 45/85). The remaining 40 keys
+  were still written in prefixed form, so the file claimed a conformance it did not
+  have. Renaming them to the longlist names is graph-preserving because the bridge
+  already aliases each one to the same IRI; three cases needed the bridge fixed
+  first:
+  - `extinguishingAgent` and `renewableContentShare` had no alias at all, though
+    both terms exist in `battery.ttl` and the data was present.
+  - `hazardousSubstances` now carries `eubat:hazardousSubstances` (range
+    `eubat:HazardousSubstance`) instead of `oec:hazardousSubstances`: the values are
+    battery-specific (`eubat:substanceCasNumber`, `eubat:concentration`,
+    `hazardousSubstanceClass`), so the core property's range did not match its data.
+  - BatteryPass `[5] batteryPassportIdentifier` (DPP identifier) and
+    `[6] batteryIdentifier` (unique battery/product identifier) are distinct
+    attributes; the bridge mapped both onto `eubat:batteryPassportIdentifier`.
+    `batteryIdentifier` now maps to `gs1:productID`.
+  - Quantity carriers use the longlist's bare `{value, unitCode}` shape, aliased
+    onto `gs1:value`/`gs1:unitCode` carrying the same `xsd:decimal` coercion as the
+    prefixed terms, so the numeric literals keep their datatype.
+- `validation/battery-shapes.ttl`: `eubat:OperatorInformation` does not exist, so
+  `sh:class` and `sh:targetClass` now name `oec:OperatorInformation`, the declared
+  range of `eubat:operatorInformation`.
+- `epcis/negative-event.jsonld`: `eubat:incidentType` → `eubat:eventType` with the
+  `eubat:NegativeEventType` enum value `PhysicalDamage`.
+
 ## [0.9.7] — 2026-06-19 — GEFEG BatteryPass-Ready conformance + branded prefixes
 
 ### Changed
@@ -142,7 +241,7 @@ the canonical shape is the typed nesting above.
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
-**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+Extension terms that duplicated GS1 / schema.org were removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
 
 ### Removed (use canonical term instead)
 

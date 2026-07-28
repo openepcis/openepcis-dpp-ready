@@ -70,9 +70,10 @@ eutex:TextileProductShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path eutex:fiberComposition ;
+        sh:path gs1:textileMaterial ;
         sh:name "Fiber Composition" ;
-        sh:class eutex:FiberComposition
+        sh:description "GS1-native fibre composition: one gs1:TextileMaterialDetails entry per fibre." ;
+        sh:class gs1:TextileMaterialDetails
     ] ;
     sh:property [
         sh:path eutex:careInstructions ;
@@ -130,7 +131,7 @@ eutex:TextileProductShape a sh:NodeShape ;
     sh:property [
         sh:path eutex:repairServices ;
         sh:name "Repair Services" ;
-        sh:class eutex:RepairService
+        sh:class gs1:Organization
     ] ;
     sh:property [
         sh:path eutex:isRepairable ;
@@ -155,7 +156,7 @@ eutex:TextileProductShape a sh:NodeShape ;
     sh:property [
         sh:path eutex:textileChemicals ;
         sh:name "Textile Chemicals" ;
-        sh:class eutex:TextileChemical
+        sh:class oec:HazardousSubstance
     ] ;
     sh:property [
         sh:path eutex:pfasFree ;
@@ -213,20 +214,24 @@ eutex:TextileProductShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Fiber Composition Shape
 # -----------------------------------------------------------------------------
+# Fibre composition is GS1-native: gs1:textileMaterial -> gs1:TextileMaterialDetails
+# carrying gs1:textileMaterialDescription + gs1:textileMaterialPercentage, with the
+# textile-specific traceability fields attached inline on each entry. Targeted via
+# sh:targetObjectsOf so the shape applies to textile fibre entries only, not to every
+# gs1:TextileMaterialDetails node in a graph.
 eutex:FiberCompositionShape a sh:NodeShape ;
-    sh:targetClass eutex:FiberComposition ;
+    sh:targetObjectsOf gs1:textileMaterial ;
     rdfs:label "Fiber Composition Shape" ;
     sh:property [
-        sh:path eutex:fiberType ;
+        sh:path gs1:textileMaterialDescription ;
         sh:name "Fiber Type" ;
-        sh:class eutex:FiberType ;
+        sh:description "Name of the fibre (EU Textile Labelling Regulation 1007/2011 Annex I designation)." ;
         sh:minCount 1 ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path eutex:fiberPercentage ;
+        sh:path gs1:textileMaterialPercentage ;
         sh:name "Fiber Percentage" ;
-        sh:datatype xsd:decimal ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:minInclusive 0 ;
@@ -707,7 +712,7 @@ eutex:SubstanceOfConcernShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path eutex:casNumber ;
+        sh:path oec:casNumber ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
@@ -809,15 +814,26 @@ eutex:TakeBackProgramShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 # Repair Service Shape
 # -----------------------------------------------------------------------------
+# Repair services are gs1:Organization records (see eutex:repairServices range).
+# Targeted via sh:targetObjectsOf so manufacturers and other organizations in the
+# same graph are not caught by the repair-provider expectations.
 eutex:RepairServiceShape a sh:NodeShape ;
-    sh:targetClass eutex:RepairService ;
-    rdfs:label "Repair Service Shape" .
+    sh:targetObjectsOf eutex:repairServices ;
+    rdfs:label "Repair Service Shape" ;
+    sh:property [
+        sh:path gs1:organizationName ;
+        sh:name "Repair Service Name" ;
+        sh:minCount 1
+    ] .
 
 # -----------------------------------------------------------------------------
 # Textile Chemical Shape
 # -----------------------------------------------------------------------------
+# Textile chemical inputs are oec:HazardousSubstance records (see the
+# eutex:textileChemicals range). Targeted via sh:targetObjectsOf so the
+# textile-specific MRSL expectations apply to textile chemical inputs only.
 eutex:TextileChemicalShape a sh:NodeShape ;
-    sh:targetClass eutex:TextileChemical ;
+    sh:targetObjectsOf eutex:textileChemicals ;
     rdfs:label "Textile Chemical Shape" ;
     sh:property [
         sh:path schema:name ;

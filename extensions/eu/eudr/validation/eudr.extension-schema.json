@@ -2,19 +2,22 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://ref.openepcis.io/extensions/eu/eudr/",
   "title": "OpenEPCIS extension (permissive): eudr",
-  "description": "Permissive capture schema for the https://ref.openepcis.io/extensions/eu/eudr/ extension. Declares known terms as optional and allows additional properties, so events that declare GS1-Extensions eudr=https://ref.openepcis.io/extensions/eu/eudr/ validate and capture. Generated from the module JSON-LD context; tighten per ontology for field-level validation.",
+  "description": "Permissive capture schema for the https://ref.openepcis.io/extensions/eu/eudr/ extension. Declares known terms as optional and allows additional properties, so events that declare GS1-Extensions eudr=https://ref.openepcis.io/extensions/eu/eudr/ validate and capture. Generated from the module ontology plus its JSON-LD context; tighten per ontology for field-level validation.",
   "type": "object",
   "properties": {
-    "eudr:additionalOrganizationID": {},
-    "eudr:eudr:additionalOrganizationID": {},
+    "areaHectares": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Plot area without coordinates supports plausibility checks of the due diligence but is not needed by the public; the coordinates themselves are Restricted.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
     "eudr:areaHectares": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-rationale": "Plot area without coordinates supports plausibility checks of the due diligence but is not needed by the public; the coordinates themselves are Restricted.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:areaHectares": {
+    "areaSize": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Plot area without coordinates supports plausibility checks of the due diligence but is not needed by the public; the coordinates themselves are Restricted.",
+      "x-access-level-rationale": "Quantitative plot-area values mirror areaHectares and stay at the same due-diligence detail tier.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:areaSize": {
@@ -22,9 +25,19 @@
       "x-access-level-rationale": "Quantitative plot-area values mirror areaHectares and stay at the same due-diligence detail tier.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:areaSize": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Quantitative plot-area values mirror areaHectares and stay at the same due-diligence detail tier.",
+    "commodityType": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The EUDR commodity category (Annex I scope) states only what kind of product this is, which is apparent from the product itself.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "eudr:commodityType": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The EUDR commodity category (Annex I scope) states only what kind of product this is, which is apparent from the product itself.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "countryList": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Country-of-production at country granularity is a consumer-relevant origin claim that exposes no plot or producer detail.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:countryList": {
@@ -32,9 +45,19 @@
       "x-access-level-rationale": "Country-of-production at country granularity is a consumer-relevant origin claim that exposes no plot or producer detail.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:countryList": {
+    "countryRiskCategory": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Country-of-production at country granularity is a consumer-relevant origin claim that exposes no plot or producer detail.",
+      "x-access-level-rationale": "The country risk classification restates the Commission's published Art. 29 country benchmarking, which is itself public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "eudr:countryRiskCategory": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The country risk classification restates the Commission's published Art. 29 country benchmarking, which is itself public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "deforestationFreeDate": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The deforestation-free cutoff confirmation is the headline Art. 3 compliance claim the product is marketed under.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:deforestationFreeDate": {
@@ -42,9 +65,9 @@
       "x-access-level-rationale": "The deforestation-free cutoff confirmation is the headline Art. 3 compliance claim the product is marketed under.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:deforestationFreeDate": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The deforestation-free cutoff confirmation is the headline Art. 3 compliance claim the product is marketed under.",
+    "derivedFrom": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Product-to-source-product links expose the upstream supply chain, a legitimate-interest traceability view for authorities and supply-chain partners.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:derivedFrom": {
@@ -52,9 +75,9 @@
       "x-access-level-rationale": "Product-to-source-product links expose the upstream supply chain, a legitimate-interest traceability view for authorities and supply-chain partners.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:derivedFrom": {
+    "dueDiligenceStatement": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Product-to-source-product links expose the upstream supply chain, a legitimate-interest traceability view for authorities and supply-chain partners.",
+      "x-access-level-rationale": "The DDS reference is communicated down the supply chain to operators and traders (Art. 12(3) reference-number handling), an economic-operator audience rather than the public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:dueDiligenceStatement": {
@@ -62,9 +85,9 @@
       "x-access-level-rationale": "The DDS reference is communicated down the supply chain to operators and traders (Art. 12(3) reference-number handling), an economic-operator audience rather than the public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:dueDiligenceStatement": {
+    "exemptionAuthority": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The DDS reference is communicated down the supply chain to operators and traders (Art. 12(3) reference-number handling), an economic-operator audience rather than the public.",
+      "x-access-level-rationale": "The party asserting the exemption is identified by GLN, party-level data for authorities and supply-chain partners.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:exemptionAuthority": {
@@ -72,9 +95,9 @@
       "x-access-level-rationale": "The party asserting the exemption is identified by GLN, party-level data for authorities and supply-chain partners.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:exemptionAuthority": {
+    "exemptionDeclaration": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The party asserting the exemption is identified by GLN, party-level data for authorities and supply-chain partners.",
+      "x-access-level-rationale": "An asserted out-of-scope/exemption declaration is a compliance position statement for authorities and trading partners to review.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:exemptionDeclaration": {
@@ -82,9 +105,9 @@
       "x-access-level-rationale": "An asserted out-of-scope/exemption declaration is a compliance position statement for authorities and trading partners to review.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:exemptionDeclaration": {
+    "exemptionEffectiveFrom": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "An asserted out-of-scope/exemption declaration is a compliance position statement for authorities and trading partners to review.",
+      "x-access-level-rationale": "Exemption validity dates are detail of the exemption record at the professional tier.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:exemptionEffectiveFrom": {
@@ -92,7 +115,7 @@
       "x-access-level-rationale": "Exemption validity dates are detail of the exemption record at the professional tier.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:exemptionEffectiveFrom": {
+    "exemptionEffectiveUntil": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-rationale": "Exemption validity dates are detail of the exemption record at the professional tier.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
@@ -102,9 +125,9 @@
       "x-access-level-rationale": "Exemption validity dates are detail of the exemption record at the professional tier.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:exemptionEffectiveUntil": {
+    "fscCertification": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Exemption validity dates are detail of the exemption record at the professional tier.",
+      "x-access-level-rationale": "The FSC certificate reference is verification evidence used in Art. 10 risk assessment; certificate scope data can reveal supplier relationships.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:fscCertification": {
@@ -112,9 +135,9 @@
       "x-access-level-rationale": "The FSC certificate reference is verification evidence used in Art. 10 risk assessment; certificate scope data can reveal supplier relationships.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:fscCertification": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The FSC certificate reference is verification evidence used in Art. 10 risk assessment; certificate scope data can reveal supplier relationships.",
+    "legallyHarvested": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Legal-harvest confirmation is the second headline Art. 3 compliance claim; the substantiating detail stays in the higher tiers.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:legallyHarvested": {
@@ -122,9 +145,10 @@
       "x-access-level-rationale": "Legal-harvest confirmation is the second headline Art. 3 compliance claim; the substantiating detail stays in the higher tiers.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:legallyHarvested": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Legal-harvest confirmation is the second headline Art. 3 compliance claim; the substantiating detail stays in the higher tiers.",
+    "originDetails": {
+      "x-access-level": "Restricted",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1115",
+      "x-access-level-rationale": "The origin-details container aggregates plot geolocation and producer identity, so the container carries the tier of its most sensitive content.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:originDetails": {
@@ -133,10 +157,10 @@
       "x-access-level-rationale": "The origin-details container aggregates plot geolocation and producer identity, so the container carries the tier of its most sensitive content.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:originDetails": {
+    "originList": {
       "x-access-level": "Restricted",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1115",
-      "x-access-level-rationale": "The origin-details container aggregates plot geolocation and producer identity, so the container carries the tier of its most sensitive content.",
+      "x-access-level-rationale": "The origin list is the set-valued form of originDetails and carries the same locked tier.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:originList": {
@@ -145,10 +169,10 @@
       "x-access-level-rationale": "The origin list is the set-valued form of originDetails and carries the same locked tier.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:originList": {
+    "producerIdentification": {
       "x-access-level": "Restricted",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1115",
-      "x-access-level-rationale": "The origin list is the set-valued form of originDetails and carries the same locked tier.",
+      "x-access-level-rationale": "Producer identity linked to plots is personal and commercially sensitive DDS content the regulation routes to authorities, not the public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:producerIdentification": {
@@ -157,10 +181,9 @@
       "x-access-level-rationale": "Producer identity linked to plots is personal and commercially sensitive DDS content the regulation routes to authorities, not the public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:producerIdentification": {
-      "x-access-level": "Restricted",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1115",
-      "x-access-level-rationale": "Producer identity linked to plots is personal and commercially sensitive DDS content the regulation routes to authorities, not the public.",
+    "riskAssessment": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The Art. 10 risk assessment is internal due-diligence substantiation reviewed by competent authorities and downstream operators, not consumer information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:riskAssessment": {
@@ -168,9 +191,9 @@
       "x-access-level-rationale": "The Art. 10 risk assessment is internal due-diligence substantiation reviewed by competent authorities and downstream operators, not consumer information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:riskAssessment": {
+    "riskAssessmentDate": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The Art. 10 risk assessment is internal due-diligence substantiation reviewed by competent authorities and downstream operators, not consumer information.",
+      "x-access-level-rationale": "The risk-assessment date is administrative detail of the Art. 10 assessment record.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:riskAssessmentDate": {
@@ -178,9 +201,9 @@
       "x-access-level-rationale": "The risk-assessment date is administrative detail of the Art. 10 assessment record.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:riskAssessmentDate": {
+    "statementDate": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The risk-assessment date is administrative detail of the Art. 10 assessment record.",
+      "x-access-level-rationale": "The DDS submission date is administrative detail of the due-diligence filing shared with supply-chain actors and authorities.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:statementDate": {
@@ -188,9 +211,9 @@
       "x-access-level-rationale": "The DDS submission date is administrative detail of the due-diligence filing shared with supply-chain actors and authorities.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:statementDate": {
+    "transformationDate": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The DDS submission date is administrative detail of the due-diligence filing shared with supply-chain actors and authorities.",
+      "x-access-level-rationale": "Processing dates are supply-chain traceability detail supporting due diligence, not consumer information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:transformationDate": {
@@ -198,9 +221,9 @@
       "x-access-level-rationale": "Processing dates are supply-chain traceability detail supporting due diligence, not consumer information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:transformationDate": {
+    "transformationLocation": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Processing dates are supply-chain traceability detail supporting due diligence, not consumer information.",
+      "x-access-level-rationale": "Processing locations expose commercially sensitive supplier facilities and belong to the legitimate-interest traceability view.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:transformationLocation": {
@@ -208,9 +231,9 @@
       "x-access-level-rationale": "Processing locations expose commercially sensitive supplier facilities and belong to the legitimate-interest traceability view.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:transformationLocation": {
+    "volumeCubicMeters": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Processing locations expose commercially sensitive supplier facilities and belong to the legitimate-interest traceability view.",
+      "x-access-level-rationale": "Consignment volumes are quantity data (Art. 9(1)(b)) that reveal trade flows between specific parties.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
     "eudr:volumeCubicMeters": {
@@ -218,57 +241,200 @@
       "x-access-level-rationale": "Consignment volumes are quantity data (Art. 9(1)(b)) that reveal trade flows between specific parties.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
-    "eudr:eudr:volumeCubicMeters": {
+    "exemptionReasonCode": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Consignment volumes are quantity data (Art. 9(1)(b)) that reveal trade flows between specific parties.",
+      "x-access-level-rationale": "The coded exemption reason is compliance-position detail for authorities and trading partners.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
     },
+    "eudr:exemptionReasonCode": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The coded exemption reason is compliance-position detail for authorities and trading partners.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "exemptionScope": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The GTIN/batch/serial scope statement is detail of the exemption record for compliance reviewers.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "eudr:exemptionScope": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The GTIN/batch/serial scope statement is detail of the exemption record for compliance reviewers.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "exemptionScopeReference": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Concrete batch/serial identifiers in exemption scope are traceability identifiers exposed only to compliance reviewers.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "eudr:exemptionScopeReference": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Concrete batch/serial identifiers in exemption scope are traceability identifiers exposed only to compliance reviewers.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "exemptionType": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The permanent/temporary classification is detail of the exemption record, which as a whole sits at the professional tier.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "eudr:exemptionType": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The permanent/temporary classification is detail of the exemption record, which as a whole sits at the professional tier.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "forestManagementUnit": {
+      "x-access-level": "Restricted",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1115",
+      "x-access-level-rationale": "A forest-management-unit or concession identifier localises the producing land as effectively as coordinates and stays with the authority-only origin data.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "eudr:forestManagementUnit": {
+      "x-access-level": "Restricted",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1115",
+      "x-access-level-rationale": "A forest-management-unit or concession identifier localises the producing land as effectively as coordinates and stays with the authority-only origin data.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "geofence": {
+      "x-access-level": "Restricted",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1115",
+      "x-access-level-rationale": "Plot polygons (plots above 4 ha, Art. 9(1)(d)) are the same authority-channelled geolocation data as point coordinates.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "eudr:geofence": {
+      "x-access-level": "Restricted",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1115",
+      "x-access-level-rationale": "Plot polygons (plots above 4 ha, Art. 9(1)(d)) are the same authority-channelled geolocation data as point coordinates.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "geolocation": {
+      "x-access-level": "Restricted",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1115",
+      "x-access-level-rationale": "Plot coordinates are DDS content (Art. 9(1)(d)) accessible via the EUDR Information System to competent authorities and customs (Arts. 33, 11-12), and pinpoint individual producers' land.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "eudr:geolocation": {
+      "x-access-level": "Restricted",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1115",
+      "x-access-level-rationale": "Plot coordinates are DDS content (Art. 9(1)(d)) accessible via the EUDR Information System to competent authorities and customs (Arts. 33, 11-12), and pinpoint individual producers' land.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "additionalOrganizationID": {},
+    "gs1:additionalOrganizationID": {},
+    "address": {},
     "gs1:address": {},
-    "eudr:gs1:address": {},
+    "applicableProducts": {},
     "gs1:applicableProducts": {},
-    "eudr:gs1:applicableProducts": {},
+    "applicableTransactions": {},
     "gs1:applicableTransactions": {},
-    "eudr:gs1:applicableTransactions": {},
+    "certification": {},
     "gs1:certification": {},
-    "eudr:gs1:certification": {},
+    "certificationURI": {},
     "gs1:certificationURI": {},
-    "eudr:gs1:certificationURI": {},
+    "countryOfOrigin": {},
     "gs1:countryOfOrigin": {},
-    "eudr:gs1:countryOfOrigin": {},
+    "geo": {},
     "gs1:geo": {},
-    "eudr:gs1:geo": {},
+    "grossWeight": {},
     "gs1:grossWeight": {},
-    "eudr:gs1:grossWeight": {},
+    "harvestDate": {},
     "gs1:harvestDate": {},
-    "eudr:gs1:harvestDate": {},
+    "harvestDateEnd": {},
     "gs1:harvestDateEnd": {},
-    "eudr:gs1:harvestDateEnd": {},
+    "harvestDateStart": {},
     "gs1:harvestDateStart": {},
-    "eudr:gs1:harvestDateStart": {},
+    "manufacturer": {},
     "gs1:manufacturer": {},
-    "eudr:gs1:manufacturer": {},
+    "messageRecipient": {},
     "gs1:messageRecipient": {},
-    "eudr:gs1:messageRecipient": {},
+    "messageSender": {},
     "gs1:messageSender": {},
-    "eudr:gs1:messageSender": {},
+    "netWeight": {},
     "gs1:netWeight": {},
-    "eudr:gs1:netWeight": {},
+    "regulatoryIdentifier": {},
     "gs1:regulatoryIdentifier": {},
-    "eudr:gs1:regulatoryIdentifier": {},
+    "regulatoryInformation": {},
     "gs1:regulatoryInformation": {},
-    "eudr:gs1:regulatoryInformation": {},
+    "regulatoryInformationProvider": {},
     "gs1:regulatoryInformationProvider": {},
-    "eudr:gs1:regulatoryInformationProvider": {},
+    "regulatoryReferenceApplicabilityEndDate": {},
     "gs1:regulatoryReferenceApplicabilityEndDate": {},
-    "eudr:gs1:regulatoryReferenceApplicabilityEndDate": {},
+    "regulatoryReferenceApplicabilityStartDate": {},
     "gs1:regulatoryReferenceApplicabilityStartDate": {},
-    "eudr:gs1:regulatoryReferenceApplicabilityStartDate": {},
+    "transactionDate": {},
     "gs1:transactionDate": {},
-    "eudr:gs1:transactionDate": {},
+    "value": {},
     "gs1:value": {},
-    "eudr:gs1:value": {},
+    "landUseHistory": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Land-use history narratives substantiate the deforestation-free claim at plot level and can indirectly localise plots, so they stay with the professional tier.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "eudr:landUseHistory": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Land-use history narratives substantiate the deforestation-free claim at plot level and can indirectly localise plots, so they stay with the professional tier.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "mitigationMeasures": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Art. 10(2)/11 mitigation measures describe the operator's internal risk procedures, reviewable by authorities rather than consumers.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "eudr:mitigationMeasures": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Art. 10(2)/11 mitigation measures describe the operator's internal risk procedures, reviewable by authorities rather than consumers.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "isRegulationCompliant": {},
     "oec:isRegulationCompliant": {},
-    "eudr:oec:isRegulationCompliant": {}
+    "riskLevel": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The operator-assigned product risk level is a due-diligence judgement for authorities and buyers; the public sees the published country-level category instead.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "eudr:riskLevel": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The operator-assigned product risk level is a due-diligence judgement for authorities and buyers; the public sees the published country-level category instead.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "speciesCommonName": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The species common name is product-level information consumers use to assess wood products; species is DDS content (Art. 9(1)(c)) but not confidential at product level.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "eudr:speciesCommonName": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The species common name is product-level information consumers use to assess wood products; species is DDS content (Art. 9(1)(c)) but not confidential at product level.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "speciesScientificName": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The scientific species name (required in the DDS per Art. 9(1)(c)) identifies the species, not the producer or plot, and mirrors long-standing public timber labelling practice.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "eudr:speciesScientificName": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The scientific species name (required in the DDS per Art. 9(1)(c)) identifies the species, not the producer or plot, and mirrors long-standing public timber labelling practice.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "timberProductType": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The timber product type is a scope classification with no supply-chain sensitivity.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "eudr:timberProductType": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The timber product type is a scope classification with no supply-chain sensitivity.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "verificationMethod": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "How claims were verified (audits, satellite monitoring) is due-diligence methodology for authorities and legitimate-interest verifiers.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    },
+    "eudr:verificationMethod": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "How claims were verified (audits, satellite monitoring) is due-diligence methodology for authorities and legitimate-interest verifiers.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1115"
+    }
   },
   "patternProperties": {
     "^eudr:": {}

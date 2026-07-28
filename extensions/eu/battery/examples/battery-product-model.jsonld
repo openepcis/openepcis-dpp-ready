@@ -1,4 +1,8 @@
 {
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+  ],
   "_comment_architecture": [
     "MODEL-LEVEL battery master data (GS1 Digital Link 01/{GTIN}, no serial, no lot).",
     "This is the resource a GS1-conformant Digital Link resolver serves for the battery model when the plain 01/ GTIN Digital Link is dereferenced (Accept: application/ld+json).",
@@ -6,9 +10,6 @@
     "Attributes that vary per manufacturing batch (manufacturing date/place, carbon footprint, recycled-content shares) live in battery-product-batch.jsonld (01/{GTIN}/10/{lot}).",
     "Attributes measured per physical battery (state of health, cycle count, capacity fade, ...) are carried by EPCIS events and folded into the item passport (01/{GTIN}/21/{serial}); see battery-product.jsonld and docs/EPCIS_AND_BATTERYPASS_READY.md.",
     "See: extensions/eu/battery/validation/batterypass-granularity.json for the per-attribute level map."
-  ],
-  "@context": [
-    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
   ],
   "id": "https://id.demo.epcis.cloud/01/09521002005004",
   "type": [

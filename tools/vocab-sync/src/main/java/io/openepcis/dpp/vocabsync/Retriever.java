@@ -54,6 +54,13 @@ public class Retriever {
         for (int i = 0; i < upstream.size(); i++) {
             UpstreamTerm u = upstream.get(i);
             if (u.type() != term.type()) continue;
+            // A term is never its own upstream match. The audit seeds every existing
+            // mapping target into the upstream index so existing mappings can be
+            // re-graded, which also seeds intra-project anchors; without this guard a
+            // self-referential rdfs:seeAlso / skos:*Match comes back as a candidate and
+            // can survive the QA panel as `X skos:exactMatch X`, which `apply` would
+            // then write into the TTL.
+            if (u.iri().equals(term.iri())) continue;
             double score = Embeddings.cosine(qv, upstreamVectors.get(i));
             boolean exact = u.localName() != null
                     && u.localName().toLowerCase(Locale.ROOT).equals(ourLocalLc);

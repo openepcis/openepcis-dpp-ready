@@ -12,6 +12,8 @@ on:
       - 'extensions/**'
       - 'scripts/validate-jsonld-examples.ts'
       - 'scripts/check-operational-contexts.ts'
+      - 'scripts/check-extension-terms.ts'
+      - 'scripts/extension-terms-allowlist.json'
       - 'scripts/en18223/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
@@ -21,6 +23,8 @@ on:
       - 'extensions/**'
       - 'scripts/validate-jsonld-examples.ts'
       - 'scripts/check-operational-contexts.ts'
+      - 'scripts/check-extension-terms.ts'
+      - 'scripts/extension-terms-allowlist.json'
       - 'scripts/en18223/**'
   workflow_dispatch:
 
@@ -41,3 +45,9 @@ jobs:
         run: pnpm run check:operational
       - name: Operational serialization idempotence (GET -> PUT -> GET byte-stable)
         run: pnpm run check:idempotence
+      - name: Project-owned terms resolve (no phantom oec:/eubat:/... IRIs)
+        run: pnpm run check:extension-terms
+      - name: Compressed-form fidelity (no relative IRI / flattened node reference in the goldens)
+        run: pnpm run check:golden-fidelity
+      - name: Operational + Turtle round-trip is graph-isomorphic for every seed
+        run: pnpm run check:roundtrip

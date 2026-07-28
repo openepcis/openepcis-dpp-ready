@@ -88,7 +88,7 @@
       "localName": "DigitalProductPassport",
       "label": "Digital Product Passport",
       "comment": "The DPP envelope: identification and lifecycle metadata plus the product data elements, per the EN 18223 information model.",
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/DigitalDocument"
       ],
       "source": "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)"
@@ -105,11 +105,9 @@
       ],
       "broadMatch": [
         "https://ref.gs1.org/voc/ReferencedFileDetails",
+        "http://xmlns.com/foaf/0.1/Document",
         "https://schema.org/APIReference",
         "https://schema.org/NoteDigitalDocument"
-      ],
-      "narrowMatch": [
-        "http://xmlns.com/foaf/0.1/Document"
       ]
     },
     {
@@ -125,9 +123,11 @@
       "subClassOf": [
         "http://data.europa.eu/m8g/Evidence"
       ],
-      "narrowMatch": [
-        "http://data.europa.eu/m8g/Evidence",
+      "broadMatch": [
         "https://schema.org/Report"
+      ],
+      "narrowMatch": [
+        "http://data.europa.eu/m8g/Evidence"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
     },
@@ -207,9 +207,7 @@
         "https://ref.gs1.org/voc/Place"
       ],
       "broadMatch": [
-        "https://ref.gs1.org/voc/Place"
-      ],
-      "narrowMatch": [
+        "https://ref.gs1.org/voc/Place",
         "https://schema.org/Place"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -224,9 +222,7 @@
         "https://w3id.org/eudpp#Substance"
       ],
       "broadMatch": [
-        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#HazardousSubstanceEntity"
-      ],
-      "narrowMatch": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#HazardousSubstanceEntity",
         "https://schema.org/ChemicalSubstance",
         "https://schema.org/Substance"
       ],
@@ -253,7 +249,7 @@
       "seeAlso": [
         "https://www.gs1.org/standards/barcodes/application-identifiers/8026"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/IndividualProduct"
       ],
       "source": "https://ref.gs1.org/ai/8026"
@@ -276,9 +272,6 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/TextileMaterialDetails",
         "https://ref.gs1.org/voc/PackagingMaterialDetails"
-      ],
-      "exactMatch": [
-        "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
       ],
       "broadMatch": [
         "https://ref.gs1.org/voc/TextileMaterialDetails",
@@ -437,10 +430,12 @@
       "subClassOf": [
         "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
       ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#HazardousSubstanceEntity",
+      "broadMatch": [
         "https://schema.org/ChemicalSubstance",
         "https://schema.org/Substance"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#HazardousSubstanceEntity"
       ],
       "source": "https://echa.europa.eu/scip"
     },
@@ -556,6 +551,29 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/biodegradability",
+      "localName": "biodegradability",
+      "label": "Biodegradability",
+      "comment": "Links a product, material, or substance to its observed biodegradability result.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/Biodegradability"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/consumerRecyclingInstructions",
+        "https://schema.org/hasMeasurement"
+      ],
+      "broadMatch": [
+        "https://schema.org/hasMeasurement"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Entry property for a biodegradability observation whose members (biodegradationPercentage, biodegradabilityTestMethod) are individually Public.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/biodegradabilityTestMethod",
       "localName": "biodegradabilityTestMethod",
       "label": "Biodegradability Test Method",
@@ -619,9 +637,6 @@
       "comment": "Links a product to its carbon footprint declaration.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
-      ],
-      "exactMatch": [
-        "https://ref.openepcis.io/extensions/common/core/carbonFootprintDeclaration"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -750,10 +765,9 @@
         "https://ref.gs1.org/voc/referencedFileURL"
       ],
       "exactMatch": [
-        "https://ref.openepcis.io/extensions/common/core/carbonFootprintStudyUrl",
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintStudy"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/referencedFileURL"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -773,8 +787,7 @@
         "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf"
       ],
       "exactMatch": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint",
-        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal"
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
       ],
       "broadMatch": [
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
@@ -857,7 +870,7 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/referencedFileURL"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/referencedFileURL",
         "https://schema.org/url"
       ],
@@ -865,6 +878,29 @@
       "accessLevel": "Public",
       "accessLevelRationale": "A directory of physical collection points is only useful if consumers can reach it (WFD Art. 8a(2) information duty).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/combinedNomenclatureCode",
+      "localName": "combinedNomenclatureCode",
+      "label": "Combined Nomenclature Code",
+      "comment": "The EU Combined Nomenclature (CN) commodity code classifying the product for customs and regulatory scoping, e.g. '3402 50 10' for a retail detergent preparation.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/gpcCategoryCode",
+        "https://schema.org/additionalProperty"
+      ],
+      "relatedMatch": [
+        "https://ref.gs1.org/voc/gpcCategoryCode"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The CN commodity code is published on customs declarations and delimits which product law applies, so it carries no commercial confidence beyond the public product classification.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/complianceDate",
@@ -916,10 +952,8 @@
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#componentId"
       ],
       "broadMatch": [
-        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier"
-      ],
-      "narrowMatch": [
         "https://schema.org/identifier",
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier",
         "http://www.w3.org/ns/adms#identifier"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -956,6 +990,29 @@
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "Component-level naming belongs to the detailed composition tier served to legitimate-interest parties (battery Annex XIII(2) precedent).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/compostability",
+      "localName": "compostability",
+      "label": "Compostability",
+      "comment": "Links a product or material to its compostability classification and certification.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/Compostability"
+      ],
+      "seeAlso": [
+        "https://schema.org/hasCertification",
+        "https://ref.gs1.org/voc/PackagingMarkedLabelAccreditationCode"
+      ],
+      "broadMatch": [
+        "https://schema.org/hasCertification"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Entry property for a compostability classification whose members (compostabilityType, compostabilityStandard) are individually Public and back an on-pack consumer claim.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/compostabilityStandard",
@@ -1007,6 +1064,33 @@
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "The CLP label already discloses presence; exact concentrations are trade-secret-adjacent and serve professional risk assessment (battery Annex XIII(2) precedent).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/conformityDeclaration",
+      "localName": "conformityDeclaration",
+      "label": "Conformity Declaration",
+      "comment": "Links a product to the declaration(s) asserting its conformity with the applicable EU legislation, referenced as oec:DocumentReference entries typed oec:DeclarationOfConformity.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "seeAlso": [
+        "http://data.europa.eu/m8g/Evidence",
+        "https://ref.gs1.org/voc/certification",
+        "https://ref.gs1.org/voc/ReferencedFileTypeCode-DECLARATION_OF_CONFORMITY"
+      ],
+      "closeMatch": [
+        "https://vocabulary.uncefact.org/untp/conformityClaim"
+      ],
+      "broadMatch": [
+        "http://data.europa.eu/m8g/Evidence"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The EU declaration of conformity must accompany the product and be produced on request (ESPR Art. 44), so the reference to it cannot be gated.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/contentSpecificationId",
@@ -1101,15 +1185,12 @@
         "xsd:string"
       ],
       "seeAlso": [
-        "https://schema.org/hasCertification",
-        "https://ref.gs1.org/voc/certification"
+        "https://ref.gs1.org/voc/certification",
+        "https://schema.org/hasCertification"
       ],
-      "exactMatch": [
-        "https://ref.openepcis.io/extensions/common/core/dataProviderCertification"
-      ],
-      "narrowMatch": [
-        "https://schema.org/hasCertification",
-        "https://ref.gs1.org/voc/certification"
+      "broadMatch": [
+        "https://ref.gs1.org/voc/certification",
+        "https://schema.org/hasCertification"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
@@ -1273,7 +1354,7 @@
         "https://www.w3.org/TR/did-core/",
         "https://untp.unece.org/docs/specification/DigitalIdentityAnchor/"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/identifier"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -1312,14 +1393,11 @@
         "https://dpp-keystone.org/spec/v2/terms#dismantlingInformation"
       ],
       "exactMatch": [
-        "https://ref.openepcis.io/extensions/common/core/dismantlingInstructions",
         "https://dpp-keystone.org/spec/v2/terms#disassemblyInstructions"
       ],
       "broadMatch": [
+        "https://ref.gs1.org/voc/instructions",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation"
-      ],
-      "narrowMatch": [
-        "https://ref.gs1.org/voc/instructions"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
@@ -1371,7 +1449,6 @@
         "https://ref.openepcis.io/extensions/common/core/DocumentType"
       ],
       "exactMatch": [
-        "https://ref.openepcis.io/extensions/common/core/documentType",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#documentType"
       ],
       "broadMatch": [
@@ -1400,7 +1477,7 @@
       "closeMatch": [
         "https://ref.gs1.org/voc/referencedFile"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/referencedFileURL"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -1484,9 +1561,6 @@
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#componentEcNumber"
       ],
-      "exactMatch": [
-        "https://ref.openepcis.io/extensions/common/core/ecNumber"
-      ],
       "closeMatch": [
         "https://dpp-keystone.org/spec/v2/terms#componentEcNumber"
       ],
@@ -1531,7 +1605,7 @@
       "seeAlso": [
         "https://schema.org/identifier"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/identifier"
       ],
       "source": "EN 18223:2026, 4.1.2.3 (CEN/CENELEC JTC 24)",
@@ -1572,10 +1646,12 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#endOfLifeInstructions"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/sustainabilityInfo",
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation",
         "https://ref.gs1.org/voc/instructions"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -1610,9 +1686,6 @@
         "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyFade",
         "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife"
       ],
-      "exactMatch": [
-        "https://ref.openepcis.io/extensions/common/core/energyEfficiency"
-      ],
       "broadMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiency",
         "https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyAt50Cycles"
@@ -1635,7 +1708,6 @@
       ],
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#energyEfficiencyClass",
-        "https://ref.openepcis.io/extensions/common/core/energyEfficiencyClass",
         "https://schema.org/energyEfficiencyScaleMin"
       ],
       "exactMatch": [
@@ -1680,7 +1752,7 @@
       "range": [
         "xsd:string"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/regulatoryReferenceNumber"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -1772,7 +1844,7 @@
       "range": [
         "xsd:anyURI"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/certificationAgencyURL"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -1808,7 +1880,7 @@
       "range": [
         "xsd:string"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/regulatoryReferenceNumber",
         "https://schema.org/serialNumber"
       ],
@@ -1832,9 +1904,6 @@
       "seeAlso": [
         "https://schema.org/jurisdiction"
       ],
-      "exactMatch": [
-        "https://ref.openepcis.io/extensions/common/core/eprJurisdiction"
-      ],
       "narrowMatch": [
         "https://schema.org/jurisdiction"
       ],
@@ -1857,7 +1926,7 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/registryEntry"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/regulatoryReferenceNumber"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -1943,9 +2012,9 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/certificationIdentification"
       ],
-      "narrowMatch": [
-        "https://schema.org/hasCertification",
+      "broadMatch": [
         "https://ref.gs1.org/voc/certification",
+        "https://schema.org/hasCertification",
         "https://ref.gs1.org/voc/certificationInfo"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -2336,10 +2405,10 @@
         "https://ref.gs1.org/voc/fileLanguageCode"
       ],
       "broadMatch": [
+        "https://schema.org/inLanguage",
         "https://schema.org/availableLanguage"
       ],
       "narrowMatch": [
-        "https://schema.org/inLanguage",
         "https://schema.org/subtitleLanguage"
       ],
       "source": "EN 18223:2026, 4.1.2.8.2 (CEN/CENELEC JTC 24)",
@@ -2364,7 +2433,7 @@
       "exactMatch": [
         "https://ref.gs1.org/voc/fileLanguageCode"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/inLanguage"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -2385,7 +2454,6 @@
       ],
       "exactMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#lastUpdate",
-        "https://ref.openepcis.io/extensions/common/core/lastDataUpdate",
         "https://dpp-keystone.org/spec/v2/terms#lastUpdate"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -2548,7 +2616,6 @@
         "xsd:string"
       ],
       "exactMatch": [
-        "https://ref.openepcis.io/extensions/common/core/mimeType",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#mimeType"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -2652,10 +2719,8 @@
         "xsd:anyURI"
       ],
       "broadMatch": [
+        "https://schema.org/identifier",
         "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryPassportIdentifier"
-      ],
-      "narrowMatch": [
-        "https://schema.org/identifier"
       ],
       "source": "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)",
       "accessLevel": "Public",
@@ -2932,11 +2997,9 @@
         "https://ref.openepcis.io/extensions/common/core/ProductCategory"
       ],
       "broadMatch": [
-        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryCategory"
-      ],
-      "narrowMatch": [
         "https://schema.org/category",
-        "https://ref.gs1.org/voc/additionalProductClassificationCode"
+        "https://ref.gs1.org/voc/additionalProductClassificationCode",
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryCategory"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -2971,9 +3034,6 @@
       "comment": "Links a product to its recyclability assessment.",
       "range": [
         "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment"
-      ],
-      "exactMatch": [
-        "https://ref.openepcis.io/extensions/common/core/recyclabilityAssessment"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -3063,9 +3123,6 @@
         "https://dpp-keystone.org/spec/v2/terms#packagingRecycledContent",
         "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage"
       ],
-      "exactMatch": [
-        "https://ref.openepcis.io/extensions/common/core/recycledContent"
-      ],
       "broadMatch": [
         "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
@@ -3117,9 +3174,11 @@
       "range": [
         "xsd:string"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/registryEntry",
-        "https://ref.gs1.org/voc/regulatoryReferenceNumber",
+        "https://ref.gs1.org/voc/regulatoryReferenceNumber"
+      ],
+      "narrowMatch": [
         "https://schema.org/companyRegistration"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -3199,9 +3258,6 @@
       "range": [
         "xsd:string"
       ],
-      "exactMatch": [
-        "https://ref.openepcis.io/extensions/common/core/repairabilityClass"
-      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "A repairability class is the at-a-glance consumer form of the repairability score, mirroring public energy-label classes.",
@@ -3272,7 +3328,7 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/serviceInfo"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/instructions",
         "https://ref.gs1.org/voc/serviceInfo"
       ],
@@ -3289,7 +3345,7 @@
       "range": [
         "https://ref.openepcis.io/extensions/common/core/RepairProvider"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/provider"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -3308,7 +3364,7 @@
       "range": [
         "xsd:string"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/provider"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -3394,7 +3450,7 @@
       "range": [
         "xsd:string"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/instructions"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -3420,11 +3476,13 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#safeUseInstructions"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/instructions",
         "https://ref.gs1.org/voc/consumerSafetyInformation",
         "https://ref.gs1.org/voc/consumerUsageInstructions",
-        "https://ref.gs1.org/voc/instructionsForUse",
+        "https://ref.gs1.org/voc/instructionsForUse"
+      ],
+      "narrowMatch": [
         "https://dpp-keystone.org/spec/v2/terms#instructionsForUse"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -3443,7 +3501,7 @@
       "range": [
         "xsd:string"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/identifier"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272",
@@ -3466,7 +3524,7 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/consumerRecyclingInstructions"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/sustainabilityInfo"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -3783,6 +3841,29 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/tradeItemPieces",
+      "localName": "tradeItemPieces",
+      "label": "Trade Item Pieces",
+      "comment": "Links a multi-piece trade item to the individual pieces it is delivered as, each identified via GS1 AI 8026 (ITIP).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/IndividualTradeItemPiece"
+      ],
+      "seeAlso": [
+        "https://www.gs1.org/standards/barcodes/application-identifiers/8026",
+        "https://schema.org/hasPart"
+      ],
+      "broadMatch": [
+        "https://schema.org/hasPart"
+      ],
+      "source": "https://ref.gs1.org/ai/8026",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The piece set is the container for piece data that is itself Public throughout; gating it would hide public product identification behind a closed door.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/usageCycles",
       "localName": "usageCycles",
       "label": "Usage Cycles",
@@ -3917,7 +3998,7 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#wastePreventionInfo"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/sustainabilityInfo"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -3992,6 +4073,26 @@
       ]
     },
     {
+      "id": "https://ref.gs1.org/cbv/BizStep",
+      "localName": "BizStep",
+      "label": "BizStep",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/BizStep-notifying",
+          "localName": "BizStep-notifying",
+          "label": "Notifying",
+          "comment": "Submitting a regulatory notification, declaration or statement about the product to a competent authority — an EUDR due-diligence or exemption declaration, a Battery Regulation notification, an ESPR conformity notification."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/BizStep-recovery",
+          "localName": "BizStep-recovery",
+          "label": "Recovery",
+          "comment": "Recovering material or energy from a product at end of life, e.g. reprocessing collected packaging into secondary raw material."
+        }
+      ]
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/CompostabilityType",
       "localName": "CompostabilityType",
       "label": "Compostability Type",
@@ -4052,6 +4153,20 @@
           "localName": "HTSUS10",
           "label": "US Harmonized Tariff Schedule 10-digit",
           "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://ref.gs1.org/cbv/Disp",
+      "localName": "Disp",
+      "label": "Disp",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Disp-subject_to_regulation",
+          "localName": "Disp-subject_to_regulation",
+          "label": "Subject to regulation",
+          "comment": "The item is within the scope of a product regulation and carries the corresponding obligations (e.g. an EUDR-relevant commodity). Set as a persistentDisposition so it travels with the item across events."
         }
       ]
     },
@@ -4646,6 +4761,12 @@
           "localName": "ConstructionProducts",
           "label": "Construction Products",
           "comment": "Construction products per Construction Products Regulation."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Detergents",
+          "localName": "Detergents",
+          "label": "Detergents",
+          "comment": "Detergents and surfactants per the EU Detergents Regulation (EU) 2026/405, an ESPR priority product category."
         },
         {
           "id": "https://ref.openepcis.io/extensions/common/core/Electronics",

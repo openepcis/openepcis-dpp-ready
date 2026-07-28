@@ -1,25 +1,36 @@
 {
   "@context": [
-    "https://ref.gs1.org/voc/",
     "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld"
   ],
-  "type": "Organization",
-  "glnType": "LEGAL_ENTITY",
+  "type": [
+    "gs1:Organization",
+    "oec:OperatorInformation"
+  ],
+  "gs1:glnType": "gs1:GLN_TypeCode-LEGAL_ENTITY",
   "gs1:globalLocationNumber": "9521001000017",
-  "gs1:organizationName": {
-    "en": "Casa Lina S.r.l.",
-    "it": "Casa Lina S.r.l."
-  },
-  "organizationRole": "MANUFACTURER_OF_FINISHED_GOODS",
+  "gs1:organizationName": [
+    {
+      "@value": "Casa Lina S.r.l.",
+      "@language": "en"
+    },
+    {
+      "@value": "Casa Lina S.r.l.",
+      "@language": "it"
+    }
+  ],
+  "gs1:organizationRole": "gs1:OrganizationRoleType-MANUFACTURER_OF_FINISHED_GOODS",
   "gs1:address": {
     "gs1:organizationName": {
-      "en": "Casa Lina S.r.l."
+      "@value": "Casa Lina S.r.l.",
+      "@language": "en"
     },
     "gs1:streetAddress": {
-      "en": "Via dei Tessitori 7"
+      "@value": "Via dei Tessitori 7",
+      "@language": "en"
     },
     "gs1:addressLocality": {
-      "en": "Como"
+      "@value": "Como",
+      "@language": "en"
     },
     "gs1:postalCode": "22100",
     "gs1:addressCountry": {
@@ -33,5 +44,7 @@
     "gs1:telephone": "+00 0 0000 0000"
   },
   "oec:economicOperatorId": "IT-DPP-OP-002",
-  "oec:operatorType": "oec:Manufacturer"
+  "oec:operatorRole": {
+    "@id": "oec:Manufacturer"
+  }
 }

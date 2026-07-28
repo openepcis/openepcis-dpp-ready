@@ -2,6 +2,41 @@
 
 All notable changes to the Detergent module will be documented in this file.
 
+## [Unreleased]
+
+### Changed: mapping directions and anchors from the vocab-sync audit
+
+A `vocab-sync audit --module detergent` run (82 findings, 31 QA-confirmed) corrected three
+directions and added two anchors. `eudet:DetergentProduct` is narrower than `untp:Product` and
+`eudet:ingredientList` narrower than `gs1:ingredientStatement`, so both now read
+`skos:broadMatch`; `eudet:hazardousSubstances` is the broader term against the BatteryPass
+`hazardousSubstanceClass` and `hazardousSubstanceIdentifier`, so it takes `skos:narrowMatch`
+toward both. The `check:mappings` allowlist entry that documents the food-ingredient analogue was
+re-keyed to the corrected relation.
+
+The panel also proposed `eudet:productForm skos:broadMatch gs1:consumerProductVariant`, which was
+applied and then withdrawn on the GS1 definition: GS1 scopes `consumerProductVariant` to variants
+that do *not* require a different GTIN, and liquid, powder and tablet are separate trade items.
+`skos:closeMatch gs1:productFormDescription` remains the GS1 anchor. The pair is recorded in
+`scripts/skos-deferred.json`.
+
+Further confirmed findings wait for a curator in
+[`docs/skos-alignment/OPEN_DECISIONS.md`](../../../docs/skos-alignment/OPEN_DECISIONS.md), most
+of them asking whether an enumeration such as `eudet:ProductForm` or `eudet:DetergentCategory`
+may be mapped onto a class that denotes the product itself.
+
+### Fixed: 8 inverted SKOS mapping directions
+
+SKOS reads `A skos:narrowMatch B` as "B is narrower than A". 8 mappings in this module
+used `narrowMatch` while pointing at a general foundational term, so they asserted the
+reverse of their intent, for example claiming `schema:identifier` was narrower than a
+specific passport identifier. They now read `skos:broadMatch`, the project convention for
+"this term is narrower than the target". The sweep covered 174 assertions across eight
+modules; `check:mappings` rule 6 now rejects the pattern against a curated list of general
+Layer-1 terms, and pairs where our term is a type or category while the target denotes the
+entity itself are allowlisted for a curator instead (see
+[`docs/skos-alignment/OPEN_DECISIONS.md`](../../../docs/skos-alignment/OPEN_DECISIONS.md)).
+
 ## [0.9.7] — 2026-06-19
 
 ### Changed
@@ -14,7 +49,7 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
-**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+Extension terms that duplicated GS1 / schema.org were removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
 
 ### Removed (use canonical term instead)
 

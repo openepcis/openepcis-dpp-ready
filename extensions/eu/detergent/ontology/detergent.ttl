@@ -87,7 +87,7 @@ eudet:DetergentCategory
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:narrowMatch schema:CategoryCode .
+    skos:broadMatch schema:CategoryCode .
 
 eudet:LaundryDetergent a eudet:DetergentCategory ; rdfs:label "Laundry Detergent"@en ; skos:notation "laundry-detergent" ;
     rdfs:comment "Detergent intended for washing textiles in household or commercial laundry machines."@en .
@@ -294,8 +294,8 @@ eudet:DetergentProduct
     skos:note "GS1 Web Vocabulary has no detergent-specific product class."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> ;
     skos:broadMatch gs1:Product ;
-    skos:narrowMatch <https://vocabulary.uncefact.org/untp/Product> ;
-    skos:narrowMatch schema:Product .
+    skos:broadMatch <https://vocabulary.uncefact.org/untp/Product> ;
+    skos:broadMatch schema:Product .
 
 eudet:Ingredient
     a owl:Class ;
@@ -330,8 +330,8 @@ eudet:FragranceAllergen
     skos:note "GS1 has gs1:hasAllergen for food allergens but no equivalent for fragrance/chemical allergens in non-food products."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> ;
     rdfs:seeAlso schema:ChemicalSubstance ;
-    skos:narrowMatch gs1:AllergenDetails ;
-    skos:narrowMatch schema:ChemicalSubstance .
+    skos:broadMatch gs1:AllergenDetails ;
+    skos:broadMatch schema:ChemicalSubstance .
 
 # =============================================================================
 # Product-Level Properties (on DetergentProduct)
@@ -344,7 +344,7 @@ eudet:productForm
     rdfs:domain eudet:DetergentProduct ;
     rdfs:range eudet:ProductForm ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
-    skos:note "No GS1 equivalent for detergent form classification."@en ;
+    skos:note "No GS1 equivalent for detergent form classification. gs1:productFormDescription is the closest GS1 target. gs1:consumerProductVariant does not fit: GS1 scopes it to variants that do NOT require a different GTIN, whereas liquid, powder and tablet are separate trade items."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> ;
     skos:closeMatch gs1:productFormDescription .
 
@@ -358,7 +358,7 @@ eudet:intendedUse
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:closeMatch schema:potentialUse ;
-    skos:narrowMatch gs1:consumerUsageInstructions .
+    skos:broadMatch gs1:consumerUsageInstructions .
 
 eudet:ingredientList
     a owl:ObjectProperty ;
@@ -369,7 +369,7 @@ eudet:ingredientList
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "GS1 has food ingredient patterns but no detergent ingredient list property."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> ;
-    skos:narrowMatch gs1:ingredientStatement ;
+    skos:broadMatch gs1:ingredientStatement ;
     skos:broadMatch gs1:ingredientName ;
     skos:broadMatch schema:activeIngredient .
 
@@ -414,9 +414,10 @@ eudet:hazardousSubstances
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "Detergent ingredient / substance disclosure per the EU Detergents Regulation (EU) 2026/405 (ingredient data sheet). No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:hazardousSubstances ;
-    skos:broadMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass> ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass> ;
     skos:narrowMatch oec:substancesOfConcern ;
-    skos:narrowMatch <https://dpp-keystone.org/spec/v2/terms#textileSubstancesOfConcern> .
+    skos:narrowMatch <https://dpp-keystone.org/spec/v2/terms#textileSubstancesOfConcern> ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceIdentifier> .
 
 eudet:hazardPictograms
     a owl:DatatypeProperty ;
@@ -467,7 +468,7 @@ eudet:phosphorusContentPercent
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "No GS1 equivalent for phosphorus content in detergents."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> ;
-    skos:narrowMatch gs1:ingredientContentPercentage .
+    skos:broadMatch gs1:ingredientContentPercentage .
 
 eudet:phosphateCompliant
     a owl:DatatypeProperty ;
@@ -520,7 +521,7 @@ eudet:dosageInstructions
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:narrowMatch gs1:consumerUsageInstructions .
+    skos:broadMatch gs1:consumerUsageInstructions .
 
 eudet:safetyDataSheet
     a owl:ObjectProperty ;
@@ -532,7 +533,7 @@ eudet:safetyDataSheet
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#safetyDataSheet> ;
-    skos:narrowMatch gs1:safetyInfo ;
+    skos:broadMatch gs1:safetyInfo ;
     skos:closeMatch <https://vocabulary.uncefact.org/untp/materialSafetyInformation> .
 
 eudet:biodegradabilityTestReport

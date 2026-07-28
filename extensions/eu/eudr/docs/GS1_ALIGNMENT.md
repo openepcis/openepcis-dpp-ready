@@ -21,8 +21,8 @@ GS1 has not yet addressed, and where the GS1 model is expected to evolve.
   `gs1:applicableProducts`) plus optional
   `gs1:regulatoryInformationProvider`,
   `gs1:regulatoryReferenceApplicabilityStartDate`, `…EndDate`.
-- **EPCIS ObjectEvent with `bizStep: "notifying"` and
-  `persistentDisposition: ["subject_to_regulation"]`** — PDF §5.2 worked
+- **EPCIS ObjectEvent with `bizStep: "oec:BizStep-notifying"` and
+  `persistentDisposition: ["oec:Disp-subject_to_regulation"]`**: PDF §5.2 worked
   example. Our `epcis/due-diligence-statement.jsonld` mirrors that event
   shape.
 - **`gs1:masterDataAvailableFor`** for event-level master-data attachment
@@ -79,7 +79,7 @@ stable; additionally they will be able to consume the GS1 URIs after the
 equivalence mapping is published.
 
 **Example.** See `epcis/exemption-declaration.jsonld` — an EPCIS
-ObjectEvent with `bizStep: "notifying"` where the inner
+ObjectEvent with `bizStep: "oec:BizStep-notifying"` where the inner
 `regulatoryInformation` block omits `regulatoryIdentifier` (an exemption
 replaces it) and the exemption itself rides as an event-level
 `eudr:exemptionDeclaration`.

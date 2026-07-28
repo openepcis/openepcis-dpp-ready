@@ -2,6 +2,38 @@
 
 All notable changes to the EUDR module will be documented in this file.
 
+## [Unreleased]
+
+### Changed: mapping directions and anchors from the vocab-sync audit
+
+A `vocab-sync audit --module eudr` run (108 findings, 26 QA-confirmed) corrected nine directions
+and added four anchors. `eudr:geofence` is narrower than the SEMICeu geometry and coordinates
+terms and than `schema:polygon`; `eudr:exemptionEffectiveFrom` narrower than `schema:validFrom`;
+`eudr:volumeCubicMeters` narrower than `gs1:grossVolume`; `eudr:fscCertification` narrower than
+the GS1 certification identification. Two run the other way and keep `skos:narrowMatch`:
+`eudr:countryList` aggregates several countries of origin and `eudr:originDetails` is a container
+for geolocation and producer, so each is the broader term. Both are allowlisted in
+`check:mappings`, whose rule 6 otherwise assumes an atomic term.
+
+`cv:coordinates` was added to `scripts/semiceu-terms.json`; it is defined in the official
+SEMICeu m8g source and was only missing from the verification registry, which is why the
+reference had been invisible to the guard until it learned to read full IRIs.
+
+`eudr:DueDiligenceStatement` to `gs1:RegulatoryIdentifier` was deferred: a statement is a
+document, not an identifier.
+
+### Fixed: 6 inverted SKOS mapping directions
+
+SKOS reads `A skos:narrowMatch B` as "B is narrower than A". 6 mappings in this module
+used `narrowMatch` while pointing at a general foundational term, so they asserted the
+reverse of their intent, for example claiming `schema:identifier` was narrower than a
+specific passport identifier. They now read `skos:broadMatch`, the project convention for
+"this term is narrower than the target". The sweep covered 174 assertions across eight
+modules; `check:mappings` rule 6 now rejects the pattern against a curated list of general
+Layer-1 terms, and pairs where our term is a type or category while the target denotes the
+entity itself are allowlisted for a curator instead (see
+[`docs/skos-alignment/OPEN_DECISIONS.md`](../../../docs/skos-alignment/OPEN_DECISIONS.md)).
+
 ## [0.9.7] — 2026-06-19
 
 ### Changed
@@ -25,7 +57,7 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
-**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+Extension terms that duplicated GS1 / schema.org were removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
 
 ### Removed (use canonical term instead)
 
@@ -75,7 +107,7 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
   - `eudr:ExemptionDeclaration` class
   - Properties: `eudr:exemptionDeclaration`, `eudr:exemptionType`, `eudr:exemptionReasonCode`, `eudr:exemptionScope`, `eudr:exemptionScopeReference`, `eudr:exemptionEffectiveFrom`, `eudr:exemptionEffectiveUntil`, `eudr:exemptionAuthority`
 - New EPCIS event example: `eudr/epcis/exemption-declaration.jsonld`
-  (ObjectEvent with `bizStep: notifying` carrying an ExemptionDeclaration)
+  (ObjectEvent with `bizStep: oec:BizStep-notifying` carrying an ExemptionDeclaration)
 - New section in `docs/IMPLEMENTATION_GUIDE.md`: "EUDR Exemption Handling (GS1 standardization reference pattern)" with semantic equivalence table across EPCIS JSON-LD / EANCOM / GDSN
 
 ### Notes

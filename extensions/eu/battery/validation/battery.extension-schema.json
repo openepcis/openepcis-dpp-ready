@@ -2,31 +2,59 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://ref.openepcis.io/extensions/eu/battery/",
   "title": "OpenEPCIS extension (permissive): eubat",
-  "description": "Permissive capture schema for the https://ref.openepcis.io/extensions/eu/battery/ extension. Declares known terms as optional and allows additional properties, so events that declare GS1-Extensions eubat=https://ref.openepcis.io/extensions/eu/battery/ validate and capture. Generated from the module JSON-LD context; tighten per ontology for field-level validation.",
+  "description": "Permissive capture schema for the https://ref.openepcis.io/extensions/eu/battery/ extension. Declares known terms as optional and allows additional properties, so events that declare GS1-Extensions eubat=https://ref.openepcis.io/extensions/eu/battery/ validate and capture. Generated from the module ontology plus its JSON-LD context; tighten per ontology for field-level validation.",
   "type": "object",
   "properties": {
+    "absoluteCarbonFootprint": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "The non-normalised total CF only restates the public Art. 7/Annex XIII(1)(c) figure in absolute terms and stays in the public CF block.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
     "eubat:absoluteCarbonFootprint": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "x-access-level-rationale": "The non-normalised total CF only restates the public Art. 7/Annex XIII(1)(c) figure in absolute terms and stays in the public CF block.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:absoluteCarbonFootprint": {
-      "x-access-level": "Public",
+    "anodeActiveMaterial": {
+      "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "The non-normalised total CF only restates the public Art. 7/Annex XIII(1)(c) figure in absolute terms and stays in the public CF block.",
+      "x-access-level-rationale": "Annex XIII(2)(a): anode materials are part of the detailed composition reserved for persons with a legitimate interest.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
+    "eubat:anodeActiveMaterial": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(2)(a): anode materials are part of the detailed composition reserved for persons with a legitimate interest.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "atSoC": {},
     "eubat:atSoC": {},
-    "eubat:eubat:atSoC": {},
+    "auditBody": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Art. 51 third-party verification is what makes the Art. 52(3) public report credible, so naming the auditor is public like eubat:verificationBody.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:auditBody": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Art. 51 third-party verification is what makes the Art. 52(3) public report credible, so naming the auditor is public like eubat:verificationBody.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "authorizedServiceCenters": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Service-center listings extend the Annex XIII(2)(b) spare-part/repair sourcing information addressed to professional repairers.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
     "eubat:authorizedServiceCenters": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-rationale": "Service-center listings extend the Annex XIII(2)(b) spare-part/repair sourcing information addressed to professional repairers.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:authorizedServiceCenters": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Service-center listings extend the Annex XIII(2)(b) spare-part/repair sourcing information addressed to professional repairers.",
+    "batteryChemistry": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(1)(a) via Annex VI Part A: the general battery chemistry is public passport data — only the detailed cathode/anode/electrolyte composition moves to Annex XIII(2)(a).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:batteryChemistry": {
@@ -35,10 +63,10 @@
       "x-access-level-rationale": "Annex XIII(1)(a) via Annex VI Part A: the general battery chemistry is public passport data — only the detailed cathode/anode/electrolyte composition moves to Annex XIII(2)(a).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:batteryChemistry": {
+    "batteryMass": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(a) via Annex VI Part A: the general battery chemistry is public passport data — only the detailed cathode/anode/electrolyte composition moves to Annex XIII(2)(a).",
+      "x-access-level-rationale": "Annex XIII(1)(a) via Annex VI Part A: the weight of the battery is public labelling information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:batteryMass": {
@@ -47,10 +75,22 @@
       "x-access-level-rationale": "Annex XIII(1)(a) via Annex VI Part A: the weight of the battery is public labelling information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:batteryMass": {
+    "batteryModelIdentifier": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(a) via Annex VI Part A: the weight of the battery is public labelling information.",
+      "x-access-level-rationale": "Annex XIII(1)(a) via Annex VI Part A: battery model/type identification is public labelling information.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:batteryModelIdentifier": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(1)(a) via Annex VI Part A: battery model/type identification is public labelling information.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "batteryPassportIdentifier": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Art. 77(3): the unique passport identifier is the public entry point resolved from the QR code and cannot itself be gated.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:batteryPassportIdentifier": {
@@ -59,10 +99,9 @@
       "x-access-level-rationale": "Art. 77(3): the unique passport identifier is the public entry point resolved from the QR code and cannot itself be gated.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:batteryPassportIdentifier": {
+    "cRate": {
       "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 77(3): the unique passport identifier is the public entry point resolved from the QR code and cannot itself be gated.",
+      "x-access-level-rationale": "Annex XIII(1)(p): the C-rate of the relevant cycle-life test is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:cRate": {
@@ -70,9 +109,9 @@
       "x-access-level-rationale": "Annex XIII(1)(p): the C-rate of the relevant cycle-life test is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:cRate": {
+    "cRateLifeCycleTest": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Annex XIII(1)(p): the C-rate of the relevant cycle-life test is public battery-passport data.",
+      "x-access-level-rationale": "Annex XIII(1)(p): the C-rate applied in the cycle-life test is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:cRateLifeCycleTest": {
@@ -80,9 +119,9 @@
       "x-access-level-rationale": "Annex XIII(1)(p): the C-rate applied in the cycle-life test is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:cRateLifeCycleTest": {
+    "cadmiumSymbolRequired": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Annex XIII(1)(p): the C-rate applied in the cycle-life test is public battery-passport data.",
+      "x-access-level-rationale": "The Cd mark above 0.002 % cadmium is mandatory public labelling (Art. 13(6)/Annex VI Part B), so the flag restates on-battery information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:cadmiumSymbolRequired": {
@@ -90,9 +129,20 @@
       "x-access-level-rationale": "The Cd mark above 0.002 % cadmium is mandatory public labelling (Art. 13(6)/Annex VI Part B), so the flag restates on-battery information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:cadmiumSymbolRequired": {
+    "calculationStandard": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "The Cd mark above 0.002 % cadmium is mandatory public labelling (Art. 13(6)/Annex VI Part B), so the flag restates on-battery information.",
+      "x-access-level-rationale": "The calculation standard is methodology metadata of the public CF declaration required to interpret the public figure (Art. 7/Annex II).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:calculationStandard": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The calculation standard is methodology metadata of the public CF declaration required to interpret the public figure (Art. 7/Annex II).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "capacityFade": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex VII Part A: measured capacity fade is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:capacityFade": {
@@ -101,10 +151,9 @@
       "x-access-level-rationale": "Annex VII Part A: measured capacity fade is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:capacityFade": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part A: measured capacity fade is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
+    "capacityFadeThreshold": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The capacity-fade level that defines rated cycle life is part of the public declared durability ratings (Annex IV Part A), not battery-individual state.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:capacityFadeThreshold": {
@@ -112,9 +161,10 @@
       "x-access-level-rationale": "The capacity-fade level that defines rated cycle life is part of the public declared durability ratings (Annex IV Part A), not battery-individual state.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:capacityFadeThreshold": {
+    "capacityThresholdForExhaustion": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "The capacity-fade level that defines rated cycle life is part of the public declared durability ratings (Annex IV Part A), not battery-individual state.",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(1)(k): the capacity threshold for exhaustion is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:capacityThresholdForExhaustion": {
@@ -123,10 +173,10 @@
       "x-access-level-rationale": "Annex XIII(1)(k): the capacity threshold for exhaustion is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:capacityThresholdForExhaustion": {
-      "x-access-level": "Public",
+    "capacityThroughput": {
+      "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(k): the capacity threshold for exhaustion is public battery-passport data.",
+      "x-access-level-rationale": "Annex VII Part B: cumulative capacity throughput is battery-individual usage data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:capacityThroughput": {
@@ -135,10 +185,10 @@
       "x-access-level-rationale": "Annex VII Part B: cumulative capacity throughput is battery-individual usage data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:capacityThroughput": {
-      "x-access-level": "AuthorizedOnly",
+    "carbonFootprintDeclaration": {
+      "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part B: cumulative capacity throughput is battery-individual usage data for the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "Art. 7(1)/Annex XIII(1)(c): the carbon footprint declaration accompanies the battery publicly; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:carbonFootprintDeclaration": {
@@ -147,10 +197,12 @@
       "x-access-level-rationale": "Art. 7(1)/Annex XIII(1)(c): the carbon footprint declaration accompanies the battery publicly; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:carbonFootprintDeclaration": {
+    "carbonFootprintDeclarationId": {},
+    "eubat:carbonFootprintDeclarationId": {},
+    "carbonFootprintDistribution": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 7(1)/Annex XIII(1)(c): the carbon footprint declaration accompanies the battery publicly; dpp-core serves the same name Public.",
+      "x-access-level-rationale": "Art. 7(1)(e): the CF share of the distribution stage is part of the public declaration; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:carbonFootprintDistribution": {
@@ -159,10 +211,32 @@
       "x-access-level-rationale": "Art. 7(1)(e): the CF share of the distribution stage is part of the public declaration; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:carbonFootprintDistribution": {
+    "carbonFootprintGeographicScope": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The geographic scope is methodology metadata of the public CF declaration and must be visible for the public figure to be interpretable (Art. 7/Annex II).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:carbonFootprintGeographicScope": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The geographic scope is methodology metadata of the public CF declaration and must be visible for the public figure to be interpretable (Art. 7/Annex II).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "carbonFootprintPerformanceClass": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 7(1)(e): the CF share of the distribution stage is part of the public declaration; dpp-core serves the same name Public.",
+      "x-access-level-rationale": "Art. 7(2)/Annex XIII(1)(c): the CF performance class is public labelling information.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:carbonFootprintPerformanceClass": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Art. 7(2)/Annex XIII(1)(c): the CF performance class is public labelling information.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "carbonFootprintProduction": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Art. 7(1)(e): the CF share of the production stage is part of the public declaration; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:carbonFootprintProduction": {
@@ -171,10 +245,10 @@
       "x-access-level-rationale": "Art. 7(1)(e): the CF share of the production stage is part of the public declaration; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:carbonFootprintProduction": {
+    "carbonFootprintRawMaterialExtraction": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 7(1)(e): the CF share of the production stage is part of the public declaration; dpp-core serves the same name Public.",
+      "x-access-level-rationale": "Art. 7(1)(e): the CF share of the raw-material acquisition stage is part of the public declaration.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:carbonFootprintRawMaterialExtraction": {
@@ -183,10 +257,10 @@
       "x-access-level-rationale": "Art. 7(1)(e): the CF share of the raw-material acquisition stage is part of the public declaration.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:carbonFootprintRawMaterialExtraction": {
+    "carbonFootprintRecycling": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 7(1)(e): the CF share of the raw-material acquisition stage is part of the public declaration.",
+      "x-access-level-rationale": "Art. 7(1)(e): the CF share of the end-of-life/recycling stage is part of the public declaration.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:carbonFootprintRecycling": {
@@ -195,10 +269,10 @@
       "x-access-level-rationale": "Art. 7(1)(e): the CF share of the end-of-life/recycling stage is part of the public declaration.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:carbonFootprintRecycling": {
+    "carbonFootprintStudyUrl": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 7(1)(e): the CF share of the end-of-life/recycling stage is part of the public declaration.",
+      "x-access-level-rationale": "Art. 7(1)(f): a web link to the public version of the CF study is mandatory public data; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:carbonFootprintStudyUrl": {
@@ -207,10 +281,10 @@
       "x-access-level-rationale": "Art. 7(1)(f): a web link to the public version of the CF study is mandatory public data; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:carbonFootprintStudyUrl": {
+    "carbonFootprintTotal": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 7(1)(f): a web link to the public version of the CF study is mandatory public data; dpp-core serves the same name Public.",
+      "x-access-level-rationale": "Art. 7(1)(d)/Annex XIII(1)(c): the lifecycle CF per kWh is the headline public figure of the declaration; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:carbonFootprintTotal": {
@@ -219,10 +293,31 @@
       "x-access-level-rationale": "Art. 7(1)(d)/Annex XIII(1)(c): the lifecycle CF per kWh is the headline public figure of the declaration; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:carbonFootprintTotal": {
-      "x-access-level": "Public",
+    "casNumber": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "CAS numbers inside the material breakdown enable formulation reconstruction and belong to the Annex XIII(2)(a) detail tier; dpp-core serves the same name AuthorizedOnly.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:casNumber": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "CAS numbers inside the material breakdown enable formulation reconstruction and belong to the Annex XIII(2)(a) detail tier; dpp-core serves the same name AuthorizedOnly.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "cathodeActiveMaterial": {
+      "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 7(1)(d)/Annex XIII(1)(c): the lifecycle CF per kWh is the headline public figure of the declaration; dpp-core serves the same name Public.",
+      "x-access-level-rationale": "Annex XIII(2)(a): cathode materials are part of the detailed composition reserved for persons with a legitimate interest.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:cathodeActiveMaterial": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(2)(a): cathode materials are part of the detailed composition reserved for persons with a legitimate interest.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "ceMarkingIndicator": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The CE marking is affixed visibly on the battery itself (Arts. 19-20), so the indicator restates public information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:ceMarkingIndicator": {
@@ -230,9 +325,20 @@
       "x-access-level-rationale": "The CE marking is affixed visibly on the battery itself (Arts. 19-20), so the indicator restates public information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:ceMarkingIndicator": {
+    "cellType": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "The CE marking is affixed visibly on the battery itself (Arts. 19-20), so the indicator restates public information.",
+      "x-access-level-rationale": "The cell form factor (cylindrical/prismatic/pouch) is catalogue-level product data with no confidentiality content, aligned with the public Annex XIII(1) identification block (DIN DKE SPEC 99100 extension).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:cellType": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The cell form factor (cylindrical/prismatic/pouch) is catalogue-level product data with no confidentiality content, aligned with the public Annex XIII(1) identification block (DIN DKE SPEC 99100 extension).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "certifiedUsableEnergy": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(1): the certified usable battery energy is a public rated value against which SoCE is later judged.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:certifiedUsableEnergy": {
@@ -241,10 +347,9 @@
       "x-access-level-rationale": "Annex XIII(1): the certified usable battery energy is a public rated value against which SoCE is later judged.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:certifiedUsableEnergy": {
+    "cobaltPostConsumerShare": {
       "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1): the certified usable battery energy is a public rated value against which SoCE is later judged.",
+      "x-access-level-rationale": "Post-consumer breakdown of the public Art. 8 cobalt share per the recycled-content calculation methodology; stays in the public block.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:cobaltPostConsumerShare": {
@@ -252,9 +357,9 @@
       "x-access-level-rationale": "Post-consumer breakdown of the public Art. 8 cobalt share per the recycled-content calculation methodology; stays in the public block.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:cobaltPostConsumerShare": {
+    "cobaltPreConsumerShare": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Post-consumer breakdown of the public Art. 8 cobalt share per the recycled-content calculation methodology; stays in the public block.",
+      "x-access-level-rationale": "Pre-consumer breakdown of the public Art. 8 cobalt share per the recycled-content calculation methodology; stays in the public block.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:cobaltPreConsumerShare": {
@@ -262,9 +367,10 @@
       "x-access-level-rationale": "Pre-consumer breakdown of the public Art. 8 cobalt share per the recycled-content calculation methodology; stays in the public block.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:cobaltPreConsumerShare": {
+    "cobaltRecycledShare": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Pre-consumer breakdown of the public Art. 8 cobalt share per the recycled-content calculation methodology; stays in the public block.",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Art. 8(1): the share of cobalt recovered from waste is a publicly documented percentage.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:cobaltRecycledShare": {
@@ -273,10 +379,29 @@
       "x-access-level-rationale": "Art. 8(1): the share of cobalt recovered from waste is a publicly documented percentage.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:cobaltRecycledShare": {
+    "complianceStatus": {
       "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 8(1): the share of cobalt recovered from waste is a publicly documented percentage.",
+      "x-access-level-rationale": "Compliance assertions exist to be shown to buyers and authorities alike, mirroring the public EU declaration of conformity (Annex XIII(1)(r)); dpp-core serves the same name Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:complianceStatus": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Compliance assertions exist to be shown to buyers and authorities alike, mirroring the public EU declaration of conformity (Annex XIII(1)(r)); dpp-core serves the same name Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "componentLocation": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Where a material sits in the battery (cathode/anode/electrolyte) is Annex XIII(2)(a) composition detail for professional users.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:componentLocation": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Where a material sits in the battery (cathode/anode/electrolyte) is Annex XIII(2)(a) composition detail for professional users.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "concentration": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Annex VI Part A discloses hazardous-substance presence publicly, but exact concentrations are Annex XIII(2)(a) composition detail; dpp-core serves the same name AuthorizedOnly.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:concentration": {
@@ -284,9 +409,9 @@
       "x-access-level-rationale": "Annex VI Part A discloses hazardous-substance presence publicly, but exact concentrations are Annex XIII(2)(a) composition detail; dpp-core serves the same name AuthorizedOnly.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:concentration": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Annex VI Part A discloses hazardous-substance presence publicly, but exact concentrations are Annex XIII(2)(a) composition detail; dpp-core serves the same name AuthorizedOnly.",
+    "conflictMineralFree": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "A conflict-mineral-free declaration is a public-facing assertion of the due-diligence outcome (Arts. 47-52), analogous to oec:forcedLabourFreeAssertion (Public).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:conflictMineralFree": {
@@ -294,9 +419,22 @@
       "x-access-level-rationale": "A conflict-mineral-free declaration is a public-facing assertion of the due-diligence outcome (Arts. 47-52), analogous to oec:forcedLabourFreeAssertion (Public).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:conflictMineralFree": {
+    "criticalRawMaterialsStatement": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "A conflict-mineral-free declaration is a public-facing assertion of the due-diligence outcome (Arts. 47-52), analogous to oec:forcedLabourFreeAssertion (Public).",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(1)(a) via Annex VI Part A: critical raw materials present above 0.1 % w/w must be stated publicly; only the per-material CRM flags inside the detailed composition are AuthorizedOnly.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:criticalRawMaterialsStatement": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(1)(a) via Annex VI Part A: critical raw materials present above 0.1 % w/w must be stated publicly; only the per-material CRM flags inside the detailed composition are AuthorizedOnly.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "currentSelfDischargingRate": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex VII Part A: the current self-discharge rate is battery-individual health state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:currentSelfDischargingRate": {
@@ -305,10 +443,10 @@
       "x-access-level-rationale": "Annex VII Part A: the current self-discharge rate is battery-individual health state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:currentSelfDischargingRate": {
+    "cycleCount": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part A: the current self-discharge rate is battery-individual health state for the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "Annex VII Part B: the number of charge-discharge cycles is battery-individual usage data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:cycleCount": {
@@ -317,22 +455,52 @@
       "x-access-level-rationale": "Annex VII Part B: the number of charge-discharge cycles is battery-individual usage data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:cycleCount": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part B: the number of charge-discharge cycles is battery-individual usage data for the Art. 14 legitimate-interest audience.",
+    "dangerousGoodsPackingInstructions": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "IATA/ADR/IMDG packing-instruction codes are standardised public transport-safety information any shipper must see (DIN DKE SPEC 99100 extension).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
+    "eubat:dangerousGoodsPackingInstructions": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "IATA/ADR/IMDG packing-instruction codes are standardised public transport-safety information any shipper must see (DIN DKE SPEC 99100 extension).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "dataProviderCertification": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Provider accreditation detail supports authority and auditor verification of the data pipeline; dpp-core serves the same name AuthorizedOnly.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:dataProviderCertification": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Provider accreditation detail supports authority and auditor verification of the data pipeline; dpp-core serves the same name AuthorizedOnly.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "dataQualityAssessment": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "A-E data-quality ratings qualify professional use of the passport data; dpp-core serves the same name AuthorizedOnly.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:dataQualityAssessment": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "A-E data-quality ratings qualify professional use of the passport data; dpp-core serves the same name AuthorizedOnly.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "declarationOfConformity": {},
     "eubat:declarationOfConformity": {},
-    "eubat:eubat:declarationOfConformity": {},
+    "depthOfDischargeInCycleLifeTest": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The depth of discharge used in the cycle-life test is a public reference test condition that makes the public lifetime ratings interpretable (Annex XIII(1)(j)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
     "eubat:depthOfDischargeInCycleLifeTest": {
       "x-access-level": "Public",
       "x-access-level-rationale": "The depth of discharge used in the cycle-life test is a public reference test condition that makes the public lifetime ratings interpretable (Annex XIII(1)(j)).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:depthOfDischargeInCycleLifeTest": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The depth of discharge used in the cycle-life test is a public reference test condition that makes the public lifetime ratings interpretable (Annex XIII(1)(j)).",
+    "dismantlingAndRemovalInformation": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(2)(c): dismantling information including disassembly sequences and removal instructions is reserved for persons with a legitimate interest.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:dismantlingAndRemovalInformation": {
@@ -341,10 +509,10 @@
       "x-access-level-rationale": "Annex XIII(2)(c): dismantling information including disassembly sequences and removal instructions is reserved for persons with a legitimate interest.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:dismantlingAndRemovalInformation": {
+    "dismantlingDocuments": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(2)(c): dismantling information including disassembly sequences and removal instructions is reserved for persons with a legitimate interest.",
+      "x-access-level-rationale": "Annex XIII(2)(c): the exploded diagrams and supporting documents ARE the dismantling information reserved for the legitimate-interest audience (structured per DIN DKE SPEC 99100).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:dismantlingDocuments": {
@@ -353,10 +521,10 @@
       "x-access-level-rationale": "Annex XIII(2)(c): the exploded diagrams and supporting documents ARE the dismantling information reserved for the legitimate-interest audience (structured per DIN DKE SPEC 99100).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:dismantlingDocuments": {
+    "dismantlingInstructions": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(2)(c): the exploded diagrams and supporting documents ARE the dismantling information reserved for the legitimate-interest audience (structured per DIN DKE SPEC 99100).",
+      "x-access-level-rationale": "Annex XIII(2)(c): dismantling instructions are reserved for persons with a legitimate interest; dpp-core serves the same name AuthorizedOnly.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:dismantlingInstructions": {
@@ -365,10 +533,9 @@
       "x-access-level-rationale": "Annex XIII(2)(c): dismantling instructions are reserved for persons with a legitimate interest; dpp-core serves the same name AuthorizedOnly.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:dismantlingInstructions": {
+    "dismantlingTime": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(2)(c): dismantling instructions are reserved for persons with a legitimate interest; dpp-core serves the same name AuthorizedOnly.",
+      "x-access-level-rationale": "Estimated dismantling time is planning detail for the Annex XIII(2)(c) dismantling audience (DIN DKE SPEC 99100 extension).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:dismantlingTime": {
@@ -376,21 +543,24 @@
       "x-access-level-rationale": "Estimated dismantling time is planning detail for the Annex XIII(2)(c) dismantling audience (DIN DKE SPEC 99100 extension).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:dismantlingTime": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Estimated dismantling time is planning detail for the Annex XIII(2)(c) dismantling audience (DIN DKE SPEC 99100 extension).",
+    "documentType": {},
+    "eubat:documentType": {},
+    "documentUrl": {},
+    "eubat:documentUrl": {},
+    "dueDiligencePolicyUrl": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Art. 48(2) requires the due-diligence policy to be communicated, and the Art. 52(3) public report covers it, so the policy link is public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:documentUrl": {},
-    "eubat:eubat:documentUrl": {},
     "eubat:dueDiligencePolicyUrl": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Art. 48(2) requires the due-diligence policy to be communicated, and the Art. 52(3) public report covers it, so the policy link is public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:dueDiligencePolicyUrl": {
+    "dueDiligenceReportUrl": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Art. 48(2) requires the due-diligence policy to be communicated, and the Art. 52(3) public report covers it, so the policy link is public.",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Art. 52(3): operators must publicly report on their battery due-diligence policy, so the report link is public data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:dueDiligenceReportUrl": {
@@ -399,10 +569,42 @@
       "x-access-level-rationale": "Art. 52(3): operators must publicly report on their battery due-diligence policy, so the report link is public data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:dueDiligenceReportUrl": {
+    "ecNumber": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "EC numbers inside the material breakdown are formulation-level identifiers under Annex XIII(2)(a); dpp-core and eutex serve the same name AuthorizedOnly.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:ecNumber": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "EC numbers inside the material breakdown are formulation-level identifiers under Annex XIII(2)(a); dpp-core and eutex serve the same name AuthorizedOnly.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "electrolyteComposition": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(2)(a): electrolyte materials are part of the detailed composition reserved for persons with a legitimate interest.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:electrolyteComposition": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(2)(a): electrolyte materials are part of the detailed composition reserved for persons with a legitimate interest.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "electrolyteType": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The electrolyte type qualifies the Annex XIII(2)(a) electrolyte detail block; the public chemistry disclosure is already covered by eubat:batteryChemistry.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:electrolyteType": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The electrolyte type qualifies the Annex XIII(2)(a) electrolyte detail block; the public chemistry disclosure is already covered by eubat:batteryChemistry.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "endOfLifeInfo": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 52(3): operators must publicly report on their battery due-diligence policy, so the report link is public data.",
+      "x-access-level-rationale": "Annex XIII(1)(s): information on prevention and management of waste batteries per Art. 74(1)(a)-(f) is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:endOfLifeInfo": {
@@ -411,10 +613,10 @@
       "x-access-level-rationale": "Annex XIII(1)(s): information on prevention and management of waste batteries per Art. 74(1)(a)-(f) is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:endOfLifeInfo": {
-      "x-access-level": "Public",
+    "energyThroughput": {
+      "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(s): information on prevention and management of waste batteries per Art. 74(1)(a)-(f) is public battery-passport data.",
+      "x-access-level-rationale": "Annex VII Part B: cumulative energy throughput is battery-individual usage data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:energyThroughput": {
@@ -423,10 +625,20 @@
       "x-access-level-rationale": "Annex VII Part B: cumulative energy throughput is battery-individual usage data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:energyThroughput": {
+    "estimatedImpact": {
       "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The estimated health impact of a temperature excursion feeds the Annex VII SoH evaluation for the Art. 14 audience.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:estimatedImpact": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The estimated health impact of a temperature excursion feeds the Annex VII SoH evaluation for the Art. 14 audience.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "euDeclarationOfConformity": {
+      "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part B: cumulative energy throughput is battery-individual usage data for the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "Annex XIII(1)(r): the EU declaration of conformity is public battery-passport data; eutex serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:euDeclarationOfConformity": {
@@ -435,10 +647,11 @@
       "x-access-level-rationale": "Annex XIII(1)(r): the EU declaration of conformity is public battery-passport data; eutex serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:euDeclarationOfConformity": {
-      "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(r): the EU declaration of conformity is public battery-passport data; eutex serves the same name Public.",
+    "euDeclarationOfConformityId": {},
+    "eubat:euDeclarationOfConformityId": {},
+    "eventDate": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "When a negative event occurred is Annex VII Part B accident history evaluated by the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:eventDate": {
@@ -446,9 +659,9 @@
       "x-access-level-rationale": "When a negative event occurred is Annex VII Part B accident history evaluated by the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:eventDate": {
+    "eventLocation": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "When a negative event occurred is Annex VII Part B accident history evaluated by the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "Where a negative event occurred is Annex VII Part B accident-history detail for the Art. 14 audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:eventLocation": {
@@ -456,9 +669,10 @@
       "x-access-level-rationale": "Where a negative event occurred is Annex VII Part B accident-history detail for the Art. 14 audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:eventLocation": {
+    "evolutionOfSelfDischarge": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Where a negative event occurred is Annex VII Part B accident-history detail for the Art. 14 audience.",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex VII Part A: the evolution of self-discharge is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:evolutionOfSelfDischarge": {
@@ -467,22 +681,22 @@
       "x-access-level-rationale": "Annex VII Part A: the evolution of self-discharge is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:evolutionOfSelfDischarge": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part A: the evolution of self-discharge is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
+    "exceedanceThreshold": {},
+    "eubat:exceedanceThreshold": {},
+    "exhaustionThreshold": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Duplicate expression of the public exhaustion threshold (Annex XIII(1)(k)); tier kept identical to eubat:capacityThresholdForExhaustion.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:exceedanceThreshold": {},
-    "eubat:eubat:exceedanceThreshold": {},
     "eubat:exhaustionThreshold": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Duplicate expression of the public exhaustion threshold (Annex XIII(1)(k)); tier kept identical to eubat:capacityThresholdForExhaustion.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:exhaustionThreshold": {
+    "expectedCycleLife": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Duplicate expression of the public exhaustion threshold (Annex XIII(1)(k)); tier kept identical to eubat:capacityThresholdForExhaustion.",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(1)(j): expected lifetime expressed in cycles under reference test conditions is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:expectedCycleLife": {
@@ -491,10 +705,10 @@
       "x-access-level-rationale": "Annex XIII(1)(j): expected lifetime expressed in cycles under reference test conditions is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:expectedCycleLife": {
+    "expectedLifetime": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(j): expected lifetime expressed in cycles under reference test conditions is public battery-passport data.",
+      "x-access-level-rationale": "Annex XIII(1)(j): the expected battery lifetime under reference conditions is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:expectedLifetime": {
@@ -503,10 +717,10 @@
       "x-access-level-rationale": "Annex XIII(1)(j): the expected battery lifetime under reference conditions is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:expectedLifetime": {
+    "expectedLifetimeCapacityThroughput": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(j): the expected battery lifetime under reference conditions is public battery-passport data.",
+      "x-access-level-rationale": "Annex IV Part A/Annex XIII(1)(j): the declared lifetime capacity throughput is a public durability rating.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:expectedLifetimeCapacityThroughput": {
@@ -515,10 +729,10 @@
       "x-access-level-rationale": "Annex IV Part A/Annex XIII(1)(j): the declared lifetime capacity throughput is a public durability rating.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:expectedLifetimeCapacityThroughput": {
+    "expectedLifetimeEnergyThroughput": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex IV Part A/Annex XIII(1)(j): the declared lifetime capacity throughput is a public durability rating.",
+      "x-access-level-rationale": "Annex IV Part A/Annex XIII(1)(j): the declared lifetime energy throughput is a public durability rating.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:expectedLifetimeEnergyThroughput": {
@@ -527,10 +741,10 @@
       "x-access-level-rationale": "Annex IV Part A/Annex XIII(1)(j): the declared lifetime energy throughput is a public durability rating.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:expectedLifetimeEnergyThroughput": {
+    "expectedLifetimeYears": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex IV Part A/Annex XIII(1)(j): the declared lifetime energy throughput is a public durability rating.",
+      "x-access-level-rationale": "Annex XIII(1)(j): expected calendar lifetime is a public declared durability value; eutex serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:expectedLifetimeYears": {
@@ -539,10 +753,10 @@
       "x-access-level-rationale": "Annex XIII(1)(j): expected calendar lifetime is a public declared durability value; eutex serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:expectedLifetimeYears": {
+    "expectedNumberOfCycles": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(j): expected calendar lifetime is a public declared durability value; eutex serves the same name Public.",
+      "x-access-level-rationale": "Annex XIII(1)(j): the manufacturer-declared expected number of full cycles is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:expectedNumberOfCycles": {
@@ -551,10 +765,9 @@
       "x-access-level-rationale": "Annex XIII(1)(j): the manufacturer-declared expected number of full cycles is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:expectedNumberOfCycles": {
-      "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(j): the manufacturer-declared expected number of full cycles is public battery-passport data.",
+    "expectedRemainingCycles": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Estimated remaining cycles derive from the AuthorizedOnly SoH state and serve the Art. 14 expected-lifetime evaluation, unlike the public declared cycle-life rating.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:expectedRemainingCycles": {
@@ -562,9 +775,9 @@
       "x-access-level-rationale": "Estimated remaining cycles derive from the AuthorizedOnly SoH state and serve the Art. 14 expected-lifetime evaluation, unlike the public declared cycle-life rating.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:expectedRemainingCycles": {
+    "expectedRemainingLifetimeMonths": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Estimated remaining cycles derive from the AuthorizedOnly SoH state and serve the Art. 14 expected-lifetime evaluation, unlike the public declared cycle-life rating.",
+      "x-access-level-rationale": "Estimated remaining lifetime derives from the AuthorizedOnly SoH state and serves the Art. 14 expected-lifetime evaluation, unlike the public declared lifetime rating.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:expectedRemainingLifetimeMonths": {
@@ -572,9 +785,9 @@
       "x-access-level-rationale": "Estimated remaining lifetime derives from the AuthorizedOnly SoH state and serves the Art. 14 expected-lifetime evaluation, unlike the public declared lifetime rating.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:expectedRemainingLifetimeMonths": {
+    "exposureDurationMinutes": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Estimated remaining lifetime derives from the AuthorizedOnly SoH state and serves the Art. 14 expected-lifetime evaluation, unlike the public declared lifetime rating.",
+      "x-access-level-rationale": "Per-excursion exposure duration is the granular form of the Annex VII Part B extreme-temperature history served to the Art. 14 audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:exposureDurationMinutes": {
@@ -582,9 +795,9 @@
       "x-access-level-rationale": "Per-excursion exposure duration is the granular form of the Annex VII Part B extreme-temperature history served to the Art. 14 audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:exposureDurationMinutes": {
+    "exposureEndTime": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Per-excursion exposure duration is the granular form of the Annex VII Part B extreme-temperature history served to the Art. 14 audience.",
+      "x-access-level-rationale": "Per-excursion timing is the granular form of the Annex VII Part B extreme-temperature history served to the Art. 14 audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:exposureEndTime": {
@@ -592,9 +805,9 @@
       "x-access-level-rationale": "Per-excursion timing is the granular form of the Annex VII Part B extreme-temperature history served to the Art. 14 audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:exposureEndTime": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Per-excursion timing is the granular form of the Annex VII Part B extreme-temperature history served to the Art. 14 audience.",
+    "extendedWarrantyAvailable": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Availability of an extended warranty is purchase-decision information for consumers, alongside the public Annex XIII(1)(m) warranty period.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:extendedWarrantyAvailable": {
@@ -602,9 +815,9 @@
       "x-access-level-rationale": "Availability of an extended warranty is purchase-decision information for consumers, alongside the public Annex XIII(1)(m) warranty period.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:extendedWarrantyAvailable": {
+    "hasBattery": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Availability of an extended warranty is purchase-decision information for consumers, alongside the public Annex XIII(1)(m) warranty period.",
+      "x-access-level-rationale": "The product-to-battery link only enables passport discovery from the containing product and reveals no data beyond what each linked passport tier gates itself (Art. 77(2)).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:hasBattery": {
@@ -612,9 +825,10 @@
       "x-access-level-rationale": "The product-to-battery link only enables passport discovery from the containing product and reveals no data beyond what each linked passport tier gates itself (Art. 77(2)).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:hasBattery": {
+    "hazardousSubstances": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "The product-to-battery link only enables passport discovery from the containing product and reveals no data beyond what each linked passport tier gates itself (Art. 77(2)).",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(1)(a) via Annex VI Part A: hazardous substances contained in the battery beyond Hg/Cd/Pb must be disclosed publicly; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:hazardousSubstances": {
@@ -623,10 +837,9 @@
       "x-access-level-rationale": "Annex XIII(1)(a) via Annex VI Part A: hazardous substances contained in the battery beyond Hg/Cd/Pb must be disclosed publicly; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:hazardousSubstances": {
-      "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(a) via Annex VI Part A: hazardous substances contained in the battery beyond Hg/Cd/Pb must be disclosed publicly; dpp-core serves the same name Public.",
+    "incidentReportUrl": {
+      "x-access-level": "Restricted",
+      "x-access-level-rationale": "Full incident reports function as safety submissions evaluated by market surveillance authorities (Chapter IX), beyond the Annex VII accident summary served to the Art. 14 audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:incidentReportUrl": {
@@ -634,9 +847,10 @@
       "x-access-level-rationale": "Full incident reports function as safety submissions evaluated by market surveillance authorities (Chapter IX), beyond the Annex VII accident summary served to the Art. 14 audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:incidentReportUrl": {
-      "x-access-level": "Restricted",
-      "x-access-level-rationale": "Full incident reports function as safety submissions evaluated by market surveillance authorities (Chapter IX), beyond the Annex VII accident summary served to the Art. 14 audience.",
+    "informationOnCollection": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Art. 74(1)(b)/Annex XIII(1)(s): collection points and take-back information must reach end users publicly.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:informationOnCollection": {
@@ -645,10 +859,9 @@
       "x-access-level-rationale": "Art. 74(1)(b)/Annex XIII(1)(s): collection points and take-back information must reach end users publicly.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:informationOnCollection": {
-      "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 74(1)(b)/Annex XIII(1)(s): collection points and take-back information must reach end users publicly.",
+    "initialCapacity": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The capacity measured at commissioning (ILMD) is the battery-individual SoH baseline used by the Art. 14/Annex VII audience — the declared rating stays public separately.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:initialCapacity": {
@@ -656,9 +869,9 @@
       "x-access-level-rationale": "The capacity measured at commissioning (ILMD) is the battery-individual SoH baseline used by the Art. 14/Annex VII audience — the declared rating stays public separately.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:initialCapacity": {
+    "initialEnergy": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The capacity measured at commissioning (ILMD) is the battery-individual SoH baseline used by the Art. 14/Annex VII audience — the declared rating stays public separately.",
+      "x-access-level-rationale": "The energy measured at commissioning (ILMD) is the battery-individual SoH baseline used by the Art. 14/Annex VII audience — the declared rating stays public separately.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:initialEnergy": {
@@ -666,9 +879,10 @@
       "x-access-level-rationale": "The energy measured at commissioning (ILMD) is the battery-individual SoH baseline used by the Art. 14/Annex VII audience — the declared rating stays public separately.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:initialEnergy": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The energy measured at commissioning (ILMD) is the battery-individual SoH baseline used by the Art. 14/Annex VII audience — the declared rating stays public separately.",
+    "initialInternalResistance": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(1)(o): internal cell/pack resistance as a declared parameter is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:initialInternalResistance": {
@@ -677,10 +891,9 @@
       "x-access-level-rationale": "Annex XIII(1)(o): internal cell/pack resistance as a declared parameter is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:initialInternalResistance": {
+    "initialSelfDischarge": {
       "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(o): internal cell/pack resistance as a declared parameter is public battery-passport data.",
+      "x-access-level-rationale": "The initial (declared) self-discharge rate belongs to the public Annex IV Part A performance ratings — only its measured evolution is BMS state data under Annex XIII(4).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:initialSelfDischarge": {
@@ -688,9 +901,10 @@
       "x-access-level-rationale": "The initial (declared) self-discharge rate belongs to the public Annex IV Part A performance ratings — only its measured evolution is BMS state data under Annex XIII(4).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:initialSelfDischarge": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The initial (declared) self-discharge rate belongs to the public Annex IV Part A performance ratings — only its measured evolution is BMS state data under Annex XIII(4).",
+    "internalResistance": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "The current measured internal resistance is Annex VII health state — only the initial declared value (eubat:initialInternalResistance) is public under Annex XIII(1)(o).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:internalResistance": {
@@ -699,10 +913,10 @@
       "x-access-level-rationale": "The current measured internal resistance is Annex VII health state — only the initial declared value (eubat:initialInternalResistance) is public under Annex XIII(1)(o).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:internalResistance": {
+    "internalResistanceIncrease": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "The current measured internal resistance is Annex VII health state — only the initial declared value (eubat:initialInternalResistance) is public under Annex XIII(1)(o).",
+      "x-access-level-rationale": "Annex VII Part A: measured resistance increase is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:internalResistanceIncrease": {
@@ -711,10 +925,9 @@
       "x-access-level-rationale": "Annex VII Part A: measured resistance increase is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:internalResistanceIncrease": {
+    "isCriticalRawMaterial": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part A: measured resistance increase is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "Per-material CRM flags serve recyclers' recovery obligations inside the Annex XIII(2)(a) composition detail — the public CRM disclosure is eubat:criticalRawMaterialsStatement; dpp-core serves the same name AuthorizedOnly.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:isCriticalRawMaterial": {
@@ -722,9 +935,9 @@
       "x-access-level-rationale": "Per-material CRM flags serve recyclers' recovery obligations inside the Annex XIII(2)(a) composition detail — the public CRM disclosure is eubat:criticalRawMaterialsStatement; dpp-core serves the same name AuthorizedOnly.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:isCriticalRawMaterial": {
+    "isSubstanceOfConcern": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Per-material CRM flags serve recyclers' recovery obligations inside the Annex XIII(2)(a) composition detail — the public CRM disclosure is eubat:criticalRawMaterialsStatement; dpp-core serves the same name AuthorizedOnly.",
+      "x-access-level-rationale": "The per-material SVHC flag qualifies rows of the Annex XIII(2)(a) composition detail — public presence disclosure is already served by eubat:hazardousSubstances.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:isSubstanceOfConcern": {
@@ -732,23 +945,23 @@
       "x-access-level-rationale": "The per-material SVHC flag qualifies rows of the Annex XIII(2)(a) composition detail — public presence disclosure is already served by eubat:hazardousSubstances.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:isSubstanceOfConcern": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The per-material SVHC flag qualifies rows of the Annex XIII(2)(a) composition detail — public presence disclosure is already served by eubat:hazardousSubstances.",
+    "labelSymbol": {},
+    "eubat:labelSymbol": {},
+    "labels": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(1)(q): the labels and markings required by Art. 13(3)-(4) and their meaning are public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:labelSymbol": {},
-    "eubat:eubat:labelSymbol": {},
     "eubat:labels": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "x-access-level-rationale": "Annex XIII(1)(q): the labels and markings required by Art. 13(3)-(4) and their meaning are public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:labels": {
+    "lastDataUpdate": {
       "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(q): the labels and markings required by Art. 13(3)-(4) and their meaning are public battery-passport data.",
+      "x-access-level-rationale": "Art. 77(7) requires the passport to stay up to date, so the update timestamp is interpretation metadata every audience needs; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:lastDataUpdate": {
@@ -756,25 +969,41 @@
       "x-access-level-rationale": "Art. 77(7) requires the passport to stay up to date, so the update timestamp is interpretation metadata every audience needs; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:lastDataUpdate": {
+    "leadPostConsumerShare": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Art. 77(7) requires the passport to stay up to date, so the update timestamp is interpretation metadata every audience needs; dpp-core serves the same name Public.",
+      "x-access-level-rationale": "Voluntary post-consumer breakdown of the public Art. 8 lead share per the recycled-content calculation methodology; stays in the public block with the other three metals.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:leadPostConsumerShare": {},
-    "eubat:eubat:leadPostConsumerShare": {},
-    "eubat:leadPreConsumerShare": {},
-    "eubat:eubat:leadPreConsumerShare": {},
+    "eubat:leadPostConsumerShare": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Voluntary post-consumer breakdown of the public Art. 8 lead share per the recycled-content calculation methodology; stays in the public block with the other three metals.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "leadPreConsumerShare": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Voluntary pre-consumer breakdown of the public Art. 8 lead share per the recycled-content calculation methodology; stays in the public block with the other three metals.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:leadPreConsumerShare": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Voluntary pre-consumer breakdown of the public Art. 8 lead share per the recycled-content calculation methodology; stays in the public block with the other three metals.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "leadRecycledShare": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Art. 8(1): the share of lead recovered from waste is a publicly documented percentage (no pre/post split required for lead).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
     "eubat:leadRecycledShare": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "x-access-level-rationale": "Art. 8(1): the share of lead recovered from waste is a publicly documented percentage (no pre/post split required for lead).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:leadRecycledShare": {
+    "leadSymbolRequired": {
       "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 8(1): the share of lead recovered from waste is a publicly documented percentage (no pre/post split required for lead).",
+      "x-access-level-rationale": "The Pb mark above 0.004 % lead is mandatory public labelling (Art. 13(6)/Annex VI Part B), so the flag restates on-battery information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:leadSymbolRequired": {
@@ -782,9 +1011,9 @@
       "x-access-level-rationale": "The Pb mark above 0.004 % lead is mandatory public labelling (Art. 13(6)/Annex VI Part B), so the flag restates on-battery information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:leadSymbolRequired": {
+    "lifetimeReferenceTest": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "The Pb mark above 0.004 % lead is mandatory public labelling (Art. 13(6)/Annex VI Part B), so the flag restates on-battery information.",
+      "x-access-level-rationale": "The reference test standard behind the public lifetime ratings must be public for those ratings to be checkable (Annex XIII(1)(j)).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:lifetimeReferenceTest": {
@@ -792,9 +1021,9 @@
       "x-access-level-rationale": "The reference test standard behind the public lifetime ratings must be public for those ratings to be checkable (Annex XIII(1)(j)).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:lifetimeReferenceTest": {
+    "lithiumPostConsumerShare": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "The reference test standard behind the public lifetime ratings must be public for those ratings to be checkable (Annex XIII(1)(j)).",
+      "x-access-level-rationale": "Post-consumer breakdown of the public Art. 8 lithium share per the recycled-content calculation methodology; stays in the public block.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:lithiumPostConsumerShare": {
@@ -802,9 +1031,9 @@
       "x-access-level-rationale": "Post-consumer breakdown of the public Art. 8 lithium share per the recycled-content calculation methodology; stays in the public block.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:lithiumPostConsumerShare": {
+    "lithiumPreConsumerShare": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Post-consumer breakdown of the public Art. 8 lithium share per the recycled-content calculation methodology; stays in the public block.",
+      "x-access-level-rationale": "Pre-consumer breakdown of the public Art. 8 lithium share per the recycled-content calculation methodology; stays in the public block.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:lithiumPreConsumerShare": {
@@ -812,9 +1041,10 @@
       "x-access-level-rationale": "Pre-consumer breakdown of the public Art. 8 lithium share per the recycled-content calculation methodology; stays in the public block.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:lithiumPreConsumerShare": {
+    "lithiumRecycledShare": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Pre-consumer breakdown of the public Art. 8 lithium share per the recycled-content calculation methodology; stays in the public block.",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Art. 8(1): the share of lithium recovered from waste is a publicly documented percentage.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:lithiumRecycledShare": {
@@ -823,10 +1053,10 @@
       "x-access-level-rationale": "Art. 8(1): the share of lithium recovered from waste is a publicly documented percentage.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:lithiumRecycledShare": {
+    "manufacturingPlace": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 8(1): the share of lithium recovered from waste is a publicly documented percentage.",
+      "x-access-level-rationale": "Annex XIII(1)(a) via Annex VI Part A: the place of manufacturing (geographical location of the plant) is public — only the internal facility identifier is tiered separately (see eubat:facilityIdentifier).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:manufacturingPlace": {
@@ -835,10 +1065,10 @@
       "x-access-level-rationale": "Annex XIII(1)(a) via Annex VI Part A: the place of manufacturing (geographical location of the plant) is public — only the internal facility identifier is tiered separately (see eubat:facilityIdentifier).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:manufacturingPlace": {
-      "x-access-level": "Public",
+    "materialComposition": {
+      "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(a) via Annex VI Part A: the place of manufacturing (geographical location of the plant) is public — only the internal facility identifier is tiered separately (see eubat:facilityIdentifier).",
+      "x-access-level-rationale": "Annex XIII(2)(a): the per-material breakdown with percentages is the detailed composition reserved for persons with a legitimate interest; dpp-core serves the same name AuthorizedOnly.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:materialComposition": {
@@ -847,10 +1077,9 @@
       "x-access-level-rationale": "Annex XIII(2)(a): the per-material breakdown with percentages is the detailed composition reserved for persons with a legitimate interest; dpp-core serves the same name AuthorizedOnly.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:materialComposition": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(2)(a): the per-material breakdown with percentages is the detailed composition reserved for persons with a legitimate interest; dpp-core serves the same name AuthorizedOnly.",
+    "materialRecoveryTargets": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Recovery targets restate the regulation's own Annex XII objectives and support the public Art. 74 end-of-life information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:materialRecoveryTargets": {
@@ -858,9 +1087,9 @@
       "x-access-level-rationale": "Recovery targets restate the regulation's own Annex XII objectives and support the public Art. 74 end-of-life information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:materialRecoveryTargets": {
+    "maximumChargingCurrent": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Recovery targets restate the regulation's own Annex XII objectives and support the public Art. 74 end-of-life information.",
+      "x-access-level-rationale": "Charging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:maximumChargingCurrent": {
@@ -868,7 +1097,7 @@
       "x-access-level-rationale": "Charging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:maximumChargingCurrent": {
+    "maximumChargingPower": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Charging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
@@ -878,9 +1107,9 @@
       "x-access-level-rationale": "Charging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:maximumChargingPower": {
+    "maximumDischargingCurrent": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Charging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension).",
+      "x-access-level-rationale": "Discharging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:maximumDischargingCurrent": {
@@ -888,7 +1117,7 @@
       "x-access-level-rationale": "Discharging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:maximumDischargingCurrent": {
+    "maximumDischargingPower": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Discharging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
@@ -898,9 +1127,10 @@
       "x-access-level-rationale": "Discharging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:maximumDischargingPower": {
+    "maximumPermittedBatteryPower": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Discharging limits are safety-relevant operating boundaries in the spirit of the public power-capability limits of Annex XIII(1)(i) (DIN DKE SPEC 99100 extension).",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(1)(i): the maximum permitted battery power is a public power-capability limit.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:maximumPermittedBatteryPower": {
@@ -909,24 +1139,23 @@
       "x-access-level-rationale": "Annex XIII(1)(i): the maximum permitted battery power is a public power-capability limit.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:maximumPermittedBatteryPower": {
+    "maximumTemperature": {},
+    "eubat:maximumTemperature": {},
+    "maximumVoltage": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(i): the maximum permitted battery power is a public power-capability limit.",
+      "x-access-level-rationale": "Annex XIII(1)(h): the maximum voltage boundary is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:maximumTemperature": {},
-    "eubat:eubat:maximumTemperature": {},
     "eubat:maximumVoltage": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "x-access-level-rationale": "Annex XIII(1)(h): the maximum voltage boundary is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:maximumVoltage": {
-      "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(h): the maximum voltage boundary is public battery-passport data.",
+    "measurementCertificateUrl": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The certificate documents an individual SoH/SOCE measurement and accompanies the Annex VII data served to the Art. 14 audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:measurementCertificateUrl": {
@@ -934,23 +1163,24 @@
       "x-access-level-rationale": "The certificate documents an individual SoH/SOCE measurement and accompanies the Annex VII data served to the Art. 14 audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:measurementCertificateUrl": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The certificate documents an individual SoH/SOCE measurement and accompanies the Annex VII data served to the Art. 14 audience.",
+    "minimumTemperature": {},
+    "eubat:minimumTemperature": {},
+    "minimumVoltage": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(1)(h): the minimum voltage boundary is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:minimumTemperature": {},
-    "eubat:eubat:minimumTemperature": {},
     "eubat:minimumVoltage": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "x-access-level-rationale": "Annex XIII(1)(h): the minimum voltage boundary is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:minimumVoltage": {
-      "x-access-level": "Public",
+    "negativeEvents": {
+      "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(h): the minimum voltage boundary is public battery-passport data.",
+      "x-access-level-rationale": "Annex VII Part B: information on accidents and other negative events is battery-individual history for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:negativeEvents": {
@@ -959,10 +1189,9 @@
       "x-access-level-rationale": "Annex VII Part B: information on accidents and other negative events is battery-individual history for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:negativeEvents": {
+    "nextScheduledMeasurement": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part B: information on accidents and other negative events is battery-individual history for the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "SOCE measurement scheduling is maintenance bookkeeping for the Art. 14 SoH audience, not consumer information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:nextScheduledMeasurement": {
@@ -970,9 +1199,9 @@
       "x-access-level-rationale": "SOCE measurement scheduling is maintenance bookkeeping for the Art. 14 SoH audience, not consumer information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:nextScheduledMeasurement": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "SOCE measurement scheduling is maintenance bookkeeping for the Art. 14 SoH audience, not consumer information.",
+    "nickelPostConsumerShare": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Post-consumer breakdown of the public Art. 8 nickel share per the recycled-content calculation methodology; stays in the public block.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:nickelPostConsumerShare": {
@@ -980,9 +1209,9 @@
       "x-access-level-rationale": "Post-consumer breakdown of the public Art. 8 nickel share per the recycled-content calculation methodology; stays in the public block.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:nickelPostConsumerShare": {
+    "nickelPreConsumerShare": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Post-consumer breakdown of the public Art. 8 nickel share per the recycled-content calculation methodology; stays in the public block.",
+      "x-access-level-rationale": "Pre-consumer breakdown of the public Art. 8 nickel share per the recycled-content calculation methodology; stays in the public block.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:nickelPreConsumerShare": {
@@ -990,9 +1219,10 @@
       "x-access-level-rationale": "Pre-consumer breakdown of the public Art. 8 nickel share per the recycled-content calculation methodology; stays in the public block.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:nickelPreConsumerShare": {
+    "nickelRecycledShare": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Pre-consumer breakdown of the public Art. 8 nickel share per the recycled-content calculation methodology; stays in the public block.",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Art. 8(1): the share of nickel recovered from waste is a publicly documented percentage.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:nickelRecycledShare": {
@@ -1001,10 +1231,10 @@
       "x-access-level-rationale": "Art. 8(1): the share of nickel recovered from waste is a publicly documented percentage.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:nickelRecycledShare": {
+    "nominalVoltage": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 8(1): the share of nickel recovered from waste is a publicly documented percentage.",
+      "x-access-level-rationale": "Annex XIII(1)(h): nominal voltage (with its temperature boundaries) is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:nominalVoltage": {
@@ -1013,10 +1243,9 @@
       "x-access-level-rationale": "Annex XIII(1)(h): nominal voltage (with its temperature boundaries) is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:nominalVoltage": {
-      "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(h): nominal voltage (with its temperature boundaries) is public battery-passport data.",
+    "notifiedBody": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The structured conformity-assessment-body record serves verification workflows; its number already appears on the public DoC document, and eucpr serves the same name AuthorizedOnly.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:notifiedBody": {
@@ -1024,9 +1253,9 @@
       "x-access-level-rationale": "The structured conformity-assessment-body record serves verification workflows; its number already appears on the public DoC document, and eucpr serves the same name AuthorizedOnly.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:notifiedBody": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The structured conformity-assessment-body record serves verification workflows; its number already appears on the public DoC document, and eucpr serves the same name AuthorizedOnly.",
+    "numberOfCells": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Cell count is coarse pack-architecture catalogue data, not the detailed composition reserved by Annex XIII(2)(a) (DIN DKE SPEC 99100 extension).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:numberOfCells": {
@@ -1034,9 +1263,10 @@
       "x-access-level-rationale": "Cell count is coarse pack-architecture catalogue data, not the detailed composition reserved by Annex XIII(2)(a) (DIN DKE SPEC 99100 extension).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:numberOfCells": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Cell count is coarse pack-architecture catalogue data, not the detailed composition reserved by Annex XIII(2)(a) (DIN DKE SPEC 99100 extension).",
+    "numberOfFullCycles": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex VII Part B: full equivalent cycles are battery-individual usage data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:numberOfFullCycles": {
@@ -1045,10 +1275,9 @@
       "x-access-level-rationale": "Annex VII Part B: full equivalent cycles are battery-individual usage data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:numberOfFullCycles": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part B: full equivalent cycles are battery-individual usage data for the Art. 14 legitimate-interest audience.",
+    "numberOfModules": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Module count is coarse pack-architecture catalogue data, not the detailed composition reserved by Annex XIII(2)(a) (DIN DKE SPEC 99100 extension).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:numberOfModules": {
@@ -1056,9 +1285,9 @@
       "x-access-level-rationale": "Module count is coarse pack-architecture catalogue data, not the detailed composition reserved by Annex XIII(2)(a) (DIN DKE SPEC 99100 extension).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:numberOfModules": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Module count is coarse pack-architecture catalogue data, not the detailed composition reserved by Annex XIII(2)(a) (DIN DKE SPEC 99100 extension).",
+    "operatorInformation": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Detailed operator records (Art. 38: name, address, contact point) serve surveillance and professional traceability; dpp-core serves the same name AuthorizedOnly.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:operatorInformation": {
@@ -1066,9 +1295,10 @@
       "x-access-level-rationale": "Detailed operator records (Art. 38: name, address, contact point) serve surveillance and professional traceability; dpp-core serves the same name AuthorizedOnly.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:operatorInformation": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Detailed operator records (Art. 38: name, address, contact point) serve surveillance and professional traceability; dpp-core serves the same name AuthorizedOnly.",
+    "originalPowerCapability": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(1)(i): original power capability (with limits and temperature boundaries) is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:originalPowerCapability": {
@@ -1077,24 +1307,24 @@
       "x-access-level-rationale": "Annex XIII(1)(i): original power capability (with limits and temperature boundaries) is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:originalPowerCapability": {
-      "x-access-level": "Public",
+    "powerCapability": {},
+    "eubat:powerCapability": {},
+    "powerCapabilityAt20SoC": {
+      "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(i): original power capability (with limits and temperature boundaries) is public battery-passport data.",
+      "x-access-level-rationale": "Current power capability at 20 % SoC is a measured expression of the Annex VII remaining-power-capability state for the Art. 14 audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:powerCapability": {},
-    "eubat:eubat:powerCapability": {},
     "eubat:powerCapabilityAt20SoC": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "x-access-level-rationale": "Current power capability at 20 % SoC is a measured expression of the Annex VII remaining-power-capability state for the Art. 14 audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:powerCapabilityAt20SoC": {
+    "powerCapabilityAt80SoC": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Current power capability at 20 % SoC is a measured expression of the Annex VII remaining-power-capability state for the Art. 14 audience.",
+      "x-access-level-rationale": "Current power capability at 80 % SoC is a measured expression of the Annex VII remaining-power-capability state for the Art. 14 audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:powerCapabilityAt80SoC": {
@@ -1103,10 +1333,10 @@
       "x-access-level-rationale": "Current power capability at 80 % SoC is a measured expression of the Annex VII remaining-power-capability state for the Art. 14 audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:powerCapabilityAt80SoC": {
-      "x-access-level": "AuthorizedOnly",
+    "powerCapabilityRatio": {
+      "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Current power capability at 80 % SoC is a measured expression of the Annex VII remaining-power-capability state for the Art. 14 audience.",
+      "x-access-level-rationale": "Annex IV Part A/Annex XIII(1)(i): the ratio between nominal allowed power (W) and battery energy (Wh) is a public declared parameter.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:powerCapabilityRatio": {
@@ -1115,10 +1345,10 @@
       "x-access-level-rationale": "Annex IV Part A/Annex XIII(1)(i): the ratio between nominal allowed power (W) and battery energy (Wh) is a public declared parameter.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:powerCapabilityRatio": {
-      "x-access-level": "Public",
+    "powerFade": {
+      "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex IV Part A/Annex XIII(1)(i): the ratio between nominal allowed power (W) and battery energy (Wh) is a public declared parameter.",
+      "x-access-level-rationale": "Annex VII Part A: measured power fade is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:powerFade": {
@@ -1127,10 +1357,10 @@
       "x-access-level-rationale": "Annex VII Part A: measured power fade is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:powerFade": {
+    "puttingIntoService": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part A: measured power fade is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "Annex VII Part B: the date of putting into service is battery-individual lifecycle data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:puttingIntoService": {
@@ -1139,10 +1369,10 @@
       "x-access-level-rationale": "Annex VII Part B: the date of putting into service is battery-individual lifecycle data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:puttingIntoService": {
-      "x-access-level": "AuthorizedOnly",
+    "ratedCapacity": {
+      "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part B: the date of putting into service is battery-individual lifecycle data for the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "Annex XIII(1)(g): the rated capacity is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:ratedCapacity": {
@@ -1151,10 +1381,10 @@
       "x-access-level-rationale": "Annex XIII(1)(g): the rated capacity is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:ratedCapacity": {
+    "ratedEnergy": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(g): the rated capacity is public battery-passport data.",
+      "x-access-level-rationale": "Annex XIII(1)(g)/Annex IV Part A: rated energy is a declared capacity parameter in the public performance block.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:ratedEnergy": {
@@ -1163,10 +1393,10 @@
       "x-access-level-rationale": "Annex XIII(1)(g)/Annex IV Part A: rated energy is a declared capacity parameter in the public performance block.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:ratedEnergy": {
+    "ratedMaximumPower": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(g)/Annex IV Part A: rated energy is a declared capacity parameter in the public performance block.",
+      "x-access-level-rationale": "Annex XIII(1)(i)/Annex IV Part A: rated power capability is public passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:ratedMaximumPower": {
@@ -1175,22 +1405,22 @@
       "x-access-level-rationale": "Annex XIII(1)(i)/Annex IV Part A: rated power capability is public passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:ratedMaximumPower": {
+    "recoveryRate": {},
+    "eubat:recoveryRate": {},
+    "recyclabilityRate": {
       "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(i)/Annex IV Part A: rated power capability is public passport data.",
+      "x-access-level-rationale": "The recyclable fraction is consumer-facing circularity information in the public Art. 74 end-of-life block; dpp-core and euelec serve the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:recoveryRate": {},
-    "eubat:eubat:recoveryRate": {},
     "eubat:recyclabilityRate": {
       "x-access-level": "Public",
       "x-access-level-rationale": "The recyclable fraction is consumer-facing circularity information in the public Art. 74 end-of-life block; dpp-core and euelec serve the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:recyclabilityRate": {
+    "recycledContent": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "The recyclable fraction is consumer-facing circularity information in the public Art. 74 end-of-life block; dpp-core and euelec serve the same name Public.",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Art. 8/Annex XIII(1)(e): recycled-content documentation for cobalt, lithium, nickel and lead is public passport data; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:recycledContent": {
@@ -1199,10 +1429,10 @@
       "x-access-level-rationale": "Art. 8/Annex XIII(1)(e): recycled-content documentation for cobalt, lithium, nickel and lead is public passport data; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:recycledContent": {
-      "x-access-level": "Public",
+    "remainingCapacity": {
+      "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 8/Annex XIII(1)(e): recycled-content documentation for cobalt, lithium, nickel and lead is public passport data; dpp-core serves the same name Public.",
+      "x-access-level-rationale": "Annex VII Part A: remaining capacity is battery-individual health state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:remainingCapacity": {
@@ -1211,10 +1441,10 @@
       "x-access-level-rationale": "Annex VII Part A: remaining capacity is battery-individual health state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:remainingCapacity": {
+    "remainingEnergy": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part A: remaining capacity is battery-individual health state for the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "Annex VII Part A: remaining energy is battery-individual health state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:remainingEnergy": {
@@ -1223,10 +1453,10 @@
       "x-access-level-rationale": "Annex VII Part A: remaining energy is battery-individual health state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:remainingEnergy": {
+    "remainingPowerCapability": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part A: remaining energy is battery-individual health state for the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "Annex VII Part A: remaining power capability is battery-individual health state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:remainingPowerCapability": {
@@ -1235,10 +1465,10 @@
       "x-access-level-rationale": "Annex VII Part A: remaining power capability is battery-individual health state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:remainingPowerCapability": {
+    "remainingRoundTripEfficiency": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part A: remaining power capability is battery-individual health state for the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "Annex VII Part A: remaining round-trip efficiency is battery-individual health state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:remainingRoundTripEfficiency": {
@@ -1247,10 +1477,10 @@
       "x-access-level-rationale": "Annex VII Part A: remaining round-trip efficiency is battery-individual health state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:remainingRoundTripEfficiency": {
+    "remainingUsableEnergy": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part A: remaining round-trip efficiency is battery-individual health state for the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "Annex VII Part A: remaining usable energy is battery-individual health state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:remainingUsableEnergy": {
@@ -1259,10 +1489,9 @@
       "x-access-level-rationale": "Annex VII Part A: remaining usable energy is battery-individual health state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:remainingUsableEnergy": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part A: remaining usable energy is battery-individual health state for the Art. 14 legitimate-interest audience.",
+    "renewableContent": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Annex XIII(1)(f): the share of renewable content is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:renewableContent": {
@@ -1270,9 +1499,10 @@
       "x-access-level-rationale": "Annex XIII(1)(f): the share of renewable content is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:renewableContent": {
+    "renewableContentShare": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Annex XIII(1)(f): the share of renewable content is public battery-passport data.",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(1)(f): the per-material renewable content share expresses the public renewable-content disclosure.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:renewableContentShare": {
@@ -1281,10 +1511,9 @@
       "x-access-level-rationale": "Annex XIII(1)(f): the per-material renewable content share expresses the public renewable-content disclosure.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:renewableContentShare": {
-      "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(f): the per-material renewable content share expresses the public renewable-content disclosure.",
+    "repurposingDate": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Repurposing lifecycle bookkeeping belongs to the Art. 59 status history evaluated by the legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:repurposingDate": {
@@ -1292,9 +1521,9 @@
       "x-access-level-rationale": "Repurposing lifecycle bookkeeping belongs to the Art. 59 status history evaluated by the legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:repurposingDate": {
+    "repurposingEntity": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Repurposing lifecycle bookkeeping belongs to the Art. 59 status history evaluated by the legitimate-interest audience.",
+      "x-access-level-rationale": "The operator that repurposed the battery is responsibility-chain detail for the Art. 59 audience and authorities, like oec:operatorInformation.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:repurposingEntity": {
@@ -1302,9 +1531,9 @@
       "x-access-level-rationale": "The operator that repurposed the battery is responsibility-chain detail for the Art. 59 audience and authorities, like oec:operatorInformation.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:repurposingEntity": {
+    "repurposingGuidelines": {
       "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The operator that repurposed the battery is responsibility-chain detail for the Art. 59 audience and authorities, like oec:operatorInformation.",
+      "x-access-level-rationale": "Art. 59(1): information relevant for repurposing and preparation for repurposing is granted to legitimate-interest operators, not the general public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:repurposingGuidelines": {
@@ -1312,9 +1541,9 @@
       "x-access-level-rationale": "Art. 59(1): information relevant for repurposing and preparation for repurposing is granted to legitimate-interest operators, not the general public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:repurposingGuidelines": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Art. 59(1): information relevant for repurposing and preparation for repurposing is granted to legitimate-interest operators, not the general public.",
+    "resistanceIncreaseThreshold": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The resistance-increase level that defines rated cycle life is part of the public declared durability ratings (Annex IV Part A), not battery-individual state.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:resistanceIncreaseThreshold": {
@@ -1322,9 +1551,10 @@
       "x-access-level-rationale": "The resistance-increase level that defines rated cycle life is part of the public declared durability ratings (Annex IV Part A), not battery-individual state.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:resistanceIncreaseThreshold": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The resistance-increase level that defines rated cycle life is part of the public declared durability ratings (Annex IV Part A), not battery-individual state.",
+    "resultOfTestReport": {
+      "x-access-level": "Restricted",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(3): results of test reports proving compliance are accessible only to notified bodies, market surveillance authorities and the Commission.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:resultOfTestReport": {
@@ -1333,10 +1563,10 @@
       "x-access-level-rationale": "Annex XIII(3): results of test reports proving compliance are accessible only to notified bodies, market surveillance authorities and the Commission.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:resultOfTestReport": {
-      "x-access-level": "Restricted",
+    "roundTripEfficiency": {
+      "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(3): results of test reports proving compliance are accessible only to notified bodies, market surveillance authorities and the Commission.",
+      "x-access-level-rationale": "Annex XIII(1)(n): the initial round-trip energy efficiency is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:roundTripEfficiency": {
@@ -1345,10 +1575,9 @@
       "x-access-level-rationale": "Annex XIII(1)(n): the initial round-trip energy efficiency is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:roundTripEfficiency": {
+    "roundTripEfficiencyAt50PercentCycleLife": {
       "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(1)(n): the initial round-trip energy efficiency is public battery-passport data.",
+      "x-access-level-rationale": "Annex XIII(1)(n): round-trip efficiency expected at 50 % of cycle life is a public declared value.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:roundTripEfficiencyAt50PercentCycleLife": {
@@ -1356,9 +1585,10 @@
       "x-access-level-rationale": "Annex XIII(1)(n): round-trip efficiency expected at 50 % of cycle life is a public declared value.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:roundTripEfficiencyAt50PercentCycleLife": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Annex XIII(1)(n): round-trip efficiency expected at 50 % of cycle life is a public declared value.",
+    "roundTripEfficiencyFade": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex VII Part A: measured efficiency fade is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:roundTripEfficiencyFade": {
@@ -1367,10 +1597,10 @@
       "x-access-level-rationale": "Annex VII Part A: measured efficiency fade is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:roundTripEfficiencyFade": {
+    "roundTripEnergyEfficiency": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part A: measured efficiency fade is battery-individual degradation state for the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "The current measured round-trip efficiency is Annex VII health state — only the initial declared value (eubat:roundTripEfficiency) is public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:roundTripEnergyEfficiency": {
@@ -1379,10 +1609,9 @@
       "x-access-level-rationale": "The current measured round-trip efficiency is Annex VII health state — only the initial declared value (eubat:roundTripEfficiency) is public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:roundTripEnergyEfficiency": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "The current measured round-trip efficiency is Annex VII health state — only the initial declared value (eubat:roundTripEfficiency) is public.",
+    "safetyInstructions": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "General safe-use and handling instructions address end users (Art. 74(1)(f)); only dismantling-specific safety measures are reserved to Annex XIII(2)(d).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:safetyInstructions": {
@@ -1390,9 +1619,10 @@
       "x-access-level-rationale": "General safe-use and handling instructions address end users (Art. 74(1)(f)); only dismantling-specific safety measures are reserved to Annex XIII(2)(d).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:safetyInstructions": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "General safe-use and handling instructions address end users (Art. 74(1)(f)); only dismantling-specific safety measures are reserved to Annex XIII(2)(d).",
+    "safetyInstructionsForDismantling": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(2)(d): safety measures for the dismantling process address trained professionals, not the general public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:safetyInstructionsForDismantling": {
@@ -1401,10 +1631,10 @@
       "x-access-level-rationale": "Annex XIII(2)(d): safety measures for the dismantling process address trained professionals, not the general public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:safetyInstructionsForDismantling": {
+    "safetyMeasures": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(2)(d): safety measures for the dismantling process address trained professionals, not the general public.",
+      "x-access-level-rationale": "Annex XIII(2)(d): end-of-life handling safety measures accompany the dismantling information for the legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:safetyMeasures": {
@@ -1413,10 +1643,10 @@
       "x-access-level-rationale": "Annex XIII(2)(d): end-of-life handling safety measures accompany the dismantling information for the legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:safetyMeasures": {
+    "selfDischargeRate": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(2)(d): end-of-life handling safety measures accompany the dismantling information for the legitimate-interest audience.",
+      "x-access-level-rationale": "Annex VII Part A: the current self-discharge rate is battery-individual health state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:selfDischargeRate": {
@@ -1425,10 +1655,10 @@
       "x-access-level-rationale": "Annex VII Part A: the current self-discharge rate is battery-individual health state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:selfDischargeRate": {
-      "x-access-level": "AuthorizedOnly",
+    "separateCollection": {
+      "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part A: the current self-discharge rate is battery-individual health state for the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "Art. 74(1)(a)/Annex XIII(1)(s): end users' role in separate collection is public waste-prevention information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:separateCollection": {
@@ -1437,10 +1667,9 @@
       "x-access-level-rationale": "Art. 74(1)(a)/Annex XIII(1)(s): end users' role in separate collection is public waste-prevention information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:separateCollection": {
+    "separateCollectionSymbolUrl": {
       "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 74(1)(a)/Annex XIII(1)(s): end users' role in separate collection is public waste-prevention information.",
+      "x-access-level-rationale": "The crossed-out wheeled bin is the mandatory separate-collection symbol printed on every battery (Art. 13(5)/Annex VI Part B).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:separateCollectionSymbolUrl": {
@@ -1448,9 +1677,10 @@
       "x-access-level-rationale": "The crossed-out wheeled bin is the mandatory separate-collection symbol printed on every battery (Art. 13(5)/Annex VI Part B).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:separateCollectionSymbolUrl": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The crossed-out wheeled bin is the mandatory separate-collection symbol printed on every battery (Art. 13(5)/Annex VI Part B).",
+    "sparePartSources": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(2)(b): sources for spare parts are reserved for persons with a legitimate interest.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:sparePartSources": {
@@ -1459,10 +1689,10 @@
       "x-access-level-rationale": "Annex XIII(2)(b): sources for spare parts are reserved for persons with a legitimate interest.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:sparePartSources": {
+    "stateOfCertifiedEnergy": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(2)(b): sources for spare parts are reserved for persons with a legitimate interest.",
+      "x-access-level-rationale": "Annex VII Part A: SoCE is battery-individual health state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:stateOfCertifiedEnergy": {
@@ -1471,10 +1701,10 @@
       "x-access-level-rationale": "Annex VII Part A: SoCE is battery-individual health state for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:stateOfCertifiedEnergy": {
+    "stateOfCharge": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part A: SoCE is battery-individual health state for the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "Annex VII Part A: state of charge is battery-individual BMS data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:stateOfCharge": {
@@ -1483,24 +1713,24 @@
       "x-access-level-rationale": "Annex VII Part A: state of charge is battery-individual BMS data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:stateOfCharge": {
+    "stateOfChargeLevel": {},
+    "eubat:stateOfChargeLevel": {},
+    "stateOfHealth": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part A: state of charge is battery-individual BMS data for the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "Art. 14(1)/Annex VII: state-of-health data is BMS-readable for the legitimate-interest audience, not the general public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:stateOfChargeLevel": {},
-    "eubat:eubat:stateOfChargeLevel": {},
     "eubat:stateOfHealth": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "x-access-level-rationale": "Art. 14(1)/Annex VII: state-of-health data is BMS-readable for the legitimate-interest audience, not the general public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:stateOfHealth": {
+    "supplierContact": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 14(1)/Annex VII: state-of-health data is BMS-readable for the legitimate-interest audience, not the general public.",
+      "x-access-level-rationale": "Annex XIII(2)(b): contact details of spare-part sources are part of the legitimate-interest spare-parts information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:supplierContact": {
@@ -1509,10 +1739,9 @@
       "x-access-level-rationale": "Annex XIII(2)(b): contact details of spare-part sources are part of the legitimate-interest spare-parts information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:supplierContact": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex XIII(2)(b): contact details of spare-part sources are part of the legitimate-interest spare-parts information.",
+    "supplyChainDueDiligence": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The container must be publicly reachable so the Art. 52(3) public report link inside it is servable; sensitive members carry their own stricter tiers.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:supplyChainDueDiligence": {
@@ -1520,9 +1749,9 @@
       "x-access-level-rationale": "The container must be publicly reachable so the Art. 52(3) public report link inside it is servable; sensitive members carry their own stricter tiers.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:supplyChainDueDiligence": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The container must be publicly reachable so the Art. 52(3) public report link inside it is servable; sensitive members carry their own stricter tiers.",
+    "supplyChainIndex": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "A proprietary supply-chain score is detailed chain data behind the public Art. 52(3) report summary, for the legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:supplyChainIndex": {
@@ -1530,9 +1759,9 @@
       "x-access-level-rationale": "A proprietary supply-chain score is detailed chain data behind the public Art. 52(3) report summary, for the legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:supplyChainIndex": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "A proprietary supply-chain score is detailed chain data behind the public Art. 52(3) report summary, for the legitimate-interest audience.",
+    "supplyChainMappingAvailable": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The boolean only advertises that detailed mapping exists; the mapping data itself stays with the legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:supplyChainMappingAvailable": {
@@ -1540,9 +1769,9 @@
       "x-access-level-rationale": "The boolean only advertises that detailed mapping exists; the mapping data itself stays with the legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:supplyChainMappingAvailable": {
+    "technicalSpecifications": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "The boolean only advertises that detailed mapping exists; the mapping data itself stays with the legitimate-interest audience.",
+      "x-access-level-rationale": "Container for the Annex IV Part A rated performance and durability parameters that Annex XIII(1)(g)-(p) makes public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:technicalSpecifications": {
@@ -1550,9 +1779,9 @@
       "x-access-level-rationale": "Container for the Annex IV Part A rated performance and durability parameters that Annex XIII(1)(g)-(p) makes public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:technicalSpecifications": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Container for the Annex IV Part A rated performance and durability parameters that Annex XIII(1)(g)-(p) makes public.",
+    "temperatureExcursionReportUrl": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The excursion report documents condition history for downstream evaluators (repurposers, recyclers) under Art. 14, unlike authority incident submissions.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:temperatureExcursionReportUrl": {
@@ -1560,9 +1789,9 @@
       "x-access-level-rationale": "The excursion report documents condition history for downstream evaluators (repurposers, recyclers) under Art. 14, unlike authority incident submissions.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:temperatureExcursionReportUrl": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The excursion report documents condition history for downstream evaluators (repurposers, recyclers) under Art. 14, unlike authority incident submissions.",
+    "temperatureRangeCharging": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Annex XIII(1)(h)-(i) publish voltage/power values together with their temperature boundaries, so the charging temperature window is public rating data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:temperatureRangeCharging": {
@@ -1570,9 +1799,9 @@
       "x-access-level-rationale": "Annex XIII(1)(h)-(i) publish voltage/power values together with their temperature boundaries, so the charging temperature window is public rating data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:temperatureRangeCharging": {
+    "temperatureRangeDischarging": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Annex XIII(1)(h)-(i) publish voltage/power values together with their temperature boundaries, so the charging temperature window is public rating data.",
+      "x-access-level-rationale": "Annex XIII(1)(h)-(i) publish voltage/power values together with their temperature boundaries, so the discharging temperature window is public rating data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:temperatureRangeDischarging": {
@@ -1580,9 +1809,9 @@
       "x-access-level-rationale": "Annex XIII(1)(h)-(i) publish voltage/power values together with their temperature boundaries, so the discharging temperature window is public rating data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:temperatureRangeDischarging": {
+    "temperatureRangeIdleState": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Annex XIII(1)(h)-(i) publish voltage/power values together with their temperature boundaries, so the discharging temperature window is public rating data.",
+      "x-access-level-rationale": "Annex XIII(1)(l): the temperature range the battery can withstand when not in use is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:temperatureRangeIdleState": {
@@ -1590,9 +1819,9 @@
       "x-access-level-rationale": "Annex XIII(1)(l): the temperature range the battery can withstand when not in use is public battery-passport data.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:temperatureRangeIdleState": {
+    "temperatureRangeStorage": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Annex XIII(1)(l): the temperature range the battery can withstand when not in use is public battery-passport data.",
+      "x-access-level-rationale": "Annex XIII(1)(l): storage temperature boundaries are public data the end user needs for safe keeping of the battery.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:temperatureRangeStorage": {
@@ -1600,9 +1829,9 @@
       "x-access-level-rationale": "Annex XIII(1)(l): storage temperature boundaries are public data the end user needs for safe keeping of the battery.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:temperatureRangeStorage": {
+    "thirdPartyAssurancesUrl": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Annex XIII(1)(l): storage temperature boundaries are public data the end user needs for safe keeping of the battery.",
+      "x-access-level-rationale": "Third-party assurance links substantiate the public due-diligence claims and are public by function; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:thirdPartyAssurancesUrl": {
@@ -1610,9 +1839,9 @@
       "x-access-level-rationale": "Third-party assurance links substantiate the public due-diligence claims and are public by function; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:thirdPartyAssurancesUrl": {
+    "thirdPartyVerification": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Third-party assurance links substantiate the public due-diligence claims and are public by function; dpp-core serves the same name Public.",
+      "x-access-level-rationale": "Third-party verification details are what make the public CF declaration checkable, mirroring the public verification terms in dpp-core (Art. 7/Annex II).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:thirdPartyVerification": {
@@ -1620,9 +1849,10 @@
       "x-access-level-rationale": "Third-party verification details are what make the public CF declaration checkable, mirroring the public verification terms in dpp-core (Art. 7/Annex II).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:thirdPartyVerification": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Third-party verification details are what make the public CF declaration checkable, mirroring the public verification terms in dpp-core (Art. 7/Annex II).",
+    "timeSpentChargingDuringExtremeTemperaturesAboveBoundary": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex VII Part B: charging-in-extreme-temperature history is battery-individual usage data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary": {
@@ -1631,7 +1861,7 @@
       "x-access-level-rationale": "Annex VII Part B: charging-in-extreme-temperature history is battery-individual usage data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary": {
+    "timeSpentChargingDuringExtremeTemperaturesBelowBoundary": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "x-access-level-rationale": "Annex VII Part B: charging-in-extreme-temperature history is battery-individual usage data for the Art. 14 legitimate-interest audience.",
@@ -1643,10 +1873,10 @@
       "x-access-level-rationale": "Annex VII Part B: charging-in-extreme-temperature history is battery-individual usage data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary": {
+    "timeSpentInExtremeTemperaturesAboveBoundary": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part B: charging-in-extreme-temperature history is battery-individual usage data for the Art. 14 legitimate-interest audience.",
+      "x-access-level-rationale": "Annex VII Part B: temperature-exposure history is battery-individual usage data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:timeSpentInExtremeTemperaturesAboveBoundary": {
@@ -1655,7 +1885,7 @@
       "x-access-level-rationale": "Annex VII Part B: temperature-exposure history is battery-individual usage data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:timeSpentInExtremeTemperaturesAboveBoundary": {
+    "timeSpentInExtremeTemperaturesBelowBoundary": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
       "x-access-level-rationale": "Annex VII Part B: temperature-exposure history is battery-individual usage data for the Art. 14 legitimate-interest audience.",
@@ -1667,10 +1897,9 @@
       "x-access-level-rationale": "Annex VII Part B: temperature-exposure history is battery-individual usage data for the Art. 14 legitimate-interest audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:timeSpentInExtremeTemperaturesBelowBoundary": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Annex VII Part B: temperature-exposure history is battery-individual usage data for the Art. 14 legitimate-interest audience.",
+    "verificationBody": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Naming the third-party verifier is what makes the public CF declaration checkable; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:verificationBody": {
@@ -1678,9 +1907,9 @@
       "x-access-level-rationale": "Naming the third-party verifier is what makes the public CF declaration checkable; dpp-core serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:verificationBody": {
+    "verificationCertificateUrl": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Naming the third-party verifier is what makes the public CF declaration checkable; dpp-core serves the same name Public.",
+      "x-access-level-rationale": "The verification certificate substantiates the public CF declaration and is public by function, like oec:thirdPartyAssurancesUrl.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:verificationCertificateUrl": {
@@ -1688,9 +1917,9 @@
       "x-access-level-rationale": "The verification certificate substantiates the public CF declaration and is public by function, like oec:thirdPartyAssurancesUrl.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:verificationCertificateUrl": {
+    "verificationDate": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "The verification certificate substantiates the public CF declaration and is public by function, like oec:thirdPartyAssurancesUrl.",
+      "x-access-level-rationale": "The verification date qualifies the currency of the public verification statement (Art. 7/Annex II).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:verificationDate": {
@@ -1698,9 +1927,9 @@
       "x-access-level-rationale": "The verification date qualifies the currency of the public verification statement (Art. 7/Annex II).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:verificationDate": {
+    "warrantyConditions": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "The verification date qualifies the currency of the public verification statement (Art. 7/Annex II).",
+      "x-access-level-rationale": "Annex XIII(1)(m): the period of the commercial warranty for calendar life is public battery-passport data, and its terms address the purchaser.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:warrantyConditions": {
@@ -1708,9 +1937,10 @@
       "x-access-level-rationale": "Annex XIII(1)(m): the period of the commercial warranty for calendar life is public battery-passport data, and its terms address the purchaser.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:warrantyConditions": {
+    "wastePrevention": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "Annex XIII(1)(m): the period of the commercial warranty for calendar life is public battery-passport data, and its terms address the purchaser.",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Art. 74(1)(a)/Annex XIII(1)(s): waste-prevention information is directed at the general public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "eubat:wastePrevention": {
@@ -1719,40 +1949,348 @@
       "x-access-level-rationale": "Art. 74(1)(a)/Annex XIII(1)(s): waste-prevention information is directed at the general public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "eubat:eubat:wastePrevention": {
-      "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
-      "x-access-level-rationale": "Art. 74(1)(a)/Annex XIII(1)(s): waste-prevention information is directed at the general public.",
+    "eventType": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The kind of negative event (thermal event, deep discharge, ...) is Annex VII Part B accident history for the Art. 14 audience.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
+    "eubat:eventType": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The kind of negative event (thermal event, deep discharge, ...) is Annex VII Part B accident history for the Art. 14 audience.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "extinguishingAgent": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex VI Part A/Annex XIII(1)(a): the usable extinguishing agent must be publicly stated — first responders cannot authenticate before acting.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:extinguishingAgent": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex VI Part A/Annex XIII(1)(a): the usable extinguishing agent must be publicly stated — first responders cannot authenticate before acting.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "facilityIdentifier": {
+      "x-access-level": "Restricted",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Internal facility identifiers (GLN of the plant) map the physical supply chain for notified bodies and surveillance — the public sees the manufacturing place itself via eubat:manufacturingPlace; matches oec:facilityId (Restricted).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:facilityIdentifier": {
+      "x-access-level": "Restricted",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Internal facility identifiers (GLN of the plant) map the physical supply chain for notified bodies and surveillance — the public sees the manufacturing place itself via eubat:manufacturingPlace; matches oec:facilityId (Restricted).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "functionalUnit": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The functional unit is methodology metadata of the public CF declaration required to interpret the public figure (Art. 7/Annex II).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:functionalUnit": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The functional unit is methodology metadata of the public CF declaration required to interpret the public figure (Art. 7/Annex II).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "additionalProductClassification": {},
     "gs1:additionalProductClassification": {},
-    "eubat:gs1:additionalProductClassification": {},
+    "grossWeight": {},
     "gs1:grossWeight": {},
-    "eubat:gs1:grossWeight": {},
+    "manufacturer": {},
     "gs1:manufacturer": {},
-    "eubat:gs1:manufacturer": {},
+    "netWeight": {},
     "gs1:netWeight": {},
-    "eubat:gs1:netWeight": {},
+    "productionDate": {},
     "gs1:productionDate": {},
-    "eubat:gs1:productionDate": {},
+    "regulatoryIdentifier": {},
     "gs1:regulatoryIdentifier": {},
-    "eubat:gs1:regulatoryIdentifier": {},
+    "regulatoryIdentifierType": {},
     "gs1:regulatoryIdentifierType": {},
-    "eubat:gs1:regulatoryIdentifierType": {},
+    "value": {},
     "gs1:value": {},
-    "eubat:gs1:value": {},
+    "hazardClass": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "CLP hazard classes drive mandatory public label elements and qualify the public hazardous-substances disclosure; dpp-core serves the same name Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:hazardClass": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "CLP hazard classes drive mandatory public label elements and qualify the public hazardous-substances disclosure; dpp-core serves the same name Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "hazardImpact": {},
+    "eubat:hazardImpact": {},
+    "incidentId": {},
+    "eubat:incidentId": {},
+    "incidentSeverity": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Severity grading qualifies the Annex VII Part B accident record for repurposers and recyclers judging reusability.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:incidentSeverity": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Severity grading qualifies the Annex VII Part B accident record for repurposers and recyclers judging reusability.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "inspectorId": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The assessing inspector's identifier is operational bookkeeping of the Annex VII Part B accident record; it names a person and has no public function.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:inspectorId": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The assessing inspector's identifier is operational bookkeeping of the Annex VII Part B accident record; it names a person and has no public function.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "labelMeaning": {},
+    "eubat:labelMeaning": {},
+    "labelSubject": {},
+    "eubat:labelSubject": {},
+    "languageCode": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Language codes are rendering metadata with no confidentiality content; dpp-core serves the same name Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:languageCode": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Language codes are rendering metadata with no confidentiality content; dpp-core serves the same name Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "lifecycleStage": {},
+    "eubat:lifecycleStage": {},
+    "manufacturerIdentifier": {
+      "x-access-level": "Restricted",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "The manufacturer's internal operator identifier serves authority cross-checks; public identification is already served by the Annex VI Part A manufacturer information.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:manufacturerIdentifier": {
+      "x-access-level": "Restricted",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "The manufacturer's internal operator identifier serves authority cross-checks; public identification is already served by the Annex VI Part A manufacturer information.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "materialSupplier": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Supplier identities are detailed supply-chain data behind the public Art. 52(3) report summary and serve the legitimate-interest audience.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:materialSupplier": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Supplier identities are detailed supply-chain data behind the public Art. 52(3) report summary and serve the legitimate-interest audience.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "mimeType": {},
+    "eubat:mimeType": {},
+    "note": {},
+    "eubat:note": {},
+    "notifiedBodyName": {},
+    "eubat:notifiedBodyName": {},
+    "notifiedBodyNumber": {},
+    "eubat:notifiedBodyNumber": {},
+    "numberOfDeepDischargeEvents": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(4) via Annex VII: the count of deep-discharge events is battery-individual negative-event data for the Art. 14 legitimate-interest audience, matching eubat:negativeEvents.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:numberOfDeepDischargeEvents": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(4) via Annex VII: the count of deep-discharge events is battery-individual negative-event data for the Art. 14 legitimate-interest audience, matching eubat:negativeEvents.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "lastUpdated": {},
     "oec:lastUpdated": {},
-    "eubat:oec:lastUpdated": {},
+    "passportStatus": {},
     "oec:passportStatus": {},
-    "eubat:oec:passportStatus": {},
+    "operatorIdentifier": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The economic-operator identifier (GLN/EOID) serves customs and market-surveillance cross-checks, matching oec:economicOperatorId (AuthorizedOnly).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:operatorIdentifier": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The economic-operator identifier (GLN/EOID) serves customs and market-surveillance cross-checks, matching oec:economicOperatorId (AuthorizedOnly).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "operatorRole": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The operator's supply-chain role maps responsibility chains for authorities and professional users; dpp-core serves the same name AuthorizedOnly.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:operatorRole": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The operator's supply-chain role maps responsibility chains for authorities and professional users; dpp-core serves the same name AuthorizedOnly.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "previousApplications": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The battery's use history informs the Art. 59/Annex XIII(4) legitimate-interest audience evaluating repurposed batteries.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:previousApplications": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The battery's use history informs the Art. 59/Annex XIII(4) legitimate-interest audience evaluating repurposed batteries.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "recommendedAction": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Post-incident follow-up instructions address the professional handlers of the battery, not the general public (Annex VII Part B context).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:recommendedAction": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Post-incident follow-up instructions address the professional handlers of the battery, not the general public (Annex VII Part B context).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "recoveryMaterial": {},
+    "eubat:recoveryMaterial": {},
+    "repurposingPotential": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Second-life suitability assessments serve repurposers and remanufacturers under Art. 59, based on the AuthorizedOnly SoH data.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:repurposingPotential": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Second-life suitability assessments serve repurposers and remanufacturers under Art. 59, based on the AuthorizedOnly SoH data.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "responsibleSourcingStandard": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Naming the due-diligence scheme followed (Art. 50 recognised schemes) is part of the public policy communication.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:responsibleSourcingStandard": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Naming the due-diligence scheme followed (Art. 50 recognised schemes) is part of the public policy communication.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "riskAssessmentSummary": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Art. 52(3): the public due-diligence report summarises identified supply-chain risks and their mitigation, so the summary (not the underlying data) is public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:riskAssessmentSummary": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Art. 52(3): the public due-diligence report summarises identified supply-chain risks and their mitigation, so the summary (not the underlying data) is public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "auditDate": {},
     "schema:auditDate": {},
-    "eubat:schema:auditDate": {},
+    "contactPoint": {},
     "schema:contactPoint": {},
-    "eubat:schema:contactPoint": {},
+    "startDate": {},
     "schema:startDate": {},
-    "eubat:schema:startDate": {},
+    "weightPercentage": {},
     "schema:weightPercentage": {},
-    "eubat:schema:weightPercentage": {}
+    "shippingName": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The UN proper shipping name appears on public transport documents and package markings (DIN DKE SPEC 99100 extension).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:shippingName": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The UN proper shipping name appears on public transport documents and package markings (DIN DKE SPEC 99100 extension).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "soceMeasurementId": {},
+    "eubat:soceMeasurementId": {},
+    "spareParts": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(2)(b): part numbers for components are reserved for persons with a legitimate interest.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:spareParts": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+      "x-access-level-rationale": "Annex XIII(2)(b): part numbers for components are reserved for persons with a legitimate interest.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "substanceCasNumber": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The CAS number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike eubat:casNumber it carries no formulation context.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:substanceCasNumber": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The CAS number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike eubat:casNumber it carries no formulation context.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "substanceEcNumber": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The EC number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike eubat:ecNumber it carries no formulation context.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:substanceEcNumber": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The EC number only identifies WHICH hazardous substance is publicly disclosed under Annex VI Part A — unlike eubat:ecNumber it carries no formulation context.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "substanceLocation": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Where a hazardous substance sits in the battery is dismantling/processing detail for waste operators (Annex XIII(2)); dpp-core serves the same name AuthorizedOnly.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:substanceLocation": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Where a hazardous substance sits in the battery is dismantling/processing detail for waste operators (Annex XIII(2)); dpp-core serves the same name AuthorizedOnly.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "temperatureExcursionId": {},
+    "eubat:temperatureExcursionId": {},
+    "testReportNumber": {
+      "x-access-level": "Restricted",
+      "x-access-level-rationale": "The report identifier belongs to the Annex XIII(3) compliance test reports and has no function outside the authority audience.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:testReportNumber": {
+      "x-access-level": "Restricted",
+      "x-access-level-rationale": "The report identifier belongs to the Annex XIII(3) compliance test reports and has no function outside the authority audience.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "transportConditions": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Transport conditions during an excursion are condition-history detail of the Annex VII Part B record for the Art. 14 audience.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:transportConditions": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Transport conditions during an excursion are condition-history detail of the Annex VII Part B record for the Art. 14 audience.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "transportationSafetyClass": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "UN dangerous-goods classes (UN3480/UN3481) are printed on packages and shipping papers by transport law, so the passport only restates public markings (DIN DKE SPEC 99100 extension).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:transportationSafetyClass": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "UN dangerous-goods classes (UN3480/UN3481) are printed on packages and shipping papers by transport law, so the passport only restates public markings (DIN DKE SPEC 99100 extension).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "verificationBodyName": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The verifier's name is part of the public verification statement backing the public CF declaration (Art. 7/Annex II).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:verificationBodyName": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The verifier's name is part of the public verification statement backing the public CF declaration (Art. 7/Annex II).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "verificationStandard": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The standard the verifier applied is part of the public verification statement (Art. 7/Annex II).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "eubat:verificationStandard": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The standard the verifier applied is part of the public verification statement (Art. 7/Annex II).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    }
   },
   "patternProperties": {
     "^eubat:": {}

@@ -350,16 +350,16 @@ The ontology distinguishes:
 
 ### EPCIS pattern
 
-Carry the exemption in an `ObjectEvent` with `bizStep: "notifying"` and
-`persistentDisposition.set: ["subject_to_regulation"]`, attaching an
+Carry the exemption in an `ObjectEvent` with `bizStep: "oec:BizStep-notifying"` and
+`persistentDisposition.set: ["oec:Disp-subject_to_regulation"]`, attaching an
 `eudr:ExemptionDeclaration` to the product master data via
 `gs1:masterDataAvailableFor`:
 
 ```json
 {
   "type": "ObjectEvent",
-  "bizStep": "notifying",
-  "persistentDisposition": { "set": ["subject_to_regulation"] },
+  "bizStep": "oec:BizStep-notifying",
+  "persistentDisposition": { "set": ["oec:Disp-subject_to_regulation"] },
   "epcList": ["https://id.gs1.org/01/09521234000020/10/LOT-2026-Q1-0042"],
   "gs1:masterDataAvailableFor": [{
     "id": "https://id.gs1.org/01/09521234000020/10/LOT-2026-Q1-0042",
@@ -408,7 +408,7 @@ batches/products are exempt from the DDS obligation in the first place,
 and is surfaced via EPCIS events rather than via RegulatoryNotification.
 A supply chain can use both patterns in sequence:
 
-1. Exemption declared via EPCIS (`bizStep: notifying` +
+1. Exemption declared via EPCIS (`bizStep: oec:BizStep-notifying` +
    `eudr:ExemptionDeclaration`)
 2. Downstream partners receive and verify the exemption
 3. If later a full DDS becomes required (e.g., exemption expires), the

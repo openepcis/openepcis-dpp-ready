@@ -1,12 +1,13 @@
 {
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+  ],
   "_comment_architecture": [
     "MODEL-LEVEL passport for the Amperia StaxWall 10 stationary LFP battery (GS1 Digital Link 01/{GTIN}).",
     "Flagship demo example for the Passport Explorer: at least as rich as a real-world consumer DPP viewer, but machine-typed in eubat:/oec:/gs1: with unitCodes and per-attribute upstream alignment (SAMM / GEFEG bpr) rather than loose strings.",
     "Model-level attributes only (identifiers, category, chemistry, rated specs, materials, warranty, symbols, conformity, due diligence). Batch- and item-level values live in amperia-staxwall-batch.jsonld and are folded from EPCIS events into amperia-staxwall-item.jsonld.",
     "GS1 demo prefix 952 (GCP 9521234); GTIN 09521234002000 (valid mod-10 check digit)."
-  ],
-  "@context": [
-    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
   ],
   "id": "https://id.gs1.org/01/09521234002000",
   "type": [
@@ -14,9 +15,6 @@
     "eubat:Battery"
   ],
   "oec:granularityLevel": "model",
-  "oec:dppStatus": {
-    "@id": "oec:Active"
-  },
   "oec:accessRights": {
     "@id": "oec:Public"
   },
@@ -54,20 +52,29 @@
       "@language": "fr"
     }
   ],
-  "schema:category": [
-    {
-      "@value": "Stationary energy storage battery",
-      "@language": "en"
-    },
-    {
-      "@value": "Stationärer Energiespeicher",
-      "@language": "de"
-    },
-    {
-      "@value": "Batterie de stockage stationnaire",
-      "@language": "fr"
-    }
-  ],
+  "schema:category": {
+    "@id": "eubat:StationaryBattery"
+  },
+  "_comment_classification": "Battery Regulation Art. 3 category as the controlled schema:category IRI, with the human-readable category text carried by the GS1 classification block (the pattern eubat:BatteryCategory's skos:note prescribes).",
+  "gs1:additionalProductClassification": {
+    "type": "gs1:AdditionalProductClassificationDetails",
+    "gs1:additionalProductClassificationCode": "BATTERY_REGULATION_2023_1542",
+    "gs1:additionalProductClassificationValue": "stationary",
+    "gs1:additionalProductClassificationCodeDescription": [
+      {
+        "@value": "Stationary energy storage battery",
+        "@language": "en"
+      },
+      {
+        "@value": "Stationärer Energiespeicher",
+        "@language": "de"
+      },
+      {
+        "@value": "Batterie de stockage stationnaire",
+        "@language": "fr"
+      }
+    ]
+  },
   "schema:image": [
     {
       "type": "schema:ImageObject",
@@ -76,9 +83,6 @@
       "schema:caption": "Amperia StaxWall 10 wall-mounted home battery"
     }
   ],
-  "eubat:batteryCategory": {
-    "@id": "eubat:StationaryBattery"
-  },
   "eubat:cellType": {
     "@id": "eubat:PrismaticCell"
   },
@@ -215,5 +219,6 @@
     "eubat:declarationOfConformity": "https://files.demo.epcis.cloud/files/products/09521234002000/docs/declaration-of-conformity.pdf"
   },
   "eubat:resultOfTestReport": "https://files.demo.epcis.cloud/files/products/09521234002000/docs/test-report.pdf",
-  "eubat:separateCollectionSymbolUrl": "https://files.demo.epcis.cloud/files/products/_common/symbols/separate-collection.svg"
+  "eubat:separateCollectionSymbolUrl": "https://files.demo.epcis.cloud/files/products/_common/symbols/separate-collection.svg",
+  "oec:passportStatus": "active"
 }

@@ -1,0 +1,85 @@
+{
+  "_comment": "Mapping proposals a curator has looked at and deliberately parked. The triage skips them so an automated pass cannot re-propose what a human already decided to leave alone; they stay listed in docs/skos-alignment/OPEN_DECISIONS.md. Remove an entry to put it back in scope.",
+  "deferred": [
+    {
+      "ourId": "euelec:modelIdentifier",
+      "upstreamIri": "https://ref.openepcis.io/vocab/batterypass-ready/1.3#BatteryModelIdentifier",
+      "reason": "Directionally right, but it anchors a generic electronics identifier into a battery-specific longlist attribute. Cross-module anchoring is a governance call."
+    },
+    {
+      "ourId": "euelec:modelIdentifier",
+      "upstreamIri": "https://ref.openepcis.io/vocab/batterypass-ready/1.3#UniqueBatteryIdentifierUniqueProductIdentifier",
+      "reason": "Same cross-module question as the BatteryModelIdentifier anchor."
+    },
+    {
+      "ourId": "euelec:recyclingProcess",
+      "upstreamIri": "https://ref.gs1.org/voc/packagingRecyclingScheme",
+      "reason": "The GS1 term is packaging-scoped; ours is an electronics treatment process. Domain mismatch that the GS1 foreign-domain list does not cover."
+    },
+    {
+      "ourId": "euelec:treatmentFacility",
+      "upstreamIri": "https://vocabulary.uncefact.org/untp/fromFacility",
+      "reason": "Different roles: ours is where treatment happened, UNTP's is a shipment origin."
+    },
+    {
+      "ourId": "euelec:nextDisposition",
+      "upstreamIri": "https://vocabulary.uncefact.org/untp/disposition",
+      "reason": "exactMatch is a strong claim for a WEEE routing decision against UNTP's general disposition; closeMatch may be the honest grade."
+    },
+    {
+      "ourId": "eudr:DueDiligenceStatement",
+      "upstreamIri": "https://ref.gs1.org/voc/RegulatoryIdentifier",
+      "reason": "A due-diligence statement is a document, not an identifier; the subsumption does not hold in either direction."
+    },
+    {
+      "ourId": "eusteel:heatNumber",
+      "upstreamIri": "https://schema.org/serialNumber",
+      "reason": "Granularity, not specificity: schema:serialNumber is domained on schema:IndividualProduct, so it identifies one piece, while a heat number identifies the melt every piece came from. Downgraded to rdfs:seeAlso; the batch-level skos:closeMatch to gs1:hasBatchLotNumber carries the mapping."
+    },
+    {
+      "ourId": "eusteel:castNumber",
+      "upstreamIri": "https://schema.org/serialNumber",
+      "reason": "Same item-versus-batch granularity as eusteel:heatNumber. Downgraded to rdfs:seeAlso; skos:broadMatch gs1:hasBatchLotNumber carries the mapping."
+    },
+    {
+      "ourId": "eusteel:lotNumber",
+      "upstreamIri": "https://schema.org/serialNumber",
+      "reason": "Same item-versus-batch granularity as eusteel:heatNumber, and lot against serial is the textbook case of it. Downgraded to rdfs:seeAlso; skos:broadMatch gs1:hasBatchLotNumber carries the mapping."
+    },
+    {
+      "ourId": "eudet:productForm",
+      "upstreamIri": "https://ref.gs1.org/voc/consumerProductVariant",
+      "reason": "GS1 scopes consumerProductVariant to variants that do NOT require a different GTIN; liquid, powder and tablet are separate trade items. Removed; skos:closeMatch gs1:productFormDescription is the correct GS1 target."
+    },
+    {
+      "ourId": "eutex:benchmarkPerformance",
+      "upstreamIri": "https://dpp-keystone.org/spec/v2/terms#environmentalFootprintBenchmarkPercentage",
+      "reason": "skos:exactMatch contradicts our own bridge documentation: DPP_KEYSTONE_MAPPING.md records this as Partial because eutex:benchmarkPerformance collapses BOTH dppk:environmentalFootprintBenchmarkPercentage and dppk:carbonFootprintBenchmarkPercentage, a distinction dppk makes and we do not. Our term is the broader one, so the honest grade is narrowMatch or closeMatch, not exactMatch."
+    },
+    {
+      "ourId": "eutex:additionalCareInstructions",
+      "upstreamIri": "https://dpp-keystone.org/spec/v2/terms#textileRepairInstructions",
+      "reason": "The term is a free-text overflow field (\"Additional care instructions in text form\"), so claiming it is BROADER than a specific instruction kind over-claims. The panel is also self-inconsistent here: it rejected dppk:safeUseInstructions at 0.97 while accepting dppk:textileSafeUseInstructions at 0.85."
+    },
+    {
+      "ourId": "eutex:additionalCareInstructions",
+      "upstreamIri": "https://dpp-keystone.org/spec/v2/terms#textileSafeUseInstructions",
+      "reason": "Same over-claim as dppk:textileRepairInstructions: a free-text catch-all is not the parent concept of a specific instruction kind."
+    },
+    {
+      "ourId": "eutex:additionalCareInstructions",
+      "upstreamIri": "https://dpp-keystone.org/spec/v2/terms#disassemblyInstructions",
+      "reason": "Same over-claim, and disassembly is not a care instruction at all."
+    },
+    {
+      "ourId": "eutex:additionalCareInstructions",
+      "upstreamIri": "https://ref.gs1.org/voc/consumerStorageInstructions",
+      "reason": "Same over-claim. The existing rdfs:seeAlso is the honest relation between a free-text care field and GS1's storage instructions."
+    },
+    {
+      "ourId": "euelec:energyEfficiencyClass",
+      "upstreamIri": "https://schema.org/hasEnergyConsumptionDetails",
+      "reason": "Our property carries an efficiency class label; the schema.org property links to a consumption-details node. Related, but not one subsuming the other."
+    }
+  ]
+}

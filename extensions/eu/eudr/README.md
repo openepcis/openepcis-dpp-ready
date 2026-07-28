@@ -67,8 +67,8 @@ For full traceability, use EPCIS events per [GS1 Germany Guideline V1.11](https:
 ```json
 {
   "type": "ObjectEvent",
-  "bizStep": "notifying",
-  "persistentDisposition": { "set": ["subject_to_regulation"] },
+  "bizStep": "oec:BizStep-notifying",
+  "persistentDisposition": { "set": ["oec:Disp-subject_to_regulation"] },
   "gs1:regulatoryInformation": [{
     "gs1:regulationType": "gs1:RegulationTypeCode-DEFORESTATION_REGULATION",
     "gs1:regulatoryIdentifier": {

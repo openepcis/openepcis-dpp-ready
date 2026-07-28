@@ -4,6 +4,23 @@ All notable changes to the FSMA 204 extension are documented here. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this
 module adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- The three CTE event examples and `examples/ftl-product.jsonld` list the standard context chain
+  (EPCIS base, then `dpp-core-context`, then `fsma204-context`) in place of the operational
+  context. Graph-identical; the mechanism is the property-scoped context on
+  `gs1:masterDataAvailableFor` described in the
+  [core changelog](../../common/core/CHANGELOG.md).
+- `usfsma:foodTraceabilityListCategory` reads `skos:broadMatch schema:category` in place of
+  `narrowMatch`: an FTL category is the narrower term. Confirmed by a
+  `vocab-sync audit --module fsma204` run.
+
+### Fixed
+- The generated capture schema now carries `usfsma:foodTraceabilityListCategory`. The generator
+  read terms from the module context alone, so a term the context only coerces was absent from the
+  schema and an event carrying it failed validation.
+
 ## [0.9.7] — 2026-06-19
 
 ### Changed

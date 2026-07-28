@@ -3,14 +3,15 @@
     "group": "EU Battery",
     "label": "amperia-staxwall-batch (batch)",
     "doc": {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+      ],
       "_comment_architecture": [
         "BATCH-LEVEL passport for the Amperia StaxWall 10 (GS1 Digital Link 01/{GTIN}/10/{lot}).",
         "Served by the resolver for one production batch (model + site + calendar period). Carries only per-batch facts: manufacturing date + place/facility, carbon-footprint declaration + performance class, recycled/renewable content shares, batch-specific material sourcing. Model-level design data lives in amperia-staxwall-model.jsonld; per-item measured values are folded from EPCIS events into amperia-staxwall-item.jsonld.",
         "The batch identity is the /10/ lot; oec:granularityLevel is 'batch'. Site is intrinsic to the batch (the facility GLN of the run), consistent with granularity = Model/Batch/Item only.",
         "GTIN 09521234002000, lot LOT-2026-AMP01 (Amperia Göteborg plant, GLN 9521234000112)."
-      ],
-      "@context": [
-        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
       ],
       "id": "https://id.gs1.org/01/09521234002000/10/LOT-2026-AMP01",
       "type": [
@@ -18,9 +19,6 @@
         "eubat:Battery"
       ],
       "oec:granularityLevel": "batch",
-      "oec:dppStatus": {
-        "@id": "oec:Active"
-      },
       "gs1:gtin": "09521234002000",
       "gs1:productionDate": "2026-01-22",
       "eubat:manufacturingPlace": {
@@ -87,21 +85,23 @@
         "id": "https://id.gs1.org/01/09521234002000/10/LOT-2026-AMP01#eol",
         "type": "eubat:EndOfLifeInfo",
         "eubat:renewableContent": 4.5
-      }
+      },
+      "oec:passportStatus": "active"
     }
   },
   {
     "group": "EU Battery",
     "label": "amperia-staxwall-item (item)",
     "doc": {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+      ],
       "_comment_architecture": [
         "ITEM-LEVEL passport for one physical Amperia StaxWall 10 (GS1 Digital Link 01/{GTIN}/21/{serial}).",
         "The in-use values below are RECONSTRUCTED by folding this battery's EPCIS event stream (amperia-staxwall-lifecycle.jsonld) — see scripts/reconstruct-passport-from-epcis.ts and docs/EPCIS_AND_BATTERYPASS_READY.md. Model design specs are resolved from amperia-staxwall-model.jsonld (01/{GTIN}); per-batch facts from amperia-staxwall-batch.jsonld (01/{GTIN}/10/{lot}).",
         "Only item-scoped data lives here: per-battery identity + status, date put into service, and the dynamic metrics measured over life. oec:granularityLevel is 'item'; oec:lastUpdated reflects the latest folded event.",
         "GTIN 09521234002000, serial STAX10-2026-000001."
-      ],
-      "@context": [
-        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
       ],
       "id": "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001",
       "type": [
@@ -109,9 +109,6 @@
         "eubat:Battery"
       ],
       "oec:granularityLevel": "item",
-      "oec:dppStatus": {
-        "@id": "oec:Active"
-      },
       "oec:lastUpdated": "2026-06-01T07:20:00Z",
       "gs1:gtin": "09521234002000",
       "schema:serialNumber": "STAX10-2026-000001",
@@ -165,21 +162,23 @@
         "type": "gs1:QuantitativeValue",
         "gs1:value": 6550,
         "gs1:unitCode": "KWH"
-      }
+      },
+      "oec:passportStatus": "active"
     }
   },
   {
     "group": "EU Battery",
     "label": "amperia-staxwall-model (model)",
     "doc": {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+      ],
       "_comment_architecture": [
         "MODEL-LEVEL passport for the Amperia StaxWall 10 stationary LFP battery (GS1 Digital Link 01/{GTIN}).",
         "Flagship demo example for the Passport Explorer: at least as rich as a real-world consumer DPP viewer, but machine-typed in eubat:/oec:/gs1: with unitCodes and per-attribute upstream alignment (SAMM / GEFEG bpr) rather than loose strings.",
         "Model-level attributes only (identifiers, category, chemistry, rated specs, materials, warranty, symbols, conformity, due diligence). Batch- and item-level values live in amperia-staxwall-batch.jsonld and are folded from EPCIS events into amperia-staxwall-item.jsonld.",
         "GS1 demo prefix 952 (GCP 9521234); GTIN 09521234002000 (valid mod-10 check digit)."
-      ],
-      "@context": [
-        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
       ],
       "id": "https://id.gs1.org/01/09521234002000",
       "type": [
@@ -187,9 +186,6 @@
         "eubat:Battery"
       ],
       "oec:granularityLevel": "model",
-      "oec:dppStatus": {
-        "@id": "oec:Active"
-      },
       "oec:accessRights": {
         "@id": "oec:Public"
       },
@@ -227,20 +223,29 @@
           "@language": "fr"
         }
       ],
-      "schema:category": [
-        {
-          "@value": "Stationary energy storage battery",
-          "@language": "en"
-        },
-        {
-          "@value": "Stationärer Energiespeicher",
-          "@language": "de"
-        },
-        {
-          "@value": "Batterie de stockage stationnaire",
-          "@language": "fr"
-        }
-      ],
+      "schema:category": {
+        "@id": "eubat:StationaryBattery"
+      },
+      "_comment_classification": "Battery Regulation Art. 3 category as the controlled schema:category IRI, with the human-readable category text carried by the GS1 classification block (the pattern eubat:BatteryCategory's skos:note prescribes).",
+      "gs1:additionalProductClassification": {
+        "type": "gs1:AdditionalProductClassificationDetails",
+        "gs1:additionalProductClassificationCode": "BATTERY_REGULATION_2023_1542",
+        "gs1:additionalProductClassificationValue": "stationary",
+        "gs1:additionalProductClassificationCodeDescription": [
+          {
+            "@value": "Stationary energy storage battery",
+            "@language": "en"
+          },
+          {
+            "@value": "Stationärer Energiespeicher",
+            "@language": "de"
+          },
+          {
+            "@value": "Batterie de stockage stationnaire",
+            "@language": "fr"
+          }
+        ]
+      },
       "schema:image": [
         {
           "type": "schema:ImageObject",
@@ -249,9 +254,6 @@
           "schema:caption": "Amperia StaxWall 10 wall-mounted home battery"
         }
       ],
-      "eubat:batteryCategory": {
-        "@id": "eubat:StationaryBattery"
-      },
       "eubat:cellType": {
         "@id": "eubat:PrismaticCell"
       },
@@ -388,22 +390,24 @@
         "eubat:declarationOfConformity": "https://files.demo.epcis.cloud/files/products/09521234002000/docs/declaration-of-conformity.pdf"
       },
       "eubat:resultOfTestReport": "https://files.demo.epcis.cloud/files/products/09521234002000/docs/test-report.pdf",
-      "eubat:separateCollectionSymbolUrl": "https://files.demo.epcis.cloud/files/products/_common/symbols/separate-collection.svg"
+      "eubat:separateCollectionSymbolUrl": "https://files.demo.epcis.cloud/files/products/_common/symbols/separate-collection.svg",
+      "oec:passportStatus": "active"
     }
   },
   {
     "group": "EU Battery",
     "label": "battery-product-batch (batch)",
     "doc": {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+      ],
       "_comment_architecture": [
         "BATCH-LEVEL battery master data (GS1 Digital Link 01/{GTIN}/10/{lot}).",
         "This is the resource a GS1-conformant Digital Link resolver serves for one production batch (model + manufacturing site + calendar period) when the 01+10 lot Digital Link is dereferenced.",
         "It carries only attributes reported per batch: manufacturing date and place, the carbon-footprint declaration, and recycled / renewable content shares. Model-level attributes live in battery-product-model.jsonld; per-battery measured attributes are folded from EPCIS events into the item passport (battery-product.jsonld).",
         "The batch identity is the /10/ lot in the Digital Link; oec:granularityLevel is 'batch'.",
         "See: extensions/eu/battery/validation/batterypass-granularity.json for the per-attribute level map."
-      ],
-      "@context": [
-        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
       ],
       "id": "https://id.demo.epcis.cloud/01/09521002005004/10/LOT-2024-0312",
       "type": [
@@ -482,6 +486,10 @@
     "group": "EU Battery",
     "label": "battery-product-model (model)",
     "doc": {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+      ],
       "_comment_architecture": [
         "MODEL-LEVEL battery master data (GS1 Digital Link 01/{GTIN}, no serial, no lot).",
         "This is the resource a GS1-conformant Digital Link resolver serves for the battery model when the plain 01/ GTIN Digital Link is dereferenced (Accept: application/ld+json).",
@@ -489,9 +497,6 @@
         "Attributes that vary per manufacturing batch (manufacturing date/place, carbon footprint, recycled-content shares) live in battery-product-batch.jsonld (01/{GTIN}/10/{lot}).",
         "Attributes measured per physical battery (state of health, cycle count, capacity fade, ...) are carried by EPCIS events and folded into the item passport (01/{GTIN}/21/{serial}); see battery-product.jsonld and docs/EPCIS_AND_BATTERYPASS_READY.md.",
         "See: extensions/eu/battery/validation/batterypass-granularity.json for the per-attribute level map."
-      ],
-      "@context": [
-        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
       ],
       "id": "https://id.demo.epcis.cloud/01/09521002005004",
       "type": [
@@ -659,6 +664,10 @@
     "group": "EU Battery",
     "label": "battery-product (item)",
     "doc": {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+      ],
       "_comment_gs1_alignment": [
         "This example demonstrates GS1-aligned Digital Product Passport modeling.",
         "Key GS1 patterns used:",
@@ -670,9 +679,6 @@
         "- gs1:referencedFile for documents",
         "- Battery-specific extensions only where GS1 Web Vocabulary lacks equivalent terms",
         "See EXTENSION-GOVERNANCE.md for rationale on each extension term."
-      ],
-      "@context": [
-        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
       ],
       "id": "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001",
       "type": [
@@ -1555,6 +1561,10 @@
     "group": "EU Battery",
     "label": "portable-ebike-battery (item)",
     "doc": {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+      ],
       "_comment_gs1_alignment": [
         "Portable / LMT (Light Means of Transport) battery DPP example:",
         "counterpart to the existing EV battery (battery-product.jsonld).",
@@ -1563,9 +1573,6 @@
         "battery status hint (Original; eligible for stationary reuse).",
         "Pattern aligned with EU Battery Regulation 2023/1542 Annex XIII.",
         "GS1 demo prefix 952 (7-digit GCP: 9521234)."
-      ],
-      "@context": [
-        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
       ],
       "id": "https://id.demo.epcis.cloud/01/09521003000442/21/EB2026-00821",
       "type": [
@@ -3270,9 +3277,6 @@
         "eutex:TextileApparel"
       ],
       "oec:granularityLevel": "batch",
-      "oec:dppStatus": {
-        "@id": "oec:Active"
-      },
       "gs1:gtin": "09521234003007",
       "gs1:productionDate": "2026-03-04",
       "gs1:countryOfOrigin": {
@@ -3380,16 +3384,17 @@
           "eutex:meetsTargetThreshold": true
         }
       ],
-      "oec:recycledContent": {
+      "oec:recycledContentDetails": {
         "id": "https://id.gs1.org/01/09521234003007/10/LOT-2026-FJ03#recycled",
         "type": "oec:RecycledContent",
-        "oec:totalRecycledShare": 70,
-        "oec:preConsumerShare": 0,
-        "oec:postConsumerShare": 70
+        "oec:recycledContent": 0.7,
+        "oec:preConsumerRecycledContent": 0,
+        "oec:postConsumerRecycledContent": 0.7
       },
       "oec:carbonFootprintTotal": 14.8,
-      "oec:carbonFootprintUnit": "kg CO2e per garment",
-      "oec:carbonFootprintStudyUrl": "https://files.demo.epcis.cloud/files/products/09521234003007/docs/carbon-footprint-study.pdf"
+      "oec:declaredUnit": "kg CO2e per garment",
+      "oec:carbonFootprintStudyUrl": "https://files.demo.epcis.cloud/files/products/09521234003007/docs/carbon-footprint-study.pdf",
+      "oec:passportStatus": "active"
     }
   },
   {
@@ -3411,13 +3416,10 @@
         "eutex:TextileApparel"
       ],
       "oec:granularityLevel": "item",
-      "oec:dppStatus": {
-        "@id": "oec:Active"
-      },
       "oec:lastUpdated": "2026-03-20T09:00:00Z",
       "gs1:gtin": "09521234003007",
       "schema:serialNumber": "AUR-2026-000001",
-      "oec:passportStatus": "Active",
+      "oec:passportStatus": "active",
       "oec:passportVersion": "1.0",
       "oec:passportIssueDate": "2026-03-06"
     }
@@ -3441,9 +3443,6 @@
         "eutex:TextileApparel"
       ],
       "oec:granularityLevel": "model",
-      "oec:dppStatus": {
-        "@id": "oec:Active"
-      },
       "oec:productCategory": {
         "id": "oec:Textiles"
       },
@@ -3706,7 +3705,8 @@
         "oec:accessLevel": {
           "id": "oec:Public"
         }
-      }
+      },
+      "oec:passportStatus": "active"
     }
   },
   {
@@ -4089,15 +4089,15 @@
           }
         ]
       },
-      "oec:recycledContent": {
+      "oec:recycledContentDetails": {
         "id": "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#recycled",
         "type": "oec:RecycledContent",
-        "oec:totalRecycledShare": 50,
-        "oec:preConsumerShare": 10,
-        "oec:postConsumerShare": 40
+        "oec:recycledContent": 0.5,
+        "oec:preConsumerRecycledContent": 0.1,
+        "oec:postConsumerRecycledContent": 0.4
       },
       "oec:carbonFootprintTotal": 8.2,
-      "oec:carbonFootprintUnit": "kg CO2e per pair",
+      "oec:declaredUnit": "kg CO2e per pair",
       "oec:carbonFootprintStudyUrl": "https://files.demo.epcis.cloud/files/products/09521000002159/docs/carbon-footprint-study.pdf",
       "eutex:waterUsage": {
         "type": "gs1:QuantitativeValue",
@@ -4294,7 +4294,7 @@
       "oec:passportIdentifier": "https://id.demo.epcis.cloud/01/09521000002159",
       "oec:passportVersion": "1.0",
       "oec:passportIssueDate": "2024-11-25",
-      "oec:passportStatus": "Active",
+      "oec:passportStatus": "active",
       "oec:productCategory": {
         "id": "oec:Textiles"
       },
@@ -4764,15 +4764,15 @@
           "eutex:endOfLifeHandling": "No special handling required at detected concentration."
         }
       ],
-      "oec:recycledContent": {
+      "oec:recycledContentDetails": {
         "id": "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#recycled",
         "type": "oec:RecycledContent",
-        "oec:totalRecycledShare": 55,
-        "oec:preConsumerShare": 5,
-        "oec:postConsumerShare": 50
+        "oec:recycledContent": 0.55,
+        "oec:preConsumerRecycledContent": 0.05,
+        "oec:postConsumerRecycledContent": 0.5
       },
       "oec:carbonFootprintTotal": 18.5,
-      "oec:carbonFootprintUnit": "kg CO2e per garment",
+      "oec:declaredUnit": "kg CO2e per garment",
       "oec:carbonFootprintStudyUrl": "https://files.demo.epcis.cloud/files/products/09521000001428/docs/carbon-footprint-study.pdf",
       "eutex:waterUsage": {
         "type": "gs1:QuantitativeValue",
@@ -5000,7 +5000,7 @@
       "oec:passportIdentifier": "https://id.demo.epcis.cloud/01/09521000001428",
       "oec:passportVersion": "1.0",
       "oec:passportIssueDate": "2024-09-20",
-      "oec:passportStatus": "Active",
+      "oec:passportStatus": "active",
       "oec:productCategory": {
         "id": "oec:Textiles"
       },
@@ -5357,10 +5357,7 @@
           "gs1:textileMaterialPercentage": 100,
           "gs1:textileMaterialDescription": "Organic cotton",
           "eutex:textileFibreScientificName": "Gossypium hirsutum",
-          "eutex:fiberOrigin": {
-            "id": "https://ref.gs1.org/voc/Country-IN",
-            "type": "gs1:Country"
-          }
+          "eutex:fiberOrigin": "IN"
         }
       ],
       "eutex:careInstructions": {
@@ -5653,12 +5650,12 @@
           }
         }
       },
-      "oec:recycledContent": {
+      "oec:recycledContentDetails": {
         "id": "https://id.demo.epcis.cloud/01/09521890340331#recycled",
         "type": "oec:RecycledContent",
-        "oec:totalRecycledShare": 0,
-        "oec:preConsumerShare": 0,
-        "oec:postConsumerShare": 0
+        "oec:recycledContent": 0,
+        "oec:preConsumerRecycledContent": 0,
+        "oec:postConsumerRecycledContent": 0
       },
       "eutex:pfasFree": true,
       "eutex:biodegradable": true,
@@ -5706,7 +5703,7 @@
       "oec:passportIdentifier": "https://id.demo.epcis.cloud/01/09521890340331",
       "oec:passportVersion": "1.0",
       "oec:passportIssueDate": "2026-02-15",
-      "oec:passportStatus": "Active",
+      "oec:passportStatus": "active",
       "oec:productCategory": {
         "id": "oec:Textiles"
       },
@@ -5830,6 +5827,7 @@
     "label": "timber-product (item)",
     "doc": {
       "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
       ],
       "type": "gs1:Product",
@@ -7140,7 +7138,7 @@
       "oec:passportIdentifier": "https://dpp.ecoclean.example.com/passport/09521234200020",
       "oec:passportVersion": "1.0",
       "oec:passportIssueDate": "2026-09-01",
-      "oec:passportStatus": "Active",
+      "oec:passportStatus": "active",
       "oec:productCategory": {
         "id": "oec:Detergents"
       },
@@ -7428,7 +7426,7 @@
       "oec:passportIdentifier": "https://dpp.ecoclean.example.com/passport/09521234200013",
       "oec:passportVersion": "1.0",
       "oec:passportIssueDate": "2026-09-01",
-      "oec:passportStatus": "Active",
+      "oec:passportStatus": "active",
       "oec:productCategory": {
         "id": "oec:Detergents"
       },
@@ -7440,6 +7438,7 @@
     "label": "ftl-product (model)",
     "doc": {
       "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/us/fsma204/fsma204-context.jsonld"
       ],
       "type": "gs1:Product",

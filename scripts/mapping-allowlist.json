@@ -1,0 +1,131 @@
+{
+  "_comment": "Deliberate cross-vocabulary anchors that the mechanical rules would otherwise flag, each with the reason it stands. Read by check-mappings.ts (do not report this assertion) AND by triage-skos-report.ts (an audit panel may not propose changing an entry's relation, and a proposal that lands ON an entry is pre-blessed). Keeping one list for both is what stopped the textile panel from flipping eutex:seasonCollection, whose narrowMatch is intentional: a collection designation aggregates both the season name and its calendar year.",
+  "allow": [
+    {
+      "subject": "eudet:ingredientList",
+      "relation": "broadMatch",
+      "target": "gs1:ingredientStatement",
+      "reason": "Detergent ingredients are the documented analogue of GS1's food ingredient model; see eudet:Ingredient's skos:note."
+    },
+    {
+      "subject": "eudet:ingredientList",
+      "relation": "broadMatch",
+      "target": "gs1:ingredientName",
+      "reason": "Detergent ingredients are the documented analogue of GS1's food ingredient model; see eudet:Ingredient's skos:note."
+    },
+    {
+      "subject": "eudet:phosphorusContentPercent",
+      "relation": "broadMatch",
+      "target": "gs1:ingredientContentPercentage",
+      "reason": "Detergent ingredients are the documented analogue of GS1's food ingredient model; see eudet:Ingredient's skos:note."
+    },
+    {
+      "subject": "oec:ProductCategory",
+      "relation": "narrowMatch",
+      "target": "schema:Product",
+      "reason": "Our term is a category while the target denotes the entity class, so neither subsumption direction fits; the pair waits for a curator."
+    },
+    {
+      "subject": "eucpr:ConstructionProductType",
+      "relation": "narrowMatch",
+      "target": "schema:Product",
+      "reason": "Type mapped to the entity class; waits for a curator."
+    },
+    {
+      "subject": "eudr:TimberProductType",
+      "relation": "narrowMatch",
+      "target": "schema:Product",
+      "reason": "Type mapped to the entity class; waits for a curator."
+    },
+    {
+      "subject": "eubat:DismantlingDocumentType",
+      "relation": "narrowMatch",
+      "target": "schema:DigitalDocument",
+      "reason": "Type mapped to the entity class; waits for a curator."
+    },
+    {
+      "subject": "eudet:SurfactantType",
+      "relation": "narrowMatch",
+      "target": "schema:ChemicalSubstance",
+      "reason": "Type mapped to the entity class; waits for a curator."
+    },
+    {
+      "subject": "eutex:SubstanceOfConcernType",
+      "relation": "narrowMatch",
+      "target": "schema:Substance",
+      "reason": "Type mapped to the entity class; waits for a curator."
+    },
+    {
+      "subject": "eubat:materialComposition",
+      "relation": "narrowMatch",
+      "target": "schema:material",
+      "reason": "A composition structure, not a material, so it aggregates rather than specialises the target."
+    },
+    {
+      "subject": "eutex:TextileProduct",
+      "relation": "narrowMatch",
+      "target": "gs1:WearableProduct",
+      "reason": "Deliberate: TextileProduct covers home textiles and technical textiles too, so it is broader than wearables."
+    },
+    {
+      "subject": "eudr:countryList",
+      "relation": "narrowMatch",
+      "target": "gs1:countryOfOrigin",
+      "reason": "A container term: a list of countries of origin aggregates the upstream concept rather than specialising it."
+    },
+    {
+      "subject": "eudr:originDetails",
+      "relation": "narrowMatch",
+      "target": "gs1:countryOfOrigin",
+      "reason": "A container for geolocation and producer, broader than a country."
+    },
+    {
+      "subject": "eudr:fscCertification",
+      "relation": "narrowMatch",
+      "target": "gs1:certificationType",
+      "reason": "A certification reference mapped to a type code."
+    },
+    {
+      "subject": "eutex:verificationCertification",
+      "relation": "narrowMatch",
+      "target": "gs1:certificationType",
+      "reason": "A certification reference mapped to a type code."
+    },
+    {
+      "subject": "eutex:syntheticFiberContent",
+      "relation": "broadMatch",
+      "target": "gs1:textileMaterialContent",
+      "reason": "Textile module; the WearableProduct scope of the GS1 term fits."
+    },
+    {
+      "subject": "eutex:recycledContentDeclaration",
+      "relation": "broadMatch",
+      "target": "gs1:textileMaterialContent",
+      "reason": "Textile module; the WearableProduct scope of the GS1 term fits."
+    },
+    {
+      "subject": "eutex:sizeRange",
+      "relation": "broadMatch",
+      "target": "gs1:size",
+      "reason": "Textile module; the WearableProduct scope of the GS1 term fits."
+    },
+    {
+      "subject": "eutex:seasonCollection",
+      "relation": "narrowMatch",
+      "target": "gs1:seasonCalendarYear",
+      "reason": "A collection designation such as SS24 carries both the season and its year, so it aggregates the calendar year rather than specialising it."
+    },
+    {
+      "subject": "eutex:seasonCollection",
+      "relation": "narrowMatch",
+      "target": "gs1:seasonName",
+      "reason": "A collection designation carries the season name, so it aggregates rather than specialises it."
+    },
+    {
+      "subject": "eutex:seasonCollection",
+      "relation": "broadMatch",
+      "target": "gs1:seasonParameter",
+      "reason": "Textile module; the WearableProduct scope of the GS1 term fits."
+    }
+  ]
+}

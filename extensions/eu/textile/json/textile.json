@@ -19,6 +19,9 @@
       "subClassOf": [
         "https://schema.org/Observation"
       ],
+      "broadMatch": [
+        "https://vocabulary.uncefact.org/untp/ConformityAssessment"
+      ],
       "source": "https://www.iso.org/standard/57309.html"
     },
     {
@@ -103,7 +106,7 @@
       "subClassOf": [
         "https://schema.org/Observation"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/Rating"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -137,7 +140,8 @@
       "subClassOf": [
         "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
       ],
-      "narrowMatch": [
+      "broadMatch": [
+        "https://schema.org/Substance",
         "https://schema.org/ChemicalSubstance"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -152,7 +156,7 @@
         "https://schema.org/Service",
         "https://ref.gs1.org/voc/consumerRecyclingInstructions"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/Service"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -176,19 +180,20 @@
       "label": "Textile Apparel",
       "comment": "A clothing textile product as defined by EU Textile Labelling Regulation 1007/2011.\nDual inheritance bridges the OpenEPCIS textile vocabulary with the GS1 WearableProduct\nhierarchy: instances are both gs1:Product (DPP properties) and gs1:Clothing\n(GS1 interoperability). Includes outerwear, underwear, sportswear, and workwear.",
       "seeAlso": [
-        "https://ref.gs1.org/voc/Clothing",
-        "https://ref.gs1.org/voc/WearableProduct"
+        "https://ref.gs1.org/voc/WearableProduct",
+        "https://ref.gs1.org/voc/Clothing"
       ],
       "subClassOf": [
-        "https://ref.gs1.org/voc/Clothing",
-        "https://ref.gs1.org/voc/Product"
+        "https://ref.openepcis.io/extensions/eu/textile/TextileProduct",
+        "https://ref.gs1.org/voc/Product",
+        "https://ref.gs1.org/voc/Clothing"
       ],
       "broadMatch": [
-        "https://ref.gs1.org/voc/Clothing",
-        "https://dpp-keystone.org/spec/v2/terms#PefcrShirtsAndBlouses"
+        "https://ref.gs1.org/voc/WearableProduct",
+        "https://ref.gs1.org/voc/Clothing"
       ],
       "narrowMatch": [
-        "https://ref.gs1.org/voc/WearableProduct"
+        "https://dpp-keystone.org/spec/v2/terms#PefcrShirtsAndBlouses"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
     },
@@ -202,11 +207,33 @@
         "https://ref.gs1.org/voc/Footwear"
       ],
       "subClassOf": [
-        "https://ref.gs1.org/voc/Footwear",
+        "https://ref.openepcis.io/extensions/eu/textile/TextileProduct",
+        "https://ref.gs1.org/voc/Product",
+        "https://ref.gs1.org/voc/Footwear"
+      ],
+      "broadMatch": [
+        "https://ref.gs1.org/voc/WearableProduct",
+        "https://ref.gs1.org/voc/Footwear"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/textile/TextileProduct",
+      "localName": "TextileProduct",
+      "label": "Textile Product",
+      "comment": "A textile product in scope of the EU Textile Labelling Regulation 1007/2011 and\nthe ESPR textile delegated act. Base class of the module: it is the domain of the\ntextile-specific properties and the target of eutex:TextileProductShape. Broader than\ngs1:WearableProduct, since it also covers HomeTextiles and TechnicalTextiles; the\nwearable slice is carried by the dual-inheritance subclasses eutex:TextileApparel and\neutex:TextileFootwear.",
+      "seeAlso": [
+        "https://ref.gs1.org/voc/TextileMaterialDetails",
+        "https://ref.gs1.org/voc/WearableProduct",
+        "https://schema.org/Product"
+      ],
+      "subClassOf": [
         "https://ref.gs1.org/voc/Product"
       ],
       "broadMatch": [
-        "https://ref.gs1.org/voc/Footwear"
+        "https://ref.gs1.org/voc/Product",
+        "https://schema.org/Product",
+        "https://dpp-keystone.org/spec/v2/terms#Product"
       ],
       "narrowMatch": [
         "https://ref.gs1.org/voc/WearableProduct"
@@ -224,7 +251,7 @@
       "subClassOf": [
         "https://schema.org/Observation"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/Rating"
       ],
       "source": "https://www.iso.org/standard/55312.html"
@@ -264,6 +291,10 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/consumerStorageInstructions"
       ],
+      "broadMatch": [
+        "https://ref.gs1.org/voc/consumerUsageInstructions",
+        "https://dpp-keystone.org/spec/v2/terms#instructionsForUse"
+      ],
       "narrowMatch": [
         "https://schema.org/additionalProperty"
       ],
@@ -288,7 +319,7 @@
         "https://ref.gs1.org/voc/additionalProductClassification",
         "https://vocabulary.uncefact.org/untp/productCategory"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/category"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -365,6 +396,9 @@
       "range": [
         "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode"
       ],
+      "broadMatch": [
+        "https://vocabulary.uncefact.org/untp/symbol"
+      ],
       "source": "https://www.iso.org/standard/74401.html",
       "accessLevel": "Public",
       "accessLevelRationale": "ISO 3758 bleaching symbol is printed on the consumer care label.",
@@ -436,7 +470,8 @@
         "https://ref.gs1.org/voc/consumerUsageInstructions",
         "https://dpp-keystone.org/spec/v2/terms#instructionsForUse"
       ],
-      "narrowMatch": [
+      "broadMatch": [
+        "https://ref.gs1.org/voc/consumerUsageInstructions",
         "https://ref.gs1.org/voc/instructions",
         "https://ref.gs1.org/voc/instructionsForUse"
       ],
@@ -475,7 +510,7 @@
       "seeAlso": [
         "https://schema.org/description"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/potentialUse"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32006R1907",
@@ -529,7 +564,7 @@
       "seeAlso": [
         "https://schema.org/ratingValue"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/ratingValue"
       ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
@@ -611,14 +646,16 @@
         "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace",
         "https://dpp-keystone.org/spec/v2/terms#facilityId",
         "https://vocabulary.uncefact.org/untp/modifiedAtFacility",
-        "https://schema.org/countryOfAssembly",
-        "https://dpp-keystone.org/spec/v2/terms#manufacturingFacility",
         "https://vocabulary.uncefact.org/untp/madeAtFacility",
-        "https://vocabulary.uncefact.org/untp/producedAtFacility"
+        "https://dpp-keystone.org/spec/v2/terms#manufacturingFacility",
+        "https://vocabulary.uncefact.org/untp/producedAtFacility",
+        "https://schema.org/countryOfAssembly"
+      ],
+      "broadMatch": [
+        "https://ref.gs1.org/voc/manufacturingPlant",
+        "https://ref.gs1.org/voc/location"
       ],
       "narrowMatch": [
-        "https://ref.gs1.org/voc/manufacturingPlant",
-        "https://ref.gs1.org/voc/location",
         "https://vocabulary.uncefact.org/untp/fromFacility"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -812,9 +849,12 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/manufacturingPlant"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/manufacturingPlant",
-        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace"
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace",
+        "https://vocabulary.uncefact.org/untp/facility",
+        "https://dpp-keystone.org/spec/v2/terms#manufacturingFacility",
+        "https://vocabulary.uncefact.org/untp/producedAtFacility"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
@@ -839,7 +879,7 @@
       "exactMatch": [
         "https://ref.openepcis.io/extensions/common/core/ecNumber"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/identifier"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -905,7 +945,7 @@
         "urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation",
         "https://ref.gs1.org/voc/sustainabilityInfo"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/sustainabilityInfo"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
@@ -1082,7 +1122,7 @@
       "seeAlso": [
         "https://schema.org/ratingValue"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/ratingValue"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -1127,7 +1167,7 @@
         "https://schema.org/material",
         "https://ref.gs1.org/voc/certificationIdentification"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/hasCertification",
         "https://ref.gs1.org/voc/certification",
         "https://schema.org/certificationIdentification",
@@ -1152,9 +1192,11 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/countryOfOrigin"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/countryOfOrigin",
-        "https://ref.gs1.org/voc/countryOfOriginStatement",
+        "https://ref.gs1.org/voc/countryOfOriginStatement"
+      ],
+      "narrowMatch": [
         "https://schema.org/countryOfOrigin"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007",
@@ -1263,7 +1305,7 @@
       "seeAlso": [
         "https://schema.org/category"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/category"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007",
@@ -1422,7 +1464,7 @@
       "seeAlso": [
         "https://schema.org/hasCategoryCode"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/category"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -1486,7 +1528,7 @@
         "https://schema.org/description",
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceLocation"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/locationDescription"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -1591,7 +1633,7 @@
       "seeAlso": [
         "https://schema.org/ratingValue"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/ratingValue"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -1638,8 +1680,10 @@
       "closeMatch": [
         "https://dpp-keystone.org/spec/v2/terms#organicContentPercentage"
       ],
+      "broadMatch": [
+        "https://ref.gs1.org/voc/organicPercentClaim"
+      ],
       "narrowMatch": [
-        "https://ref.gs1.org/voc/organicPercentClaim",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#renewableContent"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2018/848",
@@ -1796,7 +1840,7 @@
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/textileMaterialContent"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
@@ -1853,7 +1897,7 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/instructions"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/instructions",
         "https://ref.gs1.org/voc/referencedFileURL"
       ],
@@ -1965,7 +2009,7 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#safeUseInstructions"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/consumerSafetyInformation"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -2001,6 +2045,9 @@
         "xsd:integer"
       ],
       "seeAlso": [
+        "https://schema.org/ratingValue"
+      ],
+      "broadMatch": [
         "https://schema.org/ratingValue"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -2051,8 +2098,11 @@
         "https://dpp-keystone.org/spec/v2/terms#packagingMaterialCompositionQuantity",
         "https://vocabulary.uncefact.org/untp/massFraction"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/textileMaterialPercentage"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -2090,7 +2140,7 @@
         "https://ref.gs1.org/voc/size",
         "https://schema.org/size"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/size",
         "https://schema.org/size"
       ],
@@ -2167,7 +2217,7 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/purchaseSuppliesOrAccessories"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/purchaseSuppliesOrAccessories"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
@@ -2186,8 +2236,10 @@
       "range": [
         "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
       ],
+      "broadMatch": [
+        "https://ref.gs1.org/voc/manufacturingPlant"
+      ],
       "narrowMatch": [
-        "https://ref.gs1.org/voc/manufacturingPlant",
         "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -2226,6 +2278,9 @@
         "https://schema.org/ratingValue",
         "https://vocabulary.uncefact.org/untp/score"
       ],
+      "broadMatch": [
+        "https://vocabulary.uncefact.org/untp/profileScore"
+      ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
       "accessLevel": "Public",
       "accessLevelRationale": "The spirality component score contributes to the public robustness score.",
@@ -2262,6 +2317,9 @@
         "https://schema.org/measurementMethod",
         "https://dpp-keystone.org/spec/v2/terms#testMethod"
       ],
+      "broadMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#testMethod"
+      ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
       "accessLevel": "Public",
       "accessLevelRationale": "The spirality test-method reference (e.g. ISO 16322-3) makes the public result reproducible and verifiable.",
@@ -2282,7 +2340,7 @@
         "https://schema.org/value",
         "https://ref.gs1.org/voc/ingredientContentPercentage"
       ],
-      "broadMatch": [
+      "narrowMatch": [
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceConcentration"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -2325,8 +2383,9 @@
         "https://schema.org/material",
         "https://ref.gs1.org/voc/textileMaterialPercentage"
       ],
-      "narrowMatch": [
-        "https://ref.gs1.org/voc/textileMaterialContent"
+      "broadMatch": [
+        "https://ref.gs1.org/voc/textileMaterialContent",
+        "https://ref.gs1.org/voc/textileMaterialPercentage"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007",
       "accessLevel": "Public",
@@ -2400,7 +2459,7 @@
       "exactMatch": [
         "https://ref.openepcis.io/extensions/common/core/takeBackUrl"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/sustainabilityInfo"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
@@ -2541,10 +2600,12 @@
       "range": [
         "https://ref.gs1.org/voc/CertificationDetails"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/hasCertification",
         "https://ref.gs1.org/voc/certification",
-        "https://ref.gs1.org/voc/certificationInfo",
+        "https://ref.gs1.org/voc/certificationInfo"
+      ],
+      "narrowMatch": [
         "https://ref.gs1.org/voc/certificationType"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -2682,8 +2743,13 @@
         "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace",
         "https://vocabulary.uncefact.org/untp/facility"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/manufacturingPlant",
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace",
+        "https://vocabulary.uncefact.org/untp/facility",
+        "https://vocabulary.uncefact.org/untp/madeAtFacility"
+      ],
+      "narrowMatch": [
         "https://dpp-keystone.org/spec/v2/terms#facilityId",
         "https://vocabulary.uncefact.org/untp/modifiedAtFacility"
       ],
@@ -2710,7 +2776,7 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#weightExcludingTrims"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/weight"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",

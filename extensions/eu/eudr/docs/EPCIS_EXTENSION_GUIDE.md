@@ -17,7 +17,7 @@ The EUDR module combines two complementary vocabularies:
 
 | Layer | Namespace | Purpose |
 |-------|-----------|---------|
-| **GS1 EUDR Standard** (B2B) | `gs1:` (via `@vocab` in the EPCIS context) | Regulatory notifications, DDS references, product/location master data. Properties inside `gs1:masterDataAvailableFor`. |
+| **GS1 EUDR Standard** (B2B) | `gs1:` (bare inside `gs1:masterDataAvailableFor`, via its property-scoped `@context`) | Regulatory notifications, DDS references, product/location master data. Properties inside `gs1:masterDataAvailableFor`. |
 | **OpenEPCIS EUDR Extensions** (origin data) | `eudr:` | Commodity details, species, harvest origin, risk assessment, exemptions. Properties at **event level**. |
 
 The GS1 layer follows the patterns defined in the
@@ -36,9 +36,10 @@ in the event. It mirrors the structure of a standalone GS1 Web Vocabulary
 master data file.
 
 **Allowed:** Only `gs1:` namespace properties (properties from
-`https://ref.gs1.org/voc/`). Inside an EPCIS event, these appear
-unprefixed because the EPCIS JSON-LD context sets `@vocab` to the GS1
-Web Vocabulary namespace.
+`https://ref.gs1.org/voc/`). Inside a `gs1:masterDataAvailableFor` card these
+appear unprefixed. There is no `@vocab` (the EPCIS context declares none); they
+resolve because `dpp-core-context` gives that term a property-scoped `@context` that
+pulls in the GS1 bare-alias layer for the card and everything nested in it.
 
 **Not allowed:** Any property from `eudr:`, `oec:`, `eubat:`,
 `eutex:`, `euelec:`, or `eudet:` namespaces.
@@ -283,9 +284,9 @@ inside `masterDataAvailableFor`.
 ```json
 {
   "type": "ObjectEvent",
-  "bizStep": "notifying",
+  "bizStep": "oec:BizStep-notifying",
   "action": "OBSERVE",
-  "persistentDisposition": { "set": ["subject_to_regulation"] },
+  "persistentDisposition": { "set": ["oec:Disp-subject_to_regulation"] },
 
   "epcList": [
     "https://id.gs1.org/01/09521234000020/10/LOT-2026-Q1-0042"

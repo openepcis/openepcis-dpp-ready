@@ -4,6 +4,16 @@ All notable changes to the PPWR module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed: mapping anchors from the vocab-sync audit
+
+A `vocab-sync audit --module ppwr` run (10 findings, 4 QA-confirmed) graded two new anchors,
+`euppwr:containerCondition` to `schema:itemCondition` and `euppwr:Packaging` to
+`gs1:PackagingDetails` (the class already documented itself as a `gs1:PackagingDetails`
+subclass), and corrected `euppwr:harmonisedSymbol` to `skos:narrowMatch
+dppk:separateCollectionSymbol`: PPWR Article 12 covers a family of harmonised symbols of which
+separate collection is one, so our term is the broader one. `euppwr:PackagingTier` was left
+alone; it is an `owl:oneOf` enumeration and the proposed target denotes packaging itself.
+
 ### Changed
 - Examples now use the GS1 Web Vocabulary packaging model end to end:
   `gs1:Product` → `gs1:packaging` → `euppwr:Packaging` (subclass of

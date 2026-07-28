@@ -138,7 +138,7 @@ For full traceability with provenance, use EPCIS events:
 ```json
 {
   "type": "ObjectEvent",
-  "bizStep": "notifying",
+  "bizStep": "oec:BizStep-notifying",
   "disposition": "conformant",
   "regulatoryInformation": [{
 

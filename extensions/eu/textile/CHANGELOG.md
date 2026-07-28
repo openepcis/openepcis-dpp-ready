@@ -2,6 +2,59 @@
 
 All notable changes to the Textile module will be documented in this file.
 
+## [Unreleased]
+
+### Changed: mapping directions and anchors from the vocab-sync audit
+
+A `vocab-sync audit --module textile` run (371 findings, 139 QA-confirmed) produced 30 applied
+changes: 10 directions corrected and 19 anchors added, plus one no-op. The corrections give
+`eutex:weightExcludingTrims`, `eutex:chemicalPurpose`, `eutex:TakeBackProgram`,
+`eutex:fiberCertification`, `eutex:sparePartsUrl` and both assessment-result classes
+`skos:broadMatch` toward their schema.org and GS1 heads, and turn `eutex:TextileApparel` into
+the broader term against `dppk:PefcrShirtsAndBlouses`. The additions anchor the facility
+properties (`eutex:dyeingFacility`, `eutex:weavingFacility`) into UNTP, DPP Keystone and the
+BatteryPass manufacturing place, and give `eutex:TextileProduct` its `schema:Product` and
+`dppk:Product` parents.
+
+Six panel-confirmed proposals were refused, each on documented evidence rather than taste, and
+all six are recorded in `scripts/skos-deferred.json`:
+
+- `eutex:substanceConcentration` to `gs1:juiceContentPercent`. The GS1 term is domained on
+  `FoodBeverageTobaccoProduct`, which `check:mappings` rule 1 already rejects, so the apply
+  would have failed the build. The triage now mirrors the guard's GS1 foreign-domain list.
+- `eutex:seasonCollection` to `gs1:seasonCalendarYear` and `gs1:seasonName`. Both directions
+  are recorded decisions: a collection designation such as SS24 carries the season and its
+  year, so it aggregates them. The allowlist that documents this moved to
+  `scripts/mapping-allowlist.json`, which the triage now reads, so a panel can no longer
+  propose reversing a recorded decision.
+- `eutex:benchmarkPerformance` to `dppk:environmentalFootprintBenchmarkPercentage` as
+  `skos:exactMatch`. `DPP_KEYSTONE_MAPPING.md` records the pair as Partial: our property
+  collapses both the environmental and the carbon benchmark percentage, a distinction DPP
+  Keystone makes.
+- Four instruction mappings on `eutex:additionalCareInstructions`, a free-text overflow field.
+  Claiming it is broader than repair, safe-use, disassembly and storage instructions
+  over-claims, and the panel contradicted itself by rejecting `dppk:safeUseInstructions` at
+  0.97 while accepting `dppk:textileSafeUseInstructions` at 0.85.
+
+### Fixed: 41 inverted SKOS mapping directions
+
+SKOS reads `A skos:narrowMatch B` as "B is narrower than A". 41 mappings in this module
+used `narrowMatch` while pointing at a general foundational term, so they asserted the
+reverse of their intent, for example claiming `schema:identifier` was narrower than a
+specific passport identifier. They now read `skos:broadMatch`, the project convention for
+"this term is narrower than the target". The sweep covered 174 assertions across eight
+modules; `check:mappings` rule 6 now rejects the pattern against a curated list of general
+Layer-1 terms, and pairs where our term is a type or category while the target denotes the
+entity itself are allowlisted for a curator instead (see
+[`docs/skos-alignment/OPEN_DECISIONS.md`](../../../docs/skos-alignment/OPEN_DECISIONS.md)).
+
+### Added
+- `eutex:TextileProduct`: the module base class (`rdfs:subClassOf gs1:Product`) that the README, the JSON Schema and `eutex:TextileProductShape` all referred to without a TTL definition. `eutex:TextileApparel` and `eutex:TextileFootwear` are now its subclasses, so the product shape reaches both wearable slices as well as HomeTextiles and TechnicalTextiles, which `gs1:WearableProduct` does not cover.
+
+### Changed
+- `textile-shapes.ttl` repointed at the terms the ontology actually defines. Fibre composition follows the GS1-native model the examples use: `gs1:textileMaterial` → `gs1:TextileMaterialDetails` with `gs1:textileMaterialDescription` / `gs1:textileMaterialPercentage` (was `eutex:fiberComposition` / `FiberComposition` / `fiberType` / `fiberPercentage`). Repair services validate as `gs1:Organization` and textile chemicals as `oec:HazardousSubstance`, matching the declared ranges of `eutex:repairServices` and `eutex:textileChemicals`; both shapes now target via `sh:targetObjectsOf` so they apply to textile entries only. CAS numbers use the shared `oec:casNumber` (the module-local alias was removed in an earlier pass).
+- The four product seeds (`garment-product`, `footwear-product`, `organic-tee-product`, `fjordline-aurora-batch`) express recycled content through `oec:recycledContentDetails` → `oec:recycledContent` / `preConsumerRecycledContent` / `postConsumerRecycledContent` as decimal fractions from 0 to 1 per those properties' declared range, and the carbon-footprint functional unit through `oec:declaredUnit`.
+
 ## [0.9.7] — 2026-06-19
 
 ### Added
@@ -29,7 +82,7 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
-**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+Extension terms that duplicated GS1 / schema.org were removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
 
 ### Added equivalence / cross-reference links
 
@@ -38,7 +91,7 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
-**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+Extension terms that duplicated GS1 / schema.org were removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
 
 ### Added equivalence / cross-reference links
 
@@ -47,7 +100,7 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
-**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+Extension terms that duplicated GS1 / schema.org were removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
 
 ### Added equivalence / cross-reference links
 
@@ -56,7 +109,7 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
-**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+Extension terms that duplicated GS1 / schema.org were removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
 
 ### Added equivalence / cross-reference links
 
@@ -65,7 +118,7 @@ Version alignment with the 0.9.6 core release (EN 18223 model alignment). No fun
 
 ## 0.9.5 — schema.org / GS1 alignment cleanup (2026-04-29)
 
-**Breaking** — extension terms that duplicated GS1 / schema.org have been removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
+Extension terms that duplicated GS1 / schema.org were removed in favor of the canonical vocabulary terms. JSON-LD examples using the same local-key aliases continue to work because the context now resolves those keys to the canonical IRIs.
 
 ### Removed (use canonical term instead)
 

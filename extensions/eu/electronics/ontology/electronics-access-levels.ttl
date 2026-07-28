@@ -263,3 +263,109 @@ euelec:updateType oec:accessLevelInherited true .
 euelec:updateSource oec:accessLevelInherited true .
 euelec:newVersion oec:accessLevelInherited true .
 euelec:previousVersion oec:accessLevelInherited true .
+
+# =============================================================================
+# AuthorizedOnly: WEEE collection / sorting / treatment event data. These are
+# operational records of what a collector or authorised treatment operator did
+# with one item. WEEE 2012/19/EU Art. 14 makes the collection *scheme* public
+# (see euelec:collectionSchemeUrl above) and Annex V makes the *targets* public,
+# but per-item treatment records are for treatment operators, producer-
+# responsibility schemes and enforcement authorities.
+# =============================================================================
+
+euelec:collectionMethod oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Which collection route one item took is take-back scheme operating data; the public tier carries the scheme itself via euelec:collectionSchemeUrl." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2012/19> .
+euelec:deviceCondition oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The intake condition assessment is a treatment-operator judgement about one waste item (Dir. 2012/19/EU Art. 8), not product information." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2012/19> .
+euelec:dataWiped oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Data-erasure assertions concern one device's handling before re-use and are evidence for the operator and the previous owner, not public product data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2012/19> .
+euelec:sortingDecision oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The routing decision taken at a sorting facility is operational treatment data (Dir. 2012/19/EU Art. 8)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2012/19> .
+euelec:hazardousMaterialsIdentified oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Selective-treatment findings (Dir. 2012/19/EU Annex VII) are addressed to treatment operators; the consumer-facing substance summary lives in the RoHS and substance-of-concern fields." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2012/19> .
+euelec:estimatedRecoverableMaterials oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Pre-treatment recoverability estimates are recycler planning data; the public tier carries the design-level euelec:recyclabilityRate and euelec:recoverabilityRate." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2012/19> .
+euelec:recyclingProcess oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The applied treatment process is operator process data (Dir. 2012/19/EU Art. 8 and Annex VIII)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2012/19> .
+euelec:recyclingFacility oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Which authorised operator treated one item is supply-chain detail for schemes and authorities; the facility's own master data is resolver-served under its GLN." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2012/19> .
+euelec:materialRecoveryResults oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Achieved per-item recovery figures are reported to producer-responsibility schemes and authorities against the Dir. 2012/19/EU Annex V targets; the public tier carries the design-level rates." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2012/19> .
+euelec:batteryDisposition oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "How the removed battery was handled is treatment-chain evidence for the selective-treatment duty (Dir. 2012/19/EU Annex VII)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2012/19> .
+euelec:hazardousWasteGenerated oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Whether hazardous waste arose is waste-classification data under Dir. 2008/98/EC, addressed to operators and authorities." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+euelec:hazardousWasteRecord oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Hazardous waste consignment records are regulatory documentation held between the operator and the competent authority (Dir. 2008/98/EC)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2008/98> .
+euelec:avoidedEmissions oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Avoided-emissions estimates are recycler claims about one treatment operation; unlike a substantiated product carbon footprint they are not verified label data, so they are not published by default." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+euelec:nextDisposition oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The intended onward route of a removed part is treatment-chain planning data (Dir. 2012/19/EU Art. 8)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/dir/2012/19> .
+
+# =============================================================================
+# AuthorizedOnly: repair / component-replacement event data. Repair records
+# name service actors, costs and warranty state for one device; ESPR 2024/1781
+# and Dir. (EU) 2024/1799 make the repair *offer* public (spare-part prices,
+# repairability index above), not the individual repair history.
+# =============================================================================
+
+euelec:repairType oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "What was repaired on one device is service-history data for repairers, owners and surveillance actors, not a public product attribute." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+euelec:repairDescription oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "The repair narrative is service-history detail of one device." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+euelec:repairTechnician oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Naming who performed a repair identifies a service party in a specific transaction; the public tier carries the published repair network (oec:RepairProvider)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+euelec:removalReason oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Why a part failed on one device is service-history and failure-analysis data; the public tier carries the aggregate durability and repairability figures." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+euelec:replacedComponentPassport oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Links into component passports expose the component supply chain, matching the tier of euelec:componentPassport." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+euelec:installedComponentPassport oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Links into component passports expose the component supply chain, matching the tier of euelec:componentPassport." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+euelec:warrantyStatus oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "Whether one item was in warranty at the time of a repair is a commercial fact between owner, seller and repairer; the warranty terms themselves are model master data." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+euelec:repairCost oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelRationale "What one repair actually cost is transaction data; the publicly required figure is the spare-part price (euelec:sparePartPrice, Public)." ;
+    oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+# =============================================================================
+# Inherited: structural value-carriers nested inside the WEEE treatment and
+# repair event containers above (no tier of their own; governed by the
+# embedding property).
+# =============================================================================
+
+euelec:handlingNote oec:accessLevelInherited true .
+euelec:materialMassGrams oec:accessLevelInherited true .
+euelec:totalInputMassGrams oec:accessLevelInherited true .
+euelec:totalRecoveredMassGrams oec:accessLevelInherited true .
+euelec:recoveryRate oec:accessLevelInherited true .
+euelec:recyclingRate oec:accessLevelInherited true .
+euelec:energyRecoveryRate oec:accessLevelInherited true .
+euelec:batteryMassGrams oec:accessLevelInherited true .
+euelec:separatelyTreated oec:accessLevelInherited true .
+euelec:treatmentFacility oec:accessLevelInherited true .
+euelec:treatmentMethod oec:accessLevelInherited true .
+euelec:wasteDescription oec:accessLevelInherited true .
+euelec:treatmentCertificate oec:accessLevelInherited true .
+euelec:avoidedEmissionsKgCO2e oec:accessLevelInherited true .
+euelec:calculationMethod oec:accessLevelInherited true .

@@ -1,12 +1,13 @@
 {
+  "@context": [
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+  ],
   "_comment_architecture": [
     "BATCH-LEVEL passport for the Amperia StaxWall 10 (GS1 Digital Link 01/{GTIN}/10/{lot}).",
     "Served by the resolver for one production batch (model + site + calendar period). Carries only per-batch facts: manufacturing date + place/facility, carbon-footprint declaration + performance class, recycled/renewable content shares, batch-specific material sourcing. Model-level design data lives in amperia-staxwall-model.jsonld; per-item measured values are folded from EPCIS events into amperia-staxwall-item.jsonld.",
     "The batch identity is the /10/ lot; oec:granularityLevel is 'batch'. Site is intrinsic to the batch (the facility GLN of the run), consistent with granularity = Model/Batch/Item only.",
     "GTIN 09521234002000, lot LOT-2026-AMP01 (Amperia Göteborg plant, GLN 9521234000112)."
-  ],
-  "@context": [
-    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
   ],
   "id": "https://id.gs1.org/01/09521234002000/10/LOT-2026-AMP01",
   "type": [
@@ -14,9 +15,6 @@
     "eubat:Battery"
   ],
   "oec:granularityLevel": "batch",
-  "oec:dppStatus": {
-    "@id": "oec:Active"
-  },
   "gs1:gtin": "09521234002000",
   "gs1:productionDate": "2026-01-22",
   "eubat:manufacturingPlace": {
@@ -83,5 +81,6 @@
     "id": "https://id.gs1.org/01/09521234002000/10/LOT-2026-AMP01#eol",
     "type": "eubat:EndOfLifeInfo",
     "eubat:renewableContent": 4.5
-  }
+  },
+  "oec:passportStatus": "active"
 }

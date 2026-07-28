@@ -249,8 +249,8 @@ eudr:countryList
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
     skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso <https://schema.org/addressCountry> ;
-    skos:narrowMatch gs1:countryOfOriginStatement ;
-    skos:broadMatch gs1:countryOfOrigin ;
+    skos:broadMatch gs1:countryOfOriginStatement ;
+    skos:narrowMatch gs1:countryOfOrigin ;
     skos:broadMatch <https://vocabulary.uncefact.org/untp/originCountry> ;
     skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#countryOfOrigin> ;
     skos:broadMatch <https://vocabulary.uncefact.org/untp/countryOfProduction> ;
@@ -278,11 +278,12 @@ eudr:originDetails
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
     skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:broadMatch <https://vocabulary.uncefact.org/untp/originCountry> ;
+    skos:narrowMatch <https://vocabulary.uncefact.org/untp/originCountry> ;
     skos:closeMatch gs1:countryOfOriginStatement ;
-    skos:broadMatch gs1:provenanceStatement ;
+    skos:narrowMatch gs1:provenanceStatement ;
     skos:closeMatch <https://schema.org/countryOfOrigin> ;
-    skos:broadMatch gs1:countryOfOrigin .
+    skos:narrowMatch gs1:countryOfOrigin ;
+    skos:narrowMatch <https://dpp-keystone.org/spec/v2/terms#countryOfOrigin> .
 
 eudr:geofence
     a owl:DatatypeProperty ;
@@ -295,8 +296,9 @@ eudr:geofence
     skos:note "Geolocation of production plots per EUDR (EU) 2023/1115 Article 9. Geometry is carried via SEMICeu Core Location (locn:)."@en ;
     rdfs:seeAlso locn:geometry ;
     rdfs:seeAlso <http://data.europa.eu/m8g/coordinates> ;
-    skos:narrowMatch <http://data.europa.eu/m8g/coordinates> ;
-    skos:narrowMatch locn:geometry .
+    skos:broadMatch <http://data.europa.eu/m8g/coordinates> ;
+    skos:broadMatch locn:geometry ;
+    skos:broadMatch <https://schema.org/polygon> .
 
 eudr:geolocation
     a owl:DatatypeProperty ;
@@ -320,7 +322,7 @@ eudr:areaSize
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
     skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:narrowMatch <https://schema.org/size> .
+    skos:broadMatch <https://schema.org/size> .
 
 eudr:producerIdentification
     a owl:ObjectProperty ;
@@ -355,7 +357,8 @@ eudr:timberProductType
     rdfs:range eudr:TimberProductType ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
-    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:broadMatch <https://vocabulary.uncefact.org/untp/productCategory> .
 
 eudr:speciesScientificName
     a owl:DatatypeProperty ;
@@ -551,9 +554,10 @@ eudr:transformationLocation
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
     skos:note "Geolocation of production plots per EUDR (EU) 2023/1115 Article 9. Geometry is carried via SEMICeu Core Location (locn:)."@en ;
-    skos:narrowMatch <https://schema.org/location> ;
-    skos:narrowMatch locn:location ;
-    skos:broadMatch <https://schema.org/sportsActivityLocation> .
+    skos:broadMatch <https://schema.org/location> ;
+    skos:broadMatch locn:location ;
+    skos:broadMatch <https://schema.org/sportsActivityLocation> ;
+    skos:broadMatch locn:Location .
 
 # =============================================================================
 # Stale Context Properties: now backed by TTL
@@ -588,7 +592,7 @@ eudr:volumeCubicMeters
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
     skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:narrowMatch gs1:grossVolume .
+    skos:broadMatch gs1:grossVolume .
 
 eudr:fscCertification
     a owl:ObjectProperty ;
@@ -599,12 +603,12 @@ eudr:fscCertification
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
     skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:narrowMatch <https://schema.org/hasCertification> ;
-    skos:narrowMatch gs1:certification ;
-    skos:narrowMatch gs1:certificationIdentification ;
-    skos:narrowMatch <https://schema.org/certificationIdentification> ;
+    skos:broadMatch <https://schema.org/hasCertification> ;
+    skos:broadMatch gs1:certification ;
+    skos:broadMatch gs1:certificationIdentification ;
+    skos:broadMatch <https://schema.org/certificationIdentification> ;
     skos:narrowMatch gs1:certificationType ;
-    skos:narrowMatch gs1:certificationInfo ;
+    skos:broadMatch gs1:certificationInfo ;
     skos:broadMatch gs1:certificationStartDate ;
     skos:broadMatch gs1:certificationEndDate ;
     skos:broadMatch gs1:certificationAuditDate .
@@ -774,7 +778,7 @@ eudr:exemptionScopeReference
     rdfs:seeAlso <https://ref.gs1.org/voc/hasBatchLotNumber> ;
     rdfs:seeAlso <https://ref.gs1.org/voc/hasSerialNumber> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
-    skos:narrowMatch gs1:hasBatchLotNumber .
+    skos:broadMatch gs1:hasBatchLotNumber .
 
 eudr:exemptionEffectiveFrom
     a owl:DatatypeProperty ;
@@ -786,7 +790,7 @@ eudr:exemptionEffectiveFrom
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> ;
     skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:closeMatch gs1:regulatoryReferenceApplicabilityStartDate ;
-    skos:narrowMatch <https://schema.org/validFrom> .
+    skos:broadMatch <https://schema.org/validFrom> .
 
 eudr:exemptionEffectiveUntil
     a owl:DatatypeProperty ;

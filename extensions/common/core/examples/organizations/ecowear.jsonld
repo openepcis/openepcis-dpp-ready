@@ -1,25 +1,36 @@
 {
   "@context": [
-    "https://ref.gs1.org/voc/",
     "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld"
   ],
-  "type": "Organization",
-  "glnType": "LEGAL_ENTITY",
+  "type": [
+    "gs1:Organization",
+    "oec:OperatorInformation"
+  ],
+  "gs1:glnType": "gs1:GLN_TypeCode-LEGAL_ENTITY",
   "gs1:globalLocationNumber": "9521000000018",
-  "gs1:organizationName": {
-    "en": "EcoWear GmbH",
-    "de": "EcoWear GmbH"
-  },
-  "organizationRole": "MANUFACTURER_OF_FINISHED_GOODS",
+  "gs1:organizationName": [
+    {
+      "@value": "EcoWear GmbH",
+      "@language": "en"
+    },
+    {
+      "@value": "EcoWear GmbH",
+      "@language": "de"
+    }
+  ],
+  "gs1:organizationRole": "gs1:OrganizationRoleType-MANUFACTURER_OF_FINISHED_GOODS",
   "gs1:address": {
     "gs1:organizationName": {
-      "en": "EcoWear GmbH"
+      "@value": "EcoWear GmbH",
+      "@language": "en"
     },
     "gs1:streetAddress": {
-      "en": "Nachhaltigkeitsstraße 42"
+      "@value": "Nachhaltigkeitsstraße 42",
+      "@language": "en"
     },
     "gs1:addressLocality": {
-      "en": "Berlin"
+      "@value": "Berlin",
+      "@language": "en"
     },
     "gs1:postalCode": "10115",
     "gs1:addressCountry": {
@@ -33,5 +44,7 @@
     "gs1:telephone": "+00 0 0000 0000"
   },
   "oec:economicOperatorId": "DE-DPP-OP-001",
-  "oec:operatorType": "oec:Manufacturer"
+  "oec:operatorRole": {
+    "@id": "oec:Manufacturer"
+  }
 }

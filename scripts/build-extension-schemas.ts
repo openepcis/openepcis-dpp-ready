@@ -10,9 +10,11 @@
  * the vocabulary is documented. Field-level validation (required / types /
  * code-lists) can tighten later per ontology.
  *
- * Terms are derived from each module's shipped JSON-LD @context — the same
- * source of truth the rest of the build consumes — so the schemas track the
- * ontology automatically: re-run after `build:context`/`build:json`.
+ * Terms are the module ontology's properties (from the generated
+ * `json/<module>.json`) plus the aliases in its shipped JSON-LD @context, which
+ * contribute the cross-vocabulary terms (`gs1:`/`schema:`) the module reuses but
+ * does not define. Both are build outputs, so the schemas track the ontology
+ * automatically: re-run after `build:context`/`build:json`.
  *
  * Output:
  *   extensions/**\/validation/<slug>.extension-schema.json   (source of truth)
@@ -88,6 +90,29 @@ function contextTerms(ctxPath: string): string[] {
   return [...terms].sort();
 }
 
+/**
+ * Every property local name the module's ontology defines, from the generated
+ * `json/<module>.json` (build-json.ts output).
+ *
+ * The context alone is not enough: since the standard contexts became prefix-only
+ * they carry ONLY the terms that needed a non-derivable coercion hint, so reading
+ * terms from there under-covers the vocabulary: iron-steel produced an empty
+ * schema and fsma204 a three-term one. Classes stay out: this lists property
+ * names, and a class name appears in a `type` value, not as a key.
+ */
+function ontologyProperties(jsonPath: string): string[] {
+  if (!existsSync(jsonPath)) return [];
+  try {
+    const doc = JSON.parse(readFileSync(jsonPath, "utf8"));
+    const out = new Set<string>();
+    for (const t of doc.properties ?? []) if (t.localName) out.add(t.localName as string);
+    return [...out].sort();
+  } catch (e) {
+    console.error(`  ! cannot parse ${jsonPath}: ${(e as Error).message}`);
+    return [];
+  }
+}
+
 interface AccessInfo {
   accessLevel: string;
   accessLevelMandatedBy?: string;
@@ -128,11 +153,17 @@ function buildSchema(
 ): Record<string, JsonValue> {
   const props: Record<string, JsonValue> = {};
   for (const t of terms) {
-    // accept both the short alias and the explicitly-prefixed form; carry the
+    // Accept both the short alias and the explicitly-prefixed form; carry the
     // ESPR tier as x-access-level (batterypass-v1.3-schema.json precedent).
-    // Context aliases may already be prefixed (eubat:ratedCapacity) while the
-    // ontology JSON keys by bare localName — strip the prefix for the lookup.
-    const a = access[t.includes(":") ? t.slice(t.indexOf(":") + 1) : t];
+    // Since the standard contexts became prefix-only, every alias arrives as a
+    // CURIE (eubat:ratedCapacity, and cross-vocabulary ones like gs1:address).
+    // Split it: the bare local name is the short alias, and the CURIE is kept as
+    // authored; re-prefixing it would emit `eubat:eubat:x` / `oec:gs1:address`
+    // and leave the bare form, which this schema exists to accept, missing.
+    const colon = t.indexOf(":");
+    const local = colon >= 0 ? t.slice(colon + 1) : t;
+    const curie = colon >= 0 ? t : `${prefix}:${t}`;
+    const a = access[local];
     const annotation: Record<string, JsonValue> = a
       ? {
           "x-access-level": a.accessLevel,
@@ -141,8 +172,8 @@ function buildSchema(
           ...(a.accessLevelSource && { "x-access-level-source": a.accessLevelSource }),
         }
       : {};
-    props[t] = { ...annotation };
-    props[`${prefix}:${t}`] = { ...annotation };
+    props[local] = { ...annotation };
+    props[curie] = { ...annotation };
   }
   return {
     $schema: "http://json-schema.org/draft-07/schema#",
@@ -152,7 +183,8 @@ function buildSchema(
       `Permissive capture schema for the ${namespace} extension. Declares known terms ` +
       `as optional and allows additional properties, so events that declare ` +
       `GS1-Extensions ${prefix}=${namespace} validate and capture. Generated from the ` +
-      `module JSON-LD context; tighten per ontology for field-level validation.`,
+      `module ontology plus its JSON-LD context; tighten per ontology for field-level ` +
+      `validation.`,
     type: "object",
     properties: props,
     patternProperties: { [`^${prefix}:`]: {} },
@@ -178,8 +210,16 @@ function main(): void {
     const namespace = `${BASE_URL}/${m.nsSuffix}`;
     const ctxPath = join(d, "context", m.ctxFile);
     const ctxUrl = `${BASE_URL}/${m.nsSuffix}${m.ctxFile}`;
-    const terms = existsSync(ctxPath) ? contextTerms(ctxPath) : [];
-    const access = m.jsonFile ? accessLevels(join(d, "json", m.jsonFile)) : {};
+    // The ontology is the term inventory; the context adds the cross-vocabulary
+    // terms the module reuses (gs1:/schema:) that its own TTL does not define.
+    const jsonPath = m.jsonFile ? join(d, "json", m.jsonFile) : undefined;
+    const terms = [
+      ...new Set([
+        ...(jsonPath ? ontologyProperties(jsonPath) : []),
+        ...(existsSync(ctxPath) ? contextTerms(ctxPath) : []),
+      ]),
+    ].sort();
+    const access = jsonPath ? accessLevels(jsonPath) : {};
     const schema = buildSchema(namespace, m.prefix, terms, access);
 
     const valDir = join(d, "validation");
