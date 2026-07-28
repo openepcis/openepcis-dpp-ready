@@ -7,8 +7,9 @@
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md and extensions/eu/battery/docs/EPCIS_AND_BATTERYPASS_READY.md"
   ],
   "@context": [
-    "https://ref.openepcis.io/extensions/eu/battery/battery-operational-context.jsonld",
-    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
   ],
   "type": "EPCISDocument",
   "schemaVersion": "2.0",
@@ -36,8 +37,12 @@
         "outputEPCList": [
           "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001"
         ],
-        "readPoint": { "id": "https://id.gs1.org/414/9521234000112" },
-        "bizLocation": { "id": "https://id.gs1.org/414/9521234000112" },
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000112"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000112"
+        },
         "ilmd": {
           "gs1:hasBatchLotNumber": "LOT-2026-AMP01",
           "gs1:productionDate": "2026-01-22"
@@ -55,8 +60,12 @@
         "childEPCs": [
           "https://id.gs1.org/8004/95212340BMS26001"
         ],
-        "readPoint": { "id": "https://id.gs1.org/414/9521234000112" },
-        "bizLocation": { "id": "https://id.gs1.org/414/9521234000112" }
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000112"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000112"
+        }
       },
       {
         "type": "ObjectEvent",
@@ -67,13 +76,19 @@
         "bizStep": "commissioning",
         "disposition": "active",
         "persistentDisposition": {
-          "set": ["active"]
+          "set": [
+            "active"
+          ]
         },
         "epcList": [
           "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001"
         ],
-        "readPoint": { "id": "https://id.gs1.org/414/9521234000112" },
-        "bizLocation": { "id": "https://id.gs1.org/414/9521234000112" },
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000112"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000112"
+        },
         "gs1:masterDataAvailableFor": [
           {
             "id": "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001",
@@ -81,7 +96,9 @@
             "regulatoryInformation": [
               {
                 "type": "RegulatoryInformation",
-                "regulationType": { "id": "RegulationTypeCode-BATTERY_DIRECTIVE" },
+                "regulationType": {
+                  "id": "gs1:RegulationTypeCode-BATTERY_DIRECTIVE"
+                },
                 "regulatoryAct": "EU 2023/1542"
               }
             ]
@@ -93,12 +110,24 @@
               "time": "2026-01-23T14:05:00.000Z",
               "deviceID": "https://id.gs1.org/8004/95212340BMS26001",
               "deviceMetadata": "https://www.amperia.example/devices/bms-v2",
-              "bizRules": "Beginning-of-life factory test per IEC 62660-1"
+              "_comment": "Beginning-of-life factory test per IEC 62660-1"
             },
             "sensorReport": [
-              { "type": "eubat:stateOfHealth", "value": 100, "uom": "P1" },
-              { "type": "eubat:stateOfCharge", "value": 50, "uom": "P1" },
-              { "type": "eubat:internalResistance", "value": 1.8, "uom": "OHM" }
+              {
+                "type": "eubat:stateOfHealth",
+                "value": 100,
+                "uom": "P1"
+              },
+              {
+                "type": "eubat:stateOfCharge",
+                "value": 50,
+                "uom": "P1"
+              },
+              {
+                "type": "eubat:internalResistance",
+                "value": 1.8,
+                "uom": "OHM"
+              }
             ]
           }
         ]
@@ -115,8 +144,12 @@
         "childEPCs": [
           "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001"
         ],
-        "readPoint": { "id": "https://id.gs1.org/414/9521234000112" },
-        "bizLocation": { "id": "https://id.gs1.org/414/9521234000112" }
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000112"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000112"
+        }
       },
       {
         "type": "ObjectEvent",
@@ -129,7 +162,9 @@
         "epcList": [
           "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001"
         ],
-        "readPoint": { "id": "https://id.gs1.org/414/9521234000112" },
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000112"
+        },
         "bizTransactionList": [
           {
             "type": "urn:epcglobal:cbv:btt:desadv",
@@ -137,10 +172,16 @@
           }
         ],
         "sourceList": [
-          { "type": "urn:epcglobal:cbv:sdt:owning_party", "source": "https://id.gs1.org/417/9521234000105" }
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "source": "https://id.gs1.org/417/9521234000105"
+          }
         ],
         "destinationList": [
-          { "type": "urn:epcglobal:cbv:sdt:owning_party", "destination": "https://id.gs1.org/417/9521234000211" }
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "destination": "https://id.gs1.org/417/9521234000211"
+          }
         ]
       },
       {
@@ -152,25 +193,46 @@
         "bizStep": "installing",
         "disposition": "active",
         "persistentDisposition": {
-          "set": ["active"],
-          "unset": ["in_transit"]
+          "set": [
+            "active"
+          ],
+          "unset": [
+            "in_transit"
+          ]
         },
         "epcList": [
           "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001"
         ],
-        "readPoint": { "id": "https://id.gs1.org/414/9521234000204" },
-        "bizLocation": { "id": "https://id.gs1.org/414/9521234000204" },
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000204"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000204"
+        },
         "sourceList": [
-          { "type": "urn:epcglobal:cbv:sdt:possessing_party", "source": "https://id.gs1.org/417/9521234000211" }
+          {
+            "type": "urn:epcglobal:cbv:sdt:possessing_party",
+            "source": "https://id.gs1.org/417/9521234000211"
+          }
         ],
         "destinationList": [
-          { "type": "urn:epcglobal:cbv:sdt:owning_party", "destination": "https://id.gs1.org/417/9521234000204" }
+          {
+            "type": "urn:epcglobal:cbv:sdt:owning_party",
+            "destination": "https://id.gs1.org/417/9521234000204"
+          }
         ],
         "sensorElementList": [
           {
-            "sensorMetadata": { "time": "2026-02-10T10:20:00.000Z", "deviceID": "https://id.gs1.org/8004/95212340BMS26001" },
+            "sensorMetadata": {
+              "time": "2026-02-10T10:20:00.000Z",
+              "deviceID": "https://id.gs1.org/8004/95212340BMS26001"
+            },
             "sensorReport": [
-              { "type": "eubat:stateOfCharge", "value": 48, "uom": "P1" }
+              {
+                "type": "eubat:stateOfCharge",
+                "value": 48,
+                "uom": "P1"
+              }
             ]
           }
         ]
@@ -186,7 +248,9 @@
         "epcList": [
           "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001"
         ],
-        "readPoint": { "id": "https://id.gs1.org/414/9521234000204" },
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000204"
+        },
         "sensorElementList": [
           {
             "sensorMetadata": {
@@ -194,7 +258,7 @@
               "endTime": "2026-05-15T13:12:00.000Z",
               "deviceID": "https://id.gs1.org/8004/95212340BMS26001",
               "dataProcessingMethod": "https://www.iso.org/standard/79080.html",
-              "bizRules": "Thermal-excursion alert: cell temperature above the idle-state upper boundary (55 C)"
+              "_comment": "Thermal-excursion alert: cell temperature above the idle-state upper boundary (55 C)"
             },
             "sensorReport": [
               {
@@ -222,7 +286,9 @@
         "epcList": [
           "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001"
         ],
-        "readPoint": { "id": "https://id.gs1.org/414/9521234000204" },
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000204"
+        },
         "sensorElementList": [
           {
             "sensorMetadata": {
@@ -231,18 +297,59 @@
               "deviceID": "https://id.gs1.org/8004/95212340BMS26001",
               "deviceMetadata": "https://www.amperia.example/devices/bms-v2",
               "dataProcessingMethod": "https://www.amperia.example/methods/soh-coulomb-counting",
-              "bizRules": "Monthly state-of-health assessment (SoH) per EU 2023/1542 Annex XIII"
+              "bizRules": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+              "_comment": "Monthly state-of-health assessment (SoH) per EU 2023/1542 Annex XIII"
             },
             "sensorReport": [
-              { "type": "eubat:stateOfHealth", "value": 97.5, "minValue": 97.3, "maxValue": 97.8, "meanValue": 97.5, "sDev": 0.12, "uom": "P1" },
-              { "type": "eubat:stateOfCharge", "value": 62, "uom": "P1" },
-              { "type": "eubat:remainingCapacity", "value": 195, "uom": "AMH" },
-              { "type": "eubat:remainingEnergy", "value": 9.98, "uom": "KWH" },
-              { "type": "eubat:capacityFade", "value": 2.5, "uom": "P1" },
-              { "type": "eubat:numberOfFullCycles", "value": 640, "uom": "C62" },
-              { "type": "eubat:internalResistance", "value": 1.9, "uom": "OHM" },
-              { "type": "eubat:energyThroughput", "value": 6550, "uom": "KWH" },
-              { "type": "eubat:remainingRoundTripEfficiency", "value": 94, "uom": "P1" }
+              {
+                "type": "eubat:stateOfHealth",
+                "value": 97.5,
+                "minValue": 97.3,
+                "maxValue": 97.8,
+                "meanValue": 97.5,
+                "sDev": 0.12,
+                "uom": "P1"
+              },
+              {
+                "type": "eubat:stateOfCharge",
+                "value": 62,
+                "uom": "P1"
+              },
+              {
+                "type": "eubat:remainingCapacity",
+                "value": 195,
+                "uom": "AMH"
+              },
+              {
+                "type": "eubat:remainingEnergy",
+                "value": 9.98,
+                "uom": "KWH"
+              },
+              {
+                "type": "eubat:capacityFade",
+                "value": 2.5,
+                "uom": "P1"
+              },
+              {
+                "type": "eubat:numberOfFullCycles",
+                "value": 640,
+                "uom": "C62"
+              },
+              {
+                "type": "eubat:internalResistance",
+                "value": 1.9,
+                "uom": "OHM"
+              },
+              {
+                "type": "eubat:energyThroughput",
+                "value": 6550,
+                "uom": "KWH"
+              },
+              {
+                "type": "eubat:remainingRoundTripEfficiency",
+                "value": 94,
+                "uom": "P1"
+              }
             ]
           }
         ]
@@ -258,16 +365,23 @@
         "epcList": [
           "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001"
         ],
-        "readPoint": { "id": "https://id.gs1.org/414/9521234000204" },
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000204"
+        },
         "sensorElementList": [
           {
             "sensorMetadata": {
               "time": "2026-05-31T09:45:00.000Z",
               "deviceID": "https://id.gs1.org/8004/95212340BMS26001",
-              "bizRules": "State of Certified Energy (SOCE) measurement per EU 2023/1542"
+              "bizRules": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+              "_comment": "State of Certified Energy (SOCE) measurement per EU 2023/1542"
             },
             "sensorReport": [
-              { "type": "eubat:stateOfCertifiedEnergy", "value": 9.98, "uom": "KWH" }
+              {
+                "type": "eubat:stateOfCertifiedEnergy",
+                "value": 9.98,
+                "uom": "KWH"
+              }
             ]
           }
         ]

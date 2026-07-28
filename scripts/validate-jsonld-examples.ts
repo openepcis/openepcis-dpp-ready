@@ -23,9 +23,13 @@ const ROOT = path.resolve(__dirname, '..');
 // Published URL convention: a context at extensions/<path>/context/<name>.jsonld is
 // served at https://ref.openepcis.io/extensions/<path>/<name>.jsonld (no "context/").
 // Non-openepcis hosts (e.g. the GS1 Rail mirror) are listed explicitly below.
+// Upstream contexts are served from the pinned vendor snapshots so validation is
+// offline and deterministic (same trade-off as the vocabulary guard's snapshot).
 const SPECIAL_HOST_MAP: Record<string, string> = {
   'https://gs1-epcis-reg.org/rail/rail-context.jsonld':
     'extensions/upstream/gs1-rail/context/rail-context.jsonld',
+  'https://ref.gs1.org/standards/epcis/epcis-context.jsonld': 'vendor/gs1/epcis-context.jsonld',
+  'https://ref.gs1.org/voc/': 'vendor/gs1/gs1Voc.jsonld',
 };
 
 async function buildContextMap(): Promise<Record<string, string>> {
@@ -140,7 +144,8 @@ async function main() {
   const targets: string[] = [];
   for (const rel of await fs.readdir(extRoot, { recursive: true })) {
     const relStr = String(rel).split(path.sep).join('/');
-    if (/(^|\/)(examples|epcis)\/[^/]+\.jsonld$/.test(relStr)) {
+    // One optional subdirectory level so examples/organizations/*.jsonld is covered too.
+    if (/(^|\/)(examples|epcis)\/([^/]+\/)?[^/]+\.jsonld$/.test(relStr)) {
       targets.push(path.join(extRoot, relStr));
     }
   }

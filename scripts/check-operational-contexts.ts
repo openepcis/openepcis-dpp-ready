@@ -11,7 +11,19 @@
  *       no bare class values in `type`);
  *   (c) each product seed round-trips: canonicalising it under its own @context
  *       and under its per-module operational context yields the identical RDF
- *       graph (URDNA2015), with no malformed literals.
+ *       graph (URDNA2015), with no malformed literals;
+ *   (d) every EPCIS event example lists STANDARD contexts only: the EPCIS base
+ *       context first, then dpp-core, then the module context(s). An event is
+ *       interchange payload for an EPCIS repository, not the EN 18223 compressed
+ *       form, so it must never point at an operational or shortcut context;
+ *   (e) inside an EPCIS event the prefix rule holds in both directions: outside
+ *       `gs1:masterDataAvailableFor` every vocabulary key is a CURIE (only EPCIS
+ *       structural terms stay bare), and inside it GS1 is the ambient vocabulary
+ *       (GS1 keys and GS1 `type` values bare, extension terms prefixed). The bare
+ *       keys resolve because dpp-core-context gives `gs1:masterDataAvailableFor`
+ *       a property-scoped @context (the gs1-shortcuts layer);
+ *   (f) the resolver Organization records are fully prefixed too, and expand with
+ *       no dropped terms.
  *
  * Runs offline against the bundled contexts. Wired into `pnpm run build` and CI.
  */
@@ -30,9 +42,22 @@ const STANDARD_CONTEXTS = [
   "extensions/eu/ppwr/context/ppwr-context.jsonld",
   "extensions/eu/cpr/context/cpr-context.jsonld",
   "extensions/eu/detergent/context/detergent-context.jsonld",
+  "extensions/eu/iron-steel/context/iron-steel-context.jsonld",
   "extensions/us/fsma204/context/fsma204-context.jsonld",
 ];
 const STRUCT = new Set(["id", "type"]);
+
+const EPCIS_BASE = "https://ref.gs1.org/standards/epcis/epcis-context.jsonld";
+const DPP_CORE = "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld";
+const MDAF = "gs1:masterDataAvailableFor";
+const EPCIS_CONTEXT_FILE = "vendor/gs1/epcis-context.jsonld";
+const GS1_SHORTCUTS_FILE = "extensions/common/core/context/gs1-shortcuts-context.jsonld";
+// The rail mirror re-publishes EPCIS sensor terms of its own, so rail events are
+// allowed the upstream rail context in addition to the standard chain.
+const RAIL_EXTRA = new Set([
+  "https://gs1-epcis-reg.org/rail/rail-context.jsonld",
+  "https://ref.openepcis.io/extensions/common/interop/rail-bridge-context.jsonld",
+]);
 const isNamespace = (v: any) => typeof v === "string" && /^https?:\/\//.test(v) && (v.endsWith("/") || v.endsWith("#"));
 
 /** (a) A standard context must not define bare property aliases. */
@@ -67,6 +92,60 @@ function bareTerms(node: any, out: Set<string>): void {
   }
 }
 
+/**
+ * Every term the EPCIS base context defines, including the ones that only exist
+ * inside a type-/property-scoped @context (sensorElementList → sensorReport →
+ * type, persistentDisposition → set/unset, …). These are the only keys allowed to
+ * stay bare in an event: they are EPCIS structural fields, not vocabulary.
+ */
+function collectTerms(ctx: any, out: Set<string>): void {
+  if (Array.isArray(ctx)) { ctx.forEach((c) => collectTerms(c, out)); return; }
+  if (!ctx || typeof ctx !== "object") return;
+  for (const [k, v] of Object.entries(ctx)) {
+    if (!k.startsWith("@")) out.add(k);
+    if (v && typeof v === "object") collectTerms((v as any)["@context"], out);
+  }
+}
+
+/**
+ * (e) Walk an event and report keys/values that break the prefix rule. `inMdaf`
+ * flips the expectation: outside the card GS1 must be prefixed, inside it must be
+ * bare (that is where gs1 is the ambient vocabulary).
+ */
+function prefixProblems(
+  node: any,
+  structural: Set<string>,
+  gs1Bare: Set<string>,
+  inMdaf: boolean,
+  out: Set<string>,
+): void {
+  if (Array.isArray(node)) {
+    node.forEach((v) => prefixProblems(v, structural, gs1Bare, inMdaf, out));
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  for (const [k, v] of Object.entries(node)) {
+    const nested = inMdaf || k === MDAF;
+    if (k.startsWith("@") || k.startsWith("_") || STRUCT.has(k)) {
+      // fall through to the recursion below
+    } else if (inMdaf) {
+      if (k.startsWith("gs1:")) out.add(`${k} (inside ${MDAF} GS1 terms are written bare)`);
+      else if (!k.includes(":") && !gs1Bare.has(k)) out.add(`${k} (bare inside ${MDAF} but not a GS1 term)`);
+    } else if (!k.includes(":") && !structural.has(k)) {
+      out.add(`${k} (bare outside ${MDAF} and not an EPCIS structural term)`);
+    }
+    if (k === "type" || k === "@type") {
+      for (const t of Array.isArray(v) ? v : [v]) {
+        if (typeof t !== "string" || t.startsWith("@") || t.includes(":")) continue;
+        // A bare class value is only legal inside a card (GS1 ambient) or when the
+        // EPCIS context itself defines the code (e.g. bizTransaction types).
+        if (!(inMdaf ? gs1Bare.has(t) : structural.has(t))) out.add(`type=${t}`);
+      }
+    }
+    prefixProblems(v, structural, gs1Bare, nested, out);
+  }
+}
+
 const stripComments = (o: any): any =>
   Array.isArray(o) ? o.map(stripComments)
     : o && typeof o === "object"
@@ -83,18 +162,27 @@ const canon = (doc: any) =>
 // (those are the bare-keyed compressed form, not prefixed standard-context seeds).
 const EXCLUDE = /(batterypass-|regulatory-notification|\.operational\.jsonld$)/;
 
-async function productSeeds(): Promise<string[]> {
-  const out: string[] = [];
+interface Targets {
+  seeds: string[]; // product master-data seeds (rules b + c)
+  events: string[]; // EPCIS event examples (rules d + e)
+  orgs: string[]; // resolver Organization records (rule f)
+}
+
+async function targets(): Promise<Targets> {
+  const t: Targets = { seeds: [], events: [], orgs: [] };
   const walk = async (dir: string) => {
     for (const e of await fs.readdir(dir, { withFileTypes: true })) {
       const p = path.join(dir, e.name);
-      // product master-data seeds only: skip resolver org records and EPCIS events
-      if (e.isDirectory()) { if (e.name !== "organizations" && e.name !== "epcis") await walk(p); }
-      else if (e.name.endsWith(".jsonld") && dir.endsWith("/examples") && !EXCLUDE.test(e.name)) out.push(p);
+      if (e.isDirectory()) { await walk(p); continue; }
+      if (!e.name.endsWith(".jsonld")) continue;
+      if (dir.endsWith("/epcis")) t.events.push(p);
+      else if (dir.endsWith("/examples/organizations")) t.orgs.push(p);
+      else if (dir.endsWith("/examples") && !EXCLUDE.test(e.name)) t.seeds.push(p);
     }
   };
   await walk(path.join(ROOT, "extensions"));
-  return out.sort();
+  t.seeds.sort(); t.events.sort(); t.orgs.sort();
+  return t;
 }
 
 async function main(): Promise<number> {
@@ -107,8 +195,10 @@ async function main(): Promise<number> {
     if (bare.length) problems.push(`standard context ${rel} defines ${bare.length} bare alias(es): ${bare.slice(0, 8).join(", ")}${bare.length > 8 ? " …" : ""}`);
   }
 
+  const { seeds, events, orgs } = await targets();
+
   // (b) + (c)
-  for (const abs of await productSeeds()) {
+  for (const abs of seeds) {
     const rel = path.relative(ROOT, abs);
     const doc = stripComments(JSON.parse(await fs.readFile(abs, "utf8")));
     const bare = new Set<string>();
@@ -124,12 +214,74 @@ async function main(): Promise<number> {
     }
   }
 
+  // (d) + (e)
+  const structural = new Set<string>();
+  collectTerms(JSON.parse(await fs.readFile(path.join(ROOT, EPCIS_CONTEXT_FILE), "utf8"))["@context"], structural);
+  const gs1Bare = new Set<string>();
+  collectTerms(JSON.parse(await fs.readFile(path.join(ROOT, GS1_SHORTCUTS_FILE), "utf8"))["@context"], gs1Bare);
+  // The rail mirror publishes its own bare sensor terms (leftValue, visibility, …).
+  const railStructural = new Set(structural);
+  collectTerms(
+    JSON.parse(await fs.readFile(path.join(ROOT, "extensions/upstream/gs1-rail/context/rail-context.jsonld"), "utf8"))["@context"],
+    railStructural,
+  );
+  for (const abs of events) {
+    const rel = path.relative(ROOT, abs);
+    const doc = JSON.parse(await fs.readFile(abs, "utf8"));
+    const arr = Array.isArray(doc["@context"]) ? doc["@context"] : [doc["@context"]];
+    const isRail = rel.includes("/gs1-rail/");
+    // (d) standard contexts only, EPCIS base first, dpp-core present
+    if (arr[0] !== EPCIS_BASE) problems.push(`event ${rel}: @context[0] must be the EPCIS base context, found ${JSON.stringify(arr[0])}`);
+    if (!arr.includes(DPP_CORE)) problems.push(`event ${rel}: @context must list the dpp-core standard context`);
+    for (const entry of arr) {
+      if (typeof entry !== "string") { problems.push(`event ${rel}: inline @context entries are not allowed`); continue; }
+      if (/-(operational|shortcut)-context\.jsonld$/.test(entry)) problems.push(`event ${rel}: references non-standard context ${entry}`);
+      else if (entry !== EPCIS_BASE && entry !== DPP_CORE && !/-context\.jsonld$/.test(entry) && !(isRail && RAIL_EXTRA.has(entry))) {
+        problems.push(`event ${rel}: unexpected @context entry ${entry}`);
+      }
+    }
+    // (e) prefix discipline, both directions
+    const bad = new Set<string>();
+    prefixProblems(stripComments(doc), isRail ? railStructural : structural, gs1Bare, false, bad);
+    if (bad.size) problems.push(`event ${rel} breaks the prefix rule: ${[...bad].slice(0, 6).join(", ")}${bad.size > 6 ? ` (+${bad.size - 6} more)` : ""}`);
+  }
+
+  // (f) resolver Organization records: prefixed, and nothing dropped on expansion
+  for (const abs of orgs) {
+    const rel = path.relative(ROOT, abs);
+    const doc = stripComments(JSON.parse(await fs.readFile(abs, "utf8")));
+    const bare = new Set<string>();
+    bareTerms(doc, bare);
+    if (bare.size) { problems.push(`organization ${rel} uses bare term(s): ${[...bare].slice(0, 8).join(", ")}`); continue; }
+    const dropped: string[] = [];
+    try {
+      await jsonld.expand(doc, {
+        documentLoader: documentLoader as any,
+        safe: false,
+        eventHandler: ({ event, next }: any) => {
+          if (event?.code === "invalid property" || String(event?.code).startsWith("relative ")) {
+            dropped.push(`${event.code}: ${event.details?.property ?? event.details?.id ?? "?"}`);
+          }
+          next();
+        },
+      } as any);
+    } catch (e: any) {
+      problems.push(`organization ${rel}: ${e.message}`);
+      continue;
+    }
+    if (dropped.length) problems.push(`organization ${rel}: ${dropped.length} term(s) lost on expansion: ${[...new Set(dropped)].slice(0, 6).join(", ")}`);
+  }
+
   if (problems.length) {
     console.error(`✗ operational-context guard: ${problems.length} problem(s)`);
     problems.forEach((p) => console.error("  - " + p));
     return 1;
   }
-  console.log("✓ operational-context guard: standard contexts prefixed; every product seed prefixed and graph-identical under its operational context.");
+  console.log(
+    `✓ operational-context guard: standard contexts prefixed; ${seeds.length} product seed(s) prefixed and ` +
+      `graph-identical under their operational context; ${events.length} EPCIS event(s) on standard contexts with ` +
+      `GS1 bare only inside ${MDAF}; ${orgs.length} organization record(s) prefixed and lossless.`,
+  );
   return 0;
 }
 

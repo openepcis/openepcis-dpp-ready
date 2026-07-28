@@ -69,6 +69,12 @@ header-term aliases (`digitalProductPassportId` → `oec:passportIdentifier`,
 `granularity` → `oec:granularityLevel`, …). Attaching this single IRI to the
 compact master-data body turns it into JSON-LD that expands to the product RDF.
 
+The operational contexts are for **this** form only. Product seeds
+(`extensions/**/examples/*.jsonld`) and EPCIS events (`extensions/**/epcis/*.jsonld`)
+use the prefix-only standard contexts; only the generated
+`*.operational.jsonld` artifacts reference an operational context. The split is
+machine-checked by `pnpm run check:operational`.
+
 ## Writing (POST / PUT / PATCH)
 
 The write methods accept the **operational JSON-LD** — the same form reads emit —
@@ -113,6 +119,16 @@ Enforced by:
 
 - `scripts/en18223/roundtrip-check.ts` (graph fidelity): `expand(operational ⊕
   context)` ≡ `expand(POST /products body)`, and Turtle → parse-back ≡ the graph.
+  With no arguments it runs over every product seed; that is how `pnpm run build`
+  and CI invoke it. Note what it does *not* cover: it swaps the context into the
+  master body and never reads a committed `*.operational.jsonld`, so it cannot see
+  a defect introduced by compaction, which is what the next gate is for.
+- `scripts/en18223/golden-fidelity-check.ts`: covers exactly that gap. It expands
+  each committed compressed artifact (what the API serves for
+  `representation=compressed`) and asserts that no value became a relative IRI and
+  that no node reference flattened into a string. Both happen when an operational
+  bare alias loses the `@type: "@id"` its standard definition or the upstream range
+  carries. Runs in `pnpm run build` and CI.
 - `scripts/en18223/idempotence-check.ts`: the §5.2 `compress` normalization (used
   for the fine-granular element endpoints) is a fixed point across every product
   example. Runs in `pnpm run build` and CI.
@@ -120,14 +136,20 @@ Enforced by:
   always carrying the `@context` (even as `application/json`), `compressed ==
   operational` (alias), `GET → PUT → GET` byte-faithful, XML (Annex B + expanded),
   Turtle/N-Quads, OPTIONS discovery, and 406.
+- `pnpm run check:dpp-api-en18223`: the `openepcis-dpp-api` service bundles copies
+  of the contexts, the property→range index and the write-path JSON Schemas, because
+  its `En18223Deriver` is a port of this converter pinned to its output by those
+  golden tests. This repo owns them; the check reports drift and
+  `pnpm run sync:dpp-api-en18223` mirrors them. Contexts changed here without a sync
+  make the Java service resolve a different vocabulary than the TS pipeline, so run it
+  after any `build:context` change, then re-run the Java EN 18223 tests.
 
 Run the reference gates:
 
 ```bash
 pnpm run check:idempotence
-pnpm exec tsx scripts/en18223/roundtrip-check.ts \
-  extensions/eu/textile/examples/organic-tee-product.jsonld \
-  extensions/eu/battery/examples/battery-product.jsonld
+pnpm run check:golden-fidelity
+pnpm run check:roundtrip
 ```
 
 ## Examples

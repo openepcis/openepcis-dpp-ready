@@ -1,8 +1,8 @@
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/dpp-operational-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/electronics/electronics-operational-context.jsonld",
-    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld"
   ],
   "type": "EPCISDocument",
   "schemaVersion": "2.0",
@@ -13,6 +13,7 @@
     "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,euelec=https://ref.openepcis.io/extensions/eu/electronics/",
+    "The firmware version the device runs after the swap uses euelec:newVersion, the module's event-level 'version after update' carrier, rather than a repair-specific duplicate of it.",
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
@@ -53,12 +54,14 @@
         "euelec:repairTechnician": "Authorized Service Center - Berlin",
         "euelec:removalReason": "Capacity degradation - 75% State of Health",
         "euelec:replacedComponentPassport": {
-          "id": "https://id.gs1.org/01/09506000134369/21/BAT789012"
+          "id": "https://id.gs1.org/01/09506000134369/21/BAT789012",
+          "type": "euelec:ElectronicComponent"
         },
         "euelec:installedComponentPassport": {
-          "id": "https://id.gs1.org/01/09506000134369/21/BAT-NEW-456"
+          "id": "https://id.gs1.org/01/09506000134369/21/BAT-NEW-456",
+          "type": "euelec:ElectronicComponent"
         },
-        "euelec:deviceFirmwareVersionAfterRepair": "EP2025.1.2.45",
+        "euelec:newVersion": "EP2025.1.2.45",
         "euelec:warrantyStatus": "InWarranty",
         "euelec:repairCost": {
           "type": "gs1:PriceSpecification",
@@ -82,7 +85,7 @@
         "euelec:componentType": "BatteryComponent",
         "euelec:removalReason": "Capacity degradation - 75% State of Health",
         "euelec:nextDisposition": "RecyclingWEEECategory6",
-        "euelec:hazardousWaste": false
+        "euelec:hazardousWasteGenerated": false
       }
     ]
   }

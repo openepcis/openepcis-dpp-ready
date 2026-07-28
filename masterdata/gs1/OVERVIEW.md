@@ -35,6 +35,12 @@ service) reads exactly these GS1-typed records and projects them to the passport
 - **Snapshot:** `vendor/gs1/gs1Voc.jsonld` — a pinned copy of the GS1 Web
   Vocabulary, used offline by the CLI/tooling and the browser demo so builds are
   deterministic. It is upstream data; we do not edit it.
+- **EPCIS base context snapshot:** `vendor/gs1/epcis-context.jsonld`, a pinned copy
+  of `https://ref.gs1.org/standards/epcis/epcis-context.jsonld`. The EPCIS event
+  examples list it first in their `@context`, and the guard
+  (`scripts/check-operational-contexts.ts`) reads it to know which bare keys in an
+  event are EPCIS-structural rather than unprefixed vocabulary. Upstream data; not
+  edited here.
 - **Bare-term aliases:** `scripts/build-context.ts` generates
   `extensions/common/core/context/gs1-shortcuts-context.jsonld` from that snapshot
   — a bare alias (`gtin → gs1:gtin`, …) for every GS1 class and property. Only the

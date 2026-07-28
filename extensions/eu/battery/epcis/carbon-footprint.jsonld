@@ -1,7 +1,8 @@
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/eu/battery/battery-operational-context.jsonld",
-    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
   ],
   "type": "EPCISDocument",
   "schemaVersion": "2.0",
@@ -42,7 +43,7 @@
               {
                 "type": "RegulatoryInformation",
                 "regulationType": {
-                  "id": "RegulationTypeCode-BATTERY_DIRECTIVE"
+                  "id": "gs1:RegulationTypeCode-BATTERY_DIRECTIVE"
                 },
                 "regulatoryAct": "EU 2023/1542"
               }
@@ -53,7 +54,8 @@
           {
             "sensorMetadata": {
               "time": "2024-03-20T10:00:00.000Z",
-              "bizRules": "Carbon footprint per EU 2023/1542 and ISO 14067"
+              "bizRules": "https://eur-lex.europa.eu/eli/reg/2023/1542",
+              "_comment": "Carbon footprint per EU 2023/1542 and ISO 14067"
             },
             "sensorReport": [
               {

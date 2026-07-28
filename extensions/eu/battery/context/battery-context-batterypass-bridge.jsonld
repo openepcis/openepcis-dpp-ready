@@ -1,5 +1,5 @@
 {
-  "_comment": "This context interprets incoming BatteryPass documents as OpenEPCIS/GS1 terms (external key -> eubat:/oec:/gs1:). The two BatteryPass sources are referenced separately. (1) samm-* = the BatteryPass Consortium SAMM aspect models (github.com/batterypass), real versions 1.2.0 (Performance 1.2.1), matching battery.ttl. (2) bpr: = the GEFEG BatteryPass-Ready longlist v1.3 (thebatterypass.eu), which publishes no RDF IRIs, so this is an OpenEPCIS-hosted reference namespace for its longlist-only attributes (DPP-information group #1-#4). No SAMM 1.3.0 / DPPInformation submodel exists.",
+  "_comment": "This context interprets incoming BatteryPass documents as OpenEPCIS/GS1 terms (external key -> eubat:/oec:/gs1:). The two BatteryPass sources are referenced separately. (1) samm-* = the BatteryPass Consortium SAMM aspect models (github.com/batterypass), real versions 1.2.0 (Performance 1.2.1), matching battery.ttl. (2) bpr: = the GEFEG BatteryPass-Ready longlist v1.3 (thebatterypass.eu), which publishes no RDF IRIs, so this is an OpenEPCIS-hosted reference namespace for its longlist-only attributes (DPP-information group #1-#4). No SAMM 1.3.0 / DPPInformation submodel exists. Target-selection rule: every key resolves to the highest layer that already covers the concept (gs1: > oec: > eubat:); no key mints a new IRI. Where the longlist carries one flat value that OpenEPCIS models structurally across several terms (materialsUsedInCathode -> eubat:batteryChemistry + eubat:materialComposition; symbolsForCadmiumAndLead -> eubat:cadmiumSymbolRequired + eubat:leadSymbolRequired; carbonFootprintLabel -> eubat:labels/eubat:labelSymbol + eubat:CarbonFootprintLabel; informationOnAccidents -> eubat:negativeEvents) no 1:1 project term exists, so the key keeps its upstream bpr: IRI and the incoming value is preserved losslessly rather than forced into a partial match. Attribute [5] batteryPassportIdentifier (the DPP identifier) and [6] batteryIdentifier (the unique battery/product identifier) are DISTINCT longlist attributes and map to different IRIs — oec/eubat passport identifier vs gs1:productID. Quantity carriers use the longlist's bare {value, unitCode} shape, aliased onto gs1:value/gs1:unitCode with the same xsd:decimal coercion the prefixed terms carry, so examples/batterypass-v1.3.jsonld validates against validation/batterypass-v1.3-schema.json (85/85 required attributes) while staying graph-identical.",
   "@context": {
     "@version": 1.1,
     "gs1": "https://ref.gs1.org/voc/",
@@ -68,10 +68,6 @@
         "industrial": "eubat:IndustrialBattery",
         "stationary": "eubat:StationaryBattery"
       }
-    },
-    "manufacturerInformation": {
-      "@id": "gs1:manufacturer",
-      "@type": "@id"
     },
     "manufacturingDate": {
       "@id": "gs1:productionDate",
@@ -283,7 +279,7 @@
       "@type": "xsd:dateTime"
     },
     "negativeEvents": {
-      "@id": "eubat:NegativeEvent",
+      "@id": "eubat:negativeEvents",
       "@container": "@list"
     },
     "negativeEvent": {
@@ -294,16 +290,20 @@
       "@type": "@id"
     },
     "timeExtremeHighTemp": {
-      "@id": "gs1:Temperature"
+      "@id": "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
+      "@type": "xsd:integer"
     },
     "timeExtremeLowTemp": {
-      "@id": "gs1:Temperature"
+      "@id": "eubat:timeSpentInExtremeTemperaturesBelowBoundary",
+      "@type": "xsd:integer"
     },
     "timeExtremeHighTempCharging": {
-      "@id": "gs1:Temperature"
+      "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
+      "@type": "xsd:integer"
     },
     "timeExtremeLowTempCharging": {
-      "@id": "gs1:Temperature"
+      "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
+      "@type": "xsd:integer"
     },
     "minimum": {
       "@id": "eubat:minimumTemperature",
@@ -520,6 +520,9 @@
       "@id": "eubat:endOfLifeInfo",
       "@type": "@id"
     },
+    "extinguishingAgent": {
+      "@id": "eubat:extinguishingAgent"
+    },
     "safetyInstructions": {
       "@id": "eubat:safetyInstructions",
       "@type": "@id"
@@ -559,56 +562,186 @@
       "@id": "eubat:supplyChainIndex",
       "@type": "xsd:decimal"
     },
-    "batteryIdentifier": {"@id": "eubat:batteryPassportIdentifier"},
-    "warrantyPeriod": {"@id": "eubat:warrantyPeriod", "@type": "@id"},
-    "criticalRawMaterials": {"@id": "eubat:criticalRawMaterials", "@container": "@set"},
-    "materialsUsedInCathode": {"@id": "eubat:materialsUsedInCathode", "@container": "@set"},
-    "impactOfSubstancesOnEnvironment": "eubat:impactOfSubstancesOnEnvironment",
-    "separateCollectionSymbol": {"@id": "eubat:separateCollectionSymbol", "@type": "@id"},
-    "symbolsForCadmiumAndLead": {"@id": "eubat:symbolsForCadmiumAndLead", "@type": "@id"},
-    "carbonFootprintLabel": {"@id": "eubat:carbonFootprintLabel", "@type": "@id"},
-    "meaningOfLabelsAndSymbols": "eubat:meaningOfLabelsAndSymbols",
-    "euDeclarationOfConformity": {"@id": "eubat:euDeclarationOfConformity", "@type": "@id"},
-    "resultsOfTestReportsProvingCompliance": {"@id": "eubat:resultsOfTestReportsProvingCompliance", "@type": "@id"},
-    "batteryCarbonFootprintPerFunctionalUnit": {"@id": "eubat:carbonFootprintPerFunctionalUnit", "@type": "@id"},
-    "contributionOfRawMaterialAcquisitionAndPreProcessingLifecycleStage": {"@id": "eubat:contributionRawMaterial", "@type": "@id"},
-    "contributionOfMainProductProductionLifecycleStage": {"@id": "eubat:contributionProduction", "@type": "@id"},
-    "contributionOfDistributionLifecycleStage": {"@id": "eubat:contributionDistribution", "@type": "@id"},
-    "contributionOfEndOfLifeAndRecyclingLifecycleStage": {"@id": "eubat:contributionEndOfLife", "@type": "@id"},
-    "webLinkToPublicCarbonFootprintStudy": {"@id": "eubat:webLinkCarbonFootprintStudy", "@type": "@id"},
-    "informationOfDueDiligenceReport": "eubat:informationOfDueDiligenceReport",
-    "dismantlingInformationManualsForTheRemovalAndTheDisassemblyOfTheBatteryPack": {"@id": "eubat:dismantlingManuals", "@type": "@id"},
-    "partNumbersForComponents": {"@id": "eubat:partNumbersForComponents", "@container": "@set"},
-    "informationOnSourcesOfSpareParts": "eubat:informationOnSourcesOfSpareParts",
-    "preConsumerRecycledNickelShare": {"@id": "eubat:preConsumerRecycledNickelShare", "@type": "xsd:decimal"},
-    "preConsumerRecycledCobaltShare": {"@id": "eubat:preConsumerRecycledCobaltShare", "@type": "xsd:decimal"},
-    "preConsumerRecycledLithiumShare": {"@id": "eubat:preConsumerRecycledLithiumShare", "@type": "xsd:decimal"},
-    "postConsumerRecycledNickelShare": {"@id": "eubat:postConsumerRecycledNickelShare", "@type": "xsd:decimal"},
-    "postConsumerRecycledCobaltShare": {"@id": "eubat:postConsumerRecycledCobaltShare", "@type": "xsd:decimal"},
-    "postConsumerRecycledLithiumShare": {"@id": "eubat:postConsumerRecycledLithiumShare", "@type": "xsd:decimal"},
-    "recycledLeadShare": {"@id": "eubat:recycledLeadShare", "@type": "xsd:decimal"},
-    "informationOnTheRoleOfEndUsersInContributingToWastePrevention": "eubat:roleOfEndUsersInWastePrevention",
-    "informationOnTheRoleOfEndUsersInContributingToTheSeparateCollectionOfWasteBatteries": "eubat:roleOfEndUsersInSeparateCollection",
-    "informationOnBatteryCollection": "eubat:informationOnBatteryCollection",
-    "maximumPermittedBatteryPower": {"@id": "eubat:maximumPermittedBatteryPower", "@type": "@id"},
-    "initialRoundTripEnergyEfficiency": {"@id": "eubat:initialRoundTripEnergyEfficiency", "@type": "xsd:decimal"},
-    "roundTripEnergyEfficiencyAt50PercentOfCycleLife": {"@id": "eubat:roundTripEfficiencyAt50PercentCycleLife", "@type": "xsd:decimal"},
-    "energyRoundTripEfficiencyFade": {"@id": "eubat:roundTripEfficiencyFade", "@type": "xsd:decimal"},
-    "evolutionOfSelfDischargeRates": {"@id": "eubat:evolutionOfSelfDischarge", "@type": "@id"},
-    "initialInternalResistanceOfBatteryCellAndPack": {"@id": "eubat:initialInternalResistance", "@type": "@id"},
-    "internalResistanceIncreaseOfPack": {"@id": "eubat:internalResistanceIncrease", "@type": "@id"},
-    "expectedLifetimeInCalendarYears": {"@id": "eubat:expectedLifetimeYears", "@type": "@id"},
-    "expectedLifetimeNumberOfChargeDischargeCycles": {"@id": "eubat:expectedNumberOfCycles", "@type": "@id"},
-    "numberOfFullChargingAndDischargingCycles": {"@id": "eubat:numberOfFullCycles", "@type": "@id"},
+    "batteryIdentifier": {
+      "@id": "gs1:productID",
+      "@type": "@id"
+    },
+    "warrantyPeriod": {
+      "@id": "gs1:warranty"
+    },
+    "criticalRawMaterials": {
+      "@id": "eubat:criticalRawMaterialsStatement",
+      "@container": "@set"
+    },
+    "materialsUsedInCathode": {
+      "@id": "bpr:MaterialsUsedInCathodeAnodeAndElectrolyte",
+      "@container": "@set"
+    },
+    "impactOfSubstancesOnEnvironment": "eubat:hazardImpact",
+    "separateCollectionSymbol": {
+      "@id": "eubat:separateCollectionSymbolUrl",
+      "@type": "@id"
+    },
+    "symbolsForCadmiumAndLead": {
+      "@id": "bpr:SymbolsForCadmiumAndLead"
+    },
+    "carbonFootprintLabel": {
+      "@id": "bpr:CarbonFootprintLabel",
+      "@type": "@id"
+    },
+    "meaningOfLabelsAndSymbols": "eubat:labelMeaning",
+    "euDeclarationOfConformity": {
+      "@id": "eubat:euDeclarationOfConformity",
+      "@type": "@id"
+    },
+    "resultsOfTestReportsProvingCompliance": {
+      "@id": "eubat:resultOfTestReport",
+      "@type": "@id"
+    },
+    "batteryCarbonFootprintPerFunctionalUnit": {
+      "@id": "eubat:carbonFootprintTotal",
+      "@type": "@id"
+    },
+    "contributionOfRawMaterialAcquisitionAndPreProcessingLifecycleStage": {
+      "@id": "eubat:carbonFootprintRawMaterialExtraction",
+      "@type": "@id"
+    },
+    "contributionOfMainProductProductionLifecycleStage": {
+      "@id": "eubat:carbonFootprintProduction",
+      "@type": "@id"
+    },
+    "contributionOfDistributionLifecycleStage": {
+      "@id": "eubat:carbonFootprintDistribution",
+      "@type": "@id"
+    },
+    "contributionOfEndOfLifeAndRecyclingLifecycleStage": {
+      "@id": "eubat:carbonFootprintRecycling",
+      "@type": "@id"
+    },
+    "webLinkToPublicCarbonFootprintStudy": {
+      "@id": "eubat:carbonFootprintStudyUrl",
+      "@type": "@id"
+    },
+    "informationOfDueDiligenceReport": "eubat:dueDiligenceReportUrl",
+    "dismantlingInformationManualsForTheRemovalAndTheDisassemblyOfTheBatteryPack": {
+      "@id": "eubat:dismantlingDocuments",
+      "@container": "@set"
+    },
+    "partNumbersForComponents": {
+      "@id": "eubat:spareParts",
+      "@container": "@set"
+    },
+    "informationOnSourcesOfSpareParts": "eubat:sparePartSources",
+    "preConsumerRecycledNickelShare": {
+      "@id": "eubat:nickelPreConsumerShare",
+      "@type": "xsd:decimal"
+    },
+    "preConsumerRecycledCobaltShare": {
+      "@id": "eubat:cobaltPreConsumerShare",
+      "@type": "xsd:decimal"
+    },
+    "preConsumerRecycledLithiumShare": {
+      "@id": "eubat:lithiumPreConsumerShare",
+      "@type": "xsd:decimal"
+    },
+    "postConsumerRecycledNickelShare": {
+      "@id": "eubat:nickelPostConsumerShare",
+      "@type": "xsd:decimal"
+    },
+    "postConsumerRecycledCobaltShare": {
+      "@id": "eubat:cobaltPostConsumerShare",
+      "@type": "xsd:decimal"
+    },
+    "postConsumerRecycledLithiumShare": {
+      "@id": "eubat:lithiumPostConsumerShare",
+      "@type": "xsd:decimal"
+    },
+    "recycledLeadShare": {
+      "@id": "eubat:leadRecycledShare",
+      "@type": "xsd:decimal"
+    },
+    "informationOnTheRoleOfEndUsersInContributingToWastePrevention": "eubat:wastePrevention",
+    "informationOnTheRoleOfEndUsersInContributingToTheSeparateCollectionOfWasteBatteries": "eubat:separateCollection",
+    "informationOnBatteryCollection": "eubat:informationOnCollection",
+    "maximumPermittedBatteryPower": {
+      "@id": "eubat:maximumPermittedBatteryPower",
+      "@type": "@id"
+    },
+    "initialRoundTripEnergyEfficiency": {
+      "@id": "eubat:roundTripEfficiency",
+      "@type": "xsd:decimal"
+    },
+    "roundTripEnergyEfficiencyAt50PercentOfCycleLife": {
+      "@id": "eubat:roundTripEfficiencyAt50PercentCycleLife",
+      "@type": "xsd:decimal"
+    },
+    "energyRoundTripEfficiencyFade": {
+      "@id": "eubat:roundTripEfficiencyFade",
+      "@type": "xsd:decimal"
+    },
+    "evolutionOfSelfDischargeRates": {
+      "@id": "eubat:evolutionOfSelfDischarge",
+      "@type": "@id"
+    },
+    "initialInternalResistanceOfBatteryCellAndPack": {
+      "@id": "eubat:initialInternalResistance",
+      "@type": "@id"
+    },
+    "internalResistanceIncreaseOfPack": {
+      "@id": "eubat:internalResistanceIncrease",
+      "@type": "@id"
+    },
+    "expectedLifetimeInCalendarYears": {
+      "@id": "eubat:expectedLifetimeYears",
+      "@type": "@id"
+    },
+    "expectedLifetimeNumberOfChargeDischargeCycles": {
+      "@id": "eubat:expectedNumberOfCycles",
+      "@type": "@id"
+    },
+    "numberOfFullChargingAndDischargingCycles": {
+      "@id": "eubat:numberOfFullCycles",
+      "@type": "@id"
+    },
     "cycleLifeReferenceTest": "eubat:lifetimeReferenceTest",
     "cRateOfRelevantCycleLifeTest": "eubat:cRateLifeCycleTest",
-    "temperatureRangeIdleStateLowerBoundary": {"@id": "eubat:temperatureRangeIdleLower", "@type": "@id"},
-    "temperatureRangeIdleStateUpperBoundary": {"@id": "eubat:temperatureRangeIdleUpper", "@type": "@id"},
-    "timeSpentInExtremeTemperaturesAboveBoundary": {"@id": "eubat:timeExtremeHighTemp", "@type": "@id"},
-    "timeSpentInExtremeTemperaturesBelowBoundary": {"@id": "eubat:timeExtremeLowTemp", "@type": "@id"},
-    "timeSpentChargingDuringExtremeTemperaturesAboveBoundary": {"@id": "eubat:timeExtremeHighTempCharging", "@type": "@id"},
-    "timeSpentChargingDuringExtremeTemperaturesBelowBoundary": {"@id": "eubat:timeExtremeLowTempCharging", "@type": "@id"},
-    "numberOfDeepDischargeEvents": {"@id": "eubat:numberOfDeepDischargeEvents", "@type": "xsd:integer"},
-    "informationOnAccidents": "eubat:informationOnAccidents"
+    "temperatureRangeIdleStateLowerBoundary": {
+      "@id": "eubat:minimumTemperature",
+      "@type": "@id"
+    },
+    "temperatureRangeIdleStateUpperBoundary": {
+      "@id": "eubat:maximumTemperature",
+      "@type": "@id"
+    },
+    "timeSpentInExtremeTemperaturesAboveBoundary": {
+      "@id": "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
+      "@type": "xsd:integer"
+    },
+    "timeSpentInExtremeTemperaturesBelowBoundary": {
+      "@id": "eubat:timeSpentInExtremeTemperaturesBelowBoundary",
+      "@type": "xsd:integer"
+    },
+    "timeSpentChargingDuringExtremeTemperaturesAboveBoundary": {
+      "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
+      "@type": "xsd:integer"
+    },
+    "timeSpentChargingDuringExtremeTemperaturesBelowBoundary": {
+      "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
+      "@type": "xsd:integer"
+    },
+    "numberOfDeepDischargeEvents": {
+      "@id": "eubat:numberOfDeepDischargeEvents",
+      "@type": "xsd:integer"
+    },
+    "informationOnAccidents": "bpr:InformationOnAccidents",
+    "renewableContentShare": {
+      "@id": "eubat:renewableContentShare",
+      "@type": "xsd:decimal"
+    },
+    "value": {
+      "@id": "gs1:value",
+      "@type": "xsd:decimal"
+    },
+    "unitCode": "gs1:unitCode"
   }
 }

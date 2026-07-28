@@ -1,7 +1,8 @@
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/eu/eudr/eudr-operational-context.jsonld",
-    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
   ],
   "type": "EPCISDocument",
   "schemaVersion": "2.0",
@@ -43,7 +44,7 @@
             "harvestDate": "2025-01-15",
             "regulatoryInformation": [
               {
-                "regulationType": "DEFORESTATION_REGULATION",
+                "regulationType": "gs1:RegulationTypeCode-DEFORESTATION_REGULATION",
                 "regulatoryAct": "EU 2023/1115"
               }
             ],
@@ -81,16 +82,17 @@
             "sensorMetadata": {
               "time": "2025-01-15T08:30:00.000Z",
               "deviceID": "https://id.gs1.org/8004/9521234000006-GPS-001",
-              "bizRules": "Geolocation captured at harvest site"
+              "bizRules": "https://eur-lex.europa.eu/eli/reg/2023/1115",
+              "_comment": "Geolocation captured at harvest site"
             },
             "sensorReport": [
               {
-                "type": "Latitude",
+                "type": "gs1:latitude",
                 "value": 52.515,
                 "uom": "DD"
               },
               {
-                "type": "Longitude",
+                "type": "gs1:longitude",
                 "value": 13.405,
                 "uom": "DD"
               }

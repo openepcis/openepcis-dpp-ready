@@ -371,7 +371,7 @@ EPCIS 2.0 links events to master data using `gs1:masterDataAvailableFor` ON THE 
   "epcList": [
     {
       "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
-      "masterDataAvailableFor": {
+      "gs1:masterDataAvailableFor": {
         "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001"
       }
     }

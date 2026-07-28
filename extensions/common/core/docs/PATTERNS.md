@@ -148,9 +148,9 @@ Full EPCIS events with provenance for auditable traceability. Per GS1 Germany EU
   "type": "ObjectEvent",
   "eventTime": "2025-01-15T10:00:00Z",
   "action": "OBSERVE",
-  "bizStep": "notifying",
+  "bizStep": "oec:BizStep-notifying",
   "persistentDisposition": {
-    "set": ["subject_to_regulation"]
+    "set": ["oec:Disp-subject_to_regulation"]
   },
 
   "quantityList": [
@@ -212,7 +212,7 @@ Full EPCIS events with provenance for auditable traceability. Per GS1 Germany EU
 - **Inside `masterDataAvailableFor`, use bare property names** (no `gs1:` prefix) - the namespace is assumed
 - **Use bare string values** like `"regulationType": "DEFORESTATION_REGULATION"` (not `{ "id": "gs1:..." }`)
 - **`regulatoryInformation` is nested INSIDE the product entry** (not at event level)
-- For EUDR: use `bizStep: "notifying"` and `persistentDisposition: { "set": ["subject_to_regulation"] }`
+- For EUDR: use `bizStep: "oec:BizStep-notifying"` and `persistentDisposition: { "set": ["oec:Disp-subject_to_regulation"] }`
 - The "notifying" event eliminates the need for redundant inclusion in subsequent shipping/packing events
 
 **When to use**:
@@ -735,9 +735,9 @@ The `gs1:masterDataAvailableFor` array sits at the **top level of the event**, w
   "type": "ObjectEvent",
   "eventTime": "2025-01-15T10:00:00Z",
   "action": "OBSERVE",
-  "bizStep": "notifying",
+  "bizStep": "oec:BizStep-notifying",
   "persistentDisposition": {
-    "set": ["subject_to_regulation"]
+    "set": ["oec:Disp-subject_to_regulation"]
   },
 
   "quantityList": [
@@ -798,7 +798,7 @@ The `gs1:masterDataAvailableFor` array sits at the **top level of the event**, w
 - **Inside master data, use bare property names** (no `gs1:` prefix) - the namespace is assumed
 - **Use bare string values** like `"regulationType": "DEFORESTATION_REGULATION"`
 - **`regulatoryInformation`**: **Nested INSIDE the product entry** (not at event level)
-- For EUDR: use `bizStep: "notifying"` and `persistentDisposition: { "set": ["subject_to_regulation"] }`
+- For EUDR: use `bizStep: "oec:BizStep-notifying"` and `persistentDisposition: { "set": ["oec:Disp-subject_to_regulation"] }`
 - **Events** capture what happened, when, and where
 - **Master Data** provides the detailed product/location/organization information embedded in the event
 

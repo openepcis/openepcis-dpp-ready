@@ -1,8 +1,8 @@
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/dpp-operational-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/electronics/electronics-operational-context.jsonld",
-    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld"
   ],
   "type": "EPCISDocument",
   "schemaVersion": "2.0",
@@ -13,6 +13,7 @@
     "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,euelec=https://ref.openepcis.io/extensions/eu/electronics/",
+    "Warranty and purchase country are deliberately NOT event extensions here: the retail_selling eventTime is the warranty start, the warranty terms (gs1:manufacturersWarranty / gs1:WarrantyPromise with gs1:durationOfWarranty) are model-level master data, and the country of purchase is location-level master data of the store GLN in readPoint/bizLocation. All three are resolver-served.",
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
     "GS1 demo prefix 952 (7-digit GCP: 9521234)."
   ],
@@ -118,10 +119,7 @@
             "type": "urn:epcglobal:cbv:btt:po",
             "bizTransaction": "urn:epc:id:gdti:9521235.00001.POS-2025-00567"
           }
-        ],
-        "euelec:warrantyStartDate": "2025-01-20",
-        "euelec:warrantyEndDate": "2027-01-20",
-        "euelec:purchaseCountry": "DE"
+        ]
       }
     ]
   }

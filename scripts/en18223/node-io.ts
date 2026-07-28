@@ -93,6 +93,9 @@ export const URL_TO_FILE: Record<string, string> = {
 const LOADER_ONLY: Record<string, string> = {
   "https://ref.gs1.org/voc/": "vendor/gs1/gs1Voc.jsonld",
   "https://ref.gs1.org/voc/data/gs1Voc.jsonld": "vendor/gs1/gs1Voc.jsonld",
+  "https://ref.gs1.org/standards/epcis/epcis-context.jsonld": "vendor/gs1/epcis-context.jsonld",
+  "https://gs1-epcis-reg.org/rail/rail-context.jsonld":
+    "extensions/upstream/gs1-rail/context/rail-context.jsonld",
 };
 
 const remoteCache = new Map<string, any>();

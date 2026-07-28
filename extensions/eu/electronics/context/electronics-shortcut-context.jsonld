@@ -7,22 +7,26 @@
     "schema": "https://schema.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "euelec": "https://ref.openepcis.io/extensions/eu/electronics/",
+    "AvoidedEmissionsEstimate": "euelec:AvoidedEmissionsEstimate",
+    "BatteryDisposition": "euelec:BatteryDisposition",
     "ComponentBOM": "euelec:ComponentBOM",
     "ComponentType": "euelec:ComponentType",
     "DeviceCategory": "euelec:DeviceCategory",
     "DisplaySpecification": "euelec:DisplaySpecification",
     "EURepairabilityClass": "euelec:EURepairabilityClass",
+    "ElectronicComponent": "euelec:ElectronicComponent",
+    "ElectronicDevice": "euelec:ElectronicDevice",
     "EnergyEfficiency": "euelec:EnergyEfficiency",
     "EnergyEfficiencyClass": "euelec:EnergyEfficiencyClass",
-    "Organization": "gs1:Organization",
-    "PriceSpecification": "gs1:PriceSpecification",
-    "Product": "gs1:Product",
-    "QuantitativeValue": "gs1:QuantitativeValue",
+    "HazardousWasteRecord": "euelec:HazardousWasteRecord",
+    "MaterialRecoveryResult": "euelec:MaterialRecoveryResult",
+    "RecoveredMaterial": "euelec:RecoveredMaterial",
     "RepairCriterion": "euelec:RepairCriterion",
     "RepairCriterionType": "euelec:RepairCriterionType",
     "RepairabilityIndex": "euelec:RepairabilityIndex",
     "ReplacementDifficulty": "euelec:ReplacementDifficulty",
     "RoHSCompliance": "euelec:RoHSCompliance",
+    "SelectiveTreatmentItem": "euelec:SelectiveTreatmentItem",
     "SoftwareSupport": "euelec:SoftwareSupport",
     "WEEECategory": "euelec:WEEECategory",
     "WEEECompliance": "euelec:WEEECompliance",
@@ -38,13 +42,33 @@
       "@id": "euelec:assessmentDate",
       "@type": "xsd:date"
     },
+    "avoidedEmissions": {
+      "@id": "euelec:avoidedEmissions",
+      "@type": "@id"
+    },
+    "avoidedEmissionsKgCO2e": {
+      "@id": "euelec:avoidedEmissionsKgCO2e",
+      "@type": "xsd:decimal"
+    },
+    "batteryDisposition": {
+      "@id": "euelec:batteryDisposition",
+      "@type": "@id"
+    },
+    "batteryMassGrams": {
+      "@id": "euelec:batteryMassGrams",
+      "@type": "xsd:decimal"
+    },
     "billOfMaterials": {
       "@id": "euelec:billOfMaterials",
       "@type": "@id"
     },
-    "brand": {
-      "@id": "gs1:brand",
-      "@type": "@id"
+    "calculationMethod": {
+      "@id": "euelec:calculationMethod",
+      "@type": "xsd:string"
+    },
+    "collectionMethod": {
+      "@id": "euelec:collectionMethod",
+      "@type": "xsd:string"
     },
     "collectionSchemeUrl": {
       "@id": "euelec:collectionSchemeUrl",
@@ -90,7 +114,6 @@
       "@type": "@id",
       "@container": "@set"
     },
-    "countryOfOrigin": "gs1:countryOfOrigin",
     "criterionDetails": {
       "@id": "euelec:criterionDetails",
       "@type": "xsd:string"
@@ -114,6 +137,10 @@
         "SparePartsPricing": "euelec:SparePartsPricing"
       }
     },
+    "dataWiped": {
+      "@id": "euelec:dataWiped",
+      "@type": "xsd:boolean"
+    },
     "deviceCategory": {
       "@id": "schema:category",
       "@type": "@vocab",
@@ -135,6 +162,10 @@
         "Printer": "euelec:Printer",
         "Wearable": "euelec:Wearable"
       }
+    },
+    "deviceCondition": {
+      "@id": "euelec:deviceCondition",
+      "@type": "xsd:string"
     },
     "displayScore": {
       "@id": "euelec:displayScore",
@@ -169,6 +200,10 @@
       "@id": "euelec:energyLabelUrl",
       "@type": "@id"
     },
+    "energyRecoveryRate": {
+      "@id": "euelec:energyRecoveryRate",
+      "@type": "xsd:decimal"
+    },
     "eprelProductUrl": {
       "@id": "euelec:eprelProductUrl",
       "@type": "@id"
@@ -176,6 +211,10 @@
     "eprelRegistrationNumber": {
       "@id": "euelec:eprelRegistrationNumber",
       "@type": "xsd:string"
+    },
+    "estimatedRecoverableMaterials": {
+      "@id": "euelec:estimatedRecoverableMaterials",
+      "@type": "@id"
     },
     "featureSupportYears": {
       "@id": "euelec:featureSupportYears",
@@ -189,15 +228,29 @@
       "@id": "euelec:firmwareVersion",
       "@type": "xsd:string"
     },
-    "gln": "gs1:globalLocationNumber",
-    "grossWeight": {
-      "@id": "gs1:grossWeight",
+    "handlingNote": {
+      "@id": "euelec:handlingNote",
+      "@type": "xsd:string"
+    },
+    "hazardousMaterialsIdentified": {
+      "@id": "euelec:hazardousMaterialsIdentified",
       "@type": "@id"
     },
-    "gtin": "gs1:gtin",
+    "hazardousWasteGenerated": {
+      "@id": "euelec:hazardousWasteGenerated",
+      "@type": "xsd:boolean"
+    },
+    "hazardousWasteRecord": {
+      "@id": "euelec:hazardousWasteRecord",
+      "@type": "@id"
+    },
     "iec62474DslVersion": {
       "@id": "euelec:iec62474DslVersion",
       "@type": "xsd:string"
+    },
+    "installedComponentPassport": {
+      "@id": "euelec:installedComponentPassport",
+      "@type": "@id"
     },
     "isReplaceable": {
       "@id": "euelec:isReplaceable",
@@ -207,10 +260,6 @@
       "@id": "euelec:latestUpdateDate",
       "@type": "xsd:date"
     },
-    "manufacturer": {
-      "@id": "gs1:manufacturer",
-      "@type": "@id"
-    },
     "materialDeclaration": {
       "@id": "euelec:materialDeclaration",
       "@type": "@id"
@@ -219,20 +268,27 @@
       "@id": "euelec:materialDeclarationDate",
       "@type": "xsd:date"
     },
+    "materialMassGrams": {
+      "@id": "euelec:materialMassGrams",
+      "@type": "xsd:decimal"
+    },
+    "materialRecoveryResults": {
+      "@id": "euelec:materialRecoveryResults",
+      "@type": "@id"
+    },
     "modelIdentifier": {
       "@id": "euelec:modelIdentifier",
       "@type": "xsd:string"
-    },
-    "netWeight": {
-      "@id": "gs1:netWeight",
-      "@type": "@id"
     },
     "newVersion": {
       "@id": "euelec:newVersion",
       "@type": "xsd:string"
     },
+    "nextDisposition": {
+      "@id": "euelec:nextDisposition",
+      "@type": "xsd:string"
+    },
     "operatingSystem": "schema:operatingSystem",
-    "organizationName": "gs1:organizationName",
     "osVersion": {
       "@id": "euelec:osVersion",
       "@type": "xsd:string"
@@ -261,8 +317,6 @@
       "@id": "gs1:price",
       "@type": "xsd:decimal"
     },
-    "priceCurrency": "gs1:priceCurrency",
-    "productName": "gs1:productName",
     "productionDate": {
       "@id": "gs1:productionDate",
       "@type": "xsd:date"
@@ -271,18 +325,54 @@
       "@id": "euelec:recoverabilityRate",
       "@type": "xsd:decimal"
     },
+    "recoveryRate": {
+      "@id": "euelec:recoveryRate",
+      "@type": "xsd:decimal"
+    },
     "recyclabilityRate": {
       "@id": "euelec:recyclabilityRate",
+      "@type": "xsd:decimal"
+    },
+    "recyclingFacility": {
+      "@id": "euelec:recyclingFacility",
+      "@type": "@id"
+    },
+    "recyclingProcess": {
+      "@id": "euelec:recyclingProcess",
+      "@type": "xsd:string"
+    },
+    "recyclingRate": {
+      "@id": "euelec:recyclingRate",
       "@type": "xsd:decimal"
     },
     "refreshRate": {
       "@id": "euelec:refreshRate",
       "@type": "@id"
     },
+    "removalReason": {
+      "@id": "euelec:removalReason",
+      "@type": "xsd:string"
+    },
+    "repairCost": {
+      "@id": "euelec:repairCost",
+      "@type": "@id"
+    },
     "repairCriteria": {
       "@id": "euelec:repairCriteria",
       "@type": "@id",
       "@container": "@set"
+    },
+    "repairDescription": {
+      "@id": "euelec:repairDescription",
+      "@type": "xsd:string"
+    },
+    "repairTechnician": {
+      "@id": "euelec:repairTechnician",
+      "@type": "xsd:string"
+    },
+    "repairType": {
+      "@id": "euelec:repairType",
+      "@type": "xsd:string"
     },
     "repairabilityClass": {
       "@id": "euelec:repairabilityClass",
@@ -301,6 +391,10 @@
     },
     "repairabilityLabelUrl": {
       "@id": "euelec:repairabilityLabelUrl",
+      "@type": "@id"
+    },
+    "replacedComponentPassport": {
+      "@id": "euelec:replacedComponentPassport",
       "@type": "@id"
     },
     "replacementDifficulty": {
@@ -349,6 +443,10 @@
       "@id": "euelec:securityUpdateEndDate",
       "@type": "xsd:date"
     },
+    "separatelyTreated": {
+      "@id": "euelec:separatelyTreated",
+      "@type": "xsd:boolean"
+    },
     "softwareSupport": {
       "@id": "euelec:softwareSupport",
       "@type": "@id"
@@ -356,6 +454,10 @@
     "softwareUpdateEvent": {
       "@id": "euelec:softwareUpdateEvent",
       "@type": "@id"
+    },
+    "sortingDecision": {
+      "@id": "euelec:sortingDecision",
+      "@type": "xsd:string"
     },
     "sparePartAvailabilityYears": {
       "@id": "euelec:sparePartAvailabilityYears",
@@ -365,11 +467,30 @@
       "@id": "euelec:sparePartPrice",
       "@type": "@id"
     },
+    "totalInputMassGrams": {
+      "@id": "euelec:totalInputMassGrams",
+      "@type": "xsd:decimal"
+    },
+    "totalRecoveredMassGrams": {
+      "@id": "euelec:totalRecoveredMassGrams",
+      "@type": "xsd:decimal"
+    },
     "totalScore": {
       "@id": "euelec:totalScore",
       "@type": "xsd:decimal"
     },
-    "unitCode": "gs1:unitCode",
+    "treatmentCertificate": {
+      "@id": "euelec:treatmentCertificate",
+      "@type": "xsd:string"
+    },
+    "treatmentFacility": {
+      "@id": "euelec:treatmentFacility",
+      "@type": "@id"
+    },
+    "treatmentMethod": {
+      "@id": "euelec:treatmentMethod",
+      "@type": "xsd:string"
+    },
     "updateChannel": {
       "@id": "euelec:updateChannel",
       "@type": "@id"
@@ -385,6 +506,14 @@
     "value": {
       "@id": "gs1:value",
       "@type": "xsd:decimal"
+    },
+    "warrantyStatus": {
+      "@id": "euelec:warrantyStatus",
+      "@type": "xsd:string"
+    },
+    "wasteDescription": {
+      "@id": "euelec:wasteDescription",
+      "@type": "xsd:string"
     },
     "weeeCategory": {
       "@id": "schema:category",

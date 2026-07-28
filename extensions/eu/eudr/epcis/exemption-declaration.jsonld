@@ -1,8 +1,8 @@
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/dpp-operational-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/eudr/eudr-operational-context.jsonld",
-    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
   ],
   "type": "EPCISDocument",
   "schemaVersion": "2.0",
@@ -25,10 +25,10 @@
         "eventTime": "2026-04-15T09:30:00.000Z",
         "eventTimeZoneOffset": "+02:00",
         "action": "OBSERVE",
-        "bizStep": "notifying",
+        "bizStep": "oec:BizStep-notifying",
         "persistentDisposition": {
           "set": [
-            "subject_to_regulation"
+            "oec:Disp-subject_to_regulation"
           ]
         },
         "epcList": [
@@ -48,7 +48,7 @@
             },
             "regulatoryInformation": [
               {
-                "regulationType": "DEFORESTATION_REGULATION",
+                "regulationType": "gs1:RegulationTypeCode-DEFORESTATION_REGULATION",
                 "regulatoryAct": "EU 2023/1115",
                 "isRegulationCompliant": true
               }
@@ -64,8 +64,6 @@
               "eudr:exemptionAuthority": {
                 "id": "https://id.gs1.org/417/9521234000006",
                 "type": "oec:OperatorInformation",
-                "organizationName": "Waldwirtschaft Schmidt GmbH",
-                "partyGLN": "9521234000006",
                 "oec:operatorRole": "DownstreamOperator",
                 "oec:economicOperatorId": "EOID-DE-2026-009988"
               }

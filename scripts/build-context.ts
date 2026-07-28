@@ -28,6 +28,16 @@
  * upstream mirror (bareTermAliases: true), whose context intentionally exposes
  * the bare vocabulary of the upstream profile.
  *
+ * A bare alias must preserve the term's VALUE FORM, not just rename the key. An
+ * object property (gs1:regulationType ranges over gs1:RegulationTypeCode) gets
+ * @type:@id, because the EN 18223 compressed form emits such a value as its full
+ * IRI string and would otherwise read it back as a plain literal. A datatype
+ * property keeps the plain alias; coercing it would turn a stored string into a
+ * relative IRI. For the same reason a later layer never re-emits a name that
+ * resolves to the same IRI as an earlier layer's alias: JSON-LD gives the last
+ * layer precedence, so the re-alias would strip the earlier coercion. Enforced by
+ * scripts/en18223/golden-fidelity-check.ts.
+ *
  * Usage: npx tsx scripts/build-context.ts
  */
 
@@ -640,6 +650,25 @@ interface Gs1Layer {
 // deliberate: they only rename the key, never reshape the value, so compacting
 // resolver master data can't turn a stored string into an @id/@value object.
 // Coercions and enum-code aliases live in .gs1-shortcuts-overrides.json.
+/**
+ * Whether a GS1 vocabulary node's values are IRIs, so a bare alias for it must
+ * carry @type:@id.
+ *
+ * The RANGE decides, not the property typing: GS1 declares gs1:harvestDate,
+ * gs1:productionDate and friends as owl:ObjectProperty while giving them
+ * rdfs:range xsd:date. Trusting the typing there would coerce a date literal to
+ * @id and drop it. Only when there is no range do we fall back to the declared
+ * property kind.
+ */
+function isGs1ObjectProperty(node: any, types: string[]): boolean {
+  const range = node["rdfs:range"];
+  const rangeId = typeof range === "string" ? range : range?.["@id"];
+  if (typeof rangeId === "string") {
+    return !rangeId.startsWith("xsd:") && !rangeId.startsWith("rdf:") && !rangeId.startsWith("schema:Text");
+  }
+  return types.includes("owl:ObjectProperty") && !types.includes("owl:DatatypeProperty");
+}
+
 function buildGs1AliasLayer(): Gs1Layer {
   const voc = JSON.parse(readFileSync(GS1_VOC_PATH, "utf-8"));
   const graph: any[] = voc["@graph"] || [];
@@ -656,7 +685,14 @@ function buildGs1AliasLayer(): Gs1Layer {
       types.includes("owl:ObjectProperty") ||
       types.includes("owl:DatatypeProperty");
     if (!isClass && !isProp) continue;
-    if (!(local in bare)) bare[local] = id;
+    if (local in bare) continue;
+    // An object property's value is an IRI (gs1:regulationType ranges over
+    // gs1:RegulationTypeCode). Without @type:@id the bare alias only renames the
+    // key, so the EN 18223 compressed form (which emits such a value as its full
+    // IRI string) reads it back as a plain literal instead of a node reference.
+    // Datatype properties keep the plain alias: coercing them would turn a stored
+    // string into a relative IRI, which is the mirror-image corruption.
+    bare[local] = isProp && isGs1ObjectProperty(node, types) ? { "@id": id, "@type": "@id" } : id;
   }
 
   const overridesPath = join(GS1_SHORTCUT_DIR, ".gs1-shortcuts-overrides.json");
@@ -710,6 +746,13 @@ interface Collision {
  * nothing is mis-resolved. No aliases are dropped; the manifest just names which
  * term wins and which are shadowed, so the coverage gate can treat a residual
  * CURIE on a shadowed term as expected rather than a leak.
+ *
+ * A bare name can also collide WITHIN one layer: a curated
+ * `.shortcut-overrides.json` entry pins it at one IRI while the vocabulary
+ * derives another (e.g. battery pins `batteryCategory` at schema:category, the
+ * TTL derives eubat:batteryCategory). The override wins, the derived IRI stays a
+ * CURIE, and that residual CURIE is just as expected as the cross-layer case,
+ * so both kinds land in the manifest.
  */
 function detectCollisions(
   gs1: ShortcutLayer,
@@ -726,13 +769,22 @@ function detectCollisions(
     }
     for (const term of names) {
       const iris: string[] = [];
+      let winner: string | undefined;
       for (const l of chain) {
-        const iri = aliasIri(term in l.overrides ? l.overrides[term] : l.generated[term]);
-        if (iri !== undefined) iris.push(iri);
+        // Within a layer the curated override wins and the derived IRI is
+        // shadowed; both are recorded so the residual CURIE reads as expected.
+        const overridden = term in l.overrides ? aliasIri(l.overrides[term]) : undefined;
+        const derived = aliasIri(l.generated[term]);
+        const effective = overridden ?? derived;
+        if (effective === undefined) continue;
+        iris.push(effective);
+        if (overridden !== undefined && derived !== undefined && derived !== overridden) {
+          iris.push(derived);
+        }
+        winner = effective; // last layer that defines the name wins
       }
       const distinct = [...new Set(iris)];
-      if (distinct.length < 2) continue;
-      const winner = iris[iris.length - 1]; // last layer in the chain wins
+      if (distinct.length < 2 || winner === undefined) continue;
       manifest.push({
         term,
         chain: mod.chainKey,
@@ -745,10 +797,60 @@ function detectCollisions(
   return manifest;
 }
 
-function writeShortcut(layer: ShortcutLayer, remove: Set<string>, comment: string): void {
+/**
+ * Aliases an earlier layer in the operational chain already provides, keyed by
+ * bare name. JSON-LD gives the LAST layer precedence, so a later layer that
+ * re-declares a name it does not improve on would silently strip whatever the
+ * earlier (e.g. GS1) layer carries. Returns the winning definition per name so
+ * writeShortcut can compare definitions, not just IRIs: dropping a later
+ * `{@id: gs1:value, @type: xsd:decimal}` because an earlier layer has a bare
+ * `gs1:value` would lose the coercion, the very thing this guards against.
+ */
+function inheritedAliases(layers: ShortcutLayer[]): Map<string, ContextValue> {
+  const out = new Map<string, ContextValue>();
+  for (const l of layers) {
+    for (const [k, v] of Object.entries(effectiveAliases(l, new Set()))) {
+      if (!out.has(k)) out.set(k, v);
+    }
+  }
+  return out;
+}
+
+/** Deep equality for two context term definitions. */
+function sameDefinition(a: ContextValue | undefined, b: ContextValue | undefined): boolean {
+  return JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
+}
+
+/**
+ * Should a later layer omit this alias because an earlier layer already says it
+ * better? Two cases, both about JSON-LD's last-layer-wins precedence:
+ *   - an exact duplicate adds nothing;
+ *   - a bare `localName: prefix:term` re-alias of a term an earlier layer defines
+ *     as an object for the SAME IRI would strip that layer's coercion (this is how
+ *     gs1:regulationType lost its @type:@id and started reading back as a literal).
+ * Anything that changes the IRI, or adds detail of its own, is kept: a module
+ * deliberately overriding a shared term stays in control, and detectCollisions
+ * records it.
+ */
+function supersededByEarlierLayer(earlier: ContextValue | undefined, later: ContextValue): boolean {
+  if (earlier === undefined) return false;
+  if (sameDefinition(earlier, later)) return true;
+  if (aliasIri(earlier) !== aliasIri(later)) return false;
+  return typeof later === "string" && typeof earlier === "object";
+}
+
+function writeShortcut(
+  layer: ShortcutLayer,
+  remove: Set<string>,
+  comment: string,
+  inherited: Map<string, ContextValue> = new Map(),
+): void {
   const aliases = effectiveAliases(layer, remove);
   const sortedAliases: ContextMap = {};
-  for (const k of Object.keys(aliases).sort()) sortedAliases[k] = aliases[k];
+  for (const k of Object.keys(aliases).sort()) {
+    if (supersededByEarlierLayer(inherited.get(k), aliases[k])) continue;
+    sortedAliases[k] = aliases[k];
+  }
   const output = { _comment: comment, "@context": { ...layer.prefixes, ...sortedAliases } };
   writeFileSync(layer.file, JSON.stringify(output, null, 2) + "\n");
   console.log(`  Shortcut: ${layer.file} (${Object.keys(sortedAliases).length} aliases)`);
@@ -910,10 +1012,13 @@ async function buildContext(): Promise<void> {
   const empty = new Set<string>();
   const shortcutComment = (name: string) =>
     `Generated bare-term shortcut aliases for ${name}. Do not edit by hand; re-run \`pnpm run build:context\` and edit the sibling .shortcut-overrides.json (or .gs1-shortcuts-overrides.json) for curated aliases. Only the operational contexts include this layer.`;
+  // Chain order is [gs1, dpp-core, module]; each layer inherits the ones before it.
   writeShortcut(gs1Layer, empty, shortcutComment("the GS1 upstream vocabulary"));
-  writeShortcut(dppCoreLayer, empty, shortcutComment("dpp-core"));
+  const fromGs1 = inheritedAliases([gs1Layer]);
+  writeShortcut(dppCoreLayer, empty, shortcutComment("dpp-core"), fromGs1);
+  const fromShared = inheritedAliases([gs1Layer, dppCoreLayer]);
   for (const layer of moduleLayers) {
-    writeShortcut(layer, empty, shortcutComment(layer.name));
+    writeShortcut(layer, empty, shortcutComment(layer.name), fromShared);
   }
 
   console.log("\nDone!");

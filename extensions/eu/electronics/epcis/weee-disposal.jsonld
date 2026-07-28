@@ -1,8 +1,8 @@
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/dpp-operational-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/electronics/electronics-operational-context.jsonld",
-    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld"
   ],
   "type": "EPCISDocument",
   "schemaVersion": "2.0",
@@ -11,6 +11,7 @@
     "WEEE end-of-life chain: collection (OBSERVE), sorting/inspection (OBSERVE),",
     "Architecture: the event references identifiers by URI — GTIN in epcList, GLN in readPoint/bizLocation, party GLN in source/destination. Model-, location-, and party-level master data is served by the GS1 Digital Link / Web Vocabulary resolver when those URIs are dereferenced; it is NOT embedded in the event.",
     "masterDataAvailableFor carries ONLY item/lot-level master data (e.g. countryOfOrigin, regulatoryInformation, harvestDate, EUDR plot geolocation). ilmd carries lot/instance data of the items this event creates. Observation extensions sit at event level.",
+    "The battery chemistry is model-level master data of the battery GTIN (eubat:batteryChemistry, served by the resolver), so the treatment event records only what the operator did with the battery: mass, separate treatment, treatment route and facility.",
     "",
     "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,euelec=https://ref.openepcis.io/extensions/eu/electronics/",
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md",
@@ -65,20 +66,41 @@
         "schema:category": "WEEE6_SmallIT",
         "euelec:hazardousMaterialsIdentified": [
           {
-            "euelec:material": "Lithium-ion battery",
+            "type": "euelec:SelectiveTreatmentItem",
+            "schema:material": "Lithium-ion battery",
             "euelec:handlingNote": {
               "@value": "Separate removal required before shredding",
               "@language": "en"
             }
           }
         ],
-        "euelec:estimatedRecoverableMaterials": {
-          "euelec:aluminumGrams": 78,
-          "euelec:copperGrams": 25,
-          "euelec:goldGrams": 0.025,
-          "euelec:silverGrams": 0.12,
-          "euelec:plasticsGrams": 45
-        }
+        "euelec:estimatedRecoverableMaterials": [
+          {
+            "type": "euelec:RecoveredMaterial",
+            "schema:material": "Aluminium",
+            "euelec:materialMassGrams": 78
+          },
+          {
+            "type": "euelec:RecoveredMaterial",
+            "schema:material": "Copper",
+            "euelec:materialMassGrams": 25
+          },
+          {
+            "type": "euelec:RecoveredMaterial",
+            "schema:material": "Gold",
+            "euelec:materialMassGrams": 0.025
+          },
+          {
+            "type": "euelec:RecoveredMaterial",
+            "schema:material": "Silver",
+            "euelec:materialMassGrams": 0.12
+          },
+          {
+            "type": "euelec:RecoveredMaterial",
+            "schema:material": "Plastics",
+            "euelec:materialMassGrams": 45
+          }
+        ]
       },
       {
         "type": "TransformationEvent",
@@ -135,6 +157,7 @@
           }
         },
         "euelec:materialRecoveryResults": {
+          "type": "euelec:MaterialRecoveryResult",
           "euelec:totalInputMassGrams": 185,
           "euelec:totalRecoveredMassGrams": 170.5,
           "euelec:recoveryRate": 0.92,
@@ -142,7 +165,7 @@
           "euelec:energyRecoveryRate": 0.04
         },
         "euelec:batteryDisposition": {
-          "euelec:batteryChemistry": "LithiumIon",
+          "type": "euelec:BatteryDisposition",
           "euelec:batteryMassGrams": 45,
           "euelec:separatelyTreated": true,
           "euelec:treatmentFacility": {
@@ -150,14 +173,17 @@
           },
           "euelec:treatmentMethod": "HydrometallurgicalRecycling"
         },
-        "euelec:hazardousWasteGenerated": {
+        "euelec:hazardousWasteGenerated": true,
+        "euelec:hazardousWasteRecord": {
+          "type": "euelec:HazardousWasteRecord",
           "euelec:wasteDescription": {
             "@value": "15ml electrolyte waste - sent to hazardous waste treatment",
             "@language": "en"
           },
           "euelec:treatmentCertificate": "HW-2032-DE-00456"
         },
-        "euelec:carbonOffset": {
+        "euelec:avoidedEmissions": {
+          "type": "euelec:AvoidedEmissionsEstimate",
           "euelec:avoidedEmissionsKgCO2e": 48.5,
           "euelec:calculationMethod": {
             "@value": "Avoided primary production emissions",

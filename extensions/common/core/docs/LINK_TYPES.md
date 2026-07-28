@@ -220,9 +220,9 @@ Useful for EUDR's EU Information System (EUIS) reference numbers:
     "oec:carbonFootprintStudyUrl": {"id": "https://example.com/cfp/study.pdf"},
     "oec:recycledContent": {
       "type": "oec:RecycledContent",
-      "oec:totalRecycledShare": 35.0,
-      "oec:postConsumerShare": 23.0,
-      "oec:preConsumerShare": 12.0
+      "oec:recycledContent": 0.35,
+      "oec:postConsumerRecycledContent": 0.23,
+      "oec:preConsumerRecycledContent": 0.12
     },
     "oec:circularityInfo": {
       "type": "oec:CircularityInfo",

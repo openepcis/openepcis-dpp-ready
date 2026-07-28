@@ -63,14 +63,51 @@ introduces it.
 | Event-level extension properties | Prefixed (`eubat:incidentSeverity`, `eudr:riskLevel`). |
 | Standalone product / DPP master-data files | **All** terms prefixed incl. `gs1:` — `gs1:productName`, `eubat:batteryChemistry`; `type: ["gs1:Product", "eubat:Battery"]`. |
 
-**How clean values are kept.** Each module `@context` defines, for every coerced
-term, BOTH a bare alias and a prefixed-form alias carrying the same coercion (e.g.
-`"gs1:harvestDateStart": {"@id": "gs1:harvestDateStart", "@type": "xsd:date"}`). So
+**Which contexts an event lists.** The **standard** contexts, in this order:
+
+```json
+"@context": [
+  "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+  "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+]
+```
+
+Never a `*-operational-context.jsonld`. Those compose the bare-alias shortcut layers
+and exist for the EN 18223 §5.2 compressed form (see
+[`docs/EN18223_FORMATS.md`](../../../../docs/EN18223_FORMATS.md)); an EPCIS event is
+interchange payload for a repository, and it keeps its prefixes.
+
+**How the bare keys inside a card still resolve.** `dpp-core-context.jsonld` defines
+`gs1:masterDataAvailableFor` with a JSON-LD 1.1 **property-scoped `@context`** that
+pulls in the GS1 bare-alias layer:
+
+```json
+"gs1:masterDataAvailableFor": {
+  "@id": "gs1:masterDataAvailableFor",
+  "@container": "@set",
+  "@context": "https://ref.openepcis.io/extensions/common/core/gs1-shortcuts-context.jsonld"
+}
+```
+
+A property-scoped context propagates into nested nodes by default and is the one
+mechanism allowed to override the EPCIS base context's `@protected` terms, so the
+ambient-GS1 rule holds for the whole card, at any depth, without loosening
+prefixing anywhere else in the event. Extension prefixes stay in scope inside the
+card too, which is why extension keys there remain prefixed. Edit the entry in
+`extensions/common/core/context/.context-overrides.json` and re-run
+`pnpm run build:context`.
+
+**How clean values are kept.** A standard context is prefix-only: for every coerced
+term it carries the CURIE-keyed definition with the coercion (e.g.
+`"gs1:harvestDateStart": {"@id": "gs1:harvestDateStart", "@type": "xsd:date"}`), so
 `"gs1:harvestDateStart": "2026-02-16"` keeps its `xsd:date` typing while staying a
-simple scalar — the prefix is visible on the key, the value stays clean. (A raw
-CURIE key without this alias would silently drop the coercion.) These aliases are
-generated: edit the TTL (or `.context-overrides.json` for non-derivable hints) and
-re-run `pnpm run build:context`, which rewrites `{name}-context.jsonld` in place.
+simple scalar. (A CURIE key with no such entry still expands correctly but silently
+drops the coercion.) The bare aliases live exclusively in the
+`{module}-shortcut-context.jsonld` layers, which only the operational contexts and
+the scoped context above include. Both sides are generated: edit the TTL (or
+`.context-overrides.json` for non-derivable hints) and re-run
+`pnpm run build:context`.
 
 **Legitimately-bare exceptions** (prefixing them would change the RDF, so they stay
 bare): EPCIS-structural terms (above); a term shadowed by two namespaces in one
@@ -78,6 +115,21 @@ document (e.g. `materialComposition` when both `oec:` and `eubat:` contexts load
 synonym aliases that collapse onto one IRI (`shortName` + `fullName` → `schema:name`);
 and open-vocabulary enum values not defined in the term's scoped `@context`. When in
 doubt, the test is RDF identity: a rename is allowed only if expansion is unchanged.
+
+**Where bare never works: IRI references.** `id` / `@id` values, and values of a
+property coerced `@type: "@id"`, are IRI references. JSON-LD resolves those against
+`@base`; it never applies term aliases to them. So a bare local name there expands
+to a *relative* IRI and is silently dropped, including inside a card, where the
+ambient-GS1 rule otherwise applies. Always write the CURIE:
+
+```json
+"regulationType": { "id": "gs1:RegulationTypeCode-BATTERY_DIRECTIVE" }
+```
+
+The same holds for `sensorReport` measurement types that the EPCIS context's own code
+list does not cover: `"type": "gs1:latitude"`, not `"type": "Latitude"`.
+
+All of this is machine-checked by `pnpm run check:operational` (rules d and e).
 
 ### A. `gs1:masterDataAvailableFor` — item/lot-level master data only
 
@@ -102,7 +154,8 @@ The key itself is a GS1 Web Vocabulary term, written **prefixed**:
   event (`epcList`, `parentID`, etc.). In practice the only entries are
   `/01/.../21|10/...` (item/lot) Product cards.
 - Include only item/lot-level attributes. GS1 keys and `gs1:`-class `type`/`id`
-  values are written **bare** (resolved via the EPCIS `@vocab`); extension-
+  values are written **bare** (resolved via the property-scoped `@context` that
+  `dpp-core-context` attaches to `gs1:masterDataAvailableFor`); extension-
   namespaced lot/item properties (`eudr:`, `eutex:`, …) **keep** their prefix.
 - Do **not** add `Place` or `Organization` (GLN/party) entries — reference those
   by their `/414/` and `/417/` URIs in `readPoint`/`bizLocation`/`sourceList`/
@@ -365,9 +418,9 @@ have a corresponding context entry, and vice versa.
       "eventTime": "2025-01-20T10:00:00.000Z",
       "eventTimeZoneOffset": "+01:00",
       "action": "OBSERVE",
-      "bizStep": "notifying",
+      "bizStep": "oec:BizStep-notifying",
       "persistentDisposition": {
-        "set": ["subject_to_regulation"]
+        "set": ["oec:Disp-subject_to_regulation"]
       },
 
       "epcList": [
@@ -450,10 +503,10 @@ GS1-CBV-Version: 2.0
 }
 ```
 
-Note: In the EPCIS event, `regulatoryInformation` is unprefixed (resolves
-to `gs1:regulatoryInformation` via the EPCIS context's `@vocab`). In the
-standalone master data file, it's explicitly `gs1:regulatoryInformation`
-because the EPCIS context is not loaded.
+Note: In the EPCIS event, `regulatoryInformation` is unprefixed because it sits
+inside `gs1:masterDataAvailableFor`, whose property-scoped `@context` resolves it
+to `gs1:regulatoryInformation`. In the standalone master data file it is written
+`gs1:regulatoryInformation`; there is no card to scope it.
 
 ---
 

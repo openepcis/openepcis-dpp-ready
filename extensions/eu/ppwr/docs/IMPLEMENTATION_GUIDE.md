@@ -110,9 +110,9 @@ material recovery. Granularity rules:
 ```json
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/dpp-operational-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-operational-context.jsonld",
-    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld"
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
   ],
   "type": "EPCISDocument",
   "epcisBody": {
@@ -123,7 +123,7 @@ material recovery. Granularity rules:
       "quantityList": [
         { "epcClass": "https://id.gs1.org/01/09521004005019/10/LOT-01", "quantity": 24000, "uom": "H87" }
       ],
-      "masterDataAvailableFor": [{
+      "gs1:masterDataAvailableFor": [{
         "id": "https://id.gs1.org/01/09521004005019/10/LOT-01",
         "type": "Product",
         "regulatoryInformation": [{
