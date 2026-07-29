@@ -104,6 +104,33 @@ Both halves were checked rather than assumed:
 A re-audit of `common/core` against the refreshed cache then found **nothing further to apply**,
 which is the outcome that makes the delta safe to close.
 
+### Downstream artefacts and the AI knowledge index
+
+Two places consume the ontologies, and both had a gap that this release closes.
+
+`build-json.ts` emitted the four `*Match` relations and `rdfs:seeAlso` but not
+`skos:broader` / `skos:narrower`, so the four within-scheme hierarchies introduced above existed in
+the TTL and were invisible everywhere downstream. They are emitted now, and
+[ref.openepcis.io](https://ref.openepcis.io) renders them as their own "same vocabulary" rows,
+labelled apart from `broadMatch` because one is an internal hierarchy and the other an upstream
+alignment. They stay out of the cross-vocabulary alignment index on purpose: that index measures
+how far a term reaches into *other* vocabularies.
+
+The AI assistant grounds its term chat on these same generated documents, bundled on its classpath
+under `term-knowledge/`. `TermKnowledgeIndex`'s own comment says "the build/sync step writes it",
+and that step did not exist, so the corpus had drifted three days behind and still carried
+`gs1-masterdata`, the parallel namespace this repository retired when GS1 identity moved upstream.
+`pnpm run check:ai-knowledge` and `sync:ai-knowledge` own it now, and treat the two directions
+differently: a corpus vocabulary whose source this repo no longer produces is an error, because the
+AI would keep grounding on a retired namespace, while a module this repo publishes that the corpus
+omits is a note, since `rail` and `served-fields` are deliberately absent and match the browser's
+`RESOLVER_VOCABS`, which gives neither a chat.
+
+One thing the sync cannot do for you: the OpenSearch vector index is only rebuilt when
+`AI_REINGEST=true` on the first boot, because `TermCorpusIngestor` skips ingestion whenever
+`term-knowledge-vectors` is already populated. A plain redeploy serves embeddings of the old corpus.
+The sync prints that reminder rather than assuming it.
+
 ### The remaining 224 mapping directions, worked through in blocks
 
 `OPEN_DECISIONS.md` still listed 224 `skos:narrowMatch` assertions as needing a curator. They were
