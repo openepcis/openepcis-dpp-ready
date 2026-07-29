@@ -89,6 +89,15 @@ interface TermData {
   broadMatch?: string[];
   narrowMatch?: string[];
   relatedMatch?: string[];
+  /**
+   * skos:broader / skos:narrower, the WITHIN-scheme hierarchy. The *Match relations above link
+   * across concept schemes; these link two terms in the same namespace, which is what
+   * check:mappings rule 9 requires there. Emitted because otherwise the relation exists in the
+   * TTL and is invisible to everything downstream, the vocabulary browser and the AI corpus
+   * included.
+   */
+  broader?: string[];
+  narrower?: string[];
   source?: string;
   deprecated?: boolean;
   accessLevel?: string;
@@ -288,6 +297,8 @@ function extractTermData(store: Store, subject: string, namespace: string): Term
   const broadMatch = toPrefixedForms(getObjectValues(store, subject, `${SKOS}broadMatch`));
   const narrowMatch = toPrefixedForms(getObjectValues(store, subject, `${SKOS}narrowMatch`));
   const relatedMatch = toPrefixedForms(getObjectValues(store, subject, `${SKOS}relatedMatch`));
+  const broader = toPrefixedForms(getObjectValues(store, subject, `${SKOS}broader`));
+  const narrower = toPrefixedForms(getObjectValues(store, subject, `${SKOS}narrower`));
   const source = getObjectValue(store, subject, `${DCTERMS}source`);
   const deprecated = getObjectValue(store, subject, `${OWL}deprecated`) === "true";
   // ESPR Article 9 tier: oec:defaultAccessLevel points at oec:Public/AuthorizedOnly/Restricted;
@@ -319,6 +330,8 @@ function extractTermData(store: Store, subject: string, namespace: string): Term
     ...(broadMatch.length > 0 && { broadMatch }),
     ...(narrowMatch.length > 0 && { narrowMatch }),
     ...(relatedMatch.length > 0 && { relatedMatch }),
+    ...(broader.length > 0 && { broader }),
+    ...(narrower.length > 0 && { narrower }),
     ...(source && { source }),
     ...(deprecated && { deprecated }),
     ...(accessLevel && { accessLevel }),
