@@ -213,7 +213,7 @@ See also gs1:ReferencedFileDetails for GS1 Web Vocabulary equivalent."""@en ;
     rdfs:seeAlso gs1:ReferencedFileDetails ;
     rdfs:seeAlso foaf:Document ;
     rdfs:seeAlso cirpass2:DigitalInstruction ;
-    skos:narrowMatch gs1:ReferencedFileDetails ;
+    skos:closeMatch gs1:ReferencedFileDetails ;
     skos:note """PREFER gs1:ReferencedFileDetails where possible. This class provides equivalent
 functionality with additional ESPR-specific document types. Use gs1:referencedFile
 property with gs1:ReferencedFileDetails for standard documents (manuals, certificates).
@@ -718,7 +718,7 @@ See also gs1:ReferencedFileTypeCode for GS1 standard document types (PRODUCT_MAN
         oec:ThirdPartyVerification
     ) ;
     rdfs:seeAlso schema:SpreadsheetDigitalDocument ;
-    skos:narrowMatch gs1:ReferencedFileTypeCode .
+    skos:closeMatch gs1:ReferencedFileTypeCode .
 
 oec:DueDiligenceDocument a oec:DocumentType ; rdfs:label "Due Diligence Document"@en ;
     rdfs:comment "Documentation of supply chain due diligence processes and risk assessments."@en .
@@ -1151,7 +1151,7 @@ oec:materialCircularityIndicator
     skos:note "Value is a decimal fraction 0-1. Based on Ellen MacArthur Foundation MCI methodology. Aligned with UNTP."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     rdfs:seeAlso dppk:recyclabilityScore ;
-    skos:broadMatch oec:recyclabilityScore ;
+    rdfs:seeAlso oec:recyclabilityScore ;
     rdfs:seeAlso oec:recyclabilityAssessment .
 
 # =============================================================================
@@ -1366,7 +1366,7 @@ oec:carbonFootprintTotal
     skos:note "Aligned with GDSN CarbonFootprintHeader/cfpValue and UNTP carbonFootprint. Value in kg CO2 equivalent."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint> ;
-    skos:broadMatch oec:carbonFootprintProduction ;
+    rdfs:seeAlso oec:carbonFootprintProduction ;
     skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage> ;
     skos:exactMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint> .
 
@@ -2198,11 +2198,22 @@ oec:activityClassification
     rdfs:seeAlso <https://unstats.un.org/unsd/classifications/Econ/isic> ;
     skos:note """Use standard classification codes: ISIC Rev.4, NACE Rev.2, or NAICS.
 No domain restriction - can be used on OperatorInformation, FacilityInformation, or any entity.
-Supports UNTP Digital Facility Record (DFR) activity classification requirements."""@en ;
+Supports UNTP Digital Facility Record (DFR) activity classification requirements.
+
+GS1 published this structure in July 2026 and now models it in two parts:
+gs1:organizationClassification links a gs1:Organization to a
+gs1:OrganizationClassificationDetails, which carries gs1:organizationClassificationID (the code)
+alongside gs1:organizationClassificationType (the scheme the code belongs to). This property
+carries only the code and conveys the scheme by convention, so the anchor is skos:closeMatch
+rather than exactMatch. New models should prefer the GS1 structure; see
+docs/VOCABULARY_LAYERING.md on redoing a term that upstream has since covered."""@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
+    skos:closeMatch gs1:organizationClassificationID ;
+    rdfs:seeAlso gs1:OrganizationClassificationDetails ;
+    rdfs:seeAlso gs1:organizationClassificationType ;
     skos:narrowMatch schema:naics ;
     skos:narrowMatch schema:isicV4 ;
-    skos:broadMatch <https://unstats.un.org/unsd/classifications/Econ/isic> .
+    rdfs:seeAlso <https://unstats.un.org/unsd/classifications/Econ/isic> .
 
 # =============================================================================
 # Properties - Digital Identity Anchor (DIA) Support
@@ -2790,7 +2801,7 @@ oec:carbonFootprintProduction
     skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint> ;
     skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint> ;
-    skos:narrowMatch oec:carbonFootprintTotal ;
+    rdfs:seeAlso oec:carbonFootprintTotal ;
     skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint> ;
     skos:narrowMatch dppk:carbonFootprint .
 
@@ -2831,7 +2842,7 @@ oec:carbonFootprintEndOfLife
     skos:note "Cross-cutting carbon / emissions performance pattern aligned with ESPR 2024/1781 and the UN Transparency Protocol (UNTP)."@en ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage> ;
-    skos:narrowMatch oec:carbonFootprintTotal ;
+    rdfs:seeAlso oec:carbonFootprintTotal ;
     rdfs:seeAlso dppk:carbonFootprintAbsolute ;
     rdfs:seeAlso dppk:carbonFootprint ;
     rdfs:seeAlso dppk:environmentalFootprint ;
@@ -3302,7 +3313,7 @@ oec:isStrategicRawMaterial
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     skos:broadMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#isCriticalRawMaterial> ;
     skos:broadMatch dppk:criticalRawMaterials ;
-    skos:narrowMatch oec:isCriticalRawMaterial .
+    skos:broader oec:isCriticalRawMaterial .
 
 oec:crmListVersion
     a owl:DatatypeProperty ;

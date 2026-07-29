@@ -80,8 +80,48 @@ One pair contradicted our own documentation: `CIRPASS2_ALIGNMENT.md` records
 only", and the ontology asserted `skos:exactMatch` next to the `rdfs:seeAlso` that was already the
 pointer.
 
-Not touched, and worth a decision of its own: 73 graded mappings point at this project's own
-namespaces, where the project's rule sends cross-references to `rdfs:seeAlso` regardless of level.
+### Upstream refreshed, and the two things it changed
+
+The audit pipeline's own copy of the upstream vocabularies was from 29 April (GS1, schema.org) and
+late June (SEMICeu), while the guard snapshot and the vendored vocabulary were current. It is
+refreshed now, and the delta is recorded in
+[`docs/skos-alignment/skos-upstream-delta-2026-07-29.json`](docs/skos-alignment/skos-upstream-delta-2026-07-29.json):
+GS1 gained 5 terms, schema.org was unchanged, and four SEMICeu `m8g` definitions changed.
+
+Both halves were checked rather than assumed:
+
+- The four changed SEMICeu definitions (`Evidence`, `PublicOrganisation`, `openingHours`,
+  `processingTime`) **confirm** the mappings we already had. `cv:Evidence` now reads "Proof that a
+  Requirement is met", which is exactly why `oec:DueDiligenceReport` and `oec:conformityDeclaration`
+  are the narrower terms against it. No change was needed.
+- Four of the five new GS1 terms are the structure `oec:activityClassification` has been
+  approximating with a single string: `gs1:organizationClassification` links an organisation to a
+  `gs1:OrganizationClassificationDetails` carrying `gs1:organizationClassificationID` and
+  `gs1:organizationClassificationType`. The layering rule says a term upstream has since covered gets
+  redone or strong-anchored, so it is anchored `skos:closeMatch` with the GS1 shape named in its
+  `skos:note`. The fifth, `gs1:epcisRepository`, this project already adopted.
+
+A re-audit of `common/core` against the refreshed cache then found **nothing further to apply**,
+which is the outcome that makes the delta safe to close.
+
+### 8 SKOS mapping relations that stayed inside one namespace
+
+`broadMatch` and `narrowMatch` link concepts in *different* concept schemes; within one, SKOS uses
+`skos:broader` / `skos:narrower`, or `rdfs:subPropertyOf` where a real subsumption holds. Eight
+assertions mapped a term onto another term in its own namespace, and four were inverted as well.
+`oec:isStrategicRawMaterial` claimed `oec:isCriticalRawMaterial` is the narrower one while its own
+`rdfs:comment` records "Strategic ⊂ Critical".
+
+Where a genuine hierarchy holds the relation is now `skos:broader`; where the relation is
+component-to-whole, as with the carbon-footprint stage properties against the total, it is
+`rdfs:seeAlso`, because neither SKOS nor RDFS has a relation for "component of". `check:mappings`
+rule 9 rejects the shape.
+
+This corrects an earlier reading recorded in this repository. 73 graded mappings point at
+project-owned namespaces, and they were described as one family that the project rule sends to
+`rdfs:seeAlso`. They are not: every module declares its own `owl:Ontology`, so the 65 cross-module
+mappings are cross-scheme by SKOS's own definition and are correct as they stand. Only the 8 inside a
+single namespace were wrong.
 
 ### 14 graded mappings onto a serialisation slot
 
@@ -99,7 +139,7 @@ The audit triage learned the same lesson from the subject side. The core panel p
 mappings making `oec:value` the broader term of every specific value property it could find, from
 `rail:topValue` to `semic:hasValue`; the carrier filter had only ever looked at the target.
 
-### Five new guards, each for a class of error that had reached the repository
+### New guards and rules, each for a class of error that had reached the repository
 
 Every one was written after finding real instances, not in anticipation:
 
@@ -107,7 +147,7 @@ Every one was written after finding real instances, not in anticipation:
 |---|---|---|
 | `check:extension-terms` | a reference to a project-owned CURIE that no ontology defines | 124 phantom IRIs, including `oec:dppStatus` in six product seeds |
 | `check:operational` rules d, e, f | an EPCIS example on the wrong context chain, prefixing wrong in either direction, a lossy organization record | all 47 EPCIS examples, 7 organization records |
-| `check:mappings` rules 3b, 3c, 4, 6, 7, 8 | property mapped to a class, batch identifier under an item-scoped one, self-reference, inverted direction, value space over the things it classifies, graded mapping onto a serialisation slot | 3 iron-steel batch identifiers under `schema:serialNumber`, 31 value-space and 14 value-slot assertions, 4 inversions the head-term list could not see, 6 mappings hidden behind angle-bracket IRIs |
+| `check:mappings` rules 3b, 3c, 4, 6, 7, 8, 9 | property mapped to a class, batch identifier under an item-scoped one, self-reference, inverted direction, value space over the things it classifies, graded mapping onto a serialisation slot, a *Match relation inside one namespace | 3 iron-steel batch identifiers under `schema:serialNumber`, 31 value-space, 14 value-slot and 8 single-namespace assertions, 4 inversions the head-term list could not see, 6 mappings hidden behind angle-bracket IRIs |
 | `check:golden-fidelity` | a compressed artifact with a relative IRI or a flattened node reference | the fixture drift that motivated it |
 | `check:release` | version stamps that disagree | README.md at 0.9.6 with three modules missing from both tables |
 

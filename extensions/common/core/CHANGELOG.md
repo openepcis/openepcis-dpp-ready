@@ -6,6 +6,36 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [0.9.8] - 2026-07-29
 
+### Changed: `oec:activityClassification` anchored to the GS1 structure published in July 2026
+
+GS1 now models economic activity classification in two parts:
+`gs1:organizationClassification` links a `gs1:Organization` to a
+`gs1:OrganizationClassificationDetails`, which carries `gs1:organizationClassificationID` (the code)
+alongside `gs1:organizationClassificationType` (the scheme it belongs to). That is the structure this
+property has been approximating with a single string since 0.9.5, so per the layering rule for a term
+upstream has since covered, it is now anchored `skos:closeMatch gs1:organizationClassificationID`,
+with `rdfs:seeAlso` to the details class and the type property, and a `skos:note` telling new models
+to prefer the GS1 shape. The grade is closeMatch and not exactMatch because this property conveys the
+scheme by convention rather than in a sibling field.
+
+The `skos:broadMatch` to the ISIC scheme document became `rdfs:seeAlso`: a classification scheme
+published as a web page is not a concept that can subsume a property, and the pointer was already
+there.
+
+### Fixed: 5 SKOS mapping relations that stayed inside `oec:`
+
+`skos:broadMatch` and `skos:narrowMatch` link concepts in *different* concept schemes; within one,
+SKOS uses `skos:broader` / `skos:narrower`. Five assertions mapped an `oec:` term onto another `oec:`
+term, and four of those were also inverted. `oec:isStrategicRawMaterial` is the clearest: it claimed
+`oec:isCriticalRawMaterial` is the narrower term while its own `rdfs:comment` records
+"Strategic ⊂ Critical". It now reads `skos:broader`. The three carbon-footprint stage properties and
+`oec:materialCircularityIndicator` became `rdfs:seeAlso`, since a stage is a component of the total
+rather than a specialisation of it, and no SKOS or RDFS relation states "component of".
+
+`check:mappings` rule 9 rejects the shape. Each module declares its own `owl:Ontology`, so a mapping
+from `eubat:` to `oec:` is legitimately cross-scheme and is left alone; only a mapping inside a single
+namespace is the error.
+
 ### Changed: mapping anchors and directions from the vocab-sync audit
 
 A `vocab-sync audit --module core` run (878 findings, 419 QA-confirmed) produced 95 applied

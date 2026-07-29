@@ -268,7 +268,7 @@ From `skos-completeness-battery-2026-07-28.json`. 194 confirmed findings the tri
 
 ## core
 
-From `skos-completeness-core-2026-07-28.json`. 169 confirmed findings the triage did not apply.
+From `skos-completeness-core-2026-07-29.json`. 170 confirmed findings the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
@@ -296,13 +296,14 @@ From `skos-completeness-core-2026-07-28.json`. 169 confirmed findings the triage
 | 0.92 | `oec:lastDataUpdate` | `skos:exactMatch` | `bpr:Date-timeOfLatestUpdateOfDPP` | our term is a property, target is a class |
 | 0.92 | `oec:recycledContentDetails` | `skos:narrowMatch` | `bpr:Post-consumerRecycledNickelShare` | our term is a property, target is a class |
 | 0.92 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `gs1:additionalProductClassificationValue` | our term is a structural value carrier |
+| 0.91 | `oec:OperatorRole` | rdfs:seeAlso to `skos:exactMatch` | `other:EconomicOperatorRole` | our term is a type, target is the entity |
 | 0.91 | `oec:recycledContentDetails` | `skos:narrowMatch` | `bpr:Post-consumerRecycledLithiumShare` | our term is a property, target is a class |
 | 0.91 | `oec:economicOperatorId` | `skos:exactMatch` | `bpr:UniqueEconomicOperatorIdentifier` | our term is a property, target is a class |
 | 0.90 | `oec:OperatorInformation` | `skos:narrowMatch` | `other:EconomicOperatorRole` | deferred by a curator: An operator record (name, address, identifiers) against a role enumeration: the same level confusion already resolved for oec:OperatorRole, which CIRPASS2_ALIGNMENT.md records as pointer-only. |
-| 0.89 | `oec:EnergyEfficiencyClass` | skos:narrowMatch to `skos:broadMatch` | `schemaorg:EnergyConsumptionDetails` | our term is a type, target is the entity |
+| 0.89 | `oec:EnergyEfficiencyClass` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:EnergyConsumptionDetails` | our term is a type, target is the entity |
 | 0.89 | `oec:RepairProvider` | skos:broadMatch to `skos:narrowMatch` | `schemaorg:AutoRepair` | schema:AutoRepair belongs to an area foreign to a passport |
 | 0.89 | `oec:recycledContentDetails` | `skos:narrowMatch` | `bpr:Pre-consumerRecycledCobaltShare` | our term is a property, target is a class |
-| 0.89 | `oec:stageValue` | skos:narrowMatch to `skos:broadMatch` | `schemaorg:value` | target is a structural value carrier |
+| 0.89 | `oec:stageValue` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:value` | target is a structural value carrier |
 | 0.88 | `oec:value` | rdfs:seeAlso to `skos:narrowMatch` | `gs1:originalCodeValue` | our term is a structural value carrier |
 | 0.87 | `oec:carbonFootprintTotal` | `skos:exactMatch` | `bpr:AbsoluteBatteryCarbonFootprint` | our term is a property, target is a class |
 | 0.86 | `oec:postConsumerRecycledContent` | `skos:narrowMatch` | `bpr:Post-consumerRecycledLithiumShare` | our term is a property, target is a class |
@@ -312,7 +313,6 @@ From `skos-completeness-core-2026-07-28.json`. 169 confirmed findings the triage
 | 0.85 | `oec:expectedLifespan` | `skos:narrowMatch` | `bpr:ExpectedLifetimeInCalendarYears` | our term is a property, target is a class |
 | 0.85 | `oec:postConsumerRecycledContent` | `skos:narrowMatch` | `bpr:Post-consumerRecycledCobaltShare` | our term is a property, target is a class |
 | 0.84 | `oec:value` | rdfs:seeAlso to `skos:narrowMatch` | `semic:hasValue` | our term is a structural value carrier |
-| 0.84 | `oec:recycledContent` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:recycledContent` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
 | 0.83 | `oec:EnvironmentalProductDeclaration` | `skos:narrowMatch` | `schemaorg:EnergyConsumptionDetails` | deferred by a curator: An EN 15804 environmental product declaration covers impact indicators across the whole life cycle; schema:EnergyConsumptionDetails carries appliance energy figures. Neither subsumes the other. |
 | 0.83 | `oec:economicOperatorId` | `skos:broadMatch` | `bpr:EconomicOperatorInformation` | our term is a property, target is a class |
 | 0.83 | `oec:OperationalScope` | skos:broadMatch to `skos:narrowMatch` | `batterypass:CarbonFootprintPerLifecycleStageEntity` | our term is a type, target is the entity |
@@ -341,7 +341,7 @@ From `skos-completeness-core-2026-07-28.json`. 169 confirmed findings the triage
 | 0.78 | `oec:carbonFootprintUse` | skos:narrowMatch to `skos:broadMatch` | `batterypass:carbonFootprint` | direction flip toward a peer profile below the 0.8 floor |
 | 0.78 | `oec:preConsumerRecycledContent` | `skos:narrowMatch` | `bpr:Pre-consumerRecycledCobaltShare` | our term is a property, target is a class |
 | 0.78 | `oec:productCategory` | skos:broadMatch to `skos:narrowMatch` | `batterypass:batteryCategory` | direction flip toward a peer profile below the 0.8 floor |
-| 0.78 | `oec:ProductCategory` | skos:narrowMatch to `skos:broadMatch` | `schemaorg:Product` | our term is a type, target is the entity |
+| 0.78 | `oec:ProductCategory` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Product` | our term is a type, target is the entity |
 | 0.78 | `oec:recycledContentDetails` | skos:broadMatch to `skos:narrowMatch` | `untp:recycledMassFraction` | direction flip toward a peer profile below the 0.8 floor |
 | 0.78 | `oec:operatorInformation` | `skos:narrowMatch` | `bpr:ManufacturerInformation` | our term is a property, target is a class |
 | 0.78 | `oec:materialComposition` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:packagingMaterialCompositionQuantity` | seeAlso upgrade below the 0.8 floor |
@@ -366,9 +366,10 @@ From `skos-completeness-core-2026-07-28.json`. 169 confirmed findings the triage
 | 0.75 | `oec:compostabilityStandard` | `skos:broadMatch` | `untp:standard` | new mapping below the 0.8 floor |
 | 0.75 | `oec:materialCircularityIndicator` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:recyclabilityScore` | seeAlso upgrade below the 0.8 floor |
 | 0.75 | `oec:lifecycleStageResult` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:carbonFootprintPerLifecycleStage` | seeAlso upgrade below the 0.8 floor |
-| 0.75 | `oec:ProductCategory` | skos:narrowMatch to `skos:broadMatch` | `gs1:Product` | our term is a type, target is the entity |
+| 0.75 | `oec:ProductCategory` | rdfs:seeAlso to `skos:broadMatch` | `gs1:Product` | our term is a type, target is the entity |
 | 0.75 | `oec:traceabilityPerformance` | `skos:broadMatch` | `untp:requiredPerformance` | new mapping below the 0.8 floor |
 | 0.75 | `oec:passportVersion` | `skos:broadMatch` | `dppk:versionNumber` | new mapping below the 0.8 floor |
+| 0.75 | `oec:DocumentType` | skos:closeMatch to `skos:narrowMatch` | `gs1:ReferencedFileTypeCode` | regrade skos:closeMatch to skos:narrowMatch |
 | 0.75 | `oec:stageValue` | skos:broadMatch to `skos:narrowMatch` | `batterypass:evolutionOfSelfDischargeValue` | direction flip toward a peer profile below the 0.8 floor |
 | 0.75 | `oec:multiLanguageValue` | `skos:broadMatch` | `schemaorg:textValue` | new mapping below the 0.8 floor |
 | 0.75 | `oec:tradeItemPieceDescription` | rdfs:seeAlso to `skos:broadMatch` | `gs1:additionalProductDescription` | seeAlso upgrade below the 0.8 floor |
@@ -380,13 +381,14 @@ From `skos-completeness-core-2026-07-28.json`. 169 confirmed findings the triage
 | 0.75 | `oec:SingleValuedDataElement` | `skos:broadMatch` | `schemaorg:PropertyValueSpecification` | target is a structural value carrier |
 | 0.75 | `oec:DataElementCollection` | skos:narrowMatch to `skos:broadMatch` | `schemaorg:Collection` | schema:Collection belongs to an area foreign to a passport |
 | 0.75 | `oec:multiLanguageValue` | `skos:broadMatch` | `dppk:dimensionValue` | new mapping below the 0.8 floor |
+| 0.74 | `oec:DocumentReference` | skos:closeMatch to `skos:narrowMatch` | `gs1:ReferencedFileDetails` | regrade skos:closeMatch to skos:narrowMatch |
 | 0.73 | `oec:carbonFootprintProduction` | skos:narrowMatch to `skos:broadMatch` | `dppk:carbonFootprint` | direction flip toward a peer profile below the 0.8 floor |
 | 0.73 | `oec:stageValue` | skos:broadMatch to `skos:narrowMatch` | `batterypass:remainingEnergyValue` | direction flip toward a peer profile below the 0.8 floor |
 | 0.73 | `oec:carbonFootprintEndOfLife` | skos:narrowMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | direction flip toward a peer profile below the 0.8 floor |
 | 0.73 | `oec:declaredUnit` | `skos:narrowMatch` | `bpr:BatteryCarbonFootprintPerFunctionalUnit` | our term is a property, target is a class |
 | 0.73 | `oec:carbonFootprintUse` | `skos:narrowMatch` | `batterypass:batteryCarbonFootprint` | new mapping below the 0.8 floor |
 | 0.73 | `oec:preConsumerRecycledContent` | rdfs:seeAlso to `skos:broadMatch` | `untp:recycledMassFraction` | seeAlso upgrade below the 0.8 floor |
-| 0.73 | `oec:BiodegradabilityTestMethod` | skos:narrowMatch to `skos:broadMatch` | `semic:Criterion` | our term is a type, target is the entity |
+| 0.73 | `oec:BiodegradabilityTestMethod` | rdfs:seeAlso to `skos:broadMatch` | `semic:Criterion` | our term is a type, target is the entity |
 | 0.73 | `oec:crmListVersion` | skos:narrowMatch to `skos:broadMatch` | `dppk:dppSchemaVersion` | direction flip toward a peer profile below the 0.8 floor |
 | 0.73 | `oec:powerConsumptionOn` | `skos:broadMatch` | `dppk:ratedPower` | new mapping below the 0.8 floor |
 | 0.73 | `oec:reportUrl` | `skos:broadMatch` | `batterypass:documentURL` | new mapping below the 0.8 floor |
@@ -398,9 +400,8 @@ From `skos-completeness-core-2026-07-28.json`. 169 confirmed findings the triage
 | 0.72 | `oec:crmListVersion` | skos:narrowMatch to `skos:broadMatch` | `dppk:versionNumber` | direction flip toward a peer profile below the 0.8 floor |
 | 0.72 | `oec:carbonFootprintTotal` | skos:broadMatch to `skos:narrowMatch` | `batterypass:carbonFootprintPerLifecycleStage` | direction flip toward a peer profile below the 0.8 floor |
 | 0.72 | `oec:recycledContent` | skos:broadMatch to `skos:narrowMatch` | `dppk:preConsumerRecycledContentPercentage` | direction flip toward a peer profile below the 0.8 floor |
-| 0.72 | `oec:MultiLanguageValue` | skos:narrowMatch to `skos:broadMatch` | `schemaorg:StructuredValue` | target is a structural value carrier |
 | 0.72 | `oec:lifecycleStageResult` | `skos:narrowMatch` | `bpr:ContributionOfRawMaterialAcquisitionAndPre-processingLifecycleStage` | our term is a property, target is a class |
-| 0.72 | `oec:indicatorTotalValue` | skos:narrowMatch to `skos:broadMatch` | `gs1:value` | target is a structural value carrier |
+| 0.72 | `oec:indicatorTotalValue` | rdfs:seeAlso to `skos:broadMatch` | `gs1:value` | target is a structural value carrier |
 | 0.72 | `oec:performanceInfo` | `skos:narrowMatch` | `untp:claimedPerformance` | new mapping below the 0.8 floor |
 | 0.72 | `oec:RecyclabilityAssessment` | skos:narrowMatch to `skos:broadMatch` | `untp:ConformityAssessment` | direction flip toward a peer profile below the 0.8 floor |
 | 0.72 | `oec:wastePreventionInfo` | `skos:narrowMatch` | `batterypass:informationOnCollection` | new mapping below the 0.8 floor |
@@ -426,14 +427,14 @@ From `skos-completeness-core-2026-07-28.json`. 169 confirmed findings the triage
 | 0.69 | `oec:HazardousSubstance` | skos:broadMatch to `skos:narrowMatch` | `batterypass:HazardousSubstanceEntity` | direction flip toward a peer profile below the 0.8 floor |
 | 0.69 | `oec:hazardousSubstances` | `skos:broadMatch` | `dppk:textileSubstancesOfConcern` | new mapping below the 0.8 floor |
 | 0.68 | `oec:carbonFootprintUse` | `skos:broadMatch` | `dppk:carbonFootprintAbsolute` | new mapping below the 0.8 floor |
-| 0.68 | `oec:indicatorTotalValue` | skos:narrowMatch to `skos:broadMatch` | `schemaorg:value` | target is a structural value carrier |
+| 0.68 | `oec:indicatorTotalValue` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:value` | target is a structural value carrier |
 | 0.68 | `oec:dismantlingGuideUrl` | `skos:broadMatch` | `batterypass:dismantlingAndRemovalInformation` | new mapping below the 0.8 floor |
 | 0.68 | `oec:dismantlingInstructions` | `skos:narrowMatch` | `bpr:DismantlingInformation-ManualsForTheRemovalAndTheDisassemblyOfTheBatteryPack` | our term is a property, target is a class |
 | 0.68 | `oec:performanceInfo` | `skos:narrowMatch` | `untp:requiredPerformance` | new mapping below the 0.8 floor |
 | 0.68 | `oec:materialComposition` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:recycledMaterial` | seeAlso upgrade below the 0.8 floor |
 | 0.68 | `oec:stageValue` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:internalResistanceIncreaseValue` | seeAlso upgrade below the 0.8 floor |
 | 0.68 | `oec:carbonFootprintTotal` | `skos:narrowMatch` | `bpr:BatteryCarbonFootprintPerFunctionalUnit` | our term is a property, target is a class |
-| 0.68 | `oec:activityClassification` | skos:broadMatch to `skos:narrowMatch` | `other:isic` | direction flip toward a peer profile below the 0.8 floor |
+| 0.68 | `oec:activityClassification` | rdfs:seeAlso to `skos:narrowMatch` | `other:isic` | seeAlso upgrade below the 0.8 floor |
 | 0.67 | `oec:powerConsumptionOn` | `skos:broadMatch` | `dppk:power` | new mapping below the 0.8 floor |
 | 0.67 | `oec:biodegradationPercentage` | `skos:broadMatch` | `dppk:componentPercentage` | new mapping below the 0.8 floor |
 | 0.66 | `oec:carbonFootprintProduction` | `skos:broadMatch` | `dppk:environmentalFootprint` | new mapping below the 0.8 floor |
@@ -610,7 +611,7 @@ From `skos-completeness-textile-2026-07-28.json`. 48 confirmed findings the tria
 
 ## Where the pipeline contradicts itself
 
-155 assertion(s) the ontology already carries were marked `WRONG` by the
+152 assertion(s) the ontology already carries were marked `WRONG` by the
 bulk grader and then had the correction rejected by the QA panel. Nothing was applied, so
 each one is either a mapping worth re-reading or a prompt worth improving. A worked example:
 the textile panel rejected `eutex:additionalCareInstructions skos:narrowMatch
@@ -618,8 +619,8 @@ schema:additionalProperty` at 0.97 confidence, and it does look inverted, since
 `schema:additionalProperty` is a general extension slot rather than a narrower concept.
 
 - **battery**: 44
-- **core**: 24
 - **electronics**: 24
+- **core**: 21
 - **textile**: 21
 - **cpr**: 20
 - **eudr**: 12
@@ -629,7 +630,7 @@ schema:additionalProperty` at 0.97 confidence, and it does look inverted, since
 
 ## Remaining `skos:narrowMatch` assertions
 
-279 assertions still read `narrowMatch`. Their targets are peer profiles or
+273 assertions still read `narrowMatch`. Their targets are peer profiles or
 intra-project terms of comparable specificity, where which of the two is narrower is a
 modelling question per term. `check:mappings` rule 6 already guards the mechanical class,
 the general Layer-1 head terms.
@@ -637,8 +638,8 @@ the general Layer-1 head terms.
 - **BatteryPass SAMM / bpr**: 118
 - **DPP Keystone**: 62
 - **schema.org tail**: 31
-- **GS1 tail**: 21
 - **UNTP**: 21
-- **intra-project**: 15
+- **GS1 tail**: 19
+- **intra-project**: 11
 - **other**: 6
 - **SEMICeu / CCCEV**: 5

@@ -311,14 +311,26 @@ function verdict(f: Finding): { action: "APPLY" | "HOLD" | "SKIP"; reason: strin
     new Set([f.existingPredicate, f.proposedPredicate]).size === 2 &&
     [f.existingPredicate, f.proposedPredicate].every((p) => p === "skos:narrowMatch" || p === "skos:broadMatch");
   if (flip) {
-    // Toward a foundational term the inversion is provable from the layering, so confidence
-    // does not gate it. Toward a peer profile (SAMM, bpr, dppk, untp) both terms can be
-    // equally specific, so it needs the floor like any other judgement.
+    // Toward a foundational term, a flip to broadMatch is provable from the layering, so
+    // confidence does not gate it. A flip the OTHER way is not: it claims one of our terms is
+    // broader than a Layer-1 term, which is the very error the 174-assertion sweep corrected, so
+    // it needs the floor like any other judgement. `oec:activityClassification` was flipped to
+    // narrowMatch against schema:naics at 0.73 on the unconditional path; it happens to be right,
+    // because our property generalises over ISIC, NACE and NAICS, but the layering did not say so.
     const foundational = L1.some((ns) => f.upstreamIri.startsWith(ns));
-    if (foundational || f.qaConfidence >= FLOOR) {
-      return { action: "APPLY", reason: `direction flip${foundational ? "" : " (peer profile, above the floor)"}` };
+    const provable = foundational && f.proposedPredicate === "skos:broadMatch";
+    if (provable || f.qaConfidence >= FLOOR) {
+      return {
+        action: "APPLY",
+        reason: `direction flip${provable ? "" : foundational ? " (toward Layer-1 but away from broadMatch, above the floor)" : " (peer profile, above the floor)"}`,
+      };
     }
-    return { action: "HOLD", reason: `direction flip toward a peer profile below the ${FLOOR} floor` };
+    return {
+      action: "HOLD",
+      reason: foundational
+        ? `flip to ${f.proposedPredicate} would make our term broader than a Layer-1 term, and it is below the ${FLOOR} floor`
+        : `direction flip toward a peer profile below the ${FLOOR} floor`,
+    };
   }
   if (f.existingPredicate === "rdfs:seeAlso") {
     return f.qaConfidence >= FLOOR

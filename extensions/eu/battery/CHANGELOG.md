@@ -6,6 +6,16 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [0.9.8] - 2026-07-29
 
+### Fixed: 3 SKOS mapping relations that stayed inside `eubat:`
+
+`skos:broadMatch` and `skos:narrowMatch` link concepts in *different* concept schemes; within one,
+SKOS uses `skos:broader` / `skos:narrower`. `eubat:leadPreConsumerShare` and
+`eubat:leadPostConsumerShare` now read `skos:broader eubat:leadRecycledShare`, and
+`eubat:numberOfDeepDischargeEvents` reads `skos:broader eubat:negativeEvents`, which also corrects
+its direction: a deep-discharge count is a kind of negative event, not the other way round.
+`check:mappings` rule 9 rejects the shape; a mapping from `eubat:` to `oec:` is legitimately
+cross-scheme and is untouched. See the [root changelog](../../../CHANGELOG.md).
+
 ### Changed: mapping anchors and directions from the vocab-sync audit
 
 A `vocab-sync audit --module battery` run (1182 findings, 614 QA-confirmed) produced 130 applied

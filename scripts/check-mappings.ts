@@ -266,6 +266,21 @@ for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
         continue;
       }
 
+      // 9. a *Match relation inside a single scheme. SKOS reserves broadMatch/narrowMatch and
+      // friends for concepts in DIFFERENT concept schemes; within one, the relations are
+      // skos:broader / skos:narrower, or rdfs:subPropertyOf / rdfs:subClassOf where a genuine
+      // subsumption holds. Each module here declares its own owl:Ontology, so a mapping from
+      // eubat: to oec: is legitimately cross-scheme; a mapping from oec: to oec: is not. Four of
+      // the eight that existed were also inverted, including oec:isStrategicRawMaterial against
+      // oec:isCriticalRawMaterial, whose own rdfs:comment records "Strategic ⊂ Critical".
+      if (target.split(":")[0] === subj.split(":")[0]) {
+        violations.push({
+          file: rel, subject: subj, rule: "match-within-one-scheme", relation: relName, target: rawTarget,
+          detail: `skos:${relName} ${target} stays inside this vocabulary's own namespace, where SKOS uses skos:broader / skos:narrower (or rdfs:subPropertyOf / rdfs:subClassOf); the *Match relations link across schemes`,
+        });
+        continue;
+      }
+
       // 8. graded mapping onto a serialisation slot. gs1:value, schema:value and the min/max
       // bounds carry a number or a string wherever a vocabulary needs one; they denote no concept,
       // so a subsumption claim against them says nothing. The 14 that existed contradicted each
