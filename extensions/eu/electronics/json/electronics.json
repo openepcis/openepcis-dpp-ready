@@ -85,9 +85,6 @@
         "https://ref.gs1.org/voc/Product",
         "https://schema.org/Product"
       ],
-      "narrowMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#Component"
-      ],
       "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj"
     },
     {
@@ -97,7 +94,8 @@
       "comment": "EU Energy Label data including efficiency class (A-G), power consumption metrics,\nand EPREL registry information per EU Energy Labeling Regulation 2019/2021.",
       "seeAlso": [
         "https://ref.openepcis.io/extensions/common/core/PerformanceInfo",
-        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency",
+        "https://schema.org/EUEnergyEfficiencyEnumeration"
       ],
       "subClassOf": [
         "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
@@ -105,9 +103,6 @@
       "broadMatch": [
         "https://schema.org/EnergyConsumptionDetails",
         "https://schema.org/EnergyEfficiencyEnumeration"
-      ],
-      "narrowMatch": [
-        "https://schema.org/EUEnergyEfficiencyEnumeration"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2019/2021"
     },
@@ -519,7 +514,7 @@
       "range": [
         "https://ref.openepcis.io/extensions/eu/electronics/ComponentType"
       ],
-      "narrowMatch": [
+      "seeAlso": [
         "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryCategory"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -702,9 +697,7 @@
         "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency"
       ],
       "seeAlso": [
-        "https://ref.openepcis.io/extensions/common/core/energyEfficiency"
-      ],
-      "narrowMatch": [
+        "https://ref.openepcis.io/extensions/common/core/energyEfficiency",
         "https://schema.org/energyEfficiencyScaleMax",
         "https://schema.org/hasEnergyEfficiencyCategory",
         "https://schema.org/hasEnergyConsumptionDetails"
@@ -727,6 +720,7 @@
       ],
       "seeAlso": [
         "https://schema.org/hasEnergyEfficiencyCategory",
+        "https://schema.org/hasEnergyConsumptionDetails",
         "https://ref.openepcis.io/extensions/common/core/energyEfficiencyClass"
       ],
       "exactMatch": [
@@ -734,9 +728,6 @@
       ],
       "broadMatch": [
         "https://schema.org/hasEnergyEfficiencyCategory"
-      ],
-      "narrowMatch": [
-        "https://schema.org/hasEnergyConsumptionDetails"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2019/2021",
       "accessLevel": "Public",
@@ -1056,14 +1047,12 @@
         "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern"
       ],
       "seeAlso": [
-        "https://std.iec.ch/iec62474"
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials",
+        "https://std.iec.ch/iec62474",
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#isCriticalRawMaterial"
       ],
       "broadMatch": [
         "https://ref.gs1.org/voc/packagingMaterialType"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials",
-        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#isCriticalRawMaterial"
       ],
       "source": "https://std.iec.ch/iec62474",
       "accessLevel": "AuthorizedOnly",
@@ -1670,15 +1659,13 @@
         "xsd:anyURI"
       ],
       "seeAlso": [
-        "https://ref.gs1.org/voc/referencedFileURL"
+        "https://ref.gs1.org/voc/referencedFileURL",
+        "urn:samm:io.BatteryPass.Labels:1.2.0#resultOfTestReport"
       ],
       "broadMatch": [
         "https://ref.gs1.org/voc/referencedFileURL",
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#documentURL"
-      ],
-      "narrowMatch": [
         "https://dpp-keystone.org/spec/v2/terms#certificationUrl",
-        "urn:samm:io.BatteryPass.Labels:1.2.0#resultOfTestReport"
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#documentURL"
       ],
       "source": "https://eur-lex.europa.eu/eli/dir/2011/65/oj",
       "accessLevel": "Public",
@@ -1731,7 +1718,7 @@
       "range": [
         "xsd:integer"
       ],
-      "narrowMatch": [
+      "seeAlso": [
         "https://schema.org/height",
         "https://vocabulary.uncefact.org/untp/height",
         "https://dpp-keystone.org/spec/v2/terms#height"
@@ -2037,9 +2024,7 @@
         "xsd:anyURI"
       ],
       "broadMatch": [
-        "https://schema.org/availableChannel"
-      ],
-      "narrowMatch": [
+        "https://schema.org/availableChannel",
         "http://data.europa.eu/m8g/hasChannel"
       ],
       "source": "https://www.iso.org/standard/63712.html",
@@ -2055,7 +2040,7 @@
       "range": [
         "xsd:string"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/source"
       ],
       "source": "https://www.iso.org/standard/63712.html",
@@ -2140,10 +2125,8 @@
         "https://schema.org/addressCountry"
       ],
       "broadMatch": [
+        "https://vocabulary.uncefact.org/untp/addressCountry",
         "https://ref.openepcis.io/extensions/common/core/eprJurisdiction"
-      ],
-      "narrowMatch": [
-        "https://vocabulary.uncefact.org/untp/addressCountry"
       ],
       "source": "https://eur-lex.europa.eu/eli/dir/2012/19/oj",
       "accessLevel": "AuthorizedOnly",

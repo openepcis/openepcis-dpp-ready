@@ -104,6 +104,47 @@ Both halves were checked rather than assumed:
 A re-audit of `common/core` against the refreshed cache then found **nothing further to apply**,
 which is the outcome that makes the delta safe to close.
 
+### The remaining 224 mapping directions, worked through in blocks
+
+`OPEN_DECISIONS.md` still listed 224 `skos:narrowMatch` assertions as needing a curator. They were
+worked through pair by pair against the definitions, and **175 were settled**; 49 remain, each one a
+deliberate keep rather than an open question.
+
+The definitions came from sources already on this machine: the BatteryPass SAMM reference in
+`extensions/eu/battery/vocab/`, the refreshed GS1 and schema.org caches, and, for DPP Keystone, the
+local checkout the audit pipeline is already configured against. Its ontology files are JSON with
+comments and `{{VERSION}}` placeholders, so a plain parser rejects them; stripping both yields 448
+dppk terms with real labels and definitions, which is what made the dppk pairs decidable rather than
+guessable.
+
+The decisions follow the same handful of principles throughout, and every one of them is visible in
+the resulting relation:
+
+- **A container and one of its fields** is component-to-whole, so `rdfs:seeAlso`. That covers
+  `oec:recycledContentDetails` against nine individual pre- and post-consumer values, and the
+  carbon-footprint declarations against the figures they carry.
+- **Our term qualified, theirs not** means ours is the narrower one, so `skos:broadMatch`:
+  `eubat:anodeActiveMaterial` against DPP Keystone's whole `materialComposition`,
+  `eusteel:meltAndPourCountry` against UNTP's `countryOfProduction`,
+  `eubat:cadmiumSymbolRequired` against the longlist attribute covering cadmium *and* lead.
+- **Different axes** get `rdfs:seeAlso`, however close the names look:
+  `euelec:screenResolutionHeight` is pixels where `schema:height` is a length,
+  `eubat:stateOfChargeLevel` is the measurement parameter where `dppk:stateOfCharge` is the state,
+  `eutex:weavingFacility` is a place where `dppk:facilityId` is an identifier.
+- **The same concept in two words** gets `skos:closeMatch`, as with `eubat:hazardImpact` against
+  `dppk:hazardousSubstancesImpact`.
+
+`skos:narrowMatch` is now 49, down from 504 before this release began; `skos:broadMatch` is 586 and
+`rdfs:seeAlso` 1120. `check:mappings` caught one of these very edits: setting the SAMM side of
+`eubat:safetyInstructionsForDismantling` to `broadMatch` while its `bpr:` twin still read
+`narrowMatch` tripped rule 11, which is the rule doing exactly what it was written for.
+
+Three findings came out of the reading rather than the counting. `eubat:nickelRecycledShare` pointed
+at `bpr:RenewableContentShare`, and renewable content is not recycled content. `eutex:environmentalFootprint`
+pointed at `dppk:carbonFootprintGeneralInfo`, whose definition is explicitly battery-scoped. And
+`dppk:facilityId` carries its definition in Bulgarian upstream, which is worth reporting to that
+project rather than working around.
+
 ### 91 mapping directions settled by evidence rather than left open
 
 The remaining `skos:narrowMatch` assertions were listed as a curator's problem, 275 of them, on the

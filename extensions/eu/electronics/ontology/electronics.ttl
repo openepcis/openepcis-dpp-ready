@@ -152,7 +152,7 @@ and EPREL registry information per EU Energy Labeling Regulation 2019/2021."""@e
 EU Energy Label properties (A-G classes, EPREL registration) required for electronics."""@en ;
     rdfs:seeAlso oec:EnergyEfficiency ;
     skos:broadMatch schema:EnergyConsumptionDetails ;
-    skos:narrowMatch schema:EUEnergyEfficiencyEnumeration ;
+    rdfs:seeAlso schema:EUEnergyEfficiencyEnumeration ;
     skos:broadMatch schema:EnergyEfficiencyEnumeration .
 
 euelec:ComponentBOM
@@ -213,7 +213,6 @@ class so device-level and component-level shapes do not both fire on every gs1:P
     skos:broadMatch gs1:Product ;
     rdfs:seeAlso schema:Product ;
     rdfs:seeAlso dppk:Component ;
-    skos:narrowMatch dppk:Component ;
     skos:exactMatch dppk:ElectronicDevice ;
     skos:broadMatch schema:Product .
 
@@ -420,7 +419,7 @@ euelec:EURepairabilityClass
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:narrowMatch schema:Class .
+    rdfs:seeAlso schema:Class .
 
 euelec:RepairClassA a euelec:EURepairabilityClass ;
     rdfs:label "Repairability Class A"@en ;
@@ -909,7 +908,7 @@ euelec:updateChannel
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     skos:note "Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch schema:availableChannel ;
-    skos:narrowMatch cv:hasChannel .
+    skos:broadMatch cv:hasChannel .
 
 euelec:latestUpdateDate
     a owl:DatatypeProperty ;
@@ -936,9 +935,9 @@ euelec:energyEfficiency
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:energyEfficiency ;
-    skos:narrowMatch schema:energyEfficiencyScaleMax ;
-    skos:narrowMatch schema:hasEnergyEfficiencyCategory ;
-    skos:narrowMatch schema:hasEnergyConsumptionDetails .
+    rdfs:seeAlso schema:energyEfficiencyScaleMax ;
+    rdfs:seeAlso schema:hasEnergyEfficiencyCategory ;
+    rdfs:seeAlso schema:hasEnergyConsumptionDetails .
 
 euelec:energyEfficiencyClass
     a owl:ObjectProperty ;
@@ -950,7 +949,7 @@ euelec:energyEfficiencyClass
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:energyEfficiencyClass ;
-    skos:narrowMatch schema:hasEnergyConsumptionDetails ;
+    rdfs:seeAlso schema:hasEnergyConsumptionDetails ;
     rdfs:seeAlso schema:hasEnergyEfficiencyCategory ;
     skos:broadMatch schema:hasEnergyEfficiencyCategory .
 
@@ -1067,7 +1066,7 @@ euelec:componentType
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:narrowMatch <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryCategory> .
+    rdfs:seeAlso <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryCategory> .
 
 euelec:componentPartNumber
     a owl:DatatypeProperty ;
@@ -1174,7 +1173,7 @@ euelec:weeeRegistrationCountry
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note "E-waste / separate-collection concept per the WEEE Directive 2012/19/EU. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:closeMatch schema:addressCountry ;
-    skos:narrowMatch untp:addressCountry .
+    skos:broadMatch untp:addressCountry .
 
 euelec:collectionSchemeUrl
     a owl:DatatypeProperty ;
@@ -1256,8 +1255,8 @@ euelec:rohsDeclarationUrl
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2011/65/oj> ;
     skos:note "Restricted-substance concept per the RoHS Directive 2011/65/EU. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso gs1:referencedFileURL ;
-    skos:narrowMatch dppk:certificationUrl ;
-    skos:narrowMatch <urn:samm:io.BatteryPass.Labels:1.2.0#resultOfTestReport> ;
+    skos:broadMatch dppk:certificationUrl ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.Labels:1.2.0#resultOfTestReport> ;
     skos:broadMatch gs1:referencedFileURL ;
     skos:broadMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#documentURL> .
 
@@ -1305,9 +1304,9 @@ euelec:screenResolutionHeight
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:narrowMatch schema:height ;
-    skos:narrowMatch untp:height ;
-    skos:narrowMatch dppk:height .
+    rdfs:seeAlso schema:height ;
+    rdfs:seeAlso untp:height ;
+    rdfs:seeAlso dppk:height .
 
 euelec:displayTechnology
     a owl:DatatypeProperty ;
@@ -1392,7 +1391,7 @@ euelec:updateSource
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     skos:note "Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:narrowMatch schema:source .
+    skos:broadMatch schema:source .
 
 # =============================================================================
 # PART 18: PROPERTIES - IEC 62474 MATERIAL DECLARATION
@@ -1409,9 +1408,9 @@ Links to oec:SubstanceOfConcern for REACH/RoHS substances."""@en ;
     rdfs:seeAlso <https://std.iec.ch/iec62474> ;
     dcterms:source <https://std.iec.ch/iec62474> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#isCriticalRawMaterial> ;
+    rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#isCriticalRawMaterial> ;
     skos:broadMatch gs1:packagingMaterialType ;
-    skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials> .
+    rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials> .
 
 euelec:iec62474DslVersion
     a owl:DatatypeProperty ;

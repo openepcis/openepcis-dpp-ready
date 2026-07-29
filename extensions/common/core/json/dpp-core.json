@@ -26,11 +26,11 @@
       "localName": "CarbonFootprintDeclaration",
       "label": "Carbon Footprint Declaration",
       "comment": "An observation of a product's lifecycle carbon footprint, broken down by lifecycle stage. Used for EU Battery Annex II §8, ESPR carbon-footprint declarations, PEF reporting, and PPWR optional disclosures.",
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity"
+      ],
       "subClassOf": [
         "https://schema.org/Observation"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -67,12 +67,14 @@
       "localName": "DataElementCollection",
       "label": "Data Element Collection",
       "comment": "A container of one or more DataElements (EN 18223 4.1.2.4).",
+      "seeAlso": [
+        "https://schema.org/Collection"
+      ],
       "subClassOf": [
         "https://ref.openepcis.io/extensions/common/core/DataElement"
       ],
-      "narrowMatch": [
-        "https://schema.org/Dataset",
-        "https://schema.org/Collection"
+      "broadMatch": [
+        "https://schema.org/Dataset"
       ],
       "source": "EN 18223:2026, 4.1.2.4 (CEN/CENELEC JTC 24)"
     },
@@ -166,9 +168,6 @@
       ],
       "broadMatch": [
         "https://schema.org/EnergyConsumptionDetails"
-      ],
-      "narrowMatch": [
-        "https://schema.org/EUEnergyEfficiencyEnumeration"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -372,9 +371,7 @@
         "https://schema.org/Observation"
       ],
       "broadMatch": [
-        "http://data.europa.eu/m8g/Criterion"
-      ],
-      "narrowMatch": [
+        "http://data.europa.eu/m8g/Criterion",
         "https://vocabulary.uncefact.org/untp/ConformityAssessment"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
@@ -476,7 +473,7 @@
       "range": [
         "https://ref.openepcis.io/extensions/common/core/AccessLevel"
       ],
-      "narrowMatch": [
+      "seeAlso": [
         "https://schema.org/conditionsOfAccess"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -757,13 +754,11 @@
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint",
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint",
-        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal"
+        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint"
       ],
       "closeMatch": [
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
-      ],
-      "narrowMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -990,7 +985,8 @@
       ],
       "seeAlso": [
         "https://schema.org/identifier",
-        "https://dpp-keystone.org/spec/v2/terms#componentIdentifier"
+        "https://dpp-keystone.org/spec/v2/terms#componentIdentifier",
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#componentIdentifier",
@@ -999,9 +995,6 @@
       "broadMatch": [
         "https://schema.org/identifier",
         "http://www.w3.org/ns/adms#identifier"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
@@ -1167,7 +1160,7 @@
       "range": [
         "xsd:string"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://dpp-keystone.org/spec/v2/terms#dppSchemaVersion",
         "https://vocabulary.uncefact.org/untp/version",
         "https://dpp-keystone.org/spec/v2/terms#versionNumber"
@@ -1284,7 +1277,7 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#declaredUnit"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://ref.gs1.org/voc/unitCode"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -1325,7 +1318,7 @@
       "range": [
         "xsd:anyURI"
       ],
-      "narrowMatch": [
+      "seeAlso": [
         "https://schema.org/availableChannel"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -1699,12 +1692,12 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#endOfLifeInstructions"
       ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation"
+      ],
       "broadMatch": [
         "https://ref.gs1.org/voc/sustainabilityInfo",
         "https://ref.gs1.org/voc/instructions"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -2037,7 +2030,7 @@
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
       ],
-      "narrowMatch": [
+      "closeMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -2237,10 +2230,6 @@
       "closeMatch": [
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstances"
       ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceIdentifier",
-        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass"
-      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272",
       "accessLevel": "Public",
       "accessLevelRationale": "The presence and identity of hazardous substances is disclosed on the CLP label (Reg. (EC) 1272/2008 Art. 18); battery and detergent modules serve the same name Public — exact concentrations stay tiered separately.",
@@ -2308,9 +2297,7 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/referencedFileURL",
         "https://untp.unece.org/docs/specification/DigitalIdentityAnchor/",
-        "https://www.w3.org/TR/vc-data-model-2.0/"
-      ],
-      "narrowMatch": [
+        "https://www.w3.org/TR/vc-data-model-2.0/",
         "https://dpp-keystone.org/spec/v2/terms#verifiableCredential"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -2533,7 +2520,7 @@
       "range": [
         "xsd:dateTime"
       ],
-      "narrowMatch": [
+      "closeMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#lastUpdate"
       ],
       "source": "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)",
@@ -2552,7 +2539,7 @@
       "range": [
         "https://ref.openepcis.io/extensions/common/core/LifecycleStage"
       ],
-      "narrowMatch": [
+      "closeMatch": [
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#lifecycleStage"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -2643,7 +2630,6 @@
         "https://dpp-keystone.org/spec/v2/terms#materialComposition"
       ],
       "narrowMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
         "https://ref.gs1.org/voc/textileMaterialDescription",
         "https://ref.gs1.org/voc/packagingMaterialType",
         "https://ref.gs1.org/voc/textileMaterial"
@@ -2825,7 +2811,7 @@
       "range": [
         "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
       ],
-      "narrowMatch": [
+      "closeMatch": [
         "https://schema.org/issuedBy"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -3045,7 +3031,7 @@
       "exactMatch": [
         "http://www.w3.org/ns/adms#prev"
       ],
-      "narrowMatch": [
+      "broadMatch": [
         "https://schema.org/predecessorOf"
       ],
       "source": "EN 18221:2026 (CEN/CENELEC JTC 24)",
@@ -3207,13 +3193,15 @@
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#recycledContentPercentage"
       ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent"
+      ],
       "broadMatch": [
         "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent"
       ],
       "narrowMatch": [
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
         "https://dpp-keystone.org/spec/v2/terms#packagingRecycledContent"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -3238,7 +3226,9 @@
         "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass",
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition"
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage"
       ],
       "closeMatch": [
         "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentMass"
@@ -3246,17 +3236,6 @@
       "broadMatch": [
         "https://dpp-keystone.org/spec/v2/terms#recycledContentPercentage",
         "https://vocabulary.uncefact.org/untp/recycledMassFraction"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent",
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition",
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent",
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass",
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare",
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -3583,9 +3562,7 @@
         "https://ref.gs1.org/voc/instructions",
         "https://ref.gs1.org/voc/consumerSafetyInformation",
         "https://ref.gs1.org/voc/consumerUsageInstructions",
-        "https://ref.gs1.org/voc/instructionsForUse"
-      ],
-      "narrowMatch": [
+        "https://ref.gs1.org/voc/instructionsForUse",
         "https://dpp-keystone.org/spec/v2/terms#instructionsForUse"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -3800,7 +3777,7 @@
       "seeAlso": [
         "https://schema.org/merchantReturnLink"
       ],
-      "narrowMatch": [
+      "closeMatch": [
         "https://schema.org/merchantReturnLink"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
@@ -3819,11 +3796,11 @@
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
       ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#batteryTechnicalProperties"
+      ],
       "closeMatch": [
         "urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#batteryTechnicalProperties"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
