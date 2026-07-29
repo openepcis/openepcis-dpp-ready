@@ -104,6 +104,45 @@ Both halves were checked rather than assumed:
 A re-audit of `common/core` against the refreshed cache then found **nothing further to apply**,
 which is the outcome that makes the delta safe to close.
 
+### 91 mapping directions settled by evidence rather than left open
+
+The remaining `skos:narrowMatch` assertions were listed as a curator's problem, 275 of them, on the
+grounds that which of two terms is narrower is a per-term modelling question. That was too quick.
+Four subsets were decided from the definitions we already hold locally, and each subset turned out
+to follow one principle:
+
+- **13 inverted the layering.** A module term claimed to be broader than a `oec:` common-core term.
+  Core is Layer 3 and the modules Layer 4: a module defines what is unique to one regulation and
+  anything cross-cutting moves down, so a module term is the narrower one by construction. Two of
+  the thirteen sat directly under a comment in `electronics.ttl` reading "Anchor
+  electronics-specific cross-cutting concepts upward to the lifted `oec:` terms". Rule 10.
+- **30 in the recycled-content family contradicted each other.** `eubat:cobaltRecycledShare` claimed
+  to be both broader than BatteryPass's `postConsumerShare` and narrower than DPP Keystone's
+  `postConsumerRecycledContent`, the same concept in two profiles, and the cobalt and lithium terms
+  disagreed with each other about the same target. One principle settles it: a metal-specific share
+  is narrower than a generic recycled-content property, a phase-specific share is narrower than the
+  generic phase, and a metal *total* against a generic *phase* is `rdfs:seeAlso`, because neither
+  contains the other.
+- **35 in the carbon-footprint family.** A stage figure and a per-stage figure are the same
+  granularity, so `skos:closeMatch`; a stage against a total is component-to-whole, so
+  `rdfs:seeAlso`; only the declaration container is genuinely broader. `oec:carbonFootprintRawMaterial`
+  had been both broader than `carbonFootprint` and narrower than `batteryCarbonFootprint`, which are
+  two names for the same figure.
+- **13 pointed opposite ways at the two BatteryPass renderings.** The consortium SAMM model and the
+  GEFEG longlist mirrored as `bpr:` describe one data model, and seven battery terms carried
+  `broadMatch` toward the SAMM rendering and `narrowMatch` toward the `bpr:` one. Rule 11 rejects a
+  term asserted both broader and narrower than one concept, compared on the normalised local name so
+  it sees across vocabularies.
+
+`skos:narrowMatch` is down from 275 to 224 and `skos:broader` appears for the first time, on the four
+hierarchies that live inside a single namespace. What is left in
+[`OPEN_DECISIONS.md`](docs/skos-alignment/OPEN_DECISIONS.md) is per-term work with no principle
+behind it, plus the 87 places where the pipeline's two stages disagree.
+
+One scan was deliberately **not** acted on. 322 terms carry both `rdfs:seeAlso X` and a graded
+relation to the same `X`. That reads like an inconsistency and is the project's convention: the
+pointer for a reader, the graded relation for a machine.
+
 ### 8 SKOS mapping relations that stayed inside one namespace
 
 `broadMatch` and `narrowMatch` link concepts in *different* concept schemes; within one, SKOS uses
@@ -147,7 +186,7 @@ Every one was written after finding real instances, not in anticipation:
 |---|---|---|
 | `check:extension-terms` | a reference to a project-owned CURIE that no ontology defines | 124 phantom IRIs, including `oec:dppStatus` in six product seeds |
 | `check:operational` rules d, e, f | an EPCIS example on the wrong context chain, prefixing wrong in either direction, a lossy organization record | all 47 EPCIS examples, 7 organization records |
-| `check:mappings` rules 3b, 3c, 4, 6, 7, 8, 9 | property mapped to a class, batch identifier under an item-scoped one, self-reference, inverted direction, value space over the things it classifies, graded mapping onto a serialisation slot, a *Match relation inside one namespace | 3 iron-steel batch identifiers under `schema:serialNumber`, 31 value-space, 14 value-slot and 8 single-namespace assertions, 4 inversions the head-term list could not see, 6 mappings hidden behind angle-bracket IRIs |
+| `check:mappings` rules 3b, 3c, 4, 6, 7, 8, 9, 10, 11 | property mapped to a class, batch identifier under an item-scoped one, self-reference, inverted direction, value space over the things it classifies, graded mapping onto a serialisation slot, a *Match relation inside one namespace, a module term over a core term, one term asserted both broader and narrower than a concept | 3 iron-steel batch identifiers under `schema:serialNumber`, 31 value-space, 14 value-slot, 8 single-namespace and 91 direction assertions, 4 inversions the head-term list could not see, 6 mappings hidden behind angle-bracket IRIs |
 | `check:golden-fidelity` | a compressed artifact with a relative IRI or a flattened node reference | the fixture drift that motivated it |
 | `check:release` | version stamps that disagree | README.md at 0.9.6 with three modules missing from both tables |
 

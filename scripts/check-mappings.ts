@@ -254,6 +254,25 @@ for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
     const supers = new Set(
       [...block.matchAll(/rdfs:sub(?:ClassOf|PropertyOf)\s+([A-Za-z]\w*:[\w-]+)/g)].map((m) => m[1]),
     );
+    // 11. the same term claimed both broader and narrower than one concept. Two vocabularies often
+    // render the same attribute under the same name, and BatteryPass ships two of its own: the
+    // consortium SAMM model and the GEFEG longlist mirrored as bpr:. Seven battery terms carried
+    // broadMatch toward the samm: rendering and narrowMatch toward the bpr: one, which cannot both
+    // hold. Compared on the normalised local name, so it sees across vocabularies.
+    const directions = new Map<string, Set<string>>();
+    for (const m of block.matchAll(/skos:(broadMatch|narrowMatch)\s+(<[^>]+>|[A-Za-z]\w*:[\w-]+)/g)) {
+      const local = (m[2].replace(/[<>]/g, "").split(/[#/]/).pop() ?? "").toLowerCase().replace(/[^a-z0-9]/g, "");
+      if (!directions.has(local)) directions.set(local, new Set());
+      directions.get(local)!.add(m[1]);
+    }
+    for (const [local, rels] of directions) {
+      if (rels.size < 2) continue;
+      violations.push({
+        file: rel, subject: subj, rule: "contradictory-directions",
+        detail: `is asserted both broader and narrower than "${local}"; two renderings of one concept cannot stand in opposite relations, so pick the direction the upstream model supports or drop to rdfs:seeAlso`,
+      });
+    }
+
     for (const m of block.matchAll(/skos:(exactMatch|closeMatch|broadMatch|narrowMatch)\s+(<[^>]+>|[A-Za-z]\w*:[\w-]+)/g)) {
       const [_, relName, rawTarget] = m;
       const target = toCurie(rawTarget);
@@ -263,6 +282,21 @@ for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
       // 4. self-reference: the subject mapped to itself
       if (target === subj) {
         violations.push({ file: rel, subject: subj, detail: `skos:${relName} ${target} maps the term to itself; a mapping relation links across schemes` });
+        continue;
+      }
+
+      // 10. a module term claiming to be broader than a common-core term. The layering puts
+      // oec: (Layer 3) above the regulation modules (Layer 4): a module defines what is unique to
+      // one regulation, and anything cross-cutting moves down to core. So a module term is the
+      // narrower of the pair by construction. 13 assertions had it the wrong way round, two of
+      // them directly under a comment in electronics.ttl reading "Anchor electronics-specific
+      // cross-cutting concepts upward to the lifted oec: terms".
+      if (relName === "narrowMatch" && target.startsWith("oec:") && !subj.startsWith("oec:")
+          && OUR_PREFIXES.has(subj.split(":")[0])) {
+        violations.push({
+          file: rel, subject: subj, rule: "module-over-core", relation: relName, target: rawTarget,
+          detail: `skos:narrowMatch ${target} makes a module term broader than a common-core term, which inverts the layering; use skos:broadMatch, or rdfs:seeAlso where the relation is component-to-whole`,
+        });
         continue;
       }
 

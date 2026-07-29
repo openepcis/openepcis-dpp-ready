@@ -6,6 +6,14 @@ All notable changes to the Detergent module will be documented in this file.
 
 ## [0.9.8] - 2026-07-29
 
+### Fixed: mapping directions settled against the layering and the upstream definitions
+
+Assertions that claimed a module term is broader than the `oec:` common-core term it specialises now
+read `skos:broadMatch`, or `rdfs:seeAlso` where the relation is component-to-whole rather than a
+subsumption. Core is Layer 3 and this module Layer 4, so the module term is the narrower one by
+construction, and `check:mappings` rule 10 enforces it. Project-wide this settled 91 directions; see
+the [root changelog](../../../CHANGELOG.md).
+
 ### Fixed: 3 value spaces no longer mapped onto the class of things they classify
 
 A closed list of codes and the class of things those codes classify sit at different levels, so no graded SKOS relation between them holds in either direction. `eudet:ProductForm` (to `gs1:Product`), `eudet:SurfactantType` (to `schema:ChemicalSubstance`) and `eudet:BiodegradabilityTestMethod` (to `cv:Criterion`) now use `rdfs:seeAlso`.

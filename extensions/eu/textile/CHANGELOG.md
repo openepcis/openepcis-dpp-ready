@@ -6,6 +6,14 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [0.9.8] - 2026-07-29
 
+### Fixed: mapping directions settled against the layering and the upstream definitions
+
+Assertions that claimed a module term is broader than the `oec:` common-core term it specialises now
+read `skos:broadMatch`, or `rdfs:seeAlso` where the relation is component-to-whole rather than a
+subsumption. Core is Layer 3 and this module Layer 4, so the module term is the narrower one by
+construction, and `check:mappings` rule 10 enforces it. Project-wide this settled 91 directions; see
+the [root changelog](../../../CHANGELOG.md).
+
 ### Fixed: 2 graded mappings onto a serialisation slot
 
 `eutex:lciaValue` under `gs1:value` and `schema:value`. A value slot denotes no concept, so the
