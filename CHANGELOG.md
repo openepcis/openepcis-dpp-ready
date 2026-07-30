@@ -67,9 +67,19 @@ resolve them. A freshly written record carries the `@context` and resolves. Six 
 `?linkType=gs1:traceability` entries that redirected to themselves, and the provisioner owns
 the real ones at the granularities that have traceability data.
 
-The three upstream-class CURIEs and the language-map nulls persist on both deployments until
-`openepcis-dpp-api` is released: the fixes are in its bundled contexts and its Java code, and
-the running images predate them (dev `:stable-amd64` from 2026-07-28, demo a digest pin).
+Releasing `openepcis-dpp-api` then exposed a second half of the alias defect, and a gap in
+this repo's own checks. The service's `OperationalDictionary.PREFIXES` is a hand-maintained
+Java copy of the TS `PREFIXES` map, and it did not know the SEMICeu `m8g` namespace. Because
+the dictionary is keyed by the expanded IRI, the curated `cccev:Evidence` and
+`cv:PublicOrganisation` aliases never expanded and never matched, so `term()` fell through to
+`toCurie()`, which could not shorten those IRIs either: the deployed service kept shipping
+raw `http://data.europa.eu/m8g/…` values while every mirror and resource check stayed green,
+because the payload still expands to the right graph. `pnpm run check:dpp-api-en18223` now
+parses that table and fails on any disagreement with the TS one, content and insertion order
+alike — the order decides which CURIE the fallback emits when two prefixes share a namespace.
+The service carries the matching guard, asserting that a compressed body containing
+`schema:ImageObject`, `cccev:Evidence` and `cv:PublicOrganisation` comes out fully
+bare-termed.
 
 ### The two serializations are separated
 

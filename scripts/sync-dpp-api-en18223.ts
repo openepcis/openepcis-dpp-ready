@@ -96,6 +96,73 @@ function loaderNamedContexts(): Set<string> {
 }
 
 /**
+ * The service's own prefix table, read from OperationalDictionary.PREFIXES.
+ *
+ * This is not a mirrored resource, it is a hand-maintained Java copy of the TS PREFIXES
+ * map in scripts/en18223/serialize.ts, and the two silently disagreeing is expensive.
+ * The dictionary is keyed by the EXPANDED IRI, so a curated shortcut alias spelled with a
+ * prefix the table does not know never expands and never matches: `term()` falls through
+ * to `toCurie()`, which cannot shorten the IRI either, and the compressed form ships the
+ * full IRI. Every other check stays green, because the payload still expands to the right
+ * graph. That is exactly how dev and demo kept serving `cccev:Evidence` and
+ * `cv:PublicOrganisation` as raw m8g IRIs after the alias fix landed here.
+ *
+ * Order matters as well as content: two prefixes may share one namespace (`cv:` /
+ * `cccev:` both map to m8g), and both implementations resolve the tie by insertion order,
+ * so a reordering changes which CURIE the fallback emits.
+ *
+ * Parsing Java from a build script is crude, and it is still better than a second
+ * hand-maintained list. An unreadable or unrecognisable table yields an empty map, which
+ * degrades this to the resource-only check it was before rather than failing on a refactor.
+ */
+function javaPrefixTable(): Array<[string, string]> {
+  const dict = resolve(mirrorDir, "../../java/io/openepcis/dpp/derivation/OperationalDictionary.java");
+  if (!existsSync(dict)) return [];
+  const src = readFileSync(dict, "utf8");
+  const block = /PREFIXES\s*=\s*new\s+LinkedHashMap<>\(\);([\s\S]*?)\n\s*\}/.exec(src)?.[1];
+  if (!block) return [];
+  return [...block.matchAll(/PREFIXES\.put\(\s*"([^"]+)"\s*,\s*"([^"]+)"\s*\)/g)].map(
+    (m) => [m[1], m[2]] as [string, string],
+  );
+}
+
+/** The TS PREFIXES map, read from the source of truth the Java table copies. */
+function tsPrefixTable(): Array<[string, string]> {
+  const src = readFileSync(join(repoRoot, "scripts/en18223/serialize.ts"), "utf8");
+  const block = /const PREFIXES: Record<string, string> = \{([\s\S]*?)\n\};/.exec(src)?.[1];
+  if (!block) return [];
+  return [...block.matchAll(/^\s*([A-Za-z][A-Za-z0-9]*)\s*:\s*"([^"]+)"\s*,/gm)].map(
+    (m) => [m[1], m[2]] as [string, string],
+  );
+}
+
+/** Drift between the two prefix tables, as human-readable lines. */
+function prefixTableDrift(): string[] {
+  const java = javaPrefixTable();
+  const ts = tsPrefixTable();
+  if (!java.length || !ts.length) return [];
+  const problems: string[] = [];
+  const jm = new Map(java);
+  const tm = new Map(ts);
+  for (const [p, ns] of tm) {
+    if (!jm.has(p)) problems.push(`OperationalDictionary.PREFIXES is missing "${p}" -> ${ns}`);
+    else if (jm.get(p) !== ns) problems.push(`prefix "${p}": TS says ${ns}, Java says ${jm.get(p)}`);
+  }
+  for (const [p, ns] of jm) {
+    if (!tm.has(p)) problems.push(`OperationalDictionary.PREFIXES has extra "${p}" -> ${ns} (not in the TS table)`);
+  }
+  // Insertion order decides the CURIE for a namespace with two prefixes, so compare it
+  // over the prefixes both tables share.
+  const shared = (t: Array<[string, string]>) => t.filter(([p]) => jm.has(p) && tm.has(p)).map(([p]) => p);
+  const jo = shared(java).join(",");
+  const to = shared(ts).join(",");
+  if (jo !== to && !problems.length) {
+    problems.push(`prefix insertion order differs (decides toCurie for a shared namespace):\n      TS   ${to}\n      Java ${jo}`);
+  }
+  return problems;
+}
+
+/**
  * Module slugs, from the directory names under extensions/{region}/. Used to tell an
  * EN 18223 context layer (`<slug>-context`, `-shortcut-context`, `-operational-context`,
  * which the service must resolve) apart from an optional bridge or variant context.
@@ -223,6 +290,18 @@ async function main(): Promise<number> {
     console.error(`  so the service cannot resolve them and derivation for that module fails:`);
     unwiredErrors.forEach((n) => console.error(`  - ${n}`));
     console.error(`  Add a URL_TO_FILE entry in ClasspathContextLoader.java, then re-run with --write.`);
+    return 1;
+  }
+
+  // The prefix table is Java source, not a mirrored resource, so --write cannot fix it.
+  const prefixDrift = prefixTableDrift();
+  if (prefixDrift.length) {
+    console.error(`✗ the service's prefix table has drifted from scripts/en18223/serialize.ts:`);
+    prefixDrift.forEach((p) => console.error(`  - ${p}`));
+    console.error(`  A prefix the table does not know makes a curated shortcut alias unresolvable, so the`);
+    console.error(`  compressed form ships the full IRI instead of the bare term — and nothing else notices,`);
+    console.error(`  because the payload still expands to the right graph. Fix PREFIXES in`);
+    console.error(`  OperationalDictionary.java by hand (--write does not touch Java source).`);
     return 1;
   }
 
