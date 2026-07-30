@@ -11,8 +11,14 @@
 #      write token — resolver writes are group/GCP-authorized, the service account
 #      is not) so the resolver re-populates each link set with the new gs1:dpp
 #      entry; then assert the linkset advertises gs1:dpp -> the DPP API.
-#      The 2 flagship passports (amperia/fjordline) are multi-granularity and must
-#      be refreshed via `scripts/seed-dev-passports.sh --env=demo` instead.
+#   5. Content of the served passports: no CURIE, no null value, no foreign host
+#      (scripts/check-env-passports.ts, which covers both environments and all
+#      three granularities of the flagships).
+#
+# The canonical way to (re)provision the full catalogue, including the
+# multi-granularity flagship passports, is provision-demo.sh — it covers the hero
+# batch/item levels itself:
+#   SEED_PW=… SEED_CLIENT_SECRET=… bash scripts/provision-demo.sh --env=demo
 #
 # Usage: bash scripts/verify-dpp-demo.sh
 set -euo pipefail
@@ -100,13 +106,18 @@ CATALOG=(
   extensions/eu/ppwr/examples/multi-layer-pouch.jsonld
   extensions/eu/ppwr/examples/ecommerce-carton.jsonld
 )
+# The examples are environment-neutral, so the upsert body has to be pointed at
+# demo first; a raw file upload would store id.gs1.org / files.example.org URLs.
+source "$REPO_ROOT/scripts/lib/seed-hosts.sh"
+seed_hosts_init "$ID_BASE" "https://files.demo.epcis.cloud"
 for f in "${CATALOG[@]}"; do
   gtin=$($JQ -r '.["gs1:gtin"] // .gtin // empty' "$REPO_ROOT/$f")
   [ -n "$gtin" ] || { echo "  (skip $f: no gtin)"; continue; }
+  body=$(seed_hosts_body "$REPO_ROOT/$f")
   code=$($CURL -sS -o /tmp/up.$$ -w '%{http_code}' --max-time 20 -X PUT \
     "$ID_BASE/products/$gtin?isAnonymousAccessAllowed=true" \
     -H "Authorization: Bearer $ADM" -H 'Content-Type: application/ld+json' \
-    --data-binary "@$REPO_ROOT/$f")
+    --data-binary "$body")
   case "$code" in
     2*) printf '  upsert %-14s -> %s\n' "$gtin" "$code" ;;
     *)  printf '  upsert %-14s -> %s  %s\n' "$gtin" "$code" "$(head -c 160 /tmp/up.$$ | tr -d '\n')" ;;
@@ -120,5 +131,9 @@ for g in 09521000001428 09521004005019; do
     | $JQ -r --arg k "$DPP_VOC" '.linkset[0][$k][0].href // "NONE"')
   printf '  /01/%s  gs1:dpp -> %s\n' "$g" "$dpp"
 done
-echo "Flagship amperia/fjordline: refresh via scripts/seed-dev-passports.sh --env=demo (multi-granularity bodies)."
+echo
+echo "=== 5. served passport content (no CURIE / no null / no foreign host) ==="
+# Non-fatal here: this script's job is to report the demo's state. The gate itself
+# exits non-zero, which is what CI and the provisioning runbook use.
+npx tsx "$REPO_ROOT/scripts/check-env-passports.ts" --env=demo || true
 echo "done."

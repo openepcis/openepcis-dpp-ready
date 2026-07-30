@@ -18,7 +18,13 @@
  */
 import jsonld from "jsonld";
 import n3 from "n3";
-import { deriveEN18223, compressEN18223, type DocumentLoader, type CompressOptions } from "./derive-core.ts";
+import {
+  deriveEN18223,
+  compressEN18223,
+  normalizeLanguageMaps,
+  type DocumentLoader,
+  type CompressOptions,
+} from "./derive-core.ts";
 
 // EN 18223 header (envelope) fields in standard order; the top-level keys of a
 // compressed passport are emitted in this order, everything else sorted.
@@ -77,12 +83,21 @@ const PREFIXES: Record<string, string> = {
   eusteel: "https://ref.openepcis.io/extensions/eu/iron-steel/",
   usfsma: "https://ref.openepcis.io/extensions/us/fsma204/",
   schema: "https://schema.org/",
+  // SEMICeu Core Vocabularies: one namespace, two conventional spellings. Both are
+  // needed in the expansion direction, because a curated shortcut alias may name
+  // either (`cccev:Evidence`, `cv:PublicOrganisation`) and buildOperationalKeyMap
+  // keys the dictionary by the expanded IRI. `cccev` sits first so the CURIE
+  // direction is deterministic and matches the Java port's insertion order.
+  cccev: "http://data.europa.eu/m8g/",
+  cv: "http://data.europa.eu/m8g/",
   xsd: "http://www.w3.org/2001/XMLSchema#",
   rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
   rdfs: "http://www.w3.org/2000/01/rdf-schema#",
 };
 
-// namespace IRI -> prefix, longest namespace first (greedy CURIE fallback).
+// namespace IRI -> prefix, longest namespace first (greedy CURIE fallback). The
+// sort is stable, so two prefixes sharing one namespace resolve to whichever comes
+// first in PREFIXES — the same tie-break the Java port's insertion order gives.
 const NS_PREFIX: Array<[string, string]> = Object.entries(PREFIXES)
   .map(([p, ns]) => [ns, p] as [string, string])
   .sort((a, b) => b[0].length - a[0].length);
@@ -238,9 +253,12 @@ export function orderCompacted(doc: any): any {
   return orderNode(doc, true);
 }
 
-/** Canonical N-Quads (URDNA2015) — the reference graph all other forms must match. */
+/** Canonical N-Quads (URDNA2015): the reference graph all other forms must match.
+ *  Language maps in the stored body are normalized first, exactly as the JSON path
+ *  does, so the RDF projections carry the same literals as the compressed form
+ *  instead of silently dropping them (see normalizeLanguageMaps). */
 export async function toNQuads(master: any, documentLoader: DocumentLoader): Promise<string> {
-  return (await jsonld.canonize(master, {
+  return (await jsonld.canonize(normalizeLanguageMaps(master), {
     algorithm: "URDNA2015",
     format: "application/n-quads",
     safe: false,
@@ -254,11 +272,20 @@ export async function toNTriples(master: any, documentLoader: DocumentLoader): P
   return toNQuads(master, documentLoader);
 }
 
+// One prefix per namespace for the Turtle header. PREFIXES carries both SEMICeu
+// spellings of the m8g namespace for the expansion direction; declaring both here
+// would emit two @prefix lines for one namespace, so the first one wins.
+const TURTLE_PREFIXES: Record<string, string> = Object.fromEntries(
+  Object.entries(PREFIXES).filter(
+    ([p, ns], _i, all) => all.findIndex(([, other]) => other === ns) === all.findIndex(([q]) => q === p),
+  ),
+);
+
 /** Turtle, serialized from the canonical quads with prefixed names. */
 export async function toTurtle(master: any, documentLoader: DocumentLoader): Promise<string> {
   const nquads = await toNQuads(master, documentLoader);
   const quads = new n3.Parser({ format: "application/n-quads" }).parse(nquads);
-  const writer = new n3.Writer({ prefixes: PREFIXES, format: "text/turtle" });
+  const writer = new n3.Writer({ prefixes: TURTLE_PREFIXES, format: "text/turtle" });
   writer.addQuads(quads);
   return await new Promise<string>((resolve, reject) =>
     writer.end((err: Error | null, result: string) => (err ? reject(err) : resolve(result))),

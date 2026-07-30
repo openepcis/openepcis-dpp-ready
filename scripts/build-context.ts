@@ -61,6 +61,10 @@ const DCTERMS = "http://purl.org/dc/terms/";
 const SKOS = "http://www.w3.org/2004/02/skos/core#";
 const GS1 = "https://ref.gs1.org/voc/";
 const SCHEMA = "https://schema.org/";
+// SEMICeu Core Vocabularies. One namespace, two conventional prefixes: `cv:` for
+// the general CPOV / Core Business / Core Location terms, `cccev:` for the CCCEV
+// term aliases (see CLAUDE.md, "Namespace Prefixes").
+const M8G = "http://data.europa.eu/m8g/";
 
 interface OntologyModule {
   name: string;
@@ -562,15 +566,20 @@ const GS1_SHORTCUT_DIR = join(PROJECT_ROOT, "extensions/common/core/context");
 const COLLISION_MANIFEST = join(GS1_SHORTCUT_DIR, ".alias-collisions.json");
 
 // The prefixes a shortcut layer needs so its CURIE-valued aliases resolve. The
-// cross-cutting vocabularies (gs1, oec, schema, xsd) are always declared because
-// curated overrides can point a bare alias at any of them regardless of what the
-// module TTL itself references.
+// cross-cutting vocabularies (gs1, oec, schema, xsd, and the two SEMICeu spellings
+// cv/cccev of the same m8g namespace) are always declared because curated overrides
+// can point a bare alias at any of them regardless of what the module TTL itself
+// references. Layer 1 of the governance stack is the GS1 / SEMICeu / schema.org
+// triumvirate, so a bare alias for an upstream class of any of the three has to
+// resolve here; without the decl the alias silently expands to a relative IRI.
 function prefixDeclsFrom(ctx: ContextMap): ContextMap {
   const out: ContextMap = {
     "@version": 1.1,
     gs1: GS1,
     oec: "https://ref.openepcis.io/extensions/common/core/",
     schema: SCHEMA,
+    cv: M8G,
+    cccev: M8G,
     xsd: XSD,
   };
   for (const [k, v] of Object.entries(ctx)) {

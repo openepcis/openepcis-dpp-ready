@@ -23,7 +23,22 @@
  *       keys resolve because dpp-core-context gives `gs1:masterDataAvailableFor`
  *       a property-scoped @context (the gs1-shortcuts layer);
  *   (f) the resolver Organization records are fully prefixed too, and expand with
- *       no dropped terms.
+ *       no dropped terms;
+ *   (g) the mirror image of (b): a committed `*.operational.jsonld` carries NO
+ *       CURIE at all, neither as a key nor as a `type` value. The compressed form
+ *       is the bare-term §5.2 serialization, and `compactOperational` falls back to
+ *       a CURIE (or a full IRI) for any term the operational alias chain does not
+ *       define. Such a fallback is invisible otherwise: the artifact still expands
+ *       to the right graph, so the fidelity and round-trip gates pass while the
+ *       payload leaks the prefix the compressed form exists to remove. Fix by
+ *       giving the term a bare alias, for upstream classes via the module's
+ *       `.shortcut-overrides.json`;
+ *   (h) no example, EPCIS event or organization record names a deployment host.
+ *       The published artifacts are environment-neutral: identity URLs use the
+ *       canonical GS1 Digital Link host and document URLs a placeholder host, and
+ *       the seeding scripts rewrite both per environment
+ *       (scripts/lib/seed-hosts.sh). A hardcoded `*.epcis.cloud` host is how dev
+ *       ended up serving passports whose own URLs named demo.
  *
  * Runs offline against the bundled contexts. Wired into `pnpm run build` and CI.
  */
@@ -162,14 +177,46 @@ const canon = (doc: any) =>
 // (those are the bare-keyed compressed form, not prefixed standard-context seeds).
 const EXCLUDE = /(batterypass-|regulatory-notification|\.operational\.jsonld$)/;
 
+/**
+ * (g) Every CURIE / full-IRI term left in a compressed artifact: a property key that
+ * still carries a prefix, or a `type` value that is not a bare class alias. Both mean
+ * the operational alias chain has no bare name for that term.
+ */
+function prefixLeaks(node: any, out: Set<string>): void {
+  if (Array.isArray(node)) {
+    node.forEach((v) => prefixLeaks(v, out));
+    return;
+  }
+  if (!node || typeof node !== "object") return;
+  for (const [k, v] of Object.entries(node)) {
+    if (!k.startsWith("@") && !k.startsWith("_") && k.includes(":")) out.add(k);
+    if (k === "type" || k === "@type") {
+      for (const t of Array.isArray(v) ? v : [v]) {
+        // A bare alias has no colon. Anything else is a CURIE (schema:ImageObject)
+        // or, when no prefix is known either, a full IRI (http://data.europa.eu/m8g/Evidence).
+        if (typeof t === "string" && !t.startsWith("@") && t.includes(":")) out.add(`type=${t}`);
+      }
+    }
+    if (k !== "@context") prefixLeaks(v, out);
+  }
+}
+
+/** (h) Deployment hostnames that must not appear in a published artifact. */
+const DEPLOYMENT_HOST = /\b[a-z0-9-]+\.(?:dev|demo|test|staging)\.epcis\.cloud\b|\bepcis\.local\b/g;
+
+function deploymentHosts(text: string): string[] {
+  return [...new Set(text.match(DEPLOYMENT_HOST) ?? [])];
+}
+
 interface Targets {
   seeds: string[]; // product master-data seeds (rules b + c)
   events: string[]; // EPCIS event examples (rules d + e)
   orgs: string[]; // resolver Organization records (rule f)
+  compressed: string[]; // generated *.operational.jsonld artifacts (rule g)
 }
 
 async function targets(): Promise<Targets> {
-  const t: Targets = { seeds: [], events: [], orgs: [] };
+  const t: Targets = { seeds: [], events: [], orgs: [], compressed: [] };
   const walk = async (dir: string) => {
     for (const e of await fs.readdir(dir, { withFileTypes: true })) {
       const p = path.join(dir, e.name);
@@ -177,11 +224,12 @@ async function targets(): Promise<Targets> {
       if (!e.name.endsWith(".jsonld")) continue;
       if (dir.endsWith("/epcis")) t.events.push(p);
       else if (dir.endsWith("/examples/organizations")) t.orgs.push(p);
+      else if (dir.endsWith("/examples") && e.name.endsWith(".operational.jsonld")) t.compressed.push(p);
       else if (dir.endsWith("/examples") && !EXCLUDE.test(e.name)) t.seeds.push(p);
     }
   };
   await walk(path.join(ROOT, "extensions"));
-  t.seeds.sort(); t.events.sort(); t.orgs.sort();
+  t.seeds.sort(); t.events.sort(); t.orgs.sort(); t.compressed.sort();
   return t;
 }
 
@@ -195,7 +243,7 @@ async function main(): Promise<number> {
     if (bare.length) problems.push(`standard context ${rel} defines ${bare.length} bare alias(es): ${bare.slice(0, 8).join(", ")}${bare.length > 8 ? " …" : ""}`);
   }
 
-  const { seeds, events, orgs } = await targets();
+  const { seeds, events, orgs, compressed } = await targets();
 
   // (b) + (c)
   for (const abs of seeds) {
@@ -272,6 +320,33 @@ async function main(): Promise<number> {
     if (dropped.length) problems.push(`organization ${rel}: ${dropped.length} term(s) lost on expansion: ${[...new Set(dropped)].slice(0, 6).join(", ")}`);
   }
 
+  // (g) compressed artifacts carry no prefixed term at all
+  for (const abs of compressed) {
+    const rel = path.relative(ROOT, abs);
+    const doc = JSON.parse(await fs.readFile(abs, "utf8"));
+    const { "@context": _ctx, ...body } = doc;
+    const leaks = new Set<string>();
+    prefixLeaks(body, leaks);
+    if (leaks.size) {
+      problems.push(
+        `compressed ${rel} leaks ${leaks.size} prefixed term(s) (no bare alias in the operational chain): ` +
+          `${[...leaks].slice(0, 6).join(", ")}${leaks.size > 6 ? ` (+${leaks.size - 6} more)` : ""}`,
+      );
+    }
+  }
+
+  // (h) no published artifact names a deployment
+  for (const abs of [...seeds, ...events, ...orgs, ...compressed]) {
+    const rel = path.relative(ROOT, abs);
+    const hosts = deploymentHosts(await fs.readFile(abs, "utf8"));
+    if (hosts.length) {
+      problems.push(
+        `${rel} hardcodes deployment host(s) ${hosts.join(", ")} — publish neutral URLs and let ` +
+          `scripts/lib/seed-hosts.sh point them at an environment`,
+      );
+    }
+  }
+
   if (problems.length) {
     console.error(`✗ operational-context guard: ${problems.length} problem(s)`);
     problems.forEach((p) => console.error("  - " + p));
@@ -280,7 +355,9 @@ async function main(): Promise<number> {
   console.log(
     `✓ operational-context guard: standard contexts prefixed; ${seeds.length} product seed(s) prefixed and ` +
       `graph-identical under their operational context; ${events.length} EPCIS event(s) on standard contexts with ` +
-      `GS1 bare only inside ${MDAF}; ${orgs.length} organization record(s) prefixed and lossless.`,
+      `GS1 bare only inside ${MDAF}; ${orgs.length} organization record(s) prefixed and lossless; ` +
+      `${compressed.length} compressed artifact(s) fully bare-termed; ` +
+      `${seeds.length + events.length + orgs.length + compressed.length} artifact(s) environment-neutral.`,
   );
   return 0;
 }

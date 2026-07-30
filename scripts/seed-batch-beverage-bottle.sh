@@ -56,6 +56,7 @@ done
 case "$ENV" in
   dev)
     DL_URL="https://id.dev.epcis.cloud"
+    FILES_URL="https://files.dev.epcis.cloud"
     DDM_URL="https://ddm.dev.epcis.cloud"
     TOKEN_URL="https://keycloak.dev.epcis.cloud/realms/openepcis/protocol/openid-connect/token"
     CLIENT_ID="backend-service"
@@ -63,6 +64,7 @@ case "$ENV" in
     ;;
   local)
     DL_URL="http://localhost:8080"
+    FILES_URL="http://localhost:8080"
     DDM_URL="http://localhost:3005"
     TOKEN_URL="http://localhost:8180/realms/openepcis/protocol/openid-connect/token"
     CLIENT_ID="backend-service"
@@ -98,13 +100,17 @@ fi
 green "  Token obtained ($(echo "$TOKEN_JSON" | jq -r '.expires_in')s expiry)"
 
 # --- 1) Per-lot master data: PUT /products/{gtin}/10/{lot} -------------------
+# The example seed is environment-neutral, so point its identity and document URLs
+# at this environment before writing (scripts/lib/seed-hosts.sh).
+source "$REPO_ROOT/scripts/lib/seed-hosts.sh"
+seed_hosts_init "$DL_URL" "$FILES_URL"
 cyan "=== Step 1/2: batch master data → $DL_URL/products/$GTIN/10/$LOT ==="
 code="$(curl -sS -o /tmp/seed-batch-md.$$ -w '%{http_code}' \
   -X PUT "$DL_URL/products/$GTIN/10/$LOT" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -H "isAnonymousAccessAllowed: true" \
-  --data-binary "@$REPO_ROOT/$MASTERDATA_FILE" || echo ERR)"
+  --data-binary "$(seed_hosts_body "$REPO_ROOT/$MASTERDATA_FILE")" || echo ERR)"
 case "$code" in
   200|201|202|204) green "  OK   ($code) batch master data" ;;
   *)

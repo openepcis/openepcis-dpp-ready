@@ -86,16 +86,19 @@ done
 case "$ENV" in
   dev)
     DL_URL="https://id.dev.epcis.cloud"
+    FILES_URL="https://files.dev.epcis.cloud"
     EPCIS_URL="https://api.dev.epcis.cloud"
     TOKEN_URL="https://keycloak.dev.epcis.cloud/realms/openepcis/protocol/openid-connect/token"
     CLIENT_ID="backend-service"; USERNAME="${USERNAME:-admin}" ;;
   demo)
     DL_URL="https://id.demo.epcis.cloud"
+    FILES_URL="https://files.demo.epcis.cloud"
     EPCIS_URL="https://api.demo.epcis.cloud"
     TOKEN_URL="https://auth.demo.epcis.cloud/realms/openepcis/protocol/openid-connect/token"
     CLIENT_ID="backend-service"; USERNAME="${USERNAME:-admin}" ;;
   local)
     DL_URL="http://localhost:8080"; EPCIS_URL="http://localhost:8080"
+    FILES_URL="http://localhost:8080"
     TOKEN_URL="http://localhost:8180/realms/openepcis/protocol/openid-connect/token"
     CLIENT_ID="backend-service"; USERNAME="${USERNAME:-admin}" ;;
   *) echo "Unknown --env=$ENV (expected: dev, demo, local)" >&2; exit 64 ;;
@@ -233,15 +236,21 @@ if (( RUN_PRODUCTS )); then
   # Strip editorial `_comment_*` keys (recursively) so they don't pollute the
   # resolver-served master data / the app's attribute list. Source files keep
   # their documentation comments; only the provisioned copy is cleaned.
-  STRIP='walk(if type == "object" then with_entries(select(.key | startswith("_") | not)) else . end)'
+  # …and rewrite the environment-neutral example hosts to this environment, so the
+  # seeded record's own identity and document URLs name the deployment it lives in
+  # (see scripts/lib/seed-hosts.sh).
+  source "$REPO_ROOT/scripts/lib/seed-hosts.sh"
+  seed_hosts_init "$DL_URL" "$FILES_URL"
+  STRIP="$SEED_STRIP"
+  NORM="$SEED_STRIP | $SEED_HOSTS"
   for row in "${PRODUCTS[@]}"; do
     IFS='|' read -r gtin lot serial model batch item _epcis _ext <<<"$row"
     model_doc="/tmp/seedp-model.$$.json"
     batch_doc="/tmp/seedp-batch.$$.json"
     item_doc="/tmp/seedp-item.$$.json"
-    jq "$STRIP"                       "$REPO_ROOT/$model"                                     > "$model_doc"
-    jq -s '.[0] * .[1]'        "$REPO_ROOT/$model" "$REPO_ROOT/$batch"                     | jq "$STRIP" > "$batch_doc"
-    jq -s '.[0] * .[1] * .[2]' "$REPO_ROOT/$model" "$REPO_ROOT/$batch" "$REPO_ROOT/$item" | jq "$STRIP" > "$item_doc"
+    jq "${SEED_HOSTARGS[@]}" "$NORM"  "$REPO_ROOT/$model"                                     > "$model_doc"
+    jq -s '.[0] * .[1]'        "$REPO_ROOT/$model" "$REPO_ROOT/$batch"                     | jq "${SEED_HOSTARGS[@]}" "$NORM" > "$batch_doc"
+    jq -s '.[0] * .[1] * .[2]' "$REPO_ROOT/$model" "$REPO_ROOT/$batch" "$REPO_ROOT/$item" | jq "${SEED_HOSTARGS[@]}" "$NORM" > "$item_doc"
     write_master_abs POST "$DL_URL/products"               "$model_doc"        "model  $gtin"           || failed=$((failed+1))
     write_master_abs PUT  "$DL_URL/products/$gtin/10/$lot"  "$batch_doc"        "batch  $gtin/10/$lot"   || failed=$((failed+1))
     write_master_abs PUT  "$DL_URL/products/$gtin/21/$serial" "$item_doc"       "item   $gtin/21/$serial" || failed=$((failed+1))

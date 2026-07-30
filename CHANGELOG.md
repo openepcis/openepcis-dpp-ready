@@ -11,6 +11,66 @@ check:release` verifies that every place recording a version agrees.
 
 ## [0.9.8] - 2026-07-29
 
+### The compressed form carries no prefix, and the environments can be checked against it
+
+Three defects kept the served EN 18223 §5.2 payloads from being the bare-term form they are
+defined to be, and none of them was visible to any existing gate.
+
+**A missing alias leaks a prefix.** `compactOperational` falls back to a CURIE, or to a full IRI
+when no prefix is known either, for any term the operational alias chain does not name. The chain
+covered `oec:`, the modules and GS1, so three upstream classes leaked into the committed
+artifacts: `schema:ImageObject`, `cccev:Evidence` and `cv:PublicOrganisation`. The generated
+shortcut layers now declare both SEMICeu prefix spellings, the three classes are curated aliases
+in their module's `.shortcut-overrides.json`, and the serializer resolves either spelling of the
+`m8g` namespace. A new rule in `pnpm run check:operational` fails the build on any prefix left in
+a compressed artifact, so the class of defect cannot come back silently.
+
+**A stored language map read back as `null`.** The resolver stores a language-tagged literal as a
+JSON-LD 1.1 language map, `{"en": "…"}`, not in the `{"@value","@language"}` form it was written
+in. That only expands when the term declares `@container: "@language"`, which these contexts
+deliberately do not: the container mangles a bare single value object into garbage, and 102 of
+those appear in the committed artifacts alone. So the map expanded to an empty node and every
+language-tagged field of a stored passport derived as `value: null`, across 20 properties.
+`normalizeLanguageMaps` now rewrites the shape before expansion, on the JSON and the RDF path
+alike. The test is shape-only and pinned by 11 cases in the golden-fidelity gate, because `id` is
+also the ISO 639-1 tag for Indonesian and a looser rule reads every node reference in the master
+data as a literal. Five textile/detergent properties and two `oec:` twins that carry
+language-tagged prose while declaring `rdfs:range xsd:string` were corrected to `rdf:langString`.
+
+**Published examples named a deployment.** 20 example files hardcoded `id.demo.epcis.cloud` and
+`files.demo.epcis.cloud`, and the provisioner only substituted a host for three FLS-probe fields,
+which is how dev came to serve passports whose own identity and document URLs named demo. The
+examples are now environment-neutral (`https://id.gs1.org`, `https://files.example.org`) and the
+seeding scripts rewrite both per environment through the shared
+[`scripts/lib/seed-hosts.sh`](scripts/lib/seed-hosts.sh); the guard rejects a deployment host in
+any published artifact.
+
+**The environments are now checkable.** The offline gates say nothing about what a deployment
+serves, and the two drift apart silently: an environment keeps serving whatever was last written
+to it, so a vocabulary fix does not reach dev or demo until the catalogue is re-provisioned. That
+is how both environments came to serve `oec:dppStatus` and `eubat:batteryCategory`, CURIEs for
+terms renamed in this release, on both flagship passports at all three granularities, with every
+guard green. `pnpm run check:env-passports -- --env=dev|demo` reads each provisioned passport and
+fails on a CURIE, a `null` value or a foreign host, taking its catalogue from
+`scripts/provision-demo.sh` so the two cannot diverge. It needs network and is not part of
+`pnpm run build`; run it after provisioning.
+
+The `openepcis-dpp-api` mirror (contexts, range index, OpenAPI contract) was synced and its
+language-map port is covered by four tests in `En18223DeriverTest`.
+
+**Both environments were re-provisioned** from the corrected seeds. That removed the stale
+`oec:dppStatus` / `eubat:batteryCategory` CURIEs and all host drift, and it repaired the demo
+catalogue's Alpine Pro Winter Jacket, whose passport had been answering `500`: its stored
+`extensions` block had lost its `@context` and held 48 bare keys, so the service could not
+resolve them. A freshly written record carries the `@context` and resolves. Six model-level
+`gs1:traceability` links disappeared with the rewrite; those were the self-referential
+`?linkType=gs1:traceability` entries that redirected to themselves, and the provisioner owns
+the real ones at the granularities that have traceability data.
+
+The three upstream-class CURIEs and the language-map nulls persist on both deployments until
+`openepcis-dpp-api` is released: the fixes are in its bundled contexts and its Java code, and
+the running images predate them (dev `:stable-amd64` from 2026-07-28, demo a digest pin).
+
 ### The two serializations are separated
 
 The design has always been that standard JSON-LD prefixes every vocabulary term, `gs1:` included,

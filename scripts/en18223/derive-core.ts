@@ -211,8 +211,85 @@ function collectContentSpecs(elements: any[], acc: Set<string>): void {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Compact language maps in the stored master data
+//
+// The resolver Product API stores a language-tagged literal in JSON-LD 1.1
+// language-map form, `{"en": "…"}`, rather than the `{"@value","@language"}` form
+// it was written in. A language map only expands when its term carries
+// `@container: "@language"`, and the DPP contexts deliberately do not declare that
+// (see scripts/fix-language-maps.ts): the container would mangle a bare single
+// value object `{"@value":"x","@language":"en"}` into garbage, and 102 of those
+// appear in our own artifacts alone. So without the container the map expands to an
+// empty node and the element derives as `value: null` — every language-tagged
+// extension field of a stored passport read back empty.
+//
+// Fixing it in the contexts is therefore not an option; the reader has to accept
+// the shape. This pre-pass rewrites a pure language map into the value-object form
+// before expansion, which is the same normalization fix-language-maps.ts applies to
+// the committed artifacts, done at read time for data we did not author.
+//
+// The test is deliberately shape-only, no vocabulary knowledge: an object whose
+// keys are ALL language tags and whose values are ALL strings. Such an object has
+// no other valid reading — its keys are not defined terms, so it expands to `{}`
+// today. Anything else is left untouched, so a value that already expands
+// correctly cannot be changed by this.
+// ---------------------------------------------------------------------------
+
+/** Language tags accepted in a compact language map (mirrors scripts/fix-language-maps.ts). */
+const LANGUAGE_TAG = /^[a-z]{2,3}(-[A-Za-z0-9]{2,8})?$/;
+
+/**
+ * JSON-LD structural aliases that also read as a language tag. `id` is the one that
+ * matters: `{"id": "https://…"}` is how every node reference in this master data is
+ * written, and it is also the ISO 639-1 tag for Indonesian. Reading a node reference
+ * as a literal is the damaging direction, so structural wins.
+ */
+const NOT_A_LANGUAGE = new Set(["id", "type"]);
+
+function isLanguageMap(node: any): boolean {
+  if (!node || typeof node !== "object" || Array.isArray(node)) return false;
+  const keys = Object.keys(node);
+  if (!keys.length) return false;
+  return keys.every(
+    (k) =>
+      !NOT_A_LANGUAGE.has(k) &&
+      LANGUAGE_TAG.test(k) &&
+      (typeof node[k] === "string" ||
+        (Array.isArray(node[k]) && node[k].length > 0 && node[k].every((v: any) => typeof v === "string"))),
+  );
+}
+
+/**
+ * Rewrite every compact language map in a master-data body to `[{"@value","@language"}]`.
+ * Structure-preserving everywhere else. Exported so the Java port and the guards can
+ * be pinned to the same normalization.
+ */
+export function normalizeLanguageMaps(node: any): any {
+  if (Array.isArray(node)) return node.map(normalizeLanguageMaps);
+  if (!node || typeof node !== "object") return node;
+  if (isLanguageMap(node)) {
+    const out: Array<{ "@value": string; "@language": string }> = [];
+    // Sorted by language tag so the derived output does not depend on the key order
+    // the store happened to serialize.
+    for (const lang of Object.keys(node).sort()) {
+      const v = node[lang];
+      for (const value of Array.isArray(v) ? v : [v]) out.push({ "@value": value, "@language": lang });
+    }
+    return out;
+  }
+  const out: any = {};
+  for (const [k, v] of Object.entries(node)) {
+    // Never descend into @context: a term definition may legitimately be named after
+    // something that reads as a language tag (`de: "https://…"`), and rewriting the
+    // context would change what the body means rather than how it is spelled.
+    out[k] = k === "@context" ? v : normalizeLanguageMaps(v);
+  }
+  return out;
+}
+
 export async function deriveEN18223(input: any, range: Map<string, string>, documentLoader: DocumentLoader): Promise<any> {
-  const expanded = await jsonld.expand(input, { documentLoader });
+  const expanded = await jsonld.expand(normalizeLanguageMaps(input), { documentLoader });
   const node = Array.isArray(expanded) ? expanded[0] : expanded;
   if (!node) throw new Error("input expanded to nothing");
 

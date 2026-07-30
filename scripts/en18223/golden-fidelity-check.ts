@@ -39,6 +39,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import jsonld from "jsonld";
 import { documentLoader, ROOT } from "./node-io.ts";
+import { normalizeLanguageMaps } from "./derive-core.ts";
 
 const stripComments = (o: any): any =>
   Array.isArray(o) ? o.map(stripComments)
@@ -111,6 +112,51 @@ function predicateOf(q: string): string {
   return all.length >= 2 ? all[all.length - (q.trimEnd().endsWith('> .') ? 2 : 1)] : (m ? m[1] : "?");
 }
 
+// ---------------------------------------------------------------------------
+// (C) Language-map normalization
+//
+// The resolver stores a language-tagged literal as a compact language map
+// (`{"en": "…"}`), which expands to an empty node under a context without
+// `@container: "@language"` — so every language-tagged field of a stored passport
+// derived as `value: null` until normalizeLanguageMaps was introduced. The test is
+// shape-only and therefore easy to widen by accident: `id` is a valid ISO 639-1 tag
+// (Indonesian), so a slightly looser rule silently reads every node reference
+// `{"id": "https://…"}` in the master data as a literal. That regression passes the
+// (A)/(B) invariants above and every other gate, which is why it is pinned here.
+// ---------------------------------------------------------------------------
+const LANGUAGE_MAP_CASES: Array<{ what: string; input: any; expect: any }> = [
+  { what: "single-language map is rewritten", input: { en: "A" }, expect: [{ "@value": "A", "@language": "en" }] },
+  {
+    what: "multi-language map is rewritten, language-sorted",
+    input: { en: "A", de: "B" },
+    expect: [{ "@value": "B", "@language": "de" }, { "@value": "A", "@language": "en" }],
+  },
+  { what: "regional tag is a language", input: { "pt-BR": "A" }, expect: [{ "@value": "A", "@language": "pt-BR" }] },
+  { what: "node reference is NOT a language map", input: { id: "https://id.gs1.org/01/09521234002000" }, expect: { id: "https://id.gs1.org/01/09521234002000" } },
+  { what: "typed node reference is untouched", input: { id: "https://x/y", type: "gs1:Product" }, expect: { id: "https://x/y", type: "gs1:Product" } },
+  { what: "value object is untouched", input: { "@value": "A", "@language": "en" }, expect: { "@value": "A", "@language": "en" } },
+  { what: "quantitative node is untouched", input: { type: "gs1:QuantitativeValue", value: 92, unitCode: "KGM" }, expect: { type: "gs1:QuantitativeValue", value: 92, unitCode: "KGM" } },
+  { what: "mixed map is untouched", input: { en: "A", unitCode: "KGM" }, expect: { en: "A", unitCode: "KGM" } },
+  { what: "non-string map value is untouched", input: { en: 42 }, expect: { en: 42 } },
+  { what: "@context is never rewritten", input: { "@context": { de: "https://example.org/de" } }, expect: { "@context": { de: "https://example.org/de" } } },
+  {
+    what: "nested map inside a node is rewritten, the node's id kept",
+    input: { id: "https://x#c", "eubat:electrolyteType": { en: "Liquid" } },
+    expect: { id: "https://x#c", "eubat:electrolyteType": [{ "@value": "Liquid", "@language": "en" }] },
+  },
+];
+
+function languageMapProblems(): string[] {
+  const out: string[] = [];
+  for (const { what, input, expect } of LANGUAGE_MAP_CASES) {
+    const got = normalizeLanguageMaps(structuredClone(input));
+    if (JSON.stringify(got) !== JSON.stringify(expect)) {
+      out.push(`language-map normalization: ${what}\n      expected ${JSON.stringify(expect)}\n      got      ${JSON.stringify(got)}`);
+    }
+  }
+  return out;
+}
+
 async function main(): Promise<number> {
   const filter = process.argv[2];
   const goldens: string[] = [];
@@ -137,6 +183,8 @@ async function main(): Promise<number> {
     console.log(`  ${rel.length || flat.length ? "FAIL" : "PASS"}  ${golden}`);
   }
 
+  problems.push(...languageMapProblems());
+
   if (problems.length) {
     console.error(`\n✗ golden-fidelity: ${problems.length} problem(s) across ${checked} compressed artifact(s)`);
     problems.forEach((p) => console.error("  - " + p));
@@ -146,7 +194,10 @@ async function main(): Promise<number> {
     console.error(`  then re-run \`pnpm run build:operational-examples\`.`);
     return 1;
   }
-  console.log(`\n✓ golden-fidelity: all ${checked} compressed artifact(s) read back with no relative IRI and no flattened node reference.`);
+  console.log(
+    `\n✓ golden-fidelity: all ${checked} compressed artifact(s) read back with no relative IRI and no flattened ` +
+      `node reference; language-map normalization holds on ${LANGUAGE_MAP_CASES.length} shape(s).`,
+  );
   return 0;
 }
 

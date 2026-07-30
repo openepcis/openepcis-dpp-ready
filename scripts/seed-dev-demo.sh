@@ -5,6 +5,11 @@
 # images + organizations + epcis links). Kept for reference only. Prefer:
 #   SEED_PW=… SEED_CLIENT_SECRET=… scripts/provision-demo.sh --env=demo
 #
+# Do not revive it as-is: it POSTs the example files verbatim, and those are now
+# environment-neutral (https://id.gs1.org, https://files.example.org), so it would
+# store placeholder hosts. The successor rewrites them per environment via
+# scripts/lib/seed-hosts.sh.
+#
 #
 # seed-dev-demo.sh — Seed dev.epcis.cloud with the canonical-context demo
 # data the digital-data-management webapp resolves at runtime.

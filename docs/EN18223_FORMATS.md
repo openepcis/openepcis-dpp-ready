@@ -75,6 +75,39 @@ use the prefix-only standard contexts; only the generated
 `*.operational.jsonld` artifacts reference an operational context. The split is
 machine-checked by `pnpm run check:operational`.
 
+**Full alias coverage is the point.** A term the operational chain does not name
+falls back to its CURIE, or to its full IRI when no prefix is known either
+(`term: (iri) => keyMap.get(iri) ?? toCurie(iri)`). That is invisible otherwise:
+the artifact still expands to the right graph, so the fidelity and round-trip gates
+pass while the payload leaks the prefix the compressed form exists to remove. The
+generated shortcut layers cover `oec:`, the modules and GS1; an upstream
+schema.org / SEMICeu class used as a node type needs a curated alias in the
+module's `.shortcut-overrides.json`. `pnpm run check:operational` rejects any
+prefix left in a committed compressed artifact.
+
+## Reading a stored body: compact language maps
+
+The resolver Product API stores a language-tagged literal as a JSON-LD 1.1
+**language map**, `{"en": "…"}`, not in the `{"@value","@language"}` form it was
+written in. A language map only expands when its term declares
+`@container: "@language"`, and these contexts deliberately do not declare it: the
+container mangles a bare single value object `{"@value":"x","@language":"en"}` into
+garbage, and the committed artifacts contain 102 of those. Left alone the map
+expands to an empty node, so the element derives as `value: null` and every
+language-tagged field of a stored passport reads back empty.
+
+`normalizeLanguageMaps` (`scripts/en18223/derive-core.ts`, ported to
+`JsonBridge.normalizeLanguageMaps` in the Java service) rewrites the shape before
+expansion, on the JSON and the RDF path alike. The test is deliberately shape-only,
+with no vocabulary knowledge: an object whose keys are **all** language tags and
+whose values are **all** strings. Such an object has no other valid reading, since
+its keys are not defined terms, so anything that already expands correctly is left
+untouched. One exception is load-bearing: `id` is the ISO 639-1 tag for Indonesian
+*and* how every node reference in this master data is written, so `id` and `type`
+are excluded. Without that, every `{"id": "https://…"}` reference becomes a
+literal. Pinned by 11 cases in `pnpm run check:golden-fidelity` and by
+`En18223DeriverTest` on the Java side.
+
 ## Writing (POST / PUT / PATCH)
 
 The write methods accept the **operational JSON-LD** — the same form reads emit —
@@ -150,6 +183,34 @@ Run the reference gates:
 pnpm run check:idempotence
 pnpm run check:golden-fidelity
 pnpm run check:roundtrip
+```
+
+## What a deployment actually serves
+
+Everything above is offline: it proves the repo is self-consistent and says nothing
+about dev or demo. The two drift apart silently, because an environment keeps
+serving whatever was last written to it — a vocabulary fix here does not reach a
+deployment until its catalogue is re-provisioned. Both environments served
+`oec:dppStatus` and `eubat:batteryCategory`, CURIEs for terms the ontology had
+already renamed, on both flagship passports at all three granularities, with every
+offline gate green.
+
+```bash
+pnpm run check:env-passports -- --env=dev
+pnpm run check:env-passports -- --env=demo
+```
+
+It reads every provisioned passport from the DPP API and fails on a CURIE (the
+stored record is older than the current vocabulary), a `null` value (the deriver
+cannot read the stored shape of that property) or a foreign / placeholder host (the
+record was seeded without the per-environment host rewrite in
+`scripts/lib/seed-hosts.sh`). The catalogue comes from `scripts/provision-demo.sh`,
+so the check and the provisioner cannot diverge. It needs network, so it is not part
+of `pnpm run build`; run it after provisioning:
+
+```bash
+SEED_PW=… SEED_CLIENT_SECRET=… bash scripts/provision-demo.sh --env=dev
+pnpm run check:env-passports -- --env=dev
 ```
 
 ## Examples

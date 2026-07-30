@@ -120,6 +120,15 @@ regulation‑shaped **view** over EPCIS traceability data.
   of it.) Note: `SEED_*` env vars are used instead of `USERNAME`, which zsh
   reserves and silently overwrites.
 - Re‑verify only: `bash scripts/verify-dpp-demo.sh`.
+- **Check what the passports actually contain** (no CURIE, no `null` field, no
+  foreign host) — run this after any provisioning, on either environment:
+  ```bash
+  pnpm run check:env-passports -- --env=demo
+  ```
+  A CURIE or a `https://id.gs1.org` / `files.example.org` host means the stored
+  record predates the current vocabulary or was seeded without the per‑environment
+  host rewrite; re‑provision. A `null` means the deriver could not read the stored
+  shape of that property, which re‑provisioning alone does not fix.
 - Rotate persona passwords any time: `bash scripts/e2e-demo-users.sh` then
   `BW_SESSION=… bash scripts/vault-sync-demo-users.sh`.
 - Known: a `demo-admin` (admins‑group) write returns 403 in the DPP API — use

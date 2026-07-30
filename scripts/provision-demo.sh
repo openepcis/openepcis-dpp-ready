@@ -109,7 +109,14 @@ HEROES=(
   "09521234002000|LOT-2026-AMP01|STAX10-2026-000001|extensions/eu/battery/examples/amperia-staxwall-batch.jsonld|extensions/eu/battery/examples/amperia-staxwall-item.jsonld"
   "09521234003007|LOT-2026-FJ03|AUR-2026-000001|extensions/eu/textile/examples/fjordline-aurora-batch.jsonld|extensions/eu/textile/examples/fjordline-aurora-item.jsonld"
 )
-STRIP='walk(if type == "object" then with_entries(select(.key | startswith("_") | not)) else . end)'
+# STRIP (editorial _comment* keys) and HOSTS (neutral example hosts -> this
+# environment) are shared with the other seeding scripts, so all of them normalize
+# a seed the same way. See scripts/lib/seed-hosts.sh for why the rewrite is needed.
+source "$REPO_ROOT/scripts/lib/seed-hosts.sh"
+seed_hosts_init "$DL_URL" "$FILES_URL"
+STRIP="$SEED_STRIP"
+HOSTS="$SEED_HOSTS"
+hostargs=("${SEED_HOSTARGS[@]}")
 
 # Field-level security (FLS) probe: the PUBLIC hero product additionally carries
 # one top-level oec-core marker field per vocabulary field tier so
@@ -190,8 +197,9 @@ provision_product() { # gtin file slug desc
   # Strip editorial _comment* keys (same STRIP as the passport seeder), then embed images.
   # Append image entries to any referencedFile the seed already declares (e.g.
   # certificate / manual documents), rather than replacing them.
-  local body; body=$(jq --argjson urls "$urls_json" --arg desc "$desc" '
+  local body; body=$(jq "${hostargs[@]}" --argjson urls "$urls_json" --arg desc "$desc" '
     walk(if type == "object" then with_entries(select(.key | startswith("_") | not)) else . end) |
+    walk(if type == "string" then (gsub("https://id\\.gs1\\.org"; $dl) | gsub("https://files\\.example\\.org"; $files)) else . end) |
     if ($urls|length) > 0 then .referencedFile = ((.referencedFile // []) + ($urls | to_entries | map({
         "type":"gs1:ReferencedFileDetails","fileLanguageCode":"en",
         "contentDescription": ($desc + " (image " + ((.key+1)|tostring) + ")"),
@@ -233,10 +241,10 @@ provision_hero_sublevels() {
     done
     [[ -n "$model" && -f "$REPO_ROOT/$model" && -f "$REPO_ROOT/$batch" && -f "$REPO_ROOT/$item" ]]       || { red "  hero $gtin: missing model/batch/item file"; continue; }
     if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] hero $gtin batch=$lot item=$serial"; continue; fi
-    doc=$(jq -s '.[0] * .[1]' "$REPO_ROOT/$model" "$REPO_ROOT/$batch" | jq "$STRIP")
+    doc=$(jq -s '.[0] * .[1]' "$REPO_ROOT/$model" "$REPO_ROOT/$batch" | jq "${hostargs[@]}" "$STRIP | $HOSTS")
     code=$(curl -sk -o /dev/null -w '%{http_code}' -X PUT "$DL_URL/products/$gtin/10/$lot"       -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true'       --data-binary "$doc")
     case "$code" in 20[0-2]) grn "  hero batch $gtin/10/$lot -> $code" ;; *) red "  hero batch $gtin/10/$lot -> $code" ;; esac
-    doc=$(jq -s '.[0] * .[1] * .[2]' "$REPO_ROOT/$model" "$REPO_ROOT/$batch" "$REPO_ROOT/$item" | jq "$STRIP")
+    doc=$(jq -s '.[0] * .[1] * .[2]' "$REPO_ROOT/$model" "$REPO_ROOT/$batch" "$REPO_ROOT/$item" | jq "${hostargs[@]}" "$STRIP | $HOSTS")
     code=$(curl -sk -o /dev/null -w '%{http_code}' -X PUT "$DL_URL/products/$gtin/21/$serial"       -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true'       --data-binary "$doc")
     case "$code" in 20[0-2]) grn "  hero item  $gtin/21/$serial -> $code" ;; *) red "  hero item  $gtin/21/$serial -> $code" ;; esac
   done
@@ -260,8 +268,9 @@ provision_tier_probes() {
     IFS='|' read -r gtin tier name <<<"$row"
     gtin_selected "$gtin" || continue
     if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] tier probe $gtin ($tier)"; continue; fi
-    body=$(jq --arg g "$gtin" --arg tier "$tier" --arg name "$name" --arg dl "$DL_URL" '
+    body=$(jq --arg g "$gtin" --arg tier "$tier" --arg name "$name" --arg dl "$DL_URL" --arg files "$FILES_URL" '
       walk(if type == "object" then with_entries(select(.key | startswith("_") | not)) else . end) |
+      walk(if type == "string" then (gsub("https://id\\.gs1\\.org"; $dl) | gsub("https://files\\.example\\.org"; $files)) else . end) |
       .id = ($dl + "/01/" + $g) |
       ."gs1:gtin" = $g |
       ."gs1:productName" = [{"@value": $name, "@language": "en"}] |
