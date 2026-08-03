@@ -168,23 +168,42 @@ upload_image() { # gtin key src  -> echoes URL (handles images, PDFs, SVG, HTML)
   echo "$FILES_URL/files/products/$gtin/$key"
 }
 
-collect_image_urls() { # gtin slug -> prints JSON array of uploaded URLs
-  local gtin="$1" slug="$2" src urls=() n=0 url
+# Media type of a local file, by extension. Same table upload_image uses to set
+# the upload's Content-Type — the seed record has to declare it too, because the
+# uploaded URL carries NO extension, so nothing downstream can infer it. Without
+# this every generated image link resolves with no `type` and a consumer has to
+# guess what it is fetching.
+mime_of() { # src -> echoes media type
+  case "$1" in
+    *.png) echo image/png ;; *.jpg|*.jpeg) echo image/jpeg ;; *.webp) echo image/webp ;;
+    *.pdf) echo application/pdf ;; *.svg) echo image/svg+xml ;; *.html|*.htm) echo text/html ;;
+    *) echo "" ;;
+  esac
+}
+
+collect_image_urls() { # gtin slug -> prints JSON array of {url, mime} objects
+  local gtin="$1" slug="$2" src entries=() n=0 url mime
   for n in 1 2 3 4; do
     for ext in png jpg jpeg webp; do
       src="$IMAGES_DIR/${gtin}-${n}.${ext}"
-      [[ -f "$src" ]] && { url=$(upload_image "$gtin" "${slug}-${n}" "$src") && urls+=("$url"); break; }
+      [[ -f "$src" ]] && { url=$(upload_image "$gtin" "${slug}-${n}" "$src") && {
+        mime=$(mime_of "$src")
+        entries+=("$(jq -nc --arg u "$url" --arg m "$mime" '{url:$u, mime:$m}')")
+      }; break; }
     done
   done
-  if [[ ${#urls[@]} -eq 0 ]]; then
+  if [[ ${#entries[@]} -eq 0 ]]; then
     for ext in png jpg jpeg webp; do
       src="$IMAGES_DIR/${gtin}.${ext}"
-      [[ -f "$src" ]] && { url=$(upload_image "$gtin" "$slug" "$src") && urls+=("$url"); break; }
+      [[ -f "$src" ]] && { url=$(upload_image "$gtin" "$slug" "$src") && {
+        mime=$(mime_of "$src")
+        entries+=("$(jq -nc --arg u "$url" --arg m "$mime" '{url:$u, mime:$m}')")
+      }; break; }
     done
   fi
-  # bash 3.2 (macOS default) errors on "${urls[@]}" when the array is empty
+  # bash 3.2 (macOS default) errors on "${entries[@]}" when the array is empty
   # under set -u, and an empty printf line would become [""] — guard both.
-  if [[ ${#urls[@]} -eq 0 ]]; then echo '[]'; else printf '%s\n' "${urls[@]}" | jq -R . | jq -s .; fi
+  if [[ ${#entries[@]} -eq 0 ]]; then echo '[]'; else printf '%s\n' "${entries[@]}" | jq -s .; fi
 }
 
 provision_product() { # gtin file slug desc
@@ -204,7 +223,9 @@ provision_product() { # gtin file slug desc
         "type":"gs1:ReferencedFileDetails","fileLanguageCode":"en",
         "contentDescription": ($desc + " (image " + ((.key+1)|tostring) + ")"),
         "referencedFileType": {"id":"gs1:ReferencedFileTypeCode-PRODUCT_IMAGE"},
-        "id": .value, "referencedFileURL": .value }))) else . end' "$file")
+        "id": .value.url, "referencedFileURL": .value.url }
+        + (if (.value.mime // "") != "" then {"schema:encodingFormat": .value.mime} else {} end)
+      ))) else . end' "$file")
   # FLS probe markers (see FLS_PROBE_GTIN above): three oec-core fields at three
   # field tiers, in bare shortcut spelling (survives the typed write path).
   if [[ "$gtin" == "$FLS_PROBE_GTIN" ]]; then
