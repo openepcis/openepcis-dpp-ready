@@ -91,6 +91,18 @@ gold set and raw predictions are alongside it.
 - **Detecting *whether* a relation exists is reliable** (NONE recall 96%; "a mapping exists" ~99%
   among asserted pairs). The pipeline can trust the existence signal even when it cannot trust the
   exact grade.
+
+  > **This does not hold on near misses (2026-08).** The 96% is measured against STW negatives,
+  > which are far apart and rejected trivially. Scored against 24 pairs this project's own curators
+  > proposed and then REMOVED, the same models accept 58% to 92% of them. The existence signal is
+  > reliable about unrelated things and unreliable exactly where a curator's time goes.
+  >
+  > `devstral-small-2-2512` is the cautionary case, and the trap is visible in the table above:
+  > 95.5% match/no-match on STW made it look like the best possible gatekeeper, and it discarded
+  > only 4% of real mappings — because it barely discards anything at all. On the domain gold set it
+  > accepts 92% of curator-rejected pairs and scores 22% overall. A high match/no-match figure on
+  > easy negatives does not predict gate quality; it can invert the ranking. Do not choose a
+  > gatekeeper on that column.
 - **Precision beats size.** The same `Qwen3-32B` weights at 8-bit beat their own 4-bit by **+4
   points** and reached the ceiling; an 8-bit 32B beat a 4-bit 122B by six points. For semantic
   judgement, run the highest precision that fits rather than the largest model.
