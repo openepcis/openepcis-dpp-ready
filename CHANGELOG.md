@@ -9,6 +9,25 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+## [0.9.9] - 2026-08-04
+
+### PPWR becomes a full downstream-consumable module; cpr wired alongside
+
+The `ppwr` and `eucpr` modules existed with complete ontologies, contexts and examples but were
+absent from the `MODULES` list of `scripts/build-extension-schemas.ts` — and that script's
+manifest (`scripts/out/extension-schemas.manifest.json`) is the only thing the DDM passport
+editor's vocab sync iterates, so neither module ever reached the app. Both are wired now and
+ship generated `*.extension-schema.json` files.
+
+PPWR itself gains the Article 12(2) reuse data card (`euppwr:ReuseInformation` with system
+scope enumeration, system name, collection points, rotations — the one PPWR data set with no
+upstream carrier) and a hand-written DPP document schema (`validation/ppwr-schema.json`) whose
+single hard requirement is the Annex VIII EU declaration of conformity reference
+(`oec:conformityDeclaration`), the only duty in force for all packaging from 2026-08-12;
+labelling/grading/recycled-content data points carry their article citations as recommendations
+until their 2028/2029/2030 application dates. Details in the
+[module changelog](extensions/eu/ppwr/CHANGELOG.md).
+
 ## [0.9.8] - 2026-07-29
 
 ### The compressed form carries no prefix, and the environments can be checked against it

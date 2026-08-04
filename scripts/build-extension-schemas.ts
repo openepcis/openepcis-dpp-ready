@@ -56,6 +56,8 @@ const MODULES: ExtensionModule[] = [
   { dir: "extensions/eu/textile", prefix: "eutex", nsSuffix: "eu/textile/", ctxFile: "textile-context.jsonld", jsonFile: "textile.json" },
   { dir: "extensions/eu/electronics", prefix: "euelec", nsSuffix: "eu/electronics/", ctxFile: "electronics-context.jsonld", jsonFile: "electronics.json" },
   { dir: "extensions/eu/detergent", prefix: "eudet", nsSuffix: "eu/detergent/", ctxFile: "detergent-context.jsonld", jsonFile: "detergent.json" },
+  { dir: "extensions/eu/ppwr", prefix: "euppwr", nsSuffix: "eu/ppwr/", ctxFile: "ppwr-context.jsonld", jsonFile: "ppwr.json" },
+  { dir: "extensions/eu/cpr", prefix: "eucpr", nsSuffix: "eu/cpr/", ctxFile: "cpr-context.jsonld", jsonFile: "cpr.json" },
   { dir: "extensions/eu/iron-steel", prefix: "eusteel", nsSuffix: "eu/iron-steel/", ctxFile: "iron-steel-context.jsonld", jsonFile: "iron-steel.json" },
   { dir: "extensions/us/fsma204", prefix: "usfsma", nsSuffix: "us/fsma204/", ctxFile: "fsma204-context.jsonld", jsonFile: "fsma204.json" },
 ];

@@ -4,6 +4,17 @@ All notable changes to the CPR module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.9] - 2026-08-04
+
+### Added: wired into the extension-schema manifest
+
+The module is now listed in `scripts/build-extension-schemas.ts`, so
+`validation/cpr.extension-schema.json` and the
+`scripts/out/extension-schemas.manifest.json` entry are generated and
+downstream consumers (the DDM passport editor's vocab sync) can pick the
+module up. No DPP document schema yet — the module ships without derived
+mandatory obligations (iron-steel precedent).
+
 ## [0.9.8] - 2026-07-29
 
 ### Fixed: 4 graded mappings onto a serialisation slot

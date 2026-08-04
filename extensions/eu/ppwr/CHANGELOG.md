@@ -4,6 +4,53 @@ All notable changes to the PPWR module will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.9] - 2026-08-04
+
+### Added: Article 12(2) reuse data card
+
+New terms for the reuse information the PPWR Article 12(2) QR code (or other
+standardised, open, digital data carrier) must make available for reusable
+packaging from 2029-02-12 — the one PPWR data set with no GS1/SEMICeu/
+schema.org/oec carrier: `euppwr:ReuseInformation` +
+`euppwr:reuseInformation` (domained on `euppwr:Packaging`), the
+`euppwr:ReuseSystemScope` enumeration (`LocalSystem` / `NationalSystem` /
+`UnionWideSystem` — Art. 12(2) "local, national or Union-wide system for
+re-use"), `euppwr:reuseSystemName`, `euppwr:collectionPointsUrl`
+(`skos:closeMatch oec:collectionPointDirectoryUrl`, which is domained to
+end-of-life programmes), `euppwr:averageRotationsEstimate`, and the
+deliberately domain-less `euppwr:rotationCount` (usable in the card and as
+an EPCIS event observation, peer of `euppwr:containerCondition`). All six
+properties default to `oec:Public` — Art. 12(2) makes them end-user QR
+information.
+
+### Added: hand-written DPP document schema
+
+`validation/ppwr-schema.json` (detergent-schema pattern): the only
+`$defs.Packaging.required` entry is `conformityDeclaration` — the Annex VII
+Module A assessment with an Annex VIII EU declaration of conformity is the
+one duty already in force for all packaging placed on the market from
+2026-08-12 (Art. 15(2), Art. 39), carried as an `oec:DocumentReference` via
+`oec:conformityDeclaration`. Labelling (Art. 12, 2028/2029), recyclability
+grading (Art. 6, 2030) and recycled-content minima (Art. 7, 2030) are
+described as recommended data points with their article citations until
+their application dates.
+
+### Added: wired into the extension-schema manifest
+
+The module is now listed in `scripts/build-extension-schemas.ts`, so
+`validation/ppwr.extension-schema.json` and the
+`scripts/out/extension-schemas.manifest.json` entry are generated and
+downstream consumers (the DDM passport editor's vocab sync) can pick the
+module up.
+
+### Changed
+- Examples: the e-commerce carton carries the new
+  `euppwr:reuseInformation` card (national re-use pool, collection points,
+  average rotations estimate); both the carton and the multi-layer pouch
+  reference their EU declaration of conformity via
+  `oec:conformityDeclaration` (Annex VIII document, kept 5/10 years per
+  Art. 15(3)).
+
 ## [0.9.8] - 2026-07-29
 
 ### Changed: mapping anchors from the vocab-sync audit

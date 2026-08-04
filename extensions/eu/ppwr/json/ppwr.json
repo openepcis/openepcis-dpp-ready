@@ -1,8 +1,8 @@
 {
   "namespace": "https://ref.openepcis.io/extensions/eu/ppwr/",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "title": "OpenEPCIS PPWR Vocabulary",
-  "description": "Vocabulary for the EU Packaging and Packaging Waste Regulation\n(Regulation 2025/40, in force since 2025-02-11; general application from\n2026-08-12; harmonised labelling per Article 12 from 2028-08-12;\nrecyclability grading (Article 6, Annex II) mandatory from 2030-01-01 with\nGrade C minimum; Grades A/B only from 2038-01-01).\n\nThis module is intentionally thin: nearly every PPWR data point reuses the\nGS1 Web Vocabulary packaging model (gs1:PackagingDetails,\ngs1:PackagingMaterialDetails, gs1:ReturnablePackageDepositDetails) plus the\ncross-cutting `oec:` and `untp:` vocabulary already lifted to common/core.\nPackaging-specific concepts only live here:\n\n  - `euppwr:Packaging` (subClassOf gs1:PackagingDetails)\n  - `euppwr:packagingTier` (Sales / Grouped / Transport; Article 3)\n  - `euppwr:recyclabilityGrade` (A / B / C; Article 6, Annex II)\n  - `euppwr:harmonisedSymbol` (URI of an Article 12 harmonised label entry)\n  - `euppwr:designForRecyclingMethodology` (D4R methodology citation)\n  - `euppwr:depositRefundIssued` / `euppwr:containerCondition`\n    (deposit-return EPCIS observation properties)\n  - `euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION`\n    (module-owned gs1:RegulationTypeCode member; the upstream code list has\n    no packaging-waste entry)\n\nMaterial composition, recycling process and deposit amounts use the GS1\npackaging terms directly (gs1:packagingMaterial, gs1:packagingMaterialType,\ngs1:packagingRecyclingProcessType, gs1:hasReturnablePackageDeposit).\nRecyclability scoring/rate, recycled content, reuse, compostability,\nbio-based content, hazardous substances, EPR, production site and the\ndeclaration of conformity all use existing `oec:` / `untp:` / `gs1:`\nterms. Alignment reference: GS1 in Europe White Paper \"Packaging and\nPackaging Waste Regulation and GS1 standards\".",
+  "description": "Vocabulary for the EU Packaging and Packaging Waste Regulation\n(Regulation 2025/40, in force since 2025-02-11; general application from\n2026-08-12; harmonised labelling per Article 12 from 2028-08-12;\nrecyclability grading (Article 6, Annex II) mandatory from 2030-01-01 with\nGrade C minimum; Grades A/B only from 2038-01-01).\n\nThis module is intentionally thin: nearly every PPWR data point reuses the\nGS1 Web Vocabulary packaging model (gs1:PackagingDetails,\ngs1:PackagingMaterialDetails, gs1:ReturnablePackageDepositDetails) plus the\ncross-cutting `oec:` and `untp:` vocabulary already lifted to common/core.\nPackaging-specific concepts only live here:\n\n  - `euppwr:Packaging` (subClassOf gs1:PackagingDetails)\n  - `euppwr:packagingTier` (Sales / Grouped / Transport; Article 3)\n  - `euppwr:recyclabilityGrade` (A / B / C; Article 6, Annex II)\n  - `euppwr:harmonisedSymbol` (URI of an Article 12 harmonised label entry)\n  - `euppwr:designForRecyclingMethodology` (D4R methodology citation)\n  - `euppwr:reuseInformation` / `euppwr:ReuseInformation` with\n    `euppwr:reuseSystemScope` (local / national / Union-wide),\n    `euppwr:reuseSystemName`, `euppwr:collectionPointsUrl`,\n    `euppwr:averageRotationsEstimate` and the event-capable\n    `euppwr:rotationCount` (Article 12(2) reuse QR data)\n  - `euppwr:depositRefundIssued` / `euppwr:containerCondition`\n    (deposit-return EPCIS observation properties)\n  - `euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION`\n    (module-owned gs1:RegulationTypeCode member; the upstream code list has\n    no packaging-waste entry)\n\nMaterial composition, recycling process and deposit amounts use the GS1\npackaging terms directly (gs1:packagingMaterial, gs1:packagingMaterialType,\ngs1:packagingRecyclingProcessType, gs1:hasReturnablePackageDeposit).\nRecyclability scoring/rate, recycled content, reuse, compostability,\nbio-based content, hazardous substances, EPR, production site and the\ndeclaration of conformity all use existing `oec:` / `untp:` / `gs1:`\nterms. Alignment reference: GS1 in Europe White Paper \"Packaging and\nPackaging Waste Regulation and GS1 standards\".",
   "classes": [
     {
       "id": "https://ref.openepcis.io/extensions/eu/ppwr/Packaging",
@@ -25,9 +25,59 @@
         "https://ref.gs1.org/voc/PackagingDetails"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/ppwr/ReuseInformation",
+      "localName": "ReuseInformation",
+      "label": "Reuse Information",
+      "comment": "Reuse data card of a reusable packaging item per PPWR Article 12(2):\nfrom 2029-02-12 reusable packaging must bear a reuse label plus a QR code or\nother standardised, open, digital data carrier making available further\ninformation on reusability, including the availability of a local, national\nor Union-wide re-use system, information on collection points, and the\ncalculation of trips and rotations or, if that calculation is not feasible,\nan average estimation. Reusability itself is defined by the nine Article 11(1)\ncriteria and demonstrated in the Annex VII technical information (Article\n11(3)). Open-loop systems without a system operator per Annex VI are exempt\nfrom the label and QR duty (Article 12(3)).",
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/EndOfLifeProgram",
+        "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme",
+        "https://ref.gs1.org/voc/packagingRecyclingProcessType"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040"
     }
   ],
   "properties": [
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/ppwr/averageRotationsEstimate",
+      "localName": "averageRotationsEstimate",
+      "label": "Average Rotations Estimate",
+      "comment": "Average estimation of the trips/rotations the reusable packaging\naccomplishes — the PPWR Article 12(2) fallback where per-item calculation is\nnot feasible. The Commission's Article 11(2) delegated act (due 2027-02-12)\nwill establish a minimum number of rotations for the most frequently reused\npackaging formats.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/ppwr/ReuseInformation"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/eu/ppwr/rotationCount"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The average estimation is the Art. 12(2) fallback where per-item trip/rotation calculation is not feasible, and is user-facing reuse information like the calculated count.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2025/40"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/ppwr/collectionPointsUrl",
+      "localName": "collectionPointsUrl",
+      "label": "Collection Points URL",
+      "comment": "URL of the directory or map of collection points where the reusable packaging can be returned into the re-use system (PPWR Art. 12(2)).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/ppwr/ReuseInformation"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "closeMatch": [
+        "https://ref.openepcis.io/extensions/common/core/collectionPointDirectoryUrl"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Information on collection points is explicitly part of the Art. 12(2) reuse information made available through the QR code.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2025/40"
+    },
     {
       "id": "https://ref.openepcis.io/extensions/eu/ppwr/containerCondition",
       "localName": "containerCondition",
@@ -129,6 +179,76 @@
       "accessLevel": "Public",
       "accessLevelRationale": "The PPWR Art. 6 recyclability performance grade is a consumer- and scheme-facing band (grading criteria pending delegated acts, hence not locked).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2025/40"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/ppwr/reuseInformation",
+      "localName": "reuseInformation",
+      "label": "Reuse Information",
+      "comment": "Links a reusable packaging item to its PPWR Article 12(2) reuse data card (re-use system, collection points, trips/rotations).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/ppwr/Packaging"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/ppwr/ReuseInformation"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/hasReturnablePackageDeposit"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040",
+      "accessLevel": "Public",
+      "accessLevelRationale": "PPWR Art. 12(2): availability of the re-use system, collection points and trips/rotations (or the average estimation) are exactly the information the reuse QR code must make available to users (label formats pending implementing acts, hence not locked).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2025/40"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/ppwr/reuseSystemName",
+      "localName": "reuseSystemName",
+      "label": "Reuse System Name",
+      "comment": "Name of the re-use system or system operator (PPWR Annex VI) the\nreusable packaging participates in. Open-loop systems without a system\noperator per Annex VI are exempt from the Article 12(2) label and QR duty\n(Article 12(3)).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/ppwr/ReuseInformation"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://schema.org/provider"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Naming the re-use system (Annex VI system operator) is Art. 12(2) end-user information that makes the reuse claim actionable.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2025/40"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/ppwr/reuseSystemScope",
+      "localName": "reuseSystemScope",
+      "label": "Reuse System Scope",
+      "comment": "Whether the re-use system the packaging participates in is available locally, nationally or Union-wide (PPWR Art. 12(2)).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/ppwr/ReuseInformation"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/ppwr/ReuseSystemScope"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The local/national/Union-wide availability of the re-use system is Art. 12(2) end-user information served through the reuse data carrier.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2025/40"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/ppwr/rotationCount",
+      "localName": "rotationCount",
+      "label": "Rotation Count",
+      "comment": "Number of trips/rotations a tracked reusable packaging item has\naccomplished. PPWR Article 12(2): the reuse QR code (or other standardised,\nopen, digital data carrier) facilitates the tracking of the packaging and\nthe calculation of trips and rotations. Deliberately domain-less: usable in\nthe euppwr:ReuseInformation card and as an EPCIS event-level observation\nproperty (peer of euppwr:containerCondition) captured at return or refill.",
+      "range": [
+        "xsd:integer"
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/eu/ppwr/averageRotationsEstimate"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Art. 12(2): the reuse data carrier facilitates the tracking of the packaging and the calculation of trips and rotations; the calculated count is user-facing reuse information.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2025/40"
     }
   ],
   "enumerations": [
@@ -195,6 +315,32 @@
           "localName": "RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION",
           "label": "Packaging and Packaging Waste Regulation",
           "comment": "Regulation (EU) 2025/40 on packaging and packaging waste (PPWR),\nreplacing Directive 94/62/EC. Use as the gs1:regulationType of a\ngs1:RegulatoryInformation entry declaring PPWR compliance."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/ppwr/ReuseSystemScope",
+      "localName": "ReuseSystemScope",
+      "label": "Reuse System Scope",
+      "comment": "Geographic availability of the re-use system a reusable packaging\nitem participates in, per PPWR Article 12(2): \"the availability of a local,\nnational or Union-wide system for re-use\".",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/ppwr/LocalSystem",
+          "localName": "LocalSystem",
+          "label": "Local Re-use System",
+          "comment": "Re-use system available locally, e.g. a city or venue pool system (PPWR Art. 12(2))."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/ppwr/NationalSystem",
+          "localName": "NationalSystem",
+          "label": "National Re-use System",
+          "comment": "Re-use system available throughout one Member State (PPWR Art. 12(2))."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/eu/ppwr/UnionWideSystem",
+          "localName": "UnionWideSystem",
+          "label": "Union-wide Re-use System",
+          "comment": "Re-use system available across the Union (PPWR Art. 12(2))."
         }
       ]
     }

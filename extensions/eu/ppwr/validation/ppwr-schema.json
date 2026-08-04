@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-json-schema.json",
+  "title": "OpenEPCIS PPWR DPP Vocabulary Schema",
+  "description": "JSON Schema for validating Packaging Digital Product Passport data per EU Regulation 2025/40 on packaging and packaging waste (PPWR). Obligations reflect what is legally in force for packaging placed on the market from 2026-08-12: the Annex VII Module A conformity assessment with an Annex VIII EU declaration of conformity (Art. 15(2), Art. 39). Labelling (Art. 12, from 2028/2029), recyclability grading (Art. 6, from 2030) and recycled-content minima (Art. 7, from 2030) are recommended data points until their respective application dates. Version 0.9.9.",
+  "$defs": {
+    "Packaging": {
+      "type": "object",
+      "title": "PPWR Packaging",
+      "description": "A packaging item subject to EU Regulation 2025/40, either nested under gs1:packaging of a trade item or itself placed on the market as a trade item (dual-typed gs1:Product + euppwr:Packaging).",
+      "properties": {
+        "@type": {
+          "const": "Packaging"
+        },
+        "packagingTier": {
+          "$ref": "#/$defs/PackagingTier",
+          "description": "Recommended — the sales/grouped/transport classification per PPWR Art. 3(1)(b)-(d) determines which labelling and reuse obligations apply (e.g. transport packaging is exempt from the Art. 12(1) material-composition label except e-commerce packaging)."
+        },
+        "recyclabilityGrade": {
+          "$ref": "#/$defs/RecyclabilityGrade",
+          "description": "Recommended — mandatory from 1 January 2030 per PPWR Art. 6(3) and Annex II Table 3: packaging may then only be placed on the market in recyclability grades A, B or C; from 2038 only grades A and B."
+        },
+        "harmonisedSymbol": {
+          "type": "string",
+          "format": "uri",
+          "description": "Recommended — harmonised material-composition labelling applies from 12 August 2028 per PPWR Art. 12(1)/(6); the label catalogue is pending implementing acts (due 12 August 2026)."
+        },
+        "designForRecyclingMethodology": {
+          "type": "string",
+          "description": "Recommended — names the design-for-recycling methodology substantiating the recyclability grade until the Annex II delegated acts prescribe the harmonised methodology (PPWR Art. 6(4))."
+        },
+        "reuseInformation": {
+          "$ref": "#/$defs/ReuseInformation",
+          "description": "Recommended — for reusable packaging, PPWR Art. 12(2) requires from 12 February 2029 a reuse label plus a QR code or other standardised, open data carrier providing re-use system availability, collection points and trips/rotations (or an average estimation)."
+        },
+        "conformityDeclaration": {
+          "type": "object",
+          "description": "Mandatory per PPWR Art. 15(2) and Art. 39 — before placing packaging on the market the manufacturer must carry out the Annex VII Module A conformity assessment and draw up an EU declaration of conformity per Annex VIII, kept for 5 years (single-use) or 10 years (reusable) per Art. 15(3). Reference the declaration document here (oec:DocumentReference pattern)."
+        },
+        "hazardousSubstances": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "Substance of concern using the oec:HazardousSubstance pattern."
+          },
+          "description": "Recommended — PPWR Art. 5(4): the sum of lead, cadmium, mercury and hexavalent chromium concentrations in packaging or packaging components must not exceed 100 mg/kg, and Art. 5(5) restricts PFAS in food-contact packaging from 12 August 2026; compliance is demonstrated in the Annex VII technical documentation (Art. 5(6))."
+        },
+        "recycledContentDetails": {
+          "type": "object",
+          "description": "Recommended — PPWR Art. 7: from 2030 plastic packaging must contain minimum post-consumer recycled content (30 % contact-sensitive PET / 10 % other contact-sensitive plastics / 30 % single-use beverage bottles / 35 % other plastic packaging; higher 2040 targets). Uses the oec:RecycledContent pattern."
+        },
+        "compostability": {
+          "type": "object",
+          "description": "Recommended — PPWR Art. 9: compostable packaging must comply with composting standards; Art. 12(1) requires the compostability labelling to state that the material is compostable, is not suitable for home composting and is not to be discarded in nature. Uses the oec:Compostability pattern."
+        },
+        "extendedProducerResponsibility": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "EPR registration using the oec:ExtendedProducerResponsibility pattern."
+          },
+          "description": "Recommended — PPWR Art. 12(9): from 12 February 2027 packaging included in an extended producer responsibility scheme may be identified by means of a corresponding symbol in a QR code or other standardised, open, digital-marking technology."
+        }
+      },
+      "required": ["conformityDeclaration"]
+    },
+    "ReuseInformation": {
+      "type": "object",
+      "title": "Reuse Information",
+      "description": "PPWR Art. 12(2) reuse data card: re-use system availability, collection points and trips/rotations. No property is required before the labelling duty applies on 12 February 2029.",
+      "properties": {
+        "@type": {
+          "const": "ReuseInformation"
+        },
+        "reuseSystemScope": {
+          "$ref": "#/$defs/ReuseSystemScope",
+          "description": "Availability of a local, national or Union-wide re-use system (PPWR Art. 12(2))."
+        },
+        "reuseSystemName": {
+          "type": "string",
+          "description": "Name of the re-use system or Annex VI system operator; open-loop systems without an operator are exempt from the label and QR duty (PPWR Art. 12(3))."
+        },
+        "collectionPointsUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the collection-point directory or map of the re-use system (PPWR Art. 12(2))."
+        },
+        "rotationCount": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Calculated trips/rotations of the tracked reusable packaging (PPWR Art. 12(2))."
+        },
+        "averageRotationsEstimate": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Average estimation of trips/rotations where per-item calculation is not feasible (PPWR Art. 12(2)); the Art. 11(2) delegated act (due 12 February 2027) will set minimum rotations per format."
+        }
+      }
+    },
+    "PackagingTier": {
+      "type": "string",
+      "title": "Packaging Tier",
+      "description": "Sales (primary), grouped (secondary) or transport (tertiary) packaging per PPWR Art. 3(1)(b)-(d).",
+      "enum": ["Sales", "Grouped", "Transport"]
+    },
+    "RecyclabilityGrade": {
+      "type": "string",
+      "title": "PPWR Recyclability Grade",
+      "description": "Recyclability performance grade per PPWR Art. 6 and Annex II: A (>= 95 %), B (>= 80 %), C (>= 70 %).",
+      "enum": ["GradeA", "GradeB", "GradeC"]
+    },
+    "ReuseSystemScope": {
+      "type": "string",
+      "title": "Reuse System Scope",
+      "description": "Geographic availability of the re-use system per PPWR Art. 12(2).",
+      "enum": ["LocalSystem", "NationalSystem", "UnionWideSystem"]
+    }
+  }
+}

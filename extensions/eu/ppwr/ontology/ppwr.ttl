@@ -32,6 +32,11 @@ Packaging-specific concepts only live here:
   - `euppwr:recyclabilityGrade` (A / B / C; Article 6, Annex II)
   - `euppwr:harmonisedSymbol` (URI of an Article 12 harmonised label entry)
   - `euppwr:designForRecyclingMethodology` (D4R methodology citation)
+  - `euppwr:reuseInformation` / `euppwr:ReuseInformation` with
+    `euppwr:reuseSystemScope` (local / national / Union-wide),
+    `euppwr:reuseSystemName`, `euppwr:collectionPointsUrl`,
+    `euppwr:averageRotationsEstimate` and the event-capable
+    `euppwr:rotationCount` (Article 12(2) reuse QR data)
   - `euppwr:depositRefundIssued` / `euppwr:containerCondition`
     (deposit-return EPCIS observation properties)
   - `euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION`
@@ -49,9 +54,9 @@ Packaging Waste Regulation and GS1 standards"."""@en ;
     dcterms:creator "OpenEPCIS" ;
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
     dcterms:created "2026-05-01"^^xsd:date ;
-    dcterms:modified "2026-07-16"^^xsd:date ;
-    owl:versionInfo "0.9.8" ;
-    owl:versionIRI <https://ref.openepcis.io/extensions/eu/ppwr/0.9.8> ;
+    dcterms:modified "2026-08-04"^^xsd:date ;
+    owl:versionInfo "0.9.9" ;
+    owl:versionIRI <https://ref.openepcis.io/extensions/eu/ppwr/0.9.9> ;
     vann:preferredNamespacePrefix "euppwr" ;
     vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/eu/ppwr/" ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
@@ -225,6 +230,131 @@ prescribe the harmonised methodology."""@en ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
     skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute (Article 4 / Annex II supporting evidence). No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso euppwr:recyclabilityGrade .
+
+# =============================================================================
+# Reuse information (Articles 11, 12(2))
+# =============================================================================
+
+euppwr:ReuseInformation
+    a owl:Class ;
+    rdfs:label "Reuse Information"@en ;
+    rdfs:comment """Reuse data card of a reusable packaging item per PPWR Article 12(2):
+from 2029-02-12 reusable packaging must bear a reuse label plus a QR code or
+other standardised, open, digital data carrier making available further
+information on reusability, including the availability of a local, national
+or Union-wide re-use system, information on collection points, and the
+calculation of trips and rotations or, if that calculation is not feasible,
+an average estimation. Reusability itself is defined by the nine Article 11(1)
+criteria and demonstrated in the Annex VII technical information (Article
+11(3)). Open-loop systems without a system operator per Annex VI are exempt
+from the label and QR duty (Article 12(3))."""@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
+    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. gs1:packagingRecyclingProcessType REUSABLE carries the reusability claim and oec:EndOfLifeProgram / oec:DepositReturnScheme carry waste take-back and deposit programmes; the Article 12(2) re-use-system data set (system scope, collection points, trips/rotations) has no GS1, SEMICeu, schema.org or oec carrier."@en ;
+    rdfs:seeAlso oec:EndOfLifeProgram ;
+    rdfs:seeAlso oec:DepositReturnScheme ;
+    rdfs:seeAlso gs1:packagingRecyclingProcessType .
+
+euppwr:reuseInformation
+    a owl:ObjectProperty ;
+    rdfs:label "Reuse Information"@en ;
+    rdfs:comment "Links a reusable packaging item to its PPWR Article 12(2) reuse data card (re-use system, collection points, trips/rotations)."@en ;
+    rdfs:domain euppwr:Packaging ;
+    rdfs:range euppwr:ReuseInformation ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
+    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    rdfs:seeAlso gs1:hasReturnablePackageDeposit .
+
+euppwr:ReuseSystemScope
+    a owl:Class ;
+    rdfs:label "Reuse System Scope"@en ;
+    rdfs:comment """Geographic availability of the re-use system a reusable packaging
+item participates in, per PPWR Article 12(2): "the availability of a local,
+national or Union-wide system for re-use"."""@en ;
+    owl:oneOf (
+        euppwr:LocalSystem
+        euppwr:NationalSystem
+        euppwr:UnionWideSystem
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
+    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+euppwr:LocalSystem a euppwr:ReuseSystemScope ; rdfs:label "Local Re-use System"@en ;
+    rdfs:comment "Re-use system available locally, e.g. a city or venue pool system (PPWR Art. 12(2))."@en ;
+    skos:notation "local" .
+euppwr:NationalSystem a euppwr:ReuseSystemScope ; rdfs:label "National Re-use System"@en ;
+    rdfs:comment "Re-use system available throughout one Member State (PPWR Art. 12(2))."@en ;
+    skos:notation "national" .
+euppwr:UnionWideSystem a euppwr:ReuseSystemScope ; rdfs:label "Union-wide Re-use System"@en ;
+    rdfs:comment "Re-use system available across the Union (PPWR Art. 12(2))."@en ;
+    skos:notation "union-wide" .
+
+euppwr:reuseSystemScope
+    a owl:ObjectProperty ;
+    rdfs:label "Reuse System Scope"@en ;
+    rdfs:comment "Whether the re-use system the packaging participates in is available locally, nationally or Union-wide (PPWR Art. 12(2))."@en ;
+    rdfs:domain euppwr:ReuseInformation ;
+    rdfs:range euppwr:ReuseSystemScope ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
+    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+euppwr:reuseSystemName
+    a owl:DatatypeProperty ;
+    rdfs:label "Reuse System Name"@en ;
+    rdfs:comment """Name of the re-use system or system operator (PPWR Annex VI) the
+reusable packaging participates in. Open-loop systems without a system
+operator per Annex VI are exempt from the Article 12(2) label and QR duty
+(Article 12(3))."""@en ;
+    rdfs:domain euppwr:ReuseInformation ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
+    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    rdfs:seeAlso schema:provider .
+
+euppwr:collectionPointsUrl
+    a owl:DatatypeProperty ;
+    rdfs:label "Collection Points URL"@en ;
+    rdfs:comment "URL of the directory or map of collection points where the reusable packaging can be returned into the re-use system (PPWR Art. 12(2))."@en ;
+    rdfs:domain euppwr:ReuseInformation ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
+    skos:note "Re-use collection points per PPWR Art. 12(2). oec:collectionPointDirectoryUrl carries the same idea but is domained to oec:EndOfLifeProgram (waste take-back); a re-use system is not an end-of-life programme, hence this term with an explicit anchor."@en ;
+    skos:closeMatch oec:collectionPointDirectoryUrl .
+
+euppwr:rotationCount
+    a owl:DatatypeProperty ;
+    rdfs:label "Rotation Count"@en ;
+    rdfs:comment """Number of trips/rotations a tracked reusable packaging item has
+accomplished. PPWR Article 12(2): the reuse QR code (or other standardised,
+open, digital data carrier) facilitates the tracking of the packaging and
+the calculation of trips and rotations. Deliberately domain-less: usable in
+the euppwr:ReuseInformation card and as an EPCIS event-level observation
+property (peer of euppwr:containerCondition) captured at return or refill."""@en ;
+    rdfs:range xsd:integer ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
+    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    rdfs:seeAlso euppwr:averageRotationsEstimate .
+
+euppwr:averageRotationsEstimate
+    a owl:DatatypeProperty ;
+    rdfs:label "Average Rotations Estimate"@en ;
+    rdfs:comment """Average estimation of the trips/rotations the reusable packaging
+accomplishes — the PPWR Article 12(2) fallback where per-item calculation is
+not feasible. The Commission's Article 11(2) delegated act (due 2027-02-12)
+will establish a minimum number of rotations for the most frequently reused
+packaging formats."""@en ;
+    rdfs:domain euppwr:ReuseInformation ;
+    rdfs:range xsd:decimal ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
+    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
+    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    rdfs:seeAlso euppwr:rotationCount .
 
 # =============================================================================
 # Deposit-return observation properties (Article 50, EPCIS event level)
