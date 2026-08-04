@@ -1,0 +1,970 @@
+{
+  "$comment": "SOURCE OF TRUTH for the EC Battery Passport guidance data-point registry. Hand-transcribed from the European Commission 'Guidance Document: Digital Batteries Passport - data points by category', Version 1.0, 28 July 2026 (Ares(2026)7579758, DG GROW Unit G2, CC BY 4.0). scripts/build-ec-guidance-vocab.ts generates vocab/ec-battery-passport-guidance-1.0.ttl, validation/ec-datapoint-applicability.json and docs/EC_GUIDANCE_DATAPOINTS.md from this file. 'source' cites the Batteries Regulation (EU) 2023/1542 provision named in the document's 'Data point source' column. 'accessTier' is NOT stated in the guidance document; it is derived from BR Article 77(2) (Annex XIII 1 = public; XIII 2 = legitimate interest + Commission; XIII 3 = notified bodies, market surveillance authorities and the Commission; XIII 4 = legitimate interest + Commission; Article 77(3)/Annex VI A = public). 'lifecycle' encodes the document's own static/dynamic split: Annex XIII 4 data points (51-71) are dynamic (updatable, served by the EPCIS event stream folded into the item passport); everything else is static master data served by the GS1 Digital Link resolver. Applicability statuses: mandatory | optional | conditional | notToBeFilled (permanently redundant per the guidance, e.g. aggregates) | pending (not to be filled/displayed as of February 2027 because the format or application provisions are not yet adopted).",
+  "document": {
+    "title": "Guidance Document: Digital Batteries Passport - data points by category",
+    "version": "1.0",
+    "issued": "2026-07-28",
+    "publisher": "European Commission, DG Internal Market, Industry, Entrepreneurship and SMEs (Unit G2)",
+    "reference": "Ares(2026)7579758",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "regulation": "http://data.europa.eu/eli/reg/2023/1542/oj"
+  },
+  "dataPoints": [
+    {
+      "nr": 1,
+      "name": "Unique identifier",
+      "source": "BR Article 77 (3)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:batteryPassportIdentifier"],
+      "remark": "Served as a GS1 Digital Link URI; the passport identifier resolves via a GS1-conformant resolver."
+    },
+    {
+      "nr": 2,
+      "name": "Identity of who is registering and/or is responsible for the battery passport",
+      "source": "BR Article 77 (3)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:operatorInformation", "eubat:operatorIdentifier", "eubat:operatorRole"]
+    },
+    {
+      "nr": 3,
+      "name": "Manufacturer name, registered trade name or registered trade mark",
+      "source": "BR Annex VI A (1)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["gs1:manufacturer", "gs1:organizationName"]
+    },
+    {
+      "nr": 4,
+      "name": "Manufacturer postal address, indicating a single contact point",
+      "source": "BR Annex VI A (1)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["gs1:address", "gs1:PostalAddress"]
+    },
+    {
+      "nr": 5,
+      "name": "If available, manufacturer web and email address",
+      "source": "BR Annex VI A (1)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "optional", "note": "optional, to be filled if such data is available" },
+        "lmt": { "status": "optional", "note": "optional, to be filled if such data is available" },
+        "industrial": { "status": "optional", "note": "optional, to be filled if such data is available" }
+      },
+      "implementedBy": ["gs1:contactPoint", "gs1:ContactPoint"]
+    },
+    {
+      "nr": 6,
+      "name": "Battery category",
+      "source": "BR Annex VI A (2)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:BatteryCategory", "schema:category"]
+    },
+    {
+      "nr": 7,
+      "name": "Model identification and batch or serial number, or product number or another element allowing their identification",
+      "source": "BR Annex VI A (2)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:batteryModelIdentifier", "gs1:hasSerialNumber"],
+      "remark": "Model identity is the GTIN (GS1 Digital Link /01/); batch identity the /10/ lot segment; serial identity the /21/ segment."
+    },
+    {
+      "nr": 8,
+      "name": "The place of manufacturer (geographical location of a battery manufacturing plant)",
+      "source": "BR Annex VI A (3)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:manufacturingPlace", "eubat:facilityIdentifier"]
+    },
+    {
+      "nr": 9,
+      "name": "The date of manufacturing (month and year)",
+      "source": "BR Annex VI A (4)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["gs1:productionDate"]
+    },
+    {
+      "nr": 10,
+      "name": "The weight",
+      "source": "BR Annex VI A (5)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:batteryMass", "gs1:netWeight"]
+    },
+    {
+      "nr": 11,
+      "name": "The capacity",
+      "source": "BR Annex VI A (6)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:ratedCapacity"],
+      "relatedDataPoints": [25, 51]
+    },
+    {
+      "nr": 12,
+      "name": "The chemistry",
+      "source": "BR Annex VI A (7)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:batteryChemistry"]
+    },
+    {
+      "nr": 13,
+      "name": "The hazardous substances present in the battery, other than mercury, cadmium or lead",
+      "source": "BR Annex VI A (8)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:hazardousSubstances", "eubat:HazardousSubstance"]
+    },
+    {
+      "nr": 14,
+      "name": "Usable extinguishing agent",
+      "source": "BR Annex VI A (9)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:extinguishingAgent"]
+    },
+    {
+      "nr": 15,
+      "name": "Critical raw materials present in the battery in a concentration of more than 0,1 % weight by weight",
+      "source": "BR Annex VI A (10)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:isCriticalRawMaterial", "eubat:criticalRawMaterialsStatement"]
+    },
+    {
+      "nr": 16,
+      "name": "The material composition of the battery, including its chemistry, hazardous substances present in the battery, other than mercury, cadmium or lead, and critical raw materials present in the battery",
+      "source": null,
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "notToBeFilled", "note": "Not to be filled/displayed" },
+        "lmt": { "status": "notToBeFilled", "note": "Not to be filled/displayed" },
+        "industrial": { "status": "notToBeFilled", "note": "Not to be filled/displayed" }
+      },
+      "implementedBy": ["eubat:materialComposition"],
+      "aggregates": [12, 13, 15],
+      "remark": "Aggregate of data points 12 (chemistry), 13 (hazardous substances) and 15 (critical raw materials); the guidance resolves the regulation's internal redundancy by not filling the aggregate."
+    },
+    {
+      "nr": 17,
+      "name": "The carbon footprint declaration",
+      "source": "BR Annex XIII 1 (c)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "pending", "note": "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act" },
+        "lmt": { "status": "pending", "note": "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act" },
+        "industrial": { "status": "pending", "note": "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act" }
+      },
+      "implementedBy": ["eubat:carbonFootprintDeclaration", "eubat:CarbonFootprintDeclaration"]
+    },
+    {
+      "nr": 18,
+      "name": "The carbon footprint label",
+      "source": "BR Annex XIII 1 (c)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "pending", "note": "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act" },
+        "lmt": { "status": "pending", "note": "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act" },
+        "industrial": { "status": "pending", "note": "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act" }
+      },
+      "implementedBy": ["eubat:carbonFootprintPerformanceClass"]
+    },
+    {
+      "nr": 19,
+      "name": "Information on responsible sourcing as indicated in the report on battery due diligence policy referred to in Article 52(3)",
+      "source": "BR Annex XIII 1 (d)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "pending", "note": "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act" },
+        "lmt": { "status": "pending", "note": "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act" },
+        "industrial": { "status": "pending", "note": "Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act" }
+      },
+      "implementedBy": ["eubat:supplyChainDueDiligence", "eubat:dueDiligenceReportUrl"]
+    },
+    {
+      "nr": 20,
+      "name": "Percentage share of cobalt that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste",
+      "source": "BR Annex XIII 1 (e)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:cobaltRecycledShare"]
+    },
+    {
+      "nr": 21,
+      "name": "Percentage share of lithium that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste",
+      "source": "BR Annex XIII 1 (e)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:lithiumRecycledShare"]
+    },
+    {
+      "nr": 22,
+      "name": "Percentage share of nickel that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste",
+      "source": "BR Annex XIII 1 (e)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:nickelRecycledShare"]
+    },
+    {
+      "nr": 23,
+      "name": "The percentage share of lead that is present in the battery and that has been recovered from waste",
+      "source": "BR Annex XIII 1 (e)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:leadRecycledShare"]
+    },
+    {
+      "nr": 24,
+      "name": "The share of renewable content",
+      "source": "BR Annex XIII 1 (f)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:renewableContentShare"]
+    },
+    {
+      "nr": 25,
+      "name": "Rated capacity (in Ah)",
+      "source": "BR Annex XIII 1 (g)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "notToBeFilled", "note": "Not to be filled/displayed" },
+        "lmt": { "status": "notToBeFilled", "note": "Not to be filled/displayed" },
+        "industrial": { "status": "notToBeFilled", "note": "Not to be filled/displayed" }
+      },
+      "implementedBy": ["eubat:ratedCapacity"],
+      "relatedDataPoints": [11, 51],
+      "remark": "Superseded in practice: identical to data point 11 (capacity) and replaced by the dynamic data point 51."
+    },
+    {
+      "nr": 26,
+      "name": "Minimal voltage, with temperature range when relevant",
+      "source": "BR Annex XIII 1 (h)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:minimumVoltage"]
+    },
+    {
+      "nr": 27,
+      "name": "Nominal voltage, with temperature range when relevant",
+      "source": "BR Annex XIII 1 (h)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:nominalVoltage"]
+    },
+    {
+      "nr": 28,
+      "name": "Maximum voltage, with temperature range when relevant",
+      "source": "BR Annex XIII 1 (h)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:maximumVoltage"]
+    },
+    {
+      "nr": 29,
+      "name": "Original power capability (in Watts)",
+      "source": "BR Annex XIII 1 (i)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:originalPowerCapability"]
+    },
+    {
+      "nr": 30,
+      "name": "Power limits, with temperature range when relevant",
+      "source": "BR Annex XIII 1 (i)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:maximumPermittedBatteryPower", "eubat:maximumChargingPower", "eubat:maximumDischargingPower"]
+    },
+    {
+      "nr": 31,
+      "name": "Expected battery lifetime expressed in cycles",
+      "source": "BR Annex XIII 1 (j)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "only applicable for some industrial batteries where lifetime can be expressed in cycles" }
+      },
+      "implementedBy": ["eubat:expectedNumberOfCycles"]
+    },
+    {
+      "nr": 32,
+      "name": "Reference test used for expected battery lifetime expressed in cycles",
+      "source": "BR Annex XIII 1 (j)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "only applicable for some industrial batteries where lifetime can be expressed in cycles" }
+      },
+      "implementedBy": ["eubat:lifetimeReferenceTest"]
+    },
+    {
+      "nr": 33,
+      "name": "Capacity threshold for exhaustion",
+      "source": "BR Annex XIII 1 (k)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "notToBeFilled", "note": "Not to be filled/displayed" },
+        "industrial": { "status": "notToBeFilled", "note": "Not to be filled/displayed" }
+      },
+      "implementedBy": ["eubat:capacityThresholdForExhaustion"]
+    },
+    {
+      "nr": 34,
+      "name": "Temperature range the battery can withstand when not in use (reference test)",
+      "source": "BR Annex XIII 1 (l)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:temperatureRangeIdleState"]
+    },
+    {
+      "nr": 35,
+      "name": "Period for which the commercial warranty for the calendar life applies",
+      "source": "BR Annex XIII 1 (m)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "conditional", "note": "only if applicable (if commercial warranty envisaged)" },
+        "lmt": { "status": "conditional", "note": "only if applicable (if commercial warranty envisaged)" },
+        "industrial": { "status": "conditional", "note": "only if applicable (if commercial warranty envisaged)" }
+      },
+      "implementedBy": ["eubat:warrantyConditions", "gs1:warranty"]
+    },
+    {
+      "nr": 36,
+      "name": "Initial round trip energy efficiency",
+      "source": "BR Annex XIII 1 (n)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "only applicable for some industrial batteries" }
+      },
+      "implementedBy": ["eubat:roundTripEnergyEfficiency"]
+    },
+    {
+      "nr": 37,
+      "name": "Round trip energy efficiency at 50 % of cycle-life",
+      "source": "BR Annex XIII 1 (n)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "only applicable for some industrial batteries" }
+      },
+      "implementedBy": ["eubat:roundTripEfficiencyAt50PercentCycleLife"]
+    },
+    {
+      "nr": 38,
+      "name": "Internal battery cell and pack resistance",
+      "source": "BR Annex XIII 1 (o)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:initialInternalResistance"]
+    },
+    {
+      "nr": 39,
+      "name": "C-rate of relevant cycle-life test",
+      "source": "BR Annex XIII 1 (p)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "only applicable for some industrial batteries" }
+      },
+      "implementedBy": ["eubat:cRateLifeCycleTest"]
+    },
+    {
+      "nr": 40,
+      "name": "The marking requirements laid down in Article 13(4)",
+      "source": "BR Annex XIII 1 (q)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:labels", "eubat:separateCollectionSymbolUrl"]
+    },
+    {
+      "nr": 41,
+      "name": "The marking requirements laid down in Article 13(5)",
+      "source": "BR Annex XIII 1 (q)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "conditional", "note": "cadmium or lead symbol if applicable" },
+        "lmt": { "status": "conditional", "note": "cadmium or lead symbol if applicable" },
+        "industrial": { "status": "conditional", "note": "cadmium or lead symbol if applicable" }
+      },
+      "implementedBy": ["eubat:cadmiumSymbolRequired", "eubat:leadSymbolRequired"]
+    },
+    {
+      "nr": 42,
+      "name": "The EU declaration of conformity referred to in Article 18",
+      "source": "BR Annex XIII 1 (r)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:euDeclarationOfConformity"]
+    },
+    {
+      "nr": 43,
+      "name": "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f)",
+      "source": "BR Annex XIII 1 (s)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:wastePrevention", "eubat:informationOnCollection", "eubat:separateCollection"]
+    },
+    {
+      "nr": 44,
+      "name": "Clear, understandable and readable instructions for use in a format that makes it possible to print, download and save them on an electronic device so that the user can access them at all times, in particular during a breakdown of the battery",
+      "source": "BR Annex XIII 1 (t)",
+      "lifecycle": "static",
+      "accessTier": "public",
+      "applicability": {
+        "ev": { "status": "pending", "note": "Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus IV adoption" },
+        "lmt": { "status": "pending", "note": "Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus IV adoption" },
+        "industrial": { "status": "pending", "note": "Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus IV adoption" }
+      },
+      "implementedBy": ["gs1:instructionsForUse", "gs1:consumerUsageInstructions"]
+    },
+    {
+      "nr": 45,
+      "name": "Detailed composition, including materials used in the cathode, anode and electrolyte",
+      "source": "BR Annex XIII 2 (a)",
+      "lifecycle": "static",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:cathodeActiveMaterial", "eubat:anodeActiveMaterial", "eubat:electrolyteComposition"]
+    },
+    {
+      "nr": 46,
+      "name": "Part numbers for components",
+      "source": "BR Annex XIII 2 (b)",
+      "lifecycle": "static",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:spareParts"]
+    },
+    {
+      "nr": 47,
+      "name": "Contact details of sources for replacement spares",
+      "source": "BR Annex XIII 2 (b)",
+      "lifecycle": "static",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:sparePartSources", "eubat:supplierContact"]
+    },
+    {
+      "nr": 48,
+      "name": "Dismantling information, including at least: exploded diagrams of the battery system/pack showing the location of battery cells, disassembly sequences, type and number of fastening techniques to be unlocked, tools required for disassembly, warnings if risk of damaging parts exist, amount of cells used and layout",
+      "source": "BR Annex XIII 2 (c)",
+      "lifecycle": "static",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:dismantlingDocuments", "eubat:dismantlingInstructions"]
+    },
+    {
+      "nr": 49,
+      "name": "Safety measures",
+      "source": "BR Annex XIII 2 (d)",
+      "lifecycle": "static",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:safetyMeasures", "eubat:safetyInstructions"]
+    },
+    {
+      "nr": 50,
+      "name": "Results of test reports proving compliance with the requirements laid down in this Regulation or any delegated or implementing act adopted pursuant to this Regulation",
+      "source": "BR Annex XIII 3",
+      "lifecycle": "static",
+      "accessTier": "notifiedBodiesAndAuthorities",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:resultOfTestReport", "eubat:testReportNumber"]
+    },
+    {
+      "nr": 51,
+      "name": "Rated capacity (in Ah)",
+      "source": "BR Annex XIII 4 (a)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "mandatory", "note": "same as data point number 11 (capacity), but now dynamic" },
+        "lmt": { "status": "mandatory", "note": "same as data point number 11 (capacity), but now dynamic" },
+        "industrial": { "status": "conditional", "note": "if applicable, but now dynamic" }
+      },
+      "implementedBy": ["eubat:ratedCapacity"],
+      "relatedDataPoints": [11, 25],
+      "epcisExample": "epcis/state-of-health.jsonld",
+      "remark": "Dynamic variant of data point 11; the current value is folded from the EPCIS event stream into the item passport."
+    },
+    {
+      "nr": 52,
+      "name": "Capacity fade (in %)",
+      "source": "BR Annex XIII 4 (a)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:capacityFade"],
+      "epcisExample": "epcis/state-of-health.jsonld"
+    },
+    {
+      "nr": 53,
+      "name": "Power (in W)",
+      "source": "BR Annex XIII 4 (a)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:powerCapability"],
+      "epcisExample": "epcis/state-of-health.jsonld"
+    },
+    {
+      "nr": 54,
+      "name": "Power fade (in %)",
+      "source": "BR Annex XIII 4 (a)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:powerFade"],
+      "epcisExample": "epcis/state-of-health.jsonld"
+    },
+    {
+      "nr": 55,
+      "name": "Internal resistance (in Ω)",
+      "source": "BR Annex XIII 4 (a)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:internalResistance"],
+      "epcisExample": "epcis/state-of-health.jsonld"
+    },
+    {
+      "nr": 56,
+      "name": "Internal resistance increase (in %)",
+      "source": "BR Annex XIII 4 (a)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:internalResistanceIncrease"],
+      "epcisExample": "epcis/state-of-health.jsonld"
+    },
+    {
+      "nr": 57,
+      "name": "Where applicable, energy round trip efficiency (in %)",
+      "source": "BR Annex XIII 4 (a)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "conditional", "note": "if applicable" },
+        "lmt": { "status": "conditional", "note": "if applicable" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:roundTripEfficiency"],
+      "epcisExample": "epcis/state-of-health.jsonld"
+    },
+    {
+      "nr": 58,
+      "name": "Where applicable, energy round trip efficiency fade (in %)",
+      "source": "BR Annex XIII 4 (a)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "conditional", "note": "if applicable" },
+        "lmt": { "status": "conditional", "note": "if applicable" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:roundTripEfficiencyFade"],
+      "epcisExample": "epcis/state-of-health.jsonld"
+    },
+    {
+      "nr": 59,
+      "name": "The expected life-time of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications",
+      "source": "BR Annex XIII 4 (a)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:expectedRemainingCycles"],
+      "epcisExample": "epcis/state-of-health.jsonld"
+    },
+    {
+      "nr": 60,
+      "name": "The expected life-time of the battery under the reference conditions for which it has been designed, in terms of calendar years",
+      "source": "BR Annex XIII 4 (a)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:expectedLifetimeYears", "eubat:expectedRemainingLifetimeMonths"],
+      "epcisExample": "epcis/state-of-health.jsonld"
+    },
+    {
+      "nr": 61,
+      "name": "Information on the state of health of the battery pursuant to Article 14: state of certified energy (SOCE)",
+      "source": "BR Annex XIII 4 (b)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "notToBeFilled", "note": "Not to be filled/displayed" },
+        "industrial": { "status": "notToBeFilled", "note": "Not to be filled/displayed" }
+      },
+      "implementedBy": ["eubat:stateOfCertifiedEnergy"],
+      "epcisExample": "epcis/state-of-certified-energy.jsonld"
+    },
+    {
+      "nr": 62,
+      "name": "Information on the state of health of the battery pursuant to Article 14: remaining capacity",
+      "source": "BR Annex XIII 4 (b)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "notToBeFilled", "note": "Not to be filled/displayed" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:remainingCapacity"],
+      "epcisExample": "epcis/state-of-health.jsonld"
+    },
+    {
+      "nr": 63,
+      "name": "Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability",
+      "source": "BR Annex XIII 4 (b)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "notToBeFilled", "note": "Not to be filled/displayed" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:remainingPowerCapability"],
+      "epcisExample": "epcis/state-of-health.jsonld"
+    },
+    {
+      "nr": 64,
+      "name": "Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round trip efficiency",
+      "source": "BR Annex XIII 4 (b)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "notToBeFilled", "note": "Not to be filled/displayed" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:remainingRoundTripEfficiency"],
+      "epcisExample": "epcis/state-of-health.jsonld"
+    },
+    {
+      "nr": 65,
+      "name": "Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates",
+      "source": "BR Annex XIII 4 (b)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "notToBeFilled", "note": "Not to be filled/displayed" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:evolutionOfSelfDischarge", "eubat:currentSelfDischargingRate"],
+      "epcisExample": "epcis/state-of-health.jsonld"
+    },
+    {
+      "nr": 66,
+      "name": "Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance",
+      "source": "BR Annex XIII 4 (b)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "notToBeFilled", "note": "Not to be filled/displayed" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:internalResistance"],
+      "epcisExample": "epcis/state-of-health.jsonld"
+    },
+    {
+      "nr": 67,
+      "name": "Information on the status of the battery, defined as 'original', 'repurposed', 're-used', 'remanufactured' or 'waste'",
+      "source": "BR Annex XIII 4 (c)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "mandatory" },
+        "lmt": { "status": "mandatory" },
+        "industrial": { "status": "mandatory" }
+      },
+      "implementedBy": ["eubat:BatteryStatus"],
+      "epcisExample": "epcis/commissioning.jsonld",
+      "remark": "Status values map to the controlled individuals eubat:Original, eubat:Repurposed, eubat:Reused, eubat:Remanufactured, eubat:Waste; status transitions are EPCIS lifecycle events."
+    },
+    {
+      "nr": 68,
+      "name": "The number of charging and discharging cycles",
+      "source": "BR Annex XIII 4 (d)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "conditional", "note": "if applicable" },
+        "lmt": { "status": "conditional", "note": "if applicable" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:numberOfFullCycles", "eubat:cycleCount"],
+      "epcisExample": "epcis/amperia-staxwall-lifecycle.jsonld"
+    },
+    {
+      "nr": 69,
+      "name": "Negative events, such as accidents",
+      "source": "BR Annex XIII 4 (d)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "conditional", "note": "if applicable" },
+        "lmt": { "status": "conditional", "note": "if applicable" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:negativeEvents", "eubat:NegativeEvent"],
+      "epcisExample": "epcis/negative-event.jsonld"
+    },
+    {
+      "nr": 70,
+      "name": "Periodically recorded information on the operating environmental conditions, including temperature",
+      "source": "BR Annex XIII 4 (d)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "conditional", "note": "if applicable" },
+        "lmt": { "status": "conditional", "note": "if applicable" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:timeSpentInExtremeTemperaturesAboveBoundary", "eubat:timeSpentInExtremeTemperaturesBelowBoundary"],
+      "epcisExample": "epcis/temperature-extreme.jsonld",
+      "remark": "Periodic recording is the EPCIS sensorElementList mechanism (sensorReport time series with sensorMetadata), not a master-data attribute."
+    },
+    {
+      "nr": 71,
+      "name": "Periodically recorded information on the state of charge",
+      "source": "BR Annex XIII 4 (d)",
+      "lifecycle": "dynamic",
+      "accessTier": "legitimateInterest",
+      "applicability": {
+        "ev": { "status": "conditional", "note": "if applicable" },
+        "lmt": { "status": "conditional", "note": "if applicable" },
+        "industrial": { "status": "conditional", "note": "if applicable" }
+      },
+      "implementedBy": ["eubat:stateOfCharge"],
+      "epcisExample": "epcis/amperia-staxwall-lifecycle.jsonld",
+      "remark": "Periodic recording is the EPCIS sensorElementList mechanism (sensorReport time series with sensorMetadata), not a master-data attribute."
+    }
+  ]
+}

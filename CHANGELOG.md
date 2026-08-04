@@ -9,6 +9,18 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### The official EU battery data-point list becomes a hosted registry
+
+The European Commission's guidance "Digital Batteries Passport — data points by category"
+(v1.0, July 2026, Ares(2026)7579758) enumerates the 71 Battery Passport data points with legal
+source and per-category applicability as of February 2027. The battery module now mirrors it as
+an OpenEPCIS-hosted vocabulary (`ec-battery-passport-guidance/1.0`, generator
+`build:ec-guidance-vocab`), dual-typed `rdf:Property` + `cccev:InformationRequirement`, with the
+static/dynamic split, Article 77(2) access tiers and applicability matrix machine-readable, and
+`rdfs:seeAlso` back-references from 87 `eubat:` terms. Coverage is complete: all 71 data points
+resolve to existing terms. Details in the
+[battery changelog](extensions/eu/battery/CHANGELOG.md).
+
 ## [0.9.9] - 2026-08-04
 
 ### PPWR becomes a full downstream-consumable module; cpr wired alongside
