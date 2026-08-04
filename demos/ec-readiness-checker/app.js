@@ -33479,9 +33479,18 @@ async function runShacl(docs) {
     `SHACL: ${shacl.shapesActivated} shapes activated (${category}) \xB7 engine rdf-validate-shacl \xB7 ${shacl.conforms ? "conforms" : "does not conform"}`
   );
 }
+var ENGINE_EXPLAIN = {
+  structural: "The quick scan walks the official applicability matrix and checks, per data point, whether one of its carrying terms appears anywhere in the document \u2014 as a (prefixed or bare) key, as a type, or as a GS1 Digital Link identifier. Fast and format-tolerant, but it does not care where in the structure a term sits.",
+  shacl: "The SHACL engine (rdf-validate-shacl, running in your browser) expands the passport to an RDF graph and validates it against the published per-category shapes (ec-readiness-shapes.ttl): each data point is a constraint whose property path is derived from the ontology (e.g. technicalSpecifications \u2192 ratedCapacity), so a term only counts when it sits in the right place. Model, batch and item passports are folded into one focus node first, mirroring how a GS1 Digital Link resolver resolves the hierarchy. The same shapes file runs in any SHACL tool \u2014 this checker has no monopoly on the checklist."
+};
+function renderEngineExplain() {
+  const mode = $("mode").value;
+  $("engine-explain").textContent = ENGINE_EXPLAIN[mode] ?? "";
+}
 async function check() {
   try {
     setStatus("Checking\u2026");
+    renderEngineExplain();
     const docs = parseInput();
     const mode = $("mode").value;
     renderTimeline();
@@ -33537,6 +33546,46 @@ for (const m of MILESTONES) {
   });
   $("datechips").prepend(btn);
 }
+async function loadFiles(files) {
+  const docs = [];
+  for (const file of Array.from(files)) {
+    try {
+      const parsed = JSON.parse(await file.text());
+      if (Array.isArray(parsed)) docs.push(...parsed);
+      else docs.push(parsed);
+    } catch {
+      setStatus(`${file.name}: not valid JSON`, true);
+      return;
+    }
+  }
+  if (!docs.length) return;
+  sampleEl.value = String(SAMPLES.length - 1);
+  inputEl().value = JSON.stringify(docs.length === 1 ? docs[0] : docs, null, 2);
+  void check();
+}
+var dropzone = $("dropzone");
+var fileInput = $("fileinput");
+$("pickfiles").addEventListener("click", () => fileInput.click());
+fileInput.addEventListener("change", () => {
+  if (fileInput.files?.length) void loadFiles(fileInput.files);
+  fileInput.value = "";
+});
+for (const ev of ["dragover", "dragenter"]) {
+  dropzone.addEventListener(ev, (e) => {
+    e.preventDefault();
+    dropzone.classList.add("dragover");
+  });
+}
+for (const ev of ["dragleave", "dragend"]) {
+  dropzone.addEventListener(ev, () => dropzone.classList.remove("dragover"));
+}
+dropzone.addEventListener("drop", (e) => {
+  e.preventDefault();
+  dropzone.classList.remove("dragover");
+  const files = e.dataTransfer?.files;
+  if (files?.length) void loadFiles(files);
+});
+renderEngineExplain();
 renderTimeline();
 loadSample(0);
 /*! Bundled license information:

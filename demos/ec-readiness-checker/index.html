@@ -32,12 +32,14 @@
     </select>
     <label for="mode">Engine</label>
     <select id="mode">
-      <option value="structural">Structural (matrix walk)</option>
-      <option value="shacl">SHACL (rdf-validate-shacl)</option>
+      <option value="structural">Quick scan — are the terms there?</option>
+      <option value="shacl">SHACL — is the RDF graph valid?</option>
     </select>
     <button id="check">Check readiness →</button>
     <span id="status"></span>
   </div>
+
+  <p id="engine-explain" class="engine-explain"></p>
 
   <div class="toolbar datebar">
     <label for="asof">As of</label>
@@ -51,6 +53,11 @@
     <section class="card input-card">
       <div class="pane-head">
         <h2>Passport JSON-LD <span class="hint">(one document, or an array of model/batch/item documents)</span></h2>
+      </div>
+      <div id="dropzone" class="dropzone">
+        <p><strong>Drop passport file(s) here</strong> — model, batch and item together is fine —</p>
+        <p>or <button id="pickfiles" class="chipbtn" type="button">select files…</button> or paste JSON below.</p>
+        <input type="file" id="fileinput" accept=".json,.jsonld,application/json,application/ld+json" multiple hidden />
       </div>
       <textarea id="input" spellcheck="false" placeholder='{ "@context": [...], "id": "https://id.gs1.org/01/09521002005004", ... }  — or  [ {model}, {batch}, {item} ]'></textarea>
     </section>
