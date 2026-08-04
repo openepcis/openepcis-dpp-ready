@@ -14,6 +14,9 @@
  *     --date YYYY-MM-DD              reference date (default 2027-02-18)
  *     --json                         machine-readable report on stdout
  *     --strict                       exit 1 when mandatory data points are missing
+ *     --shacl                        validate with a real SHACL engine against
+ *                                    validation/ec-readiness-shapes.ttl instead of
+ *                                    the structural matrix walk (same source data)
  *
  * Example:
  *   pnpm run check:ec-readiness -- extensions/eu/battery/examples/battery-product{-model,-batch,}.jsonld
@@ -41,6 +44,7 @@ let category: Category | undefined;
 let asOf: string | undefined;
 let asJson = false;
 let strict = false;
+let useShacl = false;
 
 for (let i = 0; i < args.length; i++) {
   const a = args[i];
@@ -57,6 +61,8 @@ for (let i = 0; i < args.length; i++) {
     asJson = true;
   } else if (a === "--strict") {
     strict = true;
+  } else if (a === "--shacl") {
+    useShacl = true;
   } else if (a.startsWith("--")) {
     console.error(`unknown option: ${a}`);
     process.exit(2);
@@ -73,6 +79,33 @@ if (!files.length) {
 const matrix: Matrix = JSON.parse(readFileSync(MATRIX_PATH, "utf-8"));
 const docs = files.map((f) => JSON.parse(readFileSync(f, "utf-8")));
 const report = evaluateReadiness(matrix, docs, { category, asOf });
+
+if (useShacl) {
+  // SHACL path: the same applicability data, executed as generated shapes by a
+  // real engine (rdf-validate-shacl) over the passports' actual RDF graphs.
+  const { validateWithShacl } = await import("./lib/ec-readiness-shacl.ts");
+  const shacl = await validateWithShacl(docs, report.category);
+  if (asJson) {
+    console.log(JSON.stringify(shacl, null, 2));
+  } else {
+    console.log(
+      `EC Battery Passport readiness (SHACL) — ${shacl.shapesActivated} shapes activated for category ${shacl.category}`,
+    );
+    console.log(`documents: ${files.join(", ")}\n`);
+    const MARK = { Violation: "\x1b[31m✗\x1b[0m", Warning: "\x1b[33m?\x1b[0m", Info: "\x1b[2mℹ\x1b[0m" };
+    for (const f of shacl.findings) {
+      console.log(`${MARK[f.severity]} ${f.message}`);
+    }
+    const counts = { Violation: 0, Warning: 0, Info: 0 };
+    for (const f of shacl.findings) counts[f.severity]++;
+    console.log(
+      `\n${shacl.conforms ? "\x1b[32mconforms\x1b[0m (no violations)" : "\x1b[31mdoes not conform\x1b[0m"}` +
+        ` · violations: ${counts.Violation} · warnings: ${counts.Warning} · info: ${counts.Info}`,
+    );
+  }
+  if (strict && !shacl.conforms) process.exit(1);
+  process.exit(0);
+}
 
 if (asJson) {
   console.log(JSON.stringify(report, null, 2));

@@ -36,8 +36,21 @@ pnpm run check:ec-readiness -- \
   extensions/eu/battery/examples/battery-product-model.jsonld \
   extensions/eu/battery/examples/battery-product-batch.jsonld \
   extensions/eu/battery/examples/battery-product.jsonld
-# options: --category ev|lmt|industrial · --date YYYY-MM-DD · --json · --strict
+# options: --category ev|lmt|industrial · --date YYYY-MM-DD · --json · --strict · --shacl
 ```
+
+## SHACL mode
+
+`--shacl` runs a real SHACL engine (rdf-validate-shacl) against the generated
+[`ec-readiness-shapes.ttl`](../../extensions/eu/battery/validation/ec-readiness-shapes.ttl)
+instead of the structural matrix walk — same source data, but graph-precise:
+the anchor paths (e.g. `technicalSpecifications/ratedCapacity`) are derived
+from the ontologies' `rdfs:domain` declarations, statuses map to SHACL
+severities (mandatory = `sh:Violation`, conditional = `sh:Warning`,
+optional/pending = `sh:Info`), and the CLI activates the shapes of the chosen
+category and folds the model/batch/item Digital Link hierarchy into one focus
+node before validating. The shapes file is self-contained — any SHACL engine
+can execute the same checklist without OpenEPCIS tooling.
 
 Shared evaluation core: [`scripts/lib/ec-readiness.ts`](../../scripts/lib/ec-readiness.ts).
 Applicability matrix: [`extensions/eu/battery/validation/ec-datapoint-applicability.json`](../../extensions/eu/battery/validation/ec-datapoint-applicability.json)

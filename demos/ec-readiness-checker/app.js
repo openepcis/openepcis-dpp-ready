@@ -858,7 +858,8 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:expectedNumberOfCycles"
+        "eubat:expectedNumberOfCycles",
+        "eubat:expectedCycleLife"
       ]
     },
     {
@@ -976,7 +977,8 @@ var ec_datapoint_applicability_default = {
         }
       },
       implementedBy: [
-        "eubat:roundTripEnergyEfficiency"
+        "eubat:roundTripEnergyEfficiency",
+        "eubat:roundTripEfficiency"
       ]
     },
     {

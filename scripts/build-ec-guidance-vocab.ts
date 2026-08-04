@@ -27,13 +27,27 @@
  * Outputs:
  *   extensions/eu/battery/vocab/ec-battery-passport-guidance-1.0.ttl
  *   extensions/eu/battery/validation/ec-datapoint-applicability.json
+ *   extensions/eu/battery/validation/ec-readiness-shapes.ttl   (SHACL)
  *   extensions/eu/battery/docs/EC_GUIDANCE_DATAPOINTS.md
  * Run: pnpm run build:ec-guidance-vocab
+ *
+ * The SHACL artifact makes the applicability matrix executable by ANY SHACL
+ * engine, not just our readiness checker: one node shape per (data point,
+ * category), each carrying a single constraint (property minCount, or sh:or
+ * across the alternative carrying terms; the identification data points 1/7
+ * additionally accept a GS1 Digital Link focus-node IRI via sh:pattern), the
+ * status mapped to SHACL severity (mandatory=Violation, conditional=Warning,
+ * optional/pending=Info; notToBeFilled emits no shape), the guidance wording
+ * in sh:message and the registry IRI in rdfs:seeAlso. All shapes ship
+ * sh:deactivated true; a validator activates the shapes of ONE category
+ * (IRI suffix -ev / -lmt / -industrial) — otherwise a passport would be
+ * checked against all three categories at once.
  */
 
 import { readFileSync, writeFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
+import { Parser } from "n3";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -41,6 +55,7 @@ const MODULE = join(ROOT, "extensions/eu/battery");
 const SOURCE = join(MODULE, "vocab/ec-guidance-datapoints.json");
 const OUT_TTL = join(MODULE, "vocab/ec-battery-passport-guidance-1.0.ttl");
 const OUT_MATRIX = join(MODULE, "validation/ec-datapoint-applicability.json");
+const OUT_SHAPES = join(MODULE, "validation/ec-readiness-shapes.ttl");
 const OUT_DOC = join(MODULE, "docs/EC_GUIDANCE_DATAPOINTS.md");
 
 const NS = "https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#";
@@ -233,6 +248,229 @@ const matrix = {
 };
 writeFileSync(OUT_MATRIX, JSON.stringify(matrix, null, 2) + "\n");
 
+// ── SHACL readiness shapes ───────────────────────────────────────────────────
+//
+// SHACL is graph-precise: most carrying terms do not hang directly off the
+// eubat:Battery focus node but sit on linked nodes (technicalSpecifications/
+// ratedCapacity, endOfLifeInfo/extinguishingAgent, manufacturer/address …).
+// The anchor paths are DERIVED from the ontologies' rdfs:domain declarations:
+// BFS over the object-property edges starting at the product node yields the
+// shortest property path(s) from Battery to each term's domain class.
+
+const PREFIXES: Record<string, string> = {
+  "https://ref.gs1.org/voc/": "gs1:",
+  "https://schema.org/": "schema:",
+  "https://ref.openepcis.io/extensions/common/core/": "oec:",
+  "https://ref.openepcis.io/extensions/eu/battery/": "eubat:",
+};
+const toCurie = (iri: string): string => {
+  for (const [ns, prefix] of Object.entries(PREFIXES)) {
+    if (iri.startsWith(ns)) return prefix + iri.slice(ns.length);
+  }
+  return `<${iri}>`;
+};
+const RDFS = "http://www.w3.org/2000/01/rdf-schema#";
+const OWL = "http://www.w3.org/2002/07/owl#";
+
+/** curie -> ordered path segments (curie[]) from the Battery focus node; [] = flat. */
+function deriveAnchorPaths(): Map<string, string[][]> {
+  const quads = [
+    ...new Parser().parse(readFileSync(join(MODULE, "ontology/battery.ttl"), "utf-8")),
+    ...new Parser().parse(
+      readFileSync(join(ROOT, "extensions/common/core/ontology/dpp-core.ttl"), "utf-8"),
+    ),
+  ];
+  const domain = new Map<string, string>();
+  const range = new Map<string, string>();
+  const objectProps = new Set<string>();
+  for (const q of quads) {
+    if (q.predicate.value === `${RDFS}domain` && q.object.termType === "NamedNode")
+      domain.set(q.subject.value, q.object.value);
+    if (q.predicate.value === `${RDFS}range` && q.object.termType === "NamedNode")
+      range.set(q.subject.value, q.object.value);
+    if (
+      q.predicate.value === "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" &&
+      q.object.value === `${OWL}ObjectProperty`
+    )
+      objectProps.add(q.subject.value);
+  }
+
+  // The product/battery focus node. Object properties without a declared domain
+  // are treated as product-level (the core's cross-cutting pattern), and
+  // gs1:manufacturer is the (upstream, locally undeclared) edge to Organization.
+  const START = "__product__";
+  const classOf = (c: string | undefined) =>
+    !c ||
+    c === "https://ref.gs1.org/voc/Product" ||
+    c === "https://ref.openepcis.io/extensions/eu/battery/Battery" ||
+    c === "https://schema.org/Product"
+      ? START
+      : c;
+  const edges = new Map<string, Array<{ via: string; to: string }>>();
+  const addEdge = (from: string, via: string, to: string) => {
+    if (!edges.has(from)) edges.set(from, []);
+    edges.get(from)!.push({ via, to });
+  };
+  for (const p of objectProps) {
+    const to = range.get(p);
+    if (!to) continue;
+    addEdge(classOf(domain.get(p)), p, to);
+  }
+  addEdge(START, "https://ref.gs1.org/voc/manufacturer", "https://ref.gs1.org/voc/Organization");
+
+  // BFS: shortest path(s) from START to every reachable class, depth <= 3.
+  const pathsTo = new Map<string, string[][]>();
+  let frontier: Array<{ at: string; path: string[] }> = [{ at: START, path: [] }];
+  const seenDepth = new Map<string, number>([[START, 0]]);
+  for (let depth = 1; depth <= 3; depth++) {
+    const next: typeof frontier = [];
+    for (const { at, path } of frontier) {
+      for (const { via, to } of edges.get(at) ?? []) {
+        const d = seenDepth.get(to);
+        if (d !== undefined && d < depth) continue;
+        seenDepth.set(to, depth);
+        const newPath = [...path, via];
+        if (!pathsTo.has(to)) pathsTo.set(to, []);
+        if (pathsTo.get(to)!.length < 3 && (d === undefined || d === depth)) {
+          pathsTo.get(to)!.push(newPath);
+          next.push({ at: to, path: newPath });
+        }
+      }
+    }
+    frontier = next;
+  }
+
+  // Locally undeclared upstream carrying-term domains (GS1 Web Vocabulary).
+  const GS1_ORG = "https://ref.gs1.org/voc/Organization";
+  const UPSTREAM_DOMAIN: Record<string, string> = {
+    "gs1:organizationName": GS1_ORG,
+    "gs1:address": GS1_ORG,
+    "gs1:contactPoint": GS1_ORG,
+  };
+
+  const result = new Map<string, string[][]>();
+  const allTerms = new Set<string>();
+  for (const dp of dataPoints) for (const t of dp.implementedBy) allTerms.add(t);
+  for (const term of allTerms) {
+    if (isClassTerm(term)) continue;
+    const iri = curieToIri(term);
+    const d = UPSTREAM_DOMAIN[term] ?? domain.get(iri);
+    const cls = classOf(d);
+    if (cls === START) {
+      result.set(term, [[]]);
+      continue;
+    }
+    const anchors = pathsTo.get(cls);
+    // Fallback: no derivable anchor -> flat path (still catches direct use).
+    result.set(
+      term,
+      anchors?.length ? anchors.map((a) => [...a.map(toCurie)]) : [[]],
+    );
+  }
+  return result;
+}
+
+const isClassTerm = (curie: string) => /^[A-Z]/.test(curie.split(":").pop() ?? "");
+const curieToIri = (curie: string): string => {
+  for (const [ns, prefix] of Object.entries(PREFIXES)) {
+    if (curie.startsWith(prefix)) return ns + curie.slice(prefix.length);
+  }
+  return curie;
+};
+
+const anchorPaths = deriveAnchorPaths();
+
+const SEVERITY: Record<Applicability["status"], string | null> = {
+  mandatory: "sh:Violation",
+  conditional: "sh:Warning",
+  optional: "sh:Info",
+  pending: "sh:Info",
+  notToBeFilled: null,
+};
+
+const STATUS_HINT: Record<Applicability["status"], string> = {
+  mandatory: "mandatory",
+  conditional: "provide if the condition applies",
+  optional: "optional",
+  pending: "not yet required as of Feb 2027 (act outstanding)",
+  notToBeFilled: "",
+};
+
+/**
+ * sh:or members for one carrying term: one property shape per derived anchor
+ * path ([] = flat -> sh:path <term>; segments -> SHACL sequence path).
+ * Class-typed carriers are skipped — every data point also has a property
+ * carrier, and "class used anywhere" is not expressible as a focus-node path.
+ */
+function orMembers(term: string): string[] {
+  if (isClassTerm(term)) return [];
+  const variants = anchorPaths.get(term) ?? [[]];
+  return variants.map((segments) => {
+    const path = segments.length ? `( ${[...segments, term].join(" ")} )` : term;
+    return `[ sh:path ${path} ; sh:minCount 1 ]`;
+  });
+}
+
+/** GS1 Digital Link product identity on the focus node, as an sh:or member. */
+const DL_MEMBER = `[ sh:nodeKind sh:IRI ; sh:pattern "/01/[0-9]{8,14}" ]`;
+
+const shapes: string[] = [];
+shapes.push(`@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix schema: <https://schema.org/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix eubat: <https://ref.openepcis.io/extensions/eu/battery/> .
+@prefix ecbp: <${NS}> .
+
+# GENERATED FILE - do not edit. Source: vocab/ec-guidance-datapoints.json,
+# generator: scripts/build-ec-guidance-vocab.ts (pnpm run build:ec-guidance-vocab).
+
+<${ONT}shapes>
+    a sh:ShapesGraph ;
+    dcterms:title "EC Battery Passport readiness shapes (guidance v${doc.version})"@en ;
+    dcterms:description "SHACL form of the EC guidance applicability matrix (${esc(doc.reference)}): one node shape per (data point, category), targeting eubat:Battery. Statuses map to severities - mandatory = sh:Violation, conditional = sh:Warning, optional and pending = sh:Info; 'not to be filled' data points emit no shape. Every shape ships sh:deactivated true: activate the shapes of exactly ONE category (IRI suffix -ev / -lmt / -industrial) before validating, otherwise a passport is checked against all three categories at once. Validate the MERGED model + batch + item graphs of one battery - the dynamic Annex XIII 4 data points only exist at item level. This is the structural coverage check made executable for any SHACL engine; value-level validation lives in battery-shapes.ttl."@en ;
+    dcterms:source <${doc.regulation}> ;
+    dcterms:license <${doc.license}> ;
+    rdfs:seeAlso <${ONT}> ;
+    owl:versionInfo "${doc.version}" .
+`);
+
+// owl prefix used only in the header line above.
+shapes[0] = shapes[0].replace("@prefix sh:", "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n@prefix sh:");
+
+for (const cat of ["ev", "lmt", "industrial"] as const) {
+  const catLabel = { ev: "EV", lmt: "LMT", industrial: "industrial" }[cat];
+  shapes.push(`# ── ${catLabel} batteries ${"─".repeat(Math.max(1, 60 - catLabel.length))}\n`);
+  for (const dp of dataPoints) {
+    const a = dp.applicability[cat];
+    const severity = SEVERITY[a.status];
+    if (!severity) continue;
+    const nr = String(dp.nr).padStart(2, "0");
+    const members = dp.implementedBy.flatMap(orMembers);
+    if (dp.nr === 1 || dp.nr === 7) members.push(DL_MEMBER);
+    const constraint =
+      members.length === 1
+        ? `    sh:property ${members[0].replace("]", `; sh:severity ${severity} ; sh:message "${esc(
+            `EC data point ${dp.nr} (${catLabel}, ${STATUS_HINT[a.status]}${a.note ? `: ${a.note}` : ""}): ${dp.name} — expected ${dp.implementedBy.join(" / ")}`,
+          )}" ]`)} ;`
+        : `    sh:or ( ${members.join(" ")} ) ;\n    sh:severity ${severity} ;\n    sh:message "${esc(
+            `EC data point ${dp.nr} (${catLabel}, ${STATUS_HINT[a.status]}${a.note ? `: ${a.note}` : ""}): ${dp.name} — expected ${dp.implementedBy.join(" / ")}${dp.nr === 1 || dp.nr === 7 ? " or a GS1 Digital Link id" : ""}`,
+          )}" ;`;
+    shapes.push(`ecbp:dp-${nr}-${cat}
+    a sh:NodeShape ;
+    sh:targetClass eubat:Battery ;
+    sh:deactivated true ;
+${constraint}
+    rdfs:seeAlso ${dpIri(dp.nr)} .
+`);
+  }
+}
+
+writeFileSync(OUT_SHAPES, shapes.join("\n"));
+
 // ── Coverage doc ─────────────────────────────────────────────────────────────
 
 const badge = (a: Applicability) =>
@@ -247,6 +485,7 @@ OpenEPCIS battery vocabulary (\`eubat:\` plus \`gs1:\` / \`schema:\` / \`oec:\`)
 
 - **Machine-readable registry (RDF)**: [\`../vocab/ec-battery-passport-guidance-1.0.ttl\`](../vocab/ec-battery-passport-guidance-1.0.ttl) — minted under \`${NS}\` because the Commission publishes no IRIs (same pattern as the GEFEG BatteryPass-Ready mirror). Each data point is dual-typed \`rdf:Property\` + \`cccev:InformationRequirement\`.
 - **Applicability matrix (JSON)**: [\`../validation/ec-datapoint-applicability.json\`](../validation/ec-datapoint-applicability.json).
+- **SHACL readiness shapes**: [\`../validation/ec-readiness-shapes.ttl\`](../validation/ec-readiness-shapes.ttl) — the matrix made executable for any SHACL engine: one node shape per (data point, category) with the status mapped to severity (mandatory = Violation, conditional = Warning, optional/pending = Info) and the anchor paths derived from the ontologies' \`rdfs:domain\` declarations. All shapes ship \`sh:deactivated true\`; activate exactly one category (IRI suffix \`-ev\`/\`-lmt\`/\`-industrial\`) and validate the merged model + batch + item graphs. \`pnpm run check:ec-readiness -- --shacl\` does both automatically.
 - **Source of truth**: [\`../vocab/ec-guidance-datapoints.json\`](../vocab/ec-guidance-datapoints.json); regenerate with \`pnpm run build:ec-guidance-vocab\`.
 
 ## The four mechanics encoded in the guidance table
@@ -321,4 +560,5 @@ writeFileSync(OUT_DOC, md.join("\n"));
 
 console.log(`✔ ${OUT_TTL.replace(ROOT + "/", "")} (${dataPoints.length} data points)`);
 console.log(`✔ ${OUT_MATRIX.replace(ROOT + "/", "")}`);
+console.log(`✔ ${OUT_SHAPES.replace(ROOT + "/", "")}`);
 console.log(`✔ ${OUT_DOC.replace(ROOT + "/", "")}`);

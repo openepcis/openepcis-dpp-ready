@@ -62,12 +62,12 @@ Applicability: **M** mandatory · **O** optional · **C** conditional (see note)
 | 28 | Maximum voltage, with temperature range when relevant | BR Annex XIII 1 (h) | M | M | M | static | `eubat:maximumVoltage` |
 | 29 | Original power capability (in Watts) | BR Annex XIII 1 (i) | M | M | M | static | `eubat:originalPowerCapability` |
 | 30 | Power limits, with temperature range when relevant | BR Annex XIII 1 (i) | M | M | M | static | `eubat:maximumPermittedBatteryPower`, `eubat:maximumChargingPower`, `eubat:maximumDischargingPower` |
-| 31 | Expected battery lifetime expressed in cycles | BR Annex XIII 1 (j) | M | M | C | static | `eubat:expectedNumberOfCycles` |
+| 31 | Expected battery lifetime expressed in cycles | BR Annex XIII 1 (j) | M | M | C | static | `eubat:expectedNumberOfCycles`, `eubat:expectedCycleLife` |
 | 32 | Reference test used for expected battery lifetime expressed in cycles | BR Annex XIII 1 (j) | M | M | C | static | `eubat:lifetimeReferenceTest` |
 | 33 | Capacity threshold for exhaustion | BR Annex XIII 1 (k) | M | - | - | static | `eubat:capacityThresholdForExhaustion` |
 | 34 | Temperature range the battery can withstand when not in use (reference test) | BR Annex XIII 1 (l) | M | M | M | static | `eubat:temperatureRangeIdleState` |
 | 35 | Period for which the commercial warranty for the calendar life applies | BR Annex XIII 1 (m) | C | C | C | static | `eubat:warrantyConditions`, `gs1:warranty` |
-| 36 | Initial round trip energy efficiency | BR Annex XIII 1 (n) | M | M | C | static | `eubat:roundTripEnergyEfficiency` |
+| 36 | Initial round trip energy efficiency | BR Annex XIII 1 (n) | M | M | C | static | `eubat:roundTripEnergyEfficiency`, `eubat:roundTripEfficiency` |
 | 37 | Round trip energy efficiency at 50 % of cycle-life | BR Annex XIII 1 (n) | M | M | C | static | `eubat:roundTripEfficiencyAt50PercentCycleLife` |
 | 38 | Internal battery cell and pack resistance | BR Annex XIII 1 (o) | M | M | M | static | `eubat:initialInternalResistance` |
 | 39 | C-rate of relevant cycle-life test | BR Annex XIII 1 (p) | M | M | C | static | `eubat:cRateLifeCycleTest` |

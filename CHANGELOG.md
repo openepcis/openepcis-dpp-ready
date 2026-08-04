@@ -33,6 +33,23 @@ structural coverage check, complementary to SHACL/JSON Schema. Exercising it aga
 examples surfaced that data point 67 (battery status) is operatively carried by `schema:status`
 — the registry now records both the property and the `eubat:BatteryStatus` enum class.
 
+### The applicability matrix becomes executable SHACL
+
+`build:ec-guidance-vocab` additionally emits
+[`validation/ec-readiness-shapes.ttl`](extensions/eu/battery/validation/ec-readiness-shapes.ttl):
+one node shape per (data point, category) targeting `eubat:Battery`, statuses mapped to
+severities (mandatory = `sh:Violation`, conditional = `sh:Warning`, optional/pending =
+`sh:Info`), the guidance wording in `sh:message` and the registry IRI in `rdfs:seeAlso` — the
+official checklist executable by ANY SHACL engine, not just our checker. The anchor paths
+(`technicalSpecifications/ratedCapacity`, `manufacturer/address`, …) are derived from the
+ontologies' `rdfs:domain` declarations via BFS over the object-property graph, so the shapes
+stay correct as the ontology evolves. `check:ec-readiness --shacl` runs rdf-validate-shacl over
+them, activating one category's shapes and folding the model/batch/item Digital Link hierarchy
+into a single focus node — the RDF mirror of "a finer passport resolves coarser data up the
+hierarchy". SHACL's graph precision immediately paid for itself: data points 31 and 36 gained
+their second carriers (`eubat:expectedCycleLife`, `eubat:roundTripEfficiency`) that the
+key-scanning structural check had papered over.
+
 ## [0.9.9] - 2026-08-04
 
 ### PPWR becomes a full downstream-consumable module; cpr wired alongside
