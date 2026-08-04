@@ -21,6 +21,18 @@ static/dynamic split, Article 77(2) access tiers and applicability matrix machin
 resolve to existing terms. Details in the
 [battery changelog](extensions/eu/battery/CHANGELOG.md).
 
+### A readiness checker against the official EU list
+
+[`demos/ec-readiness-checker`](demos/ec-readiness-checker/) (browser, `pnpm run
+demo:ec-readiness`) and `pnpm run check:ec-readiness` (CLI) evaluate battery passport JSON-LD
+against the 71 EC guidance data points: per category and reference date, each data point comes
+back fulfilled / missing / condition-to-check / not-yet-required (act outstanding) /
+not-to-be-filled, with the carrying terms as evidence and, for the dynamic Annex XIII 4 points,
+the EPCIS event example that serves them. Shared core in `scripts/lib/ec-readiness.ts`; a
+structural coverage check, complementary to SHACL/JSON Schema. Exercising it against the
+examples surfaced that data point 67 (battery status) is operatively carried by `schema:status`
+— the registry now records both the property and the `eubat:BatteryStatus` enum class.
+
 ## [0.9.9] - 2026-08-04
 
 ### PPWR becomes a full downstream-consumable module; cpr wired alongside

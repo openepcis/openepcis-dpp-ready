@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EC Battery Passport readiness checker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <p class="eyebrow">EU Battery Regulation 2023/1542 · February 2027</p>
+    <h1>EC Battery Passport readiness checker</h1>
+    <p class="lead">
+      The European Commission's guidance <em>"Digital Batteries Passport — data points by
+      category"</em> (v1.0, July 2026, Ares(2026)7579758) enumerates the 71 official data
+      points with per-category applicability. Paste your battery passport JSON-LD — or pick
+      a sample — and see the checklist. Pass <strong>all levels of one battery</strong>
+      (model + batch + item) for the full picture: the dynamic Annex XIII 4 data points are
+      folded from the EPCIS event stream at item level.
+    </p>
+  </header>
+
+  <div class="toolbar">
+    <label for="sample">Sample</label>
+    <select id="sample"></select>
+    <label for="category">Category</label>
+    <select id="category">
+      <option value="auto">auto-detect</option>
+      <option value="ev">EV battery</option>
+      <option value="lmt">LMT battery</option>
+      <option value="industrial">Industrial battery</option>
+    </select>
+    <label for="asof">As of</label>
+    <input type="date" id="asof" value="2027-02-18" />
+    <button id="check">Check readiness →</button>
+    <span id="status"></span>
+  </div>
+
+  <main>
+    <section class="card input-card">
+      <div class="pane-head">
+        <h2>Passport JSON-LD <span class="hint">(one document, or an array of model/batch/item documents)</span></h2>
+      </div>
+      <textarea id="input" spellcheck="false" placeholder='{ "@context": [...], "id": "https://id.gs1.org/01/09521002005004", ... }  — or  [ {model}, {batch}, {item} ]'></textarea>
+    </section>
+
+    <section class="card result-card">
+      <div class="pane-head">
+        <h2>Checklist</h2>
+        <div id="scorebox" hidden>
+          <div class="scorebar"><div id="scorefill"></div></div>
+          <span id="scoretext"></span>
+        </div>
+      </div>
+      <div id="legend" class="legend" hidden>
+        <span class="badge b-fulfilled">fulfilled</span>
+        <span class="badge b-missing">missing</span>
+        <span class="badge b-conditionOpen">condition to check</span>
+        <span class="badge b-notYetRequired">not yet required</span>
+        <span class="badge b-providedEarly">provided early</span>
+        <span class="badge b-optionalAbsent">optional</span>
+        <span class="badge b-notApplicable">not to be filled</span>
+      </div>
+      <div id="results"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      Structural coverage check against the official EC data-point list — not a validation of
+      values (SHACL shapes and JSON Schema do that). Registry:
+      <a href="https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0" rel="noopener">ec-battery-passport-guidance/1.0</a>
+      · guidance reused under CC BY 4.0, © European Union, 2026 · not an official position of
+      the European Commission.
+    </p>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
