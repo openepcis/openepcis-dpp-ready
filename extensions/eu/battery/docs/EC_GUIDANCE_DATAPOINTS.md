@@ -6,6 +6,7 @@ OpenEPCIS battery vocabulary (`eubat:` plus `gs1:` / `schema:` / `oec:`).
 
 - **Machine-readable registry (RDF)**: [`../vocab/ec-battery-passport-guidance-1.0.ttl`](../vocab/ec-battery-passport-guidance-1.0.ttl) — minted under `https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#` because the Commission publishes no IRIs (same pattern as the GEFEG BatteryPass-Ready mirror). Each data point is dual-typed `rdf:Property` + `cccev:InformationRequirement`.
 - **Applicability matrix (JSON)**: [`../validation/ec-datapoint-applicability.json`](../validation/ec-datapoint-applicability.json).
+- **SHACL readiness shapes**: [`../validation/ec-readiness-shapes.ttl`](../validation/ec-readiness-shapes.ttl) — the matrix made executable for any SHACL engine: one node shape per (data point, category) with the status mapped to severity (mandatory = Violation, conditional = Warning, optional/pending = Info) and the anchor paths derived from the ontologies' `rdfs:domain` declarations. All shapes ship `sh:deactivated true`; activate exactly one category (IRI suffix `-ev`/`-lmt`/`-industrial`) and validate the merged model + batch + item graphs. `pnpm run check:ec-readiness -- --shacl` does both automatically.
 - **Source of truth**: [`../vocab/ec-guidance-datapoints.json`](../vocab/ec-guidance-datapoints.json); regenerate with `pnpm run build:ec-guidance-vocab`.
 
 ## The four mechanics encoded in the guidance table

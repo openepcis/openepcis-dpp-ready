@@ -428,7 +428,7 @@ shapes.push(`@prefix sh: <http://www.w3.org/ns/shacl#> .
 # GENERATED FILE - do not edit. Source: vocab/ec-guidance-datapoints.json,
 # generator: scripts/build-ec-guidance-vocab.ts (pnpm run build:ec-guidance-vocab).
 
-<${ONT}shapes>
+<https://ref.openepcis.io/extensions/eu/battery/ec-readiness-shapes.ttl>
     a sh:ShapesGraph ;
     dcterms:title "EC Battery Passport readiness shapes (guidance v${doc.version})"@en ;
     dcterms:description "SHACL form of the EC guidance applicability matrix (${esc(doc.reference)}): one node shape per (data point, category), targeting eubat:Battery. Statuses map to severities - mandatory = sh:Violation, conditional = sh:Warning, optional and pending = sh:Info; 'not to be filled' data points emit no shape. Every shape ships sh:deactivated true: activate the shapes of exactly ONE category (IRI suffix -ev / -lmt / -industrial) before validating, otherwise a passport is checked against all three categories at once. Validate the MERGED model + batch + item graphs of one battery - the dynamic Annex XIII 4 data points only exist at item level. This is the structural coverage check made executable for any SHACL engine; value-level validation lives in battery-shapes.ttl."@en ;

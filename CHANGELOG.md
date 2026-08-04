@@ -50,6 +50,18 @@ hierarchy". SHACL's graph precision immediately paid for itself: data points 31 
 their second carriers (`eubat:expectedCycleLife`, `eubat:roundTripEfficiency`) that the
 key-scanning structural check had papered over.
 
+The browser demo runs the same engine client-side: an "Engine" switch toggles between the
+structural matrix walk and rdf-validate-shacl over the bundled shapes (contexts bundled, unknown
+context URLs fetched — ref.openepcis.io serves CORS), rendering both into the same checklist.
+The environment-neutral core lives in `scripts/lib/ec-readiness-shacl-core.ts`; the Node wrapper
+keeps the filesystem/documentLoader IO. The date picker gained regulatory-milestone chips and a
+timeline (guidance v1.0 publication, passport-duty start 2027-02-18, the selected reference date
+as a moving marker) with a note that the carbon-footprint and instructions-for-use data points
+remain blocked on the pending implementing act / Omnibus IV. The shapes and the applicability
+matrix are published as battery-module artefacts on ref.openepcis.io
+(`extensions/eu/battery/ec-readiness-shapes.ttl`, versioned copies included), and the shapes
+graph IRI is that hosted URL, so the document self-dereferences.
+
 ## [0.9.9] - 2026-08-04
 
 ### PPWR becomes a full downstream-consumable module; cpr wired alongside

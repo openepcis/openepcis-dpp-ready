@@ -103,6 +103,65 @@ button:hover { filter: brightness(1.08); }
 #status { color: var(--muted); font-size: .85rem; }
 #status.err { color: var(--err); }
 
+/* ---- Date bar & milestone timeline ---------------------------------------- */
+.datebar { margin-bottom: .4rem; }
+.datechips { display: flex; gap: .35rem; flex-wrap: wrap; }
+.chipbtn {
+  background: var(--bg-soft);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  font-size: .78rem;
+  font-weight: 500;
+  padding: .22rem .6rem;
+  border-radius: 99px;
+}
+.chipbtn:hover { border-color: var(--accent); color: var(--accent); filter: none; }
+
+.timeline { margin: 0 0 1.25rem; }
+.tl-track {
+  position: relative;
+  height: .4rem;
+  margin: 2.4rem .5rem 3rem;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+}
+.tl-fill {
+  height: 100%;
+  border-radius: 99px 0 0 99px;
+  background: color-mix(in srgb, var(--warn) 35%, transparent);
+}
+.tl-mark, .tl-asof { position: absolute; top: 50%; transform: translate(-50%, -50%); }
+.tl-dot {
+  display: block;
+  width: .8rem; height: .8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--line);
+}
+.tl-label, .tl-asof-label {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 1.1rem;
+  font-size: .7rem;
+  line-height: 1.25;
+  color: var(--muted);
+  text-align: center;
+  white-space: nowrap;
+}
+.tl-label em, .tl-asof-label em { font-style: normal; font-variant-numeric: tabular-nums; opacity: .75; }
+.tl-needle {
+  display: block;
+  width: 2px; height: 1.6rem;
+  margin-top: -.6rem;
+  background: var(--err);
+  border-radius: 1px;
+}
+.tl-asof-label { top: -2.4rem; color: var(--err); font-weight: 600; }
+.tl-note { margin: 0 .5rem; font-size: .78rem; color: var(--muted); }
+
 /* ---- Layout -------------------------------------------------------------- */
 main {
   display: grid;
