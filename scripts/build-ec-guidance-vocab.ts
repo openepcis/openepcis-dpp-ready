@@ -188,11 +188,28 @@ ecbp:epcisExample
     rdfs:isDefinedBy <${ONT}> .
 `);
 
+const CAT_LABEL = { ev: "EV", lmt: "LMT", industrial: "industrial" } as const;
+const appPhrase = (a: Applicability) =>
+  a.note ? `${a.status} (${a.note})` : a.status;
+
 for (const dp of dataPoints) {
   const t: string[] = [];
   t.push(`${dpIri(dp.nr)}`);
   t.push(`    a rdf:Property, cccev:InformationRequirement ;`);
   t.push(`    rdfs:label "${esc(dp.name)}"@en ;`);
+  // Compact human summary — carried into the vendored term data that powers
+  // the ref.openepcis.io term cards (the converter forwards rdfs:comment).
+  const comment =
+    `European Commission Battery Passport data point ${dp.nr}` +
+    (dp.source ? ` (${dp.source})` : "") +
+    `. Applicability as of Feb 2027 — ` +
+    (["ev", "lmt", "industrial"] as const)
+      .map((c) => `${CAT_LABEL[c]}: ${appPhrase(dp.applicability[c])}`)
+      .join("; ") +
+    `. ${dp.lifecycle === "dynamic" ? "Dynamic (folded from the EPCIS event stream at item level)" : "Static master data (resolver-served)"}; access tier: ${dp.accessTier}.` +
+    ` Carried by ${dp.implementedBy.join(", ")}.` +
+    (dp.remark ? ` ${dp.remark}` : "");
+  t.push(`    rdfs:comment "${esc(comment)}"@en ;`);
   t.push(`    skos:notation "${dp.nr}" ;`);
   if (dp.source) {
     t.push(`    dcterms:bibliographicCitation "${esc(dp.source)}"@en ;`);
