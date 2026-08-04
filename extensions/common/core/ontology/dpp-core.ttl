@@ -1033,7 +1033,10 @@ oec:conformityDeclaration
     rdfs:seeAlso gs1:certification ;
     rdfs:seeAlso gs1:ReferencedFileTypeCode-DECLARATION_OF_CONFORMITY ;
     rdfs:seeAlso cccev:Evidence ;
-    skos:closeMatch untp:conformityClaim ;
+    # untp:conformityClaim was removed from the published UNTP vocabulary (both
+    # hosts return 403 for it, 2026-08-04); the nearest surviving concept is the
+    # attestation class, referenced without a subsumption claim.
+    rdfs:seeAlso untp:ConformityAttestation ;
     skos:broadMatch cccev:Evidence .
 
 oec:combinedNomenclatureCode

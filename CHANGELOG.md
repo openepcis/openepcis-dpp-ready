@@ -76,6 +76,19 @@ BatteryPass SAMM / DPP Keystone / GEFEG targets. `cv:Event` was dereference-veri
 upstream index does not yet contain the EC guidance registry, so the 92 `rdfs:seeAlso` pointers
 to `ecbp:dp-*` were not graded — a vocab-sync index addition, tracked as follow-up.
 
+### Dead external references fixed (link audit across all 1079 mapping targets)
+
+A live sweep of every external URI referenced from the module ontologies found three genuine
+defects (the rest of the non-200s are bot-protection false positives on ISO/OECD/ECHA/gs1.org):
+`eutex:energyUsage` declared the phantom range `oec:EnergyKilowattHours` (no such core term —
+now `gs1:QuantitativeValue`, as its own comment prescribes); `oec:conformityDeclaration` carried
+`skos:closeMatch untp:conformityClaim`, which has been removed from the published UNTP
+vocabulary (403 on both hosts — downgraded to `rdfs:seeAlso untp:ConformityAttestation`, the
+nearest surviving concept, without a subsumption claim); and the battery module's OECD due
+diligence guidance link used a pre-restructure oecd.org URL (now the stable DOI
+`10.1787/9789264252479-en`). The GS1 Rail namespace no longer dereferences at all — handled on
+ref.openepcis.io by routing rail term links to the mirrored in-app module pages.
+
 ## [0.9.9] - 2026-08-04
 
 ### PPWR becomes a full downstream-consumable module; cpr wired alongside
