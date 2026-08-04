@@ -62,6 +62,20 @@ matrix are published as battery-module artefacts on ref.openepcis.io
 (`extensions/eu/battery/ec-readiness-shapes.ttl`, versioned copies included), and the shapes
 graph IRI is that hosted URL, so the document self-dereferences.
 
+### Battery SKOS audit re-run after the EC registry landed
+
+A fresh `vocab-sync audit --module battery` (2026-08-04, QA panel qwen3.5-27b, 1180 findings)
+followed the review loop: triage produced 74 APPLY / 154 HOLD / 952 SKIP; two panel-confirmed
+proposals were rejected on reading the targets' definitions and recorded as `seeAlso` decisions
+in `mapping-allowlist.json` (`eubat:ThirdPartyVerification` vs the ENERGY-STAR value enumeration
+— a value list, not a verification concept; `eubat:BatteryChemistry` vs `schema:ChemicalSubstance`
+— an electrochemical system is not a portion of matter). The remaining 72 were written: 2
+direction flips and 70 graded mappings, mostly upgrading existing `rdfs:seeAlso` pointers toward
+BatteryPass SAMM / DPP Keystone / GEFEG targets. `cv:Event` was dereference-verified and added to
+`semiceu-terms.json` (target of the new `eubat:NegativeEvent` anchor). Known gap: the audit's
+upstream index does not yet contain the EC guidance registry, so the 92 `rdfs:seeAlso` pointers
+to `ecbp:dp-*` were not graded — a vocab-sync index addition, tracked as follow-up.
+
 ## [0.9.9] - 2026-08-04
 
 ### PPWR becomes a full downstream-consumable module; cpr wired alongside
