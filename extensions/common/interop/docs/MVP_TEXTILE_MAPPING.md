@@ -51,7 +51,7 @@ so their children expand as direct properties of the product node.
 | `productId` | `gs1:productID` | exact |
 | `conformityDeclaration` | `oec:hasConformityDeclaration` | exact |
 | `Manufacturer_BrandOwner` | `gs1:manufacturer` | exact |
-| `brandName` | `gs1:brandName` | exact |
+| `brandName` | `gs1:brandName` | partial (GS1 puts it on a `gs1:Brand` node via `gs1:brand`; a flat string needs that wrapping on normalisation) |
 | `companyName` | `gs1:organizationName` | exact |
 | `companyIdentifier` | `oec:economicOperatorId` | exact |
 | `companyRegistration` | `schema:vatID` | partial (source mixes org no. / VAT no.) |
@@ -102,3 +102,18 @@ accordingly low; the MVP is a floor, not a profile.
 The bridge was verified by expanding the published sample (with `materialComponent`
 corrected to a string per pitfall 1) through the context: all 22 mapped fields expand
 to the intended IRIs; exactly the 6 documented unmapped keys drop.
+
+## Reference example — the same field domain done right
+
+[`../../../eu/textile/examples/eudpp-textile-passport.jsonld`](../../../eu/textile/examples/eudpp-textile-passport.jsonld)
+carries everything the MVP attempts, in the CIRPASS-2 / EUDPP shape with GS1 behind
+it: GS1 Digital Link as the identifier backbone (`01/{GTIN}` passport IRI,
+`417`/`414` party and facility IRIs with check-digit-valid GLNs), TARIC as
+`oec:customsCommodityCode`, GLN-identified manufacturer and tier-1 facility
+(EUDPP ACTOR), GS1-native care-label composition (`gs1:textileMaterial`, EUDPP MAT),
+a typed EU Declaration of Conformity document (EUDPP COMP), and passport metadata
+including the ESPR Art. 10(4) backup host as a real `oec:OperatorInformation`
+(EUDPP P_DPP `dppStatus` / `hasBackUpCopyHost`) — instead of a bare URL. The EUDPP
+alignment is carried by the ontology (`rdfs:seeAlso` + audited SKOS), so the document
+itself stays pure GS1 + `oec:`/`eutex:` and passes every repository guard
+(operational round-trip, granularity vs Digital Link, check digits, GS1 domains).

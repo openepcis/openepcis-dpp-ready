@@ -4,6 +4,16 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **`examples/eudpp-textile-passport.jsonld`** — model-level reference passport in the
+  CIRPASS-2 / EUDPP shape carried by GS1 Digital Link: `01/{GTIN}` passport IRI,
+  `417`/`414` GLN party/facility IRIs, TARIC (`oec:customsCommodityCode`), GS1-native
+  care-label composition, typed EU DoC, and passport metadata incl. the ESPR
+  Art. 10(4) backup host (`oec:hasBackupCopyHost` as `oec:OperatorInformation`).
+  Companion to the interop MVP-textile gap analysis
+  ([`../../common/interop/docs/MVP_TEXTILE_MAPPING.md`](../../common/interop/docs/MVP_TEXTILE_MAPPING.md)):
+  the same field domain, done right.
+
 ### Changed: object properties adopt the `has*` naming convention
 
 49 textile object properties follow the project-wide rename. The rename surfaced a
