@@ -13,6 +13,14 @@ examples, shapes and schemas follow the new local names.
 
 ### CIRPASS-2 EUDPP v2.0.5: pointer wave and gap terms
 
+The 2026-08-06 vocab-sync audit round against the mirrored EUDPP upstream graded the
+alignment: 30 SKOS mappings applied (16 `skos:exactMatch` — among them
+`oec:DigitalProductPassport`↔`eudpp:DPP`, `oec:hasBackupCopyHost`↔`eudpp:hasBackUpCopyHost`,
+`oec:granularityLevel`↔`eudpp:granularity`, the substance-identity set — plus 12
+`skos:broadMatch` and 2 `skos:narrowMatch`; QA panel qwen3-32b, floor 0.80). One panel
+proposal declined with reason in `scripts/skos-deferred.json`
+(`eudpp:ThresholdOfSubstanceOfConcern` is a constraint, not a narrower substance).
+
 42 new `rdfs:seeAlso cirpass2:` pointers anchor existing terms into the EUDPP module
 structure (P_DPP, SOC, LCA, IDENT, ACTOR, COMP, CON), and the genuine gaps become terms:
 `oec:hasBackupCopyHost`, `oec:isEnergyRelated`, `oec:socThreshold`, `oec:iupacName`,

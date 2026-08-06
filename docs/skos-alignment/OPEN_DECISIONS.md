@@ -489,7 +489,7 @@ schema:additionalProperty` at 0.97 confidence, and it does look inverted, since
 
 ## Remaining `skos:narrowMatch` assertions
 
-97 assertions still read `narrowMatch`. Their targets are peer profiles or
+99 assertions still read `narrowMatch`. Their targets are peer profiles or
 intra-project terms of comparable specificity, where which of the two is narrower is a
 modelling question per term. `check:mappings` rule 6 already guards the mechanical class,
 the general Layer-1 head terms.
@@ -497,6 +497,6 @@ the general Layer-1 head terms.
 - **BatteryPass SAMM / bpr**: 39
 - **DPP Keystone**: 31
 - **GS1 tail**: 17
+- **other**: 6
 - **schema.org tail**: 5
-- **other**: 4
 - **UNTP**: 1
