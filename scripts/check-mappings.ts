@@ -257,7 +257,7 @@ for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
     // 11. the same term claimed both broader and narrower than one concept. Two vocabularies often
     // render the same attribute under the same name, and BatteryPass ships two of its own: the
     // consortium SAMM model and the GEFEG longlist mirrored as bpr:. Seven battery terms carried
-    // broadMatch toward the samm: rendering and narrowMatch toward the bpr: one, which cannot both
+    // broadMatch toward the bpsamm: rendering and narrowMatch toward the bpr: one, which cannot both
     // hold. Compared on the normalised local name, so it sees across vocabularies.
     const directions = new Map<string, Set<string>>();
     for (const m of block.matchAll(/skos:(broadMatch|narrowMatch)\s+(<[^>]+>|[A-Za-z]\w*:[\w-]+)/g)) {

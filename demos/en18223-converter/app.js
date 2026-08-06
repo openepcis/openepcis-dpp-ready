@@ -20518,6 +20518,7 @@ var range_index_default = {
   "https://ref.openepcis.io/extensions/common/core/accessLevelRationale": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/accessLevelSource": "http://www.w3.org/2000/01/rdf-schema#Resource",
   "https://ref.openepcis.io/extensions/common/core/activityClassification": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/common/core/assignedELI": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/bioBasedFraction": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/biodegradationPercentage": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/carbonFootprintMethodology": "http://www.w3.org/2001/XMLSchema#anyURI",
@@ -20568,6 +20569,7 @@ var range_index_default = {
   "https://ref.openepcis.io/extensions/common/core/hasAccessRights": "https://ref.openepcis.io/extensions/common/core/AccessRights",
   "https://ref.openepcis.io/extensions/common/core/hasAnnualEnergyConsumption": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/common/core/hasAuthorizedParties": "https://ref.gs1.org/voc/Organization",
+  "https://ref.openepcis.io/extensions/common/core/hasBackupCopyHost": "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
   "https://ref.openepcis.io/extensions/common/core/hasBiodegradability": "https://ref.openepcis.io/extensions/common/core/Biodegradability",
   "https://ref.openepcis.io/extensions/common/core/hasBiodegradabilityTestMethod": "https://ref.openepcis.io/extensions/common/core/BiodegradabilityTestMethod",
   "https://ref.openepcis.io/extensions/common/core/hasCarbonFootprint": "https://ref.gs1.org/voc/QuantitativeValue",
@@ -20643,16 +20645,21 @@ var range_index_default = {
   "https://ref.openepcis.io/extensions/common/core/indicatorTotalValue": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/indicatorUnit": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/isCriticalRawMaterial": "http://www.w3.org/2001/XMLSchema#boolean",
+  "https://ref.openepcis.io/extensions/common/core/isEnergyRelated": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/common/core/isRegulationCompliant": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/common/core/isStrategicRawMaterial": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/common/core/issueDate": "http://www.w3.org/2001/XMLSchema#date",
+  "https://ref.openepcis.io/extensions/common/core/iupacName": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/common/core/landUse": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/language": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/languageCode": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/lastDataUpdate": "http://www.w3.org/2001/XMLSchema#dateTime",
   "https://ref.openepcis.io/extensions/common/core/lastUpdated": "http://www.w3.org/2001/XMLSchema#dateTime",
   "https://ref.openepcis.io/extensions/common/core/massFraction": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/materialCircularityIndicator": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.io/extensions/common/core/materialFootprint": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/mimeType": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/common/core/packagingWasteAmount": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/passportExpiryDate": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.io/extensions/common/core/passportIdentifier": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/passportIssueDate": "http://www.w3.org/2001/XMLSchema#date",
@@ -20664,12 +20671,16 @@ var range_index_default = {
   "https://ref.openepcis.io/extensions/common/core/preConsumerRecycledContent": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/previousPassportVersion": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/primarySourcedRatio": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.io/extensions/common/core/productCategoryRules": "http://www.w3.org/2001/XMLSchema#anyURI",
+  "https://ref.openepcis.io/extensions/common/core/productToPackagingRatio": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/professionalRepairNetwork": "http://www.w3.org/2001/XMLSchema#anyURI",
+  "https://ref.openepcis.io/extensions/common/core/recoverableRate": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/recyclabilityMethodology": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/recyclabilityRate": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/recyclabilityScore": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/recyclableContent": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/recycledContent": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.io/extensions/common/core/recyclingCollectionRate": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/registrationNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/regulatoryActStatus": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/regulatoryPermitIdentification": "http://www.w3.org/2001/XMLSchema#string",
@@ -20685,8 +20696,10 @@ var range_index_default = {
   "https://ref.openepcis.io/extensions/common/core/safeUseInstructions": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/scipId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/separateCollectionInfo": "http://www.w3.org/2001/XMLSchema#anyURI",
+  "https://ref.openepcis.io/extensions/common/core/socThreshold": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/stageValue": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/substanceLocation": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/common/core/substanceTradeName": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/supplyChainTransparencyUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/takeBackIncentive": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.io/extensions/common/core/takeBackUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
@@ -20700,7 +20713,9 @@ var range_index_default = {
   "https://ref.openepcis.io/extensions/common/core/utilityFactor": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/valueDataType": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/verifiedRatio": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.io/extensions/common/core/wasteGenerationAmount": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/wastePreventionInfo": "http://www.w3.org/2001/XMLSchema#anyURI",
+  "https://ref.openepcis.io/extensions/common/core/waterConsumption": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/anodeActiveMaterial": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/atSoC": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/auditBody": "http://www.w3.org/2001/XMLSchema#string",
@@ -21802,6 +21817,58 @@ var contexts_default = {
         "@id": "gs1:organizationRole",
         "@type": "@id",
         "@container": "@set"
+      },
+      "oec:hasBackupCopyHost": {
+        "@id": "oec:hasBackupCopyHost",
+        "@type": "@id"
+      },
+      "oec:isEnergyRelated": {
+        "@id": "oec:isEnergyRelated",
+        "@type": "xsd:boolean"
+      },
+      "oec:socThreshold": {
+        "@id": "oec:socThreshold",
+        "@type": "xsd:decimal"
+      },
+      "oec:waterConsumption": {
+        "@id": "oec:waterConsumption",
+        "@type": "xsd:decimal"
+      },
+      "oec:landUse": {
+        "@id": "oec:landUse",
+        "@type": "xsd:decimal"
+      },
+      "oec:materialFootprint": {
+        "@id": "oec:materialFootprint",
+        "@type": "xsd:decimal"
+      },
+      "oec:wasteGenerationAmount": {
+        "@id": "oec:wasteGenerationAmount",
+        "@type": "xsd:decimal"
+      },
+      "oec:packagingWasteAmount": {
+        "@id": "oec:packagingWasteAmount",
+        "@type": "xsd:decimal"
+      },
+      "oec:productToPackagingRatio": {
+        "@id": "oec:productToPackagingRatio",
+        "@type": "xsd:decimal"
+      },
+      "oec:recoverableRate": {
+        "@id": "oec:recoverableRate",
+        "@type": "xsd:decimal"
+      },
+      "oec:recyclingCollectionRate": {
+        "@id": "oec:recyclingCollectionRate",
+        "@type": "xsd:decimal"
+      },
+      "oec:productCategoryRules": {
+        "@id": "oec:productCategoryRules",
+        "@type": "xsd:anyURI"
+      },
+      "oec:assignedELI": {
+        "@id": "oec:assignedELI",
+        "@type": "xsd:anyURI"
       }
     }
   },
@@ -21879,8 +21946,10 @@ var contexts_default = {
       CarbonFootprintDeclaration: "oec:CarbonFootprintDeclaration",
       CircularityInfo: "oec:CircularityPerformance",
       CircularityPerformance: "oec:CircularityPerformance",
+      CommonSpecification: "oec:CommonSpecification",
       Compostability: "oec:Compostability",
       CompostabilityType: "oec:CompostabilityType",
+      ConformityAssessmentModule: "oec:ConformityAssessmentModule",
       CustomsCommodityCodeType: "oec:CustomsCommodityCodeType",
       DPPGranularity: "oec:DPPGranularity",
       DataElement: "oec:DataElement",
@@ -21918,6 +21987,7 @@ var contexts_default = {
       ExtendedProducerResponsibility: "oec:ExtendedProducerResponsibility",
       FacilityInformation: "oec:FacilityInformation",
       GranularityLevel: "oec:GranularityLevel",
+      HarmonisedStandard: "oec:HarmonisedStandard",
       HazardClass: "oec:HazardClass",
       HazardSignalWord: "oec:HazardSignalWord",
       HazardousSubstance: "oec:HazardousSubstance",
@@ -21951,6 +22021,7 @@ var contexts_default = {
       SubstanceOfConcern: "oec:SubstanceOfConcern",
       Temperature: "gs1:Temperature",
       TraceabilityPerformance: "oec:TraceabilityPerformance",
+      UnionHarmonisationLegislation: "oec:UnionHarmonisationLegislation",
       _comment: {
         "@id": "rdfs:comment",
         "@container": "@set"
@@ -22018,6 +22089,10 @@ var contexts_default = {
       },
       additionalProductClassificationSystemCode: "gs1:additionalProductClassificationCode",
       alternateName: "schema:alternateName",
+      assignedELI: {
+        "@id": "oec:assignedELI",
+        "@type": "xsd:anyURI"
+      },
       authorizedParties: {
         "@id": "oec:hasAuthorizedParties",
         "@type": "@id",
@@ -22290,6 +22365,10 @@ var contexts_default = {
       },
       hasAuthorizedParties: {
         "@id": "oec:hasAuthorizedParties",
+        "@type": "@id"
+      },
+      hasBackupCopyHost: {
+        "@id": "oec:hasBackupCopyHost",
         "@type": "@id"
       },
       hasBiodegradability: {
@@ -22726,6 +22805,10 @@ var contexts_default = {
         "@id": "oec:isCriticalRawMaterial",
         "@type": "xsd:boolean"
       },
+      isEnergyRelated: {
+        "@id": "oec:isEnergyRelated",
+        "@type": "xsd:boolean"
+      },
       isStrategicRawMaterial: {
         "@id": "oec:isStrategicRawMaterial",
         "@type": "xsd:boolean"
@@ -22733,6 +22816,14 @@ var contexts_default = {
       issueDate: {
         "@id": "oec:issueDate",
         "@type": "xsd:date"
+      },
+      iupacName: {
+        "@id": "oec:iupacName",
+        "@type": "xsd:string"
+      },
+      landUse: {
+        "@id": "oec:landUse",
+        "@type": "xsd:decimal"
       },
       language: {
         "@id": "oec:language",
@@ -22767,6 +22858,10 @@ var contexts_default = {
         "@type": "@id",
         "@container": "@set"
       },
+      materialFootprint: {
+        "@id": "oec:materialFootprint",
+        "@type": "xsd:decimal"
+      },
       materialName: "schema:name",
       mimeType: {
         "@id": "oec:mimeType",
@@ -22778,6 +22873,10 @@ var contexts_default = {
         "@container": "@set"
       },
       name: "schema:name",
+      packagingWasteAmount: {
+        "@id": "oec:packagingWasteAmount",
+        "@type": "xsd:decimal"
+      },
       passportExpiryDate: {
         "@id": "oec:passportExpiryDate",
         "@type": "xsd:date"
@@ -22822,10 +22921,22 @@ var contexts_default = {
         "@id": "oec:primarySourcedRatio",
         "@type": "xsd:decimal"
       },
+      productCategoryRules: {
+        "@id": "oec:productCategoryRules",
+        "@type": "xsd:anyURI"
+      },
       productModel: "schema:ProductModel",
+      productToPackagingRatio: {
+        "@id": "oec:productToPackagingRatio",
+        "@type": "xsd:decimal"
+      },
       professionalRepairNetwork: {
         "@id": "oec:professionalRepairNetwork",
         "@type": "@id"
+      },
+      recoverableRate: {
+        "@id": "oec:recoverableRate",
+        "@type": "xsd:decimal"
       },
       recyclabilityMethodology: {
         "@id": "oec:recyclabilityMethodology",
@@ -22845,6 +22956,10 @@ var contexts_default = {
       },
       recycledContent: {
         "@id": "oec:recycledContent",
+        "@type": "xsd:decimal"
+      },
+      recyclingCollectionRate: {
+        "@id": "oec:recyclingCollectionRate",
         "@type": "xsd:decimal"
       },
       registrationNumber: {
@@ -22922,6 +23037,10 @@ var contexts_default = {
         "@type": "@id"
       },
       serialNumber: "schema:serialNumber",
+      socThreshold: {
+        "@id": "oec:socThreshold",
+        "@type": "xsd:decimal"
+      },
       sourceCountry: "gs1:countryOfOrigin",
       sparePartsDeliveryTime: {
         "@id": "schema:deliveryTime",
@@ -22949,6 +23068,10 @@ var contexts_default = {
         "@type": "xsd:string"
       },
       substanceName: "schema:name",
+      substanceTradeName: {
+        "@id": "oec:substanceTradeName",
+        "@type": "xsd:string"
+      },
       substancesOfConcern: {
         "@id": "oec:hasSubstancesOfConcern",
         "@type": "@id",
@@ -23027,9 +23150,17 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       warrantyScope: "gs1:warrantyScopeDescription",
+      wasteGenerationAmount: {
+        "@id": "oec:wasteGenerationAmount",
+        "@type": "xsd:decimal"
+      },
       wastePreventionInfo: {
         "@id": "oec:wastePreventionInfo",
         "@type": "@id"
+      },
+      waterConsumption: {
+        "@id": "oec:waterConsumption",
+        "@type": "xsd:decimal"
       }
     }
   },
@@ -28817,7 +28948,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.io/extensions/eu/battery/battery-context-batterypass-bridge.jsonld": {
-    _comment: "This context interprets incoming BatteryPass documents as OpenEPCIS/GS1 terms (external key -> eubat:/oec:/gs1:). One BatteryPass data model, referenced through two renderings. (1) samm-* = the Battery Pass Consortium SAMM aspect models (github.com/batterypass), real versions 1.2.0 (Performance 1.2.1), matching battery.ttl \u2014 the canonical form. (2) bpr: = an OpenEPCIS-hosted reference namespace for the few GEFEG BatteryPass-Ready longlist v1.3 attributes with no SAMM equivalent (DPP-information group #1-#4) plus the flat lossless-carrier keys below; GEFEG (thebatterypass.eu) is the Consortium's publication and validation channel and publishes no RDF IRIs. No SAMM 1.3.0 / DPPInformation submodel exists. Target-selection rule: every key resolves to the highest layer that already covers the concept (gs1: > oec: > eubat:); no key mints a new IRI. Where the longlist carries one flat value that OpenEPCIS models structurally across several terms (materialsUsedInCathode -> eubat:hasBatteryChemistry + eubat:hasMaterialComposition; symbolsForCadmiumAndLead -> eubat:cadmiumSymbolRequired + eubat:leadSymbolRequired; carbonFootprintLabel -> eubat:hasLabels/eubat:labelSymbol + eubat:CarbonFootprintLabel; informationOnAccidents -> eubat:hasNegativeEvents) no 1:1 project term exists, so the key keeps its upstream bpr: IRI and the incoming value is preserved losslessly rather than forced into a partial match. Attribute [5] batteryPassportIdentifier (the DPP identifier) and [6] batteryIdentifier (the unique battery/product identifier) are DISTINCT longlist attributes and map to different IRIs \u2014 oec/eubat passport identifier vs gs1:productID. Quantity carriers use the longlist's bare {value, unitCode} shape, aliased onto gs1:value/gs1:unitCode with the same xsd:decimal coercion the prefixed terms carry, so examples/batterypass-v1.3.jsonld validates against validation/batterypass-v1.3-schema.json (85/85 required attributes) while staying graph-identical.",
+    _comment: "This context interprets incoming BatteryPass documents as OpenEPCIS/GS1 terms (external key -> eubat:/oec:/gs1:). One BatteryPass data model, referenced through two renderings. (1) bpsamm-* = the Battery Pass Consortium SAMM aspect models (github.com/batterypass), real versions 1.2.0 (Performance 1.2.1), matching battery.ttl \u2014 the canonical form. (2) bpr: = an OpenEPCIS-hosted reference namespace for the few GEFEG BatteryPass-Ready longlist v1.3 attributes with no SAMM equivalent (DPP-information group #1-#4) plus the flat lossless-carrier keys below; GEFEG (thebatterypass.eu) is the Consortium's publication and validation channel and publishes no RDF IRIs. No SAMM 1.3.0 / DPPInformation submodel exists. Target-selection rule: every key resolves to the highest layer that already covers the concept (gs1: > oec: > eubat:); no key mints a new IRI. Where the longlist carries one flat value that OpenEPCIS models structurally across several terms (materialsUsedInCathode -> eubat:hasBatteryChemistry + eubat:hasMaterialComposition; symbolsForCadmiumAndLead -> eubat:cadmiumSymbolRequired + eubat:leadSymbolRequired; carbonFootprintLabel -> eubat:hasLabels/eubat:labelSymbol + eubat:CarbonFootprintLabel; informationOnAccidents -> eubat:hasNegativeEvents) no 1:1 project term exists, so the key keeps its upstream bpr: IRI and the incoming value is preserved losslessly rather than forced into a partial match. Attribute [5] batteryPassportIdentifier (the DPP identifier) and [6] batteryIdentifier (the unique battery/product identifier) are DISTINCT longlist attributes and map to different IRIs \u2014 oec/eubat passport identifier vs gs1:productID. Quantity carriers use the longlist's bare {value, unitCode} shape, aliased onto gs1:value/gs1:unitCode with the same xsd:decimal coercion the prefixed terms carry, so examples/batterypass-v1.3.jsonld validates against validation/batterypass-v1.3-schema.json (85/85 required attributes) while staying graph-identical.",
     "@context": {
       "@version": 1.1,
       gs1: "https://ref.gs1.org/voc/",
@@ -28825,13 +28956,13 @@ var contexts_default = {
       oec: "https://ref.openepcis.io/extensions/common/core/",
       rdfs: "http://www.w3.org/2000/01/rdf-schema#",
       xsd: "http://www.w3.org/2001/XMLSchema#",
-      "samm-general": "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#",
-      "samm-perf": "urn:samm:io.BatteryPass.Performance:1.2.1#",
-      "samm-carbon": "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#",
-      "samm-material": "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#",
-      "samm-circular": "urn:samm:io.BatteryPass.Circularity:1.2.0#",
-      "samm-scdd": "urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#",
-      "samm-labels": "urn:samm:io.BatteryPass.Labels:1.2.0#",
+      "bpsamm-general": "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#",
+      "bpsamm-perf": "urn:samm:io.BatteryPass.Performance:1.2.1#",
+      "bpsamm-carbon": "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#",
+      "bpsamm-material": "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#",
+      "bpsamm-circular": "urn:samm:io.BatteryPass.Circularity:1.2.0#",
+      "bpsamm-scdd": "urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#",
+      "bpsamm-labels": "urn:samm:io.BatteryPass.Labels:1.2.0#",
       bpr: "https://ref.openepcis.io/vocab/batterypass-ready/1.3#",
       dppSchemaVersion: {
         "@id": "schema:schemaVersion"

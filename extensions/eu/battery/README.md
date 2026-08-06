@@ -244,7 +244,7 @@ looks like separate sources are renderings of that model through different chann
 
 - **Consortium SAMM aspect models** (github.com/batterypass/BatteryPassDataModel) —
   the canonical semantic form, real published versions **1.2.0** (Performance
-  **1.2.1**). Referenced via the `samm-*` prefixes and under the real
+  **1.2.1**). Referenced via the `bpsamm-*` prefixes and under the real
   `urn:samm:io.BatteryPass.*` URNs; these carry the SKOS mappings in `battery.ttl`.
 - **GEFEG BatteryPass-Ready** (thebatterypass.eu / batterypass-ready.gefeg.com) —
   the Consortium's **publication and validation channel**: the **v1.3 attribute
@@ -263,7 +263,7 @@ looks like separate sources are renderings of that model through different chann
 
 The bridge contexts enable **bidirectional compatibility**:
 
-- **`battery-context-batterypass-bridge.jsonld`**: Add to BatteryPass documents to interpret them using OpenEPCIS/GS1 vocabulary. Maps SAMM (`samm-*`, 1.2.x) and GEFEG BatteryPass-Ready (`bpr:`) terms to `eubat:`/`oec:`/`gs1:` equivalents.
+- **`battery-context-batterypass-bridge.jsonld`**: Add to BatteryPass documents to interpret them using OpenEPCIS/GS1 vocabulary. Maps SAMM (`bpsamm-*`, 1.2.x) and GEFEG BatteryPass-Ready (`bpr:`) terms to `eubat:`/`oec:`/`gs1:` equivalents.
 
 - **`battery-context-to-batterypass.jsonld`**: Add to OpenEPCIS documents to export them with BatteryPass-compatible terminology.
 
