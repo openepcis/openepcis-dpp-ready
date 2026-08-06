@@ -116,10 +116,10 @@ The core module provides the following ESPR-aligned classes:
 | `oec:passportStatus` | PassportStatus | Draft, Active, Updated, Withdrawn, Archived |
 | `oec:passportLastModified` | dateTime | Last modification timestamp |
 | `oec:passportExpiryDate` | date | Passport expiry/renewal date |
-| `oec:passportIssuer` | OperatorInformation | Responsible economic operator |
+| `oec:hasPassportIssuer` | OperatorInformation | Responsible economic operator |
 | `oec:previousPassportVersion` | URI | Link to previous passport version |
 | `schema:ProductModel` | string | Manufacturer model identifier |
-| `oec:productCategory` | ProductCategory | ESPR product category |
+| `oec:hasProductCategory` | ProductCategory | ESPR product category |
 
 ### Economic Operator (Article 77)
 
@@ -128,7 +128,7 @@ The core module provides the following ESPR-aligned classes:
 | `oec:economicOperatorId` | string | EU-wide EOID number |
 | `oec:eoriNumber` | string | Customs EORI number |
 | `schema:vatID` | string | VAT ID |
-| `oec:operatorRole` | OperatorRole | Role in supply chain |
+| `oec:hasOperatorRole` | OperatorRole | Role in supply chain |
 | `oec:registrationNumber` | string | National registration |
 
 ### Facility Information
@@ -139,16 +139,16 @@ The core module provides the following ESPR-aligned classes:
 | `gs1:name` | string | Facility name (inherited from gs1:Place) |
 | `oec:facilityType` | string | Manufacturing, Processing, Assembly |
 | `gs1:address` | PostalAddress | Physical address (inherited from gs1:Place) |
-| `oec:facilityCertifications` | CertificationDetails | ISO and other certifications |
+| `oec:hasFacilityCertifications` | CertificationDetails | ISO and other certifications |
 
 ### Performance & Durability (Article 7)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `oec:expectedLifespan` | QuantitativeValue | Expected product lifetime |
-| `oec:guaranteedLifespan` | QuantitativeValue | Manufacturer guarantee |
+| `oec:hasExpectedLifespan` | QuantitativeValue | Expected product lifetime |
+| `oec:hasGuaranteedLifespan` | QuantitativeValue | Manufacturer guarantee |
 | `oec:usageCycles` | integer | Expected usage cycles |
-| `oec:technicalLifetime` | QuantitativeValue | Technical lifetime |
+| `oec:hasTechnicalLifetime` | QuantitativeValue | Technical lifetime |
 | `oec:performanceClass` | string | A-G efficiency class |
 | `oec:testedConditions` | string | Test conditions description |
 
@@ -158,18 +158,18 @@ The core module provides the following ESPR-aligned classes:
 |----------|------|-------------|
 | `oec:repairabilityScore` | decimal | 0-10 repairability index |
 | `oec:repairabilityClass` | string | A-E repairability class |
-| `oec:sparePartsAvailability` | QuantitativeValue | Years spare parts available |
+| `oec:hasSparePartsAvailability` | QuantitativeValue | Years spare parts available |
 | `schema:deliveryTime` | QuantitativeValue | Max delivery time |
 | `oec:diyRepairPossible` | boolean | Consumer repair possible |
 | `oec:professionalRepairNetwork` | URI | Find repair services |
-| `oec:repairInstructions` | DocumentReference | Repair manual |
-| `oec:softwareUpdatesAvailability` | QuantitativeValue | Software support period |
+| `oec:hasRepairInstructions` | DocumentReference | Repair manual |
+| `oec:hasSoftwareUpdatesAvailability` | QuantitativeValue | Software support period |
 
 ### Substances of Concern (Article 8)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `oec:substancesOfConcern` | SubstanceOfConcern[] | List of SVHCs |
+| `oec:hasSubstancesOfConcern` | SubstanceOfConcern[] | List of SVHCs |
 | `oec:ecNumber` | string | EINECS/ELINCS number |
 | `oec:scipId` | string | ECHA SCIP database ID |
 | `oec:substanceLocation` | string | Location in product |
@@ -180,10 +180,10 @@ The core module provides the following ESPR-aligned classes:
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `oec:accessRights` | AccessRights | Access configuration |
-| `oec:accessLevel` | AccessLevel | Public, AuthorizedOnly, Restricted |
-| `oec:authorizedParties` | Organization[] | Parties with access |
-| `oec:dataRetentionPeriod` | QuantitativeValue | Data retention requirement |
+| `oec:hasAccessRights` | AccessRights | Access configuration |
+| `oec:hasAccessLevel` | AccessLevel | Public, AuthorizedOnly, Restricted |
+| `oec:hasAuthorizedParties` | Organization[] | Parties with access |
+| `oec:hasDataRetentionPeriod` | QuantitativeValue | Data retention requirement |
 
 ---
 
@@ -213,7 +213,7 @@ ESPR defines approximately 125 data points grouped into categories. The core mod
 {
   "gs1:productID": { "id": "https://id.gs1.org/01/09521234000013/21/SN-001" },
   "schema:ProductModel": "MODEL-2025-A",
-  "oec:productCategory": "Electronics",
+  "oec:hasProductCategory": "Electronics",
   "oec:passportIdentifier": { "id": "https://id.gs1.org/01/09521234000013/21/SN-001/10/DPP" },
   "oec:passportVersion": "1.0",
   "oec:passportIssueDate": "2025-01-15"
@@ -245,7 +245,7 @@ ESPR defines approximately 125 data points grouped into categories. The core mod
 ```json
 {
   "type": "PerformanceInfo",
-  "oec:expectedLifespan": {
+  "oec:hasExpectedLifespan": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
@@ -261,7 +261,7 @@ ESPR defines approximately 125 data points grouped into categories. The core mod
   "type": "RepairabilityInfo",
   "oec:repairabilityScore": 7.5,
   "oec:repairabilityClass": "B",
-  "oec:sparePartsAvailability": {
+  "oec:hasSparePartsAvailability": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
@@ -316,9 +316,9 @@ Accessible to all users including consumers:
 
 ```json
 {
-  "oec:accessRights": {
+  "oec:hasAccessRights": {
     "type": "AccessRights",
-    "oec:accessLevel": "Public"
+    "oec:hasAccessLevel": "Public"
   }
 }
 ```
@@ -332,9 +332,9 @@ Accessible to market surveillance and customs authorities:
 
 ```json
 {
-  "oec:accessRights": {
+  "oec:hasAccessRights": {
     "type": "AccessRights",
-    "oec:accessLevel": "AuthorizedOnly"
+    "oec:hasAccessLevel": "AuthorizedOnly"
   }
 }
 ```
@@ -347,10 +347,10 @@ Accessible to specific authorized economic operators:
 
 ```json
 {
-  "oec:accessRights": {
+  "oec:hasAccessRights": {
     "type": "AccessRights",
-    "oec:accessLevel": "Restricted",
-    "oec:authorizedParties": [
+    "oec:hasAccessLevel": "Restricted",
+    "oec:hasAuthorizedParties": [
       {
         "type": "gs1:Organization",
         "gs1:partyGLN": "9521234000105"

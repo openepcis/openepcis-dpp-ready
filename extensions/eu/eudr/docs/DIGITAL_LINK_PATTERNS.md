@@ -189,8 +189,8 @@ Product GTIN resolves to product master data with EUDR extensions:
   "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
   "gs1:gtin": "09521234000020",
   "gs1:productName": "European Oak Round Wood - Grade A",
-  "eudr:commodityType": "Wood",
-  "eudr:timberProductType": "RoundWood",
+  "eudr:hasCommodityType": "Wood",
+  "eudr:hasTimberProductType": "RoundWood",
   "eudr:speciesScientificName": "Quercus robur",
   "gs1:harvestDate": "2025-01-15",
 }

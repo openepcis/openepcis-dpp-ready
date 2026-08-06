@@ -32,6 +32,9 @@
       "subClassOf": [
         "https://schema.org/Observation"
       ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -42,6 +45,20 @@
       "seeAlso": [
         "https://ref.gs1.org/voc/consumerRecyclingInstructions",
         "https://w3id.org/eudpp#CircularEconomyIndicator"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/CommonSpecification",
+      "localName": "CommonSpecification",
+      "label": "Common Specification",
+      "comment": "Technical specification adopted by Commission implementing act as a fallback route to presumption of conformity where no adequate harmonised standard exists (ESPR Art. 41).",
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/HarmonisedStandard",
+        "https://w3id.org/eudpp#CommonSpecification"
+      ],
+      "broadMatch": [
+        "http://data.europa.eu/m8g/ReferenceFramework"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
@@ -93,6 +110,9 @@
       "localName": "DigitalProductPassport",
       "label": "Digital Product Passport",
       "comment": "The DPP envelope: identification and lifecycle metadata plus the product data elements, per the EN 18223 information model.",
+      "seeAlso": [
+        "https://w3id.org/eudpp#DPP"
+      ],
       "broadMatch": [
         "https://schema.org/DigitalDocument"
       ],
@@ -169,6 +189,9 @@
       "broadMatch": [
         "https://schema.org/EnergyConsumptionDetails"
       ],
+      "narrowMatch": [
+        "https://schema.org/EUEnergyEfficiencyEnumeration"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -179,10 +202,15 @@
       "seeAlso": [
         "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance",
         "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration",
-        "https://dpp-keystone.org/spec/v2/terms#EPDBlock"
+        "https://dpp-keystone.org/spec/v2/terms#EPDBlock",
+        "https://w3id.org/eudpp#EPDStudy",
+        "https://w3id.org/eudpp#EPDDocument"
       ],
       "subClassOf": [
         "https://schema.org/Certification"
+      ],
+      "exactMatch": [
+        "https://w3id.org/eudpp#EPDDocument"
       ],
       "broadMatch": [
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity"
@@ -222,6 +250,20 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/HarmonisedStandard",
+      "localName": "HarmonisedStandard",
+      "label": "Harmonised Standard",
+      "comment": "European standard adopted on the basis of a Commission standardisation request whose application confers presumption of conformity (Regulation (EU) 1025/2012 Art. 2(1)(c)).",
+      "seeAlso": [
+        "https://w3id.org/eudpp#HarmonisedStandard",
+        "https://w3id.org/eudpp#usedForPresumptionOfConformity"
+      ],
+      "broadMatch": [
+        "http://data.europa.eu/m8g/ReferenceFramework"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2012/1025"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/HazardousSubstance",
       "localName": "HazardousSubstance",
       "label": "Hazardous Substance",
@@ -243,7 +285,8 @@
       "label": "Impact Indicator Result",
       "comment": "One environmental impact indicator (e.g. Global Warming Potential) reported within\nan EPD: its indicator type, declared unit, aggregate value, and optional per-lifecycle-module values.",
       "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#ImpactValues"
+        "https://dpp-keystone.org/spec/v2/terms#ImpactValues",
+        "https://w3id.org/eudpp#LCAResult"
       ],
       "closeMatch": [
         "https://dpp-keystone.org/spec/v2/terms#ImpactValues"
@@ -268,6 +311,9 @@
       "localName": "LifecycleStageResult",
       "label": "Lifecycle Stage Result",
       "comment": "The value of an impact indicator for a single EN 15804 lifecycle module (e.g. A1, B6, C3, D).",
+      "seeAlso": [
+        "https://w3id.org/eudpp#LCIAModuleValue"
+      ],
       "broadMatch": [
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity"
       ],
@@ -280,7 +326,8 @@
       "comment": "Material composition information including source country,\npercentage, and critical raw material classification.",
       "seeAlso": [
         "https://ref.gs1.org/voc/TextileMaterialDetails",
-        "https://ref.gs1.org/voc/PackagingMaterialDetails"
+        "https://ref.gs1.org/voc/PackagingMaterialDetails",
+        "https://w3id.org/eudpp#MaterialOfComposition"
       ],
       "narrowMatch": [
         "https://ref.gs1.org/voc/TextileMaterialDetails",
@@ -459,41 +506,27 @@
         "https://vocabulary.uncefact.org/untp/PerformanceMetric"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/UnionHarmonisationLegislation",
+      "localName": "UnionHarmonisationLegislation",
+      "label": "Union Harmonisation Legislation",
+      "comment": "EU legal act harmonising the conditions for the marketing of products, against which conformity is declared (e.g. the ESPR itself, a delegated act, the Battery Regulation).",
+      "seeAlso": [
+        "https://w3id.org/eudpp#UnionHarmonisationLegislation",
+        "https://ref.openepcis.io/extensions/common/core/RegulationTypeCode"
+      ],
+      "exactMatch": [
+        "https://w3id.org/eudpp#UnionHarmonisationLegislation"
+      ],
+      "broadMatch": [
+        "http://data.europa.eu/m8g/ReferenceFramework",
+        "https://schema.org/Legislation"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dec/2008/768(1)"
     }
   ],
   "properties": [
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/accessLevel",
-      "localName": "accessLevel",
-      "label": "Access Level",
-      "comment": "The access level for this data (Public, AuthorizedOnly, Restricted).",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/AccessRights"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/AccessLevel"
-      ],
-      "seeAlso": [
-        "https://schema.org/conditionsOfAccess"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The declared tier of a data element must itself be visible for ESPR Art. 9 gating to be interpretable.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/accessRights",
-      "localName": "accessRights",
-      "label": "Access Rights",
-      "comment": "Access control configuration for this data element.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/AccessRights"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Tier metadata must be readable by every client so it knows what it may and may not fetch under ESPR Art. 9.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/activityClassification",
       "localName": "activityClassification",
@@ -520,36 +553,23 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/annualEnergyConsumption",
-      "localName": "annualEnergyConsumption",
-      "label": "Annual Energy Consumption",
-      "comment": "Annual energy consumption. gs1:QuantitativeValue with unitCode 'KWH'.",
+      "id": "https://ref.openepcis.io/extensions/common/core/assignedELI",
+      "localName": "assignedELI",
+      "label": "Assigned ELI",
+      "comment": "European Legislation Identifier (ELI) of the legal act, as an HTTP URI on eur-lex (e.g. https://eur-lex.europa.eu/eli/reg/2024/1781/oj).",
       "domain": [
-        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
+        "https://ref.openepcis.io/extensions/common/core/UnionHarmonisationLegislation"
       ],
       "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
+        "xsd:anyURI"
       ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "seeAlso": [
+        "http://data.europa.eu/eli/ontology#LegalResource",
+        "https://w3id.org/eudpp#assignedELI"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/ontology",
       "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2017/1369",
-      "accessLevelRationale": "Annual energy consumption appears on the mandatory energy label and in EPREL's public part (Regulation (EU) 2017/1369).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/authorizedParties",
-      "localName": "authorizedParties",
-      "label": "Authorized Parties",
-      "comment": "List of parties authorized to access restricted data.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/AccessRights"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/Organization"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Restricted",
-      "accessLevelRationale": "The access-control list itself reveals business relationships and is only actionable by the passport owner and authorities (ESPR Art. 9).",
+      "accessLevelRationale": "ELI identifiers name published EU legislation; the legal basis of a conformity claim is inherently public.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -569,48 +589,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/biodegradability",
-      "localName": "biodegradability",
-      "label": "Biodegradability",
-      "comment": "Links a product, material, or substance to its observed biodegradability result.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/Biodegradability"
-      ],
-      "seeAlso": [
-        "https://ref.gs1.org/voc/consumerRecyclingInstructions",
-        "https://schema.org/hasMeasurement"
-      ],
-      "broadMatch": [
-        "https://schema.org/hasMeasurement"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Entry property for a biodegradability observation whose members (biodegradationPercentage, biodegradabilityTestMethod) are individually Public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/biodegradabilityTestMethod",
-      "localName": "biodegradabilityTestMethod",
-      "label": "Biodegradability Test Method",
-      "comment": "The test method used to determine the biodegradability percentage.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/Biodegradability"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/BiodegradabilityTestMethod"
-      ],
-      "broadMatch": [
-        "https://schema.org/measurementMethod"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The test method makes the public biodegradation percentage checkable; a claim without its method is unverifiable.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/biodegradationPercentage",
       "localName": "biodegradationPercentage",
       "label": "Biodegradation Percentage",
@@ -627,103 +605,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprint",
-      "localName": "carbonFootprint",
-      "label": "Carbon Footprint",
-      "comment": "Carbon footprint measurement for the product.",
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf",
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The product carbon footprint is a consumer-comparable parameter (ESPR Annex I(l)); the Battery Regulation Annex XIII(1) makes it public, and battery module serves the shared names Public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintDeclaration",
-      "localName": "carbonFootprintDeclaration",
-      "label": "Carbon Footprint Declaration",
-      "comment": "Links a product to its carbon footprint declaration.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
-      ],
-      "broadMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#environmentalFootprint"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The CF declaration is the published container of figures that are individually public under the battery precedent.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintDistribution",
-      "localName": "carbonFootprintDistribution",
-      "label": "Carbon Footprint: Distribution",
-      "comment": "Lifecycle stage emissions from distribution and logistics. gs1:QuantitativeValue with unitCode 'KGM'.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
-      ],
-      "broadMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#carbonFootprintAbsolute",
-        "https://dpp-keystone.org/spec/v2/terms#environmentalFootprint",
-        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintEndOfLife",
-      "localName": "carbonFootprintEndOfLife",
-      "label": "Carbon Footprint: End of Life",
-      "comment": "Lifecycle stage emissions from end-of-life and recycling. gs1:QuantitativeValue with unitCode 'KGM'.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint",
-        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal",
-        "https://dpp-keystone.org/spec/v2/terms#carbonFootprintAbsolute",
-        "https://dpp-keystone.org/spec/v2/terms#environmentalFootprint",
-        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
-      ],
-      "broadMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#carbonFootprintAbsolute",
-        "https://dpp-keystone.org/spec/v2/terms#environmentalFootprint",
-        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintMethodology",
       "localName": "carbonFootprintMethodology",
       "label": "Carbon Footprint Methodology",
@@ -738,60 +619,6 @@
       "accessLevel": "Public",
       "accessLevelRationale": "A public CF number is only meaningful and checkable with its methodology reference (ISO 14067/PEF citation).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintProduction",
-      "localName": "carbonFootprintProduction",
-      "label": "Carbon Footprint: Production",
-      "comment": "Lifecycle stage emissions from main product production. gs1:QuantitativeValue with unitCode 'KGM'.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint",
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint",
-        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal",
-        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintRawMaterial",
-      "localName": "carbonFootprintRawMaterial",
-      "label": "Carbon Footprint: Raw Material Acquisition",
-      "comment": "Lifecycle stage emissions from raw-material acquisition and pre-processing. gs1:QuantitativeValue with unitCode 'KGM' (kg CO2e) and oec:declaredFunctionalUnit set on the parent CarbonFootprintDeclaration.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint",
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
-      ],
-      "broadMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#carbonFootprintAbsolute",
-        "https://dpp-keystone.org/spec/v2/terms#environmentalFootprint"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintStudyUrl",
@@ -826,7 +653,7 @@
       "seeAlso": [
         "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf",
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
-        "https://ref.openepcis.io/extensions/common/core/carbonFootprintProduction"
+        "https://ref.openepcis.io/extensions/common/core/hasCarbonFootprintProduction"
       ],
       "exactMatch": [
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
@@ -840,25 +667,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/carbonFootprintUse",
-      "localName": "carbonFootprintUse",
-      "label": "Carbon Footprint: Use Phase",
-      "comment": "Lifecycle stage emissions from product use. gs1:QuantitativeValue with unitCode 'KGM'.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/casNumber",
       "localName": "casNumber",
       "label": "CAS Number",
@@ -870,7 +678,8 @@
         "xsd:string"
       ],
       "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#componentCasNumber"
+        "https://dpp-keystone.org/spec/v2/terms#componentCasNumber",
+        "https://w3id.org/eudpp#numberCAS"
       ],
       "closeMatch": [
         "https://dpp-keystone.org/spec/v2/terms#componentCasNumber"
@@ -879,22 +688,6 @@
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "Substance registry numbers combined with fractions enable full formulation reconstruction; they serve professional and authority use (battery Annex XIII(2) precedent).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/circularityPerformance",
-      "localName": "circularityPerformance",
-      "label": "Circularity Performance",
-      "comment": "Circularity performance data for the product.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#performance"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Container for the circularity parameters (recycled content, recyclability) that ESPR Art. 7(5)/Annex I direct at consumers; its members are individually Public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/collectionPointDirectoryUrl",
@@ -996,6 +789,9 @@
         "https://schema.org/identifier",
         "http://www.w3.org/ns/adms#identifier"
       ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialIdentifier"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "Internal component/material codes reveal bill-of-materials structure; they serve repairers, recyclers and authorities (ESPR Art. 9(2)).",
@@ -1032,29 +828,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/compostability",
-      "localName": "compostability",
-      "label": "Compostability",
-      "comment": "Links a product or material to its compostability classification and certification.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/Compostability"
-      ],
-      "seeAlso": [
-        "https://schema.org/hasCertification",
-        "https://ref.gs1.org/voc/PackagingMarkedLabelAccreditationCode"
-      ],
-      "broadMatch": [
-        "https://schema.org/hasCertification"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Entry property for a compostability classification whose members (compostabilityType, compostabilityStandard) are individually Public and back an on-pack consumer claim.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/compostabilityStandard",
       "localName": "compostabilityStandard",
       "label": "Compostability Standard",
@@ -1071,22 +844,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/compostabilityType",
-      "localName": "compostabilityType",
-      "label": "Compostability Type",
-      "comment": "",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/Compostability"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/CompostabilityType"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Home- vs industrial-compostability determines correct consumer disposal and is the point of the on-pack claim.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/concentration",
       "localName": "concentration",
       "label": "Concentration",
@@ -1097,6 +854,10 @@
       "range": [
         "xsd:decimal"
       ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#Concentration",
+        "https://w3id.org/eudpp#hasConcentration"
+      ],
       "exactMatch": [
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceConcentration"
       ],
@@ -1104,31 +865,6 @@
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "The CLP label already discloses presence; exact concentrations are trade-secret-adjacent and serve professional risk assessment (battery Annex XIII(2) precedent).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/conformityDeclaration",
-      "localName": "conformityDeclaration",
-      "label": "Conformity Declaration",
-      "comment": "Links a product to the declaration(s) asserting its conformity with the applicable EU legislation, referenced as oec:DocumentReference entries typed oec:DeclarationOfConformity.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
-      ],
-      "seeAlso": [
-        "http://data.europa.eu/m8g/Evidence",
-        "https://ref.gs1.org/voc/certification",
-        "https://ref.gs1.org/voc/ReferencedFileTypeCode-DECLARATION_OF_CONFORMITY",
-        "https://vocabulary.uncefact.org/untp/ConformityAttestation"
-      ],
-      "broadMatch": [
-        "http://data.europa.eu/m8g/Evidence"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The EU declaration of conformity must accompany the product and be produced on request (ESPR Art. 44), so the reference to it cannot be gated.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/contentSpecificationId",
@@ -1172,47 +908,20 @@
       "id": "https://ref.openepcis.io/extensions/common/core/customsCommodityCode",
       "localName": "customsCommodityCode",
       "label": "Customs Commodity Code",
-      "comment": "A commodity code assigned to a trade item for customs classification. The coding system (HS / CN / HTSUS) is indicated by oec:customsCommodityCodeType on the same trade item. GS1 has no native property for this; tariffs and regulatory obligations across EU Combined Nomenclature, US HTSUS, and WCO HS all need it.",
+      "comment": "A commodity code assigned to a trade item for customs classification. The coding system (HS / CN / HTSUS) is indicated by oec:hasCustomsCommodityCodeType on the same trade item. GS1 has no native property for this; tariffs and regulatory obligations across EU Combined Nomenclature, US HTSUS, and WCO HS all need it.",
       "domain": [
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
         "xsd:string"
       ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#commodityCode"
+      ],
       "source": "https://www.wcoomd.org/en/topics/nomenclature.aspx",
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "Commodity codes serve the customs controls of ESPR Art. 9/UCC and reveal sourcing and tariff strategy if broadcast (Reg. (EU) 952/2013).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2013/952"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/customsCommodityCodeType",
-      "localName": "customsCommodityCodeType",
-      "label": "Customs Commodity Code Type",
-      "comment": "The classification system (HS, CN, HTSUS, etc.) used for oec:customsCommodityCode on the same trade item.",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/CustomsCommodityCodeType"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The classification-system qualifier shares the audience of the commodity code it qualifies (Reg. (EU) 952/2013).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2013/952"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/dataElement",
-      "localName": "dataElement",
-      "label": "Data Element",
-      "comment": "Member DataElement of a DigitalProductPassport, DataElementCollection, or MultiValuedDataElement (EN 18223 4.1.2.4, 4.1.2.6).",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/DataElement"
-      ],
-      "seeAlso": [
-        "https://schema.org/itemListElement"
-      ],
-      "source": "EN 18223:2026, 4.1.2.4 (CEN/CENELEC JTC 24)",
-      "accessLevelInherited": true
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/dataProviderCertification",
@@ -1249,22 +958,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/dataRetentionPeriod",
-      "localName": "dataRetentionPeriod",
-      "label": "Data Retention Period",
-      "comment": "How long the data must be retained per regulatory requirements. Use unitCode 'ANN' (UN/CEFACT Rec 20).",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/AccessRights"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The regulatory retention period is compliance metadata about the passport itself, not commercial data.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/declaredUnit",
       "localName": "declaredUnit",
       "label": "Declared Unit",
@@ -1284,28 +977,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/depositAmount",
-      "localName": "depositAmount",
-      "label": "Deposit Amount",
-      "comment": "Refundable deposit applied at point of sale. Modelled as gs1:QuantitativeValue with unitCode = ISO 4217 currency code (e.g. 'EUR'). Prefer the upstream gs1:returnablePackageDepositAmount (range gs1:PriceSpecification) where the GS1 packaging model is in use; this property remains for QuantitativeValue-based expressions.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://schema.org/amount"
-      ],
-      "closeMatch": [
-        "https://ref.gs1.org/voc/returnablePackageDepositAmount"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The refundable deposit is printed at point of sale and on-pack; it is consumer price information.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/depositRedemptionChannelUrl",
       "localName": "depositRedemptionChannelUrl",
       "label": "Deposit Redemption Channel URL",
@@ -1322,51 +993,6 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "Consumers must be able to find where to redeem the deposit for the DRS to function.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/depositReturnScheme",
-      "localName": "depositReturnScheme",
-      "label": "Deposit-Return Scheme",
-      "comment": "Links a product (typically gs1:PackagingDetails) to the DRS it participates in. Where the GS1 packaging model is in use, prefer the upstream gs1:hasReturnablePackageDeposit (gs1:PackagingDetails → gs1:ReturnablePackageDepositDetails); since oec:DepositReturnScheme subclasses the GS1 target class, the same node works for both.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme"
-      ],
-      "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/referenceScheme",
-        "https://vocabulary.uncefact.org/untp/idScheme"
-      ],
-      "closeMatch": [
-        "https://ref.gs1.org/voc/hasReturnablePackageDeposit"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "DRS participation is marked on-pack and must be visible to consumers for the scheme to function (WFD/PPWR deposit-return provisions).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/depositSchemeOperator",
-      "localName": "depositSchemeOperator",
-      "label": "Deposit Scheme Operator",
-      "comment": "The Producer Responsibility Organisation that operates the DRS (e.g. Pfand-System Deutschland for DE).",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/Organization"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#economicOperator"
-      ],
-      "closeMatch": [
-        "https://schema.org/serviceOperator"
-      ],
-      "broadMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#economicOperator"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The operating PRO of a deposit-return scheme is public scheme information, not commercial data of the producer.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
     },
     {
@@ -1420,32 +1046,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/dismantlingInstructions",
-      "localName": "dismantlingInstructions",
-      "label": "Dismantling Instructions",
-      "comment": "",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#dismantlingInformation"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#disassemblyInstructions"
-      ],
-      "broadMatch": [
-        "https://ref.gs1.org/voc/instructions",
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The battery precedent gives dismantling information to persons with a legitimate interest, not the general public (Reg. 2023/1542 Annex XIII(2)(c)).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/diyRepairPossible",
       "localName": "diyRepairPossible",
       "label": "DIY Repair Possible",
@@ -1460,43 +1060,6 @@
       "accessLevel": "Public",
       "accessLevelRationale": "Whether self-repair is possible is consumer purchase information of the same kind as the repairability score (ESPR Annex I(b)).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/documents",
-      "localName": "documents",
-      "label": "Documents",
-      "comment": "Supporting documents for the product. DPP-specific counterpart to gs1:referencedFile: the oec:DocumentReference range adds document typing and ESPR access-rights semantics that gs1:ReferencedFileDetails does not carry.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
-      ],
-      "seeAlso": [
-        "https://ref.gs1.org/voc/referencedFile"
-      ],
-      "closeMatch": [
-        "https://ref.gs1.org/voc/referencedFile"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/documentType",
-      "localName": "documentType",
-      "label": "Document Type",
-      "comment": "",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/DocumentType"
-      ],
-      "exactMatch": [
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#documentType"
-      ],
-      "broadMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#europeanAssessmentDocument"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/documentUrl",
@@ -1547,51 +1110,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/dueDiligenceRegulationContext",
-      "localName": "dueDiligenceRegulationContext",
-      "label": "Due Diligence Regulation Context",
-      "comment": "The specific regulation against which a due diligence statement is asserted: Battery Annex X (Reg. 2023/1542), EUDR Article 9 (Reg. 2023/1115), CSDDD (Dir. 2024/1760), Forced Labour Regulation (2024/3015), OECD Conflict Minerals, etc. Same oec:DueDiligenceReport shape; different regulatory anchor.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/RegulatoryInformation"
-      ],
-      "closeMatch": [
-        "https://vocabulary.uncefact.org/untp/regulation",
-        "https://vocabulary.uncefact.org/untp/referenceRegulation"
-      ],
-      "broadMatch": [
-        "http://data.europa.eu/m8g/isDerivedFrom"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The regulatory anchor of a due-diligence report shares the report's legitimate-interest audience (battery Annex XIII(3) precedent).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/dueDiligenceReport",
-      "localName": "dueDiligenceReport",
-      "label": "Due Diligence Report",
-      "comment": "Reference to due diligence documentation.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#supplyChainDueDiligenceReport"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#dueDiligenceReport"
-      ],
-      "broadMatch": [
-        "urn:samm:io.BatteryPass.Labels:1.2.0#resultOfTestReport"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "Full due-diligence documentation contains supplier-level detail; the battery precedent routes it to notified bodies, surveillance authorities and the Commission (Annex XIII(3)) — public summaries go via thirdPartyAssurancesUrl.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/ecNumber",
       "localName": "ecNumber",
       "label": "EC Number",
@@ -1603,7 +1121,8 @@
         "xsd:string"
       ],
       "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#componentEcNumber"
+        "https://dpp-keystone.org/spec/v2/terms#componentEcNumber",
+        "https://w3id.org/eudpp#numberEC"
       ],
       "closeMatch": [
         "https://dpp-keystone.org/spec/v2/terms#componentEcNumber"
@@ -1625,7 +1144,8 @@
         "xsd:string"
       ],
       "seeAlso": [
-        "https://ref.gs1.org/voc/additionalOrganizationID"
+        "https://ref.gs1.org/voc/additionalOrganizationID",
+        "https://w3id.org/eudpp#hasUniqueOperatorIdentifier"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#economicOperatorId"
@@ -1656,22 +1176,6 @@
       "accessLevelInherited": true
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/emissionsPerformance",
-      "localName": "emissionsPerformance",
-      "label": "Emissions Performance",
-      "comment": "Emissions performance data container. Aligned with UNTP EmissionsPerformance.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#performance"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Container for emissions figures (carbonFootprint*) that are individually Public under the battery precedent; aligned with UNTP EmissionsPerformance.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/endOfLifeInstructions",
       "localName": "endOfLifeInstructions",
       "label": "End of Life Instructions",
@@ -1700,93 +1204,6 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "End-of-life handling instructions are directed at end users (ESPR Annex I(m); WFD consumer-information duties).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/endOfLifeProgram",
-      "localName": "endOfLifeProgram",
-      "label": "End-of-Life Program",
-      "comment": "",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/EndOfLifeProgram"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Producer end-of-life/take-back programmes only work if consumers can find them (WFD Art. 8a(2) information duty).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/energyEfficiency",
-      "localName": "energyEfficiency",
-      "label": "Energy Efficiency",
-      "comment": "",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
-      ],
-      "seeAlso": [
-        "https://schema.org/energyEfficiencyScaleMax",
-        "https://schema.org/energyEfficiencyScaleMin",
-        "https://schema.org/hasEnergyConsumptionDetails",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyFade",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife"
-      ],
-      "narrowMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiency",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyFade",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
-        "https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyAt50Cycles",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCertifiedEnergy",
-        "https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyInitial"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Energy performance data feeds the public energy label under the Energy Labelling Framework Regulation; electronics module serves it Public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/energyEfficiencyClass",
-      "localName": "energyEfficiencyClass",
-      "label": "Energy Efficiency Class",
-      "comment": "",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiencyClass"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#energyEfficiencyClass",
-        "https://schema.org/energyEfficiencyScaleMin"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#energyEfficiencyClass"
-      ],
-      "closeMatch": [
-        "https://schema.org/hasEnergyEfficiencyCategory"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2017/1369",
-      "accessLevelRationale": "The energy efficiency class is printed on the mandatory public label and published in EPREL's public part, so its audience is fixed by Regulation (EU) 2017/1369.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/environmentalProductDeclaration",
-      "localName": "environmentalProductDeclaration",
-      "label": "Environmental Product Declaration",
-      "comment": "Links a product to its EN 15804 environmental product declaration.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/EnvironmentalProductDeclaration"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#epd"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#epd"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "EPDs under ISO 14025/EN 15804 are published, third-party-verified declarations by definition.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1838,6 +1255,9 @@
       "range": [
         "xsd:string"
       ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#registrationNumber"
+      ],
       "broadMatch": [
         "https://ref.gs1.org/voc/regulatoryReferenceNumber"
       ],
@@ -1872,6 +1292,9 @@
       ],
       "range": [
         "xsd:date"
+      ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#expiryDate"
       ],
       "exactMatch": [
         "https://schema.org/validUntil"
@@ -1942,28 +1365,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2017/1369"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/eprJurisdiction",
-      "localName": "eprJurisdiction",
-      "label": "EPR Jurisdiction",
-      "comment": "The country / member state where this EPR registration applies. EPR schemes are organised per Member State; producers selling into multiple MS register in each.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/Country"
-      ],
-      "seeAlso": [
-        "https://schema.org/jurisdiction"
-      ],
-      "broadMatch": [
-        "https://schema.org/jurisdiction"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "Per-member-state registration coverage maps the producer's market footprint for enforcement (WFD Art. 8a).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/eprRegistrationNumber",
       "localName": "eprRegistrationNumber",
       "label": "EPR Registration Number",
@@ -1986,22 +1387,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/eprScheme",
-      "localName": "eprScheme",
-      "label": "EPR Scheme Operator",
-      "comment": "The Producer Responsibility Organisation (PRO) or competent authority that operates the EPR scheme. Modelled as a gs1:Organization or untp:Party.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/Organization"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The producer's PRO affiliation is compliance-registry detail for authorities and schemes (WFD Art. 8a).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/eprWasteStream",
       "localName": "eprWasteStream",
       "label": "EPR Waste Stream",
@@ -2018,62 +1403,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/expectedLifespan",
-      "localName": "expectedLifespan",
-      "label": "Expected Lifespan",
-      "comment": "Expected product lifespan. Use gs1:QuantitativeValue with unitCode (e.g., 'ANN' for years).",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Durability expressed as expected lifespan is a consumer-facing product parameter under ESPR Art. 7(5) and Annex I(a).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/extendedProducerResponsibility",
-      "localName": "extendedProducerResponsibility",
-      "label": "Extended Producer Responsibility",
-      "comment": "Links a product or operator to one or more EPR registrations covering it.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "EPR registration records serve scheme operators and enforcement under WFD Art. 8a; member-state registers are not uniformly public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/facilityCertifications",
-      "localName": "facilityCertifications",
-      "label": "Facility Certifications",
-      "comment": "Certifications held by the facility (ISO 9001, ISO 14001, etc.).",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/CertificationDetails"
-      ],
-      "seeAlso": [
-        "https://ref.gs1.org/voc/certificationIdentification"
-      ],
-      "broadMatch": [
-        "https://ref.gs1.org/voc/certification",
-        "https://schema.org/hasCertification",
-        "https://ref.gs1.org/voc/certificationInfo"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Restricted",
-      "accessLevelRationale": "Per-facility certification detail identifies specific sites and shares the facility record's authority-only audience (battery precedent).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/facilityId",
       "localName": "facilityId",
       "label": "Facility Identifier",
@@ -2084,6 +1413,10 @@
       "range": [
         "xsd:string"
       ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#FacilityIdentifier",
+        "https://w3id.org/eudpp#hasUniqueFacilityIdentifier"
+      ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#facilityId"
       ],
@@ -2093,22 +1426,6 @@
       "source": "EN 18223:2026, 4.1.2.1; EN 18219:2026 (CEN/CENELEC JTC 24)",
       "accessLevel": "Restricted",
       "accessLevelRationale": "Facility identifiers map the physical supply chain; the battery precedent reserves manufacturing-site detail for notified bodies, authorities and the Commission (Reg. 2023/1542 Annex XIII(4)).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/facilityInformation",
-      "localName": "facilityInformation",
-      "label": "Facility Information",
-      "comment": "Manufacturing or processing facility details.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
-      ],
-      "seeAlso": [
-        "https://schema.org/cvdFacilityId"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Restricted",
-      "accessLevelRationale": "Full facility records (location, type, certifications) are commercially sensitive supply-chain mapping data for authorities and designated operators (battery precedent).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
@@ -2154,14 +1471,832 @@
       "range": [
         "xsd:string"
       ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#granularity"
+      ],
       "source": "EN 18223:2026, 4.1.2.2 (CEN/CENELEC JTC 24)",
       "accessLevel": "Public",
       "accessLevelRationale": "Whether the passport describes a model, batch, or item is required to interpret every other statement in it.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/guaranteedLifespan",
-      "localName": "guaranteedLifespan",
+      "id": "https://ref.openepcis.io/extensions/common/core/hasAccessLevel",
+      "localName": "hasAccessLevel",
+      "label": "Access Level",
+      "comment": "The access level for this data (Public, AuthorizedOnly, Restricted).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/AccessRights"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/AccessLevel"
+      ],
+      "seeAlso": [
+        "https://schema.org/conditionsOfAccess"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The declared tier of a data element must itself be visible for ESPR Art. 9 gating to be interpretable.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasAccessRights",
+      "localName": "hasAccessRights",
+      "label": "Access Rights",
+      "comment": "Access control configuration for this data element.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/AccessRights"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Tier metadata must be readable by every client so it knows what it may and may not fetch under ESPR Art. 9.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasAnnualEnergyConsumption",
+      "localName": "hasAnnualEnergyConsumption",
+      "label": "Annual Energy Consumption",
+      "comment": "Annual energy consumption. gs1:QuantitativeValue with unitCode 'KWH'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2017/1369",
+      "accessLevelRationale": "Annual energy consumption appears on the mandatory energy label and in EPREL's public part (Regulation (EU) 2017/1369).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasAuthorizedParties",
+      "localName": "hasAuthorizedParties",
+      "label": "Authorized Parties",
+      "comment": "List of parties authorized to access restricted data.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/AccessRights"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Organization"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "The access-control list itself reveals business relationships and is only actionable by the passport owner and authorities (ESPR Art. 9).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasBackupCopyHost",
+      "localName": "hasBackupCopyHost",
+      "label": "Backup Copy Host",
+      "comment": "Digital product passport service provider that holds the backup copy of this passport, ensuring availability if the primary host fails or the responsible economic operator ceases to exist.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/hasPassportIssuer",
+        "https://w3id.org/eudpp#hasBackUpCopyHost"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The backup host exists so the passport stays reachable when the primary fails; a fallback address only works if its identity is public (Art. 10(4)).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasBiodegradability",
+      "localName": "hasBiodegradability",
+      "label": "Biodegradability",
+      "comment": "Links a product, material, or substance to its observed biodegradability result.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/Biodegradability"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/consumerRecyclingInstructions",
+        "https://schema.org/hasMeasurement"
+      ],
+      "broadMatch": [
+        "https://schema.org/hasMeasurement"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Entry property for a biodegradability observation whose members (biodegradationPercentage, biodegradabilityTestMethod) are individually Public.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasBiodegradabilityTestMethod",
+      "localName": "hasBiodegradabilityTestMethod",
+      "label": "Biodegradability Test Method",
+      "comment": "The test method used to determine the biodegradability percentage.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/Biodegradability"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/BiodegradabilityTestMethod"
+      ],
+      "broadMatch": [
+        "https://schema.org/measurementMethod"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The test method makes the public biodegradation percentage checkable; a claim without its method is unverifiable.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasCarbonFootprint",
+      "localName": "hasCarbonFootprint",
+      "label": "Carbon Footprint",
+      "comment": "Carbon footprint measurement for the product.",
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
+      ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The product carbon footprint is a consumer-comparable parameter (ESPR Annex I(l)); the Battery Regulation Annex XIII(1) makes it public, and battery module serves the shared names Public.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasCarbonFootprintDeclaration",
+      "localName": "hasCarbonFootprintDeclaration",
+      "label": "Carbon Footprint Declaration",
+      "comment": "Links a product to its carbon footprint declaration.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
+      ],
+      "broadMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#environmentalFootprint"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The CF declaration is the published container of figures that are individually public under the battery precedent.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasCarbonFootprintDistribution",
+      "localName": "hasCarbonFootprintDistribution",
+      "label": "Carbon Footprint: Distribution",
+      "comment": "Lifecycle stage emissions from distribution and logistics. gs1:QuantitativeValue with unitCode 'KGM'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint"
+      ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprintAbsolute",
+        "https://dpp-keystone.org/spec/v2/terms#environmentalFootprint",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasCarbonFootprintEndOfLife",
+      "localName": "hasCarbonFootprintEndOfLife",
+      "label": "Carbon Footprint: End of Life",
+      "comment": "Lifecycle stage emissions from end-of-life and recycling. gs1:QuantitativeValue with unitCode 'KGM'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint",
+        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprintAbsolute",
+        "https://dpp-keystone.org/spec/v2/terms#environmentalFootprint",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint"
+      ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprintAbsolute",
+        "https://dpp-keystone.org/spec/v2/terms#environmentalFootprint",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasCarbonFootprintProduction",
+      "localName": "hasCarbonFootprintProduction",
+      "label": "Carbon Footprint: Production",
+      "comment": "Lifecycle stage emissions from main product production. gs1:QuantitativeValue with unitCode 'KGM'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint",
+        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprint"
+      ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasCarbonFootprintRawMaterial",
+      "localName": "hasCarbonFootprintRawMaterial",
+      "label": "Carbon Footprint: Raw Material Acquisition",
+      "comment": "Lifecycle stage emissions from raw-material acquisition and pre-processing. gs1:QuantitativeValue with unitCode 'KGM' (kg CO2e) and oec:declaredFunctionalUnit set on the parent CarbonFootprintDeclaration.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#batteryCarbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
+      ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint",
+        "https://dpp-keystone.org/spec/v2/terms#carbonFootprintAbsolute",
+        "https://dpp-keystone.org/spec/v2/terms#environmentalFootprint"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasCarbonFootprintUse",
+      "localName": "hasCarbonFootprintUse",
+      "label": "Carbon Footprint: Use Phase",
+      "comment": "Lifecycle stage emissions from product use. gs1:QuantitativeValue with unitCode 'KGM'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasCircularityPerformance",
+      "localName": "hasCircularityPerformance",
+      "label": "Circularity Performance",
+      "comment": "Circularity performance data for the product.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#performance"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Container for the circularity parameters (recycled content, recyclability) that ESPR Art. 7(5)/Annex I direct at consumers; its members are individually Public.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasCompostability",
+      "localName": "hasCompostability",
+      "label": "Compostability",
+      "comment": "Links a product or material to its compostability classification and certification.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/Compostability"
+      ],
+      "seeAlso": [
+        "https://schema.org/hasCertification",
+        "https://ref.gs1.org/voc/PackagingMarkedLabelAccreditationCode"
+      ],
+      "broadMatch": [
+        "https://schema.org/hasCertification"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Entry property for a compostability classification whose members (compostabilityType, compostabilityStandard) are individually Public and back an on-pack consumer claim.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasCompostabilityType",
+      "localName": "hasCompostabilityType",
+      "label": "Compostability Type",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/Compostability"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/CompostabilityType"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Home- vs industrial-compostability determines correct consumer disposal and is the point of the on-pack claim.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasConformityDeclaration",
+      "localName": "hasConformityDeclaration",
+      "label": "Conformity Declaration",
+      "comment": "Links a product to the declaration(s) asserting its conformity with the applicable EU legislation, referenced as oec:DocumentReference entries typed oec:DeclarationOfConformity.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "seeAlso": [
+        "http://data.europa.eu/m8g/Evidence",
+        "https://ref.gs1.org/voc/certification",
+        "https://ref.gs1.org/voc/ReferencedFileTypeCode-DECLARATION_OF_CONFORMITY",
+        "https://vocabulary.uncefact.org/untp/ConformityAttestation"
+      ],
+      "broadMatch": [
+        "http://data.europa.eu/m8g/Evidence"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The EU declaration of conformity must accompany the product and be produced on request (ESPR Art. 44), so the reference to it cannot be gated.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasCustomsCommodityCodeType",
+      "localName": "hasCustomsCommodityCodeType",
+      "label": "Customs Commodity Code Type",
+      "comment": "The classification system (HS, CN, HTSUS, etc.) used for oec:customsCommodityCode on the same trade item.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/CustomsCommodityCodeType"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The classification-system qualifier shares the audience of the commodity code it qualifies (Reg. (EU) 952/2013).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2013/952"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasDataElement",
+      "localName": "hasDataElement",
+      "label": "Data Element",
+      "comment": "Member DataElement of a DigitalProductPassport, DataElementCollection, or MultiValuedDataElement (EN 18223 4.1.2.4, 4.1.2.6).",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DataElement"
+      ],
+      "seeAlso": [
+        "https://schema.org/itemListElement"
+      ],
+      "source": "EN 18223:2026, 4.1.2.4 (CEN/CENELEC JTC 24)",
+      "accessLevelInherited": true
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasDataRetentionPeriod",
+      "localName": "hasDataRetentionPeriod",
+      "label": "Data Retention Period",
+      "comment": "How long the data must be retained per regulatory requirements. Use unitCode 'ANN' (UN/CEFACT Rec 20).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/AccessRights"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The regulatory retention period is compliance metadata about the passport itself, not commercial data.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasDepositAmount",
+      "localName": "hasDepositAmount",
+      "label": "Deposit Amount",
+      "comment": "Refundable deposit applied at point of sale. Modelled as gs1:QuantitativeValue with unitCode = ISO 4217 currency code (e.g. 'EUR'). Prefer the upstream gs1:returnablePackageDepositAmount (range gs1:PriceSpecification) where the GS1 packaging model is in use; this property remains for QuantitativeValue-based expressions.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "https://schema.org/amount"
+      ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/returnablePackageDepositAmount"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The refundable deposit is printed at point of sale and on-pack; it is consumer price information.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasDepositReturnScheme",
+      "localName": "hasDepositReturnScheme",
+      "label": "Deposit-Return Scheme",
+      "comment": "Links a product (typically gs1:PackagingDetails) to the DRS it participates in. Where the GS1 packaging model is in use, prefer the upstream gs1:hasReturnablePackageDeposit (gs1:PackagingDetails → gs1:ReturnablePackageDepositDetails); since oec:DepositReturnScheme subclasses the GS1 target class, the same node works for both.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme"
+      ],
+      "seeAlso": [
+        "https://vocabulary.uncefact.org/untp/referenceScheme",
+        "https://vocabulary.uncefact.org/untp/idScheme"
+      ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/hasReturnablePackageDeposit"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "DRS participation is marked on-pack and must be visible to consumers for the scheme to function (WFD/PPWR deposit-return provisions).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasDepositSchemeOperator",
+      "localName": "hasDepositSchemeOperator",
+      "label": "Deposit Scheme Operator",
+      "comment": "The Producer Responsibility Organisation that operates the DRS (e.g. Pfand-System Deutschland for DE).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Organization"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#economicOperator"
+      ],
+      "closeMatch": [
+        "https://schema.org/serviceOperator"
+      ],
+      "broadMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#economicOperator"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The operating PRO of a deposit-return scheme is public scheme information, not commercial data of the producer.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasDismantlingInstructions",
+      "localName": "hasDismantlingInstructions",
+      "label": "Dismantling Instructions",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#dismantlingInformation"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#disassemblyInstructions"
+      ],
+      "broadMatch": [
+        "https://ref.gs1.org/voc/instructions",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The battery precedent gives dismantling information to persons with a legitimate interest, not the general public (Reg. 2023/1542 Annex XIII(2)(c)).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasDocuments",
+      "localName": "hasDocuments",
+      "label": "Documents",
+      "comment": "Supporting documents for the product. DPP-specific counterpart to gs1:referencedFile: the oec:DocumentReference range adds document typing and ESPR access-rights semantics that gs1:ReferencedFileDetails does not carry.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/referencedFile"
+      ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/referencedFile"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevelInherited": true
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasDocumentType",
+      "localName": "hasDocumentType",
+      "label": "Document Type",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentType"
+      ],
+      "exactMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#documentType"
+      ],
+      "broadMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#europeanAssessmentDocument"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevelInherited": true
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasDueDiligenceRegulationContext",
+      "localName": "hasDueDiligenceRegulationContext",
+      "label": "Due Diligence Regulation Context",
+      "comment": "The specific regulation against which a due diligence statement is asserted: Battery Annex X (Reg. 2023/1542), EUDR Article 9 (Reg. 2023/1115), CSDDD (Dir. 2024/1760), Forced Labour Regulation (2024/3015), OECD Conflict Minerals, etc. Same oec:DueDiligenceReport shape; different regulatory anchor.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/RegulatoryInformation"
+      ],
+      "closeMatch": [
+        "https://vocabulary.uncefact.org/untp/regulation",
+        "https://vocabulary.uncefact.org/untp/referenceRegulation"
+      ],
+      "broadMatch": [
+        "http://data.europa.eu/m8g/isDerivedFrom"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The regulatory anchor of a due-diligence report shares the report's legitimate-interest audience (battery Annex XIII(3) precedent).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasDueDiligenceReport",
+      "localName": "hasDueDiligenceReport",
+      "label": "Due Diligence Report",
+      "comment": "Reference to due diligence documentation.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.SupplyChainDueDiligence:1.2.0#supplyChainDueDiligenceReport"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#dueDiligenceReport"
+      ],
+      "broadMatch": [
+        "urn:samm:io.BatteryPass.Labels:1.2.0#resultOfTestReport"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Full due-diligence documentation contains supplier-level detail; the battery precedent routes it to notified bodies, surveillance authorities and the Commission (Annex XIII(3)) — public summaries go via thirdPartyAssurancesUrl.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasEmissionsPerformance",
+      "localName": "hasEmissionsPerformance",
+      "label": "Emissions Performance",
+      "comment": "Emissions performance data container. Aligned with UNTP EmissionsPerformance.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#performance"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Container for emissions figures (carbonFootprint*) that are individually Public under the battery precedent; aligned with UNTP EmissionsPerformance.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasEndOfLifeProgram",
+      "localName": "hasEndOfLifeProgram",
+      "label": "End-of-Life Program",
+      "comment": "",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/EndOfLifeProgram"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Producer end-of-life/take-back programmes only work if consumers can find them (WFD Art. 8a(2) information duty).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasEnergyEfficiency",
+      "localName": "hasEnergyEfficiency",
+      "label": "Energy Efficiency",
+      "comment": "",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
+      ],
+      "seeAlso": [
+        "https://schema.org/energyEfficiencyScaleMax",
+        "https://schema.org/energyEfficiencyScaleMin",
+        "https://schema.org/hasEnergyConsumptionDetails",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyFade",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingRoundTripEnergyEfficiency",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyFade",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#roundTripEfficiencyAt50PercentCycleLife",
+        "https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyAt50Cycles",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCertifiedEnergy",
+        "https://dpp-keystone.org/spec/v2/terms#roundTripEfficiencyInitial"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Energy performance data feeds the public energy label under the Energy Labelling Framework Regulation; electronics module serves it Public.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasEnergyEfficiencyClass",
+      "localName": "hasEnergyEfficiencyClass",
+      "label": "Energy Efficiency Class",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiencyClass"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#energyEfficiencyClass",
+        "https://schema.org/energyEfficiencyScaleMin"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#energyEfficiencyClass"
+      ],
+      "closeMatch": [
+        "https://schema.org/hasEnergyEfficiencyCategory"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2017/1369",
+      "accessLevelRationale": "The energy efficiency class is printed on the mandatory public label and published in EPREL's public part, so its audience is fixed by Regulation (EU) 2017/1369.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasEnvironmentalProductDeclaration",
+      "localName": "hasEnvironmentalProductDeclaration",
+      "label": "Environmental Product Declaration",
+      "comment": "Links a product to its EN 15804 environmental product declaration.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/EnvironmentalProductDeclaration"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#epd"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#epd"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "EPDs under ISO 14025/EN 15804 are published, third-party-verified declarations by definition.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasEprJurisdiction",
+      "localName": "hasEprJurisdiction",
+      "label": "EPR Jurisdiction",
+      "comment": "The country / member state where this EPR registration applies. EPR schemes are organised per Member State; producers selling into multiple MS register in each.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Country"
+      ],
+      "seeAlso": [
+        "https://schema.org/jurisdiction"
+      ],
+      "broadMatch": [
+        "https://schema.org/jurisdiction"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Per-member-state registration coverage maps the producer's market footprint for enforcement (WFD Art. 8a).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasEprScheme",
+      "localName": "hasEprScheme",
+      "label": "EPR Scheme Operator",
+      "comment": "The Producer Responsibility Organisation (PRO) or competent authority that operates the EPR scheme. Modelled as a gs1:Organization or untp:Party.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Organization"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The producer's PRO affiliation is compliance-registry detail for authorities and schemes (WFD Art. 8a).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasExpectedLifespan",
+      "localName": "hasExpectedLifespan",
+      "label": "Expected Lifespan",
+      "comment": "Expected product lifespan. Use gs1:QuantitativeValue with unitCode (e.g., 'ANN' for years).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Durability expressed as expected lifespan is a consumer-facing product parameter under ESPR Art. 7(5) and Annex I(a).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasExtendedProducerResponsibility",
+      "localName": "hasExtendedProducerResponsibility",
+      "label": "Extended Producer Responsibility",
+      "comment": "Links a product or operator to one or more EPR registrations covering it.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "EPR registration records serve scheme operators and enforcement under WFD Art. 8a; member-state registers are not uniformly public.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasFacilityCertifications",
+      "localName": "hasFacilityCertifications",
+      "label": "Facility Certifications",
+      "comment": "Certifications held by the facility (ISO 9001, ISO 14001, etc.).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/CertificationDetails"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/certificationIdentification"
+      ],
+      "broadMatch": [
+        "https://ref.gs1.org/voc/certification",
+        "https://schema.org/hasCertification",
+        "https://ref.gs1.org/voc/certificationInfo"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "Per-facility certification detail identifies specific sites and shares the facility record's authority-only audience (battery precedent).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasFacilityInformation",
+      "localName": "hasFacilityInformation",
+      "label": "Facility Information",
+      "comment": "Manufacturing or processing facility details.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
+      ],
+      "seeAlso": [
+        "https://schema.org/cvdFacilityId"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "Full facility records (location, type, certifications) are commercially sensitive supply-chain mapping data for authorities and designated operators (battery precedent).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasGuaranteedLifespan",
+      "localName": "hasGuaranteedLifespan",
       "label": "Guaranteed Lifespan",
       "comment": "Guaranteed minimum product lifespan per manufacturer warranty. Use unitCode 'ANN' (UN/CEFACT Rec 20).",
       "domain": [
@@ -2179,8 +2314,8 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/hazardClass",
-      "localName": "hazardClass",
+      "id": "https://ref.openepcis.io/extensions/common/core/hasHazardClass",
+      "localName": "hasHazardClass",
       "label": "Hazard Class",
       "comment": "CLP Regulation hazard classification.",
       "domain": [
@@ -2199,22 +2334,8 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2008/1272"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/hazardImpact",
-      "localName": "hazardImpact",
-      "label": "Hazard Impact",
-      "comment": "Description of the hazard impact.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
-      ],
-      "range": [
-        "rdf:langString"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272",
-      "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/hazardousSubstances",
-      "localName": "hazardousSubstances",
+      "id": "https://ref.openepcis.io/extensions/common/core/hasHazardousSubstances",
+      "localName": "hasHazardousSubstances",
       "label": "Hazardous Substances",
       "comment": "Hazardous substances present in the product.",
       "range": [
@@ -2228,10 +2349,617 @@
       "closeMatch": [
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstances"
       ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceIdentifier",
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass"
+      ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272",
       "accessLevel": "Public",
       "accessLevelRationale": "The presence and identity of hazardous substances is disclosed on the CLP label (Reg. (EC) 1272/2008 Art. 18); battery and detergent modules serve the same name Public — exact concentrations stay tiered separately.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2008/1272"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasHazardSignalWord",
+      "localName": "hasHazardSignalWord",
+      "label": "Hazard Signal Word",
+      "comment": "CLP Regulation 1272/2008 signal word: Danger or Warning.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/HazardSignalWord"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272",
+      "accessLevel": "Public",
+      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2008/1272",
+      "accessLevelRationale": "The signal word (Danger/Warning) is a mandatory element of the public CLP label (Reg. (EC) 1272/2008 Art. 17).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2008/1272"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasImpactIndicator",
+      "localName": "hasImpactIndicator",
+      "label": "Impact Indicator",
+      "comment": "An environmental impact indicator result reported within the EPD.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnvironmentalProductDeclaration"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorResult"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#indicator"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevelInherited": true
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasIndicatorType",
+      "localName": "hasIndicatorType",
+      "label": "Indicator Type",
+      "comment": "The EN 15804 impact category this result reports (e.g. oec:GWPTotal).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorResult"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorType"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevelInherited": true
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasLifecycleStage",
+      "localName": "hasLifecycleStage",
+      "label": "Lifecycle Stage",
+      "comment": "The EN 15804 lifecycle module this value applies to (e.g. oec:StageA1).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/LifecycleStageResult"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/LifecycleStage"
+      ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#hasLifeCycleStage"
+      ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#lifecycleStage"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevelInherited": true
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasLifecycleStageResult",
+      "localName": "hasLifecycleStageResult",
+      "label": "Lifecycle Stage Result",
+      "comment": "A single EN 15804 module value contributing to this indicator.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorResult"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/LifecycleStageResult"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevelInherited": true
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasMaterialComposition",
+      "localName": "hasMaterialComposition",
+      "label": "Material Composition",
+      "comment": "",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
+        "https://ref.gs1.org/voc/textileMaterialContent",
+        "https://dpp-keystone.org/spec/v2/terms#fibreComposition",
+        "https://dpp-keystone.org/spec/v2/terms#packagingMaterialCompositionQuantity",
+        "https://ref.gs1.org/voc/textileMaterialDescription",
+        "https://ref.gs1.org/voc/packagingMaterial",
+        "https://ref.gs1.org/voc/packagingMaterialType",
+        "https://dpp-keystone.org/spec/v2/terms#packagingMaterialType",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledMaterial",
+        "https://ref.gs1.org/voc/upperMaterialType"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#materialComposition"
+      ],
+      "narrowMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
+        "https://ref.gs1.org/voc/textileMaterialDescription",
+        "https://ref.gs1.org/voc/packagingMaterialType",
+        "https://ref.gs1.org/voc/textileMaterial"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Detailed composition beyond CLP label disclosure is commercially sensitive; the battery precedent serves it to legitimate-interest parties (Annex XIII(2)).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasMaterialOrigin",
+      "localName": "hasMaterialOrigin",
+      "label": "Material Origin",
+      "comment": "Country of origin of an individual material or component within the product composition, as a gs1:Country value.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Country"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/countryOfOrigin",
+        "https://w3id.org/eudpp#MaterialOrigin",
+        "https://w3id.org/eudpp#hasMaterialOrigin"
+      ],
+      "broadMatch": [
+        "https://schema.org/countryOfOrigin"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Per-material origin exposes supplier relationships; supply-chain mapping detail is for authorities and legitimate-interest parties (ESPR Art. 9(2)).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasMultiLanguageValue",
+      "localName": "hasMultiLanguageValue",
+      "label": "Multi-Language Value",
+      "comment": "A language-tagged value of a MultiLanguageDataElement (EN 18223 4.1.2.8).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/MultiLanguageDataElement"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/MultiLanguageValue"
+      ],
+      "source": "EN 18223:2026, 4.1.2.8 (CEN/CENELEC JTC 24)",
+      "accessLevelInherited": true
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasOperationalScope",
+      "localName": "hasOperationalScope",
+      "label": "Operational Scope",
+      "comment": "Lifecycle boundary for emissions calculation (CradleToGate or CradleToGrave).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/OperationalScope"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#lifecycleStage"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevelInherited": true
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasOperatorInformation",
+      "localName": "hasOperatorInformation",
+      "label": "Operator Information",
+      "comment": "Economic operator responsible for the product.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#operatorInformation",
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturerInformation"
+      ],
+      "narrowMatch": [
+        "https://ref.gs1.org/voc/manufacturer"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Detailed operator records (addresses, contacts) serve surveillance and customs under ESPR Art. 9(2); the public sees the issuer via passportIssuer.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasOperatorRole",
+      "localName": "hasOperatorRole",
+      "label": "Operator Role",
+      "comment": "Role of the economic operator (manufacturer, importer, etc.).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorRole"
+      ],
+      "seeAlso": [
+        "http://data.europa.eu/m8g/role"
+      ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/organizationRole"
+      ],
+      "broadMatch": [
+        "http://data.europa.eu/m8g/role"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The operator's supply-chain role (importer, fulfilment provider, ...) maps responsibility chains for authorities (ESPR Art. 9(2)).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasPassportIssuer",
+      "localName": "hasPassportIssuer",
+      "label": "Passport Issuer",
+      "comment": "Economic operator responsible for issuing and maintaining this Digital Product Passport.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+      ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#hasIssuer"
+      ],
+      "closeMatch": [
+        "https://schema.org/issuedBy"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "ESPR makes the passport-issuing economic operator accountable for the passport (Art. 9, Art. 77 registry), so issuer identity is part of the public record.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasPerformanceInfo",
+      "localName": "hasPerformanceInfo",
+      "label": "Performance Information",
+      "comment": "Product performance and durability information.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Container for the durability and performance parameters that ESPR Art. 7(5)/Annex III direct at consumers; its members are individually Public.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasPowerConsumptionOff",
+      "localName": "hasPowerConsumptionOff",
+      "label": "Power Consumption: Off Mode",
+      "comment": "Power consumed in off mode. gs1:QuantitativeValue with unitCode 'WTT'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "broadMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#power",
+        "https://dpp-keystone.org/spec/v2/terms#ratedPower"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Off-mode power is regulated and published under ecodesign/energy-labelling measures (standby regulation lineage); no confidentiality interest exists.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasPowerConsumptionOn",
+      "localName": "hasPowerConsumptionOn",
+      "label": "Power Consumption: On Mode",
+      "comment": "Power consumed in active operating mode. gs1:QuantitativeValue with unitCode 'WTT'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Mode-specific power values are product-information-sheet data published for labelled product groups; kept overridable pending each group's delegated act.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasPowerConsumptionStandby",
+      "localName": "hasPowerConsumptionStandby",
+      "label": "Power Consumption: Standby Mode",
+      "comment": "Power consumed in standby. gs1:QuantitativeValue with unitCode 'WTT'.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Standby power is regulated and published under ecodesign/energy-labelling measures; product-fiche data for labelled groups.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasProductCategory",
+      "localName": "hasProductCategory",
+      "label": "Product Category",
+      "comment": "ESPR product category classification.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/ProductCategory"
+      ],
+      "broadMatch": [
+        "https://schema.org/category",
+        "https://ref.gs1.org/voc/additionalProductClassificationCode",
+        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryCategory"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The ESPR product-group classification determines which delegated act applies and is inherently public market information.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasRecyclabilityAssessment",
+      "localName": "hasRecyclabilityAssessment",
+      "label": "Recyclability Assessment",
+      "comment": "Links a product to its recyclability assessment.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The recyclability assessment substantiates public recyclability claims (ESPR Annex I(i)); textile module serves the same name Public.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasRecycledContentDetails",
+      "localName": "hasRecycledContentDetails",
+      "label": "Recycled Content Details",
+      "comment": "Detailed recycled content breakdown with pre/post-consumer splits.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/RecycledContent"
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/recyclableContent",
+        "https://dpp-keystone.org/spec/v2/terms#recycledContentPercentage",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage"
+      ],
+      "closeMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentMass"
+      ],
+      "broadMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#recycledContentPercentage",
+        "https://vocabulary.uncefact.org/untp/recycledMassFraction"
+      ],
+      "narrowMatch": [
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass",
+        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
+        "urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare",
+        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Detailed pre-/post-consumer breakdown of a figure whose components (recycledContent, pre-/postConsumerRecycledContent) are individually Public.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasRepairabilityInfo",
+      "localName": "hasRepairabilityInfo",
+      "label": "Repairability Information",
+      "comment": "Repair and maintenance information for the product.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/serviceInfo"
+      ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/serviceInfo"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Repair and maintenance information is directed at end users and independent repairers under ESPR Annex I(b) and the right-to-repair framework.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasRepairInstructions",
+      "localName": "hasRepairInstructions",
+      "label": "Repair Instructions",
+      "comment": "URL or reference to repair instructions and manuals.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/serviceInfo"
+      ],
+      "broadMatch": [
+        "https://ref.gs1.org/voc/instructions",
+        "https://ref.gs1.org/voc/serviceInfo"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Access to repair instructions for consumers and independent operators is a core ESPR/right-to-repair objective (Annex I(b), Dir. 2024/1799).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasRepairProvider",
+      "localName": "hasRepairProvider",
+      "label": "Repair Provider",
+      "comment": "Links a product to one or more authorised repair providers.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/RepairProvider"
+      ],
+      "broadMatch": [
+        "https://schema.org/provider"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Links to authorised repair providers serve consumer repairer discovery under the right-to-repair framework (Dir. 2024/1799).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2024/1799"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasReportingGranularity",
+      "localName": "hasReportingGranularity",
+      "label": "Reporting Granularity",
+      "comment": "BatteryPass per-attribute reporting granularity (model / model-per-site / batch / item). Distinct from the passport-level EN 18223 'granularity' (oec:granularityLevel).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DPPGranularity"
+      ],
+      "closeMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#granularity"
+      ],
+      "source": "https://thebatterypass.eu/battery-pass-ready/publications/",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Per-attribute reporting granularity (model/batch/item) is interpretation metadata needed to read the value it qualifies, like the passport-level granularity.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasSoftwareUpdatesAvailability",
+      "localName": "hasSoftwareUpdatesAvailability",
+      "label": "Software Updates Availability",
+      "comment": "Duration for which software/firmware updates will be provided. Use unitCode 'ANN' (UN/CEFACT Rec 20).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The guaranteed software/firmware update period is a consumer durability parameter (ESPR Annex I; smartphone/tablet labelling precedent).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasSparePartsAvailability",
+      "localName": "hasSparePartsAvailability",
+      "label": "Spare Parts Availability",
+      "comment": "Duration for which spare parts will be available. Use gs1:QuantitativeValue with unitCode 'ANN' for years.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Spare-parts availability duration is a consumer purchase parameter under ESPR Annex I(d) and existing ecodesign implementing measures.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasSubstancesOfConcern",
+      "localName": "hasSubstancesOfConcern",
+      "label": "Substances of Concern",
+      "comment": "List of substances of concern present in the product per ESPR and SCIP database requirements.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstances",
+        "https://dpp-keystone.org/spec/v2/terms#substancesOfConcern",
+        "https://ref.gs1.org/voc/ingredientOfConcern"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#substancesOfConcern"
+      ],
+      "narrowMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#textileSubstancesOfConcern"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Tracking substances of concern is a stated DPP objective (ESPR Art. 7(5)(b)) and presence data is already public via ECHA's SCIP database; textile module agrees on Public.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasTechnicalLifetime",
+      "localName": "hasTechnicalLifetime",
+      "label": "Technical Lifetime",
+      "comment": "Technical lifetime under specified conditions. Use unitCode 'ANN' (UN/CEFACT Rec 20).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#batteryTechnicalProperties"
+      ],
+      "closeMatch": [
+        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Technical lifetime under specified conditions is a durability parameter directed at end users per ESPR Annex I(a).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasTraceabilityPerformance",
+      "localName": "hasTraceabilityPerformance",
+      "label": "Traceability Performance",
+      "comment": "Traceability performance metrics for supply chain verification.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/TraceabilityPerformance"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Aggregate traceability metrics substantiate public transparency claims without exposing individual suppliers (ESPR Art. 7; CSDDD context).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasTradeItemPieces",
+      "localName": "hasTradeItemPieces",
+      "label": "Trade Item Pieces",
+      "comment": "Links a multi-piece trade item to the individual pieces it is delivered as, each identified via GS1 AI 8026 (ITIP).",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/IndividualTradeItemPiece"
+      ],
+      "seeAlso": [
+        "https://www.gs1.org/standards/barcodes/application-identifiers/8026",
+        "https://schema.org/hasPart"
+      ],
+      "broadMatch": [
+        "https://schema.org/hasPart"
+      ],
+      "source": "https://ref.gs1.org/ai/8026",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The piece set is the container for piece data that is itself Public throughout; gating it would hide public product identification behind a closed door.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasVerificationBody",
+      "localName": "hasVerificationBody",
+      "label": "Verification Body",
+      "comment": "Organization that performed third-party verification.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/Organization"
+      ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#hasNotifiedBody"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Naming the third-party verifier is what makes public assurances checkable; battery module serves the same name Public.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/hazardImpact",
+      "localName": "hazardImpact",
+      "label": "Hazard Impact",
+      "comment": "Description of the hazard impact.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
+      "range": [
+        "rdf:langString"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272",
+      "accessLevelInherited": true
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/hazardPictogramCode",
@@ -2248,23 +2976,6 @@
       "accessLevel": "Public",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2008/1272",
       "accessLevelRationale": "GHS pictograms are mandatory elements of the public CLP label (Reg. (EC) 1272/2008 Art. 17).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2008/1272"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/hazardSignalWord",
-      "localName": "hazardSignalWord",
-      "label": "Hazard Signal Word",
-      "comment": "CLP Regulation 1272/2008 signal word: Danger or Warning.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/HazardSignalWord"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2008/1272",
-      "accessLevelRationale": "The signal word (Danger/Warning) is a mandatory element of the public CLP label (Reg. (EC) 1272/2008 Art. 17).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2008/1272"
     },
     {
@@ -2304,23 +3015,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/impactIndicator",
-      "localName": "impactIndicator",
-      "label": "Impact Indicator",
-      "comment": "An environmental impact indicator result reported within the EPD.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/EnvironmentalProductDeclaration"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorResult"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#indicator"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/indicatorTotalValue",
       "localName": "indicatorTotalValue",
       "label": "Indicator Total Value",
@@ -2334,20 +3028,6 @@
       "seeAlso": [
         "https://schema.org/value",
         "https://ref.gs1.org/voc/value"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/indicatorType",
-      "localName": "indicatorType",
-      "label": "Indicator Type",
-      "comment": "The EN 15804 impact category this result reports (e.g. oec:GWPTotal).",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorResult"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorType"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevelInherited": true
@@ -2380,10 +3060,33 @@
       "range": [
         "xsd:boolean"
       ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#isCriticalRawMaterial"
+      ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "CRM flags support recovery obligations of recyclers and authorities under the CRMA (Reg. 2024/1252), not consumer information.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1252"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/isEnergyRelated",
+      "localName": "isEnergyRelated",
+      "label": "Is Energy-Related Product",
+      "comment": "Whether the product is an energy-related product in the sense of the ESPR, i.e. a product with an impact on energy consumption during use.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:boolean"
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/energyEfficiencyClass",
+        "https://w3id.org/eudpp#isEnergyRelated"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Regulatory scope classification; whether a product is energy-related decides which public ecodesign requirements apply.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/isRegulationCompliant",
@@ -2410,6 +3113,7 @@
         "xsd:boolean"
       ],
       "broadMatch": [
+        "https://w3id.org/eudpp#isCriticalRawMaterial",
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#isCriticalRawMaterial",
         "https://dpp-keystone.org/spec/v2/terms#criticalRawMaterials"
       ],
@@ -2439,6 +3143,47 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "A generic issue date is neutral document metadata needed to judge currency, on par with passportIssueDate.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/iupacName",
+      "localName": "iupacName",
+      "label": "IUPAC Name",
+      "comment": "Systematic IUPAC nomenclature name of the substance.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#nameIUPAC"
+      ],
+      "closeMatch": [
+        "https://schema.org/iupacName"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Systematic substance names combined with fractions enable formulation reconstruction, same trade-secret exposure as oec:casNumber (battery Annex XIII(2) precedent).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/landUse",
+      "localName": "landUse",
+      "label": "Land Use",
+      "comment": "Land area occupied or transformed over the product life cycle per declared unit, expressed in square metres.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#LandUse"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2530,40 +3275,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/lifecycleStage",
-      "localName": "lifecycleStage",
-      "label": "Lifecycle Stage",
-      "comment": "The EN 15804 lifecycle module this value applies to (e.g. oec:StageA1).",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/LifecycleStageResult"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/LifecycleStage"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#lifecycleStage"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/lifecycleStageResult",
-      "localName": "lifecycleStageResult",
-      "label": "Lifecycle Stage Result",
-      "comment": "A single EN 15804 module value contributing to this indicator.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorResult"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/LifecycleStageResult"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprintPerLifecycleStage"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/massFraction",
       "localName": "massFraction",
       "label": "Mass Fraction",
@@ -2575,7 +3286,8 @@
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://vocabulary.uncefact.org/untp/massFraction"
+        "https://vocabulary.uncefact.org/untp/massFraction",
+        "https://w3id.org/eudpp#materialPercentage"
       ],
       "exactMatch": [
         "https://vocabulary.uncefact.org/untp/massFraction"
@@ -2599,7 +3311,7 @@
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#recyclabilityScore",
         "https://ref.openepcis.io/extensions/common/core/recyclabilityScore",
-        "https://ref.openepcis.io/extensions/common/core/recyclabilityAssessment"
+        "https://ref.openepcis.io/extensions/common/core/hasRecyclabilityAssessment"
       ],
       "source": "https://ellenmacarthurfoundation.org/material-circularity-indicator",
       "accessLevel": "Public",
@@ -2607,59 +3319,23 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/materialComposition",
-      "localName": "materialComposition",
-      "label": "Material Composition",
-      "comment": "",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition",
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
-        "https://ref.gs1.org/voc/textileMaterialContent",
-        "https://dpp-keystone.org/spec/v2/terms#fibreComposition",
-        "https://dpp-keystone.org/spec/v2/terms#packagingMaterialCompositionQuantity",
-        "https://ref.gs1.org/voc/textileMaterialDescription",
-        "https://ref.gs1.org/voc/packagingMaterial",
-        "https://ref.gs1.org/voc/packagingMaterialType",
-        "https://dpp-keystone.org/spec/v2/terms#packagingMaterialType",
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledMaterial",
-        "https://ref.gs1.org/voc/upperMaterialType"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#materialComposition"
-      ],
-      "narrowMatch": [
-        "https://ref.gs1.org/voc/textileMaterialDescription",
-        "https://ref.gs1.org/voc/packagingMaterialType",
-        "https://ref.gs1.org/voc/textileMaterial"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "Detailed composition beyond CLP label disclosure is commercially sensitive; the battery precedent serves it to legitimate-interest parties (Annex XIII(2)).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/materialOrigin",
-      "localName": "materialOrigin",
-      "label": "Material Origin",
-      "comment": "Country of origin of an individual material or component within the product composition, as a gs1:Country value.",
+      "id": "https://ref.openepcis.io/extensions/common/core/materialFootprint",
+      "localName": "materialFootprint",
+      "label": "Material Footprint",
+      "comment": "Total raw material input mobilised over the product life cycle per declared unit, expressed in kilograms.",
       "domain": [
-        "https://ref.openepcis.io/extensions/common/core/MaterialComposition"
+        "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.gs1.org/voc/Country"
+        "xsd:decimal"
       ],
       "seeAlso": [
-        "https://ref.gs1.org/voc/countryOfOrigin"
-      ],
-      "broadMatch": [
-        "https://schema.org/countryOfOrigin"
+        "https://w3id.org/eudpp#MaterialFootprint",
+        "https://w3id.org/eudpp#ResourceConsumption"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "Per-material origin exposes supplier relationships; supply-chain mapping detail is for authorities and legitimate-interest parties (ESPR Art. 9(2)).",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2680,79 +3356,23 @@
       "accessLevelInherited": true
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/multiLanguageValue",
-      "localName": "multiLanguageValue",
-      "label": "Multi-Language Value",
-      "comment": "A language-tagged value of a MultiLanguageDataElement (EN 18223 4.1.2.8).",
+      "id": "https://ref.openepcis.io/extensions/common/core/packagingWasteAmount",
+      "localName": "packagingWasteAmount",
+      "label": "Packaging Waste Amount",
+      "comment": "Quantity of packaging waste generated per declared unit, expressed in kilograms.",
       "domain": [
-        "https://ref.openepcis.io/extensions/common/core/MultiLanguageDataElement"
+        "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.io/extensions/common/core/MultiLanguageValue"
-      ],
-      "source": "EN 18223:2026, 4.1.2.8 (CEN/CENELEC JTC 24)",
-      "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/operationalScope",
-      "localName": "operationalScope",
-      "label": "Operational Scope",
-      "comment": "Lifecycle boundary for emissions calculation (CradleToGate or CradleToGrave).",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/OperationalScope"
+        "xsd:decimal"
       ],
       "seeAlso": [
-        "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#lifecycleStage"
+        "https://ref.openepcis.io/extensions/common/core/productToPackagingRatio",
+        "https://w3id.org/eudpp#PackagingWasteAmount"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/operatorInformation",
-      "localName": "operatorInformation",
-      "label": "Operator Information",
-      "comment": "Economic operator responsible for the product.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#operatorInformation",
-        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturerInformation"
-      ],
-      "narrowMatch": [
-        "https://ref.gs1.org/voc/manufacturer"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "Detailed operator records (addresses, contacts) serve surveillance and customs under ESPR Art. 9(2); the public sees the issuer via passportIssuer.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/operatorRole",
-      "localName": "operatorRole",
-      "label": "Operator Role",
-      "comment": "Role of the economic operator (manufacturer, importer, etc.).",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/OperatorRole"
-      ],
-      "seeAlso": [
-        "http://data.europa.eu/m8g/role"
-      ],
-      "closeMatch": [
-        "https://ref.gs1.org/voc/organizationRole"
-      ],
-      "broadMatch": [
-        "http://data.europa.eu/m8g/role"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The operator's supply-chain role (importer, fulfilment provider, ...) maps responsibility chains for authorities (ESPR Art. 9(2)).",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Annex I ecodesign parameter; PPWR reporting publishes the same per-unit packaging figures.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2762,6 +3382,9 @@
       "comment": "Date when this Digital Product Passport expires or requires renewal.",
       "range": [
         "xsd:date"
+      ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#validUntil"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -2778,6 +3401,9 @@
       ],
       "range": [
         "xsd:anyURI"
+      ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#DPPIdentifier"
       ],
       "broadMatch": [
         "https://schema.org/identifier",
@@ -2797,27 +3423,12 @@
         "xsd:date"
       ],
       "seeAlso": [
-        "https://schema.org/dateIssued"
+        "https://schema.org/dateIssued",
+        "https://w3id.org/eudpp#validFrom"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "The issue date is neutral passport metadata every audience needs to judge the currency of the information.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/passportIssuer",
-      "localName": "passportIssuer",
-      "label": "Passport Issuer",
-      "comment": "Economic operator responsible for issuing and maintaining this Digital Product Passport.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
-      ],
-      "closeMatch": [
-        "https://schema.org/issuedBy"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "ESPR makes the passport-issuing economic operator accountable for the passport (Art. 9, Art. 77 registry), so issuer identity is part of the public record.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2830,6 +3441,9 @@
       ],
       "range": [
         "xsd:string"
+      ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#dppStatus"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#dppStatus"
@@ -2871,7 +3485,7 @@
       ],
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#energyEfficiencyClass",
-        "https://ref.openepcis.io/extensions/common/core/energyEfficiencyClass",
+        "https://ref.openepcis.io/extensions/common/core/hasEnergyEfficiencyClass",
         "https://schema.org/energyEfficiencyScaleMax"
       ],
       "broadMatch": [
@@ -2880,19 +3494,6 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "Performance/efficiency classes (e.g. A-G) exist precisely for at-a-glance consumer comparison, mirroring the public energy-label and battery CF classes.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/performanceInfo",
-      "localName": "performanceInfo",
-      "label": "Performance Information",
-      "comment": "Product performance and durability information.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Container for the durability and performance parameters that ESPR Art. 7(5)/Annex III direct at consumers; its members are individually Public.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -2920,58 +3521,6 @@
       "accessLevel": "Public",
       "accessLevelRationale": "The post-consumer split substantiates the public recycled-content claim (ESPR Annex I(h); PPWR recycled-content rules).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/powerConsumptionOff",
-      "localName": "powerConsumptionOff",
-      "label": "Power Consumption: Off Mode",
-      "comment": "Power consumed in off mode. gs1:QuantitativeValue with unitCode 'WTT'.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "broadMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#power",
-        "https://dpp-keystone.org/spec/v2/terms#ratedPower"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Off-mode power is regulated and published under ecodesign/energy-labelling measures (standby regulation lineage); no confidentiality interest exists.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/powerConsumptionOn",
-      "localName": "powerConsumptionOn",
-      "label": "Power Consumption: On Mode",
-      "comment": "Power consumed in active operating mode. gs1:QuantitativeValue with unitCode 'WTT'.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Mode-specific power values are product-information-sheet data published for labelled product groups; kept overridable pending each group's delegated act.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/powerConsumptionStandby",
-      "localName": "powerConsumptionStandby",
-      "label": "Power Consumption: Standby Mode",
-      "comment": "Power consumed in standby. gs1:QuantitativeValue with unitCode 'WTT'.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Standby power is regulated and published under ecodesign/energy-labelling measures; product-fiche data for labelled groups.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2017/1369"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/precautionaryStatement",
@@ -3027,10 +3576,12 @@
         "xsd:anyURI"
       ],
       "seeAlso": [
-        "http://www.w3.org/ns/adms#prev"
+        "http://www.w3.org/ns/adms#prev",
+        "https://w3id.org/eudpp#linkToPreviousDPP"
       ],
       "exactMatch": [
-        "http://www.w3.org/ns/adms#prev"
+        "http://www.w3.org/ns/adms#prev",
+        "https://w3id.org/eudpp#linkToPreviousDPP"
       ],
       "broadMatch": [
         "https://schema.org/predecessorOf"
@@ -3057,21 +3608,48 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/productCategory",
-      "localName": "productCategory",
-      "label": "Product Category",
-      "comment": "ESPR product category classification.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/ProductCategory"
+      "id": "https://ref.openepcis.io/extensions/common/core/productCategoryRules",
+      "localName": "productCategoryRules",
+      "label": "Product Category Rules",
+      "comment": "URI of the Product Category Rules (PCR) or Product Environmental Footprint Category Rules (PEFCR) document under which the environmental declaration was produced.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/EnvironmentalProductDeclaration"
       ],
-      "broadMatch": [
-        "https://schema.org/category",
-        "https://ref.gs1.org/voc/additionalProductClassificationCode",
-        "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryCategory"
+      "range": [
+        "xsd:anyURI"
+      ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#PCR",
+        "https://w3id.org/eudpp#PEFCR",
+        "https://w3id.org/eudpp#referenceToPCR",
+        "https://w3id.org/eudpp#referenceToPEFCR"
+      ],
+      "narrowMatch": [
+        "https://w3id.org/eudpp#referenceToPEFCR"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
-      "accessLevelRationale": "The ESPR product-group classification determines which delegated act applies and is inherently public market information.",
+      "accessLevelRationale": "The PCR/PEFCR reference is EPD metadata without which the declared results are not comparable; ISO 14025 declarations are public documents.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/productToPackagingRatio",
+      "localName": "productToPackagingRatio",
+      "label": "Product-to-Packaging Ratio",
+      "comment": "Ratio of product weight to total packaging weight, indicating packaging efficiency.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/netWeight",
+        "https://w3id.org/eudpp#ProductToPackagingRatio"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Annex I ecodesign parameter; derived from weights GS1 already publishes per trade item.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -3096,16 +3674,23 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2024/1799"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/recyclabilityAssessment",
-      "localName": "recyclabilityAssessment",
-      "label": "Recyclability Assessment",
-      "comment": "Links a product to its recyclability assessment.",
-      "range": [
+      "id": "https://ref.openepcis.io/extensions/common/core/recoverableRate",
+      "localName": "recoverableRate",
+      "label": "Recoverable Rate",
+      "comment": "Decimal fraction (0-1) of the product recoverable at end of life through any recovery operation (material recycling, energy recovery, backfilling).",
+      "domain": [
         "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/recyclabilityRate",
+        "https://w3id.org/eudpp#RecoverableRate"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
-      "accessLevelRationale": "The recyclability assessment substantiates public recyclability claims (ESPR Annex I(i)); textile module serves the same name Public.",
+      "accessLevelRationale": "End-of-life recoverability is consumer-facing circularity information, same tier as oec:recyclabilityRate.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -3211,36 +3796,22 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/recycledContentDetails",
-      "localName": "recycledContentDetails",
-      "label": "Recycled Content Details",
-      "comment": "Detailed recycled content breakdown with pre/post-consumer splits.",
+      "id": "https://ref.openepcis.io/extensions/common/core/recyclingCollectionRate",
+      "localName": "recyclingCollectionRate",
+      "label": "Recycling Collection Rate",
+      "comment": "Decimal fraction (0-1) of products of this type actually collected for recycling, as reported for the applicable collection scheme.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment"
+      ],
       "range": [
-        "https://ref.openepcis.io/extensions/common/core/RecycledContent"
+        "xsd:decimal"
       ],
       "seeAlso": [
-        "https://ref.openepcis.io/extensions/common/core/recyclableContent",
-        "https://dpp-keystone.org/spec/v2/terms#recycledContentPercentage",
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContent",
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentPercentage",
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledMaterialComposition",
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContent",
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass",
-        "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
-        "urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare",
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentPercentage"
-      ],
-      "closeMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#postConsumerRecycledContentMass"
-      ],
-      "broadMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#recycledContentPercentage",
-        "https://vocabulary.uncefact.org/untp/recycledMassFraction"
+        "https://w3id.org/eudpp#RecyclingCollectionRate"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
-      "accessLevelRationale": "Detailed pre-/post-consumer breakdown of a figure whose components (recycledContent, pre-/postConsumerRecycledContent) are individually Public.",
+      "accessLevelRationale": "Collection rates are scheme-level statistics published by EPR schemes and member states; nothing product-confidential.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -3344,25 +3915,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/repairabilityInfo",
-      "localName": "repairabilityInfo",
-      "label": "Repairability Information",
-      "comment": "Repair and maintenance information for the product.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
-      ],
-      "seeAlso": [
-        "https://ref.gs1.org/voc/serviceInfo"
-      ],
-      "closeMatch": [
-        "https://ref.gs1.org/voc/serviceInfo"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Repair and maintenance information is directed at end users and independent repairers under ESPR Annex I(b) and the right-to-repair framework.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/repairabilityScore",
       "localName": "repairabilityScore",
       "label": "Repairability Score",
@@ -3392,45 +3944,6 @@
       "source": "https://eur-lex.europa.eu/eli/dir/2024/1799",
       "accessLevel": "Public",
       "accessLevelRationale": "The Right-to-Repair Directive requires manufacturers to make repair information available via a freely accessible portal (Dir. 2024/1799 Art. 4/5).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2024/1799"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/repairInstructions",
-      "localName": "repairInstructions",
-      "label": "Repair Instructions",
-      "comment": "URL or reference to repair instructions and manuals.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
-      ],
-      "seeAlso": [
-        "https://ref.gs1.org/voc/serviceInfo"
-      ],
-      "broadMatch": [
-        "https://ref.gs1.org/voc/instructions",
-        "https://ref.gs1.org/voc/serviceInfo"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Access to repair instructions for consumers and independent operators is a core ESPR/right-to-repair objective (Annex I(b), Dir. 2024/1799).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/repairProvider",
-      "localName": "repairProvider",
-      "label": "Repair Provider",
-      "comment": "Links a product to one or more authorised repair providers.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/RepairProvider"
-      ],
-      "broadMatch": [
-        "https://schema.org/provider"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Links to authorised repair providers serve consumer repairer discovery under the right-to-repair framework (Dir. 2024/1799).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2024/1799"
     },
     {
@@ -3481,25 +3994,6 @@
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/reportingGranularity",
-      "localName": "reportingGranularity",
-      "label": "Reporting Granularity",
-      "comment": "BatteryPass per-attribute reporting granularity (model / model-per-site / batch / item). Distinct from the passport-level EN 18223 'granularity' (oec:granularityLevel).",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/DPPGranularity"
-      ],
-      "closeMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#granularity"
-      ],
-      "source": "https://thebatterypass.eu/battery-pass-ready/publications/",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Per-attribute reporting granularity (model/batch/item) is interpretation metadata needed to read the value it qualifies, like the passport-level granularity.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/reportUrl",
@@ -3614,35 +4108,25 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/softwareUpdatesAvailability",
-      "localName": "softwareUpdatesAvailability",
-      "label": "Software Updates Availability",
-      "comment": "Duration for which software/firmware updates will be provided. Use unitCode 'ANN' (UN/CEFACT Rec 20).",
+      "id": "https://ref.openepcis.io/extensions/common/core/socThreshold",
+      "localName": "socThreshold",
+      "label": "Substance of Concern Threshold",
+      "comment": "Concentration threshold (percentage by weight) above which the presence of the substance of concern must be declared in the passport, per the applicable delegated act.",
       "domain": [
-        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
       ],
       "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/concentration",
+        "https://w3id.org/eudpp#Threshold",
+        "https://w3id.org/eudpp#ThresholdOfSubstanceOfConcern",
+        "https://w3id.org/eudpp#hasThreshold"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
-      "accessLevelRationale": "The guaranteed software/firmware update period is a consumer durability parameter (ESPR Annex I; smartphone/tablet labelling precedent).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/sparePartsAvailability",
-      "localName": "sparePartsAvailability",
-      "label": "Spare Parts Availability",
-      "comment": "Duration for which spare parts will be available. Use gs1:QuantitativeValue with unitCode 'ANN' for years.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Spare-parts availability duration is a consumer purchase parameter under ESPR Annex I(d) and existing ecodesign implementing measures.",
+      "accessLevelRationale": "Declaration thresholds come from the delegated act, not from the manufacturer; publishing the threshold discloses regulation text, not formulation.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -3691,7 +4175,8 @@
         "https://dpp-keystone.org/spec/v2/terms#componentLocationInProduct",
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceLocation",
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialLocation",
-        "http://www.w3.org/ns/locn#location"
+        "http://www.w3.org/ns/locn#location",
+        "https://w3id.org/eudpp#substanceLocation"
       ],
       "closeMatch": [
         "https://dpp-keystone.org/spec/v2/terms#componentLocationInProduct"
@@ -3709,28 +4194,23 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/substancesOfConcern",
-      "localName": "substancesOfConcern",
-      "label": "Substances of Concern",
-      "comment": "List of substances of concern present in the product per ESPR and SCIP database requirements.",
+      "id": "https://ref.openepcis.io/extensions/common/core/substanceTradeName",
+      "localName": "substanceTradeName",
+      "label": "Substance Trade Name",
+      "comment": "Commercial or trade name under which the substance is marketed, where it differs from the systematic name.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
+      ],
       "range": [
-        "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern"
+        "xsd:string"
       ],
       "seeAlso": [
-        "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstances",
-        "https://dpp-keystone.org/spec/v2/terms#substancesOfConcern",
-        "https://ref.gs1.org/voc/ingredientOfConcern"
+        "https://w3id.org/eudpp#tradeName"
       ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#substancesOfConcern"
-      ],
-      "narrowMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#textileSubstancesOfConcern"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Tracking substances of concern is a stated DPP objective (ESPR Art. 7(5)(b)) and presence data is already public via ECHA's SCIP database; textile module agrees on Public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "Trade names reveal supplier relationships on top of substance identity; same professional/authority audience as oec:casNumber.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     {
       "id": "https://ref.openepcis.io/extensions/common/core/supplyChainTransparencyUrl",
@@ -3787,28 +4267,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/technicalLifetime",
-      "localName": "technicalLifetime",
-      "label": "Technical Lifetime",
-      "comment": "Technical lifetime under specified conditions. Use unitCode 'ANN' (UN/CEFACT Rec 20).",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#batteryTechnicalProperties"
-      ],
-      "closeMatch": [
-        "urn:samm:io.BatteryPass.Performance:1.2.1#expectedLifetime"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Technical lifetime under specified conditions is a durability parameter directed at end users per ESPR Annex I(a).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/testedConditions",
       "localName": "testedConditions",
       "label": "Tested Conditions",
@@ -3836,19 +4294,6 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "Third-party assurance links substantiate public claims and are public by function; battery module serves the same name Public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/traceabilityPerformance",
-      "localName": "traceabilityPerformance",
-      "label": "Traceability Performance",
-      "comment": "Traceability performance metrics for supply chain verification.",
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/TraceabilityPerformance"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Aggregate traceability metrics substantiate public transparency claims without exposing individual suppliers (ESPR Art. 7; CSDDD context).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -3926,29 +4371,6 @@
       "source": "https://ref.gs1.org/ai/8026",
       "accessLevel": "Public",
       "accessLevelRationale": "Linking a piece to its parent GTIN is product identification equivalent to the public product identifier itself.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/common/core/tradeItemPieces",
-      "localName": "tradeItemPieces",
-      "label": "Trade Item Pieces",
-      "comment": "Links a multi-piece trade item to the individual pieces it is delivered as, each identified via GS1 AI 8026 (ITIP).",
-      "domain": [
-        "https://ref.gs1.org/voc/Product"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/IndividualTradeItemPiece"
-      ],
-      "seeAlso": [
-        "https://www.gs1.org/standards/barcodes/application-identifiers/8026",
-        "https://schema.org/hasPart"
-      ],
-      "broadMatch": [
-        "https://schema.org/hasPart"
-      ],
-      "source": "https://ref.gs1.org/ai/8026",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The piece set is the container for piece data that is itself Public throughout; gating it would hide public product identification behind a closed door.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -4038,22 +4460,6 @@
       "accessLevelInherited": true
     },
     {
-      "id": "https://ref.openepcis.io/extensions/common/core/verificationBody",
-      "localName": "verificationBody",
-      "label": "Verification Body",
-      "comment": "Organization that performed third-party verification.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/Organization"
-      ],
-      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
-      "accessLevel": "Public",
-      "accessLevelRationale": "Naming the third-party verifier is what makes public assurances checkable; battery module serves the same name Public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/common/core/verifiedRatio",
       "localName": "verifiedRatio",
       "label": "Verified Ratio",
@@ -4067,6 +4473,26 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
       "accessLevelRationale": "The verifiably-traced share is an aggregate metric that qualifies the public traceability claim without naming suppliers.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/wasteGenerationAmount",
+      "localName": "wasteGenerationAmount",
+      "label": "Waste Generation Amount",
+      "comment": "Quantity of waste generated over the product life cycle per declared unit, expressed in kilograms.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://w3id.org/eudpp#WasteGenerationAmount",
+        "https://w3id.org/eudpp#HazardousWasteAmount"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -4093,6 +4519,26 @@
       "accessLevel": "Public",
       "accessLevelRationale": "Waste-prevention information is consumer-directed by definition (Dir. 2008/98/EC Art. 9).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/waterConsumption",
+      "localName": "waterConsumption",
+      "label": "Water Consumption",
+      "comment": "Net fresh water consumed over the product life cycle per declared unit, expressed in cubic metres.",
+      "domain": [
+        "https://ref.gs1.org/voc/Product"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/WDP",
+        "https://w3id.org/eudpp#WaterConsumption"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     }
   ],
   "enumerations": [
@@ -4167,6 +4613,12 @@
       "comment": "",
       "values": [
         {
+          "id": "https://ref.openepcis.io/extensions/common/core/BizStep-maintaining",
+          "localName": "BizStep-maintaining",
+          "label": "Maintaining",
+          "comment": "Actions (one or more) taken to keep a product in a condition where it can fulfil its intended purpose (ESPR Art. 2(19))."
+        },
+        {
           "id": "https://ref.openepcis.io/extensions/common/core/BizStep-notifying",
           "localName": "BizStep-notifying",
           "label": "Notifying",
@@ -4177,6 +4629,24 @@
           "localName": "BizStep-recovery",
           "label": "Recovery",
           "comment": "Recovering material or energy from a product at end of life, e.g. reprocessing collected packaging into secondary raw material."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/BizStep-refurbishing",
+          "localName": "BizStep-refurbishing",
+          "label": "Refurbishing",
+          "comment": "Actions carried out to prepare, clean, test, service and, where necessary, repair a product or a discarded product in order to restore its performance or functionality within the intended use and range of performance originally conceived at the design stage (ESPR Art. 2(18))."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/BizStep-remanufacturing",
+          "localName": "BizStep-remanufacturing",
+          "label": "Remanufacturing",
+          "comment": "Actions through which a new product is produced from objects that are waste, products or components and through which at least one change is made that substantially affects the safety, performance, purpose or type of the product (ESPR Art. 2(16))."
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/BizStep-upgrading",
+          "localName": "BizStep-upgrading",
+          "label": "Upgrading",
+          "comment": "Actions carried out to enhance the functionality, performance, capacity, safety or aesthetics of a product (ESPR Art. 2(17))."
         }
       ]
     },
@@ -4202,6 +4672,110 @@
           "id": "https://ref.openepcis.io/extensions/common/core/NotCompostable",
           "localName": "NotCompostable",
           "label": "Not Compostable",
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/common/core/ConformityAssessmentModule",
+      "localName": "ConformityAssessmentModule",
+      "label": "Conformity Assessment Module",
+      "comment": "Conformity assessment procedure module per Decision 768/2008/EC Annex II, cited by the applicable Union harmonisation legislation (ESPR Art. 4/43 delegated acts choose the module).",
+      "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModuleA",
+          "localName": "ModuleA",
+          "label": "Module A — Internal production control",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModuleA1",
+          "localName": "ModuleA1",
+          "label": "Module A1 — Internal production control plus supervised product testing",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModuleA2",
+          "localName": "ModuleA2",
+          "label": "Module A2 — Internal production control plus supervised product checks at random intervals",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModuleB",
+          "localName": "ModuleB",
+          "label": "Module B — EU-type examination",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModuleC",
+          "localName": "ModuleC",
+          "label": "Module C — Conformity to type based on internal production control",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModuleC1",
+          "localName": "ModuleC1",
+          "label": "Module C1 — Conformity to type based on internal production control plus supervised product testing",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModuleC2",
+          "localName": "ModuleC2",
+          "label": "Module C2 — Conformity to type based on internal production control plus supervised product checks at random intervals",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModuleD",
+          "localName": "ModuleD",
+          "label": "Module D — Conformity to type based on quality assurance of the production process",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModuleD1",
+          "localName": "ModuleD1",
+          "label": "Module D1 — Quality assurance of the production process",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModuleE",
+          "localName": "ModuleE",
+          "label": "Module E — Conformity to type based on product quality assurance",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModuleE1",
+          "localName": "ModuleE1",
+          "label": "Module E1 — Quality assurance of final product inspection and testing",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModuleF",
+          "localName": "ModuleF",
+          "label": "Module F — Conformity to type based on product verification",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModuleF1",
+          "localName": "ModuleF1",
+          "label": "Module F1 — Conformity based on product verification",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModuleG",
+          "localName": "ModuleG",
+          "label": "Module G — Conformity based on unit verification",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModuleH",
+          "localName": "ModuleH",
+          "label": "Module H — Conformity based on full quality assurance",
+          "comment": ""
+        },
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/ModuleH1",
+          "localName": "ModuleH1",
+          "label": "Module H1 — Conformity based on full quality assurance plus design examination",
           "comment": ""
         }
       ]
@@ -4250,6 +4824,12 @@
       "label": "Disp",
       "comment": "",
       "values": [
+        {
+          "id": "https://ref.openepcis.io/extensions/common/core/Disp-available_on_market",
+          "localName": "Disp-available_on_market",
+          "label": "Available on the market",
+          "comment": "The product is supplied for distribution, consumption or use on the Union market in the course of a commercial activity (ESPR Art. 2(39)). Set as a persistentDisposition so the market status travels with the item across events; the event that first sets it records the placing on the market (Art. 2(40))."
+        },
         {
           "id": "https://ref.openepcis.io/extensions/common/core/Disp-subject_to_regulation",
           "localName": "Disp-subject_to_regulation",

@@ -1,21 +1,23 @@
 /**
- * Generate the GEFEG BatteryPass-Ready attribute vocabulary (RDF/Turtle).
+ * Generate the GEFEG BatteryPass-Ready longlist-only attribute vocabulary (RDF/Turtle).
  *
- * GEFEG's BatteryPass-Ready (thebatterypass.eu / batterypass-ready.gefeg.com) is a
- * v1.3 attribute *longlist* plus a v1.0 validation test environment. It publishes NO
- * RDF/IRIs. This script mints an OpenEPCIS-hosted RDF reference for that attribute
- * set so it can be aligned against our terms (cross-vocabulary SKOS assessment) and
- * surfaced on ref.openepcis.io as a distinct vocabulary.
+ * GEFEG's BatteryPass-Ready (thebatterypass.eu / batterypass-ready.gefeg.com) is the
+ * Battery Pass Consortium's publication and validation channel: its v1.3 attribute
+ * longlist and v1.0 validation data model render the SAME model as the Consortium
+ * SAMM aspect models (urn:samm:io.BatteryPass.*, v1.2.x), which we reference under
+ * their real URNs (see build-batterypass-samm-terms.ts). Minting OpenEPCIS IRIs for
+ * attributes the SAMM model already identifies would duplicate that vocabulary, so
+ * this script mints ONLY the longlist-only remainder:
  *
- * This is NOT the BatteryPass Consortium SAMM data model (that is
- * urn:samm:io.BatteryPass.*, v1.2.x, referenced separately as samm-* in the bridge
- * contexts). The two are distinct sources.
+ *   1. The DPP-information attributes (group IdentifiersAndProductData) that have no
+ *      SAMM equivalent: DPP schema version, DPP status, DPP granularity, last update.
+ *   2. Four flat longlist keys kept as deliberate lossless carriers in
+ *      battery-context-batterypass-bridge.jsonld because OpenEPCIS models the concept
+ *      across several terms and a partial match would drop data.
  *
- * Source of the attribute set: the union of the seven SAMM-group property sets
- * across ALL five live-derived category schemas
- * (extensions/eu/battery/validation/gefeg-live/*.schema.json) — the full GEFEG
- * attribute set, category-specific fields included (not just the subset our
- * exporter emits). Controlled enums come from the same schemas' $defs.
+ * KEEP is the explicit list below; every entry is verified at build time to exist in
+ * the live-derived schemas (extensions/eu/battery/validation/gefeg-live/*.schema.json)
+ * and to have NO name-join match in the Consortium SAMM model.
  *
  * Output: extensions/eu/battery/vocab/batterypass-ready-1.3.ttl
  * Run: pnpm run build:batterypass-ready-vocab
@@ -116,31 +118,55 @@ function loadSammDescriptions(): Map<string, SammDef> {
 }
 const GEFEG_DIR = join(ROOT, "extensions/eu/battery/validation/gefeg-live");
 
-// The seven SAMM aspect groups, in canonical order.
-const GROUPS = [
-  "IdentifiersAndProductData",
-  "PerformanceAndDurability",
-  "BatteryCarbonFootprint",
-  "BatteryMaterialsAndComposition",
-  "CircularityAndResourceEfficiency",
-  "SupplyChainDueDiligence",
-  "SymbolsLabelsAndDocumentationOfConformity",
-];
+// Longlist-only keep list: attributes with no SAMM equivalent (DPP-information
+// group) plus the four flat keys the inbound bridge context keeps as lossless
+// carriers. Everything else in the longlist is the Consortium SAMM model and is
+// referenced via its real URNs instead of a minted mirror.
+const KEEP: Record<string, string[]> = {
+  IdentifiersAndProductData: [
+    "DPPSchemaVersion",
+    "DPPStatus",
+    "DPPGranularity",
+    "Date-timeOfLatestUpdateOfDPP",
+  ],
+  PerformanceAndDurability: ["InformationOnAccidents"],
+  BatteryMaterialsAndComposition: ["MaterialsUsedInCathodeAnodeAndElectrolyte"],
+  SymbolsLabelsAndDocumentationOfConformity: ["SymbolsForCadmiumAndLead", "CarbonFootprintLabel"],
+};
+const GROUPS = Object.keys(KEEP);
 
-// Union of each group's attribute properties across all five category schemas —
-// the full GEFEG attribute set (category-specific fields included).
+// Verify every KEEP entry against the live-derived schemas, and guard against a
+// SAMM term of the same normalized name appearing upstream (which would mean the
+// attribute is no longer longlist-only and the mint should be dropped).
 const schemas = readdirSync(GEFEG_DIR)
   .filter((f) => f.endsWith(".schema.json"))
   .map((f) => JSON.parse(readFileSync(join(GEFEG_DIR, f), "utf-8")) as { $defs?: Record<string, any> });
 
+const SAMM_TERMS_TTL = join(ROOT, "extensions/eu/battery/vocab/batterypass-samm-terms.ttl");
+const sammLocalNames = new Set(
+  [...readFileSync(SAMM_TERMS_TTL, "utf-8").matchAll(/urn:samm:io\.BatteryPass\.[A-Za-z]+:[\d.]+#([A-Za-z0-9]+)/g)].map(
+    (m) => normName(m[1])
+  )
+);
+
 const groupAttrs: Record<string, string[]> = {};
 for (const g of GROUPS) {
-  const set = new Set<string>();
+  const inSchemas = new Set<string>();
   for (const s of schemas) {
     const props = s.$defs?.[g]?.properties ?? {};
-    for (const k of Object.keys(props)) set.add(k);
+    for (const k of Object.keys(props)) inSchemas.add(k);
   }
-  groupAttrs[g] = [...set].sort();
+  for (const attr of KEEP[g]) {
+    if (!inSchemas.has(attr)) {
+      throw new Error(`KEEP attribute ${g}/${attr} not found in gefeg-live schemas — longlist changed upstream?`);
+    }
+    if (sammLocalNames.has(normName(attr))) {
+      throw new Error(
+        `KEEP attribute ${g}/${attr} now has a SAMM name-join match — no longer longlist-only, drop the mint and anchor to the SAMM URN instead.`
+      );
+    }
+  }
+  groupAttrs[g] = [...KEEP[g]].sort();
 }
 
 // Controlled value enums worth minting as concepts (attribute-level enums; unit
@@ -148,7 +174,10 @@ for (const g of GROUPS) {
 const evSchema = schemas.length
   ? JSON.parse(readFileSync(join(GEFEG_DIR, "EV.schema.json"), "utf-8"))
   : ({} as { $defs?: Record<string, any> });
-const ENUM_DEFS = ["batteryCategoryCodes", "batteryStatusCodes", "customChemicalCodes", "dppStatusCodes"];
+// Only the enum backing a kept attribute (DPPStatus). batteryCategoryCodes,
+// batteryStatusCodes and customChemicalCodes back SAMM-covered attributes and are
+// not minted here.
+const ENUM_DEFS = ["dppStatusCodes"];
 
 function enumValues(defName: string): string[] {
   const body = evSchema.$defs?.[defName];
@@ -190,9 +219,9 @@ lines.push("@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .");
 lines.push("");
 lines.push(`<${ONT}>`);
 lines.push("    a owl:Ontology ;");
-lines.push('    dcterms:title "GEFEG BatteryPass-Ready attribute vocabulary (longlist v1.3)"@en ;');
+lines.push('    dcterms:title "GEFEG BatteryPass-Ready longlist-only attributes (longlist v1.3)"@en ;');
 lines.push(
-  '    dcterms:description "OpenEPCIS-hosted RDF reference for the GEFEG BatteryPass-Ready v1.3 attribute longlist (thebatterypass.eu / batterypass-ready.gefeg.com). GEFEG publishes no RDF IRIs; this vocabulary mirrors the attribute set so it can be aligned with OpenEPCIS terms and browsed as a distinct vocabulary. This is NOT the BatteryPass Consortium SAMM data model (urn:samm:io.BatteryPass.*, v1.2.x), which is a separate source."@en ;'
+  '    dcterms:description "OpenEPCIS-hosted RDF reference for the GEFEG BatteryPass-Ready v1.3 longlist attributes that have no equivalent in the Battery Pass Consortium SAMM data model, plus four flat longlist keys kept as lossless carriers in the bridge context. GEFEG (thebatterypass.eu / batterypass-ready.gefeg.com) is the Consortium\'s publication and validation channel; the full model is the Consortium SAMM data model (urn:samm:io.BatteryPass.*, v1.2.x), referenced under its real URNs rather than mirrored here."@en ;'
 );
 lines.push("    dcterms:source <https://thebatterypass.eu/battery-pass-ready/publications/> ;");
 lines.push('    owl:versionInfo "1.3 (longlist); GEFEG validation data model v1.0" .');

@@ -18,6 +18,21 @@ const MARKER = "<!-- generated: per-module holds and the narrowMatch remainder. 
 
 interface Hold { ourId: string; upstreamIri: string; predicate: string | null; existing: string | null; qa: number; reason: string }
 
+// bpr: shrank to its longlist-only scope; the historical reports still carry proposals
+// against the removed mirror terms. A proposal whose target IRI no longer exists in the
+// hosted vocabulary is moot and is dropped from the open-decisions list.
+const BPR_TTL = "extensions/eu/battery/vocab/batterypass-ready-1.3.ttl";
+const bprLiveIris = new Set(
+  [...readFileSync(BPR_TTL, "utf8").matchAll(/<(https:\/\/ref\.openepcis\.io\/vocab\/batterypass-ready\/1\.3#[^>]+)>/g)].map((m) => m[1]),
+);
+const isMootBprTarget = (raw: string) => {
+  const cleaned = raw.replace(/^[`<]|[`>]$/g, "");
+  const iri = cleaned.startsWith("bpr:")
+    ? "https://ref.openepcis.io/vocab/batterypass-ready/1.3#" + cleaned.slice(4)
+    : cleaned;
+  return iri.includes("batterypass-ready/1.3#") && !bprLiveIris.has(iri);
+};
+
 function holdsFor(report: string): Hold[] {
   const out = execFileSync("npx", ["tsx", "scripts/triage-skos-report.ts", report], { encoding: "utf8" });
   const holds: Hold[] = [];
@@ -29,7 +44,7 @@ function holdsFor(report: string): Hold[] {
     const m = /^\s+([\d.]+)\s+(\S+)\s+(\S+)\s+->\s+(\S+)\s+(\S+)\s+(.*)$/.exec(line);
     if (m) holds.push({ qa: Number(m[1]), ourId: m[2], existing: m[3] === "-" ? null : m[3], predicate: m[4], upstreamIri: m[5], reason: m[6].trim() });
   }
-  return holds;
+  return holds.filter((h) => !isMootBprTarget(h.upstreamIri));
 }
 
 function remainingNarrowMatch(): Record<string, number> {

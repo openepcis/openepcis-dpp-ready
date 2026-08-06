@@ -36,8 +36,8 @@ class ReviewWorkbookTest {
     @Test
     void roundTripReturnsOnlyAcceptedRows(@org.junit.jupiter.api.io.TempDir Path tmp) throws Exception {
         Path xlsx = tmp.resolve("review.xlsx");
-        var a1 = add("https://ref.openepcis.io/extensions/eu/battery/ratedEnergy", "urn:samm:x#ratedEnergy");
-        var rm = remove("https://ref.openepcis.io/extensions/eu/battery/maximumVoltage",
+        var a1 = add("https://ref.openepcis.io/extensions/eu/battery/hasRatedEnergy", "urn:samm:x#ratedEnergy");
+        var rm = remove("https://ref.openepcis.io/extensions/eu/battery/hasMaximumVoltage",
                 "https://dpp-keystone.org/spec/v2/terms#voltageMaximum");
         var a2 = add("https://ref.openepcis.io/extensions/eu/battery/recyclabilityRate",
                 "https://ref.openepcis.io/extensions/common/core/recyclabilityRate");

@@ -47,8 +47,8 @@ eucpr:ConstructionProduct
     rdfs:label "Construction Product"@en ;
     rdfs:comment """A construction product subject to EU Regulation 2024/3110 (revised
 CPR). Carrier for the regulation's DPP and Declaration-of-Performance data.
-Use eucpr:declarationOfPerformanceUrl, eucpr:essentialCharacteristic, and
-eucpr:reactionToFireClass for the substantive declarations; reuse oec: terms
+Use eucpr:declarationOfPerformanceUrl, eucpr:hasEssentialCharacteristic, and
+eucpr:hasReactionToFireClass for the substantive declarations; reuse oec: terms
 for recycled content, carbon footprint, hazardous substances, etc."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
@@ -98,7 +98,7 @@ eucpr:FireClassE  a eucpr:ReactionToFireClass ; rdfs:label "Class E"@en ;
 eucpr:FireClassF  a eucpr:ReactionToFireClass ; rdfs:label "Class F"@en ;
     rdfs:comment "No performance determined."@en ; skos:notation "F" .
 
-eucpr:reactionToFireClass
+eucpr:hasReactionToFireClass
     a owl:ObjectProperty ;
     rdfs:label "Reaction-to-fire Class"@en ;
     rdfs:comment "EN 13501-1 reaction-to-fire classification of the construction product."@en ;
@@ -153,7 +153,7 @@ eucpr:Concrete                a eucpr:ConstructionProductType ; rdfs:label "Conc
 eucpr:CladdingPanel           a eucpr:ConstructionProductType ; rdfs:label "Cladding Panel"@en ; skos:notation "cladding-panel" .
 eucpr:OtherConstructionProduct a eucpr:ConstructionProductType ; rdfs:label "Other Construction Product"@en ; skos:notation "other" .
 
-eucpr:constructionProductType
+eucpr:hasConstructionProductType
     a owl:ObjectProperty ;
     rdfs:label "Construction Product Type"@en ;
     rdfs:domain eucpr:ConstructionProduct ;
@@ -202,7 +202,7 @@ eucpr:characteristicName
     skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:exactMatch dppk:characteristicName .
 
-eucpr:characteristicValue
+eucpr:hasCharacteristicValue
     a owl:ObjectProperty ;
     rdfs:label "Characteristic Value"@en ;
     rdfs:comment "Quantitative value of the essential characteristic. gs1:QuantitativeValue with the unitCode appropriate for the characteristic (e.g. 'N31' for MPa, 'F94' for W/(m·K))."@en ;
@@ -240,7 +240,7 @@ eucpr:harmonisedStandard
     rdfs:seeAlso dppk:harmonisedStandardReference ;
     skos:exactMatch dppk:harmonisedStandardReference .
 
-eucpr:essentialCharacteristic
+eucpr:hasEssentialCharacteristic
     a owl:ObjectProperty ;
     rdfs:label "Essential Characteristic"@en ;
     rdfs:comment "Declared essential characteristic of the product. Set-valued: most products declare multiple."@en ;
@@ -251,11 +251,11 @@ eucpr:essentialCharacteristic
     skos:note "Declaration of Performance / essential-characteristics concept per the EU Construction Products Regulation (EU) 2024/3110. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 # Convenience named essential characteristics. Either declare these directly on
-# the product, or use the generic eucpr:essentialCharacteristic pattern above;
+# the product, or use the generic eucpr:hasEssentialCharacteristic pattern above;
 # both carry a gs1:QuantitativeValue. Harvested from the DPP Keystone peer
 # profile (dppk:thermalConductivity / dppk:compressiveStrength).
 
-eucpr:thermalConductivity
+eucpr:hasThermalConductivity
     a owl:ObjectProperty ;
     rdfs:label "Thermal Conductivity"@en ;
     rdfs:comment "Declared thermal conductivity λ of the product. gs1:QuantitativeValue with unitCode 'F94' (W/(m·K))."@en ;
@@ -267,7 +267,7 @@ eucpr:thermalConductivity
     skos:exactMatch dppk:thermalConductivity ;
     skos:note "Named essential characteristic per CPR Annex III. Anchored to the DPP Keystone peer profile dppk:thermalConductivity."@en .
 
-eucpr:compressiveStrength
+eucpr:hasCompressiveStrength
     a owl:ObjectProperty ;
     rdfs:label "Compressive Strength"@en ;
     rdfs:comment "Declared compressive strength of the product. gs1:QuantitativeValue with unitCode 'N31' (MPa)."@en ;
@@ -301,7 +301,7 @@ bodies involved. Complements eucpr:declarationOfPerformanceUrl (the document lin
     skos:note "Declaration of Performance per the EU Construction Products Regulation (EU) 2024/3110. Anchored to the DPP Keystone peer profile dppk:DeclarationOfPerformance / dppk:DoPCBlock."@en ;
     skos:broadMatch schema:Certification .
 
-eucpr:declarationOfPerformance
+eucpr:hasDeclarationOfPerformance
     a owl:ObjectProperty ;
     rdfs:label "Declaration of Performance"@en ;
     rdfs:comment "Links a construction product to its structured Declaration of Performance."@en ;
@@ -361,7 +361,7 @@ eucpr:System2Plus  a eucpr:AVCPSystem ; rdfs:label "System 2+"@en ; skos:notatio
 eucpr:System3      a eucpr:AVCPSystem ; rdfs:label "System 3"@en ; skos:notation "3" .
 eucpr:System4      a eucpr:AVCPSystem ; rdfs:label "System 4"@en ; skos:notation "4" .
 
-eucpr:avcpSystem
+eucpr:hasAvcpSystem
     a owl:ObjectProperty ;
     rdfs:label "AVCP System"@en ;
     rdfs:comment "Applicable AVCP system (CPR Annex V) for the product's essential characteristics."@en ;
@@ -372,7 +372,7 @@ eucpr:avcpSystem
     rdfs:seeAlso dppk:avsSystem ;
     skos:note "AVCP system selector per CPR Annex V. Anchored to the DPP Keystone peer profile dppk:avsSystem."@en .
 
-eucpr:notifiedBody
+eucpr:hasNotifiedBody
     a owl:ObjectProperty ;
     rdfs:label "Notified Body"@en ;
     rdfs:comment "Notified body (NB) involved in the AVCP. Reuse oec:OperatorInformation (carries name, identifier, address)."@en ;
@@ -384,7 +384,7 @@ eucpr:notifiedBody
     skos:exactMatch dppk:notifiedBody ;
     skos:note "Notified body per CPR Annex V. Reuses oec:OperatorInformation; anchored to the DPP Keystone peer profile dppk:notifiedBody."@en .
 
-eucpr:technicalAssessmentBody
+eucpr:hasTechnicalAssessmentBody
     a owl:ObjectProperty ;
     rdfs:label "Technical Assessment Body"@en ;
     rdfs:comment "Technical Assessment Body (TAB) that issued the European Technical Assessment. Reuse oec:OperatorInformation."@en ;
@@ -396,7 +396,7 @@ eucpr:technicalAssessmentBody
     skos:exactMatch dppk:technicalAssessmentBody ;
     skos:note "Technical Assessment Body per CPR. Reuses oec:OperatorInformation; anchored to the DPP Keystone peer profile dppk:technicalAssessmentBody."@en .
 
-eucpr:europeanAssessmentDocument
+eucpr:hasEuropeanAssessmentDocument
     a owl:ObjectProperty ;
     rdfs:label "European Assessment Document"@en ;
     rdfs:comment "Reference to the European Assessment Document (EAD) underpinning a European Technical Assessment, where no harmonised standard applies. Reuse oec:DocumentReference."@en ;
@@ -408,7 +408,7 @@ eucpr:europeanAssessmentDocument
     skos:exactMatch dppk:europeanAssessmentDocument ;
     skos:note "EAD reference per CPR. Reuses oec:DocumentReference; anchored to the DPP Keystone peer profile dppk:europeanAssessmentDocument."@en .
 
-eucpr:validationReports
+eucpr:hasValidationReports
     a owl:ObjectProperty ;
     rdfs:label "Validation Reports"@en ;
     rdfs:comment "References to test / validation reports supporting the declared performance. Reuse oec:DocumentReference."@en ;

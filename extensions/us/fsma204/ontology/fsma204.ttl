@@ -42,7 +42,7 @@
 All FSMA 204 Key Data Elements ride on native EPCIS 2.0 / GS1 Web Vocabulary fields per GS1 US R2.0 / R3.0. This module therefore contributes only the single concept that GS1 US does not already cover: the FDA Food Traceability List categorisation of a trade item, via:
 
   - usfsma:FoodTraceabilityList: enumeration of the 23 FDA-defined food categories
-  - usfsma:foodTraceabilityListCategory: object property on gs1:Product
+  - usfsma:hasFoodTraceabilityListCategory: object property on gs1:Product
 
 EPCIS event examples in this module's epcis/ directory are transcribed verbatim from GS1 US R2.0 and use only native EPCIS/GS1 fields. They do not reference any usfsma: class or property; the extension namespace exists purely for the master-data FTL categorisation.
 
@@ -129,7 +129,7 @@ usfsma:NutButters                              a usfsma:FoodTraceabilityList ; r
 # The single property this module contributes
 # =============================================================================
 
-usfsma:foodTraceabilityListCategory
+usfsma:hasFoodTraceabilityListCategory
     a owl:ObjectProperty ;
     rdfs:label "Food Traceability List category"@en ;
     rdfs:comment "Declares that a trade item (gs1:Product) falls under a specific FDA Food Traceability List category. This is the only FSMA KDE that GS1 US's guidance does not already cover via native GS1 master-data attributes; the FTL category is what determines whether the food is in scope of the rule at all."@en ;

@@ -113,7 +113,7 @@
         "endOfLifeInstructions": { "type": "string", "format": "uri" },
         "wastePreventionInfo": { "type": "string", "format": "uri" },
         "separateCollectionInfo": { "type": "string", "format": "uri" },
-        "dismantlingInstructions": { "$ref": "#/$defs/DocumentReference" }
+        "hasDismantlingInstructions": { "$ref": "#/$defs/DocumentReference" }
       }
     },
     
@@ -150,7 +150,7 @@
         "@type": { "const": "EmissionsPerformance" },
         "carbonFootprintTotal": { "$ref": "#/$defs/PositiveDecimal" },
         "declaredUnit": { "type": "string" },
-        "operationalScope": { "$ref": "#/$defs/OperationalScope" },
+        "hasOperationalScope": { "$ref": "#/$defs/OperationalScope" },
         "primarySourcedRatio": { "$ref": "#/$defs/Fraction" },
         "carbonFootprintStudyUrl": { "type": "string", "format": "uri" }
       }
@@ -171,7 +171,7 @@
       "required": ["operatorRole", "gln"],
       "properties": {
         "@type": { "const": "OperatorInformation" },
-        "operatorRole": { "$ref": "#/$defs/OperatorRole" },
+        "hasOperatorRole": { "$ref": "#/$defs/OperatorRole" },
         "gln": {
           "type": "string",
           "pattern": "^[0-9]{13}$",
@@ -205,7 +205,7 @@
           "type": "object",
           "description": "Facility address (inherited from gs1:Place)"
         },
-        "facilityCertifications": {
+        "hasFacilityCertifications": {
           "type": "array",
           "items": { "type": "object" }
         }
@@ -223,7 +223,7 @@
         "ecNumber": { "$ref": "#/$defs/EcNumber" },
         "concentration": { "$ref": "#/$defs/Fraction" },
         "scipId": { "type": "string" },
-        "hazardClass": { "$ref": "#/$defs/HazardClass" },
+        "hasHazardClass": { "$ref": "#/$defs/HazardClass" },
         "substanceLocation": { "type": "string" },
         "safeUseInstructions": { "type": "string" },
         "safeDisassemblyInstructions": { "type": "string" }
@@ -236,12 +236,12 @@
       "required": ["accessLevel"],
       "properties": {
         "@type": { "const": "AccessRights" },
-        "accessLevel": { "$ref": "#/$defs/AccessLevel" },
-        "authorizedParties": {
+        "hasAccessLevel": { "$ref": "#/$defs/AccessLevel" },
+        "hasAuthorizedParties": {
           "type": "array",
           "items": { "type": "object" }
         },
-        "dataRetentionPeriod": { "type": "object" }
+        "hasDataRetentionPeriod": { "type": "object" }
       }
     },
     
@@ -256,12 +256,12 @@
           "maximum": 10
         },
         "repairabilityClass": { "$ref": "#/$defs/RepairabilityClass" },
-        "sparePartsAvailability": { "type": "object" },
+        "hasSparePartsAvailability": { "type": "object" },
         "sparePartsDeliveryTime": { "type": "object" },
-        "repairInstructions": { "$ref": "#/$defs/DocumentReference" },
+        "hasRepairInstructions": { "$ref": "#/$defs/DocumentReference" },
         "professionalRepairNetwork": { "type": "string", "format": "uri" },
         "diyRepairPossible": { "type": "boolean" },
-        "softwareUpdatesAvailability": { "type": "object" }
+        "hasSoftwareUpdatesAvailability": { "type": "object" }
       }
     },
     
@@ -270,13 +270,13 @@
       "description": "Product performance and durability information",
       "properties": {
         "@type": { "const": "PerformanceInfo" },
-        "expectedLifespan": { "type": "object" },
-        "guaranteedLifespan": { "type": "object" },
+        "hasExpectedLifespan": { "type": "object" },
+        "hasGuaranteedLifespan": { "type": "object" },
         "usageCycles": { 
           "type": "integer",
           "minimum": 0
         },
-        "technicalLifetime": { "type": "object" },
+        "hasTechnicalLifetime": { "type": "object" },
         "performanceClass": { "type": "string" },
         "testedConditions": { "type": "string" }
       }
@@ -287,7 +287,7 @@
       "description": "Reference to external document",
       "properties": {
         "@type": { "const": "DocumentReference" },
-        "documentType": { "type": "string" },
+        "hasDocumentType": { "type": "string" },
         "documentUrl": { "type": "string", "format": "uri" },
         "documentTitle": { "type": "string" },
         "mimeType": { "type": "string" },
@@ -308,7 +308,7 @@
         "reportUrl": { "type": "string", "format": "uri" },
         "thirdPartyAssurancesUrl": { "type": "string", "format": "uri" },
         "reportDate": { "type": "string", "format": "date" },
-        "verificationBody": { "type": "object" }
+        "hasVerificationBody": { "type": "object" }
       }
     }
   },
@@ -327,44 +327,44 @@
     "lastUpdated": { "type": "string", "format": "date-time" },
     "facilityId": { "type": "string" },
     "contentSpecificationIds": { "type": "array", "items": { "type": "string", "format": "uri" } },
-    "reportingGranularity": { "type": "string", "enum": ["ModelLevel", "BatchLevel", "ItemLevel"] },
+    "hasReportingGranularity": { "type": "string", "enum": ["ModelLevel", "BatchLevel", "ItemLevel"] },
     "passportVersion": { "type": "string" },
     "passportIssueDate": { "type": "string", "format": "date" },
     "passportExpiryDate": { "type": "string", "format": "date" },
-    "passportIssuer": { "$ref": "#/$defs/OperatorInformation" },
+    "hasPassportIssuer": { "$ref": "#/$defs/OperatorInformation" },
     "previousPassportVersion": { "type": "string", "format": "uri" },
     "productModel": { "type": "string" },
-    "productCategory": { "type": "string" },
+    "hasProductCategory": { "type": "string" },
     
-    "operatorInformation": { "$ref": "#/$defs/OperatorInformation" },
-    "facilityInformation": { "$ref": "#/$defs/FacilityInformation" },
+    "hasOperatorInformation": { "$ref": "#/$defs/OperatorInformation" },
+    "hasFacilityInformation": { "$ref": "#/$defs/FacilityInformation" },
     
-    "circularityPerformance": { "$ref": "#/$defs/CircularityPerformance" },
-    "recycledContentDetails": { "$ref": "#/$defs/RecycledContent" },
-    "emissionsPerformance": { "$ref": "#/$defs/EmissionsPerformance" },
-    "traceabilityPerformance": { "$ref": "#/$defs/TraceabilityPerformance" },
+    "hasCircularityPerformance": { "$ref": "#/$defs/CircularityPerformance" },
+    "hasRecycledContentDetails": { "$ref": "#/$defs/RecycledContent" },
+    "hasEmissionsPerformance": { "$ref": "#/$defs/EmissionsPerformance" },
+    "hasTraceabilityPerformance": { "$ref": "#/$defs/TraceabilityPerformance" },
     
-    "materialComposition": {
+    "hasMaterialComposition": {
       "type": "array",
       "items": { "$ref": "#/$defs/MaterialComposition" }
     },
     
-    "substancesOfConcern": {
+    "hasSubstancesOfConcern": {
       "type": "array",
       "items": { "$ref": "#/$defs/SubstanceOfConcern" }
     },
     
-    "performanceInfo": { "$ref": "#/$defs/PerformanceInfo" },
-    "repairabilityInfo": { "$ref": "#/$defs/RepairabilityInfo" },
-    "accessRights": { "$ref": "#/$defs/AccessRights" },
-    "dueDiligenceReport": { "$ref": "#/$defs/DueDiligenceReport" },
+    "hasPerformanceInfo": { "$ref": "#/$defs/PerformanceInfo" },
+    "hasRepairabilityInfo": { "$ref": "#/$defs/RepairabilityInfo" },
+    "hasAccessRights": { "$ref": "#/$defs/AccessRights" },
+    "hasDueDiligenceReport": { "$ref": "#/$defs/DueDiligenceReport" },
     
-    "documents": {
+    "hasDocuments": {
       "type": "array",
       "items": { "$ref": "#/$defs/DocumentReference" }
     },
     
-    "carbonFootprint": { "type": "object" },
+    "hasCarbonFootprint": { "type": "object" },
     "carbonFootprintTotal": { "$ref": "#/$defs/PositiveDecimal" },
     "declaredUnit": { "type": "string" },
     

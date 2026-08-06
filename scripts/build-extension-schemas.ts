@@ -158,7 +158,7 @@ function buildSchema(
     // Accept both the short alias and the explicitly-prefixed form; carry the
     // ESPR tier as x-access-level (batterypass-v1.3-schema.json precedent).
     // Since the standard contexts became prefix-only, every alias arrives as a
-    // CURIE (eubat:ratedCapacity, and cross-vocabulary ones like gs1:address).
+    // CURIE (eubat:hasRatedCapacity, and cross-vocabulary ones like gs1:address).
     // Split it: the bare local name is the short alias, and the CURIE is kept as
     // authored; re-prefixing it would emit `eubat:eubat:x` / `oec:gs1:address`
     // and leave the bare form, which this schema exists to accept, missing.

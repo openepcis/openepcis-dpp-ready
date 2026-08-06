@@ -60,17 +60,17 @@ const OVERRIDES: Record<string, { verdict?: MappingRow["verdict"]; canonical?: s
   "oec:massFraction": { verdict: "KEEP_NO_LINK", reason: "schema:weight is wrong — mass fraction is a percentage, not weight" },
   "oec:vatIdentificationNumber": { canonical: "schema:vatID", reason: "schema:vehicleIdentificationNumber is for cars; schema:vatID is the right canonical" },
   "eubat:facilityIdentifier": { verdict: "KEEP_NO_LINK", reason: "schema:cvdFacilityId is a covid-specific term, not a generic identifier" },
-  "eubat:remainingCapacity": { verdict: "KEEP_NO_LINK", reason: "schema:remainingAttendeeCapacity is for events, not battery capacity" },
+  "eubat:hasRemainingCapacity": { verdict: "KEEP_NO_LINK", reason: "schema:remainingAttendeeCapacity is for events, not battery capacity" },
   // facility / mime / hazard / class noisy cross-domain links
   "oec:facilityType": { verdict: "KEEP_NO_LINK", reason: "gs1:collarType is wrong — facility type is unrelated to apparel" },
   "oec:mimeType": { verdict: "KEEP_NO_LINK", reason: "gs1:collarType is wrong — MIME type is a media format" },
   "oec:hazardImpact": { verdict: "KEEP_NO_LINK", reason: "schema:accessibilityHazard is for disability accommodations, not chemical hazards" },
-  "oec:hazardClass": { verdict: "KEEP_NO_LINK", reason: "schema:accessibilityHazard is for disability accommodations" },
+  "oec:hasHazardClass": { verdict: "KEEP_NO_LINK", reason: "schema:accessibilityHazard is for disability accommodations" },
   "oec:HazardClass": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is unrelated" },
   "oec:repairabilityClass": { verdict: "KEEP_NO_LINK", reason: "schema:biomechnicalClass is medical, not repair-related" },
   "oec:performanceClass": { verdict: "KEEP_NO_LINK", reason: "schema:biomechnicalClass is medical" },
   "oec:testedConditions": { verdict: "KEEP_NO_LINK", reason: "gs1:paymentTerms is unrelated" },
-  "oec:carbonFootprint": { verdict: "KEEP_NO_LINK", reason: "schema:emissionsCO2 isn't a class to link to via seeAlso here; existing untp-core link is preferred" },
+  "oec:hasCarbonFootprint": { verdict: "KEEP_NO_LINK", reason: "schema:emissionsCO2 isn't a class to link to via seeAlso here; existing untp-core link is preferred" },
   "oec:carbonFootprintTotal": { verdict: "KEEP_NO_LINK", reason: "Existing owl:equivalentProperty untp-core:carbonFootprint is the strong link" },
 
   // schema:MapCategoryType is for cartographic categories — not appropriate for product/material categories
@@ -83,22 +83,22 @@ const OVERRIDES: Record<string, { verdict?: MappingRow["verdict"]; canonical?: s
   "eudet:DetergentCategory": { verdict: "KEEP_NO_LINK", reason: "schema:MapCategoryType is geographic" },
 
   // schema:priceComponentType is for finance, not electronic components
-  "euelec:componentType": { verdict: "KEEP_NO_LINK", reason: "schema:priceComponentType is for billing, not electronic components" },
+  "euelec:hasComponentType": { verdict: "KEEP_NO_LINK", reason: "schema:priceComponentType is for billing, not electronic components" },
   "euelec:ComponentType": { verdict: "KEEP_NO_LINK", reason: "schema:PriceComponentTypeEnumeration is for billing" },
 
   // schema:digitalSourceType is for media licensing, not material origin
-  "eutex:recycledSourceType": { verdict: "KEEP_NO_LINK", reason: "schema:digitalSourceType is for media licensing" },
-  "eutex:wasteOriginType": { verdict: "KEEP_NO_LINK", reason: "schema:digitalSourceType is for media licensing" },
+  "eutex:hasRecycledSourceType": { verdict: "KEEP_NO_LINK", reason: "schema:digitalSourceType is for media licensing" },
+  "eutex:hasWasteOriginType": { verdict: "KEEP_NO_LINK", reason: "schema:digitalSourceType is for media licensing" },
 
   // schema:fiberContent doesn't exist — probably a textile-specific token match noise
   "eutex:syntheticFiberContent": { verdict: "KEEP_NO_LINK", reason: "schema:fiberContent is not a standard schema.org term in the production vocab" },
 
   // eudr:origin* are structured location records, not generic schema:source
-  "eudr:originDetails": { verdict: "KEEP_NO_LINK", reason: "schema:source is too generic; originDetails carries structured production-place data" },
-  "eudr:originList": { verdict: "KEEP_NO_LINK", reason: "schema:source is too generic; originList is a container of OriginDetails" },
+  "eudr:hasOriginDetails": { verdict: "KEEP_NO_LINK", reason: "schema:source is too generic; originDetails carries structured production-place data" },
+  "eudr:hasOriginList": { verdict: "KEEP_NO_LINK", reason: "schema:source is too generic; originList is a container of OriginDetails" },
 
   // schema:hasEnergyEfficiencyCategory exists but takes EnergyConsumptionDetails — over-replacement
-  "euelec:energyEfficiencyClass": { verdict: "KEEP_NO_LINK", reason: "schema:hasEnergyEfficiencyCategory has a different domain shape; keep as-is for ESPR Energy Label compliance" },
+  "euelec:hasEnergyEfficiencyClass": { verdict: "KEEP_NO_LINK", reason: "schema:hasEnergyEfficiencyCategory has a different domain shape; keep as-is for ESPR Energy Label compliance" },
 
   // schema:reportNumber is generic — battery test reports have specific structure
   "eubat:testReportNumber": { verdict: "KEEP_NO_LINK", reason: "schema:reportNumber loses the battery-test-specific scoping" },
@@ -119,13 +119,13 @@ const OVERRIDES: Record<string, { verdict?: MappingRow["verdict"]; canonical?: s
   "oec:tradeItemPieceNumber": { verdict: "KEEP_NO_LINK", reason: "schema:orderItemNumber is for retail order lines, not trade items" },
 
   // gs1:qualifyingProductCategoryDescription is a GS1 GDSN field about qualifying categories — narrower
-  "oec:productCategory": { verdict: "KEEP_NO_LINK", reason: "gs1:qualifyingProductCategoryDescription is a different concept (qualifier); use a generic schema:category alias instead in context" },
+  "oec:hasProductCategory": { verdict: "KEEP_NO_LINK", reason: "gs1:qualifyingProductCategoryDescription is a different concept (qualifier); use a generic schema:category alias instead in context" },
 
   // schema:typeOfGood is undefined in current schema.org; schema:category fits better
-  "eudr:timberProductType": { verdict: "KEEP_NO_LINK", reason: "schema:typeOfGood is not a stable schema.org term" },
+  "eudr:hasTimberProductType": { verdict: "KEEP_NO_LINK", reason: "schema:typeOfGood is not a stable schema.org term" },
 
   // schema:producer is for media production, not legal/agricultural producer
-  "eudr:producerIdentification": { verdict: "KEEP_NO_LINK", reason: "schema:producer is for media (film, etc.), not legal/agricultural producers" },
+  "eudr:hasProducerIdentification": { verdict: "KEEP_NO_LINK", reason: "schema:producer is for media (film, etc.), not legal/agricultural producers" },
 
   // electronics:updateSource — software update origin URL
   "euelec:updateSource": { verdict: "KEEP_NO_LINK", reason: "schema:source is too generic; updateSource carries software-update-specific semantics" },
@@ -140,9 +140,9 @@ const OVERRIDES: Record<string, { verdict?: MappingRow["verdict"]; canonical?: s
   // gs1:certificationInfo is broader; using it would lose specific certification semantics on these properties
   "oec:dataProviderCertification": { verdict: "KEEP_NO_LINK", reason: "gs1:certificationInfo is a generic descriptor, not the specific data-provider attestation" },
   "eubat:dataProviderCertification": { verdict: "KEEP_NO_LINK", reason: "Same as above" },
-  "eudr:fscCertification": { verdict: "KEEP_NO_LINK", reason: "FSC is a specific scheme; gs1:certificationInfo loses the schema specificity" },
-  "eutex:fiberCertification": { verdict: "KEEP_NO_LINK", reason: "Same — generic gs1:certificationInfo loses fiber-specific scoping" },
-  "eutex:verificationCertification": { verdict: "KEEP_NO_LINK", reason: "Same" },
+  "eudr:hasFscCertification": { verdict: "KEEP_NO_LINK", reason: "FSC is a specific scheme; gs1:certificationInfo loses the schema specificity" },
+  "eutex:hasFiberCertification": { verdict: "KEEP_NO_LINK", reason: "Same — generic gs1:certificationInfo loses fiber-specific scoping" },
+  "eutex:hasVerificationCertification": { verdict: "KEEP_NO_LINK", reason: "Same" },
 
   // schema:weightPercentage exists as a percentage, this is a valid replacement
   // (battery:massPercentage stays as REPLACE — confirmed)

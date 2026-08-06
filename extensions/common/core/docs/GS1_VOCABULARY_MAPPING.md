@@ -117,7 +117,7 @@ This document maps OpenEPCIS DPP properties to existing [GS1 Web Vocabulary](htt
 |--------------------|-------------|----------------|
 | `gs1:ReferencedFileDetails` | File reference class | `oec:DocumentReference` |
 | `gs1:referencedFileURL` | File URL | `oec:documentUrl` |
-| `gs1:referencedFileType` | File type code | `oec:documentType` |
+| `gs1:referencedFileType` | File type code | `oec:hasDocumentType` |
 | `gs1:fileLanguageCode` | Language code | `oec:languageCode` |
 
 **Example:**
@@ -159,10 +159,10 @@ This document maps OpenEPCIS DPP properties to existing [GS1 Web Vocabulary](htt
 |---------|----------------|--------|
 | `eubat:warrantyPeriodMonths` | Use `gs1:manufacturersWarranty` with `gs1:WarrantyPromise` | GS1 has warranty class |
 | Custom weight properties | Use `gs1:netWeight`, `gs1:grossWeight` | Standard GS1 properties |
-| `eubat:ratedCapacity` | **Keep** - uses `gs1:QuantitativeValue` range | Battery-specific, correctly typed |
-| `eubat:ratedEnergy` | **Keep** | Battery-specific |
+| `eubat:hasRatedCapacity` | **Keep** - uses `gs1:QuantitativeValue` range | Battery-specific, correctly typed |
+| `eubat:hasRatedEnergy` | **Keep** | Battery-specific |
 | `eubat:StateOfHealth` | **Keep** | Battery-specific sensor type |
-| `eubat:materialComposition` | **Keep** | Battery-specific (by component) |
+| `eubat:hasMaterialComposition` | **Keep** | Battery-specific (by component) |
 
 ### DPP Core
 
@@ -172,7 +172,7 @@ This document maps OpenEPCIS DPP properties to existing [GS1 Web Vocabulary](htt
 | `oec:documentUrl` | Consider `gs1:referencedFileURL` | GS1 property exists |
 | `gs1:countryOfOrigin` | Consider `gs1:countryOfOrigin` | GS1 property exists |
 | `oec:recycledContent` | **Keep** | No GS1 equivalent for percentages |
-| `oec:carbonFootprint*` | **Keep** | No GS1 equivalent |
+| `oec:hasCarbonFootprint*` | **Keep** | No GS1 equivalent |
 | `oec:HazardousSubstance` | **Keep** | CLP-specific, no GS1 equivalent |
 
 ### Properties to Keep Custom
@@ -181,11 +181,11 @@ These have no GS1 Web Vocabulary equivalent and should remain in domain namespac
 
 **Battery-specific (no GS1 equivalent):**
 - `eubat:StateOfHealth`, `eubat:StateOfCharge`, `eubat:CycleCount`
-- `eubat:batteryChemistry`, `schema:category`, `schema:status`
-- `eubat:ratedCapacity`, `eubat:ratedEnergy`, `eubat:nominalVoltage`
+- `eubat:hasBatteryChemistry`, `schema:category`, `schema:status`
+- `eubat:hasRatedCapacity`, `eubat:hasRatedEnergy`, `eubat:hasNominalVoltage`
 - `eubat:lithiumRecycledShare`, `eubat:cobaltRecycledShare`, etc.
 - `eubat:CarbonFootprintTotal`, `eubat:CarbonFootprintProduction`, etc.
-- `eubat:extinguishingAgent`, `eubat:dismantlingInstructions`
+- `eubat:extinguishingAgent`, `eubat:hasDismantlingInstructions`
 
 **DPP Core (no GS1 equivalent):**
 - `oec:OperatorInformation` with operator roles
@@ -193,13 +193,13 @@ These have no GS1 Web Vocabulary equivalent and should remain in domain namespac
 - `oec:CircularityInfo` with recyclability rates
 - `oec:RecycledContent` with pre/post-consumer splits
 - `oec:HazardousSubstance` with CLP hazard classes
-- `oec:carbonFootprint*` properties
+- `oec:hasCarbonFootprint*` properties
 
 **EUDR-specific (no GS1 equivalent):**
 - `eudr:PlotOfLand`, `eudr:polygonCoordinates`
 - `eudr:deforestationFreeDate`, `eudr:legallyHarvested`
 - `eudr:speciesScientificName`, `eudr:speciesCommonName`
-- `eudr:commodityType`, `eudr:timberProductType`
+- `eudr:hasCommodityType`, `eudr:hasTimberProductType`
 
 ---
 
@@ -254,7 +254,7 @@ Always use `gs1:QuantitativeValue` for measurements with units:
 
 ```json
 {
-  "eubat:ratedCapacity": {
+  "eubat:hasRatedCapacity": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "280",
     "gs1:unitCode": "AH"

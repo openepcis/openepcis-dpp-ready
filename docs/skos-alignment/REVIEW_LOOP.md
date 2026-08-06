@@ -36,7 +36,7 @@ before it is written. They come from working the electronics report by hand.
 | HOLD | target is `gs1:value`, `schema:value`, `schema:StructuredValue`, … | A serialisation slot, not a concept. |
 | HOLD | target is `schema:Class`, `schema:DataType`, `schema:Enumeration` | Meta-classes: any subsumption claim is a level confusion. |
 | HOLD | our term is an enumeration (`owl:oneOf`) or a `…Type` / `…Tier` class and the target denotes the entity | Neither direction fits a category-versus-entity pair. |
-| HOLD | our term is a property and the target a class, or the reverse | A graded relation holds between concepts at the same level. The panel proposed `eudr:transformationLocation broadMatch locn:Location` while the same report already carried the correct `locn:location`. Read from the initial capital of the target's local name, a convention every vocabulary we map onto follows. |
+| HOLD | our term is a property and the target a class, or the reverse | A graded relation holds between concepts at the same level. The panel proposed `eudr:hasTransformationLocation broadMatch locn:Location` while the same report already carried the correct `locn:location`. Read from the initial capital of the target's local name, a convention every vocabulary we map onto follows. |
 | APPLY | the panel reverses the direction of an existing graded relation | Mechanical: the assertion meant the opposite of what it said. |
 | APPLY | an existing `rdfs:seeAlso` graded at 0.80 QA confidence or above | The pointer was already there; only the grade is new. |
 | APPLY | a new mapping at 0.80 or above | Below that the tool's own gate would emit `rdfs:seeAlso` anyway. |

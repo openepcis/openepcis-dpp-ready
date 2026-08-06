@@ -60,8 +60,8 @@ introduces it.
 | EPCIS event-model / CBV fields (`type`, `eventTime`, `action`, `bizStep`, `disposition`, `epcList`, `readPoint`, `ilmd`, `quantityList`, `sensorElementList`, `value`, `uom`, …) | **Bare always.** These are EPCIS structural terms (the `epcis:`/`cbv:` namespaces), not GS1/extension vocabulary. Never prefix them — `epcis:ilmd` is RDF-equivalent but breaks EPCIS schema conformance. |
 | `gs1:masterDataAvailableFor` (key is **prefixed** — a GS1 WebVoc term, not EPCIS-structural) | INSIDE: gs1 property keys **bare**, gs1 class `type`/`id` values **bare**, extension keys **prefixed**. |
 | `ilmd` (the contents) | **All** vocabulary terms prefixed incl. `gs1:` — `gs1:bestBeforeDate`, `gs1:catchZone`, `eutex:isRecycledFiber`. The `ilmd` key itself stays bare (it is EPCIS-structural). |
-| Event-level extension properties | Prefixed (`eubat:incidentSeverity`, `eudr:riskLevel`). |
-| Standalone product / DPP master-data files | **All** terms prefixed incl. `gs1:` — `gs1:productName`, `eubat:batteryChemistry`; `type: ["gs1:Product", "eubat:Battery"]`. |
+| Event-level extension properties | Prefixed (`eubat:hasIncidentSeverity`, `eudr:hasRiskLevel`). |
+| Standalone product / DPP master-data files | **All** terms prefixed incl. `gs1:` — `gs1:productName`, `eubat:hasBatteryChemistry`; `type: ["gs1:Product", "eubat:Battery"]`. |
 
 **Which contexts an event lists.** The **standard** contexts, in this order:
 
@@ -168,15 +168,15 @@ The key itself is a GS1 Web Vocabulary term, written **prefixed**:
   `gs1:harvestDate` / `harvestDateStart` / `harvestDateEnd` / `productionDate`,
   EUDR plot geolocation (`geo`, `eudr:areaHectares`, `eudr:forestManagementUnit`),
   `eudr:deforestationFreeDate` / `legallyHarvested` / `riskLevel` / `verificationMethod`,
-  the EUDR consignment commodity & species (`eudr:commodityType`,
-  `eudr:timberProductType`, `eudr:speciesScientificName`, `eudr:speciesCommonName`
+  the EUDR consignment commodity & species (`eudr:hasCommodityType`,
+  `eudr:hasTimberProductType`, `eudr:speciesScientificName`, `eudr:speciesCommonName`
   — traceability that travels with the lot), `recycledContent` of *this* run, a
-  lot-/instance-measured `oec:emissionsPerformance` / `oec:circularityPerformance`,
+  lot-/instance-measured `oec:hasEmissionsPerformance` / `oec:hasCircularityPerformance`,
   and other lot-level extension attributes.
 - **NO (model/SKU-level → resolver)** — `productName`, `netWeight`,
-  `schema:category`, `gtin`/`serialNumber` echoes, `eubat:batteryChemistry`/
-  `ratedCapacity`, `eutex:fabricType`/`apparelSubcategory`,
-  `euppwr:packagingTier`/`recyclabilityGrade`, model identifiers. These
+  `schema:category`, `gtin`/`serialNumber` echoes, `eubat:hasBatteryChemistry`/
+  `ratedCapacity`, `eutex:hasFabricType`/`apparelSubcategory`,
+  `euppwr:hasPackagingTier`/`recyclabilityGrade`, model identifiers. These
   describe the GTIN; dereference it instead.
 - **NO (party/location → resolver)** — organization names, GLNs, addresses,
   physical-location names. Dereference the `/414/` or `/417/` URI.
@@ -191,8 +191,8 @@ Properties from our DPP extension vocabularies that describe
 
 **Rules:**
 - Placed as user extension fields directly on the event object.
-- MUST be properly prefixed (e.g., `eudr:riskLevel`,
-  `eubat:incidentSeverity`, not bare `riskLevel` / `incidentSeverity`).
+- MUST be properly prefixed (e.g., `eudr:hasRiskLevel`,
+  `eubat:hasIncidentSeverity`, not bare `riskLevel` / `incidentSeverity`).
 - Declared via `GS1-Extensions` HTTP header (see Section 5).
 - Declared via additional `@context` entries in the JSON-LD document.
 - In XML binding: appear in the `<extension>` element
@@ -203,15 +203,15 @@ observations or assertions made at the time of the event. They are part
 of the event's semantics, not part of the product's master data card.
 
 **Examples** — legitimately event-level:
-- `eudr:riskLevel`, `eudr:verificationMethod`,
+- `eudr:hasRiskLevel`, `eudr:verificationMethod`,
   `eudr:deforestationFreeDate` on a `notifying` event — observations
   specific to the due-diligence notification.
 - `euelec:repairType`, `euelec:repairTechnician`,
   `euelec:warrantyStatus` on a repair event — specific to the repair
   action.
-- `eubat:incidentSeverity` on a negative event.
-- `eutex:environmentalFootprint`, `eutex:substancesOfConcern`,
-  `eutex:robustnessAssessment` on an observation event — laboratory
+- `eubat:hasIncidentSeverity` on a negative event.
+- `eutex:hasEnvironmentalFootprint`, `eutex:hasSubstancesOfConcern`,
+  `eutex:hasRobustnessAssessment` on an observation event — laboratory
   test results reported at that observation.
 
 ### C. ILMD (Instance/Lot Master Data) — lot-level only
@@ -280,8 +280,8 @@ example:
   `gs1:catchZone` for this fishing trip,
   `eutex:isRecycledFiber` + `eutex:recycledContentSource` for this
   yarn batch, a sensor reading captured at commissioning time.
-- **NO (model/SKU-level)** — `eubat:batteryChemistry`, `schema:category`,
-  `eutex:fabricType`, `eudr:commodityType`. These describe the GTIN (identical
+- **NO (model/SKU-level)** — `eubat:hasBatteryChemistry`, `schema:category`,
+  `eutex:hasFabricType`, `eudr:hasCommodityType`. These describe the GTIN (identical
   for every lot of the same SKU), so they are **resolver-served** and embedded
   nowhere in the event — neither in `ilmd` nor in `gs1:masterDataAvailableFor`.
 
@@ -323,8 +323,8 @@ inside an EPCIS event structure.
   "gs1:productName": "EV Battery Pack 280Ah LFP",
   "gs1:manufacturer": { ... },
   "gs1:regulatoryInformation": [{ ... }],
-  "eubat:batteryChemistry": "LFP",
-  "eubat:ratedCapacity": { ... },
+  "eubat:hasBatteryChemistry": "LFP",
+  "eubat:hasRatedCapacity": { ... },
   "oec:carbonFootprintTotal": 42.5
 }
 ```
@@ -332,7 +332,7 @@ inside an EPCIS event structure.
 This is the **resolver-served** standalone master-data document — what a
 consumer gets by dereferencing the GTIN/GLN URI (On-Demand Data Retrieval,
 GS1 Germany EUDR Guideline V1.11). Model/SKU-level attributes
-(`gs1:productName`, `eubat:batteryChemistry`, `eubat:ratedCapacity`, …) live
+(`gs1:productName`, `eubat:hasBatteryChemistry`, `eubat:hasRatedCapacity`, …) live
 **here**, not in the event. An EPCIS event references the GTIN by URI and lets
 this document supply those attributes; `masterDataAvailableFor` in the event
 adds only the item/lot-level deltas the resolver can't know (see §A).
@@ -451,12 +451,12 @@ have a corresponding context entry, and vice versa.
       ],
       "_note": "Only lot-level fields here. productName is model-level (resolver-served via the GTIN); the /414/ head-office location is resolver-served via its GLN in readPoint — neither is embedded.",
 
-      "eudr:commodityType": "Wood",
+      "eudr:hasCommodityType": "Wood",
       "eudr:speciesScientificName": "Quercus robur",
       "eudr:speciesCommonName": "European Oak",
       "eudr:deforestationFreeDate": "2025-01-15",
       "eudr:legallyHarvested": true,
-      "eudr:riskLevel": "Low",
+      "eudr:hasRiskLevel": "Low",
       "eudr:verificationMethod": "On-site inspection combined with satellite imagery analysis",
 
       "sourceList": [{
@@ -495,7 +495,7 @@ GS1-CBV-Version: 2.0
     "gs1:regulatoryAct": "EU 2023/1115",
     "gs1:isRegulationCompliant": true
   }],
-  "eudr:commodityType": "Wood",
+  "eudr:hasCommodityType": "Wood",
   "eudr:speciesScientificName": "Quercus robur",
   "eudr:speciesCommonName": "European Oak",
   "eudr:deforestationFreeDate": "2025-01-15",
@@ -520,7 +520,7 @@ to `gs1:regulatoryInformation`. In the standalone master data file it is written
   "regulatoryInformation": [...],       // ← OK: lot-level
   "eudr:deforestationFreeDate": "...",  // ← OK: lot-level extension attribute
   "productName": { "en": "..." },       // ← WRONG: model-level → resolver-served via the GTIN
-  "eudr:commodityType": "Wood"          // ← WRONG: model-level (describes the product type)
+  "eudr:hasCommodityType": "Wood"          // ← WRONG: model-level (describes the product type)
 }]
 ```
 
@@ -534,7 +534,7 @@ extension-prefixed alike. Model/SKU-level attributes and `Place`/`Organization`
 "commodityType": "Wood"    // ← WRONG: resolves to gs1:commodityType (doesn't exist)
 ```
 
-Fix: Use `eudr:commodityType` with proper prefix.
+Fix: Use `eudr:hasCommodityType` with proper prefix.
 
 ### Mistake 3: Missing @context for extensions
 
@@ -542,7 +542,7 @@ Fix: Use `eudr:commodityType` with proper prefix.
 {
   "@context": "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
   ...
-  "eudr:commodityType": "Wood"  // ← WRONG: eudr: prefix not declared in context
+  "eudr:hasCommodityType": "Wood"  // ← WRONG: eudr: prefix not declared in context
 }
 ```
 

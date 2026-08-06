@@ -30,7 +30,7 @@ CIRPASS2 (Circular Economy Product Passport Readiness) is an EU project defining
 | CIRPASS2 Requirement | OpenEPCIS Implementation |
 |---------------------|-------------------------|
 | Unique product identifier | `oec:uniqueProductIdentifier` (GS1 Digital Link) |
-| Product model/type | `oec:productModel`, `oec:productCategory` |
+| Product model/type | `oec:productModel`, `oec:hasProductCategory` |
 | Batch/lot number | EPCIS lot tracking, `oec:granularityLevel` |
 | Serial number | GS1 Serial (AI 21) |
 | Passport identifier | `oec:passportIdentifier` |
@@ -43,7 +43,7 @@ CIRPASS2 (Circular Economy Product Passport Readiness) is an EU project defining
 | Manufacturer name | `gs1:organizationName` via `oec:OperatorInformation` |
 | Manufacturer ID | `oec:operatorId` (GLN), `oec:economicOperatorId` (EOID) |
 | Contact information | `gs1:address`, `gs1:contactPoint` |
-| Operator role | `oec:operatorRole` (Manufacturer, Importer, etc.) |
+| Operator role | `oec:hasOperatorRole` (Manufacturer, Importer, etc.) |
 | Registration numbers | `oec:registrationNumber`, `oec:eoriNumber`, `oec:vatIdentificationNumber` |
 
 ### Facility Information
@@ -54,7 +54,7 @@ CIRPASS2 (Circular Economy Product Passport Readiness) is an EU project defining
 | Facility identifier | `gs1:gln` (inherited from gs1:Place) |
 | Facility name | `gs1:name` (inherited from gs1:Place) |
 | Facility address | `gs1:address` (inherited from gs1:Place) |
-| Facility certifications | `oec:facilityCertifications` (gs1:CertificationDetails) |
+| Facility certifications | `oec:hasFacilityCertifications` (gs1:CertificationDetails) |
 | Facility type | `oec:facilityType` |
 
 ### Material Composition
@@ -73,7 +73,7 @@ CIRPASS2 (Circular Economy Product Passport Readiness) is an EU project defining
 |---------------------|-------------------------|
 | Substance identification | `oec:SubstanceOfConcern` |
 | SCIP database link | `oec:scipId` |
-| Hazard classification | `oec:hazardClass` (CLP categories) |
+| Hazard classification | `oec:hasHazardClass` (CLP categories) |
 | Concentration | `oec:concentration` |
 | Location in product | `oec:substanceLocation` |
 | Safe use instructions | `oec:safeUseInstructions` |
@@ -85,7 +85,7 @@ CIRPASS2 (Circular Economy Product Passport Readiness) is an EU project defining
 |---------------------|-------------------------|
 | Total carbon footprint | `oec:carbonFootprintTotal` |
 | Functional unit | `oec:declaredUnit` |
-| Lifecycle scope | `oec:operationalScope` (CradleToGate/CradleToGrave) |
+| Lifecycle scope | `oec:hasOperationalScope` (CradleToGate/CradleToGrave) |
 | Data quality | `oec:primarySourcedRatio` |
 | Study reference | `oec:carbonFootprintStudyUrl` |
 
@@ -101,7 +101,7 @@ CIRPASS2 (Circular Economy Product Passport Readiness) is an EU project defining
 | End-of-life instructions | `oec:endOfLifeInstructions` |
 | Waste prevention | `oec:wastePreventionInfo` |
 | Separate collection | `oec:separateCollectionInfo` |
-| Dismantling info | `oec:dismantlingInstructions` |
+| Dismantling info | `oec:hasDismantlingInstructions` |
 
 ### Repairability
 
@@ -109,21 +109,21 @@ CIRPASS2 (Circular Economy Product Passport Readiness) is an EU project defining
 |---------------------|-------------------------|
 | Repairability score | `oec:repairabilityScore` |
 | Repairability class | `oec:repairabilityClass` (A-E) |
-| Spare parts availability | `oec:sparePartsAvailability` |
+| Spare parts availability | `oec:hasSparePartsAvailability` |
 | Spare parts delivery | `oec:sparePartsDeliveryTime` |
-| Repair instructions | `oec:repairInstructions` |
+| Repair instructions | `oec:hasRepairInstructions` |
 | Professional repair network | `oec:professionalRepairNetwork` |
 | DIY repair possible | `oec:diyRepairPossible` |
-| Software updates | `oec:softwareUpdatesAvailability` |
+| Software updates | `oec:hasSoftwareUpdatesAvailability` |
 
 ### Durability
 
 | CIRPASS2 Requirement | OpenEPCIS Implementation |
 |---------------------|-------------------------|
-| Expected lifespan | `oec:expectedLifespan` |
-| Guaranteed lifespan | `oec:guaranteedLifespan` |
+| Expected lifespan | `oec:hasExpectedLifespan` |
+| Guaranteed lifespan | `oec:hasGuaranteedLifespan` |
 | Usage cycles | `oec:usageCycles` |
-| Technical lifetime | `oec:technicalLifetime` |
+| Technical lifetime | `oec:hasTechnicalLifetime` |
 | Performance class | `oec:performanceClass` |
 | Tested conditions | `oec:testedConditions` |
 | Utility factor | `oec:utilityFactor` |
@@ -135,8 +135,8 @@ CIRPASS2 (Circular Economy Product Passport Readiness) is an EU project defining
 | Public data | `oec:Public` access level |
 | Authority-only data | `oec:AuthorizedOnly` access level |
 | Restricted data | `oec:Restricted` access level |
-| Authorized parties | `oec:authorizedParties` |
-| Data retention | `oec:dataRetentionPeriod` |
+| Authorized parties | `oec:hasAuthorizedParties` |
+| Data retention | `oec:hasDataRetentionPeriod` |
 
 ## Domain-Specific Coverage
 

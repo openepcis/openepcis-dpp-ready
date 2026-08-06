@@ -35,7 +35,7 @@ eudet:DetergentProductShape a sh:NodeShape ;
         sh:class eudet:DetergentCategory
     ] ;
     sh:property [
-        sh:path eudet:productForm ;
+        sh:path eudet:hasProductForm ;
         sh:name "Product Form" ;
         sh:description "Physical form (liquid, powder, capsule, etc.)." ;
         sh:maxCount 1 ;
@@ -54,27 +54,27 @@ eudet:DetergentProductShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path eudet:ingredientList ;
+        sh:path eudet:hasIngredientList ;
         sh:name "Ingredient List" ;
         sh:class eudet:Ingredient
     ] ;
     sh:property [
-        sh:path eudet:surfactantBiodegradability ;
+        sh:path eudet:hasSurfactantBiodegradability ;
         sh:name "Surfactant Biodegradability" ;
         sh:class eudet:SurfactantBiodegradability
     ] ;
     sh:property [
-        sh:path eudet:fragranceAllergens ;
+        sh:path eudet:hasFragranceAllergens ;
         sh:name "Fragrance Allergens" ;
         sh:class eudet:FragranceAllergen
     ] ;
     sh:property [
-        sh:path eudet:microorganisms ;
+        sh:path eudet:hasMicroorganisms ;
         sh:name "Microorganisms" ;
         sh:class eudet:MicroorganismInfo
     ] ;
     sh:property [
-        sh:path eudet:hazardousSubstances ;
+        sh:path eudet:hasHazardousSubstances ;
         sh:name "Hazardous Substances" ;
         sh:class oec:HazardousSubstance
     ] ;
@@ -94,7 +94,7 @@ eudet:DetergentProductShape a sh:NodeShape ;
         sh:datatype xsd:string
     ] ;
     sh:property [
-        sh:path eudet:signalWord ;
+        sh:path eudet:hasSignalWord ;
         sh:name "Signal Word" ;
         sh:maxCount 1 ;
         sh:class eudet:SignalWord
@@ -123,7 +123,7 @@ eudet:DetergentProductShape a sh:NodeShape ;
         sh:maxInclusive 100
     ] ;
     sh:property [
-        sh:path eudet:recommendedDosage ;
+        sh:path eudet:hasRecommendedDosage ;
         sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
@@ -133,12 +133,12 @@ eudet:DetergentProductShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path eudet:safetyDataSheet ;
+        sh:path eudet:hasSafetyDataSheet ;
         sh:class oec:DocumentReference ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path eudet:biodegradabilityTestReport ;
+        sh:path eudet:hasBiodegradabilityTestReport ;
         sh:class oec:DocumentReference ;
         sh:maxCount 1
     ] .
@@ -157,7 +157,7 @@ eudet:IngredientShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path eudet:ingredientFunction ;
+        sh:path eudet:hasIngredientFunction ;
         sh:name "Ingredient Function" ;
         sh:class eudet:IngredientFunction ;
         sh:minCount 1 ;
@@ -188,7 +188,7 @@ eudet:SurfactantBiodegradabilityShape a sh:NodeShape ;
     sh:targetClass eudet:SurfactantBiodegradability ;
     rdfs:label "Surfactant Biodegradability Shape" ;
     sh:property [
-        sh:path eudet:surfactantType ;
+        sh:path eudet:hasSurfactantType ;
         sh:name "Surfactant Type" ;
         sh:class eudet:SurfactantType ;
         sh:minCount 1 ;
@@ -204,7 +204,7 @@ eudet:SurfactantBiodegradabilityShape a sh:NodeShape ;
         sh:maxInclusive 100
     ] ;
     sh:property [
-        sh:path eudet:testMethod ;
+        sh:path eudet:hasTestMethod ;
         sh:name "Test Method" ;
         sh:class eudet:BiodegradabilityTestMethod ;
         sh:minCount 1 ;

@@ -38,23 +38,23 @@ paper's per-component-GTIN pattern) is typed both `gs1:Product` and
 
 | PPWR data point (Article) | Carried by |
 |---|---|
-| Packaging tier (Art. 3) | `euppwr:packagingTier` (this module) |
-| Recyclability grade A/B/C (Art. 6, Annex II) | `euppwr:recyclabilityGrade` (this module), substantiated by `oec:recyclabilityScore` + `euppwr:designForRecyclingMethodology` |
+| Packaging tier (Art. 3) | `euppwr:hasPackagingTier` (this module) |
+| Recyclability grade A/B/C (Art. 6, Annex II) | `euppwr:hasRecyclabilityGrade` (this module), substantiated by `oec:recyclabilityScore` + `euppwr:designForRecyclingMethodology` |
 | Harmonised labels (Art. 12) | `euppwr:harmonisedSymbol` (this module) |
 | Packaging type / format | `gs1:packagingType` |
 | Material composition (Art. 5, 6, 12) | `gs1:packagingMaterial` → `gs1:PackagingMaterialDetails` (`gs1:packagingMaterialType` code, `gs1:packagingMaterialCompositionQuantity`, `gs1:packagingMaterialThickness`) |
 | Recycling process claim | `gs1:packagingRecyclingProcessType` (RECYCLABLE / REUSABLE / COMPOSTABLE / ENERGY_RECOVERABLE) |
-| Reuse QR data: system, collection points, rotations (Art. 12(2)) | `euppwr:reuseInformation` → `euppwr:ReuseInformation` (`euppwr:reuseSystemScope`, `euppwr:reuseSystemName`, `euppwr:collectionPointsUrl`, `euppwr:rotationCount`, `euppwr:averageRotationsEstimate`) (this module) |
-| Recycled content (Art. 7) | `oec:recycledContentDetails` → `oec:RecycledContent` (`oec:recycledContent`, `oec:preConsumerRecycledContent`, `oec:postConsumerRecycledContent`) |
-| Deposit-return scheme (Art. 50) | `gs1:hasReturnablePackageDeposit` → `oec:DepositReturnScheme` (`gs1:returnablePackageDepositAmount`, `gs1:returnablePackageDepositRegion`, `oec:depositSchemeOperator`, `oec:depositRedemptionChannelUrl`) |
+| Reuse QR data: system, collection points, rotations (Art. 12(2)) | `euppwr:hasReuseInformation` → `euppwr:ReuseInformation` (`euppwr:hasReuseSystemScope`, `euppwr:reuseSystemName`, `euppwr:collectionPointsUrl`, `euppwr:rotationCount`, `euppwr:averageRotationsEstimate`) (this module) |
+| Recycled content (Art. 7) | `oec:hasRecycledContentDetails` → `oec:RecycledContent` (`oec:recycledContent`, `oec:preConsumerRecycledContent`, `oec:postConsumerRecycledContent`) |
+| Deposit-return scheme (Art. 50) | `gs1:hasReturnablePackageDeposit` → `oec:DepositReturnScheme` (`gs1:returnablePackageDepositAmount`, `gs1:returnablePackageDepositRegion`, `oec:hasDepositSchemeOperator`, `oec:depositRedemptionChannelUrl`) |
 | Reusability / refurbished status (Art. 24–29) | `untp:ProductStatus` (UNTP v0.7.0 enum) |
-| Compostability (Art. 9) | `oec:Compostability` + `oec:compostabilityType` + `oec:compostabilityStandard` |
+| Compostability (Art. 9) | `oec:Compostability` + `oec:hasCompostabilityType` + `oec:compostabilityStandard` |
 | Bio-based content (optional disclosure) | `oec:bioBasedFraction` |
 | Restricted substances (Art. 5 — PFAS, heavy metals) | `oec:HazardousSubstance`, `oec:SubstanceOfConcern` |
-| EPR registration & scheme (Art. 12(8)) | `oec:ExtendedProducerResponsibility` + `oec:eprRegistrationNumber` + `oec:eprScheme` + `oec:eprJurisdiction` + `oec:eprWasteStream` |
+| EPR registration & scheme (Art. 12(8)) | `oec:ExtendedProducerResponsibility` + `oec:eprRegistrationNumber` + `oec:hasEprScheme` + `oec:hasEprJurisdiction` + `oec:eprWasteStream` |
 | Regulation compliance declaration | `gs1:regulatoryInformation` with `gs1:regulationType` = `euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION` |
 | Production site / origin | `untp:Facility`, `gs1:Place`, `gs1:GeoShape` |
-| Declaration of conformity (Art. 15(2), 39, Annex VIII) | `oec:conformityDeclaration` → `oec:DocumentReference` typed `oec:DeclarationOfConformity` (document reference, kept 5 y single-use / 10 y reusable per Art. 15(3)); regulatory identity via `gs1:regulatoryInformation` + `gs1:regulatoryIdentifier` + `untp:ConformityAttestation` |
+| Declaration of conformity (Art. 15(2), 39, Annex VIII) | `oec:hasConformityDeclaration` → `oec:DocumentReference` typed `oec:DeclarationOfConformity` (document reference, kept 5 y single-use / 10 y reusable per Art. 15(3)); regulatory identity via `gs1:regulatoryInformation` + `gs1:regulatoryIdentifier` + `untp:ConformityAttestation` |
 
 > **Why a module-owned regulation code?** The upstream
 > `gs1:RegulationTypeCode` list has no packaging-waste member
@@ -113,12 +113,12 @@ ppwr/
 
 | Property / individual | Range / type | Description |
 |----------|-------|-------------|
-| `euppwr:packagingTier` | `euppwr:PackagingTier` | Sales (primary) / Grouped (secondary) / Transport (tertiary). |
-| `euppwr:recyclabilityGrade` | `euppwr:RecyclabilityGrade` | A / B / C grade per Article 6. |
+| `euppwr:hasPackagingTier` | `euppwr:PackagingTier` | Sales (primary) / Grouped (secondary) / Transport (tertiary). |
+| `euppwr:hasRecyclabilityGrade` | `euppwr:RecyclabilityGrade` | A / B / C grade per Article 6. |
 | `euppwr:harmonisedSymbol` | `xsd:anyURI` | URI of an Article 12 harmonised label entry (implementing acts pending — use documented placeholders). |
 | `euppwr:designForRecyclingMethodology` | `xsd:string` | D4R methodology substantiating the grade (RecyClass, CEFLEX, APR, …). |
-| `euppwr:reuseInformation` | `euppwr:ReuseInformation` | Links a reusable packaging item to its Article 12(2) reuse data card. |
-| `euppwr:reuseSystemScope` | `euppwr:ReuseSystemScope` | Local / national / Union-wide availability of the re-use system (Art. 12(2)). |
+| `euppwr:hasReuseInformation` | `euppwr:ReuseInformation` | Links a reusable packaging item to its Article 12(2) reuse data card. |
+| `euppwr:hasReuseSystemScope` | `euppwr:ReuseSystemScope` | Local / national / Union-wide availability of the re-use system (Art. 12(2)). |
 | `euppwr:reuseSystemName` | `xsd:string` | Name of the re-use system / Annex VI system operator (open-loop systems without operator are exempt, Art. 12(3)). |
 | `euppwr:collectionPointsUrl` | `xsd:anyURI` | Directory/map of re-use collection points (Art. 12(2)). |
 | `euppwr:rotationCount` | `xsd:integer` | Calculated trips/rotations of the tracked item; domain-less, also usable as an EPCIS event observation (Art. 12(2)). |

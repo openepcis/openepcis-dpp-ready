@@ -16,10 +16,10 @@
 
 # --- Public: commodity, species, origin country and compliance claims ---
 
-eudr:commodityType oec:defaultAccessLevel oec:Public ;
+eudr:hasCommodityType oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The EUDR commodity category (Annex I scope) states only what kind of product this is, which is apparent from the product itself." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
-eudr:timberProductType oec:defaultAccessLevel oec:Public ;
+eudr:hasTimberProductType oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The timber product type is a scope classification with no supply-chain sensitivity." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
 eudr:speciesCommonName oec:defaultAccessLevel oec:Public ;
@@ -28,10 +28,10 @@ eudr:speciesCommonName oec:defaultAccessLevel oec:Public ;
 eudr:speciesScientificName oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The scientific species name (required in the DDS per Art. 9(1)(c)) identifies the species, not the producer or plot, and mirrors long-standing public timber labelling practice." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
-eudr:countryList oec:defaultAccessLevel oec:Public ;
+eudr:hasCountryList oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Country-of-production at country granularity is a consumer-relevant origin claim that exposes no plot or producer detail." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
-eudr:countryRiskCategory oec:defaultAccessLevel oec:Public ;
+eudr:hasCountryRiskCategory oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The country risk classification restates the Commission's published Art. 29 country benchmarking, which is itself public." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
 eudr:deforestationFreeDate oec:defaultAccessLevel oec:Public ;
@@ -44,19 +44,19 @@ eudr:legallyHarvested oec:defaultAccessLevel oec:Public ;
 # --- AuthorizedOnly: due-diligence detail, risk assessment, exemptions and
 # --- supply-chain transformation data (operator/trader and authority audience) ---
 
-eudr:dueDiligenceStatement oec:defaultAccessLevel oec:AuthorizedOnly ;
+eudr:hasDueDiligenceStatement oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The DDS reference is communicated down the supply chain to operators and traders (Art. 12(3) reference-number handling), an economic-operator audience rather than the public." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
 eudr:statementDate oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The DDS submission date is administrative detail of the due-diligence filing shared with supply-chain actors and authorities." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
-eudr:riskAssessment oec:defaultAccessLevel oec:AuthorizedOnly ;
+eudr:hasRiskAssessment oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The Art. 10 risk assessment is internal due-diligence substantiation reviewed by competent authorities and downstream operators, not consumer information." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
 eudr:riskAssessmentDate oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The risk-assessment date is administrative detail of the Art. 10 assessment record." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
-eudr:riskLevel oec:defaultAccessLevel oec:AuthorizedOnly ;
+eudr:hasRiskLevel oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The operator-assigned product risk level is a due-diligence judgement for authorities and buyers; the public sees the published country-level category instead." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
 eudr:mitigationMeasures oec:defaultAccessLevel oec:AuthorizedOnly ;
@@ -68,16 +68,16 @@ eudr:verificationMethod oec:defaultAccessLevel oec:AuthorizedOnly ;
 eudr:landUseHistory oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Land-use history narratives substantiate the deforestation-free claim at plot level and can indirectly localise plots, so they stay with the professional tier." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
-eudr:fscCertification oec:defaultAccessLevel oec:AuthorizedOnly ;
+eudr:hasFscCertification oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The FSC certificate reference is verification evidence used in Art. 10 risk assessment; certificate scope data can reveal supplier relationships." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
-eudr:derivedFrom oec:defaultAccessLevel oec:AuthorizedOnly ;
+eudr:hasDerivedFrom oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Product-to-source-product links expose the upstream supply chain, a legitimate-interest traceability view for authorities and supply-chain partners." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
 eudr:transformationDate oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Processing dates are supply-chain traceability detail supporting due diligence, not consumer information." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
-eudr:transformationLocation oec:defaultAccessLevel oec:AuthorizedOnly ;
+eudr:hasTransformationLocation oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Processing locations expose commercially sensitive supplier facilities and belong to the legitimate-interest traceability view." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
 eudr:volumeCubicMeters oec:defaultAccessLevel oec:AuthorizedOnly ;
@@ -86,16 +86,16 @@ eudr:volumeCubicMeters oec:defaultAccessLevel oec:AuthorizedOnly ;
 eudr:areaHectares oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Plot area without coordinates supports plausibility checks of the due diligence but is not needed by the public; the coordinates themselves are Restricted." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
-eudr:areaSize oec:defaultAccessLevel oec:AuthorizedOnly ;
+eudr:hasAreaSize oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "Quantitative plot-area values mirror areaHectares and stay at the same due-diligence detail tier." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
-eudr:exemptionDeclaration oec:defaultAccessLevel oec:AuthorizedOnly ;
+eudr:hasExemptionDeclaration oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "An asserted out-of-scope/exemption declaration is a compliance position statement for authorities and trading partners to review." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
-eudr:exemptionAuthority oec:defaultAccessLevel oec:AuthorizedOnly ;
+eudr:hasExemptionAuthority oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The party asserting the exemption is identified by GLN, party-level data for authorities and supply-chain partners." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
-eudr:exemptionType oec:defaultAccessLevel oec:AuthorizedOnly ;
+eudr:hasExemptionType oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The permanent/temporary classification is detail of the exemption record, which as a whole sits at the professional tier." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> .
 eudr:exemptionScope oec:defaultAccessLevel oec:AuthorizedOnly ;
@@ -127,15 +127,15 @@ eudr:geofence oec:defaultAccessLevel oec:Restricted ;
     oec:accessLevelRationale "Plot polygons (plots above 4 ha, Art. 9(1)(d)) are the same authority-channelled geolocation data as point coordinates." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1115> .
-eudr:originDetails oec:defaultAccessLevel oec:Restricted ;
+eudr:hasOriginDetails oec:defaultAccessLevel oec:Restricted ;
     oec:accessLevelRationale "The origin-details container aggregates plot geolocation and producer identity, so the container carries the tier of its most sensitive content." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1115> .
-eudr:originList oec:defaultAccessLevel oec:Restricted ;
+eudr:hasOriginList oec:defaultAccessLevel oec:Restricted ;
     oec:accessLevelRationale "The origin list is the set-valued form of originDetails and carries the same locked tier." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1115> .
-eudr:producerIdentification oec:defaultAccessLevel oec:Restricted ;
+eudr:hasProducerIdentification oec:defaultAccessLevel oec:Restricted ;
     oec:accessLevelRationale "Producer identity linked to plots is personal and commercially sensitive DDS content the regulation routes to authorities, not the public." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2023/1115> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2023/1115> .

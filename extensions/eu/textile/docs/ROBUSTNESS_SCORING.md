@@ -103,8 +103,8 @@ A woven winter jacket tested after 5 wash cycles:
 eutex:RobustnessAssessment    # Container class
   eutex:robustnessScore       # 0-10 composite score
   eutex:cleaningCyclesBeforeTest  # Number of wash cycles (default 5)
-  eutex:robustnessTestFabricType  # Determines threshold tables
-  eutex:spiralityTest         # -> SpiralityTestResult
-  eutex:dimensionalChangeTest # -> DimensionalChangeTestResult
-  eutex:visualInspection      # -> VisualInspectionResult
+  eutex:hasRobustnessTestFabricType  # Determines threshold tables
+  eutex:hasSpiralityTest         # -> SpiralityTestResult
+  eutex:hasDimensionalChangeTest # -> DimensionalChangeTestResult
+  eutex:hasVisualInspection      # -> VisualInspectionResult
 ```

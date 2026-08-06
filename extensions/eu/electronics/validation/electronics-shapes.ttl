@@ -48,49 +48,49 @@ euelec:ElectronicDeviceShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path euelec:repairabilityIndex ;
+        sh:path euelec:hasRepairabilityIndex ;
         sh:name "Repairability Index" ;
         sh:description "Repairability index assessment for the device." ;
         sh:class euelec:RepairabilityIndex
     ] ;
     sh:property [
-        sh:path euelec:softwareSupport ;
+        sh:path euelec:hasSoftwareSupport ;
         sh:name "Software Support" ;
         sh:description "Software and firmware support information." ;
         sh:class euelec:SoftwareSupport
     ] ;
     sh:property [
-        sh:path euelec:energyEfficiency ;
+        sh:path euelec:hasEnergyEfficiency ;
         sh:name "Energy Efficiency" ;
         sh:description "Energy efficiency rating and consumption data." ;
         sh:class euelec:EnergyEfficiency
     ] ;
     sh:property [
-        sh:path euelec:billOfMaterials ;
+        sh:path euelec:hasBillOfMaterials ;
         sh:name "Bill of Materials" ;
         sh:description "Component bill of materials for the device." ;
         sh:class euelec:ComponentBOM
     ] ;
     sh:property [
-        sh:path euelec:weeeCompliance ;
+        sh:path euelec:hasWeeeCompliance ;
         sh:name "WEEE Compliance" ;
         sh:description "Waste Electrical and Electronic Equipment compliance data." ;
         sh:class euelec:WEEECompliance
     ] ;
     sh:property [
-        sh:path euelec:rohsCompliance ;
+        sh:path euelec:hasRohsCompliance ;
         sh:name "RoHS Compliance" ;
         sh:description "Restriction of Hazardous Substances compliance data." ;
         sh:class euelec:RoHSCompliance
     ] ;
     sh:property [
-        sh:path euelec:displaySpecification ;
+        sh:path euelec:hasDisplaySpecification ;
         sh:name "Display Specification" ;
         sh:description "Display panel technical specifications." ;
         sh:class euelec:DisplaySpecification
     ] ;
     sh:property [
-        sh:path euelec:materialDeclaration ;
+        sh:path euelec:hasMaterialDeclaration ;
         sh:name "Material Declaration" ;
         sh:description "Declared substances of concern present in the device." ;
         sh:class oec:SubstanceOfConcern
@@ -124,14 +124,14 @@ euelec:RepairabilityIndexShape a sh:NodeShape ;
         sh:message "Display score must be a decimal between 0 and 10."
     ] ;
     sh:property [
-        sh:path euelec:repairabilityClass ;
+        sh:path euelec:hasRepairabilityClass ;
         sh:name "Repairability Class" ;
         sh:description "EU repairability class designation." ;
         sh:maxCount 1 ;
         sh:class euelec:EURepairabilityClass
     ] ;
     sh:property [
-        sh:path euelec:repairCriteria ;
+        sh:path euelec:hasRepairCriteria ;
         sh:name "Repair Criteria" ;
         sh:description "Individual repair criteria scores contributing to the index." ;
         sh:class euelec:RepairCriterion
@@ -144,7 +144,7 @@ euelec:RepairabilityIndexShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path euelec:assessmentBody ;
+        sh:path euelec:hasAssessmentBody ;
         sh:name "Assessment Body" ;
         sh:description "Organization that performed the repairability assessment." ;
         sh:maxCount 1 ;
@@ -166,7 +166,7 @@ euelec:RepairCriterionShape a sh:NodeShape ;
     rdfs:label "Repair Criterion Shape" ;
     rdfs:comment "Validation shape for individual repair criterion scores." ;
     sh:property [
-        sh:path euelec:criterionType ;
+        sh:path euelec:hasCriterionType ;
         sh:name "Criterion Type" ;
         sh:description "The type of repair criterion being scored." ;
         sh:minCount 1 ;
@@ -242,14 +242,14 @@ euelec:SoftwareSupportShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path euelec:securitySupportYears ;
+        sh:path euelec:hasSecuritySupportYears ;
         sh:name "Security Support Years" ;
         sh:description "Duration in years of security update support." ;
         sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path euelec:featureSupportYears ;
+        sh:path euelec:hasFeatureSupportYears ;
         sh:name "Feature Support Years" ;
         sh:description "Duration in years of feature update support." ;
         sh:class gs1:QuantitativeValue ;
@@ -278,35 +278,35 @@ euelec:EnergyEfficiencyShape a sh:NodeShape ;
     rdfs:label "Energy Efficiency Shape" ;
     rdfs:comment "Validation shape for energy efficiency labelling and consumption data." ;
     sh:property [
-        sh:path euelec:energyEfficiencyClass ;
+        sh:path euelec:hasEnergyEfficiencyClass ;
         sh:name "Energy Efficiency Class" ;
         sh:description "EU energy efficiency class (A to G)." ;
         sh:maxCount 1 ;
         sh:class euelec:EnergyEfficiencyClass
     ] ;
     sh:property [
-        sh:path euelec:annualEnergyConsumption ;
+        sh:path euelec:hasAnnualEnergyConsumption ;
         sh:name "Annual Energy Consumption" ;
         sh:description "Estimated annual energy consumption in kilowatt-hours." ;
         sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path euelec:powerConsumptionOn ;
+        sh:path euelec:hasPowerConsumptionOn ;
         sh:name "Power Consumption On" ;
         sh:description "Power consumption in on-mode in watts." ;
         sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path euelec:powerConsumptionStandby ;
+        sh:path euelec:hasPowerConsumptionStandby ;
         sh:name "Power Consumption Standby" ;
         sh:description "Power consumption in standby mode in watts." ;
         sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path euelec:powerConsumptionOff ;
+        sh:path euelec:hasPowerConsumptionOff ;
         sh:name "Power Consumption Off" ;
         sh:description "Power consumption in off mode in watts." ;
         sh:class gs1:QuantitativeValue ;
@@ -342,7 +342,7 @@ euelec:ComponentBOMShape a sh:NodeShape ;
     rdfs:label "Component BOM Shape" ;
     rdfs:comment "Validation shape for the component bill of materials." ;
     sh:property [
-        sh:path euelec:components ;
+        sh:path euelec:hasComponents ;
         sh:name "Components" ;
         sh:description "List of electronic components that make up the device." ;
         sh:class gs1:Product ;
@@ -354,13 +354,13 @@ euelec:ComponentBOMShape a sh:NodeShape ;
 # -----------------------------------------------------------------------------
 euelec:ElectronicComponentShape a sh:NodeShape ;
     sh:targetClass euelec:ElectronicComponent ;
-    sh:targetObjectsOf euelec:components ;
+    sh:targetObjectsOf euelec:hasComponents ;
     rdfs:label "Electronic Component Shape" ;
     rdfs:comment """Validation shape for individual electronic component entries. Targets both the
-euelec:ElectronicComponent class and whatever a bill of materials lists via euelec:components, whose
+euelec:ElectronicComponent class and whatever a bill of materials lists via euelec:hasComponents, whose
 range is the generic gs1:Product.""" ;
     sh:property [
-        sh:path euelec:componentType ;
+        sh:path euelec:hasComponentType ;
         sh:name "Component Type" ;
         sh:description "Category of the component (e.g., battery, display, PCB)." ;
         sh:maxCount 1 ;
@@ -396,28 +396,28 @@ range is the generic gs1:Product.""" ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path euelec:replacementDifficulty ;
+        sh:path euelec:hasReplacementDifficulty ;
         sh:name "Replacement Difficulty" ;
         sh:description "Difficulty level for replacing the component." ;
         sh:maxCount 1 ;
         sh:class euelec:ReplacementDifficulty
     ] ;
     sh:property [
-        sh:path euelec:componentPassport ;
+        sh:path euelec:hasComponentPassport ;
         sh:name "Component Passport" ;
         sh:description "URL of the digital product passport for this component." ;
         sh:datatype xsd:anyURI ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path euelec:sparePartAvailabilityYears ;
+        sh:path euelec:hasSparePartAvailabilityYears ;
         sh:name "Spare Part Availability Years" ;
         sh:description "Duration in years that spare parts will remain available." ;
         sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path euelec:sparePartPrice ;
+        sh:path euelec:hasSparePartPrice ;
         sh:name "Spare Part Price" ;
         sh:description "Price of the spare part for replacement." ;
         sh:maxCount 1 ;
@@ -518,7 +518,7 @@ euelec:DisplaySpecificationShape a sh:NodeShape ;
     rdfs:label "Display Specification Shape" ;
     rdfs:comment "Validation shape for display panel technical specifications." ;
     sh:property [
-        sh:path euelec:screenDiagonal ;
+        sh:path euelec:hasScreenDiagonal ;
         sh:name "Screen Diagonal" ;
         sh:description "Viewable screen diagonal measurement." ;
         sh:class gs1:QuantitativeValue ;
@@ -550,14 +550,14 @@ euelec:DisplaySpecificationShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path euelec:refreshRate ;
+        sh:path euelec:hasRefreshRate ;
         sh:name "Refresh Rate" ;
         sh:description "Display refresh rate." ;
         sh:class gs1:QuantitativeValue ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path euelec:peakBrightness ;
+        sh:path euelec:hasPeakBrightness ;
         sh:name "Peak Brightness" ;
         sh:description "Peak display luminance." ;
         sh:class gs1:QuantitativeValue ;
@@ -573,73 +573,73 @@ euelec:DisplaySpecificationShape a sh:NodeShape ;
 # unitCode declared in each property's rdfs:comment.
 
 euelec:SecuritySupportYearsShape a sh:NodeShape ;
-    sh:targetSubjectsOf euelec:securitySupportYears ;
+    sh:targetSubjectsOf euelec:hasSecuritySupportYears ;
     sh:property [
-        sh:path ( euelec:securitySupportYears gs1:unitCode ) ;
+        sh:path ( euelec:hasSecuritySupportYears gs1:unitCode ) ;
         sh:hasValue "ANN" ;
-        sh:message "euelec:securitySupportYears must use unitCode 'ANN' (years)"@en
+        sh:message "euelec:hasSecuritySupportYears must use unitCode 'ANN' (years)"@en
     ] .
 
 euelec:FeatureSupportYearsShape a sh:NodeShape ;
-    sh:targetSubjectsOf euelec:featureSupportYears ;
+    sh:targetSubjectsOf euelec:hasFeatureSupportYears ;
     sh:property [
-        sh:path ( euelec:featureSupportYears gs1:unitCode ) ;
+        sh:path ( euelec:hasFeatureSupportYears gs1:unitCode ) ;
         sh:hasValue "ANN" ;
-        sh:message "euelec:featureSupportYears must use unitCode 'ANN' (years)"@en
+        sh:message "euelec:hasFeatureSupportYears must use unitCode 'ANN' (years)"@en
     ] .
 
 euelec:SparePartAvailabilityYearsShape a sh:NodeShape ;
-    sh:targetSubjectsOf euelec:sparePartAvailabilityYears ;
+    sh:targetSubjectsOf euelec:hasSparePartAvailabilityYears ;
     sh:property [
-        sh:path ( euelec:sparePartAvailabilityYears gs1:unitCode ) ;
+        sh:path ( euelec:hasSparePartAvailabilityYears gs1:unitCode ) ;
         sh:hasValue "ANN" ;
-        sh:message "euelec:sparePartAvailabilityYears must use unitCode 'ANN' (years)"@en
+        sh:message "euelec:hasSparePartAvailabilityYears must use unitCode 'ANN' (years)"@en
     ] .
 
 euelec:AnnualEnergyConsumptionShape a sh:NodeShape ;
-    sh:targetSubjectsOf euelec:annualEnergyConsumption ;
+    sh:targetSubjectsOf euelec:hasAnnualEnergyConsumption ;
     sh:property [
-        sh:path ( euelec:annualEnergyConsumption gs1:unitCode ) ;
+        sh:path ( euelec:hasAnnualEnergyConsumption gs1:unitCode ) ;
         sh:hasValue "KWH" ;
-        sh:message "euelec:annualEnergyConsumption must use unitCode 'KWH' (kilowatt hours)"@en
+        sh:message "euelec:hasAnnualEnergyConsumption must use unitCode 'KWH' (kilowatt hours)"@en
     ] .
 
 euelec:PowerConsumptionOnShape a sh:NodeShape ;
-    sh:targetSubjectsOf euelec:powerConsumptionOn ;
+    sh:targetSubjectsOf euelec:hasPowerConsumptionOn ;
     sh:property [
-        sh:path ( euelec:powerConsumptionOn gs1:unitCode ) ;
+        sh:path ( euelec:hasPowerConsumptionOn gs1:unitCode ) ;
         sh:hasValue "WTT" ;
-        sh:message "euelec:powerConsumptionOn must use unitCode 'WTT' (watts)"@en
+        sh:message "euelec:hasPowerConsumptionOn must use unitCode 'WTT' (watts)"@en
     ] .
 
 euelec:PowerConsumptionStandbyShape a sh:NodeShape ;
-    sh:targetSubjectsOf euelec:powerConsumptionStandby ;
+    sh:targetSubjectsOf euelec:hasPowerConsumptionStandby ;
     sh:property [
-        sh:path ( euelec:powerConsumptionStandby gs1:unitCode ) ;
+        sh:path ( euelec:hasPowerConsumptionStandby gs1:unitCode ) ;
         sh:hasValue "WTT" ;
-        sh:message "euelec:powerConsumptionStandby must use unitCode 'WTT' (watts)"@en
+        sh:message "euelec:hasPowerConsumptionStandby must use unitCode 'WTT' (watts)"@en
     ] .
 
 euelec:PowerConsumptionOffShape a sh:NodeShape ;
-    sh:targetSubjectsOf euelec:powerConsumptionOff ;
+    sh:targetSubjectsOf euelec:hasPowerConsumptionOff ;
     sh:property [
-        sh:path ( euelec:powerConsumptionOff gs1:unitCode ) ;
+        sh:path ( euelec:hasPowerConsumptionOff gs1:unitCode ) ;
         sh:hasValue "WTT" ;
-        sh:message "euelec:powerConsumptionOff must use unitCode 'WTT' (watts)"@en
+        sh:message "euelec:hasPowerConsumptionOff must use unitCode 'WTT' (watts)"@en
     ] .
 
 euelec:RefreshRateShape a sh:NodeShape ;
-    sh:targetSubjectsOf euelec:refreshRate ;
+    sh:targetSubjectsOf euelec:hasRefreshRate ;
     sh:property [
-        sh:path ( euelec:refreshRate gs1:unitCode ) ;
+        sh:path ( euelec:hasRefreshRate gs1:unitCode ) ;
         sh:hasValue "HTZ" ;
-        sh:message "euelec:refreshRate must use unitCode 'HTZ' (hertz)"@en
+        sh:message "euelec:hasRefreshRate must use unitCode 'HTZ' (hertz)"@en
     ] .
 
 euelec:PeakBrightnessShape a sh:NodeShape ;
-    sh:targetSubjectsOf euelec:peakBrightness ;
+    sh:targetSubjectsOf euelec:hasPeakBrightness ;
     sh:property [
-        sh:path ( euelec:peakBrightness gs1:unitCode ) ;
+        sh:path ( euelec:hasPeakBrightness gs1:unitCode ) ;
         sh:hasValue "CDM2" ;
-        sh:message "euelec:peakBrightness must use unitCode 'CDM2' (cd/m²)"@en
+        sh:message "euelec:hasPeakBrightness must use unitCode 'CDM2' (cd/m²)"@en
     ] .

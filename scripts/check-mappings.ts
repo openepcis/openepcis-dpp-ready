@@ -31,7 +31,7 @@
  *     regulation module defines is broader than those, so the relation is inverted: SKOS
  *     reads `A skos:narrowMatch B` as "B is narrower than A". The 2026-07 sweep corrected
  *     174 such assertions. A CONTAINER or LIST term that aggregates the upstream concept is
- *     allowlisted instead (eudr:originDetails holds a country plus a geolocation and a
+ *     allowlisted instead (eudr:hasOriginDetails holds a country plus a geolocation and a
  *     producer), because being the broader term is correct there.
  *
  *  7. VALUE SPACE MAPPED ONTO AN ENTITY CLASS. A closed list of codes and the class of things
@@ -214,7 +214,7 @@ const VALUE_SPACE_SUFFIX = /(Type|Types|Category|Categories|Class|Code|Codes|Cod
 /**
  * Is this subject a value space: an enumeration, or a class named for one?
  *
- * Properties are excluded even when named like one, because `oec:documentType` is a property
+ * Properties are excluded even when named like one, because `oec:hasDocumentType` is a property
  * whose values are codes rather than a class of codes, and a property-to-property mapping is
  * a different question.
  */
@@ -318,7 +318,7 @@ for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
       // 8. graded mapping onto a serialisation slot. gs1:value, schema:value and the min/max
       // bounds carry a number or a string wherever a vocabulary needs one; they denote no concept,
       // so a subsumption claim against them says nothing. The 14 that existed contradicted each
-      // other: oec:indicatorTotalValue was broader than schema:value while eucpr:characteristicValue
+      // other: oec:indicatorTotalValue was broader than schema:value while eucpr:hasCharacteristicValue
       // was both narrower than it and broader than schema:minValue.
       if (VALUE_SLOTS.has(target)) {
         violations.push({
@@ -382,7 +382,7 @@ for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
           violations.push({ file: rel, subject: subj, detail: `skos:${relName} schema:${local} — schema domain ${doms.join("/")} is semantically foreign; use rdfs:seeAlso or drop` });
         }
         // 3b. kind mismatch: subject kind from the `a <types>` clause only
-        // (never from the subject NAME — e.g. oec:energyEfficiencyClass is a property)
+        // (never from the subject NAME — e.g. oec:hasEnergyEfficiencyClass is a property)
         const aClause = block.match(/\ba\s+([^;.]+)[;.]/)?.[1] ?? "";
         const subjKind = /Property\b/.test(aClause) ? "property" : /Class\b/.test(aClause) ? "class" : null;
         if (subjKind && (e.kind === "class" || e.kind === "property") && subjKind !== e.kind) {

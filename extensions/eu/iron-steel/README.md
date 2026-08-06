@@ -12,7 +12,7 @@ This module is intentionally **thin**. It mints only steel-specific concepts:
 - **Steel identification** — heat / cast / lot / product numbers, purchaser
   order, grade classification (EN 10020), designation (EN 10027), melt-and-pour
   country, CBAM report id (Regulation (EU) 2023/956).
-- **`eusteel:technologyRoute`** — primary steelmaking route (BF-BOF, EAF, OHF).
+- **`eusteel:hasTechnologyRoute`** — primary steelmaking route (BF-BOF, EAF, OHF).
 - **`eusteel:MaterialTestCertificate`** — the EN 10204 inspection document
   (type 2.1/2.2/3.1/3.2) carrying the EN 10168 mechanical and chemical
   parameters that substantiate the declared grade.
@@ -22,11 +22,11 @@ Everything cross-cutting reuses the lifted **`oec:`** core vocabulary:
 | Need | Reuse |
 |------|-------|
 | Recycled content (EAF scrap share, pre/post-consumer) | `oec:RecycledContent` |
-| Substances of concern (REACH / SCIP) | `oec:substancesOfConcern`, `oec:SubstanceOfConcern` |
+| Substances of concern (REACH / SCIP) | `oec:hasSubstancesOfConcern`, `oec:SubstanceOfConcern` |
 | Environmental Product Declaration (EN 15804, GWP etc.) | `oec:EnvironmentalProductDeclaration` |
 | Carbon footprint (single value / 5-stage) | `oec:carbonFootprintTotal`, `oec:CarbonFootprintDeclaration` |
-| Material composition | `oec:materialComposition` |
-| Supporting documents (REACH docs, conformity) | `oec:documents` / `oec:DocumentReference` |
+| Material composition | `oec:hasMaterialComposition` |
+| Supporting documents (REACH docs, conformity) | `oec:hasDocuments` / `oec:DocumentReference` |
 | Economic operator, facility | `oec:OperatorInformation`, `oec:FacilityInformation` |
 
 ## Interoperability

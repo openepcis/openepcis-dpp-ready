@@ -8,7 +8,7 @@
       "id": "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct",
       "localName": "ConstructionProduct",
       "label": "Construction Product",
-      "comment": "A construction product subject to EU Regulation 2024/3110 (revised\nCPR). Carrier for the regulation's DPP and Declaration-of-Performance data.\nUse eucpr:declarationOfPerformanceUrl, eucpr:essentialCharacteristic, and\neucpr:reactionToFireClass for the substantive declarations; reuse oec: terms\nfor recycled content, carbon footprint, hazardous substances, etc.",
+      "comment": "A construction product subject to EU Regulation 2024/3110 (revised\nCPR). Carrier for the regulation's DPP and Declaration-of-Performance data.\nUse eucpr:declarationOfPerformanceUrl, eucpr:hasEssentialCharacteristic, and\neucpr:hasReactionToFireClass for the substantive declarations; reuse oec: terms\nfor recycled content, carbon footprint, hazardous substances, etc.",
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#ConstructionProduct"
       ],
@@ -55,26 +55,6 @@
   ],
   "properties": [
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/avcpSystem",
-      "localName": "avcpSystem",
-      "label": "AVCP System",
-      "comment": "Applicable AVCP system (CPR Annex V) for the product's essential characteristics.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/eu/cpr/AVCPSystem"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#avsSystem"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2024/3110",
-      "accessLevelRationale": "The applicable AVCP system is stated in the public DoP.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/eu/cpr/characteristicName",
       "localName": "characteristicName",
       "label": "Characteristic Name",
@@ -90,79 +70,6 @@
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
       "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/characteristicValue",
-      "localName": "characteristicValue",
-      "label": "Characteristic Value",
-      "comment": "Quantitative value of the essential characteristic. gs1:QuantitativeValue with the unitCode appropriate for the characteristic (e.g. 'N31' for MPa, 'F94' for W/(m·K)).",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://ref.gs1.org/voc/value",
-        "https://schema.org/value",
-        "https://schema.org/maxValue",
-        "https://schema.org/minValue",
-        "http://data.europa.eu/m8g/providesValueFor"
-      ],
-      "broadMatch": [
-        "https://schema.org/strengthValue",
-        "https://gs1-epcis-reg.org/rail/voc/data#rightValue",
-        "https://gs1-epcis-reg.org/rail/voc/data#leftValue",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#stateOfChargeValue",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingCapacityValue",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#evolutionOfSelfDischargeValue",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#energyThroughputValue",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#capacityThroughputValue",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#internalResistanceIncreaseValue",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergyValue",
-        "urn:samm:io.BatteryPass.Performance:1.2.1#capacityFadeValue"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
-      "accessLevelInherited": true
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/compressiveStrength",
-      "localName": "compressiveStrength",
-      "label": "Compressive Strength",
-      "comment": "Declared compressive strength of the product. gs1:QuantitativeValue with unitCode 'N31' (MPa).",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#compressiveStrength"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#compressiveStrength"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2024/3110",
-      "accessLevelRationale": "Declared compressive strength is an essential characteristic published in the DoP.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/constructionProductType",
-      "localName": "constructionProductType",
-      "label": "Construction Product Type",
-      "comment": "",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProductType"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The product-type classification is basic public product information needed to find and read the DoP, though not itself DoP content fixed by the CPR.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/cpr/dateOfIssue",
@@ -213,30 +120,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/declarationOfPerformance",
-      "localName": "declarationOfPerformance",
-      "label": "Declaration of Performance",
-      "comment": "Links a construction product to its structured Declaration of Performance.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#hasDoP",
-        "https://dpp-keystone.org/spec/v2/terms#dopc"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#hasDoP"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2024/3110",
-      "accessLevelRationale": "The DoP is the document the CPR obliges manufacturers to supply with the product and keep available, so its content is public by design (Reg. (EU) 2024/3110 Art. 13 ff.).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/eu/cpr/declarationOfPerformanceUrl",
       "localName": "declarationOfPerformanceUrl",
       "label": "Declaration of Performance URL",
@@ -251,45 +134,6 @@
       "accessLevel": "Public",
       "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2024/3110",
       "accessLevelRationale": "The CPR foresees digital supply of the DoP via a permanent link, which only works if the link is public.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/essentialCharacteristic",
-      "localName": "essentialCharacteristic",
-      "label": "Essential Characteristic",
-      "comment": "Declared essential characteristic of the product. Set-valued: most products declare multiple.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2024/3110",
-      "accessLevelRationale": "Declared essential characteristics are the core content of the public DoP that specifiers and users rely on.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/europeanAssessmentDocument",
-      "localName": "europeanAssessmentDocument",
-      "label": "European Assessment Document",
-      "comment": "Reference to the European Assessment Document (EAD) underpinning a European Technical Assessment, where no harmonised standard applies. Reuse oec:DocumentReference.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
-      ],
-      "seeAlso": [
-        "https://dpp-keystone.org/spec/v2/terms#europeanAssessmentDocument"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#europeanAssessmentDocument"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The EAD reference points into the technical-assessment file used where no harmonised standard applies, professional detail behind the public declaration.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
@@ -316,8 +160,164 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/notifiedBody",
-      "localName": "notifiedBody",
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasAvcpSystem",
+      "localName": "hasAvcpSystem",
+      "label": "AVCP System",
+      "comment": "Applicable AVCP system (CPR Annex V) for the product's essential characteristics.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/cpr/AVCPSystem"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#avsSystem"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
+      "accessLevel": "Public",
+      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2024/3110",
+      "accessLevelRationale": "The applicable AVCP system is stated in the public DoP.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasCharacteristicValue",
+      "localName": "hasCharacteristicValue",
+      "label": "Characteristic Value",
+      "comment": "Quantitative value of the essential characteristic. gs1:QuantitativeValue with the unitCode appropriate for the characteristic (e.g. 'N31' for MPa, 'F94' for W/(m·K)).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/value",
+        "https://schema.org/value",
+        "https://schema.org/maxValue",
+        "https://schema.org/minValue",
+        "http://data.europa.eu/m8g/providesValueFor"
+      ],
+      "broadMatch": [
+        "https://schema.org/strengthValue",
+        "https://gs1-epcis-reg.org/rail/voc/data#rightValue",
+        "https://gs1-epcis-reg.org/rail/voc/data#leftValue",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#stateOfChargeValue",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingCapacityValue",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#evolutionOfSelfDischargeValue",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#energyThroughputValue",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#capacityThroughputValue",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#internalResistanceIncreaseValue",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#remainingEnergyValue",
+        "urn:samm:io.BatteryPass.Performance:1.2.1#capacityFadeValue"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
+      "accessLevelInherited": true
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasCompressiveStrength",
+      "localName": "hasCompressiveStrength",
+      "label": "Compressive Strength",
+      "comment": "Declared compressive strength of the product. gs1:QuantitativeValue with unitCode 'N31' (MPa).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#compressiveStrength"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#compressiveStrength"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
+      "accessLevel": "Public",
+      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2024/3110",
+      "accessLevelRationale": "Declared compressive strength is an essential characteristic published in the DoP.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasConstructionProductType",
+      "localName": "hasConstructionProductType",
+      "label": "Construction Product Type",
+      "comment": "",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProductType"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The product-type classification is basic public product information needed to find and read the DoP, though not itself DoP content fixed by the CPR.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasDeclarationOfPerformance",
+      "localName": "hasDeclarationOfPerformance",
+      "label": "Declaration of Performance",
+      "comment": "Links a construction product to its structured Declaration of Performance.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#hasDoP",
+        "https://dpp-keystone.org/spec/v2/terms#dopc"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#hasDoP"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
+      "accessLevel": "Public",
+      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2024/3110",
+      "accessLevelRationale": "The DoP is the document the CPR obliges manufacturers to supply with the product and keep available, so its content is public by design (Reg. (EU) 2024/3110 Art. 13 ff.).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasEssentialCharacteristic",
+      "localName": "hasEssentialCharacteristic",
+      "label": "Essential Characteristic",
+      "comment": "Declared essential characteristic of the product. Set-valued: most products declare multiple.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
+      "accessLevel": "Public",
+      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2024/3110",
+      "accessLevelRationale": "Declared essential characteristics are the core content of the public DoP that specifiers and users rely on.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasEuropeanAssessmentDocument",
+      "localName": "hasEuropeanAssessmentDocument",
+      "label": "European Assessment Document",
+      "comment": "Reference to the European Assessment Document (EAD) underpinning a European Technical Assessment, where no harmonised standard applies. Reuse oec:DocumentReference.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "seeAlso": [
+        "https://dpp-keystone.org/spec/v2/terms#europeanAssessmentDocument"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#europeanAssessmentDocument"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The EAD reference points into the technical-assessment file used where no harmonised standard applies, professional detail behind the public declaration.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasNotifiedBody",
+      "localName": "hasNotifiedBody",
       "label": "Notified Body",
       "comment": "Notified body (NB) involved in the AVCP. Reuse oec:OperatorInformation (carries name, identifier, address).",
       "domain": [
@@ -338,8 +338,8 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/reactionToFireClass",
-      "localName": "reactionToFireClass",
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasReactionToFireClass",
+      "localName": "hasReactionToFireClass",
       "label": "Reaction-to-fire Class",
       "comment": "EN 13501-1 reaction-to-fire classification of the construction product.",
       "domain": [
@@ -361,8 +361,8 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/technicalAssessmentBody",
-      "localName": "technicalAssessmentBody",
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasTechnicalAssessmentBody",
+      "localName": "hasTechnicalAssessmentBody",
       "label": "Technical Assessment Body",
       "comment": "Technical Assessment Body (TAB) that issued the European Technical Assessment. Reuse oec:OperatorInformation.",
       "domain": [
@@ -383,8 +383,8 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/thermalConductivity",
-      "localName": "thermalConductivity",
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasThermalConductivity",
+      "localName": "hasThermalConductivity",
       "label": "Thermal Conductivity",
       "comment": "Declared thermal conductivity λ of the product. gs1:QuantitativeValue with unitCode 'F94' (W/(m·K)).",
       "domain": [
@@ -406,8 +406,8 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/validationReports",
-      "localName": "validationReports",
+      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasValidationReports",
+      "localName": "hasValidationReports",
       "label": "Validation Reports",
       "comment": "References to test / validation reports supporting the declared performance. Reuse oec:DocumentReference.",
       "domain": [

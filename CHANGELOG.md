@@ -9,6 +9,51 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### Object properties adopt the `has*` naming convention
+
+All 301 object properties across the project-owned namespaces (`oec:`, `eubat:`, `eutex:`,
+`euelec:`, `eudr:`, `eudet:`, `eucpr:`, `euppwr:`, `eusteel:`, `usfsma:`) now carry the
+`hasXyz` form (`oec:materialComposition` → `oec:hasMaterialComposition`); datatype
+properties keep the GS1/schema.org bare-noun style, inverse-style names (`oec:tradeItemPieceOf`)
+stay, and the upstream `rail:` mirror is untouched. The sweep covers ontologies, contexts,
+overrides, examples, EPCIS events, SHACL shapes, schemas, docs and demo bundles; EN 18223
+bare keys follow the local names by construction. One latent collision surfaced and was
+resolved: the boolean `eutex:hasTakeBackProgram` became `eutex:takeBackProgramAvailable`
+so the take-back programme node property could take the conventional name. Deployed demo
+passports still carry the old keys until re-seeded (`seed-dev-passports --reset`).
+
+### `bpr:` shrinks to its longlist-only scope
+
+GEFEG BatteryPass-Ready and the TNO AAS→RDF modules on the CIRPASS-2 hub are renderings of
+the one Battery Pass Consortium data model (GEFEG's canonical repo is the Consortium repo;
+the TNO modules are machine-generated conversions, `prov:` AasRdfConverter 0.2.0). The
+OpenEPCIS-hosted `bpr:` mirror therefore returns to the scope its documentation always
+claimed: the DPP-information attributes with no SAMM equivalent plus the four flat
+lossless-carrier keys of the bridge context — 8 properties and the `dppStatusCodes`
+scheme instead of 124 nodes. 150 of the 157 `battery.ttl` mappings into the mirror were
+removed (the Consortium SAMM URNs carry them); 6 terms whose only graded anchor was the
+mirror got their SAMM mapping directly. The outbound bridge context's four dangling
+camelCase `bpr:` IRIs now point at the real PascalCase terms. The GEFEG conformance
+pipeline (schemas + exporter, 23/23) is unaffected — it never used `bpr:`.
+
+### CIRPASS-2 EUDPP v2.0.5 integrated
+
+The EUDPP Core Ontology (v2.0.5, 2026-07-06, ten modules, IRIs now dereferencing) is
+covered across the board: 42 new `rdfs:seeAlso cirpass2:` pointers on existing terms, and
+new `oec:` terms for the genuine gaps — `hasBackupCopyHost` (ESPR Art. 10(4)),
+`isEnergyRelated`, the substance-identity set (`socThreshold`, `iupacName`,
+`substanceTradeName`), the conformity framework (`UnionHarmonisationLegislation` +
+`assignedELI`, `HarmonisedStandard`, `CommonSpecification`, `ConformityAssessmentModule`
+with the Decision 768/2008 modules A–H1), the ESPR Annex I environmental parameters
+(`waterConsumption`, `landUse`, `materialFootprint`, `wasteGenerationAmount`,
+`packagingWasteAmount`, `productToPackagingRatio`, `recoverableRate`,
+`recyclingCollectionRate`) and `productCategoryRules`. The EVENT module (Draft 0.1.0) is
+deliberately NOT mirrored: its ESPR activities are vocabulary by their own definitions, so
+they land as CBV values (`oec:BizStep-maintaining`/`-refurbishing`/`-remanufacturing`/
+`-upgrading`, `oec:Disp-available_on_market`; CBV absence verified content-based
+2026-08-06) and the carrier layer is answered by the real EPCIS/CBV IRIs. Full analysis in
+[CIRPASS2_ALIGNMENT.md](extensions/common/interop/docs/CIRPASS2_ALIGNMENT.md).
+
 ### The official EU battery data-point list becomes a hosted registry
 
 The European Commission's guidance "Digital Batteries Passport — data points by category"

@@ -31,12 +31,12 @@ heat/cast, `21` (serial) for an individually serialised item.
 | Grade classification | `eusteel:steelGradeClassification` | EN 10020 |
 | Designation (name / number) | `eusteel:steelDesignation` | EN 10027 |
 | Melt-and-pour country | `eusteel:meltAndPourCountry` | CBAM |
-| Production route | `eusteel:technologyRoute` (BF-BOF / EAF / OHF) | — |
+| Production route | `eusteel:hasTechnologyRoute` (BF-BOF / EAF / OHF) | — |
 | CBAM report id | `eusteel:cbamReportId` | (EU) 2023/956 |
 
 ## 3. Material Test Certificate (EN 10204)
 
-Attach the mill certificate via `eusteel:mtc`. Declare the EN 10204 inspection
+Attach the mill certificate via `eusteel:hasMtc`. Declare the EN 10204 inspection
 document type (`mtcInspectionType`: `2.1`, `2.2`, `3.1`, `3.2`) and the EN 10168
 parameters that substantiate the grade:
 
@@ -54,12 +54,12 @@ Do **not** mint steel-specific terms for these; reuse the core vocabulary:
 - **Recycled content** (the EAF scrap share is the headline ESPR metric):
   `oec:recycledContent` → `oec:RecycledContent` with
   `oec:preConsumerRecycledContent` / `oec:postConsumerRecycledContent`.
-- **Environmental Product Declaration** (EN 15804): `oec:environmentalProductDeclaration`
-  → `oec:EnvironmentalProductDeclaration` with `oec:impactIndicator` results
-  (`oec:GWPTotal` etc.) and optional `oec:lifecycleStageResult` breakdown.
-- **Substances of concern** (REACH / SCIP): `oec:substancesOfConcern`.
+- **Environmental Product Declaration** (EN 15804): `oec:hasEnvironmentalProductDeclaration`
+  → `oec:EnvironmentalProductDeclaration` with `oec:hasImpactIndicator` results
+  (`oec:GWPTotal` etc.) and optional `oec:hasLifecycleStageResult` breakdown.
+- **Substances of concern** (REACH / SCIP): `oec:hasSubstancesOfConcern`.
 - **Supporting documents** (REACH dossier, recycled-content conformity):
-  `oec:documents` → `oec:DocumentReference`.
+  `oec:hasDocuments` → `oec:DocumentReference`.
 - **Economic operator / facility**: `oec:OperatorInformation` / `oec:FacilityInformation`.
 
 ## 5. EPCIS events

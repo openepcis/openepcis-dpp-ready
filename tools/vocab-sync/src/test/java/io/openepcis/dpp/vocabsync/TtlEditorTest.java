@@ -42,14 +42,14 @@ class TtlEditorTest {
         List<String> l = lines(
                 "eucpr:ConstructionProduct a owl:Class ;",
                 "    rdfs:comment \"\"\"A construction product.",
-                "Use eucpr:reactionToFireClass for the substantive declarations;",
+                "Use eucpr:hasReactionToFireClass for the substantive declarations;",
                 "reuse oec: terms elsewhere.\"\"\"@en ;",
                 "    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> .",
                 "",
-                "eucpr:reactionToFireClass a owl:DatatypeProperty ;",
+                "eucpr:hasReactionToFireClass a owl:DatatypeProperty ;",
                 "    rdfs:seeAlso dppk:reactionToFire ;",
                 "    skos:closeMatch dppk:reactionToFire .");
-        int[] r = TtlEditor.blockRange(l, "eucpr:reactionToFireClass");
+        int[] r = TtlEditor.blockRange(l, "eucpr:hasReactionToFireClass");
         assertArrayEquals(new int[]{6, 8}, r);
     }
 

@@ -4,6 +4,34 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+### Object properties adopt the `has*` naming convention
+
+The 73 core object properties now use the `hasXyz` form (`oec:operatorInformation` →
+`oec:hasOperatorInformation`); datatype properties keep the GS1/schema.org bare-noun style
+and `oec:tradeItemPieceOf` keeps its inverse-style name. Contexts, shortcut aliases,
+examples, shapes and schemas follow the new local names.
+
+### CIRPASS-2 EUDPP v2.0.5: pointer wave and gap terms
+
+42 new `rdfs:seeAlso cirpass2:` pointers anchor existing terms into the EUDPP module
+structure (P_DPP, SOC, LCA, IDENT, ACTOR, COMP, CON), and the genuine gaps become terms:
+`oec:hasBackupCopyHost`, `oec:isEnergyRelated`, `oec:socThreshold`, `oec:iupacName`,
+`oec:substanceTradeName`, `oec:productCategoryRules`, the conformity framework
+(`oec:UnionHarmonisationLegislation` + `oec:assignedELI` anchored to
+`cccev:ReferenceFramework`/ELI, `oec:HarmonisedStandard`, `oec:CommonSpecification`,
+`oec:ConformityAssessmentModule` with modules A–H1) and eight ESPR Annex I environmental
+parameters. All carry access-level tiers; substance-identity fields follow the
+`oec:casNumber` AuthorizedOnly precedent.
+
+### ESPR lifecycle activities as CBV vocabulary
+
+`oec:BizStep-maintaining`, `oec:BizStep-refurbishing`, `oec:BizStep-remanufacturing`,
+`oec:BizStep-upgrading` and `oec:Disp-available_on_market` join the
+`oec:BizStep-notifying` pattern, each sourced to its ESPR Art. 2 definition and
+cross-referenced to the corresponding `cirpass2:*Event` class. CBV 2.0's lack of each
+value was verified content-based against the live vocabulary (2026-08-06); repair,
+destruction and putting-into-service map to existing CBV values and mint nothing.
+
 ## [0.9.8] - 2026-07-29
 
 ### Changed: `oec:activityClassification` anchored to the GS1 structure published in July 2026

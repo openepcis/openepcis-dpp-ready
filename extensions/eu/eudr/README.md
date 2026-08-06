@@ -307,9 +307,9 @@ This module implements a two-layer approach because GS1 EUDR p.0.0 is intentiona
 | `eudr:harvestDateStart/End` | For harvest date ranges |
 | `eudr:speciesScientificName` | EUDR Article 9.1.c requirement |
 | `eudr:speciesCommonName` | Companion to scientific name |
-| `eudr:commodityType` | EUDR Article 1.1 — 7 specific commodities |
-| `eudr:timberProductType` | EUDR Annex I timber categories |
-| `eudr:riskLevel` | EUDR Article 29 risk classification |
+| `eudr:hasCommodityType` | EUDR Article 1.1 — 7 specific commodities |
+| `eudr:hasTimberProductType` | EUDR Annex I timber categories |
+| `eudr:hasRiskLevel` | EUDR Article 29 risk classification |
 | `eudr:deforestationFreeDate` | EUDR cutoff verification |
 | `eudr:legallyHarvested` | EUDR compliance flag |
 

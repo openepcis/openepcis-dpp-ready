@@ -52,7 +52,7 @@ mismatches the bridge context cannot rescale (JSON-LD maps IRIs, not values):
 | `dppk:IronSteelProduct` | `eusteel:IronSteelProduct` | Mapped | `skos:exactMatch`. |
 | `dppk:heatNumber` / `castNumber` / `lotNumber` / `productNumber` / `purchaserOrder` | `eusteel:` same | Mapped | |
 | `dppk:steelGradeClassification` / `steelDesignation` / `technologyRoute` / `meltAndPourCountry` / `cbamReportId` | `eusteel:` same | Mapped | `technologyRoute`: dppk free text → `eusteel:TechnologyRoute` enum (Partial on export). |
-| `dppk:MaterialTestCertificate` / `mtc` | `eusteel:MaterialTestCertificate` / `eusteel:mtc` | Mapped | `skos:exactMatch`. |
+| `dppk:MaterialTestCertificate` / `mtc` | `eusteel:MaterialTestCertificate` / `eusteel:hasMtc` | Mapped | `skos:exactMatch`. |
 | `dppk:mtcNominalSize` / `mtcWeightTolerance` / `mtcYieldStrength` / `mtcYieldStrengthRatio` / `mtcElongation` / `mtcRelativeRibArea` | `eusteel:` same | Mapped | EN 10168 mechanical. |
 | `dppk:mtcCarbonContent` / `mtcPhosphorusContent` / `mtcSulfurContent` / `mtcCopperContent` / `mtcNitrogenContent` / `mtcCarbonEquivalent` | `eusteel:` same | Mapped | EN 10168 chemical. |
 | `dppk:mtcSteelProcess` / `mtcFinishing` / `mtcRadiometricControl` | `eusteel:` same | Mapped | |
@@ -64,10 +64,10 @@ mismatches the bridge context cannot rescale (JSON-LD maps IRIs, not values):
 |--------------|-----------|----------|-------|
 | `dppk:EPDBlock` | `oec:EnvironmentalProductDeclaration` | Mapped | `skos:exactMatch`. |
 | `dppk:ImpactValues` | `oec:ImpactIndicatorResult` | Mapped | `skos:closeMatch` (structural difference — see below). |
-| `dppk:epd` | `oec:environmentalProductDeclaration` | Mapped | `skos:exactMatch`. |
-| `dppk:indicator` | `oec:impactIndicator` | Mapped | |
-| `dppk:gwp` / `gwpF` / `gwpB` / `gwpLuluc` / `odp` / `ap` / `epF` / `epM` / `epT` / `pocp` / `adpe` / `adpf` / `wdp` | `oec:impactIndicator` with `oec:indicatorType` ∈ {`oec:GWPTotal`, `GWPFossil`, …, `WDP`} | **Structural** | DPP Keystone has one property per indicator pointing at an `ImpactValues` node; OpenEPCIS normalises to one `ImpactIndicatorResult` carrying an `oec:indicatorType` selector. Each `dppk:` indicator property is anchored `rdfs:seeAlso` to its `oec:ImpactIndicatorType` value; the per-property→per-instance reshape is a transform, not a context mapping. |
-| `dppk:a1` … `dppk:c1` (lifecycle modules) | `oec:LifecycleStageResult` (`oec:lifecycleStage` ∈ {`oec:StageA1`…`oec:StageD`} + `oec:stageValue`) | **Structural** | Same reshape: flat `a1..d` properties → normalised stage/value pairs. `rdfs:seeAlso` anchors on each `oec:Stage*` value. |
+| `dppk:epd` | `oec:hasEnvironmentalProductDeclaration` | Mapped | `skos:exactMatch`. |
+| `dppk:indicator` | `oec:hasImpactIndicator` | Mapped | |
+| `dppk:gwp` / `gwpF` / `gwpB` / `gwpLuluc` / `odp` / `ap` / `epF` / `epM` / `epT` / `pocp` / `adpe` / `adpf` / `wdp` | `oec:hasImpactIndicator` with `oec:hasIndicatorType` ∈ {`oec:GWPTotal`, `GWPFossil`, …, `WDP`} | **Structural** | DPP Keystone has one property per indicator pointing at an `ImpactValues` node; OpenEPCIS normalises to one `ImpactIndicatorResult` carrying an `oec:hasIndicatorType` selector. Each `dppk:` indicator property is anchored `rdfs:seeAlso` to its `oec:ImpactIndicatorType` value; the per-property→per-instance reshape is a transform, not a context mapping. |
+| `dppk:a1` … `dppk:c1` (lifecycle modules) | `oec:LifecycleStageResult` (`oec:hasLifecycleStage` ∈ {`oec:StageA1`…`oec:StageD`} + `oec:stageValue`) | **Structural** | Same reshape: flat `a1..d` properties → normalised stage/value pairs. `rdfs:seeAlso` anchors on each `oec:Stage*` value. |
 
 ## Construction / Declaration of Performance (`eucpr:`)
 
@@ -75,16 +75,16 @@ mismatches the bridge context cannot rescale (JSON-LD maps IRIs, not values):
 |--------------|-----------|----------|-------|
 | `dppk:DoPCBlock` / `DeclarationOfPerformance` | `eucpr:DeclarationOfPerformance` | Mapped | `skos:exactMatch`. |
 | `dppk:ConstructionProduct` | `eucpr:ConstructionProduct` | Mapped | |
-| `dppk:dopc` / `hasDoP` | `eucpr:declarationOfPerformance` | Mapped | |
+| `dppk:dopc` / `hasDoP` | `eucpr:hasDeclarationOfPerformance` | Mapped | |
 | `dppk:declarationCode` / `dopIdentifier` | `eucpr:declarationCode` | Mapped | |
 | `dppk:dateOfIssue` | `eucpr:dateOfIssue` | Mapped | |
 | `dppk:harmonisedStandardReference` | `eucpr:harmonisedStandard` | Mapped | |
-| `dppk:avsSystem` | `eucpr:avcpSystem` | Mapped | dppk free string → `eucpr:AVCPSystem` enum (Partial on export). |
-| `dppk:notifiedBody` / `technicalAssessmentBody` | `eucpr:notifiedBody` / `eucpr:technicalAssessmentBody` (→ `oec:OperatorInformation`) | Mapped | |
-| `dppk:validationReports` / `europeanAssessmentDocument` | `eucpr:validationReports` / `eucpr:europeanAssessmentDocument` (→ `oec:DocumentReference`) | Mapped | |
-| `dppk:thermalConductivity` / `compressiveStrength` | `eucpr:thermalConductivity` / `eucpr:compressiveStrength` | Mapped | |
-| `dppk:reactionToFire` (string) | `eucpr:reactionToFireClass` (EN 13501-1 enum) | Partial | String → enum. Not auto-mapped in the context. |
-| `dppk:DoPC` per-test groups (`chlorideContent`, `bondStrength`, `thermalCompatibility`, …) | `eucpr:essentialCharacteristic` instances | Structural | Each test group → one `EssentialCharacteristic` (name + `gs1:QuantitativeValue` + `harmonisedStandard`). |
+| `dppk:avsSystem` | `eucpr:hasAvcpSystem` | Mapped | dppk free string → `eucpr:AVCPSystem` enum (Partial on export). |
+| `dppk:notifiedBody` / `technicalAssessmentBody` | `eucpr:hasNotifiedBody` / `eucpr:hasTechnicalAssessmentBody` (→ `oec:OperatorInformation`) | Mapped | |
+| `dppk:validationReports` / `europeanAssessmentDocument` | `eucpr:hasValidationReports` / `eucpr:hasEuropeanAssessmentDocument` (→ `oec:DocumentReference`) | Mapped | |
+| `dppk:thermalConductivity` / `compressiveStrength` | `eucpr:hasThermalConductivity` / `eucpr:hasCompressiveStrength` | Mapped | |
+| `dppk:reactionToFire` (string) | `eucpr:hasReactionToFireClass` (EN 13501-1 enum) | Partial | String → enum. Not auto-mapped in the context. |
+| `dppk:DoPC` per-test groups (`chlorideContent`, `bondStrength`, `thermalCompatibility`, …) | `eucpr:hasEssentialCharacteristic` instances | Structural | Each test group → one `EssentialCharacteristic` (name + `gs1:QuantitativeValue` + `harmonisedStandard`). |
 | `dppk:steelGrade` / `railProfile` (construction) | `eusteel:steelDesignation` / `rail:` | Partial / Unmapped | Construction-rail crossovers. |
 
 ## Textile
@@ -102,13 +102,13 @@ mismatches the bridge context cannot rescale (JSON-LD maps IRIs, not values):
 | `dppk:organicContentPercentage` / `organicContentMass` | `eutex:organicContentPercentage` / `eutex:organicContentMass` | Mapped | Harvested. |
 | `dppk:animalOriginNonTextile` | `eutex:containsAnimalNonTextileParts` | Mapped | Harvested. |
 | `dppk:euEcolabel` | `eutex:euEcolabel` | Mapped | Harvested. |
-| `dppk:euDeclarationOfConformity` | `eutex:euDeclarationOfConformity` (→ `oec:DocumentReference`) | Mapped | Harvested. |
+| `dppk:euDeclarationOfConformity` | `eutex:hasEuDeclarationOfConformity` (→ `oec:DocumentReference`) | Mapped | Harvested. |
 | `dppk:preConsumerRecycledContentPercentage` / `postConsumerRecycledContentPercentage` | `oec:preConsumerRecycledContent` / `oec:postConsumerRecycledContent` | Partial | 0–100 → 0–1 rescale. `eutex:` also offers richer `RecycledContentDeclaration`. |
-| `dppk:textileSubstancesOfConcern` | `oec:substancesOfConcern` | Mapped | |
+| `dppk:textileSubstancesOfConcern` | `oec:hasSubstancesOfConcern` | Mapped | |
 | `dppk:fibreComposition` | `gs1:textileMaterial` / `oec:MaterialComposition` | Partial | OpenEPCIS prefers the GS1 `TextileMaterialDetails` pattern. |
-| `dppk:textileCareInstructions` | `eutex:careInstructions` | Partial | OpenEPCIS care model is ISO 3758 symbol-structured, not a free `RelatedResource`. |
-| `dppk:textileRepairInstructions` / `textileSafeUseInstructions` / `textileEndOfLifeInstructions` | `eutex:repairGuideUrl` / `oec:safeUseInstructions` / `eutex:takeBackProgram` | Partial | Different document/structure shapes. |
-| `dppk:pefcrCategory` | `eutex:apparelSubcategory` | Partial | PEFCR A&F category list vs JRC apparel subcategory list. |
+| `dppk:textileCareInstructions` | `eutex:hasCareInstructions` | Partial | OpenEPCIS care model is ISO 3758 symbol-structured, not a free `RelatedResource`. |
+| `dppk:textileRepairInstructions` / `textileSafeUseInstructions` / `textileEndOfLifeInstructions` | `eutex:repairGuideUrl` / `oec:safeUseInstructions` / `eutex:hasTakeBackProgram` | Partial | Different document/structure shapes. |
+| `dppk:pefcrCategory` | `eutex:hasApparelSubcategory` | Partial | PEFCR A&F category list vs JRC apparel subcategory list. |
 | `dppk:spirality` / `dimensionalChange` / `visualInspection` | `eutex:spiralityPercentage` / `eutex:dimensionalChangePercentage` / `eutex:VisualInspectionResult` | Partial | OpenEPCIS carries the structured `RobustnessAssessment` sub-results. |
 
 ## Unmapped (theirs) — no OpenEPCIS counterpart yet

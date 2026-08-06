@@ -106,22 +106,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/detergent/biodegradabilityTestReport",
-      "localName": "biodegradabilityTestReport",
-      "label": "Biodegradability Test Report",
-      "comment": "Reference to the full biodegradability test report. Reuses oec:DocumentReference.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The full test report is the technical file evidence competent authorities may request (Art. 9), not consumer information.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/biodegradationPercentage",
       "localName": "biodegradationPercentage",
       "label": "Biodegradation Percentage",
@@ -214,8 +198,24 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/detergent/fragranceAllergens",
-      "localName": "fragranceAllergens",
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/hasBiodegradabilityTestReport",
+      "localName": "hasBiodegradabilityTestReport",
+      "label": "Biodegradability Test Report",
+      "comment": "Reference to the full biodegradability test report. Reuses oec:DocumentReference.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The full test report is the technical file evidence competent authorities may request (Art. 9), not consumer information.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/hasFragranceAllergens",
+      "localName": "hasFragranceAllergens",
       "label": "Fragrance Allergens",
       "comment": "Fragrance allergens present above the disclosure threshold.",
       "domain": [
@@ -234,8 +234,8 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/detergent/hazardousSubstances",
-      "localName": "hazardousSubstances",
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/hasHazardousSubstances",
+      "localName": "hasHazardousSubstances",
       "label": "Hazardous Substances",
       "comment": "CLP-classified hazardous substances in the product. Reuses oec:HazardousSubstance.",
       "domain": [
@@ -245,18 +245,205 @@
         "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
       ],
       "seeAlso": [
-        "https://ref.openepcis.io/extensions/common/core/hazardousSubstances",
+        "https://ref.openepcis.io/extensions/common/core/hasHazardousSubstances",
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass",
         "https://dpp-keystone.org/spec/v2/terms#textileSubstancesOfConcern",
         "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceIdentifier"
       ],
       "broadMatch": [
-        "https://ref.openepcis.io/extensions/common/core/substancesOfConcern"
+        "https://ref.openepcis.io/extensions/common/core/hasSubstancesOfConcern"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
       "accessLevel": "Public",
       "accessLevelRationale": "CLP-classified substances driving the label classification are consumer safety information; aligned with the shared hazardousSubstances alias (Public in core and battery).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2008/1272"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/hasIngredientFunction",
+      "localName": "hasIngredientFunction",
+      "label": "Ingredient Function",
+      "comment": "Functional role of the ingredient in the formulation.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/Ingredient"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/IngredientFunction"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The functional role of an ingredient (surfactant, enzyme, fragrance) adds consumer-friendly context to the public ingredient list without revealing exact formulation.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/hasIngredientList",
+      "localName": "hasIngredientList",
+      "label": "Ingredient List",
+      "comment": "List of ingredients in the detergent formulation, using INCI nomenclature.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/Ingredient"
+      ],
+      "broadMatch": [
+        "https://ref.gs1.org/voc/ingredientStatement",
+        "https://ref.gs1.org/voc/ingredientName",
+        "https://schema.org/activeIngredient"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
+      "accessLevel": "Public",
+      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2004/648",
+      "accessLevelRationale": "The INCI ingredient list is the consumer-facing disclosure Reg. (EC) 648/2004 Art. 11(3) and Annex VII D require on label and website.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/hasMicroorganisms",
+      "localName": "hasMicroorganisms",
+      "label": "Microorganisms",
+      "comment": "Microorganisms intentionally added to the product per Article 19.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/MicroorganismInfo"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The presence of intentionally added micro-organisms is consumer-relevant product information under the recast detergent rules; strain-level detail is tiered separately.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/hasProductForm",
+      "localName": "hasProductForm",
+      "label": "Product Form",
+      "comment": "The physical form of the detergent product (liquid, powder, capsule, etc.).",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/ProductForm"
+      ],
+      "closeMatch": [
+        "https://ref.gs1.org/voc/productFormDescription"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The physical product form (liquid, powder, capsule) is apparent from the product itself.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/hasRecommendedDosage",
+      "localName": "hasRecommendedDosage",
+      "label": "Recommended Dosage",
+      "comment": "Recommended dosage per use (e.g., 35 ml for medium water hardness). Uses gs1:QuantitativeValue.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.gs1.org/voc/QuantitativeValue"
+      ],
+      "seeAlso": [
+        "https://schema.org/doseValue"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The recommended dosage quantity is the structured form of the on-pack dosage information (Art. 11(4)).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/hasSafetyDataSheet",
+      "localName": "hasSafetyDataSheet",
+      "label": "Safety Data Sheet",
+      "comment": "Reference to the product's Safety Data Sheet (SDS). Reuses oec:DocumentReference.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+      ],
+      "exactMatch": [
+        "https://dpp-keystone.org/spec/v2/terms#safetyDataSheet"
+      ],
+      "closeMatch": [
+        "https://vocabulary.uncefact.org/untp/materialSafetyInformation"
+      ],
+      "broadMatch": [
+        "https://ref.gs1.org/voc/safetyInfo"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The SDS is supplied to professional recipients under REACH Art. 31; consumer-relevant safety content is carried by the public CLP label fields.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2006/1907"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/hasSignalWord",
+      "localName": "hasSignalWord",
+      "label": "Signal Word",
+      "comment": "CLP signal word (Danger or Warning) per Regulation 1272/2008.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/SignalWord"
+      ],
+      "exactMatch": [
+        "https://ref.openepcis.io/extensions/common/core/hasHazardSignalWord"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The CLP signal word is a label element printed on the consumer package (Reg. (EC) 1272/2008 Art. 17).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2008/1272"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/hasSurfactantBiodegradability",
+      "localName": "hasSurfactantBiodegradability",
+      "label": "Surfactant Biodegradability",
+      "comment": "Biodegradability test results for surfactants in the formulation per Annex III.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The per-surfactant biodegradability test record is Annex III technical evidence for authorities; the public tier carries the headline pass/fail and percentage.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/hasSurfactantType",
+      "localName": "hasSurfactantType",
+      "label": "Surfactant Type",
+      "comment": "Classification of the surfactant by ionic charge.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/SurfactantType"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The ionic surfactant class (anionic, non-ionic) is the same classification the public label discloses in ingredient brackets.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/eu/detergent/hasTestMethod",
+      "localName": "hasTestMethod",
+      "label": "Test Method",
+      "comment": "Standard test method used for the biodegradability assessment.",
+      "domain": [
+        "https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability"
+      ],
+      "range": [
+        "https://ref.openepcis.io/extensions/eu/detergent/BiodegradabilityTestMethod"
+      ],
+      "closeMatch": [
+        "https://schema.org/measurementMethod"
+      ],
+      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The Annex III test-method reference is technical-file detail accompanying the professional test record.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
     },
     {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/hazardPictograms",
@@ -297,44 +484,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2008/1272"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/detergent/ingredientFunction",
-      "localName": "ingredientFunction",
-      "label": "Ingredient Function",
-      "comment": "Functional role of the ingredient in the formulation.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/detergent/Ingredient"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/eu/detergent/IngredientFunction"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The functional role of an ingredient (surfactant, enzyme, fragrance) adds consumer-friendly context to the public ingredient list without revealing exact formulation.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/eu/detergent/ingredientList",
-      "localName": "ingredientList",
-      "label": "Ingredient List",
-      "comment": "List of ingredients in the detergent formulation, using INCI nomenclature.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/eu/detergent/Ingredient"
-      ],
-      "broadMatch": [
-        "https://ref.gs1.org/voc/ingredientStatement",
-        "https://ref.gs1.org/voc/ingredientName",
-        "https://schema.org/activeIngredient"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "Public",
-      "accessLevelMandatedBy": "https://eur-lex.europa.eu/eli/reg/2004/648",
-      "accessLevelRationale": "The INCI ingredient list is the consumer-facing disclosure Reg. (EC) 648/2004 Art. 11(3) and Annex VII D require on label and website.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/intendedUse",
       "localName": "intendedUse",
       "label": "Intended Use",
@@ -370,22 +519,6 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
       "accessLevel": "Public",
       "accessLevelRationale": "Flagging an ingredient as a surfactant restates public Annex VII A label content (surfactant classes are declared in brackets on-pack).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/eu/detergent/microorganisms",
-      "localName": "microorganisms",
-      "label": "Microorganisms",
-      "comment": "Microorganisms intentionally added to the product per Article 19.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/eu/detergent/MicroorganismInfo"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The presence of intentionally added micro-organisms is consumer-relevant product information under the recast detergent rules; strain-level detail is tiered separately.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
     },
     {
@@ -440,25 +573,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/detergent/productForm",
-      "localName": "productForm",
-      "label": "Product Form",
-      "comment": "The physical form of the detergent product (liquid, powder, capsule, etc.).",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/eu/detergent/ProductForm"
-      ],
-      "closeMatch": [
-        "https://ref.gs1.org/voc/productFormDescription"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The physical product form (liquid, powder, capsule) is apparent from the product itself.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/pStatements",
       "localName": "pStatements",
       "label": "P Statements",
@@ -478,69 +592,6 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2008/1272"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/detergent/recommendedDosage",
-      "localName": "recommendedDosage",
-      "label": "Recommended Dosage",
-      "comment": "Recommended dosage per use (e.g., 35 ml for medium water hardness). Uses gs1:QuantitativeValue.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
-      ],
-      "range": [
-        "https://ref.gs1.org/voc/QuantitativeValue"
-      ],
-      "seeAlso": [
-        "https://schema.org/doseValue"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The recommended dosage quantity is the structured form of the on-pack dosage information (Art. 11(4)).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/eu/detergent/safetyDataSheet",
-      "localName": "safetyDataSheet",
-      "label": "Safety Data Sheet",
-      "comment": "Reference to the product's Safety Data Sheet (SDS). Reuses oec:DocumentReference.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
-      ],
-      "exactMatch": [
-        "https://dpp-keystone.org/spec/v2/terms#safetyDataSheet"
-      ],
-      "closeMatch": [
-        "https://vocabulary.uncefact.org/untp/materialSafetyInformation"
-      ],
-      "broadMatch": [
-        "https://ref.gs1.org/voc/safetyInfo"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The SDS is supplied to professional recipients under REACH Art. 31; consumer-relevant safety content is carried by the public CLP label fields.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2006/1907"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/eu/detergent/signalWord",
-      "localName": "signalWord",
-      "label": "Signal Word",
-      "comment": "CLP signal word (Danger or Warning) per Regulation 1272/2008.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/eu/detergent/SignalWord"
-      ],
-      "exactMatch": [
-        "https://ref.openepcis.io/extensions/common/core/hazardSignalWord"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The CLP signal word is a label element printed on the consumer package (Reg. (EC) 1272/2008 Art. 17).",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2008/1272"
-    },
-    {
       "id": "https://ref.openepcis.io/extensions/eu/detergent/strainDesignation",
       "localName": "strainDesignation",
       "label": "Strain Designation",
@@ -554,38 +605,6 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "Strain designations are formulation-level know-how relevant to authorities and professional assessors, beyond the public presence disclosure.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/eu/detergent/surfactantBiodegradability",
-      "localName": "surfactantBiodegradability",
-      "label": "Surfactant Biodegradability",
-      "comment": "Biodegradability test results for surfactants in the formulation per Annex III.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The per-surfactant biodegradability test record is Annex III technical evidence for authorities; the public tier carries the headline pass/fail and percentage.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/eu/detergent/surfactantType",
-      "localName": "surfactantType",
-      "label": "Surfactant Type",
-      "comment": "Classification of the surfactant by ionic charge.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/eu/detergent/SurfactantType"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "Public",
-      "accessLevelRationale": "The ionic surfactant class (anionic, non-ionic) is the same classification the public label discloses in ingredient brackets.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
     },
     {
@@ -605,25 +624,6 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
       "accessLevel": "AuthorizedOnly",
       "accessLevelRationale": "The test duration is technical-file detail accompanying the professional test record.",
-      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
-    },
-    {
-      "id": "https://ref.openepcis.io/extensions/eu/detergent/testMethod",
-      "localName": "testMethod",
-      "label": "Test Method",
-      "comment": "Standard test method used for the biodegradability assessment.",
-      "domain": [
-        "https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability"
-      ],
-      "range": [
-        "https://ref.openepcis.io/extensions/eu/detergent/BiodegradabilityTestMethod"
-      ],
-      "closeMatch": [
-        "https://schema.org/measurementMethod"
-      ],
-      "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The Annex III test-method reference is technical-file detail accompanying the professional test record.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2004/648"
     },
     {

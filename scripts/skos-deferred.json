@@ -2,14 +2,34 @@
   "_comment": "Mapping proposals a curator has looked at and deliberately parked. The triage skips them so an automated pass cannot re-propose what a human already decided to leave alone; they stay listed in docs/skos-alignment/OPEN_DECISIONS.md. Remove an entry to put it back in scope.",
   "deferred": [
     {
-      "ourId": "euelec:modelIdentifier",
-      "upstreamIri": "https://ref.openepcis.io/vocab/batterypass-ready/1.3#BatteryModelIdentifier",
-      "reason": "Directionally right, but it anchors a generic electronics identifier into a battery-specific longlist attribute. Cross-module anchoring is a governance call."
+      "ourId": "eubat:hasDismantlingInstructions",
+      "upstreamIri": "urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation",
+      "reason": "Direction flip rejected: our term references the dismantling instructions document, the SAMM term is the whole dismantling-and-removal information block (documents plus removal data). Ours is the narrower one, so the existing skos:broadMatch stands."
     },
     {
-      "ourId": "euelec:modelIdentifier",
-      "upstreamIri": "https://ref.openepcis.io/vocab/batterypass-ready/1.3#UniqueBatteryIdentifierUniqueProductIdentifier",
-      "reason": "Same cross-module question as the BatteryModelIdentifier anchor."
+      "ourId": "eubat:hasHazardousSubstances",
+      "upstreamIri": "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstances",
+      "reason": "Direction flip rejected: same-named peers at the same granularity (per-substance entries with class/concentration/location on both sides). Neither hierarchy direction holds; the honest grade would be closeMatch, and flipping broad to narrow just trades one overclaim for the other."
+    },
+    {
+      "ourId": "eubat:hasRatedMaximumPower",
+      "upstreamIri": "urn:samm:io.BatteryPass.Performance:1.2.1#ratedMaximumPower",
+      "reason": "Direction flip rejected: both sides are the same single rated-maximum-power value. A hierarchy claim overstates in either direction; closeMatch would be the honest grade."
+    },
+    {
+      "ourId": "eubat:hasRecycledContent",
+      "upstreamIri": "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
+      "reason": "Direction flip rejected: the SAMM recycledContent is also per-material with pre/post-consumer shares, so the two blocks share granularity. Neither broad nor narrow holds; closeMatch would be the honest grade."
+    },
+    {
+      "ourId": "oec:registrationNumber",
+      "upstreamIri": "https://w3id.org/eudpp#registrationNumber",
+      "reason": "Name-only match: the EUDPP property is domained on EPDStudy (EPD programme registration number, ILCD publicationAndOwnership/registrationNumber), ours on OperatorInformation (company registration). The correct counterpart oec:epdRegistrationNumber already carries the pointer."
+    },
+    {
+      "ourId": "oec:hasDataElement",
+      "upstreamIri": "http://www.w3.org/ns/org#hasMember",
+      "reason": "Foreign domain: org:hasMember relates an Organization to a member Agent; oec:hasDataElement is EN 18223 structural containment (passport/collection to DataElement). Membership as a word pattern, not as a concept."
     },
     {
       "ourId": "euelec:recyclingProcess",
@@ -17,7 +37,7 @@
       "reason": "The GS1 term is packaging-scoped; ours is an electronics treatment process. Domain mismatch that the GS1 foreign-domain list does not cover."
     },
     {
-      "ourId": "euelec:treatmentFacility",
+      "ourId": "euelec:hasTreatmentFacility",
       "upstreamIri": "https://vocabulary.uncefact.org/untp/fromFacility",
       "reason": "Different roles: ours is where treatment happened, UNTP's is a shipment origin."
     },
@@ -47,7 +67,7 @@
       "reason": "Same item-versus-batch granularity as eusteel:heatNumber, and lot against serial is the textbook case of it. Downgraded to rdfs:seeAlso; skos:broadMatch gs1:hasBatchLotNumber carries the mapping."
     },
     {
-      "ourId": "eudet:productForm",
+      "ourId": "eudet:hasProductForm",
       "upstreamIri": "https://ref.gs1.org/voc/consumerProductVariant",
       "reason": "GS1 scopes consumerProductVariant to variants that do NOT require a different GTIN; liquid, powder and tablet are separate trade items. Removed; skos:closeMatch gs1:productFormDescription is the correct GS1 target."
     },
@@ -77,7 +97,7 @@
       "reason": "Same over-claim. The existing rdfs:seeAlso is the honest relation between a free-text care field and GS1's storage instructions."
     },
     {
-      "ourId": "euelec:energyEfficiencyClass",
+      "ourId": "euelec:hasEnergyEfficiencyClass",
       "upstreamIri": "https://schema.org/hasEnergyConsumptionDetails",
       "reason": "Our property carries an efficiency class label; the schema.org property links to a consumption-details node. Related, but not one subsuming the other."
     },
@@ -94,7 +114,7 @@
     {
       "ourId": "oec:facilityId",
       "upstreamIri": "https://dpp-keystone.org/spec/v2/terms#manufacturingFacility",
-      "reason": "An identifier is not broader than the thing it identifies: oec:facilityId is the identifier, dppk:manufacturingFacility the facility reference. oec:facilityInformation is the term that compares."
+      "reason": "An identifier is not broader than the thing it identifies: oec:facilityId is the identifier, dppk:manufacturingFacility the facility reference. oec:hasFacilityInformation is the term that compares."
     },
     {
       "ourId": "eubat:separateCollectionSymbolUrl",
@@ -107,7 +127,7 @@
       "reason": "Different referents: ours identifies the battery model, theirs identifies the passport document about it. Neither subsumes the other."
     },
     {
-      "ourId": "eubat:eventLocation",
+      "ourId": "eubat:hasEventLocation",
       "upstreamIri": "https://gs1-epcis-reg.org/rail/voc/data#europeanTrackLocation",
       "reason": "Cross-sector noise: a railway track location is a rail-specific concept and mapping a battery event location above it documents nothing. The rail profile is for railway concepts."
     },

@@ -97,6 +97,6 @@ eutex:RecyclabilityAssessment     # Container class
   eutex:recyclabilityScore        # 0-10 composite score
   eutex:isRecyclable              # Boolean (score above threshold)
   eutex:elastaneContentPercent    # Elastane % for penalty calc
-  eutex:sortingFactors            # -> SortingFactors
-  eutex:technicalRecyclability    # -> TechnicalRecyclability
+  eutex:hasSortingFactors            # -> SortingFactors
+  eutex:hasTechnicalRecyclability    # -> TechnicalRecyclability
 ```

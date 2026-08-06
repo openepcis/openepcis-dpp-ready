@@ -16624,8 +16624,35 @@ function collectContentSpecs(elements, acc) {
     }
   }
 }
+var LANGUAGE_TAG = /^[a-z]{2,3}(-[A-Za-z0-9]{2,8})?$/;
+var NOT_A_LANGUAGE = /* @__PURE__ */ new Set(["id", "type"]);
+function isLanguageMap(node) {
+  if (!node || typeof node !== "object" || Array.isArray(node)) return false;
+  const keys = Object.keys(node);
+  if (!keys.length) return false;
+  return keys.every(
+    (k) => !NOT_A_LANGUAGE.has(k) && LANGUAGE_TAG.test(k) && (typeof node[k] === "string" || Array.isArray(node[k]) && node[k].length > 0 && node[k].every((v) => typeof v === "string"))
+  );
+}
+function normalizeLanguageMaps(node) {
+  if (Array.isArray(node)) return node.map(normalizeLanguageMaps);
+  if (!node || typeof node !== "object") return node;
+  if (isLanguageMap(node)) {
+    const out2 = [];
+    for (const lang of Object.keys(node).sort()) {
+      const v = node[lang];
+      for (const value of Array.isArray(v) ? v : [v]) out2.push({ "@value": value, "@language": lang });
+    }
+    return out2;
+  }
+  const out = {};
+  for (const [k, v] of Object.entries(node)) {
+    out[k] = k === "@context" ? v : normalizeLanguageMaps(v);
+  }
+  return out;
+}
 async function deriveEN18223(input, range2, documentLoader2) {
-  const expanded = await import_jsonld.default.expand(input, { documentLoader: documentLoader2 });
+  const expanded = await import_jsonld.default.expand(normalizeLanguageMaps(input), { documentLoader: documentLoader2 });
   const node = Array.isArray(expanded) ? expanded[0] : expanded;
   if (!node) throw new Error("input expanded to nothing");
   const dpp = {};
@@ -20198,6 +20225,13 @@ var PREFIXES = {
   eusteel: "https://ref.openepcis.io/extensions/eu/iron-steel/",
   usfsma: "https://ref.openepcis.io/extensions/us/fsma204/",
   schema: "https://schema.org/",
+  // SEMICeu Core Vocabularies: one namespace, two conventional spellings. Both are
+  // needed in the expansion direction, because a curated shortcut alias may name
+  // either (`cccev:Evidence`, `cv:PublicOrganisation`) and buildOperationalKeyMap
+  // keys the dictionary by the expanded IRI. `cccev` sits first so the CURIE
+  // direction is deterministic and matches the Java port's insertion order.
+  cccev: "http://data.europa.eu/m8g/",
+  cv: "http://data.europa.eu/m8g/",
   xsd: "http://www.w3.org/2001/XMLSchema#",
   rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
   rdfs: "http://www.w3.org/2000/01/rdf-schema#"
@@ -20288,17 +20322,22 @@ function orderCompacted(doc) {
   return orderNode(doc, true);
 }
 async function toNQuads(master, documentLoader2) {
-  return await import_jsonld2.default.canonize(master, {
+  return await import_jsonld2.default.canonize(normalizeLanguageMaps(master), {
     algorithm: "URDNA2015",
     format: "application/n-quads",
     safe: false,
     documentLoader: documentLoader2
   });
 }
+var TURTLE_PREFIXES = Object.fromEntries(
+  Object.entries(PREFIXES).filter(
+    ([p, ns], _i, all) => all.findIndex(([, other]) => other === ns) === all.findIndex(([q]) => q === p)
+  )
+);
 async function toTurtle(master, documentLoader2) {
   const nquads = await toNQuads(master, documentLoader2);
   const quads = new src_default.Parser({ format: "application/n-quads" }).parse(nquads);
-  const writer = new src_default.Writer({ prefixes: PREFIXES, format: "text/turtle" });
+  const writer = new src_default.Writer({ prefixes: TURTLE_PREFIXES, format: "text/turtle" });
   writer.addQuads(quads);
   return await new Promise(
     (resolve, reject) => writer.end((err, result) => err ? reject(err) : resolve(result))
@@ -20474,67 +20513,43 @@ ${body}
 
 // demos/en18223-converter/range-index.json
 var range_index_default = {
-  "https://ref.openepcis.io/extensions/common/core/accessLevel": "https://ref.openepcis.io/extensions/common/core/AccessLevel",
-  "https://ref.openepcis.io/extensions/common/core/accessRights": "https://ref.openepcis.io/extensions/common/core/AccessRights",
+  "https://ref.openepcis.io/extensions/common/core/accessLevelInherited": "http://www.w3.org/2001/XMLSchema#boolean",
+  "https://ref.openepcis.io/extensions/common/core/accessLevelMandatedBy": "http://www.w3.org/2000/01/rdf-schema#Resource",
+  "https://ref.openepcis.io/extensions/common/core/accessLevelRationale": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/common/core/accessLevelSource": "http://www.w3.org/2000/01/rdf-schema#Resource",
   "https://ref.openepcis.io/extensions/common/core/activityClassification": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/annualEnergyConsumption": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/common/core/authorizedParties": "https://ref.gs1.org/voc/Organization",
   "https://ref.openepcis.io/extensions/common/core/bioBasedFraction": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/common/core/biodegradabilityTestMethod": "https://ref.openepcis.io/extensions/common/core/BiodegradabilityTestMethod",
   "https://ref.openepcis.io/extensions/common/core/biodegradationPercentage": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/common/core/carbonFootprint": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/common/core/carbonFootprintDeclaration": "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration",
-  "https://ref.openepcis.io/extensions/common/core/carbonFootprintDistribution": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/common/core/carbonFootprintEndOfLife": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/common/core/carbonFootprintMethodology": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/common/core/carbonFootprintProduction": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/common/core/carbonFootprintRawMaterial": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/common/core/carbonFootprintStudyUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/common/core/carbonFootprintUse": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/common/core/casNumber": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/circularityPerformance": "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
   "https://ref.openepcis.io/extensions/common/core/collectionPointDirectoryUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
+  "https://ref.openepcis.io/extensions/common/core/combinedNomenclatureCode": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/complianceDate": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.io/extensions/common/core/complianceStatus": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/common/core/componentIdentifier": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/componentName": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/compostabilityStandard": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/common/core/compostabilityType": "https://ref.openepcis.io/extensions/common/core/CompostabilityType",
   "https://ref.openepcis.io/extensions/common/core/concentration": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/contentSpecificationId": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/crmListVersion": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/customsCommodityCode": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/customsCommodityCodeType": "https://ref.openepcis.io/extensions/common/core/CustomsCommodityCodeType",
-  "https://ref.openepcis.io/extensions/common/core/dataElement": "https://ref.openepcis.io/extensions/common/core/DataElement",
   "https://ref.openepcis.io/extensions/common/core/dataProviderCertification": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/dataQualityAssessment": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/dataRetentionPeriod": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/common/core/declaredUnit": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/depositAmount": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/defaultAccessLevel": "https://ref.openepcis.io/extensions/common/core/AccessLevel",
   "https://ref.openepcis.io/extensions/common/core/depositRedemptionChannelUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/common/core/depositReturnScheme": "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme",
-  "https://ref.openepcis.io/extensions/common/core/depositSchemeOperator": "https://ref.gs1.org/voc/Organization",
   "https://ref.openepcis.io/extensions/common/core/dictionaryReference": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/did": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/dismantlingGuideUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/common/core/dismantlingInstructions": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
   "https://ref.openepcis.io/extensions/common/core/diyRepairPossible": "http://www.w3.org/2001/XMLSchema#boolean",
-  "https://ref.openepcis.io/extensions/common/core/documents": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
-  "https://ref.openepcis.io/extensions/common/core/documentType": "https://ref.openepcis.io/extensions/common/core/DocumentType",
   "https://ref.openepcis.io/extensions/common/core/documentUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/dppSchemaVersion": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/dueDiligenceRegulationContext": "https://ref.gs1.org/voc/RegulatoryInformation",
-  "https://ref.openepcis.io/extensions/common/core/dueDiligenceReport": "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport",
   "https://ref.openepcis.io/extensions/common/core/ecNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/economicOperatorId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/elementId": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/emissionsPerformance": "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance",
   "https://ref.openepcis.io/extensions/common/core/endOfLifeInstructions": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/common/core/endOfLifeProgram": "https://ref.openepcis.io/extensions/common/core/EndOfLifeProgram",
-  "https://ref.openepcis.io/extensions/common/core/energyEfficiency": "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency",
-  "https://ref.openepcis.io/extensions/common/core/energyEfficiencyClass": "https://ref.openepcis.io/extensions/common/core/EnergyEfficiencyClass",
-  "https://ref.openepcis.io/extensions/common/core/environmentalProductDeclaration": "https://ref.openepcis.io/extensions/common/core/EnvironmentalProductDeclaration",
   "https://ref.openepcis.io/extensions/common/core/eoriNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/epdProgramOperator": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/epdRegistrationNumber": "http://www.w3.org/2001/XMLSchema#string",
@@ -20543,29 +20558,89 @@ var range_index_default = {
   "https://ref.openepcis.io/extensions/common/core/eprComplianceUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/eprelProductUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/eprelRegistrationNumber": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/eprJurisdiction": "https://ref.gs1.org/voc/Country",
   "https://ref.openepcis.io/extensions/common/core/eprRegistrationNumber": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/eprScheme": "https://ref.gs1.org/voc/Organization",
   "https://ref.openepcis.io/extensions/common/core/eprWasteStream": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/expectedLifespan": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/common/core/extendedProducerResponsibility": "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility",
-  "https://ref.openepcis.io/extensions/common/core/facilityCertifications": "https://ref.gs1.org/voc/CertificationDetails",
   "https://ref.openepcis.io/extensions/common/core/facilityId": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/facilityInformation": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
   "https://ref.openepcis.io/extensions/common/core/facilityType": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/forcedLabourFreeAssertion": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/common/core/granularityLevel": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/guaranteedLifespan": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/common/core/hazardClass": "https://ref.openepcis.io/extensions/common/core/HazardClass",
-  "https://ref.openepcis.io/extensions/common/core/hazardImpact": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/hazardousSubstances": "https://ref.openepcis.io/extensions/common/core/HazardousSubstance",
+  "https://ref.openepcis.io/extensions/common/core/hasAccessLevel": "https://ref.openepcis.io/extensions/common/core/AccessLevel",
+  "https://ref.openepcis.io/extensions/common/core/hasAccessRights": "https://ref.openepcis.io/extensions/common/core/AccessRights",
+  "https://ref.openepcis.io/extensions/common/core/hasAnnualEnergyConsumption": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasAuthorizedParties": "https://ref.gs1.org/voc/Organization",
+  "https://ref.openepcis.io/extensions/common/core/hasBiodegradability": "https://ref.openepcis.io/extensions/common/core/Biodegradability",
+  "https://ref.openepcis.io/extensions/common/core/hasBiodegradabilityTestMethod": "https://ref.openepcis.io/extensions/common/core/BiodegradabilityTestMethod",
+  "https://ref.openepcis.io/extensions/common/core/hasCarbonFootprint": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasCarbonFootprintDeclaration": "https://ref.openepcis.io/extensions/common/core/CarbonFootprintDeclaration",
+  "https://ref.openepcis.io/extensions/common/core/hasCarbonFootprintDistribution": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasCarbonFootprintEndOfLife": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasCarbonFootprintProduction": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasCarbonFootprintRawMaterial": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasCarbonFootprintUse": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasCircularityPerformance": "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
+  "https://ref.openepcis.io/extensions/common/core/hasCompostability": "https://ref.openepcis.io/extensions/common/core/Compostability",
+  "https://ref.openepcis.io/extensions/common/core/hasCompostabilityType": "https://ref.openepcis.io/extensions/common/core/CompostabilityType",
+  "https://ref.openepcis.io/extensions/common/core/hasConformityDeclaration": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
+  "https://ref.openepcis.io/extensions/common/core/hasCustomsCommodityCodeType": "https://ref.openepcis.io/extensions/common/core/CustomsCommodityCodeType",
+  "https://ref.openepcis.io/extensions/common/core/hasDataElement": "https://ref.openepcis.io/extensions/common/core/DataElement",
+  "https://ref.openepcis.io/extensions/common/core/hasDataRetentionPeriod": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasDepositAmount": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasDepositReturnScheme": "https://ref.openepcis.io/extensions/common/core/DepositReturnScheme",
+  "https://ref.openepcis.io/extensions/common/core/hasDepositSchemeOperator": "https://ref.gs1.org/voc/Organization",
+  "https://ref.openepcis.io/extensions/common/core/hasDismantlingInstructions": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
+  "https://ref.openepcis.io/extensions/common/core/hasDocuments": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
+  "https://ref.openepcis.io/extensions/common/core/hasDocumentType": "https://ref.openepcis.io/extensions/common/core/DocumentType",
+  "https://ref.openepcis.io/extensions/common/core/hasDueDiligenceRegulationContext": "https://ref.gs1.org/voc/RegulatoryInformation",
+  "https://ref.openepcis.io/extensions/common/core/hasDueDiligenceReport": "https://ref.openepcis.io/extensions/common/core/DueDiligenceReport",
+  "https://ref.openepcis.io/extensions/common/core/hasEmissionsPerformance": "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance",
+  "https://ref.openepcis.io/extensions/common/core/hasEndOfLifeProgram": "https://ref.openepcis.io/extensions/common/core/EndOfLifeProgram",
+  "https://ref.openepcis.io/extensions/common/core/hasEnergyEfficiency": "https://ref.openepcis.io/extensions/common/core/EnergyEfficiency",
+  "https://ref.openepcis.io/extensions/common/core/hasEnergyEfficiencyClass": "https://ref.openepcis.io/extensions/common/core/EnergyEfficiencyClass",
+  "https://ref.openepcis.io/extensions/common/core/hasEnvironmentalProductDeclaration": "https://ref.openepcis.io/extensions/common/core/EnvironmentalProductDeclaration",
+  "https://ref.openepcis.io/extensions/common/core/hasEprJurisdiction": "https://ref.gs1.org/voc/Country",
+  "https://ref.openepcis.io/extensions/common/core/hasEprScheme": "https://ref.gs1.org/voc/Organization",
+  "https://ref.openepcis.io/extensions/common/core/hasExpectedLifespan": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasExtendedProducerResponsibility": "https://ref.openepcis.io/extensions/common/core/ExtendedProducerResponsibility",
+  "https://ref.openepcis.io/extensions/common/core/hasFacilityCertifications": "https://ref.gs1.org/voc/CertificationDetails",
+  "https://ref.openepcis.io/extensions/common/core/hasFacilityInformation": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
+  "https://ref.openepcis.io/extensions/common/core/hasGuaranteedLifespan": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasHazardClass": "https://ref.openepcis.io/extensions/common/core/HazardClass",
+  "https://ref.openepcis.io/extensions/common/core/hasHazardousSubstances": "https://ref.openepcis.io/extensions/common/core/HazardousSubstance",
+  "https://ref.openepcis.io/extensions/common/core/hasHazardSignalWord": "https://ref.openepcis.io/extensions/common/core/HazardSignalWord",
+  "https://ref.openepcis.io/extensions/common/core/hasImpactIndicator": "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorResult",
+  "https://ref.openepcis.io/extensions/common/core/hasIndicatorType": "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorType",
+  "https://ref.openepcis.io/extensions/common/core/hasLifecycleStage": "https://ref.openepcis.io/extensions/common/core/LifecycleStage",
+  "https://ref.openepcis.io/extensions/common/core/hasLifecycleStageResult": "https://ref.openepcis.io/extensions/common/core/LifecycleStageResult",
+  "https://ref.openepcis.io/extensions/common/core/hasMaterialComposition": "https://ref.openepcis.io/extensions/common/core/MaterialComposition",
+  "https://ref.openepcis.io/extensions/common/core/hasMaterialOrigin": "https://ref.gs1.org/voc/Country",
+  "https://ref.openepcis.io/extensions/common/core/hasMultiLanguageValue": "https://ref.openepcis.io/extensions/common/core/MultiLanguageValue",
+  "https://ref.openepcis.io/extensions/common/core/hasOperationalScope": "https://ref.openepcis.io/extensions/common/core/OperationalScope",
+  "https://ref.openepcis.io/extensions/common/core/hasOperatorInformation": "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
+  "https://ref.openepcis.io/extensions/common/core/hasOperatorRole": "https://ref.openepcis.io/extensions/common/core/OperatorRole",
+  "https://ref.openepcis.io/extensions/common/core/hasPassportIssuer": "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
+  "https://ref.openepcis.io/extensions/common/core/hasPerformanceInfo": "https://ref.openepcis.io/extensions/common/core/PerformanceInfo",
+  "https://ref.openepcis.io/extensions/common/core/hasPowerConsumptionOff": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasPowerConsumptionOn": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasPowerConsumptionStandby": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasProductCategory": "https://ref.openepcis.io/extensions/common/core/ProductCategory",
+  "https://ref.openepcis.io/extensions/common/core/hasRecyclabilityAssessment": "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment",
+  "https://ref.openepcis.io/extensions/common/core/hasRecycledContentDetails": "https://ref.openepcis.io/extensions/common/core/RecycledContent",
+  "https://ref.openepcis.io/extensions/common/core/hasRepairabilityInfo": "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo",
+  "https://ref.openepcis.io/extensions/common/core/hasRepairInstructions": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
+  "https://ref.openepcis.io/extensions/common/core/hasRepairProvider": "https://ref.openepcis.io/extensions/common/core/RepairProvider",
+  "https://ref.openepcis.io/extensions/common/core/hasReportingGranularity": "https://ref.openepcis.io/extensions/common/core/DPPGranularity",
+  "https://ref.openepcis.io/extensions/common/core/hasSoftwareUpdatesAvailability": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasSparePartsAvailability": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasSubstancesOfConcern": "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern",
+  "https://ref.openepcis.io/extensions/common/core/hasTechnicalLifetime": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/common/core/hasTraceabilityPerformance": "https://ref.openepcis.io/extensions/common/core/TraceabilityPerformance",
+  "https://ref.openepcis.io/extensions/common/core/hasTradeItemPieces": "https://ref.openepcis.io/extensions/common/core/IndividualTradeItemPiece",
+  "https://ref.openepcis.io/extensions/common/core/hasVerificationBody": "https://ref.gs1.org/voc/Organization",
+  "https://ref.openepcis.io/extensions/common/core/hazardImpact": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.io/extensions/common/core/hazardPictogramCode": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/hazardSignalWord": "https://ref.openepcis.io/extensions/common/core/HazardSignalWord",
   "https://ref.openepcis.io/extensions/common/core/hazardStatement": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/identityCredentialUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/common/core/impactIndicator": "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorResult",
   "https://ref.openepcis.io/extensions/common/core/indicatorTotalValue": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/common/core/indicatorType": "https://ref.openepcis.io/extensions/common/core/ImpactIndicatorType",
   "https://ref.openepcis.io/extensions/common/core/indicatorUnit": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/isCriticalRawMaterial": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/common/core/isRegulationCompliant": "http://www.w3.org/2001/XMLSchema#boolean",
@@ -20575,73 +20650,48 @@ var range_index_default = {
   "https://ref.openepcis.io/extensions/common/core/languageCode": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/lastDataUpdate": "http://www.w3.org/2001/XMLSchema#dateTime",
   "https://ref.openepcis.io/extensions/common/core/lastUpdated": "http://www.w3.org/2001/XMLSchema#dateTime",
-  "https://ref.openepcis.io/extensions/common/core/lifecycleStage": "https://ref.openepcis.io/extensions/common/core/LifecycleStage",
-  "https://ref.openepcis.io/extensions/common/core/lifecycleStageResult": "https://ref.openepcis.io/extensions/common/core/LifecycleStageResult",
   "https://ref.openepcis.io/extensions/common/core/massFraction": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/materialCircularityIndicator": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/common/core/materialComposition": "https://ref.openepcis.io/extensions/common/core/MaterialComposition",
-  "https://ref.openepcis.io/extensions/common/core/materialOrigin": "https://ref.gs1.org/voc/Country",
   "https://ref.openepcis.io/extensions/common/core/mimeType": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/multiLanguageValue": "https://ref.openepcis.io/extensions/common/core/MultiLanguageValue",
-  "https://ref.openepcis.io/extensions/common/core/operationalScope": "https://ref.openepcis.io/extensions/common/core/OperationalScope",
-  "https://ref.openepcis.io/extensions/common/core/operatorInformation": "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
-  "https://ref.openepcis.io/extensions/common/core/operatorRole": "https://ref.openepcis.io/extensions/common/core/OperatorRole",
   "https://ref.openepcis.io/extensions/common/core/passportExpiryDate": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.io/extensions/common/core/passportIdentifier": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/passportIssueDate": "http://www.w3.org/2001/XMLSchema#date",
-  "https://ref.openepcis.io/extensions/common/core/passportIssuer": "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
   "https://ref.openepcis.io/extensions/common/core/passportStatus": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/passportVersion": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/performanceClass": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/performanceInfo": "https://ref.openepcis.io/extensions/common/core/PerformanceInfo",
   "https://ref.openepcis.io/extensions/common/core/postConsumerRecycledContent": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/common/core/powerConsumptionOff": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/common/core/powerConsumptionOn": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/common/core/powerConsumptionStandby": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/common/core/precautionaryStatement": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/preConsumerRecycledContent": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/previousPassportVersion": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/primarySourcedRatio": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/common/core/productCategory": "https://ref.openepcis.io/extensions/common/core/ProductCategory",
   "https://ref.openepcis.io/extensions/common/core/professionalRepairNetwork": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/common/core/recyclabilityAssessment": "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment",
   "https://ref.openepcis.io/extensions/common/core/recyclabilityMethodology": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/recyclabilityRate": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/recyclabilityScore": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/recyclableContent": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/recycledContent": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/common/core/recycledContentDetails": "https://ref.openepcis.io/extensions/common/core/RecycledContent",
   "https://ref.openepcis.io/extensions/common/core/registrationNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/regulatoryActStatus": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/regulatoryPermitIdentification": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/remanufacturingDate": "http://www.w3.org/2001/XMLSchema#dateTime",
   "https://ref.openepcis.io/extensions/common/core/repairabilityClass": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/repairabilityInfo": "https://ref.openepcis.io/extensions/common/core/RepairabilityInfo",
   "https://ref.openepcis.io/extensions/common/core/repairabilityScore": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/repairInformationPortalUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/common/core/repairInstructions": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
-  "https://ref.openepcis.io/extensions/common/core/repairProvider": "https://ref.openepcis.io/extensions/common/core/RepairProvider",
   "https://ref.openepcis.io/extensions/common/core/repairProviderName": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/repairProviderUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/reportDate": "http://www.w3.org/2001/XMLSchema#date",
-  "https://ref.openepcis.io/extensions/common/core/reportingGranularity": "https://ref.openepcis.io/extensions/common/core/DPPGranularity",
   "https://ref.openepcis.io/extensions/common/core/reportUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/common/core/safeDisassemblyInstructions": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/safeUseInstructions": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/scipId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/separateCollectionInfo": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/common/core/softwareUpdatesAvailability": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/common/core/sparePartsAvailability": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/common/core/stageValue": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/substanceLocation": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/substancesOfConcern": "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern",
   "https://ref.openepcis.io/extensions/common/core/supplyChainTransparencyUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/common/core/takeBackIncentive": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/common/core/takeBackIncentive": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.io/extensions/common/core/takeBackUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/common/core/technicalLifetime": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/common/core/testedConditions": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/thirdPartyAssurancesUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/common/core/traceabilityPerformance": "https://ref.openepcis.io/extensions/common/core/TraceabilityPerformance",
   "https://ref.openepcis.io/extensions/common/core/tradeItemPieceCount": "http://www.w3.org/2001/XMLSchema#positiveInteger",
   "https://ref.openepcis.io/extensions/common/core/tradeItemPieceDescription": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/common/core/tradeItemPieceNumber": "http://www.w3.org/2001/XMLSchema#positiveInteger",
@@ -20649,82 +20699,49 @@ var range_index_default = {
   "https://ref.openepcis.io/extensions/common/core/usageCycles": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/common/core/utilityFactor": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/valueDataType": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/common/core/verificationBody": "https://ref.gs1.org/voc/Organization",
   "https://ref.openepcis.io/extensions/common/core/verifiedRatio": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/common/core/wastePreventionInfo": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/eu/battery/absoluteCarbonFootprint": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/anodeActiveMaterial": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/atSoC": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/auditBody": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/authorizedServiceCenters": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/eu/battery/batteryChemistry": "https://ref.openepcis.io/extensions/eu/battery/BatteryChemistry",
-  "https://ref.openepcis.io/extensions/eu/battery/batteryMass": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/batteryModelIdentifier": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/batteryPassportIdentifier": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/battery/cadmiumSymbolRequired": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/battery/calculationStandard": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/battery/capacityFade": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/capacityFadeThreshold": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/capacityThresholdForExhaustion": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/battery/capacityThroughput": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintDeclaration": "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration",
   "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintDeclarationId": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintDistribution": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintGeographicScope": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintPerformanceClass": "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintClass",
-  "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintProduction": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintRawMaterialExtraction": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintRecycling": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintStudyUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintTotal": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/casNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/cathodeActiveMaterial": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/battery/cellType": "https://ref.openepcis.io/extensions/eu/battery/CellType",
   "https://ref.openepcis.io/extensions/eu/battery/ceMarkingIndicator": "http://www.w3.org/2001/XMLSchema#boolean",
-  "https://ref.openepcis.io/extensions/eu/battery/certifiedUsableEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/cobaltPostConsumerShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/cobaltPreConsumerShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/cobaltRecycledShare": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/battery/complianceStatus": "https://ref.openepcis.io/extensions/eu/battery/ComplianceStatus",
-  "https://ref.openepcis.io/extensions/eu/battery/componentLocation": "https://ref.openepcis.io/extensions/eu/battery/ComponentLocation",
   "https://ref.openepcis.io/extensions/eu/battery/concentration": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/conflictMineralFree": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/battery/cRate": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/cRateLifeCycleTest": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/criticalRawMaterialsStatement": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-  "https://ref.openepcis.io/extensions/eu/battery/currentSelfDischargingRate": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/cycleCount": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/dangerousGoodsPackingInstructions": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.io/extensions/eu/battery/dataProviderCertification": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/dataQualityAssessment": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/declarationOfConformity": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/battery/depthOfDischargeInCycleLifeTest": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/battery/dismantlingAndRemovalInformation": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
-  "https://ref.openepcis.io/extensions/eu/battery/dismantlingDocuments": "https://ref.openepcis.io/extensions/eu/battery/DismantlingDocument",
-  "https://ref.openepcis.io/extensions/eu/battery/dismantlingInstructions": "http://www.w3.org/2000/01/rdf-schema#Resource",
-  "https://ref.openepcis.io/extensions/eu/battery/dismantlingTime": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/documentType": "https://ref.openepcis.io/extensions/eu/battery/DismantlingDocumentType",
   "https://ref.openepcis.io/extensions/eu/battery/documentUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/battery/dueDiligencePolicyUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/battery/dueDiligenceReportUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/battery/ecNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/electrolyteComposition": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/electrolyteType": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-  "https://ref.openepcis.io/extensions/eu/battery/endOfLifeInfo": "https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo",
-  "https://ref.openepcis.io/extensions/eu/battery/energyThroughput": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/estimatedImpact": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-  "https://ref.openepcis.io/extensions/eu/battery/euDeclarationOfConformity": "http://data.europa.eu/m8g/Evidence",
   "https://ref.openepcis.io/extensions/eu/battery/euDeclarationOfConformityId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/eventDate": "http://www.w3.org/2001/XMLSchema#dateTime",
-  "https://ref.openepcis.io/extensions/eu/battery/eventLocation": "https://ref.gs1.org/voc/Place",
-  "https://ref.openepcis.io/extensions/eu/battery/eventType": "https://ref.openepcis.io/extensions/eu/battery/NegativeEventType",
-  "https://ref.openepcis.io/extensions/eu/battery/evolutionOfSelfDischarge": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/exceedanceThreshold": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/exhaustionThreshold": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/expectedCycleLife": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.io/extensions/eu/battery/expectedLifetime": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/expectedLifetimeCapacityThroughput": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/expectedLifetimeEnergyThroughput": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/expectedLifetimeYears": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/battery/expectedNumberOfCycles": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/battery/expectedRemainingCycles": "http://www.w3.org/2001/XMLSchema#integer",
@@ -20735,29 +20752,112 @@ var range_index_default = {
   "https://ref.openepcis.io/extensions/eu/battery/extinguishingAgent": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.io/extensions/eu/battery/facilityIdentifier": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/functionalUnit": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/eu/battery/hasAbsoluteCarbonFootprint": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/hasBattery": "https://ref.gs1.org/voc/Product",
-  "https://ref.openepcis.io/extensions/eu/battery/hazardClass": "https://ref.openepcis.io/extensions/eu/battery/HazardClass",
+  "https://ref.openepcis.io/extensions/eu/battery/hasBatteryChemistry": "https://ref.openepcis.io/extensions/eu/battery/BatteryChemistry",
+  "https://ref.openepcis.io/extensions/eu/battery/hasBatteryMass": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasCapacityFade": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasCapacityThroughput": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasCarbonFootprintDeclaration": "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration",
+  "https://ref.openepcis.io/extensions/eu/battery/hasCarbonFootprintDistribution": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasCarbonFootprintPerformanceClass": "https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintClass",
+  "https://ref.openepcis.io/extensions/eu/battery/hasCarbonFootprintProduction": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasCarbonFootprintRawMaterialExtraction": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasCarbonFootprintRecycling": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasCarbonFootprintTotal": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasCellType": "https://ref.openepcis.io/extensions/eu/battery/CellType",
+  "https://ref.openepcis.io/extensions/eu/battery/hasCertifiedUsableEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasComplianceStatus": "https://ref.openepcis.io/extensions/eu/battery/ComplianceStatus",
+  "https://ref.openepcis.io/extensions/eu/battery/hasComponentLocation": "https://ref.openepcis.io/extensions/eu/battery/ComponentLocation",
+  "https://ref.openepcis.io/extensions/eu/battery/hasCurrentSelfDischargingRate": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasCycleCount": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasDismantlingAndRemovalInformation": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
+  "https://ref.openepcis.io/extensions/eu/battery/hasDismantlingDocuments": "https://ref.openepcis.io/extensions/eu/battery/DismantlingDocument",
+  "https://ref.openepcis.io/extensions/eu/battery/hasDismantlingInstructions": "http://www.w3.org/2000/01/rdf-schema#Resource",
+  "https://ref.openepcis.io/extensions/eu/battery/hasDismantlingTime": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasDocumentType": "https://ref.openepcis.io/extensions/eu/battery/DismantlingDocumentType",
+  "https://ref.openepcis.io/extensions/eu/battery/hasEndOfLifeInfo": "https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo",
+  "https://ref.openepcis.io/extensions/eu/battery/hasEnergyThroughput": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasEuDeclarationOfConformity": "http://data.europa.eu/m8g/Evidence",
+  "https://ref.openepcis.io/extensions/eu/battery/hasEventLocation": "https://ref.gs1.org/voc/Place",
+  "https://ref.openepcis.io/extensions/eu/battery/hasEventType": "https://ref.openepcis.io/extensions/eu/battery/NegativeEventType",
+  "https://ref.openepcis.io/extensions/eu/battery/hasEvolutionOfSelfDischarge": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasExpectedLifetime": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasExpectedLifetimeCapacityThroughput": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasExpectedLifetimeEnergyThroughput": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasHazardClass": "https://ref.openepcis.io/extensions/eu/battery/HazardClass",
+  "https://ref.openepcis.io/extensions/eu/battery/hasHazardousSubstances": "https://ref.openepcis.io/extensions/eu/battery/HazardousSubstance",
+  "https://ref.openepcis.io/extensions/eu/battery/hasIncidentSeverity": "https://ref.openepcis.io/extensions/eu/battery/IncidentSeverity",
+  "https://ref.openepcis.io/extensions/eu/battery/hasInitialCapacity": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasInitialEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasInitialInternalResistance": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasInternalResistance": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasInternalResistanceIncrease": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasLabels": "https://ref.openepcis.io/extensions/eu/battery/Label",
+  "https://ref.openepcis.io/extensions/eu/battery/hasLabelSubject": "https://ref.openepcis.io/extensions/eu/battery/LabelSubject",
+  "https://ref.openepcis.io/extensions/eu/battery/hasManufacturingPlace": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
+  "https://ref.openepcis.io/extensions/eu/battery/hasMaterialComposition": "https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial",
+  "https://ref.openepcis.io/extensions/eu/battery/hasMaterialRecoveryTargets": "https://ref.openepcis.io/extensions/eu/battery/MaterialRecoveryTarget",
+  "https://ref.openepcis.io/extensions/eu/battery/hasMaximumChargingCurrent": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasMaximumChargingPower": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasMaximumDischargingCurrent": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasMaximumDischargingPower": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasMaximumPermittedBatteryPower": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasMaximumTemperature": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasMaximumVoltage": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasMinimumTemperature": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasMinimumVoltage": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasNegativeEvents": "https://ref.openepcis.io/extensions/eu/battery/NegativeEvent",
+  "https://ref.openepcis.io/extensions/eu/battery/hasNominalVoltage": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasNotifiedBody": "http://data.europa.eu/m8g/PublicOrganisation",
+  "https://ref.openepcis.io/extensions/eu/battery/hasOperatorInformation": "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
+  "https://ref.openepcis.io/extensions/eu/battery/hasOperatorRole": "https://ref.openepcis.io/extensions/common/core/OperatorRole",
+  "https://ref.openepcis.io/extensions/eu/battery/hasOriginalPowerCapability": "https://ref.openepcis.io/extensions/eu/battery/PowerCapabilityAtSoC",
+  "https://ref.openepcis.io/extensions/eu/battery/hasPowerCapability": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasPowerCapabilityAt20SoC": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasPowerCapabilityAt80SoC": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasPowerFade": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasRatedCapacity": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasRatedEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasRatedMaximumPower": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasRecycledContent": "https://ref.openepcis.io/extensions/eu/battery/RecycledContent",
+  "https://ref.openepcis.io/extensions/eu/battery/hasRemainingCapacity": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasRemainingEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasRemainingPowerCapability": "https://ref.openepcis.io/extensions/eu/battery/PowerCapabilityAtSoC",
+  "https://ref.openepcis.io/extensions/eu/battery/hasRemainingRoundTripEfficiency": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasRemainingUsableEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasRepurposingEntity": "https://ref.gs1.org/voc/Organization",
+  "https://ref.openepcis.io/extensions/eu/battery/hasResponsibleSourcingStandard": "https://ref.openepcis.io/extensions/eu/battery/ResponsibleSourcingStandard",
+  "https://ref.openepcis.io/extensions/eu/battery/hasRoundTripEfficiencyFade": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasSelfDischargeRate": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasSparePartSources": "https://ref.gs1.org/voc/Organization",
+  "https://ref.openepcis.io/extensions/eu/battery/hasStateOfCertifiedEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasStateOfCharge": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasStateOfHealth": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/battery/hasSubstanceLocation": "https://ref.openepcis.io/extensions/eu/battery/ComponentLocation",
+  "https://ref.openepcis.io/extensions/eu/battery/hasSupplierContact": "https://ref.gs1.org/voc/ContactPoint",
+  "https://ref.openepcis.io/extensions/eu/battery/hasSupplyChainDueDiligence": "https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence",
+  "https://ref.openepcis.io/extensions/eu/battery/hasTechnicalSpecifications": "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification",
+  "https://ref.openepcis.io/extensions/eu/battery/hasTemperatureRangeCharging": "https://ref.openepcis.io/extensions/eu/battery/TemperatureRange",
+  "https://ref.openepcis.io/extensions/eu/battery/hasTemperatureRangeDischarging": "https://ref.openepcis.io/extensions/eu/battery/TemperatureRange",
+  "https://ref.openepcis.io/extensions/eu/battery/hasTemperatureRangeIdleState": "https://ref.openepcis.io/extensions/eu/battery/TemperatureRange",
+  "https://ref.openepcis.io/extensions/eu/battery/hasTemperatureRangeStorage": "https://ref.openepcis.io/extensions/eu/battery/TemperatureRange",
+  "https://ref.openepcis.io/extensions/eu/battery/hasThirdPartyVerification": "https://ref.openepcis.io/extensions/eu/battery/ThirdPartyVerification",
+  "https://ref.openepcis.io/extensions/eu/battery/hasVerificationBody": "https://ref.gs1.org/voc/Organization",
   "https://ref.openepcis.io/extensions/eu/battery/hazardImpact": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-  "https://ref.openepcis.io/extensions/eu/battery/hazardousSubstances": "https://ref.openepcis.io/extensions/eu/battery/HazardousSubstance",
   "https://ref.openepcis.io/extensions/eu/battery/incidentId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/incidentReportUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/eu/battery/incidentSeverity": "https://ref.openepcis.io/extensions/eu/battery/IncidentSeverity",
   "https://ref.openepcis.io/extensions/eu/battery/informationOnCollection": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/eu/battery/initialCapacity": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/initialEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/initialInternalResistance": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/initialSelfDischarge": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/inspectorId": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/battery/internalResistance": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/internalResistanceIncrease": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/isCriticalRawMaterial": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/battery/isSubstanceOfConcern": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/battery/labelMeaning": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-  "https://ref.openepcis.io/extensions/eu/battery/labels": "https://ref.openepcis.io/extensions/eu/battery/Label",
-  "https://ref.openepcis.io/extensions/eu/battery/labelSubject": "https://ref.openepcis.io/extensions/eu/battery/LabelSubject",
   "https://ref.openepcis.io/extensions/eu/battery/labelSymbol": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/battery/languageCode": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/lastDataUpdate": "http://www.w3.org/2001/XMLSchema#dateTime",
+  "https://ref.openepcis.io/extensions/eu/battery/leadPostConsumerShare": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.io/extensions/eu/battery/leadPreConsumerShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/leadRecycledShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/leadSymbolRequired": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/battery/lifecycleStage": "http://www.w3.org/2001/XMLSchema#string",
@@ -20766,338 +20866,356 @@ var range_index_default = {
   "https://ref.openepcis.io/extensions/eu/battery/lithiumPreConsumerShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/lithiumRecycledShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/manufacturerIdentifier": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/battery/manufacturingPlace": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
-  "https://ref.openepcis.io/extensions/eu/battery/materialComposition": "https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial",
-  "https://ref.openepcis.io/extensions/eu/battery/materialRecoveryTargets": "https://ref.openepcis.io/extensions/eu/battery/MaterialRecoveryTarget",
   "https://ref.openepcis.io/extensions/eu/battery/materialSupplier": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/battery/maximumChargingCurrent": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/maximumChargingPower": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/maximumDischargingCurrent": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/maximumDischargingPower": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/maximumPermittedBatteryPower": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/maximumTemperature": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/maximumVoltage": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/measurementCertificateUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/battery/mimeType": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/battery/minimumTemperature": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/minimumVoltage": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/negativeEvents": "https://ref.openepcis.io/extensions/eu/battery/NegativeEvent",
   "https://ref.openepcis.io/extensions/eu/battery/nextScheduledMeasurement": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.io/extensions/eu/battery/nickelPostConsumerShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/nickelPreConsumerShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/nickelRecycledShare": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/battery/nominalVoltage": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/note": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-  "https://ref.openepcis.io/extensions/eu/battery/notifiedBody": "http://data.europa.eu/m8g/PublicOrganisation",
   "https://ref.openepcis.io/extensions/eu/battery/notifiedBodyName": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/notifiedBodyNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/numberOfCells": "http://www.w3.org/2001/XMLSchema#integer",
+  "https://ref.openepcis.io/extensions/eu/battery/numberOfDeepDischargeEvents": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/battery/numberOfFullCycles": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/battery/numberOfModules": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/battery/operatorIdentifier": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/battery/operatorInformation": "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
-  "https://ref.openepcis.io/extensions/eu/battery/operatorRole": "https://ref.openepcis.io/extensions/common/core/OperatorRole",
-  "https://ref.openepcis.io/extensions/eu/battery/originalPowerCapability": "https://ref.openepcis.io/extensions/eu/battery/PowerCapabilityAtSoC",
-  "https://ref.openepcis.io/extensions/eu/battery/powerCapability": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/powerCapabilityAt20SoC": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/powerCapabilityAt80SoC": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/powerCapabilityRatio": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/battery/powerFade": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/previousApplications": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.io/extensions/eu/battery/puttingIntoService": "http://www.w3.org/2001/XMLSchema#date",
-  "https://ref.openepcis.io/extensions/eu/battery/ratedCapacity": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/ratedEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/ratedMaximumPower": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/recommendedAction": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.io/extensions/eu/battery/recoveryMaterial": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/recoveryRate": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/recyclabilityRate": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/battery/recycledContent": "https://ref.openepcis.io/extensions/eu/battery/RecycledContent",
-  "https://ref.openepcis.io/extensions/eu/battery/remainingCapacity": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/remainingEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/remainingPowerCapability": "https://ref.openepcis.io/extensions/eu/battery/PowerCapabilityAtSoC",
-  "https://ref.openepcis.io/extensions/eu/battery/remainingRoundTripEfficiency": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/remainingUsableEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/renewableContent": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/renewableContentShare": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/repurposingDate": "http://www.w3.org/2001/XMLSchema#date",
-  "https://ref.openepcis.io/extensions/eu/battery/repurposingEntity": "https://ref.gs1.org/voc/Organization",
   "https://ref.openepcis.io/extensions/eu/battery/repurposingGuidelines": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/battery/repurposingPotential": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.io/extensions/eu/battery/resistanceIncreaseThreshold": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/battery/responsibleSourcingStandard": "https://ref.openepcis.io/extensions/eu/battery/ResponsibleSourcingStandard",
   "https://ref.openepcis.io/extensions/eu/battery/resultOfTestReport": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/battery/riskAssessmentSummary": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.io/extensions/eu/battery/roundTripEfficiency": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/roundTripEfficiencyAt50PercentCycleLife": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/battery/roundTripEfficiencyFade": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/roundTripEnergyEfficiency": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/safetyInstructions": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/battery/safetyInstructionsForDismantling": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/battery/safetyMeasures": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/battery/selfDischargeRate": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/separateCollection": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/battery/separateCollectionSymbolUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/battery/shippingName": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.io/extensions/eu/battery/soceMeasurementId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/spareParts": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-  "https://ref.openepcis.io/extensions/eu/battery/sparePartSources": "https://ref.gs1.org/voc/Organization",
-  "https://ref.openepcis.io/extensions/eu/battery/stateOfCertifiedEnergy": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/battery/stateOfCharge": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/stateOfChargeLevel": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/battery/stateOfHealth": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/battery/substanceCasNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/substanceEcNumber": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/battery/substanceLocation": "https://ref.openepcis.io/extensions/eu/battery/ComponentLocation",
-  "https://ref.openepcis.io/extensions/eu/battery/supplierContact": "https://ref.gs1.org/voc/ContactPoint",
-  "https://ref.openepcis.io/extensions/eu/battery/supplyChainDueDiligence": "https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence",
   "https://ref.openepcis.io/extensions/eu/battery/supplyChainIndex": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/battery/supplyChainMappingAvailable": "http://www.w3.org/2001/XMLSchema#boolean",
-  "https://ref.openepcis.io/extensions/eu/battery/technicalSpecifications": "https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification",
   "https://ref.openepcis.io/extensions/eu/battery/temperatureExcursionId": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/temperatureExcursionReportUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/eu/battery/temperatureRangeCharging": "https://ref.openepcis.io/extensions/eu/battery/TemperatureRange",
-  "https://ref.openepcis.io/extensions/eu/battery/temperatureRangeDischarging": "https://ref.openepcis.io/extensions/eu/battery/TemperatureRange",
-  "https://ref.openepcis.io/extensions/eu/battery/temperatureRangeIdleState": "https://ref.openepcis.io/extensions/eu/battery/TemperatureRange",
-  "https://ref.openepcis.io/extensions/eu/battery/temperatureRangeStorage": "https://ref.openepcis.io/extensions/eu/battery/TemperatureRange",
   "https://ref.openepcis.io/extensions/eu/battery/testReportNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/thirdPartyAssurancesUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/eu/battery/thirdPartyVerification": "https://ref.openepcis.io/extensions/eu/battery/ThirdPartyVerification",
   "https://ref.openepcis.io/extensions/eu/battery/timeSpentChargingDuringExtremeTemperaturesAboveBoundary": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/battery/timeSpentChargingDuringExtremeTemperaturesBelowBoundary": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/battery/timeSpentInExtremeTemperaturesAboveBoundary": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/battery/timeSpentInExtremeTemperaturesBelowBoundary": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/battery/transportationSafetyClass": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/transportConditions": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
-  "https://ref.openepcis.io/extensions/eu/battery/verificationBody": "https://ref.gs1.org/voc/Organization",
   "https://ref.openepcis.io/extensions/eu/battery/verificationBodyName": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/verificationCertificateUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/battery/verificationDate": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.io/extensions/eu/battery/verificationStandard": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/battery/warrantyConditions": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/battery/wastePrevention": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/eu/cpr/avcpSystem": "https://ref.openepcis.io/extensions/eu/cpr/AVCPSystem",
   "https://ref.openepcis.io/extensions/eu/cpr/characteristicName": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/cpr/characteristicValue": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/cpr/compressiveStrength": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/cpr/constructionProductType": "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProductType",
   "https://ref.openepcis.io/extensions/eu/cpr/dateOfIssue": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.io/extensions/eu/cpr/declarationCode": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/cpr/declarationOfPerformance": "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance",
   "https://ref.openepcis.io/extensions/eu/cpr/declarationOfPerformanceUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/eu/cpr/essentialCharacteristic": "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic",
-  "https://ref.openepcis.io/extensions/eu/cpr/europeanAssessmentDocument": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
   "https://ref.openepcis.io/extensions/eu/cpr/harmonisedStandard": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/eu/cpr/notifiedBody": "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
-  "https://ref.openepcis.io/extensions/eu/cpr/reactionToFireClass": "https://ref.openepcis.io/extensions/eu/cpr/ReactionToFireClass",
-  "https://ref.openepcis.io/extensions/eu/cpr/technicalAssessmentBody": "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
-  "https://ref.openepcis.io/extensions/eu/cpr/thermalConductivity": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/cpr/validationReports": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
+  "https://ref.openepcis.io/extensions/eu/cpr/hasAvcpSystem": "https://ref.openepcis.io/extensions/eu/cpr/AVCPSystem",
+  "https://ref.openepcis.io/extensions/eu/cpr/hasCharacteristicValue": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/cpr/hasCompressiveStrength": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/cpr/hasConstructionProductType": "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProductType",
+  "https://ref.openepcis.io/extensions/eu/cpr/hasDeclarationOfPerformance": "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance",
+  "https://ref.openepcis.io/extensions/eu/cpr/hasEssentialCharacteristic": "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic",
+  "https://ref.openepcis.io/extensions/eu/cpr/hasEuropeanAssessmentDocument": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
+  "https://ref.openepcis.io/extensions/eu/cpr/hasNotifiedBody": "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
+  "https://ref.openepcis.io/extensions/eu/cpr/hasReactionToFireClass": "https://ref.openepcis.io/extensions/eu/cpr/ReactionToFireClass",
+  "https://ref.openepcis.io/extensions/eu/cpr/hasTechnicalAssessmentBody": "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
+  "https://ref.openepcis.io/extensions/eu/cpr/hasThermalConductivity": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/cpr/hasValidationReports": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
   "https://ref.openepcis.io/extensions/eu/detergent/allergenCasNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/detergent/allergenConcentration": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/detergent/biodegradabilityTestReport": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
   "https://ref.openepcis.io/extensions/eu/detergent/biodegradationPercentage": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/detergent/dosageInstructions": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/eu/detergent/dosageInstructions": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.io/extensions/eu/detergent/endProductCharacteristics": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/detergent/filmBiodegradabilityPercentage": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/detergent/filmBiodegradable": "http://www.w3.org/2001/XMLSchema#boolean",
-  "https://ref.openepcis.io/extensions/eu/detergent/fragranceAllergens": "https://ref.openepcis.io/extensions/eu/detergent/FragranceAllergen",
-  "https://ref.openepcis.io/extensions/eu/detergent/hazardousSubstances": "https://ref.openepcis.io/extensions/common/core/HazardousSubstance",
+  "https://ref.openepcis.io/extensions/eu/detergent/hasBiodegradabilityTestReport": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
+  "https://ref.openepcis.io/extensions/eu/detergent/hasFragranceAllergens": "https://ref.openepcis.io/extensions/eu/detergent/FragranceAllergen",
+  "https://ref.openepcis.io/extensions/eu/detergent/hasHazardousSubstances": "https://ref.openepcis.io/extensions/common/core/HazardousSubstance",
+  "https://ref.openepcis.io/extensions/eu/detergent/hasIngredientFunction": "https://ref.openepcis.io/extensions/eu/detergent/IngredientFunction",
+  "https://ref.openepcis.io/extensions/eu/detergent/hasIngredientList": "https://ref.openepcis.io/extensions/eu/detergent/Ingredient",
+  "https://ref.openepcis.io/extensions/eu/detergent/hasMicroorganisms": "https://ref.openepcis.io/extensions/eu/detergent/MicroorganismInfo",
+  "https://ref.openepcis.io/extensions/eu/detergent/hasProductForm": "https://ref.openepcis.io/extensions/eu/detergent/ProductForm",
+  "https://ref.openepcis.io/extensions/eu/detergent/hasRecommendedDosage": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/detergent/hasSafetyDataSheet": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
+  "https://ref.openepcis.io/extensions/eu/detergent/hasSignalWord": "https://ref.openepcis.io/extensions/eu/detergent/SignalWord",
+  "https://ref.openepcis.io/extensions/eu/detergent/hasSurfactantBiodegradability": "https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability",
+  "https://ref.openepcis.io/extensions/eu/detergent/hasSurfactantType": "https://ref.openepcis.io/extensions/eu/detergent/SurfactantType",
+  "https://ref.openepcis.io/extensions/eu/detergent/hasTestMethod": "https://ref.openepcis.io/extensions/eu/detergent/BiodegradabilityTestMethod",
   "https://ref.openepcis.io/extensions/eu/detergent/hazardPictograms": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/detergent/hStatements": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/detergent/ingredientFunction": "https://ref.openepcis.io/extensions/eu/detergent/IngredientFunction",
-  "https://ref.openepcis.io/extensions/eu/detergent/ingredientList": "https://ref.openepcis.io/extensions/eu/detergent/Ingredient",
   "https://ref.openepcis.io/extensions/eu/detergent/intendedUse": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/detergent/isSurfactant": "http://www.w3.org/2001/XMLSchema#boolean",
-  "https://ref.openepcis.io/extensions/eu/detergent/microorganisms": "https://ref.openepcis.io/extensions/eu/detergent/MicroorganismInfo",
   "https://ref.openepcis.io/extensions/eu/detergent/passesUltimateBiodegradability": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/detergent/phosphateCompliant": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/detergent/phosphorusContentPercent": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/detergent/productForm": "https://ref.openepcis.io/extensions/eu/detergent/ProductForm",
   "https://ref.openepcis.io/extensions/eu/detergent/pStatements": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/detergent/recommendedDosage": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/detergent/safetyDataSheet": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
-  "https://ref.openepcis.io/extensions/eu/detergent/signalWord": "https://ref.openepcis.io/extensions/eu/detergent/SignalWord",
   "https://ref.openepcis.io/extensions/eu/detergent/strainDesignation": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/detergent/surfactantBiodegradability": "https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability",
-  "https://ref.openepcis.io/extensions/eu/detergent/surfactantType": "https://ref.openepcis.io/extensions/eu/detergent/SurfactantType",
   "https://ref.openepcis.io/extensions/eu/detergent/testDurationDays": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.io/extensions/eu/detergent/testMethod": "https://ref.openepcis.io/extensions/eu/detergent/BiodegradabilityTestMethod",
   "https://ref.openepcis.io/extensions/eu/detergent/weightPercentRange": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/electronics/annualEnergyConsumption": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/electronics/assessmentBody": "https://ref.gs1.org/voc/Organization",
   "https://ref.openepcis.io/extensions/eu/electronics/assessmentDate": "http://www.w3.org/2001/XMLSchema#date",
-  "https://ref.openepcis.io/extensions/eu/electronics/billOfMaterials": "https://ref.openepcis.io/extensions/eu/electronics/ComponentBOM",
+  "https://ref.openepcis.io/extensions/eu/electronics/avoidedEmissionsKgCO2e": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.io/extensions/eu/electronics/batteryMassGrams": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.io/extensions/eu/electronics/calculationMethod": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/eu/electronics/collectionMethod": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/electronics/collectionSchemeUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/electronics/componentPartNumber": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/electronics/componentPassport": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/eu/electronics/components": "https://ref.gs1.org/voc/Product",
-  "https://ref.openepcis.io/extensions/eu/electronics/componentType": "https://ref.openepcis.io/extensions/eu/electronics/ComponentType",
   "https://ref.openepcis.io/extensions/eu/electronics/criterionDetails": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/electronics/criterionMaxScore": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/electronics/criterionScore": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/electronics/criterionType": "https://ref.openepcis.io/extensions/eu/electronics/RepairCriterionType",
+  "https://ref.openepcis.io/extensions/eu/electronics/dataWiped": "http://www.w3.org/2001/XMLSchema#boolean",
+  "https://ref.openepcis.io/extensions/eu/electronics/deviceCondition": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/electronics/displayScore": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/electronics/displaySpecification": "https://ref.openepcis.io/extensions/eu/electronics/DisplaySpecification",
   "https://ref.openepcis.io/extensions/eu/electronics/displayTechnology": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/electronics/energyEfficiency": "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency",
-  "https://ref.openepcis.io/extensions/eu/electronics/energyEfficiencyClass": "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiencyClass",
   "https://ref.openepcis.io/extensions/eu/electronics/energyLabelUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
+  "https://ref.openepcis.io/extensions/eu/electronics/energyRecoveryRate": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/electronics/eprelProductUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/electronics/eprelRegistrationNumber": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/electronics/featureSupportYears": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/electronics/featureUpdateEndDate": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.io/extensions/eu/electronics/firmwareVersion": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/eu/electronics/handlingNote": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasAnnualEnergyConsumption": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasAssessmentBody": "https://ref.gs1.org/voc/Organization",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasAvoidedEmissions": "https://ref.openepcis.io/extensions/eu/electronics/AvoidedEmissionsEstimate",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasBatteryDisposition": "https://ref.openepcis.io/extensions/eu/electronics/BatteryDisposition",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasBillOfMaterials": "https://ref.openepcis.io/extensions/eu/electronics/ComponentBOM",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasComponentPassport": "http://www.w3.org/2001/XMLSchema#anyURI",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasComponents": "https://ref.gs1.org/voc/Product",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasComponentType": "https://ref.openepcis.io/extensions/eu/electronics/ComponentType",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasCriterionType": "https://ref.openepcis.io/extensions/eu/electronics/RepairCriterionType",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasDisplaySpecification": "https://ref.openepcis.io/extensions/eu/electronics/DisplaySpecification",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasEnergyEfficiency": "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasEnergyEfficiencyClass": "https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiencyClass",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasEstimatedRecoverableMaterials": "https://ref.openepcis.io/extensions/eu/electronics/RecoveredMaterial",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasFeatureSupportYears": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasHazardousMaterialsIdentified": "https://ref.openepcis.io/extensions/eu/electronics/SelectiveTreatmentItem",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasHazardousWasteRecord": "https://ref.openepcis.io/extensions/eu/electronics/HazardousWasteRecord",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasInstalledComponentPassport": "https://ref.openepcis.io/extensions/eu/electronics/ElectronicComponent",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasMaterialDeclaration": "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasMaterialRecoveryResults": "https://ref.openepcis.io/extensions/eu/electronics/MaterialRecoveryResult",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasPeakBrightness": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasPowerConsumptionOff": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasPowerConsumptionOn": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasPowerConsumptionStandby": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasRecyclingFacility": "https://ref.gs1.org/voc/Organization",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasRefreshRate": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasRepairabilityClass": "https://ref.openepcis.io/extensions/eu/electronics/EURepairabilityClass",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasRepairabilityIndex": "https://ref.openepcis.io/extensions/eu/electronics/RepairabilityIndex",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasRepairCost": "https://ref.gs1.org/voc/PriceSpecification",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasRepairCriteria": "https://ref.openepcis.io/extensions/eu/electronics/RepairCriterion",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasReplacedComponentPassport": "https://ref.openepcis.io/extensions/eu/electronics/ElectronicComponent",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasReplacementDifficulty": "https://ref.openepcis.io/extensions/eu/electronics/ReplacementDifficulty",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasRohsCompliance": "https://ref.openepcis.io/extensions/eu/electronics/RoHSCompliance",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasScreenDiagonal": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasSecuritySupportYears": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasSoftwareSupport": "https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasSparePartAvailabilityYears": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasSparePartPrice": "https://ref.gs1.org/voc/PriceSpecification",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasTreatmentFacility": "https://ref.gs1.org/voc/Place",
+  "https://ref.openepcis.io/extensions/eu/electronics/hasWeeeCompliance": "https://ref.openepcis.io/extensions/eu/electronics/WEEECompliance",
+  "https://ref.openepcis.io/extensions/eu/electronics/hazardousWasteGenerated": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/electronics/iec62474DslVersion": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/electronics/isReplaceable": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/electronics/latestUpdateDate": "http://www.w3.org/2001/XMLSchema#date",
-  "https://ref.openepcis.io/extensions/eu/electronics/materialDeclaration": "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern",
   "https://ref.openepcis.io/extensions/eu/electronics/materialDeclarationDate": "http://www.w3.org/2001/XMLSchema#date",
+  "https://ref.openepcis.io/extensions/eu/electronics/materialMassGrams": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/electronics/modelIdentifier": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/electronics/newVersion": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/eu/electronics/nextDisposition": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/electronics/osVersion": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/electronics/peakBrightness": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/electronics/powerConsumptionOff": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/electronics/powerConsumptionOn": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/electronics/powerConsumptionStandby": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/electronics/previousVersion": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/electronics/recoverabilityRate": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.io/extensions/eu/electronics/recoveryRate": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/electronics/recyclabilityRate": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/electronics/refreshRate": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/electronics/repairabilityClass": "https://ref.openepcis.io/extensions/eu/electronics/EURepairabilityClass",
-  "https://ref.openepcis.io/extensions/eu/electronics/repairabilityIndex": "https://ref.openepcis.io/extensions/eu/electronics/RepairabilityIndex",
+  "https://ref.openepcis.io/extensions/eu/electronics/recyclingProcess": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/eu/electronics/recyclingRate": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.io/extensions/eu/electronics/removalReason": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/electronics/repairabilityLabelUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/eu/electronics/repairCriteria": "https://ref.openepcis.io/extensions/eu/electronics/RepairCriterion",
-  "https://ref.openepcis.io/extensions/eu/electronics/replacementDifficulty": "https://ref.openepcis.io/extensions/eu/electronics/ReplacementDifficulty",
-  "https://ref.openepcis.io/extensions/eu/electronics/rohsCompliance": "https://ref.openepcis.io/extensions/eu/electronics/RoHSCompliance",
+  "https://ref.openepcis.io/extensions/eu/electronics/repairDescription": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/eu/electronics/repairTechnician": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/eu/electronics/repairType": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/electronics/rohsCompliant": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/electronics/rohsDeclarationUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/electronics/rohsExemptions": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/electronics/screenDiagonal": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/electronics/screenResolutionHeight": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/electronics/screenResolutionWidth": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.io/extensions/eu/electronics/securitySupportYears": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/electronics/securityUpdateEndDate": "http://www.w3.org/2001/XMLSchema#date",
-  "https://ref.openepcis.io/extensions/eu/electronics/softwareSupport": "https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport",
-  "https://ref.openepcis.io/extensions/eu/electronics/sparePartAvailabilityYears": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/electronics/sparePartPrice": "https://ref.gs1.org/voc/PriceSpecification",
+  "https://ref.openepcis.io/extensions/eu/electronics/separatelyTreated": "http://www.w3.org/2001/XMLSchema#boolean",
+  "https://ref.openepcis.io/extensions/eu/electronics/sortingDecision": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/eu/electronics/totalInputMassGrams": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.io/extensions/eu/electronics/totalRecoveredMassGrams": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/electronics/totalScore": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.io/extensions/eu/electronics/treatmentCertificate": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/eu/electronics/treatmentMethod": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/electronics/updateChannel": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/electronics/updateSource": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/electronics/updateType": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/electronics/weeeCompliance": "https://ref.openepcis.io/extensions/eu/electronics/WEEECompliance",
+  "https://ref.openepcis.io/extensions/eu/electronics/warrantyStatus": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/eu/electronics/wasteDescription": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/electronics/weeeRegistrationCountry": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/electronics/weeeRegistrationNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/eudr/areaHectares": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/eudr/areaSize": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/eudr/commodityType": "https://ref.openepcis.io/extensions/eu/eudr/CommodityType",
-  "https://ref.openepcis.io/extensions/eu/eudr/countryRiskCategory": "https://ref.openepcis.io/extensions/eu/eudr/RiskLevel",
   "https://ref.openepcis.io/extensions/eu/eudr/deforestationFreeDate": "http://www.w3.org/2001/XMLSchema#date",
-  "https://ref.openepcis.io/extensions/eu/eudr/derivedFrom": "https://ref.gs1.org/voc/Product",
-  "https://ref.openepcis.io/extensions/eu/eudr/dueDiligenceStatement": "https://ref.openepcis.io/extensions/eu/eudr/DueDiligenceStatement",
-  "https://ref.openepcis.io/extensions/eu/eudr/exemptionAuthority": "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
-  "https://ref.openepcis.io/extensions/eu/eudr/exemptionDeclaration": "https://ref.openepcis.io/extensions/eu/eudr/ExemptionDeclaration",
   "https://ref.openepcis.io/extensions/eu/eudr/exemptionEffectiveFrom": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.io/extensions/eu/eudr/exemptionEffectiveUntil": "http://www.w3.org/2001/XMLSchema#date",
   "https://ref.openepcis.io/extensions/eu/eudr/exemptionReasonCode": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/eudr/exemptionScope": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/eudr/exemptionScopeReference": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/eudr/exemptionType": "https://ref.openepcis.io/extensions/eu/eudr/ExemptionType",
   "https://ref.openepcis.io/extensions/eu/eudr/forestManagementUnit": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/eudr/fscCertification": "https://ref.gs1.org/voc/CertificationDetails",
   "https://ref.openepcis.io/extensions/eu/eudr/geofence": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/eudr/geolocation": "http://www.w3.org/2001/XMLSchema#anyURI",
+  "https://ref.openepcis.io/extensions/eu/eudr/hasAreaSize": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/eudr/hasCommodityType": "https://ref.openepcis.io/extensions/eu/eudr/CommodityType",
+  "https://ref.openepcis.io/extensions/eu/eudr/hasCountryRiskCategory": "https://ref.openepcis.io/extensions/eu/eudr/RiskLevel",
+  "https://ref.openepcis.io/extensions/eu/eudr/hasDerivedFrom": "https://ref.gs1.org/voc/Product",
+  "https://ref.openepcis.io/extensions/eu/eudr/hasDueDiligenceStatement": "https://ref.openepcis.io/extensions/eu/eudr/DueDiligenceStatement",
+  "https://ref.openepcis.io/extensions/eu/eudr/hasExemptionAuthority": "https://ref.openepcis.io/extensions/common/core/OperatorInformation",
+  "https://ref.openepcis.io/extensions/eu/eudr/hasExemptionDeclaration": "https://ref.openepcis.io/extensions/eu/eudr/ExemptionDeclaration",
+  "https://ref.openepcis.io/extensions/eu/eudr/hasExemptionType": "https://ref.openepcis.io/extensions/eu/eudr/ExemptionType",
+  "https://ref.openepcis.io/extensions/eu/eudr/hasFscCertification": "https://ref.gs1.org/voc/CertificationDetails",
+  "https://ref.openepcis.io/extensions/eu/eudr/hasOriginDetails": "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails",
+  "https://ref.openepcis.io/extensions/eu/eudr/hasOriginList": "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails",
+  "https://ref.openepcis.io/extensions/eu/eudr/hasProducerIdentification": "https://ref.gs1.org/voc/Organization",
+  "https://ref.openepcis.io/extensions/eu/eudr/hasRiskAssessment": "https://ref.openepcis.io/extensions/eu/eudr/RiskAssessment",
+  "https://ref.openepcis.io/extensions/eu/eudr/hasRiskLevel": "https://ref.openepcis.io/extensions/eu/eudr/RiskLevel",
+  "https://ref.openepcis.io/extensions/eu/eudr/hasTimberProductType": "https://ref.openepcis.io/extensions/eu/eudr/TimberProductType",
+  "https://ref.openepcis.io/extensions/eu/eudr/hasTransformationLocation": "https://ref.gs1.org/voc/Place",
   "https://ref.openepcis.io/extensions/eu/eudr/landUseHistory": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/eudr/legallyHarvested": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/eudr/mitigationMeasures": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/eudr/originDetails": "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails",
-  "https://ref.openepcis.io/extensions/eu/eudr/originList": "https://ref.openepcis.io/extensions/eu/eudr/OriginDetails",
-  "https://ref.openepcis.io/extensions/eu/eudr/producerIdentification": "https://ref.gs1.org/voc/Organization",
-  "https://ref.openepcis.io/extensions/eu/eudr/riskAssessment": "https://ref.openepcis.io/extensions/eu/eudr/RiskAssessment",
   "https://ref.openepcis.io/extensions/eu/eudr/riskAssessmentDate": "http://www.w3.org/2001/XMLSchema#date",
-  "https://ref.openepcis.io/extensions/eu/eudr/riskLevel": "https://ref.openepcis.io/extensions/eu/eudr/RiskLevel",
   "https://ref.openepcis.io/extensions/eu/eudr/speciesCommonName": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/eudr/speciesScientificName": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/eudr/statementDate": "http://www.w3.org/2001/XMLSchema#date",
-  "https://ref.openepcis.io/extensions/eu/eudr/timberProductType": "https://ref.openepcis.io/extensions/eu/eudr/TimberProductType",
   "https://ref.openepcis.io/extensions/eu/eudr/transformationDate": "http://www.w3.org/2001/XMLSchema#date",
-  "https://ref.openepcis.io/extensions/eu/eudr/transformationLocation": "https://ref.gs1.org/voc/Place",
   "https://ref.openepcis.io/extensions/eu/eudr/verificationMethod": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/eudr/volumeCubicMeters": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.io/extensions/eu/ppwr/averageRotationsEstimate": "http://www.w3.org/2001/XMLSchema#decimal",
+  "https://ref.openepcis.io/extensions/eu/ppwr/collectionPointsUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
   "https://ref.openepcis.io/extensions/eu/ppwr/containerCondition": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/ppwr/depositRefundIssued": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/ppwr/designForRecyclingMethodology": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/ppwr/harmonisedSymbol": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/eu/ppwr/packagingTier": "https://ref.openepcis.io/extensions/eu/ppwr/PackagingTier",
-  "https://ref.openepcis.io/extensions/eu/ppwr/recyclabilityGrade": "https://ref.openepcis.io/extensions/eu/ppwr/RecyclabilityGrade",
+  "https://ref.openepcis.io/extensions/eu/ppwr/hasPackagingTier": "https://ref.openepcis.io/extensions/eu/ppwr/PackagingTier",
+  "https://ref.openepcis.io/extensions/eu/ppwr/hasRecyclabilityGrade": "https://ref.openepcis.io/extensions/eu/ppwr/RecyclabilityGrade",
+  "https://ref.openepcis.io/extensions/eu/ppwr/hasReuseInformation": "https://ref.openepcis.io/extensions/eu/ppwr/ReuseInformation",
+  "https://ref.openepcis.io/extensions/eu/ppwr/hasReuseSystemScope": "https://ref.openepcis.io/extensions/eu/ppwr/ReuseSystemScope",
+  "https://ref.openepcis.io/extensions/eu/ppwr/reuseSystemName": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/eu/ppwr/rotationCount": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/textile/abrasionResistance": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.io/extensions/eu/textile/additionalCareInstructions": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/textile/apparelSubcategory": "https://ref.openepcis.io/extensions/eu/textile/ApparelSubcategory",
-  "https://ref.openepcis.io/extensions/eu/textile/applicableRecyclingTechnology": "https://ref.openepcis.io/extensions/eu/textile/RecyclingTechnology",
+  "https://ref.openepcis.io/extensions/eu/textile/additionalCareInstructions": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.io/extensions/eu/textile/benchmarkPerformance": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/textile/biodegradable": "http://www.w3.org/2001/XMLSchema#boolean",
-  "https://ref.openepcis.io/extensions/eu/textile/bleachingSymbol": "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode",
   "https://ref.openepcis.io/extensions/eu/textile/carbonFootprintClass": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/textile/carbonFootprintManufacturing": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/textile/careInstructions": "https://ref.openepcis.io/extensions/eu/textile/CareInstruction",
-  "https://ref.openepcis.io/extensions/eu/textile/chainOfCustodyMethod": "https://ref.openepcis.io/extensions/eu/textile/ChainOfCustodyMethod",
   "https://ref.openepcis.io/extensions/eu/textile/chemicalPurpose": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/textile/cleaningCyclesBeforeTest": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.io/extensions/eu/textile/clpHazardCategory": "https://ref.openepcis.io/extensions/eu/textile/CLPHazardCategory",
   "https://ref.openepcis.io/extensions/eu/textile/colorFastness": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/textile/colourChangeRating": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/textile/concentrationRange": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/textile/containsAnimalNonTextileParts": "http://www.w3.org/2001/XMLSchema#boolean",
-  "https://ref.openepcis.io/extensions/eu/textile/cutAndSewFacility": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
-  "https://ref.openepcis.io/extensions/eu/textile/dataTypeIndicator": "https://ref.openepcis.io/extensions/eu/textile/FootprintDataType",
   "https://ref.openepcis.io/extensions/eu/textile/dimensionalChangePercentage": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/textile/dimensionalChangeScore": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.io/extensions/eu/textile/dimensionalChangeTest": "https://ref.openepcis.io/extensions/eu/textile/DimensionalChangeTestResult",
   "https://ref.openepcis.io/extensions/eu/textile/dimensionalChangeTestMethod": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/textile/dimensionalStability": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/textile/dryCleaningSymbol": "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode",
-  "https://ref.openepcis.io/extensions/eu/textile/dryingSymbol": "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode",
-  "https://ref.openepcis.io/extensions/eu/textile/durabilityClass": "https://ref.openepcis.io/extensions/eu/textile/DurabilityClass",
-  "https://ref.openepcis.io/extensions/eu/textile/durabilityInfo": "https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo",
-  "https://ref.openepcis.io/extensions/eu/textile/dyeingFacility": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
   "https://ref.openepcis.io/extensions/eu/textile/ecNumber": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/textile/elastaneContentPercent": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/textile/endOfLifeDestination": "http://www.w3.org/2001/XMLSchema#string",
+  "https://ref.openepcis.io/extensions/eu/textile/endOfLifeDestination": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.io/extensions/eu/textile/endOfLifeHandling": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/textile/energyUsage": "https://ref.openepcis.io/extensions/common/core/EnergyKilowattHours",
-  "https://ref.openepcis.io/extensions/eu/textile/environmentalFootprint": "https://ref.openepcis.io/extensions/eu/textile/EnvironmentalFootprint",
   "https://ref.openepcis.io/extensions/eu/textile/environmentalFootprintClass": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.io/extensions/eu/textile/euDeclarationOfConformity": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
   "https://ref.openepcis.io/extensions/eu/textile/euEcolabel": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/textile/expectedLifetimeYears": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/textile/expectedWashCycles": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/textile/fabricAppearanceRating": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.io/extensions/eu/textile/fabricType": "https://ref.openepcis.io/extensions/eu/textile/FabricType",
-  "https://ref.openepcis.io/extensions/eu/textile/fiberCertification": "https://ref.gs1.org/voc/CertificationDetails",
   "https://ref.openepcis.io/extensions/eu/textile/fiberOrigin": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/textile/finishingFacility": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
   "https://ref.openepcis.io/extensions/eu/textile/freeFromCoatings": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/textile/freeFromDyes": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/textile/freeFromPrintings": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/textile/freeFromSequins": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/textile/garmentType": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/textile/hasTakeBackProgram": "http://www.w3.org/2001/XMLSchema#boolean",
-  "https://ref.openepcis.io/extensions/eu/textile/ironingSymbol": "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode",
+  "https://ref.openepcis.io/extensions/eu/textile/hasApparelSubcategory": "https://ref.openepcis.io/extensions/eu/textile/ApparelSubcategory",
+  "https://ref.openepcis.io/extensions/eu/textile/hasApplicableRecyclingTechnology": "https://ref.openepcis.io/extensions/eu/textile/RecyclingTechnology",
+  "https://ref.openepcis.io/extensions/eu/textile/hasBleachingSymbol": "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode",
+  "https://ref.openepcis.io/extensions/eu/textile/hasCareInstructions": "https://ref.openepcis.io/extensions/eu/textile/CareInstruction",
+  "https://ref.openepcis.io/extensions/eu/textile/hasChainOfCustodyMethod": "https://ref.openepcis.io/extensions/eu/textile/ChainOfCustodyMethod",
+  "https://ref.openepcis.io/extensions/eu/textile/hasClpHazardCategory": "https://ref.openepcis.io/extensions/eu/textile/CLPHazardCategory",
+  "https://ref.openepcis.io/extensions/eu/textile/hasCutAndSewFacility": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
+  "https://ref.openepcis.io/extensions/eu/textile/hasDataTypeIndicator": "https://ref.openepcis.io/extensions/eu/textile/FootprintDataType",
+  "https://ref.openepcis.io/extensions/eu/textile/hasDimensionalChangeTest": "https://ref.openepcis.io/extensions/eu/textile/DimensionalChangeTestResult",
+  "https://ref.openepcis.io/extensions/eu/textile/hasDryCleaningSymbol": "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode",
+  "https://ref.openepcis.io/extensions/eu/textile/hasDryingSymbol": "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode",
+  "https://ref.openepcis.io/extensions/eu/textile/hasDurabilityClass": "https://ref.openepcis.io/extensions/eu/textile/DurabilityClass",
+  "https://ref.openepcis.io/extensions/eu/textile/hasDurabilityInfo": "https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo",
+  "https://ref.openepcis.io/extensions/eu/textile/hasDyeingFacility": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
+  "https://ref.openepcis.io/extensions/eu/textile/hasEnergyUsage": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/textile/hasEnvironmentalFootprint": "https://ref.openepcis.io/extensions/eu/textile/EnvironmentalFootprint",
+  "https://ref.openepcis.io/extensions/eu/textile/hasEuDeclarationOfConformity": "https://ref.openepcis.io/extensions/common/core/DocumentReference",
+  "https://ref.openepcis.io/extensions/eu/textile/hasFabricType": "https://ref.openepcis.io/extensions/eu/textile/FabricType",
+  "https://ref.openepcis.io/extensions/eu/textile/hasFiberCertification": "https://ref.gs1.org/voc/CertificationDetails",
+  "https://ref.openepcis.io/extensions/eu/textile/hasFinishingFacility": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
+  "https://ref.openepcis.io/extensions/eu/textile/hasIroningSymbol": "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode",
+  "https://ref.openepcis.io/extensions/eu/textile/hasLciaCategories": "https://ref.openepcis.io/extensions/eu/textile/LCIACategory",
+  "https://ref.openepcis.io/extensions/eu/textile/hasLciaCategoryCode": "https://ref.openepcis.io/extensions/eu/textile/LCIACategoryCode",
+  "https://ref.openepcis.io/extensions/eu/textile/hasMicroplasticInfo": "https://ref.openepcis.io/extensions/eu/textile/MicroplasticInfo",
+  "https://ref.openepcis.io/extensions/eu/textile/hasMicroplasticRiskLevel": "https://ref.openepcis.io/extensions/eu/textile/MicroplasticRiskLevel",
+  "https://ref.openepcis.io/extensions/eu/textile/hasRecyclabilityAssessment": "https://ref.openepcis.io/extensions/eu/textile/RecyclabilityAssessment",
+  "https://ref.openepcis.io/extensions/eu/textile/hasRecycledContentDeclaration": "https://ref.openepcis.io/extensions/eu/textile/RecycledContentDeclaration",
+  "https://ref.openepcis.io/extensions/eu/textile/hasRecycledSourceType": "https://ref.openepcis.io/extensions/eu/textile/RecycledSourceType",
+  "https://ref.openepcis.io/extensions/eu/textile/hasRepairServices": "https://ref.gs1.org/voc/Organization",
+  "https://ref.openepcis.io/extensions/eu/textile/hasRobustnessAssessment": "https://ref.openepcis.io/extensions/eu/textile/RobustnessAssessment",
+  "https://ref.openepcis.io/extensions/eu/textile/hasRobustnessTestFabricType": "https://ref.openepcis.io/extensions/eu/textile/FabricType",
+  "https://ref.openepcis.io/extensions/eu/textile/hasSheddingRate": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/textile/hasSocType": "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcernType",
+  "https://ref.openepcis.io/extensions/eu/textile/hasSortingFactors": "https://ref.openepcis.io/extensions/eu/textile/SortingFactors",
+  "https://ref.openepcis.io/extensions/eu/textile/hasSpinningFacility": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
+  "https://ref.openepcis.io/extensions/eu/textile/hasSpiralityTest": "https://ref.openepcis.io/extensions/eu/textile/SpiralityTestResult",
+  "https://ref.openepcis.io/extensions/eu/textile/hasSubstancesOfConcern": "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcern",
+  "https://ref.openepcis.io/extensions/eu/textile/hasTakeBackProgram": "https://ref.openepcis.io/extensions/eu/textile/TakeBackProgram",
+  "https://ref.openepcis.io/extensions/eu/textile/hasTearStrength": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/textile/hasTechnicalRecyclability": "https://ref.openepcis.io/extensions/eu/textile/TechnicalRecyclability",
+  "https://ref.openepcis.io/extensions/eu/textile/hasTensileStrength": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/textile/hasTestStandard": "https://ref.openepcis.io/extensions/eu/textile/TestStandard",
+  "https://ref.openepcis.io/extensions/eu/textile/hasTextileChemicals": "https://ref.openepcis.io/extensions/common/core/HazardousSubstance",
+  "https://ref.openepcis.io/extensions/eu/textile/hasVerificationCertification": "https://ref.gs1.org/voc/CertificationDetails",
+  "https://ref.openepcis.io/extensions/eu/textile/hasVisualInspection": "https://ref.openepcis.io/extensions/eu/textile/VisualInspectionResult",
+  "https://ref.openepcis.io/extensions/eu/textile/hasWashingSymbol": "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode",
+  "https://ref.openepcis.io/extensions/eu/textile/hasWasteOriginType": "https://ref.openepcis.io/extensions/eu/textile/WasteOriginType",
+  "https://ref.openepcis.io/extensions/eu/textile/hasWaterUsage": "https://ref.gs1.org/voc/QuantitativeValue",
+  "https://ref.openepcis.io/extensions/eu/textile/hasWeavingFacility": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
   "https://ref.openepcis.io/extensions/eu/textile/isMonoMaterial": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/textile/isMRSLCompliant": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/textile/isRecyclable": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/textile/isRecycledFiber": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/textile/isRepairable": "http://www.w3.org/2001/XMLSchema#boolean",
-  "https://ref.openepcis.io/extensions/eu/textile/lciaCategories": "https://ref.openepcis.io/extensions/eu/textile/LCIACategory",
-  "https://ref.openepcis.io/extensions/eu/textile/lciaCategoryCode": "https://ref.openepcis.io/extensions/eu/textile/LCIACategoryCode",
   "https://ref.openepcis.io/extensions/eu/textile/lciaUnit": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/textile/lciaValue": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/textile/locationInProduct": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/textile/maxConcentration": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/textile/meetsTargetThreshold": "http://www.w3.org/2001/XMLSchema#boolean",
-  "https://ref.openepcis.io/extensions/eu/textile/microplasticInfo": "https://ref.openepcis.io/extensions/eu/textile/MicroplasticInfo",
-  "https://ref.openepcis.io/extensions/eu/textile/microplasticMitigationMeasures": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/textile/microplasticRiskLevel": "https://ref.openepcis.io/extensions/eu/textile/MicroplasticRiskLevel",
+  "https://ref.openepcis.io/extensions/eu/textile/microplasticMitigationMeasures": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
   "https://ref.openepcis.io/extensions/eu/textile/nonTextilePartsRating": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/textile/organicContentMass": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/textile/organicContentPercentage": "http://www.w3.org/2001/XMLSchema#decimal",
@@ -21106,76 +21224,49 @@ var range_index_default = {
   "https://ref.openepcis.io/extensions/eu/textile/pfasFree": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/textile/pillingResistance": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/textile/productionWastePercentage": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/textile/recyclabilityAssessment": "https://ref.openepcis.io/extensions/eu/textile/RecyclabilityAssessment",
   "https://ref.openepcis.io/extensions/eu/textile/recyclabilityScore": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/textile/recycledContentDeclaration": "https://ref.openepcis.io/extensions/eu/textile/RecycledContentDeclaration",
   "https://ref.openepcis.io/extensions/eu/textile/recycledContentSource": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/textile/recycledSourceType": "https://ref.openepcis.io/extensions/eu/textile/RecycledSourceType",
   "https://ref.openepcis.io/extensions/eu/textile/repairGuideUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/eu/textile/repairServices": "https://ref.gs1.org/voc/Organization",
-  "https://ref.openepcis.io/extensions/eu/textile/robustnessAssessment": "https://ref.openepcis.io/extensions/eu/textile/RobustnessAssessment",
   "https://ref.openepcis.io/extensions/eu/textile/robustnessScore": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/textile/robustnessTestFabricType": "https://ref.openepcis.io/extensions/eu/textile/FabricType",
   "https://ref.openepcis.io/extensions/eu/textile/safeUseInstructions": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/textile/sameInnerOuterComposition": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/textile/seamAppearanceRating": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/textile/seasonCollection": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/textile/secondaryMaterialFraction": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/textile/sheddingRate": "https://ref.gs1.org/voc/QuantitativeValue",
   "https://ref.openepcis.io/extensions/eu/textile/sizeRange": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/textile/socType": "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcernType",
-  "https://ref.openepcis.io/extensions/eu/textile/sortingFactors": "https://ref.openepcis.io/extensions/eu/textile/SortingFactors",
   "https://ref.openepcis.io/extensions/eu/textile/sparePartsAvailable": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/textile/sparePartsUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/eu/textile/spinningFacility": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
   "https://ref.openepcis.io/extensions/eu/textile/spiralityPercentage": "http://www.w3.org/2001/XMLSchema#decimal",
   "https://ref.openepcis.io/extensions/eu/textile/spiralityScore": "http://www.w3.org/2001/XMLSchema#integer",
-  "https://ref.openepcis.io/extensions/eu/textile/spiralityTest": "https://ref.openepcis.io/extensions/eu/textile/SpiralityTestResult",
   "https://ref.openepcis.io/extensions/eu/textile/spiralityTestMethod": "http://www.w3.org/2001/XMLSchema#string",
   "https://ref.openepcis.io/extensions/eu/textile/substanceConcentration": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/textile/substancesOfConcern": "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcern",
   "https://ref.openepcis.io/extensions/eu/textile/syntheticFiberContent": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/textile/takeBackIncentive": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/textile/takeBackProgram": "https://ref.openepcis.io/extensions/eu/textile/TakeBackProgram",
+  "https://ref.openepcis.io/extensions/eu/textile/takeBackIncentive": "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString",
+  "https://ref.openepcis.io/extensions/eu/textile/takeBackProgramAvailable": "http://www.w3.org/2001/XMLSchema#boolean",
   "https://ref.openepcis.io/extensions/eu/textile/takeBackUrl": "http://www.w3.org/2001/XMLSchema#anyURI",
-  "https://ref.openepcis.io/extensions/eu/textile/tearStrength": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/textile/technicalRecyclability": "https://ref.openepcis.io/extensions/eu/textile/TechnicalRecyclability",
   "https://ref.openepcis.io/extensions/eu/textile/technicalRecyclabilityScore": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/eu/textile/tensileStrength": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/textile/testStandard": "https://ref.openepcis.io/extensions/eu/textile/TestStandard",
-  "https://ref.openepcis.io/extensions/eu/textile/textileChemicals": "https://ref.openepcis.io/extensions/common/core/HazardousSubstance",
   "https://ref.openepcis.io/extensions/eu/textile/textileFibreScientificName": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/textile/verificationCertification": "https://ref.gs1.org/voc/CertificationDetails",
-  "https://ref.openepcis.io/extensions/eu/textile/visualInspection": "https://ref.openepcis.io/extensions/eu/textile/VisualInspectionResult",
   "https://ref.openepcis.io/extensions/eu/textile/visualInspectionScore": "http://www.w3.org/2001/XMLSchema#integer",
   "https://ref.openepcis.io/extensions/eu/textile/visualInspectionTestMethod": "http://www.w3.org/2001/XMLSchema#string",
-  "https://ref.openepcis.io/extensions/eu/textile/washingSymbol": "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode",
-  "https://ref.openepcis.io/extensions/eu/textile/wasteOriginType": "https://ref.openepcis.io/extensions/eu/textile/WasteOriginType",
-  "https://ref.openepcis.io/extensions/eu/textile/waterUsage": "https://ref.gs1.org/voc/QuantitativeValue",
-  "https://ref.openepcis.io/extensions/eu/textile/weavingFacility": "https://ref.openepcis.io/extensions/common/core/FacilityInformation",
   "https://ref.openepcis.io/extensions/eu/textile/weightExcludingTrims": "http://www.w3.org/2001/XMLSchema#decimal",
-  "https://ref.openepcis.io/extensions/us/fsma204/foodTraceabilityListCategory": "https://ref.openepcis.io/extensions/us/fsma204/FoodTraceabilityList"
+  "https://ref.openepcis.io/extensions/us/fsma204/hasFoodTraceabilityListCategory": "https://ref.openepcis.io/extensions/us/fsma204/FoodTraceabilityList"
 };
 
 // demos/en18223-converter/contexts.json
 var contexts_default = {
   "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld": {
-    _comment: "OpenEPCIS DPP Core Vocabulary v0.9.7, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS DPP Core Vocabulary v0.9.9, generated from extensions/common/core/ontology/dpp-core.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/common/core/context/.context-overrides.json for non-derivable hints.",
     "@context": {
       "@version": 1.1,
       id: "@id",
       type: "@type",
       gs1: "https://ref.gs1.org/voc/",
       oec: "https://ref.openepcis.io/extensions/common/core/",
+      rdfs: "http://www.w3.org/2000/01/rdf-schema#",
       schema: "https://schema.org/",
       xsd: "http://www.w3.org/2001/XMLSchema#",
-      rdfs: "http://www.w3.org/2000/01/rdf-schema#",
       "rdfs:comment": {
         "@id": "rdfs:comment",
-        "@container": "@set"
-      },
-      "oec:masterDataAvailableFor": {
-        "@id": "oec:masterDataAvailableFor",
         "@container": "@set"
       },
       "gs1:productionDate": {
@@ -21186,33 +21277,33 @@ var contexts_default = {
         "@id": "gs1:netWeight",
         "@type": "@id"
       },
-      "oec:extendedProducerResponsibility": {
-        "@id": "oec:extendedProducerResponsibility",
+      "oec:hasExtendedProducerResponsibility": {
+        "@id": "oec:hasExtendedProducerResponsibility",
         "@type": "@id",
         "@container": "@set"
       },
-      "oec:eprScheme": {
-        "@id": "oec:eprScheme",
+      "oec:hasEprScheme": {
+        "@id": "oec:hasEprScheme",
         "@type": "@id"
       },
-      "oec:eprJurisdiction": {
-        "@id": "oec:eprJurisdiction",
+      "oec:hasEprJurisdiction": {
+        "@id": "oec:hasEprJurisdiction",
         "@type": "@id"
       },
       "oec:eprComplianceUrl": {
         "@id": "oec:eprComplianceUrl",
         "@type": "xsd:anyURI"
       },
-      "oec:biodegradability": {
-        "@id": "oec:biodegradability",
+      "oec:hasBiodegradability": {
+        "@id": "oec:hasBiodegradability",
         "@type": "@id"
       },
       "oec:biodegradationPercentage": {
         "@id": "oec:biodegradationPercentage",
         "@type": "@id"
       },
-      "oec:compostability": {
-        "@id": "oec:compostability",
+      "oec:hasCompostability": {
+        "@id": "oec:hasCompostability",
         "@type": "@id"
       },
       "oec:compostabilityStandard": {
@@ -21223,52 +21314,52 @@ var contexts_default = {
         "@id": "oec:bioBasedFraction",
         "@type": "xsd:decimal"
       },
-      "oec:depositReturnScheme": {
-        "@id": "oec:depositReturnScheme",
+      "oec:hasDepositReturnScheme": {
+        "@id": "oec:hasDepositReturnScheme",
         "@type": "@id"
       },
-      "oec:depositAmount": {
-        "@id": "oec:depositAmount",
+      "oec:hasDepositAmount": {
+        "@id": "oec:hasDepositAmount",
         "@type": "@id"
       },
-      "oec:depositSchemeOperator": {
-        "@id": "oec:depositSchemeOperator",
+      "oec:hasDepositSchemeOperator": {
+        "@id": "oec:hasDepositSchemeOperator",
         "@type": "@id"
       },
       "oec:depositRedemptionChannelUrl": {
         "@id": "oec:depositRedemptionChannelUrl",
         "@type": "xsd:anyURI"
       },
-      "oec:carbonFootprintDeclaration": {
-        "@id": "oec:carbonFootprintDeclaration",
+      "oec:hasCarbonFootprintDeclaration": {
+        "@id": "oec:hasCarbonFootprintDeclaration",
         "@type": "@id"
       },
-      "oec:carbonFootprintRawMaterial": {
-        "@id": "oec:carbonFootprintRawMaterial",
+      "oec:hasCarbonFootprintRawMaterial": {
+        "@id": "oec:hasCarbonFootprintRawMaterial",
         "@type": "@id"
       },
-      "oec:carbonFootprintProduction": {
-        "@id": "oec:carbonFootprintProduction",
+      "oec:hasCarbonFootprintProduction": {
+        "@id": "oec:hasCarbonFootprintProduction",
         "@type": "@id"
       },
-      "oec:carbonFootprintDistribution": {
-        "@id": "oec:carbonFootprintDistribution",
+      "oec:hasCarbonFootprintDistribution": {
+        "@id": "oec:hasCarbonFootprintDistribution",
         "@type": "@id"
       },
-      "oec:carbonFootprintUse": {
-        "@id": "oec:carbonFootprintUse",
+      "oec:hasCarbonFootprintUse": {
+        "@id": "oec:hasCarbonFootprintUse",
         "@type": "@id"
       },
-      "oec:carbonFootprintEndOfLife": {
-        "@id": "oec:carbonFootprintEndOfLife",
+      "oec:hasCarbonFootprintEndOfLife": {
+        "@id": "oec:hasCarbonFootprintEndOfLife",
         "@type": "@id"
       },
       "oec:carbonFootprintMethodology": {
         "@id": "oec:carbonFootprintMethodology",
         "@type": "xsd:anyURI"
       },
-      "oec:recyclabilityAssessment": {
-        "@id": "oec:recyclabilityAssessment",
+      "oec:hasRecyclabilityAssessment": {
+        "@id": "oec:hasRecyclabilityAssessment",
         "@type": "@id"
       },
       "oec:recyclabilityScore": {
@@ -21283,32 +21374,32 @@ var contexts_default = {
         "@id": "oec:recyclabilityMethodology",
         "@type": "xsd:anyURI"
       },
-      "oec:energyEfficiency": {
-        "@id": "oec:energyEfficiency",
+      "oec:hasEnergyEfficiency": {
+        "@id": "oec:hasEnergyEfficiency",
         "@type": "@id"
       },
-      "oec:annualEnergyConsumption": {
-        "@id": "oec:annualEnergyConsumption",
+      "oec:hasAnnualEnergyConsumption": {
+        "@id": "oec:hasAnnualEnergyConsumption",
         "@type": "@id"
       },
-      "oec:powerConsumptionOn": {
-        "@id": "oec:powerConsumptionOn",
+      "oec:hasPowerConsumptionOn": {
+        "@id": "oec:hasPowerConsumptionOn",
         "@type": "@id"
       },
-      "oec:powerConsumptionStandby": {
-        "@id": "oec:powerConsumptionStandby",
+      "oec:hasPowerConsumptionStandby": {
+        "@id": "oec:hasPowerConsumptionStandby",
         "@type": "@id"
       },
-      "oec:powerConsumptionOff": {
-        "@id": "oec:powerConsumptionOff",
+      "oec:hasPowerConsumptionOff": {
+        "@id": "oec:hasPowerConsumptionOff",
         "@type": "@id"
       },
       "oec:eprelProductUrl": {
         "@id": "oec:eprelProductUrl",
         "@type": "xsd:anyURI"
       },
-      "oec:endOfLifeProgram": {
-        "@id": "oec:endOfLifeProgram",
+      "oec:hasEndOfLifeProgram": {
+        "@id": "oec:hasEndOfLifeProgram",
         "@type": "@id"
       },
       "oec:takeBackUrl": {
@@ -21339,8 +21430,8 @@ var contexts_default = {
         "@id": "oec:repairInformationPortalUrl",
         "@type": "xsd:anyURI"
       },
-      "oec:repairProvider": {
-        "@id": "oec:repairProvider",
+      "oec:hasRepairProvider": {
+        "@id": "oec:hasRepairProvider",
         "@type": "@id",
         "@container": "@set"
       },
@@ -21348,8 +21439,8 @@ var contexts_default = {
         "@id": "oec:repairProviderUrl",
         "@type": "xsd:anyURI"
       },
-      "oec:dueDiligenceRegulationContext": {
-        "@id": "oec:dueDiligenceRegulationContext",
+      "oec:hasDueDiligenceRegulationContext": {
+        "@id": "oec:hasDueDiligenceRegulationContext",
         "@type": "@id"
       },
       "oec:supplyChainTransparencyUrl": {
@@ -21368,12 +21459,12 @@ var contexts_default = {
         "@id": "gs1:value",
         "@type": "xsd:decimal"
       },
-      "oec:operatorInformation": {
-        "@id": "oec:operatorInformation",
+      "oec:hasOperatorInformation": {
+        "@id": "oec:hasOperatorInformation",
         "@type": "@id"
       },
-      "oec:dueDiligenceReport": {
-        "@id": "oec:dueDiligenceReport",
+      "oec:hasDueDiligenceReport": {
+        "@id": "oec:hasDueDiligenceReport",
         "@type": "@id"
       },
       "oec:reportUrl": {
@@ -21388,12 +21479,12 @@ var contexts_default = {
         "@id": "oec:reportDate",
         "@type": "xsd:date"
       },
-      "oec:verificationBody": {
-        "@id": "oec:verificationBody",
+      "oec:hasVerificationBody": {
+        "@id": "oec:hasVerificationBody",
         "@type": "@id"
       },
-      "oec:hazardousSubstances": {
-        "@id": "oec:hazardousSubstances",
+      "oec:hasHazardousSubstances": {
+        "@id": "oec:hasHazardousSubstances",
         "@type": "@id",
         "@container": "@set"
       },
@@ -21401,13 +21492,13 @@ var contexts_default = {
         "@id": "oec:concentration",
         "@type": "xsd:decimal"
       },
-      "oec:substancesOfConcern": {
-        "@id": "oec:substancesOfConcern",
+      "oec:hasSubstancesOfConcern": {
+        "@id": "oec:hasSubstancesOfConcern",
         "@type": "@id",
         "@container": "@set"
       },
-      "oec:documents": {
-        "@id": "oec:documents",
+      "oec:hasDocuments": {
+        "@id": "oec:hasDocuments",
         "@type": "@id",
         "@container": "@set"
       },
@@ -21423,8 +21514,8 @@ var contexts_default = {
         "@id": "schema:validUntil",
         "@type": "xsd:date"
       },
-      "oec:circularityPerformance": {
-        "@id": "oec:circularityPerformance",
+      "oec:hasCircularityPerformance": {
+        "@id": "oec:hasCircularityPerformance",
         "@type": "@id"
       },
       "oec:recyclableContent": {
@@ -21451,12 +21542,12 @@ var contexts_default = {
         "@id": "oec:separateCollectionInfo",
         "@type": "@id"
       },
-      "oec:dismantlingInstructions": {
-        "@id": "oec:dismantlingInstructions",
+      "oec:hasDismantlingInstructions": {
+        "@id": "oec:hasDismantlingInstructions",
         "@type": "@id"
       },
-      "oec:recycledContentDetails": {
-        "@id": "oec:recycledContentDetails",
+      "oec:hasRecycledContentDetails": {
+        "@id": "oec:hasRecycledContentDetails",
         "@type": "@id"
       },
       "oec:recycledContent": {
@@ -21471,8 +21562,8 @@ var contexts_default = {
         "@id": "oec:postConsumerRecycledContent",
         "@type": "xsd:decimal"
       },
-      "oec:materialComposition": {
-        "@id": "oec:materialComposition",
+      "oec:hasMaterialComposition": {
+        "@id": "oec:hasMaterialComposition",
         "@type": "@id",
         "@container": "@set"
       },
@@ -21484,12 +21575,12 @@ var contexts_default = {
         "@id": "oec:isCriticalRawMaterial",
         "@type": "xsd:boolean"
       },
-      "oec:emissionsPerformance": {
-        "@id": "oec:emissionsPerformance",
+      "oec:hasEmissionsPerformance": {
+        "@id": "oec:hasEmissionsPerformance",
         "@type": "@id"
       },
-      "oec:carbonFootprint": {
-        "@id": "oec:carbonFootprint",
+      "oec:hasCarbonFootprint": {
+        "@id": "oec:hasCarbonFootprint",
         "@type": "@id"
       },
       "oec:carbonFootprintTotal": {
@@ -21504,8 +21595,8 @@ var contexts_default = {
         "@id": "oec:primarySourcedRatio",
         "@type": "xsd:decimal"
       },
-      "oec:traceabilityPerformance": {
-        "@id": "oec:traceabilityPerformance",
+      "oec:hasTraceabilityPerformance": {
+        "@id": "oec:hasTraceabilityPerformance",
         "@type": "@id"
       },
       "oec:verifiedRatio": {
@@ -21535,57 +21626,57 @@ var contexts_default = {
         "@id": "oec:complianceStatus",
         "@type": "xsd:boolean"
       },
-      "oec:facilityInformation": {
-        "@id": "oec:facilityInformation",
+      "oec:hasFacilityInformation": {
+        "@id": "oec:hasFacilityInformation",
         "@type": "@id"
       },
       "gs1:address": {
         "@id": "gs1:address",
         "@type": "@id"
       },
-      "oec:facilityCertifications": {
-        "@id": "oec:facilityCertifications",
+      "oec:hasFacilityCertifications": {
+        "@id": "oec:hasFacilityCertifications",
         "@type": "@id",
         "@container": "@set"
       },
-      "oec:performanceInfo": {
-        "@id": "oec:performanceInfo",
+      "oec:hasPerformanceInfo": {
+        "@id": "oec:hasPerformanceInfo",
         "@type": "@id"
       },
-      "oec:expectedLifespan": {
-        "@id": "oec:expectedLifespan",
+      "oec:hasExpectedLifespan": {
+        "@id": "oec:hasExpectedLifespan",
         "@type": "@id"
       },
-      "oec:guaranteedLifespan": {
-        "@id": "oec:guaranteedLifespan",
+      "oec:hasGuaranteedLifespan": {
+        "@id": "oec:hasGuaranteedLifespan",
         "@type": "@id"
       },
       "oec:usageCycles": {
         "@id": "oec:usageCycles",
         "@type": "xsd:integer"
       },
-      "oec:technicalLifetime": {
-        "@id": "oec:technicalLifetime",
+      "oec:hasTechnicalLifetime": {
+        "@id": "oec:hasTechnicalLifetime",
         "@type": "@id"
       },
-      "oec:repairabilityInfo": {
-        "@id": "oec:repairabilityInfo",
+      "oec:hasRepairabilityInfo": {
+        "@id": "oec:hasRepairabilityInfo",
         "@type": "@id"
       },
       "oec:repairabilityScore": {
         "@id": "oec:repairabilityScore",
         "@type": "xsd:decimal"
       },
-      "oec:sparePartsAvailability": {
-        "@id": "oec:sparePartsAvailability",
+      "oec:hasSparePartsAvailability": {
+        "@id": "oec:hasSparePartsAvailability",
         "@type": "@id"
       },
       "schema:deliveryTime": {
         "@id": "schema:deliveryTime",
         "@type": "@id"
       },
-      "oec:repairInstructions": {
-        "@id": "oec:repairInstructions",
+      "oec:hasRepairInstructions": {
+        "@id": "oec:hasRepairInstructions",
         "@type": "@id"
       },
       "oec:professionalRepairNetwork": {
@@ -21596,21 +21687,21 @@ var contexts_default = {
         "@id": "oec:diyRepairPossible",
         "@type": "xsd:boolean"
       },
-      "oec:softwareUpdatesAvailability": {
-        "@id": "oec:softwareUpdatesAvailability",
+      "oec:hasSoftwareUpdatesAvailability": {
+        "@id": "oec:hasSoftwareUpdatesAvailability",
         "@type": "@id"
       },
-      "oec:accessRights": {
-        "@id": "oec:accessRights",
+      "oec:hasAccessRights": {
+        "@id": "oec:hasAccessRights",
         "@type": "@id"
       },
-      "oec:authorizedParties": {
-        "@id": "oec:authorizedParties",
+      "oec:hasAuthorizedParties": {
+        "@id": "oec:hasAuthorizedParties",
         "@type": "@id",
         "@container": "@set"
       },
-      "oec:dataRetentionPeriod": {
-        "@id": "oec:dataRetentionPeriod",
+      "oec:hasDataRetentionPeriod": {
+        "@id": "oec:hasDataRetentionPeriod",
         "@type": "@id"
       },
       "gs1:productID": {
@@ -21641,20 +21732,20 @@ var contexts_default = {
         "@id": "oec:dictionaryReference",
         "@type": "@id"
       },
-      "oec:dataElement": {
-        "@id": "oec:dataElement",
+      "oec:hasDataElement": {
+        "@id": "oec:hasDataElement",
         "@container": "@set"
       },
-      "oec:multiLanguageValue": {
-        "@id": "oec:multiLanguageValue",
+      "oec:hasMultiLanguageValue": {
+        "@id": "oec:hasMultiLanguageValue",
         "@container": "@set"
       },
       "oec:passportExpiryDate": {
         "@id": "oec:passportExpiryDate",
         "@type": "xsd:date"
       },
-      "oec:passportIssuer": {
-        "@id": "oec:passportIssuer",
+      "oec:hasPassportIssuer": {
+        "@id": "oec:hasPassportIssuer",
         "@type": "@id"
       },
       "oec:previousPassportVersion": {
@@ -21681,8 +21772,8 @@ var contexts_default = {
         "@id": "oec:tradeItemPieceOf",
         "@type": "@id"
       },
-      "oec:tradeItemPieces": {
-        "@id": "oec:tradeItemPieces",
+      "oec:hasTradeItemPieces": {
+        "@id": "oec:hasTradeItemPieces",
         "@type": "@id",
         "@container": "@set"
       },
@@ -21697,6 +21788,20 @@ var contexts_default = {
       "oec:remanufacturingDate": {
         "@id": "oec:remanufacturingDate",
         "@type": "xsd:dateTime"
+      },
+      "gs1:masterDataAvailableFor": {
+        "@id": "gs1:masterDataAvailableFor",
+        "@container": "@set",
+        "@context": "https://ref.openepcis.io/extensions/common/core/gs1-shortcuts-context.jsonld"
+      },
+      "gs1:glnType": {
+        "@id": "gs1:glnType",
+        "@type": "@id"
+      },
+      "gs1:organizationRole": {
+        "@id": "gs1:organizationRole",
+        "@type": "@id",
+        "@container": "@set"
       }
     }
   },
@@ -21709,7 +21814,11 @@ var contexts_default = {
       "own operational context (e.g. eu/battery/battery-operational-context.jsonld) that layers this base",
       "plus that module's vocabulary, so a battery passport resolves the battery terms without dragging in",
       "textile/electronics. Attaching the applicable operational context to the compact GS1 master-data",
-      "body (the resolver POST /products payload) makes it self-describing JSON-LD that expands to the RDF."
+      "body (the resolver POST /products payload) makes it self-describing JSON-LD that expands to the RDF.",
+      "Every envelope alias below must carry the SAME coercion as the term's definition in the standard",
+      "dpp-core context (and hence the TTL range), because this inline block is last in the array and",
+      "therefore wins. An @id here on a term whose range is xsd:string silently turns the value into a",
+      "relative IRI in the compressed form. scripts/en18223/golden-fidelity-check.ts gates that."
     ],
     "@context": [
       "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
@@ -21737,14 +21846,15 @@ var contexts_default = {
         },
         economicOperatorId: {
           "@id": "oec:economicOperatorId",
-          "@type": "@id"
+          "@type": "xsd:string"
         },
         facilityId: {
           "@id": "oec:facilityId",
-          "@type": "@id"
+          "@type": "xsd:string"
         },
         contentSpecificationIds: {
           "@id": "oec:contentSpecificationId",
+          "@type": "@id",
           "@container": "@set"
         }
       }
@@ -21757,21 +21867,20 @@ var contexts_default = {
       gs1: "https://ref.gs1.org/voc/",
       oec: "https://ref.openepcis.io/extensions/common/core/",
       schema: "https://schema.org/",
+      cv: "http://data.europa.eu/m8g/",
+      cccev: "http://data.europa.eu/m8g/",
       xsd: "http://www.w3.org/2001/XMLSchema#",
+      rdfs: "http://www.w3.org/2000/01/rdf-schema#",
       AccessLevel: "oec:AccessLevel",
       AccessRights: "oec:AccessRights",
-      AdditionalProductClassificationDetails: "gs1:AdditionalProductClassificationDetails",
       BatchLevel: "oec:BatchLevel",
       Biodegradability: "oec:Biodegradability",
       BiodegradabilityTestMethod: "oec:BiodegradabilityTestMethod",
       CarbonFootprintDeclaration: "oec:CarbonFootprintDeclaration",
-      CertificationDetails: "gs1:CertificationDetails",
       CircularityInfo: "oec:CircularityPerformance",
       CircularityPerformance: "oec:CircularityPerformance",
       Compostability: "oec:Compostability",
       CompostabilityType: "oec:CompostabilityType",
-      ContactPoint: "gs1:ContactPoint",
-      Country: "gs1:Country",
       CustomsCommodityCodeType: "oec:CustomsCommodityCodeType",
       DPPGranularity: "oec:DPPGranularity",
       DataElement: "oec:DataElement",
@@ -21782,7 +21891,7 @@ var contexts_default = {
         "@id": "oec:DocumentReference",
         "@context": {
           resourceTitle: {
-            "@id": "oec:documentTitle"
+            "@id": "schema:name"
           },
           contentType: {
             "@id": "oec:mimeType"
@@ -21803,12 +21912,18 @@ var contexts_default = {
       EnergyEfficiency: "oec:EnergyEfficiency",
       EnergyEfficiencyClass: "oec:EnergyEfficiencyClass",
       EnvironmentalProductDeclaration: "oec:EnvironmentalProductDeclaration",
+      Evidence: {
+        "@id": "cccev:Evidence"
+      },
       ExtendedProducerResponsibility: "oec:ExtendedProducerResponsibility",
       FacilityInformation: "oec:FacilityInformation",
       GranularityLevel: "oec:GranularityLevel",
       HazardClass: "oec:HazardClass",
       HazardSignalWord: "oec:HazardSignalWord",
       HazardousSubstance: "oec:HazardousSubstance",
+      ImageObject: {
+        "@id": "schema:ImageObject"
+      },
       ImpactIndicatorResult: "oec:ImpactIndicatorResult",
       ImpactIndicatorType: "oec:ImpactIndicatorType",
       IndividualTradeItemPiece: "oec:IndividualTradeItemPiece",
@@ -21825,27 +21940,17 @@ var contexts_default = {
       OperationalScope: "oec:OperationalScope",
       OperatorInformation: "oec:OperatorInformation",
       OperatorRole: "oec:OperatorRole",
-      Organization: "gs1:Organization",
       PassportStatus: "oec:PassportStatus",
       PerformanceInfo: "oec:PerformanceInfo",
-      Place: "gs1:Place",
-      PostalAddress: "gs1:PostalAddress",
-      PriceSpecification: "gs1:PriceSpecification",
-      Product: "gs1:Product",
       ProductCategory: "oec:ProductCategory",
-      QuantitativeValue: "gs1:QuantitativeValue",
       RecyclabilityAssessment: "oec:RecyclabilityAssessment",
       RecycledContent: "oec:RecycledContent",
-      ReferencedFileDetails: "gs1:ReferencedFileDetails",
-      RegulatoryInformation: "gs1:RegulatoryInformation",
       RepairProvider: "oec:RepairProvider",
       RepairabilityInfo: "oec:RepairabilityInfo",
       SingleValuedDataElement: "oec:SingleValuedDataElement",
       SubstanceOfConcern: "oec:SubstanceOfConcern",
       Temperature: "gs1:Temperature",
-      TextileMaterialDetails: "gs1:TextileMaterialDetails",
       TraceabilityPerformance: "oec:TraceabilityPerformance",
-      WarrantyPromise: "gs1:WarrantyPromise",
       _comment: {
         "@id": "rdfs:comment",
         "@container": "@set"
@@ -21907,62 +22012,24 @@ var contexts_default = {
         "@container": "@set"
       },
       _scenario: "rdfs:comment",
-      accessLevel: {
-        "@id": "oec:accessLevel",
-        "@type": "@vocab",
-        "@context": {
-          AuthorizedOnly: "oec:AuthorizedOnly",
-          Public: "oec:Public",
-          Restricted: "oec:Restricted"
-        }
-      },
-      accessRights: {
-        "@id": "oec:accessRights",
-        "@type": "@id"
-      },
       activityClassification: {
         "@id": "oec:activityClassification",
         "@type": "xsd:string"
       },
-      additionalProductClassification: "gs1:additionalProductClassification",
-      additionalProductClassificationCode: "gs1:additionalProductClassificationCode",
-      additionalProductClassificationCodeDescription: "gs1:additionalProductClassificationCodeDescription",
       additionalProductClassificationSystemCode: "gs1:additionalProductClassificationCode",
-      address: {
-        "@id": "gs1:address",
-        "@type": "@id"
-      },
-      addressCountry: "gs1:addressCountry",
-      addressLocality: "gs1:addressLocality",
       alternateName: "schema:alternateName",
-      annualEnergyConsumption: {
-        "@id": "oec:annualEnergyConsumption",
-        "@type": "@id"
-      },
       authorizedParties: {
-        "@id": "oec:authorizedParties",
+        "@id": "oec:hasAuthorizedParties",
         "@type": "@id",
         "@container": "@set"
       },
-      bestBeforeDate: "gs1:bestBeforeDate",
       bioBasedFraction: {
         "@id": "oec:bioBasedFraction",
         "@type": "xsd:decimal"
       },
       biodegradability: {
-        "@id": "oec:biodegradability",
+        "@id": "oec:hasBiodegradability",
         "@type": "@id"
-      },
-      biodegradabilityTestMethod: {
-        "@id": "oec:biodegradabilityTestMethod",
-        "@type": "@vocab",
-        "@context": {
-          ISO14593: "oec:ISO14593",
-          OECD301B: "oec:OECD301B",
-          OECD301D: "oec:OECD301D",
-          OECD301F: "oec:OECD301F",
-          OECD310: "oec:OECD310"
-        }
       },
       biodegradationPercentage: {
         "@id": "oec:biodegradationPercentage",
@@ -21970,33 +22037,9 @@ var contexts_default = {
       },
       brand: "schema:brand",
       caption: "schema:caption",
-      carbonFootprint: {
-        "@id": "oec:carbonFootprint",
-        "@type": "@id"
-      },
-      carbonFootprintDeclaration: {
-        "@id": "oec:carbonFootprintDeclaration",
-        "@type": "@id"
-      },
-      carbonFootprintDistribution: {
-        "@id": "oec:carbonFootprintDistribution",
-        "@type": "@id"
-      },
-      carbonFootprintEndOfLife: {
-        "@id": "oec:carbonFootprintEndOfLife",
-        "@type": "@id"
-      },
       carbonFootprintMethodology: {
         "@id": "oec:carbonFootprintMethodology",
         "@type": "xsd:anyURI"
-      },
-      carbonFootprintProduction: {
-        "@id": "oec:carbonFootprintProduction",
-        "@type": "@id"
-      },
-      carbonFootprintRawMaterial: {
-        "@id": "oec:carbonFootprintRawMaterial",
-        "@type": "@id"
       },
       carbonFootprintStudyUrl: {
         "@id": "oec:carbonFootprintStudyUrl",
@@ -22006,32 +22049,17 @@ var contexts_default = {
         "@id": "oec:carbonFootprintTotal",
         "@type": "xsd:decimal"
       },
-      carbonFootprintUnit: "oec:carbonFootprintUnit",
-      carbonFootprintUse: {
-        "@id": "oec:carbonFootprintUse",
-        "@type": "@id"
-      },
       casNumber: {
         "@id": "oec:casNumber",
         "@type": "xsd:string"
       },
-      catchZone: "gs1:catchZone",
-      certification: "gs1:certification",
-      certificationAgency: "gs1:certificationAgency",
-      certificationEndDate: "gs1:certificationEndDate",
-      certificationIdentification: "gs1:certificationIdentification",
-      certificationStandard: "gs1:certificationStandard",
-      certificationStartDate: "gs1:certificationStartDate",
-      certificationSubject: "gs1:certificationSubject",
-      certificationURI: "gs1:certificationURI",
-      certificationValue: "gs1:certificationValue",
-      circularityPerformance: {
-        "@id": "oec:circularityPerformance",
-        "@type": "@id"
-      },
       collectionPointDirectoryUrl: {
         "@id": "oec:collectionPointDirectoryUrl",
         "@type": "xsd:anyURI"
+      },
+      combinedNomenclatureCode: {
+        "@id": "oec:combinedNomenclatureCode",
+        "@type": "xsd:string"
       },
       complianceDate: {
         "@id": "oec:complianceDate",
@@ -22050,28 +22078,17 @@ var contexts_default = {
         "@type": "xsd:string"
       },
       compostability: {
-        "@id": "oec:compostability",
+        "@id": "oec:hasCompostability",
         "@type": "@id"
       },
       compostabilityStandard: {
         "@id": "oec:compostabilityStandard",
         "@type": "xsd:anyURI"
       },
-      compostabilityType: {
-        "@id": "oec:compostabilityType",
-        "@type": "@vocab",
-        "@context": {
-          HomeCompostable: "oec:HomeCompostable",
-          IndustrialCompostable: "oec:IndustrialCompostable",
-          NotCompostable: "oec:NotCompostable"
-        }
-      },
       concentration: {
         "@id": "oec:concentration",
         "@type": "xsd:decimal"
       },
-      consumerRecyclingInstructions: "gs1:consumerRecyclingInstructions",
-      contactPoint: "gs1:contactPoint",
       contentDescription: "schema:description",
       contentSpecificationId: {
         "@id": "oec:contentSpecificationId",
@@ -22083,8 +22100,6 @@ var contexts_default = {
         "@container": "@set"
       },
       contentUrl: "schema:contentUrl",
-      countryCode: "gs1:countryCode",
-      countryOfOrigin: "gs1:countryOfOrigin",
       crmListVersion: {
         "@id": "oec:crmListVersion",
         "@type": "xsd:string"
@@ -22093,19 +22108,8 @@ var contexts_default = {
         "@id": "oec:customsCommodityCode",
         "@type": "xsd:string"
       },
-      customsCommodityCodeType: {
-        "@id": "oec:customsCommodityCodeType",
-        "@type": "@vocab",
-        "@context": {
-          CN10: "oec:CN10",
-          CN8: "oec:CN8",
-          HS6: "oec:HS6",
-          HS8: "oec:HS8",
-          HTSUS10: "oec:HTSUS10"
-        }
-      },
       dataElement: {
-        "@id": "oec:dataElement",
+        "@id": "oec:hasDataElement",
         "@container": "@set"
       },
       dataProviderCertification: {
@@ -22116,29 +22120,13 @@ var contexts_default = {
         "@id": "oec:dataQualityAssessment",
         "@type": "xsd:string"
       },
-      dataRetentionPeriod: {
-        "@id": "oec:dataRetentionPeriod",
-        "@type": "@id"
-      },
       declaredUnit: {
         "@id": "oec:declaredUnit",
         "@type": "xsd:string"
       },
-      depositAmount: {
-        "@id": "oec:depositAmount",
-        "@type": "@id"
-      },
       depositRedemptionChannelUrl: {
         "@id": "oec:depositRedemptionChannelUrl",
         "@type": "xsd:anyURI"
-      },
-      depositReturnScheme: {
-        "@id": "oec:depositReturnScheme",
-        "@type": "@id"
-      },
-      depositSchemeOperator: {
-        "@id": "oec:depositSchemeOperator",
-        "@type": "@id"
       },
       dictionaryReference: {
         "@id": "oec:dictionaryReference",
@@ -22156,35 +22144,17 @@ var contexts_default = {
         "@id": "oec:dismantlingGuideUrl",
         "@type": "xsd:anyURI"
       },
-      dismantlingInstructions: {
-        "@id": "oec:dismantlingInstructions",
-        "@type": "@id"
-      },
       diyRepairPossible: {
         "@id": "oec:diyRepairPossible",
         "@type": "xsd:boolean"
       },
       documentTitle: "schema:name",
-      documentType: {
-        "@id": "oec:documentType",
-        "@type": "@vocab",
-        "@context": {
-          Certificate: "oec:Certificate",
-          DeclarationOfConformity: "oec:DeclarationOfConformity",
-          DueDiligenceDocument: "oec:DueDiligenceDocument",
-          EnvironmentalReport: "oec:EnvironmentalReport",
-          Manual: "oec:Manual",
-          SafetyDataSheet: "oec:SafetyDataSheet",
-          TestReport: "oec:TestReport",
-          ThirdPartyVerification: "oec:ThirdPartyVerification"
-        }
-      },
       documentUrl: {
         "@id": "oec:documentUrl",
         "@type": "@id"
       },
       documents: {
-        "@id": "oec:documents",
+        "@id": "oec:hasDocuments",
         "@type": "@id",
         "@container": "@set"
       },
@@ -22195,15 +22165,6 @@ var contexts_default = {
       dppStatus: {
         "@id": "oec:passportStatus"
       },
-      dueDiligenceRegulationContext: {
-        "@id": "oec:dueDiligenceRegulationContext",
-        "@type": "@id"
-      },
-      dueDiligenceReport: {
-        "@id": "oec:dueDiligenceReport",
-        "@type": "@id"
-      },
-      durationOfWarranty: "gs1:durationOfWarranty",
       ecNumber: {
         "@id": "oec:ecNumber",
         "@type": "xsd:string"
@@ -22216,25 +22177,12 @@ var contexts_default = {
         "@id": "oec:elementId",
         "@type": "xsd:string"
       },
-      email: "gs1:email",
-      emissionsPerformance: {
-        "@id": "oec:emissionsPerformance",
-        "@type": "@id"
-      },
       endOfLifeInstructions: {
         "@id": "oec:endOfLifeInstructions",
         "@type": "@id"
       },
-      endOfLifeProgram: {
-        "@id": "oec:endOfLifeProgram",
-        "@type": "@id"
-      },
-      energyEfficiency: {
-        "@id": "oec:energyEfficiency",
-        "@type": "@id"
-      },
       energyEfficiencyClass: {
-        "@id": "oec:energyEfficiencyClass",
+        "@id": "oec:hasEnergyEfficiencyClass",
         "@type": "@vocab",
         "@context": {
           A: "oec:EnergyClassA",
@@ -22252,10 +22200,6 @@ var contexts_default = {
           EnergyClassF: "oec:EnergyClassF",
           EnergyClassG: "oec:EnergyClassG"
         }
-      },
-      environmentalProductDeclaration: {
-        "@id": "oec:environmentalProductDeclaration",
-        "@type": "@id"
       },
       eoriNumber: {
         "@id": "oec:eoriNumber",
@@ -22281,17 +22225,9 @@ var contexts_default = {
         "@id": "oec:eprComplianceUrl",
         "@type": "xsd:anyURI"
       },
-      eprJurisdiction: {
-        "@id": "oec:eprJurisdiction",
-        "@type": "@id"
-      },
       eprRegistrationNumber: {
         "@id": "oec:eprRegistrationNumber",
         "@type": "xsd:string"
-      },
-      eprScheme: {
-        "@id": "oec:eprScheme",
-        "@type": "@id"
       },
       eprWasteStream: {
         "@id": "oec:eprWasteStream",
@@ -22305,17 +22241,13 @@ var contexts_default = {
         "@id": "oec:eprelRegistrationNumber",
         "@type": "xsd:string"
       },
-      expectedLifespan: {
-        "@id": "oec:expectedLifespan",
-        "@type": "@id"
-      },
       extendedProducerResponsibility: {
-        "@id": "oec:extendedProducerResponsibility",
+        "@id": "oec:hasExtendedProducerResponsibility",
         "@type": "@id",
         "@container": "@set"
       },
       facilityCertifications: {
-        "@id": "oec:facilityCertifications",
+        "@id": "oec:hasFacilityCertifications",
         "@type": "@id",
         "@container": "@set"
       },
@@ -22323,22 +22255,15 @@ var contexts_default = {
         "@id": "oec:facilityId",
         "@type": "xsd:string"
       },
-      facilityInformation: {
-        "@id": "oec:facilityInformation",
-        "@type": "@id"
-      },
       facilityType: {
         "@id": "oec:facilityType",
         "@type": "xsd:string"
       },
-      fileLanguageCode: "gs1:fileLanguageCode",
-      fishType: "gs1:fishType",
       forcedLabourFreeAssertion: {
         "@id": "oec:forcedLabourFreeAssertion",
         "@type": "xsd:boolean"
       },
       gln: "gs1:globalLocationNumber",
-      globalLocationNumber: "gs1:globalLocationNumber",
       granularity: {
         "@id": "oec:granularityLevel"
       },
@@ -22346,17 +22271,211 @@ var contexts_default = {
         "@id": "oec:granularityLevel",
         "@type": "xsd:string"
       },
-      gtin: "gs1:gtin",
-      guaranteedLifespan: {
-        "@id": "oec:guaranteedLifespan",
+      hasAccessLevel: {
+        "@id": "oec:hasAccessLevel",
+        "@type": "@vocab",
+        "@context": {
+          AuthorizedOnly: "oec:AuthorizedOnly",
+          Public: "oec:Public",
+          Restricted: "oec:Restricted"
+        }
+      },
+      hasAccessRights: {
+        "@id": "oec:hasAccessRights",
         "@type": "@id"
       },
-      harvestDateEnd: "gs1:harvestDateEnd",
-      harvestDateStart: "gs1:harvestDateStart",
-      hasBatchLotNumber: "gs1:hasBatchLotNumber",
-      hasSerialNumber: "gs1:hasSerialNumber",
-      hazardClass: {
-        "@id": "oec:hazardClass",
+      hasAnnualEnergyConsumption: {
+        "@id": "oec:hasAnnualEnergyConsumption",
+        "@type": "@id"
+      },
+      hasAuthorizedParties: {
+        "@id": "oec:hasAuthorizedParties",
+        "@type": "@id"
+      },
+      hasBiodegradability: {
+        "@id": "oec:hasBiodegradability",
+        "@type": "@id"
+      },
+      hasBiodegradabilityTestMethod: {
+        "@id": "oec:hasBiodegradabilityTestMethod",
+        "@type": "@vocab",
+        "@context": {
+          ISO14593: "oec:ISO14593",
+          OECD301B: "oec:OECD301B",
+          OECD301D: "oec:OECD301D",
+          OECD301F: "oec:OECD301F",
+          OECD310: "oec:OECD310"
+        }
+      },
+      hasCarbonFootprint: {
+        "@id": "oec:hasCarbonFootprint",
+        "@type": "@id"
+      },
+      hasCarbonFootprintDeclaration: {
+        "@id": "oec:hasCarbonFootprintDeclaration",
+        "@type": "@id"
+      },
+      hasCarbonFootprintDistribution: {
+        "@id": "oec:hasCarbonFootprintDistribution",
+        "@type": "@id"
+      },
+      hasCarbonFootprintEndOfLife: {
+        "@id": "oec:hasCarbonFootprintEndOfLife",
+        "@type": "@id"
+      },
+      hasCarbonFootprintProduction: {
+        "@id": "oec:hasCarbonFootprintProduction",
+        "@type": "@id"
+      },
+      hasCarbonFootprintRawMaterial: {
+        "@id": "oec:hasCarbonFootprintRawMaterial",
+        "@type": "@id"
+      },
+      hasCarbonFootprintUse: {
+        "@id": "oec:hasCarbonFootprintUse",
+        "@type": "@id"
+      },
+      hasCircularityPerformance: {
+        "@id": "oec:hasCircularityPerformance",
+        "@type": "@id"
+      },
+      hasCompostability: {
+        "@id": "oec:hasCompostability",
+        "@type": "@id"
+      },
+      hasCompostabilityType: {
+        "@id": "oec:hasCompostabilityType",
+        "@type": "@vocab",
+        "@context": {
+          HomeCompostable: "oec:HomeCompostable",
+          IndustrialCompostable: "oec:IndustrialCompostable",
+          NotCompostable: "oec:NotCompostable"
+        }
+      },
+      hasConformityDeclaration: {
+        "@id": "oec:hasConformityDeclaration",
+        "@type": "@id"
+      },
+      hasCustomsCommodityCodeType: {
+        "@id": "oec:hasCustomsCommodityCodeType",
+        "@type": "@vocab",
+        "@context": {
+          CN10: "oec:CN10",
+          CN8: "oec:CN8",
+          HS6: "oec:HS6",
+          HS8: "oec:HS8",
+          HTSUS10: "oec:HTSUS10"
+        }
+      },
+      hasDataElement: {
+        "@id": "oec:hasDataElement",
+        "@type": "@id"
+      },
+      hasDataRetentionPeriod: {
+        "@id": "oec:hasDataRetentionPeriod",
+        "@type": "@id"
+      },
+      hasDepositAmount: {
+        "@id": "oec:hasDepositAmount",
+        "@type": "@id"
+      },
+      hasDepositReturnScheme: {
+        "@id": "oec:hasDepositReturnScheme",
+        "@type": "@id"
+      },
+      hasDepositSchemeOperator: {
+        "@id": "oec:hasDepositSchemeOperator",
+        "@type": "@id"
+      },
+      hasDismantlingInstructions: {
+        "@id": "oec:hasDismantlingInstructions",
+        "@type": "@id"
+      },
+      hasDocumentType: {
+        "@id": "oec:hasDocumentType",
+        "@type": "@vocab",
+        "@context": {
+          Certificate: "oec:Certificate",
+          DeclarationOfConformity: "oec:DeclarationOfConformity",
+          DueDiligenceDocument: "oec:DueDiligenceDocument",
+          EnvironmentalReport: "oec:EnvironmentalReport",
+          Manual: "oec:Manual",
+          SafetyDataSheet: "oec:SafetyDataSheet",
+          TestReport: "oec:TestReport",
+          ThirdPartyVerification: "oec:ThirdPartyVerification"
+        }
+      },
+      hasDocuments: {
+        "@id": "oec:hasDocuments",
+        "@type": "@id"
+      },
+      hasDueDiligenceRegulationContext: {
+        "@id": "oec:hasDueDiligenceRegulationContext",
+        "@type": "@id"
+      },
+      hasDueDiligenceReport: {
+        "@id": "oec:hasDueDiligenceReport",
+        "@type": "@id"
+      },
+      hasEmissionsPerformance: {
+        "@id": "oec:hasEmissionsPerformance",
+        "@type": "@id"
+      },
+      hasEndOfLifeProgram: {
+        "@id": "oec:hasEndOfLifeProgram",
+        "@type": "@id"
+      },
+      hasEnergyEfficiency: {
+        "@id": "oec:hasEnergyEfficiency",
+        "@type": "@id"
+      },
+      hasEnergyEfficiencyClass: {
+        "@id": "oec:hasEnergyEfficiencyClass",
+        "@type": "@vocab",
+        "@context": {
+          EnergyClassA: "oec:EnergyClassA",
+          EnergyClassB: "oec:EnergyClassB",
+          EnergyClassC: "oec:EnergyClassC",
+          EnergyClassD: "oec:EnergyClassD",
+          EnergyClassE: "oec:EnergyClassE",
+          EnergyClassF: "oec:EnergyClassF",
+          EnergyClassG: "oec:EnergyClassG"
+        }
+      },
+      hasEnvironmentalProductDeclaration: {
+        "@id": "oec:hasEnvironmentalProductDeclaration",
+        "@type": "@id"
+      },
+      hasEprJurisdiction: {
+        "@id": "oec:hasEprJurisdiction",
+        "@type": "@id"
+      },
+      hasEprScheme: {
+        "@id": "oec:hasEprScheme",
+        "@type": "@id"
+      },
+      hasExpectedLifespan: {
+        "@id": "oec:hasExpectedLifespan",
+        "@type": "@id"
+      },
+      hasExtendedProducerResponsibility: {
+        "@id": "oec:hasExtendedProducerResponsibility",
+        "@type": "@id"
+      },
+      hasFacilityCertifications: {
+        "@id": "oec:hasFacilityCertifications",
+        "@type": "@id"
+      },
+      hasFacilityInformation: {
+        "@id": "oec:hasFacilityInformation",
+        "@type": "@id"
+      },
+      hasGuaranteedLifespan: {
+        "@id": "oec:hasGuaranteedLifespan",
+        "@type": "@id"
+      },
+      hasHazardClass: {
+        "@id": "oec:hasHazardClass",
         "@type": "@vocab",
         "@context": {
           AcuteToxicity: "oec:AcuteToxicity",
@@ -22371,49 +22490,24 @@ var contexts_default = {
           SpecificTargetOrganToxicity: "oec:SpecificTargetOrganToxicity"
         }
       },
-      hazardImpact: {
-        "@id": "oec:hazardImpact",
-        "@type": "xsd:string"
-      },
-      hazardPictogramCode: {
-        "@id": "oec:hazardPictogramCode",
-        "@container": "@set"
-      },
-      hazardSignalWord: {
-        "@id": "oec:hazardSignalWord",
+      hasHazardSignalWord: {
+        "@id": "oec:hasHazardSignalWord",
         "@type": "@vocab",
         "@context": {
-          Danger: "oec:HazardDanger",
-          Warning: "oec:HazardWarning",
           HazardDanger: "oec:HazardDanger",
           HazardWarning: "oec:HazardWarning"
         }
       },
-      hazardStatement: {
-        "@id": "oec:hazardStatement",
-        "@container": "@set"
-      },
-      hazardousSubstances: {
-        "@id": "oec:hazardousSubstances",
-        "@type": "@id",
-        "@container": "@set"
-      },
-      identifier: "@id",
-      identityCredentialUrl: {
-        "@id": "oec:identityCredentialUrl",
+      hasHazardousSubstances: {
+        "@id": "oec:hasHazardousSubstances",
         "@type": "@id"
       },
-      image: "schema:image",
-      impactIndicator: {
-        "@id": "oec:impactIndicator",
+      hasImpactIndicator: {
+        "@id": "oec:hasImpactIndicator",
         "@type": "@id"
       },
-      indicatorTotalValue: {
-        "@id": "oec:indicatorTotalValue",
-        "@type": "xsd:decimal"
-      },
-      indicatorType: {
-        "@id": "oec:indicatorType",
+      hasIndicatorType: {
+        "@id": "oec:hasIndicatorType",
         "@type": "@vocab",
         "@context": {
           ADPElements: "oec:ADPElements",
@@ -22431,16 +22525,205 @@ var contexts_default = {
           WDP: "oec:WDP"
         }
       },
+      hasLifecycleStage: {
+        "@id": "oec:hasLifecycleStage",
+        "@type": "@vocab",
+        "@context": {
+          StageA1: "oec:StageA1",
+          StageA2: "oec:StageA2",
+          StageA3: "oec:StageA3",
+          StageA4: "oec:StageA4",
+          StageA5: "oec:StageA5",
+          StageB1: "oec:StageB1",
+          StageB2: "oec:StageB2",
+          StageB3: "oec:StageB3",
+          StageB4: "oec:StageB4",
+          StageB5: "oec:StageB5",
+          StageB6: "oec:StageB6",
+          StageB7: "oec:StageB7",
+          StageC1: "oec:StageC1",
+          StageC2: "oec:StageC2",
+          StageC3: "oec:StageC3",
+          StageC4: "oec:StageC4",
+          StageD: "oec:StageD"
+        }
+      },
+      hasLifecycleStageResult: {
+        "@id": "oec:hasLifecycleStageResult",
+        "@type": "@id"
+      },
+      hasMaterialComposition: {
+        "@id": "oec:hasMaterialComposition",
+        "@type": "@id"
+      },
+      hasMaterialOrigin: {
+        "@id": "oec:hasMaterialOrigin",
+        "@type": "@id"
+      },
+      hasMultiLanguageValue: {
+        "@id": "oec:hasMultiLanguageValue",
+        "@type": "@id"
+      },
+      hasOperationalScope: {
+        "@id": "oec:hasOperationalScope",
+        "@type": "@vocab",
+        "@context": {
+          CradleToGate: "oec:CradleToGate",
+          CradleToGrave: "oec:CradleToGrave"
+        }
+      },
+      hasOperatorInformation: {
+        "@id": "oec:hasOperatorInformation",
+        "@type": "@id"
+      },
+      hasOperatorRole: {
+        "@id": "oec:hasOperatorRole",
+        "@type": "@vocab",
+        "@context": {
+          AuthorisedRepresentative: "oec:AuthorisedRepresentative",
+          Distributor: "oec:Distributor",
+          FulfilmentServiceProvider: "oec:FulfilmentServiceProvider",
+          Importer: "oec:Importer",
+          Manufacturer: "oec:Manufacturer",
+          Processor: "oec:Processor",
+          Trader: "oec:Trader"
+        }
+      },
+      hasPassportIssuer: {
+        "@id": "oec:hasPassportIssuer",
+        "@type": "@id"
+      },
+      hasPerformanceInfo: {
+        "@id": "oec:hasPerformanceInfo",
+        "@type": "@id"
+      },
+      hasPowerConsumptionOff: {
+        "@id": "oec:hasPowerConsumptionOff",
+        "@type": "@id"
+      },
+      hasPowerConsumptionOn: {
+        "@id": "oec:hasPowerConsumptionOn",
+        "@type": "@id"
+      },
+      hasPowerConsumptionStandby: {
+        "@id": "oec:hasPowerConsumptionStandby",
+        "@type": "@id"
+      },
+      hasProductCategory: {
+        "@id": "oec:hasProductCategory",
+        "@type": "@vocab",
+        "@context": {
+          Aluminium: "oec:Aluminium",
+          Batteries: "oec:Batteries",
+          Chemicals: "oec:Chemicals",
+          ConstructionProducts: "oec:ConstructionProducts",
+          Detergents: "oec:Detergents",
+          Electronics: "oec:Electronics",
+          FoodContact: "oec:FoodContact",
+          Furniture: "oec:Furniture",
+          IronSteel: "oec:IronSteel",
+          Packaging: "oec:Packaging",
+          Textiles: "oec:Textiles",
+          Tyres: "oec:Tyres"
+        }
+      },
+      hasRecyclabilityAssessment: {
+        "@id": "oec:hasRecyclabilityAssessment",
+        "@type": "@id"
+      },
+      hasRecycledContentDetails: {
+        "@id": "oec:hasRecycledContentDetails",
+        "@type": "@id"
+      },
+      hasRepairInstructions: {
+        "@id": "oec:hasRepairInstructions",
+        "@type": "@id"
+      },
+      hasRepairProvider: {
+        "@id": "oec:hasRepairProvider",
+        "@type": "@id"
+      },
+      hasRepairabilityInfo: {
+        "@id": "oec:hasRepairabilityInfo",
+        "@type": "@id"
+      },
+      hasReportingGranularity: {
+        "@id": "oec:hasReportingGranularity",
+        "@type": "@vocab",
+        "@context": {
+          BatchLevel: "oec:BatchLevel",
+          ItemLevel: "oec:ItemLevel",
+          ModelLevel: "oec:ModelLevel"
+        }
+      },
+      hasSoftwareUpdatesAvailability: {
+        "@id": "oec:hasSoftwareUpdatesAvailability",
+        "@type": "@id"
+      },
+      hasSparePartsAvailability: {
+        "@id": "oec:hasSparePartsAvailability",
+        "@type": "@id"
+      },
+      hasSubstancesOfConcern: {
+        "@id": "oec:hasSubstancesOfConcern",
+        "@type": "@id"
+      },
+      hasTechnicalLifetime: {
+        "@id": "oec:hasTechnicalLifetime",
+        "@type": "@id"
+      },
+      hasTraceabilityPerformance: {
+        "@id": "oec:hasTraceabilityPerformance",
+        "@type": "@id"
+      },
+      hasTradeItemPieces: {
+        "@id": "oec:hasTradeItemPieces",
+        "@type": "@id"
+      },
+      hasVerificationBody: {
+        "@id": "oec:hasVerificationBody",
+        "@type": "@id"
+      },
+      hazardImpact: "oec:hazardImpact",
+      hazardPictogramCode: {
+        "@id": "oec:hazardPictogramCode",
+        "@container": "@set"
+      },
+      hazardSignalWord: {
+        "@id": "oec:hasHazardSignalWord",
+        "@type": "@vocab",
+        "@context": {
+          Danger: "oec:HazardDanger",
+          Warning: "oec:HazardWarning",
+          HazardDanger: "oec:HazardDanger",
+          HazardWarning: "oec:HazardWarning"
+        }
+      },
+      hazardStatement: {
+        "@id": "oec:hazardStatement",
+        "@container": "@set"
+      },
+      hazardousSubstances: {
+        "@id": "oec:hasHazardousSubstances",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      identifier: "@id",
+      identityCredentialUrl: {
+        "@id": "oec:identityCredentialUrl",
+        "@type": "@id"
+      },
+      image: "schema:image",
+      indicatorTotalValue: {
+        "@id": "oec:indicatorTotalValue",
+        "@type": "xsd:decimal"
+      },
       indicatorUnit: {
         "@id": "oec:indicatorUnit",
         "@type": "xsd:string"
       },
       isCriticalRawMaterial: {
         "@id": "oec:isCriticalRawMaterial",
-        "@type": "xsd:boolean"
-      },
-      isRegulationCompliant: {
-        "@id": "oec:isRegulationCompliant",
         "@type": "xsd:boolean"
       },
       isStrategicRawMaterial: {
@@ -22467,35 +22750,6 @@ var contexts_default = {
         "@id": "oec:lastUpdated",
         "@type": "xsd:dateTime"
       },
-      lifecycleStage: {
-        "@id": "oec:lifecycleStage",
-        "@type": "@vocab",
-        "@context": {
-          StageA1: "oec:StageA1",
-          StageA2: "oec:StageA2",
-          StageA3: "oec:StageA3",
-          StageA4: "oec:StageA4",
-          StageA5: "oec:StageA5",
-          StageB1: "oec:StageB1",
-          StageB2: "oec:StageB2",
-          StageB3: "oec:StageB3",
-          StageB4: "oec:StageB4",
-          StageB5: "oec:StageB5",
-          StageB6: "oec:StageB6",
-          StageB7: "oec:StageB7",
-          StageC1: "oec:StageC1",
-          StageC2: "oec:StageC2",
-          StageC3: "oec:StageC3",
-          StageC4: "oec:StageC4",
-          StageD: "oec:StageD"
-        }
-      },
-      lifecycleStageResult: {
-        "@id": "oec:lifecycleStageResult",
-        "@type": "@id"
-      },
-      locationGLN: "gs1:locationGLN",
-      manufacturer: "gs1:manufacturer",
       manufacturingDate: {
         "@id": "gs1:productionDate",
         "@type": "xsd:date"
@@ -22504,66 +22758,26 @@ var contexts_default = {
         "@id": "oec:massFraction",
         "@type": "xsd:decimal"
       },
-      masterDataAvailableFor: {
-        "@id": "oec:masterDataAvailableFor",
-        "@container": "@set"
-      },
       materialCircularityIndicator: {
         "@id": "oec:materialCircularityIndicator",
         "@type": "xsd:decimal"
       },
       materialComposition: {
-        "@id": "oec:materialComposition",
+        "@id": "oec:hasMaterialComposition",
         "@type": "@id",
         "@container": "@set"
       },
       materialName: "schema:name",
-      materialOrigin: {
-        "@id": "oec:materialOrigin",
-        "@type": "@id"
-      },
       mimeType: {
         "@id": "oec:mimeType",
         "@type": "xsd:string"
       },
       model: "schema:model",
       multiLanguageValue: {
-        "@id": "oec:multiLanguageValue",
+        "@id": "oec:hasMultiLanguageValue",
         "@container": "@set"
       },
       name: "schema:name",
-      netContent: "gs1:netContent",
-      netWeight: {
-        "@id": "gs1:netWeight",
-        "@type": "@id"
-      },
-      operationalScope: {
-        "@id": "oec:operationalScope",
-        "@type": "@vocab",
-        "@context": {
-          CradleToGate: "oec:CradleToGate",
-          CradleToGrave: "oec:CradleToGrave"
-        }
-      },
-      operatorInformation: {
-        "@id": "oec:operatorInformation",
-        "@type": "@id"
-      },
-      operatorRole: {
-        "@id": "oec:operatorRole",
-        "@type": "@vocab",
-        "@context": {
-          AuthorisedRepresentative: "oec:AuthorisedRepresentative",
-          Distributor: "oec:Distributor",
-          FulfilmentServiceProvider: "oec:FulfilmentServiceProvider",
-          Importer: "oec:Importer",
-          Manufacturer: "oec:Manufacturer",
-          Processor: "oec:Processor",
-          Trader: "oec:Trader"
-        }
-      },
-      organizationName: "gs1:organizationName",
-      partyGLN: "gs1:partyGLN",
       passportExpiryDate: {
         "@id": "oec:passportExpiryDate",
         "@type": "xsd:date"
@@ -22575,10 +22789,6 @@ var contexts_default = {
       passportIssueDate: {
         "@id": "oec:passportIssueDate",
         "@type": "xsd:date"
-      },
-      passportIssuer: {
-        "@id": "oec:passportIssuer",
-        "@type": "@id"
       },
       passportStatus: {
         "@id": "oec:passportStatus",
@@ -22592,34 +22802,14 @@ var contexts_default = {
         "@id": "oec:performanceClass",
         "@type": "xsd:string"
       },
-      performanceInfo: {
-        "@id": "oec:performanceInfo",
-        "@type": "@id"
-      },
-      physicalLocationName: "gs1:physicalLocationName",
       postConsumerRecycledContent: {
         "@id": "oec:postConsumerRecycledContent",
         "@type": "xsd:decimal"
-      },
-      postConsumerShare: "oec:postConsumerShare",
-      postalCode: "gs1:postalCode",
-      powerConsumptionOff: {
-        "@id": "oec:powerConsumptionOff",
-        "@type": "@id"
-      },
-      powerConsumptionOn: {
-        "@id": "oec:powerConsumptionOn",
-        "@type": "@id"
-      },
-      powerConsumptionStandby: {
-        "@id": "oec:powerConsumptionStandby",
-        "@type": "@id"
       },
       preConsumerRecycledContent: {
         "@id": "oec:preConsumerRecycledContent",
         "@type": "xsd:decimal"
       },
-      preConsumerShare: "oec:preConsumerShare",
       precautionaryStatement: {
         "@id": "oec:precautionaryStatement",
         "@container": "@set"
@@ -22628,38 +22818,13 @@ var contexts_default = {
         "@id": "oec:previousPassportVersion",
         "@type": "@id"
       },
-      price: "gs1:price",
-      priceCurrency: "gs1:priceCurrency",
       primarySourcedRatio: {
         "@id": "oec:primarySourcedRatio",
         "@type": "xsd:decimal"
       },
-      productCategory: {
-        "@id": "oec:productCategory",
-        "@type": "@vocab",
-        "@context": {
-          Aluminium: "oec:Aluminium",
-          Batteries: "oec:Batteries",
-          Chemicals: "oec:Chemicals",
-          ConstructionProducts: "oec:ConstructionProducts",
-          Electronics: "oec:Electronics",
-          FoodContact: "oec:FoodContact",
-          Furniture: "oec:Furniture",
-          IronSteel: "oec:IronSteel",
-          Packaging: "oec:Packaging",
-          Textiles: "oec:Textiles",
-          Tyres: "oec:Tyres"
-        }
-      },
-      productDescription: "gs1:productDescription",
       productModel: "schema:ProductModel",
-      productName: "gs1:productName",
       professionalRepairNetwork: {
         "@id": "oec:professionalRepairNetwork",
-        "@type": "@id"
-      },
-      recyclabilityAssessment: {
-        "@id": "oec:recyclabilityAssessment",
         "@type": "@id"
       },
       recyclabilityMethodology: {
@@ -22682,24 +22847,14 @@ var contexts_default = {
         "@id": "oec:recycledContent",
         "@type": "xsd:decimal"
       },
-      recycledContentDetails: {
-        "@id": "oec:recycledContentDetails",
-        "@type": "@id"
-      },
-      referencedFile: "gs1:referencedFile",
-      referencedFileType: "gs1:referencedFileType",
       registrationNumber: {
         "@id": "oec:registrationNumber",
         "@type": "xsd:string"
       },
-      regulatedProductName: "gs1:regulatedProductName",
-      regulationType: "gs1:regulationType",
-      regulatoryAct: "gs1:regulatoryAct",
       regulatoryActStatus: {
         "@id": "oec:regulatoryActStatus",
         "@type": "xsd:string"
       },
-      regulatoryInformation: "gs1:regulatoryInformation",
       regulatoryPermitIdentification: {
         "@id": "oec:regulatoryPermitIdentification",
         "@type": "xsd:string"
@@ -22712,7 +22867,6 @@ var contexts_default = {
         "@id": "gs1:regulatoryReferenceApplicabilityStartDate",
         "@type": "xsd:date"
       },
-      regulatoryReferenceNumber: "gs1:regulatoryReferenceNumber",
       remanufacturingDate: {
         "@id": "oec:remanufacturingDate",
         "@type": "xsd:dateTime"
@@ -22721,12 +22875,8 @@ var contexts_default = {
         "@id": "oec:repairInformationPortalUrl",
         "@type": "xsd:anyURI"
       },
-      repairInstructions: {
-        "@id": "oec:repairInstructions",
-        "@type": "@id"
-      },
       repairProvider: {
-        "@id": "oec:repairProvider",
+        "@id": "oec:hasRepairProvider",
         "@type": "@id",
         "@container": "@set"
       },
@@ -22742,10 +22892,6 @@ var contexts_default = {
         "@id": "oec:repairabilityClass",
         "@type": "xsd:string"
       },
-      repairabilityInfo: {
-        "@id": "oec:repairabilityInfo",
-        "@type": "@id"
-      },
       repairabilityScore: {
         "@id": "oec:repairabilityScore",
         "@type": "xsd:decimal"
@@ -22757,15 +22903,6 @@ var contexts_default = {
       reportUrl: {
         "@id": "oec:reportUrl",
         "@type": "@id"
-      },
-      reportingGranularity: {
-        "@id": "oec:reportingGranularity",
-        "@type": "@vocab",
-        "@context": {
-          BatchLevel: "oec:BatchLevel",
-          ItemLevel: "oec:ItemLevel",
-          ModelLevel: "oec:ModelLevel"
-        }
       },
       safeDisassemblyInstructions: {
         "@id": "oec:safeDisassemblyInstructions",
@@ -22785,15 +22922,7 @@ var contexts_default = {
         "@type": "@id"
       },
       serialNumber: "schema:serialNumber",
-      softwareUpdatesAvailability: {
-        "@id": "oec:softwareUpdatesAvailability",
-        "@type": "@id"
-      },
       sourceCountry: "gs1:countryOfOrigin",
-      sparePartsAvailability: {
-        "@id": "oec:sparePartsAvailability",
-        "@type": "@id"
-      },
       sparePartsDeliveryTime: {
         "@id": "schema:deliveryTime",
         "@type": "@id"
@@ -22815,14 +22944,13 @@ var contexts_default = {
           Suspended: "oec:Suspended"
         }
       },
-      streetAddress: "gs1:streetAddress",
       substanceLocation: {
         "@id": "oec:substanceLocation",
         "@type": "xsd:string"
       },
       substanceName: "schema:name",
       substancesOfConcern: {
-        "@id": "oec:substancesOfConcern",
+        "@id": "oec:hasSubstancesOfConcern",
         "@type": "@id",
         "@container": "@set"
       },
@@ -22830,34 +22958,20 @@ var contexts_default = {
         "@id": "oec:supplyChainTransparencyUrl",
         "@type": "xsd:anyURI"
       },
-      takeBackIncentive: {
-        "@id": "oec:takeBackIncentive",
-        "@type": "xsd:string"
-      },
+      takeBackIncentive: "oec:takeBackIncentive",
       takeBackUrl: {
         "@id": "oec:takeBackUrl",
         "@type": "xsd:anyURI"
       },
-      technicalLifetime: {
-        "@id": "oec:technicalLifetime",
-        "@type": "@id"
-      },
-      telephone: "gs1:telephone",
       testedConditions: {
         "@id": "oec:testedConditions",
         "@type": "xsd:string"
       },
-      textileMaterial: "gs1:textileMaterial",
       thirdPartyAssurancesUrl: {
         "@id": "oec:thirdPartyAssurancesUrl",
         "@type": "@id"
       },
       thumbnailUrl: "schema:thumbnailUrl",
-      totalRecycledShare: "oec:totalRecycledShare",
-      traceabilityPerformance: {
-        "@id": "oec:traceabilityPerformance",
-        "@type": "@id"
-      },
       tradeItemPieceCount: {
         "@id": "oec:tradeItemPieceCount",
         "@type": "xsd:positiveInteger"
@@ -22875,7 +22989,7 @@ var contexts_default = {
         "@type": "@id"
       },
       tradeItemPieces: {
-        "@id": "oec:tradeItemPieces",
+        "@id": "oec:hasTradeItemPieces",
         "@type": "@id",
         "@container": "@set"
       },
@@ -22883,8 +22997,10 @@ var contexts_default = {
         "@id": "gs1:productID",
         "@type": "@id"
       },
-      unitCode: "gs1:unitCode",
-      url: "schema:url",
+      url: {
+        "@id": "schema:url",
+        "@type": "@id"
+      },
       usageCycles: {
         "@id": "oec:usageCycles",
         "@type": "xsd:integer"
@@ -22906,16 +23022,11 @@ var contexts_default = {
         "@type": "xsd:string"
       },
       vatIdentificationNumber: "schema:vatID",
-      verificationBody: {
-        "@id": "oec:verificationBody",
-        "@type": "@id"
-      },
       verifiedRatio: {
         "@id": "oec:verifiedRatio",
         "@type": "xsd:decimal"
       },
       warrantyScope: "gs1:warrantyScopeDescription",
-      warrantyScopeDescription: "gs1:warrantyScopeDescription",
       wastePreventionInfo: {
         "@id": "oec:wastePreventionInfo",
         "@type": "@id"
@@ -22929,11 +23040,12 @@ var contexts_default = {
       gs1: "https://ref.gs1.org/voc/",
       oec: "https://ref.openepcis.io/extensions/common/core/",
       schema: "https://schema.org/",
+      cv: "http://data.europa.eu/m8g/",
+      cccev: "http://data.europa.eu/m8g/",
       xsd: "http://www.w3.org/2001/XMLSchema#",
       eubat: "https://ref.openepcis.io/extensions/eu/battery/",
       rdfs: "http://www.w3.org/2000/01/rdf-schema#",
       AccessLevel: "eubat:AccessLevel",
-      AdditionalProductClassificationDetails: "gs1:AdditionalProductClassificationDetails",
       AuthoritiesOnly: "eubat:AuthoritiesOnly",
       AuthorizedAccess: "eubat:AuthorizedAccess",
       Battery: "eubat:Battery",
@@ -22958,31 +23070,19 @@ var contexts_default = {
       MaterialRecoveryTarget: "eubat:MaterialRecoveryTarget",
       NegativeEvent: "eubat:NegativeEvent",
       NegativeEventType: "eubat:NegativeEventType",
-      OperatorRole: "oec:OperatorRole",
       PowerCapabilityAtSoC: "eubat:PowerCapabilityAtSoC",
-      Product: "gs1:Product",
       PublicAccess: "eubat:PublicAccess",
-      QuantitativeValue: "gs1:QuantitativeValue",
+      PublicOrganisation: {
+        "@id": "cv:PublicOrganisation"
+      },
       RecycledContent: "eubat:RecycledContent",
       "RegulationTypeCode-BATTERY_DIRECTIVE": "gs1:RegulationTypeCode-BATTERY_DIRECTIVE",
       "RegulationTypeCode-CE": "gs1:RegulationTypeCode-CE",
-      RegulatoryInformation: "gs1:RegulatoryInformation",
       ResponsibleSourcingStandard: "eubat:ResponsibleSourcingStandard",
       SupplyChainDueDiligence: "eubat:SupplyChainDueDiligence",
       TechnicalSpecification: "eubat:TechnicalSpecification",
       TemperatureRange: "eubat:TemperatureRange",
       ThirdPartyVerification: "eubat:ThirdPartyVerification",
-      absoluteCarbonFootprint: {
-        "@id": "eubat:absoluteCarbonFootprint",
-        "@type": "@id"
-      },
-      additionalProductClassification: {
-        "@id": "gs1:additionalProductClassification",
-        "@type": "@id"
-      },
-      additionalProductClassificationCode: "gs1:additionalProductClassificationCode",
-      additionalProductClassificationCodeDescription: "gs1:additionalProductClassificationCodeDescription",
-      additionalProductClassificationSystemCode: "gs1:additionalProductClassificationCode",
       anodeActiveMaterial: {
         "@id": "eubat:anodeActiveMaterial",
         "@type": "xsd:string"
@@ -23014,14 +23114,6 @@ var contexts_default = {
           PortableBattery: "eubat:PortableBattery",
           SLIBattery: "eubat:SLIBattery"
         }
-      },
-      batteryChemistry: {
-        "@id": "eubat:batteryChemistry",
-        "@type": "@id"
-      },
-      batteryMass: {
-        "@id": "eubat:batteryMass",
-        "@type": "@id"
       },
       batteryModel: "schema:model",
       batteryModelIdentifier: {
@@ -23060,10 +23152,6 @@ var contexts_default = {
         "@id": "eubat:calculationStandard",
         "@type": "xsd:string"
       },
-      capacityFade: {
-        "@id": "eubat:capacityFade",
-        "@type": "@id"
-      },
       capacityFadeThreshold: {
         "@id": "eubat:capacityFadeThreshold",
         "@type": "xsd:decimal"
@@ -23072,55 +23160,16 @@ var contexts_default = {
         "@id": "eubat:capacityThresholdForExhaustion",
         "@type": "xsd:decimal"
       },
-      capacityThroughput: {
-        "@id": "eubat:capacityThroughput",
-        "@type": "@id"
-      },
-      carbonFootprintDeclaration: {
-        "@id": "eubat:carbonFootprintDeclaration",
-        "@type": "@id"
-      },
       carbonFootprintDeclarationId: {
         "@id": "eubat:carbonFootprintDeclarationId",
         "@type": "xsd:string"
-      },
-      carbonFootprintDistribution: {
-        "@id": "eubat:carbonFootprintDistribution",
-        "@type": "@id"
       },
       carbonFootprintGeographicScope: {
         "@id": "eubat:carbonFootprintGeographicScope",
         "@type": "xsd:string"
       },
-      carbonFootprintPerformanceClass: {
-        "@id": "eubat:carbonFootprintPerformanceClass",
-        "@type": "@vocab",
-        "@context": {
-          CFClassA: "eubat:CFClassA",
-          CFClassB: "eubat:CFClassB",
-          CFClassC: "eubat:CFClassC",
-          CFClassD: "eubat:CFClassD",
-          CFClassE: "eubat:CFClassE"
-        }
-      },
-      carbonFootprintProduction: {
-        "@id": "eubat:carbonFootprintProduction",
-        "@type": "@id"
-      },
-      carbonFootprintRawMaterialExtraction: {
-        "@id": "eubat:carbonFootprintRawMaterialExtraction",
-        "@type": "@id"
-      },
-      carbonFootprintRecycling: {
-        "@id": "eubat:carbonFootprintRecycling",
-        "@type": "@id"
-      },
       carbonFootprintStudyUrl: {
         "@id": "eubat:carbonFootprintStudyUrl",
-        "@type": "@id"
-      },
-      carbonFootprintTotal: {
-        "@id": "eubat:carbonFootprintTotal",
         "@type": "@id"
       },
       casNumber: {
@@ -23135,21 +23184,6 @@ var contexts_default = {
         "@id": "eubat:ceMarkingIndicator",
         "@type": "xsd:boolean"
       },
-      cellType: {
-        "@id": "eubat:cellType",
-        "@type": "@vocab",
-        "@context": {
-          BladeCell: "eubat:BladeCell",
-          CoinCell: "eubat:CoinCell",
-          CylindricalCell: "eubat:CylindricalCell",
-          PouchCell: "eubat:PouchCell",
-          PrismaticCell: "eubat:PrismaticCell"
-        }
-      },
-      certifiedUsableEnergy: {
-        "@id": "eubat:certifiedUsableEnergy",
-        "@type": "@id"
-      },
       cobaltPostConsumerShare: {
         "@id": "eubat:cobaltPostConsumerShare",
         "@type": "xsd:decimal"
@@ -23162,29 +23196,6 @@ var contexts_default = {
         "@id": "eubat:cobaltRecycledShare",
         "@type": "xsd:decimal"
       },
-      complianceStatus: {
-        "@id": "eubat:complianceStatus",
-        "@type": "@vocab",
-        "@context": {
-          Compliant: "eubat:Compliant",
-          ConditionallyCompliant: "eubat:ConditionallyCompliant",
-          NonCompliant: "eubat:NonCompliant",
-          Pending: "eubat:Pending"
-        }
-      },
-      componentLocation: {
-        "@id": "eubat:componentLocation",
-        "@type": "@vocab",
-        "@context": {
-          Anode: "eubat:Anode",
-          BMS: "eubat:BMS",
-          Casing: "eubat:Casing",
-          Cathode: "eubat:Cathode",
-          CurrentCollector: "eubat:CurrentCollector",
-          Electrolyte: "eubat:Electrolyte",
-          Separator: "eubat:Separator"
-        }
-      },
       concentration: {
         "@id": "eubat:concentration",
         "@type": "xsd:decimal"
@@ -23193,16 +23204,7 @@ var contexts_default = {
         "@id": "eubat:conflictMineralFree",
         "@type": "xsd:boolean"
       },
-      countryOfOrigin: "gs1:countryOfOrigin",
       criticalRawMaterialsStatement: "eubat:criticalRawMaterialsStatement",
-      currentSelfDischargingRate: {
-        "@id": "eubat:currentSelfDischargingRate",
-        "@type": "@id"
-      },
-      cycleCount: {
-        "@id": "eubat:cycleCount",
-        "@type": "@id"
-      },
       dangerousGoodsPackingInstructions: "eubat:dangerousGoodsPackingInstructions",
       dataProviderCertification: {
         "@id": "eubat:dataProviderCertification",
@@ -23220,41 +23222,9 @@ var contexts_default = {
         "@id": "eubat:depthOfDischargeInCycleLifeTest",
         "@type": "xsd:decimal"
       },
-      dismantlingAndRemovalInformation: {
-        "@id": "eubat:dismantlingAndRemovalInformation",
-        "@type": "@id"
-      },
-      dismantlingDocuments: {
-        "@id": "eubat:dismantlingDocuments",
-        "@type": "@id"
-      },
-      dismantlingInstructions: {
-        "@id": "eubat:dismantlingInstructions",
-        "@type": "@id"
-      },
-      dismantlingTime: {
-        "@id": "eubat:dismantlingTime",
-        "@type": "@id"
-      },
-      documentType: {
-        "@id": "eubat:documentType",
-        "@type": "@vocab",
-        "@context": {
-          BillOfMaterial: "eubat:BillOfMaterial",
-          DismantlingManual: "eubat:DismantlingManual",
-          Drawing: "eubat:Drawing",
-          Model3D: "eubat:Model3D",
-          OtherManual: "eubat:OtherManual",
-          RemovalManual: "eubat:RemovalManual",
-          SafetyDataSheet: "eubat:SafetyDataSheet"
-        }
-      },
       documentUrl: {
         "@id": "eubat:documentUrl",
         "@type": "@id"
-      },
-      dppStatus: {
-        "@id": "oec:passportStatus"
       },
       dueDiligencePolicyUrl: {
         "@id": "eubat:dueDiligencePolicyUrl",
@@ -23273,19 +23243,7 @@ var contexts_default = {
         "@type": "xsd:string"
       },
       electrolyteType: "eubat:electrolyteType",
-      endOfLifeInfo: {
-        "@id": "eubat:endOfLifeInfo",
-        "@type": "@id"
-      },
-      energyThroughput: {
-        "@id": "eubat:energyThroughput",
-        "@type": "@id"
-      },
       estimatedImpact: "eubat:estimatedImpact",
-      euDeclarationOfConformity: {
-        "@id": "eubat:euDeclarationOfConformity",
-        "@type": "@id"
-      },
       euDeclarationOfConformityId: {
         "@id": "eubat:euDeclarationOfConformityId",
         "@type": "xsd:string"
@@ -23295,28 +23253,6 @@ var contexts_default = {
         "@type": "xsd:dateTime"
       },
       eventDescription: "schema:description",
-      eventLocation: {
-        "@id": "eubat:eventLocation",
-        "@type": "@id"
-      },
-      eventType: {
-        "@id": "eubat:eventType",
-        "@type": "@vocab",
-        "@context": {
-          Accident: "eubat:Accident",
-          DeepDischarge: "eubat:DeepDischarge",
-          ElectricalFault: "eubat:ElectricalFault",
-          Overcharge: "eubat:Overcharge",
-          PhysicalDamage: "eubat:PhysicalDamage",
-          ShortCircuit: "eubat:ShortCircuit",
-          ThermalEvent: "eubat:ThermalEvent",
-          WaterIngress: "eubat:WaterIngress"
-        }
-      },
-      evolutionOfSelfDischarge: {
-        "@id": "eubat:evolutionOfSelfDischarge",
-        "@type": "@id"
-      },
       exceedanceThreshold: {
         "@id": "eubat:exceedanceThreshold",
         "@type": "xsd:decimal"
@@ -23328,18 +23264,6 @@ var contexts_default = {
       expectedCycleLife: {
         "@id": "eubat:expectedCycleLife",
         "@type": "xsd:integer"
-      },
-      expectedLifetime: {
-        "@id": "eubat:expectedLifetime",
-        "@type": "@id"
-      },
-      expectedLifetimeCapacityThroughput: {
-        "@id": "eubat:expectedLifetimeCapacityThroughput",
-        "@type": "@id"
-      },
-      expectedLifetimeEnergyThroughput: {
-        "@id": "eubat:expectedLifetimeEnergyThroughput",
-        "@type": "@id"
       },
       expectedLifetimeYears: {
         "@id": "eubat:expectedLifetimeYears",
@@ -23383,17 +23307,188 @@ var contexts_default = {
         "@id": "eubat:functionalUnit",
         "@type": "xsd:string"
       },
-      grossWeight: {
-        "@id": "gs1:grossWeight",
+      hasAbsoluteCarbonFootprint: {
+        "@id": "eubat:hasAbsoluteCarbonFootprint",
         "@type": "@id"
       },
-      gtin: "gs1:gtin",
       hasBattery: {
         "@id": "eubat:hasBattery",
         "@type": "@id"
       },
-      hazardClass: {
-        "@id": "eubat:hazardClass",
+      hasBatteryChemistry: {
+        "@id": "eubat:hasBatteryChemistry",
+        "@type": "@id"
+      },
+      hasBatteryMass: {
+        "@id": "eubat:hasBatteryMass",
+        "@type": "@id"
+      },
+      hasCapacityFade: {
+        "@id": "eubat:hasCapacityFade",
+        "@type": "@id"
+      },
+      hasCapacityThroughput: {
+        "@id": "eubat:hasCapacityThroughput",
+        "@type": "@id"
+      },
+      hasCarbonFootprintDeclaration: {
+        "@id": "eubat:hasCarbonFootprintDeclaration",
+        "@type": "@id"
+      },
+      hasCarbonFootprintDistribution: {
+        "@id": "eubat:hasCarbonFootprintDistribution",
+        "@type": "@id"
+      },
+      hasCarbonFootprintPerformanceClass: {
+        "@id": "eubat:hasCarbonFootprintPerformanceClass",
+        "@type": "@vocab",
+        "@context": {
+          CFClassA: "eubat:CFClassA",
+          CFClassB: "eubat:CFClassB",
+          CFClassC: "eubat:CFClassC",
+          CFClassD: "eubat:CFClassD",
+          CFClassE: "eubat:CFClassE"
+        }
+      },
+      hasCarbonFootprintProduction: {
+        "@id": "eubat:hasCarbonFootprintProduction",
+        "@type": "@id"
+      },
+      hasCarbonFootprintRawMaterialExtraction: {
+        "@id": "eubat:hasCarbonFootprintRawMaterialExtraction",
+        "@type": "@id"
+      },
+      hasCarbonFootprintRecycling: {
+        "@id": "eubat:hasCarbonFootprintRecycling",
+        "@type": "@id"
+      },
+      hasCarbonFootprintTotal: {
+        "@id": "eubat:hasCarbonFootprintTotal",
+        "@type": "@id"
+      },
+      hasCellType: {
+        "@id": "eubat:hasCellType",
+        "@type": "@vocab",
+        "@context": {
+          BladeCell: "eubat:BladeCell",
+          CoinCell: "eubat:CoinCell",
+          CylindricalCell: "eubat:CylindricalCell",
+          PouchCell: "eubat:PouchCell",
+          PrismaticCell: "eubat:PrismaticCell"
+        }
+      },
+      hasCertifiedUsableEnergy: {
+        "@id": "eubat:hasCertifiedUsableEnergy",
+        "@type": "@id"
+      },
+      hasComplianceStatus: {
+        "@id": "eubat:hasComplianceStatus",
+        "@type": "@vocab",
+        "@context": {
+          Compliant: "eubat:Compliant",
+          ConditionallyCompliant: "eubat:ConditionallyCompliant",
+          NonCompliant: "eubat:NonCompliant",
+          Pending: "eubat:Pending"
+        }
+      },
+      hasComponentLocation: {
+        "@id": "eubat:hasComponentLocation",
+        "@type": "@vocab",
+        "@context": {
+          Anode: "eubat:Anode",
+          BMS: "eubat:BMS",
+          Casing: "eubat:Casing",
+          Cathode: "eubat:Cathode",
+          CurrentCollector: "eubat:CurrentCollector",
+          Electrolyte: "eubat:Electrolyte",
+          Separator: "eubat:Separator"
+        }
+      },
+      hasCurrentSelfDischargingRate: {
+        "@id": "eubat:hasCurrentSelfDischargingRate",
+        "@type": "@id"
+      },
+      hasCycleCount: {
+        "@id": "eubat:hasCycleCount",
+        "@type": "@id"
+      },
+      hasDismantlingAndRemovalInformation: {
+        "@id": "eubat:hasDismantlingAndRemovalInformation",
+        "@type": "@id"
+      },
+      hasDismantlingDocuments: {
+        "@id": "eubat:hasDismantlingDocuments",
+        "@type": "@id"
+      },
+      hasDismantlingInstructions: {
+        "@id": "eubat:hasDismantlingInstructions",
+        "@type": "@id"
+      },
+      hasDismantlingTime: {
+        "@id": "eubat:hasDismantlingTime",
+        "@type": "@id"
+      },
+      hasDocumentType: {
+        "@id": "eubat:hasDocumentType",
+        "@type": "@vocab",
+        "@context": {
+          BillOfMaterial: "eubat:BillOfMaterial",
+          DismantlingManual: "eubat:DismantlingManual",
+          Drawing: "eubat:Drawing",
+          Model3D: "eubat:Model3D",
+          OtherManual: "eubat:OtherManual",
+          RemovalManual: "eubat:RemovalManual",
+          SafetyDataSheet: "eubat:SafetyDataSheet"
+        }
+      },
+      hasEndOfLifeInfo: {
+        "@id": "eubat:hasEndOfLifeInfo",
+        "@type": "@id"
+      },
+      hasEnergyThroughput: {
+        "@id": "eubat:hasEnergyThroughput",
+        "@type": "@id"
+      },
+      hasEuDeclarationOfConformity: {
+        "@id": "eubat:hasEuDeclarationOfConformity",
+        "@type": "@id"
+      },
+      hasEventLocation: {
+        "@id": "eubat:hasEventLocation",
+        "@type": "@id"
+      },
+      hasEventType: {
+        "@id": "eubat:hasEventType",
+        "@type": "@vocab",
+        "@context": {
+          Accident: "eubat:Accident",
+          DeepDischarge: "eubat:DeepDischarge",
+          ElectricalFault: "eubat:ElectricalFault",
+          Overcharge: "eubat:Overcharge",
+          PhysicalDamage: "eubat:PhysicalDamage",
+          ShortCircuit: "eubat:ShortCircuit",
+          ThermalEvent: "eubat:ThermalEvent",
+          WaterIngress: "eubat:WaterIngress"
+        }
+      },
+      hasEvolutionOfSelfDischarge: {
+        "@id": "eubat:hasEvolutionOfSelfDischarge",
+        "@type": "@id"
+      },
+      hasExpectedLifetime: {
+        "@id": "eubat:hasExpectedLifetime",
+        "@type": "@id"
+      },
+      hasExpectedLifetimeCapacityThroughput: {
+        "@id": "eubat:hasExpectedLifetimeCapacityThroughput",
+        "@type": "@id"
+      },
+      hasExpectedLifetimeEnergyThroughput: {
+        "@id": "eubat:hasExpectedLifetimeEnergyThroughput",
+        "@type": "@id"
+      },
+      hasHazardClass: {
+        "@id": "eubat:hasHazardClass",
         "@type": "@vocab",
         "@context": {
           AcuteToxicity: "eubat:AcuteToxicity",
@@ -23408,21 +23503,12 @@ var contexts_default = {
           SpecificTargetOrganToxicity: "eubat:SpecificTargetOrganToxicity"
         }
       },
-      hazardImpact: "eubat:hazardImpact",
-      hazardousSubstances: {
-        "@id": "eubat:hazardousSubstances",
+      hasHazardousSubstances: {
+        "@id": "eubat:hasHazardousSubstances",
         "@type": "@id"
       },
-      incidentId: {
-        "@id": "eubat:incidentId",
-        "@type": "xsd:string"
-      },
-      incidentReportUrl: {
-        "@id": "eubat:incidentReportUrl",
-        "@type": "@id"
-      },
-      incidentSeverity: {
-        "@id": "eubat:incidentSeverity",
+      hasIncidentSeverity: {
+        "@id": "eubat:hasIncidentSeverity",
         "@type": "@vocab",
         "@context": {
           Critical: "eubat:Critical",
@@ -23431,50 +23517,28 @@ var contexts_default = {
           Moderate: "eubat:Moderate"
         }
       },
-      informationOnCollection: {
-        "@id": "eubat:informationOnCollection",
+      hasInitialCapacity: {
+        "@id": "eubat:hasInitialCapacity",
         "@type": "@id"
       },
-      initialCapacity: {
-        "@id": "eubat:initialCapacity",
+      hasInitialEnergy: {
+        "@id": "eubat:hasInitialEnergy",
         "@type": "@id"
       },
-      initialEnergy: {
-        "@id": "eubat:initialEnergy",
+      hasInitialInternalResistance: {
+        "@id": "eubat:hasInitialInternalResistance",
         "@type": "@id"
       },
-      initialInternalResistance: {
-        "@id": "eubat:initialInternalResistance",
+      hasInternalResistance: {
+        "@id": "eubat:hasInternalResistance",
         "@type": "@id"
       },
-      initialSelfDischarge: {
-        "@id": "eubat:initialSelfDischarge",
-        "@type": "xsd:decimal"
-      },
-      inspectorId: {
-        "@id": "eubat:inspectorId",
-        "@type": "xsd:string"
-      },
-      internalResistance: {
-        "@id": "eubat:internalResistance",
+      hasInternalResistanceIncrease: {
+        "@id": "eubat:hasInternalResistanceIncrease",
         "@type": "@id"
       },
-      internalResistanceIncrease: {
-        "@id": "eubat:internalResistanceIncrease",
-        "@type": "@id"
-      },
-      isCriticalRawMaterial: {
-        "@id": "eubat:isCriticalRawMaterial",
-        "@type": "xsd:boolean"
-      },
-      isRegulationCompliant: "oec:isRegulationCompliant",
-      isSubstanceOfConcern: {
-        "@id": "eubat:isSubstanceOfConcern",
-        "@type": "xsd:boolean"
-      },
-      labelMeaning: "eubat:labelMeaning",
-      labelSubject: {
-        "@id": "eubat:labelSubject",
+      hasLabelSubject: {
+        "@id": "eubat:hasLabelSubject",
         "@type": "@vocab",
         "@context": {
           CadmiumContent: "eubat:CadmiumContent",
@@ -23487,12 +23551,255 @@ var contexts_default = {
           SeparateCollection: "eubat:SeparateCollection"
         }
       },
-      labelSymbol: {
-        "@id": "eubat:labelSymbol",
+      hasLabels: {
+        "@id": "eubat:hasLabels",
         "@type": "@id"
       },
-      labels: {
-        "@id": "eubat:labels",
+      hasManufacturingPlace: {
+        "@id": "eubat:hasManufacturingPlace",
+        "@type": "@id"
+      },
+      hasMaterialComposition: {
+        "@id": "eubat:hasMaterialComposition",
+        "@type": "@id"
+      },
+      hasMaterialRecoveryTargets: {
+        "@id": "eubat:hasMaterialRecoveryTargets",
+        "@type": "@id"
+      },
+      hasMaximumChargingCurrent: {
+        "@id": "eubat:hasMaximumChargingCurrent",
+        "@type": "@id"
+      },
+      hasMaximumChargingPower: {
+        "@id": "eubat:hasMaximumChargingPower",
+        "@type": "@id"
+      },
+      hasMaximumDischargingCurrent: {
+        "@id": "eubat:hasMaximumDischargingCurrent",
+        "@type": "@id"
+      },
+      hasMaximumDischargingPower: {
+        "@id": "eubat:hasMaximumDischargingPower",
+        "@type": "@id"
+      },
+      hasMaximumPermittedBatteryPower: {
+        "@id": "eubat:hasMaximumPermittedBatteryPower",
+        "@type": "@id"
+      },
+      hasMaximumTemperature: {
+        "@id": "eubat:hasMaximumTemperature",
+        "@type": "@id"
+      },
+      hasMaximumVoltage: {
+        "@id": "eubat:hasMaximumVoltage",
+        "@type": "@id"
+      },
+      hasMinimumTemperature: {
+        "@id": "eubat:hasMinimumTemperature",
+        "@type": "@id"
+      },
+      hasMinimumVoltage: {
+        "@id": "eubat:hasMinimumVoltage",
+        "@type": "@id"
+      },
+      hasNegativeEvents: {
+        "@id": "eubat:hasNegativeEvents",
+        "@type": "@id"
+      },
+      hasNominalVoltage: {
+        "@id": "eubat:hasNominalVoltage",
+        "@type": "@id"
+      },
+      hasNotifiedBody: {
+        "@id": "eubat:hasNotifiedBody",
+        "@type": "@id"
+      },
+      hasOperatorInformation: {
+        "@id": "eubat:hasOperatorInformation",
+        "@type": "@id"
+      },
+      hasOperatorRole: {
+        "@id": "eubat:hasOperatorRole",
+        "@type": "@id"
+      },
+      hasOriginalPowerCapability: {
+        "@id": "eubat:hasOriginalPowerCapability",
+        "@type": "@id"
+      },
+      hasPowerCapability: {
+        "@id": "eubat:hasPowerCapability",
+        "@type": "@id"
+      },
+      hasPowerCapabilityAt20SoC: {
+        "@id": "eubat:hasPowerCapabilityAt20SoC",
+        "@type": "@id"
+      },
+      hasPowerCapabilityAt80SoC: {
+        "@id": "eubat:hasPowerCapabilityAt80SoC",
+        "@type": "@id"
+      },
+      hasPowerFade: {
+        "@id": "eubat:hasPowerFade",
+        "@type": "@id"
+      },
+      hasRatedCapacity: {
+        "@id": "eubat:hasRatedCapacity",
+        "@type": "@id"
+      },
+      hasRatedEnergy: {
+        "@id": "eubat:hasRatedEnergy",
+        "@type": "@id"
+      },
+      hasRatedMaximumPower: {
+        "@id": "eubat:hasRatedMaximumPower",
+        "@type": "@id"
+      },
+      hasRecycledContent: {
+        "@id": "eubat:hasRecycledContent",
+        "@type": "@id"
+      },
+      hasRemainingCapacity: {
+        "@id": "eubat:hasRemainingCapacity",
+        "@type": "@id"
+      },
+      hasRemainingEnergy: {
+        "@id": "eubat:hasRemainingEnergy",
+        "@type": "@id"
+      },
+      hasRemainingPowerCapability: {
+        "@id": "eubat:hasRemainingPowerCapability",
+        "@type": "@id"
+      },
+      hasRemainingRoundTripEfficiency: {
+        "@id": "eubat:hasRemainingRoundTripEfficiency",
+        "@type": "@id"
+      },
+      hasRemainingUsableEnergy: {
+        "@id": "eubat:hasRemainingUsableEnergy",
+        "@type": "@id"
+      },
+      hasRepurposingEntity: {
+        "@id": "eubat:hasRepurposingEntity",
+        "@type": "@id"
+      },
+      hasResponsibleSourcingStandard: {
+        "@id": "eubat:hasResponsibleSourcingStandard",
+        "@type": "@vocab",
+        "@context": {
+          AluminiumStewardship: "eubat:AluminiumStewardship",
+          CobaltIndustryResponsibleAssessment: "eubat:CobaltIndustryResponsibleAssessment",
+          CopperMark: "eubat:CopperMark",
+          IRMA: "eubat:IRMA",
+          OECDGuidelines: "eubat:OECDGuidelines",
+          RMI: "eubat:RMI"
+        }
+      },
+      hasRoundTripEfficiencyFade: {
+        "@id": "eubat:hasRoundTripEfficiencyFade",
+        "@type": "@id"
+      },
+      hasSelfDischargeRate: {
+        "@id": "eubat:hasSelfDischargeRate",
+        "@type": "@id"
+      },
+      hasSparePartSources: {
+        "@id": "eubat:hasSparePartSources",
+        "@type": "@id"
+      },
+      hasStateOfCertifiedEnergy: {
+        "@id": "eubat:hasStateOfCertifiedEnergy",
+        "@type": "@id"
+      },
+      hasStateOfCharge: {
+        "@id": "eubat:hasStateOfCharge",
+        "@type": "@id"
+      },
+      hasStateOfHealth: {
+        "@id": "eubat:hasStateOfHealth",
+        "@type": "@id"
+      },
+      hasSubstanceLocation: {
+        "@id": "eubat:hasSubstanceLocation",
+        "@type": "@vocab",
+        "@context": {
+          Anode: "eubat:Anode",
+          BMS: "eubat:BMS",
+          Casing: "eubat:Casing",
+          Cathode: "eubat:Cathode",
+          CurrentCollector: "eubat:CurrentCollector",
+          Electrolyte: "eubat:Electrolyte",
+          Separator: "eubat:Separator"
+        }
+      },
+      hasSupplierContact: {
+        "@id": "eubat:hasSupplierContact",
+        "@type": "@id"
+      },
+      hasSupplyChainDueDiligence: {
+        "@id": "eubat:hasSupplyChainDueDiligence",
+        "@type": "@id"
+      },
+      hasTechnicalSpecifications: {
+        "@id": "eubat:hasTechnicalSpecifications",
+        "@type": "@id"
+      },
+      hasTemperatureRangeCharging: {
+        "@id": "eubat:hasTemperatureRangeCharging",
+        "@type": "@id"
+      },
+      hasTemperatureRangeDischarging: {
+        "@id": "eubat:hasTemperatureRangeDischarging",
+        "@type": "@id"
+      },
+      hasTemperatureRangeIdleState: {
+        "@id": "eubat:hasTemperatureRangeIdleState",
+        "@type": "@id"
+      },
+      hasTemperatureRangeStorage: {
+        "@id": "eubat:hasTemperatureRangeStorage",
+        "@type": "@id"
+      },
+      hasThirdPartyVerification: {
+        "@id": "eubat:hasThirdPartyVerification",
+        "@type": "@id"
+      },
+      hasVerificationBody: {
+        "@id": "eubat:hasVerificationBody",
+        "@type": "@id"
+      },
+      hazardImpact: "eubat:hazardImpact",
+      incidentId: {
+        "@id": "eubat:incidentId",
+        "@type": "xsd:string"
+      },
+      incidentReportUrl: {
+        "@id": "eubat:incidentReportUrl",
+        "@type": "@id"
+      },
+      informationOnCollection: {
+        "@id": "eubat:informationOnCollection",
+        "@type": "@id"
+      },
+      initialSelfDischarge: {
+        "@id": "eubat:initialSelfDischarge",
+        "@type": "xsd:decimal"
+      },
+      inspectorId: {
+        "@id": "eubat:inspectorId",
+        "@type": "xsd:string"
+      },
+      isCriticalRawMaterial: {
+        "@id": "eubat:isCriticalRawMaterial",
+        "@type": "xsd:boolean"
+      },
+      isSubstanceOfConcern: {
+        "@id": "eubat:isSubstanceOfConcern",
+        "@type": "xsd:boolean"
+      },
+      labelMeaning: "eubat:labelMeaning",
+      labelSymbol: {
+        "@id": "eubat:labelSymbol",
         "@type": "@id"
       },
       languageCode: {
@@ -23501,10 +23808,6 @@ var contexts_default = {
       },
       lastDataUpdate: {
         "@id": "eubat:lastDataUpdate",
-        "@type": "xsd:dateTime"
-      },
-      lastUpdated: {
-        "@id": "oec:lastUpdated",
         "@type": "xsd:dateTime"
       },
       leadPostConsumerShare: {
@@ -23543,24 +23846,12 @@ var contexts_default = {
         "@id": "eubat:lithiumRecycledShare",
         "@type": "xsd:decimal"
       },
-      manufacturer: {
-        "@id": "gs1:manufacturer",
-        "@type": "@id"
-      },
       manufacturerIdentifier: {
         "@id": "eubat:manufacturerIdentifier",
         "@type": "xsd:string"
       },
       manufacturerInformation: {
         "@id": "gs1:manufacturer",
-        "@type": "@id"
-      },
-      manufacturingDate: {
-        "@id": "gs1:productionDate",
-        "@type": "xsd:date"
-      },
-      manufacturingPlace: {
-        "@id": "eubat:manufacturingPlace",
         "@type": "@id"
       },
       massPercentage: {
@@ -23578,47 +23869,10 @@ var contexts_default = {
           StructuralMaterial: "eubat:StructuralMaterial"
         }
       },
-      materialComposition: {
-        "@id": "eubat:materialComposition",
-        "@type": "@id"
-      },
-      materialName: "schema:name",
-      materialRecoveryTargets: {
-        "@id": "eubat:materialRecoveryTargets",
-        "@type": "@id"
-      },
       materialSourceCountry: "gs1:countryOfOrigin",
       materialSupplier: {
         "@id": "eubat:materialSupplier",
         "@type": "xsd:string"
-      },
-      maximumChargingCurrent: {
-        "@id": "eubat:maximumChargingCurrent",
-        "@type": "@id"
-      },
-      maximumChargingPower: {
-        "@id": "eubat:maximumChargingPower",
-        "@type": "@id"
-      },
-      maximumDischargingCurrent: {
-        "@id": "eubat:maximumDischargingCurrent",
-        "@type": "@id"
-      },
-      maximumDischargingPower: {
-        "@id": "eubat:maximumDischargingPower",
-        "@type": "@id"
-      },
-      maximumPermittedBatteryPower: {
-        "@id": "eubat:maximumPermittedBatteryPower",
-        "@type": "@id"
-      },
-      maximumTemperature: {
-        "@id": "eubat:maximumTemperature",
-        "@type": "@id"
-      },
-      maximumVoltage: {
-        "@id": "eubat:maximumVoltage",
-        "@type": "@id"
       },
       measurementCertificateUrl: {
         "@id": "eubat:measurementCertificateUrl",
@@ -23628,22 +23882,6 @@ var contexts_default = {
       mimeType: {
         "@id": "eubat:mimeType",
         "@type": "xsd:string"
-      },
-      minimumTemperature: {
-        "@id": "eubat:minimumTemperature",
-        "@type": "@id"
-      },
-      minimumVoltage: {
-        "@id": "eubat:minimumVoltage",
-        "@type": "@id"
-      },
-      negativeEvents: {
-        "@id": "eubat:negativeEvents",
-        "@type": "@id"
-      },
-      netWeight: {
-        "@id": "gs1:netWeight",
-        "@type": "@id"
       },
       nextScheduledMeasurement: {
         "@id": "eubat:nextScheduledMeasurement",
@@ -23661,15 +23899,7 @@ var contexts_default = {
         "@id": "eubat:nickelRecycledShare",
         "@type": "xsd:decimal"
       },
-      nominalVoltage: {
-        "@id": "eubat:nominalVoltage",
-        "@type": "@id"
-      },
       note: "eubat:note",
-      notifiedBody: {
-        "@id": "eubat:notifiedBody",
-        "@type": "@id"
-      },
       notifiedBodyName: {
         "@id": "eubat:notifiedBodyName",
         "@type": "xsd:string"
@@ -23680,6 +23910,10 @@ var contexts_default = {
       },
       numberOfCells: {
         "@id": "eubat:numberOfCells",
+        "@type": "xsd:integer"
+      },
+      numberOfDeepDischargeEvents: {
+        "@id": "eubat:numberOfDeepDischargeEvents",
         "@type": "xsd:integer"
       },
       numberOfFullCycles: {
@@ -23694,12 +23928,8 @@ var contexts_default = {
         "@id": "eubat:operatorIdentifier",
         "@type": "xsd:string"
       },
-      operatorInformation: {
-        "@id": "eubat:operatorInformation",
-        "@type": "@id"
-      },
       operatorRole: {
-        "@id": "eubat:operatorRole",
+        "@id": "eubat:hasOperatorRole",
         "@type": "@vocab",
         "@context": {
           Manufacturer: "oec:Manufacturer",
@@ -23709,47 +23939,14 @@ var contexts_default = {
           AuthorisedRepresentative: "oec:AuthorisedRepresentative"
         }
       },
-      originalPowerCapability: {
-        "@id": "eubat:originalPowerCapability",
-        "@type": "@id"
-      },
-      powerCapability: {
-        "@id": "eubat:powerCapability",
-        "@type": "@id"
-      },
-      powerCapabilityAt20SoC: {
-        "@id": "eubat:powerCapabilityAt20SoC",
-        "@type": "@id"
-      },
-      powerCapabilityAt80SoC: {
-        "@id": "eubat:powerCapabilityAt80SoC",
-        "@type": "@id"
-      },
       powerCapabilityRatio: {
         "@id": "eubat:powerCapabilityRatio",
         "@type": "xsd:decimal"
       },
-      powerFade: {
-        "@id": "eubat:powerFade",
-        "@type": "@id"
-      },
       previousApplications: "eubat:previousApplications",
-      productName: "gs1:productName",
       puttingIntoService: {
         "@id": "eubat:puttingIntoService",
         "@type": "xsd:date"
-      },
-      ratedCapacity: {
-        "@id": "eubat:ratedCapacity",
-        "@type": "@id"
-      },
-      ratedEnergy: {
-        "@id": "eubat:ratedEnergy",
-        "@type": "@id"
-      },
-      ratedMaximumPower: {
-        "@id": "eubat:ratedMaximumPower",
-        "@type": "@id"
       },
       recommendedAction: "eubat:recommendedAction",
       recoveryMaterial: {
@@ -23764,49 +23961,11 @@ var contexts_default = {
         "@id": "eubat:recyclabilityRate",
         "@type": "xsd:decimal"
       },
-      recycledContent: {
-        "@id": "eubat:recycledContent",
-        "@type": "@id"
-      },
-      regulationType: "gs1:regulationType",
-      regulatoryAct: "gs1:regulatoryAct",
-      regulatoryActStatus: "oec:regulatoryActStatus",
-      regulatoryIdentifier: {
-        "@id": "gs1:regulatoryIdentifier",
-        "@type": "@id"
-      },
-      regulatoryIdentifierType: {
-        "@id": "gs1:regulatoryIdentifierType",
-        "@type": "@id"
-      },
       regulatoryInformation: {
         "@id": "gs1:regulatoryInformation",
         "@context": {
           "@base": "https://ref.gs1.org/voc/"
         }
-      },
-      regulatoryInformationProvider: "gs1:regulatoryInformationProvider",
-      regulatoryPermitIdentification: "oec:regulatoryPermitIdentification",
-      regulatoryReferenceNumber: "gs1:regulatoryReferenceNumber",
-      remainingCapacity: {
-        "@id": "eubat:remainingCapacity",
-        "@type": "@id"
-      },
-      remainingEnergy: {
-        "@id": "eubat:remainingEnergy",
-        "@type": "@id"
-      },
-      remainingPowerCapability: {
-        "@id": "eubat:remainingPowerCapability",
-        "@type": "@id"
-      },
-      remainingRoundTripEfficiency: {
-        "@id": "eubat:remainingRoundTripEfficiency",
-        "@type": "@id"
-      },
-      remainingUsableEnergy: {
-        "@id": "eubat:remainingUsableEnergy",
-        "@type": "@id"
       },
       renewableContent: {
         "@id": "eubat:renewableContent",
@@ -23817,7 +23976,7 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       reportingGranularity: {
-        "@id": "oec:reportingGranularity",
+        "@id": "oec:hasReportingGranularity",
         "@type": "@vocab",
         "@context": {
           ModelLevel: "oec:ModelLevel",
@@ -23829,10 +23988,6 @@ var contexts_default = {
         "@id": "eubat:repurposingDate",
         "@type": "xsd:date"
       },
-      repurposingEntity: {
-        "@id": "eubat:repurposingEntity",
-        "@type": "@id"
-      },
       repurposingGuidelines: {
         "@id": "eubat:repurposingGuidelines",
         "@type": "@id"
@@ -23841,18 +23996,6 @@ var contexts_default = {
       resistanceIncreaseThreshold: {
         "@id": "eubat:resistanceIncreaseThreshold",
         "@type": "xsd:decimal"
-      },
-      responsibleSourcingStandard: {
-        "@id": "eubat:responsibleSourcingStandard",
-        "@type": "@vocab",
-        "@context": {
-          AluminiumStewardship: "eubat:AluminiumStewardship",
-          CobaltIndustryResponsibleAssessment: "eubat:CobaltIndustryResponsibleAssessment",
-          CopperMark: "eubat:CopperMark",
-          IRMA: "eubat:IRMA",
-          OECDGuidelines: "eubat:OECDGuidelines",
-          RMI: "eubat:RMI"
-        }
       },
       resultOfTestReport: {
         "@id": "eubat:resultOfTestReport",
@@ -23866,10 +24009,6 @@ var contexts_default = {
       roundTripEfficiencyAt50PercentCycleLife: {
         "@id": "eubat:roundTripEfficiencyAt50PercentCycleLife",
         "@type": "xsd:decimal"
-      },
-      roundTripEfficiencyFade: {
-        "@id": "eubat:roundTripEfficiencyFade",
-        "@type": "@id"
       },
       roundTripEnergyEfficiency: {
         "@id": "eubat:roundTripEnergyEfficiency",
@@ -23886,11 +24025,6 @@ var contexts_default = {
       safetyMeasures: {
         "@id": "eubat:safetyMeasures",
         "@type": "xsd:string"
-      },
-      schemaVersion: "schema:schemaVersion",
-      selfDischargeRate: {
-        "@id": "eubat:selfDischargeRate",
-        "@type": "@id"
       },
       separateCollection: {
         "@id": "eubat:separateCollection",
@@ -23910,26 +24044,10 @@ var contexts_default = {
         "@id": "eubat:soceMeasurementId",
         "@type": "xsd:string"
       },
-      sparePartSources: {
-        "@id": "eubat:sparePartSources",
-        "@type": "@id"
-      },
       spareParts: "eubat:spareParts",
-      stateOfCertifiedEnergy: {
-        "@id": "eubat:stateOfCertifiedEnergy",
-        "@type": "@id"
-      },
-      stateOfCharge: {
-        "@id": "eubat:stateOfCharge",
-        "@type": "@id"
-      },
       stateOfChargeLevel: {
         "@id": "eubat:stateOfChargeLevel",
         "@type": "xsd:decimal"
-      },
-      stateOfHealth: {
-        "@id": "eubat:stateOfHealth",
-        "@type": "@id"
       },
       substanceCasNumber: {
         "@id": "eubat:substanceCasNumber",
@@ -23939,28 +24057,6 @@ var contexts_default = {
         "@id": "eubat:substanceEcNumber",
         "@type": "xsd:string"
       },
-      substanceLocation: {
-        "@id": "eubat:substanceLocation",
-        "@type": "@vocab",
-        "@context": {
-          Anode: "eubat:Anode",
-          BMS: "eubat:BMS",
-          Casing: "eubat:Casing",
-          Cathode: "eubat:Cathode",
-          CurrentCollector: "eubat:CurrentCollector",
-          Electrolyte: "eubat:Electrolyte",
-          Separator: "eubat:Separator"
-        }
-      },
-      substanceName: "schema:name",
-      supplierContact: {
-        "@id": "eubat:supplierContact",
-        "@type": "@id"
-      },
-      supplyChainDueDiligence: {
-        "@id": "eubat:supplyChainDueDiligence",
-        "@type": "@id"
-      },
       supplyChainIndex: {
         "@id": "eubat:supplyChainIndex",
         "@type": "xsd:decimal"
@@ -23968,10 +24064,6 @@ var contexts_default = {
       supplyChainMappingAvailable: {
         "@id": "eubat:supplyChainMappingAvailable",
         "@type": "xsd:boolean"
-      },
-      technicalSpecifications: {
-        "@id": "eubat:technicalSpecifications",
-        "@type": "@id"
       },
       temperatureExcursionId: {
         "@id": "eubat:temperatureExcursionId",
@@ -23981,32 +24073,12 @@ var contexts_default = {
         "@id": "eubat:temperatureExcursionReportUrl",
         "@type": "@id"
       },
-      temperatureRangeCharging: {
-        "@id": "eubat:temperatureRangeCharging",
-        "@type": "@id"
-      },
-      temperatureRangeDischarging: {
-        "@id": "eubat:temperatureRangeDischarging",
-        "@type": "@id"
-      },
-      temperatureRangeIdleState: {
-        "@id": "eubat:temperatureRangeIdleState",
-        "@type": "@id"
-      },
-      temperatureRangeStorage: {
-        "@id": "eubat:temperatureRangeStorage",
-        "@type": "@id"
-      },
       testReportNumber: {
         "@id": "eubat:testReportNumber",
         "@type": "xsd:string"
       },
       thirdPartyAssurancesUrl: {
         "@id": "eubat:thirdPartyAssurancesUrl",
-        "@type": "@id"
-      },
-      thirdPartyVerification: {
-        "@id": "eubat:thirdPartyVerification",
         "@type": "@id"
       },
       timeSpentChargingDuringExtremeTemperaturesAboveBoundary: {
@@ -24030,14 +24102,9 @@ var contexts_default = {
         "@id": "eubat:transportationSafetyClass",
         "@type": "xsd:string"
       },
-      unitCode: "gs1:unitCode",
       value: {
         "@id": "gs1:value",
         "@type": "xsd:decimal"
-      },
-      verificationBody: {
-        "@id": "eubat:verificationBody",
-        "@type": "@id"
       },
       verificationBodyName: {
         "@id": "eubat:verificationBodyName",
@@ -24072,15 +24139,15 @@ var contexts_default = {
       gs1: "https://ref.gs1.org/voc/",
       oec: "https://ref.openepcis.io/extensions/common/core/",
       schema: "https://schema.org/",
+      cv: "http://data.europa.eu/m8g/",
+      cccev: "http://data.europa.eu/m8g/",
       xsd: "http://www.w3.org/2001/XMLSchema#",
       eutex: "https://ref.openepcis.io/extensions/eu/textile/",
       ApparelSubcategory: "eutex:ApparelSubcategory",
       CLPHazardCategory: "eutex:CLPHazardCategory",
       CareInstruction: "eutex:CareInstruction",
       CareSymbolCode: "eutex:CareSymbolCode",
-      CertificationDetails: "gs1:CertificationDetails",
       ChainOfCustodyMethod: "eutex:ChainOfCustodyMethod",
-      Clothing: "gs1:Clothing",
       DimensionalChangeTestResult: "eutex:DimensionalChangeTestResult",
       DurabilityClass: "eutex:DurabilityClass",
       DurabilityInfo: "eutex:DurabilityInfo",
@@ -24092,8 +24159,6 @@ var contexts_default = {
       LCIACategoryCode: "eutex:LCIACategoryCode",
       MicroplasticInfo: "eutex:MicroplasticInfo",
       MicroplasticRiskLevel: "eutex:MicroplasticRiskLevel",
-      Product: "gs1:Product",
-      QuantitativeValue: "gs1:QuantitativeValue",
       RecyclabilityAssessment: "eutex:RecyclabilityAssessment",
       RecycledContentDeclaration: "eutex:RecycledContentDeclaration",
       RecycledSourceType: "eutex:RecycledSourceType",
@@ -24109,45 +24174,14 @@ var contexts_default = {
       TextileApparel: "eutex:TextileApparel",
       TextileCategory: "eutex:TextileCategory",
       TextileFootwear: "eutex:TextileFootwear",
-      TextileMaterialDetails: "gs1:TextileMaterialDetails",
+      TextileProduct: "eutex:TextileProduct",
       VisualInspectionResult: "eutex:VisualInspectionResult",
       WasteOriginType: "eutex:WasteOriginType",
-      WearableProduct: "gs1:WearableProduct",
       abrasionResistance: {
         "@id": "eutex:abrasionResistance",
         "@type": "xsd:integer"
       },
-      additionalCareInstructions: {
-        "@id": "eutex:additionalCareInstructions",
-        "@type": "xsd:string"
-      },
-      apparelSubcategory: {
-        "@id": "eutex:apparelSubcategory",
-        "@type": "@vocab",
-        "@context": {
-          DressesSkirts: "eutex:DressesSkirts",
-          JacketsCoats: "eutex:JacketsCoats",
-          LeggingsStockingsSocks: "eutex:LeggingsStockingsSocks",
-          PantsShorts: "eutex:PantsShorts",
-          ShirtsBlouses: "eutex:ShirtsBlouses",
-          Sweaters: "eutex:Sweaters",
-          Swimwear: "eutex:Swimwear",
-          TextileAccessories: "eutex:TextileAccessories",
-          TShirts: "eutex:TShirts",
-          Underwear: "eutex:Underwear"
-        }
-      },
-      applicableRecyclingTechnology: {
-        "@id": "eutex:applicableRecyclingTechnology",
-        "@type": "@vocab",
-        "@context": {
-          ChemicalRecyclingCotton: "eutex:ChemicalRecyclingCotton",
-          ChemicalRecyclingPA6: "eutex:ChemicalRecyclingPA6",
-          MechanicalRecycling: "eutex:MechanicalRecycling",
-          ThermoChemicalRecycling: "eutex:ThermoChemicalRecycling",
-          ThermoMechanicalRecycling: "eutex:ThermoMechanicalRecycling"
-        }
-      },
+      additionalCareInstructions: "eutex:additionalCareInstructions",
       benchmarkPerformance: {
         "@id": "eutex:benchmarkPerformance",
         "@type": "xsd:decimal"
@@ -24155,38 +24189,6 @@ var contexts_default = {
       biodegradable: {
         "@id": "eutex:biodegradable",
         "@type": "xsd:boolean"
-      },
-      bleachingSymbol: {
-        "@id": "eutex:bleachingSymbol",
-        "@type": "@vocab",
-        "@context": {
-          BleachAllowed: "eutex:BleachAllowed",
-          DoNotBleach: "eutex:DoNotBleach",
-          DoNotDryClean: "eutex:DoNotDryClean",
-          DoNotIron: "eutex:DoNotIron",
-          DoNotTumbleDry: "eutex:DoNotTumbleDry",
-          DoNotWash: "eutex:DoNotWash",
-          DripDry: "eutex:DripDry",
-          DryCleanAny: "eutex:DryCleanAny",
-          DryCleanHydrocarbon: "eutex:DryCleanHydrocarbon",
-          DryCleanPCE: "eutex:DryCleanPCE",
-          DryFlat: "eutex:DryFlat",
-          IronHigh: "eutex:IronHigh",
-          IronLow: "eutex:IronLow",
-          IronMedium: "eutex:IronMedium",
-          LineDry: "eutex:LineDry",
-          NonChlorineBleach: "eutex:NonChlorineBleach",
-          NoSteam: "eutex:NoSteam",
-          TumbleDryHigh: "eutex:TumbleDryHigh",
-          TumbleDryLow: "eutex:TumbleDryLow",
-          TumbleDryMedium: "eutex:TumbleDryMedium",
-          Wash30: "eutex:Wash30",
-          Wash40: "eutex:Wash40",
-          Wash60: "eutex:Wash60",
-          WashGentle: "eutex:WashGentle",
-          WashHandOnly: "eutex:WashHandOnly",
-          WetClean: "eutex:WetClean"
-        }
       },
       carbonFootprintClass: {
         "@id": "eutex:carbonFootprintClass",
@@ -24196,24 +24198,6 @@ var contexts_default = {
         "@id": "eutex:carbonFootprintManufacturing",
         "@type": "xsd:decimal"
       },
-      careInstructions: {
-        "@id": "eutex:careInstructions",
-        "@type": "@id"
-      },
-      casNumber: "oec:casNumber",
-      certificationAgency: "gs1:certificationAgency",
-      certificationStandard: "gs1:certificationStandard",
-      certificationValue: "gs1:certificationValue",
-      chainOfCustodyMethod: {
-        "@id": "eutex:chainOfCustodyMethod",
-        "@type": "@vocab",
-        "@context": {
-          Certified: "eutex:Certified",
-          IdentityPreserved: "eutex:IdentityPreserved",
-          MassBalance: "eutex:MassBalance",
-          Segregation: "eutex:Segregation"
-        }
-      },
       chemicalName: "schema:name",
       chemicalPurpose: {
         "@id": "eutex:chemicalPurpose",
@@ -24222,17 +24206,6 @@ var contexts_default = {
       cleaningCyclesBeforeTest: {
         "@id": "eutex:cleaningCyclesBeforeTest",
         "@type": "xsd:integer"
-      },
-      clpHazardCategory: {
-        "@id": "eutex:clpHazardCategory",
-        "@type": "@vocab",
-        "@context": {
-          AquaticToxicity: "eutex:AquaticToxicity",
-          CMR: "eutex:CMR",
-          EndocrineDisruptor: "eutex:EndocrineDisruptor",
-          PMT: "eutex:PMT",
-          Sensitizer: "eutex:Sensitizer"
-        }
       },
       colorFastness: {
         "@id": "eutex:colorFastness",
@@ -24250,19 +24223,6 @@ var contexts_default = {
         "@id": "eutex:containsAnimalNonTextileParts",
         "@type": "xsd:boolean"
       },
-      cutAndSewFacility: {
-        "@id": "eutex:cutAndSewFacility",
-        "@type": "@id"
-      },
-      dataTypeIndicator: {
-        "@id": "eutex:dataTypeIndicator",
-        "@type": "@vocab",
-        "@context": {
-          MixedData: "eutex:MixedData",
-          PrimaryData: "eutex:PrimaryData",
-          SecondaryData: "eutex:SecondaryData"
-        }
-      },
       dimensionalChangePercentage: {
         "@id": "eutex:dimensionalChangePercentage",
         "@type": "xsd:decimal"
@@ -24270,10 +24230,6 @@ var contexts_default = {
       dimensionalChangeScore: {
         "@id": "eutex:dimensionalChangeScore",
         "@type": "xsd:integer"
-      },
-      dimensionalChangeTest: {
-        "@id": "eutex:dimensionalChangeTest",
-        "@type": "@id"
       },
       dimensionalChangeTestMethod: {
         "@id": "eutex:dimensionalChangeTestMethod",
@@ -24283,89 +24239,6 @@ var contexts_default = {
         "@id": "eutex:dimensionalStability",
         "@type": "xsd:decimal"
       },
-      dryCleaningSymbol: {
-        "@id": "eutex:dryCleaningSymbol",
-        "@type": "@vocab",
-        "@context": {
-          BleachAllowed: "eutex:BleachAllowed",
-          DoNotBleach: "eutex:DoNotBleach",
-          DoNotDryClean: "eutex:DoNotDryClean",
-          DoNotIron: "eutex:DoNotIron",
-          DoNotTumbleDry: "eutex:DoNotTumbleDry",
-          DoNotWash: "eutex:DoNotWash",
-          DripDry: "eutex:DripDry",
-          DryCleanAny: "eutex:DryCleanAny",
-          DryCleanHydrocarbon: "eutex:DryCleanHydrocarbon",
-          DryCleanPCE: "eutex:DryCleanPCE",
-          DryFlat: "eutex:DryFlat",
-          IronHigh: "eutex:IronHigh",
-          IronLow: "eutex:IronLow",
-          IronMedium: "eutex:IronMedium",
-          LineDry: "eutex:LineDry",
-          NonChlorineBleach: "eutex:NonChlorineBleach",
-          NoSteam: "eutex:NoSteam",
-          TumbleDryHigh: "eutex:TumbleDryHigh",
-          TumbleDryLow: "eutex:TumbleDryLow",
-          TumbleDryMedium: "eutex:TumbleDryMedium",
-          Wash30: "eutex:Wash30",
-          Wash40: "eutex:Wash40",
-          Wash60: "eutex:Wash60",
-          WashGentle: "eutex:WashGentle",
-          WashHandOnly: "eutex:WashHandOnly",
-          WetClean: "eutex:WetClean"
-        }
-      },
-      dryingSymbol: {
-        "@id": "eutex:dryingSymbol",
-        "@type": "@vocab",
-        "@context": {
-          BleachAllowed: "eutex:BleachAllowed",
-          DoNotBleach: "eutex:DoNotBleach",
-          DoNotDryClean: "eutex:DoNotDryClean",
-          DoNotIron: "eutex:DoNotIron",
-          DoNotTumbleDry: "eutex:DoNotTumbleDry",
-          DoNotWash: "eutex:DoNotWash",
-          DripDry: "eutex:DripDry",
-          DryCleanAny: "eutex:DryCleanAny",
-          DryCleanHydrocarbon: "eutex:DryCleanHydrocarbon",
-          DryCleanPCE: "eutex:DryCleanPCE",
-          DryFlat: "eutex:DryFlat",
-          IronHigh: "eutex:IronHigh",
-          IronLow: "eutex:IronLow",
-          IronMedium: "eutex:IronMedium",
-          LineDry: "eutex:LineDry",
-          NonChlorineBleach: "eutex:NonChlorineBleach",
-          NoSteam: "eutex:NoSteam",
-          TumbleDryHigh: "eutex:TumbleDryHigh",
-          TumbleDryLow: "eutex:TumbleDryLow",
-          TumbleDryMedium: "eutex:TumbleDryMedium",
-          Wash30: "eutex:Wash30",
-          Wash40: "eutex:Wash40",
-          Wash60: "eutex:Wash60",
-          WashGentle: "eutex:WashGentle",
-          WashHandOnly: "eutex:WashHandOnly",
-          WetClean: "eutex:WetClean"
-        }
-      },
-      durabilityClass: {
-        "@id": "eutex:durabilityClass",
-        "@type": "@vocab",
-        "@context": {
-          DurabilityA: "eutex:DurabilityA",
-          DurabilityB: "eutex:DurabilityB",
-          DurabilityC: "eutex:DurabilityC",
-          DurabilityD: "eutex:DurabilityD",
-          DurabilityE: "eutex:DurabilityE"
-        }
-      },
-      durabilityInfo: {
-        "@id": "eutex:durabilityInfo",
-        "@type": "@id"
-      },
-      dyeingFacility: {
-        "@id": "eutex:dyeingFacility",
-        "@type": "@id"
-      },
       ecNumber: {
         "@id": "eutex:ecNumber",
         "@type": "xsd:string"
@@ -24374,29 +24247,14 @@ var contexts_default = {
         "@id": "eutex:elastaneContentPercent",
         "@type": "xsd:decimal"
       },
-      endOfLifeDestination: {
-        "@id": "eutex:endOfLifeDestination",
-        "@type": "xsd:string"
-      },
+      endOfLifeDestination: "eutex:endOfLifeDestination",
       endOfLifeHandling: {
         "@id": "eutex:endOfLifeHandling",
         "@type": "xsd:string"
       },
-      energyUsage: {
-        "@id": "eutex:energyUsage",
-        "@type": "@id"
-      },
-      environmentalFootprint: {
-        "@id": "eutex:environmentalFootprint",
-        "@type": "@id"
-      },
       environmentalFootprintClass: {
         "@id": "eutex:environmentalFootprintClass",
         "@type": "xsd:integer"
-      },
-      euDeclarationOfConformity: {
-        "@id": "eutex:euDeclarationOfConformity",
-        "@type": "@id"
       },
       euEcolabel: {
         "@id": "eutex:euEcolabel",
@@ -24414,26 +24272,9 @@ var contexts_default = {
         "@id": "eutex:fabricAppearanceRating",
         "@type": "xsd:integer"
       },
-      fabricType: {
-        "@id": "eutex:fabricType",
-        "@type": "@vocab",
-        "@context": {
-          Denim: "eutex:Denim",
-          Knitted: "eutex:Knitted",
-          WovenNonDenim: "eutex:WovenNonDenim"
-        }
-      },
-      fiberCertification: {
-        "@id": "eutex:fiberCertification",
-        "@type": "@id"
-      },
       fiberOrigin: {
         "@id": "eutex:fiberOrigin",
         "@type": "xsd:string"
-      },
-      finishingFacility: {
-        "@id": "eutex:finishingFacility",
-        "@type": "@id"
       },
       freeFromCoatings: {
         "@id": "eutex:freeFromCoatings",
@@ -24455,13 +24296,35 @@ var contexts_default = {
         "@id": "eutex:garmentType",
         "@type": "xsd:string"
       },
-      gtin: "gs1:gtin",
-      hasTakeBackProgram: {
-        "@id": "eutex:hasTakeBackProgram",
-        "@type": "xsd:boolean"
+      hasApparelSubcategory: {
+        "@id": "eutex:hasApparelSubcategory",
+        "@type": "@vocab",
+        "@context": {
+          DressesSkirts: "eutex:DressesSkirts",
+          JacketsCoats: "eutex:JacketsCoats",
+          LeggingsStockingsSocks: "eutex:LeggingsStockingsSocks",
+          PantsShorts: "eutex:PantsShorts",
+          ShirtsBlouses: "eutex:ShirtsBlouses",
+          Sweaters: "eutex:Sweaters",
+          Swimwear: "eutex:Swimwear",
+          TextileAccessories: "eutex:TextileAccessories",
+          TShirts: "eutex:TShirts",
+          Underwear: "eutex:Underwear"
+        }
       },
-      ironingSymbol: {
-        "@id": "eutex:ironingSymbol",
+      hasApplicableRecyclingTechnology: {
+        "@id": "eutex:hasApplicableRecyclingTechnology",
+        "@type": "@vocab",
+        "@context": {
+          ChemicalRecyclingCotton: "eutex:ChemicalRecyclingCotton",
+          ChemicalRecyclingPA6: "eutex:ChemicalRecyclingPA6",
+          MechanicalRecycling: "eutex:MechanicalRecycling",
+          ThermoChemicalRecycling: "eutex:ThermoChemicalRecycling",
+          ThermoMechanicalRecycling: "eutex:ThermoMechanicalRecycling"
+        }
+      },
+      hasBleachingSymbol: {
+        "@id": "eutex:hasBleachingSymbol",
         "@type": "@vocab",
         "@context": {
           BleachAllowed: "eutex:BleachAllowed",
@@ -24491,6 +24354,373 @@ var contexts_default = {
           WashHandOnly: "eutex:WashHandOnly",
           WetClean: "eutex:WetClean"
         }
+      },
+      hasCareInstructions: {
+        "@id": "eutex:hasCareInstructions",
+        "@type": "@id"
+      },
+      hasChainOfCustodyMethod: {
+        "@id": "eutex:hasChainOfCustodyMethod",
+        "@type": "@vocab",
+        "@context": {
+          Certified: "eutex:Certified",
+          IdentityPreserved: "eutex:IdentityPreserved",
+          MassBalance: "eutex:MassBalance",
+          Segregation: "eutex:Segregation"
+        }
+      },
+      hasClpHazardCategory: {
+        "@id": "eutex:hasClpHazardCategory",
+        "@type": "@vocab",
+        "@context": {
+          AquaticToxicity: "eutex:AquaticToxicity",
+          CMR: "eutex:CMR",
+          EndocrineDisruptor: "eutex:EndocrineDisruptor",
+          PMT: "eutex:PMT",
+          Sensitizer: "eutex:Sensitizer"
+        }
+      },
+      hasCutAndSewFacility: {
+        "@id": "eutex:hasCutAndSewFacility",
+        "@type": "@id"
+      },
+      hasDataTypeIndicator: {
+        "@id": "eutex:hasDataTypeIndicator",
+        "@type": "@vocab",
+        "@context": {
+          MixedData: "eutex:MixedData",
+          PrimaryData: "eutex:PrimaryData",
+          SecondaryData: "eutex:SecondaryData"
+        }
+      },
+      hasDimensionalChangeTest: {
+        "@id": "eutex:hasDimensionalChangeTest",
+        "@type": "@id"
+      },
+      hasDryCleaningSymbol: {
+        "@id": "eutex:hasDryCleaningSymbol",
+        "@type": "@vocab",
+        "@context": {
+          BleachAllowed: "eutex:BleachAllowed",
+          DoNotBleach: "eutex:DoNotBleach",
+          DoNotDryClean: "eutex:DoNotDryClean",
+          DoNotIron: "eutex:DoNotIron",
+          DoNotTumbleDry: "eutex:DoNotTumbleDry",
+          DoNotWash: "eutex:DoNotWash",
+          DripDry: "eutex:DripDry",
+          DryCleanAny: "eutex:DryCleanAny",
+          DryCleanHydrocarbon: "eutex:DryCleanHydrocarbon",
+          DryCleanPCE: "eutex:DryCleanPCE",
+          DryFlat: "eutex:DryFlat",
+          IronHigh: "eutex:IronHigh",
+          IronLow: "eutex:IronLow",
+          IronMedium: "eutex:IronMedium",
+          LineDry: "eutex:LineDry",
+          NonChlorineBleach: "eutex:NonChlorineBleach",
+          NoSteam: "eutex:NoSteam",
+          TumbleDryHigh: "eutex:TumbleDryHigh",
+          TumbleDryLow: "eutex:TumbleDryLow",
+          TumbleDryMedium: "eutex:TumbleDryMedium",
+          Wash30: "eutex:Wash30",
+          Wash40: "eutex:Wash40",
+          Wash60: "eutex:Wash60",
+          WashGentle: "eutex:WashGentle",
+          WashHandOnly: "eutex:WashHandOnly",
+          WetClean: "eutex:WetClean"
+        }
+      },
+      hasDryingSymbol: {
+        "@id": "eutex:hasDryingSymbol",
+        "@type": "@vocab",
+        "@context": {
+          BleachAllowed: "eutex:BleachAllowed",
+          DoNotBleach: "eutex:DoNotBleach",
+          DoNotDryClean: "eutex:DoNotDryClean",
+          DoNotIron: "eutex:DoNotIron",
+          DoNotTumbleDry: "eutex:DoNotTumbleDry",
+          DoNotWash: "eutex:DoNotWash",
+          DripDry: "eutex:DripDry",
+          DryCleanAny: "eutex:DryCleanAny",
+          DryCleanHydrocarbon: "eutex:DryCleanHydrocarbon",
+          DryCleanPCE: "eutex:DryCleanPCE",
+          DryFlat: "eutex:DryFlat",
+          IronHigh: "eutex:IronHigh",
+          IronLow: "eutex:IronLow",
+          IronMedium: "eutex:IronMedium",
+          LineDry: "eutex:LineDry",
+          NonChlorineBleach: "eutex:NonChlorineBleach",
+          NoSteam: "eutex:NoSteam",
+          TumbleDryHigh: "eutex:TumbleDryHigh",
+          TumbleDryLow: "eutex:TumbleDryLow",
+          TumbleDryMedium: "eutex:TumbleDryMedium",
+          Wash30: "eutex:Wash30",
+          Wash40: "eutex:Wash40",
+          Wash60: "eutex:Wash60",
+          WashGentle: "eutex:WashGentle",
+          WashHandOnly: "eutex:WashHandOnly",
+          WetClean: "eutex:WetClean"
+        }
+      },
+      hasDurabilityClass: {
+        "@id": "eutex:hasDurabilityClass",
+        "@type": "@vocab",
+        "@context": {
+          DurabilityA: "eutex:DurabilityA",
+          DurabilityB: "eutex:DurabilityB",
+          DurabilityC: "eutex:DurabilityC",
+          DurabilityD: "eutex:DurabilityD",
+          DurabilityE: "eutex:DurabilityE"
+        }
+      },
+      hasDurabilityInfo: {
+        "@id": "eutex:hasDurabilityInfo",
+        "@type": "@id"
+      },
+      hasDyeingFacility: {
+        "@id": "eutex:hasDyeingFacility",
+        "@type": "@id"
+      },
+      hasEnergyUsage: {
+        "@id": "eutex:hasEnergyUsage",
+        "@type": "@id"
+      },
+      hasEnvironmentalFootprint: {
+        "@id": "eutex:hasEnvironmentalFootprint",
+        "@type": "@id"
+      },
+      hasEuDeclarationOfConformity: {
+        "@id": "eutex:hasEuDeclarationOfConformity",
+        "@type": "@id"
+      },
+      hasFabricType: {
+        "@id": "eutex:hasFabricType",
+        "@type": "@vocab",
+        "@context": {
+          Denim: "eutex:Denim",
+          Knitted: "eutex:Knitted",
+          WovenNonDenim: "eutex:WovenNonDenim"
+        }
+      },
+      hasFiberCertification: {
+        "@id": "eutex:hasFiberCertification",
+        "@type": "@id"
+      },
+      hasFinishingFacility: {
+        "@id": "eutex:hasFinishingFacility",
+        "@type": "@id"
+      },
+      hasIroningSymbol: {
+        "@id": "eutex:hasIroningSymbol",
+        "@type": "@vocab",
+        "@context": {
+          BleachAllowed: "eutex:BleachAllowed",
+          DoNotBleach: "eutex:DoNotBleach",
+          DoNotDryClean: "eutex:DoNotDryClean",
+          DoNotIron: "eutex:DoNotIron",
+          DoNotTumbleDry: "eutex:DoNotTumbleDry",
+          DoNotWash: "eutex:DoNotWash",
+          DripDry: "eutex:DripDry",
+          DryCleanAny: "eutex:DryCleanAny",
+          DryCleanHydrocarbon: "eutex:DryCleanHydrocarbon",
+          DryCleanPCE: "eutex:DryCleanPCE",
+          DryFlat: "eutex:DryFlat",
+          IronHigh: "eutex:IronHigh",
+          IronLow: "eutex:IronLow",
+          IronMedium: "eutex:IronMedium",
+          LineDry: "eutex:LineDry",
+          NonChlorineBleach: "eutex:NonChlorineBleach",
+          NoSteam: "eutex:NoSteam",
+          TumbleDryHigh: "eutex:TumbleDryHigh",
+          TumbleDryLow: "eutex:TumbleDryLow",
+          TumbleDryMedium: "eutex:TumbleDryMedium",
+          Wash30: "eutex:Wash30",
+          Wash40: "eutex:Wash40",
+          Wash60: "eutex:Wash60",
+          WashGentle: "eutex:WashGentle",
+          WashHandOnly: "eutex:WashHandOnly",
+          WetClean: "eutex:WetClean"
+        }
+      },
+      hasLciaCategories: {
+        "@id": "eutex:hasLciaCategories",
+        "@type": "@id"
+      },
+      hasLciaCategoryCode: {
+        "@id": "eutex:hasLciaCategoryCode",
+        "@type": "@vocab",
+        "@context": {
+          Acidification: "eutex:Acidification",
+          Ecotoxicity: "eutex:Ecotoxicity",
+          Eutrophication: "eutex:Eutrophication",
+          GWP: "eutex:GWP",
+          HumanToxicity: "eutex:HumanToxicity",
+          WaterUse: "eutex:WaterUse"
+        }
+      },
+      hasMicroplasticInfo: {
+        "@id": "eutex:hasMicroplasticInfo",
+        "@type": "@id"
+      },
+      hasMicroplasticRiskLevel: {
+        "@id": "eutex:hasMicroplasticRiskLevel",
+        "@type": "@vocab",
+        "@context": {
+          HighShedding: "eutex:HighShedding",
+          LowShedding: "eutex:LowShedding",
+          MediumShedding: "eutex:MediumShedding"
+        }
+      },
+      hasRecyclabilityAssessment: {
+        "@id": "eutex:hasRecyclabilityAssessment",
+        "@type": "@id"
+      },
+      hasRecycledContentDeclaration: {
+        "@id": "eutex:hasRecycledContentDeclaration",
+        "@type": "@id"
+      },
+      hasRecycledSourceType: {
+        "@id": "eutex:hasRecycledSourceType",
+        "@type": "@vocab",
+        "@context": {
+          FiberToFiber: "eutex:FiberToFiber",
+          OpenLoop: "eutex:OpenLoop"
+        }
+      },
+      hasRepairServices: {
+        "@id": "eutex:hasRepairServices",
+        "@type": "@id"
+      },
+      hasRobustnessAssessment: {
+        "@id": "eutex:hasRobustnessAssessment",
+        "@type": "@id"
+      },
+      hasRobustnessTestFabricType: {
+        "@id": "eutex:hasRobustnessTestFabricType",
+        "@type": "@vocab",
+        "@context": {
+          Denim: "eutex:Denim",
+          Knitted: "eutex:Knitted",
+          WovenNonDenim: "eutex:WovenNonDenim"
+        }
+      },
+      hasSheddingRate: {
+        "@id": "eutex:hasSheddingRate",
+        "@type": "@id"
+      },
+      hasSocType: {
+        "@id": "eutex:hasSocType",
+        "@type": "@vocab",
+        "@context": {
+          SoCTypeA: "eutex:SoCTypeA",
+          SoCTypeB: "eutex:SoCTypeB",
+          SoCTypeC: "eutex:SoCTypeC",
+          SoCTypeD: "eutex:SoCTypeD"
+        }
+      },
+      hasSortingFactors: {
+        "@id": "eutex:hasSortingFactors",
+        "@type": "@id"
+      },
+      hasSpinningFacility: {
+        "@id": "eutex:hasSpinningFacility",
+        "@type": "@id"
+      },
+      hasSpiralityTest: {
+        "@id": "eutex:hasSpiralityTest",
+        "@type": "@id"
+      },
+      hasSubstancesOfConcern: {
+        "@id": "eutex:hasSubstancesOfConcern",
+        "@type": "@id"
+      },
+      hasTakeBackProgram: {
+        "@id": "eutex:hasTakeBackProgram",
+        "@type": "@id"
+      },
+      hasTearStrength: {
+        "@id": "eutex:hasTearStrength",
+        "@type": "@id"
+      },
+      hasTechnicalRecyclability: {
+        "@id": "eutex:hasTechnicalRecyclability",
+        "@type": "@id"
+      },
+      hasTensileStrength: {
+        "@id": "eutex:hasTensileStrength",
+        "@type": "@id"
+      },
+      hasTestStandard: {
+        "@id": "eutex:hasTestStandard",
+        "@type": "@vocab",
+        "@context": {
+          ISO105: "eutex:ISO105",
+          ISO12945: "eutex:ISO12945",
+          ISO12947: "eutex:ISO12947",
+          ISO15487: "eutex:ISO15487",
+          ISO16322_3: "eutex:ISO16322_3",
+          ISO3759: "eutex:ISO3759",
+          ISO6330: "eutex:ISO6330"
+        }
+      },
+      hasTextileChemicals: {
+        "@id": "eutex:hasTextileChemicals",
+        "@type": "@id"
+      },
+      hasVerificationCertification: {
+        "@id": "eutex:hasVerificationCertification",
+        "@type": "@id"
+      },
+      hasVisualInspection: {
+        "@id": "eutex:hasVisualInspection",
+        "@type": "@id"
+      },
+      hasWashingSymbol: {
+        "@id": "eutex:hasWashingSymbol",
+        "@type": "@vocab",
+        "@context": {
+          BleachAllowed: "eutex:BleachAllowed",
+          DoNotBleach: "eutex:DoNotBleach",
+          DoNotDryClean: "eutex:DoNotDryClean",
+          DoNotIron: "eutex:DoNotIron",
+          DoNotTumbleDry: "eutex:DoNotTumbleDry",
+          DoNotWash: "eutex:DoNotWash",
+          DripDry: "eutex:DripDry",
+          DryCleanAny: "eutex:DryCleanAny",
+          DryCleanHydrocarbon: "eutex:DryCleanHydrocarbon",
+          DryCleanPCE: "eutex:DryCleanPCE",
+          DryFlat: "eutex:DryFlat",
+          IronHigh: "eutex:IronHigh",
+          IronLow: "eutex:IronLow",
+          IronMedium: "eutex:IronMedium",
+          LineDry: "eutex:LineDry",
+          NonChlorineBleach: "eutex:NonChlorineBleach",
+          NoSteam: "eutex:NoSteam",
+          TumbleDryHigh: "eutex:TumbleDryHigh",
+          TumbleDryLow: "eutex:TumbleDryLow",
+          TumbleDryMedium: "eutex:TumbleDryMedium",
+          Wash30: "eutex:Wash30",
+          Wash40: "eutex:Wash40",
+          Wash60: "eutex:Wash60",
+          WashGentle: "eutex:WashGentle",
+          WashHandOnly: "eutex:WashHandOnly",
+          WetClean: "eutex:WetClean"
+        }
+      },
+      hasWasteOriginType: {
+        "@id": "eutex:hasWasteOriginType",
+        "@type": "@vocab",
+        "@context": {
+          PostConsumer: "eutex:PostConsumer",
+          PostIndustrial: "eutex:PostIndustrial"
+        }
+      },
+      hasWaterUsage: {
+        "@id": "eutex:hasWaterUsage",
+        "@type": "@id"
+      },
+      hasWeavingFacility: {
+        "@id": "eutex:hasWeavingFacility",
+        "@type": "@id"
       },
       isMRSLCompliant: {
         "@id": "eutex:isMRSLCompliant",
@@ -24514,21 +24744,9 @@ var contexts_default = {
       },
       iupacName: "schema:iupacName",
       lciaCategories: {
-        "@id": "eutex:lciaCategories",
+        "@id": "eutex:hasLciaCategories",
         "@type": "@id",
         "@container": "@set"
-      },
-      lciaCategoryCode: {
-        "@id": "eutex:lciaCategoryCode",
-        "@type": "@vocab",
-        "@context": {
-          Acidification: "eutex:Acidification",
-          Ecotoxicity: "eutex:Ecotoxicity",
-          Eutrophication: "eutex:Eutrophication",
-          GWP: "eutex:GWP",
-          HumanToxicity: "eutex:HumanToxicity",
-          WaterUse: "eutex:WaterUse"
-        }
       },
       lciaUnit: {
         "@id": "eutex:lciaUnit",
@@ -24550,23 +24768,7 @@ var contexts_default = {
         "@id": "eutex:meetsTargetThreshold",
         "@type": "xsd:boolean"
       },
-      microplasticInfo: {
-        "@id": "eutex:microplasticInfo",
-        "@type": "@id"
-      },
-      microplasticMitigationMeasures: {
-        "@id": "eutex:microplasticMitigationMeasures",
-        "@type": "xsd:string"
-      },
-      microplasticRiskLevel: {
-        "@id": "eutex:microplasticRiskLevel",
-        "@type": "@vocab",
-        "@context": {
-          HighShedding: "eutex:HighShedding",
-          LowShedding: "eutex:LowShedding",
-          MediumShedding: "eutex:MediumShedding"
-        }
-      },
+      microplasticMitigationMeasures: "eutex:microplasticMitigationMeasures",
       nonTextilePartsRating: {
         "@id": "eutex:nonTextilePartsRating",
         "@type": "xsd:integer"
@@ -24595,21 +24797,16 @@ var contexts_default = {
         "@id": "eutex:pillingResistance",
         "@type": "xsd:integer"
       },
-      productName: "gs1:productName",
       productionWastePercentage: {
         "@id": "eutex:productionWastePercentage",
         "@type": "xsd:decimal"
-      },
-      recyclabilityAssessment: {
-        "@id": "eutex:recyclabilityAssessment",
-        "@type": "@id"
       },
       recyclabilityScore: {
         "@id": "eutex:recyclabilityScore",
         "@type": "xsd:decimal"
       },
       recycledContentDeclaration: {
-        "@id": "eutex:recycledContentDeclaration",
+        "@id": "eutex:hasRecycledContentDeclaration",
         "@type": "@id",
         "@container": "@set"
       },
@@ -24617,40 +24814,19 @@ var contexts_default = {
         "@id": "eutex:recycledContentSource",
         "@type": "xsd:string"
       },
-      recycledSourceType: {
-        "@id": "eutex:recycledSourceType",
-        "@type": "@vocab",
-        "@context": {
-          FiberToFiber: "eutex:FiberToFiber",
-          OpenLoop: "eutex:OpenLoop"
-        }
-      },
       recyclingInstructions: "gs1:consumerRecyclingInstructions",
       repairGuideUrl: {
         "@id": "eutex:repairGuideUrl",
         "@type": "@id"
       },
       repairServices: {
-        "@id": "eutex:repairServices",
+        "@id": "eutex:hasRepairServices",
         "@type": "@id",
         "@container": "@set"
-      },
-      robustnessAssessment: {
-        "@id": "eutex:robustnessAssessment",
-        "@type": "@id"
       },
       robustnessScore: {
         "@id": "eutex:robustnessScore",
         "@type": "xsd:decimal"
-      },
-      robustnessTestFabricType: {
-        "@id": "eutex:robustnessTestFabricType",
-        "@type": "@vocab",
-        "@context": {
-          Denim: "eutex:Denim",
-          Knitted: "eutex:Knitted",
-          WovenNonDenim: "eutex:WovenNonDenim"
-        }
       },
       safeUseInstructions: {
         "@id": "eutex:safeUseInstructions",
@@ -24672,27 +24848,9 @@ var contexts_default = {
         "@id": "eutex:secondaryMaterialFraction",
         "@type": "xsd:decimal"
       },
-      sheddingRate: {
-        "@id": "eutex:sheddingRate",
-        "@type": "@id"
-      },
       sizeRange: {
         "@id": "eutex:sizeRange",
         "@type": "xsd:string"
-      },
-      socType: {
-        "@id": "eutex:socType",
-        "@type": "@vocab",
-        "@context": {
-          SoCTypeA: "eutex:SoCTypeA",
-          SoCTypeB: "eutex:SoCTypeB",
-          SoCTypeC: "eutex:SoCTypeC",
-          SoCTypeD: "eutex:SoCTypeD"
-        }
-      },
-      sortingFactors: {
-        "@id": "eutex:sortingFactors",
-        "@type": "@id"
       },
       sparePartsAvailable: {
         "@id": "eutex:sparePartsAvailable",
@@ -24700,10 +24858,6 @@ var contexts_default = {
       },
       sparePartsUrl: {
         "@id": "eutex:sparePartsUrl",
-        "@type": "@id"
-      },
-      spinningFacility: {
-        "@id": "eutex:spinningFacility",
         "@type": "@id"
       },
       spiralityPercentage: {
@@ -24714,10 +24868,6 @@ var contexts_default = {
         "@id": "eutex:spiralityScore",
         "@type": "xsd:integer"
       },
-      spiralityTest: {
-        "@id": "eutex:spiralityTest",
-        "@type": "@id"
-      },
       spiralityTestMethod: {
         "@id": "eutex:spiralityTestMethod",
         "@type": "xsd:string"
@@ -24727,7 +24877,7 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       substancesOfConcern: {
-        "@id": "eutex:substancesOfConcern",
+        "@id": "eutex:hasSubstancesOfConcern",
         "@type": "@id",
         "@container": "@set"
       },
@@ -24735,47 +24885,19 @@ var contexts_default = {
         "@id": "eutex:syntheticFiberContent",
         "@type": "xsd:decimal"
       },
-      takeBackIncentive: {
-        "@id": "eutex:takeBackIncentive",
-        "@type": "xsd:string"
-      },
-      takeBackProgram: {
-        "@id": "eutex:takeBackProgram",
-        "@type": "@id"
+      takeBackIncentive: "eutex:takeBackIncentive",
+      takeBackProgramAvailable: {
+        "@id": "eutex:takeBackProgramAvailable",
+        "@type": "xsd:boolean"
       },
       takeBackUrl: {
         "@id": "eutex:takeBackUrl",
         "@type": "@id"
       },
       targetGender: "gs1:targetConsumerGender",
-      tearStrength: {
-        "@id": "eutex:tearStrength",
-        "@type": "@id"
-      },
-      technicalRecyclability: {
-        "@id": "eutex:technicalRecyclability",
-        "@type": "@id"
-      },
       technicalRecyclabilityScore: {
         "@id": "eutex:technicalRecyclabilityScore",
         "@type": "xsd:decimal"
-      },
-      tensileStrength: {
-        "@id": "eutex:tensileStrength",
-        "@type": "@id"
-      },
-      testStandard: {
-        "@id": "eutex:testStandard",
-        "@type": "@vocab",
-        "@context": {
-          ISO105: "eutex:ISO105",
-          ISO12945: "eutex:ISO12945",
-          ISO12947: "eutex:ISO12947",
-          ISO15487: "eutex:ISO15487",
-          ISO16322_3: "eutex:ISO16322_3",
-          ISO3759: "eutex:ISO3759",
-          ISO6330: "eutex:ISO6330"
-        }
       },
       textileCategory: {
         "@id": "schema:category",
@@ -24789,7 +24911,7 @@ var contexts_default = {
         }
       },
       textileChemicals: {
-        "@id": "eutex:textileChemicals",
+        "@id": "eutex:hasTextileChemicals",
         "@type": "@id",
         "@container": "@set"
       },
@@ -24805,19 +24927,9 @@ var contexts_default = {
       textileMaterialDescription: {
         "@id": "gs1:textileMaterialDescription"
       },
-      textileMaterialPercentage: "gs1:textileMaterialPercentage",
-      unitCode: "gs1:unitCode",
       value: {
         "@id": "gs1:value",
         "@type": "xsd:decimal"
-      },
-      verificationCertification: {
-        "@id": "eutex:verificationCertification",
-        "@type": "@id"
-      },
-      visualInspection: {
-        "@id": "eutex:visualInspection",
-        "@type": "@id"
       },
       visualInspectionScore: {
         "@id": "eutex:visualInspectionScore",
@@ -24826,54 +24938,6 @@ var contexts_default = {
       visualInspectionTestMethod: {
         "@id": "eutex:visualInspectionTestMethod",
         "@type": "xsd:string"
-      },
-      washingSymbol: {
-        "@id": "eutex:washingSymbol",
-        "@type": "@vocab",
-        "@context": {
-          BleachAllowed: "eutex:BleachAllowed",
-          DoNotBleach: "eutex:DoNotBleach",
-          DoNotDryClean: "eutex:DoNotDryClean",
-          DoNotIron: "eutex:DoNotIron",
-          DoNotTumbleDry: "eutex:DoNotTumbleDry",
-          DoNotWash: "eutex:DoNotWash",
-          DripDry: "eutex:DripDry",
-          DryCleanAny: "eutex:DryCleanAny",
-          DryCleanHydrocarbon: "eutex:DryCleanHydrocarbon",
-          DryCleanPCE: "eutex:DryCleanPCE",
-          DryFlat: "eutex:DryFlat",
-          IronHigh: "eutex:IronHigh",
-          IronLow: "eutex:IronLow",
-          IronMedium: "eutex:IronMedium",
-          LineDry: "eutex:LineDry",
-          NonChlorineBleach: "eutex:NonChlorineBleach",
-          NoSteam: "eutex:NoSteam",
-          TumbleDryHigh: "eutex:TumbleDryHigh",
-          TumbleDryLow: "eutex:TumbleDryLow",
-          TumbleDryMedium: "eutex:TumbleDryMedium",
-          Wash30: "eutex:Wash30",
-          Wash40: "eutex:Wash40",
-          Wash60: "eutex:Wash60",
-          WashGentle: "eutex:WashGentle",
-          WashHandOnly: "eutex:WashHandOnly",
-          WetClean: "eutex:WetClean"
-        }
-      },
-      wasteOriginType: {
-        "@id": "eutex:wasteOriginType",
-        "@type": "@vocab",
-        "@context": {
-          PostConsumer: "eutex:PostConsumer",
-          PostIndustrial: "eutex:PostIndustrial"
-        }
-      },
-      waterUsage: {
-        "@id": "eutex:waterUsage",
-        "@type": "@id"
-      },
-      weavingFacility: {
-        "@id": "eutex:weavingFacility",
-        "@type": "@id"
       },
       weightExcludingTrims: {
         "@id": "eutex:weightExcludingTrims",
@@ -24888,46 +24952,52 @@ var contexts_default = {
       gs1: "https://ref.gs1.org/voc/",
       oec: "https://ref.openepcis.io/extensions/common/core/",
       schema: "https://schema.org/",
+      cv: "http://data.europa.eu/m8g/",
+      cccev: "http://data.europa.eu/m8g/",
       xsd: "http://www.w3.org/2001/XMLSchema#",
       euelec: "https://ref.openepcis.io/extensions/eu/electronics/",
+      AvoidedEmissionsEstimate: "euelec:AvoidedEmissionsEstimate",
+      BatteryDisposition: "euelec:BatteryDisposition",
       ComponentBOM: "euelec:ComponentBOM",
       ComponentType: "euelec:ComponentType",
       DeviceCategory: "euelec:DeviceCategory",
       DisplaySpecification: "euelec:DisplaySpecification",
       EURepairabilityClass: "euelec:EURepairabilityClass",
+      ElectronicComponent: "euelec:ElectronicComponent",
+      ElectronicDevice: "euelec:ElectronicDevice",
       EnergyEfficiency: "euelec:EnergyEfficiency",
       EnergyEfficiencyClass: "euelec:EnergyEfficiencyClass",
-      Organization: "gs1:Organization",
-      PriceSpecification: "gs1:PriceSpecification",
-      Product: "gs1:Product",
-      QuantitativeValue: "gs1:QuantitativeValue",
+      HazardousWasteRecord: "euelec:HazardousWasteRecord",
+      MaterialRecoveryResult: "euelec:MaterialRecoveryResult",
+      RecoveredMaterial: "euelec:RecoveredMaterial",
       RepairCriterion: "euelec:RepairCriterion",
       RepairCriterionType: "euelec:RepairCriterionType",
       RepairabilityIndex: "euelec:RepairabilityIndex",
       ReplacementDifficulty: "euelec:ReplacementDifficulty",
       RoHSCompliance: "euelec:RoHSCompliance",
+      SelectiveTreatmentItem: "euelec:SelectiveTreatmentItem",
       SoftwareSupport: "euelec:SoftwareSupport",
       WEEECategory: "euelec:WEEECategory",
       WEEECompliance: "euelec:WEEECompliance",
-      annualEnergyConsumption: {
-        "@id": "euelec:annualEnergyConsumption",
-        "@type": "@id"
-      },
-      assessmentBody: {
-        "@id": "euelec:assessmentBody",
-        "@type": "@id"
-      },
       assessmentDate: {
         "@id": "euelec:assessmentDate",
         "@type": "xsd:date"
       },
-      billOfMaterials: {
-        "@id": "euelec:billOfMaterials",
-        "@type": "@id"
+      avoidedEmissionsKgCO2e: {
+        "@id": "euelec:avoidedEmissionsKgCO2e",
+        "@type": "xsd:decimal"
       },
-      brand: {
-        "@id": "gs1:brand",
-        "@type": "@id"
+      batteryMassGrams: {
+        "@id": "euelec:batteryMassGrams",
+        "@type": "xsd:decimal"
+      },
+      calculationMethod: {
+        "@id": "euelec:calculationMethod",
+        "@type": "xsd:string"
+      },
+      collectionMethod: {
+        "@id": "euelec:collectionMethod",
+        "@type": "xsd:string"
       },
       collectionSchemeUrl: {
         "@id": "euelec:collectionSchemeUrl",
@@ -24943,37 +25013,11 @@ var contexts_default = {
         "@id": "euelec:componentPartNumber",
         "@type": "xsd:string"
       },
-      componentPassport: {
-        "@id": "euelec:componentPassport",
-        "@type": "@id"
-      },
-      componentType: {
-        "@id": "euelec:componentType",
-        "@type": "@vocab",
-        "@context": {
-          BatteryComponent: "euelec:BatteryComponent",
-          CameraComponent: "euelec:CameraComponent",
-          ConnectorComponent: "euelec:ConnectorComponent",
-          CoolingSystemComponent: "euelec:CoolingSystemComponent",
-          DisplayComponent: "euelec:DisplayComponent",
-          EnclosureComponent: "euelec:EnclosureComponent",
-          KeyboardComponent: "euelec:KeyboardComponent",
-          MemoryComponent: "euelec:MemoryComponent",
-          MicrophoneComponent: "euelec:MicrophoneComponent",
-          MotherboardComponent: "euelec:MotherboardComponent",
-          PowerSupplyComponent: "euelec:PowerSupplyComponent",
-          ProcessorComponent: "euelec:ProcessorComponent",
-          SpeakerComponent: "euelec:SpeakerComponent",
-          StorageComponent: "euelec:StorageComponent",
-          TrackpadComponent: "euelec:TrackpadComponent"
-        }
-      },
       components: {
-        "@id": "euelec:components",
+        "@id": "euelec:hasComponents",
         "@type": "@id",
         "@container": "@set"
       },
-      countryOfOrigin: "gs1:countryOfOrigin",
       criterionDetails: {
         "@id": "euelec:criterionDetails",
         "@type": "xsd:string"
@@ -24986,16 +25030,9 @@ var contexts_default = {
         "@id": "euelec:criterionScore",
         "@type": "xsd:decimal"
       },
-      criterionType: {
-        "@id": "euelec:criterionType",
-        "@type": "@vocab",
-        "@context": {
-          Disassembly: "euelec:Disassembly",
-          Documentation: "euelec:Documentation",
-          ProductSpecific: "euelec:ProductSpecific",
-          SparePartsAvailability: "euelec:SparePartsAvailability",
-          SparePartsPricing: "euelec:SparePartsPricing"
-        }
+      dataWiped: {
+        "@id": "euelec:dataWiped",
+        "@type": "xsd:boolean"
       },
       deviceCategory: {
         "@id": "schema:category",
@@ -25019,24 +25056,116 @@ var contexts_default = {
           Wearable: "euelec:Wearable"
         }
       },
+      deviceCondition: {
+        "@id": "euelec:deviceCondition",
+        "@type": "xsd:string"
+      },
       displayScore: {
         "@id": "euelec:displayScore",
         "@type": "xsd:decimal"
-      },
-      displaySpecification: {
-        "@id": "euelec:displaySpecification",
-        "@type": "@id"
       },
       displayTechnology: {
         "@id": "euelec:displayTechnology",
         "@type": "xsd:string"
       },
-      energyEfficiency: {
-        "@id": "euelec:energyEfficiency",
+      energyLabelUrl: {
+        "@id": "euelec:energyLabelUrl",
         "@type": "@id"
       },
-      energyEfficiencyClass: {
-        "@id": "euelec:energyEfficiencyClass",
+      energyRecoveryRate: {
+        "@id": "euelec:energyRecoveryRate",
+        "@type": "xsd:decimal"
+      },
+      eprelProductUrl: {
+        "@id": "euelec:eprelProductUrl",
+        "@type": "@id"
+      },
+      eprelRegistrationNumber: {
+        "@id": "euelec:eprelRegistrationNumber",
+        "@type": "xsd:string"
+      },
+      featureUpdateEndDate: {
+        "@id": "euelec:featureUpdateEndDate",
+        "@type": "xsd:date"
+      },
+      firmwareVersion: {
+        "@id": "euelec:firmwareVersion",
+        "@type": "xsd:string"
+      },
+      handlingNote: {
+        "@id": "euelec:handlingNote",
+        "@type": "xsd:string"
+      },
+      hasAnnualEnergyConsumption: {
+        "@id": "euelec:hasAnnualEnergyConsumption",
+        "@type": "@id"
+      },
+      hasAssessmentBody: {
+        "@id": "euelec:hasAssessmentBody",
+        "@type": "@id"
+      },
+      hasAvoidedEmissions: {
+        "@id": "euelec:hasAvoidedEmissions",
+        "@type": "@id"
+      },
+      hasBatteryDisposition: {
+        "@id": "euelec:hasBatteryDisposition",
+        "@type": "@id"
+      },
+      hasBillOfMaterials: {
+        "@id": "euelec:hasBillOfMaterials",
+        "@type": "@id"
+      },
+      hasComponentPassport: {
+        "@id": "euelec:hasComponentPassport",
+        "@type": "@id"
+      },
+      hasComponentType: {
+        "@id": "euelec:hasComponentType",
+        "@type": "@vocab",
+        "@context": {
+          BatteryComponent: "euelec:BatteryComponent",
+          CameraComponent: "euelec:CameraComponent",
+          ConnectorComponent: "euelec:ConnectorComponent",
+          CoolingSystemComponent: "euelec:CoolingSystemComponent",
+          DisplayComponent: "euelec:DisplayComponent",
+          EnclosureComponent: "euelec:EnclosureComponent",
+          KeyboardComponent: "euelec:KeyboardComponent",
+          MemoryComponent: "euelec:MemoryComponent",
+          MicrophoneComponent: "euelec:MicrophoneComponent",
+          MotherboardComponent: "euelec:MotherboardComponent",
+          PowerSupplyComponent: "euelec:PowerSupplyComponent",
+          ProcessorComponent: "euelec:ProcessorComponent",
+          SpeakerComponent: "euelec:SpeakerComponent",
+          StorageComponent: "euelec:StorageComponent",
+          TrackpadComponent: "euelec:TrackpadComponent"
+        }
+      },
+      hasComponents: {
+        "@id": "euelec:hasComponents",
+        "@type": "@id"
+      },
+      hasCriterionType: {
+        "@id": "euelec:hasCriterionType",
+        "@type": "@vocab",
+        "@context": {
+          Disassembly: "euelec:Disassembly",
+          Documentation: "euelec:Documentation",
+          ProductSpecific: "euelec:ProductSpecific",
+          SparePartsAvailability: "euelec:SparePartsAvailability",
+          SparePartsPricing: "euelec:SparePartsPricing"
+        }
+      },
+      hasDisplaySpecification: {
+        "@id": "euelec:hasDisplaySpecification",
+        "@type": "@id"
+      },
+      hasEnergyEfficiency: {
+        "@id": "euelec:hasEnergyEfficiency",
+        "@type": "@id"
+      },
+      hasEnergyEfficiencyClass: {
+        "@id": "euelec:hasEnergyEfficiencyClass",
         "@type": "@vocab",
         "@context": {
           EnergyClassA: "euelec:EnergyClassA",
@@ -25048,36 +25177,135 @@ var contexts_default = {
           EnergyClassG: "euelec:EnergyClassG"
         }
       },
-      energyLabelUrl: {
-        "@id": "euelec:energyLabelUrl",
+      hasEstimatedRecoverableMaterials: {
+        "@id": "euelec:hasEstimatedRecoverableMaterials",
         "@type": "@id"
       },
-      eprelProductUrl: {
-        "@id": "euelec:eprelProductUrl",
+      hasFeatureSupportYears: {
+        "@id": "euelec:hasFeatureSupportYears",
         "@type": "@id"
       },
-      eprelRegistrationNumber: {
-        "@id": "euelec:eprelRegistrationNumber",
-        "@type": "xsd:string"
-      },
-      featureSupportYears: {
-        "@id": "euelec:featureSupportYears",
+      hasHazardousMaterialsIdentified: {
+        "@id": "euelec:hasHazardousMaterialsIdentified",
         "@type": "@id"
       },
-      featureUpdateEndDate: {
-        "@id": "euelec:featureUpdateEndDate",
-        "@type": "xsd:date"
-      },
-      firmwareVersion: {
-        "@id": "euelec:firmwareVersion",
-        "@type": "xsd:string"
-      },
-      gln: "gs1:globalLocationNumber",
-      grossWeight: {
-        "@id": "gs1:grossWeight",
+      hasHazardousWasteRecord: {
+        "@id": "euelec:hasHazardousWasteRecord",
         "@type": "@id"
       },
-      gtin: "gs1:gtin",
+      hasInstalledComponentPassport: {
+        "@id": "euelec:hasInstalledComponentPassport",
+        "@type": "@id"
+      },
+      hasMaterialDeclaration: {
+        "@id": "euelec:hasMaterialDeclaration",
+        "@type": "@id"
+      },
+      hasMaterialRecoveryResults: {
+        "@id": "euelec:hasMaterialRecoveryResults",
+        "@type": "@id"
+      },
+      hasPeakBrightness: {
+        "@id": "euelec:hasPeakBrightness",
+        "@type": "@id"
+      },
+      hasPowerConsumptionOff: {
+        "@id": "euelec:hasPowerConsumptionOff",
+        "@type": "@id"
+      },
+      hasPowerConsumptionOn: {
+        "@id": "euelec:hasPowerConsumptionOn",
+        "@type": "@id"
+      },
+      hasPowerConsumptionStandby: {
+        "@id": "euelec:hasPowerConsumptionStandby",
+        "@type": "@id"
+      },
+      hasRecyclingFacility: {
+        "@id": "euelec:hasRecyclingFacility",
+        "@type": "@id"
+      },
+      hasRefreshRate: {
+        "@id": "euelec:hasRefreshRate",
+        "@type": "@id"
+      },
+      hasRepairCost: {
+        "@id": "euelec:hasRepairCost",
+        "@type": "@id"
+      },
+      hasRepairCriteria: {
+        "@id": "euelec:hasRepairCriteria",
+        "@type": "@id"
+      },
+      hasRepairabilityClass: {
+        "@id": "euelec:hasRepairabilityClass",
+        "@type": "@vocab",
+        "@context": {
+          RepairClassA: "euelec:RepairClassA",
+          RepairClassB: "euelec:RepairClassB",
+          RepairClassC: "euelec:RepairClassC",
+          RepairClassD: "euelec:RepairClassD",
+          RepairClassE: "euelec:RepairClassE"
+        }
+      },
+      hasRepairabilityIndex: {
+        "@id": "euelec:hasRepairabilityIndex",
+        "@type": "@id"
+      },
+      hasReplacedComponentPassport: {
+        "@id": "euelec:hasReplacedComponentPassport",
+        "@type": "@id"
+      },
+      hasReplacementDifficulty: {
+        "@id": "euelec:hasReplacementDifficulty",
+        "@type": "@vocab",
+        "@context": {
+          NotReplaceable: "euelec:NotReplaceable",
+          ProfessionalOnly: "euelec:ProfessionalOnly",
+          ToolRequired: "euelec:ToolRequired",
+          UserReplaceable: "euelec:UserReplaceable"
+        }
+      },
+      hasRohsCompliance: {
+        "@id": "euelec:hasRohsCompliance",
+        "@type": "@id"
+      },
+      hasScreenDiagonal: {
+        "@id": "euelec:hasScreenDiagonal",
+        "@type": "@id"
+      },
+      hasSecuritySupportYears: {
+        "@id": "euelec:hasSecuritySupportYears",
+        "@type": "@id"
+      },
+      hasSoftwareSupport: {
+        "@id": "euelec:hasSoftwareSupport",
+        "@type": "@id"
+      },
+      hasSoftwareUpdateEvent: {
+        "@id": "euelec:hasSoftwareUpdateEvent",
+        "@type": "@id"
+      },
+      hasSparePartAvailabilityYears: {
+        "@id": "euelec:hasSparePartAvailabilityYears",
+        "@type": "@id"
+      },
+      hasSparePartPrice: {
+        "@id": "euelec:hasSparePartPrice",
+        "@type": "@id"
+      },
+      hasTreatmentFacility: {
+        "@id": "euelec:hasTreatmentFacility",
+        "@type": "@id"
+      },
+      hasWeeeCompliance: {
+        "@id": "euelec:hasWeeeCompliance",
+        "@type": "@id"
+      },
+      hazardousWasteGenerated: {
+        "@id": "euelec:hazardousWasteGenerated",
+        "@type": "xsd:boolean"
+      },
       iec62474DslVersion: {
         "@id": "euelec:iec62474DslVersion",
         "@type": "xsd:string"
@@ -25090,51 +25318,30 @@ var contexts_default = {
         "@id": "euelec:latestUpdateDate",
         "@type": "xsd:date"
       },
-      manufacturer: {
-        "@id": "gs1:manufacturer",
-        "@type": "@id"
-      },
-      materialDeclaration: {
-        "@id": "euelec:materialDeclaration",
-        "@type": "@id"
-      },
       materialDeclarationDate: {
         "@id": "euelec:materialDeclarationDate",
         "@type": "xsd:date"
+      },
+      materialMassGrams: {
+        "@id": "euelec:materialMassGrams",
+        "@type": "xsd:decimal"
       },
       modelIdentifier: {
         "@id": "euelec:modelIdentifier",
         "@type": "xsd:string"
       },
-      netWeight: {
-        "@id": "gs1:netWeight",
-        "@type": "@id"
-      },
       newVersion: {
         "@id": "euelec:newVersion",
         "@type": "xsd:string"
       },
+      nextDisposition: {
+        "@id": "euelec:nextDisposition",
+        "@type": "xsd:string"
+      },
       operatingSystem: "schema:operatingSystem",
-      organizationName: "gs1:organizationName",
       osVersion: {
         "@id": "euelec:osVersion",
         "@type": "xsd:string"
-      },
-      peakBrightness: {
-        "@id": "euelec:peakBrightness",
-        "@type": "@id"
-      },
-      powerConsumptionOff: {
-        "@id": "euelec:powerConsumptionOff",
-        "@type": "@id"
-      },
-      powerConsumptionOn: {
-        "@id": "euelec:powerConsumptionOn",
-        "@type": "@id"
-      },
-      powerConsumptionStandby: {
-        "@id": "euelec:powerConsumptionStandby",
-        "@type": "@id"
       },
       previousVersion: {
         "@id": "euelec:previousVersion",
@@ -25144,8 +25351,6 @@ var contexts_default = {
         "@id": "gs1:price",
         "@type": "xsd:decimal"
       },
-      priceCurrency: "gs1:priceCurrency",
-      productName: "gs1:productName",
       productionDate: {
         "@id": "gs1:productionDate",
         "@type": "xsd:date"
@@ -25154,50 +25359,45 @@ var contexts_default = {
         "@id": "euelec:recoverabilityRate",
         "@type": "xsd:decimal"
       },
+      recoveryRate: {
+        "@id": "euelec:recoveryRate",
+        "@type": "xsd:decimal"
+      },
       recyclabilityRate: {
         "@id": "euelec:recyclabilityRate",
         "@type": "xsd:decimal"
       },
-      refreshRate: {
-        "@id": "euelec:refreshRate",
-        "@type": "@id"
+      recyclingProcess: {
+        "@id": "euelec:recyclingProcess",
+        "@type": "xsd:string"
+      },
+      recyclingRate: {
+        "@id": "euelec:recyclingRate",
+        "@type": "xsd:decimal"
+      },
+      removalReason: {
+        "@id": "euelec:removalReason",
+        "@type": "xsd:string"
       },
       repairCriteria: {
-        "@id": "euelec:repairCriteria",
+        "@id": "euelec:hasRepairCriteria",
         "@type": "@id",
         "@container": "@set"
       },
-      repairabilityClass: {
-        "@id": "euelec:repairabilityClass",
-        "@type": "@vocab",
-        "@context": {
-          RepairClassA: "euelec:RepairClassA",
-          RepairClassB: "euelec:RepairClassB",
-          RepairClassC: "euelec:RepairClassC",
-          RepairClassD: "euelec:RepairClassD",
-          RepairClassE: "euelec:RepairClassE"
-        }
+      repairDescription: {
+        "@id": "euelec:repairDescription",
+        "@type": "xsd:string"
       },
-      repairabilityIndex: {
-        "@id": "euelec:repairabilityIndex",
-        "@type": "@id"
+      repairTechnician: {
+        "@id": "euelec:repairTechnician",
+        "@type": "xsd:string"
+      },
+      repairType: {
+        "@id": "euelec:repairType",
+        "@type": "xsd:string"
       },
       repairabilityLabelUrl: {
         "@id": "euelec:repairabilityLabelUrl",
-        "@type": "@id"
-      },
-      replacementDifficulty: {
-        "@id": "euelec:replacementDifficulty",
-        "@type": "@vocab",
-        "@context": {
-          NotReplaceable: "euelec:NotReplaceable",
-          ProfessionalOnly: "euelec:ProfessionalOnly",
-          ToolRequired: "euelec:ToolRequired",
-          UserReplaceable: "euelec:UserReplaceable"
-        }
-      },
-      rohsCompliance: {
-        "@id": "euelec:rohsCompliance",
         "@type": "@id"
       },
       rohsCompliant: {
@@ -25212,10 +25412,6 @@ var contexts_default = {
         "@id": "euelec:rohsExemptions",
         "@type": "xsd:string"
       },
-      screenDiagonal: {
-        "@id": "euelec:screenDiagonal",
-        "@type": "@id"
-      },
       screenResolutionHeight: {
         "@id": "euelec:screenResolutionHeight",
         "@type": "xsd:integer"
@@ -25224,35 +25420,38 @@ var contexts_default = {
         "@id": "euelec:screenResolutionWidth",
         "@type": "xsd:integer"
       },
-      securitySupportYears: {
-        "@id": "euelec:securitySupportYears",
-        "@type": "@id"
-      },
       securityUpdateEndDate: {
         "@id": "euelec:securityUpdateEndDate",
         "@type": "xsd:date"
       },
-      softwareSupport: {
-        "@id": "euelec:softwareSupport",
-        "@type": "@id"
+      separatelyTreated: {
+        "@id": "euelec:separatelyTreated",
+        "@type": "xsd:boolean"
       },
-      softwareUpdateEvent: {
-        "@id": "euelec:softwareUpdateEvent",
-        "@type": "@id"
+      sortingDecision: {
+        "@id": "euelec:sortingDecision",
+        "@type": "xsd:string"
       },
-      sparePartAvailabilityYears: {
-        "@id": "euelec:sparePartAvailabilityYears",
-        "@type": "@id"
+      totalInputMassGrams: {
+        "@id": "euelec:totalInputMassGrams",
+        "@type": "xsd:decimal"
       },
-      sparePartPrice: {
-        "@id": "euelec:sparePartPrice",
-        "@type": "@id"
+      totalRecoveredMassGrams: {
+        "@id": "euelec:totalRecoveredMassGrams",
+        "@type": "xsd:decimal"
       },
       totalScore: {
         "@id": "euelec:totalScore",
         "@type": "xsd:decimal"
       },
-      unitCode: "gs1:unitCode",
+      treatmentCertificate: {
+        "@id": "euelec:treatmentCertificate",
+        "@type": "xsd:string"
+      },
+      treatmentMethod: {
+        "@id": "euelec:treatmentMethod",
+        "@type": "xsd:string"
+      },
       updateChannel: {
         "@id": "euelec:updateChannel",
         "@type": "@id"
@@ -25269,6 +25468,14 @@ var contexts_default = {
         "@id": "gs1:value",
         "@type": "xsd:decimal"
       },
+      warrantyStatus: {
+        "@id": "euelec:warrantyStatus",
+        "@type": "xsd:string"
+      },
+      wasteDescription: {
+        "@id": "euelec:wasteDescription",
+        "@type": "xsd:string"
+      },
       weeeCategory: {
         "@id": "schema:category",
         "@type": "@vocab",
@@ -25280,10 +25487,6 @@ var contexts_default = {
           WEEE5_SmallEquipment: "euelec:WEEE5_SmallEquipment",
           WEEE6_SmallIT: "euelec:WEEE6_SmallIT"
         }
-      },
-      weeeCompliance: {
-        "@id": "euelec:weeeCompliance",
-        "@type": "@id"
       },
       weeeRegistrationCountry: {
         "@id": "euelec:weeeRegistrationCountry",
@@ -25302,107 +25505,44 @@ var contexts_default = {
       gs1: "https://ref.gs1.org/voc/",
       oec: "https://ref.openepcis.io/extensions/common/core/",
       schema: "https://schema.org/",
+      cv: "http://data.europa.eu/m8g/",
+      cccev: "http://data.europa.eu/m8g/",
       xsd: "http://www.w3.org/2001/XMLSchema#",
       eudr: "https://ref.openepcis.io/extensions/eu/eudr/",
       ActorRole: "eudr:ActorRole",
       CommodityType: "eudr:CommodityType",
-      Country: "gs1:Country",
       DownstreamOperator: "eudr:DownstreamOperator",
       DueDiligenceStatement: "eudr:DueDiligenceStatement",
       ExemptionDeclaration: "eudr:ExemptionDeclaration",
       ExemptionType: "eudr:ExemptionType",
-      GeoShape: "gs1:GeoShape",
-      Message: "gs1:Message",
       Operator: "eudr:Operator",
-      Organization: "gs1:Organization",
       OriginDetails: "eudr:OriginDetails",
       PermanentExemption: "eudr:PermanentExemption",
-      Place: "gs1:Place",
-      PostalAddress: "gs1:PostalAddress",
       Producer: "eudr:Producer",
-      Product: "gs1:Product",
-      QuantitativeValue: "gs1:QuantitativeValue",
-      RegulatoryIdentifier: "gs1:RegulatoryIdentifier",
-      RegulatoryInformation: "gs1:RegulatoryInformation",
-      RegulatoryNotification: "gs1:RegulatoryNotification",
       RiskAssessment: "eudr:RiskAssessment",
       RiskLevel: "eudr:RiskLevel",
       TemporaryExemption: "eudr:TemporaryExemption",
       TimberProductType: "eudr:TimberProductType",
       Trader: "eudr:Trader",
-      Transaction: "gs1:Transaction",
-      additionalOrganizationID: {
-        "@id": "eudr:additionalOrganizationID",
-        "@type": "@id"
-      },
-      address: {
-        "@id": "gs1:address",
-        "@type": "@id"
-      },
-      addressCountry: "gs1:addressCountry",
-      addressLocality: "gs1:addressLocality",
-      applicableProducts: {
-        "@id": "gs1:applicableProducts",
-        "@type": "@id"
-      },
-      applicableTransactions: {
-        "@id": "gs1:applicableTransactions",
-        "@type": "@id"
-      },
       areaHectares: {
         "@id": "eudr:areaHectares",
         "@type": "xsd:decimal"
-      },
-      areaSize: {
-        "@id": "eudr:areaSize",
-        "@type": "@id"
       },
       certification: {
         "@id": "gs1:certification",
         "@type": "@id",
         "@container": "@set"
       },
-      certificationAgency: "gs1:certificationAgency",
-      certificationStandard: "gs1:certificationStandard",
       certificationURI: {
         "@id": "gs1:certificationURI",
         "@type": "@id"
       },
-      commodityType: {
-        "@id": "eudr:commodityType",
-        "@type": "@vocab",
-        "@context": {
-          Cattle: "eudr:Cattle",
-          Cocoa: "eudr:Cocoa",
-          Coffee: "eudr:Coffee",
-          OilPalm: "eudr:OilPalm",
-          Rubber: "eudr:Rubber",
-          Soya: "eudr:Soya",
-          Wood: "eudr:Wood"
-        }
-      },
-      countryCode: "gs1:countryCode",
       countryList: {
-        "@id": "eudr:countryList",
+        "@id": "eudr:hasCountryList",
         "@container": "@set"
       },
-      countryOfOrigin: {
-        "@id": "gs1:countryOfOrigin",
-        "@type": "@id"
-      },
-      countryRiskCategory: {
-        "@id": "eudr:countryRiskCategory",
-        "@type": "@vocab",
-        "@context": {
-          High: "eudr:High",
-          Low: "eudr:Low",
-          Negligible: "eudr:Negligible",
-          Standard: "eudr:Standard"
-        }
-      },
-      customsCommodityCode: "oec:customsCommodityCode",
       customsCommodityCodeType: {
-        "@id": "oec:customsCommodityCodeType",
+        "@id": "oec:hasCustomsCommodityCodeType",
         "@type": "@vocab",
         "@context": {
           HS6: "oec:HS6",
@@ -25417,23 +25557,11 @@ var contexts_default = {
         "@type": "xsd:date"
       },
       derivedFrom: {
-        "@id": "eudr:derivedFrom",
+        "@id": "eudr:hasDerivedFrom",
         "@type": "@id",
         "@container": "@set"
       },
-      dueDiligenceStatement: {
-        "@id": "eudr:dueDiligenceStatement",
-        "@type": "@id"
-      },
       euisReferenceNumber: "gs1:regulatoryReferenceNumber",
-      exemptionAuthority: {
-        "@id": "eudr:exemptionAuthority",
-        "@type": "@id"
-      },
-      exemptionDeclaration: {
-        "@id": "eudr:exemptionDeclaration",
-        "@type": "@id"
-      },
       exemptionEffectiveFrom: {
         "@id": "eudr:exemptionEffectiveFrom",
         "@type": "xsd:date"
@@ -25454,25 +25582,9 @@ var contexts_default = {
         "@id": "eudr:exemptionScopeReference",
         "@type": "xsd:string"
       },
-      exemptionType: {
-        "@id": "eudr:exemptionType",
-        "@type": "@vocab",
-        "@context": {
-          PermanentExemption: "eudr:PermanentExemption",
-          TemporaryExemption: "eudr:TemporaryExemption"
-        }
-      },
       forestManagementUnit: {
         "@id": "eudr:forestManagementUnit",
         "@type": "xsd:string"
-      },
-      fscCertification: {
-        "@id": "eudr:fscCertification",
-        "@type": "@id"
-      },
-      geo: {
-        "@id": "gs1:geo",
-        "@type": "@id"
       },
       geofence: {
         "@id": "eudr:geofence",
@@ -25482,12 +25594,6 @@ var contexts_default = {
         "@id": "eudr:geolocation",
         "@type": "xsd:anyURI"
       },
-      gln: "gs1:globalLocationNumber",
-      grossWeight: {
-        "@id": "gs1:grossWeight",
-        "@type": "@id"
-      },
-      gtin: "gs1:gtin",
       harvestDate: {
         "@id": "gs1:harvestDate",
         "@type": "xsd:date"
@@ -25500,110 +25606,29 @@ var contexts_default = {
         "@id": "gs1:harvestDateStart",
         "@type": "xsd:date"
       },
-      hasBatchLotNumber: "gs1:hasBatchLotNumber",
-      hasSerialNumber: "gs1:hasSerialNumber",
-      isRegulationCompliant: {
-        "@id": "oec:isRegulationCompliant",
-        "@type": "xsd:boolean"
-      },
-      isTradeItemRegulationCompliant: "oec:isRegulationCompliant",
-      landUseHistory: {
-        "@id": "eudr:landUseHistory",
-        "@type": "xsd:string"
-      },
-      legallyHarvested: {
-        "@id": "eudr:legallyHarvested",
-        "@type": "xsd:boolean"
-      },
-      locationGLN: "gs1:locationGLN",
-      manufacturer: {
-        "@id": "gs1:manufacturer",
+      hasAreaSize: {
+        "@id": "eudr:hasAreaSize",
         "@type": "@id"
       },
-      messageRecipient: {
-        "@id": "gs1:messageRecipient",
-        "@type": "@id"
-      },
-      messageSender: {
-        "@id": "gs1:messageSender",
-        "@type": "@id"
-      },
-      mitigationMeasures: {
-        "@id": "eudr:mitigationMeasures",
-        "@type": "xsd:string"
-      },
-      netWeight: {
-        "@id": "gs1:netWeight",
-        "@type": "@id"
-      },
-      organizationID: "eudr:organizationID",
-      organizationID_Type: "eudr:organizationIDType",
-      organizationName: "gs1:organizationName",
-      originDetails: {
-        "@id": "eudr:originDetails",
-        "@type": "@id"
-      },
-      originList: {
-        "@id": "eudr:originList",
-        "@type": "@id",
-        "@container": "@set"
-      },
-      partyGLN: "gs1:partyGLN",
-      physicalLocationName: "gs1:physicalLocationName",
-      polygon: "gs1:polygon",
-      postalCode: "gs1:postalCode",
-      producerIdentification: {
-        "@id": "eudr:producerIdentification",
-        "@type": "@id"
-      },
-      productName: "gs1:productName",
-      regulationType: {
-        "@id": "gs1:regulationType",
+      hasCommodityType: {
+        "@id": "eudr:hasCommodityType",
         "@type": "@vocab",
         "@context": {
-          DEFORESTATION_REGULATION: "gs1:RegulationTypeCode-DEFORESTATION_REGULATION"
+          Cattle: "eudr:Cattle",
+          Cocoa: "eudr:Cocoa",
+          Coffee: "eudr:Coffee",
+          OilPalm: "eudr:OilPalm",
+          Rubber: "eudr:Rubber",
+          Soya: "eudr:Soya",
+          Wood: "eudr:Wood"
         }
       },
-      regulatoryAct: "gs1:regulatoryAct",
-      regulatoryIdentifier: {
-        "@id": "gs1:regulatoryIdentifier",
+      hasCountryList: {
+        "@id": "eudr:hasCountryList",
         "@type": "@id"
       },
-      regulatoryIdentifierType: {
-        "@id": "gs1:regulatoryIdentifierType",
-        "@type": "@vocab",
-        "@context": {
-          DUE_DILIGENCE_STATEMENT: "gs1:RegulatoryIdentifierType-DUE_DILIGENCE_STATEMENT"
-        }
-      },
-      regulatoryInformation: {
-        "@id": "gs1:regulatoryInformation",
-        "@type": "@id"
-      },
-      regulatoryInformationProvider: {
-        "@id": "gs1:regulatoryInformationProvider",
-        "@type": "@id"
-      },
-      regulatoryReferenceApplicabilityEndDate: {
-        "@id": "gs1:regulatoryReferenceApplicabilityEndDate",
-        "@type": "xsd:date"
-      },
-      regulatoryReferenceApplicabilityStartDate: {
-        "@id": "gs1:regulatoryReferenceApplicabilityStartDate",
-        "@type": "xsd:date"
-      },
-      regulatoryReferenceNumber: "gs1:regulatoryReferenceNumber",
-      regulatoryVerificationNumber: "gs1:regulatoryVerificationNumber",
-      riskAssessment: {
-        "@id": "eudr:riskAssessment",
-        "@type": "@id"
-      },
-      riskAssessmentDate: {
-        "@id": "eudr:riskAssessmentDate",
-        "@type": "xsd:date"
-      },
-      riskLevel: {
-        "@id": "eudr:riskLevel",
+      hasCountryRiskCategory: {
+        "@id": "eudr:hasCountryRiskCategory",
         "@type": "@vocab",
         "@context": {
           High: "eudr:High",
@@ -25612,22 +25637,62 @@ var contexts_default = {
           Standard: "eudr:Standard"
         }
       },
-      serialNumber: "schema:serialNumber",
-      speciesCommonName: {
-        "@id": "eudr:speciesCommonName",
-        "@type": "xsd:string"
+      hasDerivedFrom: {
+        "@id": "eudr:hasDerivedFrom",
+        "@type": "@id"
       },
-      speciesScientificName: {
-        "@id": "eudr:speciesScientificName",
-        "@type": "xsd:string"
+      hasDueDiligenceStatement: {
+        "@id": "eudr:hasDueDiligenceStatement",
+        "@type": "@id"
       },
-      statementDate: {
-        "@id": "eudr:statementDate",
-        "@type": "xsd:date"
+      hasExemptionAuthority: {
+        "@id": "eudr:hasExemptionAuthority",
+        "@type": "@id"
       },
-      streetAddress: "gs1:streetAddress",
-      timberProductType: {
-        "@id": "eudr:timberProductType",
+      hasExemptionDeclaration: {
+        "@id": "eudr:hasExemptionDeclaration",
+        "@type": "@id"
+      },
+      hasExemptionType: {
+        "@id": "eudr:hasExemptionType",
+        "@type": "@vocab",
+        "@context": {
+          PermanentExemption: "eudr:PermanentExemption",
+          TemporaryExemption: "eudr:TemporaryExemption"
+        }
+      },
+      hasFscCertification: {
+        "@id": "eudr:hasFscCertification",
+        "@type": "@id"
+      },
+      hasOriginDetails: {
+        "@id": "eudr:hasOriginDetails",
+        "@type": "@id"
+      },
+      hasOriginList: {
+        "@id": "eudr:hasOriginList",
+        "@type": "@id"
+      },
+      hasProducerIdentification: {
+        "@id": "eudr:hasProducerIdentification",
+        "@type": "@id"
+      },
+      hasRiskAssessment: {
+        "@id": "eudr:hasRiskAssessment",
+        "@type": "@id"
+      },
+      hasRiskLevel: {
+        "@id": "eudr:hasRiskLevel",
+        "@type": "@vocab",
+        "@context": {
+          High: "eudr:High",
+          Low: "eudr:Low",
+          Negligible: "eudr:Negligible",
+          Standard: "eudr:Standard"
+        }
+      },
+      hasTimberProductType: {
+        "@id": "eudr:hasTimberProductType",
         "@type": "@vocab",
         "@context": {
           Charcoal: "eudr:Charcoal",
@@ -25643,11 +25708,70 @@ var contexts_default = {
           WoodPellets: "eudr:WoodPellets"
         }
       },
+      hasTransformationLocation: {
+        "@id": "eudr:hasTransformationLocation",
+        "@type": "@id"
+      },
+      isTradeItemRegulationCompliant: "oec:isRegulationCompliant",
+      landUseHistory: {
+        "@id": "eudr:landUseHistory",
+        "@type": "xsd:string"
+      },
+      legallyHarvested: {
+        "@id": "eudr:legallyHarvested",
+        "@type": "xsd:boolean"
+      },
+      mitigationMeasures: {
+        "@id": "eudr:mitigationMeasures",
+        "@type": "xsd:string"
+      },
+      originList: {
+        "@id": "eudr:hasOriginList",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      regulationType: {
+        "@id": "gs1:regulationType",
+        "@type": "@vocab",
+        "@context": {
+          DEFORESTATION_REGULATION: "gs1:RegulationTypeCode-DEFORESTATION_REGULATION"
+        }
+      },
+      regulatoryIdentifierType: {
+        "@id": "gs1:regulatoryIdentifierType",
+        "@type": "@vocab",
+        "@context": {
+          DUE_DILIGENCE_STATEMENT: "gs1:RegulatoryIdentifierType-DUE_DILIGENCE_STATEMENT"
+        }
+      },
+      regulatoryReferenceApplicabilityEndDate: {
+        "@id": "gs1:regulatoryReferenceApplicabilityEndDate",
+        "@type": "xsd:date"
+      },
+      regulatoryReferenceApplicabilityStartDate: {
+        "@id": "gs1:regulatoryReferenceApplicabilityStartDate",
+        "@type": "xsd:date"
+      },
+      riskAssessmentDate: {
+        "@id": "eudr:riskAssessmentDate",
+        "@type": "xsd:date"
+      },
+      speciesCommonName: {
+        "@id": "eudr:speciesCommonName",
+        "@type": "xsd:string"
+      },
+      speciesScientificName: {
+        "@id": "eudr:speciesScientificName",
+        "@type": "xsd:string"
+      },
+      statementDate: {
+        "@id": "eudr:statementDate",
+        "@type": "xsd:date"
+      },
       transactionDate: {
         "@id": "gs1:transactionDate",
         "@type": "xsd:date"
       },
-      transactionID: "gs1:transactionID",
       transactionType: {
         "@id": "gs1:transactionType",
         "@type": "@vocab",
@@ -25669,11 +25793,6 @@ var contexts_default = {
         "@id": "eudr:transformationDate",
         "@type": "xsd:date"
       },
-      transformationLocation: {
-        "@id": "eudr:transformationLocation",
-        "@type": "@id"
-      },
-      unitCode: "gs1:unitCode",
       value: {
         "@id": "gs1:value",
         "@type": "xsd:decimal"
@@ -25695,16 +25814,24 @@ var contexts_default = {
       gs1: "https://ref.gs1.org/voc/",
       oec: "https://ref.openepcis.io/extensions/common/core/",
       schema: "https://schema.org/",
+      cv: "http://data.europa.eu/m8g/",
+      cccev: "http://data.europa.eu/m8g/",
       xsd: "http://www.w3.org/2001/XMLSchema#",
       euppwr: "https://ref.openepcis.io/extensions/eu/ppwr/",
       PACKAGING_AND_PACKAGING_WASTE_REGULATION: "euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION",
       Packaging: "euppwr:Packaging",
-      PackagingMaterialDetails: "gs1:PackagingMaterialDetails",
       PackagingTier: "euppwr:PackagingTier",
-      PriceSpecification: "gs1:PriceSpecification",
-      QuantitativeValue: "gs1:QuantitativeValue",
       RecyclabilityGrade: "euppwr:RecyclabilityGrade",
-      RegulatoryInformation: "gs1:RegulatoryInformation",
+      ReuseInformation: "euppwr:ReuseInformation",
+      ReuseSystemScope: "euppwr:ReuseSystemScope",
+      averageRotationsEstimate: {
+        "@id": "euppwr:averageRotationsEstimate",
+        "@type": "xsd:decimal"
+      },
+      collectionPointsUrl: {
+        "@id": "euppwr:collectionPointsUrl",
+        "@type": "xsd:anyURI"
+      },
       containerCondition: {
         "@id": "euppwr:containerCondition",
         "@type": "xsd:string"
@@ -25721,23 +25848,36 @@ var contexts_default = {
         "@id": "euppwr:harmonisedSymbol",
         "@type": "xsd:anyURI"
       },
-      hasReturnablePackageDeposit: {
-        "@id": "gs1:hasReturnablePackageDeposit",
+      hasPackagingTier: {
+        "@id": "euppwr:hasPackagingTier",
+        "@type": "@vocab",
+        "@context": {
+          Grouped: "euppwr:Grouped",
+          Sales: "euppwr:Sales",
+          Transport: "euppwr:Transport"
+        }
+      },
+      hasRecyclabilityGrade: {
+        "@id": "euppwr:hasRecyclabilityGrade",
+        "@type": "@vocab",
+        "@context": {
+          GradeA: "euppwr:GradeA",
+          GradeB: "euppwr:GradeB",
+          GradeC: "euppwr:GradeC"
+        }
+      },
+      hasReuseInformation: {
+        "@id": "euppwr:hasReuseInformation",
         "@type": "@id"
       },
-      isRegulationCompliant: {
-        "@id": "oec:isRegulationCompliant",
-        "@type": "xsd:boolean"
-      },
-      manufacturer: {
-        "@id": "gs1:manufacturer",
-        "@type": "@id"
-      },
-      netContent: "gs1:netContent",
-      netWeight: "gs1:netWeight",
-      packaging: {
-        "@id": "gs1:packaging",
-        "@type": "@id"
+      hasReuseSystemScope: {
+        "@id": "euppwr:hasReuseSystemScope",
+        "@type": "@vocab",
+        "@context": {
+          LocalSystem: "euppwr:LocalSystem",
+          NationalSystem: "euppwr:NationalSystem",
+          UnionWideSystem: "euppwr:UnionWideSystem"
+        }
       },
       packagingFeature: {
         "@id": "gs1:packagingFeature",
@@ -25776,8 +25916,6 @@ var contexts_default = {
         "@type": "@id",
         "@container": "@set"
       },
-      packagingMaterialCompositionQuantity: "gs1:packagingMaterialCompositionQuantity",
-      packagingMaterialThickness: "gs1:packagingMaterialThickness",
       packagingMaterialType: {
         "@id": "gs1:packagingMaterialType",
         "@type": "@vocab",
@@ -25893,20 +26031,8 @@ var contexts_default = {
           REUSABLE: "gs1:PackagingRecyclingProcessTypeCode-REUSABLE"
         }
       },
-      packagingTier: {
-        "@id": "euppwr:packagingTier",
-        "@type": "@vocab",
-        "@context": {
-          Grouped: "euppwr:Grouped",
-          Sales: "euppwr:Sales",
-          Transport: "euppwr:Transport"
-        }
-      },
-      packagingType: "gs1:packagingType",
-      price: "gs1:price",
-      priceCurrency: "gs1:priceCurrency",
       recyclabilityGrade: {
-        "@id": "euppwr:recyclabilityGrade",
+        "@id": "euppwr:hasRecyclabilityGrade",
         "@type": "@vocab",
         "@context": {
           A: "euppwr:GradeA",
@@ -25914,11 +26040,6 @@ var contexts_default = {
           C: "euppwr:GradeC"
         }
       },
-      regulationType: {
-        "@id": "gs1:regulationType",
-        "@type": "@id"
-      },
-      regulatoryAct: "gs1:regulatoryAct",
       regulatoryInformation: {
         "@id": "gs1:regulatoryInformation",
         "@type": "@id",
@@ -25927,16 +26048,29 @@ var contexts_default = {
           "@base": "https://ref.gs1.org/voc/"
         }
       },
-      returnablePackageDepositAmount: {
-        "@id": "gs1:returnablePackageDepositAmount",
-        "@type": "@id"
-      },
       returnablePackageDepositRegion: {
         "@id": "gs1:returnablePackageDepositRegion",
         "@type": "@id",
         "@context": {
           "@base": "https://ref.gs1.org/voc/"
         }
+      },
+      reuseSystemName: {
+        "@id": "euppwr:reuseSystemName",
+        "@type": "xsd:string"
+      },
+      reuseSystemScope: {
+        "@id": "euppwr:hasReuseSystemScope",
+        "@type": "@vocab",
+        "@context": {
+          local: "euppwr:LocalSystem",
+          national: "euppwr:NationalSystem",
+          "union-wide": "euppwr:UnionWideSystem"
+        }
+      },
+      rotationCount: {
+        "@id": "euppwr:rotationCount",
+        "@type": "xsd:integer"
       }
     }
   },
@@ -25947,6 +26081,8 @@ var contexts_default = {
       gs1: "https://ref.gs1.org/voc/",
       oec: "https://ref.openepcis.io/extensions/common/core/",
       schema: "https://schema.org/",
+      cv: "http://data.europa.eu/m8g/",
+      cccev: "http://data.europa.eu/m8g/",
       xsd: "http://www.w3.org/2001/XMLSchema#",
       eucpr: "https://ref.openepcis.io/extensions/eu/cpr/",
       AVCPSystem: "eucpr:AVCPSystem",
@@ -25955,11 +26091,9 @@ var contexts_default = {
       ConstructionProductType: "eucpr:ConstructionProductType",
       DeclarationOfPerformance: "eucpr:DeclarationOfPerformance",
       EssentialCharacteristic: "eucpr:EssentialCharacteristic",
-      QuantitativeValue: "gs1:QuantitativeValue",
       ReactionToFireClass: "eucpr:ReactionToFireClass",
-      RegulatoryInformation: "gs1:RegulatoryInformation",
       avcpSystem: {
-        "@id": "eucpr:avcpSystem",
+        "@id": "eucpr:hasAvcpSystem",
         "@type": "@vocab",
         "@context": {
           "1": "eucpr:System1",
@@ -25973,16 +26107,48 @@ var contexts_default = {
         "@id": "eucpr:characteristicName",
         "@type": "xsd:string"
       },
-      characteristicValue: {
-        "@id": "eucpr:characteristicValue",
+      dateOfIssue: {
+        "@id": "eucpr:dateOfIssue",
+        "@type": "xsd:date"
+      },
+      declarationCode: {
+        "@id": "eucpr:declarationCode",
+        "@type": "xsd:string"
+      },
+      declarationOfPerformanceUrl: {
+        "@id": "eucpr:declarationOfPerformanceUrl",
+        "@type": "xsd:anyURI"
+      },
+      essentialCharacteristic: {
+        "@id": "eucpr:hasEssentialCharacteristic",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      harmonisedStandard: {
+        "@id": "eucpr:harmonisedStandard",
+        "@type": "xsd:anyURI"
+      },
+      hasAvcpSystem: {
+        "@id": "eucpr:hasAvcpSystem",
+        "@type": "@vocab",
+        "@context": {
+          System1: "eucpr:System1",
+          System1Plus: "eucpr:System1Plus",
+          System2Plus: "eucpr:System2Plus",
+          System3: "eucpr:System3",
+          System4: "eucpr:System4"
+        }
+      },
+      hasCharacteristicValue: {
+        "@id": "eucpr:hasCharacteristicValue",
         "@type": "@id"
       },
-      compressiveStrength: {
-        "@id": "eucpr:compressiveStrength",
+      hasCompressiveStrength: {
+        "@id": "eucpr:hasCompressiveStrength",
         "@type": "@id"
       },
-      constructionProductType: {
-        "@id": "eucpr:constructionProductType",
+      hasConstructionProductType: {
+        "@id": "eucpr:hasConstructionProductType",
         "@type": "@vocab",
         "@context": {
           Aggregate: "eucpr:Aggregate",
@@ -25998,49 +26164,49 @@ var contexts_default = {
           WindowAndDoor: "eucpr:WindowAndDoor"
         }
       },
-      dateOfIssue: {
-        "@id": "eucpr:dateOfIssue",
-        "@type": "xsd:date"
-      },
-      declarationCode: {
-        "@id": "eucpr:declarationCode",
-        "@type": "xsd:string"
-      },
-      declarationOfPerformance: {
-        "@id": "eucpr:declarationOfPerformance",
+      hasDeclarationOfPerformance: {
+        "@id": "eucpr:hasDeclarationOfPerformance",
         "@type": "@id"
       },
-      declarationOfPerformanceUrl: {
-        "@id": "eucpr:declarationOfPerformanceUrl",
-        "@type": "xsd:anyURI"
-      },
-      essentialCharacteristic: {
-        "@id": "eucpr:essentialCharacteristic",
-        "@type": "@id",
-        "@container": "@set"
-      },
-      europeanAssessmentDocument: {
-        "@id": "eucpr:europeanAssessmentDocument",
+      hasEssentialCharacteristic: {
+        "@id": "eucpr:hasEssentialCharacteristic",
         "@type": "@id"
       },
-      harmonisedStandard: {
-        "@id": "eucpr:harmonisedStandard",
-        "@type": "xsd:anyURI"
-      },
-      isRegulationCompliant: {
-        "@id": "oec:isRegulationCompliant",
-        "@type": "xsd:boolean"
-      },
-      manufacturer: {
-        "@id": "gs1:manufacturer",
+      hasEuropeanAssessmentDocument: {
+        "@id": "eucpr:hasEuropeanAssessmentDocument",
         "@type": "@id"
       },
-      notifiedBody: {
-        "@id": "eucpr:notifiedBody",
+      hasNotifiedBody: {
+        "@id": "eucpr:hasNotifiedBody",
+        "@type": "@id"
+      },
+      hasReactionToFireClass: {
+        "@id": "eucpr:hasReactionToFireClass",
+        "@type": "@vocab",
+        "@context": {
+          FireClassA1: "eucpr:FireClassA1",
+          FireClassA2: "eucpr:FireClassA2",
+          FireClassB: "eucpr:FireClassB",
+          FireClassC: "eucpr:FireClassC",
+          FireClassD: "eucpr:FireClassD",
+          FireClassE: "eucpr:FireClassE",
+          FireClassF: "eucpr:FireClassF"
+        }
+      },
+      hasTechnicalAssessmentBody: {
+        "@id": "eucpr:hasTechnicalAssessmentBody",
+        "@type": "@id"
+      },
+      hasThermalConductivity: {
+        "@id": "eucpr:hasThermalConductivity",
+        "@type": "@id"
+      },
+      hasValidationReports: {
+        "@id": "eucpr:hasValidationReports",
         "@type": "@id"
       },
       reactionToFireClass: {
-        "@id": "eucpr:reactionToFireClass",
+        "@id": "eucpr:hasReactionToFireClass",
         "@type": "@vocab",
         "@context": {
           A1: "eucpr:FireClassA1",
@@ -26052,11 +26218,6 @@ var contexts_default = {
           F: "eucpr:FireClassF"
         }
       },
-      regulationType: {
-        "@id": "gs1:regulationType",
-        "@type": "@id"
-      },
-      regulatoryAct: "gs1:regulatoryAct",
       regulatoryInformation: {
         "@id": "gs1:regulatoryInformation",
         "@type": "@id",
@@ -26065,16 +26226,8 @@ var contexts_default = {
           "@base": "https://ref.gs1.org/voc/"
         }
       },
-      technicalAssessmentBody: {
-        "@id": "eucpr:technicalAssessmentBody",
-        "@type": "@id"
-      },
-      thermalConductivity: {
-        "@id": "eucpr:thermalConductivity",
-        "@type": "@id"
-      },
       validationReports: {
-        "@id": "eucpr:validationReports",
+        "@id": "eucpr:hasValidationReports",
         "@type": "@id",
         "@container": "@set"
       }
@@ -26087,49 +26240,21 @@ var contexts_default = {
       gs1: "https://ref.gs1.org/voc/",
       oec: "https://ref.openepcis.io/extensions/common/core/",
       schema: "https://schema.org/",
+      cv: "http://data.europa.eu/m8g/",
+      cccev: "http://data.europa.eu/m8g/",
       xsd: "http://www.w3.org/2001/XMLSchema#",
       eudet: "https://ref.openepcis.io/extensions/eu/detergent/",
       BiodegradabilityTestMethod: "eudet:BiodegradabilityTestMethod",
       DetergentCategory: "eudet:DetergentCategory",
       DetergentProduct: "eudet:DetergentProduct",
-      DocumentReference: {
-        "@id": "oec:DocumentReference",
-        "@context": {
-          resourceTitle: {
-            "@id": "oec:documentTitle"
-          },
-          contentType: {
-            "@id": "oec:mimeType"
-          },
-          url: {
-            "@id": "oec:documentUrl",
-            "@type": "@id"
-          },
-          language: {
-            "@id": "oec:languageCode"
-          }
-        }
-      },
       FragranceAllergen: "eudet:FragranceAllergen",
-      HazardousSubstance: "oec:HazardousSubstance",
       Ingredient: "eudet:Ingredient",
       IngredientFunction: "eudet:IngredientFunction",
       MicroorganismInfo: "eudet:MicroorganismInfo",
-      OperatorInformation: "oec:OperatorInformation",
-      Organization: "gs1:Organization",
-      PostalAddress: "gs1:PostalAddress",
-      Product: "gs1:Product",
       ProductForm: "eudet:ProductForm",
-      QuantitativeValue: "gs1:QuantitativeValue",
       SignalWord: "eudet:SignalWord",
       SurfactantBiodegradability: "eudet:SurfactantBiodegradability",
       SurfactantType: "eudet:SurfactantType",
-      address: {
-        "@id": "gs1:address",
-        "@type": "@id"
-      },
-      addressCountry: "gs1:addressCountry",
-      addressLocality: "gs1:addressLocality",
       allergenCasNumber: {
         "@id": "eudet:allergenCasNumber",
         "@type": "xsd:string"
@@ -26139,22 +26264,12 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       allergenName: "schema:name",
-      biodegradabilityTestReport: {
-        "@id": "eudet:biodegradabilityTestReport",
-        "@type": "@id"
-      },
       biodegradationPercentage: {
         "@id": "eudet:biodegradationPercentage",
         "@type": "xsd:decimal"
       },
-      casNumber: "oec:casNumber",
-      countryOfOrigin: {
-        "@id": "gs1:countryOfOrigin",
-        "@type": "@id"
-      },
-      customsCommodityCode: "oec:customsCommodityCode",
       customsCommodityCodeType: {
-        "@id": "oec:customsCommodityCodeType",
+        "@id": "oec:hasCustomsCommodityCodeType",
         "@type": "@vocab",
         "@context": {
           HS6: "oec:HS6",
@@ -26177,10 +26292,7 @@ var contexts_default = {
           Surfactant: "eudet:Surfactant"
         }
       },
-      dosageInstructions: {
-        "@id": "eudet:dosageInstructions",
-        "@type": "xsd:string"
-      },
+      dosageInstructions: "eudet:dosageInstructions",
       endProductCharacteristics: {
         "@id": "eudet:endProductCharacteristics",
         "@type": "xsd:string"
@@ -26194,28 +26306,28 @@ var contexts_default = {
         "@type": "xsd:boolean"
       },
       fragranceAllergens: {
-        "@id": "eudet:fragranceAllergens",
+        "@id": "eudet:hasFragranceAllergens",
         "@type": "@id",
         "@container": "@set"
       },
-      gln: "gs1:globalLocationNumber",
-      gtin: "gs1:gtin",
       hStatements: {
         "@id": "eudet:hStatements",
         "@container": "@set"
       },
-      hazardPictograms: {
-        "@id": "eudet:hazardPictograms",
-        "@container": "@set"
+      hasBiodegradabilityTestReport: {
+        "@id": "eudet:hasBiodegradabilityTestReport",
+        "@type": "@id"
       },
-      hazardousSubstances: {
-        "@id": "eudet:hazardousSubstances",
-        "@type": "@id",
-        "@container": "@set"
+      hasFragranceAllergens: {
+        "@id": "eudet:hasFragranceAllergens",
+        "@type": "@id"
       },
-      inciName: "schema:name",
-      ingredientFunction: {
-        "@id": "eudet:ingredientFunction",
+      hasHazardousSubstances: {
+        "@id": "eudet:hasHazardousSubstances",
+        "@type": "@id"
+      },
+      hasIngredientFunction: {
+        "@id": "eudet:hasIngredientFunction",
         "@type": "@vocab",
         "@context": {
           AntiRedeposition: "eudet:AntiRedeposition",
@@ -26233,57 +26345,16 @@ var contexts_default = {
           Thickener: "eudet:Thickener"
         }
       },
-      ingredientList: {
-        "@id": "eudet:ingredientList",
-        "@type": "@id",
-        "@container": "@set"
-      },
-      intendedUse: {
-        "@id": "eudet:intendedUse",
-        "@type": "xsd:string"
-      },
-      isSurfactant: {
-        "@id": "eudet:isSurfactant",
-        "@type": "xsd:boolean"
-      },
-      manufacturer: {
-        "@id": "gs1:manufacturer",
+      hasIngredientList: {
+        "@id": "eudet:hasIngredientList",
         "@type": "@id"
       },
-      microorganisms: {
-        "@id": "eudet:microorganisms",
-        "@type": "@id",
-        "@container": "@set"
-      },
-      netContent: {
-        "@id": "gs1:netContent",
+      hasMicroorganisms: {
+        "@id": "eudet:hasMicroorganisms",
         "@type": "@id"
       },
-      netWeight: {
-        "@id": "gs1:netWeight",
-        "@type": "@id"
-      },
-      organizationName: "gs1:organizationName",
-      pStatements: {
-        "@id": "eudet:pStatements",
-        "@container": "@set"
-      },
-      partyGLN: "gs1:partyGLN",
-      passesUltimateBiodegradability: {
-        "@id": "eudet:passesUltimateBiodegradability",
-        "@type": "xsd:boolean"
-      },
-      phosphateCompliant: {
-        "@id": "eudet:phosphateCompliant",
-        "@type": "xsd:boolean"
-      },
-      phosphorusContentPercent: {
-        "@id": "eudet:phosphorusContentPercent",
-        "@type": "xsd:decimal"
-      },
-      postalCode: "gs1:postalCode",
-      productForm: {
-        "@id": "eudet:productForm",
+      hasProductForm: {
+        "@id": "eudet:hasProductForm",
         "@type": "@vocab",
         "@context": {
           Capsule: "eudet:Capsule",
@@ -26296,36 +26367,28 @@ var contexts_default = {
           Tablet: "eudet:Tablet"
         }
       },
-      productName: "gs1:productName",
-      recommendedDosage: {
-        "@id": "eudet:recommendedDosage",
+      hasRecommendedDosage: {
+        "@id": "eudet:hasRecommendedDosage",
         "@type": "@id"
       },
-      safetyDataSheet: {
-        "@id": "eudet:safetyDataSheet",
+      hasSafetyDataSheet: {
+        "@id": "eudet:hasSafetyDataSheet",
         "@type": "@id"
       },
-      signalWord: {
-        "@id": "eudet:signalWord",
+      hasSignalWord: {
+        "@id": "eudet:hasSignalWord",
         "@type": "@vocab",
         "@context": {
           Danger: "eudet:Danger",
           Warning: "eudet:Warning"
         }
       },
-      speciesName: "schema:name",
-      strainDesignation: {
-        "@id": "eudet:strainDesignation",
-        "@type": "xsd:string"
+      hasSurfactantBiodegradability: {
+        "@id": "eudet:hasSurfactantBiodegradability",
+        "@type": "@id"
       },
-      streetAddress: "gs1:streetAddress",
-      surfactantBiodegradability: {
-        "@id": "eudet:surfactantBiodegradability",
-        "@type": "@id",
-        "@container": "@set"
-      },
-      surfactantType: {
-        "@id": "eudet:surfactantType",
+      hasSurfactantType: {
+        "@id": "eudet:hasSurfactantType",
         "@type": "@vocab",
         "@context": {
           Amphoteric: "eudet:Amphoteric",
@@ -26334,12 +26397,8 @@ var contexts_default = {
           NonIonic: "eudet:NonIonic"
         }
       },
-      testDurationDays: {
-        "@id": "eudet:testDurationDays",
-        "@type": "xsd:integer"
-      },
-      testMethod: {
-        "@id": "eudet:testMethod",
+      hasTestMethod: {
+        "@id": "eudet:hasTestMethod",
         "@type": "@vocab",
         "@context": {
           ISO14593: "eudet:ISO14593",
@@ -26349,7 +26408,64 @@ var contexts_default = {
           OECD310: "eudet:OECD310"
         }
       },
-      unitCode: "gs1:unitCode",
+      hazardPictograms: {
+        "@id": "eudet:hazardPictograms",
+        "@container": "@set"
+      },
+      hazardousSubstances: {
+        "@id": "eudet:hasHazardousSubstances",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      inciName: "schema:name",
+      ingredientList: {
+        "@id": "eudet:hasIngredientList",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      intendedUse: {
+        "@id": "eudet:intendedUse",
+        "@type": "xsd:string"
+      },
+      isSurfactant: {
+        "@id": "eudet:isSurfactant",
+        "@type": "xsd:boolean"
+      },
+      microorganisms: {
+        "@id": "eudet:hasMicroorganisms",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      pStatements: {
+        "@id": "eudet:pStatements",
+        "@container": "@set"
+      },
+      passesUltimateBiodegradability: {
+        "@id": "eudet:passesUltimateBiodegradability",
+        "@type": "xsd:boolean"
+      },
+      phosphateCompliant: {
+        "@id": "eudet:phosphateCompliant",
+        "@type": "xsd:boolean"
+      },
+      phosphorusContentPercent: {
+        "@id": "eudet:phosphorusContentPercent",
+        "@type": "xsd:decimal"
+      },
+      speciesName: "schema:name",
+      strainDesignation: {
+        "@id": "eudet:strainDesignation",
+        "@type": "xsd:string"
+      },
+      surfactantBiodegradability: {
+        "@id": "eudet:hasSurfactantBiodegradability",
+        "@type": "@id",
+        "@container": "@set"
+      },
+      testDurationDays: {
+        "@id": "eudet:testDurationDays",
+        "@type": "xsd:integer"
+      },
       value: {
         "@id": "gs1:value",
         "@type": "xsd:decimal"
@@ -26367,18 +26483,13 @@ var contexts_default = {
       gs1: "https://ref.gs1.org/voc/",
       oec: "https://ref.openepcis.io/extensions/common/core/",
       schema: "https://schema.org/",
+      cv: "http://data.europa.eu/m8g/",
+      cccev: "http://data.europa.eu/m8g/",
       xsd: "http://www.w3.org/2001/XMLSchema#",
       usfsma: "https://ref.openepcis.io/extensions/us/fsma204/",
-      Country: "gs1:Country",
       FoodTraceabilityList: "usfsma:FoodTraceabilityList",
-      Organization: "gs1:Organization",
-      Product: "gs1:Product",
-      countryOfOrigin: {
-        "@id": "gs1:countryOfOrigin",
-        "@type": "@id"
-      },
-      foodTraceabilityListCategory: {
-        "@id": "usfsma:foodTraceabilityListCategory",
+      hasFoodTraceabilityListCategory: {
+        "@id": "usfsma:hasFoodTraceabilityListCategory",
         "@type": "@vocab",
         "@context": {
           CheesePasteurizedFreshSoft: "usfsma:CheesePasteurizedFreshSoft",
@@ -26406,24 +26517,11 @@ var contexts_default = {
           VegetablesOtherThanLeafyGreensFreshCut: "usfsma:VegetablesOtherThanLeafyGreensFreshCut"
         }
       },
-      functionalName: "gs1:functionalName",
-      gpcCategoryCode: "gs1:gpcCategoryCode",
-      gtin: "gs1:gtin",
       importClassificationTypeCode: {
-        "@id": "oec:customsCommodityCodeType",
+        "@id": "oec:hasCustomsCommodityCodeType",
         "@type": "@id"
       },
-      importClassificationValue: "oec:customsCommodityCode",
-      manufacturer: {
-        "@id": "gs1:manufacturer",
-        "@type": "@id"
-      },
-      netWeight: {
-        "@id": "gs1:netWeight",
-        "@type": "@id"
-      },
-      organizationName: "gs1:organizationName",
-      partyGLN: "gs1:partyGLN"
+      importClassificationValue: "oec:customsCommodityCode"
     }
   },
   "https://ref.openepcis.io/extensions/eu/battery/battery-operational-context.jsonld": {
@@ -26605,75 +26703,171 @@ var contexts_default = {
       WEEE_DIRECTIVE: "gs1:RegulationTypeCode-RETURNING_OF_ELECTRONICAL_PRODUCT_DIRECTIVE",
       WarrantyPromise: "gs1:WarrantyPromise",
       WearableProduct: "gs1:WearableProduct",
-      acceptedPaymentMethod: "gs1:acceptedPaymentMethod",
+      acceptedPaymentMethod: {
+        "@id": "gs1:acceptedPaymentMethod",
+        "@type": "@id"
+      },
       activityIdeas: "gs1:activityIdeas",
-      additionalLocationID: "gs1:additionalLocationID",
-      additionalOrganizationID: "gs1:additionalOrganizationID",
+      additionalLocationID: {
+        "@id": "gs1:additionalLocationID",
+        "@type": "@id"
+      },
+      additionalOrganizationID: {
+        "@id": "gs1:additionalOrganizationID",
+        "@type": "@id"
+      },
       additionalOrganizationIdentificationTypeValue: "gs1:additionalOrganizationIdentificationTypeValue",
-      additionalProductClassification: "gs1:additionalProductClassification",
+      additionalProductClassification: {
+        "@id": "gs1:additionalProductClassification",
+        "@type": "@id"
+      },
       additionalProductClassificationCode: "gs1:additionalProductClassificationCode",
       additionalProductClassificationCodeDescription: "gs1:additionalProductClassificationCodeDescription",
       additionalProductClassificationValue: "gs1:additionalProductClassificationValue",
       additionalProductDescription: "gs1:additionalProductDescription",
-      additive: "gs1:additive",
-      additiveLevelOfContainment: "gs1:additiveLevelOfContainment",
+      additive: {
+        "@id": "gs1:additive",
+        "@type": "@id"
+      },
+      additiveLevelOfContainment: {
+        "@id": "gs1:additiveLevelOfContainment",
+        "@type": "@id"
+      },
       additiveName: "gs1:additiveName",
-      address: "gs1:address",
-      addressCountry: "gs1:addressCountry",
+      address: {
+        "@id": "gs1:address",
+        "@type": "@id"
+      },
+      addressCountry: {
+        "@id": "gs1:addressCountry",
+        "@type": "@id"
+      },
       addressLocality: "gs1:addressLocality",
       addressRegion: "gs1:addressRegion",
       addressSuburb: "gs1:addressSuburb",
-      affiliatedTo: "gs1:affiliatedTo",
-      afterHoursContact: "gs1:afterHoursContact",
+      affiliatedTo: {
+        "@id": "gs1:affiliatedTo",
+        "@type": "@id"
+      },
+      afterHoursContact: {
+        "@id": "gs1:afterHoursContact",
+        "@type": "@id"
+      },
       alcoholicBeverageSubregion: "gs1:alcoholicBeverageSubregion",
       allergenInfo: "gs1:allergenInfo",
-      allergenLevelOfContainmentCode: "gs1:allergenLevelOfContainmentCode",
+      allergenLevelOfContainmentCode: {
+        "@id": "gs1:allergenLevelOfContainmentCode",
+        "@type": "@id"
+      },
       allergenSpecificationAgency: "gs1:allergenSpecificationAgency",
       allergenSpecificationName: "gs1:allergenSpecificationName",
       allergenStatement: "gs1:allergenStatement",
-      allergenType: "gs1:allergenType",
-      anatomicalForm: "gs1:anatomicalForm",
+      allergenType: {
+        "@id": "gs1:allergenType",
+        "@type": "@id"
+      },
+      anatomicalForm: {
+        "@id": "gs1:anatomicalForm",
+        "@type": "@id"
+      },
       appDownload: "gs1:appDownload",
-      applicableProducts: "gs1:applicableProducts",
-      applicableTo: "gs1:applicableTo",
-      applicableTransactions: "gs1:applicableTransactions",
-      audioFile: "gs1:audioFile",
-      authenticity: "gs1:authenticity",
+      applicableProducts: {
+        "@id": "gs1:applicableProducts",
+        "@type": "@id"
+      },
+      applicableTo: {
+        "@id": "gs1:applicableTo",
+        "@type": "@id"
+      },
+      applicableTransactions: {
+        "@id": "gs1:applicableTransactions",
+        "@type": "@id"
+      },
+      audioFile: {
+        "@id": "gs1:audioFile",
+        "@type": "@id"
+      },
+      authenticity: {
+        "@id": "gs1:authenticity",
+        "@type": "@id"
+      },
       authenticitySecurityFeatureInstructions: "gs1:authenticitySecurityFeatureInstructions",
       authenticitySecurityFeatureInstructionsURL: "gs1:authenticitySecurityFeatureInstructionsURL",
       authenticitySecurityFeatureRegularExpression: "gs1:authenticitySecurityFeatureRegularExpression",
-      authenticitySecurityFeatureType: "gs1:authenticitySecurityFeatureType",
+      authenticitySecurityFeatureType: {
+        "@id": "gs1:authenticitySecurityFeatureType",
+        "@type": "@id"
+      },
       authenticitySecurityFeatureValue: "gs1:authenticitySecurityFeatureValue",
       availabilityEnds: "gs1:availabilityEnds",
       availabilityStarts: "gs1:availabilityStarts",
-      availableAtOrFrom: "gs1:availableAtOrFrom",
+      availableAtOrFrom: {
+        "@id": "gs1:availableAtOrFrom",
+        "@type": "@id"
+      },
       availableLanguage: "gs1:availableLanguage",
-      awardPrize: "gs1:awardPrize",
+      awardPrize: {
+        "@id": "gs1:awardPrize",
+        "@type": "@id"
+      },
       awardPrizeCode: "gs1:awardPrizeCode",
-      awardPrizeCountryCode: "gs1:awardPrizeCountryCode",
+      awardPrizeCountryCode: {
+        "@id": "gs1:awardPrizeCountryCode",
+        "@type": "@id"
+      },
       awardPrizeDescription: "gs1:awardPrizeDescription",
       awardPrizeJury: "gs1:awardPrizeJury",
       awardPrizeName: "gs1:awardPrizeName",
       awardPrizeYear: "gs1:awardPrizeYear",
       backgroundInfo: "gs1:backgroundInfo",
-      baseLocation: "gs1:baseLocation",
+      baseLocation: {
+        "@id": "gs1:baseLocation",
+        "@type": "@id"
+      },
       bestBeforeDate: "gs1:bestBeforeDate",
       beverageVintage: "gs1:beverageVintage",
-      biotinPerNutrientBasis: "gs1:biotinPerNutrientBasis",
-      bonelessClaim: "gs1:bonelessClaim",
-      brand: "gs1:brand",
+      biotinPerNutrientBasis: {
+        "@id": "gs1:biotinPerNutrientBasis",
+        "@type": "@id"
+      },
+      bonelessClaim: {
+        "@id": "gs1:bonelessClaim",
+        "@type": "@id"
+      },
+      brand: {
+        "@id": "gs1:brand",
+        "@type": "@id"
+      },
       brandHomepageClinical: "gs1:brandHomepageClinical",
       brandHomepagePatient: "gs1:brandHomepagePatient",
       brandName: "gs1:brandName",
-      brandOwner: "gs1:brandOwner",
-      businessEntity: "gs1:businessEntity",
-      calciumPerNutrientBasis: "gs1:calciumPerNutrientBasis",
-      carbohydratesPerNutrientBasis: "gs1:carbohydratesPerNutrientBasis",
+      brandOwner: {
+        "@id": "gs1:brandOwner",
+        "@type": "@id"
+      },
+      businessEntity: {
+        "@id": "gs1:businessEntity",
+        "@type": "@id"
+      },
+      calciumPerNutrientBasis: {
+        "@id": "gs1:calciumPerNutrientBasis",
+        "@type": "@id"
+      },
+      carbohydratesPerNutrientBasis: {
+        "@id": "gs1:carbohydratesPerNutrientBasis",
+        "@type": "@id"
+      },
       careersInfo: "gs1:careersInfo",
       catchZone: "gs1:catchZone",
-      certification: "gs1:certification",
+      certification: {
+        "@id": "gs1:certification",
+        "@type": "@id"
+      },
       certificationAgency: "gs1:certificationAgency",
-      certificationAgencyURL: "gs1:certificationAgencyURL",
+      certificationAgencyURL: {
+        "@id": "gs1:certificationAgencyURL",
+        "@type": "@id"
+      },
       certificationAuditDate: "gs1:certificationAuditDate",
       certificationEndDate: "gs1:certificationEndDate",
       certificationIdentification: "gs1:certificationIdentification",
@@ -26681,149 +26875,341 @@ var contexts_default = {
       certificationStandard: "gs1:certificationStandard",
       certificationStartDate: "gs1:certificationStartDate",
       certificationStatement: "gs1:certificationStatement",
-      certificationStatus: "gs1:certificationStatus",
-      certificationSubject: "gs1:certificationSubject",
-      certificationType: "gs1:certificationType",
+      certificationStatus: {
+        "@id": "gs1:certificationStatus",
+        "@type": "@id"
+      },
+      certificationSubject: {
+        "@id": "gs1:certificationSubject",
+        "@type": "@id"
+      },
+      certificationType: {
+        "@id": "gs1:certificationType",
+        "@type": "@id"
+      },
       certificationURI: "gs1:certificationURI",
       certificationValue: "gs1:certificationValue",
-      cheeseFirmness: "gs1:cheeseFirmness",
+      cheeseFirmness: {
+        "@id": "gs1:cheeseFirmness",
+        "@type": "@id"
+      },
       cheeseMaturationPeriodDescription: "gs1:cheeseMaturationPeriodDescription",
-      chloridePerNutrientBasis: "gs1:chloridePerNutrientBasis",
-      cholesterolPerNutrientBasis: "gs1:cholesterolPerNutrientBasis",
-      chromiumPerNutrientBasis: "gs1:chromiumPerNutrientBasis",
+      chloridePerNutrientBasis: {
+        "@id": "gs1:chloridePerNutrientBasis",
+        "@type": "@id"
+      },
+      cholesterolPerNutrientBasis: {
+        "@id": "gs1:cholesterolPerNutrientBasis",
+        "@type": "@id"
+      },
+      chromiumPerNutrientBasis: {
+        "@id": "gs1:chromiumPerNutrientBasis",
+        "@type": "@id"
+      },
       circle: "gs1:circle",
       clothingCut: "gs1:clothingCut",
       collarType: "gs1:collarType",
-      colourCode: "gs1:colourCode",
-      colourCodeList: "gs1:colourCodeList",
+      colourCode: {
+        "@id": "gs1:colourCode",
+        "@type": "@id"
+      },
+      colourCodeList: {
+        "@id": "gs1:colourCodeList",
+        "@type": "@id"
+      },
       colourCodeValue: "gs1:colourCodeValue",
       colourDescription: "gs1:colourDescription",
       companyFilingURL: "gs1:companyFilingURL",
-      compulsoryAdditionalInformation: "gs1:compulsoryAdditionalInformation",
+      compulsoryAdditionalInformation: {
+        "@id": "gs1:compulsoryAdditionalInformation",
+        "@type": "@id"
+      },
       compulsoryAdditionalLabelInformation: "gs1:compulsoryAdditionalLabelInformation",
-      compulsoryAdditionalLabelInformationType: "gs1:compulsoryAdditionalLabelInformationType",
+      compulsoryAdditionalLabelInformationType: {
+        "@id": "gs1:compulsoryAdditionalLabelInformationType",
+        "@type": "@id"
+      },
       consumerFirstAvailabilityDateTime: "gs1:consumerFirstAvailabilityDateTime",
-      consumerHandlingStorage: "gs1:consumerHandlingStorage",
+      consumerHandlingStorage: {
+        "@id": "gs1:consumerHandlingStorage",
+        "@type": "@id"
+      },
       consumerHandlingStorageInfo: "gs1:consumerHandlingStorageInfo",
-      consumerLifestage: "gs1:consumerLifestage",
+      consumerLifestage: {
+        "@id": "gs1:consumerLifestage",
+        "@type": "@id"
+      },
       consumerPackageDisclaimer: "gs1:consumerPackageDisclaimer",
       consumerProductVariant: "gs1:consumerProductVariant",
       consumerRecyclingInstructions: "gs1:consumerRecyclingInstructions",
       consumerSafetyInformation: "gs1:consumerSafetyInformation",
-      consumerSalesCondition: "gs1:consumerSalesCondition",
+      consumerSalesCondition: {
+        "@id": "gs1:consumerSalesCondition",
+        "@type": "@id"
+      },
       consumerStorageInstructions: "gs1:consumerStorageInstructions",
       consumerUsageInstructions: "gs1:consumerUsageInstructions",
-      contactPoint: "gs1:contactPoint",
-      contactRoleCode: "gs1:contactRoleCode",
+      contactPoint: {
+        "@id": "gs1:contactPoint",
+        "@type": "@id"
+      },
+      contactRoleCode: {
+        "@id": "gs1:contactRoleCode",
+        "@type": "@id"
+      },
       contactTitle: "gs1:contactTitle",
       contactType: "gs1:contactType",
-      containedInPlace: "gs1:containedInPlace",
-      containsPlace: "gs1:containsPlace",
+      containedInPlace: {
+        "@id": "gs1:containedInPlace",
+        "@type": "@id"
+      },
+      containsPlace: {
+        "@id": "gs1:containsPlace",
+        "@type": "@id"
+      },
       convenienceLevelPercent: "gs1:convenienceLevelPercent",
       coordinateReferenceSystem: "gs1:coordinateReferenceSystem",
-      copperPerNutrientBasis: "gs1:copperPerNutrientBasis",
+      copperPerNutrientBasis: {
+        "@id": "gs1:copperPerNutrientBasis",
+        "@type": "@id"
+      },
       countryCode: "gs1:countryCode",
-      countryOfAssembly: "gs1:countryOfAssembly",
-      countryOfLastProcessing: "gs1:countryOfLastProcessing",
-      countryOfOrigin: "gs1:countryOfOrigin",
+      countryOfAssembly: {
+        "@id": "gs1:countryOfAssembly",
+        "@type": "@id"
+      },
+      countryOfLastProcessing: {
+        "@id": "gs1:countryOfLastProcessing",
+        "@type": "@id"
+      },
+      countryOfOrigin: {
+        "@id": "gs1:countryOfOrigin",
+        "@type": "@id"
+      },
       countryOfOriginStatement: "gs1:countryOfOriginStatement",
       countrySubdivisionCode: "gs1:countrySubdivisionCode",
       countyCode: "gs1:countyCode",
       crossStreet: "gs1:crossStreet",
       csrAffiliation: "gs1:csrAffiliation",
-      customerSupportCentre: "gs1:customerSupportCentre",
+      customerSupportCentre: {
+        "@id": "gs1:customerSupportCentre",
+        "@type": "@id"
+      },
       dailyValueIntakePercent: "gs1:dailyValueIntakePercent",
       defaultLink: "gs1:defaultLink",
       defaultLinkMulti: "gs1:defaultLinkMulti",
       department: "gs1:department",
-      dependentProprietaryProduct: "gs1:dependentProprietaryProduct",
+      dependentProprietaryProduct: {
+        "@id": "gs1:dependentProprietaryProduct",
+        "@type": "@id"
+      },
       descriptiveSize: "gs1:descriptiveSize",
-      dietCode: "gs1:dietCode",
-      dietType: "gs1:dietType",
+      dietCode: {
+        "@id": "gs1:dietCode",
+        "@type": "@id"
+      },
+      dietType: {
+        "@id": "gs1:dietType",
+        "@type": "@id"
+      },
       dietTypeDescription: "gs1:dietTypeDescription",
       dietTypeSubcode: "gs1:dietTypeSubcode",
       digitalAddress: "gs1:digitalAddress",
       digitalLocationName: "gs1:digitalLocationName",
       discountRepeatsPerMultipleMinimum: "gs1:discountRepeatsPerMultipleMinimum",
-      discountType: "gs1:discountType",
+      discountType: {
+        "@id": "gs1:discountType",
+        "@type": "@id"
+      },
       dpp: "gs1:dpp",
-      drainedWeight: "gs1:drainedWeight",
+      drainedWeight: {
+        "@id": "gs1:drainedWeight",
+        "@type": "@id"
+      },
       dueDate: "gs1:dueDate",
-      durationOfWarranty: "gs1:durationOfWarranty",
+      durationOfWarranty: {
+        "@id": "gs1:durationOfWarranty",
+        "@type": "@id"
+      },
       dutyFeeTaxAmount: "gs1:dutyFeeTaxAmount",
       dutyFeeTaxDescription: "gs1:dutyFeeTaxDescription",
       dutyFeeTaxRate: "gs1:dutyFeeTaxRate",
       eifu: "gs1:eifu",
       elevation: "gs1:elevation",
-      eligibleQuantity: "gs1:eligibleQuantity",
-      eligibleQuantityMaximum: "gs1:eligibleQuantityMaximum",
-      eligibleQuantityMinimum: "gs1:eligibleQuantityMinimum",
-      eligibleTradeChannel: "gs1:eligibleTradeChannel",
+      eligibleQuantity: {
+        "@id": "gs1:eligibleQuantity",
+        "@type": "@id"
+      },
+      eligibleQuantityMaximum: {
+        "@id": "gs1:eligibleQuantityMaximum",
+        "@type": "@id"
+      },
+      eligibleQuantityMinimum: {
+        "@id": "gs1:eligibleQuantityMinimum",
+        "@type": "@id"
+      },
+      eligibleTradeChannel: {
+        "@id": "gs1:eligibleTradeChannel",
+        "@type": "@id"
+      },
       email: "gs1:email",
-      energyFromFatPerNutrientBasis: "gs1:energyFromFatPerNutrientBasis",
-      energyPerNutrientBasis: "gs1:energyPerNutrientBasis",
+      energyFromFatPerNutrientBasis: {
+        "@id": "gs1:energyFromFatPerNutrientBasis",
+        "@type": "@id"
+      },
+      energyPerNutrientBasis: {
+        "@id": "gs1:energyPerNutrientBasis",
+        "@type": "@id"
+      },
       epcis: "gs1:epcis",
       epcisRepository: "gs1:epcisRepository",
       epil: "gs1:epil",
-      equivalentProduct: "gs1:equivalentProduct",
+      equivalentProduct: {
+        "@id": "gs1:equivalentProduct",
+        "@type": "@id"
+      },
       eventsInfo: "gs1:eventsInfo",
-      exactDiscountAmount: "gs1:exactDiscountAmount",
+      exactDiscountAmount: {
+        "@id": "gs1:exactDiscountAmount",
+        "@type": "@id"
+      },
       exactDiscountPercentage: "gs1:exactDiscountPercentage",
       exclusionDescription: "gs1:exclusionDescription",
       expirationDate: "gs1:expirationDate",
       expirationDateTime: "gs1:expirationDateTime",
       faqs: "gs1:faqs",
       fatInMilkContent: "gs1:fatInMilkContent",
-      fatPerNutrientBasis: "gs1:fatPerNutrientBasis",
+      fatPerNutrientBasis: {
+        "@id": "gs1:fatPerNutrientBasis",
+        "@type": "@id"
+      },
       fatpercentageInDryMatter: "gs1:fatpercentageInDryMatter",
       faxNumber: "gs1:faxNumber",
-      fibrePerNutrientBasis: "gs1:fibrePerNutrientBasis",
+      fibrePerNutrientBasis: {
+        "@id": "gs1:fibrePerNutrientBasis",
+        "@type": "@id"
+      },
       fileLanguageCode: "gs1:fileLanguageCode",
       filePixelHeight: "gs1:filePixelHeight",
       filePixelWidth: "gs1:filePixelWidth",
       firstFreezeDate: "gs1:firstFreezeDate",
       fishType: "gs1:fishType",
-      fluoridePerNutrientBasis: "gs1:fluoridePerNutrientBasis",
-      folicAcidPerNutrientBasis: "gs1:folicAcidPerNutrientBasis",
-      foodBeverageRefrigerationClaim: "gs1:foodBeverageRefrigerationClaim",
-      foodBeverageTargetUse: "gs1:foodBeverageTargetUse",
-      footwearFasteningType: "gs1:footwearFasteningType",
-      footwearUpperType: "gs1:footwearUpperType",
-      franchiseeOf: "gs1:franchiseeOf",
-      franchisorOf: "gs1:franchisorOf",
-      freshOrSeawaterFarmed: "gs1:freshOrSeawaterFarmed",
+      fluoridePerNutrientBasis: {
+        "@id": "gs1:fluoridePerNutrientBasis",
+        "@type": "@id"
+      },
+      folicAcidPerNutrientBasis: {
+        "@id": "gs1:folicAcidPerNutrientBasis",
+        "@type": "@id"
+      },
+      foodBeverageRefrigerationClaim: {
+        "@id": "gs1:foodBeverageRefrigerationClaim",
+        "@type": "@id"
+      },
+      foodBeverageTargetUse: {
+        "@id": "gs1:foodBeverageTargetUse",
+        "@type": "@id"
+      },
+      footwearFasteningType: {
+        "@id": "gs1:footwearFasteningType",
+        "@type": "@id"
+      },
+      footwearUpperType: {
+        "@id": "gs1:footwearUpperType",
+        "@type": "@id"
+      },
+      franchiseeOf: {
+        "@id": "gs1:franchiseeOf",
+        "@type": "@id"
+      },
+      franchisorOf: {
+        "@id": "gs1:franchisorOf",
+        "@type": "@id"
+      },
+      freshOrSeawaterFarmed: {
+        "@id": "gs1:freshOrSeawaterFarmed",
+        "@type": "@id"
+      },
       functionalName: "gs1:functionalName",
-      geneticallyModifiedDeclaration: "gs1:geneticallyModifiedDeclaration",
-      geo: "gs1:geo",
-      glnType: "gs1:glnType",
+      geneticallyModifiedDeclaration: {
+        "@id": "gs1:geneticallyModifiedDeclaration",
+        "@type": "@id"
+      },
+      geo: {
+        "@id": "gs1:geo",
+        "@type": "@id"
+      },
+      glnType: {
+        "@id": "gs1:glnType",
+        "@type": "@id"
+      },
       globalLocationNumber: "gs1:globalLocationNumber",
       gpcCategoryCode: "gs1:gpcCategoryCode",
       gpcCategoryDescription: "gs1:gpcCategoryDescription",
-      grossArea: "gs1:grossArea",
-      grossVolume: "gs1:grossVolume",
-      grossWeight: "gs1:grossWeight",
-      growingMethod: "gs1:growingMethod",
+      grossArea: {
+        "@id": "gs1:grossArea",
+        "@type": "@id"
+      },
+      grossVolume: {
+        "@id": "gs1:grossVolume",
+        "@type": "@id"
+      },
+      grossWeight: {
+        "@id": "gs1:grossWeight",
+        "@type": "@id"
+      },
+      growingMethod: {
+        "@id": "gs1:growingMethod",
+        "@type": "@id"
+      },
       gtin: "gs1:gtin",
       handledBy: "gs1:handledBy",
       harvestDate: "gs1:harvestDate",
       harvestDateEnd: "gs1:harvestDateEnd",
       harvestDateStart: "gs1:harvestDateStart",
-      hasAllergen: "gs1:hasAllergen",
+      hasAllergen: {
+        "@id": "gs1:hasAllergen",
+        "@type": "@id"
+      },
       hasBatchLotNumber: "gs1:hasBatchLotNumber",
-      hasPrimaryLocation: "gs1:hasPrimaryLocation",
+      hasPrimaryLocation: {
+        "@id": "gs1:hasPrimaryLocation",
+        "@type": "@id"
+      },
       hasRetailers: "gs1:hasRetailers",
-      hasReturnablePackageDeposit: "gs1:hasReturnablePackageDeposit",
+      hasReturnablePackageDeposit: {
+        "@id": "gs1:hasReturnablePackageDeposit",
+        "@type": "@id"
+      },
       hasSerialNumber: "gs1:hasSerialNumber",
       hasThirdPartyControlledSerialNumber: "gs1:hasThirdPartyControlledSerialNumber",
       healthClaimDescription: "gs1:healthClaimDescription",
       homepage: "gs1:homepage",
-      image: "gs1:image",
-      inPackageDepth: "gs1:inPackageDepth",
-      inPackageDiameter: "gs1:inPackageDiameter",
-      inPackageHeight: "gs1:inPackageHeight",
-      inPackageWidth: "gs1:inPackageWidth",
+      image: {
+        "@id": "gs1:image",
+        "@type": "@id"
+      },
+      inPackageDepth: {
+        "@id": "gs1:inPackageDepth",
+        "@type": "@id"
+      },
+      inPackageDiameter: {
+        "@id": "gs1:inPackageDiameter",
+        "@type": "@id"
+      },
+      inPackageHeight: {
+        "@id": "gs1:inPackageHeight",
+        "@type": "@id"
+      },
+      inPackageWidth: {
+        "@id": "gs1:inPackageWidth",
+        "@type": "@id"
+      },
       includedAccessories: "gs1:includedAccessories",
-      ingredient: "gs1:ingredient",
+      ingredient: {
+        "@id": "gs1:ingredient",
+        "@type": "@id"
+      },
       ingredientContentPercentage: "gs1:ingredientContentPercentage",
       ingredientName: "gs1:ingredientName",
       ingredientOfConcern: "gs1:ingredientOfConcern",
@@ -26832,186 +27218,516 @@ var contexts_default = {
       ingredientsInfo: "gs1:ingredientsInfo",
       initialCertificationDate: "gs1:initialCertificationDate",
       instructions: "gs1:instructions",
-      instructionsForUse: "gs1:instructionsForUse",
-      iodinePerNutrientBasis: "gs1:iodinePerNutrientBasis",
-      ironPerNutrientBasis: "gs1:ironPerNutrientBasis",
-      irradiatedCode: "gs1:irradiatedCode",
-      isCarbonated: "gs1:isCarbonated",
-      isDecaffeinated: "gs1:isDecaffeinated",
-      isFromConcentrate: "gs1:isFromConcentrate",
-      isHomogenised: "gs1:isHomogenised",
-      isInstant: "gs1:isInstant",
-      isMaternity: "gs1:isMaternity",
+      instructionsForUse: {
+        "@id": "gs1:instructionsForUse",
+        "@type": "@id"
+      },
+      iodinePerNutrientBasis: {
+        "@id": "gs1:iodinePerNutrientBasis",
+        "@type": "@id"
+      },
+      ironPerNutrientBasis: {
+        "@id": "gs1:ironPerNutrientBasis",
+        "@type": "@id"
+      },
+      irradiatedCode: {
+        "@id": "gs1:irradiatedCode",
+        "@type": "@id"
+      },
+      isCarbonated: {
+        "@id": "gs1:isCarbonated",
+        "@type": "@id"
+      },
+      isDecaffeinated: {
+        "@id": "gs1:isDecaffeinated",
+        "@type": "@id"
+      },
+      isFromConcentrate: {
+        "@id": "gs1:isFromConcentrate",
+        "@type": "@id"
+      },
+      isHomogenised: {
+        "@id": "gs1:isHomogenised",
+        "@type": "@id"
+      },
+      isInstant: {
+        "@id": "gs1:isInstant",
+        "@type": "@id"
+      },
+      isMaternity: {
+        "@id": "gs1:isMaternity",
+        "@type": "@id"
+      },
       isOnlyAvailableThroughRetailer: "gs1:isOnlyAvailableThroughRetailer",
       isOnlyWithMailingListSignup: "gs1:isOnlyWithMailingListSignup",
-      isOnlyWithPaymentCard: "gs1:isOnlyWithPaymentCard",
+      isOnlyWithPaymentCard: {
+        "@id": "gs1:isOnlyWithPaymentCard",
+        "@type": "@id"
+      },
       isOnlyWithRetailerLoyaltyCard: "gs1:isOnlyWithRetailerLoyaltyCard",
       isOnlyWithRetailerPaymentCard: "gs1:isOnlyWithRetailerPaymentCard",
-      isPatterned: "gs1:isPatterned",
-      isPittedStoned: "gs1:isPittedStoned",
+      isPatterned: {
+        "@id": "gs1:isPatterned",
+        "@type": "@id"
+      },
+      isPittedStoned: {
+        "@id": "gs1:isPittedStoned",
+        "@type": "@id"
+      },
       isProductRecalled: "gs1:isProductRecalled",
       isPromoterExclusiveOffer: "gs1:isPromoterExclusiveOffer",
       isRegulationCompliant: {
         "@id": "oec:isRegulationCompliant",
         "@type": "xsd:boolean"
       },
-      isRindEdible: "gs1:isRindEdible",
-      isSeedless: "gs1:isSeedless",
-      isShelledPeeled: "gs1:isShelledPeeled",
-      isSliced: "gs1:isSliced",
-      isThermal: "gs1:isThermal",
-      isVintage: "gs1:isVintage",
-      isWashedReadyToEat: "gs1:isWashedReadyToEat",
-      isWaterproof: "gs1:isWaterproof",
-      isWearableItemDisposable: "gs1:isWearableItemDisposable",
-      itemOffered: "gs1:itemOffered",
+      isRindEdible: {
+        "@id": "gs1:isRindEdible",
+        "@type": "@id"
+      },
+      isSeedless: {
+        "@id": "gs1:isSeedless",
+        "@type": "@id"
+      },
+      isShelledPeeled: {
+        "@id": "gs1:isShelledPeeled",
+        "@type": "@id"
+      },
+      isSliced: {
+        "@id": "gs1:isSliced",
+        "@type": "@id"
+      },
+      isThermal: {
+        "@id": "gs1:isThermal",
+        "@type": "@id"
+      },
+      isVintage: {
+        "@id": "gs1:isVintage",
+        "@type": "@id"
+      },
+      isWashedReadyToEat: {
+        "@id": "gs1:isWashedReadyToEat",
+        "@type": "@id"
+      },
+      isWaterproof: {
+        "@id": "gs1:isWaterproof",
+        "@type": "@id"
+      },
+      isWearableItemDisposable: {
+        "@id": "gs1:isWearableItemDisposable",
+        "@type": "@id"
+      },
+      itemOffered: {
+        "@id": "gs1:itemOffered",
+        "@type": "@id"
+      },
       juiceContentPercent: "gs1:juiceContentPercent",
       jws: "gs1:jws",
       latitude: "gs1:latitude",
-      leasedFrom: "gs1:leasedFrom",
-      leasedTo: "gs1:leasedTo",
+      leasedFrom: {
+        "@id": "gs1:leasedFrom",
+        "@type": "@id"
+      },
+      leasedTo: {
+        "@id": "gs1:leasedTo",
+        "@type": "@id"
+      },
       leaveReview: "gs1:leaveReview",
-      lesseeOf: "gs1:lesseeOf",
-      lessorFor: "gs1:lessorFor",
+      lesseeOf: {
+        "@id": "gs1:lesseeOf",
+        "@type": "@id"
+      },
+      lessorFor: {
+        "@id": "gs1:lessorFor",
+        "@type": "@id"
+      },
       line: "gs1:line",
       linkType: "gs1:linkType",
-      location: "gs1:location",
+      location: {
+        "@id": "gs1:location",
+        "@type": "@id"
+      },
       locationDescription: "gs1:locationDescription",
       locationFinalClosureDate: "gs1:locationFinalClosureDate",
       locationGLN: "gs1:locationGLN",
-      locationHistory: "gs1:locationHistory",
+      locationHistory: {
+        "@id": "gs1:locationHistory",
+        "@type": "@id"
+      },
       locationID: "gs1:locationID",
       locationID_Qualifier: "gs1:locationID_Qualifier",
-      locationID_Type: "gs1:locationID_Type",
+      locationID_Type: {
+        "@id": "gs1:locationID_Type",
+        "@type": "@id"
+      },
       locationID_URI: "gs1:locationID_URI",
       locationInfo: "gs1:locationInfo",
       locationOpeningDate: "gs1:locationOpeningDate",
-      locationRole: "gs1:locationRole",
-      locationStatus: "gs1:locationStatus",
+      locationRole: {
+        "@id": "gs1:locationRole",
+        "@type": "@id"
+      },
+      locationStatus: {
+        "@id": "gs1:locationStatus",
+        "@type": "@id"
+      },
       logisticsInfo: "gs1:logisticsInfo",
       longitude: "gs1:longitude",
       loyaltyProgram: "gs1:loyaltyProgram",
-      magnesiumPerNutrientBasis: "gs1:magnesiumPerNutrientBasis",
-      makesOffer: "gs1:makesOffer",
-      managedBy: "gs1:managedBy",
-      managedFor: "gs1:managedFor",
-      manages: "gs1:manages",
-      manganesePerNutrientBasis: "gs1:manganesePerNutrientBasis",
-      manufacturer: "gs1:manufacturer",
-      manufacturerPreparationCode: "gs1:manufacturerPreparationCode",
-      manufacturersWarranty: "gs1:manufacturersWarranty",
-      manufacturingPlant: "gs1:manufacturingPlant",
-      massPerUnitArea: "gs1:massPerUnitArea",
+      magnesiumPerNutrientBasis: {
+        "@id": "gs1:magnesiumPerNutrientBasis",
+        "@type": "@id"
+      },
+      makesOffer: {
+        "@id": "gs1:makesOffer",
+        "@type": "@id"
+      },
+      managedBy: {
+        "@id": "gs1:managedBy",
+        "@type": "@id"
+      },
+      managedFor: {
+        "@id": "gs1:managedFor",
+        "@type": "@id"
+      },
+      manages: {
+        "@id": "gs1:manages",
+        "@type": "@id"
+      },
+      manganesePerNutrientBasis: {
+        "@id": "gs1:manganesePerNutrientBasis",
+        "@type": "@id"
+      },
+      manufacturer: {
+        "@id": "gs1:manufacturer",
+        "@type": "@id"
+      },
+      manufacturerPreparationCode: {
+        "@id": "gs1:manufacturerPreparationCode",
+        "@type": "@id"
+      },
+      manufacturersWarranty: {
+        "@id": "gs1:manufacturersWarranty",
+        "@type": "@id"
+      },
+      manufacturingPlant: {
+        "@id": "gs1:manufacturingPlant",
+        "@type": "@id"
+      },
+      massPerUnitArea: {
+        "@id": "gs1:massPerUnitArea",
+        "@type": "@id"
+      },
       masterData: "gs1:masterData",
-      masterDataAvailableFor: "gs1:masterDataAvailableFor",
-      maturationMethod: "gs1:maturationMethod",
+      masterDataAvailableFor: {
+        "@id": "gs1:masterDataAvailableFor",
+        "@type": "@id"
+      },
+      maturationMethod: {
+        "@id": "gs1:maturationMethod",
+        "@type": "@id"
+      },
       maxPrice: "gs1:maxPrice",
-      maximumDiscountAmount: "gs1:maximumDiscountAmount",
+      maximumDiscountAmount: {
+        "@id": "gs1:maximumDiscountAmount",
+        "@type": "@id"
+      },
       maximumDiscountPercentage: "gs1:maximumDiscountPercentage",
-      maximumOptimumConsumptionTemperature: "gs1:maximumOptimumConsumptionTemperature",
+      maximumOptimumConsumptionTemperature: {
+        "@id": "gs1:maximumOptimumConsumptionTemperature",
+        "@type": "@id"
+      },
       maximumQualifyingItems: "gs1:maximumQualifyingItems",
-      maximumQualifyingSpend: "gs1:maximumQualifyingSpend",
+      maximumQualifyingSpend: {
+        "@id": "gs1:maximumQualifyingSpend",
+        "@type": "@id"
+      },
       meatPoultryType: "gs1:meatPoultryType",
       menuInfo: "gs1:menuInfo",
-      messageRecipient: "gs1:messageRecipient",
-      messageSender: "gs1:messageSender",
+      messageRecipient: {
+        "@id": "gs1:messageRecipient",
+        "@type": "@id"
+      },
+      messageSender: {
+        "@id": "gs1:messageSender",
+        "@type": "@id"
+      },
       minPrice: "gs1:minPrice",
-      minimumDiscountAmount: "gs1:minimumDiscountAmount",
+      minimumDiscountAmount: {
+        "@id": "gs1:minimumDiscountAmount",
+        "@type": "@id"
+      },
       minimumDiscountPercentage: "gs1:minimumDiscountPercentage",
-      minimumFishContent: "gs1:minimumFishContent",
-      minimumMeatPoultryContent: "gs1:minimumMeatPoultryContent",
-      minimumOptimumConsumptionTemperature: "gs1:minimumOptimumConsumptionTemperature",
+      minimumFishContent: {
+        "@id": "gs1:minimumFishContent",
+        "@type": "@id"
+      },
+      minimumMeatPoultryContent: {
+        "@id": "gs1:minimumMeatPoultryContent",
+        "@type": "@id"
+      },
+      minimumOptimumConsumptionTemperature: {
+        "@id": "gs1:minimumOptimumConsumptionTemperature",
+        "@type": "@id"
+      },
       minimumQualifyingItems: "gs1:minimumQualifyingItems",
-      minimumQualifyingSpend: "gs1:minimumQualifyingSpend",
-      molybdenumPerNutrientBasis: "gs1:molybdenumPerNutrientBasis",
-      monounsaturatedFatPerNutrientBasis: "gs1:monounsaturatedFatPerNutrientBasis",
-      netArea: "gs1:netArea",
-      netContent: "gs1:netContent",
-      netWeight: "gs1:netWeight",
-      niacinPerNutrientBasis: "gs1:niacinPerNutrientBasis",
+      minimumQualifyingSpend: {
+        "@id": "gs1:minimumQualifyingSpend",
+        "@type": "@id"
+      },
+      molybdenumPerNutrientBasis: {
+        "@id": "gs1:molybdenumPerNutrientBasis",
+        "@type": "@id"
+      },
+      monounsaturatedFatPerNutrientBasis: {
+        "@id": "gs1:monounsaturatedFatPerNutrientBasis",
+        "@type": "@id"
+      },
+      netArea: {
+        "@id": "gs1:netArea",
+        "@type": "@id"
+      },
+      netContent: {
+        "@id": "gs1:netContent",
+        "@type": "@id"
+      },
+      netWeight: {
+        "@id": "gs1:netWeight",
+        "@type": "@id"
+      },
+      niacinPerNutrientBasis: {
+        "@id": "gs1:niacinPerNutrientBasis",
+        "@type": "@id"
+      },
       numberOfServingsPerPackage: "gs1:numberOfServingsPerPackage",
-      numberOfServingsPerPackageMeasurementPrecision: "gs1:numberOfServingsPerPackageMeasurementPrecision",
+      numberOfServingsPerPackageMeasurementPrecision: {
+        "@id": "gs1:numberOfServingsPerPackageMeasurementPrecision",
+        "@type": "@id"
+      },
       numberOfServingsRangeDescription: "gs1:numberOfServingsRangeDescription",
-      nutrientBasisQuantity: "gs1:nutrientBasisQuantity",
-      nutrientBasisQuantityType: "gs1:nutrientBasisQuantityType",
-      nutrientMeasurementPrecision: "gs1:nutrientMeasurementPrecision",
-      nutritionalClaim: "gs1:nutritionalClaim",
+      nutrientBasisQuantity: {
+        "@id": "gs1:nutrientBasisQuantity",
+        "@type": "@id"
+      },
+      nutrientBasisQuantityType: {
+        "@id": "gs1:nutrientBasisQuantityType",
+        "@type": "@id"
+      },
+      nutrientMeasurementPrecision: {
+        "@id": "gs1:nutrientMeasurementPrecision",
+        "@type": "@id"
+      },
+      nutritionalClaim: {
+        "@id": "gs1:nutritionalClaim",
+        "@type": "@id"
+      },
       nutritionalClaimStatement: "gs1:nutritionalClaimStatement",
       nutritionalInfo: "gs1:nutritionalInfo",
-      occupiedBy: "gs1:occupiedBy",
-      occupies: "gs1:occupies",
+      occupiedBy: {
+        "@id": "gs1:occupiedBy",
+        "@type": "@id"
+      },
+      occupies: {
+        "@id": "gs1:occupies",
+        "@type": "@id"
+      },
       offerDescription: "gs1:offerDescription",
-      offerDiscount: "gs1:offerDiscount",
-      offerRedemptionType: "gs1:offerRedemptionType",
-      offerRedemptionURL: "gs1:offerRedemptionURL",
+      offerDiscount: {
+        "@id": "gs1:offerDiscount",
+        "@type": "@id"
+      },
+      offerRedemptionType: {
+        "@id": "gs1:offerRedemptionType",
+        "@type": "@id"
+      },
+      offerRedemptionURL: {
+        "@id": "gs1:offerRedemptionURL",
+        "@type": "@id"
+      },
       offerRestrictionDescription: "gs1:offerRestrictionDescription",
       openingHoursInfo: "gs1:openingHoursInfo",
-      organicClaim: "gs1:organicClaim",
-      organicClaimAgency: "gs1:organicClaimAgency",
+      organicClaim: {
+        "@id": "gs1:organicClaim",
+        "@type": "@id"
+      },
+      organicClaimAgency: {
+        "@id": "gs1:organicClaimAgency",
+        "@type": "@id"
+      },
       organicPercentClaim: "gs1:organicPercentClaim",
-      organizationClassification: "gs1:organizationClassification",
+      organizationClassification: {
+        "@id": "gs1:organizationClassification",
+        "@type": "@id"
+      },
       organizationClassificationID: "gs1:organizationClassificationID",
-      organizationClassificationType: "gs1:organizationClassificationType",
+      organizationClassificationType: {
+        "@id": "gs1:organizationClassificationType",
+        "@type": "@id"
+      },
       organizationFormationDate: "gs1:organizationFormationDate",
-      organizationHistory: "gs1:organizationHistory",
+      organizationHistory: {
+        "@id": "gs1:organizationHistory",
+        "@type": "@id"
+      },
       organizationID: "gs1:organizationID",
       organizationID_Qualifier: "gs1:organizationID_Qualifier",
-      organizationID_Type: "gs1:organizationID_Type",
+      organizationID_Type: {
+        "@id": "gs1:organizationID_Type",
+        "@type": "@id"
+      },
       organizationID_URI: "gs1:organizationID_URI",
       organizationLegalName: "gs1:organizationLegalName",
       organizationName: "gs1:organizationName",
-      organizationRole: "gs1:organizationRole",
-      organizationStatus: "gs1:organizationStatus",
+      organizationRole: {
+        "@id": "gs1:organizationRole",
+        "@type": "@id"
+      },
+      organizationStatus: {
+        "@id": "gs1:organizationStatus",
+        "@type": "@id"
+      },
       organizationTerminationDate: "gs1:organizationTerminationDate",
       organizationTradingName: "gs1:organizationTradingName",
       originalCodeValue: "gs1:originalCodeValue",
-      outOfPackageDepth: "gs1:outOfPackageDepth",
-      outOfPackageDiameter: "gs1:outOfPackageDiameter",
-      outOfPackageHeight: "gs1:outOfPackageHeight",
-      outOfPackageWidth: "gs1:outOfPackageWidth",
-      ownedBy: "gs1:ownedBy",
-      owns: "gs1:owns",
-      packaging: "gs1:packaging",
+      outOfPackageDepth: {
+        "@id": "gs1:outOfPackageDepth",
+        "@type": "@id"
+      },
+      outOfPackageDiameter: {
+        "@id": "gs1:outOfPackageDiameter",
+        "@type": "@id"
+      },
+      outOfPackageHeight: {
+        "@id": "gs1:outOfPackageHeight",
+        "@type": "@id"
+      },
+      outOfPackageWidth: {
+        "@id": "gs1:outOfPackageWidth",
+        "@type": "@id"
+      },
+      ownedBy: {
+        "@id": "gs1:ownedBy",
+        "@type": "@id"
+      },
+      owns: {
+        "@id": "gs1:owns",
+        "@type": "@id"
+      },
+      packaging: {
+        "@id": "gs1:packaging",
+        "@type": "@id"
+      },
       packagingDate: "gs1:packagingDate",
-      packagingFeature: "gs1:packagingFeature",
-      packagingFunction: "gs1:packagingFunction",
-      packagingMarkedDietAllergenType: "gs1:packagingMarkedDietAllergenType",
-      packagingMarkedFreeFrom: "gs1:packagingMarkedFreeFrom",
-      packagingMarkedLabelAccreditation: "gs1:packagingMarkedLabelAccreditation",
-      packagingMaterial: "gs1:packagingMaterial",
-      packagingMaterialCompositionQuantity: "gs1:packagingMaterialCompositionQuantity",
-      packagingMaterialThickness: "gs1:packagingMaterialThickness",
-      packagingMaterialType: "gs1:packagingMaterialType",
-      packagingRecyclingProcessType: "gs1:packagingRecyclingProcessType",
-      packagingRecyclingScheme: "gs1:packagingRecyclingScheme",
-      packagingShape: "gs1:packagingShape",
+      packagingFeature: {
+        "@id": "gs1:packagingFeature",
+        "@type": "@id"
+      },
+      packagingFunction: {
+        "@id": "gs1:packagingFunction",
+        "@type": "@id"
+      },
+      packagingMarkedDietAllergenType: {
+        "@id": "gs1:packagingMarkedDietAllergenType",
+        "@type": "@id"
+      },
+      packagingMarkedFreeFrom: {
+        "@id": "gs1:packagingMarkedFreeFrom",
+        "@type": "@id"
+      },
+      packagingMarkedLabelAccreditation: {
+        "@id": "gs1:packagingMarkedLabelAccreditation",
+        "@type": "@id"
+      },
+      packagingMaterial: {
+        "@id": "gs1:packagingMaterial",
+        "@type": "@id"
+      },
+      packagingMaterialCompositionQuantity: {
+        "@id": "gs1:packagingMaterialCompositionQuantity",
+        "@type": "@id"
+      },
+      packagingMaterialThickness: {
+        "@id": "gs1:packagingMaterialThickness",
+        "@type": "@id"
+      },
+      packagingMaterialType: {
+        "@id": "gs1:packagingMaterialType",
+        "@type": "@id"
+      },
+      packagingRecyclingProcessType: {
+        "@id": "gs1:packagingRecyclingProcessType",
+        "@type": "@id"
+      },
+      packagingRecyclingScheme: {
+        "@id": "gs1:packagingRecyclingScheme",
+        "@type": "@id"
+      },
+      packagingShape: {
+        "@id": "gs1:packagingShape",
+        "@type": "@id"
+      },
       packagingType: "gs1:packagingType",
-      pantothenicAcidPerNutrientBasis: "gs1:pantothenicAcidPerNutrientBasis",
-      parentOrganization: "gs1:parentOrganization",
+      pantothenicAcidPerNutrientBasis: {
+        "@id": "gs1:pantothenicAcidPerNutrientBasis",
+        "@type": "@id"
+      },
+      parentOrganization: {
+        "@id": "gs1:parentOrganization",
+        "@type": "@id"
+      },
       partyGLN: "gs1:partyGLN",
       paymentLink: "gs1:paymentLink",
       paymentTerms: "gs1:paymentTerms",
       percentageOfAlcoholByVolume: "gs1:percentageOfAlcoholByVolume",
-      phosphorusPerNutrientBasis: "gs1:phosphorusPerNutrientBasis",
+      phosphorusPerNutrientBasis: {
+        "@id": "gs1:phosphorusPerNutrientBasis",
+        "@type": "@id"
+      },
       physicalLocationName: "gs1:physicalLocationName",
       pip: "gs1:pip",
       polygon: "gs1:polygon",
-      polyolsPerNutrientBasis: "gs1:polyolsPerNutrientBasis",
-      polyunsaturatedFatPerNutrientBasis: "gs1:polyunsaturatedFatPerNutrientBasis",
+      polyolsPerNutrientBasis: {
+        "@id": "gs1:polyolsPerNutrientBasis",
+        "@type": "@id"
+      },
+      polyunsaturatedFatPerNutrientBasis: {
+        "@id": "gs1:polyunsaturatedFatPerNutrientBasis",
+        "@type": "@id"
+      },
       postOfficeBoxNumber: "gs1:postOfficeBoxNumber",
       postalCode: "gs1:postalCode",
       postalName: "gs1:postalName",
-      potassiumPerNutrientBasis: "gs1:potassiumPerNutrientBasis",
-      preparationCode: "gs1:preparationCode",
+      potassiumPerNutrientBasis: {
+        "@id": "gs1:potassiumPerNutrientBasis",
+        "@type": "@id"
+      },
+      preparationCode: {
+        "@id": "gs1:preparationCode",
+        "@type": "@id"
+      },
       preparationConsumptionPrecautions: "gs1:preparationConsumptionPrecautions",
-      preparationInformation: "gs1:preparationInformation",
+      preparationInformation: {
+        "@id": "gs1:preparationInformation",
+        "@type": "@id"
+      },
       preparationInstructions: "gs1:preparationInstructions",
-      preservationTechnique: "gs1:preservationTechnique",
+      preservationTechnique: {
+        "@id": "gs1:preservationTechnique",
+        "@type": "@id"
+      },
       price: "gs1:price",
       priceCurrency: "gs1:priceCurrency",
-      priceSpecification: "gs1:priceSpecification",
-      primaryAlternateProduct: "gs1:primaryAlternateProduct",
-      primaryLocationOf: "gs1:primaryLocationOf",
+      priceSpecification: {
+        "@id": "gs1:priceSpecification",
+        "@type": "@id"
+      },
+      primaryAlternateProduct: {
+        "@id": "gs1:primaryAlternateProduct",
+        "@type": "@id"
+      },
+      primaryLocationOf: {
+        "@id": "gs1:primaryLocationOf",
+        "@type": "@id"
+      },
       productDescription: "gs1:productDescription",
       productFeatureBenefit: "gs1:productFeatureBenefit",
       productFormDescription: "gs1:productFormDescription",
@@ -27020,31 +27736,52 @@ var contexts_default = {
       productName: "gs1:productName",
       productRange: "gs1:productRange",
       productSustainabilityInfo: "gs1:productSustainabilityInfo",
-      productYield: "gs1:productYield",
-      productYieldType: "gs1:productYieldType",
+      productYield: {
+        "@id": "gs1:productYield",
+        "@type": "@id"
+      },
+      productYieldType: {
+        "@id": "gs1:productYieldType",
+        "@type": "@id"
+      },
       productYieldVariationPercentage: "gs1:productYieldVariationPercentage",
       productionDate: "gs1:productionDate",
       productionDateTime: "gs1:productionDateTime",
       productionVariantDescription: "gs1:productionVariantDescription",
       productionVariantEffectiveDateTime: "gs1:productionVariantEffectiveDateTime",
       promotion: "gs1:promotion",
-      proteinPerNutrientBasis: "gs1:proteinPerNutrientBasis",
+      proteinPerNutrientBasis: {
+        "@id": "gs1:proteinPerNutrientBasis",
+        "@type": "@id"
+      },
       provenanceStatement: "gs1:provenanceStatement",
       purchaseSuppliesOrAccessories: "gs1:purchaseSuppliesOrAccessories",
       qualifyingBrandName: "gs1:qualifyingBrandName",
       qualifyingGPCs: "gs1:qualifyingGPCs",
       qualifyingProductCategoryDescription: "gs1:qualifyingProductCategoryDescription",
-      qualifyingProductClassificationCode: "gs1:qualifyingProductClassificationCode",
+      qualifyingProductClassificationCode: {
+        "@id": "gs1:qualifyingProductClassificationCode",
+        "@type": "@id"
+      },
       qualifyingProductGTINs: "gs1:qualifyingProductGTINs",
       qualifyingSubBrandName: "gs1:qualifyingSubBrandName",
       quickStartGuide: "gs1:quickStartGuide",
       recallStatus: "gs1:recallStatus",
       recipeInfo: "gs1:recipeInfo",
-      referencedFile: "gs1:referencedFile",
+      referencedFile: {
+        "@id": "gs1:referencedFile",
+        "@type": "@id"
+      },
       referencedFileEffectiveEndDateTime: "gs1:referencedFileEffectiveEndDateTime",
       referencedFileEffectiveStartDateTime: "gs1:referencedFileEffectiveStartDateTime",
-      referencedFileSize: "gs1:referencedFileSize",
-      referencedFileType: "gs1:referencedFileType",
+      referencedFileSize: {
+        "@id": "gs1:referencedFileSize",
+        "@type": "@id"
+      },
+      referencedFileType: {
+        "@id": "gs1:referencedFileType",
+        "@type": "@id"
+      },
       referencedFileURL: "gs1:referencedFileURL",
       registerProduct: "gs1:registerProduct",
       registryEntry: "gs1:registryEntry",
@@ -27054,68 +27791,170 @@ var contexts_default = {
         "@type": "@id"
       },
       regulatoryAct: "gs1:regulatoryAct",
-      regulatoryIdentifier: "gs1:regulatoryIdentifier",
-      regulatoryIdentifierType: "gs1:regulatoryIdentifierType",
+      regulatoryIdentifier: {
+        "@id": "gs1:regulatoryIdentifier",
+        "@type": "@id"
+      },
+      regulatoryIdentifierType: {
+        "@id": "gs1:regulatoryIdentifierType",
+        "@type": "@id"
+      },
       regulatoryInformation: {
         "@id": "gs1:regulatoryInformation",
         "@type": "@id"
       },
-      regulatoryInformationProvider: "gs1:regulatoryInformationProvider",
+      regulatoryInformationProvider: {
+        "@id": "gs1:regulatoryInformationProvider",
+        "@type": "@id"
+      },
       regulatoryReferenceApplicabilityEndDate: "gs1:regulatoryReferenceApplicabilityEndDate",
       regulatoryReferenceApplicabilityStartDate: "gs1:regulatoryReferenceApplicabilityStartDate",
       regulatoryReferenceNumber: "gs1:regulatoryReferenceNumber",
       regulatoryVerificationNumber: "gs1:regulatoryVerificationNumber",
-      reheatingClaim: "gs1:reheatingClaim",
+      reheatingClaim: {
+        "@id": "gs1:reheatingClaim",
+        "@type": "@id"
+      },
       relatedImage: "gs1:relatedImage",
-      relatedOrganization: "gs1:relatedOrganization",
+      relatedOrganization: {
+        "@id": "gs1:relatedOrganization",
+        "@type": "@id"
+      },
       relatedVideo: "gs1:relatedVideo",
-      replacedByOrganization: "gs1:replacedByOrganization",
-      replacedByPlace: "gs1:replacedByPlace",
-      replacedByProduct: "gs1:replacedByProduct",
-      replacedOrganization: "gs1:replacedOrganization",
-      replacedPlace: "gs1:replacedPlace",
-      replacedProduct: "gs1:replacedProduct",
+      replacedByOrganization: {
+        "@id": "gs1:replacedByOrganization",
+        "@type": "@id"
+      },
+      replacedByPlace: {
+        "@id": "gs1:replacedByPlace",
+        "@type": "@id"
+      },
+      replacedByProduct: {
+        "@id": "gs1:replacedByProduct",
+        "@type": "@id"
+      },
+      replacedOrganization: {
+        "@id": "gs1:replacedOrganization",
+        "@type": "@id"
+      },
+      replacedPlace: {
+        "@id": "gs1:replacedPlace",
+        "@type": "@id"
+      },
+      replacedProduct: {
+        "@id": "gs1:replacedProduct",
+        "@type": "@id"
+      },
       reportFound: "gs1:reportFound",
       responsibility: "gs1:responsibility",
-      responsibleForLocation: "gs1:responsibleForLocation",
-      responsibleOrganization: "gs1:responsibleOrganization",
-      returnablePackageDepositAmount: "gs1:returnablePackageDepositAmount",
-      returnablePackageDepositRegion: "gs1:returnablePackageDepositRegion",
+      responsibleForLocation: {
+        "@id": "gs1:responsibleForLocation",
+        "@type": "@id"
+      },
+      responsibleOrganization: {
+        "@id": "gs1:responsibleOrganization",
+        "@type": "@id"
+      },
+      returnablePackageDepositAmount: {
+        "@id": "gs1:returnablePackageDepositAmount",
+        "@type": "@id"
+      },
+      returnablePackageDepositRegion: {
+        "@id": "gs1:returnablePackageDepositRegion",
+        "@type": "@id"
+      },
       review: "gs1:review",
-      riboflavinPerNutrientBasis: "gs1:riboflavinPerNutrientBasis",
+      riboflavinPerNutrientBasis: {
+        "@id": "gs1:riboflavinPerNutrientBasis",
+        "@type": "@id"
+      },
       safetyInfo: "gs1:safetyInfo",
-      saltPerNutrientBasis: "gs1:saltPerNutrientBasis",
-      saturatedFatPerNutrientBasis: "gs1:saturatedFatPerNutrientBasis",
+      saltPerNutrientBasis: {
+        "@id": "gs1:saltPerNutrientBasis",
+        "@type": "@id"
+      },
+      saturatedFatPerNutrientBasis: {
+        "@id": "gs1:saturatedFatPerNutrientBasis",
+        "@type": "@id"
+      },
       scheduleTime: "gs1:scheduleTime",
       seasonCalendarYear: "gs1:seasonCalendarYear",
       seasonName: "gs1:seasonName",
-      seasonParameter: "gs1:seasonParameter",
-      seeker: "gs1:seeker",
+      seasonParameter: {
+        "@id": "gs1:seasonParameter",
+        "@type": "@id"
+      },
+      seeker: {
+        "@id": "gs1:seeker",
+        "@type": "@id"
+      },
       selectedProductsOnly: "gs1:selectedProductsOnly",
-      seleniumPerNutrientBasis: "gs1:seleniumPerNutrientBasis",
+      seleniumPerNutrientBasis: {
+        "@id": "gs1:seleniumPerNutrientBasis",
+        "@type": "@id"
+      },
       sellByDate: "gs1:sellByDate",
-      seller: "gs1:seller",
+      seller: {
+        "@id": "gs1:seller",
+        "@type": "@id"
+      },
       serviceInfo: "gs1:serviceInfo",
-      servingSize: "gs1:servingSize",
+      servingSize: {
+        "@id": "gs1:servingSize",
+        "@type": "@id"
+      },
       servingSizeDescription: "gs1:servingSizeDescription",
       servingSuggestion: "gs1:servingSuggestion",
-      sharpnessOfCheese: "gs1:sharpnessOfCheese",
+      sharpnessOfCheese: {
+        "@id": "gs1:sharpnessOfCheese",
+        "@type": "@id"
+      },
       siteAccessRequirements: "gs1:siteAccessRequirements",
-      size: "gs1:size",
-      sizeCode: "gs1:sizeCode",
+      size: {
+        "@id": "gs1:size",
+        "@type": "@id"
+      },
+      sizeCode: {
+        "@id": "gs1:sizeCode",
+        "@type": "@id"
+      },
       sizeCodeListCode: "gs1:sizeCodeListCode",
       sizeCodeValue: "gs1:sizeCodeValue",
-      sizeDimension: "gs1:sizeDimension",
-      sizeGroup: "gs1:sizeGroup",
-      sizeSystem: "gs1:sizeSystem",
-      sizeType: "gs1:sizeType",
+      sizeDimension: {
+        "@id": "gs1:sizeDimension",
+        "@type": "@id"
+      },
+      sizeGroup: {
+        "@id": "gs1:sizeGroup",
+        "@type": "@id"
+      },
+      sizeSystem: {
+        "@id": "gs1:sizeSystem",
+        "@type": "@id"
+      },
+      sizeType: {
+        "@id": "gs1:sizeType",
+        "@type": "@id"
+      },
       smartLabel: "gs1:smartLabel",
       smpc: "gs1:smpc",
       socialMedia: "gs1:socialMedia",
-      sodiumPerNutrientBasis: "gs1:sodiumPerNutrientBasis",
-      sourceAnimal: "gs1:sourceAnimal",
-      sportingActivityType: "gs1:sportingActivityType",
-      starchPerNutrientBasis: "gs1:starchPerNutrientBasis",
+      sodiumPerNutrientBasis: {
+        "@id": "gs1:sodiumPerNutrientBasis",
+        "@type": "@id"
+      },
+      sourceAnimal: {
+        "@id": "gs1:sourceAnimal",
+        "@type": "@id"
+      },
+      sportingActivityType: {
+        "@id": "gs1:sportingActivityType",
+        "@type": "@id"
+      },
+      starchPerNutrientBasis: {
+        "@id": "gs1:starchPerNutrientBasis",
+        "@type": "@id"
+      },
       statisticInfo: "gs1:statisticInfo",
       statusTimestamp: "gs1:statusTimestamp",
       streetAddress: "gs1:streetAddress",
@@ -27124,58 +27963,127 @@ var contexts_default = {
       streetAddressLine4: "gs1:streetAddressLine4",
       styleDescription: "gs1:styleDescription",
       subBrandName: "gs1:subBrandName",
-      subOrganization: "gs1:subOrganization",
+      subOrganization: {
+        "@id": "gs1:subOrganization",
+        "@type": "@id"
+      },
       subscribe: "gs1:subscribe",
-      sugarsPerNutrientBasis: "gs1:sugarsPerNutrientBasis",
+      sugarsPerNutrientBasis: {
+        "@id": "gs1:sugarsPerNutrientBasis",
+        "@type": "@id"
+      },
       supplierSpecifiedMinimumConsumerStorageDays: "gs1:supplierSpecifiedMinimumConsumerStorageDays",
       support: "gs1:support",
       sustainabilityInfo: "gs1:sustainabilityInfo",
-      sweetnessLevelOfAlcoholicBeverage: "gs1:sweetnessLevelOfAlcoholicBeverage",
+      sweetnessLevelOfAlcoholicBeverage: {
+        "@id": "gs1:sweetnessLevelOfAlcoholicBeverage",
+        "@type": "@id"
+      },
       targetConsumerAge: "gs1:targetConsumerAge",
-      targetConsumerGender: "gs1:targetConsumerGender",
-      targetMarket: "gs1:targetMarket",
-      targetMarketCountries: "gs1:targetMarketCountries",
+      targetConsumerGender: {
+        "@id": "gs1:targetConsumerGender",
+        "@type": "@id"
+      },
+      targetMarket: {
+        "@id": "gs1:targetMarket",
+        "@type": "@id"
+      },
+      targetMarketCountries: {
+        "@id": "gs1:targetMarketCountries",
+        "@type": "@id"
+      },
       telephone: "gs1:telephone",
-      textileMaterial: "gs1:textileMaterial",
+      textileMaterial: {
+        "@id": "gs1:textileMaterial",
+        "@type": "@id"
+      },
       textileMaterialContent: "gs1:textileMaterialContent",
       textileMaterialDescription: "gs1:textileMaterialDescription",
       textileMaterialPercentage: "gs1:textileMaterialPercentage",
       textileMaterialThreadCount: "gs1:textileMaterialThreadCount",
-      textileMaterialWeight: "gs1:textileMaterialWeight",
-      thiaminPerNutrientBasis: "gs1:thiaminPerNutrientBasis",
+      textileMaterialWeight: {
+        "@id": "gs1:textileMaterialWeight",
+        "@type": "@id"
+      },
+      thiaminPerNutrientBasis: {
+        "@id": "gs1:thiaminPerNutrientBasis",
+        "@type": "@id"
+      },
       traceability: "gs1:traceability",
-      transFatPerNutrientBasis: "gs1:transFatPerNutrientBasis",
+      transFatPerNutrientBasis: {
+        "@id": "gs1:transFatPerNutrientBasis",
+        "@type": "@id"
+      },
       transactionDate: "gs1:transactionDate",
       transactionID: "gs1:transactionID",
-      transactionType: "gs1:transactionType",
+      transactionType: {
+        "@id": "gs1:transactionType",
+        "@type": "@id"
+      },
       tutorial: "gs1:tutorial",
       unitCode: "gs1:unitCode",
-      upperMaterialType: "gs1:upperMaterialType",
+      upperMaterialType: {
+        "@id": "gs1:upperMaterialType",
+        "@type": "@id"
+      },
       userAgreement: "gs1:userAgreement",
-      usesManagedLocation: "gs1:usesManagedLocation",
+      usesManagedLocation: {
+        "@id": "gs1:usesManagedLocation",
+        "@type": "@id"
+      },
       validFrom: "gs1:validFrom",
       validThrough: "gs1:validThrough",
       value: "gs1:value",
       variantDescription: "gs1:variantDescription",
       verificationService: "gs1:verificationService",
       vintner: "gs1:vintner",
-      vitaminAPerNutrientBasis: "gs1:vitaminAPerNutrientBasis",
-      vitaminB12PerNutrientBasis: "gs1:vitaminB12PerNutrientBasis",
-      vitaminB6PerNutrientBasis: "gs1:vitaminB6PerNutrientBasis",
-      vitaminCPerNutrientBasis: "gs1:vitaminCPerNutrientBasis",
-      vitaminDPerNutrientBasis: "gs1:vitaminDPerNutrientBasis",
-      vitaminEPerNutrientBasis: "gs1:vitaminEPerNutrientBasis",
-      vitaminKPerNutrientBasis: "gs1:vitaminKPerNutrientBasis",
+      vitaminAPerNutrientBasis: {
+        "@id": "gs1:vitaminAPerNutrientBasis",
+        "@type": "@id"
+      },
+      vitaminB12PerNutrientBasis: {
+        "@id": "gs1:vitaminB12PerNutrientBasis",
+        "@type": "@id"
+      },
+      vitaminB6PerNutrientBasis: {
+        "@id": "gs1:vitaminB6PerNutrientBasis",
+        "@type": "@id"
+      },
+      vitaminCPerNutrientBasis: {
+        "@id": "gs1:vitaminCPerNutrientBasis",
+        "@type": "@id"
+      },
+      vitaminDPerNutrientBasis: {
+        "@id": "gs1:vitaminDPerNutrientBasis",
+        "@type": "@id"
+      },
+      vitaminEPerNutrientBasis: {
+        "@id": "gs1:vitaminEPerNutrientBasis",
+        "@type": "@id"
+      },
+      vitaminKPerNutrientBasis: {
+        "@id": "gs1:vitaminKPerNutrientBasis",
+        "@type": "@id"
+      },
       warningCopyDescription: "gs1:warningCopyDescription",
-      warranty: "gs1:warranty",
+      warranty: {
+        "@id": "gs1:warranty",
+        "@type": "@id"
+      },
       warrantyScopeDescription: "gs1:warrantyScopeDescription",
       whatsInTheBox: "gs1:whatsInTheBox",
-      yield: "gs1:yield",
-      zincPerNutrientBasis: "gs1:zincPerNutrientBasis"
+      yield: {
+        "@id": "gs1:yield",
+        "@type": "@id"
+      },
+      zincPerNutrientBasis: {
+        "@id": "gs1:zincPerNutrientBasis",
+        "@type": "@id"
+      }
     }
   },
   "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld": {
-    _comment: "OpenEPCIS Battery Vocabulary v0.9.7, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Battery Vocabulary v0.9.9, generated from extensions/eu/battery/ontology/battery.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/battery/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -27214,8 +28122,8 @@ var contexts_default = {
           "@id": "gs1:additionalProductClassification",
           "@type": "@id"
         },
-        "eubat:manufacturingPlace": {
-          "@id": "eubat:manufacturingPlace",
+        "eubat:hasManufacturingPlace": {
+          "@id": "eubat:hasManufacturingPlace",
           "@type": "@id"
         },
         "eubat:numberOfCells": {
@@ -27241,52 +28149,52 @@ var contexts_default = {
           "@id": "oec:lastUpdated",
           "@type": "xsd:dateTime"
         },
-        "eubat:batteryChemistry": {
-          "@id": "eubat:batteryChemistry",
+        "eubat:hasBatteryChemistry": {
+          "@id": "eubat:hasBatteryChemistry",
           "@type": "@id"
         },
-        "eubat:technicalSpecifications": {
-          "@id": "eubat:technicalSpecifications",
+        "eubat:hasTechnicalSpecifications": {
+          "@id": "eubat:hasTechnicalSpecifications",
           "@type": "@id"
         },
-        "eubat:ratedCapacity": {
-          "@id": "eubat:ratedCapacity",
+        "eubat:hasRatedCapacity": {
+          "@id": "eubat:hasRatedCapacity",
           "@type": "@id"
         },
-        "eubat:ratedEnergy": {
-          "@id": "eubat:ratedEnergy",
+        "eubat:hasRatedEnergy": {
+          "@id": "eubat:hasRatedEnergy",
           "@type": "@id"
         },
-        "eubat:nominalVoltage": {
-          "@id": "eubat:nominalVoltage",
+        "eubat:hasNominalVoltage": {
+          "@id": "eubat:hasNominalVoltage",
           "@type": "@id"
         },
-        "eubat:minimumVoltage": {
-          "@id": "eubat:minimumVoltage",
+        "eubat:hasMinimumVoltage": {
+          "@id": "eubat:hasMinimumVoltage",
           "@type": "@id"
         },
-        "eubat:maximumVoltage": {
-          "@id": "eubat:maximumVoltage",
+        "eubat:hasMaximumVoltage": {
+          "@id": "eubat:hasMaximumVoltage",
           "@type": "@id"
         },
-        "eubat:ratedMaximumPower": {
-          "@id": "eubat:ratedMaximumPower",
+        "eubat:hasRatedMaximumPower": {
+          "@id": "eubat:hasRatedMaximumPower",
           "@type": "@id"
         },
-        "eubat:maximumChargingPower": {
-          "@id": "eubat:maximumChargingPower",
+        "eubat:hasMaximumChargingPower": {
+          "@id": "eubat:hasMaximumChargingPower",
           "@type": "@id"
         },
-        "eubat:maximumDischargingPower": {
-          "@id": "eubat:maximumDischargingPower",
+        "eubat:hasMaximumDischargingPower": {
+          "@id": "eubat:hasMaximumDischargingPower",
           "@type": "@id"
         },
-        "eubat:maximumChargingCurrent": {
-          "@id": "eubat:maximumChargingCurrent",
+        "eubat:hasMaximumChargingCurrent": {
+          "@id": "eubat:hasMaximumChargingCurrent",
           "@type": "@id"
         },
-        "eubat:maximumDischargingCurrent": {
-          "@id": "eubat:maximumDischargingCurrent",
+        "eubat:hasMaximumDischargingCurrent": {
+          "@id": "eubat:hasMaximumDischargingCurrent",
           "@type": "@id"
         },
         "eubat:expectedCycleLife": {
@@ -27297,12 +28205,12 @@ var contexts_default = {
           "@id": "eubat:expectedLifetimeYears",
           "@type": "xsd:integer"
         },
-        "eubat:expectedLifetimeEnergyThroughput": {
-          "@id": "eubat:expectedLifetimeEnergyThroughput",
+        "eubat:hasExpectedLifetimeEnergyThroughput": {
+          "@id": "eubat:hasExpectedLifetimeEnergyThroughput",
           "@type": "@id"
         },
-        "eubat:expectedLifetimeCapacityThroughput": {
-          "@id": "eubat:expectedLifetimeCapacityThroughput",
+        "eubat:hasExpectedLifetimeCapacityThroughput": {
+          "@id": "eubat:hasExpectedLifetimeCapacityThroughput",
           "@type": "@id"
         },
         "eubat:roundTripEfficiency": {
@@ -27325,8 +28233,8 @@ var contexts_default = {
           "@id": "eubat:resistanceIncreaseThreshold",
           "@type": "xsd:decimal"
         },
-        "eubat:initialInternalResistance": {
-          "@id": "eubat:initialInternalResistance",
+        "eubat:hasInitialInternalResistance": {
+          "@id": "eubat:hasInitialInternalResistance",
           "@type": "@id"
         },
         "eubat:initialSelfDischarge": {
@@ -27353,52 +28261,52 @@ var contexts_default = {
           "@id": "eubat:cRateLifeCycleTest",
           "@type": "xsd:decimal"
         },
-        "eubat:originalPowerCapability": {
-          "@id": "eubat:originalPowerCapability",
+        "eubat:hasOriginalPowerCapability": {
+          "@id": "eubat:hasOriginalPowerCapability",
           "@type": "@id"
         },
         "eubat:stateOfChargeLevel": {
           "@id": "eubat:stateOfChargeLevel",
           "@type": "xsd:decimal"
         },
-        "eubat:powerCapability": {
-          "@id": "eubat:powerCapability",
+        "eubat:hasPowerCapability": {
+          "@id": "eubat:hasPowerCapability",
           "@type": "@id"
         },
-        "eubat:powerCapabilityAt80SoC": {
-          "@id": "eubat:powerCapabilityAt80SoC",
+        "eubat:hasPowerCapabilityAt80SoC": {
+          "@id": "eubat:hasPowerCapabilityAt80SoC",
           "@type": "@id"
         },
-        "eubat:powerCapabilityAt20SoC": {
-          "@id": "eubat:powerCapabilityAt20SoC",
+        "eubat:hasPowerCapabilityAt20SoC": {
+          "@id": "eubat:hasPowerCapabilityAt20SoC",
           "@type": "@id"
         },
-        "eubat:temperatureRangeStorage": {
-          "@id": "eubat:temperatureRangeStorage",
+        "eubat:hasTemperatureRangeStorage": {
+          "@id": "eubat:hasTemperatureRangeStorage",
           "@type": "@id"
         },
-        "eubat:temperatureRangeCharging": {
-          "@id": "eubat:temperatureRangeCharging",
+        "eubat:hasTemperatureRangeCharging": {
+          "@id": "eubat:hasTemperatureRangeCharging",
           "@type": "@id"
         },
-        "eubat:temperatureRangeDischarging": {
-          "@id": "eubat:temperatureRangeDischarging",
+        "eubat:hasTemperatureRangeDischarging": {
+          "@id": "eubat:hasTemperatureRangeDischarging",
           "@type": "@id"
         },
-        "eubat:temperatureRangeIdleState": {
-          "@id": "eubat:temperatureRangeIdleState",
+        "eubat:hasTemperatureRangeIdleState": {
+          "@id": "eubat:hasTemperatureRangeIdleState",
           "@type": "@id"
         },
-        "eubat:minimumTemperature": {
-          "@id": "eubat:minimumTemperature",
+        "eubat:hasMinimumTemperature": {
+          "@id": "eubat:hasMinimumTemperature",
           "@type": "@id"
         },
-        "eubat:maximumTemperature": {
-          "@id": "eubat:maximumTemperature",
+        "eubat:hasMaximumTemperature": {
+          "@id": "eubat:hasMaximumTemperature",
           "@type": "@id"
         },
-        "eubat:materialComposition": {
-          "@id": "eubat:materialComposition",
+        "eubat:hasMaterialComposition": {
+          "@id": "eubat:hasMaterialComposition",
           "@type": "@id"
         },
         "schema:weightPercentage": {
@@ -27417,8 +28325,8 @@ var contexts_default = {
           "@id": "eubat:renewableContentShare",
           "@type": "xsd:decimal"
         },
-        "eubat:recycledContent": {
-          "@id": "eubat:recycledContent",
+        "eubat:hasRecycledContent": {
+          "@id": "eubat:hasRecycledContent",
           "@type": "@id"
         },
         "eubat:lithiumRecycledShare": {
@@ -27477,32 +28385,32 @@ var contexts_default = {
           "@id": "eubat:leadRecycledShare",
           "@type": "xsd:decimal"
         },
-        "eubat:endOfLifeInfo": {
-          "@id": "eubat:endOfLifeInfo",
+        "eubat:hasEndOfLifeInfo": {
+          "@id": "eubat:hasEndOfLifeInfo",
           "@type": "@id"
         },
         "eubat:recyclabilityRate": {
           "@id": "eubat:recyclabilityRate",
           "@type": "xsd:decimal"
         },
-        "eubat:materialRecoveryTargets": {
-          "@id": "eubat:materialRecoveryTargets",
+        "eubat:hasMaterialRecoveryTargets": {
+          "@id": "eubat:hasMaterialRecoveryTargets",
           "@type": "@id"
         },
         "eubat:recoveryRate": {
           "@id": "eubat:recoveryRate",
           "@type": "xsd:decimal"
         },
-        "eubat:dismantlingInstructions": {
-          "@id": "eubat:dismantlingInstructions",
+        "eubat:hasDismantlingInstructions": {
+          "@id": "eubat:hasDismantlingInstructions",
           "@type": "@id"
         },
         "eubat:safetyInstructionsForDismantling": {
           "@id": "eubat:safetyInstructionsForDismantling",
           "@type": "@id"
         },
-        "eubat:dismantlingTime": {
-          "@id": "eubat:dismantlingTime",
+        "eubat:hasDismantlingTime": {
+          "@id": "eubat:hasDismantlingTime",
           "@type": "@id"
         },
         "eubat:wastePrevention": {
@@ -27525,36 +28433,36 @@ var contexts_default = {
           "@id": "eubat:safetyInstructions",
           "@type": "@id"
         },
-        "eubat:dismantlingDocuments": {
-          "@id": "eubat:dismantlingDocuments",
+        "eubat:hasDismantlingDocuments": {
+          "@id": "eubat:hasDismantlingDocuments",
           "@type": "@id"
         },
         "eubat:documentUrl": {
           "@id": "eubat:documentUrl",
           "@type": "@id"
         },
-        "eubat:hazardousSubstances": {
-          "@id": "eubat:hazardousSubstances",
+        "eubat:hasHazardousSubstances": {
+          "@id": "eubat:hasHazardousSubstances",
           "@type": "@id"
         },
         "eubat:concentration": {
           "@id": "eubat:concentration",
           "@type": "xsd:decimal"
         },
-        "eubat:operatorInformation": {
-          "@id": "eubat:operatorInformation",
+        "eubat:hasOperatorInformation": {
+          "@id": "eubat:hasOperatorInformation",
           "@type": "@id"
         },
-        "eubat:sparePartSources": {
-          "@id": "eubat:sparePartSources",
+        "eubat:hasSparePartSources": {
+          "@id": "eubat:hasSparePartSources",
           "@type": "@id"
         },
-        "eubat:supplierContact": {
-          "@id": "eubat:supplierContact",
+        "eubat:hasSupplierContact": {
+          "@id": "eubat:hasSupplierContact",
           "@type": "@id"
         },
-        "eubat:labels": {
-          "@id": "eubat:labels",
+        "eubat:hasLabels": {
+          "@id": "eubat:hasLabels",
           "@type": "@id"
         },
         "eubat:labelSymbol": {
@@ -27577,60 +28485,60 @@ var contexts_default = {
           "@id": "eubat:ceMarkingIndicator",
           "@type": "xsd:boolean"
         },
-        "eubat:euDeclarationOfConformity": {
-          "@id": "eubat:euDeclarationOfConformity",
+        "eubat:hasEuDeclarationOfConformity": {
+          "@id": "eubat:hasEuDeclarationOfConformity",
           "@type": "@id"
         },
         "eubat:declarationOfConformity": {
           "@id": "eubat:declarationOfConformity",
           "@type": "@id"
         },
-        "eubat:notifiedBody": {
-          "@id": "eubat:notifiedBody",
+        "eubat:hasNotifiedBody": {
+          "@id": "eubat:hasNotifiedBody",
           "@type": "@id"
         },
         "eubat:resultOfTestReport": {
           "@id": "eubat:resultOfTestReport",
           "@type": "@id"
         },
-        "eubat:carbonFootprintDeclaration": {
-          "@id": "eubat:carbonFootprintDeclaration",
+        "eubat:hasCarbonFootprintDeclaration": {
+          "@id": "eubat:hasCarbonFootprintDeclaration",
           "@type": "@id"
         },
-        "eubat:carbonFootprintTotal": {
-          "@id": "eubat:carbonFootprintTotal",
+        "eubat:hasCarbonFootprintTotal": {
+          "@id": "eubat:hasCarbonFootprintTotal",
           "@type": "@id"
         },
-        "eubat:carbonFootprintRawMaterialExtraction": {
-          "@id": "eubat:carbonFootprintRawMaterialExtraction",
+        "eubat:hasCarbonFootprintRawMaterialExtraction": {
+          "@id": "eubat:hasCarbonFootprintRawMaterialExtraction",
           "@type": "@id"
         },
-        "eubat:carbonFootprintProduction": {
-          "@id": "eubat:carbonFootprintProduction",
+        "eubat:hasCarbonFootprintProduction": {
+          "@id": "eubat:hasCarbonFootprintProduction",
           "@type": "@id"
         },
-        "eubat:carbonFootprintDistribution": {
-          "@id": "eubat:carbonFootprintDistribution",
+        "eubat:hasCarbonFootprintDistribution": {
+          "@id": "eubat:hasCarbonFootprintDistribution",
           "@type": "@id"
         },
-        "eubat:carbonFootprintRecycling": {
-          "@id": "eubat:carbonFootprintRecycling",
+        "eubat:hasCarbonFootprintRecycling": {
+          "@id": "eubat:hasCarbonFootprintRecycling",
           "@type": "@id"
         },
-        "eubat:absoluteCarbonFootprint": {
-          "@id": "eubat:absoluteCarbonFootprint",
+        "eubat:hasAbsoluteCarbonFootprint": {
+          "@id": "eubat:hasAbsoluteCarbonFootprint",
           "@type": "@id"
         },
         "eubat:carbonFootprintStudyUrl": {
           "@id": "eubat:carbonFootprintStudyUrl",
           "@type": "@id"
         },
-        "eubat:thirdPartyVerification": {
-          "@id": "eubat:thirdPartyVerification",
+        "eubat:hasThirdPartyVerification": {
+          "@id": "eubat:hasThirdPartyVerification",
           "@type": "@id"
         },
-        "eubat:verificationBody": {
-          "@id": "eubat:verificationBody",
+        "eubat:hasVerificationBody": {
+          "@id": "eubat:hasVerificationBody",
           "@type": "@id"
         },
         "eubat:verificationDate": {
@@ -27641,8 +28549,8 @@ var contexts_default = {
           "@id": "eubat:verificationCertificateUrl",
           "@type": "@id"
         },
-        "eubat:supplyChainDueDiligence": {
-          "@id": "eubat:supplyChainDueDiligence",
+        "eubat:hasSupplyChainDueDiligence": {
+          "@id": "eubat:hasSupplyChainDueDiligence",
           "@type": "@id"
         },
         "eubat:dueDiligenceReportUrl": {
@@ -27681,8 +28589,8 @@ var contexts_default = {
           "@id": "eubat:repurposingDate",
           "@type": "xsd:date"
         },
-        "eubat:repurposingEntity": {
-          "@id": "eubat:repurposingEntity",
+        "eubat:hasRepurposingEntity": {
+          "@id": "eubat:hasRepurposingEntity",
           "@type": "@id"
         },
         "eubat:warrantyConditions": {
@@ -27705,88 +28613,88 @@ var contexts_default = {
           "@id": "eubat:lastDataUpdate",
           "@type": "xsd:dateTime"
         },
-        "eubat:stateOfHealth": {
-          "@id": "eubat:stateOfHealth",
+        "eubat:hasStateOfHealth": {
+          "@id": "eubat:hasStateOfHealth",
           "@type": "@id"
         },
-        "eubat:stateOfCharge": {
-          "@id": "eubat:stateOfCharge",
+        "eubat:hasStateOfCharge": {
+          "@id": "eubat:hasStateOfCharge",
           "@type": "@id"
         },
-        "eubat:stateOfCertifiedEnergy": {
-          "@id": "eubat:stateOfCertifiedEnergy",
+        "eubat:hasStateOfCertifiedEnergy": {
+          "@id": "eubat:hasStateOfCertifiedEnergy",
           "@type": "@id"
         },
-        "eubat:cycleCount": {
-          "@id": "eubat:cycleCount",
+        "eubat:hasCycleCount": {
+          "@id": "eubat:hasCycleCount",
           "@type": "@id"
         },
-        "eubat:remainingCapacity": {
-          "@id": "eubat:remainingCapacity",
+        "eubat:hasRemainingCapacity": {
+          "@id": "eubat:hasRemainingCapacity",
           "@type": "@id"
         },
-        "eubat:remainingEnergy": {
-          "@id": "eubat:remainingEnergy",
+        "eubat:hasRemainingEnergy": {
+          "@id": "eubat:hasRemainingEnergy",
           "@type": "@id"
         },
-        "eubat:capacityFade": {
-          "@id": "eubat:capacityFade",
+        "eubat:hasCapacityFade": {
+          "@id": "eubat:hasCapacityFade",
           "@type": "@id"
         },
-        "eubat:powerFade": {
-          "@id": "eubat:powerFade",
+        "eubat:hasPowerFade": {
+          "@id": "eubat:hasPowerFade",
           "@type": "@id"
         },
-        "eubat:internalResistance": {
-          "@id": "eubat:internalResistance",
+        "eubat:hasInternalResistance": {
+          "@id": "eubat:hasInternalResistance",
           "@type": "@id"
         },
-        "eubat:internalResistanceIncrease": {
-          "@id": "eubat:internalResistanceIncrease",
+        "eubat:hasInternalResistanceIncrease": {
+          "@id": "eubat:hasInternalResistanceIncrease",
           "@type": "@id"
         },
-        "eubat:energyThroughput": {
-          "@id": "eubat:energyThroughput",
+        "eubat:hasEnergyThroughput": {
+          "@id": "eubat:hasEnergyThroughput",
           "@type": "@id"
         },
-        "eubat:capacityThroughput": {
-          "@id": "eubat:capacityThroughput",
+        "eubat:hasCapacityThroughput": {
+          "@id": "eubat:hasCapacityThroughput",
           "@type": "@id"
         },
-        "eubat:remainingRoundTripEfficiency": {
-          "@id": "eubat:remainingRoundTripEfficiency",
+        "eubat:hasRemainingRoundTripEfficiency": {
+          "@id": "eubat:hasRemainingRoundTripEfficiency",
           "@type": "@id"
         },
-        "eubat:roundTripEfficiencyFade": {
-          "@id": "eubat:roundTripEfficiencyFade",
+        "eubat:hasRoundTripEfficiencyFade": {
+          "@id": "eubat:hasRoundTripEfficiencyFade",
           "@type": "@id"
         },
-        "eubat:selfDischargeRate": {
-          "@id": "eubat:selfDischargeRate",
+        "eubat:hasSelfDischargeRate": {
+          "@id": "eubat:hasSelfDischargeRate",
           "@type": "@id"
         },
-        "eubat:evolutionOfSelfDischarge": {
-          "@id": "eubat:evolutionOfSelfDischarge",
+        "eubat:hasEvolutionOfSelfDischarge": {
+          "@id": "eubat:hasEvolutionOfSelfDischarge",
           "@type": "@id"
         },
         "eubat:exposureDurationMinutes": {
           "@id": "eubat:exposureDurationMinutes",
           "@type": "xsd:integer"
         },
-        "eubat:initialCapacity": {
-          "@id": "eubat:initialCapacity",
+        "eubat:hasInitialCapacity": {
+          "@id": "eubat:hasInitialCapacity",
           "@type": "@id"
         },
-        "eubat:initialEnergy": {
-          "@id": "eubat:initialEnergy",
+        "eubat:hasInitialEnergy": {
+          "@id": "eubat:hasInitialEnergy",
           "@type": "@id"
         },
-        "eubat:certifiedUsableEnergy": {
-          "@id": "eubat:certifiedUsableEnergy",
+        "eubat:hasCertifiedUsableEnergy": {
+          "@id": "eubat:hasCertifiedUsableEnergy",
           "@type": "@id"
         },
-        "eubat:remainingUsableEnergy": {
-          "@id": "eubat:remainingUsableEnergy",
+        "eubat:hasRemainingUsableEnergy": {
+          "@id": "eubat:hasRemainingUsableEnergy",
           "@type": "@id"
         },
         "eubat:exhaustionThreshold": {
@@ -27829,16 +28737,16 @@ var contexts_default = {
           "@id": "eubat:eventDate",
           "@type": "xsd:dateTime"
         },
-        "eubat:eventLocation": {
-          "@id": "eubat:eventLocation",
+        "eubat:hasEventLocation": {
+          "@id": "eubat:hasEventLocation",
           "@type": "@id"
         },
         "eubat:incidentReportUrl": {
           "@id": "eubat:incidentReportUrl",
           "@type": "@id"
         },
-        "eubat:remainingPowerCapability": {
-          "@id": "eubat:remainingPowerCapability",
+        "eubat:hasRemainingPowerCapability": {
+          "@id": "eubat:hasRemainingPowerCapability",
           "@type": "@id"
         },
         "gs1:value": {
@@ -27849,32 +28757,32 @@ var contexts_default = {
           "@id": "eubat:atSoC",
           "@type": "xsd:decimal"
         },
-        "eubat:batteryMass": {
-          "@id": "eubat:batteryMass",
+        "eubat:hasBatteryMass": {
+          "@id": "eubat:hasBatteryMass",
           "@type": "@id"
         },
-        "eubat:currentSelfDischargingRate": {
-          "@id": "eubat:currentSelfDischargingRate",
+        "eubat:hasCurrentSelfDischargingRate": {
+          "@id": "eubat:hasCurrentSelfDischargingRate",
           "@type": "@id"
         },
-        "eubat:dismantlingAndRemovalInformation": {
-          "@id": "eubat:dismantlingAndRemovalInformation",
+        "eubat:hasDismantlingAndRemovalInformation": {
+          "@id": "eubat:hasDismantlingAndRemovalInformation",
           "@type": "@id"
         },
-        "eubat:expectedLifetime": {
-          "@id": "eubat:expectedLifetime",
+        "eubat:hasExpectedLifetime": {
+          "@id": "eubat:hasExpectedLifetime",
           "@type": "@id"
         },
         "eubat:expectedNumberOfCycles": {
           "@id": "eubat:expectedNumberOfCycles",
           "@type": "xsd:integer"
         },
-        "eubat:maximumPermittedBatteryPower": {
-          "@id": "eubat:maximumPermittedBatteryPower",
+        "eubat:hasMaximumPermittedBatteryPower": {
+          "@id": "eubat:hasMaximumPermittedBatteryPower",
           "@type": "@id"
         },
-        "eubat:negativeEvents": {
-          "@id": "eubat:negativeEvents",
+        "eubat:hasNegativeEvents": {
+          "@id": "eubat:hasNegativeEvents",
           "@type": "@id"
         },
         "eubat:numberOfFullCycles": {
@@ -27909,7 +28817,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.io/extensions/eu/battery/battery-context-batterypass-bridge.jsonld": {
-    _comment: "This context interprets incoming BatteryPass documents as OpenEPCIS/GS1 terms (external key -> eubat:/oec:/gs1:). The two BatteryPass sources are referenced separately. (1) samm-* = the BatteryPass Consortium SAMM aspect models (github.com/batterypass), real versions 1.2.0 (Performance 1.2.1), matching battery.ttl. (2) bpr: = the GEFEG BatteryPass-Ready longlist v1.3 (thebatterypass.eu), which publishes no RDF IRIs, so this is an OpenEPCIS-hosted reference namespace for its longlist-only attributes (DPP-information group #1-#4). No SAMM 1.3.0 / DPPInformation submodel exists.",
+    _comment: "This context interprets incoming BatteryPass documents as OpenEPCIS/GS1 terms (external key -> eubat:/oec:/gs1:). One BatteryPass data model, referenced through two renderings. (1) samm-* = the Battery Pass Consortium SAMM aspect models (github.com/batterypass), real versions 1.2.0 (Performance 1.2.1), matching battery.ttl \u2014 the canonical form. (2) bpr: = an OpenEPCIS-hosted reference namespace for the few GEFEG BatteryPass-Ready longlist v1.3 attributes with no SAMM equivalent (DPP-information group #1-#4) plus the flat lossless-carrier keys below; GEFEG (thebatterypass.eu) is the Consortium's publication and validation channel and publishes no RDF IRIs. No SAMM 1.3.0 / DPPInformation submodel exists. Target-selection rule: every key resolves to the highest layer that already covers the concept (gs1: > oec: > eubat:); no key mints a new IRI. Where the longlist carries one flat value that OpenEPCIS models structurally across several terms (materialsUsedInCathode -> eubat:hasBatteryChemistry + eubat:hasMaterialComposition; symbolsForCadmiumAndLead -> eubat:cadmiumSymbolRequired + eubat:leadSymbolRequired; carbonFootprintLabel -> eubat:hasLabels/eubat:labelSymbol + eubat:CarbonFootprintLabel; informationOnAccidents -> eubat:hasNegativeEvents) no 1:1 project term exists, so the key keeps its upstream bpr: IRI and the incoming value is preserved losslessly rather than forced into a partial match. Attribute [5] batteryPassportIdentifier (the DPP identifier) and [6] batteryIdentifier (the unique battery/product identifier) are DISTINCT longlist attributes and map to different IRIs \u2014 oec/eubat passport identifier vs gs1:productID. Quantity carriers use the longlist's bare {value, unitCode} shape, aliased onto gs1:value/gs1:unitCode with the same xsd:decimal coercion the prefixed terms carry, so examples/batterypass-v1.3.jsonld validates against validation/batterypass-v1.3-schema.json (85/85 required attributes) while staying graph-identical.",
     "@context": {
       "@version": 1.1,
       gs1: "https://ref.gs1.org/voc/",
@@ -27933,7 +28841,7 @@ var contexts_default = {
         "@type": "@id"
       },
       dppGranularity: {
-        "@id": "oec:reportingGranularity",
+        "@id": "oec:hasReportingGranularity",
         "@type": "@id"
       },
       dateTimeOfLatestUpdate: {
@@ -27959,7 +28867,7 @@ var contexts_default = {
         "@id": "eubat:operatorIdentifier"
       },
       economicOperatorInformation: {
-        "@id": "eubat:operatorInformation",
+        "@id": "eubat:hasOperatorInformation",
         "@type": "@id"
       },
       manufacturerIdentifier: {
@@ -27999,11 +28907,11 @@ var contexts_default = {
         "@type": "@id"
       },
       manufacturingPlace: {
-        "@id": "eubat:manufacturingPlace",
+        "@id": "eubat:hasManufacturingPlace",
         "@type": "@id"
       },
       operatorInformation: {
-        "@id": "eubat:operatorInformation",
+        "@id": "eubat:hasOperatorInformation",
         "@type": "@id"
       },
       puttingIntoService: {
@@ -28041,35 +28949,35 @@ var contexts_default = {
         "@id": "gs1:streetAddress"
       },
       batteryTechnicalProperties: {
-        "@id": "eubat:technicalSpecifications",
+        "@id": "eubat:hasTechnicalSpecifications",
         "@type": "@id"
       },
       batteryCondition: {
-        "@id": "eubat:technicalSpecifications",
+        "@id": "eubat:hasTechnicalSpecifications",
         "@type": "@id"
       },
       ratedCapacity: {
-        "@id": "eubat:ratedCapacity",
+        "@id": "eubat:hasRatedCapacity",
         "@type": "@id"
       },
       ratedEnergy: {
-        "@id": "eubat:ratedEnergy",
+        "@id": "eubat:hasRatedEnergy",
         "@type": "@id"
       },
       nominalVoltage: {
-        "@id": "eubat:nominalVoltage",
+        "@id": "eubat:hasNominalVoltage",
         "@type": "@id"
       },
       minimumVoltage: {
-        "@id": "eubat:minimumVoltage",
+        "@id": "eubat:hasMinimumVoltage",
         "@type": "@id"
       },
       maximumVoltage: {
-        "@id": "eubat:maximumVoltage",
+        "@id": "eubat:hasMaximumVoltage",
         "@type": "@id"
       },
       ratedMaximumPower: {
-        "@id": "eubat:ratedMaximumPower",
+        "@id": "eubat:hasRatedMaximumPower",
         "@type": "@id"
       },
       expectedNumberOfCycles: {
@@ -28085,7 +28993,7 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       initialInternalResistance: {
-        "@id": "eubat:initialInternalResistance",
+        "@id": "eubat:hasInitialInternalResistance",
         "@type": "@id"
       },
       expectedLifetime: {
@@ -28113,7 +29021,7 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       temperatureRangeIdleState: {
-        "@id": "eubat:temperatureRangeIdleState",
+        "@id": "eubat:hasTemperatureRangeIdleState",
         "@type": "@id"
       },
       roundTripEfficiencyAt50PercentCycleLife: {
@@ -28121,67 +29029,67 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       roundTripEfficiencyFade: {
-        "@id": "eubat:roundTripEfficiencyFade",
+        "@id": "eubat:hasRoundTripEfficiencyFade",
         "@type": "@id"
       },
       powerFade: {
-        "@id": "eubat:powerFade",
+        "@id": "eubat:hasPowerFade",
         "@type": "@id"
       },
       originalPowerCapability: {
-        "@id": "eubat:originalPowerCapability",
+        "@id": "eubat:hasOriginalPowerCapability",
         "@type": "@id"
       },
       remainingPowerCapability: {
-        "@id": "eubat:remainingPowerCapability",
+        "@id": "eubat:hasRemainingPowerCapability",
         "@type": "@id"
       },
       energyThroughput: {
-        "@id": "eubat:energyThroughput",
+        "@id": "eubat:hasEnergyThroughput",
         "@type": "@id"
       },
       capacityThroughput: {
-        "@id": "eubat:capacityThroughput",
+        "@id": "eubat:hasCapacityThroughput",
         "@type": "@id"
       },
       numberOfFullCycles: {
-        "@id": "eubat:cycleCount",
+        "@id": "eubat:hasCycleCount",
         "@type": "@id"
       },
       stateOfCertifiedEnergy: {
-        "@id": "eubat:stateOfCertifiedEnergy",
+        "@id": "eubat:hasStateOfCertifiedEnergy",
         "@type": "@id"
       },
       capacityFade: {
-        "@id": "eubat:capacityFade",
+        "@id": "eubat:hasCapacityFade",
         "@type": "@id"
       },
       remainingEnergy: {
-        "@id": "eubat:remainingEnergy",
+        "@id": "eubat:hasRemainingEnergy",
         "@type": "@id"
       },
       remainingCapacity: {
-        "@id": "eubat:remainingCapacity",
+        "@id": "eubat:hasRemainingCapacity",
         "@type": "@id"
       },
       stateOfCharge: {
-        "@id": "eubat:stateOfCharge",
+        "@id": "eubat:hasStateOfCharge",
         "@type": "@id"
       },
       internalResistanceIncrease: {
-        "@id": "eubat:internalResistanceIncrease",
+        "@id": "eubat:hasInternalResistanceIncrease",
         "@type": "@id"
       },
       evolutionOfSelfDischarge: {
-        "@id": "eubat:evolutionOfSelfDischarge",
+        "@id": "eubat:hasEvolutionOfSelfDischarge",
         "@type": "@id"
       },
       currentSelfDischargingRate: {
-        "@id": "eubat:selfDischargeRate",
+        "@id": "eubat:hasSelfDischargeRate",
         "@type": "@id"
       },
       remainingRoundTripEnergyEfficiency: {
-        "@id": "eubat:remainingRoundTripEfficiency",
+        "@id": "eubat:hasRemainingRoundTripEfficiency",
         "@type": "@id"
       },
       lastUpdate: {
@@ -28189,34 +29097,38 @@ var contexts_default = {
         "@type": "xsd:dateTime"
       },
       negativeEvents: {
-        "@id": "eubat:NegativeEvent",
+        "@id": "eubat:hasNegativeEvents",
         "@container": "@list"
       },
       negativeEvent: {
         "@id": "schema:description"
       },
       temperatureInformation: {
-        "@id": "eubat:temperatureRangeIdleState",
+        "@id": "eubat:hasTemperatureRangeIdleState",
         "@type": "@id"
       },
       timeExtremeHighTemp: {
-        "@id": "gs1:Temperature"
+        "@id": "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
+        "@type": "xsd:integer"
       },
       timeExtremeLowTemp: {
-        "@id": "gs1:Temperature"
+        "@id": "eubat:timeSpentInExtremeTemperaturesBelowBoundary",
+        "@type": "xsd:integer"
       },
       timeExtremeHighTempCharging: {
-        "@id": "gs1:Temperature"
+        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
+        "@type": "xsd:integer"
       },
       timeExtremeLowTempCharging: {
-        "@id": "gs1:Temperature"
+        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
+        "@type": "xsd:integer"
       },
       minimum: {
-        "@id": "eubat:minimumTemperature",
+        "@id": "eubat:hasMinimumTemperature",
         "@type": "@id"
       },
       maximum: {
-        "@id": "eubat:maximumTemperature",
+        "@id": "eubat:hasMaximumTemperature",
         "@type": "@id"
       },
       atSoC: {
@@ -28224,7 +29136,7 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       powerCapabilityAt: {
-        "@id": "eubat:powerCapability",
+        "@id": "eubat:hasPowerCapability",
         "@type": "@id"
       },
       ohmicResistance: {
@@ -28232,7 +29144,7 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       batteryComponent: {
-        "@id": "eubat:componentLocation",
+        "@id": "eubat:hasComponentLocation",
         "@type": "@id",
         "@context": {
           pack: "eubat:Casing",
@@ -28241,11 +29153,11 @@ var contexts_default = {
         }
       },
       batteryCarbonFootprint: {
-        "@id": "eubat:carbonFootprintTotal",
+        "@id": "eubat:hasCarbonFootprintTotal",
         "@type": "@id"
       },
       carbonFootprintPerLifecycleStage: {
-        "@id": "eubat:carbonFootprintDeclaration",
+        "@id": "eubat:hasCarbonFootprintDeclaration",
         "@type": "@id"
       },
       lifecycleStage: {
@@ -28256,7 +29168,7 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       carbonFootprintPerformanceClass: {
-        "@id": "eubat:carbonFootprintPerformanceClass",
+        "@id": "eubat:hasCarbonFootprintPerformanceClass",
         "@type": "@id",
         "@context": {
           A: "eubat:CFClassA",
@@ -28271,11 +29183,11 @@ var contexts_default = {
         "@type": "@id"
       },
       absoluteCarbonFootprint: {
-        "@id": "eubat:absoluteCarbonFootprint",
+        "@id": "eubat:hasAbsoluteCarbonFootprint",
         "@type": "@id"
       },
       batteryChemistry: {
-        "@id": "eubat:batteryChemistry",
+        "@id": "eubat:hasBatteryChemistry",
         "@type": "@id"
       },
       shortName: {
@@ -28285,11 +29197,11 @@ var contexts_default = {
         "@id": "schema:name"
       },
       batteryMaterials: {
-        "@id": "eubat:materialComposition",
+        "@id": "eubat:hasMaterialComposition",
         "@container": "@list"
       },
       batteryMaterialLocation: {
-        "@id": "eubat:componentLocation",
+        "@id": "eubat:hasComponentLocation",
         "@type": "@id"
       },
       batteryMaterialIdentifier: {
@@ -28307,7 +29219,7 @@ var contexts_default = {
         "@type": "xsd:boolean"
       },
       componentName: {
-        "@id": "eubat:componentLocation",
+        "@id": "eubat:hasComponentLocation",
         "@type": "@id",
         "@context": {
           Cathode: "eubat:Cathode",
@@ -28321,11 +29233,11 @@ var contexts_default = {
         "@id": "gs1:gtin"
       },
       hazardousSubstances: {
-        "@id": "eubat:hazardousSubstances",
+        "@id": "eubat:hasHazardousSubstances",
         "@container": "@list"
       },
       hazardousSubstanceClass: {
-        "@id": "eubat:hazardClass",
+        "@id": "eubat:hasHazardClass",
         "@type": "@id",
         "@context": {
           AcuteToxicity: "eubat:AcuteToxicity",
@@ -28351,18 +29263,18 @@ var contexts_default = {
         "@id": "eubat:hazardImpact"
       },
       hazardousSubstanceLocation: {
-        "@id": "eubat:substanceLocation",
+        "@id": "eubat:hasSubstanceLocation",
         "@type": "@id"
       },
       hazardousSubstanceIdentifier: {
         "@id": "eubat:substanceCasNumber"
       },
       dismantlingAndRemovalInformation: {
-        "@id": "eubat:dismantlingDocuments",
+        "@id": "eubat:hasDismantlingDocuments",
         "@container": "@list"
       },
       documentType: {
-        "@id": "eubat:documentType",
+        "@id": "eubat:hasDocumentType",
         "@type": "@id",
         "@context": {
           BillOfMaterial: "eubat:BillOfMaterial",
@@ -28381,7 +29293,7 @@ var contexts_default = {
         "@type": "@id"
       },
       sparePartSources: {
-        "@id": "eubat:sparePartSources",
+        "@id": "eubat:hasSparePartSources",
         "@container": "@list"
       },
       nameOfSupplier: {
@@ -28408,7 +29320,7 @@ var contexts_default = {
         "@id": "gs1:gtin"
       },
       recycledContent: {
-        "@id": "eubat:recycledContent",
+        "@id": "eubat:hasRecycledContent",
         "@container": "@list"
       },
       recycledMaterial: {
@@ -28423,8 +29335,11 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       safetyMeasures: {
-        "@id": "eubat:endOfLifeInfo",
+        "@id": "eubat:hasEndOfLifeInfo",
         "@type": "@id"
+      },
+      extinguishingAgent: {
+        "@id": "eubat:extinguishingAgent"
       },
       safetyInstructions: {
         "@id": "eubat:safetyInstructions",
@@ -28434,7 +29349,7 @@ var contexts_default = {
         "@id": "eubat:extinguishingAgent"
       },
       endOfLifeInformation: {
-        "@id": "eubat:endOfLifeInfo",
+        "@id": "eubat:hasEndOfLifeInfo",
         "@type": "@id"
       },
       wastePrevention: {
@@ -28466,113 +29381,112 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       batteryIdentifier: {
-        "@id": "eubat:batteryPassportIdentifier"
-      },
-      warrantyPeriod: {
-        "@id": "eubat:warrantyPeriod",
+        "@id": "gs1:productID",
         "@type": "@id"
       },
+      warrantyPeriod: {
+        "@id": "gs1:warranty"
+      },
       criticalRawMaterials: {
-        "@id": "eubat:criticalRawMaterials",
+        "@id": "eubat:criticalRawMaterialsStatement",
         "@container": "@set"
       },
       materialsUsedInCathode: {
-        "@id": "eubat:materialsUsedInCathode",
+        "@id": "bpr:MaterialsUsedInCathodeAnodeAndElectrolyte",
         "@container": "@set"
       },
-      impactOfSubstancesOnEnvironment: "eubat:impactOfSubstancesOnEnvironment",
+      impactOfSubstancesOnEnvironment: "eubat:hazardImpact",
       separateCollectionSymbol: {
-        "@id": "eubat:separateCollectionSymbol",
+        "@id": "eubat:separateCollectionSymbolUrl",
         "@type": "@id"
       },
       symbolsForCadmiumAndLead: {
-        "@id": "eubat:symbolsForCadmiumAndLead",
-        "@type": "@id"
+        "@id": "bpr:SymbolsForCadmiumAndLead"
       },
       carbonFootprintLabel: {
-        "@id": "eubat:carbonFootprintLabel",
+        "@id": "bpr:CarbonFootprintLabel",
         "@type": "@id"
       },
-      meaningOfLabelsAndSymbols: "eubat:meaningOfLabelsAndSymbols",
+      meaningOfLabelsAndSymbols: "eubat:labelMeaning",
       euDeclarationOfConformity: {
-        "@id": "eubat:euDeclarationOfConformity",
+        "@id": "eubat:hasEuDeclarationOfConformity",
         "@type": "@id"
       },
       resultsOfTestReportsProvingCompliance: {
-        "@id": "eubat:resultsOfTestReportsProvingCompliance",
+        "@id": "eubat:resultOfTestReport",
         "@type": "@id"
       },
       batteryCarbonFootprintPerFunctionalUnit: {
-        "@id": "eubat:carbonFootprintPerFunctionalUnit",
+        "@id": "eubat:hasCarbonFootprintTotal",
         "@type": "@id"
       },
       contributionOfRawMaterialAcquisitionAndPreProcessingLifecycleStage: {
-        "@id": "eubat:contributionRawMaterial",
+        "@id": "eubat:hasCarbonFootprintRawMaterialExtraction",
         "@type": "@id"
       },
       contributionOfMainProductProductionLifecycleStage: {
-        "@id": "eubat:contributionProduction",
+        "@id": "eubat:hasCarbonFootprintProduction",
         "@type": "@id"
       },
       contributionOfDistributionLifecycleStage: {
-        "@id": "eubat:contributionDistribution",
+        "@id": "eubat:hasCarbonFootprintDistribution",
         "@type": "@id"
       },
       contributionOfEndOfLifeAndRecyclingLifecycleStage: {
-        "@id": "eubat:contributionEndOfLife",
+        "@id": "eubat:hasCarbonFootprintRecycling",
         "@type": "@id"
       },
       webLinkToPublicCarbonFootprintStudy: {
-        "@id": "eubat:webLinkCarbonFootprintStudy",
+        "@id": "eubat:carbonFootprintStudyUrl",
         "@type": "@id"
       },
-      informationOfDueDiligenceReport: "eubat:informationOfDueDiligenceReport",
+      informationOfDueDiligenceReport: "eubat:dueDiligenceReportUrl",
       dismantlingInformationManualsForTheRemovalAndTheDisassemblyOfTheBatteryPack: {
-        "@id": "eubat:dismantlingManuals",
-        "@type": "@id"
-      },
-      partNumbersForComponents: {
-        "@id": "eubat:partNumbersForComponents",
+        "@id": "eubat:hasDismantlingDocuments",
         "@container": "@set"
       },
-      informationOnSourcesOfSpareParts: "eubat:informationOnSourcesOfSpareParts",
+      partNumbersForComponents: {
+        "@id": "eubat:spareParts",
+        "@container": "@set"
+      },
+      informationOnSourcesOfSpareParts: "eubat:hasSparePartSources",
       preConsumerRecycledNickelShare: {
-        "@id": "eubat:preConsumerRecycledNickelShare",
+        "@id": "eubat:nickelPreConsumerShare",
         "@type": "xsd:decimal"
       },
       preConsumerRecycledCobaltShare: {
-        "@id": "eubat:preConsumerRecycledCobaltShare",
+        "@id": "eubat:cobaltPreConsumerShare",
         "@type": "xsd:decimal"
       },
       preConsumerRecycledLithiumShare: {
-        "@id": "eubat:preConsumerRecycledLithiumShare",
+        "@id": "eubat:lithiumPreConsumerShare",
         "@type": "xsd:decimal"
       },
       postConsumerRecycledNickelShare: {
-        "@id": "eubat:postConsumerRecycledNickelShare",
+        "@id": "eubat:nickelPostConsumerShare",
         "@type": "xsd:decimal"
       },
       postConsumerRecycledCobaltShare: {
-        "@id": "eubat:postConsumerRecycledCobaltShare",
+        "@id": "eubat:cobaltPostConsumerShare",
         "@type": "xsd:decimal"
       },
       postConsumerRecycledLithiumShare: {
-        "@id": "eubat:postConsumerRecycledLithiumShare",
+        "@id": "eubat:lithiumPostConsumerShare",
         "@type": "xsd:decimal"
       },
       recycledLeadShare: {
-        "@id": "eubat:recycledLeadShare",
+        "@id": "eubat:leadRecycledShare",
         "@type": "xsd:decimal"
       },
-      informationOnTheRoleOfEndUsersInContributingToWastePrevention: "eubat:roleOfEndUsersInWastePrevention",
-      informationOnTheRoleOfEndUsersInContributingToTheSeparateCollectionOfWasteBatteries: "eubat:roleOfEndUsersInSeparateCollection",
-      informationOnBatteryCollection: "eubat:informationOnBatteryCollection",
+      informationOnTheRoleOfEndUsersInContributingToWastePrevention: "eubat:wastePrevention",
+      informationOnTheRoleOfEndUsersInContributingToTheSeparateCollectionOfWasteBatteries: "eubat:separateCollection",
+      informationOnBatteryCollection: "eubat:informationOnCollection",
       maximumPermittedBatteryPower: {
-        "@id": "eubat:maximumPermittedBatteryPower",
+        "@id": "eubat:hasMaximumPermittedBatteryPower",
         "@type": "@id"
       },
       initialRoundTripEnergyEfficiency: {
-        "@id": "eubat:initialRoundTripEnergyEfficiency",
+        "@id": "eubat:roundTripEfficiency",
         "@type": "xsd:decimal"
       },
       roundTripEnergyEfficiencyAt50PercentOfCycleLife: {
@@ -28580,19 +29494,19 @@ var contexts_default = {
         "@type": "xsd:decimal"
       },
       energyRoundTripEfficiencyFade: {
-        "@id": "eubat:roundTripEfficiencyFade",
+        "@id": "eubat:hasRoundTripEfficiencyFade",
         "@type": "xsd:decimal"
       },
       evolutionOfSelfDischargeRates: {
-        "@id": "eubat:evolutionOfSelfDischarge",
+        "@id": "eubat:hasEvolutionOfSelfDischarge",
         "@type": "@id"
       },
       initialInternalResistanceOfBatteryCellAndPack: {
-        "@id": "eubat:initialInternalResistance",
+        "@id": "eubat:hasInitialInternalResistance",
         "@type": "@id"
       },
       internalResistanceIncreaseOfPack: {
-        "@id": "eubat:internalResistanceIncrease",
+        "@id": "eubat:hasInternalResistanceIncrease",
         "@type": "@id"
       },
       expectedLifetimeInCalendarYears: {
@@ -28610,38 +29524,47 @@ var contexts_default = {
       cycleLifeReferenceTest: "eubat:lifetimeReferenceTest",
       cRateOfRelevantCycleLifeTest: "eubat:cRateLifeCycleTest",
       temperatureRangeIdleStateLowerBoundary: {
-        "@id": "eubat:temperatureRangeIdleLower",
+        "@id": "eubat:hasMinimumTemperature",
         "@type": "@id"
       },
       temperatureRangeIdleStateUpperBoundary: {
-        "@id": "eubat:temperatureRangeIdleUpper",
+        "@id": "eubat:hasMaximumTemperature",
         "@type": "@id"
       },
       timeSpentInExtremeTemperaturesAboveBoundary: {
-        "@id": "eubat:timeExtremeHighTemp",
-        "@type": "@id"
+        "@id": "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
+        "@type": "xsd:integer"
       },
       timeSpentInExtremeTemperaturesBelowBoundary: {
-        "@id": "eubat:timeExtremeLowTemp",
-        "@type": "@id"
+        "@id": "eubat:timeSpentInExtremeTemperaturesBelowBoundary",
+        "@type": "xsd:integer"
       },
       timeSpentChargingDuringExtremeTemperaturesAboveBoundary: {
-        "@id": "eubat:timeExtremeHighTempCharging",
-        "@type": "@id"
+        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesAboveBoundary",
+        "@type": "xsd:integer"
       },
       timeSpentChargingDuringExtremeTemperaturesBelowBoundary: {
-        "@id": "eubat:timeExtremeLowTempCharging",
-        "@type": "@id"
+        "@id": "eubat:timeSpentChargingDuringExtremeTemperaturesBelowBoundary",
+        "@type": "xsd:integer"
       },
       numberOfDeepDischargeEvents: {
         "@id": "eubat:numberOfDeepDischargeEvents",
         "@type": "xsd:integer"
       },
-      informationOnAccidents: "eubat:informationOnAccidents"
+      informationOnAccidents: "bpr:InformationOnAccidents",
+      renewableContentShare: {
+        "@id": "eubat:renewableContentShare",
+        "@type": "xsd:decimal"
+      },
+      value: {
+        "@id": "gs1:value",
+        "@type": "xsd:decimal"
+      },
+      unitCode: "gs1:unitCode"
     }
   },
   "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld": {
-    _comment: "OpenEPCIS Textile DPP Vocabulary v0.9.7, generated from extensions/eu/textile/ontology/textile.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/textile/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Textile DPP Vocabulary v0.9.9, generated from extensions/eu/textile/ontology/textile.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/textile/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -28666,16 +29589,16 @@ var contexts_default = {
           "@id": "gs1:value",
           "@type": "xsd:decimal"
         },
-        "eutex:fiberCertification": {
-          "@id": "eutex:fiberCertification",
+        "eutex:hasFiberCertification": {
+          "@id": "eutex:hasFiberCertification",
           "@type": "@id"
         },
-        "eutex:careInstructions": {
-          "@id": "eutex:careInstructions",
+        "eutex:hasCareInstructions": {
+          "@id": "eutex:hasCareInstructions",
           "@type": "@id"
         },
-        "eutex:durabilityInfo": {
-          "@id": "eutex:durabilityInfo",
+        "eutex:hasDurabilityInfo": {
+          "@id": "eutex:hasDurabilityInfo",
           "@type": "@id"
         },
         "eutex:expectedWashCycles": {
@@ -28698,44 +29621,44 @@ var contexts_default = {
           "@id": "eutex:abrasionResistance",
           "@type": "xsd:integer"
         },
-        "eutex:tensileStrength": {
-          "@id": "eutex:tensileStrength",
+        "eutex:hasTensileStrength": {
+          "@id": "eutex:hasTensileStrength",
           "@type": "@id"
         },
-        "eutex:tearStrength": {
-          "@id": "eutex:tearStrength",
+        "eutex:hasTearStrength": {
+          "@id": "eutex:hasTearStrength",
           "@type": "@id"
         },
         "eutex:expectedLifetimeYears": {
           "@id": "eutex:expectedLifetimeYears",
           "@type": "xsd:integer"
         },
-        "eutex:microplasticInfo": {
-          "@id": "eutex:microplasticInfo",
+        "eutex:hasMicroplasticInfo": {
+          "@id": "eutex:hasMicroplasticInfo",
           "@type": "@id"
         },
-        "eutex:sheddingRate": {
-          "@id": "eutex:sheddingRate",
+        "eutex:hasSheddingRate": {
+          "@id": "eutex:hasSheddingRate",
           "@type": "@id"
         },
         "eutex:syntheticFiberContent": {
           "@id": "eutex:syntheticFiberContent",
           "@type": "xsd:decimal"
         },
-        "eutex:takeBackProgram": {
-          "@id": "eutex:takeBackProgram",
-          "@type": "@id"
-        },
         "eutex:hasTakeBackProgram": {
           "@id": "eutex:hasTakeBackProgram",
+          "@type": "@id"
+        },
+        "eutex:takeBackProgramAvailable": {
+          "@id": "eutex:takeBackProgramAvailable",
           "@type": "xsd:boolean"
         },
         "eutex:takeBackUrl": {
           "@id": "eutex:takeBackUrl",
           "@type": "@id"
         },
-        "eutex:repairServices": {
-          "@id": "eutex:repairServices",
+        "eutex:hasRepairServices": {
+          "@id": "eutex:hasRepairServices",
           "@type": "@id",
           "@container": "@set"
         },
@@ -28759,8 +29682,8 @@ var contexts_default = {
           "@id": "eutex:isRecycledFiber",
           "@type": "xsd:boolean"
         },
-        "eutex:textileChemicals": {
-          "@id": "eutex:textileChemicals",
+        "eutex:hasTextileChemicals": {
+          "@id": "eutex:hasTextileChemicals",
           "@type": "@id",
           "@container": "@set"
         },
@@ -28772,12 +29695,12 @@ var contexts_default = {
           "@id": "eutex:pfasFree",
           "@type": "xsd:boolean"
         },
-        "eutex:waterUsage": {
-          "@id": "eutex:waterUsage",
+        "eutex:hasWaterUsage": {
+          "@id": "eutex:hasWaterUsage",
           "@type": "@id"
         },
-        "eutex:energyUsage": {
-          "@id": "eutex:energyUsage",
+        "eutex:hasEnergyUsage": {
+          "@id": "eutex:hasEnergyUsage",
           "@type": "@id"
         },
         "eutex:productionWastePercentage": {
@@ -28788,28 +29711,28 @@ var contexts_default = {
           "@id": "eutex:biodegradable",
           "@type": "xsd:boolean"
         },
-        "eutex:spinningFacility": {
-          "@id": "eutex:spinningFacility",
+        "eutex:hasSpinningFacility": {
+          "@id": "eutex:hasSpinningFacility",
           "@type": "@id"
         },
-        "eutex:weavingFacility": {
-          "@id": "eutex:weavingFacility",
+        "eutex:hasWeavingFacility": {
+          "@id": "eutex:hasWeavingFacility",
           "@type": "@id"
         },
-        "eutex:dyeingFacility": {
-          "@id": "eutex:dyeingFacility",
+        "eutex:hasDyeingFacility": {
+          "@id": "eutex:hasDyeingFacility",
           "@type": "@id"
         },
-        "eutex:cutAndSewFacility": {
-          "@id": "eutex:cutAndSewFacility",
+        "eutex:hasCutAndSewFacility": {
+          "@id": "eutex:hasCutAndSewFacility",
           "@type": "@id"
         },
-        "eutex:finishingFacility": {
-          "@id": "eutex:finishingFacility",
+        "eutex:hasFinishingFacility": {
+          "@id": "eutex:hasFinishingFacility",
           "@type": "@id"
         },
-        "eutex:robustnessAssessment": {
-          "@id": "eutex:robustnessAssessment",
+        "eutex:hasRobustnessAssessment": {
+          "@id": "eutex:hasRobustnessAssessment",
           "@type": "@id"
         },
         "eutex:robustnessScore": {
@@ -28820,16 +29743,16 @@ var contexts_default = {
           "@id": "eutex:cleaningCyclesBeforeTest",
           "@type": "xsd:integer"
         },
-        "eutex:spiralityTest": {
-          "@id": "eutex:spiralityTest",
+        "eutex:hasSpiralityTest": {
+          "@id": "eutex:hasSpiralityTest",
           "@type": "@id"
         },
-        "eutex:dimensionalChangeTest": {
-          "@id": "eutex:dimensionalChangeTest",
+        "eutex:hasDimensionalChangeTest": {
+          "@id": "eutex:hasDimensionalChangeTest",
           "@type": "@id"
         },
-        "eutex:visualInspection": {
-          "@id": "eutex:visualInspection",
+        "eutex:hasVisualInspection": {
+          "@id": "eutex:hasVisualInspection",
           "@type": "@id"
         },
         "eutex:spiralityScore": {
@@ -28868,8 +29791,8 @@ var contexts_default = {
           "@id": "eutex:nonTextilePartsRating",
           "@type": "xsd:integer"
         },
-        "eutex:recyclabilityAssessment": {
-          "@id": "eutex:recyclabilityAssessment",
+        "eutex:hasRecyclabilityAssessment": {
+          "@id": "eutex:hasRecyclabilityAssessment",
           "@type": "@id"
         },
         "eutex:recyclabilityScore": {
@@ -28884,12 +29807,12 @@ var contexts_default = {
           "@id": "eutex:elastaneContentPercent",
           "@type": "xsd:decimal"
         },
-        "eutex:sortingFactors": {
-          "@id": "eutex:sortingFactors",
+        "eutex:hasSortingFactors": {
+          "@id": "eutex:hasSortingFactors",
           "@type": "@id"
         },
-        "eutex:technicalRecyclability": {
-          "@id": "eutex:technicalRecyclability",
+        "eutex:hasTechnicalRecyclability": {
+          "@id": "eutex:hasTechnicalRecyclability",
           "@type": "@id"
         },
         "eutex:sameInnerOuterComposition": {
@@ -28920,8 +29843,8 @@ var contexts_default = {
           "@id": "eutex:technicalRecyclabilityScore",
           "@type": "xsd:decimal"
         },
-        "eutex:recycledContentDeclaration": {
-          "@id": "eutex:recycledContentDeclaration",
+        "eutex:hasRecycledContentDeclaration": {
+          "@id": "eutex:hasRecycledContentDeclaration",
           "@type": "@id",
           "@container": "@set"
         },
@@ -28933,12 +29856,12 @@ var contexts_default = {
           "@id": "eutex:meetsTargetThreshold",
           "@type": "xsd:boolean"
         },
-        "eutex:verificationCertification": {
-          "@id": "eutex:verificationCertification",
+        "eutex:hasVerificationCertification": {
+          "@id": "eutex:hasVerificationCertification",
           "@type": "@id"
         },
-        "eutex:environmentalFootprint": {
-          "@id": "eutex:environmentalFootprint",
+        "eutex:hasEnvironmentalFootprint": {
+          "@id": "eutex:hasEnvironmentalFootprint",
           "@type": "@id"
         },
         "eutex:carbonFootprintManufacturing": {
@@ -28953,8 +29876,8 @@ var contexts_default = {
           "@id": "eutex:benchmarkPerformance",
           "@type": "xsd:decimal"
         },
-        "eutex:lciaCategories": {
-          "@id": "eutex:lciaCategories",
+        "eutex:hasLciaCategories": {
+          "@id": "eutex:hasLciaCategories",
           "@type": "@id",
           "@container": "@set"
         },
@@ -28962,8 +29885,8 @@ var contexts_default = {
           "@id": "eutex:lciaValue",
           "@type": "xsd:decimal"
         },
-        "eutex:substancesOfConcern": {
-          "@id": "eutex:substancesOfConcern",
+        "eutex:hasSubstancesOfConcern": {
+          "@id": "eutex:hasSubstancesOfConcern",
           "@type": "@id",
           "@container": "@set"
         },
@@ -28979,7 +29902,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld": {
-    _comment: "OpenEPCIS Electronics Vocabulary v0.9.7, generated from extensions/eu/electronics/ontology/electronics.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/electronics/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Electronics Vocabulary v0.9.9, generated from extensions/eu/electronics/ontology/electronics.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/electronics/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -28991,8 +29914,8 @@ var contexts_default = {
         oec: "https://ref.openepcis.io/extensions/common/core/",
         xsd: "http://www.w3.org/2001/XMLSchema#",
         rdfs: "http://www.w3.org/2000/01/rdf-schema#",
-        "euelec:repairabilityIndex": {
-          "@id": "euelec:repairabilityIndex",
+        "euelec:hasRepairabilityIndex": {
+          "@id": "euelec:hasRepairabilityIndex",
           "@type": "@id"
         },
         "euelec:totalScore": {
@@ -29003,8 +29926,8 @@ var contexts_default = {
           "@id": "euelec:displayScore",
           "@type": "xsd:decimal"
         },
-        "euelec:repairCriteria": {
-          "@id": "euelec:repairCriteria",
+        "euelec:hasRepairCriteria": {
+          "@id": "euelec:hasRepairCriteria",
           "@type": "@id",
           "@container": "@set"
         },
@@ -29020,16 +29943,16 @@ var contexts_default = {
           "@id": "euelec:assessmentDate",
           "@type": "xsd:date"
         },
-        "euelec:assessmentBody": {
-          "@id": "euelec:assessmentBody",
+        "euelec:hasAssessmentBody": {
+          "@id": "euelec:hasAssessmentBody",
           "@type": "@id"
         },
         "euelec:repairabilityLabelUrl": {
           "@id": "euelec:repairabilityLabelUrl",
           "@type": "@id"
         },
-        "euelec:softwareSupport": {
-          "@id": "euelec:softwareSupport",
+        "euelec:hasSoftwareSupport": {
+          "@id": "euelec:hasSoftwareSupport",
           "@type": "@id"
         },
         "euelec:securityUpdateEndDate": {
@@ -29040,12 +29963,12 @@ var contexts_default = {
           "@id": "euelec:featureUpdateEndDate",
           "@type": "xsd:date"
         },
-        "euelec:securitySupportYears": {
-          "@id": "euelec:securitySupportYears",
+        "euelec:hasSecuritySupportYears": {
+          "@id": "euelec:hasSecuritySupportYears",
           "@type": "@id"
         },
-        "euelec:featureSupportYears": {
-          "@id": "euelec:featureSupportYears",
+        "euelec:hasFeatureSupportYears": {
+          "@id": "euelec:hasFeatureSupportYears",
           "@type": "@id"
         },
         "euelec:updateChannel": {
@@ -29056,24 +29979,24 @@ var contexts_default = {
           "@id": "euelec:latestUpdateDate",
           "@type": "xsd:date"
         },
-        "euelec:energyEfficiency": {
-          "@id": "euelec:energyEfficiency",
+        "euelec:hasEnergyEfficiency": {
+          "@id": "euelec:hasEnergyEfficiency",
           "@type": "@id"
         },
-        "euelec:annualEnergyConsumption": {
-          "@id": "euelec:annualEnergyConsumption",
+        "euelec:hasAnnualEnergyConsumption": {
+          "@id": "euelec:hasAnnualEnergyConsumption",
           "@type": "@id"
         },
-        "euelec:powerConsumptionOn": {
-          "@id": "euelec:powerConsumptionOn",
+        "euelec:hasPowerConsumptionOn": {
+          "@id": "euelec:hasPowerConsumptionOn",
           "@type": "@id"
         },
-        "euelec:powerConsumptionStandby": {
-          "@id": "euelec:powerConsumptionStandby",
+        "euelec:hasPowerConsumptionStandby": {
+          "@id": "euelec:hasPowerConsumptionStandby",
           "@type": "@id"
         },
-        "euelec:powerConsumptionOff": {
-          "@id": "euelec:powerConsumptionOff",
+        "euelec:hasPowerConsumptionOff": {
+          "@id": "euelec:hasPowerConsumptionOff",
           "@type": "@id"
         },
         "euelec:energyLabelUrl": {
@@ -29084,12 +30007,12 @@ var contexts_default = {
           "@id": "euelec:eprelProductUrl",
           "@type": "@id"
         },
-        "euelec:billOfMaterials": {
-          "@id": "euelec:billOfMaterials",
+        "euelec:hasBillOfMaterials": {
+          "@id": "euelec:hasBillOfMaterials",
           "@type": "@id"
         },
-        "euelec:components": {
-          "@id": "euelec:components",
+        "euelec:hasComponents": {
+          "@id": "euelec:hasComponents",
           "@type": "@id",
           "@container": "@set"
         },
@@ -29101,20 +30024,20 @@ var contexts_default = {
           "@id": "euelec:isReplaceable",
           "@type": "xsd:boolean"
         },
-        "euelec:componentPassport": {
-          "@id": "euelec:componentPassport",
+        "euelec:hasComponentPassport": {
+          "@id": "euelec:hasComponentPassport",
           "@type": "@id"
         },
-        "euelec:sparePartAvailabilityYears": {
-          "@id": "euelec:sparePartAvailabilityYears",
+        "euelec:hasSparePartAvailabilityYears": {
+          "@id": "euelec:hasSparePartAvailabilityYears",
           "@type": "@id"
         },
-        "euelec:sparePartPrice": {
-          "@id": "euelec:sparePartPrice",
+        "euelec:hasSparePartPrice": {
+          "@id": "euelec:hasSparePartPrice",
           "@type": "@id"
         },
-        "euelec:weeeCompliance": {
-          "@id": "euelec:weeeCompliance",
+        "euelec:hasWeeeCompliance": {
+          "@id": "euelec:hasWeeeCompliance",
           "@type": "@id"
         },
         "euelec:collectionSchemeUrl": {
@@ -29129,8 +30052,8 @@ var contexts_default = {
           "@id": "euelec:recoverabilityRate",
           "@type": "xsd:decimal"
         },
-        "euelec:rohsCompliance": {
-          "@id": "euelec:rohsCompliance",
+        "euelec:hasRohsCompliance": {
+          "@id": "euelec:hasRohsCompliance",
           "@type": "@id"
         },
         "euelec:rohsCompliant": {
@@ -29141,12 +30064,12 @@ var contexts_default = {
           "@id": "euelec:rohsDeclarationUrl",
           "@type": "@id"
         },
-        "euelec:displaySpecification": {
-          "@id": "euelec:displaySpecification",
+        "euelec:hasDisplaySpecification": {
+          "@id": "euelec:hasDisplaySpecification",
           "@type": "@id"
         },
-        "euelec:screenDiagonal": {
-          "@id": "euelec:screenDiagonal",
+        "euelec:hasScreenDiagonal": {
+          "@id": "euelec:hasScreenDiagonal",
           "@type": "@id"
         },
         "euelec:screenResolutionWidth": {
@@ -29157,20 +30080,20 @@ var contexts_default = {
           "@id": "euelec:screenResolutionHeight",
           "@type": "xsd:integer"
         },
-        "euelec:refreshRate": {
-          "@id": "euelec:refreshRate",
+        "euelec:hasRefreshRate": {
+          "@id": "euelec:hasRefreshRate",
           "@type": "@id"
         },
-        "euelec:peakBrightness": {
-          "@id": "euelec:peakBrightness",
+        "euelec:hasPeakBrightness": {
+          "@id": "euelec:hasPeakBrightness",
           "@type": "@id"
         },
-        "euelec:softwareUpdateEvent": {
-          "@id": "euelec:softwareUpdateEvent",
+        "euelec:hasSoftwareUpdateEvent": {
+          "@id": "euelec:hasSoftwareUpdateEvent",
           "@type": "@id"
         },
-        "euelec:materialDeclaration": {
-          "@id": "euelec:materialDeclaration",
+        "euelec:hasMaterialDeclaration": {
+          "@id": "euelec:hasMaterialDeclaration",
           "@type": "@id"
         },
         "euelec:materialDeclarationDate": {
@@ -29205,7 +30128,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld": {
-    _comment: "OpenEPCIS EUDR Vocabulary v0.9.7, generated from extensions/eu/eudr/ontology/eudr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/eudr/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS EUDR Vocabulary v0.9.9, generated from extensions/eu/eudr/ontology/eudr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/eudr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29280,8 +30203,8 @@ var contexts_default = {
           "@id": "gs1:countryOfOrigin",
           "@type": "@id"
         },
-        "eudr:additionalOrganizationID": {
-          "@id": "eudr:additionalOrganizationID",
+        "gs1:additionalOrganizationID": {
+          "@id": "gs1:additionalOrganizationID",
           "@type": "@id"
         },
         "gs1:certification": {
@@ -29297,34 +30220,34 @@ var contexts_default = {
           "@id": "oec:isRegulationCompliant",
           "@type": "xsd:boolean"
         },
-        "eudr:transformationLocation": {
-          "@id": "eudr:transformationLocation",
+        "eudr:hasTransformationLocation": {
+          "@id": "eudr:hasTransformationLocation",
           "@type": "@id"
         },
-        "eudr:derivedFrom": {
-          "@id": "eudr:derivedFrom",
+        "eudr:hasDerivedFrom": {
+          "@id": "eudr:hasDerivedFrom",
           "@type": "@id",
           "@container": "@set"
         },
-        "eudr:originDetails": {
-          "@id": "eudr:originDetails",
+        "eudr:hasOriginDetails": {
+          "@id": "eudr:hasOriginDetails",
           "@type": "@id"
         },
-        "eudr:originList": {
-          "@id": "eudr:originList",
+        "eudr:hasOriginList": {
+          "@id": "eudr:hasOriginList",
           "@type": "@id",
           "@container": "@set"
         },
-        "eudr:countryList": {
-          "@id": "eudr:countryList",
+        "eudr:hasCountryList": {
+          "@id": "eudr:hasCountryList",
           "@container": "@set"
         },
-        "eudr:areaSize": {
-          "@id": "eudr:areaSize",
+        "eudr:hasAreaSize": {
+          "@id": "eudr:hasAreaSize",
           "@type": "@id"
         },
-        "eudr:producerIdentification": {
-          "@id": "eudr:producerIdentification",
+        "eudr:hasProducerIdentification": {
+          "@id": "eudr:hasProducerIdentification",
           "@type": "@id"
         },
         "gs1:value": {
@@ -29339,8 +30262,8 @@ var contexts_default = {
           "@id": "eudr:legallyHarvested",
           "@type": "xsd:boolean"
         },
-        "eudr:fscCertification": {
-          "@id": "eudr:fscCertification",
+        "eudr:hasFscCertification": {
+          "@id": "eudr:hasFscCertification",
           "@type": "@id"
         },
         "gs1:harvestDate": {
@@ -29367,24 +30290,24 @@ var contexts_default = {
           "@id": "eudr:areaHectares",
           "@type": "xsd:decimal"
         },
-        "eudr:dueDiligenceStatement": {
-          "@id": "eudr:dueDiligenceStatement",
+        "eudr:hasDueDiligenceStatement": {
+          "@id": "eudr:hasDueDiligenceStatement",
           "@type": "@id"
         },
         "eudr:statementDate": {
           "@id": "eudr:statementDate",
           "@type": "xsd:date"
         },
-        "eudr:riskAssessment": {
-          "@id": "eudr:riskAssessment",
+        "eudr:hasRiskAssessment": {
+          "@id": "eudr:hasRiskAssessment",
           "@type": "@id"
         },
         "eudr:riskAssessmentDate": {
           "@id": "eudr:riskAssessmentDate",
           "@type": "xsd:date"
         },
-        "eudr:exemptionDeclaration": {
-          "@id": "eudr:exemptionDeclaration",
+        "eudr:hasExemptionDeclaration": {
+          "@id": "eudr:hasExemptionDeclaration",
           "@type": "@id"
         },
         "eudr:exemptionEffectiveFrom": {
@@ -29395,15 +30318,15 @@ var contexts_default = {
           "@id": "eudr:exemptionEffectiveUntil",
           "@type": "xsd:date"
         },
-        "eudr:exemptionAuthority": {
-          "@id": "eudr:exemptionAuthority",
+        "eudr:hasExemptionAuthority": {
+          "@id": "eudr:hasExemptionAuthority",
           "@type": "@id"
         }
       }
     ]
   },
   "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld": {
-    _comment: "OpenEPCIS PPWR Vocabulary v0.9.7, generated from extensions/eu/ppwr/ontology/ppwr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/ppwr/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS PPWR Vocabulary v0.9.9, generated from extensions/eu/ppwr/ontology/ppwr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/ppwr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29616,7 +30539,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.io/extensions/eu/cpr/cpr-context.jsonld": {
-    _comment: "OpenEPCIS CPR Vocabulary v0.9.7, generated from extensions/eu/cpr/ontology/cpr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/cpr/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS CPR Vocabulary v0.9.9, generated from extensions/eu/cpr/ontology/cpr.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/cpr/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29649,13 +30572,13 @@ var contexts_default = {
           "@id": "eucpr:declarationOfPerformanceUrl",
           "@type": "xsd:anyURI"
         },
-        "eucpr:essentialCharacteristic": {
-          "@id": "eucpr:essentialCharacteristic",
+        "eucpr:hasEssentialCharacteristic": {
+          "@id": "eucpr:hasEssentialCharacteristic",
           "@type": "@id",
           "@container": "@set"
         },
-        "eucpr:characteristicValue": {
-          "@id": "eucpr:characteristicValue",
+        "eucpr:hasCharacteristicValue": {
+          "@id": "eucpr:hasCharacteristicValue",
           "@type": "@id"
         },
         "eucpr:harmonisedStandard": {
@@ -29666,7 +30589,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld": {
-    _comment: "OpenEPCIS Detergent Vocabulary v0.9.7, generated from extensions/eu/detergent/ontology/detergent.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/detergent/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Detergent Vocabulary v0.9.9, generated from extensions/eu/detergent/ontology/detergent.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/detergent/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29697,28 +30620,28 @@ var contexts_default = {
           "@id": "gs1:netContent",
           "@type": "@id"
         },
-        "eudet:ingredientList": {
-          "@id": "eudet:ingredientList",
+        "eudet:hasIngredientList": {
+          "@id": "eudet:hasIngredientList",
           "@type": "@id",
           "@container": "@set"
         },
-        "eudet:surfactantBiodegradability": {
-          "@id": "eudet:surfactantBiodegradability",
+        "eudet:hasSurfactantBiodegradability": {
+          "@id": "eudet:hasSurfactantBiodegradability",
           "@type": "@id",
           "@container": "@set"
         },
-        "eudet:fragranceAllergens": {
-          "@id": "eudet:fragranceAllergens",
+        "eudet:hasFragranceAllergens": {
+          "@id": "eudet:hasFragranceAllergens",
           "@type": "@id",
           "@container": "@set"
         },
-        "eudet:microorganisms": {
-          "@id": "eudet:microorganisms",
+        "eudet:hasMicroorganisms": {
+          "@id": "eudet:hasMicroorganisms",
           "@type": "@id",
           "@container": "@set"
         },
-        "eudet:hazardousSubstances": {
-          "@id": "eudet:hazardousSubstances",
+        "eudet:hasHazardousSubstances": {
+          "@id": "eudet:hasHazardousSubstances",
           "@type": "@id",
           "@container": "@set"
         },
@@ -29750,16 +30673,16 @@ var contexts_default = {
           "@id": "eudet:filmBiodegradabilityPercentage",
           "@type": "xsd:decimal"
         },
-        "eudet:recommendedDosage": {
-          "@id": "eudet:recommendedDosage",
+        "eudet:hasRecommendedDosage": {
+          "@id": "eudet:hasRecommendedDosage",
           "@type": "@id"
         },
-        "eudet:safetyDataSheet": {
-          "@id": "eudet:safetyDataSheet",
+        "eudet:hasSafetyDataSheet": {
+          "@id": "eudet:hasSafetyDataSheet",
           "@type": "@id"
         },
-        "eudet:biodegradabilityTestReport": {
-          "@id": "eudet:biodegradabilityTestReport",
+        "eudet:hasBiodegradabilityTestReport": {
+          "@id": "eudet:hasBiodegradabilityTestReport",
           "@type": "@id"
         },
         "eudet:isSurfactant": {
@@ -29790,7 +30713,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.io/extensions/us/fsma204/fsma204-context.jsonld": {
-    _comment: "OpenEPCIS FSMA 204 Vocabulary v0.9.7, generated from extensions/us/fsma204/ontology/fsma204.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/us/fsma204/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS FSMA 204 Vocabulary v0.9.9, generated from extensions/us/fsma204/ontology/fsma204.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/us/fsma204/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29816,7 +30739,7 @@ var contexts_default = {
     ]
   },
   "https://ref.openepcis.io/extensions/eu/iron-steel/iron-steel-context.jsonld": {
-    _comment: "OpenEPCIS Iron & Steel Vocabulary v0.9.7, generated from extensions/eu/iron-steel/ontology/iron-steel.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/iron-steel/context/.context-overrides.json for non-derivable hints.",
+    _comment: "OpenEPCIS Iron & Steel Vocabulary v0.9.9, generated from extensions/eu/iron-steel/ontology/iron-steel.ttl. Do not edit by hand; re-run `pnpm run build:context` and edit extensions/eu/iron-steel/context/.context-overrides.json for non-derivable hints.",
     "@context": [
       "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
       {
@@ -29838,6 +30761,8 @@ var contexts_default = {
       gs1: "https://ref.gs1.org/voc/",
       oec: "https://ref.openepcis.io/extensions/common/core/",
       schema: "https://schema.org/",
+      cv: "http://data.europa.eu/m8g/",
+      cccev: "http://data.europa.eu/m8g/",
       xsd: "http://www.w3.org/2001/XMLSchema#",
       eusteel: "https://ref.openepcis.io/extensions/eu/iron-steel/",
       IronSteelProduct: "eusteel:IronSteelProduct",
@@ -29851,6 +30776,20 @@ var contexts_default = {
         "@id": "eusteel:cbamReportId",
         "@type": "xsd:string"
       },
+      hasMtc: {
+        "@id": "eusteel:hasMtc",
+        "@type": "@id"
+      },
+      hasTechnologyRoute: {
+        "@id": "eusteel:hasTechnologyRoute",
+        "@type": "@vocab",
+        "@context": {
+          BlastFurnaceBOF: "eusteel:BlastFurnaceBOF",
+          ElectricArcFurnace: "eusteel:ElectricArcFurnace",
+          OpenHearthFurnace: "eusteel:OpenHearthFurnace",
+          OtherRoute: "eusteel:OtherRoute"
+        }
+      },
       heatNumber: {
         "@id": "eusteel:heatNumber",
         "@type": "xsd:string"
@@ -29862,10 +30801,6 @@ var contexts_default = {
       meltAndPourCountry: {
         "@id": "eusteel:meltAndPourCountry",
         "@type": "xsd:string"
-      },
-      mtc: {
-        "@id": "eusteel:mtc",
-        "@type": "@id"
       },
       mtcCarbonContent: {
         "@id": "eusteel:mtcCarbonContent",
@@ -29952,7 +30887,7 @@ var contexts_default = {
         "@type": "xsd:string"
       },
       technologyRoute: {
-        "@id": "eusteel:technologyRoute",
+        "@id": "eusteel:hasTechnologyRoute",
         "@type": "@vocab",
         "@context": {
           "BF-BOF": "eusteel:BlastFurnaceBOF",
@@ -29982,14 +30917,15 @@ var samples_default = [
     group: "EU Battery",
     label: "amperia-staxwall-batch (batch)",
     doc: {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+      ],
       _comment_architecture: [
         "BATCH-LEVEL passport for the Amperia StaxWall 10 (GS1 Digital Link 01/{GTIN}/10/{lot}).",
         "Served by the resolver for one production batch (model + site + calendar period). Carries only per-batch facts: manufacturing date + place/facility, carbon-footprint declaration + performance class, recycled/renewable content shares, batch-specific material sourcing. Model-level design data lives in amperia-staxwall-model.jsonld; per-item measured values are folded from EPCIS events into amperia-staxwall-item.jsonld.",
         "The batch identity is the /10/ lot; oec:granularityLevel is 'batch'. Site is intrinsic to the batch (the facility GLN of the run), consistent with granularity = Model/Batch/Item only.",
         "GTIN 09521234002000, lot LOT-2026-AMP01 (Amperia G\xF6teborg plant, GLN 9521234000112)."
-      ],
-      "@context": [
-        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
       ],
       id: "https://id.gs1.org/01/09521234002000/10/LOT-2026-AMP01",
       type: [
@@ -29997,12 +30933,9 @@ var samples_default = [
         "eubat:Battery"
       ],
       "oec:granularityLevel": "batch",
-      "oec:dppStatus": {
-        "@id": "oec:Active"
-      },
       "gs1:gtin": "09521234002000",
       "gs1:productionDate": "2026-01-22",
-      "eubat:manufacturingPlace": {
+      "eubat:hasManufacturingPlace": {
         id: "https://id.gs1.org/414/9521234000112",
         type: "gs1:Place",
         "gs1:globalLocationNumber": "9521234000112",
@@ -30017,7 +30950,7 @@ var samples_default = [
           }
         }
       },
-      "eubat:recycledContent": {
+      "eubat:hasRecycledContent": {
         id: "https://id.gs1.org/01/09521234002000/10/LOT-2026-AMP01#recycled",
         type: "eubat:RecycledContent",
         "eubat:lithiumPreConsumerShare": 6,
@@ -30028,59 +30961,61 @@ var samples_default = [
         "eubat:nickelPostConsumerShare": 0,
         "eubat:leadRecycledShare": 0
       },
-      "eubat:carbonFootprintDeclaration": {
+      "eubat:hasCarbonFootprintDeclaration": {
         id: "https://id.gs1.org/01/09521234002000/10/LOT-2026-AMP01#cfp",
         type: "eubat:CarbonFootprintDeclaration",
-        "eubat:carbonFootprintTotal": {
+        "eubat:hasCarbonFootprintTotal": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 41.6,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintRawMaterialExtraction": {
+        "eubat:hasCarbonFootprintRawMaterialExtraction": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 17.9,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintProduction": {
+        "eubat:hasCarbonFootprintProduction": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 13.2,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintDistribution": {
+        "eubat:hasCarbonFootprintDistribution": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 2.1,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintRecycling": {
+        "eubat:hasCarbonFootprintRecycling": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 8.4,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintPerformanceClass": {
+        "eubat:hasCarbonFootprintPerformanceClass": {
           "@id": "eubat:CFClassB"
         },
-        "eubat:carbonFootprintStudyUrl": "https://files.demo.epcis.cloud/files/products/09521234002000/docs/carbon-footprint-study.pdf",
+        "eubat:carbonFootprintStudyUrl": "https://files.example.org/files/products/09521234002000/docs/carbon-footprint-study.pdf",
         "eubat:carbonFootprintDeclarationId": "CFP-2026-AMPERIA-STAX10-AMP01"
       },
-      "eubat:endOfLifeInfo": {
+      "eubat:hasEndOfLifeInfo": {
         id: "https://id.gs1.org/01/09521234002000/10/LOT-2026-AMP01#eol",
         type: "eubat:EndOfLifeInfo",
         "eubat:renewableContent": 4.5
-      }
+      },
+      "oec:passportStatus": "active"
     }
   },
   {
     group: "EU Battery",
     label: "amperia-staxwall-item (item)",
     doc: {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+      ],
       _comment_architecture: [
         "ITEM-LEVEL passport for one physical Amperia StaxWall 10 (GS1 Digital Link 01/{GTIN}/21/{serial}).",
         "The in-use values below are RECONSTRUCTED by folding this battery's EPCIS event stream (amperia-staxwall-lifecycle.jsonld) \u2014 see scripts/reconstruct-passport-from-epcis.ts and docs/EPCIS_AND_BATTERYPASS_READY.md. Model design specs are resolved from amperia-staxwall-model.jsonld (01/{GTIN}); per-batch facts from amperia-staxwall-batch.jsonld (01/{GTIN}/10/{lot}).",
         "Only item-scoped data lives here: per-battery identity + status, date put into service, and the dynamic metrics measured over life. oec:granularityLevel is 'item'; oec:lastUpdated reflects the latest folded event.",
         "GTIN 09521234002000, serial STAX10-2026-000001."
-      ],
-      "@context": [
-        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
       ],
       id: "https://id.gs1.org/01/09521234002000/21/STAX10-2026-000001",
       type: [
@@ -30088,9 +31023,6 @@ var samples_default = [
         "eubat:Battery"
       ],
       "oec:granularityLevel": "item",
-      "oec:dppStatus": {
-        "@id": "oec:Active"
-      },
       "oec:lastUpdated": "2026-06-01T07:20:00Z",
       "gs1:gtin": "09521234002000",
       "schema:serialNumber": "STAX10-2026-000001",
@@ -30098,67 +31030,69 @@ var samples_default = [
         "@id": "eubat:Original"
       },
       "eubat:puttingIntoService": "2026-02-10",
-      "eubat:stateOfHealth": {
+      "eubat:hasStateOfHealth": {
         type: "gs1:QuantitativeValue",
         "gs1:value": 97.5,
         "gs1:unitCode": "P1"
       },
-      "eubat:stateOfCharge": {
+      "eubat:hasStateOfCharge": {
         type: "gs1:QuantitativeValue",
         "gs1:value": 62,
         "gs1:unitCode": "P1"
       },
-      "eubat:remainingCapacity": {
+      "eubat:hasRemainingCapacity": {
         type: "gs1:QuantitativeValue",
         "gs1:value": 195,
         "gs1:unitCode": "AMH"
       },
-      "eubat:remainingEnergy": {
+      "eubat:hasRemainingEnergy": {
         type: "gs1:QuantitativeValue",
         "gs1:value": 9.98,
         "gs1:unitCode": "KWH"
       },
-      "eubat:stateOfCertifiedEnergy": {
+      "eubat:hasStateOfCertifiedEnergy": {
         type: "gs1:QuantitativeValue",
         "gs1:value": 9.98,
         "gs1:unitCode": "KWH"
       },
-      "eubat:capacityFade": {
+      "eubat:hasCapacityFade": {
         type: "gs1:QuantitativeValue",
         "gs1:value": 2.5,
         "gs1:unitCode": "P1"
       },
-      "eubat:remainingRoundTripEfficiency": {
+      "eubat:hasRemainingRoundTripEfficiency": {
         type: "gs1:QuantitativeValue",
         "gs1:value": 94,
         "gs1:unitCode": "P1"
       },
-      "eubat:internalResistance": {
+      "eubat:hasInternalResistance": {
         type: "gs1:QuantitativeValue",
         "gs1:value": 1.9,
         "gs1:unitCode": "OHM"
       },
       "eubat:numberOfFullCycles": 640,
-      "eubat:cycleCount": 640,
-      "eubat:energyThroughput": {
+      "eubat:hasCycleCount": 640,
+      "eubat:hasEnergyThroughput": {
         type: "gs1:QuantitativeValue",
         "gs1:value": 6550,
         "gs1:unitCode": "KWH"
-      }
+      },
+      "oec:passportStatus": "active"
     }
   },
   {
     group: "EU Battery",
     label: "amperia-staxwall-model (model)",
     doc: {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+      ],
       _comment_architecture: [
         "MODEL-LEVEL passport for the Amperia StaxWall 10 stationary LFP battery (GS1 Digital Link 01/{GTIN}).",
         "Flagship demo example for the Passport Explorer: at least as rich as a real-world consumer DPP viewer, but machine-typed in eubat:/oec:/gs1: with unitCodes and per-attribute upstream alignment (SAMM / GEFEG bpr) rather than loose strings.",
         "Model-level attributes only (identifiers, category, chemistry, rated specs, materials, warranty, symbols, conformity, due diligence). Batch- and item-level values live in amperia-staxwall-batch.jsonld and are folded from EPCIS events into amperia-staxwall-item.jsonld.",
         "GS1 demo prefix 952 (GCP 9521234); GTIN 09521234002000 (valid mod-10 check digit)."
-      ],
-      "@context": [
-        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
       ],
       id: "https://id.gs1.org/01/09521234002000",
       type: [
@@ -30166,10 +31100,7 @@ var samples_default = [
         "eubat:Battery"
       ],
       "oec:granularityLevel": "model",
-      "oec:dppStatus": {
-        "@id": "oec:Active"
-      },
-      "oec:accessRights": {
+      "oec:hasAccessRights": {
         "@id": "oec:Public"
       },
       "gs1:gtin": "09521234002000",
@@ -30206,32 +31137,38 @@ var samples_default = [
           "@language": "fr"
         }
       ],
-      "schema:category": [
-        {
-          "@value": "Stationary energy storage battery",
-          "@language": "en"
-        },
-        {
-          "@value": "Station\xE4rer Energiespeicher",
-          "@language": "de"
-        },
-        {
-          "@value": "Batterie de stockage stationnaire",
-          "@language": "fr"
-        }
-      ],
+      "schema:category": {
+        "@id": "eubat:StationaryBattery"
+      },
+      _comment_classification: "Battery Regulation Art. 3 category as the controlled schema:category IRI, with the human-readable category text carried by the GS1 classification block (the pattern eubat:BatteryCategory's skos:note prescribes).",
+      "gs1:additionalProductClassification": {
+        type: "gs1:AdditionalProductClassificationDetails",
+        "gs1:additionalProductClassificationCode": "BATTERY_REGULATION_2023_1542",
+        "gs1:additionalProductClassificationValue": "stationary",
+        "gs1:additionalProductClassificationCodeDescription": [
+          {
+            "@value": "Stationary energy storage battery",
+            "@language": "en"
+          },
+          {
+            "@value": "Station\xE4rer Energiespeicher",
+            "@language": "de"
+          },
+          {
+            "@value": "Batterie de stockage stationnaire",
+            "@language": "fr"
+          }
+        ]
+      },
       "schema:image": [
         {
           type: "schema:ImageObject",
-          "schema:thumbnailUrl": "https://files.demo.epcis.cloud/files/products/_common/symbols/product-image.svg",
-          "schema:contentUrl": "https://files.demo.epcis.cloud/files/products/_common/symbols/product-image.svg",
+          "schema:thumbnailUrl": "https://files.example.org/files/products/_common/symbols/product-image.svg",
+          "schema:contentUrl": "https://files.example.org/files/products/_common/symbols/product-image.svg",
           "schema:caption": "Amperia StaxWall 10 wall-mounted home battery"
         }
       ],
-      "eubat:batteryCategory": {
-        "@id": "eubat:StationaryBattery"
-      },
-      "eubat:cellType": {
+      "eubat:hasCellType": {
         "@id": "eubat:PrismaticCell"
       },
       "eubat:numberOfCells": 16,
@@ -30252,12 +31189,12 @@ var samples_default = [
           }
         }
       },
-      "eubat:operatorInformation": {
+      "eubat:hasOperatorInformation": {
         id: "https://id.gs1.org/417/9521234000105#operator",
         type: "oec:OperatorInformation",
         "gs1:globalLocationNumber": "9521234000105",
         "gs1:organizationName": "Amperia Energy Systems AB",
-        "eubat:operatorRole": {
+        "eubat:hasOperatorRole": {
           "@id": "oec:Manufacturer"
         }
       },
@@ -30270,7 +31207,7 @@ var samples_default = [
         "gs1:value": 92,
         "gs1:unitCode": "KGM"
       },
-      "eubat:batteryChemistry": {
+      "eubat:hasBatteryChemistry": {
         id: "https://id.gs1.org/01/09521234002000#chemistry",
         type: "eubat:BatteryChemistry",
         "eubat:cathodeActiveMaterial": "LiFePO4",
@@ -30280,40 +31217,40 @@ var samples_default = [
           "@language": "en"
         }
       },
-      "eubat:technicalSpecifications": {
+      "eubat:hasTechnicalSpecifications": {
         id: "https://id.gs1.org/01/09521234002000#specs",
         type: "eubat:TechnicalSpecification",
-        "eubat:ratedCapacity": {
+        "eubat:hasRatedCapacity": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 200,
           "gs1:unitCode": "AMH"
         },
-        "eubat:ratedEnergy": {
+        "eubat:hasRatedEnergy": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 10.24,
           "gs1:unitCode": "KWH"
         },
-        "eubat:nominalVoltage": {
+        "eubat:hasNominalVoltage": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 51.2,
           "gs1:unitCode": "VLT"
         },
-        "eubat:minimumVoltage": {
+        "eubat:hasMinimumVoltage": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 44.8,
           "gs1:unitCode": "VLT"
         },
-        "eubat:maximumVoltage": {
+        "eubat:hasMaximumVoltage": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 58.4,
           "gs1:unitCode": "VLT"
         },
-        "eubat:ratedMaximumPower": {
+        "eubat:hasRatedMaximumPower": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 5,
           "gs1:unitCode": "KWT"
         },
-        "eubat:initialInternalResistance": {
+        "eubat:hasInitialInternalResistance": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 1.8,
           "gs1:unitCode": "OHM"
@@ -30323,15 +31260,15 @@ var samples_default = [
         "eubat:roundTripEfficiency": 95,
         "eubat:capacityThresholdForExhaustion": 70,
         "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
-        "eubat:temperatureRangeIdleState": {
+        "eubat:hasTemperatureRangeIdleState": {
           id: "https://id.gs1.org/01/09521234002000#temp-idle",
           type: "eubat:TemperatureRange",
-          "eubat:minimumTemperature": {
+          "eubat:hasMinimumTemperature": {
             type: "gs1:QuantitativeValue",
             "gs1:value": -20,
             "gs1:unitCode": "CEL"
           },
-          "eubat:maximumTemperature": {
+          "eubat:hasMaximumTemperature": {
             type: "gs1:QuantitativeValue",
             "gs1:value": 55,
             "gs1:unitCode": "CEL"
@@ -30347,33 +31284,38 @@ var samples_default = [
         },
         "gs1:warrantyScopeDescription": "10-year / 8000-cycle warranty retaining at least 70% of rated capacity"
       },
-      "eubat:supplyChainDueDiligence": {
+      "eubat:hasSupplyChainDueDiligence": {
         id: "https://id.gs1.org/01/09521234002000#due-diligence",
         type: "eubat:SupplyChainDueDiligence",
-        "eubat:dueDiligenceReportUrl": "https://files.demo.epcis.cloud/files/products/09521234002000/docs/due-diligence-report.pdf",
-        "eubat:thirdPartyAssurancesUrl": "https://files.demo.epcis.cloud/files/products/09521234002000/docs/third-party-assurance.pdf",
+        "eubat:dueDiligenceReportUrl": "https://files.example.org/files/products/09521234002000/docs/due-diligence-report.pdf",
+        "eubat:thirdPartyAssurancesUrl": "https://files.example.org/files/products/09521234002000/docs/third-party-assurance.pdf",
         "eubat:supplyChainIndex": 84
       },
       "gs1:certification": [
         {
           type: "gs1:CertificationDetails",
           "gs1:certificationSubject": "EU Declaration of Conformity (Battery Regulation 2023/1542)",
-          "gs1:certificationURI": "https://files.demo.epcis.cloud/files/products/09521234002000/docs/declaration-of-conformity.pdf"
+          "gs1:certificationURI": "https://files.example.org/files/products/09521234002000/docs/declaration-of-conformity.pdf"
         }
       ],
-      "eubat:euDeclarationOfConformity": {
+      "eubat:hasEuDeclarationOfConformity": {
         type: "cccev:Evidence",
         "eubat:euDeclarationOfConformityId": "DoC-2026-AMPERIA-STAX10",
-        "eubat:declarationOfConformity": "https://files.demo.epcis.cloud/files/products/09521234002000/docs/declaration-of-conformity.pdf"
+        "eubat:declarationOfConformity": "https://files.example.org/files/products/09521234002000/docs/declaration-of-conformity.pdf"
       },
-      "eubat:resultOfTestReport": "https://files.demo.epcis.cloud/files/products/09521234002000/docs/test-report.pdf",
-      "eubat:separateCollectionSymbolUrl": "https://files.demo.epcis.cloud/files/products/_common/symbols/separate-collection.svg"
+      "eubat:resultOfTestReport": "https://files.example.org/files/products/09521234002000/docs/test-report.pdf",
+      "eubat:separateCollectionSymbolUrl": "https://files.example.org/files/products/_common/symbols/separate-collection.svg",
+      "oec:passportStatus": "active"
     }
   },
   {
     group: "EU Battery",
     label: "battery-product-batch (batch)",
     doc: {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+      ],
       _comment_architecture: [
         "BATCH-LEVEL battery master data (GS1 Digital Link 01/{GTIN}/10/{lot}).",
         "This is the resource a GS1-conformant Digital Link resolver serves for one production batch (model + manufacturing site + calendar period) when the 01+10 lot Digital Link is dereferenced.",
@@ -30381,10 +31323,7 @@ var samples_default = [
         "The batch identity is the /10/ lot in the Digital Link; oec:granularityLevel is 'batch'.",
         "See: extensions/eu/battery/validation/batterypass-granularity.json for the per-attribute level map."
       ],
-      "@context": [
-        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
-      ],
-      id: "https://id.demo.epcis.cloud/01/09521002005004/10/LOT-2024-0312",
+      id: "https://id.gs1.org/01/09521002005004/10/LOT-2024-0312",
       type: [
         "gs1:Product",
         "eubat:Battery"
@@ -30392,7 +31331,7 @@ var samples_default = [
       "oec:granularityLevel": "batch",
       "gs1:gtin": "09521002005004",
       "gs1:productionDate": "2024-03-15",
-      "eubat:manufacturingPlace": {
+      "eubat:hasManufacturingPlace": {
         id: "https://id.gs1.org/414/9521234000013",
         type: "gs1:Place",
         "gs1:globalLocationNumber": "9521234000013",
@@ -30405,8 +31344,8 @@ var samples_default = [
           }
         }
       },
-      "eubat:recycledContent": {
-        id: "https://id.demo.epcis.cloud/01/09521002005004/10/LOT-2024-0312#recycled",
+      "eubat:hasRecycledContent": {
+        id: "https://id.gs1.org/01/09521002005004/10/LOT-2024-0312#recycled",
         type: "eubat:RecycledContent",
         "eubat:lithiumPreConsumerShare": 5,
         "eubat:lithiumPostConsumerShare": 7,
@@ -30416,42 +31355,42 @@ var samples_default = [
         "eubat:nickelPostConsumerShare": 0,
         "eubat:leadRecycledShare": 0
       },
-      "eubat:carbonFootprintDeclaration": {
-        id: "https://id.demo.epcis.cloud/01/09521002005004/10/LOT-2024-0312#cfp",
+      "eubat:hasCarbonFootprintDeclaration": {
+        id: "https://id.gs1.org/01/09521002005004/10/LOT-2024-0312#cfp",
         type: "eubat:CarbonFootprintDeclaration",
-        "eubat:carbonFootprintTotal": {
+        "eubat:hasCarbonFootprintTotal": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 45.2,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintRawMaterialExtraction": {
+        "eubat:hasCarbonFootprintRawMaterialExtraction": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 18.5,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintProduction": {
+        "eubat:hasCarbonFootprintProduction": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 15.3,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintDistribution": {
+        "eubat:hasCarbonFootprintDistribution": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 2.8,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintRecycling": {
+        "eubat:hasCarbonFootprintRecycling": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 8.6,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintPerformanceClass": {
+        "eubat:hasCarbonFootprintPerformanceClass": {
           "@id": "eubat:CFClassB"
         },
         "eubat:carbonFootprintStudyUrl": "https://www.ecocell-batteries.example.com/docs/IM-500-cfp-study.pdf",
         "eubat:carbonFootprintDeclarationId": "CFP-2024-ECOCELL-IM500-001"
       },
-      "eubat:endOfLifeInfo": {
-        id: "https://id.demo.epcis.cloud/01/09521002005004/10/LOT-2024-0312#eol",
+      "eubat:hasEndOfLifeInfo": {
+        id: "https://id.gs1.org/01/09521002005004/10/LOT-2024-0312#eol",
         type: "eubat:EndOfLifeInfo",
         "eubat:renewableContent": 3.2
       }
@@ -30461,6 +31400,10 @@ var samples_default = [
     group: "EU Battery",
     label: "battery-product-model (model)",
     doc: {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+      ],
       _comment_architecture: [
         "MODEL-LEVEL battery master data (GS1 Digital Link 01/{GTIN}, no serial, no lot).",
         "This is the resource a GS1-conformant Digital Link resolver serves for the battery model when the plain 01/ GTIN Digital Link is dereferenced (Accept: application/ld+json).",
@@ -30469,10 +31412,7 @@ var samples_default = [
         "Attributes measured per physical battery (state of health, cycle count, capacity fade, ...) are carried by EPCIS events and folded into the item passport (01/{GTIN}/21/{serial}); see battery-product.jsonld and docs/EPCIS_AND_BATTERYPASS_READY.md.",
         "See: extensions/eu/battery/validation/batterypass-granularity.json for the per-attribute level map."
       ],
-      "@context": [
-        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
-      ],
-      id: "https://id.demo.epcis.cloud/01/09521002005004",
+      id: "https://id.gs1.org/01/09521002005004",
       type: [
         "gs1:Product",
         "eubat:Battery"
@@ -30502,7 +31442,7 @@ var samples_default = [
         "@value": "IM-500",
         "@language": "en"
       },
-      "eubat:cellType": {
+      "eubat:hasCellType": {
         "@id": "eubat:PrismaticCell"
       },
       "eubat:numberOfCells": 16,
@@ -30523,12 +31463,12 @@ var samples_default = [
           }
         }
       },
-      "eubat:operatorInformation": {
+      "eubat:hasOperatorInformation": {
         id: "https://id.gs1.org/417/9521234000006#operator",
         type: "oec:OperatorInformation",
         "gs1:globalLocationNumber": "9521234000006",
         "gs1:organizationName": "EcoCell GmbH",
-        "eubat:operatorRole": {
+        "eubat:hasOperatorRole": {
           "@id": "oec:Manufacturer"
         }
       },
@@ -30541,8 +31481,8 @@ var samples_default = [
         "gs1:value": 125.5,
         "gs1:unitCode": "KGM"
       },
-      "eubat:batteryChemistry": {
-        id: "https://id.demo.epcis.cloud/01/09521002005004#chemistry",
+      "eubat:hasBatteryChemistry": {
+        id: "https://id.gs1.org/01/09521002005004#chemistry",
         type: "eubat:BatteryChemistry",
         "eubat:cathodeActiveMaterial": "LiFePO4",
         "eubat:anodeActiveMaterial": "Graphite",
@@ -30551,40 +31491,40 @@ var samples_default = [
           "@language": "en"
         }
       },
-      "eubat:technicalSpecifications": {
-        id: "https://id.demo.epcis.cloud/01/09521002005004#specs",
+      "eubat:hasTechnicalSpecifications": {
+        id: "https://id.gs1.org/01/09521002005004#specs",
         type: "eubat:TechnicalSpecification",
-        "eubat:ratedCapacity": {
+        "eubat:hasRatedCapacity": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 280,
           "gs1:unitCode": "AMH"
         },
-        "eubat:ratedEnergy": {
+        "eubat:hasRatedEnergy": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 14.3,
           "gs1:unitCode": "KWH"
         },
-        "eubat:nominalVoltage": {
+        "eubat:hasNominalVoltage": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 51.2,
           "gs1:unitCode": "VLT"
         },
-        "eubat:minimumVoltage": {
+        "eubat:hasMinimumVoltage": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 40,
           "gs1:unitCode": "VLT"
         },
-        "eubat:maximumVoltage": {
+        "eubat:hasMaximumVoltage": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 58.4,
           "gs1:unitCode": "VLT"
         },
-        "eubat:ratedMaximumPower": {
+        "eubat:hasRatedMaximumPower": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 7.5,
           "gs1:unitCode": "KWT"
         },
-        "eubat:initialInternalResistance": {
+        "eubat:hasInitialInternalResistance": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 2.1,
           "gs1:unitCode": "OHM"
@@ -30594,15 +31534,15 @@ var samples_default = [
         "eubat:roundTripEfficiency": 96,
         "eubat:capacityThresholdForExhaustion": 70,
         "eubat:lifetimeReferenceTest": "https://www.iec.ch/standards/62660-1",
-        "eubat:temperatureRangeIdleState": {
-          id: "https://id.demo.epcis.cloud/01/09521002005004#temp-idle",
+        "eubat:hasTemperatureRangeIdleState": {
+          id: "https://id.gs1.org/01/09521002005004#temp-idle",
           type: "eubat:TemperatureRange",
-          "eubat:minimumTemperature": {
+          "eubat:hasMinimumTemperature": {
             type: "gs1:QuantitativeValue",
             "gs1:value": -30,
             "gs1:unitCode": "CEL"
           },
-          "eubat:maximumTemperature": {
+          "eubat:hasMaximumTemperature": {
             type: "gs1:QuantitativeValue",
             "gs1:value": 60,
             "gs1:unitCode": "CEL"
@@ -30618,14 +31558,14 @@ var samples_default = [
         },
         "gs1:warrantyScopeDescription": "Full replacement warranty for manufacturing defects"
       },
-      "eubat:supplyChainDueDiligence": {
-        id: "https://id.demo.epcis.cloud/01/09521002005004#due-diligence",
+      "eubat:hasSupplyChainDueDiligence": {
+        id: "https://id.gs1.org/01/09521002005004#due-diligence",
         type: "eubat:SupplyChainDueDiligence",
         "eubat:dueDiligenceReportUrl": "https://www.ecocell-batteries.example.com/docs/supply-chain-due-diligence-2024.pdf",
         "eubat:thirdPartyAssurancesUrl": "https://www.ecocell-batteries.example.com/docs/third-party-audit-2024.pdf",
         "eubat:supplyChainIndex": 78.5
       },
-      "eubat:euDeclarationOfConformity": {
+      "eubat:hasEuDeclarationOfConformity": {
         type: "cccev:Evidence",
         "eubat:euDeclarationOfConformityId": "DoC-2024-ECOCELL-IM500",
         "eubat:declarationOfConformity": "https://www.ecocell-batteries.example.com/docs/IM-500-eu-doc.pdf"
@@ -30638,10 +31578,14 @@ var samples_default = [
     group: "EU Battery",
     label: "battery-product (item)",
     doc: {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+      ],
       _comment_gs1_alignment: [
         "This example demonstrates GS1-aligned Digital Product Passport modeling.",
         "Key GS1 patterns used:",
-        "- GS1 Digital Link URI for product identification (https://id.demo.epcis.cloud/01/{GTIN}/21/{serial})",
+        "- GS1 Digital Link URI for product identification (https://id.gs1.org/01/{GTIN}/21/{serial})",
         "- Product as base type with eubat:Battery extension",
         "- GS1 properties: gtin, productName, manufacturer, netWeight, gs1:manufacturersWarranty",
         "- QuantitativeValue for all measurements with unitCode",
@@ -30650,10 +31594,7 @@ var samples_default = [
         "- Battery-specific extensions only where GS1 Web Vocabulary lacks equivalent terms",
         "See EXTENSION-GOVERNANCE.md for rationale on each extension term."
       ],
-      "@context": [
-        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
-      ],
-      id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001",
+      id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001",
       type: [
         "gs1:Product",
         "eubat:Battery"
@@ -30773,7 +31714,7 @@ var samples_default = [
         "@value": "IM-500",
         "@language": "en"
       },
-      "eubat:cellType": {
+      "eubat:hasCellType": {
         "@id": "eubat:PrismaticCell"
       },
       "eubat:numberOfCells": 16,
@@ -30798,11 +31739,11 @@ var samples_default = [
           type: "gs1:ContactPoint",
           "gs1:email": "info@ecocell-batteries.example.com",
           "schema:url": {
-            id: "https://files.demo.epcis.cloud/files/products/09521002005004/docs/company.pdf"
+            id: "https://files.example.org/files/products/09521002005004/docs/company.pdf"
           }
         }
       },
-      "eubat:manufacturingPlace": {
+      "eubat:hasManufacturingPlace": {
         id: "https://id.gs1.org/414/9521234000013",
         type: "gs1:Place",
         "gs1:globalLocationNumber": "9521234000013",
@@ -30815,12 +31756,12 @@ var samples_default = [
           }
         }
       },
-      "eubat:operatorInformation": {
+      "eubat:hasOperatorInformation": {
         id: "https://id.gs1.org/417/9521234000006#operator",
         type: "oec:OperatorInformation",
         "gs1:globalLocationNumber": "9521234000006",
         "gs1:organizationName": "EcoCell GmbH",
-        "eubat:operatorRole": {
+        "eubat:hasOperatorRole": {
           "@id": "oec:Manufacturer"
         },
         "gs1:address": {
@@ -30854,8 +31795,8 @@ var samples_default = [
         "gs1:value": 132,
         "gs1:unitCode": "KGM"
       },
-      "eubat:batteryChemistry": {
-        id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#chemistry",
+      "eubat:hasBatteryChemistry": {
+        id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#chemistry",
         type: "eubat:BatteryChemistry",
         "eubat:cathodeActiveMaterial": "LiFePO4",
         "eubat:anodeActiveMaterial": "Graphite",
@@ -30869,82 +31810,82 @@ var samples_default = [
         },
         "schema:alternateName": "LFP"
       },
-      "eubat:technicalSpecifications": {
-        id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#specs",
+      "eubat:hasTechnicalSpecifications": {
+        id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#specs",
         type: "eubat:TechnicalSpecification",
-        "eubat:ratedCapacity": {
+        "eubat:hasRatedCapacity": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 280,
           "gs1:unitCode": "AMH"
         },
-        "eubat:ratedEnergy": {
+        "eubat:hasRatedEnergy": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 14.3,
           "gs1:unitCode": "KWH"
         },
-        "eubat:nominalVoltage": {
+        "eubat:hasNominalVoltage": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 51.2,
           "gs1:unitCode": "VLT"
         },
-        "eubat:minimumVoltage": {
+        "eubat:hasMinimumVoltage": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 40,
           "gs1:unitCode": "VLT"
         },
-        "eubat:maximumVoltage": {
+        "eubat:hasMaximumVoltage": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 58.4,
           "gs1:unitCode": "VLT"
         },
-        "eubat:ratedMaximumPower": {
+        "eubat:hasRatedMaximumPower": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 7.5,
           "gs1:unitCode": "KWT"
         },
-        "eubat:maximumChargingPower": {
+        "eubat:hasMaximumChargingPower": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 7.5,
           "gs1:unitCode": "KWT"
         },
-        "eubat:maximumDischargingPower": {
+        "eubat:hasMaximumDischargingPower": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 7.5,
           "gs1:unitCode": "KWT"
         },
-        "eubat:maximumChargingCurrent": {
+        "eubat:hasMaximumChargingCurrent": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 140,
           "gs1:unitCode": "AMP"
         },
-        "eubat:maximumDischargingCurrent": {
+        "eubat:hasMaximumDischargingCurrent": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 140,
           "gs1:unitCode": "AMP"
         },
-        "eubat:originalPowerCapability": [
+        "eubat:hasOriginalPowerCapability": [
           {
-            id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#power-80",
+            id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#power-80",
             type: "eubat:PowerCapabilityAtSoC",
             "eubat:stateOfChargeLevel": 80,
-            "eubat:powerCapability": {
+            "eubat:hasPowerCapability": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 7.2,
               "gs1:unitCode": "KWT"
             }
           },
           {
-            id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#power-20",
+            id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#power-20",
             type: "eubat:PowerCapabilityAtSoC",
             "eubat:stateOfChargeLevel": 20,
-            "eubat:powerCapability": {
+            "eubat:hasPowerCapability": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 6.8,
               "gs1:unitCode": "KWT"
             }
           }
         ],
-        "eubat:initialInternalResistance": {
+        "eubat:hasInitialInternalResistance": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 2.1,
           "gs1:unitCode": "OHM"
@@ -30952,12 +31893,12 @@ var samples_default = [
         "eubat:initialSelfDischarge": 1.5,
         "eubat:expectedCycleLife": 6e3,
         "eubat:expectedLifetimeYears": 15,
-        "eubat:expectedLifetimeEnergyThroughput": {
+        "eubat:hasExpectedLifetimeEnergyThroughput": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 85800,
           "gs1:unitCode": "KWH"
         },
-        "eubat:expectedLifetimeCapacityThroughput": {
+        "eubat:hasExpectedLifetimeCapacityThroughput": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 168e4,
           "gs1:unitCode": "AMH"
@@ -30972,66 +31913,66 @@ var samples_default = [
         "eubat:cRate": 0.5,
         "eubat:cRateLifeCycleTest": 0.33,
         "eubat:roundTripEfficiencyAt50PercentCycleLife": 94,
-        "eubat:temperatureRangeStorage": {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-storage",
+        "eubat:hasTemperatureRangeStorage": {
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#temp-storage",
           type: "eubat:TemperatureRange",
-          "eubat:minimumTemperature": {
+          "eubat:hasMinimumTemperature": {
             type: "gs1:QuantitativeValue",
             "gs1:value": -20,
             "gs1:unitCode": "CEL"
           },
-          "eubat:maximumTemperature": {
+          "eubat:hasMaximumTemperature": {
             type: "gs1:QuantitativeValue",
             "gs1:value": 45,
             "gs1:unitCode": "CEL"
           }
         },
-        "eubat:temperatureRangeCharging": {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-charging",
+        "eubat:hasTemperatureRangeCharging": {
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#temp-charging",
           type: "eubat:TemperatureRange",
-          "eubat:minimumTemperature": {
+          "eubat:hasMinimumTemperature": {
             type: "gs1:QuantitativeValue",
             "gs1:value": 0,
             "gs1:unitCode": "CEL"
           },
-          "eubat:maximumTemperature": {
+          "eubat:hasMaximumTemperature": {
             type: "gs1:QuantitativeValue",
             "gs1:value": 45,
             "gs1:unitCode": "CEL"
           }
         },
-        "eubat:temperatureRangeDischarging": {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-discharging",
+        "eubat:hasTemperatureRangeDischarging": {
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#temp-discharging",
           type: "eubat:TemperatureRange",
-          "eubat:minimumTemperature": {
+          "eubat:hasMinimumTemperature": {
             type: "gs1:QuantitativeValue",
             "gs1:value": -20,
             "gs1:unitCode": "CEL"
           },
-          "eubat:maximumTemperature": {
+          "eubat:hasMaximumTemperature": {
             type: "gs1:QuantitativeValue",
             "gs1:value": 55,
             "gs1:unitCode": "CEL"
           }
         },
-        "eubat:temperatureRangeIdleState": {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#temp-idle",
+        "eubat:hasTemperatureRangeIdleState": {
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#temp-idle",
           type: "eubat:TemperatureRange",
-          "eubat:minimumTemperature": {
+          "eubat:hasMinimumTemperature": {
             type: "gs1:QuantitativeValue",
             "gs1:value": -30,
             "gs1:unitCode": "CEL"
           },
-          "eubat:maximumTemperature": {
+          "eubat:hasMaximumTemperature": {
             type: "gs1:QuantitativeValue",
             "gs1:value": 60,
             "gs1:unitCode": "CEL"
           }
         }
       },
-      "eubat:materialComposition": [
+      "eubat:hasMaterialComposition": [
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-li",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#mat-li",
           type: "eubat:BatteryMaterial",
           "schema:name": {
             "@value": "Lithium",
@@ -31039,7 +31980,7 @@ var samples_default = [
           },
           "eubat:casNumber": "7439-93-2",
           "eubat:ecNumber": "231-102-5",
-          "eubat:componentLocation": {
+          "eubat:hasComponentLocation": {
             "@id": "eubat:Cathode"
           },
           "schema:category": {
@@ -31048,13 +31989,13 @@ var samples_default = [
           "schema:weightPercentage": 4.2,
           "eubat:isCriticalRawMaterial": true,
           "eubat:isSubstanceOfConcern": false,
-          "oec:materialOrigin": {
+          "oec:hasMaterialOrigin": {
             type: "gs1:Country",
             "gs1:countryCode": "CL"
           }
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-fe",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#mat-fe",
           type: "eubat:BatteryMaterial",
           "schema:name": {
             "@value": "Iron",
@@ -31062,7 +32003,7 @@ var samples_default = [
           },
           "eubat:casNumber": "7439-89-6",
           "eubat:ecNumber": "231-096-4",
-          "eubat:componentLocation": {
+          "eubat:hasComponentLocation": {
             "@id": "eubat:Cathode"
           },
           "schema:category": {
@@ -31073,7 +32014,7 @@ var samples_default = [
           "eubat:isSubstanceOfConcern": false
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-c",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#mat-c",
           type: "eubat:BatteryMaterial",
           "schema:name": {
             "@value": "Graphite",
@@ -31081,7 +32022,7 @@ var samples_default = [
           },
           "eubat:casNumber": "7782-42-5",
           "eubat:ecNumber": "231-955-3",
-          "eubat:componentLocation": {
+          "eubat:hasComponentLocation": {
             "@id": "eubat:Anode"
           },
           "schema:category": {
@@ -31093,7 +32034,7 @@ var samples_default = [
           "eubat:renewableContentShare": 0
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#mat-p",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#mat-p",
           type: "eubat:BatteryMaterial",
           "schema:name": {
             "@value": "Phosphorus",
@@ -31101,7 +32042,7 @@ var samples_default = [
           },
           "eubat:casNumber": "7723-14-0",
           "eubat:ecNumber": "231-768-7",
-          "eubat:componentLocation": {
+          "eubat:hasComponentLocation": {
             "@id": "eubat:Cathode"
           },
           "schema:category": {
@@ -31112,9 +32053,9 @@ var samples_default = [
           "eubat:isSubstanceOfConcern": false
         }
       ],
-      "eubat:hazardousSubstances": [
+      "eubat:hasHazardousSubstances": [
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#haz-electrolyte",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#haz-electrolyte",
           type: "eubat:HazardousSubstance",
           "schema:name": {
             "@value": "Lithium hexafluorophosphate (LiPF6)",
@@ -31122,7 +32063,7 @@ var samples_default = [
           },
           "eubat:substanceCasNumber": "21324-40-3",
           "eubat:substanceEcNumber": "244-334-7",
-          "eubat:hazardClass": {
+          "eubat:hasHazardClass": {
             "@id": "eubat:AcuteToxicity"
           },
           "eubat:concentration": 12.5,
@@ -31130,12 +32071,12 @@ var samples_default = [
             "@value": "Toxic if swallowed; causes skin irritation; causes serious eye damage",
             "@language": "en"
           },
-          "eubat:substanceLocation": {
+          "eubat:hasSubstanceLocation": {
             "@id": "eubat:Electrolyte"
           }
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#haz-solvent",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#haz-solvent",
           type: "eubat:HazardousSubstance",
           "schema:name": {
             "@value": "Ethylene carbonate",
@@ -31143,7 +32084,7 @@ var samples_default = [
           },
           "eubat:substanceCasNumber": "96-49-1",
           "eubat:substanceEcNumber": "202-510-0",
-          "eubat:hazardClass": {
+          "eubat:hasHazardClass": {
             "@id": "eubat:EyeDamageOrIrritation"
           },
           "eubat:concentration": 8.2,
@@ -31151,13 +32092,13 @@ var samples_default = [
             "@value": "Causes serious eye irritation",
             "@language": "en"
           },
-          "eubat:substanceLocation": {
+          "eubat:hasSubstanceLocation": {
             "@id": "eubat:Electrolyte"
           }
         }
       ],
-      "eubat:recycledContent": {
-        id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#recycled",
+      "eubat:hasRecycledContent": {
+        id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#recycled",
         type: "eubat:RecycledContent",
         "eubat:lithiumRecycledShare": 12,
         "eubat:lithiumPreConsumerShare": 5,
@@ -31172,48 +32113,48 @@ var samples_default = [
         "eubat:leadPreConsumerShare": 0,
         "eubat:leadPostConsumerShare": 0
       },
-      "eubat:carbonFootprintDeclaration": {
-        id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#cfp",
+      "eubat:hasCarbonFootprintDeclaration": {
+        id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#cfp",
         type: "eubat:CarbonFootprintDeclaration",
-        "eubat:carbonFootprintTotal": {
+        "eubat:hasCarbonFootprintTotal": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 45.2,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintRawMaterialExtraction": {
+        "eubat:hasCarbonFootprintRawMaterialExtraction": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 18.5,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintProduction": {
+        "eubat:hasCarbonFootprintProduction": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 15.3,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintDistribution": {
+        "eubat:hasCarbonFootprintDistribution": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 2.8,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintRecycling": {
+        "eubat:hasCarbonFootprintRecycling": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 8.6,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintPerformanceClass": {
+        "eubat:hasCarbonFootprintPerformanceClass": {
           "@id": "eubat:CFClassB"
         },
-        "eubat:carbonFootprintStudyUrl": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/carbon-footprint-study.pdf",
+        "eubat:carbonFootprintStudyUrl": "https://files.example.org/files/products/09521002005004/docs/carbon-footprint-study.pdf",
         "eubat:functionalUnit": "1 kWh of total energy throughput over battery lifetime",
         "eubat:calculationStandard": "ISO 14067:2018",
         "eubat:carbonFootprintDeclarationId": "CFP-2024-ECOCELL-IM500-001",
         "eubat:carbonFootprintGeographicScope": "EU production, global material sourcing",
-        "eubat:thirdPartyVerification": {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#cfp-verification",
+        "eubat:hasThirdPartyVerification": {
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#cfp-verification",
           type: "eubat:ThirdPartyVerification",
           "eubat:verificationBodyName": "T\xDCV Rheinland",
           "eubat:verificationDate": "2024-02-28",
-          "eubat:verificationCertificateUrl": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/verification-certificate.pdf",
+          "eubat:verificationCertificateUrl": "https://files.example.org/files/products/09521002005004/docs/verification-certificate.pdf",
           "eubat:verificationStandard": "ISO 14064-3:2019"
         }
       },
@@ -31226,17 +32167,17 @@ var samples_default = [
         },
         "gs1:warrantyScopeDescription": "Full replacement warranty for manufacturing defects"
       },
-      "eubat:warrantyConditions": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/warranty-conditions.pdf",
+      "eubat:warrantyConditions": "https://files.example.org/files/products/09521002005004/docs/warranty-conditions.pdf",
       "eubat:extendedWarrantyAvailable": true,
       "schema:contactPoint": {
         type: "gs1:ContactPoint",
         "gs1:email": "service@ecocell-batteries.example.com",
         "gs1:telephone": "+49-711-555-0300",
         "schema:url": {
-          id: "https://files.demo.epcis.cloud/files/products/09521002005004/docs/company.pdf"
+          id: "https://files.example.org/files/products/09521002005004/docs/company.pdf"
         }
       },
-      "eubat:authorizedServiceCenters": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/service-centres.pdf",
+      "eubat:authorizedServiceCenters": "https://files.example.org/files/products/09521002005004/docs/service-centres.pdf",
       "eubat:transportationSafetyClass": "UN3481",
       "eubat:dangerousGoodsPackingInstructions": {
         "@value": "PI966 Section II - Lithium ion batteries packed with equipment",
@@ -31250,7 +32191,7 @@ var samples_default = [
         "@value": "High - suitable for stationary energy storage after EV use",
         "@language": "en"
       },
-      "eubat:repurposingGuidelines": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/repurposing-guidelines.pdf",
+      "eubat:repurposingGuidelines": "https://files.example.org/files/products/09521002005004/docs/repurposing-guidelines.pdf",
       "eubat:dataQualityAssessment": "A",
       "eubat:lastDataUpdate": "2024-03-20T14:30:00Z",
       "eubat:dataProviderCertification": "ISO 27001 certified data management",
@@ -31264,68 +32205,68 @@ var samples_default = [
           type: "gs1:CertificationDetails",
           "gs1:certificationSubject": "EU Declaration of Conformity (Battery Regulation 2023/1542)",
           "gs1:certificationAgency": "T\xDCV S\xDCD (Notified Body 0123)",
-          "gs1:certificationURI": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/declaration-of-conformity.pdf"
+          "gs1:certificationURI": "https://files.example.org/files/products/09521002005004/docs/declaration-of-conformity.pdf"
         }
       ],
-      "eubat:euDeclarationOfConformity": {
+      "eubat:hasEuDeclarationOfConformity": {
         type: "cccev:Evidence",
         "eubat:euDeclarationOfConformityId": "DoC-2024-ECOCELL-IM500",
-        "eubat:declarationOfConformity": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/declaration-of-conformity.pdf",
-        "eubat:notifiedBody": {
+        "eubat:declarationOfConformity": "https://files.example.org/files/products/09521002005004/docs/declaration-of-conformity.pdf",
+        "eubat:hasNotifiedBody": {
           type: "cv:PublicOrganisation",
           "eubat:notifiedBodyNumber": "0123",
           "eubat:notifiedBodyName": "T\xDCV S\xDCD"
         }
       },
-      "eubat:resultOfTestReport": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/test-report.pdf",
+      "eubat:resultOfTestReport": "https://files.example.org/files/products/09521002005004/docs/test-report.pdf",
       "eubat:testReportNumber": "TR-2024-ECOCELL-IM500-001",
-      "eubat:complianceStatus": {
+      "eubat:hasComplianceStatus": {
         "@id": "eubat:Compliant"
       },
-      "eubat:separateCollectionSymbolUrl": "https://files.demo.epcis.cloud/files/products/_common/symbols/battery-label.svg",
+      "eubat:separateCollectionSymbolUrl": "https://files.example.org/files/products/_common/symbols/battery-label.svg",
       "eubat:cadmiumSymbolRequired": false,
       "eubat:leadSymbolRequired": false,
-      "eubat:labels": [
+      "eubat:hasLabels": [
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#label-weee",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#label-weee",
           type: "eubat:Label",
-          "eubat:labelSubject": {
+          "eubat:hasLabelSubject": {
             "@id": "eubat:SeparateCollection"
           },
-          "eubat:labelSymbol": "https://files.demo.epcis.cloud/files/products/_common/symbols/battery-label.svg",
+          "eubat:labelSymbol": "https://files.example.org/files/products/_common/symbols/battery-label.svg",
           "eubat:labelMeaning": {
             "@value": "Do not dispose of with household waste. Return to designated collection points.",
             "@language": "en"
           }
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#label-cfp",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#label-cfp",
           type: "eubat:Label",
-          "eubat:labelSubject": {
+          "eubat:hasLabelSubject": {
             "@id": "eubat:CarbonFootprintLabel"
           },
-          "eubat:labelSymbol": "https://files.demo.epcis.cloud/files/products/_common/symbols/battery-label.svg",
+          "eubat:labelSymbol": "https://files.example.org/files/products/_common/symbols/battery-label.svg",
           "eubat:labelMeaning": {
             "@value": "Carbon Footprint Performance Class B: 45.2 kg CO2e/kWh",
             "@language": "en"
           }
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#label-fire",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#label-fire",
           type: "eubat:Label",
-          "eubat:labelSubject": {
+          "eubat:hasLabelSubject": {
             "@id": "eubat:ExtinguishingAgentLabel"
           },
-          "eubat:labelSymbol": "https://files.demo.epcis.cloud/files/products/_common/symbols/battery-label.svg",
+          "eubat:labelSymbol": "https://files.example.org/files/products/_common/symbols/battery-label.svg",
           "eubat:labelMeaning": {
             "@value": "In case of fire, use Class D fire extinguisher or dry sand. Do not use water.",
             "@language": "en"
           }
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#label-qr",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#label-qr",
           type: "eubat:Label",
-          "eubat:labelSubject": {
+          "eubat:hasLabelSubject": {
             "@id": "eubat:QRCodeLabel"
           },
           "eubat:labelMeaning": {
@@ -31336,7 +32277,7 @@ var samples_default = [
       ],
       "gs1:regulatoryInformation": [
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#reg-battery",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#reg-battery",
           type: "gs1:RegulatoryInformation",
           "gs1:regulationType": {
             id: "gs1:RegulationTypeCode-BATTERY_DIRECTIVE"
@@ -31347,7 +32288,7 @@ var samples_default = [
           "oec:isRegulationCompliant": true
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#reg-ce",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#reg-ce",
           type: "gs1:RegulatoryInformation",
           "gs1:regulationType": {
             id: "gs1:RegulationTypeCode-CE"
@@ -31356,28 +32297,28 @@ var samples_default = [
           "oec:isRegulationCompliant": true
         }
       ],
-      "eubat:supplyChainDueDiligence": {
-        id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#due-diligence",
+      "eubat:hasSupplyChainDueDiligence": {
+        id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#due-diligence",
         type: "eubat:SupplyChainDueDiligence",
-        "eubat:dueDiligenceReportUrl": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/due-diligence-report.pdf",
-        "eubat:dueDiligencePolicyUrl": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/due-diligence-policy.pdf",
-        "eubat:thirdPartyAssurancesUrl": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/third-party-assurance.pdf",
+        "eubat:dueDiligenceReportUrl": "https://files.example.org/files/products/09521002005004/docs/due-diligence-report.pdf",
+        "eubat:dueDiligencePolicyUrl": "https://files.example.org/files/products/09521002005004/docs/due-diligence-policy.pdf",
+        "eubat:thirdPartyAssurancesUrl": "https://files.example.org/files/products/09521002005004/docs/third-party-assurance.pdf",
         "eubat:riskAssessmentSummary": {
           "@value": "Low to medium risk profile. Key risks identified in lithium sourcing from Chile mitigated through certified suppliers.",
           "@language": "en"
         },
         "eubat:supplyChainMappingAvailable": true,
         "eubat:conflictMineralFree": true,
-        "eubat:responsibleSourcingStandard": {
+        "eubat:hasResponsibleSourcingStandard": {
           "@id": "eubat:OECDGuidelines"
         },
         "schema:auditDate": "2024-01-15",
         "eubat:auditBody": "PwC Germany",
         "eubat:supplyChainIndex": 78.5
       },
-      "eubat:sparePartSources": [
+      "eubat:hasSparePartSources": [
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#spare-1",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#spare-1",
           type: "gs1:Organization",
           "gs1:organizationName": "EcoCell Service GmbH",
           "eubat:spareParts": {
@@ -31394,63 +32335,63 @@ var samples_default = [
               "gs1:countryCode": "DE"
             }
           },
-          "eubat:supplierContact": {
+          "eubat:hasSupplierContact": {
             type: "gs1:ContactPoint",
             "gs1:email": "spareparts@ecocell-batteries.example.com",
             "gs1:telephone": "+49-711-555-0200",
             "schema:url": {
-              id: "https://files.demo.epcis.cloud/files/products/09521002005004/docs/company.pdf"
+              id: "https://files.example.org/files/products/09521002005004/docs/company.pdf"
             }
           }
         }
       ],
-      "eubat:dismantlingDocuments": [
+      "eubat:hasDismantlingDocuments": [
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-bom",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#dismantle-bom",
           type: "eubat:DismantlingDocument",
-          "eubat:documentType": {
+          "eubat:hasDocumentType": {
             "@id": "eubat:BillOfMaterial"
           },
-          "eubat:documentUrl": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/document.pdf",
+          "eubat:documentUrl": "https://files.example.org/files/products/09521002005004/docs/document.pdf",
           "eubat:mimeType": "application/pdf",
           "eubat:languageCode": "en"
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-3d",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#dismantle-3d",
           type: "eubat:DismantlingDocument",
-          "eubat:documentType": {
+          "eubat:hasDocumentType": {
             "@id": "eubat:Model3D"
           },
-          "eubat:documentUrl": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/document.pdf",
+          "eubat:documentUrl": "https://files.example.org/files/products/09521002005004/docs/document.pdf",
           "eubat:mimeType": "model/step",
           "eubat:languageCode": "en"
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-manual",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#dismantle-manual",
           type: "eubat:DismantlingDocument",
-          "eubat:documentType": {
+          "eubat:hasDocumentType": {
             "@id": "eubat:DismantlingManual"
           },
-          "eubat:documentUrl": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/document.pdf",
+          "eubat:documentUrl": "https://files.example.org/files/products/09521002005004/docs/document.pdf",
           "eubat:mimeType": "application/pdf",
           "eubat:languageCode": "en"
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#dismantle-sds",
+          id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#dismantle-sds",
           type: "eubat:DismantlingDocument",
-          "eubat:documentType": {
+          "eubat:hasDocumentType": {
             "@id": "eubat:SafetyDataSheet"
           },
-          "eubat:documentUrl": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/document.pdf",
+          "eubat:documentUrl": "https://files.example.org/files/products/09521002005004/docs/document.pdf",
           "eubat:mimeType": "application/pdf",
           "eubat:languageCode": "de"
         }
       ],
-      "eubat:endOfLifeInfo": {
-        id: "https://id.demo.epcis.cloud/01/09521002005004/21/BAT2024-001#eol",
+      "eubat:hasEndOfLifeInfo": {
+        id: "https://id.gs1.org/01/09521002005004/21/BAT2024-001#eol",
         type: "eubat:EndOfLifeInfo",
         "eubat:recyclabilityRate": 95,
-        "eubat:materialRecoveryTargets": [
+        "eubat:hasMaterialRecoveryTargets": [
           {
             type: "eubat:MaterialRecoveryTarget",
             "eubat:recoveryMaterial": "Lithium",
@@ -31472,11 +32413,11 @@ var samples_default = [
             "eubat:recoveryRate": 95
           }
         ],
-        "eubat:dismantlingInstructions": {
-          id: "https://files.demo.epcis.cloud/files/products/09521002005004/docs/document.pdf"
+        "eubat:hasDismantlingInstructions": {
+          id: "https://files.example.org/files/products/09521002005004/docs/document.pdf"
         },
-        "eubat:safetyInstructionsForDismantling": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/dismantling-safety.pdf",
-        "eubat:dismantlingTime": {
+        "eubat:safetyInstructionsForDismantling": "https://files.example.org/files/products/09521002005004/docs/dismantling-safety.pdf",
+        "eubat:hasDismantlingTime": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 45,
           "gs1:unitCode": "MIN"
@@ -31485,15 +32426,15 @@ var samples_default = [
           "@value": "Class D fire extinguisher or dry sand",
           "@language": "en"
         },
-        "eubat:wastePrevention": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/waste-prevention.pdf",
-        "eubat:separateCollection": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/separate-collection.pdf",
-        "eubat:informationOnCollection": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/collection-information.pdf",
-        "eubat:safetyInstructions": "https://files.demo.epcis.cloud/files/products/09521002005004/docs/safety-instructions.pdf",
+        "eubat:wastePrevention": "https://files.example.org/files/products/09521002005004/docs/waste-prevention.pdf",
+        "eubat:separateCollection": "https://files.example.org/files/products/09521002005004/docs/separate-collection.pdf",
+        "eubat:informationOnCollection": "https://files.example.org/files/products/09521002005004/docs/collection-information.pdf",
+        "eubat:safetyInstructions": "https://files.example.org/files/products/09521002005004/docs/safety-instructions.pdf",
         "eubat:renewableContent": 3.2
       },
       "gs1:referencedFile": [
         {
-          id: "https://files.demo.epcis.cloud/files/products/09521002005004/docs/declaration-of-conformity.pdf",
+          id: "https://files.example.org/files/products/09521002005004/docs/declaration-of-conformity.pdf",
           type: "gs1:ReferencedFileDetails",
           "gs1:referencedFileType": {
             id: "gs1:ReferencedFileTypeCode-DOCUMENT"
@@ -31502,7 +32443,7 @@ var samples_default = [
           "gs1:fileLanguageCode": "en"
         },
         {
-          id: "https://files.demo.epcis.cloud/files/products/09521002005004/docs/test-report.pdf",
+          id: "https://files.example.org/files/products/09521002005004/docs/test-report.pdf",
           type: "gs1:ReferencedFileDetails",
           "gs1:referencedFileType": {
             id: "gs1:ReferencedFileTypeCode-CERTIFICATION"
@@ -31511,7 +32452,7 @@ var samples_default = [
           "gs1:fileLanguageCode": "en"
         },
         {
-          id: "https://files.demo.epcis.cloud/files/products/09521002005004/docs/user-manual.pdf",
+          id: "https://files.example.org/files/products/09521002005004/docs/user-manual.pdf",
           type: "gs1:ReferencedFileDetails",
           "gs1:referencedFileType": {
             id: "gs1:ReferencedFileTypeCode-USER_MANUAL"
@@ -31519,7 +32460,7 @@ var samples_default = [
           "gs1:fileLanguageCode": "en"
         },
         {
-          id: "https://files.demo.epcis.cloud/files/products/09521002005004/docs/carbon-footprint-study.pdf",
+          id: "https://files.example.org/files/products/09521002005004/docs/carbon-footprint-study.pdf",
           type: "gs1:ReferencedFileDetails",
           "gs1:referencedFileType": {
             id: "gs1:ReferencedFileTypeCode-CERTIFICATION"
@@ -31534,6 +32475,10 @@ var samples_default = [
     group: "EU Battery",
     label: "portable-ebike-battery (item)",
     doc: {
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+      ],
       _comment_gs1_alignment: [
         "Portable / LMT (Light Means of Transport) battery DPP example:",
         "counterpart to the existing EV battery (battery-product.jsonld).",
@@ -31543,10 +32488,7 @@ var samples_default = [
         "Pattern aligned with EU Battery Regulation 2023/1542 Annex XIII.",
         "GS1 demo prefix 952 (7-digit GCP: 9521234)."
       ],
-      "@context": [
-        "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
-      ],
-      id: "https://id.demo.epcis.cloud/01/09521003000442/21/EB2026-00821",
+      id: "https://id.gs1.org/01/09521003000442/21/EB2026-00821",
       type: [
         "gs1:Product",
         "eubat:Battery"
@@ -31652,13 +32594,13 @@ var samples_default = [
         "@value": "VP-48V-14Ah",
         "@language": "en"
       },
-      "eubat:cellType": {
+      "eubat:hasCellType": {
         "@id": "eubat:CylindricalCell"
       },
       "eubat:numberOfCells": 65,
       "eubat:numberOfModules": 1,
       "gs1:manufacturer": {
-        id: "https://id.demo.epcis.cloud/417/9521987000063",
+        id: "https://id.gs1.org/417/9521987000063",
         type: "gs1:Organization",
         "gs1:organizationName": "VeloPower GmbH",
         "gs1:globalLocationNumber": "9521987000063",
@@ -31673,8 +32615,8 @@ var samples_default = [
           }
         }
       },
-      "eubat:manufacturingPlace": {
-        id: "https://id.demo.epcis.cloud/414/9521987000070",
+      "eubat:hasManufacturingPlace": {
+        id: "https://id.gs1.org/414/9521987000070",
         type: "gs1:Place",
         "gs1:globalLocationNumber": "9521987000070",
         "gs1:address": {
@@ -31686,11 +32628,11 @@ var samples_default = [
           }
         }
       },
-      "eubat:operatorInformation": {
+      "eubat:hasOperatorInformation": {
         type: "oec:OperatorInformation",
         "gs1:globalLocationNumber": "9521987000063",
         "gs1:organizationName": "VeloPower GmbH",
-        "eubat:operatorRole": {
+        "eubat:hasOperatorRole": {
           "@id": "oec:Manufacturer"
         }
       },
@@ -31699,7 +32641,7 @@ var samples_default = [
         "gs1:value": 3.6,
         "gs1:unitCode": "KGM"
       },
-      "eubat:batteryChemistry": {
+      "eubat:hasBatteryChemistry": {
         type: "eubat:BatteryChemistry",
         "eubat:cathodeActiveMaterial": "LiNi0.6Mn0.2Co0.2O2",
         "eubat:anodeActiveMaterial": "Graphite",
@@ -31713,34 +32655,34 @@ var samples_default = [
         },
         "schema:alternateName": "NMC622"
       },
-      "eubat:technicalSpecifications": {
+      "eubat:hasTechnicalSpecifications": {
         type: "eubat:TechnicalSpecification",
-        "eubat:ratedCapacity": {
+        "eubat:hasRatedCapacity": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 14,
           "gs1:unitCode": "AMH"
         },
-        "eubat:ratedEnergy": {
+        "eubat:hasRatedEnergy": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 0.672,
           "gs1:unitCode": "KWH"
         },
-        "eubat:nominalVoltage": {
+        "eubat:hasNominalVoltage": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 48,
           "gs1:unitCode": "VLT"
         },
-        "eubat:minimumVoltage": {
+        "eubat:hasMinimumVoltage": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 36,
           "gs1:unitCode": "VLT"
         },
-        "eubat:maximumVoltage": {
+        "eubat:hasMaximumVoltage": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 54.6,
           "gs1:unitCode": "VLT"
         },
-        "eubat:ratedMaximumPower": {
+        "eubat:hasRatedMaximumPower": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 0.5,
           "gs1:unitCode": "KWT"
@@ -31751,7 +32693,7 @@ var samples_default = [
           "gs1:unitCode": "C62"
         }
       },
-      "eubat:recycledContent": {
+      "eubat:hasRecycledContent": {
         type: "eubat:RecycledContent",
         "eubat:lithiumRecycledShare": 4,
         "eubat:lithiumPreConsumerShare": 1,
@@ -31763,40 +32705,40 @@ var samples_default = [
         "eubat:nickelPreConsumerShare": 3,
         "eubat:nickelPostConsumerShare": 5
       },
-      "eubat:carbonFootprintDeclaration": {
+      "eubat:hasCarbonFootprintDeclaration": {
         type: "eubat:CarbonFootprintDeclaration",
-        "eubat:carbonFootprintTotal": {
+        "eubat:hasCarbonFootprintTotal": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 38.4,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintRawMaterialExtraction": {
+        "eubat:hasCarbonFootprintRawMaterialExtraction": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 21.6,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintProduction": {
+        "eubat:hasCarbonFootprintProduction": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 11.2,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintDistribution": {
+        "eubat:hasCarbonFootprintDistribution": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 2.6,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintRecycling": {
+        "eubat:hasCarbonFootprintRecycling": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 3,
           "gs1:unitCode": "KGM"
         },
-        "eubat:carbonFootprintPerformanceClass": {
+        "eubat:hasCarbonFootprintPerformanceClass": {
           "@id": "eubat:CFClassB"
         },
         "eubat:carbonFootprintDeclarationId": "CFP-2026-VELO-VP48-001",
         "eubat:carbonFootprintGeographicScope": "EU production, mixed material sourcing"
       },
-      "eubat:hazardousSubstances": [
+      "eubat:hasHazardousSubstances": [
         {
           type: "eubat:HazardousSubstance",
           "schema:name": {
@@ -31805,11 +32747,11 @@ var samples_default = [
           },
           "eubat:substanceCasNumber": "7440-48-4",
           "eubat:substanceEcNumber": "231-158-0",
-          "eubat:hazardClass": {
+          "eubat:hasHazardClass": {
             "@id": "eubat:Carcinogenicity"
           },
           "eubat:concentration": 4.8,
-          "eubat:substanceLocation": {
+          "eubat:hasSubstanceLocation": {
             "@id": "eubat:Cathode"
           }
         },
@@ -31821,11 +32763,11 @@ var samples_default = [
           },
           "eubat:substanceCasNumber": "21324-40-3",
           "eubat:substanceEcNumber": "244-334-7",
-          "eubat:hazardClass": {
+          "eubat:hasHazardClass": {
             "@id": "eubat:AcuteToxicity"
           },
           "eubat:concentration": 0.9,
-          "eubat:substanceLocation": {
+          "eubat:hasSubstanceLocation": {
             "@id": "eubat:Electrolyte"
           }
         }
@@ -31842,10 +32784,10 @@ var samples_default = [
           "@language": "en"
         }
       },
-      "eubat:endOfLifeInfo": {
+      "eubat:hasEndOfLifeInfo": {
         type: "eubat:EndOfLifeInfo",
         "eubat:recyclabilityRate": 78,
-        "eubat:materialRecoveryTargets": [
+        "eubat:hasMaterialRecoveryTargets": [
           {
             type: "eubat:MaterialRecoveryTarget",
             "eubat:recoveryMaterial": "Lithium",
@@ -31868,11 +32810,11 @@ var samples_default = [
           }
         ]
       },
-      "eubat:dismantlingDocuments": [
+      "eubat:hasDismantlingDocuments": [
         {
           type: "eubat:DismantlingDocument",
-          "oec:documentType": "DismantlingInstructions",
-          "eubat:documentUrl": "https://files.demo.epcis.cloud/files/products/09521003000442/docs/document.pdf",
+          "oec:hasDocumentType": "DismantlingInstructions",
+          "eubat:documentUrl": "https://files.example.org/files/products/09521003000442/docs/document.pdf",
           "eubat:mimeType": "application/pdf",
           "eubat:languageCode": "en"
         }
@@ -31925,9 +32867,9 @@ var samples_default = [
         "gs1:value": 7.2,
         "gs1:unitCode": "KGM"
       },
-      "euelec:displaySpecification": {
+      "euelec:hasDisplaySpecification": {
         type: "euelec:DisplaySpecification",
-        "euelec:screenDiagonal": {
+        "euelec:hasScreenDiagonal": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 31.5,
           "gs1:unitCode": "INH"
@@ -31935,38 +32877,38 @@ var samples_default = [
         "euelec:screenResolutionWidth": 3840,
         "euelec:screenResolutionHeight": 2160,
         "euelec:displayTechnology": "IPS LCD",
-        "euelec:refreshRate": {
+        "euelec:hasRefreshRate": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 144,
           "gs1:unitCode": "HTZ"
         },
-        "euelec:peakBrightness": {
+        "euelec:hasPeakBrightness": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 600,
           "gs1:unitCode": "CDM2"
         }
       },
-      "euelec:energyEfficiency": {
+      "euelec:hasEnergyEfficiency": {
         type: "euelec:EnergyEfficiency",
-        "euelec:energyEfficiencyClass": {
+        "euelec:hasEnergyEfficiencyClass": {
           "@id": "euelec:EnergyClassC"
         },
-        "euelec:annualEnergyConsumption": {
+        "euelec:hasAnnualEnergyConsumption": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 85,
           "gs1:unitCode": "KWH"
         },
-        "euelec:powerConsumptionOn": {
+        "euelec:hasPowerConsumptionOn": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 55,
           "gs1:unitCode": "WTT"
         },
-        "euelec:powerConsumptionStandby": {
+        "euelec:hasPowerConsumptionStandby": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 0.3,
           "gs1:unitCode": "WTT"
         },
-        "euelec:powerConsumptionOff": {
+        "euelec:hasPowerConsumptionOff": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 0.1,
           "gs1:unitCode": "WTT"
@@ -31975,18 +32917,18 @@ var samples_default = [
         "euelec:eprelProductUrl": "https://eprel.ec.europa.eu/screen/product/electronicdisplays/67890",
         "euelec:energyLabelUrl": "https://www.nordic-displays.example.com/products/ecoview-pro-32/energy-label.png"
       },
-      "euelec:repairabilityIndex": {
+      "euelec:hasRepairabilityIndex": {
         type: "euelec:RepairabilityIndex",
         "euelec:totalScore": 68,
         "euelec:displayScore": 6.8,
-        "euelec:repairabilityClass": {
+        "euelec:hasRepairabilityClass": {
           "@id": "euelec:RepairClassB"
         },
         "euelec:assessmentDate": "2025-01-12",
-        "euelec:repairCriteria": [
+        "euelec:hasRepairCriteria": [
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:Documentation"
             },
             "euelec:criterionScore": 15,
@@ -31995,7 +32937,7 @@ var samples_default = [
           },
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:Disassembly"
             },
             "euelec:criterionScore": 14,
@@ -32004,7 +32946,7 @@ var samples_default = [
           },
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:SparePartsAvailability"
             },
             "euelec:criterionScore": 15,
@@ -32013,7 +32955,7 @@ var samples_default = [
           },
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:SparePartsPricing"
             },
             "euelec:criterionScore": 12,
@@ -32022,7 +32964,7 @@ var samples_default = [
           },
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:ProductSpecific"
             },
             "euelec:criterionScore": 12,
@@ -32031,7 +32973,7 @@ var samples_default = [
           }
         ]
       },
-      "euelec:softwareSupport": {
+      "euelec:hasSoftwareSupport": {
         type: "euelec:SoftwareSupport",
         "euelec:firmwareVersion": "V2.1.5",
         "euelec:securityUpdateEndDate": "2030-01-18",
@@ -32039,38 +32981,38 @@ var samples_default = [
         "euelec:updateChannel": "https://www.nordic-displays.example.com/support/firmware/ecoview-pro-32",
         "euelec:latestUpdateDate": "2025-01-22"
       },
-      "euelec:billOfMaterials": {
+      "euelec:hasBillOfMaterials": {
         type: "euelec:ComponentBOM",
-        "euelec:components": [
+        "euelec:hasComponents": [
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:DisplayComponent"
             },
             "schema:name": "31.5-inch IPS LCD Panel",
             "euelec:componentPartNumber": "PNL-315IPS-4K",
             "euelec:isReplaceable": false,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:NotReplaceable"
             }
           },
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:PowerSupplyComponent"
             },
             "schema:name": "Internal Power Supply Board",
             "euelec:componentPartNumber": "PSB-EV32-120W",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:ProfessionalOnly"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 7,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 75,
               "gs1:priceCurrency": "EUR"
@@ -32078,21 +33020,21 @@ var samples_default = [
           },
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:MotherboardComponent"
             },
             "schema:name": "Main Control Board",
             "euelec:componentPartNumber": "MCB-EV32-V2",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:ProfessionalOnly"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 7,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 120,
               "gs1:priceCurrency": "EUR"
@@ -32100,21 +33042,21 @@ var samples_default = [
           },
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:EnclosureComponent"
             },
             "schema:name": "Monitor Stand with Ergonomic Adjustment",
             "euelec:componentPartNumber": "STD-EV32-ERGO",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:UserReplaceable"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 10,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 65,
               "gs1:priceCurrency": "EUR"
@@ -32122,7 +33064,7 @@ var samples_default = [
           }
         ]
       },
-      "euelec:weeeCompliance": {
+      "euelec:hasWeeeCompliance": {
         type: "euelec:WEEECompliance",
         "schema:category": {
           "@id": "euelec:WEEE2_ScreensMonitors"
@@ -32133,36 +33075,36 @@ var samples_default = [
         "euelec:recyclabilityRate": 0.88,
         "euelec:recoverabilityRate": 0.93
       },
-      "euelec:rohsCompliance": {
+      "euelec:hasRohsCompliance": {
         type: "euelec:RoHSCompliance",
         "euelec:rohsCompliant": true,
         "euelec:rohsDeclarationUrl": "https://www.nordic-displays.example.com/compliance/rohs/ecoview-pro-32"
       },
-      "oec:circularityPerformance": {
+      "oec:hasCircularityPerformance": {
         type: "oec:CircularityPerformance",
         "oec:recyclableContent": 0.88,
         "oec:materialCircularityIndicator": 0.55,
         "oec:utilityFactor": 1.2,
         "oec:endOfLifeInstructions": "https://www.nordic-displays.example.com/sustainability/end-of-life"
       },
-      "oec:recycledContentDetails": {
+      "oec:hasRecycledContentDetails": {
         type: "oec:RecycledContent",
         "oec:recycledContent": 0.28,
         "oec:preConsumerRecycledContent": 0.12,
         "oec:postConsumerRecycledContent": 0.16
       },
-      "oec:emissionsPerformance": {
+      "oec:hasEmissionsPerformance": {
         type: "oec:EmissionsPerformance",
         "oec:carbonFootprintTotal": 185,
         "oec:declaredUnit": "kg CO2e/unit",
-        "oec:operationalScope": {
+        "oec:hasOperationalScope": {
           "@id": "oec:CradleToGate"
         },
         "oec:primarySourcedRatio": 0.72
       },
-      "oec:operatorInformation": {
+      "oec:hasOperatorInformation": {
         type: "oec:OperatorInformation",
-        "oec:operatorRole": {
+        "oec:hasOperatorRole": {
           "@id": "oec:Manufacturer"
         },
         "gs1:globalLocationNumber": "9521234000006",
@@ -32205,9 +33147,9 @@ var samples_default = [
         "gs1:value": 1.85,
         "gs1:unitCode": "KGM"
       },
-      "euelec:displaySpecification": {
+      "euelec:hasDisplaySpecification": {
         type: "euelec:DisplaySpecification",
-        "euelec:screenDiagonal": {
+        "euelec:hasScreenDiagonal": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 15.6,
           "gs1:unitCode": "INH"
@@ -32215,38 +33157,38 @@ var samples_default = [
         "euelec:screenResolutionWidth": 2880,
         "euelec:screenResolutionHeight": 1800,
         "euelec:displayTechnology": "OLED",
-        "euelec:refreshRate": {
+        "euelec:hasRefreshRate": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 90,
           "gs1:unitCode": "HTZ"
         },
-        "euelec:peakBrightness": {
+        "euelec:hasPeakBrightness": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 500,
           "gs1:unitCode": "CDM2"
         }
       },
-      "euelec:energyEfficiency": {
+      "euelec:hasEnergyEfficiency": {
         type: "euelec:EnergyEfficiency",
-        "euelec:energyEfficiencyClass": {
+        "euelec:hasEnergyEfficiencyClass": {
           "@id": "euelec:EnergyClassB"
         },
-        "euelec:annualEnergyConsumption": {
+        "euelec:hasAnnualEnergyConsumption": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 32,
           "gs1:unitCode": "KWH"
         },
-        "euelec:powerConsumptionOn": {
+        "euelec:hasPowerConsumptionOn": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 45,
           "gs1:unitCode": "WTT"
         },
-        "euelec:powerConsumptionStandby": {
+        "euelec:hasPowerConsumptionStandby": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 0.8,
           "gs1:unitCode": "WTT"
         },
-        "euelec:powerConsumptionOff": {
+        "euelec:hasPowerConsumptionOff": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 0.2,
           "gs1:unitCode": "WTT"
@@ -32255,19 +33197,19 @@ var samples_default = [
         "euelec:eprelProductUrl": "https://eprel.ec.europa.eu/screen/product/notebooks/23456",
         "euelec:energyLabelUrl": "https://www.greentech-computers.example.com/products/greenbook-pro-15/energy-label.png"
       },
-      "euelec:repairabilityIndex": {
+      "euelec:hasRepairabilityIndex": {
         type: "euelec:RepairabilityIndex",
         "euelec:totalScore": 76.5,
         "euelec:displayScore": 7.7,
-        "euelec:repairabilityClass": {
+        "euelec:hasRepairabilityClass": {
           "@id": "euelec:RepairClassB"
         },
         "euelec:assessmentDate": "2025-01-18",
         "euelec:repairabilityLabelUrl": "https://www.greentech-computers.example.com/products/greenbook-pro-15/repairability-label.png",
-        "euelec:repairCriteria": [
+        "euelec:hasRepairCriteria": [
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:Documentation"
             },
             "euelec:criterionScore": 17.5,
@@ -32276,7 +33218,7 @@ var samples_default = [
           },
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:Disassembly"
             },
             "euelec:criterionScore": 16,
@@ -32285,7 +33227,7 @@ var samples_default = [
           },
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:SparePartsAvailability"
             },
             "euelec:criterionScore": 15,
@@ -32294,7 +33236,7 @@ var samples_default = [
           },
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:SparePartsPricing"
             },
             "euelec:criterionScore": 13,
@@ -32303,7 +33245,7 @@ var samples_default = [
           },
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:ProductSpecific"
             },
             "euelec:criterionScore": 15,
@@ -32312,19 +33254,19 @@ var samples_default = [
           }
         ]
       },
-      "euelec:softwareSupport": {
+      "euelec:hasSoftwareSupport": {
         type: "euelec:SoftwareSupport",
         "schema:operatingSystem": "Windows 11 Pro",
         "euelec:osVersion": "24H2",
         "euelec:firmwareVersion": "BIOS 1.8.0 / EC 2.3.1",
         "euelec:securityUpdateEndDate": "2031-01-22",
         "euelec:featureUpdateEndDate": "2031-01-22",
-        "euelec:securitySupportYears": {
+        "euelec:hasSecuritySupportYears": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 6,
           "gs1:unitCode": "ANN"
         },
-        "euelec:featureSupportYears": {
+        "euelec:hasFeatureSupportYears": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 6,
           "gs1:unitCode": "ANN"
@@ -32332,27 +33274,27 @@ var samples_default = [
         "euelec:updateChannel": "https://support.greentech-computers.example.com/drivers/greenbook-pro-15",
         "euelec:latestUpdateDate": "2025-01-28"
       },
-      "euelec:billOfMaterials": {
+      "euelec:hasBillOfMaterials": {
         type: "euelec:ComponentBOM",
-        "euelec:components": [
+        "euelec:hasComponents": [
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:BatteryComponent"
             },
             "schema:name": "Lithium-Polymer Battery 72Wh",
             "euelec:componentPartNumber": "BAT-GB15-72WH",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:ToolRequired"
             },
-            "euelec:componentPassport": "https://id.gs1.org/01/09506000467900/21/BAT-2025-001",
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasComponentPassport": "https://id.gs1.org/01/09506000467900/21/BAT-2025-001",
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 7,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 149,
               "gs1:priceCurrency": "EUR"
@@ -32360,21 +33302,21 @@ var samples_default = [
           },
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:DisplayComponent"
             },
             "schema:name": "15.6-inch OLED Display Assembly",
             "euelec:componentPartNumber": "DSP-GB15-OLED",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:ProfessionalOnly"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 5,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 350,
               "gs1:priceCurrency": "EUR"
@@ -32382,21 +33324,21 @@ var samples_default = [
           },
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:MemoryComponent"
             },
             "schema:name": "DDR5 SO-DIMM 16GB (upgradeable)",
             "euelec:componentPartNumber": "MEM-DDR5-16G-SO",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:UserReplaceable"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 7,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 89,
               "gs1:priceCurrency": "EUR"
@@ -32404,21 +33346,21 @@ var samples_default = [
           },
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:StorageComponent"
             },
             "schema:name": "NVMe SSD 512GB (upgradeable)",
             "euelec:componentPartNumber": "SSD-NVME-512G",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:UserReplaceable"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 7,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 95,
               "gs1:priceCurrency": "EUR"
@@ -32426,21 +33368,21 @@ var samples_default = [
           },
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:KeyboardComponent"
             },
             "schema:name": "Backlit Keyboard FR Layout",
             "euelec:componentPartNumber": "KB-GB15-FR-BL",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:ToolRequired"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 7,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 85,
               "gs1:priceCurrency": "EUR"
@@ -32448,21 +33390,21 @@ var samples_default = [
           },
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:TrackpadComponent"
             },
             "schema:name": "Glass Trackpad with Haptic Feedback",
             "euelec:componentPartNumber": "TP-GB15-GLASS",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:ProfessionalOnly"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 7,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 75,
               "gs1:priceCurrency": "EUR"
@@ -32470,21 +33412,21 @@ var samples_default = [
           },
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:PowerSupplyComponent"
             },
             "schema:name": "100W USB-C Power Adapter",
             "euelec:componentPartNumber": "PSU-GB15-100W-C",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:UserReplaceable"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 10,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 79,
               "gs1:priceCurrency": "EUR"
@@ -32492,7 +33434,7 @@ var samples_default = [
           }
         ]
       },
-      "euelec:weeeCompliance": {
+      "euelec:hasWeeeCompliance": {
         type: "euelec:WEEECompliance",
         "schema:category": {
           "@id": "euelec:WEEE2_ScreensMonitors"
@@ -32503,40 +33445,40 @@ var samples_default = [
         "euelec:recyclabilityRate": 0.86,
         "euelec:recoverabilityRate": 0.91
       },
-      "euelec:rohsCompliance": {
+      "euelec:hasRohsCompliance": {
         type: "euelec:RoHSCompliance",
         "euelec:rohsCompliant": true,
         "euelec:rohsDeclarationUrl": "https://www.greentech-computers.example.com/compliance/rohs/greenbook-pro-15"
       },
-      "oec:circularityPerformance": {
+      "oec:hasCircularityPerformance": {
         type: "oec:CircularityPerformance",
         "oec:recyclableContent": 0.86,
         "oec:materialCircularityIndicator": 0.68,
         "oec:utilityFactor": 1.25,
         "oec:endOfLifeInstructions": "https://www.greentech-computers.example.com/sustainability/end-of-life/greenbook-pro-15"
       },
-      "oec:recycledContentDetails": {
+      "oec:hasRecycledContentDetails": {
         type: "oec:RecycledContent",
         "oec:recycledContent": 0.38,
         "oec:preConsumerRecycledContent": 0.15,
         "oec:postConsumerRecycledContent": 0.23
       },
-      "oec:emissionsPerformance": {
+      "oec:hasEmissionsPerformance": {
         type: "oec:EmissionsPerformance",
         "oec:carbonFootprintTotal": 320,
         "oec:declaredUnit": "kg CO2e/unit",
-        "oec:operationalScope": {
+        "oec:hasOperationalScope": {
           "@id": "oec:CradleToGate"
         },
         "oec:primarySourcedRatio": 0.82,
         "oec:carbonFootprintStudyUrl": "https://www.greentech-computers.example.com/sustainability/carbon-footprint/greenbook-pro-15-lca.pdf"
       },
-      "oec:materialComposition": [
+      "oec:hasMaterialComposition": [
         {
           type: "oec:MaterialComposition",
           "schema:name": "Recycled Aluminum (chassis)",
           "oec:massFraction": 0.42,
-          "oec:materialOrigin": {
+          "oec:hasMaterialOrigin": {
             type: "gs1:Country",
             "gs1:countryCode": "NO"
           },
@@ -32546,7 +33488,7 @@ var samples_default = [
           type: "oec:MaterialComposition",
           "schema:name": "Recycled Plastics (keyboard surround)",
           "oec:massFraction": 0.08,
-          "oec:materialOrigin": {
+          "oec:hasMaterialOrigin": {
             type: "gs1:Country",
             "gs1:countryCode": "DE"
           },
@@ -32556,7 +33498,7 @@ var samples_default = [
           type: "oec:MaterialComposition",
           "schema:name": "Lithium (battery)",
           "oec:massFraction": 0.015,
-          "oec:materialOrigin": {
+          "oec:hasMaterialOrigin": {
             type: "gs1:Country",
             "gs1:countryCode": "CL"
           },
@@ -32566,21 +33508,21 @@ var samples_default = [
           type: "oec:MaterialComposition",
           "schema:name": "Cobalt (battery)",
           "oec:massFraction": 8e-3,
-          "oec:materialOrigin": {
+          "oec:hasMaterialOrigin": {
             type: "gs1:Country",
             "gs1:countryCode": "CD"
           },
           "oec:isCriticalRawMaterial": true
         }
       ],
-      "oec:operatorInformation": {
+      "oec:hasOperatorInformation": {
         type: "oec:OperatorInformation",
-        "oec:operatorRole": "Manufacturer",
+        "oec:hasOperatorRole": "Manufacturer",
         "gs1:globalLocationNumber": "9521234000006",
         "oec:economicOperatorId": "EU-EOID-FR-2024-567890",
         "schema:vatID": "FR12345678901"
       },
-      "oec:facilityInformation": {
+      "oec:hasFacilityInformation": {
         type: "oec:FacilityInformation",
         "gs1:globalLocationNumber": "3012345000017",
         "schema:name": "GreenTech Manufacturing Facility Lyon",
@@ -32596,7 +33538,7 @@ var samples_default = [
           }
         }
       },
-      "oec:dueDiligenceReport": {
+      "oec:hasDueDiligenceReport": {
         type: "oec:DueDiligenceReport",
         "oec:reportUrl": "https://www.greentech-computers.example.com/sustainability/due-diligence/2024-report.pdf",
         "oec:reportDate": "2024-12-15",
@@ -32642,18 +33584,18 @@ var samples_default = [
         "gs1:value": 35.2,
         "gs1:unitCode": "KGM"
       },
-      "euelec:repairabilityIndex": {
+      "euelec:hasRepairabilityIndex": {
         type: "euelec:RepairabilityIndex",
         "euelec:totalScore": 85,
         "euelec:displayScore": 8.5,
-        "euelec:repairabilityClass": {
+        "euelec:hasRepairabilityClass": {
           "@id": "euelec:RepairClassA"
         },
         "euelec:assessmentDate": "2025-01-15",
-        "euelec:repairCriteria": [
+        "euelec:hasRepairCriteria": [
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:Documentation"
             },
             "euelec:criterionScore": 18,
@@ -32662,7 +33604,7 @@ var samples_default = [
           },
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:Disassembly"
             },
             "euelec:criterionScore": 19,
@@ -32671,7 +33613,7 @@ var samples_default = [
           },
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:SparePartsAvailability"
             },
             "euelec:criterionScore": 17,
@@ -32680,7 +33622,7 @@ var samples_default = [
           },
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:SparePartsPricing"
             },
             "euelec:criterionScore": 15,
@@ -32689,7 +33631,7 @@ var samples_default = [
           },
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:ProductSpecific"
             },
             "euelec:criterionScore": 16,
@@ -32698,13 +33640,13 @@ var samples_default = [
           }
         ]
       },
-      "euelec:softwareSupport": {
+      "euelec:hasSoftwareSupport": {
         type: "euelec:SoftwareSupport",
         "schema:operatingSystem": "Linux (RHEL/Ubuntu Server)",
         "euelec:firmwareVersion": "BIOS 2.5.1 / BMC 4.2.0",
         "euelec:securityUpdateEndDate": "2035-01-20",
         "euelec:featureUpdateEndDate": "2032-01-20",
-        "euelec:securitySupportYears": {
+        "euelec:hasSecuritySupportYears": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 10,
           "gs1:unitCode": "ANN"
@@ -32712,22 +33654,22 @@ var samples_default = [
         "euelec:updateChannel": "https://support.euroserver.example.com/firmware/dcpx5",
         "euelec:latestUpdateDate": "2025-01-28"
       },
-      "euelec:energyEfficiency": {
+      "euelec:hasEnergyEfficiency": {
         type: "euelec:EnergyEfficiency",
-        "euelec:energyEfficiencyClass": {
+        "euelec:hasEnergyEfficiencyClass": {
           "@id": "euelec:EnergyClassA"
         },
-        "euelec:annualEnergyConsumption": {
+        "euelec:hasAnnualEnergyConsumption": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 8760,
           "gs1:unitCode": "KWH"
         },
-        "euelec:powerConsumptionOn": {
+        "euelec:hasPowerConsumptionOn": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 1200,
           "gs1:unitCode": "WTT"
         },
-        "euelec:powerConsumptionStandby": {
+        "euelec:hasPowerConsumptionStandby": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 45,
           "gs1:unitCode": "WTT"
@@ -32735,21 +33677,21 @@ var samples_default = [
         "euelec:eprelRegistrationNumber": "EPREL-2025-SRV-12345",
         "euelec:eprelProductUrl": "https://eprel.ec.europa.eu/screen/product/servers/12345"
       },
-      "euelec:billOfMaterials": {
+      "euelec:hasBillOfMaterials": {
         type: "euelec:ComponentBOM",
-        "euelec:components": [
+        "euelec:hasComponents": [
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:ProcessorComponent"
             },
             "schema:name": "64-Core Server Processor (2x)",
             "euelec:componentPartNumber": "CPU-64C-SP5",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:ProfessionalOnly"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 7,
               "gs1:unitCode": "ANN"
@@ -32757,21 +33699,21 @@ var samples_default = [
           },
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:MemoryComponent"
             },
             "schema:name": "DDR5 ECC Memory Module 64GB",
             "euelec:componentPartNumber": "MEM-DDR5-64G-ECC",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:UserReplaceable"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 10,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 450,
               "gs1:priceCurrency": "EUR"
@@ -32779,21 +33721,21 @@ var samples_default = [
           },
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:StorageComponent"
             },
             "schema:name": "NVMe SSD 3.84TB Enterprise",
             "euelec:componentPartNumber": "SSD-NVME-3840G-ENT",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:UserReplaceable"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 7,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 650,
               "gs1:priceCurrency": "EUR"
@@ -32801,21 +33743,21 @@ var samples_default = [
           },
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:PowerSupplyComponent"
             },
             "schema:name": "1600W Platinum PSU (redundant)",
             "euelec:componentPartNumber": "PSU-1600W-PLAT",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:UserReplaceable"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 10,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 380,
               "gs1:priceCurrency": "EUR"
@@ -32823,21 +33765,21 @@ var samples_default = [
           },
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:CoolingSystemComponent"
             },
             "schema:name": "Hot-swap Cooling Fan Module",
             "euelec:componentPartNumber": "FAN-HS-80MM",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:UserReplaceable"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 10,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 85,
               "gs1:priceCurrency": "EUR"
@@ -32845,7 +33787,7 @@ var samples_default = [
           }
         ]
       },
-      "euelec:weeeCompliance": {
+      "euelec:hasWeeeCompliance": {
         type: "euelec:WEEECompliance",
         "schema:category": {
           "@id": "euelec:WEEE4_LargeEquipment"
@@ -32856,41 +33798,41 @@ var samples_default = [
         "euelec:recyclabilityRate": 0.92,
         "euelec:recoverabilityRate": 0.96
       },
-      "euelec:rohsCompliance": {
+      "euelec:hasRohsCompliance": {
         type: "euelec:RoHSCompliance",
         "euelec:rohsCompliant": true,
         "euelec:rohsExemptions": "7(a), 7(c)-I",
         "euelec:rohsDeclarationUrl": "https://www.euroserver.example.com/compliance/rohs/dcpx5"
       },
-      "oec:circularityPerformance": {
+      "oec:hasCircularityPerformance": {
         type: "oec:CircularityPerformance",
         "oec:recyclableContent": 0.92,
         "oec:materialCircularityIndicator": 0.78,
         "oec:utilityFactor": 1.4,
         "oec:endOfLifeInstructions": "https://www.euroserver.example.com/sustainability/end-of-life/dcpx5"
       },
-      "oec:recycledContentDetails": {
+      "oec:hasRecycledContentDetails": {
         type: "oec:RecycledContent",
         "oec:recycledContent": 0.42,
         "oec:preConsumerRecycledContent": 0.18,
         "oec:postConsumerRecycledContent": 0.24
       },
-      "oec:emissionsPerformance": {
+      "oec:hasEmissionsPerformance": {
         type: "oec:EmissionsPerformance",
         "oec:carbonFootprintTotal": 1250,
         "oec:declaredUnit": "kg CO2e/unit",
-        "oec:operationalScope": {
+        "oec:hasOperationalScope": {
           "@id": "oec:CradleToGate"
         },
         "oec:primarySourcedRatio": 0.85,
         "oec:carbonFootprintStudyUrl": "https://www.euroserver.example.com/sustainability/carbon-footprint/dcpx5-study.pdf"
       },
-      "oec:materialComposition": [
+      "oec:hasMaterialComposition": [
         {
           type: "oec:MaterialComposition",
           "schema:name": "Steel (chassis)",
           "oec:massFraction": 0.45,
-          "oec:materialOrigin": {
+          "oec:hasMaterialOrigin": {
             type: "gs1:Country",
             "gs1:countryCode": "DE"
           },
@@ -32900,7 +33842,7 @@ var samples_default = [
           type: "oec:MaterialComposition",
           "schema:name": "Aluminum (heat sinks)",
           "oec:massFraction": 0.18,
-          "oec:materialOrigin": {
+          "oec:hasMaterialOrigin": {
             type: "gs1:Country",
             "gs1:countryCode": "NO"
           },
@@ -32910,7 +33852,7 @@ var samples_default = [
           type: "oec:MaterialComposition",
           "schema:name": "Copper (PCBs, cables)",
           "oec:massFraction": 0.12,
-          "oec:materialOrigin": {
+          "oec:hasMaterialOrigin": {
             type: "gs1:Country",
             "gs1:countryCode": "CL"
           },
@@ -32920,23 +33862,23 @@ var samples_default = [
           type: "oec:MaterialComposition",
           "schema:name": "Rare Earth Elements (magnets)",
           "oec:massFraction": 2e-3,
-          "oec:materialOrigin": {
+          "oec:hasMaterialOrigin": {
             type: "gs1:Country",
             "gs1:countryCode": "AU"
           },
           "oec:isCriticalRawMaterial": true
         }
       ],
-      "oec:operatorInformation": {
+      "oec:hasOperatorInformation": {
         type: "oec:OperatorInformation",
-        "oec:operatorRole": {
+        "oec:hasOperatorRole": {
           "@id": "oec:Manufacturer"
         },
         "gs1:globalLocationNumber": "9521234000006",
         "oec:economicOperatorId": "EU-EOID-NL-2024-789012",
         "schema:vatID": "NL123456789B01"
       },
-      "oec:facilityInformation": {
+      "oec:hasFacilityInformation": {
         type: "oec:FacilityInformation",
         "gs1:globalLocationNumber": "8712345000011",
         "schema:name": "EuroServer Manufacturing Facility Amsterdam",
@@ -32987,19 +33929,19 @@ var samples_default = [
         "gs1:value": 185,
         "gs1:unitCode": "GRM"
       },
-      "euelec:repairabilityIndex": {
+      "euelec:hasRepairabilityIndex": {
         type: "euelec:RepairabilityIndex",
         "euelec:totalScore": 72.5,
         "euelec:displayScore": 7.3,
-        "euelec:repairabilityClass": {
+        "euelec:hasRepairabilityClass": {
           "@id": "euelec:RepairClassB"
         },
         "euelec:assessmentDate": "2025-01-10",
         "euelec:repairabilityLabelUrl": "https://example.com/labels/ecophone-pro-2025-repairability.png",
-        "euelec:repairCriteria": [
+        "euelec:hasRepairCriteria": [
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:Documentation"
             },
             "euelec:criterionScore": 16.5,
@@ -33008,7 +33950,7 @@ var samples_default = [
           },
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:Disassembly"
             },
             "euelec:criterionScore": 14,
@@ -33017,7 +33959,7 @@ var samples_default = [
           },
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:SparePartsAvailability"
             },
             "euelec:criterionScore": 15,
@@ -33026,7 +33968,7 @@ var samples_default = [
           },
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:SparePartsPricing"
             },
             "euelec:criterionScore": 12,
@@ -33035,7 +33977,7 @@ var samples_default = [
           },
           {
             type: "euelec:RepairCriterion",
-            "euelec:criterionType": {
+            "euelec:hasCriterionType": {
               "@id": "euelec:ProductSpecific"
             },
             "euelec:criterionScore": 15,
@@ -33044,19 +33986,19 @@ var samples_default = [
           }
         ]
       },
-      "euelec:softwareSupport": {
+      "euelec:hasSoftwareSupport": {
         type: "euelec:SoftwareSupport",
         "schema:operatingSystem": "Android",
         "euelec:osVersion": "15.0",
         "euelec:firmwareVersion": "EP2025.1.2.45",
         "euelec:securityUpdateEndDate": "2032-01-15",
         "euelec:featureUpdateEndDate": "2030-01-15",
-        "euelec:securitySupportYears": {
+        "euelec:hasSecuritySupportYears": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 7,
           "gs1:unitCode": "ANN"
         },
-        "euelec:featureSupportYears": {
+        "euelec:hasFeatureSupportYears": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 5,
           "gs1:unitCode": "ANN"
@@ -33064,9 +34006,9 @@ var samples_default = [
         "euelec:updateChannel": "https://updates.ecotech-electronics.example.com/ecophone-pro",
         "euelec:latestUpdateDate": "2025-01-25"
       },
-      "euelec:displaySpecification": {
+      "euelec:hasDisplaySpecification": {
         type: "euelec:DisplaySpecification",
-        "euelec:screenDiagonal": {
+        "euelec:hasScreenDiagonal": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 6.7,
           "gs1:unitCode": "INH"
@@ -33074,38 +34016,38 @@ var samples_default = [
         "euelec:screenResolutionWidth": 1440,
         "euelec:screenResolutionHeight": 3200,
         "euelec:displayTechnology": "AMOLED",
-        "euelec:refreshRate": {
+        "euelec:hasRefreshRate": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 120,
           "gs1:unitCode": "HTZ"
         },
-        "euelec:peakBrightness": {
+        "euelec:hasPeakBrightness": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 1800,
           "gs1:unitCode": "CDM2"
         }
       },
-      "euelec:billOfMaterials": {
+      "euelec:hasBillOfMaterials": {
         type: "euelec:ComponentBOM",
-        "euelec:components": [
+        "euelec:hasComponents": [
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:BatteryComponent"
             },
             "schema:name": "Lithium-Ion Battery 5000mAh",
             "euelec:componentPartNumber": "BAT-EP2025-5000",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:ToolRequired"
             },
-            "euelec:componentPassport": "https://id.gs1.org/01/09506000134369/21/BAT789012",
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasComponentPassport": "https://id.gs1.org/01/09506000134369/21/BAT789012",
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 7,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 89,
               "gs1:priceCurrency": "EUR"
@@ -33113,21 +34055,21 @@ var samples_default = [
           },
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:DisplayComponent"
             },
             "schema:name": "6.7-inch AMOLED Display Assembly",
             "euelec:componentPartNumber": "DSP-EP2025-67AM",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:ToolRequired"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 7,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 149,
               "gs1:priceCurrency": "EUR"
@@ -33135,16 +34077,16 @@ var samples_default = [
           },
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:CameraComponent"
             },
             "schema:name": "Triple Camera Module",
             "euelec:componentPartNumber": "CAM-EP2025-TRIPLE",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:ProfessionalOnly"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 5,
               "gs1:unitCode": "ANN"
@@ -33152,21 +34094,21 @@ var samples_default = [
           },
           {
             type: "gs1:Product",
-            "euelec:componentType": {
+            "euelec:hasComponentType": {
               "@id": "euelec:ConnectorComponent"
             },
             "schema:name": "USB-C Charging Port",
             "euelec:componentPartNumber": "USB-EP2025-C",
             "euelec:isReplaceable": true,
-            "euelec:replacementDifficulty": {
+            "euelec:hasReplacementDifficulty": {
               "@id": "euelec:ProfessionalOnly"
             },
-            "euelec:sparePartAvailabilityYears": {
+            "euelec:hasSparePartAvailabilityYears": {
               type: "gs1:QuantitativeValue",
               "gs1:value": 7,
               "gs1:unitCode": "ANN"
             },
-            "euelec:sparePartPrice": {
+            "euelec:hasSparePartPrice": {
               type: "gs1:PriceSpecification",
               "gs1:price": 35,
               "gs1:priceCurrency": "EUR"
@@ -33174,7 +34116,7 @@ var samples_default = [
           }
         ]
       },
-      "euelec:weeeCompliance": {
+      "euelec:hasWeeeCompliance": {
         type: "euelec:WEEECompliance",
         "schema:category": {
           "@id": "euelec:WEEE6_SmallIT"
@@ -33185,43 +34127,43 @@ var samples_default = [
         "euelec:recyclabilityRate": 0.85,
         "euelec:recoverabilityRate": 0.92
       },
-      "euelec:rohsCompliance": {
+      "euelec:hasRohsCompliance": {
         type: "euelec:RoHSCompliance",
         "euelec:rohsCompliant": true,
         "euelec:rohsDeclarationUrl": "https://www.ecotech-electronics.example.com/compliance/rohs/ecophone-pro-2025"
       },
-      "euelec:energyEfficiency": {
+      "euelec:hasEnergyEfficiency": {
         type: "euelec:EnergyEfficiency",
-        "euelec:powerConsumptionStandby": {
+        "euelec:hasPowerConsumptionStandby": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 0.3,
           "gs1:unitCode": "WTT"
         }
       },
-      "oec:circularityPerformance": {
+      "oec:hasCircularityPerformance": {
         type: "oec:CircularityPerformance",
         "oec:recyclableContent": 0.85,
         "oec:materialCircularityIndicator": 0.62,
         "oec:utilityFactor": 1.15
       },
-      "oec:recycledContentDetails": {
+      "oec:hasRecycledContentDetails": {
         type: "oec:RecycledContent",
         "oec:recycledContent": 0.35,
         "oec:preConsumerRecycledContent": 0.1,
         "oec:postConsumerRecycledContent": 0.25
       },
-      "oec:emissionsPerformance": {
+      "oec:hasEmissionsPerformance": {
         type: "oec:EmissionsPerformance",
         "oec:carbonFootprintTotal": 52.5,
         "oec:declaredUnit": "kg CO2e/unit",
-        "oec:operationalScope": {
+        "oec:hasOperationalScope": {
           "@id": "oec:CradleToGate"
         },
         "oec:primarySourcedRatio": 0.78
       },
-      "oec:operatorInformation": {
+      "oec:hasOperatorInformation": {
         type: "oec:OperatorInformation",
-        "oec:operatorRole": {
+        "oec:hasOperatorRole": {
           "@id": "oec:Manufacturer"
         },
         "gs1:globalLocationNumber": "9521234000006",
@@ -33249,16 +34191,13 @@ var samples_default = [
         "eutex:TextileApparel"
       ],
       "oec:granularityLevel": "batch",
-      "oec:dppStatus": {
-        "@id": "oec:Active"
-      },
       "gs1:gtin": "09521234003007",
       "gs1:productionDate": "2026-03-04",
       "gs1:countryOfOrigin": {
         type: "gs1:Country",
         "gs1:countryCode": "PT"
       },
-      "eutex:cutAndSewFacility": {
+      "eutex:hasCutAndSewFacility": {
         id: "https://id.gs1.org/414/9521234000235",
         type: "oec:FacilityInformation",
         "gs1:globalLocationNumber": "9521234000235",
@@ -33272,7 +34211,7 @@ var samples_default = [
             "gs1:countryCode": "PT"
           }
         },
-        "oec:facilityCertifications": [
+        "oec:hasFacilityCertifications": [
           {
             type: "gs1:CertificationDetails",
             "gs1:certificationStandard": "SA8000",
@@ -33280,7 +34219,7 @@ var samples_default = [
           }
         ]
       },
-      "eutex:dyeingFacility": {
+      "eutex:hasDyeingFacility": {
         id: "https://id.gs1.org/414/9521234000228",
         type: "oec:FacilityInformation",
         "gs1:globalLocationNumber": "9521234000228",
@@ -33294,7 +34233,7 @@ var samples_default = [
             "gs1:countryCode": "PT"
           }
         },
-        "oec:facilityCertifications": [
+        "oec:hasFacilityCertifications": [
           {
             type: "gs1:CertificationDetails",
             "gs1:certificationStandard": "ZDHC MRSL v3.1",
@@ -33302,20 +34241,20 @@ var samples_default = [
           }
         ]
       },
-      "eutex:environmentalFootprint": {
+      "eutex:hasEnvironmentalFootprint": {
         id: "https://id.gs1.org/01/09521234003007/10/LOT-2026-FJ03#footprint",
         type: "eutex:EnvironmentalFootprint",
         "eutex:carbonFootprintManufacturing": 14.8,
         "eutex:pefSingleScore": 38.1,
         "eutex:benchmarkPerformance": -18.4,
-        "eutex:dataTypeIndicator": {
+        "eutex:hasDataTypeIndicator": {
           "@id": "eutex:MixedData"
         },
         "eutex:pefcrReference": "PEFCR Apparel & Footwear v1.3",
-        "eutex:lciaCategories": [
+        "eutex:hasLciaCategories": [
           {
             type: "eutex:LCIACategory",
-            "eutex:lciaCategoryCode": {
+            "eutex:hasLciaCategoryCode": {
               "@id": "eutex:GWP"
             },
             "eutex:lciaValue": 14.8,
@@ -33323,7 +34262,7 @@ var samples_default = [
           },
           {
             type: "eutex:LCIACategory",
-            "eutex:lciaCategoryCode": {
+            "eutex:hasLciaCategoryCode": {
               "@id": "eutex:WaterUse"
             },
             "eutex:lciaValue": 2.1,
@@ -33331,44 +34270,45 @@ var samples_default = [
           }
         ]
       },
-      "eutex:waterUsage": {
+      "eutex:hasWaterUsage": {
         type: "gs1:QuantitativeValue",
         "gs1:value": 2100,
         "gs1:unitCode": "LTR"
       },
-      "eutex:energyUsage": {
+      "eutex:hasEnergyUsage": {
         type: "gs1:QuantitativeValue",
         "gs1:value": 39,
         "gs1:unitCode": "KWH"
       },
       "eutex:productionWastePercentage": 7.2,
-      "eutex:recycledContentDeclaration": [
+      "eutex:hasRecycledContentDeclaration": [
         {
           id: "https://id.gs1.org/01/09521234003007/10/LOT-2026-FJ03#rc-rpet",
           type: "eutex:RecycledContentDeclaration",
           "eutex:secondaryMaterialFraction": 70,
-          "eutex:wasteOriginType": {
+          "eutex:hasWasteOriginType": {
             "@id": "eutex:PostConsumer"
           },
-          "eutex:recycledSourceType": {
+          "eutex:hasRecycledSourceType": {
             "@id": "eutex:OpenLoop"
           },
-          "eutex:chainOfCustodyMethod": {
+          "eutex:hasChainOfCustodyMethod": {
             "@id": "eutex:Certified"
           },
           "eutex:meetsTargetThreshold": true
         }
       ],
-      "oec:recycledContent": {
+      "oec:hasRecycledContentDetails": {
         id: "https://id.gs1.org/01/09521234003007/10/LOT-2026-FJ03#recycled",
         type: "oec:RecycledContent",
-        "oec:totalRecycledShare": 70,
-        "oec:preConsumerShare": 0,
-        "oec:postConsumerShare": 70
+        "oec:recycledContent": 0.7,
+        "oec:preConsumerRecycledContent": 0,
+        "oec:postConsumerRecycledContent": 0.7
       },
       "oec:carbonFootprintTotal": 14.8,
-      "oec:carbonFootprintUnit": "kg CO2e per garment",
-      "oec:carbonFootprintStudyUrl": "https://files.demo.epcis.cloud/files/products/09521234003007/docs/carbon-footprint-study.pdf"
+      "oec:declaredUnit": "kg CO2e per garment",
+      "oec:carbonFootprintStudyUrl": "https://files.example.org/files/products/09521234003007/docs/carbon-footprint-study.pdf",
+      "oec:passportStatus": "active"
     }
   },
   {
@@ -33390,13 +34330,10 @@ var samples_default = [
         "eutex:TextileApparel"
       ],
       "oec:granularityLevel": "item",
-      "oec:dppStatus": {
-        "@id": "oec:Active"
-      },
       "oec:lastUpdated": "2026-03-20T09:00:00Z",
       "gs1:gtin": "09521234003007",
       "schema:serialNumber": "AUR-2026-000001",
-      "oec:passportStatus": "Active",
+      "oec:passportStatus": "active",
       "oec:passportVersion": "1.0",
       "oec:passportIssueDate": "2026-03-06"
     }
@@ -33420,10 +34357,7 @@ var samples_default = [
         "eutex:TextileApparel"
       ],
       "oec:granularityLevel": "model",
-      "oec:dppStatus": {
-        "@id": "oec:Active"
-      },
-      "oec:productCategory": {
+      "oec:hasProductCategory": {
         id: "oec:Textiles"
       },
       "gs1:gtin": "09521234003007",
@@ -33480,10 +34414,10 @@ var samples_default = [
       },
       "eutex:sizeRange": "XS-3XL",
       "eutex:seasonCollection": "FW2026",
-      "eutex:fabricType": {
+      "eutex:hasFabricType": {
         "@id": "eutex:WovenNonDenim"
       },
-      "eutex:apparelSubcategory": {
+      "eutex:hasApparelSubcategory": {
         "@id": "eutex:JacketsCoats"
       },
       "gs1:manufacturer": {
@@ -33502,12 +34436,12 @@ var samples_default = [
           }
         }
       },
-      "oec:operatorInformation": {
+      "oec:hasOperatorInformation": {
         id: "https://id.gs1.org/417/9521234000136#operator",
         type: "oec:OperatorInformation",
         "gs1:globalLocationNumber": "9521234000136",
         "gs1:organizationName": "Fjordline AB",
-        "oec:operatorRole": {
+        "oec:hasOperatorRole": {
           id: "oec:Manufacturer"
         }
       },
@@ -33527,7 +34461,7 @@ var samples_default = [
           "eutex:fiberOrigin": "PT",
           "eutex:isRecycledFiber": true,
           "eutex:recycledContentSource": "Post-consumer PET bottles",
-          "eutex:fiberCertification": {
+          "eutex:hasFiberCertification": {
             type: "gs1:CertificationDetails",
             "gs1:certificationAgency": "Textile Exchange",
             "gs1:certificationStandard": "Global Recycled Standard (GRS)",
@@ -33543,7 +34477,7 @@ var samples_default = [
           },
           "eutex:fiberOrigin": "NO",
           "eutex:isRecycledFiber": false,
-          "eutex:fiberCertification": {
+          "eutex:hasFiberCertification": {
             type: "gs1:CertificationDetails",
             "gs1:certificationAgency": "Textile Exchange",
             "gs1:certificationStandard": "Responsible Wool Standard (RWS)",
@@ -33561,22 +34495,22 @@ var samples_default = [
           "eutex:isRecycledFiber": false
         }
       ],
-      "eutex:careInstructions": {
+      "eutex:hasCareInstructions": {
         id: "https://id.gs1.org/01/09521234003007#care",
         type: "eutex:CareInstruction",
-        "eutex:washingSymbol": {
+        "eutex:hasWashingSymbol": {
           "@id": "eutex:Wash30"
         },
-        "eutex:bleachingSymbol": {
+        "eutex:hasBleachingSymbol": {
           "@id": "eutex:DoNotBleach"
         },
-        "eutex:dryingSymbol": {
+        "eutex:hasDryingSymbol": {
           "@id": "eutex:DoNotTumbleDry"
         },
-        "eutex:ironingSymbol": {
+        "eutex:hasIroningSymbol": {
           "@id": "eutex:DoNotIron"
         },
-        "eutex:dryCleaningSymbol": {
+        "eutex:hasDryCleaningSymbol": {
           "@id": "eutex:DryCleanHydrocarbon"
         },
         "eutex:additionalCareInstructions": {
@@ -33584,36 +34518,36 @@ var samples_default = [
           "@language": "en"
         }
       },
-      "eutex:durabilityInfo": {
+      "eutex:hasDurabilityInfo": {
         id: "https://id.gs1.org/01/09521234003007#durability",
         type: "eutex:DurabilityInfo",
         "eutex:expectedWashCycles": 120,
-        "eutex:durabilityClass": {
+        "eutex:hasDurabilityClass": {
           "@id": "eutex:DurabilityB"
         },
         "eutex:pillingResistance": 4,
         "eutex:colorFastness": 4,
         "eutex:dimensionalStability": 2,
         "eutex:abrasionResistance": 45e3,
-        "eutex:tensileStrength": {
+        "eutex:hasTensileStrength": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 820,
           "gs1:unitCode": "NEW"
         },
-        "eutex:tearStrength": {
+        "eutex:hasTearStrength": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 38,
           "gs1:unitCode": "NEW"
         },
         "eutex:expectedLifetimeYears": 10
       },
-      "eutex:microplasticInfo": {
+      "eutex:hasMicroplasticInfo": {
         id: "https://id.gs1.org/01/09521234003007#microplastic",
         type: "eutex:MicroplasticInfo",
-        "eutex:microplasticRiskLevel": {
+        "eutex:hasMicroplasticRiskLevel": {
           "@id": "eutex:MediumShedding"
         },
-        "eutex:sheddingRate": {
+        "eutex:hasSheddingRate": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 95,
           "gs1:unitCode": "MGM"
@@ -33624,11 +34558,11 @@ var samples_default = [
           "@language": "en"
         }
       },
-      "eutex:substancesOfConcern": [
+      "eutex:hasSubstancesOfConcern": [
         {
           id: "https://id.gs1.org/01/09521234003007#soc-dwr",
           type: "eutex:SubstanceOfConcern",
-          "eutex:socType": {
+          "eutex:hasSocType": {
             "@id": "eutex:SoCTypeD"
           },
           "schema:name": "PFC-free C0 durable water repellent",
@@ -33640,14 +34574,14 @@ var samples_default = [
       "eutex:pfasFree": true,
       "eutex:biodegradable": false,
       "eutex:isRepairable": true,
-      "eutex:repairGuideUrl": "https://files.demo.epcis.cloud/files/products/09521234003007/docs/repair-guide.pdf",
+      "eutex:repairGuideUrl": "https://files.example.org/files/products/09521234003007/docs/repair-guide.pdf",
       "eutex:sparePartsAvailable": true,
-      "eutex:sparePartsUrl": "https://files.demo.epcis.cloud/files/products/09521234003007/docs/spare-parts.pdf",
-      "eutex:hasTakeBackProgram": true,
-      "eutex:takeBackProgram": {
+      "eutex:sparePartsUrl": "https://files.example.org/files/products/09521234003007/docs/spare-parts.pdf",
+      "eutex:takeBackProgramAvailable": true,
+      "eutex:hasTakeBackProgram": {
         id: "https://id.gs1.org/01/09521234003007#takeback",
         type: "eutex:TakeBackProgram",
-        "eutex:takeBackUrl": "https://files.demo.epcis.cloud/files/products/09521234003007/docs/take-back-programme.pdf",
+        "eutex:takeBackUrl": "https://files.example.org/files/products/09521234003007/docs/take-back-programme.pdf",
         "eutex:endOfLifeDestination": {
           "@value": "Sorted for resale, fibre-to-fibre recycling, or energy recovery.",
           "@language": "en"
@@ -33679,13 +34613,14 @@ var samples_default = [
           "gs1:certificationIdentification": "SH045 998877 TESTEX"
         }
       ],
-      "oec:accessRights": {
+      "oec:hasAccessRights": {
         id: "https://id.gs1.org/01/09521234003007#access",
         type: "oec:AccessRights",
-        "oec:accessLevel": {
+        "oec:hasAccessLevel": {
           id: "oec:Public"
         }
-      }
+      },
+      "oec:passportStatus": "active"
     }
   },
   {
@@ -33706,7 +34641,7 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
       ],
-      id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521",
+      id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521",
       type: [
         "eutex:Footwear",
         "eutex:TextileFootwear"
@@ -33814,16 +34749,16 @@ var samples_default = [
       },
       "eutex:sizeRange": "36-48 EU",
       "eutex:seasonCollection": "SS2025",
-      "eutex:fabricType": {
+      "eutex:hasFabricType": {
         "@id": "eutex:Knitted"
       },
       "gs1:manufacturer": {
-        id: "https://id.demo.epcis.cloud/417/9521234000006",
+        id: "https://id.gs1.org/417/9521234000006",
         type: "gs1:Organization",
         "gs1:organizationName": "GreenStep Footwear AG",
         "gs1:globalLocationNumber": "9521234000006",
         "gs1:address": {
-          id: "https://id.demo.epcis.cloud/417/9521234000006#address",
+          id: "https://id.gs1.org/417/9521234000006#address",
           type: "gs1:PostalAddress",
           "gs1:streetAddress": "Via della Sostenibilita 100",
           "gs1:addressLocality": "Montebelluna",
@@ -33837,16 +34772,16 @@ var samples_default = [
           type: "gs1:ContactPoint",
           "gs1:email": "info@greenstep.example.com",
           "schema:url": {
-            id: "https://files.demo.epcis.cloud/files/products/09521000002159/docs/company.pdf"
+            id: "https://files.example.org/files/products/09521000002159/docs/company.pdf"
           }
         }
       },
-      "oec:operatorInformation": {
-        id: "https://id.demo.epcis.cloud/417/9521234000006#operator",
+      "oec:hasOperatorInformation": {
+        id: "https://id.gs1.org/417/9521234000006#operator",
         type: "oec:OperatorInformation",
         "gs1:globalLocationNumber": "9521234000006",
         "gs1:organizationName": "GreenStep Footwear AG",
-        "oec:operatorRole": {
+        "oec:hasOperatorRole": {
           id: "oec:Manufacturer"
         },
         "gs1:address": {
@@ -33914,22 +34849,22 @@ var samples_default = [
           }
         }
       ],
-      "eutex:careInstructions": {
-        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#care",
+      "eutex:hasCareInstructions": {
+        id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#care",
         type: "eutex:CareInstruction",
-        "eutex:washingSymbol": {
+        "eutex:hasWashingSymbol": {
           "@id": "eutex:WashHandOnly"
         },
-        "eutex:bleachingSymbol": {
+        "eutex:hasBleachingSymbol": {
           "@id": "eutex:DoNotBleach"
         },
-        "eutex:dryingSymbol": {
+        "eutex:hasDryingSymbol": {
           "@id": "eutex:LineDry"
         },
-        "eutex:ironingSymbol": {
+        "eutex:hasIroningSymbol": {
           "@id": "eutex:DoNotIron"
         },
-        "eutex:dryCleaningSymbol": {
+        "eutex:hasDryCleaningSymbol": {
           "@id": "eutex:DoNotDryClean"
         },
         "eutex:additionalCareInstructions": {
@@ -33937,10 +34872,10 @@ var samples_default = [
           "@language": "en"
         }
       },
-      "eutex:durabilityInfo": {
-        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#durability",
+      "eutex:hasDurabilityInfo": {
+        id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#durability",
         type: "eutex:DurabilityInfo",
-        "eutex:durabilityClass": {
+        "eutex:hasDurabilityClass": {
           "@id": "eutex:DurabilityB"
         },
         "eutex:abrasionResistance": 25e3,
@@ -33951,10 +34886,10 @@ var samples_default = [
           "@language": "en"
         }
       },
-      "eutex:microplasticInfo": {
-        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#microplastic",
+      "eutex:hasMicroplasticInfo": {
+        id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#microplastic",
         type: "eutex:MicroplasticInfo",
-        "eutex:microplasticRiskLevel": {
+        "eutex:hasMicroplasticRiskLevel": {
           "@id": "eutex:LowShedding"
         },
         "eutex:syntheticFiberContent": 50,
@@ -33964,27 +34899,27 @@ var samples_default = [
         }
       },
       _comment_robustness: "Robustness score per EU Preparatory Study 3rd Milestone (0-10)",
-      "eutex:robustnessAssessment": {
-        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#robustness",
+      "eutex:hasRobustnessAssessment": {
+        id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#robustness",
         type: "eutex:RobustnessAssessment",
         "eutex:robustnessScore": 7,
         "eutex:cleaningCyclesBeforeTest": 5,
-        "eutex:robustnessTestFabricType": {
+        "eutex:hasRobustnessTestFabricType": {
           "@id": "eutex:Knitted"
         },
-        "eutex:spiralityTest": {
+        "eutex:hasSpiralityTest": {
           type: "eutex:SpiralityTestResult",
           "eutex:spiralityScore": 2,
           "eutex:spiralityPercentage": 5.8,
           "eutex:spiralityTestMethod": "ISO 16322-3"
         },
-        "eutex:dimensionalChangeTest": {
+        "eutex:hasDimensionalChangeTest": {
           type: "eutex:DimensionalChangeTestResult",
           "eutex:dimensionalChangeScore": 2,
           "eutex:dimensionalChangePercentage": 5.2,
           "eutex:dimensionalChangeTestMethod": "ISO 3759"
         },
-        "eutex:visualInspection": {
+        "eutex:hasVisualInspection": {
           type: "eutex:VisualInspectionResult",
           "eutex:visualInspectionScore": 3,
           "eutex:colourChangeRating": 4,
@@ -33995,43 +34930,43 @@ var samples_default = [
         }
       },
       _comment_recyclability: "Recyclability score per EU Preparatory Study 3rd Milestone (0-10)",
-      "eutex:recyclabilityAssessment": {
-        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#recyclability",
+      "eutex:hasRecyclabilityAssessment": {
+        id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#recyclability",
         type: "eutex:RecyclabilityAssessment",
         "eutex:recyclabilityScore": 4,
         "eutex:isRecyclable": true,
         "eutex:elastaneContentPercent": 0,
-        "eutex:sortingFactors": {
+        "eutex:hasSortingFactors": {
           type: "eutex:SortingFactors",
           "eutex:sameInnerOuterComposition": false,
           "eutex:freeFromPrintings": true,
           "eutex:freeFromCoatings": false,
           "eutex:freeFromSequins": true
         },
-        "eutex:technicalRecyclability": {
+        "eutex:hasTechnicalRecyclability": {
           type: "eutex:TechnicalRecyclability",
           "eutex:technicalRecyclabilityScore": 2,
-          "eutex:applicableRecyclingTechnology": {
+          "eutex:hasApplicableRecyclingTechnology": {
             "@id": "eutex:MechanicalRecycling"
           }
         }
       },
-      "eutex:recycledContentDeclaration": [
+      "eutex:hasRecycledContentDeclaration": [
         {
-          id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#rc-rpet",
+          id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#rc-rpet",
           type: "eutex:RecycledContentDeclaration",
           "eutex:secondaryMaterialFraction": 50,
-          "eutex:wasteOriginType": {
+          "eutex:hasWasteOriginType": {
             "@id": "eutex:PostConsumer"
           },
-          "eutex:recycledSourceType": {
+          "eutex:hasRecycledSourceType": {
             "@id": "eutex:OpenLoop"
           },
-          "eutex:chainOfCustodyMethod": {
+          "eutex:hasChainOfCustodyMethod": {
             "@id": "eutex:Certified"
           },
           "eutex:meetsTargetThreshold": true,
-          "eutex:verificationCertification": {
+          "eutex:hasVerificationCertification": {
             type: "gs1:CertificationDetails",
             "gs1:certificationAgency": "Textile Exchange",
             "gs1:certificationStandard": "Global Recycled Standard (GRS)",
@@ -34039,20 +34974,20 @@ var samples_default = [
           }
         }
       ],
-      "eutex:environmentalFootprint": {
-        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#footprint",
+      "eutex:hasEnvironmentalFootprint": {
+        id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#footprint",
         type: "eutex:EnvironmentalFootprint",
         "eutex:carbonFootprintManufacturing": 8.2,
         "eutex:pefSingleScore": 28.7,
         "eutex:benchmarkPerformance": -22,
-        "eutex:dataTypeIndicator": {
+        "eutex:hasDataTypeIndicator": {
           "@id": "eutex:MixedData"
         },
         "eutex:pefcrReference": "PEFCR Apparel & Footwear v1.3",
-        "eutex:lciaCategories": [
+        "eutex:hasLciaCategories": [
           {
             type: "eutex:LCIACategory",
-            "eutex:lciaCategoryCode": {
+            "eutex:hasLciaCategoryCode": {
               "@id": "eutex:GWP"
             },
             "eutex:lciaValue": 8.2,
@@ -34060,7 +34995,7 @@ var samples_default = [
           },
           {
             type: "eutex:LCIACategory",
-            "eutex:lciaCategoryCode": {
+            "eutex:hasLciaCategoryCode": {
               "@id": "eutex:WaterUse"
             },
             "eutex:lciaValue": 0.5,
@@ -34068,22 +35003,22 @@ var samples_default = [
           }
         ]
       },
-      "oec:recycledContent": {
-        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#recycled",
+      "oec:hasRecycledContentDetails": {
+        id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#recycled",
         type: "oec:RecycledContent",
-        "oec:totalRecycledShare": 50,
-        "oec:preConsumerShare": 10,
-        "oec:postConsumerShare": 40
+        "oec:recycledContent": 0.5,
+        "oec:preConsumerRecycledContent": 0.1,
+        "oec:postConsumerRecycledContent": 0.4
       },
       "oec:carbonFootprintTotal": 8.2,
-      "oec:carbonFootprintUnit": "kg CO2e per pair",
-      "oec:carbonFootprintStudyUrl": "https://files.demo.epcis.cloud/files/products/09521000002159/docs/carbon-footprint-study.pdf",
-      "eutex:waterUsage": {
+      "oec:declaredUnit": "kg CO2e per pair",
+      "oec:carbonFootprintStudyUrl": "https://files.example.org/files/products/09521000002159/docs/carbon-footprint-study.pdf",
+      "eutex:hasWaterUsage": {
         type: "gs1:QuantitativeValue",
         "gs1:value": 35,
         "gs1:unitCode": "LTR"
       },
-      "eutex:energyUsage": {
+      "eutex:hasEnergyUsage": {
         type: "gs1:QuantitativeValue",
         "gs1:value": 12,
         "gs1:unitCode": "KWH"
@@ -34091,11 +35026,11 @@ var samples_default = [
       "eutex:productionWastePercentage": 12,
       "eutex:pfasFree": true,
       "eutex:biodegradable": false,
-      "eutex:hasTakeBackProgram": true,
-      "eutex:takeBackProgram": {
-        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#takeback",
+      "eutex:takeBackProgramAvailable": true,
+      "eutex:hasTakeBackProgram": {
+        id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#takeback",
         type: "eutex:TakeBackProgram",
-        "eutex:takeBackUrl": "https://files.demo.epcis.cloud/files/products/09521000002159/docs/take-back-programme.pdf",
+        "eutex:takeBackUrl": "https://files.example.org/files/products/09521000002159/docs/take-back-programme.pdf",
         "eutex:takeBackIncentive": {
           "@value": "Return worn shoes to any GreenStep retailer and receive 20 EUR credit toward your next purchase",
           "@language": "en"
@@ -34116,26 +35051,26 @@ var samples_default = [
         }
       ],
       "eutex:isRepairable": true,
-      "eutex:repairGuideUrl": "https://files.demo.epcis.cloud/files/products/09521000002159/docs/repair-guide.pdf",
+      "eutex:repairGuideUrl": "https://files.example.org/files/products/09521000002159/docs/repair-guide.pdf",
       "eutex:sparePartsAvailable": true,
-      "eutex:sparePartsUrl": "https://files.demo.epcis.cloud/files/products/09521000002159/docs/spare-parts.pdf",
-      "oec:repairabilityInfo": {
-        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#repairability",
+      "eutex:sparePartsUrl": "https://files.example.org/files/products/09521000002159/docs/spare-parts.pdf",
+      "oec:hasRepairabilityInfo": {
+        id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#repairability",
         type: "oec:RepairabilityInfo",
         "oec:repairabilityScore": 6.5,
         "oec:repairabilityClass": "C",
-        "oec:sparePartsAvailability": {
+        "oec:hasSparePartsAvailability": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 5,
           "gs1:unitCode": "ANN"
         },
         "oec:diyRepairPossible": true,
-        "oec:professionalRepairNetwork": "https://files.demo.epcis.cloud/files/products/09521000002159/docs/repair-network.pdf"
+        "oec:professionalRepairNetwork": "https://files.example.org/files/products/09521000002159/docs/repair-network.pdf"
       },
       _comment_spareparts: "Spare parts available: replacement insoles, laces, heel counters",
       "gs1:certification": [
         {
-          id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-grs",
+          id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#cert-grs",
           type: "gs1:CertificationDetails",
           "gs1:certificationAgency": "Textile Exchange",
           "gs1:certificationStandard": "Global Recycled Standard (GRS)",
@@ -34145,7 +35080,7 @@ var samples_default = [
           "gs1:certificationEndDate": "2025-05-31"
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-lwg",
+          id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#cert-lwg",
           type: "gs1:CertificationDetails",
           "gs1:certificationAgency": "Leather Working Group",
           "gs1:certificationStandard": "LWG Gold Rated",
@@ -34153,7 +35088,7 @@ var samples_default = [
           _comment: "Leather component certified chrome-free and from LWG Gold-rated tannery"
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-oekotex",
+          id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#cert-oekotex",
           type: "gs1:CertificationDetails",
           "gs1:certificationAgency": "OEKO-TEX Association",
           "gs1:certificationStandard": "OEKO-TEX Standard 100 Class I",
@@ -34161,7 +35096,7 @@ var samples_default = [
           _comment: "Class I certification - safe for baby contact (highest safety class)"
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-fsc",
+          id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#cert-fsc",
           type: "gs1:CertificationDetails",
           "gs1:certificationAgency": "Forest Stewardship Council",
           "gs1:certificationStandard": "FSC 100%",
@@ -34169,7 +35104,7 @@ var samples_default = [
           _comment: "Natural rubber from FSC-certified plantations"
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#cert-bcorp",
+          id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#cert-bcorp",
           type: "gs1:CertificationDetails",
           "gs1:certificationAgency": "B Lab",
           "gs1:certificationStandard": "B Corporation",
@@ -34177,8 +35112,8 @@ var samples_default = [
           _comment: "Company-level certification for social and environmental performance"
         }
       ],
-      "eutex:cutAndSewFacility": {
-        id: "https://id.demo.epcis.cloud/414/4098765000010",
+      "eutex:hasCutAndSewFacility": {
+        id: "https://id.gs1.org/414/4098765000010",
         type: "oec:FacilityInformation",
         "gs1:globalLocationNumber": "4098765000010",
         "schema:name": "GreenStep Montebelluna Factory",
@@ -34191,7 +35126,7 @@ var samples_default = [
             "gs1:countryCode": "IT"
           }
         },
-        "oec:facilityCertifications": [
+        "oec:hasFacilityCertifications": [
           {
             type: "gs1:CertificationDetails",
             "gs1:certificationStandard": "ISO 14001:2015",
@@ -34218,25 +35153,25 @@ var samples_default = [
         },
         "gs1:warrantyScopeDescription": "Covers manufacturing defects including delamination, stitching failures, and premature sole separation. Does not cover normal wear patterns or misuse."
       },
-      "oec:documents": [
+      "oec:hasDocuments": [
         {
-          id: "https://files.demo.epcis.cloud/files/products/09521000002159/docs/document.pdf",
+          id: "https://files.example.org/files/products/09521000002159/docs/document.pdf",
           type: "oec:DocumentReference",
-          "oec:documentType": {
+          "oec:hasDocumentType": {
             id: "oec:Manual"
           },
-          "oec:documentUrl": "https://files.demo.epcis.cloud/files/products/09521000002159/docs/document.pdf",
+          "oec:documentUrl": "https://files.example.org/files/products/09521000002159/docs/document.pdf",
           "schema:name": "EcoStride Care & Maintenance Guide",
           "oec:mimeType": "application/pdf",
           "oec:languageCode": "en"
         },
         {
-          id: "https://files.demo.epcis.cloud/files/products/09521000002159/docs/document.pdf",
+          id: "https://files.example.org/files/products/09521000002159/docs/document.pdf",
           type: "oec:DocumentReference",
-          "oec:documentType": {
+          "oec:hasDocumentType": {
             id: "oec:DueDiligenceDocument"
           },
-          "oec:documentUrl": "https://files.demo.epcis.cloud/files/products/09521000002159/docs/document.pdf",
+          "oec:documentUrl": "https://files.example.org/files/products/09521000002159/docs/document.pdf",
           "schema:name": "Supply Chain Transparency Report 2024",
           "oec:mimeType": "application/pdf",
           "oec:languageCode": "en",
@@ -34245,7 +35180,7 @@ var samples_default = [
       ],
       "gs1:referencedFile": [
         {
-          id: "https://files.demo.epcis.cloud/files/products/09521000002159/docs/document.pdf",
+          id: "https://files.example.org/files/products/09521000002159/docs/document.pdf",
           type: "gs1:ReferencedFileDetails",
           "gs1:referencedFileType": {
             id: "gs1:ReferencedFileTypeCode-USER_MANUAL"
@@ -34254,7 +35189,7 @@ var samples_default = [
           "gs1:fileLanguageCode": "en"
         },
         {
-          id: "https://files.demo.epcis.cloud/files/products/09521000002159/docs/certifications.pdf",
+          id: "https://files.example.org/files/products/09521000002159/docs/certifications.pdf",
           type: "gs1:ReferencedFileDetails",
           "gs1:referencedFileType": {
             id: "gs1:ReferencedFileTypeCode-CERTIFICATION"
@@ -34263,18 +35198,18 @@ var samples_default = [
           "gs1:fileLanguageCode": "en"
         }
       ],
-      "oec:accessRights": {
-        id: "https://id.demo.epcis.cloud/01/09521000002159/21/TR-2024-08521#access",
+      "oec:hasAccessRights": {
+        id: "https://id.gs1.org/01/09521000002159/21/TR-2024-08521#access",
         type: "oec:AccessRights",
-        "oec:accessLevel": {
+        "oec:hasAccessLevel": {
           id: "oec:Public"
         }
       },
-      "oec:passportIdentifier": "https://id.demo.epcis.cloud/01/09521000002159",
+      "oec:passportIdentifier": "https://id.gs1.org/01/09521000002159",
       "oec:passportVersion": "1.0",
       "oec:passportIssueDate": "2024-11-25",
-      "oec:passportStatus": "Active",
-      "oec:productCategory": {
+      "oec:passportStatus": "active",
+      "oec:hasProductCategory": {
         id: "oec:Textiles"
       },
       "oec:lastDataUpdate": "2024-12-01T09:00:00Z",
@@ -34288,7 +35223,7 @@ var samples_default = [
       _comment_gs1_alignment: [
         "This example demonstrates GS1-aligned Digital Product Passport modeling for textiles.",
         "Key GS1 patterns used:",
-        "- GS1 Digital Link URI for product identification (https://id.demo.epcis.cloud/01/{GTIN}/21/{serial})",
+        "- GS1 Digital Link URI for product identification (https://id.gs1.org/01/{GTIN}/21/{serial})",
         "- gs1:Product as base type (textile specificity comes from eutex:TextileApparel / eutex:TextileFootwear dual-typing plus eutex: extension properties)",
         "- GS1 properties: gs1:gtin, gs1:productName, gs1:manufacturer, gs1:netWeight",
         "- gs1:textileMaterial with gs1:TextileMaterialDetails for fiber composition (GS1 native)",
@@ -34301,7 +35236,7 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
       ],
-      id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142",
+      id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142",
       type: [
         "gs1:Clothing",
         "eutex:TextileApparel"
@@ -34409,19 +35344,19 @@ var samples_default = [
       },
       "eutex:sizeRange": "XS-3XL",
       "eutex:seasonCollection": "FW2024",
-      "eutex:fabricType": {
+      "eutex:hasFabricType": {
         "@id": "eutex:WovenNonDenim"
       },
-      "eutex:apparelSubcategory": {
+      "eutex:hasApparelSubcategory": {
         "@id": "eutex:JacketsCoats"
       },
       "gs1:manufacturer": {
-        id: "https://id.demo.epcis.cloud/417/9521000000018",
+        id: "https://id.gs1.org/417/9521000000018",
         type: "gs1:Organization",
         "gs1:organizationName": "EcoWear GmbH",
         "gs1:globalLocationNumber": "9521000000018",
         "gs1:address": {
-          id: "https://id.demo.epcis.cloud/417/9521000000018#address",
+          id: "https://id.gs1.org/417/9521000000018#address",
           type: "gs1:PostalAddress",
           "gs1:streetAddress": "Textilstra\xDFe 25",
           "gs1:addressLocality": "Munich",
@@ -34435,16 +35370,16 @@ var samples_default = [
           type: "gs1:ContactPoint",
           "gs1:email": "info@ecowear.example.com",
           "schema:url": {
-            id: "https://files.demo.epcis.cloud/files/products/09521000001428/docs/company.pdf"
+            id: "https://files.example.org/files/products/09521000001428/docs/company.pdf"
           }
         }
       },
-      "oec:operatorInformation": {
-        id: "https://id.demo.epcis.cloud/417/9521000000018#operator",
+      "oec:hasOperatorInformation": {
+        id: "https://id.gs1.org/417/9521000000018#operator",
         type: "oec:OperatorInformation",
         "gs1:globalLocationNumber": "9521000000018",
         "gs1:organizationName": "EcoWear GmbH",
-        "oec:operatorRole": {
+        "oec:hasOperatorRole": {
           id: "oec:Manufacturer"
         },
         "gs1:address": {
@@ -34485,7 +35420,7 @@ var samples_default = [
           "eutex:fiberOrigin": "TW",
           "eutex:isRecycledFiber": true,
           "eutex:recycledContentSource": "Post-consumer PET bottles",
-          "eutex:fiberCertification": {
+          "eutex:hasFiberCertification": {
             type: "gs1:CertificationDetails",
             "gs1:certificationAgency": "Textile Exchange",
             "gs1:certificationStandard": "Global Recycled Standard (GRS)",
@@ -34501,7 +35436,7 @@ var samples_default = [
           },
           "eutex:fiberOrigin": "HU",
           "eutex:isRecycledFiber": false,
-          "eutex:fiberCertification": {
+          "eutex:hasFiberCertification": {
             type: "gs1:CertificationDetails",
             "gs1:certificationAgency": "Textile Exchange",
             "gs1:certificationStandard": "Responsible Down Standard (RDS)",
@@ -34529,22 +35464,22 @@ var samples_default = [
           "eutex:isRecycledFiber": false
         }
       ],
-      "eutex:careInstructions": {
-        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#care",
+      "eutex:hasCareInstructions": {
+        id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#care",
         type: "eutex:CareInstruction",
-        "eutex:washingSymbol": {
+        "eutex:hasWashingSymbol": {
           "@id": "eutex:Wash30"
         },
-        "eutex:bleachingSymbol": {
+        "eutex:hasBleachingSymbol": {
           "@id": "eutex:DoNotBleach"
         },
-        "eutex:dryingSymbol": {
+        "eutex:hasDryingSymbol": {
           "@id": "eutex:TumbleDryLow"
         },
-        "eutex:ironingSymbol": {
+        "eutex:hasIroningSymbol": {
           "@id": "eutex:DoNotIron"
         },
-        "eutex:dryCleaningSymbol": {
+        "eutex:hasDryCleaningSymbol": {
           "@id": "eutex:DryCleanHydrocarbon"
         },
         "eutex:additionalCareInstructions": {
@@ -34552,36 +35487,36 @@ var samples_default = [
           "@language": "en"
         }
       },
-      "eutex:durabilityInfo": {
-        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#durability",
+      "eutex:hasDurabilityInfo": {
+        id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#durability",
         type: "eutex:DurabilityInfo",
         "eutex:expectedWashCycles": 150,
-        "eutex:durabilityClass": {
+        "eutex:hasDurabilityClass": {
           "@id": "eutex:DurabilityB"
         },
         "eutex:pillingResistance": 4,
         "eutex:colorFastness": 4,
         "eutex:dimensionalStability": 2,
         "eutex:abrasionResistance": 4e4,
-        "eutex:tensileStrength": {
+        "eutex:hasTensileStrength": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 800,
           "gs1:unitCode": "NEW"
         },
-        "eutex:tearStrength": {
+        "eutex:hasTearStrength": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 35,
           "gs1:unitCode": "NEW"
         },
         "eutex:expectedLifetimeYears": 8
       },
-      "eutex:microplasticInfo": {
-        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#microplastic",
+      "eutex:hasMicroplasticInfo": {
+        id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#microplastic",
         type: "eutex:MicroplasticInfo",
-        "eutex:microplasticRiskLevel": {
+        "eutex:hasMicroplasticRiskLevel": {
           "@id": "eutex:MediumShedding"
         },
-        "eutex:sheddingRate": {
+        "eutex:hasSheddingRate": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 120,
           "gs1:unitCode": "MGM"
@@ -34593,33 +35528,33 @@ var samples_default = [
         }
       },
       _comment_robustness: "Robustness score per EU Preparatory Study 3rd Milestone (0-10)",
-      "eutex:robustnessAssessment": {
-        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#robustness",
+      "eutex:hasRobustnessAssessment": {
+        id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#robustness",
         type: "eutex:RobustnessAssessment",
         "eutex:robustnessScore": 8,
         "eutex:cleaningCyclesBeforeTest": 5,
-        "eutex:robustnessTestFabricType": {
+        "eutex:hasRobustnessTestFabricType": {
           "@id": "eutex:WovenNonDenim"
         },
-        "eutex:spiralityTest": {
+        "eutex:hasSpiralityTest": {
           type: "eutex:SpiralityTestResult",
           "eutex:spiralityScore": 3,
           "eutex:spiralityPercentage": 4.2,
           "eutex:spiralityTestMethod": "ISO 16322-3",
-          "eutex:testStandard": {
+          "eutex:hasTestStandard": {
             "@id": "eutex:ISO16322_3"
           }
         },
-        "eutex:dimensionalChangeTest": {
+        "eutex:hasDimensionalChangeTest": {
           type: "eutex:DimensionalChangeTestResult",
           "eutex:dimensionalChangeScore": 2,
           "eutex:dimensionalChangePercentage": 3.2,
           "eutex:dimensionalChangeTestMethod": "ISO 3759",
-          "eutex:testStandard": {
+          "eutex:hasTestStandard": {
             "@id": "eutex:ISO3759"
           }
         },
-        "eutex:visualInspection": {
+        "eutex:hasVisualInspection": {
           type: "eutex:VisualInspectionResult",
           "eutex:visualInspectionScore": 3,
           "eutex:colourChangeRating": 4,
@@ -34627,50 +35562,50 @@ var samples_default = [
           "eutex:seamAppearanceRating": 5,
           "eutex:nonTextilePartsRating": 4,
           "eutex:visualInspectionTestMethod": "ISO 15487",
-          "eutex:testStandard": {
+          "eutex:hasTestStandard": {
             "@id": "eutex:ISO15487"
           }
         }
       },
       _comment_recyclability: "Recyclability score per EU Preparatory Study 3rd Milestone (0-10)",
-      "eutex:recyclabilityAssessment": {
-        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#recyclability",
+      "eutex:hasRecyclabilityAssessment": {
+        id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#recyclability",
         type: "eutex:RecyclabilityAssessment",
         "eutex:recyclabilityScore": 6.5,
         "eutex:isRecyclable": true,
         "eutex:elastaneContentPercent": 5,
-        "eutex:sortingFactors": {
+        "eutex:hasSortingFactors": {
           type: "eutex:SortingFactors",
           "eutex:sameInnerOuterComposition": false,
           "eutex:freeFromPrintings": true,
           "eutex:freeFromCoatings": false,
           "eutex:freeFromSequins": true
         },
-        "eutex:technicalRecyclability": {
+        "eutex:hasTechnicalRecyclability": {
           type: "eutex:TechnicalRecyclability",
           "eutex:technicalRecyclabilityScore": 4,
-          "eutex:applicableRecyclingTechnology": {
+          "eutex:hasApplicableRecyclingTechnology": {
             "@id": "eutex:ThermoChemicalRecycling"
           }
         }
       },
       _comment_recycled_content_structured: "Structured recycled content declaration per EU Preparatory Study 3rd Milestone",
-      "eutex:recycledContentDeclaration": [
+      "eutex:hasRecycledContentDeclaration": [
         {
-          id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#rc-rpet",
+          id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#rc-rpet",
           type: "eutex:RecycledContentDeclaration",
           "eutex:secondaryMaterialFraction": 50,
-          "eutex:wasteOriginType": {
+          "eutex:hasWasteOriginType": {
             "@id": "eutex:PostConsumer"
           },
-          "eutex:recycledSourceType": {
+          "eutex:hasRecycledSourceType": {
             "@id": "eutex:OpenLoop"
           },
-          "eutex:chainOfCustodyMethod": {
+          "eutex:hasChainOfCustodyMethod": {
             "@id": "eutex:Certified"
           },
           "eutex:meetsTargetThreshold": true,
-          "eutex:verificationCertification": {
+          "eutex:hasVerificationCertification": {
             type: "gs1:CertificationDetails",
             "gs1:certificationAgency": "Textile Exchange",
             "gs1:certificationStandard": "Global Recycled Standard (GRS)",
@@ -34678,36 +35613,36 @@ var samples_default = [
           }
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#rc-precon",
+          id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#rc-precon",
           type: "eutex:RecycledContentDeclaration",
           "eutex:secondaryMaterialFraction": 5,
-          "eutex:wasteOriginType": {
+          "eutex:hasWasteOriginType": {
             "@id": "eutex:PostIndustrial"
           },
-          "eutex:recycledSourceType": {
+          "eutex:hasRecycledSourceType": {
             "@id": "eutex:FiberToFiber"
           },
-          "eutex:chainOfCustodyMethod": {
+          "eutex:hasChainOfCustodyMethod": {
             "@id": "eutex:MassBalance"
           },
           "eutex:meetsTargetThreshold": true
         }
       ],
       _comment_environmental_footprint: "Environmental footprint per PEFCR Apparel & Footwear",
-      "eutex:environmentalFootprint": {
-        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#footprint",
+      "eutex:hasEnvironmentalFootprint": {
+        id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#footprint",
         type: "eutex:EnvironmentalFootprint",
         "eutex:carbonFootprintManufacturing": 18.5,
         "eutex:pefSingleScore": 42.3,
         "eutex:benchmarkPerformance": -15.2,
-        "eutex:dataTypeIndicator": {
+        "eutex:hasDataTypeIndicator": {
           "@id": "eutex:MixedData"
         },
         "eutex:pefcrReference": "PEFCR Apparel & Footwear v1.3",
-        "eutex:lciaCategories": [
+        "eutex:hasLciaCategories": [
           {
             type: "eutex:LCIACategory",
-            "eutex:lciaCategoryCode": {
+            "eutex:hasLciaCategoryCode": {
               "@id": "eutex:GWP"
             },
             "eutex:lciaValue": 18.5,
@@ -34715,7 +35650,7 @@ var samples_default = [
           },
           {
             type: "eutex:LCIACategory",
-            "eutex:lciaCategoryCode": {
+            "eutex:hasLciaCategoryCode": {
               "@id": "eutex:WaterUse"
             },
             "eutex:lciaValue": 2.8,
@@ -34724,17 +35659,17 @@ var samples_default = [
         ]
       },
       _comment_soc: "Substances of Concern per ESPR Article 7(5) 4-type classification",
-      "eutex:substancesOfConcern": [
+      "eutex:hasSubstancesOfConcern": [
         {
-          id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#soc-dye",
+          id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#soc-dye",
           type: "eutex:SubstanceOfConcern",
-          "eutex:socType": {
+          "eutex:hasSocType": {
             "@id": "eutex:SoCTypeB"
           },
           "schema:name": "Disperse Blue 291",
           "schema:iupacName": "3-(2-Cyano-4,6-dinitrophenylazo)-N-ethyl-N-(2-acetoxyethyl)aniline",
           "oec:casNumber": "56548-64-2",
-          "eutex:clpHazardCategory": {
+          "eutex:hasClpHazardCategory": {
             "@id": "eutex:Sensitizer"
           },
           "eutex:substanceConcentration": 8e-3,
@@ -34743,22 +35678,22 @@ var samples_default = [
           "eutex:endOfLifeHandling": "No special handling required at detected concentration."
         }
       ],
-      "oec:recycledContent": {
-        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#recycled",
+      "oec:hasRecycledContentDetails": {
+        id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#recycled",
         type: "oec:RecycledContent",
-        "oec:totalRecycledShare": 55,
-        "oec:preConsumerShare": 5,
-        "oec:postConsumerShare": 50
+        "oec:recycledContent": 0.55,
+        "oec:preConsumerRecycledContent": 0.05,
+        "oec:postConsumerRecycledContent": 0.5
       },
       "oec:carbonFootprintTotal": 18.5,
-      "oec:carbonFootprintUnit": "kg CO2e per garment",
-      "oec:carbonFootprintStudyUrl": "https://files.demo.epcis.cloud/files/products/09521000001428/docs/carbon-footprint-study.pdf",
-      "eutex:waterUsage": {
+      "oec:declaredUnit": "kg CO2e per garment",
+      "oec:carbonFootprintStudyUrl": "https://files.example.org/files/products/09521000001428/docs/carbon-footprint-study.pdf",
+      "eutex:hasWaterUsage": {
         type: "gs1:QuantitativeValue",
         "gs1:value": 2500,
         "gs1:unitCode": "LTR"
       },
-      "eutex:energyUsage": {
+      "eutex:hasEnergyUsage": {
         type: "gs1:QuantitativeValue",
         "gs1:value": 45,
         "gs1:unitCode": "KWH"
@@ -34766,11 +35701,11 @@ var samples_default = [
       "eutex:productionWastePercentage": 8.5,
       "eutex:pfasFree": true,
       "eutex:biodegradable": false,
-      "eutex:hasTakeBackProgram": true,
-      "eutex:takeBackProgram": {
-        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#takeback",
+      "eutex:takeBackProgramAvailable": true,
+      "eutex:hasTakeBackProgram": {
+        id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#takeback",
         type: "eutex:TakeBackProgram",
-        "eutex:takeBackUrl": "https://files.demo.epcis.cloud/files/products/09521000001428/docs/take-back-programme.pdf",
+        "eutex:takeBackUrl": "https://files.example.org/files/products/09521000001428/docs/take-back-programme.pdf",
         "eutex:takeBackIncentive": {
           "@value": "15% discount voucher on next purchase when returning end-of-life products to any EcoWear store",
           "@language": "en"
@@ -34791,12 +35726,12 @@ var samples_default = [
         }
       ],
       "eutex:isRepairable": true,
-      "eutex:repairGuideUrl": "https://files.demo.epcis.cloud/files/products/09521000001428/docs/repair-guide.pdf",
+      "eutex:repairGuideUrl": "https://files.example.org/files/products/09521000001428/docs/repair-guide.pdf",
       "eutex:sparePartsAvailable": true,
-      "eutex:sparePartsUrl": "https://files.demo.epcis.cloud/files/products/09521000001428/docs/spare-parts.pdf",
-      "eutex:repairServices": [
+      "eutex:sparePartsUrl": "https://files.example.org/files/products/09521000001428/docs/spare-parts.pdf",
+      "eutex:hasRepairServices": [
         {
-          id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#repair-service",
+          id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#repair-service",
           type: "gs1:Organization",
           "gs1:organizationName": "EcoWear Repair Service",
           "gs1:address": {
@@ -34813,27 +35748,27 @@ var samples_default = [
             type: "gs1:ContactPoint",
             "gs1:email": "repair@ecowear.example.com",
             "schema:url": {
-              id: "https://files.demo.epcis.cloud/files/products/09521000001428/docs/repair-guide.pdf"
+              id: "https://files.example.org/files/products/09521000001428/docs/repair-guide.pdf"
             }
           }
         }
       ],
-      "oec:repairabilityInfo": {
-        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#repairability",
+      "oec:hasRepairabilityInfo": {
+        id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#repairability",
         type: "oec:RepairabilityInfo",
         "oec:repairabilityScore": 7.2,
         "oec:repairabilityClass": "B",
-        "oec:sparePartsAvailability": {
+        "oec:hasSparePartsAvailability": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 10,
           "gs1:unitCode": "ANN"
         },
         "oec:diyRepairPossible": true,
-        "oec:professionalRepairNetwork": "https://files.demo.epcis.cloud/files/products/09521000001428/docs/repair-network.pdf"
+        "oec:professionalRepairNetwork": "https://files.example.org/files/products/09521000001428/docs/repair-network.pdf"
       },
       "gs1:certification": [
         {
-          id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-grs",
+          id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#cert-grs",
           type: "gs1:CertificationDetails",
           "gs1:certificationAgency": "Textile Exchange",
           "gs1:certificationStandard": "Global Recycled Standard (GRS)",
@@ -34843,7 +35778,7 @@ var samples_default = [
           "gs1:certificationEndDate": "2025-01-14"
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-oekotex",
+          id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#cert-oekotex",
           type: "gs1:CertificationDetails",
           "gs1:certificationAgency": "OEKO-TEX Association",
           "gs1:certificationStandard": "OEKO-TEX Standard 100",
@@ -34852,22 +35787,22 @@ var samples_default = [
           "gs1:certificationEndDate": "2025-02-28"
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-bluesign",
+          id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#cert-bluesign",
           type: "gs1:CertificationDetails",
           "gs1:certificationAgency": "bluesign technologies ag",
           "gs1:certificationStandard": "bluesign PRODUCT",
           "gs1:certificationIdentification": "BS-2024-ECOWEAR-AP"
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#cert-rds",
+          id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#cert-rds",
           type: "gs1:CertificationDetails",
           "gs1:certificationAgency": "Textile Exchange",
           "gs1:certificationStandard": "Responsible Down Standard (RDS)",
           "gs1:certificationIdentification": "RDS-2024-ECOWEAR-002"
         }
       ],
-      "eutex:cutAndSewFacility": {
-        id: "https://id.demo.epcis.cloud/414/9521234000020",
+      "eutex:hasCutAndSewFacility": {
+        id: "https://id.gs1.org/414/9521234000020",
         type: "oec:FacilityInformation",
         "gs1:globalLocationNumber": "9521234000020",
         "schema:name": "Porto Textile Manufacturing",
@@ -34880,7 +35815,7 @@ var samples_default = [
             "gs1:countryCode": "PT"
           }
         },
-        "oec:facilityCertifications": [
+        "oec:hasFacilityCertifications": [
           {
             type: "gs1:CertificationDetails",
             "gs1:certificationStandard": "ISO 14001:2015",
@@ -34893,8 +35828,8 @@ var samples_default = [
           }
         ]
       },
-      "eutex:dyeingFacility": {
-        id: "https://id.demo.epcis.cloud/414/9521234000037",
+      "eutex:hasDyeingFacility": {
+        id: "https://id.gs1.org/414/9521234000037",
         type: "oec:FacilityInformation",
         "gs1:globalLocationNumber": "9521234000037",
         "schema:name": "Eco Dyeing Italy",
@@ -34907,7 +35842,7 @@ var samples_default = [
             "gs1:countryCode": "IT"
           }
         },
-        "oec:facilityCertifications": [
+        "oec:hasFacilityCertifications": [
           {
             type: "gs1:CertificationDetails",
             "gs1:certificationStandard": "ZDHC MRSL v3.1",
@@ -34924,25 +35859,25 @@ var samples_default = [
         },
         "gs1:warrantyScopeDescription": "Covers manufacturing defects. Does not cover normal wear, improper care, or accidental damage."
       },
-      "oec:documents": [
+      "oec:hasDocuments": [
         {
-          id: "https://files.demo.epcis.cloud/files/products/09521000001428/docs/document.pdf",
+          id: "https://files.example.org/files/products/09521000001428/docs/document.pdf",
           type: "oec:DocumentReference",
-          "oec:documentType": {
+          "oec:hasDocumentType": {
             id: "oec:Manual"
           },
-          "oec:documentUrl": "https://files.demo.epcis.cloud/files/products/09521000001428/docs/document.pdf",
+          "oec:documentUrl": "https://files.example.org/files/products/09521000001428/docs/document.pdf",
           "schema:name": "Alpine Pro User & Care Guide",
           "oec:mimeType": "application/pdf",
           "oec:languageCode": "en"
         },
         {
-          id: "https://files.demo.epcis.cloud/files/products/09521000001428/docs/document.pdf",
+          id: "https://files.example.org/files/products/09521000001428/docs/document.pdf",
           type: "oec:DocumentReference",
-          "oec:documentType": {
+          "oec:hasDocumentType": {
             id: "oec:DueDiligenceDocument"
           },
-          "oec:documentUrl": "https://files.demo.epcis.cloud/files/products/09521000001428/docs/document.pdf",
+          "oec:documentUrl": "https://files.example.org/files/products/09521000001428/docs/document.pdf",
           "schema:name": "Supply Chain Transparency Report 2024",
           "oec:mimeType": "application/pdf",
           "oec:languageCode": "en",
@@ -34951,7 +35886,7 @@ var samples_default = [
       ],
       "gs1:referencedFile": [
         {
-          id: "https://files.demo.epcis.cloud/files/products/09521000001428/docs/document.pdf",
+          id: "https://files.example.org/files/products/09521000001428/docs/document.pdf",
           type: "gs1:ReferencedFileDetails",
           "gs1:referencedFileType": {
             id: "gs1:ReferencedFileTypeCode-USER_MANUAL"
@@ -34960,7 +35895,7 @@ var samples_default = [
           "gs1:fileLanguageCode": "en"
         },
         {
-          id: "https://files.demo.epcis.cloud/files/products/09521000001428/docs/certifications.pdf",
+          id: "https://files.example.org/files/products/09521000001428/docs/certifications.pdf",
           type: "gs1:ReferencedFileDetails",
           "gs1:referencedFileType": {
             id: "gs1:ReferencedFileTypeCode-CERTIFICATION"
@@ -34969,18 +35904,18 @@ var samples_default = [
           "gs1:fileLanguageCode": "en"
         }
       ],
-      "oec:accessRights": {
-        id: "https://id.demo.epcis.cloud/01/09521000001428/21/WJ-2024-00142#access",
+      "oec:hasAccessRights": {
+        id: "https://id.gs1.org/01/09521000001428/21/WJ-2024-00142#access",
         type: "oec:AccessRights",
-        "oec:accessLevel": {
+        "oec:hasAccessLevel": {
           id: "oec:Public"
         }
       },
-      "oec:passportIdentifier": "https://id.demo.epcis.cloud/01/09521000001428",
+      "oec:passportIdentifier": "https://id.gs1.org/01/09521000001428",
       "oec:passportVersion": "1.0",
       "oec:passportIssueDate": "2024-09-20",
-      "oec:passportStatus": "Active",
-      "oec:productCategory": {
+      "oec:passportStatus": "active",
+      "oec:hasProductCategory": {
         id: "oec:Textiles"
       },
       "oec:lastDataUpdate": "2024-10-15T10:30:00Z",
@@ -35007,7 +35942,7 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
       ],
-      id: "https://id.demo.epcis.cloud/01/09521000004207/21/SUIT-2026-00042",
+      id: "https://id.gs1.org/01/09521000004207/21/SUIT-2026-00042",
       type: [
         "gs1:Clothing",
         "eutex:TextileApparel"
@@ -35115,31 +36050,31 @@ var samples_default = [
       },
       "eutex:sizeRange": "46-58",
       "eutex:seasonCollection": "SS2026",
-      "eutex:fabricType": {
+      "eutex:hasFabricType": {
         "@id": "eutex:WovenNonDenim"
       },
-      "eutex:apparelSubcategory": "Suits",
+      "eutex:hasApparelSubcategory": "Suits",
       "oec:tradeItemPieceCount": 2,
-      "oec:tradeItemPieces": [
+      "oec:hasTradeItemPieces": [
         {
-          id: "https://id.demo.epcis.cloud/8026/0952100000420750200010",
+          id: "https://id.gs1.org/8026/0952100000420750200010",
           type: "oec:IndividualTradeItemPiece",
           "oec:tradeItemPieceNumber": 1,
           "oec:tradeItemPieceDescription": "Jacket",
-          "oec:tradeItemPieceOf": "https://id.demo.epcis.cloud/01/09521000004207/21/SUIT-2026-00042",
+          "oec:tradeItemPieceOf": "https://id.gs1.org/01/09521000004207/21/SUIT-2026-00042",
           _comment_itip_ai8026: "AI 8026 = GTIN (14 digits) + total pieces (2 digits) + piece number (2 digits). Example: 09521000004207 + 02 + 01 for piece 1 of 2."
         },
         {
-          id: "https://id.demo.epcis.cloud/8026/0952100000420750200020",
+          id: "https://id.gs1.org/8026/0952100000420750200020",
           type: "oec:IndividualTradeItemPiece",
           "oec:tradeItemPieceNumber": 2,
           "oec:tradeItemPieceDescription": "Trousers",
-          "oec:tradeItemPieceOf": "https://id.demo.epcis.cloud/01/09521000004207/21/SUIT-2026-00042",
+          "oec:tradeItemPieceOf": "https://id.gs1.org/01/09521000004207/21/SUIT-2026-00042",
           _comment_itip_ai8026: "AI 8026 for piece 2 of 2: 09521000004207 + 02 + 02."
         }
       ],
       "gs1:manufacturer": {
-        id: "https://id.demo.epcis.cloud/417/9521000000018",
+        id: "https://id.gs1.org/417/9521000000018",
         type: "gs1:Organization",
         "gs1:organizationName": "EcoWear GmbH",
         "gs1:globalLocationNumber": "9521000000018",
@@ -35206,7 +36141,7 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
       ],
-      id: "https://id.demo.epcis.cloud/01/09521001001380/21/BL-2026-04201",
+      id: "https://id.gs1.org/01/09521001001380/21/BL-2026-04201",
       type: [
         "gs1:Product"
       ],
@@ -35304,12 +36239,12 @@ var samples_default = [
           "@language": "it"
         }
       ],
-      "eutex:fabricType": {
+      "eutex:hasFabricType": {
         "@id": "eutex:WovenNonDenim"
       },
       "eutex:seasonCollection": "SS2026",
       "gs1:manufacturer": {
-        id: "https://id.demo.epcis.cloud/417/9521987000056",
+        id: "https://id.gs1.org/417/9521987000056",
         type: "gs1:Organization",
         "gs1:organizationName": "Casa Lina GmbH",
         "gs1:globalLocationNumber": "9521987000056",
@@ -35336,27 +36271,24 @@ var samples_default = [
           "gs1:textileMaterialPercentage": 100,
           "gs1:textileMaterialDescription": "Organic cotton",
           "eutex:textileFibreScientificName": "Gossypium hirsutum",
-          "eutex:fiberOrigin": {
-            id: "https://ref.gs1.org/voc/Country-IN",
-            type: "gs1:Country"
-          }
+          "eutex:fiberOrigin": "IN"
         }
       ],
-      "eutex:careInstructions": {
+      "eutex:hasCareInstructions": {
         type: "eutex:CareInstruction",
-        "eutex:washingSymbol": {
+        "eutex:hasWashingSymbol": {
           "@id": "eutex:Wash60"
         },
-        "eutex:bleachingSymbol": {
+        "eutex:hasBleachingSymbol": {
           "@id": "eutex:DoNotBleach"
         },
-        "eutex:dryingSymbol": {
+        "eutex:hasDryingSymbol": {
           "@id": "eutex:TumbleDryLow"
         },
-        "eutex:ironingSymbol": {
+        "eutex:hasIroningSymbol": {
           "@id": "eutex:IronMedium"
         },
-        "eutex:dryCleaningSymbol": {
+        "eutex:hasDryCleaningSymbol": {
           "@id": "eutex:DoNotDryClean"
         },
         "eutex:additionalCareInstructions": {
@@ -35364,26 +36296,26 @@ var samples_default = [
           "@language": "en"
         }
       },
-      "eutex:durabilityInfo": {
+      "eutex:hasDurabilityInfo": {
         type: "eutex:DurabilityInfo",
         "eutex:expectedWashCycles": 200,
-        "eutex:durabilityClass": {
+        "eutex:hasDurabilityClass": {
           "@id": "eutex:DurabilityA"
         },
         "eutex:pillingResistance": 5,
         "eutex:colorFastness": 4,
         "eutex:dimensionalStability": 2,
-        "eutex:tensileStrength": {
+        "eutex:hasTensileStrength": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 480,
           "gs1:unitCode": "NEW"
         },
         "eutex:expectedLifetimeYears": 5
       },
-      "eutex:hasTakeBackProgram": true,
-      "eutex:takeBackProgram": {
+      "eutex:takeBackProgramAvailable": true,
+      "eutex:hasTakeBackProgram": {
         type: "eutex:TakeBackProgram",
-        "eutex:takeBackUrl": "https://files.demo.epcis.cloud/files/products/09521001001380/docs/take-back-programme.pdf",
+        "eutex:takeBackUrl": "https://files.example.org/files/products/09521001001380/docs/take-back-programme.pdf",
         "eutex:takeBackIncentive": {
           "@value": "10% discount voucher when returning the set in any Casa Lina retail location",
           "@language": "en"
@@ -35411,7 +36343,7 @@ var samples_default = [
           "gs1:certificationURI": "https://www.oeko-tex.com/en/our-standards/oeko-tex-standard-100"
         }
       ],
-      "eutex:environmentalFootprint": {
+      "eutex:hasEnvironmentalFootprint": {
         type: "eutex:EnvironmentalFootprint",
         "eutex:carbonFootprintManufacturing": 6.4,
         "eutex:pefcrReference": "PEFCR Apparel & Footwear v2.0 (2023)"
@@ -35438,7 +36370,7 @@ var samples_default = [
       _comment_gs1_alignment: [
         "Organic Tee \u2014 model-level textile DPP for the demo catalogue (GTIN 09521890340331, manufacturer Organic Corp.).",
         "Same GS1-aligned patterns as garment-product.jsonld, trimmed to a plain organic-cotton t-shirt:",
-        "- GS1 Digital Link URI (https://id.demo.epcis.cloud/01/{GTIN}), model level (no serial).",
+        "- GS1 Digital Link URI (https://id.gs1.org/01/{GTIN}), model level (no serial).",
         "- gs1:Clothing base type + eutex:TextileApparel dual-typing.",
         "- gs1:textileMaterial with a single 100% organic-cotton gs1:TextileMaterialDetails (GOTS certified).",
         "- Product images are injected as bare `referencedFile` by provision-demo.sh at POST time; not listed here.",
@@ -35448,7 +36380,7 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
       ],
-      id: "https://id.demo.epcis.cloud/01/09521890340331",
+      id: "https://id.gs1.org/01/09521890340331",
       type: [
         "gs1:Clothing",
         "eutex:TextileApparel"
@@ -35491,19 +36423,19 @@ var samples_default = [
       },
       "eutex:sizeRange": "XS-3XL",
       "eutex:seasonCollection": "SS2026",
-      "eutex:fabricType": {
+      "eutex:hasFabricType": {
         "@id": "eutex:Knitted"
       },
-      "eutex:apparelSubcategory": {
+      "eutex:hasApparelSubcategory": {
         "@id": "eutex:TShirts"
       },
       "gs1:manufacturer": {
-        id: "https://id.demo.epcis.cloud/417/9521890000013",
+        id: "https://id.gs1.org/417/9521890000013",
         type: "gs1:Organization",
         "gs1:organizationName": "Organic Corp.",
         "gs1:globalLocationNumber": "9521890000013",
         "gs1:address": {
-          id: "https://id.demo.epcis.cloud/417/9521890000013#address",
+          id: "https://id.gs1.org/417/9521890000013#address",
           type: "gs1:PostalAddress",
           "gs1:streetAddress": "Baumwollallee 8",
           "gs1:addressLocality": "Hamburg",
@@ -35517,16 +36449,16 @@ var samples_default = [
           type: "gs1:ContactPoint",
           "gs1:email": "info@organic-corp.example.com",
           "schema:url": {
-            id: "https://files.demo.epcis.cloud/files/products/09521890340331/docs/company.pdf"
+            id: "https://files.example.org/files/products/09521890340331/docs/company.pdf"
           }
         }
       },
-      "oec:operatorInformation": {
-        id: "https://id.demo.epcis.cloud/417/9521890000013#operator",
+      "oec:hasOperatorInformation": {
+        id: "https://id.gs1.org/417/9521890000013#operator",
         type: "oec:OperatorInformation",
         "gs1:globalLocationNumber": "9521890000013",
         "gs1:organizationName": "Organic Corp.",
-        "oec:operatorRole": {
+        "oec:hasOperatorRole": {
           id: "oec:Manufacturer"
         },
         "gs1:address": {
@@ -35566,7 +36498,7 @@ var samples_default = [
           },
           "eutex:fiberOrigin": "IN",
           "eutex:isRecycledFiber": false,
-          "eutex:fiberCertification": {
+          "eutex:hasFiberCertification": {
             type: "gs1:CertificationDetails",
             "gs1:certificationAgency": "Global Standard gGmbH",
             "gs1:certificationStandard": "Global Organic Textile Standard (GOTS)",
@@ -35574,22 +36506,22 @@ var samples_default = [
           }
         }
       ],
-      "eutex:careInstructions": {
-        id: "https://id.demo.epcis.cloud/01/09521890340331#care",
+      "eutex:hasCareInstructions": {
+        id: "https://id.gs1.org/01/09521890340331#care",
         type: "eutex:CareInstruction",
-        "eutex:washingSymbol": {
+        "eutex:hasWashingSymbol": {
           "@id": "eutex:Wash30"
         },
-        "eutex:bleachingSymbol": {
+        "eutex:hasBleachingSymbol": {
           "@id": "eutex:DoNotBleach"
         },
-        "eutex:dryingSymbol": {
+        "eutex:hasDryingSymbol": {
           "@id": "eutex:TumbleDryLow"
         },
-        "eutex:ironingSymbol": {
+        "eutex:hasIroningSymbol": {
           "@id": "eutex:IronMedium"
         },
-        "eutex:dryCleaningSymbol": {
+        "eutex:hasDryCleaningSymbol": {
           "@id": "eutex:DoNotDryClean"
         },
         "eutex:additionalCareInstructions": {
@@ -35597,11 +36529,11 @@ var samples_default = [
           "@language": "en"
         }
       },
-      "eutex:durabilityInfo": {
-        id: "https://id.demo.epcis.cloud/01/09521890340331#durability",
+      "eutex:hasDurabilityInfo": {
+        id: "https://id.gs1.org/01/09521890340331#durability",
         type: "eutex:DurabilityInfo",
         "eutex:expectedWashCycles": 60,
-        "eutex:durabilityClass": {
+        "eutex:hasDurabilityClass": {
           "@id": "eutex:DurabilityB"
         },
         "eutex:pillingResistance": 4,
@@ -35611,41 +36543,41 @@ var samples_default = [
         "eutex:expectedLifetimeYears": 4
       },
       _comment_recyclability: "Single-fibre organic cotton scores well on sorting/recyclability (no elastane, no coatings).",
-      "eutex:recyclabilityAssessment": {
-        id: "https://id.demo.epcis.cloud/01/09521890340331#recyclability",
+      "eutex:hasRecyclabilityAssessment": {
+        id: "https://id.gs1.org/01/09521890340331#recyclability",
         type: "eutex:RecyclabilityAssessment",
         "eutex:recyclabilityScore": 8.5,
         "eutex:isRecyclable": true,
         "eutex:elastaneContentPercent": 0,
-        "eutex:sortingFactors": {
+        "eutex:hasSortingFactors": {
           type: "eutex:SortingFactors",
           "eutex:sameInnerOuterComposition": true,
           "eutex:freeFromPrintings": true,
           "eutex:freeFromCoatings": true,
           "eutex:freeFromSequins": true
         },
-        "eutex:technicalRecyclability": {
+        "eutex:hasTechnicalRecyclability": {
           type: "eutex:TechnicalRecyclability",
           "eutex:technicalRecyclabilityScore": 5,
-          "eutex:applicableRecyclingTechnology": {
+          "eutex:hasApplicableRecyclingTechnology": {
             "@id": "eutex:MechanicalRecycling"
           }
         }
       },
-      "oec:recycledContent": {
-        id: "https://id.demo.epcis.cloud/01/09521890340331#recycled",
+      "oec:hasRecycledContentDetails": {
+        id: "https://id.gs1.org/01/09521890340331#recycled",
         type: "oec:RecycledContent",
-        "oec:totalRecycledShare": 0,
-        "oec:preConsumerShare": 0,
-        "oec:postConsumerShare": 0
+        "oec:recycledContent": 0,
+        "oec:preConsumerRecycledContent": 0,
+        "oec:postConsumerRecycledContent": 0
       },
       "eutex:pfasFree": true,
       "eutex:biodegradable": true,
-      "eutex:hasTakeBackProgram": true,
-      "eutex:takeBackProgram": {
-        id: "https://id.demo.epcis.cloud/01/09521890340331#takeback",
+      "eutex:takeBackProgramAvailable": true,
+      "eutex:hasTakeBackProgram": {
+        id: "https://id.gs1.org/01/09521890340331#takeback",
         type: "eutex:TakeBackProgram",
-        "eutex:takeBackUrl": "https://files.demo.epcis.cloud/files/products/09521890340331/docs/take-back-programme.pdf",
+        "eutex:takeBackUrl": "https://files.example.org/files/products/09521890340331/docs/take-back-programme.pdf",
         "eutex:endOfLifeDestination": {
           "@value": "Return to any Organic Corp. store for fiber-to-fiber recycling of pure cotton garments.",
           "@language": "en"
@@ -35658,7 +36590,7 @@ var samples_default = [
       "eutex:isRepairable": true,
       "gs1:certification": [
         {
-          id: "https://id.demo.epcis.cloud/01/09521890340331#cert-gots",
+          id: "https://id.gs1.org/01/09521890340331#cert-gots",
           type: "gs1:CertificationDetails",
           "gs1:certificationAgency": "Global Standard gGmbH",
           "gs1:certificationStandard": "Global Organic Textile Standard (GOTS)",
@@ -35668,25 +36600,25 @@ var samples_default = [
           "gs1:certificationEndDate": "2026-12-31"
         },
         {
-          id: "https://id.demo.epcis.cloud/01/09521890340331#cert-oekotex",
+          id: "https://id.gs1.org/01/09521890340331#cert-oekotex",
           type: "gs1:CertificationDetails",
           "gs1:certificationAgency": "OEKO-TEX Association",
           "gs1:certificationStandard": "OEKO-TEX Standard 100",
           "gs1:certificationIdentification": "SH025 654321 TESTEX"
         }
       ],
-      "oec:accessRights": {
-        id: "https://id.demo.epcis.cloud/01/09521890340331#access",
+      "oec:hasAccessRights": {
+        id: "https://id.gs1.org/01/09521890340331#access",
         type: "oec:AccessRights",
-        "oec:accessLevel": {
+        "oec:hasAccessLevel": {
           id: "oec:Public"
         }
       },
-      "oec:passportIdentifier": "https://id.demo.epcis.cloud/01/09521890340331",
+      "oec:passportIdentifier": "https://id.gs1.org/01/09521890340331",
       "oec:passportVersion": "1.0",
       "oec:passportIssueDate": "2026-02-15",
-      "oec:passportStatus": "Active",
-      "oec:productCategory": {
+      "oec:passportStatus": "active",
+      "oec:hasProductCategory": {
         id: "oec:Textiles"
       },
       "oec:lastDataUpdate": "2026-02-15T09:00:00Z",
@@ -35707,14 +36639,14 @@ var samples_default = [
       "schema:serialNumber": "TABLE-2025-001",
       "gs1:productName": "Solid Oak Dining Table",
       "gs1:productDescription": "Handcrafted solid oak dining table made from certified deforestation-free European oak timber.",
-      "eudr:commodityType": {
+      "eudr:hasCommodityType": {
         "@id": "eudr:Wood"
       },
-      "eudr:timberProductType": {
+      "eudr:hasTimberProductType": {
         "@id": "eudr:Furniture"
       },
       "oec:customsCommodityCode": "94036010",
-      "oec:customsCommodityCodeType": {
+      "oec:hasCustomsCommodityCodeType": {
         "@id": "oec:CN8"
       },
       "eudr:speciesScientificName": "Quercus robur",
@@ -35724,7 +36656,7 @@ var samples_default = [
         "gs1:value": 45,
         "gs1:unitCode": "KGM"
       },
-      "eudr:derivedFrom": [
+      "eudr:hasDerivedFrom": [
         {
           id: "https://id.gs1.org/01/09521234000020/21/LOG-2025-001"
         },
@@ -35733,7 +36665,7 @@ var samples_default = [
         }
       ],
       "eudr:transformationDate": "2025-02-15",
-      "eudr:transformationLocation": {
+      "eudr:hasTransformationLocation": {
         id: "https://id.gs1.org/414/9521234000105",
         type: "gs1:Place",
         "gs1:physicalLocationName": "Oak Craft Furniture Workshop",
@@ -35759,9 +36691,9 @@ var samples_default = [
         "gs1:organizationName": "Oak Craft Furniture GmbH",
         "gs1:globalLocationNumber": "9521234000105"
       },
-      "oec:operatorInformation": {
+      "oec:hasOperatorInformation": {
         type: "oec:OperatorInformation",
-        "oec:operatorRole": "Manufacturer",
+        "oec:hasOperatorRole": "Manufacturer",
         "gs1:globalLocationNumber": "9521234000105",
         "gs1:organizationName": "Oak Craft Furniture GmbH",
         "oec:eoriNumber": "DE987654321098765",
@@ -35776,27 +36708,27 @@ var samples_default = [
           }
         }
       },
-      "eudr:dueDiligenceStatement": {
+      "eudr:hasDueDiligenceStatement": {
         type: "eudr:DueDiligenceStatement",
         "gs1:regulatoryReferenceNumber": "EUIS-2025-DE-00023456",
         "eudr:statementDate": "2025-02-18",
         "oec:reportUrl": {
           id: "https://example.com/eudr/due-diligence/TABLE-2025-001.pdf"
         },
-        "eudr:riskAssessment": {
+        "eudr:hasRiskAssessment": {
           type: "eudr:RiskAssessment",
-          "eudr:riskLevel": {
+          "eudr:hasRiskLevel": {
             "@id": "eudr:Negligible"
           },
           "eudr:riskAssessmentDate": "2025-02-17",
           "eudr:verificationMethod": "Supply chain documentation review - source timber already verified via EUIS-2025-DE-00012345",
-          "eudr:countryRiskCategory": {
+          "eudr:hasCountryRiskCategory": {
             "@id": "eudr:Low"
           },
           "eudr:mitigationMeasures": "Full traceability to source logs maintained. FSC chain of custody certification."
         }
       },
-      "eudr:fscCertification": {
+      "eudr:hasFscCertification": {
         id: "https://fsc.org/en/certificate/FSC-C789012"
       },
       "gs1:hasBatchLotNumber": "FURN-2025-02-001",
@@ -35809,6 +36741,7 @@ var samples_default = [
     label: "timber-product (item)",
     doc: {
       "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
       ],
       type: "gs1:Product",
@@ -35849,15 +36782,15 @@ var samples_default = [
         "gs1:unitCode": "KGM"
       },
       "oec:customsCommodityCode": "4403",
-      "oec:customsCommodityCodeType": {
+      "oec:hasCustomsCommodityCodeType": {
         "@id": "oec:HS6"
       },
       "eudr:speciesScientificName": "Quercus robur",
       "eudr:speciesCommonName": "European Oak",
-      "eudr:commodityType": {
+      "eudr:hasCommodityType": {
         "@id": "eudr:Wood"
       },
-      "eudr:timberProductType": {
+      "eudr:hasTimberProductType": {
         "@id": "eudr:RoundWood"
       }
     }
@@ -35875,7 +36808,7 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
       ],
-      id: "https://id.demo.epcis.cloud/01/09521004005019/10/LOT-01",
+      id: "https://id.gs1.org/01/09521004005019/10/LOT-01",
       type: "gs1:Product",
       "gs1:gtin": "09521004005019",
       "gs1:hasBatchLotNumber": "LOT-01",
@@ -35932,7 +36865,7 @@ var samples_default = [
       ],
       "gs1:productionDate": "2026-04-15",
       "gs1:manufacturer": {
-        id: "https://id.demo.epcis.cloud/417/9521234000020",
+        id: "https://id.gs1.org/417/9521234000020",
         type: "gs1:Organization",
         "gs1:organizationName": "AlpenQuell GmbH",
         "gs1:partyGLN": "9521234000020"
@@ -35940,10 +36873,10 @@ var samples_default = [
       "gs1:packaging": {
         type: "euppwr:Packaging",
         "gs1:packagingType": "Bottle",
-        "euppwr:packagingTier": {
+        "euppwr:hasPackagingTier": {
           "@id": "euppwr:Sales"
         },
-        "euppwr:recyclabilityGrade": {
+        "euppwr:hasRecyclabilityGrade": {
           "@id": "euppwr:GradeA"
         },
         "euppwr:harmonisedSymbol": "https://harmonised-labels.example.com/ppwr/separate-collection-pet",
@@ -35983,30 +36916,30 @@ var samples_default = [
             type: "gs1:Country",
             "gs1:countryCode": "DE"
           },
-          "oec:depositSchemeOperator": {
-            id: "https://id.demo.epcis.cloud/417/4030101000018",
+          "oec:hasDepositSchemeOperator": {
+            id: "https://id.gs1.org/417/4030101000018",
             type: "gs1:Organization",
             "gs1:organizationName": "Deutsche Pfandsystem GmbH"
           },
           "oec:depositRedemptionChannelUrl": "https://www.dpg-pfandsystem.de/find-redemption-point"
         },
-        "oec:recycledContentDetails": {
+        "oec:hasRecycledContentDetails": {
           type: "oec:RecycledContent",
           "oec:recycledContent": 0.5,
           "oec:postConsumerRecycledContent": 0.5,
           "oec:preConsumerRecycledContent": 0
         },
-        "oec:extendedProducerResponsibility": [
+        "oec:hasExtendedProducerResponsibility": [
           {
             type: "oec:ExtendedProducerResponsibility",
             "oec:eprRegistrationNumber": "DE-VPC-58092100",
             "oec:eprWasteStream": "packaging",
-            "oec:eprJurisdiction": {
+            "oec:hasEprJurisdiction": {
               id: "https://ref.gs1.org/voc/Country-DE",
               type: "gs1:Country"
             },
-            "oec:eprScheme": {
-              id: "https://id.demo.epcis.cloud/417/4030101000001",
+            "oec:hasEprScheme": {
+              id: "https://id.gs1.org/417/4030101000001",
               type: "gs1:Organization",
               "gs1:organizationName": "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
             },
@@ -36085,7 +37018,7 @@ var samples_default = [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
       ],
-      id: "https://id.demo.epcis.cloud/01/09521004005019",
+      id: "https://id.gs1.org/01/09521004005019",
       type: "gs1:Product",
       "gs1:gtin": "09521004005019",
       "gs1:netContent": {
@@ -36141,7 +37074,7 @@ var samples_default = [
       ],
       "gs1:productionDate": "2026-04-15",
       "gs1:manufacturer": {
-        id: "https://id.demo.epcis.cloud/417/9521234000020",
+        id: "https://id.gs1.org/417/9521234000020",
         type: "gs1:Organization",
         "gs1:organizationName": "AlpenQuell GmbH",
         "gs1:partyGLN": "9521234000020"
@@ -36149,10 +37082,10 @@ var samples_default = [
       "gs1:packaging": {
         type: "euppwr:Packaging",
         "gs1:packagingType": "Bottle",
-        "euppwr:packagingTier": {
+        "euppwr:hasPackagingTier": {
           "@id": "euppwr:Sales"
         },
-        "euppwr:recyclabilityGrade": {
+        "euppwr:hasRecyclabilityGrade": {
           "@id": "euppwr:GradeA"
         },
         "euppwr:harmonisedSymbol": "https://harmonised-labels.example.com/ppwr/separate-collection-pet",
@@ -36192,30 +37125,30 @@ var samples_default = [
             type: "gs1:Country",
             "gs1:countryCode": "DE"
           },
-          "oec:depositSchemeOperator": {
-            id: "https://id.demo.epcis.cloud/417/4030101000018",
+          "oec:hasDepositSchemeOperator": {
+            id: "https://id.gs1.org/417/4030101000018",
             type: "gs1:Organization",
             "gs1:organizationName": "Deutsche Pfandsystem GmbH"
           },
           "oec:depositRedemptionChannelUrl": "https://www.dpg-pfandsystem.de/find-redemption-point"
         },
-        "oec:recycledContentDetails": {
+        "oec:hasRecycledContentDetails": {
           type: "oec:RecycledContent",
           "oec:recycledContent": 0.5,
           "oec:postConsumerRecycledContent": 0.5,
           "oec:preConsumerRecycledContent": 0
         },
-        "oec:extendedProducerResponsibility": [
+        "oec:hasExtendedProducerResponsibility": [
           {
             type: "oec:ExtendedProducerResponsibility",
             "oec:eprRegistrationNumber": "DE-VPC-58092100",
             "oec:eprWasteStream": "packaging",
-            "oec:eprJurisdiction": {
+            "oec:hasEprJurisdiction": {
               id: "https://ref.gs1.org/voc/Country-DE",
               type: "gs1:Country"
             },
-            "oec:eprScheme": {
-              id: "https://id.demo.epcis.cloud/417/4030101000001",
+            "oec:hasEprScheme": {
+              id: "https://id.gs1.org/417/4030101000001",
               type: "gs1:Organization",
               "gs1:organizationName": "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
             },
@@ -36296,13 +37229,21 @@ var samples_default = [
         "fibre stream, and high post-consumer recycled content (PCR cellulose).",
         "The euppwr:harmonisedSymbol URI is a placeholder: the PPWR Article 12",
         "implementing acts (due 2026-08-12) will publish the harmonised label catalogue.",
+        "The carton participates in a national re-use pool, so it carries the",
+        "Article 12(2) reuse data card (euppwr:hasReuseInformation): re-use system,",
+        "collection points and the average rotations estimation \u2014 reusable",
+        "packaging must also be recyclable per Article 11(1)(i), hence the",
+        "RECYCLABLE claim stands alongside.",
+        "The EU declaration of conformity (PPWR Art. 15(2), Art. 39, Annex VIII)",
+        "is referenced as a document via oec:hasConformityDeclaration, kept 10 years",
+        "for reusable packaging per Art. 15(3).",
         "GS1 demo prefix 952 (7-digit GCP: 9521234)."
       ],
       "@context": [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
       ],
-      id: "https://id.demo.epcis.cloud/01/09521006003013",
+      id: "https://id.gs1.org/01/09521006003013",
       type: [
         "gs1:Product",
         "euppwr:Packaging"
@@ -36355,38 +37296,59 @@ var samples_default = [
           "@language": "it"
         }
       ],
-      "euppwr:packagingTier": {
+      "euppwr:hasPackagingTier": {
         "@id": "euppwr:Grouped"
       },
-      "euppwr:recyclabilityGrade": {
+      "euppwr:hasRecyclabilityGrade": {
         "@id": "euppwr:GradeA"
       },
       "euppwr:harmonisedSymbol": "https://harmonised-labels.example.com/ppwr/separate-collection-paper",
+      "euppwr:hasReuseInformation": {
+        type: "euppwr:ReuseInformation",
+        "euppwr:hasReuseSystemScope": {
+          "@id": "euppwr:NationalSystem"
+        },
+        "euppwr:reuseSystemName": "EcoFlow Retour national carton pool",
+        "euppwr:collectionPointsUrl": "https://retour.ecoflow.example.com/collection-points",
+        "euppwr:averageRotationsEstimate": 6.5
+      },
       "gs1:packagingRecyclingProcessType": "RECYCLABLE",
       "gs1:productionDate": "2026-03-08",
       "gs1:manufacturer": {
-        id: "https://id.demo.epcis.cloud/417/9521987000049",
+        id: "https://id.gs1.org/417/9521987000049",
         type: "gs1:Organization",
         "gs1:organizationName": "EcoFlow Karton GmbH",
         "gs1:partyGLN": "9521987000049"
       },
-      "oec:extendedProducerResponsibility": [
+      "oec:hasConformityDeclaration": {
+        id: "https://www.ecoflow.example.com/compliance/carton-doc-2026-007.pdf",
+        type: "oec:DocumentReference",
+        "oec:hasDocumentType": {
+          id: "oec:DeclarationOfConformity"
+        },
+        "oec:documentUrl": "https://www.ecoflow.example.com/compliance/carton-doc-2026-007.pdf",
+        "schema:name": "EU Declaration of Conformity No 2026-007 - EcoFlow shipping carton (PPWR Annex VIII)",
+        "oec:mimeType": "application/pdf",
+        "oec:languageCode": "en",
+        "oec:issueDate": "2026-03-01"
+      },
+      "oec:hasExtendedProducerResponsibility": [
         {
           type: "oec:ExtendedProducerResponsibility",
           "oec:eprRegistrationNumber": "DE-VPC-78410055",
           "oec:eprWasteStream": "packaging",
-          "oec:eprJurisdiction": {
+          "oec:hasEprJurisdiction": {
             id: "https://ref.gs1.org/voc/Country-DE",
             type: "gs1:Country"
           },
-          "oec:eprScheme": {
-            id: "https://id.demo.epcis.cloud/417/4030101000001",
+          "oec:hasEprScheme": {
+            id: "https://id.gs1.org/417/4030101000001",
             type: "gs1:Organization",
             "gs1:organizationName": "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
           }
         }
       ],
-      "oec:recycledContentDetails": {
+      "oec:hasRecycledContentDetails": {
         type: "oec:RecycledContent",
         "oec:recycledContent": 0.95,
         "oec:postConsumerRecycledContent": 0.8,
@@ -36486,13 +37448,17 @@ var samples_default = [
         "participation.",
         "The euppwr:harmonisedSymbol URI is a placeholder: the PPWR Article 12",
         "implementing acts (due 2026-08-12) will publish the harmonised label catalogue.",
+        "The EU declaration of conformity (PPWR Art. 15(2), Art. 39, Annex VIII)",
+        "is a document kept by the manufacturer, referenced via",
+        "oec:hasConformityDeclaration on the trade item: per Art. 39(3) a single DoC",
+        "dossier covers all Union acts applying to the product and its packaging.",
         "GS1 demo prefix 952 (7-digit GCP: 9521234)."
       ],
       "@context": [
         "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
       ],
-      id: "https://id.demo.epcis.cloud/01/09521005000808",
+      id: "https://id.gs1.org/01/09521005000808",
       type: "gs1:Product",
       "gs1:gtin": "09521005000808",
       "gs1:netWeight": {
@@ -36548,18 +37514,30 @@ var samples_default = [
       ],
       "gs1:productionDate": "2026-03-20",
       "gs1:manufacturer": {
-        id: "https://id.demo.epcis.cloud/417/9521234000037",
+        id: "https://id.gs1.org/417/9521234000037",
         type: "gs1:Organization",
         "gs1:organizationName": "Knusprig GmbH",
         "gs1:partyGLN": "9521234000037"
       },
+      "oec:hasConformityDeclaration": {
+        id: "https://www.crispy.example.com/compliance/pouch-doc-2026-041.pdf",
+        type: "oec:DocumentReference",
+        "oec:hasDocumentType": {
+          id: "oec:DeclarationOfConformity"
+        },
+        "oec:documentUrl": "https://www.crispy.example.com/compliance/pouch-doc-2026-041.pdf",
+        "schema:name": "EU Declaration of Conformity No 2026-041 - CrispyCo laminate pouch (PPWR Annex VIII)",
+        "oec:mimeType": "application/pdf",
+        "oec:languageCode": "en",
+        "oec:issueDate": "2026-02-17"
+      },
       "gs1:packaging": {
         type: "euppwr:Packaging",
         "gs1:packagingType": "Pouch",
-        "euppwr:packagingTier": {
+        "euppwr:hasPackagingTier": {
           "@id": "euppwr:Sales"
         },
-        "euppwr:recyclabilityGrade": {
+        "euppwr:hasRecyclabilityGrade": {
           "@id": "euppwr:GradeC"
         },
         "euppwr:harmonisedSymbol": "https://harmonised-labels.example.com/ppwr/mixed-materials-household-waste",
@@ -36600,7 +37578,7 @@ var samples_default = [
             }
           }
         ],
-        "oec:hazardousSubstances": [
+        "oec:hasHazardousSubstances": [
           {
             type: "oec:HazardousSubstance",
             "schema:name": "PFAS (per- and polyfluoroalkyl substances)",
@@ -36608,17 +37586,17 @@ var samples_default = [
             _comment: "PPWR Article 5 PFAS restriction declaration: packaging contains no intentionally added PFAS. concentration omitted because below detection threshold."
           }
         ],
-        "oec:extendedProducerResponsibility": [
+        "oec:hasExtendedProducerResponsibility": [
           {
             type: "oec:ExtendedProducerResponsibility",
             "oec:eprRegistrationNumber": "DE-VPC-58092345",
             "oec:eprWasteStream": "packaging",
-            "oec:eprJurisdiction": {
+            "oec:hasEprJurisdiction": {
               id: "https://ref.gs1.org/voc/Country-DE",
               type: "gs1:Country"
             },
-            "oec:eprScheme": {
-              id: "https://id.demo.epcis.cloud/417/4030101000001",
+            "oec:hasEprScheme": {
+              id: "https://id.gs1.org/417/4030101000001",
               type: "gs1:Organization",
               "gs1:organizationName": "Der Gr\xFCne Punkt, Duales System Deutschland GmbH"
             }
@@ -36707,10 +37685,10 @@ var samples_default = [
         "@value": "BetonStrong CEM I 52.5 N, 25 kg bag",
         "@language": "en"
       },
-      "eucpr:constructionProductType": {
+      "eucpr:hasConstructionProductType": {
         "@id": "eucpr:Cement"
       },
-      "eucpr:reactionToFireClass": {
+      "eucpr:hasReactionToFireClass": {
         "@id": "eucpr:FireClassA1"
       },
       "eucpr:declarationOfPerformanceUrl": "https://manufacturer.example/dop/CEM-I-52-5-N-2026-001.pdf",
@@ -36720,11 +37698,11 @@ var samples_default = [
         "gs1:organizationName": "Bauwerk Cement GmbH",
         "gs1:partyGLN": "9521234000044"
       },
-      "eucpr:essentialCharacteristic": [
+      "eucpr:hasEssentialCharacteristic": [
         {
           type: "eucpr:EssentialCharacteristic",
           "eucpr:characteristicName": "Compressive Strength (28 days)",
-          "eucpr:characteristicValue": {
+          "eucpr:hasCharacteristicValue": {
             type: "gs1:QuantitativeValue",
             "gs1:value": 52.5,
             "gs1:unitCode": "N20"
@@ -36734,7 +37712,7 @@ var samples_default = [
         {
           type: "eucpr:EssentialCharacteristic",
           "eucpr:characteristicName": "Initial Setting Time",
-          "eucpr:characteristicValue": {
+          "eucpr:hasCharacteristicValue": {
             type: "gs1:QuantitativeValue",
             "gs1:value": 75,
             "gs1:unitCode": "MIN"
@@ -36755,7 +37733,7 @@ var samples_default = [
           "gs1:unitCode": "P1"
         }
       },
-      "oec:materialComposition": [
+      "oec:hasMaterialComposition": [
         {
           type: "oec:MaterialComposition",
           "schema:name": "Portland clinker",
@@ -36772,24 +37750,24 @@ var samples_default = [
           "oec:massFraction": 0.05
         }
       ],
-      "oec:carbonFootprintDeclaration": {
+      "oec:hasCarbonFootprintDeclaration": {
         type: "oec:CarbonFootprintDeclaration",
         "oec:carbonFootprintTotal": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 14.2,
           "gs1:unitCode": "KGM"
         },
-        "oec:carbonFootprintRawMaterial": {
+        "oec:hasCarbonFootprintRawMaterial": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 8.1,
           "gs1:unitCode": "KGM"
         },
-        "oec:carbonFootprintProduction": {
+        "oec:hasCarbonFootprintProduction": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 5.4,
           "gs1:unitCode": "KGM"
         },
-        "oec:carbonFootprintDistribution": {
+        "oec:hasCarbonFootprintDistribution": {
           type: "gs1:QuantitativeValue",
           "gs1:value": 0.7,
           "gs1:unitCode": "KGM"
@@ -36832,10 +37810,10 @@ var samples_default = [
         "@value": "ThermoWool Plus 100, 1200\xD7600\xD7100 mm mineral wool panel",
         "@language": "en"
       },
-      "eucpr:constructionProductType": {
+      "eucpr:hasConstructionProductType": {
         "@id": "eucpr:Insulation"
       },
-      "eucpr:reactionToFireClass": {
+      "eucpr:hasReactionToFireClass": {
         "@id": "eucpr:FireClassA1"
       },
       "eucpr:declarationOfPerformanceUrl": "https://manufacturer.example/dop/ThermoWool-Plus-100-2026-001.pdf",
@@ -36845,11 +37823,11 @@ var samples_default = [
         "gs1:organizationName": "IsolierTech AG",
         "gs1:partyGLN": "9521234000051"
       },
-      "eucpr:essentialCharacteristic": [
+      "eucpr:hasEssentialCharacteristic": [
         {
           type: "eucpr:EssentialCharacteristic",
           "eucpr:characteristicName": "Thermal Conductivity \u03BBD",
-          "eucpr:characteristicValue": {
+          "eucpr:hasCharacteristicValue": {
             type: "gs1:QuantitativeValue",
             "gs1:value": 0.034,
             "gs1:unitCode": "F94"
@@ -36859,7 +37837,7 @@ var samples_default = [
         {
           type: "eucpr:EssentialCharacteristic",
           "eucpr:characteristicName": "Density",
-          "eucpr:characteristicValue": {
+          "eucpr:hasCharacteristicValue": {
             type: "gs1:QuantitativeValue",
             "gs1:value": 60,
             "gs1:unitCode": "KMQ"
@@ -36880,7 +37858,7 @@ var samples_default = [
           "gs1:unitCode": "P1"
         }
       },
-      "oec:materialComposition": [
+      "oec:hasMaterialComposition": [
         {
           type: "oec:MaterialComposition",
           "schema:name": "Mineral wool (rock + recycled glass cullet)",
@@ -36892,7 +37870,7 @@ var samples_default = [
           "oec:massFraction": 0.03
         }
       ],
-      "oec:endOfLifeProgram": {
+      "oec:hasEndOfLifeProgram": {
         type: "oec:EndOfLifeProgram",
         "oec:takeBackUrl": "https://isoliertech.example/take-back",
         "oec:takeBackIncentive": "Free pick-up for site quantities >500 kg",
@@ -36941,12 +37919,12 @@ var samples_default = [
       "schema:category": {
         "@id": "eudet:DishwasherDetergent"
       },
-      "eudet:productForm": {
+      "eudet:hasProductForm": {
         "@id": "eudet:Capsule"
       },
       "eudet:intendedUse": "Automatic dishwashing machines, 1 capsule per cycle",
       "oec:customsCommodityCode": "34022090",
-      "oec:customsCommodityCodeType": {
+      "oec:hasCustomsCommodityCodeType": {
         "@id": "oec:CN8"
       },
       "gs1:manufacturer": {
@@ -36965,12 +37943,12 @@ var samples_default = [
           }
         }
       },
-      "oec:operatorInformation": {
+      "oec:hasOperatorInformation": {
         id: "https://id.gs1.org/417/9521234000006#operator",
         type: "oec:OperatorInformation",
         "gs1:globalLocationNumber": "9521234000006",
         "gs1:organizationName": "EcoClean Industries GmbH",
-        "oec:operatorRole": {
+        "oec:hasOperatorRole": {
           id: "oec:Manufacturer"
         }
       },
@@ -36983,12 +37961,12 @@ var samples_default = [
         "gs1:value": 30,
         "gs1:unitCode": "H87"
       },
-      "eudet:ingredientList": [
+      "eudet:hasIngredientList": [
         {
           id: "https://id.gs1.org/01/09521234200024#ing-percarbonate",
           type: "eudet:Ingredient",
           "schema:name": "Sodium Percarbonate",
-          "eudet:ingredientFunction": {
+          "eudet:hasIngredientFunction": {
             "@id": "eudet:Bleach"
           },
           "eudet:weightPercentRange": "15-30%",
@@ -36999,7 +37977,7 @@ var samples_default = [
           id: "https://id.gs1.org/01/09521234200024#ing-carbonate",
           type: "eudet:Ingredient",
           "schema:name": "Sodium Carbonate",
-          "eudet:ingredientFunction": {
+          "eudet:hasIngredientFunction": {
             "@id": "eudet:Builder"
           },
           "eudet:weightPercentRange": "15-30%",
@@ -37010,7 +37988,7 @@ var samples_default = [
           id: "https://id.gs1.org/01/09521234200024#ing-citrate",
           type: "eudet:Ingredient",
           "schema:name": "Sodium Citrate",
-          "eudet:ingredientFunction": {
+          "eudet:hasIngredientFunction": {
             "@id": "eudet:Builder"
           },
           "eudet:weightPercentRange": "5-15%",
@@ -37021,7 +37999,7 @@ var samples_default = [
           id: "https://id.gs1.org/01/09521234200024#ing-nonionic",
           type: "eudet:Ingredient",
           "schema:name": "C12-15 Pareth-7",
-          "eudet:ingredientFunction": {
+          "eudet:hasIngredientFunction": {
             "@id": "eudet:SurfactantFunction"
           },
           "eudet:weightPercentRange": "<5%",
@@ -37032,7 +38010,7 @@ var samples_default = [
           id: "https://id.gs1.org/01/09521234200024#ing-protease",
           type: "eudet:Ingredient",
           "schema:name": "Subtilisin",
-          "eudet:ingredientFunction": {
+          "eudet:hasIngredientFunction": {
             "@id": "eudet:Enzyme"
           },
           "eudet:weightPercentRange": "<5%",
@@ -37043,7 +38021,7 @@ var samples_default = [
           id: "https://id.gs1.org/01/09521234200024#ing-amylase",
           type: "eudet:Ingredient",
           "schema:name": "Alpha-Amylase",
-          "eudet:ingredientFunction": {
+          "eudet:hasIngredientFunction": {
             "@id": "eudet:Enzyme"
           },
           "eudet:weightPercentRange": "<5%",
@@ -37054,7 +38032,7 @@ var samples_default = [
           id: "https://id.gs1.org/01/09521234200024#ing-taed",
           type: "eudet:Ingredient",
           "schema:name": "TAED",
-          "eudet:ingredientFunction": {
+          "eudet:hasIngredientFunction": {
             "@id": "eudet:Bleach"
           },
           "eudet:weightPercentRange": "<5%",
@@ -37062,15 +38040,15 @@ var samples_default = [
           "eudet:isSurfactant": false
         }
       ],
-      "eudet:surfactantBiodegradability": [
+      "eudet:hasSurfactantBiodegradability": [
         {
           id: "https://id.gs1.org/01/09521234200024#biodeg-nonionic",
           type: "eudet:SurfactantBiodegradability",
-          "eudet:surfactantType": {
+          "eudet:hasSurfactantType": {
             "@id": "eudet:NonIonic"
           },
           "eudet:biodegradationPercentage": 89.1,
-          "eudet:testMethod": {
+          "eudet:hasTestMethod": {
             "@id": "eudet:OECD301F"
           },
           "eudet:testDurationDays": 28,
@@ -37079,7 +38057,7 @@ var samples_default = [
       ],
       "eudet:filmBiodegradable": true,
       "eudet:filmBiodegradabilityPercentage": 94.7,
-      "eudet:signalWord": {
+      "eudet:hasSignalWord": {
         "@id": "eudet:Danger"
       },
       "eudet:hazardPictograms": [
@@ -37105,10 +38083,10 @@ var samples_default = [
         "@value": "Place 1 capsule in the main dispenser compartment. Do not unwrap. Do not handle with wet hands. Suitable for all dishwasher types.",
         "@language": "en"
       },
-      "eudet:safetyDataSheet": {
+      "eudet:hasSafetyDataSheet": {
         id: "https://www.ecoclean.example.com/sds/dishwasher-capsules-sds.pdf",
         type: "oec:DocumentReference",
-        "oec:documentType": {
+        "oec:hasDocumentType": {
           id: "oec:SafetyDataSheet"
         },
         "oec:documentUrl": "https://www.ecoclean.example.com/sds/dishwasher-capsules-sds.pdf",
@@ -37119,8 +38097,8 @@ var samples_default = [
       "oec:passportIdentifier": "https://dpp.ecoclean.example.com/passport/09521234200020",
       "oec:passportVersion": "1.0",
       "oec:passportIssueDate": "2026-09-01",
-      "oec:passportStatus": "Active",
-      "oec:productCategory": {
+      "oec:passportStatus": "active",
+      "oec:hasProductCategory": {
         id: "oec:Detergents"
       },
       "oec:lastDataUpdate": "2026-09-01T10:00:00Z"
@@ -37158,12 +38136,12 @@ var samples_default = [
       "schema:category": {
         "@id": "eudet:LaundryDetergent"
       },
-      "eudet:productForm": {
+      "eudet:hasProductForm": {
         "@id": "eudet:Liquid"
       },
       "eudet:intendedUse": "Machine and hand washing of textiles at 20-60\xB0C",
       "oec:customsCommodityCode": "34022090",
-      "oec:customsCommodityCodeType": {
+      "oec:hasCustomsCommodityCodeType": {
         "@id": "oec:CN8"
       },
       "gs1:manufacturer": {
@@ -37182,12 +38160,12 @@ var samples_default = [
           }
         }
       },
-      "oec:operatorInformation": {
+      "oec:hasOperatorInformation": {
         id: "https://id.gs1.org/417/9521234000006#operator",
         type: "oec:OperatorInformation",
         "gs1:globalLocationNumber": "9521234000006",
         "gs1:organizationName": "EcoClean Industries GmbH",
-        "oec:operatorRole": {
+        "oec:hasOperatorRole": {
           id: "oec:Manufacturer"
         },
         "gs1:address": {
@@ -37210,12 +38188,12 @@ var samples_default = [
         "gs1:value": 1500,
         "gs1:unitCode": "MLT"
       },
-      "eudet:ingredientList": [
+      "eudet:hasIngredientList": [
         {
           id: "https://id.gs1.org/01/09521234200017#ing-water",
           type: "eudet:Ingredient",
           "schema:name": "Aqua",
-          "eudet:ingredientFunction": {
+          "eudet:hasIngredientFunction": {
             "@id": "eudet:Solvent"
           },
           "eudet:weightPercentRange": ">=30%",
@@ -37225,7 +38203,7 @@ var samples_default = [
           id: "https://id.gs1.org/01/09521234200017#ing-las",
           type: "eudet:Ingredient",
           "schema:name": "Sodium Dodecylbenzenesulfonate",
-          "eudet:ingredientFunction": {
+          "eudet:hasIngredientFunction": {
             "@id": "eudet:SurfactantFunction"
           },
           "eudet:weightPercentRange": "5-15%",
@@ -37236,7 +38214,7 @@ var samples_default = [
           id: "https://id.gs1.org/01/09521234200017#ing-aeo",
           type: "eudet:Ingredient",
           "schema:name": "Laureth-7",
-          "eudet:ingredientFunction": {
+          "eudet:hasIngredientFunction": {
             "@id": "eudet:SurfactantFunction"
           },
           "eudet:weightPercentRange": "5-15%",
@@ -37247,7 +38225,7 @@ var samples_default = [
           id: "https://id.gs1.org/01/09521234200017#ing-citrate",
           type: "eudet:Ingredient",
           "schema:name": "Sodium Citrate",
-          "eudet:ingredientFunction": {
+          "eudet:hasIngredientFunction": {
             "@id": "eudet:Builder"
           },
           "eudet:weightPercentRange": "5-15%",
@@ -37258,7 +38236,7 @@ var samples_default = [
           id: "https://id.gs1.org/01/09521234200017#ing-glycerin",
           type: "eudet:Ingredient",
           "schema:name": "Glycerin",
-          "eudet:ingredientFunction": {
+          "eudet:hasIngredientFunction": {
             "@id": "eudet:Solvent"
           },
           "eudet:weightPercentRange": "<5%",
@@ -37269,7 +38247,7 @@ var samples_default = [
           id: "https://id.gs1.org/01/09521234200017#ing-protease",
           type: "eudet:Ingredient",
           "schema:name": "Subtilisin",
-          "eudet:ingredientFunction": {
+          "eudet:hasIngredientFunction": {
             "@id": "eudet:Enzyme"
           },
           "eudet:weightPercentRange": "<5%",
@@ -37280,7 +38258,7 @@ var samples_default = [
           id: "https://id.gs1.org/01/09521234200017#ing-amylase",
           type: "eudet:Ingredient",
           "schema:name": "Alpha-Amylase",
-          "eudet:ingredientFunction": {
+          "eudet:hasIngredientFunction": {
             "@id": "eudet:Enzyme"
           },
           "eudet:weightPercentRange": "<5%",
@@ -37291,7 +38269,7 @@ var samples_default = [
           id: "https://id.gs1.org/01/09521234200017#ing-preservative",
           type: "eudet:Ingredient",
           "schema:name": "Methylisothiazolinone",
-          "eudet:ingredientFunction": {
+          "eudet:hasIngredientFunction": {
             "@id": "eudet:Preservative"
           },
           "eudet:weightPercentRange": "<5%",
@@ -37302,22 +38280,22 @@ var samples_default = [
           id: "https://id.gs1.org/01/09521234200017#ing-parfum",
           type: "eudet:Ingredient",
           "schema:name": "Parfum",
-          "eudet:ingredientFunction": {
+          "eudet:hasIngredientFunction": {
             "@id": "eudet:Fragrance"
           },
           "eudet:weightPercentRange": "<5%",
           "eudet:isSurfactant": false
         }
       ],
-      "eudet:surfactantBiodegradability": [
+      "eudet:hasSurfactantBiodegradability": [
         {
           id: "https://id.gs1.org/01/09521234200017#biodeg-anionic",
           type: "eudet:SurfactantBiodegradability",
-          "eudet:surfactantType": {
+          "eudet:hasSurfactantType": {
             "@id": "eudet:Anionic"
           },
           "eudet:biodegradationPercentage": 82.5,
-          "eudet:testMethod": {
+          "eudet:hasTestMethod": {
             "@id": "eudet:OECD301B"
           },
           "eudet:testDurationDays": 28,
@@ -37326,18 +38304,18 @@ var samples_default = [
         {
           id: "https://id.gs1.org/01/09521234200017#biodeg-nonionic",
           type: "eudet:SurfactantBiodegradability",
-          "eudet:surfactantType": {
+          "eudet:hasSurfactantType": {
             "@id": "eudet:NonIonic"
           },
           "eudet:biodegradationPercentage": 76.3,
-          "eudet:testMethod": {
+          "eudet:hasTestMethod": {
             "@id": "eudet:OECD301B"
           },
           "eudet:testDurationDays": 28,
           "eudet:passesUltimateBiodegradability": true
         }
       ],
-      "eudet:fragranceAllergens": [
+      "eudet:hasFragranceAllergens": [
         {
           id: "https://id.gs1.org/01/09521234200017#allergen-linalool",
           type: "eudet:FragranceAllergen",
@@ -37353,7 +38331,7 @@ var samples_default = [
           "eudet:allergenConcentration": 0.08
         }
       ],
-      "eudet:signalWord": {
+      "eudet:hasSignalWord": {
         "@id": "eudet:Warning"
       },
       "eudet:hazardPictograms": [
@@ -37372,7 +38350,7 @@ var samples_default = [
       ],
       "eudet:phosphorusContentPercent": 0,
       "eudet:phosphateCompliant": true,
-      "eudet:recommendedDosage": {
+      "eudet:hasRecommendedDosage": {
         id: "https://id.gs1.org/01/09521234200017#dosage",
         type: "gs1:QuantitativeValue",
         "gs1:value": 35,
@@ -37382,10 +38360,10 @@ var samples_default = [
         "@value": "Medium water hardness: 35 ml per 4.5 kg load. Hard water: 50 ml. Heavily soiled: add 15 ml. Pre-treat stains directly.",
         "@language": "en"
       },
-      "eudet:safetyDataSheet": {
+      "eudet:hasSafetyDataSheet": {
         id: "https://www.ecoclean.example.com/sds/laundry-sensitive-sds.pdf",
         type: "oec:DocumentReference",
-        "oec:documentType": {
+        "oec:hasDocumentType": {
           id: "oec:SafetyDataSheet"
         },
         "oec:documentUrl": "https://www.ecoclean.example.com/sds/laundry-sensitive-sds.pdf",
@@ -37393,10 +38371,10 @@ var samples_default = [
         "oec:mimeType": "application/pdf",
         "oec:languageCode": "en"
       },
-      "eudet:biodegradabilityTestReport": {
+      "eudet:hasBiodegradabilityTestReport": {
         id: "https://www.ecoclean.example.com/reports/biodeg-test-2026-001.pdf",
         type: "oec:DocumentReference",
-        "oec:documentType": {
+        "oec:hasDocumentType": {
           id: "oec:TestReport"
         },
         "oec:documentUrl": "https://www.ecoclean.example.com/reports/biodeg-test-2026-001.pdf",
@@ -37407,8 +38385,8 @@ var samples_default = [
       "oec:passportIdentifier": "https://dpp.ecoclean.example.com/passport/09521234200013",
       "oec:passportVersion": "1.0",
       "oec:passportIssueDate": "2026-09-01",
-      "oec:passportStatus": "Active",
-      "oec:productCategory": {
+      "oec:passportStatus": "active",
+      "oec:hasProductCategory": {
         id: "oec:Detergents"
       },
       "oec:lastDataUpdate": "2026-09-01T10:00:00Z"
@@ -37419,10 +38397,11 @@ var samples_default = [
     label: "ftl-product (model)",
     doc: {
       "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         "https://ref.openepcis.io/extensions/us/fsma204/fsma204-context.jsonld"
       ],
       type: "gs1:Product",
-      id: "https://id.demo.epcis.cloud/01/00860009999923",
+      id: "https://id.gs1.org/01/00860009999923",
       _comment_gs1us_mapping: [
         "Trade-item master data for a food on the Food Traceability List.",
         "Per GS1 US 'Application of GS1 System of Standards to Support FSMA 204' R3.0,",
@@ -37430,8 +38409,8 @@ var samples_default = [
         "Initial Packing / First-Land-Based-Receiver / Transformation CTE and encoded in EPCIS",
         "events as https://id.gs1.org/01/{GTIN}/10/{Batch/Lot}.",
         "Master data only needs to carry GTIN-level descriptors (gs1:functionalName,",
-        "oec:customsCommodityCode + oec:customsCommodityCodeType for the HTSUS import classification,",
-        "gs1:gpcCategoryCode) plus any FDA-categorisation such as usfsma:foodTraceabilityListCategory."
+        "oec:customsCommodityCode + oec:hasCustomsCommodityCodeType for the HTSUS import classification,",
+        "gs1:gpcCategoryCode) plus any FDA-categorisation such as usfsma:hasFoodTraceabilityListCategory."
       ],
       "gs1:gtin": "00860009999923",
       "gs1:productName": [
@@ -37441,12 +38420,12 @@ var samples_default = [
         }
       ],
       "gs1:functionalName": "Romaine lettuce, fresh-cut, whole heads",
-      "oec:customsCommodityCodeType": {
+      "oec:hasCustomsCommodityCodeType": {
         id: "oec:HTSUS10"
       },
       "oec:customsCommodityCode": "0705.11.2000",
       "gs1:gpcCategoryCode": "10006423",
-      "usfsma:foodTraceabilityListCategory": {
+      "usfsma:hasFoodTraceabilityListCategory": {
         "@id": "usfsma:LeafyGreensFreshCut"
       },
       "gs1:netWeight": {

@@ -5,26 +5,6 @@
   "description": "Permissive capture schema for the https://ref.openepcis.io/extensions/common/core/ extension. Declares known terms as optional and allows additional properties, so events that declare GS1-Extensions oec=https://ref.openepcis.io/extensions/common/core/ validate and capture. Generated from the module ontology plus its JSON-LD context; tighten per ontology for field-level validation.",
   "type": "object",
   "properties": {
-    "accessLevel": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The declared tier of a data element must itself be visible for ESPR Art. 9 gating to be interpretable.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:accessLevel": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The declared tier of a data element must itself be visible for ESPR Art. 9 gating to be interpretable.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "accessRights": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Tier metadata must be readable by every client so it knows what it may and may not fetch under ESPR Art. 9.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:accessRights": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Tier metadata must be readable by every client so it knows what it may and may not fetch under ESPR Art. 9.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
     "activityClassification": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-rationale": "ISIC/NACE/NAICS activity codes are operator-registry data for authority cross-checks, not product information for consumers.",
@@ -35,26 +15,14 @@
       "x-access-level-rationale": "ISIC/NACE/NAICS activity codes are operator-registry data for authority cross-checks, not product information for consumers.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "annualEnergyConsumption": {
+    "assignedELI": {
       "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2017/1369",
-      "x-access-level-rationale": "Annual energy consumption appears on the mandatory energy label and in EPREL's public part (Regulation (EU) 2017/1369).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    "oec:annualEnergyConsumption": {
-      "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2017/1369",
-      "x-access-level-rationale": "Annual energy consumption appears on the mandatory energy label and in EPREL's public part (Regulation (EU) 2017/1369).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    "authorizedParties": {
-      "x-access-level": "Restricted",
-      "x-access-level-rationale": "The access-control list itself reveals business relationships and is only actionable by the passport owner and authorities (ESPR Art. 9).",
+      "x-access-level-rationale": "ELI identifiers name published EU legislation; the legal basis of a conformity claim is inherently public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "oec:authorizedParties": {
-      "x-access-level": "Restricted",
-      "x-access-level-rationale": "The access-control list itself reveals business relationships and is only actionable by the passport owner and authorities (ESPR Art. 9).",
+    "oec:assignedELI": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "ELI identifiers name published EU legislation; the legal basis of a conformity claim is inherently public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     "bioBasedFraction": {
@@ -67,26 +35,6 @@
       "x-access-level-rationale": "The bio-based share is a consumer-facing environmental claim of the same kind as recycled content (ESPR Annex I; SUP marking precedent).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "biodegradability": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Entry property for a biodegradability observation whose members (biodegradationPercentage, biodegradabilityTestMethod) are individually Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:biodegradability": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Entry property for a biodegradability observation whose members (biodegradationPercentage, biodegradabilityTestMethod) are individually Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "biodegradabilityTestMethod": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The test method makes the public biodegradation percentage checkable; a claim without its method is unverifiable.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:biodegradabilityTestMethod": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The test method makes the public biodegradation percentage checkable; a claim without its method is unverifiable.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
     "biodegradationPercentage": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Biodegradability results substantiate consumer-facing end-of-life claims (ESPR Annex I(m)); detergent module serves related data Public.",
@@ -97,46 +45,6 @@
       "x-access-level-rationale": "Biodegradability results substantiate consumer-facing end-of-life claims (ESPR Annex I(m)); detergent module serves related data Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "carbonFootprint": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The product carbon footprint is a consumer-comparable parameter (ESPR Annex I(l)); the Battery Regulation Annex XIII(1) makes it public, and battery module serves the shared names Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:carbonFootprint": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The product carbon footprint is a consumer-comparable parameter (ESPR Annex I(l)); the Battery Regulation Annex XIII(1) makes it public, and battery module serves the shared names Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "carbonFootprintDeclaration": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The CF declaration is the published container of figures that are individually public under the battery precedent.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "oec:carbonFootprintDeclaration": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The CF declaration is the published container of figures that are individually public under the battery precedent.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "carbonFootprintDistribution": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "oec:carbonFootprintDistribution": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "carbonFootprintEndOfLife": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "oec:carbonFootprintEndOfLife": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
     "carbonFootprintMethodology": {
       "x-access-level": "Public",
       "x-access-level-rationale": "A public CF number is only meaningful and checkable with its methodology reference (ISO 14067/PEF citation).",
@@ -146,26 +54,6 @@
       "x-access-level": "Public",
       "x-access-level-rationale": "A public CF number is only meaningful and checkable with its methodology reference (ISO 14067/PEF citation).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "carbonFootprintProduction": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "oec:carbonFootprintProduction": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "carbonFootprintRawMaterial": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "oec:carbonFootprintRawMaterial": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "carbonFootprintStudyUrl": {
       "x-access-level": "Public",
@@ -187,16 +75,6 @@
       "x-access-level-rationale": "The total lifecycle CF figure is the headline public value of the CF declaration (Battery Reg. Annex XIII(1) precedent; UNTP alignment).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "carbonFootprintUse": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "oec:carbonFootprintUse": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
     "casNumber": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-rationale": "Substance registry numbers combined with fractions enable full formulation reconstruction; they serve professional and authority use (battery Annex XIII(2) precedent).",
@@ -206,16 +84,6 @@
       "x-access-level": "AuthorizedOnly",
       "x-access-level-rationale": "Substance registry numbers combined with fractions enable full formulation reconstruction; they serve professional and authority use (battery Annex XIII(2) precedent).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "circularityPerformance": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Container for the circularity parameters (recycled content, recyclability) that ESPR Art. 7(5)/Annex I direct at consumers; its members are individually Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:circularityPerformance": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Container for the circularity parameters (recycled content, recyclability) that ESPR Art. 7(5)/Annex I direct at consumers; its members are individually Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     "collectionPointDirectoryUrl": {
       "x-access-level": "Public",
@@ -277,16 +145,6 @@
       "x-access-level-rationale": "Component-level naming belongs to the detailed composition tier served to legitimate-interest parties (battery Annex XIII(2) precedent).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "compostability": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Entry property for a compostability classification whose members (compostabilityType, compostabilityStandard) are individually Public and back an on-pack consumer claim.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:compostability": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Entry property for a compostability classification whose members (compostabilityType, compostabilityStandard) are individually Public and back an on-pack consumer claim.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
     "compostabilityStandard": {
       "x-access-level": "Public",
       "x-access-level-rationale": "The certified compostability standard backs an on-pack consumer claim (EN 13432 marking precedent; ESPR Annex I(m)).",
@@ -295,16 +153,6 @@
     "oec:compostabilityStandard": {
       "x-access-level": "Public",
       "x-access-level-rationale": "The certified compostability standard backs an on-pack consumer claim (EN 13432 marking precedent; ESPR Annex I(m)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "compostabilityType": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Home- vs industrial-compostability determines correct consumer disposal and is the point of the on-pack claim.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:compostabilityType": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Home- vs industrial-compostability determines correct consumer disposal and is the point of the on-pack claim.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     "concentration": {
@@ -316,16 +164,6 @@
       "x-access-level": "AuthorizedOnly",
       "x-access-level-rationale": "The CLP label already discloses presence; exact concentrations are trade-secret-adjacent and serve professional risk assessment (battery Annex XIII(2) precedent).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "conformityDeclaration": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The EU declaration of conformity must accompany the product and be produced on request (ESPR Art. 44), so the reference to it cannot be gated.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:conformityDeclaration": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The EU declaration of conformity must accompany the product and be produced on request (ESPR Art. 44), so the reference to it cannot be gated.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     "contentSpecificationId": {},
     "oec:contentSpecificationId": {},
@@ -349,18 +187,6 @@
       "x-access-level-rationale": "Commodity codes serve the customs controls of ESPR Art. 9/UCC and reveal sourcing and tariff strategy if broadcast (Reg. (EU) 952/2013).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2013/952"
     },
-    "customsCommodityCodeType": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The classification-system qualifier shares the audience of the commodity code it qualifies (Reg. (EU) 952/2013).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2013/952"
-    },
-    "oec:customsCommodityCodeType": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The classification-system qualifier shares the audience of the commodity code it qualifies (Reg. (EU) 952/2013).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2013/952"
-    },
-    "dataElement": {},
-    "oec:dataElement": {},
     "dataProviderCertification": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-rationale": "Provider accreditation detail supports authority and auditor verification of the data pipeline, not consumer decisions.",
@@ -381,16 +207,6 @@
       "x-access-level-rationale": "A-E data-quality ratings qualify professional use of the underlying data and mirror the battery precedent's legitimate-interest tier.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "dataRetentionPeriod": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The regulatory retention period is compliance metadata about the passport itself, not commercial data.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:dataRetentionPeriod": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The regulatory retention period is compliance metadata about the passport itself, not commercial data.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
     "declaredUnit": {
       "x-access-level": "Public",
       "x-access-level-rationale": "The declared/functional unit is required to interpret any public footprint or EPD value (EN 15804; UNTP alignment).",
@@ -401,16 +217,6 @@
       "x-access-level-rationale": "The declared/functional unit is required to interpret any public footprint or EPD value (EN 15804; UNTP alignment).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "depositAmount": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The refundable deposit is printed at point of sale and on-pack; it is consumer price information.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    "oec:depositAmount": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The refundable deposit is printed at point of sale and on-pack; it is consumer price information.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
     "depositRedemptionChannelUrl": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Consumers must be able to find where to redeem the deposit for the DRS to function.",
@@ -419,26 +225,6 @@
     "oec:depositRedemptionChannelUrl": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Consumers must be able to find where to redeem the deposit for the DRS to function.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    "depositReturnScheme": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "DRS participation is marked on-pack and must be visible to consumers for the scheme to function (WFD/PPWR deposit-return provisions).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    "oec:depositReturnScheme": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "DRS participation is marked on-pack and must be visible to consumers for the scheme to function (WFD/PPWR deposit-return provisions).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    "depositSchemeOperator": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The operating PRO of a deposit-return scheme is public scheme information, not commercial data of the producer.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    "oec:depositSchemeOperator": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The operating PRO of a deposit-return scheme is public scheme information, not commercial data of the producer.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
     },
     "dictionaryReference": {},
@@ -463,16 +249,6 @@
       "x-access-level-rationale": "The dismantling guide targets end-of-life processors and repairers — the legitimate-interest tier of the battery precedent (Annex XIII(2)).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
-    "dismantlingInstructions": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The battery precedent gives dismantling information to persons with a legitimate interest, not the general public (Reg. 2023/1542 Annex XIII(2)(c)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "oec:dismantlingInstructions": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The battery precedent gives dismantling information to persons with a legitimate interest, not the general public (Reg. 2023/1542 Annex XIII(2)(c)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
     "diyRepairPossible": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Whether self-repair is possible is consumer purchase information of the same kind as the repairability score (ESPR Annex I(b)).",
@@ -483,12 +259,8 @@
       "x-access-level-rationale": "Whether self-repair is possible is consumer purchase information of the same kind as the repairability score (ESPR Annex I(b)).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "documentType": {},
-    "oec:documentType": {},
     "documentUrl": {},
     "oec:documentUrl": {},
-    "documents": {},
-    "oec:documents": {},
     "dppSchemaVersion": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Every reader needs the schema version to parse the passport at all, so it belongs to the ESPR Art. 9(1) public baseline.",
@@ -498,26 +270,6 @@
       "x-access-level": "Public",
       "x-access-level-rationale": "Every reader needs the schema version to parse the passport at all, so it belongs to the ESPR Art. 9(1) public baseline.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "dueDiligenceRegulationContext": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The regulatory anchor of a due-diligence report shares the report's legitimate-interest audience (battery Annex XIII(3) precedent).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "oec:dueDiligenceRegulationContext": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The regulatory anchor of a due-diligence report shares the report's legitimate-interest audience (battery Annex XIII(3) precedent).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "dueDiligenceReport": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Full due-diligence documentation contains supplier-level detail; the battery precedent routes it to notified bodies, surveillance authorities and the Commission (Annex XIII(3)) — public summaries go via thirdPartyAssurancesUrl.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "oec:dueDiligenceReport": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Full due-diligence documentation contains supplier-level detail; the battery precedent routes it to notified bodies, surveillance authorities and the Commission (Annex XIII(3)) — public summaries go via thirdPartyAssurancesUrl.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "ecNumber": {
       "x-access-level": "AuthorizedOnly",
@@ -541,16 +293,6 @@
     },
     "elementId": {},
     "oec:elementId": {},
-    "emissionsPerformance": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Container for emissions figures (carbonFootprint*) that are individually Public under the battery precedent; aligned with UNTP EmissionsPerformance.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:emissionsPerformance": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Container for emissions figures (carbonFootprint*) that are individually Public under the battery precedent; aligned with UNTP EmissionsPerformance.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
     "endOfLifeInstructions": {
       "x-access-level": "Public",
       "x-access-level-rationale": "End-of-life handling instructions are directed at end users (ESPR Annex I(m); WFD consumer-information duties).",
@@ -559,48 +301,6 @@
     "oec:endOfLifeInstructions": {
       "x-access-level": "Public",
       "x-access-level-rationale": "End-of-life handling instructions are directed at end users (ESPR Annex I(m); WFD consumer-information duties).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "endOfLifeProgram": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Producer end-of-life/take-back programmes only work if consumers can find them (WFD Art. 8a(2) information duty).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    "oec:endOfLifeProgram": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Producer end-of-life/take-back programmes only work if consumers can find them (WFD Art. 8a(2) information duty).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    "energyEfficiency": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Energy performance data feeds the public energy label under the Energy Labelling Framework Regulation; electronics module serves it Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    "oec:energyEfficiency": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Energy performance data feeds the public energy label under the Energy Labelling Framework Regulation; electronics module serves it Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    "energyEfficiencyClass": {
-      "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2017/1369",
-      "x-access-level-rationale": "The energy efficiency class is printed on the mandatory public label and published in EPREL's public part, so its audience is fixed by Regulation (EU) 2017/1369.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    "oec:energyEfficiencyClass": {
-      "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2017/1369",
-      "x-access-level-rationale": "The energy efficiency class is printed on the mandatory public label and published in EPREL's public part, so its audience is fixed by Regulation (EU) 2017/1369.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    "environmentalProductDeclaration": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "EPDs under ISO 14025/EN 15804 are published, third-party-verified declarations by definition.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:environmentalProductDeclaration": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "EPDs under ISO 14025/EN 15804 are published, third-party-verified declarations by definition.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     "eoriNumber": {
@@ -663,16 +363,6 @@
       "x-access-level-rationale": "This URL points to the EPR scheme operator's public verification endpoint, which exists to be consulted (WFD Art. 8a transparency).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
     },
-    "eprJurisdiction": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Per-member-state registration coverage maps the producer's market footprint for enforcement (WFD Art. 8a).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    "oec:eprJurisdiction": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Per-member-state registration coverage maps the producer's market footprint for enforcement (WFD Art. 8a).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
     "eprRegistrationNumber": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-rationale": "Producer registration numbers support scheme and authority verification (WFD Art. 8a); the consumer-facing proof is eprComplianceUrl.",
@@ -681,16 +371,6 @@
     "oec:eprRegistrationNumber": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-rationale": "Producer registration numbers support scheme and authority verification (WFD Art. 8a); the consumer-facing proof is eprComplianceUrl.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    "eprScheme": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The producer's PRO affiliation is compliance-registry detail for authorities and schemes (WFD Art. 8a).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    "oec:eprScheme": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The producer's PRO affiliation is compliance-registry detail for authorities and schemes (WFD Art. 8a).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
     },
     "eprWasteStream": {
@@ -727,36 +407,6 @@
       "x-access-level-rationale": "The EPREL registration number identifies the product's entry in a public register (Regulation (EU) 2017/1369).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
     },
-    "expectedLifespan": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Durability expressed as expected lifespan is a consumer-facing product parameter under ESPR Art. 7(5) and Annex I(a).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:expectedLifespan": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Durability expressed as expected lifespan is a consumer-facing product parameter under ESPR Art. 7(5) and Annex I(a).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "extendedProducerResponsibility": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "EPR registration records serve scheme operators and enforcement under WFD Art. 8a; member-state registers are not uniformly public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    "oec:extendedProducerResponsibility": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "EPR registration records serve scheme operators and enforcement under WFD Art. 8a; member-state registers are not uniformly public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
-    },
-    "facilityCertifications": {
-      "x-access-level": "Restricted",
-      "x-access-level-rationale": "Per-facility certification detail identifies specific sites and shares the facility record's authority-only audience (battery precedent).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "oec:facilityCertifications": {
-      "x-access-level": "Restricted",
-      "x-access-level-rationale": "Per-facility certification detail identifies specific sites and shares the facility record's authority-only audience (battery precedent).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
     "facilityId": {
       "x-access-level": "Restricted",
       "x-access-level-rationale": "Facility identifiers map the physical supply chain; the battery precedent reserves manufacturing-site detail for notified bodies, authorities and the Commission (Reg. 2023/1542 Annex XIII(4)).",
@@ -765,16 +415,6 @@
     "oec:facilityId": {
       "x-access-level": "Restricted",
       "x-access-level-rationale": "Facility identifiers map the physical supply chain; the battery precedent reserves manufacturing-site detail for notified bodies, authorities and the Commission (Reg. 2023/1542 Annex XIII(4)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "facilityInformation": {
-      "x-access-level": "Restricted",
-      "x-access-level-rationale": "Full facility records (location, type, certifications) are commercially sensitive supply-chain mapping data for authorities and designated operators (battery precedent).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "oec:facilityInformation": {
-      "x-access-level": "Restricted",
-      "x-access-level-rationale": "Full facility records (location, type, certifications) are commercially sensitive supply-chain mapping data for authorities and designated operators (battery precedent).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "facilityType": {
@@ -827,27 +467,671 @@
     "gs1:regulatoryReferenceApplicabilityStartDate": {},
     "value": {},
     "gs1:value": {},
-    "guaranteedLifespan": {
+    "hasAccessLevel": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The declared tier of a data element must itself be visible for ESPR Art. 9 gating to be interpretable.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasAccessLevel": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The declared tier of a data element must itself be visible for ESPR Art. 9 gating to be interpretable.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasAccessRights": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Tier metadata must be readable by every client so it knows what it may and may not fetch under ESPR Art. 9.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasAccessRights": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Tier metadata must be readable by every client so it knows what it may and may not fetch under ESPR Art. 9.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasAnnualEnergyConsumption": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2017/1369",
+      "x-access-level-rationale": "Annual energy consumption appears on the mandatory energy label and in EPREL's public part (Regulation (EU) 2017/1369).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    "oec:hasAnnualEnergyConsumption": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2017/1369",
+      "x-access-level-rationale": "Annual energy consumption appears on the mandatory energy label and in EPREL's public part (Regulation (EU) 2017/1369).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    "hasAuthorizedParties": {
+      "x-access-level": "Restricted",
+      "x-access-level-rationale": "The access-control list itself reveals business relationships and is only actionable by the passport owner and authorities (ESPR Art. 9).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasAuthorizedParties": {
+      "x-access-level": "Restricted",
+      "x-access-level-rationale": "The access-control list itself reveals business relationships and is only actionable by the passport owner and authorities (ESPR Art. 9).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasBackupCopyHost": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The backup host exists so the passport stays reachable when the primary fails; a fallback address only works if its identity is public (Art. 10(4)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasBackupCopyHost": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The backup host exists so the passport stays reachable when the primary fails; a fallback address only works if its identity is public (Art. 10(4)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasBiodegradability": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Entry property for a biodegradability observation whose members (biodegradationPercentage, biodegradabilityTestMethod) are individually Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasBiodegradability": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Entry property for a biodegradability observation whose members (biodegradationPercentage, biodegradabilityTestMethod) are individually Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasBiodegradabilityTestMethod": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The test method makes the public biodegradation percentage checkable; a claim without its method is unverifiable.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasBiodegradabilityTestMethod": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The test method makes the public biodegradation percentage checkable; a claim without its method is unverifiable.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasCarbonFootprint": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The product carbon footprint is a consumer-comparable parameter (ESPR Annex I(l)); the Battery Regulation Annex XIII(1) makes it public, and battery module serves the shared names Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasCarbonFootprint": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The product carbon footprint is a consumer-comparable parameter (ESPR Annex I(l)); the Battery Regulation Annex XIII(1) makes it public, and battery module serves the shared names Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasCarbonFootprintDeclaration": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The CF declaration is the published container of figures that are individually public under the battery precedent.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "oec:hasCarbonFootprintDeclaration": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The CF declaration is the published container of figures that are individually public under the battery precedent.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "hasCarbonFootprintDistribution": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "oec:hasCarbonFootprintDistribution": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "hasCarbonFootprintEndOfLife": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "oec:hasCarbonFootprintEndOfLife": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "hasCarbonFootprintProduction": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "oec:hasCarbonFootprintProduction": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "hasCarbonFootprintRawMaterial": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "oec:hasCarbonFootprintRawMaterial": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "hasCarbonFootprintUse": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "oec:hasCarbonFootprintUse": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Lifecycle-stage shares of the public CF figure are themselves public in the battery precedent (Reg. 2023/1542 Annex XIII(1)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "hasCircularityPerformance": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Container for the circularity parameters (recycled content, recyclability) that ESPR Art. 7(5)/Annex I direct at consumers; its members are individually Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasCircularityPerformance": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Container for the circularity parameters (recycled content, recyclability) that ESPR Art. 7(5)/Annex I direct at consumers; its members are individually Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasCompostability": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Entry property for a compostability classification whose members (compostabilityType, compostabilityStandard) are individually Public and back an on-pack consumer claim.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasCompostability": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Entry property for a compostability classification whose members (compostabilityType, compostabilityStandard) are individually Public and back an on-pack consumer claim.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasCompostabilityType": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Home- vs industrial-compostability determines correct consumer disposal and is the point of the on-pack claim.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasCompostabilityType": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Home- vs industrial-compostability determines correct consumer disposal and is the point of the on-pack claim.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasConformityDeclaration": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The EU declaration of conformity must accompany the product and be produced on request (ESPR Art. 44), so the reference to it cannot be gated.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasConformityDeclaration": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The EU declaration of conformity must accompany the product and be produced on request (ESPR Art. 44), so the reference to it cannot be gated.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasCustomsCommodityCodeType": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The classification-system qualifier shares the audience of the commodity code it qualifies (Reg. (EU) 952/2013).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2013/952"
+    },
+    "oec:hasCustomsCommodityCodeType": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The classification-system qualifier shares the audience of the commodity code it qualifies (Reg. (EU) 952/2013).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2013/952"
+    },
+    "hasDataElement": {},
+    "oec:hasDataElement": {},
+    "hasDataRetentionPeriod": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The regulatory retention period is compliance metadata about the passport itself, not commercial data.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasDataRetentionPeriod": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The regulatory retention period is compliance metadata about the passport itself, not commercial data.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasDepositAmount": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The refundable deposit is printed at point of sale and on-pack; it is consumer price information.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    "oec:hasDepositAmount": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The refundable deposit is printed at point of sale and on-pack; it is consumer price information.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    "hasDepositReturnScheme": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "DRS participation is marked on-pack and must be visible to consumers for the scheme to function (WFD/PPWR deposit-return provisions).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    "oec:hasDepositReturnScheme": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "DRS participation is marked on-pack and must be visible to consumers for the scheme to function (WFD/PPWR deposit-return provisions).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    "hasDepositSchemeOperator": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The operating PRO of a deposit-return scheme is public scheme information, not commercial data of the producer.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    "oec:hasDepositSchemeOperator": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The operating PRO of a deposit-return scheme is public scheme information, not commercial data of the producer.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    "hasDismantlingInstructions": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The battery precedent gives dismantling information to persons with a legitimate interest, not the general public (Reg. 2023/1542 Annex XIII(2)(c)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "oec:hasDismantlingInstructions": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The battery precedent gives dismantling information to persons with a legitimate interest, not the general public (Reg. 2023/1542 Annex XIII(2)(c)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "hasDocumentType": {},
+    "oec:hasDocumentType": {},
+    "hasDocuments": {},
+    "oec:hasDocuments": {},
+    "hasDueDiligenceRegulationContext": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The regulatory anchor of a due-diligence report shares the report's legitimate-interest audience (battery Annex XIII(3) precedent).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "oec:hasDueDiligenceRegulationContext": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The regulatory anchor of a due-diligence report shares the report's legitimate-interest audience (battery Annex XIII(3) precedent).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "hasDueDiligenceReport": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Full due-diligence documentation contains supplier-level detail; the battery precedent routes it to notified bodies, surveillance authorities and the Commission (Annex XIII(3)) — public summaries go via thirdPartyAssurancesUrl.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "oec:hasDueDiligenceReport": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Full due-diligence documentation contains supplier-level detail; the battery precedent routes it to notified bodies, surveillance authorities and the Commission (Annex XIII(3)) — public summaries go via thirdPartyAssurancesUrl.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "hasEmissionsPerformance": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Container for emissions figures (carbonFootprint*) that are individually Public under the battery precedent; aligned with UNTP EmissionsPerformance.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasEmissionsPerformance": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Container for emissions figures (carbonFootprint*) that are individually Public under the battery precedent; aligned with UNTP EmissionsPerformance.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasEndOfLifeProgram": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Producer end-of-life/take-back programmes only work if consumers can find them (WFD Art. 8a(2) information duty).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    "oec:hasEndOfLifeProgram": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Producer end-of-life/take-back programmes only work if consumers can find them (WFD Art. 8a(2) information duty).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    "hasEnergyEfficiency": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Energy performance data feeds the public energy label under the Energy Labelling Framework Regulation; electronics module serves it Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    "oec:hasEnergyEfficiency": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Energy performance data feeds the public energy label under the Energy Labelling Framework Regulation; electronics module serves it Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    "hasEnergyEfficiencyClass": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2017/1369",
+      "x-access-level-rationale": "The energy efficiency class is printed on the mandatory public label and published in EPREL's public part, so its audience is fixed by Regulation (EU) 2017/1369.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    "oec:hasEnergyEfficiencyClass": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2017/1369",
+      "x-access-level-rationale": "The energy efficiency class is printed on the mandatory public label and published in EPREL's public part, so its audience is fixed by Regulation (EU) 2017/1369.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    "hasEnvironmentalProductDeclaration": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "EPDs under ISO 14025/EN 15804 are published, third-party-verified declarations by definition.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasEnvironmentalProductDeclaration": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "EPDs under ISO 14025/EN 15804 are published, third-party-verified declarations by definition.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasEprJurisdiction": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Per-member-state registration coverage maps the producer's market footprint for enforcement (WFD Art. 8a).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    "oec:hasEprJurisdiction": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Per-member-state registration coverage maps the producer's market footprint for enforcement (WFD Art. 8a).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    "hasEprScheme": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The producer's PRO affiliation is compliance-registry detail for authorities and schemes (WFD Art. 8a).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    "oec:hasEprScheme": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The producer's PRO affiliation is compliance-registry detail for authorities and schemes (WFD Art. 8a).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    "hasExpectedLifespan": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Durability expressed as expected lifespan is a consumer-facing product parameter under ESPR Art. 7(5) and Annex I(a).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasExpectedLifespan": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Durability expressed as expected lifespan is a consumer-facing product parameter under ESPR Art. 7(5) and Annex I(a).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasExtendedProducerResponsibility": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "EPR registration records serve scheme operators and enforcement under WFD Art. 8a; member-state registers are not uniformly public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    "oec:hasExtendedProducerResponsibility": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "EPR registration records serve scheme operators and enforcement under WFD Art. 8a; member-state registers are not uniformly public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
+    },
+    "hasFacilityCertifications": {
+      "x-access-level": "Restricted",
+      "x-access-level-rationale": "Per-facility certification detail identifies specific sites and shares the facility record's authority-only audience (battery precedent).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "oec:hasFacilityCertifications": {
+      "x-access-level": "Restricted",
+      "x-access-level-rationale": "Per-facility certification detail identifies specific sites and shares the facility record's authority-only audience (battery precedent).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "hasFacilityInformation": {
+      "x-access-level": "Restricted",
+      "x-access-level-rationale": "Full facility records (location, type, certifications) are commercially sensitive supply-chain mapping data for authorities and designated operators (battery precedent).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "oec:hasFacilityInformation": {
+      "x-access-level": "Restricted",
+      "x-access-level-rationale": "Full facility records (location, type, certifications) are commercially sensitive supply-chain mapping data for authorities and designated operators (battery precedent).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "hasGuaranteedLifespan": {
       "x-access-level": "Public",
       "x-access-level-rationale": "The guaranteed minimum lifespan is warranty information that must reach the buyer before purchase (ESPR Annex III consumer information).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "oec:guaranteedLifespan": {
+    "oec:hasGuaranteedLifespan": {
       "x-access-level": "Public",
       "x-access-level-rationale": "The guaranteed minimum lifespan is warranty information that must reach the buyer before purchase (ESPR Annex III consumer information).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "hazardClass": {
+    "hasHazardClass": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2008/1272",
       "x-access-level-rationale": "CLP hazard classification drives mandatory public label elements and is published in ECHA's C&L Inventory (Reg. (EC) 1272/2008); battery module serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2008/1272"
     },
-    "oec:hazardClass": {
+    "oec:hasHazardClass": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2008/1272",
       "x-access-level-rationale": "CLP hazard classification drives mandatory public label elements and is published in ECHA's C&L Inventory (Reg. (EC) 1272/2008); battery module serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2008/1272"
+    },
+    "hasHazardSignalWord": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2008/1272",
+      "x-access-level-rationale": "The signal word (Danger/Warning) is a mandatory element of the public CLP label (Reg. (EC) 1272/2008 Art. 17).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2008/1272"
+    },
+    "oec:hasHazardSignalWord": {
+      "x-access-level": "Public",
+      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2008/1272",
+      "x-access-level-rationale": "The signal word (Danger/Warning) is a mandatory element of the public CLP label (Reg. (EC) 1272/2008 Art. 17).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2008/1272"
+    },
+    "hasHazardousSubstances": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The presence and identity of hazardous substances is disclosed on the CLP label (Reg. (EC) 1272/2008 Art. 18); battery and detergent modules serve the same name Public — exact concentrations stay tiered separately.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2008/1272"
+    },
+    "oec:hasHazardousSubstances": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The presence and identity of hazardous substances is disclosed on the CLP label (Reg. (EC) 1272/2008 Art. 18); battery and detergent modules serve the same name Public — exact concentrations stay tiered separately.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2008/1272"
+    },
+    "hasImpactIndicator": {},
+    "oec:hasImpactIndicator": {},
+    "hasIndicatorType": {},
+    "oec:hasIndicatorType": {},
+    "hasLifecycleStage": {},
+    "oec:hasLifecycleStage": {},
+    "hasLifecycleStageResult": {},
+    "oec:hasLifecycleStageResult": {},
+    "hasMaterialComposition": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Detailed composition beyond CLP label disclosure is commercially sensitive; the battery precedent serves it to legitimate-interest parties (Annex XIII(2)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "oec:hasMaterialComposition": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Detailed composition beyond CLP label disclosure is commercially sensitive; the battery precedent serves it to legitimate-interest parties (Annex XIII(2)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "hasMaterialOrigin": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Per-material origin exposes supplier relationships; supply-chain mapping detail is for authorities and legitimate-interest parties (ESPR Art. 9(2)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasMaterialOrigin": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Per-material origin exposes supplier relationships; supply-chain mapping detail is for authorities and legitimate-interest parties (ESPR Art. 9(2)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasMultiLanguageValue": {},
+    "oec:hasMultiLanguageValue": {},
+    "hasOperationalScope": {},
+    "oec:hasOperationalScope": {},
+    "hasOperatorInformation": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Detailed operator records (addresses, contacts) serve surveillance and customs under ESPR Art. 9(2); the public sees the issuer via passportIssuer.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasOperatorInformation": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Detailed operator records (addresses, contacts) serve surveillance and customs under ESPR Art. 9(2); the public sees the issuer via passportIssuer.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasOperatorRole": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The operator's supply-chain role (importer, fulfilment provider, ...) maps responsibility chains for authorities (ESPR Art. 9(2)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasOperatorRole": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "The operator's supply-chain role (importer, fulfilment provider, ...) maps responsibility chains for authorities (ESPR Art. 9(2)).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasPassportIssuer": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "ESPR makes the passport-issuing economic operator accountable for the passport (Art. 9, Art. 77 registry), so issuer identity is part of the public record.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasPassportIssuer": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "ESPR makes the passport-issuing economic operator accountable for the passport (Art. 9, Art. 77 registry), so issuer identity is part of the public record.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasPerformanceInfo": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Container for the durability and performance parameters that ESPR Art. 7(5)/Annex III direct at consumers; its members are individually Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasPerformanceInfo": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Container for the durability and performance parameters that ESPR Art. 7(5)/Annex III direct at consumers; its members are individually Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasPowerConsumptionOff": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Off-mode power is regulated and published under ecodesign/energy-labelling measures (standby regulation lineage); no confidentiality interest exists.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    "oec:hasPowerConsumptionOff": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Off-mode power is regulated and published under ecodesign/energy-labelling measures (standby regulation lineage); no confidentiality interest exists.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    "hasPowerConsumptionOn": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Mode-specific power values are product-information-sheet data published for labelled product groups; kept overridable pending each group's delegated act.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    "oec:hasPowerConsumptionOn": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Mode-specific power values are product-information-sheet data published for labelled product groups; kept overridable pending each group's delegated act.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    "hasPowerConsumptionStandby": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Standby power is regulated and published under ecodesign/energy-labelling measures; product-fiche data for labelled groups.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    "oec:hasPowerConsumptionStandby": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Standby power is regulated and published under ecodesign/energy-labelling measures; product-fiche data for labelled groups.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
+    },
+    "hasProductCategory": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The ESPR product-group classification determines which delegated act applies and is inherently public market information.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasProductCategory": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The ESPR product-group classification determines which delegated act applies and is inherently public market information.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasRecyclabilityAssessment": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The recyclability assessment substantiates public recyclability claims (ESPR Annex I(i)); textile module serves the same name Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasRecyclabilityAssessment": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The recyclability assessment substantiates public recyclability claims (ESPR Annex I(i)); textile module serves the same name Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasRecycledContentDetails": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Detailed pre-/post-consumer breakdown of a figure whose components (recycledContent, pre-/postConsumerRecycledContent) are individually Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasRecycledContentDetails": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Detailed pre-/post-consumer breakdown of a figure whose components (recycledContent, pre-/postConsumerRecycledContent) are individually Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasRepairInstructions": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Access to repair instructions for consumers and independent operators is a core ESPR/right-to-repair objective (Annex I(b), Dir. 2024/1799).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasRepairInstructions": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Access to repair instructions for consumers and independent operators is a core ESPR/right-to-repair objective (Annex I(b), Dir. 2024/1799).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasRepairProvider": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Links to authorised repair providers serve consumer repairer discovery under the right-to-repair framework (Dir. 2024/1799).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2024/1799"
+    },
+    "oec:hasRepairProvider": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Links to authorised repair providers serve consumer repairer discovery under the right-to-repair framework (Dir. 2024/1799).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2024/1799"
+    },
+    "hasRepairabilityInfo": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Repair and maintenance information is directed at end users and independent repairers under ESPR Annex I(b) and the right-to-repair framework.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasRepairabilityInfo": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Repair and maintenance information is directed at end users and independent repairers under ESPR Annex I(b) and the right-to-repair framework.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasReportingGranularity": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Per-attribute reporting granularity (model/batch/item) is interpretation metadata needed to read the value it qualifies, like the passport-level granularity.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasReportingGranularity": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Per-attribute reporting granularity (model/batch/item) is interpretation metadata needed to read the value it qualifies, like the passport-level granularity.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasSoftwareUpdatesAvailability": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The guaranteed software/firmware update period is a consumer durability parameter (ESPR Annex I; smartphone/tablet labelling precedent).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasSoftwareUpdatesAvailability": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The guaranteed software/firmware update period is a consumer durability parameter (ESPR Annex I; smartphone/tablet labelling precedent).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasSparePartsAvailability": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Spare-parts availability duration is a consumer purchase parameter under ESPR Annex I(d) and existing ecodesign implementing measures.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasSparePartsAvailability": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Spare-parts availability duration is a consumer purchase parameter under ESPR Annex I(d) and existing ecodesign implementing measures.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasSubstancesOfConcern": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Tracking substances of concern is a stated DPP objective (ESPR Art. 7(5)(b)) and presence data is already public via ECHA's SCIP database; textile module agrees on Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasSubstancesOfConcern": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Tracking substances of concern is a stated DPP objective (ESPR Art. 7(5)(b)) and presence data is already public via ECHA's SCIP database; textile module agrees on Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasTechnicalLifetime": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Technical lifetime under specified conditions is a durability parameter directed at end users per ESPR Annex I(a).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasTechnicalLifetime": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Technical lifetime under specified conditions is a durability parameter directed at end users per ESPR Annex I(a).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasTraceabilityPerformance": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Aggregate traceability metrics substantiate public transparency claims without exposing individual suppliers (ESPR Art. 7; CSDDD context).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasTraceabilityPerformance": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Aggregate traceability metrics substantiate public transparency claims without exposing individual suppliers (ESPR Art. 7; CSDDD context).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasTradeItemPieces": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The piece set is the container for piece data that is itself Public throughout; gating it would hide public product identification behind a closed door.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasTradeItemPieces": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "The piece set is the container for piece data that is itself Public throughout; gating it would hide public product identification behind a closed door.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "hasVerificationBody": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Naming the third-party verifier is what makes public assurances checkable; battery module serves the same name Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:hasVerificationBody": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Naming the third-party verifier is what makes public assurances checkable; battery module serves the same name Public.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     "hazardImpact": {},
     "oec:hazardImpact": {},
@@ -863,18 +1147,6 @@
       "x-access-level-rationale": "GHS pictograms are mandatory elements of the public CLP label (Reg. (EC) 1272/2008 Art. 17).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2008/1272"
     },
-    "hazardSignalWord": {
-      "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2008/1272",
-      "x-access-level-rationale": "The signal word (Danger/Warning) is a mandatory element of the public CLP label (Reg. (EC) 1272/2008 Art. 17).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2008/1272"
-    },
-    "oec:hazardSignalWord": {
-      "x-access-level": "Public",
-      "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2008/1272",
-      "x-access-level-rationale": "The signal word (Danger/Warning) is a mandatory element of the public CLP label (Reg. (EC) 1272/2008 Art. 17).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2008/1272"
-    },
     "hazardStatement": {
       "x-access-level": "Public",
       "x-access-level-mandated-by": "https://eur-lex.europa.eu/eli/reg/2008/1272",
@@ -887,16 +1159,6 @@
       "x-access-level-rationale": "H-statements are mandatory elements of the public CLP label (Reg. (EC) 1272/2008 Art. 17).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2008/1272"
     },
-    "hazardousSubstances": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The presence and identity of hazardous substances is disclosed on the CLP label (Reg. (EC) 1272/2008 Art. 18); battery and detergent modules serve the same name Public — exact concentrations stay tiered separately.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2008/1272"
-    },
-    "oec:hazardousSubstances": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The presence and identity of hazardous substances is disclosed on the CLP label (Reg. (EC) 1272/2008 Art. 18); battery and detergent modules serve the same name Public — exact concentrations stay tiered separately.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2008/1272"
-    },
     "identityCredentialUrl": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-rationale": "Identity-credential endpoints serve verifier workflows and share the operator-identity tier (ESPR Art. 9(2)).",
@@ -907,12 +1169,8 @@
       "x-access-level-rationale": "Identity-credential endpoints serve verifier workflows and share the operator-identity tier (ESPR Art. 9(2)).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "impactIndicator": {},
-    "oec:impactIndicator": {},
     "indicatorTotalValue": {},
     "oec:indicatorTotalValue": {},
-    "indicatorType": {},
-    "oec:indicatorType": {},
     "indicatorUnit": {},
     "oec:indicatorUnit": {},
     "isCriticalRawMaterial": {
@@ -924,6 +1182,16 @@
       "x-access-level": "AuthorizedOnly",
       "x-access-level-rationale": "CRM flags support recovery obligations of recyclers and authorities under the CRMA (Reg. 2024/1252), not consumer information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1252"
+    },
+    "isEnergyRelated": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Regulatory scope classification; whether a product is energy-related decides which public ecodesign requirements apply.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:isEnergyRelated": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Regulatory scope classification; whether a product is energy-related decides which public ecodesign requirements apply.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     "isRegulationCompliant": {
       "x-access-level": "Public",
@@ -953,6 +1221,26 @@
     "oec:issueDate": {
       "x-access-level": "Public",
       "x-access-level-rationale": "A generic issue date is neutral document metadata needed to judge currency, on par with passportIssueDate.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "iupacName": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Systematic substance names combined with fractions enable formulation reconstruction, same trade-secret exposure as oec:casNumber (battery Annex XIII(2) precedent).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "oec:iupacName": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Systematic substance names combined with fractions enable formulation reconstruction, same trade-secret exposure as oec:casNumber (battery Annex XIII(2) precedent).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "landUse": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:landUse": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     "language": {
@@ -995,10 +1283,6 @@
       "x-access-level-rationale": "Update timestamps let all audiences judge data currency (EN 18223 lastUpdated).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "lifecycleStage": {},
-    "oec:lifecycleStage": {},
-    "lifecycleStageResult": {},
-    "oec:lifecycleStageResult": {},
     "massFraction": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-rationale": "Exact mass fractions enable formulation reconstruction; recyclers and authorities need them, consumers do not (battery Annex XIII(2) precedent).",
@@ -1019,40 +1303,18 @@
       "x-access-level-rationale": "An aggregate circularity score is a consumer comparison metric composed of inputs (recycled content, recyclability, utility) that are themselves Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "materialComposition": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Detailed composition beyond CLP label disclosure is commercially sensitive; the battery precedent serves it to legitimate-interest parties (Annex XIII(2)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "oec:materialComposition": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Detailed composition beyond CLP label disclosure is commercially sensitive; the battery precedent serves it to legitimate-interest parties (Annex XIII(2)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
-    },
-    "materialOrigin": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Per-material origin exposes supplier relationships; supply-chain mapping detail is for authorities and legitimate-interest parties (ESPR Art. 9(2)).",
+    "materialFootprint": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "oec:materialOrigin": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Per-material origin exposes supplier relationships; supply-chain mapping detail is for authorities and legitimate-interest parties (ESPR Art. 9(2)).",
+    "oec:materialFootprint": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     "mimeType": {},
     "oec:mimeType": {},
-    "multiLanguageValue": {},
-    "oec:multiLanguageValue": {},
-    "operatorInformation": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Detailed operator records (addresses, contacts) serve surveillance and customs under ESPR Art. 9(2); the public sees the issuer via passportIssuer.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:operatorInformation": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "Detailed operator records (addresses, contacts) serve surveillance and customs under ESPR Art. 9(2); the public sees the issuer via passportIssuer.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
     "passportExpiryDate": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Readers must know when a passport ceases to be valid; expiry is interpretation metadata like the issue date.",
@@ -1083,16 +1345,6 @@
       "x-access-level-rationale": "The issue date is neutral passport metadata every audience needs to judge the currency of the information.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "passportIssuer": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "ESPR makes the passport-issuing economic operator accountable for the passport (Art. 9, Art. 77 registry), so issuer identity is part of the public record.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:passportIssuer": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "ESPR makes the passport-issuing economic operator accountable for the passport (Art. 9, Art. 77 registry), so issuer identity is part of the public record.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
     "passportStatus": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Consumers and repairers must be able to tell an active passport from an archived or invalid one before relying on its content.",
@@ -1101,16 +1353,6 @@
     "oec:passportStatus": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Consumers and repairers must be able to tell an active passport from an archived or invalid one before relying on its content.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "performanceInfo": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Container for the durability and performance parameters that ESPR Art. 7(5)/Annex III direct at consumers; its members are individually Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:performanceInfo": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Container for the durability and performance parameters that ESPR Art. 7(5)/Annex III direct at consumers; its members are individually Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     "postConsumerRecycledContent": {
@@ -1122,36 +1364,6 @@
       "x-access-level": "Public",
       "x-access-level-rationale": "The post-consumer split substantiates the public recycled-content claim (ESPR Annex I(h); PPWR recycled-content rules).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "powerConsumptionOff": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Off-mode power is regulated and published under ecodesign/energy-labelling measures (standby regulation lineage); no confidentiality interest exists.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    "oec:powerConsumptionOff": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Off-mode power is regulated and published under ecodesign/energy-labelling measures (standby regulation lineage); no confidentiality interest exists.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    "powerConsumptionOn": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Mode-specific power values are product-information-sheet data published for labelled product groups; kept overridable pending each group's delegated act.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    "oec:powerConsumptionOn": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Mode-specific power values are product-information-sheet data published for labelled product groups; kept overridable pending each group's delegated act.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    "powerConsumptionStandby": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Standby power is regulated and published under ecodesign/energy-labelling measures; product-fiche data for labelled groups.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
-    },
-    "oec:powerConsumptionStandby": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Standby power is regulated and published under ecodesign/energy-labelling measures; product-fiche data for labelled groups.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2017/1369"
     },
     "preConsumerRecycledContent": {
       "x-access-level": "Public",
@@ -1205,16 +1417,6 @@
       "x-access-level-rationale": "Consumers must be able to find authorised repairers; the Right-to-Repair Directive builds on public repairer discovery (Dir. 2024/1799).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2024/1799"
     },
-    "recyclabilityAssessment": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The recyclability assessment substantiates public recyclability claims (ESPR Annex I(i)); textile module serves the same name Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:recyclabilityAssessment": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The recyclability assessment substantiates public recyclability claims (ESPR Annex I(i)); textile module serves the same name Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
     "recyclabilityMethodology": {
       "x-access-level": "Public",
       "x-access-level-rationale": "A public recyclability claim is only checkable with its methodology reference, mirroring the public carbonFootprintMethodology.",
@@ -1265,16 +1467,6 @@
       "x-access-level-rationale": "Recycled-content share is a consumer-facing sustainability parameter (ESPR Annex I(h)); the Battery Regulation makes it public on-pack/passport.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "recycledContentDetails": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Detailed pre-/post-consumer breakdown of a figure whose components (recycledContent, pre-/postConsumerRecycledContent) are individually Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:recycledContentDetails": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Detailed pre-/post-consumer breakdown of a figure whose components (recycledContent, pre-/postConsumerRecycledContent) are individually Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
     "remanufacturingDate": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Whether and when a product was remanufactured or refurbished is purchase-relevant consumer information supporting ESPR's reuse objectives (Annex I).",
@@ -1295,26 +1487,6 @@
       "x-access-level-rationale": "The Right-to-Repair Directive requires manufacturers to make repair information available via a freely accessible portal (Dir. 2024/1799 Art. 4/5).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2024/1799"
     },
-    "repairInstructions": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Access to repair instructions for consumers and independent operators is a core ESPR/right-to-repair objective (Annex I(b), Dir. 2024/1799).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:repairInstructions": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Access to repair instructions for consumers and independent operators is a core ESPR/right-to-repair objective (Annex I(b), Dir. 2024/1799).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "repairProvider": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Links to authorised repair providers serve consumer repairer discovery under the right-to-repair framework (Dir. 2024/1799).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2024/1799"
-    },
-    "oec:repairProvider": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Links to authorised repair providers serve consumer repairer discovery under the right-to-repair framework (Dir. 2024/1799).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2024/1799"
-    },
     "repairProviderUrl": {
       "x-access-level": "Public",
       "x-access-level-rationale": "The listed repair provider's URL is consumer-facing directory information (Dir. 2024/1799).",
@@ -1324,16 +1496,6 @@
       "x-access-level": "Public",
       "x-access-level-rationale": "The listed repair provider's URL is consumer-facing directory information (Dir. 2024/1799).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2024/1799"
-    },
-    "repairabilityInfo": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Repair and maintenance information is directed at end users and independent repairers under ESPR Annex I(b) and the right-to-repair framework.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:repairabilityInfo": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Repair and maintenance information is directed at end users and independent repairers under ESPR Annex I(b) and the right-to-repair framework.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     "repairabilityScore": {
       "x-access-level": "Public",
@@ -1359,36 +1521,6 @@
       "x-access-level-rationale": "Separate-collection requirements must reach end users under the WFD/WEEE consumer-information duties (Dir. 2008/98/EC Art. 8a(2)).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
     },
-    "softwareUpdatesAvailability": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The guaranteed software/firmware update period is a consumer durability parameter (ESPR Annex I; smartphone/tablet labelling precedent).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:softwareUpdatesAvailability": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The guaranteed software/firmware update period is a consumer durability parameter (ESPR Annex I; smartphone/tablet labelling precedent).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "sparePartsAvailability": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Spare-parts availability duration is a consumer purchase parameter under ESPR Annex I(d) and existing ecodesign implementing measures.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:sparePartsAvailability": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Spare-parts availability duration is a consumer purchase parameter under ESPR Annex I(d) and existing ecodesign implementing measures.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "substancesOfConcern": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Tracking substances of concern is a stated DPP objective (ESPR Art. 7(5)(b)) and presence data is already public via ECHA's SCIP database; textile module agrees on Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:substancesOfConcern": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Tracking substances of concern is a stated DPP objective (ESPR Art. 7(5)(b)) and presence data is already public via ECHA's SCIP database; textile module agrees on Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
     "supplyChainTransparencyUrl": {
       "x-access-level": "Public",
       "x-access-level-rationale": "CSDDD Art. 16 requires companies to publicly communicate on due diligence; a transparency endpoint is public by function.",
@@ -1409,16 +1541,6 @@
       "x-access-level-rationale": "The consumer-facing take-back landing page is public by function; textile module serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
     },
-    "technicalLifetime": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Technical lifetime under specified conditions is a durability parameter directed at end users per ESPR Annex I(a).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:technicalLifetime": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Technical lifetime under specified conditions is a durability parameter directed at end users per ESPR Annex I(a).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
     "thirdPartyAssurancesUrl": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Third-party assurance links substantiate public claims and are public by function; battery module serves the same name Public.",
@@ -1427,16 +1549,6 @@
     "oec:thirdPartyAssurancesUrl": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Third-party assurance links substantiate public claims and are public by function; battery module serves the same name Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "traceabilityPerformance": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Aggregate traceability metrics substantiate public transparency claims without exposing individual suppliers (ESPR Art. 7; CSDDD context).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:traceabilityPerformance": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Aggregate traceability metrics substantiate public transparency claims without exposing individual suppliers (ESPR Art. 7; CSDDD context).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     "tradeItemPieceCount": {
@@ -1469,16 +1581,6 @@
       "x-access-level-rationale": "Linking a piece to its parent GTIN is product identification equivalent to the public product identifier itself.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "tradeItemPieces": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The piece set is the container for piece data that is itself Public throughout; gating it would hide public product identification behind a closed door.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:tradeItemPieces": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "The piece set is the container for piece data that is itself Public throughout; gating it would hide public product identification behind a closed door.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
     "usageCycles": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Expected usage cycles are a durability metric of the same consumer-comparison kind as expected lifespan (ESPR Annex I(a)).",
@@ -1497,16 +1599,6 @@
     "oec:utilityFactor": {
       "x-access-level": "Public",
       "x-access-level-rationale": "Durability relative to the industry average is a consumer comparison metric of the same kind as expected lifespan (ESPR Annex I(a)).",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "verificationBody": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Naming the third-party verifier is what makes public assurances checkable; battery module serves the same name Public.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:verificationBody": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Naming the third-party verifier is what makes public assurances checkable; battery module serves the same name Public.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     "verifiedRatio": {
@@ -1529,16 +1621,14 @@
       "x-access-level-rationale": "Waste-prevention information is consumer-directed by definition (Dir. 2008/98/EC Art. 9).",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
     },
-    "operationalScope": {},
-    "oec:operationalScope": {},
-    "operatorRole": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The operator's supply-chain role (importer, fulfilment provider, ...) maps responsibility chains for authorities (ESPR Art. 9(2)).",
+    "packagingWasteAmount": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Annex I ecodesign parameter; PPWR reporting publishes the same per-unit packaging figures.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "oec:operatorRole": {
-      "x-access-level": "AuthorizedOnly",
-      "x-access-level-rationale": "The operator's supply-chain role (importer, fulfilment provider, ...) maps responsibility chains for authorities (ESPR Art. 9(2)).",
+    "oec:packagingWasteAmount": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Annex I ecodesign parameter; PPWR reporting publishes the same per-unit packaging figures.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     "passportVersion": {
@@ -1561,18 +1651,48 @@
       "x-access-level-rationale": "Performance/efficiency classes (e.g. A-G) exist precisely for at-a-glance consumer comparison, mirroring the public energy-label and battery CF classes.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "productCategory": {
+    "productCategoryRules": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "The ESPR product-group classification determines which delegated act applies and is inherently public market information.",
+      "x-access-level-rationale": "The PCR/PEFCR reference is EPD metadata without which the declared results are not comparable; ISO 14025 declarations are public documents.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "oec:productCategory": {
+    "oec:productCategoryRules": {
       "x-access-level": "Public",
-      "x-access-level-rationale": "The ESPR product-group classification determines which delegated act applies and is inherently public market information.",
+      "x-access-level-rationale": "The PCR/PEFCR reference is EPD metadata without which the declared results are not comparable; ISO 14025 declarations are public documents.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "productToPackagingRatio": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Annex I ecodesign parameter; derived from weights GS1 already publishes per trade item.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:productToPackagingRatio": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Annex I ecodesign parameter; derived from weights GS1 already publishes per trade item.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     "comment": {},
     "rdfs:comment": {},
+    "recoverableRate": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "End-of-life recoverability is consumer-facing circularity information, same tier as oec:recyclabilityRate.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:recoverableRate": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "End-of-life recoverability is consumer-facing circularity information, same tier as oec:recyclabilityRate.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "recyclingCollectionRate": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Collection rates are scheme-level statistics published by EPR schemes and member states; nothing product-confidential.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:recyclingCollectionRate": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Collection rates are scheme-level statistics published by EPR schemes and member states; nothing product-confidential.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
     "registrationNumber": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-rationale": "Official registration/licence numbers support authority verification; broadcasting them invites impersonation without serving consumers.",
@@ -1623,16 +1743,6 @@
       "x-access-level-rationale": "A repairability class is the at-a-glance consumer form of the repairability score, mirroring public energy-label classes.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
-    "reportingGranularity": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Per-attribute reporting granularity (model/batch/item) is interpretation metadata needed to read the value it qualifies, like the passport-level granularity.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
-    "oec:reportingGranularity": {
-      "x-access-level": "Public",
-      "x-access-level-rationale": "Per-attribute reporting granularity (model/batch/item) is interpretation metadata needed to read the value it qualifies, like the passport-level granularity.",
-      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
-    },
     "safeDisassemblyInstructions": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-rationale": "Safe-disassembly detail for substance-bearing components addresses professional handlers, not consumers (battery Annex XIII(2) precedent).",
@@ -1669,6 +1779,16 @@
       "x-access-level-rationale": "SCIP notifications are made publicly available by ECHA under WFD Art. 9(2), so the SCIP identifier points into a public database by design.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/dir/2008/98"
     },
+    "socThreshold": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Declaration thresholds come from the delegated act, not from the manufacturer; publishing the threshold discloses regulation text, not formulation.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:socThreshold": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Declaration thresholds come from the delegated act, not from the manufacturer; publishing the threshold discloses regulation text, not formulation.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
     "stageValue": {},
     "oec:stageValue": {},
     "substanceLocation": {
@@ -1679,6 +1799,16 @@
     "oec:substanceLocation": {
       "x-access-level": "AuthorizedOnly",
       "x-access-level-rationale": "Where a substance sits in the product is dismantling/processing detail for waste operators (battery Annex XIII(2); SCIP notification detail).",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "substanceTradeName": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Trade names reveal supplier relationships on top of substance identity; same professional/authority audience as oec:casNumber.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
+    },
+    "oec:substanceTradeName": {
+      "x-access-level": "AuthorizedOnly",
+      "x-access-level-rationale": "Trade names reveal supplier relationships on top of substance identity; same professional/authority audience as oec:casNumber.",
       "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2023/1542"
     },
     "takeBackIncentive": {
@@ -1705,7 +1835,27 @@
     },
     "oec:value": {},
     "valueDataType": {},
-    "oec:valueDataType": {}
+    "oec:valueDataType": {},
+    "wasteGenerationAmount": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:wasteGenerationAmount": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "waterConsumption": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    "oec:waterConsumption": {
+      "x-access-level": "Public",
+      "x-access-level-rationale": "Annex I ecodesign parameter; headline lifecycle figure with the same consumer-information role as oec:carbonFootprintTotal.",
+      "x-access-level-source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    }
   },
   "patternProperties": {
     "^oec:": {}

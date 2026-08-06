@@ -113,7 +113,7 @@ GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/
 ```json
 {
   "type": "PerformanceInfo",
-  "oec:expectedLifespan": {
+  "oec:hasExpectedLifespan": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
@@ -130,7 +130,7 @@ GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/
   "type": "RepairabilityInfo",
   "oec:repairabilityScore": 7.5,
   "oec:repairabilityClass": "B",
-  "oec:sparePartsAvailability": {
+  "oec:hasSparePartsAvailability": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
@@ -144,7 +144,7 @@ GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/
 ```json
 {
   "type": "AccessRights",
-  "oec:accessLevel": "Public"
+  "oec:hasAccessLevel": "Public"
 }
 ```
 

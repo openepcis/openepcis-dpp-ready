@@ -20,7 +20,7 @@
  *                                   of every specific value property it could find.
  *   HOLD  inverted direction        narrowMatch toward a general Layer-1 head term
  *                                   (general-l1-terms.json, shared with check:mappings rule 6).
- *   HOLD  identical local names     a subsumption between eubat:ratedMaximumPower and
+ *   HOLD  identical local names     a subsumption between eubat:hasRatedMaximumPower and
  *                                   batterypass:ratedMaximumPower is not what a name match says;
  *                                   exactMatch or closeMatch is the question.
  *   HOLD  meta-class                schema:Class is the class of classes.
@@ -95,7 +95,7 @@ const DEFERRED: Map<string, string> = (() => {
 /**
  * schema.org areas that are foreign to a product passport. Same list `check:mappings` uses,
  * plus the broadcast specification: the panel confidently proposed
- * `eucpr:characteristicValue` -> `schema:broadcastFrequencyValue`, a radio term, for a
+ * `eucpr:hasCharacteristicValue` -> `schema:broadcastFrequencyValue`, a radio term, for a
  * construction product characteristic. Meaning-level judgement cannot see domain scope.
  */
 const SCHEMA_FOREIGN = new Set([
@@ -243,7 +243,7 @@ function verdict(f: Finding): { action: "APPLY" | "HOLD" | "SKIP"; reason: strin
   if (f.upstreamIri.startsWith(OWN)) return { action: "SKIP", reason: "intra-project target" };
 
   // The mechanical filters are skipped for a pre-blessed proposal: an allowlist entry IS the
-  // decision, so a rule must not overrule it. `eudr:countryList narrowMatch gs1:countryOfOrigin`
+  // decision, so a rule must not overrule it. `eudr:hasCountryList narrowMatch gs1:countryOfOrigin`
   // is recorded as a container that aggregates the upstream concept, and the general-Layer-1 rule
   // below would otherwise hold it as an inverted direction.
   if (!proposedIsAllowed) {
@@ -255,8 +255,8 @@ function verdict(f: Finding): { action: "APPLY" | "HOLD" | "SKIP"; reason: strin
     // Identical local names on both sides, with a subsumption proposed between them. Two terms
     // that named themselves the same thing are candidates for exactMatch or closeMatch; claiming
     // one contains the other needs a reason a name match does not supply. The battery panel
-    // proposed `eubat:hazardousSubstances` above `batterypass:hazardousSubstances` and
-    // `eubat:ratedMaximumPower` above `batterypass:ratedMaximumPower`.
+    // proposed `eubat:hasHazardousSubstances` above `batterypass:hazardousSubstances` and
+    // `eubat:hasRatedMaximumPower` above `batterypass:ratedMaximumPower`.
     const ourLocal = (f.ourId.split(":")[1] ?? "").toLowerCase();
     const upLocal = (f.upstreamIri.split(/[#/]/).pop() ?? "").toLowerCase();
     if (ourLocal && ourLocal === upLocal
@@ -266,7 +266,7 @@ function verdict(f: Finding): { action: "APPLY" | "HOLD" | "SKIP"; reason: strin
     if (META.has(f.upstreamIri)) return { action: "HOLD", reason: "target is a meta-class" };
     if (isTypeTerm(f.ourId) && isEntityTarget(f)) return { action: "HOLD", reason: "our term is a type, target is the entity" };
     // A graded relation holds between two concepts at the same level. The panel judges meaning,
-    // so it happily proposes `eudr:transformationLocation broadMatch locn:Location`, a property
+    // so it happily proposes `eudr:hasTransformationLocation broadMatch locn:Location`, a property
     // under a class, while the same report already carries the correct `locn:location` pairing.
     const kind = targetKind(f.upstreamIri);
     if (kind && (f.ourType === "class" || f.ourType === "property") && kind !== f.ourType) {

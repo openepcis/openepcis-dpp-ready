@@ -117,7 +117,7 @@ Organization: https://id.gs1.org/417/{GLN}
 {
   "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
   "type": "Product",
-  "eudr:commodityType": "Wood",
+  "eudr:hasCommodityType": "Wood",
   "eudr:speciesScientificName": "Quercus robur",
 }
 ```
@@ -166,7 +166,7 @@ Organization: https://id.gs1.org/417/{GLN}
     "gs1:regulatoryReferenceNumber": "EUIS-2025-DE-00012345",
     "eudr:deforestationFreeDate": "2025-01-15",
     "eudr:legallyHarvested": true,
-    "eudr:riskLevel": "Low"
+    "eudr:hasRiskLevel": "Low"
   }]
 }
 ```
@@ -183,8 +183,8 @@ Use `TransformationEvent` to link derived products back to source commodities:
   "gs1:masterDataAvailableFor": [{
     "id": "...furniture-id...",
     "eudr:transformationDate": "2025-02-15",
-    "eudr:commodityType": "Wood",
-    "eudr:timberProductType": "Furniture"
+    "eudr:hasCommodityType": "Wood",
+    "eudr:hasTimberProductType": "Furniture"
   }]
 }
 ```
@@ -363,15 +363,15 @@ Carry the exemption in an `ObjectEvent` with `bizStep: "oec:BizStep-notifying"` 
   "epcList": ["https://id.gs1.org/01/09521234000020/10/LOT-2026-Q1-0042"],
   "gs1:masterDataAvailableFor": [{
     "id": "https://id.gs1.org/01/09521234000020/10/LOT-2026-Q1-0042",
-    "eudr:exemptionDeclaration": {
+    "eudr:hasExemptionDeclaration": {
       "type": "eudr:ExemptionDeclaration",
-      "eudr:exemptionType": "TemporaryExemption",
+      "eudr:hasExemptionType": "TemporaryExemption",
       "eudr:exemptionReasonCode": "DOWNSTREAM_VERIFIED_LOW_RISK",
       "eudr:exemptionScope": "batch",
       "eudr:exemptionScopeReference": "LOT-2026-Q1-0042",
       "eudr:exemptionEffectiveFrom": "2026-04-15",
       "eudr:exemptionEffectiveUntil": "2026-07-15",
-      "eudr:exemptionAuthority": { "..." : "..." }
+      "eudr:hasExemptionAuthority": { "..." : "..." }
     }
   }]
 }
@@ -383,11 +383,11 @@ See `eudr/epcis/exemption-declaration.jsonld` for the full example.
 
 | Concept | EPCIS JSON-LD (this guide) | EANCOM (GS1 standardization) | GDSN (GS1 standardization) |
 |---|---|---|---|
-| Exemption type | `eudr:exemptionType` | IMD segment C272:DE7081 | dedicated attribute |
+| Exemption type | `eudr:hasExemptionType` | IMD segment C272:DE7081 | dedicated attribute |
 | Exemption reason code | `eudr:exemptionReasonCode` | IMD segment C273:DE7009 | dedicated attribute |
 | Temporary batch/serial scope | `eudr:exemptionScope` + `exemptionScopeReference` | GIN segment under SG22 | exemption attribute on item |
 | Date range | `eudr:exemptionEffectiveFrom/Until` | date segments | date attributes |
-| Declaring party | `eudr:exemptionAuthority` (oec:OperatorInformation) | NAD segments | partyGLN attribute |
+| Declaring party | `eudr:hasExemptionAuthority` (oec:OperatorInformation) | NAD segments | partyGLN attribute |
 
 ### Controlled vocabularies (pending)
 

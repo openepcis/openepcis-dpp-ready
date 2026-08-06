@@ -4,6 +4,28 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed: `bpr:` mirror shrunk to its longlist-only scope
+
+GEFEG BatteryPass-Ready is the Battery Pass Consortium's publication and validation
+channel, not a second data model (its canonical repo is the Consortium repo; the TNO
+AAS→RDF modules on the CIRPASS-2 hub render the same source). The OpenEPCIS-hosted
+`bpr:` namespace therefore now carries only the longlist-only remainder: the
+DPP-information attributes `DPPSchemaVersion`, `DPPStatus`, `DPPGranularity`,
+`Date-timeOfLatestUpdateOfDPP`, the four flat lossless-carrier keys of the bridge
+context, and the `dppStatusCodes` scheme. `battery.ttl` drops 150 mappings into the
+mirror (the `urn:samm:io.BatteryPass.*` URNs carry them); `capacityFadeThreshold`,
+`powerCapabilityRatio`, `stateOfChargeLevel`, `hasOperatorInformation`, `spareParts`
+and `numberOfDeepDischargeEvents` receive their SAMM anchor directly. The outbound
+bridge context's four `bpr:` IRIs, previously dangling in camelCase, now reference the
+real terms. README documents the one-model-several-renderings picture including the TNO
+provenance. GEFEG conformance (schemas, exporter, 23/23 harness) is untouched.
+
+### Changed: object properties adopt the `has*` naming convention
+
+91 battery object properties follow the project-wide rename (`eubat:materialComposition`
+→ `eubat:hasMaterialComposition`); `eubat:hasBattery` already conformed. Datatype
+properties (rated values, fade counters, identifiers) keep their names.
+
 ### Added: EC Battery Passport guidance data-point registry (Ares(2026)7579758)
 
 The European Commission's "Guidance Document: Digital Batteries Passport — data points by

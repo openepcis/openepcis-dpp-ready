@@ -28,8 +28,8 @@ curl -H "Accept: application/ld+json" \
 
 | Domain | Additional Type | Key GS1 Properties |
 |--------|-----------------|-------------------|
-| Battery | `eubat:Battery` | Plus `eubat:technicalSpecifications`, `eubat:materialComposition` |
-| EUDR | `eudr:TimberProduct` | Plus `eudr:sourceLocation`, `eudr:commodityType` |
+| Battery | `eubat:Battery` | Plus `eubat:hasTechnicalSpecifications`, `eubat:hasMaterialComposition` |
+| EUDR | `eudr:TimberProduct` | Plus `eudr:sourceLocation`, `eudr:hasCommodityType` |
 
 **Example**:
 ```json
@@ -47,7 +47,7 @@ curl -H "Accept: application/ld+json" \
   },
   "gs1:certificationInfo": [...],
   "schema:category": "IndustrialBattery",
-  "eubat:technicalSpecifications": {...}
+  "eubat:hasTechnicalSpecifications": {...}
 }
 ```
 
@@ -248,12 +248,12 @@ Useful for EUDR's EU Information System (EUIS) reference numbers:
   "@context": [...],
   "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
   "gs1:safetyInfo": {
-    "oec:hazardousSubstances": [
+    "oec:hasHazardousSubstances": [
       {
         "type": "oec:HazardousSubstance",
         "schema:name": "Cobalt compounds",
         "oec:casNumber": "7440-48-4",
-        "oec:hazardClass": "Carcinogenicity",
+        "oec:hasHazardClass": "Carcinogenicity",
         "oec:concentration": 12.5,
         "oec:hazardImpact": "May cause cancer by inhalation"
       }

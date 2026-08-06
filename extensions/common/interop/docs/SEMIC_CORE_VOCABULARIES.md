@@ -98,7 +98,7 @@ Models legal entities — the EU peer to `gs1:Organization` for commercial opera
 | OpenEPCIS term | Core Business peer | Action |
 |---|---|---|
 | `oec:OperatorInformation` | `legal:LegalEntity` | **`rdfs:seeAlso` only** — the two overlap but neither contains the other. legal:LegalEntity includes charities and non-profit bodies that are not ESPR operators; ESPR operators include sole proprietors that some jurisdictions classify as natural persons rather than legal entities. Use legal:LegalEntity for EU-portal interoperability when the operator is known to be a legally-registered business. |
-| `eubat:operatorInformation` | `legal:LegalEntity` | Anchor via the `oec:` cascade |
+| `eubat:hasOperatorInformation` | `legal:LegalEntity` | Anchor via the `oec:` cascade |
 | `gs1:Organization` | `legal:LegalEntity` (sibling) | Both legitimate; pick by audience — GS1 for EPCIS-native consumers, `cv:` for EU-portal consumers |
 
 ### Core Person Vocabulary
@@ -114,8 +114,8 @@ The canonical EU representation for addresses, named locations, and geometry. `l
 | OpenEPCIS term | Core Location peer | Action |
 |---|---|---|
 | `oec:FacilityInformation` | `locn:Location` | `rdfs:seeAlso` — keep existing `untp:Facility` equivalence and `gs1:Place` see-also |
-| `eudr:geolocation` / `eudr:transformationLocation` | `locn:Geometry` / `locn:Location` | `rdfs:seeAlso` |
-| `eutex:spinningFacility` (and siblings) | `locn:Location` (subtype) | `rdfs:seeAlso` on parent property |
+| `eudr:geolocation` / `eudr:hasTransformationLocation` | `locn:Geometry` / `locn:Location` | `rdfs:seeAlso` |
+| `eutex:hasSpinningFacility` (and siblings) | `locn:Location` (subtype) | `rdfs:seeAlso` on parent property |
 
 ### Core Public Event Vocabulary
 

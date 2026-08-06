@@ -84,7 +84,7 @@ semantics GS1 standardization is still finalising. Owning the namespace means:
 ## 4. It is consistent even when the module is tiny
 
 The `fsma204` module contributes **one property**
-(`usfsma:foodTraceabilityListCategory`) plus the FTL enum. Every other FSMA
+(`usfsma:hasFoodTraceabilityListCategory`) plus the FTL enum. Every other FSMA
 204 KDE already rides on native EPCIS 2.0 / GS1 Web Vocabulary fields per
 the GS1 US R2.0 EPCIS guide. We still register a `usfsma:` extension
 because:

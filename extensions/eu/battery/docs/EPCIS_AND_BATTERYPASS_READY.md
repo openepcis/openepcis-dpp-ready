@@ -39,7 +39,7 @@ The BatteryPass-Ready data model is **v1.0** (Attribute Longlist v1.3, SAMM 1.2.
 
 A battery passport is inherently multi-level. The repo carries two related granularity concepts:
 
-- **`oec:reportingGranularity`** (per attribute) → `oec:DPPGranularity`, one of
+- **`oec:hasReportingGranularity`** (per attribute) → `oec:DPPGranularity`, one of
   `ModelLevel / BatchLevel / ItemLevel`
   ([`../../../common/core/ontology/dpp-core.ttl`](../../../common/core/ontology/dpp-core.ttl)).
   It feeds the GEFEG `DPPGranularity` field. Granularity is the product hierarchy only — it maps
@@ -68,8 +68,8 @@ information is a model design range at beginning of life and an item-observed va
 the passport-instance metadata (DPPStatus, DPPGranularity, Date-timeOfLatestUpdate) exists at every
 level a passport instance does. The map records the primary level first and lists the others.
 
-The corresponding `eubat:` dynamic sensor terms carry `oec:reportingGranularity oec:ItemLevel` in
-[`../ontology/battery.ttl`](../ontology/battery.ttl); `eubat:carbonFootprintTotal` carries
+The corresponding `eubat:` dynamic sensor terms carry `oec:hasReportingGranularity oec:ItemLevel` in
+[`../ontology/battery.ttl`](../ontology/battery.ttl); `eubat:hasCarbonFootprintTotal` carries
 `oec:BatchLevel`.
 
 ## How multiple EPCIS events reconstruct the passport
@@ -98,18 +98,18 @@ note the prose tables in `IMPLEMENTATION_GUIDE.md` / `POSITIONING.md` write thes
 
 | Passport field | Fed by `sensorReport` type (event) | Fold |
 |---|---|---|
-| NumberOfFullChargingAndDischargingCycles | `eubat:cycleCount` (commissioning, state-of-health) | max |
-| CapacityFade | `eubat:capacityFade` (state-of-health) | latest |
-| StateOfChargeSoC | `eubat:stateOfCharge` | latest |
-| RemainingCapacity | `eubat:remainingCapacity` (state-of-health) | latest, rounded to integer Ah |
-| RemainingRoundTripEnergyEfficiency | `eubat:remainingRoundTripEfficiency` (state-of-certified-energy) | latest |
-| StateOfCertifiedEnergySOCE | `eubat:stateOfCertifiedEnergy` (state-of-certified-energy) ÷ rated energy | latest ratio (EV-only field) |
-| EnergyThroughput | `eubat:energyThroughput` (state-of-health) | latest |
-| InternalResistanceIncrease… | `eubat:internalResistance` (state-of-health) vs `initialInternalResistance` (model) | derived delta |
+| NumberOfFullChargingAndDischargingCycles | `eubat:hasCycleCount` (commissioning, state-of-health) | max |
+| CapacityFade | `eubat:hasCapacityFade` (state-of-health) | latest |
+| StateOfChargeSoC | `eubat:hasStateOfCharge` | latest |
+| RemainingCapacity | `eubat:hasRemainingCapacity` (state-of-health) | latest, rounded to integer Ah |
+| RemainingRoundTripEnergyEfficiency | `eubat:hasRemainingRoundTripEfficiency` (state-of-certified-energy) | latest |
+| StateOfCertifiedEnergySOCE | `eubat:hasStateOfCertifiedEnergy` (state-of-certified-energy) ÷ rated energy | latest ratio (EV-only field) |
+| EnergyThroughput | `eubat:hasEnergyThroughput` (state-of-health) | latest |
+| InternalResistanceIncrease… | `eubat:hasInternalResistance` (state-of-health) vs `initialInternalResistance` (model) | derived delta |
 | TimeSpentInExtremeTemperatures{Above,Below}Boundary | `Temperature` + `eubat:exposureDurationMinutes` (temperature-extreme), bucketed against TemperatureRangeIdleState bounds | sum |
 | NumberOfDeepDischargeEvents | negative-event with a deep-discharge incident type | count |
 | TemperatureInformation | latest non-excursion `Temperature` reading | latest |
-| BatteryCarbonFootprint group | `eubat:carbonFootprintTotal` + four lifecycle-stage reports (carbon-footprint) | recorded declaration (batch-level) |
+| BatteryCarbonFootprint group | `eubat:hasCarbonFootprintTotal` + four lifecycle-stage reports (carbon-footprint) | recorded declaration (batch-level) |
 
 [`scripts/reconstruct-passport-from-epcis.ts`](../../../../scripts/reconstruct-passport-from-epcis.ts)
 is a reference implementation. It merges the master-data source layers (`--sources` accepts a model

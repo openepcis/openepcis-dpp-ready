@@ -4,6 +4,21 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed: object properties adopt the `has*` naming convention
+
+49 textile object properties follow the project-wide rename. The rename surfaced a
+latent collision: `eutex:takeBackProgram` (the programme node) and the boolean
+`eutex:hasTakeBackProgram` would have merged, so the boolean is now
+`eutex:takeBackProgramAvailable` and the node property carries the conventional
+`eutex:hasTakeBackProgram`. Contexts, examples, shapes and schemas follow.
+
+### Added: CIRPASS-2 microplastic pointers
+
+`eutex:MicroplasticInfo` now points at the EUDPP P_DPP classes
+`cirpass2:MicroplasticRelease` and `cirpass2:NanoplasticRelease`, with a note recording
+the governance move-down criterion (the concept graduates to `oec:` once a second
+regulation module needs it).
+
 ## [0.9.8] - 2026-07-29
 
 ### Fixed: mapping directions settled against the layering and the upstream definitions

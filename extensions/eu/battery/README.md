@@ -88,8 +88,8 @@ Uses official GS1 Web Vocabulary for regulatory compliance:
 
 **Architecture rule**: `masterDataAvailableFor` carries product/party/location
 **master data** — GS1 Web Vocabulary terms written bare, plus **product-level**
-extension attributes that have no GS1 equivalent (e.g. `eubat:batteryChemistry`,
-`eubat:ratedCapacity`, `schema:category`), since they describe the GTIN and are
+extension attributes that have no GS1 equivalent (e.g. `eubat:hasBatteryChemistry`,
+`eubat:hasRatedCapacity`, `schema:category`), since they describe the GTIN and are
 identical across every item of that SKU. **Event-specific / dynamic** extension
 data (a single measurement, this-shipment KDEs, incident severity) goes at **event
 level**, not in `masterDataAvailableFor`. See the canonical rule in
@@ -236,12 +236,30 @@ Same data, different semantic views:
 { "@context": "https://ref.openepcis.io/extensions/eu/battery/battery-context-batterypass-bridge.jsonld" }
 ```
 
-### BatteryPass interoperability — two distinct sources
+### BatteryPass interoperability — one data model, several renderings
 
-BatteryPass has two separate sources, and the bridge contexts reference each on its own:
+There is ONE BatteryPass data model, published by the **Battery Pass Consortium**
+(BMW / BASF / Bosch / Henkel / SAP / T-Systems / ZF + Catena-X / Tractus-X). What
+looks like separate sources are renderings of that model through different channels:
 
-- **BatteryPass Consortium SAMM aspect models** (github.com/batterypass/BatteryPassDataModel) — the semantic data model, real published versions **1.2.0** (Performance **1.2.1**). Referenced via the `samm-*` prefixes; these match the SKOS mappings in `battery.ttl`.
-- **GEFEG BatteryPass-Ready** (thebatterypass.eu / batterypass-ready.gefeg.com) — the **v1.3 attribute longlist** plus the **v1.0 validation** test environment. It publishes no RDF IRIs, so its longlist-only attributes (the DPP-information group #1–#4) are referenced via the OpenEPCIS-hosted `bpr:` namespace (`https://ref.openepcis.io/vocab/batterypass-ready/1.3#`). There is no SAMM 1.3.0 and no SAMM `DPPInformation` submodel.
+- **Consortium SAMM aspect models** (github.com/batterypass/BatteryPassDataModel) —
+  the canonical semantic form, real published versions **1.2.0** (Performance
+  **1.2.1**). Referenced via the `samm-*` prefixes and under the real
+  `urn:samm:io.BatteryPass.*` URNs; these carry the SKOS mappings in `battery.ttl`.
+- **GEFEG BatteryPass-Ready** (thebatterypass.eu / batterypass-ready.gefeg.com) —
+  the Consortium's **publication and validation channel**: the **v1.3 attribute
+  longlist** plus the **v1.0 validation** test environment. Its canonical repo
+  (`git.gefeg.com/bp/BatteryPassDataModel`) is the Consortium data-model repo. It
+  publishes no RDF IRIs; only its **longlist-only attributes** (the DPP-information
+  group #1–#4, which have no SAMM equivalent) plus four flat lossless-carrier keys
+  are referenced via the OpenEPCIS-hosted `bpr:` namespace
+  (`https://ref.openepcis.io/vocab/batterypass-ready/1.3#`). There is no SAMM 1.3.0
+  and no SAMM `DPPInformation` submodel.
+- **TNO AAS→RDF conversions** on the CIRPASS-2 vocabulary hub
+  (`ontology.tno.nl/BatteryPass/*`, v0.2.0) — machine-generated OWL renderings of
+  the same Consortium submodels (`prov:wasAttributedTo` TNO AasRdfConverter 0.2.0).
+  Hosted on dpp.vocabulary-hub.eu but not CIRPASS-2-curated vocabulary; we document
+  them here and do not anchor to them.
 
 The bridge contexts enable **bidirectional compatibility**:
 
@@ -329,17 +347,17 @@ Maps to EU Battery Regulation 2023/1542 Annex XIII:
 |-------------|----------------|
 | Unique identifier | `id` = GS1 Digital Link |
 | Manufacturer info | `gs1:manufacturer` with GLN |
-| Operator info | `eubat:operatorInformation` |
+| Operator info | `eubat:hasOperatorInformation` |
 | Carbon footprint | EPCIS event with lifecycle breakdown |
 | State of Health | EPCIS `sensorReport` with provenance |
 | State of Certified Energy | EPCIS `sensorReport` |
-| Material composition | `eubat:materialComposition` |
-| Hazardous substances | `eubat:hazardousSubstances` |
+| Material composition | `eubat:hasMaterialComposition` |
+| Hazardous substances | `eubat:hasHazardousSubstances` |
 | Recycled content | Pre/post consumer split per material |
-| Dismantling info | `eubat:dismantlingDocuments` |
-| Spare parts | `eubat:sparePartSources` |
-| Labels | `eubat:labels` with symbols |
-| Due diligence | `eubat:supplyChainDueDiligence` |
+| Dismantling info | `eubat:hasDismantlingDocuments` |
+| Spare parts | `eubat:hasSparePartSources` |
+| Labels | `eubat:hasLabels` with symbols |
+| Due diligence | `eubat:hasSupplyChainDueDiligence` |
 | Declaration of conformity | `eubat:declarationOfConformity` |
 | Negative events | EPCIS events with full provenance |
 

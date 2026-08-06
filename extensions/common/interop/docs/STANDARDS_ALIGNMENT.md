@@ -102,7 +102,7 @@ JTC 24 is developing **8 individual standards** under M/604. Six were published 
 
 | Standard | Title | OpenEPCIS Alignment |
 |----------|-------|---------------------|
-| **EN 45552** | General method for durability assessment | `oec:PerformanceInfo`, `oec:expectedLifespan` |
+| **EN 45552** | General method for durability assessment | `oec:PerformanceInfo`, `oec:hasExpectedLifespan` |
 | **EN 45553** | General method for remanufacturability assessment | `oec:CircularityPerformance` |
 | **EN 45554** | General method for repair, reuse, upgrade assessment | `oec:RepairabilityInfo` |
 | **EN 45555** | General method for recyclability/recoverability assessment | `oec:recyclableContent`, `oec:CircularityPerformance` |
@@ -250,7 +250,7 @@ OpenEPCIS is built natively on GS1 Web Vocabulary patterns:
 | `oec:utilityFactor` | `untp:utilityFactor` | Durability multiplier |
 | `oec:materialCircularityIndicator` | `untp:materialCircularityIndicator` | MCI score |
 | `oec:primarySourcedRatio` | `untp:primarySourcedRatio` | Direct measurement ratio |
-| `oec:operationalScope` | `untp:operationalScope` | Lifecycle boundary |
+| `oec:hasOperationalScope` | `untp:operationalScope` | Lifecycle boundary |
 | `oec:verifiedRatio` | `untp:verifiedRatio` | Traceability verification |
 | `oec:granularityLevel` | `untp:granularityLevel` | Product/Batch/Item |
 
@@ -300,7 +300,7 @@ See [CIRPASS2_COVERAGE.md](./CIRPASS2_COVERAGE.md) for detailed coverage analysi
 
 | ESPR Requirement | OpenEPCIS Implementation |
 |-----------------|-------------------------|
-| Article 7 - Performance/Durability | `oec:PerformanceInfo`, `oec:expectedLifespan` |
+| Article 7 - Performance/Durability | `oec:PerformanceInfo`, `oec:hasExpectedLifespan` |
 | Article 7 - Repairability | `oec:RepairabilityInfo`, `oec:repairabilityScore` |
 | Article 8 - Substances of Concern | `oec:SubstanceOfConcern`, SCIP alignment |
 | Article 9 - Access Rights | `oec:AccessRights`, `oec:AccessLevel` |
@@ -314,10 +314,10 @@ The EN 45552-45555 series defines *how* to assess product characteristics. OpenE
 
 | Assessment Output | OpenEPCIS Property |
 |-------------------|-------------------|
-| Expected lifetime | `oec:expectedLifespan` |
-| Guaranteed lifetime | `oec:guaranteedLifespan` |
+| Expected lifetime | `oec:hasExpectedLifespan` |
+| Guaranteed lifetime | `oec:hasGuaranteedLifespan` |
 | Usage cycles | `oec:usageCycles` |
-| Technical lifetime | `oec:technicalLifetime` |
+| Technical lifetime | `oec:hasTechnicalLifetime` |
 | Test conditions | `oec:testedConditions` |
 
 ### EN 45554 - Repairability Assessment
@@ -326,8 +326,8 @@ The EN 45552-45555 series defines *how* to assess product characteristics. OpenE
 |-------------------|-------------------|
 | Repairability score | `oec:repairabilityScore` |
 | Repairability class | `oec:repairabilityClass` (A-E) |
-| Spare parts availability | `oec:sparePartsAvailability` |
-| Repair documentation | `oec:repairInstructions` |
+| Spare parts availability | `oec:hasSparePartsAvailability` |
+| Repair documentation | `oec:hasRepairInstructions` |
 | Professional repair access | `oec:professionalRepairNetwork` |
 | DIY repairability | `oec:diyRepairPossible` |
 
@@ -338,14 +338,14 @@ The EN 45552-45555 series defines *how* to assess product characteristics. OpenE
 | Recyclability rate | `oec:recyclableContent` |
 | Recovery rate | `oec:CircularityPerformance` |
 | Material composition | `oec:MaterialComposition` |
-| Disassembly info | `oec:dismantlingInstructions` |
+| Disassembly info | `oec:hasDismantlingInstructions` |
 
 ### EN 45553 - Remanufacturability Assessment
 
 | Assessment Output | OpenEPCIS Property |
 |-------------------|-------------------|
 | Remanufacturing potential | `oec:CircularityPerformance` |
-| Component accessibility | `oec:dismantlingInstructions` |
+| Component accessibility | `oec:hasDismantlingInstructions` |
 | Material circularity | `oec:materialCircularityIndicator` |
 
 ## Superior OpenEPCIS Patterns

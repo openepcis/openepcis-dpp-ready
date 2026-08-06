@@ -693,7 +693,7 @@ euelec:modelIdentifier
 # PART 10: PROPERTIES - FRENCH REPAIRABILITY INDEX
 # =============================================================================
 
-euelec:repairabilityIndex
+euelec:hasRepairabilityIndex
     a owl:ObjectProperty ;
     rdfs:label "Repairability Index"@en ;
     rdfs:comment "French Repairability Index (Indice de Réparabilité) assessment."@en ;
@@ -724,7 +724,7 @@ euelec:displayScore
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No exact GS1 or SEMICeu equivalent; loosely related to the generic schema:ratingValue."@en ;
     skos:closeMatch schema:ratingValue .
 
-euelec:repairabilityClass
+euelec:hasRepairabilityClass
     a owl:ObjectProperty ;
     rdfs:label "Repairability Class"@en ;
     rdfs:comment "EU Right to Repair classification (A-E grade)."@en ;
@@ -735,7 +735,7 @@ euelec:repairabilityClass
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:repairabilityClass .
 
-euelec:repairCriteria
+euelec:hasRepairCriteria
     a owl:ObjectProperty ;
     rdfs:label "Repair Criteria"@en ;
     rdfs:comment "List of individual criterion scores."@en ;
@@ -745,7 +745,7 @@ euelec:repairCriteria
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-euelec:criterionType
+euelec:hasCriterionType
     a owl:ObjectProperty ;
     rdfs:label "Criterion Type"@en ;
     rdfs:comment "Type of repair criterion being scored."@en ;
@@ -799,7 +799,7 @@ euelec:assessmentDate
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-euelec:assessmentBody
+euelec:hasAssessmentBody
     a owl:ObjectProperty ;
     rdfs:label "Assessment Body"@en ;
     rdfs:comment "Organization that performed the repairability assessment."@en ;
@@ -823,7 +823,7 @@ euelec:repairabilityLabelUrl
 # PART 11: PROPERTIES - SOFTWARE SUPPORT
 # =============================================================================
 
-euelec:softwareSupport
+euelec:hasSoftwareSupport
     a owl:ObjectProperty ;
     rdfs:label "Software Support"@en ;
     rdfs:comment "Software and firmware support information."@en ;
@@ -878,7 +878,7 @@ euelec:featureUpdateEndDate
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     skos:note "Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent."@en .
 
-euelec:securitySupportYears
+euelec:hasSecuritySupportYears
     a owl:ObjectProperty ;
     rdfs:label "Security Support Years"@en ;
     rdfs:comment "Number of years of security update support. Use gs1:QuantitativeValue with unitCode 'ANN'."@en ;
@@ -888,7 +888,7 @@ euelec:securitySupportYears
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> .
 
-euelec:featureSupportYears
+euelec:hasFeatureSupportYears
     a owl:ObjectProperty ;
     rdfs:label "Feature Support Years"@en ;
     rdfs:comment "Number of years of feature update support. Use gs1:QuantitativeValue with unitCode 'ANN'."@en ;
@@ -925,7 +925,7 @@ euelec:latestUpdateDate
 # PART 12: PROPERTIES - ENERGY EFFICIENCY
 # =============================================================================
 
-euelec:energyEfficiency
+euelec:hasEnergyEfficiency
     a owl:ObjectProperty ;
     rdfs:label "Energy Efficiency"@en ;
     rdfs:comment "EU Energy Label information."@en ;
@@ -934,12 +934,12 @@ euelec:energyEfficiency
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:energyEfficiency ;
+    rdfs:seeAlso oec:hasEnergyEfficiency ;
     rdfs:seeAlso schema:energyEfficiencyScaleMax ;
     rdfs:seeAlso schema:hasEnergyEfficiencyCategory ;
     rdfs:seeAlso schema:hasEnergyConsumptionDetails .
 
-euelec:energyEfficiencyClass
+euelec:hasEnergyEfficiencyClass
     a owl:ObjectProperty ;
     rdfs:label "Energy Efficiency Class"@en ;
     rdfs:comment "EU Energy Label class (A-G)."@en ;
@@ -948,12 +948,12 @@ euelec:energyEfficiencyClass
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:energyEfficiencyClass ;
+    rdfs:seeAlso oec:hasEnergyEfficiencyClass ;
     rdfs:seeAlso schema:hasEnergyConsumptionDetails ;
     rdfs:seeAlso schema:hasEnergyEfficiencyCategory ;
     skos:broadMatch schema:hasEnergyEfficiencyCategory .
 
-euelec:annualEnergyConsumption
+euelec:hasAnnualEnergyConsumption
     a owl:ObjectProperty ;
     rdfs:label "Annual Energy Consumption"@en ;
     rdfs:comment "Annual energy consumption in kWh. Use gs1:QuantitativeValue with unitCode 'KWH'."@en ;
@@ -962,9 +962,9 @@ euelec:annualEnergyConsumption
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:annualEnergyConsumption .
+    rdfs:seeAlso oec:hasAnnualEnergyConsumption .
 
-euelec:powerConsumptionOn
+euelec:hasPowerConsumptionOn
     a owl:ObjectProperty ;
     rdfs:label "Power Consumption On"@en ;
     rdfs:comment "Power consumption when device is on/active. Use gs1:QuantitativeValue with unitCode 'WTT'."@en ;
@@ -973,9 +973,9 @@ euelec:powerConsumptionOn
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:powerConsumptionOn .
+    rdfs:seeAlso oec:hasPowerConsumptionOn .
 
-euelec:powerConsumptionStandby
+euelec:hasPowerConsumptionStandby
     a owl:ObjectProperty ;
     rdfs:label "Power Consumption Standby"@en ;
     rdfs:comment "Power consumption in standby mode. Use gs1:QuantitativeValue with unitCode 'WTT'."@en ;
@@ -984,9 +984,9 @@ euelec:powerConsumptionStandby
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:powerConsumptionStandby .
+    rdfs:seeAlso oec:hasPowerConsumptionStandby .
 
-euelec:powerConsumptionOff
+euelec:hasPowerConsumptionOff
     a owl:ObjectProperty ;
     rdfs:label "Power Consumption Off"@en ;
     rdfs:comment "Power consumption when switched off but plugged in. Use gs1:QuantitativeValue with unitCode 'WTT'."@en ;
@@ -995,7 +995,7 @@ euelec:powerConsumptionOff
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:powerConsumptionOff .
+    rdfs:seeAlso oec:hasPowerConsumptionOff .
 
 euelec:eprelRegistrationNumber
     a owl:DatatypeProperty ;
@@ -1035,7 +1035,7 @@ euelec:eprelProductUrl
 # PART 13: PROPERTIES - BILL OF MATERIALS
 # =============================================================================
 
-euelec:billOfMaterials
+euelec:hasBillOfMaterials
     a owl:ObjectProperty ;
     rdfs:label "Bill of Materials"@en ;
     rdfs:comment "Component bill of materials for the device."@en ;
@@ -1047,7 +1047,7 @@ euelec:billOfMaterials
     rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials> .
 
-euelec:components
+euelec:hasComponents
     a owl:ObjectProperty ;
     rdfs:label "Components"@en ;
     rdfs:comment "List of components in the bill of materials."@en ;
@@ -1057,7 +1057,7 @@ euelec:components
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-euelec:componentType
+euelec:hasComponentType
     a owl:ObjectProperty ;
     rdfs:label "Component Type"@en ;
     rdfs:comment "Type of component (Battery, Display, etc.)."@en ;
@@ -1089,7 +1089,7 @@ euelec:isReplaceable
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-euelec:replacementDifficulty
+euelec:hasReplacementDifficulty
     a owl:ObjectProperty ;
     rdfs:label "Replacement Difficulty"@en ;
     rdfs:comment "Level of difficulty to replace this component."@en ;
@@ -1099,7 +1099,7 @@ euelec:replacementDifficulty
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-euelec:componentPassport
+euelec:hasComponentPassport
     a owl:ObjectProperty ;
     rdfs:label "Component Passport"@en ;
     rdfs:comment """Link to the component's own Digital Product Passport (nested DPP).
@@ -1111,7 +1111,7 @@ Enables CIRPASS-2 multi-component tracking."""@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:broadMatch gs1:dpp .
 
-euelec:sparePartAvailabilityYears
+euelec:hasSparePartAvailabilityYears
     a owl:ObjectProperty ;
     rdfs:label "Spare Part Availability Years"@en ;
     rdfs:comment "Duration for which this component is available as a spare part. Use unitCode 'ANN' (UN/CEFACT Rec 20)."@en ;
@@ -1123,7 +1123,7 @@ euelec:sparePartAvailabilityYears
     skos:closeMatch dppk:sparePartsAvailable ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. Aligns approximately with the DPP Keystone field dppk:sparePartsAvailable. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-euelec:sparePartPrice
+euelec:hasSparePartPrice
     a owl:ObjectProperty ;
     rdfs:label "Spare Part Price"@en ;
     rdfs:comment "Price of the component as a spare part."@en ;
@@ -1140,7 +1140,7 @@ euelec:sparePartPrice
 # PART 14: PROPERTIES - WEEE COMPLIANCE
 # =============================================================================
 
-euelec:weeeCompliance
+euelec:hasWeeeCompliance
     a owl:ObjectProperty ;
     rdfs:label "WEEE Compliance"@en ;
     rdfs:comment "WEEE Directive compliance information."@en ;
@@ -1212,7 +1212,7 @@ euelec:recoverabilityRate
 # PART 15: PROPERTIES - ROHS COMPLIANCE
 # =============================================================================
 
-euelec:rohsCompliance
+euelec:hasRohsCompliance
     a owl:ObjectProperty ;
     rdfs:label "RoHS Compliance"@en ;
     rdfs:comment "RoHS Directive compliance information."@en ;
@@ -1264,7 +1264,7 @@ euelec:rohsDeclarationUrl
 # PART 16: PROPERTIES - DISPLAY SPECIFICATION
 # =============================================================================
 
-euelec:displaySpecification
+euelec:hasDisplaySpecification
     a owl:ObjectProperty ;
     rdfs:label "Display Specification"@en ;
     rdfs:comment "Display-specific technical specifications."@en ;
@@ -1274,7 +1274,7 @@ euelec:displaySpecification
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-euelec:screenDiagonal
+euelec:hasScreenDiagonal
     a owl:ObjectProperty ;
     rdfs:label "Screen Diagonal"@en ;
     rdfs:comment "Visible screen diagonal. Use gs1:QuantitativeValue with unitCode 'CMT' or 'INH'."@en ;
@@ -1318,7 +1318,7 @@ euelec:displayTechnology
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-euelec:refreshRate
+euelec:hasRefreshRate
     a owl:ObjectProperty ;
     rdfs:label "Refresh Rate"@en ;
     rdfs:comment "Display refresh rate. Use gs1:QuantitativeValue with unitCode 'HTZ'."@en ;
@@ -1329,7 +1329,7 @@ euelec:refreshRate
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso gs1:value .
 
-euelec:peakBrightness
+euelec:hasPeakBrightness
     a owl:ObjectProperty ;
     rdfs:label "Peak Brightness"@en ;
     rdfs:comment "Peak brightness in candelas per square meter (nits). Use gs1:QuantitativeValue. Use unitCode 'CDM2' (UN/CEFACT Rec 20)."@en ;
@@ -1343,7 +1343,7 @@ euelec:peakBrightness
 # PART 17: EPCIS EVENT EXTENSION PROPERTIES
 # =============================================================================
 
-euelec:softwareUpdateEvent
+euelec:hasSoftwareUpdateEvent
     a owl:ObjectProperty ;
     rdfs:label "Software Update Event"@en ;
     rdfs:comment """EPCIS extension data for software/firmware update events.
@@ -1397,7 +1397,7 @@ euelec:updateSource
 # PART 18: PROPERTIES - IEC 62474 MATERIAL DECLARATION
 # =============================================================================
 
-euelec:materialDeclaration
+euelec:hasMaterialDeclaration
     a owl:ObjectProperty ;
     rdfs:label "Material Declaration"@en ;
     rdfs:comment """Material declaration per IEC 62474 (Declarable Substance List).
@@ -1590,7 +1590,7 @@ sorting facility; no GS1, SEMICeu or schema.org term expresses it."""@en ;
     rdfs:seeAlso oec:CircularityPerformance ;
     rdfs:seeAlso schema:itemCondition .
 
-euelec:hazardousMaterialsIdentified
+euelec:hasHazardousMaterialsIdentified
     a owl:ObjectProperty ;
     rdfs:label "Hazardous Materials Identified"@en ;
     rdfs:comment "Materials or components found in the item that require selective treatment before bulk processing."@en ;
@@ -1598,10 +1598,10 @@ euelec:hazardousMaterialsIdentified
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the selective-treatment list of WEEE Directive 2012/19/EU
-Annex VII. oec:hazardousSubstances declares substances present in a product design; this reports what
+Annex VII. oec:hasHazardousSubstances declares substances present in a product design; this reports what
 a treatment operator actually found in one waste item."""@en ;
-    rdfs:seeAlso oec:hazardousSubstances ;
-    skos:closeMatch oec:hazardousSubstances .
+    rdfs:seeAlso oec:hasHazardousSubstances ;
+    skos:closeMatch oec:hasHazardousSubstances .
 
 euelec:handlingNote
     a owl:DatatypeProperty ;
@@ -1617,7 +1617,7 @@ consumers handling a trade item, not a treatment operator handling a hazardous c
     rdfs:seeAlso gs1:consumerHandlingStorageInfo ;
     skos:broadMatch gs1:consumerHandlingStorageInfo .
 
-euelec:estimatedRecoverableMaterials
+euelec:hasEstimatedRecoverableMaterials
     a owl:ObjectProperty ;
     rdfs:label "Estimated Recoverable Materials"@en ;
     rdfs:comment "Material streams expected to be recoverable from the item, estimated before treatment."@en ;
@@ -1627,9 +1627,9 @@ euelec:estimatedRecoverableMaterials
     skos:note """E-waste concept supporting the recovery accounting of WEEE Directive 2012/19/EU
 Annex V. The estimate steers the treatment route and is compared afterwards with the measured result;
 no GS1, SEMICeu or schema.org term expresses it."""@en ;
-    rdfs:seeAlso oec:materialComposition ;
-    rdfs:seeAlso euelec:materialRecoveryResults ;
-    skos:closeMatch oec:materialComposition .
+    rdfs:seeAlso oec:hasMaterialComposition ;
+    rdfs:seeAlso euelec:hasMaterialRecoveryResults ;
+    skos:closeMatch oec:hasMaterialComposition .
 
 euelec:materialMassGrams
     a owl:DatatypeProperty ;
@@ -1660,7 +1660,7 @@ packaging recycling process codes."""@en ;
     rdfs:seeAlso gs1:packagingRecyclingProcessType ;
     skos:closeMatch gs1:packagingRecyclingProcessType .
 
-euelec:recyclingFacility
+euelec:hasRecyclingFacility
     a owl:ObjectProperty ;
     rdfs:label "Recycling Facility"@en ;
     rdfs:comment "The authorised treatment operator that carried out the recycling step."@en ;
@@ -1672,9 +1672,9 @@ Article 8. The organisation itself is a gs1:Organization and the site a gs1:Plac
 upstream term is the role of authorised WEEE treatment operator in a specific event."""@en ;
     rdfs:seeAlso gs1:Organization ;
     rdfs:seeAlso oec:FacilityInformation ;
-    skos:broadMatch oec:facilityInformation .
+    skos:broadMatch oec:hasFacilityInformation .
 
-euelec:materialRecoveryResults
+euelec:hasMaterialRecoveryResults
     a owl:ObjectProperty ;
     rdfs:label "Material Recovery Results"@en ;
     rdfs:comment "Measured outcome of the treatment operation on this item."@en ;
@@ -1682,10 +1682,10 @@ euelec:materialRecoveryResults
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the recovery targets of WEEE Directive 2012/19/EU Annex V.
-oec:recyclabilityAssessment rates design potential; this reports achieved treatment output. No GS1,
+oec:hasRecyclabilityAssessment rates design potential; this reports achieved treatment output. No GS1,
 SEMICeu or schema.org term covers it."""@en ;
-    rdfs:seeAlso oec:recyclabilityAssessment ;
-    skos:closeMatch oec:recyclabilityAssessment .
+    rdfs:seeAlso oec:hasRecyclabilityAssessment ;
+    skos:closeMatch oec:hasRecyclabilityAssessment .
 
 euelec:totalInputMassGrams
     a owl:DatatypeProperty ;
@@ -1760,7 +1760,7 @@ for energy recovery and carries no achieved share."""@en ;
     rdfs:seeAlso gs1:PackagingRecyclingProcessTypeCode-ENERGY_RECOVERABLE ;
     rdfs:seeAlso euelec:recoveryRate .
 
-euelec:batteryDisposition
+euelec:hasBatteryDisposition
     a owl:ObjectProperty ;
     rdfs:label "Battery Disposition"@en ;
     rdfs:comment "How the battery removed from the item was handled."@en ;
@@ -1798,9 +1798,9 @@ euelec:separatelyTreated
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """Compliance assertion for the selective-treatment requirement of WEEE Directive
 2012/19/EU Annex VII. No GS1, SEMICeu or schema.org term expresses it."""@en ;
-    rdfs:seeAlso euelec:batteryDisposition .
+    rdfs:seeAlso euelec:hasBatteryDisposition .
 
-euelec:treatmentFacility
+euelec:hasTreatmentFacility
     a owl:ObjectProperty ;
     rdfs:label "Treatment Facility"@en ;
     rdfs:comment "The site where the removed battery was treated, referenced by its GLN."@en ;
@@ -1813,7 +1813,7 @@ Article 8. The site is a gs1:Place and its master data is resolver-served; the e
 that this particular place acted as the downstream battery treatment site for this event."""@en ;
     rdfs:seeAlso gs1:Place ;
     rdfs:seeAlso oec:FacilityInformation ;
-    skos:broadMatch oec:facilityInformation .
+    skos:broadMatch oec:hasFacilityInformation .
 
 euelec:treatmentMethod
     a owl:DatatypeProperty ;
@@ -1839,12 +1839,12 @@ euelec:hazardousWasteGenerated
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """Operational assertion tied to the treatment duties of WEEE Directive 2012/19/EU
 Article 8 and the classification rules of the Waste Framework Directive 2008/98/EC. No GS1, SEMICeu
-or schema.org term expresses it. Use euelec:hazardousWasteRecord when the consignment itself is
+or schema.org term expresses it. Use euelec:hasHazardousWasteRecord when the consignment itself is
 described."""@en ;
     rdfs:seeAlso <https://eur-lex.europa.eu/eli/dir/2008/98/oj> ;
-    rdfs:seeAlso euelec:hazardousWasteRecord .
+    rdfs:seeAlso euelec:hasHazardousWasteRecord .
 
-euelec:hazardousWasteRecord
+euelec:hasHazardousWasteRecord
     a owl:ObjectProperty ;
     rdfs:label "Hazardous Waste Record"@en ;
     rdfs:comment "The hazardous waste consignment arising from this operation."@en ;
@@ -1887,7 +1887,7 @@ or organisation certification, not a per-consignment waste treatment certificate
     skos:closeMatch gs1:certificationIdentification ;
     skos:broadMatch schema:hasCertification .
 
-euelec:avoidedEmissions
+euelec:hasAvoidedEmissions
     a owl:ObjectProperty ;
     rdfs:label "Avoided Emissions"@en ;
     rdfs:comment "Estimate of the greenhouse-gas emissions avoided by recovering materials from this item."@en ;
@@ -1895,11 +1895,11 @@ euelec:avoidedEmissions
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Circularity-benefit concept supporting the ESPR 2024/1781 Article 7 recycled-content
-and circularity parameters. oec:emissionsPerformance accounts for emissions caused by the product;
+and circularity parameters. oec:hasEmissionsPerformance accounts for emissions caused by the product;
 avoided emissions are credited to the recovery operation, so they are reported apart. No GS1, SEMICeu
 or schema.org term expresses them."""@en ;
-    rdfs:seeAlso oec:emissionsPerformance ;
-    skos:closeMatch oec:emissionsPerformance .
+    rdfs:seeAlso oec:hasEmissionsPerformance ;
+    skos:closeMatch oec:hasEmissionsPerformance .
 
 euelec:avoidedEmissionsKgCO2e
     a owl:DatatypeProperty ;
@@ -1961,7 +1961,7 @@ euelec:repairDescription
 schema:description is the generic web fallback for any textual description; this term is the narrower
 repair-record description."""@en ;
     rdfs:seeAlso schema:description ;
-    rdfs:seeAlso oec:repairInstructions ;
+    rdfs:seeAlso oec:hasRepairInstructions ;
     skos:broadMatch schema:description .
 
 euelec:repairTechnician
@@ -1990,9 +1990,9 @@ euelec:removalReason
 reason a part failed feeds the durability and repairability parameters; no GS1, SEMICeu or
 schema.org term expresses it."""@en ;
     rdfs:seeAlso oec:RepairabilityInfo ;
-    rdfs:seeAlso euelec:replacementDifficulty .
+    rdfs:seeAlso euelec:hasReplacementDifficulty .
 
-euelec:replacedComponentPassport
+euelec:hasReplacedComponentPassport
     a owl:ObjectProperty ;
     rdfs:label "Replaced Component Passport"@en ;
     rdfs:comment "The component taken out of the device, referenced by the identifier its own Digital Product Passport is keyed on."@en ;
@@ -2004,10 +2004,10 @@ and the CIRPASS-2 multi-component pattern. gs1:dpp links a product to its passpo
 additionally has to say which of the two component passports is the one removed and which the one
 installed, a direction gs1:dpp does not carry."""@en ;
     rdfs:seeAlso gs1:dpp ;
-    rdfs:seeAlso euelec:componentPassport ;
+    rdfs:seeAlso euelec:hasComponentPassport ;
     skos:broadMatch gs1:dpp .
 
-euelec:installedComponentPassport
+euelec:hasInstalledComponentPassport
     a owl:ObjectProperty ;
     rdfs:label "Installed Component Passport"@en ;
     rdfs:comment "The component fitted into the device, referenced by the identifier its own Digital Product Passport is keyed on."@en ;
@@ -2015,10 +2015,10 @@ euelec:installedComponentPassport
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Nested-passport concept per the ESPR 2024/1781 Article 9 data-carrier requirements
-and the CIRPASS-2 multi-component pattern. Counterpart of euelec:replacedComponentPassport; gs1:dpp
+and the CIRPASS-2 multi-component pattern. Counterpart of euelec:hasReplacedComponentPassport; gs1:dpp
 carries no removed/installed direction."""@en ;
     rdfs:seeAlso gs1:dpp ;
-    rdfs:seeAlso euelec:componentPassport ;
+    rdfs:seeAlso euelec:hasComponentPassport ;
     skos:broadMatch gs1:dpp .
 
 euelec:warrantyStatus
@@ -2035,7 +2035,7 @@ for one item when an event happened."""@en ;
     rdfs:seeAlso gs1:manufacturersWarranty ;
     rdfs:seeAlso gs1:WarrantyPromise .
 
-euelec:repairCost
+euelec:hasRepairCost
     a owl:ObjectProperty ;
     rdfs:label "Repair Cost"@en ;
     rdfs:comment "Amount charged to the owner for this repair. Zero where the repair was covered by a warranty."@en ;
@@ -2043,9 +2043,9 @@ euelec:repairCost
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Repair-record concept per Directive (EU) 2024/1799, which makes repair cost central
-to the repair-or-replace decision. The amount itself is a gs1:PriceSpecification; euelec:sparePartPrice
+to the repair-or-replace decision. The amount itself is a gs1:PriceSpecification; euelec:hasSparePartPrice
 is the list price of a part, whereas this is what one repair actually cost."""@en ;
-    rdfs:seeAlso euelec:sparePartPrice ;
+    rdfs:seeAlso euelec:hasSparePartPrice ;
     rdfs:seeAlso gs1:priceSpecification ;
     rdfs:seeAlso schema:priceSpecification ;
     skos:broadMatch schema:priceSpecification .
@@ -2072,13 +2072,13 @@ schema.org term expresses it."""@en ;
 
 euelec:WEEECompliance        rdfs:subClassOf       oec:ExtendedProducerResponsibility .
 euelec:weeeRegistrationNumber  skos:broadMatch oec:eprRegistrationNumber .
-euelec:weeeRegistrationCountry skos:broadMatch oec:eprJurisdiction .
+euelec:weeeRegistrationCountry skos:broadMatch oec:hasEprJurisdiction .
 
 euelec:EnergyEfficiency        rdfs:subClassOf       oec:EnergyEfficiency .
-euelec:energyEfficiencyClass   skos:exactMatch oec:energyEfficiencyClass .
-euelec:annualEnergyConsumption skos:exactMatch oec:annualEnergyConsumption .
-euelec:powerConsumptionOn      skos:exactMatch oec:powerConsumptionOn .
-euelec:powerConsumptionStandby skos:exactMatch oec:powerConsumptionStandby .
-euelec:powerConsumptionOff     skos:exactMatch oec:powerConsumptionOff .
+euelec:hasEnergyEfficiencyClass   skos:exactMatch oec:hasEnergyEfficiencyClass .
+euelec:hasAnnualEnergyConsumption skos:exactMatch oec:hasAnnualEnergyConsumption .
+euelec:hasPowerConsumptionOn      skos:exactMatch oec:hasPowerConsumptionOn .
+euelec:hasPowerConsumptionStandby skos:exactMatch oec:hasPowerConsumptionStandby .
+euelec:hasPowerConsumptionOff     skos:exactMatch oec:hasPowerConsumptionOff .
 euelec:eprelRegistrationNumber skos:exactMatch oec:eprelRegistrationNumber .
 euelec:eprelProductUrl         skos:exactMatch oec:eprelProductUrl .

@@ -26,10 +26,10 @@ cross-cutting vocabulary plus `untp:` and `gs1:`.
 | CPR data point (Article) | Carried by |
 |---|---|
 | Construction Product class | `eucpr:ConstructionProduct` (this module) |
-| Construction product family (Annex III) | `eucpr:constructionProductType` enum (this module) |
-| Reaction-to-fire (EN 13501-1) | `eucpr:reactionToFireClass` enum A1..F (this module) |
+| Construction product family (Annex III) | `eucpr:hasConstructionProductType` enum (this module) |
+| Reaction-to-fire (EN 13501-1) | `eucpr:hasReactionToFireClass` enum A1..F (this module) |
 | Declaration of Performance URL (Article 12) | `eucpr:declarationOfPerformanceUrl` (this module) |
-| Essential characteristics (Annex III) | `eucpr:EssentialCharacteristic` + `eucpr:characteristicName` + `eucpr:characteristicValue` + `eucpr:harmonisedStandard` (this module) |
+| Essential characteristics (Annex III) | `eucpr:EssentialCharacteristic` + `eucpr:characteristicName` + `eucpr:hasCharacteristicValue` + `eucpr:harmonisedStandard` (this module) |
 | Recycled content | `oec:RecycledContent`, `oec:recycledContent`, `oec:postConsumerRecycledContent` |
 | Carbon footprint with lifecycle stages | `oec:CarbonFootprintDeclaration` + per-stage properties |
 | Recyclability | `oec:RecyclabilityAssessment` |
@@ -77,12 +77,12 @@ cpr/
 
 | Property | Range | Description |
 |----------|-------|-------------|
-| `eucpr:constructionProductType` | `eucpr:ConstructionProductType` | Top-level family per Annex III. |
-| `eucpr:reactionToFireClass` | `eucpr:ReactionToFireClass` | A1..F per EN 13501-1. |
+| `eucpr:hasConstructionProductType` | `eucpr:ConstructionProductType` | Top-level family per Annex III. |
+| `eucpr:hasReactionToFireClass` | `eucpr:ReactionToFireClass` | A1..F per EN 13501-1. |
 | `eucpr:declarationOfPerformanceUrl` | `xsd:anyURI` | DoP / DoC document reference per Article 12. |
-| `eucpr:essentialCharacteristic` | `eucpr:EssentialCharacteristic` | Set-valued — most products declare multiple. |
+| `eucpr:hasEssentialCharacteristic` | `eucpr:EssentialCharacteristic` | Set-valued — most products declare multiple. |
 | `eucpr:characteristicName` | `xsd:string` | Name of the essential characteristic. |
-| `eucpr:characteristicValue` | `gs1:QuantitativeValue` | Value with unitCode appropriate for the characteristic. |
+| `eucpr:hasCharacteristicValue` | `gs1:QuantitativeValue` | Value with unitCode appropriate for the characteristic. |
 | `eucpr:harmonisedStandard` | `xsd:anyURI` | URI of the harmonised technical specification (hEN). |
 
 ## EPCIS 2.0 extension declaration

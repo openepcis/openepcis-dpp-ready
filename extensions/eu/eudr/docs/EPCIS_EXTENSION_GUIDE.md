@@ -60,9 +60,9 @@ event
   +-- type, eventTime, action, bizStep, ...    (EPCIS core)
   +-- epcList, readPoint, bizLocation, ...     (EPCIS core)
   +-- gs1:masterDataAvailableFor               (gs1: properties only)
-  +-- eudr:commodityType                       (extension -- event level)
+  +-- eudr:hasCommodityType                       (extension -- event level)
   +-- eudr:speciesScientificName               (extension -- event level)
-  +-- eudr:exemptionDeclaration                (extension -- event level)
+  +-- eudr:hasExemptionDeclaration                (extension -- event level)
   +-- ...
 ```
 
@@ -237,8 +237,8 @@ only `gs1:` properties; all `eudr:` properties are at event level.
           }
         ],
 
-        "eudr:commodityType": "Wood",
-        "eudr:timberProductType": "RoundWood",
+        "eudr:hasCommodityType": "Wood",
+        "eudr:hasTimberProductType": "RoundWood",
         "eudr:speciesScientificName": "Quercus robur",
         "eudr:speciesCommonName": "European Oak",
         "eudr:volumeCubicMeters": 1.2,
@@ -315,35 +315,35 @@ inside `masterDataAvailableFor`.
     }
   ],
 
-  "eudr:commodityType": "Wood",
-  "eudr:timberProductType": "RoundWood",
+  "eudr:hasCommodityType": "Wood",
+  "eudr:hasTimberProductType": "RoundWood",
   "eudr:speciesScientificName": "Quercus robur",
   "eudr:speciesCommonName": "European Oak",
 
-  "eudr:exemptionDeclaration": {
+  "eudr:hasExemptionDeclaration": {
     "type": "eudr:ExemptionDeclaration",
-    "eudr:exemptionType": "TemporaryExemption",
+    "eudr:hasExemptionType": "TemporaryExemption",
     "eudr:exemptionReasonCode": "DOWNSTREAM_VERIFIED_LOW_RISK",
     "eudr:exemptionScope": "batch",
     "eudr:exemptionScopeReference": "LOT-2026-Q1-0042",
     "eudr:exemptionEffectiveFrom": "2026-04-15",
     "eudr:exemptionEffectiveUntil": "2026-07-15",
-    "eudr:exemptionAuthority": {
+    "eudr:hasExemptionAuthority": {
       "id": "https://id.gs1.org/417/9521234000006",
       "type": "oec:OperatorInformation",
       "organizationName": {
         "en": "Waldwirtschaft Schmidt GmbH"
       },
       "partyGLN": "9521234000006",
-      "oec:operatorRole": "DownstreamOperator",
+      "oec:hasOperatorRole": "DownstreamOperator",
       "oec:economicOperatorId": "EOID-DE-2026-009988"
     }
   }
 }
 ```
 
-Note: `eudr:exemptionDeclaration` sits at event level, alongside
-`eudr:commodityType` and the other extension properties.
+Note: `eudr:hasExemptionDeclaration` sits at event level, alongside
+`eudr:hasCommodityType` and the other extension properties.
 `gs1:masterDataAvailableFor` contains only the GS1 product master data.
 
 See `eudr/epcis/exemption-declaration.jsonld` for the full document.
@@ -365,11 +365,11 @@ Use GS1 Web Vocabulary (`gs1:`) for standard properties. Only use
 
 | Use `gs1:` for | Use `eudr:` for |
 |----------------|-----------------|
-| `productName` | `eudr:commodityType` |
+| `productName` | `eudr:hasCommodityType` |
 | `countryOfOrigin` | `eudr:speciesScientificName` |
-| `harvestDate` | `eudr:timberProductType` |
-| `regulatoryInformation` | `eudr:riskLevel` |
-| `geo` / `polygon` | `eudr:exemptionDeclaration` |
+| `harvestDate` | `eudr:hasTimberProductType` |
+| `regulatoryInformation` | `eudr:hasRiskLevel` |
+| `geo` / `polygon` | `eudr:hasExemptionDeclaration` |
 
 ### 3. Keep Extensions Out of masterDataAvailableFor
 
@@ -380,7 +380,7 @@ Wrong:
 ```json
 "gs1:masterDataAvailableFor": [{
   "id": "...",
-  "eudr:commodityType": "Wood"
+  "eudr:hasCommodityType": "Wood"
 }]
 ```
 
@@ -390,7 +390,7 @@ Correct:
   "id": "...",
   "productName": { "en": "European Oak Round Wood" }
 }],
-"eudr:commodityType": "Wood"
+"eudr:hasCommodityType": "Wood"
 ```
 
 ### 4. Validate JSON-LD

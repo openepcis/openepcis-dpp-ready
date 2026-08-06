@@ -129,14 +129,14 @@ These properties have **NO equivalent in GS1 standards** and are required for EU
 
 | Property | Type | Values |
 |----------|------|--------|
-| `eudr:commodityType` | `@id` | `Cattle`, `Cocoa`, `Coffee`, `OilPalm`, `Rubber`, `Soya`, `Wood` |
-| `eudr:timberProductType` | `@id` | `RoundWood`, `SawnWood`, `Plywood`, `Veneer`, `WoodPellets`, `WoodChips`, `Pulp`, `Paper`, `Furniture`, `Charcoal`, `PrintedMatter` |
+| `eudr:hasCommodityType` | `@id` | `Cattle`, `Cocoa`, `Coffee`, `OilPalm`, `Rubber`, `Soya`, `Wood` |
+| `eudr:hasTimberProductType` | `@id` | `RoundWood`, `SawnWood`, `Plywood`, `Veneer`, `WoodPellets`, `WoodChips`, `Pulp`, `Paper`, `Furniture`, `Charcoal`, `PrintedMatter` |
 
 ### Risk Classification (EUDR Article 29)
 
 | Property | Type | Values |
 |----------|------|--------|
-| `eudr:riskLevel` | `@id` | `Negligible`, `Low`, `Standard`, `High` |
+| `eudr:hasRiskLevel` | `@id` | `Negligible`, `Low`, `Standard`, `High` |
 
 ### Compliance Data
 
@@ -167,7 +167,7 @@ Use standard properties from GS1 and DPP-Core vocabularies:
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `eudr:areaSize` | object | Use with `gs1:QuantitativeValue` |
+| `eudr:hasAreaSize` | object | Use with `gs1:QuantitativeValue` |
 | `eudr:areaHectares` | `xsd:decimal` | Shorthand for area in hectares |
 
 ---
@@ -189,8 +189,8 @@ Use standard properties from GS1 and DPP-Core vocabularies:
 | Need | Use This |
 |------|----------|
 | Product identification | `gs1:Product` with `gs1:gtin` |
-| Commodity type | `eudr:commodityType` |
-| Timber product type | `eudr:timberProductType` |
+| Commodity type | `eudr:hasCommodityType` |
+| Timber product type | `eudr:hasTimberProductType` |
 | Species name | `eudr:speciesScientificName` |
 | Weight | `gs1:netWeight` with `gs1:QuantitativeValue` |
 | Country of origin | `gs1:countryOfOrigin` with `gs1:Country` |
@@ -201,7 +201,7 @@ Use standard properties from GS1 and DPP-Core vocabularies:
 |------|----------|
 | Harvest date | `gs1:harvestDate` or `eudr:harvestDateStart/End` |
 | DDS reference | `gs1:regulatoryInformation` |
-| Risk level | `eudr:riskLevel` |
+| Risk level | `eudr:hasRiskLevel` |
 | Compliance flag | `eudr:legallyHarvested`, `eudr:deforestationFreeDate` |
 
 ---
@@ -231,8 +231,8 @@ Use standard properties from GS1 and DPP-Core vocabularies:
     "gs1:unitCode": "KGM"
   },
 
-  "eudr:commodityType": "Wood",
-  "eudr:timberProductType": "RoundWood",
+  "eudr:hasCommodityType": "Wood",
+  "eudr:hasTimberProductType": "RoundWood",
   "eudr:speciesScientificName": "Quercus robur",
   "eudr:speciesCommonName": "European Oak",
   "gs1:harvestDate": "2025-01-15",

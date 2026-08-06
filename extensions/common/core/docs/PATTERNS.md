@@ -199,7 +199,7 @@ Full EPCIS events with provenance for auditable traceability. Per GS1 Germany EU
     }
   ],
 
-  "eudr:commodityType": "Wood",
+  "eudr:hasCommodityType": "Wood",
   "eudr:speciesScientificName": "Quercus robur",
   "eudr:speciesCommonName": "European Oak"
 }
@@ -252,7 +252,7 @@ The EU Ecodesign for Sustainable Products Regulation (ESPR) 2024/1781 establishe
 
 ```json
 {
-  "oec:productCategory": "Electronics"
+  "oec:hasProductCategory": "Electronics"
 }
 ```
 
@@ -270,7 +270,7 @@ Per ESPR, use GS1 Digital Link format:
   "oec:passportIssueDate": "2025-01-15",
   "oec:passportStatus": "Active",
   "oec:passportLastModified": "2025-01-15T10:30:00Z",
-  "oec:passportIssuer": {
+  "oec:hasPassportIssuer": {
     "type": "OperatorInformation",
     "operatorRole": "Manufacturer",
     "organizationName": "Example Corp"
@@ -354,7 +354,7 @@ Capture manufacturing or processing facility information per ESPR requirements.
     "gs1:postalCode": "10115",
     "gs1:addressCountry": "DE"
   },
-  "oec:facilityCertifications": [
+  "oec:hasFacilityCertifications": [
     {
       "type": "gs1:CertificationDetails",
       "gs1:certificationStandard": "ISO 14001:2015",
@@ -482,7 +482,7 @@ Declare substances of concern aligned with SCIP database and ESPR requirements. 
   "oec:ecNumber": "231-100-4",
   "oec:scipId": "SCIP-12345678",
   "oec:concentration": 0.5,
-  "oec:hazardClass": "ReproductiveToxicity",
+  "oec:hasHazardClass": "ReproductiveToxicity",
   "oec:substanceLocation": "Battery electrodes",
   "oec:safeUseInstructions": "Avoid contact. Use protective gloves.",
   "oec:safeDisassemblyInstructions": "Remove battery before disassembly. Handle in ventilated area."
@@ -509,12 +509,12 @@ Capture product performance, durability, and lifespan information per ESPR requi
 ```json
 {
   "type": "PerformanceInfo",
-  "oec:expectedLifespan": {
+  "oec:hasExpectedLifespan": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
   },
-  "oec:guaranteedLifespan": {
+  "oec:hasGuaranteedLifespan": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "5",
     "gs1:unitCode": "ANN"
@@ -552,7 +552,7 @@ Capture repair, maintenance, and spare parts information per ESPR requirements.
   "type": "RepairabilityInfo",
   "oec:repairabilityScore": 7.5,
   "oec:repairabilityClass": "B",
-  "oec:sparePartsAvailability": {
+  "oec:hasSparePartsAvailability": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
@@ -564,13 +564,13 @@ Capture repair, maintenance, and spare parts information per ESPR requirements.
   },
   "oec:diyRepairPossible": true,
   "oec:professionalRepairNetwork": { "id": "https://example.com/repair-network" },
-  "oec:repairInstructions": {
+  "oec:hasRepairInstructions": {
     "type": "DocumentReference",
     "documentType": "Manual",
     "documentUrl": { "id": "https://example.com/docs/repair-manual.pdf" },
     "languageCode": "en"
   },
-  "oec:softwareUpdatesAvailability": {
+  "oec:hasSoftwareUpdatesAvailability": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "5",
     "gs1:unitCode": "ANN"
@@ -813,8 +813,8 @@ Control data visibility per ESPR Article 9 requirements. Define which DPP data i
 ```json
 {
   "type": "AccessRights",
-  "oec:accessLevel": "Public",
-  "oec:dataRetentionPeriod": {
+  "oec:hasAccessLevel": "Public",
+  "oec:hasDataRetentionPeriod": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
@@ -855,15 +855,15 @@ Control data visibility per ESPR Article 9 requirements. Define which DPP data i
 ```json
 {
   "type": "AccessRights",
-  "oec:accessLevel": "Restricted",
-  "oec:authorizedParties": [
+  "oec:hasAccessLevel": "Restricted",
+  "oec:hasAuthorizedParties": [
     {
       "type": "gs1:Organization",
       "gs1:partyGLN": "9521234000105",
       "gs1:organizationName": "Market Surveillance Authority DE"
     }
   ],
-  "oec:dataRetentionPeriod": {
+  "oec:hasDataRetentionPeriod": {
     "type": "gs1:QuantitativeValue",
     "gs1:value": "10",
     "gs1:unitCode": "ANN"
@@ -918,8 +918,8 @@ this pattern is minted at `oec:`.
 **Properties** (all on `oec:ExtendedProducerResponsibility`):
 - `oec:eprRegistrationNumber` — registry-issued ID
 - `oec:eprWasteStream` — `"packaging"` / `"weee"` / `"batteries"` / `"vehicles"` / `"textiles"`
-- `oec:eprJurisdiction` — `gs1:Country` reference
-- `oec:eprScheme` — `gs1:Organization` (the PRO / scheme operator)
+- `oec:hasEprJurisdiction` — `gs1:Country` reference
+- `oec:hasEprScheme` — `gs1:Organization` (the PRO / scheme operator)
 - `oec:eprComplianceUrl` — public verification endpoint
 
 **Used by**: PPWR (Article 13), WEEE (Article 16), Battery (Annex II §7), ELV-revision, Textile-DA (planned).

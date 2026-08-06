@@ -20,7 +20,7 @@
  *
  * PREFIXING CONTRACT: standard contexts are prefix-only — documents under a
  * standard context write every term as a CURIE (gs1:productName,
- * euppwr:packagingTier), so the emitted context carries only prefix
+ * euppwr:hasPackagingTier), so the emitted context carries only prefix
  * declarations plus the CURIE-keyed coercion hints from the overrides. Bare
  * term aliases live exclusively in the hand-maintained
  * {module}-shortcut-context.jsonld, which only the operational contexts

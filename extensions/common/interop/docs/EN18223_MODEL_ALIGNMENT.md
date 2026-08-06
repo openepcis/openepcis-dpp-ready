@@ -87,7 +87,7 @@ Notes:
 - EN 18223 has **no content-version attribute**; versioning is achieved
   through archiving (EN 18221). Our `oec:passportVersion` /
   `oec:previousPassportVersion` / `oec:passportIssueDate` /
-  `oec:passportExpiryDate` / `oec:passportIssuer` are EPCIS4DPP additions
+  `oec:passportExpiryDate` / `oec:hasPassportIssuer` are EPCIS4DPP additions
   that support the archiving requirement. Keep them; do not conflate with
   `dppSchemaVersion`.
 
@@ -139,7 +139,7 @@ envelope. The two are bridged by `dictionaryReference`:
 
 - *serialise:* provide an EN 18223 JSON projection that wraps each value
   as a `DataElement` whose `dictionaryReference` is the OpenEPCIS term
-  IRI (e.g. `https://ref.openepcis.io/extensions/eu/battery/ratedCapacity`)
+  IRI (e.g. `https://ref.openepcis.io/extensions/eu/battery/hasRatedCapacity`)
   and whose `valueDataType` is the XSD type from the ontology. No new
   ontology classes are strictly required for this.
 - *add (optional):* mirror classes (`oec:DataElement` and subclasses) if

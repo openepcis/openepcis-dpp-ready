@@ -337,7 +337,7 @@ eudet:FragranceAllergen
 # Product-Level Properties (on DetergentProduct)
 # =============================================================================
 
-eudet:productForm
+eudet:hasProductForm
     a owl:ObjectProperty ;
     rdfs:label "Product Form"@en ;
     rdfs:comment "The physical form of the detergent product (liquid, powder, capsule, etc.)."@en ;
@@ -360,7 +360,7 @@ eudet:intendedUse
     skos:closeMatch schema:potentialUse ;
     skos:broadMatch gs1:consumerUsageInstructions .
 
-eudet:ingredientList
+eudet:hasIngredientList
     a owl:ObjectProperty ;
     rdfs:label "Ingredient List"@en ;
     rdfs:comment "List of ingredients in the detergent formulation, using INCI nomenclature."@en ;
@@ -373,7 +373,7 @@ eudet:ingredientList
     skos:broadMatch gs1:ingredientName ;
     skos:broadMatch schema:activeIngredient .
 
-eudet:surfactantBiodegradability
+eudet:hasSurfactantBiodegradability
     a owl:ObjectProperty ;
     rdfs:label "Surfactant Biodegradability"@en ;
     rdfs:comment "Biodegradability test results for surfactants in the formulation per Annex III."@en ;
@@ -383,7 +383,7 @@ eudet:surfactantBiodegradability
     skos:note "No GS1 equivalent for biodegradability test data."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-eudet:fragranceAllergens
+eudet:hasFragranceAllergens
     a owl:ObjectProperty ;
     rdfs:label "Fragrance Allergens"@en ;
     rdfs:comment "Fragrance allergens present above the disclosure threshold."@en ;
@@ -394,7 +394,7 @@ eudet:fragranceAllergens
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> ;
     rdfs:seeAlso gs1:hasAllergen .
 
-eudet:microorganisms
+eudet:hasMicroorganisms
     a owl:ObjectProperty ;
     rdfs:label "Microorganisms"@en ;
     rdfs:comment "Microorganisms intentionally added to the product per Article 19."@en ;
@@ -404,7 +404,7 @@ eudet:microorganisms
     skos:note "No GS1 equivalent for microorganism disclosure."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> .
 
-eudet:hazardousSubstances
+eudet:hasHazardousSubstances
     a owl:ObjectProperty ;
     rdfs:label "Hazardous Substances"@en ;
     rdfs:comment "CLP-classified hazardous substances in the product. Reuses oec:HazardousSubstance."@en ;
@@ -413,9 +413,9 @@ eudet:hazardousSubstances
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "Detergent ingredient / substance disclosure per the EU Detergents Regulation (EU) 2026/405 (ingredient data sheet). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso oec:hazardousSubstances ;
+    rdfs:seeAlso oec:hasHazardousSubstances ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass> ;
-    skos:broadMatch oec:substancesOfConcern ;
+    skos:broadMatch oec:hasSubstancesOfConcern ;
     rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#textileSubstancesOfConcern> ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceIdentifier> .
 
@@ -449,7 +449,7 @@ eudet:pStatements
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
     skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-eudet:signalWord
+eudet:hasSignalWord
     a owl:ObjectProperty ;
     rdfs:label "Signal Word"@en ;
     rdfs:comment "CLP signal word (Danger or Warning) per Regulation 1272/2008."@en ;
@@ -501,7 +501,7 @@ eudet:filmBiodegradabilityPercentage
     skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:closeMatch oec:biodegradationPercentage .
 
-eudet:recommendedDosage
+eudet:hasRecommendedDosage
     a owl:ObjectProperty ;
     rdfs:label "Recommended Dosage"@en ;
     rdfs:comment "Recommended dosage per use (e.g., 35 ml for medium water hardness). Uses gs1:QuantitativeValue."@en ;
@@ -523,7 +523,7 @@ eudet:dosageInstructions
     skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch gs1:consumerUsageInstructions .
 
-eudet:safetyDataSheet
+eudet:hasSafetyDataSheet
     a owl:ObjectProperty ;
     rdfs:label "Safety Data Sheet"@en ;
     rdfs:comment "Reference to the product's Safety Data Sheet (SDS). Reuses oec:DocumentReference."@en ;
@@ -536,7 +536,7 @@ eudet:safetyDataSheet
     skos:broadMatch gs1:safetyInfo ;
     skos:closeMatch <https://vocabulary.uncefact.org/untp/materialSafetyInformation> .
 
-eudet:biodegradabilityTestReport
+eudet:hasBiodegradabilityTestReport
     a owl:ObjectProperty ;
     rdfs:label "Biodegradability Test Report"@en ;
     rdfs:comment "Reference to the full biodegradability test report. Reuses oec:DocumentReference."@en ;
@@ -550,7 +550,7 @@ eudet:biodegradabilityTestReport
 # Ingredient Properties
 # =============================================================================
 
-eudet:ingredientFunction
+eudet:hasIngredientFunction
     a owl:ObjectProperty ;
     rdfs:label "Ingredient Function"@en ;
     rdfs:comment "Functional role of the ingredient in the formulation."@en ;
@@ -584,7 +584,7 @@ eudet:isSurfactant
 # Surfactant Biodegradability Properties
 # =============================================================================
 
-eudet:surfactantType
+eudet:hasSurfactantType
     a owl:ObjectProperty ;
     rdfs:label "Surfactant Type"@en ;
     rdfs:comment "Classification of the surfactant by ionic charge."@en ;
@@ -605,7 +605,7 @@ eudet:biodegradationPercentage
     skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:biodegradationPercentage .
 
-eudet:testMethod
+eudet:hasTestMethod
     a owl:ObjectProperty ;
     rdfs:label "Test Method"@en ;
     rdfs:comment "Standard test method used for the biodegradability assessment."@en ;
@@ -697,7 +697,7 @@ eudet:endProductCharacteristics
 eudet:SignalWord            skos:exactMatch    oec:HazardSignalWord .
 eudet:Danger                skos:exactMatch    oec:HazardDanger .
 eudet:Warning               skos:exactMatch    oec:HazardWarning .
-eudet:signalWord            skos:exactMatch oec:hazardSignalWord .
+eudet:hasSignalWord            skos:exactMatch oec:hasHazardSignalWord .
 eudet:hazardPictograms      skos:exactMatch oec:hazardPictogramCode .
 eudet:hStatements           skos:exactMatch oec:hazardStatement .
 eudet:pStatements           skos:exactMatch oec:precautionaryStatement .
@@ -705,4 +705,4 @@ eudet:pStatements           skos:exactMatch oec:precautionaryStatement .
 # Biodegradability test result aligns to the lifted oec:Biodegradability.
 eudet:SurfactantBiodegradability rdfs:subClassOf       oec:Biodegradability .
 eudet:biodegradationPercentage   skos:exactMatch oec:biodegradationPercentage .
-eudet:biodegradabilityTestMethod skos:exactMatch oec:biodegradabilityTestMethod .
+eudet:biodegradabilityTestMethod skos:exactMatch oec:hasBiodegradabilityTestMethod .

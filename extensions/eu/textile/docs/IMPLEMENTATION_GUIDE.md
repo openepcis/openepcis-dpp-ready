@@ -38,8 +38,8 @@ Every textile product must specify:
 | Property | Description | Example |
 |----------|-------------|---------|
 | `schema:category` | High-level category | `Apparel`, `Footwear` |
-| `eutex:fabricType` | Fabric construction | `Knitted`, `Denim`, `WovenNonDenim` |
-| `eutex:apparelSubcategory` | Specific subcategory | `JacketsCoats`, `TShirts` |
+| `eutex:hasFabricType` | Fabric construction | `Knitted`, `Denim`, `WovenNonDenim` |
+| `eutex:hasApparelSubcategory` | Specific subcategory | `JacketsCoats`, `TShirts` |
 
 Fabric type is critical because robustness test thresholds differ by construction type.
 
@@ -139,9 +139,9 @@ See `textile/epcis/` for complete event examples.
 
 | Old Property | Replacement |
 |-------------|-------------|
-| `eutex:isRecycledFiber` | `eutex:recycledContentDeclaration` |
-| `eutex:recycledContentSource` | `eutex:recycledContentDeclaration` |
-| `eutex:textileChemicals` | `eutex:substancesOfConcern` |
+| `eutex:isRecycledFiber` | `eutex:hasRecycledContentDeclaration` |
+| `eutex:recycledContentSource` | `eutex:hasRecycledContentDeclaration` |
+| `eutex:hasTextileChemicals` | `eutex:hasSubstancesOfConcern` |
 
 The deprecated properties still work but new implementations should use the replacements.
 

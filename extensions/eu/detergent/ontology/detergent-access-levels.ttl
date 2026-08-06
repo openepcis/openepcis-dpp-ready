@@ -18,7 +18,7 @@
 
 # --- Public: product identity, form and use ---
 
-eudet:productForm oec:defaultAccessLevel oec:Public ;
+eudet:hasProductForm oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The physical product form (liquid, powder, capsule) is apparent from the product itself." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2004/648> .
 eudet:intendedUse oec:defaultAccessLevel oec:Public ;
@@ -31,7 +31,7 @@ eudet:intendedUse oec:defaultAccessLevel oec:Public ;
 eudet:dosageInstructions oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Dosage instructions are on-pack consumer information required for laundry detergents by Reg. (EC) 648/2004 Art. 11(4)." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2004/648> .
-eudet:recommendedDosage oec:defaultAccessLevel oec:Public ;
+eudet:hasRecommendedDosage oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The recommended dosage quantity is the structured form of the on-pack dosage information (Art. 11(4))." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2004/648> .
 
@@ -40,7 +40,7 @@ eudet:recommendedDosage oec:defaultAccessLevel oec:Public ;
 # --- accessible ingredient datasheet (INCI names, weight-percentage ranges),
 # --- so the core disclosure fields are locked Public. ---
 
-eudet:ingredientList oec:defaultAccessLevel oec:Public ;
+eudet:hasIngredientList oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The INCI ingredient list is the consumer-facing disclosure Reg. (EC) 648/2004 Art. 11(3) and Annex VII D require on label and website." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2004/648> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2004/648> .
@@ -48,20 +48,20 @@ eudet:weightPercentRange oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The prescribed weight-percentage brackets are exactly how Annex VII D of Reg. (EC) 648/2004 requires ingredient quantities to be published for the general public." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2004/648> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2004/648> .
-eudet:fragranceAllergens oec:defaultAccessLevel oec:Public ;
+eudet:hasFragranceAllergens oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Allergenic fragrances above the 0.01% threshold must be declared to consumers on the label per Reg. (EC) 648/2004 Art. 11(3)/Annex VII A." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2004/648> ;
     oec:accessLevelMandatedBy <https://eur-lex.europa.eu/eli/reg/2004/648> .
-eudet:ingredientFunction oec:defaultAccessLevel oec:Public ;
+eudet:hasIngredientFunction oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The functional role of an ingredient (surfactant, enzyme, fragrance) adds consumer-friendly context to the public ingredient list without revealing exact formulation." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2004/648> .
 eudet:isSurfactant oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "Flagging an ingredient as a surfactant restates public Annex VII A label content (surfactant classes are declared in brackets on-pack)." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2004/648> .
-eudet:surfactantType oec:defaultAccessLevel oec:Public ;
+eudet:hasSurfactantType oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The ionic surfactant class (anionic, non-ionic) is the same classification the public label discloses in ingredient brackets." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2004/648> .
-eudet:microorganisms oec:defaultAccessLevel oec:Public ;
+eudet:hasMicroorganisms oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The presence of intentionally added micro-organisms is consumer-relevant product information under the recast detergent rules; strain-level detail is tiered separately." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2004/648> .
 eudet:phosphorusContentPercent oec:defaultAccessLevel oec:Public ;
@@ -71,13 +71,13 @@ eudet:phosphorusContentPercent oec:defaultAccessLevel oec:Public ;
 # --- Public: hazard & safety labelling (CLP Reg. (EC) 1272/2008 Art. 17 puts
 # --- these elements on every consumer label) ---
 
-eudet:hazardousSubstances oec:defaultAccessLevel oec:Public ;
+eudet:hasHazardousSubstances oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "CLP-classified substances driving the label classification are consumer safety information; aligned with the shared hazardousSubstances alias (Public in core and battery)." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2008/1272> .
 eudet:hazardPictograms oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "GHS pictograms are CLP label elements printed on the consumer package (Reg. (EC) 1272/2008 Art. 17)." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2008/1272> .
-eudet:signalWord oec:defaultAccessLevel oec:Public ;
+eudet:hasSignalWord oec:defaultAccessLevel oec:Public ;
     oec:accessLevelRationale "The CLP signal word is a label element printed on the consumer package (Reg. (EC) 1272/2008 Art. 17)." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2008/1272> .
 eudet:hStatements oec:defaultAccessLevel oec:Public ;
@@ -129,18 +129,18 @@ eudet:endProductCharacteristics oec:defaultAccessLevel oec:AuthorizedOnly ;
 
 # --- AuthorizedOnly: detailed test results, methods & professional documents ---
 
-eudet:surfactantBiodegradability oec:defaultAccessLevel oec:AuthorizedOnly ;
+eudet:hasSurfactantBiodegradability oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The per-surfactant biodegradability test record is Annex III technical evidence for authorities; the public tier carries the headline pass/fail and percentage." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2004/648> .
-eudet:biodegradabilityTestReport oec:defaultAccessLevel oec:AuthorizedOnly ;
+eudet:hasBiodegradabilityTestReport oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The full test report is the technical file evidence competent authorities may request (Art. 9), not consumer information." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2004/648> .
-eudet:testMethod oec:defaultAccessLevel oec:AuthorizedOnly ;
+eudet:hasTestMethod oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The Annex III test-method reference is technical-file detail accompanying the professional test record." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2004/648> .
 eudet:testDurationDays oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The test duration is technical-file detail accompanying the professional test record." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2004/648> .
-eudet:safetyDataSheet oec:defaultAccessLevel oec:AuthorizedOnly ;
+eudet:hasSafetyDataSheet oec:defaultAccessLevel oec:AuthorizedOnly ;
     oec:accessLevelRationale "The SDS is supplied to professional recipients under REACH Art. 31; consumer-relevant safety content is carried by the public CLP label fields." ;
     oec:accessLevelSource <https://eur-lex.europa.eu/eli/reg/2006/1907> .

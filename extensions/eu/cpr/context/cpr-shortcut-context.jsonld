@@ -17,7 +17,7 @@
     "EssentialCharacteristic": "eucpr:EssentialCharacteristic",
     "ReactionToFireClass": "eucpr:ReactionToFireClass",
     "avcpSystem": {
-      "@id": "eucpr:avcpSystem",
+      "@id": "eucpr:hasAvcpSystem",
       "@type": "@vocab",
       "@context": {
         "1": "eucpr:System1",
@@ -31,16 +31,48 @@
       "@id": "eucpr:characteristicName",
       "@type": "xsd:string"
     },
-    "characteristicValue": {
-      "@id": "eucpr:characteristicValue",
+    "dateOfIssue": {
+      "@id": "eucpr:dateOfIssue",
+      "@type": "xsd:date"
+    },
+    "declarationCode": {
+      "@id": "eucpr:declarationCode",
+      "@type": "xsd:string"
+    },
+    "declarationOfPerformanceUrl": {
+      "@id": "eucpr:declarationOfPerformanceUrl",
+      "@type": "xsd:anyURI"
+    },
+    "essentialCharacteristic": {
+      "@id": "eucpr:hasEssentialCharacteristic",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "harmonisedStandard": {
+      "@id": "eucpr:harmonisedStandard",
+      "@type": "xsd:anyURI"
+    },
+    "hasAvcpSystem": {
+      "@id": "eucpr:hasAvcpSystem",
+      "@type": "@vocab",
+      "@context": {
+        "System1": "eucpr:System1",
+        "System1Plus": "eucpr:System1Plus",
+        "System2Plus": "eucpr:System2Plus",
+        "System3": "eucpr:System3",
+        "System4": "eucpr:System4"
+      }
+    },
+    "hasCharacteristicValue": {
+      "@id": "eucpr:hasCharacteristicValue",
       "@type": "@id"
     },
-    "compressiveStrength": {
-      "@id": "eucpr:compressiveStrength",
+    "hasCompressiveStrength": {
+      "@id": "eucpr:hasCompressiveStrength",
       "@type": "@id"
     },
-    "constructionProductType": {
-      "@id": "eucpr:constructionProductType",
+    "hasConstructionProductType": {
+      "@id": "eucpr:hasConstructionProductType",
       "@type": "@vocab",
       "@context": {
         "Aggregate": "eucpr:Aggregate",
@@ -56,41 +88,49 @@
         "WindowAndDoor": "eucpr:WindowAndDoor"
       }
     },
-    "dateOfIssue": {
-      "@id": "eucpr:dateOfIssue",
-      "@type": "xsd:date"
-    },
-    "declarationCode": {
-      "@id": "eucpr:declarationCode",
-      "@type": "xsd:string"
-    },
-    "declarationOfPerformance": {
-      "@id": "eucpr:declarationOfPerformance",
+    "hasDeclarationOfPerformance": {
+      "@id": "eucpr:hasDeclarationOfPerformance",
       "@type": "@id"
     },
-    "declarationOfPerformanceUrl": {
-      "@id": "eucpr:declarationOfPerformanceUrl",
-      "@type": "xsd:anyURI"
-    },
-    "essentialCharacteristic": {
-      "@id": "eucpr:essentialCharacteristic",
-      "@type": "@id",
-      "@container": "@set"
-    },
-    "europeanAssessmentDocument": {
-      "@id": "eucpr:europeanAssessmentDocument",
+    "hasEssentialCharacteristic": {
+      "@id": "eucpr:hasEssentialCharacteristic",
       "@type": "@id"
     },
-    "harmonisedStandard": {
-      "@id": "eucpr:harmonisedStandard",
-      "@type": "xsd:anyURI"
+    "hasEuropeanAssessmentDocument": {
+      "@id": "eucpr:hasEuropeanAssessmentDocument",
+      "@type": "@id"
     },
-    "notifiedBody": {
-      "@id": "eucpr:notifiedBody",
+    "hasNotifiedBody": {
+      "@id": "eucpr:hasNotifiedBody",
+      "@type": "@id"
+    },
+    "hasReactionToFireClass": {
+      "@id": "eucpr:hasReactionToFireClass",
+      "@type": "@vocab",
+      "@context": {
+        "FireClassA1": "eucpr:FireClassA1",
+        "FireClassA2": "eucpr:FireClassA2",
+        "FireClassB": "eucpr:FireClassB",
+        "FireClassC": "eucpr:FireClassC",
+        "FireClassD": "eucpr:FireClassD",
+        "FireClassE": "eucpr:FireClassE",
+        "FireClassF": "eucpr:FireClassF"
+      }
+    },
+    "hasTechnicalAssessmentBody": {
+      "@id": "eucpr:hasTechnicalAssessmentBody",
+      "@type": "@id"
+    },
+    "hasThermalConductivity": {
+      "@id": "eucpr:hasThermalConductivity",
+      "@type": "@id"
+    },
+    "hasValidationReports": {
+      "@id": "eucpr:hasValidationReports",
       "@type": "@id"
     },
     "reactionToFireClass": {
-      "@id": "eucpr:reactionToFireClass",
+      "@id": "eucpr:hasReactionToFireClass",
       "@type": "@vocab",
       "@context": {
         "A1": "eucpr:FireClassA1",
@@ -110,16 +150,8 @@
         "@base": "https://ref.gs1.org/voc/"
       }
     },
-    "technicalAssessmentBody": {
-      "@id": "eucpr:technicalAssessmentBody",
-      "@type": "@id"
-    },
-    "thermalConductivity": {
-      "@id": "eucpr:thermalConductivity",
-      "@type": "@id"
-    },
     "validationReports": {
-      "@id": "eucpr:validationReports",
+      "@id": "eucpr:hasValidationReports",
       "@type": "@id",
       "@container": "@set"
     }

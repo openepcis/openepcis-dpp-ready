@@ -10,8 +10,8 @@ PPWR-specific concepts:
 
 - **`euppwr:Packaging`** — subclass of `gs1:PackagingDetails`, the carrier
   for the PPWR-specific data points.
-- **`euppwr:packagingTier`** — Sales / Grouped / Transport (PPWR Article 3).
-- **`euppwr:recyclabilityGrade`** — A / B / C (PPWR Article 6, Annex II).
+- **`euppwr:hasPackagingTier`** — Sales / Grouped / Transport (PPWR Article 3).
+- **`euppwr:hasRecyclabilityGrade`** — A / B / C (PPWR Article 6, Annex II).
 - **`euppwr:harmonisedSymbol`** — URI of an Article 12 harmonised label.
 - **`euppwr:designForRecyclingMethodology`** — D4R methodology citation.
 - **`euppwr:depositRefundIssued`** / **`euppwr:containerCondition`** —
@@ -32,7 +32,7 @@ Vocabulary models it:
 ```
 gs1:Product ──gs1:packaging──▶ euppwr:Packaging (⊑ gs1:PackagingDetails)
                                  ├─ gs1:packagingType ("Bottle")
-                                 ├─ euppwr:packagingTier / recyclabilityGrade / harmonisedSymbol
+                                 ├─ euppwr:hasPackagingTier / recyclabilityGrade / harmonisedSymbol
                                  ├─ gs1:packagingMaterial ──▶ gs1:PackagingMaterialDetails
                                  │    ├─ gs1:packagingMaterialType (code list)
                                  │    ├─ gs1:packagingMaterialCompositionQuantity (g)
@@ -42,10 +42,10 @@ gs1:Product ──gs1:packaging──▶ euppwr:Packaging (⊑ gs1:PackagingDeta
                                  │    (⊑ gs1:ReturnablePackageDepositDetails)
                                  │    ├─ gs1:returnablePackageDepositAmount (PriceSpecification)
                                  │    ├─ gs1:returnablePackageDepositRegion (Country)
-                                 │    ├─ oec:depositSchemeOperator
+                                 │    ├─ oec:hasDepositSchemeOperator
                                  │    └─ oec:depositRedemptionChannelUrl
-                                 ├─ oec:recycledContentDetails ──▶ oec:RecycledContent
-                                 └─ oec:extendedProducerResponsibility ──▶ …
+                                 ├─ oec:hasRecycledContentDetails ──▶ oec:RecycledContent
+                                 └─ oec:hasExtendedProducerResponsibility ──▶ …
 ```
 
 When the packaging is itself the trade item (empty carton, sold packaging
@@ -59,17 +59,17 @@ in Europe PPWR white paper), type the root node as both `gs1:Product` and
 1. **Identification** — `gs1:gtin` embedded in a GS1 Digital Link URI
    (per-component GTINs for packaging components; GRAI (AI 8003) for
    reusable/returnable packaging assets).
-2. **Packaging tier** — `euppwr:packagingTier` ∈ {Sales, Grouped, Transport}.
-3. **Recyclability grade** — `euppwr:recyclabilityGrade` ∈ {A, B, C}
+2. **Packaging tier** — `euppwr:hasPackagingTier` ∈ {Sales, Grouped, Transport}.
+3. **Recyclability grade** — `euppwr:hasRecyclabilityGrade` ∈ {A, B, C}
    (mandatory from 2030; A ≥ 95%, B ≥ 80%, C ≥ 70% of unit weight).
 4. **Material composition** — `gs1:packagingMaterial` entries with
    `gs1:packagingMaterialType` codes and composition quantities.
-5. **Recycled content** — `oec:recycledContentDetails` (mandatory for
+5. **Recycled content** — `oec:hasRecycledContentDetails` (mandatory for
    plastic packaging from 2030, Art. 7).
-6. **EPR registration** — `oec:extendedProducerResponsibility` for each
+6. **EPR registration** — `oec:hasExtendedProducerResponsibility` for each
    Member State the packaging is placed on the market in (Art. 12(8)).
 7. **Manufacturer / economic operator** — `gs1:manufacturer` or
-   `oec:operatorInformation`.
+   `oec:hasOperatorInformation`.
 8. **Declaration of regulatory compliance** — `gs1:regulatoryInformation`
    with `gs1:regulationType` =
    `euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION`
@@ -153,8 +153,8 @@ pyshacl -s extensions/eu/ppwr/validation/ppwr-shapes.ttl -d <your-doc>.jsonld
 
 The PPWR shapes require:
 
-- `euppwr:packagingTier` ∈ {Sales, Grouped, Transport}
-- `euppwr:recyclabilityGrade` ∈ {A, B, C} (when present)
+- `euppwr:hasPackagingTier` ∈ {Sales, Grouped, Transport}
+- `euppwr:hasRecyclabilityGrade` ∈ {A, B, C} (when present)
 - every `gs1:packagingMaterial` entry names a `gs1:packagingMaterialType`
 - every `gs1:hasReturnablePackageDeposit` card states
   `gs1:returnablePackageDepositAmount`

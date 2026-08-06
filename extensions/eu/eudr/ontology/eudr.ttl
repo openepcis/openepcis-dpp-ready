@@ -240,7 +240,7 @@ eudr:OriginDetails
 # NOTE: For party GLN, use gs1:partyGLN (defined in GS1 Web Vocabulary).
 # These properties are intentionally NOT duplicated here - use the standard terms.
 
-eudr:countryList
+eudr:hasCountryList
     a owl:ObjectProperty ;
     rdfs:label "Country List"@en ;
     rdfs:comment "List of countries of origin where geolocations are located."@en ;
@@ -256,7 +256,7 @@ eudr:countryList
     skos:broadMatch <https://vocabulary.uncefact.org/untp/countryOfProduction> ;
     skos:broadMatch <https://dpp-keystone.org/spec/v2/terms#meltAndPourCountry> .
 
-eudr:originList
+eudr:hasOriginList
     a owl:ObjectProperty ;
     rdfs:label "Origin List"@en ;
     rdfs:comment "List of origin details (one per geolocation or polygon)."@en ;
@@ -269,7 +269,7 @@ eudr:originList
     rdfs:seeAlso <https://schema.org/countryOfOrigin> ;
     skos:broadMatch gs1:countryOfOrigin .
 
-eudr:originDetails
+eudr:hasOriginDetails
     a owl:ObjectProperty ;
     rdfs:label "Origin Details"@en ;
     rdfs:comment "Container for geolocation and producer identification."@en ;
@@ -313,7 +313,7 @@ eudr:geolocation
     skos:closeMatch <https://schema.org/geo> ;
     rdfs:seeAlso <http://data.europa.eu/m8g/coordinates> .
 
-eudr:areaSize
+eudr:hasAreaSize
     a owl:ObjectProperty ;
     rdfs:label "Area Size"@en ;
     rdfs:comment "Quantitative value for field area size. Use unitCode 'HAR' (hectare), 'ARE' (are), or 'MTK' (m²) per UN/CEFACT Rec 20."@en ;
@@ -324,7 +324,7 @@ eudr:areaSize
     skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch <https://schema.org/size> .
 
-eudr:producerIdentification
+eudr:hasProducerIdentification
     a owl:ObjectProperty ;
     rdfs:label "Producer Identification"@en ;
     rdfs:comment "Identification of the producer. Prefer party GLN when available."@en ;
@@ -339,7 +339,7 @@ eudr:producerIdentification
 # Additional Extension Properties for EUDR Compliance
 # =============================================================================
 
-eudr:commodityType
+eudr:hasCommodityType
     a owl:ObjectProperty ;
     rdfs:label "Commodity Type"@en ;
     rdfs:comment "The EUDR commodity category."@en ;
@@ -349,7 +349,7 @@ eudr:commodityType
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
     skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-eudr:timberProductType
+eudr:hasTimberProductType
     a owl:ObjectProperty ;
     rdfs:label "Timber Product Type"@en ;
     rdfs:comment "Specific type of timber product."@en ;
@@ -380,7 +380,7 @@ eudr:speciesCommonName
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
     skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-eudr:riskLevel
+eudr:hasRiskLevel
     a owl:ObjectProperty ;
     rdfs:label "Risk Level"@en ;
     rdfs:comment "Risk level per EUDR country benchmarking."@en ;
@@ -468,7 +468,7 @@ eudr:RiskAssessment
 # Due Diligence and Risk Assessment Properties
 # =============================================================================
 
-eudr:dueDiligenceStatement
+eudr:hasDueDiligenceStatement
     a owl:ObjectProperty ;
     rdfs:label "Due Diligence Statement"@en ;
     rdfs:comment "Reference to the EUDR due diligence statement for this product."@en ;
@@ -489,7 +489,7 @@ eudr:statementDate
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
     skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-eudr:riskAssessment
+eudr:hasRiskAssessment
     a owl:ObjectProperty ;
     rdfs:label "Risk Assessment"@en ;
     rdfs:comment "Risk assessment associated with the due diligence statement."@en ;
@@ -510,7 +510,7 @@ eudr:riskAssessmentDate
     skos:note "Due-diligence / risk-assessment concept per EUDR (EU) 2023/1115 Articles 8-10. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:closeMatch <https://vocabulary.uncefact.org/untp/assessmentDate> .
 
-eudr:countryRiskCategory
+eudr:hasCountryRiskCategory
     a owl:ObjectProperty ;
     rdfs:label "Country Risk Category"@en ;
     rdfs:comment "Risk category of the country of origin per EU benchmarking (Article 29)."@en ;
@@ -534,7 +534,7 @@ eudr:mitigationMeasures
 # Derived Product Properties
 # =============================================================================
 
-eudr:derivedFrom
+eudr:hasDerivedFrom
     a owl:ObjectProperty ;
     rdfs:label "Derived From"@en ;
     rdfs:comment "Reference to source product(s) from which this product was derived."@en ;
@@ -544,7 +544,7 @@ eudr:derivedFrom
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
     skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
-eudr:transformationLocation
+eudr:hasTransformationLocation
     a owl:ObjectProperty ;
     rdfs:label "Transformation Location"@en ;
     rdfs:comment "Location where the commodity transformation/processing took place."@en ;
@@ -594,7 +594,7 @@ eudr:volumeCubicMeters
     skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch gs1:grossVolume .
 
-eudr:fscCertification
+eudr:hasFscCertification
     a owl:ObjectProperty ;
     rdfs:label "FSC Certification"@en ;
     rdfs:comment "Reference to FSC (Forest Stewardship Council) certification."@en ;
@@ -727,7 +727,7 @@ eudr:ExemptionDeclaration
     rdfs:seeAlso <https://ref.gs1.org/voc/regulatoryInformation> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
-eudr:exemptionDeclaration
+eudr:hasExemptionDeclaration
     a owl:ObjectProperty ;
     rdfs:label "Exemption Declaration"@en ;
     rdfs:comment "Links a product or EPCIS event to an EUDR exemption declaration."@en ;
@@ -736,7 +736,7 @@ eudr:exemptionDeclaration
     skos:note "Attached to EPCIS events (bizStep 'notifying') or product master data. Reference pattern per GS1 standardization."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
-eudr:exemptionType
+eudr:hasExemptionType
     a owl:ObjectProperty ;
     rdfs:label "Exemption Type"@en ;
     rdfs:comment "The classification of this exemption (permanent or temporary)."@en ;
@@ -754,7 +754,7 @@ eudr:exemptionReasonCode
     rdfs:range xsd:string ;
     dcterms:source "https://eur-lex.europa.eu/eli/reg/2023/1115/oj" ;
     skos:note "String-typed for now; will become a controlled enumeration once GS1 publishes the official code list."@en ;
-    rdfs:seeAlso eudr:riskLevel ;
+    rdfs:seeAlso eudr:hasRiskLevel ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/eudr/> .
 
 eudr:exemptionScope
@@ -803,7 +803,7 @@ eudr:exemptionEffectiveUntil
     skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:closeMatch <https://schema.org/validUntil> .
 
-eudr:exemptionAuthority
+eudr:hasExemptionAuthority
     a owl:ObjectProperty ;
     rdfs:label "Exemption Authority"@en ;
     rdfs:comment "The economic operator or competent authority asserting this exemption. Uses oec:OperatorInformation so the party is fully identified by GLN and role."@en ;

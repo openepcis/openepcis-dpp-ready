@@ -28,12 +28,12 @@ cross-cutting `oec:` and `untp:` vocabulary already lifted to common/core.
 Packaging-specific concepts only live here:
 
   - `euppwr:Packaging` (subClassOf gs1:PackagingDetails)
-  - `euppwr:packagingTier` (Sales / Grouped / Transport; Article 3)
-  - `euppwr:recyclabilityGrade` (A / B / C; Article 6, Annex II)
+  - `euppwr:hasPackagingTier` (Sales / Grouped / Transport; Article 3)
+  - `euppwr:hasRecyclabilityGrade` (A / B / C; Article 6, Annex II)
   - `euppwr:harmonisedSymbol` (URI of an Article 12 harmonised label entry)
   - `euppwr:designForRecyclingMethodology` (D4R methodology citation)
-  - `euppwr:reuseInformation` / `euppwr:ReuseInformation` with
-    `euppwr:reuseSystemScope` (local / national / Union-wide),
+  - `euppwr:hasReuseInformation` / `euppwr:ReuseInformation` with
+    `euppwr:hasReuseSystemScope` (local / national / Union-wide),
     `euppwr:reuseSystemName`, `euppwr:collectionPointsUrl`,
     `euppwr:averageRotationsEstimate` and the event-capable
     `euppwr:rotationCount` (Article 12(2) reuse QR data)
@@ -120,7 +120,7 @@ euppwr:Transport a euppwr:PackagingTier ; rdfs:label "Transport Packaging"@en ;
     rdfs:comment "Tertiary packaging: facilitates handling/transport of grouped or sales packaging (PPWR Art. 3(1)(d))."@en ;
     skos:notation "transport" .
 
-euppwr:packagingTier
+euppwr:hasPackagingTier
     a owl:ObjectProperty ;
     rdfs:label "Packaging Tier"@en ;
     rdfs:comment "Indicates whether the packaging is sales (primary), grouped (secondary), or transport (tertiary) per PPWR Article 3."@en ;
@@ -164,7 +164,7 @@ euppwr:GradeC a euppwr:RecyclabilityGrade ; rdfs:label "Grade C"@en ;
     rdfs:comment "Lowest acceptable recyclability per PPWR Annex II: ≥ 70 % of unit weight recyclable. Minimum grade from 2030; cannot be placed on the market from 2038."@en ;
     skos:notation "C" .
 
-euppwr:recyclabilityGrade
+euppwr:hasRecyclabilityGrade
     a owl:ObjectProperty ;
     rdfs:label "PPWR Recyclability Grade"@en ;
     rdfs:comment "PPWR Article 6 letter grade (A/B/C). Companion to oec:recyclabilityScore (numeric, JRC-style) and oec:recyclabilityRate (decimal fraction); use the grade for regulatory expression and a score/rate for the underlying methodology output."@en ;
@@ -229,7 +229,7 @@ prescribe the harmonised methodology."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040> ;
     skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute (Article 4 / Annex II supporting evidence). No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso euppwr:recyclabilityGrade .
+    rdfs:seeAlso euppwr:hasRecyclabilityGrade .
 
 # =============================================================================
 # Reuse information (Articles 11, 12(2))
@@ -255,7 +255,7 @@ from the label and QR duty (Article 12(3))."""@en ;
     rdfs:seeAlso oec:DepositReturnScheme ;
     rdfs:seeAlso gs1:packagingRecyclingProcessType .
 
-euppwr:reuseInformation
+euppwr:hasReuseInformation
     a owl:ObjectProperty ;
     rdfs:label "Reuse Information"@en ;
     rdfs:comment "Links a reusable packaging item to its PPWR Article 12(2) reuse data card (re-use system, collection points, trips/rotations)."@en ;
@@ -291,7 +291,7 @@ euppwr:UnionWideSystem a euppwr:ReuseSystemScope ; rdfs:label "Union-wide Re-use
     rdfs:comment "Re-use system available across the Union (PPWR Art. 12(2))."@en ;
     skos:notation "union-wide" .
 
-euppwr:reuseSystemScope
+euppwr:hasReuseSystemScope
     a owl:ObjectProperty ;
     rdfs:label "Reuse System Scope"@en ;
     rdfs:comment "Whether the re-use system the packaging participates in is available locally, nationally or Union-wide (PPWR Art. 12(2))."@en ;

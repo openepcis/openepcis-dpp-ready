@@ -618,8 +618,8 @@ Keycloak token, calls `ReadDPPById`; the response is the EN 18223
   "granularity": "item",
   "dppStatus": "active",
   "type": ["gs1:Product", "eubat:Battery"],
-  "eubat:ratedCapacity": { "@type": "gs1:QuantitativeValue", "value": 75, "unitCode": "kWh" },
-  "eubat:stateOfHealth": 0.92,
+  "eubat:hasRatedCapacity": { "@type": "gs1:QuantitativeValue", "value": 75, "unitCode": "kWh" },
+  "eubat:hasStateOfHealth": 0.92,
   "oec:recycledContent": 0.16
 }
 ```

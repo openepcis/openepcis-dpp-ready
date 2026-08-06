@@ -129,7 +129,7 @@ Link the SDS using `oec:DocumentReference`:
 {
   "safetyDataSheet": {
     "type": "DocumentReference",
-    "oec:documentType": {"id": "oec:SafetyDataSheet"},
+    "oec:hasDocumentType": {"id": "oec:SafetyDataSheet"},
     "oec:documentUrl": "https://example.com/sds/product-sds.pdf",
     "schema:name": "Safety Data Sheet",
     "oec:mimeType": "application/pdf"

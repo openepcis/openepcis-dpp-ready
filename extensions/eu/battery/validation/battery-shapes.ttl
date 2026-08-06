@@ -41,42 +41,42 @@ eubat:BatteryShape a sh:NodeShape ;
         sh:class eubat:BatteryStatus
     ] ;
     sh:property [
-        sh:path eubat:batteryChemistry ;
+        sh:path eubat:hasBatteryChemistry ;
         sh:name "Battery Chemistry" ;
         sh:class eubat:BatteryChemistry
     ] ;
     sh:property [
-        sh:path eubat:technicalSpecifications ;
+        sh:path eubat:hasTechnicalSpecifications ;
         sh:name "Technical Specifications" ;
         sh:class eubat:TechnicalSpecification
     ] ;
     sh:property [
-        sh:path eubat:materialComposition ;
+        sh:path eubat:hasMaterialComposition ;
         sh:name "Material Composition" ;
         sh:class eubat:BatteryMaterial
     ] ;
     sh:property [
-        sh:path eubat:recycledContent ;
+        sh:path eubat:hasRecycledContent ;
         sh:name "Recycled Content" ;
         sh:class eubat:RecycledContent
     ] ;
     sh:property [
-        sh:path eubat:endOfLifeInfo ;
+        sh:path eubat:hasEndOfLifeInfo ;
         sh:name "End of Life Information" ;
         sh:class eubat:EndOfLifeInfo
     ] ;
     sh:property [
-        sh:path eubat:hazardousSubstances ;
+        sh:path eubat:hasHazardousSubstances ;
         sh:name "Hazardous Substances" ;
         sh:class eubat:HazardousSubstance
     ] ;
     sh:property [
-        sh:path eubat:operatorInformation ;
+        sh:path eubat:hasOperatorInformation ;
         sh:name "Operator Information" ;
         sh:class oec:OperatorInformation
     ] ;
     sh:property [
-        sh:path eubat:supplyChainDueDiligence ;
+        sh:path eubat:hasSupplyChainDueDiligence ;
         sh:name "Supply Chain Due Diligence" ;
         sh:class eubat:SupplyChainDueDiligence
     ] ;
@@ -100,7 +100,7 @@ eubat:BatteryShape a sh:NodeShape ;
     sh:property [
         sh:path eubat:facilityIdentifier ;
         sh:name "Facility Identifier" ;
-        sh:description "Mandatory per BatteryPass-Ready v1.3 (#11). Recommend GLN of the gs1:Place referenced by eubat:manufacturingPlace." ;
+        sh:description "Mandatory per BatteryPass-Ready v1.3 (#11). Recommend GLN of the gs1:Place referenced by eubat:hasManufacturingPlace." ;
         sh:datatype xsd:string ;
         sh:minCount 1
     ] ;
@@ -144,7 +144,7 @@ eubat:BatteryShape a sh:NodeShape ;
         sh:maxCount 1
     ] ;
     sh:property [
-        sh:path oec:reportingGranularity ;
+        sh:path oec:hasReportingGranularity ;
         sh:name "DPP Reporting Granularity" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#3)." ;
         sh:class oec:DPPGranularity ;
@@ -168,12 +168,12 @@ eubat:CarbonFootprintDeclarationShape a sh:NodeShape ;
     sh:targetClass eubat:CarbonFootprintDeclaration ;
     rdfs:label "Carbon Footprint Declaration Shape" ;
     sh:property [
-        sh:path eubat:carbonFootprintTotal ;
+        sh:path eubat:hasCarbonFootprintTotal ;
         sh:name "Battery Carbon Footprint per Functional Unit" ;
         sh:minCount 1
     ] ;
     sh:property [
-        sh:path eubat:carbonFootprintPerformanceClass ;
+        sh:path eubat:hasCarbonFootprintPerformanceClass ;
         sh:name "Carbon Footprint Performance Class" ;
         sh:class eubat:CarbonFootprintClass ;
         sh:minCount 1
@@ -225,17 +225,17 @@ eubat:TechnicalSpecificationShape a sh:NodeShape ;
     sh:targetClass eubat:TechnicalSpecification ;
     rdfs:label "Technical Specification Shape" ;
     sh:property [
-        sh:path eubat:ratedCapacity ;
+        sh:path eubat:hasRatedCapacity ;
         sh:name "Rated Capacity" ;
         sh:class gs1:QuantitativeValue
     ] ;
     sh:property [
-        sh:path eubat:ratedEnergy ;
+        sh:path eubat:hasRatedEnergy ;
         sh:name "Rated Energy" ;
         sh:class gs1:QuantitativeValue
     ] ;
     sh:property [
-        sh:path eubat:nominalVoltage ;
+        sh:path eubat:hasNominalVoltage ;
         sh:name "Nominal Voltage" ;
         sh:class gs1:QuantitativeValue
     ] ;
@@ -265,7 +265,7 @@ eubat:BatteryMaterialShape a sh:NodeShape ;
         sh:datatype xsd:string
     ] ;
     sh:property [
-        sh:path eubat:componentLocation ;
+        sh:path eubat:hasComponentLocation ;
         sh:class eubat:ComponentLocation
     ] ;
     sh:property [
@@ -307,7 +307,7 @@ eubat:EndOfLifeInfoShape a sh:NodeShape ;
     sh:targetClass eubat:EndOfLifeInfo ;
     rdfs:label "End of Life Information Shape" ;
     sh:property [
-        sh:path eubat:dismantlingInstructions ;
+        sh:path eubat:hasDismantlingInstructions ;
         sh:nodeKind sh:IRI
     ] ;
     sh:property [
@@ -331,7 +331,7 @@ eubat:HazardousSubstanceShape a sh:NodeShape ;
         sh:datatype xsd:string
     ] ;
     sh:property [
-        sh:path eubat:hazardClass ;
+        sh:path eubat:hasHazardClass ;
         sh:class eubat:HazardClass
     ] ;
     sh:property [
@@ -345,9 +345,9 @@ eubat:HazardousSubstanceShape a sh:NodeShape ;
 eubat:OperatorInformationShape a sh:NodeShape ;
     sh:targetClass oec:OperatorInformation ;
     rdfs:label "Operator Information Shape" ;
-    rdfs:comment "Battery-specific constraint on the shared oec:OperatorInformation class, which is the declared range of eubat:operatorInformation. There is no eubat:OperatorInformation class." ;
+    rdfs:comment "Battery-specific constraint on the shared oec:OperatorInformation class, which is the declared range of eubat:hasOperatorInformation. There is no eubat:OperatorInformation class." ;
     sh:property [
-        sh:path eubat:operatorRole ;
+        sh:path eubat:hasOperatorRole ;
         sh:datatype xsd:string
     ] .
 
@@ -376,33 +376,33 @@ eubat:SupplyChainDueDiligenceShape a sh:NodeShape ;
 # check. Extend with more shapes as additional regulated properties are added.
 
 eubat:RatedCapacityShape a sh:NodeShape ;
-    sh:targetSubjectsOf eubat:ratedCapacity ;
+    sh:targetSubjectsOf eubat:hasRatedCapacity ;
     sh:property [
-        sh:path ( eubat:ratedCapacity gs1:unitCode ) ;
+        sh:path ( eubat:hasRatedCapacity gs1:unitCode ) ;
         sh:hasValue "AMH" ;
-        sh:message "eubat:ratedCapacity must use unitCode 'AMH' (ampere-hours)"@en
+        sh:message "eubat:hasRatedCapacity must use unitCode 'AMH' (ampere-hours)"@en
     ] .
 
 eubat:RatedEnergyShape a sh:NodeShape ;
-    sh:targetSubjectsOf eubat:ratedEnergy ;
+    sh:targetSubjectsOf eubat:hasRatedEnergy ;
     sh:property [
-        sh:path ( eubat:ratedEnergy gs1:unitCode ) ;
+        sh:path ( eubat:hasRatedEnergy gs1:unitCode ) ;
         sh:hasValue "KWH" ;
-        sh:message "eubat:ratedEnergy must use unitCode 'KWH' (kilowatt-hours)"@en
+        sh:message "eubat:hasRatedEnergy must use unitCode 'KWH' (kilowatt-hours)"@en
     ] .
 
 eubat:NominalVoltageShape a sh:NodeShape ;
-    sh:targetSubjectsOf eubat:nominalVoltage ;
+    sh:targetSubjectsOf eubat:hasNominalVoltage ;
     sh:property [
-        sh:path ( eubat:nominalVoltage gs1:unitCode ) ;
+        sh:path ( eubat:hasNominalVoltage gs1:unitCode ) ;
         sh:hasValue "VLT" ;
-        sh:message "eubat:nominalVoltage must use unitCode 'VLT' (volts)"@en
+        sh:message "eubat:hasNominalVoltage must use unitCode 'VLT' (volts)"@en
     ] .
 
 eubat:RatedMaximumPowerShape a sh:NodeShape ;
-    sh:targetSubjectsOf eubat:ratedMaximumPower ;
+    sh:targetSubjectsOf eubat:hasRatedMaximumPower ;
     sh:property [
-        sh:path ( eubat:ratedMaximumPower gs1:unitCode ) ;
+        sh:path ( eubat:hasRatedMaximumPower gs1:unitCode ) ;
         sh:hasValue "KWT" ;
-        sh:message "eubat:ratedMaximumPower must use unitCode 'KWT' (kilowatts)"@en
+        sh:message "eubat:hasRatedMaximumPower must use unitCode 'KWT' (kilowatts)"@en
     ] .

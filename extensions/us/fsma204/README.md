@@ -26,7 +26,7 @@ On top of the GS1 US guidance, we add:
 2. **`usfsma:FoodTraceabilityList` enumeration** — the 23 FDA-defined food
    categories (including the leafy-greens and finfish sub-splits and the
    fresh-cut entries) that the FDA Food Traceability List publishes.
-3. **One master-data property** — `usfsma:foodTraceabilityListCategory` —
+3. **One master-data property** — `usfsma:hasFoodTraceabilityListCategory` —
    attached to `gs1:Product` so a GTIN-level master data record can declare
    its FTL category. This is the only FSMA KDE that GS1 US's master-data
    guide does not already cover.

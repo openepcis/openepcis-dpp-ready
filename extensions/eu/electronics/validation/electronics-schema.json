@@ -17,28 +17,28 @@
         "category": {
           "$ref": "#/$defs/DeviceCategory"
         },
-        "repairabilityIndex": {
+        "hasRepairabilityIndex": {
           "$ref": "#/$defs/RepairabilityIndex"
         },
-        "softwareSupport": {
+        "hasSoftwareSupport": {
           "$ref": "#/$defs/SoftwareSupport"
         },
-        "energyEfficiency": {
+        "hasEnergyEfficiency": {
           "$ref": "#/$defs/EnergyEfficiency"
         },
-        "billOfMaterials": {
+        "hasBillOfMaterials": {
           "$ref": "#/$defs/ComponentBOM"
         },
-        "weeeCompliance": {
+        "hasWeeeCompliance": {
           "$ref": "#/$defs/WEEECompliance"
         },
-        "rohsCompliance": {
+        "hasRohsCompliance": {
           "$ref": "#/$defs/RoHSCompliance"
         },
-        "displaySpecification": {
+        "hasDisplaySpecification": {
           "$ref": "#/$defs/DisplaySpecification"
         },
-        "materialDeclaration": {
+        "hasMaterialDeclaration": {
           "type": "string",
           "format": "uri",
           "description": "URL to the full material declaration (e.g. IPC-1752A material composition declaration)."
@@ -86,11 +86,11 @@
           "maximum": 10,
           "description": "Score as displayed to consumers on the indicator label (0.0 to 10.0, one decimal). Required."
         },
-        "repairabilityClass": {
+        "hasRepairabilityClass": {
           "$ref": "#/$defs/EURepairabilityClass",
           "description": "EU Repairability Class (A best, E worst) per Right-to-Repair Directive 2024/1799. Required."
         },
-        "repairCriteria": {
+        "hasRepairCriteria": {
           "type": "array",
           "items": { "$ref": "#/$defs/RepairCriterion" },
           "minItems": 1,
@@ -101,7 +101,7 @@
           "format": "date",
           "description": "Date the repairability assessment was carried out. Required."
         },
-        "assessmentBody": {
+        "hasAssessmentBody": {
           "type": "string",
           "description": "Identifier of the organisation that performed the assessment (recommend GLN). Required."
         },
@@ -139,7 +139,7 @@
       "description": "An individual criterion score within the French Repairability Index 5-criterion methodology.",
       "properties": {
         "@type": { "const": "RepairCriterion" },
-        "criterionType": {
+        "hasCriterionType": {
           "$ref": "#/$defs/RepairCriterionType",
           "description": "Which of the five criteria this entry scores. Required."
         },
@@ -200,12 +200,12 @@
           "format": "date",
           "description": "Date until which feature updates are committed to be provided. Required."
         },
-        "securitySupportYears": {
+        "hasSecuritySupportYears": {
           "type": "integer",
           "minimum": 0,
           "description": "Security support period in whole years from placement on the market. Required."
         },
-        "featureSupportYears": {
+        "hasFeatureSupportYears": {
           "type": "integer",
           "minimum": 0,
           "description": "Feature support period in whole years from placement on the market. Required."
@@ -233,10 +233,10 @@
       "description": "EU Energy Label data per Energy Labelling Framework Regulation 2017/1369 and the relevant product-group delegated acts, plus the EPREL (European Product Registry for Energy Labelling) cross-reference.",
       "properties": {
         "@type": { "const": "EnergyEfficiency" },
-        "energyEfficiencyClass": {
+        "hasEnergyEfficiencyClass": {
           "$ref": "#/$defs/EnergyEfficiencyClass"
         },
-        "annualEnergyConsumption": {
+        "hasAnnualEnergyConsumption": {
           "$ref": "#/$defs/QuantitativeValue",
           "description": "Annual energy consumption (typically in kWh/year)."
         },
@@ -272,7 +272,7 @@
       "description": "Bill of Materials for multi-component electronics, supporting the CIRPASS-2 nested-DPP pattern for components.",
       "properties": {
         "@type": { "const": "ComponentBOM" },
-        "components": {
+        "hasComponents": {
           "type": "array",
           "items": { "$ref": "#/$defs/ElectronicComponent" },
           "minItems": 1,
@@ -291,19 +291,19 @@
           "type": "string",
           "description": "Human-readable component name. Required."
         },
-        "componentType": {
+        "hasComponentType": {
           "$ref": "#/$defs/ComponentType"
         },
         "componentPartNumber": {
           "type": "string",
           "description": "Manufacturer-assigned part number for the component."
         },
-        "componentPassport": {
+        "hasComponentPassport": {
           "type": "string",
           "format": "uri",
           "description": "Resolvable URL to the component's own Digital Product Passport (CIRPASS-2 nested-DPP pattern)."
         },
-        "replacementDifficulty": {
+        "hasReplacementDifficulty": {
           "$ref": "#/$defs/ReplacementDifficulty"
         }
       },
@@ -420,11 +420,11 @@
           "type": "string",
           "description": "Native resolution, e.g. \"3840x2160\"."
         },
-        "refreshRate": {
+        "hasRefreshRate": {
           "$ref": "#/$defs/QuantitativeValue",
           "description": "Refresh rate, typically in Hz."
         },
-        "peakBrightness": {
+        "hasPeakBrightness": {
           "$ref": "#/$defs/QuantitativeValue",
           "description": "Peak luminance, typically in cd/m² (nits)."
         }

@@ -29,12 +29,12 @@ vocab-sync curate --xlsx docs/skos-alignment-review.xlsx \
 
 | Term | Proposed | Kept | Why |
 |---|---|---|---|
-| `eubat:selfDischargeRate` → `dppk:selfDischargeCurrent` | closeMatch → **exactMatch** | `closeMatch` | a self-discharge *rate* (%/time) and *current* (A) are different physical quantities; do not assert equivalence. |
+| `eubat:hasSelfDischargeRate` → `dppk:selfDischargeCurrent` | closeMatch → **exactMatch** | `closeMatch` | a self-discharge *rate* (%/time) and *current* (A) are different physical quantities; do not assert equivalence. |
 
 Accepted rewrites (7): `oec:DocumentReference`→broadMatch `gs1:ReferencedFileDetails`;
-`eubat:hazardImpact`→narrowMatch; `eubat:hazardousSubstances`→exactMatch;
-`euelec:powerConsumptionOff`→exactMatch `oec:powerConsumptionOff`;
-`eudr:exemptionEffectiveFrom`→closeMatch; `eusteel:technologyRoute`→exactMatch;
+`eubat:hazardImpact`→narrowMatch; `eubat:hasHazardousSubstances`→exactMatch;
+`euelec:hasPowerConsumptionOff`→exactMatch `oec:hasPowerConsumptionOff`;
+`eudr:exemptionEffectiveFrom`→closeMatch; `eusteel:hasTechnologyRoute`→exactMatch;
 `eusteel:MaterialTestCertificate`→narrowMatch `schema:Certification`.
 
 ## Rejected: 22 removes (kept the mapping)
@@ -48,21 +48,21 @@ Same concept / sound delegation — the panel's NONE verdict was the skeptic len
 | `oec:iupacName` | closeMatch `dppk:componentIupacName` |
 | `oec:casNumber` | closeMatch `dppk:componentCasNumber` |
 | `oec:endOfLifeInstructions` | exactMatch `dppk:endOfLifeInstructions` |
-| `eubat:initialInternalResistance` | exactMatch `dppk:internalResistanceInitial` |
-| `eubat:maximumPermittedBatteryPower` | exactMatch `dppk:powerMaximumPermitted` |
-| `eubat:remainingPowerCapability` | closeMatch `dppk:powerRemaining` |
-| `eubat:maximumVoltage` | exactMatch `dppk:voltageMaximum` |
+| `eubat:hasInitialInternalResistance` | exactMatch `dppk:internalResistanceInitial` |
+| `eubat:hasMaximumPermittedBatteryPower` | exactMatch `dppk:powerMaximumPermitted` |
+| `eubat:hasRemainingPowerCapability` | closeMatch `dppk:powerRemaining` |
+| `eubat:hasMaximumVoltage` | exactMatch `dppk:voltageMaximum` |
 | `eubat:expectedCycleLife` | exactMatch `dppk:expectedLifetimeCycles` |
 | `eubat:cRateLifeCycleTest` | exactMatch `dppk:cRateCycleTest` |
-| `eubat:carbonFootprintProduction` | exactMatch `oec:carbonFootprintProduction` (battery → core) |
+| `eubat:hasCarbonFootprintProduction` | exactMatch `oec:hasCarbonFootprintProduction` (battery → core) |
 | `eubat:supplyChainIndex` | closeMatch `dppk:supplyChainIndices` |
 | `eubat:Battery` | closeMatch `dppk:BatteryProduct` (cross-profile class anchor) |
-| `eucpr:reactionToFireClass` | closeMatch `dppk:reactionToFire` |
+| `eucpr:hasReactionToFireClass` | closeMatch `dppk:reactionToFire` |
 | `euelec:weeeRegistrationNumber` | narrowMatch `oec:eprRegistrationNumber` (WEEE ⊂ EPR) |
-| `euelec:weeeRegistrationCountry` | narrowMatch `oec:eprJurisdiction` |
+| `euelec:weeeRegistrationCountry` | narrowMatch `oec:hasEprJurisdiction` |
 | `euppwr:Packaging` | closeMatch `dppk:Packaging` |
 | `eutex:organicContentPercentage` | closeMatch `dppk:organicContentPercentage` |
-| `eutex:repairServices` | exactMatch `dppk:repairServices` |
+| `eutex:hasRepairServices` | exactMatch `dppk:repairServices` |
 | `eutex:containsAnimalNonTextileParts` | exactMatch `dppk:animalOriginNonTextile` |
 | `eutex:TechnicalRecyclability` | narrowMatch `oec:RecyclabilityAssessment` |
 
@@ -76,14 +76,14 @@ Generic or genuinely different target — the drop is correct.
 | `oec:compostabilityStandard` | narrowMatch `gs1:certificationStandard` | generic certification target |
 | `oec:dppSchemaVersion` | narrowMatch `schema:version` | generic web property |
 | `oec:FacilityInformation` | closeMatch `untp:Facility` | info card vs facility entity (granularity) |
-| `eubat:carbonFootprintRecycling` | narrowMatch `gs1:sustainabilityInfo` | far-too-generic target |
+| `eubat:hasCarbonFootprintRecycling` | narrowMatch `gs1:sustainabilityInfo` | far-too-generic target |
 | `eubat:nickelPreConsumerShare` | narrowMatch `oec:recycledContent` | loose; generic core term |
 | `eubat:powerCapabilityRatio` | exactMatch `dppk:powerEnergyRatio` | different metric |
 | `eubat:lithiumRecycledShare` | narrowMatch `oec:recycledContent` | loose; generic core term |
 | `eubat:carbonFootprintStudyUrl` | closeMatch `dppk:carbonFootprintStudy` | a URL vs the study/document |
 | `euelec:modelIdentifier` | narrowMatch `schema:model` | generic; panel split, no support |
 | `eutex:recycledContentSource` | narrowMatch `oec:recycledContent` | source vs content amount |
-| `eutex:repairServices` | narrowMatch `gs1:serviceInfo` | generic (dppk exactMatch kept instead) |
+| `eutex:hasRepairServices` | narrowMatch `gs1:serviceInfo` | generic (dppk exactMatch kept instead) |
 
 ## Provenance
 

@@ -389,7 +389,7 @@ Per EU Battery Regulation 2023/1542 Annex XIII:
 |-------------|----------------|------|
 | Unique identifier | `id` = GS1 Digital Link | `battery-product.jsonld` |
 | Manufacturer info | `gs1:manufacturer` with GLN | `battery-product.jsonld` |
-| Operator info | `eubat:operatorInformation` | `battery-product.jsonld` |
+| Operator info | `eubat:hasOperatorInformation` | `battery-product.jsonld` |
 | Manufacturing date | `gs1:productionDate` | `battery-product.jsonld` |
 | Manufacturing place | `gs1:placeOfProductProvenance` | `battery-product.jsonld` |
 | Battery category | `schema:category` | `battery-product.jsonld` |
@@ -399,13 +399,13 @@ Per EU Battery Regulation 2023/1542 Annex XIII:
 | State of Health | EPCIS `sensorReport` | `state-of-health.jsonld` |
 | State of Certified Energy | EPCIS `sensorReport` | `state-of-certified-energy.jsonld` |
 | Cycle count | EPCIS `sensorReport` | `state-of-health.jsonld` |
-| Material composition | `eubat:materialComposition` | `battery-product.jsonld` |
-| Hazardous substances | `eubat:hazardousSubstances` | `battery-product.jsonld` |
-| Recycled content | `eubat:recycledContent` (pre/post consumer) | `battery-product.jsonld` |
-| Dismantling info | `eubat:dismantlingDocuments` | `battery-product.jsonld` |
-| Spare parts | `eubat:sparePartSources` | `battery-product.jsonld` |
-| Labels | `eubat:labels` | `battery-product.jsonld` |
-| Due diligence | `eubat:supplyChainDueDiligence` | `battery-product.jsonld` |
+| Material composition | `eubat:hasMaterialComposition` | `battery-product.jsonld` |
+| Hazardous substances | `eubat:hasHazardousSubstances` | `battery-product.jsonld` |
+| Recycled content | `eubat:hasRecycledContent` (pre/post consumer) | `battery-product.jsonld` |
+| Dismantling info | `eubat:hasDismantlingDocuments` | `battery-product.jsonld` |
+| Spare parts | `eubat:hasSparePartSources` | `battery-product.jsonld` |
+| Labels | `eubat:hasLabels` | `battery-product.jsonld` |
+| Due diligence | `eubat:hasSupplyChainDueDiligence` | `battery-product.jsonld` |
 | Declaration of conformity | `eubat:declarationOfConformity` | `battery-product.jsonld` |
 | Test reports | `eubat:resultOfTestReport` | `battery-product.jsonld` |
 | Negative events | EPCIS event | `negative-event.jsonld` |

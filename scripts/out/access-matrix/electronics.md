@@ -6,7 +6,7 @@ Coverage: 65 properties — 51 Public / 10 AuthorizedOnly / 0 Restricted / 4 inh
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
-| `annualEnergyConsumption` | Annual Energy Consumption | **Public** | 🔒 eli/reg/2017/1369 | eli/reg/2017/1369 | Annual energy consumption appears on the public energy label and product information sheet in EPREL (Reg. (EU) 2017/1369 Art. 12(3)); aligned with core oec:annualEnergyConsumption (Public). |
+| `annualEnergyConsumption` | Annual Energy Consumption | **Public** | 🔒 eli/reg/2017/1369 | eli/reg/2017/1369 | Annual energy consumption appears on the public energy label and product information sheet in EPREL (Reg. (EU) 2017/1369 Art. 12(3)); aligned with core oec:hasAnnualEnergyConsumption (Public). |
 | `assessmentBody` | Assessment Body | **Public** |  | eli/reg/2024/1781 | Who assessed the repairability index is transparency information that makes the public score credible. |
 | `assessmentDate` | Assessment Date | **Public** |  | eli/reg/2024/1781 | The assessment date tells consumers how current the public repairability score is. |
 | `billOfMaterials` | Bill of Materials | **AuthorizedOnly** |  | eli/reg/2024/1781 | The component BOM is design and sourcing detail for repairers, recyclers and authorities with a legitimate interest, not consumer information. |
@@ -39,9 +39,9 @@ Coverage: 65 properties — 51 Public / 10 AuthorizedOnly / 0 Restricted / 4 inh
 | `newVersion` | New Version | **(inherited)** |  |  |  |
 | `osVersion` | OS Version | **Public** |  | eli/reg/2023/1670 | The current OS version is device-state transparency a user can read from the device itself. |
 | `peakBrightness` | Peak Brightness | **Public** |  | eli/reg_del/2019/2013 | Peak brightness is ordinary public spec-sheet information also used in the public energy-label calculation for displays. |
-| `powerConsumptionOff` | Power Consumption Off | **Public** |  | eli/reg/2017/1369 | Off-mode power is product-information-sheet data of the energy-labelling framework, public where a delegated act applies; aligned with core oec:powerConsumptionOff (Public). |
-| `powerConsumptionOn` | Power Consumption On | **Public** |  | eli/reg/2017/1369 | On-mode power is product-information-sheet data of the energy-labelling framework, public where a delegated act applies; aligned with core oec:powerConsumptionOn (Public). |
-| `powerConsumptionStandby` | Power Consumption Standby | **Public** |  | eli/reg/2017/1369 | Standby power is product-information-sheet data of the energy-labelling framework, public where a delegated act applies; aligned with core oec:powerConsumptionStandby (Public). |
+| `powerConsumptionOff` | Power Consumption Off | **Public** |  | eli/reg/2017/1369 | Off-mode power is product-information-sheet data of the energy-labelling framework, public where a delegated act applies; aligned with core oec:hasPowerConsumptionOff (Public). |
+| `powerConsumptionOn` | Power Consumption On | **Public** |  | eli/reg/2017/1369 | On-mode power is product-information-sheet data of the energy-labelling framework, public where a delegated act applies; aligned with core oec:hasPowerConsumptionOn (Public). |
+| `powerConsumptionStandby` | Power Consumption Standby | **Public** |  | eli/reg/2017/1369 | Standby power is product-information-sheet data of the energy-labelling framework, public where a delegated act applies; aligned with core oec:hasPowerConsumptionStandby (Public). |
 | `previousVersion` | Previous Version | **(inherited)** |  |  |  |
 | `recoverabilityRate` | Recoverability Rate | **Public** |  | eli/dir/2012/19 | The recoverable fraction is a consumer-facing circularity claim tied to the WEEE recovery targets (Dir. 2012/19/EU Annex V). |
 | `recyclabilityRate` | Recyclability Rate | **Public** |  | eli/dir/2012/19 | The recyclable fraction is a consumer-facing circularity claim tied to the WEEE recovery targets (Dir. 2012/19/EU Annex V); aligned with core oec:recyclabilityRate (Public). |

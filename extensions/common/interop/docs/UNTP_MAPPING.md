@@ -41,7 +41,7 @@ This ensures **native interoperability** - no value conversion is needed when ex
 |-------------------|-----------------|--------|------|-------|
 | `oec:carbonFootprintTotal` | `untp:carbonFootprint` | EmissionsPerformance | decimal | Total CO2e in kg |
 | `oec:declaredUnit` | `untp:declaredUnit` | EmissionsPerformance | string | Functional unit (kg CO2e/kWh) |
-| `oec:operationalScope` | `untp:operationalScope` | EmissionsPerformance | enum | CradleToGate / CradleToGrave |
+| `oec:hasOperationalScope` | `untp:operationalScope` | EmissionsPerformance | enum | CradleToGate / CradleToGrave |
 | `oec:primarySourcedRatio` | `untp:primarySourcedRatio` | EmissionsPerformance | decimal | Direct measurement ratio |
 
 ### Traceability Properties
@@ -55,11 +55,11 @@ This ensures **native interoperability** - no value conversion is needed when ex
 
 | OpenEPCIS Property | UNTP Equivalent | Domain | Type | Notes |
 |-------------------|-----------------|--------|------|-------|
-| `oec:circularityPerformance` | `untp:circularityScorecard` | - | @id | UNTP v0.6.x scorecard concept |
-| `oec:emissionsPerformance` | `untp:emissionsScorecard` | - | @id | UNTP v0.6.x scorecard concept |
-| `oec:conformityDeclaration` | `untp:conformityClaim` | - | @id | New in UNTP v0.6.x |
-| `oec:dueDiligenceReport` | `untp:dueDiligenceDeclaration` | - | @id | New in UNTP v0.6.x |
-| `oec:materialComposition` | `untp:materialsProvenance` | - | @id | New in UNTP v0.6.x |
+| `oec:hasCircularityPerformance` | `untp:circularityScorecard` | - | @id | UNTP v0.6.x scorecard concept |
+| `oec:hasEmissionsPerformance` | `untp:emissionsScorecard` | - | @id | UNTP v0.6.x scorecard concept |
+| `oec:hasConformityDeclaration` | `untp:conformityClaim` | - | @id | New in UNTP v0.6.x |
+| `oec:hasDueDiligenceReport` | `untp:dueDiligenceDeclaration` | - | @id | New in UNTP v0.6.x |
+| `oec:hasMaterialComposition` | `untp:materialsProvenance` | - | @id | New in UNTP v0.6.x |
 | `gs1:product` | `untp:product` | - | @id | Product reference |
 | `oec:materialName` | `untp:materialName` | MaterialComposition | string | Material identifier |
 | `oec:isCriticalRawMaterial` | `untp:isCriticalRawMaterial` | MaterialComposition | boolean | EU CRM flag |
@@ -105,7 +105,7 @@ These properties exist in OpenEPCIS but have no UNTP equivalent:
 | `oec:scipId` | ECHA SCIP database identifier |
 | `oec:repairabilityScore` | French Repairability Index |
 | `oec:repairabilityClass` | A-E repair classification |
-| `oec:accessLevel` | ESPR Article 9 access control |
+| `oec:hasAccessLevel` | ESPR Article 9 access control |
 | `oec:safeUseInstructions` | SCIP safe use text |
 | `oec:safeDisassemblyInstructions` | SCIP disassembly text |
 

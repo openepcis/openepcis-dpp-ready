@@ -36,11 +36,11 @@ originating regulation or to ongoing GS1 standardization.
 
 | Concept | OpenEPCIS term | Why an extension |
 |---------|----------------|-------------------|
-| Commodity type (EUDR Annex I) | `eudr:commodityType` | GS1 has no EUDR commodity enum. |
-| Timber product type | `eudr:timberProductType` | GS1 has no timber sub-classification. |
+| Commodity type (EUDR Annex I) | `eudr:hasCommodityType` | GS1 has no EUDR commodity enum. |
+| Timber product type | `eudr:hasTimberProductType` | GS1 has no timber sub-classification. |
 | Species (scientific + common name) | `eudr:speciesScientificName` / `…CommonName` | GS1 has no species-naming terms. |
 | Harvest date / date range | `gs1:harvestDate` / `…Start` / `…End` | GS1 has no harvest-date property. |
-| Risk-level classification | `eudr:riskLevel` | GS1 has no EUDR risk enum. |
+| Risk-level classification | `eudr:hasRiskLevel` | GS1 has no EUDR risk enum. |
 | Deforestation-free date | `eudr:deforestationFreeDate` | EUDR Art. 3 specific. |
 | Legality assertion | `eudr:legallyHarvested` | EUDR Art. 3 specific. |
 | Forest management unit | `eudr:forestManagementUnit` | No GS1 equivalent. |
@@ -64,12 +64,12 @@ properties that carry the same semantics:
 | OpenEPCIS (provisional) | Planned GS1 equivalent |
 |-------------------------|------------------------|
 | `eudr:ExemptionDeclaration` (class) | `gs1:RegulatoryExemption` (planned) |
-| `eudr:exemptionDeclaration` (property) | `gs1:regulatoryExemption` (planned) |
+| `eudr:hasExemptionDeclaration` (property) | `gs1:regulatoryExemption` (planned) |
 | `eudr:ExemptionType` + `eudr:PermanentExemption` / `eudr:TemporaryExemption` | `gs1:RegulatoryExemptionTypeCode` enum (planned) |
 | `eudr:exemptionReasonCode` | planned |
 | `eudr:exemptionScope` + `eudr:exemptionScopeReference` | planned |
 | `eudr:exemptionEffectiveFrom` / `…Until` | planned |
-| `eudr:exemptionAuthority` (→ `oec:OperatorInformation`) | planned |
+| `eudr:hasExemptionAuthority` (→ `oec:OperatorInformation`) | planned |
 
 **Migration commitment.** When GS1 publishes the canonical exemption
 vocabulary, every `eudr:` term above will be linked via
@@ -82,7 +82,7 @@ equivalence mapping is published.
 ObjectEvent with `bizStep: "oec:BizStep-notifying"` where the inner
 `regulatoryInformation` block omits `regulatoryIdentifier` (an exemption
 replaces it) and the exemption itself rides as an event-level
-`eudr:exemptionDeclaration`.
+`eudr:hasExemptionDeclaration`.
 
 ## Multi-DDS per outbound batch
 
@@ -102,7 +102,7 @@ Under the anticipated GS1 model: a company that imports a raw material and
 internally transforms it into a finished product places the DDS on the
 imported raw material, not on the finished product. This interpretation
 is reflected in how our derived-product examples
-(`examples/timber-derived.jsonld`) link via `eudr:derivedFrom` back to
+(`examples/timber-derived.jsonld`) link via `eudr:hasDerivedFrom` back to
 the raw-material GTINs — the DDS lives on the raw material.
 
 ## Changes log (alignment-relevant)
@@ -114,7 +114,7 @@ the raw-material GTINs — the DDS lives on the raw material.
 - **2026-04-16**: Removed shadow properties (`eudr:sourceLocation`,
   `eudr:batchNumber`, `eudr:hsCode`, `eudr:cnCode`, `eudr:TimberProduct`
   class) that duplicated native EPCIS / GS1 fields. Migrated customs
-  codes to `oec:customsCommodityCode` + `oec:customsCommodityCodeType`.
+  codes to `oec:customsCommodityCode` + `oec:hasCustomsCommodityCodeType`.
   Fixed references to non-existent `gs1:isRegulationCompliant` (→
   `oec:isRegulationCompliant`).
 - **2026-04-13**: Noted the in-flight GS1 exemption model for

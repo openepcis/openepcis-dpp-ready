@@ -9,8 +9,8 @@ The CPR module is intentionally minimal. Only construction-specific
 concepts live in `eucpr:`:
 
 - **`eucpr:ConstructionProduct`** — extends `gs1:Product`.
-- **`eucpr:constructionProductType`** — enum of Annex III families.
-- **`eucpr:reactionToFireClass`** — A1..F per EN 13501-1.
+- **`eucpr:hasConstructionProductType`** — enum of Annex III families.
+- **`eucpr:hasReactionToFireClass`** — A1..F per EN 13501-1.
 - **`eucpr:declarationOfPerformanceUrl`** — DoP/DoC document reference.
 - **`eucpr:EssentialCharacteristic`** — name + value + harmonised standard.
 
@@ -25,7 +25,7 @@ A CPR-compliant DPP needs, at minimum:
 
 1. **Identification** — `gs1:gtin` (or appropriate GS1 AI for non-GTIN
    identification) embedded in a GS1 Digital Link URI.
-2. **Construction product type** — `eucpr:constructionProductType` from
+2. **Construction product type** — `eucpr:hasConstructionProductType` from
    Annex III enum.
 3. **Declaration of Performance** — `eucpr:declarationOfPerformanceUrl`
    pointing at a structured DoP / DoC document (Article 12).
@@ -35,7 +35,7 @@ A CPR-compliant DPP needs, at minimum:
 5. **Reaction-to-fire class** when fire performance is essential
    (Annex III, EN 13501-1).
 6. **Manufacturer / authorised rep** — `gs1:manufacturer` or
-   `oec:operatorInformation` (which equivalents `untp:Party`).
+   `oec:hasOperatorInformation` (which equivalents `untp:Party`).
 7. **CE-marking declaration** — `gs1:regulatoryInformation` referencing
    `eucpr:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION` (module-owned
    `gs1:RegulationTypeCode` member; the upstream list has no
@@ -60,10 +60,10 @@ pyshacl -s extensions/eu/cpr/validation/cpr-shapes.ttl -d <your-doc>.jsonld
 
 The CPR shape requires:
 
-- `eucpr:constructionProductType` (exactly one)
+- `eucpr:hasConstructionProductType` (exactly one)
 - `eucpr:declarationOfPerformanceUrl` (at least one)
-- `eucpr:reactionToFireClass` ∈ {A1..F} when present
-- `eucpr:essentialCharacteristic` with name + value + (optional) harmonised
+- `eucpr:hasReactionToFireClass` ∈ {A1..F} when present
+- `eucpr:hasEssentialCharacteristic` with name + value + (optional) harmonised
   standard
 
 Lifted `oec:` shapes cover the cross-cutting parts.

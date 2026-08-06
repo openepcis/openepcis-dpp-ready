@@ -214,7 +214,7 @@ dpp-sh:EmissionsPerformanceShape
     ] ;
 
     sh:property [
-        sh:path oec:operationalScope ;
+        sh:path oec:hasOperationalScope ;
         sh:name "operationalScope"@en ;
         sh:description "Lifecycle boundary"@en ;
         sh:in ( oec:CradleToGate oec:CradleToGrave ) ;
@@ -265,7 +265,7 @@ dpp-sh:OperatorInformationShape
     sh:description "Validates OperatorInformation instances"@en ;
 
     sh:property [
-        sh:path oec:operatorRole ;
+        sh:path oec:hasOperatorRole ;
         sh:name "operatorRole"@en ;
         sh:description "Role of the economic operator"@en ;
         sh:in (
@@ -413,7 +413,7 @@ dpp-sh:SubstanceOfConcernShape
     ] ;
 
     sh:property [
-        sh:path oec:hazardClass ;
+        sh:path oec:hasHazardClass ;
         sh:name "hazardClass"@en ;
         sh:in (
             oec:AcuteToxicity
@@ -441,7 +441,7 @@ dpp-sh:AccessRightsShape
     sh:description "Validates AccessRights instances"@en ;
 
     sh:property [
-        sh:path oec:accessLevel ;
+        sh:path oec:hasAccessLevel ;
         sh:name "accessLevel"@en ;
         sh:description "ESPR Article 9 access level"@en ;
         sh:in ( oec:Public oec:AuthorizedOnly oec:Restricted ) ;
@@ -594,29 +594,29 @@ dpp-sh:QuantitativeValueShape
 
 dpp-sh:ExpectedLifespanShape
     a sh:NodeShape ;
-    sh:targetSubjectsOf oec:expectedLifespan ;
+    sh:targetSubjectsOf oec:hasExpectedLifespan ;
     sh:property [
-        sh:path ( oec:expectedLifespan gs1:unitCode ) ;
+        sh:path ( oec:hasExpectedLifespan gs1:unitCode ) ;
         sh:hasValue "ANN" ;
-        sh:message "oec:expectedLifespan must use unitCode 'ANN' (years)"@en
+        sh:message "oec:hasExpectedLifespan must use unitCode 'ANN' (years)"@en
     ] .
 
 dpp-sh:GuaranteedLifespanShape
     a sh:NodeShape ;
-    sh:targetSubjectsOf oec:guaranteedLifespan ;
+    sh:targetSubjectsOf oec:hasGuaranteedLifespan ;
     sh:property [
-        sh:path ( oec:guaranteedLifespan gs1:unitCode ) ;
+        sh:path ( oec:hasGuaranteedLifespan gs1:unitCode ) ;
         sh:hasValue "ANN" ;
-        sh:message "oec:guaranteedLifespan must use unitCode 'ANN' (years)"@en
+        sh:message "oec:hasGuaranteedLifespan must use unitCode 'ANN' (years)"@en
     ] .
 
 dpp-sh:TechnicalLifetimeShape
     a sh:NodeShape ;
-    sh:targetSubjectsOf oec:technicalLifetime ;
+    sh:targetSubjectsOf oec:hasTechnicalLifetime ;
     sh:property [
-        sh:path ( oec:technicalLifetime gs1:unitCode ) ;
+        sh:path ( oec:hasTechnicalLifetime gs1:unitCode ) ;
         sh:hasValue "ANN" ;
-        sh:message "oec:technicalLifetime must use unitCode 'ANN' (years)"@en
+        sh:message "oec:hasTechnicalLifetime must use unitCode 'ANN' (years)"@en
     ] .
 
 # =============================================================================
@@ -635,7 +635,7 @@ dpp-sh:ExtendedProducerResponsibilityShape
         sh:message "ExtendedProducerResponsibility must have exactly one eprRegistrationNumber"@en
     ] ;
     sh:property [
-        sh:path oec:eprJurisdiction ;
+        sh:path oec:hasEprJurisdiction ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "ExtendedProducerResponsibility must declare exactly one eprJurisdiction"@en
@@ -651,7 +651,7 @@ dpp-sh:CompostabilityShape
     sh:targetClass oec:Compostability ;
     sh:name "Compostability Shape"@en ;
     sh:property [
-        sh:path oec:compostabilityType ;
+        sh:path oec:hasCompostabilityType ;
         sh:in ( oec:IndustrialCompostable oec:HomeCompostable oec:NotCompostable ) ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
@@ -674,7 +674,7 @@ dpp-sh:BiodegradabilityShape
         sh:message "Biodegradability must have exactly one biodegradationPercentage"@en
     ] ;
     sh:property [
-        sh:path oec:biodegradabilityTestMethod ;
+        sh:path oec:hasBiodegradabilityTestMethod ;
         sh:in ( oec:ISO14593 oec:OECD301B oec:OECD301D oec:OECD301F oec:OECD310 ) ;
         sh:maxCount 1
     ] .
@@ -684,7 +684,7 @@ dpp-sh:DepositReturnSchemeShape
     sh:targetClass oec:DepositReturnScheme ;
     sh:name "DepositReturnScheme Shape"@en ;
     sh:property [
-        sh:path oec:depositAmount ;
+        sh:path oec:hasDepositAmount ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:message "DepositReturnScheme must declare exactly one depositAmount"@en
