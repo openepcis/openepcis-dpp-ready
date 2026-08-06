@@ -5,6 +5,14 @@ All notable changes to the Interoperability module will be documented in this fi
 ## [Unreleased]
 
 ### Added
+- **MVP Textile DPP bridge** (`context/mvp-textile-bridge-context.jsonld`) —
+  out-of-band lift of a commercial DPP platform's Treehouse-generated "MVP Textile
+  DPP v2" JSON Schema (CIRPASS-2 pilot context; provider deliberately not named) onto
+  OpenEPCIS/GS1 terms: 22 of 28 leaf fields mapped (structural containers via
+  JSON-LD 1.1 `@nest`), the 6 gaps plus eight schema pitfalls documented in
+  [`docs/MVP_TEXTILE_MAPPING.md`](docs/MVP_TEXTILE_MAPPING.md).
+  Nothing of the schema is vendored (no published license); verified by expanding the
+  vendor sample through the context.
 - The CIRPASS-2 EUDPP Core Ontology is now mirrored as a Layer-2 upstream module
   ([`extensions/upstream/cirpass2-eudpp/`](../../upstream/cirpass2-eudpp/README.md),
   upstream v2.0.5) so the alignment documented in
