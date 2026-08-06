@@ -54,6 +54,14 @@ they land as CBV values (`oec:BizStep-maintaining`/`-refurbishing`/`-remanufactu
 2026-08-06) and the carrier layer is answered by the real EPCIS/CBV IRIs. Full analysis in
 [CIRPASS2_ALIGNMENT.md](extensions/common/interop/docs/CIRPASS2_ALIGNMENT.md).
 
+The full EUDPP term set is browsable on ref.openepcis.io: the ontology is mirrored as a
+Layer-2 upstream module ([`extensions/upstream/cirpass2-eudpp/`](extensions/upstream/cirpass2-eudpp/README.md),
+upstream v2.0.5, ten modules incl. LCA, 465 declared terms, regenerated with
+`pnpm run sync:eudpp`) — the same pattern as the GS1 Rail mirror, and the template for
+further upstream profiles (e.g. the IDTA AAS submodel templates). Upstream IRIs are
+preserved verbatim; our ontology still references them by IRI, no `owl:imports`.
+Upstream license Apache 2.0 (CC BY 4.0 fallback as a document).
+
 ### The official EU battery data-point list becomes a hosted registry
 
 The European Commission's guidance "Digital Batteries Passport — data points by category"

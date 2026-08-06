@@ -1,0 +1,4343 @@
+{
+  "namespace": "https://w3id.org/eudpp/",
+  "version": "2.0.5",
+  "title": "CORE  of the EU DPP core ontology proposed by the CIRPASS-2 project.",
+  "description": "The CORE is the integration ontology that imports all the specific ontology modules and the connector (bridge) ontology of these.\n\n--\nTHIS DOCUMENT IS PROVIDED WITH NO WARRANTIES WHATSOEVER. \nAll liability for any damages arising from use or misuse of this vocabulary is with the user.",
+  "classes": [
+    {
+      "id": "https://w3id.org/eudpp#Actor",
+      "localName": "Actor",
+      "label": "Actor",
+      "comment": "Actor means a legal or natural person (e.g. John Doe, TNO). One actor can take on multiple roles; [CIRPASS-2 User Stories 3.1]",
+      "subClassOf": [
+        "b23_n3-0"
+      ],
+      "source": "https://zenodo.org/records/17979585"
+    },
+    {
+      "id": "https://w3id.org/eudpp#ActorIdentifier",
+      "localName": "ActorIdentifier",
+      "label": "Actor identifier",
+      "comment": "",
+      "subClassOf": [
+        "https://w3id.org/eudpp#Identifier",
+        "b23_n3-104",
+        "b23_n3-105"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#ActorRoleAssignment",
+      "localName": "ActorRoleAssignment",
+      "label": "Actor role assignment",
+      "comment": "Assigns a role to the actor in a particular context (DPP, Product, Event).",
+      "subClassOf": [
+        "b23_n3-1"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#AggregationEvent",
+      "localName": "AggregationEvent",
+      "label": "Aggregation Event",
+      "comment": "A technical event carrier representing the aggregation or disaggregation of child objects under a parent object, typically reflecting packaging, containment, or structural hierarchy changes. Each AggregationEvent has exactly one action type, may refer to at most one parent object identifier, and includes at least one child object identifier, at least one child quantity context, or both.",
+      "seeAlso": [
+        "https://ref.gs1.org/standards/epcis/2.0.0/artefacts"
+      ],
+      "subClassOf": [
+        "https://w3id.org/eudpp#EPCISCarrier",
+        "b23_n3-34",
+        "b23_n3-37",
+        "b23_n3-38"
+      ],
+      "source": "GS1 EPCIS 2.0; adapted from the Event module mapping table."
+    },
+    {
+      "id": "https://w3id.org/eudpp#AirPollutionFootprint",
+      "localName": "AirPollutionFootprint",
+      "label": "Air Pollution Footprint",
+      "comment": "Quantifies the release of airborne pollutants (e.g., particulate matter, photochemical ozone formation) over the life cycle of a product. AirPollutionFootprint is an ImpactResult associated with relevant environmental impact categories.",
+      "equivalentClass": [
+        "b23_n3-140"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#AssociationEvent",
+      "localName": "AssociationEvent",
+      "label": "Association Event",
+      "comment": "A technical event carrier introduced in the EU DPP Core Ontology to represent the association, dissociation, or observation of relationships between identifiable objects without implying physical aggregation or parent-child containment semantics. Each AssociationEvent has exactly one action type, may refer to at most one association anchor, and includes at least one associated child object identifier, at least one child quantity context, or both.",
+      "seeAlso": [
+        "https://ref.gs1.org/standards/epcis/2.0.0/artefacts"
+      ],
+      "subClassOf": [
+        "https://w3id.org/eudpp#EPCISCarrier",
+        "b23_n3-39",
+        "b23_n3-42",
+        "b23_n3-43"
+      ],
+      "source": "Defined in the EU DPP Core Ontology Event module as an EPCIS-inspired extension for expressing non-containment associations between identified entities."
+    },
+    {
+      "id": "https://w3id.org/eudpp#AuthorisedRepresentativeRoleAssignment",
+      "localName": "AuthorisedRepresentativeRoleAssignment",
+      "label": "Authorised representative role assignment",
+      "comment": "A specific assignment representing the written mandate between a manufacturer and an authorised representative; [ESPR Art 2 (43)]",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ActorRoleAssignment",
+        "b23_n3-2"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#BusinessLocation",
+      "localName": "BusinessLocation",
+      "label": "Business Location",
+      "comment": "A location playing the role of business context, indicating where the event is considered to take place from a business perspective.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#Location"
+      ],
+      "source": "GS1 EPCIS 2.0; business location concept adapted for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#BusinessTransactionContext",
+      "localName": "BusinessTransactionContext",
+      "label": "Business Transaction Context",
+      "comment": "A contextual structure representing a business transaction associated with a transaction event.",
+      "subClassOf": [
+        "b23_n3-44",
+        "b23_n3-45"
+      ],
+      "source": "Adapted from GS1 EPCIS business transaction list semantics for the EU DPP Core Ontology Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#BusinessTransactionType",
+      "localName": "BusinessTransactionType",
+      "label": "Business Transaction Type",
+      "comment": "A classification indicating the business type of a transaction associated with an event.",
+      "source": "Adapted from GS1 CBV business transaction type semantics for the EU DPP Core Ontology Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#CircularEconomyIndicator",
+      "localName": "CircularEconomyIndicator",
+      "label": "Circular Economy Indicator",
+      "comment": "Circular Economy indicators are measures for relevant monitoring the transition to a circular economy and to measure the effects of new policy and trends.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "seeAlso": [
+        "https://environment.ec.europa.eu/strategy/circular-economy-action-plan_en"
+      ],
+      "subClassOf": [
+        "https://w3id.org/eudpp#QuantitativeProperty"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#ClassificationCode",
+      "localName": "ClassificationCode",
+      "label": "ClassificationCode",
+      "comment": "A classification code from some product classification scheme ."
+    },
+    {
+      "id": "https://w3id.org/eudpp#CommonSpecification",
+      "localName": "CommonSpecification",
+      "label": "Common Specification",
+      "comment": "Common specification means ecodesign requirements, essential requirements for digital product passports or test, measurement or calculation methods established by implementing acts adopted by the Commission for products covered by delegated acts pursuant to ESPR Article 4.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#TechnicalSpecification"
+      ],
+      "source": "ESPR Art 42, https://eur-lex.europa.eu/eli/reg/2024/1781/oj#art_42"
+    },
+    {
+      "id": "https://w3id.org/eudpp#Concentration",
+      "localName": "Concentration",
+      "label": "Concentration of the substance of concern",
+      "comment": "The concentration of the substances of concern, at the level of the product, its relevant components, or spare parts ESPR Art 7(5)",
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#ConcentrationOfSubstanceOfConcern",
+      "localName": "ConcentrationOfSubstanceOfConcern",
+      "label": "Concentration of the substance of concern",
+      "comment": "The concentration of the substances of concern, at the level of the product, its relevant components, or spare parts ESPR Art 7(5)",
+      "subClassOf": [
+        "https://w3id.org/eudpp#QuantitativeProperty"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#ConformityCertificate",
+      "localName": "ConformityCertificate",
+      "label": "Conformity Certificate",
+      "comment": "Conformity assessment certificate for a certification. The blue guide uses the term \"cerficate of conformity\". The ESPR uses \"conformity certificate\" as well as \"certificate\" and \"approval decision\".",
+      "source": "Commission notice The ‘Blue Guide’ on the implementation of EU product rules 2022 Annex 4, https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=oj:JOC_2022_247_R_0001"
+    },
+    {
+      "id": "https://w3id.org/eudpp#DestructionEvent",
+      "localName": "DestructionEvent",
+      "label": "Destruction",
+      "comment": "The intentional damaging or discarding of a product and unsold products as waste, with the exception of discarding for the sole purpose of delivering the discarded product for preparing for reuse, including refurbishment or remanufacturing operations. ESPR Art 2(34) and Art 25(1).",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ProductEvent"
+      ],
+      "source": "Regulation (EU) 2024/1781; Art 2(34); Art 25(1)"
+    },
+    {
+      "id": "https://w3id.org/eudpp#DigitalInstruction",
+      "localName": "DigitalInstruction",
+      "label": "DigitalInstruction",
+      "comment": "Digital instructions\nmean instructions in digital format concerning the product (‘digital instructions’) in a language that can be easily understood. ESPR Art 27(7)\nDigital instructions are ensured by manufacturers. These should also ensured by importers. (ESPR Art 29(4))\n\nThis class can be extended/specialised according to delegated acts or industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#DocumentFormattedProperty"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#DocumentFormattedProperty",
+      "localName": "DocumentFormattedProperty",
+      "label": "Document",
+      "comment": "The document class describes the semantic representation of any instance of a document that might be required to be included into a digital product passport instance.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#Property"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#DPP",
+      "localName": "DPP",
+      "label": "Digital Product Passport (DPP)",
+      "comment": "Digital Product Passport (DPP) means a set of data specific to a product that includes the information specified in the applicable\ndelegated act adopted pursuant to Article 4 and that is accessible via electronic means through a data carrier in accordance with Chapter III. (ESPR Art 2 (28))",
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#DPPArchivalEvent",
+      "localName": "DPPArchivalEvent",
+      "label": "DPP Archival Event",
+      "comment": "An event corresponding to the archival or end-of-active-life management of a Digital Product Passport.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#DPPEvent"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#DPPCreationEvent",
+      "localName": "DPPCreationEvent",
+      "label": "DPP Creation Event",
+      "comment": "An event corresponding to the creation or initial issuance of a Digital Product Passport.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#DPPEvent"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#DPPEvent",
+      "localName": "DPPEvent",
+      "label": "DPP Event",
+      "comment": "An ESPR-level event concept representing an event that affects the existence, content, accessibility, update, correction, or governance of a DPP. A DPPEvent captures the passport-facing semantics of the occurrence and is modelled as distinct from the product event that may trigger it.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ESPREvent",
+        "b23_n3-51"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#DPPEventRecord",
+      "localName": "DPPEventRecord",
+      "label": "DPP Event Record",
+      "comment": "A technical audit record used to represent and log an information-level event affecting a Digital Product Passport. Unlike EPCIS carriers, this class is intended for recording DPP-side information events rather than product-facing operational events.",
+      "subClassOf": [
+        "b23_n3-52",
+        "b23_n3-53",
+        "b23_n3-54",
+        "b23_n3-55",
+        "b23_n3-56"
+      ],
+      "source": "Defined in the EU DPP Core Ontology Event module to support the technical recording of DPP-related events."
+    },
+    {
+      "id": "https://w3id.org/eudpp#DPPIdentifier",
+      "localName": "DPPIdentifier",
+      "label": "DPP identifier",
+      "comment": "",
+      "subClassOf": [
+        "https://w3id.org/eudpp#Identifier",
+        "b23_n3-106"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#DPPUpdateEvent",
+      "localName": "DPPUpdateEvent",
+      "label": "DPP Update Event",
+      "comment": "An event corresponding to an update of the content of a Digital Product Passport.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#DPPEvent",
+        "b23_n3-57"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#Durability",
+      "localName": "Durability",
+      "label": "Durability",
+      "comment": "Durability\nmeans the ability of a product to maintain over time its function and performance under specified conditions of use, maintenance and repair. (ESPR Art 2 (22))\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#QualityIndicator"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#EmissionToAir",
+      "localName": "EmissionToAir",
+      "label": "Emission to air",
+      "comment": "Product parameters are listed in the ESPR Annex I :\n\n(q) emissions to air, water or soil released in one or more lifecycle stages of the product as expressed through quantities and nature of emissions, including noise.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#EnvironmentalEmission"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#EmissionToSoil",
+      "localName": "EmissionToSoil",
+      "label": "Emission to soil",
+      "comment": "Product parameters are listed in the ESPR Annex I :\n\n(q) emissions to air, water or soil released in one or more lifecycle stages of the product as expressed through quantities and nature of emissions, including noise.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#EnvironmentalEmission"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#EmissionToWater",
+      "localName": "EmissionToWater",
+      "label": "Emission to water",
+      "comment": "Product parameters are listed in the ESPR Annex I :\n\n(q) emissions to air, water or soil released in one or more lifecycle stages of the product as expressed through quantities and nature of emissions, including noise.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#EnvironmentalEmission"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#EnergyConsumption",
+      "localName": "EnergyConsumption",
+      "label": "Energy consumption",
+      "comment": "Energy consumption of the product.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ResourceConsumption"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#EnergyFootprint",
+      "localName": "EnergyFootprint",
+      "label": "Energy Footprint",
+      "comment": "Quantifies the total energy use associated with a product throughout its life cycle, including renewable and non-renewable sources. EnergyFootprint is a FlowResult linked to the Energy FlowType.",
+      "equivalentClass": [
+        "b23_n3-146"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#EnvironmentalEmission",
+      "localName": "EnvironmentalEmission",
+      "label": "Environmental emission",
+      "comment": "Emission is the act or amount of sending out gas, heat, light, etc. It can also refer to harmful substances that are released into the environment, especially carbon dioxide.\n\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "seeAlso": [
+        "https://dictionary.cambridge.org/dictionary/english/emission"
+      ],
+      "subClassOf": [
+        "https://w3id.org/eudpp#EnvironmentalPollution"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#EnvironmentalFootprint",
+      "localName": "EnvironmentalFootprint",
+      "label": "Environmental footprint",
+      "comment": "Environmental footprint\nmeans a quantification of the environmental impacts resulting from a product throughout its life\ncycle, whether in relation to a single environmental impact category or an aggregated set of impact\ncategories based on the Product Environmental Footprint method established by Recommendation\n(EU) 2 021/2279 or other scientific methods developed by international organisations, widely tested\nin collaboration with different industry sectors and adopted or implemented by the Commission in\nother Union law. (ESPR Art 2 (24)).\n\nProduct parameters list ESPR Annex I\n(m) The environmental footprint of the product, expressed as a quantification;\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#QuantitativeProperty"
+      ],
+      "equivalentClass": [
+        "b23_n3-149"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#EnvironmentalPollution",
+      "localName": "EnvironmentalPollution",
+      "label": "Environmental pollution",
+      "comment": "Environmental pollution is the addition of any substance or form of energy to the environment at a rate faster than it can be dispersed or safely stored.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "seeAlso": [
+        "https://www.britannica.com/science/pollution-environment"
+      ],
+      "subClassOf": [
+        "https://w3id.org/eudpp#QuantitativeProperty"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#EPCISCarrier",
+      "localName": "EPCISCarrier",
+      "label": "EPCIS Carrier",
+      "comment": "A technical event class used as the abstract root of the Event carrier module. It represents a journalisation structure carrying the core event dimensions and serving as the superclass of specialised EPCIS-aligned event types. It is not itself a regulatory lifecycle event.",
+      "subClassOf": [
+        "b23_n3-58",
+        "b23_n3-59",
+        "b23_n3-60",
+        "b23_n3-61",
+        "b23_n3-62",
+        "b23_n3-63",
+        "b23_n3-64",
+        "b23_n3-65"
+      ],
+      "source": "Derived from GS1 EPCIS 2.0 and adapted for the EU DPP Core Ontology Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#ESPREvent",
+      "localName": "ESPREvent",
+      "label": "ESPR Event",
+      "comment": "Abstract superclass introduced for modelling purposes. Used to represent the regulatory or business semantics of an event relevant in the ESPR context and concerning either a product or its DPP, independently of its technical journalisation.",
+      "source": "Regulation (EU) 2024/1781; lifecycle-event-oriented abstraction introduced for modelling purposes."
+    },
+    {
+      "id": "https://w3id.org/eudpp#EUDeclarationOfConformity",
+      "localName": "EUDeclarationOfConformity",
+      "label": "EU Declaration of Conformity",
+      "comment": "The EU Declaration of Conformity shall state that the fulfilment of the ecodesign requirements specified in the applicable delegated acts adopted pursuant to ESPR Article 4 has been demonstrated or that a presumption of conformity applies in accordance with ESPR Article 41.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#DocumentFormattedProperty",
+        "owl:Thing"
+      ],
+      "source": "Decision No 768/2008/EC Annex I Art R10, https://eur-lex.europa.eu/eli/dec/2008/768(1)/oj#anx_I"
+    },
+    {
+      "id": "https://w3id.org/eudpp#EutrophicationFootprint",
+      "localName": "EutrophicationFootprint",
+      "label": "Eutrophication Footprint",
+      "comment": "Quantifies nutrient enrichment impacts (eutrophication) on freshwater, marine, or terrestrial ecosystems caused by a product during its life cycle. It aggregates relevant ImpactCategories.",
+      "equivalentClass": [
+        "b23_n3-152"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#Event",
+      "localName": "Event",
+      "label": "Event",
+      "comment": ""
+    },
+    {
+      "id": "https://w3id.org/eudpp#Facility",
+      "localName": "Facility",
+      "label": "Facility",
+      "comment": "A Facility may be a place where specific activities occur. A production/manufacturing facility means a factory. The term may refer to any place that makes things, or plants that generate electricity.",
+      "subClassOf": [
+        "b23_n3-3",
+        "b23_n3-4"
+      ],
+      "source": "https://marketbusinessnews.com/financial-glossary/facility/"
+    },
+    {
+      "id": "https://w3id.org/eudpp#FacilityIdentifier",
+      "localName": "FacilityIdentifier",
+      "label": "Facility identifier",
+      "comment": "A unique code assigned to a physical site (factory, warehouse, plant, school, hospital, etc.), i.e., identifies a location.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#Identifier",
+        "b23_n3-107"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#FlowType",
+      "localName": "FlowType",
+      "label": "Flow Type",
+      "comment": "A category representing the type of flow quantified in a life cycle assessment. It is used to classify FlowResults according to the kind of resource or emission being measured."
+    },
+    {
+      "id": "https://w3id.org/eudpp#HarmonisedStandard",
+      "localName": "HarmonisedStandard",
+      "label": "Harmonised Standard",
+      "comment": "Harmonised Standard means a European standard adopted on the basis of a request made by the Commission for the application of Union harmonisation legislation.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ProductRequirement"
+      ],
+      "source": "Regulation (EU) No 1025/2012 Art 2 (1c), https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A32012R1025#art_2"
+    },
+    {
+      "id": "https://w3id.org/eudpp#HazardousWasteAmount",
+      "localName": "HazardousWasteAmount",
+      "label": "Hazardous waste amount",
+      "comment": "Hazardous waste amount of the product.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#WasteGenerationAmount"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#Height",
+      "localName": "Height",
+      "label": "Height",
+      "comment": "Height of the product",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ProductDimension"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#Identifier",
+      "localName": "Identifier",
+      "label": "Identifier",
+      "comment": "Identifier. A general class to hold different kinds of identifiers described and used for EU DPP CO. Each sub-class of this class describes a different kind of identifier. Intentionally modelled as sub-classes. \nIdentifiers have value, and a scheme/standard they are based on.\n\nCardinatlity restrictions added to each subclass to enforce inheritance of the data propertyy identifierValue."
+    },
+    {
+      "id": "https://w3id.org/eudpp#IdentifierGranularity",
+      "localName": "IdentifierGranularity",
+      "label": "Identifier granularity",
+      "comment": "The granularity of the identifier. For example, for Productys this could be model, batch, item."
+    },
+    {
+      "id": "https://w3id.org/eudpp#IdentifierScheme",
+      "localName": "IdentifierScheme",
+      "label": "Identifier scheme",
+      "comment": "The scheme or standard"
+    },
+    {
+      "id": "https://w3id.org/eudpp#ImpactResult",
+      "localName": "ImpactResult",
+      "label": "Impact result",
+      "comment": "",
+      "subClassOf": [
+        "https://w3id.org/eudpp#LcaResult"
+      ],
+      "equivalentClass": [
+        "b23_n3-161"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#InstanceIdentifier",
+      "localName": "InstanceIdentifier",
+      "label": "Instance Identifier",
+      "comment": "An identifier-based structure used to represent an object identified at instance level in an EPCIS-inspired event context.",
+      "subClassOf": [
+        "b23_n3-66"
+      ],
+      "source": "Defined for the EU DPP Core Ontology Event module following EPCIS instance-level identification semantics."
+    },
+    {
+      "id": "https://w3id.org/eudpp#LandFootprint",
+      "localName": "LandFootprint",
+      "label": "Land Footprint",
+      "comment": "Quantifies the occupation and transformation of land caused by a product throughout its life cycle. LandFootprint is an ImpactResult linked to the LandUse impact category.",
+      "equivalentClass": [
+        "b23_n3-164"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#LandUse",
+      "localName": "LandUse",
+      "label": "Land use",
+      "comment": "Land use of the product.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ResourceConsumption"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#LcaResult",
+      "localName": "LcaResult",
+      "label": "LCA result",
+      "comment": "A measurable outcome of a life cycle assessment, representing the quantified effect of a product."
+    },
+    {
+      "id": "https://w3id.org/eudpp#Length",
+      "localName": "Length",
+      "label": "Length",
+      "comment": "Length of the product",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ProductDimension"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#Location",
+      "localName": "Location",
+      "label": "Location",
+      "comment": "A generic location representing a spatial entity that can serve as a context in an event. A location may play different roles depending on the event context, such as observation point or business location.",
+      "source": "Defined for the EU DPP Core Ontology Event module to support generic location references in event contexts."
+    },
+    {
+      "id": "https://w3id.org/eudpp#MaintenanceEvent",
+      "localName": "MaintenanceEvent",
+      "label": "Maintenance",
+      "comment": "Actions (one or more) taken to keep a product in a condition where it can fulfil its intended purpose. ESPR Art 2(19).",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ProductEvent"
+      ],
+      "source": "Regulation (EU) 2024/1781; Art 2(19)"
+    },
+    {
+      "id": "https://w3id.org/eudpp#MakingAvailableOnMarketEvent",
+      "localName": "MakingAvailableOnMarketEvent",
+      "label": "Making Available on the Market",
+      "comment": "Any supply of a product for distribution, consumption or use on the Union market in the course of a commercial activity, whether in return for payment or free of charge. ESPR Art 2(39).",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ProductEvent"
+      ],
+      "source": "Regulation (EU) 2024/1781; Art 2(39)"
+    },
+    {
+      "id": "https://w3id.org/eudpp#MaterialFootprint",
+      "localName": "MaterialFootprint",
+      "label": "Material footprint",
+      "comment": "Material footprint\nrefers to the total amount of raw materials extracted to meet final consumption demands. (ESPR Art 2 (26))\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#EnvironmentalFootprint"
+      ],
+      "equivalentClass": [
+        "b23_n3-167"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#MaterialIdentifier",
+      "localName": "MaterialIdentifier",
+      "label": "Material identifier",
+      "comment": "",
+      "subClassOf": [
+        "https://w3id.org/eudpp#Identifier",
+        "b23_n3-108",
+        "b23_n3-109"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#MaterialOfComposition",
+      "localName": "MaterialOfComposition",
+      "label": "Material of composition",
+      "comment": "Material the product (or component) is made of [ESPR Annex I]. Material as an element of composition."
+    },
+    {
+      "id": "https://w3id.org/eudpp#MaterialType",
+      "localName": "MaterialType",
+      "label": "Material type",
+      "comment": "Placeholder class for material type classification applicable in a sector or mandated by a delegated act (DA).\n\nPotential types could be, on the example of textile sector: cotton, nylon, ..."
+    },
+    {
+      "id": "https://w3id.org/eudpp#Method",
+      "localName": "Method",
+      "label": "Method",
+      "comment": "LCIA methods allow to transform and aggregate emissions to the environment and resource use data into a limited set of interpretable and reportable impact potential scores. (Adapted from LCAnet Ontology, SmartACV Project, Version 1.0, 2025)"
+    },
+    {
+      "id": "https://w3id.org/eudpp#Methodology",
+      "localName": "Methodology",
+      "label": "Methodology",
+      "comment": "Related LCIA methods can be grouped under LCIA methodologies. (ILCD Handbook, General guidance). \nExamples of methodologies include EN15804+A2, EF v3.1, Impact World."
+    },
+    {
+      "id": "https://w3id.org/eudpp#MicroplasticRelease",
+      "localName": "MicroplasticRelease",
+      "label": "Microplastic release",
+      "comment": "Product parameters as listed in the ESPR Annex I :\n\n(p) microplastic and nano plastic release as expressed through the release during relevant\nproduct life cycle stages, including manufacturing, transport, use and end of life stages;\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#PlasticsRelease"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#NanoplasticRelease",
+      "localName": "NanoplasticRelease",
+      "label": "Nanoplastic release",
+      "comment": "Product parameters as listed in the ESPR Annex I :\n\n(p) microplastic and nano plastic release as expressed through the release during relevant\nproduct life cycle stages, including manufacturing, transport, use and end of life stages;\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#PlasticsRelease"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#NaturalPerson",
+      "localName": "NaturalPerson",
+      "label": "Natural Person",
+      "comment": "A human being as distinguished from a person (as a corporation) created by operation of law",
+      "subClassOf": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "source": "https://www.merriam-webster.com/legal/natural%20person"
+    },
+    {
+      "id": "https://w3id.org/eudpp#ObjectEvent",
+      "localName": "ObjectEvent",
+      "label": "Object Event",
+      "comment": "A technical event carrier representing an action performed on one or more identifiable objects, captured either at instance level or at class-and-quantity level. Each ObjectEvent has exactly one action type and includes at least one instance-level identifier, at least one quantity context, or both.",
+      "seeAlso": [
+        "https://ref.gs1.org/standards/epcis/2.0.0/artefacts"
+      ],
+      "subClassOf": [
+        "https://w3id.org/eudpp#EPCISCarrier",
+        "b23_n3-67",
+        "b23_n3-70"
+      ],
+      "source": "GS1 EPCIS 2.0; adapted from the Event module mapping table."
+    },
+    {
+      "id": "https://w3id.org/eudpp#OtherTechnicalSpecification",
+      "localName": "OtherTechnicalSpecification",
+      "label": "Other Technical Specification",
+      "comment": "Other technical specifications in relation to which conformity is declared.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#TechnicalSpecification"
+      ],
+      "source": "ESPR Annex V, (6)"
+    },
+    {
+      "id": "https://w3id.org/eudpp#OzoneDepletionFootprint",
+      "localName": "OzoneDepletionFootprint",
+      "label": "Ozone Depletion Footprint",
+      "comment": "Quantifies the potential stratospheric ozone layer depletion caused by substances emitted by a product throughout its life cycle. It is an ImpactResult linked to the Ozone Depletion impact category.",
+      "equivalentClass": [
+        "b23_n3-170"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#PackagingWasteAmount",
+      "localName": "PackagingWasteAmount",
+      "label": "Packaging waste amount",
+      "comment": "Packaging waste amount of the product.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#WasteGenerationAmount"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#PlacingOnMarketEvent",
+      "localName": "PlacingOnMarketEvent",
+      "label": "Placing on the Market",
+      "comment": "The very first time a product is made available on the Union market. ESPR Art 2(40).",
+      "subClassOf": [
+        "https://w3id.org/eudpp#MakingAvailableOnMarketEvent"
+      ],
+      "source": "Regulation (EU) 2024/1781; Art 2(40)"
+    },
+    {
+      "id": "https://w3id.org/eudpp#PlasticsRelease",
+      "localName": "PlasticsRelease",
+      "label": "Plastic release",
+      "comment": "Product parameters as listed in the ESPR Annex I :\n\n(p) microplastic and nano plastic release as expressed through the release during relevant\nproduct life cycle stages, including manufacturing, transport, use and end of life stages;\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#EnvironmentalPollution"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#PlasticsWasteAmount",
+      "localName": "PlasticsWasteAmount",
+      "label": "Plastics waste amount",
+      "comment": "Hazardous waste amount of the product.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#WasteGenerationAmount"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#Product",
+      "localName": "Product",
+      "label": "Product",
+      "comment": "Product means any physical goods that are placed on the market or put into service. ESPR Art 2 (1))",
+      "closeMatch": [
+        "schema:Product"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#ProductDimension",
+      "localName": "ProductDimension",
+      "label": "Product dimension",
+      "comment": "Dimension class covers measurements of length, width, height, volume, and weight of the product required by\nESPR Annex I in its product parameters",
+      "subClassOf": [
+        "https://w3id.org/eudpp#QuantitativeProperty"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#ProductEvent",
+      "localName": "ProductEvent",
+      "label": "Product Event",
+      "comment": "An ESPR-level event concept representing an event that affects the state, condition, use, circulation, transformation, maintenance, or end-of-life status of a product. A ProductEvent captures the product-facing semantics of the occurrence and is distinct from any DPP-side event that may be triggered to record or reflect it.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ESPREvent"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#ProductIdentifier",
+      "localName": "ProductIdentifier",
+      "label": "Product identifier",
+      "comment": "",
+      "subClassOf": [
+        "https://w3id.org/eudpp#Identifier",
+        "b23_n3-110",
+        "b23_n3-111",
+        "b23_n3-112"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#ProductRequirement",
+      "localName": "ProductRequirement",
+      "label": "Product Requirement",
+      "comment": "Product requirements means a requirement to be fullfilled by a product when placed on the market."
+    },
+    {
+      "id": "https://w3id.org/eudpp#ProductToPackagingRatio",
+      "localName": "ProductToPackagingRatio",
+      "label": "Product to packaging ratio",
+      "comment": "ESPR Annex I, the list of product parameters includes the parameter called the  product to packaging ratio.\n\nHowever, it is not specified in ESPR  whether that ratio is defined on the basis of weight or on the basis of volume.\n\n**This class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.**",
+      "subClassOf": [
+        "https://w3id.org/eudpp#QuantitativeProperty"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#Property",
+      "localName": "Property",
+      "label": "Property",
+      "comment": "A property of the product."
+    },
+    {
+      "id": "https://w3id.org/eudpp#PuttingIntoServiceEvent",
+      "localName": "PuttingIntoServiceEvent",
+      "label": "Putting into Service",
+      "comment": "The first use of a product for its intended purpose in the Union. ESPR Art 2(41).",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ProductEvent"
+      ],
+      "source": "Regulation (EU) 2024/1781; Art 2(41)"
+    },
+    {
+      "id": "https://w3id.org/eudpp#QualityIndicator",
+      "localName": "QualityIndicator",
+      "label": "Quality indicator",
+      "comment": "Product characteristics like durability and reliability.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#QuantitativeProperty"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#QuantitativeProperty",
+      "localName": "QuantitativeProperty",
+      "label": "Quantitative Property",
+      "comment": "A property (respectively measurand of a property) of the product (model) that is expressed by a quantity value. A specific quantity.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#Property"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#QuantityElement",
+      "localName": "QuantityElement",
+      "label": "Quantity Element",
+      "comment": "A structure representing a class-level identification context together with quantity information. It is used when an event refers to objects at class level rather than to individually identified instances.",
+      "subClassOf": [
+        "b23_n3-71",
+        "b23_n3-72",
+        "b23_n3-73"
+      ],
+      "source": "Adapted from GS1 EPCIS quantity list semantics for the EU DPP Core Ontology Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#ReadPoint",
+      "localName": "ReadPoint",
+      "label": "Read Point",
+      "comment": "A location playing the role of observation point, indicating where the event was physically captured or observed.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#Location"
+      ],
+      "source": "GS1 EPCIS 2.0; read point concept adapted for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#RecoverableRate",
+      "localName": "RecoverableRate",
+      "label": "Recoverable rate",
+      "comment": "This class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#CircularEconomyIndicator"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#RecycledMaterialsUse",
+      "localName": "RecycledMaterialsUse",
+      "label": "Recycled materials use",
+      "comment": "Recycled materials use of the product.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ResourceConsumption"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#RecyclingCollectionRate",
+      "localName": "RecyclingCollectionRate",
+      "label": "Recycling collection rate",
+      "comment": "This class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#CircularEconomyIndicator"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#RecyclingRate",
+      "localName": "RecyclingRate",
+      "label": "Recycling rate",
+      "comment": "This class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#CircularEconomyIndicator"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#RefurbishmentEvent",
+      "localName": "RefurbishmentEvent",
+      "label": "Refurbishment",
+      "comment": "Actions carried out to prepare, clean, test, service and, where necessary, repair a product or a discarded product in order to restore its performance or functionality within the intended use and range of performance originally conceived at the design stage at the time of the placing of the product on the market. ESPR Art 2(18).",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ProductEvent"
+      ],
+      "source": "Regulation (EU) 2024/1781; Art 2(18)"
+    },
+    {
+      "id": "https://w3id.org/eudpp#Reliability",
+      "localName": "Reliability",
+      "label": "Reliability",
+      "comment": "Reliability\nmeans the probability that a product functions as required under given conditions for a given\nduration without an occurrence which results in a primary or secondary function of the product no\nlonger being performed. (ESPR Art 2 (16))\n\nReliability is usually expressed in terms of mean time between failures (MTBF), which is the average length of time that a device will operate without failure.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#QualityIndicator"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#RemanufacturingEvent",
+      "localName": "RemanufacturingEvent",
+      "label": "Remanufacturing",
+      "comment": "Actions through which a new product is produced from objects that are waste, products or components and through which at least one change is made that substantially affects the safety, performance, purpose or type of the product. ESPR Art 2(16).",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ProductEvent"
+      ],
+      "source": "Regulation (EU) 2024/1781; Art 2(16)"
+    },
+    {
+      "id": "https://w3id.org/eudpp#RepairEvent",
+      "localName": "RepairEvent",
+      "label": "Repair",
+      "comment": "Actions taken to return a defective product or waste to a condition where it fulfils its intended purpose. ESPR Art 2(20).",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ProductEvent"
+      ],
+      "source": "Regulation (EU) 2024/1781; Art 2(20)"
+    },
+    {
+      "id": "https://w3id.org/eudpp#ResourceConsumption",
+      "localName": "ResourceConsumption",
+      "label": "Resource consumption",
+      "comment": "Resource consumption of the product.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#QuantitativeProperty"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#SoCIdentifier",
+      "localName": "SoCIdentifier",
+      "label": "Substance of concern identifier",
+      "comment": "",
+      "subClassOf": [
+        "https://w3id.org/eudpp#Identifier",
+        "b23_n3-117"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#SourceOrDestination",
+      "localName": "SourceOrDestination",
+      "label": "Source or Destination",
+      "comment": "A contextual structure representing a source or a destination associated with an event in relation to a business transfer.",
+      "source": "GS1 EPCIS 2.0; source and destination list structure adapted for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#SourceOrDestinationEntity",
+      "localName": "SourceOrDestinationEntity",
+      "label": "Source or Destination Entity",
+      "comment": "An intermediate alignment class used to represent an entity that can play the role of source or destination in an event context. Its precise alignment to Actor, Organisation, Location, or other external concepts is intended to be specified in the mapping ontology.",
+      "source": "Defined for the EU DPP Core Ontology Event module as an intermediate alignment point."
+    },
+    {
+      "id": "https://w3id.org/eudpp#SourceOrDestinationType",
+      "localName": "SourceOrDestinationType",
+      "label": "Source or Destination Type",
+      "comment": "A classification indicating the business meaning of a source or destination associated with an event.",
+      "source": "GS1 EPCIS and CBV source/destination type semantics adapted for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#Substance",
+      "localName": "Substance",
+      "label": "Substance",
+      "comment": "Means a chemical element and its compounds in the natural state or obtained by any manufacturing process, including any additive necessary to preserve its stability and any impurity deriving from the process used, but excluding any solvent which may be separated without affecting the stability of the substance or changing its composition; ESPR Art 2, Regulation (EC) No 1907/2006",
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#SubstanceOfConcern",
+      "localName": "SubstanceOfConcern",
+      "label": "Substance of concern",
+      "comment": "means a substance that:(a) meets the criteria laid down in Article 57 of Regulation (EC) No 1907/2006 and is identified in accordance with Article 59(1) of that Regulation; (b) is classified in Part 3 of Annex VI to Regulation (EC) No 1272/2008 in one of the following hazard classes or hazard categories: (i) carcinogenicity categories 1 and 2; (ii) germ cell mutagenicity categories 1 and 2; (iii) reproductive toxicity categories 1 and 2; (iv) endocrine disruption for human health categories 1 and 2; (v) endocrine disruption for the environment categories 1 and 2; (vi) persistent, mobile and toxic or very persistent, very mobile properties; (vii) persistent, bioaccumulative and toxic or very persistent, very bioaccumulative properties; (viii) respiratory sensitisation category 1; (ix) skin sensitisation category 1; (x) hazardous to the aquatic environment — categories chronic 1 to 4; (xi) hazardous to the ozone layer; (xii) specific target organ toxicity — repeated exposure categories 1 and 2; (xiii) specific target organ toxicity — single exposure categories 1 and 2; (c) is regulated under Regulation (EU) 2019/1021; or (d) negatively affects the reuse and recycling of materials in the product in which it is present [ESPR Art 2(10)]",
+      "subClassOf": [
+        "https://w3id.org/eudpp#Substance"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#SustainableRenewableMaterialsUse",
+      "localName": "SustainableRenewableMaterialsUse",
+      "label": "Sustainable renewable materials use",
+      "comment": "Sustainable renewable materials use of the product.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ResourceConsumption"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#TechnicalSpecification",
+      "localName": "TechnicalSpecification",
+      "label": "Technical Specification",
+      "comment": "Technical specification means a document that prescribes technical requirements to be fulfilled by a product, process, service or system and which lays down one or more of the following: Common Specification or Other Technical Specification.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ProductRequirement"
+      ],
+      "source": "Regulation (EU) No 1025/2012 Art 2 (4)\r\nhttps://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A32012R1025#art_2"
+    },
+    {
+      "id": "https://w3id.org/eudpp#Threshold",
+      "localName": "Threshold",
+      "label": "Threshold of substance of concern",
+      "comment": "Relevant threshold of Substance of Concern.\n\nBy default, information on all substances of concern present in a product, above the  relevant thresholds, should be included in the DPP [ESPR FAQ 10.115, p59]",
+      "source": "https://circabc.europa.eu/ui/group/418195ae-4919-45fa-a959-3b695c9aab28/library/25c48e7c-9ce3-41cb-96ac-d2942a8a29d6/details"
+    },
+    {
+      "id": "https://w3id.org/eudpp#ThresholdOfSubstanceOfConcern",
+      "localName": "ThresholdOfSubstanceOfConcern",
+      "label": "Threshold of substance of concern",
+      "comment": "Relevant threshold of Substance of Concern.\n\nBy default, information on all substances of concern present in a product, above the  relevant thresholds, should be included in the DPP [ESPR FAQ 10.115, p59]",
+      "subClassOf": [
+        "https://w3id.org/eudpp#QuantitativeProperty"
+      ],
+      "source": "https://circabc.europa.eu/ui/group/418195ae-4919-45fa-a959-3b695c9aab28/library/25c48e7c-9ce3-41cb-96ac-d2942a8a29d6/details"
+    },
+    {
+      "id": "https://w3id.org/eudpp#ToxicityFootprint",
+      "localName": "ToxicityFootprint",
+      "label": "Toxicity Footprint",
+      "comment": "Quantifies the potential human health and ecological toxicity impacts of a product over its life cycle. ToxicityFootprint aggregates relevant ImpactCategories such as Human Toxicity (cancer and non-cancer) and Ecotoxicity.",
+      "equivalentClass": [
+        "b23_n3-173"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#TransactionEvent",
+      "localName": "TransactionEvent",
+      "label": "Transaction Event",
+      "comment": "A technical event carrier representing the association or disassociation of one or more identifiable objects with one or more business transactions. Each TransactionEvent has exactly one action type, is linked to at least one business transaction context, and includes at least one instance-level identifier, at least one quantity context, or both. It provides documentary or contextual linkage and shall not by itself be interpreted as a lifecycle transition.",
+      "seeAlso": [
+        "https://ref.gs1.org/standards/epcis/2.0.0/artefacts"
+      ],
+      "subClassOf": [
+        "https://w3id.org/eudpp#EPCISCarrier",
+        "b23_n3-74",
+        "b23_n3-77",
+        "b23_n3-78"
+      ],
+      "source": "GS1 EPCIS 2.0; adapted from the Event module mapping table."
+    },
+    {
+      "id": "https://w3id.org/eudpp#Transformation",
+      "localName": "Transformation",
+      "label": "Transformation",
+      "comment": "An identified transformation resource used to correlate one or more TransformationEvents that describe the same transformation.",
+      "source": "Adapted from GS1 EPCIS and CBV transformation identifier semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#TransformationEvent",
+      "localName": "TransformationEvent",
+      "label": "Transformation Event",
+      "comment": "A technical event carrier representing the transformation of one or more input objects into one or more output objects, capturing material or structural change across event inputs and outputs. Each TransformationEvent includes at least one input context and at least one output context, expressed at instance level, quantity level, or both. It may refer to an identified transformation used to correlate multiple events describing the same transformation.",
+      "seeAlso": [
+        "https://ref.gs1.org/standards/epcis/2.0.0/artefacts"
+      ],
+      "subClassOf": [
+        "https://w3id.org/eudpp#EPCISCarrier",
+        "b23_n3-79",
+        "b23_n3-82",
+        "b23_n3-85"
+      ],
+      "source": "GS1 EPCIS 2.0; adapted from the Event module mapping table."
+    },
+    {
+      "id": "https://w3id.org/eudpp#UnionHarmonisationLegislation",
+      "localName": "UnionHarmonisationLegislation",
+      "label": "Union Harmonised Legislation",
+      "comment": "Union Harmonisation Legislation shall mean any Union legislation harmonising the conditions for the marketing of products. Examples are directives, regulations and delegated acts.",
+      "source": "Decision No 768/2008/EC Annex I Art R1 (17)\r\nhttps://eur-lex.europa.eu/eli/dec/2008/768(1)/oj#anx_I"
+    },
+    {
+      "id": "https://w3id.org/eudpp#UpgradingEvent",
+      "localName": "UpgradingEvent",
+      "label": "Upgrading",
+      "comment": "Actions carried out to enhance the functionality, performance, capacity, safety or aesthetics of a product. ESPR Art 2(17).",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ProductEvent"
+      ],
+      "source": "Regulation (EU) 2024/1781; Art 2(17)"
+    },
+    {
+      "id": "https://w3id.org/eudpp#Volume",
+      "localName": "Volume",
+      "label": "Volume",
+      "comment": "Volume of the product",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ProductDimension"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#WasteGenerationAmount",
+      "localName": "WasteGenerationAmount",
+      "label": "Waste generation amount",
+      "comment": "Waste generation amount of the product.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#QuantitativeProperty"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#WaterConsumption",
+      "localName": "WaterConsumption",
+      "label": "Water consumption",
+      "comment": "Water consumption of the product.\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ResourceConsumption"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#Weight",
+      "localName": "Weight",
+      "label": "Weight",
+      "comment": "Weight of the product",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ProductDimension"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#Width",
+      "localName": "Width",
+      "label": "Width",
+      "comment": "Width of the product",
+      "subClassOf": [
+        "https://w3id.org/eudpp#ProductDimension"
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "id": "https://w3id.org/eudpp#abbreviation",
+      "localName": "abbreviation",
+      "label": "Abbreviation",
+      "comment": "The abbreviation used for the Substance of Concern; [ESPR Article 7(5)]",
+      "domain": [
+        "https://w3id.org/eudpp#SubstanceOfConcern"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#accordingTo",
+      "localName": "accordingTo",
+      "label": "according to",
+      "comment": "Property defining specifies conformity assess procedure/cerfication scheme underlying the cerfificate.",
+      "domain": [
+        "https://w3id.org/eudpp#ConformityCertificate"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ConformityAssessmentModule"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dec/2008/768(1)/oj#art_4\r\nDecision No 768/2008/EC Art 4"
+    },
+    {
+      "id": "https://w3id.org/eudpp#actorName",
+      "localName": "actorName",
+      "label": "Actor name",
+      "comment": "Name of an actor.",
+      "domain": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#allowsConformityAssessmentModule",
+      "localName": "allowsConformityAssessmentModule",
+      "label": "allows Conformity Assessment Module",
+      "comment": "A property that specifies the conformity assment procedure applicable to the type of product",
+      "domain": [
+        "https://w3id.org/eudpp#UnionHarmonisationLegislation"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ConformityAssessmentModule"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dec/2008/768(1)/oj#art_4\r\nDecision No 768/2008/EC Art 4"
+    },
+    {
+      "id": "https://w3id.org/eudpp#appliesToProduct",
+      "localName": "appliesToProduct",
+      "label": "Applies to product",
+      "comment": "The property links DPP and the Product.",
+      "domain": [
+        "https://w3id.org/eudpp#DPP"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Product"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#assessIC",
+      "localName": "assessIC",
+      "label": "assessIC",
+      "comment": "",
+      "domain": [
+        "https://w3id.org/eudpp#ImpactCategoryIndicator"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ImpactCategory"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#assignedELI",
+      "localName": "assignedELI",
+      "label": "assigned ELI",
+      "comment": "Standardised identification that makes it easier to identify and describe legislation across Europe.",
+      "domain": [
+        "https://w3id.org/eudpp#UnionHarmonisationLegislation"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "https://eur-lex.europa.eu/eli-register/what_is_eli.html"
+    },
+    {
+      "id": "https://w3id.org/eudpp#assignmentValidFrom",
+      "localName": "assignmentValidFrom",
+      "label": "Assignment valid from",
+      "comment": "The date and time from which the actor role assignment is valid.",
+      "domain": [
+        "https://w3id.org/eudpp#ActorRoleAssignment"
+      ],
+      "range": [
+        "xsd:dateTime"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#assignmentValidTo",
+      "localName": "assignmentValidTo",
+      "label": "Assignment valid to",
+      "comment": "The date and time until which the actor role assignment is valid.",
+      "domain": [
+        "https://w3id.org/eudpp#ActorRoleAssignment"
+      ],
+      "range": [
+        "xsd:dateTime"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#businessTransactionIdentifier",
+      "localName": "businessTransactionIdentifier",
+      "label": "has business transaction identifier",
+      "comment": "Specifies the identifier of a business transaction associated with an event.",
+      "domain": [
+        "https://w3id.org/eudpp#BusinessTransactionContext"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "Adapted from GS1 EPCIS business transaction identifier semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#calculatedByCM",
+      "localName": "calculatedByCM",
+      "label": "calculatedByCM",
+      "comment": ""
+    },
+    {
+      "id": "https://w3id.org/eudpp#calculatesCF",
+      "localName": "calculatesCF",
+      "label": "calculatesCF",
+      "comment": "",
+      "domain": [
+        "https://w3id.org/eudpp#CharacterizationModel"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#CharacterizationFactor"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#certificateNumber",
+      "localName": "certificateNumber",
+      "label": "certificateNumber",
+      "comment": "Number of the certificate",
+      "domain": [
+        "https://w3id.org/eudpp#ConformityCertificate"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "certificate number"
+    },
+    {
+      "id": "https://w3id.org/eudpp#certificateRevisionNumber",
+      "localName": "certificateRevisionNumber",
+      "label": "certificate revision number",
+      "comment": "Number of the revision of a certificate",
+      "domain": [
+        "https://w3id.org/eudpp#ConformityCertificate"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#classIdentifier",
+      "localName": "classIdentifier",
+      "label": "class identifier",
+      "comment": "The class-level identifier used in a quantity element, such as a GTIN, LGTIN, or another EPC class identifier.",
+      "domain": [
+        "https://w3id.org/eudpp#QuantityElement"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "Adapted from EPCIS class-level identification semantics."
+    },
+    {
+      "id": "https://w3id.org/eudpp#codeSet",
+      "localName": "codeSet",
+      "label": "Classification code set",
+      "comment": "The product classification code set.\n\nSee also Produc hasProductGroup ClassificationCode documentation.",
+      "domain": [
+        "https://w3id.org/eudpp#ClassificationCode"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#codeValue",
+      "localName": "codeValue",
+      "label": "Classification code value",
+      "comment": "Classification code value from the Classification code set.",
+      "domain": [
+        "https://w3id.org/eudpp#ClassificationCode"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#commodityCode",
+      "localName": "commodityCode",
+      "label": "Commodity code",
+      "comment": "Relevant commodity codes, such as a TARIC code as defined in Council Regulation (EEC) No 2658/87.[ESPR Annex III (d)]",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#concernsDPP",
+      "localName": "concernsDPP",
+      "label": "Concerns DPP",
+      "comment": "Links a DPP event to the Digital Product Passport whose content, state, or accessibility is affected by the event. This property captures information-level changes and is not intended to represent physical or operational events on the product.\n\nDPP is modelled in the EU DPP CO P_DPP module.\nDPPEvent is modelled in the EU DPP CO EVENT module.",
+      "domain": [
+        "http://purl.org/eudpp#DPPEvent"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#DPP"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#concernsLCStage",
+      "localName": "concernsLCStage",
+      "label": "concernsLCStage",
+      "comment": "",
+      "domain": [
+        "https://w3id.org/eudpp#LcaResult"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#LifeCycleStage"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#concernsProduct",
+      "localName": "concernsProduct",
+      "label": "Concerns product",
+      "comment": "Links a product event to the product whose state, condition, or lifecycle is affected by the event.\n\nProduct is modelled in the EU DPP CO P_DPP module.\nProductEvent is modelled in the EU DPP CO EVENT module.",
+      "domain": [
+        "http://purl.org/eudpp#ProductEvent"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Product"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#conformityAttestedBy",
+      "localName": "conformityAttestedBy",
+      "label": "Conformity attested by",
+      "comment": "Specifies the notified body that attest the product's conformity with Union harmonisation legislation. \n\nUnionHarmonisationLegislation is modelled in the EU DPP CO COMP module.\nActor is modelled in the EU DPP CO ACTOR module.",
+      "domain": [
+        "https://w3id.org/eudpp#UnionHarmonisationLegislation"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj/#anx_%C2%A0V"
+    },
+    {
+      "id": "https://w3id.org/eudpp#conformityDeclaredTo",
+      "localName": "conformityDeclaredTo",
+      "label": "conformity declared to",
+      "comment": "A property which specifies which Union Harmonisation Legislation conformity is declared to.",
+      "domain": [
+        "https://w3id.org/eudpp#EUDeclarationOfConformity"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#UnionHarmonisationLegislation"
+      ],
+      "source": "ESPR Annex V"
+    },
+    {
+      "id": "https://w3id.org/eudpp#containsSubstanceOfConcern",
+      "localName": "containsSubstanceOfConcern",
+      "label": "Contains substance of concern",
+      "comment": "Linking the product to a substance of concern the product contains.\n\nProduct is modelled in the EU DPP CO P_DPP module.\nSubstance of concern is modelled in the EU DPP CO SOC module.",
+      "domain": [
+        "b23_n3-7"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#SubstanceOfConcern"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#contentType",
+      "localName": "contentType",
+      "label": "Content type",
+      "comment": "Content type of a document. Can be only “application” or “pdf”.",
+      "domain": [
+        "https://w3id.org/eudpp#DocumentFormattedProperty"
+      ],
+      "range": [
+        "b23_n3-122"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#description",
+      "localName": "description",
+      "label": "Description",
+      "comment": "Product description",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#dictionaryReference",
+      "localName": "dictionaryReference",
+      "label": "Dictionary reference",
+      "comment": "The reference to the unique identifier of the data point specification defined in the repository/data dictionary.\n\nIt is formatted as a URI/URL .",
+      "domain": [
+        "https://w3id.org/eudpp#Property"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#dppEventRecordedAt",
+      "localName": "dppEventRecordedAt",
+      "label": "dpp event recorded at",
+      "comment": "The date and time at which the technical record of a DPP event was created in an information system or audit trail.",
+      "domain": [
+        "https://w3id.org/eudpp#DPPEventRecord"
+      ],
+      "range": [
+        "xsd:dateTime"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#dppEventRecordIdentifier",
+      "localName": "dppEventRecordIdentifier",
+      "label": "dpp event record identifier",
+      "comment": "A unique identifier assigned to a DPP event record.",
+      "domain": [
+        "https://w3id.org/eudpp#DPPEventRecord"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#dppStatus",
+      "localName": "dppStatus",
+      "label": "DPP status",
+      "comment": "The status of the DPP instance as digital resource.",
+      "domain": [
+        "https://w3id.org/eudpp#DPP"
+      ],
+      "range": [
+        "b23_n3-125"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#eventIdentifier",
+      "localName": "eventIdentifier",
+      "label": "event identifier",
+      "comment": "A unique identifier assigned to the event.",
+      "domain": [
+        "https://w3id.org/eudpp#EPCISCarrier"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "GS1 EPCIS 1.2 and 2.0; optional event identifier adapted for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#eventTime",
+      "localName": "eventTime",
+      "label": "event time",
+      "comment": "The date and time at which the event occurred.",
+      "domain": [
+        "https://w3id.org/eudpp#EPCISCarrier"
+      ],
+      "range": [
+        "xsd:dateTime"
+      ],
+      "source": "GS1 EPCIS 2.0; core event time property used in the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#eventTimeZoneOffset",
+      "localName": "eventTimeZoneOffset",
+      "label": "event time zone offset",
+      "comment": "The time zone offset in effect at the time and place where the event occurred.",
+      "domain": [
+        "https://w3id.org/eudpp#EPCISCarrier"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "GS1 EPCIS 2.0; core event time zone offset property used in the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#granularity",
+      "localName": "granularity",
+      "label": "Granularity",
+      "comment": "ESPR Art 9 (2) d  declares that the digital product passport is to be established at model, batch or item level, and the definition of such levels (is determined by delegated acts (DA));\n\nThe product passport should be defined at the level of item, batch or product model, depending on specific needs and complexity of the value chain, the size, nature or impacts of the products considered. (Standardisation Request 5423 7)",
+      "domain": [
+        "https://w3id.org/eudpp#DPP"
+      ],
+      "range": [
+        "b23_n3-130"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#GTIN",
+      "localName": "GTIN",
+      "label": "GTIN",
+      "comment": "A globally unique identifier for trade items, defined by GS1, used to identify products at various packaging levels.",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://www.gs1.org/standards/id-keys/gtin"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasActionType",
+      "localName": "hasActionType",
+      "label": "has action type",
+      "comment": "Indicates the action performed in a technical event carrier, specifying whether objects are added, observed, or deleted from the relevant event context or relationship.",
+      "domain": [
+        "b23_n3-10"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ActionType"
+      ],
+      "source": "GS1 EPCIS Standard"
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasActor",
+      "localName": "hasActor",
+      "label": "Has actor",
+      "comment": "Links actor role assignment to actor",
+      "domain": [
+        "https://w3id.org/eudpp#ActorRoleAssignment"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Actor"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasAssociationAnchor",
+      "localName": "hasAssociationAnchor",
+      "label": "has association anchor",
+      "comment": "Links an AssociationEvent to the contextual anchor of the association. This anchor may be either an identified object or a location, depending on the modelling context.",
+      "domain": [
+        "https://w3id.org/eudpp#AssociationEvent"
+      ],
+      "range": [
+        "b23_n3-15"
+      ],
+      "source": "Defined in the EU DPP Core Ontology Event module to support non-containment associations between identified entities."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasAuthorisedRepresentative",
+      "localName": "hasAuthorisedRepresentative",
+      "label": "Has authorised representative",
+      "comment": "Specifies the natural or legal person established within the Union who has received a written mandate from a manufacturer to act on his behalf in relation to the Declaration of Conformity.\n\nEUDeclarationOfConformity is modelled in the EU DPP CO COMP module.\nActor is modelled in the EU DPP CO ACTOR module.\n\nSource: \nDecision No 768/2008/EC Annex I Art R1 (4)\nhttps://eur-lex.europa.eu/eli/dec/2008/768(1)/oj#anx_I\n\nESPR Annex V (2,9)\nhttps://eur-lex.europa.eu/eli/reg/2024/1781/oj/#anx_%C2%A0V",
+      "domain": [
+        "https://w3id.org/eudpp#EUDeclarationOfConformity"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj/#anx_%C2%A0V"
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasBackUpCopyHost",
+      "localName": "hasBackUpCopyHost",
+      "label": "Has back-up-copy host",
+      "comment": "The reference of the digital product passport service provider hosting the back-up copy of the digital product passport [ESPR Annex III].\n\nDPP is modelled in the EU DPP CO P_DPP module.\nActor is modelled in the EU DPP CO ACTOR module.",
+      "domain": [
+        "https://w3id.org/eudpp#DPP"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasBusinessLocation",
+      "localName": "hasBusinessLocation",
+      "label": "has business location",
+      "comment": "Links an event carrier to the business location associated with the event.",
+      "domain": [
+        "https://w3id.org/eudpp#EPCISCarrier"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#BusinessLocation"
+      ],
+      "source": "GS1 EPCIS 2.0; business location property adapted for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasBusinessStep",
+      "localName": "hasBusinessStep",
+      "label": "has business step",
+      "comment": "Links an EPCIS carrier to the business step that provides the immediate business context of the event.",
+      "domain": [
+        "https://w3id.org/eudpp#EPCISCarrier"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#BusinessStep"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/standards/cbv/"
+      ],
+      "source": "Adapted from GS1 EPCIS 2.0 and CBV business step semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasBusinessTransactionContext",
+      "localName": "hasBusinessTransactionContext",
+      "label": "has business transaction context",
+      "comment": "Links a TransactionEvent to a business transaction context associated with the event.",
+      "domain": [
+        "https://w3id.org/eudpp#TransactionEvent"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#BusinessTransactionContext"
+      ],
+      "source": "Adapted from GS1 EPCIS bizTransactionList semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasBusinessTransactionType",
+      "localName": "hasBusinessTransactionType",
+      "label": "has business transaction type",
+      "comment": "Links a business transaction context to its business transaction type classification.",
+      "domain": [
+        "https://w3id.org/eudpp#BusinessTransactionContext"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#BusinessTransactionType"
+      ],
+      "source": "Adapted from GS1 CBV business transaction type semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasChildObjectContext",
+      "localName": "hasChildObjectContext",
+      "label": "has child object context",
+      "comment": "Links an aggregation or association event to an instance-level identifier used to represent a child object.",
+      "domain": [
+        "b23_n3-18"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#InstanceIdentifier"
+      ],
+      "source": "Adapted from GS1 EPCIS aggregation semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasChildQuantityContext",
+      "localName": "hasChildQuantityContext",
+      "label": "has child quantity context",
+      "comment": "Links an aggregation or association event to a quantity element used to identify a child object at class level together with quantity information.",
+      "domain": [
+        "b23_n3-21"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#QuantityElement"
+      ],
+      "source": "Defined for the EU DPP Core Ontology Event module to support class-level aggregation contexts."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasConcentration",
+      "localName": "hasConcentration",
+      "label": "Has concentration",
+      "comment": "Defines the the concentration, maximum concentration or concentration range of the substances of concern, at the level of the product, its relevant components, or spare parts; ESPR Art 7(5)",
+      "domain": [
+        "https://w3id.org/eudpp#SubstanceOfConcern"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Concentration"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasDefaultUnit",
+      "localName": "hasDefaultUnit",
+      "label": "hasDefaultUnit",
+      "comment": "",
+      "domain": [
+        "https://w3id.org/eudpp#ImpactCategoryIndicator"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasDestinationList",
+      "localName": "hasDestinationList",
+      "label": "has destination list",
+      "comment": "Links an event carrier to a destination context associated with the event.",
+      "domain": [
+        "https://w3id.org/eudpp#EPCISCarrier"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#SourceOrDestination"
+      ],
+      "source": "GS1 EPCIS 2.0; destination list property adapted for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasDigitalProductPassportId",
+      "localName": "hasDigitalProductPassportId",
+      "label": "Has digital product passport id",
+      "comment": "Realisation for the Unique identifier of an instance of the digital product passport.\n\nDPP is modelled in the EU DPP CO P_DPP module.\nDPPIdentifier is modelled in the EU DPP CO IDENT module.",
+      "domain": [
+        "https://w3id.org/eudpp#DPP"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#DPPIdentifier"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasDisposition",
+      "localName": "hasDisposition",
+      "label": "has disposition",
+      "comment": "Links an EPCIS carrier to the disposition that expresses the business state of the object or objects following the event.",
+      "domain": [
+        "https://w3id.org/eudpp#EPCISCarrier"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Disposition"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/standards/cbv/"
+      ],
+      "source": "Adapted from GS1 EPCIS 2.0 and CBV disposition semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasDPP",
+      "localName": "hasDPP",
+      "label": "Has DPP",
+      "comment": "A Product has a DPP. The property links a Product with a DPP.",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#DPP"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasDPPActionType",
+      "localName": "hasDPPActionType",
+      "label": "has DPP action type",
+      "comment": "Links a DPP update event to the type of information-level action performed on the Digital Product Passport.",
+      "domain": [
+        "https://w3id.org/eudpp#DPPUpdateEvent"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#DPPActionType"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasEconomicOperator",
+      "localName": "hasEconomicOperator",
+      "label": "Has economic operator",
+      "comment": "Linking the product to the economic operator (Actor from ACTOR module).\n\nProduct is modelled in the EU DPP CO P_DPP module.\nActor is modelled in the EU DPP CO ACTOR module.",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Actor"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasEUDeclarationOfConformity",
+      "localName": "hasEUDeclarationOfConformity",
+      "label": "Has EU Declaration of Conformity",
+      "comment": "Specifies the EU declaration of conformity issued for the product.\n\nEUDeclarationOfConformity is modelled in the EU DPP CO COMP module.\nProduct is modelled in the EU DPP CO P_DPP module.",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#EUDeclarationOfConformity"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dec/2008/768(1)/oj#anx_I"
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasFlowType",
+      "localName": "hasFlowType",
+      "label": "hasFlowType",
+      "comment": "",
+      "domain": [
+        "https://w3id.org/eudpp#FlowResult"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#FlowType"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasGranularity",
+      "localName": "hasGranularity",
+      "label": "Has granularity",
+      "comment": "Defines the granularity of an identifier, if exists.",
+      "domain": [
+        "https://w3id.org/eudpp#Identifier"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#IdentifierGranularity"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasIdentifiedObjectContext",
+      "localName": "hasIdentifiedObjectContext",
+      "label": "has identified object context",
+      "comment": "Links an ObjectEvent or TransactionEvent to an instance-level identifier used to identify an object involved in the event context.",
+      "domain": [
+        "b23_n3-24"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#InstanceIdentifier"
+      ],
+      "source": "Adapted from GS1 EPCIS epcList semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasImpactCategory",
+      "localName": "hasImpactCategory",
+      "label": "hasImpactCategory",
+      "comment": "",
+      "domain": [
+        "https://w3id.org/eudpp#ImpactResult"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ImpactCategory"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasImpactOnEnvironment",
+      "localName": "hasImpactOnEnvironment",
+      "label": "Has impact on environment",
+      "comment": "Describes the impacts of Substance of Concern on environment; ESPR Annex I (f)",
+      "domain": [
+        "https://w3id.org/eudpp#SubstanceOfConcern"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasImpactOnHumanHealth",
+      "localName": "hasImpactOnHumanHealth",
+      "label": "Has impact on human health",
+      "comment": "Describes the impacts of Substance of Concern on human health; ESPR Annex I (f)",
+      "domain": [
+        "https://w3id.org/eudpp#SubstanceOfConcern"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasImpactType",
+      "localName": "hasImpactType",
+      "label": "hasImpactType",
+      "comment": "",
+      "domain": [
+        "https://w3id.org/eudpp#ImpactCategory"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ImpactType"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasInputObjectContext",
+      "localName": "hasInputObjectContext",
+      "label": "has input object context",
+      "comment": "Links a transformation event to an instance-level identifier used to represent an input object.",
+      "domain": [
+        "https://w3id.org/eudpp#TransformationEvent"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#InstanceIdentifier"
+      ],
+      "source": "Adapted from GS1 EPCIS transformation event input EPC semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasInputQuantityContext",
+      "localName": "hasInputQuantityContext",
+      "label": "has input quantity context",
+      "comment": "Links a transformation event to a quantity element used to identify an input object at class level together with quantity information.",
+      "domain": [
+        "https://w3id.org/eudpp#TransformationEvent"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#QuantityElement"
+      ],
+      "source": "Adapted from GS1 EPCIS transformation event input quantity semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasIssuer",
+      "localName": "hasIssuer",
+      "label": "Has issuer",
+      "comment": "Linking DPP with its issuer (Actor from ACTOR module).\n\nDPP is modelled in the EU DPP CO P_DPP module.\nActor is modelled in the EU DPP CO ACTOR module.",
+      "domain": [
+        "https://w3id.org/eudpp#DPP"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Actor"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasLCAStudy",
+      "localName": "hasLCAStudy",
+      "label": "Has LCA study",
+      "comment": "A product has a LCA Result -- a measurable outcome of a life cycle assessment, representing the quantified effect of a product.\n\nProduct is modelled in the EU DPP CO P_DPP module.\nLcaResult is modelled in the EU DPP CO LCA module.",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasLifeCycleStage",
+      "localName": "hasLifeCycleStage",
+      "label": "Has life cycle stage",
+      "comment": "Describes the life cycle stage during which the Substance of Concern occurs for product (used during production, resulting being in product, in waste); ESPR Annex I (f).\n\nKnown issue: Range is some type of an Event, not yet present in the EU DPP CO.",
+      "domain": [
+        "https://w3id.org/eudpp#SubstanceOfConcern"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasManufacturer",
+      "localName": "hasManufacturer",
+      "label": "Has manufacturer",
+      "comment": "A product has a manufacturer (Actor from ACTOR module).\n\nProduct is modelled in the EU DPP CO P_DPP module.\nActor is modelled in the EU DPP CO ACTOR module.",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Actor"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasMaterial",
+      "localName": "hasMaterial",
+      "label": "Has material",
+      "comment": "Linking the Product to a MaterialOfComposition.\n\nProduct is modelled in the EU DPP CO P_DPP module.\nMaterialOfComposition is modelled in the EU DPP CO MAT module.",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#MaterialOfComposition"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasMaterialIdentifier",
+      "localName": "hasMaterialIdentifier",
+      "label": "Has material identifier",
+      "comment": "Realisation of thematerial indetifier as \"Product parameters: identification of  ... materials [ESPR Annex I c)]\"\n\nMaterialOfComposition is modelled in the EU DPP CO MAT module.\nMaterialIdentifier is modelled in the EU DPP CO IDENT module.",
+      "domain": [
+        "https://w3id.org/eudpp#MaterialOfComposition"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#MaterialIdentifier"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasMaterialOrigin",
+      "localName": "hasMaterialOrigin",
+      "label": "Has material origin",
+      "comment": "Assigns material origin to material used for product",
+      "domain": [
+        "https://w3id.org/eudpp#MaterialOfComposition"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#MaterialOrigin"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasMaterialType",
+      "localName": "hasMaterialType",
+      "label": "Has material type",
+      "comment": "Links material to its type in some classification system used by the sector.",
+      "domain": [
+        "https://w3id.org/eudpp#MaterialOfComposition"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#MaterialType"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasMeasurementUnit",
+      "localName": "hasMeasurementUnit",
+      "label": "Has measurement unit",
+      "comment": "Linking quantitative property to the unit of measurement.",
+      "domain": [
+        "https://w3id.org/eudpp#QuantitativeProperty"
+      ],
+      "range": [
+        "https://si-digital-framework.org/SI#MeasurementUnit"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasNotifiedBody",
+      "localName": "hasNotifiedBody",
+      "label": "Has notified body",
+      "comment": "Specifies the conformity assessment body notified in accordance with ESPR Chapter IX\t\n\nEUDeclarationOfConformity is modelled in the EU DPP CO COMP module.\nActor is modelled in the EU DPP CO ACTOR module.",
+      "domain": [
+        "https://w3id.org/eudpp#EUDeclarationOfConformity"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dec/2008/768(1)/oj#anx_I"
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasOutputObjectContext",
+      "localName": "hasOutputObjectContext",
+      "label": "has output object context",
+      "comment": "Links a transformation event to an instance-level identifier used to represent an output object.",
+      "domain": [
+        "https://w3id.org/eudpp#TransformationEvent"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#InstanceIdentifier"
+      ],
+      "source": "Adapted from GS1 EPCIS transformation event output EPC semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasOutputQuantityContext",
+      "localName": "hasOutputQuantityContext",
+      "label": "has output quantity context",
+      "comment": "Links a transformation event to a quantity element used to identify an output object at class level together with quantity information.",
+      "domain": [
+        "https://w3id.org/eudpp#TransformationEvent"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#QuantityElement"
+      ],
+      "source": "Adapted from GS1 EPCIS transformation event output quantity semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasParentObjectContext",
+      "localName": "hasParentObjectContext",
+      "label": "has parent object context",
+      "comment": "Links an AggregationEvent to the instance-level identifier that acts as the parent object in the aggregation context.",
+      "domain": [
+        "https://w3id.org/eudpp#AggregationEvent"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#InstanceIdentifier"
+      ],
+      "source": "Adapted from GS1 EPCIS parentID semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasProductEvent",
+      "localName": "hasProductEvent",
+      "label": "has product event",
+      "comment": "Links an EPCIS-inspired technical event carrier to the product event semantics it journalises.",
+      "domain": [
+        "https://w3id.org/eudpp#EPCISCarrier"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ProductEvent"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasProductGroup",
+      "localName": "hasProductGroup",
+      "label": "Has product group",
+      "comment": "Product group\nmeans a set of products that serve similar purposes and are similar in terms of use, or have similar\nfunctional properties, and are similar in terms of consumer perception (ESPR Art 2 (4)). The product\ngroup or groups covered are given by delegated acts. (ESPR Art 8 (a))\n\nThis will be probably a classification code from some product classification scheme .",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ClassificationCode"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasProperty",
+      "localName": "hasProperty",
+      "label": "Has property",
+      "comment": "Product has a property that could be a document or some measurable properties (measurands).\n\nLinking the product to the property.",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Property"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasQuantityContext",
+      "localName": "hasQuantityContext",
+      "label": "has quantity context",
+      "comment": "Links an ObjectEvent or TransactionEvent to a quantity element used to represent class-level identification together with quantity information in the event context.",
+      "domain": [
+        "b23_n3-27"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#QuantityElement"
+      ],
+      "source": "Adapted from GS1 EPCIS quantityList semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasQuantityValue",
+      "localName": "hasQuantityValue",
+      "label": "has quantity value",
+      "comment": "Specifies the quantity value associated with a class-level identification context.",
+      "domain": [
+        "https://w3id.org/eudpp#QuantityElement"
+      ],
+      "range": [
+        "xsd:decimal"
+      ],
+      "source": "Adapted from GS1 EPCIS quantity semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasReadPoint",
+      "localName": "hasReadPoint",
+      "label": "has read point",
+      "comment": "Links an event carrier to the read point at which the event observation or capture occurred.",
+      "domain": [
+        "https://w3id.org/eudpp#EPCISCarrier"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ReadPoint"
+      ],
+      "source": "GS1 EPCIS 2.0; read point property adapted for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasRepresentativeMandate",
+      "localName": "hasRepresentativeMandate",
+      "label": "Has representative mandate",
+      "comment": "Relates a manufacturer to the mandate (assignment) that authorises an actor to act on the manufacturer's behalf.",
+      "domain": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#AuthorisedRepresentativeRoleAssignment"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasResponsibleManufacturer",
+      "localName": "hasResponsibleManufacturer",
+      "label": "Has responsible manufacturer",
+      "comment": "Defines the natural or legal person responsible for the EU declaration of conformity.\n\n\nEUDeclarationOfConformity is modelled in the EU DPP CO COMP module.\nActor is modelled in the EU DPP CO ACTOR module.",
+      "domain": [
+        "https://w3id.org/eudpp#EUDeclarationOfConformity"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj/#anx_%C2%A0V"
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasRole",
+      "localName": "hasRole",
+      "label": "Has role",
+      "comment": "Links an actor role assignment to a role.",
+      "domain": [
+        "https://w3id.org/eudpp#ActorRoleAssignment"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Role"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasScheme",
+      "localName": "hasScheme",
+      "label": "Has scheme",
+      "comment": "The scheme/standard the Identifier follows",
+      "domain": [
+        "https://w3id.org/eudpp#Identifier"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#IdentifierScheme"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasSourceList",
+      "localName": "hasSourceList",
+      "label": "has source list",
+      "comment": "Links an event carrier to a source context associated with the event.",
+      "domain": [
+        "https://w3id.org/eudpp#EPCISCarrier"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#SourceOrDestination"
+      ],
+      "source": "GS1 EPCIS 2.0; source list property adapted for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasSourceOrDestinationEntity",
+      "localName": "hasSourceOrDestinationEntity",
+      "label": "has source or destination entity",
+      "comment": "Links a source-or-destination context to the entity that plays the source or destination role.",
+      "domain": [
+        "https://w3id.org/eudpp#SourceOrDestination"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#SourceOrDestinationEntity"
+      ],
+      "source": "Defined for the EU DPP Core Ontology Event module to structure source and destination references."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasSourceOrDestinationType",
+      "localName": "hasSourceOrDestinationType",
+      "label": "has source or destination type",
+      "comment": "Links a source-or-destination context to its business type classification.",
+      "domain": [
+        "https://w3id.org/eudpp#SourceOrDestination"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#SourceOrDestinationType"
+      ],
+      "source": "GS1 EPCIS and CBV source/destination typing semantics adapted for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasThreshold",
+      "localName": "hasThreshold",
+      "label": "Has threshold",
+      "comment": "Describes relevant threshold of Substance of Concern.\n\nBy default, information on all substances of concern present in a product, above the  relevant thresholds, should be included in the DPP [ESPR FAQ 10.115, p59]",
+      "domain": [
+        "https://w3id.org/eudpp#SubstanceOfConcern"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Threshold"
+      ],
+      "source": "https://circabc.europa.eu/ui/group/418195ae-4919-45fa-a959-3b695c9aab28/library/25c48e7c-9ce3-41cb-96ac-d2942a8a29d6/details"
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasTransformation",
+      "localName": "hasTransformation",
+      "label": "has transformation",
+      "comment": "Links a TransformationEvent to the identified transformation it refers to.",
+      "domain": [
+        "https://w3id.org/eudpp#TransformationEvent"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Transformation"
+      ],
+      "source": "Adapted from GS1 EPCIS and CBV transformation identifier semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasUnionHarmonisationLegislation",
+      "localName": "hasUnionHarmonisationLegislation",
+      "label": "has Union Harmonisation Legislation",
+      "comment": "A property providing the Union Harmonisation Legislation refered to in the EU Declaration of Conformity.",
+      "domain": [
+        "https://w3id.org/eudpp#EUDeclarationOfConformity"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#UnionHarmonisationLegislation"
+      ],
+      "source": "ESPR Annex V, (5)"
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasUniqueFacilityIdentifier",
+      "localName": "hasUniqueFacilityIdentifier",
+      "label": "Has unique facility identifier",
+      "comment": "Linking a Facility to its unique facility identifier.\nFacility is modelled in the EU DPP CO ACTOR module.\nFacilityIdentifier is modelled in the EU DPP CO IDENT module.",
+      "domain": [
+        "https://w3id.org/eudpp#Facility"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#FacilityIdentifier"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasUniqueOperatorIdentifier",
+      "localName": "hasUniqueOperatorIdentifier",
+      "label": "Has unique operator identifier",
+      "comment": "Linking an Actor to their unique operator identifier. \nActor is modelled in the EU DPP CO ACTOR module.\nActorIdentifier is modelled in the EU DPP CO IDENT module.",
+      "domain": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ActorIdentifier"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasUniqueProductIdentifier",
+      "localName": "hasUniqueProductIdentifier",
+      "label": "Has unique product identifier",
+      "comment": "Realisation of the uniqueProductIdentifier.\n\nProduct is modelled in the EU DPP CO P_DPP module.\nProductIdentifier is modelled in the EU DPP CO IDENT module.",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ProductIdentifier"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasUnit",
+      "localName": "hasUnit",
+      "label": "hasUnit",
+      "comment": "",
+      "domain": [
+        "https://w3id.org/eudpp#LcaResult"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#hasUnitOfMeasure",
+      "localName": "hasUnitOfMeasure",
+      "label": "has unit of measure",
+      "comment": "Specifies the unit of measure associated with a quantity value in a quantity element.",
+      "domain": [
+        "https://w3id.org/eudpp#QuantityElement"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "Adapted from GS1 EPCIS quantity semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#identifierExampleValue",
+      "localName": "identifierExampleValue",
+      "label": "Identifier example value",
+      "comment": "Example value of the identifier",
+      "domain": [
+        "https://w3id.org/eudpp#IdentifierScheme"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#identifierExpiresOn",
+      "localName": "identifierExpiresOn",
+      "label": "Identifier expires on",
+      "comment": "",
+      "domain": [
+        "https://w3id.org/eudpp#Identifier"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#identifierIssuedOn",
+      "localName": "identifierIssuedOn",
+      "label": "Identifier issued on",
+      "comment": "",
+      "domain": [
+        "https://w3id.org/eudpp#Identifier"
+      ],
+      "range": [
+        "xsd:date"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#identifierMaxLength",
+      "localName": "identifierMaxLength",
+      "label": "Identifier maximum length",
+      "comment": "Maximum length of the identifier",
+      "domain": [
+        "https://w3id.org/eudpp#IdentifierScheme"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#identifierMinLength",
+      "localName": "identifierMinLength",
+      "label": "Identifier minimum length",
+      "comment": "Minimum length of the identifier",
+      "domain": [
+        "https://w3id.org/eudpp#IdentifierScheme"
+      ],
+      "range": [
+        "xsd:integer"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#identifierPattern",
+      "localName": "identifierPattern",
+      "label": "Identifier pattern",
+      "comment": "A pattern the identifier conforms to, given as a regular expression (regex).",
+      "domain": [
+        "https://w3id.org/eudpp#IdentifierScheme"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#identifierSchemeIssuer",
+      "localName": "identifierSchemeIssuer",
+      "label": "Identifier scheme issuer",
+      "comment": "Issuer of the identifier scheme",
+      "domain": [
+        "https://w3id.org/eudpp#IdentifierScheme"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#identifierSchemeVersion",
+      "localName": "identifierSchemeVersion",
+      "label": "Identifier scheme version",
+      "comment": "Reference standard version the instance schema refers to",
+      "domain": [
+        "https://w3id.org/eudpp#IdentifierScheme"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#identifierValue",
+      "localName": "identifierValue",
+      "label": "Identifier value",
+      "comment": "The (unique) value of the identifier.",
+      "domain": [
+        "https://w3id.org/eudpp#Identifier"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#imposedByMethod",
+      "localName": "imposedByMethod",
+      "label": "imposedByMethod",
+      "comment": ""
+    },
+    {
+      "id": "https://w3id.org/eudpp#imposesIC",
+      "localName": "imposesIC",
+      "label": "imposesIC",
+      "comment": "",
+      "domain": [
+        "https://w3id.org/eudpp#Methodology"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ImpactCategory"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#includedInMethodology",
+      "localName": "includedInMethodology",
+      "label": "includedInMethodology",
+      "comment": ""
+    },
+    {
+      "id": "https://w3id.org/eudpp#includesMethod",
+      "localName": "includesMethod",
+      "label": "includesMethod",
+      "comment": "",
+      "domain": [
+        "https://w3id.org/eudpp#Methodology"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Method"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#inContextOfActivity",
+      "localName": "inContextOfActivity",
+      "label": "In context of activity",
+      "comment": "Relates the actor role assignment to a specific lifecycle activity, such as a repair or recycling event (from the Event module).\n        \nActorRoleAssignment is modelled in the EU DPP CO ACTOR module.\nEvent is modelled in the EU DPP CO EVENT module.\n        ",
+      "domain": [
+        "https://w3id.org/eudpp#ActorRoleAssignment"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Event"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#inContextOfDPP",
+      "localName": "inContextOfDPP",
+      "label": "In context of DPP",
+      "comment": "Relates the actor role assignment to a specific Digital Product Passport instance (from P_DPP module).\n\nActorRoleAssignment is modelled in the EU DPP CO ACTOR module.\nDPP is modelled in the EU DPP CO P_DPP module.\n        ",
+      "domain": [
+        "https://w3id.org/eudpp#ActorRoleAssignment"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#DPP"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#inContextOfProduct",
+      "localName": "inContextOfProduct",
+      "label": "In context of product",
+      "comment": "Relates the actor role assignment to a specific product (from P_DPP module).\n\nActorRoleAssignment is modelled in the EU DPP CO ACTOR module.\nProduct is modelled in the EU DPP CO P_DPP module.",
+      "domain": [
+        "https://w3id.org/eudpp#ActorRoleAssignment"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Product"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#instanceIdentifierValue",
+      "localName": "instanceIdentifierValue",
+      "label": "instance identifier value",
+      "comment": "The identifier value used in the event context, such as an EPC, SGTIN, SSCC, GTIN, or similar identifier expressed as a URI.",
+      "domain": [
+        "https://w3id.org/eudpp#InstanceIdentifier"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "Defined for the EU DPP Core Ontology Event module following EPCIS instance-level identification semantics."
+    },
+    {
+      "id": "https://w3id.org/eudpp#isAssessedByICI",
+      "localName": "isAssessedByICI",
+      "label": "isAssessedByICI",
+      "comment": ""
+    },
+    {
+      "id": "https://w3id.org/eudpp#isComponentOf",
+      "localName": "isComponentOf",
+      "label": "Is component of",
+      "comment": "A product is a component of another product.\n\n‘component’ means a product intended to be incorporated into another product; [ESPR Art 2(2)]",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#isConformWith",
+      "localName": "isConformWith",
+      "label": "Is conform with",
+      "comment": "Specifies Union Harminised Lagislation for which conformity of the product is stated.",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#isConnectedTo",
+      "localName": "isConnectedTo",
+      "label": "Is connected to",
+      "comment": "A DPP is connected to a facility.\n\nDPP is modelled in the EU DPP CO P_DPP module.\nFacility is modelled in the EU DPP CO ACTOR module.",
+      "domain": [
+        "https://w3id.org/eudpp#DPP"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Facility"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#isCriticalRawMaterial",
+      "localName": "isCriticalRawMaterial",
+      "label": "Critical raw material",
+      "comment": "Product parameters: use or content of recycled materials and recovery of materials, including critical raw materials; [ESPR Annex I h)]",
+      "domain": [
+        "https://w3id.org/eudpp#MaterialOfComposition"
+      ],
+      "range": [
+        "xsd:boolean"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#isEnergyRelated",
+      "localName": "isEnergyRelated",
+      "label": "Is energy related Product",
+      "comment": "Energy related product\nmeans any product that has an impact on energy consumption during use. (ESPR Art 2 (4)).\n\nThe boolean data type property indicates is a Product energy related or not?",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "xsd:boolean"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#isEstablishedIn",
+      "localName": "isEstablishedIn",
+      "label": "Is established in",
+      "comment": "Relates a legal person to the location where it is established.",
+      "domain": [
+        "https://w3id.org/eudpp#LegalPerson"
+      ],
+      "range": [
+        "http://purl.org/dc/terms#Location"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#isIssuedBy",
+      "localName": "isIssuedBy",
+      "label": "Issued by",
+      "comment": "Specifies the natural or legal person issuing the Declaration of Conformity; ESPR Annex V, paragraph 3 requirement: \"This declaration of conformity is issued under the sole responsibility of the manufacturer:\"\n\n\nEUDeclarationOfConformity is modelled in the EU DPP CO COMP module.\nActor is modelled in the EU DPP CO ACTOR module.",
+      "domain": [
+        "https://w3id.org/eudpp#EUDeclarationOfConformity"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj/#anx_%C2%A0V"
+    },
+    {
+      "id": "https://w3id.org/eudpp#isNotifiedFor",
+      "localName": "isNotifiedFor",
+      "label": "Is notified for",
+      "comment": "Specifies the conformity assessment activities, the conformity assessment module or modules and product or products concerned and the relevant attestation of competence\t\n\nUnionHarmonisationLegislation is modelled in the EU DPP CO COMP module.\nActor is modelled in the EU DPP CO ACTOR module.",
+      "domain": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#UnionHarmonisationLegislation"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dec/2008/768(1)/oj#anx_I"
+    },
+    {
+      "id": "https://w3id.org/eudpp#isRecordedAs",
+      "localName": "isRecordedAs",
+      "label": "is recorded as",
+      "comment": "Links a DPP event to a technical audit record representing its registration in an information system or audit trail.",
+      "domain": [
+        "https://w3id.org/eudpp#DPPEvent"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#DPPEventRecord"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#isRepresentedByCarrier",
+      "localName": "isRepresentedByCarrier",
+      "label": "is represented by carrier",
+      "comment": "Links a product event concept to an EPCIS-inspired technical event carrier used to journalise and structure the corresponding event data.",
+      "domain": [
+        "https://w3id.org/eudpp#ProductEvent"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#EPCISCarrier"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#isResidingIn",
+      "localName": "isResidingIn",
+      "label": "Is residing in",
+      "comment": "Relates a natural person to the location where they reside.",
+      "domain": [
+        "https://w3id.org/eudpp#NaturalPerson"
+      ],
+      "range": [
+        "http://purl.org/dc/terms#Location"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#isRoleOf",
+      "localName": "isRoleOf",
+      "label": "Is role of",
+      "comment": "Relates role to an actor role assignment.",
+      "domain": [
+        "https://w3id.org/eudpp#Role"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ActorRoleAssignment"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#isSignedBy",
+      "localName": "isSignedBy",
+      "label": "Is signed by",
+      "comment": "Specifies the natural or legal person signying the Declaration of Conformity.\n\n\nEUDeclarationOfConformity is modelled in the EU DPP CO COMP module.\nActor is modelled in the EU DPP CO ACTOR module.",
+      "domain": [
+        "https://w3id.org/eudpp#EUDeclarationOfConformity"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj/#anx_%C2%A0V"
+    },
+    {
+      "id": "https://w3id.org/eudpp#isSparePartOf",
+      "localName": "isSparePartOf",
+      "label": "Is spare part of",
+      "comment": "A product is a spare part of another product.",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#issuesCertificate",
+      "localName": "issuesCertificate",
+      "label": "Issues certificate",
+      "comment": "Specifies conformity assessment certificate issued for a certification.\n\n\nConformityCertificate is modelled in the EU DPP CO COMP module.\nActor is modelled in the EU DPP CO ACTOR module.",
+      "domain": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ConformityCertificate"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj/#anx_%C2%A0V"
+    },
+    {
+      "id": "https://w3id.org/eudpp#isTriggeredByProductEvent",
+      "localName": "isTriggeredByProductEvent",
+      "label": "is triggered by product event",
+      "comment": "Links a DPP event to the product event that caused or required it. This property is used when the DPP event results from a lifecycle change affecting the product.",
+      "domain": [
+        "https://w3id.org/eudpp#DPPEvent"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ProductEvent"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#isUsedByActor",
+      "localName": "isUsedByActor",
+      "label": "Is used by actor",
+      "comment": "Relates a facility to an actor.",
+      "domain": [
+        "https://w3id.org/eudpp#Facility"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Actor"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#lastUpdate",
+      "localName": "lastUpdate",
+      "label": "Last update",
+      "comment": "The date and time of the latest update to the DPP instance.",
+      "domain": [
+        "https://w3id.org/eudpp#DPP"
+      ],
+      "range": [
+        "xsd:dateTimeStamp"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#linkToPreviousDPP",
+      "localName": "linkToPreviousDPP",
+      "label": "Link to previous DPP",
+      "comment": "Where a new digital product passport is created for a product that already has a digital product passport, the new digital product passport shall be linked to the original digital product passport or passports. (ESPR Art 11 (d))",
+      "domain": [
+        "https://w3id.org/eudpp#DPP"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#materialComponent",
+      "localName": "materialComponent",
+      "label": "Part of product material is in",
+      "comment": "The specific part of the Product this material belongs to. Description. \nFor example, in case of a textile product: [Main, Lining, Filling].",
+      "domain": [
+        "https://w3id.org/eudpp#MaterialOfComposition"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#materialIsRecyclable",
+      "localName": "materialIsRecyclable",
+      "label": "Recyclable material",
+      "comment": "Product parameters: design for recycling, ease and quality of recycling as expressed through use of easily recyclable materials [ESPR Art 5 (1n), Annex I d)]",
+      "domain": [
+        "https://w3id.org/eudpp#MaterialOfComposition"
+      ],
+      "range": [
+        "xsd:boolean"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#materialIsSustainableRenewable",
+      "localName": "materialIsSustainableRenewable",
+      "label": "Sustainale or renewable material",
+      "comment": "Product parameters: use or content of sustainable renewable materials; [ESPR Annex I i)]",
+      "domain": [
+        "https://w3id.org/eudpp#MaterialOfComposition"
+      ],
+      "range": [
+        "xsd:boolean"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#materialPercentage",
+      "localName": "materialPercentage",
+      "label": "Material percentage",
+      "comment": "Material percentage in a Product, e.g., mass fraction (percentage by weight).",
+      "domain": [
+        "https://w3id.org/eudpp#MaterialOfComposition"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#materialRecycledContent",
+      "localName": "materialRecycledContent",
+      "label": "Recycled content amount in material",
+      "comment": "Percentage of recycled content",
+      "domain": [
+        "https://w3id.org/eudpp#MaterialOfComposition"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#nameCAS",
+      "localName": "nameCAS",
+      "label": "CAS name",
+      "comment": "The Chemical Abstract Service (CAS) name, if available; [ESPR Article 7(5)]",
+      "domain": [
+        "https://w3id.org/eudpp#SubstanceOfConcern"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#nameIUPAC",
+      "localName": "nameIUPAC",
+      "label": "IUPAC name",
+      "comment": "Name in the International Union of Pure and Applied Chemistry (IUPAC) nomenclature, or another international name when IUPAC name is not available [ESPR Article 7(5)]",
+      "domain": [
+        "https://w3id.org/eudpp#SubstanceOfConcern"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#numberCAS",
+      "localName": "numberCAS",
+      "label": "CAS number",
+      "comment": "The Chemical Abstract Service (CAS) number, if available; [ESPR Article 7(5)]",
+      "domain": [
+        "https://w3id.org/eudpp#SubstanceOfConcern"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#numberEC",
+      "localName": "numberEC",
+      "label": "EC number",
+      "comment": "EXAMPLES:\n\nMercurous Oxide\nEC Number: 239-934-0\nCAS Number: 15829-53-5",
+      "domain": [
+        "https://w3id.org/eudpp#SubstanceOfConcern"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#numericalValue",
+      "localName": "numericalValue",
+      "label": "Numerical value",
+      "comment": "The numerical value of the quantity, i.e., quantitative property of the product.",
+      "domain": [
+        "https://w3id.org/eudpp#QuantitativeProperty"
+      ],
+      "range": [
+        "xsd:decimal"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#otherName",
+      "localName": "otherName",
+      "label": "Other names",
+      "comment": "Other names, including usual name, trade name, abbreviation; [ESPR Article 7(5)]",
+      "domain": [
+        "https://w3id.org/eudpp#SubstanceOfConcern"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#performedAssessmentAccordingTo",
+      "localName": "performedAssessmentAccordingTo",
+      "label": "Performed assessment according to",
+      "comment": "Specifies conformity assess procedure/cerfication scheme performed by the notified body.\n\n\nConformityAssessmentModule is modelled in the EU DPP CO COMP module.\nActor is modelled in the EU DPP CO ACTOR module.",
+      "domain": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ConformityAssessmentModule"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj/#anx_%C2%A0V"
+    },
+    {
+      "id": "https://w3id.org/eudpp#productImage",
+      "localName": "productImage",
+      "label": "Product image",
+      "comment": "An image of the product.",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#productName",
+      "localName": "productName",
+      "label": "Product name",
+      "comment": "Product name",
+      "domain": [
+        "https://w3id.org/eudpp#Product"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#quantifiedByCF",
+      "localName": "quantifiedByCF",
+      "label": "quantifiedByCF",
+      "comment": ""
+    },
+    {
+      "id": "https://w3id.org/eudpp#quantifiesICI",
+      "localName": "quantifiesICI",
+      "label": "quantifiesICI",
+      "comment": "",
+      "domain": [
+        "https://w3id.org/eudpp#CharacterizationFactor"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#ImpactCategoryIndicator"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#recordedAt",
+      "localName": "recordedAt",
+      "label": "recorded at",
+      "comment": "The date and time at which the event was recorded by the repository or information system.",
+      "domain": [
+        "https://w3id.org/eudpp#EPCISCarrier"
+      ],
+      "range": [
+        "xsd:dateTime"
+      ],
+      "source": "GS1 EPCIS 2.0; record time semantics adapted for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#recordedBy",
+      "localName": "recordedBy",
+      "label": "Recorded by",
+      "comment": "Links a DPP event record to the actor that created the technical record of the logged DPP-side event.\n\nDPPEventRecord is modelled in the EU DPP CO EVENT module.\nActor is modelled in the EU DPP CO ACTOR module.",
+      "domain": [
+        "http://purl.org/eudpp#DPPEventRecord"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Actor"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#recordedInSystem",
+      "localName": "recordedInSystem",
+      "label": "recorded in system",
+      "comment": "Indicates the URI identifying the system, application, or audit log in which the DPP event record is maintained.",
+      "domain": [
+        "https://w3id.org/eudpp#DPPEventRecord"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#recordedInSystemName",
+      "localName": "recordedInSystemName",
+      "label": "recorded in system name",
+      "comment": "Indicates the human-readable name of the system, application, or audit log in which the DPP event record is maintained.",
+      "domain": [
+        "https://w3id.org/eudpp#DPPEventRecord"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#recordsDPPEvent",
+      "localName": "recordsDPPEvent",
+      "label": "records DPP event",
+      "comment": "Links a DPP event record to the DPP event whose technical registration it captures.",
+      "domain": [
+        "https://w3id.org/eudpp#DPPEventRecord"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#DPPEvent"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#registeredTrademark",
+      "localName": "registeredTrademark",
+      "label": "Registered trademark",
+      "comment": "A trademark officially registered and owned by an actor.",
+      "domain": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#registeredTradeName",
+      "localName": "registeredTradeName",
+      "label": "Registered trade name",
+      "comment": "Trade name under which a legal person or business operates and is registered.",
+      "domain": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#representsManufacturer",
+      "localName": "representsManufacturer",
+      "label": "Represents manufacturer",
+      "comment": "Used when the role is authorisedRepresentativeRole to indicate the manufacturer being represented.",
+      "domain": [
+        "https://w3id.org/eudpp#AuthorisedRepresentativeRoleAssignment"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Actor"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#representsManufacturerForProduct",
+      "localName": "representsManufacturerForProduct",
+      "label": "Represents manufacturer for product",
+      "comment": "Indicates which product(s) the authorised representative's mandate covers.\n\nAuthorisedRepresentativeRoleAssignment is modelled in the EU DPP CO ACTOR module.\nProduct is modelled in the EU DPP CO P_DPP module.",
+      "domain": [
+        "https://w3id.org/eudpp#AuthorisedRepresentativeRoleAssignment"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Product"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#substanceLocation",
+      "localName": "substanceLocation",
+      "label": "Location of substance",
+      "comment": "Location of the substance in the product; ESPR Art 7(5)",
+      "domain": [
+        "https://w3id.org/eudpp#SubstanceOfConcern"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781/oj"
+    },
+    {
+      "id": "https://w3id.org/eudpp#tolerance",
+      "localName": "tolerance",
+      "label": "Tolerance",
+      "comment": "Engineering tolerance is the permissible variation in measurements deriving from the base measurement.\nTolerances can apply to many different units.",
+      "domain": [
+        "https://w3id.org/eudpp#QuantitativeProperty"
+      ],
+      "range": [
+        "xsd:double"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#tradeName",
+      "localName": "tradeName",
+      "label": "Trade name",
+      "comment": "The trade name under which the Substance of Concern is known; [ESPR Article 7(5)]",
+      "domain": [
+        "https://w3id.org/eudpp#SubstanceOfConcern"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#transformationIdentifier",
+      "localName": "transformationIdentifier",
+      "label": "transformation identifier",
+      "comment": "Specifies the identifier of a transformation used to correlate one or more TransformationEvents that describe the same transformation.",
+      "domain": [
+        "https://w3id.org/eudpp#Transformation"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "Adapted from GS1 EPCIS and CBV transformationID semantics for the Event module."
+    },
+    {
+      "id": "https://w3id.org/eudpp#triggersDPPEvent",
+      "localName": "triggersDPPEvent",
+      "label": "triggers DPP event",
+      "comment": "Links a product event to a DPP event that is triggered as a consequence of it, reflecting the obligation to update the DPP following lifecycle changes of the product.",
+      "domain": [
+        "https://w3id.org/eudpp#ProductEvent"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#DPPEvent"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#usedForPresumptionOfConformity",
+      "localName": "usedForPresumptionOfConformity",
+      "label": "used for presumtion of conformity",
+      "comment": "This property specifies which harmonised standards (or parts thereof) was used to assess conformity with the Union harmonistation legislation.",
+      "domain": [
+        "https://w3id.org/eudpp#ProductRequirement"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#UnionHarmonisationLegislation"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/dec/2008/768(1)/oj#anx_I\t\r\nDecision No 768/2008/EC Annex I Art R8"
+    },
+    {
+      "id": "https://w3id.org/eudpp#usedInMethod",
+      "localName": "usedInMethod",
+      "label": "usedInMethod",
+      "comment": ""
+    },
+    {
+      "id": "https://w3id.org/eudpp#usesCM",
+      "localName": "usesCM",
+      "label": "usesCM",
+      "comment": "",
+      "domain": [
+        "https://w3id.org/eudpp#Method"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#CharacterizationModel"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#usesFacility",
+      "localName": "usesFacility",
+      "label": "Uses facility",
+      "comment": "Relates an actor to facility.",
+      "domain": [
+        "https://w3id.org/eudpp#Actor"
+      ],
+      "range": [
+        "https://w3id.org/eudpp#Facility"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#usualName",
+      "localName": "usualName",
+      "label": "Usual name",
+      "comment": "The usual name under which the Substance of Concern is known; [ESPR Article 7(5)]",
+      "domain": [
+        "https://w3id.org/eudpp#SubstanceOfConcern"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#validFrom",
+      "localName": "validFrom",
+      "label": "Valid from",
+      "comment": "The date and timestamp that the DPP is valid from.",
+      "domain": [
+        "https://w3id.org/eudpp#DPP"
+      ],
+      "range": [
+        "xsd:dateTimeStamp"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#validUntil",
+      "localName": "validUntil",
+      "label": "Valid until",
+      "comment": "The date and timestamp that the DPP is valid until.",
+      "domain": [
+        "https://w3id.org/eudpp#DPP"
+      ],
+      "range": [
+        "xsd:dateTimeStamp"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#value",
+      "localName": "value",
+      "label": "Value related to the document",
+      "comment": "Contains the data of the value encapsulated in the Document.\n\nValue is xsd:string that is formatted as a URL,  where to fetch the file.",
+      "domain": [
+        "https://w3id.org/eudpp#DocumentFormattedProperty"
+      ],
+      "range": [
+        "xsd:string"
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#webLink",
+      "localName": "webLink",
+      "label": "Weblink",
+      "comment": "Web link to an instruction document or video etc.",
+      "domain": [
+        "https://w3id.org/eudpp#DigitalInstruction"
+      ],
+      "range": [
+        "xsd:anyURI"
+      ]
+    }
+  ],
+  "enumerations": [
+    {
+      "id": "https://w3id.org/eudpp#ActionType",
+      "localName": "ActionType",
+      "label": "Action Type",
+      "comment": "Specifies the business action associated with an event carrier, indicating how the event relates to the lifecycle of the involved objects.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#ADD",
+          "localName": "ADD",
+          "label": "ADD",
+          "comment": "Indicates that objects are being added to the context of the event, such as being commissioned or aggregated."
+        },
+        {
+          "id": "https://w3id.org/eudpp#DELETE",
+          "localName": "DELETE",
+          "label": "DELETE",
+          "comment": "Indicates that objects are removed from the context of the event, such as being decommissioned or disaggregated."
+        },
+        {
+          "id": "https://w3id.org/eudpp#OBSERVE",
+          "localName": "OBSERVE",
+          "label": "OBSERVE",
+          "comment": "Indicates that objects are observed in the event context without changing their lifecycle state."
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#ActorIdentifierScheme",
+      "localName": "ActorIdentifierScheme",
+      "label": "Actor identifier scheme",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#GLN",
+          "localName": "GLN",
+          "label": "GLN",
+          "comment": "A globally unique identifier defined by GS1 used to identify legal entities, functional entities, and physical locations within business and supply chain processes.\n\nTypically identifies: legal entities, functional entities (departments), physical locations (warehouses, sites)."
+        },
+        {
+          "id": "https://w3id.org/eudpp#LEI",
+          "localName": "LEI",
+          "label": "LEI",
+          "comment": "A Legal Entity Identifier (LEI) is a globally unique 20-character alphanumeric code that identifies legally distinct entities participating in financial transactions, as defined by ISO 17442.\n\nA 20‑character code used globally for financial and regulatory reporting.\nRequired for companies involved in financial transactions.\nUsed by regulators, banks, customs, and some trade systems."
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#AuthorityRole",
+      "localName": "AuthorityRole",
+      "label": "Authority role",
+      "comment": "Parent class for roles of authorities, such as market surveillance authority, customs authority, etc.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#customsAuthority",
+          "localName": "customsAuthority",
+          "label": "Customs Authority",
+          "comment": "Customs authorities means  customs authorities as defined in point 1 of Article 5 of Regulation (EU) No 952/2013; [Regulation (EU) 2019/1020, Art 3 (24)]"
+        },
+        {
+          "id": "https://w3id.org/eudpp#marketSurveillanceAuthority",
+          "localName": "marketSurveillanceAuthority",
+          "label": "Market Surveillance Authority",
+          "comment": "Market surveillance authority means an authority designated by a Member State under Article 10 as responsible for carrying out market surveillance in the territory of that Member State; [Regulation (EU) 2019/1020 Art 3 (4)]"
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#BusinessStep",
+      "localName": "BusinessStep",
+      "label": "Business Step",
+      "comment": "A classification indicating the immediate business context of an EPCIS-inspired event.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#commissioning",
+          "localName": "commissioning",
+          "label": "commissioning",
+          "comment": "Indicates that the event corresponds to the creation or initial introduction of objects into the system."
+        },
+        {
+          "id": "https://w3id.org/eudpp#destroying",
+          "localName": "destroying",
+          "label": "destroying",
+          "comment": "Indicates that the event corresponds to the destruction of objects."
+        },
+        {
+          "id": "https://w3id.org/eudpp#inspecting",
+          "localName": "inspecting",
+          "label": "inspecting",
+          "comment": "Indicates that the event corresponds to inspecting objects for quality or compliance."
+        },
+        {
+          "id": "https://w3id.org/eudpp#loading",
+          "localName": "loading",
+          "label": "loading",
+          "comment": "Indicates that the event corresponds to loading objects onto a transport or container."
+        },
+        {
+          "id": "https://w3id.org/eudpp#other",
+          "localName": "other",
+          "label": "other",
+          "comment": "Indicates that the event corresponds to a business step not explicitly covered by the predefined categories."
+        },
+        {
+          "id": "https://w3id.org/eudpp#packing",
+          "localName": "packing",
+          "label": "packing",
+          "comment": "Indicates that the event corresponds to packing objects into a container or packaging hierarchy."
+        },
+        {
+          "id": "https://w3id.org/eudpp#receiving",
+          "localName": "receiving",
+          "label": "receiving",
+          "comment": "Indicates that the event corresponds to receiving objects at a location."
+        },
+        {
+          "id": "https://w3id.org/eudpp#repackaging",
+          "localName": "repackaging",
+          "label": "repackaging",
+          "comment": "Indicates that the event corresponds to repackaging objects into new packaging configurations."
+        },
+        {
+          "id": "https://w3id.org/eudpp#repairing",
+          "localName": "repairing",
+          "label": "repairing",
+          "comment": "Indicates that the event corresponds to repairing objects to restore their functionality."
+        },
+        {
+          "id": "https://w3id.org/eudpp#retail_selling",
+          "localName": "retail_selling",
+          "label": "retail selling",
+          "comment": "Indicates that the event corresponds to selling objects to end consumers."
+        },
+        {
+          "id": "https://w3id.org/eudpp#shipping",
+          "localName": "shipping",
+          "label": "shipping",
+          "comment": "Indicates that the event corresponds to shipping objects from one location to another."
+        },
+        {
+          "id": "https://w3id.org/eudpp#stocking",
+          "localName": "stocking",
+          "label": "stocking",
+          "comment": "Indicates that the event corresponds to placing objects into stock or inventory."
+        },
+        {
+          "id": "https://w3id.org/eudpp#storing",
+          "localName": "storing",
+          "label": "storing",
+          "comment": "Indicates that the event corresponds to storing objects at a location."
+        },
+        {
+          "id": "https://w3id.org/eudpp#transporting",
+          "localName": "transporting",
+          "label": "transporting",
+          "comment": "Indicates that the event corresponds to transporting objects between locations."
+        },
+        {
+          "id": "https://w3id.org/eudpp#unloading",
+          "localName": "unloading",
+          "label": "unloading",
+          "comment": "Indicates that the event corresponds to unloading objects from a transport or container."
+        },
+        {
+          "id": "https://w3id.org/eudpp#unpacking",
+          "localName": "unpacking",
+          "label": "unpacking",
+          "comment": "Indicates that the event corresponds to removing objects from a container or packaging hierarchy."
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#CarbonFootprint",
+      "localName": "CarbonFootprint",
+      "label": "Carbon footprint",
+      "comment": "Carbon footprint\nmeans the sum of greenhouse gas emissions and greenhouse gas removals in a product system, expressed as CO equivalents and based on a life cycle assessment using the single impact category\nof climate change. (ESPR Art 2 25))\n\nThis class description needs to be extended/specialised according to the corresponding delegated acts or/and industry standards.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#cf001",
+          "localName": "cf001",
+          "label": "cf001",
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#CharacterizationFactor",
+      "localName": "CharacterizationFactor",
+      "label": "Characterization Factor",
+      "comment": "Also called Impact factors, are factors that quantify the relative impact of different substances within the same category. These factors are used to convert the number of emissions into impact scores for each category. (LCAnet Ontology, SmartACV Project, Version 1.0, 2025)",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#globalWarmingPotentialGwpOverA100YearTimeHorizon",
+          "localName": "globalWarmingPotentialGwpOverA100YearTimeHorizon",
+          "label": "Global warming potential (GWP) over a 100-year time horizon",
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#CharacterizationModel",
+      "localName": "CharacterizationModel",
+      "label": "Characterization Model",
+      "comment": "A characterization model provides a mathematical framework, as a set of equations, to quantify an impact category based on the chosen method. A characterization model is used by a method. (LCAnet Ontology, SmartACV Project, Version 1.0, 2025) \nExample: IPCC (2021) AR6.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#accumulatedExceedance",
+          "localName": "accumulatedExceedance",
+          "label": "Accumulated Exceedance",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#availableWaterRemainingModel",
+          "localName": "availableWaterRemainingModel",
+          "label": "Available WAter REmaining (AWARE) model",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#basedOnUSEtox2.1Model",
+          "localName": "basedOnUSEtox2.1Model",
+          "label": "Based on USEtox2.1 model",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#bernModelBasedOnIPCC2021",
+          "localName": "bernModelBasedOnIPCC2021",
+          "label": "Bern model based on IPCC 2021",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#cml2002MethodV.4.8",
+          "localName": "cml2002MethodV.4.8",
+          "label": "CML 2002 method, v.4.8",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#edipModel",
+          "localName": "edipModel",
+          "label": "EDIP model",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#eutrendModel",
+          "localName": "eutrendModel",
+          "label": "EUTREND model",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#humanHealthEffectModel",
+          "localName": "humanHealthEffectModel",
+          "label": "Human health effect model",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#lancaModel",
+          "localName": "lancaModel",
+          "label": "LANCA model",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#LotosEurosModel",
+          "localName": "LotosEurosModel",
+          "label": "LOTOS-EUROS model",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#pmModel",
+          "localName": "pmModel",
+          "label": "PM model",
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#CircularEconomyRole",
+      "localName": "CircularEconomyRole",
+      "label": "Circular economy role",
+      "comment": "Parent class for roles related to circular economy, such as remanufacturer, refurbisher, etc.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#independentOperator",
+          "localName": "independentOperator",
+          "label": "Independent Operator",
+          "comment": "Independent operator means natural or legal person that is independent of the manufacturer and is directly or indirectly involved in the refurbishment, repair, maintenance or repurposing of a product, and includes waste management operators, refurbishers, repairers, manufacturers or distributors of repair equipment, tools or spare parts, as well as publishers of technical information, operators offering inspection and testing services and operators offering training for installers, manufacturers and repairers of equipment; [ESPR Art 2 (47)]"
+        },
+        {
+          "id": "https://w3id.org/eudpp#professionalRepairer",
+          "localName": "professionalRepairer",
+          "label": "Professional Repairer",
+          "comment": "Professional repairer means a natural or legal person that provides professional repair or maintenance services for a product, irrespective of whether that person acts within the manufacturer’s distribution system or independently; [ESPR Art 2 (48)]"
+        },
+        {
+          "id": "https://w3id.org/eudpp#recycler",
+          "localName": "recycler",
+          "label": "Recycler",
+          "comment": "An actor performing recycling, which means \"any recovery operation by which waste materials are reprocessed into products, materials or substances whether for the original or other purposes. It includes the reprocessing of organic material but does not include energy recovery and the reprocessing into materials that are to be used as fuels or for backfilling operations\" [WFD Art 3 (17)]"
+        },
+        {
+          "id": "https://w3id.org/eudpp#refurbisher",
+          "localName": "refurbisher",
+          "label": "Refurbisher",
+          "comment": "An actor performing refurbishment, which means \"actions carried out to prepare, clean, test, service and, where necessary, repair a product or a discarded product in order to restore its performance or functionality within the intended use and range of performance originally conceived at the design stage at the time of the placing of the product on the market.\"; [ESPR Art 2 (18)]"
+        },
+        {
+          "id": "https://w3id.org/eudpp#remanufacturer",
+          "localName": "remanufacturer",
+          "label": "Remanufacturer",
+          "comment": "An actor performing remanufacturing, which means \"actions through which a new product is produced from objects that are waste, products or components and through which at least one change is made that substantially affects the safety, performance, purpose or type of the product\"; [ESPR Art 2 (16)]"
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#ConformityAssessmentModule",
+      "localName": "ConformityAssessmentModule",
+      "label": "Conformity Assessment Module",
+      "comment": "Conformity Assessment module means the possible conformity assessment elements that can be chosen, in accordance with certain criteria, to fullfill the conformity accessement required to be performed by Community harmonisation legislation in respect of a particular product.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#moduleA",
+          "localName": "moduleA",
+          "label": "module A",
+          "comment": "Decision No 768/2008/EC module A\r\n\r\nInternal production control"
+        },
+        {
+          "id": "https://w3id.org/eudpp#moduleA1",
+          "localName": "moduleA1",
+          "label": "module A1",
+          "comment": "Decision No 768/2008/EC module A1.\r\n\r\nInternal production control plus supervised product testing"
+        },
+        {
+          "id": "https://w3id.org/eudpp#moduleA2",
+          "localName": "moduleA2",
+          "label": "module A2",
+          "comment": "Decision No 768/2008/EC module A2\r\n\r\nInternal production control plus supervised product checks at random intervals"
+        },
+        {
+          "id": "https://w3id.org/eudpp#moduleB",
+          "localName": "moduleB",
+          "label": "module B",
+          "comment": "Decision No 768/2008/EC module B\r\n\r\nEC-type examination"
+        },
+        {
+          "id": "https://w3id.org/eudpp#moduleC",
+          "localName": "moduleC",
+          "label": "module C",
+          "comment": "Decision No 768/2008/EC module C\r\n\r\nConformity to type based on internal production control"
+        },
+        {
+          "id": "https://w3id.org/eudpp#moduleC1",
+          "localName": "moduleC1",
+          "label": "module C1",
+          "comment": "Decision No 768/2008/EC module C1\r\n\r\nConformity to type based on internal production control plus supervised product testing"
+        },
+        {
+          "id": "https://w3id.org/eudpp#moduleC2",
+          "localName": "moduleC2",
+          "label": "module C2",
+          "comment": "Decision No 768/2008/EC module C2\r\n\r\nConformity to type based on internal production control plus supervised product checks at random intervals"
+        },
+        {
+          "id": "https://w3id.org/eudpp#moduleD",
+          "localName": "moduleD",
+          "label": "module D",
+          "comment": "Decision No 768/2008/EC module D\r\n\r\nConformity to EU-type based on quality assurance of the production process"
+        },
+        {
+          "id": "https://w3id.org/eudpp#moduleD1",
+          "localName": "moduleD1",
+          "label": "module D1",
+          "comment": "Decision No 768/2008/EC module D1\r\n\r\nQuality assurance of the production process"
+        },
+        {
+          "id": "https://w3id.org/eudpp#moduleE",
+          "localName": "moduleE",
+          "label": "module E",
+          "comment": "Decision No 768/2008/EC module E\r\n\r\nConformity to EU-type based on product quality assurance"
+        },
+        {
+          "id": "https://w3id.org/eudpp#moduleE1",
+          "localName": "moduleE1",
+          "label": "module E1",
+          "comment": "Decision No 768/2008/EC module E1\r\n\r\nQuality assurance of final product inspection and testing"
+        },
+        {
+          "id": "https://w3id.org/eudpp#moduleF",
+          "localName": "moduleF",
+          "label": "module F",
+          "comment": "Decision No 768/2008/EC module F\r\n\r\nConformity to EU-type based on product verification"
+        },
+        {
+          "id": "https://w3id.org/eudpp#moduleF1",
+          "localName": "moduleF1",
+          "label": "module F1",
+          "comment": "Decision No 768/2008/EC module F1\r\n\r\nConformity based on product verification"
+        },
+        {
+          "id": "https://w3id.org/eudpp#moduleG",
+          "localName": "moduleG",
+          "label": "module G",
+          "comment": "Decision No 768/2008/EC module G\r\n\r\nConformity based on unit verification"
+        },
+        {
+          "id": "https://w3id.org/eudpp#moduleH",
+          "localName": "moduleH",
+          "label": "module H",
+          "comment": "Decision No 768/2008/EC moduleH\r\n\r\nConformity based on full quality assurance"
+        },
+        {
+          "id": "https://w3id.org/eudpp#moduleH1",
+          "localName": "moduleH1",
+          "label": "module H1",
+          "comment": "Decision No 768/2008/EC module H1\r\n\r\nConformity based on full quality assurance plus design examination"
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#ConformityAssessmentRole",
+      "localName": "ConformityAssessmentRole",
+      "label": "Conformity assessment role",
+      "comment": "Conformity assessment means the process demonstrating whether the ecodesign requirements set out in the relevant delegated acts adopted pursuant to Article 4 have been fulfilled; [ESPR Art 2 (51)]",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#conformityAssessmentBody",
+          "localName": "conformityAssessmentBody",
+          "label": "Conformity Assessment Body",
+          "comment": "Conformity assessment body means a body that performs conformity assessment activities including calibration, testing, certification and inspection; [ESPR Art 2 (52)]"
+        },
+        {
+          "id": "https://w3id.org/eudpp#notifiedBody",
+          "localName": "notifiedBody",
+          "label": "Notified Body",
+          "comment": "Notified body means a conformity assessment body notified in accordance with Chapter IX.; [ESPR Art 2 (53)]"
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#Disposition",
+      "localName": "Disposition",
+      "label": "Disposition",
+      "comment": "A classification indicating the business state of the object or objects following an EPCIS-inspired event.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#active",
+          "localName": "active",
+          "label": "active",
+          "comment": "Indicates that the object is active and in normal use following the event."
+        },
+        {
+          "id": "https://w3id.org/eudpp#available",
+          "localName": "available",
+          "label": "available",
+          "comment": "Indicates that the object is available for use, sale, or processing following the event."
+        },
+        {
+          "id": "https://w3id.org/eudpp#damaged",
+          "localName": "damaged",
+          "label": "damaged",
+          "comment": "Indicates that the object is damaged following the event."
+        },
+        {
+          "id": "https://w3id.org/eudpp#destroyed",
+          "localName": "destroyed",
+          "label": "destroyed",
+          "comment": "Indicates that the object has been destroyed and is no longer usable."
+        },
+        {
+          "id": "https://w3id.org/eudpp#disposed",
+          "localName": "disposed",
+          "label": "disposed",
+          "comment": "Indicates that the object has been disposed of following the event."
+        },
+        {
+          "id": "https://w3id.org/eudpp#expired",
+          "localName": "expired",
+          "label": "expired",
+          "comment": "Indicates that the object has reached its expiration date."
+        },
+        {
+          "id": "https://w3id.org/eudpp#in_transit",
+          "localName": "in_transit",
+          "label": "in transit",
+          "comment": "Indicates that the object is in transit between locations following the event."
+        },
+        {
+          "id": "https://w3id.org/eudpp#recalled",
+          "localName": "recalled",
+          "label": "recalled",
+          "comment": "Indicates that the object has been recalled from the market or supply chain."
+        },
+        {
+          "id": "https://w3id.org/eudpp#reserved",
+          "localName": "reserved",
+          "label": "reserved",
+          "comment": "Indicates that the object is reserved and not available for general use or sale."
+        },
+        {
+          "id": "https://w3id.org/eudpp#returned",
+          "localName": "returned",
+          "label": "returned",
+          "comment": "Indicates that the object has been returned following the event."
+        },
+        {
+          "id": "https://w3id.org/eudpp#sellable_accessible",
+          "localName": "sellable_accessible",
+          "label": "sellable accessible",
+          "comment": "Indicates that the object is sellable and physically accessible."
+        },
+        {
+          "id": "https://w3id.org/eudpp#sellable_not_accessible",
+          "localName": "sellable_not_accessible",
+          "label": "sellable not accessible",
+          "comment": "Indicates that the object is sellable but not physically accessible."
+        },
+        {
+          "id": "https://w3id.org/eudpp#stolen",
+          "localName": "stolen",
+          "label": "stolen",
+          "comment": "Indicates that the object has been stolen."
+        },
+        {
+          "id": "https://w3id.org/eudpp#unknown",
+          "localName": "unknown",
+          "label": "unknown",
+          "comment": "Indicates that the state of the object is unknown following the event."
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#DPPActionType",
+      "localName": "DPPActionType",
+      "label": "DPP Action Type",
+      "comment": "A classification indicating the type of information-level action performed during a DPP update event.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#AddDPPDataAction",
+          "localName": "AddDPPDataAction",
+          "label": "add data",
+          "comment": "Indicates that new information is added to the Digital Product Passport."
+        },
+        {
+          "id": "https://w3id.org/eudpp#CorrectDPPDataAction",
+          "localName": "CorrectDPPDataAction",
+          "label": "correct data",
+          "comment": "Indicates that erroneous, inconsistent, or incomplete information in the Digital Product Passport is corrected."
+        },
+        {
+          "id": "https://w3id.org/eudpp#DeleteDPPDataAction",
+          "localName": "DeleteDPPDataAction",
+          "label": "delete data",
+          "comment": "Indicates that information is removed from the Digital Product Passport."
+        },
+        {
+          "id": "https://w3id.org/eudpp#ModifyDPPDataAction",
+          "localName": "ModifyDPPDataAction",
+          "label": "modify data",
+          "comment": "Indicates that existing information in the Digital Product Passport is modified."
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#EconomicOperatorRole",
+      "localName": "EconomicOperatorRole",
+      "label": "Economic operator role",
+      "comment": "Economic operator means the manufacturer, the authorised representative, the importer, the distributor, the dealer and the fulfilment service provider; [ESPR Art 2 (46)]",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#authorisedRepresentative",
+          "localName": "authorisedRepresentative",
+          "label": "Authorised Representative",
+          "comment": "Authorised representative means any natural or legal person established in the Union that has received a written mandate from the manufacturer to act on the manufacturer’s behalf in relation to specified tasks with regard to the manufacturer’s obligations under this Regulation; [ESPR Art 2 (43)]"
+        },
+        {
+          "id": "https://w3id.org/eudpp#dealer",
+          "localName": "dealer",
+          "label": "Dealer",
+          "comment": "Dealer means a distributor or any other natural or legal person that offers products for sale, hire or hire purchase, or that displays products, to end users in the course of a commercial activity, including through distance selling; and includes any natural or legal person that puts a product into service in the course of a commercial activity; [ESPR Art 2 (55)]"
+        },
+        {
+          "id": "https://w3id.org/eudpp#distributor",
+          "localName": "distributor",
+          "label": "Distributor",
+          "comment": "Distributor means any natural or legal person in the supply chain, other than the manufacturer or the importer, that makes a product available on the market; [ESPR Art 2 (45)]"
+        },
+        {
+          "id": "https://w3id.org/eudpp#fulfilmentServiceProvider",
+          "localName": "fulfilmentServiceProvider",
+          "label": "Fulfilment Service Provider",
+          "comment": "Fulfilment service provider means any natural or legal person offering, in the course of commercial activity, at least two of the following services: warehousing, packaging, addressing and dispatching, without having ownership of the products involved, excluding postal services as defined in point 1 of Article 2 of Directive 97/67/EC of the European Parliament and of the Council (31), parcel delivery services as defined in point 2 of Article 2 of Regulation (EU) 2018/644 of the European Parliament and of the Council (32), and any other postal services or freight transport services; [Regulation (EU) 2019/1020 Art 3 (11)]."
+        },
+        {
+          "id": "https://w3id.org/eudpp#importer",
+          "localName": "importer",
+          "label": "Importer",
+          "comment": "Importer means any natural or legal person established in the Union that places a product from a third country on the Union market; [ESPR Art 2 (44)]"
+        },
+        {
+          "id": "https://w3id.org/eudpp#manufacturer",
+          "localName": "manufacturer",
+          "label": "Manufacturer",
+          "comment": "Manufacturer means any natural or legal person that manufactures a product or that has a product designed or manufactured and markets that product under their name or trademark; [ESPR Art 2 (42)]"
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#EmissionFlow",
+      "localName": "EmissionFlow",
+      "label": "Emission Flow",
+      "comment": "A type of flow representing substances released to the environment during a product’s life cycle.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#carbonEmission",
+          "localName": "carbonEmission",
+          "label": "carbonEmission",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#methaneEmission",
+          "localName": "methaneEmission",
+          "label": "Methane Emission",
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#EndUserRole",
+      "localName": "EndUserRole",
+      "label": "End user role",
+      "comment": "Parent class for roles of end users, such as consumer, etc.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#consumer",
+          "localName": "consumer",
+          "label": "Consumer",
+          "comment": "Consumer means any natural person who, in relation to contracts covered by Directive (EU) 2019/771, is acting for purposes which are outside that person's trade, business, craft or profession; [Directive (EU) 2019/771, Art 2 (2)]"
+        },
+        {
+          "id": "https://w3id.org/eudpp#customer",
+          "localName": "customer",
+          "label": "Customer",
+          "comment": "Customer means a natural or legal person that purchases, hires or receives a product for their own use whether or not acting for purposes which are outside their trade, business, craft or profession; [ESPR Art 2 (35)]"
+        },
+        {
+          "id": "https://w3id.org/eudpp#endUser",
+          "localName": "endUser",
+          "label": "End User",
+          "comment": "End user means any natural or legal person residing or established in the Union, to whom a product has been made available either as a consumer outside of any trade, business, craft or profession or as a professional end user in the course of its industrial or professional activities; [Regulation (EU) 2019/1020  Art 3 (21)]"
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#EnergyFlow",
+      "localName": "EnergyFlow",
+      "label": "EnergyFlow",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#fossil",
+          "localName": "fossil",
+          "label": "fossil",
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#FlowResult",
+      "localName": "FlowResult",
+      "label": "Flow result",
+      "comment": "A type of LCAResult that quantifies the flows of materials, energy, or emissions associated with a product",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#resourceUseMineralsAndMetals",
+          "localName": "resourceUseMineralsAndMetals",
+          "label": "Resource use, minerals and metals",
+          "comment": "Measures the amount of mineral and metal resources consumed by a product system. Represented as FlowResult of type MineralsAndMetalsFlow. Can be used to calculate the MaterialFootprint."
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#FossilEnergyFootprint",
+      "localName": "FossilEnergyFootprint",
+      "label": "Fossil Energy Footprint",
+      "comment": "Quantifies the consumption of fossil energy (coal, oil, natural gas) by a product during its life cycle. It is a specialized EnergyFootprint and a FlowResult with FlowType FossilEnergy.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#resourceUseFossils",
+          "localName": "resourceUseFossils",
+          "label": "Resource use, fossils",
+          "comment": "Measures the amount of fossil resources consumed by a product system, including coal, oil, and natural gas. Represented as FlowResult of type FossilResourceFlow."
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#ImpactCategory",
+      "localName": "ImpactCategory",
+      "label": "Impact Category",
+      "comment": "An impact category represents a specific environmental issue that the LCA aims to assess, such as global warming or ozone depletion. Each category aggregates the effects of different emissions that contribute to the same environmental problem. (LCAnet Ontology, SmartACV Project, Version 1.0, 2025) An impact category is classified as whether is corresponds to environmental impact, social impact, etc.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#acidification",
+          "localName": "acidification",
+          "label": "Acidification",
+          "comment": "Measures the potential of a product system's emissions to cause acidification in ecosystems (soil, water, vegetation), mainly from SO₂, NOx, and NH₃ emissions."
+        },
+        {
+          "id": "https://w3id.org/eudpp#climateChangeTotal",
+          "localName": "climateChangeTotal",
+          "label": "Climate change, total",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#ecotoxicityFreshwater",
+          "localName": "ecotoxicityFreshwater",
+          "label": "Ecotoxicity, freshwater",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#eutrophicationFreshwater",
+          "localName": "eutrophicationFreshwater",
+          "label": "Eutrophication, freshwater",
+          "comment": "Measures potential nutrient enrichment of freshwater ecosystems due to emissions of N and P compounds, causing effects such as algal blooms."
+        },
+        {
+          "id": "https://w3id.org/eudpp#eutrophicationMarine",
+          "localName": "eutrophicationMarine",
+          "label": "Eutrophication, marine",
+          "comment": "Measures potential nutrient enrichment of marine ecosystems due to emissions of N and P compounds."
+        },
+        {
+          "id": "https://w3id.org/eudpp#eutrophicationTerrestial",
+          "localName": "eutrophicationTerrestial",
+          "label": "Eutrophication, Terrestial",
+          "comment": "Measures potential nutrient enrichment of terrestrial ecosystems due to nitrogen deposition."
+        },
+        {
+          "id": "https://w3id.org/eudpp#humanToxicityCancer",
+          "localName": "humanToxicityCancer",
+          "label": "Human toxicity, cancer",
+          "comment": "Measures the potential carcinogenic effects of a product system on humans due to chemical emissions."
+        },
+        {
+          "id": "https://w3id.org/eudpp#humanToxicityNonCancer",
+          "localName": "humanToxicityNonCancer",
+          "label": "Human toxicity, non-cancer",
+          "comment": "Measures the potential non-carcinogenic effects of a product system on humans due to chemical emissions."
+        },
+        {
+          "id": "https://w3id.org/eudpp#ionisingRadiationHumanHealth",
+          "localName": "ionisingRadiationHumanHealth",
+          "label": "Ionising radiation, human health",
+          "comment": "Measures the potential human health impact of ionizing radiation due to a product system, including exposure to radioactive substances."
+        },
+        {
+          "id": "https://w3id.org/eudpp#landUseOccupationAndTransformation",
+          "localName": "landUseOccupationAndTransformation",
+          "label": "Land use (occupation and transformation)",
+          "comment": "Measures the potential environmental impact of land occupation and transformation due to a product system, including both the area of land used and its conversion from one type to another."
+        },
+        {
+          "id": "https://w3id.org/eudpp#ozoneDepletion",
+          "localName": "ozoneDepletion",
+          "label": "Ozone depletion",
+          "comment": "Measures the potential reduction of the stratospheric ozone layer caused by emissions of ozone-depleting substances in a product system."
+        },
+        {
+          "id": "https://w3id.org/eudpp#particulateMatter",
+          "localName": "particulateMatter",
+          "label": "Particulate matter",
+          "comment": "Measures the potential human health impacts of fine particulate matter (PM2.5) emitted by a product system, including respiratory and cardiovascular effects."
+        },
+        {
+          "id": "https://w3id.org/eudpp#photochemicalOzoneFormationHumanHealth",
+          "localName": "photochemicalOzoneFormationHumanHealth",
+          "label": "Photochemical ozone formation, human health",
+          "comment": "Measures the potential human health impact of photochemical ozone formation (smog) due to VOCs and NOx emissions from a product system."
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#ImpactCategoryIndicator",
+      "localName": "ImpactCategoryIndicator",
+      "label": "Impact Category Indicator",
+      "comment": "An impact category refers to a specific metric/measurable quantity that is used to quantify an impact category. (LCAnet Ontology, SmartACV Project, Version 1.0, 2025)\nExamples include: Global Warming Potential (GWP) and Ozone Depletion Potential (ODP).",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#abioticResourceDepletionAdpUltimateReserves",
+          "localName": "abioticResourceDepletionAdpUltimateReserves",
+          "label": "Abiotic resource depletion (ADP ultimate reserves)",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#accumulatedExceedanceAE",
+          "localName": "accumulatedExceedanceAE",
+          "label": "Accumulated Exceedance (AE)",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#bioticResourceDepletionFossilFuelsAdpFossil",
+          "localName": "bioticResourceDepletionFossilFuelsAdpFossil",
+          "label": "Biotic resource depletion fossil fuels (ADP-fossil)",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#comparativeToxicUnitForEcosystemsCTUe",
+          "localName": "comparativeToxicUnitForEcosystemsCTUe",
+          "label": "Comparative Toxic Unit for ecosystems (CTUe)",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#comparativeToxicUnitForHumansCTUh",
+          "localName": "comparativeToxicUnitForHumansCTUh",
+          "label": "Comparative Toxic Unit for humans (CTUh)",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#fractionOfNutrientsReachingFreshwaterEndCompartmentP",
+          "localName": "fractionOfNutrientsReachingFreshwaterEndCompartmentP",
+          "label": "Fraction of nutrients reaching freshwater end compartment (P)",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#fractionOfNutrientsReachingMarineEndCompartmentN",
+          "localName": "fractionOfNutrientsReachingMarineEndCompartmentN",
+          "label": "Fraction of nutrients reaching marine end compartment (N)",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#globalWarmingPotentialGWP100",
+          "localName": "globalWarmingPotentialGWP100",
+          "label": "Global Warming Potential (GWP100)",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#humanExposureEfficiencyRelativeToU235",
+          "localName": "humanExposureEfficiencyRelativeToU235",
+          "label": "Human exposure efficiency relative to U235",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#impactOnHumanHealth",
+          "localName": "impactOnHumanHealth",
+          "label": "Impact on human health",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#ozoneDepletionPotentialODP",
+          "localName": "ozoneDepletionPotentialODP",
+          "label": "Ozone Depletion Potential (ODP)",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#soilQualityIndexDimensionless",
+          "localName": "soilQualityIndexDimensionless",
+          "label": "Soil quality index (dimensionless)",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#troposphericOzoneConcentrationIncrease",
+          "localName": "troposphericOzoneConcentrationIncrease",
+          "label": "Tropospheric ozone concentration increase",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#userDeprivationPotentialDeprivationWeightedConsumption",
+          "localName": "userDeprivationPotentialDeprivationWeightedConsumption",
+          "label": "User deprivation potential (deprivation-weighted consumption)",
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#ImpactType",
+      "localName": "ImpactType",
+      "label": "Impact Type",
+      "comment": "A category representing the type of an impact category measured in a life cycle assessment. Each ImpactType classifies ImpactCategories according to the area of concern, such as environmental, social, economic, or human health.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#economicalImpact",
+          "localName": "economicalImpact",
+          "label": "Economical Impact",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#environmentalImpact",
+          "localName": "environmentalImpact",
+          "label": "Environmental Impact",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#healthImpact",
+          "localName": "healthImpact",
+          "label": "Health Impact",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#socialImpact",
+          "localName": "socialImpact",
+          "label": "Social Impact",
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#LegalPerson",
+      "localName": "LegalPerson",
+      "label": "Legal Person",
+      "comment": "A body of persons or an entity (as a corporation) considered as having many of the rights and responsibilities of a natural person and especially the capacity to sue and be sued.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#EuropeanCommission",
+          "localName": "EuropeanCommission",
+          "label": "European Commission",
+          "comment": "The European Commission, abbreviated as EC, is the executive branch of the European Union."
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#LifeCycleStage",
+      "localName": "LifeCycleStage",
+      "label": "Life Cycle Stage",
+      "comment": "A phase in the life cycle of a product, from raw material acquisition through production, use, and end-of-life, in accordance with life cycle concepts defined in ISO 14040 and ISO 14044",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#distribution",
+          "localName": "distribution",
+          "label": "Distribution",
+          "comment": "Stage involving transport and distribution of the product to the market."
+        },
+        {
+          "id": "https://w3id.org/eudpp#endOfLife",
+          "localName": "endOfLife",
+          "label": "End Of Life",
+          "comment": "Stage involving disposal, recycling, or recovery of the product."
+        },
+        {
+          "id": "https://w3id.org/eudpp#manufacturing",
+          "localName": "manufacturing",
+          "label": "Manufacturing",
+          "comment": "Stage involving material processing and product manufacturing."
+        },
+        {
+          "id": "https://w3id.org/eudpp#rawMaterialAcquisition",
+          "localName": "rawMaterialAcquisition",
+          "label": "Raw Material Acquisition",
+          "comment": "Stage involving extraction and acquisition of raw materials."
+        },
+        {
+          "id": "https://w3id.org/eudpp#use",
+          "localName": "use",
+          "label": "Use",
+          "comment": "Stage during which the product is used by the end user."
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#MaterialIdentifierScheme",
+      "localName": "MaterialIdentifierScheme",
+      "label": "Material identifier scheme",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#CAS",
+          "localName": "CAS",
+          "label": "CAS",
+          "comment": "CAS Number (Chemical Abstracts Service)"
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#MaterialOrigin",
+      "localName": "MaterialOrigin",
+      "label": "Origin of material",
+      "comment": "Origin of the material used in product [ESPR Annex I]",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#raw",
+          "localName": "raw",
+          "label": "raw",
+          "comment": "Raw material"
+        },
+        {
+          "id": "https://w3id.org/eudpp#recycled",
+          "localName": "recycled",
+          "label": "recycled",
+          "comment": "Recycled material"
+        },
+        {
+          "id": "https://w3id.org/eudpp#renewable",
+          "localName": "renewable",
+          "label": "renewable",
+          "comment": "Renewable material"
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#ProductIdentifierGranularity",
+      "localName": "ProductIdentifierGranularity",
+      "label": "Product identifier granularity",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#batch",
+          "localName": "batch",
+          "label": "batch",
+          "comment": "According to ESPR Art 9 (2d) the digital product passport is to be established at model, batch or item level, and the definition of such levels is given by delegated acts;"
+        },
+        {
+          "id": "https://w3id.org/eudpp#item",
+          "localName": "item",
+          "label": "item",
+          "comment": "According to ESPR Art 9 (2d) the digital product passport is to be established at model, batch or item level, and the definition of such levels is given by delegated acts;"
+        },
+        {
+          "id": "https://w3id.org/eudpp#model",
+          "localName": "model",
+          "label": "model",
+          "comment": "According to ESPR Art 9 (2d) the digital product passport is to be established at model, batch or item level, and the definition of such levels is given by delegated acts;"
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#ProductIdentifierScheme",
+      "localName": "ProductIdentifierScheme",
+      "label": "Product identifier scheme",
+      "comment": "",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#GTIN",
+          "localName": "GTIN",
+          "label": "GTIN",
+          "comment": "A globally unique identifier for trade items, defined by GS1, used to identify products at various packaging levels."
+        },
+        {
+          "id": "https://w3id.org/eudpp#SKU",
+          "localName": "SKU",
+          "label": "SKU",
+          "comment": "A Stock Keeping Unit (SKU) is an internal identifier assigned by an organization to uniquely identify and track a product, item, or variant within its own inventory and management systems."
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#ResourceFlow",
+      "localName": "ResourceFlow",
+      "label": "Resource Flow",
+      "comment": "A type of flow representing the consumption or use of natural resources throughout a product’s life cycle.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#material",
+          "localName": "material",
+          "label": "Material",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#mineralsAndMetals",
+          "localName": "mineralsAndMetals",
+          "label": "Minerals and Metals",
+          "comment": ""
+        },
+        {
+          "id": "https://w3id.org/eudpp#water",
+          "localName": "water",
+          "label": "Water",
+          "comment": ""
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#Role",
+      "localName": "Role",
+      "label": "Role",
+      "comment": "Role means a set of tasks typically performed by one actor. (e.g. Responsible Economic Operator, Independent operator); [CIRPASS-2 User Stories 3.1]",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#credentialAgency",
+          "localName": "credentialAgency",
+          "label": "Credential Agency",
+          "comment": "A legal person that provides (professional) credentials to parties, which may be used to make and verify a variety of claims in the DPP, (ESPR) Art. 11 last paragraph. For example, a credentials agency could certify a professional repairer and provide appropriate credentials for the DPP system; [CIRPASS-2 User Stories 3.1]"
+        },
+        {
+          "id": "https://w3id.org/eudpp#dppServiceProvider",
+          "localName": "dppServiceProvider",
+          "label": "DPP Service Provider",
+          "comment": "Digital product passport service provider means a natural or legal person that is an independent third-party authorised by the economic operator which places the product on the market or puts it into service and that processes the digital product passport data for that product for the purpose of making such data available to economic operators and other relevant actors with a right to access those data under this Regulation or other Union law; [ESPR Art 2 (32)]"
+        },
+        {
+          "id": "https://w3id.org/eudpp#issuingAgency",
+          "localName": "issuingAgency",
+          "label": "Issuing Agency",
+          "comment": "Issuing agency is a legal persons that provide unique identifiers and data carriers Art 12 (4a). Under specific conditions, economic operators may perform the functions associated with an Issuing Agency; [ESPR Art 12 (4b)]"
+        }
+      ]
+    },
+    {
+      "id": "https://w3id.org/eudpp#WaterFootprint",
+      "localName": "WaterFootprint",
+      "label": "Water Footrpint",
+      "comment": "Quantifies the freshwater consumption associated with a product throughout its life cycle. WaterFootprint is a FlowResult linked to the Water FlowType.",
+      "values": [
+        {
+          "id": "https://w3id.org/eudpp#waterUse",
+          "localName": "waterUse",
+          "label": "Water use",
+          "comment": ""
+        }
+      ]
+    }
+  ]
+}

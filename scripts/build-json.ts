@@ -228,6 +228,17 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ttlFile: "gs1RailVoc.ttl",
     namespace: "https://gs1-epcis-reg.org/rail/voc/data#",
   },
+  // Upstream mirror — CIRPASS-2 EUDPP Core Ontology (Semantic Treehouse /
+  // TalTech). Terms live under the # namespace; the ontology nodes (CORE
+  // umbrella + nine content modules) live under https://w3id.org/eudpp/…,
+  // so ontologyIri points at the CORE node for title/version.
+  {
+    name: "eudpp",
+    dir: "extensions/upstream/cirpass2-eudpp",
+    ttlFile: "eudpp.ttl",
+    namespace: "https://w3id.org/eudpp#",
+    ontologyIri: "https://w3id.org/eudpp/",
+  },
 ];
 
 function getLocalName(uri: string, namespace: string): string {

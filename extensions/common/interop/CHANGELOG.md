@@ -4,6 +4,14 @@ All notable changes to the Interoperability module will be documented in this fi
 
 ## [Unreleased]
 
+### Added
+- The CIRPASS-2 EUDPP Core Ontology is now mirrored as a Layer-2 upstream module
+  ([`extensions/upstream/cirpass2-eudpp/`](../../upstream/cirpass2-eudpp/README.md),
+  upstream v2.0.5) so the alignment documented in
+  [`docs/CIRPASS2_ALIGNMENT.md`](docs/CIRPASS2_ALIGNMENT.md) has a browsable target on
+  ref.openepcis.io. The alignment strategy itself is unchanged: `rdfs:seeAlso` by
+  default, graded SKOS only where audited, no `owl:imports`.
+
 ## [0.9.8] - 2026-07-29
 
 ### Added

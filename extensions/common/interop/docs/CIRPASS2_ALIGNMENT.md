@@ -199,10 +199,19 @@ to.
 
 ## What we do not do
 
-- **Do not vendor CIRPASS-2 TTL.** No `.ttl` files copied into this
-  repository. The Treehouse hub hosts the canonical exports at
-  `https://dpp.vocabulary-hub.eu/api/ontology/-/version/<UUID>/export?format=ttl`.
-  We reference by IRI, not by file copy.
+- **Do not import CIRPASS-2 TTL into the ontology.** No `owl:imports`
+  of the module files, no re-declared classes. The Treehouse hub hosts
+  the canonical exports at
+  `https://dpp.vocabulary-hub.eu/api/ontology/-/version/<UUID>/export?format=ttl`;
+  our ontology references terms by IRI. What *does* exist is an
+  **upstream mirror module**
+  ([`extensions/upstream/cirpass2-eudpp/`](../../../upstream/cirpass2-eudpp/README.md),
+  regenerated with `pnpm run sync:eudpp`) — the same pattern as the
+  GS1 Rail mirror: verbatim merge of the published module exports,
+  upstream IRIs preserved, indexed into the ref.openepcis.io browser
+  so every `eudpp:` term is browsable. Mirroring is for indexing and
+  browsing; the alignment relationship stays seeAlso/SKOS. Upstream
+  license Apache 2.0 (CC BY 4.0 fallback as a document).
 - **Do not import CIRPASS-2 classes into our class hierarchy.** No
   `owl:imports`, no `rdfs:subClassOf` against `cirpass2:`. Our
   ontology stays self-contained.
