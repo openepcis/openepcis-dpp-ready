@@ -68,6 +68,7 @@ public class UpstreamIndex {
     @ConfigProperty(name = "vocab-sync.untp-context") String untpContext;
     @ConfigProperty(name = "vocab-sync.untp-namespace") String untpNamespace;
     @ConfigProperty(name = "vocab-sync.rail-voc") String railVoc;
+    @ConfigProperty(name = "vocab-sync.eudpp-voc") String eudppVoc;
     @ConfigProperty(name = "vocab-sync.batterypass-root") String batterypassRoot;
     @ConfigProperty(name = "vocab-sync.batterypass-ready-vocab") String batterypassReadyVocab;
 
@@ -113,6 +114,7 @@ public class UpstreamIndex {
         if (iri.startsWith("https://dpp-keystone.org/")) return "dppk";
         if (iri.contains("uncefact.org")) return "untp";
         if (iri.startsWith("https://gs1-epcis-reg.org/rail/")) return "rail";
+        if (iri.startsWith("https://w3id.org/eudpp")) return "eudpp";
         if (iri.startsWith("urn:samm:io.BatteryPass")) return "batterypass";
         if (iri.startsWith("https://ref.openepcis.io/vocab/batterypass-ready/")) return "bpr";
         if (iri.startsWith("http://xmlns.com/foaf/")) return "foaf";
@@ -146,6 +148,10 @@ public class UpstreamIndex {
         sources.add(Source.rdf("rail", "https://gs1-epcis-reg.org/rail/voc/data#", root.resolve(railVoc)));
         sources.add(Source.context("rail", "https://gs1-epcis-reg.org/rail/voc/data#", "rail",
                 interop.resolve("rail-bridge-context.jsonld")));
+        // CIRPASS-2 EUDPP: index the full in-repo upstream mirror (Layer-2 community profile),
+        // so our terms can be aligned against the actual eudpp: terms instead of only the
+        // seeAlso pointers already in dpp-core.
+        sources.add(Source.rdf("eudpp", "https://w3id.org/eudpp#", root.resolve(eudppVoc)));
         // BatteryPass: Eclipse ESMF/SAMM aspect models (sibling checkout); index the latest version of
         // each aspect as a discovery source for the battery / circularity / carbon-footprint concepts.
         for (Path aspect : batteryPassAspects()) {
