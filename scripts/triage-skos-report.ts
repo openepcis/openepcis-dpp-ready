@@ -53,6 +53,13 @@ const CARRIERS = new Set([
   "https://ref.gs1.org/voc/value", "https://schema.org/value",
   "https://schema.org/StructuredValue", "https://schema.org/PropertyValueSpecification",
   "https://schema.org/minValue", "https://schema.org/maxValue",
+  // SEMICeu CCCEV value slots — the same serialisation-slot argument as gs1:/schema: value:
+  // hasValue/supportsValue attach a value to an InformationConcept, they carry no meaning of
+  // their own (the electronics panel proposed hasRepairCost/hasSparePartPrice → m8g hasValue).
+  "http://data.europa.eu/m8g/hasValue", "http://data.europa.eu/m8g/supportsValue",
+  // EUDPP's generic product→property attachment slot ("Product has a property that could be a
+  // document or some measurable properties") — the model's serialisation joint, not a concept.
+  "https://w3id.org/eudpp#hasProperty",
 ]);
 
 /**

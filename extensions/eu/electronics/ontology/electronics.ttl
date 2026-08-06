@@ -107,7 +107,8 @@ Total score (0-100) is converted to display score (0-10) for consumer labeling."
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     rdfs:seeAlso oec:RepairabilityInfo ;
     skos:note """Required extension: The French Repairability Index uses a specific 5-criteria methodology
-that is not available in GS1 Web Vocabulary. Links to oec:RepairabilityInfo for base patterns."""@en .
+that is not available in GS1 Web Vocabulary. Links to oec:RepairabilityInfo for base patterns."""@en ;
+    skos:broadMatch <https://w3id.org/eudpp#Durability> .
 
 euelec:RepairCriterion
     a owl:Class ;
@@ -243,7 +244,8 @@ euelec:DisplaySpecification
     rdfs:comment "Display-specific technical specifications for monitors, TVs, and device screens."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
-    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:broadMatch <https://w3id.org/eudpp#TechnicalSpecification> .
 
 # -----------------------------------------------------------------------------
 # Typed QuantitativeValue Subclasses (Electronics-specific)
@@ -1410,7 +1412,8 @@ Links to oec:SubstanceOfConcern for REACH/RoHS substances."""@en ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#isCriticalRawMaterial> ;
     skos:broadMatch gs1:packagingMaterialType ;
-    rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials> .
+    rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials> ;
+    skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#isCriticalRawMaterial> .
 
 euelec:iec62474DslVersion
     a owl:DatatypeProperty ;
@@ -1484,7 +1487,8 @@ which is the figure the WEEE Annex V targets are measured against. No GS1, SEMIC
 class covers treatment output accounting."""@en ;
     rdfs:seeAlso oec:RecyclabilityAssessment ;
     rdfs:seeAlso euelec:WEEECompliance ;
-    skos:closeMatch oec:RecyclabilityAssessment .
+    skos:closeMatch oec:RecyclabilityAssessment ;
+    skos:broadMatch <https://w3id.org/eudpp#LcaResult> .
 
 euelec:BatteryDisposition
     a owl:Class ;

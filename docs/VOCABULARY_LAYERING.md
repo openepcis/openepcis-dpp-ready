@@ -60,6 +60,18 @@ either delete the `oec:` term in favour of the upstream IRI, or anchor
 it via a graded SKOS mapping relation (`skos:exactMatch` / `skos:closeMatch` / `skos:broadMatch`) and prefer the
 upstream IRI in JSON-LD serialisations.
 
+**Naming convention for minted properties:** a project-owned
+`owl:ObjectProperty` — a property whose value is a node, not a literal —
+reads as a relation and is named **`hasXyz`** (`oec:hasBackupCopyHost`,
+`eutex:hasFiberCertification`). The established `is…` (boolean-style
+object references such as `isPartOf` readings) and `…Of` names stay as
+they are; datatype properties keep attribute-style names
+(`oec:passportStatus`, `eubat:casNumber`). Upstream mirrors under
+`extensions/upstream/` are never renamed. The convention converged in the
+2026-08 rename wave (301 properties) and is enforced mechanically:
+`pnpm run check:mappings` rejects a new attribute-named object property
+(rule "object-property-naming").
+
 ## Why three foundational peers, not one
 
 Each of GS1, SEMICeu, and schema.org owns a different slice of the DPP

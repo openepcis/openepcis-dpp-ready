@@ -127,7 +127,8 @@ eubat:BatteryMaterial
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch schema:Substance ;
     skos:exactMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#BatteryMaterialEntity> ;
-    skos:broadMatch oec:MaterialComposition .
+    skos:broadMatch oec:MaterialComposition ;
+    skos:broadMatch <https://w3id.org/eudpp#MaterialOfComposition> .
 
 eubat:RecycledContent
     a owl:Class ;
@@ -139,7 +140,8 @@ eubat:RecycledContent
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:exactMatch oec:RecycledContent ;
-    skos:closeMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#RecycledContentEntity> .
+    skos:closeMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#RecycledContentEntity> ;
+    skos:broadMatch <https://w3id.org/eudpp#RecycledMaterialsUse> .
 
 eubat:EndOfLifeInfo
     a owl:Class ;
@@ -164,7 +166,9 @@ eubat:HazardousSubstance
     skos:broadMatch schema:ChemicalSubstance ;
     rdfs:seeAlso schema:Substance ;
     skos:broadMatch schema:Substance ;
-    rdfs:seeAlso <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-13> .
+    rdfs:seeAlso <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-13> ;
+    skos:broadMatch <https://w3id.org/eudpp#SubstanceOfConcern> ;
+    skos:broadMatch <https://w3id.org/eudpp#Substance> .
 
 eubat:DismantlingDocument
     a owl:Class ;
@@ -175,7 +179,8 @@ eubat:DismantlingDocument
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#DismantlingAndRemovalDocumentation> ;
-    skos:broadMatch schema:DigitalDocument .
+    skos:broadMatch schema:DigitalDocument ;
+    skos:broadMatch <https://w3id.org/eudpp#DocumentFormattedProperty> .
 
 eubat:Label
     a owl:Class ;
@@ -224,7 +229,8 @@ eubat:NegativeEvent
     rdfs:seeAlso cv:Event ;
     skos:broadMatch schema:Event ;
     rdfs:seeAlso <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-69> ;
-    skos:broadMatch cv:Event .
+    skos:broadMatch cv:Event ;
+    skos:broadMatch <https://w3id.org/eudpp#ProductEvent> .
 
 eubat:CarbonFootprintDeclaration
     a owl:Class ;
@@ -242,7 +248,8 @@ Aligned with oec:EmissionsPerformance for core carbon footprint properties."""@e
     rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity> ;
     rdfs:seeAlso <https://w3id.org/eudpp#EnvironmentalFootprint> ;
     rdfs:seeAlso <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-17> ;
-    skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity> .
+    skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity> ;
+    skos:broadMatch <https://w3id.org/eudpp#EnvironmentalFootprint> .
 
 eubat:ThirdPartyVerification
     a owl:Class ;
@@ -1513,7 +1520,8 @@ eubat:ecNumber
     skos:note "Hazardous-substance classification aligned with CLP (EC) 1272/2008, as required by the EU Battery Regulation (EU) 2023/1542."@en ;
     rdfs:seeAlso oec:ecNumber ;
     skos:exactMatch oec:ecNumber ;
-    skos:exactMatch dppk:componentEcNumber .
+    skos:exactMatch dppk:componentEcNumber ;
+    skos:broadMatch <https://w3id.org/eudpp#numberEC> .
 
 eubat:hasComponentLocation
     a owl:ObjectProperty ;
@@ -1635,7 +1643,8 @@ eubat:lithiumRecycledShare
     rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare> ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare> ;
     rdfs:seeAlso <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-21> ;
-    skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare> .
+    skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#preConsumerShare> ;
+    skos:broadMatch <https://w3id.org/eudpp#materialRecycledContent> .
 
 eubat:lithiumPreConsumerShare
     a owl:DatatypeProperty ;
@@ -1682,7 +1691,8 @@ eubat:cobaltRecycledShare
     rdfs:seeAlso <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-20> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#postConsumerShare> ;
     skos:broadMatch dppk:postConsumerRecycledContentPercentage ;
-    skos:broadMatch dppk:postConsumerRecycledContent .
+    skos:broadMatch dppk:postConsumerRecycledContent ;
+    skos:broadMatch <https://w3id.org/eudpp#materialRecycledContent> .
 
 eubat:cobaltPreConsumerShare
     a owl:DatatypeProperty ;
@@ -1743,7 +1753,8 @@ eubat:nickelRecycledShare
     skos:broadMatch dppk:postConsumerRecycledMaterialComposition ;
     skos:broadMatch dppk:preConsumerRecycledContent ;
     skos:broadMatch dppk:preConsumerRecycledMaterialComposition ;
-    skos:broadMatch dppk:preConsumerRecycledContentPercentage .
+    skos:broadMatch dppk:preConsumerRecycledContentPercentage ;
+    skos:broadMatch <https://w3id.org/eudpp#materialRecycledContent> .
 
 eubat:nickelPreConsumerShare
     a owl:DatatypeProperty ;
@@ -1800,7 +1811,8 @@ eubat:leadRecycledShare
     skos:narrowMatch dppk:postConsumerRecycledContent ;
     skos:narrowMatch dppk:preConsumerRecycledContentPercentage ;
     skos:broadMatch untp:recycledMassFraction ;
-    skos:narrowMatch dppk:preConsumerRecycledContent .
+    skos:narrowMatch dppk:preConsumerRecycledContent ;
+    skos:broadMatch <https://w3id.org/eudpp#materialRecycledContent> .
 
 eubat:leadPreConsumerShare
     a owl:DatatypeProperty ;
@@ -2202,7 +2214,8 @@ eubat:hasSubstanceLocation
     skos:exactMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceLocation> ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialLocation> ;
     rdfs:seeAlso schema:location ;
-    rdfs:seeAlso locn:location .
+    rdfs:seeAlso locn:location ;
+    skos:broadMatch <https://w3id.org/eudpp#substanceLocation> .
 
 # =============================================================================
 # PART 10: PROPERTIES - OPERATOR INFORMATION

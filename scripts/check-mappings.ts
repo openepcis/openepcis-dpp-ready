@@ -273,6 +273,27 @@ for (const f of ttlFiles(join(PROJECT_ROOT, "extensions"))) {
       });
     }
 
+    // 12. object-property naming convention. Project-owned object properties read as
+    // relations — hasXyz, or the established is*/…Of readings. The 2026-08 rename wave
+    // converged all of them (301 renamed; datatype properties and upstream mirrors
+    // untouched); this keeps a newly minted class-referencing property from drifting
+    // back to attribute-style naming, which is how the eutex:hasTakeBackProgram
+    // collision originally slipped in.
+    {
+      const px = subj.slice(0, subj.indexOf(":"));
+      const local = subj.slice(subj.indexOf(":") + 1);
+      if (
+        OUR_PREFIXES.has(px) &&
+        /\ba\s[^;.]*\bowl:ObjectProperty\b/.test(block) &&
+        !/^has[A-Z0-9]/.test(local) && !/^is[A-Z0-9]/.test(local) && !/Of$/.test(local)
+      ) {
+        violations.push({
+          file: rel, subject: subj, rule: "object-property-naming",
+          detail: `is an owl:ObjectProperty named like an attribute; project-owned object properties follow the has* convention (is*/…Of stay as established readings) — rename to has${local[0].toUpperCase()}${local.slice(1)} or retype if the range is a literal`,
+        });
+      }
+    }
+
     for (const m of block.matchAll(/skos:(exactMatch|closeMatch|broadMatch|narrowMatch)\s+(<[^>]+>|[A-Za-z]\w*:[\w-]+)/g)) {
       const [_, relName, rawTarget] = m;
       const target = toCurie(rawTarget);

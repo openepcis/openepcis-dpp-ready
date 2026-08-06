@@ -62,6 +62,19 @@ further upstream profiles (e.g. the IDTA AAS submodel templates). Upstream IRIs 
 preserved verbatim; our ontology still references them by IRI, no `owl:imports`.
 Upstream license Apache 2.0 (CC BY 4.0 fallback as a document).
 
+The 2026-08-06/07 vocab-sync rounds then graded the alignment across **all** modules
+against the EUDPP-extended upstream index (4407 terms): 79 panel-confirmed SKOS mappings
+applied — core 30, battery 13, textile 23 (incl. the nine specific EUDPP footprint
+subconcepts under `eutex:EnvironmentalFootprint`), electronics 4, eudr 1, detergent 4,
+ppwr 1, cpr 3, iron-steel 3; fsma204 clean. Twelve panel proposals were declined by a
+curator with reasons in `scripts/skos-deferred.json` (entity-vs-constraint,
+entity-vs-classifier, referent and cross-sector-peer errors), and the triage gained two
+permanent structural-carrier guards (`m8g:hasValue`/`supportsValue`,
+`eudpp:hasProperty`). QA panels ran locally (qwen3-32b); the provenance trail spans all
+rounds. New `check:mappings` rule "object-property-naming" enforces the `has*` object-
+property convention from now on (documented in
+[docs/VOCABULARY_LAYERING.md](docs/VOCABULARY_LAYERING.md)).
+
 ### The official EU battery data-point list becomes a hosted registry
 
 The European Commission's guidance "Digital Batteries Passport — data points by category"

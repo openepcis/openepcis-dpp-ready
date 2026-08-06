@@ -22,6 +22,66 @@
       "reason": "Direction flip rejected: the SAMM recycledContent is also per-material with pre/post-consumer shares, so the two blocks share granularity. Neither broad nor narrow holds; closeMatch would be the honest grade."
     },
     {
+      "ourId": "eucpr:ConstructionProduct",
+      "upstreamIri": "https://dpp-keystone.org/spec/v2/terms#IronSteelProduct",
+      "reason": "Overreach: narrowMatch would claim every iron/steel product is a construction product, but steel also goes into vehicles and appliances. dppk:IronSteelProduct is the Keystone steel-sector class and aligns with eusteel:, not as a subclass of CPR construction products."
+    },
+    {
+      "ourId": "eudet:hasTestMethod",
+      "upstreamIri": "https://w3id.org/eudpp#includesMethod",
+      "reason": "Name-only match: eudpp:includesMethod is LCIA-scoped (domain eudpp:Methodology, range eudpp:Method — EN15804+A2, EF v3.1 method grouping), while ours links a detergent biodegradability test to its test method. Different domains, no subsumption."
+    },
+    {
+      "ourId": "eudet:hasHazardousSubstances",
+      "upstreamIri": "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceClass",
+      "reason": "Composition, not subsumption: ours links a product to its hazardous-substance entries; the SAMM term is the CLP class datum inside one entry. An attribute of the contained thing is not a narrower concept of the containment link. The ungraded seeAlso stands."
+    },
+    {
+      "ourId": "eudet:hasHazardousSubstances",
+      "upstreamIri": "urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceIdentifier",
+      "reason": "Composition, not subsumption: same reasoning as the hazardousSubstanceClass pair — the CAS identifier inside a substance entry is not a narrower concept of the product-to-substances link."
+    },
+    {
+      "ourId": "eudr:TimberProductType",
+      "upstreamIri": "https://w3id.org/eudpp#MaterialType",
+      "reason": "Different classification axes: TimberProductType classifies products (EUDR Annex I categories: sawn wood, plywood, ...), eudpp:MaterialType classifies composition materials ('cotton, nylon' per its own definition). A product category is not a narrower material category — unlike eutex:FiberType, where fibers are materials. The product-group axis is carried by eudr:hasTimberProductType broadMatch eudpp:hasProductGroup."
+    },
+    {
+      "ourId": "euelec:ElectronicDevice",
+      "upstreamIri": "https://dpp-keystone.org/spec/v2/terms#Component",
+      "reason": "DPP Keystone components are cross-sector product parts (the same profile serves iron & steel, EPD and textile), so dppk:Component is not a narrower class of ElectronicDevice; a casing component is no electronic device. The ungraded seeAlso stands."
+    },
+    {
+      "ourId": "euelec:EnergyEfficiency",
+      "upstreamIri": "https://schema.org/EUEnergyEfficiencyEnumeration",
+      "reason": "Level confusion: the schema.org term is the closed A-G code list, ours is the energy-efficiency information entity. A code list and the entity it classifies are not in a subsumption relation in either direction (documented level rule). The ungraded seeAlso stands."
+    },
+    {
+      "ourId": "euelec:WEEECompliance",
+      "upstreamIri": "https://w3id.org/eudpp#UnionHarmonisationLegislation",
+      "reason": "Referent mismatch: ours is the compliance record of a product with WEEE, the EUDPP class is the legislation itself. The WEEE directive as a law would be an individual of the EUDPP class; the compliance record is not a narrower legislation."
+    },
+    {
+      "ourId": "euelec:iec62474DslVersion",
+      "upstreamIri": "https://w3id.org/eudpp#identifierSchemeVersion",
+      "reason": "Referent mismatch: the IEC 62474 declarable-substance-list version is the version of a standard's substance list, not of an identifier scheme (EUDPP IDENT module scope)."
+    },
+    {
+      "ourId": "eutex:secondaryMaterialFraction",
+      "upstreamIri": "https://w3id.org/eudpp#materialPercentage",
+      "reason": "Wrong referent: eudpp:materialPercentage is the composition share of a material ('percentage of material x'), while secondaryMaterialFraction is the recycled-content ratio. EUDPP carries the right counterpart as eudpp:materialRecycledContent (the battery module maps its recycled shares there); a future pass should propose that pair instead."
+    },
+    {
+      "ourId": "eutex:secondaryMaterialFraction",
+      "upstreamIri": "urn:samm:io.BatteryPass.Circularity:1.2.0#recycledContent",
+      "reason": "Cross-sector peers at the same granularity: a textile-scoped recycled fraction and the battery-scoped recycledContent block do not subsume each other in either direction (same reasoning as the deferred eubat:hasRecycledContent flip). The ungraded seeAlso stands."
+    },
+    {
+      "ourId": "eubat:BatteryMaterial",
+      "upstreamIri": "https://w3id.org/eudpp#MaterialType",
+      "reason": "Level confusion: eudpp:MaterialType is by its own definition a 'placeholder class for material type classification' (cotton, nylon, ...), i.e. a category code, while eubat:BatteryMaterial is the material entity in the battery. An entity is not in a subsumption relation with its classifier. The entity-level mapping eubat:BatteryMaterial broadMatch eudpp:MaterialOfComposition carries the alignment."
+    },
+    {
       "ourId": "oec:SubstanceOfConcern",
       "upstreamIri": "https://w3id.org/eudpp#ThresholdOfSubstanceOfConcern",
       "reason": "Entity-vs-constraint category error: a threshold (a limit value applying to a substance) is not a narrower kind of substance of concern. The panel's 0.95 rode on the shared name. The substance-level pointer already exists (oec:SubstanceOfConcern seeAlso eudpp:SubstanceOfConcern), and thresholds map at oec:socThreshold."

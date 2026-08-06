@@ -67,14 +67,19 @@ genuinely distinct, so they are not part of this question.
 
 ## battery
 
-From `skos-completeness-battery-2026-08-06.json`. 82 confirmed findings the triage did not apply.
+From `skos-completeness-battery-2026-08-07.json`. 87 confirmed findings the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
 | 0.95 | `eubat:HazardClass` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Class` | target is a meta-class |
-| 0.93 | `eubat:ComponentLocation` | `skos:broadMatch` | `gs1:Place` | our term is a type, target is the entity |
+| 0.94 | `eubat:ComponentLocation` | `skos:broadMatch` | `eudpp:Location` | our term is a type, target is the entity |
+| 0.94 | `eubat:DismantlingDocumentType` | `skos:broadMatch` | `eudpp:DocumentFormattedProperty` | our term is a type, target is the entity |
+| 0.93 | `eubat:TechnicalSpecification` | `skos:broadMatch` | `eudpp:TechnicalSpecification` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
 | 0.92 | `eubat:leadPreConsumerShare` | skos:closeMatch to `skos:broadMatch` | `batterypass:preConsumerShare` | regrade skos:closeMatch to skos:broadMatch |
+| 0.92 | `eubat:BatteryStatus` | `skos:broadMatch` | `eudpp:LifeCycleStage` | our term is a type, target is the entity |
 | 0.92 | `eubat:separateCollectionSymbolUrl` | `skos:exactMatch` | `dppk:separateCollectionSymbol` | deferred by a curator: A URL that points at the symbol is not the symbol. exactMatch overstates it; the honest grade is closeMatch or an ungraded pointer. |
+| 0.92 | `eubat:NegativeEventType` | `skos:broadMatch` | `eudpp:ProductEvent` | our term is a type, target is the entity |
+| 0.92 | `eubat:BatteryMaterial` | `skos:broadMatch` | `eudpp:MaterialType` | deferred by a curator: Level confusion: eudpp:MaterialType is by its own definition a 'placeholder class for material type classification' (cotton, nylon, ...), i.e. a category code, while eubat:BatteryMaterial is the material entity in the battery. An entity is not in a subsumption relation with its classifier. The entity-level mapping eubat:BatteryMaterial broadMatch eudpp:MaterialOfComposition carries the alignment. |
 | 0.91 | `eubat:hasCarbonFootprintRecycling` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
 | 0.91 | `eubat:batteryModelIdentifier` | skos:broadMatch to `skos:narrowMatch` | `batterypass:batteryPassportIdentifier` | deferred by a curator: Different referents: ours identifies the battery model, theirs identifies the passport document about it. Neither subsumes the other. |
 | 0.90 | `eubat:hasLabels` | `skos:narrowMatch` | `bpr:SymbolsForCadmiumAndLead` | our term is a property, target is a class |
@@ -171,7 +176,7 @@ From `skos-completeness-core-2026-08-06.json`. 148 confirmed findings the triage
 | 0.93 | `oec:hasCarbonFootprintRawMaterial` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
 | 0.92 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `schemaorg:textValue` | our term is a structural value carrier |
 | 0.92 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `schemaorg:valueReference` | our term is a structural value carrier |
-| 0.92 | `oec:value` | `skos:narrowMatch` | `semic:supportsValue` | our term is a structural value carrier |
+| 0.92 | `oec:value` | `skos:narrowMatch` | `semic:supportsValue` | target is a structural value carrier |
 | 0.92 | `oec:value` | skos:broadMatch to `skos:narrowMatch` | `rail:rightValue` | our term is a structural value carrier |
 | 0.92 | `oec:lastDataUpdate` | `skos:exactMatch` | `bpr:Date-timeOfLatestUpdateOfDPP` | our term is a property, target is a class |
 | 0.92 | `oec:hasCarbonFootprintDistribution` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
@@ -189,7 +194,7 @@ From `skos-completeness-core-2026-08-06.json`. 148 confirmed findings the triage
 | 0.88 | `oec:value` | rdfs:seeAlso to `skos:narrowMatch` | `gs1:originalCodeValue` | our term is a structural value carrier |
 | 0.87 | `oec:hasCarbonFootprintProduction` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
 | 0.86 | `oec:RepairProvider` | skos:broadMatch to `skos:narrowMatch` | `schemaorg:MotorcycleRepair` | schema:MotorcycleRepair belongs to an area foreign to a passport |
-| 0.84 | `oec:value` | rdfs:seeAlso to `skos:narrowMatch` | `semic:hasValue` | our term is a structural value carrier |
+| 0.84 | `oec:value` | rdfs:seeAlso to `skos:narrowMatch` | `semic:hasValue` | target is a structural value carrier |
 | 0.84 | `oec:recycledContent` | skos:closeMatch to `skos:narrowMatch` | `batterypass:recycledContent` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
 | 0.83 | `oec:EnvironmentalProductDeclaration` | `skos:narrowMatch` | `schemaorg:EnergyConsumptionDetails` | deferred by a curator: An EN 15804 environmental product declaration covers impact indicators across the whole life cycle; schema:EnergyConsumptionDetails carries appliance energy figures. Neither subsumes the other. |
 | 0.83 | `oec:OperationalScope` | skos:broadMatch to `skos:narrowMatch` | `batterypass:CarbonFootprintPerLifecycleStageEntity` | our term is a type, target is the entity |
@@ -311,33 +316,36 @@ From `skos-completeness-core-2026-08-06.json`. 148 confirmed findings the triage
 
 ## cpr
 
-From `skos-completeness-cpr-2026-07-28.json`. 10 confirmed findings the triage did not apply.
+From `skos-completeness-cpr-2026-08-07.json`. 11 confirmed findings the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
 | 0.95 | `eucpr:ReactionToFireClass` | `skos:broadMatch` | `schemaorg:Class` | target is a meta-class |
-| 0.93 | `eucpr:ConstructionProductType` | skos:broadMatch to `skos:narrowMatch` | `dppk:BatteryProduct` | our term is a type, target is the entity |
+| 0.94 | `eucpr:ConstructionProductType` | `skos:broadMatch` | `eudpp:Product` | our term is a type, target is the entity |
+| 0.93 | `eucpr:hasDeclarationOfPerformance` | `skos:broadMatch` | `eudpp:hasProperty` | target is a structural value carrier |
+| 0.93 | `eucpr:ConstructionProductType` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:BatteryProduct` | our term is a type, target is the entity |
+| 0.92 | `eucpr:ConstructionProduct` | `skos:narrowMatch` | `dppk:IronSteelProduct` | deferred by a curator: Overreach: narrowMatch would claim every iron/steel product is a construction product, but steel also goes into vehicles and appliances. dppk:IronSteelProduct is the Keystone steel-sector class and aligns with eusteel:, not as a subclass of CPR construction products. |
 | 0.92 | `eucpr:hasCharacteristicValue` | `skos:narrowMatch` | `schemaorg:broadcastFrequencyValue` | every schema domain (BroadcastFrequencySpecification) is foreign to a passport |
-| 0.80 | `eucpr:ConstructionProductType` | skos:broadMatch to `skos:narrowMatch` | `schemaorg:IndividualProduct` | schema:IndividualProduct is a general Layer-1 term, so narrowMatch inverts the relation; broadMatch is the direction |
-| 0.77 | `eucpr:ConstructionProduct` | `skos:narrowMatch` | `dppk:IronSteelProduct` | new mapping below the 0.8 floor |
-| 0.75 | `eucpr:ConstructionProductType` | skos:narrowMatch to `skos:broadMatch` | `schemaorg:Product` | our term is a type, target is the entity |
+| 0.80 | `eucpr:ConstructionProductType` | rdfs:seeAlso to `skos:narrowMatch` | `schemaorg:IndividualProduct` | schema:IndividualProduct is a general Layer-1 term, so narrowMatch inverts the relation; broadMatch is the direction |
+| 0.75 | `eucpr:ConstructionProductType` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Product` | our term is a type, target is the entity |
 | 0.74 | `eucpr:hasValidationReports` | skos:broadMatch to `skos:narrowMatch` | `batterypass:resultOfTestReport` | direction flip toward a peer profile below the 0.8 floor |
 | 0.73 | `eucpr:EssentialCharacteristic` | `skos:broadMatch` | `semic:Criterion` | new mapping below the 0.8 floor |
-| 0.69 | `eucpr:EssentialCharacteristic` | `skos:broadMatch` | `gs1:QuantitativeValue` | new mapping below the 0.8 floor |
-| 0.68 | `eucpr:ConstructionProductType` | skos:narrowMatch to `skos:broadMatch` | `gs1:Product` | our term is a type, target is the entity |
+| 0.68 | `eucpr:ConstructionProductType` | rdfs:seeAlso to `skos:broadMatch` | `gs1:Product` | our term is a type, target is the entity |
 
 ## detergent
 
-From `skos-completeness-detergent-2026-07-28.json`. 18 confirmed findings the triage did not apply.
+From `skos-completeness-detergent-2026-08-07.json`. 19 confirmed findings the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
+| 0.88 | `eudet:hasTestMethod` | `skos:broadMatch` | `eudpp:includesMethod` | deferred by a curator: Name-only match: eudpp:includesMethod is LCIA-scoped (domain eudpp:Methodology, range eudpp:Method — EN15804+A2, EF v3.1 method grouping), while ours links a detergent biodegradability test to its test method. Different domains, no subsumption. |
+| 0.88 | `eudet:hasProductForm` | `skos:broadMatch` | `eudpp:hasProperty` | target is a structural value carrier |
 | 0.85 | `eudet:hasProductForm` | `skos:broadMatch` | `gs1:consumerProductVariant` | deferred by a curator: GS1 scopes consumerProductVariant to variants that do NOT require a different GTIN; liquid, powder and tablet are separate trade items. Removed; skos:closeMatch gs1:productFormDescription is the correct GS1 target. |
-| 0.84 | `eudet:DetergentCategory` | `skos:broadMatch` | `schemaorg:ProductGroup` | our term is a type, target is the entity |
-| 0.78 | `eudet:SurfactantType` | skos:narrowMatch to `skos:broadMatch` | `schemaorg:ChemicalSubstance` | our term is a type, target is the entity |
-| 0.78 | `eudet:hasHazardousSubstances` | skos:narrowMatch to `skos:broadMatch` | `dppk:textileSubstancesOfConcern` | direction flip toward a peer profile below the 0.8 floor |
-| 0.77 | `eudet:Ingredient` | `skos:broadMatch` | `schemaorg:Substance` | new mapping below the 0.8 floor |
-| 0.77 | `eudet:ProductForm` | skos:narrowMatch to `skos:broadMatch` | `gs1:Product` | our term is a type, target is the entity |
+| 0.83 | `eudet:hasHazardousSubstances` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:hazardousSubstanceClass` | deferred by a curator: Composition, not subsumption: ours links a product to its hazardous-substance entries; the SAMM term is the CLP class datum inside one entry. An attribute of the contained thing is not a narrower concept of the containment link. The ungraded seeAlso stands. |
+| 0.80 | `eudet:hasHazardousSubstances` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:hazardousSubstanceIdentifier` | deferred by a curator: Composition, not subsumption: same reasoning as the hazardousSubstanceClass pair — the CAS identifier inside a substance entry is not a narrower concept of the product-to-substances link. |
+| 0.78 | `eudet:SurfactantType` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:ChemicalSubstance` | our term is a type, target is the entity |
+| 0.78 | `eudet:hasHazardousSubstances` | rdfs:seeAlso to `skos:broadMatch` | `dppk:textileSubstancesOfConcern` | seeAlso upgrade below the 0.8 floor |
+| 0.77 | `eudet:ProductForm` | rdfs:seeAlso to `skos:broadMatch` | `gs1:Product` | our term is a type, target is the entity |
 | 0.76 | `eudet:phosphorusContentPercent` | `skos:broadMatch` | `dppk:componentPercentage` | new mapping below the 0.8 floor |
 | 0.75 | `eudet:endProductCharacteristics` | `skos:broadMatch` | `untp:characteristics` | new mapping below the 0.8 floor |
 | 0.75 | `eudet:Ingredient` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:ChemicalSubstance` | seeAlso upgrade below the 0.8 floor |
@@ -345,74 +353,84 @@ From `skos-completeness-detergent-2026-07-28.json`. 18 confirmed findings the tr
 | 0.73 | `eudet:hasHazardousSubstances` | `skos:broadMatch` | `untp:hazardous` | new mapping below the 0.8 floor |
 | 0.72 | `eudet:ProductForm` | `skos:broadMatch` | `dppk:Product` | our term is a type, target is the entity |
 | 0.72 | `eudet:ProductForm` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Product` | our term is a type, target is the entity |
-| 0.70 | `eudet:allergenCasNumber` | skos:narrowMatch to `skos:broadMatch` | `dppk:componentCasNumber` | direction flip toward a peer profile below the 0.8 floor |
 | 0.69 | `eudet:ProductForm` | `skos:broadMatch` | `untp:Product` | our term is a type, target is the entity |
 | 0.69 | `eudet:ProductForm` | `skos:broadMatch` | `dppk:ProductCharacteristic` | our term is a type, target is the entity |
-| 0.66 | `eudet:BiodegradabilityTestMethod` | skos:narrowMatch to `skos:broadMatch` | `semic:Criterion` | our term is a type, target is the entity |
+| 0.66 | `eudet:BiodegradabilityTestMethod` | rdfs:seeAlso to `skos:broadMatch` | `semic:Criterion` | our term is a type, target is the entity |
 | 0.64 | `eudet:filmBiodegradabilityPercentage` | `skos:broadMatch` | `dppk:environmentalFootprintBenchmarkPercentage` | new mapping below the 0.8 floor |
 
 ## electronics
 
-From `skos-completeness-electronics-2026-07-28.json`. 16 confirmed findings the triage did not apply.
+From `skos-completeness-electronics-2026-08-07.json`. 29 confirmed findings the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
+| 0.95 | `euelec:ElectronicDevice` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:Component` | deferred by a curator: DPP Keystone components are cross-sector product parts (the same profile serves iron & steel, EPD and textile), so dppk:Component is not a narrower class of ElectronicDevice; a casing component is no electronic device. The ungraded seeAlso stands. |
+| 0.93 | `euelec:EnergyEfficiency` | rdfs:seeAlso to `skos:narrowMatch` | `schemaorg:EUEnergyEfficiencyEnumeration` | deferred by a curator: Level confusion: the schema.org term is the closed A-G code list, ours is the energy-efficiency information entity. A code list and the entity it classifies are not in a subsumption relation in either direction (documented level rule). The ungraded seeAlso stands. |
+| 0.93 | `euelec:WEEECompliance` | `skos:broadMatch` | `eudpp:UnionHarmonisationLegislation` | deferred by a curator: Referent mismatch: ours is the compliance record of a product with WEEE, the EUDPP class is the legislation itself. The WEEE directive as a law would be an individual of the EUDPP class; the compliance record is not a narrower legislation. |
 | 0.92 | `euelec:recyclingProcess` | `skos:narrowMatch` | `gs1:packagingRecyclingScheme` | deferred by a curator: The GS1 term is packaging-scoped; ours is an electronics treatment process. Domain mismatch that the GS1 foreign-domain list does not cover. |
+| 0.92 | `euelec:hasRepairCost` | `skos:broadMatch` | `semic:hasValue` | target is a structural value carrier |
 | 0.91 | `euelec:newVersion` | `skos:broadMatch` | `schemaorg:assemblyVersion` | every schema domain (APIReference) is foreign to a passport |
+| 0.91 | `euelec:iec62474DslVersion` | `skos:broadMatch` | `eudpp:identifierSchemeVersion` | deferred by a curator: Referent mismatch: the IEC 62474 declarable-substance-list version is the version of a standard's substance list, not of an identifier scheme (EUDPP IDENT module scope). |
 | 0.89 | `euelec:hasTreatmentFacility` | `skos:broadMatch` | `untp:fromFacility` | deferred by a curator: Different roles: ours is where treatment happened, UNTP's is a shipment origin. |
 | 0.88 | `euelec:recyclingProcess` | skos:closeMatch to `skos:narrowMatch` | `gs1:packagingRecyclingProcessType` | regrade skos:closeMatch to skos:narrowMatch |
-| 0.88 | `euelec:hasRefreshRate` | skos:narrowMatch to `skos:broadMatch` | `gs1:value` | target is a structural value carrier |
-| 0.88 | `euelec:hasEnergyEfficiencyClass` | skos:narrowMatch to `skos:broadMatch` | `schemaorg:hasEnergyConsumptionDetails` | deferred by a curator: Our property carries an efficiency class label; the schema.org property links to a consumption-details node. Related, but not one subsuming the other. |
-| 0.87 | `euelec:EURepairabilityClass` | skos:narrowMatch to `skos:broadMatch` | `schemaorg:Class` | target is a meta-class |
+| 0.88 | `euelec:hasEnergyEfficiencyClass` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:hasEnergyConsumptionDetails` | deferred by a curator: Our property carries an efficiency class label; the schema.org property links to a consumption-details node. Related, but not one subsuming the other. |
+| 0.88 | `euelec:hasRefreshRate` | rdfs:seeAlso to `skos:broadMatch` | `gs1:value` | target is a structural value carrier |
+| 0.88 | `euelec:hasFeatureSupportYears` | `skos:broadMatch` | `gs1:value` | target is a structural value carrier |
+| 0.87 | `euelec:EURepairabilityClass` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Class` | target is a meta-class |
+| 0.85 | `euelec:hasSparePartPrice` | `skos:broadMatch` | `semic:hasValue` | target is a structural value carrier |
 | 0.82 | `euelec:newVersion` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:softwareVersion` | every schema domain (SoftwareApplication) is foreign to a passport |
 | 0.81 | `euelec:nextDisposition` | `skos:exactMatch` | `untp:disposition` | deferred by a curator: exactMatch is a strong claim for a WEEE routing decision against UNTP's general disposition; closeMatch may be the honest grade. |
+| 0.78 | `euelec:hasScreenDiagonal` | rdfs:seeAlso to `skos:broadMatch` | `gs1:value` | target is a structural value carrier |
+| 0.78 | `euelec:EnergyEfficiencyClass` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:EnergyConsumptionDetails` | our term is a type, target is the entity |
 | 0.78 | `euelec:hasPeakBrightness` | `skos:broadMatch` | `gs1:value` | target is a structural value carrier |
-| 0.78 | `euelec:hasScreenDiagonal` | skos:narrowMatch to `skos:broadMatch` | `gs1:value` | target is a structural value carrier |
 | 0.77 | `euelec:ComponentType` | rdfs:seeAlso to `skos:broadMatch` | `dppk:Component` | our term is a type, target is the entity |
 | 0.73 | `euelec:RepairCriterion` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Rating` | seeAlso upgrade below the 0.8 floor |
 | 0.71 | `euelec:RepairCriterionType` | rdfs:seeAlso to `skos:broadMatch` | `semic:Criterion` | our term is a type, target is the entity |
+| 0.71 | `euelec:criterionMaxScore` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:maxValue` | target is a structural value carrier |
+| 0.71 | `euelec:hasComponentType` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:batteryCategory` | seeAlso upgrade below the 0.8 floor |
 | 0.71 | `euelec:collectionMethod` | `skos:narrowMatch` | `batterypass:separateCollection` | new mapping below the 0.8 floor |
+| 0.70 | `euelec:MaterialRecoveryResult` | `skos:broadMatch` | `eudpp:FlowResult` | new mapping below the 0.8 floor |
+| 0.70 | `euelec:hasMaterialDeclaration` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:batteryMaterials` | seeAlso upgrade below the 0.8 floor |
 | 0.70 | `euelec:RepairCriterionType` | rdfs:seeAlso to `skos:broadMatch` | `untp:Criterion` | our term is a type, target is the entity |
+| 0.68 | `euelec:hasEnergyEfficiency` | rdfs:seeAlso to `skos:narrowMatch` | `schemaorg:energyEfficiencyScaleMax` | seeAlso upgrade below the 0.8 floor |
 
 ## eudr
 
-From `skos-completeness-eudr-2026-07-28.json`. 8 confirmed findings the triage did not apply.
+From `skos-completeness-eudr-2026-08-07.json`. 10 confirmed findings the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
-| 0.94 | `eudr:TimberProductType` | skos:narrowMatch to `skos:broadMatch` | `schemaorg:Product` | our term is a type, target is the entity |
-| 0.93 | `eudr:TimberProductType` | skos:narrowMatch to `skos:broadMatch` | `gs1:Product` | our term is a type, target is the entity |
-| 0.92 | `eudr:hasTransformationLocation` | rdfs:seeAlso to `skos:broadMatch` | `semic:Location` | our term is a property, target is a class |
+| 0.97 | `eudr:TimberProductType` | `skos:broadMatch` | `eudpp:Product` | our term is a type, target is the entity |
+| 0.96 | `eudr:TimberProductType` | `skos:broadMatch` | `eudpp:MaterialType` | deferred by a curator: Different classification axes: TimberProductType classifies products (EUDR Annex I categories: sawn wood, plywood, ...), eudpp:MaterialType classifies composition materials ('cotton, nylon' per its own definition). A product category is not a narrower material category — unlike eutex:FiberType, where fibers are materials. The product-group axis is carried by eudr:hasTimberProductType broadMatch eudpp:hasProductGroup. |
+| 0.94 | `eudr:TimberProductType` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Product` | our term is a type, target is the entity |
+| 0.94 | `eudr:ActorRole` | `skos:broadMatch` | `eudpp:Role` | our term is a type, target is the entity |
+| 0.93 | `eudr:TimberProductType` | rdfs:seeAlso to `skos:broadMatch` | `gs1:Product` | our term is a type, target is the entity |
+| 0.93 | `eudr:ActorRole` | `skos:narrowMatch` | `eudpp:EconomicOperatorRole` | our term is a type, target is the entity |
 | 0.87 | `eudr:TimberProductType` | `skos:broadMatch` | `dppk:ConstructionProduct` | our term is a type, target is the entity |
 | 0.86 | `eudr:DueDiligenceStatement` | `skos:broadMatch` | `gs1:RegulatoryIdentifier` | deferred by a curator: A due-diligence statement is a document, not an identifier; the subsumption does not hold in either direction. |
-| 0.78 | `eudr:ActorRole` | skos:narrowMatch to `skos:broadMatch` | `schemaorg:Role` | our term is a type, target is the entity |
-| 0.73 | `eudr:ActorRole` | `skos:broadMatch` | `semic:Participation` | our term is a type, target is the entity |
+| 0.78 | `eudr:ActorRole` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Role` | our term is a type, target is the entity |
 | 0.65 | `eudr:hasCountryList` | `skos:narrowMatch` | `untp:countryName` | new mapping below the 0.8 floor |
 
 ## fsma204
 
-From `skos-completeness-fsma204-2026-07-28.json`. 1 confirmed finding the triage did not apply.
-
-| QA | Our term | Panel proposes | Target | Why it waits |
-|---|---|---|---|---|
-| 0.70 | `usfsma:hasFoodTraceabilityListCategory` | `skos:broadMatch` | `untp:productCategory` | new mapping below the 0.8 floor |
+No held findings: everything the panel confirmed was either applied or filtered as out of scope.
 
 ## iron-steel
 
-From `skos-completeness-iron-steel-2026-07-28.json`. 6 confirmed findings the triage did not apply.
+From `skos-completeness-iron-steel-2026-08-07.json`. 6 confirmed findings the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
 | 0.88 | `eusteel:heatNumber` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:serialNumber` | deferred by a curator: Granularity, not specificity: schema:serialNumber is domained on schema:IndividualProduct, so it identifies one piece, while a heat number identifies the melt every piece came from. Downgraded to rdfs:seeAlso; the batch-level skos:closeMatch to gs1:hasBatchLotNumber carries the mapping. |
+| 0.80 | `eusteel:lotNumber` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:serialNumber` | deferred by a curator: Same item-versus-batch granularity as eusteel:heatNumber, and lot against serial is the textbook case of it. Downgraded to rdfs:seeAlso; skos:broadMatch gs1:hasBatchLotNumber carries the mapping. |
 | 0.79 | `eusteel:meltAndPourCountry` | rdfs:seeAlso to `skos:broadMatch` | `untp:countryCode` | seeAlso upgrade below the 0.8 floor |
-| 0.78 | `eusteel:IronSteelProduct` | skos:narrowMatch to `skos:broadMatch` | `untp:Product` | direction flip toward a peer profile below the 0.8 floor |
-| 0.75 | `eusteel:IronSteelProduct` | skos:narrowMatch to `skos:broadMatch` | `dppk:Product` | direction flip toward a peer profile below the 0.8 floor |
-| 0.72 | `eusteel:IronSteelProduct` | skos:narrowMatch to `skos:broadMatch` | `dppk:ConstructionProduct` | direction flip toward a peer profile below the 0.8 floor |
+| 0.75 | `eusteel:castNumber` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:serialNumber` | deferred by a curator: Same item-versus-batch granularity as eusteel:heatNumber. Downgraded to rdfs:seeAlso; skos:broadMatch gs1:hasBatchLotNumber carries the mapping. |
+| 0.72 | `eusteel:IronSteelProduct` | rdfs:seeAlso to `skos:broadMatch` | `dppk:ConstructionProduct` | seeAlso upgrade below the 0.8 floor |
 | 0.72 | `eusteel:mtcNominalSize` | `skos:broadMatch` | `rail:nominalValue` | new mapping below the 0.8 floor |
 
 ## ppwr
 
-From `skos-completeness-ppwr-2026-07-28.json`. 1 confirmed finding the triage did not apply.
+From `skos-completeness-ppwr-2026-08-07.json`. 1 confirmed finding the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
@@ -420,83 +438,91 @@ From `skos-completeness-ppwr-2026-07-28.json`. 1 confirmed finding the triage di
 
 ## textile
 
-From `skos-completeness-textile-2026-07-28.json`. 43 confirmed findings the triage did not apply.
+From `skos-completeness-textile-2026-08-07.json`. 51 confirmed findings the triage did not apply.
 
 | QA | Our term | Panel proposes | Target | Why it waits |
 |---|---|---|---|---|
-| 0.95 | `eutex:TestStandard` | skos:narrowMatch to `skos:broadMatch` | `untp:Standard` | our term is a type, target is the entity |
-| 0.93 | `eutex:SubstanceOfConcernType` | skos:narrowMatch to `skos:broadMatch` | `schemaorg:Substance` | our term is a type, target is the entity |
+| 0.95 | `eutex:TestStandard` | rdfs:seeAlso to `skos:broadMatch` | `untp:Standard` | our term is a type, target is the entity |
+| 0.93 | `eutex:SubstanceOfConcernType` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:Substance` | our term is a type, target is the entity |
+| 0.93 | `eutex:SubstanceOfConcernType` | `skos:broadMatch` | `eudpp:Substance` | our term is a type, target is the entity |
 | 0.92 | `eutex:benchmarkPerformance` | rdfs:seeAlso to `skos:exactMatch` | `dppk:environmentalFootprintBenchmarkPercentage` | deferred by a curator: skos:exactMatch contradicts our own bridge documentation: DPP_KEYSTONE_MAPPING.md records this as Partial because eutex:benchmarkPerformance collapses BOTH dppk:environmentalFootprintBenchmarkPercentage and dppk:carbonFootprintBenchmarkPercentage, a distinction dppk makes and we do not. Our term is the broader one, so the honest grade is narrowMatch or closeMatch, not exactMatch. |
-| 0.92 | `eutex:substanceConcentration` | `skos:narrowMatch` | `gs1:juiceContentPercent` | gs1 domain FoodBeverageTobaccoProduct is foreign to a passport |
 | 0.92 | `eutex:substanceConcentration` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:value` | target is a structural value carrier |
-| 0.86 | `eutex:additionalCareInstructions` | `skos:narrowMatch` | `dppk:textileRepairInstructions` | deferred by a curator: The term is a free-text overflow field ("Additional care instructions in text form"), so claiming it is BROADER than a specific instruction kind over-claims. The panel is also self-inconsistent here: it rejected dppk:safeUseInstructions at 0.97 while accepting dppk:textileSafeUseInstructions at 0.85. |
-| 0.85 | `eutex:additionalCareInstructions` | rdfs:seeAlso to `skos:narrowMatch` | `gs1:consumerStorageInstructions` | deferred by a curator: Same over-claim. The existing rdfs:seeAlso is the honest relation between a free-text care field and GS1's storage instructions. |
-| 0.85 | `eutex:additionalCareInstructions` | `skos:narrowMatch` | `dppk:textileSafeUseInstructions` | deferred by a curator: Same over-claim as dppk:textileRepairInstructions: a free-text catch-all is not the parent concept of a specific instruction kind. |
-| 0.85 | `eutex:DurabilityClass` | `skos:broadMatch` | `schemaorg:Rating` | our term is a type, target is the entity |
+| 0.90 | `eutex:WasteOriginType` | `skos:broadMatch` | `eudpp:MaterialOrigin` | our term is a type, target is the entity |
+| 0.90 | `eutex:LCIACategory` | `skos:broadMatch` | `eudpp:LcaResult` | our term is a type, target is the entity |
+| 0.89 | `eutex:secondaryMaterialFraction` | `skos:broadMatch` | `eudpp:materialPercentage` | deferred by a curator: Wrong referent: eudpp:materialPercentage is the composition share of a material ('percentage of material x'), while secondaryMaterialFraction is the recycled-content ratio. EUDPP carries the right counterpart as eudpp:materialRecycledContent (the battery module maps its recycled shares there); a future pass should propose that pair instead. |
+| 0.88 | `eutex:SubstanceOfConcernType` | `skos:broadMatch` | `eudpp:SubstanceOfConcern` | our term is a type, target is the entity |
+| 0.88 | `eutex:SubstanceOfConcern` | `skos:broadMatch` | `eudpp:SubstanceOfConcern` | identical local names, so exactMatch or closeMatch is the question, not which contains which |
 | 0.83 | `eutex:FootprintDataType` | `skos:narrowMatch` | `batterypass:CarbonFootprintPerLifecycleStageEntity` | our term is a type, target is the entity |
-| 0.83 | `eutex:additionalCareInstructions` | `skos:narrowMatch` | `dppk:disassemblyInstructions` | deferred by a curator: Same over-claim, and disassembly is not a care instruction at all. |
-| 0.80 | `eutex:lciaValue` | skos:narrowMatch to `skos:broadMatch` | `schemaorg:value` | target is a structural value carrier |
+| 0.81 | `eutex:DurabilityClass` | `skos:broadMatch` | `eudpp:Durability` | our term is a type, target is the entity |
+| 0.80 | `eutex:lciaValue` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:value` | target is a structural value carrier |
+| 0.80 | `eutex:secondaryMaterialFraction` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:recycledContent` | deferred by a curator: Cross-sector peers at the same granularity: a textile-scoped recycled fraction and the battery-scoped recycledContent block do not subsume each other in either direction (same reasoning as the deferred eubat:hasRecycledContent flip). The ungraded seeAlso stands. |
 | 0.78 | `eutex:spiralityScore` | rdfs:seeAlso to `skos:broadMatch` | `untp:score` | seeAlso upgrade below the 0.8 floor |
-| 0.78 | `eutex:ApparelSubcategory` | skos:broadMatch to `skos:narrowMatch` | `dppk:PefcrApparelAccessories` | our term is a type, target is the entity |
-| 0.78 | `eutex:hasSpinningFacility` | skos:narrowMatch to `skos:broadMatch` | `batterypass:manufacturingPlace` | direction flip toward a peer profile below the 0.8 floor |
+| 0.78 | `eutex:ApparelSubcategory` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:PefcrApparelAccessories` | our term is a type, target is the entity |
 | 0.77 | `eutex:seasonCollection` | skos:narrowMatch to `skos:broadMatch` | `gs1:seasonCalendarYear` | the asserted relation is a recorded decision in mapping-allowlist.json |
 | 0.77 | `eutex:hasCutAndSewFacility` | rdfs:seeAlso to `skos:broadMatch` | `schemaorg:countryOfAssembly` | seeAlso upgrade below the 0.8 floor |
-| 0.75 | `eutex:maxConcentration` | skos:narrowMatch to `skos:broadMatch` | `batterypass:hazardousSubstanceConcentration` | direction flip toward a peer profile below the 0.8 floor |
-| 0.75 | `eutex:hasCutAndSewFacility` | `skos:broadMatch` | `gs1:countryOfAssembly` | new mapping below the 0.8 floor |
+| 0.77 | `eutex:RecycledContentDeclaration` | `skos:broadMatch` | `eudpp:RecycledMaterialsUse` | new mapping below the 0.8 floor |
+| 0.76 | `eutex:concentrationRange` | `skos:broadMatch` | `eudpp:hasConcentration` | new mapping below the 0.8 floor |
+| 0.75 | `eutex:DurabilityClass` | `skos:broadMatch` | `eudpp:QualityIndicator` | our term is a type, target is the entity |
+| 0.75 | `eutex:maxConcentration` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:hazardousSubstanceConcentration` | seeAlso upgrade below the 0.8 floor |
 | 0.75 | `eutex:CLPHazardCategory` | `skos:broadMatch` | `schemaorg:CategoryCode` | new mapping below the 0.8 floor |
 | 0.75 | `eutex:seasonCollection` | skos:narrowMatch to `skos:broadMatch` | `gs1:seasonName` | the asserted relation is a recorded decision in mapping-allowlist.json |
-| 0.73 | `eutex:organicContentPercentage` | skos:narrowMatch to `skos:broadMatch` | `batterypass:renewableContent` | direction flip toward a peer profile below the 0.8 floor |
+| 0.75 | `eutex:CareSymbolCode` | `skos:broadMatch` | `eudpp:ClassificationCode` | new mapping below the 0.8 floor |
+| 0.75 | `eutex:hasCutAndSewFacility` | `skos:broadMatch` | `gs1:countryOfAssembly` | new mapping below the 0.8 floor |
+| 0.74 | `eutex:CareInstruction` | `skos:broadMatch` | `eudpp:DigitalInstruction` | new mapping below the 0.8 floor |
+| 0.73 | `eutex:RobustnessAssessment` | `skos:broadMatch` | `eudpp:Durability` | new mapping below the 0.8 floor |
+| 0.73 | `eutex:organicContentPercentage` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:renewableContent` | seeAlso upgrade below the 0.8 floor |
+| 0.73 | `eutex:RobustnessAssessment` | `skos:broadMatch` | `eudpp:ConformityAssessmentModule` | new mapping below the 0.8 floor |
+| 0.73 | `eutex:maxConcentration` | `skos:broadMatch` | `eudpp:hasConcentration` | new mapping below the 0.8 floor |
 | 0.72 | `eutex:hasApparelSubcategory` | rdfs:seeAlso to `skos:broadMatch` | `gs1:additionalProductClassification` | seeAlso upgrade below the 0.8 floor |
 | 0.72 | `eutex:hasCutAndSewFacility` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:manufacturingPlace` | seeAlso upgrade below the 0.8 floor |
-| 0.72 | `eutex:carbonFootprintManufacturing` | skos:narrowMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | direction flip toward a peer profile below the 0.8 floor |
-| 0.72 | `eutex:carbonFootprintManufacturing` | skos:narrowMatch to `skos:broadMatch` | `batterypass:carbonFootprint` | direction flip toward a peer profile below the 0.8 floor |
+| 0.72 | `eutex:carbonFootprintManufacturing` | skos:closeMatch to `skos:broadMatch` | `batterypass:carbonFootprintPerLifecycleStage` | regrade skos:closeMatch to skos:broadMatch |
+| 0.72 | `eutex:carbonFootprintManufacturing` | rdfs:seeAlso to `skos:broadMatch` | `batterypass:carbonFootprint` | seeAlso upgrade below the 0.8 floor |
+| 0.72 | `eutex:LCIACategoryCode` | `skos:broadMatch` | `eudpp:ImpactCategory` | new mapping below the 0.8 floor |
 | 0.71 | `eutex:hasRobustnessAssessment` | `skos:broadMatch` | `untp:conformityAssessment` | new mapping below the 0.8 floor |
+| 0.70 | `eutex:hasSubstancesOfConcern` | `skos:broadMatch` | `dppk:hazardousSubstances` | new mapping below the 0.8 floor |
 | 0.70 | `eutex:RecycledContentDeclaration` | `skos:broadMatch` | `dppk:DeclarationOfPerformance` | new mapping below the 0.8 floor |
 | 0.70 | `eutex:hasCutAndSewFacility` | rdfs:seeAlso to `skos:broadMatch` | `dppk:facilityId` | seeAlso upgrade below the 0.8 floor |
-| 0.70 | `eutex:hasSubstancesOfConcern` | `skos:broadMatch` | `dppk:hazardousSubstances` | new mapping below the 0.8 floor |
 | 0.70 | `eutex:hasFiberCertification` | rdfs:seeAlso to `skos:broadMatch` | `gs1:certificationIdentification` | seeAlso upgrade below the 0.8 floor |
 | 0.69 | `eutex:hasRobustnessAssessment` | `skos:broadMatch` | `untp:assessmentCriteria` | new mapping below the 0.8 floor |
 | 0.69 | `eutex:hasCutAndSewFacility` | rdfs:seeAlso to `skos:broadMatch` | `untp:producedAtFacility` | seeAlso upgrade below the 0.8 floor |
 | 0.69 | `eutex:hasEuDeclarationOfConformity` | `skos:broadMatch` | `untp:conformityAssessment` | new mapping below the 0.8 floor |
-| 0.68 | `eutex:hasTakeBackProgram` | skos:narrowMatch to `skos:broadMatch` | `batterypass:endOfLifeInformation` | direction flip toward a peer profile below the 0.8 floor |
-| 0.68 | `eutex:safeUseInstructions` | rdfs:seeAlso to `skos:broadMatch` | `gs1:consumerUsageInstructions` | seeAlso upgrade below the 0.8 floor |
-| 0.68 | `eutex:hasWasteOriginType` | `skos:narrowMatch` | `dppk:animalOriginNonTextile` | new mapping below the 0.8 floor |
 | 0.68 | `eutex:hasSubstancesOfConcern` | `skos:broadMatch` | `dppk:dangerousSubstances` | new mapping below the 0.8 floor |
+| 0.68 | `eutex:hasWasteOriginType` | `skos:narrowMatch` | `dppk:animalOriginNonTextile` | new mapping below the 0.8 floor |
+| 0.68 | `eutex:safeUseInstructions` | rdfs:seeAlso to `skos:broadMatch` | `gs1:consumerUsageInstructions` | seeAlso upgrade below the 0.8 floor |
 | 0.68 | `eutex:benchmarkPerformance` | rdfs:seeAlso to `skos:narrowMatch` | `dppk:carbonFootprintBenchmarkPercentage` | seeAlso upgrade below the 0.8 floor |
 | 0.67 | `eutex:hasRobustnessAssessment` | rdfs:seeAlso to `skos:broadMatch` | `untp:assessedPerformance` | seeAlso upgrade below the 0.8 floor |
-| 0.65 | `eutex:EnvironmentalFootprint` | rdfs:seeAlso to `skos:narrowMatch` | `other:CarbonFootprint` | seeAlso upgrade below the 0.8 floor |
 | 0.60 | `eutex:dimensionalChangePercentage` | rdfs:seeAlso to `skos:closeMatch` | `dppk:dimensionalChange` | seeAlso upgrade below the 0.8 floor |
 | 0.60 | `eutex:locationInProduct` | rdfs:seeAlso to `skos:narrowMatch` | `batterypass:hazardousSubstanceLocation` | seeAlso upgrade below the 0.8 floor |
 
 ## Where the pipeline contradicts itself
 
-121 assertion(s) the ontology already carries were marked `WRONG` by the
+85 assertion(s) the ontology already carries were marked `WRONG` by the
 bulk grader and then had the correction rejected by the QA panel. Nothing was applied, so
 each one is either a mapping worth re-reading or a prompt worth improving. A worked example:
 the textile panel rejected `eutex:additionalCareInstructions skos:narrowMatch
 schema:additionalProperty` at 0.97 confidence, and it does look inverted, since
 `schema:additionalProperty` is a general extension slot rather than a narrower concept.
 
-- **electronics**: 24
 - **battery**: 22
-- **textile**: 21
-- **cpr**: 20
+- **electronics**: 16
+- **cpr**: 13
 - **core**: 12
-- **eudr**: 12
-- **iron-steel**: 6
+- **eudr**: 10
+- **textile**: 7
 - **detergent**: 3
 - **fsma204**: 1
+- **iron-steel**: 1
 
 ## Remaining `skos:narrowMatch` assertions
 
-99 assertions still read `narrowMatch`. Their targets are peer profiles or
+110 assertions still read `narrowMatch`. Their targets are peer profiles or
 intra-project terms of comparable specificity, where which of the two is narrower is a
 modelling question per term. `check:mappings` rule 6 already guards the mechanical class,
 the general Layer-1 head terms.
 
-- **BatteryPass SAMM / bpr**: 39
+- **BatteryPass SAMM / bpr**: 40
 - **DPP Keystone**: 31
 - **GS1 tail**: 17
-- **other**: 6
+- **other**: 16
 - **schema.org tail**: 5
 - **UNTP**: 1

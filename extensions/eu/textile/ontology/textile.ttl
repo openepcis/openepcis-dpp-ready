@@ -101,7 +101,8 @@ identifier and trade-item attributes apply unchanged."""@en ;
     skos:broadMatch gs1:Product ;
     skos:narrowMatch gs1:WearableProduct ;
     skos:broadMatch schema:Product ;
-    skos:broadMatch dppk:Product .
+    skos:broadMatch dppk:Product ;
+    skos:broadMatch <https://w3id.org/eudpp#Product> .
 
 eutex:CareInstruction
     a owl:Class ;
@@ -121,7 +122,9 @@ eutex:DurabilityInfo
     rdfs:seeAlso oec:PerformanceInfo ;
     skos:note """Required extension: ESPR requires durability information for textiles including expected
 number of wash cycles, pilling resistance, and dimensional stability. GS1 Web Vocabulary lacks
-textile-specific durability metrics. Aligned with oec:PerformanceInfo pattern."""@en.
+textile-specific durability metrics. Aligned with oec:PerformanceInfo pattern."""@en ;
+    skos:broadMatch <https://w3id.org/eudpp#Durability> ;
+    skos:broadMatch <https://w3id.org/eudpp#QualityIndicator> .
 
 eutex:TakeBackProgram
     a owl:Class ;
@@ -276,7 +279,8 @@ eutex:FiberType
     ) ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
     skos:note "Fibre-composition / labelling concept per the EU Textile Labelling Regulation (EU) 1007/2011. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso schema:material .
+    rdfs:seeAlso schema:material ;
+    skos:broadMatch <https://w3id.org/eudpp#MaterialType> .
 
 eutex:Cotton a eutex:FiberType ; rdfs:label "Cotton"@en ;
     rdfs:comment "Natural cellulose fiber from cotton plant (Gossypium)."@en ;
@@ -641,7 +645,8 @@ eutex:hasDurabilityInfo
     rdfs:range eutex:DurabilityInfo ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
     dcterms:source <https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf> ;
-    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:broadMatch schema:hasMeasurement .
 
 eutex:expectedWashCycles
     a owl:DatatypeProperty ;
@@ -1172,7 +1177,8 @@ fabric type. GS1 Web Vocabulary does not distinguish fabric construction types."
         eutex:Knitted
         eutex:Denim
         eutex:WovenNonDenim
-    ).
+    ) ;
+    skos:broadMatch <https://w3id.org/eudpp#MaterialType> .
 
 eutex:Knitted a eutex:FabricType ; rdfs:label "Knitted"@en ;
     rdfs:comment "Fabric constructed by interlocking loops of yarn (jersey, rib, interlock, etc.)."@en .
@@ -1890,7 +1896,8 @@ eutex:hasWasteOriginType
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso dppk:preConsumerTypeOfWaste ;
-    rdfs:seeAlso dppk:postConsumerTypeOfWaste .
+    rdfs:seeAlso dppk:postConsumerTypeOfWaste ;
+    skos:broadMatch <https://w3id.org/eudpp#hasMaterialOrigin> .
 
 eutex:hasRecycledSourceType
     a owl:ObjectProperty ;
@@ -1957,7 +1964,17 @@ Includes manufacturing carbon footprint, PEF single score, and benchmark compari
 reporting with specific metrics (single score in mPt, benchmark performance) not available
 in GS1 or core DPP vocabulary. Keeps existing eutex:hasWaterUsage and eutex:hasEnergyUsage
 as convenience properties. See also schema:PropertyValue for generic structured values."""@en ;
-    rdfs:seeAlso <https://w3id.org/eudpp#CarbonFootprint> .
+    rdfs:seeAlso <https://w3id.org/eudpp#CarbonFootprint> ;
+    skos:narrowMatch <https://w3id.org/eudpp#AirPollutionFootprint> ;
+    skos:narrowMatch <https://w3id.org/eudpp#CarbonFootprint> ;
+    skos:narrowMatch <https://w3id.org/eudpp#MaterialFootprint> ;
+    skos:narrowMatch <https://w3id.org/eudpp#EnergyFootprint> ;
+    skos:narrowMatch <https://w3id.org/eudpp#LandFootprint> ;
+    skos:narrowMatch <https://w3id.org/eudpp#WaterFootprint> ;
+    skos:narrowMatch <https://w3id.org/eudpp#FossilEnergyFootprint> ;
+    skos:narrowMatch <https://w3id.org/eudpp#ToxicityFootprint> ;
+    skos:narrowMatch <https://w3id.org/eudpp#EutrophicationFootprint> ;
+    skos:narrowMatch <https://w3id.org/eudpp#OzoneDepletionFootprint> .
 
 eutex:LCIACategory
     a owl:Class ;
@@ -2091,7 +2108,8 @@ eutex:pefcrReference
     rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
-    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en .
+    skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:broadMatch <https://w3id.org/eudpp#dictionaryReference> .
 
 eutex:hasLciaCategories
     a owl:ObjectProperty ;
@@ -2163,7 +2181,8 @@ with regulatory classification detail."""@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/> ;
     rdfs:seeAlso schema:Substance ;
     skos:broadMatch schema:ChemicalSubstance ;
-    skos:broadMatch schema:Substance .
+    skos:broadMatch schema:Substance ;
+    skos:broadMatch <https://w3id.org/eudpp#Substance> .
 
 # Substance of Concern Type enumeration
 eutex:SubstanceOfConcernType
@@ -2232,7 +2251,8 @@ eutex:hasSubstancesOfConcern
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:hasSubstancesOfConcern ;
-    rdfs:seeAlso gs1:ingredientOfConcern .
+    rdfs:seeAlso gs1:ingredientOfConcern ;
+    skos:exactMatch <https://w3id.org/eudpp#containsSubstanceOfConcern> .
 
 eutex:hasSocType
     a owl:ObjectProperty ;
@@ -2258,7 +2278,8 @@ eutex:ecNumber
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:ecNumber ;
     skos:exactMatch oec:ecNumber ;
-    skos:broadMatch schema:identifier .
+    skos:broadMatch schema:identifier ;
+    skos:exactMatch <https://w3id.org/eudpp#numberEC> .
 
 eutex:substanceConcentration
     a owl:DatatypeProperty ;
@@ -2271,7 +2292,8 @@ eutex:substanceConcentration
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceConcentration> ;
-    rdfs:seeAlso gs1:ingredientContentPercentage .
+    rdfs:seeAlso gs1:ingredientContentPercentage ;
+    skos:broadMatch <https://w3id.org/eudpp#hasConcentration> .
 
 eutex:concentrationRange
     a owl:DatatypeProperty ;
@@ -2305,7 +2327,8 @@ eutex:locationInProduct
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceLocation> ;
-    skos:broadMatch gs1:locationDescription .
+    skos:broadMatch gs1:locationDescription ;
+    skos:exactMatch <https://w3id.org/eudpp#substanceLocation> .
 
 eutex:safeUseInstructions
     a owl:DatatypeProperty ;
