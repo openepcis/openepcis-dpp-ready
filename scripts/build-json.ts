@@ -146,6 +146,11 @@ interface OntologyModule {
   /** Ontology IRI when it is not the term namespace — again served-fields,
    *  which is described at /masterdata/served-fields/ but whose terms are gs1:. */
   ontologyIri?: string;
+  /** Publish the term namespace (not the ontologyIri) as the dataset's `namespace`.
+   *  Needed when the two differ (eudpp: CORE node …/eudpp/ vs terms …/eudpp#) —
+   *  the browser derives term-local names from this field, and the ontologyIri
+   *  would send every runtime-derived link to the prefixed-CURIE fallback. */
+  publishTermNamespace?: boolean;
 }
 
 // Ontology modules configuration
@@ -238,6 +243,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ttlFile: "eudpp.ttl",
     namespace: "https://w3id.org/eudpp#",
     ontologyIri: "https://w3id.org/eudpp/",
+    publishTermNamespace: true,
   },
 ];
 
@@ -270,7 +276,10 @@ function getObjectValue(
 
 function getObjectValues(store: Store, subject: string, predicate: string): string[] {
   const quads = store.getQuads(namedNode(subject), namedNode(predicate), null, null);
-  return quads.map((q) => q.object.value);
+  // Named nodes only: anonymous OWL constructs (restrictions, unions — the EUDPP
+  // mirror carries them) would otherwise leak blank-node labels like "b23_n3-44"
+  // into subClassOf/domain/range lists, which the browser then renders as links.
+  return quads.filter((q) => q.object.termType === "NamedNode").map((q) => q.object.value);
 }
 
 function isClass(store: Store, subject: string): boolean {
@@ -519,7 +528,9 @@ function extractOntologyData(store: Store, module: OntologyModule): OntologyData
     // The dataset's own IRI. For most modules that is also the namespace its
     // terms are minted under; for served-fields the terms are GS1's own IRIs,
     // so there is no single term namespace and this identifies the dataset.
-    namespace: describedBy,
+    // publishTermNamespace overrides toward the term namespace where the two
+    // differ and the browser needs the latter (eudpp).
+    namespace: module.publishTermNamespace ? namespace : describedBy,
     version,
     title,
     description,
