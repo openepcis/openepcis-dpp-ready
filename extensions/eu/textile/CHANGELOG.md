@@ -4,6 +4,17 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- **`eutex:locationInProduct` replaced by `oec:substanceLocation`.** The EUDPP grading
+  round exposed the duplication: both terms carried `skos:exactMatch` onto the same
+  `eudpp:substanceLocation`, and the definitions are byte-equivalent in intent (free-text
+  location of a substance of concern in the product). Per the layering rule the module
+  term moves down to core: examples, EPCIS events, SHACL shape and schemas now use
+  `oec:substanceLocation`; its unique `gs1:locationDescription` anchor migrated to the
+  core term. `eutex:SubstanceOfConcern` additionally gains
+  `rdfs:subClassOf oec:SubstanceOfConcern` (it is defined as the ESPR Art. 7(5) SoC), so
+  the core property's domain fits by entailment.
+
 ### Added
 - **`examples/eudpp-textile-passport.jsonld`** — model-level reference passport in the
   CIRPASS-2 / EUDPP shape carried by GS1 Digital Link: `01/{GTIN}` passport IRI,

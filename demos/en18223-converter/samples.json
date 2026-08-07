@@ -3260,6 +3260,151 @@
   },
   {
     "group": "EU Textile",
+    "label": "eudpp-textile-passport (model)",
+    "doc": {
+      "_comment_architecture": [
+        "MODEL-LEVEL textile passport in the CIRPASS-2 / EUDPP shape, carried by GS1 Digital Link (01/{GTIN}).",
+        "Every block answers an EUDPP Core Ontology module with the OpenEPCIS/GS1 layering: identification incl. TARIC (eudpp IDENT / P_DPP -> GS1 Digital Link + oec:customsCommodityCode), manufacturer and tier-1 supply chain as GLN-identified parties (eudpp ACTOR -> oec:OperatorInformation/oec:FacilityInformation over 417/414 Digital Link), care-label composition (eudpp MAT -> gs1:textileMaterial, GS1 first), conformity (eudpp COMP -> oec:hasConformityDeclaration), and passport metadata incl. the ESPR Art. 10(4) backup host (eudpp P_DPP dppStatus/hasBackUpCopyHost -> oec:passportStatus/oec:hasBackupCopyHost).",
+        "The alignment to the eudpp: terms is carried by the ontology (rdfs:seeAlso + audited SKOS in dpp-core.ttl), not by keys in this document — the document stays pure GS1 + oec:/eutex:.",
+        "GS1 demo prefix 952 (7-digit GCP: 9521234), GTIN 09521234006206."
+      ],
+      "@context": [
+        "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+        "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
+      ],
+      "id": "https://id.gs1.org/01/09521234006206",
+      "type": [
+        "gs1:Clothing",
+        "eutex:TextileApparel"
+      ],
+      "oec:granularityLevel": "model",
+      "gs1:gtin": "09521234006206",
+      "gs1:productName": {
+        "@value": "Nordlicht Crewneck — organic cotton / recycled polyester",
+        "@language": "en"
+      },
+      "gs1:brand": {
+        "type": "gs1:Brand",
+        "gs1:brandName": "Nordlicht"
+      },
+      "oec:customsCommodityCode": "6110201000",
+      "gs1:countryOfOrigin": {
+        "type": "gs1:Country",
+        "gs1:countryCode": "PT"
+      },
+      "oec:hasOperatorInformation": {
+        "id": "https://id.gs1.org/417/9521234000310",
+        "type": "oec:OperatorInformation",
+        "gs1:globalLocationNumber": "9521234000310",
+        "gs1:organizationName": "Nordlicht Apparel GmbH",
+        "oec:economicOperatorId": "https://id.gs1.org/417/9521234000310",
+        "oec:hasOperatorRole": {
+          "id": "oec:Manufacturer"
+        },
+        "gs1:address": {
+          "type": "gs1:PostalAddress",
+          "gs1:streetAddress": "Speicherstadt 12",
+          "gs1:addressLocality": "Hamburg",
+          "gs1:postalCode": "20457",
+          "gs1:addressCountry": {
+            "type": "gs1:Country",
+            "gs1:countryCode": "DE"
+          }
+        },
+        "gs1:contactPoint": {
+          "type": "gs1:ContactPoint",
+          "gs1:email": "dpp@nordlicht.example.com",
+          "gs1:telephone": "+49 40 555 0195"
+        }
+      },
+      "eutex:hasCutAndSewFacility": {
+        "id": "https://id.gs1.org/414/9521234000327",
+        "type": "oec:FacilityInformation",
+        "gs1:globalLocationNumber": "9521234000327",
+        "oec:facilityId": "https://id.gs1.org/414/9521234000327",
+        "schema:name": "Braga Knitting & Confection",
+        "oec:facilityType": "Cut and Sew",
+        "gs1:address": {
+          "type": "gs1:PostalAddress",
+          "gs1:addressLocality": "Braga",
+          "gs1:addressCountry": {
+            "type": "gs1:Country",
+            "gs1:countryCode": "PT"
+          }
+        },
+        "oec:hasFacilityCertifications": [
+          {
+            "type": "gs1:CertificationDetails",
+            "gs1:certificationStandard": "SA8000",
+            "gs1:certificationIdentification": "SA-PT-2026-812"
+          }
+        ]
+      },
+      "_comment_composition": "Care-label composition, GS1-native (gs1:textileMaterial); percentages are GS1-style 0-100, recycled-content provenance rides on each entry.",
+      "gs1:textileMaterial": [
+        {
+          "type": "gs1:TextileMaterialDetails",
+          "gs1:textileMaterialPercentage": 70,
+          "gs1:textileMaterialDescription": {
+            "@value": "Organic Cotton (Main)",
+            "@language": "en"
+          },
+          "eutex:fiberOrigin": "TR",
+          "eutex:isRecycledFiber": false,
+          "eutex:hasFiberCertification": {
+            "type": "gs1:CertificationDetails",
+            "gs1:certificationAgency": "Textile Exchange",
+            "gs1:certificationStandard": "Organic Content Standard (OCS)",
+            "gs1:certificationValue": "OCS-2026-TR-20481"
+          }
+        },
+        {
+          "type": "gs1:TextileMaterialDetails",
+          "gs1:textileMaterialPercentage": 30,
+          "gs1:textileMaterialDescription": {
+            "@value": "Recycled Polyester (Main)",
+            "@language": "en"
+          },
+          "eutex:fiberOrigin": "PT",
+          "eutex:isRecycledFiber": true,
+          "eutex:recycledContentSource": "Post-consumer PET bottles",
+          "eutex:hasFiberCertification": {
+            "type": "gs1:CertificationDetails",
+            "gs1:certificationAgency": "Textile Exchange",
+            "gs1:certificationStandard": "Global Recycled Standard (GRS)",
+            "gs1:certificationValue": "GRS-2026-PT-31077"
+          }
+        }
+      ],
+      "oec:hasConformityDeclaration": {
+        "id": "https://www.nordlicht.example.com/compliance/doc-2026-118.pdf",
+        "type": "oec:DocumentReference",
+        "oec:hasDocumentType": {
+          "id": "oec:DeclarationOfConformity"
+        },
+        "oec:documentUrl": "https://www.nordlicht.example.com/compliance/doc-2026-118.pdf",
+        "schema:name": "EU Declaration of Conformity No 2026-118 — Nordlicht Crewneck",
+        "oec:mimeType": "application/pdf",
+        "oec:languageCode": "en",
+        "oec:issueDate": "2026-05-11"
+      },
+      "oec:passportIdentifier": "https://id.gs1.org/01/09521234006206",
+      "oec:passportVersion": "1.0",
+      "oec:passportIssueDate": "2026-05-12",
+      "oec:passportStatus": "active",
+      "oec:hasBackupCopyHost": {
+        "id": "https://id.gs1.org/417/9521234000334",
+        "type": "oec:OperatorInformation",
+        "gs1:globalLocationNumber": "9521234000334",
+        "gs1:organizationName": "EPCIS Cloud DPP Services"
+      },
+      "oec:hasProductCategory": {
+        "id": "oec:Textiles"
+      }
+    }
+  },
+  {
+    "group": "EU Textile",
     "label": "fjordline-aurora-batch (batch)",
     "doc": {
       "_comment_architecture": [
@@ -3653,7 +3798,7 @@
           },
           "schema:name": "PFC-free C0 durable water repellent",
           "eutex:substanceConcentration": 0,
-          "eutex:locationInProduct": "Shell face finish",
+          "oec:substanceLocation": "Shell face finish",
           "eutex:safeUseInstructions": "PFAS-free finish; no restricted per- or poly-fluoroalkyl substances used."
         }
       ],
@@ -4759,7 +4904,7 @@
             "@id": "eutex:Sensitizer"
           },
           "eutex:substanceConcentration": 0.008,
-          "eutex:locationInProduct": "Shell fabric dye",
+          "oec:substanceLocation": "Shell fabric dye",
           "eutex:safeUseInstructions": "Wash before first wear. Suitable for skin contact per OEKO-TEX Standard 100 Class II.",
           "eutex:endOfLifeHandling": "No special handling required at detected concentration."
         }
