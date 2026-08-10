@@ -2781,6 +2781,22 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://ref.openepcis.io/extensions/common/core/hasRenderedAccessLevel",
+      "localName": "hasRenderedAccessLevel",
+      "label": "Rendered Access Level",
+      "comment": "The access level THIS RENDERING was assembled at — a statement about the\ndelivery, not about the product. A reader comparing it with oec:hasAccessLevel can tell\nwhether they were served the whole record or a slice of it, and therefore whether an empty\nfield is absent or withheld.\n\nDeliberately without rdfs:domain: it sits on the product node while a passport response is\nthe product, and moves to the response envelope once responses become independently signed\ntier slices (VC-PLATFORM-CONCEPT.md 6.6). Fixing a domain now would turn that move into a\ncontract change.\n\nIt must never be persisted. A stored value would claim that a past request's view is a\nproperty of the record.",
+      "range": [
+        "https://ref.openepcis.io/extensions/common/core/AccessLevel"
+      ],
+      "seeAlso": [
+        "https://schema.org/conditionsOfAccess"
+      ],
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Public by necessity: the reader who most needs to know they were served a slice is the anonymous one. Gating this behind a tier would hide the very fact that something was withheld, which is the silence it exists to break.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
       "id": "https://ref.openepcis.io/extensions/common/core/hasRepairabilityInfo",
       "localName": "hasRepairabilityInfo",
       "label": "Repairability Information",
