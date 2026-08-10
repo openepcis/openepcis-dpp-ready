@@ -1537,6 +1537,14 @@ oec:hasAccessLevel a owl:ObjectProperty;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     rdfs:range oec:AccessLevel;
     rdfs:domain oec:AccessRights.
+oec:hasRenderedAccessLevel a owl:ObjectProperty;
+    rdfs:seeAlso schema:conditionsOfAccess;
+    rdfs:comment "The access level THIS RENDERING was assembled at — a statement about the\ndelivery, not about the product. A reader comparing it with oec:hasAccessLevel can tell\nwhether they were served the whole record or a slice of it, and therefore whether an empty\nfield is absent or withheld.\n\nDeliberately without rdfs:domain: it sits on the product node while a passport response is\nthe product, and moves to the response envelope once responses become independently signed\ntier slices (VC-PLATFORM-CONCEPT.md 6.6). Fixing a domain now would turn that move into a\ncontract change.\n\nIt must never be persisted. A stored value would claim that a past request's view is a\nproperty of the record."@en;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
+    rdfs:label "Rendered Access Level"@en;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
+    skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
+    rdfs:range oec:AccessLevel.
 oec:hasAuthorizedParties a owl:ObjectProperty;
     rdfs:comment "List of parties authorized to access restricted data."@en;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
