@@ -4,6 +4,26 @@ All notable changes to the Electronics module will be documented in this file.
 
 ## [Unreleased]
 
+### `euelec:weeeRegistrationNumber` anchored to the core
+
+Declared `rdfs:subPropertyOf oec:eprRegistrationNumber`. `euelec:WEEECompliance` is a
+`rdfs:subClassOf oec:ExtendedProducerResponsibility`, so its instances are subject to
+`dpp-sh:ExtendedProducerResponsibilityShape`; a WEEE producer registration *is* an EPR
+registration and the ranges match, so the specialisation satisfies the obligation.
+
+`euelec:weeeRegistrationCountry` deliberately does **not** get the same treatment: it is a
+`xsd:string`, whereas `oec:hasEprJurisdiction` is an object property over `gs1:Country`, and a
+datatype property cannot be a subproperty of an object property. The four example passports
+instead declare the jurisdiction properly, as a `gs1:Country` node with a `gs1:countryCode`.
+
+### Shape corrections
+
+- `euelec:hasComponentPassport` was constrained with `sh:datatype xsd:anyURI` although the
+  component's passport is referenced by its GS1 Digital Link IRI; now `sh:nodeKind sh:IRI`.
+- `gs1:manufacturer` accepts a resolver-served IRI reference as well as an inlined
+  organization node.
+- The `schema:name` obligations accept language-tagged text via `dpp-sh:TranslatableText`.
+
 ## [0.9.8] - 2026-07-29
 
 ### Fixed: mapping directions settled against the layering and the upstream definitions

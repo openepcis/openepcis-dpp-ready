@@ -209,6 +209,35 @@ This generates JSON files in each module's `json/` directory:
 
 The [ref.openepcis.io](https://ref.openepcis.io) vocabulary browser uses these JSON files to display ontology information.
 
+`pnpm run build` is also the quality gate: alongside generation it runs sixteen checks, among
+them `check:shapes`, which executes every `validation/*-shapes.ttl` over every example passport.
+
+## Conformance testing (EU Interoperability Test Bed)
+
+Third parties can prove a passport conforms to these shapes using the conformance-testing
+infrastructure the European Commission operates — the
+[EU Interoperability Test Bed](https://www.itb.ec.europa.eu/) with its off-the-shelf
+validators and GITB TDL test suites.
+
+Everything needed is generated under [`gitb/`](gitb/):
+
+- **16 validation types** for the EC's RDF validator (`isaitb/shacl-validator`): the
+  cross-cutting core, nine regulation modules, three EN 18223 granularity levels and three EC
+  battery categories.
+- **A GITB TDL test suite** — 12 specifications, 24 test cases. Each specification offers an
+  upload test for the system under test and a self-test that asserts the reference passports
+  pass *and* a deliberately broken variant fails, so a green result cannot be mistaken for
+  empty shapes.
+
+```bash
+gitb/dev.sh up validators      # the EC validator with our shapes, on :8080
+pnpm run check:shapes:itb      # every example and fixture through it
+```
+
+The conformance model and the measurements behind the generated bundle are in
+[`docs/GITB_CONFORMANCE.md`](docs/GITB_CONFORMANCE.md); operation and the publishing path in
+[`gitb/README.md`](gitb/README.md).
+
 ## Feedback
 
 We welcome feedback from anyone — GS1 GO and GS1 MOs, CEN/CENELEC JTC 24 members, the newly forming ISO/IEC JTC 5 on Digital Product Passport, industry leads, implementers, and the wider open-source community. Open an issue, send a PR, or reach out directly.

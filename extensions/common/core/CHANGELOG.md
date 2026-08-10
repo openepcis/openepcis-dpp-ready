@@ -4,6 +4,62 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+### SHACL shapes: executed, and corrected where they had never run
+
+`pnpm run check:shapes` now runs `dpp-core-shapes.ttl` over every example, and being run
+for the first time surfaced several constraints that could not hold:
+
+- `dpp-sh:GranularityDigitalLinkConstraint` had **never fired on anything**. It targeted
+  `oec:DigitalProductPassport` and read `gs1:productID`; no example uses either, while
+  eleven declare `oec:granularityLevel` and carry the Digital Link as their own node IRI.
+  Now targets `sh:targetSubjectsOf oec:granularityLevel` and derives the expected level from
+  the subject IRI. It is a SHACL-SPARQL constraint, so `pnpm run check:shapes:itb` is what
+  enforces it — the in-process engine has no SHACL-SPARQL.
+- `oec:hasOperatorRole` was required of every `oec:OperatorInformation`, but the class is
+  reused for parties with no ESPR Art. 77 role: `oec:hasBackupCopyHost` is an Art. 10(4)
+  service provider, `eudr:hasExemptionAuthority` a competent authority,
+  `eucpr:hasNotifiedBody` a conformity-assessment body. The seven-role code list cannot
+  supply a value for any of them. New `dpp-sh:EconomicOperatorRoleRequired` states the
+  obligation via `sh:targetObjectsOf` on the economic-operator properties instead; the class
+  shape keeps the `sh:in` value check for wherever a role *is* stated.
+- `dpp-sh:BiodegradationPercentageUnitShape` pinned `( oec:biodegradationPercentage
+  gs1:unitCode )` to `"P1"`, by analogy with the `has*` lifespan shapes. The analogy does not
+  hold: those are object properties over `gs1:QuantitativeValue`, whereas
+  `oec:biodegradationPercentage` is a datatype property with `rdfs:range xsd:decimal`, and a
+  literal has no unit code. Replaced by `dpp-sh:BiodegradationPercentageRangeShape`, a 0–100
+  value-range check.
+- `oec:endOfLifeInstructions`, `oec:wastePreventionInfo`, `oec:separateCollectionInfo` and
+  `oec:professionalRepairNetwork` carried `sh:nodeKind sh:IRI` against their own
+  `owl:DatatypeProperty` / `rdfs:range xsd:anyURI` declaration; now `sh:datatype xsd:anyURI`.
+- `oec:DepositReturnScheme` demanded `oec:hasDepositAmount` alone. The GS1 term
+  `gs1:returnablePackageDepositAmount` carries a `gs1:PriceSpecification` with a currency and
+  is the better fit for a monetary deposit — the ontology's own `skos:note` records the two as
+  a closeMatch with different value structures, so neither subsumes the other. Either now
+  satisfies the obligation.
+
+### New: `dpp-sh:TranslatableText`
+
+A reusable value shape for human-readable text that may carry a language tag. ESPR requires
+consumer-facing information in the member state's language, so such values arrive as
+`rdf:langString` — never `xsd:string`, which a bare `sh:datatype xsd:string` therefore
+rejected. Referenced with `sh:node` from the module shapes, and deliberately not paired with
+`sh:maxCount 1`: *n* translations are *n* values.
+
+### `oec:componentName` anchored to `schema:name`
+
+Declared `rdfs:subPropertyOf schema:name`, so naming a material component with the specific
+term satisfies `dpp-sh:MaterialCompositionShape`'s `schema:name` obligation instead of
+competing with it. Subordinating a project term to a Layer-1 term is the allowed direction
+under the delegation rule.
+
+### Context coercions corrected
+
+14 `anyURI`-ranged datatype properties were coerced to `"@type": "@id"` and so serialized as
+IRI nodes rather than literals; they now coerce `xsd:anyURI`. Example JSON is unchanged —
+only the expansion moved. Decimal-coerced values in the examples are now quoted, because a
+native JSON number under an `xsd:decimal` coercion serializes as `"8.5E0"^^xsd:decimal`,
+which is outside the `xsd:decimal` lexical space.
+
 ### Object properties adopt the `has*` naming convention
 
 The 73 core object properties now use the `hasXyz` form (`oec:operatorInformation` →

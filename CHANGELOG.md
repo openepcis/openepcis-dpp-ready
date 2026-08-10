@@ -9,6 +9,90 @@ check:release` verifies that every place recording a version agrees.
 
 ## [Unreleased]
 
+### The SHACL shapes run, and support EU GITB conformance testing
+
+The project now ships what a third party needs to prove a passport conforms, on the
+infrastructure the European Commission already operates: the EU Interoperability Test Bed
+with its off-the-shelf validators and GITB TDL test suites. Model, measurements and
+operation: [`docs/GITB_CONFORMANCE.md`](docs/GITB_CONFORMANCE.md) and
+[`gitb/README.md`](gitb/README.md).
+
+**First, the shapes had to run at all.** Ten of the eleven `validation/*-shapes.ttl` files
+were executed by nothing — only the generated battery `ec-readiness-shapes.ttl` had a runner
+— so they could reference undefined terms, target classes that never appear, or contradict
+the examples beside them without anything noticing. `pnpm run check:shapes` now executes
+every shapes graph over every example passport and is part of `pnpm run build`. Bringing it
+to green took 424 violations' worth of corrections, in both directions:
+
+- **Ill-typed decimal literals.** Native JSON numbers under an `xsd:decimal` coercion
+  serialize in canonical `xsd:double` form, so `"recyclabilityScore": 8.5` produced
+  `"8.5E0"^^xsd:decimal` — outside the `xsd:decimal` lexical space and rejected by every
+  SHACL engine. 168 values across 27 seed examples are now quoted, per the JSON-LD 1.1
+  recommendation for decimals; the operational goldens were regenerated.
+- **`anyURI` coercion drift.** 46 `owl:DatatypeProperty` terms with `rdfs:range xsd:anyURI`
+  were coerced to `"@type": "@id"` in their `.context-overrides.json`, so they serialized as
+  IRI nodes rather than literals. None carries the `has*` prefix that marks an object
+  property, so the ontology's intent was unambiguous: 92 override entries across four
+  modules now coerce `xsd:anyURI`. The example JSON is unchanged — only the expansion moved.
+- **`iron-steel` shipped a context that typed nothing.** Its `.context-overrides.json` had
+  three entries where battery has ~180, so all 28 of its properties serialized as untyped
+  literals. Coercions added, derived from the ontology ranges.
+- **Multilingual text.** ESPR requires consumer-facing information in the member state's
+  language, so such values arrive language-tagged — `rdf:langString`, never `xsd:string`. A
+  bare `sh:datatype xsd:string` rejected exactly the case the regulation demands. New
+  reusable `dpp-sh:TranslatableText` accepts either form; a `sh:maxCount 1` beside it is
+  wrong by construction, since *n* translations are *n* values.
+- **Layering, made machine-readable.** Module subclasses declared their own specialisation
+  of a core property while the core shape demanded the core term
+  (`euelec:weeeRegistrationNumber` vs `oec:eprRegistrationNumber`,
+  `eudet:biodegradationPercentage` vs `oec:biodegradationPercentage`, …). Four now declare
+  `rdfs:subPropertyOf`, so a specialised statement satisfies the cross-cutting obligation.
+- **Granularity.** `eubat:BatteryShape` required a serial number of model-level passports and
+  the model- and party-level identifiers of item-level ones — the opposite of the resolution
+  model, under which a finer passport resolves that data up the Digital Link hierarchy rather
+  than restating it. Split into `-model`/`-batch`/`-item` shapes using the same
+  `sh:deactivated` activation the EC category shapes already use, which is also what makes
+  each level its own validation type.
+- **The role obligation sat on the wrong thing.** `oec:hasOperatorRole` was required of every
+  `oec:OperatorInformation`, but that class is reused for parties with no ESPR Art. 77 role
+  at all: `oec:hasBackupCopyHost` (an Art. 10(4) service provider),
+  `eudr:hasExemptionAuthority` (a competent authority), `eucpr:hasNotifiedBody`. Now stated
+  via `sh:targetObjectsOf` on the economic-operator properties, where it actually holds.
+- **`dpp-sh:GranularityDigitalLinkConstraint` had never fired on anything.** It targeted
+  `oec:DigitalProductPassport` and read `gs1:productID`, and no example uses either, while
+  eleven declare `oec:granularityLevel` and carry the Digital Link as their own node IRI. The
+  one invariant the project documents as SHACL-normative was unenforced. Retargeted, and now
+  covered by the parity gate — it is a SHACL-SPARQL constraint, so only Apache Jena runs it.
+
+**The GITB artifacts** are generated under `gitb/`, with drift gates in the build:
+
+- `gitb/validator-resources/shacl/dpp` — 16 validation types for `isaitb/shacl-validator`:
+  the core, nine regulation modules, three EN 18223 granularity levels and three EC battery
+  categories. Measured against the real image, three things a hosted validator cannot do are
+  compiled away: it applies no RDFS entailment (superproperty obligations are rewritten to
+  `sh:alternativePath`), it cannot flip `sh:deactivated` per request (variants ship
+  pre-activated), and it needs the class hierarchy in the data graph (bundled as
+  `background.ttl`).
+- `gitb/test-suites/openepcis-dpp` — a GITB TDL suite: 12 specifications, 24 test cases. Each
+  specification gets an upload test case for the system under test and a self-test that
+  asserts our reference passports pass **and** a deliberately broken variant fails, via
+  `verify/@invert`. The 12 negative fixtures are derived from the positives by one documented
+  mutation each, the last of which reads the required predicates out of the shapes, so they
+  cannot drift from what they mutate.
+- `pnpm run check:shapes:itb` runs the shapes in the EC validator and verifies all 48
+  fixtures in both directions. It sends pre-expanded N-Quads on purpose: with JSON-LD the
+  validator resolves `@context` from the last deployed revision, and the first run failed on
+  16 examples purely from that deployment skew rather than any engine disagreement.
+- `gitb/docker/docker-compose.{validators,itb}.yml` and `gitb/dev.sh` bring the stack up
+  locally.
+
+**No JSON validator domain is published yet**, and `pnpm run build:gitb` says why per module.
+A type is declared only once its schema both rejects a wrong document and accepts ours. Six
+modules ship `$defs`-only libraries that accept any instance — measured: a garbage document
+returned `SUCCESS` with zero assertions — and `eu.electronics` and `us.fsma204` reject this
+project's own examples, both from `has*`-rename leftovers in their `required` lists. A
+conformance service that accepts anything is worse than none.
+
 ### Object properties adopt the `has*` naming convention
 
 All 301 object properties across the project-owned namespaces (`oec:`, `eubat:`, `eutex:`,

@@ -13,6 +13,23 @@ Deploy chains, seeding, guards, and the production gates for the DPP stack
 | EPCIS 2.0 repository | `api.demo.epcis.cloud` | `openepcis-rest-quarkus` (build superproject) | `docker:rest` → `:stable` multi-arch manifest; demo deployed by **digest pin** on `openepcis-demo/openepcis-rest-api` |
 | Vocabulary browser | `ref.openepcis.io` | `openepcis-web` `apps/ref-openepcis` + this repo's generated JSON | openepcis-web pipeline: `build:ref-openepcis` (clones dpp-ready main, runs its build) → `deploy:ref-openepcis` → `deploy:ref-openepcis-prod` (all manual) |
 | Digital Data Management (DDM) | `demo.epcis.cloud` | `openepcis-web` `apps/digital-data-management` | `build:…-demo` → `deploy:…-demo` (Kaniko `:demo` tag) → rollout job — **then digest-pin** (see gotcha below) |
+| DPP conformance validator | not yet hosted | this repo's generated `gitb/validator-resources/shacl` | off-the-shelf `isaitb/shacl-validator` with that directory as `validator.resourceRoot`; locally `gitb/dev.sh up validators`. See [GITB_CONFORMANCE.md](GITB_CONFORMANCE.md) |
+
+### The conformance validator depends on the vocabulary browser deploy
+
+The GITB upload test cases take JSON-LD, so the validator resolves each passport's
+`@context` from `ref.openepcis.io` — i.e. from whatever the *vocabulary browser* chain last
+deployed. A passport is therefore judged against the deployed contexts, not the ones in
+`main`.
+
+That coupling has bitten once already: the `anyURI` coercion corrections were green in the
+repo while `ref.openepcis.io` still served `"@type": "@id"`, so the same document expanded to
+an IRI in the Test Bed and to an `anyURI` literal locally, and 16 examples "failed"
+conformance for a reason that had nothing to do with them. **Run the `ref-openepcis` deploy
+chain before publishing or submitting the test suite**, otherwise the suite reports our
+deployment lag as the submitter's fault. The repo's own gates deliberately do not reproduce
+this: `check:shapes:itb` sends pre-expanded N-Quads so it measures the shapes, not the
+deployment.
 
 ### Deploy gotchas (learned the hard way)
 - **`:demo`/tag deploys with `imagePullPolicy: IfNotPresent` do not pull.** A

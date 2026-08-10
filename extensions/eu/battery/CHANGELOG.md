@@ -4,6 +4,51 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+### Granularity-dependent obligations split out (EN 18223)
+
+`eubat:BatteryShape` required `gs1:hasSerialNumber` of **every** battery passport, including
+model-level ones that by definition have no serial, and required the model- and party-level
+identifiers of batch and item passports, which under the granularity model resolve that data
+up the GS1 Digital Link hierarchy rather than restating it — the same resolution
+`scripts/lib/ec-readiness-shacl-core.ts` performs by folding the three levels onto one focus
+node. Every battery passport was therefore non-conformant by construction.
+
+The level-dependent obligations now live in `eubat:BatteryShape-model`, `-batch` and `-item`,
+which ship `sh:deactivated true` and are activated one at a time by IRI suffix — the same
+mechanism the generated EC readiness category shapes use. Each level is also its own GITB
+validation type (`eu.battery.model` / `.batch` / `.item`). `-batch` deliberately adds no
+property: a batch passport's lot identity *is* its Digital Link (AI 10), and minting a
+`eubat:lotNumber` would duplicate the identifier the document IRI already carries.
+
+### `eubat:hasOperatorRole` and `eubat:hasOperatorInformation` anchored to the core
+
+Both are declared `rdfs:subPropertyOf` their `oec:` counterparts. `eubat:hasOperatorRole` has
+the identical domain and range as `oec:hasOperatorRole`, so it was a pure specialisation by
+regulation whose `skos:note` nonetheless claimed no equivalent existed. With the axiom in
+place a battery passport that states the battery-specific term satisfies the cross-cutting
+obligation, and the core shapes need no knowledge of the `eubat:` namespace.
+
+### Shape corrections
+
+- `eubat:hasOperatorRole` was constrained with `sh:datatype xsd:string` although it is an
+  object property whose values are `oec:OperatorRole` individuals; now `sh:nodeKind sh:IRI`.
+- `gs1:manufacturer` required an inlined `oec:OperatorInformation` node, rejecting the
+  resolver-served IRI reference the architecture prescribes for party master data. Now accepts
+  an inlined operator or organization node **or** an IRI reference.
+- `schema:name`, `eubat:electrolyteType` and `eubat:extinguishingAgent` accept
+  language-tagged text via `dpp-sh:TranslatableText`.
+
+### Examples completed
+
+The reference passports never carried the BatteryPass-Ready v1.3 mandatory DPP attributes
+(#1–#4, #7–#11): `schema:schemaVersion`, `oec:passportStatus`,
+`oec:hasReportingGranularity`, `oec:lastUpdated` and `eubat:batteryModelIdentifier` at every
+level, the facility/operator/manufacturer identifiers at model level, and
+`gs1:hasSerialNumber` at item level. Values are drawn from each file's own GTIN, GLNs and
+Digital Link serial. `portable-ebike-battery.jsonld` additionally gained
+`oec:granularityLevel` and a carbon-footprint study URL, and its `eubat:expectedCycleLife`
+was unwrapped from a `gs1:QuantitativeValue` — the ontology declares it `xsd:integer`.
+
 ### Changed: `bpr:` mirror shrunk to its longlist-only scope
 
 GEFEG BatteryPass-Ready is the Battery Pass Consortium's publication and validation

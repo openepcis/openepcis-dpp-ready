@@ -24,7 +24,17 @@ extensions/{region}/{slug}/
 
 - Edit `ontology/*.ttl` first. The JSON files under `json/` are regenerated from TTL by `pnpm run build`. Do not hand-edit generated JSON; it will be overwritten.
 - Run `pnpm install && pnpm run build` before committing so generated artefacts stay in sync.
-- TTL is validated with `rapper`; JSON-LD with the [JSON-LD Playground](https://json-ld.org/playground/); EPCIS events with OpenEPCIS Event Sentry against the relevant `validation/*.json` profile.
+- `pnpm run build` is the gate, and it runs the shapes: `check:shapes` executes every
+  `validation/*-shapes.ttl` over every example passport, so a shape that contradicts the
+  examples beside it fails the build rather than sitting there as prose. Ad-hoc tools —
+  `rapper` for a quick TTL syntax check, the [JSON-LD Playground](https://json-ld.org/playground/)
+  for a single document, OpenEPCIS Event Sentry for EPCIS events against the relevant
+  `validation/*.json` profile — are still useful while editing, but they are not what
+  decides whether a change is good.
+- Two gates need a container and therefore live outside `pnpm run build`:
+  `check:shapes:itb` re-runs the shapes in the European Commission's validator (the engine
+  the EU Interoperability Test Bed uses, and the only one that evaluates `sh:sparql`), and
+  it checks the published test-suite fixtures. See [`docs/GITB_CONFORMANCE.md`](docs/GITB_CONFORMANCE.md).
 
 ## Extension governance: GS1 first
 

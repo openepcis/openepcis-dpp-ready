@@ -4,6 +4,41 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [Unreleased]
 
+### Shape corrections
+
+Running the shapes for the first time surfaced a duplicate and several constraints that
+contradicted the corpus:
+
+- **`eutex:hasTakeBackProgram` was constrained twice**, once as `sh:class
+  eutex:TakeBackProgram` and once as `sh:datatype xsd:boolean` — a leftover of the `has*`
+  rename, since the same property cannot be both. The boolean block now points at
+  `eutex:takeBackProgramAvailable`, which is the flag it was meant for.
+- `gs1:targetConsumerGender` expected `xsd:string` although the value is a GS1 code-list IRI;
+  now `sh:nodeKind sh:IRI`.
+- `schema:category` required a `eutex:TextileCategory` code with `sh:maxCount 1`, but
+  schema.org ranges it over Text *or* Thing and the corpus uses both — and three localized
+  category names are three values, not one. Now accepts either a code or translatable text,
+  with no maximum.
+- `gs1:consumerRecyclingInstructions`, `eutex:additionalCareInstructions`,
+  `eutex:microplasticMitigationMeasures`, `eutex:takeBackIncentive`,
+  `eutex:endOfLifeDestination` and the `schema:name` obligations accept language-tagged text
+  via `dpp-sh:TranslatableText`.
+
+### `garment-set-itip.jsonld`: no apparel subcategory
+
+The example declared `"eutex:hasApparelSubcategory": "Suits"` — a bare string where an IRI
+belongs, and not a member of the code list in any case. `eutex:ApparelSubcategory` is a closed
+`owl:oneOf` aligned to `dppk:PefcrApparelAccessories` with no member for a multi-piece suit
+set, so the value was removed rather than invented; adding a member is an
+[EXTENSION-GOVERNANCE](../../../EXTENSION-GOVERNANCE.md) decision. The reason is recorded in
+the example.
+
+### Context coercions corrected
+
+`eutex:takeBackUrl`, `eutex:repairGuideUrl` and `eutex:sparePartsUrl` are
+`owl:DatatypeProperty` with `rdfs:range xsd:anyURI` but were coerced to `"@type": "@id"`, so
+they serialized as IRI nodes rather than literals; they now coerce `xsd:anyURI`.
+
 ### Changed
 - **`eutex:locationInProduct` replaced by `oec:substanceLocation`.** The EUDPP grading
   round exposed the duplication: both terms carried `skos:exactMatch` onto the same

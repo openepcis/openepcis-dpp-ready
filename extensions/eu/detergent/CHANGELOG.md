@@ -4,6 +4,19 @@ All notable changes to the Detergent module will be documented in this file.
 
 ## [Unreleased]
 
+### `eudet:biodegradationPercentage` anchored to the core
+
+Declared `rdfs:subPropertyOf oec:biodegradationPercentage`. `eudet:SurfactantBiodegradability`
+is a `rdfs:subClassOf oec:Biodegradability`, so its instances are subject to
+`dpp-sh:BiodegradabilityShape`, which requires the core property; the ranges match
+(`xsd:decimal`), so the specialisation is a true subproperty and a declared surfactant
+percentage now satisfies the cross-cutting obligation.
+
+### Shape corrections
+
+`eudet:dosageInstructions` and the three `schema:name` obligations accept language-tagged text
+via `dpp-sh:TranslatableText`, which a bare `sh:datatype xsd:string` had rejected.
+
 ## [0.9.8] - 2026-07-29
 
 ### Fixed: mapping directions settled against the layering and the upstream definitions
