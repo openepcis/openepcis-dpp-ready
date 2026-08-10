@@ -2,35 +2,33 @@
  * SHACL execution core of the EC Battery Passport readiness check —
  * environment-neutral (browser demo AND Node CLI).
  *
- * Runs rdf-validate-shacl over the generated ec-readiness-shapes.ttl: the
- * passport JSON-LD documents are expanded to RDF via the caller-supplied
- * documentLoader, the shapes of the chosen category are activated (all shapes
- * ship sh:deactivated true, one category's suffix is flipped), the
- * model/batch/item Digital Link hierarchy is folded into one focus node, and
- * the standard sh:ValidationReport comes back mapped to the data-point numbers
- * carried in the sh:message texts.
+ * Runs the generated ec-readiness-shapes.ttl over one battery's passport
+ * documents. Everything generic — parsing, JSON-LD expansion, category
+ * activation, report mapping — lives in scripts/lib/shacl-run.ts; what stays
+ * here is the two things that are specific to this check: folding the GS1
+ * Digital Link model/batch/item hierarchy into one focus node, and mapping
+ * findings back to the EC data-point numbers carried in the sh:message texts.
  *
  * IO lives with the caller: the Node wrapper (ec-readiness-shacl.ts) reads the
  * shapes from the filesystem and uses the repo's offline documentLoader; the
  * browser demo bundles the shapes text and context documents with esbuild.
  */
-import { Parser, Store, DataFactory } from "n3";
-import jsonld from "jsonld";
-// rdf-validate-shacl ships no usable types in this setup; it brings its own
-// RDF/JS environment and accepts any quad iterable (n3 Store included).
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import SHACLValidator from "rdf-validate-shacl";
+import {
+  RDF_TYPE,
+  activateBySuffix,
+  namedNode,
+  parseTurtle,
+  toDataGraph,
+  validate,
+  type Severity,
+} from "./shacl-run.ts";
+import type { JsonLdDocumentLoader } from "./jsonld-loader.ts";
 import type { Category } from "./ec-readiness.ts";
 
-const SH = "http://www.w3.org/ns/shacl#";
-
-export type JsonLdDocumentLoader = (
-  url: string,
-) => Promise<{ contextUrl?: string; documentUrl: string; document: unknown }>;
+export type { JsonLdDocumentLoader };
 
 export interface ShaclFinding {
-  severity: "Violation" | "Warning" | "Info";
+  severity: Severity;
   message: string;
   focusNode: string;
   sourceShape: string;
@@ -45,33 +43,21 @@ export interface ShaclReport {
   findings: ShaclFinding[];
 }
 
+const BATTERY = "https://ref.openepcis.io/extensions/eu/battery/Battery";
+
 export async function validateWithShaclCore(
   shapesTtl: string,
   docs: unknown[],
   category: Category,
   documentLoader: JsonLdDocumentLoader,
 ): Promise<ShaclReport> {
-  // Shapes: activate the chosen category by dropping its sh:deactivated triples.
-  const shapes = new Store(new Parser().parse(shapesTtl));
-  const deactivated = [...shapes.match(null, DataFactory.namedNode(`${SH}deactivated`), null, null)];
-  let activated = 0;
-  for (const quad of deactivated) {
-    if (quad.subject.value.endsWith(`-${category}`)) {
-      shapes.removeQuad(quad);
-      activated++;
-    }
-  }
+  // Shapes: every shape ships sh:deactivated true; activate the chosen category.
+  const shapes = parseTurtle(shapesTtl);
+  const shapesActivated = activateBySuffix(shapes, `-${category}`);
 
   // Data: merge every passport level into one graph (dynamic data points only
   // exist at item level; the guidance is evaluated per battery, not per file).
-  const data = new Store();
-  for (const doc of docs) {
-    const nquads = (await jsonld.toRDF(doc as object, {
-      format: "application/n-quads",
-      documentLoader: documentLoader as never,
-    })) as unknown as string;
-    data.addQuads(new Parser({ format: "N-Quads" }).parse(nquads));
-  }
+  const data = await toDataGraph(docs, documentLoader);
 
   // Fold the GS1 Digital Link hierarchy: the model (01), batch (01+10) and item
   // (01+21) passports of one battery are distinct eubat:Battery nodes in RDF,
@@ -79,10 +65,8 @@ export async function validateWithShaclCore(
   // the hierarchy rather than restating it. Mirror that resolution by rewriting
   // every Battery node to one canonical focus node before validation —
   // otherwise each level would be (wrongly) validated as a complete passport.
-  const RDF_TYPE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
-  const BATTERY = "https://ref.openepcis.io/extensions/eu/battery/Battery";
   const batteryNodes = [
-    ...data.match(null, DataFactory.namedNode(RDF_TYPE), DataFactory.namedNode(BATTERY), null),
+    ...data.match(null, namedNode(RDF_TYPE), namedNode(BATTERY), null),
   ].map((q) => q.subject);
   if (batteryNodes.length > 1) {
     // Canonical node: the most specific Digital Link (serial > lot > plain GTIN).
@@ -105,31 +89,31 @@ export async function validateWithShaclCore(
     }
   }
 
-  const validator = new SHACLValidator(shapes);
-  const report = await validator.validate(data);
+  const report = await validate(shapes, data);
 
-  const findings: ShaclFinding[] = report.results.map((r: any) => {
-    const message = (r.message?.[0]?.value ?? "").toString();
-    const nrMatch = /^EC data point (\d+)/.exec(message);
+  const findings: ShaclFinding[] = report.findings.map((f) => {
+    const nrMatch = /^EC data point (\d+)/.exec(f.message);
     return {
-      severity: (r.severity?.value ?? `${SH}Violation`).replace(SH, "") as ShaclFinding["severity"],
-      message,
-      focusNode: r.focusNode?.value ?? "",
-      sourceShape: r.sourceShape?.value ?? "",
+      severity: f.severity,
+      message: f.message,
+      focusNode: f.focusNode,
+      sourceShape: f.sourceShape,
       ...(nrMatch ? { dataPoint: Number(nrMatch[1]) } : {}),
     };
   });
+  // validate() already ordered by severity; refine ties by data point so the
+  // report reads in guidance order rather than by shape IRI.
+  const order: Severity[] = ["Violation", "Warning", "Info"];
   findings.sort(
     (a, b) =>
-      ["Violation", "Warning", "Info"].indexOf(a.severity) -
-        ["Violation", "Warning", "Info"].indexOf(b.severity) ||
+      order.indexOf(a.severity) - order.indexOf(b.severity) ||
       (a.dataPoint ?? 999) - (b.dataPoint ?? 999),
   );
 
   return {
-    conforms: findings.every((f) => f.severity !== "Violation"),
+    conforms: report.conforms,
     category,
-    shapesActivated: activated,
+    shapesActivated,
     findings,
   };
 }

@@ -13,63 +13,12 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import jsonld from 'jsonld';
+import { offlineDocumentLoader, type JsonLdDocumentLoader } from './lib/jsonld-loader.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 
-// Context IRI → local file. Auto-discovered from every extensions/**/context/*.jsonld
-// so a new module (or a new context file) is covered with no edit here — the old
-// hardcoded map silently skipped iron-steel and would skip any future module.
-// Published URL convention: a context at extensions/<path>/context/<name>.jsonld is
-// served at https://ref.openepcis.io/extensions/<path>/<name>.jsonld (no "context/").
-// Non-openepcis hosts (e.g. the GS1 Rail mirror) are listed explicitly below.
-// Upstream contexts are served from the pinned vendor snapshots so validation is
-// offline and deterministic (same trade-off as the vocabulary guard's snapshot).
-const SPECIAL_HOST_MAP: Record<string, string> = {
-  'https://gs1-epcis-reg.org/rail/rail-context.jsonld':
-    'extensions/upstream/gs1-rail/context/rail-context.jsonld',
-  'https://ref.gs1.org/standards/epcis/epcis-context.jsonld': 'vendor/gs1/epcis-context.jsonld',
-  'https://ref.gs1.org/voc/': 'vendor/gs1/gs1Voc.jsonld',
-};
-
-async function buildContextMap(): Promise<Record<string, string>> {
-  const map: Record<string, string> = { ...SPECIAL_HOST_MAP };
-  const extRoot = path.join(ROOT, 'extensions');
-  const entries = await fs.readdir(extRoot, { recursive: true });
-  for (const rel of entries) {
-    const relStr = String(rel).split(path.sep).join('/');
-    const m = relStr.match(/^(.+)\/context\/([^/]+\.jsonld)$/);
-    if (!m) continue;
-    const url = `https://ref.openepcis.io/extensions/${m[1]}/${m[2]}`;
-    map[url] = `extensions/${relStr}`;
-  }
-  return map;
-}
-
-const remoteCache = new Map<string, any>();
-
-async function loadRemote(url: string): Promise<any> {
-  if (remoteCache.has(url)) return remoteCache.get(url);
-  const res = await fetch(url, { headers: { Accept: 'application/ld+json, application/json' } });
-  if (!res.ok) throw new Error(`fetch ${url}: ${res.status}`);
-  const text = await res.text();
-  const doc = JSON.parse(text);
-  remoteCache.set(url, doc);
-  return doc;
-}
-
-function makeDocumentLoader(urlToFile: Record<string, string>) {
-  return async (url: string) => {
-    if (urlToFile[url]) {
-      const localPath = path.join(ROOT, urlToFile[url]);
-      const text = await fs.readFile(localPath, 'utf8');
-      return { contextUrl: undefined, documentUrl: url, document: JSON.parse(text) };
-    }
-    const doc = await loadRemote(url);
-    return { contextUrl: undefined, documentUrl: url, document: doc };
-  };
-}
-type DocumentLoader = ReturnType<typeof makeDocumentLoader>;
+type DocumentLoader = JsonLdDocumentLoader;
 
 interface DropEvent {
   code: string;
@@ -151,8 +100,7 @@ async function main() {
   }
   targets.sort();
 
-  const urlToFile = await buildContextMap();
-  const documentLoader = makeDocumentLoader(urlToFile);
+  const documentLoader = await offlineDocumentLoader();
 
   const filter = process.argv[2];
   const filtered = filter ? targets.filter((t) => t.includes(filter)) : targets;
