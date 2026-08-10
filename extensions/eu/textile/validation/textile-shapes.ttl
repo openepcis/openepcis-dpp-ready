@@ -3,19 +3,25 @@
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix schema: <https://schema.org/> .
 @prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
+# Reusable value shapes from the core shapes graph (dpp-sh:TranslatableText).
+# Every validation type bundles dpp-core-shapes.ttl alongside this file, so the
+# reference always resolves; see docs/GITB_CONFORMANCE.md.
+@prefix dpp-sh: <https://ref.openepcis.io/extensions/common/core/shapes/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 <https://ref.openepcis.io/extensions/eu/textile/shapes/>
     a sh:ShapesGraph ;
     dcterms:title "OpenEPCIS Textile SHACL Shapes"@en ;
     dcterms:description "SHACL validation shapes for Textile Digital Product Passport vocabulary."@en ;
+    owl:versionInfo "0.9.9" ;
     dcterms:created "2025-02-02"^^xsd:date ;
-    dcterms:modified "2026-06-07"^^xsd:date .
+    dcterms:modified "2026-08-10"^^xsd:date .
 
 # =============================================================================
-# OpenEPCIS Textile Vocabulary SHACL Shapes v0.9.6
+# OpenEPCIS Textile Vocabulary SHACL Shapes
 # Validation shapes for Textile Digital Product Passport data
 # Aligned with EU Sustainable Textiles Strategy, ESPR 2024/1781,
 # and EU Preparatory Study on Textiles 3rd Milestone
@@ -28,12 +34,18 @@ eutex:TextileProductShape a sh:NodeShape ;
     sh:targetClass eutex:TextileProduct ;
     rdfs:label "Textile Product Shape" ;
     rdfs:comment "Validation shape for TextileProduct instances per EU Textile Labelling Regulation 1007/2011." ;
+    # schema:category ranges over Text OR Thing in schema.org, and the corpus uses
+    # both: a eutex:TextileCategory code where one fits, localized free text where
+    # the marketed category has no code. Accept either, and no maxCount — three
+    # translations of one category are three values.
     sh:property [
         sh:path schema:category ;
         sh:name "Textile Category" ;
         sh:description "Category of textile product (apparel, footwear, home textiles, etc.)." ;
-        sh:maxCount 1 ;
-        sh:class eutex:TextileCategory
+        sh:or (
+            [ sh:class eutex:TextileCategory ]
+            [ sh:node dpp-sh:TranslatableText ]
+        )
     ] ;
     sh:property [
         sh:path eutex:hasFabricType ;
@@ -54,9 +66,10 @@ eutex:TextileProductShape a sh:NodeShape ;
         sh:datatype xsd:string ;
         sh:maxCount 1
     ] ;
+    # A GS1 code-list value, i.e. a gs1:TargetConsumerGenderCode IRI, not a string.
     sh:property [
         sh:path gs1:targetConsumerGender ;
-        sh:datatype xsd:string ;
+        sh:nodeKind sh:IRI ;
         sh:maxCount 1
     ] ;
     sh:property [
@@ -123,8 +136,11 @@ eutex:TextileProductShape a sh:NodeShape ;
         sh:name "Take-Back Program" ;
         sh:class eutex:TakeBackProgram
     ] ;
+    # Was a second eutex:hasTakeBackProgram block constraining the same object
+    # property to xsd:boolean — a leftover of the has* rename. The boolean flag is
+    # eutex:takeBackProgramAvailable.
     sh:property [
-        sh:path eutex:hasTakeBackProgram ;
+        sh:path eutex:takeBackProgramAvailable ;
         sh:datatype xsd:boolean ;
         sh:maxCount 1
     ] ;
@@ -165,8 +181,7 @@ eutex:TextileProductShape a sh:NodeShape ;
     ] ;
     sh:property [
         sh:path gs1:consumerRecyclingInstructions ;
-        sh:datatype xsd:string ;
-        sh:maxCount 1
+        sh:node dpp-sh:TranslatableText
     ] ;
     sh:property [
         sh:path eutex:hasWaterUsage ;
@@ -296,8 +311,7 @@ eutex:CareInstructionShape a sh:NodeShape ;
     ] ;
     sh:property [
         sh:path eutex:additionalCareInstructions ;
-        sh:datatype xsd:string ;
-        sh:maxCount 1
+        sh:node dpp-sh:TranslatableText
     ] .
 
 # -----------------------------------------------------------------------------
@@ -702,9 +716,8 @@ eutex:SubstanceOfConcernShape a sh:NodeShape ;
     ] ;
     sh:property [
         sh:path schema:name ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1
+        sh:node dpp-sh:TranslatableText ;
+        sh:minCount 1
     ] ;
     sh:property [
         sh:path schema:iupacName ;
@@ -785,8 +798,7 @@ eutex:MicroplasticInfoShape a sh:NodeShape ;
     ] ;
     sh:property [
         sh:path eutex:microplasticMitigationMeasures ;
-        sh:datatype xsd:string ;
-        sh:maxCount 1
+        sh:node dpp-sh:TranslatableText
     ] .
 
 # -----------------------------------------------------------------------------
@@ -802,13 +814,11 @@ eutex:TakeBackProgramShape a sh:NodeShape ;
     ] ;
     sh:property [
         sh:path eutex:takeBackIncentive ;
-        sh:datatype xsd:string ;
-        sh:maxCount 1
+        sh:node dpp-sh:TranslatableText
     ] ;
     sh:property [
         sh:path eutex:endOfLifeDestination ;
-        sh:datatype xsd:string ;
-        sh:maxCount 1
+        sh:node dpp-sh:TranslatableText
     ] .
 
 # -----------------------------------------------------------------------------
@@ -838,9 +848,8 @@ eutex:TextileChemicalShape a sh:NodeShape ;
     sh:property [
         sh:path schema:name ;
         sh:name "Chemical Name" ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1
+        sh:node dpp-sh:TranslatableText ;
+        sh:minCount 1
     ] ;
     sh:property [
         sh:path eutex:chemicalPurpose ;

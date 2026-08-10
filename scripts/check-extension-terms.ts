@@ -39,6 +39,17 @@ const OWNED_NAMESPACES = [
 
 const isOwned = (iri: string) => OWNED_NAMESPACES.some((ns) => iri.startsWith(ns));
 
+/**
+ * SHACL shape identifiers live under a `/shapes/` path segment inside an owned
+ * namespace (dpp-sh:, ppwr-sh:, …). They are not vocabulary terms, so no module
+ * ontology defines them and the definition requirement must not apply.
+ *
+ * This only became visible once shapes started REFERENCING each other: a shape
+ * IRI used as a subject in its own file was already excluded, but a reusable
+ * shape pulled in from another file via sh:node appears purely as an object.
+ */
+const isShapeIri = (iri: string) => /\/shapes\/[^/]*$/.test(iri);
+
 /** Directories that never contain authored artifacts. */
 const SKIP_DIRS = new Set(["node_modules", ".git", ".cache", "target", "dist", "json"]);
 
@@ -146,7 +157,12 @@ async function refsFromShapes(file: string): Promise<Ref[]> {
   for (const q of store) if (q.subject.termType === "NamedNode") subjects.add(q.subject.value);
   for (const q of store) {
     for (const node of [q.predicate, q.object]) {
-      if (node.termType === "NamedNode" && isOwned(node.value) && !subjects.has(node.value)) {
+      if (
+        node.termType === "NamedNode" &&
+        isOwned(node.value) &&
+        !isShapeIri(node.value) &&
+        !subjects.has(node.value)
+      ) {
         refs.push({ term: node.value, file: rel, where: q.predicate.value });
       }
     }

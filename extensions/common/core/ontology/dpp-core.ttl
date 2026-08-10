@@ -1503,6 +1503,12 @@ oec:componentName
     rdfs:comment "Human-readable name of the material or component (e.g. a fibre type, alloy, or constituent material)."@en ;
     rdfs:domain oec:MaterialComposition ;
     rdfs:range xsd:string ;
+    # dpp-sh:MaterialCompositionShape requires a schema:name on every
+    # oec:MaterialComposition. A component name IS the node's name, so naming a
+    # component with the more specific term must satisfy that obligation rather
+    # than compete with it. Subordinating our own term to the Layer-1 one is the
+    # allowed direction under the delegation rule (GS1 -> SEMICeu -> schema.org).
+    rdfs:subPropertyOf schema:name ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso schema:name ;

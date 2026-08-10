@@ -6,6 +6,9 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+# Reusable value shapes from the core shapes graph (dpp-sh:TranslatableText).
+# Every validation type bundles dpp-core-shapes.ttl alongside this file.
+@prefix dpp-sh: <https://ref.openepcis.io/extensions/common/core/shapes/> .
 
 <https://ref.openepcis.io/extensions/eu/battery/shapes/>
     a sh:ShapesGraph ;
@@ -80,7 +83,9 @@ eubat:BatteryShape a sh:NodeShape ;
         sh:name "Supply Chain Due Diligence" ;
         sh:class eubat:SupplyChainDueDiligence
     ] ;
-    # BatteryPass-Ready v1.3 mandatory identifier attributes (#7, #8, #11)
+    # BatteryPass-Ready v1.3 mandatory identifier attributes (#7).
+    # A model identifier is required at EVERY granularity: a batch or item
+    # passport still says which model it is an instance of.
     sh:property [
         sh:path eubat:batteryModelIdentifier ;
         sh:name "Battery Model Identifier" ;
@@ -89,41 +94,50 @@ eubat:BatteryShape a sh:NodeShape ;
         sh:minCount 1 ;
         sh:maxCount 1
     ] ;
+    # gs1:hasSerialNumber, eubat:facilityIdentifier, eubat:operatorIdentifier,
+    # eubat:manufacturerIdentifier and gs1:manufacturer are GRANULARITY-DEPENDENT
+    # and live in the per-level shapes at the end of this file — see the note there.
+    # Their value constraints (datatype, cardinality) that hold at every level stay here.
     sh:property [
         sh:path gs1:hasSerialNumber ;
         sh:name "Battery Serial Number" ;
-        sh:description "Mandatory per BatteryPass-Ready v1.3 (#8). Required on the Declaration of Conformity." ;
+        sh:description "Mandatory per BatteryPass-Ready v1.3 (#8) at item granularity. Required on the Declaration of Conformity." ;
         sh:datatype xsd:string ;
-        sh:minCount 1 ;
         sh:maxCount 1
     ] ;
     sh:property [
         sh:path eubat:facilityIdentifier ;
         sh:name "Facility Identifier" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#11). Recommend GLN of the gs1:Place referenced by eubat:hasManufacturingPlace." ;
-        sh:datatype xsd:string ;
-        sh:minCount 1
+        sh:datatype xsd:string
     ] ;
     sh:property [
         sh:path eubat:operatorIdentifier ;
         sh:name "Economic Operator Identifier" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#9). Access-restricted (AuthorizedOnly)." ;
-        sh:datatype xsd:string ;
-        sh:minCount 1
+        sh:datatype xsd:string
     ] ;
     sh:property [
         sh:path eubat:manufacturerIdentifier ;
         sh:name "Manufacturer Identifier" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#10). Access-restricted (AuthorizedOnly)." ;
-        sh:datatype xsd:string ;
-        sh:minCount 1
+        sh:datatype xsd:string
     ] ;
+    # Party master data is RESOLVER-SERVED: an event or passport references the
+    # party by its GLN Digital Link and a consumer dereferences it, so the
+    # organization node is deliberately NOT inlined (see
+    # extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md, rule 1).
+    # A bare sh:class therefore rejects the very form the architecture prescribes.
+    # Accept either: an inlined operator/organization node, or an IRI reference.
     sh:property [
         sh:path gs1:manufacturer ;
         sh:name "Manufacturer Information" ;
         sh:description "Mandatory per BatteryPass-Ready v1.3 (#13)." ;
-        sh:class oec:OperatorInformation ;
-        sh:minCount 1
+        sh:or (
+            [ sh:class oec:OperatorInformation ]
+            [ sh:class gs1:Organization ]
+            [ sh:nodeKind sh:IRI ]
+        )
     ] ;
     # BatteryPass-Ready v1.3 cross-cutting DPP information (#1-#4)
     sh:property [
@@ -195,15 +209,13 @@ eubat:BatteryChemistryShape a sh:NodeShape ;
         sh:path schema:name ;
         sh:name "Short Name" ;
         sh:description "Abbreviated chemistry name (e.g., LFP, NMC, NCA)." ;
-        sh:datatype xsd:string ;
-        sh:maxCount 1
+        sh:node dpp-sh:TranslatableText
     ] ;
     sh:property [
         sh:path schema:name ;
         sh:name "Full Name" ;
         sh:description "Full chemical name of the battery chemistry." ;
-        sh:datatype xsd:string ;
-        sh:maxCount 1
+        sh:node dpp-sh:TranslatableText
     ] ;
     sh:property [
         sh:path eubat:cathodeActiveMaterial ;
@@ -215,7 +227,7 @@ eubat:BatteryChemistryShape a sh:NodeShape ;
     ] ;
     sh:property [
         sh:path eubat:electrolyteType ;
-        sh:datatype xsd:string
+        sh:node dpp-sh:TranslatableText
     ] .
 
 # -----------------------------------------------------------------------------
@@ -256,9 +268,9 @@ eubat:BatteryMaterialShape a sh:NodeShape ;
     rdfs:label "Battery Material Shape" ;
     sh:property [
         sh:path schema:name ;
-        sh:datatype xsd:string ;
+        sh:node dpp-sh:TranslatableText ;
         sh:minCount 1
-    ] ;
+] ;
     sh:property [
         sh:path eubat:casNumber ;
         sh:name "CAS Number" ;
@@ -312,7 +324,7 @@ eubat:EndOfLifeInfoShape a sh:NodeShape ;
     ] ;
     sh:property [
         sh:path eubat:extinguishingAgent ;
-        sh:datatype xsd:string
+        sh:node dpp-sh:TranslatableText
     ] .
 
 # -----------------------------------------------------------------------------
@@ -323,9 +335,9 @@ eubat:HazardousSubstanceShape a sh:NodeShape ;
     rdfs:label "Hazardous Substance Shape" ;
     sh:property [
         sh:path schema:name ;
-        sh:datatype xsd:string ;
+        sh:node dpp-sh:TranslatableText ;
         sh:minCount 1
-    ] ;
+] ;
     sh:property [
         sh:path eubat:substanceCasNumber ;
         sh:datatype xsd:string
@@ -346,9 +358,12 @@ eubat:OperatorInformationShape a sh:NodeShape ;
     sh:targetClass oec:OperatorInformation ;
     rdfs:label "Operator Information Shape" ;
     rdfs:comment "Battery-specific constraint on the shared oec:OperatorInformation class, which is the declared range of eubat:hasOperatorInformation. There is no eubat:OperatorInformation class." ;
+    # An object property: the role is an oec: individual, not a string. The shared
+    # dpp-sh:OperatorInformationShape pins the permitted values with sh:in; here it
+    # is enough to require an IRI so a bare code cannot slip through.
     sh:property [
         sh:path eubat:hasOperatorRole ;
-        sh:datatype xsd:string
+        sh:nodeKind sh:IRI
     ] .
 
 # -----------------------------------------------------------------------------
@@ -405,4 +420,83 @@ eubat:RatedMaximumPowerShape a sh:NodeShape ;
         sh:path ( eubat:hasRatedMaximumPower gs1:unitCode ) ;
         sh:hasValue "KWT" ;
         sh:message "eubat:hasRatedMaximumPower must use unitCode 'KWT' (kilowatts)"@en
+    ] .
+
+# =============================================================================
+# Granularity-dependent obligations (EN 18223 model / batch / item)
+# =============================================================================
+#
+# Which identifiers a battery passport MUST carry depends on its granularity, so
+# these obligations cannot live in eubat:BatteryShape:
+#
+#   * A model passport (GS1 Digital Link /01/ only) has no serial number. A
+#     sh:minCount 1 on gs1:hasSerialNumber makes every model passport
+#     non-conformant by construction.
+#   * A batch or item passport does NOT restate the model- and party-level
+#     identifiers. Per the granularity model a finer passport RESOLVES that data
+#     up the Digital Link hierarchy — the same principle
+#     scripts/lib/ec-readiness-shacl-core.ts implements by folding the three
+#     levels onto one focus node before validating. Requiring them at item level
+#     would demand duplication the architecture explicitly rejects.
+#
+# Mechanism: every shape below ships `sh:deactivated true` and the runner
+# activates exactly ONE level by its IRI suffix (-model / -batch / -item), the
+# same activateBySuffix() contract the generated EC readiness category shapes
+# use. scripts/check-shapes.ts and scripts/build-gitb-resources.ts share it, so
+# each level also becomes its own GITB validation type.
+#
+# Do NOT drop the sh:deactivated triples here: with all three active at once a
+# passport would have to be a model AND an item simultaneously.
+
+eubat:BatteryShape-model
+    a sh:NodeShape ;
+    sh:targetClass eubat:Battery ;
+    rdfs:label "Battery Shape (model granularity)" ;
+    rdfs:comment "Obligations of a model-level battery passport: the model- and party-level identifiers are declared here and resolved from here by finer passports." ;
+    sh:deactivated true ;
+    sh:property [
+        sh:path eubat:facilityIdentifier ;
+        sh:minCount 1 ;
+        sh:message "A model-level battery passport must declare eubat:facilityIdentifier (BatteryPass-Ready v1.3 #11)."@en
+    ] ;
+    sh:property [
+        sh:path eubat:operatorIdentifier ;
+        sh:minCount 1 ;
+        sh:message "A model-level battery passport must declare eubat:operatorIdentifier (BatteryPass-Ready v1.3 #9)."@en
+    ] ;
+    sh:property [
+        sh:path eubat:manufacturerIdentifier ;
+        sh:minCount 1 ;
+        sh:message "A model-level battery passport must declare eubat:manufacturerIdentifier (BatteryPass-Ready v1.3 #10)."@en
+    ] ;
+    sh:property [
+        sh:path gs1:manufacturer ;
+        sh:minCount 1 ;
+        sh:message "A model-level battery passport must reference its manufacturer (BatteryPass-Ready v1.3 #13)."@en
+    ] .
+
+eubat:BatteryShape-batch
+    a sh:NodeShape ;
+    sh:targetClass eubat:Battery ;
+    rdfs:label "Battery Shape (batch granularity)" ;
+    rdfs:comment "Obligations of a batch/lot-level battery passport. Model- and party-level identifiers are resolved from the model passport, not restated." ;
+    sh:deactivated true .
+# Deliberately carries no additional sh:property. A batch passport's lot identity
+# IS its GS1 Digital Link (AI 10) rather than a separate property — there is no
+# eubat:lotNumber, and minting one would duplicate the identifier that the
+# document IRI already carries. The model/batch/item consistency of that IRI is
+# checked by dpp-sh:GranularityDigitalLinkConstraint in dpp-core-shapes.ttl.
+# The shape exists so that "eu.battery.batch" is a declarable validation type and
+# so batch-specific obligations have an obvious home when the standards add them.
+
+eubat:BatteryShape-item
+    a sh:NodeShape ;
+    sh:targetClass eubat:Battery ;
+    rdfs:label "Battery Shape (item granularity)" ;
+    rdfs:comment "Obligations of an item/serial-level battery passport. Model- and party-level identifiers are resolved up the Digital Link hierarchy, not restated." ;
+    sh:deactivated true ;
+    sh:property [
+        sh:path gs1:hasSerialNumber ;
+        sh:minCount 1 ;
+        sh:message "An item-level battery passport must declare gs1:hasSerialNumber (BatteryPass-Ready v1.3 #8; EN 18223 item granularity, GS1 AI 21)."@en
     ] .

@@ -6,6 +6,9 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+# Reusable value shapes from the core shapes graph (dpp-sh:TranslatableText).
+# Every validation type bundles dpp-core-shapes.ttl alongside this file.
+@prefix dpp-sh: <https://ref.openepcis.io/extensions/common/core/shapes/> .
 
 # =============================================================================
 # OpenEPCIS Electronics Vocabulary SHACL Shapes v0.9.6
@@ -44,8 +47,7 @@ euelec:ElectronicDeviceShape a sh:NodeShape ;
         sh:path schema:name ;
         sh:name "Commercial Name" ;
         sh:description "Commercial or trade name of the device." ;
-        sh:datatype xsd:string ;
-        sh:maxCount 1
+        sh:node dpp-sh:TranslatableText
     ] ;
     sh:property [
         sh:path euelec:hasRepairabilityIndex ;
@@ -370,16 +372,20 @@ range is the generic gs1:Product.""" ;
         sh:path schema:name ;
         sh:name "Component Name" ;
         sh:description "Human-readable name of the component." ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1
+        sh:node dpp-sh:TranslatableText ;
+        sh:minCount 1
     ] ;
+    # Resolver-served party reference or an inlined organization node — see the
+    # note on gs1:manufacturer in battery-shapes.ttl.
     sh:property [
         sh:path gs1:manufacturer ;
         sh:name "Component Manufacturer" ;
         sh:description "Organization that manufactured the component." ;
         sh:maxCount 1 ;
-        sh:class gs1:Organization
+        sh:or (
+            [ sh:class gs1:Organization ]
+            [ sh:nodeKind sh:IRI ]
+        )
     ] ;
     sh:property [
         sh:path euelec:componentPartNumber ;
@@ -402,11 +408,13 @@ range is the generic gs1:Product.""" ;
         sh:maxCount 1 ;
         sh:class euelec:ReplacementDifficulty
     ] ;
+    # An object property (has*): the component's passport is referenced by its GS1
+    # Digital Link IRI, so the value is an IRI node and not an anyURI literal.
     sh:property [
         sh:path euelec:hasComponentPassport ;
         sh:name "Component Passport" ;
-        sh:description "URL of the digital product passport for this component." ;
-        sh:datatype xsd:anyURI ;
+        sh:description "GS1 Digital Link of the digital product passport for this component." ;
+        sh:nodeKind sh:IRI ;
         sh:maxCount 1
     ] ;
     sh:property [

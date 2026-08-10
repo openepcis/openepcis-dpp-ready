@@ -1,5 +1,6 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
@@ -10,18 +11,73 @@
 
 # =============================================================================
 # SHACL Shapes for OpenEPCIS DPP Core Vocabulary
-# Version: 0.9.6
+# The version lives in owl:versionInfo on the sh:ShapesGraph node below, which
+# scripts/release.ts stamps — a hand-maintained comment here went stale at 0.9.6.
 # =============================================================================
 
 <https://ref.openepcis.io/extensions/common/core/shapes/>
     a sh:ShapesGraph ;
     dcterms:title "OpenEPCIS DPP Core SHACL Shapes"@en ;
     dcterms:description "SHACL validation shapes for OpenEPCIS DPP Core vocabulary. Validates value ranges, required properties, and cardinality constraints."@en ;
+    owl:versionInfo "0.9.9" ;
     dcterms:created "2025-02-02"^^xsd:date ;
-    dcterms:modified "2026-06-07"^^xsd:date ;
+    dcterms:modified "2026-08-10"^^xsd:date ;
     sh:declare [ sh:prefix "dpp" ; sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI ] ;
     sh:declare [ sh:prefix "oec" ; sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI ] ;
     sh:declare [ sh:prefix "gs1" ; sh:namespace "https://ref.gs1.org/voc/"^^xsd:anyURI ] .
+
+# =============================================================================
+# Economic-operator role obligation
+# =============================================================================
+
+# An ESPR Art. 77 role is REQUIRED only where the party actually is an economic
+# operator, which is decided by how the node is reached — not by its class.
+#
+# oec:OperatorInformation is deliberately reused for every party record, and most
+# of those parties have no Art. 77 role at all: oec:hasBackupCopyHost is a DPP
+# service provider under Art. 10(4), eudr:hasExemptionAuthority is a competent
+# authority, eucpr:hasNotifiedBody and eucpr:hasTechnicalAssessmentBody are
+# conformity-assessment bodies. A blanket sh:minCount 1 on the class demanded a
+# value the seven-role code list cannot supply for any of them.
+#
+# Targeting the objects of the economic-operator properties instead states the
+# obligation exactly where it holds. Module properties reach it through
+# rdfs:subPropertyOf (eubat:hasOperatorInformation), so the core shapes need no
+# knowledge of the module namespaces — the layering stays intact.
+dpp-sh:EconomicOperatorRoleRequired
+    a sh:NodeShape ;
+    rdfs:label "Economic operator role required"@en ;
+    sh:targetObjectsOf oec:hasOperatorInformation ;
+    sh:targetObjectsOf oec:hasPassportIssuer ;
+    sh:property [
+        sh:path oec:hasOperatorRole ;
+        sh:minCount 1 ;
+        sh:message "An economic operator must declare its ESPR Art. 77 role (oec:hasOperatorRole)."@en
+    ] .
+
+# =============================================================================
+# Reusable value shapes
+# =============================================================================
+
+# Human-readable text that may carry a language tag.
+#
+# ESPR requires consumer-facing information in the language of the member state
+# where the product is placed on the market, so any such value can arrive either
+# as a plain string or as one or more language-tagged strings. A language-tagged
+# literal has datatype rdf:langString and NEVER xsd:string, so a bare
+# `sh:datatype xsd:string` rejects exactly the multilingual case the regulation
+# demands. Reference this shape with `sh:node dpp-sh:TranslatableText` instead of
+# repeating the alternation, and do not pair it with `sh:maxCount 1` — n
+# translations are n values.
+dpp-sh:TranslatableText
+    a sh:NodeShape ;
+    rdfs:label "Translatable text"@en ;
+    rdfs:comment "A plain or language-tagged string; the multilingual form ESPR consumer information requires."@en ;
+    sh:or (
+        [ sh:datatype xsd:string ]
+        [ sh:datatype rdf:langString ]
+    ) ;
+    sh:message "must be text: either a plain string or a language-tagged string"@en .
 
 # =============================================================================
 # CircularityPerformance Shape
@@ -65,24 +121,27 @@ dpp-sh:CircularityPerformanceShape
         sh:message "materialCircularityIndicator must be a decimal between 0 and 1"@en
     ] ;
 
+    # The three information carriers below are owl:DatatypeProperty with
+    # rdfs:range xsd:anyURI, so their values are anyURI LITERALS, not IRI nodes
+    # — sh:nodeKind sh:IRI would contradict the ontology and the shipped context.
     sh:property [
         sh:path oec:endOfLifeInstructions ;
         sh:name "endOfLifeInstructions"@en ;
-        sh:nodeKind sh:IRI ;
+        sh:datatype xsd:anyURI ;
         sh:maxCount 1
     ] ;
 
     sh:property [
         sh:path oec:wastePreventionInfo ;
         sh:name "wastePreventionInfo"@en ;
-        sh:nodeKind sh:IRI ;
+        sh:datatype xsd:anyURI ;
         sh:maxCount 1
     ] ;
 
     sh:property [
         sh:path oec:separateCollectionInfo ;
         sh:name "separateCollectionInfo"@en ;
-        sh:nodeKind sh:IRI ;
+        sh:datatype xsd:anyURI ;
         sh:maxCount 1
     ] .
 
@@ -143,9 +202,8 @@ dpp-sh:MaterialCompositionShape
         sh:path schema:name ;
         sh:name "materialName"@en ;
         sh:description "Name of the material"@en ;
-        sh:datatype xsd:string ;
+        sh:node dpp-sh:TranslatableText ;
         sh:minCount 1 ;
-        sh:maxCount 1 ;
         sh:message "materialName is required and must be a string"@en
     ] ;
 
@@ -264,6 +322,10 @@ dpp-sh:OperatorInformationShape
     sh:name "Operator Information Shape"@en ;
     sh:description "Validates OperatorInformation instances"@en ;
 
+    # The role must be one of the seven ESPR Art. 77 economic-operator roles
+    # WHEREVER it is stated. Whether it is REQUIRED is a separate question, and
+    # the answer depends on why the node is in the graph — see
+    # dpp-sh:EconomicOperatorRoleRequired below.
     sh:property [
         sh:path oec:hasOperatorRole ;
         sh:name "operatorRole"@en ;
@@ -277,8 +339,7 @@ dpp-sh:OperatorInformationShape
             oec:AuthorisedRepresentative
             oec:FulfilmentServiceProvider
         ) ;
-        sh:minCount 1 ;
-        sh:message "operatorRole is required and must be a valid OperatorRole"@en
+        sh:message "operatorRole must be one of the seven ESPR Art. 77 economic-operator roles"@en
     ] ;
 
     sh:property [
@@ -342,9 +403,8 @@ dpp-sh:FacilityInformationShape
         sh:path schema:name ;
         sh:name "name"@en ;
         sh:description "Official facility name (inherited from gs1:Place)"@en ;
-        sh:datatype xsd:string ;
+        sh:node dpp-sh:TranslatableText ;
         sh:minCount 1 ;
-        sh:maxCount 1 ;
         sh:message "name is required"@en
     ] ;
 
@@ -369,9 +429,8 @@ dpp-sh:SubstanceOfConcernShape
         sh:path schema:name ;
         sh:name "substanceName"@en ;
         sh:description "Name of the hazardous substance"@en ;
-        sh:datatype xsd:string ;
+        sh:node dpp-sh:TranslatableText ;
         sh:minCount 1 ;
-        sh:maxCount 1 ;
         sh:message "substanceName is required"@en
     ] ;
 
@@ -491,7 +550,8 @@ dpp-sh:RepairabilityInfoShape
     sh:property [
         sh:path oec:professionalRepairNetwork ;
         sh:name "professionalRepairNetwork"@en ;
-        sh:nodeKind sh:IRI ;
+        # owl:DatatypeProperty, rdfs:range xsd:anyURI — a literal, not an IRI node.
+        sh:datatype xsd:anyURI ;
         sh:maxCount 1
     ] .
 
@@ -545,17 +605,32 @@ dpp-sh:GranularityLevelConstraint
 # (gs1:productID) is a GS1 Digital Link URI.
 # =============================================================================
 
+# Target: every node that DECLARES a granularity. The previous version targeted
+# oec:DigitalProductPassport and read the Digital Link from gs1:productID, and
+# neither appears anywhere in the corpus — no example is typed as that class and
+# none sets that property, so this constraint had never fired on anything. Eleven
+# examples declare oec:granularityLevel and carry the Digital Link as their own
+# node IRI, which is how the resolver addresses them, so that is what to check.
+#
+# Only Apache Jena among the engines in play evaluates sh:sparql, so this is
+# enforced by the ITB parity gate (pnpm run check:shapes:itb) and not by the
+# in-process build gate. scripts/check-granularity.ts keeps the same invariant
+# green in the ordinary offline build.
 dpp-sh:GranularityDigitalLinkConstraint
     a sh:NodeShape ;
-    sh:targetClass oec:DigitalProductPassport ;
+    sh:targetSubjectsOf oec:granularityLevel ;
     sh:sparql [
         a sh:SPARQLConstraint ;
-        sh:message "granularity must match the GS1 Digital Link Application Identifiers in uniqueProductIdentifier (01 -> model, 01+10 -> batch, 01+21 -> item) per EN 18219 4.4 / EN 18223."@en ;
+        sh:message "granularity must match the GS1 Digital Link Application Identifiers of the passport IRI (01 -> model, 01+10 -> batch, 01+21 -> item) per EN 18219 4.4 / EN 18223."@en ;
         sh:prefixes <https://ref.openepcis.io/extensions/common/core/shapes/> ;
         sh:select """
             SELECT $this ?value WHERE {
                 $this oec:granularityLevel ?value .
-                $this gs1:productID ?dl .
+                # The Digital Link is the node's own IRI; gs1:productID is honoured
+                # as an alternative carrier where a passport states it separately.
+                OPTIONAL { $this gs1:productID ?stated }
+                BIND( COALESCE(?stated, STR($this)) AS ?dl )
+                FILTER( REGEX(STR(?dl), "/01/") )
                 BIND( IF(REGEX(STR(?dl), "/21/"), "item",
                        IF(REGEX(STR(?dl), "/10/"), "batch", "model")) AS ?expected )
                 FILTER( STR(?value) != ?expected )
@@ -683,24 +758,58 @@ dpp-sh:DepositReturnSchemeShape
     a sh:NodeShape ;
     sh:targetClass oec:DepositReturnScheme ;
     sh:name "DepositReturnScheme Shape"@en ;
-    sh:property [
-        sh:path oec:hasDepositAmount ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:message "DepositReturnScheme must declare exactly one depositAmount"@en
-    ] ;
+    # A deposit amount must be declared, in EITHER of the two forms the model
+    # deliberately keeps apart.
+    #
+    # oec:hasDepositAmount ranges over gs1:QuantitativeValue; the GS1 term
+    # gs1:returnablePackageDepositAmount ranges over gs1:PriceSpecification, which
+    # carries a currency. The ontology records the difference itself — the
+    # skos:note on oec:hasDepositAmount calls it a closeMatch, "same meaning,
+    # different value structure" — so neither subsumes the other and a
+    # rdfs:subPropertyOf axiom would be false. For a monetary deposit the GS1
+    # form is the better fit and the delegation rule prefers it, so requiring the
+    # oec: spelling alone would reject the more correct document.
+    sh:or (
+        [
+            sh:property [
+                sh:path oec:hasDepositAmount ;
+                sh:minCount 1 ;
+                sh:maxCount 1
+            ]
+        ]
+        [
+            sh:property [
+                sh:path gs1:returnablePackageDepositAmount ;
+                sh:minCount 1 ;
+                sh:maxCount 1
+            ]
+        ]
+    ) ;
+    sh:message "DepositReturnScheme must declare exactly one deposit amount, as oec:hasDepositAmount (gs1:QuantitativeValue) or gs1:returnablePackageDepositAmount (gs1:PriceSpecification)"@en ;
     sh:property [
         sh:path oec:depositRedemptionChannelUrl ;
         sh:datatype xsd:anyURI ;
         sh:maxCount 1
     ] .
 
-# Pin biodegradationPercentage to unitCode 'P1' (percent fraction).
-dpp-sh:BiodegradationPercentageUnitShape
+# Constrain biodegradationPercentage to the 0-100 percent range.
+#
+# This shape previously pinned ( oec:biodegradationPercentage gs1:unitCode ) to
+# "P1", by analogy with the has* lifespan shapes above. That analogy does not
+# hold: those properties are owl:ObjectProperty ranging over
+# gs1:QuantitativeValue, whereas oec:biodegradationPercentage is an
+# owl:DatatypeProperty with rdfs:range xsd:decimal. A decimal literal has no
+# gs1:unitCode, so the constraint could never be satisfied by any document the
+# ontology permits — it simply never fired, because until the detergent module's
+# specialised property was subordinated to it nothing used the core term at all.
+# The meaningful check on a bare percentage is its value range.
+dpp-sh:BiodegradationPercentageRangeShape
     a sh:NodeShape ;
     sh:targetSubjectsOf oec:biodegradationPercentage ;
     sh:property [
-        sh:path ( oec:biodegradationPercentage gs1:unitCode ) ;
-        sh:hasValue "P1" ;
-        sh:message "oec:biodegradationPercentage must use unitCode 'P1' (percent)"@en
+        sh:path oec:biodegradationPercentage ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 100 ;
+        sh:message "oec:biodegradationPercentage must be a decimal percentage between 0 and 100"@en
     ] .

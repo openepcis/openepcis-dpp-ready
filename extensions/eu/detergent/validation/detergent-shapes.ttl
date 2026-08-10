@@ -6,6 +6,9 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+# Reusable value shapes from the core shapes graph (dpp-sh:TranslatableText).
+# Every validation type bundles dpp-core-shapes.ttl alongside this file.
+@prefix dpp-sh: <https://ref.openepcis.io/extensions/common/core/shapes/> .
 
 <https://ref.openepcis.io/extensions/eu/detergent/shapes/>
     a sh:ShapesGraph ;
@@ -129,8 +132,7 @@ eudet:DetergentProductShape a sh:NodeShape ;
     ] ;
     sh:property [
         sh:path eudet:dosageInstructions ;
-        sh:datatype xsd:string ;
-        sh:maxCount 1
+        sh:node dpp-sh:TranslatableText
     ] ;
     sh:property [
         sh:path eudet:hasSafetyDataSheet ;
@@ -152,9 +154,8 @@ eudet:IngredientShape a sh:NodeShape ;
     sh:property [
         sh:path schema:name ;
         sh:name "INCI Name" ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1
+        sh:node dpp-sh:TranslatableText ;
+        sh:minCount 1
     ] ;
     sh:property [
         sh:path eudet:hasIngredientFunction ;
@@ -231,9 +232,8 @@ eudet:FragranceAllergenShape a sh:NodeShape ;
     sh:property [
         sh:path schema:name ;
         sh:name "Allergen Name" ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1
+        sh:node dpp-sh:TranslatableText ;
+        sh:minCount 1
     ] ;
     sh:property [
         sh:path eudet:allergenCasNumber ;
@@ -256,9 +256,8 @@ eudet:MicroorganismInfoShape a sh:NodeShape ;
     sh:property [
         sh:path schema:name ;
         sh:name "Species Name" ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1
+        sh:node dpp-sh:TranslatableText ;
+        sh:minCount 1
     ] ;
     sh:property [
         sh:path eudet:strainDesignation ;

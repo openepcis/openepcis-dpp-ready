@@ -1158,9 +1158,15 @@ euelec:weeeRegistrationNumber
     rdfs:comment "Producer registration number in the WEEE register."@en ;
     rdfs:domain euelec:WEEECompliance ;
     rdfs:range xsd:string ;
+    # euelec:WEEECompliance is a rdfs:subClassOf oec:ExtendedProducerResponsibility,
+    # so its instances are subject to dpp-sh:ExtendedProducerResponsibilityShape,
+    # which requires oec:eprRegistrationNumber. A WEEE producer registration IS an
+    # EPR registration, and the range matches (xsd:string), so the specialisation
+    # is a true subproperty and satisfies the obligation under RDFS entailment.
+    rdfs:subPropertyOf oec:eprRegistrationNumber ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
-    skos:note "E-waste / separate-collection concept per the WEEE Directive 2012/19/EU. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:note "E-waste / separate-collection concept per the WEEE Directive 2012/19/EU. Specialises the cross-cutting oec:eprRegistrationNumber for the WEEE register."@en ;
     skos:broadMatch gs1:registryEntry ;
     skos:broadMatch schema:companyRegistration ;
     skos:broadMatch gs1:regulatoryReferenceNumber .

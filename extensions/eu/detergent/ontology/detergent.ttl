@@ -603,9 +603,15 @@ eudet:biodegradationPercentage
     rdfs:comment "Measured ultimate aerobic biodegradation as percentage (>=60% required to pass)."@en ;
     rdfs:domain eudet:SurfactantBiodegradability ;
     rdfs:range xsd:decimal ;
+    # eudet:SurfactantBiodegradability is a rdfs:subClassOf oec:Biodegradability,
+    # so its instances are subject to dpp-sh:BiodegradabilityShape, which requires
+    # oec:biodegradationPercentage. Same range (xsd:decimal), so the specialisation
+    # is a true subproperty: a declared surfactant percentage satisfies the
+    # cross-cutting obligation under RDFS entailment.
+    rdfs:subPropertyOf oec:biodegradationPercentage ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/detergent/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405> ;
-    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:note "EU Detergents Regulation (EU) 2026/405 attribute. Specialises the cross-cutting oec:biodegradationPercentage for a single surfactant type."@en ;
     rdfs:seeAlso oec:biodegradationPercentage .
 
 eudet:hasTestMethod

@@ -2227,7 +2227,11 @@ eubat:hasOperatorInformation
     rdfs:comment "Non-identifier metadata of the economic operator responsible for the battery (Art. 38): name, postal address, contact point. The operator's identifier is carried separately by eubat:operatorIdentifier so the two can be exposed at different access levels (v1.3 separates them: identifier is restricted to authorities, information remains public)."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range oec:OperatorInformation ;
-    skos:note "BatteryPass-Ready v1.3 longlist attribute #12 (was combined #3 in v1.2)."@en ;
+    # Specialises the cross-cutting property, so a battery's operator record is
+    # reached by dpp-sh:EconomicOperatorRoleRequired and must declare its ESPR
+    # Art. 77 role — without the core shapes having to name the eubat: namespace.
+    rdfs:subPropertyOf oec:hasOperatorInformation ;
+    skos:note "BatteryPass-Ready v1.3 longlist attribute #12 (was combined #3 in v1.2). Specialises the cross-cutting oec:hasOperatorInformation."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     rdfs:seeAlso oec:hasOperatorInformation ;
@@ -2279,9 +2283,16 @@ eubat:hasOperatorRole
     rdfs:comment "Role of the economic operator (manufacturer, importer, distributor, etc.)."@en ;
     rdfs:domain oec:OperatorInformation ;
     rdfs:range oec:OperatorRole ;
+    # Same domain and same range as oec:hasOperatorRole, so this is a pure
+    # specialisation by regulation rather than a distinct concept. The
+    # subPropertyOf axiom makes that machine-readable: a battery passport that
+    # states eubat:hasOperatorRole thereby satisfies the cross-cutting
+    # dpp-sh:OperatorInformationShape obligation on oec:hasOperatorRole under RDFS
+    # entailment, instead of the two spellings silently failing each other's shape.
+    rdfs:subPropertyOf oec:hasOperatorRole ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
-    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
+    skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. Specialises the cross-cutting oec:hasOperatorRole; identical domain and range."@en ;
     rdfs:seeAlso oec:hasOperatorRole ;
     skos:broadMatch gs1:organizationRole ;
     skos:exactMatch oec:hasOperatorRole ;
