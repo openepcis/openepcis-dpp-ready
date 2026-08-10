@@ -19,6 +19,13 @@
  * Generated artifacts (context files, json/) carry the version from the TTL, so run the build
  * afterwards; the script reminds you.
  *
+ * The GITB artifacts under gitb/ are NOT stamped here, deliberately. They are generated from
+ * package.json and the shapes, and their drift gates (build-gitb-resources.ts,
+ * build-gitb-testsuite.ts) both run in `pnpm run build` — so a bumped version with a stale
+ * bundle or test suite fails the build until `pnpm run build:gitb` and
+ * `pnpm run build:gitb-testsuite` are re-run. Stamping them a second time here would give
+ * the same guarantee two owners.
+ *
  * Usage:
  *   tsx scripts/release.ts --check                 # verify every stamp agrees with package.json
  *   tsx scripts/release.ts --version 0.9.8         # dry run: report what would change

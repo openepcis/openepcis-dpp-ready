@@ -15,6 +15,11 @@ on:
       - 'scripts/check-extension-terms.ts'
       - 'scripts/extension-terms-allowlist.json'
       - 'scripts/en18223/**'
+      - 'scripts/check-shapes.ts'
+      - 'scripts/check-shapes-itb.ts'
+      - 'scripts/build-gitb-resources.ts'
+      - 'scripts/lib/**'
+      - 'gitb/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
       - '.github/workflows/validate-examples.yml'
@@ -26,6 +31,11 @@ on:
       - 'scripts/check-extension-terms.ts'
       - 'scripts/extension-terms-allowlist.json'
       - 'scripts/en18223/**'
+      - 'scripts/check-shapes.ts'
+      - 'scripts/check-shapes-itb.ts'
+      - 'scripts/build-gitb-resources.ts'
+      - 'scripts/lib/**'
+      - 'gitb/**'
   workflow_dispatch:
 
 jobs:
@@ -51,3 +61,52 @@ jobs:
         run: pnpm run check:golden-fidelity
       - name: Operational + Turtle round-trip is graph-isomorphic for every seed
         run: pnpm run check:roundtrip
+      - name: SHACL shapes run over every example (offline engine)
+        run: pnpm run check:shapes
+      - name: GITB validator bundle is in step with the ontologies and shapes
+        run: pnpm run check:gitb
+      - name: GITB TDL test suite is in step with the examples and shapes
+        run: pnpm run check:gitb-testsuite
+
+  # Parity against the engine the EU Interoperability Test Bed actually runs.
+  #
+  # Separate job because it needs a container. The resources are GENERATED from the
+  # working tree, so this cannot be a `services:` container — those start before any
+  # step runs and would mount an empty or stale directory. Hence a plain `docker run`
+  # after the bundle exists, which also means config.properties itself gets tested:
+  # a mis-declared validation type fails here, not in production.
+  shacl-parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Generate the GITB validator bundle and test suite
+        run: |
+          pnpm run build:gitb
+          pnpm run build:gitb-testsuite
+      - name: Start the European Commission's RDF validator
+        run: |
+          docker run -d --name itb-shacl -p 8080:8080 \
+            -e validator.resourceRoot=/validator/resources/ \
+            -v "$PWD/gitb/validator-resources/shacl:/validator/resources:ro" \
+            isaitb/shacl-validator:latest
+          for i in $(seq 1 60); do
+            if [ "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/shacl/dpp/upload)" = "200" ]; then
+              echo "validator up"; exit 0
+            fi
+            sleep 5
+          done
+          echo "validator did not become healthy"; docker logs itb-shacl; exit 1
+      # Also checks that every shipped test-suite fixture means what it claims: the
+      # positives conform and the negatives do NOT. A negative fixture that still
+      # conforms would make the suite's inverted assertion pass vacuously.
+      - name: Every example and test-suite fixture behaves as claimed in the EC validator
+        run: pnpm run check:shapes:itb
+      - name: Validator log on failure
+        if: failure()
+        run: docker logs itb-shacl

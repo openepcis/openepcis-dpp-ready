@@ -1,0 +1,83 @@
+# Local EU Interoperability Test Bed with the OpenEPCIS DPP validators.
+#
+# Brings up the Test Bed (gitb-ui + gitb-srv and their backing services) together
+# with the RDF validator that the generated test suite calls. Everything is
+# reachable under the compose network, so the WSDL address baked into
+# gitb/test-suites/openepcis-dpp/testCases/*.xml —
+# http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl — resolves unchanged.
+#
+# Start it with ../dev.sh up. The first run pulls several hundred MB per image, so
+# start it inside tmux: an interrupted SSH session otherwise kills the pull.
+#
+#   Test Bed UI      http://localhost:9000   (admin@itb, one-time password in the
+#                                             gitb-ui log until the first login)
+#   RDF validator    http://localhost:8080/shacl/dpp/upload
+#
+# The validator's resource root is the GENERATED bundle, so regenerate before
+# starting whenever the ontologies or shapes changed:  pnpm run build:gitb
+
+services:
+  shacl-validator:
+    image: isaitb/shacl-validator:latest
+    container_name: openepcis-shacl-validator
+    environment:
+      validator.resourceRoot: /validator/resources/
+    volumes:
+      # Read-only: the bundle is generated from the ontologies, never edited here.
+      - ../validator-resources/shacl:/validator/resources:ro
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/shacl/dpp/upload > /dev/null"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+
+  gitb-redis:
+    image: redis:7-alpine
+    container_name: openepcis-gitb-redis
+
+  gitb-mysql:
+    image: mysql:8
+    container_name: openepcis-gitb-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: gitb
+      MYSQL_DATABASE: gitb
+    command: --log_bin_trust_function_creators=1
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -pgitb"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+
+  gitb-srv:
+    image: isaitb/gitb-srv:latest
+    container_name: openepcis-gitb-srv
+    environment:
+      # The test engine calls the validator by its compose service name, which is
+      # why the suite can hardcode that address.
+      HMAC_KEY: openepcis-local-dev
+    depends_on:
+      shacl-validator:
+        condition: service_started
+
+  gitb-ui:
+    image: isaitb/gitb-ui:latest
+    container_name: openepcis-gitb-ui
+    environment:
+      DB_DEFAULT_URL: "jdbc:mysql://gitb-mysql/gitb?characterEncoding=UTF-8"
+      DB_DEFAULT_USER: root
+      DB_DEFAULT_PASSWORD: gitb
+      REDIS_HOST: gitb-redis
+      TESTBED_SERVICE_URL: "http://gitb-srv:8080/itbsrv/TestbedService"
+      HMAC_KEY: openepcis-local-dev
+      AUTOMATION_API_ENABLED: "true"
+    ports:
+      - "9000:9000"
+    depends_on:
+      gitb-mysql:
+        condition: service_healthy
+      gitb-redis:
+        condition: service_started
+      gitb-srv:
+        condition: service_started

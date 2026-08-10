@@ -1,0 +1,35 @@
+# Just the validators, without the Test Bed.
+#
+# This is what the parity gate needs (pnpm run check:shapes:itb) and what a
+# developer wants to poke at by hand: the same off-the-shelf European Commission
+# images the Test Bed would call, configured with the generated OpenEPCIS bundle.
+# Far cheaper than docker-compose.itb.yml, which additionally pulls gitb-ui,
+# gitb-srv, MySQL and Redis.
+#
+#   RDF validator    http://localhost:8080/shacl/dpp/upload
+#                    http://localhost:8080/shacl/soap/dpp/validation?wsdl
+#
+# The JSON validator is deliberately NOT declared. `pnpm run build:gitb` emits no
+# JSON domain yet: every module schema is either a $defs-only library that would
+# accept any document, or rejects this project's own examples. A validator that
+# says SUCCESS to anything is worse than none, so the service appears here only
+# once the schemas earn it.
+#
+# Regenerate the bundle before starting whenever ontologies or shapes changed:
+#   pnpm run build:gitb
+
+services:
+  shacl-validator:
+    image: isaitb/shacl-validator:latest
+    container_name: openepcis-shacl-validator
+    environment:
+      validator.resourceRoot: /validator/resources/
+    volumes:
+      - ../validator-resources/shacl:/validator/resources:ro
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/shacl/dpp/upload > /dev/null"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
