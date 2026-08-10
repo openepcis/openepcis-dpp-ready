@@ -43,6 +43,28 @@ export function deepMerge(a: Obj, b: Obj): Obj {
   return out;
 }
 
+/**
+ * A sensor report's numeric value, accepting the JSON string form.
+ *
+ * An xsd:decimal value is carried as a JSON STRING on purpose: a native JSON
+ * number is serialized in canonical xsd:double form, so `94.2` under an
+ * xsd:decimal coercion becomes the ill-typed literal "9.42E1"^^xsd:decimal. The
+ * events therefore legitimately say `"value": "94.2"`.
+ *
+ * This used to require `typeof r.value === "number"` and DROPPED anything else
+ * without a word, so a correctly-typed decimal reading vanished from the fold and
+ * the reconstructed passport simply lacked the metric. Silence is the wrong
+ * failure mode here; accepting both forms is the right one.
+ */
+function sensorValue(v: unknown): number | undefined {
+  if (typeof v === "number") return Number.isFinite(v) ? v : undefined;
+  if (typeof v === "string" && /^[+-]?\d+(\.\d+)?$/.test(v.trim())) {
+    const n = Number(v);
+    return Number.isFinite(n) ? n : undefined;
+  }
+  return undefined;
+}
+
 /** Flatten parsed EPCIS documents to per-EPC FoldEvents (one per epcList entry). */
 export function parseEpcisEvents(docs: Obj[]): FoldEvent[] {
   const evs: FoldEvent[] = [];
@@ -53,7 +75,8 @@ export function parseEpcisEvents(docs: Obj[]): FoldEvent[] {
       const reports: SensorReport[] = [];
       for (const se of e.sensorElementList ?? []) {
         for (const r of se.sensorReport ?? []) {
-          if (typeof r.value === "number" && typeof r.type === "string") reports.push({ type: r.type, value: r.value, uom: r.uom });
+          const value = sensorValue(r.value);
+          if (value !== undefined && typeof r.type === "string") reports.push({ type: r.type, value, uom: r.uom });
         }
       }
       for (const epc of epcs) {
