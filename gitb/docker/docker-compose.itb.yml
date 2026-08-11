@@ -43,7 +43,12 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: gitb
       MYSQL_DATABASE: gitb
-    command: --log_bin_trust_function_creators=1
+    # lower_case_table_names is REQUIRED and only takes effect when the data
+    # directory is initialised: gitb-ui's Flyway DDL creates tables lowercase
+    # while its runtime queries use CamelCase (SystemConfigurations), so a
+    # case-sensitive MySQL yields "Table doesn't exist" right after a clean,
+    # fully-migrated boot. The official isaitb/gitb-mysql image sets the same.
+    command: --log_bin_trust_function_creators=1 --lower-case-table-names=1
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -pgitb"]
       interval: 15s
