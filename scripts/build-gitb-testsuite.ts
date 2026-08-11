@@ -251,9 +251,18 @@ function uploadCase(c: TypeCase, version: string): string {
 }
 
 function selftestCase(c: TypeCase, version: string): string {
+  // The fixtures enter the test case as imported artifacts; the verify steps
+  // reference them by name. type="binary" + BASE64 is the ITB-documented
+  // pairing for handing file content to a validation service.
   const imports = [
-    ...c.positives.map((f) => `    <artifact name="${f.name}">${f.resource}</artifact>`),
-    ...(c.negative ? [`    <artifact name="${c.negative.name}">${c.negative.resource}</artifact>`] : []),
+    ...c.positives.map(
+      (f) => `    <artifact type="binary" encoding="UTF-8" name="${f.name}">${f.resource}</artifact>`,
+    ),
+    ...(c.negative
+      ? [
+          `    <artifact type="binary" encoding="UTF-8" name="${c.negative.name}">${c.negative.resource}</artifact>`,
+        ]
+      : []),
   ].join("\n");
 
   const positiveSteps = c.positives
@@ -262,7 +271,7 @@ function selftestCase(c: TypeCase, version: string): string {
             desc="Reference passport must conform: ${xml(f.label)}">
       <input name="contentToValidate">$${f.name}</input>
       <input name="validationType">"${xml(c.type)}"</input>
-      <input name="embeddingMethod">"STRING"</input>
+      <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>`,
     )
@@ -275,7 +284,7 @@ function selftestCase(c: TypeCase, version: string): string {
             desc="Broken passport must be REJECTED (${xml(c.negative.mutation)})">
       <input name="contentToValidate">$${c.negative.name}</input>
       <input name="validationType">"${xml(c.type)}"</input>
-      <input name="embeddingMethod">"STRING"</input>
+      <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>`
     : `
@@ -294,6 +303,9 @@ function selftestCase(c: TypeCase, version: string): string {
   <actors>
     <gitb:actor id="${ACTOR}" name="Digital Product Passport data provider" role="SUT"/>
   </actors>
+  <imports>
+${imports}
+  </imports>
   <steps>
 ${positiveSteps}${negativeStep}
   </steps>

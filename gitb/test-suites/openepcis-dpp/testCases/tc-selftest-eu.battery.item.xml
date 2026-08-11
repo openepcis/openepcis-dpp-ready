@@ -10,26 +10,32 @@
   <actors>
     <gitb:actor id="DPPDataProvider" name="Digital Product Passport data provider" role="SUT"/>
   </actors>
+  <imports>
+    <artifact type="binary" encoding="UTF-8" name="pos0_amperia_staxwall_item">resources/fixtures/eu.battery.item/amperia-staxwall-item.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="pos1_battery_product">resources/fixtures/eu.battery.item/battery-product.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="pos2_portable_ebike_battery">resources/fixtures/eu.battery.item/portable-ebike-battery.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="neg_granularity_mismatch">resources/negative/eu.battery.item/amperia-staxwall-item.granularity-mismatch.nq</artifact>
+  </imports>
   <steps>
     <verify id="pos0" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
             desc="Reference passport must conform: amperia-staxwall-item.jsonld">
       <input name="contentToValidate">$pos0_amperia_staxwall_item</input>
       <input name="validationType">"eu.battery.item"</input>
-      <input name="embeddingMethod">"STRING"</input>
+      <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <verify id="pos1" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
             desc="Reference passport must conform: battery-product.jsonld">
       <input name="contentToValidate">$pos1_battery_product</input>
       <input name="validationType">"eu.battery.item"</input>
-      <input name="embeddingMethod">"STRING"</input>
+      <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <verify id="pos2" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
             desc="Reference passport must conform: portable-ebike-battery.jsonld">
       <input name="contentToValidate">$pos2_portable_ebike_battery</input>
       <input name="validationType">"eu.battery.item"</input>
-      <input name="embeddingMethod">"STRING"</input>
+      <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <!-- The passport's GS1 Digital Link says one granularity and oec:granularityLevel claims another, which dpp-sh:GranularityDigitalLinkConstraint must reject (EN 18219 4.4 / EN 18223). This is a SHACL-SPARQL constraint, so it also proves the Test Bed's engine evaluates sh:sparql at all. -->
@@ -37,7 +43,7 @@
             desc="Broken passport must be REJECTED (granularity-mismatch)">
       <input name="contentToValidate">$neg_granularity_mismatch</input>
       <input name="validationType">"eu.battery.item"</input>
-      <input name="embeddingMethod">"STRING"</input>
+      <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
   </steps>

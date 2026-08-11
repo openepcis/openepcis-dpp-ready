@@ -10,33 +10,40 @@
   <actors>
     <gitb:actor id="DPPDataProvider" name="Digital Product Passport data provider" role="SUT"/>
   </actors>
+  <imports>
+    <artifact type="binary" encoding="UTF-8" name="pos0_beverage_bottle_lot_01">resources/fixtures/eu.ppwr/beverage-bottle-lot-01.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="pos1_beverage_bottle">resources/fixtures/eu.ppwr/beverage-bottle.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="pos2_ecommerce_carton">resources/fixtures/eu.ppwr/ecommerce-carton.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="pos3_multi_layer_pouch">resources/fixtures/eu.ppwr/multi-layer-pouch.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="neg_out_of_range_fraction">resources/negative/eu.ppwr/beverage-bottle-lot-01.out-of-range-fraction.nq</artifact>
+  </imports>
   <steps>
     <verify id="pos0" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
             desc="Reference passport must conform: beverage-bottle-lot-01.jsonld">
       <input name="contentToValidate">$pos0_beverage_bottle_lot_01</input>
       <input name="validationType">"eu.ppwr"</input>
-      <input name="embeddingMethod">"STRING"</input>
+      <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <verify id="pos1" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
             desc="Reference passport must conform: beverage-bottle.jsonld">
       <input name="contentToValidate">$pos1_beverage_bottle</input>
       <input name="validationType">"eu.ppwr"</input>
-      <input name="embeddingMethod">"STRING"</input>
+      <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <verify id="pos2" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
             desc="Reference passport must conform: ecommerce-carton.jsonld">
       <input name="contentToValidate">$pos2_ecommerce_carton</input>
       <input name="validationType">"eu.ppwr"</input>
-      <input name="embeddingMethod">"STRING"</input>
+      <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <verify id="pos3" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
             desc="Reference passport must conform: multi-layer-pouch.jsonld">
       <input name="contentToValidate">$pos3_multi_layer_pouch</input>
       <input name="validationType">"eu.ppwr"</input>
-      <input name="embeddingMethod">"STRING"</input>
+      <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <!-- A 0..1 fraction set to 99, which the value-range constraint on the corresponding property must reject. -->
@@ -44,7 +51,7 @@
             desc="Broken passport must be REJECTED (out-of-range-fraction)">
       <input name="contentToValidate">$neg_out_of_range_fraction</input>
       <input name="validationType">"eu.ppwr"</input>
-      <input name="embeddingMethod">"STRING"</input>
+      <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
   </steps>

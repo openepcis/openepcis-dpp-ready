@@ -10,33 +10,40 @@
   <actors>
     <gitb:actor id="DPPDataProvider" name="Digital Product Passport data provider" role="SUT"/>
   </actors>
+  <imports>
+    <artifact type="binary" encoding="UTF-8" name="pos0_plot_of_land">resources/fixtures/eu.eudr/plot-of-land.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="pos1_regulatory_notification">resources/fixtures/eu.eudr/regulatory-notification.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="pos2_timber_derived">resources/fixtures/eu.eudr/timber-derived.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="pos3_timber_product">resources/fixtures/eu.eudr/timber-product.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="neg_missing_operator_role">resources/negative/eu.eudr/timber-derived.missing-operator-role.nq</artifact>
+  </imports>
   <steps>
     <verify id="pos0" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
             desc="Reference passport must conform: plot-of-land.jsonld">
       <input name="contentToValidate">$pos0_plot_of_land</input>
       <input name="validationType">"eu.eudr"</input>
-      <input name="embeddingMethod">"STRING"</input>
+      <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <verify id="pos1" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
             desc="Reference passport must conform: regulatory-notification.jsonld">
       <input name="contentToValidate">$pos1_regulatory_notification</input>
       <input name="validationType">"eu.eudr"</input>
-      <input name="embeddingMethod">"STRING"</input>
+      <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <verify id="pos2" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
             desc="Reference passport must conform: timber-derived.jsonld">
       <input name="contentToValidate">$pos2_timber_derived</input>
       <input name="validationType">"eu.eudr"</input>
-      <input name="embeddingMethod">"STRING"</input>
+      <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <verify id="pos3" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
             desc="Reference passport must conform: timber-product.jsonld">
       <input name="contentToValidate">$pos3_timber_product</input>
       <input name="validationType">"eu.eudr"</input>
-      <input name="embeddingMethod">"STRING"</input>
+      <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <!-- An economic operator without its ESPR Art. 77 role, which dpp-sh:EconomicOperatorRoleRequired must reject. -->
@@ -44,7 +51,7 @@
             desc="Broken passport must be REJECTED (missing-operator-role)">
       <input name="contentToValidate">$neg_missing_operator_role</input>
       <input name="validationType">"eu.eudr"</input>
-      <input name="embeddingMethod">"STRING"</input>
+      <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
   </steps>
