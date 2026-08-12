@@ -335,26 +335,33 @@ function deriveAnchorPaths(): Map<string, string[][]> {
   }
   addEdge(START, "https://ref.gs1.org/voc/manufacturer", "https://ref.gs1.org/voc/Organization");
 
-  // BFS: shortest path(s) from START to every reachable class, depth <= 3.
+  // Enumerate up to 3 distinct SIMPLE paths (no class revisited) from START to
+  // every reachable class, depth <= 3, shorter paths first. Collecting every
+  // valid route — not only the shortest — lets a term reachable through more
+  // than one carrier anchor as an sh:or of all of them: e.g.
+  // eubat:hasPowerCapability sits on PowerCapabilityAtSoC, reachable both via
+  // hasOriginalPowerCapability (original, static power) and via
+  // hasRemainingPowerCapability (dynamic, state-of-health power) — EC data
+  // point 53 ("Power in W") legitimately accepts either. This only ADDS
+  // alternatives; it never drops or narrows a constraint.
   const pathsTo = new Map<string, string[][]>();
-  let frontier: Array<{ at: string; path: string[] }> = [{ at: START, path: [] }];
-  const seenDepth = new Map<string, number>([[START, 0]]);
-  for (let depth = 1; depth <= 3; depth++) {
-    const next: typeof frontier = [];
-    for (const { at, path } of frontier) {
+  for (let maxDepth = 1; maxDepth <= 3; maxDepth++) {
+    const walk = (at: string, path: string[], visited: Set<string>) => {
+      if (path.length >= maxDepth) return;
       for (const { via, to } of edges.get(at) ?? []) {
-        const d = seenDepth.get(to);
-        if (d !== undefined && d < depth) continue;
-        seenDepth.set(to, depth);
+        if (visited.has(to)) continue; // simple path only
         const newPath = [...path, via];
-        if (!pathsTo.has(to)) pathsTo.set(to, []);
-        if (pathsTo.get(to)!.length < 3 && (d === undefined || d === depth)) {
-          pathsTo.get(to)!.push(newPath);
-          next.push({ at: to, path: newPath });
+        if (newPath.length === maxDepth) {
+          if (!pathsTo.has(to)) pathsTo.set(to, []);
+          const bucket = pathsTo.get(to)!;
+          const key = newPath.join(">");
+          if (bucket.length < 3 && !bucket.some((p) => p.join(">") === key))
+            bucket.push(newPath);
         }
+        walk(to, newPath, new Set([...visited, to]));
       }
-    }
-    frontier = next;
+    };
+    walk(START, [], new Set<string>([START]));
   }
 
   // Locally undeclared upstream carrying-term domains (GS1 Web Vocabulary).

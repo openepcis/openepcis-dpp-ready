@@ -425,7 +425,9 @@ ecbp:dp-53-ev
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasRemainingPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 53 (EV, mandatory): Power (in W) — expected eubat:hasPowerCapability" ] ;
+    sh:or ( [ sh:path ( eubat:hasRemainingPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 53 (EV, mandatory): Power (in W) — expected eubat:hasPowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-53> .
 
 ecbp:dp-54-ev
@@ -922,7 +924,9 @@ ecbp:dp-53-lmt
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasRemainingPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ; sh:severity sh:Violation ; sh:message "EC data point 53 (LMT, mandatory): Power (in W) — expected eubat:hasPowerCapability" ] ;
+    sh:or ( [ sh:path ( eubat:hasRemainingPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] ) ;
+    sh:severity sh:Violation ;
+    sh:message "EC data point 53 (LMT, mandatory): Power (in W) — expected eubat:hasPowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-53> .
 
 ecbp:dp-54-lmt
@@ -1449,7 +1453,9 @@ ecbp:dp-53-industrial
     a sh:NodeShape ;
     sh:targetClass eubat:Battery ;
     sh:deactivated true ;
-    sh:property [ sh:path ( eubat:hasRemainingPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ; sh:severity sh:Warning ; sh:message "EC data point 53 (industrial, provide if the condition applies: if applicable): Power (in W) — expected eubat:hasPowerCapability" ] ;
+    sh:or ( [ sh:path ( eubat:hasRemainingPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] [ sh:path ( eubat:hasTechnicalSpecifications eubat:hasOriginalPowerCapability eubat:hasPowerCapability ) ; sh:minCount 1 ] ) ;
+    sh:severity sh:Warning ;
+    sh:message "EC data point 53 (industrial, provide if the condition applies: if applicable): Power (in W) — expected eubat:hasPowerCapability" ;
     rdfs:seeAlso <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-53> .
 
 ecbp:dp-54-industrial
