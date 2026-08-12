@@ -4,6 +4,14 @@ All notable changes to the Detergent module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed: schema descriptions cite the regulation
+
+`validation/detergent-schema.json` now carries a regulation-referenced
+`description` for the five passport-template headline data points (ingredient list, fragrance allergens, pictograms, signal word, dosage)
+— the same clause source the PPWR schema already provides. Downstream
+requirement profiles (DDM passport templates) quote these instead of a
+generic placeholder.
+
 ### `eudet:biodegradationPercentage` anchored to the core
 
 Declared `rdfs:subPropertyOf oec:biodegradationPercentage`. `eudet:SurfactantBiodegradability`

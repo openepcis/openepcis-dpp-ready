@@ -4,6 +4,14 @@ All notable changes to the Electronics module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed: schema descriptions cite the regulation
+
+`validation/electronics-schema.json` now carries a regulation-referenced
+`description` for the six passport-template headline data points (energy efficiency, repairability index, spare-part availability, software support, RoHS, WEEE)
+— the same clause source the PPWR schema already provides. Downstream
+requirement profiles (DDM passport templates) quote these instead of a
+generic placeholder.
+
 ### `euelec:weeeRegistrationNumber` anchored to the core
 
 Declared `rdfs:subPropertyOf oec:eprRegistrationNumber`. `euelec:WEEECompliance` is a

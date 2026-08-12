@@ -60,7 +60,23 @@
           "description": "Date-time of latest update of DPP. Mandatory per BatteryPass-Ready v1.3 #4."
         },
         "hasBatteryChemistry": {
-          "$ref": "#/$defs/BatteryChemistry"
+          "$ref": "#/$defs/BatteryChemistry",
+          "description": "Recommended — Battery Regulation (EU) 2023/1542 Annex XIII public data point: the electrochemical system of the battery (cathode, anode, electrolyte composition)."
+        },
+        "batteryPassportIdentifier": {
+          "type": "string",
+          "description": "Recommended — Battery Regulation (EU) 2023/1542 Art. 77(3) / Annex XIII: unique identifier of the battery passport; in this implementation the GS1 Digital Link URI (@id) is the primary identifier."
+        },
+        "hasBatteryMass": {
+          "$ref": "#/$defs/QuantitativeValue",
+          "description": "Recommended — Battery Regulation (EU) 2023/1542 Annex VI Part A weight declaration: net mass of the battery in kilograms (unitCode KGM)."
+        },
+        "hasExpectedLifetime": {
+          "$ref": "#/$defs/QuantitativeValue",
+          "description": "Recommended — manufacturer-declared expected service life (BatteryPass-Ready v1.3 Performance submodel; ESPR Art. 7 durability declaration)."
+        },
+        "hasCarbonFootprintDeclaration": {
+          "description": "Recommended — Battery Regulation (EU) 2023/1542 Art. 7 / Annex II: carbon footprint declaration per battery model and manufacturing plant, phased in per battery category; a public passport data point (Annex XIII)."
         },
         "hasTechnicalSpecifications": {
           "$ref": "#/$defs/TechnicalSpecification"
@@ -69,7 +85,8 @@
           "type": "array",
           "items": {
             "$ref": "#/$defs/BatteryMaterial"
-          }
+          },
+          "description": "Recommended — Battery Regulation (EU) 2023/1542 Annex XIII: materials used in battery construction with percentages, locations and critical-raw-material status; underpins the Art. 8 recycled-content duties."
         },
         "hasRecycledContent": {
           "$ref": "#/$defs/RecycledContent"
@@ -81,7 +98,8 @@
           "type": "array",
           "items": {
             "$ref": "#/$defs/HazardousSubstance"
-          }
+          },
+          "description": "Recommended — hazardous substances contained in the battery, classified per CLP (EC) 1272/2008, as required by Battery Regulation (EU) 2023/1542 Annex VI Part A."
         },
         "hasOperatorInformation": {
           "$ref": "#/$defs/OperatorInformation"

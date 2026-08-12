@@ -4,6 +4,14 @@ All notable changes to the Textile module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed: schema descriptions cite the regulation
+
+`validation/textile-schema.json` now carries a regulation-referenced
+`description` for the seven passport-template headline data points (fabric type, care, durability, footprint, recycled content, substances of concern, repairability)
+— the same clause source the PPWR schema already provides. Downstream
+requirement profiles (DDM passport templates) quote these instead of a
+generic placeholder.
+
 ### Shape corrections
 
 Running the shapes for the first time surfaced a duplicate and several constraints that

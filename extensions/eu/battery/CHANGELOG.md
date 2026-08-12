@@ -4,6 +4,14 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed: schema descriptions cite the regulation
+
+`validation/battery-schema.json` now carries a regulation-referenced
+`description` for the seven passport-template headline data points (chemistry, mass, passport identifier, carbon footprint, expected lifetime, hazardous substances, material composition)
+— the same clause source the PPWR schema already provides. Downstream
+requirement profiles (DDM passport templates) quote these instead of a
+generic placeholder.
+
 ### Granularity-dependent obligations split out (EN 18223)
 
 `eubat:BatteryShape` required `gs1:hasSerialNumber` of **every** battery passport, including
