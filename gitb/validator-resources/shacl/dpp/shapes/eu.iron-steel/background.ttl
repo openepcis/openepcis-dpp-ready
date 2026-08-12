@@ -144,28 +144,28 @@ oec:OperatorRole a rdfs:Class;
     rdfs:comment "Role of an economic operator in the supply chain."@en;
     rdfs:label "Operator Role"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
-    owl:oneOf _:n3-4062.
-_:n3-4062 rdf:first oec:Manufacturer;
-    rdf:rest _:n3-4063.
+    owl:oneOf _:b0.
+_:b0 rdf:first oec:Manufacturer;
+    rdf:rest _:b1.
 oec:Manufacturer a oec:OperatorRole;
     rdfs:comment "Entity that produces the product, including own-brand labellers per EU Market Surveillance Regulation 2019/1020."@en;
     rdfs:label "Manufacturer"@en.
-_:n3-4063 rdf:first oec:Importer;
-    rdf:rest _:n3-4064.
+_:b1 rdf:first oec:Importer;
+    rdf:rest _:b2.
 oec:Importer a oec:OperatorRole;
     rdfs:comment "Entity established in the EU that places a product from a third country on the Union market."@en;
     rdfs:label "Importer"@en.
-_:n3-4064 rdf:first oec:Distributor;
-    rdf:rest _:n3-4065.
+_:b2 rdf:first oec:Distributor;
+    rdf:rest _:b3.
 oec:Distributor a oec:OperatorRole;
     rdfs:comment "Entity in the supply chain that makes a product available on the market, other than manufacturer or importer."@en;
     rdfs:label "Distributor"@en.
-_:n3-4065 rdf:first oec:Processor;
-    rdf:rest _:n3-4066.
+_:b3 rdf:first oec:Processor;
+    rdf:rest _:b4.
 oec:Processor a oec:OperatorRole;
     rdfs:comment "Entity that processes raw materials or components into finished or intermediate products."@en;
     rdfs:label "Processor"@en.
-_:n3-4066 rdf:first oec:Trader;
+_:b4 rdf:first oec:Trader;
     rdf:rest rdf:nil.
 oec:Trader a oec:OperatorRole;
     rdfs:comment "Entity that buys and sells products without significant modification or processing."@en;
@@ -182,18 +182,18 @@ oec:AccessLevel a rdfs:Class;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Access Level"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
-    owl:oneOf _:n3-4067.
-_:n3-4067 rdf:first oec:Public;
-    rdf:rest _:n3-4068.
+    owl:oneOf _:b5.
+_:b5 rdf:first oec:Public;
+    rdf:rest _:b6.
 oec:Public a oec:AccessLevel;
     rdfs:comment "Data accessible to all users (consumers, market surveillance, customs). Per ESPR Article 9(1)."@en;
     rdfs:label "Public"@en.
-_:n3-4068 rdf:first oec:AuthorizedOnly;
-    rdf:rest _:n3-4069.
+_:b6 rdf:first oec:AuthorizedOnly;
+    rdf:rest _:b7.
 oec:AuthorizedOnly a oec:AccessLevel;
     rdfs:comment "Data accessible only to market surveillance authorities and customs. Per ESPR Article 9(2)."@en;
     rdfs:label "Authorized Only"@en.
-_:n3-4069 rdf:first oec:Restricted;
+_:b7 rdf:first oec:Restricted;
     rdf:rest rdf:nil.
 oec:Restricted a oec:AccessLevel;
     rdfs:comment "Data accessible only to specific authorized economic operators. Per ESPR Article 9(3)."@en;
@@ -234,46 +234,46 @@ oec:PassportStatus a rdfs:Class;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:note "Base values active/inactive/archived/invalid per EN 18223 Table 1; draft/withdrawn/suspended are EPCIS4DPP profile extensions permitted by 'further values by relevant legal acts'."@en;
     skos:broadMatch schema:StatusEnumeration;
-    owl:oneOf _:n3-4070.
-_:n3-4070 rdf:first oec:Active;
-    rdf:rest _:n3-4071.
+    owl:oneOf _:b8.
+_:b8 rdf:first oec:Active;
+    rdf:rest _:b9.
 oec:Active a oec:PassportStatus;
     rdfs:seeAlso <https://ref.gs1.org/cbv/Disp-active>;
     rdfs:comment "Passport is published and represents the current state of the product."@en;
     rdfs:label "Active"@en;
     skos:notation "active".
-_:n3-4071 rdf:first oec:Inactive;
-    rdf:rest _:n3-4072.
+_:b9 rdf:first oec:Inactive;
+    rdf:rest _:b10.
 oec:Inactive a oec:PassportStatus;
     rdfs:comment "Passport is not currently in force (EN 18223 base value)."@en;
     rdfs:label "Inactive"@en;
     skos:notation "inactive".
-_:n3-4072 rdf:first oec:Archived;
-    rdf:rest _:n3-4073.
+_:b10 rdf:first oec:Archived;
+    rdf:rest _:b11.
 oec:Archived a oec:PassportStatus;
     rdfs:comment "Passport is archived after product end-of-life. Data persisted per EN 18221."@en;
     rdfs:label "Archived"@en;
     skos:notation "archived".
-_:n3-4073 rdf:first oec:Invalid;
-    rdf:rest _:n3-4074.
+_:b11 rdf:first oec:Invalid;
+    rdf:rest _:b12.
 oec:Invalid a oec:PassportStatus;
     rdfs:comment "Passport is no longer valid (EN 18223 base value, e.g. revoked)."@en;
     rdfs:label "Invalid"@en;
     skos:notation "invalid".
-_:n3-4074 rdf:first oec:Draft;
-    rdf:rest _:n3-4075.
+_:b12 rdf:first oec:Draft;
+    rdf:rest _:b13.
 oec:Draft a oec:PassportStatus;
     rdfs:comment "EPCIS4DPP extension: passport is being prepared and not yet publicly available."@en;
     rdfs:label "Draft"@en;
     skos:notation "draft".
-_:n3-4075 rdf:first oec:Withdrawn;
-    rdf:rest _:n3-4076.
+_:b13 rdf:first oec:Withdrawn;
+    rdf:rest _:b14.
 oec:Withdrawn a oec:PassportStatus;
     rdfs:seeAlso <https://ref.gs1.org/cbv/Disp-recalled>;
     rdfs:comment "EPCIS4DPP extension: passport withdrawn (e.g. product recall); a specific kind of invalid."@en;
     rdfs:label "Withdrawn"@en;
     skos:notation "withdrawn".
-_:n3-4076 rdf:first oec:Suspended;
+_:b14 rdf:first oec:Suspended;
     rdf:rest rdf:nil.
 oec:Suspended a oec:PassportStatus;
     rdfs:comment "EPCIS4DPP extension: temporarily not in force (e.g. pending investigation); a specific kind of inactive."@en;
@@ -349,18 +349,18 @@ oec:DPPGranularity a rdfs:Class;
     rdfs:label "DPP Granularity"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:note "Introduced by BatteryPass-Ready Data Attribute Longlist v1.3 (March 2026) to align EU Battery Passport reporting with CEN/CENELEC JTC-24 drafts. Some attributes (e.g. recycled-content shares, carbon-footprint label) are reported at batch level, others at model or item level."@en;
-    owl:oneOf _:n3-4077.
-_:n3-4077 rdf:first oec:ModelLevel;
-    rdf:rest _:n3-4078.
+    owl:oneOf _:b15.
+_:b15 rdf:first oec:ModelLevel;
+    rdf:rest _:b16.
 oec:ModelLevel a oec:DPPGranularity;
     rdfs:comment "Attribute reported once per battery model (e.g. nominal voltage, expected cycle life). Model master data has a single source of truth: the same model built at different manufacturing sites is NOT a distinct granularity level. Site is a source/location dimension carried by EPCIS events (readPoint / bizLocation); facts that vary per production run are reported at BatchLevel."@en;
     rdfs:label "Battery model"@en.
-_:n3-4078 rdf:first oec:BatchLevel;
-    rdf:rest _:n3-4079.
+_:b16 rdf:first oec:BatchLevel;
+    rdf:rest _:b17.
 oec:BatchLevel a oec:DPPGranularity;
     rdfs:comment "Attribute reported per batch: model, calendar year, manufacturing site (e.g. carbon footprint, recycled-content shares)."@en;
     rdfs:label "Battery model per calendar year and per manufacturing site (batch)"@en.
-_:n3-4079 rdf:first oec:ItemLevel;
+_:b17 rdf:first oec:ItemLevel;
     rdf:rest rdf:nil.
 oec:ItemLevel a oec:DPPGranularity;
     rdfs:comment "Attribute reported per individual serial-numbered battery (e.g. serial number, state of health, cycle count)."@en;
@@ -400,65 +400,65 @@ oec:ProductCategory a rdfs:Class;
     rdfs:label "Product Category"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:broadMatch schema:CategoryCode;
-    owl:oneOf _:n3-4080.
-_:n3-4080 rdf:first oec:Batteries;
-    rdf:rest _:n3-4081.
+    owl:oneOf _:b18.
+_:b18 rdf:first oec:Batteries;
+    rdf:rest _:b19.
 oec:Batteries a oec:ProductCategory;
     rdfs:comment "Batteries and accumulators per EU Battery Regulation 2023/1542."@en;
     rdfs:label "Batteries"@en.
-_:n3-4081 rdf:first oec:Textiles;
-    rdf:rest _:n3-4082.
+_:b19 rdf:first oec:Textiles;
+    rdf:rest _:b20.
 oec:Textiles a oec:ProductCategory;
     rdfs:comment "Textile products including apparel, footwear, and home textiles."@en;
     rdfs:label "Textiles"@en.
-_:n3-4082 rdf:first oec:Electronics;
-    rdf:rest _:n3-4083.
+_:b20 rdf:first oec:Electronics;
+    rdf:rest _:b21.
 oec:Electronics a oec:ProductCategory;
     rdfs:comment "Electronic and electrical equipment including ICT and consumer electronics."@en;
     rdfs:label "Electronics"@en.
-_:n3-4083 rdf:first oec:Furniture;
-    rdf:rest _:n3-4084.
+_:b21 rdf:first oec:Furniture;
+    rdf:rest _:b22.
 oec:Furniture a oec:ProductCategory;
     rdfs:comment "Furniture products including domestic and office furniture."@en;
     rdfs:label "Furniture"@en.
-_:n3-4084 rdf:first oec:Tyres;
-    rdf:rest _:n3-4085.
+_:b22 rdf:first oec:Tyres;
+    rdf:rest _:b23.
 oec:Tyres a oec:ProductCategory;
     rdfs:comment "Tyres for motor vehicles and their trailers."@en;
     rdfs:label "Tyres"@en.
-_:n3-4085 rdf:first oec:ConstructionProducts;
-    rdf:rest _:n3-4086.
+_:b23 rdf:first oec:ConstructionProducts;
+    rdf:rest _:b24.
 oec:ConstructionProducts a oec:ProductCategory;
     rdfs:comment "Construction products per Construction Products Regulation."@en;
     rdfs:label "Construction Products"@en.
-_:n3-4086 rdf:first oec:Chemicals;
-    rdf:rest _:n3-4087.
+_:b24 rdf:first oec:Chemicals;
+    rdf:rest _:b25.
 oec:Chemicals a oec:ProductCategory;
     rdfs:comment "Chemical substances and mixtures."@en;
     rdfs:label "Chemicals"@en.
-_:n3-4087 rdf:first oec:Detergents;
-    rdf:rest _:n3-4088.
+_:b25 rdf:first oec:Detergents;
+    rdf:rest _:b26.
 oec:Detergents a oec:ProductCategory;
     rdfs:seeAlso gs1:RegulationTypeCode-DETERGENTS_SAFETY_REGULATION;
     rdfs:comment "Detergents and surfactants per the EU Detergents Regulation (EU) 2026/405, an ESPR priority product category."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405>;
     rdfs:label "Detergents"@en.
-_:n3-4088 rdf:first oec:Packaging;
-    rdf:rest _:n3-4089.
+_:b26 rdf:first oec:Packaging;
+    rdf:rest _:b27.
 oec:Packaging a oec:ProductCategory;
     rdfs:comment "Packaging and packaging waste products."@en;
     rdfs:label "Packaging"@en.
-_:n3-4089 rdf:first oec:FoodContact;
-    rdf:rest _:n3-4090.
+_:b27 rdf:first oec:FoodContact;
+    rdf:rest _:b28.
 oec:FoodContact a oec:ProductCategory;
     rdfs:comment "Materials and articles intended for food contact."@en;
     rdfs:label "Food Contact Materials"@en.
-_:n3-4090 rdf:first oec:IronSteel;
-    rdf:rest _:n3-4091.
+_:b28 rdf:first oec:IronSteel;
+    rdf:rest _:b29.
 oec:IronSteel a oec:ProductCategory;
     rdfs:comment "Iron and steel intermediate products."@en;
     rdfs:label "Iron and Steel"@en.
-_:n3-4091 rdf:first oec:Aluminium;
+_:b29 rdf:first oec:Aluminium;
     rdf:rest rdf:nil.
 oec:Aluminium a oec:ProductCategory;
     rdfs:comment "Aluminium intermediate products."@en;
@@ -468,53 +468,53 @@ oec:HazardClass a rdfs:Class;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272>;
     rdfs:label "Hazard Class"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
-    owl:oneOf _:n3-4092.
-_:n3-4092 rdf:first oec:AcuteToxicity;
-    rdf:rest _:n3-4093.
+    owl:oneOf _:b30.
+_:b30 rdf:first oec:AcuteToxicity;
+    rdf:rest _:b31.
 oec:AcuteToxicity a oec:HazardClass;
     rdfs:comment "Substances causing harmful effects after single or short-term exposure via oral, dermal, or inhalation routes."@en;
     rdfs:label "Acute Toxicity"@en.
-_:n3-4093 rdf:first oec:SkinCorrosionOrIrritation;
-    rdf:rest _:n3-4094.
+_:b31 rdf:first oec:SkinCorrosionOrIrritation;
+    rdf:rest _:b32.
 oec:SkinCorrosionOrIrritation a oec:HazardClass;
     rdfs:comment "Substances causing irreversible damage (corrosion) or reversible damage (irritation) to skin tissue."@en;
     rdfs:label "Skin Corrosion or Irritation"@en.
-_:n3-4094 rdf:first oec:EyeDamageOrIrritation;
-    rdf:rest _:n3-4095.
+_:b32 rdf:first oec:EyeDamageOrIrritation;
+    rdf:rest _:b33.
 oec:EyeDamageOrIrritation a oec:HazardClass;
     rdfs:comment "Substances causing serious eye damage or reversible eye irritation upon contact."@en;
     rdfs:label "Eye Damage or Irritation"@en.
-_:n3-4095 rdf:first oec:RespiratoryOrSkinSensitization;
-    rdf:rest _:n3-4096.
+_:b33 rdf:first oec:RespiratoryOrSkinSensitization;
+    rdf:rest _:b34.
 oec:RespiratoryOrSkinSensitization a oec:HazardClass;
     rdfs:comment "Substances causing hypersensitivity of airways (asthma) or allergic skin reactions after exposure."@en;
     rdfs:label "Respiratory or Skin Sensitization"@en.
-_:n3-4096 rdf:first oec:GermCellMutagenicity;
-    rdf:rest _:n3-4097.
+_:b34 rdf:first oec:GermCellMutagenicity;
+    rdf:rest _:b35.
 oec:GermCellMutagenicity a oec:HazardClass;
     rdfs:comment "Substances that may cause heritable genetic mutations in human germ cells."@en;
     rdfs:label "Germ Cell Mutagenicity"@en.
-_:n3-4097 rdf:first oec:Carcinogenicity;
-    rdf:rest _:n3-4098.
+_:b35 rdf:first oec:Carcinogenicity;
+    rdf:rest _:b36.
 oec:Carcinogenicity a oec:HazardClass;
     rdfs:comment "Substances known or suspected to cause cancer in humans."@en;
     rdfs:label "Carcinogenicity"@en.
-_:n3-4098 rdf:first oec:ReproductiveToxicity;
-    rdf:rest _:n3-4099.
+_:b36 rdf:first oec:ReproductiveToxicity;
+    rdf:rest _:b37.
 oec:ReproductiveToxicity a oec:HazardClass;
     rdfs:comment "Substances adversely affecting sexual function, fertility, or development of offspring."@en;
     rdfs:label "Reproductive Toxicity"@en.
-_:n3-4099 rdf:first oec:SpecificTargetOrganToxicity;
-    rdf:rest _:n3-4100.
+_:b37 rdf:first oec:SpecificTargetOrganToxicity;
+    rdf:rest _:b38.
 oec:SpecificTargetOrganToxicity a oec:HazardClass;
     rdfs:comment "Substances causing non-lethal damage to specific organs after single or repeated exposure."@en;
     rdfs:label "Specific Target Organ Toxicity"@en.
-_:n3-4100 rdf:first oec:AspirationHazard;
-    rdf:rest _:n3-4101.
+_:b38 rdf:first oec:AspirationHazard;
+    rdf:rest _:b39.
 oec:AspirationHazard a oec:HazardClass;
     rdfs:comment "Liquid or solid substances causing chemical pneumonia or pulmonary injury if aspirated into airways."@en;
     rdfs:label "Aspiration Hazard"@en.
-_:n3-4101 rdf:first oec:HazardousToAquaticEnvironment;
+_:b39 rdf:first oec:HazardousToAquaticEnvironment;
     rdf:rest rdf:nil.
 oec:HazardousToAquaticEnvironment a oec:HazardClass;
     rdfs:comment "Substances posing acute or chronic toxicity risks to aquatic organisms and ecosystems."@en;
@@ -525,45 +525,45 @@ oec:DocumentType a rdfs:Class;
     rdfs:label "Document Type"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:closeMatch gs1:ReferencedFileTypeCode;
-    owl:oneOf _:n3-4102.
-_:n3-4102 rdf:first oec:DueDiligenceDocument;
-    rdf:rest _:n3-4103.
+    owl:oneOf _:b40.
+_:b40 rdf:first oec:DueDiligenceDocument;
+    rdf:rest _:b41.
 oec:DueDiligenceDocument a oec:DocumentType;
     rdfs:comment "Documentation of supply chain due diligence processes and risk assessments."@en;
     rdfs:label "Due Diligence Document"@en.
-_:n3-4103 rdf:first oec:Certificate;
-    rdf:rest _:n3-4104.
+_:b41 rdf:first oec:Certificate;
+    rdf:rest _:b42.
 oec:Certificate a oec:DocumentType;
     rdfs:seeAlso <https://w3id.org/eudpp#ConformityCertificate>;
     rdfs:comment "Official certificate from accredited body (ISO, environmental, quality certifications)."@en;
     rdfs:label "Certificate"@en.
-_:n3-4104 rdf:first oec:TestReport;
-    rdf:rest _:n3-4105.
+_:b42 rdf:first oec:TestReport;
+    rdf:rest _:b43.
 oec:TestReport a oec:DocumentType;
     rdfs:comment "Technical test results from accredited laboratory or testing facility."@en;
     rdfs:label "Test Report"@en.
-_:n3-4105 rdf:first oec:Manual;
-    rdf:rest _:n3-4106.
+_:b43 rdf:first oec:Manual;
+    rdf:rest _:b44.
 oec:Manual a oec:DocumentType;
     rdfs:comment "User manual, installation guide, or maintenance documentation."@en;
     rdfs:label "Manual"@en.
-_:n3-4106 rdf:first oec:DeclarationOfConformity;
-    rdf:rest _:n3-4107.
+_:b44 rdf:first oec:DeclarationOfConformity;
+    rdf:rest _:b45.
 oec:DeclarationOfConformity a oec:DocumentType;
     rdfs:seeAlso <https://w3id.org/eudpp#EUDeclarationOfConformity>;
     rdfs:comment "EU Declaration of Conformity stating compliance with applicable EU legislation."@en;
     rdfs:label "Declaration of Conformity"@en.
-_:n3-4107 rdf:first oec:SafetyDataSheet;
-    rdf:rest _:n3-4108.
+_:b45 rdf:first oec:SafetyDataSheet;
+    rdf:rest _:b46.
 oec:SafetyDataSheet a oec:DocumentType;
     rdfs:comment "Safety Data Sheet (SDS) per REACH Regulation providing hazard information."@en;
     rdfs:label "Safety Data Sheet"@en.
-_:n3-4108 rdf:first oec:EnvironmentalReport;
-    rdf:rest _:n3-4109.
+_:b46 rdf:first oec:EnvironmentalReport;
+    rdf:rest _:b47.
 oec:EnvironmentalReport a oec:DocumentType;
     rdfs:comment "Environmental impact assessment, carbon footprint study, or LCA report."@en;
     rdfs:label "Environmental Report"@en.
-_:n3-4109 rdf:first oec:ThirdPartyVerification;
+_:b47 rdf:first oec:ThirdPartyVerification;
     rdf:rest rdf:nil.
 oec:ThirdPartyVerification a oec:DocumentType;
     rdfs:seeAlso <https://w3id.org/eudpp#Review>, <https://w3id.org/eudpp#ReviewReport>;
@@ -667,13 +667,13 @@ oec:OperationalScope a rdfs:Class;
     rdfs:label "Operational Scope"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity>;
-    owl:oneOf _:n3-4110.
-_:n3-4110 rdf:first oec:CradleToGate;
-    rdf:rest _:n3-4111.
+    owl:oneOf _:b48.
+_:b48 rdf:first oec:CradleToGate;
+    rdf:rest _:b49.
 oec:CradleToGate a oec:OperationalScope;
     rdfs:comment "Emissions from raw material extraction through manufacturing, excluding use phase and end-of-life."@en;
     rdfs:label "Cradle to Gate"@en.
-_:n3-4111 rdf:first oec:CradleToGrave;
+_:b49 rdf:first oec:CradleToGrave;
     rdf:rest rdf:nil.
 oec:CradleToGrave a oec:OperationalScope;
     rdfs:comment "Full lifecycle emissions including raw materials, manufacturing, use phase, and end-of-life."@en;
@@ -684,20 +684,20 @@ oec:GranularityLevel a rdfs:Class;
     dcterms:source "EN 18223:2026, 4.1.2.2 (CEN/CENELEC JTC 24)";
     rdfs:label "Granularity Level"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
-    owl:oneOf _:n3-4112.
-_:n3-4112 rdf:first oec:Model;
-    rdf:rest _:n3-4113.
+    owl:oneOf _:b50.
+_:b50 rdf:first oec:Model;
+    rdf:rest _:b51.
 oec:Model a oec:GranularityLevel;
     rdfs:comment "DPP data applies to all products of this model or class. GS1 Digital Link 01/{gtin}."@en;
     rdfs:label "Model"@en;
     skos:notation "model".
-_:n3-4113 rdf:first oec:Batch;
-    rdf:rest _:n3-4114.
+_:b51 rdf:first oec:Batch;
+    rdf:rest _:b52.
 oec:Batch a oec:GranularityLevel;
     rdfs:comment "DPP data applies to a specific production batch. GS1 Digital Link 01/{gtin}/10/{lot}."@en;
     rdfs:label "Batch"@en;
     skos:notation "batch".
-_:n3-4114 rdf:first oec:Item;
+_:b52 rdf:first oec:Item;
     rdf:rest rdf:nil.
 oec:Item a oec:GranularityLevel;
     rdfs:comment "DPP data applies to an individual serialized item. GS1 Digital Link 01/{gtin}/21/{serial}."@en;
@@ -1867,24 +1867,24 @@ oec:CustomsCommodityCodeType a owl:Class;
     rdfs:label "Customs Commodity Code Type"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    owl:oneOf _:n3-4115.
-_:n3-4115 rdf:first oec:HS6;
-    rdf:rest _:n3-4116.
+    owl:oneOf _:b53.
+_:b53 rdf:first oec:HS6;
+    rdf:rest _:b54.
 oec:HS6 a oec:CustomsCommodityCodeType;
     rdfs:label "HS 6-digit (World Customs Organization Harmonized System)"@en.
-_:n3-4116 rdf:first oec:HS8;
-    rdf:rest _:n3-4117.
+_:b54 rdf:first oec:HS8;
+    rdf:rest _:b55.
 oec:HS8 a oec:CustomsCommodityCodeType;
     rdfs:label "HS 8-digit subheading"@en.
-_:n3-4117 rdf:first oec:CN8;
-    rdf:rest _:n3-4118.
+_:b55 rdf:first oec:CN8;
+    rdf:rest _:b56.
 oec:CN8 a oec:CustomsCommodityCodeType;
     rdfs:label "EU Combined Nomenclature 8-digit"@en.
-_:n3-4118 rdf:first oec:HTSUS10;
-    rdf:rest _:n3-4119.
+_:b56 rdf:first oec:HTSUS10;
+    rdf:rest _:b57.
 oec:HTSUS10 a oec:CustomsCommodityCodeType;
     rdfs:label "US Harmonized Tariff Schedule 10-digit"@en.
-_:n3-4119 rdf:first oec:CN10;
+_:b57 rdf:first oec:CN10;
     rdf:rest rdf:nil.
 oec:CN10 a oec:CustomsCommodityCodeType;
     rdfs:label "EU Combined Nomenclature 10-digit (TARIC)"@en.
@@ -2053,24 +2053,24 @@ oec:BiodegradabilityTestMethod a owl:Class;
     rdfs:label "Biodegradability Test Method"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    owl:oneOf _:n3-4120.
-_:n3-4120 rdf:first oec:ISO14593;
-    rdf:rest _:n3-4121.
+    owl:oneOf _:b58.
+_:b58 rdf:first oec:ISO14593;
+    rdf:rest _:b59.
 oec:ISO14593 a oec:BiodegradabilityTestMethod;
     rdfs:label "ISO 14593 (CO2 evolution test)"@en.
-_:n3-4121 rdf:first oec:OECD301B;
-    rdf:rest _:n3-4122.
+_:b59 rdf:first oec:OECD301B;
+    rdf:rest _:b60.
 oec:OECD301B a oec:BiodegradabilityTestMethod;
     rdfs:label "OECD 301B (CO2 evolution test)"@en.
-_:n3-4122 rdf:first oec:OECD301D;
-    rdf:rest _:n3-4123.
+_:b60 rdf:first oec:OECD301D;
+    rdf:rest _:b61.
 oec:OECD301D a oec:BiodegradabilityTestMethod;
     rdfs:label "OECD 301D (closed bottle test)"@en.
-_:n3-4123 rdf:first oec:OECD301F;
-    rdf:rest _:n3-4124.
+_:b61 rdf:first oec:OECD301F;
+    rdf:rest _:b62.
 oec:OECD301F a oec:BiodegradabilityTestMethod;
     rdfs:label "OECD 301F (manometric respirometry)"@en.
-_:n3-4124 rdf:first oec:OECD310;
+_:b62 rdf:first oec:OECD310;
     rdf:rest rdf:nil.
 oec:OECD310 a oec:BiodegradabilityTestMethod;
     rdfs:label "OECD 310 (sealed vessel CO2 evolution)"@en.
@@ -2089,18 +2089,18 @@ oec:CompostabilityType a owl:Class;
     rdfs:label "Compostability Type"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    owl:oneOf _:n3-4125.
-_:n3-4125 rdf:first oec:IndustrialCompostable;
-    rdf:rest _:n3-4126.
+    owl:oneOf _:b63.
+_:b63 rdf:first oec:IndustrialCompostable;
+    rdf:rest _:b64.
 oec:IndustrialCompostable a oec:CompostabilityType;
     rdfs:comment "Compostable in industrial composting facilities (typically per EN 13432)."@en;
     rdfs:label "Industrially Compostable"@en.
-_:n3-4126 rdf:first oec:HomeCompostable;
-    rdf:rest _:n3-4127.
+_:b64 rdf:first oec:HomeCompostable;
+    rdf:rest _:b65.
 oec:HomeCompostable a oec:CompostabilityType;
     rdfs:comment "Compostable in domestic composting conditions (typically per OK-Compost-Home / NF T 51-800)."@en;
     rdfs:label "Home Compostable"@en.
-_:n3-4127 rdf:first oec:NotCompostable;
+_:b65 rdf:first oec:NotCompostable;
     rdf:rest rdf:nil.
 oec:NotCompostable a oec:CompostabilityType;
     rdfs:label "Not Compostable"@en.
@@ -2350,38 +2350,38 @@ oec:EnergyEfficiencyClass a owl:Class;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     skos:broadMatch schema:EUEnergyEfficiencyEnumeration, schema:EnergyEfficiencyEnumeration;
-    owl:oneOf _:n3-4128.
-_:n3-4128 rdf:first oec:EnergyClassA;
-    rdf:rest _:n3-4129.
+    owl:oneOf _:b66.
+_:b66 rdf:first oec:EnergyClassA;
+    rdf:rest _:b67.
 oec:EnergyClassA a oec:EnergyEfficiencyClass;
     rdfs:label "Class A"@en;
     skos:notation "A".
-_:n3-4129 rdf:first oec:EnergyClassB;
-    rdf:rest _:n3-4130.
+_:b67 rdf:first oec:EnergyClassB;
+    rdf:rest _:b68.
 oec:EnergyClassB a oec:EnergyEfficiencyClass;
     rdfs:label "Class B"@en;
     skos:notation "B".
-_:n3-4130 rdf:first oec:EnergyClassC;
-    rdf:rest _:n3-4131.
+_:b68 rdf:first oec:EnergyClassC;
+    rdf:rest _:b69.
 oec:EnergyClassC a oec:EnergyEfficiencyClass;
     rdfs:label "Class C"@en;
     skos:notation "C".
-_:n3-4131 rdf:first oec:EnergyClassD;
-    rdf:rest _:n3-4132.
+_:b69 rdf:first oec:EnergyClassD;
+    rdf:rest _:b70.
 oec:EnergyClassD a oec:EnergyEfficiencyClass;
     rdfs:label "Class D"@en;
     skos:notation "D".
-_:n3-4132 rdf:first oec:EnergyClassE;
-    rdf:rest _:n3-4133.
+_:b70 rdf:first oec:EnergyClassE;
+    rdf:rest _:b71.
 oec:EnergyClassE a oec:EnergyEfficiencyClass;
     rdfs:label "Class E"@en;
     skos:notation "E".
-_:n3-4133 rdf:first oec:EnergyClassF;
-    rdf:rest _:n3-4134.
+_:b71 rdf:first oec:EnergyClassF;
+    rdf:rest _:b72.
 oec:EnergyClassF a oec:EnergyEfficiencyClass;
     rdfs:label "Class F"@en;
     skos:notation "F".
-_:n3-4134 rdf:first oec:EnergyClassG;
+_:b72 rdf:first oec:EnergyClassG;
     rdf:rest rdf:nil.
 oec:EnergyClassG a oec:EnergyEfficiencyClass;
     rdfs:label "Class G"@en;
@@ -2498,13 +2498,13 @@ oec:HazardSignalWord a owl:Class;
     rdfs:label "Hazard Signal Word"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:note "Substance-of-concern pattern aligned with CLP (EC) 1272/2008 and the ECHA SCIP database. Reusable across regulation modules."@en;
-    owl:oneOf _:n3-4135.
-_:n3-4135 rdf:first oec:HazardDanger;
-    rdf:rest _:n3-4136.
+    owl:oneOf _:b73.
+_:b73 rdf:first oec:HazardDanger;
+    rdf:rest _:b74.
 oec:HazardDanger a oec:HazardSignalWord;
     rdfs:label "Danger"@en;
     skos:notation "Danger".
-_:n3-4136 rdf:first oec:HazardWarning;
+_:b74 rdf:first oec:HazardWarning;
     rdf:rest rdf:nil.
 oec:HazardWarning a oec:HazardSignalWord;
     rdfs:label "Warning"@en;
@@ -3036,23 +3036,23 @@ oec:stageValue a owl:DatatypeProperty;
     rdfs:label "Steel Production Technology Route"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/iron-steel/>;
     skos:note "Steelmaking route classification. No GS1, SEMICeu, or schema.org equivalent."@en;
-    owl:oneOf _:n3-4137.
-_:n3-4137 rdf:first <https://ref.openepcis.io/extensions/eu/iron-steel/BlastFurnaceBOF>;
-    rdf:rest _:n3-4138.
+    owl:oneOf _:b75.
+_:b75 rdf:first <https://ref.openepcis.io/extensions/eu/iron-steel/BlastFurnaceBOF>;
+    rdf:rest _:b76.
 <https://ref.openepcis.io/extensions/eu/iron-steel/BlastFurnaceBOF> a <https://ref.openepcis.io/extensions/eu/iron-steel/TechnologyRoute>;
     rdfs:label "Blast Furnace / Basic Oxygen Furnace"@en;
     skos:notation "BF-BOF".
-_:n3-4138 rdf:first <https://ref.openepcis.io/extensions/eu/iron-steel/ElectricArcFurnace>;
-    rdf:rest _:n3-4139.
+_:b76 rdf:first <https://ref.openepcis.io/extensions/eu/iron-steel/ElectricArcFurnace>;
+    rdf:rest _:b77.
 <https://ref.openepcis.io/extensions/eu/iron-steel/ElectricArcFurnace> a <https://ref.openepcis.io/extensions/eu/iron-steel/TechnologyRoute>;
     rdfs:label "Electric Arc Furnace"@en;
     skos:notation "EAF".
-_:n3-4139 rdf:first <https://ref.openepcis.io/extensions/eu/iron-steel/OpenHearthFurnace>;
-    rdf:rest _:n3-4140.
+_:b77 rdf:first <https://ref.openepcis.io/extensions/eu/iron-steel/OpenHearthFurnace>;
+    rdf:rest _:b78.
 <https://ref.openepcis.io/extensions/eu/iron-steel/OpenHearthFurnace> a <https://ref.openepcis.io/extensions/eu/iron-steel/TechnologyRoute>;
     rdfs:label "Open Hearth Furnace"@en;
     skos:notation "OHF".
-_:n3-4140 rdf:first <https://ref.openepcis.io/extensions/eu/iron-steel/OtherRoute>;
+_:b78 rdf:first <https://ref.openepcis.io/extensions/eu/iron-steel/OtherRoute>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.io/extensions/eu/iron-steel/OtherRoute> a <https://ref.openepcis.io/extensions/eu/iron-steel/TechnologyRoute>;
     rdfs:label "Other Route"@en;

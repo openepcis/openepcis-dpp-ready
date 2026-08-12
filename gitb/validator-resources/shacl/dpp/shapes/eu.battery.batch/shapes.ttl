@@ -21,37 +21,37 @@
     owl:versionInfo "0.9.9";
     dcterms:created "2025-02-02"^^xsd:date;
     dcterms:modified "2026-08-10"^^xsd:date;
-    sh:declare _:n3-943, _:n3-944, _:n3-945.
-_:n3-943 sh:prefix "dpp";
+    sh:declare _:b0, _:b1, _:b2.
+_:b0 sh:prefix "dpp";
     sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI.
-_:n3-944 sh:prefix "oec";
+_:b1 sh:prefix "oec";
     sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI.
-_:n3-945 sh:prefix "gs1";
+_:b2 sh:prefix "gs1";
     sh:namespace "https://ref.gs1.org/voc/"^^xsd:anyURI.
 dpp-sh:EconomicOperatorRoleRequired a sh:NodeShape;
     rdfs:label "Economic operator role required"@en;
     sh:targetObjectsOf oec:hasOperatorInformation, oec:hasPassportIssuer, <https://ref.openepcis.io/extensions/eu/battery/hasOperatorInformation>;
-    sh:property _:n3-946.
-_:n3-946 sh:path _:n3-1293;
+    sh:property _:b3.
+_:b3 sh:path _:b4;
     sh:minCount 1;
     sh:message "An economic operator must declare its ESPR Art. 77 role (oec:hasOperatorRole)."@en.
 dpp-sh:TranslatableText a sh:NodeShape;
     rdfs:label "Translatable text"@en;
     sh:message "must be text: either a plain string or a language-tagged string"@en;
     rdfs:comment "A plain or language-tagged string; the multilingual form ESPR consumer information requires."@en;
-    sh:or _:n3-947.
-_:n3-947 rdf:first _:n3-948;
-    rdf:rest _:n3-949.
-_:n3-948 sh:datatype xsd:string.
-_:n3-949 rdf:first _:n3-950;
+    sh:or _:b5.
+_:b5 rdf:first _:b6;
+    rdf:rest _:b7.
+_:b6 sh:datatype xsd:string.
+_:b7 rdf:first _:b8;
     rdf:rest rdf:nil.
-_:n3-950 sh:datatype rdf:langString.
+_:b8 sh:datatype rdf:langString.
 dpp-sh:CircularityPerformanceShape a sh:NodeShape;
-    sh:property _:n3-951, _:n3-952, _:n3-953, _:n3-954, _:n3-955, _:n3-956;
+    sh:property _:b9, _:b10, _:b11, _:b12, _:b13, _:b14;
     sh:targetClass oec:CircularityPerformance;
     sh:name "Circularity Performance Shape"@en;
     sh:description "Validates CircularityPerformance instances"@en.
-_:n3-951 sh:path oec:recyclableContent;
+_:b9 sh:path oec:recyclableContent;
     sh:message "recyclableContent must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "recyclableContent"@en;
@@ -59,14 +59,14 @@ _:n3-951 sh:path oec:recyclableContent;
     sh:minInclusive 0;
     sh:maxInclusive 1;
     sh:maxCount 1.
-_:n3-952 sh:path oec:utilityFactor;
+_:b10 sh:path oec:utilityFactor;
     sh:message "utilityFactor must be a positive decimal"@en;
     sh:datatype xsd:decimal;
     sh:name "utilityFactor"@en;
     sh:description "Durability relative to industry average (typically 0.5-2.0)"@en;
     sh:maxCount 1;
     sh:minExclusive 0.
-_:n3-953 sh:path oec:materialCircularityIndicator;
+_:b11 sh:path oec:materialCircularityIndicator;
     sh:message "materialCircularityIndicator must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "materialCircularityIndicator"@en;
@@ -74,24 +74,24 @@ _:n3-953 sh:path oec:materialCircularityIndicator;
     sh:minInclusive 0;
     sh:maxInclusive 1;
     sh:maxCount 1.
-_:n3-954 sh:path oec:endOfLifeInstructions;
+_:b12 sh:path oec:endOfLifeInstructions;
     sh:datatype xsd:anyURI;
     sh:name "endOfLifeInstructions"@en;
     sh:maxCount 1.
-_:n3-955 sh:path oec:wastePreventionInfo;
+_:b13 sh:path oec:wastePreventionInfo;
     sh:datatype xsd:anyURI;
     sh:name "wastePreventionInfo"@en;
     sh:maxCount 1.
-_:n3-956 sh:path oec:separateCollectionInfo;
+_:b14 sh:path oec:separateCollectionInfo;
     sh:datatype xsd:anyURI;
     sh:name "separateCollectionInfo"@en;
     sh:maxCount 1.
 dpp-sh:RecycledContentShape a sh:NodeShape;
-    sh:property _:n3-957, _:n3-958, _:n3-959;
+    sh:property _:b15, _:b16, _:b17;
     sh:targetClass oec:RecycledContent;
     sh:name "Recycled Content Shape"@en;
     sh:description "Validates RecycledContent instances"@en.
-_:n3-957 sh:path oec:recycledContent;
+_:b15 sh:path oec:recycledContent;
     sh:message "recycledContent must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "recycledContent"@en;
@@ -99,7 +99,7 @@ _:n3-957 sh:path oec:recycledContent;
     sh:minInclusive 0;
     sh:maxInclusive 1;
     sh:maxCount 1.
-_:n3-958 sh:path oec:preConsumerRecycledContent;
+_:b16 sh:path oec:preConsumerRecycledContent;
     sh:message "preConsumerRecycledContent must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "preConsumerRecycledContent"@en;
@@ -107,7 +107,7 @@ _:n3-958 sh:path oec:preConsumerRecycledContent;
     sh:minInclusive 0;
     sh:maxInclusive 1;
     sh:maxCount 1.
-_:n3-959 sh:path oec:postConsumerRecycledContent;
+_:b17 sh:path oec:postConsumerRecycledContent;
     sh:message "postConsumerRecycledContent must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "postConsumerRecycledContent"@en;
@@ -116,17 +116,17 @@ _:n3-959 sh:path oec:postConsumerRecycledContent;
     sh:maxInclusive 1;
     sh:maxCount 1.
 dpp-sh:MaterialCompositionShape a sh:NodeShape;
-    sh:property _:n3-960, _:n3-961, _:n3-962, _:n3-963, _:n3-964;
+    sh:property _:b18, _:b19, _:b20, _:b21, _:b22;
     sh:targetClass oec:MaterialComposition;
     sh:name "Material Composition Shape"@en;
     sh:description "Validates MaterialComposition instances"@en.
-_:n3-960 sh:path _:n3-1299;
+_:b18 sh:path _:b23;
     sh:minCount 1;
     sh:message "materialName is required and must be a string"@en;
     sh:name "materialName"@en;
     sh:description "Name of the material"@en;
     sh:node dpp-sh:TranslatableText.
-_:n3-961 sh:path oec:massFraction;
+_:b19 sh:path oec:massFraction;
     sh:message "massFraction must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "massFraction"@en;
@@ -134,50 +134,50 @@ _:n3-961 sh:path oec:massFraction;
     sh:minInclusive 0;
     sh:maxInclusive 1;
     sh:maxCount 1.
-_:n3-962 sh:path gs1:countryOfOrigin;
+_:b20 sh:path gs1:countryOfOrigin;
     sh:message "sourceCountry must be a 2-letter ISO country code (e.g., DE, FR, US)"@en;
     sh:datatype xsd:string;
     sh:name "sourceCountry"@en;
     sh:description "Country of origin (ISO 3166-1 alpha-2)"@en;
     sh:pattern "^[A-Z]{2}$".
-_:n3-963 sh:path oec:isCriticalRawMaterial;
+_:b21 sh:path oec:isCriticalRawMaterial;
     sh:datatype xsd:boolean;
     sh:name "isCriticalRawMaterial"@en;
     sh:maxCount 1.
-_:n3-964 sh:path oec:casNumber;
+_:b22 sh:path oec:casNumber;
     sh:message "casNumber must be in CAS format (e.g., 7440-50-8)"@en;
     sh:datatype xsd:string;
     sh:name "casNumber"@en;
     sh:description "CAS Registry Number"@en;
     sh:pattern "^[0-9]{2,7}-[0-9]{2}-[0-9]$".
 dpp-sh:EmissionsPerformanceShape a sh:NodeShape;
-    sh:property _:n3-965, _:n3-966, _:n3-967, _:n3-970;
+    sh:property _:b24, _:b25, _:b26, _:b27;
     sh:targetClass oec:EmissionsPerformance;
     sh:name "Emissions Performance Shape"@en;
     sh:description "Validates EmissionsPerformance instances"@en.
-_:n3-965 sh:path oec:carbonFootprintTotal;
+_:b24 sh:path oec:carbonFootprintTotal;
     sh:message "carbonFootprintTotal must be a non-negative decimal"@en;
     sh:datatype xsd:decimal;
     sh:name "carbonFootprintTotal"@en;
     sh:description "Total carbon footprint in kg CO2e"@en;
     sh:minInclusive 0;
     sh:maxCount 1.
-_:n3-966 sh:path oec:declaredUnit;
+_:b25 sh:path oec:declaredUnit;
     sh:datatype xsd:string;
     sh:name "declaredUnit"@en;
     sh:description "Functional unit for the measurement"@en;
     sh:maxCount 1.
-_:n3-967 sh:path oec:hasOperationalScope;
+_:b26 sh:path oec:hasOperationalScope;
     sh:message "operationalScope must be CradleToGate or CradleToGrave"@en;
     sh:name "operationalScope"@en;
     sh:description "Lifecycle boundary"@en;
     sh:maxCount 1;
-    sh:in _:n3-968.
-_:n3-968 rdf:first oec:CradleToGate;
-    rdf:rest _:n3-969.
-_:n3-969 rdf:first oec:CradleToGrave;
+    sh:in _:b28.
+_:b28 rdf:first oec:CradleToGate;
+    rdf:rest _:b29.
+_:b29 rdf:first oec:CradleToGrave;
     rdf:rest rdf:nil.
-_:n3-970 sh:path oec:primarySourcedRatio;
+_:b27 sh:path oec:primarySourcedRatio;
     sh:message "primarySourcedRatio must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "primarySourcedRatio"@en;
@@ -186,11 +186,11 @@ _:n3-970 sh:path oec:primarySourcedRatio;
     sh:maxInclusive 1;
     sh:maxCount 1.
 dpp-sh:TraceabilityPerformanceShape a sh:NodeShape;
-    sh:property _:n3-971;
+    sh:property _:b30;
     sh:targetClass oec:TraceabilityPerformance;
     sh:name "Traceability Performance Shape"@en;
     sh:description "Validates TraceabilityPerformance instances"@en.
-_:n3-971 sh:path oec:verifiedRatio;
+_:b30 sh:path oec:verifiedRatio;
     sh:message "verifiedRatio must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "verifiedRatio"@en;
@@ -199,30 +199,30 @@ _:n3-971 sh:path oec:verifiedRatio;
     sh:maxInclusive 1;
     sh:maxCount 1.
 dpp-sh:OperatorInformationShape a sh:NodeShape;
-    sh:property _:n3-972, _:n3-980, _:n3-981, _:n3-982, _:n3-983;
+    sh:property _:b31, _:b32, _:b33, _:b34, _:b35;
     sh:targetClass oec:OperatorInformation;
     sh:name "Operator Information Shape"@en;
     sh:description "Validates OperatorInformation instances"@en.
-_:n3-972 sh:path _:n3-1296;
+_:b31 sh:path _:b36;
     sh:message "operatorRole must be one of the seven ESPR Art. 77 economic-operator roles"@en;
     sh:name "operatorRole"@en;
     sh:description "Role of the economic operator"@en;
-    sh:in _:n3-973.
-_:n3-973 rdf:first oec:Manufacturer;
-    rdf:rest _:n3-974.
-_:n3-974 rdf:first oec:Importer;
-    rdf:rest _:n3-975.
-_:n3-975 rdf:first oec:Distributor;
-    rdf:rest _:n3-976.
-_:n3-976 rdf:first oec:Processor;
-    rdf:rest _:n3-977.
-_:n3-977 rdf:first oec:Trader;
-    rdf:rest _:n3-978.
-_:n3-978 rdf:first oec:AuthorisedRepresentative;
-    rdf:rest _:n3-979.
-_:n3-979 rdf:first oec:FulfilmentServiceProvider;
+    sh:in _:b37.
+_:b37 rdf:first oec:Manufacturer;
+    rdf:rest _:b38.
+_:b38 rdf:first oec:Importer;
+    rdf:rest _:b39.
+_:b39 rdf:first oec:Distributor;
+    rdf:rest _:b40.
+_:b40 rdf:first oec:Processor;
+    rdf:rest _:b41.
+_:b41 rdf:first oec:Trader;
+    rdf:rest _:b42.
+_:b42 rdf:first oec:AuthorisedRepresentative;
+    rdf:rest _:b43.
+_:b43 rdf:first oec:FulfilmentServiceProvider;
     rdf:rest rdf:nil.
-_:n3-980 sh:path gs1:globalLocationNumber;
+_:b32 sh:path gs1:globalLocationNumber;
     sh:minCount 1;
     sh:message "gln must be a 13-digit GLN"@en;
     sh:datatype xsd:string;
@@ -230,28 +230,28 @@ _:n3-980 sh:path gs1:globalLocationNumber;
     sh:description "Operator GLN (Global Location Number)"@en;
     sh:maxCount 1;
     sh:pattern "^[0-9]{13}$".
-_:n3-981 sh:path oec:economicOperatorId;
+_:b33 sh:path oec:economicOperatorId;
     sh:datatype xsd:string;
     sh:name "economicOperatorId"@en;
     sh:description "EU EOID per ESPR Article 77"@en;
     sh:maxCount 1.
-_:n3-982 sh:path oec:eoriNumber;
+_:b34 sh:path oec:eoriNumber;
     sh:message "eoriNumber must be in EORI format (e.g., DE123456789012345)"@en;
     sh:datatype xsd:string;
     sh:name "eoriNumber"@en;
     sh:description "EORI number for customs"@en;
     sh:pattern "^[A-Z]{2}[A-Z0-9]{1,15}$".
-_:n3-983 sh:path schema:vatID;
+_:b35 sh:path schema:vatID;
     sh:datatype xsd:string;
     sh:name "vatIdentificationNumber"@en;
     sh:description "VAT identification number"@en;
     sh:maxCount 1.
 dpp-sh:FacilityInformationShape a sh:NodeShape;
-    sh:property _:n3-984, _:n3-985, _:n3-986;
+    sh:property _:b44, _:b45, _:b46;
     sh:targetClass oec:FacilityInformation;
     sh:name "Facility Information Shape"@en;
     sh:description "Validates FacilityInformation instances"@en.
-_:n3-984 sh:path gs1:globalLocationNumber;
+_:b44 sh:path gs1:globalLocationNumber;
     sh:minCount 1;
     sh:message "gln must be a 13-digit GLN"@en;
     sh:datatype xsd:string;
@@ -259,40 +259,40 @@ _:n3-984 sh:path gs1:globalLocationNumber;
     sh:description "Facility GLN (Global Location Number)"@en;
     sh:maxCount 1;
     sh:pattern "^[0-9]{13}$".
-_:n3-985 sh:path _:n3-1302;
+_:b45 sh:path _:b47;
     sh:minCount 1;
     sh:message "name is required"@en;
     sh:name "name"@en;
     sh:description "Official facility name (inherited from gs1:Place)"@en;
     sh:node dpp-sh:TranslatableText.
-_:n3-986 sh:path oec:facilityType;
+_:b46 sh:path oec:facilityType;
     sh:datatype xsd:string;
     sh:name "facilityType"@en;
     sh:maxCount 1.
 dpp-sh:SubstanceOfConcernShape a sh:NodeShape;
-    sh:property _:n3-987, _:n3-988, _:n3-989, _:n3-990, _:n3-991, _:n3-992;
+    sh:property _:b48, _:b49, _:b50, _:b51, _:b52, _:b53;
     sh:targetClass oec:SubstanceOfConcern;
     sh:name "Substance of Concern Shape"@en;
     sh:description "Validates SubstanceOfConcern instances"@en.
-_:n3-987 sh:path _:n3-1305;
+_:b48 sh:path _:b54;
     sh:minCount 1;
     sh:message "substanceName is required"@en;
     sh:name "substanceName"@en;
     sh:description "Name of the hazardous substance"@en;
     sh:node dpp-sh:TranslatableText.
-_:n3-988 sh:path oec:casNumber;
+_:b49 sh:path oec:casNumber;
     sh:message "casNumber must be in CAS format (e.g., 7440-50-8)"@en;
     sh:datatype xsd:string;
     sh:name "casNumber"@en;
     sh:description "CAS Registry Number"@en;
     sh:pattern "^[0-9]{2,7}-[0-9]{2}-[0-9]$".
-_:n3-989 sh:path oec:ecNumber;
+_:b50 sh:path oec:ecNumber;
     sh:message "ecNumber must be in EC format (e.g., 231-111-4)"@en;
     sh:datatype xsd:string;
     sh:name "ecNumber"@en;
     sh:description "EC Number (EINECS/ELINCS)"@en;
     sh:pattern "^[0-9]{3}-[0-9]{3}-[0-9]$".
-_:n3-990 sh:path oec:concentration;
+_:b51 sh:path oec:concentration;
     sh:message "concentration must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "concentration"@en;
@@ -300,59 +300,59 @@ _:n3-990 sh:path oec:concentration;
     sh:minInclusive 0;
     sh:maxInclusive 1;
     sh:maxCount 1.
-_:n3-991 sh:path oec:scipId;
+_:b52 sh:path oec:scipId;
     sh:datatype xsd:string;
     sh:name "scipId"@en;
     sh:description "ECHA SCIP database identifier"@en;
     sh:maxCount 1.
-_:n3-992 sh:path oec:hasHazardClass;
+_:b53 sh:path oec:hasHazardClass;
     sh:message "hazardClass must be a valid HazardClass"@en;
     sh:name "hazardClass"@en;
-    sh:in _:n3-993.
-_:n3-993 rdf:first oec:AcuteToxicity;
-    rdf:rest _:n3-994.
-_:n3-994 rdf:first oec:SkinCorrosionOrIrritation;
-    rdf:rest _:n3-995.
-_:n3-995 rdf:first oec:EyeDamageOrIrritation;
-    rdf:rest _:n3-996.
-_:n3-996 rdf:first oec:RespiratoryOrSkinSensitization;
-    rdf:rest _:n3-997.
-_:n3-997 rdf:first oec:GermCellMutagenicity;
-    rdf:rest _:n3-998.
-_:n3-998 rdf:first oec:Carcinogenicity;
-    rdf:rest _:n3-999.
-_:n3-999 rdf:first oec:ReproductiveToxicity;
-    rdf:rest _:n3-1000.
-_:n3-1000 rdf:first oec:SpecificTargetOrganToxicity;
-    rdf:rest _:n3-1001.
-_:n3-1001 rdf:first oec:AspirationHazard;
-    rdf:rest _:n3-1002.
-_:n3-1002 rdf:first oec:HazardousToAquaticEnvironment;
+    sh:in _:b55.
+_:b55 rdf:first oec:AcuteToxicity;
+    rdf:rest _:b56.
+_:b56 rdf:first oec:SkinCorrosionOrIrritation;
+    rdf:rest _:b57.
+_:b57 rdf:first oec:EyeDamageOrIrritation;
+    rdf:rest _:b58.
+_:b58 rdf:first oec:RespiratoryOrSkinSensitization;
+    rdf:rest _:b59.
+_:b59 rdf:first oec:GermCellMutagenicity;
+    rdf:rest _:b60.
+_:b60 rdf:first oec:Carcinogenicity;
+    rdf:rest _:b61.
+_:b61 rdf:first oec:ReproductiveToxicity;
+    rdf:rest _:b62.
+_:b62 rdf:first oec:SpecificTargetOrganToxicity;
+    rdf:rest _:b63.
+_:b63 rdf:first oec:AspirationHazard;
+    rdf:rest _:b64.
+_:b64 rdf:first oec:HazardousToAquaticEnvironment;
     rdf:rest rdf:nil.
 dpp-sh:AccessRightsShape a sh:NodeShape;
-    sh:property _:n3-1003;
+    sh:property _:b65;
     sh:targetClass oec:AccessRights;
     sh:name "Access Rights Shape"@en;
     sh:description "Validates AccessRights instances"@en.
-_:n3-1003 sh:path oec:hasAccessLevel;
+_:b65 sh:path oec:hasAccessLevel;
     sh:minCount 1;
     sh:message "accessLevel is required and must be Public, AuthorizedOnly, or Restricted"@en;
     sh:name "accessLevel"@en;
     sh:description "ESPR Article 9 access level"@en;
     sh:maxCount 1;
-    sh:in _:n3-1004.
-_:n3-1004 rdf:first oec:Public;
-    rdf:rest _:n3-1005.
-_:n3-1005 rdf:first oec:AuthorizedOnly;
-    rdf:rest _:n3-1006.
-_:n3-1006 rdf:first oec:Restricted;
+    sh:in _:b66.
+_:b66 rdf:first oec:Public;
+    rdf:rest _:b67.
+_:b67 rdf:first oec:AuthorizedOnly;
+    rdf:rest _:b68.
+_:b68 rdf:first oec:Restricted;
     rdf:rest rdf:nil.
 dpp-sh:RepairabilityInfoShape a sh:NodeShape;
-    sh:property _:n3-1007, _:n3-1008, _:n3-1009, _:n3-1010;
+    sh:property _:b69, _:b70, _:b71, _:b72;
     sh:targetClass oec:RepairabilityInfo;
     sh:name "Repairability Information Shape"@en;
     sh:description "Validates RepairabilityInfo instances"@en.
-_:n3-1007 sh:path oec:repairabilityScore;
+_:b69 sh:path oec:repairabilityScore;
     sh:message "repairabilityScore must be between 0 and 10"@en;
     sh:datatype xsd:decimal;
     sh:name "repairabilityScore"@en;
@@ -360,184 +360,184 @@ _:n3-1007 sh:path oec:repairabilityScore;
     sh:minInclusive 0;
     sh:maxInclusive 10;
     sh:maxCount 1.
-_:n3-1008 sh:path oec:repairabilityClass;
+_:b70 sh:path oec:repairabilityClass;
     sh:message "repairabilityClass must be A, B, C, D, or E"@en;
     sh:datatype xsd:string;
     sh:name "repairabilityClass"@en;
     sh:description "Repairability class (A-E)"@en;
     sh:maxCount 1;
     sh:pattern "^[A-E]$".
-_:n3-1009 sh:path oec:diyRepairPossible;
+_:b71 sh:path oec:diyRepairPossible;
     sh:datatype xsd:boolean;
     sh:name "diyRepairPossible"@en;
     sh:maxCount 1.
-_:n3-1010 sh:path oec:professionalRepairNetwork;
+_:b72 sh:path oec:professionalRepairNetwork;
     sh:datatype xsd:anyURI;
     sh:name "professionalRepairNetwork"@en;
     sh:maxCount 1.
 dpp-sh:PerformanceInfoShape a sh:NodeShape;
-    sh:property _:n3-1011, _:n3-1012;
+    sh:property _:b73, _:b74;
     sh:targetClass oec:PerformanceInfo;
     sh:name "Performance Information Shape"@en;
     sh:description "Validates PerformanceInfo instances"@en.
-_:n3-1011 sh:path oec:usageCycles;
+_:b73 sh:path oec:usageCycles;
     sh:message "usageCycles must be a non-negative integer"@en;
     sh:datatype xsd:integer;
     sh:name "usageCycles"@en;
     sh:description "Expected number of usage cycles"@en;
     sh:minInclusive 0;
     sh:maxCount 1.
-_:n3-1012 sh:path oec:performanceClass;
+_:b74 sh:path oec:performanceClass;
     sh:datatype xsd:string;
     sh:name "performanceClass"@en;
     sh:description "Performance/efficiency class (e.g., A+++ to G)"@en;
     sh:maxCount 1.
 dpp-sh:GranularityLevelConstraint a sh:NodeShape;
-    sh:property _:n3-1013;
+    sh:property _:b75;
     sh:name "Granularity Level Constraint"@en.
-_:n3-1013 sh:path oec:granularityLevel;
+_:b75 sh:path oec:granularityLevel;
     sh:message "granularity must be model, batch, or item (EN 18223)"@en;
     sh:datatype xsd:string;
     sh:maxCount 1;
-    sh:in _:n3-1014.
-_:n3-1014 rdf:first "model";
-    rdf:rest _:n3-1015.
-_:n3-1015 rdf:first "batch";
-    rdf:rest _:n3-1016.
-_:n3-1016 rdf:first "item";
+    sh:in _:b76.
+_:b76 rdf:first "model";
+    rdf:rest _:b77.
+_:b77 rdf:first "batch";
+    rdf:rest _:b78.
+_:b78 rdf:first "item";
     rdf:rest rdf:nil.
 dpp-sh:GranularityDigitalLinkConstraint a sh:NodeShape;
     sh:targetSubjectsOf oec:granularityLevel;
-    sh:sparql _:n3-1017.
-_:n3-1017 a sh:SPARQLConstraint;
+    sh:sparql _:b79.
+_:b79 a sh:SPARQLConstraint;
     sh:message "granularity must match the GS1 Digital Link Application Identifiers of the passport IRI (01 -> model, 01+10 -> batch, 01+21 -> item) per EN 18219 4.4 / EN 18223."@en;
     sh:prefixes <https://ref.openepcis.io/extensions/common/core/shapes/>;
     sh:select "\n            SELECT $this ?value WHERE {\n                $this oec:granularityLevel ?value .\n                # The Digital Link is the node's own IRI; gs1:productID is honoured\n                # as an alternative carrier where a passport states it separately.\n                OPTIONAL { $this gs1:productID ?stated }\n                BIND( COALESCE(?stated, STR($this)) AS ?dl )\n                FILTER( REGEX(STR(?dl), \"/01/\") )\n                BIND( IF(REGEX(STR(?dl), \"/21/\"), \"item\",\n                       IF(REGEX(STR(?dl), \"/10/\"), \"batch\", \"model\")) AS ?expected )\n                FILTER( STR(?value) != ?expected )\n            }\n        ".
 dpp-sh:QuantitativeValueShape a sh:NodeShape;
-    sh:property _:n3-1018, _:n3-1019;
+    sh:property _:b80, _:b81;
     sh:targetClass gs1:QuantitativeValue;
     sh:name "QuantitativeValue Shape"@en;
     sh:description "Every QuantitativeValue must have gs1:value and gs1:unitCode (UN/CEFACT Rec 20)."@en.
-_:n3-1018 sh:path gs1:value;
+_:b80 sh:path gs1:value;
     sh:minCount 1;
     sh:message "QuantitativeValue must have exactly one xsd:decimal gs1:value"@en;
     sh:datatype xsd:decimal;
     sh:maxCount 1.
-_:n3-1019 sh:path gs1:unitCode;
+_:b81 sh:path gs1:unitCode;
     sh:minCount 1;
     sh:message "QuantitativeValue must have exactly one gs1:unitCode (UN/CEFACT Rec 20 string)"@en;
     sh:datatype xsd:string;
     sh:maxCount 1.
 dpp-sh:ExpectedLifespanShape a sh:NodeShape;
-    sh:property _:n3-1020;
+    sh:property _:b82;
     sh:targetSubjectsOf oec:hasExpectedLifespan.
-_:n3-1021 rdf:first oec:hasExpectedLifespan;
-    rdf:rest _:n3-1022.
-_:n3-1022 rdf:first gs1:unitCode;
+_:b83 rdf:first oec:hasExpectedLifespan;
+    rdf:rest _:b84.
+_:b84 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
-_:n3-1020 sh:path _:n3-1021;
+_:b82 sh:path _:b83;
     sh:message "oec:hasExpectedLifespan must use unitCode 'ANN' (years)"@en;
     sh:hasValue "ANN".
 dpp-sh:GuaranteedLifespanShape a sh:NodeShape;
-    sh:property _:n3-1023;
+    sh:property _:b85;
     sh:targetSubjectsOf oec:hasGuaranteedLifespan.
-_:n3-1024 rdf:first oec:hasGuaranteedLifespan;
-    rdf:rest _:n3-1025.
-_:n3-1025 rdf:first gs1:unitCode;
+_:b86 rdf:first oec:hasGuaranteedLifespan;
+    rdf:rest _:b87.
+_:b87 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
-_:n3-1023 sh:path _:n3-1024;
+_:b85 sh:path _:b86;
     sh:message "oec:hasGuaranteedLifespan must use unitCode 'ANN' (years)"@en;
     sh:hasValue "ANN".
 dpp-sh:TechnicalLifetimeShape a sh:NodeShape;
-    sh:property _:n3-1026;
+    sh:property _:b88;
     sh:targetSubjectsOf oec:hasTechnicalLifetime.
-_:n3-1027 rdf:first oec:hasTechnicalLifetime;
-    rdf:rest _:n3-1028.
-_:n3-1028 rdf:first gs1:unitCode;
+_:b89 rdf:first oec:hasTechnicalLifetime;
+    rdf:rest _:b90.
+_:b90 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
-_:n3-1026 sh:path _:n3-1027;
+_:b88 sh:path _:b89;
     sh:message "oec:hasTechnicalLifetime must use unitCode 'ANN' (years)"@en;
     sh:hasValue "ANN".
 dpp-sh:ExtendedProducerResponsibilityShape a sh:NodeShape;
-    sh:property _:n3-1029, _:n3-1030, _:n3-1031;
+    sh:property _:b91, _:b92, _:b93;
     sh:targetClass oec:ExtendedProducerResponsibility;
     sh:name "Extended Producer Responsibility Shape"@en.
-_:n3-1029 sh:path oec:eprRegistrationNumber;
+_:b91 sh:path oec:eprRegistrationNumber;
     sh:minCount 1;
     sh:message "ExtendedProducerResponsibility must have exactly one eprRegistrationNumber"@en;
     sh:datatype xsd:string;
     sh:maxCount 1.
-_:n3-1030 sh:path oec:hasEprJurisdiction;
+_:b92 sh:path oec:hasEprJurisdiction;
     sh:minCount 1;
     sh:message "ExtendedProducerResponsibility must declare exactly one eprJurisdiction"@en;
     sh:maxCount 1.
-_:n3-1031 sh:path oec:eprComplianceUrl;
+_:b93 sh:path oec:eprComplianceUrl;
     sh:datatype xsd:anyURI;
     sh:maxCount 1.
 dpp-sh:CompostabilityShape a sh:NodeShape;
-    sh:property _:n3-1032, _:n3-1036;
+    sh:property _:b94, _:b95;
     sh:targetClass oec:Compostability;
     sh:name "Compostability Shape"@en.
-_:n3-1032 sh:path oec:hasCompostabilityType;
+_:b94 sh:path oec:hasCompostabilityType;
     sh:minCount 1;
     sh:message "compostabilityType must be IndustrialCompostable, HomeCompostable, or NotCompostable"@en;
     sh:maxCount 1;
-    sh:in _:n3-1033.
-_:n3-1033 rdf:first oec:IndustrialCompostable;
-    rdf:rest _:n3-1034.
-_:n3-1034 rdf:first oec:HomeCompostable;
-    rdf:rest _:n3-1035.
-_:n3-1035 rdf:first oec:NotCompostable;
+    sh:in _:b96.
+_:b96 rdf:first oec:IndustrialCompostable;
+    rdf:rest _:b97.
+_:b97 rdf:first oec:HomeCompostable;
+    rdf:rest _:b98.
+_:b98 rdf:first oec:NotCompostable;
     rdf:rest rdf:nil.
-_:n3-1036 sh:path oec:compostabilityStandard;
+_:b95 sh:path oec:compostabilityStandard;
     sh:datatype xsd:anyURI;
     sh:maxCount 1.
 dpp-sh:BiodegradabilityShape a sh:NodeShape;
-    sh:property _:n3-1037, _:n3-1038;
+    sh:property _:b99, _:b100;
     sh:targetClass oec:Biodegradability;
     sh:name "Biodegradability Shape"@en.
-_:n3-1037 sh:path oec:biodegradationPercentage;
+_:b99 sh:path oec:biodegradationPercentage;
     sh:minCount 1;
     sh:message "Biodegradability must have exactly one biodegradationPercentage"@en;
     sh:maxCount 1.
-_:n3-1038 sh:path oec:hasBiodegradabilityTestMethod;
+_:b100 sh:path oec:hasBiodegradabilityTestMethod;
     sh:maxCount 1;
-    sh:in _:n3-1039.
-_:n3-1039 rdf:first oec:ISO14593;
-    rdf:rest _:n3-1040.
-_:n3-1040 rdf:first oec:OECD301B;
-    rdf:rest _:n3-1041.
-_:n3-1041 rdf:first oec:OECD301D;
-    rdf:rest _:n3-1042.
-_:n3-1042 rdf:first oec:OECD301F;
-    rdf:rest _:n3-1043.
-_:n3-1043 rdf:first oec:OECD310;
+    sh:in _:b101.
+_:b101 rdf:first oec:ISO14593;
+    rdf:rest _:b102.
+_:b102 rdf:first oec:OECD301B;
+    rdf:rest _:b103.
+_:b103 rdf:first oec:OECD301D;
+    rdf:rest _:b104.
+_:b104 rdf:first oec:OECD301F;
+    rdf:rest _:b105.
+_:b105 rdf:first oec:OECD310;
     rdf:rest rdf:nil.
 dpp-sh:DepositReturnSchemeShape a sh:NodeShape;
     sh:message "DepositReturnScheme must declare exactly one deposit amount, as oec:hasDepositAmount (gs1:QuantitativeValue) or gs1:returnablePackageDepositAmount (gs1:PriceSpecification)"@en;
-    sh:property _:n3-1050;
-    sh:or _:n3-1044;
+    sh:property _:b106;
+    sh:or _:b107;
     sh:targetClass oec:DepositReturnScheme;
     sh:name "DepositReturnScheme Shape"@en.
-_:n3-1044 rdf:first _:n3-1045;
-    rdf:rest _:n3-1047.
-_:n3-1045 sh:property _:n3-1046.
-_:n3-1046 sh:path oec:hasDepositAmount;
+_:b107 rdf:first _:b108;
+    rdf:rest _:b109.
+_:b108 sh:property _:b110.
+_:b110 sh:path oec:hasDepositAmount;
     sh:minCount 1;
     sh:maxCount 1.
-_:n3-1047 rdf:first _:n3-1048;
+_:b109 rdf:first _:b111;
     rdf:rest rdf:nil.
-_:n3-1048 sh:property _:n3-1049.
-_:n3-1049 sh:path gs1:returnablePackageDepositAmount;
+_:b111 sh:property _:b112.
+_:b112 sh:path gs1:returnablePackageDepositAmount;
     sh:minCount 1;
     sh:maxCount 1.
-_:n3-1050 sh:path oec:depositRedemptionChannelUrl;
+_:b106 sh:path oec:depositRedemptionChannelUrl;
     sh:datatype xsd:anyURI;
     sh:maxCount 1.
 dpp-sh:BiodegradationPercentageRangeShape a sh:NodeShape;
-    sh:property _:n3-1051;
+    sh:property _:b113;
     sh:targetSubjectsOf oec:biodegradationPercentage.
-_:n3-1051 sh:path oec:biodegradationPercentage;
+_:b113 sh:path oec:biodegradationPercentage;
     sh:message "oec:biodegradationPercentage must be a decimal percentage between 0 and 100"@en;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
@@ -549,113 +549,113 @@ _:n3-1051 sh:path oec:biodegradationPercentage;
     dcterms:modified "2026-06-07"^^xsd:date.
 <https://ref.openepcis.io/extensions/eu/battery/BatteryShape> a sh:NodeShape;
     rdfs:label "Battery Shape";
-    sh:property _:n3-1052, _:n3-1053, _:n3-1054, _:n3-1055, _:n3-1056, _:n3-1057, _:n3-1058, _:n3-1059, _:n3-1060, _:n3-1061, _:n3-1062, _:n3-1063, _:n3-1064, _:n3-1065, _:n3-1066, _:n3-1067, _:n3-1074, _:n3-1075, _:n3-1083, _:n3-1084;
+    sh:property _:b114, _:b115, _:b116, _:b117, _:b118, _:b119, _:b120, _:b121, _:b122, _:b123, _:b124, _:b125, _:b126, _:b127, _:b128, _:b129, _:b130, _:b131, _:b132, _:b133;
     rdfs:comment "Validation shape for Battery instances as defined by EU Battery Regulation 2023/1542.";
     sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/Battery>.
-_:n3-1052 sh:path schema:category;
+_:b114 sh:path schema:category;
     sh:name "Battery Category";
     sh:description "The regulatory category of the battery (LMT, EV, Industrial, Stationary).";
     sh:maxCount 1;
     sh:class <https://ref.openepcis.io/extensions/eu/battery/BatteryCategory>.
-_:n3-1053 sh:path schema:status;
+_:b115 sh:path schema:status;
     sh:name "Battery Status";
     sh:description "Current lifecycle status of the battery.";
     sh:maxCount 1;
     sh:class <https://ref.openepcis.io/extensions/eu/battery/BatteryStatus>.
-_:n3-1054 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasBatteryChemistry>;
+_:b116 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasBatteryChemistry>;
     sh:name "Battery Chemistry";
     sh:class <https://ref.openepcis.io/extensions/eu/battery/BatteryChemistry>.
-_:n3-1055 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasTechnicalSpecifications>;
+_:b117 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasTechnicalSpecifications>;
     sh:name "Technical Specifications";
     sh:class <https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification>.
-_:n3-1056 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasMaterialComposition>;
+_:b118 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasMaterialComposition>;
     sh:name "Material Composition";
     sh:class <https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial>.
-_:n3-1057 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasRecycledContent>;
+_:b119 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasRecycledContent>;
     sh:name "Recycled Content";
     sh:class <https://ref.openepcis.io/extensions/eu/battery/RecycledContent>.
-_:n3-1058 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasEndOfLifeInfo>;
+_:b120 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasEndOfLifeInfo>;
     sh:name "End of Life Information";
     sh:class <https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo>.
-_:n3-1059 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasHazardousSubstances>;
+_:b121 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasHazardousSubstances>;
     sh:name "Hazardous Substances";
     sh:class <https://ref.openepcis.io/extensions/eu/battery/HazardousSubstance>.
-_:n3-1060 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasOperatorInformation>;
+_:b122 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasOperatorInformation>;
     sh:name "Operator Information";
     sh:class oec:OperatorInformation.
-_:n3-1061 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasSupplyChainDueDiligence>;
+_:b123 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasSupplyChainDueDiligence>;
     sh:name "Supply Chain Due Diligence";
     sh:class <https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence>.
-_:n3-1062 sh:path <https://ref.openepcis.io/extensions/eu/battery/batteryModelIdentifier>;
+_:b124 sh:path <https://ref.openepcis.io/extensions/eu/battery/batteryModelIdentifier>;
     sh:minCount 1;
     sh:datatype xsd:string;
     sh:name "Battery Model Identifier";
     sh:description "Mandatory per BatteryPass-Ready v1.3 (#7). Manufacturer-assigned model ID; referenced by the carbon footprint declaration.";
     sh:maxCount 1.
-_:n3-1063 sh:path gs1:hasSerialNumber;
+_:b125 sh:path gs1:hasSerialNumber;
     sh:datatype xsd:string;
     sh:name "Battery Serial Number";
     sh:description "Mandatory per BatteryPass-Ready v1.3 (#8) at item granularity. Required on the Declaration of Conformity.";
     sh:maxCount 1.
-_:n3-1064 sh:path <https://ref.openepcis.io/extensions/eu/battery/facilityIdentifier>;
+_:b126 sh:path <https://ref.openepcis.io/extensions/eu/battery/facilityIdentifier>;
     sh:datatype xsd:string;
     sh:name "Facility Identifier";
     sh:description "Mandatory per BatteryPass-Ready v1.3 (#11). Recommend GLN of the gs1:Place referenced by eubat:hasManufacturingPlace.".
-_:n3-1065 sh:path <https://ref.openepcis.io/extensions/eu/battery/operatorIdentifier>;
+_:b127 sh:path <https://ref.openepcis.io/extensions/eu/battery/operatorIdentifier>;
     sh:datatype xsd:string;
     sh:name "Economic Operator Identifier";
     sh:description "Mandatory per BatteryPass-Ready v1.3 (#9). Access-restricted (AuthorizedOnly).".
-_:n3-1066 sh:path <https://ref.openepcis.io/extensions/eu/battery/manufacturerIdentifier>;
+_:b128 sh:path <https://ref.openepcis.io/extensions/eu/battery/manufacturerIdentifier>;
     sh:datatype xsd:string;
     sh:name "Manufacturer Identifier";
     sh:description "Mandatory per BatteryPass-Ready v1.3 (#10). Access-restricted (AuthorizedOnly).".
-_:n3-1067 sh:path gs1:manufacturer;
-    sh:or _:n3-1068;
+_:b129 sh:path gs1:manufacturer;
+    sh:or _:b134;
     sh:name "Manufacturer Information";
     sh:description "Mandatory per BatteryPass-Ready v1.3 (#13).".
-_:n3-1068 rdf:first _:n3-1069;
-    rdf:rest _:n3-1070.
-_:n3-1069 sh:class oec:OperatorInformation.
-_:n3-1070 rdf:first _:n3-1071;
-    rdf:rest _:n3-1072.
-_:n3-1071 sh:class gs1:Organization.
-_:n3-1072 rdf:first _:n3-1073;
+_:b134 rdf:first _:b135;
+    rdf:rest _:b136.
+_:b135 sh:class oec:OperatorInformation.
+_:b136 rdf:first _:b137;
+    rdf:rest _:b138.
+_:b137 sh:class gs1:Organization.
+_:b138 rdf:first _:b139;
     rdf:rest rdf:nil.
-_:n3-1073 sh:nodeKind sh:IRI.
-_:n3-1074 sh:path schema:schemaVersion;
+_:b139 sh:nodeKind sh:IRI.
+_:b130 sh:path schema:schemaVersion;
     sh:minCount 1;
     sh:datatype xsd:string;
     sh:name "DPP Schema Version";
     sh:description "Mandatory per BatteryPass-Ready v1.3 (#1). Identifies the schema version this DPP instance follows (e.g. \"1.3\").";
     sh:maxCount 1.
-_:n3-1075 sh:path oec:passportStatus;
+_:b131 sh:path oec:passportStatus;
     sh:minCount 1;
     sh:datatype xsd:string;
     sh:name "DPP Status";
     sh:description "Mandatory per BatteryPass-Ready v1.3 (#2). EN 18223 dppStatus.";
     sh:maxCount 1;
-    sh:in _:n3-1076.
-_:n3-1076 rdf:first "active";
-    rdf:rest _:n3-1077.
-_:n3-1077 rdf:first "inactive";
-    rdf:rest _:n3-1078.
-_:n3-1078 rdf:first "archived";
-    rdf:rest _:n3-1079.
-_:n3-1079 rdf:first "invalid";
-    rdf:rest _:n3-1080.
-_:n3-1080 rdf:first "draft";
-    rdf:rest _:n3-1081.
-_:n3-1081 rdf:first "withdrawn";
-    rdf:rest _:n3-1082.
-_:n3-1082 rdf:first "suspended";
+    sh:in _:b140.
+_:b140 rdf:first "active";
+    rdf:rest _:b141.
+_:b141 rdf:first "inactive";
+    rdf:rest _:b142.
+_:b142 rdf:first "archived";
+    rdf:rest _:b143.
+_:b143 rdf:first "invalid";
+    rdf:rest _:b144.
+_:b144 rdf:first "draft";
+    rdf:rest _:b145.
+_:b145 rdf:first "withdrawn";
+    rdf:rest _:b146.
+_:b146 rdf:first "suspended";
     rdf:rest rdf:nil.
-_:n3-1083 sh:path oec:hasReportingGranularity;
+_:b132 sh:path oec:hasReportingGranularity;
     sh:minCount 1;
     sh:name "DPP Reporting Granularity";
     sh:description "Mandatory per BatteryPass-Ready v1.3 (#3).";
     sh:maxCount 1;
     sh:class oec:DPPGranularity.
-_:n3-1084 sh:path oec:lastUpdated;
+_:b133 sh:path oec:lastUpdated;
     sh:minCount 1;
     sh:datatype xsd:dateTime;
     sh:name "Date-time of latest update";
@@ -663,175 +663,175 @@ _:n3-1084 sh:path oec:lastUpdated;
     sh:maxCount 1.
 <https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclarationShape> a sh:NodeShape;
     rdfs:label "Carbon Footprint Declaration Shape";
-    sh:property _:n3-1085, _:n3-1086, _:n3-1087;
+    sh:property _:b147, _:b148, _:b149;
     sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration>.
-_:n3-1085 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasCarbonFootprintTotal>;
+_:b147 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasCarbonFootprintTotal>;
     sh:minCount 1;
     sh:name "Battery Carbon Footprint per Functional Unit".
-_:n3-1086 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasCarbonFootprintPerformanceClass>;
+_:b148 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasCarbonFootprintPerformanceClass>;
     sh:minCount 1;
     sh:name "Carbon Footprint Performance Class";
     sh:class <https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintClass>.
-_:n3-1087 sh:path <https://ref.openepcis.io/extensions/eu/battery/carbonFootprintStudyUrl>;
+_:b149 sh:path <https://ref.openepcis.io/extensions/eu/battery/carbonFootprintStudyUrl>;
     sh:minCount 1;
     sh:datatype xsd:anyURI;
     sh:name "Web link to public carbon footprint study".
 <https://ref.openepcis.io/extensions/eu/battery/BatteryChemistryShape> a sh:NodeShape;
     rdfs:label "Battery Chemistry Shape";
-    sh:property _:n3-1088, _:n3-1089, _:n3-1090, _:n3-1091, _:n3-1092;
+    sh:property _:b150, _:b151, _:b152, _:b153, _:b154;
     sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/BatteryChemistry>.
-_:n3-1088 sh:path _:n3-1308;
+_:b150 sh:path _:b155;
     sh:name "Short Name";
     sh:description "Abbreviated chemistry name (e.g., LFP, NMC, NCA).";
     sh:node dpp-sh:TranslatableText.
-_:n3-1089 sh:path _:n3-1311;
+_:b151 sh:path _:b156;
     sh:name "Full Name";
     sh:description "Full chemical name of the battery chemistry.";
     sh:node dpp-sh:TranslatableText.
-_:n3-1090 sh:path <https://ref.openepcis.io/extensions/eu/battery/cathodeActiveMaterial>;
+_:b152 sh:path <https://ref.openepcis.io/extensions/eu/battery/cathodeActiveMaterial>;
     sh:datatype xsd:string.
-_:n3-1091 sh:path <https://ref.openepcis.io/extensions/eu/battery/anodeActiveMaterial>;
+_:b153 sh:path <https://ref.openepcis.io/extensions/eu/battery/anodeActiveMaterial>;
     sh:datatype xsd:string.
-_:n3-1092 sh:path <https://ref.openepcis.io/extensions/eu/battery/electrolyteType>;
+_:b154 sh:path <https://ref.openepcis.io/extensions/eu/battery/electrolyteType>;
     sh:node dpp-sh:TranslatableText.
 <https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecificationShape> a sh:NodeShape;
     rdfs:label "Technical Specification Shape";
-    sh:property _:n3-1093, _:n3-1094, _:n3-1095, _:n3-1096, _:n3-1097;
+    sh:property _:b157, _:b158, _:b159, _:b160, _:b161;
     sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification>.
-_:n3-1093 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasRatedCapacity>;
+_:b157 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasRatedCapacity>;
     sh:name "Rated Capacity";
     sh:class gs1:QuantitativeValue.
-_:n3-1094 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasRatedEnergy>;
+_:b158 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasRatedEnergy>;
     sh:name "Rated Energy";
     sh:class gs1:QuantitativeValue.
-_:n3-1095 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasNominalVoltage>;
+_:b159 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasNominalVoltage>;
     sh:name "Nominal Voltage";
     sh:class gs1:QuantitativeValue.
-_:n3-1096 sh:path <https://ref.openepcis.io/extensions/eu/battery/expectedCycleLife>;
+_:b160 sh:path <https://ref.openepcis.io/extensions/eu/battery/expectedCycleLife>;
     sh:datatype xsd:integer.
-_:n3-1097 sh:path <https://ref.openepcis.io/extensions/eu/battery/roundTripEfficiency>;
+_:b161 sh:path <https://ref.openepcis.io/extensions/eu/battery/roundTripEfficiency>;
     sh:datatype xsd:decimal.
 <https://ref.openepcis.io/extensions/eu/battery/BatteryMaterialShape> a sh:NodeShape;
     rdfs:label "Battery Material Shape";
-    sh:property _:n3-1098, _:n3-1099, _:n3-1100, _:n3-1101, _:n3-1102;
+    sh:property _:b162, _:b163, _:b164, _:b165, _:b166;
     sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial>.
-_:n3-1098 sh:path _:n3-1314;
+_:b162 sh:path _:b167;
     sh:minCount 1;
     sh:node dpp-sh:TranslatableText.
-_:n3-1099 sh:path <https://ref.openepcis.io/extensions/eu/battery/casNumber>;
+_:b163 sh:path <https://ref.openepcis.io/extensions/eu/battery/casNumber>;
     sh:datatype xsd:string;
     sh:name "CAS Number".
-_:n3-1100 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasComponentLocation>;
+_:b164 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasComponentLocation>;
     sh:class <https://ref.openepcis.io/extensions/eu/battery/ComponentLocation>.
-_:n3-1101 sh:path schema:weightPercentage;
+_:b165 sh:path schema:weightPercentage;
     sh:datatype xsd:decimal.
-_:n3-1102 sh:path <https://ref.openepcis.io/extensions/eu/battery/isCriticalRawMaterial>;
+_:b166 sh:path <https://ref.openepcis.io/extensions/eu/battery/isCriticalRawMaterial>;
     sh:datatype xsd:boolean.
 <https://ref.openepcis.io/extensions/eu/battery/RecycledContentShape> a sh:NodeShape;
     rdfs:label "Recycled Content Shape";
-    sh:property _:n3-1103, _:n3-1104, _:n3-1105, _:n3-1106;
+    sh:property _:b168, _:b169, _:b170, _:b171;
     sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/RecycledContent>.
-_:n3-1103 sh:path <https://ref.openepcis.io/extensions/eu/battery/lithiumRecycledShare>;
+_:b168 sh:path <https://ref.openepcis.io/extensions/eu/battery/lithiumRecycledShare>;
     sh:datatype xsd:decimal.
-_:n3-1104 sh:path <https://ref.openepcis.io/extensions/eu/battery/cobaltRecycledShare>;
+_:b169 sh:path <https://ref.openepcis.io/extensions/eu/battery/cobaltRecycledShare>;
     sh:datatype xsd:decimal.
-_:n3-1105 sh:path <https://ref.openepcis.io/extensions/eu/battery/nickelRecycledShare>;
+_:b170 sh:path <https://ref.openepcis.io/extensions/eu/battery/nickelRecycledShare>;
     sh:datatype xsd:decimal.
-_:n3-1106 sh:path <https://ref.openepcis.io/extensions/eu/battery/leadRecycledShare>;
+_:b171 sh:path <https://ref.openepcis.io/extensions/eu/battery/leadRecycledShare>;
     sh:datatype xsd:decimal.
 <https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfoShape> a sh:NodeShape;
     rdfs:label "End of Life Information Shape";
-    sh:property _:n3-1107, _:n3-1108;
+    sh:property _:b172, _:b173;
     sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo>.
-_:n3-1107 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasDismantlingInstructions>;
+_:b172 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasDismantlingInstructions>;
     sh:nodeKind sh:IRI.
-_:n3-1108 sh:path <https://ref.openepcis.io/extensions/eu/battery/extinguishingAgent>;
+_:b173 sh:path <https://ref.openepcis.io/extensions/eu/battery/extinguishingAgent>;
     sh:node dpp-sh:TranslatableText.
 <https://ref.openepcis.io/extensions/eu/battery/HazardousSubstanceShape> a sh:NodeShape;
     rdfs:label "Hazardous Substance Shape";
-    sh:property _:n3-1109, _:n3-1110, _:n3-1111, _:n3-1112;
+    sh:property _:b174, _:b175, _:b176, _:b177;
     sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/HazardousSubstance>.
-_:n3-1109 sh:path _:n3-1317;
+_:b174 sh:path _:b178;
     sh:minCount 1;
     sh:node dpp-sh:TranslatableText.
-_:n3-1110 sh:path <https://ref.openepcis.io/extensions/eu/battery/substanceCasNumber>;
+_:b175 sh:path <https://ref.openepcis.io/extensions/eu/battery/substanceCasNumber>;
     sh:datatype xsd:string.
-_:n3-1111 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasHazardClass>;
+_:b176 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasHazardClass>;
     sh:class <https://ref.openepcis.io/extensions/eu/battery/HazardClass>.
-_:n3-1112 sh:path <https://ref.openepcis.io/extensions/eu/battery/concentration>;
+_:b177 sh:path <https://ref.openepcis.io/extensions/eu/battery/concentration>;
     sh:datatype xsd:decimal.
 <https://ref.openepcis.io/extensions/eu/battery/OperatorInformationShape> a sh:NodeShape;
     rdfs:label "Operator Information Shape";
-    sh:property _:n3-1113;
+    sh:property _:b179;
     rdfs:comment "Battery-specific constraint on the shared oec:OperatorInformation class, which is the declared range of eubat:hasOperatorInformation. There is no eubat:OperatorInformation class.";
     sh:targetClass oec:OperatorInformation.
-_:n3-1113 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasOperatorRole>;
+_:b179 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasOperatorRole>;
     sh:nodeKind sh:IRI.
 <https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligenceShape> a sh:NodeShape;
     rdfs:label "Supply Chain Due Diligence Shape";
-    sh:property _:n3-1114, _:n3-1115;
+    sh:property _:b180, _:b181;
     sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence>.
-_:n3-1114 sh:path <https://ref.openepcis.io/extensions/eu/battery/dueDiligenceReportUrl>;
+_:b180 sh:path <https://ref.openepcis.io/extensions/eu/battery/dueDiligenceReportUrl>;
     sh:minCount 1;
     sh:datatype xsd:anyURI.
-_:n3-1115 sh:path <https://ref.openepcis.io/extensions/eu/battery/thirdPartyAssurancesUrl>;
+_:b181 sh:path <https://ref.openepcis.io/extensions/eu/battery/thirdPartyAssurancesUrl>;
     sh:datatype xsd:anyURI.
 <https://ref.openepcis.io/extensions/eu/battery/RatedCapacityShape> a sh:NodeShape;
-    sh:property _:n3-1116;
+    sh:property _:b182;
     sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/battery/hasRatedCapacity>.
-_:n3-1117 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasRatedCapacity>;
-    rdf:rest _:n3-1118.
-_:n3-1118 rdf:first gs1:unitCode;
+_:b183 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasRatedCapacity>;
+    rdf:rest _:b184.
+_:b184 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
-_:n3-1116 sh:path _:n3-1117;
+_:b182 sh:path _:b183;
     sh:message "eubat:hasRatedCapacity must use unitCode 'AMH' (ampere-hours)"@en;
     sh:hasValue "AMH".
 <https://ref.openepcis.io/extensions/eu/battery/RatedEnergyShape> a sh:NodeShape;
-    sh:property _:n3-1119;
+    sh:property _:b185;
     sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/battery/hasRatedEnergy>.
-_:n3-1120 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasRatedEnergy>;
-    rdf:rest _:n3-1121.
-_:n3-1121 rdf:first gs1:unitCode;
+_:b186 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasRatedEnergy>;
+    rdf:rest _:b187.
+_:b187 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
-_:n3-1119 sh:path _:n3-1120;
+_:b185 sh:path _:b186;
     sh:message "eubat:hasRatedEnergy must use unitCode 'KWH' (kilowatt-hours)"@en;
     sh:hasValue "KWH".
 <https://ref.openepcis.io/extensions/eu/battery/NominalVoltageShape> a sh:NodeShape;
-    sh:property _:n3-1122;
+    sh:property _:b188;
     sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/battery/hasNominalVoltage>.
-_:n3-1123 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasNominalVoltage>;
-    rdf:rest _:n3-1124.
-_:n3-1124 rdf:first gs1:unitCode;
+_:b189 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasNominalVoltage>;
+    rdf:rest _:b190.
+_:b190 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
-_:n3-1122 sh:path _:n3-1123;
+_:b188 sh:path _:b189;
     sh:message "eubat:hasNominalVoltage must use unitCode 'VLT' (volts)"@en;
     sh:hasValue "VLT".
 <https://ref.openepcis.io/extensions/eu/battery/RatedMaximumPowerShape> a sh:NodeShape;
-    sh:property _:n3-1125;
+    sh:property _:b191;
     sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/battery/hasRatedMaximumPower>.
-_:n3-1126 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasRatedMaximumPower>;
-    rdf:rest _:n3-1127.
-_:n3-1127 rdf:first gs1:unitCode;
+_:b192 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasRatedMaximumPower>;
+    rdf:rest _:b193.
+_:b193 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
-_:n3-1125 sh:path _:n3-1126;
+_:b191 sh:path _:b192;
     sh:message "eubat:hasRatedMaximumPower must use unitCode 'KWT' (kilowatts)"@en;
     sh:hasValue "KWT".
 <https://ref.openepcis.io/extensions/eu/battery/BatteryShape-model> a sh:NodeShape;
     rdfs:label "Battery Shape (model granularity)";
-    sh:property _:n3-1128, _:n3-1129, _:n3-1130, _:n3-1131;
+    sh:property _:b194, _:b195, _:b196, _:b197;
     rdfs:comment "Obligations of a model-level battery passport: the model- and party-level identifiers are declared here and resolved from here by finer passports.";
     sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/Battery>;
     sh:deactivated true.
-_:n3-1128 sh:path <https://ref.openepcis.io/extensions/eu/battery/facilityIdentifier>;
+_:b194 sh:path <https://ref.openepcis.io/extensions/eu/battery/facilityIdentifier>;
     sh:minCount 1;
     sh:message "A model-level battery passport must declare eubat:facilityIdentifier (BatteryPass-Ready v1.3 #11)."@en.
-_:n3-1129 sh:path <https://ref.openepcis.io/extensions/eu/battery/operatorIdentifier>;
+_:b195 sh:path <https://ref.openepcis.io/extensions/eu/battery/operatorIdentifier>;
     sh:minCount 1;
     sh:message "A model-level battery passport must declare eubat:operatorIdentifier (BatteryPass-Ready v1.3 #9)."@en.
-_:n3-1130 sh:path <https://ref.openepcis.io/extensions/eu/battery/manufacturerIdentifier>;
+_:b196 sh:path <https://ref.openepcis.io/extensions/eu/battery/manufacturerIdentifier>;
     sh:minCount 1;
     sh:message "A model-level battery passport must declare eubat:manufacturerIdentifier (BatteryPass-Ready v1.3 #10)."@en.
-_:n3-1131 sh:path gs1:manufacturer;
+_:b197 sh:path gs1:manufacturer;
     sh:minCount 1;
     sh:message "A model-level battery passport must reference its manufacturer (BatteryPass-Ready v1.3 #13)."@en.
 <https://ref.openepcis.io/extensions/eu/battery/BatteryShape-batch> a sh:NodeShape;
@@ -840,55 +840,55 @@ _:n3-1131 sh:path gs1:manufacturer;
     sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/Battery>.
 <https://ref.openepcis.io/extensions/eu/battery/BatteryShape-item> a sh:NodeShape;
     rdfs:label "Battery Shape (item granularity)";
-    sh:property _:n3-1132;
+    sh:property _:b198;
     rdfs:comment "Obligations of an item/serial-level battery passport. Model- and party-level identifiers are resolved up the Digital Link hierarchy, not restated.";
     sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/Battery>;
     sh:deactivated true.
-_:n3-1132 sh:path gs1:hasSerialNumber;
+_:b198 sh:path gs1:hasSerialNumber;
     sh:minCount 1;
     sh:message "An item-level battery passport must declare gs1:hasSerialNumber (BatteryPass-Ready v1.3 #8; EN 18223 item granularity, GS1 AI 21)."@en.
-_:n3-1291 rdf:first oec:hasOperatorRole;
-    rdf:rest _:n3-1292.
-_:n3-1292 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasOperatorRole>;
+_:b199 rdf:first oec:hasOperatorRole;
+    rdf:rest _:b200.
+_:b200 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasOperatorRole>;
     rdf:rest rdf:nil.
-_:n3-1293 sh:alternativePath _:n3-1291.
-_:n3-1294 rdf:first oec:hasOperatorRole;
-    rdf:rest _:n3-1295.
-_:n3-1295 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasOperatorRole>;
+_:b4 sh:alternativePath _:b199.
+_:b201 rdf:first oec:hasOperatorRole;
+    rdf:rest _:b202.
+_:b202 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasOperatorRole>;
     rdf:rest rdf:nil.
-_:n3-1296 sh:alternativePath _:n3-1294.
-_:n3-1297 rdf:first schema:name;
-    rdf:rest _:n3-1298.
-_:n3-1298 rdf:first oec:componentName;
+_:b36 sh:alternativePath _:b201.
+_:b203 rdf:first schema:name;
+    rdf:rest _:b204.
+_:b204 rdf:first oec:componentName;
     rdf:rest rdf:nil.
-_:n3-1299 sh:alternativePath _:n3-1297.
-_:n3-1300 rdf:first schema:name;
-    rdf:rest _:n3-1301.
-_:n3-1301 rdf:first oec:componentName;
+_:b23 sh:alternativePath _:b203.
+_:b205 rdf:first schema:name;
+    rdf:rest _:b206.
+_:b206 rdf:first oec:componentName;
     rdf:rest rdf:nil.
-_:n3-1302 sh:alternativePath _:n3-1300.
-_:n3-1303 rdf:first schema:name;
-    rdf:rest _:n3-1304.
-_:n3-1304 rdf:first oec:componentName;
+_:b47 sh:alternativePath _:b205.
+_:b207 rdf:first schema:name;
+    rdf:rest _:b208.
+_:b208 rdf:first oec:componentName;
     rdf:rest rdf:nil.
-_:n3-1305 sh:alternativePath _:n3-1303.
-_:n3-1306 rdf:first schema:name;
-    rdf:rest _:n3-1307.
-_:n3-1307 rdf:first oec:componentName;
+_:b54 sh:alternativePath _:b207.
+_:b209 rdf:first schema:name;
+    rdf:rest _:b210.
+_:b210 rdf:first oec:componentName;
     rdf:rest rdf:nil.
-_:n3-1308 sh:alternativePath _:n3-1306.
-_:n3-1309 rdf:first schema:name;
-    rdf:rest _:n3-1310.
-_:n3-1310 rdf:first oec:componentName;
+_:b155 sh:alternativePath _:b209.
+_:b211 rdf:first schema:name;
+    rdf:rest _:b212.
+_:b212 rdf:first oec:componentName;
     rdf:rest rdf:nil.
-_:n3-1311 sh:alternativePath _:n3-1309.
-_:n3-1312 rdf:first schema:name;
-    rdf:rest _:n3-1313.
-_:n3-1313 rdf:first oec:componentName;
+_:b156 sh:alternativePath _:b211.
+_:b213 rdf:first schema:name;
+    rdf:rest _:b214.
+_:b214 rdf:first oec:componentName;
     rdf:rest rdf:nil.
-_:n3-1314 sh:alternativePath _:n3-1312.
-_:n3-1315 rdf:first schema:name;
-    rdf:rest _:n3-1316.
-_:n3-1316 rdf:first oec:componentName;
+_:b167 sh:alternativePath _:b213.
+_:b215 rdf:first schema:name;
+    rdf:rest _:b216.
+_:b216 rdf:first oec:componentName;
     rdf:rest rdf:nil.
-_:n3-1317 sh:alternativePath _:n3-1315.
+_:b178 sh:alternativePath _:b215.

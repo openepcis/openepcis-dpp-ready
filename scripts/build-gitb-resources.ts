@@ -102,9 +102,12 @@ function typesOf(modules: ValidatableModule[], core: ValidatableModule): Validat
       types.push({
         id: v.type,
         label: v.label,
-        // The variant's source file is already among the module shapes; it is the
-        // activation that differs, so the file list is identical.
-        shapeFiles: shapesFor(m),
+        // A granularity variant's source (battery-shapes.ttl) is already m.shapes,
+        // but a category variant's source (ec-readiness-shapes.ttl) is a separate
+        // file that is NOT among the module shapes — it must be added, or the
+        // pre-activated bundle would carry no category shapes and enforce nothing
+        // beyond the base module. Dedupe so granularities stay unchanged.
+        shapeFiles: [...new Set([...shapesFor(m), v.sourceShapes])],
         ontologyFiles: ontologiesFor(m),
         activate: v.suffix,
         ...(m.schema ? { schema: m.schema } : {}),
@@ -133,7 +136,25 @@ function toTurtle(store: ReturnType<typeof parseTurtle>): Promise<string> {
   });
   return new Promise((resolve, reject) => {
     writer.addQuads([...store]);
-    writer.end((err, result: string) => (err ? reject(err) : resolve(result)));
+    writer.end((err, result: string) =>
+      err ? reject(err) : resolve(stabilizeBlankNodes(result)),
+    );
+  });
+}
+
+/**
+ * N3's writer labels referenced blank nodes with a process-GLOBAL counter
+ * (_:n3-<n>), so parsing more triples for one type shifts every later type's
+ * labels — a one-line shape change would then reflow every unrelated bundle.
+ * Renumber each file's blank nodes to a per-file sequence in first-appearance
+ * order, making every bundle's serialization independent of what was parsed
+ * before it. Purely cosmetic (blank-node labels are file-local scope).
+ */
+function stabilizeBlankNodes(ttl: string): string {
+  const map = new Map<string, string>();
+  return ttl.replace(/_:n3-\d+/g, (label) => {
+    if (!map.has(label)) map.set(label, `_:b${map.size}`);
+    return map.get(label)!;
   });
 }
 

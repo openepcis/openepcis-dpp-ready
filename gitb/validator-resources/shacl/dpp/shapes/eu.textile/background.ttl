@@ -144,28 +144,28 @@ oec:OperatorRole a rdfs:Class;
     rdfs:comment "Role of an economic operator in the supply chain."@en;
     rdfs:label "Operator Role"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
-    owl:oneOf _:n3-4614.
-_:n3-4614 rdf:first oec:Manufacturer;
-    rdf:rest _:n3-4615.
+    owl:oneOf _:b0.
+_:b0 rdf:first oec:Manufacturer;
+    rdf:rest _:b1.
 oec:Manufacturer a oec:OperatorRole;
     rdfs:comment "Entity that produces the product, including own-brand labellers per EU Market Surveillance Regulation 2019/1020."@en;
     rdfs:label "Manufacturer"@en.
-_:n3-4615 rdf:first oec:Importer;
-    rdf:rest _:n3-4616.
+_:b1 rdf:first oec:Importer;
+    rdf:rest _:b2.
 oec:Importer a oec:OperatorRole;
     rdfs:comment "Entity established in the EU that places a product from a third country on the Union market."@en;
     rdfs:label "Importer"@en.
-_:n3-4616 rdf:first oec:Distributor;
-    rdf:rest _:n3-4617.
+_:b2 rdf:first oec:Distributor;
+    rdf:rest _:b3.
 oec:Distributor a oec:OperatorRole;
     rdfs:comment "Entity in the supply chain that makes a product available on the market, other than manufacturer or importer."@en;
     rdfs:label "Distributor"@en.
-_:n3-4617 rdf:first oec:Processor;
-    rdf:rest _:n3-4618.
+_:b3 rdf:first oec:Processor;
+    rdf:rest _:b4.
 oec:Processor a oec:OperatorRole;
     rdfs:comment "Entity that processes raw materials or components into finished or intermediate products."@en;
     rdfs:label "Processor"@en.
-_:n3-4618 rdf:first oec:Trader;
+_:b4 rdf:first oec:Trader;
     rdf:rest rdf:nil.
 oec:Trader a oec:OperatorRole;
     rdfs:comment "Entity that buys and sells products without significant modification or processing."@en;
@@ -182,18 +182,18 @@ oec:AccessLevel a rdfs:Class;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781>;
     rdfs:label "Access Level"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
-    owl:oneOf _:n3-4619.
-_:n3-4619 rdf:first oec:Public;
-    rdf:rest _:n3-4620.
+    owl:oneOf _:b5.
+_:b5 rdf:first oec:Public;
+    rdf:rest _:b6.
 oec:Public a oec:AccessLevel;
     rdfs:comment "Data accessible to all users (consumers, market surveillance, customs). Per ESPR Article 9(1)."@en;
     rdfs:label "Public"@en.
-_:n3-4620 rdf:first oec:AuthorizedOnly;
-    rdf:rest _:n3-4621.
+_:b6 rdf:first oec:AuthorizedOnly;
+    rdf:rest _:b7.
 oec:AuthorizedOnly a oec:AccessLevel;
     rdfs:comment "Data accessible only to market surveillance authorities and customs. Per ESPR Article 9(2)."@en;
     rdfs:label "Authorized Only"@en.
-_:n3-4621 rdf:first oec:Restricted;
+_:b7 rdf:first oec:Restricted;
     rdf:rest rdf:nil.
 oec:Restricted a oec:AccessLevel;
     rdfs:comment "Data accessible only to specific authorized economic operators. Per ESPR Article 9(3)."@en;
@@ -234,46 +234,46 @@ oec:PassportStatus a rdfs:Class;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:note "Base values active/inactive/archived/invalid per EN 18223 Table 1; draft/withdrawn/suspended are EPCIS4DPP profile extensions permitted by 'further values by relevant legal acts'."@en;
     skos:broadMatch schema:StatusEnumeration;
-    owl:oneOf _:n3-4622.
-_:n3-4622 rdf:first oec:Active;
-    rdf:rest _:n3-4623.
+    owl:oneOf _:b8.
+_:b8 rdf:first oec:Active;
+    rdf:rest _:b9.
 oec:Active a oec:PassportStatus;
     rdfs:seeAlso <https://ref.gs1.org/cbv/Disp-active>;
     rdfs:comment "Passport is published and represents the current state of the product."@en;
     rdfs:label "Active"@en;
     skos:notation "active".
-_:n3-4623 rdf:first oec:Inactive;
-    rdf:rest _:n3-4624.
+_:b9 rdf:first oec:Inactive;
+    rdf:rest _:b10.
 oec:Inactive a oec:PassportStatus;
     rdfs:comment "Passport is not currently in force (EN 18223 base value)."@en;
     rdfs:label "Inactive"@en;
     skos:notation "inactive".
-_:n3-4624 rdf:first oec:Archived;
-    rdf:rest _:n3-4625.
+_:b10 rdf:first oec:Archived;
+    rdf:rest _:b11.
 oec:Archived a oec:PassportStatus;
     rdfs:comment "Passport is archived after product end-of-life. Data persisted per EN 18221."@en;
     rdfs:label "Archived"@en;
     skos:notation "archived".
-_:n3-4625 rdf:first oec:Invalid;
-    rdf:rest _:n3-4626.
+_:b11 rdf:first oec:Invalid;
+    rdf:rest _:b12.
 oec:Invalid a oec:PassportStatus;
     rdfs:comment "Passport is no longer valid (EN 18223 base value, e.g. revoked)."@en;
     rdfs:label "Invalid"@en;
     skos:notation "invalid".
-_:n3-4626 rdf:first oec:Draft;
-    rdf:rest _:n3-4627.
+_:b12 rdf:first oec:Draft;
+    rdf:rest _:b13.
 oec:Draft a oec:PassportStatus;
     rdfs:comment "EPCIS4DPP extension: passport is being prepared and not yet publicly available."@en;
     rdfs:label "Draft"@en;
     skos:notation "draft".
-_:n3-4627 rdf:first oec:Withdrawn;
-    rdf:rest _:n3-4628.
+_:b13 rdf:first oec:Withdrawn;
+    rdf:rest _:b14.
 oec:Withdrawn a oec:PassportStatus;
     rdfs:seeAlso <https://ref.gs1.org/cbv/Disp-recalled>;
     rdfs:comment "EPCIS4DPP extension: passport withdrawn (e.g. product recall); a specific kind of invalid."@en;
     rdfs:label "Withdrawn"@en;
     skos:notation "withdrawn".
-_:n3-4628 rdf:first oec:Suspended;
+_:b14 rdf:first oec:Suspended;
     rdf:rest rdf:nil.
 oec:Suspended a oec:PassportStatus;
     rdfs:comment "EPCIS4DPP extension: temporarily not in force (e.g. pending investigation); a specific kind of inactive."@en;
@@ -349,18 +349,18 @@ oec:DPPGranularity a rdfs:Class;
     rdfs:label "DPP Granularity"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:note "Introduced by BatteryPass-Ready Data Attribute Longlist v1.3 (March 2026) to align EU Battery Passport reporting with CEN/CENELEC JTC-24 drafts. Some attributes (e.g. recycled-content shares, carbon-footprint label) are reported at batch level, others at model or item level."@en;
-    owl:oneOf _:n3-4629.
-_:n3-4629 rdf:first oec:ModelLevel;
-    rdf:rest _:n3-4630.
+    owl:oneOf _:b15.
+_:b15 rdf:first oec:ModelLevel;
+    rdf:rest _:b16.
 oec:ModelLevel a oec:DPPGranularity;
     rdfs:comment "Attribute reported once per battery model (e.g. nominal voltage, expected cycle life). Model master data has a single source of truth: the same model built at different manufacturing sites is NOT a distinct granularity level. Site is a source/location dimension carried by EPCIS events (readPoint / bizLocation); facts that vary per production run are reported at BatchLevel."@en;
     rdfs:label "Battery model"@en.
-_:n3-4630 rdf:first oec:BatchLevel;
-    rdf:rest _:n3-4631.
+_:b16 rdf:first oec:BatchLevel;
+    rdf:rest _:b17.
 oec:BatchLevel a oec:DPPGranularity;
     rdfs:comment "Attribute reported per batch: model, calendar year, manufacturing site (e.g. carbon footprint, recycled-content shares)."@en;
     rdfs:label "Battery model per calendar year and per manufacturing site (batch)"@en.
-_:n3-4631 rdf:first oec:ItemLevel;
+_:b17 rdf:first oec:ItemLevel;
     rdf:rest rdf:nil.
 oec:ItemLevel a oec:DPPGranularity;
     rdfs:comment "Attribute reported per individual serial-numbered battery (e.g. serial number, state of health, cycle count)."@en;
@@ -400,65 +400,65 @@ oec:ProductCategory a rdfs:Class;
     rdfs:label "Product Category"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:broadMatch schema:CategoryCode;
-    owl:oneOf _:n3-4632.
-_:n3-4632 rdf:first oec:Batteries;
-    rdf:rest _:n3-4633.
+    owl:oneOf _:b18.
+_:b18 rdf:first oec:Batteries;
+    rdf:rest _:b19.
 oec:Batteries a oec:ProductCategory;
     rdfs:comment "Batteries and accumulators per EU Battery Regulation 2023/1542."@en;
     rdfs:label "Batteries"@en.
-_:n3-4633 rdf:first oec:Textiles;
-    rdf:rest _:n3-4634.
+_:b19 rdf:first oec:Textiles;
+    rdf:rest _:b20.
 oec:Textiles a oec:ProductCategory;
     rdfs:comment "Textile products including apparel, footwear, and home textiles."@en;
     rdfs:label "Textiles"@en.
-_:n3-4634 rdf:first oec:Electronics;
-    rdf:rest _:n3-4635.
+_:b20 rdf:first oec:Electronics;
+    rdf:rest _:b21.
 oec:Electronics a oec:ProductCategory;
     rdfs:comment "Electronic and electrical equipment including ICT and consumer electronics."@en;
     rdfs:label "Electronics"@en.
-_:n3-4635 rdf:first oec:Furniture;
-    rdf:rest _:n3-4636.
+_:b21 rdf:first oec:Furniture;
+    rdf:rest _:b22.
 oec:Furniture a oec:ProductCategory;
     rdfs:comment "Furniture products including domestic and office furniture."@en;
     rdfs:label "Furniture"@en.
-_:n3-4636 rdf:first oec:Tyres;
-    rdf:rest _:n3-4637.
+_:b22 rdf:first oec:Tyres;
+    rdf:rest _:b23.
 oec:Tyres a oec:ProductCategory;
     rdfs:comment "Tyres for motor vehicles and their trailers."@en;
     rdfs:label "Tyres"@en.
-_:n3-4637 rdf:first oec:ConstructionProducts;
-    rdf:rest _:n3-4638.
+_:b23 rdf:first oec:ConstructionProducts;
+    rdf:rest _:b24.
 oec:ConstructionProducts a oec:ProductCategory;
     rdfs:comment "Construction products per Construction Products Regulation."@en;
     rdfs:label "Construction Products"@en.
-_:n3-4638 rdf:first oec:Chemicals;
-    rdf:rest _:n3-4639.
+_:b24 rdf:first oec:Chemicals;
+    rdf:rest _:b25.
 oec:Chemicals a oec:ProductCategory;
     rdfs:comment "Chemical substances and mixtures."@en;
     rdfs:label "Chemicals"@en.
-_:n3-4639 rdf:first oec:Detergents;
-    rdf:rest _:n3-4640.
+_:b25 rdf:first oec:Detergents;
+    rdf:rest _:b26.
 oec:Detergents a oec:ProductCategory;
     rdfs:seeAlso gs1:RegulationTypeCode-DETERGENTS_SAFETY_REGULATION;
     rdfs:comment "Detergents and surfactants per the EU Detergents Regulation (EU) 2026/405, an ESPR priority product category."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R0405>;
     rdfs:label "Detergents"@en.
-_:n3-4640 rdf:first oec:Packaging;
-    rdf:rest _:n3-4641.
+_:b26 rdf:first oec:Packaging;
+    rdf:rest _:b27.
 oec:Packaging a oec:ProductCategory;
     rdfs:comment "Packaging and packaging waste products."@en;
     rdfs:label "Packaging"@en.
-_:n3-4641 rdf:first oec:FoodContact;
-    rdf:rest _:n3-4642.
+_:b27 rdf:first oec:FoodContact;
+    rdf:rest _:b28.
 oec:FoodContact a oec:ProductCategory;
     rdfs:comment "Materials and articles intended for food contact."@en;
     rdfs:label "Food Contact Materials"@en.
-_:n3-4642 rdf:first oec:IronSteel;
-    rdf:rest _:n3-4643.
+_:b28 rdf:first oec:IronSteel;
+    rdf:rest _:b29.
 oec:IronSteel a oec:ProductCategory;
     rdfs:comment "Iron and steel intermediate products."@en;
     rdfs:label "Iron and Steel"@en.
-_:n3-4643 rdf:first oec:Aluminium;
+_:b29 rdf:first oec:Aluminium;
     rdf:rest rdf:nil.
 oec:Aluminium a oec:ProductCategory;
     rdfs:comment "Aluminium intermediate products."@en;
@@ -468,53 +468,53 @@ oec:HazardClass a rdfs:Class;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272>;
     rdfs:label "Hazard Class"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
-    owl:oneOf _:n3-4644.
-_:n3-4644 rdf:first oec:AcuteToxicity;
-    rdf:rest _:n3-4645.
+    owl:oneOf _:b30.
+_:b30 rdf:first oec:AcuteToxicity;
+    rdf:rest _:b31.
 oec:AcuteToxicity a oec:HazardClass;
     rdfs:comment "Substances causing harmful effects after single or short-term exposure via oral, dermal, or inhalation routes."@en;
     rdfs:label "Acute Toxicity"@en.
-_:n3-4645 rdf:first oec:SkinCorrosionOrIrritation;
-    rdf:rest _:n3-4646.
+_:b31 rdf:first oec:SkinCorrosionOrIrritation;
+    rdf:rest _:b32.
 oec:SkinCorrosionOrIrritation a oec:HazardClass;
     rdfs:comment "Substances causing irreversible damage (corrosion) or reversible damage (irritation) to skin tissue."@en;
     rdfs:label "Skin Corrosion or Irritation"@en.
-_:n3-4646 rdf:first oec:EyeDamageOrIrritation;
-    rdf:rest _:n3-4647.
+_:b32 rdf:first oec:EyeDamageOrIrritation;
+    rdf:rest _:b33.
 oec:EyeDamageOrIrritation a oec:HazardClass;
     rdfs:comment "Substances causing serious eye damage or reversible eye irritation upon contact."@en;
     rdfs:label "Eye Damage or Irritation"@en.
-_:n3-4647 rdf:first oec:RespiratoryOrSkinSensitization;
-    rdf:rest _:n3-4648.
+_:b33 rdf:first oec:RespiratoryOrSkinSensitization;
+    rdf:rest _:b34.
 oec:RespiratoryOrSkinSensitization a oec:HazardClass;
     rdfs:comment "Substances causing hypersensitivity of airways (asthma) or allergic skin reactions after exposure."@en;
     rdfs:label "Respiratory or Skin Sensitization"@en.
-_:n3-4648 rdf:first oec:GermCellMutagenicity;
-    rdf:rest _:n3-4649.
+_:b34 rdf:first oec:GermCellMutagenicity;
+    rdf:rest _:b35.
 oec:GermCellMutagenicity a oec:HazardClass;
     rdfs:comment "Substances that may cause heritable genetic mutations in human germ cells."@en;
     rdfs:label "Germ Cell Mutagenicity"@en.
-_:n3-4649 rdf:first oec:Carcinogenicity;
-    rdf:rest _:n3-4650.
+_:b35 rdf:first oec:Carcinogenicity;
+    rdf:rest _:b36.
 oec:Carcinogenicity a oec:HazardClass;
     rdfs:comment "Substances known or suspected to cause cancer in humans."@en;
     rdfs:label "Carcinogenicity"@en.
-_:n3-4650 rdf:first oec:ReproductiveToxicity;
-    rdf:rest _:n3-4651.
+_:b36 rdf:first oec:ReproductiveToxicity;
+    rdf:rest _:b37.
 oec:ReproductiveToxicity a oec:HazardClass;
     rdfs:comment "Substances adversely affecting sexual function, fertility, or development of offspring."@en;
     rdfs:label "Reproductive Toxicity"@en.
-_:n3-4651 rdf:first oec:SpecificTargetOrganToxicity;
-    rdf:rest _:n3-4652.
+_:b37 rdf:first oec:SpecificTargetOrganToxicity;
+    rdf:rest _:b38.
 oec:SpecificTargetOrganToxicity a oec:HazardClass;
     rdfs:comment "Substances causing non-lethal damage to specific organs after single or repeated exposure."@en;
     rdfs:label "Specific Target Organ Toxicity"@en.
-_:n3-4652 rdf:first oec:AspirationHazard;
-    rdf:rest _:n3-4653.
+_:b38 rdf:first oec:AspirationHazard;
+    rdf:rest _:b39.
 oec:AspirationHazard a oec:HazardClass;
     rdfs:comment "Liquid or solid substances causing chemical pneumonia or pulmonary injury if aspirated into airways."@en;
     rdfs:label "Aspiration Hazard"@en.
-_:n3-4653 rdf:first oec:HazardousToAquaticEnvironment;
+_:b39 rdf:first oec:HazardousToAquaticEnvironment;
     rdf:rest rdf:nil.
 oec:HazardousToAquaticEnvironment a oec:HazardClass;
     rdfs:comment "Substances posing acute or chronic toxicity risks to aquatic organisms and ecosystems."@en;
@@ -525,45 +525,45 @@ oec:DocumentType a rdfs:Class;
     rdfs:label "Document Type"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:closeMatch gs1:ReferencedFileTypeCode;
-    owl:oneOf _:n3-4654.
-_:n3-4654 rdf:first oec:DueDiligenceDocument;
-    rdf:rest _:n3-4655.
+    owl:oneOf _:b40.
+_:b40 rdf:first oec:DueDiligenceDocument;
+    rdf:rest _:b41.
 oec:DueDiligenceDocument a oec:DocumentType;
     rdfs:comment "Documentation of supply chain due diligence processes and risk assessments."@en;
     rdfs:label "Due Diligence Document"@en.
-_:n3-4655 rdf:first oec:Certificate;
-    rdf:rest _:n3-4656.
+_:b41 rdf:first oec:Certificate;
+    rdf:rest _:b42.
 oec:Certificate a oec:DocumentType;
     rdfs:seeAlso <https://w3id.org/eudpp#ConformityCertificate>;
     rdfs:comment "Official certificate from accredited body (ISO, environmental, quality certifications)."@en;
     rdfs:label "Certificate"@en.
-_:n3-4656 rdf:first oec:TestReport;
-    rdf:rest _:n3-4657.
+_:b42 rdf:first oec:TestReport;
+    rdf:rest _:b43.
 oec:TestReport a oec:DocumentType;
     rdfs:comment "Technical test results from accredited laboratory or testing facility."@en;
     rdfs:label "Test Report"@en.
-_:n3-4657 rdf:first oec:Manual;
-    rdf:rest _:n3-4658.
+_:b43 rdf:first oec:Manual;
+    rdf:rest _:b44.
 oec:Manual a oec:DocumentType;
     rdfs:comment "User manual, installation guide, or maintenance documentation."@en;
     rdfs:label "Manual"@en.
-_:n3-4658 rdf:first oec:DeclarationOfConformity;
-    rdf:rest _:n3-4659.
+_:b44 rdf:first oec:DeclarationOfConformity;
+    rdf:rest _:b45.
 oec:DeclarationOfConformity a oec:DocumentType;
     rdfs:seeAlso <https://w3id.org/eudpp#EUDeclarationOfConformity>;
     rdfs:comment "EU Declaration of Conformity stating compliance with applicable EU legislation."@en;
     rdfs:label "Declaration of Conformity"@en.
-_:n3-4659 rdf:first oec:SafetyDataSheet;
-    rdf:rest _:n3-4660.
+_:b45 rdf:first oec:SafetyDataSheet;
+    rdf:rest _:b46.
 oec:SafetyDataSheet a oec:DocumentType;
     rdfs:comment "Safety Data Sheet (SDS) per REACH Regulation providing hazard information."@en;
     rdfs:label "Safety Data Sheet"@en.
-_:n3-4660 rdf:first oec:EnvironmentalReport;
-    rdf:rest _:n3-4661.
+_:b46 rdf:first oec:EnvironmentalReport;
+    rdf:rest _:b47.
 oec:EnvironmentalReport a oec:DocumentType;
     rdfs:comment "Environmental impact assessment, carbon footprint study, or LCA report."@en;
     rdfs:label "Environmental Report"@en.
-_:n3-4661 rdf:first oec:ThirdPartyVerification;
+_:b47 rdf:first oec:ThirdPartyVerification;
     rdf:rest rdf:nil.
 oec:ThirdPartyVerification a oec:DocumentType;
     rdfs:seeAlso <https://w3id.org/eudpp#Review>, <https://w3id.org/eudpp#ReviewReport>;
@@ -667,13 +667,13 @@ oec:OperationalScope a rdfs:Class;
     rdfs:label "Operational Scope"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity>;
-    owl:oneOf _:n3-4662.
-_:n3-4662 rdf:first oec:CradleToGate;
-    rdf:rest _:n3-4663.
+    owl:oneOf _:b48.
+_:b48 rdf:first oec:CradleToGate;
+    rdf:rest _:b49.
 oec:CradleToGate a oec:OperationalScope;
     rdfs:comment "Emissions from raw material extraction through manufacturing, excluding use phase and end-of-life."@en;
     rdfs:label "Cradle to Gate"@en.
-_:n3-4663 rdf:first oec:CradleToGrave;
+_:b49 rdf:first oec:CradleToGrave;
     rdf:rest rdf:nil.
 oec:CradleToGrave a oec:OperationalScope;
     rdfs:comment "Full lifecycle emissions including raw materials, manufacturing, use phase, and end-of-life."@en;
@@ -684,20 +684,20 @@ oec:GranularityLevel a rdfs:Class;
     dcterms:source "EN 18223:2026, 4.1.2.2 (CEN/CENELEC JTC 24)";
     rdfs:label "Granularity Level"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
-    owl:oneOf _:n3-4664.
-_:n3-4664 rdf:first oec:Model;
-    rdf:rest _:n3-4665.
+    owl:oneOf _:b50.
+_:b50 rdf:first oec:Model;
+    rdf:rest _:b51.
 oec:Model a oec:GranularityLevel;
     rdfs:comment "DPP data applies to all products of this model or class. GS1 Digital Link 01/{gtin}."@en;
     rdfs:label "Model"@en;
     skos:notation "model".
-_:n3-4665 rdf:first oec:Batch;
-    rdf:rest _:n3-4666.
+_:b51 rdf:first oec:Batch;
+    rdf:rest _:b52.
 oec:Batch a oec:GranularityLevel;
     rdfs:comment "DPP data applies to a specific production batch. GS1 Digital Link 01/{gtin}/10/{lot}."@en;
     rdfs:label "Batch"@en;
     skos:notation "batch".
-_:n3-4666 rdf:first oec:Item;
+_:b52 rdf:first oec:Item;
     rdf:rest rdf:nil.
 oec:Item a oec:GranularityLevel;
     rdfs:comment "DPP data applies to an individual serialized item. GS1 Digital Link 01/{gtin}/21/{serial}."@en;
@@ -1867,24 +1867,24 @@ oec:CustomsCommodityCodeType a owl:Class;
     rdfs:label "Customs Commodity Code Type"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    owl:oneOf _:n3-4667.
-_:n3-4667 rdf:first oec:HS6;
-    rdf:rest _:n3-4668.
+    owl:oneOf _:b53.
+_:b53 rdf:first oec:HS6;
+    rdf:rest _:b54.
 oec:HS6 a oec:CustomsCommodityCodeType;
     rdfs:label "HS 6-digit (World Customs Organization Harmonized System)"@en.
-_:n3-4668 rdf:first oec:HS8;
-    rdf:rest _:n3-4669.
+_:b54 rdf:first oec:HS8;
+    rdf:rest _:b55.
 oec:HS8 a oec:CustomsCommodityCodeType;
     rdfs:label "HS 8-digit subheading"@en.
-_:n3-4669 rdf:first oec:CN8;
-    rdf:rest _:n3-4670.
+_:b55 rdf:first oec:CN8;
+    rdf:rest _:b56.
 oec:CN8 a oec:CustomsCommodityCodeType;
     rdfs:label "EU Combined Nomenclature 8-digit"@en.
-_:n3-4670 rdf:first oec:HTSUS10;
-    rdf:rest _:n3-4671.
+_:b56 rdf:first oec:HTSUS10;
+    rdf:rest _:b57.
 oec:HTSUS10 a oec:CustomsCommodityCodeType;
     rdfs:label "US Harmonized Tariff Schedule 10-digit"@en.
-_:n3-4671 rdf:first oec:CN10;
+_:b57 rdf:first oec:CN10;
     rdf:rest rdf:nil.
 oec:CN10 a oec:CustomsCommodityCodeType;
     rdfs:label "EU Combined Nomenclature 10-digit (TARIC)"@en.
@@ -2053,24 +2053,24 @@ oec:BiodegradabilityTestMethod a owl:Class;
     rdfs:label "Biodegradability Test Method"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    owl:oneOf _:n3-4672.
-_:n3-4672 rdf:first oec:ISO14593;
-    rdf:rest _:n3-4673.
+    owl:oneOf _:b58.
+_:b58 rdf:first oec:ISO14593;
+    rdf:rest _:b59.
 oec:ISO14593 a oec:BiodegradabilityTestMethod;
     rdfs:label "ISO 14593 (CO2 evolution test)"@en.
-_:n3-4673 rdf:first oec:OECD301B;
-    rdf:rest _:n3-4674.
+_:b59 rdf:first oec:OECD301B;
+    rdf:rest _:b60.
 oec:OECD301B a oec:BiodegradabilityTestMethod;
     rdfs:label "OECD 301B (CO2 evolution test)"@en.
-_:n3-4674 rdf:first oec:OECD301D;
-    rdf:rest _:n3-4675.
+_:b60 rdf:first oec:OECD301D;
+    rdf:rest _:b61.
 oec:OECD301D a oec:BiodegradabilityTestMethod;
     rdfs:label "OECD 301D (closed bottle test)"@en.
-_:n3-4675 rdf:first oec:OECD301F;
-    rdf:rest _:n3-4676.
+_:b61 rdf:first oec:OECD301F;
+    rdf:rest _:b62.
 oec:OECD301F a oec:BiodegradabilityTestMethod;
     rdfs:label "OECD 301F (manometric respirometry)"@en.
-_:n3-4676 rdf:first oec:OECD310;
+_:b62 rdf:first oec:OECD310;
     rdf:rest rdf:nil.
 oec:OECD310 a oec:BiodegradabilityTestMethod;
     rdfs:label "OECD 310 (sealed vessel CO2 evolution)"@en.
@@ -2089,18 +2089,18 @@ oec:CompostabilityType a owl:Class;
     rdfs:label "Compostability Type"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
-    owl:oneOf _:n3-4677.
-_:n3-4677 rdf:first oec:IndustrialCompostable;
-    rdf:rest _:n3-4678.
+    owl:oneOf _:b63.
+_:b63 rdf:first oec:IndustrialCompostable;
+    rdf:rest _:b64.
 oec:IndustrialCompostable a oec:CompostabilityType;
     rdfs:comment "Compostable in industrial composting facilities (typically per EN 13432)."@en;
     rdfs:label "Industrially Compostable"@en.
-_:n3-4678 rdf:first oec:HomeCompostable;
-    rdf:rest _:n3-4679.
+_:b64 rdf:first oec:HomeCompostable;
+    rdf:rest _:b65.
 oec:HomeCompostable a oec:CompostabilityType;
     rdfs:comment "Compostable in domestic composting conditions (typically per OK-Compost-Home / NF T 51-800)."@en;
     rdfs:label "Home Compostable"@en.
-_:n3-4679 rdf:first oec:NotCompostable;
+_:b65 rdf:first oec:NotCompostable;
     rdf:rest rdf:nil.
 oec:NotCompostable a oec:CompostabilityType;
     rdfs:label "Not Compostable"@en.
@@ -2350,38 +2350,38 @@ oec:EnergyEfficiencyClass a owl:Class;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     skos:broadMatch schema:EUEnergyEfficiencyEnumeration, schema:EnergyEfficiencyEnumeration;
-    owl:oneOf _:n3-4680.
-_:n3-4680 rdf:first oec:EnergyClassA;
-    rdf:rest _:n3-4681.
+    owl:oneOf _:b66.
+_:b66 rdf:first oec:EnergyClassA;
+    rdf:rest _:b67.
 oec:EnergyClassA a oec:EnergyEfficiencyClass;
     rdfs:label "Class A"@en;
     skos:notation "A".
-_:n3-4681 rdf:first oec:EnergyClassB;
-    rdf:rest _:n3-4682.
+_:b67 rdf:first oec:EnergyClassB;
+    rdf:rest _:b68.
 oec:EnergyClassB a oec:EnergyEfficiencyClass;
     rdfs:label "Class B"@en;
     skos:notation "B".
-_:n3-4682 rdf:first oec:EnergyClassC;
-    rdf:rest _:n3-4683.
+_:b68 rdf:first oec:EnergyClassC;
+    rdf:rest _:b69.
 oec:EnergyClassC a oec:EnergyEfficiencyClass;
     rdfs:label "Class C"@en;
     skos:notation "C".
-_:n3-4683 rdf:first oec:EnergyClassD;
-    rdf:rest _:n3-4684.
+_:b69 rdf:first oec:EnergyClassD;
+    rdf:rest _:b70.
 oec:EnergyClassD a oec:EnergyEfficiencyClass;
     rdfs:label "Class D"@en;
     skos:notation "D".
-_:n3-4684 rdf:first oec:EnergyClassE;
-    rdf:rest _:n3-4685.
+_:b70 rdf:first oec:EnergyClassE;
+    rdf:rest _:b71.
 oec:EnergyClassE a oec:EnergyEfficiencyClass;
     rdfs:label "Class E"@en;
     skos:notation "E".
-_:n3-4685 rdf:first oec:EnergyClassF;
-    rdf:rest _:n3-4686.
+_:b71 rdf:first oec:EnergyClassF;
+    rdf:rest _:b72.
 oec:EnergyClassF a oec:EnergyEfficiencyClass;
     rdfs:label "Class F"@en;
     skos:notation "F".
-_:n3-4686 rdf:first oec:EnergyClassG;
+_:b72 rdf:first oec:EnergyClassG;
     rdf:rest rdf:nil.
 oec:EnergyClassG a oec:EnergyEfficiencyClass;
     rdfs:label "Class G"@en;
@@ -2498,13 +2498,13 @@ oec:HazardSignalWord a owl:Class;
     rdfs:label "Hazard Signal Word"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
     skos:note "Substance-of-concern pattern aligned with CLP (EC) 1272/2008 and the ECHA SCIP database. Reusable across regulation modules."@en;
-    owl:oneOf _:n3-4687.
-_:n3-4687 rdf:first oec:HazardDanger;
-    rdf:rest _:n3-4688.
+    owl:oneOf _:b73.
+_:b73 rdf:first oec:HazardDanger;
+    rdf:rest _:b74.
 oec:HazardDanger a oec:HazardSignalWord;
     rdfs:label "Danger"@en;
     skos:notation "Danger".
-_:n3-4688 rdf:first oec:HazardWarning;
+_:b74 rdf:first oec:HazardWarning;
     rdf:rest rdf:nil.
 oec:HazardWarning a oec:HazardSignalWord;
     rdfs:label "Warning"@en;
@@ -2967,30 +2967,30 @@ oec:stageValue a owl:DatatypeProperty;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/>;
     skos:note "Textile product classification / attribute per the EU Textile Labelling Regulation (EU) 1007/2011."@en;
     skos:broadMatch schema:CategoryCode, schema:CategoryCodeSet;
-    owl:oneOf _:n3-4689.
-_:n3-4689 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Apparel>;
-    rdf:rest _:n3-4690.
+    owl:oneOf _:b75.
+_:b75 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Apparel>;
+    rdf:rest _:b76.
 <https://ref.openepcis.io/extensions/eu/textile/Apparel> a <https://ref.openepcis.io/extensions/eu/textile/TextileCategory>;
     rdfs:seeAlso gs1:WearableProduct, gs1:Clothing;
     rdfs:comment "Clothing items including outerwear, underwear, sportswear, and workwear."@en;
     rdfs:label "Apparel"@en.
-_:n3-4690 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Footwear>;
-    rdf:rest _:n3-4691.
+_:b76 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Footwear>;
+    rdf:rest _:b77.
 <https://ref.openepcis.io/extensions/eu/textile/Footwear> a <https://ref.openepcis.io/extensions/eu/textile/TextileCategory>;
     rdfs:seeAlso gs1:WearableProduct, gs1:Footwear;
     rdfs:comment "Shoes, boots, sandals, and other footwear containing textile materials."@en;
     rdfs:label "Footwear"@en.
-_:n3-4691 rdf:first <https://ref.openepcis.io/extensions/eu/textile/HomeTextiles>;
-    rdf:rest _:n3-4692.
+_:b77 rdf:first <https://ref.openepcis.io/extensions/eu/textile/HomeTextiles>;
+    rdf:rest _:b78.
 <https://ref.openepcis.io/extensions/eu/textile/HomeTextiles> a <https://ref.openepcis.io/extensions/eu/textile/TextileCategory>;
     rdfs:comment "Household textile products including bedding, towels, curtains, and upholstery."@en;
     rdfs:label "Home Textiles"@en.
-_:n3-4692 rdf:first <https://ref.openepcis.io/extensions/eu/textile/TechnicalTextiles>;
-    rdf:rest _:n3-4693.
+_:b78 rdf:first <https://ref.openepcis.io/extensions/eu/textile/TechnicalTextiles>;
+    rdf:rest _:b79.
 <https://ref.openepcis.io/extensions/eu/textile/TechnicalTextiles> a <https://ref.openepcis.io/extensions/eu/textile/TextileCategory>;
     rdfs:comment "Functional textiles for industrial, medical, protective, or automotive applications."@en;
     rdfs:label "Technical Textiles"@en.
-_:n3-4693 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Accessories>;
+_:b79 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Accessories>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.io/extensions/eu/textile/Accessories> a <https://ref.openepcis.io/extensions/eu/textile/TextileCategory>;
     rdfs:seeAlso gs1:WearableProduct;
@@ -3023,122 +3023,122 @@ _:n3-4693 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Accessories>
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/>;
     skos:note "Fibre-composition / labelling concept per the EU Textile Labelling Regulation (EU) 1007/2011. No GS1, SEMICeu, or schema.org equivalent."@en;
     skos:broadMatch <https://w3id.org/eudpp#MaterialType>;
-    owl:oneOf _:n3-4694.
-_:n3-4694 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Cotton>;
-    rdf:rest _:n3-4695.
+    owl:oneOf _:b80.
+_:b80 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Cotton>;
+    rdf:rest _:b81.
 <https://ref.openepcis.io/extensions/eu/textile/Cotton> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Natural cellulose fiber from cotton plant (Gossypium)."@en;
     rdfs:label "Cotton"@en;
     skos:notation "CO".
-_:n3-4695 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Wool>;
-    rdf:rest _:n3-4696.
+_:b81 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Wool>;
+    rdf:rest _:b82.
 <https://ref.openepcis.io/extensions/eu/textile/Wool> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Natural protein fiber from sheep or lamb fleece."@en;
     rdfs:label "Wool"@en;
     skos:notation "WO".
-_:n3-4696 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Silk>;
-    rdf:rest _:n3-4697.
+_:b82 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Silk>;
+    rdf:rest _:b83.
 <https://ref.openepcis.io/extensions/eu/textile/Silk> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Natural protein fiber from silkworm cocoons."@en;
     rdfs:label "Silk"@en;
     skos:notation "SE".
-_:n3-4697 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Linen>;
-    rdf:rest _:n3-4698.
+_:b83 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Linen>;
+    rdf:rest _:b84.
 <https://ref.openepcis.io/extensions/eu/textile/Linen> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Natural cellulose fiber from flax plant (Linum usitatissimum)."@en;
     rdfs:label "Linen"@en;
     skos:notation "LI".
-_:n3-4698 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Hemp>;
-    rdf:rest _:n3-4699.
+_:b84 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Hemp>;
+    rdf:rest _:b85.
 <https://ref.openepcis.io/extensions/eu/textile/Hemp> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Natural cellulose fiber from hemp plant (Cannabis sativa)."@en;
     rdfs:label "Hemp"@en;
     skos:notation "HA".
-_:n3-4699 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Polyester>;
-    rdf:rest _:n3-4700.
+_:b85 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Polyester>;
+    rdf:rest _:b86.
 <https://ref.openepcis.io/extensions/eu/textile/Polyester> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Synthetic fiber made from polyethylene terephthalate (PET)."@en;
     rdfs:label "Polyester"@en;
     skos:notation "PL".
-_:n3-4700 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Polyamide>;
-    rdf:rest _:n3-4701.
+_:b86 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Polyamide>;
+    rdf:rest _:b87.
 <https://ref.openepcis.io/extensions/eu/textile/Polyamide> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Synthetic fiber (nylon) made from polyamide polymers."@en;
     rdfs:label "Polyamide"@en;
     skos:notation "PA".
-_:n3-4701 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Elastane>;
-    rdf:rest _:n3-4702.
+_:b87 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Elastane>;
+    rdf:rest _:b88.
 <https://ref.openepcis.io/extensions/eu/textile/Elastane> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Synthetic elastic fiber (spandex/Lycra) for stretch fabrics."@en;
     rdfs:label "Elastane"@en;
     skos:notation "EL".
-_:n3-4702 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Viscose>;
-    rdf:rest _:n3-4703.
+_:b88 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Viscose>;
+    rdf:rest _:b89.
 <https://ref.openepcis.io/extensions/eu/textile/Viscose> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Regenerated cellulose fiber from wood pulp (rayon)."@en;
     rdfs:label "Viscose"@en;
     skos:notation "CV".
-_:n3-4703 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Lyocell>;
-    rdf:rest _:n3-4704.
+_:b89 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Lyocell>;
+    rdf:rest _:b90.
 <https://ref.openepcis.io/extensions/eu/textile/Lyocell> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Regenerated cellulose fiber using closed-loop solvent process (Tencel)."@en;
     rdfs:label "Lyocell"@en;
     skos:notation "CLY".
-_:n3-4704 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Modal>;
-    rdf:rest _:n3-4705.
+_:b90 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Modal>;
+    rdf:rest _:b91.
 <https://ref.openepcis.io/extensions/eu/textile/Modal> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Regenerated cellulose fiber from beech wood pulp."@en;
     rdfs:label "Modal"@en;
     skos:notation "CMD".
-_:n3-4705 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Acrylic>;
-    rdf:rest _:n3-4706.
+_:b91 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Acrylic>;
+    rdf:rest _:b92.
 <https://ref.openepcis.io/extensions/eu/textile/Acrylic> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Synthetic fiber made from acrylonitrile polymers."@en;
     rdfs:label "Acrylic"@en;
     skos:notation "PC".
-_:n3-4706 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Polypropylene>;
-    rdf:rest _:n3-4707.
+_:b92 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Polypropylene>;
+    rdf:rest _:b93.
 <https://ref.openepcis.io/extensions/eu/textile/Polypropylene> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Synthetic thermoplastic fiber for technical applications."@en;
     rdfs:label "Polypropylene"@en;
     skos:notation "PP".
-_:n3-4707 rdf:first <https://ref.openepcis.io/extensions/eu/textile/RecycledPolyester>;
-    rdf:rest _:n3-4708.
+_:b93 rdf:first <https://ref.openepcis.io/extensions/eu/textile/RecycledPolyester>;
+    rdf:rest _:b94.
 <https://ref.openepcis.io/extensions/eu/textile/RecycledPolyester> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Polyester fiber made from recycled PET bottles or textile waste."@en;
     rdfs:label "Recycled Polyester"@en;
     skos:notation "rPL".
-_:n3-4708 rdf:first <https://ref.openepcis.io/extensions/eu/textile/RecycledCotton>;
-    rdf:rest _:n3-4709.
+_:b94 rdf:first <https://ref.openepcis.io/extensions/eu/textile/RecycledCotton>;
+    rdf:rest _:b95.
 <https://ref.openepcis.io/extensions/eu/textile/RecycledCotton> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Cotton fiber reclaimed from pre-consumer or post-consumer textile waste."@en;
     rdfs:label "Recycled Cotton"@en;
     skos:notation "rCO".
-_:n3-4709 rdf:first <https://ref.openepcis.io/extensions/eu/textile/RecycledWool>;
-    rdf:rest _:n3-4710.
+_:b95 rdf:first <https://ref.openepcis.io/extensions/eu/textile/RecycledWool>;
+    rdf:rest _:b96.
 <https://ref.openepcis.io/extensions/eu/textile/RecycledWool> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Wool fiber reclaimed from pre-consumer or post-consumer textile waste."@en;
     rdfs:label "Recycled Wool"@en;
     skos:notation "rWO".
-_:n3-4710 rdf:first <https://ref.openepcis.io/extensions/eu/textile/OrganicCotton>;
-    rdf:rest _:n3-4711.
+_:b96 rdf:first <https://ref.openepcis.io/extensions/eu/textile/OrganicCotton>;
+    rdf:rest _:b97.
 <https://ref.openepcis.io/extensions/eu/textile/OrganicCotton> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Cotton grown without synthetic pesticides or fertilizers per organic standards."@en;
     rdfs:label "Organic Cotton"@en;
     skos:notation "oCO".
-_:n3-4711 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Cashmere>;
-    rdf:rest _:n3-4712.
+_:b97 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Cashmere>;
+    rdf:rest _:b98.
 <https://ref.openepcis.io/extensions/eu/textile/Cashmere> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Fine natural fiber from cashmere goat undercoat."@en;
     rdfs:label "Cashmere"@en;
     skos:notation "WS".
-_:n3-4712 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Leather>;
-    rdf:rest _:n3-4713.
+_:b98 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Leather>;
+    rdf:rest _:b99.
 <https://ref.openepcis.io/extensions/eu/textile/Leather> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Animal hide material (not a textile fiber but used in footwear composition)."@en;
     rdfs:label "Leather"@en;
     skos:notation "LE".
-_:n3-4713 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Rubber>;
+_:b99 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Rubber>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.io/extensions/eu/textile/Rubber> a <https://ref.openepcis.io/extensions/eu/textile/FiberType>;
     rdfs:comment "Natural or synthetic rubber material (used in footwear soles)."@en;
@@ -3261,18 +3261,18 @@ _:n3-4713 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Rubber>;
     rdfs:label "Microplastic Risk Level"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/>;
     skos:note "Microfibre / microplastic-release concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR. No upstream vocabulary covers it."@en;
-    owl:oneOf _:n3-4714.
-_:n3-4714 rdf:first <https://ref.openepcis.io/extensions/eu/textile/LowShedding>;
-    rdf:rest _:n3-4715.
+    owl:oneOf _:b100.
+_:b100 rdf:first <https://ref.openepcis.io/extensions/eu/textile/LowShedding>;
+    rdf:rest _:b101.
 <https://ref.openepcis.io/extensions/eu/textile/LowShedding> a <https://ref.openepcis.io/extensions/eu/textile/MicroplasticRiskLevel>;
     rdfs:comment "Low microfiber shedding risk (< 50 mg/kg per wash). Natural fibers or tightly woven synthetics."@en;
     rdfs:label "Low Shedding"@en.
-_:n3-4715 rdf:first <https://ref.openepcis.io/extensions/eu/textile/MediumShedding>;
-    rdf:rest _:n3-4716.
+_:b101 rdf:first <https://ref.openepcis.io/extensions/eu/textile/MediumShedding>;
+    rdf:rest _:b102.
 <https://ref.openepcis.io/extensions/eu/textile/MediumShedding> a <https://ref.openepcis.io/extensions/eu/textile/MicroplasticRiskLevel>;
     rdfs:comment "Medium microfiber shedding risk (50-500 mg/kg per wash). Typical synthetic fabrics."@en;
     rdfs:label "Medium Shedding"@en.
-_:n3-4716 rdf:first <https://ref.openepcis.io/extensions/eu/textile/HighShedding>;
+_:b102 rdf:first <https://ref.openepcis.io/extensions/eu/textile/HighShedding>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.io/extensions/eu/textile/HighShedding> a <https://ref.openepcis.io/extensions/eu/textile/MicroplasticRiskLevel>;
     rdfs:comment "High microfiber shedding risk (> 500 mg/kg per wash). Fleece, chenille, or cut-pile synthetics."@en;
@@ -3284,28 +3284,28 @@ _:n3-4716 rdf:first <https://ref.openepcis.io/extensions/eu/textile/HighShedding
     rdfs:label "Durability Class"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/>;
     skos:note "Textile durability / robustness assessment per the JRC 3rd-Milestone textile preparatory study and ESPR durability methods. No GS1, SEMICeu, or schema.org equivalent."@en;
-    owl:oneOf _:n3-4717.
-_:n3-4717 rdf:first <https://ref.openepcis.io/extensions/eu/textile/DurabilityA>;
-    rdf:rest _:n3-4718.
+    owl:oneOf _:b103.
+_:b103 rdf:first <https://ref.openepcis.io/extensions/eu/textile/DurabilityA>;
+    rdf:rest _:b104.
 <https://ref.openepcis.io/extensions/eu/textile/DurabilityA> a <https://ref.openepcis.io/extensions/eu/textile/DurabilityClass>;
     rdfs:comment "Highest durability - designed for extended lifetime (>200 wash cycles, >10 years)."@en;
     rdfs:label "Durability Class A"@en.
-_:n3-4718 rdf:first <https://ref.openepcis.io/extensions/eu/textile/DurabilityB>;
-    rdf:rest _:n3-4719.
+_:b104 rdf:first <https://ref.openepcis.io/extensions/eu/textile/DurabilityB>;
+    rdf:rest _:b105.
 <https://ref.openepcis.io/extensions/eu/textile/DurabilityB> a <https://ref.openepcis.io/extensions/eu/textile/DurabilityClass>;
     rdfs:comment "High durability (100-200 wash cycles, 5-10 years)."@en;
     rdfs:label "Durability Class B"@en.
-_:n3-4719 rdf:first <https://ref.openepcis.io/extensions/eu/textile/DurabilityC>;
-    rdf:rest _:n3-4720.
+_:b105 rdf:first <https://ref.openepcis.io/extensions/eu/textile/DurabilityC>;
+    rdf:rest _:b106.
 <https://ref.openepcis.io/extensions/eu/textile/DurabilityC> a <https://ref.openepcis.io/extensions/eu/textile/DurabilityClass>;
     rdfs:comment "Standard durability (50-100 wash cycles, 3-5 years)."@en;
     rdfs:label "Durability Class C"@en.
-_:n3-4720 rdf:first <https://ref.openepcis.io/extensions/eu/textile/DurabilityD>;
-    rdf:rest _:n3-4721.
+_:b106 rdf:first <https://ref.openepcis.io/extensions/eu/textile/DurabilityD>;
+    rdf:rest _:b107.
 <https://ref.openepcis.io/extensions/eu/textile/DurabilityD> a <https://ref.openepcis.io/extensions/eu/textile/DurabilityClass>;
     rdfs:comment "Below average durability (25-50 wash cycles, 1-3 years)."@en;
     rdfs:label "Durability Class D"@en.
-_:n3-4721 rdf:first <https://ref.openepcis.io/extensions/eu/textile/DurabilityE>;
+_:b107 rdf:first <https://ref.openepcis.io/extensions/eu/textile/DurabilityE>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.io/extensions/eu/textile/DurabilityE> a <https://ref.openepcis.io/extensions/eu/textile/DurabilityClass>;
     rdfs:comment "Low durability (<25 wash cycles, <1 year). Single-use or disposable items."@en;
@@ -3788,18 +3788,18 @@ _:n3-4721 rdf:first <https://ref.openepcis.io/extensions/eu/textile/DurabilityE>
     rdfs:label "Fabric Type"@en;
     skos:note "Required extension: Robustness test thresholds (spirality, dimensional change) differ by\nfabric type. GS1 Web Vocabulary does not distinguish fabric construction types."@en;
     skos:broadMatch <https://w3id.org/eudpp#MaterialType>;
-    owl:oneOf _:n3-4722.
-_:n3-4722 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Knitted>;
-    rdf:rest _:n3-4723.
+    owl:oneOf _:b108.
+_:b108 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Knitted>;
+    rdf:rest _:b109.
 <https://ref.openepcis.io/extensions/eu/textile/Knitted> a <https://ref.openepcis.io/extensions/eu/textile/FabricType>;
     rdfs:comment "Fabric constructed by interlocking loops of yarn (jersey, rib, interlock, etc.)."@en;
     rdfs:label "Knitted"@en.
-_:n3-4723 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Denim>;
-    rdf:rest _:n3-4724.
+_:b109 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Denim>;
+    rdf:rest _:b110.
 <https://ref.openepcis.io/extensions/eu/textile/Denim> a <https://ref.openepcis.io/extensions/eu/textile/FabricType>;
     rdfs:comment "Twill-woven fabric typically made from cotton, characterised by indigo dyeing."@en;
     rdfs:label "Denim"@en.
-_:n3-4724 rdf:first <https://ref.openepcis.io/extensions/eu/textile/WovenNonDenim>;
+_:b110 rdf:first <https://ref.openepcis.io/extensions/eu/textile/WovenNonDenim>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.io/extensions/eu/textile/WovenNonDenim> a <https://ref.openepcis.io/extensions/eu/textile/FabricType>;
     rdfs:comment "Woven fabric other than denim (plain weave, twill, satin, etc.)."@en;
@@ -3811,53 +3811,53 @@ _:n3-4724 rdf:first <https://ref.openepcis.io/extensions/eu/textile/WovenNonDeni
     rdfs:label "Apparel Subcategory"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/>;
     skos:note "Required extension: The EU preparatory study defines specific subcategories for\ndifferentiated requirements. GS1 provides gs1:additionalProductClassification but lacks\nthese regulatory subcategories. See also schema:category."@en;
-    owl:oneOf _:n3-4725.
-_:n3-4725 rdf:first <https://ref.openepcis.io/extensions/eu/textile/TShirts>;
-    rdf:rest _:n3-4726.
+    owl:oneOf _:b111.
+_:b111 rdf:first <https://ref.openepcis.io/extensions/eu/textile/TShirts>;
+    rdf:rest _:b112.
 <https://ref.openepcis.io/extensions/eu/textile/TShirts> a <https://ref.openepcis.io/extensions/eu/textile/ApparelSubcategory>;
     rdfs:comment "Short-sleeved casual tops including t-shirts and polo shirts."@en;
     rdfs:label "T-Shirts"@en.
-_:n3-4726 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ShirtsBlouses>;
-    rdf:rest _:n3-4727.
+_:b112 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ShirtsBlouses>;
+    rdf:rest _:b113.
 <https://ref.openepcis.io/extensions/eu/textile/ShirtsBlouses> a <https://ref.openepcis.io/extensions/eu/textile/ApparelSubcategory>;
     rdfs:comment "Woven shirts, blouses, and formal tops."@en;
     rdfs:label "Shirts & Blouses"@en.
-_:n3-4727 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Sweaters>;
-    rdf:rest _:n3-4728.
+_:b113 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Sweaters>;
+    rdf:rest _:b114.
 <https://ref.openepcis.io/extensions/eu/textile/Sweaters> a <https://ref.openepcis.io/extensions/eu/textile/ApparelSubcategory>;
     rdfs:comment "Knitted pullovers, cardigans, and sweaters."@en;
     rdfs:label "Sweaters"@en.
-_:n3-4728 rdf:first <https://ref.openepcis.io/extensions/eu/textile/JacketsCoats>;
-    rdf:rest _:n3-4729.
+_:b114 rdf:first <https://ref.openepcis.io/extensions/eu/textile/JacketsCoats>;
+    rdf:rest _:b115.
 <https://ref.openepcis.io/extensions/eu/textile/JacketsCoats> a <https://ref.openepcis.io/extensions/eu/textile/ApparelSubcategory>;
     rdfs:comment "Outerwear including jackets, coats, blazers, and vests."@en;
     rdfs:label "Jackets & Coats"@en.
-_:n3-4729 rdf:first <https://ref.openepcis.io/extensions/eu/textile/PantsShorts>;
-    rdf:rest _:n3-4730.
+_:b115 rdf:first <https://ref.openepcis.io/extensions/eu/textile/PantsShorts>;
+    rdf:rest _:b116.
 <https://ref.openepcis.io/extensions/eu/textile/PantsShorts> a <https://ref.openepcis.io/extensions/eu/textile/ApparelSubcategory>;
     rdfs:comment "Trousers, jeans, shorts, and skorts."@en;
     rdfs:label "Pants & Shorts"@en.
-_:n3-4730 rdf:first <https://ref.openepcis.io/extensions/eu/textile/DressesSkirts>;
-    rdf:rest _:n3-4731.
+_:b116 rdf:first <https://ref.openepcis.io/extensions/eu/textile/DressesSkirts>;
+    rdf:rest _:b117.
 <https://ref.openepcis.io/extensions/eu/textile/DressesSkirts> a <https://ref.openepcis.io/extensions/eu/textile/ApparelSubcategory>;
     rdfs:comment "Dresses, skirts, and jumpsuits."@en;
     rdfs:label "Dresses & Skirts"@en.
-_:n3-4731 rdf:first <https://ref.openepcis.io/extensions/eu/textile/LeggingsStockingsSocks>;
-    rdf:rest _:n3-4732.
+_:b117 rdf:first <https://ref.openepcis.io/extensions/eu/textile/LeggingsStockingsSocks>;
+    rdf:rest _:b118.
 <https://ref.openepcis.io/extensions/eu/textile/LeggingsStockingsSocks> a <https://ref.openepcis.io/extensions/eu/textile/ApparelSubcategory>;
     rdfs:comment "Legwear including leggings, tights, stockings, and socks."@en;
     rdfs:label "Leggings, Stockings & Socks"@en.
-_:n3-4732 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Underwear>;
-    rdf:rest _:n3-4733.
+_:b118 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Underwear>;
+    rdf:rest _:b119.
 <https://ref.openepcis.io/extensions/eu/textile/Underwear> a <https://ref.openepcis.io/extensions/eu/textile/ApparelSubcategory>;
     rdfs:comment "Undergarments and intimate apparel."@en;
     rdfs:label "Underwear"@en.
-_:n3-4733 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Swimwear>;
-    rdf:rest _:n3-4734.
+_:b119 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Swimwear>;
+    rdf:rest _:b120.
 <https://ref.openepcis.io/extensions/eu/textile/Swimwear> a <https://ref.openepcis.io/extensions/eu/textile/ApparelSubcategory>;
     rdfs:comment "Swimming and bathing garments."@en;
     rdfs:label "Swimwear"@en.
-_:n3-4734 rdf:first <https://ref.openepcis.io/extensions/eu/textile/TextileAccessories>;
+_:b120 rdf:first <https://ref.openepcis.io/extensions/eu/textile/TextileAccessories>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.io/extensions/eu/textile/TextileAccessories> a <https://ref.openepcis.io/extensions/eu/textile/ApparelSubcategory>;
     rdfs:comment "Textile accessories including scarves, gloves, hats, and ties."@en;
@@ -4117,28 +4117,28 @@ _:n3-4734 rdf:first <https://ref.openepcis.io/extensions/eu/textile/TextileAcces
     rdfs:label "Recycling Technology"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/>;
     skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en;
-    owl:oneOf _:n3-4735.
-_:n3-4735 rdf:first <https://ref.openepcis.io/extensions/eu/textile/MechanicalRecycling>;
-    rdf:rest _:n3-4736.
+    owl:oneOf _:b121.
+_:b121 rdf:first <https://ref.openepcis.io/extensions/eu/textile/MechanicalRecycling>;
+    rdf:rest _:b122.
 <https://ref.openepcis.io/extensions/eu/textile/MechanicalRecycling> a <https://ref.openepcis.io/extensions/eu/textile/RecyclingTechnology>;
     rdfs:comment "Mechanical fiber recycling through shredding and re-spinning."@en;
     rdfs:label "Mechanical Recycling"@en.
-_:n3-4736 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ChemicalRecyclingCotton>;
-    rdf:rest _:n3-4737.
+_:b122 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ChemicalRecyclingCotton>;
+    rdf:rest _:b123.
 <https://ref.openepcis.io/extensions/eu/textile/ChemicalRecyclingCotton> a <https://ref.openepcis.io/extensions/eu/textile/RecyclingTechnology>;
     rdfs:comment "Chemical recycling process for cellulosic/cotton fibers (e.g. dissolution-regeneration)."@en;
     rdfs:label "Chemical Recycling (Cotton)"@en.
-_:n3-4737 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ThermoChemicalRecycling>;
-    rdf:rest _:n3-4738.
+_:b123 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ThermoChemicalRecycling>;
+    rdf:rest _:b124.
 <https://ref.openepcis.io/extensions/eu/textile/ThermoChemicalRecycling> a <https://ref.openepcis.io/extensions/eu/textile/RecyclingTechnology>;
     rdfs:comment "Thermo-chemical treatment to recover cotton from cotton-rich blends (>60%)."@en;
     rdfs:label "Thermo-Chemical Recycling"@en.
-_:n3-4738 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ChemicalRecyclingPA6>;
-    rdf:rest _:n3-4739.
+_:b124 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ChemicalRecyclingPA6>;
+    rdf:rest _:b125.
 <https://ref.openepcis.io/extensions/eu/textile/ChemicalRecyclingPA6> a <https://ref.openepcis.io/extensions/eu/textile/RecyclingTechnology>;
     rdfs:comment "Chemical recycling for polyamide 6 (depolymerisation to caprolactam)."@en;
     rdfs:label "Chemical Recycling (PA6)"@en.
-_:n3-4739 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ThermoMechanicalRecycling>;
+_:b125 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ThermoMechanicalRecycling>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.io/extensions/eu/textile/ThermoMechanicalRecycling> a <https://ref.openepcis.io/extensions/eu/textile/RecyclingTechnology>;
     rdfs:comment "Thermo-mechanical recycling through melting and re-extrusion of thermoplastic fibers."@en;
@@ -4279,13 +4279,13 @@ _:n3-4739 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ThermoMechan
     rdfs:label "Waste Origin Type"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/>;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
-    owl:oneOf _:n3-4740.
-_:n3-4740 rdf:first <https://ref.openepcis.io/extensions/eu/textile/PostConsumer>;
-    rdf:rest _:n3-4741.
+    owl:oneOf _:b126.
+_:b126 rdf:first <https://ref.openepcis.io/extensions/eu/textile/PostConsumer>;
+    rdf:rest _:b127.
 <https://ref.openepcis.io/extensions/eu/textile/PostConsumer> a <https://ref.openepcis.io/extensions/eu/textile/WasteOriginType>;
     rdfs:comment "Waste generated by end consumers after product use."@en;
     rdfs:label "Post-Consumer"@en.
-_:n3-4741 rdf:first <https://ref.openepcis.io/extensions/eu/textile/PostIndustrial>;
+_:b127 rdf:first <https://ref.openepcis.io/extensions/eu/textile/PostIndustrial>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.io/extensions/eu/textile/PostIndustrial> a <https://ref.openepcis.io/extensions/eu/textile/WasteOriginType>;
     rdfs:comment "Waste generated during manufacturing processes (pre-consumer)."@en;
@@ -4297,13 +4297,13 @@ _:n3-4741 rdf:first <https://ref.openepcis.io/extensions/eu/textile/PostIndustri
     rdfs:label "Recycled Source Type"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/>;
     skos:note "Textile circularity (repair / take-back / end-of-life) concept per the EU Strategy for Sustainable and Circular Textiles (COM/2022/141) and ESPR Article 7. No upstream equivalent."@en;
-    owl:oneOf _:n3-4742.
-_:n3-4742 rdf:first <https://ref.openepcis.io/extensions/eu/textile/FiberToFiber>;
-    rdf:rest _:n3-4743.
+    owl:oneOf _:b128.
+_:b128 rdf:first <https://ref.openepcis.io/extensions/eu/textile/FiberToFiber>;
+    rdf:rest _:b129.
 <https://ref.openepcis.io/extensions/eu/textile/FiberToFiber> a <https://ref.openepcis.io/extensions/eu/textile/RecycledSourceType>;
     rdfs:comment "Closed-loop recycling where textile waste is recycled back into textile fibers."@en;
     rdfs:label "Fiber-to-Fiber"@en.
-_:n3-4743 rdf:first <https://ref.openepcis.io/extensions/eu/textile/OpenLoop>;
+_:b129 rdf:first <https://ref.openepcis.io/extensions/eu/textile/OpenLoop>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.io/extensions/eu/textile/OpenLoop> a <https://ref.openepcis.io/extensions/eu/textile/RecycledSourceType>;
     rdfs:comment "Open-loop recycling where non-textile waste (e.g. PET bottles) is converted into textile fibers."@en;
@@ -4314,23 +4314,23 @@ _:n3-4743 rdf:first <https://ref.openepcis.io/extensions/eu/textile/OpenLoop>;
     rdfs:label "Chain of Custody Method"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/>;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
-    owl:oneOf _:n3-4744.
-_:n3-4744 rdf:first <https://ref.openepcis.io/extensions/eu/textile/MassBalance>;
-    rdf:rest _:n3-4745.
+    owl:oneOf _:b130.
+_:b130 rdf:first <https://ref.openepcis.io/extensions/eu/textile/MassBalance>;
+    rdf:rest _:b131.
 <https://ref.openepcis.io/extensions/eu/textile/MassBalance> a <https://ref.openepcis.io/extensions/eu/textile/ChainOfCustodyMethod>;
     rdfs:comment "Mass balance accounting method where recycled and virgin inputs are tracked by quantity."@en;
     rdfs:label "Mass Balance"@en.
-_:n3-4745 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Segregation>;
-    rdf:rest _:n3-4746.
+_:b131 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Segregation>;
+    rdf:rest _:b132.
 <https://ref.openepcis.io/extensions/eu/textile/Segregation> a <https://ref.openepcis.io/extensions/eu/textile/ChainOfCustodyMethod>;
     rdfs:comment "Segregation method where recycled materials are kept physically separate from virgin."@en;
     rdfs:label "Segregation"@en.
-_:n3-4746 rdf:first <https://ref.openepcis.io/extensions/eu/textile/IdentityPreserved>;
-    rdf:rest _:n3-4747.
+_:b132 rdf:first <https://ref.openepcis.io/extensions/eu/textile/IdentityPreserved>;
+    rdf:rest _:b133.
 <https://ref.openepcis.io/extensions/eu/textile/IdentityPreserved> a <https://ref.openepcis.io/extensions/eu/textile/ChainOfCustodyMethod>;
     rdfs:comment "Identity preserved method with full physical traceability from source to product."@en;
     rdfs:label "Identity Preserved"@en.
-_:n3-4747 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Certified>;
+_:b133 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Certified>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.io/extensions/eu/textile/Certified> a <https://ref.openepcis.io/extensions/eu/textile/ChainOfCustodyMethod>;
     rdfs:comment "Third-party certified chain of custody (e.g. GRS, RCS)."@en;
@@ -4421,18 +4421,18 @@ _:n3-4747 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Certified>;
     rdfs:label "Footprint Data Type"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/>;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
-    owl:oneOf _:n3-4748.
-_:n3-4748 rdf:first <https://ref.openepcis.io/extensions/eu/textile/PrimaryData>;
-    rdf:rest _:n3-4749.
+    owl:oneOf _:b134.
+_:b134 rdf:first <https://ref.openepcis.io/extensions/eu/textile/PrimaryData>;
+    rdf:rest _:b135.
 <https://ref.openepcis.io/extensions/eu/textile/PrimaryData> a <https://ref.openepcis.io/extensions/eu/textile/FootprintDataType>;
     rdfs:comment "Footprint based on primary (company-specific) data from actual production processes."@en;
     rdfs:label "Primary Data"@en.
-_:n3-4749 rdf:first <https://ref.openepcis.io/extensions/eu/textile/SecondaryData>;
-    rdf:rest _:n3-4750.
+_:b135 rdf:first <https://ref.openepcis.io/extensions/eu/textile/SecondaryData>;
+    rdf:rest _:b136.
 <https://ref.openepcis.io/extensions/eu/textile/SecondaryData> a <https://ref.openepcis.io/extensions/eu/textile/FootprintDataType>;
     rdfs:comment "Footprint based on secondary (generic/database) data from LCI databases."@en;
     rdfs:label "Secondary Data"@en.
-_:n3-4750 rdf:first <https://ref.openepcis.io/extensions/eu/textile/MixedData>;
+_:b136 rdf:first <https://ref.openepcis.io/extensions/eu/textile/MixedData>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.io/extensions/eu/textile/MixedData> a <https://ref.openepcis.io/extensions/eu/textile/FootprintDataType>;
     rdfs:comment "Footprint based on a combination of primary and secondary data sources."@en;
@@ -4444,33 +4444,33 @@ _:n3-4750 rdf:first <https://ref.openepcis.io/extensions/eu/textile/MixedData>;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/>;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
     skos:broadMatch schema:CategoryCode;
-    owl:oneOf _:n3-4751.
-_:n3-4751 rdf:first <https://ref.openepcis.io/extensions/eu/textile/GWP>;
-    rdf:rest _:n3-4752.
+    owl:oneOf _:b137.
+_:b137 rdf:first <https://ref.openepcis.io/extensions/eu/textile/GWP>;
+    rdf:rest _:b138.
 <https://ref.openepcis.io/extensions/eu/textile/GWP> a <https://ref.openepcis.io/extensions/eu/textile/LCIACategoryCode>;
     rdfs:comment "Climate change impact category (kg CO2-eq)."@en;
     rdfs:label "Global Warming Potential"@en.
-_:n3-4752 rdf:first <https://ref.openepcis.io/extensions/eu/textile/WaterUse>;
-    rdf:rest _:n3-4753.
+_:b138 rdf:first <https://ref.openepcis.io/extensions/eu/textile/WaterUse>;
+    rdf:rest _:b139.
 <https://ref.openepcis.io/extensions/eu/textile/WaterUse> a <https://ref.openepcis.io/extensions/eu/textile/LCIACategoryCode>;
     rdfs:comment "Water scarcity footprint impact category (m3 world-eq)."@en;
     rdfs:label "Water Use"@en.
-_:n3-4753 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Eutrophication>;
-    rdf:rest _:n3-4754.
+_:b139 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Eutrophication>;
+    rdf:rest _:b140.
 <https://ref.openepcis.io/extensions/eu/textile/Eutrophication> a <https://ref.openepcis.io/extensions/eu/textile/LCIACategoryCode>;
     rdfs:comment "Freshwater eutrophication impact category (kg P-eq)."@en;
     rdfs:label "Eutrophication"@en.
-_:n3-4754 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Acidification>;
-    rdf:rest _:n3-4755.
+_:b140 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Acidification>;
+    rdf:rest _:b141.
 <https://ref.openepcis.io/extensions/eu/textile/Acidification> a <https://ref.openepcis.io/extensions/eu/textile/LCIACategoryCode>;
     rdfs:comment "Acidification impact category (mol H+-eq)."@en;
     rdfs:label "Acidification"@en.
-_:n3-4755 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Ecotoxicity>;
-    rdf:rest _:n3-4756.
+_:b141 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Ecotoxicity>;
+    rdf:rest _:b142.
 <https://ref.openepcis.io/extensions/eu/textile/Ecotoxicity> a <https://ref.openepcis.io/extensions/eu/textile/LCIACategoryCode>;
     rdfs:comment "Freshwater ecotoxicity impact category (CTUe)."@en;
     rdfs:label "Ecotoxicity"@en.
-_:n3-4756 rdf:first <https://ref.openepcis.io/extensions/eu/textile/HumanToxicity>;
+_:b142 rdf:first <https://ref.openepcis.io/extensions/eu/textile/HumanToxicity>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.io/extensions/eu/textile/HumanToxicity> a <https://ref.openepcis.io/extensions/eu/textile/LCIACategoryCode>;
     rdfs:comment "Human toxicity (cancer + non-cancer) impact category (CTUh)."@en;
@@ -4584,26 +4584,26 @@ _:n3-4756 rdf:first <https://ref.openepcis.io/extensions/eu/textile/HumanToxicit
     rdfs:label "Substance of Concern Type"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/>;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
-    owl:oneOf _:n3-4757.
-_:n3-4757 rdf:first <https://ref.openepcis.io/extensions/eu/textile/SoCTypeA>;
-    rdf:rest _:n3-4758.
+    owl:oneOf _:b143.
+_:b143 rdf:first <https://ref.openepcis.io/extensions/eu/textile/SoCTypeA>;
+    rdf:rest _:b144.
 <https://ref.openepcis.io/extensions/eu/textile/SoCTypeA> a <https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcernType>;
     rdfs:comment "Substances of Very High Concern per REACH Regulation (EC) 1907/2006, with 0.1% w/w threshold."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32006R1907>;
     rdfs:label "SoC Type A - SVHC"@en.
-_:n3-4758 rdf:first <https://ref.openepcis.io/extensions/eu/textile/SoCTypeB>;
-    rdf:rest _:n3-4759.
+_:b144 rdf:first <https://ref.openepcis.io/extensions/eu/textile/SoCTypeB>;
+    rdf:rest _:b145.
 <https://ref.openepcis.io/extensions/eu/textile/SoCTypeB> a <https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcernType>;
     rdfs:comment "Substances classified under CLP Regulation 1272/2008 with hazard classifications (CMR, ED, PMT, sensitiser, aquatic toxicity)."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32008R1272>;
     rdfs:label "SoC Type B - CLP Hazard"@en.
-_:n3-4759 rdf:first <https://ref.openepcis.io/extensions/eu/textile/SoCTypeC>;
-    rdf:rest _:n3-4760.
+_:b145 rdf:first <https://ref.openepcis.io/extensions/eu/textile/SoCTypeC>;
+    rdf:rest _:b146.
 <https://ref.openepcis.io/extensions/eu/textile/SoCTypeC> a <https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcernType>;
     rdfs:comment "Persistent Organic Pollutants per EU Regulation 2019/1021 (recast of Stockholm Convention obligations)."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32019R1021>;
     rdfs:label "SoC Type C - POPs"@en.
-_:n3-4760 rdf:first <https://ref.openepcis.io/extensions/eu/textile/SoCTypeD>;
+_:b146 rdf:first <https://ref.openepcis.io/extensions/eu/textile/SoCTypeD>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.io/extensions/eu/textile/SoCTypeD> a <https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcernType>;
     rdfs:comment "Substances that hinder reuse or recycling of the product at end of life."@en;
@@ -4615,28 +4615,28 @@ _:n3-4760 rdf:first <https://ref.openepcis.io/extensions/eu/textile/SoCTypeD>;
     rdfs:label "CLP Hazard Category"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/>;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
-    owl:oneOf _:n3-4761.
-_:n3-4761 rdf:first <https://ref.openepcis.io/extensions/eu/textile/CMR>;
-    rdf:rest _:n3-4762.
+    owl:oneOf _:b147.
+_:b147 rdf:first <https://ref.openepcis.io/extensions/eu/textile/CMR>;
+    rdf:rest _:b148.
 <https://ref.openepcis.io/extensions/eu/textile/CMR> a <https://ref.openepcis.io/extensions/eu/textile/CLPHazardCategory>;
     rdfs:comment "Carcinogenic, Mutagenic, or toxic to Reproduction (categories 1A, 1B, 2)."@en;
     rdfs:label "CMR"@en.
-_:n3-4762 rdf:first <https://ref.openepcis.io/extensions/eu/textile/EndocrineDisruptor>;
-    rdf:rest _:n3-4763.
+_:b148 rdf:first <https://ref.openepcis.io/extensions/eu/textile/EndocrineDisruptor>;
+    rdf:rest _:b149.
 <https://ref.openepcis.io/extensions/eu/textile/EndocrineDisruptor> a <https://ref.openepcis.io/extensions/eu/textile/CLPHazardCategory>;
     rdfs:comment "Endocrine disrupting substance per EU criteria."@en;
     rdfs:label "Endocrine Disruptor"@en.
-_:n3-4763 rdf:first <https://ref.openepcis.io/extensions/eu/textile/PMT>;
-    rdf:rest _:n3-4764.
+_:b149 rdf:first <https://ref.openepcis.io/extensions/eu/textile/PMT>;
+    rdf:rest _:b150.
 <https://ref.openepcis.io/extensions/eu/textile/PMT> a <https://ref.openepcis.io/extensions/eu/textile/CLPHazardCategory>;
     rdfs:comment "Persistent, Mobile, and Toxic or very Persistent, very Mobile (PMT/vPvM)."@en;
     rdfs:label "PMT"@en.
-_:n3-4764 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Sensitizer>;
-    rdf:rest _:n3-4765.
+_:b150 rdf:first <https://ref.openepcis.io/extensions/eu/textile/Sensitizer>;
+    rdf:rest _:b151.
 <https://ref.openepcis.io/extensions/eu/textile/Sensitizer> a <https://ref.openepcis.io/extensions/eu/textile/CLPHazardCategory>;
     rdfs:comment "Skin or respiratory sensitiser."@en;
     rdfs:label "Sensitizer"@en.
-_:n3-4765 rdf:first <https://ref.openepcis.io/extensions/eu/textile/AquaticToxicity>;
+_:b151 rdf:first <https://ref.openepcis.io/extensions/eu/textile/AquaticToxicity>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.io/extensions/eu/textile/AquaticToxicity> a <https://ref.openepcis.io/extensions/eu/textile/CLPHazardCategory>;
     rdfs:comment "Hazardous to the aquatic environment (acute or chronic)."@en;
@@ -4734,44 +4734,44 @@ _:n3-4765 rdf:first <https://ref.openepcis.io/extensions/eu/textile/AquaticToxic
     rdfs:label "Test Standard"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/textile/>;
     skos:note "Textile Digital Product Passport attribute mandated under ESPR 2024/1781 (textile delegated act). No GS1, SEMICeu, or schema.org equivalent."@en;
-    owl:oneOf _:n3-4766.
-_:n3-4766 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ISO6330>;
-    rdf:rest _:n3-4767.
+    owl:oneOf _:b152.
+_:b152 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ISO6330>;
+    rdf:rest _:b153.
 <https://ref.openepcis.io/extensions/eu/textile/ISO6330> a <https://ref.openepcis.io/extensions/eu/textile/TestStandard>;
     rdfs:seeAlso <https://www.iso.org/standard/75934.html>;
     rdfs:comment "Textiles - Domestic washing and drying procedures for textile testing."@en;
     rdfs:label "ISO 6330"@en.
-_:n3-4767 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ISO16322_3>;
-    rdf:rest _:n3-4768.
+_:b153 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ISO16322_3>;
+    rdf:rest _:b154.
 <https://ref.openepcis.io/extensions/eu/textile/ISO16322_3> a <https://ref.openepcis.io/extensions/eu/textile/TestStandard>;
     rdfs:seeAlso <https://www.iso.org/standard/56326.html>;
     rdfs:comment "Textiles - Determination of spirality after laundering - Part 3: Woven and knitted garments."@en;
     rdfs:label "ISO 16322-3"@en.
-_:n3-4768 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ISO3759>;
-    rdf:rest _:n3-4769.
+_:b154 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ISO3759>;
+    rdf:rest _:b155.
 <https://ref.openepcis.io/extensions/eu/textile/ISO3759> a <https://ref.openepcis.io/extensions/eu/textile/TestStandard>;
     rdfs:seeAlso <https://www.iso.org/standard/57309.html>;
     rdfs:comment "Textiles - Preparation, marking and measuring of fabric specimens and garments in tests for determination of dimensional change."@en;
     rdfs:label "ISO 3759"@en.
-_:n3-4769 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ISO15487>;
-    rdf:rest _:n3-4770.
+_:b155 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ISO15487>;
+    rdf:rest _:b156.
 <https://ref.openepcis.io/extensions/eu/textile/ISO15487> a <https://ref.openepcis.io/extensions/eu/textile/TestStandard>;
     rdfs:seeAlso <https://www.iso.org/standard/55312.html>;
     rdfs:comment "Textiles - Method for assessing the appearance of apparel and other textile end products after domestic washing and drying."@en;
     rdfs:label "ISO 15487"@en.
-_:n3-4770 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ISO105>;
-    rdf:rest _:n3-4771.
+_:b156 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ISO105>;
+    rdf:rest _:b157.
 <https://ref.openepcis.io/extensions/eu/textile/ISO105> a <https://ref.openepcis.io/extensions/eu/textile/TestStandard>;
     rdfs:seeAlso <https://www.iso.org/standard/65207.html>;
     rdfs:comment "Textiles - Tests for colour fastness (multi-part standard)."@en;
     rdfs:label "ISO 105"@en.
-_:n3-4771 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ISO12945>;
-    rdf:rest _:n3-4772.
+_:b157 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ISO12945>;
+    rdf:rest _:b158.
 <https://ref.openepcis.io/extensions/eu/textile/ISO12945> a <https://ref.openepcis.io/extensions/eu/textile/TestStandard>;
     rdfs:seeAlso <https://www.iso.org/standard/75375.html>;
     rdfs:comment "Textiles - Determination of fabric propensity to surface pilling, fuzzing or matting."@en;
     rdfs:label "ISO 12945"@en.
-_:n3-4772 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ISO12947>;
+_:b158 rdf:first <https://ref.openepcis.io/extensions/eu/textile/ISO12947>;
     rdf:rest rdf:nil.
 <https://ref.openepcis.io/extensions/eu/textile/ISO12947> a <https://ref.openepcis.io/extensions/eu/textile/TestStandard>;
     rdfs:seeAlso <https://www.iso.org/standard/75376.html>;

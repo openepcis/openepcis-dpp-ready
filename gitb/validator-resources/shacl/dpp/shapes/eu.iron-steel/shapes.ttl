@@ -20,37 +20,37 @@
     owl:versionInfo "0.9.9";
     dcterms:created "2025-02-02"^^xsd:date;
     dcterms:modified "2026-08-10"^^xsd:date;
-    sh:declare _:n3-3937, _:n3-3938, _:n3-3939.
-_:n3-3937 sh:prefix "dpp";
+    sh:declare _:b0, _:b1, _:b2.
+_:b0 sh:prefix "dpp";
     sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI.
-_:n3-3938 sh:prefix "oec";
+_:b1 sh:prefix "oec";
     sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI.
-_:n3-3939 sh:prefix "gs1";
+_:b2 sh:prefix "gs1";
     sh:namespace "https://ref.gs1.org/voc/"^^xsd:anyURI.
 dpp-sh:EconomicOperatorRoleRequired a sh:NodeShape;
     rdfs:label "Economic operator role required"@en;
     sh:targetObjectsOf oec:hasOperatorInformation, oec:hasPassportIssuer;
-    sh:property _:n3-3940.
-_:n3-3940 sh:path oec:hasOperatorRole;
+    sh:property _:b3.
+_:b3 sh:path oec:hasOperatorRole;
     sh:minCount 1;
     sh:message "An economic operator must declare its ESPR Art. 77 role (oec:hasOperatorRole)."@en.
 dpp-sh:TranslatableText a sh:NodeShape;
     rdfs:label "Translatable text"@en;
     sh:message "must be text: either a plain string or a language-tagged string"@en;
     rdfs:comment "A plain or language-tagged string; the multilingual form ESPR consumer information requires."@en;
-    sh:or _:n3-3941.
-_:n3-3941 rdf:first _:n3-3942;
-    rdf:rest _:n3-3943.
-_:n3-3942 sh:datatype xsd:string.
-_:n3-3943 rdf:first _:n3-3944;
+    sh:or _:b4.
+_:b4 rdf:first _:b5;
+    rdf:rest _:b6.
+_:b5 sh:datatype xsd:string.
+_:b6 rdf:first _:b7;
     rdf:rest rdf:nil.
-_:n3-3944 sh:datatype rdf:langString.
+_:b7 sh:datatype rdf:langString.
 dpp-sh:CircularityPerformanceShape a sh:NodeShape;
-    sh:property _:n3-3945, _:n3-3946, _:n3-3947, _:n3-3948, _:n3-3949, _:n3-3950;
+    sh:property _:b8, _:b9, _:b10, _:b11, _:b12, _:b13;
     sh:targetClass oec:CircularityPerformance;
     sh:name "Circularity Performance Shape"@en;
     sh:description "Validates CircularityPerformance instances"@en.
-_:n3-3945 sh:path oec:recyclableContent;
+_:b8 sh:path oec:recyclableContent;
     sh:message "recyclableContent must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "recyclableContent"@en;
@@ -58,14 +58,14 @@ _:n3-3945 sh:path oec:recyclableContent;
     sh:minInclusive 0;
     sh:maxInclusive 1;
     sh:maxCount 1.
-_:n3-3946 sh:path oec:utilityFactor;
+_:b9 sh:path oec:utilityFactor;
     sh:message "utilityFactor must be a positive decimal"@en;
     sh:datatype xsd:decimal;
     sh:name "utilityFactor"@en;
     sh:description "Durability relative to industry average (typically 0.5-2.0)"@en;
     sh:maxCount 1;
     sh:minExclusive 0.
-_:n3-3947 sh:path oec:materialCircularityIndicator;
+_:b10 sh:path oec:materialCircularityIndicator;
     sh:message "materialCircularityIndicator must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "materialCircularityIndicator"@en;
@@ -73,24 +73,24 @@ _:n3-3947 sh:path oec:materialCircularityIndicator;
     sh:minInclusive 0;
     sh:maxInclusive 1;
     sh:maxCount 1.
-_:n3-3948 sh:path oec:endOfLifeInstructions;
+_:b11 sh:path oec:endOfLifeInstructions;
     sh:datatype xsd:anyURI;
     sh:name "endOfLifeInstructions"@en;
     sh:maxCount 1.
-_:n3-3949 sh:path oec:wastePreventionInfo;
+_:b12 sh:path oec:wastePreventionInfo;
     sh:datatype xsd:anyURI;
     sh:name "wastePreventionInfo"@en;
     sh:maxCount 1.
-_:n3-3950 sh:path oec:separateCollectionInfo;
+_:b13 sh:path oec:separateCollectionInfo;
     sh:datatype xsd:anyURI;
     sh:name "separateCollectionInfo"@en;
     sh:maxCount 1.
 dpp-sh:RecycledContentShape a sh:NodeShape;
-    sh:property _:n3-3951, _:n3-3952, _:n3-3953;
+    sh:property _:b14, _:b15, _:b16;
     sh:targetClass oec:RecycledContent;
     sh:name "Recycled Content Shape"@en;
     sh:description "Validates RecycledContent instances"@en.
-_:n3-3951 sh:path oec:recycledContent;
+_:b14 sh:path oec:recycledContent;
     sh:message "recycledContent must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "recycledContent"@en;
@@ -98,7 +98,7 @@ _:n3-3951 sh:path oec:recycledContent;
     sh:minInclusive 0;
     sh:maxInclusive 1;
     sh:maxCount 1.
-_:n3-3952 sh:path oec:preConsumerRecycledContent;
+_:b15 sh:path oec:preConsumerRecycledContent;
     sh:message "preConsumerRecycledContent must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "preConsumerRecycledContent"@en;
@@ -106,7 +106,7 @@ _:n3-3952 sh:path oec:preConsumerRecycledContent;
     sh:minInclusive 0;
     sh:maxInclusive 1;
     sh:maxCount 1.
-_:n3-3953 sh:path oec:postConsumerRecycledContent;
+_:b16 sh:path oec:postConsumerRecycledContent;
     sh:message "postConsumerRecycledContent must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "postConsumerRecycledContent"@en;
@@ -115,17 +115,17 @@ _:n3-3953 sh:path oec:postConsumerRecycledContent;
     sh:maxInclusive 1;
     sh:maxCount 1.
 dpp-sh:MaterialCompositionShape a sh:NodeShape;
-    sh:property _:n3-3954, _:n3-3955, _:n3-3956, _:n3-3957, _:n3-3958;
+    sh:property _:b17, _:b18, _:b19, _:b20, _:b21;
     sh:targetClass oec:MaterialComposition;
     sh:name "Material Composition Shape"@en;
     sh:description "Validates MaterialComposition instances"@en.
-_:n3-3954 sh:path _:n3-4143;
+_:b17 sh:path _:b22;
     sh:minCount 1;
     sh:message "materialName is required and must be a string"@en;
     sh:name "materialName"@en;
     sh:description "Name of the material"@en;
     sh:node dpp-sh:TranslatableText.
-_:n3-3955 sh:path oec:massFraction;
+_:b18 sh:path oec:massFraction;
     sh:message "massFraction must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "massFraction"@en;
@@ -133,50 +133,50 @@ _:n3-3955 sh:path oec:massFraction;
     sh:minInclusive 0;
     sh:maxInclusive 1;
     sh:maxCount 1.
-_:n3-3956 sh:path gs1:countryOfOrigin;
+_:b19 sh:path gs1:countryOfOrigin;
     sh:message "sourceCountry must be a 2-letter ISO country code (e.g., DE, FR, US)"@en;
     sh:datatype xsd:string;
     sh:name "sourceCountry"@en;
     sh:description "Country of origin (ISO 3166-1 alpha-2)"@en;
     sh:pattern "^[A-Z]{2}$".
-_:n3-3957 sh:path oec:isCriticalRawMaterial;
+_:b20 sh:path oec:isCriticalRawMaterial;
     sh:datatype xsd:boolean;
     sh:name "isCriticalRawMaterial"@en;
     sh:maxCount 1.
-_:n3-3958 sh:path oec:casNumber;
+_:b21 sh:path oec:casNumber;
     sh:message "casNumber must be in CAS format (e.g., 7440-50-8)"@en;
     sh:datatype xsd:string;
     sh:name "casNumber"@en;
     sh:description "CAS Registry Number"@en;
     sh:pattern "^[0-9]{2,7}-[0-9]{2}-[0-9]$".
 dpp-sh:EmissionsPerformanceShape a sh:NodeShape;
-    sh:property _:n3-3959, _:n3-3960, _:n3-3961, _:n3-3964;
+    sh:property _:b23, _:b24, _:b25, _:b26;
     sh:targetClass oec:EmissionsPerformance;
     sh:name "Emissions Performance Shape"@en;
     sh:description "Validates EmissionsPerformance instances"@en.
-_:n3-3959 sh:path oec:carbonFootprintTotal;
+_:b23 sh:path oec:carbonFootprintTotal;
     sh:message "carbonFootprintTotal must be a non-negative decimal"@en;
     sh:datatype xsd:decimal;
     sh:name "carbonFootprintTotal"@en;
     sh:description "Total carbon footprint in kg CO2e"@en;
     sh:minInclusive 0;
     sh:maxCount 1.
-_:n3-3960 sh:path oec:declaredUnit;
+_:b24 sh:path oec:declaredUnit;
     sh:datatype xsd:string;
     sh:name "declaredUnit"@en;
     sh:description "Functional unit for the measurement"@en;
     sh:maxCount 1.
-_:n3-3961 sh:path oec:hasOperationalScope;
+_:b25 sh:path oec:hasOperationalScope;
     sh:message "operationalScope must be CradleToGate or CradleToGrave"@en;
     sh:name "operationalScope"@en;
     sh:description "Lifecycle boundary"@en;
     sh:maxCount 1;
-    sh:in _:n3-3962.
-_:n3-3962 rdf:first oec:CradleToGate;
-    rdf:rest _:n3-3963.
-_:n3-3963 rdf:first oec:CradleToGrave;
+    sh:in _:b27.
+_:b27 rdf:first oec:CradleToGate;
+    rdf:rest _:b28.
+_:b28 rdf:first oec:CradleToGrave;
     rdf:rest rdf:nil.
-_:n3-3964 sh:path oec:primarySourcedRatio;
+_:b26 sh:path oec:primarySourcedRatio;
     sh:message "primarySourcedRatio must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "primarySourcedRatio"@en;
@@ -185,11 +185,11 @@ _:n3-3964 sh:path oec:primarySourcedRatio;
     sh:maxInclusive 1;
     sh:maxCount 1.
 dpp-sh:TraceabilityPerformanceShape a sh:NodeShape;
-    sh:property _:n3-3965;
+    sh:property _:b29;
     sh:targetClass oec:TraceabilityPerformance;
     sh:name "Traceability Performance Shape"@en;
     sh:description "Validates TraceabilityPerformance instances"@en.
-_:n3-3965 sh:path oec:verifiedRatio;
+_:b29 sh:path oec:verifiedRatio;
     sh:message "verifiedRatio must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "verifiedRatio"@en;
@@ -198,30 +198,30 @@ _:n3-3965 sh:path oec:verifiedRatio;
     sh:maxInclusive 1;
     sh:maxCount 1.
 dpp-sh:OperatorInformationShape a sh:NodeShape;
-    sh:property _:n3-3966, _:n3-3974, _:n3-3975, _:n3-3976, _:n3-3977;
+    sh:property _:b30, _:b31, _:b32, _:b33, _:b34;
     sh:targetClass oec:OperatorInformation;
     sh:name "Operator Information Shape"@en;
     sh:description "Validates OperatorInformation instances"@en.
-_:n3-3966 sh:path oec:hasOperatorRole;
+_:b30 sh:path oec:hasOperatorRole;
     sh:message "operatorRole must be one of the seven ESPR Art. 77 economic-operator roles"@en;
     sh:name "operatorRole"@en;
     sh:description "Role of the economic operator"@en;
-    sh:in _:n3-3967.
-_:n3-3967 rdf:first oec:Manufacturer;
-    rdf:rest _:n3-3968.
-_:n3-3968 rdf:first oec:Importer;
-    rdf:rest _:n3-3969.
-_:n3-3969 rdf:first oec:Distributor;
-    rdf:rest _:n3-3970.
-_:n3-3970 rdf:first oec:Processor;
-    rdf:rest _:n3-3971.
-_:n3-3971 rdf:first oec:Trader;
-    rdf:rest _:n3-3972.
-_:n3-3972 rdf:first oec:AuthorisedRepresentative;
-    rdf:rest _:n3-3973.
-_:n3-3973 rdf:first oec:FulfilmentServiceProvider;
+    sh:in _:b35.
+_:b35 rdf:first oec:Manufacturer;
+    rdf:rest _:b36.
+_:b36 rdf:first oec:Importer;
+    rdf:rest _:b37.
+_:b37 rdf:first oec:Distributor;
+    rdf:rest _:b38.
+_:b38 rdf:first oec:Processor;
+    rdf:rest _:b39.
+_:b39 rdf:first oec:Trader;
+    rdf:rest _:b40.
+_:b40 rdf:first oec:AuthorisedRepresentative;
+    rdf:rest _:b41.
+_:b41 rdf:first oec:FulfilmentServiceProvider;
     rdf:rest rdf:nil.
-_:n3-3974 sh:path gs1:globalLocationNumber;
+_:b31 sh:path gs1:globalLocationNumber;
     sh:minCount 1;
     sh:message "gln must be a 13-digit GLN"@en;
     sh:datatype xsd:string;
@@ -229,28 +229,28 @@ _:n3-3974 sh:path gs1:globalLocationNumber;
     sh:description "Operator GLN (Global Location Number)"@en;
     sh:maxCount 1;
     sh:pattern "^[0-9]{13}$".
-_:n3-3975 sh:path oec:economicOperatorId;
+_:b32 sh:path oec:economicOperatorId;
     sh:datatype xsd:string;
     sh:name "economicOperatorId"@en;
     sh:description "EU EOID per ESPR Article 77"@en;
     sh:maxCount 1.
-_:n3-3976 sh:path oec:eoriNumber;
+_:b33 sh:path oec:eoriNumber;
     sh:message "eoriNumber must be in EORI format (e.g., DE123456789012345)"@en;
     sh:datatype xsd:string;
     sh:name "eoriNumber"@en;
     sh:description "EORI number for customs"@en;
     sh:pattern "^[A-Z]{2}[A-Z0-9]{1,15}$".
-_:n3-3977 sh:path schema:vatID;
+_:b34 sh:path schema:vatID;
     sh:datatype xsd:string;
     sh:name "vatIdentificationNumber"@en;
     sh:description "VAT identification number"@en;
     sh:maxCount 1.
 dpp-sh:FacilityInformationShape a sh:NodeShape;
-    sh:property _:n3-3978, _:n3-3979, _:n3-3980;
+    sh:property _:b42, _:b43, _:b44;
     sh:targetClass oec:FacilityInformation;
     sh:name "Facility Information Shape"@en;
     sh:description "Validates FacilityInformation instances"@en.
-_:n3-3978 sh:path gs1:globalLocationNumber;
+_:b42 sh:path gs1:globalLocationNumber;
     sh:minCount 1;
     sh:message "gln must be a 13-digit GLN"@en;
     sh:datatype xsd:string;
@@ -258,40 +258,40 @@ _:n3-3978 sh:path gs1:globalLocationNumber;
     sh:description "Facility GLN (Global Location Number)"@en;
     sh:maxCount 1;
     sh:pattern "^[0-9]{13}$".
-_:n3-3979 sh:path _:n3-4146;
+_:b43 sh:path _:b45;
     sh:minCount 1;
     sh:message "name is required"@en;
     sh:name "name"@en;
     sh:description "Official facility name (inherited from gs1:Place)"@en;
     sh:node dpp-sh:TranslatableText.
-_:n3-3980 sh:path oec:facilityType;
+_:b44 sh:path oec:facilityType;
     sh:datatype xsd:string;
     sh:name "facilityType"@en;
     sh:maxCount 1.
 dpp-sh:SubstanceOfConcernShape a sh:NodeShape;
-    sh:property _:n3-3981, _:n3-3982, _:n3-3983, _:n3-3984, _:n3-3985, _:n3-3986;
+    sh:property _:b46, _:b47, _:b48, _:b49, _:b50, _:b51;
     sh:targetClass oec:SubstanceOfConcern;
     sh:name "Substance of Concern Shape"@en;
     sh:description "Validates SubstanceOfConcern instances"@en.
-_:n3-3981 sh:path _:n3-4149;
+_:b46 sh:path _:b52;
     sh:minCount 1;
     sh:message "substanceName is required"@en;
     sh:name "substanceName"@en;
     sh:description "Name of the hazardous substance"@en;
     sh:node dpp-sh:TranslatableText.
-_:n3-3982 sh:path oec:casNumber;
+_:b47 sh:path oec:casNumber;
     sh:message "casNumber must be in CAS format (e.g., 7440-50-8)"@en;
     sh:datatype xsd:string;
     sh:name "casNumber"@en;
     sh:description "CAS Registry Number"@en;
     sh:pattern "^[0-9]{2,7}-[0-9]{2}-[0-9]$".
-_:n3-3983 sh:path oec:ecNumber;
+_:b48 sh:path oec:ecNumber;
     sh:message "ecNumber must be in EC format (e.g., 231-111-4)"@en;
     sh:datatype xsd:string;
     sh:name "ecNumber"@en;
     sh:description "EC Number (EINECS/ELINCS)"@en;
     sh:pattern "^[0-9]{3}-[0-9]{3}-[0-9]$".
-_:n3-3984 sh:path oec:concentration;
+_:b49 sh:path oec:concentration;
     sh:message "concentration must be a decimal between 0 and 1"@en;
     sh:datatype xsd:decimal;
     sh:name "concentration"@en;
@@ -299,59 +299,59 @@ _:n3-3984 sh:path oec:concentration;
     sh:minInclusive 0;
     sh:maxInclusive 1;
     sh:maxCount 1.
-_:n3-3985 sh:path oec:scipId;
+_:b50 sh:path oec:scipId;
     sh:datatype xsd:string;
     sh:name "scipId"@en;
     sh:description "ECHA SCIP database identifier"@en;
     sh:maxCount 1.
-_:n3-3986 sh:path oec:hasHazardClass;
+_:b51 sh:path oec:hasHazardClass;
     sh:message "hazardClass must be a valid HazardClass"@en;
     sh:name "hazardClass"@en;
-    sh:in _:n3-3987.
-_:n3-3987 rdf:first oec:AcuteToxicity;
-    rdf:rest _:n3-3988.
-_:n3-3988 rdf:first oec:SkinCorrosionOrIrritation;
-    rdf:rest _:n3-3989.
-_:n3-3989 rdf:first oec:EyeDamageOrIrritation;
-    rdf:rest _:n3-3990.
-_:n3-3990 rdf:first oec:RespiratoryOrSkinSensitization;
-    rdf:rest _:n3-3991.
-_:n3-3991 rdf:first oec:GermCellMutagenicity;
-    rdf:rest _:n3-3992.
-_:n3-3992 rdf:first oec:Carcinogenicity;
-    rdf:rest _:n3-3993.
-_:n3-3993 rdf:first oec:ReproductiveToxicity;
-    rdf:rest _:n3-3994.
-_:n3-3994 rdf:first oec:SpecificTargetOrganToxicity;
-    rdf:rest _:n3-3995.
-_:n3-3995 rdf:first oec:AspirationHazard;
-    rdf:rest _:n3-3996.
-_:n3-3996 rdf:first oec:HazardousToAquaticEnvironment;
+    sh:in _:b53.
+_:b53 rdf:first oec:AcuteToxicity;
+    rdf:rest _:b54.
+_:b54 rdf:first oec:SkinCorrosionOrIrritation;
+    rdf:rest _:b55.
+_:b55 rdf:first oec:EyeDamageOrIrritation;
+    rdf:rest _:b56.
+_:b56 rdf:first oec:RespiratoryOrSkinSensitization;
+    rdf:rest _:b57.
+_:b57 rdf:first oec:GermCellMutagenicity;
+    rdf:rest _:b58.
+_:b58 rdf:first oec:Carcinogenicity;
+    rdf:rest _:b59.
+_:b59 rdf:first oec:ReproductiveToxicity;
+    rdf:rest _:b60.
+_:b60 rdf:first oec:SpecificTargetOrganToxicity;
+    rdf:rest _:b61.
+_:b61 rdf:first oec:AspirationHazard;
+    rdf:rest _:b62.
+_:b62 rdf:first oec:HazardousToAquaticEnvironment;
     rdf:rest rdf:nil.
 dpp-sh:AccessRightsShape a sh:NodeShape;
-    sh:property _:n3-3997;
+    sh:property _:b63;
     sh:targetClass oec:AccessRights;
     sh:name "Access Rights Shape"@en;
     sh:description "Validates AccessRights instances"@en.
-_:n3-3997 sh:path oec:hasAccessLevel;
+_:b63 sh:path oec:hasAccessLevel;
     sh:minCount 1;
     sh:message "accessLevel is required and must be Public, AuthorizedOnly, or Restricted"@en;
     sh:name "accessLevel"@en;
     sh:description "ESPR Article 9 access level"@en;
     sh:maxCount 1;
-    sh:in _:n3-3998.
-_:n3-3998 rdf:first oec:Public;
-    rdf:rest _:n3-3999.
-_:n3-3999 rdf:first oec:AuthorizedOnly;
-    rdf:rest _:n3-4000.
-_:n3-4000 rdf:first oec:Restricted;
+    sh:in _:b64.
+_:b64 rdf:first oec:Public;
+    rdf:rest _:b65.
+_:b65 rdf:first oec:AuthorizedOnly;
+    rdf:rest _:b66.
+_:b66 rdf:first oec:Restricted;
     rdf:rest rdf:nil.
 dpp-sh:RepairabilityInfoShape a sh:NodeShape;
-    sh:property _:n3-4001, _:n3-4002, _:n3-4003, _:n3-4004;
+    sh:property _:b67, _:b68, _:b69, _:b70;
     sh:targetClass oec:RepairabilityInfo;
     sh:name "Repairability Information Shape"@en;
     sh:description "Validates RepairabilityInfo instances"@en.
-_:n3-4001 sh:path oec:repairabilityScore;
+_:b67 sh:path oec:repairabilityScore;
     sh:message "repairabilityScore must be between 0 and 10"@en;
     sh:datatype xsd:decimal;
     sh:name "repairabilityScore"@en;
@@ -359,184 +359,184 @@ _:n3-4001 sh:path oec:repairabilityScore;
     sh:minInclusive 0;
     sh:maxInclusive 10;
     sh:maxCount 1.
-_:n3-4002 sh:path oec:repairabilityClass;
+_:b68 sh:path oec:repairabilityClass;
     sh:message "repairabilityClass must be A, B, C, D, or E"@en;
     sh:datatype xsd:string;
     sh:name "repairabilityClass"@en;
     sh:description "Repairability class (A-E)"@en;
     sh:maxCount 1;
     sh:pattern "^[A-E]$".
-_:n3-4003 sh:path oec:diyRepairPossible;
+_:b69 sh:path oec:diyRepairPossible;
     sh:datatype xsd:boolean;
     sh:name "diyRepairPossible"@en;
     sh:maxCount 1.
-_:n3-4004 sh:path oec:professionalRepairNetwork;
+_:b70 sh:path oec:professionalRepairNetwork;
     sh:datatype xsd:anyURI;
     sh:name "professionalRepairNetwork"@en;
     sh:maxCount 1.
 dpp-sh:PerformanceInfoShape a sh:NodeShape;
-    sh:property _:n3-4005, _:n3-4006;
+    sh:property _:b71, _:b72;
     sh:targetClass oec:PerformanceInfo;
     sh:name "Performance Information Shape"@en;
     sh:description "Validates PerformanceInfo instances"@en.
-_:n3-4005 sh:path oec:usageCycles;
+_:b71 sh:path oec:usageCycles;
     sh:message "usageCycles must be a non-negative integer"@en;
     sh:datatype xsd:integer;
     sh:name "usageCycles"@en;
     sh:description "Expected number of usage cycles"@en;
     sh:minInclusive 0;
     sh:maxCount 1.
-_:n3-4006 sh:path oec:performanceClass;
+_:b72 sh:path oec:performanceClass;
     sh:datatype xsd:string;
     sh:name "performanceClass"@en;
     sh:description "Performance/efficiency class (e.g., A+++ to G)"@en;
     sh:maxCount 1.
 dpp-sh:GranularityLevelConstraint a sh:NodeShape;
-    sh:property _:n3-4007;
+    sh:property _:b73;
     sh:name "Granularity Level Constraint"@en.
-_:n3-4007 sh:path oec:granularityLevel;
+_:b73 sh:path oec:granularityLevel;
     sh:message "granularity must be model, batch, or item (EN 18223)"@en;
     sh:datatype xsd:string;
     sh:maxCount 1;
-    sh:in _:n3-4008.
-_:n3-4008 rdf:first "model";
-    rdf:rest _:n3-4009.
-_:n3-4009 rdf:first "batch";
-    rdf:rest _:n3-4010.
-_:n3-4010 rdf:first "item";
+    sh:in _:b74.
+_:b74 rdf:first "model";
+    rdf:rest _:b75.
+_:b75 rdf:first "batch";
+    rdf:rest _:b76.
+_:b76 rdf:first "item";
     rdf:rest rdf:nil.
 dpp-sh:GranularityDigitalLinkConstraint a sh:NodeShape;
     sh:targetSubjectsOf oec:granularityLevel;
-    sh:sparql _:n3-4011.
-_:n3-4011 a sh:SPARQLConstraint;
+    sh:sparql _:b77.
+_:b77 a sh:SPARQLConstraint;
     sh:message "granularity must match the GS1 Digital Link Application Identifiers of the passport IRI (01 -> model, 01+10 -> batch, 01+21 -> item) per EN 18219 4.4 / EN 18223."@en;
     sh:prefixes <https://ref.openepcis.io/extensions/common/core/shapes/>;
     sh:select "\n            SELECT $this ?value WHERE {\n                $this oec:granularityLevel ?value .\n                # The Digital Link is the node's own IRI; gs1:productID is honoured\n                # as an alternative carrier where a passport states it separately.\n                OPTIONAL { $this gs1:productID ?stated }\n                BIND( COALESCE(?stated, STR($this)) AS ?dl )\n                FILTER( REGEX(STR(?dl), \"/01/\") )\n                BIND( IF(REGEX(STR(?dl), \"/21/\"), \"item\",\n                       IF(REGEX(STR(?dl), \"/10/\"), \"batch\", \"model\")) AS ?expected )\n                FILTER( STR(?value) != ?expected )\n            }\n        ".
 dpp-sh:QuantitativeValueShape a sh:NodeShape;
-    sh:property _:n3-4012, _:n3-4013;
+    sh:property _:b78, _:b79;
     sh:targetClass gs1:QuantitativeValue;
     sh:name "QuantitativeValue Shape"@en;
     sh:description "Every QuantitativeValue must have gs1:value and gs1:unitCode (UN/CEFACT Rec 20)."@en.
-_:n3-4012 sh:path gs1:value;
+_:b78 sh:path gs1:value;
     sh:minCount 1;
     sh:message "QuantitativeValue must have exactly one xsd:decimal gs1:value"@en;
     sh:datatype xsd:decimal;
     sh:maxCount 1.
-_:n3-4013 sh:path gs1:unitCode;
+_:b79 sh:path gs1:unitCode;
     sh:minCount 1;
     sh:message "QuantitativeValue must have exactly one gs1:unitCode (UN/CEFACT Rec 20 string)"@en;
     sh:datatype xsd:string;
     sh:maxCount 1.
 dpp-sh:ExpectedLifespanShape a sh:NodeShape;
-    sh:property _:n3-4014;
+    sh:property _:b80;
     sh:targetSubjectsOf oec:hasExpectedLifespan.
-_:n3-4015 rdf:first oec:hasExpectedLifespan;
-    rdf:rest _:n3-4016.
-_:n3-4016 rdf:first gs1:unitCode;
+_:b81 rdf:first oec:hasExpectedLifespan;
+    rdf:rest _:b82.
+_:b82 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
-_:n3-4014 sh:path _:n3-4015;
+_:b80 sh:path _:b81;
     sh:message "oec:hasExpectedLifespan must use unitCode 'ANN' (years)"@en;
     sh:hasValue "ANN".
 dpp-sh:GuaranteedLifespanShape a sh:NodeShape;
-    sh:property _:n3-4017;
+    sh:property _:b83;
     sh:targetSubjectsOf oec:hasGuaranteedLifespan.
-_:n3-4018 rdf:first oec:hasGuaranteedLifespan;
-    rdf:rest _:n3-4019.
-_:n3-4019 rdf:first gs1:unitCode;
+_:b84 rdf:first oec:hasGuaranteedLifespan;
+    rdf:rest _:b85.
+_:b85 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
-_:n3-4017 sh:path _:n3-4018;
+_:b83 sh:path _:b84;
     sh:message "oec:hasGuaranteedLifespan must use unitCode 'ANN' (years)"@en;
     sh:hasValue "ANN".
 dpp-sh:TechnicalLifetimeShape a sh:NodeShape;
-    sh:property _:n3-4020;
+    sh:property _:b86;
     sh:targetSubjectsOf oec:hasTechnicalLifetime.
-_:n3-4021 rdf:first oec:hasTechnicalLifetime;
-    rdf:rest _:n3-4022.
-_:n3-4022 rdf:first gs1:unitCode;
+_:b87 rdf:first oec:hasTechnicalLifetime;
+    rdf:rest _:b88.
+_:b88 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
-_:n3-4020 sh:path _:n3-4021;
+_:b86 sh:path _:b87;
     sh:message "oec:hasTechnicalLifetime must use unitCode 'ANN' (years)"@en;
     sh:hasValue "ANN".
 dpp-sh:ExtendedProducerResponsibilityShape a sh:NodeShape;
-    sh:property _:n3-4023, _:n3-4024, _:n3-4025;
+    sh:property _:b89, _:b90, _:b91;
     sh:targetClass oec:ExtendedProducerResponsibility;
     sh:name "Extended Producer Responsibility Shape"@en.
-_:n3-4023 sh:path oec:eprRegistrationNumber;
+_:b89 sh:path oec:eprRegistrationNumber;
     sh:minCount 1;
     sh:message "ExtendedProducerResponsibility must have exactly one eprRegistrationNumber"@en;
     sh:datatype xsd:string;
     sh:maxCount 1.
-_:n3-4024 sh:path oec:hasEprJurisdiction;
+_:b90 sh:path oec:hasEprJurisdiction;
     sh:minCount 1;
     sh:message "ExtendedProducerResponsibility must declare exactly one eprJurisdiction"@en;
     sh:maxCount 1.
-_:n3-4025 sh:path oec:eprComplianceUrl;
+_:b91 sh:path oec:eprComplianceUrl;
     sh:datatype xsd:anyURI;
     sh:maxCount 1.
 dpp-sh:CompostabilityShape a sh:NodeShape;
-    sh:property _:n3-4026, _:n3-4030;
+    sh:property _:b92, _:b93;
     sh:targetClass oec:Compostability;
     sh:name "Compostability Shape"@en.
-_:n3-4026 sh:path oec:hasCompostabilityType;
+_:b92 sh:path oec:hasCompostabilityType;
     sh:minCount 1;
     sh:message "compostabilityType must be IndustrialCompostable, HomeCompostable, or NotCompostable"@en;
     sh:maxCount 1;
-    sh:in _:n3-4027.
-_:n3-4027 rdf:first oec:IndustrialCompostable;
-    rdf:rest _:n3-4028.
-_:n3-4028 rdf:first oec:HomeCompostable;
-    rdf:rest _:n3-4029.
-_:n3-4029 rdf:first oec:NotCompostable;
+    sh:in _:b94.
+_:b94 rdf:first oec:IndustrialCompostable;
+    rdf:rest _:b95.
+_:b95 rdf:first oec:HomeCompostable;
+    rdf:rest _:b96.
+_:b96 rdf:first oec:NotCompostable;
     rdf:rest rdf:nil.
-_:n3-4030 sh:path oec:compostabilityStandard;
+_:b93 sh:path oec:compostabilityStandard;
     sh:datatype xsd:anyURI;
     sh:maxCount 1.
 dpp-sh:BiodegradabilityShape a sh:NodeShape;
-    sh:property _:n3-4031, _:n3-4032;
+    sh:property _:b97, _:b98;
     sh:targetClass oec:Biodegradability;
     sh:name "Biodegradability Shape"@en.
-_:n3-4031 sh:path oec:biodegradationPercentage;
+_:b97 sh:path oec:biodegradationPercentage;
     sh:minCount 1;
     sh:message "Biodegradability must have exactly one biodegradationPercentage"@en;
     sh:maxCount 1.
-_:n3-4032 sh:path oec:hasBiodegradabilityTestMethod;
+_:b98 sh:path oec:hasBiodegradabilityTestMethod;
     sh:maxCount 1;
-    sh:in _:n3-4033.
-_:n3-4033 rdf:first oec:ISO14593;
-    rdf:rest _:n3-4034.
-_:n3-4034 rdf:first oec:OECD301B;
-    rdf:rest _:n3-4035.
-_:n3-4035 rdf:first oec:OECD301D;
-    rdf:rest _:n3-4036.
-_:n3-4036 rdf:first oec:OECD301F;
-    rdf:rest _:n3-4037.
-_:n3-4037 rdf:first oec:OECD310;
+    sh:in _:b99.
+_:b99 rdf:first oec:ISO14593;
+    rdf:rest _:b100.
+_:b100 rdf:first oec:OECD301B;
+    rdf:rest _:b101.
+_:b101 rdf:first oec:OECD301D;
+    rdf:rest _:b102.
+_:b102 rdf:first oec:OECD301F;
+    rdf:rest _:b103.
+_:b103 rdf:first oec:OECD310;
     rdf:rest rdf:nil.
 dpp-sh:DepositReturnSchemeShape a sh:NodeShape;
     sh:message "DepositReturnScheme must declare exactly one deposit amount, as oec:hasDepositAmount (gs1:QuantitativeValue) or gs1:returnablePackageDepositAmount (gs1:PriceSpecification)"@en;
-    sh:property _:n3-4044;
-    sh:or _:n3-4038;
+    sh:property _:b104;
+    sh:or _:b105;
     sh:targetClass oec:DepositReturnScheme;
     sh:name "DepositReturnScheme Shape"@en.
-_:n3-4038 rdf:first _:n3-4039;
-    rdf:rest _:n3-4041.
-_:n3-4039 sh:property _:n3-4040.
-_:n3-4040 sh:path oec:hasDepositAmount;
+_:b105 rdf:first _:b106;
+    rdf:rest _:b107.
+_:b106 sh:property _:b108.
+_:b108 sh:path oec:hasDepositAmount;
     sh:minCount 1;
     sh:maxCount 1.
-_:n3-4041 rdf:first _:n3-4042;
+_:b107 rdf:first _:b109;
     rdf:rest rdf:nil.
-_:n3-4042 sh:property _:n3-4043.
-_:n3-4043 sh:path gs1:returnablePackageDepositAmount;
+_:b109 sh:property _:b110.
+_:b110 sh:path gs1:returnablePackageDepositAmount;
     sh:minCount 1;
     sh:maxCount 1.
-_:n3-4044 sh:path oec:depositRedemptionChannelUrl;
+_:b104 sh:path oec:depositRedemptionChannelUrl;
     sh:datatype xsd:anyURI;
     sh:maxCount 1.
 dpp-sh:BiodegradationPercentageRangeShape a sh:NodeShape;
-    sh:property _:n3-4045;
+    sh:property _:b111;
     sh:targetSubjectsOf oec:biodegradationPercentage.
-_:n3-4045 sh:path oec:biodegradationPercentage;
+_:b111 sh:path oec:biodegradationPercentage;
     sh:message "oec:biodegradationPercentage must be a decimal percentage between 0 and 100"@en;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
@@ -548,72 +548,72 @@ _:n3-4045 sh:path oec:biodegradationPercentage;
     dcterms:modified "2026-06-23"^^xsd:date.
 <https://ref.openepcis.io/extensions/eu/iron-steel/shapes/IronSteelProductShape> a sh:NodeShape;
     rdfs:label "Iron & Steel Product Shape"@en;
-    sh:property _:n3-4046, _:n3-4047, _:n3-4048, _:n3-4053;
+    sh:property _:b112, _:b113, _:b114, _:b115;
     sh:targetClass <https://ref.openepcis.io/extensions/eu/iron-steel/IronSteelProduct>.
-_:n3-4046 sh:path <https://ref.openepcis.io/extensions/eu/iron-steel/heatNumber>;
+_:b112 sh:path <https://ref.openepcis.io/extensions/eu/iron-steel/heatNumber>;
     sh:minCount 1;
     sh:message "eusteel:IronSteelProduct must declare exactly one heatNumber (EN 10168 traceability)"@en;
     sh:datatype xsd:string;
     sh:maxCount 1.
-_:n3-4047 sh:path <https://ref.openepcis.io/extensions/eu/iron-steel/steelDesignation>;
+_:b113 sh:path <https://ref.openepcis.io/extensions/eu/iron-steel/steelDesignation>;
     sh:minCount 1;
     sh:message "eusteel:IronSteelProduct must declare a steelDesignation (EN 10027)"@en;
     sh:datatype xsd:string.
-_:n3-4048 sh:path <https://ref.openepcis.io/extensions/eu/iron-steel/hasTechnologyRoute>;
+_:b114 sh:path <https://ref.openepcis.io/extensions/eu/iron-steel/hasTechnologyRoute>;
     sh:message "eusteel:hasTechnologyRoute must be BF-BOF, EAF, OHF, or other"@en;
     sh:maxCount 1;
-    sh:in _:n3-4049;
+    sh:in _:b116;
     sh:nodeKind sh:IRI.
-_:n3-4049 rdf:first <https://ref.openepcis.io/extensions/eu/iron-steel/BlastFurnaceBOF>;
-    rdf:rest _:n3-4050.
-_:n3-4050 rdf:first <https://ref.openepcis.io/extensions/eu/iron-steel/ElectricArcFurnace>;
-    rdf:rest _:n3-4051.
-_:n3-4051 rdf:first <https://ref.openepcis.io/extensions/eu/iron-steel/OpenHearthFurnace>;
-    rdf:rest _:n3-4052.
-_:n3-4052 rdf:first <https://ref.openepcis.io/extensions/eu/iron-steel/OtherRoute>;
+_:b116 rdf:first <https://ref.openepcis.io/extensions/eu/iron-steel/BlastFurnaceBOF>;
+    rdf:rest _:b117.
+_:b117 rdf:first <https://ref.openepcis.io/extensions/eu/iron-steel/ElectricArcFurnace>;
+    rdf:rest _:b118.
+_:b118 rdf:first <https://ref.openepcis.io/extensions/eu/iron-steel/OpenHearthFurnace>;
+    rdf:rest _:b119.
+_:b119 rdf:first <https://ref.openepcis.io/extensions/eu/iron-steel/OtherRoute>;
     rdf:rest rdf:nil.
-_:n3-4053 sh:path <https://ref.openepcis.io/extensions/eu/iron-steel/hasMtc>;
+_:b115 sh:path <https://ref.openepcis.io/extensions/eu/iron-steel/hasMtc>;
     sh:message "Where present, eusteel:hasMtc must conform to MaterialTestCertificateShape (EN 10204)"@en;
     sh:maxCount 1;
     sh:node <https://ref.openepcis.io/extensions/eu/iron-steel/shapes/MaterialTestCertificateShape>.
 <https://ref.openepcis.io/extensions/eu/iron-steel/shapes/MaterialTestCertificateShape> a sh:NodeShape;
     rdfs:label "Material Test Certificate Shape"@en;
-    sh:property _:n3-4054, _:n3-4059, _:n3-4060, _:n3-4061;
+    sh:property _:b120, _:b121, _:b122, _:b123;
     sh:targetClass <https://ref.openepcis.io/extensions/eu/iron-steel/MaterialTestCertificate>.
-_:n3-4054 sh:path <https://ref.openepcis.io/extensions/eu/iron-steel/mtcInspectionType>;
+_:b120 sh:path <https://ref.openepcis.io/extensions/eu/iron-steel/mtcInspectionType>;
     sh:message "eusteel:mtcInspectionType must be an EN 10204 document type (2.1, 2.2, 3.1, 3.2)"@en;
     sh:datatype xsd:string;
     sh:maxCount 1;
-    sh:in _:n3-4055.
-_:n3-4055 rdf:first "2.1";
-    rdf:rest _:n3-4056.
-_:n3-4056 rdf:first "2.2";
-    rdf:rest _:n3-4057.
-_:n3-4057 rdf:first "3.1";
-    rdf:rest _:n3-4058.
-_:n3-4058 rdf:first "3.2";
+    sh:in _:b124.
+_:b124 rdf:first "2.1";
+    rdf:rest _:b125.
+_:b125 rdf:first "2.2";
+    rdf:rest _:b126.
+_:b126 rdf:first "3.1";
+    rdf:rest _:b127.
+_:b127 rdf:first "3.2";
     rdf:rest rdf:nil.
-_:n3-4059 sh:path <https://ref.openepcis.io/extensions/eu/iron-steel/mtcYieldStrength>;
+_:b121 sh:path <https://ref.openepcis.io/extensions/eu/iron-steel/mtcYieldStrength>;
     sh:datatype xsd:decimal;
     sh:maxCount 1.
-_:n3-4060 sh:path <https://ref.openepcis.io/extensions/eu/iron-steel/mtcTensileStrength>;
+_:b122 sh:path <https://ref.openepcis.io/extensions/eu/iron-steel/mtcTensileStrength>;
     sh:datatype xsd:decimal;
     sh:maxCount 1.
-_:n3-4061 sh:path <https://ref.openepcis.io/extensions/eu/iron-steel/mtcCarbonEquivalent>;
+_:b123 sh:path <https://ref.openepcis.io/extensions/eu/iron-steel/mtcCarbonEquivalent>;
     sh:datatype xsd:decimal;
     sh:maxCount 1.
-_:n3-4141 rdf:first schema:name;
-    rdf:rest _:n3-4142.
-_:n3-4142 rdf:first oec:componentName;
+_:b128 rdf:first schema:name;
+    rdf:rest _:b129.
+_:b129 rdf:first oec:componentName;
     rdf:rest rdf:nil.
-_:n3-4143 sh:alternativePath _:n3-4141.
-_:n3-4144 rdf:first schema:name;
-    rdf:rest _:n3-4145.
-_:n3-4145 rdf:first oec:componentName;
+_:b22 sh:alternativePath _:b128.
+_:b130 rdf:first schema:name;
+    rdf:rest _:b131.
+_:b131 rdf:first oec:componentName;
     rdf:rest rdf:nil.
-_:n3-4146 sh:alternativePath _:n3-4144.
-_:n3-4147 rdf:first schema:name;
-    rdf:rest _:n3-4148.
-_:n3-4148 rdf:first oec:componentName;
+_:b45 sh:alternativePath _:b130.
+_:b132 rdf:first schema:name;
+    rdf:rest _:b133.
+_:b133 rdf:first oec:componentName;
     rdf:rest rdf:nil.
-_:n3-4149 sh:alternativePath _:n3-4147.
+_:b52 sh:alternativePath _:b132.
