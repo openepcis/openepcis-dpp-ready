@@ -367,9 +367,15 @@ async function main() {
     const dir = path.join(ROOT, module.examplesDir);
     let names: string[] = [];
     try {
-      names = (await fs.readdir(dir)).filter(
-        (n) => n.endsWith(".jsonld") && !n.endsWith(".operational.jsonld"),
-      );
+      // Read recursively so examples nested in subdirectories (e.g.
+      // common/core's examples/organizations/) are picked up too — this
+      // matches the parity checker (check-shapes-itb.ts) which walks the
+      // examples tree the same way. Path separators are normalised to "/".
+      names = (await fs.readdir(dir, { recursive: true }))
+        .map((n) => String(n).split(path.sep).join("/"))
+        .filter(
+          (n) => n.endsWith(".jsonld") && !n.endsWith(".operational.jsonld"),
+        );
     } catch {
       continue;
     }
@@ -439,7 +445,10 @@ async function main() {
         `${module.label} — ${module.regulation}`;
 
       const positives: Fixture[] = entries.map((e, i) => {
-        const base = e.file.replace(/\.jsonld$/, "");
+        // Flatten any subdirectory in the example path (e.g. common/core's
+        // organizations/foo.jsonld) so fixtures stay flat on disk and the
+        // parity checker's flat fixture walker doesn't recurse into a dir.
+        const base = e.file.replace(/\.jsonld$/, "").replace(/\//g, "__");
         const resource = `resources/fixtures/${type}/${base}.nq`;
         files.set(
           resource,
@@ -482,7 +491,7 @@ async function main() {
           if (accepted) break;
         }
         if (!accepted) continue;
-        const base = accepted.file.replace(/\.jsonld$/, "");
+        const base = accepted.file.replace(/\.jsonld$/, "").replace(/\//g, "__");
         const resource = `resources/negative/${type}/${base}.${m.id}.nq`;
         files.set(
           resource,
