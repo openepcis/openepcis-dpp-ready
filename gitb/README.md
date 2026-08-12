@@ -151,16 +151,30 @@ Verified by `pnpm run check:shapes:itb` against the real
 
 - all 16 validation types load, i.e. `config.properties` is accepted;
 - all 43 example passports conform;
-- all 48 test-suite fixtures behave as claimed — 36 positive conform, 12 negative
-  are rejected;
+- all 61 test-suite fixtures behave as claimed — 36 positive conform, 25 negative
+  are rejected (one per applicable mutation, each proven by the generator to add
+  a violation before it is emitted);
 - `sh:alternativePath` substitutes correctly for the `rdfs:subPropertyOf`
   entailment the validator does not apply;
 - `dpp-sh:GranularityDigitalLinkConstraint` fires, so the engine does evaluate
   `sh:sparql`.
 
+Verified on a local Test Bed instance (gitb-ui/gitb-srv 1.29.5, 2026-08-12):
+
+- the suite **imports cleanly**: the ITB's own TDL validation reports SUCCESS
+  with 0 errors and 0 warnings, structure and resource references included.
+  (The first import attempt found 48 TDL-040 errors — the generator built the
+  test cases' `<imports>` block but never emitted it — which is exactly why an
+  actual import is part of the definition of done.)
+- **all 12 self-tests execute and pass** end to end: GITB engine → SOAP call to
+  the validator service → verdict, including the `invert="true"` assertions on
+  the negative fixtures.
+- the **upload test case works interactively**: a real JSON-LD passport
+  submitted through the `interact` step validates with its `@context` resolved
+  from ref.openepcis.io (verified with `eu.textile` and the organic-tee
+  example).
+
 Not yet verified:
 
-- the TDL is **well-formed XML** and uses documented constructs with handler inputs
-  read from the running service's own `GetModuleDefinition`, but it has not been
-  validated against `gitb_tdl.xsd` nor imported into a Test Bed instance. Step 2
-  above is that check; the ITB validates structure and references on import.
+- execution on the EU's own Test Bed instance rather than the local compose
+  stack — the submission itself.
