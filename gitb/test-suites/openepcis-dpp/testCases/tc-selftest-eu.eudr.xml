@@ -16,6 +16,7 @@
     <artifact type="binary" encoding="UTF-8" name="pos2_timber_derived">resources/fixtures/eu.eudr/timber-derived.nq</artifact>
     <artifact type="binary" encoding="UTF-8" name="pos3_timber_product">resources/fixtures/eu.eudr/timber-product.nq</artifact>
     <artifact type="binary" encoding="UTF-8" name="neg_missing_operator_role">resources/negative/eu.eudr/timber-derived.missing-operator-role.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="neg_missing_required_property">resources/negative/eu.eudr/plot-of-land.missing-required-property.nq</artifact>
   </imports>
   <steps>
     <verify id="pos0" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
@@ -47,9 +48,17 @@
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <!-- An economic operator without its ESPR Art. 77 role, which dpp-sh:EconomicOperatorRoleRequired must reject. -->
-    <verify id="neg" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl" invert="true"
+    <verify id="neg0" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl" invert="true"
             desc="Broken passport must be REJECTED (missing-operator-role)">
       <input name="contentToValidate">$neg_missing_operator_role</input>
+      <input name="validationType">"eu.eudr"</input>
+      <input name="embeddingMethod">"BASE64"</input>
+      <input name="contentSyntax">"application/n-quads"</input>
+    </verify>
+    <!-- A predicate the module's own shapes require with sh:minCount is removed, which the corresponding MinCount constraint must reject. -->
+    <verify id="neg1" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl" invert="true"
+            desc="Broken passport must be REJECTED (missing-required-property)">
+      <input name="contentToValidate">$neg_missing_required_property</input>
       <input name="validationType">"eu.eudr"</input>
       <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>

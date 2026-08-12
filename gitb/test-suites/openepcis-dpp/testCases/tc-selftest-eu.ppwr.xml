@@ -16,6 +16,7 @@
     <artifact type="binary" encoding="UTF-8" name="pos2_ecommerce_carton">resources/fixtures/eu.ppwr/ecommerce-carton.nq</artifact>
     <artifact type="binary" encoding="UTF-8" name="pos3_multi_layer_pouch">resources/fixtures/eu.ppwr/multi-layer-pouch.nq</artifact>
     <artifact type="binary" encoding="UTF-8" name="neg_out_of_range_fraction">resources/negative/eu.ppwr/beverage-bottle-lot-01.out-of-range-fraction.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="neg_missing_required_property">resources/negative/eu.ppwr/beverage-bottle-lot-01.missing-required-property.nq</artifact>
   </imports>
   <steps>
     <verify id="pos0" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
@@ -47,9 +48,17 @@
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <!-- A 0..1 fraction set to 99, which the value-range constraint on the corresponding property must reject. -->
-    <verify id="neg" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl" invert="true"
+    <verify id="neg0" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl" invert="true"
             desc="Broken passport must be REJECTED (out-of-range-fraction)">
       <input name="contentToValidate">$neg_out_of_range_fraction</input>
+      <input name="validationType">"eu.ppwr"</input>
+      <input name="embeddingMethod">"BASE64"</input>
+      <input name="contentSyntax">"application/n-quads"</input>
+    </verify>
+    <!-- A predicate the module's own shapes require with sh:minCount is removed, which the corresponding MinCount constraint must reject. -->
+    <verify id="neg1" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl" invert="true"
+            desc="Broken passport must be REJECTED (missing-required-property)">
+      <input name="contentToValidate">$neg_missing_required_property</input>
       <input name="validationType">"eu.ppwr"</input>
       <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>

@@ -41,7 +41,15 @@ import path from "node:path";
 import jsonld from "jsonld";
 import { Store } from "n3";
 import { offlineDocumentLoader } from "./lib/jsonld-loader.ts";
-import { SH, namedNode, parseTurtle, stripOwlImports } from "./lib/shacl-run.ts";
+import {
+  SH,
+  activateBySuffix,
+  namedNode,
+  parseTurtle,
+  stripOwlImports,
+  stripSparqlConstraints,
+  validate,
+} from "./lib/shacl-run.ts";
 import {
   coreOf,
   discoverModules,
@@ -72,12 +80,25 @@ interface Mutation {
   /** Why this must fail, for the test case description and the fixture header. */
   why: string;
   /**
-   * Apply to N-Quads text; return undefined when it does not apply.
-   * `required` lists the predicates the module's own shapes demand with
-   * sh:minCount >= 1, so a mutation can be derived from the shapes rather than
-   * guessed — see requiredPredicates().
+   * Candidate mutants for one fixture's N-Quads; empty when the mutation does
+   * not apply. `required` lists the predicates the module's own shapes demand
+   * with sh:minCount >= 1, so a mutation can be derived from the shapes rather
+   * than guessed — see requiredPredicates().
+   *
+   * Candidates are PROPOSALS: unless the mutation is exempt (see
+   * offlineCheckable), the generator keeps only a candidate that provably adds
+   * a violation over the unmutated fixture. A required predicate can belong to
+   * a node shape whose target the document never matches, in which case
+   * removing it changes nothing — a fixture born that way turns the
+   * self-test's invert assertion into a lie.
    */
-  apply: (nq: string, required: string[]) => string | undefined;
+  candidates: (nq: string, required: string[]) => string[];
+  /**
+   * False for sh:sparql-based mutations: the offline engine strips those
+   * constraints, so the check would reject a perfectly good fixture. Their
+   * behaviour is proven by check-shapes-itb.ts against the EC engine instead.
+   */
+  offlineCheckable: boolean;
 }
 
 /**
@@ -110,15 +131,16 @@ const MUTATIONS: Mutation[] = [
       "claims another, which dpp-sh:GranularityDigitalLinkConstraint must reject " +
       "(EN 18219 4.4 / EN 18223). This is a SHACL-SPARQL constraint, so it also " +
       "proves the Test Bed's engine evaluates sh:sparql at all.",
-    apply: (nq) => {
+    offlineCheckable: false,
+    candidates: (nq) => {
       const line = nq
         .split("\n")
         .find((l) => l.includes(`<${OEC}granularityLevel>`) && /"(model|batch|item)"/.test(l));
-      if (!line) return undefined;
+      if (!line) return [];
       const current = /"(model|batch|item)"/.exec(line)![1];
       // Any other level contradicts the Digital Link the subject IRI carries.
       const wrong = current === "item" ? "model" : "item";
-      return nq.replace(line, line.replace(`"${current}"`, `"${wrong}"`));
+      return [nq.replace(line, line.replace(`"${current}"`, `"${wrong}"`))];
     },
   },
   {
@@ -126,10 +148,11 @@ const MUTATIONS: Mutation[] = [
     why:
       "An economic operator without its ESPR Art. 77 role, which " +
       "dpp-sh:EconomicOperatorRoleRequired must reject.",
-    apply: (nq) => {
+    offlineCheckable: true,
+    candidates: (nq) => {
       const lines = nq.split("\n");
       const kept = lines.filter((l) => !l.includes(`<${OEC}hasOperatorRole>`));
-      return kept.length === lines.length ? undefined : kept.join("\n");
+      return kept.length === lines.length ? [] : [kept.join("\n")];
     },
   },
   {
@@ -137,7 +160,8 @@ const MUTATIONS: Mutation[] = [
     why:
       "A 0..1 fraction set to 99, which the value-range constraint on the " +
       "corresponding property must reject.",
-    apply: (nq: string) => {
+    offlineCheckable: true,
+    candidates: (nq: string) => {
       const line = nq
         .split("\n")
         .find((l) =>
@@ -145,8 +169,8 @@ const MUTATIONS: Mutation[] = [
             l,
           ),
         );
-      if (!line) return undefined;
-      return nq.replace(line, line.replace(/"[^"]*"/, '"99"'));
+      if (!line) return [];
+      return [nq.replace(line, line.replace(/"[^"]*"/, '"99"'))];
     },
   },
   {
@@ -157,13 +181,19 @@ const MUTATIONS: Mutation[] = [
     why:
       "A predicate the module's own shapes require with sh:minCount is removed, " +
       "which the corresponding MinCount constraint must reject.",
-    apply: (nq: string, required: string[]) => {
+    offlineCheckable: true,
+    candidates: (nq: string, required: string[]) => {
+      // One candidate per removable predicate. The offline check picks the
+      // first whose removal actually violates: a sh:minCount can sit on a node
+      // shape this document never targets, and removing THAT predicate
+      // produces a mutant both engines happily accept.
+      const out: string[] = [];
       for (const predicate of required) {
         const lines = nq.split("\n");
         const kept = lines.filter((l) => !l.includes(`<${predicate}>`));
-        if (kept.length !== lines.length) return kept.join("\n");
+        if (kept.length !== lines.length) out.push(kept.join("\n"));
       }
-      return undefined;
+      return out;
     },
   },
 ];
@@ -183,12 +213,13 @@ interface TypeCase {
   type: string;
   label: string;
   positives: Fixture[];
-  negative?: Fixture & { why: string; mutation: string };
+  /** One derived negative per mutation that applies to this type's examples. */
+  negatives: (Fixture & { why: string; mutation: string })[];
 }
 
 function testSuiteXml(cases: TypeCase[], version: string): string {
   const testcases = cases
-    .flatMap((c) => [`tc-upload-${c.type}`, ...(c.negative || c.positives.length ? [`tc-selftest-${c.type}`] : [])])
+    .flatMap((c) => [`tc-upload-${c.type}`, ...(c.negatives.length || c.positives.length ? [`tc-selftest-${c.type}`] : [])])
     .map((id) => `    <testcase id="${id}"/>`)
     .join("\n");
 
@@ -254,16 +285,11 @@ function selftestCase(c: TypeCase, version: string): string {
   // The fixtures enter the test case as imported artifacts; the verify steps
   // reference them by name. type="binary" + BASE64 is the ITB-documented
   // pairing for handing file content to a validation service.
-  const imports = [
-    ...c.positives.map(
+  const imports = [...c.positives, ...c.negatives]
+    .map(
       (f) => `    <artifact type="binary" encoding="UTF-8" name="${f.name}">${f.resource}</artifact>`,
-    ),
-    ...(c.negative
-      ? [
-          `    <artifact type="binary" encoding="UTF-8" name="${c.negative.name}">${c.negative.resource}</artifact>`,
-        ]
-      : []),
-  ].join("\n");
+    )
+    .join("\n");
 
   const positiveSteps = c.positives
     .map(
@@ -277,16 +303,20 @@ function selftestCase(c: TypeCase, version: string): string {
     )
     .join("\n");
 
-  const negativeStep = c.negative
-    ? `
-    <!-- ${xml(c.negative.why)} -->
-    <verify id="neg" handler="${xml(WSDL)}" invert="true"
-            desc="Broken passport must be REJECTED (${xml(c.negative.mutation)})">
-      <input name="contentToValidate">$${c.negative.name}</input>
+  const negativeSteps = c.negatives.length
+    ? c.negatives
+        .map(
+          (n, i) => `
+    <!-- ${xml(n.why)} -->
+    <verify id="neg${i}" handler="${xml(WSDL)}" invert="true"
+            desc="Broken passport must be REJECTED (${xml(n.mutation)})">
+      <input name="contentToValidate">$${n.name}</input>
       <input name="validationType">"${xml(c.type)}"</input>
       <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
-    </verify>`
+    </verify>`,
+        )
+        .join("")
     : `
     <!-- No negative fixture: no MUTATIONS entry applies to this module's examples.
          The self-test therefore proves only that the reference passports pass. -->`;
@@ -307,7 +337,7 @@ function selftestCase(c: TypeCase, version: string): string {
 ${imports}
   </imports>
   <steps>
-${positiveSteps}${negativeStep}
+${positiveSteps}${negativeSteps}
   </steps>
   <output>
     <success>
@@ -364,11 +394,44 @@ async function main() {
     // Obligations of THIS module plus the cross-cutting core, matching what the
     // corresponding validation type bundles.
     const shapeFiles = [module.shapes, ...(module.dir === core.dir ? [] : [core.shapes])];
-    const shapeStore = parseTurtle(
-      ...(await Promise.all(shapeFiles.map((f) => fs.readFile(path.join(ROOT, f), "utf8")))),
+    const shapeParts = await Promise.all(
+      shapeFiles.map((f) => fs.readFile(path.join(ROOT, f), "utf8")),
     );
+    const shapeStore = parseTurtle(...shapeParts);
     stripOwlImports(shapeStore);
     const required = requiredPredicates(shapeStore);
+
+    /**
+     * The offline verification graph for one validation type: sh:sparql
+     * stripped (rdf-validate-shacl throws on it) and the type's granularity
+     * suffix activated, mirroring check-shapes.ts.
+     */
+    const verificationShapes = (type: string) => {
+      const store = parseTurtle(...shapeParts);
+      stripOwlImports(store);
+      stripSparqlConstraints(store);
+      const suffix = module.granularities.find((g) => g.type === type)?.suffix;
+      if (suffix) activateBySuffix(store, suffix);
+      return store;
+    };
+
+    /**
+     * Violation fingerprints of a data graph WITH their multiplicity, for the
+     * added-violation test. Counted rather than set-based on purpose: a
+     * document can already violate the very shape a mutation targets on some
+     * OTHER node (focus nodes are blank and unstable across parses, so they
+     * cannot be part of the key), and only the count betrays the difference.
+     */
+    const violationKeys = async (shapes: ReturnType<typeof parseTurtle>, nq: string) => {
+      const report = await validate(shapes, parseTurtle(nq));
+      const counts = new Map<string, number>();
+      for (const f of report.findings) {
+        if (f.severity !== "Violation") continue;
+        const key = `${f.sourceShape}|${f.path ?? ""}|${f.component ?? ""}`;
+        counts.set(key, (counts.get(key) ?? 0) + 1);
+      }
+      return counts;
+    };
 
     for (const [type, entries] of [...byType].sort(([a], [b]) => a.localeCompare(b))) {
       const label =
@@ -388,36 +451,58 @@ async function main() {
         return { resource, name: `pos${i}_${base.replace(/[^A-Za-z0-9]/g, "_")}`, label: e.file };
       });
 
-      // One negative fixture per type: the first mutation that applies.
-      let negative: TypeCase["negative"];
+      // One negative fixture per MUTATION that applies (first candidate that
+      // provably violates). Every applicable mutation exercises a different
+      // shape family, so stopping at the first mutation — as this used to —
+      // left most of the discrimination unproven for free.
+      const negatives: TypeCase["negatives"] = [];
+      const offlineStore = verificationShapes(type);
+      const baseKeys = new Map<string, Map<string, number>>();
       for (const m of MUTATIONS) {
+        let accepted: { mutated: string; file: string } | undefined;
         for (const e of entries) {
-          const mutated = m.apply(e.nq, required);
-          if (!mutated || mutated === e.nq) continue;
-          const base = e.file.replace(/\.jsonld$/, "");
-          const resource = `resources/negative/${type}/${base}.${m.id}.nq`;
-          files.set(
-            resource,
-            `# GENERATED negative fixture for GITB validation type "${type}".\n` +
-              `# Source: ${module.examplesDir}/${e.file}\n` +
-              `# Mutation: ${m.id}\n` +
-              `# Must be REJECTED because: ${m.why.replace(/\n/g, "\n#   ")}\n` +
-              mutated,
-          );
-          negative = {
-            resource,
-            name: `neg_${m.id.replace(/[^A-Za-z0-9]/g, "_")}`,
-            label: e.file,
-            why: m.why,
-            mutation: m.id,
-          };
-          break;
+          for (const mutated of m.candidates(e.nq, required)) {
+            if (mutated === e.nq) continue;
+            if (m.offlineCheckable) {
+              // Keep only a mutant that ADDS a violation over its unmutated
+              // source; comparing against the base report keeps the check
+              // honest even where the offline engine disagrees with Jena on
+              // the source itself.
+              if (!baseKeys.has(e.file)) {
+                baseKeys.set(e.file, await violationKeys(offlineStore, e.nq));
+              }
+              const base = baseKeys.get(e.file)!;
+              const mutant = await violationKeys(offlineStore, mutated);
+              const added = [...mutant].some(([k, n]) => n > (base.get(k) ?? 0));
+              if (!added) continue;
+            }
+            accepted = { mutated, file: e.file };
+            break;
+          }
+          if (accepted) break;
         }
-        if (negative) break;
+        if (!accepted) continue;
+        const base = accepted.file.replace(/\.jsonld$/, "");
+        const resource = `resources/negative/${type}/${base}.${m.id}.nq`;
+        files.set(
+          resource,
+          `# GENERATED negative fixture for GITB validation type "${type}".\n` +
+            `# Source: ${module.examplesDir}/${accepted.file}\n` +
+            `# Mutation: ${m.id}\n` +
+            `# Must be REJECTED because: ${m.why.replace(/\n/g, "\n#   ")}\n` +
+            accepted.mutated,
+        );
+        negatives.push({
+          resource,
+          name: `neg_${m.id.replace(/[^A-Za-z0-9]/g, "_")}`,
+          label: accepted.file,
+          why: m.why,
+          mutation: m.id,
+        });
       }
-      if (!negative) noNegative.push(type);
+      if (!negatives.length) noNegative.push(type);
 
-      cases.push({ type, label, positives, negative });
+      cases.push({ type, label, positives, negatives });
     }
   }
 
@@ -469,12 +554,12 @@ async function main() {
     `GITB TDL test suite: ${cases.length} specification(s), ` +
       `${cases.length * 2} test case(s), ` +
       `${cases.reduce((n, c) => n + c.positives.length, 0)} positive and ` +
-      `${cases.filter((c) => c.negative).length} negative fixture(s)`,
+      `${cases.reduce((n, c) => n + c.negatives.length, 0)} negative fixture(s)`,
   );
   for (const c of cases) {
     console.log(
       `  ${c.type.padEnd(24)} ${String(c.positives.length).padStart(2)} positive` +
-        (c.negative ? `, negative: ${c.negative.mutation}` : `, NO negative fixture`),
+        (c.negatives.length ? `, negatives: ${c.negatives.map((n) => n.mutation).join(", ")}` : `, NO negative fixture`),
     );
   }
   if (noNegative.length) {
