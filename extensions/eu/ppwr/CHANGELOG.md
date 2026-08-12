@@ -4,6 +4,28 @@ All notable changes to the PPWR module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed: verified against the GS1 packaging model, concrete anchors added
+
+Re-checked every `euppwr:` term against the full property inventory of
+`gs1:PackagingDetails`, `gs1:PackagingMaterialDetails` and
+`gs1:ReturnablePackageDepositDetails`. No duplication found; the delegation
+documented in the ontology header holds. Added the near-miss anchors the
+review surfaced, each with a note recording why the GS1 term does not carry
+the PPWR data point:
+
+- `euppwr:harmonisedSymbol` → `rdfs:seeAlso gs1:packagingMarkedLabelAccreditation`
+  (closed accreditation code list, explicitly non-regulatory) and
+  `gs1:consumerRecyclingInstructions` (textual sorting guidance).
+- `euppwr:hasRecyclabilityGrade` → `rdfs:seeAlso gs1:packagingRecyclingProcessType`
+  (binary RECYCLABLE claim vs graded A/B/C) and
+  `gs1:ReferencedFileTypeCode-RECYCLABILITY_ASSESSMENT_CERTIFICATE`; same
+  certificate anchor on `euppwr:designForRecyclingMethodology`.
+- `euppwr:ReuseInformation` / `euppwr:reuseSystemName` →
+  `rdfs:seeAlso gs1:packagingRecyclingScheme` (closed code list of national
+  deposit schemes, cannot name an arbitrary Annex VI re-use system operator).
+- Ontology header now lists `gs1:packagingRecyclingScheme` and
+  `gs1:consumerRecyclingInstructions` among the GS1 terms used directly.
+
 ## [0.9.9] - 2026-08-04
 
 ### Added: Article 12(2) reuse data card

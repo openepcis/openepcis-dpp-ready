@@ -2911,11 +2911,11 @@ oec:stageValue a owl:DatatypeProperty;
     rdfs:domain oec:LifecycleStageResult.
 <https://ref.openepcis.io/extensions/eu/ppwr/> a owl:Ontology;
     dcterms:title "OpenEPCIS PPWR Vocabulary"@en;
-    dcterms:description "Vocabulary for the EU Packaging and Packaging Waste Regulation\n(Regulation 2025/40, in force since 2025-02-11; general application from\n2026-08-12; harmonised labelling per Article 12 from 2028-08-12;\nrecyclability grading (Article 6, Annex II) mandatory from 2030-01-01 with\nGrade C minimum; Grades A/B only from 2038-01-01).\n\nThis module is intentionally thin: nearly every PPWR data point reuses the\nGS1 Web Vocabulary packaging model (gs1:PackagingDetails,\ngs1:PackagingMaterialDetails, gs1:ReturnablePackageDepositDetails) plus the\ncross-cutting `oec:` and `untp:` vocabulary already lifted to common/core.\nPackaging-specific concepts only live here:\n\n  - `euppwr:Packaging` (subClassOf gs1:PackagingDetails)\n  - `euppwr:hasPackagingTier` (Sales / Grouped / Transport; Article 3)\n  - `euppwr:hasRecyclabilityGrade` (A / B / C; Article 6, Annex II)\n  - `euppwr:harmonisedSymbol` (URI of an Article 12 harmonised label entry)\n  - `euppwr:designForRecyclingMethodology` (D4R methodology citation)\n  - `euppwr:hasReuseInformation` / `euppwr:ReuseInformation` with\n    `euppwr:hasReuseSystemScope` (local / national / Union-wide),\n    `euppwr:reuseSystemName`, `euppwr:collectionPointsUrl`,\n    `euppwr:averageRotationsEstimate` and the event-capable\n    `euppwr:rotationCount` (Article 12(2) reuse QR data)\n  - `euppwr:depositRefundIssued` / `euppwr:containerCondition`\n    (deposit-return EPCIS observation properties)\n  - `euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION`\n    (module-owned gs1:RegulationTypeCode member; the upstream code list has\n    no packaging-waste entry)\n\nMaterial composition, recycling process and deposit amounts use the GS1\npackaging terms directly (gs1:packagingMaterial, gs1:packagingMaterialType,\ngs1:packagingRecyclingProcessType, gs1:hasReturnablePackageDeposit).\nRecyclability scoring/rate, recycled content, reuse, compostability,\nbio-based content, hazardous substances, EPR, production site and the\ndeclaration of conformity all use existing `oec:` / `untp:` / `gs1:`\nterms. Alignment reference: GS1 in Europe White Paper \"Packaging and\nPackaging Waste Regulation and GS1 standards\"."@en;
+    dcterms:description "Vocabulary for the EU Packaging and Packaging Waste Regulation\n(Regulation 2025/40, in force since 2025-02-11; general application from\n2026-08-12; harmonised labelling per Article 12 from 2028-08-12;\nrecyclability grading (Article 6, Annex II) mandatory from 2030-01-01 with\nGrade C minimum; Grades A/B only from 2038-01-01).\n\nThis module is intentionally thin: nearly every PPWR data point reuses the\nGS1 Web Vocabulary packaging model (gs1:PackagingDetails,\ngs1:PackagingMaterialDetails, gs1:ReturnablePackageDepositDetails) plus the\ncross-cutting `oec:` and `untp:` vocabulary already lifted to common/core.\nPackaging-specific concepts only live here:\n\n  - `euppwr:Packaging` (subClassOf gs1:PackagingDetails)\n  - `euppwr:hasPackagingTier` (Sales / Grouped / Transport; Article 3)\n  - `euppwr:hasRecyclabilityGrade` (A / B / C; Article 6, Annex II)\n  - `euppwr:harmonisedSymbol` (URI of an Article 12 harmonised label entry)\n  - `euppwr:designForRecyclingMethodology` (D4R methodology citation)\n  - `euppwr:hasReuseInformation` / `euppwr:ReuseInformation` with\n    `euppwr:hasReuseSystemScope` (local / national / Union-wide),\n    `euppwr:reuseSystemName`, `euppwr:collectionPointsUrl`,\n    `euppwr:averageRotationsEstimate` and the event-capable\n    `euppwr:rotationCount` (Article 12(2) reuse QR data)\n  - `euppwr:depositRefundIssued` / `euppwr:containerCondition`\n    (deposit-return EPCIS observation properties)\n  - `euppwr:RegulationTypeCode-PACKAGING_AND_PACKAGING_WASTE_REGULATION`\n    (module-owned gs1:RegulationTypeCode member; the upstream code list has\n    no packaging-waste entry)\n\nMaterial composition, recycling process, recycling-scheme membership,\ndeposit amounts and consumer sorting instructions use the GS1 packaging\nterms directly (gs1:packagingMaterial, gs1:packagingMaterialType,\ngs1:packagingRecyclingProcessType, gs1:packagingRecyclingScheme,\ngs1:hasReturnablePackageDeposit, gs1:consumerRecyclingInstructions).\nRecyclability scoring/rate, recycled content, reuse, compostability,\nbio-based content, hazardous substances, EPR, production site and the\ndeclaration of conformity all use existing `oec:` / `untp:` / `gs1:`\nterms. Alignment reference: GS1 in Europe White Paper \"Packaging and\nPackaging Waste Regulation and GS1 standards\"."@en;
     dcterms:creator "OpenEPCIS";
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0>;
     dcterms:created "2026-05-01"^^xsd:date;
-    dcterms:modified "2026-08-04"^^xsd:date;
+    dcterms:modified "2026-08-12"^^xsd:date;
     owl:versionInfo "0.9.9";
     owl:versionIRI <https://ref.openepcis.io/extensions/eu/ppwr/0.9.9>;
     <http://purl.org/vocab/vann/preferredNamespacePrefix> "euppwr";
@@ -2991,20 +2991,21 @@ _:n3-4353 rdf:first <https://ref.openepcis.io/extensions/eu/ppwr/GradeC>;
     rdfs:label "Grade C"@en;
     skos:notation "C".
 <https://ref.openepcis.io/extensions/eu/ppwr/hasRecyclabilityGrade> a owl:ObjectProperty;
-    rdfs:seeAlso oec:CircularityPerformance;
+    rdfs:seeAlso oec:CircularityPerformance, gs1:packagingRecyclingProcessType, gs1:ReferencedFileTypeCode-RECYCLABILITY_ASSESSMENT_CERTIFICATE;
     rdfs:comment "PPWR Article 6 letter grade (A/B/C). Companion to oec:recyclabilityScore (numeric, JRC-style) and oec:recyclabilityRate (decimal fraction); use the grade for regulatory expression and a score/rate for the underlying methodology output."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040>;
     rdfs:label "PPWR Recyclability Grade"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/>;
-    skos:note "Packaging recyclability / circularity concept per the EU Packaging and Packaging Waste Regulation (EU) 2025/40."@en;
+    skos:note "Packaging recyclability / circularity concept per the EU Packaging and Packaging Waste Regulation (EU) 2025/40. gs1:packagingRecyclingProcessType RECYCLABLE carries a binary recyclability claim; the graded A/B/C output has no GS1 carrier. The substantiating assessment document can be referenced as a gs1:referencedFileURL entry typed gs1:ReferencedFileTypeCode-RECYCLABILITY_ASSESSMENT_CERTIFICATE."@en;
     rdfs:range <https://ref.openepcis.io/extensions/eu/ppwr/RecyclabilityGrade>;
     rdfs:domain <https://ref.openepcis.io/extensions/eu/ppwr/Packaging>.
 <https://ref.openepcis.io/extensions/eu/ppwr/harmonisedSymbol> a owl:DatatypeProperty;
+    rdfs:seeAlso gs1:consumerRecyclingInstructions, gs1:packagingMarkedLabelAccreditation;
     rdfs:comment "URI / code reference of a harmonised PPWR Article 12 label\nthat appears on the packaging: material-composition pictograms,\nseparate-collection indicators, deposit-return labels, etc. The Commission\nestablishes the harmonised labels by implementing acts (due 2026-08-12,\napplying from 2028-08-12); this property points to the catalogue entry.\nUntil the implementing acts publish the label registry, use a documented\nplaceholder URI."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040>;
     rdfs:label "Harmonised Symbol"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/>;
-    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
+    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. gs1:packagingMarkedLabelAccreditation is the nearest GS1 term for on-pack marks; it is a closed accreditation code list on gs1:Product and its definition explicitly excludes regulatory claims, whereas the Article 12 harmonised labels are regulatory markings identified by catalogue URI. Textual consumer sorting guidance travels separately in gs1:consumerRecyclingInstructions."@en;
     skos:narrowMatch <https://dpp-keystone.org/spec/v2/terms#separateCollectionSymbol>;
     rdfs:range xsd:anyURI;
     rdfs:domain <https://ref.openepcis.io/extensions/eu/ppwr/Packaging>.
@@ -3017,20 +3018,20 @@ _:n3-4353 rdf:first <https://ref.openepcis.io/extensions/eu/ppwr/GradeC>;
     skos:note "Module-owned member of the gs1:RegulationTypeCode code list: the upstream list has no packaging-waste entry (gs1:RegulationTypeCode-PACKAGING_SAFETY_DIRECTIVE covers child-resistant packaging safety, not packaging waste). Candidate for upstream GS1 code-list submission."@en;
     skos:prefLabel "PACKAGING_AND_PACKAGING_WASTE_REGULATION".
 <https://ref.openepcis.io/extensions/eu/ppwr/designForRecyclingMethodology> a owl:DatatypeProperty;
-    rdfs:seeAlso <https://ref.openepcis.io/extensions/eu/ppwr/hasRecyclabilityGrade>;
+    rdfs:seeAlso <https://ref.openepcis.io/extensions/eu/ppwr/hasRecyclabilityGrade>, gs1:ReferencedFileTypeCode-RECYCLABILITY_ASSESSMENT_CERTIFICATE;
     rdfs:comment "Name and version of the design-for-recycling (D4R) assessment\nmethodology substantiating a recyclabilityGrade, e.g. \"RecyClass v2.6\",\n\"CEFLEX D4ACE\", \"APR Design Guide\". Cited in the recyclability-grade\ndeclaration observation until the Commission's Annex II delegated acts\nprescribe the harmonised methodology."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040>;
     rdfs:label "Design-for-Recycling Methodology"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/>;
-    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute (Article 4 / Annex II supporting evidence). No GS1, SEMICeu, or schema.org equivalent."@en;
+    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute (Article 4 / Annex II supporting evidence). No GS1, SEMICeu, or schema.org equivalent for the methodology citation itself; the resulting assessment document can be referenced as a gs1:referencedFileURL entry typed gs1:ReferencedFileTypeCode-RECYCLABILITY_ASSESSMENT_CERTIFICATE."@en;
     rdfs:range xsd:string.
 <https://ref.openepcis.io/extensions/eu/ppwr/ReuseInformation> a owl:Class;
-    rdfs:seeAlso oec:DepositReturnScheme, oec:EndOfLifeProgram, gs1:packagingRecyclingProcessType;
+    rdfs:seeAlso oec:DepositReturnScheme, oec:EndOfLifeProgram, gs1:packagingRecyclingProcessType, gs1:packagingRecyclingScheme;
     rdfs:comment "Reuse data card of a reusable packaging item per PPWR Article 12(2):\nfrom 2029-02-12 reusable packaging must bear a reuse label plus a QR code or\nother standardised, open, digital data carrier making available further\ninformation on reusability, including the availability of a local, national\nor Union-wide re-use system, information on collection points, and the\ncalculation of trips and rotations or, if that calculation is not feasible,\nan average estimation. Reusability itself is defined by the nine Article 11(1)\ncriteria and demonstrated in the Annex VII technical information (Article\n11(3)). Open-loop systems without a system operator per Annex VI are exempt\nfrom the label and QR duty (Article 12(3))."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040>;
     rdfs:label "Reuse Information"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/>;
-    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. gs1:packagingRecyclingProcessType REUSABLE carries the reusability claim and oec:EndOfLifeProgram / oec:DepositReturnScheme carry waste take-back and deposit programmes; the Article 12(2) re-use-system data set (system scope, collection points, trips/rotations) has no GS1, SEMICeu, schema.org or oec carrier."@en.
+    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. gs1:packagingRecyclingProcessType REUSABLE carries the reusability claim and oec:EndOfLifeProgram / oec:DepositReturnScheme carry waste take-back and deposit programmes; gs1:packagingRecyclingScheme records scheme membership as a closed code list of national deposit schemes. The Article 12(2) re-use-system data set (system scope, collection points, trips/rotations) has no GS1, SEMICeu, schema.org or oec carrier."@en.
 <https://ref.openepcis.io/extensions/eu/ppwr/hasReuseInformation> a owl:ObjectProperty;
     rdfs:seeAlso gs1:hasReturnablePackageDeposit;
     rdfs:comment "Links a reusable packaging item to its PPWR Article 12(2) reuse data card (re-use system, collection points, trips/rotations)."@en;
@@ -3075,12 +3076,12 @@ _:n3-4356 rdf:first <https://ref.openepcis.io/extensions/eu/ppwr/UnionWideSystem
     rdfs:range <https://ref.openepcis.io/extensions/eu/ppwr/ReuseSystemScope>;
     rdfs:domain <https://ref.openepcis.io/extensions/eu/ppwr/ReuseInformation>.
 <https://ref.openepcis.io/extensions/eu/ppwr/reuseSystemName> a owl:DatatypeProperty;
-    rdfs:seeAlso schema:provider;
+    rdfs:seeAlso schema:provider, gs1:packagingRecyclingScheme;
     rdfs:comment "Name of the re-use system or system operator (PPWR Annex VI) the\nreusable packaging participates in. Open-loop systems without a system\noperator per Annex VI are exempt from the Article 12(2) label and QR duty\n(Article 12(3))."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040>;
     rdfs:label "Reuse System Name"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/ppwr/>;
-    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. No GS1, SEMICeu, or schema.org equivalent."@en;
+    skos:note "EU Packaging and Packaging Waste Regulation (EU) 2025/40 attribute. gs1:packagingRecyclingScheme covers the same scheme-membership idea for recycling with or without deposit; it is a closed code list (currently four Finnish schemes) and cannot name an arbitrary Annex VI re-use system operator, hence this free-text term."@en;
     rdfs:range xsd:string;
     rdfs:domain <https://ref.openepcis.io/extensions/eu/ppwr/ReuseInformation>.
 <https://ref.openepcis.io/extensions/eu/ppwr/collectionPointsUrl> a owl:DatatypeProperty;
