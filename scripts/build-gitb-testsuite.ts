@@ -110,6 +110,23 @@ interface Mutation {
  * producing a violation and the fixture check in check-shapes-itb.ts fails loudly
  * instead of the suite quietly asserting nothing.
  */
+/**
+ * The category variant suffix (e.g. "-ev") a passport opts into by carrying a
+ * Battery-category subclass in its `type`, or null. Mirrors detectCategory in
+ * scripts/lib/ec-readiness.ts: EVBattery -> ev, LMTBattery -> lmt, Industrial or
+ * StationaryBattery -> industrial. Only the explicit subclass counts — a bare
+ * schema:category does not, so existing examples keep their granularity routing.
+ */
+function categorySuffixOf(doc: Record<string, unknown>): string | null {
+  const raw = doc.type;
+  const types = (Array.isArray(raw) ? raw : raw == null ? [] : [raw]).map(String);
+  if (types.some((t) => t.endsWith("EVBattery"))) return "-ev";
+  if (types.some((t) => t.endsWith("LMTBattery"))) return "-lmt";
+  if (types.some((t) => t.endsWith("IndustrialBattery") || t.endsWith("StationaryBattery")))
+    return "-industrial";
+  return null;
+}
+
 function requiredPredicates(shapes: Store): string[] {
   const out = new Set<string>();
   for (const q of shapes.match(null, namedNode(`${SH}minCount`), null, null)) {
@@ -388,8 +405,17 @@ async function main() {
       const doc = JSON.parse(await fs.readFile(path.join(dir, name), "utf8"));
       const subject = String(doc.id ?? doc["@id"] ?? "");
       const level = granularityOfDigitalLink(subject);
-      const variant = module.granularities.find((g) => g.suffix === `-${level}`);
-      const type = variant?.type ?? module.type;
+      // A passport that explicitly declares a Battery-category subclass in its
+      // `type` (e.g. eubat:EVBattery) is an EC-guidance-coverage example: route
+      // it to the category validation type instead of the granularity one. This
+      // is an opt-in — existing examples that only carry schema:category (not the
+      // subclass in `type`) keep their granularity assignment untouched.
+      const catSuffix = categorySuffixOf(doc);
+      const catVariant = catSuffix
+        ? (module.categories ?? []).find((c) => c.suffix === catSuffix)
+        : undefined;
+      const granVariant = module.granularities.find((g) => g.suffix === `-${level}`);
+      const type = catVariant?.type ?? granVariant?.type ?? module.type;
       const nq = (await jsonld.toRDF(doc, {
         format: "application/n-quads",
         documentLoader: documentLoader as never,
