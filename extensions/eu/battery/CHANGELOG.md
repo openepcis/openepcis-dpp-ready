@@ -4,6 +4,12 @@ All notable changes to the Battery module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed: envelope-term anchor to CIRPASS-2 EUDPP
+
+`eubat:lastDataUpdate` now anchors `skos:closeMatch eudpp:lastUpdate`,
+mirroring the anchor its cross-cutting sibling `oec:lastDataUpdate`
+already carries.
+
 ### Changed: schema descriptions cite the regulation
 
 `validation/battery-schema.json` now carries a regulation-referenced

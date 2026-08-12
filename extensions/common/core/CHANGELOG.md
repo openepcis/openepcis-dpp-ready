@@ -4,6 +4,12 @@ All notable changes to the DPP Core module will be documented in this file.
 
 ## [Unreleased]
 
+### Changed: envelope-term anchors to CIRPASS-2 EUDPP
+
+`oec:passportStatus` now anchors `skos:closeMatch cirpass2:dppStatus`
+(the same JTC 24 member with a capitalized value enumeration; previously
+only `rdfs:seeAlso`).
+
 ### SHACL shapes: executed, and corrected where they had never run
 
 `pnpm run check:shapes` now runs `dpp-core-shapes.ttl` over every example, and being run

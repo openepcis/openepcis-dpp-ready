@@ -1597,12 +1597,12 @@ oec:passportIssueDate a owl:DatatypeProperty;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en;
     rdfs:range xsd:date.
 oec:passportStatus a owl:DatatypeProperty;
-    rdfs:seeAlso <https://w3id.org/eudpp#dppStatus>;
     rdfs:comment "Lifecycle status of this DPP (EN 18223 'dppStatus'): a lowercase string token (see oec:PassportStatus)."@en;
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)";
     rdfs:label "Passport Status"@en;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/common/core/>;
-    skos:note "EN 18223 'dppStatus'. Base values active/inactive/archived/invalid; EPCIS4DPP adds draft/withdrawn/suspended."@en;
+    skos:note "EN 18223 'dppStatus'. Base values active/inactive/archived/invalid; EPCIS4DPP adds draft/withdrawn/suspended. cirpass2:dppStatus is the same JTC 24 member with a capitalized value enumeration, hence closeMatch rather than exactMatch."@en;
+    skos:closeMatch <https://w3id.org/eudpp#dppStatus>;
     rdfs:range xsd:string;
     rdfs:domain oec:DigitalProductPassport;
     skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#dppStatus>.
