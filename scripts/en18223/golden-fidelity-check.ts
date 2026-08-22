@@ -91,6 +91,43 @@ function formsByPredicate(qs: string[]): Map<string, Set<string>> {
   return m;
 }
 
+/** predicate -> how many objects it carries in a graph. */
+function countsByPredicate(qs: string[]): Map<string, number> {
+  const m = new Map<string, number>();
+  for (const q of qs) {
+    const body = q.replace(/^(?:<[^>]*>|_:c14n\d+)\s+/, "");
+    const pm = body.match(/^<([^>]*)>\s+(.*)\s\.$/);
+    if (pm) m.set(pm[1], (m.get(pm[1]) ?? 0) + 1);
+  }
+  return m;
+}
+
+// (C) STATEMENTS THE PROJECTION LOST.
+//
+// (A) and (B) both start from the golden: (A) walks its objects, (B) walks the
+// predicates it shares with the seed. Neither can see a predicate that is simply
+// GONE, and that is the quieter half of the same failure. A value whose key is
+// wrong does not always become a relative IRI; where the term coerces to @id and
+// no base applies, the processor drops it without a word, so the statement leaves
+// the graph and nothing anywhere reports it.
+//
+// rdf:type is excluded: the compressed form is a projection that collapses
+// multi-typing and inlines referenced nodes, so type statements legitimately
+// disappear. Every other predicate carrying fewer objects in the golden than in
+// the seed is data a consumer asked for and did not get.
+function lostStatements(seedQ: string[], goldQ: string[]): string[] {
+  const RDF_TYPE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
+  const s = countsByPredicate(seedQ);
+  const g = countsByPredicate(goldQ);
+  const out: string[] = [];
+  for (const [pred, n] of s) {
+    if (pred === RDF_TYPE) continue;
+    const have = g.get(pred) ?? 0;
+    if (have < n) out.push(`${pred}: seed ${n}, golden ${have}`);
+  }
+  return out.sort();
+}
+
 /** (B) predicates where the seed carries an IRI object but the golden a literal. */
 function flattenedRefs(seedQ: string[], goldQ: string[]): string[] {
   const s = formsByPredicate(seedQ);
@@ -178,9 +215,11 @@ async function main(): Promise<number> {
 
     const rel = [...new Set(relativeObjects(goldQ))];
     const flat = flattenedRefs(seedQ, goldQ);
+    const lost = lostStatements(seedQ, goldQ);
     if (rel.length) problems.push(`${golden}\n      (A) ${rel.length} value(s) expand to a RELATIVE IRI:\n          ${rel.slice(0, 8).join("\n          ")}`);
     if (flat.length) problems.push(`${golden}\n      (B) ${flat.length} predicate(s) whose node reference flattened to a STRING:\n          ${flat.slice(0, 8).join("\n          ")}`);
-    console.log(`  ${rel.length || flat.length ? "FAIL" : "PASS"}  ${golden}`);
+    if (lost.length) problems.push(`${golden}\n      (C) ${lost.length} predicate(s) LOST between seed and compressed form:\n          ${lost.slice(0, 8).join("\n          ")}`);
+    console.log(`  ${rel.length || flat.length || lost.length ? "FAIL" : "PASS"}  ${golden}`);
   }
 
   problems.push(...languageMapProblems());

@@ -12,6 +12,7 @@ import jsonld from "jsonld";
 
 export const DPP = "https://ref.openepcis.io/extensions/common/core/";
 export const GS1 = "https://ref.gs1.org/voc/";
+const SCHEMA = "https://schema.org/";
 const XSD = "http://www.w3.org/2001/XMLSchema#";
 const RDFS = "http://www.w3.org/2000/01/rdf-schema#";
 
@@ -120,7 +121,10 @@ function classifyNode(node: any, range: Map<string, string>): any {
     // document (the operational context type-scopes resourceTitle/contentType/url/
     // language to the doc IRIs only under this type), keeping the round-trip exact.
     res.nodeTypes = types.includes(`${DPP}DocumentReference`) ? types : [`${DPP}DocumentReference`, ...types];
-    const title = first(`${DPP}documentTitle`) ?? first(`${DPP}title`);
+    // resourceTitle IS schema:name in the operational context, and every document
+    // in this repository titles itself with schema:name; reading only the two oec
+    // spellings meant the title never reached the compressed form at all.
+    const title = first(`${SCHEMA}name`) ?? first(`${DPP}documentTitle`) ?? first(`${DPP}title`);
     if (title) res.resourceTitle = title;
     const ct = first(`${DPP}mimeType`);
     if (ct) res.contentType = ct;
@@ -128,6 +132,13 @@ function classifyNode(node: any, range: Map<string, string>): any {
     if (url) res.url = url;
     const lang = first(`${DPP}languageCode`);
     if (lang) res.language = lang;
+    // A document's kind and issue date are data, not decoration. Without a slot
+    // here the projection dropped both silently, which is how a declaration of
+    // conformity lost the very fact that it was one.
+    const kind = first(`${DPP}hasDocumentType`);
+    if (kind) res.documentType = kind;
+    const issued = first(`${DPP}issueDate`);
+    if (issued) res.issueDate = issued;
     return res;
   }
   if (isBareRef(node)) {
@@ -435,7 +446,7 @@ function compressElement(el: any, opts: CompressOptions, scope?: string[]): any 
       const o: any = {};
       const t = typeValue(el.nodeTypes, opts.term);
       if (t !== undefined) o.type = t;
-      for (const k of ["resourceTitle", "contentType", "url", "language"]) if (el[k] != null) o[k] = el[k];
+      for (const k of ["resourceTitle", "contentType", "url", "language", "documentType", "issueDate"]) if (el[k] != null) o[k] = el[k];
       return o;
     }
     default:

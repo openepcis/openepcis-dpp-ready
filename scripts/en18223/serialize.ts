@@ -138,6 +138,9 @@ export interface OperationalDictionary {
   /** Every top-level alias of a property IRI, in chain order, with the code
    *  IRIs its own enum lists. Lets the key be chosen against the value. */
   aliases: Map<string, Array<{ term: string; codes: Set<string> }>>;
+  /** Bare name -> the IRI a READER resolves it to (JSON-LD last-wins). An alias
+   *  may only be emitted for the IRI it resolves back to. */
+  termResolution: Map<string, string>;
 }
 
 // Walk an @context value (array / IRI to load / inline object), collecting bare
@@ -246,6 +249,11 @@ export async function buildOperationalKeyMap(
   await collectAliases(operationalContext, documentLoader, defs, vocabProps, scoped, enums);
   const keyMap = new Map<string, string>();
   for (const [term, iri] of defs) if (!keyMap.has(iri)) keyMap.set(iri, term);
+  // What a READER resolves each bare name to. JSON-LD gives a later definition
+  // precedence, so a name defined twice in the chain means the last one. An alias
+  // whose name resolves elsewhere is unusable no matter how well it fits.
+  const termResolution = new Map<string, string>();
+  for (const [term, iri] of defs) termResolution.set(term, iri);
   const aliases = new Map<string, Array<{ term: string; codes: Set<string> }>>();
   const codesOf = new Map<string, Set<string>>();
   for (const [term, iri, codes] of enums) codesOf.set(`${term}|${iri}`, codes);
@@ -266,7 +274,7 @@ export async function buildOperationalKeyMap(
       scopedVocabProps.get(classIri)!.add(iri);
     }
   }
-  return { keyMap, vocabProps, scopedKeyMap, scopedVocabProps, aliases };
+  return { keyMap, vocabProps, scopedKeyMap, scopedVocabProps, aliases, termResolution };
 }
 
 /** Compress options from the resolved operational dictionary. `term` (keys /
@@ -276,7 +284,7 @@ export async function buildOperationalKeyMap(
  *  gates which reference values are compacted, so @id references keep full IRIs.
  *  Together they make the compressed body round-trip (GET == valid PUT). */
 export function operationalOptions(dict: OperationalDictionary): CompressOptions {
-  const { keyMap, vocabProps, scopedKeyMap, scopedVocabProps, aliases } = dict;
+  const { keyMap, vocabProps, scopedKeyMap, scopedVocabProps, aliases, termResolution } = dict;
   // A type-scoped entry beats the top level; among several node types the first
   // in document order wins, so the emitted key is deterministic and the output
   // stays byte-stable.
@@ -291,9 +299,19 @@ export function operationalOptions(dict: OperationalDictionary): CompressOptions
   // Among the top-level aliases of one IRI: the first whose own enum lists the
   // code about to be emitted, else the first alias. Without the value the two
   // rules coincide, so only genuinely ambiguous keys move.
+  //
+  // Candidates are first restricted to aliases that READ BACK to this IRI. A bare
+  // name defined twice in the chain belongs to the LAST definition, so emitting an
+  // earlier one silently rewrites the predicate: `brand` is gs1:brand in the gs1
+  // layer and schema:brand in dpp-core, and a document keyed `brand` for gs1:brand
+  // expands to schema:brand instead. Nothing downstream can detect that, because
+  // the result is a perfectly well-formed statement about the wrong property.
   const topLevel = (iri: string, valueIri?: string): string | undefined => {
-    const list = aliases.get(iri);
-    if (!list || list.length === 0) return keyMap.get(iri);
+    const all = aliases.get(iri);
+    if (!all || all.length === 0) return keyMap.get(iri) === undefined ? undefined
+      : termResolution.get(keyMap.get(iri)!) === iri ? keyMap.get(iri) : undefined;
+    const list = all.filter((a) => termResolution.get(a.term) === iri);
+    if (list.length === 0) return undefined; // every alias is claimed by another IRI: keep the CURIE
     if (valueIri && list.length > 1) {
       const fit = list.find((a) => a.codes.has(valueIri));
       if (fit) return fit.term;
