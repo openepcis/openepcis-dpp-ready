@@ -2,7 +2,7 @@
 
 All notable changes to the PPWR module will be documented in this file.
 
-## [Unreleased]
+## [0.9.9] - 2026-08-04
 
 ### Changed: verified against the GS1 packaging model, concrete anchors added
 
@@ -25,8 +25,6 @@ the PPWR data point:
   deposit schemes, cannot name an arbitrary Annex VI re-use system operator).
 - Ontology header now lists `gs1:packagingRecyclingScheme` and
   `gs1:consumerRecyclingInstructions` among the GS1 terms used directly.
-
-## [0.9.9] - 2026-08-04
 
 ### Added: Article 12(2) reuse data card
 

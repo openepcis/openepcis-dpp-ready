@@ -2,7 +2,7 @@
 
 All notable changes to the DPP Core module will be documented in this file.
 
-## [Unreleased]
+## [0.9.9] - 2026-08-04
 
 ### Changed: envelope-term anchors to CIRPASS-2 EUDPP
 

@@ -7,7 +7,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Mod
 versioned together and share the version in [`package.json`](package.json); `pnpm run
 check:release` verifies that every place recording a version agrees.
 
-## [Unreleased]
+## [0.9.9] - 2026-08-04
 
 ### The SHACL shapes run, and support EU GITB conformance testing
 
@@ -238,8 +238,6 @@ nearest surviving concept, without a subsumption claim); and the battery module'
 diligence guidance link used a pre-restructure oecd.org URL (now the stable DOI
 `10.1787/9789264252479-en`). The GS1 Rail namespace no longer dereferences at all — handled on
 ref.openepcis.io by routing rail term links to the mirrored in-app module pages.
-
-## [0.9.9] - 2026-08-04
 
 ### PPWR becomes a full downstream-consumable module; cpr wired alongside
 

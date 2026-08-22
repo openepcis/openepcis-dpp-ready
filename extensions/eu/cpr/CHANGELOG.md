@@ -2,8 +2,6 @@
 
 All notable changes to the CPR module will be documented in this file.
 
-## [Unreleased]
-
 ## [0.9.9] - 2026-08-04
 
 ### Added: wired into the extension-schema manifest

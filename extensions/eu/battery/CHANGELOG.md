@@ -2,7 +2,7 @@
 
 All notable changes to the Battery module will be documented in this file.
 
-## [Unreleased]
+## [0.9.9] - 2026-08-04
 
 ### Changed: envelope-term anchor to CIRPASS-2 EUDPP
 

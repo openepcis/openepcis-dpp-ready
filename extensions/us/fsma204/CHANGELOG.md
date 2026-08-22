@@ -4,7 +4,7 @@ All notable changes to the FSMA 204 extension are documented here. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this
 module adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.9.9] - 2026-08-04
 
 ## [0.9.8] - 2026-07-29
 
