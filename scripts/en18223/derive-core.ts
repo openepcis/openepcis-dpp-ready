@@ -305,13 +305,21 @@ export async function deriveEN18223(input: any, range: Map<string, string>, docu
   if (!node) throw new Error("input expanded to nothing");
 
   const dpp: any = {};
-  const dl = firstVal(node, `${GS1}productID`) ?? node["@id"];
+  // The subject IRI is the Digital Link and therefore the identity. gs1:productID
+  // is an ADDITIONAL identifier by the GS1 vocabulary's own definition, so it may
+  // only stand in where there is no @id — which is exactly the compressed
+  // direction, whose body carries no subject IRI and reaches this through the
+  // envelope key uniqueProductIdentifier. Reading productID first inverted that:
+  // unobservable today, because across all seeds no body carries both, and wrong
+  // the moment one does.
+  const dl = node["@id"] ?? firstVal(node, `${GS1}productID`);
   for (const [iri, key] of Object.entries(ENVELOPE)) {
     if (iri in node) dpp[key] = firstVal(node, iri);
   }
 
   // Derived envelope: identity from the Digital Link, granularity from its
   // Application Identifiers, schema version constant, status defaulting to active.
+  if (node["@id"]) dpp.uniqueProductIdentifier = node["@id"];
   if (!dpp.uniqueProductIdentifier && dl) dpp.uniqueProductIdentifier = dl;
   dpp.granularity = granularityFromDigitalLink(dpp.uniqueProductIdentifier);
   if (!dpp.digitalProductPassportId && dpp.uniqueProductIdentifier) dpp.digitalProductPassportId = dpp.uniqueProductIdentifier;
