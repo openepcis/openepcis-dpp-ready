@@ -35,12 +35,14 @@ and no part of their issuing stack is ours.
 Writing does not work yet, and the reason is measured rather than suspected. A
 third-party verifier rejects our Data Integrity credentials with *invalid
 signature*, and the cause sits one layer below the signature: **our RDF
-canonicalizer disagrees with the two independent implementations we compared it
-against.** For the same credential, the canonical graph is identical and the
-canonical BLANK NODE LABELS are not. The document has 92 blank nodes, so the
-byte sequence that gets signed differs from the one any other implementation
-reconstructs, and the signature cannot verify anywhere but here. See
-[Canonicalization](#canonicalization-the-open-defect) below.
+canonicalizer is not RDFC-1.0 conformant.** Against the W3C `rdf-canon` suite it
+produces 6 wrong outputs on the 33 cases that permit no bail-out, where the
+reference implementation produces none. The effect on a credential is that the
+canonical graph is right and the canonical BLANK NODE LABELS are wrong; with 92
+blank nodes in the document, the byte sequence that gets signed differs from the
+one any conformant implementation reconstructs, so the signature cannot verify
+anywhere but here. See [Canonicalization](#canonicalization-the-open-defect)
+below.
 
 That asymmetry is the honest headline, and it also explains itself: reading a
 foreign credential succeeds when that credential's document has no blank nodes
@@ -77,7 +79,7 @@ Three grades are used throughout:
 |---|---|---|
 | `ecdsa-rdfc-2019` Data Integrity proof | W3C Data Integrity ECDSA Cryptosuites | **C.** Sign, verify and tamper-detect against our own keys. No published proof value is decoded. |
 | `Ed25519Signature2020` (verify only) | W3C Community Group report, superseded by Data Integrity | **A.** This is the GS1 licence path described above, plus a credential issued by an independent third-party DPP implementation. Both include tamper checks. |
-| RDF Dataset Canonicalization | W3C RDFC-1.0 | **Divergent, measured.** Our canonicalizer and two independent implementations produce the same graph with different canonical blank node labels. This is the defect that makes our credentials unverifiable elsewhere; see below. |
+| RDF Dataset Canonicalization | W3C RDFC-1.0 | **A, and it fails.** Measured against the W3C `rdf-canon` suite: 6 wrong outputs on the 33 cases where no bail-out is allowed, against 0 for the reference implementation. Non-conformant, and this is the defect that makes our credentials unverifiable elsewhere; see below. |
 | `vc+jwt` | W3C VC-JOSE-COSE | **C.** No third-party JWT-form credential is parsed. |
 | `dc+sd-jwt` selective disclosure | IETF SD-JWT VC | **A, narrowly.** The specification's own published disclosure and its expected digest are pinned. The `_sd` array, key binding and the presentation flow are round-trip only. |
 
@@ -134,14 +136,45 @@ sequence and reports an invalid signature. The proof configuration being
 byte-identical rules out the hash concatenation and the `hashData` construction:
 the divergence is in document canonicalization alone.
 
-**What is proven and what is not.** Proven: the two forms disagree, and that
-this is sufficient to explain the rejection. Not proven: which one is
-non-conformant. Two independent RDFC-1.0 implementations agree with each other
-and ours is the outlier, which is suggestive, and the library we depend on
-carries the algorithm's predecessor name and predates the RDFC-1.0
-Recommendation by three years. Neither of those is a conformance verdict. The
-verdict requires running the W3C rdf-canon test suite against it, which nothing
-here does.
+**Which side is wrong: measured.** The W3C `rdf-canon` test suite was run against
+both implementations with one harness and one normalization, and the answer is
+not ambiguous. Counting only the 33 `rdfc10-eval` cases the manifest marks
+complexity 0, where an implementation is not permitted to bail out:
+
+| | wrong outputs |
+|---|---|
+| the JavaScript implementation | 0 of 33 |
+| ours | 6 of 33 (`test020`, `test030`, `test053`, `test057`, `test063`, `test073`) |
+
+A seventh case, `test060`, fails earlier: the N-Quads reader will not parse the
+input. That is a reader defect and is counted separately rather than charged to
+the canonicalizer. On the complexity > 0 cases both implementations abort on
+some inputs, which RDFC-1.0 explicitly permits as protection against poison
+graphs, so neither is a finding. `test075` fails on both because it requires
+SHA-384 and neither run was configured for it.
+
+**Our canonicalizer is therefore non-conformant, and the fix belongs in the
+signing runtime.** Not in the contexts, not in the hash construction, not in the
+key type.
+
+`test020` is the finding in miniature. Four quads, two nodes pointing at a third,
+which is the classic point where the N-degree treatment decides the labelling:
+
+```
+ours                        RDFC-1.0
+#test #A _:c14n0            #test #A _:c14n2
+#test #B _:c14n1            #test #B _:c14n0
+_:c14n0 #next _:c14n2       _:c14n0 #next _:c14n1
+_:c14n1 #next _:c14n2       _:c14n2 #next _:c14n1
+```
+
+Same graph, different canonical labels: exactly the production failure, small
+enough to read in four lines.
+
+**What this does not prove** is that replacing the library makes third-party
+verification succeed. It removes the one defect measured so far. Whether
+anything else stands behind it is answered by re-running a third-party verifier
+after the swap, not by this suite.
 
 **Why it stayed invisible.** Every check on both sides compared like with like.
 The context parity gate compares two JavaScript canonicalizations of the same
@@ -197,9 +230,13 @@ page quietly outruns its evidence.
    with itself" and "our implementation agrees with the specification" is
    currently closed only by third-party artifacts, which cover the Ed25519 path
    and not the ECDSA one we actually issue with.
-2. **RDFC-1.0 has no correctness coverage**, and it decides what is signed. This
-   is no longer a hypothetical: it is the open defect above. The test suite that
-   would say which implementation is right still does not run anywhere.
+2. **The canonicalizer is non-conformant and has to be replaced.** The W3C suite
+   has now been run once, by hand, and it returned a verdict. It still does not
+   run in any build, so nothing would notice a replacement being no better. The
+   suite belongs in the build against whichever implementation is actually used,
+   which is a stronger guard than the golden-fixture comparison first considered:
+   it checks conformance rather than agreement between two of our own runtimes.
+   Choosing the replacement is open work; the suite is the selection criterion.
 3. **The deployed verification endpoint is offline-strict.** It resolves only
    contexts vendored into the image, so it would today fail on a third-party
    credential whose context it has never seen, even though the library verifies
