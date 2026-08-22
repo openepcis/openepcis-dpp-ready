@@ -198,9 +198,9 @@ battery/
 │   └── temperature-extreme.jsonld     # Temperature excursion
 ├── context/
 │   ├── battery-context.jsonld                # Default GS1-native context
-│   ├── battery-context-scientific.jsonld     # EMMO/QUDT bridge context
+│   ├── battery-context-scientific.jsonld     # QUDT unit codes + BattINFO prefix
 │   ├── battery-context-batterypass-bridge.jsonld  # BatteryPass → OpenEPCIS bridge
-│   └── battery-context-to-batterypass.jsonld # OpenEPCIS → BatteryPass bridge
+│   └── battery-context-to-batterypass.jsonld # BatteryPass keys → BatteryPass IRIs
 ├── validation/
 │   └── battery-profile.json     # OpenEPCIS Event Sentry profile
 └── docs/
@@ -221,9 +221,9 @@ Same data, different semantic views:
 | Context | Purpose | Users |
 |---------|---------|-------|
 | `battery-context.jsonld` | Default GS1-native | Manufacturers, regulators |
-| `battery-context-scientific.jsonld` | EMMO/QUDT equivalences | Researchers, scientific tools |
+| `battery-context-scientific.jsonld` | QUDT unit codes, BattINFO prefix | Researchers, scientific tools |
 | `battery-context-batterypass-bridge.jsonld` | BatteryPass → OpenEPCIS | Interoperability with BatteryPass data |
-| `battery-context-to-batterypass.jsonld` | OpenEPCIS → BatteryPass | Export to BatteryPass format |
+| `battery-context-to-batterypass.jsonld` | BatteryPass keys → BatteryPass IRIs | JSON-LD serialization of the BatteryPass rendering |
 
 ```json
 // Supply chain systems use default context
@@ -265,9 +265,17 @@ The bridge contexts enable **bidirectional compatibility**:
 
 - **`battery-context-batterypass-bridge.jsonld`**: Add to BatteryPass documents to interpret them using OpenEPCIS/GS1 vocabulary. Maps SAMM (`bpsamm-*`, 1.2.x) and GEFEG BatteryPass-Ready (`bpr:`) terms to `eubat:`/`oec:`/`gs1:` equivalents.
 
-- **`battery-context-to-batterypass.jsonld`**: Add to OpenEPCIS documents to export them with BatteryPass-compatible terminology.
+- **`battery-context-to-batterypass.jsonld`**: the JSON-LD serialization of the BatteryPass
+  rendering itself. Its keys are the published BatteryPass attribute names and each expands to
+  that attribute's own IRI (`bpsamm-*` where a SAMM term exists, `bpr:` for the longlist-only
+  DPP-information attributes).
 
-This is the proper JSON-LD semantic web approach—no separate migration tools needed, just context files that enable interoperability.
+**Getting the BatteryPass shape out of an OpenEPCIS document** is compaction with the bridge
+context, not a second context stacked on top: run `jsonld.compact` over the passport with
+`battery-context-batterypass-bridge.jsonld` and the keys come out in BatteryPass form. A JSON-LD
+context maps a *key* to an IRI and cannot redirect one IRI onto another, so no context file can
+translate `eubat:` IRIs into `urn:samm:` IRIs. That relation is carried as RDF by the graded SKOS
+mappings in `ontology/battery.ttl`, where a reasoner or a SPARQL `CONSTRUCT` can act on it.
 
 ### BatteryPass-Ready conformance (GEFEG test environment — LIVE)
 

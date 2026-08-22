@@ -564,6 +564,7 @@ function mergeOverrides(derived: ContextMap, overrides: ContextMap): ContextMap 
 const GS1_VOC_PATH = join(PROJECT_ROOT, "vendor/gs1/gs1Voc.jsonld");
 const GS1_SHORTCUT_DIR = join(PROJECT_ROOT, "extensions/common/core/context");
 const COLLISION_MANIFEST = join(GS1_SHORTCUT_DIR, ".alias-collisions.json");
+const DIVERGENCE_MANIFEST = join(GS1_SHORTCUT_DIR, ".alias-divergence.json");
 
 // The prefixes a shortcut layer needs so its CURIE-valued aliases resolve. The
 // cross-cutting vocabularies (gs1, oec, schema, xsd, and the two SEMICeu spellings
@@ -743,6 +744,35 @@ interface Collision {
 }
 
 /**
+ * The MIRROR IMAGE of a bare-name collision: one IRI reached by several bare
+ * names whose definitions DISAGREE. Sharing a name across IRIs is recorded
+ * above and is harmless. Sharing an IRI across names is harmless too, as long
+ * as the definitions match — `documents` and `hasDocuments` are the same term
+ * twice. It stops being harmless the moment the definitions diverge, because
+ * the compressor picks ONE of them and the data then has to satisfy a coercion
+ * or an enum that belongs to the other:
+ *
+ *   deviceCategory / weeeCategory   same IRI, different enums -> the WEEE code
+ *     was emitted under the device key, whose enum does not list it, and
+ *     expanded to a relative IRI.
+ *   targetConsumerGender / targetGender   @id vs no coercion -> a node
+ *     reference flattened into a string on read-back.
+ *   hasCustomsCommodityCodeType / importClassificationTypeCode   @vocab+enum
+ *     vs bare @id -> the code expanded to a relative IRI.
+ *
+ * `@container` is deliberately not part of the signature: it changes the JSON
+ * shape, never the graph. This is recorded rather than fatal because the data
+ * guards that see actual corruption (check:strict-expansion, golden-fidelity)
+ * already fail the build; this manifest is what makes the next divergence
+ * visible BEFORE it reaches an artifact.
+ */
+interface AliasDivergence {
+  iri: string;
+  chain: string;
+  aliases: { term: string; coercion: string | null; enumSize: number }[];
+}
+
+/**
  * Detect bare-name collisions over each module's operational chain
  * [gs1-shortcuts, dpp-core-shortcut, module-shortcut] and record them for
  * transparency. A bare name defined in ≥2 layers with DIFFERENT target IRIs is
@@ -804,6 +834,50 @@ function detectCollisions(
   }
   manifest.sort((a, b) => a.chain.localeCompare(b.chain) || a.term.localeCompare(b.term));
   return manifest;
+}
+
+/** Same IRI, several bare names, disagreeing definitions. See {@link AliasDivergence}. */
+function detectAliasDivergence(
+  gs1: ShortcutLayer,
+  dppCore: ShortcutLayer,
+  moduleLayers: ShortcutLayer[]
+): AliasDivergence[] {
+  const out: AliasDivergence[] = [];
+  const define = (layer: ShortcutLayer, term: string): any =>
+    term in layer.overrides ? layer.overrides[term] : layer.generated[term];
+
+  for (const mod of moduleLayers) {
+    const byIri = new Map<string, Map<string, { coercion: string | null; enumSize: number }>>();
+    for (const l of [gs1, dppCore, mod]) {
+      const names = new Set([...Object.keys(l.generated), ...Object.keys(l.overrides)]);
+      for (const term of names) {
+        if (term.startsWith("@") || term.includes(":")) continue;
+        const def = define(l, term);
+        const iri = aliasIri(def);
+        // a keyword alias (id: "@id") names no IRI
+        if (!iri || iri.startsWith("@")) continue;
+        const coercion = def && typeof def === "object" ? (def["@type"] ?? null) : null;
+        const codes = def && typeof def === "object" ? def["@context"] : undefined;
+        const enumSize = codes && typeof codes === "object" ? Object.keys(codes).length : 0;
+        if (!byIri.has(iri)) byIri.set(iri, new Map());
+        byIri.get(iri)!.set(term, { coercion, enumSize });
+      }
+    }
+    for (const [iri, aliases] of byIri) {
+      if (aliases.size < 2) continue;
+      const signatures = new Set([...aliases.values()].map((a) => `${a.coercion}|${a.enumSize}`));
+      if (signatures.size < 2) continue;
+      out.push({
+        iri,
+        chain: mod.chainKey,
+        aliases: [...aliases]
+          .map(([term, a]) => ({ term, ...a }))
+          .sort((a, b) => a.term.localeCompare(b.term)),
+      });
+    }
+  }
+  out.sort((a, b) => a.chain.localeCompare(b.chain) || a.iri.localeCompare(b.iri));
+  return out;
 }
 
 /**
@@ -1015,6 +1089,18 @@ async function buildContext(): Promise<void> {
   writeFileSync(COLLISION_MANIFEST, JSON.stringify(manifest, null, 2) + "\n");
   if (manifest.length > 0) {
     console.log(`  ${manifest.length} shadowed bare-name collision(s) recorded → ${COLLISION_MANIFEST}`);
+  }
+
+  const divergence = detectAliasDivergence(gs1Layer, dppCoreLayer, moduleLayers);
+  writeFileSync(DIVERGENCE_MANIFEST, JSON.stringify(divergence, null, 2) + "\n");
+  if (divergence.length > 0) {
+    const iris = new Set(divergence.map((d) => d.iri));
+    console.log(
+      `  ${iris.size} IRI(s) reached by bare names with DISAGREEING definitions → ${DIVERGENCE_MANIFEST}\n` +
+        `    The compressor picks one alias per occurrence; where the definitions differ, the data\n` +
+        `    must then satisfy a coercion or an enum belonging to the other. check:strict-expansion\n` +
+        `    and golden-fidelity fail on the cases that actually corrupt an artifact.`,
+    );
   }
 
   // Write all shortcut layers (no aliases dropped — order resolves collisions).

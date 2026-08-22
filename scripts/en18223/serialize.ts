@@ -119,28 +119,45 @@ const localNameOf = (iri: string): string => {
   return i >= 0 ? iri.slice(i + 1) : iri;
 };
 
-/** The resolved operational data-dictionary: the term aliases and the set of
- *  @vocab-coerced property IRIs. */
+/** The resolved operational data-dictionary.
+ *
+ *  `keyMap` holds the top-level aliases; `scopedKeyMap` holds the aliases a
+ *  TYPE-SCOPED `@context` contributes, keyed by the class IRI it hangs on. One
+ *  property IRI legitimately carries several aliases (schema:category is
+ *  `deviceCategory`, `weeeCategory`, `batteryCategory`, `materialCategory`, …),
+ *  each scoping its own enum, so a flat IRI->alias map cannot express the
+ *  dictionary: it picks one alias for every occurrence and emits codes the
+ *  chosen alias does not enumerate, which expand to relative IRIs.
+ *  `vocabProps` is likewise per scope, because the coercion travels with the
+ *  alias, not with the IRI. */
 export interface OperationalDictionary {
   keyMap: Map<string, string>;
   vocabProps: Set<string>;
+  scopedKeyMap: Map<string, Map<string, string>>;
+  scopedVocabProps: Map<string, Set<string>>;
+  /** Every top-level alias of a property IRI, in chain order, with the code
+   *  IRIs its own enum lists. Lets the key be chosen against the value. */
+  aliases: Map<string, Array<{ term: string; codes: Set<string> }>>;
 }
 
 // Walk an @context value (array / IRI to load / inline object), collecting bare
 // (unprefixed) term -> full-IRI aliases and the IRIs of @vocab-coerced properties.
+// `scoped` accumulates the same two things per class IRI for type-scoped contexts.
 async function collectAliases(
   ctxValue: any,
   documentLoader: DocumentLoader,
   acc: Array<[string, string]>,
   vocab: Set<string>,
+  scoped: Array<[string, string, string, boolean]>,
+  enums: Array<[string, string, Set<string>]>,
 ): Promise<void> {
   if (Array.isArray(ctxValue)) {
-    for (const c of ctxValue) await collectAliases(c, documentLoader, acc, vocab);
+    for (const c of ctxValue) await collectAliases(c, documentLoader, acc, vocab, scoped, enums);
     return;
   }
   if (typeof ctxValue === "string") {
     const doc = (await documentLoader(ctxValue)).document;
-    await collectAliases(doc["@context"], documentLoader, acc, vocab);
+    await collectAliases(doc["@context"], documentLoader, acc, vocab, scoped, enums);
     return;
   }
   if (ctxValue && typeof ctxValue === "object") {
@@ -159,25 +176,97 @@ async function collectAliases(
           // any scoped @context enumerating the codes. @id-typed terms are NOT
           // descended: their references must stay full IRIs to round-trip.
           if (iri) vocab.add(expandCurie(iri as string));
-          if ((def as any)["@context"]) await collectAliases((def as any)["@context"], documentLoader, acc, vocab);
+          if ((def as any)["@context"]) {
+            const codes = new Set<string>();
+            const sub: Array<[string, string]> = [];
+            await collectAliases((def as any)["@context"], documentLoader, sub, vocab, scoped, enums);
+            for (const [, codeIri] of sub) codes.add(codeIri);
+            acc.push(...sub);
+            if (iri) enums.push([term, expandCurie(iri as string), codes]);
+          }
+        } else if ((def as any)["@context"] && iri) {
+          // A TYPE-SCOPED context: a class term carrying the aliases that apply
+          // only inside a node of that type. Its entries must NOT land in the
+          // top-level map, or they would leak onto every node in the document.
+          collectScoped(expandCurie(iri as string), (def as any)["@context"], scoped);
         }
       }
     }
   }
 }
 
-/** Resolve the operational context chain to its data dictionary: the IRI->alias
- *  map (first alias in resolution order wins) plus the @vocab-coerced property set. */
+// Entries of a type-scoped @context. Only inline definitions are read: a scoped
+// context that referenced a remote document would change what a bare key means
+// depending on network state, which the operational form must not do.
+function collectScoped(
+  classIri: string,
+  ctx: any,
+  scoped: Array<[string, string, string, boolean]>,
+): void {
+  if (!ctx || typeof ctx !== "object" || Array.isArray(ctx)) return;
+  for (const [term, def] of Object.entries(ctx)) {
+    if (term.startsWith("@") || term.includes(":")) continue;
+    if (typeof def === "string") {
+      scoped.push([classIri, term, expandCurie(def), false]);
+      continue;
+    }
+    if (def && typeof def === "object") {
+      const iri = (def as any)["@id"];
+      if (!iri) continue;
+      const isVocab = (def as any)["@type"] === "@vocab";
+      scoped.push([classIri, term, expandCurie(iri as string), isVocab]);
+      // The enum this scoped alias carries. Collected under the same class so a
+      // coded value whose context key differs from its local name still compacts
+      // to the key the scoped enum actually defines.
+      if (isVocab && (def as any)["@context"]) collectScoped(classIri, (def as any)["@context"], scoped);
+    }
+  }
+}
+
+/** Resolve the operational context chain to its data dictionary.
+ *
+ *  Where one property IRI has several top-level aliases, the FIRST in chain
+ *  order wins, which is the alias set this repository already publishes.
+ *  A blind first-wins is what produced the bug, though: on a laptop (whose
+ *  master lists the battery context before the electronics one, because a
+ *  laptop has a battery) `schema:category` took the battery alias, and the
+ *  device code the battery enum does not list expanded to a relative IRI.
+ *  So the choice is VALUE-DIRECTED: among the aliases of one IRI, an alias
+ *  whose enum actually lists the code being emitted beats one that does not.
+ *  That fixes the selection without renaming the aliases that were never
+ *  ambiguous, which a switch to last-wins would have done wholesale. */
 export async function buildOperationalKeyMap(
   operationalContext: string | string[],
   documentLoader: DocumentLoader,
 ): Promise<OperationalDictionary> {
   const defs: Array<[string, string]> = [];
   const vocabProps = new Set<string>();
-  await collectAliases(operationalContext, documentLoader, defs, vocabProps);
+  const scoped: Array<[string, string, string, boolean]> = [];
+  const enums: Array<[string, string, Set<string>]> = [];
+  await collectAliases(operationalContext, documentLoader, defs, vocabProps, scoped, enums);
   const keyMap = new Map<string, string>();
   for (const [term, iri] of defs) if (!keyMap.has(iri)) keyMap.set(iri, term);
-  return { keyMap, vocabProps };
+  const aliases = new Map<string, Array<{ term: string; codes: Set<string> }>>();
+  const codesOf = new Map<string, Set<string>>();
+  for (const [term, iri, codes] of enums) codesOf.set(`${term}|${iri}`, codes);
+  for (const [term, iri] of defs) {
+    if (!aliases.has(iri)) aliases.set(iri, []);
+    const list = aliases.get(iri)!;
+    if (!list.some((a) => a.term === term)) {
+      list.push({ term, codes: codesOf.get(`${term}|${iri}`) ?? new Set() });
+    }
+  }
+  const scopedKeyMap = new Map<string, Map<string, string>>();
+  const scopedVocabProps = new Map<string, Set<string>>();
+  for (const [classIri, term, iri, isVocab] of scoped) {
+    if (!scopedKeyMap.has(classIri)) scopedKeyMap.set(classIri, new Map());
+    scopedKeyMap.get(classIri)!.set(iri, term);
+    if (isVocab) {
+      if (!scopedVocabProps.has(classIri)) scopedVocabProps.set(classIri, new Set());
+      scopedVocabProps.get(classIri)!.add(iri);
+    }
+  }
+  return { keyMap, vocabProps, scopedKeyMap, scopedVocabProps, aliases };
 }
 
 /** Compress options from the resolved operational dictionary. `term` (keys /
@@ -187,11 +276,38 @@ export async function buildOperationalKeyMap(
  *  gates which reference values are compacted, so @id references keep full IRIs.
  *  Together they make the compressed body round-trip (GET == valid PUT). */
 export function operationalOptions(dict: OperationalDictionary): CompressOptions {
-  const { keyMap, vocabProps } = dict;
+  const { keyMap, vocabProps, scopedKeyMap, scopedVocabProps, aliases } = dict;
+  // A type-scoped entry beats the top level; among several node types the first
+  // in document order wins, so the emitted key is deterministic and the output
+  // stays byte-stable.
+  const inScope = (iri: string, scope?: string[]): string | undefined => {
+    if (!scope) return undefined;
+    for (const t of scope) {
+      const hit = scopedKeyMap.get(t)?.get(iri);
+      if (hit !== undefined) return hit;
+    }
+    return undefined;
+  };
+  // Among the top-level aliases of one IRI: the first whose own enum lists the
+  // code about to be emitted, else the first alias. Without the value the two
+  // rules coincide, so only genuinely ambiguous keys move.
+  const topLevel = (iri: string, valueIri?: string): string | undefined => {
+    const list = aliases.get(iri);
+    if (!list || list.length === 0) return keyMap.get(iri);
+    if (valueIri && list.length > 1) {
+      const fit = list.find((a) => a.codes.has(valueIri));
+      if (fit) return fit.term;
+    }
+    return list[0].term;
+  };
   return {
-    term: (iri: string) => keyMap.get(iri) ?? toCurie(iri),
-    codeTerm: (iri: string) => keyMap.get(iri) ?? localNameOf(iri),
-    isVocabProperty: (iri: string) => vocabProps.has(iri),
+    term: (iri: string, scope?: string[], valueIri?: string) =>
+      inScope(iri, scope) ?? topLevel(iri, valueIri) ?? toCurie(iri),
+    codeTerm: (iri: string, scope?: string[]) => inScope(iri, scope) ?? keyMap.get(iri) ?? localNameOf(iri),
+    isVocabProperty: (iri: string, scope?: string[]) => {
+      if (scope) for (const t of scope) if (scopedVocabProps.get(t)?.has(iri)) return true;
+      return vocabProps.has(iri);
+    },
   };
 }
 

@@ -19,12 +19,16 @@
       "@id": "schema:schemaVersion"
     },
     "dppStatus": {
-      "@id": "schema:status",
-      "@type": "@id"
+      "@id": "oec:passportStatus"
     },
     "dppGranularity": {
       "@id": "oec:hasReportingGranularity",
-      "@type": "@id"
+      "@type": "@vocab",
+      "@context": {
+        "ModelLevel": "oec:ModelLevel",
+        "BatchLevel": "oec:BatchLevel",
+        "ItemLevel": "oec:ItemLevel"
+      }
     },
     "dateTimeOfLatestUpdate": {
       "@id": "oec:lastUpdated",
@@ -61,7 +65,7 @@
     },
     "batteryCategory": {
       "@id": "schema:category",
-      "@type": "@id",
+      "@type": "@vocab",
       "@context": {
         "lmt": "eubat:LMTBattery",
         "ev": "eubat:EVBattery",
@@ -75,7 +79,7 @@
     },
     "batteryStatus": {
       "@id": "schema:status",
-      "@type": "@id",
+      "@type": "@vocab",
       "@context": {
         "Original": "eubat:Original",
         "Repurposed": "eubat:Repurposed",
@@ -286,8 +290,7 @@
       "@id": "schema:description"
     },
     "temperatureInformation": {
-      "@id": "eubat:hasTemperatureRangeIdleState",
-      "@type": "@id"
+      "@id": "schema:storageRequirements"
     },
     "timeExtremeHighTemp": {
       "@id": "eubat:timeSpentInExtremeTemperaturesAboveBoundary",
@@ -327,11 +330,15 @@
     },
     "batteryComponent": {
       "@id": "eubat:hasComponentLocation",
-      "@type": "@id",
+      "@type": "@vocab",
       "@context": {
-        "pack": "eubat:Casing",
-        "module": "eubat:Casing",
-        "cell": "eubat:Casing"
+        "Cathode": "eubat:Cathode",
+        "Anode": "eubat:Anode",
+        "Electrolyte": "eubat:Electrolyte",
+        "Separator": "eubat:Separator",
+        "Casing": "eubat:Casing",
+        "CurrentCollector": "eubat:CurrentCollector",
+        "BMS": "eubat:BMS"
       }
     },
     "batteryCarbonFootprint": {
@@ -351,7 +358,7 @@
     },
     "carbonFootprintPerformanceClass": {
       "@id": "eubat:hasCarbonFootprintPerformanceClass",
-      "@type": "@id",
+      "@type": "@vocab",
       "@context": {
         "A": "eubat:CFClassA",
         "B": "eubat:CFClassB",
@@ -420,7 +427,7 @@
     },
     "hazardousSubstanceClass": {
       "@id": "eubat:hasHazardClass",
-      "@type": "@id",
+      "@type": "@vocab",
       "@context": {
         "AcuteToxicity": "eubat:AcuteToxicity",
         "SkinCorrosionOrIrritation": "eubat:SkinCorrosionOrIrritation",
@@ -446,7 +453,16 @@
     },
     "hazardousSubstanceLocation": {
       "@id": "eubat:hasSubstanceLocation",
-      "@type": "@id"
+      "@type": "@vocab",
+      "@context": {
+        "Cathode": "eubat:Cathode",
+        "Anode": "eubat:Anode",
+        "Electrolyte": "eubat:Electrolyte",
+        "Separator": "eubat:Separator",
+        "Casing": "eubat:Casing",
+        "CurrentCollector": "eubat:CurrentCollector",
+        "BMS": "eubat:BMS"
+      }
     },
     "hazardousSubstanceIdentifier": {
       "@id": "eubat:substanceCasNumber"

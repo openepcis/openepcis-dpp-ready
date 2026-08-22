@@ -58,9 +58,14 @@ translation layer. Battery-specific concepts that GS1 does not cover are minted 
 `eubat:` and anchored upward with graded SKOS mappings.
 
 ### 4. Scientific bridge — EMMO / BattINFO / QUDT
-A second JSON-LD context (`battery-context-scientific.jsonld`) layers EMMO/BattINFO
-class equivalences and QUDT units onto the same payload, so one passport can be read
-both by a supply-chain consumer and by a materials-research toolchain.
+A second JSON-LD context (`battery-context-scientific.jsonld`) resolves the UN/CEFACT
+unit codes used in the payload to their QUDT units, so one passport can be read both by
+a supply-chain consumer and by a materials-research toolchain. The BattINFO alignment
+itself lives in `ontology/battery.ttl` as RDF, where a reasoner can use it: the four
+electrode/electrolyte/separator concepts carry `skos:closeMatch` onto their BattINFO
+classes, and the state-of-health measurement properties carry `rdfs:seeAlso` onto the
+corresponding BattINFO quantity classes (a property and a quantity class are not
+equivalent, so no mapping relation is asserted there).
 
 ### 5. Regulatory coverage
 The model targets the data points of EU Battery Regulation 2023/1542 Annex XIII —

@@ -18,6 +18,9 @@
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix locn:  <http://www.w3.org/ns/locn#> .
 @prefix adms:  <http://www.w3.org/ns/adms#> .
+# BattINFO (EMMO battery domain ontology, independently governed). Referenced only,
+# never imported: the alignments below stay graded SKOS / rdfs:seeAlso.
+@prefix battinfo: <https://w3id.org/emmo/domain/battery#> .
 
 # =============================================================================
 # Ontology Declaration
@@ -427,13 +430,17 @@ eubat:ComponentLocation
     skos:note "EU Battery Regulation (EU) 2023/1542 (Annex XIII Digital Product Passport) attribute. No GS1, SEMICeu, or schema.org equivalent."@en  .
 
 eubat:Cathode a eubat:ComponentLocation ; rdfs:label "Cathode"@en ;
-    rdfs:comment "Positive electrode where reduction occurs during discharge. Contains active materials like NMC, LFP, or NCA."@en .
+    rdfs:comment "Positive electrode where reduction occurs during discharge. Contains active materials like NMC, LFP, or NCA."@en ;
+    skos:closeMatch battinfo:Cathode .
 eubat:Anode a eubat:ComponentLocation ; rdfs:label "Anode"@en ;
-    rdfs:comment "Negative electrode where oxidation occurs during discharge. Typically contains graphite or silicon compounds."@en .
+    rdfs:comment "Negative electrode where oxidation occurs during discharge. Typically contains graphite or silicon compounds."@en ;
+    skos:closeMatch battinfo:Anode .
 eubat:Electrolyte a eubat:ComponentLocation ; rdfs:label "Electrolyte"@en ;
-    rdfs:comment "Ion-conducting medium between electrodes. Can be liquid, gel, or solid-state depending on battery chemistry."@en .
+    rdfs:comment "Ion-conducting medium between electrodes. Can be liquid, gel, or solid-state depending on battery chemistry."@en ;
+    skos:closeMatch battinfo:Electrolyte .
 eubat:Separator a eubat:ComponentLocation ; rdfs:label "Separator"@en ;
-    rdfs:comment "Porous membrane preventing direct contact between electrodes while allowing ion transport."@en .
+    rdfs:comment "Porous membrane preventing direct contact between electrodes while allowing ion transport."@en ;
+    skos:closeMatch battinfo:Separator .
 eubat:Casing a eubat:ComponentLocation ; rdfs:label "Casing"@en ;
     rdfs:comment "External housing and structural components of the battery pack including enclosures, frames, and thermal management elements."@en .
 eubat:CurrentCollector a eubat:ComponentLocation ; rdfs:label "Current Collector"@en ;
@@ -3168,6 +3175,7 @@ eubat:hasStateOfHealth
     rdfs:range gs1:QuantitativeValue ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542> ;
     skos:note "State-of-health passport data property per Annex XIII."@en ;
+    rdfs:seeAlso battinfo:StateOfHealth ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> .
 
 eubat:hasStateOfCharge
@@ -3183,6 +3191,7 @@ eubat:hasStateOfCharge
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCharge> ;
+    rdfs:seeAlso battinfo:StateOfCharge ;
     rdfs:seeAlso <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-71> .
 
 eubat:hasStateOfCertifiedEnergy
@@ -3214,6 +3223,7 @@ eubat:hasCycleCount
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCycles> ;
+    rdfs:seeAlso battinfo:CycleNumber ;
     rdfs:seeAlso <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-68> .
 
 eubat:hasRemainingCapacity
@@ -3229,6 +3239,7 @@ eubat:hasRemainingCapacity
     skos:note "State-of-health passport data property per Annex XIII."@en ;
     rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/battery/> ;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#remainingCapacity> ;
+    rdfs:seeAlso battinfo:Capacity ;
     rdfs:seeAlso <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-62> .
 
 eubat:hasRemainingEnergy
@@ -3288,6 +3299,7 @@ eubat:hasInternalResistance
     skos:broadMatch dppk:internalResistanceInitial ;
     skos:broadMatch <urn:samm:io.BatteryPass.Performance:1.2.1#ohmicResistance> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.Performance:1.2.1#initialInternalResistance> ;
+    rdfs:seeAlso battinfo:InternalResistance ;
     rdfs:seeAlso <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-55> ;
     rdfs:seeAlso <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-66> .
 

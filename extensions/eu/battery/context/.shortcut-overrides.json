@@ -50,17 +50,6 @@
     "@id": "eubat:measurementCertificateUrl",
     "@type": "@id"
   },
-  "operatorRole": {
-    "@id": "eubat:hasOperatorRole",
-    "@type": "@vocab",
-    "@context": {
-      "Manufacturer": "oec:Manufacturer",
-      "Importer": "oec:Importer",
-      "Distributor": "oec:Distributor",
-      "Fulfilment": "oec:FulfilmentServiceProvider",
-      "AuthorisedRepresentative": "oec:AuthorisedRepresentative"
-    }
-  },
   "repurposingGuidelines": {
     "@id": "eubat:repurposingGuidelines",
     "@type": "@id"
@@ -165,6 +154,22 @@
       "SLIBattery": "eubat:SLIBattery"
     }
   },
+  "hasMaterialComposition": {
+    "@id": "eubat:hasMaterialComposition",
+    "@context": {
+      "materialCategory": {
+        "@id": "schema:category",
+        "@type": "@vocab",
+        "@context": {
+          "ActiveMaterial": "eubat:ActiveMaterial",
+          "Binder": "eubat:Binder",
+          "Conductor": "eubat:Conductor",
+          "Additive": "eubat:Additive",
+          "StructuralMaterial": "eubat:StructuralMaterial"
+        }
+      }
+    }
+  },
   "batteryStatus": {
     "@id": "schema:status",
     "@type": "@vocab",
@@ -198,17 +203,6 @@
   "shortName": "schema:name",
   "fullName": "schema:name",
   "materialName": "schema:name",
-  "materialCategory": {
-    "@id": "schema:category",
-    "@type": "@vocab",
-    "@context": {
-      "ActiveMaterial": "eubat:ActiveMaterial",
-      "Binder": "eubat:Binder",
-      "Conductor": "eubat:Conductor",
-      "Additive": "eubat:Additive",
-      "StructuralMaterial": "eubat:StructuralMaterial"
-    }
-  },
   "massPercentage": {
     "@id": "schema:weightPercentage",
     "@type": "xsd:decimal"
@@ -254,5 +248,19 @@
     "@id": "gs1:value",
     "@type": "xsd:decimal"
   },
-  "unitCode": "gs1:unitCode"
+  "unitCode": "gs1:unitCode",
+  "brand": {
+    "@id": "schema:brand"
+  },
+  "hasOperatorRole": {
+    "@id": "eubat:hasOperatorRole",
+    "@type": "@vocab",
+    "@context": {
+      "Manufacturer": "oec:Manufacturer",
+      "Importer": "oec:Importer",
+      "Distributor": "oec:Distributor",
+      "Fulfilment": "oec:FulfilmentServiceProvider",
+      "AuthorisedRepresentative": "oec:AuthorisedRepresentative"
+    }
+  }
 }

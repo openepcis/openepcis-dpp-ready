@@ -3168,22 +3168,26 @@ _:b91 rdf:first <https://ref.openepcis.io/extensions/eu/battery/Cathode>;
     rdf:rest _:b92.
 <https://ref.openepcis.io/extensions/eu/battery/Cathode> a <https://ref.openepcis.io/extensions/eu/battery/ComponentLocation>;
     rdfs:comment "Positive electrode where reduction occurs during discharge. Contains active materials like NMC, LFP, or NCA."@en;
-    rdfs:label "Cathode"@en.
+    rdfs:label "Cathode"@en;
+    skos:closeMatch <https://w3id.org/emmo/domain/battery#Cathode>.
 _:b92 rdf:first <https://ref.openepcis.io/extensions/eu/battery/Anode>;
     rdf:rest _:b93.
 <https://ref.openepcis.io/extensions/eu/battery/Anode> a <https://ref.openepcis.io/extensions/eu/battery/ComponentLocation>;
     rdfs:comment "Negative electrode where oxidation occurs during discharge. Typically contains graphite or silicon compounds."@en;
-    rdfs:label "Anode"@en.
+    rdfs:label "Anode"@en;
+    skos:closeMatch <https://w3id.org/emmo/domain/battery#Anode>.
 _:b93 rdf:first <https://ref.openepcis.io/extensions/eu/battery/Electrolyte>;
     rdf:rest _:b94.
 <https://ref.openepcis.io/extensions/eu/battery/Electrolyte> a <https://ref.openepcis.io/extensions/eu/battery/ComponentLocation>;
     rdfs:comment "Ion-conducting medium between electrodes. Can be liquid, gel, or solid-state depending on battery chemistry."@en;
-    rdfs:label "Electrolyte"@en.
+    rdfs:label "Electrolyte"@en;
+    skos:closeMatch <https://w3id.org/emmo/domain/battery#Electrolyte>.
 _:b94 rdf:first <https://ref.openepcis.io/extensions/eu/battery/Separator>;
     rdf:rest _:b95.
 <https://ref.openepcis.io/extensions/eu/battery/Separator> a <https://ref.openepcis.io/extensions/eu/battery/ComponentLocation>;
     rdfs:comment "Porous membrane preventing direct contact between electrodes while allowing ion transport."@en;
-    rdfs:label "Separator"@en.
+    rdfs:label "Separator"@en;
+    skos:closeMatch <https://w3id.org/emmo/domain/battery#Separator>.
 _:b95 rdf:first <https://ref.openepcis.io/extensions/eu/battery/Casing>;
     rdf:rest _:b96.
 <https://ref.openepcis.io/extensions/eu/battery/Casing> a <https://ref.openepcis.io/extensions/eu/battery/ComponentLocation>;
@@ -5239,6 +5243,7 @@ _:b157 rdf:first <https://ref.openepcis.io/extensions/eu/battery/AuthoritiesOnly
     rdfs:domain gs1:Product;
     skos:exactMatch oec:dataProviderCertification.
 <https://ref.openepcis.io/extensions/eu/battery/hasStateOfHealth> a owl:ObjectProperty;
+    rdfs:seeAlso <https://w3id.org/emmo/domain/battery#StateOfHealth>;
     rdfs:comment "Battery state of health as percentage of original capacity. Use unitCode 'P1' (UN/CEFACT Rec 20)."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
     rdfs:label "State of Health"@en;
@@ -5248,7 +5253,7 @@ _:b157 rdf:first <https://ref.openepcis.io/extensions/eu/battery/AuthoritiesOnly
     oec:hasReportingGranularity oec:ItemLevel;
     rdfs:domain gs1:Product.
 <https://ref.openepcis.io/extensions/eu/battery/hasStateOfCharge> a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#stateOfCharge>, <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-71>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#stateOfCharge>, <https://w3id.org/emmo/domain/battery#StateOfCharge>, <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-71>;
     rdfs:comment "Current charge level as percentage. Use gs1:QuantitativeValue with unitCode 'P1' (percent)."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
     rdfs:label "State of Charge"@en;
@@ -5270,7 +5275,7 @@ _:b157 rdf:first <https://ref.openepcis.io/extensions/eu/battery/AuthoritiesOnly
     rdfs:domain gs1:Product;
     skos:exactMatch <urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCertifiedEnergy>, <https://dpp-keystone.org/spec/v2/terms#soce>, <urn:samm:io.BatteryPass.Performance:1.2.1#stateOfCertifiedEnergyValue>.
 <https://ref.openepcis.io/extensions/eu/battery/hasCycleCount> a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#cycleCountFull>, <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-68>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#cycleCountFull>, <https://w3id.org/emmo/domain/battery#CycleNumber>, <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-68>;
     rdfs:comment "Number of full charge-discharge cycles. Use gs1:QuantitativeValue with unitCode 'C62' (count)."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
     rdfs:label "Cycle Count"@en;
@@ -5281,7 +5286,7 @@ _:b157 rdf:first <https://ref.openepcis.io/extensions/eu/battery/AuthoritiesOnly
     rdfs:domain gs1:Product;
     skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#cycleCountFull>, <urn:samm:io.BatteryPass.Performance:1.2.1#numberOfFullCycles>.
 <https://ref.openepcis.io/extensions/eu/battery/hasRemainingCapacity> a owl:ObjectProperty;
-    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#remainingCapacity>, <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-62>;
+    rdfs:seeAlso <https://dpp-keystone.org/spec/v2/terms#remainingCapacity>, <https://w3id.org/emmo/domain/battery#Capacity>, <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-62>;
     rdfs:comment "Current maximum capacity. Use gs1:QuantitativeValue with unitCode 'AMP_HR'."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
     rdfs:label "Remaining Capacity"@en;
@@ -5325,7 +5330,7 @@ _:b157 rdf:first <https://ref.openepcis.io/extensions/eu/battery/AuthoritiesOnly
     rdfs:domain gs1:Product;
     skos:exactMatch <https://dpp-keystone.org/spec/v2/terms#powerFade>, <urn:samm:io.BatteryPass.Performance:1.2.1#powerFade>.
 <https://ref.openepcis.io/extensions/eu/battery/hasInternalResistance> a owl:ObjectProperty;
-    rdfs:seeAlso <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-55>, <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-66>;
+    rdfs:seeAlso <https://w3id.org/emmo/domain/battery#InternalResistance>, <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-55>, <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-66>;
     rdfs:comment "Battery internal resistance in Ohms. Use unitCode 'OHM' (UN/CEFACT Rec 20)."@en;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542>;
     rdfs:label "Internal Resistance"@en;

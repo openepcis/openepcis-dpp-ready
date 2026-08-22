@@ -352,8 +352,20 @@ export async function expandJsonLd(input: any, documentLoader: DocumentLoader): 
 
 /** IRI -> the JSON term it compresses to. The default is the local name; the
  *  operational projection passes a term function that returns the operational-
- *  context alias (with a CURIE fallback), used for element keys and `type` values. */
-export type TermFn = (iri: string) => string;
+ *  context alias (with a CURIE fallback), used for element keys and `type` values.
+ *
+ *  `scope` is the @type IRI list of the node the term occurs IN. One property IRI
+ *  can carry a different alias per node type — schema:category is `deviceCategory`
+ *  on the product and `weeeCategory` inside a euelec:WEEECompliance — and each of
+ *  those aliases scopes its own enum. Resolving without the scope picks whichever
+ *  alias the chain happens to define first and emits a code the chosen alias does
+ *  not enumerate, which then expands to a RELATIVE IRI.
+ *
+ *  `valueIri` is the coded value about to be emitted under this key, where there
+ *  is one. It settles the same ambiguity at the top level, where no scope
+ *  applies: of two aliases for one IRI, the one whose enum lists the code is the
+ *  one the value can be read back through. */
+export type TermFn = (iri: string, scope?: string[], valueIri?: string) => string;
 /** Compress options.
  *  - `term` names keys and `type` values (context alias, else CURIE).
  *  - `codeTerm` compacts a coded VALUE IRI to its bare code (context alias, else
@@ -365,38 +377,60 @@ export type TermFn = (iri: string) => string;
 export interface CompressOptions {
   term: TermFn;
   codeTerm: TermFn;
-  isVocabProperty: (iri: string) => boolean;
+  isVocabProperty: (iri: string, scope?: string[]) => boolean;
 }
 const localTerm: TermFn = (iri) => localName(iri);
 const defaultOptions: CompressOptions = { term: localTerm, codeTerm: localTerm, isVocabProperty: () => false };
 
 // A coded reference value: compact to its bare code only when the property is
-// @vocab-coerced; otherwise keep the full IRI (an @id reference).
-function codeValue(iri: string, propIri: string, opts: CompressOptions): string {
-  return opts.isVocabProperty(propIri) ? opts.codeTerm(iri) : iri;
+// @vocab-coerced; otherwise keep the full IRI (an @id reference). Both the
+// coercion test and the code alias are resolved in the scope of the node the
+// property sits in, so a type-scoped alias contributes its own enum.
+function codeValue(iri: string, propIri: string, opts: CompressOptions, scope?: string[]): string {
+  return opts.isVocabProperty(propIri, scope) ? opts.codeTerm(iri, scope) : iri;
+}
+
+// The coded value IRI an element carries, where it has exactly one. Used to
+// pick among several aliases of the property: only an alias whose enum lists
+// this code can carry it. Multi-valued codes deliberately return nothing —
+// the key must be one alias for all of them, and the first is as good as any.
+function codedValueOf(el: any): string | undefined {
+  if (!el?.reference) return undefined;
+  if (el.objectType === "SingleValuedDataElement" && typeof el.value === "string") return el.value;
+  if (el.objectType === "MultiValuedDataElement" && Array.isArray(el.value) && el.value.length === 1) {
+    return typeof el.value[0] === "string" ? el.value[0] : undefined;
+  }
+  return undefined;
 }
 
 // The compressed `type` value for a node's @type IRIs (single term or array).
+// A class alias is looked up at the top level: the node's own type cannot be
+// scoped by itself, and the reader needs the alias before any scope applies.
 function typeValue(nodeTypes: string[] | undefined, term: TermFn): any {
   if (!nodeTypes || nodeTypes.length === 0) return undefined;
-  const ts = nodeTypes.map(term);
+  const ts = nodeTypes.map((t) => term(t));
   return ts.length === 1 ? ts[0] : ts;
 }
 
-// Render one EN 18223 expanded element as its compressed value.
-function compressElement(el: any, opts: CompressOptions): any {
+// Render one EN 18223 expanded element as its compressed value. `scope` is the
+// @type list of the node this element sits in; it selects among several aliases
+// of one property IRI and thereby the enum its coded values must satisfy.
+function compressElement(el: any, opts: CompressOptions, scope?: string[]): any {
   switch (el.objectType) {
     case "SingleValuedDataElement":
-      return el.reference ? codeValue(el.value, el.dictionaryReference, opts) : el.value;
+      return el.reference ? codeValue(el.value, el.dictionaryReference, opts, scope) : el.value;
     case "MultiLanguageDataElement":
       // JSON-LD-native language literals: unambiguous (they never collide with
       // gs1:value the way a bare {value,language} would), so the body round-trips.
       return (el.value || []).map((v: any) => ({ "@value": v.value, "@language": v.language }));
     case "MultiValuedDataElement":
+      // A multi-valued node collection carries no per-item @type in the Annex A
+      // form, so the containing property is the only scope its members have.
       return (el.value || []).map((v: any) =>
-        Array.isArray(v) ? compressElements(v, opts) : el.reference ? codeValue(v, el.dictionaryReference, opts) : v);
+        Array.isArray(v) ? compressElements(v, opts, undefined, el.dictionaryReference)
+          : el.reference ? codeValue(v, el.dictionaryReference, opts, scope) : v);
     case "DataElementCollection":
-      return compressElements(el.elements || [], opts, el.nodeTypes);
+      return compressElements(el.elements || [], opts, el.nodeTypes, el.dictionaryReference);
     case "RelatedResource": {
       const o: any = {};
       const t = typeValue(el.nodeTypes, opts.term);
@@ -411,13 +445,20 @@ function compressElement(el: any, opts: CompressOptions): any {
 // Emit collection members keyed by term(dictionaryReference), in a canonical
 // (sorted-by-key) order so the output is byte-stable regardless of the source
 // document's property order. A carried node @type is emitted as a leading `type`.
-function compressElements(elements: any[], opts: CompressOptions, nodeTypes?: string[]): any {
-  const keyed = elements.map((el) => [opts.term(el.dictionaryReference), el] as [string, any]);
+//
+// The scope every member key and coded value resolves in is the node's own
+// @type list followed by the property this node hangs under, mirroring JSON-LD,
+// where a type-scoped context overrides a property-scoped one. Both are needed:
+// a single node keeps its @type, while the members of a multi-valued collection
+// have only their containing property to go by.
+function compressElements(elements: any[], opts: CompressOptions, nodeTypes?: string[], parentProperty?: string): any {
+  const scope = [...(nodeTypes ?? []), ...(parentProperty ? [parentProperty] : [])];
+  const keyed = elements.map((el) => [opts.term(el.dictionaryReference, scope, codedValueOf(el)), el] as [string, any]);
   keyed.sort((a, b) => a[0].localeCompare(b[0]));
   const o: any = {};
   const t = typeValue(nodeTypes, opts.term);
   if (t !== undefined) o.type = t;
-  for (const [key, el] of keyed) o[key] = compressElement(el, opts);
+  for (const [key, el] of keyed) o[key] = compressElement(el, opts, scope);
   return o;
 }
 
