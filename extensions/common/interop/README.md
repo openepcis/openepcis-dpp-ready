@@ -105,6 +105,7 @@ interop/
 │   ├── LICENSING.md                  # IP analysis, attribution requirements
 │   ├── STANDARDS_ALIGNMENT.md        # schema.org + GS1 + SEMICeu + UNTP + CIRPASS2 + JTC 24 alignment overview
 │   ├── CEN_JTC24_CONFORMANCE.md      # Clause-by-clause EN 182xx → OpenEPCIS conformance map
+│   ├── VC_INTEROPERABILITY.md        # Verifiable Credentials: which layers are standards-based, and the evidence per layer (prEN 18246)
 │   ├── EN18223_MODEL_ALIGNMENT.md    # EN 18223/18222 ontology + API alignment work list (Phase B)
 │   ├── GS1_STACK_EN182XX_WHITEPAPER.md # EPCIS4DPP whitepaper (GS1/EPCIS profile of the CEN DPP standards)
 │   ├── UNTP_MAPPING.md               # Complete OpenEPCIS ↔ UNTP property mapping
@@ -225,6 +226,7 @@ See [`docs/SEMIC_CORE_VOCABULARIES.md`](./docs/SEMIC_CORE_VOCABULARIES.md) for t
 - [UNTP Property Mapping](./docs/UNTP_MAPPING.md)
 - [Standards Alignment Overview](./docs/STANDARDS_ALIGNMENT.md)
 - [CEN/CENELEC JTC 24 Conformance Map](./docs/CEN_JTC24_CONFORMANCE.md)
+- [Verifiable Credentials Interoperability](./docs/VC_INTEROPERABILITY.md)
 - [EN 18223/18222 Alignment Spec (Phase B)](./docs/EN18223_MODEL_ALIGNMENT.md)
 - [EN 18222 DPP API (OpenAPI 3.1)](./api/en18222-dpp-api.openapi.yaml)
 - [EPCIS4DPP Whitepaper](./docs/GS1_STACK_EN182XX_WHITEPAPER.md)

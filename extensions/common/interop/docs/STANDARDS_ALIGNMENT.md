@@ -94,7 +94,7 @@ JTC 24 is developing **8 individual standards** under M/604. Six were published 
 | **EN 18222** | APIs for the product passport lifecycle management and searchability | WG 4 | Published 2026 | **Planned** — expose the EN 18222 REST API method set; EPCIS query + resolver added as profile |
 | **EN 18223** | System interoperability | WG 4 | Published 2026 | **Conformant** — `oec:` core maps to the EN 18223 model; ref.openepcis.io is the §4.3 data dictionary |
 | **prEN 18239** | Access rights, security, business confidentiality | WG 3 | In development | **Partial** — `oec:AccessLevel` + Keycloak cover the access tiers; role-based expansion tracked |
-| **prEN 18246** | Data authentication, reliability, and integrity | WG 5 | In development | **In implementation** — `oec:did`, `oec:identityCredentialUrl` are the ontology hooks; the OpenEPCIS VC platform (W3C VCDM 2.0 issuance, did:web anchoring) is in build; ESDC tracked |
+| **prEN 18246** | Data authentication, reliability, and integrity | WG 5 | In development | **In implementation** — `oec:did`, `oec:identityCredentialUrl` are the ontology hooks; the OpenEPCIS VC platform (W3C VCDM 2.0 issuance, did:web anchoring) is in build; ESDC tracked. Which parts are standards-based and which are demonstrated, layer by layer with the evidence for each: [`VC_INTEROPERABILITY.md`](./VC_INTEROPERABILITY.md) |
 
 **Sources:** the standards are published by CEN/CENELEC and adopted nationally (for example as NEN-EN); they are licensed documents. See the clause-cited [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md) and the [CEN/CENELEC site](https://www.cencenelec.eu/).
 
