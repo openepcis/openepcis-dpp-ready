@@ -24,30 +24,36 @@ published standards clause by clause.
 
 ## The short answer
 
-**We can read the ecosystem. The ecosystem cannot currently read us.**
+**It runs in both directions, and both directions are demonstrated against
+implementations nobody here wrote.**
 
-Reading works, and the evidence is not a test we wrote against ourselves: a
-**real GS1 licence credential**, fetched from GS1's live service and verified
-against GS1's own published DID document, verifies in our engine and stops
-verifying when a byte is changed. GS1 is the root of trust for GS1 Digital Link,
-and no part of their issuing stack is ours.
+Reading: a **real GS1 licence credential**, fetched from GS1's live service and
+verified against GS1's own published DID document, verifies in our engine and
+stops verifying when a byte is changed. GS1 is the root of trust for GS1 Digital
+Link, and no part of their issuing stack is ours.
 
-Writing does not work yet, and the reason is measured rather than suspected. A
-third-party verifier rejects our Data Integrity credentials with *invalid
-signature*, and the cause sits one layer below the signature: **our RDF
-canonicalizer is not RDFC-1.0 conformant.** Against the W3C `rdf-canon` suite it
-produces 6 wrong outputs on the 33 cases that permit no bail-out, where the
-reference implementation produces none. The effect on a credential is that the
-canonical graph is right and the canonical BLANK NODE LABELS are wrong; with 92
-blank nodes in the document, the byte sequence that gets signed differs from the
-one any conformant implementation reconstructs, so the signature cannot verify
-anywhere but here. See [Canonicalization](#canonicalization-the-open-defect)
-below.
+Writing: a credential our issuer produced is **accepted by a third-party
+verifier** built on a different library stack, reporting
+`ecdsa-rdfc-2019 | verified: true`.
 
-That asymmetry is the honest headline, and it also explains itself: reading a
-foreign credential succeeds when that credential's document has no blank nodes
-to label, which is the case for the licence credentials we verified. Our own
-passports are full of them.
+The second half is new, and it did not come cheaply. Until it was measured, that
+claim rested on a remembered exchange with no artifact behind it. Measured, the
+verifier rejected our credentials with *invalid signature*, and it kept doing so
+for credentials issued months apart, so it had never worked. The cause sat a
+layer below the signature: **our RDF canonicalizer was not RDFC-1.0 conformant.**
+Against the W3C `rdf-canon` suite it produced 6 wrong outputs on the 33 cases
+that permit no bail-out, where the reference implementation produces none. The
+canonical graph was right and the canonical BLANK NODE LABELS were wrong, so
+with 92 blank nodes in a passport the signed byte sequence was one no conformant
+implementation reconstructs. Replacing the canonicalizer fixed it, and nothing
+else stood behind it. See
+[Canonicalization](#canonicalization-a-defect-found-and-fixed) below.
+
+Two things are worth keeping from that. The failure was invisible to every check
+on both sides for as long as it existed, because each one compared our output
+against our own output. And it explains the asymmetry that held until it was
+fixed: reading a foreign credential kept working because those credentials carry
+no blank nodes to mislabel, while our own passports are full of them.
 
 The protocol layer, which is where ecosystem interoperability is finally
 decided, is not built at all. Everything else sits on a spectrum between the GS1
@@ -77,9 +83,9 @@ Three grades are used throughout:
 
 | Element | Specification | Evidence |
 |---|---|---|
-| `ecdsa-rdfc-2019` Data Integrity proof | W3C Data Integrity ECDSA Cryptosuites | **C.** Sign, verify and tamper-detect against our own keys. No published proof value is decoded. |
+| `ecdsa-rdfc-2019` Data Integrity proof | W3C Data Integrity ECDSA Cryptosuites | **A.** A credential we issued verifies at a third-party verifier on an unrelated library stack. No published proof value is decoded, so the vectors themselves are still untested, but the end-to-end result is a foreign implementation agreeing with ours. |
 | `Ed25519Signature2020` (verify only) | W3C Community Group report, superseded by Data Integrity | **A.** This is the GS1 licence path described above, plus a credential issued by an independent third-party DPP implementation. Both include tamper checks. |
-| RDF Dataset Canonicalization | W3C RDFC-1.0 | **A, and it fails.** Measured against the W3C `rdf-canon` suite: 6 wrong outputs on the 33 cases where no bail-out is allowed, against 0 for the reference implementation. Non-conformant, and this is the defect that makes our credentials unverifiable elsewhere; see below. |
+| RDF Dataset Canonicalization | W3C RDFC-1.0 | **A.** The W3C `rdf-canon` suite runs in the build against the canonicalizer actually wired in, and passes. It did not always: the library-supplied one produced 6 wrong outputs where the reference produces none, which is what made our credentials unverifiable elsewhere. See below. |
 | `vc+jwt` | W3C VC-JOSE-COSE | **C.** No third-party JWT-form credential is parsed. |
 | `dc+sd-jwt` selective disclosure | IETF SD-JWT VC | **A, narrowly.** The specification's own published disclosure and its expected digest are pinned. The `_sd` array, key binding and the presentation flow are round-trip only. |
 
@@ -111,11 +117,11 @@ describes the artifact, not the interaction.
 
 ---
 
-## Canonicalization: the open defect
+## Canonicalization: a defect found and fixed
 
 Data Integrity signs a hash of the **canonicalized** RDF dataset, so two
 implementations only agree on a signature if they agree on the canonical form
-down to the byte. Ours does not.
+down to the byte. Ours did not, and that is what this section is about.
 
 Measured on one of our own credentials, comparing our signing path against a
 second implementation:
@@ -187,11 +193,28 @@ sibling suite rather than a subclass, and the replacement uses the newer RDF API
 while the signing library still sits on the older one, so the adapter bridges
 the two.
 
-**What this does not prove** is that swapping makes third-party verification
-succeed. It removes the one defect measured so far. Whether anything else stands
-behind it is answered by re-running a third-party verifier after the swap, not
-by this suite. Every credential already issued has to be reissued either way,
-since each carries a signature over the wrong bytes.
+**The swap was made, and the answer came back.** This page previously refused to
+claim that replacing the canonicalizer would make third-party verification
+succeed, on the grounds that only a fresh run could say so. The run was done: a
+credential issued after the swap is accepted by the third-party verifier that
+had rejected every earlier one. Nothing else stood behind the defect.
+
+Everything issued before the swap carries a signature over the wrong bytes and
+does not verify anywhere, including here. Those credentials are kept
+deliberately: they are now the evidence for the defect rather than evidence of
+anything working.
+
+Two further defects were introduced by the replacement itself and are worth
+recording, because neither was a conformance question and so the conformance
+suite could not see either. Canonicalization initially resolved contexts over
+HTTP instead of through the offline loader, which made a signature depend on
+what a foreign host served at that moment and, on a cluster that cannot reach
+that host, would have hung every issuance. And the labelling work had no bound,
+though RDFC-1.0 permits aborting precisely because it is exponential on
+adversarial input: 50 indistinguishable blank nodes canonicalize in 5 ms, 92
+sharing 7 hubs had not finished after 60 seconds. The cost comes from nodes that
+cannot be told apart, not from how many there are. Both are fixed and pinned by
+tests.
 
 **Why it stayed invisible.** Every check on both sides compared like with like.
 The context parity gate compares two JavaScript canonicalizations of the same
@@ -247,26 +270,26 @@ page quietly outruns its evidence.
    with itself" and "our implementation agrees with the specification" is
    currently closed only by third-party artifacts, which cover the Ed25519 path
    and not the ECDSA one we actually issue with.
-2. **The canonicalizer is non-conformant and has to be replaced.** The W3C suite
-   has now been run once, by hand, and it returned a verdict. It still does not
-   run in any build, so nothing would notice a replacement being no better. The
-   suite belongs in the build against whichever implementation is actually used,
-   which is a stronger guard than the golden-fixture comparison first considered:
-   it checks conformance rather than agreement between two of our own runtimes.
-   Choosing the replacement is open work; the suite is the selection criterion.
+2. **Canonicalization is now covered, and that closes the gap this list opened
+   with.** The replacement is conformant and the W3C suite runs in the build
+   against the implementation actually wired in, which is a stronger guard than
+   comparing two of our own runtimes: it checks conformance rather than
+   agreement. What it still does not cover is the JSON-LD-to-RDF step in front
+   of it, since the suite's inputs are N-Quads; two defects introduced with the
+   replacement lived exactly there and needed their own tests.
 3. **The deployed verification endpoint is offline-strict.** It resolves only
    contexts vendored into the image, so it would today fail on a third-party
    credential whose context it has never seen, even though the library verifies
    that same credential in a test. The bidirectional claim holds at library
    level; it does not yet hold at service level.
-4. **The reverse direction does not work, and the earlier claim that it did was
-   wrong.** During development a live exchange was read as confirming that our
-   credentials verify at a third-party verifier, and no response artifact was
-   ever captured to check that reading against. When it was finally measured,
-   the verifier rejected two of our credentials, including one issued months
-   apart from the other, so this was never a regression: it had not worked at
-   any point. The canonicalization defect above accounts for it. This is the
-   clearest argument on this page for why a remembered result is not evidence.
+4. **The reverse direction works now, and the story of how it got there is the
+   most useful thing on this page.** It was first claimed on the strength of a
+   remembered exchange with no captured artifact. Measured, the verifier
+   rejected two of our credentials issued months apart, so it had never worked.
+   The canonicalization defect accounted for it, replacing the canonicalizer
+   fixed it, and a credential issued afterwards is accepted. Three states, and
+   only the middle one was ever in doubt: a remembered result is not evidence,
+   and a measured failure is not the same as a hopeless one.
 5. **A spelling mismatch in the GS1 chain rules.** The rules were ported from an
    implementation using the American spelling `...LicenseCredential`, while
    GS1's real licence credential and GS1's own context use the British
