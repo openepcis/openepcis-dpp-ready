@@ -128,6 +128,38 @@ function lostStatements(seedQ: string[], goldQ: string[]): string[] {
   return out.sort();
 }
 
+// (D) OBJECTS THE PROJECTION SUBSTITUTED.
+//
+// The object-side twin of the key problem. A key that reads back to the wrong
+// property produced a well-formed statement about the wrong thing, and the same
+// is possible one step to the right: a coded value compacted to a bare code that
+// the reader resolves to a DIFFERENT IRI. Counts stay equal, the form stays an
+// IRI, and no relative reference appears, so (A), (B) and (C) all pass while the
+// statement says something else.
+//
+// Only IRI objects of shared predicates are compared. Literals and blank nodes
+// are reshaped by the projection by design and carry no identity to check.
+function substitutedObjects(seedQ: string[], goldQ: string[]): string[] {
+  const iris = (qs: string[]) => {
+    const m = new Map<string, Set<string>>();
+    for (const q of qs) {
+      const pm = q.replace(/^(?:<[^>]*>|_:c14n\d+)\s+/, "").match(/^<([^>]*)>\s+<([^>]*)>\s\.$/);
+      if (!pm) continue;
+      if (!m.has(pm[1])) m.set(pm[1], new Set());
+      m.get(pm[1])!.add(pm[2]);
+    }
+    return m;
+  };
+  const s = iris(seedQ);
+  const out: string[] = [];
+  for (const [pred, objs] of iris(goldQ)) {
+    const seen = s.get(pred);
+    if (!seen) continue; // predicate the projection adds; nothing to compare against
+    for (const o of objs) if (!seen.has(o)) out.push(`${pred} -> <${o}> (not in the seed)`);
+  }
+  return out.sort();
+}
+
 /** (B) predicates where the seed carries an IRI object but the golden a literal. */
 function flattenedRefs(seedQ: string[], goldQ: string[]): string[] {
   const s = formsByPredicate(seedQ);
@@ -218,8 +250,10 @@ async function main(): Promise<number> {
     const lost = lostStatements(seedQ, goldQ);
     if (rel.length) problems.push(`${golden}\n      (A) ${rel.length} value(s) expand to a RELATIVE IRI:\n          ${rel.slice(0, 8).join("\n          ")}`);
     if (flat.length) problems.push(`${golden}\n      (B) ${flat.length} predicate(s) whose node reference flattened to a STRING:\n          ${flat.slice(0, 8).join("\n          ")}`);
+    const swapped = substitutedObjects(seedQ, goldQ);
     if (lost.length) problems.push(`${golden}\n      (C) ${lost.length} predicate(s) LOST between seed and compressed form:\n          ${lost.slice(0, 8).join("\n          ")}`);
-    console.log(`  ${rel.length || flat.length || lost.length ? "FAIL" : "PASS"}  ${golden}`);
+    if (swapped.length) problems.push(`${golden}\n      (D) ${swapped.length} object(s) SUBSTITUTED by the compressed form:\n          ${swapped.slice(0, 8).join("\n          ")}`);
+    console.log(`  ${rel.length || flat.length || lost.length || swapped.length ? "FAIL" : "PASS"}  ${golden}`);
   }
 
   problems.push(...languageMapProblems());
