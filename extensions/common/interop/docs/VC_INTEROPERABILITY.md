@@ -171,10 +171,27 @@ _:c14n1 #next _:c14n2       _:c14n2 #next _:c14n1
 Same graph, different canonical labels: exactly the production failure, small
 enough to read in four lines.
 
-**What this does not prove** is that replacing the library makes third-party
-verification succeed. It removes the one defect measured so far. Whether
-anything else stands behind it is answered by re-running a third-party verifier
-after the swap, not by this suite.
+**A conformant replacement exists, from the same vendor as the signing library.**
+Run through the identical harness:
+
+| | complexity 0 | complexity > 0 | SHA-384 case |
+|---|---|---|---|
+| current | 6 wrong (+1 reader) | aborts on 10 | fails |
+| `titanium-rdfc` 2.0.0 | passes | passes all 31 | passes |
+
+64 of 64, with none of the allowances the incumbent needed. The signing library
+already has the seam for it: canonicalization sits behind a single-method
+interface and the cryptosuite takes it as a constructor argument. The one
+obstacle is that the ECDSA suite class is `final`, so the swap needs a small
+sibling suite rather than a subclass, and the replacement uses the newer RDF API
+while the signing library still sits on the older one, so the adapter bridges
+the two.
+
+**What this does not prove** is that swapping makes third-party verification
+succeed. It removes the one defect measured so far. Whether anything else stands
+behind it is answered by re-running a third-party verifier after the swap, not
+by this suite. Every credential already issued has to be reissued either way,
+since each carries a signature over the wrong bytes.
 
 **Why it stayed invisible.** Every check on both sides compared like with like.
 The context parity gate compares two JavaScript canonicalizations of the same
