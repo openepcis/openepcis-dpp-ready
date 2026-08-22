@@ -55,6 +55,17 @@ const mirrorDir = process.env.DPP_API_EN18223_PATH
 const write = process.argv.includes("--write");
 
 if (!existsSync(mirrorDir)) {
+  // Writing to a mirror that is not there is an error; CHECKING one that is not
+  // there is not. The check runs inside `pnpm run build`, and this repository
+  // builds on its own in CI, where the sibling checkout does not exist. Failing
+  // there would force the check back out of the build, which is how 14 of these
+  // files drifted unnoticed in the first place. The skip is announced so a green
+  // build is never mistaken for a verified mirror.
+  if (!write) {
+    console.log(`— dpp-api EN 18223 mirror not present, check skipped (${mirrorDir})`);
+    console.log("  Run it against a checkout with OPENEPCIS_BUILD_PATH=… to verify the mirror.");
+    process.exit(0);
+  }
   console.error(`✗ mirror not found: ${mirrorDir}`);
   console.error(
     "  Point at the openepcis-build checkout with OPENEPCIS_BUILD_PATH=… " +
