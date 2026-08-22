@@ -94,7 +94,7 @@ JTC 24 is developing **8 individual standards** under M/604. Six were published 
 | **EN 18222** | APIs for the product passport lifecycle management and searchability | WG 4 | Published 2026 | **Planned** — expose the EN 18222 REST API method set; EPCIS query + resolver added as profile |
 | **EN 18223** | System interoperability | WG 4 | Published 2026 | **Conformant** — `oec:` core maps to the EN 18223 model; ref.openepcis.io is the §4.3 data dictionary |
 | **prEN 18239** | Access rights, security, business confidentiality | WG 3 | In development | **Partial** — `oec:AccessLevel` + Keycloak cover the access tiers; role-based expansion tracked |
-| **prEN 18246** | Data authentication, reliability, and integrity | WG 5 | In development | **Partial** — `oec:did`, `oec:identityCredentialUrl`; ESDC/VC integration tracked |
+| **prEN 18246** | Data authentication, reliability, and integrity | WG 5 | In development | **In implementation** — `oec:did`, `oec:identityCredentialUrl` are the ontology hooks; the OpenEPCIS VC platform (W3C VCDM 2.0 issuance, did:web anchoring) is in build; ESDC tracked |
 
 **Sources:** the standards are published by CEN/CENELEC and adopted nationally (for example as NEN-EN); they are licensed documents. See the clause-cited [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md) and the [CEN/CENELEC site](https://www.cencenelec.eu/).
 
@@ -130,7 +130,7 @@ JTC 24 is developing **8 individual standards** under M/604. Six were published 
 
 **prEN 18239 (Access Rights)** — `oec:AccessLevel` implements the three-tier model (Public, AuthorizedOnly, Restricted). Role-based differentiation (consumer, regulator, recycler, repairer, customs, etc.) tracked and will be added as the standard finalises.
 
-**prEN 18246 (Data Authentication)** — `oec:did` and `oec:identityCredentialUrl` support decentralized identity. Verifiable Credentials and Electronically Signed Data Constructs (ESDC) integration will follow the standard.
+**prEN 18246 (Data Authentication)** — `oec:did` and `oec:identityCredentialUrl` support decentralized identity, and the OpenEPCIS VC platform now implements the credential layer they were reserved for: W3C Verifiable Credentials (VCDM 2.0) issuance for Digital Product Passports with both securing mechanisms (JSON-LD Data Integrity `ecdsa-rdfc-2019` and VC-JOSE), did:web documents served by the issuer and by the Digital Link resolver, and a public verification endpoint. No new vocabulary was minted for this: credential types come from UNTP/W3C, subjects reuse `oec:` and module terms, evidence hashing uses `relatedResource`/`digestMultibase`. Electronically Signed Data Constructs (ESDC) alignment follows the final text of the standard.
 
 ### Why Not Wait?
 
