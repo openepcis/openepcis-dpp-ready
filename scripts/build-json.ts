@@ -173,6 +173,16 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     extraNamespaces: ["https://ref.openepcis.io/masterdata/served-fields/"],
     ontologyIri: "https://ref.openepcis.io/masterdata/served-fields/",
   },
+  // OpenEPCIS-owned GS1 Digital Link link types (https://ref.openepcis.io/voc/).
+  // Provisional by design: a term is minted only for a link relation GS1 has
+  // not yet ratified, mirrors the GS1 link-type pattern, and records its
+  // migration path. Directory mirrors the IRI path, like masterdata/served-fields.
+  {
+    name: "openepcis-linktypes",
+    dir: "voc",
+    ttlFile: "openepcis-linktypes.ttl",
+    namespace: "https://ref.openepcis.io/voc/",
+  },
   {
     name: "battery",
     dir: "extensions/eu/battery",

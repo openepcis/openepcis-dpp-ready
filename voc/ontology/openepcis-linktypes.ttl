@@ -1,0 +1,49 @@
+# OpenEPCIS link-type vocabulary — GS1 Digital Link link types minted under
+# https://ref.openepcis.io/voc/.
+#
+# The GS1 Web Vocabulary is the home of link types (gs1:linkType and its
+# subproperties gs1:dpp, gs1:pip, gs1:masterData, …; the DPP-relevant set is
+# documented in extensions/common/core/docs/LINK_TYPES.md). A term is minted
+# here ONLY when an OpenEPCIS resolver needs to route a link relation that GS1
+# has not (yet) ratified. Every term in this file is therefore provisional by
+# design: it mirrors the GS1 link-type pattern exactly (rdf:Property +
+# owl:ObjectProperty, rdfs:subPropertyOf gs1:linkType, range xsd:anyURI) and
+# carries its migration path in a skos:note. The directory mirrors the IRI
+# path, the same convention as masterdata/served-fields/.
+
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix gs1:     <https://ref.gs1.org/voc/> .
+@prefix oevoc:   <https://ref.openepcis.io/voc/> .
+
+<https://ref.openepcis.io/voc/>
+    a owl:Ontology ;
+    dcterms:title "OpenEPCIS Link Type Vocabulary"@en ;
+    dcterms:description """GS1 Digital Link link types minted by OpenEPCIS under
+https://ref.openepcis.io/voc/. The GS1 Web Vocabulary is the primary home of
+link types; a term lives here only for a link relation GS1 has not yet
+ratified, follows the GS1 link-type pattern verbatim, and records how it
+migrates to the GS1 term once one exists."""@en ;
+    dcterms:creator "OpenEPCIS" ;
+    dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+    owl:versionInfo "0.1.0" .
+
+oevoc:aas
+    a rdf:Property, owl:ObjectProperty ;
+    rdfs:label "Asset Administration Shell for this item"@en ;
+    rdfs:comment "A link to the Asset Administration Shell (IEC 63278) representation of the identified item — the AAS environment the OpenEPCIS AAS service derives from GS1 Web Vocabulary master data, built from the IDTA submodel templates mirrored in extensions/upstream/idta-aas/."@en ;
+    rdfs:subPropertyOf gs1:linkType ;
+    rdfs:domain owl:Thing ;
+    rdfs:range xsd:anyURI ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/voc/> ;
+    skos:note """The GS1 Web Vocabulary defines no link type for Asset
+Administration Shell access. Migration path: as soon as GS1 ratifies an
+official AAS link type, OpenEPCIS resolvers emit BOTH link types in parallel
+(dual emission) for a transition window, then migrate to the GS1 term; this
+IRI is subsequently marked owl:deprecated and kept dereferenceable."""@en ;
+    rdfs:seeAlso gs1:dpp, gs1:pip, <https://ref.openepcis.io/extensions/upstream/idta-aas/> .

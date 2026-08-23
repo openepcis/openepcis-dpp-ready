@@ -375,6 +375,34 @@ Or with active recall:
 | `instructions` | `gs1:instructions` | `gs1:ReferencedFileDetails` |
 | `serviceInfo` | `gs1:serviceInfo` | Spare parts, warranty |
 
+## OpenEPCIS Provisional Link Types
+
+The GS1 Web Vocabulary does not yet name every relation an OpenEPCIS resolver
+routes. For those cases OpenEPCIS mints a provisional link type under
+`https://ref.openepcis.io/voc/` (source: [`voc/ontology/openepcis-linktypes.ttl`](../../../../voc/ontology/openepcis-linktypes.ttl)),
+following the GS1 link-type pattern exactly (`rdfs:subPropertyOf gs1:linkType`).
+Each provisional term carries its migration path: as soon as GS1 ratifies an
+official link type for the relation, resolvers emit both link types in parallel
+(dual emission) for a transition window, then migrate to the GS1 term and
+deprecate the OpenEPCIS IRI.
+
+### voc/aas — Asset Administration Shell for this item
+
+**Canonical IRI**: `https://ref.openepcis.io/voc/aas`
+
+**Response Type**: An Asset Administration Shell environment (IEC 63278) —
+the AAS representation the OpenEPCIS AAS service derives from GS1 Web
+Vocabulary master data, built from the IDTA submodel templates registered in
+[`extensions/upstream/idta-aas/`](../../../upstream/idta-aas/README.md).
+
+**Request**:
+```bash
+curl -H "Accept: application/json" \
+  "https://id.gs1.org/01/09521234000013/21/BAT2024-001?linkType=https://ref.openepcis.io/voc/aas"
+```
+
+---
+
 ## Content Negotiation
 
 | Accept Header | Response Format |
