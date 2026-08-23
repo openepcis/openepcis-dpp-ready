@@ -1,0 +1,214 @@
+{
+  "namespace": "https://ref.openepcis.io/extensions/upstream/idta-aas/",
+  "version": "0.1.0",
+  "title": "IDTA AAS Submodel SemanticIds (phase-0 surface)",
+  "description": "Registry of the IDTA Asset Administration Shell\nsemanticIds emitted by the OpenEPCIS AAS phase-0 builders, with graded SKOS\nmappings to the GS1 Web Vocabulary master data those builders read. Covers the\nDigital Nameplate 3.0 (IDTA 02006), ContactInformations 1.0 (IDTA 02002) and\nDPP Metadata submodels. admin-shell.io semanticIds keep their upstream IRIs;\nIEC CDD / ECLASS elements are identified by IRDIs, which are not IRIs, so they\ncarry a local node here with the verbatim IRDI in skos:notation. Deliberately\nNOT a full mapping of the templates — only the builder surface.",
+  "classes": [
+    {
+      "id": "https://ref.openepcis.io/extensions/upstream/idta-aas/Email",
+      "localName": "Email",
+      "label": "Email",
+      "comment": "ContactInformation collection (ECLASS AAQ836): the SubmodelElementCollection grouping the e-mail properties. A structural container, so it carries no graded mapping of its own; the value inside is EmailAddress.",
+      "seeAlso": [
+        "https://ref.gs1.org/voc/contactPoint"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://admin-shell.io/idta/cds/dppMetadata/1",
+      "localName": "idta/cds/dppMetadata/1",
+      "label": "DPP Metadata (Submodel)",
+      "comment": "semanticId of the DPP Metadata submodel as emitted by the OpenEPCIS AAS phase-0 builder. Carries the passport header; its properties are identified by semanticIds formed as {submodel semanticId}/{idShort}.",
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://admin-shell.io/idta/nameplate/3/0/Nameplate",
+      "localName": "idta/nameplate/3/0/Nameplate",
+      "label": "Digital Nameplate (Submodel)",
+      "comment": "semanticId of the Digital Nameplate for Industrial Equipment submodel, template version 3.0 (IDTA 02006-3-0), as emitted by the OpenEPCIS AAS phase-0 builder. Its elements are identified by IEC CDD IRDIs; the ones the builder populates are listed below.",
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://admin-shell.io/zvei/nameplate/1/0/ContactInformations",
+      "localName": "zvei/nameplate/1/0/ContactInformations",
+      "label": "ContactInformations (Submodel)",
+      "comment": "semanticId of the ContactInformations submodel, template version 1.0 (IDTA 02002-1-0), as emitted by the OpenEPCIS AAS phase-0 builder. The template predates the idta path segment, so the zvei namespace is upstream's own and is preserved verbatim. Its elements are identified by ECLASS IRDIs; the ones the builder populates are listed below.",
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    }
+  ],
+  "properties": [
+    {
+      "id": "https://ref.openepcis.io/extensions/upstream/idta-aas/CityTown",
+      "localName": "CityTown",
+      "label": "CityTown",
+      "comment": "ContactInformation element (ECLASS AAO132): city or town. Filled verbatim from the GS1 postal address locality.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/addressLocality"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/upstream/idta-aas/Company",
+      "localName": "Company",
+      "label": "Company",
+      "comment": "ContactInformation element (ECLASS AAW001): name of the company. Filled from the GS1 organization name of the contact party — the same brand-owner-before-manufacturer choice as ManufacturerName, hence close, not exact.",
+      "closeMatch": [
+        "https://ref.gs1.org/voc/organizationName"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/upstream/idta-aas/CountryOfOrigin",
+      "localName": "CountryOfOrigin",
+      "label": "CountryOfOrigin",
+      "comment": "Digital Nameplate element (IEC CDD ABP462): country where the product was manufactured. GS1 models the origin against its country code lists while the CDD element is a plain string, so the relation is close, not exact.",
+      "closeMatch": [
+        "https://ref.gs1.org/voc/countryOfOrigin"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/upstream/idta-aas/EmailAddress",
+      "localName": "EmailAddress",
+      "label": "EmailAddress",
+      "comment": "ContactInformation element (ECLASS AAO198): e-mail address, inside the Email collection. Filled verbatim from the GS1 contact e-mail.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/email"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/upstream/idta-aas/globalAssetId",
+      "localName": "globalAssetId",
+      "label": "globalAssetId",
+      "comment": "AAS meta-model attribute (AssetInformation/globalAssetId, IEC 63278) — an attribute of the shell itself rather than a submodel element, so it has no semanticId and is carried as a local node. The phase-0 builder fills it with the canonical GS1 Digital Link URI (id.gs1.org): the same identity that appears as URIOfTheProduct and in the DPP Metadata header.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/productID"
+      ]
+    },
+    {
+      "id": "https://admin-shell.io/idta/cds/dppMetadata/1/digitalProductPassportId",
+      "localName": "idta/cds/dppMetadata/1/digitalProductPassportId",
+      "label": "digitalProductPassportId",
+      "comment": "DPP Metadata header property: the passport identifier. The phase-0 builder fills it with the canonical GS1 Digital Link URI (id.gs1.org) — the identity bridge of the platform. In the GS1 Web Vocabulary rendering, that URI is the JSON-LD node identity (@id); gs1:productID is the property stand-in the project uses where identity must appear as a property (the EN 18223 envelope makes the same move).",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/productID"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://admin-shell.io/idta/cds/dppMetadata/1/granularity",
+      "localName": "idta/cds/dppMetadata/1/granularity",
+      "label": "granularity",
+      "comment": "DPP Metadata header property: model, batch, or item. The phase-0 builder derives it from the GS1 Digital Link Application Identifiers (01 model, 01+10 batch, 01+21 item), not from a GS1 master-data field, so no graded mapping is asserted.",
+      "seeAlso": [
+        "https://ref.openepcis.io/extensions/common/core/granularityLevel"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://admin-shell.io/idta/cds/dppMetadata/1/uniqueProductIdentifier",
+      "localName": "idta/cds/dppMetadata/1/uniqueProductIdentifier",
+      "label": "uniqueProductIdentifier",
+      "comment": "DPP Metadata header property: the ESPR unique product identifier. The phase-0 builder fills it with the canonical GS1 Digital Link URI (id.gs1.org), identical to digitalProductPassportId and to the AAS globalAssetId — one identity, emitted at every AAS anchor point.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/productID"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/upstream/idta-aas/ManufacturerName",
+      "localName": "ManufacturerName",
+      "label": "ManufacturerName",
+      "comment": "Digital Nameplate element (IEC CDD ABA565): legally valid designation of the natural or judicial person placing the product on the market. The phase-0 builder takes the organization name of the brand owner before the manufacturer, so the GS1 organization name is close but not identical in referent; the brand name serves as a further fallback.",
+      "closeMatch": [
+        "https://ref.gs1.org/voc/organizationName"
+      ],
+      "relatedMatch": [
+        "https://ref.gs1.org/voc/brandName"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/upstream/idta-aas/ManufacturerProductDesignation",
+      "localName": "ManufacturerProductDesignation",
+      "label": "ManufacturerProductDesignation",
+      "comment": "Digital Nameplate element (IEC CDD ABA567): short description of the product. Filled from the GS1 product name — a consumer-facing name rather than a manufacturer designation, hence close, not exact.",
+      "closeMatch": [
+        "https://ref.gs1.org/voc/productName"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/upstream/idta-aas/NationalCode",
+      "localName": "NationalCode",
+      "label": "NationalCode",
+      "comment": "ContactInformation element (ECLASS AAO134): country code. Both sides carry ISO 3166-1 alpha-2 codes, so the match is exact.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/countryCode"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/upstream/idta-aas/OrderCodeOfManufacturer",
+      "localName": "OrderCodeOfManufacturer",
+      "label": "OrderCodeOfManufacturer",
+      "comment": "Digital Nameplate element (IEC CDD ABA950): unique combination of characters identifying the product for ordering. The phase-0 builder fills it with the GTIN-14 by convention — in the GS1 world the GTIN IS the order code — but the concepts are not the same, so the relation stays related, not graded closer.",
+      "relatedMatch": [
+        "https://ref.gs1.org/voc/gtin"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/upstream/idta-aas/SerialNumber",
+      "localName": "SerialNumber",
+      "label": "SerialNumber",
+      "comment": "Digital Nameplate element (IEC CDD ABA951): unique combination of characters identifying the individual item. Filled verbatim from the GS1 serial number (AI 21).",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/hasSerialNumber"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/upstream/idta-aas/Street",
+      "localName": "Street",
+      "label": "Street",
+      "comment": "ContactInformation element (ECLASS AAO128): street name and house number. Filled verbatim from the GS1 postal address street.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/streetAddress"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/upstream/idta-aas/TelephoneNumber",
+      "localName": "TelephoneNumber",
+      "label": "TelephoneNumber",
+      "comment": "ContactInformation element (ECLASS AAO136): telephone number. Filled verbatim from the GS1 contact telephone.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/telephone"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/upstream/idta-aas/URIOfTheProduct",
+      "localName": "URIOfTheProduct",
+      "label": "URIOfTheProduct",
+      "comment": "Digital Nameplate element (IEC CDD ABN590): unique global identification of the product using a universal resource identifier. The phase-0 builder fills it with the canonical GS1 Digital Link URI (id.gs1.org) — the node identity of the GS1 master data; gs1:productID is the property stand-in for that identity.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/productID"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    },
+    {
+      "id": "https://ref.openepcis.io/extensions/upstream/idta-aas/Zipcode",
+      "localName": "Zipcode",
+      "label": "Zipcode",
+      "comment": "ContactInformation element (ECLASS AAO129): postal code. Filled verbatim from the GS1 postal address postal code.",
+      "exactMatch": [
+        "https://ref.gs1.org/voc/postalCode"
+      ],
+      "source": "https://industrialdigitaltwin.org/en/content-hub/submodels"
+    }
+  ],
+  "enumerations": []
+}

@@ -146,6 +146,19 @@ further upstream profiles (e.g. the IDTA AAS submodel templates). Upstream IRIs 
 preserved verbatim; our ontology still references them by IRI, no `owl:imports`.
 Upstream license Apache 2.0 (CC BY 4.0 fallback as a document).
 
+That IDTA follow-up exists now: the semanticIds the OpenEPCIS AAS phase-0 builders emit
+(Digital Nameplate 3.0, ContactInformations 1.0, DPP Metadata) are registered verbatim as
+a Layer-2 upstream module ([`extensions/upstream/idta-aas/`](extensions/upstream/idta-aas/README.md)),
+with graded SKOS mappings to exactly the GS1 Web Vocabulary terms the builders read — the
+canonical GS1 Digital Link URI is the identity bridge, `skos:exactMatch gs1:productID` at
+all four AAS anchor points. Curated by hand (IDTA publishes AASX/JSON templates, not RDF);
+IRDI-identified elements (IEC CDD, ECLASS) carry local nodes with the verbatim IRDI in
+`skos:notation`, since an IRDI is not an IRI. Routing consumers to that AAS representation
+is the first OpenEPCIS-owned link type, `https://ref.openepcis.io/voc/aas` ([`voc/`](voc/ontology/openepcis-linktypes.ttl),
+new link-type vocabulary mirroring the GS1 pattern), provisional by design: once GS1
+ratifies an official AAS link type, resolvers dual-emit through a transition window and
+migrate to the GS1 term.
+
 The 2026-08-06/07 vocab-sync rounds then graded the alignment across **all** modules
 against the EUDPP-extended upstream index (4407 terms): 79 panel-confirmed SKOS mappings
 applied — core 30, battery 13, textile 23 (incl. the nine specific EUDPP footprint

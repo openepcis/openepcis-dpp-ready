@@ -1,0 +1,248 @@
+# IDTA AAS submodel semanticIds — upstream registry (curated by hand).
+#
+# The Industrial Digital Twin Association publishes its submodel templates as
+# AASX/JSON packages, not as RDF, so unlike the gs1-rail and cirpass2-eudpp
+# mirrors there is nothing to sync: this file records — verbatim — the
+# semanticIds the OpenEPCIS AAS phase-0 builders emit today, and anchors them
+# to the GS1 Web Vocabulary terms those builders actually read.
+#
+# Two identifier regimes, two treatments:
+#   * admin-shell.io semanticIds ARE IRIs and appear here verbatim as subjects.
+#     Nothing is rebranded under ref.openepcis.io.
+#   * IEC CDD and ECLASS semanticIds are IRDIs ("0112/2///61987#ABN590#002",
+#     "0173-1#02-AAW001#001") — not IRIs, so they cannot be RDF subjects. Those
+#     elements carry a local identifier under this module's namespace (the same
+#     move masterdata/served-fields makes for its resolver-specific shapes) and
+#     record the verbatim IRDI in skos:notation.
+#
+# Scope is deliberately the phase-0 builder surface, not the full templates:
+# only the elements the builders populate from GS1 master data are listed, and
+# only those get graded SKOS mappings.
+#
+# Upstream templates: IDTA 02006-3-0 Digital Nameplate for Industrial
+# Equipment (3.0), IDTA 02002-1-0 ContactInformations (1.0), IDTA DPP Metadata
+# (dppMetadata/1). Upstream license CC BY 4.0, (c) Industrial Digital Twin
+# Association.
+
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix gs1:     <https://ref.gs1.org/voc/> .
+@prefix oec:     <https://ref.openepcis.io/extensions/common/core/> .
+@prefix oaas:    <https://ref.openepcis.io/extensions/upstream/idta-aas/> .
+
+<https://ref.openepcis.io/extensions/upstream/idta-aas/>
+    a owl:Ontology ;
+    dcterms:title "IDTA AAS Submodel SemanticIds (phase-0 surface)"@en ;
+    dcterms:description """Registry of the IDTA Asset Administration Shell
+semanticIds emitted by the OpenEPCIS AAS phase-0 builders, with graded SKOS
+mappings to the GS1 Web Vocabulary master data those builders read. Covers the
+Digital Nameplate 3.0 (IDTA 02006), ContactInformations 1.0 (IDTA 02002) and
+DPP Metadata submodels. admin-shell.io semanticIds keep their upstream IRIs;
+IEC CDD / ECLASS elements are identified by IRDIs, which are not IRIs, so they
+carry a local node here with the verbatim IRDI in skos:notation. Deliberately
+NOT a full mapping of the templates — only the builder surface."""@en ;
+    dcterms:creator "OpenEPCIS" ;
+    dcterms:publisher "Industrial Digital Twin Association (IDTA)"@en ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:seeAlso <https://ref.openepcis.io/voc/aas> ;
+    owl:versionInfo "0.1.0" .
+
+# =============================================================================
+# Submodel semanticIds — admin-shell.io IRIs, verbatim as emitted
+# =============================================================================
+
+<https://admin-shell.io/idta/nameplate/3/0/Nameplate>
+    a owl:Class ;
+    rdfs:label "Digital Nameplate (Submodel)"@en ;
+    rdfs:comment "semanticId of the Digital Nameplate for Industrial Equipment submodel, template version 3.0 (IDTA 02006-3-0), as emitted by the OpenEPCIS AAS phase-0 builder. Its elements are identified by IEC CDD IRDIs; the ones the builder populates are listed below."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> .
+
+<https://admin-shell.io/zvei/nameplate/1/0/ContactInformations>
+    a owl:Class ;
+    rdfs:label "ContactInformations (Submodel)"@en ;
+    rdfs:comment "semanticId of the ContactInformations submodel, template version 1.0 (IDTA 02002-1-0), as emitted by the OpenEPCIS AAS phase-0 builder. The template predates the idta path segment, so the zvei namespace is upstream's own and is preserved verbatim. Its elements are identified by ECLASS IRDIs; the ones the builder populates are listed below."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> .
+
+<https://admin-shell.io/idta/cds/dppMetadata/1>
+    a owl:Class ;
+    rdfs:label "DPP Metadata (Submodel)"@en ;
+    rdfs:comment "semanticId of the DPP Metadata submodel as emitted by the OpenEPCIS AAS phase-0 builder. Carries the passport header; its properties are identified by semanticIds formed as {submodel semanticId}/{idShort}."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> .
+
+<https://admin-shell.io/idta/cds/dppMetadata/1/digitalProductPassportId>
+    a owl:DatatypeProperty ;
+    rdfs:label "digitalProductPassportId"@en ;
+    rdfs:comment "DPP Metadata header property: the passport identifier. The phase-0 builder fills it with the canonical GS1 Digital Link URI (id.gs1.org) — the identity bridge of the platform. In the GS1 Web Vocabulary rendering, that URI is the JSON-LD node identity (@id); gs1:productID is the property stand-in the project uses where identity must appear as a property (the EN 18223 envelope makes the same move)."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    skos:exactMatch gs1:productID .
+
+<https://admin-shell.io/idta/cds/dppMetadata/1/uniqueProductIdentifier>
+    a owl:DatatypeProperty ;
+    rdfs:label "uniqueProductIdentifier"@en ;
+    rdfs:comment "DPP Metadata header property: the ESPR unique product identifier. The phase-0 builder fills it with the canonical GS1 Digital Link URI (id.gs1.org), identical to digitalProductPassportId and to the AAS globalAssetId — one identity, emitted at every AAS anchor point."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    skos:exactMatch gs1:productID .
+
+<https://admin-shell.io/idta/cds/dppMetadata/1/granularity>
+    a owl:DatatypeProperty ;
+    rdfs:label "granularity"@en ;
+    rdfs:comment "DPP Metadata header property: model, batch, or item. The phase-0 builder derives it from the GS1 Digital Link Application Identifiers (01 model, 01+10 batch, 01+21 item), not from a GS1 master-data field, so no graded mapping is asserted."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    rdfs:seeAlso oec:granularityLevel .
+
+# =============================================================================
+# AAS meta-model anchor — no semanticId of its own
+# =============================================================================
+
+oaas:globalAssetId
+    a owl:DatatypeProperty ;
+    rdfs:label "globalAssetId"@en ;
+    rdfs:comment "AAS meta-model attribute (AssetInformation/globalAssetId, IEC 63278) — an attribute of the shell itself rather than a submodel element, so it has no semanticId and is carried as a local node. The phase-0 builder fills it with the canonical GS1 Digital Link URI (id.gs1.org): the same identity that appears as URIOfTheProduct and in the DPP Metadata header."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    skos:exactMatch gs1:productID .
+
+# =============================================================================
+# Digital Nameplate 3.0 elements — IEC CDD IRDIs (verbatim in skos:notation)
+# =============================================================================
+
+oaas:URIOfTheProduct
+    a owl:DatatypeProperty ;
+    rdfs:label "URIOfTheProduct"@en ;
+    skos:notation "0112/2///61987#ABN590#002" ;
+    rdfs:comment "Digital Nameplate element (IEC CDD ABN590): unique global identification of the product using a universal resource identifier. The phase-0 builder fills it with the canonical GS1 Digital Link URI (id.gs1.org) — the node identity of the GS1 master data; gs1:productID is the property stand-in for that identity."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    skos:exactMatch gs1:productID .
+
+oaas:ManufacturerName
+    a owl:DatatypeProperty ;
+    rdfs:label "ManufacturerName"@en ;
+    skos:notation "0112/2///61987#ABA565#009" ;
+    rdfs:comment "Digital Nameplate element (IEC CDD ABA565): legally valid designation of the natural or judicial person placing the product on the market. The phase-0 builder takes the organization name of the brand owner before the manufacturer, so the GS1 organization name is close but not identical in referent; the brand name serves as a further fallback."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    skos:closeMatch gs1:organizationName ;
+    skos:relatedMatch gs1:brandName .
+
+oaas:ManufacturerProductDesignation
+    a owl:DatatypeProperty ;
+    rdfs:label "ManufacturerProductDesignation"@en ;
+    skos:notation "0112/2///61987#ABA567#009" ;
+    rdfs:comment "Digital Nameplate element (IEC CDD ABA567): short description of the product. Filled from the GS1 product name — a consumer-facing name rather than a manufacturer designation, hence close, not exact."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    skos:closeMatch gs1:productName .
+
+oaas:OrderCodeOfManufacturer
+    a owl:DatatypeProperty ;
+    rdfs:label "OrderCodeOfManufacturer"@en ;
+    skos:notation "0112/2///61987#ABA950#008" ;
+    rdfs:comment "Digital Nameplate element (IEC CDD ABA950): unique combination of characters identifying the product for ordering. The phase-0 builder fills it with the GTIN-14 by convention — in the GS1 world the GTIN IS the order code — but the concepts are not the same, so the relation stays related, not graded closer."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    skos:relatedMatch gs1:gtin .
+
+oaas:SerialNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "SerialNumber"@en ;
+    skos:notation "0112/2///61987#ABA951#009" ;
+    rdfs:comment "Digital Nameplate element (IEC CDD ABA951): unique combination of characters identifying the individual item. Filled verbatim from the GS1 serial number (AI 21)."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    skos:exactMatch gs1:hasSerialNumber .
+
+oaas:CountryOfOrigin
+    a owl:DatatypeProperty ;
+    rdfs:label "CountryOfOrigin"@en ;
+    skos:notation "0112/2///61987#ABP462#001" ;
+    rdfs:comment "Digital Nameplate element (IEC CDD ABP462): country where the product was manufactured. GS1 models the origin against its country code lists while the CDD element is a plain string, so the relation is close, not exact."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    skos:closeMatch gs1:countryOfOrigin .
+
+# =============================================================================
+# ContactInformations 1.0 elements — ECLASS IRDIs (verbatim in skos:notation)
+# =============================================================================
+
+oaas:Company
+    a owl:DatatypeProperty ;
+    rdfs:label "Company"@en ;
+    skos:notation "0173-1#02-AAW001#001" ;
+    rdfs:comment "ContactInformation element (ECLASS AAW001): name of the company. Filled from the GS1 organization name of the contact party — the same brand-owner-before-manufacturer choice as ManufacturerName, hence close, not exact."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    skos:closeMatch gs1:organizationName .
+
+oaas:Street
+    a owl:DatatypeProperty ;
+    rdfs:label "Street"@en ;
+    skos:notation "0173-1#02-AAO128#002" ;
+    rdfs:comment "ContactInformation element (ECLASS AAO128): street name and house number. Filled verbatim from the GS1 postal address street."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    skos:exactMatch gs1:streetAddress .
+
+oaas:Zipcode
+    a owl:DatatypeProperty ;
+    rdfs:label "Zipcode"@en ;
+    skos:notation "0173-1#02-AAO129#002" ;
+    rdfs:comment "ContactInformation element (ECLASS AAO129): postal code. Filled verbatim from the GS1 postal address postal code."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    skos:exactMatch gs1:postalCode .
+
+oaas:CityTown
+    a owl:DatatypeProperty ;
+    rdfs:label "CityTown"@en ;
+    skos:notation "0173-1#02-AAO132#002" ;
+    rdfs:comment "ContactInformation element (ECLASS AAO132): city or town. Filled verbatim from the GS1 postal address locality."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    skos:exactMatch gs1:addressLocality .
+
+oaas:NationalCode
+    a owl:DatatypeProperty ;
+    rdfs:label "NationalCode"@en ;
+    skos:notation "0173-1#02-AAO134#002" ;
+    rdfs:comment "ContactInformation element (ECLASS AAO134): country code. Both sides carry ISO 3166-1 alpha-2 codes, so the match is exact."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    skos:exactMatch gs1:countryCode .
+
+oaas:Email
+    a owl:Class ;
+    rdfs:label "Email"@en ;
+    skos:notation "0173-1#02-AAQ836#005" ;
+    rdfs:comment "ContactInformation collection (ECLASS AAQ836): the SubmodelElementCollection grouping the e-mail properties. A structural container, so it carries no graded mapping of its own; the value inside is EmailAddress."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    rdfs:seeAlso gs1:contactPoint .
+
+oaas:EmailAddress
+    a owl:DatatypeProperty ;
+    rdfs:label "EmailAddress"@en ;
+    skos:notation "0173-1#02-AAO198#002" ;
+    rdfs:comment "ContactInformation element (ECLASS AAO198): e-mail address, inside the Email collection. Filled verbatim from the GS1 contact e-mail."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    skos:exactMatch gs1:email .
+
+oaas:TelephoneNumber
+    a owl:DatatypeProperty ;
+    rdfs:label "TelephoneNumber"@en ;
+    skos:notation "0173-1#02-AAO136#002" ;
+    rdfs:comment "ContactInformation element (ECLASS AAO136): telephone number. Filled verbatim from the GS1 contact telephone."@en ;
+    dcterms:source <https://industrialdigitaltwin.org/en/content-hub/submodels> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/upstream/idta-aas/> ;
+    skos:exactMatch gs1:telephone .

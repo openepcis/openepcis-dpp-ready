@@ -255,6 +255,19 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ontologyIri: "https://w3id.org/eudpp/",
     publishTermNamespace: true,
   },
+  // Upstream registry — IDTA AAS submodel semanticIds (Industrial Digital
+  // Twin Association). Curated by hand: IDTA publishes AASX/JSON templates,
+  // not RDF, so there is no sync script. admin-shell.io semanticIds are IRIs
+  // and stay verbatim subjects (extraNamespaces); IEC CDD / ECLASS elements
+  // are identified by IRDIs — not IRIs — and carry a local node with the
+  // verbatim IRDI in skos:notation.
+  {
+    name: "idta-aas",
+    dir: "extensions/upstream/idta-aas",
+    ttlFile: "idta-aas.ttl",
+    namespace: "https://ref.openepcis.io/extensions/upstream/idta-aas/",
+    extraNamespaces: ["https://admin-shell.io/"],
+  },
 ];
 
 function getLocalName(uri: string, namespace: string): string {
