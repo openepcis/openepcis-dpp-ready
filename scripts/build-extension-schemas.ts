@@ -1,5 +1,5 @@
 /**
- * Build a permissive per-namespace JSON Schema for every ref.openepcis.org EPCIS
+ * Build a permissive per-namespace JSON Schema for every ref.openepcis.io EPCIS
  * extension, so the OpenEPCIS repository can register them (POST
  * /userExtension/jsonSchema) and capture events that declare the namespace via
  * the GS1-Extensions header instead of failing closed.
@@ -32,7 +32,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const PROJECT_ROOT = join(__dirname, "..");
-const BASE_URL = "https://ref.openepcis.org/extensions";
+const BASE_URL = "https://ref.openepcis.io/extensions";
 
 interface ExtensionModule {
   /** module directory relative to the repo root */

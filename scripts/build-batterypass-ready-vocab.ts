@@ -31,8 +31,8 @@ import { Parser } from "n3";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
-const NS = "https://ref.openepcis.org/vocab/batterypass-ready/1.3#";
-const ONT = "https://ref.openepcis.org/vocab/batterypass-ready/1.3";
+const NS = "https://ref.openepcis.io/vocab/batterypass-ready/1.3#";
+const ONT = "https://ref.openepcis.io/vocab/batterypass-ready/1.3";
 
 // ── BatteryPass Consortium SAMM descriptions (optional enrichment) ───────────
 // GEFEG publishes the BatteryPass-Ready v1.3 attributes as a bare longlist (names

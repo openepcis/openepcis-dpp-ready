@@ -28,7 +28,7 @@ const bprLiveIris = new Set(
 const isMootBprTarget = (raw: string) => {
   const cleaned = raw.replace(/^[`<]|[`>]$/g, "");
   const iri = cleaned.startsWith("bpr:")
-    ? "https://ref.openepcis.org/vocab/batterypass-ready/1.3#" + cleaned.slice(4)
+    ? "https://ref.openepcis.io/vocab/batterypass-ready/1.3#" + cleaned.slice(4)
     : cleaned;
   return iri.includes("batterypass-ready/1.3#") && !bprLiveIris.has(iri);
 };

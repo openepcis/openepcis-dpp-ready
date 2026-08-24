@@ -39,13 +39,13 @@ interface Module {
 }
 
 const MODULES: Module[] = [
-  { prefix: "dpp", name: "common/core", dir: "extensions/common/core", ttl: "dpp-core.ttl", namespace: "https://ref.openepcis.org/extensions/common/core/" },
-  { prefix: "battery", name: "eu/battery", dir: "extensions/eu/battery", ttl: "battery.ttl", namespace: "https://ref.openepcis.org/extensions/eu/battery/" },
-  { prefix: "eudr", name: "eu/eudr", dir: "extensions/eu/eudr", ttl: "eudr.ttl", namespace: "https://ref.openepcis.org/extensions/eu/eudr/" },
-  { prefix: "textile", name: "eu/textile", dir: "extensions/eu/textile", ttl: "textile.ttl", namespace: "https://ref.openepcis.org/extensions/eu/textile/" },
-  { prefix: "electronics", name: "eu/electronics", dir: "extensions/eu/electronics", ttl: "electronics.ttl", namespace: "https://ref.openepcis.org/extensions/eu/electronics/" },
-  { prefix: "detergent", name: "eu/detergent", dir: "extensions/eu/detergent", ttl: "detergent.ttl", namespace: "https://ref.openepcis.org/extensions/eu/detergent/" },
-  { prefix: "fsma", name: "us/fsma204", dir: "extensions/us/fsma204", ttl: "fsma204.ttl", namespace: "https://ref.openepcis.org/extensions/us/fsma204/" },
+  { prefix: "dpp", name: "common/core", dir: "extensions/common/core", ttl: "dpp-core.ttl", namespace: "https://ref.openepcis.io/extensions/common/core/" },
+  { prefix: "battery", name: "eu/battery", dir: "extensions/eu/battery", ttl: "battery.ttl", namespace: "https://ref.openepcis.io/extensions/eu/battery/" },
+  { prefix: "eudr", name: "eu/eudr", dir: "extensions/eu/eudr", ttl: "eudr.ttl", namespace: "https://ref.openepcis.io/extensions/eu/eudr/" },
+  { prefix: "textile", name: "eu/textile", dir: "extensions/eu/textile", ttl: "textile.ttl", namespace: "https://ref.openepcis.io/extensions/eu/textile/" },
+  { prefix: "electronics", name: "eu/electronics", dir: "extensions/eu/electronics", ttl: "electronics.ttl", namespace: "https://ref.openepcis.io/extensions/eu/electronics/" },
+  { prefix: "detergent", name: "eu/detergent", dir: "extensions/eu/detergent", ttl: "detergent.ttl", namespace: "https://ref.openepcis.io/extensions/eu/detergent/" },
+  { prefix: "fsma", name: "us/fsma204", dir: "extensions/us/fsma204", ttl: "fsma204.ttl", namespace: "https://ref.openepcis.io/extensions/us/fsma204/" },
 ];
 
 interface Term {

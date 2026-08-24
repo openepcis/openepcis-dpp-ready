@@ -200,8 +200,8 @@ list the standard chain, EPCIS base first:
 ```json
 "@context": [
   "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-  "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
-  "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld"
+  "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
 ]
 ```
 
@@ -272,7 +272,7 @@ Aligns `oec:` core with the published EN 18223:2026 `DigitalProductPassport` mod
 - `oec:dppSchemaVersion`, `oec:facilityId`, `oec:contentSpecificationId` properties (EN 18223 attributes).
 - `oec:Inactive`, `oec:Invalid` passport-status values (EN 18223 `dppStatus` base set); `skos:notation` lowercase tokens on all status and granularity values.
 - EN 18223 DataElement model (4.1.2.3 to 4.1.2.8): `oec:DataElement` with subclasses `DataElementCollection`, `SingleValuedDataElement`, `MultiValuedDataElement`, `MultiLanguageDataElement`, and `oec:MultiLanguageValue`; properties `oec:elementId`, `oec:dictionaryReference`, `oec:valueDataType`, `oec:value`, `oec:dataElement`, `oec:multiLanguageValue`, `oec:language`. `oec:DocumentReference` documented as the EN 18223 RelatedResource (4.1.2.7).
-- Worked EN 18223 example: the real GS1 Web Vocabulary + Digital Link battery passport `../../eu/battery/examples/battery-product.jsonld` derives to `../../eu/battery/examples/battery-product.en18223.json` (the Annex A `elements[]` output whose entries carry a `dictionaryReference` into the ref.openepcis.org data dictionary).
+- Worked EN 18223 example: the real GS1 Web Vocabulary + Digital Link battery passport `../../eu/battery/examples/battery-product.jsonld` derives to `../../eu/battery/examples/battery-product.en18223.json` (the Annex A `elements[]` output whose entries carry a `dictionaryReference` into the ref.openepcis.io data dictionary).
 - SHACL constraint `dpp-sh:GranularityDigitalLinkConstraint`: validates that `granularity` matches the GS1 Digital Link Application Identifiers in `uniqueProductIdentifier` (01 -> model, 01+10 -> batch, 01+21 -> item; EN 18219 4.4 / EN 18223), with `sh:declare` prefix declarations added to the shapes graph.
 - Converter `scripts/derive-en18223.ts` (npm `derive:en18223`): derives the EN 18223 Annex A "expanded" serialization (`elements[]` with `objectType`/`dictionaryReference`/`valueDataType`) from good GS1 Web Vocabulary + GS1 Digital Link JSON-LD (the EN 18223 "compressed" serialization). Reuses the N3 range index and `jsonld.expand`, and derives the whole envelope (granularity, schema version, identity, and `contentSpecificationIds` from the dictionaryReference namespaces) from the source document.
 - Browser demo `demos/en18223-converter/` (npm `demo:en18223`): a self-contained client-side page that runs the converter live (esbuild-bundled). It loads every module's real product passport (battery, electronics, textile, eudr, ppwr, cpr, detergent, fsma), grouped by industry. The derivation logic is a browser-safe core `scripts/en18223/derive-core.ts` (shared by the CLI and the demo) plus Node IO in `scripts/en18223/node-io.ts`; the range index, the OpenEPCIS contexts, and the product samples are generated from the repo sources by `scripts/build-en18223-demo-data.ts` and bundled, so the demo runs offline.

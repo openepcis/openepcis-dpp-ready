@@ -1,6 +1,6 @@
 /**
  * One-off migration: rename OpenEPCIS vocabulary PREFIXES (aliases only — the
- * namespace IRIs under https://ref.openepcis.org/extensions/… are unchanged).
+ * namespace IRIs under https://ref.openepcis.io/extensions/… are unchanged).
  *
  *   dpp→oec  interop→oei  battery→eubat  textile→eutex  electronics→euelec
  *   detergent→eudet  ppwr→euppwr  cpr→eucpr  fsma→usfsma
@@ -46,7 +46,7 @@ function transform(file, text) {
       bump(oldP, sub(new RegExp(`(vann:preferredNamespacePrefix\\s+")${oldP}(")`, "g"), `$1${newP}$2`));
     } else if (ext === ".jsonld" || ext === ".json") {
       // context prefix key: "old": "https://…extensions/…"
-      bump(oldP, sub(new RegExp(`"${oldP}"(\\s*:\\s*)"${NS}`, "g"), `"${newP}"$1"https://ref.openepcis.org/extensions/`));
+      bump(oldP, sub(new RegExp(`"${oldP}"(\\s*:\\s*)"${NS}`, "g"), `"${newP}"$1"https://ref.openepcis.io/extensions/`));
       // CURIEs in string values / keys
       bump(oldP, sub(new RegExp(`${lb}${oldP}:`, "g"), `${newP}:`));
       // GS1-Extensions header label

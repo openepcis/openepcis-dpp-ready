@@ -68,8 +68,8 @@ introduces it.
 ```json
 "@context": [
   "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-  "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
-  "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld"
+  "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+  "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
 ]
 ```
 
@@ -86,7 +86,7 @@ pulls in the GS1 bare-alias layer:
 "gs1:masterDataAvailableFor": {
   "@id": "gs1:masterDataAvailableFor",
   "@container": "@set",
-  "@context": "https://ref.openepcis.org/extensions/common/core/gs1-shortcuts-context.jsonld"
+  "@context": "https://ref.openepcis.io/extensions/common/core/gs1-shortcuts-context.jsonld"
 }
 ```
 
@@ -265,7 +265,7 @@ What remains forbidden is only the combination `ilmd` has no home for: batch att
 on an event whose identifiers are all serialised, where there is no lot for an implicit
 block to describe. The key carries its `gs1:` prefix; *inside* the card the ambient
 `gs1:` applies, so a bare term there means `https://ref.gs1.org/voc/` — while
-every other vocabulary, **including the `ref.openepcis.org` extensions**, must be
+every other vocabulary, **including the `ref.openepcis.io` extensions**, must be
 prefixed explicitly.
 
 Beware the EPCIS test corpus here: several of its documents attach `ilmd` to
@@ -314,8 +314,8 @@ inside an EPCIS event structure.
 ```json
 {
   "@context": [
-    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
     { "gs1": "https://ref.gs1.org/voc/" }
   ],
   "id": "https://id.gs1.org/01/09521234000013/21/BAT2024-001",
@@ -350,8 +350,8 @@ Every JSON-LD file in this project must:
    validate the RDF graph
 4. **Be consumable by RDF tools** — `rapper -i jsonld`, Apache Jena,
    Protégé, SPARQL endpoints
-5. **Dereference namespace URIs** — `https://ref.openepcis.org/extensions/common/core/`
-   should resolve to the ontology definition (via ref.openepcis.org)
+5. **Dereference namespace URIs** — `https://ref.openepcis.io/extensions/common/core/`
+   should resolve to the ontology definition (via ref.openepcis.io)
 
 **Testing checklist:**
 ```bash
@@ -376,12 +376,12 @@ which extension namespaces a server supports.
 
 **OpenEPCIS DPP extensions:**
 ```http
-GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/,eubat=https://ref.openepcis.org/extensions/eu/battery/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eubat=https://ref.openepcis.io/extensions/eu/battery/
 ```
 
 **Full set (all modules):**
 ```http
-GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/,eubat=https://ref.openepcis.org/extensions/eu/battery/,eudr=https://ref.openepcis.org/extensions/eu/eudr/,eutex=https://ref.openepcis.org/extensions/eu/textile/,euelec=https://ref.openepcis.org/extensions/eu/electronics/,eudet=https://ref.openepcis.org/extensions/eu/detergent/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eubat=https://ref.openepcis.io/extensions/eu/battery/,eudr=https://ref.openepcis.io/extensions/eu/eudr/,eutex=https://ref.openepcis.io/extensions/eu/textile/,euelec=https://ref.openepcis.io/extensions/eu/electronics/,eudet=https://ref.openepcis.io/extensions/eu/detergent/
 ```
 
 **Where it appears:**
@@ -404,8 +404,8 @@ have a corresponding context entry, and vice versa.
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
   ],
   "type": "EPCISDocument",
   "schemaVersion": "2.0",
@@ -472,7 +472,7 @@ have a corresponding context entry, and vice versa.
 ```http
 POST /capture HTTP/1.1
 Content-Type: application/ld+json
-GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/,eudr=https://ref.openepcis.org/extensions/eu/eudr/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eudr=https://ref.openepcis.io/extensions/eu/eudr/
 GS1-EPCIS-Version: 2.0
 GS1-CBV-Version: 2.0
 ```
@@ -482,7 +482,7 @@ GS1-CBV-Version: 2.0
 ```json
 {
   "@context": [
-    "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld",
     { "gs1": "https://ref.gs1.org/voc/" }
   ],
   "id": "https://id.gs1.org/01/09521234000020/10/LOT-2025-001",

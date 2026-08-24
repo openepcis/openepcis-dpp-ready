@@ -454,7 +454,7 @@ GEFEG published the **Battery Passport Data Attribute Longlist v1.3** (March 202
 **BatteryPass bridge contexts — two sources referenced separately**
 - The bridge contexts now reference each BatteryPass source with its own prefix, instead of a single (incorrect) `bp-*` set pointing at non-existent SAMM `1.3.0` URNs and a fabricated `DPPInformation` submodel.
 - `bpsamm-*` prefixes → the BatteryPass Consortium SAMM aspect models at their real published versions `1.2.0` (Performance `1.2.1`), matching the SKOS mappings in `battery.ttl`.
-- `bpr:` prefix → `https://ref.openepcis.org/vocab/batterypass-ready/1.3#`, an OpenEPCIS-hosted reference namespace for the GEFEG BatteryPass-Ready longlist v1.3 attributes that have no SAMM/RDF equivalent (the DPP-information group #1–#4: schema version, status, granularity, last update).
+- `bpr:` prefix → `https://ref.openepcis.io/vocab/batterypass-ready/1.3#`, an OpenEPCIS-hosted reference namespace for the GEFEG BatteryPass-Ready longlist v1.3 attributes that have no SAMM/RDF equivalent (the DPP-information group #1–#4: schema version, status, granularity, last update).
 - Added mappings for the v1.3 longlist attributes across both bridges.
 
 **Validation profiles**

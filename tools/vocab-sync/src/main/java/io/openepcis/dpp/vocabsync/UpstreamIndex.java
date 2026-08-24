@@ -116,7 +116,7 @@ public class UpstreamIndex {
         if (iri.startsWith("https://gs1-epcis-reg.org/rail/")) return "rail";
         if (iri.startsWith("https://w3id.org/eudpp")) return "eudpp";
         if (iri.startsWith("urn:samm:io.BatteryPass")) return "batterypass";
-        if (iri.startsWith("https://ref.openepcis.org/vocab/batterypass-ready/")) return "bpr";
+        if (iri.startsWith("https://ref.openepcis.io/vocab/batterypass-ready/")) return "bpr";
         if (iri.startsWith("http://xmlns.com/foaf/")) return "foaf";
         return "other";
     }
@@ -159,7 +159,7 @@ public class UpstreamIndex {
         }
         // GEFEG BatteryPass-Ready: an OpenEPCIS-hosted RDF reference for the v1.3 attribute
         // longlist (GEFEG publishes no IRIs). A distinct source from the Consortium SAMM above.
-        sources.add(Source.rdf("bpr", "https://ref.openepcis.org/vocab/batterypass-ready/1.3#",
+        sources.add(Source.rdf("bpr", "https://ref.openepcis.io/vocab/batterypass-ready/1.3#",
                 root.resolve(batterypassReadyVocab)));
 
         terms = new ArrayList<>();

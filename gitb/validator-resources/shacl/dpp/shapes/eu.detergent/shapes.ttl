@@ -11,10 +11,10 @@
 @prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix gs1: <https://ref.gs1.org/voc/>.
 @prefix schema: <https://schema.org/>.
-@prefix oec: <https://ref.openepcis.org/extensions/common/core/>.
-@prefix dpp-sh: <https://ref.openepcis.org/extensions/common/core/shapes/>.
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/>.
+@prefix dpp-sh: <https://ref.openepcis.io/extensions/common/core/shapes/>.
 
-<https://ref.openepcis.org/extensions/common/core/shapes/> a sh:ShapesGraph;
+<https://ref.openepcis.io/extensions/common/core/shapes/> a sh:ShapesGraph;
     dcterms:title "OpenEPCIS DPP Core SHACL Shapes"@en;
     dcterms:description "SHACL validation shapes for OpenEPCIS DPP Core vocabulary. Validates value ranges, required properties, and cardinality constraints."@en;
     owl:versionInfo "0.9.9";
@@ -22,9 +22,9 @@
     dcterms:modified "2026-08-10"^^xsd:date;
     sh:declare _:b0, _:b1, _:b2.
 _:b0 sh:prefix "dpp";
-    sh:namespace "https://ref.openepcis.org/extensions/common/core/"^^xsd:anyURI.
+    sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI.
 _:b1 sh:prefix "oec";
-    sh:namespace "https://ref.openepcis.org/extensions/common/core/"^^xsd:anyURI.
+    sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI.
 _:b2 sh:prefix "gs1";
     sh:namespace "https://ref.gs1.org/voc/"^^xsd:anyURI.
 dpp-sh:EconomicOperatorRoleRequired a sh:NodeShape;
@@ -410,7 +410,7 @@ dpp-sh:GranularityDigitalLinkConstraint a sh:NodeShape;
     sh:sparql _:b77.
 _:b77 a sh:SPARQLConstraint;
     sh:message "granularity must match the GS1 Digital Link Application Identifiers of the passport IRI (01 -> model, 01+10 -> batch, 01+21 -> item) per EN 18219 4.4 / EN 18223."@en;
-    sh:prefixes <https://ref.openepcis.org/extensions/common/core/shapes/>;
+    sh:prefixes <https://ref.openepcis.io/extensions/common/core/shapes/>;
     sh:select "\n            SELECT $this ?value WHERE {\n                $this oec:granularityLevel ?value .\n                # The Digital Link is the node's own IRI; gs1:productID is honoured\n                # as an alternative carrier where a passport states it separately.\n                OPTIONAL { $this gs1:productID ?stated }\n                BIND( COALESCE(?stated, STR($this)) AS ?dl )\n                FILTER( REGEX(STR(?dl), \"/01/\") )\n                BIND( IF(REGEX(STR(?dl), \"/21/\"), \"item\",\n                       IF(REGEX(STR(?dl), \"/10/\"), \"batch\", \"model\")) AS ?expected )\n                FILTER( STR(?value) != ?expected )\n            }\n        ".
 dpp-sh:QuantitativeValueShape a sh:NodeShape;
     sh:property _:b78, _:b79;
@@ -535,33 +535,33 @@ _:b105 sh:path oec:depositRedemptionChannelUrl;
     sh:maxCount 1.
 dpp-sh:BiodegradationPercentageRangeShape a sh:NodeShape;
     sh:property _:b112;
-    sh:targetSubjectsOf oec:biodegradationPercentage, <https://ref.openepcis.org/extensions/eu/detergent/biodegradationPercentage>.
+    sh:targetSubjectsOf oec:biodegradationPercentage, <https://ref.openepcis.io/extensions/eu/detergent/biodegradationPercentage>.
 _:b112 sh:path _:b113;
     sh:message "oec:biodegradationPercentage must be a decimal percentage between 0 and 100"@en;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxInclusive 100.
-<https://ref.openepcis.org/extensions/eu/detergent/shapes/> a sh:ShapesGraph;
+<https://ref.openepcis.io/extensions/eu/detergent/shapes/> a sh:ShapesGraph;
     dcterms:title "OpenEPCIS Detergent SHACL Shapes"@en;
     dcterms:description "SHACL validation shapes for Detergent vocabulary."@en;
     dcterms:created "2026-03-12"^^xsd:date;
     dcterms:modified "2026-06-07"^^xsd:date.
-<https://ref.openepcis.org/extensions/eu/detergent/DetergentProductShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/detergent/DetergentProductShape> a sh:NodeShape;
     rdfs:label "Detergent Product Shape";
     sh:property _:b114, _:b115, _:b116, _:b117, _:b118, _:b119, _:b120, _:b121, _:b122, _:b123, _:b124, _:b125, _:b126, _:b127, _:b128, _:b129, _:b130, _:b131, _:b132, _:b133, _:b134;
     rdfs:comment "Validation shape for DetergentProduct instances per EU 2026/405.";
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/detergent/DetergentProduct>.
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/detergent/DetergentProduct>.
 _:b114 sh:path schema:category;
     sh:name "Detergent Category";
     sh:description "Product category (laundry, dishwasher, etc.).";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.org/extensions/eu/detergent/DetergentCategory>.
-_:b115 sh:path <https://ref.openepcis.org/extensions/eu/detergent/hasProductForm>;
+    sh:class <https://ref.openepcis.io/extensions/eu/detergent/DetergentCategory>.
+_:b115 sh:path <https://ref.openepcis.io/extensions/eu/detergent/hasProductForm>;
     sh:name "Product Form";
     sh:description "Physical form (liquid, powder, capsule, etc.).";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.org/extensions/eu/detergent/ProductForm>.
-_:b116 sh:path <https://ref.openepcis.org/extensions/eu/detergent/intendedUse>;
+    sh:class <https://ref.openepcis.io/extensions/eu/detergent/ProductForm>.
+_:b116 sh:path <https://ref.openepcis.io/extensions/eu/detergent/intendedUse>;
     sh:datatype xsd:string;
     sh:maxCount 1.
 _:b117 sh:path oec:combinedNomenclatureCode;
@@ -569,74 +569,74 @@ _:b117 sh:path oec:combinedNomenclatureCode;
     sh:name "Combined Nomenclature Code";
     sh:description "EU CN commodity code delimiting the Detergents Regulation scope.";
     sh:maxCount 1.
-_:b118 sh:path <https://ref.openepcis.org/extensions/eu/detergent/hasIngredientList>;
+_:b118 sh:path <https://ref.openepcis.io/extensions/eu/detergent/hasIngredientList>;
     sh:name "Ingredient List";
-    sh:class <https://ref.openepcis.org/extensions/eu/detergent/Ingredient>.
-_:b119 sh:path <https://ref.openepcis.org/extensions/eu/detergent/hasSurfactantBiodegradability>;
+    sh:class <https://ref.openepcis.io/extensions/eu/detergent/Ingredient>.
+_:b119 sh:path <https://ref.openepcis.io/extensions/eu/detergent/hasSurfactantBiodegradability>;
     sh:name "Surfactant Biodegradability";
-    sh:class <https://ref.openepcis.org/extensions/eu/detergent/SurfactantBiodegradability>.
-_:b120 sh:path <https://ref.openepcis.org/extensions/eu/detergent/hasFragranceAllergens>;
+    sh:class <https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability>.
+_:b120 sh:path <https://ref.openepcis.io/extensions/eu/detergent/hasFragranceAllergens>;
     sh:name "Fragrance Allergens";
-    sh:class <https://ref.openepcis.org/extensions/eu/detergent/FragranceAllergen>.
-_:b121 sh:path <https://ref.openepcis.org/extensions/eu/detergent/hasMicroorganisms>;
+    sh:class <https://ref.openepcis.io/extensions/eu/detergent/FragranceAllergen>.
+_:b121 sh:path <https://ref.openepcis.io/extensions/eu/detergent/hasMicroorganisms>;
     sh:name "Microorganisms";
-    sh:class <https://ref.openepcis.org/extensions/eu/detergent/MicroorganismInfo>.
-_:b122 sh:path <https://ref.openepcis.org/extensions/eu/detergent/hasHazardousSubstances>;
+    sh:class <https://ref.openepcis.io/extensions/eu/detergent/MicroorganismInfo>.
+_:b122 sh:path <https://ref.openepcis.io/extensions/eu/detergent/hasHazardousSubstances>;
     sh:name "Hazardous Substances";
     sh:class oec:HazardousSubstance.
-_:b123 sh:path <https://ref.openepcis.org/extensions/eu/detergent/hazardPictograms>;
+_:b123 sh:path <https://ref.openepcis.io/extensions/eu/detergent/hazardPictograms>;
     sh:datatype xsd:string;
     sh:name "Hazard Pictograms".
-_:b124 sh:path <https://ref.openepcis.org/extensions/eu/detergent/hStatements>;
+_:b124 sh:path <https://ref.openepcis.io/extensions/eu/detergent/hStatements>;
     sh:datatype xsd:string;
     sh:name "H Statements".
-_:b125 sh:path <https://ref.openepcis.org/extensions/eu/detergent/pStatements>;
+_:b125 sh:path <https://ref.openepcis.io/extensions/eu/detergent/pStatements>;
     sh:datatype xsd:string;
     sh:name "P Statements".
-_:b126 sh:path <https://ref.openepcis.org/extensions/eu/detergent/hasSignalWord>;
+_:b126 sh:path <https://ref.openepcis.io/extensions/eu/detergent/hasSignalWord>;
     sh:name "Signal Word";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.org/extensions/eu/detergent/SignalWord>.
-_:b127 sh:path <https://ref.openepcis.org/extensions/eu/detergent/phosphorusContentPercent>;
+    sh:class <https://ref.openepcis.io/extensions/eu/detergent/SignalWord>.
+_:b127 sh:path <https://ref.openepcis.io/extensions/eu/detergent/phosphorusContentPercent>;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxCount 1.
-_:b128 sh:path <https://ref.openepcis.org/extensions/eu/detergent/phosphateCompliant>;
+_:b128 sh:path <https://ref.openepcis.io/extensions/eu/detergent/phosphateCompliant>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-_:b129 sh:path <https://ref.openepcis.org/extensions/eu/detergent/filmBiodegradable>;
+_:b129 sh:path <https://ref.openepcis.io/extensions/eu/detergent/filmBiodegradable>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-_:b130 sh:path <https://ref.openepcis.org/extensions/eu/detergent/filmBiodegradabilityPercentage>;
+_:b130 sh:path <https://ref.openepcis.io/extensions/eu/detergent/filmBiodegradabilityPercentage>;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxInclusive 100;
     sh:maxCount 1.
-_:b131 sh:path <https://ref.openepcis.org/extensions/eu/detergent/hasRecommendedDosage>;
+_:b131 sh:path <https://ref.openepcis.io/extensions/eu/detergent/hasRecommendedDosage>;
     sh:maxCount 1;
     sh:class gs1:QuantitativeValue.
-_:b132 sh:path <https://ref.openepcis.org/extensions/eu/detergent/dosageInstructions>;
+_:b132 sh:path <https://ref.openepcis.io/extensions/eu/detergent/dosageInstructions>;
     sh:node dpp-sh:TranslatableText.
-_:b133 sh:path <https://ref.openepcis.org/extensions/eu/detergent/hasSafetyDataSheet>;
+_:b133 sh:path <https://ref.openepcis.io/extensions/eu/detergent/hasSafetyDataSheet>;
     sh:maxCount 1;
     sh:class oec:DocumentReference.
-_:b134 sh:path <https://ref.openepcis.org/extensions/eu/detergent/hasBiodegradabilityTestReport>;
+_:b134 sh:path <https://ref.openepcis.io/extensions/eu/detergent/hasBiodegradabilityTestReport>;
     sh:maxCount 1;
     sh:class oec:DocumentReference.
-<https://ref.openepcis.org/extensions/eu/detergent/IngredientShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/detergent/IngredientShape> a sh:NodeShape;
     rdfs:label "Ingredient Shape";
     sh:property _:b135, _:b136, _:b137, _:b138, _:b139;
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/detergent/Ingredient>.
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/detergent/Ingredient>.
 _:b135 sh:path _:b140;
     sh:minCount 1;
     sh:name "INCI Name";
     sh:node dpp-sh:TranslatableText.
-_:b136 sh:path <https://ref.openepcis.org/extensions/eu/detergent/hasIngredientFunction>;
+_:b136 sh:path <https://ref.openepcis.io/extensions/eu/detergent/hasIngredientFunction>;
     sh:minCount 1;
     sh:name "Ingredient Function";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.org/extensions/eu/detergent/IngredientFunction>.
-_:b137 sh:path <https://ref.openepcis.org/extensions/eu/detergent/weightPercentRange>;
+    sh:class <https://ref.openepcis.io/extensions/eu/detergent/IngredientFunction>.
+_:b137 sh:path <https://ref.openepcis.io/extensions/eu/detergent/weightPercentRange>;
     sh:datatype xsd:string;
     sh:name "Weight Percent Range";
     sh:maxCount 1.
@@ -644,64 +644,64 @@ _:b138 sh:path oec:casNumber;
     sh:datatype xsd:string;
     sh:name "CAS Number";
     sh:maxCount 1.
-_:b139 sh:path <https://ref.openepcis.org/extensions/eu/detergent/isSurfactant>;
+_:b139 sh:path <https://ref.openepcis.io/extensions/eu/detergent/isSurfactant>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-<https://ref.openepcis.org/extensions/eu/detergent/SurfactantBiodegradabilityShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradabilityShape> a sh:NodeShape;
     rdfs:label "Surfactant Biodegradability Shape";
     sh:property _:b141, _:b142, _:b143, _:b144, _:b145;
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/detergent/SurfactantBiodegradability>.
-_:b141 sh:path <https://ref.openepcis.org/extensions/eu/detergent/hasSurfactantType>;
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/detergent/SurfactantBiodegradability>.
+_:b141 sh:path <https://ref.openepcis.io/extensions/eu/detergent/hasSurfactantType>;
     sh:minCount 1;
     sh:name "Surfactant Type";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.org/extensions/eu/detergent/SurfactantType>.
-_:b142 sh:path <https://ref.openepcis.org/extensions/eu/detergent/biodegradationPercentage>;
+    sh:class <https://ref.openepcis.io/extensions/eu/detergent/SurfactantType>.
+_:b142 sh:path <https://ref.openepcis.io/extensions/eu/detergent/biodegradationPercentage>;
     sh:minCount 1;
     sh:datatype xsd:decimal;
     sh:name "Biodegradation Percentage";
     sh:minInclusive 0;
     sh:maxInclusive 100;
     sh:maxCount 1.
-_:b143 sh:path <https://ref.openepcis.org/extensions/eu/detergent/hasTestMethod>;
+_:b143 sh:path <https://ref.openepcis.io/extensions/eu/detergent/hasTestMethod>;
     sh:minCount 1;
     sh:name "Test Method";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.org/extensions/eu/detergent/BiodegradabilityTestMethod>.
-_:b144 sh:path <https://ref.openepcis.org/extensions/eu/detergent/testDurationDays>;
+    sh:class <https://ref.openepcis.io/extensions/eu/detergent/BiodegradabilityTestMethod>.
+_:b144 sh:path <https://ref.openepcis.io/extensions/eu/detergent/testDurationDays>;
     sh:datatype xsd:integer;
     sh:minInclusive 1;
     sh:maxCount 1.
-_:b145 sh:path <https://ref.openepcis.org/extensions/eu/detergent/passesUltimateBiodegradability>;
+_:b145 sh:path <https://ref.openepcis.io/extensions/eu/detergent/passesUltimateBiodegradability>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-<https://ref.openepcis.org/extensions/eu/detergent/FragranceAllergenShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/detergent/FragranceAllergenShape> a sh:NodeShape;
     rdfs:label "Fragrance Allergen Shape";
     sh:property _:b146, _:b147, _:b148;
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/detergent/FragranceAllergen>.
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/detergent/FragranceAllergen>.
 _:b146 sh:path _:b149;
     sh:minCount 1;
     sh:name "Allergen Name";
     sh:node dpp-sh:TranslatableText.
-_:b147 sh:path <https://ref.openepcis.org/extensions/eu/detergent/allergenCasNumber>;
+_:b147 sh:path <https://ref.openepcis.io/extensions/eu/detergent/allergenCasNumber>;
     sh:datatype xsd:string;
     sh:maxCount 1.
-_:b148 sh:path <https://ref.openepcis.org/extensions/eu/detergent/allergenConcentration>;
+_:b148 sh:path <https://ref.openepcis.io/extensions/eu/detergent/allergenConcentration>;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxCount 1.
-<https://ref.openepcis.org/extensions/eu/detergent/MicroorganismInfoShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/detergent/MicroorganismInfoShape> a sh:NodeShape;
     rdfs:label "Microorganism Info Shape";
     sh:property _:b150, _:b151, _:b152;
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/detergent/MicroorganismInfo>.
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/detergent/MicroorganismInfo>.
 _:b150 sh:path _:b153;
     sh:minCount 1;
     sh:name "Species Name";
     sh:node dpp-sh:TranslatableText.
-_:b151 sh:path <https://ref.openepcis.org/extensions/eu/detergent/strainDesignation>;
+_:b151 sh:path <https://ref.openepcis.io/extensions/eu/detergent/strainDesignation>;
     sh:datatype xsd:string;
     sh:maxCount 1.
-_:b152 sh:path <https://ref.openepcis.org/extensions/eu/detergent/endProductCharacteristics>;
+_:b152 sh:path <https://ref.openepcis.io/extensions/eu/detergent/endProductCharacteristics>;
     sh:datatype xsd:string;
     sh:maxCount 1.
 _:b154 rdf:first schema:name;
@@ -736,11 +736,11 @@ _:b165 rdf:first oec:componentName;
 _:b153 sh:alternativePath _:b164.
 _:b166 rdf:first oec:biodegradationPercentage;
     rdf:rest _:b167.
-_:b167 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/biodegradationPercentage>;
+_:b167 rdf:first <https://ref.openepcis.io/extensions/eu/detergent/biodegradationPercentage>;
     rdf:rest rdf:nil.
 _:b99 sh:alternativePath _:b166.
 _:b168 rdf:first oec:biodegradationPercentage;
     rdf:rest _:b169.
-_:b169 rdf:first <https://ref.openepcis.org/extensions/eu/detergent/biodegradationPercentage>;
+_:b169 rdf:first <https://ref.openepcis.io/extensions/eu/detergent/biodegradationPercentage>;
     rdf:rest rdf:nil.
 _:b113 sh:alternativePath _:b168.

@@ -55,9 +55,9 @@ detergent/
 
 ## Vocabulary Namespace
 
-The Detergent vocabulary uses the namespace: `https://ref.openepcis.org/extensions/eu/detergent/`
+The Detergent vocabulary uses the namespace: `https://ref.openepcis.io/extensions/eu/detergent/`
 
-Browse the vocabulary at: [ref.openepcis.org/extensions/eu/detergent/](https://ref.openepcis.org/extensions/eu/detergent/)
+Browse the vocabulary at: [ref.openepcis.io/extensions/eu/detergent/](https://ref.openepcis.io/extensions/eu/detergent/)
 
 ## Key Concepts
 
@@ -135,7 +135,7 @@ The Detergent module reuses ESPR-aligned patterns from the core DPP module:
 Declare the Detergent extension in EPCIS capture/query requests:
 
 ```http
-GS1-Extensions: eudet=https://ref.openepcis.org/extensions/eu/detergent/
+GS1-Extensions: eudet=https://ref.openepcis.io/extensions/eu/detergent/
 ```
 
 **Architecture rule**: `gs1:masterDataAvailableFor` contains only `gs1:` properties. Detergent-specific extensions (`eudet:`) go at event level. See [core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md](../core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md).
@@ -145,8 +145,8 @@ GS1-Extensions: eudet=https://ref.openepcis.org/extensions/eu/detergent/
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.org/extensions/eu/detergent/detergent-context.jsonld"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld"
   ]
 }
 ```
@@ -156,8 +156,8 @@ GS1-Extensions: eudet=https://ref.openepcis.org/extensions/eu/detergent/
 | Prefix | Namespace | Purpose |
 |--------|-----------|---------|
 | `gs1:` | `https://ref.gs1.org/voc/` | Core GS1 vocabulary |
-| `oec:` | `https://ref.openepcis.org/extensions/common/core/` | DPP Core extension properties |
-| `eudet:` | `https://ref.openepcis.org/extensions/eu/detergent/` | Detergent extension properties |
+| `oec:` | `https://ref.openepcis.io/extensions/common/core/` | DPP Core extension properties |
+| `eudet:` | `https://ref.openepcis.io/extensions/eu/detergent/` | Detergent extension properties |
 
 ## Scope Decisions
 

@@ -35,7 +35,7 @@ EPCIS 2.0 defines custom HTTP headers for extension discovery and content negoti
 
 **OpenEPCIS DPP Extensions**:
 ```http
-GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/, eudr=https://ref.openepcis.org/extensions/eu/eudr/, eubat=https://ref.openepcis.org/extensions/eu/battery/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, eudr=https://ref.openepcis.io/extensions/eu/eudr/, eubat=https://ref.openepcis.io/extensions/eu/battery/
 ```
 
 This header should be included in:
@@ -178,9 +178,9 @@ GS1/UN/CEFACT recommendation 20 unit codes commonly used in DPP:
 ```json
 {
   "@context": [
-    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld",
-    "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
   ]
 }
 ```

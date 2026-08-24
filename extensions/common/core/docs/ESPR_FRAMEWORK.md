@@ -399,7 +399,7 @@ The framework aligns with GS1 standards for interoperability:
 ### GS1-Extensions Header
 Declare the DPP extension in EPCIS requests:
 ```http
-GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/
 ```
 
 ### Context Integration
@@ -407,7 +407,7 @@ GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld"
   ]
 }
 ```

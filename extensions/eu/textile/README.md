@@ -59,9 +59,9 @@ textile/
 ## Vocabulary Namespace
 
 **Prefix**: `eutex:`
-**URI**: `https://ref.openepcis.org/extensions/eu/textile/`
+**URI**: `https://ref.openepcis.io/extensions/eu/textile/`
 
-Browse the vocabulary at: [ref.openepcis.org/extensions/eu/textile/](https://ref.openepcis.org/extensions/eu/textile/)
+Browse the vocabulary at: [ref.openepcis.io/extensions/eu/textile/](https://ref.openepcis.io/extensions/eu/textile/)
 
 ## Key Classes
 
@@ -130,7 +130,7 @@ This vocabulary follows the GS1-first principle:
 ## EPCIS 2.0 Extension Declaration
 
 ```http
-GS1-Extensions: eutex=https://ref.openepcis.org/extensions/eu/textile/, oec=https://ref.openepcis.org/extensions/common/core/
+GS1-Extensions: eutex=https://ref.openepcis.io/extensions/eu/textile/, oec=https://ref.openepcis.io/extensions/common/core/
 ```
 
 **Architecture rule**: `gs1:masterDataAvailableFor` contains only `gs1:` properties. Textile-specific extensions (`eutex:`) go at event level. See [core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md](../core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md).
@@ -141,8 +141,8 @@ GS1-Extensions: eutex=https://ref.openepcis.org/extensions/eu/textile/, oec=http
 {
   "@context": {
     "gs1": "https://ref.gs1.org/voc/",
-    "dpp": "https://ref.openepcis.org/extensions/common/core/",
-    "textile": "https://ref.openepcis.org/extensions/eu/textile/"
+    "dpp": "https://ref.openepcis.io/extensions/common/core/",
+    "textile": "https://ref.openepcis.io/extensions/eu/textile/"
   },
   "type": ["gs1:Product", "eutex:TextileProduct"],
   "gs1:gtin": "09521234300014",

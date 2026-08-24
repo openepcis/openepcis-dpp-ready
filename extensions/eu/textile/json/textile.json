@@ -1,18 +1,18 @@
 {
-  "namespace": "https://ref.openepcis.org/extensions/eu/textile/",
+  "namespace": "https://ref.openepcis.io/extensions/eu/textile/",
   "version": "0.9.9",
   "title": "OpenEPCIS Textile DPP Vocabulary",
-  "description": "Textile-specific vocabulary extending GS1 Web Vocabulary for Digital Product Passports.\n\nAligned with:\n- EU Strategy for Sustainable and Circular Textiles (COM/2022/141)\n- EU Ecodesign for Sustainable Products Regulation (ESPR) 2024/1781\n- EU Textile Labelling Regulation 1007/2011\n- ISO 3758:2023 (Care labelling)\n- GS1 Web Vocabulary (gs1:TextileMaterialDetails pattern)\n- GS1 EPCIS 2.0\n\nGS1 Properties to Use (not redefined here):\n- gs1:gtin - Global Trade Item Number\n- gs1:productName - Product name\n- gs1:productDescription - Product description\n- gs1:netWeight / gs1:grossWeight - Product weight\n- gs1:manufacturer - Manufacturer organization\n- gs1:countryOfOrigin - Country of manufacture\n- gs1:manufacturersWarranty / gs1:WarrantyPromise - Warranty information (product-scoped)\n- gs1:certification / gs1:CertificationDetails - Certifications (GOTS, OEKO-TEX, etc.)\n- gs1:textileMaterial / gs1:TextileMaterialDetails - Fiber composition (GS1 native)\n- gs1:consumerRecyclingInstructions - Recycling text\n- gs1:referencedFile - Documents\n\nFor fiber composition, prefer gs1:textileMaterial with gs1:TextileMaterialDetails where possible.\nUse eutex: extensions for durability metrics, care symbols, and microplastic data not in GS1.\n\nEPCIS 2.0 Extension Declaration:\nGS1-Extensions: eutex=https://ref.openepcis.org/extensions/eu/textile/\n\nExtension Governance:\nThis vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.\nEach extension term includes dcterms:source, skos:note, and rdfs:seeAlso where applicable.",
+  "description": "Textile-specific vocabulary extending GS1 Web Vocabulary for Digital Product Passports.\n\nAligned with:\n- EU Strategy for Sustainable and Circular Textiles (COM/2022/141)\n- EU Ecodesign for Sustainable Products Regulation (ESPR) 2024/1781\n- EU Textile Labelling Regulation 1007/2011\n- ISO 3758:2023 (Care labelling)\n- GS1 Web Vocabulary (gs1:TextileMaterialDetails pattern)\n- GS1 EPCIS 2.0\n\nGS1 Properties to Use (not redefined here):\n- gs1:gtin - Global Trade Item Number\n- gs1:productName - Product name\n- gs1:productDescription - Product description\n- gs1:netWeight / gs1:grossWeight - Product weight\n- gs1:manufacturer - Manufacturer organization\n- gs1:countryOfOrigin - Country of manufacture\n- gs1:manufacturersWarranty / gs1:WarrantyPromise - Warranty information (product-scoped)\n- gs1:certification / gs1:CertificationDetails - Certifications (GOTS, OEKO-TEX, etc.)\n- gs1:textileMaterial / gs1:TextileMaterialDetails - Fiber composition (GS1 native)\n- gs1:consumerRecyclingInstructions - Recycling text\n- gs1:referencedFile - Documents\n\nFor fiber composition, prefer gs1:textileMaterial with gs1:TextileMaterialDetails where possible.\nUse eutex: extensions for durability metrics, care symbols, and microplastic data not in GS1.\n\nEPCIS 2.0 Extension Declaration:\nGS1-Extensions: eutex=https://ref.openepcis.io/extensions/eu/textile/\n\nExtension Governance:\nThis vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.\nEach extension term includes dcterms:source, skos:note, and rdfs:seeAlso where applicable.",
   "classes": [
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/CareInstruction",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/CareInstruction",
       "localName": "CareInstruction",
       "label": "Care Instruction",
       "comment": "Care instructions per ISO 3758:2023 including washing, drying, ironing, and dry cleaning symbols.",
       "source": "https://www.iso.org/standard/74401.html"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTestResult",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/DimensionalChangeTestResult",
       "localName": "DimensionalChangeTestResult",
       "label": "Dimensional Change Test Result",
       "comment": "Dimensional change test result per ISO 3759 after cleaning cycles.\nScoring (woven): >+-4%=0pt, +-3.5-4%=1pt, +-3-3.5%=2pt, <=+-3%=3pt.\nScoring (knitted): >+-6%=0pt, +-5.5-6%=1pt, +-5-5.5%=2pt, <=+-5%=3pt.",
@@ -25,12 +25,12 @@
       "source": "https://www.iso.org/standard/57309.html"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo",
       "localName": "DurabilityInfo",
       "label": "Durability Information",
       "comment": "Product durability metrics including expected lifespan, wash cycles, and usage resistance.",
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/PerformanceInfo"
+        "https://ref.openepcis.io/extensions/common/core/PerformanceInfo"
       ],
       "broadMatch": [
         "https://w3id.org/eudpp#Durability",
@@ -39,12 +39,12 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/EnvironmentalFootprint",
       "localName": "EnvironmentalFootprint",
       "label": "Environmental Footprint",
       "comment": "Environmental footprint declaration per EU Preparatory Study 3rd Milestone,\naligned with Product Environmental Footprint Category Rules for Apparel & Footwear (PEFCR A&F).\nIncludes manufacturing carbon footprint, PEF single score, and benchmark comparison.",
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/EmissionsPerformance",
+        "https://ref.openepcis.io/extensions/common/core/EmissionsPerformance",
         "https://schema.org/PropertyValue",
         "https://w3id.org/eudpp#CarbonFootprint"
       ],
@@ -63,7 +63,7 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/LCIACategory",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/LCIACategory",
       "localName": "LCIACategory",
       "label": "LCIA Category",
       "comment": "Individual Life Cycle Impact Assessment category result within the environmental footprint.",
@@ -73,7 +73,7 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/MicroplasticInfo",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/MicroplasticInfo",
       "localName": "MicroplasticInfo",
       "label": "Microplastic Information",
       "comment": "Information about microplastic/microfiber shedding potential from synthetic textiles.",
@@ -84,42 +84,42 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/RecyclabilityAssessment",
       "localName": "RecyclabilityAssessment",
       "label": "Recyclability Assessment",
       "comment": "Recyclability assessment per EU Preparatory Study 3rd Milestone.\nScore 0-10 based on: elastane content threshold (>15% or >20% for PA6-rich >80% blends makes product\nnon-recyclable, score 0), sorting factors (same composition inner/outer, free from printings,\nfree from coatings, free from sequins, free from dyes, mono-material), and\ntechnical recyclability of the applicable recycling technology.",
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance",
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
         "https://schema.org/Rating",
-        "https://ref.openepcis.org/extensions/common/core/RecyclabilityAssessment"
+        "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment"
       ],
       "subClassOf": [
         "https://schema.org/Observation",
-        "https://ref.openepcis.org/extensions/common/core/RecyclabilityAssessment"
+        "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/RecycledContentDeclaration",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/RecycledContentDeclaration",
       "localName": "RecycledContentDeclaration",
       "label": "Recycled Content Declaration",
       "comment": "Structured recycled content declaration per EU Preparatory Study 3rd Milestone.\nCaptures secondary material fraction, waste origin type (post-consumer/post-industrial),\nrecycled source type (fiber-to-fiber/open loop), and chain of custody method.",
       "seeAlso": [
         "https://schema.org/QuantitativeValue",
-        "https://ref.openepcis.org/extensions/common/core/RecycledContent"
+        "https://ref.openepcis.io/extensions/common/core/RecycledContent"
       ],
       "broadMatch": [
-        "https://ref.openepcis.org/extensions/common/core/RecycledContent"
+        "https://ref.openepcis.io/extensions/common/core/RecycledContent"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/RobustnessAssessment",
       "localName": "RobustnessAssessment",
       "label": "Robustness Assessment",
       "comment": "Composite robustness assessment per EU Preparatory Study 3rd Milestone.\nScore 0-10 based on three test parameters measured after 5 cleaning cycles (ISO 6330):\nspirality (0-3 pts), dimensional change (0-3 pts), and visual inspection (0-4 pts).\nThresholds differ by fabric type (knitted vs woven).",
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo",
+        "https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo",
         "https://schema.org/Rating",
         "http://data.europa.eu/m8g/Evidence"
       ],
@@ -132,14 +132,14 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/SortingFactors",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/SortingFactors",
       "localName": "SortingFactors",
       "label": "Sorting Factors",
       "comment": "Sorting factors affecting recyclability score. Each factor satisfied adds 1 point:\nsame composition inner/outer, free from printings, free from coatings, free from sequins,\nfree from dyes, mono-material.",
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/SpiralityTestResult",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/SpiralityTestResult",
       "localName": "SpiralityTestResult",
       "label": "Spirality Test Result",
       "comment": "Spirality test result per ISO 16322-3 after cleaning cycles.\nScoring (woven): >6%=0pt, 5.5-6%=1pt, 5-5.5%=2pt, <=5%=3pt.\nScoring (knitted): >7%=0pt, 6-7%=1pt, 5-6%=2pt, <=5%=3pt.",
@@ -149,7 +149,7 @@
       "source": "https://www.iso.org/standard/56326.html"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcern",
       "localName": "SubstanceOfConcern",
       "label": "Substance of Concern",
       "comment": "A substance of concern present in the textile product, classified per ESPR Article 7(5)\ninto 4 types: Type A (SVHC per REACH), Type B (CLP hazard), Type C (POPs),\nType D (substances hindering reuse/recycling).",
@@ -158,8 +158,8 @@
         "https://schema.org/Substance"
       ],
       "subClassOf": [
-        "https://ref.openepcis.org/extensions/common/core/HazardousSubstance",
-        "https://ref.openepcis.org/extensions/common/core/SubstanceOfConcern"
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance",
+        "https://ref.openepcis.io/extensions/common/core/SubstanceOfConcern"
       ],
       "broadMatch": [
         "https://schema.org/Substance",
@@ -169,12 +169,12 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/TakeBackProgram",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/TakeBackProgram",
       "localName": "TakeBackProgram",
       "label": "Take-Back Program",
       "comment": "End-of-life collection and take-back program information for circular textile economy.",
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance",
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
         "https://schema.org/Service",
         "https://ref.gs1.org/voc/consumerRecyclingInstructions"
       ],
@@ -184,20 +184,20 @@
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/TechnicalRecyclability",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/TechnicalRecyclability",
       "localName": "TechnicalRecyclability",
       "label": "Technical Recyclability",
       "comment": "Technical recyclability assessment based on the applicable recycling technology.",
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
       ],
       "broadMatch": [
-        "https://ref.openepcis.org/extensions/common/core/RecyclabilityAssessment"
+        "https://ref.openepcis.io/extensions/common/core/RecyclabilityAssessment"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/TextileApparel",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/TextileApparel",
       "localName": "TextileApparel",
       "label": "Textile Apparel",
       "comment": "A clothing textile product as defined by EU Textile Labelling Regulation 1007/2011.\nDual inheritance bridges the OpenEPCIS textile vocabulary with the GS1 WearableProduct\nhierarchy: instances are both gs1:Product (DPP properties) and gs1:Clothing\n(GS1 interoperability). Includes outerwear, underwear, sportswear, and workwear.",
@@ -206,7 +206,7 @@
         "https://ref.gs1.org/voc/Clothing"
       ],
       "subClassOf": [
-        "https://ref.openepcis.org/extensions/eu/textile/TextileProduct",
+        "https://ref.openepcis.io/extensions/eu/textile/TextileProduct",
         "https://ref.gs1.org/voc/Product",
         "https://ref.gs1.org/voc/Clothing"
       ],
@@ -220,7 +220,7 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/TextileFootwear",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/TextileFootwear",
       "localName": "TextileFootwear",
       "label": "Textile Footwear",
       "comment": "A footwear product containing textile materials, per EU Textile Labelling Regulation.\nDual inheritance bridges the OpenEPCIS textile vocabulary with the GS1 WearableProduct\nhierarchy: instances are both gs1:Product (DPP properties) and gs1:Footwear\n(GS1 interoperability). Includes shoes, boots, sandals, and other textile footwear.",
@@ -229,7 +229,7 @@
         "https://ref.gs1.org/voc/Footwear"
       ],
       "subClassOf": [
-        "https://ref.openepcis.org/extensions/eu/textile/TextileProduct",
+        "https://ref.openepcis.io/extensions/eu/textile/TextileProduct",
         "https://ref.gs1.org/voc/Product",
         "https://ref.gs1.org/voc/Footwear"
       ],
@@ -240,7 +240,7 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/TextileProduct",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/TextileProduct",
       "localName": "TextileProduct",
       "label": "Textile Product",
       "comment": "A textile product in scope of the EU Textile Labelling Regulation 1007/2011 and\nthe ESPR textile delegated act. Base class of the module: it is the domain of the\ntextile-specific properties and the target of eutex:TextileProductShape. Broader than\ngs1:WearableProduct, since it also covers HomeTextiles and TechnicalTextiles; the\nwearable slice is carried by the dual-inheritance subclasses eutex:TextileApparel and\neutex:TextileFootwear.",
@@ -264,7 +264,7 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1007"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/VisualInspectionResult",
       "localName": "VisualInspectionResult",
       "label": "Visual Inspection Result",
       "comment": "Visual inspection result per ISO 15487 after cleaning cycles.\nScore 0-4 pts based on sub-ratings (1-5 scale each) for colour change,\nfabric appearance, seam appearance, and non-textile parts condition.",
@@ -282,12 +282,12 @@
   ],
   "properties": [
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/abrasionResistance",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/abrasionResistance",
       "localName": "abrasionResistance",
       "label": "Abrasion Resistance",
       "comment": "Abrasion resistance in Martindale cycles.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
+        "https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo"
       ],
       "range": [
         "xsd:integer"
@@ -301,12 +301,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/additionalCareInstructions",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/additionalCareInstructions",
       "localName": "additionalCareInstructions",
       "label": "Additional Care Instructions",
       "comment": "Additional care instructions in text form.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/CareInstruction"
+        "https://ref.openepcis.io/extensions/eu/textile/CareInstruction"
       ],
       "range": [
         "rdf:langString"
@@ -325,12 +325,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/benchmarkPerformance",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/benchmarkPerformance",
       "localName": "benchmarkPerformance",
       "label": "Benchmark Performance",
       "comment": "Performance relative to product category benchmark as percentage (negative = better than benchmark).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint"
+        "https://ref.openepcis.io/extensions/eu/textile/EnvironmentalFootprint"
       ],
       "range": [
         "xsd:decimal"
@@ -345,7 +345,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/biodegradable",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/biodegradable",
       "localName": "biodegradable",
       "label": "Biodegradable",
       "comment": "Whether the product is biodegradable at end of life.",
@@ -356,7 +356,7 @@
         "xsd:boolean"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
       "accessLevel": "Public",
@@ -364,12 +364,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/carbonFootprintClass",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/carbonFootprintClass",
       "localName": "carbonFootprintClass",
       "label": "Carbon Footprint Class",
       "comment": "Discrete performance class (A–G style band, expressed as an integer 1..n) for the manufacturing carbon footprint relative to the PEFCR climate-change benchmark.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint"
+        "https://ref.openepcis.io/extensions/eu/textile/EnvironmentalFootprint"
       ],
       "range": [
         "xsd:integer"
@@ -389,19 +389,19 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/carbonFootprintManufacturing",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/carbonFootprintManufacturing",
       "localName": "carbonFootprintManufacturing",
       "label": "Carbon Footprint Manufacturing",
       "comment": "Carbon footprint of manufacturing phase in kg CO2-eq per product unit.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint"
+        "https://ref.openepcis.io/extensions/eu/textile/EnvironmentalFootprint"
       ],
       "range": [
         "xsd:decimal"
       ],
       "seeAlso": [
         "https://schema.org/value",
-        "https://ref.openepcis.org/extensions/common/core/carbonFootprintTotal",
+        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal",
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#carbonFootprint",
         "urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#absoluteCarbonFootprint"
       ],
@@ -414,12 +414,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/chemicalPurpose",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/chemicalPurpose",
       "localName": "chemicalPurpose",
       "label": "Chemical Purpose",
       "comment": "Purpose of the chemical (dye, finish, water-repellent treatment, etc.).",
       "domain": [
-        "https://ref.openepcis.org/extensions/common/core/HazardousSubstance"
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
       ],
       "range": [
         "xsd:string"
@@ -436,12 +436,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/cleaningCyclesBeforeTest",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/cleaningCyclesBeforeTest",
       "localName": "cleaningCyclesBeforeTest",
       "label": "Cleaning Cycles Before Test",
       "comment": "Number of cleaning cycles performed before testing (default 5 per EU methodology).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment"
+        "https://ref.openepcis.io/extensions/eu/textile/RobustnessAssessment"
       ],
       "range": [
         "xsd:integer"
@@ -452,12 +452,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/colorFastness",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/colorFastness",
       "localName": "colorFastness",
       "label": "Color Fastness",
       "comment": "Color fastness rating (1-5 per ISO 105, where 5 is best).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
+        "https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo"
       ],
       "range": [
         "xsd:integer"
@@ -474,12 +474,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/colourChangeRating",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/colourChangeRating",
       "localName": "colourChangeRating",
       "label": "Colour Change Rating",
       "comment": "Colour change sub-rating (1-5 per ISO 15487, where 5 is no change).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult"
+        "https://ref.openepcis.io/extensions/eu/textile/VisualInspectionResult"
       ],
       "range": [
         "xsd:integer"
@@ -493,12 +493,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/concentrationRange",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/concentrationRange",
       "localName": "concentrationRange",
       "label": "Concentration Range",
       "comment": "Concentration range as text (e.g. '0.01-0.05% w/w') when exact value is confidential.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern"
+        "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcern"
       ],
       "range": [
         "xsd:string"
@@ -509,7 +509,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/containsAnimalNonTextileParts",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/containsAnimalNonTextileParts",
       "localName": "containsAnimalNonTextileParts",
       "label": "Contains Non-Textile Parts of Animal Origin",
       "comment": "Whether the product contains non-textile parts of animal origin, per the Textile Labelling Regulation (EU) 1007/2011 Article 12.",
@@ -532,12 +532,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2011/1007"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/dimensionalChangePercentage",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/dimensionalChangePercentage",
       "localName": "dimensionalChangePercentage",
       "label": "Dimensional Change Percentage",
       "comment": "Measured dimensional change as percentage (absolute value) after cleaning cycles.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTestResult"
+        "https://ref.openepcis.io/extensions/eu/textile/DimensionalChangeTestResult"
       ],
       "range": [
         "xsd:decimal"
@@ -551,12 +551,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/dimensionalChangeScore",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/dimensionalChangeScore",
       "localName": "dimensionalChangeScore",
       "label": "Dimensional Change Score",
       "comment": "Dimensional change component score (0-3 points).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTestResult"
+        "https://ref.openepcis.io/extensions/eu/textile/DimensionalChangeTestResult"
       ],
       "range": [
         "xsd:integer"
@@ -573,12 +573,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/dimensionalChangeTestMethod",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/dimensionalChangeTestMethod",
       "localName": "dimensionalChangeTestMethod",
       "label": "Dimensional Change Test Method",
       "comment": "Test method reference (e.g. ISO 3759).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTestResult"
+        "https://ref.openepcis.io/extensions/eu/textile/DimensionalChangeTestResult"
       ],
       "range": [
         "xsd:string"
@@ -592,12 +592,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/dimensionalStability",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/dimensionalStability",
       "localName": "dimensionalStability",
       "label": "Dimensional Stability",
       "comment": "Maximum dimensional change (shrinkage/stretch) as percentage after washing.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
+        "https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo"
       ],
       "range": [
         "xsd:decimal"
@@ -608,22 +608,22 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/ecNumber",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/ecNumber",
       "localName": "ecNumber",
       "label": "EC Number",
       "comment": "European Community number (EINECS/ELINCS).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern"
+        "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcern"
       ],
       "range": [
         "xsd:string"
       ],
       "seeAlso": [
         "https://schema.org/identifier",
-        "https://ref.openepcis.org/extensions/common/core/ecNumber"
+        "https://ref.openepcis.io/extensions/common/core/ecNumber"
       ],
       "exactMatch": [
-        "https://ref.openepcis.org/extensions/common/core/ecNumber",
+        "https://ref.openepcis.io/extensions/common/core/ecNumber",
         "https://w3id.org/eudpp#numberEC"
       ],
       "broadMatch": [
@@ -635,12 +635,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/elastaneContentPercent",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/elastaneContentPercent",
       "localName": "elastaneContentPercent",
       "label": "Elastane Content Percent",
       "comment": "Elastane/spandex content as percentage of total weight. Content >15% (>20% for PA6-rich >80% blends) makes product non-recyclable (score 0).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment"
+        "https://ref.openepcis.io/extensions/eu/textile/RecyclabilityAssessment"
       ],
       "range": [
         "xsd:decimal"
@@ -658,18 +658,18 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2011/1007"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/endOfLifeDestination",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/endOfLifeDestination",
       "localName": "endOfLifeDestination",
       "label": "End of Life Destination",
       "comment": "What happens to collected items (recycled, upcycled, resold, donated).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/TakeBackProgram"
+        "https://ref.openepcis.io/extensions/eu/textile/TakeBackProgram"
       ],
       "range": [
         "rdf:langString"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
       "accessLevel": "Public",
@@ -677,12 +677,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/endOfLifeHandling",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/endOfLifeHandling",
       "localName": "endOfLifeHandling",
       "label": "End of Life Handling",
       "comment": "Special handling instructions for end-of-life treatment due to the substance of concern.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern"
+        "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcern"
       ],
       "range": [
         "xsd:string"
@@ -701,12 +701,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/environmentalFootprintClass",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/environmentalFootprintClass",
       "localName": "environmentalFootprintClass",
       "label": "Environmental Footprint Class",
       "comment": "Discrete performance class (A–G style band, expressed as an integer 1..n) for the PEF single score relative to the product-category benchmark.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint"
+        "https://ref.openepcis.io/extensions/eu/textile/EnvironmentalFootprint"
       ],
       "range": [
         "xsd:integer"
@@ -723,7 +723,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/euEcolabel",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/euEcolabel",
       "localName": "euEcolabel",
       "label": "EU Ecolabel",
       "comment": "Whether the product carries the EU Ecolabel (Regulation (EC) 66/2010).",
@@ -749,12 +749,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2010/66"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/expectedLifetimeYears",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/expectedLifetimeYears",
       "localName": "expectedLifetimeYears",
       "label": "Expected Lifetime Years",
       "comment": "Expected product lifetime in years under normal use.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
+        "https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo"
       ],
       "range": [
         "xsd:integer"
@@ -769,12 +769,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/expectedWashCycles",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/expectedWashCycles",
       "localName": "expectedWashCycles",
       "label": "Expected Wash Cycles",
       "comment": "Expected number of wash cycles before significant degradation.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
+        "https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo"
       ],
       "range": [
         "xsd:integer"
@@ -788,12 +788,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/fabricAppearanceRating",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/fabricAppearanceRating",
       "localName": "fabricAppearanceRating",
       "label": "Fabric Appearance Rating",
       "comment": "Fabric surface appearance sub-rating (1-5 per ISO 15487, where 5 is no change).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult"
+        "https://ref.openepcis.io/extensions/eu/textile/VisualInspectionResult"
       ],
       "range": [
         "xsd:integer"
@@ -810,7 +810,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/fiberOrigin",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/fiberOrigin",
       "localName": "fiberOrigin",
       "label": "Fiber Origin",
       "comment": "Country or region of fiber origin (ISO 3166-1 alpha-2 code).",
@@ -834,12 +834,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/freeFromCoatings",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/freeFromCoatings",
       "localName": "freeFromCoatings",
       "label": "Free From Coatings",
       "comment": "Whether the product is free from non-removable coatings (+1 pt if true).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SortingFactors"
+        "https://ref.openepcis.io/extensions/eu/textile/SortingFactors"
       ],
       "range": [
         "xsd:boolean"
@@ -850,12 +850,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/freeFromDyes",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/freeFromDyes",
       "localName": "freeFromDyes",
       "label": "Free From Dyes",
       "comment": "Whether the product is free from dyes (+1 pt if true).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SortingFactors"
+        "https://ref.openepcis.io/extensions/eu/textile/SortingFactors"
       ],
       "range": [
         "xsd:boolean"
@@ -866,12 +866,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/freeFromPrintings",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/freeFromPrintings",
       "localName": "freeFromPrintings",
       "label": "Free From Printings",
       "comment": "Whether the product is free from non-removable printings (+1 pt if true).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SortingFactors"
+        "https://ref.openepcis.io/extensions/eu/textile/SortingFactors"
       ],
       "range": [
         "xsd:boolean"
@@ -882,12 +882,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/freeFromSequins",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/freeFromSequins",
       "localName": "freeFromSequins",
       "label": "Free From Sequins",
       "comment": "Whether the product is free from sequins, beads, and non-textile embellishments (+1 pt if true).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SortingFactors"
+        "https://ref.openepcis.io/extensions/eu/textile/SortingFactors"
       ],
       "range": [
         "xsd:boolean"
@@ -898,7 +898,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/garmentType",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/garmentType",
       "localName": "garmentType",
       "label": "Garment Type",
       "comment": "Specific type of garment (jacket, trousers, shirt, etc.).",
@@ -920,7 +920,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasApparelSubcategory",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasApparelSubcategory",
       "localName": "hasApparelSubcategory",
       "label": "Apparel Subcategory",
       "comment": "The specific apparel subcategory per EU Preparatory Study classification.",
@@ -928,7 +928,7 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/ApparelSubcategory"
+        "https://ref.openepcis.io/extensions/eu/textile/ApparelSubcategory"
       ],
       "seeAlso": [
         "https://schema.org/category",
@@ -944,18 +944,18 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasApplicableRecyclingTechnology",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasApplicableRecyclingTechnology",
       "localName": "hasApplicableRecyclingTechnology",
       "label": "Applicable Recycling Technology",
       "comment": "The recycling technology applicable to this product based on its fiber composition.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/TechnicalRecyclability"
+        "https://ref.openepcis.io/extensions/eu/textile/TechnicalRecyclability"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecyclingTechnology"
+        "https://ref.openepcis.io/extensions/eu/textile/RecyclingTechnology"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
       "accessLevel": "Public",
@@ -963,15 +963,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasBleachingSymbol",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasBleachingSymbol",
       "localName": "hasBleachingSymbol",
       "label": "Bleaching Symbol",
       "comment": "ISO 3758 bleaching care symbol.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/CareInstruction"
+        "https://ref.openepcis.io/extensions/eu/textile/CareInstruction"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/CareSymbolCode"
+        "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode"
       ],
       "broadMatch": [
         "https://vocabulary.uncefact.org/untp/symbol"
@@ -982,7 +982,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasCareInstructions",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasCareInstructions",
       "localName": "hasCareInstructions",
       "label": "Care Instructions",
       "comment": "Care and maintenance instructions for the textile product.",
@@ -990,7 +990,7 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/CareInstruction"
+        "https://ref.openepcis.io/extensions/eu/textile/CareInstruction"
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/consumerUsageInstructions",
@@ -1007,15 +1007,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasChainOfCustodyMethod",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasChainOfCustodyMethod",
       "localName": "hasChainOfCustodyMethod",
       "label": "Chain of Custody Method",
       "comment": "Chain of custody method used to verify the recycled content claim.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecycledContentDeclaration"
+        "https://ref.openepcis.io/extensions/eu/textile/RecycledContentDeclaration"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/ChainOfCustodyMethod"
+        "https://ref.openepcis.io/extensions/eu/textile/ChainOfCustodyMethod"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
@@ -1023,15 +1023,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasClpHazardCategory",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasClpHazardCategory",
       "localName": "hasClpHazardCategory",
       "label": "CLP Hazard Category",
       "comment": "CLP hazard category classification (applicable to Type B substances).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern"
+        "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcern"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/CLPHazardCategory"
+        "https://ref.openepcis.io/extensions/eu/textile/CLPHazardCategory"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -1039,7 +1039,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2008/1272"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasCutAndSewFacility",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasCutAndSewFacility",
       "localName": "hasCutAndSewFacility",
       "label": "Cut and Sew Facility",
       "comment": "Facility where garment was cut and assembled.",
@@ -1047,7 +1047,7 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/common/core/FacilityInformation"
+        "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/manufacturingPlant",
@@ -1070,15 +1070,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasDataTypeIndicator",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasDataTypeIndicator",
       "localName": "hasDataTypeIndicator",
       "label": "Data Type Indicator",
       "comment": "Type of data used in the footprint calculation (primary, secondary, or mixed).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint"
+        "https://ref.openepcis.io/extensions/eu/textile/EnvironmentalFootprint"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/FootprintDataType"
+        "https://ref.openepcis.io/extensions/eu/textile/FootprintDataType"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
@@ -1086,15 +1086,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasDimensionalChangeTest",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasDimensionalChangeTest",
       "localName": "hasDimensionalChangeTest",
       "label": "Dimensional Change Test",
       "comment": "Dimensional change test result component of robustness assessment.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment"
+        "https://ref.openepcis.io/extensions/eu/textile/RobustnessAssessment"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTestResult"
+        "https://ref.openepcis.io/extensions/eu/textile/DimensionalChangeTestResult"
       ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
       "accessLevel": "Public",
@@ -1102,15 +1102,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasDryCleaningSymbol",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasDryCleaningSymbol",
       "localName": "hasDryCleaningSymbol",
       "label": "Dry Cleaning Symbol",
       "comment": "ISO 3758 dry cleaning care symbol.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/CareInstruction"
+        "https://ref.openepcis.io/extensions/eu/textile/CareInstruction"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/CareSymbolCode"
+        "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode"
       ],
       "source": "https://www.iso.org/standard/74401.html",
       "accessLevel": "Public",
@@ -1118,15 +1118,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasDryingSymbol",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasDryingSymbol",
       "localName": "hasDryingSymbol",
       "label": "Drying Symbol",
       "comment": "ISO 3758 drying care symbol.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/CareInstruction"
+        "https://ref.openepcis.io/extensions/eu/textile/CareInstruction"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/CareSymbolCode"
+        "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode"
       ],
       "source": "https://www.iso.org/standard/74401.html",
       "accessLevel": "Public",
@@ -1134,15 +1134,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasDurabilityClass",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasDurabilityClass",
       "localName": "hasDurabilityClass",
       "label": "Durability Class",
       "comment": "Durability rating class (A-E).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
+        "https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityClass"
+        "https://ref.openepcis.io/extensions/eu/textile/DurabilityClass"
       ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
       "accessLevel": "Public",
@@ -1150,7 +1150,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasDurabilityInfo",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasDurabilityInfo",
       "localName": "hasDurabilityInfo",
       "label": "Durability Information",
       "comment": "Durability metrics for the textile product.",
@@ -1158,7 +1158,7 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
+        "https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo"
       ],
       "broadMatch": [
         "https://schema.org/hasMeasurement"
@@ -1169,7 +1169,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasDyeingFacility",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasDyeingFacility",
       "localName": "hasDyeingFacility",
       "label": "Dyeing Facility",
       "comment": "Facility where fabric was dyed or printed.",
@@ -1177,7 +1177,7 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/common/core/FacilityInformation"
+        "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/manufacturingPlant"
@@ -1195,7 +1195,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasEnergyUsage",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasEnergyUsage",
       "localName": "hasEnergyUsage",
       "label": "Energy Usage",
       "comment": "Energy consumed in production. Use gs1:QuantitativeValue with KWH unit.",
@@ -1207,7 +1207,7 @@
       ],
       "seeAlso": [
         "https://schema.org/QuantitativeValue",
-        "https://ref.openepcis.org/extensions/common/core/hasAnnualEnergyConsumption"
+        "https://ref.openepcis.io/extensions/common/core/hasAnnualEnergyConsumption"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
@@ -1215,7 +1215,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasEnvironmentalFootprint",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasEnvironmentalFootprint",
       "localName": "hasEnvironmentalFootprint",
       "label": "Environmental Footprint",
       "comment": "Environmental footprint declaration for the textile product.",
@@ -1223,10 +1223,10 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint"
+        "https://ref.openepcis.io/extensions/eu/textile/EnvironmentalFootprint"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/carbonFootprintTotal",
+        "https://ref.openepcis.io/extensions/common/core/carbonFootprintTotal",
         "https://dpp-keystone.org/spec/v2/terms#carbonFootprintGeneralInfo"
       ],
       "exactMatch": [
@@ -1241,7 +1241,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasEuDeclarationOfConformity",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasEuDeclarationOfConformity",
       "localName": "hasEuDeclarationOfConformity",
       "label": "EU Declaration of Conformity",
       "comment": "Reference to the product's EU Declaration of Conformity under the ESPR textile delegated act. Reuse oec:DocumentReference.",
@@ -1249,7 +1249,7 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/common/core/DocumentReference"
+        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
       ],
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#euDeclarationOfConformity"
@@ -1263,7 +1263,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasFabricType",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasFabricType",
       "localName": "hasFabricType",
       "label": "Fabric Type",
       "comment": "The fabric construction type of the textile product.",
@@ -1271,7 +1271,7 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/FabricType"
+        "https://ref.openepcis.io/extensions/eu/textile/FabricType"
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/Clothing"
@@ -1285,7 +1285,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasFiberCertification",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasFiberCertification",
       "localName": "hasFiberCertification",
       "label": "Fiber Certification",
       "comment": "Certification specific to this fiber (GOTS, RWS, etc.). Use gs1:CertificationDetails pattern.",
@@ -1311,7 +1311,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasFinishingFacility",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasFinishingFacility",
       "localName": "hasFinishingFacility",
       "label": "Finishing Facility",
       "comment": "Facility where finishing treatments were applied.",
@@ -1319,7 +1319,7 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/common/core/FacilityInformation"
+        "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
       ],
       "seeAlso": [
         "https://ref.gs1.org/voc/manufacturingPlant",
@@ -1334,15 +1334,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasIroningSymbol",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasIroningSymbol",
       "localName": "hasIroningSymbol",
       "label": "Ironing Symbol",
       "comment": "ISO 3758 ironing care symbol.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/CareInstruction"
+        "https://ref.openepcis.io/extensions/eu/textile/CareInstruction"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/CareSymbolCode"
+        "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode"
       ],
       "source": "https://www.iso.org/standard/74401.html",
       "accessLevel": "Public",
@@ -1350,15 +1350,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasLciaCategories",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasLciaCategories",
       "localName": "hasLciaCategories",
       "label": "LCIA Categories",
       "comment": "Individual LCIA category results within the environmental footprint.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint"
+        "https://ref.openepcis.io/extensions/eu/textile/EnvironmentalFootprint"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/LCIACategory"
+        "https://ref.openepcis.io/extensions/eu/textile/LCIACategory"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "AuthorizedOnly",
@@ -1366,15 +1366,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasLciaCategoryCode",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasLciaCategoryCode",
       "localName": "hasLciaCategoryCode",
       "label": "LCIA Category Code",
       "comment": "The impact category code.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/LCIACategory"
+        "https://ref.openepcis.io/extensions/eu/textile/LCIACategory"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/LCIACategoryCode"
+        "https://ref.openepcis.io/extensions/eu/textile/LCIACategoryCode"
       ],
       "seeAlso": [
         "https://schema.org/hasCategoryCode"
@@ -1386,7 +1386,7 @@
       "accessLevelInherited": true
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasMicroplasticInfo",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasMicroplasticInfo",
       "localName": "hasMicroplasticInfo",
       "label": "Microplastic Information",
       "comment": "Information about microfiber shedding from synthetic textiles.",
@@ -1394,7 +1394,7 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/MicroplasticInfo"
+        "https://ref.openepcis.io/extensions/eu/textile/MicroplasticInfo"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
       "accessLevel": "Public",
@@ -1402,15 +1402,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasMicroplasticRiskLevel",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasMicroplasticRiskLevel",
       "localName": "hasMicroplasticRiskLevel",
       "label": "Microplastic Risk Level",
       "comment": "Risk classification for microfiber shedding.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/MicroplasticInfo"
+        "https://ref.openepcis.io/extensions/eu/textile/MicroplasticInfo"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/MicroplasticRiskLevel"
+        "https://ref.openepcis.io/extensions/eu/textile/MicroplasticRiskLevel"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
       "accessLevel": "Public",
@@ -1418,7 +1418,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasRecyclabilityAssessment",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasRecyclabilityAssessment",
       "localName": "hasRecyclabilityAssessment",
       "label": "Recyclability Assessment",
       "comment": "Recyclability assessment for the textile product.",
@@ -1426,11 +1426,11 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment"
+        "https://ref.openepcis.io/extensions/eu/textile/RecyclabilityAssessment"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance",
-        "https://ref.openepcis.org/extensions/common/core/hasRecyclabilityAssessment"
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
+        "https://ref.openepcis.io/extensions/common/core/hasRecyclabilityAssessment"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
       "accessLevel": "Public",
@@ -1438,7 +1438,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasRecycledContentDeclaration",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasRecycledContentDeclaration",
       "localName": "hasRecycledContentDeclaration",
       "label": "Recycled Content Declaration",
       "comment": "Structured recycled content declaration for the textile product or fiber.",
@@ -1446,10 +1446,10 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecycledContentDeclaration"
+        "https://ref.openepcis.io/extensions/eu/textile/RecycledContentDeclaration"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance",
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledMaterialComposition",
         "https://dpp-keystone.org/spec/v2/terms#preConsumerRecycledContentMass"
       ],
@@ -1462,18 +1462,18 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasRecycledSourceType",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasRecycledSourceType",
       "localName": "hasRecycledSourceType",
       "label": "Recycled Source Type",
       "comment": "Type of recycling pathway.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecycledContentDeclaration"
+        "https://ref.openepcis.io/extensions/eu/textile/RecycledContentDeclaration"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecycledSourceType"
+        "https://ref.openepcis.io/extensions/eu/textile/RecycledSourceType"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
       "accessLevel": "Public",
@@ -1481,7 +1481,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasRepairServices",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasRepairServices",
       "localName": "hasRepairServices",
       "label": "Repair Services",
       "comment": "Information about available repair services.",
@@ -1492,7 +1492,7 @@
         "https://ref.gs1.org/voc/Organization"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance",
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
         "https://dpp-keystone.org/spec/v2/terms#repairServices"
       ],
       "exactMatch": [
@@ -1504,7 +1504,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasRobustnessAssessment",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasRobustnessAssessment",
       "localName": "hasRobustnessAssessment",
       "label": "Robustness Assessment",
       "comment": "Robustness assessment for the textile product.",
@@ -1512,7 +1512,7 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment"
+        "https://ref.openepcis.io/extensions/eu/textile/RobustnessAssessment"
       ],
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#robustnessScore",
@@ -1524,15 +1524,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasRobustnessTestFabricType",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasRobustnessTestFabricType",
       "localName": "hasRobustnessTestFabricType",
       "label": "Robustness Test Fabric Type",
       "comment": "Fabric type used to determine test thresholds (knitted vs woven scoring tables differ).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment"
+        "https://ref.openepcis.io/extensions/eu/textile/RobustnessAssessment"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/FabricType"
+        "https://ref.openepcis.io/extensions/eu/textile/FabricType"
       ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
       "accessLevel": "Public",
@@ -1540,12 +1540,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasSheddingRate",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasSheddingRate",
       "localName": "hasSheddingRate",
       "label": "Shedding Rate",
       "comment": "Microfiber shedding rate per wash. Use unitCode 'MGM' (mg/kg, UN/CEFACT Rec 20).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/MicroplasticInfo"
+        "https://ref.openepcis.io/extensions/eu/textile/MicroplasticInfo"
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
@@ -1556,15 +1556,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasSocType",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasSocType",
       "localName": "hasSocType",
       "label": "SoC Type",
       "comment": "The ESPR Article 7(5) type classification (A, B, C, or D).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern"
+        "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcern"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcernType"
+        "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcernType"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -1572,15 +1572,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasSortingFactors",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasSortingFactors",
       "localName": "hasSortingFactors",
       "label": "Sorting Factors",
       "comment": "Sorting factors assessment for recyclability.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment"
+        "https://ref.openepcis.io/extensions/eu/textile/RecyclabilityAssessment"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/SortingFactors"
+        "https://ref.openepcis.io/extensions/eu/textile/SortingFactors"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevel": "Public",
@@ -1588,7 +1588,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasSpinningFacility",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasSpinningFacility",
       "localName": "hasSpinningFacility",
       "label": "Spinning Facility",
       "comment": "Facility where fiber was spun into yarn.",
@@ -1596,7 +1596,7 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/common/core/FacilityInformation"
+        "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
       ],
       "broadMatch": [
         "https://ref.gs1.org/voc/manufacturingPlant",
@@ -1608,15 +1608,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasSpiralityTest",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasSpiralityTest",
       "localName": "hasSpiralityTest",
       "label": "Spirality Test",
       "comment": "Spirality test result component of robustness assessment.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment"
+        "https://ref.openepcis.io/extensions/eu/textile/RobustnessAssessment"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/SpiralityTestResult"
+        "https://ref.openepcis.io/extensions/eu/textile/SpiralityTestResult"
       ],
       "source": "https://susproc.jrc.ec.europa.eu/product-bureau/sites/default/files/2025-12/Textile-Prep-Study_3rd-Milestone_20251212.pdf",
       "accessLevel": "Public",
@@ -1624,7 +1624,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasSubstancesOfConcern",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasSubstancesOfConcern",
       "localName": "hasSubstancesOfConcern",
       "label": "Substances of Concern",
       "comment": "Substances of concern present in the textile product per ESPR Article 7(5).",
@@ -1632,10 +1632,10 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern"
+        "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcern"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/hasSubstancesOfConcern",
+        "https://ref.openepcis.io/extensions/common/core/hasSubstancesOfConcern",
         "https://ref.gs1.org/voc/ingredientOfConcern"
       ],
       "exactMatch": [
@@ -1647,7 +1647,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasTakeBackProgram",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasTakeBackProgram",
       "localName": "hasTakeBackProgram",
       "label": "Take-Back Program",
       "comment": "End-of-life take-back program information.",
@@ -1655,13 +1655,13 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/TakeBackProgram"
+        "https://ref.openepcis.io/extensions/eu/textile/TakeBackProgram"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
       ],
       "broadMatch": [
-        "https://ref.openepcis.org/extensions/common/core/takeBackUrl",
+        "https://ref.openepcis.io/extensions/common/core/takeBackUrl",
         "urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
@@ -1670,12 +1670,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasTearStrength",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasTearStrength",
       "localName": "hasTearStrength",
       "label": "Tear Strength",
       "comment": "Fabric tear strength. Use unitCode 'NEW' (newtons, UN/CEFACT Rec 20).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
+        "https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo"
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
@@ -1686,18 +1686,18 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasTechnicalRecyclability",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasTechnicalRecyclability",
       "localName": "hasTechnicalRecyclability",
       "label": "Technical Recyclability",
       "comment": "Technical recyclability assessment for the product.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment"
+        "https://ref.openepcis.io/extensions/eu/textile/RecyclabilityAssessment"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/TechnicalRecyclability"
+        "https://ref.openepcis.io/extensions/eu/textile/TechnicalRecyclability"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
       "accessLevel": "Public",
@@ -1705,12 +1705,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasTensileStrength",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasTensileStrength",
       "localName": "hasTensileStrength",
       "label": "Tensile Strength",
       "comment": "Fabric tensile strength. Use unitCode 'NEW' (newtons, UN/CEFACT Rec 20).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
+        "https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo"
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
@@ -1721,18 +1721,18 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasTestStandard",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasTestStandard",
       "localName": "hasTestStandard",
       "label": "Test Standard",
       "comment": "The test standard used for a durability or robustness test.",
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/TestStandard"
+        "https://ref.openepcis.io/extensions/eu/textile/TestStandard"
       ],
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1781",
       "accessLevelInherited": true
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasTextileChemicals",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasTextileChemicals",
       "localName": "hasTextileChemicals",
       "label": "Textile Chemicals",
       "comment": "Chemical substances used in the production of this textile product.",
@@ -1740,7 +1740,7 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/common/core/HazardousSubstance"
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32006R1907",
       "accessLevel": "AuthorizedOnly",
@@ -1748,12 +1748,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasVerificationCertification",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasVerificationCertification",
       "localName": "hasVerificationCertification",
       "label": "Verification Certification",
       "comment": "Third-party certification verifying the recycled content claim. Use gs1:CertificationDetails pattern.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecycledContentDeclaration"
+        "https://ref.openepcis.io/extensions/eu/textile/RecycledContentDeclaration"
       ],
       "range": [
         "https://ref.gs1.org/voc/CertificationDetails"
@@ -1772,15 +1772,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasVisualInspection",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasVisualInspection",
       "localName": "hasVisualInspection",
       "label": "Visual Inspection",
       "comment": "Visual inspection result component of robustness assessment.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment"
+        "https://ref.openepcis.io/extensions/eu/textile/RobustnessAssessment"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult"
+        "https://ref.openepcis.io/extensions/eu/textile/VisualInspectionResult"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#visualInspection"
@@ -1791,15 +1791,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasWashingSymbol",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasWashingSymbol",
       "localName": "hasWashingSymbol",
       "label": "Washing Symbol",
       "comment": "ISO 3758 washing care symbol.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/CareInstruction"
+        "https://ref.openepcis.io/extensions/eu/textile/CareInstruction"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/CareSymbolCode"
+        "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode"
       ],
       "source": "https://www.iso.org/standard/74401.html",
       "accessLevel": "Public",
@@ -1807,15 +1807,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasWasteOriginType",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasWasteOriginType",
       "localName": "hasWasteOriginType",
       "label": "Waste Origin Type",
       "comment": "Origin classification of the recycled waste material.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecycledContentDeclaration"
+        "https://ref.openepcis.io/extensions/eu/textile/RecycledContentDeclaration"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/eu/textile/WasteOriginType"
+        "https://ref.openepcis.io/extensions/eu/textile/WasteOriginType"
       ],
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#preConsumerTypeOfWaste",
@@ -1830,7 +1830,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasWaterUsage",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasWaterUsage",
       "localName": "hasWaterUsage",
       "label": "Water Usage",
       "comment": "Water consumed in production. Use unitCode 'LTR' (liters, UN/CEFACT Rec 20).",
@@ -1849,7 +1849,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/hasWeavingFacility",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/hasWeavingFacility",
       "localName": "hasWeavingFacility",
       "label": "Weaving Facility",
       "comment": "Facility where yarn was woven or knitted into fabric.",
@@ -1857,7 +1857,7 @@
         "https://ref.gs1.org/voc/Product"
       ],
       "range": [
-        "https://ref.openepcis.org/extensions/common/core/FacilityInformation"
+        "https://ref.openepcis.io/extensions/common/core/FacilityInformation"
       ],
       "seeAlso": [
         "urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#manufacturingPlace",
@@ -1877,12 +1877,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/isMonoMaterial",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/isMonoMaterial",
       "localName": "isMonoMaterial",
       "label": "Is Mono-Material",
       "comment": "Whether the product is made of a single fiber type (+1 pt if true). Mono-material products are more likely to be recycled.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SortingFactors"
+        "https://ref.openepcis.io/extensions/eu/textile/SortingFactors"
       ],
       "range": [
         "xsd:boolean"
@@ -1893,12 +1893,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/isMRSLCompliant",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/isMRSLCompliant",
       "localName": "isMRSLCompliant",
       "label": "Is MRSL Compliant",
       "comment": "Whether the chemical complies with ZDHC Manufacturing Restricted Substances List.",
       "domain": [
-        "https://ref.openepcis.org/extensions/common/core/HazardousSubstance"
+        "https://ref.openepcis.io/extensions/common/core/HazardousSubstance"
       ],
       "range": [
         "xsd:boolean"
@@ -1909,18 +1909,18 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/isRecyclable",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/isRecyclable",
       "localName": "isRecyclable",
       "label": "Is Recyclable",
       "comment": "Whether the product is considered recyclable (score above minimum threshold).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment"
+        "https://ref.openepcis.io/extensions/eu/textile/RecyclabilityAssessment"
       ],
       "range": [
         "xsd:boolean"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
       "accessLevel": "Public",
@@ -1928,7 +1928,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/isRecycledFiber",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/isRecycledFiber",
       "localName": "isRecycledFiber",
       "label": "Is Recycled Fiber",
       "comment": "Indicates whether this fiber is from recycled sources.",
@@ -1944,7 +1944,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/isRepairable",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/isRepairable",
       "localName": "isRepairable",
       "label": "Is Repairable",
       "comment": "Whether the product is designed to be repairable.",
@@ -1955,7 +1955,7 @@
         "xsd:boolean"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
       "accessLevel": "Public",
@@ -1963,12 +1963,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/lciaUnit",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/lciaUnit",
       "localName": "lciaUnit",
       "label": "LCIA Unit",
       "comment": "Unit of the LCIA value (e.g. 'kg CO2-eq', 'm3 world-eq', 'mol H+-eq').",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/LCIACategory"
+        "https://ref.openepcis.io/extensions/eu/textile/LCIACategory"
       ],
       "range": [
         "xsd:string"
@@ -1983,12 +1983,12 @@
       "accessLevelInherited": true
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/lciaValue",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/lciaValue",
       "localName": "lciaValue",
       "label": "LCIA Value",
       "comment": "The impact category value in the category-specific unit.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/LCIACategory"
+        "https://ref.openepcis.io/extensions/eu/textile/LCIACategory"
       ],
       "range": [
         "xsd:decimal"
@@ -2003,12 +2003,12 @@
       "accessLevelInherited": true
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/maxConcentration",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/maxConcentration",
       "localName": "maxConcentration",
       "label": "Maximum Concentration",
       "comment": "Maximum concentration of the substance as percentage by weight.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern"
+        "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcern"
       ],
       "range": [
         "xsd:decimal"
@@ -2022,12 +2022,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/meetsTargetThreshold",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/meetsTargetThreshold",
       "localName": "meetsTargetThreshold",
       "label": "Meets Target Threshold",
       "comment": "Whether the recycled content meets the regulatory target threshold for this product category.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecycledContentDeclaration"
+        "https://ref.openepcis.io/extensions/eu/textile/RecycledContentDeclaration"
       ],
       "range": [
         "xsd:boolean"
@@ -2038,12 +2038,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/microplasticMitigationMeasures",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/microplasticMitigationMeasures",
       "localName": "microplasticMitigationMeasures",
       "label": "Microplastic Mitigation Measures",
       "comment": "Description of measures taken to reduce microplastic shedding.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/MicroplasticInfo"
+        "https://ref.openepcis.io/extensions/eu/textile/MicroplasticInfo"
       ],
       "range": [
         "rdf:langString"
@@ -2054,12 +2054,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/nonTextilePartsRating",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/nonTextilePartsRating",
       "localName": "nonTextilePartsRating",
       "label": "Non-Textile Parts Rating",
       "comment": "Non-textile parts condition sub-rating (1-5 per ISO 15487, where 5 is no change).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult"
+        "https://ref.openepcis.io/extensions/eu/textile/VisualInspectionResult"
       ],
       "range": [
         "xsd:integer"
@@ -2076,7 +2076,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/organicContentMass",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/organicContentMass",
       "localName": "organicContentMass",
       "label": "Organic Content Mass",
       "comment": "Mass of certified organic fibre content (grams), per Regulation (EU) 2018/848.",
@@ -2098,7 +2098,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2018/848"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/organicContentPercentage",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/organicContentPercentage",
       "localName": "organicContentPercentage",
       "label": "Organic Content Percentage",
       "comment": "Share of certified organic fibre content by mass (%), per Regulation (EU) 2018/848.",
@@ -2124,12 +2124,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2018/848"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/pefcrReference",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/pefcrReference",
       "localName": "pefcrReference",
       "label": "PEFCR Reference",
       "comment": "Reference to the applicable PEFCR version (e.g. 'PEFCR Apparel & Footwear v1.3').",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint"
+        "https://ref.openepcis.io/extensions/eu/textile/EnvironmentalFootprint"
       ],
       "range": [
         "xsd:string"
@@ -2143,12 +2143,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/pefSingleScore",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/pefSingleScore",
       "localName": "pefSingleScore",
       "label": "PEF Single Score",
       "comment": "Product Environmental Footprint single score in milli-points (mPt) per PEFCR A&F methodology.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint"
+        "https://ref.openepcis.io/extensions/eu/textile/EnvironmentalFootprint"
       ],
       "range": [
         "xsd:decimal"
@@ -2162,7 +2162,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/pfasFree",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/pfasFree",
       "localName": "pfasFree",
       "label": "PFAS Free",
       "comment": "Whether the product is free from per- and polyfluoroalkyl substances (PFAS).",
@@ -2178,12 +2178,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/pillingResistance",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/pillingResistance",
       "localName": "pillingResistance",
       "label": "Pilling Resistance",
       "comment": "Pilling resistance rating (1-5 per ISO 12945, where 5 is best).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo"
+        "https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo"
       ],
       "range": [
         "xsd:integer"
@@ -2197,7 +2197,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/productionWastePercentage",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/productionWastePercentage",
       "localName": "productionWastePercentage",
       "label": "Production Waste Percentage",
       "comment": "Percentage of material waste during production.",
@@ -2213,19 +2213,19 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/recyclabilityScore",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/recyclabilityScore",
       "localName": "recyclabilityScore",
       "label": "Recyclability Score",
       "comment": "Composite recyclability score (0-10).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment"
+        "https://ref.openepcis.io/extensions/eu/textile/RecyclabilityAssessment"
       ],
       "range": [
         "xsd:decimal"
       ],
       "seeAlso": [
         "https://schema.org/ratingValue",
-        "https://ref.openepcis.org/extensions/common/core/recyclabilityScore",
+        "https://ref.openepcis.io/extensions/common/core/recyclabilityScore",
         "https://dpp-keystone.org/spec/v2/terms#recyclabilityScore"
       ],
       "exactMatch": [
@@ -2240,7 +2240,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/recycledContentSource",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/recycledContentSource",
       "localName": "recycledContentSource",
       "label": "Recycled Content Source",
       "comment": "Source of recycled content (e.g. post-consumer PET bottles, ocean plastic, post-industrial textile waste).",
@@ -2256,7 +2256,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/repairGuideUrl",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/repairGuideUrl",
       "localName": "repairGuideUrl",
       "label": "Repair Guide URL",
       "comment": "URL to repair/care guide for DIY repairs.",
@@ -2279,12 +2279,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/robustnessScore",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/robustnessScore",
       "localName": "robustnessScore",
       "label": "Robustness Score",
       "comment": "Composite robustness score (0-10). Sum of spirality (0-3), dimensional change (0-3), and visual inspection (0-4).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment"
+        "https://ref.openepcis.io/extensions/eu/textile/RobustnessAssessment"
       ],
       "range": [
         "xsd:decimal"
@@ -2302,12 +2302,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/safeUseInstructions",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/safeUseInstructions",
       "localName": "safeUseInstructions",
       "label": "Safe Use Instructions",
       "comment": "Instructions for safe use of the product considering the substance of concern.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern"
+        "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcern"
       ],
       "range": [
         "xsd:string"
@@ -2317,7 +2317,7 @@
         "https://ref.gs1.org/voc/instructions",
         "https://ref.gs1.org/voc/consumerSafetyInformation",
         "https://ref.gs1.org/voc/safetyInfo",
-        "https://ref.openepcis.org/extensions/common/core/safeUseInstructions"
+        "https://ref.openepcis.io/extensions/common/core/safeUseInstructions"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#safeUseInstructions"
@@ -2331,12 +2331,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/sameInnerOuterComposition",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/sameInnerOuterComposition",
       "localName": "sameInnerOuterComposition",
       "label": "Same Inner/Outer Composition",
       "comment": "Whether inner and outer fabric layers have the same fiber composition (+1 pt if true).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SortingFactors"
+        "https://ref.openepcis.io/extensions/eu/textile/SortingFactors"
       ],
       "range": [
         "xsd:boolean"
@@ -2347,12 +2347,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/seamAppearanceRating",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/seamAppearanceRating",
       "localName": "seamAppearanceRating",
       "label": "Seam Appearance Rating",
       "comment": "Seam appearance sub-rating (1-5 per ISO 15487, where 5 is no change).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult"
+        "https://ref.openepcis.io/extensions/eu/textile/VisualInspectionResult"
       ],
       "range": [
         "xsd:integer"
@@ -2369,7 +2369,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/seasonCollection",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/seasonCollection",
       "localName": "seasonCollection",
       "label": "Season Collection",
       "comment": "Season and year of the collection (e.g., FW2024, SS2025).",
@@ -2395,18 +2395,18 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/secondaryMaterialFraction",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/secondaryMaterialFraction",
       "localName": "secondaryMaterialFraction",
       "label": "Secondary Material Fraction",
       "comment": "Percentage of secondary (recycled) material by weight.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/RecycledContentDeclaration"
+        "https://ref.openepcis.io/extensions/eu/textile/RecycledContentDeclaration"
       ],
       "range": [
         "xsd:decimal"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/recycledContent",
+        "https://ref.openepcis.io/extensions/common/core/recycledContent",
         "https://dpp-keystone.org/spec/v2/terms#materialComposition",
         "https://dpp-keystone.org/spec/v2/terms#packagingMaterialCompositionQuantity",
         "https://vocabulary.uncefact.org/untp/massFraction",
@@ -2421,7 +2421,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/sizeRange",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/sizeRange",
       "localName": "sizeRange",
       "label": "Size Range",
       "comment": "Available size range (e.g., XS-XXL, 36-52).",
@@ -2445,7 +2445,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/sparePartsAvailable",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/sparePartsAvailable",
       "localName": "sparePartsAvailable",
       "label": "Spare Parts Available",
       "comment": "Whether spare parts (buttons, zippers, etc.) are available for purchase.",
@@ -2456,7 +2456,7 @@
         "xsd:boolean"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
       ],
       "exactMatch": [
         "https://dpp-keystone.org/spec/v2/terms#sparePartsAvailable"
@@ -2467,7 +2467,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/sparePartsUrl",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/sparePartsUrl",
       "localName": "sparePartsUrl",
       "label": "Spare Parts URL",
       "comment": "URL to purchase spare parts.",
@@ -2489,12 +2489,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/spiralityPercentage",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/spiralityPercentage",
       "localName": "spiralityPercentage",
       "label": "Spirality Percentage",
       "comment": "Measured spirality as percentage after cleaning cycles.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SpiralityTestResult"
+        "https://ref.openepcis.io/extensions/eu/textile/SpiralityTestResult"
       ],
       "range": [
         "xsd:decimal"
@@ -2505,12 +2505,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/spiralityScore",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/spiralityScore",
       "localName": "spiralityScore",
       "label": "Spirality Score",
       "comment": "Spirality component score (0-3 points).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SpiralityTestResult"
+        "https://ref.openepcis.io/extensions/eu/textile/SpiralityTestResult"
       ],
       "range": [
         "xsd:integer"
@@ -2528,12 +2528,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/spiralityTestMethod",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/spiralityTestMethod",
       "localName": "spiralityTestMethod",
       "label": "Spirality Test Method",
       "comment": "Test method reference (e.g. ISO 16322-3).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SpiralityTestResult"
+        "https://ref.openepcis.io/extensions/eu/textile/SpiralityTestResult"
       ],
       "range": [
         "xsd:string"
@@ -2551,12 +2551,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/substanceConcentration",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/substanceConcentration",
       "localName": "substanceConcentration",
       "label": "Substance Concentration",
       "comment": "Concentration of the substance in the product as percentage by weight (w/w).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern"
+        "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcern"
       ],
       "range": [
         "xsd:decimal"
@@ -2577,12 +2577,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/syntheticFiberContent",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/syntheticFiberContent",
       "localName": "syntheticFiberContent",
       "label": "Synthetic Fiber Content",
       "comment": "Total percentage of synthetic fibers that may shed microplastics.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/MicroplasticInfo"
+        "https://ref.openepcis.io/extensions/eu/textile/MicroplasticInfo"
       ],
       "range": [
         "xsd:decimal"
@@ -2602,19 +2602,19 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2011/1007"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/takeBackIncentive",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/takeBackIncentive",
       "localName": "takeBackIncentive",
       "label": "Take-Back Incentive",
       "comment": "Description of incentive for returning products (discount, voucher, etc.).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/TakeBackProgram"
+        "https://ref.openepcis.io/extensions/eu/textile/TakeBackProgram"
       ],
       "range": [
         "rdf:langString"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance",
-        "https://ref.openepcis.org/extensions/common/core/takeBackIncentive",
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
+        "https://ref.openepcis.io/extensions/common/core/takeBackIncentive",
         "https://schema.org/discount"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
@@ -2623,7 +2623,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/takeBackProgramAvailable",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/takeBackProgramAvailable",
       "localName": "takeBackProgramAvailable",
       "label": "Take-Back Program Available",
       "comment": "Whether a take-back program is available for this product.",
@@ -2634,7 +2634,7 @@
         "xsd:boolean"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/CircularityPerformance"
+        "https://ref.openepcis.io/extensions/common/core/CircularityPerformance"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022DC0141",
       "accessLevel": "Public",
@@ -2642,22 +2642,22 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/takeBackUrl",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/takeBackUrl",
       "localName": "takeBackUrl",
       "label": "Take-Back URL",
       "comment": "URL with take-back program information and collection points.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/TakeBackProgram"
+        "https://ref.openepcis.io/extensions/eu/textile/TakeBackProgram"
       ],
       "range": [
         "xsd:anyURI"
       ],
       "seeAlso": [
-        "https://ref.openepcis.org/extensions/common/core/takeBackUrl",
+        "https://ref.openepcis.io/extensions/common/core/takeBackUrl",
         "https://ref.gs1.org/voc/sustainabilityInfo"
       ],
       "exactMatch": [
-        "https://ref.openepcis.org/extensions/common/core/takeBackUrl"
+        "https://ref.openepcis.io/extensions/common/core/takeBackUrl"
       ],
       "broadMatch": [
         "https://ref.gs1.org/voc/sustainabilityInfo"
@@ -2668,12 +2668,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/technicalRecyclabilityScore",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/technicalRecyclabilityScore",
       "localName": "technicalRecyclabilityScore",
       "label": "Technical Recyclability Score",
       "comment": "Technical recyclability component score based on applicable recycling technology.",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/TechnicalRecyclability"
+        "https://ref.openepcis.io/extensions/eu/textile/TechnicalRecyclability"
       ],
       "range": [
         "xsd:decimal"
@@ -2689,7 +2689,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/textileFibreScientificName",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/textileFibreScientificName",
       "localName": "textileFibreScientificName",
       "label": "Textile Fibre Scientific Name",
       "comment": "Scientific (binomial) name of a textile fibre, e.g. \"Gossypium hirsutum\" for cotton, required alongside the common fibre name for certain fibres under the EU Textile Labelling Regulation.",
@@ -2712,12 +2712,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2011/1007"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/visualInspectionScore",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/visualInspectionScore",
       "localName": "visualInspectionScore",
       "label": "Visual Inspection Score",
       "comment": "Visual inspection component score (0-4 points).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult"
+        "https://ref.openepcis.io/extensions/eu/textile/VisualInspectionResult"
       ],
       "range": [
         "xsd:integer"
@@ -2731,12 +2731,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/visualInspectionTestMethod",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/visualInspectionTestMethod",
       "localName": "visualInspectionTestMethod",
       "label": "Visual Inspection Test Method",
       "comment": "Test method reference (e.g. ISO 15487).",
       "domain": [
-        "https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult"
+        "https://ref.openepcis.io/extensions/eu/textile/VisualInspectionResult"
       ],
       "range": [
         "xsd:string"
@@ -2753,7 +2753,7 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/weightExcludingTrims",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/weightExcludingTrims",
       "localName": "weightExcludingTrims",
       "label": "Weight Excluding Trims",
       "comment": "Product weight excluding trims and accessories (grams), used for recycled/organic content denominators. Use gs1:netWeight for the total product weight.",
@@ -2781,67 +2781,67 @@
   ],
   "enumerations": [
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/ApparelSubcategory",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/ApparelSubcategory",
       "localName": "ApparelSubcategory",
       "label": "Apparel Subcategory",
       "comment": "Apparel product subcategories per EU Preparatory Study on Textiles 3rd Milestone.\nUsed for targeted recycled content thresholds and recyclability requirements.",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/DressesSkirts",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/DressesSkirts",
           "localName": "DressesSkirts",
           "label": "Dresses & Skirts",
           "comment": "Dresses, skirts, and jumpsuits."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/JacketsCoats",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/JacketsCoats",
           "localName": "JacketsCoats",
           "label": "Jackets & Coats",
           "comment": "Outerwear including jackets, coats, blazers, and vests."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/LeggingsStockingsSocks",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/LeggingsStockingsSocks",
           "localName": "LeggingsStockingsSocks",
           "label": "Leggings, Stockings & Socks",
           "comment": "Legwear including leggings, tights, stockings, and socks."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/PantsShorts",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/PantsShorts",
           "localName": "PantsShorts",
           "label": "Pants & Shorts",
           "comment": "Trousers, jeans, shorts, and skorts."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ShirtsBlouses",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/ShirtsBlouses",
           "localName": "ShirtsBlouses",
           "label": "Shirts & Blouses",
           "comment": "Woven shirts, blouses, and formal tops."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Sweaters",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Sweaters",
           "localName": "Sweaters",
           "label": "Sweaters",
           "comment": "Knitted pullovers, cardigans, and sweaters."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Swimwear",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Swimwear",
           "localName": "Swimwear",
           "label": "Swimwear",
           "comment": "Swimming and bathing garments."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/TextileAccessories",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/TextileAccessories",
           "localName": "TextileAccessories",
           "label": "Textile Accessories",
           "comment": "Textile accessories including scarves, gloves, hats, and ties."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/TShirts",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/TShirts",
           "localName": "TShirts",
           "label": "T-Shirts",
           "comment": "Short-sleeved casual tops including t-shirts and polo shirts."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Underwear",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Underwear",
           "localName": "Underwear",
           "label": "Underwear",
           "comment": "Undergarments and intimate apparel."
@@ -2849,163 +2849,163 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/CareSymbolCode",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode",
       "localName": "CareSymbolCode",
       "label": "Care Symbol Code",
       "comment": "Care symbols per ISO 3758:2023 for textile care labelling.",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/BleachAllowed",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/BleachAllowed",
           "localName": "BleachAllowed",
           "label": "Bleach Allowed",
           "comment": "Any bleach allowed."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/DoNotBleach",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/DoNotBleach",
           "localName": "DoNotBleach",
           "label": "Do Not Bleach",
           "comment": "Do not bleach."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/DoNotDryClean",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/DoNotDryClean",
           "localName": "DoNotDryClean",
           "label": "Do Not Dry Clean",
           "comment": "Do not dry clean."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/DoNotIron",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/DoNotIron",
           "localName": "DoNotIron",
           "label": "Do Not Iron",
           "comment": "Do not iron."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/DoNotTumbleDry",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/DoNotTumbleDry",
           "localName": "DoNotTumbleDry",
           "label": "Do Not Tumble Dry",
           "comment": "Do not tumble dry."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/DoNotWash",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/DoNotWash",
           "localName": "DoNotWash",
           "label": "Do Not Wash",
           "comment": "Do not wash."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/DripDry",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/DripDry",
           "localName": "DripDry",
           "label": "Drip Dry",
           "comment": "Drip dry without wringing."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/DryCleanAny",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/DryCleanAny",
           "localName": "DryCleanAny",
           "label": "Dry Clean Any Solvent",
           "comment": "Dry clean with any solvent."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/DryCleanHydrocarbon",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/DryCleanHydrocarbon",
           "localName": "DryCleanHydrocarbon",
           "label": "Dry Clean Hydrocarbon",
           "comment": "Dry clean with hydrocarbon solvents only."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/DryCleanPCE",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/DryCleanPCE",
           "localName": "DryCleanPCE",
           "label": "Dry Clean PCE",
           "comment": "Dry clean with tetrachloroethylene (PCE)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/DryFlat",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/DryFlat",
           "localName": "DryFlat",
           "label": "Dry Flat",
           "comment": "Dry flat."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/IronHigh",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/IronHigh",
           "localName": "IronHigh",
           "label": "Iron High",
           "comment": "Iron at high temperature (max 200C)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/IronLow",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/IronLow",
           "localName": "IronLow",
           "label": "Iron Low",
           "comment": "Iron at low temperature (max 110C)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/IronMedium",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/IronMedium",
           "localName": "IronMedium",
           "label": "Iron Medium",
           "comment": "Iron at medium temperature (max 150C)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/LineDry",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/LineDry",
           "localName": "LineDry",
           "label": "Line Dry",
           "comment": "Line dry / hang to dry."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/NonChlorineBleach",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/NonChlorineBleach",
           "localName": "NonChlorineBleach",
           "label": "Non-Chlorine Bleach",
           "comment": "Only non-chlorine/oxygen bleach allowed."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/NoSteam",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/NoSteam",
           "localName": "NoSteam",
           "label": "No Steam",
           "comment": "Iron without steam."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/TumbleDryHigh",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/TumbleDryHigh",
           "localName": "TumbleDryHigh",
           "label": "Tumble Dry High",
           "comment": "Tumble dry at high temperature."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/TumbleDryLow",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/TumbleDryLow",
           "localName": "TumbleDryLow",
           "label": "Tumble Dry Low",
           "comment": "Tumble dry at low temperature."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/TumbleDryMedium",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/TumbleDryMedium",
           "localName": "TumbleDryMedium",
           "label": "Tumble Dry Medium",
           "comment": "Tumble dry at medium temperature."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Wash30",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Wash30",
           "localName": "Wash30",
           "label": "Wash 30C",
           "comment": "Machine wash at maximum 30C."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Wash40",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Wash40",
           "localName": "Wash40",
           "label": "Wash 40C",
           "comment": "Machine wash at maximum 40C."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Wash60",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Wash60",
           "localName": "Wash60",
           "label": "Wash 60C",
           "comment": "Machine wash at maximum 60C."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/WashGentle",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/WashGentle",
           "localName": "WashGentle",
           "label": "Gentle Wash",
           "comment": "Gentle/delicate wash cycle."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/WashHandOnly",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/WashHandOnly",
           "localName": "WashHandOnly",
           "label": "Hand Wash Only",
           "comment": "Hand wash only, maximum 40C."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/WetClean",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/WetClean",
           "localName": "WetClean",
           "label": "Professional Wet Clean",
           "comment": "Professional wet cleaning."
@@ -3013,31 +3013,31 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/ChainOfCustodyMethod",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/ChainOfCustodyMethod",
       "localName": "ChainOfCustodyMethod",
       "label": "Chain of Custody Method",
       "comment": "Chain of custody method used to verify recycled content claims.",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Certified",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Certified",
           "localName": "Certified",
           "label": "Certified",
           "comment": "Third-party certified chain of custody (e.g. GRS, RCS)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/IdentityPreserved",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/IdentityPreserved",
           "localName": "IdentityPreserved",
           "label": "Identity Preserved",
           "comment": "Identity preserved method with full physical traceability from source to product."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/MassBalance",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/MassBalance",
           "localName": "MassBalance",
           "label": "Mass Balance",
           "comment": "Mass balance accounting method where recycled and virgin inputs are tracked by quantity."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Segregation",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Segregation",
           "localName": "Segregation",
           "label": "Segregation",
           "comment": "Segregation method where recycled materials are kept physically separate from virgin."
@@ -3045,37 +3045,37 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/CLPHazardCategory",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/CLPHazardCategory",
       "localName": "CLPHazardCategory",
       "label": "CLP Hazard Category",
       "comment": "CLP Regulation hazard categories relevant to textile substances of concern (Type B).",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/AquaticToxicity",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/AquaticToxicity",
           "localName": "AquaticToxicity",
           "label": "Aquatic Toxicity",
           "comment": "Hazardous to the aquatic environment (acute or chronic)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/CMR",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/CMR",
           "localName": "CMR",
           "label": "CMR",
           "comment": "Carcinogenic, Mutagenic, or toxic to Reproduction (categories 1A, 1B, 2)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/EndocrineDisruptor",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/EndocrineDisruptor",
           "localName": "EndocrineDisruptor",
           "label": "Endocrine Disruptor",
           "comment": "Endocrine disrupting substance per EU criteria."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/PMT",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/PMT",
           "localName": "PMT",
           "label": "PMT",
           "comment": "Persistent, Mobile, and Toxic or very Persistent, very Mobile (PMT/vPvM)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Sensitizer",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Sensitizer",
           "localName": "Sensitizer",
           "label": "Sensitizer",
           "comment": "Skin or respiratory sensitiser."
@@ -3083,37 +3083,37 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/DurabilityClass",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/DurabilityClass",
       "localName": "DurabilityClass",
       "label": "Durability Class",
       "comment": "Durability rating for textile products.",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/DurabilityA",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/DurabilityA",
           "localName": "DurabilityA",
           "label": "Durability Class A",
           "comment": "Highest durability - designed for extended lifetime (>200 wash cycles, >10 years)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/DurabilityB",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/DurabilityB",
           "localName": "DurabilityB",
           "label": "Durability Class B",
           "comment": "High durability (100-200 wash cycles, 5-10 years)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/DurabilityC",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/DurabilityC",
           "localName": "DurabilityC",
           "label": "Durability Class C",
           "comment": "Standard durability (50-100 wash cycles, 3-5 years)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/DurabilityD",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/DurabilityD",
           "localName": "DurabilityD",
           "label": "Durability Class D",
           "comment": "Below average durability (25-50 wash cycles, 1-3 years)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/DurabilityE",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/DurabilityE",
           "localName": "DurabilityE",
           "label": "Durability Class E",
           "comment": "Low durability (<25 wash cycles, <1 year). Single-use or disposable items."
@@ -3121,25 +3121,25 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/FabricType",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/FabricType",
       "localName": "FabricType",
       "label": "Fabric Type",
       "comment": "Fabric construction type that determines robustness thresholds, recyclability scoring,\nand recycled content targets per EU Preparatory Study on Textiles 3rd Milestone.",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Denim",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Denim",
           "localName": "Denim",
           "label": "Denim",
           "comment": "Twill-woven fabric typically made from cotton, characterised by indigo dyeing."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Knitted",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Knitted",
           "localName": "Knitted",
           "label": "Knitted",
           "comment": "Fabric constructed by interlocking loops of yarn (jersey, rib, interlock, etc.)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/WovenNonDenim",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/WovenNonDenim",
           "localName": "WovenNonDenim",
           "label": "Woven Non-Denim",
           "comment": "Woven fabric other than denim (plain weave, twill, satin, etc.)."
@@ -3147,127 +3147,127 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/FiberType",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/FiberType",
       "localName": "FiberType",
       "label": "Fiber Type",
       "comment": "Fiber types as defined in EU Textile Labelling Regulation 1007/2011 Annex I.",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Acrylic",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Acrylic",
           "localName": "Acrylic",
           "label": "Acrylic",
           "comment": "Synthetic fiber made from acrylonitrile polymers."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Cashmere",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Cashmere",
           "localName": "Cashmere",
           "label": "Cashmere",
           "comment": "Fine natural fiber from cashmere goat undercoat."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Cotton",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Cotton",
           "localName": "Cotton",
           "label": "Cotton",
           "comment": "Natural cellulose fiber from cotton plant (Gossypium)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Elastane",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Elastane",
           "localName": "Elastane",
           "label": "Elastane",
           "comment": "Synthetic elastic fiber (spandex/Lycra) for stretch fabrics."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Hemp",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Hemp",
           "localName": "Hemp",
           "label": "Hemp",
           "comment": "Natural cellulose fiber from hemp plant (Cannabis sativa)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Leather",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Leather",
           "localName": "Leather",
           "label": "Leather",
           "comment": "Animal hide material (not a textile fiber but used in footwear composition)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Linen",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Linen",
           "localName": "Linen",
           "label": "Linen",
           "comment": "Natural cellulose fiber from flax plant (Linum usitatissimum)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Lyocell",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Lyocell",
           "localName": "Lyocell",
           "label": "Lyocell",
           "comment": "Regenerated cellulose fiber using closed-loop solvent process (Tencel)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Modal",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Modal",
           "localName": "Modal",
           "label": "Modal",
           "comment": "Regenerated cellulose fiber from beech wood pulp."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/OrganicCotton",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/OrganicCotton",
           "localName": "OrganicCotton",
           "label": "Organic Cotton",
           "comment": "Cotton grown without synthetic pesticides or fertilizers per organic standards."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Polyamide",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Polyamide",
           "localName": "Polyamide",
           "label": "Polyamide",
           "comment": "Synthetic fiber (nylon) made from polyamide polymers."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Polyester",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Polyester",
           "localName": "Polyester",
           "label": "Polyester",
           "comment": "Synthetic fiber made from polyethylene terephthalate (PET)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Polypropylene",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Polypropylene",
           "localName": "Polypropylene",
           "label": "Polypropylene",
           "comment": "Synthetic thermoplastic fiber for technical applications."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/RecycledCotton",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/RecycledCotton",
           "localName": "RecycledCotton",
           "label": "Recycled Cotton",
           "comment": "Cotton fiber reclaimed from pre-consumer or post-consumer textile waste."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/RecycledPolyester",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/RecycledPolyester",
           "localName": "RecycledPolyester",
           "label": "Recycled Polyester",
           "comment": "Polyester fiber made from recycled PET bottles or textile waste."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/RecycledWool",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/RecycledWool",
           "localName": "RecycledWool",
           "label": "Recycled Wool",
           "comment": "Wool fiber reclaimed from pre-consumer or post-consumer textile waste."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Rubber",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Rubber",
           "localName": "Rubber",
           "label": "Rubber",
           "comment": "Natural or synthetic rubber material (used in footwear soles)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Silk",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Silk",
           "localName": "Silk",
           "label": "Silk",
           "comment": "Natural protein fiber from silkworm cocoons."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Viscose",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Viscose",
           "localName": "Viscose",
           "label": "Viscose",
           "comment": "Regenerated cellulose fiber from wood pulp (rayon)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Wool",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Wool",
           "localName": "Wool",
           "label": "Wool",
           "comment": "Natural protein fiber from sheep or lamb fleece."
@@ -3275,25 +3275,25 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/FootprintDataType",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/FootprintDataType",
       "localName": "FootprintDataType",
       "label": "Footprint Data Type",
       "comment": "Type of data used in the environmental footprint calculation.",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/MixedData",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/MixedData",
           "localName": "MixedData",
           "label": "Mixed Data",
           "comment": "Footprint based on a combination of primary and secondary data sources."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/PrimaryData",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/PrimaryData",
           "localName": "PrimaryData",
           "label": "Primary Data",
           "comment": "Footprint based on primary (company-specific) data from actual production processes."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/SecondaryData",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/SecondaryData",
           "localName": "SecondaryData",
           "label": "Secondary Data",
           "comment": "Footprint based on secondary (generic/database) data from LCI databases."
@@ -3301,43 +3301,43 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/LCIACategoryCode",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/LCIACategoryCode",
       "localName": "LCIACategoryCode",
       "label": "LCIA Category Code",
       "comment": "Life Cycle Impact Assessment category codes per PEF methodology.",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Acidification",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Acidification",
           "localName": "Acidification",
           "label": "Acidification",
           "comment": "Acidification impact category (mol H+-eq)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Ecotoxicity",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Ecotoxicity",
           "localName": "Ecotoxicity",
           "label": "Ecotoxicity",
           "comment": "Freshwater ecotoxicity impact category (CTUe)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Eutrophication",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Eutrophication",
           "localName": "Eutrophication",
           "label": "Eutrophication",
           "comment": "Freshwater eutrophication impact category (kg P-eq)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/GWP",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/GWP",
           "localName": "GWP",
           "label": "Global Warming Potential",
           "comment": "Climate change impact category (kg CO2-eq)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/HumanToxicity",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/HumanToxicity",
           "localName": "HumanToxicity",
           "label": "Human Toxicity",
           "comment": "Human toxicity (cancer + non-cancer) impact category (CTUh)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/WaterUse",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/WaterUse",
           "localName": "WaterUse",
           "label": "Water Use",
           "comment": "Water scarcity footprint impact category (m3 world-eq)."
@@ -3345,25 +3345,25 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/MicroplasticRiskLevel",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/MicroplasticRiskLevel",
       "localName": "MicroplasticRiskLevel",
       "label": "Microplastic Risk Level",
       "comment": "Risk classification for microplastic/microfiber shedding from textiles.",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/HighShedding",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/HighShedding",
           "localName": "HighShedding",
           "label": "High Shedding",
           "comment": "High microfiber shedding risk (> 500 mg/kg per wash). Fleece, chenille, or cut-pile synthetics."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/LowShedding",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/LowShedding",
           "localName": "LowShedding",
           "label": "Low Shedding",
           "comment": "Low microfiber shedding risk (< 50 mg/kg per wash). Natural fibers or tightly woven synthetics."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/MediumShedding",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/MediumShedding",
           "localName": "MediumShedding",
           "label": "Medium Shedding",
           "comment": "Medium microfiber shedding risk (50-500 mg/kg per wash). Typical synthetic fabrics."
@@ -3371,19 +3371,19 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/RecycledSourceType",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/RecycledSourceType",
       "localName": "RecycledSourceType",
       "label": "Recycled Source Type",
       "comment": "Type of recycling pathway for the recycled content.",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/FiberToFiber",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/FiberToFiber",
           "localName": "FiberToFiber",
           "label": "Fiber-to-Fiber",
           "comment": "Closed-loop recycling where textile waste is recycled back into textile fibers."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/OpenLoop",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/OpenLoop",
           "localName": "OpenLoop",
           "label": "Open Loop",
           "comment": "Open-loop recycling where non-textile waste (e.g. PET bottles) is converted into textile fibers."
@@ -3391,37 +3391,37 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/RecyclingTechnology",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/RecyclingTechnology",
       "localName": "RecyclingTechnology",
       "label": "Recycling Technology",
       "comment": "Applicable recycling technologies per EU Preparatory Study 3rd Milestone.",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ChemicalRecyclingCotton",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/ChemicalRecyclingCotton",
           "localName": "ChemicalRecyclingCotton",
           "label": "Chemical Recycling (Cotton)",
           "comment": "Chemical recycling process for cellulosic/cotton fibers (e.g. dissolution-regeneration)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ChemicalRecyclingPA6",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/ChemicalRecyclingPA6",
           "localName": "ChemicalRecyclingPA6",
           "label": "Chemical Recycling (PA6)",
           "comment": "Chemical recycling for polyamide 6 (depolymerisation to caprolactam)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/MechanicalRecycling",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/MechanicalRecycling",
           "localName": "MechanicalRecycling",
           "label": "Mechanical Recycling",
           "comment": "Mechanical fiber recycling through shredding and re-spinning."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ThermoChemicalRecycling",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/ThermoChemicalRecycling",
           "localName": "ThermoChemicalRecycling",
           "label": "Thermo-Chemical Recycling",
           "comment": "Thermo-chemical treatment to recover cotton from cotton-rich blends (>60%)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ThermoMechanicalRecycling",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/ThermoMechanicalRecycling",
           "localName": "ThermoMechanicalRecycling",
           "label": "Thermo-Mechanical Recycling",
           "comment": "Thermo-mechanical recycling through melting and re-extrusion of thermoplastic fibers."
@@ -3429,31 +3429,31 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcernType",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcernType",
       "localName": "SubstanceOfConcernType",
       "label": "Substance of Concern Type",
       "comment": "The 4-type classification of substances of concern per ESPR Article 7(5).",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/SoCTypeA",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/SoCTypeA",
           "localName": "SoCTypeA",
           "label": "SoC Type A - SVHC",
           "comment": "Substances of Very High Concern per REACH Regulation (EC) 1907/2006, with 0.1% w/w threshold."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/SoCTypeB",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/SoCTypeB",
           "localName": "SoCTypeB",
           "label": "SoC Type B - CLP Hazard",
           "comment": "Substances classified under CLP Regulation 1272/2008 with hazard classifications (CMR, ED, PMT, sensitiser, aquatic toxicity)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/SoCTypeC",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/SoCTypeC",
           "localName": "SoCTypeC",
           "label": "SoC Type C - POPs",
           "comment": "Persistent Organic Pollutants per EU Regulation 2019/1021 (recast of Stockholm Convention obligations)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/SoCTypeD",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/SoCTypeD",
           "localName": "SoCTypeD",
           "label": "SoC Type D - Recycling Hindrance",
           "comment": "Substances that hinder reuse or recycling of the product at end of life."
@@ -3461,49 +3461,49 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/TestStandard",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/TestStandard",
       "localName": "TestStandard",
       "label": "Test Standard",
       "comment": "Test standards referenced in the EU Preparatory Study for textile robustness and durability testing.",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO105",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/ISO105",
           "localName": "ISO105",
           "label": "ISO 105",
           "comment": "Textiles - Tests for colour fastness (multi-part standard)."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO12945",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/ISO12945",
           "localName": "ISO12945",
           "label": "ISO 12945",
           "comment": "Textiles - Determination of fabric propensity to surface pilling, fuzzing or matting."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO12947",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/ISO12947",
           "localName": "ISO12947",
           "label": "ISO 12947",
           "comment": "Textiles - Determination of the abrasion resistance of fabrics by the Martindale method."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO15487",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/ISO15487",
           "localName": "ISO15487",
           "label": "ISO 15487",
           "comment": "Textiles - Method for assessing the appearance of apparel and other textile end products after domestic washing and drying."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO16322_3",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/ISO16322_3",
           "localName": "ISO16322_3",
           "label": "ISO 16322-3",
           "comment": "Textiles - Determination of spirality after laundering - Part 3: Woven and knitted garments."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO3759",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/ISO3759",
           "localName": "ISO3759",
           "label": "ISO 3759",
           "comment": "Textiles - Preparation, marking and measuring of fabric specimens and garments in tests for determination of dimensional change."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/ISO6330",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/ISO6330",
           "localName": "ISO6330",
           "label": "ISO 6330",
           "comment": "Textiles - Domestic washing and drying procedures for textile testing."
@@ -3511,37 +3511,37 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/TextileCategory",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/TextileCategory",
       "localName": "TextileCategory",
       "label": "Textile Category",
       "comment": "Categories of textile products per EU Textile Labelling Regulation.",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Accessories",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Accessories",
           "localName": "Accessories",
           "label": "Accessories",
           "comment": "Textile accessories including bags, belts, scarves, and hats."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Apparel",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Apparel",
           "localName": "Apparel",
           "label": "Apparel",
           "comment": "Clothing items including outerwear, underwear, sportswear, and workwear."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/Footwear",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/Footwear",
           "localName": "Footwear",
           "label": "Footwear",
           "comment": "Shoes, boots, sandals, and other footwear containing textile materials."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/HomeTextiles",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/HomeTextiles",
           "localName": "HomeTextiles",
           "label": "Home Textiles",
           "comment": "Household textile products including bedding, towels, curtains, and upholstery."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/TechnicalTextiles",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/TechnicalTextiles",
           "localName": "TechnicalTextiles",
           "label": "Technical Textiles",
           "comment": "Functional textiles for industrial, medical, protective, or automotive applications."
@@ -3549,19 +3549,19 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.org/extensions/eu/textile/WasteOriginType",
+      "id": "https://ref.openepcis.io/extensions/eu/textile/WasteOriginType",
       "localName": "WasteOriginType",
       "label": "Waste Origin Type",
       "comment": "Origin classification of recycled waste material.",
       "values": [
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/PostConsumer",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/PostConsumer",
           "localName": "PostConsumer",
           "label": "Post-Consumer",
           "comment": "Waste generated by end consumers after product use."
         },
         {
-          "id": "https://ref.openepcis.org/extensions/eu/textile/PostIndustrial",
+          "id": "https://ref.openepcis.io/extensions/eu/textile/PostIndustrial",
           "localName": "PostIndustrial",
           "label": "Post-Industrial",
           "comment": "Waste generated during manufacturing processes (pre-consumer)."

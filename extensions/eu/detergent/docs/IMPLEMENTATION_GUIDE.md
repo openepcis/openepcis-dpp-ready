@@ -142,14 +142,14 @@ Link the SDS using `oec:DocumentReference`:
 For supply chain traceability, use EPCIS 2.0 events:
 
 ```http
-GS1-Extensions: eudet=https://ref.openepcis.org/extensions/eu/detergent/
+GS1-Extensions: eudet=https://ref.openepcis.io/extensions/eu/detergent/
 ```
 
 ```json
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.org/extensions/eu/detergent/detergent-context.jsonld"
+    "https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld"
   ]
 }
 ```

@@ -82,13 +82,13 @@ GS1-Extensions: prefix=namespace, prefix2=namespace2
 ### EUDR Extension Declaration
 
 ```http
-GS1-Extensions: eudr=https://ref.openepcis.org/extensions/eu/eudr/
+GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/
 ```
 
 For multiple extensions:
 
 ```http
-GS1-Extensions: eudr=https://ref.openepcis.org/extensions/eu/eudr/, oec=https://ref.openepcis.org/extensions/common/core/
+GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/, oec=https://ref.openepcis.io/extensions/common/core/
 ```
 
 ### Where it appears
@@ -114,7 +114,7 @@ Host: epcis.example.com
 Content-Type: application/ld+json
 GS1-EPCIS-Version: 2.0
 GS1-CBV-Version: 2.0
-GS1-Extensions: eudr=https://ref.openepcis.org/extensions/eu/eudr/
+GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/
 ```
 
 ### Query Example
@@ -124,7 +124,7 @@ GET /events HTTP/1.1
 Host: epcis.example.com
 Accept: application/ld+json
 GS1-EPCIS-Version: 2.0
-GS1-Extensions: eudr=https://ref.openepcis.org/extensions/eu/eudr/
+GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/
 ```
 
 ---
@@ -140,7 +140,7 @@ standard EPCIS context.
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld"
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
   ]
 }
 ```
@@ -151,8 +151,8 @@ standard EPCIS context.
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
   ]
 }
 ```
@@ -168,7 +168,7 @@ only `gs1:` properties; all `eudr:` properties are at event level.
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld",
     {
       "gs1": "https://ref.gs1.org/voc/"
     }
@@ -261,7 +261,7 @@ only `gs1:` properties; all `eudr:` properties are at event level.
 ```http
 POST /capture HTTP/1.1
 Content-Type: application/ld+json
-GS1-Extensions: eudr=https://ref.openepcis.org/extensions/eu/eudr/
+GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/
 GS1-EPCIS-Version: 2.0
 GS1-CBV-Version: 2.0
 ```
@@ -423,7 +423,7 @@ Accept: application/ld+json
 
 HTTP/1.1 200 OK
 GS1-EPCIS-Version: 2.0
-GS1-Extensions: eudr=https://ref.openepcis.org/extensions/eu/eudr/
+GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/
 ```
 
 ---

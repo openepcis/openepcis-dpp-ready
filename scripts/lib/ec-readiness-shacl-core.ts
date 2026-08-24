@@ -43,7 +43,7 @@ export interface ShaclReport {
   findings: ShaclFinding[];
 }
 
-const BATTERY = "https://ref.openepcis.org/extensions/eu/battery/Battery";
+const BATTERY = "https://ref.openepcis.io/extensions/eu/battery/Battery";
 
 export async function validateWithShaclCore(
   shapesTtl: string,

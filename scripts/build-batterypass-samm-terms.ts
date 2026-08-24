@@ -4,7 +4,7 @@
  *
  * The SAMM aspect models identify terms by URN (urn:samm:io.BatteryPass.*#prop),
  * which a browser cannot dereference — clicking a SAMM alignment in the
- * ref.openepcis.org browser lands on a blank window. This script mirrors the
+ * ref.openepcis.io browser lands on a blank window. This script mirrors the
  * `samm:preferredName` / `samm:description` text of exactly the SAMM properties
  * referenced as SKOS targets in extensions/eu/battery/json/battery.json into a
  * small Turtle document keyed by the full URN. copy-ontologies.ts converts it to

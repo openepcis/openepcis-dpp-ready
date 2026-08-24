@@ -67,7 +67,7 @@ The following EU regulations are public domain regulatory text:
 Each OpenEPCIS ontology file includes appropriate attribution:
 
 ```turtle
-<https://ref.openepcis.org/extensions/common/core/>
+<https://ref.openepcis.io/extensions/common/core/>
     dcterms:source <https://untp.unece.org/docs/specification/> ;
     rdfs:comment "Aligned with UN Transparency Protocol patterns"@en ;
     rdfs:seeAlso <https://ref.gs1.org/voc/> ;

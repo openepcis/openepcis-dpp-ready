@@ -166,7 +166,7 @@ They do not agree for free, and the differences are the point:
   the two mechanisms keep giving the same answer.
 
 The parity gate sends **pre-expanded N-Quads**, not JSON-LD. Sending JSON-LD makes
-the validator resolve each `@context` from `ref.openepcis.org`, i.e. from the last
+the validator resolve each `@context` from `ref.openepcis.io`, i.e. from the last
 deployed revision — the first parity run failed on 16 examples purely because the
 working tree had corrected the `anyURI` coercions while the deployed contexts had
 not. That is deployment skew, not an engine disagreement, and a gate that conflates
@@ -175,7 +175,7 @@ the two is useless for both. Context resolution is covered by
 
 **Consequence for a real submission:** the upload test cases *do* take JSON-LD,
 because a third party's passport must reference the published contexts. Until
-`ref.openepcis.org` serves the current contexts, an uploaded passport will show the
+`ref.openepcis.io` serves the current contexts, an uploaded passport will show the
 `anyURI` findings that the parity gate does not. Redeploying the contexts is a
 precondition for submitting the suite.
 

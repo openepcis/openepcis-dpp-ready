@@ -1,6 +1,6 @@
 # Why every module owns a named EPCIS extension
 
-This project registers one named `https://ref.openepcis.org/extensions/...`
+This project registers one named `https://ref.openepcis.io/extensions/...`
 namespace per regulatory domain (`eubat:`, `eudr:`, `eutex:`,
 `euelec:`, `eudet:`, `usfsma:`) even when — in some cases — the
 extension contributes only a single property or an enum. This document
@@ -15,9 +15,9 @@ capture and query request. The header is a comma-separated list of
 ```http
 POST /capture HTTP/1.1
 Content-Type: application/ld+json
-GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/,
-                eudr=https://ref.openepcis.org/extensions/eu/eudr/,
-                usfsma=https://ref.openepcis.org/extensions/us/fsma204/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,
+                eudr=https://ref.openepcis.io/extensions/eu/eudr/,
+                usfsma=https://ref.openepcis.io/extensions/us/fsma204/
 ```
 
 An **OpenEPCIS EPCIS Repository** reads this header on every request and
@@ -53,7 +53,7 @@ unrecognised vendor extensions.
 
 The namespace URI is also the resolvable location of the ontology TTL,
 JSON-LD context, generated JSON, JSON Schema, and SHACL shapes. Pointing
-at `https://ref.openepcis.org/extensions/us/fsma204/` means:
+at `https://ref.openepcis.io/extensions/us/fsma204/` means:
 
 - The `@context` URI your JSON-LD documents load **never changes** even
   if the community evolves the definitions behind it.
@@ -104,8 +104,8 @@ the header for the modules whose terms appear in the payload (including
 the core module when `oec:` terms are present):
 
 ```http
-GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/,
-                eudr=https://ref.openepcis.org/extensions/eu/eudr/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,
+                eudr=https://ref.openepcis.io/extensions/eu/eudr/
 ```
 
 And always include the matching JSON-LD context URIs in `@context`:
@@ -114,8 +114,8 @@ And always include the matching JSON-LD context URIs in `@context`:
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
   ]
 }
 ```

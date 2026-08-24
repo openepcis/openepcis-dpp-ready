@@ -4,7 +4,7 @@
  * Every context this project publishes is resolved from the working tree rather
  * than the network, so the gates that expand example documents produce the same
  * verdict on a laptop, in CI and on a machine with no route to
- * ref.openepcis.org. Upstream contexts come from the pinned snapshots under
+ * ref.openepcis.io. Upstream contexts come from the pinned snapshots under
  * vendor/gs1/ — the same trade-off the vocabulary guard makes with
  * scripts/vocab-snapshot.json.
  *
@@ -12,7 +12,7 @@
  * module (or a new context file in an existing one) is covered with no edit
  * here. Published URL convention: a context at
  * extensions/<path>/context/<name>.jsonld is served at
- * https://ref.openepcis.org/extensions/<path>/<name>.jsonld — the "context/"
+ * https://ref.openepcis.io/extensions/<path>/<name>.jsonld — the "context/"
  * segment is dropped.
  *
  * Shared by scripts/validate-jsonld-examples.ts and the SHACL gates
@@ -31,7 +31,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 
-/** Contexts served from a host other than ref.openepcis.org, plus the upstream snapshots. */
+/** Contexts served from a host other than ref.openepcis.io, plus the upstream snapshots. */
 const SPECIAL_HOST_MAP: Record<string, string> = {
   "https://gs1-epcis-reg.org/rail/rail-context.jsonld":
     "extensions/upstream/gs1-rail/context/rail-context.jsonld",
@@ -55,7 +55,7 @@ export async function buildContextMap(): Promise<Record<string, string>> {
     const relStr = String(rel).split(path.sep).join("/");
     const m = relStr.match(/^(.+)\/context\/([^/]+\.jsonld)$/);
     if (!m) continue;
-    map[`https://ref.openepcis.org/extensions/${m[1]}/${m[2]}`] = `extensions/${relStr}`;
+    map[`https://ref.openepcis.io/extensions/${m[1]}/${m[2]}`] = `extensions/${relStr}`;
   }
   return map;
 }

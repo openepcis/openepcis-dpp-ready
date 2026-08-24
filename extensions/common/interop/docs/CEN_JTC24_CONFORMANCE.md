@@ -14,7 +14,7 @@ realise them.
 **EPCIS4DPP** (informal name) is the OpenEPCIS profile that binds the
 neutral CEN models to a concrete GS1 and EPCIS implementation: GS1
 identifiers, the GS1 Digital Link data carrier, EPCIS 2.0 events as the
-dynamic lifecycle layer, the GS1 Web Vocabulary plus ref.openepcis.org as
+dynamic lifecycle layer, the GS1 Web Vocabulary plus ref.openepcis.io as
 the semantic dictionary, and JSON-LD as the serialisation. The standards
 do not require these specific choices; EPCIS4DPP adopts them.
 
@@ -273,7 +273,7 @@ named in the Introduction: organisational, semantic, and technical.
 - The `DigitalProductPassport` attributes map almost one-to-one onto
   `oec:` core. Reconciliation of attribute names and `dppStatus` values
   is tracked in [`EN18223_MODEL_ALIGNMENT.md`](./EN18223_MODEL_ALIGNMENT.md).
-- **ref.openepcis.org is a data-dictionary repository in the sense of
+- **ref.openepcis.io is a data-dictionary repository in the sense of
   4.3.** Our class and property IRIs are valid `dictionaryReference`
   values, each unique and resolvable, with cross-catalogue mapping via
   `owl:equivalentClass`/`owl:equivalentProperty` to GS1, SEMICeu, and
@@ -283,13 +283,13 @@ named in the Introduction: organisational, semantic, and technical.
   `scripts/derive-en18223.ts` derives the EN 18223 **expanded** Annex A form
   (`elements[]` of `{elementId, objectType, dictionaryReference, valueDataType,
   value}`) from it, using the `@context` IRIs as `dictionaryReference` (into the
-  ref.openepcis.org §4.3 dictionary) and the ontology ranges as `valueDataType`.
+  ref.openepcis.io §4.3 dictionary) and the ontology ranges as `valueDataType`.
   JSON-LD remains an EPCIS4DPP **profile choice** for the technical layer; the
   standard requires only JSON. For the rationale behind that choice, see the
   "Two routes to interoperability" observation in
   [`GS1_STACK_EN182XX_WHITEPAPER.md`](./GS1_STACK_EN182XX_WHITEPAPER.md).
 
-**Status:** Conformant (model maps to `oec:`; ref.openepcis.org is a 4.3 repository; compressed↦expanded converter shipped); attribute/`dppStatus` alignment Planned.
+**Status:** Conformant (model maps to `oec:`; ref.openepcis.io is a 4.3 repository; compressed↦expanded converter shipped); attribute/`dppStatus` alignment Planned.
 
 ---
 
@@ -302,7 +302,7 @@ named in the Introduction: organisational, semantic, and technical.
 | EN 18216 | HTTPS/TLS/HTTP-2 + JSON + content negotiation | JSON-LD + HTML over HTTPS; EPCIS transport reuses it |
 | EN 18221 | Storage/archiving/persistence + provider roles | Append-only EPCIS + versioned core (a conformant pattern) |
 | EN 18222 | Concrete DPP REST API (method set + registry) | Expose the method surface (Planned); EPCIS query + resolver added |
-| EN 18223 | UML+JSON information model + data dictionary | `oec:` core maps to it; ref.openepcis.org is the 4.3 dictionary |
+| EN 18223 | UML+JSON information model + data dictionary | `oec:` core maps to it; ref.openepcis.io is the 4.3 dictionary |
 
 For the attribute-level EN 18223 mapping and the EN 18222 method-to-endpoint
 plan, see [`EN18223_MODEL_ALIGNMENT.md`](./EN18223_MODEL_ALIGNMENT.md). For

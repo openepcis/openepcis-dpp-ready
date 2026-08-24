@@ -66,7 +66,7 @@ for row in "${DEMOS[@]}"; do
   # Fetch existing master-data with the LD shape so @context is included
   # (without the Accept header the DLR strips it). The source seed's
   # @context wins because it's the canonical declaration of which
-  # ref.openepcis.org extensions the payload uses; the server's compacted
+  # ref.openepcis.io extensions the payload uses; the server's compacted
   # array sometimes drops the openepcis extension URLs.
   curl -sk -L -H "Accept: application/ld+json" \
     "$DL_URL/01/$gtin?linkType=masterData" -o /tmp/cur.json

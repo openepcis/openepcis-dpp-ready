@@ -103,9 +103,9 @@ https://id.gs1.org/8004/{giai}
 
 | Prefix | Namespace URI | Status |
 |--------|---------------|--------|
-| `eubat:` | `https://ref.openepcis.org/extensions/eu/battery/` | OpenEPCIS managed |
+| `eubat:` | `https://ref.openepcis.io/extensions/eu/battery/` | OpenEPCIS managed |
 
-**Ontology URL:** `https://ref.openepcis.org/extensions/eu/battery/`
+**Ontology URL:** `https://ref.openepcis.io/extensions/eu/battery/`
 
 ### EPCIS Standard Context
 
@@ -126,7 +126,7 @@ All EPCIS events MUST use this context structure:
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
     {
-      "battery": "https://ref.openepcis.org/extensions/eu/battery/"
+      "battery": "https://ref.openepcis.io/extensions/eu/battery/"
     }
   ]
 }
@@ -140,7 +140,7 @@ Product master data uses namespace prefixes directly:
 {
   "@context": {
     "gs1": "https://ref.gs1.org/voc/",
-    "battery": "https://ref.openepcis.org/extensions/eu/battery/",
+    "battery": "https://ref.openepcis.io/extensions/eu/battery/",
     "xsd": "http://www.w3.org/2001/XMLSchema#"
   }
 }

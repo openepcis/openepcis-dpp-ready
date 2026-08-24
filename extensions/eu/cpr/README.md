@@ -64,7 +64,7 @@ cpr/
 ## Vocabulary namespace
 
 **Prefix**: `eucpr:`
-**URI**: `https://ref.openepcis.org/extensions/eu/cpr/`
+**URI**: `https://ref.openepcis.io/extensions/eu/cpr/`
 
 ## Vocabulary
 
@@ -88,7 +88,7 @@ cpr/
 ## EPCIS 2.0 extension declaration
 
 ```http
-GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/, eucpr=https://ref.openepcis.org/extensions/eu/cpr/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, eucpr=https://ref.openepcis.io/extensions/eu/cpr/
 ```
 
 CPR-specific extension properties (`constructionProductType`, `reactionToFireClass`,

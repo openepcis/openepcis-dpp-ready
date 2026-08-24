@@ -117,7 +117,7 @@ def build_org_payload(gln: str, meta: dict) -> dict:
     return {
         "@context": [
             "https://ref.gs1.org/voc/",
-            "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+            "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
         ],
         "type": "Organization",
         "glnType": "LEGAL_ENTITY",

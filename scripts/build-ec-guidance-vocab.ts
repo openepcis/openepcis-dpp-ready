@@ -10,7 +10,7 @@
  * 2027. The Commission publishes no RDF/IRIs; like the GEFEG BatteryPass-Ready
  * mirror (build-batterypass-ready-vocab.ts) this script mints an
  * OpenEPCIS-hosted RDF reference so the data points can be aligned with our
- * terms and browsed on ref.openepcis.org.
+ * terms and browsed on ref.openepcis.io.
  *
  * Each data point is dual-typed rdf:Property + cccev:InformationRequirement:
  * the EU data points are information REQUIREMENTS that reference properties,
@@ -58,8 +58,8 @@ const OUT_MATRIX = join(MODULE, "validation/ec-datapoint-applicability.json");
 const OUT_SHAPES = join(MODULE, "validation/ec-readiness-shapes.ttl");
 const OUT_DOC = join(MODULE, "docs/EC_GUIDANCE_DATAPOINTS.md");
 
-const NS = "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#";
-const ONT = "https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0";
+const NS = "https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#";
+const ONT = "https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0";
 
 interface Applicability {
   status: "mandatory" | "optional" | "conditional" | "notToBeFilled" | "pending";
@@ -121,8 +121,8 @@ lines.push(`@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix schema: <https://schema.org/> .
-@prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
-@prefix eubat: <https://ref.openepcis.org/extensions/eu/battery/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix eubat: <https://ref.openepcis.io/extensions/eu/battery/> .
 @prefix ecbp: <${NS}> .
 
 # GENERATED FILE - do not edit. Source: vocab/ec-guidance-datapoints.json,
@@ -139,8 +139,8 @@ lines.push(`@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
     dcterms:source <${doc.regulation}> ;
     dcterms:bibliographicCitation "European Commission, ${esc(doc.title)}, Version ${doc.version}, ${doc.reference}"@en ;
     owl:versionInfo "${doc.version}" ;
-    rdfs:seeAlso <https://ref.openepcis.org/extensions/eu/battery/> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/batterypass-ready/1.3> .
+    rdfs:seeAlso <https://ref.openepcis.io/extensions/eu/battery/> ;
+    rdfs:seeAlso <https://ref.openepcis.io/vocab/batterypass-ready/1.3> .
 
 # ── Registry annotation properties ───────────────────────────────────────────
 
@@ -198,7 +198,7 @@ for (const dp of dataPoints) {
   t.push(`    a rdf:Property, cccev:InformationRequirement ;`);
   t.push(`    rdfs:label "${esc(dp.name)}"@en ;`);
   // Compact human summary — carried into the vendored term data that powers
-  // the ref.openepcis.org term cards (the converter forwards rdfs:comment).
+  // the ref.openepcis.io term cards (the converter forwards rdfs:comment).
   const comment =
     `European Commission Battery Passport data point ${dp.nr}` +
     (dp.source ? ` (${dp.source})` : "") +
@@ -277,8 +277,8 @@ writeFileSync(OUT_MATRIX, JSON.stringify(matrix, null, 2) + "\n");
 const PREFIXES: Record<string, string> = {
   "https://ref.gs1.org/voc/": "gs1:",
   "https://schema.org/": "schema:",
-  "https://ref.openepcis.org/extensions/common/core/": "oec:",
-  "https://ref.openepcis.org/extensions/eu/battery/": "eubat:",
+  "https://ref.openepcis.io/extensions/common/core/": "oec:",
+  "https://ref.openepcis.io/extensions/eu/battery/": "eubat:",
 };
 const toCurie = (iri: string): string => {
   for (const [ns, prefix] of Object.entries(PREFIXES)) {
@@ -319,7 +319,7 @@ function deriveAnchorPaths(): Map<string, string[][]> {
   const classOf = (c: string | undefined) =>
     !c ||
     c === "https://ref.gs1.org/voc/Product" ||
-    c === "https://ref.openepcis.org/extensions/eu/battery/Battery" ||
+    c === "https://ref.openepcis.io/extensions/eu/battery/Battery" ||
     c === "https://schema.org/Product"
       ? START
       : c;
@@ -445,14 +445,14 @@ shapes.push(`@prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix schema: <https://schema.org/> .
-@prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
-@prefix eubat: <https://ref.openepcis.org/extensions/eu/battery/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix eubat: <https://ref.openepcis.io/extensions/eu/battery/> .
 @prefix ecbp: <${NS}> .
 
 # GENERATED FILE - do not edit. Source: vocab/ec-guidance-datapoints.json,
 # generator: scripts/build-ec-guidance-vocab.ts (pnpm run build:ec-guidance-vocab).
 
-<https://ref.openepcis.org/extensions/eu/battery/ec-readiness-shapes.ttl>
+<https://ref.openepcis.io/extensions/eu/battery/ec-readiness-shapes.ttl>
     a sh:ShapesGraph ;
     dcterms:title "EC Battery Passport readiness shapes (guidance v${doc.version})"@en ;
     dcterms:description "SHACL form of the EC guidance applicability matrix (${esc(doc.reference)}): one node shape per (data point, category), targeting eubat:Battery. Statuses map to severities - mandatory = sh:Violation, conditional = sh:Warning, optional and pending = sh:Info; 'not to be filled' data points emit no shape. Every shape ships sh:deactivated true: activate the shapes of exactly ONE category (IRI suffix -ev / -lmt / -industrial) before validating, otherwise a passport is checked against all three categories at once. Validate the MERGED model + batch + item graphs of one battery - the dynamic Annex XIII 4 data points only exist at item level. This is the structural coverage check made executable for any SHACL engine; value-level validation lives in battery-shapes.ttl."@en ;

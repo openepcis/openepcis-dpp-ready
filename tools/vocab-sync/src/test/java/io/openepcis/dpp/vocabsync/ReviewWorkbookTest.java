@@ -36,11 +36,11 @@ class ReviewWorkbookTest {
     @Test
     void roundTripReturnsOnlyAcceptedRows(@org.junit.jupiter.api.io.TempDir Path tmp) throws Exception {
         Path xlsx = tmp.resolve("review.xlsx");
-        var a1 = add("https://ref.openepcis.org/extensions/eu/battery/hasRatedEnergy", "urn:samm:x#ratedEnergy");
-        var rm = remove("https://ref.openepcis.org/extensions/eu/battery/hasMaximumVoltage",
+        var a1 = add("https://ref.openepcis.io/extensions/eu/battery/hasRatedEnergy", "urn:samm:x#ratedEnergy");
+        var rm = remove("https://ref.openepcis.io/extensions/eu/battery/hasMaximumVoltage",
                 "https://dpp-keystone.org/spec/v2/terms#voltageMaximum");
-        var a2 = add("https://ref.openepcis.org/extensions/eu/battery/recyclabilityRate",
-                "https://ref.openepcis.org/extensions/common/core/recyclabilityRate");
+        var a2 = add("https://ref.openepcis.io/extensions/eu/battery/recyclabilityRate",
+                "https://ref.openepcis.io/extensions/common/core/recyclabilityRate");
         ReviewWorkbook.write(xlsx, List.of(a1, rm, a2), "2026-06-26", "gpt-oss-20b", "qwen3-32b");
 
         // All rows default to Apply?=yes → all three come back.

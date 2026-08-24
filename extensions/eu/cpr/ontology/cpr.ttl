@@ -3,8 +3,8 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
-@prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
-@prefix eucpr: <https://ref.openepcis.org/extensions/eu/cpr/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix eucpr: <https://ref.openepcis.io/extensions/eu/cpr/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
@@ -13,7 +13,7 @@
 # DPP Keystone (dpp-keystone.org), a peer DPP profile this module aligns with.
 @prefix dppk: <https://dpp-keystone.org/spec/v2/terms#> .
 
-<https://ref.openepcis.org/extensions/eu/cpr/>
+<https://ref.openepcis.io/extensions/eu/cpr/>
     a owl:Ontology ;
     dcterms:title "OpenEPCIS CPR Vocabulary"@en ;
     dcterms:description """Vocabulary for the revised EU Construction Products Regulation
@@ -30,12 +30,12 @@ EPR, end-of-life, due diligence) reuse the lifted `oec:` vocabulary plus
     dcterms:created "2026-05-01"^^xsd:date ;
     dcterms:modified "2026-06-23"^^xsd:date ;
     owl:versionInfo "0.9.9" ;
-    owl:versionIRI <https://ref.openepcis.org/extensions/eu/cpr/0.9.9> ;
+    owl:versionIRI <https://ref.openepcis.io/extensions/eu/cpr/0.9.9> ;
     vann:preferredNamespacePrefix "eucpr" ;
-    vann:preferredNamespaceUri "https://ref.openepcis.org/extensions/eu/cpr/" ;
+    vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/eu/cpr/" ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     owl:imports <https://ref.gs1.org/voc/> ;
-    owl:imports <https://ref.openepcis.org/extensions/common/core/> .
+    owl:imports <https://ref.openepcis.io/extensions/common/core/> .
 
 # =============================================================================
 # Main class
@@ -50,7 +50,7 @@ CPR). Carrier for the regulation's DPP and Declaration-of-Performance data.
 Use eucpr:declarationOfPerformanceUrl, eucpr:hasEssentialCharacteristic, and
 eucpr:hasReactionToFireClass for the substantive declarations; reuse oec: terms
 for recycled content, carbon footprint, hazardous substances, etc."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso dppk:ConstructionProduct ;
@@ -82,7 +82,7 @@ fire is an essential characteristic per Annex III."""@en ;
         eucpr:FireClassE
         eucpr:FireClassF
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-13501-1.aspx> ;
     skos:note "Reaction-to-fire classification per EN 13501-1, as required by the EU Construction Products Regulation (EU) 2024/3110."@en .
 
@@ -107,7 +107,7 @@ eucpr:hasReactionToFireClass
     rdfs:comment "EN 13501-1 reaction-to-fire classification of the construction product."@en ;
     rdfs:domain eucpr:ConstructionProduct ;
     rdfs:range eucpr:ReactionToFireClass ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://www.cencenelec.eu/standards/EN/Pages/EN-13501-1.aspx> ;
     skos:note "Reaction-to-fire classification per EN 13501-1, as required by the EU Construction Products Regulation (EU) 2024/3110."@en ;
     rdfs:seeAlso dppk:reactionToFire ;
@@ -134,7 +134,7 @@ eucpr:ConstructionProductType
         eucpr:CladdingPanel
         eucpr:OtherConstructionProduct
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso dppk:Product ;
@@ -161,7 +161,7 @@ eucpr:hasConstructionProductType
     rdfs:label "Construction Product Type"@en ;
     rdfs:domain eucpr:ConstructionProduct ;
     rdfs:range eucpr:ConstructionProductType ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -178,7 +178,7 @@ CPR Article 12. The DoP carries the harmonised technical specification
 reference, intended use, essential characteristics, and AVCP system."""@en ;
     rdfs:domain eucpr:ConstructionProduct ;
     rdfs:range xsd:anyURI ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     skos:note "Declaration of Performance / essential-characteristics concept per the EU Construction Products Regulation (EU) 2024/3110. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -190,7 +190,7 @@ eucpr:EssentialCharacteristic
     a owl:Class ;
     rdfs:label "Essential Characteristic"@en ;
     rdfs:comment "A single declared essential characteristic (e.g. compressive strength, thermal conductivity, water vapour permeability) per CPR Annex III. Pair name + value + unit + harmonised standard reference."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     skos:note "Declaration of Performance / essential-characteristics concept per the EU Construction Products Regulation (EU) 2024/3110. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso dppk:ProductCharacteristic .
@@ -200,7 +200,7 @@ eucpr:characteristicName
     rdfs:label "Characteristic Name"@en ;
     rdfs:domain eucpr:EssentialCharacteristic ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:exactMatch dppk:characteristicName .
@@ -211,7 +211,7 @@ eucpr:hasCharacteristicValue
     rdfs:comment "Quantitative value of the essential characteristic. gs1:QuantitativeValue with the unitCode appropriate for the characteristic (e.g. 'N31' for MPa, 'F94' for W/(m·K))."@en ;
     rdfs:domain eucpr:EssentialCharacteristic ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso gs1:value ;
@@ -237,7 +237,7 @@ eucpr:harmonisedStandard
     rdfs:comment "URI of the harmonised technical specification (hEN) under which the essential characteristic is declared (e.g. EN 197-1 for cement, EN 13162 for mineral wool insulation)."@en ;
     rdfs:domain eucpr:EssentialCharacteristic ;
     rdfs:range xsd:anyURI ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     skos:note "EU Construction Products Regulation (EU) 2024/3110 attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso dppk:harmonisedStandardReference ;
@@ -249,7 +249,7 @@ eucpr:hasEssentialCharacteristic
     rdfs:comment "Declared essential characteristic of the product. Set-valued: most products declare multiple."@en ;
     rdfs:domain eucpr:ConstructionProduct ;
     rdfs:range eucpr:EssentialCharacteristic ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     skos:note "Declaration of Performance / essential-characteristics concept per the EU Construction Products Regulation (EU) 2024/3110. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -264,7 +264,7 @@ eucpr:hasThermalConductivity
     rdfs:comment "Declared thermal conductivity λ of the product. gs1:QuantitativeValue with unitCode 'F94' (W/(m·K))."@en ;
     rdfs:domain eucpr:ConstructionProduct ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     rdfs:seeAlso dppk:thermalConductivity ;
     skos:exactMatch dppk:thermalConductivity ;
@@ -276,7 +276,7 @@ eucpr:hasCompressiveStrength
     rdfs:comment "Declared compressive strength of the product. gs1:QuantitativeValue with unitCode 'N31' (MPa)."@en ;
     rdfs:domain eucpr:ConstructionProduct ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     rdfs:seeAlso dppk:compressiveStrength ;
     skos:exactMatch dppk:compressiveStrength ;
@@ -296,7 +296,7 @@ eucpr:DeclarationOfPerformance
     rdfs:comment """Structured Declaration of Performance per CPR Article 12: declaration code,
 date of issue, AVCP system, harmonised standard, intended use, and the assessment
 bodies involved. Complements eucpr:declarationOfPerformanceUrl (the document link)."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     rdfs:seeAlso schema:Certification ;
     rdfs:seeAlso dppk:DoPCBlock ;
@@ -310,7 +310,7 @@ eucpr:hasDeclarationOfPerformance
     rdfs:comment "Links a construction product to its structured Declaration of Performance."@en ;
     rdfs:domain eucpr:ConstructionProduct ;
     rdfs:range eucpr:DeclarationOfPerformance ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     rdfs:seeAlso dppk:hasDoP ;
     rdfs:seeAlso dppk:dopc ;
@@ -323,7 +323,7 @@ eucpr:declarationCode
     rdfs:comment "Unique reference number of the Declaration of Performance (CPR Article 12)."@en ;
     rdfs:domain eucpr:DeclarationOfPerformance ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     rdfs:seeAlso dppk:declarationCode ;
     rdfs:seeAlso dppk:dopIdentifier ;
@@ -336,7 +336,7 @@ eucpr:dateOfIssue
     rdfs:comment "Date on which the Declaration of Performance was issued."@en ;
     rdfs:domain eucpr:DeclarationOfPerformance ;
     rdfs:range xsd:date ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     rdfs:seeAlso dppk:dateOfIssue ;
     skos:exactMatch dppk:dateOfIssue ;
@@ -354,7 +354,7 @@ eucpr:AVCPSystem
         eucpr:System3
         eucpr:System4
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     skos:note "AVCP system per CPR Annex V. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -370,7 +370,7 @@ eucpr:hasAvcpSystem
     rdfs:comment "Applicable AVCP system (CPR Annex V) for the product's essential characteristics."@en ;
     rdfs:domain eucpr:DeclarationOfPerformance ;
     rdfs:range eucpr:AVCPSystem ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     rdfs:seeAlso dppk:avsSystem ;
     skos:note "AVCP system selector per CPR Annex V. Anchored to the DPP Keystone peer profile dppk:avsSystem."@en .
@@ -381,7 +381,7 @@ eucpr:hasNotifiedBody
     rdfs:comment "Notified body (NB) involved in the AVCP. Reuse oec:OperatorInformation (carries name, identifier, address)."@en ;
     rdfs:domain eucpr:DeclarationOfPerformance ;
     rdfs:range oec:OperatorInformation ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     rdfs:seeAlso dppk:notifiedBody ;
     skos:exactMatch dppk:notifiedBody ;
@@ -393,7 +393,7 @@ eucpr:hasTechnicalAssessmentBody
     rdfs:comment "Technical Assessment Body (TAB) that issued the European Technical Assessment. Reuse oec:OperatorInformation."@en ;
     rdfs:domain eucpr:DeclarationOfPerformance ;
     rdfs:range oec:OperatorInformation ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     rdfs:seeAlso dppk:technicalAssessmentBody ;
     skos:exactMatch dppk:technicalAssessmentBody ;
@@ -405,7 +405,7 @@ eucpr:hasEuropeanAssessmentDocument
     rdfs:comment "Reference to the European Assessment Document (EAD) underpinning a European Technical Assessment, where no harmonised standard applies. Reuse oec:DocumentReference."@en ;
     rdfs:domain eucpr:DeclarationOfPerformance ;
     rdfs:range oec:DocumentReference ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     rdfs:seeAlso dppk:europeanAssessmentDocument ;
     skos:exactMatch dppk:europeanAssessmentDocument ;
@@ -417,7 +417,7 @@ eucpr:hasValidationReports
     rdfs:comment "References to test / validation reports supporting the declared performance. Reuse oec:DocumentReference."@en ;
     rdfs:domain eucpr:DeclarationOfPerformance ;
     rdfs:range oec:DocumentReference ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     rdfs:seeAlso dppk:validationReports ;
     skos:exactMatch dppk:validationReports ;
@@ -436,7 +436,7 @@ eucpr:RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION
 marketing of construction products (CPR), replacing Regulation (EU) No
 305/2011. Use as the gs1:regulationType of a gs1:RegulatoryInformation
 entry declaring CPR compliance."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> ;
     dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110> ;
     skos:note "Module-owned member of the gs1:RegulationTypeCode code list: the upstream list has no construction-products entry (nearest, gs1:RegulationTypeCode-DECLARATION_OF_PERFORMANCE_REQUIRED, covers only the DoP obligation). Candidate for upstream GS1 code-list submission."@en ;
     rdfs:seeAlso gs1:RegulationTypeCode-DECLARATION_OF_PERFORMANCE_REQUIRED .

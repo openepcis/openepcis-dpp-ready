@@ -23,10 +23,10 @@
  *
  * WHY IT SENDS N-QUADS AND NOT JSON-LD. The examples are JSON-LD, and the
  * validator will happily take them — but then it resolves each document's
- * @context over the network from ref.openepcis.org, i.e. from the LAST DEPLOYED
+ * @context over the network from ref.openepcis.io, i.e. from the LAST DEPLOYED
  * revision. The first run of this gate failed on 16 examples for exactly that
  * reason: the working tree had already corrected the anyURI coercions while
- * ref.openepcis.org still served `"@type": "@id"`, so the same document expanded
+ * ref.openepcis.io still served `"@type": "@id"`, so the same document expanded
  * to an IRI there and to an anyURI literal here. That is deployment skew, not an
  * engine disagreement, and a gate that conflates the two is useless for both.
  *
@@ -142,7 +142,7 @@ async function main() {
   console.log(
     `Validating the example passports through ${BASE} (isaitb/shacl-validator).\n` +
       `Documents expanded locally to N-Quads, so the comparison is engine-vs-engine\n` +
-      `and not affected by what ref.openepcis.org currently serves.\n`,
+      `and not affected by what ref.openepcis.io currently serves.\n`,
   );
 
   let checked = 0;

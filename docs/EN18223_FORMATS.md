@@ -62,7 +62,7 @@ bytes, always with the `@context`); the `representation` flag chooses compressed
 ## The operational `@context` (the data dictionary)
 
 Published at
-`https://ref.openepcis.org/extensions/common/core/dpp-operational-context.jsonld`
+`https://ref.openepcis.io/extensions/common/core/dpp-operational-context.jsonld`
 (source: `extensions/common/core/context/dpp-operational-context.jsonld`). It
 aggregates the DPP core + regulation module contexts and adds the EN 18223
 header-term aliases (`digitalProductPassportId` → `oec:passportIdentifier`,

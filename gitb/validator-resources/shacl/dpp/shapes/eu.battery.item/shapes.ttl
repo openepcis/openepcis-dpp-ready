@@ -12,10 +12,10 @@
 @prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix gs1: <https://ref.gs1.org/voc/>.
 @prefix schema: <https://schema.org/>.
-@prefix oec: <https://ref.openepcis.org/extensions/common/core/>.
-@prefix dpp-sh: <https://ref.openepcis.org/extensions/common/core/shapes/>.
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/>.
+@prefix dpp-sh: <https://ref.openepcis.io/extensions/common/core/shapes/>.
 
-<https://ref.openepcis.org/extensions/common/core/shapes/> a sh:ShapesGraph;
+<https://ref.openepcis.io/extensions/common/core/shapes/> a sh:ShapesGraph;
     dcterms:title "OpenEPCIS DPP Core SHACL Shapes"@en;
     dcterms:description "SHACL validation shapes for OpenEPCIS DPP Core vocabulary. Validates value ranges, required properties, and cardinality constraints."@en;
     owl:versionInfo "0.9.9";
@@ -23,14 +23,14 @@
     dcterms:modified "2026-08-10"^^xsd:date;
     sh:declare _:b0, _:b1, _:b2.
 _:b0 sh:prefix "dpp";
-    sh:namespace "https://ref.openepcis.org/extensions/common/core/"^^xsd:anyURI.
+    sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI.
 _:b1 sh:prefix "oec";
-    sh:namespace "https://ref.openepcis.org/extensions/common/core/"^^xsd:anyURI.
+    sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI.
 _:b2 sh:prefix "gs1";
     sh:namespace "https://ref.gs1.org/voc/"^^xsd:anyURI.
 dpp-sh:EconomicOperatorRoleRequired a sh:NodeShape;
     rdfs:label "Economic operator role required"@en;
-    sh:targetObjectsOf oec:hasOperatorInformation, oec:hasPassportIssuer, <https://ref.openepcis.org/extensions/eu/battery/hasOperatorInformation>;
+    sh:targetObjectsOf oec:hasOperatorInformation, oec:hasPassportIssuer, <https://ref.openepcis.io/extensions/eu/battery/hasOperatorInformation>;
     sh:property _:b3.
 _:b3 sh:path _:b4;
     sh:minCount 1;
@@ -411,7 +411,7 @@ dpp-sh:GranularityDigitalLinkConstraint a sh:NodeShape;
     sh:sparql _:b79.
 _:b79 a sh:SPARQLConstraint;
     sh:message "granularity must match the GS1 Digital Link Application Identifiers of the passport IRI (01 -> model, 01+10 -> batch, 01+21 -> item) per EN 18219 4.4 / EN 18223."@en;
-    sh:prefixes <https://ref.openepcis.org/extensions/common/core/shapes/>;
+    sh:prefixes <https://ref.openepcis.io/extensions/common/core/shapes/>;
     sh:select "\n            SELECT $this ?value WHERE {\n                $this oec:granularityLevel ?value .\n                # The Digital Link is the node's own IRI; gs1:productID is honoured\n                # as an alternative carrier where a passport states it separately.\n                OPTIONAL { $this gs1:productID ?stated }\n                BIND( COALESCE(?stated, STR($this)) AS ?dl )\n                FILTER( REGEX(STR(?dl), \"/01/\") )\n                BIND( IF(REGEX(STR(?dl), \"/21/\"), \"item\",\n                       IF(REGEX(STR(?dl), \"/10/\"), \"batch\", \"model\")) AS ?expected )\n                FILTER( STR(?value) != ?expected )\n            }\n        ".
 dpp-sh:QuantitativeValueShape a sh:NodeShape;
     sh:property _:b80, _:b81;
@@ -542,51 +542,51 @@ _:b113 sh:path oec:biodegradationPercentage;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxInclusive 100.
-<https://ref.openepcis.org/extensions/eu/battery/shapes/> a sh:ShapesGraph;
+<https://ref.openepcis.io/extensions/eu/battery/shapes/> a sh:ShapesGraph;
     dcterms:title "OpenEPCIS Battery SHACL Shapes"@en;
     dcterms:description "SHACL validation shapes for Battery Digital Product Passport vocabulary, aligned with BatteryPass-Ready Data Attribute Longlist v1.3 (March 2026)."@en;
     dcterms:created "2025-02-02"^^xsd:date;
     dcterms:modified "2026-06-07"^^xsd:date.
-<https://ref.openepcis.org/extensions/eu/battery/BatteryShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/BatteryShape> a sh:NodeShape;
     rdfs:label "Battery Shape";
     sh:property _:b114, _:b115, _:b116, _:b117, _:b118, _:b119, _:b120, _:b121, _:b122, _:b123, _:b124, _:b125, _:b126, _:b127, _:b128, _:b129, _:b130, _:b131, _:b132, _:b133;
     rdfs:comment "Validation shape for Battery instances as defined by EU Battery Regulation 2023/1542.";
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/battery/Battery>.
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/Battery>.
 _:b114 sh:path schema:category;
     sh:name "Battery Category";
     sh:description "The regulatory category of the battery (LMT, EV, Industrial, Stationary).";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.org/extensions/eu/battery/BatteryCategory>.
+    sh:class <https://ref.openepcis.io/extensions/eu/battery/BatteryCategory>.
 _:b115 sh:path schema:status;
     sh:name "Battery Status";
     sh:description "Current lifecycle status of the battery.";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.org/extensions/eu/battery/BatteryStatus>.
-_:b116 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasBatteryChemistry>;
+    sh:class <https://ref.openepcis.io/extensions/eu/battery/BatteryStatus>.
+_:b116 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasBatteryChemistry>;
     sh:name "Battery Chemistry";
-    sh:class <https://ref.openepcis.org/extensions/eu/battery/BatteryChemistry>.
-_:b117 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasTechnicalSpecifications>;
+    sh:class <https://ref.openepcis.io/extensions/eu/battery/BatteryChemistry>.
+_:b117 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasTechnicalSpecifications>;
     sh:name "Technical Specifications";
-    sh:class <https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification>.
-_:b118 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasMaterialComposition>;
+    sh:class <https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification>.
+_:b118 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasMaterialComposition>;
     sh:name "Material Composition";
-    sh:class <https://ref.openepcis.org/extensions/eu/battery/BatteryMaterial>.
-_:b119 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasRecycledContent>;
+    sh:class <https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial>.
+_:b119 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasRecycledContent>;
     sh:name "Recycled Content";
-    sh:class <https://ref.openepcis.org/extensions/eu/battery/RecycledContent>.
-_:b120 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasEndOfLifeInfo>;
+    sh:class <https://ref.openepcis.io/extensions/eu/battery/RecycledContent>.
+_:b120 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasEndOfLifeInfo>;
     sh:name "End of Life Information";
-    sh:class <https://ref.openepcis.org/extensions/eu/battery/EndOfLifeInfo>.
-_:b121 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasHazardousSubstances>;
+    sh:class <https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo>.
+_:b121 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasHazardousSubstances>;
     sh:name "Hazardous Substances";
-    sh:class <https://ref.openepcis.org/extensions/eu/battery/HazardousSubstance>.
-_:b122 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasOperatorInformation>;
+    sh:class <https://ref.openepcis.io/extensions/eu/battery/HazardousSubstance>.
+_:b122 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasOperatorInformation>;
     sh:name "Operator Information";
     sh:class oec:OperatorInformation.
-_:b123 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasSupplyChainDueDiligence>;
+_:b123 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasSupplyChainDueDiligence>;
     sh:name "Supply Chain Due Diligence";
-    sh:class <https://ref.openepcis.org/extensions/eu/battery/SupplyChainDueDiligence>.
-_:b124 sh:path <https://ref.openepcis.org/extensions/eu/battery/batteryModelIdentifier>;
+    sh:class <https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence>.
+_:b124 sh:path <https://ref.openepcis.io/extensions/eu/battery/batteryModelIdentifier>;
     sh:minCount 1;
     sh:datatype xsd:string;
     sh:name "Battery Model Identifier";
@@ -597,15 +597,15 @@ _:b125 sh:path gs1:hasSerialNumber;
     sh:name "Battery Serial Number";
     sh:description "Mandatory per BatteryPass-Ready v1.3 (#8) at item granularity. Required on the Declaration of Conformity.";
     sh:maxCount 1.
-_:b126 sh:path <https://ref.openepcis.org/extensions/eu/battery/facilityIdentifier>;
+_:b126 sh:path <https://ref.openepcis.io/extensions/eu/battery/facilityIdentifier>;
     sh:datatype xsd:string;
     sh:name "Facility Identifier";
     sh:description "Mandatory per BatteryPass-Ready v1.3 (#11). Recommend GLN of the gs1:Place referenced by eubat:hasManufacturingPlace.".
-_:b127 sh:path <https://ref.openepcis.org/extensions/eu/battery/operatorIdentifier>;
+_:b127 sh:path <https://ref.openepcis.io/extensions/eu/battery/operatorIdentifier>;
     sh:datatype xsd:string;
     sh:name "Economic Operator Identifier";
     sh:description "Mandatory per BatteryPass-Ready v1.3 (#9). Access-restricted (AuthorizedOnly).".
-_:b128 sh:path <https://ref.openepcis.org/extensions/eu/battery/manufacturerIdentifier>;
+_:b128 sh:path <https://ref.openepcis.io/extensions/eu/battery/manufacturerIdentifier>;
     sh:datatype xsd:string;
     sh:name "Manufacturer Identifier";
     sh:description "Mandatory per BatteryPass-Ready v1.3 (#10). Access-restricted (AuthorizedOnly).".
@@ -661,25 +661,25 @@ _:b133 sh:path oec:lastUpdated;
     sh:name "Date-time of latest update";
     sh:description "Mandatory per BatteryPass-Ready v1.3 (#4). Updated whenever any passport attribute changes.";
     sh:maxCount 1.
-<https://ref.openepcis.org/extensions/eu/battery/CarbonFootprintDeclarationShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclarationShape> a sh:NodeShape;
     rdfs:label "Carbon Footprint Declaration Shape";
     sh:property _:b147, _:b148, _:b149;
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/battery/CarbonFootprintDeclaration>.
-_:b147 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasCarbonFootprintTotal>;
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintDeclaration>.
+_:b147 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasCarbonFootprintTotal>;
     sh:minCount 1;
     sh:name "Battery Carbon Footprint per Functional Unit".
-_:b148 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasCarbonFootprintPerformanceClass>;
+_:b148 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasCarbonFootprintPerformanceClass>;
     sh:minCount 1;
     sh:name "Carbon Footprint Performance Class";
-    sh:class <https://ref.openepcis.org/extensions/eu/battery/CarbonFootprintClass>.
-_:b149 sh:path <https://ref.openepcis.org/extensions/eu/battery/carbonFootprintStudyUrl>;
+    sh:class <https://ref.openepcis.io/extensions/eu/battery/CarbonFootprintClass>.
+_:b149 sh:path <https://ref.openepcis.io/extensions/eu/battery/carbonFootprintStudyUrl>;
     sh:minCount 1;
     sh:datatype xsd:anyURI;
     sh:name "Web link to public carbon footprint study".
-<https://ref.openepcis.org/extensions/eu/battery/BatteryChemistryShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/BatteryChemistryShape> a sh:NodeShape;
     rdfs:label "Battery Chemistry Shape";
     sh:property _:b150, _:b151, _:b152, _:b153, _:b154;
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/battery/BatteryChemistry>.
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/BatteryChemistry>.
 _:b150 sh:path _:b155;
     sh:name "Short Name";
     sh:description "Abbreviated chemistry name (e.g., LFP, NMC, NCA).";
@@ -688,173 +688,173 @@ _:b151 sh:path _:b156;
     sh:name "Full Name";
     sh:description "Full chemical name of the battery chemistry.";
     sh:node dpp-sh:TranslatableText.
-_:b152 sh:path <https://ref.openepcis.org/extensions/eu/battery/cathodeActiveMaterial>;
+_:b152 sh:path <https://ref.openepcis.io/extensions/eu/battery/cathodeActiveMaterial>;
     sh:datatype xsd:string.
-_:b153 sh:path <https://ref.openepcis.org/extensions/eu/battery/anodeActiveMaterial>;
+_:b153 sh:path <https://ref.openepcis.io/extensions/eu/battery/anodeActiveMaterial>;
     sh:datatype xsd:string.
-_:b154 sh:path <https://ref.openepcis.org/extensions/eu/battery/electrolyteType>;
+_:b154 sh:path <https://ref.openepcis.io/extensions/eu/battery/electrolyteType>;
     sh:node dpp-sh:TranslatableText.
-<https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecificationShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecificationShape> a sh:NodeShape;
     rdfs:label "Technical Specification Shape";
     sh:property _:b157, _:b158, _:b159, _:b160, _:b161;
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/battery/TechnicalSpecification>.
-_:b157 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasRatedCapacity>;
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/TechnicalSpecification>.
+_:b157 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasRatedCapacity>;
     sh:name "Rated Capacity";
     sh:class gs1:QuantitativeValue.
-_:b158 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasRatedEnergy>;
+_:b158 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasRatedEnergy>;
     sh:name "Rated Energy";
     sh:class gs1:QuantitativeValue.
-_:b159 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasNominalVoltage>;
+_:b159 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasNominalVoltage>;
     sh:name "Nominal Voltage";
     sh:class gs1:QuantitativeValue.
-_:b160 sh:path <https://ref.openepcis.org/extensions/eu/battery/expectedCycleLife>;
+_:b160 sh:path <https://ref.openepcis.io/extensions/eu/battery/expectedCycleLife>;
     sh:datatype xsd:integer.
-_:b161 sh:path <https://ref.openepcis.org/extensions/eu/battery/roundTripEfficiency>;
+_:b161 sh:path <https://ref.openepcis.io/extensions/eu/battery/roundTripEfficiency>;
     sh:datatype xsd:decimal.
-<https://ref.openepcis.org/extensions/eu/battery/BatteryMaterialShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/BatteryMaterialShape> a sh:NodeShape;
     rdfs:label "Battery Material Shape";
     sh:property _:b162, _:b163, _:b164, _:b165, _:b166;
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/battery/BatteryMaterial>.
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/BatteryMaterial>.
 _:b162 sh:path _:b167;
     sh:minCount 1;
     sh:node dpp-sh:TranslatableText.
-_:b163 sh:path <https://ref.openepcis.org/extensions/eu/battery/casNumber>;
+_:b163 sh:path <https://ref.openepcis.io/extensions/eu/battery/casNumber>;
     sh:datatype xsd:string;
     sh:name "CAS Number".
-_:b164 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasComponentLocation>;
-    sh:class <https://ref.openepcis.org/extensions/eu/battery/ComponentLocation>.
+_:b164 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasComponentLocation>;
+    sh:class <https://ref.openepcis.io/extensions/eu/battery/ComponentLocation>.
 _:b165 sh:path schema:weightPercentage;
     sh:datatype xsd:decimal.
-_:b166 sh:path <https://ref.openepcis.org/extensions/eu/battery/isCriticalRawMaterial>;
+_:b166 sh:path <https://ref.openepcis.io/extensions/eu/battery/isCriticalRawMaterial>;
     sh:datatype xsd:boolean.
-<https://ref.openepcis.org/extensions/eu/battery/RecycledContentShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/RecycledContentShape> a sh:NodeShape;
     rdfs:label "Recycled Content Shape";
     sh:property _:b168, _:b169, _:b170, _:b171;
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/battery/RecycledContent>.
-_:b168 sh:path <https://ref.openepcis.org/extensions/eu/battery/lithiumRecycledShare>;
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/RecycledContent>.
+_:b168 sh:path <https://ref.openepcis.io/extensions/eu/battery/lithiumRecycledShare>;
     sh:datatype xsd:decimal.
-_:b169 sh:path <https://ref.openepcis.org/extensions/eu/battery/cobaltRecycledShare>;
+_:b169 sh:path <https://ref.openepcis.io/extensions/eu/battery/cobaltRecycledShare>;
     sh:datatype xsd:decimal.
-_:b170 sh:path <https://ref.openepcis.org/extensions/eu/battery/nickelRecycledShare>;
+_:b170 sh:path <https://ref.openepcis.io/extensions/eu/battery/nickelRecycledShare>;
     sh:datatype xsd:decimal.
-_:b171 sh:path <https://ref.openepcis.org/extensions/eu/battery/leadRecycledShare>;
+_:b171 sh:path <https://ref.openepcis.io/extensions/eu/battery/leadRecycledShare>;
     sh:datatype xsd:decimal.
-<https://ref.openepcis.org/extensions/eu/battery/EndOfLifeInfoShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfoShape> a sh:NodeShape;
     rdfs:label "End of Life Information Shape";
     sh:property _:b172, _:b173;
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/battery/EndOfLifeInfo>.
-_:b172 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasDismantlingInstructions>;
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/EndOfLifeInfo>.
+_:b172 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasDismantlingInstructions>;
     sh:nodeKind sh:IRI.
-_:b173 sh:path <https://ref.openepcis.org/extensions/eu/battery/extinguishingAgent>;
+_:b173 sh:path <https://ref.openepcis.io/extensions/eu/battery/extinguishingAgent>;
     sh:node dpp-sh:TranslatableText.
-<https://ref.openepcis.org/extensions/eu/battery/HazardousSubstanceShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/HazardousSubstanceShape> a sh:NodeShape;
     rdfs:label "Hazardous Substance Shape";
     sh:property _:b174, _:b175, _:b176, _:b177;
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/battery/HazardousSubstance>.
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/HazardousSubstance>.
 _:b174 sh:path _:b178;
     sh:minCount 1;
     sh:node dpp-sh:TranslatableText.
-_:b175 sh:path <https://ref.openepcis.org/extensions/eu/battery/substanceCasNumber>;
+_:b175 sh:path <https://ref.openepcis.io/extensions/eu/battery/substanceCasNumber>;
     sh:datatype xsd:string.
-_:b176 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasHazardClass>;
-    sh:class <https://ref.openepcis.org/extensions/eu/battery/HazardClass>.
-_:b177 sh:path <https://ref.openepcis.org/extensions/eu/battery/concentration>;
+_:b176 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasHazardClass>;
+    sh:class <https://ref.openepcis.io/extensions/eu/battery/HazardClass>.
+_:b177 sh:path <https://ref.openepcis.io/extensions/eu/battery/concentration>;
     sh:datatype xsd:decimal.
-<https://ref.openepcis.org/extensions/eu/battery/OperatorInformationShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/OperatorInformationShape> a sh:NodeShape;
     rdfs:label "Operator Information Shape";
     sh:property _:b179;
     rdfs:comment "Battery-specific constraint on the shared oec:OperatorInformation class, which is the declared range of eubat:hasOperatorInformation. There is no eubat:OperatorInformation class.";
     sh:targetClass oec:OperatorInformation.
-_:b179 sh:path <https://ref.openepcis.org/extensions/eu/battery/hasOperatorRole>;
+_:b179 sh:path <https://ref.openepcis.io/extensions/eu/battery/hasOperatorRole>;
     sh:nodeKind sh:IRI.
-<https://ref.openepcis.org/extensions/eu/battery/SupplyChainDueDiligenceShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligenceShape> a sh:NodeShape;
     rdfs:label "Supply Chain Due Diligence Shape";
     sh:property _:b180, _:b181;
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/battery/SupplyChainDueDiligence>.
-_:b180 sh:path <https://ref.openepcis.org/extensions/eu/battery/dueDiligenceReportUrl>;
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/SupplyChainDueDiligence>.
+_:b180 sh:path <https://ref.openepcis.io/extensions/eu/battery/dueDiligenceReportUrl>;
     sh:minCount 1;
     sh:datatype xsd:anyURI.
-_:b181 sh:path <https://ref.openepcis.org/extensions/eu/battery/thirdPartyAssurancesUrl>;
+_:b181 sh:path <https://ref.openepcis.io/extensions/eu/battery/thirdPartyAssurancesUrl>;
     sh:datatype xsd:anyURI.
-<https://ref.openepcis.org/extensions/eu/battery/RatedCapacityShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/RatedCapacityShape> a sh:NodeShape;
     sh:property _:b182;
-    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/battery/hasRatedCapacity>.
-_:b183 rdf:first <https://ref.openepcis.org/extensions/eu/battery/hasRatedCapacity>;
+    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/battery/hasRatedCapacity>.
+_:b183 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasRatedCapacity>;
     rdf:rest _:b184.
 _:b184 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
 _:b182 sh:path _:b183;
     sh:message "eubat:hasRatedCapacity must use unitCode 'AMH' (ampere-hours)"@en;
     sh:hasValue "AMH".
-<https://ref.openepcis.org/extensions/eu/battery/RatedEnergyShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/RatedEnergyShape> a sh:NodeShape;
     sh:property _:b185;
-    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/battery/hasRatedEnergy>.
-_:b186 rdf:first <https://ref.openepcis.org/extensions/eu/battery/hasRatedEnergy>;
+    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/battery/hasRatedEnergy>.
+_:b186 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasRatedEnergy>;
     rdf:rest _:b187.
 _:b187 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
 _:b185 sh:path _:b186;
     sh:message "eubat:hasRatedEnergy must use unitCode 'KWH' (kilowatt-hours)"@en;
     sh:hasValue "KWH".
-<https://ref.openepcis.org/extensions/eu/battery/NominalVoltageShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/NominalVoltageShape> a sh:NodeShape;
     sh:property _:b188;
-    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/battery/hasNominalVoltage>.
-_:b189 rdf:first <https://ref.openepcis.org/extensions/eu/battery/hasNominalVoltage>;
+    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/battery/hasNominalVoltage>.
+_:b189 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasNominalVoltage>;
     rdf:rest _:b190.
 _:b190 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
 _:b188 sh:path _:b189;
     sh:message "eubat:hasNominalVoltage must use unitCode 'VLT' (volts)"@en;
     sh:hasValue "VLT".
-<https://ref.openepcis.org/extensions/eu/battery/RatedMaximumPowerShape> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/RatedMaximumPowerShape> a sh:NodeShape;
     sh:property _:b191;
-    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/battery/hasRatedMaximumPower>.
-_:b192 rdf:first <https://ref.openepcis.org/extensions/eu/battery/hasRatedMaximumPower>;
+    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/battery/hasRatedMaximumPower>.
+_:b192 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasRatedMaximumPower>;
     rdf:rest _:b193.
 _:b193 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
 _:b191 sh:path _:b192;
     sh:message "eubat:hasRatedMaximumPower must use unitCode 'KWT' (kilowatts)"@en;
     sh:hasValue "KWT".
-<https://ref.openepcis.org/extensions/eu/battery/BatteryShape-model> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/BatteryShape-model> a sh:NodeShape;
     rdfs:label "Battery Shape (model granularity)";
     sh:property _:b194, _:b195, _:b196, _:b197;
     rdfs:comment "Obligations of a model-level battery passport: the model- and party-level identifiers are declared here and resolved from here by finer passports.";
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/battery/Battery>;
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/Battery>;
     sh:deactivated true.
-_:b194 sh:path <https://ref.openepcis.org/extensions/eu/battery/facilityIdentifier>;
+_:b194 sh:path <https://ref.openepcis.io/extensions/eu/battery/facilityIdentifier>;
     sh:minCount 1;
     sh:message "A model-level battery passport must declare eubat:facilityIdentifier (BatteryPass-Ready v1.3 #11)."@en.
-_:b195 sh:path <https://ref.openepcis.org/extensions/eu/battery/operatorIdentifier>;
+_:b195 sh:path <https://ref.openepcis.io/extensions/eu/battery/operatorIdentifier>;
     sh:minCount 1;
     sh:message "A model-level battery passport must declare eubat:operatorIdentifier (BatteryPass-Ready v1.3 #9)."@en.
-_:b196 sh:path <https://ref.openepcis.org/extensions/eu/battery/manufacturerIdentifier>;
+_:b196 sh:path <https://ref.openepcis.io/extensions/eu/battery/manufacturerIdentifier>;
     sh:minCount 1;
     sh:message "A model-level battery passport must declare eubat:manufacturerIdentifier (BatteryPass-Ready v1.3 #10)."@en.
 _:b197 sh:path gs1:manufacturer;
     sh:minCount 1;
     sh:message "A model-level battery passport must reference its manufacturer (BatteryPass-Ready v1.3 #13)."@en.
-<https://ref.openepcis.org/extensions/eu/battery/BatteryShape-batch> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/BatteryShape-batch> a sh:NodeShape;
     rdfs:label "Battery Shape (batch granularity)";
     rdfs:comment "Obligations of a batch/lot-level battery passport. Model- and party-level identifiers are resolved from the model passport, not restated.";
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/battery/Battery>;
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/Battery>;
     sh:deactivated true.
-<https://ref.openepcis.org/extensions/eu/battery/BatteryShape-item> a sh:NodeShape;
+<https://ref.openepcis.io/extensions/eu/battery/BatteryShape-item> a sh:NodeShape;
     rdfs:label "Battery Shape (item granularity)";
     sh:property _:b198;
     rdfs:comment "Obligations of an item/serial-level battery passport. Model- and party-level identifiers are resolved up the Digital Link hierarchy, not restated.";
-    sh:targetClass <https://ref.openepcis.org/extensions/eu/battery/Battery>.
+    sh:targetClass <https://ref.openepcis.io/extensions/eu/battery/Battery>.
 _:b198 sh:path gs1:hasSerialNumber;
     sh:minCount 1;
     sh:message "An item-level battery passport must declare gs1:hasSerialNumber (BatteryPass-Ready v1.3 #8; EN 18223 item granularity, GS1 AI 21)."@en.
 _:b199 rdf:first oec:hasOperatorRole;
     rdf:rest _:b200.
-_:b200 rdf:first <https://ref.openepcis.org/extensions/eu/battery/hasOperatorRole>;
+_:b200 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasOperatorRole>;
     rdf:rest rdf:nil.
 _:b4 sh:alternativePath _:b199.
 _:b201 rdf:first oec:hasOperatorRole;
     rdf:rest _:b202.
-_:b202 rdf:first <https://ref.openepcis.org/extensions/eu/battery/hasOperatorRole>;
+_:b202 rdf:first <https://ref.openepcis.io/extensions/eu/battery/hasOperatorRole>;
     rdf:rest rdf:nil.
 _:b36 sh:alternativePath _:b201.
 _:b203 rdf:first schema:name;

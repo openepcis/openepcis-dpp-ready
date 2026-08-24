@@ -126,7 +126,7 @@ We provide two JSON-LD contexts for different use cases:
 ```json
 {
   "@context": [
-    "https://ref.openepcis.org/extensions/eu/battery/context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/context.jsonld",
     ...
   ]
 }
@@ -147,7 +147,7 @@ We provide two JSON-LD contexts for different use cases:
 ```json
 {
   "@context": [
-    "https://ref.openepcis.org/extensions/eu/battery/context-scientific.jsonld",
+    "https://ref.openepcis.io/extensions/eu/battery/context-scientific.jsonld",
     ...
   ]
 }
@@ -160,13 +160,13 @@ Same battery data, different semantic views:
 ```json
 // For supply chain systems (default)
 {
-  "@context": "https://ref.openepcis.org/extensions/eu/battery/context.jsonld",
+  "@context": "https://ref.openepcis.io/extensions/eu/battery/context.jsonld",
   "StateOfHealth": { "value": "94.2", "unitCode": "P1" }
 }
 
 // For scientific systems (enriched)
 {
-  "@context": "https://ref.openepcis.org/extensions/eu/battery/context-scientific.jsonld",
+  "@context": "https://ref.openepcis.io/extensions/eu/battery/context-scientific.jsonld",
   "StateOfHealth": { "value": "94.2", "unitCode": "P1" }
   // Automatically understood as equivalent to battinfo:StateOfHealth
   // P1 automatically maps to unit:PERCENT

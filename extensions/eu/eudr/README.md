@@ -116,9 +116,9 @@ eudr/
 
 ## Vocabulary Namespace
 
-The EUDR vocabulary uses the namespace: `https://ref.openepcis.org/extensions/eu/eudr/`
+The EUDR vocabulary uses the namespace: `https://ref.openepcis.io/extensions/eu/eudr/`
 
-Browse the vocabulary at: [ref.openepcis.org/extensions/eu/eudr/](https://ref.openepcis.org/extensions/eu/eudr/)
+Browse the vocabulary at: [ref.openepcis.io/extensions/eu/eudr/](https://ref.openepcis.io/extensions/eu/eudr/)
 
 ## Commodity Focus: Wood/Timber
 
@@ -243,24 +243,24 @@ This module is designed as a **first-class EPCIS 2.0 extension** per [EPCIS 2.0 
 Declare the EUDR extension in EPCIS capture/query requests:
 
 ```http
-GS1-Extensions: eudr=https://ref.openepcis.org/extensions/eu/eudr/
+GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/
 ```
 
 With multiple extensions:
 
 ```http
-GS1-Extensions: eudr=https://ref.openepcis.org/extensions/eu/eudr/, oec=https://ref.openepcis.org/extensions/common/core/
+GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/, oec=https://ref.openepcis.io/extensions/common/core/
 ```
 
 See [docs/EPCIS_EXTENSION_GUIDE.md](./docs/EPCIS_EXTENSION_GUIDE.md) for complete EPCIS integration patterns.
 
 ### Import the ontology
 ```turtle
-@prefix eudr: <https://ref.openepcis.org/extensions/eu/eudr/> .
-@prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix eudr: <https://ref.openepcis.io/extensions/eu/eudr/> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
 
 # Your implementation imports EUDR
-<https://example.com/my-implementation/> owl:imports <https://ref.openepcis.org/extensions/eu/eudr/> .
+<https://example.com/my-implementation/> owl:imports <https://ref.openepcis.io/extensions/eu/eudr/> .
 ```
 
 ### Use the JSON-LD context
@@ -268,8 +268,8 @@ See [docs/EPCIS_EXTENSION_GUIDE.md](./docs/EPCIS_EXTENSION_GUIDE.md) for complet
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
   ]
 }
 ```
@@ -279,8 +279,8 @@ See [docs/EPCIS_EXTENSION_GUIDE.md](./docs/EPCIS_EXTENSION_GUIDE.md) for complet
 | Prefix | Namespace | Purpose |
 |--------|-----------|---------|
 | `gs1:` | `https://ref.gs1.org/voc/` | Core GS1 vocabulary (use for master data) |
-| `oec:` | `https://ref.openepcis.org/extensions/common/core/` | DPP Core extension properties |
-| `eudr:` | `https://ref.openepcis.org/extensions/eu/eudr/` | EUDR extension properties (not yet standardised) |
+| `oec:` | `https://ref.openepcis.io/extensions/common/core/` | DPP Core extension properties |
+| `eudr:` | `https://ref.openepcis.io/extensions/eu/eudr/` | EUDR extension properties (not yet standardised) |
 
 **Note**: The `eudr:` namespace provides extension properties for EUDR-specific origin data. For master data, always prefer standard `gs1:` vocabulary (`gs1:Place`, `gs1:Product`, `gs1:Organization`).
 

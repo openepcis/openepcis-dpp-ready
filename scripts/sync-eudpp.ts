@@ -8,7 +8,7 @@
  * pipeline parses into json/eudpp.json (same pattern as the GS1 Rail mirror,
  * which merges upstream JSON-LD into gs1RailVoc.ttl).
  *
- * This mirror exists so ref.openepcis.org can index and render the EUDPP terms
+ * This mirror exists so ref.openepcis.io can index and render the EUDPP terms
  * as a first-class Layer-2 upstream vocabulary. Our own ontology still
  * references eudpp terms by IRI only — no owl:imports, no class adoption
  * (see extensions/common/interop/docs/CIRPASS2_ALIGNMENT.md).

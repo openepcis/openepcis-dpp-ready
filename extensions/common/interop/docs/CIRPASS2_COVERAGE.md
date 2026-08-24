@@ -177,5 +177,5 @@ OpenEPCIS provides full supply chain traceability via EPCIS 2.0:
 
 EPCIS Extension Declaration:
 ```http
-GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/, eubat=https://ref.openepcis.org/extensions/eu/battery/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, eubat=https://ref.openepcis.io/extensions/eu/battery/
 ```

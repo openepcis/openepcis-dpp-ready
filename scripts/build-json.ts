@@ -39,7 +39,7 @@ const DC11 = "http://purl.org/dc/elements/1.1/";
 const SKOS = "http://www.w3.org/2004/02/skos/core#";
 const GS1 = "https://ref.gs1.org/voc/";
 const SCHEMA = "https://schema.org/";
-const OEC = "https://ref.openepcis.org/extensions/common/core/";
+const OEC = "https://ref.openepcis.io/extensions/common/core/";
 
 // Namespace to prefix mapping for compact output
 // Only convert datatype namespaces - keep vocabulary URIs (gs1, schema) as full URIs
@@ -159,7 +159,7 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     name: "dpp-core",
     dir: "extensions/common/core",
     ttlFile: "dpp-core.ttl",
-    namespace: "https://ref.openepcis.org/extensions/common/core/",
+    namespace: "https://ref.openepcis.io/extensions/common/core/",
   },
   // Served master-data fields. NOT an EPCIS extension and not a vocabulary of
   // its own: 135 of the 139 served fields are GS1 Web Vocabulary properties
@@ -170,62 +170,62 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     dir: "masterdata/served-fields",
     ttlFile: "served-fields.ttl",
     namespace: "https://ref.gs1.org/voc/",
-    extraNamespaces: ["https://ref.openepcis.org/masterdata/served-fields/"],
-    ontologyIri: "https://ref.openepcis.org/masterdata/served-fields/",
+    extraNamespaces: ["https://ref.openepcis.io/masterdata/served-fields/"],
+    ontologyIri: "https://ref.openepcis.io/masterdata/served-fields/",
   },
   {
     name: "battery",
     dir: "extensions/eu/battery",
     ttlFile: "battery.ttl",
-    namespace: "https://ref.openepcis.org/extensions/eu/battery/",
+    namespace: "https://ref.openepcis.io/extensions/eu/battery/",
   },
   {
     name: "eudr",
     dir: "extensions/eu/eudr",
     ttlFile: "eudr.ttl",
-    namespace: "https://ref.openepcis.org/extensions/eu/eudr/",
+    namespace: "https://ref.openepcis.io/extensions/eu/eudr/",
   },
   {
     name: "textile",
     dir: "extensions/eu/textile",
     ttlFile: "textile.ttl",
-    namespace: "https://ref.openepcis.org/extensions/eu/textile/",
+    namespace: "https://ref.openepcis.io/extensions/eu/textile/",
   },
   {
     name: "electronics",
     dir: "extensions/eu/electronics",
     ttlFile: "electronics.ttl",
-    namespace: "https://ref.openepcis.org/extensions/eu/electronics/",
+    namespace: "https://ref.openepcis.io/extensions/eu/electronics/",
   },
   {
     name: "detergent",
     dir: "extensions/eu/detergent",
     ttlFile: "detergent.ttl",
-    namespace: "https://ref.openepcis.org/extensions/eu/detergent/",
+    namespace: "https://ref.openepcis.io/extensions/eu/detergent/",
   },
   {
     name: "ppwr",
     dir: "extensions/eu/ppwr",
     ttlFile: "ppwr.ttl",
-    namespace: "https://ref.openepcis.org/extensions/eu/ppwr/",
+    namespace: "https://ref.openepcis.io/extensions/eu/ppwr/",
   },
   {
     name: "cpr",
     dir: "extensions/eu/cpr",
     ttlFile: "cpr.ttl",
-    namespace: "https://ref.openepcis.org/extensions/eu/cpr/",
+    namespace: "https://ref.openepcis.io/extensions/eu/cpr/",
   },
   {
     name: "iron-steel",
     dir: "extensions/eu/iron-steel",
     ttlFile: "iron-steel.ttl",
-    namespace: "https://ref.openepcis.org/extensions/eu/iron-steel/",
+    namespace: "https://ref.openepcis.io/extensions/eu/iron-steel/",
   },
   {
     name: "fsma204",
     dir: "extensions/us/fsma204",
     ttlFile: "fsma204.ttl",
-    namespace: "https://ref.openepcis.org/extensions/us/fsma204/",
+    namespace: "https://ref.openepcis.io/extensions/us/fsma204/",
   },
   {
     name: "rail",

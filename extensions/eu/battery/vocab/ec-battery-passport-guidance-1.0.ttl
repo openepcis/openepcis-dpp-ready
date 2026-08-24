@@ -7,14 +7,14 @@
 @prefix cccev: <http://data.europa.eu/m8g/> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix schema: <https://schema.org/> .
-@prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
-@prefix eubat: <https://ref.openepcis.org/extensions/eu/battery/> .
-@prefix ecbp: <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#> .
+@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix eubat: <https://ref.openepcis.io/extensions/eu/battery/> .
+@prefix ecbp: <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#> .
 
 # GENERATED FILE - do not edit. Source: vocab/ec-guidance-datapoints.json,
 # generator: scripts/build-ec-guidance-vocab.ts (pnpm run build:ec-guidance-vocab).
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0>
     a owl:Ontology ;
     dcterms:title "EC Battery Passport guidance data-point registry (v1.0)"@en ;
     dcterms:description "OpenEPCIS-hosted RDF reference for the European Commission 'Guidance Document: Digital Batteries Passport - data points by category' (Version 1.0, 2026-07-28, Ares(2026)7579758). The Commission publishes the 71 Battery Passport data points as a textual table without IRIs; this registry mirrors them so they can be aligned with OpenEPCIS terms and browsed as a distinct vocabulary. Each data point is dual-typed rdf:Property + cccev:InformationRequirement and carries its legal source in Regulation (EU) 2023/1542, the per-category applicability as of February 2027 (EV / LMT / industrial), the static/dynamic lifecycle split (Annex XIII 4 = dynamic, served by the EPCIS event stream), the access tier derived from Article 77(2), and ecbp:implementedBy links to the operative OpenEPCIS/GS1 terms. Reused under CC BY 4.0; the guidance document is not an official position of the European Commission and this registry restructures its table into RDF."@en ;
@@ -25,8 +25,8 @@
     dcterms:source <http://data.europa.eu/eli/reg/2023/1542/oj> ;
     dcterms:bibliographicCitation "European Commission, Guidance Document: Digital Batteries Passport - data points by category, Version 1.0, Ares(2026)7579758"@en ;
     owl:versionInfo "1.0" ;
-    rdfs:seeAlso <https://ref.openepcis.org/extensions/eu/battery/> ;
-    rdfs:seeAlso <https://ref.openepcis.org/vocab/batterypass-ready/1.3> .
+    rdfs:seeAlso <https://ref.openepcis.io/extensions/eu/battery/> ;
+    rdfs:seeAlso <https://ref.openepcis.io/vocab/batterypass-ready/1.3> .
 
 # ── Registry annotation properties ───────────────────────────────────────────
 
@@ -34,46 +34,46 @@ ecbp:implementedBy
     a owl:AnnotationProperty ;
     rdfs:label "implemented by"@en ;
     rdfs:comment "Operative vocabulary term (eubat:/gs1:/oec:/schema:) that carries this EU data point in an OpenEPCIS battery passport."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
 ecbp:lifecycle
     a owl:AnnotationProperty ;
     rdfs:label "lifecycle"@en ;
     rdfs:comment "The guidance document's static/dynamic split: 'static' data points (Article 77(3), Annex VI A, Annex XIII 1-3) are model/batch master data served by the GS1 Digital Link resolver; 'dynamic' data points (Annex XIII 4, numbers 51-71) are updatable values folded from the EPCIS event stream into the item passport."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
 ecbp:accessTier
     a owl:AnnotationProperty ;
     rdfs:label "access tier"@en ;
     rdfs:comment "Access tier derived from Regulation (EU) 2023/1542 Article 77(2) via the data point's Annex XIII paragraph: 'public' (Annex XIII 1, Annex VI A, Article 77(3)), 'legitimateInterest' (Annex XIII 2 and 4), 'notifiedBodiesAndAuthorities' (Annex XIII 3). Not stated in the guidance document itself."@en ;
     dcterms:source <http://data.europa.eu/eli/reg/2023/1542/oj> ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
 ecbp:applicabilityEV
     a owl:AnnotationProperty ;
     rdfs:label "applicability (EV batteries)"@en ;
     rdfs:comment "Applicability of the data point for electric vehicle batteries as of February 2027: mandatory | optional | conditional | notToBeFilled | pending. Conditions are quoted in skos:scopeNote."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
 ecbp:applicabilityLMT
     a owl:AnnotationProperty ;
     rdfs:label "applicability (LMT batteries)"@en ;
     rdfs:comment "Applicability of the data point for light means of transport batteries as of February 2027: mandatory | optional | conditional | notToBeFilled | pending. Conditions are quoted in skos:scopeNote."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
 ecbp:applicabilityIndustrial
     a owl:AnnotationProperty ;
     rdfs:label "applicability (industrial batteries)"@en ;
     rdfs:comment "Applicability of the data point for industrial batteries as of February 2027: mandatory | optional | conditional | notToBeFilled | pending. Conditions are quoted in skos:scopeNote."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
 ecbp:epcisExample
     a owl:AnnotationProperty ;
     rdfs:label "EPCIS example"@en ;
     rdfs:comment "Repository-relative path (extensions/eu/battery/) of an EPCIS 2.0 event example demonstrating how this dynamic data point is captured in the event stream."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-01>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-01>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Unique identifier"@en ;
     rdfs:comment "European Commission Battery Passport data point 1 (BR Article 77 (3)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:batteryPassportIdentifier. Served as a GS1 Digital Link URI; the passport identifier resolves via a GS1-conformant resolver."@en ;
@@ -89,9 +89,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:batteryPassportIdentifier ;
     skos:editorialNote "Served as a GS1 Digital Link URI; the passport identifier resolves via a GS1-conformant resolver."@en ;
     skos:note "European Commission Battery Passport guidance data point 1 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-02>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-02>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Identity of who is registering and/or is responsible for the battery passport"@en ;
     rdfs:comment "European Commission Battery Passport data point 2 (BR Article 77 (3)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasOperatorInformation, eubat:operatorIdentifier, eubat:hasOperatorRole."@en ;
@@ -110,9 +110,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:hasOperatorRole ;
     rdfs:seeAlso eubat:hasOperatorRole ;
     skos:note "European Commission Battery Passport guidance data point 2 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-03>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-03>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Manufacturer name, registered trade name or registered trade mark"@en ;
     rdfs:comment "European Commission Battery Passport data point 3 (BR Annex VI A (1)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by gs1:manufacturer, gs1:organizationName."@en ;
@@ -129,9 +129,9 @@ ecbp:epcisExample
     ecbp:implementedBy gs1:organizationName ;
     rdfs:seeAlso gs1:organizationName ;
     skos:note "European Commission Battery Passport guidance data point 3 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-04>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-04>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Manufacturer postal address, indicating a single contact point"@en ;
     rdfs:comment "European Commission Battery Passport data point 4 (BR Annex VI A (1)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by gs1:address, gs1:PostalAddress."@en ;
@@ -148,9 +148,9 @@ ecbp:epcisExample
     ecbp:implementedBy gs1:PostalAddress ;
     rdfs:seeAlso gs1:PostalAddress ;
     skos:note "European Commission Battery Passport guidance data point 4 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-05>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-05>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "If available, manufacturer web and email address"@en ;
     rdfs:comment "European Commission Battery Passport data point 5 (BR Annex VI A (1)). Applicability as of Feb 2027 — EV: optional (optional, to be filled if such data is available); LMT: optional (optional, to be filled if such data is available); industrial: optional (optional, to be filled if such data is available). Static master data (resolver-served); access tier: public. Carried by gs1:contactPoint, gs1:ContactPoint."@en ;
@@ -168,9 +168,9 @@ ecbp:epcisExample
     ecbp:implementedBy gs1:ContactPoint ;
     rdfs:seeAlso gs1:ContactPoint ;
     skos:note "European Commission Battery Passport guidance data point 5 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-06>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-06>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Battery category"@en ;
     rdfs:comment "European Commission Battery Passport data point 6 (BR Annex VI A (2)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:BatteryCategory, schema:category."@en ;
@@ -187,9 +187,9 @@ ecbp:epcisExample
     ecbp:implementedBy schema:category ;
     rdfs:seeAlso schema:category ;
     skos:note "European Commission Battery Passport guidance data point 6 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-07>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-07>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Model identification and batch or serial number, or product number or another element allowing their identification"@en ;
     rdfs:comment "European Commission Battery Passport data point 7 (BR Annex VI A (2)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:batteryModelIdentifier, gs1:hasSerialNumber. Model identity is the GTIN (GS1 Digital Link /01/); batch identity the /10/ lot segment; serial identity the /21/ segment."@en ;
@@ -207,9 +207,9 @@ ecbp:epcisExample
     rdfs:seeAlso gs1:hasSerialNumber ;
     skos:editorialNote "Model identity is the GTIN (GS1 Digital Link /01/); batch identity the /10/ lot segment; serial identity the /21/ segment."@en ;
     skos:note "European Commission Battery Passport guidance data point 7 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-08>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-08>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The place of manufacturer (geographical location of a battery manufacturing plant)"@en ;
     rdfs:comment "European Commission Battery Passport data point 8 (BR Annex VI A (3)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasManufacturingPlace, eubat:facilityIdentifier."@en ;
@@ -226,9 +226,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:facilityIdentifier ;
     rdfs:seeAlso eubat:facilityIdentifier ;
     skos:note "European Commission Battery Passport guidance data point 8 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-09>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-09>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The date of manufacturing (month and year)"@en ;
     rdfs:comment "European Commission Battery Passport data point 9 (BR Annex VI A (4)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by gs1:productionDate."@en ;
@@ -243,9 +243,9 @@ ecbp:epcisExample
     ecbp:implementedBy gs1:productionDate ;
     rdfs:seeAlso gs1:productionDate ;
     skos:note "European Commission Battery Passport guidance data point 9 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-10>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-10>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The weight"@en ;
     rdfs:comment "European Commission Battery Passport data point 10 (BR Annex VI A (5)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasBatteryMass, gs1:netWeight."@en ;
@@ -262,9 +262,9 @@ ecbp:epcisExample
     ecbp:implementedBy gs1:netWeight ;
     rdfs:seeAlso gs1:netWeight ;
     skos:note "European Commission Battery Passport guidance data point 10 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-11>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-11>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The capacity"@en ;
     rdfs:comment "European Commission Battery Passport data point 11 (BR Annex VI A (6)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasRatedCapacity."@en ;
@@ -278,12 +278,12 @@ ecbp:epcisExample
     ecbp:applicabilityIndustrial "mandatory" ;
     ecbp:implementedBy eubat:hasRatedCapacity ;
     rdfs:seeAlso eubat:hasRatedCapacity ;
-    dcterms:relation <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-25> ;
-    dcterms:relation <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-51> ;
+    dcterms:relation <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-25> ;
+    dcterms:relation <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-51> ;
     skos:note "European Commission Battery Passport guidance data point 11 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-12>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-12>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The chemistry"@en ;
     rdfs:comment "European Commission Battery Passport data point 12 (BR Annex VI A (7)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasBatteryChemistry."@en ;
@@ -298,9 +298,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:hasBatteryChemistry ;
     rdfs:seeAlso eubat:hasBatteryChemistry ;
     skos:note "European Commission Battery Passport guidance data point 12 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-13>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-13>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The hazardous substances present in the battery, other than mercury, cadmium or lead"@en ;
     rdfs:comment "European Commission Battery Passport data point 13 (BR Annex VI A (8)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasHazardousSubstances, eubat:HazardousSubstance."@en ;
@@ -317,9 +317,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:HazardousSubstance ;
     rdfs:seeAlso eubat:HazardousSubstance ;
     skos:note "European Commission Battery Passport guidance data point 13 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-14>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-14>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Usable extinguishing agent"@en ;
     rdfs:comment "European Commission Battery Passport data point 14 (BR Annex VI A (9)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:extinguishingAgent."@en ;
@@ -334,9 +334,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:extinguishingAgent ;
     rdfs:seeAlso eubat:extinguishingAgent ;
     skos:note "European Commission Battery Passport guidance data point 14 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-15>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-15>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Critical raw materials present in the battery in a concentration of more than 0,1 % weight by weight"@en ;
     rdfs:comment "European Commission Battery Passport data point 15 (BR Annex VI A (10)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:isCriticalRawMaterial, eubat:criticalRawMaterialsStatement."@en ;
@@ -353,9 +353,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:criticalRawMaterialsStatement ;
     rdfs:seeAlso eubat:criticalRawMaterialsStatement ;
     skos:note "European Commission Battery Passport guidance data point 15 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-16>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-16>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The material composition of the battery, including its chemistry, hazardous substances present in the battery, other than mercury, cadmium or lead, and critical raw materials present in the battery"@en ;
     rdfs:comment "European Commission Battery Passport data point 16. Applicability as of Feb 2027 — EV: notToBeFilled (Not to be filled/displayed); LMT: notToBeFilled (Not to be filled/displayed); industrial: notToBeFilled (Not to be filled/displayed). Static master data (resolver-served); access tier: public. Carried by eubat:hasMaterialComposition. Aggregate of data points 12 (chemistry), 13 (hazardous substances) and 15 (critical raw materials); the guidance resolves the regulation's internal redundancy by not filling the aggregate."@en ;
@@ -370,14 +370,14 @@ ecbp:epcisExample
     skos:scopeNote "EV: Not to be filled/displayed | LMT: Not to be filled/displayed | Industrial: Not to be filled/displayed"@en ;
     ecbp:implementedBy eubat:hasMaterialComposition ;
     rdfs:seeAlso eubat:hasMaterialComposition ;
-    dcterms:references <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-12> ;
-    dcterms:references <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-13> ;
-    dcterms:references <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-15> ;
+    dcterms:references <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-12> ;
+    dcterms:references <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-13> ;
+    dcterms:references <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-15> ;
     skos:editorialNote "Aggregate of data points 12 (chemistry), 13 (hazardous substances) and 15 (critical raw materials); the guidance resolves the regulation's internal redundancy by not filling the aggregate."@en ;
     skos:note "European Commission Battery Passport guidance data point 16 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-17>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-17>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The carbon footprint declaration"@en ;
     rdfs:comment "European Commission Battery Passport data point 17 (BR Annex XIII 1 (c)). Applicability as of Feb 2027 — EV: pending (Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act); LMT: pending (Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act); industrial: pending (Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act). Static master data (resolver-served); access tier: public. Carried by eubat:hasCarbonFootprintDeclaration, eubat:CarbonFootprintDeclaration."@en ;
@@ -395,9 +395,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:CarbonFootprintDeclaration ;
     rdfs:seeAlso eubat:CarbonFootprintDeclaration ;
     skos:note "European Commission Battery Passport guidance data point 17 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-18>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-18>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The carbon footprint label"@en ;
     rdfs:comment "European Commission Battery Passport data point 18 (BR Annex XIII 1 (c)). Applicability as of Feb 2027 — EV: pending (Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act); LMT: pending (Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act); industrial: pending (Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act). Static master data (resolver-served); access tier: public. Carried by eubat:hasCarbonFootprintPerformanceClass."@en ;
@@ -413,9 +413,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:hasCarbonFootprintPerformanceClass ;
     rdfs:seeAlso eubat:hasCarbonFootprintPerformanceClass ;
     skos:note "European Commission Battery Passport guidance data point 18 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-19>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-19>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Information on responsible sourcing as indicated in the report on battery due diligence policy referred to in Article 52(3)"@en ;
     rdfs:comment "European Commission Battery Passport data point 19 (BR Annex XIII 1 (d)). Applicability as of Feb 2027 — EV: pending (Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act); LMT: pending (Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act); industrial: pending (Not to be filled/displayed as of February 2027 - format still to be specified in the upcoming implementing act). Static master data (resolver-served); access tier: public. Carried by eubat:hasSupplyChainDueDiligence, eubat:dueDiligenceReportUrl."@en ;
@@ -433,9 +433,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:dueDiligenceReportUrl ;
     rdfs:seeAlso eubat:dueDiligenceReportUrl ;
     skos:note "European Commission Battery Passport guidance data point 19 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-20>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-20>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Percentage share of cobalt that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste"@en ;
     rdfs:comment "European Commission Battery Passport data point 20 (BR Annex XIII 1 (e)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:cobaltRecycledShare."@en ;
@@ -450,9 +450,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:cobaltRecycledShare ;
     rdfs:seeAlso eubat:cobaltRecycledShare ;
     skos:note "European Commission Battery Passport guidance data point 20 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-21>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-21>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Percentage share of lithium that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste"@en ;
     rdfs:comment "European Commission Battery Passport data point 21 (BR Annex XIII 1 (e)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:lithiumRecycledShare."@en ;
@@ -467,9 +467,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:lithiumRecycledShare ;
     rdfs:seeAlso eubat:lithiumRecycledShare ;
     skos:note "European Commission Battery Passport guidance data point 21 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-22>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-22>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Percentage share of nickel that is present in active materials and that has been recovered from battery manufacturing waste or post-consumer waste"@en ;
     rdfs:comment "European Commission Battery Passport data point 22 (BR Annex XIII 1 (e)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:nickelRecycledShare."@en ;
@@ -484,9 +484,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:nickelRecycledShare ;
     rdfs:seeAlso eubat:nickelRecycledShare ;
     skos:note "European Commission Battery Passport guidance data point 22 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-23>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-23>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The percentage share of lead that is present in the battery and that has been recovered from waste"@en ;
     rdfs:comment "European Commission Battery Passport data point 23 (BR Annex XIII 1 (e)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:leadRecycledShare."@en ;
@@ -501,9 +501,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:leadRecycledShare ;
     rdfs:seeAlso eubat:leadRecycledShare ;
     skos:note "European Commission Battery Passport guidance data point 23 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-24>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-24>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The share of renewable content"@en ;
     rdfs:comment "European Commission Battery Passport data point 24 (BR Annex XIII 1 (f)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:renewableContentShare."@en ;
@@ -518,9 +518,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:renewableContentShare ;
     rdfs:seeAlso eubat:renewableContentShare ;
     skos:note "European Commission Battery Passport guidance data point 24 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-25>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-25>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Rated capacity (in Ah)"@en ;
     rdfs:comment "European Commission Battery Passport data point 25 (BR Annex XIII 1 (g)). Applicability as of Feb 2027 — EV: notToBeFilled (Not to be filled/displayed); LMT: notToBeFilled (Not to be filled/displayed); industrial: notToBeFilled (Not to be filled/displayed). Static master data (resolver-served); access tier: public. Carried by eubat:hasRatedCapacity. Superseded in practice: identical to data point 11 (capacity) and replaced by the dynamic data point 51."@en ;
@@ -535,13 +535,13 @@ ecbp:epcisExample
     skos:scopeNote "EV: Not to be filled/displayed | LMT: Not to be filled/displayed | Industrial: Not to be filled/displayed"@en ;
     ecbp:implementedBy eubat:hasRatedCapacity ;
     rdfs:seeAlso eubat:hasRatedCapacity ;
-    dcterms:relation <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-11> ;
-    dcterms:relation <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-51> ;
+    dcterms:relation <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-11> ;
+    dcterms:relation <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-51> ;
     skos:editorialNote "Superseded in practice: identical to data point 11 (capacity) and replaced by the dynamic data point 51."@en ;
     skos:note "European Commission Battery Passport guidance data point 25 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-26>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-26>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Minimal voltage, with temperature range when relevant"@en ;
     rdfs:comment "European Commission Battery Passport data point 26 (BR Annex XIII 1 (h)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasMinimumVoltage."@en ;
@@ -556,9 +556,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:hasMinimumVoltage ;
     rdfs:seeAlso eubat:hasMinimumVoltage ;
     skos:note "European Commission Battery Passport guidance data point 26 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-27>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-27>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Nominal voltage, with temperature range when relevant"@en ;
     rdfs:comment "European Commission Battery Passport data point 27 (BR Annex XIII 1 (h)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasNominalVoltage."@en ;
@@ -573,9 +573,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:hasNominalVoltage ;
     rdfs:seeAlso eubat:hasNominalVoltage ;
     skos:note "European Commission Battery Passport guidance data point 27 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-28>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-28>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Maximum voltage, with temperature range when relevant"@en ;
     rdfs:comment "European Commission Battery Passport data point 28 (BR Annex XIII 1 (h)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasMaximumVoltage."@en ;
@@ -590,9 +590,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:hasMaximumVoltage ;
     rdfs:seeAlso eubat:hasMaximumVoltage ;
     skos:note "European Commission Battery Passport guidance data point 28 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-29>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-29>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Original power capability (in Watts)"@en ;
     rdfs:comment "European Commission Battery Passport data point 29 (BR Annex XIII 1 (i)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasOriginalPowerCapability."@en ;
@@ -607,9 +607,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:hasOriginalPowerCapability ;
     rdfs:seeAlso eubat:hasOriginalPowerCapability ;
     skos:note "European Commission Battery Passport guidance data point 29 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-30>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-30>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Power limits, with temperature range when relevant"@en ;
     rdfs:comment "European Commission Battery Passport data point 30 (BR Annex XIII 1 (i)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasMaximumPermittedBatteryPower, eubat:hasMaximumChargingPower, eubat:hasMaximumDischargingPower."@en ;
@@ -628,9 +628,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:hasMaximumDischargingPower ;
     rdfs:seeAlso eubat:hasMaximumDischargingPower ;
     skos:note "European Commission Battery Passport guidance data point 30 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-31>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-31>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Expected battery lifetime expressed in cycles"@en ;
     rdfs:comment "European Commission Battery Passport data point 31 (BR Annex XIII 1 (j)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: conditional (only applicable for some industrial batteries where lifetime can be expressed in cycles). Static master data (resolver-served); access tier: public. Carried by eubat:expectedNumberOfCycles, eubat:expectedCycleLife."@en ;
@@ -648,9 +648,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:expectedCycleLife ;
     rdfs:seeAlso eubat:expectedCycleLife ;
     skos:note "European Commission Battery Passport guidance data point 31 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-32>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-32>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Reference test used for expected battery lifetime expressed in cycles"@en ;
     rdfs:comment "European Commission Battery Passport data point 32 (BR Annex XIII 1 (j)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: conditional (only applicable for some industrial batteries where lifetime can be expressed in cycles). Static master data (resolver-served); access tier: public. Carried by eubat:lifetimeReferenceTest."@en ;
@@ -666,9 +666,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:lifetimeReferenceTest ;
     rdfs:seeAlso eubat:lifetimeReferenceTest ;
     skos:note "European Commission Battery Passport guidance data point 32 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-33>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-33>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Capacity threshold for exhaustion"@en ;
     rdfs:comment "European Commission Battery Passport data point 33 (BR Annex XIII 1 (k)). Applicability as of Feb 2027 — EV: mandatory; LMT: notToBeFilled (Not to be filled/displayed); industrial: notToBeFilled (Not to be filled/displayed). Static master data (resolver-served); access tier: public. Carried by eubat:capacityThresholdForExhaustion."@en ;
@@ -684,9 +684,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:capacityThresholdForExhaustion ;
     rdfs:seeAlso eubat:capacityThresholdForExhaustion ;
     skos:note "European Commission Battery Passport guidance data point 33 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-34>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-34>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Temperature range the battery can withstand when not in use (reference test)"@en ;
     rdfs:comment "European Commission Battery Passport data point 34 (BR Annex XIII 1 (l)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasTemperatureRangeIdleState."@en ;
@@ -701,9 +701,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:hasTemperatureRangeIdleState ;
     rdfs:seeAlso eubat:hasTemperatureRangeIdleState ;
     skos:note "European Commission Battery Passport guidance data point 34 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-35>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-35>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Period for which the commercial warranty for the calendar life applies"@en ;
     rdfs:comment "European Commission Battery Passport data point 35 (BR Annex XIII 1 (m)). Applicability as of Feb 2027 — EV: conditional (only if applicable (if commercial warranty envisaged)); LMT: conditional (only if applicable (if commercial warranty envisaged)); industrial: conditional (only if applicable (if commercial warranty envisaged)). Static master data (resolver-served); access tier: public. Carried by eubat:warrantyConditions, gs1:warranty."@en ;
@@ -721,9 +721,9 @@ ecbp:epcisExample
     ecbp:implementedBy gs1:warranty ;
     rdfs:seeAlso gs1:warranty ;
     skos:note "European Commission Battery Passport guidance data point 35 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-36>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-36>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Initial round trip energy efficiency"@en ;
     rdfs:comment "European Commission Battery Passport data point 36 (BR Annex XIII 1 (n)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: conditional (only applicable for some industrial batteries). Static master data (resolver-served); access tier: public. Carried by eubat:roundTripEnergyEfficiency, eubat:roundTripEfficiency."@en ;
@@ -741,9 +741,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:roundTripEfficiency ;
     rdfs:seeAlso eubat:roundTripEfficiency ;
     skos:note "European Commission Battery Passport guidance data point 36 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-37>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-37>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Round trip energy efficiency at 50 % of cycle-life"@en ;
     rdfs:comment "European Commission Battery Passport data point 37 (BR Annex XIII 1 (n)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: conditional (only applicable for some industrial batteries). Static master data (resolver-served); access tier: public. Carried by eubat:roundTripEfficiencyAt50PercentCycleLife."@en ;
@@ -759,9 +759,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:roundTripEfficiencyAt50PercentCycleLife ;
     rdfs:seeAlso eubat:roundTripEfficiencyAt50PercentCycleLife ;
     skos:note "European Commission Battery Passport guidance data point 37 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-38>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-38>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Internal battery cell and pack resistance"@en ;
     rdfs:comment "European Commission Battery Passport data point 38 (BR Annex XIII 1 (o)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasInitialInternalResistance."@en ;
@@ -776,9 +776,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:hasInitialInternalResistance ;
     rdfs:seeAlso eubat:hasInitialInternalResistance ;
     skos:note "European Commission Battery Passport guidance data point 38 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-39>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-39>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "C-rate of relevant cycle-life test"@en ;
     rdfs:comment "European Commission Battery Passport data point 39 (BR Annex XIII 1 (p)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: conditional (only applicable for some industrial batteries). Static master data (resolver-served); access tier: public. Carried by eubat:cRateLifeCycleTest."@en ;
@@ -794,9 +794,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:cRateLifeCycleTest ;
     rdfs:seeAlso eubat:cRateLifeCycleTest ;
     skos:note "European Commission Battery Passport guidance data point 39 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-40>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-40>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The marking requirements laid down in Article 13(4)"@en ;
     rdfs:comment "European Commission Battery Passport data point 40 (BR Annex XIII 1 (q)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasLabels, eubat:separateCollectionSymbolUrl."@en ;
@@ -813,9 +813,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:separateCollectionSymbolUrl ;
     rdfs:seeAlso eubat:separateCollectionSymbolUrl ;
     skos:note "European Commission Battery Passport guidance data point 40 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-41>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-41>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The marking requirements laid down in Article 13(5)"@en ;
     rdfs:comment "European Commission Battery Passport data point 41 (BR Annex XIII 1 (q)). Applicability as of Feb 2027 — EV: conditional (cadmium or lead symbol if applicable); LMT: conditional (cadmium or lead symbol if applicable); industrial: conditional (cadmium or lead symbol if applicable). Static master data (resolver-served); access tier: public. Carried by eubat:cadmiumSymbolRequired, eubat:leadSymbolRequired."@en ;
@@ -833,9 +833,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:leadSymbolRequired ;
     rdfs:seeAlso eubat:leadSymbolRequired ;
     skos:note "European Commission Battery Passport guidance data point 41 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-42>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-42>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The EU declaration of conformity referred to in Article 18"@en ;
     rdfs:comment "European Commission Battery Passport data point 42 (BR Annex XIII 1 (r)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:hasEuDeclarationOfConformity."@en ;
@@ -850,9 +850,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:hasEuDeclarationOfConformity ;
     rdfs:seeAlso eubat:hasEuDeclarationOfConformity ;
     skos:note "European Commission Battery Passport guidance data point 42 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-43>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-43>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The information regarding the prevention and management of waste batteries laid down in Article 74(1), points (a) to (f)"@en ;
     rdfs:comment "European Commission Battery Passport data point 43 (BR Annex XIII 1 (s)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: public. Carried by eubat:wastePrevention, eubat:informationOnCollection, eubat:separateCollection."@en ;
@@ -871,9 +871,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:separateCollection ;
     rdfs:seeAlso eubat:separateCollection ;
     skos:note "European Commission Battery Passport guidance data point 43 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-44>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-44>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Clear, understandable and readable instructions for use in a format that makes it possible to print, download and save them on an electronic device so that the user can access them at all times, in particular during a breakdown of the battery"@en ;
     rdfs:comment "European Commission Battery Passport data point 44 (BR Annex XIII 1 (t)). Applicability as of Feb 2027 — EV: pending (Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus IV adoption); LMT: pending (Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus IV adoption); industrial: pending (Not to be filled/displayed as of February 2027 - application provisions on hold pending Omnibus IV adoption). Static master data (resolver-served); access tier: public. Carried by gs1:instructionsForUse, gs1:consumerUsageInstructions."@en ;
@@ -891,9 +891,9 @@ ecbp:epcisExample
     ecbp:implementedBy gs1:consumerUsageInstructions ;
     rdfs:seeAlso gs1:consumerUsageInstructions ;
     skos:note "European Commission Battery Passport guidance data point 44 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-45>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-45>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Detailed composition, including materials used in the cathode, anode and electrolyte"@en ;
     rdfs:comment "European Commission Battery Passport data point 45 (BR Annex XIII 2 (a)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: legitimateInterest. Carried by eubat:cathodeActiveMaterial, eubat:anodeActiveMaterial, eubat:electrolyteComposition."@en ;
@@ -912,9 +912,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:electrolyteComposition ;
     rdfs:seeAlso eubat:electrolyteComposition ;
     skos:note "European Commission Battery Passport guidance data point 45 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-46>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-46>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Part numbers for components"@en ;
     rdfs:comment "European Commission Battery Passport data point 46 (BR Annex XIII 2 (b)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: legitimateInterest. Carried by eubat:spareParts."@en ;
@@ -929,9 +929,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:spareParts ;
     rdfs:seeAlso eubat:spareParts ;
     skos:note "European Commission Battery Passport guidance data point 46 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-47>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-47>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Contact details of sources for replacement spares"@en ;
     rdfs:comment "European Commission Battery Passport data point 47 (BR Annex XIII 2 (b)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: legitimateInterest. Carried by eubat:hasSparePartSources, eubat:hasSupplierContact."@en ;
@@ -948,9 +948,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:hasSupplierContact ;
     rdfs:seeAlso eubat:hasSupplierContact ;
     skos:note "European Commission Battery Passport guidance data point 47 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-48>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-48>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Dismantling information, including at least: exploded diagrams of the battery system/pack showing the location of battery cells, disassembly sequences, type and number of fastening techniques to be unlocked, tools required for disassembly, warnings if risk of damaging parts exist, amount of cells used and layout"@en ;
     rdfs:comment "European Commission Battery Passport data point 48 (BR Annex XIII 2 (c)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: legitimateInterest. Carried by eubat:hasDismantlingDocuments, eubat:hasDismantlingInstructions."@en ;
@@ -967,9 +967,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:hasDismantlingInstructions ;
     rdfs:seeAlso eubat:hasDismantlingInstructions ;
     skos:note "European Commission Battery Passport guidance data point 48 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-49>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-49>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Safety measures"@en ;
     rdfs:comment "European Commission Battery Passport data point 49 (BR Annex XIII 2 (d)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: legitimateInterest. Carried by eubat:safetyMeasures, eubat:safetyInstructions."@en ;
@@ -986,9 +986,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:safetyInstructions ;
     rdfs:seeAlso eubat:safetyInstructions ;
     skos:note "European Commission Battery Passport guidance data point 49 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-50>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-50>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Results of test reports proving compliance with the requirements laid down in this Regulation or any delegated or implementing act adopted pursuant to this Regulation"@en ;
     rdfs:comment "European Commission Battery Passport data point 50 (BR Annex XIII 3). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Static master data (resolver-served); access tier: notifiedBodiesAndAuthorities. Carried by eubat:resultOfTestReport, eubat:testReportNumber."@en ;
@@ -1005,9 +1005,9 @@ ecbp:epcisExample
     ecbp:implementedBy eubat:testReportNumber ;
     rdfs:seeAlso eubat:testReportNumber ;
     skos:note "European Commission Battery Passport guidance data point 50 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-51>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-51>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Rated capacity (in Ah)"@en ;
     rdfs:comment "European Commission Battery Passport data point 51 (BR Annex XIII 4 (a)). Applicability as of Feb 2027 — EV: mandatory (same as data point number 11 (capacity), but now dynamic); LMT: mandatory (same as data point number 11 (capacity), but now dynamic); industrial: conditional (if applicable, but now dynamic). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:hasRatedCapacity. Dynamic variant of data point 11; the current value is folded from the EPCIS event stream into the item passport."@en ;
@@ -1022,14 +1022,14 @@ ecbp:epcisExample
     skos:scopeNote "EV: same as data point number 11 (capacity), but now dynamic | LMT: same as data point number 11 (capacity), but now dynamic | Industrial: if applicable, but now dynamic"@en ;
     ecbp:implementedBy eubat:hasRatedCapacity ;
     rdfs:seeAlso eubat:hasRatedCapacity ;
-    dcterms:relation <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-11> ;
-    dcterms:relation <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-25> ;
+    dcterms:relation <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-11> ;
+    dcterms:relation <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-25> ;
     ecbp:epcisExample "epcis/state-of-health.jsonld" ;
     skos:editorialNote "Dynamic variant of data point 11; the current value is folded from the EPCIS event stream into the item passport."@en ;
     skos:note "European Commission Battery Passport guidance data point 51 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-52>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-52>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Capacity fade (in %)"@en ;
     rdfs:comment "European Commission Battery Passport data point 52 (BR Annex XIII 4 (a)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:hasCapacityFade."@en ;
@@ -1046,9 +1046,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:hasCapacityFade ;
     ecbp:epcisExample "epcis/state-of-health.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 52 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-53>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-53>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Power (in W)"@en ;
     rdfs:comment "European Commission Battery Passport data point 53 (BR Annex XIII 4 (a)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:hasPowerCapability."@en ;
@@ -1065,9 +1065,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:hasPowerCapability ;
     ecbp:epcisExample "epcis/state-of-health.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 53 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-54>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-54>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Power fade (in %)"@en ;
     rdfs:comment "European Commission Battery Passport data point 54 (BR Annex XIII 4 (a)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:hasPowerFade."@en ;
@@ -1084,9 +1084,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:hasPowerFade ;
     ecbp:epcisExample "epcis/state-of-health.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 54 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-55>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-55>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Internal resistance (in Ω)"@en ;
     rdfs:comment "European Commission Battery Passport data point 55 (BR Annex XIII 4 (a)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:hasInternalResistance."@en ;
@@ -1103,9 +1103,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:hasInternalResistance ;
     ecbp:epcisExample "epcis/state-of-health.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 55 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-56>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-56>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Internal resistance increase (in %)"@en ;
     rdfs:comment "European Commission Battery Passport data point 56 (BR Annex XIII 4 (a)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:hasInternalResistanceIncrease."@en ;
@@ -1122,9 +1122,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:hasInternalResistanceIncrease ;
     ecbp:epcisExample "epcis/state-of-health.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 56 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-57>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-57>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Where applicable, energy round trip efficiency (in %)"@en ;
     rdfs:comment "European Commission Battery Passport data point 57 (BR Annex XIII 4 (a)). Applicability as of Feb 2027 — EV: conditional (if applicable); LMT: conditional (if applicable); industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:roundTripEfficiency."@en ;
@@ -1141,9 +1141,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:roundTripEfficiency ;
     ecbp:epcisExample "epcis/state-of-health.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 57 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-58>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-58>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Where applicable, energy round trip efficiency fade (in %)"@en ;
     rdfs:comment "European Commission Battery Passport data point 58 (BR Annex XIII 4 (a)). Applicability as of Feb 2027 — EV: conditional (if applicable); LMT: conditional (if applicable); industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:hasRoundTripEfficiencyFade."@en ;
@@ -1160,9 +1160,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:hasRoundTripEfficiencyFade ;
     ecbp:epcisExample "epcis/state-of-health.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 58 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-59>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-59>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The expected life-time of the battery under the reference conditions for which it has been designed, in terms of cycles, except for non-cycle applications"@en ;
     rdfs:comment "European Commission Battery Passport data point 59 (BR Annex XIII 4 (a)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:expectedRemainingCycles."@en ;
@@ -1179,9 +1179,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:expectedRemainingCycles ;
     ecbp:epcisExample "epcis/state-of-health.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 59 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-60>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-60>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The expected life-time of the battery under the reference conditions for which it has been designed, in terms of calendar years"@en ;
     rdfs:comment "European Commission Battery Passport data point 60 (BR Annex XIII 4 (a)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:expectedLifetimeYears, eubat:expectedRemainingLifetimeMonths."@en ;
@@ -1200,9 +1200,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:expectedRemainingLifetimeMonths ;
     ecbp:epcisExample "epcis/state-of-health.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 60 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-61>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-61>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Information on the state of health of the battery pursuant to Article 14: state of certified energy (SOCE)"@en ;
     rdfs:comment "European Commission Battery Passport data point 61 (BR Annex XIII 4 (b)). Applicability as of Feb 2027 — EV: mandatory; LMT: notToBeFilled (Not to be filled/displayed); industrial: notToBeFilled (Not to be filled/displayed). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:hasStateOfCertifiedEnergy."@en ;
@@ -1219,9 +1219,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:hasStateOfCertifiedEnergy ;
     ecbp:epcisExample "epcis/state-of-certified-energy.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 61 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-62>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-62>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Information on the state of health of the battery pursuant to Article 14: remaining capacity"@en ;
     rdfs:comment "European Commission Battery Passport data point 62 (BR Annex XIII 4 (b)). Applicability as of Feb 2027 — EV: notToBeFilled (Not to be filled/displayed); LMT: mandatory; industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:hasRemainingCapacity."@en ;
@@ -1238,9 +1238,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:hasRemainingCapacity ;
     ecbp:epcisExample "epcis/state-of-health.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 62 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-63>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-63>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Information on the state of health of the battery pursuant to Article 14: where possible, the remaining power capability"@en ;
     rdfs:comment "European Commission Battery Passport data point 63 (BR Annex XIII 4 (b)). Applicability as of Feb 2027 — EV: notToBeFilled (Not to be filled/displayed); LMT: mandatory; industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:hasRemainingPowerCapability."@en ;
@@ -1257,9 +1257,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:hasRemainingPowerCapability ;
     ecbp:epcisExample "epcis/state-of-health.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 63 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-64>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-64>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Information on the state of health of the battery pursuant to Article 14: where possible, the remaining round trip efficiency"@en ;
     rdfs:comment "European Commission Battery Passport data point 64 (BR Annex XIII 4 (b)). Applicability as of Feb 2027 — EV: notToBeFilled (Not to be filled/displayed); LMT: mandatory; industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:hasRemainingRoundTripEfficiency."@en ;
@@ -1276,9 +1276,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:hasRemainingRoundTripEfficiency ;
     ecbp:epcisExample "epcis/state-of-health.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 64 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-65>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-65>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Information on the state of health of the battery pursuant to Article 14: where possible, the evolution of self-discharging rates"@en ;
     rdfs:comment "European Commission Battery Passport data point 65 (BR Annex XIII 4 (b)). Applicability as of Feb 2027 — EV: notToBeFilled (Not to be filled/displayed); LMT: mandatory; industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:hasEvolutionOfSelfDischarge, eubat:hasCurrentSelfDischargingRate."@en ;
@@ -1297,9 +1297,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:hasCurrentSelfDischargingRate ;
     ecbp:epcisExample "epcis/state-of-health.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 65 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-66>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-66>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Information on the state of health of the battery pursuant to Article 14: where possible, the ohmic resistance"@en ;
     rdfs:comment "European Commission Battery Passport data point 66 (BR Annex XIII 4 (b)). Applicability as of Feb 2027 — EV: notToBeFilled (Not to be filled/displayed); LMT: mandatory; industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:hasInternalResistance."@en ;
@@ -1316,9 +1316,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:hasInternalResistance ;
     ecbp:epcisExample "epcis/state-of-health.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 66 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-67>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-67>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Information on the status of the battery, defined as 'original', 'repurposed', 're-used', 'remanufactured' or 'waste'"@en ;
     rdfs:comment "European Commission Battery Passport data point 67 (BR Annex XIII 4 (c)). Applicability as of Feb 2027 — EV: mandatory; LMT: mandatory; industrial: mandatory. Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by schema:status, eubat:BatteryStatus. Status values map to the controlled individuals eubat:Original, eubat:Repurposed, eubat:Reused, eubat:Remanufactured, eubat:Waste; status transitions are EPCIS lifecycle events."@en ;
@@ -1337,9 +1337,9 @@ ecbp:epcisExample
     ecbp:epcisExample "epcis/commissioning.jsonld" ;
     skos:editorialNote "Status values map to the controlled individuals eubat:Original, eubat:Repurposed, eubat:Reused, eubat:Remanufactured, eubat:Waste; status transitions are EPCIS lifecycle events."@en ;
     skos:note "European Commission Battery Passport guidance data point 67 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-68>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-68>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "The number of charging and discharging cycles"@en ;
     rdfs:comment "European Commission Battery Passport data point 68 (BR Annex XIII 4 (d)). Applicability as of Feb 2027 — EV: conditional (if applicable); LMT: conditional (if applicable); industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:numberOfFullCycles, eubat:hasCycleCount."@en ;
@@ -1358,9 +1358,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:hasCycleCount ;
     ecbp:epcisExample "epcis/amperia-staxwall-lifecycle.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 68 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-69>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-69>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Negative events, such as accidents"@en ;
     rdfs:comment "European Commission Battery Passport data point 69 (BR Annex XIII 4 (d)). Applicability as of Feb 2027 — EV: conditional (if applicable); LMT: conditional (if applicable); industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:hasNegativeEvents, eubat:NegativeEvent."@en ;
@@ -1379,9 +1379,9 @@ ecbp:epcisExample
     rdfs:seeAlso eubat:NegativeEvent ;
     ecbp:epcisExample "epcis/negative-event.jsonld" ;
     skos:note "European Commission Battery Passport guidance data point 69 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-70>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-70>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Periodically recorded information on the operating environmental conditions, including temperature"@en ;
     rdfs:comment "European Commission Battery Passport data point 70 (BR Annex XIII 4 (d)). Applicability as of Feb 2027 — EV: conditional (if applicable); LMT: conditional (if applicable); industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:timeSpentInExtremeTemperaturesAboveBoundary, eubat:timeSpentInExtremeTemperaturesBelowBoundary. Periodic recording is the EPCIS sensorElementList mechanism (sensorReport time series with sensorMetadata), not a master-data attribute."@en ;
@@ -1401,9 +1401,9 @@ ecbp:epcisExample
     ecbp:epcisExample "epcis/temperature-extreme.jsonld" ;
     skos:editorialNote "Periodic recording is the EPCIS sensorElementList mechanism (sensorReport time series with sensorMetadata), not a master-data attribute."@en ;
     skos:note "European Commission Battery Passport guidance data point 70 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .
 
-<https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0#dp-71>
+<https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0#dp-71>
     a rdf:Property, cccev:InformationRequirement ;
     rdfs:label "Periodically recorded information on the state of charge"@en ;
     rdfs:comment "European Commission Battery Passport data point 71 (BR Annex XIII 4 (d)). Applicability as of Feb 2027 — EV: conditional (if applicable); LMT: conditional (if applicable); industrial: conditional (if applicable). Dynamic (folded from the EPCIS event stream at item level); access tier: legitimateInterest. Carried by eubat:hasStateOfCharge. Periodic recording is the EPCIS sensorElementList mechanism (sensorReport time series with sensorMetadata), not a master-data attribute."@en ;
@@ -1421,4 +1421,4 @@ ecbp:epcisExample
     ecbp:epcisExample "epcis/amperia-staxwall-lifecycle.jsonld" ;
     skos:editorialNote "Periodic recording is the EPCIS sensorElementList mechanism (sensorReport time series with sensorMetadata), not a master-data attribute."@en ;
     skos:note "European Commission Battery Passport guidance data point 71 (Ares(2026)7579758, v1.0). Applicability shown is the state as of February 2027 per the guidance table."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/vocab/ec-battery-passport-guidance/1.0> .
+    rdfs:isDefinedBy <https://ref.openepcis.io/vocab/ec-battery-passport-guidance/1.0> .

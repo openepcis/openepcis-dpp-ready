@@ -131,8 +131,8 @@ To process UNTP-style data with OpenEPCIS:
 ```json
 {
   "@context": [
-    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.org/extensions/common/interop/untp-bridge-context.jsonld"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/interop/untp-bridge-context.jsonld"
   ],
   "type": "CircularityPerformance",
   "recyclableContent": 80,
@@ -146,10 +146,10 @@ This expands to OpenEPCIS URIs:
 
 ```json
 {
-  "@type": "https://ref.openepcis.org/extensions/common/core/CircularityPerformance",
-  "https://ref.openepcis.org/extensions/common/core/recyclableContent": 80,
-  "https://ref.openepcis.org/extensions/common/core/recycledContent": 45,
-  "https://ref.openepcis.org/extensions/common/core/utilityFactor": 1.2,
-  "https://ref.openepcis.org/extensions/common/core/materialCircularityIndicator": 65
+  "@type": "https://ref.openepcis.io/extensions/common/core/CircularityPerformance",
+  "https://ref.openepcis.io/extensions/common/core/recyclableContent": 80,
+  "https://ref.openepcis.io/extensions/common/core/recycledContent": 45,
+  "https://ref.openepcis.io/extensions/common/core/utilityFactor": 1.2,
+  "https://ref.openepcis.io/extensions/common/core/materialCircularityIndicator": 65
 }
 ```

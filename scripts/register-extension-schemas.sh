@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# register-extension-schemas.sh — Register every ref.openepcis.org EPCIS extension JSON
+# register-extension-schemas.sh — Register every ref.openepcis.io EPCIS extension JSON
 # Schema into an OpenEPCIS repository via the built-in endpoint:
 #   POST /userExtension/jsonSchema?namespace=&defaultPrefix=&jsonldContextUrl=  (body = schema)
 # so events declaring GS1-Extensions <prefix>=<namespace> validate + capture instead of

@@ -16,6 +16,7 @@
     <artifact type="binary" encoding="UTF-8" name="pos2_server_product">resources/fixtures/eu.electronics/server-product.nq</artifact>
     <artifact type="binary" encoding="UTF-8" name="pos3_smartphone_product">resources/fixtures/eu.electronics/smartphone-product.nq</artifact>
     <artifact type="binary" encoding="UTF-8" name="neg_missing_operator_role">resources/negative/eu.electronics/display-product.missing-operator-role.nq</artifact>
+    <artifact type="binary" encoding="UTF-8" name="neg_out_of_range_fraction">resources/negative/eu.electronics/display-product.out-of-range-fraction.nq</artifact>
     <artifact type="binary" encoding="UTF-8" name="neg_missing_required_property">resources/negative/eu.electronics/display-product.missing-required-property.nq</artifact>
   </imports>
   <steps>
@@ -55,8 +56,16 @@
       <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
-    <!-- A predicate the module's own shapes require with sh:minCount is removed, which the corresponding MinCount constraint must reject. -->
+    <!-- A 0..1 fraction set to 99, which the value-range constraint on the corresponding property must reject. -->
     <verify id="neg1" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl" invert="true"
+            desc="Broken passport must be REJECTED (out-of-range-fraction)">
+      <input name="contentToValidate">$neg_out_of_range_fraction</input>
+      <input name="validationType">"eu.electronics"</input>
+      <input name="embeddingMethod">"BASE64"</input>
+      <input name="contentSyntax">"application/n-quads"</input>
+    </verify>
+    <!-- A predicate the module's own shapes require with sh:minCount is removed, which the corresponding MinCount constraint must reject. -->
+    <verify id="neg2" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl" invert="true"
             desc="Broken passport must be REJECTED (missing-required-property)">
       <input name="contentToValidate">$neg_missing_required_property</input>
       <input name="validationType">"eu.electronics"</input>

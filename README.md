@@ -1,12 +1,12 @@
 # OpenEPCIS DPP-Ready: The Universal DPP Platform
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
-[![Browse the ontology](https://img.shields.io/badge/browse-ref.openepcis.org-2ea44f)](https://ref.openepcis.org)
+[![Browse the ontology](https://img.shields.io/badge/browse-ref.openepcis.io-2ea44f)](https://ref.openepcis.io)
 [![Status: Preview 0.9.9](https://img.shields.io/badge/status-preview%200.9.9-orange)](#what-you-get)
 
 A comprehensive, standards-harmonizing framework for implementing Digital Product Passports aligned with EU ESPR 2024/1781, schema.org, GS1, **EU SEMICeu Core Vocabularies**, and UN Transparency Protocol (UNTP).
 
-> **Browse the live ontology** at **[ref.openepcis.org](https://ref.openepcis.org)** — every class, property, and JSON-LD context shipped from this repository is published there with stable, dereferenceable URIs. The TTL files in `extensions/*/ontology/` are the source of truth; the browser renders the deployed JSON.
+> **Browse the live ontology** at **[ref.openepcis.io](https://ref.openepcis.io)** — every class, property, and JSON-LD context shipped from this repository is published there with stable, dereferenceable URIs. The TTL files in `extensions/*/ontology/` are the source of truth; the browser renders the deployed JSON.
 
 > **TL;DR for decision-makers:** OpenEPCIS DPP-Ready is an open-source platform that harmonises GS1, ESPR, UNTP, and CEN/CENELEC JTC 24 standards in a single codebase. Preview at v0.9.9, nine regulations covered (battery, textile, EUDR, electronics, detergent, packaging, construction products, the ESPR iron and steel product group, plus the cross-cutting ESPR core), with US FSMA §204 as a preview module. No vendor lock-in, no proprietary tooling, no translation layers. Built on GS1 Digital Link, EPCIS 2.0, and GS1 Web Vocabulary.
 
@@ -169,7 +169,7 @@ Then open any module's `examples/` directory for JSON-LD samples, or launch the 
 
 ## Why every module owns a named EPCIS extension
 
-Each module registers its own `https://ref.openepcis.org/extensions/...`
+Each module registers its own `https://ref.openepcis.io/extensions/...`
 namespace (`eubat:`, `eudr:`, `eutex:`, `euelec:`, `eudet:`,
 `usfsma:`) even when the extension contributes only a single property. The
 namespace is not cosmetic — it is the **switch** that tells an OpenEPCIS
@@ -207,7 +207,7 @@ This generates JSON files in each module's `json/` directory:
 - `extensions/eu/eudr/json/eudr.json`
 - `extensions/us/fsma204/json/fsma204.json`
 
-The [ref.openepcis.org](https://ref.openepcis.org) vocabulary browser uses these JSON files to display ontology information.
+The [ref.openepcis.io](https://ref.openepcis.io) vocabulary browser uses these JSON files to display ontology information.
 
 `pnpm run build` is also the quality gate: alongside generation it runs sixteen checks, among
 them `check:shapes`, which executes every `validation/*-shapes.ttl` over every example passport.
@@ -248,14 +248,14 @@ The project follows a **`gs1:` → SEMICeu (`cv:` / `cccev:` / `locn:` / `adms:`
 
 | Module | Namespace | Prefix |
 |--------|-----------|--------|
-| DPP Core | `https://ref.openepcis.org/extensions/common/core/` | `oec:` |
-| Interop | `https://ref.openepcis.org/extensions/common/interop/` | `oei:` |
-| Battery | `https://ref.openepcis.org/extensions/eu/battery/` | `eubat:` |
-| EUDR | `https://ref.openepcis.org/extensions/eu/eudr/` | `eudr:` |
-| Textile | `https://ref.openepcis.org/extensions/eu/textile/` | `eutex:` |
-| Electronics | `https://ref.openepcis.org/extensions/eu/electronics/` | `euelec:` |
-| Detergent | `https://ref.openepcis.org/extensions/eu/detergent/` | `eudet:` |
-| FSMA §204 | `https://ref.openepcis.org/extensions/us/fsma204/` | `usfsma:` |
+| DPP Core | `https://ref.openepcis.io/extensions/common/core/` | `oec:` |
+| Interop | `https://ref.openepcis.io/extensions/common/interop/` | `oei:` |
+| Battery | `https://ref.openepcis.io/extensions/eu/battery/` | `eubat:` |
+| EUDR | `https://ref.openepcis.io/extensions/eu/eudr/` | `eudr:` |
+| Textile | `https://ref.openepcis.io/extensions/eu/textile/` | `eutex:` |
+| Electronics | `https://ref.openepcis.io/extensions/eu/electronics/` | `euelec:` |
+| Detergent | `https://ref.openepcis.io/extensions/eu/detergent/` | `eudet:` |
+| FSMA §204 | `https://ref.openepcis.io/extensions/us/fsma204/` | `usfsma:` |
 | GS1 Rail (upstream — GS1 AISBL / GS1 Switzerland; mirrored under `extensions/upstream/gs1-rail/`) | `https://gs1-epcis-reg.org/rail/voc/data#` | `rail:` |
 | _Reused_: schema.org | `https://schema.org/` | `schema:` |
 | _Reused_: GS1 Web Vocabulary | `https://ref.gs1.org/voc/` | `gs1:` |
@@ -420,20 +420,20 @@ See [extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md](./extension
 Declare extensions using the `GS1-Extensions` header (per EPCIS 2.0 specification):
 
 ```http
-GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/, eubat=https://ref.openepcis.org/extensions/eu/battery/, eutex=https://ref.openepcis.org/extensions/eu/textile/
+GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, eubat=https://ref.openepcis.io/extensions/eu/battery/, eutex=https://ref.openepcis.io/extensions/eu/textile/
 ```
 
 ### Extension Namespaces
 
 | Module | GS1-Extensions Header Value |
 |--------|---------------------------|
-| DPP Core | `oec=https://ref.openepcis.org/extensions/common/core/` |
-| Battery | `eubat=https://ref.openepcis.org/extensions/eu/battery/` |
-| EUDR | `eudr=https://ref.openepcis.org/extensions/eu/eudr/` |
-| Textile | `eutex=https://ref.openepcis.org/extensions/eu/textile/` |
-| Electronics | `euelec=https://ref.openepcis.org/extensions/eu/electronics/` |
-| Detergent | `eudet=https://ref.openepcis.org/extensions/eu/detergent/` |
-| FSMA §204 | `usfsma=https://ref.openepcis.org/extensions/us/fsma204/` |
+| DPP Core | `oec=https://ref.openepcis.io/extensions/common/core/` |
+| Battery | `eubat=https://ref.openepcis.io/extensions/eu/battery/` |
+| EUDR | `eudr=https://ref.openepcis.io/extensions/eu/eudr/` |
+| Textile | `eutex=https://ref.openepcis.io/extensions/eu/textile/` |
+| Electronics | `euelec=https://ref.openepcis.io/extensions/eu/electronics/` |
+| Detergent | `eudet=https://ref.openepcis.io/extensions/eu/detergent/` |
+| FSMA §204 | `usfsma=https://ref.openepcis.io/extensions/us/fsma204/` |
 
 ### JSON-LD Context Integration
 
@@ -441,8 +441,8 @@ GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/, eubat=htt
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld"
   ]
 }
 ```
@@ -454,8 +454,8 @@ For cleaner syntax with GS1 RegulationTypeCode values, include the optional shor
 ```json
 {
   "@context": [
-    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.org/extensions/common/core/gs1-shortcuts-context.jsonld"
+    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.io/extensions/common/core/gs1-shortcuts-context.jsonld"
   ],
   "gs1:regulatoryInformation": {
     "gs1:regulationType": "BATTERY_DIRECTIVE",
@@ -504,7 +504,7 @@ Apache License 2.0 - See [LICENSE](./LICENSE)
 
 ## Links
 
-- [Browse the live ontology — ref.openepcis.org](https://ref.openepcis.org)
+- [Browse the live ontology — ref.openepcis.io](https://ref.openepcis.io)
 - [EN 18223 converter (live demo)](https://openepcis.github.io/openepcis-dpp-ready/)
 - [OpenEPCIS Documentation](https://openepcis.io/docs/digital-product-passport/)
 - [Contributing guide](./CONTRIBUTING.md)
