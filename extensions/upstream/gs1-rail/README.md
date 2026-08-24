@@ -13,9 +13,9 @@ GS1 Switzerland. The authoritative source is upstream:
 
 The native namespace `https://gs1-epcis-reg.org/rail/voc/data#` (prefix `rail:`)
 is preserved verbatim. We do **not** rebrand rail terms under
-`ref.openepcis.io`. This module exists so the OpenEPCIS DPP-Ready build
+`ref.openepcis.org`. This module exists so the OpenEPCIS DPP-Ready build
 pipeline can index rail terms into the search and browser at
-<https://ref.openepcis.io>, and so DPP modules can anchor to rail terms via
+<https://ref.openepcis.org>, and so DPP modules can anchor to rail terms via
 the bridge described below.
 
 ## What this module ships

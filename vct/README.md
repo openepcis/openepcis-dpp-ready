@@ -1,7 +1,7 @@
 # VCT Registry — SD-JWT VC Type Metadata
 
 Credential-type identifiers (`vct`) for SD-JWT verifiable credentials issued
-across the OpenEPCIS platform, served at `https://ref.openepcis.io/vct/{name}`
+across the OpenEPCIS platform, served at `https://ref.openepcis.org/vct/{name}`
 (copied by ref-openepcis `copy:ontologies`, extension-less filenames).
 
 These documents follow the Type Metadata format of

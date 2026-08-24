@@ -157,7 +157,7 @@ The plot of land GLN resolves to location master data with EUDR extensions:
 {
   "@context": {
     "gs1": "https://ref.gs1.org/voc/",
-    "eudr": "https://ref.openepcis.io/extensions/eu/eudr/"
+    "eudr": "https://ref.openepcis.org/extensions/eu/eudr/"
   },
   "type": "gs1:Place",
   "id": "https://id.gs1.org/414/9521234000099",
@@ -183,7 +183,7 @@ Product GTIN resolves to product master data with EUDR extensions:
 {
   "@context": {
     "gs1": "https://ref.gs1.org/voc/",
-    "eudr": "https://ref.openepcis.io/extensions/eu/eudr/"
+    "eudr": "https://ref.openepcis.org/extensions/eu/eudr/"
   },
   "type": "gs1:Product",
   "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",
@@ -250,4 +250,4 @@ This prefix is reserved for demonstrations and examples per [GS1 General Specifi
 - [GS1 Digital Link Standard](https://www.gs1.org/standards/gs1-digital-link)
 - [GS1 Digital Link URI Structure](https://ref.gs1.org/standards/digital-link/uri-specification/)
 - [GS1 Application Identifiers](https://www.gs1.org/standards/barcodes/application-identifiers)
-- [OpenEPCIS Resolver](https://ref.openepcis.io/)
+- [OpenEPCIS Resolver](https://ref.openepcis.org/)

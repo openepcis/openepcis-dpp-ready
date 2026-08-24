@@ -1,11 +1,11 @@
 {
-  "namespace": "https://ref.openepcis.io/extensions/eu/cpr/",
+  "namespace": "https://ref.openepcis.org/extensions/eu/cpr/",
   "version": "0.9.9",
   "title": "OpenEPCIS CPR Vocabulary",
   "description": "Vocabulary for the revised EU Construction Products Regulation\n(Regulation 2024/3110, in force 2025-01-07; DPP via delegated acts from 2026\nonward, phased per product family).\n\nThis module is intentionally thin per the project's four-layer delegation\npattern. The construction-specific concepts live here; cross-cutting concerns\n(recycled content, carbon footprint, hazardous substances, recyclability,\nEPR, end-of-life, due diligence) reuse the lifted `oec:` vocabulary plus\n`untp:` and `gs1:`.",
   "classes": [
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct",
       "localName": "ConstructionProduct",
       "label": "Construction Product",
       "comment": "A construction product subject to EU Regulation 2024/3110 (revised\nCPR). Carrier for the regulation's DPP and Declaration-of-Performance data.\nUse eucpr:declarationOfPerformanceUrl, eucpr:hasEssentialCharacteristic, and\neucpr:hasReactionToFireClass for the substantive declarations; reuse oec: terms\nfor recycled content, carbon footprint, hazardous substances, etc.",
@@ -29,7 +29,7 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/DeclarationOfPerformance",
       "localName": "DeclarationOfPerformance",
       "label": "Declaration of Performance",
       "comment": "Structured Declaration of Performance per CPR Article 12: declaration code,\ndate of issue, AVCP system, harmonised standard, intended use, and the assessment\nbodies involved. Complements eucpr:declarationOfPerformanceUrl (the document link).",
@@ -46,7 +46,7 @@
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/EssentialCharacteristic",
       "localName": "EssentialCharacteristic",
       "label": "Essential Characteristic",
       "comment": "A single declared essential characteristic (e.g. compressive strength, thermal conductivity, water vapour permeability) per CPR Annex III. Pair name + value + unit + harmonised standard reference.",
@@ -58,12 +58,12 @@
   ],
   "properties": [
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/characteristicName",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/characteristicName",
       "localName": "characteristicName",
       "label": "Characteristic Name",
       "comment": "",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic"
+        "https://ref.openepcis.org/extensions/eu/cpr/EssentialCharacteristic"
       ],
       "range": [
         "xsd:string"
@@ -75,12 +75,12 @@
       "accessLevelInherited": true
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/dateOfIssue",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/dateOfIssue",
       "localName": "dateOfIssue",
       "label": "Date of Issue",
       "comment": "Date on which the Declaration of Performance was issued.",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+        "https://ref.openepcis.org/extensions/eu/cpr/DeclarationOfPerformance"
       ],
       "range": [
         "xsd:date"
@@ -99,12 +99,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/declarationCode",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/declarationCode",
       "localName": "declarationCode",
       "label": "Declaration Code",
       "comment": "Unique reference number of the Declaration of Performance (CPR Article 12).",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+        "https://ref.openepcis.org/extensions/eu/cpr/DeclarationOfPerformance"
       ],
       "range": [
         "xsd:string"
@@ -123,12 +123,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/declarationOfPerformanceUrl",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/declarationOfPerformanceUrl",
       "localName": "declarationOfPerformanceUrl",
       "label": "Declaration of Performance URL",
       "comment": "URL of the structured Declaration of Performance (DoP) or\nDeclaration of Conformity (DoC) document for this construction product, per\nCPR Article 12. The DoP carries the harmonised technical specification\nreference, intended use, essential characteristics, and AVCP system.",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+        "https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct"
       ],
       "range": [
         "xsd:anyURI"
@@ -140,12 +140,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/harmonisedStandard",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/harmonisedStandard",
       "localName": "harmonisedStandard",
       "label": "Harmonised Standard",
       "comment": "URI of the harmonised technical specification (hEN) under which the essential characteristic is declared (e.g. EN 197-1 for cement, EN 13162 for mineral wool insulation).",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic"
+        "https://ref.openepcis.org/extensions/eu/cpr/EssentialCharacteristic"
       ],
       "range": [
         "xsd:anyURI"
@@ -163,15 +163,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasAvcpSystem",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/hasAvcpSystem",
       "localName": "hasAvcpSystem",
       "label": "AVCP System",
       "comment": "Applicable AVCP system (CPR Annex V) for the product's essential characteristics.",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+        "https://ref.openepcis.org/extensions/eu/cpr/DeclarationOfPerformance"
       ],
       "range": [
-        "https://ref.openepcis.io/extensions/eu/cpr/AVCPSystem"
+        "https://ref.openepcis.org/extensions/eu/cpr/AVCPSystem"
       ],
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#avsSystem"
@@ -183,12 +183,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasCharacteristicValue",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/hasCharacteristicValue",
       "localName": "hasCharacteristicValue",
       "label": "Characteristic Value",
       "comment": "Quantitative value of the essential characteristic. gs1:QuantitativeValue with the unitCode appropriate for the characteristic (e.g. 'N31' for MPa, 'F94' for W/(m·K)).",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic"
+        "https://ref.openepcis.org/extensions/eu/cpr/EssentialCharacteristic"
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
@@ -217,12 +217,12 @@
       "accessLevelInherited": true
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasCompressiveStrength",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/hasCompressiveStrength",
       "localName": "hasCompressiveStrength",
       "label": "Compressive Strength",
       "comment": "Declared compressive strength of the product. gs1:QuantitativeValue with unitCode 'N31' (MPa).",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+        "https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct"
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
@@ -240,15 +240,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasConstructionProductType",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/hasConstructionProductType",
       "localName": "hasConstructionProductType",
       "label": "Construction Product Type",
       "comment": "",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+        "https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct"
       ],
       "range": [
-        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProductType"
+        "https://ref.openepcis.org/extensions/eu/cpr/ConstructionProductType"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
       "accessLevel": "Public",
@@ -256,15 +256,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasDeclarationOfPerformance",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/hasDeclarationOfPerformance",
       "localName": "hasDeclarationOfPerformance",
       "label": "Declaration of Performance",
       "comment": "Links a construction product to its structured Declaration of Performance.",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+        "https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct"
       ],
       "range": [
-        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+        "https://ref.openepcis.org/extensions/eu/cpr/DeclarationOfPerformance"
       ],
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#hasDoP",
@@ -280,15 +280,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasEssentialCharacteristic",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/hasEssentialCharacteristic",
       "localName": "hasEssentialCharacteristic",
       "label": "Essential Characteristic",
       "comment": "Declared essential characteristic of the product. Set-valued: most products declare multiple.",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+        "https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct"
       ],
       "range": [
-        "https://ref.openepcis.io/extensions/eu/cpr/EssentialCharacteristic"
+        "https://ref.openepcis.org/extensions/eu/cpr/EssentialCharacteristic"
       ],
       "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R3110",
       "accessLevel": "Public",
@@ -297,15 +297,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasEuropeanAssessmentDocument",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/hasEuropeanAssessmentDocument",
       "localName": "hasEuropeanAssessmentDocument",
       "label": "European Assessment Document",
       "comment": "Reference to the European Assessment Document (EAD) underpinning a European Technical Assessment, where no harmonised standard applies. Reuse oec:DocumentReference.",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+        "https://ref.openepcis.org/extensions/eu/cpr/DeclarationOfPerformance"
       ],
       "range": [
-        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+        "https://ref.openepcis.org/extensions/common/core/DocumentReference"
       ],
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#europeanAssessmentDocument"
@@ -319,15 +319,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasNotifiedBody",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/hasNotifiedBody",
       "localName": "hasNotifiedBody",
       "label": "Notified Body",
       "comment": "Notified body (NB) involved in the AVCP. Reuse oec:OperatorInformation (carries name, identifier, address).",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+        "https://ref.openepcis.org/extensions/eu/cpr/DeclarationOfPerformance"
       ],
       "range": [
-        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+        "https://ref.openepcis.org/extensions/common/core/OperatorInformation"
       ],
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#notifiedBody"
@@ -341,15 +341,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasReactionToFireClass",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/hasReactionToFireClass",
       "localName": "hasReactionToFireClass",
       "label": "Reaction-to-fire Class",
       "comment": "EN 13501-1 reaction-to-fire classification of the construction product.",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+        "https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct"
       ],
       "range": [
-        "https://ref.openepcis.io/extensions/eu/cpr/ReactionToFireClass"
+        "https://ref.openepcis.org/extensions/eu/cpr/ReactionToFireClass"
       ],
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#reactionToFire"
@@ -364,15 +364,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasTechnicalAssessmentBody",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/hasTechnicalAssessmentBody",
       "localName": "hasTechnicalAssessmentBody",
       "label": "Technical Assessment Body",
       "comment": "Technical Assessment Body (TAB) that issued the European Technical Assessment. Reuse oec:OperatorInformation.",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+        "https://ref.openepcis.org/extensions/eu/cpr/DeclarationOfPerformance"
       ],
       "range": [
-        "https://ref.openepcis.io/extensions/common/core/OperatorInformation"
+        "https://ref.openepcis.org/extensions/common/core/OperatorInformation"
       ],
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#technicalAssessmentBody"
@@ -386,12 +386,12 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasThermalConductivity",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/hasThermalConductivity",
       "localName": "hasThermalConductivity",
       "label": "Thermal Conductivity",
       "comment": "Declared thermal conductivity λ of the product. gs1:QuantitativeValue with unitCode 'F94' (W/(m·K)).",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProduct"
+        "https://ref.openepcis.org/extensions/eu/cpr/ConstructionProduct"
       ],
       "range": [
         "https://ref.gs1.org/voc/QuantitativeValue"
@@ -409,15 +409,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/3110"
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/hasValidationReports",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/hasValidationReports",
       "localName": "hasValidationReports",
       "label": "Validation Reports",
       "comment": "References to test / validation reports supporting the declared performance. Reuse oec:DocumentReference.",
       "domain": [
-        "https://ref.openepcis.io/extensions/eu/cpr/DeclarationOfPerformance"
+        "https://ref.openepcis.org/extensions/eu/cpr/DeclarationOfPerformance"
       ],
       "range": [
-        "https://ref.openepcis.io/extensions/common/core/DocumentReference"
+        "https://ref.openepcis.org/extensions/common/core/DocumentReference"
       ],
       "seeAlso": [
         "https://dpp-keystone.org/spec/v2/terms#validationReports"
@@ -436,37 +436,37 @@
   ],
   "enumerations": [
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/AVCPSystem",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/AVCPSystem",
       "localName": "AVCPSystem",
       "label": "AVCP System",
       "comment": "Assessment and Verification of Constancy of Performance system per CPR Annex V (1+, 1, 2+, 3, 4), determining the role of notified bodies.",
       "values": [
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/System1",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/System1",
           "localName": "System1",
           "label": "System 1",
           "comment": ""
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/System1Plus",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/System1Plus",
           "localName": "System1Plus",
           "label": "System 1+",
           "comment": ""
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/System2Plus",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/System2Plus",
           "localName": "System2Plus",
           "label": "System 2+",
           "comment": ""
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/System3",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/System3",
           "localName": "System3",
           "label": "System 3",
           "comment": ""
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/System4",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/System4",
           "localName": "System4",
           "label": "System 4",
           "comment": ""
@@ -474,73 +474,73 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/ConstructionProductType",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/ConstructionProductType",
       "localName": "ConstructionProductType",
       "label": "Construction Product Type",
       "comment": "Top-level construction product family per CPR Annex III.",
       "values": [
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/Aggregate",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/Aggregate",
           "localName": "Aggregate",
           "label": "Aggregate",
           "comment": ""
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/Cement",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/Cement",
           "localName": "Cement",
           "label": "Cement",
           "comment": ""
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/CladdingPanel",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/CladdingPanel",
           "localName": "CladdingPanel",
           "label": "Cladding Panel",
           "comment": ""
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/Concrete",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/Concrete",
           "localName": "Concrete",
           "label": "Concrete",
           "comment": ""
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/Insulation",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/Insulation",
           "localName": "Insulation",
           "label": "Insulation",
           "comment": ""
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/Membrane",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/Membrane",
           "localName": "Membrane",
           "label": "Membrane",
           "comment": ""
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/Mortar",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/Mortar",
           "localName": "Mortar",
           "label": "Mortar",
           "comment": ""
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/OtherConstructionProduct",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/OtherConstructionProduct",
           "localName": "OtherConstructionProduct",
           "label": "Other Construction Product",
           "comment": ""
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/Reinforcement",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/Reinforcement",
           "localName": "Reinforcement",
           "label": "Reinforcement",
           "comment": ""
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/StructuralTimber",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/StructuralTimber",
           "localName": "StructuralTimber",
           "label": "Structural Timber",
           "comment": ""
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/WindowAndDoor",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/WindowAndDoor",
           "localName": "WindowAndDoor",
           "label": "Window or Door",
           "comment": ""
@@ -548,49 +548,49 @@
       ]
     },
     {
-      "id": "https://ref.openepcis.io/extensions/eu/cpr/ReactionToFireClass",
+      "id": "https://ref.openepcis.org/extensions/eu/cpr/ReactionToFireClass",
       "localName": "ReactionToFireClass",
       "label": "Reaction-to-fire Class",
       "comment": "Reaction-to-fire performance per EN 13501-1, ranging from A1 (highest,\nnon-combustible, no contribution to fire) through F (no performance\ndetermined). CPR requires this declaration for products where reaction to\nfire is an essential characteristic per Annex III.",
       "values": [
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/FireClassA1",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/FireClassA1",
           "localName": "FireClassA1",
           "label": "Class A1",
           "comment": "No contribution to fire; non-combustible."
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/FireClassA2",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/FireClassA2",
           "localName": "FireClassA2",
           "label": "Class A2",
           "comment": "Very limited contribution to fire."
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/FireClassB",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/FireClassB",
           "localName": "FireClassB",
           "label": "Class B",
           "comment": "Limited contribution to fire."
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/FireClassC",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/FireClassC",
           "localName": "FireClassC",
           "label": "Class C",
           "comment": "Major contribution to fire (limited)."
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/FireClassD",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/FireClassD",
           "localName": "FireClassD",
           "label": "Class D",
           "comment": "Major contribution to fire (acceptable)."
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/FireClassE",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/FireClassE",
           "localName": "FireClassE",
           "label": "Class E",
           "comment": "Acceptable reaction to fire."
         },
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/FireClassF",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/FireClassF",
           "localName": "FireClassF",
           "label": "Class F",
           "comment": "No performance determined."
@@ -604,7 +604,7 @@
       "comment": "",
       "values": [
         {
-          "id": "https://ref.openepcis.io/extensions/eu/cpr/RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION",
+          "id": "https://ref.openepcis.org/extensions/eu/cpr/RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION",
           "localName": "RegulationTypeCode-CONSTRUCTION_PRODUCTS_REGULATION",
           "label": "Construction Products Regulation",
           "comment": "Regulation (EU) 2024/3110 laying down harmonised rules for the\nmarketing of construction products (CPR), replacing Regulation (EU) No\n305/2011. Use as the gs1:regulationType of a gs1:RegulatoryInformation\nentry declaring CPR compliance."

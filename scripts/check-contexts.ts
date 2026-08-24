@@ -2,7 +2,7 @@
  * PUBLISHED CONTEXT GUARD — every context we publish must be usable as an
  * @context by a JSON-LD processor.
  *
- * Every file under extensions/**\/context/ is served from ref.openepcis.io and
+ * Every file under extensions/**\/context/ is served from ref.openepcis.org and
  * named in module READMEs as a context URL to put in a document. Nothing
  * checked that the file actually works in that role, and two of them did not:
  *
@@ -135,7 +135,7 @@ async function main(): Promise<number> {
     console.error(`✗ context guard: ${problems.length} published context(s) a JSON-LD processor cannot use\n`);
     problems.forEach((p) => console.error(`  - ${p}`));
     console.error(
-      `\nEvery file under extensions/**/context/ is served from ref.openepcis.io and named in the ` +
+      `\nEvery file under extensions/**/context/ is served from ref.openepcis.org and named in the ` +
         `module docs as an @context URL, so a consumer hits this on the first line it reads.`,
     );
     return 1;

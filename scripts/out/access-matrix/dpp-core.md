@@ -2,7 +2,7 @@
 
 Regulatory frame: ESPR 2024/1781 Art. 7–9, Annex III
 
-Coverage: 199 properties — 134 Public / 36 AuthorizedOnly / 6 Restricted / 23 inherited / 0 UNCLASSIFIED; 10 legally locked.
+Coverage: 200 properties — 135 Public / 36 AuthorizedOnly / 6 Restricted / 23 inherited / 0 UNCLASSIFIED; 10 legally locked.
 
 | Term | Label | Tier | Mandated (locked) | Source | Rationale |
 |---|---|---|---|---|---|
@@ -115,6 +115,7 @@ Coverage: 199 properties — 134 Public / 36 AuthorizedOnly / 6 Restricted / 23 
 | `hasProductCategory` | Product Category | **Public** |  | eli/reg/2024/1781 | The ESPR product-group classification determines which delegated act applies and is inherently public market information. |
 | `hasRecyclabilityAssessment` | Recyclability Assessment | **Public** |  | eli/reg/2024/1781 | The recyclability assessment substantiates public recyclability claims (ESPR Annex I(i)); textile module serves the same name Public. |
 | `hasRecycledContentDetails` | Recycled Content Details | **Public** |  | eli/reg/2024/1781 | Detailed pre-/post-consumer breakdown of a figure whose components (recycledContent, pre-/postConsumerRecycledContent) are individually Public. |
+| `hasRenderedAccessLevel` | Rendered Access Level | **Public** |  | eli/reg/2024/1781 | Public by necessity: the reader who most needs to know they were served a slice is the anonymous one. Gating this behind a tier would hide the very fact that something was withheld, which is the silence it exists to break. |
 | `hasRepairabilityInfo` | Repairability Information | **Public** |  | eli/reg/2024/1781 | Repair and maintenance information is directed at end users and independent repairers under ESPR Annex I(b) and the right-to-repair framework. |
 | `hasRepairInstructions` | Repair Instructions | **Public** |  | eli/reg/2024/1781 | Access to repair instructions for consumers and independent operators is a core ESPR/right-to-repair objective (Annex I(b), Dir. 2024/1799). |
 | `hasRepairProvider` | Repair Provider | **Public** |  | eli/dir/2024/1799 | Links to authorised repair providers serve consumer repairer discovery under the right-to-repair framework (Dir. 2024/1799). |

@@ -76,7 +76,7 @@ const PREFIXES: Record<string, string> = {
 
 const EXTRA_PREFIXES: Record<string, string> = {
   // Add your project-specific prefixes here, e.g.:
-  // dpp:  "https://ref.openepcis.io/extensions/common/core/",
+  // dpp:  "https://ref.openepcis.org/extensions/common/core/",
 };
 
 async function readInput(arg: string): Promise<string> {

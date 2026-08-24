@@ -15,7 +15,7 @@
  * `tc-upload-<type>` is the conformance test proper: the system under test
  * uploads its own passport and it is validated against the published shapes. It
  * takes JSON-LD, which means the validator resolves the document's @context from
- * ref.openepcis.io — correct for a real conformance check, since a third party's
+ * ref.openepcis.org — correct for a real conformance check, since a third party's
  * passport must reference the published contexts.
  *
  * `tc-selftest-<type>` proves the suite discriminates. A green suite that only
@@ -138,7 +138,7 @@ function requiredPredicates(shapes: Store): string[] {
   return [...out].sort();
 }
 
-const OEC = "https://ref.openepcis.io/extensions/common/core/";
+const OEC = "https://ref.openepcis.org/extensions/common/core/";
 
 const MUTATIONS: Mutation[] = [
   {
@@ -268,7 +268,7 @@ function uploadCase(c: TypeCase, version: string): string {
   <metadata>
     <gitb:name>[${xml(c.type)}] Validate an uploaded Digital Product Passport</gitb:name>
     <gitb:version>${xml(version)}</gitb:version>
-    <gitb:description>Upload a passport as JSON-LD and validate it against the "${xml(c.type)}" shapes (${xml(c.label)}). The passport's own @context is resolved from ref.openepcis.io, so it must reference the published contexts — the same condition a real consumer of the passport faces.</gitb:description>
+    <gitb:description>Upload a passport as JSON-LD and validate it against the "${xml(c.type)}" shapes (${xml(c.label)}). The passport's own @context is resolved from ref.openepcis.org, so it must reference the published contexts — the same condition a real consumer of the passport faces.</gitb:description>
   </metadata>
   <actors>
     <gitb:actor id="${ACTOR}" name="Digital Product Passport data provider" role="SUT"/>

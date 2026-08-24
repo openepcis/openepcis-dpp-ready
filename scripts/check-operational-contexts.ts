@@ -63,7 +63,7 @@ const STANDARD_CONTEXTS = [
 const STRUCT = new Set(["id", "type"]);
 
 const EPCIS_BASE = "https://ref.gs1.org/standards/epcis/epcis-context.jsonld";
-const DPP_CORE = "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld";
+const DPP_CORE = "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld";
 const MDAF = "gs1:masterDataAvailableFor";
 const EPCIS_CONTEXT_FILE = "vendor/gs1/epcis-context.jsonld";
 const GS1_SHORTCUTS_FILE = "extensions/common/core/context/gs1-shortcuts-context.jsonld";
@@ -71,7 +71,7 @@ const GS1_SHORTCUTS_FILE = "extensions/common/core/context/gs1-shortcuts-context
 // allowed the upstream rail context in addition to the standard chain.
 const RAIL_EXTRA = new Set([
   "https://gs1-epcis-reg.org/rail/rail-context.jsonld",
-  "https://ref.openepcis.io/extensions/common/interop/rail-bridge-context.jsonld",
+  "https://ref.openepcis.org/extensions/common/interop/rail-bridge-context.jsonld",
 ]);
 const isNamespace = (v: any) => typeof v === "string" && /^https?:\/\//.test(v) && (v.endsWith("/") || v.endsWith("#"));
 

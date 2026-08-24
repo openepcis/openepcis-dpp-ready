@@ -11,10 +11,10 @@
 @prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix gs1: <https://ref.gs1.org/voc/>.
 @prefix schema: <https://schema.org/>.
-@prefix oec: <https://ref.openepcis.io/extensions/common/core/>.
-@prefix dpp-sh: <https://ref.openepcis.io/extensions/common/core/shapes/>.
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/>.
+@prefix dpp-sh: <https://ref.openepcis.org/extensions/common/core/shapes/>.
 
-<https://ref.openepcis.io/extensions/common/core/shapes/> a sh:ShapesGraph;
+<https://ref.openepcis.org/extensions/common/core/shapes/> a sh:ShapesGraph;
     dcterms:title "OpenEPCIS DPP Core SHACL Shapes"@en;
     dcterms:description "SHACL validation shapes for OpenEPCIS DPP Core vocabulary. Validates value ranges, required properties, and cardinality constraints."@en;
     owl:versionInfo "0.9.9";
@@ -22,9 +22,9 @@
     dcterms:modified "2026-08-10"^^xsd:date;
     sh:declare _:b0, _:b1, _:b2.
 _:b0 sh:prefix "dpp";
-    sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI.
+    sh:namespace "https://ref.openepcis.org/extensions/common/core/"^^xsd:anyURI.
 _:b1 sh:prefix "oec";
-    sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI.
+    sh:namespace "https://ref.openepcis.org/extensions/common/core/"^^xsd:anyURI.
 _:b2 sh:prefix "gs1";
     sh:namespace "https://ref.gs1.org/voc/"^^xsd:anyURI.
 dpp-sh:EconomicOperatorRoleRequired a sh:NodeShape;
@@ -410,7 +410,7 @@ dpp-sh:GranularityDigitalLinkConstraint a sh:NodeShape;
     sh:sparql _:b77.
 _:b77 a sh:SPARQLConstraint;
     sh:message "granularity must match the GS1 Digital Link Application Identifiers of the passport IRI (01 -> model, 01+10 -> batch, 01+21 -> item) per EN 18219 4.4 / EN 18223."@en;
-    sh:prefixes <https://ref.openepcis.io/extensions/common/core/shapes/>;
+    sh:prefixes <https://ref.openepcis.org/extensions/common/core/shapes/>;
     sh:select "\n            SELECT $this ?value WHERE {\n                $this oec:granularityLevel ?value .\n                # The Digital Link is the node's own IRI; gs1:productID is honoured\n                # as an alternative carrier where a passport states it separately.\n                OPTIONAL { $this gs1:productID ?stated }\n                BIND( COALESCE(?stated, STR($this)) AS ?dl )\n                FILTER( REGEX(STR(?dl), \"/01/\") )\n                BIND( IF(REGEX(STR(?dl), \"/21/\"), \"item\",\n                       IF(REGEX(STR(?dl), \"/10/\"), \"batch\", \"model\")) AS ?expected )\n                FILTER( STR(?value) != ?expected )\n            }\n        ".
 dpp-sh:QuantitativeValueShape a sh:NodeShape;
     sh:property _:b78, _:b79;
@@ -541,22 +541,22 @@ _:b112 sh:path oec:biodegradationPercentage;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxInclusive 100.
-<https://ref.openepcis.io/extensions/eu/electronics/shapes/> a sh:ShapesGraph;
+<https://ref.openepcis.org/extensions/eu/electronics/shapes/> a sh:ShapesGraph;
     dcterms:title "OpenEPCIS Electronics SHACL Shapes"@en;
     dcterms:description "SHACL validation shapes for Electronics vocabulary."@en;
     dcterms:created "2025-02-02"^^xsd:date;
     dcterms:modified "2026-06-07"^^xsd:date.
-<https://ref.openepcis.io/extensions/eu/electronics/ElectronicDeviceShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/ElectronicDeviceShape> a sh:NodeShape;
     rdfs:label "Electronic Device Shape";
     sh:property _:b113, _:b114, _:b115, _:b116, _:b117, _:b118, _:b119, _:b120, _:b121, _:b122, _:b123;
     rdfs:comment "Validation shape for ElectronicDevice instances as defined by ESPR Electronics delegated acts.";
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/electronics/ElectronicDevice>.
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/electronics/ElectronicDevice>.
 _:b113 sh:path schema:category;
     sh:name "Device Category";
     sh:description "The product category of the electronic device.";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/electronics/DeviceCategory>.
-_:b114 sh:path <https://ref.openepcis.io/extensions/eu/electronics/modelIdentifier>;
+    sh:class <https://ref.openepcis.org/extensions/eu/electronics/DeviceCategory>.
+_:b114 sh:path <https://ref.openepcis.org/extensions/eu/electronics/modelIdentifier>;
     sh:datatype xsd:string;
     sh:name "Model Identifier";
     sh:description "Manufacturer model identifier for the device.";
@@ -565,44 +565,44 @@ _:b115 sh:path _:b124;
     sh:name "Commercial Name";
     sh:description "Commercial or trade name of the device.";
     sh:node dpp-sh:TranslatableText.
-_:b116 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasRepairabilityIndex>;
+_:b116 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasRepairabilityIndex>;
     sh:name "Repairability Index";
     sh:description "Repairability index assessment for the device.";
-    sh:class <https://ref.openepcis.io/extensions/eu/electronics/RepairabilityIndex>.
-_:b117 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasSoftwareSupport>;
+    sh:class <https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndex>.
+_:b117 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasSoftwareSupport>;
     sh:name "Software Support";
     sh:description "Software and firmware support information.";
-    sh:class <https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport>.
-_:b118 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasEnergyEfficiency>;
+    sh:class <https://ref.openepcis.org/extensions/eu/electronics/SoftwareSupport>.
+_:b118 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasEnergyEfficiency>;
     sh:name "Energy Efficiency";
     sh:description "Energy efficiency rating and consumption data.";
-    sh:class <https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency>.
-_:b119 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasBillOfMaterials>;
+    sh:class <https://ref.openepcis.org/extensions/eu/electronics/EnergyEfficiency>.
+_:b119 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasBillOfMaterials>;
     sh:name "Bill of Materials";
     sh:description "Component bill of materials for the device.";
-    sh:class <https://ref.openepcis.io/extensions/eu/electronics/ComponentBOM>.
-_:b120 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasWeeeCompliance>;
+    sh:class <https://ref.openepcis.org/extensions/eu/electronics/ComponentBOM>.
+_:b120 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasWeeeCompliance>;
     sh:name "WEEE Compliance";
     sh:description "Waste Electrical and Electronic Equipment compliance data.";
-    sh:class <https://ref.openepcis.io/extensions/eu/electronics/WEEECompliance>.
-_:b121 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasRohsCompliance>;
+    sh:class <https://ref.openepcis.org/extensions/eu/electronics/WEEECompliance>.
+_:b121 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasRohsCompliance>;
     sh:name "RoHS Compliance";
     sh:description "Restriction of Hazardous Substances compliance data.";
-    sh:class <https://ref.openepcis.io/extensions/eu/electronics/RoHSCompliance>.
-_:b122 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasDisplaySpecification>;
+    sh:class <https://ref.openepcis.org/extensions/eu/electronics/RoHSCompliance>.
+_:b122 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasDisplaySpecification>;
     sh:name "Display Specification";
     sh:description "Display panel technical specifications.";
-    sh:class <https://ref.openepcis.io/extensions/eu/electronics/DisplaySpecification>.
-_:b123 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasMaterialDeclaration>;
+    sh:class <https://ref.openepcis.org/extensions/eu/electronics/DisplaySpecification>.
+_:b123 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasMaterialDeclaration>;
     sh:name "Material Declaration";
     sh:description "Declared substances of concern present in the device.";
     sh:class oec:SubstanceOfConcern.
-<https://ref.openepcis.io/extensions/eu/electronics/RepairabilityIndexShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndexShape> a sh:NodeShape;
     rdfs:label "Repairability Index Shape";
     sh:property _:b125, _:b126, _:b127, _:b128, _:b129, _:b130, _:b131;
     rdfs:comment "Validation shape for repairability index assessments per EU methodology.";
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/electronics/RepairabilityIndex>.
-_:b125 sh:path <https://ref.openepcis.io/extensions/eu/electronics/totalScore>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/electronics/RepairabilityIndex>.
+_:b125 sh:path <https://ref.openepcis.org/extensions/eu/electronics/totalScore>;
     sh:message "Total score must be a decimal between 0 and 100.";
     sh:datatype xsd:decimal;
     sh:name "Total Score";
@@ -610,7 +610,7 @@ _:b125 sh:path <https://ref.openepcis.io/extensions/eu/electronics/totalScore>;
     sh:minInclusive 0;
     sh:maxInclusive 100;
     sh:maxCount 1.
-_:b126 sh:path <https://ref.openepcis.io/extensions/eu/electronics/displayScore>;
+_:b126 sh:path <https://ref.openepcis.org/extensions/eu/electronics/displayScore>;
     sh:message "Display score must be a decimal between 0 and 10.";
     sh:datatype xsd:decimal;
     sh:name "Display Score";
@@ -618,42 +618,42 @@ _:b126 sh:path <https://ref.openepcis.io/extensions/eu/electronics/displayScore>
     sh:minInclusive 0;
     sh:maxInclusive 10;
     sh:maxCount 1.
-_:b127 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasRepairabilityClass>;
+_:b127 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasRepairabilityClass>;
     sh:name "Repairability Class";
     sh:description "EU repairability class designation.";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/electronics/EURepairabilityClass>.
-_:b128 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasRepairCriteria>;
+    sh:class <https://ref.openepcis.org/extensions/eu/electronics/EURepairabilityClass>.
+_:b128 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasRepairCriteria>;
     sh:name "Repair Criteria";
     sh:description "Individual repair criteria scores contributing to the index.";
-    sh:class <https://ref.openepcis.io/extensions/eu/electronics/RepairCriterion>.
-_:b129 sh:path <https://ref.openepcis.io/extensions/eu/electronics/assessmentDate>;
+    sh:class <https://ref.openepcis.org/extensions/eu/electronics/RepairCriterion>.
+_:b129 sh:path <https://ref.openepcis.org/extensions/eu/electronics/assessmentDate>;
     sh:datatype xsd:date;
     sh:name "Assessment Date";
     sh:description "Date the repairability assessment was performed.";
     sh:maxCount 1.
-_:b130 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasAssessmentBody>;
+_:b130 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasAssessmentBody>;
     sh:name "Assessment Body";
     sh:description "Organization that performed the repairability assessment.";
     sh:maxCount 1;
     sh:class gs1:Organization.
-_:b131 sh:path <https://ref.openepcis.io/extensions/eu/electronics/repairabilityLabelUrl>;
+_:b131 sh:path <https://ref.openepcis.org/extensions/eu/electronics/repairabilityLabelUrl>;
     sh:datatype xsd:anyURI;
     sh:name "Repairability Label URL";
     sh:description "URL of the repairability label image.";
     sh:maxCount 1.
-<https://ref.openepcis.io/extensions/eu/electronics/RepairCriterionShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/RepairCriterionShape> a sh:NodeShape;
     rdfs:label "Repair Criterion Shape";
     sh:property _:b132, _:b133, _:b134, _:b135;
     rdfs:comment "Validation shape for individual repair criterion scores.";
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/electronics/RepairCriterion>.
-_:b132 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasCriterionType>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/electronics/RepairCriterion>.
+_:b132 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasCriterionType>;
     sh:minCount 1;
     sh:name "Criterion Type";
     sh:description "The type of repair criterion being scored.";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/electronics/RepairCriterionType>.
-_:b133 sh:path <https://ref.openepcis.io/extensions/eu/electronics/criterionScore>;
+    sh:class <https://ref.openepcis.org/extensions/eu/electronics/RepairCriterionType>.
+_:b133 sh:path <https://ref.openepcis.org/extensions/eu/electronics/criterionScore>;
     sh:minCount 1;
     sh:message "Criterion score must be a decimal between 0 and 20.";
     sh:datatype xsd:decimal;
@@ -662,132 +662,132 @@ _:b133 sh:path <https://ref.openepcis.io/extensions/eu/electronics/criterionScor
     sh:minInclusive 0;
     sh:maxInclusive 20;
     sh:maxCount 1.
-_:b134 sh:path <https://ref.openepcis.io/extensions/eu/electronics/criterionMaxScore>;
+_:b134 sh:path <https://ref.openepcis.org/extensions/eu/electronics/criterionMaxScore>;
     sh:datatype xsd:decimal;
     sh:name "Criterion Max Score";
     sh:description "Maximum possible score for this criterion.";
     sh:maxCount 1.
-_:b135 sh:path <https://ref.openepcis.io/extensions/eu/electronics/criterionDetails>;
+_:b135 sh:path <https://ref.openepcis.org/extensions/eu/electronics/criterionDetails>;
     sh:datatype xsd:string;
     sh:name "Criterion Details";
     sh:description "Textual details or justification for the score.";
     sh:maxCount 1.
-<https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupportShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/SoftwareSupportShape> a sh:NodeShape;
     rdfs:label "Software Support Shape";
     sh:property _:b136, _:b137, _:b138, _:b139, _:b140, _:b141, _:b142, _:b143, _:b144;
     rdfs:comment "Validation shape for software and firmware support commitments.";
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/electronics/SoftwareSupport>.
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/electronics/SoftwareSupport>.
 _:b136 sh:path schema:operatingSystem;
     sh:datatype xsd:string;
     sh:name "Operating System";
     sh:description "Name of the operating system.";
     sh:maxCount 1.
-_:b137 sh:path <https://ref.openepcis.io/extensions/eu/electronics/osVersion>;
+_:b137 sh:path <https://ref.openepcis.org/extensions/eu/electronics/osVersion>;
     sh:datatype xsd:string;
     sh:name "OS Version";
     sh:description "Version of the operating system at time of manufacture.";
     sh:maxCount 1.
-_:b138 sh:path <https://ref.openepcis.io/extensions/eu/electronics/firmwareVersion>;
+_:b138 sh:path <https://ref.openepcis.org/extensions/eu/electronics/firmwareVersion>;
     sh:datatype xsd:string;
     sh:name "Firmware Version";
     sh:description "Current firmware version identifier.";
     sh:maxCount 1.
-_:b139 sh:path <https://ref.openepcis.io/extensions/eu/electronics/securityUpdateEndDate>;
+_:b139 sh:path <https://ref.openepcis.org/extensions/eu/electronics/securityUpdateEndDate>;
     sh:datatype xsd:date;
     sh:name "Security Update End Date";
     sh:description "Date until which security updates are guaranteed.";
     sh:maxCount 1.
-_:b140 sh:path <https://ref.openepcis.io/extensions/eu/electronics/featureUpdateEndDate>;
+_:b140 sh:path <https://ref.openepcis.org/extensions/eu/electronics/featureUpdateEndDate>;
     sh:datatype xsd:date;
     sh:name "Feature Update End Date";
     sh:description "Date until which feature updates are guaranteed.";
     sh:maxCount 1.
-_:b141 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasSecuritySupportYears>;
+_:b141 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasSecuritySupportYears>;
     sh:name "Security Support Years";
     sh:description "Duration in years of security update support.";
     sh:maxCount 1;
     sh:class gs1:QuantitativeValue.
-_:b142 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasFeatureSupportYears>;
+_:b142 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasFeatureSupportYears>;
     sh:name "Feature Support Years";
     sh:description "Duration in years of feature update support.";
     sh:maxCount 1;
     sh:class gs1:QuantitativeValue.
-_:b143 sh:path <https://ref.openepcis.io/extensions/eu/electronics/updateChannel>;
+_:b143 sh:path <https://ref.openepcis.org/extensions/eu/electronics/updateChannel>;
     sh:datatype xsd:anyURI;
     sh:name "Update Channel";
     sh:description "URL of the update distribution channel.";
     sh:maxCount 1.
-_:b144 sh:path <https://ref.openepcis.io/extensions/eu/electronics/latestUpdateDate>;
+_:b144 sh:path <https://ref.openepcis.org/extensions/eu/electronics/latestUpdateDate>;
     sh:datatype xsd:date;
     sh:name "Latest Update Date";
     sh:description "Date of the most recent software or firmware update.";
     sh:maxCount 1.
-<https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiencyShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/EnergyEfficiencyShape> a sh:NodeShape;
     rdfs:label "Energy Efficiency Shape";
     sh:property _:b145, _:b146, _:b147, _:b148, _:b149, _:b150, _:b151, _:b152;
     rdfs:comment "Validation shape for energy efficiency labelling and consumption data.";
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiency>.
-_:b145 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasEnergyEfficiencyClass>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/electronics/EnergyEfficiency>.
+_:b145 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasEnergyEfficiencyClass>;
     sh:name "Energy Efficiency Class";
     sh:description "EU energy efficiency class (A to G).";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/electronics/EnergyEfficiencyClass>.
-_:b146 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasAnnualEnergyConsumption>;
+    sh:class <https://ref.openepcis.org/extensions/eu/electronics/EnergyEfficiencyClass>.
+_:b146 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasAnnualEnergyConsumption>;
     sh:name "Annual Energy Consumption";
     sh:description "Estimated annual energy consumption in kilowatt-hours.";
     sh:maxCount 1;
     sh:class gs1:QuantitativeValue.
-_:b147 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasPowerConsumptionOn>;
+_:b147 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasPowerConsumptionOn>;
     sh:name "Power Consumption On";
     sh:description "Power consumption in on-mode in watts.";
     sh:maxCount 1;
     sh:class gs1:QuantitativeValue.
-_:b148 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasPowerConsumptionStandby>;
+_:b148 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasPowerConsumptionStandby>;
     sh:name "Power Consumption Standby";
     sh:description "Power consumption in standby mode in watts.";
     sh:maxCount 1;
     sh:class gs1:QuantitativeValue.
-_:b149 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasPowerConsumptionOff>;
+_:b149 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasPowerConsumptionOff>;
     sh:name "Power Consumption Off";
     sh:description "Power consumption in off mode in watts.";
     sh:maxCount 1;
     sh:class gs1:QuantitativeValue.
-_:b150 sh:path <https://ref.openepcis.io/extensions/eu/electronics/eprelRegistrationNumber>;
+_:b150 sh:path <https://ref.openepcis.org/extensions/eu/electronics/eprelRegistrationNumber>;
     sh:datatype xsd:string;
     sh:name "EPREL Registration Number";
     sh:description "Registration number in the EU EPREL product database.";
     sh:maxCount 1.
-_:b151 sh:path <https://ref.openepcis.io/extensions/eu/electronics/energyLabelUrl>;
+_:b151 sh:path <https://ref.openepcis.org/extensions/eu/electronics/energyLabelUrl>;
     sh:datatype xsd:anyURI;
     sh:name "Energy Label URL";
     sh:description "URL of the EU energy label image.";
     sh:maxCount 1.
-_:b152 sh:path <https://ref.openepcis.io/extensions/eu/electronics/eprelProductUrl>;
+_:b152 sh:path <https://ref.openepcis.org/extensions/eu/electronics/eprelProductUrl>;
     sh:datatype xsd:anyURI;
     sh:name "EPREL Product URL";
     sh:description "URL of the product entry in the EPREL database.";
     sh:maxCount 1.
-<https://ref.openepcis.io/extensions/eu/electronics/ComponentBOMShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/ComponentBOMShape> a sh:NodeShape;
     rdfs:label "Component BOM Shape";
     sh:property _:b153;
     rdfs:comment "Validation shape for the component bill of materials.";
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/electronics/ComponentBOM>.
-_:b153 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasComponents>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/electronics/ComponentBOM>.
+_:b153 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasComponents>;
     sh:minCount 1;
     sh:name "Components";
     sh:description "List of electronic components that make up the device.";
     sh:class gs1:Product.
-<https://ref.openepcis.io/extensions/eu/electronics/ElectronicComponentShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/ElectronicComponentShape> a sh:NodeShape;
     rdfs:label "Electronic Component Shape";
-    sh:targetObjectsOf <https://ref.openepcis.io/extensions/eu/electronics/hasComponents>;
+    sh:targetObjectsOf <https://ref.openepcis.org/extensions/eu/electronics/hasComponents>;
     sh:property _:b154, _:b155, _:b156, _:b157, _:b158, _:b159, _:b160, _:b161, _:b162;
     rdfs:comment "Validation shape for individual electronic component entries. Targets both the\neuelec:ElectronicComponent class and whatever a bill of materials lists via euelec:hasComponents, whose\nrange is the generic gs1:Product.";
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/electronics/ElectronicComponent>.
-_:b154 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasComponentType>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/electronics/ElectronicComponent>.
+_:b154 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasComponentType>;
     sh:name "Component Type";
     sh:description "Category of the component (e.g., battery, display, PCB).";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/electronics/ComponentType>.
+    sh:class <https://ref.openepcis.org/extensions/eu/electronics/ComponentType>.
 _:b155 sh:path _:b163;
     sh:minCount 1;
     sh:name "Component Name";
@@ -804,64 +804,64 @@ _:b165 sh:class gs1:Organization.
 _:b166 rdf:first _:b167;
     rdf:rest rdf:nil.
 _:b167 sh:nodeKind sh:IRI.
-_:b157 sh:path <https://ref.openepcis.io/extensions/eu/electronics/componentPartNumber>;
+_:b157 sh:path <https://ref.openepcis.org/extensions/eu/electronics/componentPartNumber>;
     sh:datatype xsd:string;
     sh:name "Component Part Number";
     sh:description "Manufacturer part number for the component.";
     sh:maxCount 1.
-_:b158 sh:path <https://ref.openepcis.io/extensions/eu/electronics/isReplaceable>;
+_:b158 sh:path <https://ref.openepcis.org/extensions/eu/electronics/isReplaceable>;
     sh:datatype xsd:boolean;
     sh:name "Is Replaceable";
     sh:description "Whether the component can be replaced by the user or a professional.";
     sh:maxCount 1.
-_:b159 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasReplacementDifficulty>;
+_:b159 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasReplacementDifficulty>;
     sh:name "Replacement Difficulty";
     sh:description "Difficulty level for replacing the component.";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/electronics/ReplacementDifficulty>.
-_:b160 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasComponentPassport>;
+    sh:class <https://ref.openepcis.org/extensions/eu/electronics/ReplacementDifficulty>.
+_:b160 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasComponentPassport>;
     sh:name "Component Passport";
     sh:description "GS1 Digital Link of the digital product passport for this component.";
     sh:maxCount 1;
     sh:nodeKind sh:IRI.
-_:b161 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasSparePartAvailabilityYears>;
+_:b161 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasSparePartAvailabilityYears>;
     sh:name "Spare Part Availability Years";
     sh:description "Duration in years that spare parts will remain available.";
     sh:maxCount 1;
     sh:class gs1:QuantitativeValue.
-_:b162 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasSparePartPrice>;
+_:b162 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasSparePartPrice>;
     sh:name "Spare Part Price";
     sh:description "Price of the spare part for replacement.";
     sh:maxCount 1;
     sh:class gs1:PriceSpecification.
-<https://ref.openepcis.io/extensions/eu/electronics/WEEEComplianceShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/WEEEComplianceShape> a sh:NodeShape;
     rdfs:label "WEEE Compliance Shape";
     sh:property _:b168, _:b169, _:b170, _:b171, _:b172, _:b173;
     rdfs:comment "Validation shape for Waste Electrical and Electronic Equipment compliance.";
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/electronics/WEEECompliance>.
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/electronics/WEEECompliance>.
 _:b168 sh:path schema:category;
     sh:name "WEEE Category";
     sh:description "WEEE Directive annex category for the device.";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/electronics/WEEECategory>.
-_:b169 sh:path <https://ref.openepcis.io/extensions/eu/electronics/weeeRegistrationNumber>;
+    sh:class <https://ref.openepcis.org/extensions/eu/electronics/WEEECategory>.
+_:b169 sh:path <https://ref.openepcis.org/extensions/eu/electronics/weeeRegistrationNumber>;
     sh:datatype xsd:string;
     sh:name "WEEE Registration Number";
     sh:description "Producer registration number under the WEEE Directive.";
     sh:maxCount 1.
-_:b170 sh:path <https://ref.openepcis.io/extensions/eu/electronics/weeeRegistrationCountry>;
+_:b170 sh:path <https://ref.openepcis.org/extensions/eu/electronics/weeeRegistrationCountry>;
     sh:message "WEEE registration country must be a two-letter ISO 3166-1 alpha-2 code.";
     sh:datatype xsd:string;
     sh:name "WEEE Registration Country";
     sh:description "ISO 3166-1 alpha-2 country code of WEEE registration.";
     sh:maxCount 1;
     sh:pattern "^[A-Z]{2}$".
-_:b171 sh:path <https://ref.openepcis.io/extensions/eu/electronics/collectionSchemeUrl>;
+_:b171 sh:path <https://ref.openepcis.org/extensions/eu/electronics/collectionSchemeUrl>;
     sh:datatype xsd:anyURI;
     sh:name "Collection Scheme URL";
     sh:description "URL describing the take-back or collection scheme.";
     sh:maxCount 1.
-_:b172 sh:path <https://ref.openepcis.io/extensions/eu/electronics/recyclabilityRate>;
+_:b172 sh:path <https://ref.openepcis.org/extensions/eu/electronics/recyclabilityRate>;
     sh:message "Recyclability rate must be a decimal between 0 and 1.";
     sh:datatype xsd:decimal;
     sh:name "Recyclability Rate";
@@ -869,7 +869,7 @@ _:b172 sh:path <https://ref.openepcis.io/extensions/eu/electronics/recyclability
     sh:minInclusive 0;
     sh:maxInclusive 1;
     sh:maxCount 1.
-_:b173 sh:path <https://ref.openepcis.io/extensions/eu/electronics/recoverabilityRate>;
+_:b173 sh:path <https://ref.openepcis.org/extensions/eu/electronics/recoverabilityRate>;
     sh:message "Recoverability rate must be a decimal between 0 and 1.";
     sh:datatype xsd:decimal;
     sh:name "Recoverability Rate";
@@ -877,148 +877,148 @@ _:b173 sh:path <https://ref.openepcis.io/extensions/eu/electronics/recoverabilit
     sh:minInclusive 0;
     sh:maxInclusive 1;
     sh:maxCount 1.
-<https://ref.openepcis.io/extensions/eu/electronics/RoHSComplianceShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/RoHSComplianceShape> a sh:NodeShape;
     rdfs:label "RoHS Compliance Shape";
     sh:property _:b174, _:b175, _:b176;
     rdfs:comment "Validation shape for Restriction of Hazardous Substances compliance.";
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/electronics/RoHSCompliance>.
-_:b174 sh:path <https://ref.openepcis.io/extensions/eu/electronics/rohsCompliant>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/electronics/RoHSCompliance>.
+_:b174 sh:path <https://ref.openepcis.org/extensions/eu/electronics/rohsCompliant>;
     sh:datatype xsd:boolean;
     sh:name "RoHS Compliant";
     sh:description "Whether the device is fully RoHS compliant.";
     sh:maxCount 1.
-_:b175 sh:path <https://ref.openepcis.io/extensions/eu/electronics/rohsExemptions>;
+_:b175 sh:path <https://ref.openepcis.org/extensions/eu/electronics/rohsExemptions>;
     sh:datatype xsd:string;
     sh:name "RoHS Exemptions";
     sh:description "Annex exemption codes applicable to the device.".
-_:b176 sh:path <https://ref.openepcis.io/extensions/eu/electronics/rohsDeclarationUrl>;
+_:b176 sh:path <https://ref.openepcis.org/extensions/eu/electronics/rohsDeclarationUrl>;
     sh:datatype xsd:anyURI;
     sh:name "RoHS Declaration URL";
     sh:description "URL of the RoHS declaration of conformity.";
     sh:maxCount 1.
-<https://ref.openepcis.io/extensions/eu/electronics/DisplaySpecificationShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/DisplaySpecificationShape> a sh:NodeShape;
     rdfs:label "Display Specification Shape";
     sh:property _:b177, _:b178, _:b179, _:b180, _:b181, _:b182;
     rdfs:comment "Validation shape for display panel technical specifications.";
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/electronics/DisplaySpecification>.
-_:b177 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasScreenDiagonal>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/electronics/DisplaySpecification>.
+_:b177 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasScreenDiagonal>;
     sh:name "Screen Diagonal";
     sh:description "Viewable screen diagonal measurement.";
     sh:maxCount 1;
     sh:class gs1:QuantitativeValue.
-_:b178 sh:path <https://ref.openepcis.io/extensions/eu/electronics/screenResolutionWidth>;
+_:b178 sh:path <https://ref.openepcis.org/extensions/eu/electronics/screenResolutionWidth>;
     sh:message "Screen resolution width must be a positive integer.";
     sh:datatype xsd:integer;
     sh:name "Screen Resolution Width";
     sh:description "Horizontal resolution in pixels.";
     sh:minInclusive 1;
     sh:maxCount 1.
-_:b179 sh:path <https://ref.openepcis.io/extensions/eu/electronics/screenResolutionHeight>;
+_:b179 sh:path <https://ref.openepcis.org/extensions/eu/electronics/screenResolutionHeight>;
     sh:message "Screen resolution height must be a positive integer.";
     sh:datatype xsd:integer;
     sh:name "Screen Resolution Height";
     sh:description "Vertical resolution in pixels.";
     sh:minInclusive 1;
     sh:maxCount 1.
-_:b180 sh:path <https://ref.openepcis.io/extensions/eu/electronics/displayTechnology>;
+_:b180 sh:path <https://ref.openepcis.org/extensions/eu/electronics/displayTechnology>;
     sh:datatype xsd:string;
     sh:name "Display Technology";
     sh:description "Display panel technology type (e.g., OLED, IPS LCD).";
     sh:maxCount 1.
-_:b181 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasRefreshRate>;
+_:b181 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasRefreshRate>;
     sh:name "Refresh Rate";
     sh:description "Display refresh rate.";
     sh:maxCount 1;
     sh:class gs1:QuantitativeValue.
-_:b182 sh:path <https://ref.openepcis.io/extensions/eu/electronics/hasPeakBrightness>;
+_:b182 sh:path <https://ref.openepcis.org/extensions/eu/electronics/hasPeakBrightness>;
     sh:name "Peak Brightness";
     sh:description "Peak display luminance.";
     sh:maxCount 1;
     sh:class gs1:QuantitativeValue.
-<https://ref.openepcis.io/extensions/eu/electronics/SecuritySupportYearsShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/SecuritySupportYearsShape> a sh:NodeShape;
     sh:property _:b183;
-    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/electronics/hasSecuritySupportYears>.
-_:b184 rdf:first <https://ref.openepcis.io/extensions/eu/electronics/hasSecuritySupportYears>;
+    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/electronics/hasSecuritySupportYears>.
+_:b184 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/hasSecuritySupportYears>;
     rdf:rest _:b185.
 _:b185 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
 _:b183 sh:path _:b184;
     sh:message "euelec:hasSecuritySupportYears must use unitCode 'ANN' (years)"@en;
     sh:hasValue "ANN".
-<https://ref.openepcis.io/extensions/eu/electronics/FeatureSupportYearsShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/FeatureSupportYearsShape> a sh:NodeShape;
     sh:property _:b186;
-    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/electronics/hasFeatureSupportYears>.
-_:b187 rdf:first <https://ref.openepcis.io/extensions/eu/electronics/hasFeatureSupportYears>;
+    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/electronics/hasFeatureSupportYears>.
+_:b187 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/hasFeatureSupportYears>;
     rdf:rest _:b188.
 _:b188 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
 _:b186 sh:path _:b187;
     sh:message "euelec:hasFeatureSupportYears must use unitCode 'ANN' (years)"@en;
     sh:hasValue "ANN".
-<https://ref.openepcis.io/extensions/eu/electronics/SparePartAvailabilityYearsShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/SparePartAvailabilityYearsShape> a sh:NodeShape;
     sh:property _:b189;
-    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/electronics/hasSparePartAvailabilityYears>.
-_:b190 rdf:first <https://ref.openepcis.io/extensions/eu/electronics/hasSparePartAvailabilityYears>;
+    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/electronics/hasSparePartAvailabilityYears>.
+_:b190 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/hasSparePartAvailabilityYears>;
     rdf:rest _:b191.
 _:b191 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
 _:b189 sh:path _:b190;
     sh:message "euelec:hasSparePartAvailabilityYears must use unitCode 'ANN' (years)"@en;
     sh:hasValue "ANN".
-<https://ref.openepcis.io/extensions/eu/electronics/AnnualEnergyConsumptionShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/AnnualEnergyConsumptionShape> a sh:NodeShape;
     sh:property _:b192;
-    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/electronics/hasAnnualEnergyConsumption>.
-_:b193 rdf:first <https://ref.openepcis.io/extensions/eu/electronics/hasAnnualEnergyConsumption>;
+    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/electronics/hasAnnualEnergyConsumption>.
+_:b193 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/hasAnnualEnergyConsumption>;
     rdf:rest _:b194.
 _:b194 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
 _:b192 sh:path _:b193;
     sh:message "euelec:hasAnnualEnergyConsumption must use unitCode 'KWH' (kilowatt hours)"@en;
     sh:hasValue "KWH".
-<https://ref.openepcis.io/extensions/eu/electronics/PowerConsumptionOnShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/PowerConsumptionOnShape> a sh:NodeShape;
     sh:property _:b195;
-    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/electronics/hasPowerConsumptionOn>.
-_:b196 rdf:first <https://ref.openepcis.io/extensions/eu/electronics/hasPowerConsumptionOn>;
+    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/electronics/hasPowerConsumptionOn>.
+_:b196 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/hasPowerConsumptionOn>;
     rdf:rest _:b197.
 _:b197 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
 _:b195 sh:path _:b196;
     sh:message "euelec:hasPowerConsumptionOn must use unitCode 'WTT' (watts)"@en;
     sh:hasValue "WTT".
-<https://ref.openepcis.io/extensions/eu/electronics/PowerConsumptionStandbyShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/PowerConsumptionStandbyShape> a sh:NodeShape;
     sh:property _:b198;
-    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/electronics/hasPowerConsumptionStandby>.
-_:b199 rdf:first <https://ref.openepcis.io/extensions/eu/electronics/hasPowerConsumptionStandby>;
+    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/electronics/hasPowerConsumptionStandby>.
+_:b199 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/hasPowerConsumptionStandby>;
     rdf:rest _:b200.
 _:b200 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
 _:b198 sh:path _:b199;
     sh:message "euelec:hasPowerConsumptionStandby must use unitCode 'WTT' (watts)"@en;
     sh:hasValue "WTT".
-<https://ref.openepcis.io/extensions/eu/electronics/PowerConsumptionOffShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/PowerConsumptionOffShape> a sh:NodeShape;
     sh:property _:b201;
-    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/electronics/hasPowerConsumptionOff>.
-_:b202 rdf:first <https://ref.openepcis.io/extensions/eu/electronics/hasPowerConsumptionOff>;
+    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/electronics/hasPowerConsumptionOff>.
+_:b202 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/hasPowerConsumptionOff>;
     rdf:rest _:b203.
 _:b203 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
 _:b201 sh:path _:b202;
     sh:message "euelec:hasPowerConsumptionOff must use unitCode 'WTT' (watts)"@en;
     sh:hasValue "WTT".
-<https://ref.openepcis.io/extensions/eu/electronics/RefreshRateShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/RefreshRateShape> a sh:NodeShape;
     sh:property _:b204;
-    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/electronics/hasRefreshRate>.
-_:b205 rdf:first <https://ref.openepcis.io/extensions/eu/electronics/hasRefreshRate>;
+    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/electronics/hasRefreshRate>.
+_:b205 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/hasRefreshRate>;
     rdf:rest _:b206.
 _:b206 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
 _:b204 sh:path _:b205;
     sh:message "euelec:hasRefreshRate must use unitCode 'HTZ' (hertz)"@en;
     sh:hasValue "HTZ".
-<https://ref.openepcis.io/extensions/eu/electronics/PeakBrightnessShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/electronics/PeakBrightnessShape> a sh:NodeShape;
     sh:property _:b207;
-    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/electronics/hasPeakBrightness>.
-_:b208 rdf:first <https://ref.openepcis.io/extensions/eu/electronics/hasPeakBrightness>;
+    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/electronics/hasPeakBrightness>.
+_:b208 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/hasPeakBrightness>;
     rdf:rest _:b209.
 _:b209 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
@@ -1052,6 +1052,6 @@ _:b219 rdf:first oec:componentName;
 _:b163 sh:alternativePath _:b218.
 _:b220 rdf:first oec:eprRegistrationNumber;
     rdf:rest _:b221.
-_:b221 rdf:first <https://ref.openepcis.io/extensions/eu/electronics/weeeRegistrationNumber>;
+_:b221 rdf:first <https://ref.openepcis.org/extensions/eu/electronics/weeeRegistrationNumber>;
     rdf:rest rdf:nil.
 _:b92 sh:alternativePath _:b220.

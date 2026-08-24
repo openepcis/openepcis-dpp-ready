@@ -48,7 +48,7 @@
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 
-const OWN = "https://ref.openepcis.io/extensions/";
+const OWN = "https://ref.openepcis.org/extensions/";
 const CARRIERS = new Set([
   "https://ref.gs1.org/voc/value", "https://schema.org/value",
   "https://schema.org/StructuredValue", "https://schema.org/PropertyValueSpecification",

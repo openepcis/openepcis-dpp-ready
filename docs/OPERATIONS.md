@@ -11,19 +11,19 @@ Deploy chains, seeding, guards, and the production gates for the DPP stack
 | GS1 Digital Link Resolver (DLR) | `id.demo.epcis.cloud` | `openepcis-digital-link-resolver` (submodule of `openepcis-build`) | demo runs the dedicated `:dlr-main-demo` tag (resolver main, digest pinned in `demo.epcis.cloud/variables.tf` — keep tf default and live pin in sync or an unrelated apply rolls the deployment) built by the branch-guarded `dlrdemo:dl:amd64` job on branch `deploy/dlr-main-demo`; deployed by **digest pin** (`kubectl -n openepcis-demo set image deploy/openepcis-digital-link digital-link=…@sha256:…`) |
 | DPP API (EN 18223) | `dpp.demo.epcis.cloud` | `openepcis-dpp-api` (submodule) | `docker:dpp` → `:stable`; demo image needs the baked flags `-Ddpp.masterdata.backend=resolver`, `-Ddpp.access.backend=keycloak`, `-Dquarkus.oidc.enabled=true` |
 | EPCIS 2.0 repository | `api.demo.epcis.cloud` | `openepcis-rest-quarkus` (build superproject) | `docker:rest` → `:stable` multi-arch manifest; demo deployed by **digest pin** on `openepcis-demo/openepcis-rest-api` |
-| Vocabulary browser | `ref.openepcis.io` | `openepcis-web` `apps/ref-openepcis` + this repo's generated JSON | openepcis-web pipeline: `build:ref-openepcis` (clones dpp-ready main, runs its build) → `deploy:ref-openepcis` → `deploy:ref-openepcis-prod` (all manual) |
+| Vocabulary browser | `ref.openepcis.org` | `openepcis-web` `apps/ref-openepcis` + this repo's generated JSON | openepcis-web pipeline: `build:ref-openepcis` (clones dpp-ready main, runs its build) → `deploy:ref-openepcis` → `deploy:ref-openepcis-prod` (all manual) |
 | Digital Data Management (DDM) | `demo.epcis.cloud` | `openepcis-web` `apps/digital-data-management` | `build:…-demo` → `deploy:…-demo` (Kaniko `:demo` tag) → rollout job — **then digest-pin** (see gotcha below) |
 | DPP conformance validator | not yet hosted | this repo's generated `gitb/validator-resources/shacl` | off-the-shelf `isaitb/shacl-validator` with that directory as `validator.resourceRoot`; locally `gitb/dev.sh up validators`. See [GITB_CONFORMANCE.md](GITB_CONFORMANCE.md) |
 
 ### The conformance validator depends on the vocabulary browser deploy
 
 The GITB upload test cases take JSON-LD, so the validator resolves each passport's
-`@context` from `ref.openepcis.io` — i.e. from whatever the *vocabulary browser* chain last
+`@context` from `ref.openepcis.org` — i.e. from whatever the *vocabulary browser* chain last
 deployed. A passport is therefore judged against the deployed contexts, not the ones in
 `main`.
 
 That coupling has bitten once already: the `anyURI` coercion corrections were green in the
-repo while `ref.openepcis.io` still served `"@type": "@id"`, so the same document expanded to
+repo while `ref.openepcis.org` still served `"@type": "@id"`, so the same document expanded to
 an IRI in the Test Bed and to an `anyURI` literal locally, and 16 examples "failed"
 conformance for a reason that had nothing to do with them. **Run the `ref-openepcis` deploy
 chain before publishing or submitting the test suite**, otherwise the suite reports our

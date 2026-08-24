@@ -45,9 +45,9 @@ The DPP Core context defines only OpenEPCIS-specific extensions (`oec:` namespac
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
     {
-      "battery": "https://ref.openepcis.io/extensions/eu/battery/"
+      "battery": "https://ref.openepcis.org/extensions/eu/battery/"
     }
   ]
 }
@@ -55,16 +55,16 @@ The DPP Core context defines only OpenEPCIS-specific extensions (`oec:` namespac
 
 Include the GS1-Extensions header in HTTP requests:
 ```http
-GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, eubat=https://ref.openepcis.io/extensions/eu/battery/
+GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/, eubat=https://ref.openepcis.org/extensions/eu/battery/
 ```
 
 **For Product Master Data** (Digital Link resolution):
 ```json
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
     {
-      "battery": "https://ref.openepcis.io/extensions/eu/battery/"
+      "battery": "https://ref.openepcis.org/extensions/eu/battery/"
     }
   ]
 }
@@ -75,7 +75,7 @@ GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, eubat=http
 {
   "@context": [
     "https://ref.gs1.org/standards/eudr/context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld"
+    "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld"
   ]
 }
 ```
@@ -85,9 +85,9 @@ GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, eubat=http
 | Prefix | Namespace | GS1-Extensions Header |
 |--------|-----------|----------------------|
 | `gs1:` | `https://ref.gs1.org/voc/` | (official GS1, no header needed) |
-| `oec:` | `https://ref.openepcis.io/extensions/common/core/` | `oec=https://ref.openepcis.io/extensions/common/core/` |
-| `eubat:` | `https://ref.openepcis.io/extensions/eu/battery/` | `eubat=https://ref.openepcis.io/extensions/eu/battery/` |
-| `eudr:` | `https://ref.openepcis.io/extensions/eu/eudr/` | `eudr=https://ref.openepcis.io/extensions/eu/eudr/` |
+| `oec:` | `https://ref.openepcis.org/extensions/common/core/` | `oec=https://ref.openepcis.org/extensions/common/core/` |
+| `eubat:` | `https://ref.openepcis.org/extensions/eu/battery/` | `eubat=https://ref.openepcis.org/extensions/eu/battery/` |
+| `eudr:` | `https://ref.openepcis.org/extensions/eu/eudr/` | `eudr=https://ref.openepcis.org/extensions/eu/eudr/` |
 
 ---
 
@@ -719,8 +719,8 @@ Outside of `gs1:masterDataAvailableFor`, to use the same short syntax for Regula
 ```json
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/gs1-shortcuts-context.jsonld"
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/gs1-shortcuts-context.jsonld"
   ]
 }
 ```

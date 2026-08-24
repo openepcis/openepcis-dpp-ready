@@ -9,8 +9,8 @@ steel product under the ESPR iron & steel delegated act (Regulation (EU)
 ```jsonc
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/iron-steel/iron-steel-context.jsonld"
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/iron-steel/iron-steel-context.jsonld"
   ],
   "id": "https://id.gs1.org/01/{GTIN}/10/{HEAT}",
   "type": "eusteel:IronSteelProduct"
@@ -71,7 +71,7 @@ property (`eusteel:heatNumber`); put full static product attributes inside
 context alias). Declare the extensions in the HTTP header:
 
 ```http
-GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, eusteel=https://ref.openepcis.io/extensions/eu/iron-steel/
+GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/, eusteel=https://ref.openepcis.org/extensions/eu/iron-steel/
 ```
 
 See [`../epcis/transformation-rolling.jsonld`](../epcis/transformation-rolling.jsonld)

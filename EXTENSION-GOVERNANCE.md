@@ -32,18 +32,18 @@ All product and location identifiers follow GS1 Digital Link URI syntax:
 ### 4. EPCIS 2.0 Extension Declaration
 Extensions are declared in EPCIS documents using the standard header format:
 ```
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/
-GS1-Extensions: battery=https://ref.openepcis.io/extensions/eu/battery/
+GS1-Extensions: dpp=https://ref.openepcis.org/extensions/common/core/
+GS1-Extensions: battery=https://ref.openepcis.org/extensions/eu/battery/
 ```
 
 ## Namespace Prefixes
 
 | Prefix | URI | Purpose |
 |--------|-----|---------|
-| `dpp` | `https://ref.openepcis.io/extensions/common/core/` | Core DPP/ESPR vocabulary |
-| `battery` | `https://ref.openepcis.io/extensions/eu/battery/` | Battery Regulation vocabulary |
-| `eudr` | `https://ref.openepcis.io/extensions/eu/eudr/` | EUDR vocabulary |
-| `detergent` | `https://ref.openepcis.io/extensions/eu/detergent/` | Detergent Regulation vocabulary |
+| `dpp` | `https://ref.openepcis.org/extensions/common/core/` | Core DPP/ESPR vocabulary |
+| `battery` | `https://ref.openepcis.org/extensions/eu/battery/` | Battery Regulation vocabulary |
+| `eudr` | `https://ref.openepcis.org/extensions/eu/eudr/` | EUDR vocabulary |
+| `detergent` | `https://ref.openepcis.org/extensions/eu/detergent/` | Detergent Regulation vocabulary |
 | `schema` | `https://schema.org/` | schema.org (foundational, peer Layer 1) |
 | `gs1` | `https://ref.gs1.org/voc/` | GS1 Web Vocabulary (foundational, peer Layer 1, imported) |
 | `cv` | `http://data.europa.eu/m8g/` | SEMICeu CPOV / Core Business / Person / Public Event / CPSV-AP (foundational, peer Layer 1) |

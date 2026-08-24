@@ -332,7 +332,7 @@ function buildSchema(attrs: Attribute[]): object {
 
   return {
     $schema: "https://json-schema.org/draft/2020-12/schema",
-    $id: "https://ref.openepcis.io/extensions/eu/battery/batterypass-v1.3-schema.json",
+    $id: "https://ref.openepcis.org/extensions/eu/battery/batterypass-v1.3-schema.json",
     title: "BatteryPass-Ready v1.3 Data Attribute Longlist",
     description:
       "JSON Schema generated from the BatteryPass-Ready v1.3 longlist (March 2026). Internal longlist-coverage view (not the GEFEG conformance contract — see validation/gefeg-live/). Generator: scripts/build-batterypass-schema.ts. Source XLSX (fetched, not mirrored): https://thebatterypass.eu/wp-content/uploads/2026_BatteryPass-Ready_DataAttributeLongList_v1.3.xlsx.",

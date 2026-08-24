@@ -130,8 +130,8 @@ function toTurtle(store: ReturnType<typeof parseTurtle>): Promise<string> {
       dcterms: "http://purl.org/dc/terms/",
       gs1: "https://ref.gs1.org/voc/",
       schema: "https://schema.org/",
-      oec: "https://ref.openepcis.io/extensions/common/core/",
-      "dpp-sh": "https://ref.openepcis.io/extensions/common/core/shapes/",
+      oec: "https://ref.openepcis.org/extensions/common/core/",
+      "dpp-sh": "https://ref.openepcis.org/extensions/common/core/shapes/",
     },
   });
   return new Promise((resolve, reject) => {

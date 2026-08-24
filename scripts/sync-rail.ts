@@ -1,7 +1,7 @@
 /**
  * Mirror the upstream GS1 Rail Vocabulary (published by GS1 AISBL with
  * GS1 Switzerland at https://gs1-epcis-reg.org/rail/) into this repo so
- * our build pipeline can index it on ref.openepcis.io.
+ * our build pipeline can index it on ref.openepcis.org.
  *
  * Run on demand whenever upstream publishes a new version:
  *

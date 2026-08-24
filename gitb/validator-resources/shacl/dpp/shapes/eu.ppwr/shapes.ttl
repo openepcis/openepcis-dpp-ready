@@ -11,10 +11,10 @@
 @prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix gs1: <https://ref.gs1.org/voc/>.
 @prefix schema: <https://schema.org/>.
-@prefix oec: <https://ref.openepcis.io/extensions/common/core/>.
-@prefix dpp-sh: <https://ref.openepcis.io/extensions/common/core/shapes/>.
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/>.
+@prefix dpp-sh: <https://ref.openepcis.org/extensions/common/core/shapes/>.
 
-<https://ref.openepcis.io/extensions/common/core/shapes/> a sh:ShapesGraph;
+<https://ref.openepcis.org/extensions/common/core/shapes/> a sh:ShapesGraph;
     dcterms:title "OpenEPCIS DPP Core SHACL Shapes"@en;
     dcterms:description "SHACL validation shapes for OpenEPCIS DPP Core vocabulary. Validates value ranges, required properties, and cardinality constraints."@en;
     owl:versionInfo "0.9.9";
@@ -22,9 +22,9 @@
     dcterms:modified "2026-08-10"^^xsd:date;
     sh:declare _:b0, _:b1, _:b2.
 _:b0 sh:prefix "dpp";
-    sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI.
+    sh:namespace "https://ref.openepcis.org/extensions/common/core/"^^xsd:anyURI.
 _:b1 sh:prefix "oec";
-    sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI.
+    sh:namespace "https://ref.openepcis.org/extensions/common/core/"^^xsd:anyURI.
 _:b2 sh:prefix "gs1";
     sh:namespace "https://ref.gs1.org/voc/"^^xsd:anyURI.
 dpp-sh:EconomicOperatorRoleRequired a sh:NodeShape;
@@ -410,7 +410,7 @@ dpp-sh:GranularityDigitalLinkConstraint a sh:NodeShape;
     sh:sparql _:b77.
 _:b77 a sh:SPARQLConstraint;
     sh:message "granularity must match the GS1 Digital Link Application Identifiers of the passport IRI (01 -> model, 01+10 -> batch, 01+21 -> item) per EN 18219 4.4 / EN 18223."@en;
-    sh:prefixes <https://ref.openepcis.io/extensions/common/core/shapes/>;
+    sh:prefixes <https://ref.openepcis.org/extensions/common/core/shapes/>;
     sh:select "\n            SELECT $this ?value WHERE {\n                $this oec:granularityLevel ?value .\n                # The Digital Link is the node's own IRI; gs1:productID is honoured\n                # as an alternative carrier where a passport states it separately.\n                OPTIONAL { $this gs1:productID ?stated }\n                BIND( COALESCE(?stated, STR($this)) AS ?dl )\n                FILTER( REGEX(STR(?dl), \"/01/\") )\n                BIND( IF(REGEX(STR(?dl), \"/21/\"), \"item\",\n                       IF(REGEX(STR(?dl), \"/10/\"), \"batch\", \"model\")) AS ?expected )\n                FILTER( STR(?value) != ?expected )\n            }\n        ".
 dpp-sh:QuantitativeValueShape a sh:NodeShape;
     sh:property _:b78, _:b79;
@@ -541,42 +541,42 @@ _:b111 sh:path oec:biodegradationPercentage;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxInclusive 100.
-<https://ref.openepcis.io/extensions/eu/ppwr/shapes/> a sh:ShapesGraph;
+<https://ref.openepcis.org/extensions/eu/ppwr/shapes/> a sh:ShapesGraph;
     dcterms:title "OpenEPCIS PPWR SHACL Shapes"@en;
     dcterms:description "SHACL validation shapes for the PPWR vocabulary (EU Regulation 2025/40)."@en;
     dcterms:created "2026-05-01"^^xsd:date;
     dcterms:modified "2026-06-18"^^xsd:date.
-<https://ref.openepcis.io/extensions/eu/ppwr/shapes/PackagingShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/ppwr/shapes/PackagingShape> a sh:NodeShape;
     rdfs:label "PPWR Packaging Shape"@en;
     sh:property _:b112, _:b113, _:b114;
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/ppwr/Packaging>.
-_:b112 sh:path <https://ref.openepcis.io/extensions/eu/ppwr/hasPackagingTier>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/ppwr/Packaging>.
+_:b112 sh:path <https://ref.openepcis.org/extensions/eu/ppwr/hasPackagingTier>;
     sh:minCount 1;
     sh:message "euppwr:Packaging must declare exactly one packagingTier (Sales / Grouped / Transport; Article 3)"@en;
     sh:maxCount 1;
     sh:in _:b115;
     sh:nodeKind sh:IRI.
-_:b115 rdf:first <https://ref.openepcis.io/extensions/eu/ppwr/Sales>;
+_:b115 rdf:first <https://ref.openepcis.org/extensions/eu/ppwr/Sales>;
     rdf:rest _:b116.
-_:b116 rdf:first <https://ref.openepcis.io/extensions/eu/ppwr/Grouped>;
+_:b116 rdf:first <https://ref.openepcis.org/extensions/eu/ppwr/Grouped>;
     rdf:rest _:b117.
-_:b117 rdf:first <https://ref.openepcis.io/extensions/eu/ppwr/Transport>;
+_:b117 rdf:first <https://ref.openepcis.org/extensions/eu/ppwr/Transport>;
     rdf:rest rdf:nil.
-_:b113 sh:path <https://ref.openepcis.io/extensions/eu/ppwr/hasRecyclabilityGrade>;
+_:b113 sh:path <https://ref.openepcis.org/extensions/eu/ppwr/hasRecyclabilityGrade>;
     sh:message "euppwr:hasRecyclabilityGrade must be A, B, or C (PPWR Article 6, Annex II)"@en;
     sh:maxCount 1;
     sh:in _:b118;
     sh:nodeKind sh:IRI.
-_:b118 rdf:first <https://ref.openepcis.io/extensions/eu/ppwr/GradeA>;
+_:b118 rdf:first <https://ref.openepcis.org/extensions/eu/ppwr/GradeA>;
     rdf:rest _:b119.
-_:b119 rdf:first <https://ref.openepcis.io/extensions/eu/ppwr/GradeB>;
+_:b119 rdf:first <https://ref.openepcis.org/extensions/eu/ppwr/GradeB>;
     rdf:rest _:b120.
-_:b120 rdf:first <https://ref.openepcis.io/extensions/eu/ppwr/GradeC>;
+_:b120 rdf:first <https://ref.openepcis.org/extensions/eu/ppwr/GradeC>;
     rdf:rest rdf:nil.
-_:b114 sh:path <https://ref.openepcis.io/extensions/eu/ppwr/harmonisedSymbol>;
+_:b114 sh:path <https://ref.openepcis.org/extensions/eu/ppwr/harmonisedSymbol>;
     sh:message "euppwr:harmonisedSymbol must be a URI referencing a harmonised label per PPWR Article 12"@en;
     sh:datatype xsd:anyURI.
-<https://ref.openepcis.io/extensions/eu/ppwr/shapes/PackagingMaterialDetailsShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/ppwr/shapes/PackagingMaterialDetailsShape> a sh:NodeShape;
     rdfs:label "Packaging material details shape"@en;
     sh:targetObjectsOf gs1:packagingMaterial;
     sh:property _:b121.
@@ -584,31 +584,31 @@ _:b121 sh:path gs1:packagingMaterialType;
     sh:minCount 1;
     sh:message "Each gs1:PackagingMaterialDetails entry must reference a gs1:PackagingMaterialTypeCode member via gs1:packagingMaterialType"@en;
     sh:nodeKind sh:IRI.
-<https://ref.openepcis.io/extensions/eu/ppwr/shapes/ReturnablePackageDepositShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/ppwr/shapes/ReturnablePackageDepositShape> a sh:NodeShape;
     rdfs:label "Returnable package deposit shape"@en;
     sh:targetObjectsOf gs1:hasReturnablePackageDeposit;
     sh:property _:b122.
 _:b122 sh:path gs1:returnablePackageDepositAmount;
     sh:minCount 1;
     sh:message "A returnable-package deposit card must state the deposit via gs1:returnablePackageDepositAmount (gs1:PriceSpecification with gs1:price + gs1:priceCurrency)"@en.
-<https://ref.openepcis.io/extensions/eu/ppwr/shapes/DepositRefundIssuedShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/ppwr/shapes/DepositRefundIssuedShape> a sh:NodeShape;
     rdfs:label "Deposit-return refund issued sensor report"@en;
     sh:property _:b123;
-    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/ppwr/depositRefundIssued>.
-_:b123 sh:path <https://ref.openepcis.io/extensions/eu/ppwr/depositRefundIssued>;
+    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/ppwr/depositRefundIssued>.
+_:b123 sh:path <https://ref.openepcis.org/extensions/eu/ppwr/depositRefundIssued>;
     sh:message "euppwr:depositRefundIssued must be a non-negative decimal monetary amount (PPWR Art. 50)"@en;
     sh:datatype xsd:decimal;
     sh:minInclusive 0.00.
-<https://ref.openepcis.io/extensions/eu/ppwr/shapes/RecyclabilityGradeObservationShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/ppwr/shapes/RecyclabilityGradeObservationShape> a sh:NodeShape;
     rdfs:label "Recyclability-grade declaration shape"@en;
     sh:property _:b124, _:b125;
-    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/ppwr/hasRecyclabilityGrade>.
+    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/ppwr/hasRecyclabilityGrade>.
 _:b124 sh:path oec:recyclabilityScore;
     sh:message "oec:recyclabilityScore is a percentage in [0, 100] aligned with the grade boundaries in Annex II (A ≥ 95, B ≥ 80, C ≥ 70)"@en;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxInclusive 100.
-_:b125 sh:path <https://ref.openepcis.io/extensions/eu/ppwr/designForRecyclingMethodology>;
+_:b125 sh:path <https://ref.openepcis.org/extensions/eu/ppwr/designForRecyclingMethodology>;
     sh:message "Cite exactly one D4R methodology (RecyClass, CEFLEX, APR, …)"@en;
     sh:datatype xsd:string;
     sh:maxCount 1.

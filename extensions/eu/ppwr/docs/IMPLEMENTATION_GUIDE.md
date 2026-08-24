@@ -111,8 +111,8 @@ material recovery. Granularity rules:
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld"
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/ppwr/ppwr-context.jsonld"
   ],
   "type": "EPCISDocument",
   "epcisBody": {
@@ -141,7 +141,7 @@ material recovery. Granularity rules:
 The HTTP request must declare the extensions header:
 
 ```
-GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, euppwr=https://ref.openepcis.io/extensions/eu/ppwr/
+GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/, euppwr=https://ref.openepcis.org/extensions/eu/ppwr/
 ```
 
 ## Validation
