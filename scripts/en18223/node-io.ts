@@ -19,7 +19,20 @@ const RDFS = "http://www.w3.org/2000/01/rdf-schema#";
 // local file. The CLI documentLoader reads these from disk (so it resolves
 // offline) and the demo-data builder bundles the same set into contexts.json,
 // keeping the CLI and the browser demo on identical context documents.
+//
+// A URL MISSING HERE DOES NOT FAIL, IT GOES TO THE NETWORK. That is the whole
+// hazard: rail-bridge-context.jsonld was absent for as long as it existed, and
+// nothing showed it, because the published host answers. So two rail EPCIS
+// artifacts were being validated against whatever ref.openepcis.io served
+// rather than against the file in this repository, and the build quietly
+// depended on that host being up. It surfaced only when a namespace change
+// pointed the same URL at a host that does not exist yet.
+//
+// Keep this map complete. To check: collect every ref.openepcis.* context URL
+// referenced under extensions/ and vct/ and assert each one appears here.
 export const URL_TO_FILE: Record<string, string> = {
+  "https://ref.openepcis.io/extensions/common/interop/rail-bridge-context.jsonld":
+    "extensions/common/interop/context/rail-bridge-context.jsonld",
   "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld":
     "extensions/common/core/context/dpp-core-context.jsonld",
   "https://ref.openepcis.io/extensions/common/core/dpp-operational-context.jsonld":
@@ -104,6 +117,18 @@ export const documentLoader: DocumentLoader = async (url: string) => {
   if (local) {
     const text = await fs.readFile(path.join(ROOT, local), "utf8");
     return { contextUrl: undefined, documentUrl: url, document: JSON.parse(text) };
+  }
+  // OUR OWN namespace must never reach the network. A context we publish has a
+  // file in this repository, so a miss is a gap in the map above, not a reason
+  // to ask the internet what we think. Falling through silently meant the build
+  // validated an artifact against the DEPLOYED context instead of the committed
+  // one, and passed only as long as the host was up. Foreign hosts stay
+  // fetchable: we do not hold their documents.
+  if (/^https:\/\/ref\.openepcis\.[a-z]+\//.test(url)) {
+    throw new Error(
+      `${url} is one of ours but is not in URL_TO_FILE, so it would be fetched over the network. ` +
+        `Add it to scripts/en18223/node-io.ts pointing at the file in this repository.`,
+    );
   }
   if (!remoteCache.has(url)) {
     const res = await fetch(url, { headers: { Accept: "application/ld+json, application/json" } });
