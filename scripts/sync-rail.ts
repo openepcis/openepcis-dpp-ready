@@ -7,6 +7,17 @@
  *
  *   pnpm sync:rail
  *
+ * NETWORK SYNC — NEVER RUN THIS AS PART OF A BULK REGENERATION.
+ * This script FETCHES FROM UPSTREAM. Every other generator in this repository
+ * is deterministic from local sources, so "re-run all generators" is a safe
+ * proof that nothing hidden reintroduces old data. It is not safe here: this
+ * one mixes whatever upstream serves right now into an unrelated change.
+ * Measured 2026-08-24, during a namespace rename that re-ran everything: a
+ * failed fetch wrote THREE MIRROR FILES TO ZERO LINES (rail-context.jsonld,
+ * Rail-SHACL.json, Rail-EPCIS-SHACL-Generic.json) and the commit would have
+ * carried that loss silently. Sync the mirror on purpose, in its own commit,
+ * and read the diff. The same applies to sync:eudpp.
+ *
  * The upstream vocabulary is only published as JSON-LD (the .ttl link in
  * the upstream HTML index 404s as of 2026-05). This script converts the
  * JSON-LD to Turtle preserving the upstream namespace, copies the

@@ -2,6 +2,15 @@
  * Sync the CIRPASS-2 EUDPP Core Ontology mirror (extensions/upstream/cirpass2-eudpp).
  *
  * Fetches the published module exports of the EUDPP Core Ontology
+ *
+ * NETWORK SYNC — NEVER RUN THIS AS PART OF A BULK REGENERATION.
+ * This script FETCHES FROM UPSTREAM. Every other generator here is
+ * deterministic from local sources, so "re-run all generators" is a safe proof
+ * that nothing hidden reintroduces old data. It is not safe for a network sync:
+ * it mixes whatever upstream serves right now into an unrelated change. Its
+ * sibling sync:rail did exactly that during a namespace rename on 2026-08-24 —
+ * a failed fetch wrote three mirror files to zero lines. Sync a mirror on
+ * purpose, in its own commit, and read the diff.
  * (https://w3id.org/eudpp#) from the Semantic Treehouse hub via the W3ID
  * redirects and merges them verbatim — upstream IRIs preserved, nothing
  * rebranded — into ontology/eudpp.ttl, the single source file the build
