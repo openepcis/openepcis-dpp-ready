@@ -2,7 +2,7 @@
 
 | Module | Terms | Public | AuthorizedOnly | Restricted | Inherited | UNCLASSIFIED | Locked |
 |---|---|---|---|---|---|---|---|
-| dpp-core | 199 | 134 | 36 | 6 | 23 | 0 | 10 |
+| dpp-core | 200 | 135 | 36 | 6 | 23 | 0 | 10 |
 | served-fields | 139 | 109 | 30 | 0 | 0 | 0 | 0 |
 | battery | 227 | 115 | 82 | 5 | 25 | 0 | 94 |
 | eudr | 37 | 8 | 23 | 6 | 0 | 0 | 6 |

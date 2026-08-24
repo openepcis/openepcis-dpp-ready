@@ -83,7 +83,7 @@ This approach lets implementers start building today while standards mature. As 
 
 ### The 8 EN Standards (CEN/CENELEC JTC 24)
 
-JTC 24 is developing **8 individual standards** under M/604. Six were published as EN standards in 2026; prEN 18239 and prEN 18246 remain in development. The standards are deliberately technology- and scheme-neutral; OpenEPCIS realises them through the **EPCIS4DPP** profile (GS1 identifiers, GS1 Digital Link, EPCIS, ref.openepcis.io). The clause-by-clause detail is in [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md).
+JTC 24 is developing **8 individual standards** under M/604. Six were published as EN standards in 2026; prEN 18239 and prEN 18246 remain in development. The standards are deliberately technology- and scheme-neutral; OpenEPCIS realises them through the **EPCIS4DPP** profile (GS1 identifiers, GS1 Digital Link, EPCIS, ref.openepcis.org). The clause-by-clause detail is in [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md).
 
 | Standard | Title | WG | Status | EPCIS4DPP realisation |
 |----------|-------|----|--------|-----------------------|
@@ -92,7 +92,7 @@ JTC 24 is developing **8 individual standards** under M/604. Six were published 
 | **EN 18216** | Data exchange protocols | WG 4 | Published 2026 | **Conformant** — HTTPS/TLS/HTTP-2 + JSON + content negotiation; we deliver JSON-LD + HTML |
 | **EN 18221** | Data storage, archiving and data persistence | WG 4 | Published 2026 | **Partial** — append-only EPCIS + versioned core (a conformant pattern); provider roles, RPO, OAIS tracked |
 | **EN 18222** | APIs for the product passport lifecycle management and searchability | WG 4 | Published 2026 | **Planned** — expose the EN 18222 REST API method set; EPCIS query + resolver added as profile |
-| **EN 18223** | System interoperability | WG 4 | Published 2026 | **Conformant** — `oec:` core maps to the EN 18223 model; ref.openepcis.io is the §4.3 data dictionary |
+| **EN 18223** | System interoperability | WG 4 | Published 2026 | **Conformant** — `oec:` core maps to the EN 18223 model; ref.openepcis.org is the §4.3 data dictionary |
 | **prEN 18239** | Access rights, security, business confidentiality | WG 3 | In development | **Partial** — `oec:AccessLevel` + Keycloak cover the access tiers; role-based expansion tracked |
 | **prEN 18246** | Data authentication, reliability, and integrity | WG 5 | In development | **In implementation** — `oec:did`, `oec:identityCredentialUrl` are the ontology hooks; the OpenEPCIS VC platform (W3C VCDM 2.0 issuance, did:web anchoring) is in build; ESDC tracked. Which parts are standards-based and which are demonstrated, layer by layer with the evidence for each: [`VC_INTEROPERABILITY.md`](./VC_INTEROPERABILITY.md) |
 
@@ -126,7 +126,7 @@ JTC 24 is developing **8 individual standards** under M/604. Six were published 
 
 **EN 18222 (APIs)** — The standard defines a concrete DPP REST API (ReadDPPById, ReadDPPByProductId, CreateDPP, UpdateDPPById, DeleteDPPById, RegisterProductDPP, element-level access). EPCIS4DPP will expose this method set over the repository (tracked in [`EN18223_MODEL_ALIGNMENT.md`](./EN18223_MODEL_ALIGNMENT.md)). The EPCIS query interface and the Digital Link resolver are profile additions beyond EN 18222.
 
-**EN 18223 (Interoperability)** — The standard mandates a UML and plain-JSON information model with an externalised `dictionaryReference`; it does not prescribe JSON-LD, RDF, OWL or SHACL. EPCIS4DPP's value-add: the `DigitalProductPassport` model maps almost one-to-one onto `oec:` core, and **ref.openepcis.io is the §4.3 data-dictionary repository** whose definitions our term IRIs supply. JSON-LD is our serialisation choice and remains valid JSON; ontologies declare `rdfs:isDefinedBy` and `owl:versionIRI` for discovery and versioning.
+**EN 18223 (Interoperability)** — The standard mandates a UML and plain-JSON information model with an externalised `dictionaryReference`; it does not prescribe JSON-LD, RDF, OWL or SHACL. EPCIS4DPP's value-add: the `DigitalProductPassport` model maps almost one-to-one onto `oec:` core, and **ref.openepcis.org is the §4.3 data-dictionary repository** whose definitions our term IRIs supply. JSON-LD is our serialisation choice and remains valid JSON; ontologies declare `rdfs:isDefinedBy` and `owl:versionIRI` for discovery and versioning.
 
 **prEN 18239 (Access Rights)** — `oec:AccessLevel` implements the three-tier model (Public, AuthorizedOnly, Restricted). Role-based differentiation (consumer, regulator, recycler, repairer, customs, etc.) tracked and will be added as the standard finalises.
 

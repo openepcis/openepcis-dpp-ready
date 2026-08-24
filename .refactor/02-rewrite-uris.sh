@@ -29,13 +29,13 @@ rewrite() {
 }
 
 echo "==> Per-module self-URI rewrite"
-rewrite extensions/common/core     "https://ref.openepcis.io/extensions/dpp/"        "https://ref.openepcis.io/extensions/common/core/"
-rewrite extensions/common/interop  "https://ref.openepcis.io/extensions/interop/"    "https://ref.openepcis.io/extensions/common/interop/"
-rewrite extensions/eu/battery      "https://ref.openepcis.io/extensions/battery/"    "https://ref.openepcis.io/extensions/eu/battery/"
-rewrite extensions/eu/eudr         "https://ref.openepcis.io/extensions/eudr/"       "https://ref.openepcis.io/extensions/eu/eudr/"
-rewrite extensions/eu/textile      "https://ref.openepcis.io/extensions/textile/"    "https://ref.openepcis.io/extensions/eu/textile/"
-rewrite extensions/eu/electronics  "https://ref.openepcis.io/extensions/electronics/" "https://ref.openepcis.io/extensions/eu/electronics/"
-rewrite extensions/eu/detergent    "https://ref.openepcis.io/extensions/detergent/"  "https://ref.openepcis.io/extensions/eu/detergent/"
+rewrite extensions/common/core     "https://ref.openepcis.org/extensions/dpp/"        "https://ref.openepcis.org/extensions/common/core/"
+rewrite extensions/common/interop  "https://ref.openepcis.org/extensions/interop/"    "https://ref.openepcis.org/extensions/common/interop/"
+rewrite extensions/eu/battery      "https://ref.openepcis.org/extensions/battery/"    "https://ref.openepcis.org/extensions/eu/battery/"
+rewrite extensions/eu/eudr         "https://ref.openepcis.org/extensions/eudr/"       "https://ref.openepcis.org/extensions/eu/eudr/"
+rewrite extensions/eu/textile      "https://ref.openepcis.org/extensions/textile/"    "https://ref.openepcis.org/extensions/eu/textile/"
+rewrite extensions/eu/electronics  "https://ref.openepcis.org/extensions/electronics/" "https://ref.openepcis.org/extensions/eu/electronics/"
+rewrite extensions/eu/detergent    "https://ref.openepcis.org/extensions/detergent/"  "https://ref.openepcis.org/extensions/eu/detergent/"
 
 echo
 echo "==> Cross-module rewrite (references to DPP core from every other module)"
@@ -46,15 +46,15 @@ for scope in \
     extensions/eu/textile \
     extensions/eu/electronics \
     extensions/eu/detergent ; do
-  rewrite "$scope" "https://ref.openepcis.io/extensions/dpp/" "https://ref.openepcis.io/extensions/common/core/"
+  rewrite "$scope" "https://ref.openepcis.org/extensions/dpp/" "https://ref.openepcis.org/extensions/common/core/"
 done
 
 echo
 echo "==> Cross-module rewrite (references to other EU modules from interop)"
 for slug in battery eudr textile electronics detergent ; do
   rewrite extensions/common/interop \
-    "https://ref.openepcis.io/extensions/${slug}/" \
-    "https://ref.openepcis.io/extensions/eu/${slug}/"
+    "https://ref.openepcis.org/extensions/${slug}/" \
+    "https://ref.openepcis.org/extensions/eu/${slug}/"
 done
 
 echo

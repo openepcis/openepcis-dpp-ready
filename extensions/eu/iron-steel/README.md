@@ -2,7 +2,7 @@
 
 Digital Product Passport vocabulary for the **iron & steel** ESPR priority
 product group (Regulation (EU) 2024/1781). Namespace
-`https://ref.openepcis.io/extensions/eu/iron-steel/`, prefix `eusteel:`.
+`https://ref.openepcis.org/extensions/eu/iron-steel/`, prefix `eusteel:`.
 
 ## Scope
 

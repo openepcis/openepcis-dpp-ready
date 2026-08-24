@@ -3,8 +3,8 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
-@prefix euelec: <https://ref.openepcis.io/extensions/eu/electronics/> .
-@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix euelec: <https://ref.openepcis.org/extensions/eu/electronics/> .
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
 # UNTP namespace references for semantic alignment
 @prefix untp: <https://vocabulary.uncefact.org/untp/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -21,7 +21,7 @@
 # Ontology Declaration
 # =============================================================================
 
-<https://ref.openepcis.io/extensions/eu/electronics/>
+<https://ref.openepcis.org/extensions/eu/electronics/>
     a owl:Ontology ;
     dcterms:title "OpenEPCIS Electronics Vocabulary"@en ;
     dcterms:description """Electronics-specific vocabulary extending GS1 Web Vocabulary for Digital Product Passports.
@@ -58,7 +58,7 @@ GS1 Properties to Use (not redefined here):
 - gs1:netWeight / gs1:grossWeight - Product weight
 
 EPCIS 2.0 Extension Declaration:
-GS1-Extensions: euelec=https://ref.openepcis.io/extensions/eu/electronics/
+GS1-Extensions: euelec=https://ref.openepcis.org/extensions/eu/electronics/
 
 Extension Governance:
 This vocabulary extends GS1 Web Vocabulary only where no equivalent term exists.
@@ -69,9 +69,9 @@ All ratio/fraction properties use 0-1 decimal scale (e.g., 0.45 = 45%)."""@en ;
     dcterms:created "2025-02-02"^^xsd:date ;
     dcterms:modified "2026-06-19"^^xsd:date ;
     owl:versionInfo "0.9.9" ;
-    owl:versionIRI <https://ref.openepcis.io/extensions/eu/electronics/0.9.9> ;
+    owl:versionIRI <https://ref.openepcis.org/extensions/eu/electronics/0.9.9> ;
     vann:preferredNamespacePrefix "euelec" ;
-    vann:preferredNamespaceUri "https://ref.openepcis.io/extensions/eu/electronics/" ;
+    vann:preferredNamespaceUri "https://ref.openepcis.org/extensions/eu/electronics/" ;
     rdfs:seeAlso <https://ref.gs1.org/voc/> ;
     rdfs:seeAlso <https://ref.gs1.org/voc/CertificationDetails> ;
     rdfs:seeAlso <https://ref.gs1.org/standards/epcis/> ;
@@ -80,7 +80,7 @@ All ratio/fraction properties use 0-1 decimal scale (e.g., 0.45 = 45%)."""@en ;
     rdfs:seeAlso <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     rdfs:seeAlso <https://untp.unece.org/docs/specification/> ;
     owl:imports <https://ref.gs1.org/voc/> ;
-    owl:imports <https://ref.openepcis.io/extensions/common/core/> ;
+    owl:imports <https://ref.openepcis.org/extensions/common/core/> ;
     owl:imports <http://data.europa.eu/m8g/> .
 
 # =============================================================================
@@ -103,7 +103,7 @@ Five Criteria (20 points each):
 5. Product Specific - Category-specific criteria (e.g., software support for smartphones)
 
 Total score (0-100) is converted to display score (0-10) for consumer labeling."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     rdfs:seeAlso oec:RepairabilityInfo ;
     skos:note """Required extension: The French Repairability Index uses a specific 5-criteria methodology
@@ -119,7 +119,7 @@ euelec:RepairCriterion
     rdfs:seeAlso cccev:Criterion ;
     rdfs:seeAlso cccev:Constraint ;
     skos:note "A RepairCriterion is a specific kind of cccev:Criterion (EU SEMICeu CCCEV): the five Repairability-Index criteria (Documentation, Disassembly, SparePartsAvailability, SparePartsPricing, ProductSpecific) each scored against an InformationConcept within the broader Repairability Requirement. Modelled as rdfs:subClassOf rather than owl:equivalentClass because cccev:Criterion is broader and covers any conformity-evaluation criterion. CCCEV is the EU foundation that JTC 24 / CIRPASS-2 lean on for conformity / scoring."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     skos:broadMatch cv:Criterion ;
     rdfs:seeAlso untp:Criterion ;
     rdfs:seeAlso schema:Rating .
@@ -133,7 +133,7 @@ and repairability assessments per ESPR delegated acts.
 
 Designed following ISO/IEC 12207 (software lifecycle) and ISO/IEC 14764 (software maintenance)
 patterns as a potential contribution to UNTP v1.0+."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     rdfs:seeAlso <https://www.iso.org/standard/43447.html> ;
     rdfs:seeAlso dppk:softwareUpdatePolicy ;
@@ -161,7 +161,7 @@ euelec:ComponentBOM
     rdfs:label "Component Bill of Materials"@en ;
     rdfs:comment """Bill of Materials for multi-component electronics supporting CIRPASS-2 nested DPP
 requirements. Links individual components to their own Digital Product Passports."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://cirpassproject.eu/> ;
     skos:note """Required extension: CIRPASS-2 electronics pilots require multi-component tracking
 where each component (battery, display, etc.) may have its own DPP. Aligned with UNTP
@@ -172,7 +172,7 @@ euelec:WEEECompliance
     rdfs:label "WEEE Compliance"@en ;
     rdfs:comment """Waste Electrical and Electronic Equipment (WEEE) Directive compliance information
 including equipment category, registration number, and collection scheme."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     rdfs:seeAlso gs1:regulatoryInformation ;
     rdfs:seeAlso oec:CircularityPerformance ;
@@ -186,7 +186,7 @@ euelec:RoHSCompliance
     rdfs:label "RoHS Compliance"@en ;
     rdfs:comment """Restriction of Hazardous Substances (RoHS) Directive compliance information
 including compliance status and applicable exemptions."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2011/65/oj> ;
     rdfs:seeAlso gs1:regulatoryInformation ;
     rdfs:seeAlso oec:SubstanceOfConcern ;
@@ -204,7 +204,7 @@ WEEE Directive 2012/19/EU Article 3(1)(a): equipment which is dependent on elect
 electromagnetic fields in order to work. This is the product an electronics Digital Product Passport
 describes, as distinct from euelec:ElectronicComponent, which is a part inside it."""@en ;
     rdfs:subClassOf gs1:Product ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """Required extension: gs1:Product and schema:Product cover any trade item. Neither
 scopes the EEE definition that decides whether the WEEE and RoHS obligations and the ESPR
@@ -224,7 +224,7 @@ euelec:ElectronicComponent
 component bill of materials: battery, display, mainboard, power supply, and so on. A component may
 carry its own nested Digital Product Passport (CIRPASS-2 multi-component pattern)."""@en ;
     rdfs:subClassOf gs1:Product ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Required extension: the ESPR electronics delegated acts and the CIRPASS-2 electronics
 pilots require the parts of a device to be addressable separately from the device itself (spare-part
@@ -243,7 +243,7 @@ euelec:DisplaySpecification
     rdfs:label "Display Specification"@en ;
     rdfs:comment "Display-specific technical specifications for monitors, TVs, and device screens."@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch <https://w3id.org/eudpp#TechnicalSpecification> .
 
@@ -278,7 +278,7 @@ euelec:DeviceCategory
         euelec:Printer
         euelec:Wearable
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch schema:CategoryCode .
 
@@ -372,7 +372,7 @@ euelec:RepairCriterionType
         euelec:SparePartsPricing
         euelec:ProductSpecific
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso cv:Criterion ;
     rdfs:seeAlso oec:RepairabilityInfo ;
@@ -419,7 +419,7 @@ euelec:EURepairabilityClass
         euelec:RepairClassD
         euelec:RepairClassE
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso schema:Class .
 
@@ -461,7 +461,7 @@ euelec:EnergyEfficiencyClass
         euelec:EnergyClassF
         euelec:EnergyClassG
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:EnergyEfficiencyClass ;
     rdfs:seeAlso schema:EnergyConsumptionDetails ;
@@ -514,7 +514,7 @@ euelec:WEEECategory
         euelec:WEEE5_SmallEquipment
         euelec:WEEE6_SmallIT
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     rdfs:seeAlso dppk:weeeCategory ;
     skos:closeMatch dppk:weeeCategory ;
     skos:note "E-waste / separate-collection concept per the WEEE Directive 2012/19/EU. Aligns approximately with the DPP Keystone field dppk:weeeCategory. No GS1, SEMICeu, or schema.org equivalent."@en ;
@@ -576,7 +576,7 @@ euelec:ComponentType
         euelec:ConnectorComponent
         euelec:EnclosureComponent
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso dppk:Component .
 
@@ -655,7 +655,7 @@ euelec:ReplacementDifficulty
         euelec:ProfessionalOnly
         euelec:NotReplaceable
     ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:RepairabilityInfo .
 
@@ -685,7 +685,7 @@ euelec:modelIdentifier
     rdfs:comment "Manufacturer's model number or identifier."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch schema:identifier ;
@@ -701,7 +701,7 @@ euelec:hasRepairabilityIndex
     rdfs:comment "French Repairability Index (Indice de Réparabilité) assessment."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range euelec:RepairabilityIndex ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -712,7 +712,7 @@ euelec:totalScore
     rdfs:domain euelec:RepairabilityIndex ;
     rdfs:range xsd:decimal ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 euelec:displayScore
@@ -722,7 +722,7 @@ euelec:displayScore
     rdfs:domain euelec:RepairabilityIndex ;
     rdfs:range xsd:decimal ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No exact GS1 or SEMICeu equivalent; loosely related to the generic schema:ratingValue."@en ;
     skos:closeMatch schema:ratingValue .
 
@@ -732,7 +732,7 @@ euelec:hasRepairabilityClass
     rdfs:comment "EU Right to Repair classification (A-E grade)."@en ;
     rdfs:domain euelec:RepairabilityIndex ;
     rdfs:range euelec:EURepairabilityClass ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:repairabilityClass .
@@ -743,7 +743,7 @@ euelec:hasRepairCriteria
     rdfs:comment "List of individual criterion scores."@en ;
     rdfs:domain euelec:RepairabilityIndex ;
     rdfs:range euelec:RepairCriterion ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -753,7 +753,7 @@ euelec:hasCriterionType
     rdfs:comment "Type of repair criterion being scored."@en ;
     rdfs:domain euelec:RepairCriterion ;
     rdfs:range euelec:RepairCriterionType ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -765,7 +765,7 @@ euelec:criterionScore
     rdfs:range xsd:decimal ;
     rdfs:seeAlso cccev:SupportedValue ;
     skos:note "The score is the cccev:SupportedValue (EU SEMICeu CCCEV) for the InformationConcept that this criterion measures."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> .
 
 euelec:criterionMaxScore
@@ -774,7 +774,7 @@ euelec:criterionMaxScore
     rdfs:comment "Maximum possible score for this criterion (typically 20)."@en ;
     rdfs:domain euelec:RepairCriterion ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso schema:maxValue ;
@@ -786,7 +786,7 @@ euelec:criterionDetails
     rdfs:comment "Detailed explanation of the criterion score."@en ;
     rdfs:domain euelec:RepairCriterion ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso schema:ratingExplanation .
@@ -797,7 +797,7 @@ euelec:assessmentDate
     rdfs:comment "Date when the repairability assessment was performed."@en ;
     rdfs:domain euelec:RepairabilityIndex ;
     rdfs:range xsd:date ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -807,7 +807,7 @@ euelec:hasAssessmentBody
     rdfs:comment "Organization that performed the repairability assessment."@en ;
     rdfs:domain euelec:RepairabilityIndex ;
     rdfs:range gs1:Organization ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -817,7 +817,7 @@ euelec:repairabilityLabelUrl
     rdfs:comment "URL to the official repairability label image."@en ;
     rdfs:domain euelec:RepairabilityIndex ;
     rdfs:range xsd:anyURI ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -831,7 +831,7 @@ euelec:hasSoftwareSupport
     rdfs:comment "Software and firmware support information."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range euelec:SoftwareSupport ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     skos:note "Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -841,7 +841,7 @@ euelec:osVersion
     rdfs:comment "Current version of the operating system."@en ;
     rdfs:domain euelec:SoftwareSupport ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     skos:note "Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso schema:softwareVersion ;
@@ -853,7 +853,7 @@ euelec:firmwareVersion
     rdfs:comment "Current version of the device firmware."@en ;
     rdfs:domain euelec:SoftwareSupport ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     skos:note "Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso schema:softwareVersion .
@@ -865,7 +865,7 @@ euelec:securityUpdateEndDate
     rdfs:domain euelec:SoftwareSupport ;
     rdfs:range xsd:date ;
     skos:note "Candidate for UNTP contribution: softwareSecurityEndDate."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     rdfs:seeAlso schema:endDate ;
     skos:broadMatch schema:endDate .
@@ -876,7 +876,7 @@ euelec:featureUpdateEndDate
     rdfs:comment "Date until which feature/OS updates will be provided."@en ;
     rdfs:domain euelec:SoftwareSupport ;
     rdfs:range xsd:date ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     skos:note "Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -887,7 +887,7 @@ euelec:hasSecuritySupportYears
     rdfs:domain euelec:SoftwareSupport ;
     rdfs:range gs1:QuantitativeValue ;
     skos:note "Candidate for UNTP contribution: softwareSupportPeriod."@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> .
 
 euelec:hasFeatureSupportYears
@@ -896,7 +896,7 @@ euelec:hasFeatureSupportYears
     rdfs:comment "Number of years of feature update support. Use gs1:QuantitativeValue with unitCode 'ANN'."@en ;
     rdfs:domain euelec:SoftwareSupport ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     skos:note "Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -906,7 +906,7 @@ euelec:updateChannel
     rdfs:comment "URL or method for obtaining software updates (OTA, website, etc.)."@en ;
     rdfs:domain euelec:SoftwareSupport ;
     rdfs:range xsd:anyURI ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     skos:note "Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch schema:availableChannel ;
@@ -918,7 +918,7 @@ euelec:latestUpdateDate
     rdfs:comment "Date of the most recent software/firmware update."@en ;
     rdfs:domain euelec:SoftwareSupport ;
     rdfs:range xsd:date ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     skos:note "Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:closeMatch <urn:samm:io.BatteryPass.Performance:1.2.1#lastUpdate> .
@@ -933,7 +933,7 @@ euelec:hasEnergyEfficiency
     rdfs:comment "EU Energy Label information."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range euelec:EnergyEfficiency ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:hasEnergyEfficiency ;
@@ -948,7 +948,7 @@ euelec:hasEnergyEfficiencyClass
     rdfs:domain euelec:EnergyEfficiency ;
     rdfs:range euelec:EnergyEfficiencyClass ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:hasEnergyEfficiencyClass ;
     rdfs:seeAlso schema:hasEnergyConsumptionDetails ;
@@ -961,7 +961,7 @@ euelec:hasAnnualEnergyConsumption
     rdfs:comment "Annual energy consumption in kWh. Use gs1:QuantitativeValue with unitCode 'KWH'."@en ;
     rdfs:domain euelec:EnergyEfficiency ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:hasAnnualEnergyConsumption .
@@ -972,7 +972,7 @@ euelec:hasPowerConsumptionOn
     rdfs:comment "Power consumption when device is on/active. Use gs1:QuantitativeValue with unitCode 'WTT'."@en ;
     rdfs:domain euelec:EnergyEfficiency ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:hasPowerConsumptionOn .
@@ -983,7 +983,7 @@ euelec:hasPowerConsumptionStandby
     rdfs:comment "Power consumption in standby mode. Use gs1:QuantitativeValue with unitCode 'WTT'."@en ;
     rdfs:domain euelec:EnergyEfficiency ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:hasPowerConsumptionStandby .
@@ -994,7 +994,7 @@ euelec:hasPowerConsumptionOff
     rdfs:comment "Power consumption when switched off but plugged in. Use gs1:QuantitativeValue with unitCode 'WTT'."@en ;
     rdfs:domain euelec:EnergyEfficiency ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:hasPowerConsumptionOff .
@@ -1006,7 +1006,7 @@ euelec:eprelRegistrationNumber
     rdfs:domain euelec:EnergyEfficiency ;
     rdfs:range xsd:string ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:eprelRegistrationNumber ;
     skos:broadMatch gs1:regulatoryReferenceNumber ;
@@ -1018,7 +1018,7 @@ euelec:energyLabelUrl
     rdfs:comment "URL to the EU Energy Label image."@en ;
     rdfs:domain euelec:EnergyEfficiency ;
     rdfs:range xsd:anyURI ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -1028,7 +1028,7 @@ euelec:eprelProductUrl
     rdfs:comment "URL to the product page in the EPREL database."@en ;
     rdfs:domain euelec:EnergyEfficiency ;
     rdfs:range xsd:anyURI ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2019/2021> ;
     skos:note "Energy-performance concept per EU Energy Labelling / Ecodesign (EU) 2019/2021. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:eprelProductUrl .
@@ -1043,7 +1043,7 @@ euelec:hasBillOfMaterials
     rdfs:comment "Component bill of materials for the device."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range euelec:ComponentBOM ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterials> ;
@@ -1055,7 +1055,7 @@ euelec:hasComponents
     rdfs:comment "List of components in the bill of materials."@en ;
     rdfs:domain euelec:ComponentBOM ;
     rdfs:range gs1:Product ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -1065,7 +1065,7 @@ euelec:hasComponentType
     rdfs:comment "Type of component (Battery, Display, etc.)."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range euelec:ComponentType ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso <urn:samm:io.BatteryPass.GeneralProductInformation:1.2.0#batteryCategory> .
@@ -1076,7 +1076,7 @@ euelec:componentPartNumber
     rdfs:comment "Manufacturer's part number for the component."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:closeMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#partNumber> .
@@ -1087,7 +1087,7 @@ euelec:isReplaceable
     rdfs:comment "Whether the component can be replaced."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -1097,7 +1097,7 @@ euelec:hasReplacementDifficulty
     rdfs:comment "Level of difficulty to replace this component."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range euelec:ReplacementDifficulty ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -1106,7 +1106,7 @@ euelec:hasComponentPassport
     rdfs:label "Component Passport"@en ;
     rdfs:comment """Link to the component's own Digital Product Passport (nested DPP).
 Enables CIRPASS-2 multi-component tracking."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     rdfs:domain gs1:Product ;
     rdfs:range xsd:anyURI ;
     skos:note "Aligned with UNTP linkedProduct pattern for nested DPPs."@en ;
@@ -1119,7 +1119,7 @@ euelec:hasSparePartAvailabilityYears
     rdfs:comment "Duration for which this component is available as a spare part. Use unitCode 'ANN' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     rdfs:seeAlso dppk:sparePartsAvailable ;
     skos:closeMatch dppk:sparePartsAvailable ;
@@ -1131,7 +1131,7 @@ euelec:hasSparePartPrice
     rdfs:comment "Price of the component as a spare part."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range gs1:PriceSpecification ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.ecologie.gouv.fr/indice-reparabilite> ;
     skos:note "Repairability concept per the French Repairability Index (Indice de Réparabilité) and the EU Right to Repair. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso schema:priceSpecification ;
@@ -1148,7 +1148,7 @@ euelec:hasWeeeCompliance
     rdfs:comment "WEEE Directive compliance information."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range euelec:WEEECompliance ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note "E-waste / separate-collection concept per the WEEE Directive 2012/19/EU. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -1164,7 +1164,7 @@ euelec:weeeRegistrationNumber
     # EPR registration, and the range matches (xsd:string), so the specialisation
     # is a true subproperty and satisfies the obligation under RDFS entailment.
     rdfs:subPropertyOf oec:eprRegistrationNumber ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note "E-waste / separate-collection concept per the WEEE Directive 2012/19/EU. Specialises the cross-cutting oec:eprRegistrationNumber for the WEEE register."@en ;
     skos:broadMatch gs1:registryEntry ;
@@ -1177,7 +1177,7 @@ euelec:weeeRegistrationCountry
     rdfs:comment "Country of WEEE registration (ISO 3166-1 alpha-2)."@en ;
     rdfs:domain euelec:WEEECompliance ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note "E-waste / separate-collection concept per the WEEE Directive 2012/19/EU. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:closeMatch schema:addressCountry ;
@@ -1189,7 +1189,7 @@ euelec:collectionSchemeUrl
     rdfs:comment "URL to information about the WEEE collection/take-back scheme."@en ;
     rdfs:domain euelec:WEEECompliance ;
     rdfs:range xsd:anyURI ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note "E-waste / separate-collection concept per the WEEE Directive 2012/19/EU. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -1200,7 +1200,7 @@ euelec:recyclabilityRate
     rdfs:domain euelec:WEEECompliance ;
     rdfs:range xsd:decimal ;
     rdfs:seeAlso oec:recyclableContent ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:recyclabilityRate ;
@@ -1212,7 +1212,7 @@ euelec:recoverabilityRate
     rdfs:comment "Fraction of device that can be recovered (recycling + energy recovery, 0-1 scale)."@en ;
     rdfs:domain euelec:WEEECompliance ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -1226,7 +1226,7 @@ euelec:hasRohsCompliance
     rdfs:comment "RoHS Directive compliance information."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range euelec:RoHSCompliance ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2011/65/oj> ;
     skos:note "Restricted-substance concept per the RoHS Directive 2011/65/EU. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch gs1:certificationInfo ;
@@ -1240,7 +1240,7 @@ euelec:rohsCompliant
     rdfs:domain euelec:RoHSCompliance ;
     rdfs:range xsd:boolean ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2011/65/oj> ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     skos:note "Restricted-substance concept per the RoHS Directive 2011/65/EU. No GS1, SEMICeu, or schema.org equivalent."@en .
 
 euelec:rohsExemptions
@@ -1249,7 +1249,7 @@ euelec:rohsExemptions
     rdfs:comment "List of applicable RoHS exemption codes (e.g., '7(a)', '7(c)-I')."@en ;
     rdfs:domain euelec:RoHSCompliance ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2011/65/oj> ;
     skos:note "Restricted-substance concept per the RoHS Directive 2011/65/EU. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -1259,7 +1259,7 @@ euelec:rohsDeclarationUrl
     rdfs:comment "URL to the RoHS compliance declaration document."@en ;
     rdfs:domain euelec:RoHSCompliance ;
     rdfs:range xsd:anyURI ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2011/65/oj> ;
     skos:note "Restricted-substance concept per the RoHS Directive 2011/65/EU. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso gs1:referencedFileURL ;
@@ -1278,7 +1278,7 @@ euelec:hasDisplaySpecification
     rdfs:comment "Display-specific technical specifications."@en ;
     rdfs:domain gs1:Product ;
     rdfs:range euelec:DisplaySpecification ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -1288,7 +1288,7 @@ euelec:hasScreenDiagonal
     rdfs:comment "Visible screen diagonal. Use gs1:QuantitativeValue with unitCode 'CMT' or 'INH'."@en ;
     rdfs:domain euelec:DisplaySpecification ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso gs1:value .
@@ -1299,7 +1299,7 @@ euelec:screenResolutionWidth
     rdfs:comment "Horizontal resolution in pixels."@en ;
     rdfs:domain euelec:DisplaySpecification ;
     rdfs:range xsd:integer ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -1309,7 +1309,7 @@ euelec:screenResolutionHeight
     rdfs:comment "Vertical resolution in pixels."@en ;
     rdfs:domain euelec:DisplaySpecification ;
     rdfs:range xsd:integer ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso schema:height ;
@@ -1322,7 +1322,7 @@ euelec:displayTechnology
     rdfs:comment "Display technology type (LCD, OLED, AMOLED, MicroLED, etc.)."@en ;
     rdfs:domain euelec:DisplaySpecification ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -1332,7 +1332,7 @@ euelec:hasRefreshRate
     rdfs:comment "Display refresh rate. Use gs1:QuantitativeValue with unitCode 'HTZ'."@en ;
     rdfs:domain euelec:DisplaySpecification ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso gs1:value .
@@ -1343,7 +1343,7 @@ euelec:hasPeakBrightness
     rdfs:comment "Peak brightness in candelas per square meter (nits). Use gs1:QuantitativeValue. Use unitCode 'CDM2' (UN/CEFACT Rec 20)."@en ;
     rdfs:domain euelec:DisplaySpecification ;
     rdfs:range gs1:QuantitativeValue ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -1356,7 +1356,7 @@ euelec:hasSoftwareUpdateEvent
     rdfs:label "Software Update Event"@en ;
     rdfs:comment """EPCIS extension data for software/firmware update events.
 Use with bizStep 'inspecting' for software lifecycle tracking."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     rdfs:seeAlso <https://www.iso.org/standard/63712.html> ;
     skos:note "Candidate for UNTP contribution: softwareUpdateEvent pattern."@en ;
     dcterms:source <https://www.iso.org/standard/63712.html> .
@@ -1366,7 +1366,7 @@ euelec:previousVersion
     rdfs:label "Previous Version"@en ;
     rdfs:comment "Software/firmware version before update."@en ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch untp:version .
@@ -1376,7 +1376,7 @@ euelec:newVersion
     rdfs:label "New Version"@en ;
     rdfs:comment "Software/firmware version after update."@en ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso schema:version ;
@@ -1387,7 +1387,7 @@ euelec:updateType
     rdfs:label "Update Type"@en ;
     rdfs:comment "Type of update (security, feature, firmware, driver, etc.)."@en ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     skos:note "Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -1396,7 +1396,7 @@ euelec:updateSource
     rdfs:label "Update Source"@en ;
     rdfs:comment "Source of the update (OTA, manual, service center, etc.)."@en ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://www.iso.org/standard/63712.html> ;
     skos:note "Software / firmware support-lifecycle concept per ISO/IEC 12207. Candidate for upstream UNTP contribution; no GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch schema:source .
@@ -1410,7 +1410,7 @@ euelec:hasMaterialDeclaration
     rdfs:label "Material Declaration"@en ;
     rdfs:comment """Material declaration per IEC 62474 (Declarable Substance List).
 Links to oec:SubstanceOfConcern for REACH/RoHS substances."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     rdfs:domain gs1:Product ;
     rdfs:range oec:SubstanceOfConcern ;
     rdfs:seeAlso <https://std.iec.ch/iec62474> ;
@@ -1426,7 +1426,7 @@ euelec:iec62474DslVersion
     rdfs:label "IEC 62474 DSL Version"@en ;
     rdfs:comment "Version of the IEC 62474 Declarable Substance List used."@en ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en ;
     skos:broadMatch schema:schemaVersion .
@@ -1436,7 +1436,7 @@ euelec:materialDeclarationDate
     rdfs:label "Material Declaration Date"@en ;
     rdfs:comment "Date of the material declaration."@en ;
     rdfs:range xsd:date ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Electronics Digital Product Passport attribute under the ESPR 2024/1781 electronics delegated acts. No GS1, SEMICeu, or schema.org equivalent."@en .
 
@@ -1453,7 +1453,7 @@ euelec:SelectiveTreatmentItem
     rdfs:comment """A material, substance or component identified in a WEEE item that has to be removed
 and handled separately before the item enters bulk treatment, per the selective-treatment list of
 WEEE Directive 2012/19/EU Annex VII (batteries, capacitors, mercury-containing components, ...)."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """Required extension: oec:HazardousSubstance models a CLP/REACH substance declaration
 against a product, identified by CAS/EC number. A selective-treatment finding is an operational
@@ -1469,7 +1469,7 @@ euelec:RecoveredMaterial
     rdfs:comment """A single material stream recovered from a WEEE item, or estimated as recoverable
 from it: the material and its mass. Used both for the pre-treatment estimate and for the measured
 output of a treatment operation."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """Required extension: oec:MaterialComposition describes what a product is made of as
 mass fractions of the product. A recovered stream is the opposite direction of the same accounting:
@@ -1485,7 +1485,7 @@ euelec:MaterialRecoveryResult
     rdfs:comment """The aggregate outcome of a WEEE treatment operation on one item: total input mass,
 total recovered mass, and the recovery, recycling and energy-recovery rates that WEEE Directive
 2012/19/EU Annex V expresses as minimum targets per equipment category."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """Required extension: oec:RecyclabilityAssessment rates a product's design potential
 before it is ever used. This class records what a treatment operator actually achieved on one item,
@@ -1502,13 +1502,13 @@ euelec:BatteryDisposition
     rdfs:comment """How the battery removed from a WEEE item was handled: its mass, whether it was
 treated separately as WEEE Directive 2012/19/EU Annex VII requires, the treatment route, and the
 facility that carried it out."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """Required extension: the eu/battery module describes a battery as a product under
 Regulation (EU) 2023/1542; this class records what a WEEE treatment operator did with the battery
 pulled out of a device, which is an electronics end-of-life observation. No GS1, SEMICeu or
 schema.org class covers it."""@en ;
-    rdfs:seeAlso <https://ref.openepcis.io/extensions/eu/battery/> ;
+    rdfs:seeAlso <https://ref.openepcis.org/extensions/eu/battery/> ;
     rdfs:seeAlso euelec:BatteryComponent .
 
 euelec:HazardousWasteRecord
@@ -1516,7 +1516,7 @@ euelec:HazardousWasteRecord
     rdfs:label "Hazardous Waste Record"@en ;
     rdfs:comment """Hazardous waste arising from the treatment of a WEEE item, with the consignment
 description and the reference of the treatment certificate issued for it."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """Required extension: gs1:CertificationDetails models a product certification held by
 an organisation, not a per-consignment waste-treatment record. Waste-shipment records are governed by
@@ -1531,7 +1531,7 @@ euelec:AvoidedEmissionsEstimate
     rdfs:label "Avoided Emissions Estimate"@en ;
     rdfs:comment """An estimate of the greenhouse-gas emissions avoided by recovering materials from a
 WEEE item instead of producing them primarily, with the calculation basis used."""@en ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Required extension: oec:CarbonFootprintDeclaration accounts for emissions caused
 along a product's lifecycle. Avoided emissions are a counterfactual credited to a recycling
@@ -1552,7 +1552,7 @@ euelec:collectionMethod
     rdfs:label "Collection Method"@en ;
     rdfs:comment "How the waste item entered separate collection (retailer take-back, municipal collection point, producer scheme pick-up, ...)."@en ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the separate-collection duties of WEEE Directive 2012/19/EU
 Articles 5 and 14. oec:separateCollectionInfo and oec:collectionPointDirectoryUrl publish where a
@@ -1566,7 +1566,7 @@ euelec:deviceCondition
     rdfs:label "Device Condition"@en ;
     rdfs:comment "Condition of the device as assessed when it was taken in for collection or sorting."@en ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the preparing-for-re-use and treatment duties of WEEE Directive
 2012/19/EU Article 8. schema:itemCondition is the nearest upstream term but ranges over the four
@@ -1579,7 +1579,7 @@ euelec:dataWiped
     rdfs:label "Data Wiped"@en ;
     rdfs:comment "Whether user data held on the device was securely erased before it was passed on for re-use or treatment."@en ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """Data sanitisation is a precondition for preparing WEEE for re-use (WEEE Directive
 2012/19/EU Article 8 and EN 50614) and for lawful processing of personal data under the GDPR. It is
@@ -1592,7 +1592,7 @@ euelec:sortingDecision
     rdfs:label "Sorting Decision"@en ;
     rdfs:comment "Outcome of the sorting or inspection step: which treatment route the item was directed to, and why."@en ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the treatment duties of WEEE Directive 2012/19/EU Article 8,
 which put preparing for re-use ahead of recycling. The decision is an observation recorded at a
@@ -1605,7 +1605,7 @@ euelec:hasHazardousMaterialsIdentified
     rdfs:label "Hazardous Materials Identified"@en ;
     rdfs:comment "Materials or components found in the item that require selective treatment before bulk processing."@en ;
     rdfs:range euelec:SelectiveTreatmentItem ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the selective-treatment list of WEEE Directive 2012/19/EU
 Annex VII. oec:hasHazardousSubstances declares substances present in a product design; this reports what
@@ -1619,7 +1619,7 @@ euelec:handlingNote
     rdfs:comment "Instruction for handling a selectively treated material or component safely (for example removal before shredding)."@en ;
     rdfs:domain euelec:SelectiveTreatmentItem ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the selective-treatment requirements of WEEE Directive
 2012/19/EU Annex VII. gs1:consumerHandlingStorageInfo is the nearest upstream term but addresses
@@ -1632,7 +1632,7 @@ euelec:hasEstimatedRecoverableMaterials
     rdfs:label "Estimated Recoverable Materials"@en ;
     rdfs:comment "Material streams expected to be recoverable from the item, estimated before treatment."@en ;
     rdfs:range euelec:RecoveredMaterial ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept supporting the recovery accounting of WEEE Directive 2012/19/EU
 Annex V. The estimate steers the treatment route and is compared afterwards with the measured result;
@@ -1647,7 +1647,7 @@ euelec:materialMassGrams
     rdfs:comment "Mass of this material stream in grams, either estimated as recoverable or measured after treatment."@en ;
     rdfs:domain euelec:RecoveredMaterial ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept supporting the recovery accounting of WEEE Directive 2012/19/EU
 Annex V. oec:massFraction carries a 0-1 fraction of a product, schema:weight and gs1:netWeight the
@@ -1662,7 +1662,7 @@ euelec:recyclingProcess
     rdfs:label "Recycling Process"@en ;
     rdfs:comment "The treatment or recycling process applied to the item."@en ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the treatment requirements of WEEE Directive 2012/19/EU Article 8
 and Annex VIII. gs1:packagingRecyclingProcessType is the nearest upstream term and is confined to
@@ -1675,7 +1675,7 @@ euelec:hasRecyclingFacility
     rdfs:label "Recycling Facility"@en ;
     rdfs:comment "The authorised treatment operator that carried out the recycling step."@en ;
     rdfs:range gs1:Organization ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the permitting and treatment duties of WEEE Directive 2012/19/EU
 Article 8. The organisation itself is a gs1:Organization and the site a gs1:Place; what has no
@@ -1689,7 +1689,7 @@ euelec:hasMaterialRecoveryResults
     rdfs:label "Material Recovery Results"@en ;
     rdfs:comment "Measured outcome of the treatment operation on this item."@en ;
     rdfs:range euelec:MaterialRecoveryResult ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the recovery targets of WEEE Directive 2012/19/EU Annex V.
 oec:hasRecyclabilityAssessment rates design potential; this reports achieved treatment output. No GS1,
@@ -1703,7 +1703,7 @@ euelec:totalInputMassGrams
     rdfs:comment "Mass in grams of the item that entered the treatment operation."@en ;
     rdfs:domain euelec:MaterialRecoveryResult ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept forming the denominator of the WEEE Directive 2012/19/EU Annex V
 recovery rates. gs1:netWeight is the weight of a trade item as sold, not the mass weighed in at a
@@ -1717,7 +1717,7 @@ euelec:totalRecoveredMassGrams
     rdfs:comment "Mass in grams recovered from the item across all output streams."@en ;
     rdfs:domain euelec:MaterialRecoveryResult ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept forming the numerator of the WEEE Directive 2012/19/EU Annex V
 recovery rates. No GS1, SEMICeu or schema.org term expresses recovered output mass. Value in
@@ -1731,7 +1731,7 @@ euelec:recoveryRate
     rdfs:comment "Achieved recovery rate for the item: recovered mass divided by input mass (0-1 scale)."@en ;
     rdfs:domain euelec:MaterialRecoveryResult ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the minimum recovery targets of WEEE Directive 2012/19/EU
 Annex V. Distinct from euelec:recoverabilityRate and oec:recyclabilityRate, which state a product's
@@ -1746,7 +1746,7 @@ euelec:recyclingRate
     rdfs:comment "Achieved rate of preparing for re-use and recycling for the item (0-1 scale), excluding energy recovery."@en ;
     rdfs:domain euelec:MaterialRecoveryResult ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the minimum "prepared for re-use and recycled" targets of WEEE
 Directive 2012/19/EU Annex V, which are set separately from the overall recovery target. Distinct
@@ -1761,7 +1761,7 @@ euelec:energyRecoveryRate
     rdfs:comment "Fraction of the item's mass sent to energy recovery rather than material recycling (0-1 scale)."@en ;
     rdfs:domain euelec:MaterialRecoveryResult ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per WEEE Directive 2012/19/EU Annex V, where energy recovery counts
 towards the recovery target but not towards the recycling target, so the two shares have to be
@@ -1775,12 +1775,12 @@ euelec:hasBatteryDisposition
     rdfs:label "Battery Disposition"@en ;
     rdfs:comment "How the battery removed from the item was handled."@en ;
     rdfs:range euelec:BatteryDisposition ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per WEEE Directive 2012/19/EU Annex VII, which requires batteries to
 be removed from separately collected WEEE. The battery product data itself lives in the eu/battery
 module; this records the end-of-life handling observed on the device event."""@en ;
-    rdfs:seeAlso <https://ref.openepcis.io/extensions/eu/battery/> ;
+    rdfs:seeAlso <https://ref.openepcis.org/extensions/eu/battery/> ;
     rdfs:seeAlso euelec:BatteryComponent .
 
 euelec:batteryMassGrams
@@ -1789,7 +1789,7 @@ euelec:batteryMassGrams
     rdfs:comment "Mass in grams of the battery removed from the item."@en ;
     rdfs:domain euelec:BatteryDisposition ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per WEEE Directive 2012/19/EU Annex VII: the removed battery mass is
 booked against the battery stream rather than the WEEE recovery figures. gs1:netWeight is the weight
@@ -1804,7 +1804,7 @@ euelec:separatelyTreated
     rdfs:comment "Whether the removed battery was routed to separate battery treatment as required, rather than into the bulk WEEE stream."@en ;
     rdfs:domain euelec:BatteryDisposition ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """Compliance assertion for the selective-treatment requirement of WEEE Directive
 2012/19/EU Annex VII. No GS1, SEMICeu or schema.org term expresses it."""@en ;
@@ -1816,7 +1816,7 @@ euelec:hasTreatmentFacility
     rdfs:comment "The site where the removed battery was treated, referenced by its GLN."@en ;
     rdfs:domain euelec:BatteryDisposition ;
     rdfs:range gs1:Place ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the permitting requirements of WEEE Directive 2012/19/EU
 Article 8. The site is a gs1:Place and its master data is resolver-served; the extension term states
@@ -1831,7 +1831,7 @@ euelec:treatmentMethod
     rdfs:comment "The treatment route applied to the removed battery (for example hydrometallurgical or pyrometallurgical recycling)."@en ;
     rdfs:domain euelec:BatteryDisposition ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per WEEE Directive 2012/19/EU Annex VII read with the recycling
 efficiency requirements of Regulation (EU) 2023/1542 Annex XII for battery treatment. No GS1, SEMICeu
@@ -1845,7 +1845,7 @@ euelec:hazardousWasteGenerated
     rdfs:label "Hazardous Waste Generated"@en ;
     rdfs:comment "Whether the operation produced hazardous waste."@en ;
     rdfs:range xsd:boolean ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """Operational assertion tied to the treatment duties of WEEE Directive 2012/19/EU
 Article 8 and the classification rules of the Waste Framework Directive 2008/98/EC. No GS1, SEMICeu
@@ -1859,7 +1859,7 @@ euelec:hasHazardousWasteRecord
     rdfs:label "Hazardous Waste Record"@en ;
     rdfs:comment "The hazardous waste consignment arising from this operation."@en ;
     rdfs:range euelec:HazardousWasteRecord ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the treatment duties of WEEE Directive 2012/19/EU Article 8 read
 with the Waste Framework Directive 2008/98/EC. No GS1, SEMICeu or schema.org term covers a waste
@@ -1873,7 +1873,7 @@ euelec:wasteDescription
     rdfs:comment "Description of the hazardous waste consignment and where it was sent."@en ;
     rdfs:domain euelec:HazardousWasteRecord ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the treatment duties of WEEE Directive 2012/19/EU Article 8.
 schema:description is the generic web fallback for any textual description; this term is the narrower
@@ -1887,7 +1887,7 @@ euelec:treatmentCertificate
     rdfs:comment "Reference of the certificate issued for the treatment or disposal of the hazardous waste consignment."@en ;
     rdfs:domain euelec:HazardousWasteRecord ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """E-waste concept per the treatment duties of WEEE Directive 2012/19/EU Article 8 read
 with the Waste Framework Directive 2008/98/EC. gs1:certificationIdentification identifies a product
@@ -1902,7 +1902,7 @@ euelec:hasAvoidedEmissions
     rdfs:label "Avoided Emissions"@en ;
     rdfs:comment "Estimate of the greenhouse-gas emissions avoided by recovering materials from this item."@en ;
     rdfs:range euelec:AvoidedEmissionsEstimate ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Circularity-benefit concept supporting the ESPR 2024/1781 Article 7 recycled-content
 and circularity parameters. oec:hasEmissionsPerformance accounts for emissions caused by the product;
@@ -1917,7 +1917,7 @@ euelec:avoidedEmissionsKgCO2e
     rdfs:comment "Estimated avoided emissions in kilograms of CO2 equivalent."@en ;
     rdfs:domain euelec:AvoidedEmissionsEstimate ;
     rdfs:range xsd:decimal ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Circularity-benefit figure supporting the ESPR 2024/1781 Article 7 circularity
 parameters. oec:carbonFootprintTotal is the emissions the product caused; this is the counterfactual
@@ -1932,7 +1932,7 @@ euelec:calculationMethod
     rdfs:comment "Basis on which the avoided-emissions figure was calculated."@en ;
     rdfs:domain euelec:AvoidedEmissionsEstimate ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Methodology statement for the avoided-emissions estimate. oec:carbonFootprintMethodology
 is the nearest term and takes a URI of a published footprint methodology; an avoided-emissions
@@ -1951,7 +1951,7 @@ euelec:repairType
     rdfs:label "Repair Type"@en ;
     rdfs:comment "The kind of repair performed (battery replacement, display replacement, board-level repair, ...)."@en ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Repair-history concept per the repairability parameters of ESPR 2024/1781 Annex I and
 Directive (EU) 2024/1799 on the promotion of repair. oec:RepairabilityInfo describes how repairable a
@@ -1965,7 +1965,7 @@ euelec:repairDescription
     rdfs:label "Repair Description"@en ;
     rdfs:comment "Description of the repair performed and the fault it addressed."@en ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Repair-history concept per ESPR 2024/1781 Annex I and Directive (EU) 2024/1799.
 schema:description is the generic web fallback for any textual description; this term is the narrower
@@ -1979,7 +1979,7 @@ euelec:repairTechnician
     rdfs:label "Repair Technician"@en ;
     rdfs:comment "The technician or service organisation that performed the repair, as recorded on the repair event."@en ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Repair-history concept per ESPR 2024/1781 Annex I and Directive (EU) 2024/1799.
 oec:RepairProvider with oec:repairProviderName lists the repair network a manufacturer publishes for
@@ -1994,7 +1994,7 @@ euelec:removalReason
     rdfs:label "Removal Reason"@en ;
     rdfs:comment "Why the component was removed from the device."@en ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Repair-history concept per ESPR 2024/1781 Annex I and Directive (EU) 2024/1799. The
 reason a part failed feeds the durability and repairability parameters; no GS1, SEMICeu or
@@ -2007,7 +2007,7 @@ euelec:hasReplacedComponentPassport
     rdfs:label "Replaced Component Passport"@en ;
     rdfs:comment "The component taken out of the device, referenced by the identifier its own Digital Product Passport is keyed on."@en ;
     rdfs:range euelec:ElectronicComponent ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Nested-passport concept per the ESPR 2024/1781 Article 9 data-carrier requirements
 and the CIRPASS-2 multi-component pattern. gs1:dpp links a product to its passport; the repair event
@@ -2022,7 +2022,7 @@ euelec:hasInstalledComponentPassport
     rdfs:label "Installed Component Passport"@en ;
     rdfs:comment "The component fitted into the device, referenced by the identifier its own Digital Product Passport is keyed on."@en ;
     rdfs:range euelec:ElectronicComponent ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Nested-passport concept per the ESPR 2024/1781 Article 9 data-carrier requirements
 and the CIRPASS-2 multi-component pattern. Counterpart of euelec:hasReplacedComponentPassport; gs1:dpp
@@ -2036,7 +2036,7 @@ euelec:warrantyStatus
     rdfs:label "Warranty Status"@en ;
     rdfs:comment "Whether the device was under warranty at the time of the event."@en ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Repair-record concept per ESPR 2024/1781 Annex I and Directive (EU) 2024/1799.
 gs1:manufacturersWarranty with gs1:WarrantyPromise carries the warranty terms of the product model,
@@ -2050,7 +2050,7 @@ euelec:hasRepairCost
     rdfs:label "Repair Cost"@en ;
     rdfs:comment "Amount charged to the owner for this repair. Zero where the repair was covered by a warranty."@en ;
     rdfs:range gs1:PriceSpecification ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note """Repair-record concept per Directive (EU) 2024/1799, which makes repair cost central
 to the repair-or-replace decision. The amount itself is a gs1:PriceSpecification; euelec:hasSparePartPrice
@@ -2065,7 +2065,7 @@ euelec:nextDisposition
     rdfs:label "Next Disposition"@en ;
     rdfs:comment "The intended onward route for the removed component after this event."@en ;
     rdfs:range xsd:string ;
-    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/electronics/> ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/electronics/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/dir/2012/19/oj> ;
     skos:note """The EPCIS/CBV disposition field states the business condition of the object as of the
 event; the WEEE treatment chain also needs the intended next route (re-use, refurbishment, WEEE

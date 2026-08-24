@@ -5,8 +5,8 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix gs1: <https://ref.gs1.org/voc/> .
 @prefix schema: <https://schema.org/> .
-@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
-@prefix dpp-sh: <https://ref.openepcis.io/extensions/common/core/shapes/> .
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix dpp-sh: <https://ref.openepcis.org/extensions/common/core/shapes/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
 # =============================================================================
@@ -15,15 +15,15 @@
 # scripts/release.ts stamps — a hand-maintained comment here went stale at 0.9.6.
 # =============================================================================
 
-<https://ref.openepcis.io/extensions/common/core/shapes/>
+<https://ref.openepcis.org/extensions/common/core/shapes/>
     a sh:ShapesGraph ;
     dcterms:title "OpenEPCIS DPP Core SHACL Shapes"@en ;
     dcterms:description "SHACL validation shapes for OpenEPCIS DPP Core vocabulary. Validates value ranges, required properties, and cardinality constraints."@en ;
     owl:versionInfo "0.9.9" ;
     dcterms:created "2025-02-02"^^xsd:date ;
     dcterms:modified "2026-08-10"^^xsd:date ;
-    sh:declare [ sh:prefix "dpp" ; sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI ] ;
-    sh:declare [ sh:prefix "oec" ; sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI ] ;
+    sh:declare [ sh:prefix "dpp" ; sh:namespace "https://ref.openepcis.org/extensions/common/core/"^^xsd:anyURI ] ;
+    sh:declare [ sh:prefix "oec" ; sh:namespace "https://ref.openepcis.org/extensions/common/core/"^^xsd:anyURI ] ;
     sh:declare [ sh:prefix "gs1" ; sh:namespace "https://ref.gs1.org/voc/"^^xsd:anyURI ] .
 
 # =============================================================================
@@ -622,7 +622,7 @@ dpp-sh:GranularityDigitalLinkConstraint
     sh:sparql [
         a sh:SPARQLConstraint ;
         sh:message "granularity must match the GS1 Digital Link Application Identifiers of the passport IRI (01 -> model, 01+10 -> batch, 01+21 -> item) per EN 18219 4.4 / EN 18223."@en ;
-        sh:prefixes <https://ref.openepcis.io/extensions/common/core/shapes/> ;
+        sh:prefixes <https://ref.openepcis.org/extensions/common/core/shapes/> ;
         sh:select """
             SELECT $this ?value WHERE {
                 $this oec:granularityLevel ?value .

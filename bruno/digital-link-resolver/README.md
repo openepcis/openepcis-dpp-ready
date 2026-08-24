@@ -30,16 +30,16 @@ Query products via GS1 Digital Link with different linkTypes.
 
 | Prefix | URI |
 |--------|-----|
-| `dpp:` | `https://ref.openepcis.io/extensions/common/core/` |
-| `battery:` | `https://ref.openepcis.io/extensions/eu/battery/` |
-| `textile:` | `https://ref.openepcis.io/extensions/eu/textile/` |
+| `dpp:` | `https://ref.openepcis.org/extensions/common/core/` |
+| `battery:` | `https://ref.openepcis.org/extensions/eu/battery/` |
+| `textile:` | `https://ref.openepcis.org/extensions/eu/textile/` |
 | `gs1:` | `https://ref.gs1.org/voc/` |
 
 ## GS1-Extensions Header
 
 For EPCIS capture, declare extensions via header:
 ```
-GS1-Extensions: dpp=https://ref.openepcis.io/extensions/common/core/,textile=https://ref.openepcis.io/extensions/eu/textile/
+GS1-Extensions: dpp=https://ref.openepcis.org/extensions/common/core/,textile=https://ref.openepcis.org/extensions/eu/textile/
 ```
 
 ## Collection Structure

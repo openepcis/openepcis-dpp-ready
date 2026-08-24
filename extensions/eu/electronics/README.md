@@ -49,9 +49,9 @@ electronics/
 
 ## Vocabulary Namespace
 
-**Namespace**: `https://ref.openepcis.io/extensions/eu/electronics/`
+**Namespace**: `https://ref.openepcis.org/extensions/eu/electronics/`
 
-**Browse**: [ref.openepcis.io/extensions/eu/electronics/](https://ref.openepcis.io/extensions/eu/electronics/)
+**Browse**: [ref.openepcis.org/extensions/eu/electronics/](https://ref.openepcis.org/extensions/eu/electronics/)
 
 ## Key Classes
 
@@ -101,7 +101,7 @@ electronics/
 ## EPCIS 2.0 Extension Declaration
 
 ```http
-GS1-Extensions: euelec=https://ref.openepcis.io/extensions/eu/electronics/, oec=https://ref.openepcis.io/extensions/common/core/
+GS1-Extensions: euelec=https://ref.openepcis.org/extensions/eu/electronics/, oec=https://ref.openepcis.org/extensions/common/core/
 ```
 
 **Architecture rule**: `gs1:masterDataAvailableFor` contains only `gs1:` properties. Electronics-specific extensions (`euelec:`) go at event level. See [core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md](../core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md).
@@ -112,8 +112,8 @@ GS1-Extensions: euelec=https://ref.openepcis.io/extensions/eu/electronics/, oec=
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld"
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld"
   ]
 }
 ```
@@ -124,9 +124,9 @@ GS1-Extensions: euelec=https://ref.openepcis.io/extensions/eu/electronics/, oec=
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld"
   ]
 }
 ```

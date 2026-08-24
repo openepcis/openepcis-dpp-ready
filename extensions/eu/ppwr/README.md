@@ -99,7 +99,7 @@ ppwr/
 ## Vocabulary namespace
 
 **Prefix**: `euppwr:`
-**URI**: `https://ref.openepcis.io/extensions/eu/ppwr/`
+**URI**: `https://ref.openepcis.org/extensions/eu/ppwr/`
 
 ## Vocabulary
 
@@ -130,7 +130,7 @@ ppwr/
 ## EPCIS 2.0 extension declaration
 
 ```http
-GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, euppwr=https://ref.openepcis.io/extensions/eu/ppwr/
+GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/, euppwr=https://ref.openepcis.org/extensions/eu/ppwr/
 ```
 
 Granularity rules (see the core EPCIS guide): lots are class-level, so they

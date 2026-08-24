@@ -97,7 +97,7 @@ standard CBV transaction types (`po`, `recadv`, `desadv`, `bol`, `cert`,
 Declare the extension via the EPCIS 2.0 `GS1-Extensions` header:
 
 ```
-GS1-Extensions: usfsma=https://ref.openepcis.io/extensions/us/fsma204/
+GS1-Extensions: usfsma=https://ref.openepcis.org/extensions/us/fsma204/
 ```
 
 JSON-LD context pattern (only needed on master data or when using the FTL
@@ -107,7 +107,7 @@ enum / CTE class anchors):
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/us/fsma204/fsma204-context.jsonld"
+    "https://ref.openepcis.org/extensions/us/fsma204/fsma204-context.jsonld"
   ]
 }
 ```

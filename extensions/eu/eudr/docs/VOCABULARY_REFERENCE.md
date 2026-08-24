@@ -7,7 +7,7 @@ This document provides a clear reference for which vocabulary terms to use when 
 The EUDR extension is a **first-class EPCIS 2.0 extension**. Declare it using the `GS1-Extensions` HTTP header per [EPCIS 2.0 Section 12.3](https://ref.gs1.org/standards/epcis/):
 
 ```http
-GS1-Extensions: eudr=https://ref.openepcis.io/extensions/eu/eudr/
+GS1-Extensions: eudr=https://ref.openepcis.org/extensions/eu/eudr/
 ```
 
 See [EPCIS_EXTENSION_GUIDE.md](./EPCIS_EXTENSION_GUIDE.md) for complete integration patterns.
@@ -20,7 +20,7 @@ See [EPCIS_EXTENSION_GUIDE.md](./EPCIS_EXTENSION_GUIDE.md) for complete integrat
 |-------|-----------|----------------------|
 | GS1 EUDR Standard | `https://ref.gs1.org/standards/eudr/` | (official GS1, no header needed) |
 | GS1 Web Vocabulary | `https://ref.gs1.org/voc/` | (official GS1, no header needed) |
-| OpenEPCIS EUDR Extensions | `https://ref.openepcis.io/extensions/eu/eudr/` | `eudr=https://ref.openepcis.io/extensions/eu/eudr/` |
+| OpenEPCIS EUDR Extensions | `https://ref.openepcis.org/extensions/eu/eudr/` | `eudr=https://ref.openepcis.org/extensions/eu/eudr/` |
 
 ---
 
@@ -212,7 +212,7 @@ Use standard properties from GS1 and DPP-Core vocabularies:
 {
   "@context": {
     "gs1": "https://ref.gs1.org/voc/",
-    "eudr": "https://ref.openepcis.io/extensions/eu/eudr/"
+    "eudr": "https://ref.openepcis.org/extensions/eu/eudr/"
   },
   "type": "gs1:Product",
   "id": "https://id.gs1.org/01/09521234000020/21/LOG-2025-001",

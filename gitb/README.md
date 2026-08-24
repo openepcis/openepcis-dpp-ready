@@ -128,18 +128,18 @@ invocation.
 ### Precondition: redeploy the contexts first
 
 The upload test cases take JSON-LD, so the validator resolves each passport's
-`@context` from `ref.openepcis.io`. That is correct behaviour — a third party's
+`@context` from `ref.openepcis.org`. That is correct behaviour — a third party's
 passport must reference the published contexts — but it means the **deployed**
 contexts decide the verdict.
 
-`ref.openepcis.io` currently serves a revision predating the `anyURI` coercion
+`ref.openepcis.org` currently serves a revision predating the `anyURI` coercion
 corrections, so an uploaded passport still shows `Value must be a valid literal of
 type anyURI` findings that neither `pnpm run check:shapes` nor
 `pnpm run check:shapes:itb` reproduces (both work from the local, corrected
 contexts by design). Push and redeploy before submitting, or the suite will report
 our own deployment lag as the submitter's fault.
 
-Deployment of `ref.openepcis.io` happens outside this repository — see
+Deployment of `ref.openepcis.org` happens outside this repository — see
 [`../docs/OPERATIONS.md`](../docs/OPERATIONS.md).
 
 ---
@@ -171,7 +171,7 @@ Verified on a local Test Bed instance (gitb-ui/gitb-srv 1.29.5, 2026-08-12):
   the negative fixtures.
 - the **upload test case works interactively**: a real JSON-LD passport
   submitted through the `interact` step validates with its `@context` resolved
-  from ref.openepcis.io (verified with `eu.textile` and the organic-tee
+  from ref.openepcis.org (verified with `eu.textile` and the organic-tee
   example).
 
 Not yet verified:

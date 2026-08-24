@@ -8,7 +8,7 @@ against**. Products, Places, and Organizations in the resolver and in Digital
 Data Management are GS1 classes first; our extensions only add the properties GS1
 does not yet define.
 
-It is published on ref.openepcis.io because we vendor a pinned snapshot and build
+It is published on ref.openepcis.org because we vendor a pinned snapshot and build
 bare-term shortcut aliases from it, but it must be **described and anchored
 differently** from the extensions: it belongs to the masterdata engine, not to
 the extension catalogue.
@@ -69,12 +69,12 @@ resolver-specific field shapes with no identically named GS1 property
 `geoShape → gs1:geo`); two of them share a single GS1 target, and every served
 key must survive verbatim because per-field access enforcement matches the bare
 keys of the served documents — so those four keep a local identifier under
-`https://ref.openepcis.io/masterdata/served-fields/` and point at their nearest
+`https://ref.openepcis.org/masterdata/served-fields/` and point at their nearest
 GS1 property with `skos:closeMatch`.
 
 Earlier versions published these as an extension module
 (`extensions/common/gs1-masterdata/`) that re-minted all 139 terms under
-`https://ref.openepcis.io/extensions/common/gs1-masterdata/`. That was a parallel
+`https://ref.openepcis.org/extensions/common/gs1-masterdata/`. That was a parallel
 identity for terms GS1 already defines; it is gone.
 
 ## Note on context URLs

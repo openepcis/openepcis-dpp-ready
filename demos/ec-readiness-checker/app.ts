@@ -5,7 +5,7 @@
  *   - SHACL: rdf-validate-shacl over the generated readiness shapes
  *     (scripts/lib/ec-readiness-shacl-core.ts), with the shapes TTL and the
  *     OpenEPCIS context documents bundled by esbuild so expansion runs offline
- *     (unknown context URLs fall back to fetch — ref.openepcis.io serves CORS).
+ *     (unknown context URLs fall back to fetch — ref.openepcis.org serves CORS).
  * The applicability matrix and passport samples are generated from the repo
  * sources and bundled (see package.json demo:ec-readiness:build).
  */
@@ -34,9 +34,9 @@ const matrix = matrixJson as unknown as Matrix;
 
 // ── Offline JSON-LD document loader (bundled contexts, fetch fallback) ───────
 const BUNDLED_CONTEXTS: Record<string, unknown> = {
-  "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld": dppCoreContext,
-  "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld": batteryContext,
-  "https://ref.openepcis.io/extensions/common/core/gs1-shortcuts-context.jsonld": gs1ShortcutsContext,
+  "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld": dppCoreContext,
+  "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld": batteryContext,
+  "https://ref.openepcis.org/extensions/common/core/gs1-shortcuts-context.jsonld": gs1ShortcutsContext,
 };
 const remoteCache = new Map<string, unknown>();
 async function documentLoader(url: string) {

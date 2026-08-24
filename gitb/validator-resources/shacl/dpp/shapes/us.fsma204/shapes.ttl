@@ -11,10 +11,10 @@
 @prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix gs1: <https://ref.gs1.org/voc/>.
 @prefix schema: <https://schema.org/>.
-@prefix oec: <https://ref.openepcis.io/extensions/common/core/>.
-@prefix dpp-sh: <https://ref.openepcis.io/extensions/common/core/shapes/>.
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/>.
+@prefix dpp-sh: <https://ref.openepcis.org/extensions/common/core/shapes/>.
 
-<https://ref.openepcis.io/extensions/common/core/shapes/> a sh:ShapesGraph;
+<https://ref.openepcis.org/extensions/common/core/shapes/> a sh:ShapesGraph;
     dcterms:title "OpenEPCIS DPP Core SHACL Shapes"@en;
     dcterms:description "SHACL validation shapes for OpenEPCIS DPP Core vocabulary. Validates value ranges, required properties, and cardinality constraints."@en;
     owl:versionInfo "0.9.9";
@@ -22,9 +22,9 @@
     dcterms:modified "2026-08-10"^^xsd:date;
     sh:declare _:b0, _:b1, _:b2.
 _:b0 sh:prefix "dpp";
-    sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI.
+    sh:namespace "https://ref.openepcis.org/extensions/common/core/"^^xsd:anyURI.
 _:b1 sh:prefix "oec";
-    sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI.
+    sh:namespace "https://ref.openepcis.org/extensions/common/core/"^^xsd:anyURI.
 _:b2 sh:prefix "gs1";
     sh:namespace "https://ref.gs1.org/voc/"^^xsd:anyURI.
 dpp-sh:EconomicOperatorRoleRequired a sh:NodeShape;
@@ -410,7 +410,7 @@ dpp-sh:GranularityDigitalLinkConstraint a sh:NodeShape;
     sh:sparql _:b77.
 _:b77 a sh:SPARQLConstraint;
     sh:message "granularity must match the GS1 Digital Link Application Identifiers of the passport IRI (01 -> model, 01+10 -> batch, 01+21 -> item) per EN 18219 4.4 / EN 18223."@en;
-    sh:prefixes <https://ref.openepcis.io/extensions/common/core/shapes/>;
+    sh:prefixes <https://ref.openepcis.org/extensions/common/core/shapes/>;
     sh:select "\n            SELECT $this ?value WHERE {\n                $this oec:granularityLevel ?value .\n                # The Digital Link is the node's own IRI; gs1:productID is honoured\n                # as an alternative carrier where a passport states it separately.\n                OPTIONAL { $this gs1:productID ?stated }\n                BIND( COALESCE(?stated, STR($this)) AS ?dl )\n                FILTER( REGEX(STR(?dl), \"/01/\") )\n                BIND( IF(REGEX(STR(?dl), \"/21/\"), \"item\",\n                       IF(REGEX(STR(?dl), \"/10/\"), \"batch\", \"model\")) AS ?expected )\n                FILTER( STR(?value) != ?expected )\n            }\n        ".
 dpp-sh:QuantitativeValueShape a sh:NodeShape;
     sh:property _:b78, _:b79;
@@ -541,14 +541,14 @@ _:b111 sh:path oec:biodegradationPercentage;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxInclusive 100.
-<https://ref.openepcis.io/extensions/us/fsma204/ProductMasterDataShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/us/fsma204/ProductMasterDataShape> a sh:NodeShape;
     sh:property _:b112;
     sh:targetClass gs1:Product.
-_:b112 sh:path <https://ref.openepcis.io/extensions/us/fsma204/hasFoodTraceabilityListCategory>;
+_:b112 sh:path <https://ref.openepcis.org/extensions/us/fsma204/hasFoodTraceabilityListCategory>;
     sh:minCount 1;
     sh:message "A food subject to FSMA 204 MUST declare its Food Traceability List category (21 CFR 1.1300).";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/us/fsma204/FoodTraceabilityList>.
+    sh:class <https://ref.openepcis.org/extensions/us/fsma204/FoodTraceabilityList>.
 _:b113 rdf:first schema:name;
     rdf:rest _:b114.
 _:b114 rdf:first oec:componentName;

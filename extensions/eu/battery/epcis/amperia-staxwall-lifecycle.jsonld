@@ -3,13 +3,13 @@
     "FLAGSHIP EPCIS 2.0 lifecycle trail for one Amperia StaxWall 10 battery (01/09521234002000/21/STAX10-2026-000001).",
     "Deliberately exercises the breadth of EPCIS 2.0: TransformationEvent (cells + BMS -> assembled pack, inputEPCList/inputQuantityList/outputEPCList + ilmd), AssociationEvent (BMS module ASSOCIATEd to the pack), AggregationEvent (pack -> shipment SSCC), and ObjectEvents for commissioning / shipping / installing / in-use inspection / thermal excursion / SOCE certification, with rich sensorElementList (sensorMetadata + sensorReport min/max/mean/sDev, deviceID, deviceMetadata, dataProcessingMethod, bizRules, exception), persistentDisposition, quantityList, bizTransactionList and source/destination parties.",
     "These are the events scripts/reconstruct-passport-from-epcis.ts folds into the item passport (amperia-staxwall-item.jsonld). Model/batch master data is served by the resolver (01 / 01+10); the item-level dynamic values are derived here. Identifiers use the GS1 952 demo prefix with valid mod-10 check digits; the BMS is an individual asset (GIAI /8004).",
-    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/,eubat=https://ref.openepcis.io/extensions/eu/battery/",
+    "HTTP header: GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/,eubat=https://ref.openepcis.org/extensions/eu/battery/",
     "See: extensions/common/core/docs/EPCIS_MASTERDATA_AND_EXTENSIONS.md and extensions/eu/battery/docs/EPCIS_AND_BATTERYPASS_READY.md"
   ],
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld"
   ],
   "type": "EPCISDocument",
   "schemaVersion": "2.0",

@@ -491,7 +491,7 @@ provision_places() {
 ext_header_for() { # repo-relative epcis file path -> GS1-Extensions header value
   # Rule 3 of the EPCIS integration guide: ALWAYS declare the extension header —
   # it activates the regulation's validation/query behaviour in the repository.
-  local base="https://ref.openepcis.io/extensions" mod=""
+  local base="https://ref.openepcis.org/extensions" mod=""
   case "$1" in
     */eu/battery/*)     mod="eubat=$base/eu/battery/" ;;
     */eu/textile/*)     mod="eutex=$base/eu/textile/" ;;

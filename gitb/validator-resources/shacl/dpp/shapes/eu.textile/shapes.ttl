@@ -11,10 +11,10 @@
 @prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix gs1: <https://ref.gs1.org/voc/>.
 @prefix schema: <https://schema.org/>.
-@prefix oec: <https://ref.openepcis.io/extensions/common/core/>.
-@prefix dpp-sh: <https://ref.openepcis.io/extensions/common/core/shapes/>.
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/>.
+@prefix dpp-sh: <https://ref.openepcis.org/extensions/common/core/shapes/>.
 
-<https://ref.openepcis.io/extensions/common/core/shapes/> a sh:ShapesGraph;
+<https://ref.openepcis.org/extensions/common/core/shapes/> a sh:ShapesGraph;
     dcterms:title "OpenEPCIS DPP Core SHACL Shapes"@en;
     dcterms:description "SHACL validation shapes for OpenEPCIS DPP Core vocabulary. Validates value ranges, required properties, and cardinality constraints."@en;
     owl:versionInfo "0.9.9";
@@ -22,9 +22,9 @@
     dcterms:modified "2026-08-10"^^xsd:date;
     sh:declare _:b0, _:b1, _:b2.
 _:b0 sh:prefix "dpp";
-    sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI.
+    sh:namespace "https://ref.openepcis.org/extensions/common/core/"^^xsd:anyURI.
 _:b1 sh:prefix "oec";
-    sh:namespace "https://ref.openepcis.io/extensions/common/core/"^^xsd:anyURI.
+    sh:namespace "https://ref.openepcis.org/extensions/common/core/"^^xsd:anyURI.
 _:b2 sh:prefix "gs1";
     sh:namespace "https://ref.gs1.org/voc/"^^xsd:anyURI.
 dpp-sh:EconomicOperatorRoleRequired a sh:NodeShape;
@@ -410,7 +410,7 @@ dpp-sh:GranularityDigitalLinkConstraint a sh:NodeShape;
     sh:sparql _:b77.
 _:b77 a sh:SPARQLConstraint;
     sh:message "granularity must match the GS1 Digital Link Application Identifiers of the passport IRI (01 -> model, 01+10 -> batch, 01+21 -> item) per EN 18219 4.4 / EN 18223."@en;
-    sh:prefixes <https://ref.openepcis.io/extensions/common/core/shapes/>;
+    sh:prefixes <https://ref.openepcis.org/extensions/common/core/shapes/>;
     sh:select "\n            SELECT $this ?value WHERE {\n                $this oec:granularityLevel ?value .\n                # The Digital Link is the node's own IRI; gs1:productID is honoured\n                # as an alternative carrier where a passport states it separately.\n                OPTIONAL { $this gs1:productID ?stated }\n                BIND( COALESCE(?stated, STR($this)) AS ?dl )\n                FILTER( REGEX(STR(?dl), \"/01/\") )\n                BIND( IF(REGEX(STR(?dl), \"/21/\"), \"item\",\n                       IF(REGEX(STR(?dl), \"/10/\"), \"batch\", \"model\")) AS ?expected )\n                FILTER( STR(?value) != ?expected )\n            }\n        ".
 dpp-sh:QuantitativeValueShape a sh:NodeShape;
     sh:property _:b78, _:b79;
@@ -541,134 +541,134 @@ _:b111 sh:path oec:biodegradationPercentage;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxInclusive 100.
-<https://ref.openepcis.io/extensions/eu/textile/shapes/> a sh:ShapesGraph;
+<https://ref.openepcis.org/extensions/eu/textile/shapes/> a sh:ShapesGraph;
     dcterms:title "OpenEPCIS Textile SHACL Shapes"@en;
     dcterms:description "SHACL validation shapes for Textile Digital Product Passport vocabulary."@en;
     owl:versionInfo "0.9.9";
     dcterms:created "2025-02-02"^^xsd:date;
     dcterms:modified "2026-08-10"^^xsd:date.
-<https://ref.openepcis.io/extensions/eu/textile/TextileProductShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/textile/TextileProductShape> a sh:NodeShape;
     rdfs:label "Textile Product Shape";
     sh:property _:b112, _:b113, _:b114, _:b115, _:b116, _:b117, _:b118, _:b119, _:b120, _:b121, _:b122, _:b123, _:b124, _:b125, _:b126, _:b127, _:b128, _:b129, _:b130, _:b131, _:b132, _:b133, _:b134, _:b135, _:b136, _:b137, _:b138, _:b139, _:b140, _:b141, _:b142, _:b143, _:b144, _:b145, _:b146;
     rdfs:comment "Validation shape for TextileProduct instances per EU Textile Labelling Regulation 1007/2011.";
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/textile/TextileProduct>.
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/textile/TextileProduct>.
 _:b112 sh:path schema:category;
     sh:or _:b147;
     sh:name "Textile Category";
     sh:description "Category of textile product (apparel, footwear, home textiles, etc.).".
 _:b147 rdf:first _:b148;
     rdf:rest _:b149.
-_:b148 sh:class <https://ref.openepcis.io/extensions/eu/textile/TextileCategory>.
+_:b148 sh:class <https://ref.openepcis.org/extensions/eu/textile/TextileCategory>.
 _:b149 rdf:first _:b150;
     rdf:rest rdf:nil.
 _:b150 sh:node dpp-sh:TranslatableText.
-_:b113 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasFabricType>;
+_:b113 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasFabricType>;
     sh:name "Fabric Type";
     sh:description "Fabric construction type (knitted, denim, woven non-denim).";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/FabricType>.
-_:b114 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasApparelSubcategory>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/FabricType>.
+_:b114 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasApparelSubcategory>;
     sh:name "Apparel Subcategory";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/ApparelSubcategory>.
-_:b115 sh:path <https://ref.openepcis.io/extensions/eu/textile/garmentType>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/ApparelSubcategory>.
+_:b115 sh:path <https://ref.openepcis.org/extensions/eu/textile/garmentType>;
     sh:datatype xsd:string;
     sh:name "Garment Type";
     sh:maxCount 1.
 _:b116 sh:path gs1:targetConsumerGender;
     sh:maxCount 1;
     sh:nodeKind sh:IRI.
-_:b117 sh:path <https://ref.openepcis.io/extensions/eu/textile/sizeRange>;
+_:b117 sh:path <https://ref.openepcis.org/extensions/eu/textile/sizeRange>;
     sh:datatype xsd:string;
     sh:maxCount 1.
-_:b118 sh:path <https://ref.openepcis.io/extensions/eu/textile/seasonCollection>;
+_:b118 sh:path <https://ref.openepcis.org/extensions/eu/textile/seasonCollection>;
     sh:datatype xsd:string;
     sh:maxCount 1.
 _:b119 sh:path gs1:textileMaterial;
     sh:name "Fiber Composition";
     sh:description "GS1-native fibre composition: one gs1:TextileMaterialDetails entry per fibre.";
     sh:class gs1:TextileMaterialDetails.
-_:b120 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasCareInstructions>;
+_:b120 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasCareInstructions>;
     sh:name "Care Instructions";
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/CareInstruction>.
-_:b121 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasDurabilityInfo>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/CareInstruction>.
+_:b121 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasDurabilityInfo>;
     sh:name "Durability Information";
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo>.
-_:b122 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasRobustnessAssessment>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo>.
+_:b122 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasRobustnessAssessment>;
     sh:name "Robustness Assessment";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/RobustnessAssessment>.
-_:b123 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasRecyclabilityAssessment>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment>.
+_:b123 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasRecyclabilityAssessment>;
     sh:name "Recyclability Assessment";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/RecyclabilityAssessment>.
-_:b124 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasRecycledContentDeclaration>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment>.
+_:b124 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasRecycledContentDeclaration>;
     sh:name "Recycled Content Declaration";
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/RecycledContentDeclaration>.
-_:b125 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasEnvironmentalFootprint>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/RecycledContentDeclaration>.
+_:b125 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasEnvironmentalFootprint>;
     sh:name "Environmental Footprint";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/EnvironmentalFootprint>.
-_:b126 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasSubstancesOfConcern>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint>.
+_:b126 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasSubstancesOfConcern>;
     sh:name "Substances of Concern";
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcern>.
-_:b127 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasMicroplasticInfo>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern>.
+_:b127 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasMicroplasticInfo>;
     sh:name "Microplastic Information";
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/MicroplasticInfo>.
-_:b128 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasTakeBackProgram>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/MicroplasticInfo>.
+_:b128 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasTakeBackProgram>;
     sh:name "Take-Back Program";
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/TakeBackProgram>.
-_:b129 sh:path <https://ref.openepcis.io/extensions/eu/textile/takeBackProgramAvailable>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/TakeBackProgram>.
+_:b129 sh:path <https://ref.openepcis.org/extensions/eu/textile/takeBackProgramAvailable>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-_:b130 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasRepairServices>;
+_:b130 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasRepairServices>;
     sh:name "Repair Services";
     sh:class gs1:Organization.
-_:b131 sh:path <https://ref.openepcis.io/extensions/eu/textile/isRepairable>;
+_:b131 sh:path <https://ref.openepcis.org/extensions/eu/textile/isRepairable>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-_:b132 sh:path <https://ref.openepcis.io/extensions/eu/textile/repairGuideUrl>;
+_:b132 sh:path <https://ref.openepcis.org/extensions/eu/textile/repairGuideUrl>;
     sh:datatype xsd:anyURI;
     sh:maxCount 1.
-_:b133 sh:path <https://ref.openepcis.io/extensions/eu/textile/sparePartsAvailable>;
+_:b133 sh:path <https://ref.openepcis.org/extensions/eu/textile/sparePartsAvailable>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-_:b134 sh:path <https://ref.openepcis.io/extensions/eu/textile/sparePartsUrl>;
+_:b134 sh:path <https://ref.openepcis.org/extensions/eu/textile/sparePartsUrl>;
     sh:datatype xsd:anyURI;
     sh:maxCount 1.
-_:b135 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasTextileChemicals>;
+_:b135 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasTextileChemicals>;
     sh:name "Textile Chemicals";
     sh:class oec:HazardousSubstance.
-_:b136 sh:path <https://ref.openepcis.io/extensions/eu/textile/pfasFree>;
+_:b136 sh:path <https://ref.openepcis.org/extensions/eu/textile/pfasFree>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
 _:b137 sh:path gs1:consumerRecyclingInstructions;
     sh:node dpp-sh:TranslatableText.
-_:b138 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasWaterUsage>;
+_:b138 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasWaterUsage>;
     sh:class gs1:QuantitativeValue.
-_:b139 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasEnergyUsage>;
+_:b139 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasEnergyUsage>;
     sh:class gs1:QuantitativeValue.
-_:b140 sh:path <https://ref.openepcis.io/extensions/eu/textile/productionWastePercentage>;
+_:b140 sh:path <https://ref.openepcis.org/extensions/eu/textile/productionWastePercentage>;
     sh:datatype xsd:decimal.
-_:b141 sh:path <https://ref.openepcis.io/extensions/eu/textile/biodegradable>;
+_:b141 sh:path <https://ref.openepcis.org/extensions/eu/textile/biodegradable>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-_:b142 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasSpinningFacility>;
+_:b142 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasSpinningFacility>;
     sh:maxCount 1;
     sh:class oec:FacilityInformation.
-_:b143 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasWeavingFacility>;
+_:b143 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasWeavingFacility>;
     sh:maxCount 1;
     sh:class oec:FacilityInformation.
-_:b144 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasDyeingFacility>;
+_:b144 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasDyeingFacility>;
     sh:maxCount 1;
     sh:class oec:FacilityInformation.
-_:b145 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasCutAndSewFacility>;
+_:b145 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasCutAndSewFacility>;
     sh:maxCount 1;
     sh:class oec:FacilityInformation.
-_:b146 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasFinishingFacility>;
+_:b146 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasFinishingFacility>;
     sh:maxCount 1;
     sh:class oec:FacilityInformation.
-<https://ref.openepcis.io/extensions/eu/textile/FiberCompositionShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/textile/FiberCompositionShape> a sh:NodeShape;
     rdfs:label "Fiber Composition Shape";
     sh:targetObjectsOf gs1:textileMaterial;
     sh:property _:b151, _:b152, _:b153, _:b154, _:b155, _:b156.
@@ -683,298 +683,298 @@ _:b152 sh:path gs1:textileMaterialPercentage;
     sh:minInclusive 0;
     sh:maxInclusive 100;
     sh:maxCount 1.
-_:b153 sh:path <https://ref.openepcis.io/extensions/eu/textile/fiberOrigin>;
+_:b153 sh:path <https://ref.openepcis.org/extensions/eu/textile/fiberOrigin>;
     sh:datatype xsd:string;
     sh:name "Fiber Origin";
     sh:maxCount 1.
-_:b154 sh:path <https://ref.openepcis.io/extensions/eu/textile/isRecycledFiber>;
+_:b154 sh:path <https://ref.openepcis.org/extensions/eu/textile/isRecycledFiber>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-_:b155 sh:path <https://ref.openepcis.io/extensions/eu/textile/recycledContentSource>;
+_:b155 sh:path <https://ref.openepcis.org/extensions/eu/textile/recycledContentSource>;
     sh:datatype xsd:string;
     sh:maxCount 1.
-_:b156 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasFiberCertification>;
+_:b156 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasFiberCertification>;
     sh:class gs1:CertificationDetails.
-<https://ref.openepcis.io/extensions/eu/textile/CareInstructionShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/textile/CareInstructionShape> a sh:NodeShape;
     rdfs:label "Care Instruction Shape";
     sh:property _:b157, _:b158, _:b159, _:b160, _:b161, _:b162;
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/textile/CareInstruction>.
-_:b157 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasWashingSymbol>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/textile/CareInstruction>.
+_:b157 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasWashingSymbol>;
     sh:name "Washing Symbol";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode>.
-_:b158 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasBleachingSymbol>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/CareSymbolCode>.
+_:b158 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasBleachingSymbol>;
     sh:name "Bleaching Symbol";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode>.
-_:b159 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasDryingSymbol>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/CareSymbolCode>.
+_:b159 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasDryingSymbol>;
     sh:name "Drying Symbol";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode>.
-_:b160 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasIroningSymbol>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/CareSymbolCode>.
+_:b160 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasIroningSymbol>;
     sh:name "Ironing Symbol";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode>.
-_:b161 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasDryCleaningSymbol>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/CareSymbolCode>.
+_:b161 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasDryCleaningSymbol>;
     sh:name "Dry Cleaning Symbol";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/CareSymbolCode>.
-_:b162 sh:path <https://ref.openepcis.io/extensions/eu/textile/additionalCareInstructions>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/CareSymbolCode>.
+_:b162 sh:path <https://ref.openepcis.org/extensions/eu/textile/additionalCareInstructions>;
     sh:node dpp-sh:TranslatableText.
-<https://ref.openepcis.io/extensions/eu/textile/DurabilityInfoShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/textile/DurabilityInfoShape> a sh:NodeShape;
     rdfs:label "Durability Information Shape";
     sh:property _:b163, _:b164, _:b165, _:b166, _:b167, _:b168, _:b169, _:b170, _:b171;
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/textile/DurabilityInfo>.
-_:b163 sh:path <https://ref.openepcis.io/extensions/eu/textile/expectedWashCycles>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/textile/DurabilityInfo>.
+_:b163 sh:path <https://ref.openepcis.org/extensions/eu/textile/expectedWashCycles>;
     sh:datatype xsd:integer;
     sh:name "Expected Wash Cycles";
     sh:minInclusive 0;
     sh:maxCount 1.
-_:b164 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasDurabilityClass>;
+_:b164 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasDurabilityClass>;
     sh:name "Durability Class";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/DurabilityClass>.
-_:b165 sh:path <https://ref.openepcis.io/extensions/eu/textile/pillingResistance>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/DurabilityClass>.
+_:b165 sh:path <https://ref.openepcis.org/extensions/eu/textile/pillingResistance>;
     sh:datatype xsd:integer;
     sh:name "Pilling Resistance";
     sh:minInclusive 1;
     sh:maxInclusive 5;
     sh:maxCount 1.
-_:b166 sh:path <https://ref.openepcis.io/extensions/eu/textile/colorFastness>;
+_:b166 sh:path <https://ref.openepcis.org/extensions/eu/textile/colorFastness>;
     sh:datatype xsd:integer;
     sh:name "Color Fastness";
     sh:minInclusive 1;
     sh:maxInclusive 5;
     sh:maxCount 1.
-_:b167 sh:path <https://ref.openepcis.io/extensions/eu/textile/dimensionalStability>;
+_:b167 sh:path <https://ref.openepcis.org/extensions/eu/textile/dimensionalStability>;
     sh:datatype xsd:decimal;
     sh:maxCount 1.
-_:b168 sh:path <https://ref.openepcis.io/extensions/eu/textile/abrasionResistance>;
+_:b168 sh:path <https://ref.openepcis.org/extensions/eu/textile/abrasionResistance>;
     sh:datatype xsd:integer;
     sh:name "Abrasion Resistance";
     sh:maxCount 1.
-_:b169 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasTensileStrength>;
+_:b169 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasTensileStrength>;
     sh:class gs1:QuantitativeValue.
-_:b170 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasTearStrength>;
+_:b170 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasTearStrength>;
     sh:class gs1:QuantitativeValue.
-_:b171 sh:path <https://ref.openepcis.io/extensions/eu/textile/expectedLifetimeYears>;
+_:b171 sh:path <https://ref.openepcis.org/extensions/eu/textile/expectedLifetimeYears>;
     sh:datatype xsd:integer;
     sh:minInclusive 0;
     sh:maxCount 1.
-<https://ref.openepcis.io/extensions/eu/textile/RobustnessAssessmentShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessmentShape> a sh:NodeShape;
     rdfs:label "Robustness Assessment Shape";
     sh:property _:b172, _:b173, _:b174, _:b175, _:b176, _:b177;
     rdfs:comment "Validation shape for the 0-10 robustness scoring system.";
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/textile/RobustnessAssessment>.
-_:b172 sh:path <https://ref.openepcis.io/extensions/eu/textile/robustnessScore>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/textile/RobustnessAssessment>.
+_:b172 sh:path <https://ref.openepcis.org/extensions/eu/textile/robustnessScore>;
     sh:datatype xsd:decimal;
     sh:name "Robustness Score";
     sh:minInclusive 0;
     sh:maxInclusive 10;
     sh:maxCount 1.
-_:b173 sh:path <https://ref.openepcis.io/extensions/eu/textile/cleaningCyclesBeforeTest>;
+_:b173 sh:path <https://ref.openepcis.org/extensions/eu/textile/cleaningCyclesBeforeTest>;
     sh:datatype xsd:integer;
     sh:minInclusive 0;
     sh:maxCount 1.
-_:b174 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasRobustnessTestFabricType>;
+_:b174 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasRobustnessTestFabricType>;
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/FabricType>.
-_:b175 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasSpiralityTest>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/FabricType>.
+_:b175 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasSpiralityTest>;
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/SpiralityTestResult>.
-_:b176 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasDimensionalChangeTest>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/SpiralityTestResult>.
+_:b176 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasDimensionalChangeTest>;
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/DimensionalChangeTestResult>.
-_:b177 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasVisualInspection>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTestResult>.
+_:b177 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasVisualInspection>;
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/VisualInspectionResult>.
-<https://ref.openepcis.io/extensions/eu/textile/SpiralityTestResultShape> a sh:NodeShape;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult>.
+<https://ref.openepcis.org/extensions/eu/textile/SpiralityTestResultShape> a sh:NodeShape;
     rdfs:label "Spirality Test Result Shape";
     sh:property _:b178, _:b179, _:b180, _:b181;
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/textile/SpiralityTestResult>.
-_:b178 sh:path <https://ref.openepcis.io/extensions/eu/textile/spiralityScore>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/textile/SpiralityTestResult>.
+_:b178 sh:path <https://ref.openepcis.org/extensions/eu/textile/spiralityScore>;
     sh:datatype xsd:integer;
     sh:minInclusive 0;
     sh:maxInclusive 3;
     sh:maxCount 1.
-_:b179 sh:path <https://ref.openepcis.io/extensions/eu/textile/spiralityPercentage>;
+_:b179 sh:path <https://ref.openepcis.org/extensions/eu/textile/spiralityPercentage>;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxCount 1.
-_:b180 sh:path <https://ref.openepcis.io/extensions/eu/textile/spiralityTestMethod>;
+_:b180 sh:path <https://ref.openepcis.org/extensions/eu/textile/spiralityTestMethod>;
     sh:datatype xsd:string;
     sh:maxCount 1.
-_:b181 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasTestStandard>;
+_:b181 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasTestStandard>;
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/TestStandard>.
-<https://ref.openepcis.io/extensions/eu/textile/DimensionalChangeTestResultShape> a sh:NodeShape;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/TestStandard>.
+<https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTestResultShape> a sh:NodeShape;
     rdfs:label "Dimensional Change Test Result Shape";
     sh:property _:b182, _:b183, _:b184, _:b185;
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/textile/DimensionalChangeTestResult>.
-_:b182 sh:path <https://ref.openepcis.io/extensions/eu/textile/dimensionalChangeScore>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/textile/DimensionalChangeTestResult>.
+_:b182 sh:path <https://ref.openepcis.org/extensions/eu/textile/dimensionalChangeScore>;
     sh:datatype xsd:integer;
     sh:minInclusive 0;
     sh:maxInclusive 3;
     sh:maxCount 1.
-_:b183 sh:path <https://ref.openepcis.io/extensions/eu/textile/dimensionalChangePercentage>;
+_:b183 sh:path <https://ref.openepcis.org/extensions/eu/textile/dimensionalChangePercentage>;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxCount 1.
-_:b184 sh:path <https://ref.openepcis.io/extensions/eu/textile/dimensionalChangeTestMethod>;
+_:b184 sh:path <https://ref.openepcis.org/extensions/eu/textile/dimensionalChangeTestMethod>;
     sh:datatype xsd:string;
     sh:maxCount 1.
-_:b185 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasTestStandard>;
+_:b185 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasTestStandard>;
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/TestStandard>.
-<https://ref.openepcis.io/extensions/eu/textile/VisualInspectionResultShape> a sh:NodeShape;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/TestStandard>.
+<https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResultShape> a sh:NodeShape;
     rdfs:label "Visual Inspection Result Shape";
     sh:property _:b186, _:b187, _:b188, _:b189, _:b190, _:b191, _:b192;
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/textile/VisualInspectionResult>.
-_:b186 sh:path <https://ref.openepcis.io/extensions/eu/textile/visualInspectionScore>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/textile/VisualInspectionResult>.
+_:b186 sh:path <https://ref.openepcis.org/extensions/eu/textile/visualInspectionScore>;
     sh:datatype xsd:integer;
     sh:minInclusive 0;
     sh:maxInclusive 4;
     sh:maxCount 1.
-_:b187 sh:path <https://ref.openepcis.io/extensions/eu/textile/colourChangeRating>;
+_:b187 sh:path <https://ref.openepcis.org/extensions/eu/textile/colourChangeRating>;
     sh:datatype xsd:integer;
     sh:minInclusive 1;
     sh:maxInclusive 5;
     sh:maxCount 1.
-_:b188 sh:path <https://ref.openepcis.io/extensions/eu/textile/fabricAppearanceRating>;
+_:b188 sh:path <https://ref.openepcis.org/extensions/eu/textile/fabricAppearanceRating>;
     sh:datatype xsd:integer;
     sh:minInclusive 1;
     sh:maxInclusive 5;
     sh:maxCount 1.
-_:b189 sh:path <https://ref.openepcis.io/extensions/eu/textile/seamAppearanceRating>;
+_:b189 sh:path <https://ref.openepcis.org/extensions/eu/textile/seamAppearanceRating>;
     sh:datatype xsd:integer;
     sh:minInclusive 1;
     sh:maxInclusive 5;
     sh:maxCount 1.
-_:b190 sh:path <https://ref.openepcis.io/extensions/eu/textile/nonTextilePartsRating>;
+_:b190 sh:path <https://ref.openepcis.org/extensions/eu/textile/nonTextilePartsRating>;
     sh:datatype xsd:integer;
     sh:minInclusive 1;
     sh:maxInclusive 5;
     sh:maxCount 1.
-_:b191 sh:path <https://ref.openepcis.io/extensions/eu/textile/visualInspectionTestMethod>;
+_:b191 sh:path <https://ref.openepcis.org/extensions/eu/textile/visualInspectionTestMethod>;
     sh:datatype xsd:string;
     sh:maxCount 1.
-_:b192 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasTestStandard>;
+_:b192 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasTestStandard>;
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/TestStandard>.
-<https://ref.openepcis.io/extensions/eu/textile/RecyclabilityAssessmentShape> a sh:NodeShape;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/TestStandard>.
+<https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessmentShape> a sh:NodeShape;
     rdfs:label "Recyclability Assessment Shape";
     sh:property _:b193, _:b194, _:b195, _:b196, _:b197;
     rdfs:comment "Validation shape for the 0-10 recyclability scoring system.";
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/textile/RecyclabilityAssessment>.
-_:b193 sh:path <https://ref.openepcis.io/extensions/eu/textile/recyclabilityScore>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/textile/RecyclabilityAssessment>.
+_:b193 sh:path <https://ref.openepcis.org/extensions/eu/textile/recyclabilityScore>;
     sh:datatype xsd:decimal;
     sh:name "Recyclability Score";
     sh:minInclusive 0;
     sh:maxInclusive 10;
     sh:maxCount 1.
-_:b194 sh:path <https://ref.openepcis.io/extensions/eu/textile/isRecyclable>;
+_:b194 sh:path <https://ref.openepcis.org/extensions/eu/textile/isRecyclable>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-_:b195 sh:path <https://ref.openepcis.io/extensions/eu/textile/elastaneContentPercent>;
+_:b195 sh:path <https://ref.openepcis.org/extensions/eu/textile/elastaneContentPercent>;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxInclusive 100;
     sh:maxCount 1.
-_:b196 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasSortingFactors>;
+_:b196 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasSortingFactors>;
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/SortingFactors>.
-_:b197 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasTechnicalRecyclability>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/SortingFactors>.
+_:b197 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasTechnicalRecyclability>;
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/TechnicalRecyclability>.
-<https://ref.openepcis.io/extensions/eu/textile/SortingFactorsShape> a sh:NodeShape;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/TechnicalRecyclability>.
+<https://ref.openepcis.org/extensions/eu/textile/SortingFactorsShape> a sh:NodeShape;
     rdfs:label "Sorting Factors Shape";
     sh:property _:b198, _:b199, _:b200, _:b201, _:b202, _:b203;
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/textile/SortingFactors>.
-_:b198 sh:path <https://ref.openepcis.io/extensions/eu/textile/sameInnerOuterComposition>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/textile/SortingFactors>.
+_:b198 sh:path <https://ref.openepcis.org/extensions/eu/textile/sameInnerOuterComposition>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-_:b199 sh:path <https://ref.openepcis.io/extensions/eu/textile/freeFromPrintings>;
+_:b199 sh:path <https://ref.openepcis.org/extensions/eu/textile/freeFromPrintings>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-_:b200 sh:path <https://ref.openepcis.io/extensions/eu/textile/freeFromCoatings>;
+_:b200 sh:path <https://ref.openepcis.org/extensions/eu/textile/freeFromCoatings>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-_:b201 sh:path <https://ref.openepcis.io/extensions/eu/textile/freeFromSequins>;
+_:b201 sh:path <https://ref.openepcis.org/extensions/eu/textile/freeFromSequins>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-_:b202 sh:path <https://ref.openepcis.io/extensions/eu/textile/freeFromDyes>;
+_:b202 sh:path <https://ref.openepcis.org/extensions/eu/textile/freeFromDyes>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-_:b203 sh:path <https://ref.openepcis.io/extensions/eu/textile/isMonoMaterial>;
+_:b203 sh:path <https://ref.openepcis.org/extensions/eu/textile/isMonoMaterial>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-<https://ref.openepcis.io/extensions/eu/textile/RecycledContentDeclarationShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/textile/RecycledContentDeclarationShape> a sh:NodeShape;
     rdfs:label "Recycled Content Declaration Shape";
     sh:property _:b204, _:b205, _:b206, _:b207, _:b208, _:b209;
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/textile/RecycledContentDeclaration>.
-_:b204 sh:path <https://ref.openepcis.io/extensions/eu/textile/secondaryMaterialFraction>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/textile/RecycledContentDeclaration>.
+_:b204 sh:path <https://ref.openepcis.org/extensions/eu/textile/secondaryMaterialFraction>;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxInclusive 100;
     sh:maxCount 1.
-_:b205 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasWasteOriginType>;
+_:b205 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasWasteOriginType>;
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/WasteOriginType>.
-_:b206 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasRecycledSourceType>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/WasteOriginType>.
+_:b206 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasRecycledSourceType>;
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/RecycledSourceType>.
-_:b207 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasChainOfCustodyMethod>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/RecycledSourceType>.
+_:b207 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasChainOfCustodyMethod>;
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/ChainOfCustodyMethod>.
-_:b208 sh:path <https://ref.openepcis.io/extensions/eu/textile/meetsTargetThreshold>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/ChainOfCustodyMethod>.
+_:b208 sh:path <https://ref.openepcis.org/extensions/eu/textile/meetsTargetThreshold>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-_:b209 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasVerificationCertification>;
+_:b209 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasVerificationCertification>;
     sh:maxCount 1;
     sh:class gs1:CertificationDetails.
-<https://ref.openepcis.io/extensions/eu/textile/EnvironmentalFootprintShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprintShape> a sh:NodeShape;
     rdfs:label "Environmental Footprint Shape";
     sh:property _:b210, _:b211, _:b212, _:b213, _:b214, _:b215;
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/textile/EnvironmentalFootprint>.
-_:b210 sh:path <https://ref.openepcis.io/extensions/eu/textile/carbonFootprintManufacturing>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/textile/EnvironmentalFootprint>.
+_:b210 sh:path <https://ref.openepcis.org/extensions/eu/textile/carbonFootprintManufacturing>;
     sh:datatype xsd:decimal;
     sh:maxCount 1.
-_:b211 sh:path <https://ref.openepcis.io/extensions/eu/textile/pefSingleScore>;
+_:b211 sh:path <https://ref.openepcis.org/extensions/eu/textile/pefSingleScore>;
     sh:datatype xsd:decimal;
     sh:maxCount 1.
-_:b212 sh:path <https://ref.openepcis.io/extensions/eu/textile/benchmarkPerformance>;
+_:b212 sh:path <https://ref.openepcis.org/extensions/eu/textile/benchmarkPerformance>;
     sh:datatype xsd:decimal;
     sh:maxCount 1.
-_:b213 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasDataTypeIndicator>;
+_:b213 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasDataTypeIndicator>;
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/FootprintDataType>.
-_:b214 sh:path <https://ref.openepcis.io/extensions/eu/textile/pefcrReference>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/FootprintDataType>.
+_:b214 sh:path <https://ref.openepcis.org/extensions/eu/textile/pefcrReference>;
     sh:datatype xsd:string;
     sh:maxCount 1.
-_:b215 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasLciaCategories>;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/LCIACategory>.
-<https://ref.openepcis.io/extensions/eu/textile/LCIACategoryShape> a sh:NodeShape;
+_:b215 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasLciaCategories>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/LCIACategory>.
+<https://ref.openepcis.org/extensions/eu/textile/LCIACategoryShape> a sh:NodeShape;
     rdfs:label "LCIA Category Shape";
     sh:property _:b216, _:b217, _:b218;
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/textile/LCIACategory>.
-_:b216 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasLciaCategoryCode>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/textile/LCIACategory>.
+_:b216 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasLciaCategoryCode>;
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/LCIACategoryCode>.
-_:b217 sh:path <https://ref.openepcis.io/extensions/eu/textile/lciaValue>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/LCIACategoryCode>.
+_:b217 sh:path <https://ref.openepcis.org/extensions/eu/textile/lciaValue>;
     sh:datatype xsd:decimal;
     sh:maxCount 1.
-_:b218 sh:path <https://ref.openepcis.io/extensions/eu/textile/lciaUnit>;
+_:b218 sh:path <https://ref.openepcis.org/extensions/eu/textile/lciaUnit>;
     sh:datatype xsd:string;
     sh:maxCount 1.
-<https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcernShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcernShape> a sh:NodeShape;
     rdfs:label "Substance of Concern Shape";
     sh:property _:b219, _:b220, _:b221, _:b222, _:b223, _:b224, _:b225, _:b226, _:b227, _:b228, _:b229, _:b230;
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcern>.
-_:b219 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasSocType>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcern>.
+_:b219 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasSocType>;
     sh:minCount 1;
     sh:name "SoC Type";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/SubstanceOfConcernType>.
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/SubstanceOfConcernType>.
 _:b220 sh:path _:b231;
     sh:minCount 1;
     sh:node dpp-sh:TranslatableText.
@@ -984,106 +984,106 @@ _:b221 sh:path schema:iupacName;
 _:b222 sh:path oec:casNumber;
     sh:datatype xsd:string;
     sh:maxCount 1.
-_:b223 sh:path <https://ref.openepcis.io/extensions/eu/textile/ecNumber>;
+_:b223 sh:path <https://ref.openepcis.org/extensions/eu/textile/ecNumber>;
     sh:datatype xsd:string;
     sh:maxCount 1.
-_:b224 sh:path <https://ref.openepcis.io/extensions/eu/textile/substanceConcentration>;
+_:b224 sh:path <https://ref.openepcis.org/extensions/eu/textile/substanceConcentration>;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxCount 1.
-_:b225 sh:path <https://ref.openepcis.io/extensions/eu/textile/maxConcentration>;
+_:b225 sh:path <https://ref.openepcis.org/extensions/eu/textile/maxConcentration>;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxCount 1.
-_:b226 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasClpHazardCategory>;
+_:b226 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasClpHazardCategory>;
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/CLPHazardCategory>.
-_:b227 sh:path <https://ref.openepcis.io/extensions/eu/textile/concentrationRange>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/CLPHazardCategory>.
+_:b227 sh:path <https://ref.openepcis.org/extensions/eu/textile/concentrationRange>;
     sh:datatype xsd:string;
     sh:maxCount 1.
 _:b228 sh:path oec:substanceLocation;
     sh:datatype xsd:string;
     sh:maxCount 1.
-_:b229 sh:path <https://ref.openepcis.io/extensions/eu/textile/safeUseInstructions>;
+_:b229 sh:path <https://ref.openepcis.org/extensions/eu/textile/safeUseInstructions>;
     sh:datatype xsd:string;
     sh:maxCount 1.
-_:b230 sh:path <https://ref.openepcis.io/extensions/eu/textile/endOfLifeHandling>;
+_:b230 sh:path <https://ref.openepcis.org/extensions/eu/textile/endOfLifeHandling>;
     sh:datatype xsd:string;
     sh:maxCount 1.
-<https://ref.openepcis.io/extensions/eu/textile/MicroplasticInfoShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/textile/MicroplasticInfoShape> a sh:NodeShape;
     rdfs:label "Microplastic Information Shape";
     sh:property _:b232, _:b233, _:b234, _:b235;
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/textile/MicroplasticInfo>.
-_:b232 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasMicroplasticRiskLevel>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/textile/MicroplasticInfo>.
+_:b232 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasMicroplasticRiskLevel>;
     sh:name "Microplastic Risk Level";
     sh:maxCount 1;
-    sh:class <https://ref.openepcis.io/extensions/eu/textile/MicroplasticRiskLevel>.
-_:b233 sh:path <https://ref.openepcis.io/extensions/eu/textile/hasSheddingRate>;
+    sh:class <https://ref.openepcis.org/extensions/eu/textile/MicroplasticRiskLevel>.
+_:b233 sh:path <https://ref.openepcis.org/extensions/eu/textile/hasSheddingRate>;
     sh:name "Shedding Rate";
     sh:class gs1:QuantitativeValue.
-_:b234 sh:path <https://ref.openepcis.io/extensions/eu/textile/syntheticFiberContent>;
+_:b234 sh:path <https://ref.openepcis.org/extensions/eu/textile/syntheticFiberContent>;
     sh:datatype xsd:decimal;
     sh:minInclusive 0;
     sh:maxInclusive 100;
     sh:maxCount 1.
-_:b235 sh:path <https://ref.openepcis.io/extensions/eu/textile/microplasticMitigationMeasures>;
+_:b235 sh:path <https://ref.openepcis.org/extensions/eu/textile/microplasticMitigationMeasures>;
     sh:node dpp-sh:TranslatableText.
-<https://ref.openepcis.io/extensions/eu/textile/TakeBackProgramShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/textile/TakeBackProgramShape> a sh:NodeShape;
     rdfs:label "Take-Back Program Shape";
     sh:property _:b236, _:b237, _:b238;
-    sh:targetClass <https://ref.openepcis.io/extensions/eu/textile/TakeBackProgram>.
-_:b236 sh:path <https://ref.openepcis.io/extensions/eu/textile/takeBackUrl>;
+    sh:targetClass <https://ref.openepcis.org/extensions/eu/textile/TakeBackProgram>.
+_:b236 sh:path <https://ref.openepcis.org/extensions/eu/textile/takeBackUrl>;
     sh:datatype xsd:anyURI;
     sh:maxCount 1.
-_:b237 sh:path <https://ref.openepcis.io/extensions/eu/textile/takeBackIncentive>;
+_:b237 sh:path <https://ref.openepcis.org/extensions/eu/textile/takeBackIncentive>;
     sh:node dpp-sh:TranslatableText.
-_:b238 sh:path <https://ref.openepcis.io/extensions/eu/textile/endOfLifeDestination>;
+_:b238 sh:path <https://ref.openepcis.org/extensions/eu/textile/endOfLifeDestination>;
     sh:node dpp-sh:TranslatableText.
-<https://ref.openepcis.io/extensions/eu/textile/RepairServiceShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/textile/RepairServiceShape> a sh:NodeShape;
     rdfs:label "Repair Service Shape";
-    sh:targetObjectsOf <https://ref.openepcis.io/extensions/eu/textile/hasRepairServices>;
+    sh:targetObjectsOf <https://ref.openepcis.org/extensions/eu/textile/hasRepairServices>;
     sh:property _:b239.
 _:b239 sh:path gs1:organizationName;
     sh:minCount 1;
     sh:name "Repair Service Name".
-<https://ref.openepcis.io/extensions/eu/textile/TextileChemicalShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/textile/TextileChemicalShape> a sh:NodeShape;
     rdfs:label "Textile Chemical Shape";
-    sh:targetObjectsOf <https://ref.openepcis.io/extensions/eu/textile/hasTextileChemicals>;
+    sh:targetObjectsOf <https://ref.openepcis.org/extensions/eu/textile/hasTextileChemicals>;
     sh:property _:b240, _:b241, _:b242.
 _:b240 sh:path _:b243;
     sh:minCount 1;
     sh:name "Chemical Name";
     sh:node dpp-sh:TranslatableText.
-_:b241 sh:path <https://ref.openepcis.io/extensions/eu/textile/chemicalPurpose>;
+_:b241 sh:path <https://ref.openepcis.org/extensions/eu/textile/chemicalPurpose>;
     sh:datatype xsd:string;
     sh:maxCount 1.
-_:b242 sh:path <https://ref.openepcis.io/extensions/eu/textile/isMRSLCompliant>;
+_:b242 sh:path <https://ref.openepcis.org/extensions/eu/textile/isMRSLCompliant>;
     sh:datatype xsd:boolean;
     sh:maxCount 1.
-<https://ref.openepcis.io/extensions/eu/textile/WaterUsageShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/textile/WaterUsageShape> a sh:NodeShape;
     sh:property _:b244;
-    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/textile/hasWaterUsage>.
-_:b245 rdf:first <https://ref.openepcis.io/extensions/eu/textile/hasWaterUsage>;
+    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/textile/hasWaterUsage>.
+_:b245 rdf:first <https://ref.openepcis.org/extensions/eu/textile/hasWaterUsage>;
     rdf:rest _:b246.
 _:b246 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
 _:b244 sh:path _:b245;
     sh:message "eutex:hasWaterUsage must use unitCode 'LTR' (liters)"@en;
     sh:hasValue "LTR".
-<https://ref.openepcis.io/extensions/eu/textile/EnergyUsageShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/textile/EnergyUsageShape> a sh:NodeShape;
     sh:property _:b247;
-    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/textile/hasEnergyUsage>.
-_:b248 rdf:first <https://ref.openepcis.io/extensions/eu/textile/hasEnergyUsage>;
+    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/textile/hasEnergyUsage>.
+_:b248 rdf:first <https://ref.openepcis.org/extensions/eu/textile/hasEnergyUsage>;
     rdf:rest _:b249.
 _:b249 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.
 _:b247 sh:path _:b248;
     sh:message "eutex:hasEnergyUsage must use unitCode 'KWH' (kilowatt-hours)"@en;
     sh:hasValue "KWH".
-<https://ref.openepcis.io/extensions/eu/textile/SheddingRateShape> a sh:NodeShape;
+<https://ref.openepcis.org/extensions/eu/textile/SheddingRateShape> a sh:NodeShape;
     sh:property _:b250;
-    sh:targetSubjectsOf <https://ref.openepcis.io/extensions/eu/textile/hasSheddingRate>.
-_:b251 rdf:first <https://ref.openepcis.io/extensions/eu/textile/hasSheddingRate>;
+    sh:targetSubjectsOf <https://ref.openepcis.org/extensions/eu/textile/hasSheddingRate>.
+_:b251 rdf:first <https://ref.openepcis.org/extensions/eu/textile/hasSheddingRate>;
     rdf:rest _:b252.
 _:b252 rdf:first gs1:unitCode;
     rdf:rest rdf:nil.

@@ -139,7 +139,7 @@ envelope. The two are bridged by `dictionaryReference`:
 
 - *serialise:* provide an EN 18223 JSON projection that wraps each value
   as a `DataElement` whose `dictionaryReference` is the OpenEPCIS term
-  IRI (e.g. `https://ref.openepcis.io/extensions/eu/battery/hasRatedCapacity`)
+  IRI (e.g. `https://ref.openepcis.org/extensions/eu/battery/hasRatedCapacity`)
   and whose `valueDataType` is the XSD type from the ontology. No new
   ontology classes are strictly required for this.
 - *add (optional):* mirror classes (`oec:DataElement` and subclasses) if
@@ -214,12 +214,12 @@ flag; each method returns a `statusCode`; content negotiation per EN 18216.
 query interface (event-level search by EPC, business step, disposition,
 location, time) sit alongside this API, not inside it.
 
-## 7. ref.openepcis.io as the EN 18223 (4.3) data dictionary
+## 7. ref.openepcis.org as the EN 18223 (4.3) data dictionary
 
 No change needed to the principle: our term IRIs already satisfy the 4.3
 repository requirements (unique identifier, single occurrence, resolvable,
 cross-catalogue mapping via `owl:equivalentClass`/`owl:equivalentProperty`).
-*Action (document):* state this role explicitly on ref.openepcis.io and in
+*Action (document):* state this role explicitly on ref.openepcis.org and in
 the module READMEs, and ensure every published term is dereferenceable as a
 `dictionaryReference`.
 

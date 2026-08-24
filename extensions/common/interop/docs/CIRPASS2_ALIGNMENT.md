@@ -208,7 +208,7 @@ to.
   ([`extensions/upstream/cirpass2-eudpp/`](../../../upstream/cirpass2-eudpp/README.md),
   regenerated with `pnpm run sync:eudpp`) — the same pattern as the
   GS1 Rail mirror: verbatim merge of the published module exports,
-  upstream IRIs preserved, indexed into the ref.openepcis.io browser
+  upstream IRIs preserved, indexed into the ref.openepcis.org browser
   so every `eudpp:` term is browsable. Mirroring is for indexing and
   browsing; the alignment relationship stays seeAlso/SKOS. Upstream
   license Apache 2.0 (CC BY 4.0 fallback as a document).

@@ -1,6 +1,6 @@
 # EPCIS4DPP: a GS1 and EPCIS profile for the CEN/CENELEC Digital Product Passport standards
 
-### One path to ESPR compliance: a complete, running, open-source profile, conformant to GS1 standards, that realises the neutral CEN/CENELEC JTC 24 Digital Product Passport standards with a GS1 Digital Link resolver, an EPCIS repository speaking EPCIS 1.2 and 2.0, ref.openepcis.io for semantics and validation, and Keycloak for identity.
+### One path to ESPR compliance: a complete, running, open-source profile, conformant to GS1 standards, that realises the neutral CEN/CENELEC JTC 24 Digital Product Passport standards with a GS1 Digital Link resolver, an EPCIS repository speaking EPCIS 1.2 and 2.0, ref.openepcis.org for semantics and validation, and Keycloak for identity.
 
 **An OpenEPCIS DPP-Ready whitepaper · GS1 Standards Stack Scenario**
 
@@ -49,7 +49,7 @@ than require:
 - **The OpenEPCIS EPCIS repository** for capture, storage and query,
   speaking EPCIS 1.2 (XML) and EPCIS 2.0 (JSON and JSON-LD) and storing
   canonically in 2.0.[^repo]
-- **ref.openepcis.io** as the EN 18223 §4.3 data-dictionary repository,
+- **ref.openepcis.org** as the EN 18223 §4.3 data-dictionary repository,
   publishing the ontologies, JSON-LD contexts, and JSON Schema and SHACL
   profiles.[^refregistry]
 - **Keycloak** (OIDC / OAuth2) for identity and tiered access.[^keycloak]
@@ -57,7 +57,7 @@ than require:
 The strongest accurate alignment: EN 18223's `DigitalProductPassport`
 model maps almost one-to-one onto our `oec:` core, and its decoupled
 "data-dictionary repository" with `dictionaryReference` pointers is
-exactly what ref.openepcis.io provides.
+exactly what ref.openepcis.org provides.
 
 **A working converter.** This alignment runs as code. A converter reads
 master data expressed in the GS1 Web Vocabulary and
@@ -146,7 +146,7 @@ flowchart TB
     end
 
     subgraph DATA["Data plane"]
-        REG["ref.openepcis.io<br/>EN 18223 §4.3 data dictionary<br/>ontologies · JSON-LD @context · JSON Schema + SHACL"]
+        REG["ref.openepcis.org<br/>EN 18223 §4.3 data dictionary<br/>ontologies · JSON-LD @context · JSON Schema + SHACL"]
         CORE["Immutable core passport<br/>EN 18223 model, JSON-LD over GS1 + SEMICeu + schema.org + oec:"]
         EPCIS["OpenEPCIS EPCIS repository<br/>EN 18222 API · EN 18221 storage<br/>speaks 1.2 XML + 2.0 JSON-LD · stores 2.0"]
     end
@@ -179,7 +179,7 @@ lifecycle as visibility events, speaking EPCIS 1.2 (XML) and EPCIS 2.0
 Apache Kafka and OpenSearch on Java 21.[^repo] It is where the EN 18222
 API and EN 18221 storage requirements are met. Sections 3, 4 detail it.
 
-**ref.openepcis.io.** The semantic registry, and the EN 18223 §4.3
+**ref.openepcis.org.** The semantic registry, and the EN 18223 §4.3
 data-dictionary repository: every class, property and JSON-LD context is
 published with stable, dereferenceable URIs that serve as
 `dictionaryReference` values, alongside the JSON Schema and SHACL
@@ -267,12 +267,12 @@ over the repository; the method-to-endpoint plan is in
 **Validation at capture.** The `GS1-Extensions` HTTP header (EPCIS 2.0
 §12.3) declares which extension namespaces a payload uses; the repository
 then validates against the JSON Schema and SHACL profiles published under
-each namespace at ref.openepcis.io.
+each namespace at ref.openepcis.org.
 
 ```http
 POST /capture HTTP/1.1
 Content-Type: application/ld+json
-GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/, eubat=https://ref.openepcis.io/extensions/eu/battery/
+GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/, eubat=https://ref.openepcis.org/extensions/eu/battery/
 Authorization: Bearer <access_token>
 ```
 
@@ -374,7 +374,7 @@ authentication companion is prEN 18246. EPCIS4DPP will track both.
 
 ---
 
-## 7. The semantic layer: ref.openepcis.io and EN 18223
+## 7. The semantic layer: ref.openepcis.org and EN 18223
 
 EN 18223 is the interoperability standard, and the one EPCIS4DPP fits
 most precisely. It names three interoperability levels (organisational,
@@ -404,7 +404,7 @@ technologies (§4.3). It does not require that identifier to be resolvable
 on the web; even `digitalProductPassportId` only *should* follow a URI/URL
 structure. A resolvable web IRI and an opaque IRDI (the IEC 61360 / eCl@ss
 / Asset Administration Shell style) are therefore equally conformant,
-though only the former can be fetched. **ref.openepcis.io is exactly such
+though only the former can be fetched. **ref.openepcis.org is exactly such
 a repository, and it takes the resolvable path:** every class and property
 IRI is a unique, dereferenceable HTTPS URL, mapped to GS1, the EU SEMICeu
 Core Vocabularies, schema.org and UNTP via `owl:equivalentClass` and
@@ -526,7 +526,7 @@ OpenEPCIS is built on the conviction that interoperability is served best
 by freely accessible standards and open ontologies. EPCIS4DPP therefore
 takes the UNTP-style path while remaining EN 18223 conformant: the
 serialisation is JSON-LD over openly published vocabularies, and every
-`dictionaryReference` resolves into the open ref.openepcis.io dictionary,
+`dictionaryReference` resolves into the open ref.openepcis.org dictionary,
 so an adopter can understand the same data using that open dictionary
 alone.
 
@@ -544,7 +544,7 @@ Concise verdicts; the cited detail is in
 | **EN 18216** Data exchange | HTTPS/TLS/HTTP-2 + JSON + content negotiation | JSON-LD and HTML over HTTPS; EPCIS reuses the transport | Conformant |
 | **EN 18221** Storage | Archiving/persistence + provider roles, neutral on tech | Append-only EPCIS + versioned core (a conformant pattern); roles + OAIS tracked | Partial |
 | **EN 18222** APIs | Concrete DPP REST API + registry | Expose the method surface (tracked); EPCIS query + resolver added | Planned |
-| **EN 18223** Interoperability | UML+JSON model + data dictionary | `oec:` core maps to it; ref.openepcis.io is the §4.3 dictionary | Conformant |
+| **EN 18223** Interoperability | UML+JSON model + data dictionary | `oec:` core maps to it; ref.openepcis.org is the §4.3 dictionary | Conformant |
 
 `oec:passportStatus` carries the EN 18223 base set (active, inactive,
 archived, invalid) and adds draft, withdrawn, and suspended; EN 18223
@@ -610,8 +610,8 @@ Keycloak token, calls `ReadDPPById`; the response is the EN 18223
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld"
   ],
   "digitalProductPassportId": "https://id.example.org/dpp/09521234000013/BAT2024-001",
   "uniqueProductIdentifier": "https://id.example.org/01/09521234000013/21/BAT2024-001",
@@ -653,7 +653,7 @@ in a single running system.
   from GS1 Web Vocabulary master data in both EN 18223 serialisations; a
   static browser build runs the same code client-side on the shipped
   examples and is published to GitHub Pages.[^demo]
-- **Semantics.** ref.openepcis.io serves the ontologies, contexts and
+- **Semantics.** ref.openepcis.org serves the ontologies, contexts and
   validation profiles, and is the EN 18223 §4.3 data dictionary.
 
 The Community Edition components are Apache-2.0.
@@ -720,7 +720,7 @@ for implementation.
 [^sentry]: openepcis-event-sentry (EPCIS event validation and profiles): https://github.com/openepcis/openepcis-event-sentry
 [^tools]: OpenEPCIS tools and Test Data Generator: https://openepcis.io/docs/
 [^keycloak]: Keycloak, open-source identity and access management (OIDC / OAuth2): https://www.keycloak.org/
-[^refregistry]: OpenEPCIS DPP-Ready vocabulary registry: https://ref.openepcis.io
+[^refregistry]: OpenEPCIS DPP-Ready vocabulary registry: https://ref.openepcis.org
 [^demo]: Live EN 18223 converter demo (GS1 Web Vocabulary master data to an EN 18223 passport, run in the browser): https://openepcis.github.io/openepcis-dpp-ready/
 [^untp-spec]: UN Transparency Protocol (UNTP) specification, UN/CEFACT: https://untp.unece.org/docs/specification/ (built on W3C Verifiable Credentials, Decentralized Identifiers, JSON-LD, and the GS1 Digital Link / EPCIS 2.0 identifiers)
 [^untp-faq]: UNTP FAQ, UN/CEFACT: https://untp.unece.org/docs/about/FAQ/ ("the UNTP intellectual property is owned by the United Nations and is provided free of charge for use by anyone"; developed through the UN/CEFACT Open Development Process)
