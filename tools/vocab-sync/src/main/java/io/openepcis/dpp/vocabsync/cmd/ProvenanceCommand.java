@@ -295,7 +295,7 @@ public class ProvenanceCommand implements Runnable {
 
     private void writeProvenanceTtl(Path out, List<Decision> ds) {
         StringBuilder sb = new StringBuilder();
-        sb.append("@prefix vsprov: <https://ref.openepcis.io/vocab-sync/provenance#> .\n");
+        sb.append("@prefix vsprov: <https://ref.openepcis.org/vocab-sync/provenance#> .\n");
         sb.append("@prefix prov: <http://www.w3.org/ns/prov#> .\n");
         sb.append("@prefix dcterms: <http://purl.org/dc/terms/> .\n");
         sb.append("@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n");

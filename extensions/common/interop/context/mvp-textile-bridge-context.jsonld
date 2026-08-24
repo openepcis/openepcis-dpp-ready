@@ -2,7 +2,7 @@
   "_comment": "Interprets 'MVP Textile DPP v2' documents (a commercial DPP platform's Semantic Treehouse export, 2026-08; provider deliberately not named) as OpenEPCIS/GS1 terms. The MVP schema is closed (additionalProperties:false everywhere), so this context cannot be embedded in the document itself — apply it out-of-band when lifting a validated MVP instance to linked data. Purely structural containers (Supply_chain, DPP_metadata) map to @nest so their children expand as direct properties of the product node instead of being dropped. Target selection follows the layering rule: highest layer that covers the concept (gs1: > oec: > schema:); no key mints a new IRI. Keys with no defensible target (identifier-scheme enums, registryIdentifier, dppBackupUrl) stay unmapped and are documented as gaps in docs/MVP_TEXTILE_MAPPING.md — including the scale caveat: the MVP's materialPercentage/recycledContent look 0-100 while oec: ratio properties are 0-1, so a consumer must normalise values after expansion.",
   "@context": {
     "@version": 1.1,
-    "oec": "https://ref.openepcis.io/extensions/common/core/",
+    "oec": "https://ref.openepcis.org/extensions/common/core/",
     "gs1": "https://ref.gs1.org/voc/",
     "schema": "https://schema.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",

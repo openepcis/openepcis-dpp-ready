@@ -1,13 +1,13 @@
 #!/usr/bin/env tsx
 /**
  * The post-deploy counter-check: every example passport must conform AS
- * JSON-LD, i.e. with its @context resolved from ref.openepcis.io.
+ * JSON-LD, i.e. with its @context resolved from ref.openepcis.org.
  *
  * The inverse of scripts/check-shapes-itb.ts, deliberately. That gate expands
  * documents locally to N-Quads so that deployment skew cannot masquerade as an
  * engine disagreement — which means it is blind to the one thing THIS check
  * measures: whether the currently deployed contexts expand the documents the
- * way the shapes assume. When ref.openepcis.io lags the repository, a document
+ * way the shapes assume. When ref.openepcis.org lags the repository, a document
  * that is green through the local loader picks up stale coercions from the
  * live context (the classic: `"@type": "@id"` vs anyURI literal) and fails at
  * the Test Bed even though nothing in the repository is wrong.
@@ -17,7 +17,7 @@
  * the suite and an upload of the raw JSON-LD is submittable.
  *
  * Needs the validator container (same one as the ITB gate) and network access
- * to ref.openepcis.io from inside that container.
+ * to ref.openepcis.org from inside that container.
  *
  * Usage:
  *   gitb/dev.sh up validators
@@ -107,7 +107,7 @@ async function main() {
   const modules = await discoverModules();
   console.log(
     `Validating the example passports AS JSON-LD through ${BASE}.\n` +
-      `@context is resolved by the validator from ref.openepcis.io — this\n` +
+      `@context is resolved by the validator from ref.openepcis.org — this\n` +
       `measures the DEPLOYMENT, not the shapes (check-shapes-itb.ts does that).\n`,
   );
 
@@ -151,7 +151,7 @@ async function main() {
   if (failed) {
     console.log(
       `\nA failure here with a green check-shapes-itb.ts is deployment skew:\n` +
-        `ref.openepcis.io serves contexts older (or newer) than this working tree.\n` +
+        `ref.openepcis.org serves contexts older (or newer) than this working tree.\n` +
         `Redeploy ref-openepcis, or update the working tree, until both are green.`,
     );
     process.exit(1);

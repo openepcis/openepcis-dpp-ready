@@ -54,8 +54,8 @@ CCCEV separates **what is required** (`cccev:Requirement`, `cccev:RequirementGro
 ```json
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/interop/semic-core-bridge-context.jsonld"
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/interop/semic-core-bridge-context.jsonld"
   ],
   "type": "Requirement",
   "prefLabel": "ESPR Article 7 — Performance and Durability",
@@ -144,9 +144,9 @@ The bridge context lives at `extensions/common/interop/context/semic-core-bridge
 ```json
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/interop/semic-core-bridge-context.jsonld",
-    "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld"
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/interop/semic-core-bridge-context.jsonld",
+    "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld"
   ]
 }
 ```

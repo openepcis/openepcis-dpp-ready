@@ -48,16 +48,16 @@ core/
 
 ## Namespace
 
-The core vocabulary uses the namespace: `https://ref.openepcis.io/extensions/common/core/`
+The core vocabulary uses the namespace: `https://ref.openepcis.org/extensions/common/core/`
 
-Browse the vocabulary at: [ref.openepcis.io/extensions/common/core/](https://ref.openepcis.io/extensions/common/core/)
+Browse the vocabulary at: [ref.openepcis.org/extensions/common/core/](https://ref.openepcis.org/extensions/common/core/)
 
 ## EPCIS 2.0 Extension Declaration
 
 Declare the DPP extension in EPCIS requests per Section 12.3:
 
 ```http
-GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/
+GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/
 ```
 
 ## Ontology Classes
@@ -164,10 +164,10 @@ Domain modules declare their minimum required core version:
 ### Import the Ontology
 
 ```turtle
-@prefix oec: <https://ref.openepcis.io/extensions/common/core/> .
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
 
 # Your domain ontology imports core
-<https://ref.openepcis.io/extensions/yourdomain/> owl:imports <https://ref.openepcis.io/extensions/common/core/> .
+<https://ref.openepcis.org/extensions/yourdomain/> owl:imports <https://ref.openepcis.org/extensions/common/core/> .
 ```
 
 ### Use the JSON-LD Context
@@ -176,8 +176,8 @@ Domain modules declare their minimum required core version:
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.io/extensions/yourdomain/yourdomain-context.jsonld"
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/yourdomain/yourdomain-context.jsonld"
   ]
 }
 ```
@@ -190,8 +190,8 @@ For cleaner syntax with GS1 RegulationTypeCode values, include the shortcuts con
 {
   "@context": [
     "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/gs1-shortcuts-context.jsonld"
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/gs1-shortcuts-context.jsonld"
   ],
   "gs1:regulatoryInformation": {
     "gs1:regulationType": "BATTERY_DIRECTIVE",
@@ -220,7 +220,7 @@ Include the GS1-Extensions header in EPCIS requests:
 ```http
 POST /capture HTTP/1.1
 Content-Type: application/ld+json
-GS1-Extensions: oec=https://ref.openepcis.io/extensions/common/core/
+GS1-Extensions: oec=https://ref.openepcis.org/extensions/common/core/
 ```
 
 ## Documentation

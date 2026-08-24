@@ -33,7 +33,7 @@ const ALLOWLIST_PATH = join(__dirname, "extension-terms-allowlist.json");
 
 /** Namespaces this project governs (or mirrors and ships a TTL for). */
 const OWNED_NAMESPACES = [
-  "https://ref.openepcis.io/extensions/",
+  "https://ref.openepcis.org/extensions/",
   "https://gs1-epcis-reg.org/rail/voc/data#",
 ];
 

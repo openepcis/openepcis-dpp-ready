@@ -178,7 +178,7 @@ Everything else delegates upward.
 
 ## Where to read this in the published vocabulary browser
 
-<https://ref.openepcis.io/extensions/> — region landing pages
+<https://ref.openepcis.org/extensions/> — region landing pages
 (`/eu`, `/us`, `/common`) list each module with a short description that
 states what it delegates to `oec:`. Each `oec:` term page shows its
 SKOS mapping (`skos:exactMatch` / `skos:closeMatch` / `skos:broadMatch`) upward links to schema.org,

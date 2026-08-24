@@ -64,8 +64,8 @@ RUN_VERIFY=1
 # Product table. One row per product:
 #   gtin | lot | serial | model_file | batch_file | item_file | epcis_file | gs1_extensions
 PRODUCTS=(
-  "09521234002000|LOT-2026-AMP01|STAX10-2026-000001|extensions/eu/battery/examples/amperia-staxwall-model.jsonld|extensions/eu/battery/examples/amperia-staxwall-batch.jsonld|extensions/eu/battery/examples/amperia-staxwall-item.jsonld|extensions/eu/battery/epcis/amperia-staxwall-lifecycle.jsonld|oec=https://ref.openepcis.io/extensions/common/core/,eubat=https://ref.openepcis.io/extensions/eu/battery/"
-  "09521234003007|LOT-2026-FJ03|AUR-2026-000001|extensions/eu/textile/examples/fjordline-aurora-model.jsonld|extensions/eu/textile/examples/fjordline-aurora-batch.jsonld|extensions/eu/textile/examples/fjordline-aurora-item.jsonld|extensions/eu/textile/epcis/fjordline-aurora-lifecycle.jsonld|oec=https://ref.openepcis.io/extensions/common/core/,eutex=https://ref.openepcis.io/extensions/eu/textile/"
+  "09521234002000|LOT-2026-AMP01|STAX10-2026-000001|extensions/eu/battery/examples/amperia-staxwall-model.jsonld|extensions/eu/battery/examples/amperia-staxwall-batch.jsonld|extensions/eu/battery/examples/amperia-staxwall-item.jsonld|extensions/eu/battery/epcis/amperia-staxwall-lifecycle.jsonld|oec=https://ref.openepcis.org/extensions/common/core/,eubat=https://ref.openepcis.org/extensions/eu/battery/"
+  "09521234003007|LOT-2026-FJ03|AUR-2026-000001|extensions/eu/textile/examples/fjordline-aurora-model.jsonld|extensions/eu/textile/examples/fjordline-aurora-batch.jsonld|extensions/eu/textile/examples/fjordline-aurora-item.jsonld|extensions/eu/textile/epcis/fjordline-aurora-lifecycle.jsonld|oec=https://ref.openepcis.org/extensions/common/core/,eutex=https://ref.openepcis.org/extensions/eu/textile/"
 )
 
 for arg in "$@"; do

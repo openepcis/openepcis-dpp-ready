@@ -26,13 +26,13 @@ import java.util.stream.Stream;
 /**
  * Loads our DPP-extension terms from {@code extensions/&#42;/&#42;/ontology/&#42;.ttl}, with the
  * cross-vocabulary mappings already asserted on each term. "Our" terms are those in the
- * {@code https://ref.openepcis.io/extensions/} namespace; everything else in the file
+ * {@code https://ref.openepcis.org/extensions/} namespace; everything else in the file
  * (gs1:, schema:, dppk: references, etc.) is ignored here.
  */
 @ApplicationScoped
 public class OurIndex {
 
-    static final String OUR_NS_PREFIX = "https://ref.openepcis.io/extensions/";
+    static final String OUR_NS_PREFIX = "https://ref.openepcis.org/extensions/";
 
     @ConfigProperty(name = "vocab-sync.repo-root")
     String repoRoot;

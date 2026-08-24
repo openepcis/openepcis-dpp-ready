@@ -225,7 +225,7 @@ verify_gtin() {
   if [[ -z "$body" ]]; then
     red "  MISS    $gtin  (empty response from $url)"; return 1
   fi
-  if echo "$body" | jq -e '(.["@context"] // "") | tostring | test("ref.openepcis.io/extensions/common/core/dpp-core-context")' > /dev/null 2>&1; then
+  if echo "$body" | jq -e '(.["@context"] // "") | tostring | test("ref.openepcis.org/extensions/common/core/dpp-core-context")' > /dev/null 2>&1; then
     green "  OK      $gtin"
   else
     yellow "  WARN    $gtin  (resolved but @context lacks canonical dpp-core)"; return 1

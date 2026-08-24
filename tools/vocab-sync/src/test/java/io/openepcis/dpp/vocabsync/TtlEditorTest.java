@@ -44,7 +44,7 @@ class TtlEditorTest {
                 "    rdfs:comment \"\"\"A construction product.",
                 "Use eucpr:hasReactionToFireClass for the substantive declarations;",
                 "reuse oec: terms elsewhere.\"\"\"@en ;",
-                "    rdfs:isDefinedBy <https://ref.openepcis.io/extensions/eu/cpr/> .",
+                "    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/cpr/> .",
                 "",
                 "eucpr:hasReactionToFireClass a owl:DatatypeProperty ;",
                 "    rdfs:seeAlso dppk:reactionToFire ;",

@@ -15,7 +15,7 @@ https://id.gs1.org/01/{GTIN}/21/{serial}
 ### 2. Required EPCIS Extension Header
 
 ```http
-GS1-Extensions: eutex=https://ref.openepcis.io/extensions/eu/textile/, oec=https://ref.openepcis.io/extensions/common/core/
+GS1-Extensions: eutex=https://ref.openepcis.org/extensions/eu/textile/, oec=https://ref.openepcis.org/extensions/common/core/
 ```
 
 ### 3. JSON-LD Context
@@ -23,8 +23,8 @@ GS1-Extensions: eutex=https://ref.openepcis.io/extensions/eu/textile/, oec=https
 ```json
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld"
+    "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld"
   ]
 }
 ```

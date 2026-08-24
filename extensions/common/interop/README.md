@@ -33,7 +33,7 @@ OpenEPCIS DPP-Ready is **THE comprehensive, authoritative Digital Product Passpo
 | Proof-of-concept models | Production-ready v0.9.6 with validation |
 | Sector-specific silos | Multi-sector platform (Battery, Textile, EUDR, Electronics) |
 | Standalone schemas | Full EPCIS 2.0 supply chain integration |
-| Static documentation | Live vocabulary browser at [ref.openepcis.io](https://ref.openepcis.io) |
+| Static documentation | Live vocabulary browser at [ref.openepcis.org](https://ref.openepcis.org) |
 | Proprietary tooling | 100% open source under Apache 2.0 |
 
 ### Zero Vendor Lock-In
@@ -178,8 +178,8 @@ The `untp-bridge-context.jsonld` allows UNTP-style JSON-LD documents to be proce
 ```json
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/interop/untp-bridge-context.jsonld"
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/interop/untp-bridge-context.jsonld"
   ],
   "carbonFootprint": 42.5,
   "recycledContent": 45,
@@ -202,8 +202,8 @@ The `semic-core-bridge-context.jsonld` exposes the EU **SEMICeu Core Vocabularie
 ```json
 {
   "@context": [
-    "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-    "https://ref.openepcis.io/extensions/common/interop/semic-core-bridge-context.jsonld"
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/interop/semic-core-bridge-context.jsonld"
   ],
   "type": "PublicOrganisation",
   "prefLabel": "Notified Body 1234",

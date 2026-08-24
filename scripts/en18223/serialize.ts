@@ -34,7 +34,7 @@ const ENVELOPE_ORDER = [
   "facilityId", "contentSpecificationIds",
 ];
 
-const EXT = "https://ref.openepcis.io/extensions";
+const EXT = "https://ref.openepcis.org/extensions";
 export const OPERATIONAL_CONTEXT_URL = `${EXT}/common/core/dpp-operational-context.jsonld`;
 
 // Regulation module -> its operational context (base + module vocabulary). A DPP
@@ -72,16 +72,16 @@ export function operationalContextFor(master: any): string | string[] {
 
 const PREFIXES: Record<string, string> = {
   gs1: "https://ref.gs1.org/voc/",
-  oec: "https://ref.openepcis.io/extensions/common/core/",
-  eubat: "https://ref.openepcis.io/extensions/eu/battery/",
-  eutex: "https://ref.openepcis.io/extensions/eu/textile/",
-  eudr: "https://ref.openepcis.io/extensions/eu/eudr/",
-  euppwr: "https://ref.openepcis.io/extensions/eu/ppwr/",
-  eucpr: "https://ref.openepcis.io/extensions/eu/cpr/",
-  eudet: "https://ref.openepcis.io/extensions/eu/detergent/",
-  euelec: "https://ref.openepcis.io/extensions/eu/electronics/",
-  eusteel: "https://ref.openepcis.io/extensions/eu/iron-steel/",
-  usfsma: "https://ref.openepcis.io/extensions/us/fsma204/",
+  oec: "https://ref.openepcis.org/extensions/common/core/",
+  eubat: "https://ref.openepcis.org/extensions/eu/battery/",
+  eutex: "https://ref.openepcis.org/extensions/eu/textile/",
+  eudr: "https://ref.openepcis.org/extensions/eu/eudr/",
+  euppwr: "https://ref.openepcis.org/extensions/eu/ppwr/",
+  eucpr: "https://ref.openepcis.org/extensions/eu/cpr/",
+  eudet: "https://ref.openepcis.org/extensions/eu/detergent/",
+  euelec: "https://ref.openepcis.org/extensions/eu/electronics/",
+  eusteel: "https://ref.openepcis.org/extensions/eu/iron-steel/",
+  usfsma: "https://ref.openepcis.org/extensions/us/fsma204/",
   schema: "https://schema.org/",
   // SEMICeu Core Vocabularies: one namespace, two conventional spellings. Both are
   // needed in the expansion direction, because a curated shortcut alias may name

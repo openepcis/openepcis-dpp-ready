@@ -34,9 +34,9 @@ export const SIDECAR_FOR_FLOW: Record<FlowName, FlowName | null> = {
 };
 
 const BATTERY_GS1_EXT =
-  'dpp=https://ref.openepcis.io/extensions/common/core/,battery=https://ref.openepcis.io/extensions/eu/battery/';
+  'dpp=https://ref.openepcis.org/extensions/common/core/,battery=https://ref.openepcis.org/extensions/eu/battery/';
 const TEXTILE_GS1_EXT =
-  'dpp=https://ref.openepcis.io/extensions/common/core/,textile=https://ref.openepcis.io/extensions/eu/textile/';
+  'dpp=https://ref.openepcis.org/extensions/common/core/,textile=https://ref.openepcis.org/extensions/eu/textile/';
 
 export const GS1_EXTENSIONS_FOR_FLOW: Record<FlowName, string> = {
   'battery-commission': BATTERY_GS1_EXT,

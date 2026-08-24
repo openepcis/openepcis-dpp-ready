@@ -9,15 +9,15 @@
 import { readFileSync, writeFileSync } from "fs";
 
 const ROOTS = [
-  "https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld",
-  "https://ref.openepcis.io/extensions/common/interop/semic-core-bridge-context.jsonld",
-  "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld",
-  "https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld",
-  "https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld",
-  "https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld",
-  "https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld",
-  "https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld",
-  "https://ref.openepcis.io/extensions/eu/iron-steel/iron-steel-context.jsonld",
+  "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+  "https://ref.openepcis.org/extensions/common/interop/semic-core-bridge-context.jsonld",
+  "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld",
+  "https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld",
+  "https://ref.openepcis.org/extensions/eu/ppwr/ppwr-context.jsonld",
+  "https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld",
+  "https://ref.openepcis.org/extensions/eu/detergent/detergent-context.jsonld",
+  "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld",
+  "https://ref.openepcis.org/extensions/eu/iron-steel/iron-steel-context.jsonld",
 ];
 
 // Prefixes we care to attribute from the extension contexts. Bare keys that are

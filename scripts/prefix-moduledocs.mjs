@@ -22,18 +22,18 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 
 const URL_TO_FILE = {
-  'https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld': 'extensions/common/core/context/dpp-core-context.jsonld',
-  'https://ref.openepcis.io/extensions/common/core/gs1-shortcuts-context.jsonld': 'extensions/common/core/context/gs1-shortcuts-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld': 'extensions/eu/battery/context/battery-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/battery/battery-context-batterypass-bridge.jsonld': 'extensions/eu/battery/context/battery-context-batterypass-bridge.jsonld',
-  'https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld': 'extensions/eu/textile/context/textile-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld': 'extensions/eu/electronics/context/electronics-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld': 'extensions/eu/eudr/context/eudr-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld': 'extensions/eu/detergent/context/detergent-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld': 'extensions/eu/ppwr/context/ppwr-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/cpr/cpr-context.jsonld': 'extensions/eu/cpr/context/cpr-context.jsonld',
-  'https://ref.openepcis.io/extensions/us/fsma204/fsma204-context.jsonld': 'extensions/us/fsma204/context/fsma204-context.jsonld',
-  'https://ref.openepcis.io/extensions/common/interop/untp-bridge-context.jsonld': 'extensions/common/interop/context/untp-bridge-context.jsonld',
+  'https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld': 'extensions/common/core/context/dpp-core-context.jsonld',
+  'https://ref.openepcis.org/extensions/common/core/gs1-shortcuts-context.jsonld': 'extensions/common/core/context/gs1-shortcuts-context.jsonld',
+  'https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld': 'extensions/eu/battery/context/battery-context.jsonld',
+  'https://ref.openepcis.org/extensions/eu/battery/battery-context-batterypass-bridge.jsonld': 'extensions/eu/battery/context/battery-context-batterypass-bridge.jsonld',
+  'https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld': 'extensions/eu/textile/context/textile-context.jsonld',
+  'https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld': 'extensions/eu/electronics/context/electronics-context.jsonld',
+  'https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld': 'extensions/eu/eudr/context/eudr-context.jsonld',
+  'https://ref.openepcis.org/extensions/eu/detergent/detergent-context.jsonld': 'extensions/eu/detergent/context/detergent-context.jsonld',
+  'https://ref.openepcis.org/extensions/eu/ppwr/ppwr-context.jsonld': 'extensions/eu/ppwr/context/ppwr-context.jsonld',
+  'https://ref.openepcis.org/extensions/eu/cpr/cpr-context.jsonld': 'extensions/eu/cpr/context/cpr-context.jsonld',
+  'https://ref.openepcis.org/extensions/us/fsma204/fsma204-context.jsonld': 'extensions/us/fsma204/context/fsma204-context.jsonld',
+  'https://ref.openepcis.org/extensions/common/interop/untp-bridge-context.jsonld': 'extensions/common/interop/context/untp-bridge-context.jsonld',
   'https://gs1-epcis-reg.org/rail/rail-context.jsonld': 'extensions/upstream/gs1-rail/context/rail-context.jsonld',
 };
 const remoteCache = new Map();
@@ -67,15 +67,15 @@ async function buildTermMap(ctxRef) { const m = {}; await mergeCtx(ctxRef, m, ne
 // defined in two modules (shadowed) fail the gate and stay bare. The displayed
 // fragment keeps no @context — only its keys gain prefixes.
 const DEFAULT_CTX = [
-  'https://ref.openepcis.io/extensions/common/core/dpp-core-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/textile/textile-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/electronics/electronics-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/eudr/eudr-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/detergent/detergent-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/ppwr/ppwr-context.jsonld',
-  'https://ref.openepcis.io/extensions/eu/cpr/cpr-context.jsonld',
-  'https://ref.openepcis.io/extensions/us/fsma204/fsma204-context.jsonld',
+  'https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld',
+  'https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld',
+  'https://ref.openepcis.org/extensions/eu/textile/textile-context.jsonld',
+  'https://ref.openepcis.org/extensions/eu/electronics/electronics-context.jsonld',
+  'https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld',
+  'https://ref.openepcis.org/extensions/eu/detergent/detergent-context.jsonld',
+  'https://ref.openepcis.org/extensions/eu/ppwr/ppwr-context.jsonld',
+  'https://ref.openepcis.org/extensions/eu/cpr/cpr-context.jsonld',
+  'https://ref.openepcis.org/extensions/us/fsma204/fsma204-context.jsonld',
 ];
 
 function classify(def) {

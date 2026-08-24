@@ -210,9 +210,9 @@ battery/
 
 ## Vocabulary Namespace
 
-The battery vocabulary uses the namespace: `https://ref.openepcis.io/extensions/eu/battery/`
+The battery vocabulary uses the namespace: `https://ref.openepcis.org/extensions/eu/battery/`
 
-Browse the vocabulary at: [ref.openepcis.io/extensions/eu/battery/](https://ref.openepcis.io/extensions/eu/battery/)
+Browse the vocabulary at: [ref.openepcis.org/extensions/eu/battery/](https://ref.openepcis.org/extensions/eu/battery/)
 
 ## Context Flexibility
 
@@ -227,13 +227,13 @@ Same data, different semantic views:
 
 ```json
 // Supply chain systems use default context
-{ "@context": "https://ref.openepcis.io/extensions/eu/battery/battery-context.jsonld" }
+{ "@context": "https://ref.openepcis.org/extensions/eu/battery/battery-context.jsonld" }
 
 // Scientific systems use enriched context
-{ "@context": "https://ref.openepcis.io/extensions/eu/battery/battery-context-scientific.jsonld" }
+{ "@context": "https://ref.openepcis.org/extensions/eu/battery/battery-context-scientific.jsonld" }
 
 // Interpret BatteryPass documents using OpenEPCIS vocabulary
-{ "@context": "https://ref.openepcis.io/extensions/eu/battery/battery-context-batterypass-bridge.jsonld" }
+{ "@context": "https://ref.openepcis.org/extensions/eu/battery/battery-context-batterypass-bridge.jsonld" }
 ```
 
 ### BatteryPass interoperability — one data model, several renderings
@@ -253,7 +253,7 @@ looks like separate sources are renderings of that model through different chann
   publishes no RDF IRIs; only its **longlist-only attributes** (the DPP-information
   group #1–#4, which have no SAMM equivalent) plus four flat lossless-carrier keys
   are referenced via the OpenEPCIS-hosted `bpr:` namespace
-  (`https://ref.openepcis.io/vocab/batterypass-ready/1.3#`). There is no SAMM 1.3.0
+  (`https://ref.openepcis.org/vocab/batterypass-ready/1.3#`). There is no SAMM 1.3.0
   and no SAMM `DPPInformation` submodel.
 - **TNO AAS→RDF conversions** on the CIRPASS-2 vocabulary hub
   (`ontology.tno.nl/BatteryPass/*`, v0.2.0) — machine-generated OWL renderings of
@@ -480,7 +480,7 @@ This section documents planned features and known limitations for transparency:
 
 ### Version Strategy
 - Currently pre-1.0 release
-- Namespace URIs are stable: `https://ref.openepcis.io/extensions/eu/battery/`
+- Namespace URIs are stable: `https://ref.openepcis.org/extensions/eu/battery/`
 - Breaking changes will be documented in release notes
 
 We welcome contributions to address these gaps - please [open an issue](https://github.com/openepcis/openepcis-battery-dpp/issues) or submit a pull request.

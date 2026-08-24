@@ -10,7 +10,7 @@
  */
 import jsonld from "jsonld";
 
-export const DPP = "https://ref.openepcis.io/extensions/common/core/";
+export const DPP = "https://ref.openepcis.org/extensions/common/core/";
 export const GS1 = "https://ref.gs1.org/voc/";
 const SCHEMA = "https://schema.org/";
 const XSD = "http://www.w3.org/2001/XMLSchema#";
