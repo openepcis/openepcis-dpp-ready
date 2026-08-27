@@ -153,6 +153,58 @@ fetch_token() {
 }
 auth() { echo "Authorization: Bearer $TOKEN"; }
 
+# ------------------------------------------------------------------ write preflight
+# The GS1 example range (952…) is assignment-based: the resolver refuses a write
+# under a prefix the caller's tenant does not hold in the /test-gcps ledger.
+#
+# WHY this check has to run BEFORE the first write: provision_product deletes and
+# re-creates, so the linkset is rebuilt cleanly. Without the assignment the DELETE
+# still succeeds and the POST then answers 403 — the product is gone and cannot be
+# written back. That is how the demo heroes (Fjordline, Amperia) ended up served
+# without their product images: a run died in exactly that gap and left them
+# gutted. Refuse up front instead, and say what to do about it.
+#
+# A resolver that predates /test-gcps answers 404; the check then steps aside
+# rather than blocking a run it has no basis to judge.
+TEST_GCP_LEDGER=""   # newline-separated prefixes; "-" = endpoint unavailable
+load_test_gcps() {
+  [[ -n "$TEST_GCP_LEDGER" ]] && return 0
+  local code
+  code=$(curl -sk -o /tmp/pd_gcps.json -w '%{http_code}' "$DL_URL/test-gcps" -H "$(auth)")
+  if [[ "$code" != 200 ]]; then TEST_GCP_LEDGER="-"; return 0; fi
+  TEST_GCP_LEDGER=$(jq -r '.[].gcp // empty' /tmp/pd_gcps.json 2>/dev/null)
+  # An empty ledger is a real answer ("this tenant holds nothing"), not a missing
+  # one — keep it distinguishable from the unset state that triggers a refetch.
+  [[ -n "$TEST_GCP_LEDGER" ]] || TEST_GCP_LEDGER=" "
+}
+
+# Does the tenant hold a prefix this GTIN sits under? A GTIN-14 carries a leading
+# indicator/pad digit that is NOT part of the company prefix (09521234003007 →
+# 9521234003007), and prefix lengths vary per licence — so the test is "some held
+# prefix starts this number", not equality at a fixed width. Both spellings are
+# tried; a number outside the example range is none of this gate's business.
+may_write_gtin() { # gtin
+  local gtin="$1" cand p in_range=0
+  load_test_gcps
+  [[ "$TEST_GCP_LEDGER" == "-" ]] && return 0
+  for cand in "$gtin" "${gtin:1}"; do
+    case "$cand" in 952*) in_range=1 ;; *) continue ;; esac
+    while IFS= read -r p; do
+      [[ -n "$p" && "$cand" == "$p"* ]] && return 0
+    done <<<"$TEST_GCP_LEDGER"
+  done
+  [[ "$in_range" -eq 1 ]] || return 0
+  return 1
+}
+
+# Prints the refusal. Separate so both write paths say the same thing.
+refuse_unassigned() { # gtin
+  red "  $1: this tenant holds no 952… assignment covering the GTIN."
+  red "     Refusing to DELETE a product it could not write back (see the preflight note)."
+  red "     Admin:        PUT  $DL_URL/test-gcps/<prefix>  -d '{\"defaultGroup\":\"<tenant>\"}'"
+  red "     Self-service: POST $DL_URL/test-gcps"
+}
+
 # ------------------------------------------------------------------ products (+ embedded images)
 upload_image() { # gtin key src  -> echoes URL (handles images, PDFs, SVG, HTML)
   local gtin="$1" key="$2" src="$3" mime resp code
@@ -206,26 +258,52 @@ collect_image_urls() { # gtin slug -> prints JSON array of {url, mime} objects
   if [[ ${#entries[@]} -eq 0 ]]; then echo '[]'; else printf '%s\n' "${entries[@]}" | jq -s .; fi
 }
 
-provision_product() { # gtin file slug desc
-  local gtin="$1" rel="$2" slug="$3" desc="$4" file="$REPO_ROOT/$2"
-  [[ -f "$file" ]] || { red "  missing seed file: $rel"; return 1; }
-  if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] product $gtin  ($rel + images)"; return 0; fi
-  local urls_json; urls_json=$(collect_image_urls "$gtin" "$slug")
-  # Embed the image referencedFile array into the seed body so a single POST
-  # yields a complete linkset (no lossy follow-up PUT).
-  # Strip editorial _comment* keys (same STRIP as the passport seeder), then embed images.
-  # Append image entries to any referencedFile the seed already declares (e.g.
-  # certificate / manual documents), rather than replacing them.
-  local body; body=$(jq "${hostargs[@]}" --argjson urls "$urls_json" --arg desc "$desc" '
-    walk(if type == "object" then with_entries(select(.key | startswith("_") | not)) else . end) |
-    walk(if type == "string" then (gsub("https://id\\.gs1\\.org"; $dl) | gsub("https://files\\.example\\.org"; $files)) else . end) |
+# Same as collect_image_urls, but uploads each file only once per run: the hero
+# GTINs need the URL list three times (model + batch + item) and re-uploading a
+# megabyte per granularity is pure waste. bash 3.2 has no associative arrays, so
+# the cache is one small file per GTIN under a run-scoped directory.
+IMG_CACHE_DIR="${TMPDIR:-/tmp}/provision-demo-imgs.$$"
+trap 'rm -rf "$IMG_CACHE_DIR"' EXIT
+image_urls_for() { # gtin slug -> prints JSON array of {url, mime} objects
+  local gtin="$1" slug="$2" cache="$IMG_CACHE_DIR/$1.json"
+  mkdir -p "$IMG_CACHE_DIR"
+  [[ -f "$cache" ]] || collect_image_urls "$gtin" "$slug" >"$cache"
+  cat "$cache"
+}
+
+# Turn the uploaded image list into gs1:ReferencedFileDetails entries and APPEND
+# them to whatever referencedFile the document already declares (certificates,
+# manuals) — never replace. Reads the document on stdin, writes it on stdout.
+#
+# WHY a shared helper: the hero batch/item documents used to be PUT straight from
+# the raw model*batch*item seed merge, which carries no referencedFile at all —
+# so a signed-in reader of a serial-level passport (whose own item document is
+# served, not the model's) got a passport with no product images, while an
+# anonymous reader saw them. Same filter, all three granularities.
+embed_image_refs() { # urls_json desc  (document on stdin)
+  local urls_json="$1" desc="$2"
+  jq --argjson urls "$urls_json" --arg desc "$desc" '
     if ($urls|length) > 0 then .referencedFile = ((.referencedFile // []) + ($urls | to_entries | map({
         "type":"gs1:ReferencedFileDetails","fileLanguageCode":"en",
         "contentDescription": ($desc + " (image " + ((.key+1)|tostring) + ")"),
         "referencedFileType": {"id":"gs1:ReferencedFileTypeCode-PRODUCT_IMAGE"},
         "id": .value.url, "referencedFileURL": .value.url }
         + (if (.value.mime // "") != "" then {"schema:encodingFormat": .value.mime} else {} end)
-      ))) else . end' "$file")
+      ))) else . end'
+}
+
+provision_product() { # gtin file slug desc
+  local gtin="$1" rel="$2" slug="$3" desc="$4" file="$REPO_ROOT/$2"
+  [[ -f "$file" ]] || { red "  missing seed file: $rel"; return 1; }
+  if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] product $gtin  ($rel + images)"; return 0; fi
+  local urls_json; urls_json=$(image_urls_for "$gtin" "$slug")
+  # Embed the image referencedFile array into the seed body so a single POST
+  # yields a complete linkset (no lossy follow-up PUT).
+  # Strip editorial _comment* keys (same STRIP as the passport seeder), then embed images.
+  local body; body=$(jq "${hostargs[@]}" '
+    walk(if type == "object" then with_entries(select(.key | startswith("_") | not)) else . end) |
+    walk(if type == "string" then (gsub("https://id\\.gs1\\.org"; $dl) | gsub("https://files\\.example\\.org"; $files)) else . end)
+    ' "$file" | embed_image_refs "$urls_json" "$desc")
   # FLS probe markers (see FLS_PROBE_GTIN above): three oec-core fields at three
   # field tiers, in bare shortcut spelling (survives the typed write path).
   if [[ "$gtin" == "$FLS_PROBE_GTIN" ]]; then
@@ -237,7 +315,9 @@ provision_product() { # gtin file slug desc
       ."dataQualityAssessment"   = "FLS-PROBE-AO-42" |
       ."eoriNumber"              = "FLS-PROBE-RESTRICTED-42"' <<<"$body")
   fi
-  # Idempotent: delete-then-create so the linkset is rebuilt cleanly each run.
+  # Idempotent: delete-then-create so the linkset is rebuilt cleanly each run —
+  # which is only safe once the write is known to be permitted (see may_write_gtin).
+  if ! may_write_gtin "$gtin"; then refuse_unassigned "product $gtin"; return 1; fi
   curl -sk -o /dev/null -X DELETE "$DL_URL/products/$gtin" -H "$(auth)"
   local code; code=$(curl -sk -o /tmp/pd_prov.json -w '%{http_code}' -X POST "$DL_URL/products" \
     -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' \
@@ -251,21 +331,27 @@ provision_product() { # gtin file slug desc
 
 # ------------------------------------------------------------------ hero batch/item granularities
 provision_hero_sublevels() {
-  local row gtin lot serial batch item model code doc
+  local row gtin lot serial batch item model code doc slug desc urls_json
   for row in "${HEROES[@]}"; do
     IFS='|' read -r gtin lot serial batch item <<<"$row"
     gtin_selected "$gtin" || continue
-    model=""
+    model=""; slug=""; desc=""
     local prow
     for prow in "${PRODUCTS[@]}"; do
-      [[ "$prow" == "$gtin|"* ]] && { IFS='|' read -r _ model _ _ <<<"$prow"; break; }
+      [[ "$prow" == "$gtin|"* ]] && { IFS='|' read -r _ model slug desc <<<"$prow"; break; }
     done
     [[ -n "$model" && -f "$REPO_ROOT/$model" && -f "$REPO_ROOT/$batch" && -f "$REPO_ROOT/$item" ]]       || { red "  hero $gtin: missing model/batch/item file"; continue; }
     if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] hero $gtin batch=$lot item=$serial"; continue; fi
-    doc=$(jq -s '.[0] * .[1]' "$REPO_ROOT/$model" "$REPO_ROOT/$batch" | jq "${hostargs[@]}" "$STRIP | $HOSTS")
+    # The batch/item documents are what the resolver serves to a reader who is
+    # entitled to the stored record (its owner, signed in) — they need the same
+    # product images the model carries, or that reader gets an imageless
+    # passport while an anonymous one, served the derived view, sees pictures.
+    # Cached, so this costs no extra uploads.
+    urls_json=$(image_urls_for "$gtin" "$slug")
+    doc=$(jq -s '.[0] * .[1]' "$REPO_ROOT/$model" "$REPO_ROOT/$batch" | jq "${hostargs[@]}" "$STRIP | $HOSTS" | embed_image_refs "$urls_json" "$desc")
     code=$(curl -sk -o /dev/null -w '%{http_code}' -X PUT "$DL_URL/products/$gtin/10/$lot"       -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true'       --data-binary "$doc")
     case "$code" in 20[0-2]) grn "  hero batch $gtin/10/$lot -> $code" ;; *) red "  hero batch $gtin/10/$lot -> $code" ;; esac
-    doc=$(jq -s '.[0] * .[1] * .[2]' "$REPO_ROOT/$model" "$REPO_ROOT/$batch" "$REPO_ROOT/$item" | jq "${hostargs[@]}" "$STRIP | $HOSTS")
+    doc=$(jq -s '.[0] * .[1] * .[2]' "$REPO_ROOT/$model" "$REPO_ROOT/$batch" "$REPO_ROOT/$item" | jq "${hostargs[@]}" "$STRIP | $HOSTS" | embed_image_refs "$urls_json" "$desc")
     code=$(curl -sk -o /dev/null -w '%{http_code}' -X PUT "$DL_URL/products/$gtin/21/$serial"       -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true'       --data-binary "$doc")
     case "$code" in 20[0-2]) grn "  hero item  $gtin/21/$serial -> $code" ;; *) red "  hero item  $gtin/21/$serial -> $code" ;; esac
   done
@@ -297,6 +383,7 @@ provision_tier_probes() {
       ."gs1:productName" = [{"@value": $name, "@language": "en"}] |
       del(."schema:serialNumber") |
       .accessLevel = $tier' "$src")
+    if ! may_write_gtin "$gtin"; then refuse_unassigned "tier probe $gtin"; continue; fi
     curl -sk -o /dev/null -X DELETE "$DL_URL/products/$gtin" -H "$(auth)"
     # No isAnonymousAccessAllowed header: the tier field is authoritative and
     # the indexing chokepoint reconciles the boolean (non-Public -> false).
