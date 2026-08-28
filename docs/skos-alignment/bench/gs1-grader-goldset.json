@@ -1,0 +1,1262 @@
+[
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/languageCode~gs1:fileLanguageCode~EXACT",
+    "gold": "EXACT",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/languageCode",
+    "sourceLabel": "Language Code",
+    "sourceDef": "ISO 639-1 language code. See also gs1:fileLanguageCode.",
+    "targetIri": "https://ref.gs1.org/voc/fileLanguageCode",
+    "targetLabel": "File Language Code",
+    "targetDef": "The specified language to which the digital asset is targeted. It is recommended to use the ISO 639-1 language code."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/battery/languageCode~gs1:fileLanguageCode~EXACT",
+    "gold": "EXACT",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/languageCode",
+    "sourceLabel": "Language Code",
+    "sourceDef": "ISO 639-1 language code.",
+    "targetIri": "https://ref.gs1.org/voc/fileLanguageCode",
+    "targetLabel": "File Language Code",
+    "targetDef": "The specified language to which the digital asset is targeted. It is recommended to use the ISO 639-1 language code."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/DocumentReference~gs1:ReferencedFileDetails~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/DocumentReference",
+    "sourceLabel": "Document Reference",
+    "sourceDef": "Reference to an external document such as reports, certificates,\\nmanuals, or guides. Supports multiple languages and formats.\\nSee also gs1:ReferencedFileDetails for GS1 Web Vocabulary equivalent.",
+    "targetIri": "https://ref.gs1.org/voc/ReferencedFileDetails",
+    "targetLabel": "Referenced File",
+    "targetDef": "Provides URL and other information on a referenced electronic file."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/DocumentType~gs1:ReferencedFileTypeCode~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/DocumentType",
+    "sourceLabel": "Document Type",
+    "sourceDef": "Types of supporting documents for DPP.\\nSee also gs1:ReferencedFileTypeCode for GS1 standard document types (PRODUCT_MANUAL, SAFETY_DATA_SHEET, CERTIFICATE, etc.).",
+    "targetIri": "https://ref.gs1.org/voc/ReferencedFileTypeCode",
+    "targetLabel": "Referenced File Type Code",
+    "targetDef": ""
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/OperatorInformation~gs1:OrganizationID_Details~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/OperatorInformation",
+    "sourceLabel": "Operator Information",
+    "sourceDef": "Economic operator information as required by various EU regulations.\\nCaptures manufacturer, importer, distributor, and other operator roles.\\nUse gs1:globalLocationNumber for operator identification (inherited from gs1:Organization).\\nUse GS1 Digital Link format: https://id.gs1.org/417/{GLN}",
+    "targetIri": "https://ref.gs1.org/voc/OrganizationID_Details",
+    "targetLabel": "Organisation ID Details",
+    "targetDef": "Government bodies, trade organisations, and other parties issue identifiers that are associated to legal entities and/or functions. Linking these identifiers to GLN and one another supports consolidating records, mapping related, collaborative identifiers, enhances search ability and enables more efficient transitions between identifiers.  This class provides a mechanism for connecting and sharing party identifiers."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/documentUrl~gs1:referencedFile~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/documentUrl",
+    "sourceLabel": "Document URL",
+    "sourceDef": "URL to the document. See also gs1:referencedFileURL.",
+    "targetIri": "https://ref.gs1.org/voc/referencedFile",
+    "targetLabel": "Has Referenced File",
+    "targetDef": "Link to a file or website containing additional information on product."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/hasDepositAmount~gs1:returnablePackageDepositAmount~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasDepositAmount",
+    "sourceLabel": "Deposit Amount",
+    "sourceDef": "Refundable deposit applied at point of sale. Modelled as gs1:QuantitativeValue with unitCode = ISO 4217 currency code (e.g. 'EUR'). Prefer the upstream gs1:returnablePackageDepositAmount (range gs1:PriceSpecification) where the GS1 packaging model is in use; this property remains for QuantitativeValue-based expressions.",
+    "targetIri": "https://ref.gs1.org/voc/returnablePackageDepositAmount",
+    "targetLabel": "Returnable Package Deposit Amount",
+    "targetDef": "The monetary amount for the individual returnable package."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/hasDepositReturnScheme~gs1:hasReturnablePackageDeposit~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasDepositReturnScheme",
+    "sourceLabel": "Deposit-Return Scheme",
+    "sourceDef": "Links a product (typically gs1:PackagingDetails) to the DRS it participates in. Where the GS1 packaging model is in use, prefer the upstream gs1:hasReturnablePackageDeposit (gs1:PackagingDetails \\u2192 gs1:ReturnablePackageDepositDetails); since oec:DepositReturnScheme subclasses the GS1 target class, the same node works for both.",
+    "targetIri": "https://ref.gs1.org/voc/hasReturnablePackageDeposit",
+    "targetLabel": "Has Returnable Package Deposit Details",
+    "targetDef": "links to details of amounts refunded for returnable package in a specified region."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/hasDocuments~gs1:referencedFile~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasDocuments",
+    "sourceLabel": "Documents",
+    "sourceDef": "Supporting documents for the product. DPP-specific counterpart to gs1:referencedFile: the oec:DocumentReference range adds document typing and ESPR access-rights semantics that gs1:ReferencedFileDetails does not carry.",
+    "targetIri": "https://ref.gs1.org/voc/referencedFile",
+    "targetLabel": "Has Referenced File",
+    "targetDef": "Link to a file or website containing additional information on product."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/hasOperatorRole~gs1:organizationRole~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasOperatorRole",
+    "sourceLabel": "Operator Role",
+    "sourceDef": "Role of the economic operator (manufacturer, importer, etc.).",
+    "targetIri": "https://ref.gs1.org/voc/organizationRole",
+    "targetLabel": "Has Organization Role",
+    "targetDef": "The role and/or purpose of a party (i.e. legal entity or function).  Multiple values from gs1:OrganizationRoleType code list may be associated to a single organisation/party."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/hasRepairabilityInfo~gs1:serviceInfo~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasRepairabilityInfo",
+    "sourceLabel": "Repairability Information",
+    "sourceDef": "Repair and maintenance information for the product.",
+    "targetIri": "https://ref.gs1.org/voc/serviceInfo",
+    "targetLabel": "Service information",
+    "targetDef": "A link to service or maintenance instructions."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/indicatorUnit~gs1:unitCode~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/indicatorUnit",
+    "sourceLabel": "Indicator Unit",
+    "sourceDef": "Declared unit for this indicator (e.g. kg CO2 eq, kg CFC11 eq, mol H+ eq, m3 world eq deprived).",
+    "targetIri": "https://ref.gs1.org/voc/unitCode",
+    "targetLabel": "Measurement Unit",
+    "targetDef": "A string value indicating a Measurement Unit from UN/ECE Recommendation 20, Units of Measure used in International Trade e.g. GRM = gram - see http://www.unece.org/fileadmin/DAM/cefact/recommendations/rec20/rec20_rev3_Annex3e.pdf"
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/language~gs1:fileLanguageCode~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/language",
+    "sourceLabel": "Language",
+    "sourceDef": "Language tag of a value (EN 18223 4.1.2.8.2): ISO 639 language plus EN ISO 3166-1 country, for example \\\"en-GB\\\".",
+    "targetIri": "https://ref.gs1.org/voc/fileLanguageCode",
+    "targetLabel": "File Language Code",
+    "targetDef": "The specified language to which the digital asset is targeted. It is recommended to use the ISO 639-1 language code."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/regulatoryPermitIdentification~gs1:regulatoryReferenceNumber~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/regulatoryPermitIdentification",
+    "sourceLabel": "Regulatory Permit Identification",
+    "sourceDef": "Identifier of a permit, authorisation, or type-examination certificate issued by a regulatory body for the trade item. Used inside a gs1:regulatoryInformation block.",
+    "targetIri": "https://ref.gs1.org/voc/regulatoryReferenceNumber",
+    "targetLabel": "Regulatory Reference Number",
+    "targetDef": "A reference number for a record, document or dataset stored within a regulatory information system, repository or registry."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/battery/facilityIdentifier~gs1:globalLocationNumber~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/facilityIdentifier",
+    "sourceLabel": "Facility Identifier",
+    "sourceDef": "Unique identifier of the manufacturing facility (recommended: GS1 GLN). Sits on the oec:FacilityInformation referenced by eubat:hasManufacturingPlace.",
+    "targetIri": "https://ref.gs1.org/voc/globalLocationNumber",
+    "targetLabel": "Global Location Number (GLN)",
+    "targetDef": "A Global Location Number (GLN) is the GS1 Identification Key used to identify physical locations or parties. The key comprises a GS1 Company Prefix, Location Reference and Check Digit. For more information see https://www.gs1.org/gln."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/battery/measurementCertificateUrl~gs1:certificationInfo~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/measurementCertificateUrl",
+    "sourceLabel": "Measurement Certificate URL",
+    "sourceDef": "URL to the measurement certificate document.",
+    "targetIri": "https://ref.gs1.org/voc/certificationInfo",
+    "targetLabel": "Certification Information",
+    "targetDef": "A link to certification information."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/battery/safetyInstructions~gs1:safetyInfo~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/safetyInstructions",
+    "sourceLabel": "Safety Instructions",
+    "sourceDef": "URL to general safety instructions document.",
+    "targetIri": "https://ref.gs1.org/voc/safetyInfo",
+    "targetLabel": "Safety information",
+    "targetDef": "A link to safety information."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/battery/verificationCertificateUrl~gs1:certificationURI~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/verificationCertificateUrl",
+    "sourceLabel": "Verification Certificate URL",
+    "sourceDef": "URL to the verification certificate document.",
+    "targetIri": "https://ref.gs1.org/voc/certificationURI",
+    "targetLabel": "Certification URI",
+    "targetDef": "If gs1:certificationURI is present, it should point to data about this individual certificate within a repository maintained by the certification agency."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/battery/verificationDate~gs1:certificationAuditDate~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/verificationDate",
+    "sourceLabel": "Verification Date",
+    "sourceDef": "Date when third-party verification was completed.",
+    "targetIri": "https://ref.gs1.org/voc/certificationAuditDate",
+    "targetLabel": "Certification Audit Date",
+    "targetDef": "Date of completion of the auditing needed for certification"
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/detergent/hasProductForm~gs1:productFormDescription~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/detergent/hasProductForm",
+    "sourceLabel": "Product Form",
+    "sourceDef": "The physical form of the detergent product (liquid, powder, capsule, etc.).",
+    "targetIri": "https://ref.gs1.org/voc/productFormDescription",
+    "targetLabel": "Product Form Description",
+    "targetDef": "The physical form or shape of the product. Used, for example, in pharmaceutical industry to indicate the formulation of the product. Defines the form the product takes and is distinct from the form of the packaging."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/electronics/HazardousWasteRecord~gs1:CertificationDetails~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/electronics/HazardousWasteRecord",
+    "sourceLabel": "Hazardous Waste Record",
+    "sourceDef": "Hazardous waste arising from the treatment of a WEEE item, with the consignment\\ndescription and the reference of the treatment certificate issued for it.",
+    "targetIri": "https://ref.gs1.org/voc/CertificationDetails",
+    "targetLabel": "Certification",
+    "targetDef": "Certification issued by a certifying body to a certification subject (Organization, Place, Product)."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/electronics/recyclingProcess~gs1:packagingRecyclingProcessType~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/electronics/recyclingProcess",
+    "sourceLabel": "Recycling Process",
+    "sourceDef": "The treatment or recycling process applied to the item.",
+    "targetIri": "https://ref.gs1.org/voc/packagingRecyclingProcessType",
+    "targetLabel": "Packaging Recycling Process Type",
+    "targetDef": "The process the packaging could undertake for recyclable & sustainability programs. Examples COMPOSTABLE, ENERGY_RECOVERABLE, REUSABLE."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/electronics/treatmentCertificate~gs1:certificationIdentification~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/electronics/treatmentCertificate",
+    "sourceLabel": "Treatment Certificate",
+    "sourceDef": "Reference of the certificate issued for the treatment or disposal of the hazardous waste consignment.",
+    "targetIri": "https://ref.gs1.org/voc/certificationIdentification",
+    "targetLabel": "Certification Identification",
+    "targetDef": "A reference (i.e, to a certificate instance) issued to confirm that a product, party or location has passed certification. e.g. 'XSC-C-12345'"
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/electronics/treatmentMethod~gs1:packagingRecyclingProcessType~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/electronics/treatmentMethod",
+    "sourceLabel": "Treatment Method",
+    "sourceDef": "The treatment route applied to the removed battery (for example hydrometallurgical or pyrometallurgical recycling).",
+    "targetIri": "https://ref.gs1.org/voc/packagingRecyclingProcessType",
+    "targetLabel": "Packaging Recycling Process Type",
+    "targetDef": "The process the packaging could undertake for recyclable & sustainability programs. Examples COMPOSTABLE, ENERGY_RECOVERABLE, REUSABLE."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/eudr/exemptionEffectiveFrom~gs1:regulatoryReferenceApplicabilityStartDate~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/eudr/exemptionEffectiveFrom",
+    "sourceLabel": "Exemption Effective From",
+    "sourceDef": "Start date of the exemption's validity. Before this date the exemption does not apply.",
+    "targetIri": "https://ref.gs1.org/voc/regulatoryReferenceApplicabilityStartDate",
+    "targetLabel": "Regulatory Reference Applicability Start Date",
+    "targetDef": "The earliest date from which the referenced information becomes applicable."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/eudr/hasOriginDetails~gs1:countryOfOriginStatement~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/eudr/hasOriginDetails",
+    "sourceLabel": "Origin Details",
+    "sourceDef": "Container for geolocation and producer identification.",
+    "targetIri": "https://ref.gs1.org/voc/countryOfOriginStatement",
+    "targetLabel": "Country Of Origin Statement",
+    "targetDef": "A description of the geographic area the item may have originated from or has been processed."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/eudr/hasOriginList~gs1:countryOfOriginStatement~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/eudr/hasOriginList",
+    "sourceLabel": "Origin List",
+    "sourceDef": "List of origin details (one per geolocation or polygon).",
+    "targetIri": "https://ref.gs1.org/voc/countryOfOriginStatement",
+    "targetLabel": "Country Of Origin Statement",
+    "targetDef": "A description of the geographic area the item may have originated from or has been processed."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/iron-steel/heatNumber~gs1:hasBatchLotNumber~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/iron-steel/heatNumber",
+    "sourceLabel": "Heat Number",
+    "sourceDef": "Heat (melt) number identifying the batch of molten steel from which the product was cast (EN 10168 traceability).",
+    "targetIri": "https://ref.gs1.org/voc/hasBatchLotNumber",
+    "targetLabel": "Batch/Lot Identifier",
+    "targetDef": "The batch or lot number associates an item with information the manufacturer considers relevant for traceability of the trade item to which the element string is applied. The data may refer to the trade item itself or to items contained. The number may be, for example, a production lot number, a shift number, a machine number, a time, or an internal production code. In cases where the same product is manufactured in different locations the brand owner and the manufacturer are responsible for ensuring the non-duplication of batch/lot numbers for a GTIN. For the re-use of batch/lot numbers with a GTIN, sector-specific constraints need to be considered."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcNominalSize~gs1:sizeDimension~CLOSE",
+    "gold": "CLOSE",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/iron-steel/mtcNominalSize",
+    "sourceLabel": "MTC Nominal Size",
+    "sourceDef": "Nominal dimension of the tested product (mm).",
+    "targetIri": "https://ref.gs1.org/voc/sizeDimension",
+    "targetLabel": "Size Dimension",
+    "targetDef": "The numerical size measurement relating to the size type."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/MaterialComposition~gs1:PackagingMaterialDetails~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/MaterialComposition",
+    "sourceLabel": "Material Composition",
+    "sourceDef": "Material composition information including source country,\\npercentage, and critical raw material classification.",
+    "targetIri": "https://ref.gs1.org/voc/PackagingMaterialDetails",
+    "targetLabel": "Packaging Material Details",
+    "targetDef": "Information on any material used for packaging."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/MaterialComposition~gs1:TextileMaterialDetails~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/MaterialComposition",
+    "sourceLabel": "Material Composition",
+    "sourceDef": "Material composition information including source country,\\npercentage, and critical raw material classification.",
+    "targetIri": "https://ref.gs1.org/voc/TextileMaterialDetails",
+    "targetLabel": "Textile Material",
+    "targetDef": "Details on the composition of any materials used to make a product using textiles."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/componentName~gs1:additiveName~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/componentName",
+    "sourceLabel": "Component Name",
+    "sourceDef": "Human-readable name of the material or component (e.g. a fibre type, alloy, or constituent material).",
+    "targetIri": "https://ref.gs1.org/voc/additiveName",
+    "targetLabel": "Additive Name",
+    "targetDef": "The name of any additive or genetic modification contained or not contained in the product ."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/hasMaterialComposition~gs1:packagingMaterialType~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasMaterialComposition",
+    "sourceLabel": "Material Composition",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/packagingMaterialType",
+    "targetLabel": "Packaging Material Type",
+    "targetDef": "The materials used for the packaging of the product for example glass or plastic."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/hasMaterialComposition~gs1:textileMaterialDescription~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasMaterialComposition",
+    "sourceLabel": "Material Composition",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/textileMaterialDescription",
+    "targetLabel": "Textile Description",
+    "targetDef": "This provides a name or brief description of one material contained within the product, for example Rayon."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/hasMaterialComposition~gs1:textileMaterial~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasMaterialComposition",
+    "sourceLabel": "Material Composition",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/textileMaterial",
+    "targetLabel": "Has Textile Material",
+    "targetDef": "One or more links to information about the materials used in a wearable product."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/hasOperatorInformation~gs1:manufacturer~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasOperatorInformation",
+    "sourceLabel": "Operator Information",
+    "sourceDef": "Economic operator responsible for the product.",
+    "targetIri": "https://ref.gs1.org/voc/manufacturer",
+    "targetLabel": "Has Manufacturer",
+    "targetDef": "The organization that produces the item."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/battery/hasSupplierContact~gs1:afterHoursContact~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/hasSupplierContact",
+    "sourceLabel": "Supplier Contact",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/afterHoursContact",
+    "targetLabel": "Has After Hours Contact",
+    "targetDef": "Links to after-hours contact information. For general contact details, gs1:contactPoint SHALL be used."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/battery/operatorIdentifier~gs1:globalLocationNumber~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/operatorIdentifier",
+    "sourceLabel": "Economic Operator Identifier",
+    "sourceDef": "Unique identifier of the economic operator (recommended: GS1 GLN, ESPR EOID per Article 77). Sits on the oec:OperatorInformation referenced by eubat:hasOperatorInformation.",
+    "targetIri": "https://ref.gs1.org/voc/globalLocationNumber",
+    "targetLabel": "Global Location Number (GLN)",
+    "targetDef": "A Global Location Number (GLN) is the GS1 Identification Key used to identify physical locations or parties. The key comprises a GS1 Company Prefix, Location Reference and Check Digit. For more information see https://www.gs1.org/gln."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/eudr/hasCountryList~gs1:countryOfOrigin~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/eudr/hasCountryList",
+    "sourceLabel": "Country List",
+    "sourceDef": "List of countries of origin where geolocations are located.",
+    "targetIri": "https://ref.gs1.org/voc/countryOfOrigin",
+    "targetLabel": "Has Country Of Origin",
+    "targetDef": "Code indicating the country of origin of the product."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/eudr/hasFscCertification~gs1:certificationType~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/eudr/hasFscCertification",
+    "sourceLabel": "FSC Certification",
+    "sourceDef": "Reference to FSC (Forest Stewardship Council) certification.",
+    "targetIri": "https://ref.gs1.org/voc/certificationType",
+    "targetLabel": "Certification Type",
+    "targetDef": "Indicates the type of certification"
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/eudr/hasOriginDetails~gs1:countryOfOrigin~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/eudr/hasOriginDetails",
+    "sourceLabel": "Origin Details",
+    "sourceDef": "Container for geolocation and producer identification.",
+    "targetIri": "https://ref.gs1.org/voc/countryOfOrigin",
+    "targetLabel": "Has Country Of Origin",
+    "targetDef": "Code indicating the country of origin of the product."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/eudr/hasOriginDetails~gs1:provenanceStatement~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/eudr/hasOriginDetails",
+    "sourceLabel": "Origin Details",
+    "sourceDef": "Container for geolocation and producer identification.",
+    "targetIri": "https://ref.gs1.org/voc/provenanceStatement",
+    "targetLabel": "Provenance Statement",
+    "targetDef": "Free text description of the region or place the product originates from. This is to be specifically used to specify areas such as cities, mountain ranges, regions. Examples: Made in the Thuringen Mountains, Made in Paris, From the Napa Valley."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/textile/TextileProduct~gs1:WearableProduct~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/textile/TextileProduct",
+    "sourceLabel": "Textile Product",
+    "sourceDef": "A textile product in scope of the EU Textile Labelling Regulation 1007/2011 and\\nthe ESPR textile delegated act. Base class of the module: it is the domain of the\\ntextile-specific properties and the target of eutex:TextileProductShape. Broader than\\ngs1:WearableProduct, since it also covers HomeTextiles and TechnicalTextiles; the\\nwearable slice is carried by the dual-inheritance subclasses eutex:TextileApparel and\\neutex:TextileFootwear.",
+    "targetIri": "https://ref.gs1.org/voc/WearableProduct",
+    "targetLabel": "Wearable Product",
+    "targetDef": "Products that are worn on the body."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/textile/hasVerificationCertification~gs1:certificationType~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/textile/hasVerificationCertification",
+    "sourceLabel": "Verification Certification",
+    "sourceDef": "Third-party certification verifying the recycled content claim. Use gs1:CertificationDetails pattern.",
+    "targetIri": "https://ref.gs1.org/voc/certificationType",
+    "targetLabel": "Certification Type",
+    "targetDef": "Indicates the type of certification"
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/textile/seasonCollection~gs1:seasonCalendarYear~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/textile/seasonCollection",
+    "sourceLabel": "Season Collection",
+    "sourceDef": "Season and year of the collection (e.g., FW2024, SS2025).",
+    "targetIri": "https://ref.gs1.org/voc/seasonCalendarYear",
+    "targetLabel": "Season Calendar Year",
+    "targetDef": "The calendar year in which the product is seasonally available."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/textile/seasonCollection~gs1:seasonName~BROAD",
+    "gold": "BROAD",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/textile/seasonCollection",
+    "sourceLabel": "Season Collection",
+    "sourceDef": "Season and year of the collection (e.g., FW2024, SS2025).",
+    "targetIri": "https://ref.gs1.org/voc/seasonName",
+    "targetLabel": "Season Name",
+    "targetDef": "Element defines the season applicable to the item for example Winter."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/FacilityInformation~gs1:Organization~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/FacilityInformation",
+    "sourceLabel": "Facility Information",
+    "sourceDef": "Manufacturing or processing facility information per ESPR.\\nCaptures facility identification, location, and certification data.\\nUse gs1:globalLocationNumber for facility identification, schema:name for facility name, gs1:address for location (all inherited from gs1:Place).\\nUse GS1 Digital Link format: https://id.gs1.org/414/{GLN}",
+    "targetIri": "https://ref.gs1.org/voc/Organization",
+    "targetLabel": "Organization",
+    "targetDef": "An Organization is any legal or physical entity involved at any point in any supply chain and upon which there is a need to retrieve predefined information. An Organization is uniquely identified by a Global Location Number (GLN)."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/FacilityInformation~gs1:Place~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/FacilityInformation",
+    "sourceLabel": "Facility Information",
+    "sourceDef": "Manufacturing or processing facility information per ESPR.\\nCaptures facility identification, location, and certification data.\\nUse gs1:globalLocationNumber for facility identification, schema:name for facility name, gs1:address for location (all inherited from gs1:Place).\\nUse GS1 Digital Link format: https://id.gs1.org/414/{GLN}",
+    "targetIri": "https://ref.gs1.org/voc/Place",
+    "targetLabel": "Place",
+    "targetDef": "Entities that have a somewhat fixed, physical location."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/OperatorInformation~gs1:Organization~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/OperatorInformation",
+    "sourceLabel": "Operator Information",
+    "sourceDef": "Economic operator information as required by various EU regulations.\\nCaptures manufacturer, importer, distributor, and other operator roles.\\nUse gs1:globalLocationNumber for operator identification (inherited from gs1:Organization).\\nUse GS1 Digital Link format: https://id.gs1.org/417/{GLN}",
+    "targetIri": "https://ref.gs1.org/voc/Organization",
+    "targetLabel": "Organization",
+    "targetDef": "An Organization is any legal or physical entity involved at any point in any supply chain and upon which there is a need to retrieve predefined information. An Organization is uniquely identified by a Global Location Number (GLN)."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/SingleValuedDataElement~gs1:QuantitativeValue~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/SingleValuedDataElement",
+    "sourceLabel": "Single-Valued Data Element",
+    "sourceDef": "A single data point with one value (EN 18223 4.1.2.5).",
+    "targetIri": "https://ref.gs1.org/voc/QuantitativeValue",
+    "targetLabel": "Measurement Type",
+    "targetDef": "A point value or interval for product characteristics and other purposes. A unit of measurement is also specified."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/carbonFootprintStudyUrl~gs1:referencedFileURL~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/carbonFootprintStudyUrl",
+    "sourceLabel": "Carbon Footprint Study URL",
+    "sourceDef": "URL to the full carbon footprint study.",
+    "targetIri": "https://ref.gs1.org/voc/referencedFileURL",
+    "targetLabel": "Website",
+    "targetDef": "Simple text string that refers to a resource on the internet, URLs may refer to documents, resources, people, etc."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/collectionPointDirectoryUrl~gs1:referencedFileURL~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/collectionPointDirectoryUrl",
+    "sourceLabel": "Collection Point Directory URL",
+    "sourceDef": "URL of a directory of physical collection points.",
+    "targetIri": "https://ref.gs1.org/voc/referencedFileURL",
+    "targetLabel": "Website",
+    "targetDef": "Simple text string that refers to a resource on the internet, URLs may refer to documents, resources, people, etc."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/dataProviderCertification~gs1:certification~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/dataProviderCertification",
+    "sourceLabel": "Data Provider Certification",
+    "sourceDef": "Certification or accreditation of the data provider.",
+    "targetIri": "https://ref.gs1.org/voc/certification",
+    "targetLabel": "Has Certification",
+    "targetDef": "Certification information about a product, organisation or location."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/declaredUnit~gs1:unitCode~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/declaredUnit",
+    "sourceLabel": "Declared Unit",
+    "sourceDef": "Functional unit for carbon footprint or other metrics (e.g., kg CO2e/kWh, kg CO2e/kg). Aligned with UNTP declaredUnit.",
+    "targetIri": "https://ref.gs1.org/voc/unitCode",
+    "targetLabel": "Measurement Unit",
+    "targetDef": "A string value indicating a Measurement Unit from UN/ECE Recommendation 20, Units of Measure used in International Trade e.g. GRM = gram - see http://www.unece.org/fileadmin/DAM/cefact/recommendations/rec20/rec20_rev3_Annex3e.pdf"
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/documentUrl~gs1:referencedFileURL~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/documentUrl",
+    "sourceLabel": "Document URL",
+    "sourceDef": "URL to the document. See also gs1:referencedFileURL.",
+    "targetIri": "https://ref.gs1.org/voc/referencedFileURL",
+    "targetLabel": "Website",
+    "targetDef": "Simple text string that refers to a resource on the internet, URLs may refer to documents, resources, people, etc."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/endOfLifeInstructions~gs1:instructions~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/endOfLifeInstructions",
+    "sourceLabel": "End of Life Instructions",
+    "sourceDef": "URL to end-of-life handling instructions. For text-based recycling guidance, see gs1:consumerRecyclingInstructions.",
+    "targetIri": "https://ref.gs1.org/voc/instructions",
+    "targetLabel": "Instructions",
+    "targetDef": "A link to instructions, such as assembly instructions, usage tips etc.  It is not appropriate to use this link type for healthcare regulated content applications for which specific link types are available."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/endOfLifeInstructions~gs1:sustainabilityInfo~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/endOfLifeInstructions",
+    "sourceLabel": "End of Life Instructions",
+    "sourceDef": "URL to end-of-life handling instructions. For text-based recycling guidance, see gs1:consumerRecyclingInstructions.",
+    "targetIri": "https://ref.gs1.org/voc/sustainabilityInfo",
+    "targetLabel": "Sustainability and recycling",
+    "targetDef": "A link to information relating to sustainability and recycling requirements or processes."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/eoriNumber~gs1:regulatoryReferenceNumber~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/eoriNumber",
+    "sourceLabel": "EORI Number",
+    "sourceDef": "Economic Operators Registration and Identification (EORI) number for customs purposes.",
+    "targetIri": "https://ref.gs1.org/voc/regulatoryReferenceNumber",
+    "targetLabel": "Regulatory Reference Number",
+    "targetDef": "A reference number for a record, document or dataset stored within a regulatory information system, repository or registry."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/epdRegistrationNumber~gs1:regulatoryReferenceNumber~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/epdRegistrationNumber",
+    "sourceLabel": "EPD Registration Number",
+    "sourceDef": "Registration / declaration number assigned by the EPD programme operator.",
+    "targetIri": "https://ref.gs1.org/voc/regulatoryReferenceNumber",
+    "targetLabel": "Regulatory Reference Number",
+    "targetDef": "A reference number for a record, document or dataset stored within a regulatory information system, repository or registry."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/eprComplianceUrl~gs1:certificationAgencyURL~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/eprComplianceUrl",
+    "sourceLabel": "EPR Compliance URL",
+    "sourceDef": "URL of the EPR scheme operator's public verification endpoint or compliance certificate for this producer.",
+    "targetIri": "https://ref.gs1.org/voc/certificationAgencyURL",
+    "targetLabel": "Certification Agency URL",
+    "targetDef": "URL of the organisation issuing the certification standard or other requirement being met. e.g. https://www.msc.org , https://www.fsc.org"
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/eprRegistrationNumber~gs1:regulatoryReferenceNumber~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/eprRegistrationNumber",
+    "sourceLabel": "EPR Registration Number",
+    "sourceDef": "Producer registration number issued by an EPR compliance scheme operator (e.g. Stiftung EAR for German WEEE, EcoEmballages for French packaging).",
+    "targetIri": "https://ref.gs1.org/voc/regulatoryReferenceNumber",
+    "targetLabel": "Regulatory Reference Number",
+    "targetDef": "A reference number for a record, document or dataset stored within a regulatory information system, repository or registry."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/eprelRegistrationNumber~gs1:regulatoryReferenceNumber~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/eprelRegistrationNumber",
+    "sourceLabel": "EPREL Registration Number",
+    "sourceDef": "EU EPREL (European Product Registry for Energy Labelling) registration number.",
+    "targetIri": "https://ref.gs1.org/voc/regulatoryReferenceNumber",
+    "targetLabel": "Regulatory Reference Number",
+    "targetDef": "A reference number for a record, document or dataset stored within a regulatory information system, repository or registry."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/hasDismantlingInstructions~gs1:instructions~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasDismantlingInstructions",
+    "sourceLabel": "Dismantling Instructions",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/instructions",
+    "targetLabel": "Instructions",
+    "targetDef": "A link to instructions, such as assembly instructions, usage tips etc.  It is not appropriate to use this link type for healthcare regulated content applications for which specific link types are available."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/hasFacilityCertifications~gs1:certificationInfo~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasFacilityCertifications",
+    "sourceLabel": "Facility Certifications",
+    "sourceDef": "Certifications held by the facility (ISO 9001, ISO 14001, etc.).",
+    "targetIri": "https://ref.gs1.org/voc/certificationInfo",
+    "targetLabel": "Certification Information",
+    "targetDef": "A link to certification information."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/hasFacilityCertifications~gs1:certification~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasFacilityCertifications",
+    "sourceLabel": "Facility Certifications",
+    "sourceDef": "Certifications held by the facility (ISO 9001, ISO 14001, etc.).",
+    "targetIri": "https://ref.gs1.org/voc/certification",
+    "targetLabel": "Has Certification",
+    "targetDef": "Certification information about a product, organisation or location."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/hasProductCategory~gs1:additionalProductClassificationCode~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasProductCategory",
+    "sourceLabel": "Product Category",
+    "sourceDef": "ESPR product category classification.",
+    "targetIri": "https://ref.gs1.org/voc/additionalProductClassificationCode",
+    "targetLabel": "Additional Product Classification Code",
+    "targetDef": "Code specifying the applied additional product classification scheme."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/hasRepairInstructions~gs1:instructions~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasRepairInstructions",
+    "sourceLabel": "Repair Instructions",
+    "sourceDef": "URL or reference to repair instructions and manuals.",
+    "targetIri": "https://ref.gs1.org/voc/instructions",
+    "targetLabel": "Instructions",
+    "targetDef": "A link to instructions, such as assembly instructions, usage tips etc.  It is not appropriate to use this link type for healthcare regulated content applications for which specific link types are available."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/hasRepairInstructions~gs1:serviceInfo~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/hasRepairInstructions",
+    "sourceLabel": "Repair Instructions",
+    "sourceDef": "URL or reference to repair instructions and manuals.",
+    "targetIri": "https://ref.gs1.org/voc/serviceInfo",
+    "targetLabel": "Service information",
+    "targetDef": "A link to service or maintenance instructions."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/registrationNumber~gs1:registryEntry~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/registrationNumber",
+    "sourceLabel": "Registration Number",
+    "sourceDef": "Official registration or license number.",
+    "targetIri": "https://ref.gs1.org/voc/registryEntry",
+    "targetLabel": "Entry in a register",
+    "targetDef": "A link to an entry in a register, such as a business register or register of locations. Such registers may act as alternative identifiers, such as official company numbers, LEIs, other location identifiers etc."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/registrationNumber~gs1:regulatoryReferenceNumber~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/registrationNumber",
+    "sourceLabel": "Registration Number",
+    "sourceDef": "Official registration or license number.",
+    "targetIri": "https://ref.gs1.org/voc/regulatoryReferenceNumber",
+    "targetLabel": "Regulatory Reference Number",
+    "targetDef": "A reference number for a record, document or dataset stored within a regulatory information system, repository or registry."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/safeDisassemblyInstructions~gs1:instructions~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/safeDisassemblyInstructions",
+    "sourceLabel": "Safe Disassembly Instructions",
+    "sourceDef": "Instructions for safe disassembly and handling of components containing the substance.",
+    "targetIri": "https://ref.gs1.org/voc/instructions",
+    "targetLabel": "Instructions",
+    "targetDef": "A link to instructions, such as assembly instructions, usage tips etc.  It is not appropriate to use this link type for healthcare regulated content applications for which specific link types are available."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/safeUseInstructions~gs1:consumerSafetyInformation~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/safeUseInstructions",
+    "sourceLabel": "Safe Use Instructions",
+    "sourceDef": "Instructions for safe use of the product containing the substance of concern.",
+    "targetIri": "https://ref.gs1.org/voc/consumerSafetyInformation",
+    "targetLabel": "Consumer Safety Information",
+    "targetDef": "Information on consumer safety regarding the product."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/safeUseInstructions~gs1:consumerUsageInstructions~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/safeUseInstructions",
+    "sourceLabel": "Safe Use Instructions",
+    "sourceDef": "Instructions for safe use of the product containing the substance of concern.",
+    "targetIri": "https://ref.gs1.org/voc/consumerUsageInstructions",
+    "targetLabel": "Consumer Usage Instructions",
+    "targetDef": "Free text containing the usage instructions of a product, which are normally held on the label or accompanying the product. This information may or may not be labelled on the pack."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/safeUseInstructions~gs1:instructionsForUse~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/safeUseInstructions",
+    "sourceLabel": "Safe Use Instructions",
+    "sourceDef": "Instructions for safe use of the product containing the substance of concern.",
+    "targetIri": "https://ref.gs1.org/voc/instructionsForUse",
+    "targetLabel": "Has Instructions For Use",
+    "targetDef": "Link to a file containing the Instructions For Use."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/safeUseInstructions~gs1:instructions~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/safeUseInstructions",
+    "sourceLabel": "Safe Use Instructions",
+    "sourceDef": "Instructions for safe use of the product containing the substance of concern.",
+    "targetIri": "https://ref.gs1.org/voc/instructions",
+    "targetLabel": "Instructions",
+    "targetDef": "A link to instructions, such as assembly instructions, usage tips etc.  It is not appropriate to use this link type for healthcare regulated content applications for which specific link types are available."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/separateCollectionInfo~gs1:sustainabilityInfo~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/separateCollectionInfo",
+    "sourceLabel": "Separate Collection Info",
+    "sourceDef": "URL to separate collection requirements. For text-based recycling guidance, see gs1:consumerRecyclingInstructions.",
+    "targetIri": "https://ref.gs1.org/voc/sustainabilityInfo",
+    "targetLabel": "Sustainability and recycling",
+    "targetDef": "A link to information relating to sustainability and recycling requirements or processes."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/substanceLocation~gs1:locationDescription~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/substanceLocation",
+    "sourceLabel": "Substance Location",
+    "sourceDef": "Location or component where the substance is present in the product.",
+    "targetIri": "https://ref.gs1.org/voc/locationDescription",
+    "targetLabel": "Location Description",
+    "targetDef": "The description of a place."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/tradeItemPieceDescription~gs1:productDescription~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/tradeItemPieceDescription",
+    "sourceLabel": "Trade Item Piece Description",
+    "sourceDef": "Human-readable description of what this specific piece is (e.g., 'Jacket', 'Trousers', 'Left shoe', 'Instruction booklet').",
+    "targetIri": "https://ref.gs1.org/voc/productDescription",
+    "targetLabel": "Product Description",
+    "targetDef": "An understandable and useable description of a product using brand and other descriptors. This attribute is filled with as little abbreviation as possible, while keeping to a reasonable length.  This should be a meaningful description of the product with full spelling to facilitate message processing. Retailers can use this description as the base to fully understand the brand, flavour, scent etc. of the specific product, in order to accurately create a product description as needed for their internal systems. Examples: XYZ Brand Base Invisible Solid Deodorant AP Stick Spring Breeze."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/tradeItemPieceDescription~gs1:styleDescription~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/tradeItemPieceDescription",
+    "sourceLabel": "Trade Item Piece Description",
+    "sourceDef": "Human-readable description of what this specific piece is (e.g., 'Jacket', 'Trousers', 'Left shoe', 'Instruction booklet').",
+    "targetIri": "https://ref.gs1.org/voc/styleDescription",
+    "targetLabel": "Style Description",
+    "targetDef": "An attribute that classifies products that share many of the same characteristics (attribute values) that does NOT vary by GTIN, and are presented by the supplier as a single merchandise selection for the buyer."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/value~gs1:additionalProductClassificationValue~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/value",
+    "sourceLabel": "Value",
+    "sourceDef": "The value of a SingleValuedDataElement or MultiLanguageValue (EN 18223 4.1.2.5, 4.1.2.8.2). Any JSON data type.",
+    "targetIri": "https://ref.gs1.org/voc/additionalProductClassificationValue",
+    "targetLabel": "Additional Product Classification Value",
+    "targetDef": "Code specifying an additional product classification other than the GS1 Global Product Classification. The applied classification scheme is specified as additional information together with the classification value."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/value~gs1:authenticitySecurityFeatureValue~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/value",
+    "sourceLabel": "Value",
+    "sourceDef": "The value of a SingleValuedDataElement or MultiLanguageValue (EN 18223 4.1.2.5, 4.1.2.8.2). Any JSON data type.",
+    "targetIri": "https://ref.gs1.org/voc/authenticitySecurityFeatureValue",
+    "targetLabel": "Authenticity Security Feature Value",
+    "targetDef": "Links to a string value read from a physical security marking."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/value~gs1:colourCodeValue~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/value",
+    "sourceLabel": "Value",
+    "sourceDef": "The value of a SingleValuedDataElement or MultiLanguageValue (EN 18223 4.1.2.5, 4.1.2.8.2). Any JSON data type.",
+    "targetIri": "https://ref.gs1.org/voc/colourCodeValue",
+    "targetLabel": "Colour Code",
+    "targetDef": "A code indicating the colour of an object according to a specific code list. The applied code list is specified as additional information together with the colour code."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/common/core/wastePreventionInfo~gs1:sustainabilityInfo~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/common/core/wastePreventionInfo",
+    "sourceLabel": "Waste Prevention Info",
+    "sourceDef": "URL to waste prevention information. For text-based recycling guidance, see gs1:consumerRecyclingInstructions.",
+    "targetIri": "https://ref.gs1.org/voc/sustainabilityInfo",
+    "targetLabel": "Sustainability and recycling",
+    "targetDef": "A link to information relating to sustainability and recycling requirements or processes."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/battery/dataProviderCertification~gs1:certificationIdentification~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/dataProviderCertification",
+    "sourceLabel": "Data Provider Certification",
+    "sourceDef": "Certification or accreditation of the data provider.",
+    "targetIri": "https://ref.gs1.org/voc/certificationIdentification",
+    "targetLabel": "Certification Identification",
+    "targetDef": "A reference (i.e, to a certificate instance) issued to confirm that a product, party or location has passed certification. e.g. 'XSC-C-12345'"
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/battery/dataProviderCertification~gs1:certificationInfo~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/dataProviderCertification",
+    "sourceLabel": "Data Provider Certification",
+    "sourceDef": "Certification or accreditation of the data provider.",
+    "targetIri": "https://ref.gs1.org/voc/certificationInfo",
+    "targetLabel": "Certification Information",
+    "targetDef": "A link to certification information."
+  },
+  {
+    "id": "https://ref.openepcis.org/extensions/eu/battery/dataProviderCertification~gs1:certification~NARROW",
+    "gold": "NARROW",
+    "sourceIri": "https://ref.openepcis.org/extensions/eu/battery/dataProviderCertification",
+    "sourceLabel": "Data Provider Certification",
+    "sourceDef": "Certification or accreditation of the data provider.",
+    "targetIri": "https://ref.gs1.org/voc/certification",
+    "targetLabel": "Has Certification",
+    "targetDef": "Certification information about a product, organisation or location."
+  },
+  {
+    "id": "eubat:authorizedServiceCenters~gs1:serviceInfo~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/authorizedServiceCenters",
+    "sourceLabel": "authorizedServiceCenters",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/serviceInfo",
+    "targetLabel": "Service information",
+    "targetDef": "A link to service or maintenance instructions."
+  },
+  {
+    "id": "eubat:batteryMass~gs1:netWeight~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/batteryMass",
+    "sourceLabel": "batteryMass",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/netWeight",
+    "targetLabel": "Net weight",
+    "targetDef": "Used to identify the net weight of the product. Net Weight excludes all packaging material, including the packaging material of all lower-level GTINs. Example:11.5 kgm."
+  },
+  {
+    "id": "eubat:batteryMass~gs1:netWeight~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/batteryMass",
+    "sourceLabel": "batteryMass",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/netWeight",
+    "targetLabel": "Net weight",
+    "targetDef": "Used to identify the net weight of the product. Net Weight excludes all packaging material, including the packaging material of all lower-level GTINs. Example:11.5 kgm."
+  },
+  {
+    "id": "eubat:carbonFootprintRecycling~gs1:sustainabilityInfo~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/carbonFootprintRecycling",
+    "sourceLabel": "carbonFootprintRecycling",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/sustainabilityInfo",
+    "targetLabel": "Sustainability and recycling",
+    "targetDef": "A link to information relating to sustainability and recycling requirements or processes."
+  },
+  {
+    "id": "eubat:dataProviderCertification~gs1:certificationIdentification~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/dataProviderCertification",
+    "sourceLabel": "dataProviderCertification",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/certificationIdentification",
+    "targetLabel": "Certification Identification",
+    "targetDef": "A reference (i.e, to a certificate instance) issued to confirm that a product, party or location has passed certification. e.g. 'XSC-C-12345'"
+  },
+  {
+    "id": "eubat:dataProviderCertification~gs1:certificationIdentification~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/dataProviderCertification",
+    "sourceLabel": "dataProviderCertification",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/certificationIdentification",
+    "targetLabel": "Certification Identification",
+    "targetDef": "A reference (i.e, to a certificate instance) issued to confirm that a product, party or location has passed certification. e.g. 'XSC-C-12345'"
+  },
+  {
+    "id": "eubat:dataProviderCertification~gs1:certificationInfo~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/dataProviderCertification",
+    "sourceLabel": "dataProviderCertification",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/certificationInfo",
+    "targetLabel": "Certification Information",
+    "targetDef": "A link to certification information."
+  },
+  {
+    "id": "eubat:dataProviderCertification~gs1:certification~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/dataProviderCertification",
+    "sourceLabel": "dataProviderCertification",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/certification",
+    "targetLabel": "Has Certification",
+    "targetDef": "Certification information about a product, organisation or location."
+  },
+  {
+    "id": "eubat:dataProviderCertification~gs1:certification~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/dataProviderCertification",
+    "sourceLabel": "dataProviderCertification",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/certification",
+    "targetLabel": "Has Certification",
+    "targetDef": "Certification information about a product, organisation or location."
+  },
+  {
+    "id": "eubat:dismantlingAndRemovalInformation~gs1:consumerSafetyInformation~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/dismantlingAndRemovalInformation",
+    "sourceLabel": "dismantlingAndRemovalInformation",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/consumerSafetyInformation",
+    "targetLabel": "Consumer Safety Information",
+    "targetDef": "Information on consumer safety regarding the product."
+  },
+  {
+    "id": "eubat:dismantlingAndRemovalInformation~gs1:consumerSafetyInformation~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/dismantlingAndRemovalInformation",
+    "sourceLabel": "dismantlingAndRemovalInformation",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/consumerSafetyInformation",
+    "targetLabel": "Consumer Safety Information",
+    "targetDef": "Information on consumer safety regarding the product."
+  },
+  {
+    "id": "eubat:dismantlingAndRemovalInformation~gs1:regulatoryInformation~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/dismantlingAndRemovalInformation",
+    "sourceLabel": "dismantlingAndRemovalInformation",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/regulatoryInformation",
+    "targetLabel": "Regulatory Information",
+    "targetDef": "Links to one or more groupings of information on applicable government regulations applicable to a trade item."
+  },
+  {
+    "id": "eubat:dismantlingAndRemovalInformation~gs1:regulatoryInformation~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/dismantlingAndRemovalInformation",
+    "sourceLabel": "dismantlingAndRemovalInformation",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/regulatoryInformation",
+    "targetLabel": "Regulatory Information",
+    "targetDef": "Links to one or more groupings of information on applicable government regulations applicable to a trade item."
+  },
+  {
+    "id": "eubat:dismantlingInstructions~gs1:instructions~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/dismantlingInstructions",
+    "sourceLabel": "dismantlingInstructions",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/instructions",
+    "targetLabel": "Instructions",
+    "targetDef": "A link to instructions, such as assembly instructions, usage tips etc.  It is not appropriate to use this link type for healthcare regulated content applications for which specific link types are available."
+  },
+  {
+    "id": "eubat:dismantlingInstructions~gs1:instructions~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/dismantlingInstructions",
+    "sourceLabel": "dismantlingInstructions",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/instructions",
+    "targetLabel": "Instructions",
+    "targetDef": "A link to instructions, such as assembly instructions, usage tips etc.  It is not appropriate to use this link type for healthcare regulated content applications for which specific link types are available."
+  },
+  {
+    "id": "eubat:documentUrl~gs1:referencedFileURL~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/documentUrl",
+    "sourceLabel": "documentUrl",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/referencedFileURL",
+    "targetLabel": "Website",
+    "targetDef": "Simple text string that refers to a resource on the internet, URLs may refer to documents, resources, people, etc."
+  },
+  {
+    "id": "eubat:documentUrl~gs1:referencedFileURL~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/documentUrl",
+    "sourceLabel": "documentUrl",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/referencedFileURL",
+    "targetLabel": "Website",
+    "targetDef": "Simple text string that refers to a resource on the internet, URLs may refer to documents, resources, people, etc."
+  },
+  {
+    "id": "eubat:dueDiligenceReportUrl~gs1:referencedFileURL~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/dueDiligenceReportUrl",
+    "sourceLabel": "dueDiligenceReportUrl",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/referencedFileURL",
+    "targetLabel": "Website",
+    "targetDef": "Simple text string that refers to a resource on the internet, URLs may refer to documents, resources, people, etc."
+  },
+  {
+    "id": "eubat:dueDiligenceReportUrl~gs1:referencedFileURL~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/dueDiligenceReportUrl",
+    "sourceLabel": "dueDiligenceReportUrl",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/referencedFileURL",
+    "targetLabel": "Website",
+    "targetDef": "Simple text string that refers to a resource on the internet, URLs may refer to documents, resources, people, etc."
+  },
+  {
+    "id": "eubat:endOfLifeInfo~gs1:consumerHandlingStorageInfo~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/endOfLifeInfo",
+    "sourceLabel": "endOfLifeInfo",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/consumerHandlingStorageInfo",
+    "targetLabel": "Consumer handling and storage information",
+    "targetDef": "A link to information about safe handling and storage for consumer use."
+  },
+  {
+    "id": "eubat:endOfLifeInfo~gs1:sustainabilityInfo~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/endOfLifeInfo",
+    "sourceLabel": "endOfLifeInfo",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/sustainabilityInfo",
+    "targetLabel": "Sustainability and recycling",
+    "targetDef": "A link to information relating to sustainability and recycling requirements or processes."
+  },
+  {
+    "id": "eubat:endOfLifeInfo~gs1:sustainabilityInfo~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/endOfLifeInfo",
+    "sourceLabel": "endOfLifeInfo",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/sustainabilityInfo",
+    "targetLabel": "Sustainability and recycling",
+    "targetDef": "A link to information relating to sustainability and recycling requirements or processes."
+  },
+  {
+    "id": "eubat:facilityIdentifier~gs1:globalLocationNumber~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/facilityIdentifier",
+    "sourceLabel": "facilityIdentifier",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/globalLocationNumber",
+    "targetLabel": "Global Location Number (GLN)",
+    "targetDef": "A Global Location Number (GLN) is the GS1 Identification Key used to identify physical locations or parties. The key comprises a GS1 Company Prefix, Location Reference and Check Digit. For more information see https://www.gs1.org/gln."
+  },
+  {
+    "id": "eubat:facilityIdentifier~gs1:globalLocationNumber~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/facilityIdentifier",
+    "sourceLabel": "facilityIdentifier",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/globalLocationNumber",
+    "targetLabel": "Global Location Number (GLN)",
+    "targetDef": "A Global Location Number (GLN) is the GS1 Identification Key used to identify physical locations or parties. The key comprises a GS1 Company Prefix, Location Reference and Check Digit. For more information see https://www.gs1.org/gln."
+  },
+  {
+    "id": "eubat:hasBatteryMass~gs1:netWeight~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/hasBatteryMass",
+    "sourceLabel": "hasBatteryMass",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/netWeight",
+    "targetLabel": "Net weight",
+    "targetDef": "Used to identify the net weight of the product. Net Weight excludes all packaging material, including the packaging material of all lower-level GTINs. Example:11.5 kgm."
+  },
+  {
+    "id": "eubat:hasDismantlingAndRemovalInformation~gs1:consumerSafetyInformation~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/hasDismantlingAndRemovalInformation",
+    "sourceLabel": "hasDismantlingAndRemovalInformation",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/consumerSafetyInformation",
+    "targetLabel": "Consumer Safety Information",
+    "targetDef": "Information on consumer safety regarding the product."
+  },
+  {
+    "id": "eubat:hasDismantlingAndRemovalInformation~gs1:regulatoryInformation~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/hasDismantlingAndRemovalInformation",
+    "sourceLabel": "hasDismantlingAndRemovalInformation",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/regulatoryInformation",
+    "targetLabel": "Regulatory Information",
+    "targetDef": "Links to one or more groupings of information on applicable government regulations applicable to a trade item."
+  },
+  {
+    "id": "eubat:hasDismantlingInstructions~gs1:instructions~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/hasDismantlingInstructions",
+    "sourceLabel": "hasDismantlingInstructions",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/instructions",
+    "targetLabel": "Instructions",
+    "targetDef": "A link to instructions, such as assembly instructions, usage tips etc.  It is not appropriate to use this link type for healthcare regulated content applications for which specific link types are available."
+  },
+  {
+    "id": "eubat:hasEndOfLifeInfo~gs1:sustainabilityInfo~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/hasEndOfLifeInfo",
+    "sourceLabel": "hasEndOfLifeInfo",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/sustainabilityInfo",
+    "targetLabel": "Sustainability and recycling",
+    "targetDef": "A link to information relating to sustainability and recycling requirements or processes."
+  },
+  {
+    "id": "eubat:hasManufacturingPlace~gs1:manufacturingPlant~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/hasManufacturingPlace",
+    "sourceLabel": "hasManufacturingPlace",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/manufacturingPlant",
+    "targetLabel": "Has Manufacturing Plant",
+    "targetDef": "A physical location consisting of one or more buildings with facilities for manufacturing."
+  },
+  {
+    "id": "eubat:hasOperatorRole~gs1:organizationRole~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/hasOperatorRole",
+    "sourceLabel": "hasOperatorRole",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/organizationRole",
+    "targetLabel": "Has Organization Role",
+    "targetDef": "The role and/or purpose of a party (i.e. legal entity or function).  Multiple values from gs1:OrganizationRoleType code list may be associated to a single organisation/party."
+  },
+  {
+    "id": "eubat:hasSupplierContact~gs1:afterHoursContact~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/hasSupplierContact",
+    "sourceLabel": "hasSupplierContact",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/afterHoursContact",
+    "targetLabel": "Has After Hours Contact",
+    "targetDef": "Links to after-hours contact information. For general contact details, gs1:contactPoint SHALL be used."
+  },
+  {
+    "id": "eubat:hasSupplierContact~gs1:contactPoint~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/hasSupplierContact",
+    "sourceLabel": "hasSupplierContact",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/contactPoint",
+    "targetLabel": "Has Business Contact",
+    "targetDef": "Contact information. To specify a contact specifically designated for after-hours support, see gs1:afterHoursContact"
+  },
+  {
+    "id": "eubat:incidentReportUrl~gs1:referencedFileURL~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/incidentReportUrl",
+    "sourceLabel": "incidentReportUrl",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/referencedFileURL",
+    "targetLabel": "Website",
+    "targetDef": "Simple text string that refers to a resource on the internet, URLs may refer to documents, resources, people, etc."
+  },
+  {
+    "id": "eubat:incidentReportUrl~gs1:referencedFileURL~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/incidentReportUrl",
+    "sourceLabel": "incidentReportUrl",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/referencedFileURL",
+    "targetLabel": "Website",
+    "targetDef": "Simple text string that refers to a resource on the internet, URLs may refer to documents, resources, people, etc."
+  },
+  {
+    "id": "eubat:isSubstanceOfConcern~gs1:ingredientOfConcern~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/isSubstanceOfConcern",
+    "sourceLabel": "isSubstanceOfConcern",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/ingredientOfConcern",
+    "targetLabel": "Ingredient of Concern",
+    "targetDef": "Indicates a claim to an ingredient, considered to be a concern for regulatory or other reasons, and which is 'contained' within the product but may not need to specify the amount whether approximate, or an accurate measurement be given."
+  },
+  {
+    "id": "eubat:languageCode~gs1:fileLanguageCode~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/languageCode",
+    "sourceLabel": "languageCode",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/fileLanguageCode",
+    "targetLabel": "File Language Code",
+    "targetDef": "The specified language to which the digital asset is targeted. It is recommended to use the ISO 639-1 language code."
+  },
+  {
+    "id": "eubat:lifetimeReferenceTest~gs1:referencedFileURL~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/lifetimeReferenceTest",
+    "sourceLabel": "lifetimeReferenceTest",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/referencedFileURL",
+    "targetLabel": "Website",
+    "targetDef": "Simple text string that refers to a resource on the internet, URLs may refer to documents, resources, people, etc."
+  },
+  {
+    "id": "eubat:lifetimeReferenceTest~gs1:referencedFileURL~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/lifetimeReferenceTest",
+    "sourceLabel": "lifetimeReferenceTest",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/referencedFileURL",
+    "targetLabel": "Website",
+    "targetDef": "Simple text string that refers to a resource on the internet, URLs may refer to documents, resources, people, etc."
+  },
+  {
+    "id": "eubat:manufacturingPlace~gs1:manufacturingPlant~NONE",
+    "gold": "NONE",
+    "sourceIri": "https://ref.openepcis.io/extensions/eu/battery/manufacturingPlace",
+    "sourceLabel": "manufacturingPlace",
+    "sourceDef": "",
+    "targetIri": "https://ref.gs1.org/voc/manufacturingPlant",
+    "targetLabel": "Has Manufacturing Plant",
+    "targetDef": "A physical location consisting of one or more buildings with facilities for manufacturing."
+  }
+]
