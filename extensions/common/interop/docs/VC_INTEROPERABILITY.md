@@ -101,13 +101,20 @@ Three grades are used throughout:
 
 | Element | Specification | Evidence |
 |---|---|---|
-| Credential issuance | OpenID for Verifiable Credential Issuance (OID4VCI) | **Not implemented.** Issuance is currently plain REST. |
-| Credential presentation | OpenID for Verifiable Presentations (OID4VP) | **Not implemented.** |
+| Credential issuance, identity-near | OID4VCI via Keycloak 26.7 | **Live on dev.** Employee and org-membership credentials as `dc+sd-jwt`, pre-authorized-code flow, verified end to end (`scripts/verify-oid4vci-dev.sh`). |
+| Credential issuance, data-heavy | OID4VCI on the platform issuer | **Partial.** `/.well-known/openid-credential-issuer` advertises every credential configuration with the spec's format identifiers and points `authorization_servers` at Keycloak; `POST /vc/oid4vci/credential` issues against a Keycloak access token. **Absent by decision:** `c_nonce`, holder key binding, credential offer with pre-authorized code, deferred issuance — a presented `proof` is REFUSED rather than ignored, so no wallet is told its key was bound when nothing bound it. |
+| Credential presentation | OpenID for Verifiable Presentations (OID4VP) | **Not implemented.** The seam exists (`PresentationProtocol` in vc-core, sized for HAIP: verifier identity, nonce/session, encrypted response, KB-JWT verification) but nothing implements it. |
 
-This row is the honest limit of the current position. A wallet from another
-vendor cannot yet obtain or present one of our credentials through a standard
-flow, because the standard flow is not there. Until it is, "interoperable"
-describes the artifact, not the interaction.
+Read that middle row precisely. A wallet can now DISCOVER and PULL one of our
+data-heavy credentials through a standard flow, authenticating where it already
+authenticates for the identity credentials. What it cannot do is be OFFERED one
+(no credential offer) or bind it to its own key (no nonce, no proof
+verification). And it still cannot PRESENT anything back to us.
+
+So "interoperable" now describes the artifact and half the interaction. The
+absent half is absent on purpose: holder binding and offers need a holder-side
+wallet to be tested against, and a protocol guessed at without one is a
+protocol no wallet actually speaks.
 
 ### Trust chain
 
@@ -296,9 +303,9 @@ page quietly outruns its evidence.
    `...LicenceCredential`. Value fields handle both spellings; the type name does
    not. The real GS1 credential is never fed to the chain verifier in any test,
    which is why this has not surfaced.
-6. **Two in-code claims currently overstate the position** and are tracked for
-   correction: a status-list comment citing published vectors it does not use,
-   and a module README describing OID4VCI issuance that is not implemented.
+6. **One in-code claim still overstates the position**: a status-list comment
+   cites published vectors it does not use. (The module README's OID4VCI claim
+   was corrected when the issuance surface landed — see the protocol table.)
 
 ---
 
