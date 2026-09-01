@@ -107,7 +107,11 @@ Three grades are used throughout:
 
 Read that middle row precisely. A wallet can now DISCOVER and PULL one of our
 data-heavy credentials through a standard flow, authenticating where it already
-authenticates for the identity credentials. What it cannot do is be OFFERED one
+authenticates for the identity credentials. The request fields carry the spec's
+own snake_case names (`credential_configuration_id`, `subject_id`) and an
+unknown configuration id is refused by name rather than defaulted — a wallet
+that sends the standard shape is understood, and one that sends something else
+is told which field was wrong. What it cannot do is be OFFERED one
 (no credential offer) or bind it to its own key (no nonce, no proof
 verification). And it still cannot PRESENT anything back to us.
 
