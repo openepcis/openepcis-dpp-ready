@@ -24,6 +24,7 @@
 #
 # Usage:
 #   SEED_PW=… SEED_CLIENT_SECRET=… scripts/provision-demo.sh --env=demo
+#   SEED_PW=… SEED_CLIENT_SECRET=… scripts/provision-demo.sh --env=epc-is
 #   scripts/provision-demo.sh --env=demo --only=products      # one phase
 #   scripts/provision-demo.sh --env=demo --only=orgs,epcis
 #   scripts/provision-demo.sh --env=demo --gtin=09521890340331  # only this product
@@ -34,6 +35,8 @@
 #   SEED_PW / BRUNO_PW                     password of SEED_USER in realm `openepcis`
 #   SEED_CLIENT_SECRET / BRUNO_CLIENT_SECRET  secret of the backend-service client
 #   SEED_USER            override the seed user (default per-env; demo=demo-admin)
+#   REALM                override the realm (default per-env; epc-is=platform,
+#                        everything else openepcis)
 #   Optional overrides: DL_URL FILES_URL AUTH_URL API_URL SEED_CLIENT_ID
 #
 # Phases (default: products docs orgs epcis verify): products, docs (generated
@@ -59,9 +62,17 @@ case "$ENV" in
   dev)   : "${DL_URL:=https://id.dev.epcis.cloud}";   : "${FILES_URL:=https://files.dev.epcis.cloud}";   : "${AUTH_URL:=https://keycloak.dev.epcis.cloud}"; : "${API_URL:=https://api.dev.epcis.cloud}";   : "${WEB_URL:=https://ddm.dev.epcis.cloud}";  DEF_USER=admin ;;
   demo)  : "${DL_URL:=https://id.demo.epcis.cloud}";  : "${FILES_URL:=https://files.demo.epcis.cloud}";  : "${AUTH_URL:=https://auth.demo.epcis.cloud}";    : "${API_URL:=https://api.demo.epcis.cloud}";  : "${WEB_URL:=https://demo.epcis.cloud}";     DEF_USER=demo-admin ;;
   local) : "${DL_URL:=https://id.epcis.local:8443}";  : "${FILES_URL:=https://files.epcis.local:8443}";  : "${AUTH_URL:=https://auth.epcis.local:8443}";    : "${API_URL:=https://api.epcis.local:8443}";  : "${WEB_URL:=https://epcis.local:8443}";     DEF_USER=admin ;;
-  *) echo "Unknown --env: $ENV (expected dev|demo|local)" >&2; exit 64 ;;
+  # epc.is ist der eigenstaendige Datenpfad: eigener OpenSearch-Cluster, eigener
+  # Dateidienst, eigenes Keycloak -- und ein anderes REALM. Das ist der Punkt,
+  # an dem ein blindes Kopieren des demo-Falls scheitert: DEF_REALM ist hier
+  # "platform", denn auf auth.epc.is gibt es kein Realm namens openepcis
+  # (/realms/openepcis antwortet dort 404). Ohne das holt der Lauf keinen Token
+  # und meldet einen Anmeldefehler statt der Ursache.
+  epc-is) : "${DL_URL:=https://id.epc.is}";           : "${FILES_URL:=https://files.epc.is}";           : "${AUTH_URL:=https://auth.epc.is}";             : "${API_URL:=https://api.epc.is}";           : "${WEB_URL:=https://epc.is}";               DEF_USER=demo-admin; DEF_REALM=platform ;;
+  *) echo "Unknown --env: $ENV (expected dev|demo|local|epc-is)" >&2; exit 64 ;;
 esac
-REALM="${REALM:-openepcis}"
+# Je Umgebung vorbelegt statt fest "openepcis": siehe den epc-is-Fall oben.
+REALM="${REALM:-${DEF_REALM:-openepcis}}"
 SEED_CLIENT_ID="${SEED_CLIENT_ID:-backend-service}"
 SEED_USER="${SEED_USER:-$DEF_USER}"                    # NOT $USERNAME — zsh reserves that
 SEED_PW="${SEED_PW:-${BRUNO_PW:-}}"
