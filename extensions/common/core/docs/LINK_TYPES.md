@@ -98,7 +98,7 @@ Returns complete master data records suitable for B2B system integration.
 {
   "@context": ["https://ref.gs1.org/standards/epcis/epcis-context.jsonld", {...}],
   "type": "EPCISQueryDocument",
-  "schemaVersion": "2.0.1",
+  "schemaVersion": "2.0",
   "epcisBody": {
     "queryResults": {
       "eventList": [...]

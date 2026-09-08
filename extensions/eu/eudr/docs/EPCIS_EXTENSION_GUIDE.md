@@ -174,7 +174,7 @@ only `gs1:` properties; all `eudr:` properties are at event level.
     }
   ],
   "type": "EPCISDocument",
-  "schemaVersion": "2.0.1",
+  "schemaVersion": "2.0",
   "creationDate": "2025-01-15T16:00:00.000Z",
 
   "epcisBody": {
