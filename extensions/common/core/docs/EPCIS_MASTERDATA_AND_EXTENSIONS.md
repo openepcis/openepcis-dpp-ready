@@ -408,7 +408,7 @@ have a corresponding context entry, and vice versa.
     "https://ref.openepcis.org/extensions/eu/eudr/eudr-context.jsonld"
   ],
   "type": "EPCISDocument",
-  "schemaVersion": "2.0",
+  "schemaVersion": "2.0.1",
   "creationDate": "2025-01-20T12:00:00.000Z",
 
   "epcisBody": {
