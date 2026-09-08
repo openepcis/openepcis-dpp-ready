@@ -1,0 +1,83 @@
+meta {
+  name: PUT GMN linkset (8013, check character pair)
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{dl-url}}/8013/9521890340331TSHIRTP3?isAnonymousAccessAllowed=true
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "linkset": [
+      {
+        "anchor": "{{dl-url}}/8013/9521890340331TSHIRTP3",
+        "itemDescription": "T-shirt model — GMN test record",
+        "https://ref.gs1.org/voc/defaultLink": [
+          {
+            "href": "{{ddm-host}}/8013/9521890340331TSHIRTP3",
+            "title": "T-shirt model"
+          }
+        ],
+        "https://ref.gs1.org/voc/pip": [
+          {
+            "href": "{{ddm-host}}/8013/9521890340331TSHIRTP3",
+            "title": "T-shirt model",
+            "type": "text/html",
+            "hreflang": ["en"],
+            "context": ["ALL"],
+            "public": true
+          }
+        ],
+        "https://ref.gs1.org/voc/masterData": [
+          {
+            "href": "{{dl-url}}/8013/9521890340331TSHIRTP3?linkType=masterData",
+            "title": "T-shirt model master data",
+            "type": "application/ld+json",
+            "hreflang": ["en"],
+            "context": ["ALL"],
+            "public": true
+          }
+        ]
+      }
+    ]
+  }
+}
+
+docs {
+  A linkset for a Global Model Number (AI 8013), so GS1's resolver test suite
+  can be run against a key that uses a check character pair instead of a
+  MOD-10 check digit.
+
+  WHY THIS RECORD EXISTS
+
+  The resolver advertises twenty primary keys in
+  /.well-known/gs1resolver, but the suite can only exercise the linkset,
+  default-link and redirect tests where a linkset actually exists. Until this
+  record is created, the GMN support is verified only at the validator level
+  (a wrong pair is refused with 400, a right one reaches 404) and not through
+  the suite. Same reasoning for put-partyrole-gln-linkset.
+
+  THE VALUE
+
+  9521890340331TSHIRTP3 is 952… demo range per the module convention, and the
+  trailing "P3" is its check character pair, computed with MOD 1021-37 over
+  CSET 82 as specified for AI 8013 — not a MOD-10 check digit like every other
+  key. Verified two ways: against GS1's reference vectors for
+  gs1_lint_csumalpha, and live (…P3 resolves, …P4 is refused with 400).
+
+  Do not "correct" the tail. Changing any character in the model reference
+  changes the pair, and the resolver will refuse the value outright.
+
+  AFTER CREATING IT
+
+  Run https://ref.gs1.org/test-suites/resolver/ against
+  {{dl-url}}/8013/9521890340331TSHIRTP3 — expected 60/60 as for the GTIN.
+}
