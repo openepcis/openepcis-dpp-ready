@@ -9,12 +9,17 @@
 # seed-organizations.sh + provision-demo-epcis-links.sh + refresh-dev-demo.sh +
 # seed-dev-passports.sh). Persona passwords are never touched (that is
 # e2e-demo-users.sh's job). Every catalogue product is ALSO provisioned at the
-# finer granularities the website's demo-catalog.ts links to (INSTANCES below:
-# item /21/ for most, lot /10/ for the bottle, both for the heroes), because a
-# Digital Link the site shows must resolve to its OWN record — a /21/ that only
-# walks up to the GTIN shows model data under an item URL. DELETE /products/{gtin}
-# removes the WHOLE tree including lot/serial rows, so the instances phase runs
-# after every products phase; alone (--only=instances) it is a pure upsert.
+# finer granularities the website's demo-catalog.ts links to (GRANULARITY
+# below), because a Digital Link the site shows must resolve to its OWN record —
+# a /21/ that only walks up to the GTIN shows model data under a serial URL.
+#
+# Granularity vocabulary (GS1): the GTIN is the model CLASS; a lot/batch
+# (01+10, LGTIN) is a CLASS too — a set of like items sharing production facts;
+# only a serial (01+21, SGTIN) is an INSTANCE, one physical item. Lots are
+# maintained like master data, serials mostly accumulate facts from EPCIS.
+# DELETE /products/{gtin} removes the WHOLE tree including lot/serial rows, so
+# the granularity phase runs after every products phase; alone
+# (--only=granularity) it is a pure upsert.
 #
 # WHY a single script:
 #   - The 11-product catalogue (9 canonical + Fjordline/Amperia heroes) lived
@@ -43,9 +48,10 @@
 #                        everything else openepcis)
 #   Optional overrides: DL_URL FILES_URL AUTH_URL API_URL SEED_CLIENT_ID
 #
-# Phases (default: products instances docs orgs epcis verify): products,
-# instances (lot/serial records under each product, see INSTANCES), docs
-# (generated PDFs + shared symbols), orgs, epcis, events, verify.
+# Phases (default: products granularity docs orgs epcis verify): products,
+# granularity (lot classes and serial instances under each product, see
+# GRANULARITY), docs (generated PDFs + shared symbols), orgs, epcis, events,
+# verify.
 set -uo pipefail
 
 # ------------------------------------------------------------------ args
@@ -88,7 +94,7 @@ REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 IMAGES_DIR="${IMAGES_DIR:-$REPO_ROOT/scripts/images}"
 ORG_BRU_DIR="$REPO_ROOT/bruno/digital-link-resolver/04-organizations"
 
-PHASES="${ONLY:-products instances docs orgs epcis verify}"
+PHASES="${ONLY:-products granularity docs orgs epcis verify}"
 PHASES="${PHASES//,/ }"
 [ "$WANT_EVENTS" -eq 1 ] && PHASES="$PHASES events"
 
@@ -128,22 +134,25 @@ HEROES=(
 
 # Every finer-granularity record the website links to (openepcis-web
 # apps/openepcis-components/app/data/demo-catalog.ts — keep the two in step).
-# The heroes are listed again so ONE table drives the instances phase.
+# The heroes are listed again so ONE table drives the granularity phase.
 #
-# An instance record is the COMPLETE model record plus the qualifier: for an
-# item the model (⊕ batch overlay ⊕ item overlay, where the product has them)
-# with `schema:serialNumber` and the /21/ id, for a lot the model (⊕ batch
-# overlay) with `gs1:hasBatchLotNumber` and the /10/ id. Overlays are optional
-# — six catalogue seeds are item-level passports already (their `id` carries the
-# /21/ and they name the serial), so the item IS the seed file and the MODEL is
-# derived from it in provision_product. The bottle keeps its lot overlay file
-# (written for LOT-01) and gets the lot id the website uses stamped over it.
+# Two kinds of record hang off a model, both the COMPLETE model record plus the
+# qualifier:
+#   class    — a lot (01+10): model ⊕ batch overlay, `gs1:hasBatchLotNumber`,
+#              id …/10/{lot}. A class, because it describes a set of like items.
+#   instance — a serial (01+21): model ⊕ batch ⊕ item overlay,
+#              `schema:serialNumber`, id …/21/{serial}. One physical item.
+# Overlays are optional — six catalogue seeds are serial-level passports already
+# (their `id` carries the /21/ and they name the serial), so the instance IS the
+# seed file and the MODEL is derived from it in provision_product. The bottle
+# keeps its lot overlay file (written for LOT-01) and gets the lot id the
+# website uses stamped over it.
 #
 # Empty lot or serial = that level is not provisioned for the product. A
 # deposit-return bottle has no SGTIN (its returnable container is a GRAI); the
 # contents are tracked by lot only.
 # gtin | lot | serial | batch overlay | item overlay
-INSTANCES=(
+GRANULARITY=(
   "09521000001428||WJ-2024-00142||"
   "09521000002159||TR-2024-08521||"
   "09521000004207||SUIT-2026-00042||"
@@ -267,7 +276,7 @@ provision_product() { # gtin file slug desc
   # schema:serialNumber) that double as the model here. The model record must
   # not claim to be an exemplar: id back to /01/{gtin}, serial dropped, and a
   # declared granularity set to "model". The item level gets the untouched file
-  # via the instances phase.
+  # via the granularity phase.
   local body; body=$(jq "${hostargs[@]}" --argjson urls "$urls_json" --arg desc "$desc" --arg gtin "$gtin" '
     walk(if type == "object" then with_entries(select(.key | startswith("_") | not)) else . end) |
     walk(if type == "string" then (gsub("https://id\\.gs1\\.org"; $dl) | gsub("https://files\\.example\\.org"; $files)) else . end) |
@@ -334,16 +343,16 @@ put_instance() {
   esac
 }
 
-provision_instances() {
+provision_granularity() {
   local row gtin lot serial batch item model doc
-  for row in "${INSTANCES[@]}"; do
+  for row in "${GRANULARITY[@]}"; do
     IFS='|' read -r gtin lot serial batch item <<<"$row"
     gtin_selected "$gtin" || continue
     model=$(model_file_of "$gtin")
-    [[ -n "$model" && -f "$REPO_ROOT/$model" ]] || { red "  instance $gtin: no model seed in PRODUCTS"; continue; }
-    [[ -z "$batch" || -f "$REPO_ROOT/$batch" ]] || { red "  instance $gtin: missing batch overlay $batch"; continue; }
-    [[ -z "$item"  || -f "$REPO_ROOT/$item"  ]] || { red "  instance $gtin: missing item overlay $item"; continue; }
-    if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] instances $gtin lot=${lot:--} serial=${serial:--}"; continue; fi
+    [[ -n "$model" && -f "$REPO_ROOT/$model" ]] || { red "  granularity $gtin: no model seed in PRODUCTS"; continue; }
+    [[ -z "$batch" || -f "$REPO_ROOT/$batch" ]] || { red "  granularity $gtin: missing batch overlay $batch"; continue; }
+    [[ -z "$item"  || -f "$REPO_ROOT/$item"  ]] || { red "  granularity $gtin: missing item overlay $item"; continue; }
+    if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] granularity $gtin lot=${lot:--} serial=${serial:--}"; continue; fi
     if [[ -n "$lot" ]]; then
       # The lot record: model ⊕ batch overlay, id and lot number stamped to THIS
       # lot (the bottle's overlay was written for another lot id), no serial.
@@ -352,7 +361,7 @@ provision_instances() {
         ."gs1:hasBatchLotNumber" = $lot |
         del(."schema:serialNumber") |
         if has("oec:granularityLevel") then ."oec:granularityLevel" = "batch" else . end')
-      put_instance "$gtin/10/$lot" "$doc" "lot   "
+      put_instance "$gtin/10/$lot" "$doc" "class   "
     fi
     if [[ -n "$serial" ]]; then
       # The item record: the COMPLETE model (⊕ batch ⊕ item overlays) plus the
@@ -365,7 +374,7 @@ provision_instances() {
         ."schema:serialNumber" = $serial |
         del(."gs1:hasBatchLotNumber", .hasBatchLotNumber) |
         if has("oec:granularityLevel") then ."oec:granularityLevel" = "item" else . end')
-      put_instance "$gtin/21/$serial" "$doc" "item  "
+      put_instance "$gtin/21/$serial" "$doc" "instance"
     fi
   done
 }
@@ -639,9 +648,9 @@ verify() {
   # Instances: the linkset served for a /10/ or /21/ Digital Link must be
   # anchored at THAT path. A walk-up to the GTIN anchor answers 200 as well,
   # which is exactly the state this phase exists to rule out.
-  cyan "▸ Verify (lot/serial anchors)"
+  cyan "▸ Verify (class/instance anchors)"
   local lot serial p anchor iok=0 itotal=0
-  for row in "${INSTANCES[@]}"; do
+  for row in "${GRANULARITY[@]}"; do
     IFS='|' read -r gtin lot serial _ _ <<<"$row"; gtin_selected "$gtin" || continue
     for p in ${lot:+"01/$gtin/10/$lot"} ${serial:+"01/$gtin/21/$serial"}; do
       itotal=$((itotal+1))
@@ -650,7 +659,7 @@ verify() {
       else red "  $p  anchor=${anchor:-none} (walk-up or missing)"; fi
     done
   done
-  echo "  $iok/$itotal instance anchors resolve at their own level."
+  echo "  $iok/$itotal class/instance anchors resolve at their own level."
 }
 
 # ------------------------------------------------------------------ run
@@ -668,9 +677,9 @@ if has products; then
   for row in "${PRODUCTS[@]}"; do IFS='|' read -r g f s d <<<"$row"; gtin_selected "$g" && provision_product "$g" "$f" "$s" "$d"; done
   provision_tier_probes
 fi
-if has instances; then
-  cyan "▸ Lot/serial granularities (INSTANCES)"
-  provision_instances
+if has granularity; then
+  cyan "▸ Granularity: lot classes + serial instances (GRANULARITY)"
+  provision_granularity
 fi
 has docs   && provision_docs
 has orgs   && { provision_orgs; provision_places; }
