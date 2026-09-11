@@ -6,7 +6,7 @@
 # Licensed under the benelog OpenEPCIS Framework Product License, Version 1.0.
 # See BENELOG_LICENSE-1.0 for details.
 #
-# migrate-granularity-aliases.sh — Fold lot-bearing serial documents onto the
+# migrate-granularity-entry-paths.sh — Fold lot-bearing serial documents onto the
 # serial's own document, per environment, BEFORE the resolver's canonical-serial
 # policy is switched on (openepcis.granularity.canonical-serial).
 #
@@ -15,28 +15,28 @@
 # request on /01/{gtin}/10/{lot}/21/{ser} as its OWN product document (_id =
 # that path) and its own linkset, next to whatever lived at 01/{gtin}/21/{ser}.
 # With the policy on, 01/{gtin}/21/{ser} is the only key and the lot is
-# `hasBatchLotNumber` on it — so every alias document must be merged into its
+# `hasBatchLotNumber` on it — so every entry path document must be merged into its
 # target first, or its data goes dark.
 #
 # WHAT (per environment, via a kubectl port-forward to OpenSearch and the
 # tenant admin's OIDC bearer, exactly like demo-reindex-masterdata.sh):
-#   dry-run (default)  count + list every alias product document (_id shaped
-#                      01/*/10/*/21/*) in products-* and every alias linkset
+#   dry-run (default)  count + list every entry path product document (_id shaped
+#                      01/*/10/*/21/*) in products-* and every entry path linkset
 #                      (path 01/*/10/*/21/*) in linksets-*, export them as JSON.
-#   --apply            per product alias: merge onto 01/{gtin}/21/{ser}
+#   --apply            per product entry path: merge onto 01/{gtin}/21/{ser}
 #                      (the newer updatedAt wins field by field, the lot is set
 #                      as hasBatchLotNumber, a stored `id` is rewritten), write
-#                      the target, delete the alias. Per linkset alias: re-key
+#                      the target, delete the entry-path document. Per entry-path linkset: re-key
 #                      onto the serial path when no target linkset exists,
 #                      otherwise union the link arrays per link type (by href)
-#                      into the target; delete the alias. Idempotent: a second
+#                      into the target; delete the entry-path document. Idempotent: a second
 #                      run finds nothing.
-#   GS1 DE: no action — already published alias rules stay upstream (prune is
+#   GS1 DE: no action — already published rules published under entry paths stay upstream (prune is
 #   off); documented in the Terraform provenance when the flag is switched.
 #
 # Usage:
-#   SEED_PW=… SEED_CLIENT_SECRET=… scripts/migrate-granularity-aliases.sh --env=demo
-#   SEED_PW=… SEED_CLIENT_SECRET=… scripts/migrate-granularity-aliases.sh --env=demo --apply
+#   SEED_PW=… SEED_CLIENT_SECRET=… scripts/migrate-granularity-entry-paths.sh --env=demo
+#   SEED_PW=… SEED_CLIENT_SECRET=… scripts/migrate-granularity-entry-paths.sh --env=demo --apply
 #   … --out=DIR   where the export lands (default scratch/granularity-migration)
 #   … --port=N    local port for the port-forward (default 19200)
 #
@@ -123,25 +123,25 @@ grn "  cluster $health"
 
 # ------------------------------------------------------------------ find
 # Plausibility first: how many class and instance documents exist at all. A
-# "0 aliases" against "0 instances" would mean the query saw nothing, not that
+# "0 entry paths" against "0 instances" would mean the query saw nothing, not that
 # the data is clean.
 classes_total=$(os "$OS/products-*/_count" -d '{"query":{"bool":{"filter":[{"exists":{"field":"hasBatchLotNumber"}}],"must_not":[{"exists":{"field":"hasSerialNumber"}}]}}}' | jq -r '.count // "?"')
 instances_total=$(os "$OS/products-*/_count" -d '{"query":{"exists":{"field":"hasSerialNumber"}}}' | jq -r '.count // "?"')
 echo "  products-*: $classes_total lot class document(s), $instances_total instance document(s) in total"
 
-cyan "▸ Alias product documents (_id 01/*/10/*/21/*) in products-*"
+cyan "▸ Entry-path product documents (lot + serial in the _id) (_id 01/*/10/*/21/*) in products-*"
 os "$OS/products-*/_search?size=5000" -d '{"query":{"bool":{"filter":[{"exists":{"field":"hasBatchLotNumber"}},{"exists":{"field":"hasSerialNumber"}}]}},"_source":true}' \
   | jq '[.hits.hits[] | select(._id | test("^01/[^/]+/10/[^/]+/21/"))]' > "$RUN_DIR/products.json"
 P_COUNT=$(jq 'length' "$RUN_DIR/products.json")
 jq -r '.[] | "  \(._index)  \(._id)  gtin=\(._source.gtin)  lot=\(._source.hasBatchLotNumber)  serial=\(._source.hasSerialNumber)  updatedAt=\(._source.updatedAt // "-")"' "$RUN_DIR/products.json"
-echo "  $P_COUNT alias product document(s)"
+echo "  $P_COUNT entry-path product document(s)"
 
-cyan "▸ Alias linksets (path 01/*/10/*/21/*) in linksets-*"
+cyan "▸ Entry-path linksets (path 01/*/10/*/21/*) in linksets-*"
 os "$OS/linksets-*/_search?size=5000" -d '{"query":{"wildcard":{"path":{"value":"01/*/10/*/21/*"}}},"_source":true}' \
   | jq '[.hits.hits[]]' > "$RUN_DIR/linksets.json"
 L_COUNT=$(jq 'length' "$RUN_DIR/linksets.json")
 jq -r '.[] | "  \(._index)  \(._id)  path=\(._source.path)  entries=\(._source.linkset|length)"' "$RUN_DIR/linksets.json"
-echo "  $L_COUNT alias linkset(s)"
+echo "  $L_COUNT entry-path linkset(s)"
 echo "  export: $RUN_DIR"
 
 if [[ "$APPLY" -ne 1 ]]; then
@@ -151,17 +151,17 @@ fi
 
 # ------------------------------------------------------------------ apply
 failed=0
-# Serial-path of an alias id/path: drop the /10/{lot} segment.
+# Serial-path of an entry path id/path: drop the /10/{lot} segment.
 serial_path() { jq -rn --arg p "$1" '$p | sub("/10/[^/]+/21/"; "/21/")'; }
 
 cyan "▸ Migrating $P_COUNT product document(s)"
 while IFS= read -r hit; do
-  index=$(jq -r '._index' <<<"$hit"); alias_id=$(jq -r '._id' <<<"$hit")
-  target_id=$(serial_path "$alias_id")
+  index=$(jq -r '._index' <<<"$hit"); entry path_id=$(jq -r '._id' <<<"$hit")
+  target_id=$(serial_path "$entry path_id")
   target=$(os "$OS/$index/_doc/$(enc "$target_id")")
   if [[ "$(jq -r '.found' <<<"$target")" == "true" ]]; then
     # Field by field: the record with the newer updatedAt wins; the lot is set
-    # regardless (the alias IS the statement "this serial belongs to this lot").
+    # regardless (the entry-path document IS the statement "this serial belongs to this lot").
     merged=$(jq -n --argjson a "$(jq '._source' <<<"$hit")" --argjson t "$(jq '._source' <<<"$target")" '
       (if ($a.updatedAt // "") > ($t.updatedAt // "") then ($t * $a) else ($a * $t) end)
       | .hasBatchLotNumber = $a.hasBatchLotNumber')
@@ -173,18 +173,18 @@ while IFS= read -r hit; do
   merged=$(jq --arg id "$target_id" 'if (.id? | type) == "string" then .id |= sub("/10/[^/]+/21/"; "/21/") else . end' <<<"$merged")
   code=$(os -o /dev/null -w '%{http_code}' -X PUT "$OS/$index/_doc/$(enc "$target_id")?refresh=true" -d "$merged")
   if [[ "$code" =~ ^20[01]$ ]]; then
-    dcode=$(os -o /dev/null -w '%{http_code}' -X DELETE "$OS/$index/_doc/$(enc "$alias_id")?refresh=true")
-    grn "  $index  $alias_id -> $target_id  ($mode; write $code, delete alias $dcode)"
+    dcode=$(os -o /dev/null -w '%{http_code}' -X DELETE "$OS/$index/_doc/$(enc "$entry path_id")?refresh=true")
+    grn "  $index  $entry path_id -> $target_id  ($mode; write $code, delete entry path $dcode)"
   else
-    red "  $index  $alias_id -> $target_id  write FAILED ($code)"; failed=$((failed+1))
+    red "  $index  $entry path_id -> $target_id  write FAILED ($code)"; failed=$((failed+1))
   fi
 done < <(jq -c '.[]' "$RUN_DIR/products.json")
 
 cyan "▸ Migrating $L_COUNT linkset(s)"
 while IFS= read -r hit; do
-  index=$(jq -r '._index' <<<"$hit"); alias_id=$(jq -r '._id' <<<"$hit")
-  alias_path=$(jq -r '._source.path' <<<"$hit"); target_path=$(serial_path "$alias_path")
-  # The alias document with every path/anchor rewritten to the serial form.
+  index=$(jq -r '._index' <<<"$hit"); entry path_id=$(jq -r '._id' <<<"$hit")
+  entry path_path=$(jq -r '._source.path' <<<"$hit"); target_path=$(serial_path "$entry path_path")
+  # The entry path document with every path/anchor rewritten to the serial form.
   rekeyed=$(jq --arg tp "$target_path" '
     .path = $tp | .pathTree = $tp
     | .anchor = ((.anchor // []) | map(sub("/10/[^/]+/21/"; "/21/")))
@@ -212,10 +212,10 @@ while IFS= read -r hit; do
   fi
   code=$(os -o /dev/null -w '%{http_code}' -X PUT "$OS/$index/_doc/$(enc "$target_path")?refresh=true" -d "$merged")
   if [[ "$code" =~ ^20[01]$ ]]; then
-    dcode=$(os -o /dev/null -w '%{http_code}' -X DELETE "$OS/$index/_doc/$(enc "$alias_id")?refresh=true")
-    grn "  $index  $alias_path -> $target_path  ($mode; write $code, delete alias $dcode)"
+    dcode=$(os -o /dev/null -w '%{http_code}' -X DELETE "$OS/$index/_doc/$(enc "$entry path_id")?refresh=true")
+    grn "  $index  $entry path_path -> $target_path  ($mode; write $code, delete entry path $dcode)"
   else
-    red "  $index  $alias_path -> $target_path  write FAILED ($code)"; failed=$((failed+1))
+    red "  $index  $entry path_path -> $target_path  write FAILED ($code)"; failed=$((failed+1))
   fi
 done < <(jq -c '.[]' "$RUN_DIR/linksets.json")
 
