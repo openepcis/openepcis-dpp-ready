@@ -352,7 +352,11 @@ instance_body() {
 # put_instance PATH DOC LABEL — PUT /products/PATH (an upsert; never a delete).
 put_instance() {
   local path="$1" doc="$2" label="$3" code
-  code=$(curl -sk -o /tmp/pd_inst.json -w '%{http_code}' -X PUT "$DL_URL/products/$path" \
+  # The level endpoints read isAnonymousAccessAllowed from the QUERY (the header
+  # is what POST /products reads); without it a lot or serial record is stored
+  # AuthorizedOnly and an anonymous resolution falls back to the model — which
+  # also hides the node's lot and variant attributes from the walk.
+  code=$(curl -sk -o /tmp/pd_inst.json -w '%{http_code}' -X PUT "$DL_URL/products/$path?isAnonymousAccessAllowed=true" \
     -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' \
     --data-binary "$doc")
   case "$code" in
