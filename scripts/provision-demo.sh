@@ -136,34 +136,52 @@ HEROES=(
 # apps/openepcis-components/app/data/demo-catalog.ts — keep the two in step).
 # The heroes are listed again so ONE table drives the granularity phase.
 #
-# Two kinds of record hang off a model, both the COMPLETE model record plus the
-# qualifier:
+# Three kinds of record hang off a model, all the COMPLETE model record plus the
+# qualifier (address order per GS1 Digital Link URI syntax §4.9: 22, 10, 21):
+#   variant  — a consumer product variant (01+22, GS1 AI 22): the model with
+#              `gs1:consumerProductVariant`, id …/22/{cpv}. A class below the
+#              model for items that need no GTIN of their own (GTIN Management
+#              Standard) — a seasonal artwork, a promotional print. No EPC carries
+#              it; the catalogue keeps it as its own node.
 #   class    — a lot (01+10): model ⊕ batch overlay, `gs1:hasBatchLotNumber`,
 #              id …/10/{lot}. A class, because it describes a set of like items.
 #   instance — a serial (01+21): model ⊕ batch ⊕ item overlay,
 #              `schema:serialNumber`, id …/21/{serial}. One physical item.
+# A cpv on a lot or serial row writes that record THROUGH the variant
+# (…/22/{cpv}/10/{lot}, …/22/{cpv}/21/{serial}): the node stays 01/g/10/l or
+# 01/g/21/s, the variant becomes its attribute. The Digital Link the website
+# encodes (…/21/{serial}) is unchanged by that.
 # Overlays are optional — six catalogue seeds are serial-level passports already
 # (their `id` carries the /21/ and they name the serial), so the instance IS the
 # seed file and the MODEL is derived from it in provision_product. The bottle
 # keeps its lot overlay file (written for LOT-01) and gets the lot id the
 # website uses stamped over it.
 #
-# Empty lot or serial = that level is not provisioned for the product. A
+# Empty cpv, lot or serial = that level is not provisioned for the product. A
 # deposit-return bottle has no SGTIN (its returnable container is a GRAI); the
-# contents are tracked by lot only.
-# gtin | lot | serial | batch overlay | item overlay
+# contents are tracked by lot only. A row with a cpv and nothing else is the
+# variant node itself.
+# gtin | cpv | lot | serial | batch overlay | item overlay
 GRANULARITY=(
-  "09521000001428||WJ-2024-00142||"
-  "09521000002159||TR-2024-08521||"
-  "09521000004207||SUIT-2026-00042||"
-  "09521001001380||BL-2026-04201||"
-  "09521234003007|LOT-2026-FJ03|AUR-2026-000001|extensions/eu/textile/examples/fjordline-aurora-batch.jsonld|extensions/eu/textile/examples/fjordline-aurora-item.jsonld"
-  "09521002005004||BAT2024-001||"
-  "09521003000442||EB2026-00821||"
-  "09521234002000|LOT-2026-AMP01|STAX10-2026-000001|extensions/eu/battery/examples/amperia-staxwall-batch.jsonld|extensions/eu/battery/examples/amperia-staxwall-item.jsonld"
-  "09521004005019|BTL-LOT-2026-Q1-001||extensions/eu/ppwr/examples/beverage-bottle-lot-01.jsonld|"
-  "09521005000808||PCH-2026-001||"
-  "09521006003013||CTN-2026-001||"
+  "09521000001428|||WJ-2024-00142||"
+  "09521000002159|||TR-2024-08521||"
+  "09521000004207|||SUIT-2026-00042||"
+  "09521001001380|||BL-2026-04201||"
+  "09521234003007||LOT-2026-FJ03|AUR-2026-000001|extensions/eu/textile/examples/fjordline-aurora-batch.jsonld|extensions/eu/textile/examples/fjordline-aurora-item.jsonld"
+  "09521002005004|||BAT2024-001||"
+  "09521003000442|||EB2026-00821||"
+  "09521234002000||LOT-2026-AMP01|STAX10-2026-000001|extensions/eu/battery/examples/amperia-staxwall-batch.jsonld|extensions/eu/battery/examples/amperia-staxwall-item.jsonld"
+  "09521004005019||BTL-LOT-2026-Q1-001||extensions/eu/ppwr/examples/beverage-bottle-lot-01.jsonld|"
+  # FlexiSnack pouch: two artwork variants of the same 80 g pouch (same GTIN —
+  # a GS1 CPV, not a new item), a production lot written through the promo
+  # variant, the website's serial as a member of that variant, and one item of
+  # the winter edition. Shows all four levels on one product.
+  "09521005000808|PROMO26||||"
+  "09521005000808|WINTER26||||"
+  "09521005000808|PROMO26|LOT-2026-P01|||"
+  "09521005000808|PROMO26||PCH-2026-001||"
+  "09521005000808|WINTER26||PCH-2026-W01||"
+  "09521006003013|||CTN-2026-001||"
 )
 # STRIP (editorial _comment* keys) and HOSTS (neutral example hosts -> this
 # environment) are shared with the other seeding scripts, so all of them normalize
@@ -344,24 +362,39 @@ put_instance() {
 }
 
 provision_granularity() {
-  local row gtin lot serial batch item model doc
+  local row gtin cpv lot serial batch item model doc via
   for row in "${GRANULARITY[@]}"; do
-    IFS='|' read -r gtin lot serial batch item <<<"$row"
+    IFS='|' read -r gtin cpv lot serial batch item <<<"$row"
     gtin_selected "$gtin" || continue
     model=$(model_file_of "$gtin")
     [[ -n "$model" && -f "$REPO_ROOT/$model" ]] || { red "  granularity $gtin: no model seed in PRODUCTS"; continue; }
     [[ -z "$batch" || -f "$REPO_ROOT/$batch" ]] || { red "  granularity $gtin: missing batch overlay $batch"; continue; }
     [[ -z "$item"  || -f "$REPO_ROOT/$item"  ]] || { red "  granularity $gtin: missing item overlay $item"; continue; }
-    if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] granularity $gtin lot=${lot:--} serial=${serial:--}"; continue; fi
+    if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] granularity $gtin cpv=${cpv:--} lot=${lot:--} serial=${serial:--}"; continue; fi
+    # The address prefix below the model: a variant in front of lot and serial
+    # (GS1 order 22, 10, 21). The node is still the lot class or the instance;
+    # the CPV is its attribute, so it must not be in the body — the path says it.
+    via=${cpv:+"22/$cpv/"}
+    if [[ -n "$cpv" && -z "$lot" && -z "$serial" ]]; then
+      # The variant node: the model with its CPV, id …/22/{cpv}. EN 18223 knows
+      # no granularity between model and batch, so the level stays "model".
+      doc=$(instance_body "$model" | jq --arg dl "$DL_URL" --arg gtin "$gtin" --arg cpv "$cpv" '
+        .id = ($dl + "/01/" + $gtin + "/22/" + $cpv) |
+        ."gs1:consumerProductVariant" = $cpv |
+        del(."schema:serialNumber", ."gs1:hasBatchLotNumber", .hasBatchLotNumber) |
+        if has("oec:granularityLevel") then ."oec:granularityLevel" = "model" else . end')
+      put_instance "$gtin/22/$cpv" "$doc" "variant "
+      continue
+    fi
     if [[ -n "$lot" ]]; then
       # The lot record: model ⊕ batch overlay, id and lot number stamped to THIS
       # lot (the bottle's overlay was written for another lot id), no serial.
       doc=$(instance_body "$model" "$batch" | jq --arg dl "$DL_URL" --arg gtin "$gtin" --arg lot "$lot" '
         .id = ($dl + "/01/" + $gtin + "/10/" + $lot) |
         ."gs1:hasBatchLotNumber" = $lot |
-        del(."schema:serialNumber") |
+        del(."schema:serialNumber", ."gs1:consumerProductVariant", .consumerProductVariant) |
         if has("oec:granularityLevel") then ."oec:granularityLevel" = "batch" else . end')
-      put_instance "$gtin/10/$lot" "$doc" "class   "
+      put_instance "$gtin/${via}10/$lot" "$doc" "class   "
     fi
     if [[ -n "$serial" ]]; then
       # The item record: the COMPLETE model (⊕ batch ⊕ item overlays) plus the
@@ -372,9 +405,9 @@ provision_granularity() {
       doc=$(instance_body "$model" "$batch" "$item" | jq --arg dl "$DL_URL" --arg gtin "$gtin" --arg serial "$serial" '
         .id = ($dl + "/01/" + $gtin + "/21/" + $serial) |
         ."schema:serialNumber" = $serial |
-        del(."gs1:hasBatchLotNumber", .hasBatchLotNumber) |
+        del(."gs1:hasBatchLotNumber", .hasBatchLotNumber, ."gs1:consumerProductVariant", .consumerProductVariant) |
         if has("oec:granularityLevel") then ."oec:granularityLevel" = "item" else . end')
-      put_instance "$gtin/21/$serial" "$doc" "instance"
+      put_instance "$gtin/${via}21/$serial" "$doc" "instance"
     fi
   done
 }
@@ -648,18 +681,26 @@ verify() {
   # Instances: the linkset served for a /10/ or /21/ Digital Link must be
   # anchored at THAT path. A walk-up to the GTIN anchor answers 200 as well,
   # which is exactly the state this phase exists to rule out.
-  cyan "▸ Verify (class/instance anchors)"
-  local lot serial p anchor iok=0 itotal=0
+  cyan "▸ Verify (variant/class/instance anchors)"
+  # An address through the variant (…/22/{cpv}/10/{lot}) is an entry path to the
+  # lot node; the GS1-conformant resolver still anchors its first context at the
+  # address that was asked for, so the check is the same for every row.
+  local cpv lot serial p anchor via iok=0 itotal=0
   for row in "${GRANULARITY[@]}"; do
-    IFS='|' read -r gtin lot serial _ _ <<<"$row"; gtin_selected "$gtin" || continue
-    for p in ${lot:+"01/$gtin/10/$lot"} ${serial:+"01/$gtin/21/$serial"}; do
+    IFS='|' read -r gtin cpv lot serial _ _ <<<"$row"; gtin_selected "$gtin" || continue
+    via=${cpv:+"22/$cpv/"}
+    local paths=()
+    if [[ -n "$cpv" && -z "$lot" && -z "$serial" ]]; then paths=("01/$gtin/22/$cpv"); fi
+    [[ -n "$lot" ]] && paths+=("01/$gtin/${via}10/$lot")
+    [[ -n "$serial" ]] && paths+=("01/$gtin/${via}21/$serial")
+    for p in ${paths[@]+"${paths[@]}"}; do
       itotal=$((itotal+1))
       anchor=$(curl -sk -H 'Accept: application/linkset+json' "$DL_URL/$p?linkType=all" | jq -r '.linkset[0].anchor // empty' 2>/dev/null)
       if [[ "$anchor" == "$DL_URL/$p" ]]; then grn "  $p  own anchor"; iok=$((iok+1));
       else red "  $p  anchor=${anchor:-none} (walk-up or missing)"; fi
     done
   done
-  echo "  $iok/$itotal class/instance anchors resolve at their own level."
+  echo "  $iok/$itotal variant/class/instance anchors resolve at their own level."
 }
 
 # ------------------------------------------------------------------ run
@@ -678,7 +719,7 @@ if has products; then
   provision_tier_probes
 fi
 if has granularity; then
-  cyan "▸ Granularity: lot classes + serial instances (GRANULARITY)"
+  cyan "▸ Granularity: variants + lot classes + serial instances (GRANULARITY)"
   provision_granularity
 fi
 has docs   && provision_docs

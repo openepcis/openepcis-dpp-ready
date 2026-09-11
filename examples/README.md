@@ -117,7 +117,12 @@ use 952 for real-world identification.
   PET harmonised symbol.
 - [`ppwr/examples/multi-layer-pouch.jsonld`](../ppwr/examples/multi-layer-pouch.jsonld)
   — PET/Aluminium/PE laminate snack pouch; Grade C recyclability
-  (lowest acceptable from 2030, phased out by 2038).
+  (lowest acceptable from 2030, phased out by 2038). On the demo this GTIN
+  also carries the platform's four levels: two consumer product variants
+  (GS1 AI 22 — `PROMO26`, `WINTER26`; same pouch, other artwork, no GTIN of
+  their own), a lot written through the promo variant (`LOT-2026-P01`) and
+  two serials, one per variant (`PCH-2026-001`, `PCH-2026-W01`). See the
+  `GRANULARITY` table in `scripts/provision-demo.sh`.
 - [`ppwr/examples/ecommerce-carton.jsonld`](../ppwr/examples/ecommerce-carton.jsonld)
   — **NEW:** Corrugated cardboard shipping carton; Grouped packaging
   tier; 95% recycled content (80% post-consumer + 15% pre-consumer);
