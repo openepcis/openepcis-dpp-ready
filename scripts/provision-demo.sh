@@ -227,6 +227,23 @@ fetch_token() {
 }
 auth() { echo "Authorization: Bearer $TOKEN"; }
 
+# Whether the target resolver applies the canonical-serial rule, asked once and
+# cached. It decides how a serial that belongs to a lot is written: with the rule
+# ON, /10/{lot}/21/{serial} lands on the instance node 01/g/21/s and stamps the
+# lot as its attribute, so a resolution of the plain /21/ address inherits the lot
+# class's links. With the rule OFF that same address is a document of its own —
+# there the serial keeps its plain /21/ path. An older resolver has no
+# /tenant-settings endpoint at all; that answers the question the same way.
+CANONICAL_SERIAL=""
+canonical_serial() {
+  if [[ -z "$CANONICAL_SERIAL" ]]; then
+    CANONICAL_SERIAL=$(curl -sk -H "$(auth)" -H 'Accept: application/json' "$DL_URL/tenant-settings" \
+      | jq -r 'if .canonicalSerialEnabled == true then "yes" else "no" end' 2>/dev/null)
+    [[ "$CANONICAL_SERIAL" == "yes" ]] || CANONICAL_SERIAL="no"
+  fi
+  [[ "$CANONICAL_SERIAL" == "yes" ]]
+}
+
 # ------------------------------------------------------------------ products (+ embedded images)
 upload_image() { # gtin key src  -> echoes URL (handles images, PDFs, SVG, HTML)
   local gtin="$1" key="$2" src="$3" mime resp code
@@ -402,16 +419,26 @@ provision_granularity() {
     fi
     if [[ -n "$serial" ]]; then
       # The item record: the COMPLETE model (⊕ batch ⊕ item overlays) plus the
-      # serial, at /21/ — the Digital Link the website encodes. No lot number in
-      # the body: the /21/ endpoint rejects one ("Lot not allowed in body for
-      # this endpoint"); a lot-scoped serial would be the /10/{lot}/21/{serial}
-      # path, which is not what the catalogue links to.
+      # serial. Never a qualifier in the BODY — the path carries lot and variant,
+      # and the endpoints reject a body that repeats or contradicts them.
+      #
+      # Which path: an item that belongs to a lot is written THROUGH that lot
+      # (…/10/{lot}/21/{serial}) wherever the canonical-serial rule is in force.
+      # The node is still 01/g/21/s — the Digital Link the website encodes — and
+      # it now carries hasBatchLotNumber, which is what lets a scan of the bare
+      # serial inherit the lot class's links (instance → lot → variant → model).
+      # Without the rule that address would be a second document, so there the
+      # serial stays at its plain /21/ path.
+      local item_via="$via"
+      if [[ -n "$lot" ]]; then
+        if canonical_serial; then item_via="${via}10/$lot/"; else ylw "  note: $gtin/$serial stays outside lot $lot (canonical-serial off on $ENV)"; fi
+      fi
       doc=$(instance_body "$model" "$batch" "$item" | jq --arg dl "$DL_URL" --arg gtin "$gtin" --arg serial "$serial" '
         .id = ($dl + "/01/" + $gtin + "/21/" + $serial) |
         ."schema:serialNumber" = $serial |
         del(."gs1:hasBatchLotNumber", .hasBatchLotNumber, ."gs1:consumerProductVariant", .consumerProductVariant) |
         if has("oec:granularityLevel") then ."oec:granularityLevel" = "item" else . end')
-      put_instance "$gtin/${via}21/$serial" "$doc" "instance"
+      put_instance "$gtin/${item_via}21/$serial" "$doc" "instance"
     fi
   done
 }
@@ -693,10 +720,11 @@ verify() {
   for row in "${GRANULARITY[@]}"; do
     IFS='|' read -r gtin cpv lot serial _ _ <<<"$row"; gtin_selected "$gtin" || continue
     via=${cpv:+"22/$cpv/"}
-    local paths=()
+    local item_via="$via" paths=()
+    [[ -n "$lot" && -n "$serial" ]] && canonical_serial && item_via="${via}10/$lot/"
     if [[ -n "$cpv" && -z "$lot" && -z "$serial" ]]; then paths=("01/$gtin/22/$cpv"); fi
     [[ -n "$lot" ]] && paths+=("01/$gtin/${via}10/$lot")
-    [[ -n "$serial" ]] && paths+=("01/$gtin/${via}21/$serial")
+    [[ -n "$serial" ]] && paths+=("01/$gtin/${item_via}21/$serial")
     for p in ${paths[@]+"${paths[@]}"}; do
       itotal=$((itotal+1))
       anchor=$(curl -sk -H 'Accept: application/linkset+json' "$DL_URL/$p?linkType=all" | jq -r '.linkset[0].anchor // empty' 2>/dev/null)
@@ -705,6 +733,24 @@ verify() {
     done
   done
   echo "  $iok/$itotal variant/class/instance anchors resolve at their own level."
+
+  # The point of writing an item through its lot: a scan of the BARE serial — the
+  # address on the label — must find the lot class in its walk. Checked only where
+  # the rule is in force; without it the bare serial is a node without a lot.
+  if canonical_serial; then
+    cyan "▸ Verify (a serial inherits its lot class)"
+    local wok=0 wtotal=0 anchors
+    for row in "${GRANULARITY[@]}"; do
+      IFS='|' read -r gtin cpv lot serial _ _ <<<"$row"; gtin_selected "$gtin" || continue
+      [[ -n "$lot" && -n "$serial" ]] || continue
+      wtotal=$((wtotal+1))
+      anchors=$(curl -sk -H 'Accept: application/linkset+json' "$DL_URL/01/$gtin/21/$serial?linkType=all" \
+        | jq -r '[.linkset[].anchor] | join(" ")' 2>/dev/null)
+      if [[ "$anchors" == *"/01/$gtin/10/$lot"* ]]; then grn "  01/$gtin/21/$serial  inherits lot $lot"; wok=$((wok+1));
+      else red "  01/$gtin/21/$serial  lot $lot missing from the walk (anchors: ${anchors:-none})"; fi
+    done
+    echo "  $wok/$wtotal serials inherit their lot class."
+  fi
 }
 
 # ------------------------------------------------------------------ run
