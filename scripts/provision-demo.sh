@@ -48,10 +48,10 @@
 #                        everything else openepcis)
 #   Optional overrides: DL_URL FILES_URL AUTH_URL API_URL SEED_CLIENT_ID
 #
-# Phases (default: products granularity docs orgs epcis verify): products,
+# Phases (default: products granularity docs orgs epcis keys verify): products,
 # granularity (lot classes and serial instances under each product, see
-# GRANULARITY), docs (generated PDFs + shared symbols), orgs, epcis, events,
-# verify.
+# GRANULARITY), docs (generated PDFs + shared symbols), orgs, epcis, keys
+# (linksets on primary keys other than GTIN/GLN, see KEYS), events, verify.
 set -uo pipefail
 
 # ------------------------------------------------------------------ args
@@ -94,7 +94,7 @@ REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 IMAGES_DIR="${IMAGES_DIR:-$REPO_ROOT/scripts/images}"
 ORG_BRU_DIR="$REPO_ROOT/bruno/digital-link-resolver/04-organizations"
 
-PHASES="${ONLY:-products granularity docs orgs epcis verify}"
+PHASES="${ONLY:-products granularity docs orgs epcis keys verify}"
 PHASES="${PHASES//,/ }"
 [ "$WANT_EVENTS" -eq 1 ] && PHASES="$PHASES events"
 
@@ -633,6 +633,77 @@ provision_place_link() { # gln name
   patch_link "414/$gln" "locationInfo" "$detail" "$name"
 }
 
+# ------------------------------------------------------------- alternative primary keys
+# /.well-known/gs1resolver advertises twenty primary keys. Until this phase
+# existed, exactly two of them had data behind them: 01 (products) and 414
+# (orgs/places). The other eighteen were verifiable only at the validator level
+# -- a wrong key is refused with 400, a right one reaches 404 -- and never
+# through GS1s resolver test suite, which needs a linkset, a default link and a
+# redirect to test against.
+#
+# Two are provisioned here because they are the two that are structurally
+# different, not because the rest are uninteresting:
+#
+#   8013  Global Model Number. The ONLY primary key without a mod-10 check
+#         digit: it ends in a check character PAIR over MOD 1021-37 / CSET 82.
+#         Do not "correct" the tail of the value below -- changing any character
+#         in the model reference changes the pair, and the resolver refuses it
+#         outright with 400.
+#   413   Ship for - Deliver for - Forward to GLN. A party in a ROLE, as opposed
+#         to 414, which is a physical location. Same 13-digit GLN grammar, a
+#         different question asked of it.
+#
+# anchorPath | description | target path on the DDM/demo site
+KEYS=(
+  "8013/9521890340331TSHIRTP3|Organic Tee - model (GMN)|01/09521890340331"
+  "413/9521890000013|Organic Corp. - ship-for party|414/9521890000013"
+)
+
+provision_keys() {
+  cyan "▸ Alternative primary keys (KEYS)"
+  local row ap desc target body code resp rbody
+  for row in "${KEYS[@]}"; do
+    IFS='|' read -r ap desc target <<<"$row"
+    if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] key $ap -> $target"; continue; fi
+    # itemDescription, NOT description. GS1s schema prefers "description" and
+    # deprecated the old name, and the resolver learned to accept both -- but
+    # only from the image that carries that change. An older deployment has no
+    # binding for "description", so the key falls through to the link-relation
+    # setter and the whole document is rejected with a type error. The
+    # deprecated name is understood by every build, new and old.
+    body=$(python3 -c "
+import json,sys
+ap, desc, target = sys.argv[1], sys.argv[2], sys.argv[3]
+print(json.dumps({'linkset': [{
+  'anchor': ap,
+  'itemDescription': desc,
+  'https://ref.gs1.org/voc/defaultLink': [{'href': target, 'title': desc}],
+  'https://ref.gs1.org/voc/pip': [{
+      'href': target, 'title': desc, 'type': 'text/html',
+      'hreflang': ['en'], 'context': ['ALL'], 'public': True}]}]}))" \
+      "$DL_URL/$ap" "$desc" "$WEB_URL/$target")
+    # POST creates (201), PUT updates an existing one (a POST onto an existing
+    # anchor is refused, and a PUT onto a missing one is a 404) -- so try create,
+    # then update, exactly as the org and place phases do.
+    # The anonymous flag goes as query param AND header for the same reason
+    # documented in provision_orgs: the APIs bound it differently over time.
+    resp=$(curl -sk -w '\n%{http_code}' -X POST "$DL_URL/$ap?isAnonymousAccessAllowed=true" \
+      -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' \
+      --data-binary "$body")
+    code=$(printf '%s' "$resp" | tail -n1)
+    if [[ "$code" != 20[0-2] ]]; then
+      resp=$(curl -sk -w '\n%{http_code}' -X PUT "$DL_URL/$ap?isAnonymousAccessAllowed=true" \
+        -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' \
+        --data-binary "$body")
+      code=$(printf '%s' "$resp" | tail -n1)
+      rbody=$(printf '%s' "$resp" | sed '$d')
+      case "$code" in 20[0-2]) grn "  $ap -> POST refused, PUT $code" ;; *) red "  $ap -> PUT $code ${rbody:0:200}" ;; esac
+    else
+      grn "  $ap -> $code"
+    fi
+  done
+}
+
 # ------------------------------------------------------------------ places
 # A demo Place, anonymously resolvable (Public tier) exactly like products/orgs. The
 # isAnonymousAccessAllowed=true header reconciles to accessLevel=Public at the resolver's
@@ -751,6 +822,28 @@ verify() {
     done
     echo "  $wok/$wtotal serials inherit their lot class."
   fi
+
+  # The alternative primary keys. Checked anonymously and WITHOUT a token on
+  # purpose: these exist so GS1s resolver test suite can be pointed at them, and
+  # the suite carries no credentials. A record that only resolves for us proves
+  # nothing about conformance.
+  if [[ ${#KEYS[@]} -gt 0 ]]; then
+    cyan "▸ Verify (alternative primary keys, anonymous)"
+    local krow kap kdesc ktarget ls def kok=0 ktotal=0
+    for krow in "${KEYS[@]}"; do
+      IFS='|' read -r kap kdesc ktarget <<<"$krow"; ktotal=$((ktotal+1))
+      ls=$(curl -sk -o /dev/null -w '%{http_code}' -H 'Accept: application/linkset+json' "$DL_URL/$kap?linkType=linkset")
+      def=$(curl -sk -o /dev/null -w '%{http_code}' -H 'Accept: text/html' "$DL_URL/$kap")
+      # A bare request must redirect to the default link (GS1-conformant
+      # resolver standard 1.2.1 requires 302 here, not 307).
+      if [[ "$ls" == 200 && ( "$def" == 302 || "$def" == 307 ) ]]; then
+        grn "  $kap  linkset=$ls default=$def"; kok=$((kok+1))
+      else
+        red "  $kap  linkset=$ls default=$def"
+      fi
+    done
+    echo "  $kok/$ktotal alternative primary keys resolve anonymously."
+  fi
 }
 
 # ------------------------------------------------------------------ run
@@ -787,6 +880,7 @@ if has epcis; then
   # epcisRepository only for the event-bearing hero products (item + lot via EPC=)
   for row in "${HEROES[@]}"; do IFS='|' read -r g _ _ _ _ <<<"$row"; gtin_selected "$g" && provision_epcisrepo "$g"; done
 fi
+has keys   && provision_keys
 has events && provision_events
 has verify && verify
 grn "✓ provision-demo complete ($ENV)"
