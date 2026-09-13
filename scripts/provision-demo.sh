@@ -649,13 +649,27 @@ provision_place_link() { # gln name
 #         Do not "correct" the tail of the value below -- changing any character
 #         in the model reference changes the pair, and the resolver refuses it
 #         outright with 400.
-#   413   Ship for - Deliver for - Forward to GLN. A party in a ROLE, as opposed
-#         to 414, which is a physical location. Same 13-digit GLN grammar, a
-#         different question asked of it.
+#   410-413  The party-role GLNs: ship-to, bill-to, purchased-from, ship-for.
+#         A party in a ROLE, as opposed to 414, which is a physical location.
+#         Same 13-digit GLN grammar, a different question asked of it.
+#
+# These five were the ones that could not resolve at all until the resolver
+# stopped deciding path membership from the GS1 AI tables type field (they are
+# all typed D, "data attribute"). They carry data here so GS1s suite can be
+# pointed at each of them, and so a regression shows up as a 404 rather than as
+# nobody noticing.
+#
+# The GLNs are the organisations the orgs phase already seeds, each addressed in
+# the role it actually plays: you purchase the tee FROM its manufacturer, you
+# ship it TO a retailer. Reusing one GLN across roles is not a shortcut, it is
+# the point of the role AIs -- the same party, a different question.
 #
 # anchorPath | description | target path on the DDM/demo site
 KEYS=(
   "8013/9521890340331TSHIRTP3|Organic Tee - model (GMN)|01/09521890340331"
+  "410/9521000000018|EcoWear GmbH - ship-to party|414/9521000000018"
+  "411/9521001000017|Casa Lina S.r.l. - bill-to party|414/9521001000017"
+  "412/9521890000013|Organic Corp. - purchased-from party|414/9521890000013"
   "413/9521890000013|Organic Corp. - ship-for party|414/9521890000013"
 )
 
