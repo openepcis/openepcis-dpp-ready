@@ -675,38 +675,32 @@ KEYS=(
   "8013/9521890340331TSHIRTP3|Organic Tee - model (GMN)|01/09521890340331"
 )
 
-# ONLY all-lowercase link types may be written through POST/PUT, which is why
-# the create body below carries pip and nothing else.
+# Der Default-Link faehrt wieder im Anlege-Body mit.
 #
-# Measured on dev 2026-09-13. A POST carrying
-# https://ref.gs1.org/voc/defaultLink is refused, and the resolver logs
+# Bis zum 15.09. ging das nicht: der Resolver speicherte einen Linktyp mit
+# einer eigenen Regel (alles nach dem letzten Slash, Schreibweise behalten),
+# sodass aus https://ref.gs1.org/voc/defaultLink ein defaultLink wurde -- und
+# die Validierung, die beim Anlegen ein zweites Mal laeuft, misst das gegen
+# GS1s Muster ^[a-z-]+$. Jeder camelCase-Linktyp fiel damit durch
+# (defaultLink, masterData, certificationInfo, epcisRepository,
+# organisationInfo), waehrend pip und dpp durchkamen, weil sie zufaellig
+# kleingeschrieben sind. Der Umweg hier lautete deshalb: anlegen mit pip,
+# Default-Link danach per PATCH, das jene Validierung nicht faehrt.
 #
-#   $.linkset[0]: property 'defaultLink' is not defined in the schema and the
-#   schema does not allow additional properties
+# Behoben in Resolver 7ebe0a6: der Schreibpfad benutzt jetzt ueberall
+# CommonConstant.linkTypeStorageKey, die gemeinsame Regel, deren Vertrag genau
+# das verlangt. Auf dev, demo und epc.is ausgerollt und nachgeprueft.
 #
-# The body is not at fault. Replayed against GS1s linkset schema with
-# com.networknt.json-schema-validator, the resolvers own validator: the
-# document AS SENT (full IRIs) passes, and the message above is reproduced by
-# exactly one input -- the bare camelCase key. So the write path converts the
-# IRI to its bare term before validating, and GS1s property pattern admits a
-# short form only as ^[a-z-]+$. Every camelCase link type -- defaultLink,
-# masterData, certificationInfo, epcisRepository, organisationInfo -- is
-# therefore unwritable through POST/PUT however correctly it is spelled. pip
-# and dpp survive because they happen to be lowercase.
-#
-# So the default link is set afterwards through patch_link, i.e. PATCH, which
-# does not run that validation -- which is why every other link type in this
-# script already goes that way, and why nobody had hit this before. It also
-# replaces the self-referential placeholder the resolver mints at create time
-# (which otherwise 302-loops).
-#
-# This is a workaround for a resolver defect, not a property of the linkset.
+# VORAUSSETZUNG, falls dieses Skript gegen eine aeltere Installation laeuft:
+# ohne diesen Fix antwortet der POST mit 400 und "property 'defaultLink' is
+# not defined in the schema". Dann ist nicht das Body schuld, sondern das Ziel
+# zu alt.
 provision_keys() {
   cyan "▸ Alternative primary keys (KEYS)"
-  local row ap desc target body code resp rbody created
+  local row ap desc target body code resp rbody
   for row in "${KEYS[@]}"; do
     IFS='|' read -r ap desc target <<<"$row"
-    if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] key $ap -> $target"; provision_key_default "$ap" "$desc" "$target"; continue; fi
+    if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] key $ap -> $target"; continue; fi
     # itemDescription, NOT description. GS1s schema prefers "description" and
     # deprecated the old name, and the resolver learned to accept both -- but
     # only from the image that carries that change. An older deployment has no
@@ -719,6 +713,7 @@ ap, desc, target = sys.argv[1], sys.argv[2], sys.argv[3]
 print(json.dumps({'linkset': [{
   'anchor': ap,
   'itemDescription': desc,
+  'https://ref.gs1.org/voc/defaultLink': [{'href': target, 'title': desc}],
   'https://ref.gs1.org/voc/pip': [{
       'href': target, 'title': desc, 'type': 'text/html',
       'hreflang': ['en'], 'context': ['ALL'], 'public': True}]}]}))" \
@@ -729,13 +724,12 @@ print(json.dumps({'linkset': [{
     # phases do.
     # The anonymous flag goes as query param AND header for the same reason
     # documented in provision_orgs: the APIs bound it differently over time.
-    created=0
     resp=$(curl -sk -w '\n%{http_code}' -X POST "$DL_URL/$ap?isAnonymousAccessAllowed=true" \
       -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' \
       --data-binary "$body")
     code=$(printf '%s' "$resp" | tail -n1); rbody=$(printf '%s' "$resp" | sed '$d')
     if [[ "$code" == 20[0-2] ]]; then
-      grn "  $ap -> POST $code"; created=1
+      grn "  $ap -> POST $code"
     else
       # Report the POST as well. The first version of this phase printed only
       # the PUT, so a POST that failed for its own reason looked like a missing
@@ -746,22 +740,13 @@ print(json.dumps({'linkset': [{
         --data-binary "$body")
       code=$(printf '%s' "$resp" | tail -n1); rbody=$(printf '%s' "$resp" | sed '$d')
       case "$code" in
-        20[0-2]) grn "  $ap -> PUT $code"; created=1 ;;
+        20[0-2]) grn "  $ap -> PUT $code" ;;
         *) red "  $ap -> PUT $code ${rbody:0:200}" ;;
       esac
     fi
-    [[ "$created" -eq 1 ]] && provision_key_default "$ap" "$desc" "$target"
   done
 }
 
-# The default link, over PATCH — see the note above provision_keys for why it
-# cannot ride along in the create body.
-provision_key_default() { # anchorPath desc target
-  local ap="$1" desc="$2" target="$3" detail
-  detail=$(python3 -c "import json,sys;print(json.dumps({'href':sys.argv[1],'title':sys.argv[2]}))" \
-    "$WEB_URL/$target" "$desc")
-  patch_link "$ap" "defaultLink" "$detail" "$desc"
-}
 
 # ------------------------------------------------------------------ places
 # A demo Place, anonymously resolvable (Public tier) exactly like products/orgs. The
