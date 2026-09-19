@@ -95,8 +95,11 @@ jobs:
             -e validator.resourceRoot=/validator/resources/ \
             -v "$PWD/gitb/validator-resources/shacl:/validator/resources:ro" \
             isaitb/shacl-validator:latest
+          # The path segment is the validator domain (scripts/lib/gitb.ts), which is
+          # also the directory name inside the mounted resource root. A stale name
+          # here 404s and the loop below times out on a validator that is fine.
           for i in $(seq 1 60); do
-            if [ "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/shacl/dpp/upload)" = "200" ]; then
+            if [ "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/shacl/openepcis/upload)" = "200" ]; then
               echo "validator up"; exit 0
             fi
             sleep 5
