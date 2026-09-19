@@ -57,12 +57,13 @@ import {
   ROOT,
   type ValidatableModule,
 } from "./lib/modules.ts";
+import { VALIDATOR_DOMAIN } from "./lib/gitb.ts";
 
 const args = process.argv.slice(2);
 const VERBOSE = args.includes("--verbose");
 const urlFlag = args.indexOf("--validator-url");
 const BASE = (urlFlag >= 0 ? args[urlFlag + 1] : undefined) ?? "http://localhost:8080";
-const DOMAIN = "dpp";
+const DOMAIN = VALIDATOR_DOMAIN;
 
 interface TarResult {
   conforms: boolean;

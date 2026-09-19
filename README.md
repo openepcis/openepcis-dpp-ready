@@ -219,12 +219,18 @@ infrastructure the European Commission operates — the
 [EU Interoperability Test Bed](https://www.itb.ec.europa.eu/) with its off-the-shelf
 validators and GITB TDL test suites.
 
+The validator itself is **hosted by the European Commission** on the shared Test Bed as the
+`openepcis` domain — <https://www.itb.ec.europa.eu/shacl/openepcis/upload>, with REST and
+SOAP APIs beside it — reading the configuration from
+[`openepcis/validator-resources-openepcis`](https://github.com/openepcis/validator-resources-openepcis),
+a mirror of what this repository generates.
+
 Everything needed is generated under [`gitb/`](gitb/):
 
 - **16 validation types** for the EC's RDF validator (`isaitb/shacl-validator`): the
   cross-cutting core, nine regulation modules, three EN 18223 granularity levels and three EC
   battery categories.
-- **A GITB TDL test suite** — 12 specifications, 24 test cases. Each specification offers an
+- **A GITB TDL test suite** — 16 specifications, 32 test cases. Each specification offers an
   upload test for the system under test and a self-test that asserts the reference passports
   pass *and* a deliberately broken variant fails, so a green result cannot be mistaken for
   empty shapes.

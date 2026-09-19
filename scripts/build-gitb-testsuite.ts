@@ -57,6 +57,7 @@ import {
   ROOT,
   type ValidatableModule,
 } from "./lib/modules.ts";
+import { VALIDATOR_DOMAIN } from "./lib/gitb.ts";
 
 const WRITE = process.argv.includes("--write");
 const SUITE = path.join(ROOT, "gitb/test-suites/openepcis-dpp");
@@ -70,7 +71,7 @@ const SUITE = path.join(ROOT, "gitb/test-suites/openepcis-dpp");
  * /shacl/<domain>/soap/... form is a 404).
  */
 const VALIDATOR_ADDRESS = process.env.VALIDATOR_ADDRESS ?? "http://shacl-validator:8080";
-const WSDL = `${VALIDATOR_ADDRESS}/shacl/soap/dpp/validation?wsdl`;
+const WSDL = `${VALIDATOR_ADDRESS}/shacl/soap/${VALIDATOR_DOMAIN}/validation?wsdl`;
 
 const ACTOR = "DPPDataProvider";
 

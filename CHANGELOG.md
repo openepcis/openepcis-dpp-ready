@@ -66,25 +66,38 @@ to green took 424 violations' worth of corrections, in both directions:
 
 **The GITB artifacts** are generated under `gitb/`, with drift gates in the build:
 
-- `gitb/validator-resources/shacl/dpp` — 16 validation types for `isaitb/shacl-validator`:
+- `gitb/validator-resources/shacl/openepcis` — 16 validation types for `isaitb/shacl-validator`:
   the core, nine regulation modules, three EN 18223 granularity levels and three EC battery
   categories. Measured against the real image, three things a hosted validator cannot do are
   compiled away: it applies no RDFS entailment (superproperty obligations are rewritten to
   `sh:alternativePath`), it cannot flip `sh:deactivated` per request (variants ship
   pre-activated), and it needs the class hierarchy in the data graph (bundled as
   `background.ttl`).
-- `gitb/test-suites/openepcis-dpp` — a GITB TDL suite: 12 specifications, 24 test cases. Each
+- `gitb/test-suites/openepcis-dpp` — a GITB TDL suite: 16 specifications, 32 test cases. Each
   specification gets an upload test case for the system under test and a self-test that
   asserts our reference passports pass **and** a deliberately broken variant fails, via
-  `verify/@invert`. The 12 negative fixtures are derived from the positives by one documented
+  `verify/@invert`. The 27 negative fixtures are derived from the positives by one documented
   mutation each, the last of which reads the required predicates out of the shapes, so they
   cannot drift from what they mutate.
-- `pnpm run check:shapes:itb` runs the shapes in the EC validator and verifies all 48
+- `pnpm run check:shapes:itb` runs the shapes in the EC validator and verifies all 73
   fixtures in both directions. It sends pre-expanded N-Quads on purpose: with JSON-LD the
   validator resolves `@context` from the last deployed revision, and the first run failed on
   16 examples purely from that deployment skew rather than any engine disagreement.
 - `gitb/docker/docker-compose.{validators,itb}.yml` and `gitb/dev.sh` bring the stack up
   locally.
+
+**The validator is hosted by the European Commission** on the shared Interoperability Test
+Bed as the `openepcis` domain — the name the validator URLs carry locally too, so a test
+suite moves between the local stack and the hosted one by address alone. The shared instance
+reads one public repository per validator, so `pnpm run publish:validator-resources` mirrors
+the generated bundle into
+[`openepcis/validator-resources-openepcis`](https://github.com/openepcis/validator-resources-openepcis)
+in the ISAITB layout (the domain directory flattened into `resources/`), regenerates that
+repository's README from the shipping configuration, and drops what a removed validation type
+left behind. The mirror is never a second source: the drift gate keeps the bundle in step with
+the ontologies, and the next sync overwrites anything edited downstream. Verified by starting
+`isaitb/shacl-validator` over the mirror's own bytes under the hosted domain name and taking
+the full parity gate green through it.
 
 **No JSON validator domain is published yet**, and `pnpm run build:gitb` says why per module.
 A type is declared only once its schema both rejects a wrong document and accepts ours. Six

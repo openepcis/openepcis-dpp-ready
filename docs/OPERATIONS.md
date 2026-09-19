@@ -13,7 +13,7 @@ Deploy chains, seeding, guards, and the production gates for the DPP stack
 | EPCIS 2.0 repository | `api.demo.epcis.cloud` | `openepcis-rest-quarkus` (build superproject) | `docker:rest` → `:stable` multi-arch manifest; demo deployed by **digest pin** on `openepcis-demo/openepcis-rest-api` |
 | Vocabulary browser | `ref.openepcis.org` | `openepcis-web` `apps/ref-openepcis` + this repo's generated JSON | openepcis-web pipeline: `build:ref-openepcis` (clones dpp-ready main, runs its build) → `deploy:ref-openepcis` → `deploy:ref-openepcis-prod` (all manual) |
 | Digital Data Management (DDM) | `demo.epcis.cloud` | `openepcis-web` `apps/digital-data-management` | `build:…-demo` → `deploy:…-demo` (Kaniko `:demo` tag) → rollout job — **then digest-pin** (see gotcha below) |
-| DPP conformance validator | not yet hosted | this repo's generated `gitb/validator-resources/shacl` | off-the-shelf `isaitb/shacl-validator` with that directory as `validator.resourceRoot`; locally `gitb/dev.sh up validators`. See [GITB_CONFORMANCE.md](GITB_CONFORMANCE.md) |
+| DPP conformance validator | `www.itb.ec.europa.eu/shacl/openepcis/upload` (shared EU Interoperability Test Bed, Mon–Fri 05:00–20:00 CET, no SLA) | this repo's generated `gitb/validator-resources/shacl/openepcis` | mirrored to [`openepcis/validator-resources-openepcis`](https://github.com/openepcis/validator-resources-openepcis) with `pnpm run publish:validator-resources -- --commit --push`; the Test Bed's webhook re-reads that repository on push (a couple of minutes), the EC runs the off-the-shelf `isaitb/shacl-validator` itself. Locally the same bundle: `gitb/dev.sh up validators`. See [GITB_CONFORMANCE.md](GITB_CONFORMANCE.md) |
 
 ### The conformance validator depends on the vocabulary browser deploy
 

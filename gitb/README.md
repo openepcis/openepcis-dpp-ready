@@ -6,11 +6,11 @@ the measurements behind them are in
 run and publish it.
 
 ```
-validator-resources/shacl/dpp   RDF validator domain: 16 validation types
-validator-resources/json/dpp    empty on purpose — see GITB_CONFORMANCE.md
-test-suites/openepcis-dpp       GITB TDL suite: 12 specifications, 24 test cases
-docker/                         local stacks
-dev.sh                          entry point
+validator-resources/shacl/openepcis  RDF validator domain: 16 validation types
+validator-resources/json/openepcis   empty on purpose — see GITB_CONFORMANCE.md
+test-suites/openepcis-dpp            GITB TDL suite: 16 specifications, 32 test cases
+docker/                              local stacks
+dev.sh                               entry point
 ```
 
 Regenerate after any change to the ontologies, shapes or examples — two drift
@@ -35,9 +35,9 @@ Then:
 
 | | |
 |---|---|
-| Web form | <http://localhost:8080/shacl/dpp/upload> |
-| REST API | `POST http://localhost:8080/shacl/dpp/api/validate` |
-| SOAP (GITB validation service) | <http://localhost:8080/shacl/soap/dpp/validation?wsdl> |
+| Web form | <http://localhost:8080/shacl/openepcis/upload> |
+| REST API | `POST http://localhost:8080/shacl/openepcis/api/validate` |
+| SOAP (GITB validation service) | <http://localhost:8080/shacl/soap/openepcis/validation?wsdl> |
 
 Verify it:
 
@@ -51,7 +51,7 @@ both directions — the positives must conform, the negatives must not.
 A single document by hand:
 
 ```bash
-curl -s -X POST http://localhost:8080/shacl/dpp/api/validate \
+curl -s -X POST http://localhost:8080/shacl/openepcis/api/validate \
   -H 'Content-Type: application/json' \
   -d "{\"contentToValidate\":\"$(base64 -w0 my-passport.jsonld)\",
        \"embeddingMethod\":\"BASE64\",
@@ -61,7 +61,7 @@ curl -s -X POST http://localhost:8080/shacl/dpp/api/validate \
 ```
 
 `validationType` must be one of the 16 ids listed in
-`validator-resources/shacl/dpp/config.properties`.
+`validator-resources/shacl/openepcis/config.properties`.
 
 ---
 
@@ -100,7 +100,7 @@ directory — resource references inside the test cases are relative to it. The 
 Bed validates structure and references on import.
 
 The suite's `verify` steps call the validator at
-`http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl`, the compose service
+`http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl`, the compose service
 name, so it works unchanged inside this stack. For another host, regenerate:
 
 ```bash
@@ -115,31 +115,75 @@ Shut down with `gitb/dev.sh down itb`.
 
 Two independent steps.
 
-**The validator resources.** `validator-resources/shacl` is laid out to the ISAITB
-convention (`resources/<domain>/{config.properties,shapes/}`, as in
-[`validator-resources-dcat-ap`](https://github.com/ISAITB/validator-resources-dcat-ap)),
-so it can be mirrored to a standalone `validator-resources-openepcis-dpp`
-repository without restructuring if the Test Bed asks for one. Deploy the image
-with that directory as its resource root — the compose files show the exact
-invocation.
+**The validator resources.** The European Commission hosts the validator on the
+shared Test Bed as the `openepcis` domain, reading it from the public mirror
+repository [`openepcis/validator-resources-openepcis`](https://github.com/openepcis/validator-resources-openepcis).
+Sync it:
 
-**The test suite.** Import the ZIP into the target Test Bed, as in step 2.
+```bash
+pnpm run publish:validator-resources                    # write the mirror, report
+pnpm run publish:validator-resources -- --commit --push # ...and publish it
+```
 
-### Precondition: redeploy the contexts first
+The script refuses to run on a drifted bundle, flattens the domain directory into
+`resources/` (the ISAITB layout, as in
+[`validator-resources-rdf-sample`](https://github.com/ISAITB/validator-resources-rdf-sample)),
+regenerates that repository's README from the shipping configuration, and removes
+files a deleted validation type left behind. The mirror lives beside this
+checkout by default (`../validator-resources-openepcis`); `--target` points it
+elsewhere. Nothing is a second source: whatever is edited there is overwritten by
+the next sync.
+
+A push is picked up by the Test Bed's webhook within a couple of minutes; the
+live service is then <https://www.itb.ec.europa.eu/shacl/openepcis/upload>.
+Before pushing, it is worth serving exactly what the mirror publishes:
+
+```bash
+mkdir -p /tmp/hosted && cp -R ../validator-resources-openepcis/resources /tmp/hosted/openepcis
+docker run -d --name itb-check -p 8080:8080 \
+  -e validator.resourceRoot=/validator/resources/ \
+  -v /tmp/hosted:/validator/resources:ro isaitb/shacl-validator:latest
+pnpm run check:shapes:itb
+```
+
+**The test suite.** Import the ZIP into the target Test Bed, as in step 2. For
+the hosted validator, rebuild it against that address first — the path needs no
+change, the domain name is the same there:
+
+```bash
+VALIDATOR_ADDRESS=https://www.itb.ec.europa.eu pnpm run build:gitb-testsuite -- --write
+gitb/dev.sh zip
+```
+
+Regenerate with the default address afterwards, or `pnpm run build` fails on the
+drift gate.
+
+### Precondition: the deployed contexts decide the verdict
 
 The upload test cases take JSON-LD, so the validator resolves each passport's
 `@context` from `ref.openepcis.org`. That is correct behaviour — a third party's
 passport must reference the published contexts — but it means the **deployed**
-contexts decide the verdict.
+contexts, not the ones in `main`, decide whether a document conforms.
 
-`ref.openepcis.org` currently serves a revision predating the `anyURI` coercion
-corrections, so an uploaded passport still shows `Value must be a valid literal of
-type anyURI` findings that neither `pnpm run check:shapes` nor
-`pnpm run check:shapes:itb` reproduces (both work from the local, corrected
-contexts by design). Push and redeploy before submitting, or the suite will report
-our own deployment lag as the submitter's fault.
+The counter-check for that is its own gate, and unlike every other one it needs
+the network:
 
-Deployment of `ref.openepcis.org` happens outside this repository — see
+```bash
+gitb/dev.sh up validators
+pnpm run check:shapes:deployed
+```
+
+Green as of 2026-09-19: all 46 examples conform as raw JSON-LD against the
+contexts `ref.openepcis.org` currently serves. It was not always so — the
+`anyURI` coercion corrections were green in the repository while the deployed
+contexts still coerced `"@type": "@id"`, and 16 examples "failed" conformance for
+a reason that had nothing to do with them. Neither `check:shapes` nor
+`check:shapes:itb` reproduces that, by design: both work from local, expanded
+documents so that deployment skew cannot masquerade as an engine disagreement.
+
+So after any change to the ontologies or contexts: deploy `ref.openepcis.org`
+first, then re-run this gate, and only then publish or submit. Deployment of
+`ref.openepcis.org` happens outside this repository — see
 [`../docs/OPERATIONS.md`](../docs/OPERATIONS.md).
 
 ---
@@ -150,8 +194,8 @@ Verified by `pnpm run check:shapes:itb` against the real
 `isaitb/shacl-validator` image:
 
 - all 16 validation types load, i.e. `config.properties` is accepted;
-- all 43 example passports conform;
-- all 61 test-suite fixtures behave as claimed — 36 positive conform, 25 negative
+- all 46 example passports conform;
+- all 73 test-suite fixtures behave as claimed — 46 positive conform, 27 negative
   are rejected (one per applicable mutation, each proven by the generator to add
   a violation before it is emitted);
 - `sh:alternativePath` substitutes correctly for the `rdfs:subPropertyOf`
@@ -166,13 +210,22 @@ Verified on a local Test Bed instance (gitb-ui/gitb-srv 1.29.5, 2026-08-12):
   (The first import attempt found 48 TDL-040 errors — the generator built the
   test cases' `<imports>` block but never emitted it — which is exactly why an
   actual import is part of the definition of done.)
-- **all 12 self-tests execute and pass** end to end: GITB engine → SOAP call to
+- **all self-tests execute and pass** end to end: GITB engine → SOAP call to
   the validator service → verdict, including the `invert="true"` assertions on
   the negative fixtures.
 - the **upload test case works interactively**: a real JSON-LD passport
   submitted through the `interact` step validates with its `@context` resolved
   from ref.openepcis.org (verified with `eu.textile` and the organic-tee
   example).
+
+Verified against the published mirror (2026-09-19):
+
+- `isaitb/shacl-validator` started with `validator-resources-openepcis/resources`
+  mounted as the `openepcis` domain — the exact layout and bytes the shared Test
+  Bed reads — serves the web form and the WSDL, offers all 16 types, and takes
+  the whole parity gate green (46 examples, 73 fixtures). The banner and
+  `validator.supportMinimalUserInterface` are part of what that start accepts:
+  a malformed `.properties` value fails the container at boot, loudly.
 
 Not yet verified:
 

@@ -19,28 +19,28 @@
     <artifact type="binary" encoding="UTF-8" name="neg_missing_required_property">resources/negative/eu.eudr/plot-of-land.missing-required-property.nq</artifact>
   </imports>
   <steps>
-    <verify id="pos0" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
+    <verify id="pos0" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl"
             desc="Reference passport must conform: plot-of-land.jsonld">
       <input name="contentToValidate">$pos0_plot_of_land</input>
       <input name="validationType">"eu.eudr"</input>
       <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
-    <verify id="pos1" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
+    <verify id="pos1" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl"
             desc="Reference passport must conform: regulatory-notification.jsonld">
       <input name="contentToValidate">$pos1_regulatory_notification</input>
       <input name="validationType">"eu.eudr"</input>
       <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
-    <verify id="pos2" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
+    <verify id="pos2" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl"
             desc="Reference passport must conform: timber-derived.jsonld">
       <input name="contentToValidate">$pos2_timber_derived</input>
       <input name="validationType">"eu.eudr"</input>
       <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
-    <verify id="pos3" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
+    <verify id="pos3" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl"
             desc="Reference passport must conform: timber-product.jsonld">
       <input name="contentToValidate">$pos3_timber_product</input>
       <input name="validationType">"eu.eudr"</input>
@@ -48,7 +48,7 @@
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <!-- An economic operator without its ESPR Art. 77 role, which dpp-sh:EconomicOperatorRoleRequired must reject. -->
-    <verify id="neg0" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl" invert="true"
+    <verify id="neg0" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl" invert="true"
             desc="Broken passport must be REJECTED (missing-operator-role)">
       <input name="contentToValidate">$neg_missing_operator_role</input>
       <input name="validationType">"eu.eudr"</input>
@@ -56,7 +56,7 @@
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <!-- A predicate the module's own shapes require with sh:minCount is removed, which the corresponding MinCount constraint must reject. -->
-    <verify id="neg1" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl" invert="true"
+    <verify id="neg1" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl" invert="true"
             desc="Broken passport must be REJECTED (missing-required-property)">
       <input name="contentToValidate">$neg_missing_required_property</input>
       <input name="validationType">"eu.eudr"</input>

@@ -43,8 +43,8 @@ regenerate() {
 wait_for_validator() {
   echo -n "→ waiting for the RDF validator"
   for _ in $(seq 1 60); do
-    if curl -fsS -o /dev/null http://localhost:8080/shacl/dpp/upload 2>/dev/null; then
-      echo " — up: http://localhost:8080/shacl/dpp/upload"
+    if curl -fsS -o /dev/null http://localhost:8080/shacl/openepcis/upload 2>/dev/null; then
+      echo " — up: http://localhost:8080/shacl/openepcis/upload"
       return 0
     fi
     echo -n "."

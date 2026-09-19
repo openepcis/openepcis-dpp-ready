@@ -6,8 +6,8 @@
 # Far cheaper than docker-compose.itb.yml, which additionally pulls gitb-ui,
 # gitb-srv, MySQL and Redis.
 #
-#   RDF validator    http://localhost:8080/shacl/dpp/upload
-#                    http://localhost:8080/shacl/soap/dpp/validation?wsdl
+#   RDF validator    http://localhost:8080/shacl/openepcis/upload
+#                    http://localhost:8080/shacl/soap/openepcis/validation?wsdl
 #
 # The JSON validator is deliberately NOT declared. `pnpm run build:gitb` emits no
 # JSON domain yet: every module schema is either a $defs-only library that would
@@ -29,7 +29,7 @@ services:
     ports:
       - "8080:8080"
     healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/shacl/dpp/upload > /dev/null"]
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8080/shacl/openepcis/upload > /dev/null"]
       interval: 15s
       timeout: 5s
       retries: 20

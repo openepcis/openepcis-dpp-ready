@@ -17,14 +17,14 @@
     <artifact type="binary" encoding="UTF-8" name="neg_missing_required_property">resources/negative/eu.battery.batch/amperia-staxwall-batch.missing-required-property.nq</artifact>
   </imports>
   <steps>
-    <verify id="pos0" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
+    <verify id="pos0" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl"
             desc="Reference passport must conform: amperia-staxwall-batch.jsonld">
       <input name="contentToValidate">$pos0_amperia_staxwall_batch</input>
       <input name="validationType">"eu.battery.batch"</input>
       <input name="embeddingMethod">"BASE64"</input>
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
-    <verify id="pos1" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl"
+    <verify id="pos1" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl"
             desc="Reference passport must conform: battery-product-batch.jsonld">
       <input name="contentToValidate">$pos1_battery_product_batch</input>
       <input name="validationType">"eu.battery.batch"</input>
@@ -32,7 +32,7 @@
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <!-- The passport's GS1 Digital Link says one granularity and oec:granularityLevel claims another, which dpp-sh:GranularityDigitalLinkConstraint must reject (EN 18219 4.4 / EN 18223). This is a SHACL-SPARQL constraint, so it also proves the Test Bed's engine evaluates sh:sparql at all. -->
-    <verify id="neg0" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl" invert="true"
+    <verify id="neg0" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl" invert="true"
             desc="Broken passport must be REJECTED (granularity-mismatch)">
       <input name="contentToValidate">$neg_granularity_mismatch</input>
       <input name="validationType">"eu.battery.batch"</input>
@@ -40,7 +40,7 @@
       <input name="contentSyntax">"application/n-quads"</input>
     </verify>
     <!-- A predicate the module's own shapes require with sh:minCount is removed, which the corresponding MinCount constraint must reject. -->
-    <verify id="neg1" handler="http://shacl-validator:8080/shacl/soap/dpp/validation?wsdl" invert="true"
+    <verify id="neg1" handler="http://shacl-validator:8080/shacl/soap/openepcis/validation?wsdl" invert="true"
             desc="Broken passport must be REJECTED (missing-required-property)">
       <input name="contentToValidate">$neg_missing_required_property</input>
       <input name="validationType">"eu.battery.batch"</input>

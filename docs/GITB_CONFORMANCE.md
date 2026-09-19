@@ -20,11 +20,19 @@ published specification. Everything here is about conformance.
 
 | GITB concept | Here |
 |---|---|
-| Domain | `openepcis-dpp` — OpenEPCIS DPP-Ready |
+| Domain (Test Bed) | `openepcis-dpp` — OpenEPCIS DPP-Ready |
 | Specification | one per regulation module, plus the cross-cutting core |
 | Actor | `DPPDataProvider`, role `SUT` — the economic operator or solution provider under test |
 | Validation type | the identifier a validator request carries, e.g. `eu.battery.item` |
 | Test suite | `gitb/test-suites/openepcis-dpp` |
+| Domain (validator) | `openepcis` — the path segment of every validator URL |
+
+The two "domains" are different things and the names differ on purpose. The
+**Test Bed domain** groups specifications, actors and test suites inside a
+community. The **validator domain** is one directory of shapes served by an RDF
+validator, addressed as `/shacl/openepcis/upload` and
+`/shacl/soap/openepcis/validation?wsdl` — the same name locally and on the shared
+Test Bed, which is what lets a suite move between them by address alone.
 
 A conformance statement therefore reads: *system X conforms to OpenEPCIS
 DPP-Ready / EU Battery*.
@@ -80,8 +88,8 @@ so a committed bundle or suite cannot fall behind the ontologies:
 ```
 gitb/
 ├── validator-resources/
-│   ├── shacl/dpp/            config.properties + shapes/<type>/{shapes,background}.ttl
-│   └── json/dpp/             (empty — see "The JSON domain" below)
+│   ├── shacl/openepcis/      config.properties + shapes/<type>/{shapes,background}.ttl
+│   └── json/openepcis/       (empty — see "The JSON domain" below)
 ├── test-suites/openepcis-dpp/
 │   ├── testSuite.xml
 │   ├── testCases/tc-{upload,selftest}-<type>.xml
@@ -93,6 +101,40 @@ gitb/
 |---|---|
 | `pnpm run build:gitb` | `pnpm run check:gitb` |
 | `pnpm run build:gitb-testsuite` | `pnpm run check:gitb-testsuite` |
+
+### Where the validator runs
+
+The European Commission hosts the validator on the **shared Interoperability
+Test Bed** as the `openepcis` domain. The shared instance builds nothing and runs
+no service of ours: it watches one public repository per hosted validator and
+re-reads it on push.
+
+```
+gitb/validator-resources/shacl/openepcis/   ──►   github.com/openepcis/validator-resources-openepcis
+  config.properties                                 resources/config.properties
+  shapes/<type>/*.ttl                               resources/shapes/<type>/*.ttl
+                                                    README.md, LICENSE
+```
+
+That repository is a **mirror**, written by `pnpm run publish:validator-resources`
+from the generated bundle — the domain directory flattened into `resources/`,
+which is the layout the ITB expects (as in
+[`ISAITB/validator-resources-rdf-sample`](https://github.com/ISAITB/validator-resources-rdf-sample)).
+It is not a second source: an edit made there is overwritten by the next sync.
+
+Three consequences of hosting on the shared instance rather than our own:
+
+- **Only validator configuration is hosted.** Custom extension services — bespoke
+  processing or messaging handlers a test case might call — have to run
+  elsewhere and be reached remotely. The suite needs none: every `verify` step
+  calls the RDF validator's own GITB validation service, and the upload step is
+  the Test Bed's built-in `interact`.
+- **Office hours, no SLA.** The shared instance runs Monday to Friday, 05:00 to
+  20:00 CET. Nothing in `pnpm run build` depends on it; the parity gate runs the
+  same `isaitb/shacl-validator` image locally.
+- **EU Login with 2FA** guards the Test Bed UI, so a party running conformance
+  sessions needs an EU Login account. The validator itself — web form, REST,
+  SOAP — stays public.
 
 ---
 
@@ -203,7 +245,7 @@ cannot drift from the examples they mutate:
 | `out-of-range-fraction` | the 0..1 value-range constraint on the property |
 | `missing-required-property` | whichever `sh:minCount` the module's own shapes declare — read from the shapes, so it needs no curation |
 
-`pnpm run check:shapes:itb` verifies all 48 fixtures in both directions. If an
+`pnpm run check:shapes:itb` verifies all 73 fixtures in both directions. If an
 upstream change makes a mutation stop violating, that gate fails loudly rather
 than the suite quietly asserting nothing.
 
