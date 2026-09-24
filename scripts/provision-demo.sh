@@ -227,6 +227,58 @@ fetch_token() {
 }
 auth() { echo "Authorization: Bearer $TOKEN"; }
 
+# ------------------------------------------------------------------ write preflight
+# The GS1 example range (952…) is assignment-based: the resolver refuses a write
+# under a prefix the caller's tenant does not hold in the /test-gcps ledger.
+#
+# WHY this check has to run BEFORE the first write: provision_product deletes and
+# re-creates, so the linkset is rebuilt cleanly. Without the assignment the DELETE
+# still succeeds and the POST then answers 403 — the product is gone and cannot be
+# written back. That is how the demo heroes (Fjordline, Amperia) ended up served
+# without their product images: a run died in exactly that gap and left them
+# gutted. Refuse up front instead, and say what to do about it.
+#
+# A resolver that predates /test-gcps answers 404; the check then steps aside
+# rather than blocking a run it has no basis to judge.
+TEST_GCP_LEDGER=""   # newline-separated prefixes; "-" = endpoint unavailable
+load_test_gcps() {
+  [[ -n "$TEST_GCP_LEDGER" ]] && return 0
+  local code
+  code=$(curl -sk -o /tmp/pd_gcps.json -w '%{http_code}' "$DL_URL/test-gcps" -H "$(auth)")
+  if [[ "$code" != 200 ]]; then TEST_GCP_LEDGER="-"; return 0; fi
+  TEST_GCP_LEDGER=$(jq -r '.[].gcp // empty' /tmp/pd_gcps.json 2>/dev/null)
+  # An empty ledger is a real answer ("this tenant holds nothing"), not a missing
+  # one — keep it distinguishable from the unset state that triggers a refetch.
+  [[ -n "$TEST_GCP_LEDGER" ]] || TEST_GCP_LEDGER=" "
+}
+
+# Does the tenant hold a prefix this GTIN sits under? A GTIN-14 carries a leading
+# indicator/pad digit that is NOT part of the company prefix (09521234003007 →
+# 9521234003007), and prefix lengths vary per licence — so the test is "some held
+# prefix starts this number", not equality at a fixed width. Both spellings are
+# tried; a number outside the example range is none of this gate's business.
+may_write_gtin() { # gtin
+  local gtin="$1" cand p in_range=0
+  load_test_gcps
+  [[ "$TEST_GCP_LEDGER" == "-" ]] && return 0
+  for cand in "$gtin" "${gtin:1}"; do
+    case "$cand" in 952*) in_range=1 ;; *) continue ;; esac
+    while IFS= read -r p; do
+      [[ -n "$p" && "$cand" == "$p"* ]] && return 0
+    done <<<"$TEST_GCP_LEDGER"
+  done
+  [[ "$in_range" -eq 1 ]] || return 0
+  return 1
+}
+
+# Prints the refusal. Separate so both write paths say the same thing.
+refuse_unassigned() { # gtin
+  red "  $1: this tenant holds no 952… assignment covering the GTIN."
+  red "     Refusing to DELETE a product it could not write back (see the preflight note)."
+  red "     Admin:        PUT  $DL_URL/test-gcps/<prefix>  -d '{\"defaultGroup\":\"<tenant>\"}'"
+  red "     Self-service: POST $DL_URL/test-gcps"
+}
+
 # Whether the target resolver applies the canonical-serial rule, asked once and
 # cached. It decides how a serial that belongs to a lot is written: with the rule
 # ON, /10/{lot}/21/{serial} lands on the instance node 01/g/21/s and stamps the
@@ -384,7 +436,9 @@ provision_product() { # gtin file slug desc
       ."dataQualityAssessment"   = "FLS-PROBE-AO-42" |
       ."eoriNumber"              = "FLS-PROBE-RESTRICTED-42"' <<<"$body")
   fi
-  # Idempotent: delete-then-create so the linkset is rebuilt cleanly each run.
+  # Idempotent: delete-then-create so the linkset is rebuilt cleanly each run —
+  # which is only safe once the write is known to be permitted (see may_write_gtin).
+  if ! may_write_gtin "$gtin"; then refuse_unassigned "product $gtin"; return 1; fi
   curl -sk -o /dev/null -X DELETE "$DL_URL/products/$gtin" -H "$(auth)"
   local code; code=$(curl -sk -o /tmp/pd_prov.json -w '%{http_code}' -X POST "$DL_URL/products" \
     -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' \
@@ -537,6 +591,7 @@ provision_tier_probes() {
       ."gs1:productName" = [{"@value": $name, "@language": "en"}] |
       del(."schema:serialNumber") |
       .accessLevel = $tier' "$src")
+    if ! may_write_gtin "$gtin"; then refuse_unassigned "tier probe $gtin"; continue; fi
     curl -sk -o /dev/null -X DELETE "$DL_URL/products/$gtin" -H "$(auth)"
     # No isAnonymousAccessAllowed header: the tier field is authoritative and
     # the indexing chokepoint reconciles the boolean (non-Public -> false).

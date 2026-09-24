@@ -189,7 +189,7 @@ Commands:
 | `fetch --from URL\|file --against cached [--save]` | Diff a refreshed upstream vocabulary against the cached copy (added/removed/changed terms) to decide when to re-audit. |
 | `fetch --all [--save]` | Refresh **every** configured upstream source (`vocab-sync.source.*.url`), diff each, and write `docs/skos-alignment/skos-upstream-delta.json`. |
 | `sync [--module S] [--stamp D] [--force] [--no-apply] [--no-qa] [--push] [--min-qa-confidence X]` | The regular-run loop: refresh upstream → if moved, re-audit (only changed pairs hit the LLM) → apply QA-confirmed mappings to a `vocab-sync/upstream-<stamp>` branch. See [`docs/AI_PIPELINE.md`](docs/AI_PIPELINE.md#running-it-regularly-the-sync-loop). |
-| `benchmark [--per-class N] [--models CSV] [--max-tokens T] [--tag S]` | Benchmark LLMs on graded-SKOS classification against published STW↔Wikidata mappings; builds a balanced gold set, runs the field model-by-model (resumable JSONL log), and scores accuracy/F1/confusion/calibration → `docs/skos-alignment/bench/`. |
+| `benchmark [--goldset PATH] [--per-class N] [--models CSV] [--max-tokens T] [--tag S]` | Benchmark LLMs on graded-SKOS classification. Default gold set is the published STW↔Wikidata concordance (the proxy that chose the grader); `--goldset docs/skos-alignment/bench/gs1-grader-goldset.json` scores this project's own domain instead. Builds a balanced gold set, runs the field model-by-model (resumable JSONL log), and scores accuracy/F1/confusion/calibration → `docs/skos-alignment/bench/`. The report names the gold set it used. |
 
 Typical loop:
 

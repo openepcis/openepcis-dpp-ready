@@ -40,8 +40,10 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 /**
- * Benchmarks LLMs on graded-SKOS relation classification against a published ground truth
- * (STW ↔ Wikidata mappings). Phases: build a balanced gold set (Jena over the STW thesaurus +
+ * Benchmarks LLMs on graded-SKOS relation classification against the gold set named by
+ * {@code --goldset}: by default the published STW ↔ Wikidata concordance, or this project's own
+ * GS1 domain set. Which one a report describes is derived from that choice, never assumed — see
+ * {@link #datasetLabel()}. Phases: build a balanced gold set (Jena over the STW thesaurus +
  * the STW→Wikidata concordance, Wikidata labels/descriptions via API); run the model field
  * (each local model over LM Studio's OpenAI API) using the identical
  * production grading prompt ({@link GraderPrompts}); score (per-model accuracy, per-relation
@@ -50,7 +52,8 @@ import java.util.TreeSet;
  */
 @CommandLine.Command(
         name = "benchmark",
-        description = "Benchmark LLMs on graded-SKOS classification vs STW↔Wikidata ground truth.")
+        description = "Benchmark LLMs on graded-SKOS classification against the gold set "
+                + "named by --goldset (default: STW↔Wikidata ground truth).")
 public class BenchmarkCommand implements Runnable {
 
     private static final String SKOS = "http://www.w3.org/2004/02/skos/core#";
@@ -77,6 +80,26 @@ public class BenchmarkCommand implements Runnable {
             description = "Gold examples per relation class (EXACT/CLOSE/BROAD/NARROW/NONE).")
     int perClass;
     @CommandLine.Option(names = "--rebuild-goldset", defaultValue = "false") boolean rebuildGoldset;
+    @CommandLine.Option(names = "--goldset",
+            defaultValue = "docs/skos-alignment/bench/skos-grader-goldset.json",
+            description = "Gold set to score against, repo-relative. The default is the "
+                    + "STW<->Wikidata set that chose the grader; pass gs1-grader-goldset.json "
+                    + "(built by tools/build-domain-goldset.py from this project's own curated "
+                    + "mappings and curator-removed pairs) to measure the domain instead of a "
+                    + "proxy for it.")
+    String goldset;
+    @CommandLine.Option(names = "--reasoning-effort", defaultValue = "none",
+            description = "Sent as `reasoning_effort` to reasoning-capable models; \"\" omits the "
+                    + "field. Default \"none\", because this task wants one JSON object per pair at "
+                    + "scale, not deliberation — with thinking on, qwen3.5-27b spent 39 of 40 "
+                    + "completion tokens reasoning and returned empty content, and two of its "
+                    + "first four pairs hit the 900 s ceiling as PARSEFAIL. Turning it off moved "
+                    + "median latency from 645 s to 14 s and parse failures to zero. That also "
+                    + "puts an asterisk on the 10-18%% parse-failure rates this leaderboard "
+                    + "records for magistral, glm-4.7-flash and phi-4-mini-reasoning: they were "
+                    + "measured with no way to turn thinking off, so they describe those models "
+                    + "deliberating rather than judging.")
+    String reasoningEffort;
     @CommandLine.Option(names = "--models",
             description = "CSV of local model ids; default = discover via /v1/models (minus embeddings).")
     String models;
@@ -103,9 +126,7 @@ public class BenchmarkCommand implements Runnable {
     public void run() {
         Path root = Path.of(repoRoot).normalize();
         Path bench = root.resolve(benchDir).normalize();
-        Path goldPath = root.resolve(out.replace("skos-grader-benchmark", "skos-grader-goldset") + ".json");
-        // goldset lives next to the report basename's dir
-        goldPath = root.resolve("docs/skos-alignment/bench/skos-grader-goldset.json");
+        Path goldPath = root.resolve(goldset).normalize();
         Path predPath = bench.resolve("predictions.jsonl");
 
         List<ObjectNode> gold;
@@ -355,6 +376,9 @@ public class BenchmarkCommand implements Runnable {
         body.put("model", model);
         body.put("temperature", 0);
         body.put("max_tokens", maxTokens);
+        if (!reasoningEffort.isBlank()) {
+            body.put("reasoning_effort", reasoningEffort);
+        }
         ArrayNode msgs = body.putArray("messages");
         ((ObjectNode) msgs.addObject()).put("role", "system").put("content", GraderPrompts.SYSTEM);
         ((ObjectNode) msgs.addObject()).put("role", "user").put("content", user + GraderPrompts.JSON_INSTRUCTION);
@@ -453,7 +477,8 @@ public class BenchmarkCommand implements Runnable {
             }
         }
         ObjectNode report = mapper.createObjectNode();
-        report.put("dataset", "STW↔Wikidata (published skos:*Match), graded SKOS classification");
+        report.put("dataset", datasetLabel());
+        report.put("goldset", goldset);
         report.put("goldSize", gold.size());
         ArrayNode board = report.putArray("models");
         List<ObjectNode> rows = new ArrayList<>();
@@ -536,11 +561,39 @@ public class BenchmarkCommand implements Runnable {
         return m;
     }
 
+    /**
+     * What the report says it measured, taken from the gold set actually loaded.
+     *
+     * <p>The gold set became a runtime choice when {@code --goldset} arrived, but three hardcoded
+     * "STW↔Wikidata" strings went on describing every report. A leaderboard scored against the
+     * GS1 domain set therefore announced itself as the STW↔Wikidata proxy — the very benchmark
+     * that set exists to stop standing in for. Nothing in the artefact told a reader which of the
+     * two they were holding, and the two do not measure the same thing.
+     */
+    private String datasetLabel() {
+        String name = Path.of(goldset).getFileName().toString();
+        if (name.startsWith("gs1-grader-goldset"))
+            return "GS1 domain (this project's curated mappings + curator-removed pairs), "
+                    + "graded SKOS classification";
+        if (name.startsWith("skos-grader-goldset"))
+            return "STW↔Wikidata (published skos:*Match), graded SKOS classification";
+        return name + ", graded SKOS classification";
+    }
+
+    /** The same identity in the few words that fit a sentence and a manifest field. */
+    private String datasetShort() {
+        String name = Path.of(goldset).getFileName().toString();
+        if (name.startsWith("gs1-grader-goldset")) return "GS1 domain";
+        if (name.startsWith("skos-grader-goldset")) return "STW↔Wikidata";
+        return name;
+    }
+
     private void writeMarkdown(Path p, List<ObjectNode> rows, int goldSize) {
         StringBuilder sb = new StringBuilder();
         sb.append("# SKOS grader benchmark — leaderboard\n\n");
         sb.append("Task: graded-SKOS relation classification (EXACT/CLOSE/BROAD/NARROW/NONE) against ")
-                .append(goldSize).append(" STW↔Wikidata gold pairs, identical production prompt, temperature 0.\n\n");
+                .append(goldSize).append(" ").append(datasetShort())
+                .append(" gold pairs, identical production prompt, temperature 0.\n\n");
         sb.append("| Model | exact-acc | match/no-match | macroF1 | parse-fail | mean ms |\n");
         sb.append("|---|--:|--:|--:|--:|--:|\n");
         for (ObjectNode m : rows) {
@@ -558,7 +611,8 @@ public class BenchmarkCommand implements Runnable {
 
     private void writeManifest(Path p, int goldSize, Set<String> models) {
         ObjectNode m = mapper.createObjectNode();
-        m.put("benchmark", "skos-grader STW↔Wikidata");
+        m.put("benchmark", "skos-grader " + datasetShort());
+        m.put("goldset", goldset);
         m.put("goldSize", goldSize);
         m.put("perClass", perClass);
         m.put("prompt", "GraderPrompts (production-identical) + strict-JSON instruction");
