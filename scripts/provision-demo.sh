@@ -272,30 +272,84 @@ mime_of() { # src -> echoes media type
   esac
 }
 
-collect_image_urls() { # gtin slug -> prints JSON array of {url, mime} objects
-  local gtin="$1" slug="$2" src entries=() n=0 url mime
+# The product's local image files, as "key<TAB>path" lines: numbered
+# {gtin}-1..4.{ext} first, else the single {gtin}.{ext}. The key is the path
+# component the file is served under (products/{gtin}/{key}), so it is the one
+# thing the model phase (which uploads) and the granularity phase (which only
+# links) have to agree on.
+image_sources() { # gtin slug
+  local gtin="$1" slug="$2" src n found=0
   for n in 1 2 3 4; do
     for ext in png jpg jpeg webp; do
       src="$IMAGES_DIR/${gtin}-${n}.${ext}"
-      [[ -f "$src" ]] && { url=$(upload_image "$gtin" "${slug}-${n}" "$src") && {
-        mime=$(mime_of "$src")
-        entries+=("$(jq -nc --arg u "$url" --arg m "$mime" '{url:$u, mime:$m}')")
-      }; break; }
+      [[ -f "$src" ]] && { printf '%s\t%s\n' "${slug}-${n}" "$src"; found=1; break; }
     done
   done
-  if [[ ${#entries[@]} -eq 0 ]]; then
-    for ext in png jpg jpeg webp; do
-      src="$IMAGES_DIR/${gtin}.${ext}"
-      [[ -f "$src" ]] && { url=$(upload_image "$gtin" "$slug" "$src") && {
-        mime=$(mime_of "$src")
-        entries+=("$(jq -nc --arg u "$url" --arg m "$mime" '{url:$u, mime:$m}')")
-      }; break; }
-    done
-  fi
+  [[ "$found" -eq 1 ]] && return 0
+  for ext in png jpg jpeg webp; do
+    src="$IMAGES_DIR/${gtin}.${ext}"
+    [[ -f "$src" ]] && { printf '%s\t%s\n' "$slug" "$src"; break; }
+  done
+  return 0
+}
+
+image_entries() { # key src ... -> one {url, mime} object per pair, from stdin lines
+  local key src entries=() url
+  while IFS=$'\t' read -r key src; do
+    [[ -n "$key" ]] || continue
+    url="$FILES_URL/files/products/$1/$key"
+    entries+=("$(jq -nc --arg u "$url" --arg m "$(mime_of "$src")" '{url:$u, mime:$m}')")
+  done
   # bash 3.2 (macOS default) errors on "${entries[@]}" when the array is empty
   # under set -u, and an empty printf line would become [""] — guard both.
   if [[ ${#entries[@]} -eq 0 ]]; then echo '[]'; else printf '%s\n' "${entries[@]}" | jq -s .; fi
 }
+
+collect_image_urls() { # gtin slug -> uploads, prints JSON array of {url, mime} objects
+  local gtin="$1" slug="$2" key src
+  image_sources "$gtin" "$slug" | while IFS=$'\t' read -r key src; do
+    upload_image "$gtin" "$key" "$src" >/dev/null && printf '%s\t%s\n' "$key" "$src"
+  done | image_entries "$gtin"
+}
+
+# The same array WITHOUT uploading — the URLs the model phase produced (or
+# will produce; they are a pure function of gtin and key). For the lot and
+# serial records: their pictures are the product's, uploaded once for the
+# model, and a second upload per record would be bandwidth for no new byte.
+# Run with --only=granularity before any products phase, the links point at
+# files that are not there yet; the products phase makes them good.
+image_urls_of() { # gtin slug -> prints JSON array of {url, mime} objects
+  image_sources "$1" "$2" | image_entries "$1"
+}
+
+# jq: the uploaded pictures as gs1:ReferencedFileDetails, appended to whatever
+# referencedFile the seed declares (certificates, manuals). Args: $urls (the
+# array above), $desc (the product description).
+#
+# Two repairs on the way, both learned from what demo served on 2026-09-24:
+#  - The seeds spell the array `gs1:referencedFile`, the pictures go in bare
+#    `referencedFile`. Two spellings of one term in one body, and which of them
+#    the resolver keeps depends on the write path (the model came back with the
+#    pictures only, the serial with the seed's documents only). Folded into the
+#    bare key first, so there is one array to keep.
+#  - Seed entries that name their file only by JSON-LD `id` get that as
+#    referencedFileURL too: the typed write path (ReferencedFileDetails has no
+#    id) drops the id, and the entry arrived as a file type without a file.
+EMBED_IMAGES='
+  if has("gs1:referencedFile") then
+    .referencedFile = ((."gs1:referencedFile" // []) + (.referencedFile // [])) | del(."gs1:referencedFile")
+  else . end |
+  if has("referencedFile") then .referencedFile |= map(
+    if type == "object" and ((.referencedFileURL // "") == "") and ((.id // "") | startswith("http"))
+    then . + {"referencedFileURL": .id} else . end)
+  else . end |
+  if ($urls|length) > 0 then .referencedFile = ((.referencedFile // []) + ($urls | to_entries | map({
+      "type":"gs1:ReferencedFileDetails","fileLanguageCode":"en",
+      "contentDescription": ($desc + " (image " + ((.key+1)|tostring) + ")"),
+      "referencedFileType": {"id":"gs1:ReferencedFileTypeCode-PRODUCT_IMAGE"},
+      "id": .value.url, "referencedFileURL": .value.url }
+      + (if (.value.mime // "") != "" then {"schema:encodingFormat": .value.mime} else {} end)
+    ))) else . end'
 
 provision_product() { # gtin file slug desc
   local gtin="$1" rel="$2" slug="$3" desc="$4" file="$REPO_ROOT/$2"
@@ -318,13 +372,7 @@ provision_product() { # gtin file slug desc
     .id = ($dl + "/01/" + $gtin) |
     del(."schema:serialNumber") |
     if has("oec:granularityLevel") then ."oec:granularityLevel" = "model" else . end |
-    if ($urls|length) > 0 then .referencedFile = ((.referencedFile // []) + ($urls | to_entries | map({
-        "type":"gs1:ReferencedFileDetails","fileLanguageCode":"en",
-        "contentDescription": ($desc + " (image " + ((.key+1)|tostring) + ")"),
-        "referencedFileType": {"id":"gs1:ReferencedFileTypeCode-PRODUCT_IMAGE"},
-        "id": .value.url, "referencedFileURL": .value.url }
-        + (if (.value.mime // "") != "" then {"schema:encodingFormat": .value.mime} else {} end)
-      ))) else . end' "$file")
+    '"$EMBED_IMAGES" "$file")
   # FLS probe markers (see FLS_PROBE_GTIN above): three oec-core fields at three
   # field tiers, in bare shortcut spelling (survives the typed write path).
   if [[ "$gtin" == "$FLS_PROBE_GTIN" ]]; then
@@ -358,12 +406,28 @@ model_file_of() { # gtin
   echo ""
 }
 
-# instance_body MODEL [OVERLAY…] — deep-merge the seed files (later wins) and
-# normalize hosts. Callers stamp id and qualifier afterwards.
+# The image slug of a catalogue product, or "" when the GTIN is not in PRODUCTS.
+slug_of() { # gtin
+  local prow
+  for prow in "${PRODUCTS[@]}"; do
+    [[ "$prow" == "$1|"* ]] && { IFS='|' read -r _ _ s _ <<<"$prow"; echo "$s"; return 0; }
+  done
+  echo ""
+}
+
+# instance_body GTIN MODEL [OVERLAY…] — deep-merge the seed files (later wins),
+# normalize hosts and embed the product's pictures, exactly as the model got
+# them. A lot or serial record is served as its own document, not as a delta
+# the resolver fills in from the model: what the record does not carry, no
+# reader of it sees. Callers stamp id and qualifier afterwards.
 instance_body() {
-  local files=() f
+  local gtin="$1"; shift
+  local files=() f urls_json
   for f in "$@"; do [[ -n "$f" ]] && files+=("$REPO_ROOT/$f"); done
-  jq -s 'reduce .[1:][] as $o (.[0]; . * $o)' "${files[@]}" | jq "${hostargs[@]}" "$STRIP | $HOSTS"
+  urls_json=$(image_urls_of "$gtin" "$(slug_of "$gtin")")
+  jq -s 'reduce .[1:][] as $o (.[0]; . * $o)' "${files[@]}" \
+    | jq "${hostargs[@]}" "$STRIP | $HOSTS" \
+    | jq --argjson urls "$urls_json" --arg desc "$(desc_for "$gtin")" "$EMBED_IMAGES"
 }
 
 # put_instance PATH DOC LABEL — PUT /products/PATH (an upsert; never a delete).
@@ -376,8 +440,9 @@ put_instance() {
   code=$(curl -sk -o /tmp/pd_inst.json -w '%{http_code}' -X PUT "$DL_URL/products/$path?isAnonymousAccessAllowed=true" \
     -H "$(auth)" -H 'Content-Type: application/json' -H 'isAnonymousAccessAllowed: true' \
     --data-binary "$doc")
+  local nimg; nimg=$(jq '[.referencedFile[]? | select(.referencedFileURL? and ((.referencedFileType|tostring) | test("PRODUCT_IMAGE")))] | length' <<<"$doc" 2>/dev/null || echo 0)
   case "$code" in
-    20[0-2]) grn "  $label $path -> $code" ;;
+    20[0-2]) grn "  $label $path ($nimg img) -> $code" ;;
     *) red "  $label $path -> $code $(jq -rc '.detail // .message // empty' /tmp/pd_inst.json 2>/dev/null)" ;;
   esac
 }
@@ -391,7 +456,10 @@ provision_granularity() {
     [[ -n "$model" && -f "$REPO_ROOT/$model" ]] || { red "  granularity $gtin: no model seed in PRODUCTS"; continue; }
     [[ -z "$batch" || -f "$REPO_ROOT/$batch" ]] || { red "  granularity $gtin: missing batch overlay $batch"; continue; }
     [[ -z "$item"  || -f "$REPO_ROOT/$item"  ]] || { red "  granularity $gtin: missing item overlay $item"; continue; }
-    if [[ "$DRY" -eq 1 ]]; then echo "  [dry-run] granularity $gtin cpv=${cpv:--} lot=${lot:--} serial=${serial:--}"; continue; fi
+    if [[ "$DRY" -eq 1 ]]; then
+      echo "  [dry-run] granularity $gtin cpv=${cpv:--} lot=${lot:--} serial=${serial:--} ($(image_urls_of "$gtin" "$(slug_of "$gtin")" | jq length) img)"
+      continue
+    fi
     # The address prefix below the model: a variant in front of lot and serial
     # (GS1 order 22, 10, 21). The node is still the lot class or the instance;
     # the CPV is its attribute, so it must not be in the body — the path says it.
@@ -399,7 +467,7 @@ provision_granularity() {
     if [[ -n "$cpv" && -z "$lot" && -z "$serial" ]]; then
       # The variant node: the model with its CPV, id …/22/{cpv}. EN 18223 knows
       # no granularity between model and batch, so the level stays "model".
-      doc=$(instance_body "$model" | jq --arg dl "$DL_URL" --arg gtin "$gtin" --arg cpv "$cpv" '
+      doc=$(instance_body "$gtin" "$model" | jq --arg dl "$DL_URL" --arg gtin "$gtin" --arg cpv "$cpv" '
         .id = ($dl + "/01/" + $gtin + "/22/" + $cpv) |
         ."gs1:consumerProductVariant" = $cpv |
         del(."schema:serialNumber", ."gs1:hasBatchLotNumber", .hasBatchLotNumber) |
@@ -410,7 +478,7 @@ provision_granularity() {
     if [[ -n "$lot" ]]; then
       # The lot record: model ⊕ batch overlay, id and lot number stamped to THIS
       # lot (the bottle's overlay was written for another lot id), no serial.
-      doc=$(instance_body "$model" "$batch" | jq --arg dl "$DL_URL" --arg gtin "$gtin" --arg lot "$lot" '
+      doc=$(instance_body "$gtin" "$model" "$batch" | jq --arg dl "$DL_URL" --arg gtin "$gtin" --arg lot "$lot" '
         .id = ($dl + "/01/" + $gtin + "/10/" + $lot) |
         ."gs1:hasBatchLotNumber" = $lot |
         del(."schema:serialNumber", ."gs1:consumerProductVariant", .consumerProductVariant) |
@@ -433,7 +501,7 @@ provision_granularity() {
       if [[ -n "$lot" ]]; then
         if canonical_serial; then item_via="${via}10/$lot/"; else ylw "  note: $gtin/$serial stays outside lot $lot (canonical-serial off on $ENV)"; fi
       fi
-      doc=$(instance_body "$model" "$batch" "$item" | jq --arg dl "$DL_URL" --arg gtin "$gtin" --arg serial "$serial" '
+      doc=$(instance_body "$gtin" "$model" "$batch" "$item" | jq --arg dl "$DL_URL" --arg gtin "$gtin" --arg serial "$serial" '
         .id = ($dl + "/01/" + $gtin + "/21/" + $serial) |
         ."schema:serialNumber" = $serial |
         del(."gs1:hasBatchLotNumber", .hasBatchLotNumber, ."gs1:consumerProductVariant", .consumerProductVariant) |
