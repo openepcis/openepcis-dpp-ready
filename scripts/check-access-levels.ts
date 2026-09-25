@@ -15,6 +15,11 @@
  *   - accessLevelMandatedBy without a defaultAccessLevel (lock without value)
  *   - accessLevelInherited combined WITH a defaultAccessLevel (contradiction)
  *   - strict module: defaultAccessLevel without accessLevelRationale
+ *   - accessGrantedToRole naming a role outside the oec:ActorRole enumeration
+ *     (EN 18239:2026 4.2), stated without accessLevelMandatedBy (an audience
+ *     lock needs a mandate), or stated on a Public term (public = everyone)
+ *   - accessRoleDefaults with a key other than AuthorizedOnly/Restricted or a
+ *     role outside the enumeration
  *
  * Cross-module ALIAS CONSISTENCY: enforcement matches served fields by bare
  * local name as well as by curie, and merges colliding tiers with max()
@@ -77,6 +82,18 @@ interface Term {
   accessLevelRationale?: string;
   accessLevelSource?: string;
   accessLevelInherited?: boolean;
+  accessGrantedToRole?: string[];
+}
+
+/** The oec:ActorRole enumeration as built into dpp-core.json — the only legal role names. */
+function loadActorRoles(): Set<string> {
+  const core = JSON.parse(readFileSync(join(ROOT, "extensions/common/core/json/dpp-core.json"), "utf8"));
+  const enumeration = (core.enumerations ?? []).find((e: { localName: string }) => e.localName === "ActorRole");
+  if (!enumeration) {
+    console.error("ERROR dpp-core.json carries no ActorRole enumeration — run build:json");
+    process.exit(1);
+  }
+  return new Set(enumeration.values.map((v: { localName: string }) => v.localName));
 }
 
 interface Waiver {
@@ -101,6 +118,8 @@ function loadWaivers(): Map<string, string> {
 
 let errors = 0;
 let warnings = 0;
+const ACTOR_ROLES = loadActorRoles();
+const ROLE_TIERS = new Set(["AuthorizedOnly", "Restricted"]);
 
 // localName -> [{module, tier}] for the alias-consistency pass
 const aliasTiers = new Map<string, Array<{ module: string; tier: string }>>();
@@ -114,6 +133,21 @@ for (const rel of MODULE_JSON) {
   const properties: Term[] = doc.properties ?? [];
   const unannotated: string[] = [];
   let inherited = 0;
+
+  // Module-level EN 18239 role defaults: only the two controlled tiers, only known roles.
+  const roleDefaults: Record<string, string[]> = doc.accessRoleDefaults ?? {};
+  for (const [tier, roles] of Object.entries(roleDefaults)) {
+    if (!ROLE_TIERS.has(tier)) {
+      console.error(`ERROR ${rel}: accessRoleDefaults names tier "${tier}" — only AuthorizedOnly and Restricted take role defaults`);
+      errors++;
+    }
+    for (const role of roles) {
+      if (!ACTOR_ROLES.has(role)) {
+        console.error(`ERROR ${rel}: accessRoleDefaults.${tier} names "${role}", not an oec:ActorRole (EN 18239 4.2)`);
+        errors++;
+      }
+    }
+  }
 
   for (const p of properties) {
     if (p.accessLevel !== undefined && !TIERS.has(p.accessLevel)) {
@@ -133,6 +167,24 @@ for (const rel of MODULE_JSON) {
         `ERROR ${rel}: ${p.localName} is accessLevelInherited AND carries a defaultAccessLevel — pick one`
       );
       errors++;
+    }
+    if (p.accessGrantedToRole) {
+      for (const role of p.accessGrantedToRole) {
+        if (!ACTOR_ROLES.has(role)) {
+          console.error(`ERROR ${rel}: ${p.localName} grants access to "${role}", not an oec:ActorRole (EN 18239 4.2)`);
+          errors++;
+        }
+      }
+      if (!p.accessLevelMandatedBy) {
+        console.error(
+          `ERROR ${rel}: ${p.localName} has accessGrantedToRole without accessLevelMandatedBy — a fixed audience needs the legal act that fixes it (EN 18239 5.2.7)`
+        );
+        errors++;
+      }
+      if (p.accessLevel === "Public") {
+        console.error(`ERROR ${rel}: ${p.localName} is Public yet names an audience — public data has no role gate (EN 18239 5.2.2)`);
+        errors++;
+      }
     }
     if (strict && p.accessLevel !== undefined && !p.accessLevelRationale) {
       console.error(

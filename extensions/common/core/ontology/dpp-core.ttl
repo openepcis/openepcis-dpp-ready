@@ -374,29 +374,105 @@ Aligned with UNTP TraceabilityPerformance for supply chain transparency reportin
 
 oec:OperatorRole
     a rdfs:Class ;
+    rdfs:subClassOf oec:ActorRole ;
     rdfs:label "Operator Role"@en ;
-    rdfs:comment "Role of an economic operator in the supply chain."@en ;
+    rdfs:comment "Role of an economic operator in the supply chain. The six ESPR / EN 18239:2026 4.2(1) economic-operator sub-roles (manufacturer, authorised representative, importer, distributor, dealer, fulfilment service provider) plus the EUDR (EU) 2023/1115 Art. 2 supply-chain positions (producer, operator, trader, downstream operator) and processor; every member is also an oec:ActorRole. One role vocabulary for every regulation module - no module mints its own."@en ;
     rdfs:seeAlso cirpass2:EconomicOperatorRole ;
-    owl:oneOf (oec:Manufacturer oec:Importer oec:Distributor oec:Processor oec:Trader) ;
+    owl:oneOf (oec:Manufacturer oec:AuthorisedRepresentative oec:Importer oec:Distributor oec:Dealer oec:FulfilmentServiceProvider oec:Processor oec:Trader oec:Producer oec:Operator oec:DownstreamOperator) ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     rdfs:seeAlso schema:OrganizationRole  .
 
-oec:Manufacturer a oec:OperatorRole ; rdfs:label "Manufacturer"@en ;
+oec:Manufacturer a oec:OperatorRole, oec:ActorRole ; rdfs:label "Manufacturer"@en ;
     rdfs:comment "Entity that produces the product, including own-brand labellers per EU Market Surveillance Regulation 2019/1020."@en .
-oec:Importer a oec:OperatorRole ; rdfs:label "Importer"@en ;
+oec:Importer a oec:OperatorRole, oec:ActorRole ; rdfs:label "Importer"@en ;
     rdfs:comment "Entity established in the EU that places a product from a third country on the Union market."@en .
-oec:Distributor a oec:OperatorRole ; rdfs:label "Distributor"@en ;
+oec:Distributor a oec:OperatorRole, oec:ActorRole ; rdfs:label "Distributor"@en ;
     rdfs:comment "Entity in the supply chain that makes a product available on the market, other than manufacturer or importer."@en .
-oec:Processor a oec:OperatorRole ; rdfs:label "Processor"@en ;
+oec:Processor a oec:OperatorRole, oec:ActorRole ; rdfs:label "Processor"@en ;
     rdfs:comment "Entity that processes raw materials or components into finished or intermediate products."@en .
-oec:Trader a oec:OperatorRole ; rdfs:label "Trader"@en ;
-    rdfs:comment "Entity that buys and sells products without significant modification or processing."@en .
-oec:AuthorisedRepresentative a oec:OperatorRole ; rdfs:label "Authorised Representative"@en ;
+oec:Trader a oec:OperatorRole, oec:ActorRole ; rdfs:label "Trader"@en ;
+    rdfs:comment "Entity that buys and sells products without significant modification or processing; under EUDR (EU) 2023/1115 Art. 2(17) the person who makes products available on the market after the operator."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2023/1115> .
+oec:Producer a oec:OperatorRole, oec:ActorRole ; rdfs:label "Producer"@en ;
+    rdfs:comment "Entity that produces or harvests the commodity at the start of the chain (EUDR (EU) 2023/1115 supply-chain position; moved here from the former eudr:ActorRole)."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2023/1115> .
+oec:Operator a oec:OperatorRole, oec:ActorRole ; rdfs:label "Operator"@en ;
+    rdfs:comment "Entity that places products on the EU market or exports them from it (EUDR (EU) 2023/1115 Art. 2(15)); the EUDR name for the economic operator placing on the market, kept for EUDR records."@en ;
+    dcterms:source <https://eur-lex.europa.eu/eli/reg/2023/1115> .
+oec:DownstreamOperator a oec:OperatorRole, oec:ActorRole ; rdfs:label "Downstream Operator"@en ;
+    rdfs:comment "Entity that receives products already placed on the EU market and makes them available further downstream, subject to simplified due-diligence obligations (introduced by the December 2025 EUDR amendment)."@en ;
+    dcterms:source <https://www.consilium.europa.eu/en/press/press-releases/2025/12/18/deforestation-council-signs-off-targeted-revision-to-simplify-and-postpone-the-regulation/> ;
+    skos:note "Downstream operators have reduced due-diligence obligations compared to operators."@en .
+oec:AuthorisedRepresentative a oec:OperatorRole, oec:ActorRole ; rdfs:label "Authorised Representative"@en ;
     rdfs:comment "Entity authorised by manufacturer to act on their behalf for specific tasks (per ESPR Article 16)."@en ;
     rdfs:seeAlso cirpass2:AuthorisedRepresentativeRoleAssignment ;
     rdfs:seeAlso cirpass2:hasAuthorisedRepresentative .
-oec:FulfilmentServiceProvider a oec:OperatorRole ; rdfs:label "Fulfilment Service Provider"@en ;
+oec:FulfilmentServiceProvider a oec:OperatorRole, oec:ActorRole ; rdfs:label "Fulfilment Service Provider"@en ;
     rdfs:comment "Entity providing fulfilment services including warehousing and order processing (per ESPR Article 17)."@en .
+oec:Dealer a oec:OperatorRole, oec:ActorRole ; rdfs:label "Dealer"@en ;
+    rdfs:comment "Distributor or any other natural or legal person that offers products for sale, hire or hire purchase, or displays them to end users in the course of a commercial activity, including distance selling and putting into service (ESPR Art. 2; EN 18239:2026 4.2(1)(e))."@en ;
+    dcterms:source "EN 18239:2026, 4.2 (CEN/CENELEC JTC 24)" .
+
+# =============================================================================
+# Actor Role Enumeration (EN 18239:2026 4.2 - actors along the DPP life cycle)
+# =============================================================================
+# EN 18239 defines access rights per ROLE: the roles granting access to
+# regulated DPP data are fixed per product group by the relevant legal act
+# (5.2.7), the economic operator may grant additional privileges (5.2.6/7),
+# and rights are enforced at controlled-data-element granularity according to
+# the requesting actor's role (5.2.23). This enumeration is the role
+# vocabulary those grants are expressed against (oec:accessGrantedToRole,
+# oec:authorizedOnlyGrantedToRole, oec:restrictedGrantedToRole). It carries the
+# 4.2 actors verbatim plus the "notified actor" of 3.6; the economic-operator
+# sub-roles are the oec:OperatorRole members, which is a subclass.
+
+oec:ActorRole
+    a rdfs:Class ;
+    rdfs:label "Actor Role"@en ;
+    rdfs:comment """Role an organisation or individual fulfils along the DPP life cycle, as
+enumerated by EN 18239:2026 4.2: economic operators and their sub-roles (oec:OperatorRole),
+the other value-chain actors (consumer, professional repairer, independent operator,
+recycler, market surveillance authority), customs authorities and DPP service providers -
+plus the notified actor of 3.6. Access rights to controlled DPP data are granted to these
+roles (EN 18239 5.2.7, 5.2.8, 5.2.23)."""@en ;
+    dcterms:source "EN 18239:2026, 4.2 (CEN/CENELEC JTC 24)" ;
+    owl:oneOf (oec:Manufacturer oec:AuthorisedRepresentative oec:Importer oec:Distributor
+               oec:Dealer oec:FulfilmentServiceProvider oec:Processor oec:Trader
+               oec:Producer oec:Operator oec:DownstreamOperator
+               oec:Consumer oec:ProfessionalRepairer oec:IndependentOperator oec:Recycler
+               oec:MarketSurveillanceAuthority oec:CustomsAuthority oec:DppServiceProvider
+               oec:NotifiedActor) ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    skos:note "Roles are what a credential attests and what a policy names; they are not tenant membership. An economic operator reading its own passport data is the data controller and is never gated by a role list - role gating governs actors OTHER than the owning operator."@en ;
+    rdfs:seeAlso cirpass2:EconomicOperatorRole ;
+    rdfs:seeAlso schema:OrganizationRole .
+
+oec:Consumer a oec:ActorRole ; rdfs:label "Consumer"@en ;
+    rdfs:comment "Individual member of the general public purchasing or using goods, property or services for private purposes (EN ISO 14025:2010, 3.16; EN 18239:2026 4.2(2)(a)). Reads public DPP data without authentication (EN 18239 5.2.2)."@en ;
+    dcterms:source "EN 18239:2026, 4.2 (CEN/CENELEC JTC 24)" .
+oec:ProfessionalRepairer a oec:ActorRole ; rdfs:label "Professional Repairer"@en ;
+    rdfs:comment "Natural or legal person providing professional repair or maintenance services for a product, whether within the manufacturer's distribution system or independently (EN 18239:2026 4.2(2)(b))."@en ;
+    dcterms:source "EN 18239:2026, 4.2 (CEN/CENELEC JTC 24)" .
+oec:IndependentOperator a oec:ActorRole ; rdfs:label "Independent Operator"@en ;
+    rdfs:comment "Natural or legal person independent of the manufacturer and directly or indirectly involved in refurbishment, repair, maintenance or repurposing of a product - including waste management operators, refurbishers, repairers, makers or distributors of repair equipment, tools or spare parts, publishers of technical information, inspection and testing services, and trainers (EN 18239:2026 4.2(2)(c))."@en ;
+    dcterms:source "EN 18239:2026, 4.2 (CEN/CENELEC JTC 24)" .
+oec:Recycler a oec:ActorRole ; rdfs:label "Recycler"@en ;
+    rdfs:comment "Natural or legal person responsible for the collection, processing and recovery of reusable materials and applying a decontamination process (EN 18239:2026 4.2(2)(d))."@en ;
+    dcterms:source "EN 18239:2026, 4.2 (CEN/CENELEC JTC 24)" .
+oec:MarketSurveillanceAuthority a oec:ActorRole ; rdfs:label "Market Surveillance Authority"@en ;
+    rdfs:comment "Authority designated by a Member State as responsible for carrying out market surveillance in its territory (Regulation (EU) 2019/1020; EN 18239:2026 4.2(2)(e))."@en ;
+    dcterms:source "EN 18239:2026, 4.2 (CEN/CENELEC JTC 24)" .
+oec:CustomsAuthority a oec:ActorRole ; rdfs:label "Customs Authority"@en ;
+    rdfs:comment "Government service responsible for administering customs law, collecting duties and taxes, and applying other laws on the import, export, movement or storage of goods (EN 18239:2026 4.2(3))."@en ;
+    dcterms:source "EN 18239:2026, 4.2 (CEN/CENELEC JTC 24)" .
+oec:DppServiceProvider a oec:ActorRole ; rdfs:label "DPP Service Provider"@en ;
+    rdfs:comment "Independent third party authorised by the economic operator that processes the DPP data for a product to make it available to actors with a right to access it - hosting the main instance or the back-up copy (EN 18221:2026, 3.2-3.3; EN 18239:2026 4.2(4)(a))."@en ;
+    dcterms:source "EN 18239:2026, 4.2 (CEN/CENELEC JTC 24)" ;
+    rdfs:seeAlso oec:hasBackupCopyHost .
+oec:NotifiedActor a oec:ActorRole ; rdfs:label "Notified Actor"@en ;
+    rdfs:comment "Organisation or individual entitled by an authorised accrediting body or authority to fulfil a role in the DPP life cycle (EN 18239:2026 3.6) - notified bodies and conformity assessment bodies in particular. The EO may assign rights and roles to notified actors by their globally unique operator identifier (EN 18239 5.2.6)."@en ;
+    dcterms:source "EN 18239:2026, 3.6 (CEN/CENELEC JTC 24)" ;
+    rdfs:seeAlso cirpass2:hasNotifiedBody .
 
 # =============================================================================
 # Access Level Enumeration (ESPR Article 9)
@@ -441,6 +517,49 @@ directions)."""@en ;
     rdfs:range rdfs:Resource ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> .
+
+oec:accessGrantedToRole
+    a owl:AnnotationProperty ;
+    rdfs:label "access granted to role"@en ;
+    rdfs:comment """Actor roles (EN 18239:2026 4.2) that the legal act named in
+oec:accessLevelMandatedBy admits to the annotated property. Multi-valued. Only meaningful
+together with oec:accessLevelMandatedBy: it FIXES the audience of the term - EN 18239 5.2.7
+has the product-group legal act define the roles that grant access to regulated data, so an
+economic operator may neither widen nor narrow this set at runtime. Terms without it fall
+back to the module's tier-level role defaults (oec:authorizedOnlyGrantedToRole /
+oec:restrictedGrantedToRole), and for non-mandated terms the economic operator may grant
+additional roles. Role gating never applies to the economic operator reading its own data:
+it governs OTHER actors' access (EN 18239 5.2.8 - a trustworthy role credential admits an
+actor without the EO's individual approval)."""@en ;
+    rdfs:range oec:ActorRole ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source "EN 18239:2026, 5.2 (CEN/CENELEC JTC 24)" .
+
+oec:authorizedOnlyGrantedToRole
+    a owl:AnnotationProperty ;
+    rdfs:label "AuthorizedOnly tier granted to role"@en ;
+    rdfs:comment """Module-level default, stated on the module's owl:Ontology node in its
+*-access-levels.ttl sidecar: the actor roles the module's governing legal act admits to
+AuthorizedOnly-tier data as a whole. Applies to every AuthorizedOnly term of the module that
+carries no oec:accessGrantedToRole of its own. A module without this statement inherits the
+dpp-core defaults (ESPR Art. 9)."""@en ;
+    rdfs:domain owl:Ontology ;
+    rdfs:range oec:ActorRole ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source "EN 18239:2026, 5.2.7 (CEN/CENELEC JTC 24)" .
+
+oec:restrictedGrantedToRole
+    a owl:AnnotationProperty ;
+    rdfs:label "Restricted tier granted to role"@en ;
+    rdfs:comment """Module-level default, stated on the module's owl:Ontology node in its
+*-access-levels.ttl sidecar: the actor roles the module's governing legal act admits to
+Restricted-tier data as a whole. Applies to every Restricted term of the module that carries
+no oec:accessGrantedToRole of its own. A module without this statement inherits the dpp-core
+defaults (ESPR Art. 9(3): authorities and notified actors)."""@en ;
+    rdfs:domain owl:Ontology ;
+    rdfs:range oec:ActorRole ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
+    dcterms:source "EN 18239:2026, 5.2.7 (CEN/CENELEC JTC 24)" .
 
 oec:accessLevelRationale
     a owl:AnnotationProperty ;

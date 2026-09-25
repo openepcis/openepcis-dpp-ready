@@ -13,6 +13,24 @@
 @prefix eudr: <https://ref.openepcis.org/extensions/eu/eudr/> .
 @prefix oec:  <https://ref.openepcis.org/extensions/common/core/> .
 
+# =============================================================================
+# Module-level role defaults (EN 18239:2026 5.2.7; EUDR audiences)
+# =============================================================================
+# EUDR (EU) 2023/1115: due-diligence-statement content is channelled through
+# the Information System to competent authorities (Art. 33) and customs
+# (Art. 26); down-chain operators and traders receive the DDS reference
+# (Art. 12(3)) but not the plot data. Restricted is therefore the authority
+# pair; AuthorizedOnly is the economic-operator chain plus authorities.
+
+<https://ref.openepcis.org/extensions/eu/eudr/>
+    oec:authorizedOnlyGrantedToRole
+        oec:Manufacturer, oec:AuthorisedRepresentative, oec:Importer, oec:Distributor,
+        oec:Dealer, oec:FulfilmentServiceProvider, oec:Processor, oec:Trader,
+        oec:Producer, oec:Operator, oec:DownstreamOperator,
+        oec:MarketSurveillanceAuthority, oec:CustomsAuthority, oec:DppServiceProvider ;
+    oec:restrictedGrantedToRole
+        oec:MarketSurveillanceAuthority, oec:CustomsAuthority .
+
 
 # --- Public: commodity, species, origin country and compliance claims ---
 

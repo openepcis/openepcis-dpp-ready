@@ -2,6 +2,20 @@
 
 All notable changes to the EUDR module will be documented in this file.
 
+## [Unreleased]
+
+### Removed: `eudr:ActorRole` — the supply-chain positions live in dpp-core
+
+`eudr:ActorRole` and its members `eudr:Producer`, `eudr:Operator`, `eudr:Trader`,
+`eudr:DownstreamOperator` are gone. With EN 18239:2026 the core vocabulary carries the actor
+taxonomy access rights are granted to (`oec:ActorRole`, see the dpp-core changelog), and a
+second, module-local role list of the same name would have split it. The EUDR positions are
+now `oec:Producer`, `oec:Operator`, `oec:DownstreamOperator` (and the existing `oec:Trader`)
+as members of `oec:OperatorRole`. No EUDR property had the removed class as its range and no
+example used the values, so no document changes; the bare aliases `Producer` / `Operator` /
+`Trader` / `DownstreamOperator` are removed from the EUDR shortcut layer and resolve through
+the core shortcut context (`hasOperatorRole`) instead.
+
 ## [0.9.9] - 2026-08-04
 
 ## [0.9.8] - 2026-07-29

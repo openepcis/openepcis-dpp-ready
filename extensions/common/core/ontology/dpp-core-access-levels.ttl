@@ -26,6 +26,33 @@
 @prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
 
 # =============================================================================
+# Module-level role defaults (EN 18239:2026 5.2.7 - roles per legal act)
+# =============================================================================
+# Which actor roles (oec:ActorRole, EN 18239 4.2) the governing act admits to
+# each controlled tier of this module. Terms that name their own audience carry
+# oec:accessGrantedToRole; every other controlled term inherits these. The
+# economic operator reading its own data is never role-gated (data controller).
+# Regulation modules that state no defaults of their own inherit these.
+#
+# ESPR 2024/1781 Art. 9(2)-(3) grounding:
+#   AuthorizedOnly -> every identified value-chain actor and authority (the
+#                     "persons with a legitimate interest" reading), i.e. all
+#                     roles except the unauthenticated consumer;
+#   Restricted     -> market surveillance authorities, customs and notified
+#                     actors (Art. 9(3) authority audience).
+
+<https://ref.openepcis.org/extensions/common/core/>
+    oec:authorizedOnlyGrantedToRole
+        oec:Manufacturer, oec:AuthorisedRepresentative, oec:Importer, oec:Distributor,
+        oec:Dealer, oec:FulfilmentServiceProvider, oec:Processor, oec:Trader,
+        oec:Producer, oec:Operator, oec:DownstreamOperator,
+        oec:ProfessionalRepairer, oec:IndependentOperator, oec:Recycler,
+        oec:MarketSurveillanceAuthority, oec:CustomsAuthority, oec:NotifiedActor,
+        oec:DppServiceProvider ;
+    oec:restrictedGrantedToRole
+        oec:MarketSurveillanceAuthority, oec:CustomsAuthority, oec:NotifiedActor .
+
+# =============================================================================
 # Public: passport lifecycle & metadata
 # =============================================================================
 # The passport must be interpretable by every audience reaching it from the
