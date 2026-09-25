@@ -134,9 +134,15 @@ checkout by default (`../validator-resources-openepcis`); `--target` points it
 elsewhere. Nothing is a second source: whatever is edited there is overwritten by
 the next sync.
 
-A push is picked up by the Test Bed's webhook within a couple of minutes; the
-live service is then <https://www.itb.ec.europa.eu/shacl/openepcis/upload>.
-Before pushing, it is worth serving exactly what the mirror publishes:
+A push to the mirror's `main` is picked up within a couple of minutes by the
+webhook on that repository (push events only, pointed at the Test Bed's build
+trigger; the token lives in the repository's webhook settings and nowhere in
+this tree). The live service is
+<https://www.itb.ec.europa.eu/shacl/openepcis/upload>.
+
+That webhook makes every push a deployment, which is the Test Bed team's one
+request about it: **push complete updates only**, and do development against the
+local stack. So before pushing, serve exactly what the mirror publishes:
 
 ```bash
 mkdir -p /tmp/hosted && cp -R ../validator-resources-openepcis/resources /tmp/hosted/openepcis
@@ -227,7 +233,19 @@ Verified against the published mirror (2026-09-19):
   `validator.supportMinimalUserInterface` are part of what that start accepts:
   a malformed `.properties` value fails the container at boot, loudly.
 
+Verified on the shared Test Bed itself (2026-09-25), now that the European
+Commission hosts the validator:
+
+- <https://www.itb.ec.europa.eu/shacl/openepcis/upload> and the SOAP WSDL both
+  answer 200, the form offers all 16 validation types, and the banner is the one
+  in `config.properties`;
+- a reference passport (`extensions/eu/textile/examples/organic-tee-product.jsonld`)
+  posted as JSON-LD to the hosted REST API comes back `SUCCESS`, 0 errors. That
+  is the full third-party path: their engine, their network, our `@context`
+  resolved from ref.openepcis.org.
+
 Not yet verified:
 
-- execution on the EU's own Test Bed instance rather than the local compose
-  stack — the submission itself.
+- a conformance session in the OpenEPCIS community on the shared instance. The
+  community exists and the validator behind it is live; the test suite still has
+  to be imported there and run once.

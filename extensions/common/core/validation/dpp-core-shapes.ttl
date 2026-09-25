@@ -322,7 +322,7 @@ dpp-sh:OperatorInformationShape
     sh:name "Operator Information Shape"@en ;
     sh:description "Validates OperatorInformation instances"@en ;
 
-    # The role must be one of the seven ESPR Art. 77 economic-operator roles
+    # The role must be one of the eleven oec:OperatorRole members (ESPR Art. 77 / EN 18239 4.2 / EUDR Art. 2)
     # WHEREVER it is stated. Whether it is REQUIRED is a separate question, and
     # the answer depends on why the node is in the graph — see
     # dpp-sh:EconomicOperatorRoleRequired below.
@@ -338,8 +338,12 @@ dpp-sh:OperatorInformationShape
             oec:Trader
             oec:AuthorisedRepresentative
             oec:FulfilmentServiceProvider
+            oec:Dealer
+            oec:Producer
+            oec:Operator
+            oec:DownstreamOperator
         ) ;
-        sh:message "operatorRole must be one of the seven ESPR Art. 77 economic-operator roles"@en
+        sh:message "operatorRole must be one of the eleven oec:OperatorRole members (ESPR Art. 77 / EN 18239 4.2 / EUDR Art. 2)"@en
     ] ;
 
     sh:property [
