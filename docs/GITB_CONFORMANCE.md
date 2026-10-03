@@ -105,9 +105,11 @@ gitb/
 ### Where the validator runs
 
 The European Commission hosts the validator on the **shared Interoperability
-Test Bed** as the `openepcis` domain. The shared instance builds nothing and runs
-no service of ours: it watches one public repository per hosted validator and
-re-reads it on push.
+Test Bed** as the `openepcis` domain, live since 2026-09-25 at
+<https://www.itb.ec.europa.eu/shacl/openepcis/upload>. The shared instance builds
+nothing and runs no service of ours: it watches one public repository per hosted
+validator and re-reads it on push, which a webhook on the mirror repository
+triggers.
 
 ```
 gitb/validator-resources/shacl/openepcis/   ──►   github.com/openepcis/validator-resources-openepcis
