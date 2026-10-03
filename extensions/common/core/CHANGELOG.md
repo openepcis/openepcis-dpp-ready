@@ -2,6 +2,45 @@
 
 All notable changes to the DPP Core module will be documented in this file.
 
+## [Unreleased]
+
+### Added: the EN 18239:2026 actor-role vocabulary and role-based access grants
+
+EN 18239:2026 (access rights management) is published. It defines access to
+controlled DPP data per actor ROLE: the roles granting access to regulated data are
+fixed per product group by the relevant legal act (5.2.7), the economic operator may
+grant additional privileges (5.2.6/7), a trustworthy role credential admits an actor
+without the EO's individual approval (5.2.8), and rights are enforced at data-element
+granularity by role (5.2.23). The vocabulary now carries that role model:
+
+- `oec:ActorRole` — the 4.2 actor taxonomy verbatim plus the notified actor of 3.6:
+  the economic-operator sub-roles (`oec:OperatorRole`, now a subclass), `oec:Consumer`,
+  `oec:ProfessionalRepairer`, `oec:IndependentOperator`, `oec:Recycler`,
+  `oec:MarketSurveillanceAuthority`, `oec:CustomsAuthority`, `oec:DppServiceProvider`,
+  `oec:NotifiedActor`.
+- `oec:Dealer` joins `oec:OperatorRole` (ESPR Art. 2 dealer; EN 18239 4.2(1)(e)); the
+  class's `owl:oneOf` now lists all eight members (it omitted the authorised
+  representative and the fulfilment service provider), and the SHACL `sh:in` follows.
+- `oec:accessGrantedToRole` (term-level, only with `oec:accessLevelMandatedBy`): the
+  roles the mandating act admits to a term — fixes the audience, EO cannot widen or
+  narrow it.
+- `oec:authorizedOnlyGrantedToRole` / `oec:restrictedGrantedToRole` (module-level, on
+  the ontology node in `*-access-levels.ttl`): the roles the module's governing act admits
+  to each controlled tier. dpp-core states the ESPR Art. 9 defaults; battery narrows
+  Restricted to notified bodies + market surveillance (Annex XIII(3), no customs) and
+  gives the Art. 14 / Annex VII state-of-health terms their own audience; EUDR narrows
+  Restricted to competent authorities + customs (Arts. 26, 33).
+- `eudr:ActorRole` is retired into this enumeration: its EUDR Art. 2 supply-chain positions
+  `oec:Producer`, `oec:Operator` and `oec:DownstreamOperator` join `oec:OperatorRole`
+  (`oec:Trader` already existed). One role vocabulary for every regulation module.
+- Build: `json/*.json` properties carry `accessGrantedToRole`, documents carry
+  `accessRoleDefaults`; `check:access-levels` validates role names against the
+  enumeration and refuses a role lock without a mandate or on a Public term.
+
+Role gating governs actors OTHER than the owning economic operator; the data controller
+reading its own passport is never role-gated. This is the vocabulary half of the
+EN 18239 alignment; the enforcement half lives in the resolver.
+
 ## [0.9.9] - 2026-08-04
 
 ### Changed: envelope-term anchors to CIRPASS-2 EUDPP

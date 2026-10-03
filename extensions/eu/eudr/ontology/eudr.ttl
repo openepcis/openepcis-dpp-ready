@@ -189,37 +189,6 @@ eudr:PrintedMatter a eudr:TimberProductType ; rdfs:label "Printed Matter"@en ; s
     rdfs:comment "Printed books, newspapers (HS 49)."@en .
 
 # =============================================================================
-# Supply Chain Actor Role Enumeration
-# =============================================================================
-
-eudr:ActorRole
-    a owl:Class ;
-    rdfs:label "Actor Role"@en ;
-    rdfs:comment "Role of an actor in the EUDR supply chain per Article 2."@en ;
-    owl:oneOf (
-        eudr:Producer
-        eudr:Operator
-        eudr:Trader
-        eudr:DownstreamOperator
-    ) ;
-    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/eu/eudr/> ;
-    dcterms:source <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1115> ;
-    skos:note "EU Deforestation Regulation (EU) 2023/1115 due-diligence / traceability attribute. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso <https://schema.org/OrganizationRole> ;
-    rdfs:seeAlso <https://schema.org/Role> .
-
-eudr:Producer a eudr:ActorRole ; rdfs:label "Producer"@en ;
-    rdfs:comment "Entity that produces/harvests the commodity."@en .
-eudr:Operator a eudr:ActorRole ; rdfs:label "Operator"@en ;
-    rdfs:comment "Entity that places products on EU market or exports from EU (Article 2.15)."@en .
-eudr:Trader a eudr:ActorRole ; rdfs:label "Trader"@en ;
-    rdfs:comment "Entity that makes products available on market after operator (Article 2.17)."@en .
-eudr:DownstreamOperator a eudr:ActorRole ; rdfs:label "Downstream Operator"@en ;
-    rdfs:comment "Entity that receives products already placed on the EU market and makes them available further downstream, subject to simplified due diligence obligations."@en ;
-    dcterms:source <https://www.consilium.europa.eu/en/press/press-releases/2025/12/18/deforestation-council-signs-off-targeted-revision-to-simplify-and-postpone-the-regulation/> ;
-    skos:note "Introduced by the Dec 2025 EUDR amendment. Downstream operators have reduced due diligence obligations compared to operators."@en .
-
-# =============================================================================
 # Container Classes for EUDR Data
 # =============================================================================
 
