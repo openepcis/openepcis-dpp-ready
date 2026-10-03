@@ -232,7 +232,9 @@ the module READMEs, and ensure every published term is dereferenceable as a
 3. RelatedResource/DocumentReference + MultiLanguage alignment (§4).
 4. EN 18223 JSON projection (serialise) + XSD-to-JSON value rules (§4).
 5. EN 18222 API surface (§6) + Bruno requests; content negotiation + carrier-quality notes.
-6. Revisit change management (§5) and actor identity when prEN 18239 / prEN 18246 publish.
+6. Change management (§5) and actor identity against the published EN 18239 / EN 18246: the
+   role vocabulary is in place, the operator identifier on every change is in progress — see
+   [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md).
 
 ---
 
