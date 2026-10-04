@@ -14,7 +14,7 @@ OpenEPCIS DPP-Ready rests on a **peer triumvirate** of foundational vocabularies
 
 Above these foundations sit the **upstream community profiles and standardisation tracks** (Layer 2):
 
-- **CEN/CENELEC JTC 24** — the formal EU standardisation track for DPP under M/604 (EN 18216–18223 + prEN 18239 / 18246). This is the regulation-binding track that JTC 24's harmonised standards will deliver.
+- **CEN/CENELEC JTC 24** — the formal EU standardisation track for DPP under M/604 (EN 18216–18223, 18239, 18246). This is the regulation-binding track that JTC 24's harmonised standards will deliver.
 - **UNTP v0.7.0** — UN/CEFACT product transparency protocol; bridge context + graded SKOS mapping (`skos:exactMatch` / `skos:closeMatch`) anchors where extensions match.
 - **CIRPASS-2 pilot programme** — EU pilot, one input among several into JTC 24. Their ontology proposal at `https://w3id.org/eudpp#` is referenced via `rdfs:seeAlso` only (W3ID redirect currently 404s; not a finalised standard). See [`CIRPASS2_ALIGNMENT.md`](./CIRPASS2_ALIGNMENT.md).
 - **BatteryPass Consortium** — sectoral SAMM data model (v1.2) + BatteryPass-Ready v1.3 conformance harness; bidirectional bridge contexts, no formal anchors. Battery-specific analysis in [`extensions/eu/battery/docs/CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md`](../../../eu/battery/docs/CIRPASS2_BATTERYPASS_GAP_ANALYSIS.md).
@@ -83,7 +83,7 @@ This approach lets implementers start building today while standards mature. As 
 
 ### The 8 EN Standards (CEN/CENELEC JTC 24)
 
-JTC 24 is developing **8 individual standards** under M/604. Six were published as EN standards in 2026; prEN 18239 and prEN 18246 remain in development. The standards are deliberately technology- and scheme-neutral; OpenEPCIS realises them through the **EPCIS4DPP** profile (GS1 identifiers, GS1 Digital Link, EPCIS, ref.openepcis.org). The clause-by-clause detail is in [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md).
+JTC 24 is developing **8 individual standards** under M/604. All eight were published as EN standards in 2026 (EN 18239 and EN 18246 in September). The standards are deliberately technology- and scheme-neutral; OpenEPCIS realises them through the **EPCIS4DPP** profile (GS1 identifiers, GS1 Digital Link, EPCIS, ref.openepcis.org). The clause-by-clause detail is in [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md).
 
 | Standard | Title | WG | Status | EPCIS4DPP realisation |
 |----------|-------|----|--------|-----------------------|
@@ -94,7 +94,7 @@ JTC 24 is developing **8 individual standards** under M/604. Six were published 
 | **EN 18222** | APIs for the product passport lifecycle management and searchability | WG 4 | Published 2026 | **Planned** — expose the EN 18222 REST API method set; EPCIS query + resolver added as profile |
 | **EN 18223** | System interoperability | WG 4 | Published 2026 | **Conformant** — `oec:` core maps to the EN 18223 model; ref.openepcis.org is the §4.3 data dictionary |
 | **EN 18239** | Access rights management, information system security, and business confidentiality | WG 3 | Published 2026 | **Partial** — `oec:AccessLevel` covers the tiers; `oec:ActorRole` carries the 4.2 actor taxonomy and `oec:accessGrantedToRole` / `oec:*GrantedToRole` the per-legal-act audiences (5.2.7); role-based enforcement per data element (5.2.23) in the resolver; access logging (5.2.16) and delegation assessment (5.2.20) open |
-| **prEN 18246** | Data authentication, reliability, and integrity | WG 5 | In development | **In implementation** — `oec:did`, `oec:identityCredentialUrl` are the ontology hooks; the OpenEPCIS VC platform (W3C VCDM 2.0 issuance, did:web anchoring) is in build; ESDC tracked. Which parts are standards-based and which are demonstrated, layer by layer with the evidence for each: [`VC_INTEROPERABILITY.md`](./VC_INTEROPERABILITY.md) |
+| **EN 18246** | Data authentication, reliability, and integrity | WG 5 | Published 2026 | **Partial** — the ESDC of Annex A is realised as W3C Verifiable Credentials (VCDM 2.0, Data Integrity, did:web) and demonstrated against third parties; actor-bound changes in progress; trusted list (A.3), tamper-evident access log and unrestricted verification (4.7) open. Layer-by-layer evidence and the delta against the published text: [`VC_INTEROPERABILITY.md`](./VC_INTEROPERABILITY.md) |
 
 **Sources:** the standards are published by CEN/CENELEC and adopted nationally (for example as NEN-EN); they are licensed documents. See the clause-cited [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md) and the [CEN/CENELEC site](https://www.cencenelec.eu/).
 
@@ -130,7 +130,7 @@ JTC 24 is developing **8 individual standards** under M/604. Six were published 
 
 **EN 18239 (Access Rights)** — `oec:AccessLevel` implements the three-tier model (Public, AuthorizedOnly, Restricted). The published standard defines access per actor role: `oec:ActorRole` mirrors its 4.2 taxonomy (economic-operator sub-roles as `oec:OperatorRole`, consumer, professional repairer, independent operator, recycler, market surveillance authority, customs authority, DPP service provider, notified actor of 3.6), and the access-level sidecars state which roles each governing legal act admits to a tier (`oec:authorizedOnlyGrantedToRole` / `oec:restrictedGrantedToRole`) or to a single term (`oec:accessGrantedToRole`, only together with `oec:accessLevelMandatedBy` — the audience the act fixes, 5.2.7). The resolver enforces these audiences per data element for actors outside the owning economic operator (5.2.23) and mints roles from realm roles as trustworthy role credentials (5.2.8). Not yet covered: tamper-evident access logging (5.2.16) and the assessment of delegation chains (5.2.20).
 
-**prEN 18246 (Data Authentication)** — `oec:did` and `oec:identityCredentialUrl` support decentralized identity, and the OpenEPCIS VC platform now implements the credential layer they were reserved for: W3C Verifiable Credentials (VCDM 2.0) issuance for Digital Product Passports with both securing mechanisms (JSON-LD Data Integrity `ecdsa-rdfc-2019` and VC-JOSE), did:web documents served by the issuer and by the Digital Link resolver, and a public verification endpoint. No new vocabulary was minted for this: credential types come from UNTP/W3C, subjects reuse `oec:` and module terms, evidence hashing uses `relatedResource`/`digestMultibase`. Electronically Signed Data Constructs (ESDC) alignment follows the final text of the standard.
+**EN 18246 (Data Authentication)** — The published standard is technology neutral: its normative Annex A defines the electronically signed data construct (issuer, subject, data, signature; verifiable for integrity, authenticity, non-repudiation and issuer authority against a trusted list), and lists W3C Verifiable Credentials among the informative realisations. EPCIS4DPP realises the ESDC as Verifiable Credentials (VCDM 2.0, Data Integrity `ecdsa-rdfc-2019` and VC-JOSE, did:web issuers served by the issuer and the Digital Link resolver, `relatedResource` digests as evidence) — no new vocabulary, credential types from UNTP/W3C, subjects from `oec:` and module terms. Beyond the cryptography the standard asks for actor-bound changes with non-repudiation (4.7), a tamper-evident log with integrity over time, free and unrestricted verification, and a public page without external components (5.1.3); those are tracked in [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md).
 
 ### Why Not Wait?
 
@@ -150,7 +150,7 @@ Multiple initiatives are developing Digital Product Passport specifications. Ope
 
 | Initiative | Technical Foundation | Scope | Status | GS1 Integration |
 |------------|---------------------|-------|--------|-----------------|
-| **CEN/CENELEC JTC 24** | EN 18216-18223 + prEN 18239/18246 (8 standards) | Multi-sector | 6 of 8 published 2026 | Confirmed (EN 18219 = GS1 GTIN) |
+| **CEN/CENELEC JTC 24** | EN 18216-18223, 18239, 18246 (8 standards) | Multi-sector | 8 of 8 published 2026 | Confirmed (EN 18219 = GS1 GTIN) |
 | **OpenEPCIS DPP-Ready** | GS1 Web Vocab + EPCIS 2.0 | Multi-sector | Production v0.9.6 | Native |
 | **BatteryPass Data Model** | Eclipse SAMM + Custom URNs | Battery only | Spec v1.2.0 | None |
 | **DPP Keystone** | Custom JSON-LD vocab | Multi-sector | Proof-of-concept | Partial |
@@ -203,7 +203,7 @@ The [BatteryPass Data Model](https://github.com/battery-pass/BatteryPassDataMode
 | Standard | Properties Aligned | Classes Aligned | Notes |
 |----------|-------------------|-----------------|-------|
 | **GS1 Web Vocabulary** | Foundation | Foundation | Native integration via `owl:imports` |
-| **CEN/CENELEC JTC 24** | Strong (6/8 standards) | Strong | EN 18216-18223 (published 2026) + prEN 18239/18246 (in development); see detailed alignment above |
+| **CEN/CENELEC JTC 24** | Strong (8/8 standards) | Strong | EN 18216-18223, 18239, 18246 (all published 2026); see detailed alignment above |
 | **UNTP** | 22 | 9 | SKOS mapping (`skos:exactMatch` / `skos:closeMatch`), aligned with v0.6.1 (GitLab) |
 | **CIRPASS2** | Requirements coverage | Bridge context | `cirpass2-bridge-context.jsonld` + `CIRPASS2_COVERAGE.md` |
 | **ESPR 2024/1781** | Full | Full | Core module covers all Article 7/9 requirements |

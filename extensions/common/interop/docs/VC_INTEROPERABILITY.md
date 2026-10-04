@@ -11,14 +11,18 @@ and "a verifier nobody on this project wrote accepts our credential" are very
 different claims, and only the second one is interoperability.
 
 **Standards context.** Under CEN/CENELEC JTC 24 the relevant standard is
-**prEN 18246** (data authentication, reliability and integrity, WG 5), which is
-still in development. Nothing here claims conformance to prEN 18246: its text
-is not published, so no honest conformance statement about it is possible yet.
-What this page does claim is that the building blocks chosen are the ones the
-DPP ecosystem is converging on, and it records the evidence for each. See
-[`STANDARDS_ALIGNMENT.md`](./STANDARDS_ALIGNMENT.md) for the full JTC 24 picture
-and [`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md) for the six
-published standards clause by clause.
+**EN 18246:2026** (data authentication, reliability and integrity, WG 5),
+published in September 2026 together with EN 18239:2026 (access rights). Its
+normative core is Annex A: an *electronically signed data construct* with
+issuer, subject, data and signature that verifies integrity, authenticity,
+non-repudiation and — against a trusted list or governance framework — the
+issuer's authority. W3C Verifiable Credentials are one of the informative
+realisations the standard lists, not a requirement. What this page claims is
+therefore not "conformance" in the abstract but, layer by layer, which of the
+standard's capabilities the chosen building blocks deliver and with what
+evidence. The clause-by-clause reading is in
+[`CEN_JTC24_CONFORMANCE.md`](./CEN_JTC24_CONFORMANCE.md); the delta against the
+published text closes this page.
 
 ---
 
@@ -313,20 +317,31 @@ page quietly outruns its evidence.
 
 ---
 
-## How to read this against prEN 18246
+## The delta against EN 18246:2026
 
-When prEN 18246 is published, the questions it is expected to settle are which
-authentication mechanisms are admissible, how integrity is expressed and
-checked, and how trust in an issuer is established. This project's position
-going in is:
+The standard is published; this is where its text and this implementation
+differ, so that the gap is read rather than reconstructed. Evidence grades as
+above.
 
-- the mechanism is W3C Verifiable Credentials with Data Integrity proofs,
-- issuer identity is `did:web`, anchored at a domain the economic operator
-  already controls and already uses for GS1 Digital Link resolution,
-- the payload is the EN 18223 model this repository publishes, so a credential
-  adds a signature to the passport rather than restating it in another shape,
-- and trust in an issuer's right to make product claims is intended to come from
-  the GS1 Digital Licence chain rather than from a bespoke registry.
+| EN 18246 asks for | Clause | Here | Grade / status |
+|---|---|---|---|
+| Integrity and authenticity independent of the transport channel | 4.1 | Data Integrity `ecdsa-rdfc-2019`, VC-JOSE, SD-JWT on every credential; plain resolver responses rely on TLS only | **A** for credentials; not applicable to raw responses |
+| An ESDC with issuer, subject, data, signature | Annex A | VCDM 2.0 envelope, `did:web` issuer, `credentialSubject` = the EN 18223 passport graph | **A** (envelope accepted by a foreign verifier), **C** for the envelope's own test-suite coverage |
+| Verify the issuer's authority against a trusted list or governance framework | A.3, fourth capability | `TrustRoot` SPI with a per-tenant trusted-issuer registry and a GS1 licence-chain root; the signed, published issuer list and the GS1 chain source are not built | **Partial** — the registry decides, nothing publishes it yet |
+| Verification free of charge and without limitation for the verifier | 4.7 | `/vc/verify` is offline-strict: vendored contexts only, so a foreign credential with an unknown context fails at the service while the library verifies it | **Gap** — context loading with an allow-list is the fix |
+| Every modification bound to the authenticated actor with non-repudiation; editor identifiable by a globally unique operator identifier | 4.7 | Passport changes form a Git version graph with checkpoints signed by the operator's `did:web` key; binding each amendment to the acting subject and operator identifier is in progress | **Partial** |
+| Tamper-proof change log with integrity over time, verifiable without offline procedures | 4.7 | Exists for passport data (version graph + checkpoints); not for resolver master data, linksets, the trust registry or key events | **Gap** — planned as one hash-chained, checkpoint-signed log |
+| Actors identified by a globally unique identifier, assurance-based authentication | 4.2 | Realm roles and tenant membership today; the EN 18219 operator identifier is being added to the token and to credential C1 | **In progress** |
+| Public data: no authentication, no additional software, no profiling, no external components in the response | 4.3, 5.1.3, 5.1.5, 5.1.6 | Resolver JSON carries no external references; the public HTML page is not yet audited for external hosts, analytics, cookies or device access | **To be audited** |
+| Anti-scraping while search engines may index | 5.1.8 | Rate limiting for authenticated callers; none on the anonymous path | **Gap** |
+| Optional protection of identifier and data carrier | 4.5, 4.6, 5.3.1 | The passport is signed, the link is not; a signed Digital Link is a tracked product option | Profile choice, open |
 
-Those are positions, not conformance. They are recorded here so that when the
-standard lands, the delta is visible rather than reconstructed.
+Two things follow from the published text that the earlier, pre-publication
+position did not foresee. First, the trusted list is normative (Annex A names
+it as one of the four things an ESDC must make verifiable), so publishing the
+platform's issuer list as a signed artefact is conformance work, not a
+feature. Second, the standard's hardest requirements sit outside the
+cryptography — actor binding, the access log, the sterile public page — and
+none of them is settled by choosing Verifiable Credentials. The choice stands
+for a different reason: every trust source this platform consumes already
+speaks that format.
