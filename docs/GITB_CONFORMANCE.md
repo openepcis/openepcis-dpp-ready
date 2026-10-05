@@ -124,6 +124,53 @@ which is the layout the ITB expects (as in
 [`ISAITB/validator-resources-rdf-sample`](https://github.com/ISAITB/validator-resources-rdf-sample)).
 It is not a second source: an edit made there is overwritten by the next sync.
 
+### The community on the shared Test Bed
+
+Live since 2026-10-05. The European Commission created the community, the domain
+and the administrator account; everything inside it is ours, and
+`pnpm run provision:itb` builds it from the shipping validator configuration:
+
+| | |
+|---|---|
+| Community | OpenEPCIS community |
+| Domain | `openepcis-dpp` |
+| Specifications | 16, one per validation type |
+| Actor | `DPPDataProvider` under each, marked default |
+| Test suite | one **shared** suite, 32 test cases, linked to all 16 |
+| System under test | OpenEPCIS / Reference passports, 16 conformance statements |
+
+`--run` then executes the 16 self-tests through the hosted validator. All 16 came
+back SUCCESS on the first full run, which is the end of the chain the project has
+been building toward: their engine, their network, our shapes, our passports.
+
+Three things cost real time to discover, so they are worth stating plainly.
+
+**The API key header must be written with hyphens.** It is documented as
+`ITB_API_KEY`, and that works against a local instance. The shared Test Bed sits
+behind a proxy that drops headers containing underscores, so the call comes back
+`{"error_code":"204","error_description":"Needs API key header."}` while sending
+the header. That error reads exactly like an API that is switched off, and we
+concluded for two days that the automation API was unavailable to us.
+`ITB-API-KEY` passes through both instances.
+
+**Three keys, and the 403s point elsewhere.** Specifications, actors, shared test
+suites, organisations and systems take the *community* key. Conformance
+statements and test sessions take the *organisation* key. Domains and communities
+themselves take the *master* key, which only the Test Bed operator holds, which is
+why those two come from the onboarding rather than from us. Using the master key
+for a specification answers "You are not allowed to manage specifications through
+the automation API", which sounds like a missing feature rather than the wrong
+credential.
+
+**One switch has no API.** Conformance statements additionally require *Manage
+test sessions via REST API* under Community details, User permissions. Until it is
+ticked every statement fails with "You are not allowed to manage test sessions
+through the automation API". The provisioning script detects that message and says
+so.
+
+The keys live in the Test Bed UI, on the domain and community detail forms, and
+belong in the password manager. Nothing in this repository contains one.
+
 Three consequences of hosting on the shared instance rather than our own:
 
 - **Only validator configuration is hosted.** Custom extension services — bespoke

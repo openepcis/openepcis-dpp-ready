@@ -86,6 +86,18 @@ to green took 424 violations' worth of corrections, in both directions:
 - `gitb/docker/docker-compose.{validators,itb}.yml` and `gitb/dev.sh` bring the stack up
   locally.
 
+**The conformance community is live on the shared Test Bed** (2026-10-05): 16
+specifications, the `DPPDataProvider` actor under each, the suite deployed once as a shared
+test suite and linked to all of them, and a system under test with 16 conformance statements.
+All 16 self-tests return SUCCESS through the hosted validator, which closes the chain end to
+end: their engine, their network, our shapes, our passports. `pnpm run provision:itb` builds
+that community from the shipping validator configuration and `--run` re-executes the
+self-tests, so the Test Bed cannot drift from the bundle. Two traps are recorded in
+[`docs/GITB_CONFORMANCE.md`](docs/GITB_CONFORMANCE.md): the API key header must use hyphens,
+because the shared instance's proxy drops headers with underscores and the documented
+`ITB_API_KEY` then answers "Needs API key header" while being sent, and conformance statements
+need a community permission that no API call can set.
+
 **The validator is hosted by the European Commission** on the shared Interoperability Test
 Bed as the `openepcis` domain — the name the validator URLs carry locally too, so a test
 suite moves between the local stack and the hosted one by address alone. The shared instance

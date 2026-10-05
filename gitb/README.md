@@ -244,8 +244,28 @@ Commission hosts the validator:
   is the full third-party path: their engine, their network, our `@context`
   resolved from ref.openepcis.org.
 
-Not yet verified:
+Verified on the shared Test Bed itself (2026-10-05), in the OpenEPCIS community:
 
-- a conformance session in the OpenEPCIS community on the shared instance. The
-  community exists and the validator behind it is live; the test suite still has
-  to be imported there and run once.
+- the suite imports there as a shared test suite, 32 test cases, linked to all 16
+  specifications;
+- **all 16 self-tests come back SUCCESS** through the hosted validator, which is
+  the whole chain end to end: their engine, their network, our shapes, our
+  passports, including the inverted assertions on the broken fixtures.
+
+Nothing about this setup is hand-made. `pnpm run provision:itb` rebuilds the
+community from the shipping validator configuration and `--run` re-executes the
+16 self-tests, so the Test Bed cannot quietly drift from the bundle:
+
+```bash
+ITB_COMMUNITY_KEY=... ITB_DOMAIN_KEY=... pnpm run provision:itb -- --run
+```
+
+The keys come from the Test Bed UI, on the domain and community detail forms.
+Two traps are documented in [`../docs/GITB_CONFORMANCE.md`](../docs/GITB_CONFORMANCE.md):
+the API key header needs hyphens rather than the documented underscores, because
+the shared instance's proxy drops the latter, and conformance statements need a
+permission that no API call can set.
+
+Before provisioning a hosted Test Bed, the suite has to be generated against that
+address, otherwise the `verify` steps point at the compose service name. The
+script refuses to upload an archive built for the wrong target.

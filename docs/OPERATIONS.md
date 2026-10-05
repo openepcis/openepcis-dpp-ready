@@ -32,6 +32,16 @@ Two things carry an expiry or a footgun:
   validator. Push complete updates only and develop against the local stack, per
   the Test Bed team's request. See [`../gitb/README.md`](../gitb/README.md).
 
+The community itself is provisioned from this repository, not by clicking:
+`pnpm run provision:itb -- --run` rebuilds the 16 specifications, actors, the
+shared test suite and the conformance statements, then re-runs the 16 self-tests.
+It needs `ITB_COMMUNITY_KEY` and `ITB_DOMAIN_KEY`, both readable in the Test Bed
+UI on the community and domain detail forms, both belonging in Vaultwarden
+alongside the statistics-dashboard certificate. The automation API is reachable
+on the shared instance, provided the key header is spelled `ITB-API-KEY`: their
+proxy drops headers with underscores, so the documented `ITB_API_KEY` answers
+"Needs API key header" while you are sending it.
+
 ### The conformance validator depends on the vocabulary browser deploy
 
 The GITB upload test cases take JSON-LD, so the validator resolves each passport's
