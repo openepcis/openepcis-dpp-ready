@@ -209,6 +209,13 @@ FLS_PROBE_GTIN=09521000001428
 # ------------------------------------------------------------------ auth
 TOKEN=""
 fetch_token() {
+  # A bearer token handed in (SEED_TOKEN) stands in for the password grant, for a
+  # short run by someone who holds the token but not the seed user's password.
+  if [[ -n "${SEED_TOKEN:-}" ]]; then
+    TOKEN="$SEED_TOKEN"
+    cyan "→ Token handed in for '$(jq -Rr 'split(".")[1] | gsub("-";"+") | gsub("_";"/") | @base64d | fromjson | .preferred_username // "?"' <<<"$TOKEN" 2>/dev/null)'"
+    return 0
+  fi
   if [[ -z "$SEED_PW" || -z "$SEED_CLIENT_SECRET" ]]; then
     red "Set SEED_PW and SEED_CLIENT_SECRET (or BRUNO_PW / BRUNO_CLIENT_SECRET)." >&2
     red "  SEED_PW            = password of '$SEED_USER' in realm '$REALM'" >&2
