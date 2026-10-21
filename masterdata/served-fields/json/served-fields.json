@@ -1,8 +1,8 @@
 {
   "namespace": "https://ref.openepcis.org/masterdata/served-fields/",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "title": "OpenEPCIS Served Master-Data Fields",
-  "description": "The flat served master-data field names exposed by the OpenEPCIS\nDigital Link resolver, each carrying a curated default ESPR Article 9 access\ntier. Identity for the 135 fields that are GS1 Web Vocabulary properties stays\nwith GS1 (https://ref.gs1.org/voc/); this file annotates those IRIs rather\nthan redefining them. Only the 4 resolver-specific flattened shapes carry a\nlocal identifier.\n\nSystem/facet fields of the resolver DTOs (accessLevel, isAnonymousAccessAllowed,\nextensions, jws, type) are intentionally NOT part of this vocabulary: they are\nenvelope metadata, not master data.",
+  "description": "The flat served master-data field names exposed by the OpenEPCIS\nDigital Link resolver, each carrying a curated default ESPR Article 9 access\ntier. Identity for the 143 fields that are GS1 Web Vocabulary properties stays\nwith GS1 (https://ref.gs1.org/voc/), and for the 5 schema.org properties with\nschema.org; this file annotates those IRIs rather than redefining them. Only the 4 resolver-specific flattened shapes carry a\nlocal identifier.\n\nSystem/facet fields of the resolver DTOs (accessLevel, isAnonymousAccessAllowed,\nextensions, jws, type) are intentionally NOT part of this vocabulary: they are\nenvelope metadata, not master data.",
   "classes": [],
   "properties": [
     {
@@ -141,6 +141,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://schema.org/category",
+      "localName": "category",
+      "label": "Category",
+      "comment": "The product category as served, for example the battery category of a battery passport.",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The product category is public product classification, shown in retail listings and on the passport itself.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
       "id": "https://ref.gs1.org/voc/certification",
       "localName": "certification",
       "label": "Certification",
@@ -195,6 +204,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://ref.gs1.org/voc/consumerRecyclingInstructions",
+      "localName": "consumerRecyclingInstructions",
+      "label": "Consumer Recycling Instructions",
+      "comment": "The consumer recycling instructions normally held on the label or accompanying the product, such as how to sort the product and packaging materials for recycling.",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Recycling instructions address the consumer by definition and are normally printed on the label or package (ESPR Annex III end-of-life information).",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
       "id": "https://ref.gs1.org/voc/consumerSafetyInformation",
       "localName": "consumerSafetyInformation",
       "label": "Consumer Safety Information",
@@ -229,6 +247,15 @@
       "accessLevel": "Public",
       "accessLevelRationale": "Published contact points are how the organization asks to be reached and are ordinary business-directory content.",
       "accessLevelSource": "https://ref.gs1.org/voc/"
+    },
+    {
+      "id": "https://schema.org/contactPoint",
+      "localName": "contactPoint",
+      "label": "Contact Point",
+      "comment": "A contact point of the responsible party for the product.",
+      "accessLevel": "Public",
+      "accessLevelRationale": "A contact point of the responsible party is how a consumer reaches the brand for support, safety or recall questions.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
       "id": "https://ref.gs1.org/voc/countryOfAssembly",
@@ -771,6 +798,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://schema.org/model",
+      "localName": "model",
+      "label": "Model",
+      "comment": "The model name or number of the product as served.",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The model name or number is printed on the product or its label and identifies it towards the consumer.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
       "id": "https://ref.gs1.org/voc/netArea",
       "localName": "netArea",
       "label": "Net Area",
@@ -930,6 +966,33 @@
       "comment": "A marking that the product received recognition, endorsement, certification by following guidelines by the label issuing agency.",
       "accessLevel": "Public",
       "accessLevelRationale": "Accreditation marks are printed on the packaging by definition, so the field only mirrors the label.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.gs1.org/voc/packagingMaterial",
+      "localName": "packagingMaterial",
+      "label": "Packaging Material",
+      "comment": "Details about packaging material type, quantity and thickness.",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The packaging material is what the consumer has to know to sort the packaging correctly, and is visible on the package itself.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.gs1.org/voc/packagingRecyclingProcessType",
+      "localName": "packagingRecyclingProcessType",
+      "label": "Packaging Recycling Process Type",
+      "comment": "The process the packaging could undertake for recyclable and sustainability programs, for example COMPOSTABLE, ENERGY_RECOVERABLE or REUSABLE.",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Whether packaging is compostable, recyclable or reusable is consumer-facing sorting and sustainability information.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.gs1.org/voc/packagingType",
+      "localName": "packagingType",
+      "label": "Packaging Type",
+      "comment": "The dominant means used to transport, store, handle or display the product, preferably as a UNECE Rec 21 code.",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The type of packaging is evident from the product as sold and carries no confidential content.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1113,6 +1176,15 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://ref.gs1.org/voc/regulatoryInformation",
+      "localName": "regulatoryInformation",
+      "label": "Regulatory Information",
+      "comment": "Links to one or more groupings of information on government regulations applicable to a trade item.",
+      "accessLevel": "Public",
+      "accessLevelRationale": "Statements about the regulations a product complies with are compliance claims made towards the market and its customers.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
       "id": "https://ref.gs1.org/voc/relatedOrganization",
       "localName": "relatedOrganization",
       "label": "Related Organization",
@@ -1194,12 +1266,30 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://schema.org/schemaVersion",
+      "localName": "schemaVersion",
+      "label": "Schema Version",
+      "comment": "The version of the data schema the served record follows.",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelRationale": "The schema version is technical record metadata that serves systems processing the passport, not consumer information.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
       "id": "https://ref.gs1.org/voc/sellByDate",
       "localName": "sellByDate",
       "label": "Sell By Date",
       "comment": "The date specified by the manufacturer as the last date the retailer is to offer the product for sale to the consumer.",
       "accessLevel": "Public",
       "accessLevelRationale": "The sell-by date is marked on retail packaging and lets the consumer judge product freshness at the shelf.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.gs1.org/voc/sizeCode",
+      "localName": "sizeCode",
+      "label": "Size Code",
+      "comment": "Links a product to one or more groupings of size code details representing the size value from a specified code list.",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The size is printed on the label of the product and is what the consumer selects at the point of sale.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1212,6 +1302,15 @@
       ],
       "accessLevel": "Public",
       "accessLevelRationale": "Size codes are ordinary retail information printed on the label and shown at point of sale.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://schema.org/status",
+      "localName": "status",
+      "label": "Status",
+      "comment": "The status of the passport or product record as served.",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The passport status tells the consumer whether the passport they scanned is valid and current (ESPR Art. 9 information on the passport).",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
@@ -1233,12 +1332,30 @@
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
+      "id": "https://ref.gs1.org/voc/targetConsumerGender",
+      "localName": "targetConsumerGender",
+      "label": "Target Consumer Gender",
+      "comment": "Identifies the target consumer gender for which a product has been designed, for example MALE.",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The intended consumer gender is a retail classification shown on the label and in every shop listing.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
       "id": "https://ref.gs1.org/voc/targetMarket",
       "localName": "targetMarket",
       "label": "Target Market",
       "comment": "Relates to a set of target market details (product release date and associated countries).",
       "accessLevel": "Public",
       "accessLevelRationale": "Target-market countries and release dates are public availability information visible from where the product is sold.",
+      "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
+    },
+    {
+      "id": "https://ref.gs1.org/voc/textileMaterial",
+      "localName": "textileMaterial",
+      "label": "Textile Material",
+      "comment": "One or more links to information about the materials used in a wearable product.",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The fibre composition of a textile product is mandatory label content and the first fact a consumer checks before buying or washing it.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
