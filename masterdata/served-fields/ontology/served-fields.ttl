@@ -3,11 +3,15 @@
 # master data.
 #
 # This is NOT an EPCIS extension and it does NOT mint terms of its own for
-# anything GS1 already defines. 135 of the 139 served fields are a GS1 Web
+# anything GS1 or schema.org already defines. 143 of the 152 served fields are a GS1 Web
 # Vocabulary property under the identical local name, so the GS1 IRI *is* the
 # term; the only thing OpenEPCIS contributes is the curated ESPR Article 9
 # access tier, attached to the GS1 IRI as an annotation (see
 # served-fields-access-levels.ttl).
+#
+# 5 more are schema.org properties that the extension contexts place at the
+# top level of a record (schema:category, schema:schemaVersion); the schema.org
+# IRI is the term there, the same way.
 #
 # The remaining 4 are flattened plurals or resolver-specific field shapes
 # with no identically named GS1 property, and two of them (geoCoordinates,
@@ -26,6 +30,7 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
 @prefix gs1:   <https://ref.gs1.org/voc/> .
+@prefix schema: <https://schema.org/> .
 @prefix oemd:  <https://ref.openepcis.org/masterdata/served-fields/> .
 
 <https://ref.openepcis.org/masterdata/served-fields/>
@@ -33,9 +38,9 @@
     dcterms:title "OpenEPCIS Served Master-Data Fields"@en ;
     dcterms:description """The flat served master-data field names exposed by the OpenEPCIS
 Digital Link resolver, each carrying a curated default ESPR Article 9 access
-tier. Identity for the 135 fields that are GS1 Web Vocabulary properties stays
-with GS1 (https://ref.gs1.org/voc/); this file annotates those IRIs rather
-than redefining them. Only the 4 resolver-specific flattened shapes carry a
+tier. Identity for the 143 fields that are GS1 Web Vocabulary properties stays
+with GS1 (https://ref.gs1.org/voc/), and for the 5 schema.org properties with
+schema.org; this file annotates those IRIs rather than redefining them. Only the 4 resolver-specific flattened shapes carry a
 local identifier.
 
 System/facet fields of the resolver DTOs (accessLevel, isAnonymousAccessAllowed,
@@ -43,7 +48,7 @@ extensions, jws, type) are intentionally NOT part of this vocabulary: they are
 envelope metadata, not master data."""@en ;
     dcterms:creator "OpenEPCIS" ;
     dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
-    owl:versionInfo "0.2.0" .
+    owl:versionInfo "0.3.0" .
 
 
 # =============================================================================
@@ -861,6 +866,54 @@ gs1:subOrganization
     rdfs:isDefinedBy <https://ref.gs1.org/voc/> .
 
 
+gs1:textileMaterial
+    a owl:ObjectProperty ;
+    rdfs:label "Textile Material"@en ;
+    rdfs:comment "One or more links to information about the materials used in a wearable product."@en ;
+    rdfs:isDefinedBy <https://ref.gs1.org/voc/> .
+
+gs1:targetConsumerGender
+    a owl:ObjectProperty ;
+    rdfs:label "Target Consumer Gender"@en ;
+    rdfs:comment "Identifies the target consumer gender for which a product has been designed, for example MALE."@en ;
+    rdfs:isDefinedBy <https://ref.gs1.org/voc/> .
+
+gs1:sizeCode
+    a owl:ObjectProperty ;
+    rdfs:label "Size Code"@en ;
+    rdfs:comment "Links a product to one or more groupings of size code details representing the size value from a specified code list."@en ;
+    rdfs:isDefinedBy <https://ref.gs1.org/voc/> .
+
+gs1:consumerRecyclingInstructions
+    a owl:DatatypeProperty ;
+    rdfs:label "Consumer Recycling Instructions"@en ;
+    rdfs:comment "The consumer recycling instructions normally held on the label or accompanying the product, such as how to sort the product and packaging materials for recycling."@en ;
+    rdfs:isDefinedBy <https://ref.gs1.org/voc/> .
+
+gs1:regulatoryInformation
+    a owl:ObjectProperty ;
+    rdfs:label "Regulatory Information"@en ;
+    rdfs:comment "Links to one or more groupings of information on government regulations applicable to a trade item."@en ;
+    rdfs:isDefinedBy <https://ref.gs1.org/voc/> .
+
+gs1:packagingMaterial
+    a owl:ObjectProperty ;
+    rdfs:label "Packaging Material"@en ;
+    rdfs:comment "Details about packaging material type, quantity and thickness."@en ;
+    rdfs:isDefinedBy <https://ref.gs1.org/voc/> .
+
+gs1:packagingType
+    a owl:DatatypeProperty ;
+    rdfs:label "Packaging Type"@en ;
+    rdfs:comment "The dominant means used to transport, store, handle or display the product, preferably as a UNECE Rec 21 code."@en ;
+    rdfs:isDefinedBy <https://ref.gs1.org/voc/> .
+
+gs1:packagingRecyclingProcessType
+    a owl:ObjectProperty ;
+    rdfs:label "Packaging Recycling Process Type"@en ;
+    rdfs:comment "The process the packaging could undertake for recyclable and sustainability programs, for example COMPOSTABLE, ENERGY_RECOVERABLE or REUSABLE."@en ;
+    rdfs:isDefinedBy <https://ref.gs1.org/voc/> .
+
 # =============================================================================
 # Resolver-specific served fields — flattened plurals / field shapes with no
 # identically named GS1 property. Local identifier, closeMatch to nearest GS1.
@@ -893,3 +946,39 @@ oemd:geoShape
     skos:closeMatch gs1:geo ;
     rdfs:isDefinedBy <https://ref.openepcis.org/masterdata/served-fields/> .
 
+
+# =============================================================================
+# schema.org-identified served fields. The extension contexts map shortcut
+# names such as category or schemaVersion onto schema.org IRIs, so records
+# carry them as top-level schema: keys. Identity stays with schema.org; the
+# resolver matches them under the schema: prefix.
+# =============================================================================
+schema:category
+    a owl:DatatypeProperty ;
+    rdfs:label "Category"@en ;
+    rdfs:comment "The product category as served, for example the battery category of a battery passport."@en ;
+    rdfs:isDefinedBy <https://schema.org/> .
+
+schema:model
+    a owl:DatatypeProperty ;
+    rdfs:label "Model"@en ;
+    rdfs:comment "The model name or number of the product as served."@en ;
+    rdfs:isDefinedBy <https://schema.org/> .
+
+schema:status
+    a owl:DatatypeProperty ;
+    rdfs:label "Status"@en ;
+    rdfs:comment "The status of the passport or product record as served."@en ;
+    rdfs:isDefinedBy <https://schema.org/> .
+
+schema:contactPoint
+    a owl:ObjectProperty ;
+    rdfs:label "Contact Point"@en ;
+    rdfs:comment "A contact point of the responsible party for the product."@en ;
+    rdfs:isDefinedBy <https://schema.org/> .
+
+schema:schemaVersion
+    a owl:DatatypeProperty ;
+    rdfs:label "Schema Version"@en ;
+    rdfs:comment "The version of the data schema the served record follows."@en ;
+    rdfs:isDefinedBy <https://schema.org/> .

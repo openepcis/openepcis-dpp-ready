@@ -175,15 +175,17 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     namespace: "https://ref.openepcis.org/extensions/common/core/",
   },
   // Served master-data fields. NOT an EPCIS extension and not a vocabulary of
-  // its own: 135 of the 139 served fields are GS1 Web Vocabulary properties
+  // its own: 143 of the 152 served fields are GS1 Web Vocabulary properties
   // under the identical local name, so identity stays with GS1 and the terms
-  // are gs1: IRIs. Only 4 flattened/resolver-specific shapes carry a local id.
+  // are gs1: IRIs. 5 are schema.org properties the extension contexts place at
+  // the top level of a record. Only 4 flattened/resolver-specific shapes carry
+  // a local id.
   {
     name: "served-fields",
     dir: "masterdata/served-fields",
     ttlFile: "served-fields.ttl",
     namespace: "https://ref.gs1.org/voc/",
-    extraNamespaces: ["https://ref.openepcis.org/masterdata/served-fields/"],
+    extraNamespaces: ["https://ref.openepcis.org/masterdata/served-fields/", "https://schema.org/"],
     ontologyIri: "https://ref.openepcis.org/masterdata/served-fields/",
   },
   {
