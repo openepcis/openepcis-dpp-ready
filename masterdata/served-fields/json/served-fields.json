@@ -1,6 +1,6 @@
 {
   "namespace": "https://ref.openepcis.org/masterdata/served-fields/",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "title": "OpenEPCIS Served Master-Data Fields",
   "description": "The flat served master-data field names exposed by the OpenEPCIS\nDigital Link resolver, each carrying a curated default ESPR Article 9 access\ntier. Identity for the 143 fields that are GS1 Web Vocabulary properties stays\nwith GS1 (https://ref.gs1.org/voc/), and for the 5 schema.org properties with\nschema.org; this file annotates those IRIs rather than redefining them. Only the 4 resolver-specific flattened shapes carry a\nlocal identifier.\n\nSystem/facet fields of the resolver DTOs (accessLevel, isAnonymousAccessAllowed,\nextensions, jws, type) are intentionally NOT part of this vocabulary: they are\nenvelope metadata, not master data.",
   "classes": [],
@@ -766,8 +766,8 @@
       "localName": "manufacturer",
       "label": "Manufacturer",
       "comment": "The organization that produces the item.",
-      "accessLevel": "AuthorizedOnly",
-      "accessLevelRationale": "The producing organization behind a brand is supply-chain sourcing detail; consumers see the brand owner, while manufacturer identity serves authorities and B2B partners.",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The passport names its economic operator: EN 18223 makes economicOperatorId a mandatory passport field, the passport derives it from the manufacturer, and ESPR Annex III lists the manufacturer's identity among the passport information, so an anonymous reader must be able to see it.",
       "accessLevelSource": "https://eur-lex.europa.eu/eli/reg/2024/1781"
     },
     {
