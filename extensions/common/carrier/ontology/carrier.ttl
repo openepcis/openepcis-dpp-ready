@@ -325,3 +325,26 @@ carrier:urlTemplate
     dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
     skos:note "Carrier configuration. No GS1, SEMICeu, or schema.org equivalent; schema:urlTemplate describes search actions, not an NDEF record."@en ;
     rdfs:seeAlso schema:urlTemplate .
+
+# =============================================================================
+# Business events resting on a tap (bound possession)
+# =============================================================================
+
+carrier:tapId
+    a owl:DatatypeProperty ;
+    rdfs:label "Tap Reference"@en ;
+    rdfs:comment "On a business event (accepting, receiving, repairing, inspecting, shipping, ...): the eventID of the verified inspecting event this action rests on. The party that captured the event held the item when it tapped; the tap id is single-use and bound to that party's identity by the verifier."@en ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Physical proof of possession attached to a business step. No GS1, SEMICeu, or schema.org equivalent; CBV bizTransaction types name documents, not scans."@en .
+
+carrier:boundAt
+    a owl:DatatypeProperty ;
+    rdfs:label "Bound At"@en ;
+    rdfs:comment "When the tap was bound to the capturing party's identity (the moment possession and identity were paired), ISO 8601."@en ;
+    rdfs:range xsd:dateTime ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Binding timestamp of a possession proof. No GS1, SEMICeu, or schema.org equivalent."@en .
+

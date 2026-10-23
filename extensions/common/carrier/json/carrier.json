@@ -50,6 +50,19 @@
       "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
     },
     {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/boundAt",
+      "localName": "boundAt",
+      "label": "Bound At",
+      "comment": "When the tap was bound to the capturing party's identity (the moment possession and identity were paired), ISO 8601.",
+      "range": [
+        "xsd:dateTime"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "Binding time is scan history of the item.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
       "id": "https://ref.openepcis.org/extensions/common/carrier/carrierType",
       "localName": "carrierType",
       "label": "Carrier Type",
@@ -226,6 +239,19 @@
       "accessLevel": "AuthorizedOnly",
       "accessLevelMandatedBy": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
       "accessLevelRationale": "K_SDMMetaRead is a secret key; whoever holds it can forge PICC data. Sealed in the event, readable only by the verifier that holds the wrapping key.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/tapId",
+      "localName": "tapId",
+      "label": "Tap Reference",
+      "comment": "On a business event (accepting, receiving, repairing, inspecting, shipping, ...): the eventID of the verified inspecting event this action rests on. The party that captured the event held the item when it tapped; the tap id is single-use and bound to that party's identity by the verifier.",
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "The tap reference links a business step to a scan; who scanned when is the owner's and the acting party's concern.",
       "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
     },
     {
