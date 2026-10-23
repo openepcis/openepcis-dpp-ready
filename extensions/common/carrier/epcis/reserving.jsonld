@@ -1,0 +1,55 @@
+{
+  "@context": [
+    "https://ref.gs1.org/standards/epcis/epcis-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/core/dpp-core-context.jsonld",
+    "https://ref.openepcis.org/extensions/common/carrier/carrier-context.jsonld"
+  ],
+  "type": "EPCISDocument",
+  "schemaVersion": "2.0",
+  "creationDate": "2026-10-23T09:00:00.000Z",
+  "epcisBody": {
+    "eventList": [
+      {
+        "type": "ObjectEvent",
+        "eventTime": "2026-10-23T09:00:00.000Z",
+        "eventTimeZoneOffset": "+02:00",
+        "action": "ADD",
+        "bizStep": "reserving",
+        "disposition": "inactive",
+        "readPoint": {
+          "id": "https://id.gs1.org/414/9521234000005"
+        },
+        "bizLocation": {
+          "id": "https://id.gs1.org/414/9521234000005"
+        },
+        "epcList": [
+          "https://id.gs1.org/01/09521234000013/21/A1"
+        ],
+        "sourceList": [
+          {
+            "type": "owning_party",
+            "source": "https://id.gs1.org/417/9521234000005"
+          }
+        ],
+        "destinationList": [
+          {
+            "type": "possessing_party",
+            "destination": "https://id.gs1.org/417/9521234000029"
+          }
+        ],
+        "carrier:keyRef": "demo/lot-2026-10/k1",
+        "carrier:authProfile": {
+          "carrier:scheme": "ntag424-sdm",
+          "carrier:piccParam": "picc",
+          "carrier:macParam": "cmac",
+          "carrier:piccEncrypted": true,
+          "carrier:macInput": "none",
+          "carrier:diversification": "sgtin",
+          "carrier:urlTemplate": "https://id.epc.is/01/{gtin}/21/{serial}?picc={picc}&cmac={cmac}"
+        },
+        "carrier:sdmMetaReadKey": "enc:a256gcm:k1:5R1xq0mbTO8r6kHbxwYzqV4V4L3G0lVtDb5s0y1k2xJ7fXl3Q2cY9Mm1aN5OqJ8",
+        "carrier:sdmFileReadKey": "enc:a256gcm:k1:Jg0rN3pQ2VzXcY9r7aK1mO5sLw8tF2hD4bE6nG7iH9jK0lM1nO2pQ3rS4tU5vW6"
+      }
+    ]
+  }
+}

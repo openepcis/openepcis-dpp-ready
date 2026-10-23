@@ -1,0 +1,71 @@
+# Access-tier annotations for the data carrier authentication extension
+# (ESPR Article 9 tiers, reused here for who may read a carrier's records).
+# One entry per term; merged into the module by scripts/build-json.ts.
+#
+# The key fields are locked AuthorizedOnly: they are cryptographic key material
+# and stay sealed in the event besides. The chip binding and the profile are
+# Restricted (the brand owner, its labeller and its verifier), the read counter
+# too (a per-item scan history). The verdict of a scan is Public: it is the
+# answer the scanner receives. Terms not listed default to AuthorizedOnly.
+
+@prefix carrier: <https://ref.openepcis.org/extensions/common/carrier/> .
+@prefix oec:     <https://ref.openepcis.org/extensions/common/core/> .
+
+# --- AuthorizedOnly, locked: key material ---
+
+carrier:sdmMetaReadKey oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelMandatedBy <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    oec:accessLevelRationale "K_SDMMetaRead is a secret key; whoever holds it can forge PICC data. Sealed in the event, readable only by the verifier that holds the wrapping key." ;
+    oec:accessLevelSource <https://www.nxp.com/docs/en/application-note/AN12196.pdf> .
+carrier:sdmFileReadKey oec:defaultAccessLevel oec:AuthorizedOnly ;
+    oec:accessLevelMandatedBy <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    oec:accessLevelRationale "K_SDMFileRead is a secret key; whoever holds it can forge the SUN MAC. Sealed in the event, readable only by the verifier that holds the wrapping key." ;
+    oec:accessLevelSource <https://www.nxp.com/docs/en/application-note/AN12196.pdf> .
+
+# --- Restricted: carrier binding, key reference, profile, scan history ---
+
+carrier:uid oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "The chip UID identifies the physical carrier; it lets a party track an item across readers and is of use only to the owner, the labeller and the verifier." ;
+    oec:accessLevelSource <https://www.nxp.com/docs/en/application-note/AN12196.pdf> .
+carrier:carrierType oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "The carrier product reveals the security level of the label; operational detail of the owner and its labeller." ;
+    oec:accessLevelSource <https://www.nxp.com/docs/en/application-note/AN12196.pdf> .
+carrier:keyRef oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "The key reference names the owner's wrapping key; harmless alone, but key-management detail." ;
+    oec:accessLevelSource <https://www.nxp.com/docs/en/application-note/AN10922.pdf> .
+carrier:authProfile oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "The profile describes the tag's file settings; needed by the verifier, not by the public." ;
+    oec:accessLevelSource <https://www.nxp.com/docs/en/application-note/AN12196.pdf> .
+carrier:scheme oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "Part of the authentication profile." ;
+    oec:accessLevelSource <https://www.nxp.com/docs/en/application-note/AN12196.pdf> .
+carrier:piccParam oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "Part of the authentication profile." ;
+    oec:accessLevelSource <https://www.nxp.com/docs/en/application-note/AN12196.pdf> .
+carrier:macParam oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "Part of the authentication profile." ;
+    oec:accessLevelSource <https://www.nxp.com/docs/en/application-note/AN12196.pdf> .
+carrier:encParam oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "Part of the authentication profile." ;
+    oec:accessLevelSource <https://www.nxp.com/docs/en/application-note/AN12196.pdf> .
+carrier:piccEncrypted oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "Part of the authentication profile." ;
+    oec:accessLevelSource <https://www.nxp.com/docs/en/application-note/AN12196.pdf> .
+carrier:macInput oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "Part of the authentication profile." ;
+    oec:accessLevelSource <https://www.nxp.com/docs/en/application-note/AN12196.pdf> .
+carrier:diversification oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "Part of the authentication profile; key-management detail." ;
+    oec:accessLevelSource <https://www.nxp.com/docs/en/application-note/AN10922.pdf> .
+carrier:urlTemplate oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "Part of the authentication profile." ;
+    oec:accessLevelSource <https://www.nxp.com/docs/en/application-note/AN12196.pdf> .
+carrier:readCounter oec:defaultAccessLevel oec:Restricted ;
+    oec:accessLevelRationale "The read counter is a per-item scan history; for an owner with sales data it can become personal data of the buyer." ;
+    oec:accessLevelSource <https://www.nxp.com/docs/en/application-note/AN12196.pdf> .
+
+# --- Public: the verdict ---
+
+carrier:authStatus oec:defaultAccessLevel oec:Public ;
+    oec:accessLevelRationale "The verdict is the answer the scanner receives; it reveals nothing about keys or the chip." ;
+    oec:accessLevelSource <https://www.nxp.com/docs/en/application-note/AN12196.pdf> .

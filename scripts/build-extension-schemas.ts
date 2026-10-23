@@ -51,6 +51,7 @@ interface ExtensionModule {
 const MODULES: ExtensionModule[] = [
   { dir: "extensions/common/core", prefix: "oec", nsSuffix: "common/core/", ctxFile: "dpp-core-context.jsonld", jsonFile: "dpp-core.json" },
   { dir: "extensions/common/interop", prefix: "oei", nsSuffix: "common/interop/", ctxFile: "semic-core-bridge-context.jsonld" },
+  { dir: "extensions/common/carrier", prefix: "carrier", nsSuffix: "common/carrier/", ctxFile: "carrier-context.jsonld", jsonFile: "carrier.json" },
   { dir: "extensions/eu/battery", prefix: "eubat", nsSuffix: "eu/battery/", ctxFile: "battery-context.jsonld", jsonFile: "battery.json" },
   { dir: "extensions/eu/eudr", prefix: "eudr", nsSuffix: "eu/eudr/", ctxFile: "eudr-context.jsonld", jsonFile: "eudr.json" },
   { dir: "extensions/eu/textile", prefix: "eutex", nsSuffix: "eu/textile/", ctxFile: "textile-context.jsonld", jsonFile: "textile.json" },

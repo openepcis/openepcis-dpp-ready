@@ -174,6 +174,12 @@ const ONTOLOGY_MODULES: OntologyModule[] = [
     ttlFile: "dpp-core.ttl",
     namespace: "https://ref.openepcis.org/extensions/common/core/",
   },
+  {
+    name: "carrier",
+    dir: "extensions/common/carrier",
+    ttlFile: "carrier.ttl",
+    namespace: "https://ref.openepcis.org/extensions/common/carrier/",
+  },
   // Served master-data fields. NOT an EPCIS extension and not a vocabulary of
   // its own: 135 of the 139 served fields are GS1 Web Vocabulary properties
   // under the identical local name, so identity stays with GS1 and the terms
