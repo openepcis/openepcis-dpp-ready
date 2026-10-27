@@ -1,0 +1,350 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gs1: <https://ref.gs1.org/voc/> .
+@prefix oec: <https://ref.openepcis.org/extensions/common/core/> .
+@prefix carrier: <https://ref.openepcis.org/extensions/common/carrier/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix schema: <https://schema.org/> .
+
+# =============================================================================
+# Ontology Declaration
+# =============================================================================
+
+<https://ref.openepcis.org/extensions/common/carrier/>
+    a owl:Ontology ;
+    dcterms:title "OpenEPCIS Data Carrier Authentication Vocabulary"@en ;
+    dcterms:description """Terms for binding a physical data carrier (an NFC chip, a RAIN RFID
+tag, a signed QR code) to a serialised GS1 identifier through EPCIS events, publishing the
+carrier's authentication keys to authorised parties, and recording each authenticated scan.
+
+Today the vocabulary covers NTAG 424 DNA Secure Unique NFC (SUN / Secure Dynamic Messaging,
+NXP AN12196): the tag mirrors encrypted PICC data and a CMAC into the Digital Link URL it
+emits, and a verifier that holds the tag's keys can prove the chip is genuine and the URL
+was not copied. RAIN RFID (ISO/IEC 29167 tag authentication) and signed QR codes reuse the
+same profile and status terms with their own scheme.
+
+EPCIS 2.0 Extension:
+This vocabulary is a first-class EPCIS 2.0 extension per Section 12.3. Declare it using:
+  GS1-Extensions: carrier=https://ref.openepcis.org/extensions/common/carrier/
+
+Event lifecycle:
+- reserving (ObjectEvent ADD, brand owner): the serials and, sealed, their per-serial SDM
+  keys (carrier:sdmMetaReadKey, carrier:sdmFileReadKey), the key reference and the profile.
+- encoding (TransactionEvent, labeller, CBV encoding): the chip UID bound to the serial.
+- commissioning (ObjectEvent ADD, manufacturer): nothing carrier-specific.
+- inspecting (ObjectEvent OBSERVE, resolver): each authenticated scan with its read counter
+  and verdict, disposition conformant or non_conformant.
+
+Key fields are stored sealed: enc:a256gcm:<kid>:<base64url(nonce || ciphertext || tag)>,
+AES-256-GCM under the wrapping key the carrier:keyRef names, with the canonical identifier
+as associated data. Document-level security decides who sees the event; the wrapping key
+decides who can use it.
+
+GS1 Web Vocabulary and schema.org have no terms for carrier binding or carrier
+authentication keys; GS1 General Specifications call the physical medium a "data carrier".
+
+References:
+- NXP AN12196, NTAG 424 DNA and NTAG 424 DNA TagTamper features and hints
+- NXP AN10922, Symmetric key diversifications
+- GS1 General Specifications, section 2 (data carriers)
+- ISO/IEC 29167 (RAIN RFID tag authentication)"""@en ;
+    dcterms:creator "OpenEPCIS" ;
+    dcterms:license <https://www.apache.org/licenses/LICENSE-2.0> ;
+    dcterms:created "2026-10-23"^^xsd:date ;
+    dcterms:modified "2026-10-23"^^xsd:date ;
+    owl:versionInfo "0.9.9" ;
+    owl:versionIRI <https://ref.openepcis.org/extensions/common/carrier/0.9.9> ;
+    vann:preferredNamespacePrefix "carrier" ;
+    vann:preferredNamespaceUri "https://ref.openepcis.org/extensions/common/carrier/" ;
+    rdfs:seeAlso <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    rdfs:seeAlso <https://www.nxp.com/docs/en/application-note/AN10922.pdf> ;
+    owl:imports <https://ref.gs1.org/voc/> ;
+    owl:imports <https://ref.openepcis.org/extensions/common/core/> .
+
+# =============================================================================
+# Authentication Status Enumeration (the verdict of one scan)
+# =============================================================================
+
+carrier:AuthStatus
+    a owl:Class ;
+    rdfs:label "Carrier Authentication Status"@en ;
+    rdfs:comment "The verdict of one authenticated scan of a data carrier, as the verifier records it in the inspecting event and answers it to the scanner."@en ;
+    owl:oneOf (
+        carrier:Verified
+        carrier:UnknownCarrier
+        carrier:PiccInvalid
+        carrier:MacInvalid
+        carrier:UidMismatch
+        carrier:Replay
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Outcome vocabulary of a cryptographic carrier check. No GS1, SEMICeu, or schema.org equivalent; CBV disposition conformant/non_conformant carries only the pass/fail, not the reason."@en .
+
+carrier:Verified a carrier:AuthStatus ; rdfs:label "Verified"@en ; skos:notation "verified" ;
+    rdfs:comment "PICC data decrypted, the MAC matched the carrier's key and the read counter advanced: a genuine carrier, scanned afresh."@en .
+carrier:UnknownCarrier a carrier:AuthStatus ; rdfs:label "Unknown Carrier"@en ; skos:notation "unknown_carrier" ;
+    rdfs:comment "No key record exists for the identifier: never reserved, or not readable by this verifier."@en .
+carrier:PiccInvalid a carrier:AuthStatus ; rdfs:label "PICC Data Invalid"@en ; skos:notation "picc_invalid" ;
+    rdfs:comment "The mirrored PICC data did not decrypt to a chip UID and read counter under the meta-read key: wrong key, foreign carrier or malformed URL."@en .
+carrier:MacInvalid a carrier:AuthStatus ; rdfs:label "MAC Invalid"@en ; skos:notation "mac_invalid" ;
+    rdfs:comment "PICC data decrypted but the MAC did not match the file-read key: wrong key or tampered URL."@en .
+carrier:UidMismatch a carrier:AuthStatus ; rdfs:label "UID Mismatch"@en ; skos:notation "uid_mismatch" ;
+    rdfs:comment "The chip UID in the PICC data differs from the UID bound to the identifier at encoding."@en .
+carrier:Replay a carrier:AuthStatus ; rdfs:label "Replay"@en ; skos:notation "replay" ;
+    rdfs:comment "Cryptographically fine, but the read counter did not advance past the last recorded scan: a copied URL (photographed tap, cloned code)."@en .
+
+# =============================================================================
+# Authentication Scheme Enumeration
+# =============================================================================
+
+carrier:AuthScheme
+    a owl:Class ;
+    rdfs:label "Carrier Authentication Scheme"@en ;
+    rdfs:comment "How a carrier proves itself at a scan."@en ;
+    owl:oneOf (
+        carrier:Ntag424Sdm
+        carrier:RainIso29167
+        carrier:QrSigned
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Carrier technology vocabulary. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+carrier:Ntag424Sdm a carrier:AuthScheme ; rdfs:label "NTAG 424 DNA Secure Dynamic Messaging"@en ; skos:notation "ntag424-sdm" ;
+    rdfs:comment "NXP NTAG 424 DNA Secure Unique NFC: encrypted PICC data and a truncated CMAC mirrored into the URL (AN12196)."@en .
+carrier:RainIso29167 a carrier:AuthScheme ; rdfs:label "RAIN RFID ISO/IEC 29167"@en ; skos:notation "rain-iso29167" ;
+    rdfs:comment "RAIN RFID tag authentication per ISO/IEC 29167 (reserved; no profile defined yet)."@en .
+carrier:QrSigned a carrier:AuthScheme ; rdfs:label "Signed QR Code"@en ; skos:notation "qr-signed" ;
+    rdfs:comment "A QR code whose payload carries a digital signature over the identifier (reserved; no profile defined yet)."@en .
+
+# =============================================================================
+# MAC Input Enumeration (what the tag MACs besides the session)
+# =============================================================================
+
+carrier:MacInput
+    a owl:Class ;
+    rdfs:label "MAC Input"@en ;
+    rdfs:comment "What the tag feeds into the SDM MAC besides the session key: nothing, or the encrypted file data."@en ;
+    owl:oneOf (
+        carrier:MacInputNone
+        carrier:MacInputEncFileData
+    ) ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "SDM file-settings detail. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+carrier:MacInputNone a carrier:MacInput ; rdfs:label "None"@en ; skos:notation "none" ;
+    rdfs:comment "SDMMACInputOffset equals SDMMACOffset: the MAC covers the session only."@en .
+carrier:MacInputEncFileData a carrier:MacInput ; rdfs:label "Encrypted File Data"@en ; skos:notation "enc_file_data" ;
+    rdfs:comment "The MAC covers the upper-case hex of the encrypted file data followed by the MAC parameter name."@en .
+
+# =============================================================================
+# Classes
+# =============================================================================
+
+carrier:AuthProfile
+    a owl:Class ;
+    rdfs:label "Carrier Authentication Profile"@en ;
+    rdfs:comment "How a carrier presents itself at a scan: the scheme, the URL parameters it mirrors into, and how its keys derive. Mirrors the tag's file settings so a verifier reads the URL the way the tag writes it."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Carrier configuration record. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+carrier:Verification
+    a owl:Class ;
+    rdfs:label "Carrier Verification"@en ;
+    rdfs:comment "The answer of a verifier to one scan: identifier, status, read counter and key reference."@en ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Verification result record. No GS1, SEMICeu, or schema.org equivalent; schema:Action is too generic to carry the status vocabulary."@en ;
+    rdfs:seeAlso schema:CheckAction .
+
+# =============================================================================
+# Event-level properties: key record (reserving), binding (encoding), tap (inspecting)
+# =============================================================================
+
+carrier:keyRef
+    a owl:DatatypeProperty ;
+    rdfs:label "Key Reference"@en ;
+    rdfs:comment "Names the wrapping key (kid) that sealed the key fields of this event, e.g. benelog/lot-2026-10/k1. Rotation is a new kid; old events stay readable while the old key is kept."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN10922.pdf> ;
+    skos:note "Key management reference. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+carrier:authProfile
+    a owl:ObjectProperty ;
+    rdfs:label "Authentication Profile"@en ;
+    rdfs:comment "The carrier:AuthProfile the keys of this event were written for."@en ;
+    rdfs:range carrier:AuthProfile ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Carrier configuration. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+carrier:sdmMetaReadKey
+    a owl:DatatypeProperty ;
+    rdfs:label "SDM Meta Read Key"@en ;
+    rdfs:comment "K_SDMMetaRead of the carrier bound to the event's identifier, sealed (enc:a256gcm:<kid>:...). Decrypts the mirrored PICC data. One serial per event, or absent when the file-read key serves both purposes."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Cryptographic key material, always sealed in the event. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+carrier:sdmFileReadKey
+    a owl:DatatypeProperty ;
+    rdfs:label "SDM File Read Key"@en ;
+    rdfs:comment "K_SDMFileRead of the carrier bound to the event's identifier, sealed (enc:a256gcm:<kid>:...). Derives the session MAC key that verifies the mirrored CMAC. The event that carries it is the key record; a verifier takes the youngest."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Cryptographic key material, always sealed in the event. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+carrier:uid
+    a owl:DatatypeProperty ;
+    rdfs:label "Carrier UID"@en ;
+    rdfs:comment "The chip's unique identifier in upper-case hex (7 bytes for NTAG 424 DNA, e.g. 04DE5F1EACC040), bound to the event's identifier at encoding. A verifier compares it with the UID the PICC data reveals."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Hardware identifier of the data carrier, distinct from the GS1 identifier it carries. No GS1, SEMICeu, or schema.org equivalent (gs1:serialNumber is the item's serial, not the chip's)."@en ;
+    rdfs:seeAlso gs1:serialNumber .
+
+carrier:carrierType
+    a owl:DatatypeProperty ;
+    rdfs:label "Carrier Type"@en ;
+    rdfs:comment "The chip or carrier product, e.g. NTAG424DNA, NTAG424DNA-TT."@en ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Data carrier product designation. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+carrier:readCounter
+    a owl:DatatypeProperty ;
+    rdfs:label "Read Counter"@en ;
+    rdfs:comment "The carrier's read counter as the scan revealed it (SDMReadCtr). The verifier refuses a counter that did not advance past the last recorded scan."@en ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Replay-detection state of a data carrier. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+carrier:authStatus
+    a owl:ObjectProperty ;
+    rdfs:label "Authentication Status"@en ;
+    rdfs:comment "The verdict of this scan (carrier:AuthStatus), beside the CBV disposition conformant / non_conformant of the inspecting event."@en ;
+    rdfs:range carrier:AuthStatus ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Reason-bearing outcome of a carrier check. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+# =============================================================================
+# Profile properties (inside carrier:authProfile)
+# =============================================================================
+
+carrier:scheme
+    a owl:ObjectProperty ;
+    rdfs:label "Scheme"@en ;
+    rdfs:comment "The carrier:AuthScheme of the profile."@en ;
+    rdfs:domain carrier:AuthProfile ;
+    rdfs:range carrier:AuthScheme ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Carrier configuration. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+carrier:piccParam
+    a owl:DatatypeProperty ;
+    rdfs:label "PICC Data Parameter"@en ;
+    rdfs:comment "Name of the URL query parameter the tag mirrors the (encrypted) PICC data into, e.g. picc."@en ;
+    rdfs:domain carrier:AuthProfile ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Carrier configuration. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+carrier:macParam
+    a owl:DatatypeProperty ;
+    rdfs:label "MAC Parameter"@en ;
+    rdfs:comment "Name of the URL query parameter the tag mirrors the truncated SDM MAC into, e.g. cmac."@en ;
+    rdfs:domain carrier:AuthProfile ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Carrier configuration. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+carrier:encParam
+    a owl:DatatypeProperty ;
+    rdfs:label "Encrypted File Data Parameter"@en ;
+    rdfs:comment "Name of the URL query parameter carrying encrypted file data, when the tag mirrors any."@en ;
+    rdfs:domain carrier:AuthProfile ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Carrier configuration. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+carrier:piccEncrypted
+    a owl:DatatypeProperty ;
+    rdfs:label "PICC Data Encrypted"@en ;
+    rdfs:comment "Whether the PICC data is AES-encrypted with K_SDMMetaRead (true) or mirrored in plain hex (false, not supported by the OpenEPCIS verifier yet)."@en ;
+    rdfs:domain carrier:AuthProfile ;
+    rdfs:range xsd:boolean ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Carrier configuration. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+carrier:macInput
+    a owl:ObjectProperty ;
+    rdfs:label "MAC Input"@en ;
+    rdfs:comment "What the tag MACs besides the session (carrier:MacInput)."@en ;
+    rdfs:domain carrier:AuthProfile ;
+    rdfs:range carrier:MacInput ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Carrier configuration. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+carrier:diversification
+    a owl:DatatypeProperty ;
+    rdfs:label "Key Diversification"@en ;
+    rdfs:comment "What the per-carrier keys derive from under the master key: sgtin (the canonical identifier, keys exist before the tag does) or uid (the chip, AN10922 classic)."@en ;
+    rdfs:domain carrier:AuthProfile ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN10922.pdf> ;
+    skos:note "Key management detail. No GS1, SEMICeu, or schema.org equivalent."@en .
+
+carrier:urlTemplate
+    a owl:DatatypeProperty ;
+    rdfs:label "URL Template"@en ;
+    rdfs:comment "The NDEF URL as written to the tag, with {gtin}, {serial}, {picc}, {cmac} placeholders, e.g. https://id.epc.is/01/{gtin}/21/{serial}?picc={picc}&cmac={cmac}."@en ;
+    rdfs:domain carrier:AuthProfile ;
+    rdfs:range xsd:string ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Carrier configuration. No GS1, SEMICeu, or schema.org equivalent; schema:urlTemplate describes search actions, not an NDEF record."@en ;
+    rdfs:seeAlso schema:urlTemplate .
+
+# =============================================================================
+# Business events resting on a tap (bound possession)
+# =============================================================================
+
+carrier:tapId
+    a owl:DatatypeProperty ;
+    rdfs:label "Tap Reference"@en ;
+    rdfs:comment "On a business event (accepting, receiving, repairing, inspecting, shipping, ...): the eventID of the verified inspecting event this action rests on. The party that captured the event held the item when it tapped; the tap id is single-use and bound to that party's identity by the verifier."@en ;
+    rdfs:range xsd:anyURI ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Physical proof of possession attached to a business step. No GS1, SEMICeu, or schema.org equivalent; CBV bizTransaction types name documents, not scans."@en .
+
+carrier:boundAt
+    a owl:DatatypeProperty ;
+    rdfs:label "Bound At"@en ;
+    rdfs:comment "When the tap was bound to the capturing party's identity (the moment possession and identity were paired), ISO 8601."@en ;
+    rdfs:range xsd:dateTime ;
+    rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/carrier/> ;
+    dcterms:source <https://www.nxp.com/docs/en/application-note/AN12196.pdf> ;
+    skos:note "Binding timestamp of a possession proof. No GS1, SEMICeu, or schema.org equivalent."@en .
+

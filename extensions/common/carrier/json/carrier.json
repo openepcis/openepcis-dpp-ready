@@ -1,0 +1,385 @@
+{
+  "namespace": "https://ref.openepcis.org/extensions/common/carrier/",
+  "version": "0.9.9",
+  "title": "OpenEPCIS Data Carrier Authentication Vocabulary",
+  "description": "Terms for binding a physical data carrier (an NFC chip, a RAIN RFID\ntag, a signed QR code) to a serialised GS1 identifier through EPCIS events, publishing the\ncarrier's authentication keys to authorised parties, and recording each authenticated scan.\n\nToday the vocabulary covers NTAG 424 DNA Secure Unique NFC (SUN / Secure Dynamic Messaging,\nNXP AN12196): the tag mirrors encrypted PICC data and a CMAC into the Digital Link URL it\nemits, and a verifier that holds the tag's keys can prove the chip is genuine and the URL\nwas not copied. RAIN RFID (ISO/IEC 29167 tag authentication) and signed QR codes reuse the\nsame profile and status terms with their own scheme.\n\nEPCIS 2.0 Extension:\nThis vocabulary is a first-class EPCIS 2.0 extension per Section 12.3. Declare it using:\n  GS1-Extensions: carrier=https://ref.openepcis.org/extensions/common/carrier/\n\nEvent lifecycle:\n- reserving (ObjectEvent ADD, brand owner): the serials and, sealed, their per-serial SDM\n  keys (carrier:sdmMetaReadKey, carrier:sdmFileReadKey), the key reference and the profile.\n- encoding (TransactionEvent, labeller, CBV encoding): the chip UID bound to the serial.\n- commissioning (ObjectEvent ADD, manufacturer): nothing carrier-specific.\n- inspecting (ObjectEvent OBSERVE, resolver): each authenticated scan with its read counter\n  and verdict, disposition conformant or non_conformant.\n\nKey fields are stored sealed: enc:a256gcm:<kid>:<base64url(nonce || ciphertext || tag)>,\nAES-256-GCM under the wrapping key the carrier:keyRef names, with the canonical identifier\nas associated data. Document-level security decides who sees the event; the wrapping key\ndecides who can use it.\n\nGS1 Web Vocabulary and schema.org have no terms for carrier binding or carrier\nauthentication keys; GS1 General Specifications call the physical medium a \"data carrier\".\n\nReferences:\n- NXP AN12196, NTAG 424 DNA and NTAG 424 DNA TagTamper features and hints\n- NXP AN10922, Symmetric key diversifications\n- GS1 General Specifications, section 2 (data carriers)\n- ISO/IEC 29167 (RAIN RFID tag authentication)",
+  "classes": [
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/AuthProfile",
+      "localName": "AuthProfile",
+      "label": "Carrier Authentication Profile",
+      "comment": "How a carrier presents itself at a scan: the scheme, the URL parameters it mirrors into, and how its keys derive. Mirrors the tag's file settings so a verifier reads the URL the way the tag writes it.",
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/Verification",
+      "localName": "Verification",
+      "label": "Carrier Verification",
+      "comment": "The answer of a verifier to one scan: identifier, status, read counter and key reference.",
+      "seeAlso": [
+        "https://schema.org/CheckAction"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    }
+  ],
+  "properties": [
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/authProfile",
+      "localName": "authProfile",
+      "label": "Authentication Profile",
+      "comment": "The carrier:AuthProfile the keys of this event were written for.",
+      "range": [
+        "https://ref.openepcis.org/extensions/common/carrier/AuthProfile"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "The profile describes the tag's file settings; needed by the verifier, not by the public.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/authStatus",
+      "localName": "authStatus",
+      "label": "Authentication Status",
+      "comment": "The verdict of this scan (carrier:AuthStatus), beside the CBV disposition conformant / non_conformant of the inspecting event.",
+      "range": [
+        "https://ref.openepcis.org/extensions/common/carrier/AuthStatus"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "Public",
+      "accessLevelRationale": "The verdict is the answer the scanner receives; it reveals nothing about keys or the chip.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/boundAt",
+      "localName": "boundAt",
+      "label": "Bound At",
+      "comment": "When the tap was bound to the capturing party's identity (the moment possession and identity were paired), ISO 8601.",
+      "range": [
+        "xsd:dateTime"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "Binding time is scan history of the item.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/carrierType",
+      "localName": "carrierType",
+      "label": "Carrier Type",
+      "comment": "The chip or carrier product, e.g. NTAG424DNA, NTAG424DNA-TT.",
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "The carrier product reveals the security level of the label; operational detail of the owner and its labeller.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/diversification",
+      "localName": "diversification",
+      "label": "Key Diversification",
+      "comment": "What the per-carrier keys derive from under the master key: sgtin (the canonical identifier, keys exist before the tag does) or uid (the chip, AN10922 classic).",
+      "domain": [
+        "https://ref.openepcis.org/extensions/common/carrier/AuthProfile"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN10922.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "Part of the authentication profile; key-management detail.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN10922.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/encParam",
+      "localName": "encParam",
+      "label": "Encrypted File Data Parameter",
+      "comment": "Name of the URL query parameter carrying encrypted file data, when the tag mirrors any.",
+      "domain": [
+        "https://ref.openepcis.org/extensions/common/carrier/AuthProfile"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "Part of the authentication profile.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/keyRef",
+      "localName": "keyRef",
+      "label": "Key Reference",
+      "comment": "Names the wrapping key (kid) that sealed the key fields of this event, e.g. benelog/lot-2026-10/k1. Rotation is a new kid; old events stay readable while the old key is kept.",
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN10922.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "The key reference names the owner's wrapping key; harmless alone, but key-management detail.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN10922.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/macInput",
+      "localName": "macInput",
+      "label": "MAC Input",
+      "comment": "What the tag MACs besides the session (carrier:MacInput).",
+      "domain": [
+        "https://ref.openepcis.org/extensions/common/carrier/AuthProfile"
+      ],
+      "range": [
+        "https://ref.openepcis.org/extensions/common/carrier/MacInput"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "Part of the authentication profile.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/macParam",
+      "localName": "macParam",
+      "label": "MAC Parameter",
+      "comment": "Name of the URL query parameter the tag mirrors the truncated SDM MAC into, e.g. cmac.",
+      "domain": [
+        "https://ref.openepcis.org/extensions/common/carrier/AuthProfile"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "Part of the authentication profile.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/piccEncrypted",
+      "localName": "piccEncrypted",
+      "label": "PICC Data Encrypted",
+      "comment": "Whether the PICC data is AES-encrypted with K_SDMMetaRead (true) or mirrored in plain hex (false, not supported by the OpenEPCIS verifier yet).",
+      "domain": [
+        "https://ref.openepcis.org/extensions/common/carrier/AuthProfile"
+      ],
+      "range": [
+        "xsd:boolean"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "Part of the authentication profile.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/piccParam",
+      "localName": "piccParam",
+      "label": "PICC Data Parameter",
+      "comment": "Name of the URL query parameter the tag mirrors the (encrypted) PICC data into, e.g. picc.",
+      "domain": [
+        "https://ref.openepcis.org/extensions/common/carrier/AuthProfile"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "Part of the authentication profile.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/readCounter",
+      "localName": "readCounter",
+      "label": "Read Counter",
+      "comment": "The carrier's read counter as the scan revealed it (SDMReadCtr). The verifier refuses a counter that did not advance past the last recorded scan.",
+      "range": [
+        "xsd:nonNegativeInteger"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "The read counter is a per-item scan history; for an owner with sales data it can become personal data of the buyer.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/scheme",
+      "localName": "scheme",
+      "label": "Scheme",
+      "comment": "The carrier:AuthScheme of the profile.",
+      "domain": [
+        "https://ref.openepcis.org/extensions/common/carrier/AuthProfile"
+      ],
+      "range": [
+        "https://ref.openepcis.org/extensions/common/carrier/AuthScheme"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "Part of the authentication profile.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/sdmFileReadKey",
+      "localName": "sdmFileReadKey",
+      "label": "SDM File Read Key",
+      "comment": "K_SDMFileRead of the carrier bound to the event's identifier, sealed (enc:a256gcm:<kid>:...). Derives the session MAC key that verifies the mirrored CMAC. The event that carries it is the key record; a verifier takes the youngest.",
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelMandatedBy": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevelRationale": "K_SDMFileRead is a secret key; whoever holds it can forge the SUN MAC. Sealed in the event, readable only by the verifier that holds the wrapping key.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/sdmMetaReadKey",
+      "localName": "sdmMetaReadKey",
+      "label": "SDM Meta Read Key",
+      "comment": "K_SDMMetaRead of the carrier bound to the event's identifier, sealed (enc:a256gcm:<kid>:...). Decrypts the mirrored PICC data. One serial per event, or absent when the file-read key serves both purposes.",
+      "range": [
+        "xsd:string"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "AuthorizedOnly",
+      "accessLevelMandatedBy": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevelRationale": "K_SDMMetaRead is a secret key; whoever holds it can forge PICC data. Sealed in the event, readable only by the verifier that holds the wrapping key.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/tapId",
+      "localName": "tapId",
+      "label": "Tap Reference",
+      "comment": "On a business event (accepting, receiving, repairing, inspecting, shipping, ...): the eventID of the verified inspecting event this action rests on. The party that captured the event held the item when it tapped; the tap id is single-use and bound to that party's identity by the verifier.",
+      "range": [
+        "xsd:anyURI"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "The tap reference links a business step to a scan; who scanned when is the owner's and the acting party's concern.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/uid",
+      "localName": "uid",
+      "label": "Carrier UID",
+      "comment": "The chip's unique identifier in upper-case hex (7 bytes for NTAG 424 DNA, e.g. 04DE5F1EACC040), bound to the event's identifier at encoding. A verifier compares it with the UID the PICC data reveals.",
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://ref.gs1.org/voc/serialNumber"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "The chip UID identifies the physical carrier; it lets a party track an item across readers and is of use only to the owner, the labeller and the verifier.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/urlTemplate",
+      "localName": "urlTemplate",
+      "label": "URL Template",
+      "comment": "The NDEF URL as written to the tag, with {gtin}, {serial}, {picc}, {cmac} placeholders, e.g. https://id.epc.is/01/{gtin}/21/{serial}?picc={picc}&cmac={cmac}.",
+      "domain": [
+        "https://ref.openepcis.org/extensions/common/carrier/AuthProfile"
+      ],
+      "range": [
+        "xsd:string"
+      ],
+      "seeAlso": [
+        "https://schema.org/urlTemplate"
+      ],
+      "source": "https://www.nxp.com/docs/en/application-note/AN12196.pdf",
+      "accessLevel": "Restricted",
+      "accessLevelRationale": "Part of the authentication profile.",
+      "accessLevelSource": "https://www.nxp.com/docs/en/application-note/AN12196.pdf"
+    }
+  ],
+  "enumerations": [
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/AuthScheme",
+      "localName": "AuthScheme",
+      "label": "Carrier Authentication Scheme",
+      "comment": "How a carrier proves itself at a scan.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/common/carrier/Ntag424Sdm",
+          "localName": "Ntag424Sdm",
+          "label": "NTAG 424 DNA Secure Dynamic Messaging",
+          "comment": "NXP NTAG 424 DNA Secure Unique NFC: encrypted PICC data and a truncated CMAC mirrored into the URL (AN12196)."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/common/carrier/QrSigned",
+          "localName": "QrSigned",
+          "label": "Signed QR Code",
+          "comment": "A QR code whose payload carries a digital signature over the identifier (reserved; no profile defined yet)."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/common/carrier/RainIso29167",
+          "localName": "RainIso29167",
+          "label": "RAIN RFID ISO/IEC 29167",
+          "comment": "RAIN RFID tag authentication per ISO/IEC 29167 (reserved; no profile defined yet)."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/AuthStatus",
+      "localName": "AuthStatus",
+      "label": "Carrier Authentication Status",
+      "comment": "The verdict of one authenticated scan of a data carrier, as the verifier records it in the inspecting event and answers it to the scanner.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/common/carrier/MacInvalid",
+          "localName": "MacInvalid",
+          "label": "MAC Invalid",
+          "comment": "PICC data decrypted but the MAC did not match the file-read key: wrong key or tampered URL."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/common/carrier/PiccInvalid",
+          "localName": "PiccInvalid",
+          "label": "PICC Data Invalid",
+          "comment": "The mirrored PICC data did not decrypt to a chip UID and read counter under the meta-read key: wrong key, foreign carrier or malformed URL."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/common/carrier/Replay",
+          "localName": "Replay",
+          "label": "Replay",
+          "comment": "Cryptographically fine, but the read counter did not advance past the last recorded scan: a copied URL (photographed tap, cloned code)."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/common/carrier/UidMismatch",
+          "localName": "UidMismatch",
+          "label": "UID Mismatch",
+          "comment": "The chip UID in the PICC data differs from the UID bound to the identifier at encoding."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/common/carrier/UnknownCarrier",
+          "localName": "UnknownCarrier",
+          "label": "Unknown Carrier",
+          "comment": "No key record exists for the identifier: never reserved, or not readable by this verifier."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/common/carrier/Verified",
+          "localName": "Verified",
+          "label": "Verified",
+          "comment": "PICC data decrypted, the MAC matched the carrier's key and the read counter advanced: a genuine carrier, scanned afresh."
+        }
+      ]
+    },
+    {
+      "id": "https://ref.openepcis.org/extensions/common/carrier/MacInput",
+      "localName": "MacInput",
+      "label": "MAC Input",
+      "comment": "What the tag feeds into the SDM MAC besides the session key: nothing, or the encrypted file data.",
+      "values": [
+        {
+          "id": "https://ref.openepcis.org/extensions/common/carrier/MacInputEncFileData",
+          "localName": "MacInputEncFileData",
+          "label": "Encrypted File Data",
+          "comment": "The MAC covers the upper-case hex of the encrypted file data followed by the MAC parameter name."
+        },
+        {
+          "id": "https://ref.openepcis.org/extensions/common/carrier/MacInputNone",
+          "localName": "MacInputNone",
+          "label": "None",
+          "comment": "SDMMACInputOffset equals SDMMACOffset: the MAC covers the session only."
+        }
+      ]
+    }
+  ]
+}

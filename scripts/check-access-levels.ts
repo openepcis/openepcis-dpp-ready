@@ -42,6 +42,7 @@ const ROOT = join(new URL(".", import.meta.url).pathname, "..");
 
 const MODULE_JSON: string[] = [
   "extensions/common/core/json/dpp-core.json",
+  "extensions/common/carrier/json/carrier.json",
   "masterdata/served-fields/json/served-fields.json",
   "extensions/eu/battery/json/battery.json",
   "extensions/eu/eudr/json/eudr.json",
@@ -61,6 +62,7 @@ const MODULE_JSON: string[] = [
  */
 const STRICT_MODULES = new Set<string>([
   "dpp-core",
+  "carrier",
   "served-fields",
   "battery",
   "eudr",
