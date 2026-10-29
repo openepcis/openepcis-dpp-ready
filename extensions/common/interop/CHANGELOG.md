@@ -2,6 +2,30 @@
 
 All notable changes to the Interoperability module will be documented in this file.
 
+## [Unreleased]
+
+### Changed: CIRPASS-2 EUDPP mirror on release 2.1.0, two sectoral mirrors added
+
+- The EUDPP Core Ontology mirror ([`extensions/upstream/cirpass2-eudpp/`](../../upstream/cirpass2-eudpp/README.md))
+  moved from v2.0.5 to **v2.1.0** (documentation refresh 2026-10-12, CORE with LCA
+  import 2026-10-22): EVENT 1.0.0 (the EPCIS carrier clone is gone, GS1 IRIs are
+  referenced), SOC 2.2.0 (identity renames, `SubstancePresence`, ESPR Art. 2(27)
+  criteria), LCA 3.1 (rebuilt), P_DPP 2.2.0 (`dppUrl`/`dppBackupUrl`/`dppSchemaVersion`,
+  `hasPreviousDPP`/`hasNextDPP`). The sync now reads the pinned module files of
+  `github.com/CIRPASS-2/ontologies-docs` (`scripts/sync-cirpass2.ts`) instead of the
+  unpinnable hub exports, whose `COMP` export was broken on 2026-10-29.
+- New upstream mirrors [`cirpass2-textile/`](../../upstream/cirpass2-textile/README.md)
+  (CIRPASS-2 Textile Ontology 1.1.2, GS1-led, CC BY 4.0) and
+  [`cirpass2-battery/`](../../upstream/cirpass2-battery/README.md) (EU DPP Battery
+  Ontology 0.4.0 DRAFT). Alignment of `eu/textile` and `eu/battery` to them is a
+  follow-up SKOS audit.
+- [`docs/CIRPASS2_ALIGNMENT.md`](docs/CIRPASS2_ALIGNMENT.md) rewritten for 2.1.0:
+  module table with versions, reference table following the renames, EVENT section
+  recording that upstream adopted the GS1 IRIs, sectoral-mirror pointers.
+- `pnpm run check:mappings` rule 13: every `cirpass2:`/`eudpp:` target (graded or
+  `rdfs:seeAlso`) must exist in the mirror. It found 43 dead pointers after the bump,
+  three of which had never resolved against any release.
+
 ## [0.9.9] - 2026-08-04
 
 ### Added

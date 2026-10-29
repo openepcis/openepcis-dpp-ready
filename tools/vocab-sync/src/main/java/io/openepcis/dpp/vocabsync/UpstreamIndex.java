@@ -69,6 +69,8 @@ public class UpstreamIndex {
     @ConfigProperty(name = "vocab-sync.untp-namespace") String untpNamespace;
     @ConfigProperty(name = "vocab-sync.rail-voc") String railVoc;
     @ConfigProperty(name = "vocab-sync.eudpp-voc") String eudppVoc;
+    @ConfigProperty(name = "vocab-sync.cirpass2-textile-voc") String cirpass2TextileVoc;
+    @ConfigProperty(name = "vocab-sync.cirpass2-battery-voc") String cirpass2BatteryVoc;
     @ConfigProperty(name = "vocab-sync.batterypass-root") String batterypassRoot;
     @ConfigProperty(name = "vocab-sync.batterypass-ready-vocab") String batterypassReadyVocab;
 
@@ -114,6 +116,8 @@ public class UpstreamIndex {
         if (iri.startsWith("https://dpp-keystone.org/")) return "dppk";
         if (iri.contains("uncefact.org")) return "untp";
         if (iri.startsWith("https://gs1-epcis-reg.org/rail/")) return "rail";
+        if (iri.startsWith("https://w3id.org/eudpp/textile-")) return "cirpass2-textile";
+        if (iri.startsWith("https://w3id.org/eudpp/battery")) return "cirpass2-battery";
         if (iri.startsWith("https://w3id.org/eudpp")) return "eudpp";
         if (iri.startsWith("urn:samm:io.BatteryPass")) return "batterypass";
         if (iri.startsWith("https://ref.openepcis.org/vocab/batterypass-ready/")) return "bpr";
@@ -152,6 +156,12 @@ public class UpstreamIndex {
         // so our terms can be aligned against the actual eudpp: terms instead of only the
         // seeAlso pointers already in dpp-core.
         sources.add(Source.rdf("eudpp", "https://w3id.org/eudpp#", root.resolve(eudppVoc)));
+        // CIRPASS-2 sectoral ontologies (textile 1.1.2, battery 0.4.0 DRAFT): in-repo mirrors, each
+        // spread over several sub-namespaces under one path prefix; the prefix match of loadRdf
+        // covers them all. The battery file also carries MIREOT copies of eudpp# CORE terms, which
+        // fall outside the prefix and stay with the eudpp source above.
+        sources.add(Source.rdf("cirpass2-textile", "https://w3id.org/eudpp/textile-", root.resolve(cirpass2TextileVoc)));
+        sources.add(Source.rdf("cirpass2-battery", "https://w3id.org/eudpp/battery", root.resolve(cirpass2BatteryVoc)));
         // BatteryPass: Eclipse ESMF/SAMM aspect models (sibling checkout); index the latest version of
         // each aspect as a discovery source for the battery / circularity / carbon-footprint concepts.
         for (Path aspect : batteryPassAspects()) {

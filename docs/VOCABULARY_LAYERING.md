@@ -50,6 +50,7 @@ foundational vocabularies in this order: **GS1 → SEMICeu → schema.org**.
 | Already in **schema.org** | Use it directly. schema.org is the universal-web fallback for ratings, observations, and generic metadata that GS1 and SEMICeu don't cover. |
 | Already in UNTP / CIRPASS-2 / JTC 24 | Reference it directly **and** anchor any local alias upward. |
 | Already in **GS1 Rail Vocabulary** (`rail:` — `https://gs1-epcis-reg.org/rail/voc/data#`) for railway-specific concepts | Use it directly. GS1 Rail is a **sectoral upstream profile (Layer 2)**, a sectoral peer to `gs1:` published by GS1 AISBL with GS1 Switzerland. Mirrored under `extensions/upstream/gs1-rail/`; cross-cutting overlaps (e.g. `rail:itemReconditioningDate` ↔ `oec:remanufacturingDate`) are bridged via `extensions/common/interop/context/rail-bridge-context.jsonld`. |
+| Already in a **CIRPASS-2 sectoral ontology** (Textile 1.1.2 under `https://w3id.org/eudpp/textile-*#`, Battery 0.4.0 DRAFT under `https://w3id.org/eudpp/battery*#`; mirrored as `upstream/cirpass2-textile` and `upstream/cirpass2-battery`) | Reference it (`rdfs:seeAlso`, graded SKOS only after audit). These are pilot deliverables, not standards: anchor, never subclass. |
 | Cross-cuts ≥2 regulations but absent upstream | Mint at `oec:` (common/core). |
 | Specific to one regulation | Mint at the module namespace (`eu/<module>:`). |
 
