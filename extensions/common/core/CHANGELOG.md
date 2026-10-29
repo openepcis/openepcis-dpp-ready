@@ -2,6 +2,34 @@
 
 All notable changes to the DPP Core module will be documented in this file.
 
+## [Unreleased]
+
+### Changed: CIRPASS-2 pointers follow EUDPP 2.1.0
+
+The EUDPP mirror moved to 2.1.0 (SOC 2.2.0, LCA 3.1, P_DPP 2.2.0, EVENT 1.0.0) and
+`check:mappings` rule 13 reported every `cirpass2:` target that no longer exists.
+Re-pointed, relation grades kept: `oec:casNumber`/`oec:ecNumber`/`oec:iupacName` →
+`casNumber`/`ecNumber`/`iupacName` (exactMatch kept), `oec:substanceLocation` →
+`substanceLocationDescription` (exactMatch) + `isLocatedInProduct`, `oec:concentration` →
+`ConcentrationRange` + `MaximumConcentration`, `oec:socThreshold` → `MaximumConcentration`,
+`oec:declaredUnit` → `hasMeasurementUnit`, `oec:CarbonFootprintDeclaration` /
+`oec:EmissionsPerformance` → `LCIAResult`, `oec:RecycledContent` /
+`oec:waterConsumption` / `oec:landUse` / `oec:materialFootprint` → the LCA 3.1
+`*Result` classes, `oec:ImpactIndicatorResult` / `oec:LifecycleStageResult` →
+`LCAResult` + `LCIAResult` / `LCAModuleValue`, `oec:ImpactIndicatorType` →
+`LCIAImpactCategory` (+ `AreaOfProtection`), `oec:productCategoryRules` →
+`followsPCR`/`followsPEFCR`, `oec:hasLifecycleStage` → `forLifeCycleModule`.
+
+### Added: pointers to new EUDPP 2.1.0 terms
+
+`rdfs:seeAlso` only (no audit yet): `oec:dppSchemaVersion` → `dppSchemaVersion`,
+`oec:hasBackupCopyHost` → `dppBackupUrl`, `oec:previousPassportVersion` →
+`hasPreviousDPP`, `oec:DigitalProductPassport` → `DPPEvent`, `dppUrl`, the four
+instruction properties → the SOC `has*Instruction` properties, the twelve EN 15804+A2
+indicator individuals → `ind_GWPtotal` … `ind_ADPF`, and `oec:StageA1` … `oec:StageD` →
+`en15804moduleA1` … `en15804moduleC4` / `moduleD`. The header comment on the
+`cirpass2:` prefix now states the actual policy (seeAlso plus audited SKOS).
+
 ## [0.9.9] - 2026-08-04
 
 ### Changed: envelope-term anchors to CIRPASS-2 EUDPP

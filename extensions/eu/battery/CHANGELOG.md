@@ -2,6 +2,17 @@
 
 All notable changes to the Battery module will be documented in this file.
 
+## [Unreleased]
+
+### Changed: CIRPASS-2 pointers follow EUDPP 2.1.0
+
+`eubat:ecNumber` → `eudpp:ecNumber`, `eubat:hasSubstanceLocation` →
+`eudpp:isLocatedInProduct`, `eubat:RecycledContent` → `eudpp:RecycledMaterialsUseResult`,
+`eubat:CarbonFootprintDeclaration` / `eubat:CarbonFootprintClass` → `eudpp:LCIAResult`
+(the `EnvironmentalFootprint` class no longer exists in LCA 3.1). Relation grades kept.
+The CIRPASS-2 EU DPP Battery Ontology 0.4.0 DRAFT is now mirrored as
+`extensions/upstream/cirpass2-battery`; aligning `eubat:` to it is a follow-up audit.
+
 ## [0.9.9] - 2026-08-04
 
 ### Changed: envelope-term anchor to CIRPASS-2 EUDPP

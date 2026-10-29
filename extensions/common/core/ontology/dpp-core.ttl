@@ -23,11 +23,12 @@
 @prefix foaf:  <http://xmlns.com/foaf/0.1/> .
 # GS1 CBV: Comprehensive Business Vocabulary (EPCIS code lists).
 @prefix cbv:   <https://ref.gs1.org/cbv/> .
-# CIRPASS-2 pilot programme ontology proposal, Layer 2 community profile.
-# Reference-only see-also pointer; CIRPASS-2 is one input into JTC 24, NOT a
-# finalised EU standard. The published namespace resolves via the W3ID
-# redirect (https://w3id.org/eudpp#X returns 200). Catalog: https://dpp.vocabulary-hub.eu/specifications.
-# Strictly rdfs:seeAlso: no rdfs:subClassOf, no owl:equivalentClass.
+# CIRPASS-2 EUDPP Core Ontology (2.1.0), Layer 2 community profile. CIRPASS-2 is one
+# input into JTC 24, NOT a finalised EU standard. rdfs:seeAlso by default; graded SKOS
+# mappings only where the audit confirmed them (see interop/docs/CIRPASS2_ALIGNMENT.md).
+# Never rdfs:subClassOf, never owl:equivalentClass. Every target must exist in the mirror
+# extensions/upstream/cirpass2-eudpp (check-mappings rule 13). The namespace resolves via
+# the W3ID redirect; docs: https://cirpass-2.github.io/ontologies-docs/.
 @prefix cirpass2: <https://w3id.org/eudpp#> .
 
 # DPP Keystone (dpp-keystone.org), a peer Digital Product Passport profile.
@@ -234,7 +235,7 @@ and post-consumer splits."""@en ;
     skos:note """Required extension: GS1 Web Vocabulary does not provide structured recycled content
 properties. ESPR and Battery Regulation require pre-consumer/post-consumer breakdown which is
 not available in GS1 vocabulary. Aligned with GDSN sustainability attributes."""@en ;
-    rdfs:seeAlso cirpass2:RecycledMaterialsUse ;
+    rdfs:seeAlso cirpass2:RecycledMaterialsUseResult ;
     rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf>;
     rdfs:seeAlso <urn:samm:io.BatteryPass.Circularity:1.2.0#RecycledContentEntity> ;
     rdfs:seeAlso gs1:PackagingDetails .
@@ -349,7 +350,7 @@ oec:EmissionsPerformance
 lifecycle phases, and verification status. Aligned with UNTP EmissionsPerformance."""@en ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     rdfs:seeAlso cirpass2:CarbonFootprint ;
-    rdfs:seeAlso cirpass2:EnvironmentalFootprint ;
+    rdfs:seeAlso cirpass2:LCIAResult ;
     rdfs:seeAlso <https://gs1.eu/wp-content/uploads/2025/02/GDSN-Implementation-Guideline-for-exchanging-Carbon-Footprint-Data-3.pdf> ;
     skos:note """Required extension: Structured emissions performance data for ESPR requirements.
 Aligned with UNTP EmissionsPerformance for interoperability. Extends the GDSN CFP pattern
@@ -1068,8 +1069,8 @@ oec:casNumber
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     rdfs:seeAlso dppk:componentCasNumber ;
     skos:closeMatch dppk:componentCasNumber ;
-    rdfs:seeAlso cirpass2:numberCAS ;
-    skos:exactMatch <https://w3id.org/eudpp#numberCAS> .
+    rdfs:seeAlso cirpass2:casNumber ;
+    skos:exactMatch <https://w3id.org/eudpp#casNumber> .
 
 oec:hasMaterialOrigin
     a owl:ObjectProperty ;
@@ -1095,7 +1096,8 @@ oec:concentration
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     skos:exactMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#hazardousSubstanceConcentration> ;
-    rdfs:seeAlso cirpass2:Concentration ;
+    rdfs:seeAlso cirpass2:ConcentrationRange ;
+    rdfs:seeAlso cirpass2:MaximumConcentration ;
     rdfs:seeAlso cirpass2:hasConcentration .
 
 oec:socThreshold
@@ -1108,9 +1110,8 @@ oec:socThreshold
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "ESPR Art. 7(5) lets delegated acts set thresholds for substance-of-concern tracking; the declared concentration (oec:concentration) only becomes interpretable against that threshold. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:concentration ;
-    rdfs:seeAlso cirpass2:Threshold ;
-    rdfs:seeAlso cirpass2:ThresholdOfSubstanceOfConcern ;
-    rdfs:seeAlso cirpass2:hasThreshold .
+    rdfs:seeAlso cirpass2:MaximumConcentration ;
+    rdfs:seeAlso cirpass2:ThresholdOfSubstanceOfConcern .
 
 oec:iupacName
     a owl:DatatypeProperty ;
@@ -1122,7 +1123,7 @@ oec:iupacName
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "REACH Art. 119(1) treats the IUPAC name as part of the public substance identity; CAS/EC numbers (oec:casNumber, oec:ecNumber) identify but do not name. schema:iupacName exists but is domained on schema:MolecularEntity (Bioschemas), not on product-embedded substances, so a closeMatch is asserted rather than direct reuse."@en ;
     skos:closeMatch schema:iupacName ;
-    rdfs:seeAlso cirpass2:nameIUPAC ;
+    rdfs:seeAlso cirpass2:iupacName ;
     skos:broadMatch <https://w3id.org/eudpp#otherName> .
 
 oec:substanceTradeName
@@ -1291,7 +1292,8 @@ oec:endOfLifeInstructions
     rdfs:seeAlso gs1:sustainabilityInfo ;
     skos:closeMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#endOfLifeInformation> ;
     skos:broadMatch gs1:instructions ;
-    skos:broadMatch gs1:sustainabilityInfo .
+    skos:broadMatch gs1:sustainabilityInfo ;
+    rdfs:seeAlso cirpass2:hasEndOfLifeManagementInstruction .
 
 oec:wastePreventionInfo
     a owl:DatatypeProperty ;
@@ -1329,7 +1331,8 @@ oec:hasDismantlingInstructions
     rdfs:seeAlso dppk:dismantlingInformation ;
     skos:exactMatch dppk:disassemblyInstructions ;
     skos:broadMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation> ;
-    skos:broadMatch gs1:instructions .
+    skos:broadMatch gs1:instructions ;
+    rdfs:seeAlso cirpass2:hasDisassemblyInstruction .
 
 oec:utilityFactor
     a owl:DatatypeProperty ;
@@ -1592,7 +1595,7 @@ oec:declaredUnit
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:exactMatch dppk:declaredUnit ;
     skos:broadMatch gs1:unitCode ;
-    skos:broadMatch <https://w3id.org/eudpp#hasUnitOfMeasure> .
+    skos:broadMatch <https://w3id.org/eudpp#hasMeasurementUnit> .
 
 oec:carbonFootprintStudyUrl
     a owl:DatatypeProperty ;
@@ -1822,8 +1825,8 @@ oec:ecNumber
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
     rdfs:seeAlso dppk:componentEcNumber ;
     skos:closeMatch dppk:componentEcNumber ;
-    rdfs:seeAlso cirpass2:numberEC ;
-    skos:exactMatch <https://w3id.org/eudpp#numberEC> .
+    rdfs:seeAlso cirpass2:ecNumber ;
+    skos:exactMatch <https://w3id.org/eudpp#ecNumber> .
 
 oec:scipId
     a owl:DatatypeProperty ;
@@ -1854,8 +1857,9 @@ oec:substanceLocation
     skos:narrowMatch <urn:samm:io.BatteryPass.MaterialComposition:1.2.0#batteryMaterialLocation> ;
     skos:broadMatch locn:location ;
     skos:broadMatch gs1:locationDescription ;
-    rdfs:seeAlso cirpass2:substanceLocation ;
-    skos:exactMatch <https://w3id.org/eudpp#substanceLocation> .
+    rdfs:seeAlso cirpass2:substanceLocationDescription ;
+    rdfs:seeAlso cirpass2:isLocatedInProduct ;
+    skos:exactMatch <https://w3id.org/eudpp#substanceLocationDescription> .
 
 oec:safeUseInstructions
     a owl:DatatypeProperty ;
@@ -1873,7 +1877,8 @@ oec:safeUseInstructions
     skos:broadMatch gs1:instructions ;
     skos:broadMatch gs1:instructionsForUse ;
     skos:broadMatch dppk:instructionsForUse ;
-    skos:broadMatch gs1:consumerSafetyInformation .
+    skos:broadMatch gs1:consumerSafetyInformation ;
+    rdfs:seeAlso cirpass2:hasSafeUseInstruction .
 
 oec:safeDisassemblyInstructions
     a owl:DatatypeProperty ;
@@ -1887,7 +1892,8 @@ oec:safeDisassemblyInstructions
     skos:broadMatch gs1:instructions ;
     skos:broadMatch dppk:disassemblyInstructions ;
     skos:broadMatch <urn:samm:io.BatteryPass.Circularity:1.2.0#dismantlingAndRemovalInformation> ;
-    skos:broadMatch dppk:endOfLifeInstructions .
+    skos:broadMatch dppk:endOfLifeInstructions ;
+    rdfs:seeAlso cirpass2:hasDisassemblyInstruction .
 
 # =============================================================================
 # Properties - Performance and Durability (ESPR Article 7)
@@ -2226,6 +2232,7 @@ oec:hasBackupCopyHost
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     rdfs:seeAlso oec:hasPassportIssuer ;
     rdfs:seeAlso cirpass2:hasBackUpCopyHost ;
+    rdfs:seeAlso cirpass2:dppBackupUrl ;
     skos:exactMatch <https://w3id.org/eudpp#hasBackUpCopyHost> .
 
 oec:isEnergyRelated
@@ -2253,6 +2260,7 @@ oec:previousPassportVersion
     skos:broadMatch schema:predecessorOf ;
     skos:exactMatch adms:prev ;
     rdfs:seeAlso cirpass2:linkToPreviousDPP ;
+    rdfs:seeAlso cirpass2:hasPreviousDPP ;
     skos:exactMatch <https://w3id.org/eudpp#linkToPreviousDPP> .
 
 # =============================================================================
@@ -2271,6 +2279,8 @@ oec:DigitalProductPassport
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     skos:broadMatch schema:DigitalDocument ;
     rdfs:seeAlso cirpass2:DPP ;
+    rdfs:seeAlso cirpass2:DPPEvent ;
+    rdfs:seeAlso cirpass2:dppUrl ;
     skos:exactMatch <https://w3id.org/eudpp#DPP> .
 
 # EN 18223 'uniqueProductIdentifier' maps to gs1:productID (the GS1 Digital
@@ -2287,6 +2297,7 @@ oec:dppSchemaVersion
     dcterms:source "EN 18223:2026, 4.1.2.1 (CEN/CENELEC JTC 24)" ;
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     skos:note "Cross-cutting Digital Product Passport pattern under ESPR 2024/1781, reusable across regulation modules. Anchored upward to GS1/SEMICeu/schema.org/UNTP where an equivalent exists."@en ;
+    rdfs:seeAlso cirpass2:dppSchemaVersion ;
     skos:exactMatch dppk:dppSchemaVersion ;
     skos:closeMatch schema:schemaVersion .
 
@@ -3060,7 +3071,7 @@ oec:CarbonFootprintDeclaration
     rdfs:seeAlso <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity> ;
     skos:narrowMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity> ;
     skos:broadMatch <https://w3id.org/eudpp#CarbonFootprint> ;
-    skos:broadMatch <https://w3id.org/eudpp#EnvironmentalFootprint> .
+    skos:broadMatch <https://w3id.org/eudpp#LCIAResult> .
 
 oec:hasCarbonFootprintRawMaterial
     a owl:ObjectProperty ;
@@ -3282,7 +3293,7 @@ oec:waterConsumption
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "ESPR Annex I ecodesign parameter (water use). The EN 15804 indicator oec:WDP covers water-deprivation-weighted impact; this property carries the plain consumed volume the passport declares. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso oec:WDP ;
-    rdfs:seeAlso cirpass2:WaterConsumption .
+    rdfs:seeAlso cirpass2:WaterConsumptionResult .
 
 oec:landUse
     a owl:DatatypeProperty ;
@@ -3293,7 +3304,7 @@ oec:landUse
     rdfs:isDefinedBy <https://ref.openepcis.org/extensions/common/core/> ;
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "ESPR Annex I ecodesign parameter; EUDR geolocation (eudr:) covers plot provenance while this carries the quantitative footprint. No GS1, SEMICeu, or schema.org equivalent."@en ;
-    rdfs:seeAlso cirpass2:LandUse .
+    rdfs:seeAlso cirpass2:LandUseResult .
 
 oec:materialFootprint
     a owl:DatatypeProperty ;
@@ -3305,7 +3316,7 @@ oec:materialFootprint
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "ESPR Annex I ecodesign parameter (resource use). Distinct from oec:hasMaterialComposition, which lists what is IN the product; the footprint counts what was consumed to make it. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso cirpass2:MaterialFootprint ;
-    rdfs:seeAlso cirpass2:ResourceConsumption .
+    rdfs:seeAlso cirpass2:InventoryIndicatorResult .
 
 oec:hasRecyclabilityAssessment
     a owl:ObjectProperty ;
@@ -3784,8 +3795,8 @@ an EPD: its indicator type, declared unit, aggregate value, and optional per-lif
     skos:closeMatch dppk:ImpactValues ;
     skos:note "EN 15804 impact-indicator result. Anchored to DPP Keystone dppk:ImpactValues (peer DPP profile)."@en ;
     rdfs:seeAlso cirpass2:LCAResult ;
-    skos:broadMatch <https://w3id.org/eudpp#ImpactCategoryIndicator> ;
-    skos:broadMatch <https://w3id.org/eudpp#LcaResult> .
+    skos:broadMatch <https://w3id.org/eudpp#LCIAResult> ;
+    skos:broadMatch <https://w3id.org/eudpp#LCAResult> .
 
 oec:LifecycleStageResult
     a owl:Class ;
@@ -3795,8 +3806,8 @@ oec:LifecycleStageResult
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "EN 15804 modular lifecycle value. Pairs an oec:LifecycleStage code with a decimal value in the indicator's declared unit."@en ;
     skos:broadMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#CarbonFootprintPerLifecycleStageEntity> ;
-    rdfs:seeAlso cirpass2:LCIAModuleValue ;
-    skos:broadMatch <https://w3id.org/eudpp#LcaResult> .
+    rdfs:seeAlso cirpass2:LCAModuleValue ;
+    skos:broadMatch <https://w3id.org/eudpp#LCAResult> .
 
 # --- Impact indicator type enumeration (EN 15804+A2 core indicators) ---------
 
@@ -3809,21 +3820,21 @@ oec:ImpactIndicatorType
     skos:note "EN 15804+A2 core impact category set."@en ;
     rdfs:seeAlso cirpass2:EN15804ImpactIndicator ;
     rdfs:seeAlso cirpass2:LCIAImpactIndicator ;
-    skos:broadMatch <https://w3id.org/eudpp#ImpactType> ;
-    skos:broadMatch <https://w3id.org/eudpp#ImpactCategory> .
+    rdfs:seeAlso cirpass2:AreaOfProtection ;
+    skos:broadMatch <https://w3id.org/eudpp#LCIAImpactCategory> .
 
-oec:GWPTotal     a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, total"@en ; skos:notation "GWP-total" ; rdfs:seeAlso dppk:gwp .
-oec:GWPFossil    a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, fossil"@en ; skos:notation "GWP-fossil" ; rdfs:seeAlso dppk:gwpF .
-oec:GWPBiogenic  a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, biogenic"@en ; skos:notation "GWP-biogenic" ; rdfs:seeAlso dppk:gwpB .
-oec:GWPLuluc     a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, land use and land-use change"@en ; skos:notation "GWP-luluc" ; rdfs:seeAlso dppk:gwpLuluc .
-oec:ODP          a oec:ImpactIndicatorType ; rdfs:label "Depletion potential of the stratospheric ozone layer"@en ; skos:notation "ODP" ; rdfs:seeAlso dppk:odp .
-oec:AP           a oec:ImpactIndicatorType ; rdfs:label "Acidification potential"@en ; skos:notation "AP" ; rdfs:seeAlso dppk:ap .
-oec:EPFreshwater a oec:ImpactIndicatorType ; rdfs:label "Eutrophication potential, freshwater"@en ; skos:notation "EP-freshwater" ; rdfs:seeAlso dppk:epF .
-oec:EPMarine     a oec:ImpactIndicatorType ; rdfs:label "Eutrophication potential, marine"@en ; skos:notation "EP-marine" ; rdfs:seeAlso dppk:epM .
-oec:EPTerrestrial a oec:ImpactIndicatorType ; rdfs:label "Eutrophication potential, terrestrial"@en ; skos:notation "EP-terrestrial" ; rdfs:seeAlso dppk:epT .
-oec:POCP         a oec:ImpactIndicatorType ; rdfs:label "Formation potential of tropospheric ozone"@en ; skos:notation "POCP" ; rdfs:seeAlso dppk:pocp .
-oec:ADPElements  a oec:ImpactIndicatorType ; rdfs:label "Abiotic depletion potential, minerals and metals"@en ; skos:notation "ADP-minerals&metals" ; rdfs:seeAlso dppk:adpe .
-oec:ADPFossil    a oec:ImpactIndicatorType ; rdfs:label "Abiotic depletion potential, fossil resources"@en ; skos:notation "ADP-fossil" ; rdfs:seeAlso dppk:adpf .
+oec:GWPTotal     a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, total"@en ; skos:notation "GWP-total" ; rdfs:seeAlso dppk:gwp ; rdfs:seeAlso cirpass2:ind_GWPtotal .
+oec:GWPFossil    a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, fossil"@en ; skos:notation "GWP-fossil" ; rdfs:seeAlso dppk:gwpF ; rdfs:seeAlso cirpass2:ind_GWPfossil .
+oec:GWPBiogenic  a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, biogenic"@en ; skos:notation "GWP-biogenic" ; rdfs:seeAlso dppk:gwpB ; rdfs:seeAlso cirpass2:ind_GWPbiogenic .
+oec:GWPLuluc     a oec:ImpactIndicatorType ; rdfs:label "Global Warming Potential, land use and land-use change"@en ; skos:notation "GWP-luluc" ; rdfs:seeAlso dppk:gwpLuluc ; rdfs:seeAlso cirpass2:ind_GWPluluc .
+oec:ODP          a oec:ImpactIndicatorType ; rdfs:label "Depletion potential of the stratospheric ozone layer"@en ; skos:notation "ODP" ; rdfs:seeAlso dppk:odp ; rdfs:seeAlso cirpass2:ind_ODP .
+oec:AP           a oec:ImpactIndicatorType ; rdfs:label "Acidification potential"@en ; skos:notation "AP" ; rdfs:seeAlso dppk:ap ; rdfs:seeAlso cirpass2:ind_AP .
+oec:EPFreshwater a oec:ImpactIndicatorType ; rdfs:label "Eutrophication potential, freshwater"@en ; skos:notation "EP-freshwater" ; rdfs:seeAlso dppk:epF ; rdfs:seeAlso cirpass2:ind_EPfreshwater .
+oec:EPMarine     a oec:ImpactIndicatorType ; rdfs:label "Eutrophication potential, marine"@en ; skos:notation "EP-marine" ; rdfs:seeAlso dppk:epM ; rdfs:seeAlso cirpass2:ind_EPmarine .
+oec:EPTerrestrial a oec:ImpactIndicatorType ; rdfs:label "Eutrophication potential, terrestrial"@en ; skos:notation "EP-terrestrial" ; rdfs:seeAlso dppk:epT ; rdfs:seeAlso cirpass2:ind_EPterrestrial .
+oec:POCP         a oec:ImpactIndicatorType ; rdfs:label "Formation potential of tropospheric ozone"@en ; skos:notation "POCP" ; rdfs:seeAlso dppk:pocp ; rdfs:seeAlso cirpass2:ind_POCP .
+oec:ADPElements  a oec:ImpactIndicatorType ; rdfs:label "Abiotic depletion potential, minerals and metals"@en ; skos:notation "ADP-minerals&metals" ; rdfs:seeAlso dppk:adpe ; rdfs:seeAlso cirpass2:ind_ADPE .
+oec:ADPFossil    a oec:ImpactIndicatorType ; rdfs:label "Abiotic depletion potential, fossil resources"@en ; skos:notation "ADP-fossil" ; rdfs:seeAlso dppk:adpf ; rdfs:seeAlso cirpass2:ind_ADPF .
 oec:WDP          a oec:ImpactIndicatorType ; rdfs:label "Water (user) deprivation potential"@en ; skos:notation "WDP" ; rdfs:seeAlso dppk:wdp .
 
 # --- Lifecycle stage enumeration (EN 15804 modules A1-A5, B1-B7, C1-C4, D) ----
@@ -3837,23 +3848,23 @@ oec:LifecycleStage
     skos:note "EN 15804 modular lifecycle stages."@en ;
     rdfs:seeAlso cirpass2:LifeCycleModule .
 
-oec:StageA1 a oec:LifecycleStage ; rdfs:label "A1 Raw material supply"@en ; skos:notation "A1" ; rdfs:seeAlso dppk:a1 .
-oec:StageA2 a oec:LifecycleStage ; rdfs:label "A2 Transport to manufacturer"@en ; skos:notation "A2" ; rdfs:seeAlso dppk:a2 .
-oec:StageA3 a oec:LifecycleStage ; rdfs:label "A3 Manufacturing"@en ; skos:notation "A3" ; rdfs:seeAlso dppk:a3 .
-oec:StageA4 a oec:LifecycleStage ; rdfs:label "A4 Transport to site"@en ; skos:notation "A4" ; rdfs:seeAlso dppk:a4 .
-oec:StageA5 a oec:LifecycleStage ; rdfs:label "A5 Installation"@en ; skos:notation "A5" ; rdfs:seeAlso dppk:a5 .
-oec:StageB1 a oec:LifecycleStage ; rdfs:label "B1 Use"@en ; skos:notation "B1" ; rdfs:seeAlso dppk:b1 .
-oec:StageB2 a oec:LifecycleStage ; rdfs:label "B2 Maintenance"@en ; skos:notation "B2" ; rdfs:seeAlso dppk:b2 .
-oec:StageB3 a oec:LifecycleStage ; rdfs:label "B3 Repair"@en ; skos:notation "B3" ; rdfs:seeAlso dppk:b3 .
-oec:StageB4 a oec:LifecycleStage ; rdfs:label "B4 Replacement"@en ; skos:notation "B4" ; rdfs:seeAlso dppk:b4 .
-oec:StageB5 a oec:LifecycleStage ; rdfs:label "B5 Refurbishment"@en ; skos:notation "B5" ; rdfs:seeAlso dppk:b5 .
-oec:StageB6 a oec:LifecycleStage ; rdfs:label "B6 Operational energy use"@en ; skos:notation "B6" ; rdfs:seeAlso dppk:b6 .
-oec:StageB7 a oec:LifecycleStage ; rdfs:label "B7 Operational water use"@en ; skos:notation "B7" ; rdfs:seeAlso dppk:b7 .
-oec:StageC1 a oec:LifecycleStage ; rdfs:label "C1 Deconstruction / demolition"@en ; skos:notation "C1" ; rdfs:seeAlso dppk:c1 .
-oec:StageC2 a oec:LifecycleStage ; rdfs:label "C2 Transport to waste processing"@en ; skos:notation "C2" .
-oec:StageC3 a oec:LifecycleStage ; rdfs:label "C3 Waste processing"@en ; skos:notation "C3" .
-oec:StageC4 a oec:LifecycleStage ; rdfs:label "C4 Disposal"@en ; skos:notation "C4" .
-oec:StageD  a oec:LifecycleStage ; rdfs:label "D Benefits and loads beyond the system boundary"@en ; skos:notation "D" .
+oec:StageA1 a oec:LifecycleStage ; rdfs:label "A1 Raw material supply"@en ; skos:notation "A1" ; rdfs:seeAlso dppk:a1 ; rdfs:seeAlso cirpass2:en15804moduleA1 .
+oec:StageA2 a oec:LifecycleStage ; rdfs:label "A2 Transport to manufacturer"@en ; skos:notation "A2" ; rdfs:seeAlso dppk:a2 ; rdfs:seeAlso cirpass2:en15804moduleA2 .
+oec:StageA3 a oec:LifecycleStage ; rdfs:label "A3 Manufacturing"@en ; skos:notation "A3" ; rdfs:seeAlso dppk:a3 ; rdfs:seeAlso cirpass2:en15804moduleA3 .
+oec:StageA4 a oec:LifecycleStage ; rdfs:label "A4 Transport to site"@en ; skos:notation "A4" ; rdfs:seeAlso dppk:a4 ; rdfs:seeAlso cirpass2:en15804moduleA4 .
+oec:StageA5 a oec:LifecycleStage ; rdfs:label "A5 Installation"@en ; skos:notation "A5" ; rdfs:seeAlso dppk:a5 ; rdfs:seeAlso cirpass2:en15804moduleA5 .
+oec:StageB1 a oec:LifecycleStage ; rdfs:label "B1 Use"@en ; skos:notation "B1" ; rdfs:seeAlso dppk:b1 ; rdfs:seeAlso cirpass2:en15804moduleB1 .
+oec:StageB2 a oec:LifecycleStage ; rdfs:label "B2 Maintenance"@en ; skos:notation "B2" ; rdfs:seeAlso dppk:b2 ; rdfs:seeAlso cirpass2:en15804moduleB2 .
+oec:StageB3 a oec:LifecycleStage ; rdfs:label "B3 Repair"@en ; skos:notation "B3" ; rdfs:seeAlso dppk:b3 ; rdfs:seeAlso cirpass2:en15804moduleB3 .
+oec:StageB4 a oec:LifecycleStage ; rdfs:label "B4 Replacement"@en ; skos:notation "B4" ; rdfs:seeAlso dppk:b4 ; rdfs:seeAlso cirpass2:en15804moduleB4 .
+oec:StageB5 a oec:LifecycleStage ; rdfs:label "B5 Refurbishment"@en ; skos:notation "B5" ; rdfs:seeAlso dppk:b5 ; rdfs:seeAlso cirpass2:en15804moduleB5 .
+oec:StageB6 a oec:LifecycleStage ; rdfs:label "B6 Operational energy use"@en ; skos:notation "B6" ; rdfs:seeAlso dppk:b6 ; rdfs:seeAlso cirpass2:en15804moduleB6 .
+oec:StageB7 a oec:LifecycleStage ; rdfs:label "B7 Operational water use"@en ; skos:notation "B7" ; rdfs:seeAlso dppk:b7 ; rdfs:seeAlso cirpass2:en15804moduleB7 .
+oec:StageC1 a oec:LifecycleStage ; rdfs:label "C1 Deconstruction / demolition"@en ; skos:notation "C1" ; rdfs:seeAlso dppk:c1 ; rdfs:seeAlso cirpass2:en15804moduleC1 .
+oec:StageC2 a oec:LifecycleStage ; rdfs:label "C2 Transport to waste processing"@en ; skos:notation "C2" ; rdfs:seeAlso cirpass2:en15804moduleC2 .
+oec:StageC3 a oec:LifecycleStage ; rdfs:label "C3 Waste processing"@en ; skos:notation "C3" ; rdfs:seeAlso cirpass2:en15804moduleC3 .
+oec:StageC4 a oec:LifecycleStage ; rdfs:label "C4 Disposal"@en ; skos:notation "C4" ; rdfs:seeAlso cirpass2:en15804moduleC4 .
+oec:StageD  a oec:LifecycleStage ; rdfs:label "D Benefits and loads beyond the system boundary"@en ; skos:notation "D" ; rdfs:seeAlso cirpass2:moduleD .
 
 # --- EPD properties -----------------------------------------------------------
 
@@ -3891,9 +3902,9 @@ oec:productCategoryRules
     skos:note "ISO 14025 / EN 15804 EPD metadata: results are only comparable within one PCR/PEFCR, so the passport must say which one applies. No GS1, SEMICeu, or schema.org equivalent."@en ;
     rdfs:seeAlso cirpass2:PCR ;
     rdfs:seeAlso cirpass2:PEFCR ;
-    rdfs:seeAlso cirpass2:referenceToPCR ;
-    rdfs:seeAlso cirpass2:referenceToPEFCR ;
-    skos:narrowMatch <https://w3id.org/eudpp#referenceToPEFCR> .
+    rdfs:seeAlso cirpass2:followsPCR ;
+    rdfs:seeAlso cirpass2:followsPEFCR ;
+    skos:narrowMatch <https://w3id.org/eudpp#followsPEFCR> .
 
 oec:epdProgramOperator
     a owl:DatatypeProperty ;
@@ -3994,7 +4005,7 @@ oec:hasLifecycleStage
     dcterms:source <https://eur-lex.europa.eu/eli/reg/2024/1781> ;
     skos:note "EN 15804 module selector."@en ;
     skos:closeMatch <urn:samm:io.BatteryPass.CarbonFootprint:1.2.0#lifecycleStage> ;
-    rdfs:seeAlso cirpass2:hasLifeCycleStage .
+    rdfs:seeAlso cirpass2:forLifeCycleModule .
 
 oec:stageValue
     a owl:DatatypeProperty ;

@@ -2,6 +2,12 @@
 
 All notable changes to the Electronics module will be documented in this file.
 
+## [Unreleased]
+
+### Changed
+- `euelec:MaterialRecoveryResult skos:broadMatch eudpp:LCAResult` (was `LcaResult`,
+  renamed in the EUDPP LCA 3.1 module).
+
 ## [0.9.9] - 2026-08-04
 
 ### Changed: schema descriptions cite the regulation
